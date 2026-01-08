@@ -24,7 +24,7 @@
 #include <Standard_Handle.hxx>
 
 //! A root class for the standard presentation algorithms of the StdPrs package.
-class Prs3d_Root
+class Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

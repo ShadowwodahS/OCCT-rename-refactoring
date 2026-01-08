@@ -1013,8 +1013,8 @@ static Standard_Real HeightMax(const TopoShape& theSbase,
                                const TopoShape& theSUntil)
 {
   Box2 Box1;
-  BRepBndLib::Add(theSbase, Box1);
-  BRepBndLib::Add(theSkface, Box1);
+  BRepBndLib1::Add(theSbase, Box1);
+  BRepBndLib1::Add(theSkface, Box1);
   if (!theSFrom.IsNull())
   {
     Standard_Boolean FacRevolInfini = Standard_False;
@@ -1031,7 +1031,7 @@ static Standard_Real HeightMax(const TopoShape& theSbase,
       }
     }
     if (!FacRevolInfini)
-      BRepBndLib::Add(theSFrom, Box1);
+      BRepBndLib1::Add(theSFrom, Box1);
   }
   if (!theSUntil.IsNull())
   {
@@ -1049,7 +1049,7 @@ static Standard_Real HeightMax(const TopoShape& theSbase,
       }
     }
     if (!FacRevolInfini)
-      BRepBndLib::Add(theSUntil, Box1);
+      BRepBndLib1::Add(theSUntil, Box1);
   }
 
   Standard_Real c[6];
@@ -1220,7 +1220,7 @@ static Standard_Boolean ToFuse(const TopoFace& F1, const TopoFace& F2)
     if (!loc2.IsIdentity())
       pl2.Transform(loc2.Transformation());
 
-    if (pl1.Position().IsCoplanar(pl2.Position(), tollin, tolang))
+    if (pl1.Position1().IsCoplanar(pl2.Position1(), tollin, tolang))
     {
       ValRet = Standard_True;
     }

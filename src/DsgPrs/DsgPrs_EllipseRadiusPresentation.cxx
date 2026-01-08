@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(StyleDrawer)&       aDrawer,
                                            const Standard_Real               theval,
                                            const UtfString& aText,
@@ -60,19 +60,19 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
   // value
   UtfString Text(IsMaxRadius ? "a = " : "b = ");
   Text += aText;
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, aPosition);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, aPosition);
 
   // arrows
   Dir3d arrdir(Vector3d(aCenter, anEndOfArrow));
   if (!inside)
     arrdir.Reverse();
 
-  DsgPrs::ComputeSymbol(aPresentation, LA, anEndOfArrow, anEndOfArrow, arrdir, arrdir, ArrowPrs);
+  DsgPrs1::ComputeSymbol(aPresentation, LA, anEndOfArrow, anEndOfArrow, arrdir, arrdir, ArrowPrs);
 }
 
 //=================================================================================================
 
-void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(StyleDrawer)&       aDrawer,
                                            const Standard_Real               theval,
                                            const UtfString& aText,
@@ -92,13 +92,13 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
   {
     const Standard_Real uLast = ElCLib1::Parameter(anEllipse, anEndOfArrow);
     // clang-format off
-    const Standard_Real Alpha = DsgPrs::DistanceFromApex(anEllipse, anEndOfArrow, uFirst);//length of ellipse arc
+    const Standard_Real Alpha = DsgPrs1::DistanceFromApex(anEllipse, anEndOfArrow, uFirst);//length of ellipse arc
     // clang-format on
     Vector3d        Vapex(aCenter, ElCLib1::Value(uLast, anEllipse));
     Vector3d        Vpnt(aCenter, ElCLib1::Value(uFirst, anEllipse));
     Dir3d        dir(Vpnt ^ Vapex);
     Standard_Real parFirst =
-      anEllipse.Position().Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
+      anEllipse.Position1().Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
     const Standard_Integer NodeNumber = Max(4, Standard_Integer(50. * Alpha / M_PI));
     const Standard_Real    delta      = Alpha / (NodeNumber - 1);
 
@@ -107,7 +107,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
       aPrims->AddVertex(ElCLib1::Value(parFirst, anEllipse));
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
   }
-  DsgPrs_EllipseRadiusPresentation::Add(aPresentation,
+  EllipseRadiusPresentation::Add(aPresentation,
                                         aDrawer,
                                         theval,
                                         aText,
@@ -123,7 +123,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
 // purpose  : // for offset curve
 //=======================================================================
 
-void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(StyleDrawer)&       aDrawer,
                                            const Standard_Real               theval,
                                            const UtfString& aText,
@@ -149,7 +149,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
     aBEllipse.SetMinorRadius(aBEllipse.MinorRadius() + Offset);
     const Standard_Real uLast = ElCLib1::Parameter(aBEllipse, anEndOfArrow);
     // clang-format off
-    const Standard_Real Alpha = DsgPrs::DistanceFromApex(aBEllipse, anEndOfArrow, uFirst);//length of ellipse arc
+    const Standard_Real Alpha = DsgPrs1::DistanceFromApex(aBEllipse, anEndOfArrow, uFirst);//length of ellipse arc
     // clang-format on
     Point3d p1;
     aCurve->D0(uFirst, p1);
@@ -169,7 +169,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
     }
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
   }
-  DsgPrs_EllipseRadiusPresentation::Add(aPresentation,
+  EllipseRadiusPresentation::Add(aPresentation,
                                         aDrawer,
                                         theval,
                                         aText,

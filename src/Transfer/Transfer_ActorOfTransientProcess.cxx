@@ -86,7 +86,7 @@ void Transfer_ActorOfTransientProcess::SetShapeFixParameters(
 //=============================================================================
 
 void Transfer_ActorOfTransientProcess::SetProcessingFlags(
-  const ShapeProcess::OperationsFlags& theFlags)
+  const ShapeProcess1::OperationsFlags& theFlags)
 {
   myShapeProcFlags.first  = theFlags;
   myShapeProcFlags.second = true;

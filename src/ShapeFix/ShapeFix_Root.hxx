@@ -111,7 +111,7 @@ public:
 
 protected:
   //! Auxiliary method for work with three-position
-  //! (on/off/default) flags (modes) in ShapeFix.
+  //! (on/off/default) flags (modes) in ShapeFix1.
   static Standard_Boolean NeedFix(const Standard_Integer flag,
                                   const Standard_Boolean def = Standard_True);
 

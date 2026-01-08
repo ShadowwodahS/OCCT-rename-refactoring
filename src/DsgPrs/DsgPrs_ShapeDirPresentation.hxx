@@ -28,7 +28,7 @@ class TopoShape;
 
 //! A framework to define display of the normal to the
 //! surface of a shape.
-class DsgPrs_ShapeDirPresentation
+class ShapeDirPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

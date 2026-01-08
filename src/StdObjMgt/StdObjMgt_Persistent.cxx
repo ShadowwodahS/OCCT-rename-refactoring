@@ -58,12 +58,12 @@ Handle(TDF_Attribute) StdObjMgt_Persistent::GetAttribute() const
 void StdObjMgt_Persistent::ImportAttribute() {}
 
 //=======================================================================
-// function : AsciiString
+// function : AsciiString2
 // purpose  : Get referenced ASCII string
 //           (to be overridden by ASCII string class;
 //           returns a null handle by default for other classes)
 //=======================================================================
-Handle(TCollection_HAsciiString) StdObjMgt_Persistent::AsciiString() const
+Handle(TCollection_HAsciiString) StdObjMgt_Persistent::AsciiString2() const
 {
   return Handle(TCollection_HAsciiString)();
 }

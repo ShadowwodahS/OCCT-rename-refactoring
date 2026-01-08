@@ -75,7 +75,7 @@ public:
   //! plane of the conic. The X direction of the Axis2placement
   //! is in the plane of the conic and corresponds to the origin
   //! for the conic's parametric value u.
-  const Frame3d& Position() const { return pos; }
+  const Frame3d& Position1() const { return pos; }
 
   //! Returns the eccentricity value of the conic e.
   //! e = 0 for a circle

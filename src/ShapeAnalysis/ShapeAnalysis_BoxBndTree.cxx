@@ -59,7 +59,7 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
   {
     if (myLVertex.IsSame(V1))
     {
-      myStatus           = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus           = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       IsAccept           = Standard_True;
       myArrIndices(Last) = theObj;
     }
@@ -67,7 +67,7 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
     {
       if (myLVertex.IsSame(V2))
       {
-        myStatus           = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatus           = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
         IsAccept           = Standard_True;
         myArrIndices(Last) = theObj;
       }
@@ -75,7 +75,7 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
       {
         if (myFVertex.IsSame(V2))
         {
-          myStatus            = ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+          myStatus            = ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
           IsAccept            = Standard_True;
           myArrIndices(First) = theObj;
         }
@@ -83,12 +83,12 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
         {
           if (myFVertex.IsSame(V1))
           {
-            myStatus            = ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+            myStatus            = ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
             IsAccept            = Standard_True;
             myArrIndices(First) = theObj;
           }
           else
-            myStatus = ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+            myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
         }
       }
     }
@@ -141,7 +141,7 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
     myMin3d = min3d;
     if (min3d > myTol)
     {
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       return Standard_False;
     }
 
@@ -161,16 +161,16 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
       switch (result)
       {
         case 0:
-          myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+          myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
           break;
         case 1:
-          myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+          myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
           break;
         case 2:
-          myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+          myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
           break;
         case 3:
-          myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+          myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
           break;
       }
     }

@@ -32,7 +32,7 @@ class TopLoc_Location;
 //! by default) or on-triangulation isoline builder algorithm will be used.
 //! If the given shape is not triangulated, on-surface isoline builder will be applied
 //! regardless of StyleDrawer flags.
-class StdPrs_Isolines : public Prs3d_Root
+class StdPrs_Isolines : public Root7
 {
 public:
   //! Computes isolines presentation for a TopoDS face.
@@ -179,23 +179,23 @@ public:
 
 public:
   //! Auxiliary structure defining 3D point on isoline.
-  struct PntOnIso
+  struct PntOnIso1
   {
     Point3d Pnt;   //!< 3D point
     double Param; //!< parameter along the line (for sorting)
   };
 
   //! Auxiliary structure defining segment of isoline.
-  struct SegOnIso
+  struct SegOnIso1
   {
 
-    PntOnIso Pnts[2];
+    PntOnIso1 Pnts[2];
 
-    operator PntOnIso*() { return Pnts; }
+    operator PntOnIso1*() { return Pnts; }
 
-    operator const PntOnIso*() const { return Pnts; }
+    operator const PntOnIso1*() const { return Pnts; }
 
-    bool operator<(const SegOnIso& theOther) const
+    bool operator<(const SegOnIso1& theOther) const
     {
       return Pnts[1].Param < theOther.Pnts[0].Param;
     }
@@ -256,7 +256,7 @@ private:
     const gp_Lin2d&             theIsoline,
     const Point3d*               theNodesXYZ,
     const gp_Pnt2d*             theNodesUV,
-    SegOnIso&                   theSegment);
+    SegOnIso1&                   theSegment);
 };
 
 #endif // _StdPrs_Isolines_H__

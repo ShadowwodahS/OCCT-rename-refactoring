@@ -211,7 +211,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
   const TopTools_IndexedMapOfShape& aMapEV = SolidExplorer.GetMapEV();
 
   // Vertices/Edges vs Point.
-  BRepClass3d_BndBoxTreeSelectorPoint aSelectorPoint(aMapEV);
+  BndBoxTreeSelectorPoint aSelectorPoint(aMapEV);
   aSelectorPoint.SetCurrentPoint(P);
 
   Standard_Integer SelsVE = 0;
@@ -227,7 +227,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
   TopTools_IndexedDataMapOfShapeListOfShape mapEF;
   TopExp1::MapShapesAndAncestors(SolidExplorer.GetShape(), TopAbs_EDGE, TopAbs_FACE, mapEF);
 
-  BRepClass3d_BndBoxTreeSelectorLine aSelectorLine(aMapEV);
+  BndBoxTreeSelectorLine aSelectorLine(aMapEV);
 
   myFace.Nullify();
   myState = 0;

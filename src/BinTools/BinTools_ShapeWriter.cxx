@@ -82,7 +82,7 @@ void BinTools_ShapeWriter::WriteShape(BinaryOutputStream& theStream, const TopoS
     theStream << Standard_Byte(theShape.Orientation());
     return;
   }
-  uint64_t aNewPos = theStream.Position();
+  uint64_t aNewPos = theStream.Position1();
   myShapePos.Bind(aShape, aNewPos);
   theStream.WriteShape(aShape.ShapeType(), aShape.Orientation());
   WriteLocation(theStream, theShape.Location());
@@ -276,7 +276,7 @@ void BinTools_ShapeWriter::WriteLocation(BinaryOutputStream&      theStream,
     theStream.WriteReference(*aLoc);
     return;
   }
-  uint64_t aNewLoc = theStream.Position();
+  uint64_t aNewLoc = theStream.Position1();
   try
   {
     OCC_CATCH_SIGNALS
@@ -331,7 +331,7 @@ void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&         theStream,
     theStream.WriteReference(*aCurve);
     return;
   }
-  myCurvePos.Bind(theCurve, theStream.Position());
+  myCurvePos.Bind(theCurve, theStream.Position1());
   theStream << BinTools_ObjectType_Curve;
   CurveBinarySet::WriteCurve(theCurve, theStream);
 }
@@ -352,7 +352,7 @@ void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&           theStream,
     theStream.WriteReference(*aCurve);
     return;
   }
-  myCurve2dPos.Bind(theCurve, theStream.Position());
+  myCurve2dPos.Bind(theCurve, theStream.Position1());
   theStream << BinTools_ObjectType_Curve2d;
   Curve2dBinarySet::WriteCurve2d(theCurve, theStream);
 }
@@ -373,7 +373,7 @@ void BinTools_ShapeWriter::WriteSurface(BinaryOutputStream&           theStream,
     theStream.WriteReference(*aSurface);
     return;
   }
-  mySurfacePos.Bind(theSurface, theStream.Position());
+  mySurfacePos.Bind(theSurface, theStream.Position1());
   theStream << BinTools_ObjectType_Surface;
   SurfaceBinarySet::WriteSurface(theSurface, theStream);
 }
@@ -394,7 +394,7 @@ void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&             theStrea
     theStream.WriteReference(*aPolygon);
     return;
   }
-  myPolygon3dPos.Bind(thePolygon, theStream.Position());
+  myPolygon3dPos.Bind(thePolygon, theStream.Position1());
   theStream << BinTools_ObjectType_Polygon3d;
 
   const Standard_Integer aNbNodes = thePolygon->NbNodes();
@@ -426,7 +426,7 @@ void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&                     
     theStream.WriteReference(*aPolygon);
     return;
   }
-  myPolygonPos.Bind(thePolygon, theStream.Position());
+  myPolygonPos.Bind(thePolygon, theStream.Position1());
   theStream << BinTools_ObjectType_PolygonOnTriangulation;
 
   const TColStd_Array1OfInteger& aNodes = thePolygon->Nodes();
@@ -459,7 +459,7 @@ void BinTools_ShapeWriter::WriteTriangulation(BinaryOutputStream&               
     theStream.WriteReference(*aTriangulation);
     return;
   }
-  myTriangulationPos.Bind(theTriangulation, theStream.Position());
+  myTriangulationPos.Bind(theTriangulation, theStream.Position1());
   theStream << BinTools_ObjectType_Triangulation;
 
   const Standard_Integer aNbNodes     = theTriangulation->NbNodes();

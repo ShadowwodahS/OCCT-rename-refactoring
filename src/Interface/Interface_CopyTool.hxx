@@ -143,7 +143,7 @@ public:
   //! after last call to ClearLastFlags. It returns the first
   //! "Last Copied Entity" which Number follows <numfrom>, Zero if
   //! none. It is used in a loop as follow :
-  //! Integer num = 0;
+  //! Integer1 num = 0;
   //! while ( (num = CopyTool.LastCopiedAfter(num,ent,res)) ) {
   //! .. Process Starting <ent> and its Result <res>
   //! }
@@ -156,9 +156,9 @@ public:
   Standard_EXPORT void TransferEntity(const Handle(RefObject)& ent);
 
   //! Renews the Implied References. These References do not involve
-  //! Copying of referenced Entities. For such a Reference, if the
+  //! Copying of referenced Entities. For such a Reference1, if the
   //! Entity which defines it AND the referenced Entity are both
-  //! copied, then this Reference is renewed. Else it is deleted in
+  //! copied, then this Reference1 is renewed. Else it is deleted in
   //! the copied Entities.
   //! Remark : this concerns only some specific references, such as
   //! "back pointers".

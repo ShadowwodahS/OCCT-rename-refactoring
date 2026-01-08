@@ -27,7 +27,7 @@
 // perform checks on the argument
 static const TopoShape& check(const TopoShape& S)
 {
-  BRepLib::BuildCurves3d(S);
+  BRepLib1::BuildCurves3d(S);
   return S;
 }
 

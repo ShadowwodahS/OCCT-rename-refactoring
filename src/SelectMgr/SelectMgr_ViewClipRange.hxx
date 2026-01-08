@@ -28,7 +28,7 @@ class Graphic3d_SequenceOfHClipPlane;
 
 //! Class for handling depth clipping range.
 //! It is used to perform checks in case if global (for the whole view)
-//! clipping planes are defined inside of SelectMgr_RectangularFrustum class methods.
+//! clipping planes are defined inside of RectangularFrustum class methods.
 class SelectMgr_ViewClipRange
 {
 public:

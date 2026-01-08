@@ -47,7 +47,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   {
     anAxisLength = aDatumAspect->Attribute(Prs3d_DatumAttribute_XAxisLength);
     const Point3d aPoint1(anOrigin.XYZ() + aXDir.XYZ() * anAxisLength);
-    DsgPrs_XYZAxisPresentation::Add(thePresentation,
+    XYZAxisPresentation::Add(thePresentation,
                                     aDatumAspect->LineAspect(Prs3d_DatumParts_XAxis),
                                     anArrowAspect,
                                     aTextAspect,
@@ -62,7 +62,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   {
     anAxisLength = aDatumAspect->Attribute(Prs3d_DatumAttribute_YAxisLength);
     const Point3d aPoint2(anOrigin.XYZ() + aYDir.XYZ() * anAxisLength);
-    DsgPrs_XYZAxisPresentation::Add(thePresentation,
+    XYZAxisPresentation::Add(thePresentation,
                                     aDatumAspect->LineAspect(Prs3d_DatumParts_YAxis),
                                     anArrowAspect,
                                     aTextAspect,
@@ -77,7 +77,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   {
     anAxisLength = aDatumAspect->Attribute(Prs3d_DatumAttribute_ZAxisLength);
     const Point3d aPoint3(anOrigin.XYZ() + aZDir.XYZ() * anAxisLength);
-    DsgPrs_XYZAxisPresentation::Add(thePresentation,
+    XYZAxisPresentation::Add(thePresentation,
                                     aDatumAspect->LineAspect(Prs3d_DatumParts_ZAxis),
                                     anArrowAspect,
                                     aTextAspect,

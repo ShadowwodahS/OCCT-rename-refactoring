@@ -44,7 +44,7 @@ TopOpeBRepDS_Interference::TopOpeBRepDS_Interference(const StateTransition& T,
 TopOpeBRepDS_Interference::TopOpeBRepDS_Interference(const Handle(TopOpeBRepDS_Interference)& I)
     : myTransition(I->Transition()),
       mySupport(I->Support()),
-      myGeometry(I->Geometry()),
+      myGeometry(I->Geometry1()),
       mySupportType(I->SupportType()),
       myGeometryType(I->GeometryType())
 {
@@ -107,7 +107,7 @@ TopOpeBRepDS_Kind TopOpeBRepDS_Interference::GeometryType() const
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepDS_Interference::Geometry() const
+Standard_Integer TopOpeBRepDS_Interference::Geometry1() const
 {
   return myGeometry;
 }
@@ -142,7 +142,7 @@ void TopOpeBRepDS_Interference::GeometryType(const TopOpeBRepDS_Kind GT)
 
 //=================================================================================================
 
-void TopOpeBRepDS_Interference::Geometry(const Standard_Integer G)
+void TopOpeBRepDS_Interference::Geometry1(const Standard_Integer G)
 {
   myGeometry = G;
 }

@@ -31,7 +31,7 @@ GeomToStep_MakePlane::GeomToStep_MakePlane(const gp_Pln& P, const ConversionFact
   Handle(StepGeom_Plane)            Plan = new StepGeom_Plane;
   Handle(StepGeom_Axis2Placement3d) aPosition;
 
-  GeomToStep_MakeAxis2Placement3d MkAxis2(P.Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis2(P.Position1(), theLocalFactors);
   aPosition = MkAxis2.Value();
   Plan->SetPosition(aPosition);
   Handle(TCollection_HAsciiString) name = new TCollection_HAsciiString("");
@@ -53,7 +53,7 @@ GeomToStep_MakePlane::GeomToStep_MakePlane(const Handle(GeomPlane)& Gpln,
 
   P = Gpln->Pln();
 
-  GeomToStep_MakeAxis2Placement3d MkAxis2(P.Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis2(P.Position1(), theLocalFactors);
   aPosition = MkAxis2.Value();
   Plan->SetPosition(aPosition);
   Handle(TCollection_HAsciiString) name = new TCollection_HAsciiString("");

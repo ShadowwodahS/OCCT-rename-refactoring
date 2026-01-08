@@ -75,8 +75,8 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
 
   try
   {
-    // BRepClass3d::OuterShell requires geometry when the solid has voids
-    aOutShell = BRepClass3d::OuterShell(aSolid);
+    // BRepClass3d1::OuterShell requires geometry when the solid has voids
+    aOutShell = BRepClass3d1::OuterShell(aSolid);
   }
   catch (...)
   {

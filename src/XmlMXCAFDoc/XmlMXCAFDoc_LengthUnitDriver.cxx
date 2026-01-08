@@ -41,11 +41,11 @@ Handle(TDF_Attribute) XmlMXCAFDoc_LengthUnitDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMXCAFDoc_LengthUnitDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_LengthUnitDriver::Paste(const PersistentStorage&  theSource,
                                                      const Handle(TDF_Attribute)& theTarget,
                                                      XmlObjMgt_RRelocationTable&) const
 {
-  XmlObjMgt_DOMString aNameStr = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString aNameStr = XmlObjMgt1::GetStringValue(theSource);
 
   if (aNameStr == NULL)
   {
@@ -81,12 +81,12 @@ Standard_Boolean XmlMXCAFDoc_LengthUnitDriver::Paste(const XmlObjMgt_Persistent&
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMXCAFDoc_LengthUnitDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                         XmlObjMgt_Persistent&        theTarget,
+                                         PersistentStorage&        theTarget,
                                          XmlObjMgt_SRelocationTable&) const
 {
   Handle(XCAFDoc_LengthUnit) anAtt     = Handle(XCAFDoc_LengthUnit)::DownCast(theSource);
   XmlObjMgt_DOMString        aNameUnit = anAtt->GetUnitName().ToCString();
   XmlObjMgt_DOMString aValueUnit       = AsciiString1(anAtt->GetUnitValue()).ToCString();
-  XmlObjMgt::SetStringValue(theTarget, aNameUnit);
+  XmlObjMgt1::SetStringValue(theTarget, aNameUnit);
   theTarget.Element().setAttribute(::UnitScaleValue(), aValueUnit);
 }

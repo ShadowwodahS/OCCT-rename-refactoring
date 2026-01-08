@@ -161,7 +161,7 @@ void PrsDim_DiameterDimension::ComputePlane()
     return;
   }
 
-  myPlane = gp_Pln(Ax3(myCircle.Position()));
+  myPlane = gp_Pln(Ax3(myCircle.Position1()));
 }
 
 //=================================================================================================
@@ -195,7 +195,7 @@ void PrsDim_DiameterDimension::ComputeAnchorPoint()
   Dir3d aFirstDir = gce_MakeDir(aFirstPoint, myCircle.Location());
   Dir3d aDir      = myPlane.Axis().Direction() ^ aFirstDir;
   myAnchorPoint =
-    (Vector3d(aDir) * Vector3d(myCircle.Position().Direction()) > 0.0) ? aFirstPoint : aSecondPoint;
+    (Vector3d(aDir) * Vector3d(myCircle.Position1().Direction()) > 0.0) ? aFirstPoint : aSecondPoint;
 }
 
 //=================================================================================================

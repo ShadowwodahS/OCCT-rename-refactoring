@@ -173,7 +173,7 @@ Standard_Real IntTools1::Length(const TopoEdge& anEdge)
   {
 
     GeometricProperties Temp;
-    BRepGProp::LinearProperties(anEdge, Temp);
+    BRepGProp1::LinearProperties(anEdge, Temp);
     aLength = Temp.Mass();
   }
   return aLength;

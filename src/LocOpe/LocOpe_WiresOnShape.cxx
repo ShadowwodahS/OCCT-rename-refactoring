@@ -184,7 +184,7 @@ void LocOpe_WiresOnShape::BindAll()
   ShapeExplorer                               exp, exp2;
   for (; ite.More(); ite.Next())
   {
-    const TopoEdge& eref = TopoDS::Edge(ite.Key());
+    const TopoEdge& eref = TopoDS::Edge(ite.Key1());
     const TopoEdge& eimg = TopoDS::Edge(ite.Value());
 
     PutPCurves(eref, eimg, myShape);
@@ -218,7 +218,7 @@ void LocOpe_WiresOnShape::BindAll()
 
   for (ite.Initialize(mapV); ite.More(); ite.Next())
   {
-    myMap.Bind(ite.Key(), ite.Value());
+    myMap.Bind(ite.Key1(), ite.Value());
   }
 
   TopTools_IndexedDataMapOfShapeListOfShape Splits;
@@ -336,8 +336,8 @@ void LocOpe_WiresOnShape::BindAll()
 
   //  Modified by Sergey KHROMOV - Mon Feb 12 16:26:50 2001 Begin
   for (ite.Initialize(myMap); ite.More(); ite.Next())
-    if ((ite.Key()).ShapeType() == TopAbs_EDGE)
-      myMapEF.Add(ite.Key(), ite.Value());
+    if ((ite.Key1()).ShapeType() == TopAbs_EDGE)
+      myMapEF.Add(ite.Key1(), ite.Value());
   //  Modified by Sergey KHROMOV - Mon Feb 12 16:26:52 2001 End
 
   myDone = Standard_True;
@@ -364,7 +364,7 @@ Standard_Boolean LocOpe_WiresOnShape::MoreEdge()
 
 TopoEdge LocOpe_WiresOnShape::Edge()
 {
-  //  return TopoDS::Edge(myIt.Key());
+  //  return TopoDS::Edge(myIt.Key1());
   return TopoDS::Edge(myMapEF.FindKey(myIndex));
 }
 
@@ -380,10 +380,10 @@ TopoFace LocOpe_WiresOnShape::OnFace()
 
 Standard_Boolean LocOpe_WiresOnShape::OnEdge(TopoEdge& E)
 {
-  //  if (myMap.IsBound(myIt.Key())) {
+  //  if (myMap.IsBound(myIt.Key1())) {
   if (myMap.IsBound(myMapEF.FindKey(myIndex)))
   {
-    //    E = TopoDS::Edge(myMap(myIt.Key()));
+    //    E = TopoDS::Edge(myMap(myIt.Key1()));
     E = TopoDS::Edge(myMap(myMapEF.FindKey(myIndex)));
     return Standard_True;
   }
@@ -864,7 +864,7 @@ void PutPCurve(const TopoEdge& Edg, const TopoFace& Fac)
   B.UpdateEdge(Edg, C2d, Fac, BRepInspector::Tolerance(Edg));
 
   B.SameParameter(Edg, Standard_False);
-  BRepLib::SameParameter(Edg, tol2d);
+  BRepLib1::SameParameter(Edg, tol2d);
 }
 
 //=================================================================================================
@@ -1459,7 +1459,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
       const TopoShape& aCurE = anExpE.Current();
 
       Box2 aBoxE;
-      BRepBndLib::AddClose(aCurE, aBoxE);
+      BRepBndLib1::AddClose(aCurE, aBoxE);
       if (aBoxE.IsVoid())
         continue;
       Standard_Real aTolE = BRepInspector::Tolerance(TopoDS::Edge(aCurE));
@@ -1475,7 +1475,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
   {
     const TopoFace& aCurF = TopoDS::Face(anExpFaces.Current());
     Box2            aBoxF;
-    BRepBndLib::Add(aCurF, aBoxF);
+    BRepBndLib1::Add(aCurF, aBoxF);
     if (aBoxF.IsVoid())
       continue;
     BRepAdaptor_Surface                         anAdF(aCurF, Standard_False);

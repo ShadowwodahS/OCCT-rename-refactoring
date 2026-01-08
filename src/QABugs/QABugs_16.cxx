@@ -82,7 +82,7 @@ static Standard_Integer BUC60848(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
   GeometricProperties G;
-  BRepGProp::VolumeProperties(S, G);
+  BRepGProp1::VolumeProperties(S, G);
   Standard_Real GRes;
   GRes = G.Mass();
   if (GRes < 0)
@@ -125,7 +125,7 @@ static Standard_Integer BUC60814(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -168,14 +168,14 @@ static Standard_Integer BUC60774(DrawInterpreter& theDi,
     return -1;
   }
 
-  const Handle(VisualContext)& anAISContext = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& anAISContext = ViewerTest1::GetAISContext();
   if (anAISContext.IsNull())
   {
     std::cout << "use 'vinit' command before " << theArgv[0] << "\n";
     return -1;
   }
 
-  const Handle(ViewWindow)& aV3dView = ViewerTest::CurrentView();
+  const Handle(ViewWindow)& aV3dView = ViewerTest1::CurrentView();
 
   Standard_Integer aWinWidth  = 0;
   Standard_Integer aWinHeight = 0;
@@ -221,7 +221,7 @@ static Standard_Integer BUC60774(DrawInterpreter& theDi,
 
 static Standard_Integer BUC60972(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -255,7 +255,7 @@ static Standard_Integer BUC60972(DrawInterpreter& di, Standard_Integer argc, con
 
 static Standard_Integer OCC218bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -288,7 +288,7 @@ static Standard_Integer OCC218bug(DrawInterpreter& di, Standard_Integer argc, co
     // on recupere la shape dans la map des objets displayes
     Handle(VisualEntity) aShape = GetMapOfAIS().Find2(name);
 
-    // On verifie que l'AIS InteraciveObject est bien
+    // On verifie que l'AIS1 InteraciveObject est bien
     // un AIS_PlaneTrihedron
     if (aShape->Type() == AIS_KindOfInteractive_Datum && aShape->Signature() == 4)
     {
@@ -404,7 +404,7 @@ static Standard_Integer OCC49(DrawInterpreter& di, Standard_Integer argc, const 
     return 0;
 
   GeometricProperties G;
-  BRepGProp::VolumeProperties(S, G);
+  BRepGProp1::VolumeProperties(S, G);
   GProp_PrincipalProps Pr     = G.PrincipalProperties();
   Standard_Boolean     Result = Pr.HasSymmetryAxis();
   if (Result)
@@ -554,7 +554,7 @@ static Standard_Integer OCC395(DrawInterpreter& di, Standard_Integer argc, const
     return 1;
   }
   // AsciiString1 fnom(a[1]);
-  // Standard_Boolean modfic = XSDRAW::FileAndVar(a[1],a[2],a[3],"IGES",fnom,rnom,resnom);
+  // Standard_Boolean modfic = XSDRAW1::FileAndVar(a[1],a[2],a[3],"IGES",fnom,rnom,resnom);
   TopoShape Sh1 = DBRep1::Get(argv[2]);
   TopoShape Sh2 = DBRep1::Get(argv[3]);
   if (Sh1.IsNull() || Sh2.IsNull())
@@ -650,7 +650,7 @@ static Standard_Integer OCC394(DrawInterpreter& di, Standard_Integer argc, const
 
 static Standard_Integer OCC301(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) context = ViewerTest::GetAISContext();
+  Handle(VisualContext) context = ViewerTest1::GetAISContext();
   if (context.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";

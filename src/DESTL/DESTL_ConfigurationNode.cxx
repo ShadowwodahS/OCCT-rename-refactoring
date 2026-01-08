@@ -95,8 +95,8 @@ AsciiString1 DESTL_ConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Setting up writing mode (Ascii or Binary)\n";
-  aResult += "!Default value: 1(Binary). Available values: 0(Ascii), 1(Binary)\n";
+  aResult += "!Setting up writing mode (Ascii1 or Binary)\n";
+  aResult += "!Default value: 1(Binary). Available values: 0(Ascii1), 1(Binary)\n";
   aResult += aScope + "write.ascii :\t " + InternalParameters.WriteAscii + "\n";
   aResult += "!\n";
 

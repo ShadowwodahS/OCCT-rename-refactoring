@@ -36,7 +36,7 @@ class OCAFSampleModel_DocumentMgr;
 class QItemSelectionModel;
 
 //! \class VInspector_ViewModel
-//! The class that visualizes the AIS context content
+//! The class that visualizes the AIS1 context content
 class VInspector_ViewModel : public TreeModel_ModelBase
 {
   Q_OBJECT

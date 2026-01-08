@@ -95,7 +95,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     std::cout << "" << std::endl;
     for (; itm1.More(); itm1.Next())
     {
-      const TopoShape& f  = itm1.Key();
+      const TopoShape& f  = itm1.Key1();
       Standard_Integer    fi = myDataStructure->Shape(f);
       std::cout << "face " << fi << " : ";
       const ShapeList&        l = itm1.Value();
@@ -119,7 +119,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 
   for (; itm1.More(); itm1.Next())
   {
-    //    const TopoShape& f = itm1.Key();
+    //    const TopoShape& f = itm1.Key1();
     //   myDataStructure->Shape(f); //DEB
     const ShapeList& los = itm1.Value();
     Standard_Boolean            emp = los.IsEmpty();
@@ -128,7 +128,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
       if (plfIN == NULL)
         plfIN = (ShapeList*)&itm1.Value();
       if (pfOU == NULL)
-        pfOU = &itm1.Key();
+        pfOU = &itm1.Key1();
       if (pfIN == NULL)
         pfIN = &plfIN->First();
       for (TopTools_ListIteratorOfListOfShape it(los); it.More(); it.Next())
@@ -307,7 +307,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     for (; itm1.More(); itm1.Next())
     {
 
-      const TopoShape&         f1  = itm1.Key();
+      const TopoShape&         f1  = itm1.Key1();
       const ShapeList& lf2 = itm1.Value();
       if (lf2.IsEmpty())
         continue;
@@ -403,7 +403,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     }
     for (; itadd.More(); itadd.Next())
     {
-      const TopoShape& ftoadd = itadd.Key();
+      const TopoShape& ftoadd = itadd.Key1();
       myBuildTool.AddShellFace(newshe, ftoadd);
     }
 

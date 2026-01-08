@@ -76,7 +76,7 @@ void DrawDim_PlanarAngle::Sector(const Standard_Boolean reversed, const Standard
 
 //=================================================================================================
 
-void DrawDim_PlanarAngle::Position(const Standard_Real value)
+void DrawDim_PlanarAngle::Position1(const Standard_Real value)
 {
   myPosition = value;
 }

@@ -262,7 +262,7 @@ void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
              aMapCountIter.Next(), aMapListIter.Next())
         {
           Message_Messenger::StreamBuffer aSender = TF->SendInfo();
-          aSender << aMapCountIter.Value() << aMapCountIter.Key() << std::endl;
+          aSender << aMapCountIter.Value() << aMapCountIter.Key1() << std::endl;
           if (mode == IFSelect_ListByItem)
           {
             const Handle(TColStd_HSequenceOfInteger)& entityList = aMapListIter.Value();
@@ -306,7 +306,7 @@ void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
           aMapCountResult);
         for (; aMapIter.More(); aMapIter.Next())
         {
-          TF->SendInfo() << aMapIter.Key() << aMapIter.Value() << std::endl;
+          TF->SendInfo() << aMapIter.Key1() << aMapIter.Value() << std::endl;
         }
         break;
       }
@@ -350,7 +350,7 @@ void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
         for (; aMapCountIter.More(); aMapCountIter.Next())
         {
           char mess[80];
-          sprintf(mess, aMapCountIter.Key().ToCString(), aMapCountIter.Value());
+          sprintf(mess, aMapCountIter.Key1().ToCString(), aMapCountIter.Value());
           // clang-format off
         TF->SendInfo() << mess << std::endl; //dicoCountIter.Value() << dicoCountIter.Name() << std::endl;
                                      // clang-format on
@@ -372,9 +372,9 @@ ShapeFixParameters IgesFileReader::GetDefaultShapeFixParameters() const
 
 //=================================================================================================
 
-ShapeProcess::OperationsFlags IgesFileReader::GetDefaultShapeProcessFlags() const
+ShapeProcess1::OperationsFlags IgesFileReader::GetDefaultShapeProcessFlags() const
 {
-  ShapeProcess::OperationsFlags aFlags;
-  aFlags.set(ShapeProcess::Operation::FixShape);
+  ShapeProcess1::OperationsFlags aFlags;
+  aFlags.set(ShapeProcess1::Operation::FixShape);
   return aFlags;
 }

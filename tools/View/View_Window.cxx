@@ -284,7 +284,7 @@ void View_Window::onViewContextMenuRequested(const QPoint& thePosition)
   {
     V3d_TypeOfOrientation anOrientationType = (V3d_TypeOfOrientation)i;
 
-    QAction* anAction = new QAction(V3d::TypeOfOrientationToString(anOrientationType), this);
+    QAction* anAction = new QAction(V3d1::TypeOfOrientationToString(anOrientationType), this);
     QObject::connect(anAction, SIGNAL(triggered(bool)), this, SLOT(onSetOrientation()));
 
     anOrientationSubMenu->addAction(anAction);
@@ -306,7 +306,7 @@ void View_Window::onSetOrientation()
   AsciiString1 anOrientationStr(anAction->text().toStdString().c_str());
 
   V3d_TypeOfOrientation anOrientationType;
-  if (!V3d::TypeOfOrientationFromString(anOrientationStr.ToCString(), anOrientationType))
+  if (!V3d1::TypeOfOrientationFromString(anOrientationStr.ToCString(), anOrientationType))
     return;
 
   Handle(ViewWindow) aView = myView->GetViewer()->GetView();
@@ -330,6 +330,6 @@ void View_Window::onDisplayModeChanged()
          anIterator(myDisplayer->GetDisplayed());
        anIterator.More();
        anIterator.Next())
-    myDisplayer->SetDisplayMode(aDisplayMode, anIterator.Key(), false);
+    myDisplayer->SetDisplayMode(aDisplayMode, anIterator.Key1(), false);
   myDisplayer->UpdateViewer();
 }

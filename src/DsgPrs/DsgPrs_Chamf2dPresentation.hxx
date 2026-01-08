@@ -29,7 +29,7 @@ class Point3d;
 class UtfString;
 
 //! Framework for display of 2D chamfers.
-class DsgPrs_Chamf2dPresentation
+class Chamf2dPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

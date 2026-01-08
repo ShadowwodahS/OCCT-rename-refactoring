@@ -249,7 +249,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
             GL_DEBUG_TYPE_ERROR,
             0,
             GL_DEBUG_SEVERITY_HIGH,
-            "Error! Geometry shader requires OpenGL ES 3.2+ or GL_EXT_geometry_shader");
+            "Error! Geometry1 shader requires OpenGL ES 3.2+ or GL_EXT_geometry_shader");
           return false;
         }
         case OpenGl_FeatureInExtensions: {
@@ -327,7 +327,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
                             GL_DEBUG_TYPE_ERROR,
                             0,
                             GL_DEBUG_SEVERITY_HIGH,
-                            "Error! Geometry shaders require OpenGL 3.2+");
+                            "Error! Geometry1 shaders require OpenGL 3.2+");
         return 0;
       }
       else if (aHeaderVer.IsEmpty())

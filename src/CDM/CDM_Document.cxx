@@ -159,7 +159,7 @@ Handle(CDM_Document) CDM_Document::Document(const Standard_Integer aReferenceIde
 
   else
   {
-    Handle(CDM_Reference) theReference = Reference(aReferenceIdentifier);
+    Handle(CDM_Reference) theReference = Reference1(aReferenceIdentifier);
     if (!theReference.IsNull())
       theDocument = theReference->ToDocument();
   }
@@ -168,7 +168,7 @@ Handle(CDM_Document) CDM_Document::Document(const Standard_Integer aReferenceIde
 
 //=================================================================================================
 
-Handle(CDM_Reference) CDM_Document::Reference(const Standard_Integer aReferenceIdentifier) const
+Handle(CDM_Reference) CDM_Document::Reference1(const Standard_Integer aReferenceIdentifier) const
 {
   Handle(CDM_Reference) theReference;
 
@@ -191,7 +191,7 @@ Standard_Boolean CDM_Document::IsInSession(const Standard_Integer aReferenceIden
 {
   if (aReferenceIdentifier == 0)
     return Standard_True;
-  Handle(CDM_Reference) theReference = Reference(aReferenceIdentifier);
+  Handle(CDM_Reference) theReference = Reference1(aReferenceIdentifier);
   if (theReference.IsNull())
     throw Standard_NoSuchObject("CDM_Document::IsInSession: "
                                 "invalid reference identifier");
@@ -204,7 +204,7 @@ Standard_Boolean CDM_Document::IsStored(const Standard_Integer aReferenceIdentif
 {
   if (aReferenceIdentifier == 0)
     return IsStored();
-  Handle(CDM_Reference) theReference = Reference(aReferenceIdentifier);
+  Handle(CDM_Reference) theReference = Reference1(aReferenceIdentifier);
   if (theReference.IsNull())
     throw Standard_NoSuchObject("CDM_Document::IsInSession: "
                                 "invalid reference identifier");
@@ -221,7 +221,7 @@ UtfString CDM_Document::Name(const Standard_Integer aReferenceIdentifier) const
   if (aReferenceIdentifier == 0)
     return myMetaData->Name();
 
-  return Reference(aReferenceIdentifier)->MetaData()->Name();
+  return Reference1(aReferenceIdentifier)->MetaData()->Name();
 }
 
 //=================================================================================================
@@ -323,7 +323,7 @@ Standard_Boolean CDM_Document::DeepReferences(const Handle(CDM_Document)& aDocum
 Standard_Integer CDM_Document::CopyReference(const Handle(CDM_Document)& /*aFromDocument*/,
                                              const Standard_Integer aReferenceIdentifier)
 {
-  Handle(CDM_Reference) theReference = Reference(aReferenceIdentifier);
+  Handle(CDM_Reference) theReference = Reference1(aReferenceIdentifier);
   if (!theReference.IsNull())
   {
     Handle(CDM_Document) theDocument = theReference->Document();
@@ -372,14 +372,14 @@ void CDM_Document::SetModifications(const Standard_Integer Modifications)
 
 Standard_Boolean CDM_Document::IsUpToDate(const Standard_Integer aReferenceIdentifier) const
 {
-  return Reference(aReferenceIdentifier)->IsUpToDate();
+  return Reference1(aReferenceIdentifier)->IsUpToDate();
 }
 
 //=================================================================================================
 
 void CDM_Document::SetIsUpToDate(const Standard_Integer aReferenceIdentifier)
 {
-  Reference(aReferenceIdentifier)->SetIsUpToDate();
+  Reference1(aReferenceIdentifier)->SetIsUpToDate();
 }
 
 //=================================================================================================
@@ -413,7 +413,7 @@ void CDM_Document::Comments(TColStd_SequenceOfExtendedString& aComments) const
 
 //=================================================================================================
 
-Standard_ExtString CDM_Document::Comment() const
+Standard_ExtString CDM_Document::Comment1() const
 {
   if (myComments.Length() < 1)
     return 0;
@@ -917,7 +917,7 @@ Standard_Boolean CDM_Document::IsReadOnly() const
 
 Standard_Boolean CDM_Document::IsReadOnly(const Standard_Integer aReferenceIdentifier) const
 {
-  return Reference(aReferenceIdentifier)->IsReadOnly();
+  return Reference1(aReferenceIdentifier)->IsReadOnly();
 }
 
 //=================================================================================================

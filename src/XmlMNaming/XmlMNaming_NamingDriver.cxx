@@ -81,7 +81,7 @@ Handle(TDF_Attribute) XmlMNaming_NamingDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMNaming_NamingDriver::Paste(const PersistentStorage&  theSource,
                                                 const Handle(TDF_Attribute)& theTarget,
                                                 XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -104,7 +104,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
     Standard_CString aGs = Standard_CString(aDOMStr.GetString());
 
     // first argument
-    if (!XmlObjMgt::GetInteger(aGs, aNb))
+    if (!XmlObjMgt1::GetInteger(aGs, aNb))
     {
       aMsgString = UtfString("XmlMNaming_NamingDriver: Cannot retrieve reference "
                                               "on first Argument from \"")
@@ -124,7 +124,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
       aNgName.Append(NS);
 
       // next argument
-      if (!XmlObjMgt::GetInteger(aGs, aNb))
+      if (!XmlObjMgt1::GetInteger(aGs, aNb))
         aNb = 0;
     }
   }
@@ -173,7 +173,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
     if (aDomEntry != NULL)
     {
       AsciiString1 anEntry;
-      if (XmlObjMgt::GetTagEntryString(aDomEntry, anEntry) == Standard_False)
+      if (XmlObjMgt1::GetTagEntryString(aDomEntry, anEntry) == Standard_False)
       {
         UtfString aMessage =
           UtfString("Cannot retrieve Entry from \"") + aDomEntry + '\"';
@@ -254,7 +254,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                    XmlObjMgt_Persistent&        theTarget,
+                                    PersistentStorage&        theTarget,
                                     XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(TNaming_Naming) aNg     = Handle(TNaming_Naming)::DownCast(theSource);
@@ -311,7 +311,7 @@ void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!aNgName.ContextLabel().IsNull())
     Tool3::Entry(aNgName.ContextLabel(), anEntry);
   XmlObjMgt_DOMString aDOMString;
-  XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
+  XmlObjMgt1::SetTagEntryString(aDOMString, anEntry);
   anElem.setAttribute(::ContextLabelString(), aDOMString);
 #ifdef OCCT_DEBUG
   std::cout << "XmlMNaming_NamingDriver::Store: ContextLabel Entry = " << anEntry << std::endl;

@@ -411,7 +411,7 @@ void TopOpeBRep_FacesFiller::ProcessSectionEdges()
 
   for (itmapELE.Initialize(mapELE); itmapELE.More(); itmapELE.Next())
   {
-    const TopoEdge&                 E1         = TopoDS::Edge(itmapELE.Key());
+    const TopoEdge&                 E1         = TopoDS::Edge(itmapELE.Key1());
     Standard_Integer                   iE1        = myDS->Shape(E1);
     Standard_Integer                   rE1        = myDS->AncestorRank(iE1);
     const TopoFace&                 aFace1     = TopoDS::Face(myFacesIntersector->Face(rE1));

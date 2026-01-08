@@ -31,7 +31,7 @@
 //! - to control exponent output and floating point output
 //!
 //! Formats are given in the form used by printf-sprintf
-class Interface_FloatWriter
+class InterfaceFloatWriter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -43,7 +43,7 @@ public:
   //! 1000. in absolute values
   //! If <chars> is given (and positive), it will produce options
   //! to produce this count of characters : "%<chars>f","%<chars>%E"
-  Standard_EXPORT Interface_FloatWriter(const Standard_Integer chars = 0);
+  Standard_EXPORT InterfaceFloatWriter(const Standard_Integer chars = 0);
 
   //! Sets a specific Format for Sending Reals (main format)
   //! (Default from Creation is "%E")

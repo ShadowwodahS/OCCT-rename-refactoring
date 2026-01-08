@@ -59,7 +59,7 @@ void DimensionDisplayDataTool::ReadOwnParams(
   // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Number of Properties", tempNbProps);
   PR.ReadInteger(PR.Current(), "Dimension Type", tempDimType);
-  PR.ReadInteger(PR.Current(), "Label Position", tempLabelPos);
+  PR.ReadInteger(PR.Current(), "Label Position1", tempLabelPos);
   if (PR.DefinedElseSkip())
     // clang-format off
     PR.ReadInteger(PR.Current(),"Character Set", tempCharSet); //szv#4:S4163:12Mar99 `st=` not needed
@@ -278,7 +278,7 @@ void DimensionDisplayDataTool::OwnCheck(const Handle(IGESDimen_DimensionDisplayD
   if (ent->DimensionType() < 0 || ent->DimensionType() > 2)
     ach->AddFail("Incorrect Dimension Type");
   if (ent->LabelPosition() < 0 || ent->LabelPosition() > 4)
-    ach->AddFail("Incorrect Preferred Label Position");
+    ach->AddFail("Incorrect Preferred Label Position1");
   if (!(ent->CharacterSet() == 1 || ent->CharacterSet() == 1001 || ent->CharacterSet() == 1002
         || ent->CharacterSet() == 1003))
     ach->AddFail("Incorrect Character Set");
@@ -313,7 +313,7 @@ void DimensionDisplayDataTool::OwnDump(const Handle(IGESDimen_DimensionDisplayDa
       S << " (Ordinary)\n";
       break;
     case 1:
-      S << " (Reference)\n";
+      S << " (Reference1)\n";
       break;
     case 2:
       S << " (Basic)\n";
@@ -323,7 +323,7 @@ void DimensionDisplayDataTool::OwnDump(const Handle(IGESDimen_DimensionDisplayDa
       break;
   }
 
-  S << "Preferred Label Position : " << ent->LabelPosition();
+  S << "Preferred Label Position1 : " << ent->LabelPosition();
   switch (ent->LabelPosition())
   {
     case 0:
@@ -418,7 +418,7 @@ void DimensionDisplayDataTool::OwnDump(const Handle(IGESDimen_DimensionDisplayDa
       break;
   }
 
-  S << "Arrow Head Orientation : " << ent->ArrowHeadOrientation();
+  S << "Arrow2 Head Orientation : " << ent->ArrowHeadOrientation();
   if (ent->ArrowHeadOrientation() == 0)
     S << " (In, pointing out)\n";
   else if (ent->ArrowHeadOrientation() == 1)

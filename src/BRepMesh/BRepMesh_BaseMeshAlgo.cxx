@@ -238,7 +238,7 @@ Handle(MeshTriangulation) BRepMesh_BaseMeshAlgo::collectTriangles()
   IMeshData::IteratorOfMapOfInteger aTriIt(aTriangles);
   for (Standard_Integer aTriangeId = 1; aTriIt.More(); aTriIt.Next(), ++aTriangeId)
   {
-    const Triangle3& aCurElem = myStructure->GetElement(aTriIt.Key());
+    const Triangle3& aCurElem = myStructure->GetElement(aTriIt.Key1());
 
     Standard_Integer aNode[3];
     myStructure->ElementNodes(aCurElem, aNode);

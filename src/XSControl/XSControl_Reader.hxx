@@ -312,7 +312,7 @@ public:
 
   //! Sets flags defining operations to be performed on shapes.
   //! @param theFlags The flags defining operations to be performed on shapes.
-  Standard_EXPORT void SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags);
+  Standard_EXPORT void SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags);
 
   //! Returns flags defining operations to be performed on shapes.
   //! @return Pair of values defining operations to be performed on shapes and a boolean value
@@ -336,9 +336,9 @@ protected:
   //! This method should be implemented in the derived classes to return default flags for shape
   //! processing.
   //! @return Default flags for shape processing.
-  virtual ShapeProcess::OperationsFlags GetDefaultShapeProcessFlags() const
+  virtual ShapeProcess1::OperationsFlags GetDefaultShapeProcessFlags() const
   {
-    return ShapeProcess::OperationsFlags();
+    return ShapeProcess1::OperationsFlags();
   }
 
 private:

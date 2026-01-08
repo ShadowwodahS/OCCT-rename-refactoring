@@ -163,7 +163,7 @@ Standard_Boolean IgesFileWriter::AddShape(const TopoShape&          theShape,
 
   // #34 22.10.98 rln BUC60081
   Box2 box;
-  BRepBndLib::Add(Shape, box);
+  BRepBndLib1::Add(Shape, box);
   if (!(box.IsVoid() || box.IsOpenXmax() || box.IsOpenYmax() || box.IsOpenZmax() || box.IsOpenXmin()
         || box.IsOpenYmin() || box.IsOpenZmin()))
   {
@@ -311,7 +311,7 @@ void IgesFileWriter::SetShapeFixParameters(
 
 //=============================================================================
 
-void IgesFileWriter::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void IgesFileWriter::SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags)
 {
   myShapeProcFlags.first  = theFlags;
   myShapeProcFlags.second = true;
@@ -328,7 +328,7 @@ void IgesFileWriter::InitializeMissingParameters()
 
   if (!myShapeProcFlags.second)
   {
-    myShapeProcFlags.first.set(ShapeProcess::Operation::DirectFaces);
+    myShapeProcFlags.first.set(ShapeProcess1::Operation::DirectFaces);
     myShapeProcFlags.second = true;
   }
 }

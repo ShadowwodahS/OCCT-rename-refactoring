@@ -38,10 +38,10 @@ Handle(XmlMDF_ADriverTable) XmlXCAFDrivers_DocumentStorageDriver::AttributeDrive
   const Handle(Message_Messenger)& theMsgDrv)
 {
   // Standard drivers
-  Handle(XmlMDF_ADriverTable) aTable = XmlDrivers::AttributeDrivers(theMsgDrv);
+  Handle(XmlMDF_ADriverTable) aTable = XmlDrivers1::AttributeDrivers(theMsgDrv);
 
   // Native drivers
-  XmlMXCAFDoc::AddDrivers(aTable, theMsgDrv);
+  XmlMXCAFDoc1::AddDrivers(aTable, theMsgDrv);
 
   return aTable;
 }

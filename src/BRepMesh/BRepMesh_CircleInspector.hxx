@@ -22,7 +22,7 @@
 #include <NCollection_CellFilter.hxx>
 
 //! Auxiliary class to find circles shot by the given point.
-class BRepMesh_CircleInspector : public NCollection_CellFilter_InspectorXY
+class BRepMesh_CircleInspector : public CellInspectorXY
 {
 public:
   typedef Standard_Integer Target;

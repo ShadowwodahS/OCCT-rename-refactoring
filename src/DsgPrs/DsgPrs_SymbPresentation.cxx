@@ -25,7 +25,7 @@
 #include <StdPrs_Point.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-void DsgPrs_SymbPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void SymbPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(StyleDrawer)&       aDrawer,
                                   const UtfString& aText,
                                   const Point3d&                     OffsetPoint)
@@ -33,7 +33,7 @@ void DsgPrs_SymbPresentation::Add(const Handle(Prs3d_Presentation)& aPresentatio
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   Handle(Prs3d_TextAspect)      TA = LA->TextAspect();
   TA->SetColor(Quantity_NOC_GREEN);
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), TA, aText, OffsetPoint);
+  Text::Draw1(aPresentation->CurrentGroup(), TA, aText, OffsetPoint);
 
   // 2eme groupe : marker
   Handle(Geom_CartesianPoint) theP = new Geom_CartesianPoint(OffsetPoint);

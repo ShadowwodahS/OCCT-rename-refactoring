@@ -42,11 +42,11 @@ Handle(TObj_Application) TObj_Application::GetInstance()
 TObj_Application::TObj_Application()
     : myIsError(Standard_False)
 {
-  if (!Message_MsgFile::HasMsg("TObj_Appl_SUnknownFailure"))
+  if (!MessageFile::HasMsg("TObj_Appl_SUnknownFailure"))
   {
     // load messages into global map on first instantiation
-    Message_MsgFile::LoadFromString(TObj_TObj_msg, sizeof(TObj_TObj_msg) - 1);
-    if (!Message_MsgFile::HasMsg("TObj_Appl_SUnknownFailure"))
+    MessageFile::LoadFromString(TObj_TObj_msg, sizeof(TObj_TObj_msg) - 1);
+    if (!MessageFile::HasMsg("TObj_Appl_SUnknownFailure"))
     {
       throw Standard_ProgramError(
         "Critical Error - message resources for TObj_Application are invalid or undefined!");

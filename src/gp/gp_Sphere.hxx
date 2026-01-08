@@ -116,7 +116,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the sphere.
-  const Ax3& Position() const { return pos; }
+  const Ax3& Position1() const { return pos; }
 
   //! Returns the radius of the sphere.
   Standard_Real Radius() const { return radius; }

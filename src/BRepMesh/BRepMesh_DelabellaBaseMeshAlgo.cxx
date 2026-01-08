@@ -52,7 +52,7 @@ static int logDelabella2Occ(void* theStream, const char* theFormat, ...)
       aGravity = Message_Trace;
       break; // [NFO]
   }
-  Message::Send(aBuffer, aGravity);
+  Message1::Send(aBuffer, aGravity);
   return 0;
 }
 } // namespace

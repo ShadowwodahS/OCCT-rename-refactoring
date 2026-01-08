@@ -30,7 +30,7 @@ AIS_AnimationCamera::AIS_AnimationCamera(const AsciiString1& theAnimationName,
 
 //=================================================================================================
 
-void AIS_AnimationCamera::update(const AIS_AnimationProgress& theProgress)
+void AIS_AnimationCamera::update(const AnimationProgress& theProgress)
 {
   if (myView.IsNull() || myCamStart.IsNull() || myCamEnd.IsNull())
   {

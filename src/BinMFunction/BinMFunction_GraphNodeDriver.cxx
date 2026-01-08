@@ -112,7 +112,7 @@ void BinMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TColStd_MapIteratorOfMapOfInteger itr(GN->GetPrevious());
     for (Standard_Integer i = 1; itr.More(); itr.Next(), i++)
     {
-      aSourceArray.SetValue(i, itr.Key());
+      aSourceArray.SetValue(i, itr.Key1());
     }
     Standard_Integer* aPtr = (Standard_Integer*)&aSourceArray(1);
     theTarget.PutIntArray(aPtr, nb);
@@ -126,7 +126,7 @@ void BinMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TColStd_MapIteratorOfMapOfInteger itr(GN->GetNext());
     for (Standard_Integer i = 1; itr.More(); itr.Next(), i++)
     {
-      aSourceArray.SetValue(i, itr.Key());
+      aSourceArray.SetValue(i, itr.Key1());
     }
     Standard_Integer* aPtr = (Standard_Integer*)&aSourceArray(1);
     theTarget.PutIntArray(aPtr, nb);

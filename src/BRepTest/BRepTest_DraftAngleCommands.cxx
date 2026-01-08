@@ -271,7 +271,7 @@ static Standard_Integer draft(DrawInterpreter& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-void BRepTest::DraftAngleCommands(DrawInterpreter& theCommands)
+void BRepTest1::DraftAngleCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

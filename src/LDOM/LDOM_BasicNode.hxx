@@ -20,7 +20,7 @@
 
 class LDOM_NullPtr;
 
-//  Block of comments describing class BasicNode
+//  Block1 of comments describing class BasicNode
 //
 
 class BasicNode

@@ -157,7 +157,7 @@ Standard_Boolean BRepMesh_ModelHealer::performInternal(const Handle(IMeshData_Mo
   {
     if (!aFaceIt.Value().IsNull())
     {
-      const IMeshData::IFaceHandle aDFace = aFaceIt.Key();
+      const IMeshData::IFaceHandle aDFace = aFaceIt.Key1();
       aDFace->SetStatus(IMeshData_SelfIntersectingWire);
       aDFace->SetStatus(IMeshData_Failure);
     }

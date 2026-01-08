@@ -45,14 +45,14 @@ Handle(TDF_Attribute) XmlMDataXtd_PositionDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&) const
 {
   Handle(TDataXtd_Position) aTPos = Handle(TDataXtd_Position)::DownCast(theTarget);
 
   // position
-  XmlObjMgt_DOMString aPosStr = XmlObjMgt::GetStringValue(theSource.Element());
+  XmlObjMgt_DOMString aPosStr = XmlObjMgt1::GetStringValue(theSource.Element());
   if (aPosStr == NULL)
   {
     myMessageDriver->Send("Cannot retrieve position string from element", Message_Fail);
@@ -64,7 +64,7 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
   Standard_CString aValueStr = Standard_CString(aPosStr.GetString());
 
   // X
-  if (!XmlObjMgt::GetReal(aValueStr, aValue))
+  if (!XmlObjMgt1::GetReal(aValueStr, aValue))
   {
     UtfString aMessageString =
       UtfString(
@@ -76,7 +76,7 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
   aPos.SetX(aValue);
 
   // Y
-  if (!XmlObjMgt::GetReal(aValueStr, aValue))
+  if (!XmlObjMgt1::GetReal(aValueStr, aValue))
   {
     UtfString aMessageString =
       UtfString(
@@ -88,7 +88,7 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
   aPos.SetY(aValue);
 
   // Z
-  if (!XmlObjMgt::GetReal(aValueStr, aValue))
+  if (!XmlObjMgt1::GetReal(aValueStr, aValue))
   {
     UtfString aMessageString =
       UtfString(
@@ -109,7 +109,7 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataXtd_PositionDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataXtd_Position) aTPos = Handle(TDataXtd_Position)::DownCast(theSource);
@@ -118,6 +118,6 @@ void XmlMDataXtd_PositionDriver::Paste(const Handle(TDF_Attribute)& theSource,
     Point3d aPos = aTPos->GetPosition();
     char   buf[75]; // (24 + 1) * 3
     Sprintf(buf, "%.17g %.17g %.17g", aPos.X(), aPos.Y(), aPos.Z());
-    XmlObjMgt::SetStringValue(theTarget.Element(), buf);
+    XmlObjMgt1::SetStringValue(theTarget.Element(), buf);
   }
 }

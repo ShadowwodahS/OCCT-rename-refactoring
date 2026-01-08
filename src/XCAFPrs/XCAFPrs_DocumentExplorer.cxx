@@ -58,7 +58,7 @@ static XCAFPrs_Style mergedStyle(const Handle(XCAFDoc_ColorTool)&       theColor
 
   if (theLabel != theRefLabel)
   {
-    // override Reference style with Instance style when defined (bad model?)
+    // override Reference1 style with Instance style when defined (bad model?)
     if (Handle(XCAFDoc_VisMaterial) aVisMat = theVisMatTool->GetShapeMaterial(theLabel))
     {
       aStyle.SetMaterial(aVisMat);

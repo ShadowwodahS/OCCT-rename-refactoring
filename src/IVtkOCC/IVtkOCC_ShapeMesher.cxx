@@ -94,7 +94,7 @@ void IVtkOCC_ShapeMesher::internalBuild()
     }
     catch (const ExceptionBase& anException)
     {
-      Message::SendFail(AsciiString1(
+      Message1::SendFail(AsciiString1(
                           "Error: addWireFrameFaces() wireframe presentation builder has failed (")
                         + anException.GetMessageString() + ")");
     }
@@ -184,7 +184,7 @@ void IVtkOCC_ShapeMesher::addEdges()
   TopTools_IndexedDataMapOfShapeListOfShape::Iterator aEdgeIt(anEdgesMap);
   for (; aEdgeIt.More(); aEdgeIt.Next())
   {
-    const TopoEdge&          anOcctEdge = TopoDS::Edge(aEdgeIt.Key());
+    const TopoEdge&          anOcctEdge = TopoDS::Edge(aEdgeIt.Key1());
     const ShapeList& aFaceList  = aEdgeIt.Value();
     aNbFaces                               = aFaceList.Extent();
     if (aNbFaces == 0)

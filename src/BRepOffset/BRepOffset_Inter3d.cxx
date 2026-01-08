@@ -109,7 +109,7 @@ void BRepOffset_Inter3d::CompletInt(const ShapeList&  SetOfFaces,
     //
     // compute bounding box
     Box2 aBoxF;
-    BRepBndLib::Add(aF, aBoxF);
+    BRepBndLib1::Add(aF, aBoxF);
     //
     Standard_Integer i = aMFaces.Add(aF, aBoxF);
     //
@@ -836,7 +836,7 @@ void BRepOffset_Inter3d::ConnexIntByInt(const TopoShape&                    SI,
     // 1. Find edges from original faces connected to two or more shapes in <aLS>;
     // 2. Make connexity blocks from edges in <aLS> and found connection edges;
     // 3. Check if the vertices from <aLS> are not connected by these connection edges:
-    //    a. If so - add these vertices to Connexity Block containing the corresponding
+    //    a. If so - add these vertices to Connexity Block1 containing the corresponding
     //       connexity edge;
     //    b. If not - add this vertex to list of connexity blocks
     // 4. Create unique intersection edge for each connexity block

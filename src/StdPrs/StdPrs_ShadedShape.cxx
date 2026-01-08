@@ -344,7 +344,7 @@ static Handle(Graphic3d_ArrayOfSegments) fillFaceBoundaries(const TopoShape& the
       continue;
     }
 
-    const TopoEdge& anEdge = TopoDS::Edge(anEdgeIter.Key());
+    const TopoEdge& anEdge = TopoDS::Edge(anEdgeIter.Key1());
     if (theUpperContinuity < GeomAbs_CN && anEdgeIter.Value().Extent() >= 2
         && BRepInspector::MaxContinuity(anEdge) > theUpperContinuity)
     {
@@ -395,7 +395,7 @@ static Handle(Graphic3d_ArrayOfSegments) fillFaceBoundaries(const TopoShape& the
       continue;
     }
 
-    const TopoEdge& anEdge = TopoDS::Edge(anEdgeIter.Key());
+    const TopoEdge& anEdge = TopoDS::Edge(anEdgeIter.Key1());
     if (theUpperContinuity < GeomAbs_CN && anEdgeIter.Value().Extent() >= 2
         && BRepInspector::MaxContinuity(anEdge) > theUpperContinuity)
     {

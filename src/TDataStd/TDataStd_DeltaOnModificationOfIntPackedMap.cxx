@@ -132,7 +132,7 @@ void TDataStd_DeltaOnModificationOfIntPackedMap::Apply()
   Handle(TColStd_HPackedMapOfInteger)     aIntMap = aCurAtt->GetHMap();
   TColStd_MapIteratorOfPackedMapOfInteger it(aIntMap->Map());
   for (Standard_Integer i = 1; it.More() && i <= MAXUP; it.Next(), i++)
-    std::cout << it.Key() << "  ";
+    std::cout << it.Key1() << "  ";
   std::cout << std::endl;
 #endif
 }

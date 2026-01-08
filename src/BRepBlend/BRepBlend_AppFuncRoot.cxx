@@ -233,12 +233,12 @@ void BRepBlend_AppFuncRoot::GetTolerance(const Standard_Real   BoundTol,
                                          TColStd_Array1OfReal& Tol3d) const
 {
   Standard_Integer   ii;
-  math_Vector        V3d(1, Tol3d.Length()), V1d(1, Tol3d.Length());
+  math_Vector        V3d1(1, Tol3d.Length()), V1d(1, Tol3d.Length());
   Blend_AppFunction* Func = (Blend_AppFunction*)myFunc;
 
-  Func->GetTolerance(BoundTol, SurfTol, AngleTol, V3d, V1d);
+  Func->GetTolerance(BoundTol, SurfTol, AngleTol, V3d1, V1d);
   for (ii = 1; ii <= Tol3d.Length(); ii++)
-    Tol3d(ii) = V3d(ii);
+    Tol3d(ii) = V3d1(ii);
 }
 
 void BRepBlend_AppFuncRoot::SetTolerance(const Standard_Real Tol3d, const Standard_Real Tol2d)

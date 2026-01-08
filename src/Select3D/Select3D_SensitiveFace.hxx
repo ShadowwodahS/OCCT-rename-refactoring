@@ -50,8 +50,8 @@ public:
   Standard_EXPORT void GetPoints(Handle(TColgp_HArray1OfPnt)& theHArrayOfPnt);
 
   //! Checks whether the face overlaps current selecting volume
-  Standard_EXPORT virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+  Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;

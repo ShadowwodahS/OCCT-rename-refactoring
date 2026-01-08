@@ -38,8 +38,8 @@ public:
 
   //! This method is used to set the fields of the class
   //! ExternalRefFileName
-  //! - aFileIdent : External Reference File Identifier
-  //! - anExtName  : External Reference Entity Symbolic Name
+  //! - aFileIdent : External Reference1 File Identifier
+  //! - anExtName  : External Reference1 Entity Symbolic Name
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aFileIdent,
                             const Handle(TCollection_HAsciiString)& anExtName);
 
@@ -47,10 +47,10 @@ public:
   //! or 0 if <mode> is False (For Definition)
   Standard_EXPORT void SetForEntity(const Standard_Boolean mode);
 
-  //! returns External Reference File Identifier
+  //! returns External Reference1 File Identifier
   Standard_EXPORT Handle(TCollection_HAsciiString) FileId() const;
 
-  //! returns External Reference Entity Symbolic Name
+  //! returns External Reference1 Entity Symbolic Name
   Standard_EXPORT Handle(TCollection_HAsciiString) ReferenceName() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESBasic_ExternalRefFileName, IGESData_IGESEntity)

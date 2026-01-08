@@ -77,7 +77,7 @@ const Standard_Real SquareTolerance = Precision::SquareConfusion();
 
 //=================================================================================================
 
-Point3d PrsDim::Nearest(const TopoShape& ashape, const Point3d& apoint)
+Point3d PrsDim1::Nearest(const TopoShape& ashape, const Point3d& apoint)
 {
   Standard_Real   dist2 = RealLast();
   Standard_Real   curdist2;
@@ -102,7 +102,7 @@ Point3d PrsDim::Nearest(const TopoShape& ashape, const Point3d& apoint)
 // function : Nearest
 // purpose  : For <thePoint> finds the nearest point on <theLine>.
 //=======================================================================
-Point3d PrsDim::Nearest(const gp_Lin& theLine, const Point3d& thePoint)
+Point3d PrsDim1::Nearest(const gp_Lin& theLine, const Point3d& thePoint)
 {
   Handle(GeomLine) aLine = new GeomLine(theLine);
 
@@ -116,7 +116,7 @@ Point3d PrsDim::Nearest(const gp_Lin& theLine, const Point3d& thePoint)
 //           return TRUE if found point is belongs to curve
 //              and FALSE otherwise.
 //=======================================================================
-Standard_Boolean PrsDim::Nearest(const Handle(GeomCurve3d)& theCurve,
+Standard_Boolean PrsDim1::Nearest(const Handle(GeomCurve3d)& theCurve,
                                  const Point3d&             thePoint,
                                  const Point3d&             theFirstPoint,
                                  const Point3d&             theLastPoint,
@@ -137,7 +137,7 @@ Standard_Boolean PrsDim::Nearest(const Handle(GeomCurve3d)& theCurve,
 
 //=================================================================================================
 
-Point3d PrsDim::Farest(const TopoShape& aShape, const Point3d& aPoint)
+Point3d PrsDim1::Farest(const TopoShape& aShape, const Point3d& aPoint)
 {
   Standard_Real   MaxDist2 = 0.0e0, curdist2;
   Point3d          Result(0.0, 0.0, 0.0);
@@ -160,7 +160,7 @@ Point3d PrsDim::Farest(const TopoShape& aShape, const Point3d& aPoint)
 // function : ComputeGeometry
 // purpose  : for line, circle, ellipse.
 //=======================================================================
-Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theEdge,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&  theEdge,
                                          Handle(GeomCurve3d)& theCurve,
                                          Point3d&             theFirstPnt,
                                          Point3d&             theLastPnt)
@@ -215,7 +215,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theEdge,
 // function : ComputeGeometry
 // purpose  : for line, circle, ellipse.
 //=======================================================================
-Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theEdge,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&  theEdge,
                                          Handle(GeomCurve3d)& theCurve,
                                          Point3d&             theFirstPnt,
                                          Point3d&             theLastPnt,
@@ -253,7 +253,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theEdge,
 
 //=================================================================================================
 
-Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theEdge,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theEdge,
                                          Handle(GeomCurve3d)&       theCurve,
                                          Point3d&                   theFirstPnt,
                                          Point3d&                   theLastPnt,
@@ -294,9 +294,9 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theEdge,
   }
   else if (Handle(GeomCircle) aCircle = Handle(GeomCircle)::DownCast(theExtCurve))
   {
-    Ax3 aCircPos(aCircle->Position());
+    Ax3 aCircPos(aCircle->Position1());
     theIsOnPlane =
-      aCircPos.IsCoplanar(thePlane->Pln().Position(), Precision::Confusion(), Precision::Angular());
+      aCircPos.IsCoplanar(thePlane->Pln().Position1(), Precision::Confusion(), Precision::Angular());
   }
 
   if (theIsOnPlane)
@@ -337,7 +337,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theEdge,
 
 //=================================================================================================
 
-Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theFirstEdge,
                                          const TopoEdge&        theSecondEdge,
                                          Handle(GeomCurve3d)&       theFirstCurve,
                                          Handle(GeomCurve3d)&       theSecondCurve,
@@ -431,7 +431,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
 // function : ComputeGeometry
 // purpose  : Computes the geometry of the 2 edges.
 //=======================================================================
-Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theFirstEdge,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&  theFirstEdge,
                                          const TopoEdge&  theSecondEdge,
                                          Handle(GeomCurve3d)& theFirstCurve,
                                          Handle(GeomCurve3d)& theSecondCurve,
@@ -443,7 +443,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theFirstEdge,
                                          Standard_Boolean&   theIsInfinite2)
 {
   theIsInfinite1 = theIsInfinite2 = Standard_False;
-  if (!PrsDim::ComputeGeometry(theFirstEdge,
+  if (!PrsDim1::ComputeGeometry(theFirstEdge,
                                theFirstCurve,
                                theFirstPnt1,
                                theLastPnt1,
@@ -451,7 +451,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theFirstEdge,
   {
     return Standard_False;
   }
-  if (!PrsDim::ComputeGeometry(theSecondEdge,
+  if (!PrsDim1::ComputeGeometry(theSecondEdge,
                                theSecondCurve,
                                theFirstPnt2,
                                theLastPnt2,
@@ -521,7 +521,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theFirstEdge,
 //           if none of the two edges is in the current wp ,
 //           it returns Standard_False
 //=======================================================================
-Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theFirstEdge,
                                          const TopoEdge&        theSecondEdge,
                                          Standard_Integer&         theExtIndex,
                                          Handle(GeomCurve3d)&       theFirstCurve,
@@ -663,7 +663,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
 //           and returns aCurveproj;
 //           Return TRUE if ok
 //=======================================================================
-Standard_Boolean PrsDim::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
+Standard_Boolean PrsDim1::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
                                           const Standard_Real       first1,
                                           const Standard_Real       last1,
                                           Point3d&                   FirstPnt1,
@@ -709,8 +709,8 @@ Standard_Boolean PrsDim::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
     }
     if (!Precision::IsInfinite(first1) && !Precision::IsInfinite(last1))
     {
-      FirstPnt1 = PrsDim::ProjectPointOnPlane(FirstPnt1, aPlane->Pln());
-      LastPnt1  = PrsDim::ProjectPointOnPlane(LastPnt1, aPlane->Pln());
+      FirstPnt1 = PrsDim1::ProjectPointOnPlane(FirstPnt1, aPlane->Pln());
+      LastPnt1  = PrsDim1::ProjectPointOnPlane(LastPnt1, aPlane->Pln());
     }
   }
   return Standard_True;
@@ -723,7 +723,7 @@ Standard_Boolean PrsDim::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
 //           <isOnPlane>, <isOnPlane> = true.
 //           <point> is the projected vertex in the plane.
 //=======================================================================
-Standard_Boolean PrsDim::ComputeGeometry(const TopoVertex&      aVertex,
+Standard_Boolean PrsDim1::ComputeGeometry(const TopoVertex&      aVertex,
                                          Point3d&                   point,
                                          const Handle(GeomPlane)& aPlane,
                                          Standard_Boolean&         isOnPlane)
@@ -732,7 +732,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoVertex&      aVertex,
   isOnPlane = aPlane->Pln().Contains(point, Precision::Confusion());
   if (!isOnPlane)
   {
-    point = PrsDim::ProjectPointOnPlane(point, aPlane->Pln());
+    point = PrsDim1::ProjectPointOnPlane(point, aPlane->Pln());
   }
   return Standard_True;
 }
@@ -742,7 +742,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoVertex&      aVertex,
 // purpose  :
 //           Returns type of surface which can be Plane1 or OtherSurface
 //=======================================================================
-Standard_Boolean PrsDim::GetPlaneFromFace(const TopoFace&    aFace,
+Standard_Boolean PrsDim1::GetPlaneFromFace(const TopoFace&    aFace,
                                           gp_Pln&               aPlane,
                                           Handle(GeomSurface)& aSurf,
                                           PrsDim_KindOfSurface& aSurfType,
@@ -834,7 +834,7 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoFace&    aFace,
 
 //=================================================================================================
 
-Point3d PrsDim::ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane)
+Point3d PrsDim1::ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane)
 {
   Vector3d aVec(aPlane.Location(), aPoint);
   Vector3d Normal = aPlane.Axis().Direction();
@@ -845,7 +845,7 @@ Point3d PrsDim::ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane)
 
 //=================================================================================================
 
-Point3d PrsDim::ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine)
+Point3d PrsDim1::ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine)
 {
   Coords3d        LinLoc    = aLine.Location().XYZ();
   Coords3d        LinDir    = aLine.Direction().XYZ();
@@ -856,13 +856,13 @@ Point3d PrsDim::ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine)
 
 //=================================================================================================
 
-void PrsDim::InitFaceLength(const TopoFace&    theFace,
+void PrsDim1::InitFaceLength(const TopoFace&    theFace,
                             gp_Pln&               thePlane,
                             Handle(GeomSurface)& theSurface,
                             PrsDim_KindOfSurface& theSurfaceType,
                             Standard_Real&        theOffset)
 {
-  if (PrsDim::GetPlaneFromFace(theFace, thePlane, theSurface, theSurfaceType, theOffset)
+  if (PrsDim1::GetPlaneFromFace(theFace, thePlane, theSurface, theSurfaceType, theOffset)
       && Abs(theOffset) > Precision::Confusion())
   {
     theSurface = new Geom_OffsetSurface(theSurface, theOffset);
@@ -872,7 +872,7 @@ void PrsDim::InitFaceLength(const TopoFace&    theFace,
 
 //=================================================================================================
 
-Standard_Boolean PrsDim::InitAngleBetweenPlanarFaces(const TopoFace&     theFirstFace,
+Standard_Boolean PrsDim1::InitAngleBetweenPlanarFaces(const TopoFace&     theFirstFace,
                                                      const TopoFace&     theSecondFace,
                                                      Point3d&                theCenter,
                                                      Point3d&                theFirstAttach,
@@ -954,7 +954,7 @@ Standard_Boolean PrsDim::InitAngleBetweenPlanarFaces(const TopoFace&     theFirs
 
 //=================================================================================================
 
-Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
+Standard_Boolean PrsDim1::InitAngleBetweenCurvilinearFaces(
   const TopoFace&         theFirstFace,
   const TopoFace&         theSecondFace,
   const PrsDim_KindOfSurface theFirstSurfType,
@@ -1103,7 +1103,7 @@ Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
 
 //=================================================================================================
 
-void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
+void PrsDim1::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
                                                const TopoFace&    theSecondFace,
                                                Handle(GeomSurface)& theFirstSurf,
                                                Handle(GeomSurface)& theSecondSurf,
@@ -1127,7 +1127,7 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
 
   if (aD1U.SquareMagnitude() <= SquareTolerance || aD1V.SquareMagnitude() <= SquareTolerance)
   {
-    theFirstAttach = PrsDim::Farest(theFirstFace, theFirstAttach);
+    theFirstAttach = PrsDim1::Farest(theFirstFace, theFirstAttach);
     aProjector.Init(theFirstAttach, theFirstSurf);
     aProjector.LowerDistanceParameters(aPU, aPV);
     theFirstSurf->D1(aPU, aPV, theFirstAttach, aD1U, aD1V);
@@ -1183,12 +1183,12 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
 
     if (aState == TopAbs_OUT || aState == TopAbs_UNKNOWN)
     {
-      theSecondAttach = PrsDim::Nearest(theSecondFace, theSecondAttach);
+      theSecondAttach = PrsDim1::Nearest(theSecondFace, theSecondAttach);
     }
   }
 }
 
-Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
+Point3d PrsDim1::TranslatePointToBound(const Point3d&  aPoint,
                                      const Dir3d&  aDir,
                                      const Box2& aBndBox)
 {
@@ -1235,7 +1235,7 @@ Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
 
 //=================================================================================================
 
-Standard_Boolean PrsDim::InDomain(const Standard_Real fpar,
+Standard_Boolean PrsDim1::InDomain(const Standard_Real fpar,
                                   const Standard_Real lpar,
                                   const Standard_Real para)
 {
@@ -1269,7 +1269,7 @@ Standard_Boolean PrsDim::InDomain(const Standard_Real fpar,
 // purpose  : calculates parametric length arc of ellipse
 //=======================================================================
 
-Standard_Real PrsDim::DistanceFromApex(const gp_Elips&     elips,
+Standard_Real PrsDim1::DistanceFromApex(const gp_Elips&     elips,
                                        const Point3d&       Apex,
                                        const Standard_Real par)
 {
@@ -1314,7 +1314,7 @@ Standard_Real PrsDim::DistanceFromApex(const gp_Elips&     elips,
 
 //=================================================================================================
 
-Point3d PrsDim::NearestApex(const gp_Elips&     elips,
+Point3d PrsDim1::NearestApex(const gp_Elips&     elips,
                            const Point3d&       pApex,
                            const Point3d&       nApex,
                            const Standard_Real fpara,
@@ -1350,7 +1350,7 @@ Point3d PrsDim::NearestApex(const gp_Elips&     elips,
 
 //=================================================================================================
 
-void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPresentation,
+void PrsDim1::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPresentation,
                                          const Handle(StyleDrawer)&       aDrawer,
                                          const TopoEdge&                anEdge,
                                          const Handle(GeomCurve3d)&         ProjCurve,
@@ -1458,7 +1458,7 @@ void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPres
 
 //=================================================================================================
 
-void PrsDim::ComputeProjVertexPresentation(const Handle(Prs3d_Presentation)& aPresentation,
+void PrsDim1::ComputeProjVertexPresentation(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(StyleDrawer)&       aDrawer,
                                            const TopoVertex&              aVertex,
                                            const Point3d&                     ProjPoint,

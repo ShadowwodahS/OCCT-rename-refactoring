@@ -126,7 +126,7 @@ Standard_Boolean StlWriter::Write(const TopoShape&          theShape,
       AsciiString1("Warning: ") + AsciiString1(aNbFacesNoTri)
       + AsciiString1((aNbFacesNoTri == 1) ? " face has" : " faces have")
       + AsciiString1(" been skipped due to null triangulation");
-    Message::SendWarning(aWarningMsg);
+    Message1::SendWarning(aWarningMsg);
   }
 
   return isDone;

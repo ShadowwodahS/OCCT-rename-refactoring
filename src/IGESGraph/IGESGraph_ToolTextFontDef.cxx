@@ -62,7 +62,7 @@ void TextFontDefTool::ReadOwnParams(const Handle(IGESGraph_TextFontDef)&   ent,
   Standard_Integer tempMotion;
   Standard_Integer tempFlag, tempMoveX, tempMoveY;
 
-  // Reading fontCode(Integer)
+  // Reading fontCode(Integer1)
   PR.ReadInteger(PR.Current(), "Font Code", fontCode); // szv#4:S4163:12Mar99 `st=` not needed
 
   // Reading fontName(String)
@@ -80,14 +80,14 @@ void TextFontDefTool::ReadOwnParams(const Handle(IGESGraph_TextFontDef)&   ent,
 		     STANDARD_TYPE(IGESGraph_TextFontDef), supersededEntity); //szv#4:S4163:12Mar99 `st=` not needed
     }
   else
-    // Reading supersededFont(Integer)
+    // Reading supersededFont(Integer1)
     PR.ReadInteger(PR.Current(), "No. of superseded font", supersededFont); //szv#4:S4163:12Mar99 `st=` not needed
 
-  // Reading scale(Integer)
+  // Reading scale(Integer1)
   PR.ReadInteger(PR.Current(), "Grid units eqvt to one text height", scale); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
 
-  // Reading nbval(Integer)
+  // Reading nbval(Integer1)
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "No. of characters in this defn", nbval);
   if (st && nbval > 0)
   {
@@ -375,7 +375,7 @@ void TextFontDefTool::OwnDump(const Handle(IGESGraph_TextFontDef)& ent,
         for (J = 1; J <= nbmotions; J++)
         {
           S << "Pen up(1) / down(0) flag : " << (Standard_Integer)ent->IsPenUp(I, J)
-            << " Next Pen Position : ";
+            << " Next Pen Position1 : ";
           ent->NextPenPosition(I, J, IX, IY);
           S << " X=" << IX << " Y=" << IY << "\n";
         }

@@ -25,7 +25,7 @@
 
 class MeshTriangulation;
 
-//! The Prs3d package provides the following services
+//! The Prs3d1 package provides the following services
 //! -   a presentation object (the context for all
 //! modifications to the display, its presentation will be
 //! displayed in every view of an active viewer)
@@ -36,9 +36,9 @@ class MeshTriangulation;
 //! -   generic   algorithms providing default settings for
 //! objects such as points, curves, surfaces and shapes
 //! -   a root object which provides the abstract
-//! framework for the DsgPrs definitions at work in
+//! framework for the DsgPrs1 definitions at work in
 //! display of dimensions, relations and trihedra.
-class Prs3d
+class Prs3d1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -113,7 +113,7 @@ void BRepBuilderAPI_NurbsConvert::CorrectVertexTol()
   TopTools_DataMapIteratorOfDataMapOfShapeShape anIter(myVtxToReplace);
   for (; anIter.More(); anIter.Next())
   {
-    mySubs.Replace(anIter.Key(), anIter.Value());
+    mySubs.Replace(anIter.Key1(), anIter.Value());
   }
   mySubs.Apply(myShape);
   myShape = mySubs.Value(myShape);

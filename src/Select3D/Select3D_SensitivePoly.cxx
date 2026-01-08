@@ -68,14 +68,14 @@ static void initCircle(Select3D_PointData&    thePolygon,
 
   for (Standard_Integer anIndex = 1; anIndex <= theNbPnts; ++anIndex, aCurU += aStep)
   {
-    ElCLib1::CircleD1(aCurU, theCircle.Position(), theCircle.Radius(), aP1, aV1);
+    ElCLib1::CircleD1(aCurU, theCircle.Position1(), theCircle.Radius(), aP1, aV1);
     thePolygon.SetPnt(aPntIdx++, aP1);
 
     aV1.Normalize();
     const Point3d aP2 = aP1.XYZ() + aV1.XYZ() * Tan(aStep * 0.5) * aRadius;
     thePolygon.SetPnt(aPntIdx++, aP2);
   }
-  aP1 = ElCLib1::CircleValue(theU2, theCircle.Position(), theCircle.Radius());
+  aP1 = ElCLib1::CircleValue(theU2, theCircle.Position1(), theCircle.Radius());
   thePolygon.SetPnt(aPntIdx++, aP1);
 
   if (isSector && theIsFilled)
@@ -206,7 +206,7 @@ Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwne
   }
   else
   {
-    myPolyg.SetPnt(0, theCircle.Position().Location());
+    myPolyg.SetPnt(0, theCircle.Position1().Location());
   }
 
   if (!theIsFilled)
@@ -217,8 +217,8 @@ Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwne
 
 //=================================================================================================
 
-Standard_Boolean Select3D_SensitivePoly::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                 SelectBasics_PickResult&             thePickResult)
+Standard_Boolean Select3D_SensitivePoly::Matches(SelectingVolumeManager& theMgr,
+                                                 PickResult&             thePickResult)
 {
   if (mySensType == Select3D_TOS_BOUNDARY)
   {
@@ -235,7 +235,7 @@ Standard_Boolean Select3D_SensitivePoly::Matches(SelectBasics_SelectingVolumeMan
     {
       if (theMgr.GetActiveSelectionType() == SelectMgr_SelectionType_Polyline)
       {
-        SelectBasics_PickResult aDummy;
+        PickResult aDummy;
         return theMgr.OverlapsPolygon(anArrayOfPnt->Array1(), mySensType, aDummy);
       }
       for (Standard_Integer aPntIdx = anArrayOfPnt->Lower(); aPntIdx <= anArrayOfPnt->Upper();
@@ -358,8 +358,8 @@ void Select3D_SensitivePoly::Swap(const Standard_Integer theIdx1, const Standard
 //           volume
 //==================================================
 Standard_Boolean Select3D_SensitivePoly::overlapsElement(
-  SelectBasics_PickResult&             thePickResult,
-  SelectBasics_SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
@@ -381,7 +381,7 @@ Standard_Boolean Select3D_SensitivePoly::overlapsElement(
 //=================================================================================================
 
 Standard_Boolean Select3D_SensitivePoly::elementIsInside(
-  SelectBasics_SelectingVolumeManager& theMgr,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
@@ -393,7 +393,7 @@ Standard_Boolean Select3D_SensitivePoly::elementIsInside(
   const Standard_Integer aSegmentIdx = mySegmentIndexes->Value(theElemIdx);
   if (theMgr.GetActiveSelectionType() == SelectMgr_SelectionType_Polyline)
   {
-    SelectBasics_PickResult aDummy;
+    PickResult aDummy;
     return theMgr.OverlapsSegment(myPolyg.Pnt3d(aSegmentIdx + 0),
                                   myPolyg.Pnt3d(aSegmentIdx + 1),
                                   aDummy);
@@ -408,7 +408,7 @@ Standard_Boolean Select3D_SensitivePoly::elementIsInside(
 //           projection of used-picked screen point
 //           to center of the geometry
 //==================================================
-Standard_Real Select3D_SensitivePoly::distanceToCOG(SelectBasics_SelectingVolumeManager& theMgr)
+Standard_Real Select3D_SensitivePoly::distanceToCOG(SelectingVolumeManager& theMgr)
 {
   if (!myIsComputed)
   {

@@ -64,7 +64,7 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current root.
-  Standard_EXPORT Handle(MAT_Bisector) Bisector() const;
+  Standard_EXPORT Handle(MAT_Bisector) Bisector1() const;
 
   //! Returns True if there are semi_infinite bisectors.
   //! So there is a tree for each semi_infinte bisector.

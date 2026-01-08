@@ -86,7 +86,7 @@ Handle(Express_Item) Express_Schema::Item(const Standard_CString theName,
   {
     if (!theSilent)
     {
-      Message::SendFail() << "Error: attempt to access unknown item by name " << theName;
+      Message1::SendFail() << "Error: attempt to access unknown item by name " << theName;
     }
     return {};
   }
@@ -242,7 +242,7 @@ void Express_Schema::Prepare()
         // if select refers to another select, expand it
         if (aSubItem->IsKind(STANDARD_TYPE(Express_Select)))
         {
-          Message::SendInfo() << "Info: SELECT " << anItem->Name() << " refers to another SELECT "
+          Message1::SendInfo() << "Info: SELECT " << anItem->Name() << " refers to another SELECT "
                               << aSubItem->Name() << "; expanded";
           const Handle(Express_Select) aSubSelect = Handle(Express_Select)::DownCast(aSubItem);
           Standard_Integer             j          = 1;
@@ -272,7 +272,7 @@ void Express_Schema::Prepare()
         }
         else
         {
-          Message::SendFail() << "Error in " << anItem->Name() << ": supertype "
+          Message1::SendFail() << "Error in " << anItem->Name() << ": supertype "
                               << aNames->Value(i)->String() << " is not an ENTITY; ignored";
         }
       }

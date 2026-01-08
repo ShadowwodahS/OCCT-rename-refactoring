@@ -56,14 +56,14 @@ public:
 
   Standard_EXPORT TDataStd_NoteBook();
 
-  //! Tool to Create  an  Integer  attribute from  <value>,
+  //! Tool to Create  an  Integer1  attribute from  <value>,
   //! Insert it in   a  new son  label   of <me>. The   Real
   //! attribute is returned.
   Standard_EXPORT Handle(TDataStd_Real) Append(const Standard_Real    value,
                                                const Standard_Boolean isExported = Standard_False);
 
   //! Tool to Create  an Real attribute from <value>, Insert
-  //! it  in a new son label  of <me>. The Integer attribute
+  //! it  in a new son label  of <me>. The Integer1 attribute
   //! is returned.
   Standard_EXPORT Handle(IntAttribute) Append(
     const Standard_Integer value,

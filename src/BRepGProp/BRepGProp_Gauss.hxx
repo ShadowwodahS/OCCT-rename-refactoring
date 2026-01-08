@@ -24,10 +24,10 @@ using math_Vector = math_VectorBase<double>;
 //! Class performs computing of the global inertia properties
 //! of geometric object in 3D space by adaptive and non-adaptive
 //! 2D Gauss integration algorithms.
-class BRepGProp_Gauss
+class Gauss1
 {
   //! Auxiliary structure for storing of inertial moments.
-  struct Inertia
+  struct Inertia1
   {
     //! Mass of the current system (without density).
     //! May correspond to: length, area, volume.
@@ -47,13 +47,13 @@ class BRepGProp_Gauss
     Standard_Real Iyz;
 
     //! Default constructor.
-    Inertia();
+    Inertia1();
 
     //! Zeroes all values.
     void Reset();
   };
 
-  typedef NCollection_Handle<NCollection_Array1<Inertia>> InertiaArray;
+  typedef NCollection_Handle<NCollection_Array1<Inertia1>> InertiaArray;
   typedef Standard_Real (*BRepGProp_GaussFunc)(const Standard_Real, const Standard_Real);
 
 public: //! @name public API
@@ -70,7 +70,7 @@ public: //! @name public API
   } BRepGProp_GaussType;
 
   //! Constructor
-  Standard_EXPORT explicit BRepGProp_Gauss(const BRepGProp_GaussType theType);
+  Standard_EXPORT explicit Gauss1(const BRepGProp_GaussType theType);
 
   //! Computes the global properties of a solid region of 3D space which can be
   //! delimited by the surface and point or surface and plane. Surface can be closed.
@@ -197,8 +197,8 @@ public: //! @name public API
                                         gp_Mat&             theOutInertia);
 
 private: //! @name private methods
-  BRepGProp_Gauss(BRepGProp_Gauss const&);
-  BRepGProp_Gauss& operator=(BRepGProp_Gauss const&);
+  Gauss1(Gauss1 const&);
+  Gauss1& operator=(Gauss1 const&);
 
   void computeVInertiaOfElementaryPart(const Point3d&             thePoint,
                                        const Vector3d&             theNormal,
@@ -206,30 +206,30 @@ private: //! @name private methods
                                        const Standard_Real       theWeight,
                                        const Standard_Real       theCoeff[],
                                        const Standard_Boolean    theIsByPoint,
-                                       BRepGProp_Gauss::Inertia& theOutInertia);
+                                       Gauss1::Inertia1& theOutInertia);
 
   void computeSInertiaOfElementaryPart(const Point3d&             thePoint,
                                        const Vector3d&             theNormal,
                                        const Point3d&             theLocation,
                                        const Standard_Real       theWeight,
-                                       BRepGProp_Gauss::Inertia& theOutInertia);
+                                       Gauss1::Inertia1& theOutInertia);
 
   void checkBounds(const Standard_Real theU1,
                    const Standard_Real theU2,
                    const Standard_Real theV1,
                    const Standard_Real theV2);
 
-  void addAndRestoreInertia(const BRepGProp_Gauss::Inertia& theInInertia,
-                            BRepGProp_Gauss::Inertia&       theOutInertia);
+  void addAndRestoreInertia(const Gauss1::Inertia1& theInInertia,
+                            Gauss1::Inertia1&       theOutInertia);
 
-  void multAndRestoreInertia(const Standard_Real theValue, BRepGProp_Gauss::Inertia& theInertia);
+  void multAndRestoreInertia(const Standard_Real theValue, Gauss1::Inertia1& theInertia);
 
-  void convert(const BRepGProp_Gauss::Inertia& theInertia,
+  void convert(const Gauss1::Inertia1& theInertia,
                Point3d&                         theOutGravityCenter,
                gp_Mat&                         theOutMatrixOfInertia,
                Standard_Real&                  theOutMass);
 
-  void convert(const BRepGProp_Gauss::Inertia& theInertia,
+  void convert(const Gauss1::Inertia1& theInertia,
                const Standard_Real             theCoeff[],
                const Standard_Boolean          theIsByPoint,
                Point3d&                         theOutGravityCenter,

@@ -49,7 +49,7 @@ static Standard_Integer distance(DrawInterpreter& di, Standard_Integer n, const 
     return 1;
   Point3d        P1, P2;
   Standard_Real D;
-  if (!BRepExtrema_Poly::Distance(S1, S2, P1, P2, D))
+  if (!Poly2::Distance(S1, S2, P1, P2, D))
     return 1;
   // std::cout << " distance : " << D << std::endl;
   di << " distance : " << D << "\n";
@@ -169,7 +169,7 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
 {
   if (theNbArgs < 3 || theNbArgs > 6)
   {
-    Message::SendFail() << "Usage: " << theArgs[0]
+    Message1::SendFail() << "Usage: " << theArgs[0]
                         << " Shape1 Shape2 [-tol <value> | -value] [-profile]";
     return 1;
   }
@@ -179,7 +179,7 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
 
   if (aShape1.IsNull() || aShape2.IsNull())
   {
-    Message::SendFail() << "Error: Failed to find specified shapes";
+    Message1::SendFail() << "Error: Failed to find specified shapes";
     return 1;
   }
 
@@ -199,14 +199,14 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
       isTolerance = Standard_True;
       if (++anArgIdx >= theNbArgs)
       {
-        Message::SendFail() << "Error: wrong syntax at argument '" << aFlag;
+        Message1::SendFail() << "Error: wrong syntax at argument '" << aFlag;
         return 1;
       }
 
       const Standard_Real aTolerance = Draw1::Atof(theArgs[anArgIdx]);
       if (aTolerance < 0.0)
       {
-        Message::SendFail() << "Error: Tolerance value should be non-negative";
+        Message1::SendFail() << "Error: Tolerance value should be non-negative";
         return 1;
       }
       else
@@ -227,7 +227,7 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
 
   if (isTolerance && isValue)
   {
-    Message::SendFail() << "Error: Proximity value could not be computed if the tolerance is set";
+    Message1::SendFail() << "Error: Proximity value could not be computed if the tolerance is set";
     return 1;
   }
 
@@ -262,7 +262,7 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
 
   if (!aTool.IsDone())
   {
-    Message::SendFail() << "Error: Failed to perform proximity test";
+    Message1::SendFail() << "Error: Failed to perform proximity test";
     return 1;
   }
 
@@ -327,9 +327,9 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
          anIt1.More();
          anIt1.Next())
     {
-      AsciiString1 aStr = AsciiString1(theArgs[1]) + "_" + (anIt1.Key() + 1);
+      AsciiString1 aStr = AsciiString1(theArgs[1]) + "_" + (anIt1.Key1() + 1);
 
-      const TopoShape& aShape = aTool.GetSubShape1(anIt1.Key());
+      const TopoShape& aShape = aTool.GetSubShape1(anIt1.Key1());
       aCompBuilder.Add(aFaceCompound1, aShape);
       DBRep1::Set(aStr.ToCString(), aShape);
 
@@ -343,9 +343,9 @@ static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, co
          anIt2.More();
          anIt2.Next())
     {
-      AsciiString1 aStr = AsciiString1(theArgs[2]) + "_" + (anIt2.Key() + 1);
+      AsciiString1 aStr = AsciiString1(theArgs[2]) + "_" + (anIt2.Key1() + 1);
 
-      const TopoShape& aShape = aTool.GetSubShape2(anIt2.Key());
+      const TopoShape& aShape = aTool.GetSubShape2(anIt2.Key1());
       aCompBuilder.Add(aFaceCompound2, aShape);
       DBRep1::Set(aStr.ToCString(), aShape);
 
@@ -369,14 +369,14 @@ static int ShapeSelfIntersection(DrawInterpreter& theDI,
 {
   if (theNbArgs < 2 || theNbArgs > 5)
   {
-    Message::SendFail() << "Usage: " << theArgs[0] << " Shape [-tol <value>] [-profile]";
+    Message1::SendFail() << "Usage: " << theArgs[0] << " Shape [-tol <value>] [-profile]";
     return 1;
   }
 
   TopoShape aShape = DBRep1::Get(theArgs[1]);
   if (aShape.IsNull())
   {
-    Message::SendFail() << "Error: Failed to find specified shape";
+    Message1::SendFail() << "Error: Failed to find specified shape";
     return 1;
   }
 
@@ -392,14 +392,14 @@ static int ShapeSelfIntersection(DrawInterpreter& theDI,
     {
       if (++anArgIdx >= theNbArgs)
       {
-        Message::SendFail() << "Error: wrong syntax at argument '" << aFlag;
+        Message1::SendFail() << "Error: wrong syntax at argument '" << aFlag;
         return 1;
       }
 
       const Standard_Real aValue = Draw1::Atof(theArgs[anArgIdx]);
       if (aValue < 0.0)
       {
-        Message::SendFail() << "Error: Tolerance value should be non-negative";
+        Message1::SendFail() << "Error: Tolerance value should be non-negative";
         return 1;
       }
       else
@@ -439,7 +439,7 @@ static int ShapeSelfIntersection(DrawInterpreter& theDI,
 
   if (!aTool.IsDone())
   {
-    Message::SendFail() << "Error: Failed to perform proximity test";
+    Message1::SendFail() << "Error: Failed to perform proximity test";
     return 1;
   }
 
@@ -462,9 +462,9 @@ static int ShapeSelfIntersection(DrawInterpreter& theDI,
        anIt.More();
        anIt.Next())
   {
-    AsciiString1 aStr = AsciiString1(theArgs[1]) + "_" + (anIt.Key() + 1);
+    AsciiString1 aStr = AsciiString1(theArgs[1]) + "_" + (anIt.Key1() + 1);
 
-    const TopoFace& aFace = aTool.GetSubShape(anIt.Key());
+    const TopoFace& aFace = aTool.GetSubShape(anIt.Key1());
     aCompBuilder.Add(aFaceCompound, aFace);
     DBRep1::Set(aStr.ToCString(), aFace);
 
@@ -479,7 +479,7 @@ static int ShapeSelfIntersection(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void BRepTest::ExtremaCommands(DrawInterpreter& theCommands)
+void BRepTest1::ExtremaCommands(DrawInterpreter& theCommands)
 {
   static const char*      aGroup = "TOPOLOGY Extrema commands";
   static Standard_Boolean isDone = Standard_False;

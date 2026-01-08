@@ -18,5 +18,5 @@
 #include <TopoDS_Vertex.hxx>
 #include <StdPrs_ToolVertex.hxx>
 
-typedef Prs3d_Point<TopoVertex, StdPrs_ToolVertex> StdPrs_Vertex;
+typedef Prs3d_Point<TopoVertex, VertexPresentationTool> StdPrs_Vertex;
 #endif

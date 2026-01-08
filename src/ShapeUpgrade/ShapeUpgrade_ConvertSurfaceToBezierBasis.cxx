@@ -126,7 +126,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, 1, 1, 1);
     surf->SetValue(1, 1, bezier);
     mySegments = new ShapeExtend_CompositeSurface(surf, UJoints, VJoints);
-    myStatus   = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus   = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return;
   }
   else if (mySurface->IsKind(STANDARD_TYPE(Geom_BezierSurface)))
@@ -142,7 +142,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     if (UFirst < precision && ULast > 1 - precision && VFirst < precision && VLast > 1 - precision)
     {
       surf->SetValue(1, 1, bezier);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
     }
     else
     {
@@ -159,7 +159,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       Standard_Real v2 = VLast;
       besNew->Segment1(u1, u2, v1, v2);
       surf->SetValue(1, 1, besNew);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     }
     mySegments = new ShapeExtend_CompositeSurface(surf, UJoints, VJoints);
     return;
@@ -274,7 +274,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       }
       VFirst = VLast;
     }
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return;
   }
   else if (mySurface->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)) && myRevolutionMode)
@@ -300,9 +300,9 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       converter.Init(bas, VFirst, VLast);
       converter.Perform(Standard_True);
       if (converter.Status(ShapeExtend_DONE))
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       else
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
       vPar->ChangeSequence()  = converter.SplitParams()->Sequence();
       vSVal->ChangeSequence() = converter.SplitValues()->Sequence();
@@ -320,9 +320,9 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       converter.Init(basis, VFirst, VLast);
       converter.Perform(Standard_True);
       if (converter.Status(ShapeExtend_DONE))
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       else
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
       vPar->ChangeSequence()  = converter.SplitParams()->Sequence();
       vSVal->ChangeSequence() = converter.SplitValues()->Sequence();
@@ -436,7 +436,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       }
       UFirst = ULast;
     }
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return;
   }
   else
@@ -462,7 +462,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     }
     surf->SetValue(1, 1, S);
     mySegments = new ShapeExtend_CompositeSurface(surf, UJoints, VJoints);
-    myStatus   = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+    myStatus   = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
     return;
   }
 }

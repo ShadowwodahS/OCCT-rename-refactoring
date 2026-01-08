@@ -77,7 +77,7 @@ public:
   Standard_EXPORT gp_Lin Lin() const;
 
   //! Returns the positioning axis of this line; this is also its local coordinate system.
-  Standard_EXPORT const Axis3d& Position() const;
+  Standard_EXPORT const Axis3d& Position1() const;
 
   //! Changes the orientation of this line. As a result, the
   //! unit vector of the positioning axis of this line is reversed.

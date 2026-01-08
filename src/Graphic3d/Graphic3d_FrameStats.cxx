@@ -462,7 +462,7 @@ AsciiString1 Graphic3d_FrameStats::FormatStats(
     aBuf << "GPU Memory\n";
     formatBytes(aBuf,
                 aValWidth,
-                "  Geometry: ",
+                "  Geometry1: ",
                 aStats[Graphic3d_FrameStatsCounter_EstimatedBytesGeom],
                 "\n");
     formatBytes(aBuf,

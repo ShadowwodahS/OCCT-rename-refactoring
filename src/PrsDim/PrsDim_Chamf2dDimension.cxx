@@ -89,11 +89,11 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   Handle(GeomCurve3d) gcurv;
   Point3d             pfirst, plast;
   const TopoEdge& thechamfedge = TopoDS::Edge(myFShape);
-  if (!PrsDim::ComputeGeometry(thechamfedge, gcurv, pfirst, plast))
+  if (!PrsDim1::ComputeGeometry(thechamfedge, gcurv, pfirst, plast))
     return;
 
   Handle(GeomLine) glin = Handle(GeomLine)::DownCast(gcurv);
-  Dir3d            dir1(glin->Position().Direction());
+  Dir3d            dir1(glin->Position1().Direction());
   Dir3d            norm1 = myPlane->Pln().Axis().Direction();
   myDir                   = norm1.Crossed(dir1);
 
@@ -107,7 +107,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
   Point3d pfirstnext,plastnext;
   Handle(GeomLine) glinnext;
-  if (!PrsDim::ComputeGeometry(nextedge,glinnext,pfirstnext,plastnext) )
+  if (!PrsDim1::ComputeGeometry(nextedge,glinnext,pfirstnext,plastnext) )
     return;
 
   Vector3d v1(pfirst,plast);
@@ -118,7 +118,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     v2.SetXYZ(plastnext.XYZ() - pfirst.XYZ());
   Vector3d crossvec = v1.Crossed(v2);
 
-  myDir = dimserv.GetDirection().Crossed(glin->Position().Direction());
+  myDir = dimserv.GetDirection().Crossed(glin->Position1().Direction());
   if (crossvec.Dot(dimserv.GetDirection()) > 0 )
     myDir.Reverse();*/     //       myDir   => donne a la creation
 
@@ -134,7 +134,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     curpos = myPntAttach.Translated(transVec);
 
     if (myIsSetBndBox)
-      curpos = PrsDim::TranslatePointToBound(curpos, myDir, myBndBox);
+      curpos = PrsDim1::TranslatePointToBound(curpos, myDir, myBndBox);
 
     myPosition = curpos;
   }
@@ -179,7 +179,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   arr->SetLength(myArrowSize);
 
   // Calcul de la presentation
-  DsgPrs_Chamf2dPresentation::Add(aPresentation,
+  Chamf2dPresentation::Add(aPresentation,
                                   myDrawer,
                                   myPntAttach,
                                   curpos,

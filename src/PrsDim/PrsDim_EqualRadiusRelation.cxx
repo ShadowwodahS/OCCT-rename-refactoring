@@ -66,14 +66,14 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
   Point3d           FirstPoint1, LastPoint1, FirstPoint2, LastPoint2;
   Standard_Boolean isFirstOnPlane, isSecondOnPlane;
 
-  PrsDim::ComputeGeomCurve(FirstProjCurve,
+  PrsDim1::ComputeGeomCurve(FirstProjCurve,
                            FirstPar1,
                            LastPar1,
                            FirstPoint1,
                            LastPoint1,
                            myPlane,
                            isFirstOnPlane);
-  PrsDim::ComputeGeomCurve(SecondProjCurve,
+  PrsDim1::ComputeGeomCurve(SecondProjCurve,
                            FirstPar2,
                            LastPar2,
                            FirstPoint2,
@@ -156,7 +156,7 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
 
   // ota -- end --
 
-  DsgPrs_EqualRadiusPresentation::Add(aPresentation,
+  EqualRadiusPresentation::Add(aPresentation,
                                       myDrawer,
                                       myFirstCenter,
                                       mySecondCenter,

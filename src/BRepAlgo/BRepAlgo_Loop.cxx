@@ -424,7 +424,7 @@ static void PurgeNewEdges(TopTools_DataMapOfShapeListOfShape& NewEdges,
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(NewEdges);
   for (; it.More(); it.Next())
   {
-    ShapeList&              LNE = NewEdges.ChangeFind(it.Key());
+    ShapeList&              LNE = NewEdges.ChangeFind(it.Key1());
     TopTools_ListIteratorOfListOfShape itL(LNE);
     while (itL.More())
     {
@@ -494,7 +494,7 @@ static void StoreInMVE(const TopoFace&                         F,
             TopTools_DataMapIteratorOfDataMapOfShapeShape mapit(VerticesForSubstitute);
             for (; mapit.More(); mapit.Next())
               if (mapit.Value().IsSame(V1))
-                VerticesForSubstitute(mapit.Key()) = V;
+                VerticesForSubstitute(mapit.Key1()) = V;
           }
         }
         E.Free(Standard_True);

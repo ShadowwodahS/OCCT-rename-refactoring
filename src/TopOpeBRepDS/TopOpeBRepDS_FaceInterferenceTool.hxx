@@ -38,15 +38,15 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_FaceInterferenceTool(const TopOpeBRepDS_PDataStructure& P);
 
-  //! Eisnew = true if E is a new edge built on edge I->Geometry()
-  //! false if E is shape <=> I->Geometry()
+  //! Eisnew = true if E is a new edge built on edge I->Geometry1()
+  //! false if E is shape <=> I->Geometry1()
   Standard_EXPORT void Init(const TopoShape&                      FI,
                             const TopoShape&                      E,
                             const Standard_Boolean                   Eisnew,
                             const Handle(TopOpeBRepDS_Interference)& I);
 
-  //! Eisnew = true if E is a new edge built on edge I->Geometry()
-  //! false if E is shape <=> I->Geometry()
+  //! Eisnew = true if E is a new edge built on edge I->Geometry1()
+  //! false if E is shape <=> I->Geometry1()
   Standard_EXPORT void Add(const TopoShape&                      FI,
                            const TopoShape&                      F,
                            const TopoShape&                      E,

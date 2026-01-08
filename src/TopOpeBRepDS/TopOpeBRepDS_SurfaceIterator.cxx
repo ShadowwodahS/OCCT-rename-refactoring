@@ -29,7 +29,7 @@ TopOpeBRepDS_SurfaceIterator::TopOpeBRepDS_SurfaceIterator(const TopOpeBRepDS_Li
 Standard_Integer TopOpeBRepDS_SurfaceIterator::Current() const
 {
   Handle(TopOpeBRepDS_Interference) i = Value();
-  Standard_Integer                  g = i->Geometry();
+  Standard_Integer                  g = i->Geometry1();
   return g;
 }
 

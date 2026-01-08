@@ -50,7 +50,7 @@ static void FDS_sortGb(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
     }
 
     Standard_Boolean gb1 = SSI->GBound();
-    Standard_Integer G   = I->Geometry();
+    Standard_Integer G   = I->Geometry1();
     Standard_Boolean hsd = HDS->HasSameDomain(BDS.Shape(G));
     if (hsd)
     {
@@ -119,7 +119,7 @@ Standard_Integer DataStructureTool::EShareG(const Handle(TopOpeBRepDS_HDataStruc
     if (isb)
       continue;
 
-    Standard_Integer     G  = I->Geometry();
+    Standard_Integer     G  = I->Geometry1();
     const TopoVertex& vG = TopoDS::Vertex(BDS.Shape(G));
     TopoVertex        vsd;
     Standard_Boolean     ok = FUN_ds_getoov(vG, BDS, vsd);
@@ -152,7 +152,7 @@ Standard_Integer DataStructureTool::EShareG(const Handle(TopOpeBRepDS_HDataStruc
   }
   TopTools_MapIteratorOfMapOfShape itm(mapesd);
   for (; itm.More(); itm.Next())
-    lEsd.Append(itm.Key());
+    lEsd.Append(itm.Key1());
   return (lEsd.Extent());
 }
 

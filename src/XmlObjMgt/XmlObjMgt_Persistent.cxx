@@ -20,27 +20,27 @@
 #include <XmlObjMgt_Persistent.hxx>
 
 //=======================================================================
-// function : XmlObjMgt_Persistent
+// function : PersistentStorage
 // purpose  : empty constructor
 //=======================================================================
-XmlObjMgt_Persistent::XmlObjMgt_Persistent()
+PersistentStorage::PersistentStorage()
     : myID(0)
 {
 }
 
 //=================================================================================================
 
-XmlObjMgt_Persistent::XmlObjMgt_Persistent(const XmlObjMgt_Element& theElement)
+PersistentStorage::PersistentStorage(const XmlObjMgt_Element& theElement)
     : myElement(theElement),
       myID(0)
 {
   if (theElement != NULL)
-    theElement.getAttribute(XmlObjMgt::IdString()).GetInteger(myID);
+    theElement.getAttribute(XmlObjMgt1::IdString()).GetInteger(myID);
 }
 
 //=================================================================================================
 
-XmlObjMgt_Persistent::XmlObjMgt_Persistent(const XmlObjMgt_Element&   theElement,
+PersistentStorage::PersistentStorage(const XmlObjMgt_Element&   theElement,
                                            const XmlObjMgt_DOMString& theRef)
     : myID(0)
 {
@@ -49,9 +49,9 @@ XmlObjMgt_Persistent::XmlObjMgt_Persistent(const XmlObjMgt_Element&   theElement
     Standard_Integer aRefID;
     if (theElement.getAttribute(theRef).GetInteger(aRefID))
     {
-      myElement = XmlObjMgt::FindChildElement(theElement, aRefID);
+      myElement = XmlObjMgt1::FindChildElement(theElement, aRefID);
       if (myElement != NULL)
-        myElement.getAttribute(XmlObjMgt::IdString()).GetInteger(myID);
+        myElement.getAttribute(XmlObjMgt1::IdString()).GetInteger(myID);
     }
   }
 }
@@ -60,7 +60,7 @@ XmlObjMgt_Persistent::XmlObjMgt_Persistent(const XmlObjMgt_Element&   theElement
 // function : CreateElement
 // purpose  : <theType id="theID"/>
 //=======================================================================
-void XmlObjMgt_Persistent::CreateElement(XmlObjMgt_Element&         theParent,
+void PersistentStorage::CreateElement(XmlObjMgt_Element&         theParent,
                                          const XmlObjMgt_DOMString& theType,
                                          const Standard_Integer     theID)
 {
@@ -74,8 +74,8 @@ void XmlObjMgt_Persistent::CreateElement(XmlObjMgt_Element&         theParent,
 
 //=================================================================================================
 
-void XmlObjMgt_Persistent::SetId(const Standard_Integer theId)
+void PersistentStorage::SetId(const Standard_Integer theId)
 {
   myID = theId;
-  myElement.setAttribute(XmlObjMgt::IdString(), theId);
+  myElement.setAttribute(XmlObjMgt1::IdString(), theId);
 }

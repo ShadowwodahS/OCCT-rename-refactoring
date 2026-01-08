@@ -33,7 +33,7 @@ XmlDrivers_DocumentRetrievalDriver::XmlDrivers_DocumentRetrievalDriver() {}
 Handle(XmlMDF_ADriverTable) XmlDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return XmlDrivers::AttributeDrivers(theMessageDriver);
+  return XmlDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=======================================================================

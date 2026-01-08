@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(AIS_SignatureFilter, AIS_TypeFilter)
 //! positioned filters when a local context is open.
 //! Warning
 //! Some signatures have already been used by standard
-//! objects delivered in AIS. These include:
+//! objects delivered in AIS1. These include:
 //! -   signature 0 - Shape
 //! -   signature 1 - Point
 //! -   signature 2 - Axis

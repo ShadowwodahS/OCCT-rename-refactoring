@@ -68,7 +68,7 @@ static Standard_Integer mkface(DrawInterpreter&, Standard_Integer n, const char*
   Handle(GeomSurface) S = DrawTrSurf1::GetSurface(a[2]);
   if (S.IsNull())
   {
-    Message::SendFail() << a[2] << " is not a surface";
+    Message1::SendFail() << a[2] << " is not a surface";
     return 1;
   }
 
@@ -615,12 +615,12 @@ static Standard_Integer encoderegularity(DrawInterpreter&, Standard_Integer n, c
   if (sh.IsNull())
     return 1;
   if (n == 2)
-    BRepLib::EncodeRegularity(sh);
+    BRepLib1::EncodeRegularity(sh);
   else
   {
     Standard_Real Tol = Draw1::Atof(a[2]);
     Tol *= M_PI / 180.;
-    BRepLib::EncodeRegularity(sh, Tol);
+    BRepLib1::EncodeRegularity(sh, Tol);
   }
   return 0;
 }
@@ -629,7 +629,7 @@ static Standard_Integer getedgeregul(DrawInterpreter& di, Standard_Integer argc,
 {
   if (argc < 3)
   {
-    Message::SendFail()
+    Message1::SendFail()
       << "Invalid number of arguments. Should be: checkedgeregularity edge face1 [face2]";
     return 1;
   }
@@ -639,7 +639,7 @@ static Standard_Integer getedgeregul(DrawInterpreter& di, Standard_Integer argc,
   TopoShape aFace2 = (argc > 3 ? DBRep1::Get(argv[3], TopAbs_FACE) : aFace1);
   if (anEdge.IsNull() || aFace1.IsNull() || aFace2.IsNull())
   {
-    Message::SendFail()
+    Message1::SendFail()
       << "Invalid number of arguments. Should be: getedgeregularity edge face1 [face2]";
     return 1;
   }
@@ -789,7 +789,7 @@ static Standard_Integer projponf(DrawInterpreter& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-void BRepTest::SurfaceCommands(DrawInterpreter& theCommands)
+void BRepTest1::SurfaceCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -797,7 +797,7 @@ void BRepTest::SurfaceCommands(DrawInterpreter& theCommands)
   done = Standard_True;
 
   DBRep1::BasicCommands(theCommands);
-  GeometryTest::SurfaceCommands(theCommands);
+  GeometryTest1::SurfaceCommands(theCommands);
 
   const char* g = "Surface topology commands";
 

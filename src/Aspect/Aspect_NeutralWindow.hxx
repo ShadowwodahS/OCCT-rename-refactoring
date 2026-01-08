@@ -73,7 +73,7 @@ public:
   }
 
   //! Return the window position.
-  virtual void Position(Standard_Integer& theX1,
+  virtual void Position1(Standard_Integer& theX1,
                         Standard_Integer& theY1,
                         Standard_Integer& theX2,
                         Standard_Integer& theY2) const Standard_OVERRIDE

@@ -24,7 +24,7 @@
 #include <XmlObjMgt_SRelocationTable.hxx>
 class Message_Messenger;
 class TDF_Attribute;
-class XmlObjMgt_Persistent;
+class PersistentStorage;
 
 class XmlMDataStd_AsciiStringDriver;
 DEFINE_STANDARD_HANDLE(XmlMDataStd_AsciiStringDriver, XmlMDF_ADriver)
@@ -40,13 +40,13 @@ public:
 
   //! persistent -> transient (retrieve)
   Standard_EXPORT Standard_Boolean
-    Paste(const XmlObjMgt_Persistent&  Source,
+    Paste(const PersistentStorage&  Source,
           const Handle(TDF_Attribute)& Target,
           XmlObjMgt_RRelocationTable&  RelocTable) const Standard_OVERRIDE;
 
   //! transient -> persistent (store)
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)& Source,
-                             XmlObjMgt_Persistent&        Target,
+                             PersistentStorage&        Target,
                              XmlObjMgt_SRelocationTable&  RelocTable) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(XmlMDataStd_AsciiStringDriver, XmlMDF_ADriver)

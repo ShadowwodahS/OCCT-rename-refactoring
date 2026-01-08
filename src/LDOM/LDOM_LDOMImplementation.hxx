@@ -20,7 +20,7 @@
 
 class DocumentType;
 
-//  Block of comments describing class LDOMImplementation
+//  Block1 of comments describing class LDOMImplementation
 //
 
 class LDOMImplementation

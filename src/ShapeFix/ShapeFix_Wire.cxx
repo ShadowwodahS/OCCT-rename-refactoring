@@ -38,7 +38,7 @@
 // szv#9:S4244:19Aug99 Methods FixGaps3d and FixGaps2d were introduced
 // #15 smh 03.04.2000 PRO19800. Checking degenerated point on a surface of revolution.
 //  sln 25.09.2001  checking order of 3d and 2d representation curves
-//  van 19.10.2001  fix of non-adjacent self-intersection corrected to agree with BRepCheck
+//  van 19.10.2001  fix of non-adjacent self-intersection corrected to agree with BRepCheck1
 //  skl 07.03.2002 fix for bug OCC180
 //  skl 15.05.2002 for OCC208 (if few edges have reference to
 //                 one pcurve we make replace pcurve)
@@ -209,7 +209,7 @@ void WireHealer::ClearModes()
 
 void WireHealer::ClearStatuses()
 {
-  Standard_Integer emptyStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  Standard_Integer emptyStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   myLastFixStatus = emptyStatus;
 
@@ -412,7 +412,7 @@ Standard_Boolean WireHealer::Perform()
 
 Standard_Boolean WireHealer::FixReorder(Standard_Boolean theModeBoth)
 {
-  myStatusReorder = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusReorder = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded())
   {
     return Standard_False;
@@ -434,7 +434,7 @@ Standard_Boolean WireHealer::FixReorder(Standard_Boolean theModeBoth)
 
   if (LastFixStatus(ShapeExtend_FAIL))
   {
-    myStatusReorder |= ShapeExtend::EncodeStatus(
+    myStatusReorder |= ShapeExtend1::EncodeStatus(
       LastFixStatus(ShapeExtend_FAIL1) ? ShapeExtend_FAIL1 : ShapeExtend_FAIL2);
   }
   if (!LastFixStatus(ShapeExtend_DONE))
@@ -442,19 +442,19 @@ Standard_Boolean WireHealer::FixReorder(Standard_Boolean theModeBoth)
     return Standard_False;
   }
 
-  myStatusReorder |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatusReorder |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (sawo.Status() == 2 || sawo.Status() == -2)
   {
-    myStatusReorder |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatusReorder |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   }
   if (sawo.Status() < 0)
   {
-    myStatusReorder |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    myStatusReorder |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
   }
   if (sawo.Status() == 3)
   {
     // only shifted
-    myStatusReorder |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+    myStatusReorder |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
   }
   return Standard_True;
 }
@@ -464,7 +464,7 @@ Standard_Boolean WireHealer::FixReorder(Standard_Boolean theModeBoth)
 Standard_Integer WireHealer::FixSmall(const Standard_Boolean lockvtx,
                                          const Standard_Real    precsmall)
 {
-  myStatusSmall = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusSmall = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded())
     return Standard_False;
 
@@ -481,7 +481,7 @@ Standard_Integer WireHealer::FixSmall(const Standard_Boolean lockvtx,
 
 Standard_Boolean WireHealer::FixConnected(const Standard_Real prec)
 {
-  myStatusConnected = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusConnected = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded())
     return Standard_False;
 
@@ -499,7 +499,7 @@ Standard_Boolean WireHealer::FixConnected(const Standard_Real prec)
 
 Standard_Boolean WireHealer::FixEdgeCurves()
 {
-  myStatusEdgeCurves = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusEdgeCurves = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded())
     return Standard_False;
   Standard_Boolean isReady = IsReady();
@@ -518,9 +518,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     {
       theAdvFixEdge->FixReversed2d(sbwd->Edge(i), face);
       if (theAdvFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       if (theAdvFixEdge->Status(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     }
   }
 
@@ -531,9 +531,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     {
       myFixEdge->FixRemovePCurve(sbwd->Edge(i), face);
       if (myFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       if (myFixEdge->Status(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     }
   }
 
@@ -548,9 +548,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
                               myAnalyzer->Surface(),
                               Precision());
       if (myFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       if (myFixEdge->Status(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
 
       // if ( !sbwd->IsSeam(i) && myFixEdge->Status ( ShapeExtend_DONE2 )
       //      && BRepInspector::SameParameter(sbwd->Edge(i)) ) {
@@ -559,7 +559,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
         // abv 24 Feb 00: trj3_s1-ac-214.stp #1631 etc.: try to split the edge in singularity
         if (!Context().IsNull())
         {
-          ShapeBuild_Edge               sbe;
+          Edge2               sbe;
           TopoEdge                   E = sbwd->Edge(i);
           Curve2           SAC;
           Standard_Real                 a, b;
@@ -705,7 +705,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     //: c0 abv 20 Feb 98: treat case of curve going over degenerated pole and seam
     if (overdegen && myAnalyzer->Surface()->IsUClosed(Precision()))
     {
-      ShapeBuild_Edge sbe;
+      Edge2 sbe;
       Standard_Real   URange, SUF, SUL, SVF, SVL;
       myAnalyzer->Surface()->Bounds(SUF, SUL, SVF, SVL);
       URange = (Abs(SUL - SUF));
@@ -743,9 +743,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     {
       myFixEdge->FixRemoveCurve3d(sbwd->Edge(i));
       if (myFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
       if (myFixEdge->Status(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL4);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL4);
     }
   }
   if (NeedFix(myFixAddCurve3dMode))
@@ -754,7 +754,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     {
       myFixEdge->FixAddCurve3d(sbwd->Edge(i));
       if (myFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
       if (myFixEdge->Status(ShapeExtend_FAIL))
       {
         //: abv 29.08.01: Spatial_firex_lofting.sat: if 3d curve cannot
@@ -771,7 +771,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
           // clang-format on
           sbwd->Remove(i--);
           nb--;
-          myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+          myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
           if (i == nb)
           {
             FixClosed(Precision());
@@ -781,7 +781,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
             FixConnected(i + 1, Precision());
           }
         }
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL5);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL5);
       }
     }
   }
@@ -793,9 +793,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     {
       FixSeam(i);
       if (LastFixStatus(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE6);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE6);
       if (LastFixStatus(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL6);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL6);
     }
   }
 
@@ -804,9 +804,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
   {
     FixShifted();
     if (LastFixStatus(ShapeExtend_DONE))
-      myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE7);
+      myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE7);
     if (LastFixStatus(ShapeExtend_FAIL))
-      myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL7);
+      myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL7);
   }
 
   // fix same parameter
@@ -835,24 +835,24 @@ Standard_Boolean WireHealer::FixEdgeCurves()
             // Replace pcurve
             TopLoc_Location             L;
             const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
-            ShapeBuild_Edge().RemovePCurve(sbwd->Edge(i), S, L);
+            Edge2().RemovePCurve(sbwd->Edge(i), S, L);
             myFixEdge->FixAddPCurve(sbwd->Edge(i),
                                     face,
                                     sbwd->IsSeam(i),
                                     myAnalyzer->Surface(),
                                     Precision());
             if (myFixEdge->Status(ShapeExtend_DONE))
-              myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+              myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
             if (myFixEdge->Status(ShapeExtend_FAIL))
-              myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+              myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
           }
         }
       }
       myFixEdge->FixSameParameter(sbwd->Edge(i), Face());
       if (myFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE8);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE8);
       if (myFixEdge->Status(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL8);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL8);
     }
   }
 
@@ -864,9 +864,9 @@ Standard_Boolean WireHealer::FixEdgeCurves()
     {
       myFixEdge->FixVertexTolerance(sbwd->Edge(i), Face());
       if (myFixEdge->Status(ShapeExtend_DONE))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_DONE8);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE8);
       if (myFixEdge->Status(ShapeExtend_FAIL))
-        myStatusEdgeCurves |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL8);
+        myStatusEdgeCurves |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL8);
     }
     if (!Context().IsNull())
       UpdateWire();
@@ -879,7 +879,7 @@ Standard_Boolean WireHealer::FixEdgeCurves()
 
 Standard_Boolean WireHealer::FixDegenerated()
 {
-  myStatusDegenerated = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusDegenerated = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -920,7 +920,7 @@ Standard_Boolean WireHealer::FixDegenerated()
 
 Standard_Boolean WireHealer::FixSelfIntersection()
 {
-  myStatusSelfIntersection = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusSelfIntersection = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -956,23 +956,23 @@ Standard_Boolean WireHealer::FixSelfIntersection()
     {
       FixIntersectingEdges(num);
       if (LastFixStatus(ShapeExtend_FAIL1))
-        myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
       if (LastFixStatus(ShapeExtend_FAIL2))
-        myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+        myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       if (!LastFixStatus(ShapeExtend_DONE))
         continue;
 
       if (LastFixStatus(ShapeExtend_DONE1))
-        myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       if (LastFixStatus(ShapeExtend_DONE2))
-        myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       if (LastFixStatus(ShapeExtend_DONE6))
-        myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_DONE6);
+        myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE6);
 
       if (/*! myTopoMode ||*/ nb < 3)
       {
         // #86 rln 22.03.99 sim2.igs, entity 4292: After fixing of self-intersecting
-        // BRepCheck finds one more self-intersection not found by ShapeAnalysis1
+        // BRepCheck1 finds one more self-intersection not found by ShapeAnalysis1
         //%15 pdn 06.04.99 repeat until fixed CTS18546-2 entity 777
 
         // if the tolerance was modified we should recheck the result, if it was enough
@@ -987,7 +987,7 @@ Standard_Boolean WireHealer::FixSelfIntersection()
         sbwd->Remove(num > 1 ? num - 1 : nb + num - 1);
       if (LastFixStatus(ShapeExtend_DONE4) || LastFixStatus(ShapeExtend_DONE3))
       {
-        myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+        myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
         num = (myClosedMode ? 1 : 2);
         nb  = sbwd->NbEdges();
 #ifdef OCCT_DEBUG
@@ -1016,7 +1016,7 @@ Standard_Boolean WireHealer::FixSelfIntersection()
     Standard_Integer          NbSplit = 0, NbCut = 0, NbRemoved = 0;
     if (ITool.FixSelfIntersectWire(sbwd, myAnalyzer->Face(), NbSplit, NbCut, NbRemoved))
     {
-      myStatusSelfIntersection |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5); // gka 06.09.04
+      myStatusSelfIntersection |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5); // gka 06.09.04
     }
     if (NbSplit > 0 || NbRemoved > 0)
     {
@@ -1074,9 +1074,9 @@ Standard_Boolean WireHealer::FixSelfIntersection()
         }
 
         if(isFail)
-          myStatusSelfIntersection |= ShapeExtend::EncodeStatus ( ShapeExtend_FAIL3 );
+          myStatusSelfIntersection |= ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL3 );
         if(isDone)
-          myStatusSelfIntersection |= ShapeExtend::EncodeStatus ( ShapeExtend_DONE5 );
+          myStatusSelfIntersection |= ShapeExtend1::EncodeStatus ( ShapeExtend_DONE5 );
     #ifdef OCCT_DEBUG
         if (StatusSelfIntersection (ShapeExtend_DONE5))
           std::cout << "Warning: WireHealer::FixSelfIntersection: Non adjacent intersection
@@ -1091,7 +1091,7 @@ Standard_Boolean WireHealer::FixSelfIntersection()
 
 Standard_Boolean WireHealer::FixLacking(const Standard_Boolean force)
 {
-  myStatusLacking = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusLacking = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -1109,27 +1109,27 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Boolean force)
 
 Standard_Boolean WireHealer::FixClosed(const Standard_Real prec)
 {
-  myStatusClosed = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusClosed = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded() || NbEdges() < 1)
     return Standard_False;
 
   FixConnected(1, prec);
   if (LastFixStatus(ShapeExtend_DONE))
-    myStatusClosed |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatusClosed |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (LastFixStatus(ShapeExtend_FAIL))
-    myStatusClosed |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatusClosed |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
 
   FixDegenerated(1);
   if (LastFixStatus(ShapeExtend_DONE))
-    myStatusClosed |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatusClosed |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   if (LastFixStatus(ShapeExtend_FAIL))
-    myStatusClosed |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatusClosed |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
   FixLacking(1);
   if (LastFixStatus(ShapeExtend_DONE))
-    myStatusClosed |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    myStatusClosed |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
   if (LastFixStatus(ShapeExtend_FAIL))
-    myStatusClosed |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+    myStatusClosed |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
 
   return StatusClosed(ShapeExtend_DONE);
 }
@@ -1142,7 +1142,7 @@ Standard_Boolean WireHealer::FixClosed(const Standard_Real prec)
 
 Standard_Boolean WireHealer::FixReorder(const ShapeAnalysis_WireOrder& wi)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded())
     return Standard_False;
 
@@ -1151,7 +1151,7 @@ Standard_Boolean WireHealer::FixReorder(const ShapeAnalysis_WireOrder& wi)
     return Standard_False;
   if (status <= -10)
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -1159,7 +1159,7 @@ Standard_Boolean WireHealer::FixReorder(const ShapeAnalysis_WireOrder& wi)
   Standard_Integer             i, nb = sbwd->NbEdges();
   if (nb != wi.NbEdges())
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     return Standard_False;
   }
   // D abord on protege
@@ -1167,7 +1167,7 @@ Standard_Boolean WireHealer::FixReorder(const ShapeAnalysis_WireOrder& wi)
   {
     if (wi.Ordered(i) == 0)
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
       return Standard_False;
     }
   }
@@ -1178,7 +1178,7 @@ Standard_Boolean WireHealer::FixReorder(const ShapeAnalysis_WireOrder& wi)
   for (i = 1; i <= nb; i++)
     sbwd->Set(TopoDS::Edge(newedges->Value(i)), i);
 
-  myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   return Standard_True;
 }
 
@@ -1188,7 +1188,7 @@ Standard_Boolean WireHealer::FixSmall(const Standard_Integer num,
                                          const Standard_Boolean lockvtx,
                                          const Standard_Real    precsmall)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded() || NbEdges() <= 1)
     return Standard_False;
 
@@ -1200,7 +1200,7 @@ Standard_Boolean WireHealer::FixSmall(const Standard_Integer num,
   theAdvAnalyzer->CheckSmall(n, precsmall);
   if (theAdvAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     //: n2    return Standard_False;
   }
 
@@ -1214,13 +1214,13 @@ Standard_Boolean WireHealer::FixSmall(const Standard_Integer num,
     // edge is small, but vertices are not the same..
     if (lockvtx || !myTopoMode)
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       return Standard_False;
     }
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   }
   else
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 
   // action: remove edge
   if (!Context().IsNull())
@@ -1237,7 +1237,7 @@ Standard_Boolean WireHealer::FixSmall(const Standard_Integer num,
     // #43 rln 20.11.98 S4054 CTS18544 entity 21734 removing last edge
     FixConnected(n <= NbEdges() ? n : 1, precsmall);
     if (LastFixStatus(ShapeExtend_FAIL))
-      savLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+      savLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
     myLastFixStatus = savLastFixStatus;
   }
 
@@ -1248,7 +1248,7 @@ Standard_Boolean WireHealer::FixSmall(const Standard_Integer num,
 
 Standard_Boolean WireHealer::FixConnected(const Standard_Integer num, const Standard_Real prec)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsLoaded() || NbEdges() <= 0)
     return Standard_False;
 
@@ -1257,7 +1257,7 @@ Standard_Boolean WireHealer::FixConnected(const Standard_Integer num, const Stan
   myAnalyzer->CheckConnected(num, prec < 0 ? MaxTolerance() : prec);
   if (myAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   if (!myAnalyzer->LastCheckStatus(ShapeExtend_DONE))
     return Standard_False;
@@ -1277,7 +1277,7 @@ Standard_Boolean WireHealer::FixConnected(const Standard_Integer num, const Stan
 
   if (myAnalyzer->LastCheckStatus(ShapeExtend_DONE1))
   { // absolutely confused
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     // #40 rln 18.11.98 S4054 BUC60035 entity 2393 (2-nd sub-curve is edge with the same vertex)
     if (V2.IsSame(sae.LastVertex(E2)))
     {
@@ -1295,10 +1295,10 @@ Standard_Boolean WireHealer::FixConnected(const Standard_Integer num, const Stan
   else
   { // on moyenne ...
     if (myAnalyzer->LastCheckStatus(ShapeExtend_DONE2))
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     else
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
-    ShapeBuild_Vertex sbv;
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
+    Vertex2 sbv;
     V = sbv.CombineVertex(V1, V2, 1.0001);
     if (!Context().IsNull())
     {
@@ -1308,7 +1308,7 @@ Standard_Boolean WireHealer::FixConnected(const Standard_Integer num, const Stan
   }
 
   // replace vertices to a new one
-  ShapeBuild_Edge sbe;
+  Edge2 sbe;
   if (sbwd->NbEdges() < 2)
   {
     if (E2.Free() && myTopoMode)
@@ -1367,7 +1367,7 @@ Standard_Boolean WireHealer::FixConnected(const Standard_Integer num, const Stan
 
 Standard_Boolean WireHealer::FixSeam(const Standard_Integer num)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -1380,7 +1380,7 @@ Standard_Boolean WireHealer::FixSeam(const Standard_Integer num)
   TopoEdge  E = WireData()->Edge(num > 0 ? num : NbEdges());
   B.UpdateEdge(E, C2, C1, Face(), 0.); //: S4136: BRepInspector::Tolerance(E)
   B.Range(E, Face(), cf, cl);
-  myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 
   return Standard_True;
 }
@@ -1409,7 +1409,7 @@ static void UpdateEdgeUVPoints(TopoEdge& E, const TopoFace& F)
 
 Standard_Boolean WireHealer::FixShifted()
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -1483,7 +1483,7 @@ Standard_Boolean WireHealer::FixShifted()
     sbwd->Add(E1);
   }
 
-  ShapeBuild_Edge  sbe;
+  Edge2  sbe;
   Standard_Integer nb  = sbwd->NbEdges();
   Standard_Boolean end = (nb == 0), degstop = Standard_False;
   Standard_Integer stop  = nb;
@@ -1605,7 +1605,7 @@ Standard_Boolean WireHealer::FixShifted()
                              Standard_True)
               || !sae.PCurve(sbwd->Edge(degn2), Face(), cx2, ax2, bx2, Standard_True))
           {
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
             continue;
           }
           gp_Pnt2d      pd1 = cx1->Value(bx1);
@@ -1673,7 +1673,7 @@ Standard_Boolean WireHealer::FixShifted()
               sbe.ReplacePCurve(edge, cx1new, Face());
               UpdateEdgeUVPoints(edge, Face());
             }
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 #ifdef OCCT_DEBUG
             std::cout << "Info: WireHealer::FixShifted(): bi - meridian case fixed" << std::endl;
 #endif
@@ -1690,7 +1690,7 @@ Standard_Boolean WireHealer::FixShifted()
             if ( surf->IsDegenerated ( pe, Max ( Precision(), BRepInspector::Tolerance(V) ) ) ) {
           if ( ( c2d1.IsNull() && ! sae.PCurve ( E1, Face(), c2d1, a1, b1, Standard_True ) ) ||
                ( c2d2.IsNull() && ! sae.PCurve ( E2, Face(), c2d2, a2, b2, Standard_True ) ) ) {
-            myLastFixStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_FAIL1 );
+            myLastFixStatus |= ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL1 );
             continue;
           }
           gp_Pnt2d p2d1 = c2d1->Value ( b1 ), p2f = c2d2->Value ( a2 ), p2l = c2d2->Value ( b2 );
@@ -1709,7 +1709,7 @@ Standard_Boolean WireHealer::FixShifted()
               dv = -VRange;
           }
           if ( du ==0. && dv == 0. ) continue;
-          myLastFixStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_DONE1 );
+          myLastFixStatus |= ShapeExtend1::EncodeStatus ( ShapeExtend_DONE1 );
           Transform2d Shift;
           Shift.SetTranslation ( gp_Vec2d ( du, dv ) );
           c2d2->Transform ( Shift );
@@ -1722,7 +1722,7 @@ Standard_Boolean WireHealer::FixShifted()
     if ((c2d1.IsNull() && !sae.PCurve(E1, Face(), c2d1, a1, b1, Standard_True))
         || (c2d2.IsNull() && !sae.PCurve(E2, Face(), c2d2, a2, b2, Standard_True)))
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
       continue;
     }
     gp_Pnt2d p2d1 = c2d1->Value(b1);
@@ -1749,7 +1749,7 @@ Standard_Boolean WireHealer::FixShifted()
     if (du == 0. && dv == 0.)
       continue;
 
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     Transform2d Shift;
     Shift.SetTranslation(gp_Vec2d(du, dv));
     // c2d2->Transform ( Shift );
@@ -1800,7 +1800,7 @@ Standard_Boolean WireHealer::FixShifted()
   if (du == 0. && dv == 0.)
     return Standard_True;
 
-  myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+  myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
 
   Transform2d Shift;
   Shift.SetTranslation(gp_Vec2d(du, dv));
@@ -1824,7 +1824,7 @@ Standard_Boolean WireHealer::FixShifted()
 
 Standard_Boolean WireHealer::FixDegenerated(const Standard_Integer num)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -1833,14 +1833,14 @@ Standard_Boolean WireHealer::FixDegenerated(const Standard_Integer num)
   myAnalyzer->CheckDegenerated(num, p2d1, p2d2);
   if (myAnalyzer->LastCheckStatus(ShapeExtend_FAIL1))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   //: abv 29.08.01: torHalf2.sat: if edge was encoded as degenerated but
   //  has no pcurve and no singularity is found at that point, remove it
   if (myAnalyzer->LastCheckStatus(ShapeExtend_FAIL2))
   {
     WireData()->Remove(num);
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     return Standard_True;
   }
   if (!myAnalyzer->LastCheckStatus(ShapeExtend_DONE))
@@ -1879,12 +1879,12 @@ Standard_Boolean WireHealer::FixDegenerated(const Standard_Integer num)
   if (lack)
   {
     sbwd->Add(degEdge, n2);
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   }
   else
   {
     sbwd->Set(degEdge, n2);
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   }
 
   //  commented to avoid extra messages
@@ -1918,7 +1918,7 @@ static Standard_Boolean TryNewPCurve(const TopoEdge&    E,
   // make temp edge and compute tolerance
   EdgeMaker mkedge(crv, f, l);
 
-  ShapeBuild_Edge SBE;          // skl 17.07.2001
+  Edge2 SBE;          // skl 17.07.2001
   SBE.SetRange3d(mkedge, f, l); // skl 17.07.2001
 
   if (!mkedge.IsDone())
@@ -1929,7 +1929,7 @@ static Standard_Boolean TryNewPCurve(const TopoEdge&    E,
   B.UpdateEdge(edge, c2d, face, 0.);
   B.Range(edge, face, first, last);
   B.SameRange(edge, Standard_False);
-  // no call to BRepLib:  B.SameParameter ( edge, Standard_False );
+  // no call to BRepLib1:  B.SameParameter ( edge, Standard_False );
 
   Handle(ShapeFix_Edge) sfe = new ShapeFix_Edge;
   sfe->FixSameParameter(edge, face);
@@ -2304,7 +2304,7 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
   else
     B.MakeVertex(Vmid, Pmid, 0.);
 
-  ShapeBuild_Edge sbe;
+  Edge2 sbe;
 
   // replace verteces for new edges E1 and E2
   if (E.Orientation() == TopAbs_FORWARD)
@@ -2347,7 +2347,7 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
 
 Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -2360,7 +2360,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
   theAdvAnalyzer->CheckSelfIntersectingEdge(num, points2d, points3d);
   if (theAdvAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   if (!theAdvAnalyzer->LastCheckStatus(ShapeExtend_DONE))
     return Standard_False;
@@ -2414,7 +2414,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
                          Min(MaxTolerance(), Max(newtol, Precision())),
                          myRemoveLoopMode == 0))
           {
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
             loopRemoved = Standard_True;
             prevFirst   = firstpar;
             prevLast    = lastpar;
@@ -2423,7 +2423,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
         }
         if (newtol < MaxTolerance())
         {
-          myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+          myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
           ShapeBuilder B;
           if (dist21 < dist22)
             B.UpdateVertex(V1, tol1 = newtol);
@@ -2431,7 +2431,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
             B.UpdateVertex(V2, tol2 = newtol);
         }
         else
-          myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+          myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       }
 
       // after RemoveLoop, check that self-intersection disappeared
@@ -2478,7 +2478,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
       TopoEdge E1;
       if (RemoveLoop(E, Face(), points2d.Value(1), E1, E2))
       {
-        myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+        myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
         loopRemoved = Standard_True;
         if (!E1.IsNull())
         {
@@ -2493,7 +2493,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
     TTSS->Append(E2);
 
     if (newtol > MaxTolerance())
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
     ShapeExtend_WireData sewd;
     for (Standard_Integer i = 1; i <= TTSS->Length(); i++)
@@ -2511,7 +2511,7 @@ Standard_Boolean WireHealer::FixSelfIntersectingEdge(const Standard_Integer num)
       WireData()->Add(sewd.Wire(), num > 0 ? num : NbEdges());
     }
     if (loopRemoved)
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE8);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE8);
   }
 
   if (LastFixStatus(ShapeExtend_DONE) && !myShape.IsNull())
@@ -2573,7 +2573,7 @@ static Standard_Real ComputeLocalDeviation(const TopoEdge& edge,
 
 Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady() || NbEdges() < 2)
     return Standard_False;
 
@@ -2587,7 +2587,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
   theAdvAnalyzer->CheckIntersectingEdges(num, points2d, points3d, errors);
   if (theAdvAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   if (!theAdvAnalyzer->LastCheckStatus(ShapeExtend_DONE))
     return Standard_False;
@@ -2674,7 +2674,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
             isChangedEdge = Standard_True; // To avoid double copying of vertexes.
 
             // Intersection point of two base edges.
-            ShapeBuild_Edge aSBE;
+            Edge2 aSBE;
             TopoVertex   VV1 = Context()->CopyVertex(V1);
 
             TopoVertex VVp = Vp;
@@ -2713,7 +2713,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
           B.UpdateVertex(sae.FirstVertex(E2), 1.000001 * te2);
           B.UpdateVertex(sae.LastVertex(E2), 1.000001 * te2);
 
-          myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE6);
+          myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE6);
           locMayEdit = Standard_False;
         }
         newtol = 1.000001 * maxte;
@@ -2729,12 +2729,12 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
         newtol = 1.0001 * (pnt.Distance(pint) + rad);
         //: j6 abv 7 Dec 98: ProSTEP TR10 r0601_id.stp #57676 & #58586: do not cut edges because of
         //: influence on adjacent faces
-        ShapeFix_SplitTool aTool;
+        SplitTool aTool;
 
         if (!aTool.CutEdge(E1, (isForward1 ? a1 : b1), param1, Face(), IsCutLine))
         {
           if (V1.IsSame(Vp))
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
           else
             locMayEdit = Standard_False;
         }
@@ -2744,7 +2744,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
         if (!aTool.CutEdge(E2, (isForward2 ? b2 : a2), param2, Face(), IsCutLine))
         {
           if (V2.IsSame(Vn))
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
           else
             locMayEdit = Standard_False;
         }
@@ -2755,11 +2755,11 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
       if (locMayEdit && newRange1 <= prevRange1 && newRange2 <= prevRange2 && // rln 09/01/98
           BRepInspector::SameParameter(E1) && BRepInspector::SameParameter(E2))
       {
-        myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
         pnt = pint;
         if (tol <= rad)
         {
-          myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+          myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
           tol = 1.001 * rad;
         }
       }
@@ -2767,11 +2767,11 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
       {
         if (IsCutLine)
         {
-          myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+          myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
           pnt = pint;
           if (tol <= rad)
           {
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
             tol = 1.001 * rad;
           }
         }
@@ -2779,7 +2779,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
         { // else increase tolerance
           if (tol < newtol)
           { // rln 07.04.99 CCI60005-brep.igs
-            myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+            myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
             tol = newtol;
           }
         }
@@ -2787,7 +2787,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
     }
     else
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     }
   }
 
@@ -2835,7 +2835,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
   }
   if (cutEdge1 || cutEdge2)
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE7);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE7);
   }
   if (!myShape.IsNull())
   {
@@ -2853,7 +2853,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
 Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
                                                      const Standard_Integer num2)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
   IntRes2d_SequenceOfIntersectionPoint points2d;
@@ -2865,7 +2865,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
   theAdvAnalyzer->CheckIntersectingEdges(num1, num2, points2d, points3d, errors);
   if (theAdvAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   if (!theAdvAnalyzer->LastCheckStatus(ShapeExtend_DONE))
     return Standard_False;
@@ -2992,7 +2992,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
     }
     if (finTol <= MaxTolerance())
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       if (newTolers(rank) < finTol)
       {
         if (Max(aMaxEdgeTol1, aMaxEdgeTol2) < finTol && (aMaxEdgeTol1 > 0 || aMaxEdgeTol2 > 0))
@@ -3008,7 +3008,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
     }
     else
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     }
   }
 
@@ -3153,7 +3153,7 @@ static Standard_Boolean TryBendingPCurve(const TopoEdge&     E,
 
 Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standard_Boolean force)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -3163,7 +3163,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
   myAnalyzer->CheckLacking(num, (force ? Precision() : 0.), p2d1, p2d2);
   if (myAnalyzer->LastCheckStatus(ShapeExtend_FAIL))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   if (!myAnalyzer->LastCheckStatus(ShapeExtend_DONE))
     return Standard_False;
@@ -3275,14 +3275,14 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
       Standard_Real      a, b;
       if (!sae.Curve3d(E1, c3d, a, b, Standard_True))
       { // cannot work
-        myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
         return Standard_False;
       }
       p3d1                    = c3d->Value(b);
       Standard_Real dist2d3d1 = p3d1.Distance(surf->Value(p2d1));
       if (!sae.Curve3d(E2, c3d, a, b, Standard_True))
       { // cannot work
-        myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
         return Standard_False;
       }
       p3d2                    = c3d->Value(a);
@@ -3379,10 +3379,10 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
     B.Range(edge, face, 0, dist2d);
     B.Add(edge, newV1.Oriented(TopAbs_FORWARD));
     B.Add(edge, newV2.Oriented(TopAbs_REVERSED));
-    ShapeBuild_Edge sbe;
+    Edge2 sbe;
     if (!doAddDegen && !sbe.BuildCurve3d(edge))
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
       return Standard_False;
     }
 
@@ -3420,17 +3420,17 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
     // insert new edge
     if (doAddDegen)
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
 #ifdef OCCT_DEBUG
       std::cout << "Warning: WireHealer::FixLacking: degenerated edge added" << std::endl;
 #endif
     }
     else if (!doAddLong)
     {
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
     }
     sbwd->Add(edge, n2);
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   }
 
   // else try to increase tol up to MaxTol
@@ -3453,7 +3453,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
     B.UpdateVertex(sae.LastVertex(E1), bendtol1);
     B.UpdateVertex(sae.FirstVertex(E2), bendtol2);
     B.UpdateVertex(sae.LastVertex(E2), bendtol2);
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
     //: s3 abv 22 Apr 99: PRO7187 #11534: self-intersection not detected unitil curve is bent (!)
     FixSelfIntersectingEdge(n1);
     FixSelfIntersectingEdge(n2);
@@ -3461,7 +3461,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
 #ifdef OCCT_DEBUG
     std::cout << "Info: WireHealer::FixLacking: Bending pcurves" << std::endl;
 #endif
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
   }
 
   // increase vertex tolerance
@@ -3469,13 +3469,13 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
   {
     B.UpdateVertex(V1, 1.001 * inctol);
     B.UpdateVertex(V2, 1.001 * inctol);
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   }
 
   if (LastFixStatus(ShapeExtend_DONE))
     return Standard_True;
 
-  myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+  myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
   return Standard_False;
 }
 
@@ -3483,7 +3483,7 @@ Standard_Boolean WireHealer::FixLacking(const Standard_Integer num, const Standa
 
 Standard_Boolean WireHealer::FixNotchedEdges()
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -3508,7 +3508,7 @@ Standard_Boolean WireHealer::FixNotchedEdges()
       Handle(GeomCurve2d) c2d;
       Standard_Real        a, b;
       sae.PCurve(splitE, face, c2d, a, b, Standard_True);
-      ShapeBuild_Edge    sbe;
+      Edge2    sbe;
       TopAbs_Orientation orient = splitE.Orientation();
 
       // check whether the whole edges should be removed - this is the case
@@ -3591,13 +3591,13 @@ Standard_Boolean WireHealer::FixNotchedEdges()
         sewd->Add(newE2, (toSplit == NbEdges() ? 0 : toSplit + 1));
 
         FixDummySeam(isRemoveLast ? NbEdges() : toRemove);
-        myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       }
 
       i--;
       if (!Context().IsNull()) // skl 07.03.2002 for OCC180
         UpdateWire();
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     }
   }
   myStatusNotches = myLastFixStatus;
@@ -3709,8 +3709,8 @@ static void CopyReversePcurves(const TopoEdge&     toedge,
 void WireHealer::FixDummySeam(const Standard_Integer num)
 {
   Edge1           sae;
-  ShapeBuild_Edge              sbe;
-  ShapeBuild_Vertex            sbv;
+  Edge2              sbe;
+  Vertex2            sbv;
   Standard_Integer             num1 = (num == NbEdges()) ? 1 : num + 1;
   Handle(ShapeExtend_WireData) sewd = WireData();
   TopoEdge                  E1 = sewd->Edge(num), E2 = sewd->Edge(num1);
@@ -3804,7 +3804,7 @@ Standard_Boolean WireHealer::FixTails()
     return Standard_False;
   }
 
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!Context().IsNull())
   {
     UpdateWire();
@@ -3882,7 +3882,7 @@ Standard_Boolean WireHealer::FixTails()
       {
         UpdateWire();
       }
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE);
 
       if (aSplitCounts[0] + aSplitCounts[1] == 2)
       {
@@ -3958,9 +3958,9 @@ Standard_Boolean WireHealer::FixTails()
         Context()->Remove(aEs[aRI].Oriented(TopAbs_FORWARD));
         UpdateWire();
       }
-      myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE);
+      myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE);
     }
   }
   myStatusNotches = myLastFixStatus;
-  return ShapeExtend::DecodeStatus(myLastFixStatus, ShapeExtend_DONE);
+  return ShapeExtend1::DecodeStatus(myLastFixStatus, ShapeExtend_DONE);
 }

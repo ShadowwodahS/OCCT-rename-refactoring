@@ -15,13 +15,13 @@
 #define _StdPersistent_HeaderFile
 
 #include <Standard_Macro.hxx>
-class StdObjMgt_MapOfInstantiators;
+class MapOfInstantiators;
 
-class StdPersistent
+class StdPersistent1
 {
 public:
   //! Register types.
-  Standard_EXPORT static void BindTypes(StdObjMgt_MapOfInstantiators& theMap);
+  Standard_EXPORT static void BindTypes(MapOfInstantiators& theMap);
 };
 
 #endif

@@ -29,7 +29,7 @@ class VrmlConverter_Drawer;
 //! into VRML objects   and writes (adds) them  into
 //! anOStream.    All   requested properties  of the
 //! representation  are  specify in  aDrawer of Drawer
-//! class (Prs3d).    This kind  of the presentation
+//! class (Prs3d1).    This kind  of the presentation
 //! is     converted       into   IndexedFaceSet   and
 //! IndexedLineSet ( VRML ).
 class WFDeflectionRestrictedFaceConverter

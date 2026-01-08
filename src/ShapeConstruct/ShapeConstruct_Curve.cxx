@@ -41,7 +41,7 @@
 // sln 29.12.2001 OCC90 : Method FixKnots was added
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(GeomCurve3d)& C3D,
+Standard_Boolean Curve3::AdjustCurve(const Handle(GeomCurve3d)& C3D,
                                                    const Point3d&             P1,
                                                    const Point3d&             P2,
                                                    const Standard_Boolean    take1,
@@ -78,7 +78,7 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(GeomCurve3d)& C3
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(GeomCurve3d)& C3D,
+Standard_Boolean Curve3::AdjustCurveSegment(const Handle(GeomCurve3d)& C3D,
                                                           const Point3d&             P1,
                                                           const Point3d&             P2,
                                                           const Standard_Real       U1,
@@ -118,7 +118,7 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(GeomCurve
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_Curve::AdjustCurve2d(const Handle(GeomCurve2d)& C2D,
+Standard_Boolean Curve3::AdjustCurve2d(const Handle(GeomCurve2d)& C2D,
                                                      const gp_Pnt2d&             P1,
                                                      const gp_Pnt2d&             P2,
                                                      const Standard_Boolean      take1,
@@ -155,7 +155,7 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve2d(const Handle(GeomCurve2d)& 
 
 //=================================================================================================
 
-Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomCurve3d)& C,
+Handle(BSplineCurve3d) Curve3::ConvertToBSpline(const Handle(GeomCurve3d)& C,
                                                                  const Standard_Real       first,
                                                                  const Standard_Real       last,
                                                                  const Standard_Real prec) const
@@ -177,7 +177,7 @@ Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomC
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in GeomConvert1: ";
+      std::cout << "Warning: Curve3::ConvertToBSpline(): Exception in GeomConvert1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -212,7 +212,7 @@ Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomC
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment1: ";
+      std::cout << "Warning: Curve3::ConvertToBSpline(): Exception in Segment1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -237,7 +237,7 @@ Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomC
   catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Approx_Curve3d: ";
+    std::cout << "Warning: Curve3::ConvertToBSpline(): Exception in Approx_Curve3d: ";
     anException.Print(std::cout);
     std::cout << std::endl;
 #endif
@@ -248,7 +248,7 @@ Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomC
 
 //=================================================================================================
 
-Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomCurve2d)& C,
+Handle(Geom2d_BSplineCurve) Curve3::ConvertToBSpline(const Handle(GeomCurve2d)& C,
                                                                    const Standard_Real first,
                                                                    const Standard_Real last,
                                                                    const Standard_Real prec) const
@@ -271,7 +271,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
     {
 #ifdef OCCT_DEBUG
       std::cout
-        << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Geom2dConvert1: ";
+        << "Warning: Curve3::ConvertToBSpline(): Exception in Geom2dConvert1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -306,7 +306,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment1: ";
+      std::cout << "Warning: Curve3::ConvertToBSpline(): Exception in Segment1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -338,7 +338,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
   catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Approx_Curve3d: ";
+    std::cout << "Warning: Curve3::ConvertToBSpline(): Exception in Approx_Curve3d: ";
     anException.Print(std::cout);
     std::cout << std::endl;
 #endif
@@ -351,7 +351,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
 // function : FixKnots
 // purpose  : Fix coincided knots
 //=======================================================================
-Standard_Boolean ShapeConstruct_Curve::FixKnots(Handle(TColStd_HArray1OfReal)& knots)
+Standard_Boolean Curve3::FixKnots(Handle(TColStd_HArray1OfReal)& knots)
 {
   Standard_Boolean Fixed   = Standard_False;
   Standard_Integer nbKnots = knots->Length();
@@ -374,7 +374,7 @@ Standard_Boolean ShapeConstruct_Curve::FixKnots(Handle(TColStd_HArray1OfReal)& k
 // function : FixKnots
 // purpose  : Fix coincided knots
 //=======================================================================
-Standard_Boolean ShapeConstruct_Curve::FixKnots(TColStd_Array1OfReal& knots)
+Standard_Boolean Curve3::FixKnots(TColStd_Array1OfReal& knots)
 {
   Standard_Boolean Fixed   = Standard_False;
   Standard_Integer nbKnots = knots.Length();

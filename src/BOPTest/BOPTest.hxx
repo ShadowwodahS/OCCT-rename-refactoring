@@ -24,7 +24,7 @@
 #include <Draw_Interpretor.hxx>
 class Message_Report;
 
-class BOPTest
+class BOPTest1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -62,7 +62,7 @@ public:
   Standard_EXPORT static void MkConnectedCommands(DrawInterpreter& aDI);
 
   //! Prints errors and warnings if any and draws attached shapes
-  //! if flag BOPTest_Objects::DrawWarnShapes() is set
+  //! if flag Objects::DrawWarnShapes() is set
   Standard_EXPORT static void ReportAlerts(const Handle(Message_Report)& theReport);
 
   //! Returns operation type according to the given string.

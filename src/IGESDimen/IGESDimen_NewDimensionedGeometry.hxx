@@ -30,7 +30,7 @@ class Point3d;
 class IGESDimen_NewDimensionedGeometry;
 DEFINE_STANDARD_HANDLE(IGESDimen_NewDimensionedGeometry, IGESData_IGESEntity)
 
-//! defines New Dimensioned Geometry, Type <402>, Form <21>
+//! defines New Dimensioned Geometry1, Type <402>, Form <21>
 //! in package IGESDimen1
 //! Links a dimension entity with the geometry entities it
 //! is dimensioning, so that later, in the receiving
@@ -50,7 +50,7 @@ public:
   //! - anAngle       : Angle Value
   //! - allEntities   : Geometric Entities
   //! - allLocations  : Dimension Location Flags
-  //! - allPoints     : Points on the Geometry Entities
+  //! - allPoints     : Points on the Geometry1 Entities
   //! exception raised if lengths of entities, locations, points
   //! are not the same
   Standard_EXPORT void Init(const Standard_Integer                      nbDimens,

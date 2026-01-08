@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
+void ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
                                   const Transform3d&                      theTrsf) const
 {
   if (theArray.IsNull())
@@ -82,7 +82,7 @@ void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolQuadric::CreateTriangulation(
+Handle(Graphic3d_ArrayOfTriangles) ToolQuadric::CreateTriangulation(
   const Transform3d& theTrsf) const
 {
   Handle(Graphic3d_ArrayOfTriangles) aTriangulation;
@@ -92,7 +92,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolQuadric::CreateTriangulation(
 
 //=================================================================================================
 
-Handle(MeshTriangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Transform3d& theTrsf) const
+Handle(MeshTriangulation) ToolQuadric::CreatePolyTriangulation(const Transform3d& theTrsf) const
 {
   Handle(MeshTriangulation) aTriangulation =
     new MeshTriangulation(VerticesNb(), TrianglesNb(), Standard_False);
@@ -125,7 +125,7 @@ Handle(MeshTriangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Trans
 
 //=================================================================================================
 
-void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
+void ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
                                   Handle(MeshTriangulation)&         theTriangulation,
                                   const Transform3d&                      theTrsf) const
 {

@@ -177,7 +177,7 @@ static Standard_Integer ReadGltf(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
@@ -190,7 +190,7 @@ static Standard_Integer ReadGltf(DrawInterpreter& theDI,
   }
   if (aFilePath.IsEmpty())
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -205,19 +205,19 @@ static Standard_Integer ReadGltf(DrawInterpreter& theDI,
     {
       if (toUseExistingDoc)
       {
-        Message::SendFail() << "Error: document with name " << aDestName << " does not exist";
+        Message1::SendFail() << "Error: document with name " << aDestName << " does not exist";
         return 1;
       }
       anApp->NewDocument(UtfString("BinXCAF"), aDoc);
     }
     else if (!toUseExistingDoc)
     {
-      Message::SendFail() << "Error: document with name " << aDestName << " already exists";
+      Message1::SendFail() << "Error: document with name " << aDestName << " already exists";
       return 1;
     }
   }
 
-  const Standard_Real aScaleFactorM = XSDRAW::GetLengthUnit(aDoc) / 1000;
+  const Standard_Real aScaleFactorM = XSDRAW1::GetLengthUnit(aDoc) / 1000;
 
   RWGltf_CafReader aReader;
   aReader.SetSystemLengthUnit(aScaleFactorM);
@@ -260,7 +260,7 @@ static Standard_Integer ReadGltf(DrawInterpreter& theDI,
         theDI << "\n";
       }
       isFirstLine = false;
-      theDI << aKeyIter.Key() << ": " << aKeyIter.Value();
+      theDI << aKeyIter.Key1() << ": " << aKeyIter.Value();
     }
   }
   if (toListExternalFiles)
@@ -344,7 +344,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgVec[++anArgIter], aSystemCoordSys))
       {
-        Message::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
+        Message1::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
                             << "'";
         return 1;
       }
@@ -367,7 +367,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
       }
       else
       {
-        Message::SendFail() << "Syntax error at '" << anArgCase << "'";
+        Message1::SendFail() << "Syntax error at '" << anArgCase << "'";
         return 1;
       }
     }
@@ -376,7 +376,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
       ++anArgIter;
       if (anArgIter >= theNbArgs || !parseNameFormat(theArgVec[anArgIter], aNodeNameFormat))
       {
-        Message::SendFail() << "Syntax error at '" << anArgCase << "'";
+        Message1::SendFail() << "Syntax error at '" << anArgCase << "'";
         return 1;
       }
     }
@@ -385,7 +385,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
       ++anArgIter;
       if (anArgIter >= theNbArgs || !parseNameFormat(theArgVec[anArgIter], aMeshNameFormat))
       {
-        Message::SendFail() << "Syntax error at '" << anArgCase << "'";
+        Message1::SendFail() << "Syntax error at '" << anArgCase << "'";
         return 1;
       }
     }
@@ -398,7 +398,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
         TopoShape aShape = DBRep1::Get(aNameVar);
         if (aShape.IsNull())
         {
-          Message::SendFail() << "Syntax error: '" << aNameVar << "' is not a shape nor document";
+          Message1::SendFail() << "Syntax error: '" << aNameVar << "' is not a shape nor document";
           return 1;
         }
 
@@ -463,13 +463,13 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
   if (aGltfFilePath.IsEmpty())
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -478,7 +478,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
   AsciiString1 anExt = aGltfFilePath;
   anExt.LowerCase();
 
-  const Standard_Real aScaleFactorM = XSDRAW::GetLengthUnit(aDoc) / 1000;
+  const Standard_Real aScaleFactorM = XSDRAW1::GetLengthUnit(aDoc) / 1000;
 
   RWGltf_CafWriter aWriter(aGltfFilePath, anExt.EndsWith(".glb"));
   aWriter.SetTransformationFormat(aTrsfFormat);
@@ -498,7 +498,7 @@ static Standard_Integer WriteGltf(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XSDRAWGLTF::Factory(DrawInterpreter& theDI)
+void XSDRAWGLTF1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -580,9 +580,9 @@ void XSDRAWGLTF::Factory(DrawInterpreter& theDI)
     aGroup);
   theDI.Add("writegltf", "writegltf shape file", __FILE__, WriteGltf, aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWGLTF)
+DPLUGIN(XSDRAWGLTF1)

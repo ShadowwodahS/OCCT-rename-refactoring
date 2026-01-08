@@ -142,7 +142,7 @@ public:
         myIter.Initialize(myMap);
         myIterReady = Standard_True;
       }
-      return myIter.Key();
+      return myIter.Key1();
     }
 
     Standard_Boolean Contains(const Standard_Integer theValue) const
@@ -152,7 +152,7 @@ public:
 
     void Remove(const Standard_Integer theValue)
     {
-      if (myIterReady && myIter.More() && myIter.Key() == theValue)
+      if (myIterReady && myIter.More() && myIter.Key1() == theValue)
         myIter.Next();
       myMap.Remove(theValue);
     }

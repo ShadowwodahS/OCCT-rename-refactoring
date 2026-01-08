@@ -213,7 +213,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(AppDocument)& doc,
     Handle(Transfer_Binder) binder = TP->Find(ent);
     if (binder.IsNull())
       continue;
-    TopoShape S = TransferBRep::ShapeResult(binder);
+    TopoShape S = TransferBRep1::ShapeResult(binder);
     if (S.IsNull())
       continue;
 

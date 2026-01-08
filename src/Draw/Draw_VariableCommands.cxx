@@ -50,8 +50,8 @@ static Standard_Boolean autodisp  = Standard_True;
 static Standard_Boolean repaint2d = Standard_False, repaint3d = Standard_False;
 
 //! Returns dictionary of variables
-//! Variables are stored in a map Integer, Transient.
-//! The Integer Value is the content of the Tcl variable.
+//! Variables are stored in a map Integer1, Transient.
+//! The Integer1 Value is the content of the Tcl variable.
 static NCollection_Map<Handle(Draw_Drawable3D)>& Draw_changeDrawables()
 {
   static NCollection_Map<Handle(Draw_Drawable3D)> theVariables;
@@ -251,7 +251,7 @@ static Standard_Integer erase(DrawInterpreter& di, Standard_Integer n, const cha
          aMapIt.More();
          aMapIt.Next())
     {
-      const Handle(Draw_Drawable3D)& D = aMapIt.Key();
+      const Handle(Draw_Drawable3D)& D = aMapIt.Key1();
       if (!D.IsNull())
       {
         if (D->Protected() && D->Visible())
@@ -334,7 +334,7 @@ static Standard_Integer draw(DrawInterpreter&, Standard_Integer n, const char** 
   Standard_Integer id = Draw1::Atoi(a[1]);
   if (!dout.HasView(id))
   {
-    Message::SendFail() << "bad view number in draw";
+    Message1::SendFail() << "bad view number in draw";
     return 1;
   }
   Standard_Integer mo = Draw1::Atoi(a[2]);
@@ -544,7 +544,7 @@ static Standard_Integer dsetenv(DrawInterpreter& /*di*/, Standard_Integer argc, 
 {
   if (argc < 2)
   {
-    Message::SendFail() << "Use: " << argv[0] << " {varname} [value]";
+    Message1::SendFail() << "Use: " << argv[0] << " {varname} [value]";
     return 1;
   }
 
@@ -565,7 +565,7 @@ static Standard_Integer dgetenv(DrawInterpreter& di, Standard_Integer argc, cons
 {
   if (argc < 2)
   {
-    Message::SendFail() << "Use: " << argv[0] << " {varname}";
+    Message1::SendFail() << "Use: " << argv[0] << " {varname}";
     return 1;
   }
 

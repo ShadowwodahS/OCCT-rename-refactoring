@@ -248,7 +248,7 @@ Standard_Boolean Draft_Modification::NewSurface(const TopoFace&    F,
 
   L.Identity();
 
-  S = myFMap.FindFromKey(F).Geometry();
+  S = myFMap.FindFromKey(F).Geometry1();
 
   return Standard_True;
 }
@@ -275,7 +275,7 @@ Standard_Boolean Draft_Modification::NewCurve(const TopoEdge&  E,
   Tol = Einf.Tolerance();
   Tol = Max(Tol, BRepInspector::Tolerance(E));
   L.Identity();
-  C = myEMap.FindFromKey(E).Geometry();
+  C = myEMap.FindFromKey(E).Geometry1();
 
   return Standard_True;
 }
@@ -295,7 +295,7 @@ Standard_Boolean Draft_Modification::NewPoint(const TopoVertex& V, Point3d& P, S
   }
 
   Tol = BRepInspector::Tolerance(V);
-  P   = myVMap.FindFromKey(V).Geometry();
+  P   = myVMap.FindFromKey(V).Geometry1();
   return Standard_True;
 }
 
@@ -322,7 +322,7 @@ Standard_Boolean Draft_Modification::NewCurve2d(const TopoEdge& E,
   Standard_Real Fp, Lp;
   BRepInspector::Range(NewE, Fp, Lp);
 
-  Handle(GeomSurface) SB = myFMap.FindFromKey(F).Geometry();
+  Handle(GeomSurface) SB = myFMap.FindFromKey(F).Geometry1();
 
   Tol = BRepInspector::Tolerance(E);
 
@@ -350,7 +350,7 @@ Standard_Boolean Draft_Modification::NewCurve2d(const TopoEdge& E,
 
     //  if (!BRepInspector::IsClosed(E,F)) {
     BRepInspector::Range(NewE, Fp, Lp);
-    Handle(Geom_TrimmedCurve) TC = new Geom_TrimmedCurve(myEMap.FindFromKey(E).Geometry(), Fp, Lp);
+    Handle(Geom_TrimmedCurve) TC = new Geom_TrimmedCurve(myEMap.FindFromKey(E).Geometry1(), Fp, Lp);
     Fp                           = TC->FirstParameter();
     Lp                           = TC->LastParameter();
     ShapeBuilder B;
@@ -436,7 +436,7 @@ Standard_Boolean Draft_Modification::NewParameter(const TopoVertex& V,
   }
 
   P                          = myVMap.ChangeFromKey(V).Parameter(E);
-  Handle(GeomCurve3d)    GC   = myEMap.FindFromKey(E).Geometry();
+  Handle(GeomCurve3d)    GC   = myEMap.FindFromKey(E).Geometry1();
   Handle(TypeInfo) typc = GC->DynamicType();
   if (typc == STANDARD_TYPE(Geom_TrimmedCurve))
   {

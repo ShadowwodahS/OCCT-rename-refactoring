@@ -37,7 +37,7 @@ class XmlMDF_ADriverTable : public RefObject
 {
 
 public:
-  //! Creates a mutable ADriverTable from XmlMDF.
+  //! Creates a mutable ADriverTable from XmlMDF1.
   Standard_EXPORT XmlMDF_ADriverTable();
 
   //! Sets a translation driver: <aDriver>.

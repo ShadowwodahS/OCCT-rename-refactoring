@@ -37,8 +37,8 @@ Select3D_SensitiveCylinder::Select3D_SensitiveCylinder(
 
 //=================================================================================================
 
-Standard_Boolean Select3D_SensitiveCylinder::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                     SelectBasics_PickResult& thePickResult)
+Standard_Boolean Select3D_SensitiveCylinder::Matches(SelectingVolumeManager& theMgr,
+                                                     PickResult& thePickResult)
 {
   if (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point)
   {

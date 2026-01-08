@@ -179,7 +179,7 @@ UtfString::UtfString(const Standard_ExtCharacter aChar)
 }
 
 // ----------------------------------------------------------------------------
-// Create an AsciiString from a filler
+// Create an AsciiString2 from a filler
 // ----------------------------------------------------------------------------
 UtfString::UtfString(const Standard_Integer      length,
                                                        const Standard_ExtCharacter filler)
@@ -190,7 +190,7 @@ UtfString::UtfString(const Standard_Integer      length,
 }
 
 // ----------------------------------------------------------------------------
-// Create a String from an Integer
+// Create a String from an Integer1
 // ----------------------------------------------------------------------------
 UtfString::UtfString(const Standard_Integer aValue)
 {
@@ -249,7 +249,7 @@ UtfString::UtfString(
 }
 
 //---------------------------------------------------------------------------
-//  Create an extendedstring from an AsciiString
+//  Create an extendedstring from an AsciiString2
 //---------------------------------------------------------------------------
 UtfString::UtfString(const AsciiString1& theString,
                                                        const Standard_Boolean         isMultiByte)

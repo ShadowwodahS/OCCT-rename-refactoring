@@ -66,10 +66,10 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // calculate the cylinder fillet.
 
   // plane deviated from radius
-  Ax3 AxPln  = Pln.Position();
+  Ax3 AxPln  = Pln.Position1();
   Dir3d NorPln = AxPln.XDirection().Crossed(AxPln.YDirection());
   Dir3d NorF(NorPln);
-  Ax3 AxCyl = Cyl.Position();
+  Ax3 AxCyl = Cyl.Position1();
 
   if (Or1 == TopAbs_REVERSED)
   {
@@ -94,7 +94,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     return Standard_False;
   }
   // intersection of the parallel plane and of the parallel cylinder.
-  Cylinder1        CylOffset(Cyl.Position(), ROff);
+  Cylinder1        CylOffset(Cyl.Position1(), ROff);
   QuadQuadGeoIntersection LInt(PlanOffset, CylOffset, Precision::Angular(), Precision::Confusion());
   Point3d             OrSpine = ElCLib1::Value(First, Spine);
   Point3d             OrFillet;
@@ -277,7 +277,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // calculation of the fillet (torus or sphere).
   Standard_Boolean c1sphere = Standard_False;
-  Ax3           PosPl    = Pln.Position();
+  Ax3           PosPl    = Pln.Position1();
   Dir3d           Dpnat    = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d           Dp       = Dpnat;
   Dir3d           Df       = Dp;

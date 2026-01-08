@@ -94,7 +94,7 @@ Standard_Boolean STEPConstruct_ValidationProps::FindTarget(
   const Standard_Boolean                  instance)
 {
   // find the target STEP entity corresponding to a shape
-  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FinderProcess(), Shape);
+  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep1::ShapeMapper(FinderProcess(), Shape);
   Handle(Transfer_Binder)          binder = FinderProcess()->Find(mapper);
 
   // if requested, try to find instance of assembly
@@ -545,7 +545,7 @@ Handle(StepBasic_ProductDefinition) STEPConstruct_ValidationProps::GetPropPD(
     if (SA.IsNull())
     {
 #ifdef OCCT_DEBUG
-      Message_Messenger::StreamBuffer sout = Message::SendInfo();
+      Message_Messenger::StreamBuffer sout = Message1::SendInfo();
       sout << "Error: Cannot find target entity (SA) for geometric_validation_property ";
       Model()->PrintLabel(PD, sout);
       sout << std::endl;
@@ -576,7 +576,7 @@ Handle(StepBasic_ProductDefinition) STEPConstruct_ValidationProps::GetPropPD(
 #ifdef OCCT_DEBUG
   if (ProdDef.IsNull())
   {
-    Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    Message_Messenger::StreamBuffer sout = Message1::SendInfo();
     sout << "Error: Cannot find target entity (SDR) for geometric_validation_property ";
     Model()->PrintLabel(PD, sout);
     sout << std::endl;
@@ -615,21 +615,21 @@ TopoShape STEPConstruct_ValidationProps::GetPropShape(
   Handle(Transfer_Binder) binder = TransientProcess()->Find(ProdDef);
   if (!binder.IsNull() && binder->HasResult())
   {
-    S = TransferBRep::ShapeResult(TransientProcess(), binder);
+    S = TransferBRep1::ShapeResult(TransientProcess(), binder);
   }
   // if ( S.IsNull() ) { // for subshape (via shape_aspect)
   //   Handle(StepRepr_Representation) rep = SDR->UsedRepresentation();
   //   for ( Standard_Integer j=1; S.IsNull() && j <= rep->NbItems(); j++ ) {
   //     binder = TransientProcess()->Find(rep->ItemsValue(j));
   //     if ( ! binder.IsNull() && binder->HasResult() ) {
-  //	S = TransferBRep::ShapeResult ( TransientProcess(), binder );
+  //	S = TransferBRep1::ShapeResult ( TransientProcess(), binder );
   //     }
   //   }
   // }
 #ifdef OCCT_DEBUG
   if (S.IsNull())
   {
-    Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    Message_Messenger::StreamBuffer sout = Message1::SendInfo();
     sout << "Warning: Entity ";
     Model()->PrintLabel(ProdDef, sout);
     sout << " is not mapped to shape" << std::endl;
@@ -779,7 +779,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropPnt(
 
 void STEPConstruct_ValidationProps::SetAssemblyShape(const TopoShape& shape)
 {
-  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FinderProcess(), shape);
+  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep1::ShapeMapper(FinderProcess(), shape);
   FinderProcess()->FindTypedTransient(mapper,
                                       STANDARD_TYPE(StepBasic_ProductDefinition),
                                       myAssemblyPD);

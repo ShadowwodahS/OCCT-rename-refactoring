@@ -21,7 +21,7 @@ class Message_Report;
 
 //! Implementation of a message printer associated with Message_Report
 //! Send will create a new alert of the report. If string is sent, an alert is created by Eol only.
-//! The alerts are sent into set report or default report of Message.
+//! The alerts are sent into set report or default report of Message1.
 class Message_PrinterToReport : public LogPrinter
 {
   DEFINE_STANDARD_RTTIEXT(Message_PrinterToReport, LogPrinter)

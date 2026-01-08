@@ -242,7 +242,7 @@ Standard_Boolean IGESCAFControl_Writer::WriteAttributes(const TDF_LabelSequence&
     // collect color settings
     XCAFPrs_IndexedDataMapOfShapeStyle settings;
     TopLoc_Location                    loc;
-    XCAFPrs::CollectStyleSettings(L, loc, settings);
+    XCAFPrs1::CollectStyleSettings(L, loc, settings);
     if (settings.Extent() <= 0)
       continue;
 
@@ -338,9 +338,9 @@ void IGESCAFControl_Writer::MakeColors(const TopoShape&                       S,
     }
     Handle(Transfer_FinderProcess)   FP = TransferProcess();
     Handle(IGESData_IGESEntity)      ent;
-    Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FP, S);
+    Handle(TransferBRep_ShapeMapper) mapper = TransferBRep1::ShapeMapper(FP, S);
     Handle(TransferBRep_ShapeMapper) aNoLocMapper =
-      TransferBRep::ShapeMapper(FP, S.Located(TopLoc_Location()));
+      TransferBRep1::ShapeMapper(FP, S.Located(TopLoc_Location()));
     if (FP->FindTypedTransient(mapper, STANDARD_TYPE(IGESData_IGESEntity), ent)
         || FP->FindTypedTransient(aNoLocMapper, STANDARD_TYPE(IGESData_IGESEntity), ent))
     {
@@ -383,7 +383,7 @@ void IGESCAFControl_Writer::MakeColors(const TopoShape&                       S,
         }
         /* // alternative: consider recursive mapping S -> compound -> entities
         else {
-          TopoShape comp = TransferBRep::ShapeResult(bnd);
+          TopoShape comp = TransferBRep1::ShapeResult(bnd);
           if ( ! comp.IsNull() && comp.ShapeType() < S.ShapeType() )
             for ( TopoDS_Iterator it(comp); it.More(); it.Next() ) {
               MakeColors ( it.Value(), settings, colors, Map, style );
@@ -439,7 +439,7 @@ static void AttachLayer(const Handle(Transfer_FinderProcess)& FP,
   {
     const TopoShape&              localShape = shseq.Value(i);
     Handle(IGESData_IGESEntity)      Igesent;
-    Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FP, localShape);
+    Handle(TransferBRep_ShapeMapper) mapper = TransferBRep1::ShapeMapper(FP, localShape);
     if (FP->FindTypedTransient(mapper, STANDARD_TYPE(IGESData_IGESEntity), Igesent))
     {
       Igesent->InitLevel(0, localIntName);
@@ -559,13 +559,13 @@ Standard_Boolean IGESCAFControl_Writer::WriteNames(const TDF_LabelSequence& theL
 
   for (DataMapOfShapeNames::Iterator anIter(aMapOfShapeNames); anIter.More(); anIter.Next())
   {
-    const TopoShape&               aShape = anIter.Key();
+    const TopoShape&               aShape = anIter.Key1();
     const UtfString& aName  = anIter.Value();
 
     Handle(Transfer_FinderProcess)   aFinderProcess = TransferProcess();
     Handle(IGESData_IGESEntity)      anIGESEntity;
     Handle(TransferBRep_ShapeMapper) aShapeMapper =
-      TransferBRep::ShapeMapper(aFinderProcess, aShape);
+      TransferBRep1::ShapeMapper(aFinderProcess, aShape);
 
     if (aFinderProcess->FindTypedTransient(aShapeMapper,
                                            STANDARD_TYPE(IGESData_IGESEntity),

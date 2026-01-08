@@ -333,7 +333,7 @@ AsciiString1 DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
   {
-    const AsciiString1& aFormat = aFormatIter.Key();
+    const AsciiString1& aFormat = aFormatIter.Key1();
     aResult += THE_CONFIGURATION_SCOPE() + '.' + "priority" + '.' + aFormat + " :\t ";
     for (DE_ConfigurationVendorMap::Iterator aVendorIter(aFormatIter.Value()); aVendorIter.More();
          aVendorIter.Next())
@@ -355,14 +355,14 @@ AsciiString1 DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
     for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
          aFormatIter.Next())
     {
-      if (!theFormats.IsEmpty() && !theFormats.Contains(aFormatIter.Key()))
+      if (!theFormats.IsEmpty() && !theFormats.Contains(aFormatIter.Key1()))
       {
         continue;
       }
       for (DE_ConfigurationVendorMap::Iterator aVendorIter(aFormatIter.Value()); aVendorIter.More();
            aVendorIter.Next())
       {
-        if (!theVendors.IsEmpty() && !theVendors.Contains(aVendorIter.Key()))
+        if (!theVendors.IsEmpty() && !theVendors.Contains(aVendorIter.Key1()))
         {
           continue;
         }
@@ -453,7 +453,7 @@ void DE_Wrapper::ChangePriority(const AsciiString1&   theFormat,
   for (DE_ConfigurationVendorMap::Iterator aVendorIter(aVendorMap); aVendorIter.More();
        aVendorIter.Next())
   {
-    const AsciiString1& aVendorName = aVendorIter.Key();
+    const AsciiString1& aVendorName = aVendorIter.Key1();
     if (!theVendorPriority.Contains(aVendorName))
     {
       const Handle(DE_ConfigurationNode)& aNode = aVendorIter.Value();
@@ -475,7 +475,7 @@ void DE_Wrapper::ChangePriority(const TColStd_ListOfAsciiString& theVendorPriori
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
   {
-    ChangePriority(aFormatIter.Key(), theVendorPriority, theToDisable);
+    ChangePriority(aFormatIter.Key1(), theVendorPriority, theToDisable);
   }
 }
 
@@ -565,10 +565,10 @@ void DE_Wrapper::sort(const Handle(DE_ConfigurationContext)& theResource)
        aFormatIter.Next())
   {
     TColStd_ListOfAsciiString aVendorPriority;
-    if (!theResource->GetStringSeq(aFormatIter.Key(), aVendorPriority, aScope))
+    if (!theResource->GetStringSeq(aFormatIter.Key1(), aVendorPriority, aScope))
     {
       continue;
     }
-    ChangePriority(aFormatIter.Key(), aVendorPriority, Standard_True);
+    ChangePriority(aFormatIter.Key1(), aVendorPriority, Standard_True);
   }
 }

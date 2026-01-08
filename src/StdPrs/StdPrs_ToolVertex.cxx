@@ -18,7 +18,7 @@
 #include <StdPrs_ToolVertex.hxx>
 #include <TopoDS_Vertex.hxx>
 
-void StdPrs_ToolVertex::Coord(const TopoVertex& aVertex,
+void VertexPresentationTool::Coord(const TopoVertex& aVertex,
                               Standard_Real&       X,
                               Standard_Real&       Y,
                               Standard_Real&       Z)

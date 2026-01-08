@@ -98,7 +98,7 @@ void StepToTopoDS_Tool::Bind(const Handle(StepShape_TopologicalRepresentationIte
                              const TopoShape&                                    S)
 {
   myDataMap.Bind(TRI, S);
-  TransferBRep::SetShapeResult(myTransProc, TRI, S);
+  TransferBRep1::SetShapeResult(myTransProc, TRI, S);
 }
 
 // ============================================================================
@@ -181,7 +181,7 @@ void StepToTopoDS_Tool::BindVertex(const Handle(StepGeom_CartesianPoint)& P, con
 {
   myVertexMap.Bind(P, V);
 #ifdef OCCT_DEBUG
-  TransferBRep::SetShapeResult(myTransProc, P, V);
+  TransferBRep1::SetShapeResult(myTransProc, P, V);
 #endif
 }
 

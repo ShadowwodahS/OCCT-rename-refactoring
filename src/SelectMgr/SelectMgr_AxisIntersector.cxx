@@ -144,7 +144,7 @@ Standard_Boolean SelectMgr_AxisIntersector::hasIntersection(const Point3d&  theP
 Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
   const Point3d&            theSegPnt1,
   const Point3d&            theSegPnt2,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   const Coords3d anU = theSegPnt2.XYZ() - theSegPnt1.XYZ();
   const Coords3d aV  = myAxis.Direction().XYZ();
@@ -194,7 +194,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
 
 bool SelectMgr_AxisIntersector::rayPlaneIntersection(const Vector3d&            thePlane,
                                                      const Point3d&            thePntOnPlane,
-                                                     SelectBasics_PickResult& thePickResult) const
+                                                     PickResult& thePickResult) const
 {
   Coords3d        anU = myAxis.Direction().XYZ();
   Coords3d        aW  = myAxis.Location().XYZ() - thePntOnPlane.XYZ();
@@ -249,7 +249,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsBox(
   const SelectMgr_Vec3&          theBoxMin,
   const SelectMgr_Vec3&          theBoxMax,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsBox() should be called after "
@@ -280,7 +280,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsBox(
 Standard_Boolean SelectMgr_AxisIntersector::OverlapsPoint(
   const Point3d&                  thePnt,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsPoint() should be called after "
@@ -316,7 +316,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsSegment(
   const Point3d&                  thePnt1,
   const Point3d&                  thePnt2,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsSegment() should be called "
@@ -336,7 +336,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsPolygon(
   const TColgp_Array1OfPnt&      theArrayOfPnts,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsPolygon() should be called "
@@ -345,7 +345,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsPolygon(
   if (theSensType == Select3D_TOS_BOUNDARY)
   {
     Standard_Integer        aMatchingSegmentsNb = -1;
-    SelectBasics_PickResult aPickResult;
+    PickResult aPickResult;
     thePickResult.Invalidate();
     const Standard_Integer aLower  = theArrayOfPnts.Lower();
     const Standard_Integer anUpper = theArrayOfPnts.Upper();
@@ -356,7 +356,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsPolygon(
       if (raySegmentDistance(aStartPnt, aEndPnt, aPickResult))
       {
         aMatchingSegmentsNb++;
-        thePickResult = SelectBasics_PickResult::Min(thePickResult, aPickResult);
+        thePickResult = PickResult::Min(thePickResult, aPickResult);
       }
     }
 
@@ -396,7 +396,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
   const Point3d&                  thePnt3,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsTriangle() should be called "
@@ -430,7 +430,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
     if (Abs(anAlpha) < gp1::Resolution())
     {
       // handle the case when triangle normal and selecting frustum direction are orthogonal
-      SelectBasics_PickResult aPickResult;
+      PickResult aPickResult;
       thePickResult.Invalidate();
       for (Standard_Integer anEdgeIter = 0; anEdgeIter < 3; ++anEdgeIter)
       {
@@ -438,7 +438,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
         const Point3d& anEndPnt  = aPnts[anEdgeIter < 2 ? anEdgeIter + 1 : 0];
         if (raySegmentDistance(aStartPnt, anEndPnt, aPickResult))
         {
-          thePickResult = SelectBasics_PickResult::Min(thePickResult, aPickResult);
+          thePickResult = PickResult::Min(thePickResult, aPickResult);
         }
       }
       thePickResult.SetSurfaceNormal(aTriangleNormal);
@@ -528,7 +528,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsSphere(
   const Point3d&                  theCenter,
   const Standard_Real            theRadius,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsSphere() should be called after "
@@ -569,7 +569,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
   const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsHollow,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsCylinder() should be called "
@@ -658,7 +658,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
   const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsFilled,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::OverlapsCircle() should be called after "

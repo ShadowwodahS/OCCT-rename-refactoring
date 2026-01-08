@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-void XmlMNaming::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMNaming1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                             const Handle(Message_Messenger)&   aMessageDriver)
 {
   aDriverTable->AddDriver(new XmlMNaming_NamedShapeDriver(aMessageDriver));

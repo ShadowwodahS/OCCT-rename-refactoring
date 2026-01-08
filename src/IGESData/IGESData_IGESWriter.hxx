@@ -61,7 +61,7 @@ public:
   //! Use this method to access FloatWriter in order to consult or
   //! change its options (MainFormat, FormatForRange,ZeroSuppress),
   //! because it is returned as the address of its field
-  Standard_EXPORT Interface_FloatWriter& FloatWriter();
+  Standard_EXPORT InterfaceFloatWriter& FloatWriter();
 
   //! Returns the write mode, in order to be read and/or changed
   //! Write Mode controls the way final print works
@@ -123,10 +123,10 @@ public:
   //! sends a void parameter, that is null text
   Standard_EXPORT void SendVoid();
 
-  //! sends an Integer parameter
+  //! sends an Integer1 parameter
   Standard_EXPORT void Send(const Standard_Integer val);
 
-  //! sends a Boolean parameter as an Integer value 0(False)/1(True)
+  //! sends a Boolean parameter as an Integer1 value 0(False)/1(True)
   Standard_EXPORT void SendBoolean(const Standard_Boolean val);
 
   //! sends a Real parameter. Works with FloatWriter
@@ -135,7 +135,7 @@ public:
   //! sends a Text parameter under Hollerith form
   Standard_EXPORT void Send(const Handle(TCollection_HAsciiString)& val);
 
-  //! sends a Reference to an Entity (if its Number is N, its
+  //! sends a Reference1 to an Entity (if its Number is N, its
   //! pointer is 2*N-1)
   //! If <val> is Null, "0" will be sent
   //! If <negative> is True, "Pointer" is sent as negative
@@ -210,9 +210,9 @@ private:
   Handle(TColStd_HSequenceOfHAsciiString) thepars;
   Standard_Integer                        thesect;
   IGESData_ReadStage                      thestep;
-  Interface_LineBuffer                    thecurr;
+  LineBuffer                    thecurr;
   Standard_Integer                        themodew;
-  Interface_FloatWriter                   thefloatw;
+  InterfaceFloatWriter                   thefloatw;
 };
 
 #endif // _IGESData_IGESWriter_HeaderFile

@@ -110,7 +110,7 @@ public:
     myBinBodyLen    = theBinBodyLen;
   }
 
-  //! Set flag to ignore nodes without Geometry, TRUE by default.
+  //! Set flag to ignore nodes without Geometry1, TRUE by default.
   void SetSkipEmptyNodes(bool theToSkip) { myToSkipEmptyNodes = theToSkip; }
 
   //! Set flag to flag to load all scenes in the document, FALSE by default which means only main
@@ -454,7 +454,7 @@ protected:
   int64_t                 myBinBodyLen;       //!< binary body length
   bool                    myIsBinary;         //!< binary document
   bool                    myIsGltf1;          //!< obsolete glTF 1.0 version format
-  bool                    myToSkipEmptyNodes; //!< ignore nodes without Geometry
+  bool                    myToSkipEmptyNodes; //!< ignore nodes without Geometry1
   // clang-format off
   bool                      myToLoadAllScenes;  //!< flag to load all scenes in the document, FALSE by default
   bool                      myUseMeshNameAsFallback; //!< flag to use Mesh1 name in case if Node name is empty, TRUE by default

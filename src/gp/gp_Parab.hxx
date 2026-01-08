@@ -140,7 +140,7 @@ public:
   Standard_Real Parameter() const { return 2.0 * focalLength; }
 
   //! Returns the local coordinate system of the parabola.
-  const Frame3d& Position() const { return pos; }
+  const Frame3d& Position1() const { return pos; }
 
   //! Returns the symmetry axis of the parabola. The location point
   //! of the axis is the vertex of the parabola.
@@ -228,8 +228,8 @@ inline gp_Parab::gp_Parab(const Axis3d& theD, const Point3d& theF)
 {
   gp_Lin aDroite(theD);
   focalLength        = aDroite.Distance(theF) / 2.;
-  Axis3d        anAx = aDroite.Normal(theF).Position();
-  Axis3d        anAy = aDroite.Position();
+  Axis3d        anAx = aDroite.Normal(theF).Position1();
+  Axis3d        anAy = aDroite.Position1();
   const Dir3d& aDD  = anAx.Direction();
   pos                = Frame3d(Point3d(theF.X() - focalLength * aDD.X(),
                       theF.Y() - focalLength * aDD.Y(),

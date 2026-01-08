@@ -20,7 +20,7 @@
 #include <TDataStd_Tick.hxx>
 #include <TDataStd_NoteBook.hxx>
 
-class StdLPersistent_Void
+class Void
 {
 protected:
   template <class AttribClass>
@@ -28,10 +28,10 @@ protected:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData&) {}
+    virtual void Read(ReadData&) {}
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData&) const {}
+    virtual void Write(WriteData&) const {}
 
     //! Gets persistent child objects
     inline void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const {}
@@ -50,19 +50,19 @@ public:
 };
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataStd_Directory>::PName() const
+inline Standard_CString Void::instance<TDataStd_Directory>::PName() const
 {
   return "PDataStd_Directory";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataStd_Tick>::PName() const
+inline Standard_CString Void::instance<TDataStd_Tick>::PName() const
 {
   return "PDataStd_Tick";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataStd_NoteBook>::PName() const
+inline Standard_CString Void::instance<TDataStd_NoteBook>::PName() const
 {
   return "PDataStd_Notebook";
 }

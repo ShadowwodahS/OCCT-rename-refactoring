@@ -153,7 +153,7 @@ static inline void writeSpaces(Standard_OStream& theOS, Standard_Integer theNum)
 Standard_Boolean Express_Entity::GenerateClass() const
 {
   const AsciiString1 aCPPName = CPPName();
-  Message::SendInfo() << "Generating ENTITY " << aCPPName;
+  Message1::SendInfo() << "Generating ENTITY " << aCPPName;
 
   // create a package directory (if not yet exist)
   OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
@@ -199,9 +199,9 @@ Standard_Boolean Express_Entity::GenerateClass() const
       // make warning if there are more than one inherits
       if (myInherit->Length() > 1)
       {
-        Message::SendWarning() << "Warning: ENTITY " << Name()
+        Message1::SendWarning() << "Warning: ENTITY " << Name()
                                << " defined with multiple inheritance;";
-        Message::SendWarning() << "Warning: only first base class " << anInheritName
+        Message1::SendWarning() << "Warning: only first base class " << anInheritName
                                << " is actually inherited, others are made fields";
       }
     }
@@ -310,7 +310,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
         AsciiString1 aNameClass;
         if (aNamePack.IsEqual("TColStd_"))
         {
-          Standard_Integer aFindPos2 = aFieldCPPName.Search("Integer");
+          Standard_Integer aFindPos2 = aFieldCPPName.Search("Integer1");
           if (aFindPos2 > -1)
           {
             aNameClass = "Standard_Integer";
@@ -514,7 +514,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
         AsciiString1 aNameClass("");
         if (aNamePack.IsEqual("TColStd_"))
         {
-          Standard_Integer aFindPos2 = aFieldCPPName.Search("Integer");
+          Standard_Integer aFindPos2 = aFieldCPPName.Search("Integer1");
           if (aFindPos2 > -1)
           {
             aNameClass = "Standard_Integer";

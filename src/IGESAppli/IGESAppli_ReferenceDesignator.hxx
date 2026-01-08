@@ -40,7 +40,7 @@ public:
   //! This method is used to set the fields of the class
   //! ReferenceDesignator
   //! - nbPropVal : Number of property values = 1
-  //! - aText     : Reference designator text
+  //! - aText     : Reference1 designator text
   Standard_EXPORT void Init(const Standard_Integer                  nbPropVal,
                             const Handle(TCollection_HAsciiString)& aText);
 
@@ -48,7 +48,7 @@ public:
   //! is always 1
   Standard_EXPORT Standard_Integer NbPropertyValues() const;
 
-  //! returns the Reference designator text
+  //! returns the Reference1 designator text
   Standard_EXPORT Handle(TCollection_HAsciiString) RefDesignatorText() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESAppli_ReferenceDesignator, IGESData_IGESEntity)

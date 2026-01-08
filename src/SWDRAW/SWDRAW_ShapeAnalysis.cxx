@@ -338,14 +338,14 @@ static Standard_Integer projcurve(DrawInterpreter& di, Standard_Integer argc, co
   X = Draw1::Atof(argv[2 + i0]);
   Y = Draw1::Atof(argv[3 + i0]);
   Z = Draw1::Atof(argv[4 + i0]);
-  di << "Precision (BRepBuilderAPI) : " << BRepBuilderAPI::Precision() << "  Projection : " << X
+  di << "Precision (BRepBuilderAPI1) : " << BRepBuilderAPI1::Precision() << "  Projection : " << X
      << "  " << Y << "  " << Z << "\n";
 
   Point3d        P3D(X, Y, Z);
   Point3d        res;
   Standard_Real param, dist;
 
-  dist = Curve2().Project(C, P3D, BRepBuilderAPI::Precision(), res, param, cf, cl);
+  dist = Curve2().Project(C, P3D, BRepBuilderAPI1::Precision(), res, param, cf, cl);
   res.Coord(X, Y, Z);
   di << "Result : " << X << "  " << Y << "  " << Z << "\nParam = " << param << "  Gap = " << dist
      << "\n";
@@ -453,7 +453,7 @@ static Standard_Integer anaface(DrawInterpreter& di, Standard_Integer argc, cons
   }
   Standard_Boolean iasurf = !surface.IsNull();
   //: sw  if (!Face.IsNull()) STW.SetFace (Face);
-  //: sw  else STW.SetPrecision (BRepBuilderAPI::Precision());
+  //: sw  else STW.SetPrecision (BRepBuilderAPI1::Precision());
 
   for (ShapeExplorer exp(Shape, TopAbs_WIRE); exp.More(); exp.Next())
   {
@@ -619,7 +619,7 @@ static Standard_Integer anaface(DrawInterpreter& di, Standard_Integer argc, cons
          << "\n";
       Standard_Real difu = umax - umin, difv = vmax - vmin;
       GeometricProperties  G;
-      BRepGProp::SurfaceProperties(Face, G);
+      BRepGProp1::SurfaceProperties(Face, G);
       if (G.Mass() > 0)
         di << "GProps:Mass Out\n";
       else
@@ -1479,7 +1479,7 @@ Standard_Integer getanacurve(DrawInterpreter& di, Standard_Integer n, const char
 
 //=================================================================================================
 
-void SWDRAW_ShapeAnalysis::InitCommands(DrawInterpreter& theCommands)
+void ShapeAnalysis2::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)
@@ -1488,7 +1488,7 @@ void SWDRAW_ShapeAnalysis::InitCommands(DrawInterpreter& theCommands)
   }
   initactor = 1;
 
-  Standard_CString g = SWDRAW::GroupName();
+  Standard_CString g = SWDRAW1::GroupName();
 
   theCommands.Add("tolerance", "shape [tolmin tolmax:real]", __FILE__, tolerance, g);
   theCommands.Add("projface",

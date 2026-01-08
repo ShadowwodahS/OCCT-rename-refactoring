@@ -184,7 +184,7 @@ public:
   Standard_Real Parameter() const;
 
   //! Returns the coordinate system of the ellipse.
-  const Frame3d& Position() const { return pos; }
+  const Frame3d& Position1() const { return pos; }
 
   //! Returns the "XAxis" of the ellipse whose origin
   //! is the center of this ellipse. It is the major axis of the

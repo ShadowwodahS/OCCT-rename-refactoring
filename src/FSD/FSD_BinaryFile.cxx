@@ -619,7 +619,7 @@ void FSD_BinaryFile::ReadInfo(Standard_Integer&              nbObj,
 
 void FSD_BinaryFile::ReadCompleteInfo(Standard_IStream& theIStream, Handle(Storage_Data)& theData)
 {
-  FSD_FileHeader aHeaderPos{};
+  FileHeader aHeaderPos{};
   ReadHeader(theIStream, aHeaderPos);
 
   if (theData.IsNull())
@@ -719,7 +719,7 @@ void FSD_BinaryFile::ReadCompleteInfo(Standard_IStream& theIStream, Handle(Stora
   for (Standard_Integer i = 1; i <= theData->NumberOfRoots(); i++)
   {
     const Handle(Storage_Root)& aCurRoot = aRoots->Value(i);
-    rData->UpdateRoot(aCurRoot->Name(), iData->ReadArray()->Value(aCurRoot->Reference()));
+    rData->UpdateRoot(aCurRoot->Name(), iData->ReadArray()->Value(aCurRoot->Reference1()));
   }
 
   iData->Clear();
@@ -1549,7 +1549,7 @@ void FSD_BinaryFile::WriteHeader()
 //=================================================================================================
 
 Standard_Integer FSD_BinaryFile::WriteHeader(Standard_OStream&      theOStream,
-                                             const FSD_FileHeader&  theHeader,
+                                             const FileHeader&  theHeader,
                                              const Standard_Boolean theOnlyCount)
 {
   Standard_Integer aHeaderSize = 0;
@@ -1592,7 +1592,7 @@ void FSD_BinaryFile::ReadHeader()
 
 //=================================================================================================
 
-void FSD_BinaryFile::ReadHeader(Standard_IStream& theIStream, FSD_FileHeader& theFileHeader)
+void FSD_BinaryFile::ReadHeader(Standard_IStream& theIStream, FileHeader& theFileHeader)
 {
   GetInteger(theIStream, theFileHeader.testindian);
   GetInteger(theIStream, theFileHeader.binfo);

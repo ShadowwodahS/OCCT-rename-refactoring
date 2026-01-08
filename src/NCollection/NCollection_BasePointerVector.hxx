@@ -26,7 +26,7 @@
 //! Control of processing values of pointers out-of-scope
 //! and should be controlled externally.
 //! Especially, copy operation should post-process elements of pointers to make deep copy.
-class NCollection_BasePointerVector
+class BasePointerVector
 {
 public:
   //! Memory allocation
@@ -35,16 +35,16 @@ public:
 
 public:
   //! Default constructor
-  NCollection_BasePointerVector() {}
+  BasePointerVector() {}
 
   //! Copy data from another vector
-  Standard_EXPORT NCollection_BasePointerVector(const NCollection_BasePointerVector& theOther);
+  Standard_EXPORT BasePointerVector(const BasePointerVector& theOther);
 
   //! Move data from another vector
-  Standard_EXPORT NCollection_BasePointerVector(NCollection_BasePointerVector&& theOther) noexcept;
+  Standard_EXPORT BasePointerVector(BasePointerVector&& theOther) noexcept;
 
   //! Destroy container
-  ~NCollection_BasePointerVector() { clear(); }
+  ~BasePointerVector() { clear(); }
 
   //! Checks for an empty status
   bool IsEmpty() const { return mySize == 0; }
@@ -84,12 +84,12 @@ public:
   Standard_EXPORT void SetValue(const size_t theInd, const void* thePnt);
 
   //! Copy vector
-  Standard_EXPORT NCollection_BasePointerVector& operator=(
-    const NCollection_BasePointerVector& theOther);
+  Standard_EXPORT BasePointerVector& operator=(
+    const BasePointerVector& theOther);
 
   //! Move vector
-  Standard_EXPORT NCollection_BasePointerVector& operator=(
-    NCollection_BasePointerVector&& theOther) noexcept;
+  Standard_EXPORT BasePointerVector& operator=(
+    BasePointerVector&& theOther) noexcept;
 
 private:
   //! Deallocate array

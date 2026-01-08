@@ -58,7 +58,7 @@ void ProjLib_Torus::Init(const gp_Torus& To)
 // function : EvalPnt2d / EvalDir2d
 // purpose  : returns the Projected Pnt / Dir in the parametrization range
 //           of myPlane.
-//           P is a point on a torus with the same Position as To,
+//           P is a point on a torus with the same Position1 as To,
 //           but with a major an minor radius equal to 1.
 //           ( in order to avoid to divide by Radius)
 //                / X = (1+cosV)*cosU        U = Atan(Y/X)
@@ -68,8 +68,8 @@ void ProjLib_Torus::Init(const gp_Torus& To)
 
 static gp_Pnt2d EvalPnt2d(const Vector3d& Ve, const gp_Torus& To)
 {
-  Standard_Real X = Ve.Dot(Vector3d(To.Position().XDirection()));
-  Standard_Real Y = Ve.Dot(Vector3d(To.Position().YDirection()));
+  Standard_Real X = Ve.Dot(Vector3d(To.Position1().XDirection()));
+  Standard_Real Y = Ve.Dot(Vector3d(To.Position1().YDirection()));
   Standard_Real U, V;
 
   if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
@@ -92,24 +92,24 @@ void ProjLib_Torus::Project(const gp_Circ& C)
 {
   myType = GeomAbs_Line;
 
-  Vector3d Xc(C.Position().XDirection());
-  Vector3d Yc(C.Position().YDirection());
-  Vector3d Xt(myTorus.Position().XDirection());
-  Vector3d Yt(myTorus.Position().YDirection());
-  Vector3d Zt(myTorus.Position().Direction());
+  Vector3d Xc(C.Position1().XDirection());
+  Vector3d Yc(C.Position1().YDirection());
+  Vector3d Xt(myTorus.Position1().XDirection());
+  Vector3d Yt(myTorus.Position1().YDirection());
+  Vector3d Zt(myTorus.Position1().Direction());
   Vector3d OC(myTorus.Location(), C.Location());
 
   //  if (OC.Magnitude() < Precision::Confusion()      ||
-  //      OC.IsParallel(myTorus.Position().Direction(),
+  //      OC.IsParallel(myTorus.Position1().Direction(),
   //		    Precision::Angular())) {
 
   if (OC.Magnitude() < Precision::Confusion()
-      || C.Position().Direction().IsParallel(myTorus.Position().Direction(), Precision::Angular()))
+      || C.Position1().Direction().IsParallel(myTorus.Position1().Direction(), Precision::Angular()))
   {
     // Iso V
     gp_Pnt2d      P1 = EvalPnt2d(Xc, myTorus); // evaluate U1
     gp_Pnt2d      P2 = EvalPnt2d(Yc, myTorus); // evaluate U2
-    Standard_Real Z  = OC.Dot(myTorus.Position().Direction());
+    Standard_Real Z  = OC.Dot(myTorus.Position1().Direction());
     Z /= myTorus.MinorRadius();
 
     Standard_Real V;

@@ -20,8 +20,8 @@
 #include <Interface_FileParameter.hxx>
 
 /**
- * Block of comments describing class Interface_VectorOfFileParameter
+ * Block1 of comments describing class Interface_VectorOfFileParameter
  */
-typedef NCollection_Vector<Interface_FileParameter> Interface_VectorOfFileParameter;
+typedef NCollection_Vector<FileParameter> Interface_VectorOfFileParameter;
 
 #endif

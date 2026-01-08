@@ -291,7 +291,7 @@ Handle(StepShape_NonManifoldSurfaceShapeRepresentation) STEPControl_ActorWrite::
     for (Standard_Integer i = 1; i <= shapeGroup->Length(); i++)
     {
       TopoShape                     aCurrentShape = shapeGroup->Value(i);
-      Handle(TransferBRep_ShapeMapper) mapper        = TransferBRep::ShapeMapper(FP, aCurrentShape);
+      Handle(TransferBRep_ShapeMapper) mapper        = TransferBRep1::ShapeMapper(FP, aCurrentShape);
       if (FP->FindTypedTransient(mapper,
                                  STANDARD_TYPE(StepShape_NonManifoldSurfaceShapeRepresentation),
                                  aResult))
@@ -334,16 +334,16 @@ void STEPControl_ActorWrite::mergeInfoForNM(const Handle(Transfer_FinderProcess)
 
   for (; aShapeShapeIt.More(); aShapeShapeIt.Next())
   {
-    TopoShape anOrig = aShapeShapeIt.Key(), aRes = aShapeShapeIt.Value();
+    TopoShape anOrig = aShapeShapeIt.Key1(), aRes = aShapeShapeIt.Value();
     if (anOrig.ShapeType() != TopAbs_FACE)
       continue;
 
-    Handle(TransferBRep_ShapeMapper) anOrigMapper = TransferBRep::ShapeMapper(theFP, anOrig);
+    Handle(TransferBRep_ShapeMapper) anOrigMapper = TransferBRep1::ShapeMapper(theFP, anOrig);
     Handle(Transfer_Binder)          anOrigBinder = theFP->Find(anOrigMapper);
     if (anOrigBinder.IsNull())
       continue;
 
-    Handle(TransferBRep_ShapeMapper) aResMapper = TransferBRep::ShapeMapper(theFP, aRes);
+    Handle(TransferBRep_ShapeMapper) aResMapper = TransferBRep1::ShapeMapper(theFP, aRes);
     theFP->Bind(aResMapper, anOrigBinder);
   }
 }
@@ -625,7 +625,7 @@ static Standard_Real UsedTolerance(Handle(StepData_StepModel)& theStepModel,
     ShapeTolerance stu;
     Tol = stu.Tolerance(theShape, tolmod);
     //  Par defaut, on prend une tolerance moyenne, on elimine les aberrations
-    Tol = Interface_MSG::Intervalled(Tol * 1.5); // arrondi a 1 2 5 ...
+    Tol = MessageSystem::Intervalled(Tol * 1.5); // arrondi a 1 2 5 ...
   }
   if (Tol == 0)
     Tol = 1.e-07; // minimum ...
@@ -873,7 +873,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
       for (Standard_Integer i = 1; i <= aNMItemsNb && aPS.More(); i++)
       {
         Handle(TransferBRep_ShapeMapper) aMapper =
-          TransferBRep::ShapeMapper(FP, RepItemSeq->Value(i));
+          TransferBRep1::ShapeMapper(FP, RepItemSeq->Value(i));
         TransferShape(aMapper,
                       sdr,
                       FP,
@@ -1307,7 +1307,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
       if (xShape.IsSame(mapper->Value()))
         submapper = Handle(TransferBRep_ShapeMapper)::DownCast(start);
       if (submapper.IsNull())
-        submapper = TransferBRep::ShapeMapper(FP, xShape);
+        submapper = TransferBRep1::ShapeMapper(FP, xShape);
       Handle(Transfer_Binder) subbind = FP->Find(submapper);
       if (subbind.IsNull())
       {
@@ -1324,7 +1324,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
       if (xShape.IsSame(mapper->Value()))
         submapper = Handle(TransferBRep_ShapeMapper)::DownCast(start);
       if (submapper.IsNull())
-        submapper = TransferBRep::ShapeMapper(FP, xShape);
+        submapper = TransferBRep1::ShapeMapper(FP, xShape);
       Handle(Transfer_Binder) subbind = FP->Find(submapper);
       if (subbind.IsNull())
       {
@@ -1656,7 +1656,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferCompound(
   Message_ProgressScope aPS(theProgress, NULL, nbs);
   for (i = 1; i <= nbs && aPS.More(); i++)
   {
-    Handle(TransferBRep_ShapeMapper)  subs = TransferBRep::ShapeMapper(FP, RepItemSeq->Value(i));
+    Handle(TransferBRep_ShapeMapper)  subs = TransferBRep1::ShapeMapper(FP, RepItemSeq->Value(i));
     Handle(StepGeom_Axis2Placement3d) AX1;
 
     Handle(Transfer_Binder) bnd = TransferSubShape(subs,
@@ -1736,7 +1736,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferSubShape(
     aLoc                         = shloc.Transformation();
     TopLoc_Location shident;
     sh0.Location(shident);
-    mapper = TransferBRep::ShapeMapper(FP, sh0);
+    mapper = TransferBRep1::ShapeMapper(FP, sh0);
     mapper->SameAttributes(start);
   }
 

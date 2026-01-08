@@ -361,10 +361,10 @@ Standard_Real Cocoa_Window::Ratio() const
 }
 
 // =======================================================================
-// function : Position
+// function : Position1
 // purpose  :
 // =======================================================================
-void Cocoa_Window::Position (Standard_Integer& X1, Standard_Integer& Y1,
+void Cocoa_Window::Position1 (Standard_Integer& X1, Standard_Integer& Y1,
                              Standard_Integer& X2, Standard_Integer& Y2) const
 {
 #if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE

@@ -94,7 +94,7 @@ public:
   Standard_EXPORT RefObject* This() const;
 
 public:
-  //!@name Reference counting, for use by handle<>
+  //!@name Reference1 counting, for use by handle<>
 
   //! Get the reference counter of this object
   inline Standard_Integer GetRefCount() const noexcept { return myRefCount_; }
@@ -110,7 +110,7 @@ public:
   virtual void Delete() const { delete this; }
 
 private:
-  //! Reference counter.
+  //! Reference1 counter.
   //! Note use of underscore, aimed to reduce probability
   //! of conflict with names of members of derived classes.
   std::atomic_int myRefCount_;

@@ -26,10 +26,10 @@
 class IGESDimen_DimensionedGeometry;
 DEFINE_STANDARD_HANDLE(IGESDimen_DimensionedGeometry, IGESData_IGESEntity)
 
-//! Defines IGES Dimensioned Geometry, Type <402> Form <13>,
+//! Defines IGES Dimensioned Geometry1, Type <402> Form <13>,
 //! in package IGESDimen1
 //! This entity has been replaced by the new form of  Dimensioned
-//! Geometry Associativity Entity (Type 402, Form 21) and should no
+//! Geometry1 Associativity Entity (Type 402, Form 21) and should no
 //! longer be used by preprocessors.
 class IGESDimen_DimensionedGeometry : public IGESData_IGESEntity
 {
@@ -50,7 +50,7 @@ public:
   //! returns the Dimension entity
   Standard_EXPORT Handle(IGESData_IGESEntity) DimensionEntity() const;
 
-  //! returns the num'th Geometry entity
+  //! returns the num'th Geometry1 entity
   //! raises exception if Index <= 0 or Index > NbGeometryEntities()
   Standard_EXPORT Handle(IGESData_IGESEntity) GeometryEntity(const Standard_Integer Index) const;
 

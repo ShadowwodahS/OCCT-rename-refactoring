@@ -91,7 +91,7 @@ public:
 
   //! Selector
   //! Returns the index of a reference information
-  Standard_Integer Reference() const;
+  Standard_Integer Reference1() const;
 
   //! Query
   //! Returns true if the shape has boundary representation

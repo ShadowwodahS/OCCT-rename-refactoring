@@ -20,13 +20,13 @@
 #include <Poly_Triangulation.hxx>
 #include <TopoDS.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepExtrema_TriangleSet, BVH_PrimitiveSet3d)
+IMPLEMENT_STANDARD_RTTIEXT(TriangleSet1, BVH_PrimitiveSet3d)
 
 //=======================================================================
-// function : BRepExtrema_TriangleSet
+// function : TriangleSet1
 // purpose  : Creates empty triangle set
 //=======================================================================
-BRepExtrema_TriangleSet::BRepExtrema_TriangleSet()
+TriangleSet1::TriangleSet1()
 {
   // Set default builder - linear BVH (LBVH)
   myBuilder = new BVH_LinearBuilder<Standard_Real, 3>(BVH_Constants_LeafNodeSizeDefault,
@@ -34,10 +34,10 @@ BRepExtrema_TriangleSet::BRepExtrema_TriangleSet()
 }
 
 //=======================================================================
-// function : BRepExtrema_TriangleSet
+// function : TriangleSet1
 // purpose  : Creates triangle set from the given face
 //=======================================================================
-BRepExtrema_TriangleSet::BRepExtrema_TriangleSet(const BRepExtrema_ShapeList& theFaces)
+TriangleSet1::TriangleSet1(const BRepExtrema_ShapeList& theFaces)
 {
   // Set default builder - linear BVH (LBVH)
   myBuilder = new BVH_LinearBuilder<Standard_Real, 3>(BVH_Constants_LeafNodeSizeDefault,
@@ -47,10 +47,10 @@ BRepExtrema_TriangleSet::BRepExtrema_TriangleSet(const BRepExtrema_ShapeList& th
 }
 
 //=======================================================================
-// function : ~BRepExtrema_TriangleSet
+// function : ~TriangleSet1
 // purpose  : Releases resources of triangle set
 //=======================================================================
-BRepExtrema_TriangleSet::~BRepExtrema_TriangleSet()
+TriangleSet1::~TriangleSet1()
 {
   //
 }
@@ -59,7 +59,7 @@ BRepExtrema_TriangleSet::~BRepExtrema_TriangleSet()
 // function : Size
 // purpose  : Returns total number of triangles
 //=======================================================================
-Standard_Integer BRepExtrema_TriangleSet::Size() const
+Standard_Integer TriangleSet1::Size() const
 {
   return static_cast<Standard_Integer>(myTriangles.size());
 }
@@ -68,7 +68,7 @@ Standard_Integer BRepExtrema_TriangleSet::Size() const
 // function : Box1
 // purpose  : Returns AABB of the given triangle
 //=======================================================================
-BVH_Box<Standard_Real, 3> BRepExtrema_TriangleSet::Box1(const Standard_Integer theIndex) const
+BVH_Box<Standard_Real, 3> TriangleSet1::Box1(const Standard_Integer theIndex) const
 {
   const BVH_Vec4i& aTriangle = myTriangles[theIndex];
 
@@ -85,7 +85,7 @@ BVH_Box<Standard_Real, 3> BRepExtrema_TriangleSet::Box1(const Standard_Integer t
 // function : Center
 // purpose  : Returns centroid position along specified axis
 //=======================================================================
-Standard_Real BRepExtrema_TriangleSet::Center(const Standard_Integer theIndex,
+Standard_Real TriangleSet1::Center(const Standard_Integer theIndex,
                                               const Standard_Integer theAxis) const
 {
   const BVH_Vec4i& aTriangle = myTriangles[theIndex];
@@ -114,7 +114,7 @@ Standard_Real BRepExtrema_TriangleSet::Center(const Standard_Integer theIndex,
 // function : Swap
 // purpose  : Swaps indices of two specified triangles
 //=======================================================================
-void BRepExtrema_TriangleSet::Swap(const Standard_Integer theIndex1,
+void TriangleSet1::Swap(const Standard_Integer theIndex1,
                                    const Standard_Integer theIndex2)
 {
   std::swap(myTriangles[theIndex1], myTriangles[theIndex2]);
@@ -126,7 +126,7 @@ void BRepExtrema_TriangleSet::Swap(const Standard_Integer theIndex1,
 // function : GetFaceID
 // purpose  : Returns face ID of the given vertex
 //=======================================================================
-Standard_Integer BRepExtrema_TriangleSet::GetFaceID(const Standard_Integer theIndex) const
+Standard_Integer TriangleSet1::GetFaceID(const Standard_Integer theIndex) const
 {
   return myTriangles[theIndex].w();
 }
@@ -135,7 +135,7 @@ Standard_Integer BRepExtrema_TriangleSet::GetFaceID(const Standard_Integer theIn
 // function : GetShapeIDOfVtx
 // purpose  : Returns shape ID of the given vertex index
 //=======================================================================
-Standard_Integer BRepExtrema_TriangleSet::GetShapeIDOfVtx(const Standard_Integer theIndex) const
+Standard_Integer TriangleSet1::GetShapeIDOfVtx(const Standard_Integer theIndex) const
 {
   return myShapeIdxOfVtxVec.Value(theIndex);
 }
@@ -145,7 +145,7 @@ Standard_Integer BRepExtrema_TriangleSet::GetShapeIDOfVtx(const Standard_Integer
 // purpose  : Returns vertex index in tringulation of the shape, which vertex belongs,
 //           with the given vtx ID in whole set
 //=======================================================================
-Standard_Integer BRepExtrema_TriangleSet::GetVtxIdxInShape(const Standard_Integer theIndex) const
+Standard_Integer TriangleSet1::GetVtxIdxInShape(const Standard_Integer theIndex) const
 {
   Standard_Integer aShID        = myShapeIdxOfVtxVec.Value(theIndex);
   Standard_Integer aNumVertices = 0;
@@ -164,7 +164,7 @@ Standard_Integer BRepExtrema_TriangleSet::GetVtxIdxInShape(const Standard_Intege
 // belongs,
 //            with the given trg ID in whole set (after swapping)
 //=======================================================================
-Standard_Integer BRepExtrema_TriangleSet::GetTrgIdxInShape(const Standard_Integer theIndex) const
+Standard_Integer TriangleSet1::GetTrgIdxInShape(const Standard_Integer theIndex) const
 {
   Standard_Integer aShID         = GetFaceID(theIndex);
   Standard_Integer aNumTriangles = 0;
@@ -181,7 +181,7 @@ Standard_Integer BRepExtrema_TriangleSet::GetTrgIdxInShape(const Standard_Intege
 // function : GetVertices
 // purpose  : Returns vertices of the given triangle
 //=======================================================================
-void BRepExtrema_TriangleSet::GetVertices(const Standard_Integer theIndex,
+void TriangleSet1::GetVertices(const Standard_Integer theIndex,
                                           BVH_Vec3d&             theVertex1,
                                           BVH_Vec3d&             theVertex2,
                                           BVH_Vec3d&             theVertex3) const
@@ -197,7 +197,7 @@ void BRepExtrema_TriangleSet::GetVertices(const Standard_Integer theIndex,
 // function : GetVertices
 // purpose  : Returns vertices of the given triangle
 //=======================================================================
-void BRepExtrema_TriangleSet::GetVtxIndices(
+void TriangleSet1::GetVtxIndices(
   const Standard_Integer                theIndex,
   NCollection_Array1<Standard_Integer>& theVtxIndices) const
 {
@@ -213,7 +213,7 @@ void BRepExtrema_TriangleSet::GetVtxIndices(
 // function : Clear
 // purpose  : Clears triangle set data
 //=======================================================================
-void BRepExtrema_TriangleSet::Clear()
+void TriangleSet1::Clear()
 {
   BVH_Array4i anEmptyTriangles;
   myTriangles.swap(anEmptyTriangles);
@@ -226,7 +226,7 @@ void BRepExtrema_TriangleSet::Clear()
 // function : Init
 // purpose  : Initializes triangle set
 //=======================================================================
-Standard_Boolean BRepExtrema_TriangleSet::Init(const BRepExtrema_ShapeList& theShapes)
+Standard_Boolean TriangleSet1::Init(const BRepExtrema_ShapeList& theShapes)
 {
   Clear();
 
@@ -261,7 +261,7 @@ Standard_Boolean BRepExtrema_TriangleSet::Init(const BRepExtrema_ShapeList& theS
 // function : initFace
 // purpose  : Initializes triangle set
 //=======================================================================
-Standard_Boolean BRepExtrema_TriangleSet::initFace(const TopoFace&     theFace,
+Standard_Boolean TriangleSet1::initFace(const TopoFace&     theFace,
                                                    const Standard_Integer theIndex)
 {
   TopLoc_Location aLocation;
@@ -297,7 +297,7 @@ Standard_Boolean BRepExtrema_TriangleSet::initFace(const TopoFace&     theFace,
 // function : initEdge
 // purpose  : Initializes triangle set
 //=======================================================================
-Standard_Boolean BRepExtrema_TriangleSet::initEdge(const TopoEdge&     theEdge,
+Standard_Boolean TriangleSet1::initEdge(const TopoEdge&     theEdge,
                                                    const Standard_Integer theIndex)
 {
   TopLoc_Location aLocation;
@@ -327,7 +327,7 @@ Standard_Boolean BRepExtrema_TriangleSet::initEdge(const TopoEdge&     theEdge,
 // function : initNodes
 // purpose  : Initializes nodes
 //=======================================================================
-void BRepExtrema_TriangleSet::initNodes(const TColgp_Array1OfPnt& theNodes,
+void TriangleSet1::initNodes(const TColgp_Array1OfPnt& theNodes,
                                         const Transform3d&            theTrsf,
                                         const Standard_Integer    theIndex)
 {

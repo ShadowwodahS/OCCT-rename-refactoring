@@ -42,8 +42,8 @@
 static Standard_Real DistanceOut(const TopoShape& S1, const TopoShape& S2)
 {
   Box2 BBox1, BBox2;
-  BRepBndLib::Add(S1, BBox1);
-  BRepBndLib::Add(S2, BBox2);
+  BRepBndLib1::Add(S1, BBox1);
+  BRepBndLib1::Add(S2, BBox2);
   return BBox1.Distance(BBox2);
 }
 
@@ -57,8 +57,8 @@ static Standard_Real DistanceOut(const TopoShape& S1, const TopoShape& S2)
 static Standard_Real DistanceIn(const TopoShape& S1, const TopoShape& S2)
 {
   Box2 LBBox, SBBox;
-  BRepBndLib::Add(S1, SBBox);
-  BRepBndLib::Add(S2, LBBox);
+  BRepBndLib1::Add(S1, SBBox);
+  BRepBndLib1::Add(S2, LBBox);
 
   Standard_Real LXmin, LYmin, LZmin, LXmax, LYmax, LZmax, SXmin, SYmin, SZmin, SXmax, SYmax, SZmax;
   SBBox.Get(SXmin, SYmin, SZmin, SXmax, SYmax, SZmax);

@@ -29,7 +29,7 @@ class IFSelect_BasicDumper;
 DEFINE_STANDARD_HANDLE(IFSelect_BasicDumper, IFSelect_SessionDumper)
 
 //! BasicDumper takes into account, for SessionFile, all the
-//! classes defined in the package IFSelect : Selections,
+//! classes defined in the package IFSelect1 : Selections,
 //! Dispatches (there is no Modifier)
 class IFSelect_BasicDumper : public IFSelect_SessionDumper
 {
@@ -38,14 +38,14 @@ public:
   //! Creates a BasicDumper and puts it into the Library of Dumper
   Standard_EXPORT IFSelect_BasicDumper();
 
-  //! Write the Own Parameters of Types defined in package IFSelect
+  //! Write the Own Parameters of Types defined in package IFSelect1
   //! Returns True if <item> has been processed, False else
   Standard_EXPORT Standard_Boolean
     WriteOwn(IFSelect_SessionFile&             file,
              const Handle(RefObject)& item) const Standard_OVERRIDE;
 
   //! Recognizes and Read Own Parameters for Types of package
-  //! IFSelect. Returns True if done and <item> created, False else
+  //! IFSelect1. Returns True if done and <item> created, False else
   Standard_EXPORT Standard_Boolean
     ReadOwn(IFSelect_SessionFile&          file,
             const AsciiString1& type,

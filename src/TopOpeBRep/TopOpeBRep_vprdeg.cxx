@@ -226,7 +226,7 @@ Standard_EXPORT void FUN_GetdgData(TopOpeBRepDS_PDataStructure&        pDS,
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mapved);
   for (; itm.More(); itm.Next())
   {
-    const TopoShape& v = itm.Key();
+    const TopoShape& v = itm.Key1();
     if (v.ShapeType() != TopAbs_VERTEX)
       continue;
     Standard_Integer rkv = shaperk.Find(v);
@@ -251,7 +251,7 @@ Standard_EXPORT void FUN_GetdgData(TopOpeBRepDS_PDataStructure&        pDS,
   itm.Initialize(mapved);
   for (; itm.More(); itm.Next())
   {
-    const TopoShape& dge = itm.Key();
+    const TopoShape& dge = itm.Key1();
     Standard_Integer    rk  = shaperk.Find(dge);
     TopoFace         f   = (rk == 1) ? F1 : F2;
     if (dge.ShapeType() != TopAbs_EDGE)

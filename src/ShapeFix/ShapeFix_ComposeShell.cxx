@@ -151,7 +151,7 @@ void ShapeFix_ComposeShell::Init(const Handle(ShapeExtend_CompositeSurface)& Gri
   myFace            = TopoDS::Face(tmpF); // for correct dealing with seams
   myOrient          = Face.Orientation();
   SetPrecision(Prec);
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   // Compute resolution (checking in 2d is necessary for splitting
   // degenerated edges and avoiding NotClosed)
@@ -183,7 +183,7 @@ void ShapeFix_ComposeShell::Init(const Handle(ShapeExtend_CompositeSurface)& Gri
 
 Standard_Boolean ShapeFix_ComposeShell::Perform()
 {
-  myStatus           = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus           = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myInvertEdgeStatus = Standard_False;
 
   ShapeFix_SequenceOfWireSegment seqw; // working data: wire segments
@@ -192,7 +192,7 @@ Standard_Boolean ShapeFix_ComposeShell::Perform()
   LoadWires(seqw);
   if (seqw.Length() == 0)
   {
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_FAIL6);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_FAIL6);
     return Standard_False;
   }
 
@@ -224,7 +224,7 @@ Standard_Boolean ShapeFix_ComposeShell::Perform()
     myResult = faces(1);
   myResult.Orientation(myOrient);
 
-  myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   return Standard_True;
 }
 
@@ -232,7 +232,7 @@ Standard_Boolean ShapeFix_ComposeShell::Perform()
 
 void ShapeFix_ComposeShell::SplitEdges()
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   ShapeFix_SequenceOfWireSegment seqw; // working data: wire segments
 
@@ -254,7 +254,7 @@ const TopoShape& ShapeFix_ComposeShell::Result() const
 
 Standard_Boolean ShapeFix_ComposeShell::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 //=======================================================================
@@ -639,7 +639,7 @@ Standard_Integer ShapeFix_ComposeShell::ComputeCode(const Handle(ShapeExtend_Wir
     Standard_Real        f, l;
     if (!sae.PCurve(edge, myFace, c2d, f, l, Standard_False))
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
       continue;
     }
     Standard_Real    tol        = LimitTolerance(BRepInspector::Tolerance(edge));
@@ -743,7 +743,7 @@ Standard_Integer ShapeFix_ComposeShell::ComputeCode(const Handle(ShapeExtend_Wir
   else if (code == IOR_BOTH)
   { // parity error in intersector
     code = IOR_LEFT;
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 #ifdef OCCT_DEBUG
     std::cout << "Warning: ShapeFix_ComposeShell::ComputeCode: lost intersection point"
               << std::endl;
@@ -886,7 +886,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
     Standard_Integer iumin, iumax, ivmin, ivmax;
     wire.GetPatchIndex(i, iumin, iumax, ivmin, ivmax);
 
-    // Position code for first segment of edge
+    // Position1 code for first segment of edge
     Standard_Integer code = SegmentCodes(start > 1 ? start - 1 : SegmentCodes.Length());
 
     // Defining split parameters on edge
@@ -937,7 +937,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
     Handle(GeomCurve2d) C2d;
     if (!sae.PCurve(edge, myFace, C2d, firstPar, lastPar))
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     }
     // finding sequence of non-manifold parameters
     Standard_Integer       nbNMVert = aNMVertices.Length();
@@ -1011,7 +1011,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
       }
       currPar = (j < stop ? values.Value(j) : lastPar);
       // fix for case when pcurve is periodic and first parameter of edge is more than 2P
-      // method ShapeBuild_Edge::CopyRanges shift pcurve to range 0-2P and parameters of cutting
+      // method Edge2::CopyRanges shift pcurve to range 0-2P and parameters of cutting
       // should be shifted too. gka SAMTECH 28.07.06
       if (isPeriodic)
       {
@@ -1179,7 +1179,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
       splitted = Standard_True;
       prevV.Orientation(TopAbs_FORWARD);
       V.Orientation(TopAbs_REVERSED);
-      ShapeBuild_Edge  sbe;
+      Edge2  sbe;
       TopoEdge      anInitEdge = edge;
       Standard_Boolean ismanifold =
         (edge.Orientation() == TopAbs_FORWARD || edge.Orientation() == TopAbs_REVERSED);
@@ -1271,7 +1271,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
     {
       if (anWireOrient == TopAbs_INTERNAL && code == 0)
       {
-        ShapeBuild_Edge sbe;
+        Edge2 sbe;
         if (edge.Orientation() == TopAbs_INTERNAL)
           edge.Orientation(TopAbs_FORWARD);
         TopoEdge          e1   = sbe.Copy(edge, Standard_False);
@@ -1808,7 +1808,7 @@ void ShapeFix_ComposeShell::SplitByLine(ShapeFix_SequenceOfWireSegment& wires,
     }
     if (tanglevel < 0)
     {
-//      myStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_FAIL4 );
+//      myStatus |= ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL4 );
 #ifdef OCCT_DEBUG
       std::cout << "Warning: ShapeFix_ComposeShell::SplitByLine: tangency level <0 !" << std::endl;
 #endif
@@ -1843,7 +1843,7 @@ void ShapeFix_ComposeShell::SplitByLine(ShapeFix_SequenceOfWireSegment& wires,
 #endif
       if (!V1.IsSame(V2))
       { // merge coincident vertices
-        ShapeBuild_Vertex sbv;
+        Vertex2 sbv;
         TopoVertex     V = sbv.CombineVertex(V1, V2);
         Context()->Replace(V1, V.Oriented(V1.Orientation()));
         Context()->Replace(V2, V.Oriented(V2.Orientation()));
@@ -1910,7 +1910,7 @@ void ShapeFix_ComposeShell::SplitByLine(ShapeFix_SequenceOfWireSegment& wires,
   }
   if (parity % 2)
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL4);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL4);
 #ifdef OCCT_DEBUG
     std::cout << "Error: ShapeFix_ComposeShell::SplitByLine: parity error" << std::endl;
 #endif
@@ -2421,7 +2421,7 @@ void ShapeFix_ComposeShell::CollectWires(ShapeFix_SequenceOfWireSegment& wires,
             break;
         }
         if (k > wire->NbEdges())
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
         if (myClosedMode)
         {
@@ -2537,7 +2537,7 @@ void ShapeFix_ComposeShell::CollectWires(ShapeFix_SequenceOfWireSegment& wires,
         if (sae.GetEndTangent2d(sbwd->Edge(k), myFace, Standard_True, endPnt, endTan, 1.e-3))
           break;
       if (k < 1)
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       if (myUClosed)
         endPnt.SetX(endPnt.X() + dsu);
       if (myVClosed)
@@ -2552,7 +2552,7 @@ void ShapeFix_ComposeShell::CollectWires(ShapeFix_SequenceOfWireSegment& wires,
     {
       if (!endV.IsSame(sae.FirstVertex(firstEdge)))
       {
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL5);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL5);
 #ifdef OCCT_DEBUG
         std::cout << "Warning: ShapeFix_ComposeShell::CollectWires: can't close wire" << std::endl;
 #endif
@@ -3006,7 +3006,7 @@ void ShapeFix_ComposeShell::DispatchWires(TopTools_SequenceOfShape&       faces,
       sfw.FixShifted();
 
       // force recomputation of degenerated edges (clear pcurves)
-      ShapeBuild_Edge sbe;
+      Edge2 sbe;
       for (Standard_Integer jL = 1; jL <= sbwd->NbEdges(); jL++)
       {
         if (BRepInspector::Degenerated(sbwd->Edge(jL)))
@@ -3032,7 +3032,7 @@ void ShapeFix_ComposeShell::DispatchWires(TopTools_SequenceOfShape&       faces,
   // Put each wire on its own surface patch (by reassigning pcurves)
   // and build 3d curve if necessary
   ShapeBuild_ReShape    rs;
-  ShapeBuild_Edge       sbe;
+  Edge2       sbe;
   Edge1    sae;
   Handle(ShapeFix_Edge) sfe = new ShapeFix_Edge;
 

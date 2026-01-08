@@ -30,7 +30,7 @@
 #include <TColgp_HArray1OfCirc2d.hxx>
 #include <Poly_HArray1OfTriangle.hxx>
 
-class ShapePersistent_HArray1 : private StdLPersistent_HArray1
+class ShapePersistent_HArray1 : private HArray1
 {
 public:
   typedef instance<TColgp_HArray1OfXYZ>    XYZ;
@@ -46,9 +46,9 @@ public:
   typedef instance<Poly_HArray1OfTriangle> Triangle1;
 };
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Triangle2& theTriangle)
+inline ReadData& operator>>(ReadData& theReadData, Triangle2& theTriangle)
 {
-  StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
+  ReadData::ObjectSentry aSentry(theReadData);
 
   Standard_Integer N1, N2, N3;
   theReadData >> N1 >> N2 >> N3;
@@ -56,10 +56,10 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Triangle2
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData,
+inline WriteData& operator<<(WriteData& theWriteData,
                                        const Triangle2& theTriangle)
 {
-  StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
+  WriteData::ObjectSentry aSentry(theWriteData);
 
   Standard_Integer N1, N2, N3;
   theTriangle.Get(N1, N2, N3);

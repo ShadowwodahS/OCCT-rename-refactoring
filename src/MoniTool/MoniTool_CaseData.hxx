@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(MoniTool_CaseData, RefObject)
 //! Cases can be :
 //! * internal, i.e. for immediate debug
 //! for instance, on an abnormal exception, fill a CaseData
-//! in a DB (see class DB) then look at its content by XSDRAW
+//! in a DB (see class DB) then look at its content by XSDRAW1
 //! * to record abnormal situation, which cause a warning or fail
 //! message, for instance during a transfer
 //! This will allow, firstly to build a more comprehensive
@@ -177,7 +177,7 @@ public:
   //! Adds a Text (as HAsciiString)
   Standard_EXPORT void AddText(const Standard_CString text, const Standard_CString name = "");
 
-  //! Adds an Integer
+  //! Adds an Integer1
   Standard_EXPORT void AddInteger(const Standard_Integer val, const Standard_CString name = "");
 
   //! Adds a Transient, with no more meaning
@@ -250,14 +250,14 @@ public:
                                          Standard_Real&         v2) const;
 
   //! Returns a real or CPU amount (stored in Geom2d_CartesianPoint)
-  //! (allows an Integer converted to a Real)
+  //! (allows an Integer1 converted to a Real)
   Standard_EXPORT Standard_Boolean Real(const Standard_Integer nd, Standard_Real& val) const;
 
   //! Returns a text (stored in TCollection_HAsciiString)
   Standard_EXPORT Standard_Boolean Text(const Standard_Integer nd, Standard_CString& text) const;
 
-  //! Returns an Integer
-  Standard_EXPORT Standard_Boolean Integer(const Standard_Integer nd, Standard_Integer& val) const;
+  //! Returns an Integer1
+  Standard_EXPORT Standard_Boolean Integer1(const Standard_Integer nd, Standard_Integer& val) const;
 
   //! Returns a Msg from a CaseData : it is build from DefMsg, which
   //! gives the message code plus the designation of items of the

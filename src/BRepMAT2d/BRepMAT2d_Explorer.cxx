@@ -91,7 +91,7 @@ void BRepMAT2d_Explorer::Perform(const TopoFace& aFace)
     Exp.Next();
   }
 
-  BRepLib::BuildCurves3d(aNewF);
+  BRepLib1::BuildCurves3d(aNewF);
 
   myModifShapes.Add(aFace, aNewF);
   //   CheckConnection();

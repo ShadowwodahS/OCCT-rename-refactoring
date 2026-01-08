@@ -55,18 +55,18 @@ public:
 
   Standard_EXPORT static void AllCommands(DrawInterpreter& DI);
 
-  //! commands relatives to NamedShape
+  //! commands relatives to NamedShape1
   Standard_EXPORT static void BasicCommands(DrawInterpreter& DI);
 
-  //! loading NamedShape to the Data Framework
+  //! loading NamedShape1 to the Data Framework
   Standard_EXPORT static void BuilderCommands(DrawInterpreter& DI);
 
-  //! loading NamedShape to the Data Framework
+  //! loading NamedShape1 to the Data Framework
   Standard_EXPORT static void IteratorsCommands(DrawInterpreter& DI);
 
   Standard_EXPORT static void ToolsCommands(DrawInterpreter& DI);
 
-  //! commands relatives to Naming
+  //! commands relatives to Naming1
   Standard_EXPORT static void SelectionCommands(DrawInterpreter& DI);
 
 protected:

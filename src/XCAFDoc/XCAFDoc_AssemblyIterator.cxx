@@ -24,11 +24,11 @@
 #include <XCAFDoc_ShapeTool.hxx>
 
 // =======================================================================
-// function : XCAFDoc_AssemblyIterator constructor
+// function : AssemblyIterator constructor
 // purpose  : Starts from free shapes
 // =======================================================================
 
-XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
+AssemblyIterator::AssemblyIterator(const Handle(AppDocument)& theDoc,
                                                    const Standard_Integer          theLevel)
     : myMaxLevel(theLevel),
       mySeedLevel(1)
@@ -53,12 +53,12 @@ XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& th
 }
 
 // =======================================================================
-// function : XCAFDoc_AssemblyIterator constructor
+// function : AssemblyIterator constructor
 // purpose  : Starts from the specified root
 // =======================================================================
 
-XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
-                                                   const XCAFDoc_AssemblyItemId&   theRoot,
+AssemblyIterator::AssemblyIterator(const Handle(AppDocument)& theDoc,
+                                                   const AssemblyItemId&   theRoot,
                                                    const Standard_Integer          theLevel)
     : myMaxLevel(theLevel),
       mySeedLevel(theRoot.GetPath().Size())
@@ -106,7 +106,7 @@ XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& th
 // purpose  : Checks possibility to continue iteration
 // =======================================================================
 
-Standard_Boolean XCAFDoc_AssemblyIterator::More() const
+Standard_Boolean AssemblyIterator::More() const
 {
   return !myFringe.IsEmpty();
 }
@@ -116,7 +116,7 @@ Standard_Boolean XCAFDoc_AssemblyIterator::More() const
 // purpose  : Moves to the next position
 // =======================================================================
 
-void XCAFDoc_AssemblyIterator::Next()
+void AssemblyIterator::Next()
 {
   if (!More())
     return; // No next item.
@@ -160,7 +160,7 @@ void XCAFDoc_AssemblyIterator::Next()
 // purpose  : Returns current assembly item
 // =======================================================================
 
-XCAFDoc_AssemblyItemId XCAFDoc_AssemblyIterator::Current() const
+AssemblyItemId AssemblyIterator::Current() const
 {
   return myFringe.Last().myItem;
 }
@@ -170,7 +170,7 @@ XCAFDoc_AssemblyItemId XCAFDoc_AssemblyIterator::Current() const
 // purpose  : Makes an assembly item id from the specified label
 // =======================================================================
 
-void XCAFDoc_AssemblyIterator::createItem(const DataLabel&                 theLabel,
+void AssemblyIterator::createItem(const DataLabel&                 theLabel,
                                           const TColStd_ListOfAsciiString& theParentPath,
                                           AuxAssemblyItem&                 theAuxItem) const
 {

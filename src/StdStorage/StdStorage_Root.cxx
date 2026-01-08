@@ -71,7 +71,7 @@ void StdStorage_Root::SetReference(const Standard_Integer aRef)
   myRef = aRef;
 }
 
-Standard_Integer StdStorage_Root::Reference() const
+Standard_Integer StdStorage_Root::Reference1() const
 {
   return myRef;
 }

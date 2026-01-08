@@ -63,7 +63,7 @@ void RWStepGeom_RWParabola::WriteStep(StepData_StepWriter&             SW,
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position().Value());
+  SW.Send(ent->Position1().Value());
 
   // --- own field : focalDist ---
 
@@ -74,5 +74,5 @@ void RWStepGeom_RWParabola::Share(const Handle(StepGeom_Parabola)& ent,
                                   Interface_EntityIterator&        iter) const
 {
 
-  iter.GetOneItem(ent->Position().Value());
+  iter.GetOneItem(ent->Position1().Value());
 }

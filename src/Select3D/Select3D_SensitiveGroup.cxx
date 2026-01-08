@@ -175,8 +175,8 @@ Handle(Select3D_SensitiveEntity) Select3D_SensitiveGroup::GetConnected()
 
 //=================================================================================================
 
-Standard_Boolean Select3D_SensitiveGroup::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                  SelectBasics_PickResult& thePickResult)
+Standard_Boolean Select3D_SensitiveGroup::Matches(SelectingVolumeManager& theMgr,
+                                                  PickResult& thePickResult)
 {
   const Standard_Boolean toMatchAll =
     theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point && myMustMatchAll;
@@ -187,7 +187,7 @@ Standard_Boolean Select3D_SensitiveGroup::Matches(SelectBasics_SelectingVolumeMa
     return Select3D_SensitiveSet::Matches(theMgr, thePickResult);
   }
 
-  SelectBasics_PickResult aPickResult;
+  PickResult aPickResult;
   Standard_Boolean        isFailed = Standard_False;
   for (Select3D_IndexedMapOfEntity::Iterator anEntityIter(myEntities); anEntityIter.More();
        anEntityIter.Next())
@@ -206,7 +206,7 @@ Standard_Boolean Select3D_SensitiveGroup::Matches(SelectBasics_SelectingVolumeMa
     }
     else
     {
-      thePickResult = SelectBasics_PickResult::Min(thePickResult, aPickResult);
+      thePickResult = PickResult::Min(thePickResult, aPickResult);
     }
   }
   if (isFailed)
@@ -312,8 +312,8 @@ Standard_Integer Select3D_SensitiveGroup::Size() const
 //            current selecting volume
 // =======================================================================
 Standard_Boolean Select3D_SensitiveGroup::overlapsElement(
-  SelectBasics_PickResult&             thePickResult,
-  SelectBasics_SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean)
 {
@@ -329,11 +329,11 @@ Standard_Boolean Select3D_SensitiveGroup::overlapsElement(
 //=================================================================================================
 
 Standard_Boolean Select3D_SensitiveGroup::elementIsInside(
-  SelectBasics_SelectingVolumeManager& theMgr,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
-  SelectBasics_PickResult aDummy;
+  PickResult aDummy;
   return overlapsElement(aDummy, theMgr, theElemIdx, theIsFullInside);
 }
 
@@ -342,7 +342,7 @@ Standard_Boolean Select3D_SensitiveGroup::elementIsInside(
 // purpose  : Calculates distance from the 3d projection of used-picked
 //            screen point to center of the geometry
 // =======================================================================
-Standard_Real Select3D_SensitiveGroup::distanceToCOG(SelectBasics_SelectingVolumeManager& theMgr)
+Standard_Real Select3D_SensitiveGroup::distanceToCOG(SelectingVolumeManager& theMgr)
 {
   return theMgr.DistToGeometryCenter(CenterOfGeometry());
 }

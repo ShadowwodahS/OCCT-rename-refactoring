@@ -24,7 +24,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Provides methods for testing the mesh algorithms.
-class MeshTest
+class MeshTest1
 {
 public:
   DEFINE_STANDARD_ALLOC

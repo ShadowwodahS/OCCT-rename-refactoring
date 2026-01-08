@@ -17,8 +17,8 @@
 
 //=================================================================================================
 
-NCollection_BasePointerVector::NCollection_BasePointerVector(
-  const NCollection_BasePointerVector& theOther)
+BasePointerVector::BasePointerVector(
+  const BasePointerVector& theOther)
     : mySize(theOther.mySize),
       myCapacity(theOther.myCapacity)
 {
@@ -31,8 +31,8 @@ NCollection_BasePointerVector::NCollection_BasePointerVector(
 
 //=================================================================================================
 
-NCollection_BasePointerVector::NCollection_BasePointerVector(
-  NCollection_BasePointerVector&& theOther) noexcept
+BasePointerVector::BasePointerVector(
+  BasePointerVector&& theOther) noexcept
     : mySize(std::move(theOther.mySize)),
       myCapacity(std::move(theOther.myCapacity)),
       myArray(std::move(theOther.myArray))
@@ -44,7 +44,7 @@ NCollection_BasePointerVector::NCollection_BasePointerVector(
 
 //=================================================================================================
 
-void NCollection_BasePointerVector::Append(const void* thePnt)
+void BasePointerVector::Append(const void* thePnt)
 {
   if (mySize == myCapacity)
   {
@@ -63,7 +63,7 @@ void NCollection_BasePointerVector::Append(const void* thePnt)
 
 //=================================================================================================
 
-void NCollection_BasePointerVector::SetValue(const size_t theInd, const void* thePnt)
+void BasePointerVector::SetValue(const size_t theInd, const void* thePnt)
 {
   if (theInd >= myCapacity)
   {
@@ -84,7 +84,7 @@ void NCollection_BasePointerVector::SetValue(const size_t theInd, const void* th
 
 //=================================================================================================
 
-void NCollection_BasePointerVector::clear()
+void BasePointerVector::clear()
 {
   if (myCapacity > 0)
   {
@@ -98,8 +98,8 @@ void NCollection_BasePointerVector::clear()
 // function : operator=
 // purpose  :
 //=======================================================================
-NCollection_BasePointerVector& NCollection_BasePointerVector::operator=(
-  const NCollection_BasePointerVector& theOther)
+BasePointerVector& BasePointerVector::operator=(
+  const BasePointerVector& theOther)
 {
   if (this == &theOther)
   {
@@ -120,8 +120,8 @@ NCollection_BasePointerVector& NCollection_BasePointerVector::operator=(
 // function : operator=
 // purpose  :
 //=======================================================================
-NCollection_BasePointerVector& NCollection_BasePointerVector::operator=(
-  NCollection_BasePointerVector&& theOther) noexcept
+BasePointerVector& BasePointerVector::operator=(
+  BasePointerVector&& theOther) noexcept
 {
   if (this == &theOther)
   {

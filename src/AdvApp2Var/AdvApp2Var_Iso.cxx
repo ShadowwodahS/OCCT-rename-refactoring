@@ -502,7 +502,7 @@ Standard_Integer AdvApp2Var_Iso::VOrder() const
 
 //=================================================================================================
 
-Standard_Integer AdvApp2Var_Iso::Position() const
+Standard_Integer AdvApp2Var_Iso::Position1() const
 {
   return myPosition;
 }

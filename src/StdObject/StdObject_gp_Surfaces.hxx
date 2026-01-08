@@ -21,7 +21,7 @@
 #include <gp_Sphere.hxx>
 #include <gp_Torus.hxx>
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Cone1& theCone)
+inline ReadData& operator>>(ReadData& theReadData, Cone1& theCone)
 {
   Ax3        anAx;
   Standard_Real aRadius, aSemiAngle;
@@ -35,16 +35,16 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Cone1& th
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Cone1& theCone)
+inline WriteData& operator<<(WriteData& theWriteData, const Cone1& theCone)
 {
-  const Ax3& anAx       = theCone.Position();
+  const Ax3& anAx       = theCone.Position1();
   Standard_Real aRadius    = theCone.RefRadius();
   Standard_Real aSemiAngle = theCone.SemiAngle();
   theWriteData << anAx << aRadius << aSemiAngle;
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Cylinder1& theCyl)
+inline ReadData& operator>>(ReadData& theReadData, Cylinder1& theCyl)
 {
   Ax3        anAx;
   Standard_Real aRadius;
@@ -57,15 +57,15 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Cylinder1
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Cylinder1& theCyl)
+inline WriteData& operator<<(WriteData& theWriteData, const Cylinder1& theCyl)
 {
-  const Ax3& anAx    = theCyl.Position();
+  const Ax3& anAx    = theCyl.Position1();
   Standard_Real aRadius = theCyl.Radius();
   theWriteData << anAx << aRadius;
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Sphere3& theSph)
+inline ReadData& operator>>(ReadData& theReadData, Sphere3& theSph)
 {
   Ax3        anAx;
   Standard_Real aRadius;
@@ -78,15 +78,15 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Sphere3& 
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Sphere3& theSph)
+inline WriteData& operator<<(WriteData& theWriteData, const Sphere3& theSph)
 {
-  const Ax3& anAx    = theSph.Position();
+  const Ax3& anAx    = theSph.Position1();
   Standard_Real aRadius = theSph.Radius();
   theWriteData << anAx << aRadius;
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Torus& theTorus)
+inline ReadData& operator>>(ReadData& theReadData, gp_Torus& theTorus)
 {
   Ax3        anAx;
   Standard_Real aMajorRadius, aMinorRadius;
@@ -100,9 +100,9 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Torus&
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Torus& theTorus)
+inline WriteData& operator<<(WriteData& theWriteData, const gp_Torus& theTorus)
 {
-  const Ax3& anAx         = theTorus.Position();
+  const Ax3& anAx         = theTorus.Position1();
   Standard_Real aMajorRadius = theTorus.MajorRadius();
   Standard_Real aMinorRadius = theTorus.MinorRadius();
   theWriteData << anAx << aMajorRadius << aMinorRadius;

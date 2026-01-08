@@ -155,7 +155,7 @@ void PrsDim_FixRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
     myArrowSize = 5.;
 
   // creation of the presentation
-  DsgPrs_FixPresentation::Add(aPresentation, myDrawer, myPntAttach, curpos, nor, myArrowSize);
+  FixPresentation::Add(aPresentation, myDrawer, myPntAttach, curpos, nor, myArrowSize);
 }
 
 //=================================================================================================
@@ -336,7 +336,7 @@ void PrsDim_FixRelation::ComputeEdge(const TopoEdge& FixEdge, Point3d& curpos)
 {
   Handle(GeomCurve3d) curEdge;
   Point3d             ptbeg, ptend;
-  if (!PrsDim::ComputeGeometry(FixEdge, curEdge, ptbeg, ptend))
+  if (!PrsDim1::ComputeGeometry(FixEdge, curEdge, ptbeg, ptend))
     return;
 
   //---------------------------------------------------------
@@ -385,7 +385,7 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
 
     Dir3d norm = myPlane->Axis().Direction();
 
-    norm.Cross(glin.Position().Direction());
+    norm.Cross(glin.Position1().Direction());
     pos                 = myPntAttach.Translated(Vector3d(norm) * myArrowSize);
     myAutomaticPosition = Standard_True;
   } // if (myAutomaticPosition)
@@ -400,7 +400,7 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
     if ((linparam >= pfirst) && (linparam <= plast))
       myPntAttach = ElCLib1::Value(linparam, glin);
 
-    // case if the projection of Position is outside of the limits
+    // case if the projection of Position1 is outside of the limits
     // of the edge : the point closest to the projection is chosen
     // as the attach point
     else
@@ -413,7 +413,7 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
       myPntAttach = ElCLib1::Value(pOnLin, glin);
       Dir3d norm = myPlane->Axis().Direction();
 
-      norm.Cross(glin.Position().Direction());
+      norm.Cross(glin.Position1().Direction());
       gp_Lin        lsup(myPntAttach, norm);
       Standard_Real parpos = ElCLib1::Parameter(lsup, myPosition);
       pos                  = ElCLib1::Value(parpos, lsup);

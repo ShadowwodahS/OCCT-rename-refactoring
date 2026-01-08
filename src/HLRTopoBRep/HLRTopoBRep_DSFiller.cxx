@@ -403,7 +403,7 @@ void DSFiller::InsertFace(const Standard_Integer /*FI*/,
 
                   Standard_Integer  dmin = 4, dmax = 8, niter = 0;
                   Standard_Boolean  tg = Standard_False;
-                  BRepApprox_Approx Approx;
+                  Approx1 Approx;
                   Standard_Real     TOL3d, TOL2d, TOL = 0.0001;
 
                   Maxx -= Minx;

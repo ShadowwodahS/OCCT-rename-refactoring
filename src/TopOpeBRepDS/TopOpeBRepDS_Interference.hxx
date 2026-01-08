@@ -48,7 +48,7 @@ DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Interference, RefObject)
 //! - GeometryType  :   Type  of the  geometry of  the
 //! interference (SURFACE, CURVE, POINT).
 //!
-//! - Geometry : Index  in the data structure  of the
+//! - Geometry1 : Index  in the data structure  of the
 //! geometry.
 class TopOpeBRepDS_Interference : public RefObject
 {
@@ -60,7 +60,7 @@ public:
                                             const TopOpeBRepDS_Kind        SupportType,
                                             const Standard_Integer         Support,
                                             const TopOpeBRepDS_Kind        GeometryType,
-                                            const Standard_Integer         Geometry);
+                                            const Standard_Integer         Geometry1);
 
   Standard_EXPORT TopOpeBRepDS_Interference(const Handle(TopOpeBRepDS_Interference)& I);
 
@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT void Transition(const StateTransition& T);
 
-  //! return GeometryType + Geometry + SupportType + Support
+  //! return GeometryType + Geometry1 + SupportType + Support
   Standard_EXPORT void GKGSKS(TopOpeBRepDS_Kind& GK,
                               Standard_Integer&  G,
                               TopOpeBRepDS_Kind& SK,
@@ -82,7 +82,7 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_Kind GeometryType() const;
 
-  Standard_EXPORT Standard_Integer Geometry() const;
+  Standard_EXPORT Standard_Integer Geometry1() const;
 
   Standard_EXPORT void SetGeometry(const Standard_Integer GI);
 
@@ -92,7 +92,7 @@ public:
 
   Standard_EXPORT void GeometryType(const TopOpeBRepDS_Kind GT);
 
-  Standard_EXPORT void Geometry(const Standard_Integer G);
+  Standard_EXPORT void Geometry1(const Standard_Integer G);
 
   Standard_EXPORT Standard_Boolean
     HasSameSupport(const Handle(TopOpeBRepDS_Interference)& Other) const;

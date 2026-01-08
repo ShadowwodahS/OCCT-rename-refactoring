@@ -22,7 +22,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 //! Application Interactive Services provide the means to create links between an application GUI
-//! viewer and the packages which are used to manage selection and presentation. The tools AIS
+//! viewer and the packages which are used to manage selection and presentation. The tools AIS1
 //! defined in order to do this include different sorts of entities: both the selectable viewable
 //! objects themselves and the context and attribute managers to define their selection and display.
 //! To orient the user as he works in a modeling environment, views and selections must be
@@ -64,7 +64,7 @@
 //! an environment of dynamic detection, you can use standard filter classes or create your own. A
 //! filter questions the owner of the sensitive primitive to determine if it has the desired
 //! qualities. If it answers positively, it is kept. If not, it is rejected. The standard filters
-//! supplied in AIS include:
+//! supplied in AIS1 include:
 //! - AIS_AttributeFilter
 //! - AIS_SignatureFilter
 //! - AIS_TypeFilter.
@@ -75,7 +75,7 @@
 //! valid by default for the objects it controls. When an interactive object is visualized, the
 //! required graphic attributes are first taken from the object's own Drawer if one exists, or from
 //! the context drawer for the others.
-class AIS
+class AIS1
 {
 public:
   DEFINE_STANDARD_ALLOC

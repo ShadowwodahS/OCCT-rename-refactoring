@@ -28,14 +28,14 @@ typedef NCollection_DataMap<Handle(SelectMgr_EntityOwner), Standard_Integer> Sel
 //! This class is used to store all calculated sensitive entities of one selectable object.
 //! It provides an interface for building BVH tree which is used to speed-up
 //! the performance of searching for overlap among sensitives of one selectable object
-class SelectMgr_SensitiveEntitySet : public BVH_PrimitiveSet3d
+class SensitiveEntitySet : public BVH_PrimitiveSet3d
 {
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_SensitiveEntitySet, BVH_PrimitiveSet3d)
+  DEFINE_STANDARD_RTTIEXT(SensitiveEntitySet, BVH_PrimitiveSet3d)
 public:
   //! Empty constructor.
-  Standard_EXPORT SelectMgr_SensitiveEntitySet(const Handle(Select3D_BVHBuilder3d)& theBuilder);
+  Standard_EXPORT SensitiveEntitySet(const Handle(Select3D_BVHBuilder3d)& theBuilder);
 
-  virtual ~SelectMgr_SensitiveEntitySet() {}
+  virtual ~SensitiveEntitySet() {}
 
   //! Adds new entity to the set and marks BVH tree for rebuild
   Standard_EXPORT void Append(const Handle(SelectMgr_SensitiveEntity)& theEntity);

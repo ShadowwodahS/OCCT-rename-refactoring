@@ -369,7 +369,7 @@ void PrsMgr_PresentationManager::displayImmediate(const Handle(ViewManager)& the
         myViewDependentImmediateList.Append(aShadowPrs);
       }
       // handles custom highlight presentations which were defined in overridden
-      // HilightOwnerWithColor method of a custom AIS objects and maintain its
+      // HilightOwnerWithColor method of a custom AIS1 objects and maintain its
       // visibility in different views on their own
       else if (aShadowPrs.IsNull())
       {

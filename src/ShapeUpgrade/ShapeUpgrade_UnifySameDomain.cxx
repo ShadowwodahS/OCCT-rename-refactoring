@@ -124,7 +124,7 @@ static Standard_Boolean IsLinear(const BRepAdaptor_Curve& theBAcurve, Dir3d& the
 
   if (aType == GeomAbs_Line)
   {
-    theDir = theBAcurve.Line().Position().Direction();
+    theDir = theBAcurve.Line().Position1().Direction();
     return Standard_True;
   }
 
@@ -986,8 +986,8 @@ static void TransformPCurves(const TopoFace&   theRefFace,
 
   if (!ElemSurfFace.IsNull() && !ElemRefSurf.IsNull())
   {
-    Ax3 AxisOfSurfFace = ElemSurfFace->Position();
-    Ax3 AxisOfRefSurf  = ElemRefSurf->Position();
+    Ax3 AxisOfSurfFace = ElemSurfFace->Position1();
+    Ax3 AxisOfRefSurf  = ElemRefSurf->Position1();
 
     Point3d OriginRefSurf = AxisOfRefSurf.Location();
 
@@ -1244,7 +1244,7 @@ static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, Cylinder1
     {
       Handle(GeomLine) aBasisLine = Handle(GeomLine)::DownCast(aBasis);
       Dir3d            aDir       = aRS->Direction();
-      Dir3d            aBasisDir  = aBasisLine->Position().Direction();
+      Dir3d            aBasisDir  = aBasisLine->Position1().Direction();
       if (aBasisDir.IsParallel(aDir, Precision::Angular()))
       {
         // basis line is parallel to the revolution axis: it is a cylinder
@@ -1273,7 +1273,7 @@ static Standard_Boolean getCylinder(Handle(GeomSurface)& theInSurface, Cylinder1
     {
       Handle(GeomCircle) aBasisCircle = Handle(GeomCircle)::DownCast(aBasis);
       Dir3d              aDir         = aLES->Direction();
-      Dir3d              aBasisDir    = aBasisCircle->Position().Direction();
+      Dir3d              aBasisDir    = aBasisCircle->Position1().Direction();
       if (aBasisDir.IsParallel(aDir, Precision::Angular()))
       {
         // basis circle is normal to the extrusion axis: it is a cylinder
@@ -1418,7 +1418,7 @@ static Standard_Boolean IsSameDomain(
       gp_Pln aPln1 = aPlanarityChecker1.Plan();
       gp_Pln aPln2 = aPlanarityChecker2.Plan();
 
-      if (aPln1.Position().Direction().IsParallel(aPln2.Position().Direction(), theAngTol)
+      if (aPln1.Position1().Direction().IsParallel(aPln2.Position1().Direction(), theAngTol)
           && aPln1.Distance(aPln2) < theLinTol)
       {
         Handle(GeomPlane) aPlaneOfFaces;
@@ -1475,8 +1475,8 @@ static Standard_Boolean IsSameDomain(
     {
       if (fabs(aCyl1.Radius() - aCyl2.Radius()) < theLinTol)
       {
-        Dir3d aDir1 = aCyl1.Position().Direction();
-        Dir3d aDir2 = aCyl2.Position().Direction();
+        Dir3d aDir1 = aCyl1.Position1().Direction();
+        Dir3d aDir2 = aCyl2.Position1().Direction();
         if (aDir1.IsParallel(aDir2, Precision::Angular()))
         {
           Point3d aLoc1 = aCyl1.Location();
@@ -1669,7 +1669,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
              ResPCurves(j)->LastParameter());
   }
 
-  BRepLib::SameParameter(ResEdge, MaxTol, Standard_True);
+  BRepLib1::SameParameter(ResEdge, MaxTol, Standard_True);
 
   return ResEdge;
 }
@@ -2011,7 +2011,7 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
         {
           gp_Circ2d     aCirc2d   = aGAcurve.Circle();
           Standard_Real aRadius   = aCirc2d.Radius();
-          Ax22d      aPosition = aCirc2d.Position();
+          Ax22d      aPosition = aCirc2d.Position1();
           gp_Pnt2d      aLocation = aCirc2d.Location();
           Standard_Real anOffset  = ResFirsts(ii) - aFirst3d;
           aPosition.Rotate(aLocation, anOffset);
@@ -3046,7 +3046,7 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
       // for a planar face create and store pcurve of edge on face
       // to speed up all operations
       if (!mySafeInputMode && aBaseSurface->IsKind(STANDARD_TYPE(GeomPlane)))
-        BRepLib::BuildPCurveForEdgeOnPlane(edge, aFace);
+        BRepLib1::BuildPCurveForEdgeOnPlane(edge, aFace);
 
       // get normal of the face to compare it with normals of other faces
       Dir3d aDN1;
@@ -3319,7 +3319,7 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
         const TopoFace&          aFace1    = TopoDS::Face(aFaceList.First());
         const TopoFace&          aFace2    = TopoDS::Face(aFaceList.Last());
         GeomAbs_Shape               anOrderOfCont =
-          BRepLib::ContinuityOfFaces(EdgeWith2pcurves, aFace1, aFace2, myAngTol);
+          BRepLib1::ContinuityOfFaces(EdgeWith2pcurves, aFace1, aFace2, myAngTol);
         aIsEdgeWith2pcurvesSmooth = (anOrderOfCont >= GeomAbs_G1);
       }
 
@@ -4003,7 +4003,7 @@ void ShapeUpgrade_UnifySameDomain::UnifyEdges()
         ShapeList aLE;
         for (ShapeExplorer anEx(aFace, TopAbs_EDGE); anEx.More(); anEx.Next())
           aLE.Append(anEx.Current());
-        BRepLib::BuildPCurveForEdgesOnPlane(aLE, aFace);
+        BRepLib1::BuildPCurveForEdgesOnPlane(aLE, aFace);
       }
     }
 

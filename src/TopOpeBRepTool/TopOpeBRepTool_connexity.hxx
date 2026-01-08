@@ -33,11 +33,11 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_connexity();
 
-  Standard_EXPORT TopOpeBRepTool_connexity(const TopoShape& Key);
+  Standard_EXPORT TopOpeBRepTool_connexity(const TopoShape& Key1);
 
-  Standard_EXPORT void SetKey(const TopoShape& Key);
+  Standard_EXPORT void SetKey(const TopoShape& Key1);
 
-  Standard_EXPORT const TopoShape& Key() const;
+  Standard_EXPORT const TopoShape& Key1() const;
 
   Standard_EXPORT Standard_Integer Item(const Standard_Integer OriKey,
                                         ShapeList&  Item) const;

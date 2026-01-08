@@ -51,7 +51,7 @@ void FlashTool::ReadOwnParams(const Handle(IGESGeom_Flash)&          ent,
 
   // Reading reference of flash
   // clang-format off
-  PR.ReadXY(PR.CurrentList(1, 2), "Reference of Flash", aPoint); //szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadXY(PR.CurrentList(1, 2), "Reference1 of Flash", aPoint); //szv#4:S4163:12Mar99 `st=` not needed
 
   // Reading first flash sizing parameter
   if (PR.DefinedElseSkip())
@@ -173,10 +173,10 @@ void FlashTool::OwnCheck(const Handle(IGESGeom_Flash)& ent,
   if (ent->ReferenceEntity().IsNull())
   {
     if (fn == 0)
-      ach->AddFail("Flash defined by a Reference Entity, which is absent");
+      ach->AddFail("Flash defined by a Reference1 Entity, which is absent");
   }
   else if (fn != 0)
-    ach->AddWarning("Reference Entity present though useless");
+    ach->AddWarning("Reference1 Entity present though useless");
   if (fn == 1 && ent->Dimension2() != 0.)
     ach->AddWarning("Dimension 2 present though useless");
   if ((fn == 1 || fn == 3) && ent->Rotation() != 0.)
@@ -218,7 +218,7 @@ void FlashTool::OwnDump(const Handle(IGESGeom_Flash)& ent,
   S << " First sizing parameter  : " << ent->Dimension1() << "  "
     << " Second sizing parameter : " << ent->Dimension2() << "\n"
     << " Rotation about reference entity : " << ent->Rotation() << "\n"
-    << "Reference Entity         : ";
+    << "Reference1 Entity         : ";
   dumper.Dump(ent->ReferenceEntity(), S, sublevel);
   S << std::endl;
 }

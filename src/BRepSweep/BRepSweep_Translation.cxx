@@ -318,7 +318,7 @@ void BRepSweep_Translation::SetGeneratingPCurve(const TopoShape& aNewFace,
   {
     /* nothing is done JAG
         gp_Pln pln = AS.Plane1();
-        Ax3 ax3 = pln.Position();
+        Ax3 ax3 = pln.Position1();
 
     // JYL : the following produces bugs on an edge constructed from a trimmed 3D curve :
     //
@@ -378,7 +378,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoShape& aNewFace,
       else{
 
         gp_Pln pln = AS.Plane1();
-        Ax3 ax3 = pln.Position();
+        Ax3 ax3 = pln.Position1();
         Point3d pv = BRepInspector::Pnt(TopoDS::Vertex(aGenV));
         Dir3d dir(myVec);
         Standard_Real u,v;

@@ -1394,7 +1394,7 @@ Frame3d ElCLib1::To3d(const Frame3d& Pos, const Ax22d& A)
 
 gp_Lin ElCLib1::To3d(const Frame3d& Pos, const gp_Lin2d& L)
 {
-  return gp_Lin(ElCLib1::To3d(Pos, L.Position()));
+  return gp_Lin(ElCLib1::To3d(Pos, L.Position1()));
 }
 
 //=================================================================================================

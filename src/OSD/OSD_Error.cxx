@@ -664,14 +664,14 @@ void OSD_Error ::Perror()
 
 void OSD_Error ::SetValue(const Standard_Integer         Errcode,
                           const Standard_Integer         From,
-                          const AsciiString1& Message)
+                          const AsciiString1& Message1)
 {
 
   int i;
 
   myErrno   = Errcode;
   myCode    = (OSD_WhoAmI)From;
-  myMessage = Message;
+  myMessage = Message1;
 
   switch (From)
   {

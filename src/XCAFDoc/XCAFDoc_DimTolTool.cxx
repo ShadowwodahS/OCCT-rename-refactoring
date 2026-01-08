@@ -305,62 +305,62 @@ void XCAFDoc_DimTolTool::SetDimension(const TDF_LabelSequence& theFirstL,
   Handle(XCAFDoc_GraphNode) aFGNode;
   Handle(XCAFDoc_GraphNode) aSecondFGNode;
 
-  if (theDimTolL.FindAttribute(XCAFDoc::DimensionRefFirstGUID(), aChGNode))
+  if (theDimTolL.FindAttribute(XCAFDoc1::DimensionRefFirstGUID(), aChGNode))
   {
     while (aChGNode->NbFathers() > 0)
     {
       aFGNode = aChGNode->GetFather(1);
       aFGNode->UnSetChild(aChGNode);
       if (aFGNode->NbChildren() == 0)
-        aFGNode->ForgetAttribute(XCAFDoc::DimensionRefFirstGUID());
+        aFGNode->ForgetAttribute(XCAFDoc1::DimensionRefFirstGUID());
     }
-    theDimTolL.ForgetAttribute(XCAFDoc::DimensionRefFirstGUID());
+    theDimTolL.ForgetAttribute(XCAFDoc1::DimensionRefFirstGUID());
   }
-  if (theDimTolL.FindAttribute(XCAFDoc::DimensionRefSecondGUID(), aChGNode))
+  if (theDimTolL.FindAttribute(XCAFDoc1::DimensionRefSecondGUID(), aChGNode))
   {
     while (aChGNode->NbFathers() > 0)
     {
       aFGNode = aChGNode->GetFather(1);
       aFGNode->UnSetChild(aChGNode);
       if (aFGNode->NbChildren() == 0)
-        aFGNode->ForgetAttribute(XCAFDoc::DimensionRefSecondGUID());
+        aFGNode->ForgetAttribute(XCAFDoc1::DimensionRefSecondGUID());
     }
-    theDimTolL.ForgetAttribute(XCAFDoc::DimensionRefSecondGUID());
+    theDimTolL.ForgetAttribute(XCAFDoc1::DimensionRefSecondGUID());
   }
 
-  if (!theDimTolL.FindAttribute(XCAFDoc::DimensionRefFirstGUID(), aChGNode))
+  if (!theDimTolL.FindAttribute(XCAFDoc1::DimensionRefFirstGUID(), aChGNode))
   {
     aChGNode = new XCAFDoc_GraphNode;
     aChGNode = XCAFDoc_GraphNode::Set(theDimTolL);
-    aChGNode->SetGraphID(XCAFDoc::DimensionRefFirstGUID());
+    aChGNode->SetGraphID(XCAFDoc1::DimensionRefFirstGUID());
   }
   for (Standard_Integer i = theFirstL.Lower(); i <= theFirstL.Upper(); i++)
   {
-    if (!theFirstL.Value(i).FindAttribute(XCAFDoc::DimensionRefFirstGUID(), aFGNode))
+    if (!theFirstL.Value(i).FindAttribute(XCAFDoc1::DimensionRefFirstGUID(), aFGNode))
     {
       aFGNode = new XCAFDoc_GraphNode;
       aFGNode = XCAFDoc_GraphNode::Set(theFirstL.Value(i));
     }
-    aFGNode->SetGraphID(XCAFDoc::DimensionRefFirstGUID());
+    aFGNode->SetGraphID(XCAFDoc1::DimensionRefFirstGUID());
     aFGNode->SetChild(aChGNode);
     aChGNode->SetFather(aFGNode);
   }
 
-  if (!theDimTolL.FindAttribute(XCAFDoc::DimensionRefSecondGUID(), aChGNode)
+  if (!theDimTolL.FindAttribute(XCAFDoc1::DimensionRefSecondGUID(), aChGNode)
       && theSecondL.Length() > 0)
   {
     aChGNode = new XCAFDoc_GraphNode;
     aChGNode = XCAFDoc_GraphNode::Set(theDimTolL);
-    aChGNode->SetGraphID(XCAFDoc::DimensionRefSecondGUID());
+    aChGNode->SetGraphID(XCAFDoc1::DimensionRefSecondGUID());
   }
   for (Standard_Integer i = theSecondL.Lower(); i <= theSecondL.Upper(); i++)
   {
-    if (!theSecondL.Value(i).FindAttribute(XCAFDoc::DimensionRefSecondGUID(), aSecondFGNode))
+    if (!theSecondL.Value(i).FindAttribute(XCAFDoc1::DimensionRefSecondGUID(), aSecondFGNode))
     {
       aSecondFGNode = new XCAFDoc_GraphNode;
       aSecondFGNode = XCAFDoc_GraphNode::Set(theSecondL.Value(i));
     }
-    aSecondFGNode->SetGraphID(XCAFDoc::DimensionRefSecondGUID());
+    aSecondFGNode->SetGraphID(XCAFDoc1::DimensionRefSecondGUID());
     aSecondFGNode->SetChild(aChGNode);
     aChGNode->SetFather(aSecondFGNode);
   }
@@ -382,8 +382,8 @@ void XCAFDoc_DimTolTool::SetGeomTolerance(const TDF_LabelSequence& theL,
 {
   //  // set reference
   //  Handle(TDataStd_TreeNode) refNode, mainNode;
-  //  refNode = TDataStd_TreeNode::Set ( theDimTolL, XCAFDoc::GeomToleranceRefGUID() );
-  //  mainNode  = TDataStd_TreeNode::Set ( theL,       XCAFDoc::GeomToleranceRefGUID() );
+  //  refNode = TDataStd_TreeNode::Set ( theDimTolL, XCAFDoc1::GeomToleranceRefGUID() );
+  //  mainNode  = TDataStd_TreeNode::Set ( theL,       XCAFDoc1::GeomToleranceRefGUID() );
   //  refNode->Remove(); // abv: fix against bug in TreeNode::Append()
   //  mainNode->Append(refNode);
 
@@ -395,32 +395,32 @@ void XCAFDoc_DimTolTool::SetGeomTolerance(const TDF_LabelSequence& theL,
   Handle(XCAFDoc_GraphNode) aChGNode;
   Handle(XCAFDoc_GraphNode) aFGNode;
 
-  if (theGeomTolL.FindAttribute(XCAFDoc::GeomToleranceRefGUID(), aChGNode))
+  if (theGeomTolL.FindAttribute(XCAFDoc1::GeomToleranceRefGUID(), aChGNode))
   {
     while (aChGNode->NbFathers() > 0)
     {
       aFGNode = aChGNode->GetFather(1);
       aFGNode->UnSetChild(aChGNode);
       if (aFGNode->NbChildren() == 0)
-        aFGNode->ForgetAttribute(XCAFDoc::GeomToleranceRefGUID());
+        aFGNode->ForgetAttribute(XCAFDoc1::GeomToleranceRefGUID());
     }
-    theGeomTolL.ForgetAttribute(XCAFDoc::GeomToleranceRefGUID());
+    theGeomTolL.ForgetAttribute(XCAFDoc1::GeomToleranceRefGUID());
   }
 
-  if (!theGeomTolL.FindAttribute(XCAFDoc::GeomToleranceRefGUID(), aChGNode))
+  if (!theGeomTolL.FindAttribute(XCAFDoc1::GeomToleranceRefGUID(), aChGNode))
   {
     aChGNode = new XCAFDoc_GraphNode;
     aChGNode = XCAFDoc_GraphNode::Set(theGeomTolL);
-    aChGNode->SetGraphID(XCAFDoc::GeomToleranceRefGUID());
+    aChGNode->SetGraphID(XCAFDoc1::GeomToleranceRefGUID());
   }
   for (Standard_Integer i = theL.Lower(); i <= theL.Upper(); i++)
   {
-    if (!theL.Value(i).FindAttribute(XCAFDoc::GeomToleranceRefGUID(), aFGNode))
+    if (!theL.Value(i).FindAttribute(XCAFDoc1::GeomToleranceRefGUID(), aFGNode))
     {
       aFGNode = new XCAFDoc_GraphNode;
       aFGNode = XCAFDoc_GraphNode::Set(theL.Value(i));
     }
-    aFGNode->SetGraphID(XCAFDoc::GeomToleranceRefGUID());
+    aFGNode->SetGraphID(XCAFDoc1::GeomToleranceRefGUID());
     aFGNode->SetChild(aChGNode);
     aChGNode->SetFather(aFGNode);
   }
@@ -432,8 +432,8 @@ void XCAFDoc_DimTolTool::SetDimTol(const DataLabel& theL, const DataLabel& theDi
 {
   // set reference
   Handle(TDataStd_TreeNode) refNode, mainNode;
-  refNode  = TDataStd_TreeNode::Set(theDimTolL, XCAFDoc::DimTolRefGUID());
-  mainNode = TDataStd_TreeNode::Set(theL, XCAFDoc::DimTolRefGUID());
+  refNode  = TDataStd_TreeNode::Set(theDimTolL, XCAFDoc1::DimTolRefGUID());
+  mainNode = TDataStd_TreeNode::Set(theL, XCAFDoc1::DimTolRefGUID());
   refNode->Remove(); // abv: fix against bug in TreeNode::Append()
   mainNode->Append(refNode);
 }
@@ -460,12 +460,12 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefShapeLabel(const DataLabel&   theL,
   theShapeLFirst.Clear();
   theShapeLSecond.Clear();
   Handle(TDataStd_TreeNode) aNode;
-  if (!theL.FindAttribute(XCAFDoc::DimTolRefGUID(), aNode) || !aNode->HasFather())
+  if (!theL.FindAttribute(XCAFDoc1::DimTolRefGUID(), aNode) || !aNode->HasFather())
   {
-    if (!theL.FindAttribute(XCAFDoc::DatumRefGUID(), aNode) || !aNode->HasFather())
+    if (!theL.FindAttribute(XCAFDoc1::DatumRefGUID(), aNode) || !aNode->HasFather())
     {
       Handle(XCAFDoc_GraphNode) aGNode;
-      if (theL.FindAttribute(XCAFDoc::GeomToleranceRefGUID(), aGNode) && aGNode->NbFathers() > 0)
+      if (theL.FindAttribute(XCAFDoc1::GeomToleranceRefGUID(), aGNode) && aGNode->NbFathers() > 0)
       {
         for (Standard_Integer i = 1; i <= aGNode->NbFathers(); i++)
         {
@@ -473,7 +473,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefShapeLabel(const DataLabel&   theL,
         }
         return Standard_True;
       }
-      else if (theL.FindAttribute(XCAFDoc::DatumRefGUID(), aGNode) && aGNode->NbFathers() > 0)
+      else if (theL.FindAttribute(XCAFDoc1::DatumRefGUID(), aGNode) && aGNode->NbFathers() > 0)
       {
         for (Standard_Integer i = 1; i <= aGNode->NbFathers(); i++)
         {
@@ -481,14 +481,14 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefShapeLabel(const DataLabel&   theL,
         }
         return Standard_True;
       }
-      else if (theL.FindAttribute(XCAFDoc::DimensionRefFirstGUID(), aGNode)
+      else if (theL.FindAttribute(XCAFDoc1::DimensionRefFirstGUID(), aGNode)
                && aGNode->NbFathers() > 0)
       {
         for (Standard_Integer i = 1; i <= aGNode->NbFathers(); i++)
         {
           theShapeLFirst.Append(aGNode->GetFather(i)->Label());
         }
-        if (theL.FindAttribute(XCAFDoc::DimensionRefSecondGUID(), aGNode)
+        if (theL.FindAttribute(XCAFDoc1::DimensionRefSecondGUID(), aGNode)
             && aGNode->NbFathers() > 0)
         {
           for (Standard_Integer i = 1; i <= aGNode->NbFathers(); i++)
@@ -516,7 +516,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefDimensionLabels(const DataLabel&   th
 {
   Handle(XCAFDoc_GraphNode) aGNode;
   Standard_Boolean          aResult = Standard_False;
-  if (theShapeL.FindAttribute(XCAFDoc::DimensionRefFirstGUID(), aGNode) && aGNode->NbChildren() > 0)
+  if (theShapeL.FindAttribute(XCAFDoc1::DimensionRefFirstGUID(), aGNode) && aGNode->NbChildren() > 0)
   {
     for (Standard_Integer i = 1; i <= aGNode->NbChildren(); i++)
     {
@@ -524,7 +524,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefDimensionLabels(const DataLabel&   th
     }
     aResult = Standard_True;
   }
-  if (theShapeL.FindAttribute(XCAFDoc::DimensionRefSecondGUID(), aGNode)
+  if (theShapeL.FindAttribute(XCAFDoc1::DimensionRefSecondGUID(), aGNode)
       && aGNode->NbChildren() > 0)
   {
     for (Standard_Integer i = 1; i <= aGNode->NbChildren(); i++)
@@ -542,7 +542,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefGeomToleranceLabels(const DataLabel& 
                                                                TDF_LabelSequence& theDimTols) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
-  if (!theShapeL.FindAttribute(XCAFDoc::GeomToleranceRefGUID(), aGNode)
+  if (!theShapeL.FindAttribute(XCAFDoc1::GeomToleranceRefGUID(), aGNode)
       || aGNode->NbChildren() == 0)
   {
     return Standard_False;
@@ -560,7 +560,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetRefDatumLabel(const DataLabel&   theShap
                                                       TDF_LabelSequence& theDatum) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
-  if (!theShapeL.FindAttribute(XCAFDoc::DatumRefGUID(), aGNode))
+  if (!theShapeL.FindAttribute(XCAFDoc1::DatumRefGUID(), aGNode))
   {
     return Standard_False;
   }
@@ -684,32 +684,32 @@ void XCAFDoc_DimTolTool::SetDatum(const TDF_LabelSequence& theL, const DataLabel
   Handle(XCAFDoc_GraphNode) aChGNode;
   Handle(XCAFDoc_GraphNode) aFGNode;
 
-  if (theDatumL.FindAttribute(XCAFDoc::DatumRefGUID(), aChGNode))
+  if (theDatumL.FindAttribute(XCAFDoc1::DatumRefGUID(), aChGNode))
   {
     while (aChGNode->NbFathers() > 0)
     {
       aFGNode = aChGNode->GetFather(1);
       aFGNode->UnSetChild(aChGNode);
       if (aFGNode->NbChildren() == 0)
-        aFGNode->ForgetAttribute(XCAFDoc::DatumRefGUID());
+        aFGNode->ForgetAttribute(XCAFDoc1::DatumRefGUID());
     }
-    theDatumL.ForgetAttribute(XCAFDoc::DatumRefGUID());
+    theDatumL.ForgetAttribute(XCAFDoc1::DatumRefGUID());
   }
 
-  if (!theDatumL.FindAttribute(XCAFDoc::DatumRefGUID(), aChGNode))
+  if (!theDatumL.FindAttribute(XCAFDoc1::DatumRefGUID(), aChGNode))
   {
     aChGNode = new XCAFDoc_GraphNode;
     aChGNode = XCAFDoc_GraphNode::Set(theDatumL);
-    aChGNode->SetGraphID(XCAFDoc::DatumRefGUID());
+    aChGNode->SetGraphID(XCAFDoc1::DatumRefGUID());
   }
   for (Standard_Integer i = theL.Lower(); i <= theL.Upper(); i++)
   {
-    if (!theL.Value(i).FindAttribute(XCAFDoc::DatumRefGUID(), aFGNode))
+    if (!theL.Value(i).FindAttribute(XCAFDoc1::DatumRefGUID(), aFGNode))
     {
       aFGNode = new XCAFDoc_GraphNode;
       aFGNode = XCAFDoc_GraphNode::Set(theL.Value(i));
     }
-    aFGNode->SetGraphID(XCAFDoc::DatumRefGUID());
+    aFGNode->SetGraphID(XCAFDoc1::DatumRefGUID());
     aFGNode->SetChild(aChGNode);
     aChGNode->SetFather(aFGNode);
   }
@@ -732,18 +732,18 @@ void XCAFDoc_DimTolTool::SetDatum(const DataLabel&                        L,
   // set reference
   Handle(XCAFDoc_GraphNode) FGNode;
   Handle(XCAFDoc_GraphNode) ChGNode;
-  if (!TolerL.FindAttribute(XCAFDoc::DatumTolRefGUID(), FGNode))
+  if (!TolerL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), FGNode))
   {
     FGNode = new XCAFDoc_GraphNode;
     FGNode = XCAFDoc_GraphNode::Set(TolerL);
   }
-  if (!DatumL.FindAttribute(XCAFDoc::DatumTolRefGUID(), ChGNode))
+  if (!DatumL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), ChGNode))
   {
     ChGNode = new XCAFDoc_GraphNode;
     ChGNode = XCAFDoc_GraphNode::Set(DatumL);
   }
-  FGNode->SetGraphID(XCAFDoc::DatumTolRefGUID());
-  ChGNode->SetGraphID(XCAFDoc::DatumTolRefGUID());
+  FGNode->SetGraphID(XCAFDoc1::DatumTolRefGUID());
+  ChGNode->SetGraphID(XCAFDoc1::DatumTolRefGUID());
   FGNode->SetChild(ChGNode);
   ChGNode->SetFather(FGNode);
 }
@@ -756,18 +756,18 @@ void XCAFDoc_DimTolTool::SetDatumToGeomTol(const DataLabel& theDatumL,
   // set reference
   Handle(XCAFDoc_GraphNode) aFGNode;
   Handle(XCAFDoc_GraphNode) aChGNode;
-  if (!theTolerL.FindAttribute(XCAFDoc::DatumTolRefGUID(), aFGNode))
+  if (!theTolerL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), aFGNode))
   {
     aFGNode = new XCAFDoc_GraphNode;
     aFGNode = XCAFDoc_GraphNode::Set(theTolerL);
   }
-  if (!theDatumL.FindAttribute(XCAFDoc::DatumTolRefGUID(), aChGNode))
+  if (!theDatumL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), aChGNode))
   {
     aChGNode = new XCAFDoc_GraphNode;
     aChGNode = XCAFDoc_GraphNode::Set(theDatumL);
   }
-  aFGNode->SetGraphID(XCAFDoc::DatumTolRefGUID());
-  aChGNode->SetGraphID(XCAFDoc::DatumTolRefGUID());
+  aFGNode->SetGraphID(XCAFDoc1::DatumTolRefGUID());
+  aChGNode->SetGraphID(XCAFDoc1::DatumTolRefGUID());
   aFGNode->SetChild(aChGNode);
   aChGNode->SetFather(aFGNode);
 }
@@ -796,7 +796,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetDatumOfTolerLabels(const DataLabel&   th
                                                            TDF_LabelSequence& theDatums)
 {
   Handle(XCAFDoc_GraphNode) aNode;
-  if (!theDimTolL.FindAttribute(XCAFDoc::DatumTolRefGUID(), aNode))
+  if (!theDimTolL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), aNode))
     return Standard_False;
 
   for (Standard_Integer i = 1; i <= aNode->NbChildren(); i++)
@@ -813,7 +813,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetDatumWithObjectOfTolerLabels(const DataL
                                                                      TDF_LabelSequence& theDatums)
 {
   Handle(XCAFDoc_GraphNode) aNode;
-  if (!theDimTolL.FindAttribute(XCAFDoc::DatumTolRefGUID(), aNode))
+  if (!theDimTolL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), aNode))
     return Standard_False;
 
   TColStd_MapOfAsciiString aDatumNameMap;
@@ -844,7 +844,7 @@ Standard_Boolean XCAFDoc_DimTolTool::GetTolerOfDatumLabels(const DataLabel&   th
                                                            TDF_LabelSequence& theTols) const
 {
   Handle(XCAFDoc_GraphNode) aNode;
-  if (!theDatumL.FindAttribute(XCAFDoc::DatumTolRefGUID(), aNode))
+  if (!theDatumL.FindAttribute(XCAFDoc1::DatumTolRefGUID(), aNode))
     return Standard_False;
   for (Standard_Integer i = 1; i <= aNode->NbFathers(); i++)
   {
@@ -859,21 +859,21 @@ Standard_Boolean XCAFDoc_DimTolTool::GetTolerOfDatumLabels(const DataLabel&   th
 Standard_Boolean XCAFDoc_DimTolTool::IsLocked(const DataLabel& theViewL) const
 {
   Handle(TDataStd_UAttribute) anAttr;
-  return theViewL.FindAttribute(XCAFDoc::LockGUID(), anAttr);
+  return theViewL.FindAttribute(XCAFDoc1::LockGUID(), anAttr);
 }
 
 //=================================================================================================
 
 void XCAFDoc_DimTolTool::Lock(const DataLabel& theViewL) const
 {
-  TDataStd_UAttribute::Set(theViewL, XCAFDoc::LockGUID());
+  TDataStd_UAttribute::Set(theViewL, XCAFDoc1::LockGUID());
 }
 
 //=================================================================================================
 
 void XCAFDoc_DimTolTool::Unlock(const DataLabel& theViewL) const
 {
-  theViewL.ForgetAttribute(XCAFDoc::LockGUID());
+  theViewL.ForgetAttribute(XCAFDoc1::LockGUID());
 }
 
 //=================================================================================================

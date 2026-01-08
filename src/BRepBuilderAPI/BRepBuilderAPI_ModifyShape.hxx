@@ -32,8 +32,8 @@ class BRepTools_Modification;
 //! implemented  when the modification uses a Modifier
 //! from BRepTools1. Some of  them have to be redefined
 //! if  the  modification is  implemented with another
-//! tool (see Transform from BRepBuilderAPI for example).
-//! The BRepBuilderAPI package provides the following
+//! tool (see Transform from BRepBuilderAPI1 for example).
+//! The BRepBuilderAPI1 package provides the following
 //! frameworks to perform modifications of this sort:
 //! -   BRepBuilderAPI_Copy to produce the copy of a shape,
 //! -   BRepBuilderAPI_Transform and

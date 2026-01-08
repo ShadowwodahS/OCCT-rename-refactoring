@@ -23,7 +23,7 @@
 #include <BRepMesh_Vertex.hxx>
 
 //! Class intended for fast searching of the coincidence points.
-class BRepMesh_VertexInspector : public NCollection_CellFilter_InspectorXY
+class BRepMesh_VertexInspector : public CellInspectorXY
 {
 public:
   typedef Standard_Integer Target;

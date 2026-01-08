@@ -281,11 +281,11 @@ void BRepTools_WireExplorer::Init(const TopoWire&  W,
   if (!vmap.IsEmpty())
   {
     // TopTools_MapIteratorOfMapOfShape itt(vmap);
-    // while (itt.Key().Orientation() != TopAbs_FORWARD) {
+    // while (itt.Key1().Orientation() != TopAbs_FORWARD) {
     //   itt.Next();
     //   if (!itt.More()) break;
     // }
-    // if (itt.More()) V1 = TopoDS::Vertex(itt.Key());
+    // if (itt.More()) V1 = TopoDS::Vertex(itt.Key1());
     Standard_Integer ind = 0;
     for (ind = 1; ind <= vmap.Extent(); ++ind)
     {
@@ -305,7 +305,7 @@ void BRepTools_WireExplorer::Init(const TopoWire&  W,
 
       for (; itt.More(); itt.Next())
       {
-        TopoEdge        anEdge = TopoDS::Edge(itt.Key());
+        TopoEdge        anEdge = TopoDS::Edge(itt.Key1());
         TopAbs_Orientation anOri  = anEdge.Orientation();
         Standard_Real      aF;
         Standard_Real      aL;

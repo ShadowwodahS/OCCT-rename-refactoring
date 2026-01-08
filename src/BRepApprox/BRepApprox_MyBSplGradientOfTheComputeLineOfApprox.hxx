@@ -31,7 +31,7 @@
 class Standard_OutOfRange;
 class StdFail_NotDone;
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class BRepApprox_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfApprox;
 class BRepApprox_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfApprox;
 class BRepApprox_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfApprox;

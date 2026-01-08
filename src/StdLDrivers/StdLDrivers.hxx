@@ -18,10 +18,10 @@
 
 class RefObject;
 class Standard_GUID;
-class StdObjMgt_MapOfInstantiators;
+class MapOfInstantiators;
 class AppManager;
 
-class StdLDrivers
+class StdLDrivers1
 {
 public:
   //! Depending from the ID, returns a list of storage
@@ -33,7 +33,7 @@ public:
   Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   //! Register types.
-  Standard_EXPORT static void BindTypes(StdObjMgt_MapOfInstantiators& theMap);
+  Standard_EXPORT static void BindTypes(MapOfInstantiators& theMap);
 };
 
 #endif // _StdLDrivers_HeaderFile

@@ -85,7 +85,7 @@ public:
   Standard_EXPORT void UnsetOrientation3D();
 
   //! Returns position.
-  Standard_EXPORT const Point3d& Position() const;
+  Standard_EXPORT const Point3d& Position1() const;
 
   //! Returns the label text.
   const UtfString& Text() const { return myText; }

@@ -29,11 +29,11 @@ class IFSelect_WorkSession;
 class IFSelect_Dispatch;
 
 //! Functions gives access to all the actions which can be
-//! commanded with the resources provided by IFSelect : especially
+//! commanded with the resources provided by IFSelect1 : especially
 //! WorkSession and various types of Selections and Dispatches
 //!
 //! It works by adding functions by method Init
-class IFSelect_Functions
+class IFSelectFunctions
 {
 public:
   DEFINE_STANDARD_ALLOC

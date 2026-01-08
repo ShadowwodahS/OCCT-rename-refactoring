@@ -491,7 +491,7 @@ void BOPAlgo_Builder::BuildSplitFaces(const Message_ProgressRange& theRange)
     if (!myPaveFiller->NonDestructive())
     {
       // speed up for planar faces
-      BRepLib::BuildPCurveForEdgesOnPlane(aLE, aFF);
+      BRepLib1::BuildPCurveForEdgesOnPlane(aLE, aFF);
     }
     // 3 Build split faces
     BOPAlgo_SplitFace& aBF = aVBF.Appended();

@@ -41,7 +41,7 @@ RWObj_ObjMaterialMap::~RWObj_ObjMaterialMap()
 
   if (myIsFailed)
   {
-    Message::SendFail(AsciiString1("File cannot be written\n") + myFileName);
+    Message1::SendFail(AsciiString1("File cannot be written\n") + myFileName);
   }
 }
 

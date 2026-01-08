@@ -77,7 +77,7 @@ void RWStepShape_RWRightCircularCone::WriteStep(
 
   // --- own field : position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : height ---
 
@@ -96,5 +96,5 @@ void RWStepShape_RWRightCircularCone::Share(const Handle(StepShape_RightCircular
                                             Interface_EntityIterator&                  iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

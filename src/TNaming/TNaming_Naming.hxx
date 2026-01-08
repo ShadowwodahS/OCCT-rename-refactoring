@@ -52,7 +52,7 @@ public:
   Standard_EXPORT static Handle(TNaming_Naming) Insert(const DataLabel& under);
 
   //! Creates  a   Namimg  attribute  at  label <where>   to
-  //! identify  the   shape   <Selection>.    Geometry is
+  //! identify  the   shape   <Selection>.    Geometry1 is
   //! Standard_True  if   we  are  only  interested  by  the
   //! underlying   geometry     (e.g.     setting   a
   //! constraint). <Context> is  used to find neighbours  of
@@ -66,7 +66,7 @@ public:
     const DataLabel&       where,
     const TopoShape&    Selection,
     const TopoShape&    Context,
-    const Standard_Boolean Geometry        = Standard_False,
+    const Standard_Boolean Geometry1        = Standard_False,
     const Standard_Boolean KeepOrientation = Standard_False,
     const Standard_Boolean BNproblem       = Standard_False);
 

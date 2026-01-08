@@ -38,7 +38,7 @@
 
 #define ThePSurface BRepAdaptor_Surface
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
-#define ThePSurfaceTool BRepApprox_SurfaceTool
+#define ThePSurfaceTool SurfaceTool4
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
 #define TheISurface Quadric1
 #define TheISurface_hxx <IntSurf_Quadric.hxx>
@@ -67,7 +67,7 @@
   <BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox.hxx>
 #define ApproxInt_TheMultiLine BRepApprox_TheMultiLineOfApprox
 #define ApproxInt_TheMultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>
-#define ApproxInt_TheMultiLineTool BRepApprox_TheMultiLineToolOfApprox
+#define ApproxInt_TheMultiLineTool TheMultiLineToolOfApprox
 #define ApproxInt_TheMultiLineTool_hxx <BRepApprox_TheMultiLineToolOfApprox.hxx>
 #define ApproxInt_TheComputeLine BRepApprox_TheComputeLineOfApprox
 #define ApproxInt_TheComputeLine_hxx <BRepApprox_TheComputeLineOfApprox.hxx>
@@ -93,6 +93,6 @@
   BRepApprox_MyGradientOfTheComputeLineBezierOfApprox
 #define ApproxInt_MyGradientOfTheComputeLineBezier_hxx                                             \
   <BRepApprox_MyGradientOfTheComputeLineBezierOfApprox.hxx>
-#define ApproxInt_Approx BRepApprox_Approx
+#define ApproxInt_Approx Approx1
 #define ApproxInt_Approx_hxx <BRepApprox_Approx.hxx>
 #include "../ApproxInt/ApproxInt_Approx.gxx"

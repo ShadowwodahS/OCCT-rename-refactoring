@@ -2013,7 +2013,7 @@ static Standard_Integer length(DrawInterpreter& di, Standard_Integer n, const ch
 
 //=================================================================================================
 
-void GeomliteTest::CurveCommands(DrawInterpreter& theCommands)
+void GeomliteTest1::CurveCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;

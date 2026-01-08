@@ -22,7 +22,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Contains commands to work with layers
-class XDEDRAW_Layers
+class LayerCommands
 {
 public:
   DEFINE_STANDARD_ALLOC

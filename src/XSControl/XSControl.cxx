@@ -17,15 +17,15 @@
 #include <XSControl_Vars.hxx>
 #include <XSControl_WorkSession.hxx>
 
-Handle(ExchangeSession) XSControl::Session(const Handle(IFSelect_SessionPilot)& pilot)
+Handle(ExchangeSession) XSControl1::Session(const Handle(IFSelect_SessionPilot)& pilot)
 {
   return Handle(ExchangeSession)::DownCast(pilot->Session());
 }
 
-Handle(XSControl_Vars) XSControl::Vars(const Handle(IFSelect_SessionPilot)& pilot)
+Handle(XSControl_Vars) XSControl1::Vars(const Handle(IFSelect_SessionPilot)& pilot)
 {
   Handle(XSControl_Vars)        avars;
-  Handle(ExchangeSession) WS = XSControl::Session(pilot);
+  Handle(ExchangeSession) WS = XSControl1::Session(pilot);
   if (!WS.IsNull())
     avars = WS->Vars();
   return avars;

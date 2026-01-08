@@ -23,7 +23,7 @@
 class Adaptor3d_Surface;
 
 //! A framework to display infinite planes.
-class StdPrs_Plane : public Prs3d_Root
+class StdPrs_Plane : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

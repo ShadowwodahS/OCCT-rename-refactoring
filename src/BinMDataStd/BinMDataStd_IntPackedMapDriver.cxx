@@ -120,7 +120,7 @@ void BinMDataStd_IntPackedMapDriver::Paste(const Handle(TDF_Attribute)& Source,
   {
     TColStd_MapIteratorOfPackedMapOfInteger anIt(anAtt->GetMap());
     for (; anIt.More(); anIt.Next())
-      Target << anIt.Key();
+      Target << anIt.Key1();
   }
   Target << (Standard_Byte)(anAtt->GetDelta() ? 1 : 0);
 }

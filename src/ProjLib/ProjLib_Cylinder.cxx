@@ -78,9 +78,9 @@ void ProjLib_Cylinder::Init(const Cylinder1& Cyl)
 static gp_Pnt2d EvalPnt2d(const Point3d& P, const Cylinder1& Cy)
 {
   Vector3d        OP(Cy.Location(), P);
-  Standard_Real X = OP.Dot(Vector3d(Cy.Position().XDirection()));
-  Standard_Real Y = OP.Dot(Vector3d(Cy.Position().YDirection()));
-  Standard_Real Z = OP.Dot(Vector3d(Cy.Position().Direction()));
+  Standard_Real X = OP.Dot(Vector3d(Cy.Position1().XDirection()));
+  Standard_Real Y = OP.Dot(Vector3d(Cy.Position1().YDirection()));
+  Standard_Real Z = OP.Dot(Vector3d(Cy.Position1().Direction()));
   Standard_Real U;
 
   if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
@@ -100,7 +100,7 @@ void ProjLib_Cylinder::Project(const gp_Lin& L)
 {
   // Check the line is parallel to the axis of cylinder.
   // In other cases, the projection is wrong.
-  if (L.Direction().XYZ().CrossSquareMagnitude(myCylinder.Position().Direction().XYZ())
+  if (L.Direction().XYZ().CrossSquareMagnitude(myCylinder.Position1().Direction().XYZ())
       > Precision::Angular() * Precision::Angular())
     return;
 
@@ -111,7 +111,7 @@ void ProjLib_Cylinder::Project(const gp_Lin& L)
   {
     P2d.SetX(P2d.X() + 2 * M_PI);
   }
-  Standard_Real Signe = L.Direction().Dot(myCylinder.Position().Direction());
+  Standard_Real Signe = L.Direction().Dot(myCylinder.Position1().Direction());
   Signe               = (Signe > 0.) ? 1. : -1.;
   gp_Dir2d D2d(0., Signe);
 
@@ -125,8 +125,8 @@ void ProjLib_Cylinder::Project(const gp_Circ& C)
 {
   // Check the circle's normal is parallel to the axis of cylinder.
   // In other cases, the projection is wrong.
-  const Ax3& aCylPos  = myCylinder.Position();
-  const Frame3d& aCircPos = C.Position();
+  const Ax3& aCylPos  = myCylinder.Position1();
+  const Frame3d& aCircPos = C.Position1();
   if (aCylPos.Direction().XYZ().CrossSquareMagnitude(aCircPos.Direction().XYZ())
       > Precision::Angular() * Precision::Angular())
     return;

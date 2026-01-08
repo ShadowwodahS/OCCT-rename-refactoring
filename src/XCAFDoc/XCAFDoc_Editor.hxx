@@ -26,7 +26,7 @@ class XCAFDoc_VisMaterial;
 class XCAFDoc_ShapeTool;
 
 //! Tool for edit structure of document.
-class XCAFDoc_Editor
+class DocumentEditor
 {
 public:
   DEFINE_STANDARD_ALLOC

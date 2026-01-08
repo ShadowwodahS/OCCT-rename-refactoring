@@ -105,8 +105,8 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
       { // un seul plan. Rien a faire
         if (MapFac.Extent() == 1)
         {
-          myMap(edgpr).Append(itm.Key());
-          goodfaces.Append(itm.Key());
+          myMap(edgpr).Append(itm.Key1());
+          goodfaces.Append(itm.Key1());
         }
         continue;
       }
@@ -115,7 +115,7 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
       {
         itm = TopTools_MapIteratorOfMapOfShape(MapFac);
         ShapeList FacFuse;
-        TopoFace          FaceRef = TopoDS::Face(itm.Key());
+        TopoFace          FaceRef = TopoDS::Face(itm.Key1());
         FacFuse.Append(FaceRef);
         Handle(GeomSurface) P = BRepInspector::Surface(FaceRef);
         if (P->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
@@ -126,7 +126,7 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
 
         for (itm.Next(); itm.More(); itm.Next())
         {
-          P = BRepInspector::Surface(TopoDS::Face(itm.Key()));
+          P = BRepInspector::Surface(TopoDS::Face(itm.Key1()));
           if (P->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
           {
             P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
@@ -135,7 +135,7 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
           if (Pl.Axis().IsParallel(Plref.Axis(), Precision::Angular())
               && Plref.Contains(Pl.Location(), Precision::Confusion()))
           {
-            FacFuse.Append(itm.Key());
+            FacFuse.Append(itm.Key1());
           }
         }
 
@@ -235,7 +235,7 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
             B.MakeWire(NewWire);
             for (TopTools_MapIteratorOfMapOfShape itm2(MapEd); itm2.More(); itm2.Next())
             {
-              B.Add(NewWire, itm2.Key());
+              B.Add(NewWire, itm2.Key1());
             }
             exp.Init(FaceRef.Oriented(TopAbs_FORWARD), TopAbs_WIRE);
             NewWire.Orientation(exp.Current().Orientation());

@@ -24,20 +24,20 @@
 
 class TNaming_Name;
 
-class StdPersistent_Naming
+class Naming2
 {
 public:
-  class NamedShape : public StdObjMgt_Attribute<ShapeAttribute>
+  class NamedShape1 : public StdObjMgt_Attribute<ShapeAttribute>
   {
   public:
     //! Read persistent data from a file.
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myOldShapes >> myNewShapes >> myShapeStatus >> myVersion;
     }
 
     //! Read persistent data from a file.
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myOldShapes << myNewShapes << myShapeStatus << myVersion;
     }
@@ -68,9 +68,9 @@ public:
   {
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
     //! Gets persistent child objects
     inline void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
@@ -90,7 +90,7 @@ public:
   private:
     Standard_Integer                           myType;
     Standard_Integer                           myShapeType;
-    Handle(StdLPersistent_HArray1::Persistent) myArgs;
+    Handle(HArray1::Persistent) myArgs;
     Handle(StdObjMgt_Persistent)               myStop;
     Standard_Integer                           myIndex;
   };
@@ -99,9 +99,9 @@ public:
   {
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
     //! Gets persistent child objects
     inline void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
@@ -118,16 +118,16 @@ public:
     Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(TDF_Data)& theDF) const;
 
   private:
-    Handle(StdLPersistent_HString::Ascii) myContextLabel;
+    Handle(HString::Ascii1) myContextLabel;
   };
 
   class Name_2 : public Name_1
   {
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
     //! Gets persistent child objects
     inline void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
@@ -145,21 +145,21 @@ public:
     Standard_Integer myOrientation;
   };
 
-  class Naming : public StdObjMgt_Attribute<TNaming_Naming>::SingleRef
+  class Naming1 : public StdObjMgt_Attribute<TNaming_Naming>::SingleRef
   {
   public:
     //! Import transient attribute from the persistent data.
     Standard_EXPORT virtual void ImportAttribute();
   };
 
-  class Naming_1 : public Naming
+  class Naming_1 : public Naming1
   {
   public:
     //! Import transient attribute from the persistent data.
     Standard_EXPORT virtual void ImportAttribute();
   };
 
-  typedef Naming Naming_2;
+  typedef Naming1 Naming_2;
 };
 
 #endif

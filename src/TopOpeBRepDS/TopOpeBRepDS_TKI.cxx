@@ -291,7 +291,7 @@ void TopOpeBRepDS_TKI::FindITM()
   Standard_Boolean f = Standard_False;
   while (MoreITM())
   {
-    myG = myITM.Key();
+    myG = myITM.Key1();
     f   = HasInterferences(myK, myG);
     if (f)
       break;

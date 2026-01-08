@@ -34,15 +34,15 @@ class ShapeBuild_ReShape;
 //! problematic (violating Open CASCADE requirements) shapes.
 //! Tools from package ShapeAnalysis1 are used for detecting the problems. The
 //! detecting and fixing is done taking in account various
-//! criteria implemented in BRepCheck package.
-//! Each class of package ShapeFix deals with one
+//! criteria implemented in BRepCheck1 package.
+//! Each class of package ShapeFix1 deals with one
 //! certain type of shapes or with some family of problems.
-class ShapeFix
+class ShapeFix1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Runs SameParameter from BRepLib with these adaptations :
+  //! Runs SameParameter from BRepLib1 with these adaptations :
   //! <enforce> forces computations, else they are made only on
   //! Edges with flag SameParameter false
   //! <preci>, if not precised, is taken for each EDge as its own
@@ -59,7 +59,7 @@ public:
     const Message_ProgressRange&                   theProgress = Message_ProgressRange(),
     const Handle(ShapeExtend_BasicMsgRegistrator)& theMsgReg   = 0);
 
-  //! Runs EncodeRegularity from BRepLib taking into account
+  //! Runs EncodeRegularity from BRepLib1 taking into account
   //! shared components of assemblies, so that each component
   //! is processed only once
   Standard_EXPORT static void EncodeRegularity(const TopoShape& shape,

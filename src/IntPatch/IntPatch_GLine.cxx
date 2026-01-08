@@ -50,7 +50,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Lin&           L,
       indl(0)
 {
   typ = IntPatch_Lin;
-  pos = gp_Pln(L.Location(), L.Direction()).Position().Ax2();
+  pos = gp_Pln(L.Location(), L.Direction()).Position1().Ax2();
 }
 
 //=======================================================================
@@ -72,7 +72,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Lin&           L,
       indl(0)
 {
   typ = IntPatch_Lin;
-  pos = gp_Pln(L.Location(), L.Direction()).Position().Ax2();
+  pos = gp_Pln(L.Location(), L.Direction()).Position1().Ax2();
 }
 
 //=======================================================================
@@ -91,7 +91,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Lin& L, const Standard_Boolean Tang)
       indl(0)
 {
   typ = IntPatch_Lin;
-  pos = gp_Pln(L.Location(), L.Direction()).Position().Ax2();
+  pos = gp_Pln(L.Location(), L.Direction()).Position1().Ax2();
 }
 
 //=======================================================================
@@ -105,7 +105,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Circ&          C,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
     : IntPatch_Line(Tang, Trans1, Trans2),
-      pos(C.Position()),
+      pos(C.Position1()),
       par1(C.Radius()),
       par2(0.0),
       fipt(Standard_False),
@@ -127,7 +127,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Circ&          C,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
     : IntPatch_Line(Tang, Situ1, Situ2),
-      pos(C.Position()),
+      pos(C.Position1()),
       par1(C.Radius()),
       par2(0.0),
       fipt(Standard_False),
@@ -146,7 +146,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Circ&          C,
 
 IntPatch_GLine::IntPatch_GLine(const gp_Circ& C, const Standard_Boolean Tang)
     : IntPatch_Line(Tang),
-      pos(C.Position()),
+      pos(C.Position1()),
       par1(C.Radius()),
       par2(0.0),
       fipt(Standard_False),
@@ -168,7 +168,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Elips&         E,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
     : IntPatch_Line(Tang, Trans1, Trans2),
-      pos(E.Position()),
+      pos(E.Position1()),
       par1(E.MajorRadius()),
       par2(E.MinorRadius()),
       fipt(Standard_False),
@@ -190,7 +190,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Elips&         E,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
     : IntPatch_Line(Tang, Situ1, Situ2),
-      pos(E.Position()),
+      pos(E.Position1()),
       par1(E.MajorRadius()),
       par2(E.MinorRadius()),
       fipt(Standard_False),
@@ -209,7 +209,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Elips&         E,
 
 IntPatch_GLine::IntPatch_GLine(const gp_Elips& E, const Standard_Boolean Tang)
     : IntPatch_Line(Tang),
-      pos(E.Position()),
+      pos(E.Position1()),
       par1(E.MajorRadius()),
       par2(E.MinorRadius()),
       fipt(Standard_False),
@@ -231,7 +231,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Parab&         P,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
     : IntPatch_Line(Tang, Trans1, Trans2),
-      pos(P.Position()),
+      pos(P.Position1()),
       par1(P.Focal()),
       par2(0.0),
       fipt(Standard_False),
@@ -253,7 +253,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Parab&         P,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
     : IntPatch_Line(Tang, Situ1, Situ2),
-      pos(P.Position()),
+      pos(P.Position1()),
       par1(P.Focal()),
       par2(0.0),
       fipt(Standard_False),
@@ -272,7 +272,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Parab&         P,
 
 IntPatch_GLine::IntPatch_GLine(const gp_Parab& P, const Standard_Boolean Tang)
     : IntPatch_Line(Tang),
-      pos(P.Position()),
+      pos(P.Position1()),
       par1(P.Focal()),
       par2(0.0),
       fipt(Standard_False),
@@ -294,7 +294,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Hypr&          H,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
     : IntPatch_Line(Tang, Trans1, Trans2),
-      pos(H.Position()),
+      pos(H.Position1()),
       par1(H.MajorRadius()),
       par2(H.MinorRadius()),
       fipt(Standard_False),
@@ -316,7 +316,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Hypr&          H,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
     : IntPatch_Line(Tang, Situ1, Situ2),
-      pos(H.Position()),
+      pos(H.Position1()),
       par1(H.MajorRadius()),
       par2(H.MinorRadius()),
       fipt(Standard_False),
@@ -335,7 +335,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Hypr&          H,
 
 IntPatch_GLine::IntPatch_GLine(const gp_Hypr& H, const Standard_Boolean Tang)
     : IntPatch_Line(Tang),
-      pos(H.Position()),
+      pos(H.Position1()),
       par1(H.MajorRadius()),
       par2(H.MinorRadius()),
       fipt(Standard_False),

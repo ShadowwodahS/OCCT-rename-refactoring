@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT const TopoFace& SecondFace() const;
 
-  Standard_EXPORT const Handle(GeomSurface)& Geometry() const;
+  Standard_EXPORT const Handle(GeomSurface)& Geometry1() const;
 
   Standard_EXPORT Handle(GeomSurface)& ChangeGeometry();
 

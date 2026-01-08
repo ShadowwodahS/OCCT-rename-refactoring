@@ -118,7 +118,7 @@ IFSelect_ReturnStatus StepFileReader::ReadFile(const Standard_CString filename)
   }
   catch (ExceptionBase const& anException)
   {
-    Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    Message_Messenger::StreamBuffer sout = Message1::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
     sout << anException.GetMessageString();
     sout << "\n    Abandon" << std::endl;
@@ -162,7 +162,7 @@ IFSelect_ReturnStatus StepFileReader::ReadFile(const Standard_CString   filename
   }
   catch (ExceptionBase const& anException)
   {
-    Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    Message_Messenger::StreamBuffer sout = Message1::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
     sout << anException.GetMessageString();
     sout << "\n    Abandon" << std::endl;
@@ -206,7 +206,7 @@ IFSelect_ReturnStatus StepFileReader::ReadStream(const Standard_CString theName,
   }
   catch (ExceptionBase const& anException)
   {
-    Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    Message_Messenger::StreamBuffer sout = Message1::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
     sout << anException.GetMessageString();
     sout << "\n    Abandon" << std::endl;
@@ -251,7 +251,7 @@ IFSelect_ReturnStatus StepFileReader::ReadStream(const Standard_CString   theNam
   }
   catch (ExceptionBase const& anException)
   {
-    Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    Message_Messenger::StreamBuffer sout = Message1::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
     sout << anException.GetMessageString();
     sout << "\n    Abandon" << std::endl;
@@ -759,10 +759,10 @@ ShapeFixParameters StepFileReader::GetDefaultShapeFixParameters() const
 
 //=================================================================================================
 
-ShapeProcess::OperationsFlags StepFileReader::GetDefaultShapeProcessFlags() const
+ShapeProcess1::OperationsFlags StepFileReader::GetDefaultShapeProcessFlags() const
 {
-  ShapeProcess::OperationsFlags aFlags;
-  aFlags.set(ShapeProcess::Operation::FixShape);
+  ShapeProcess1::OperationsFlags aFlags;
+  aFlags.set(ShapeProcess1::Operation::FixShape);
   return aFlags;
 }
 

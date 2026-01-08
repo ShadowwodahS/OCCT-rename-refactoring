@@ -39,11 +39,11 @@
 
 //=================================================================================================
 
-ShapeFix_SplitTool::ShapeFix_SplitTool() {}
+SplitTool::SplitTool() {}
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
+Standard_Boolean SplitTool::SplitEdge(const TopoEdge&   edge,
                                                const Standard_Real  param,
                                                const TopoVertex& vert,
                                                const TopoFace&   face,
@@ -103,7 +103,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
     last  = a;
   }
 
-  ShapeBuild_Edge       sbe;
+  Edge2       sbe;
   Handle(ShapeFix_Edge) sfe    = new ShapeFix_Edge;
   TopAbs_Orientation    orient = edge.Orientation();
   ShapeBuilder          B;
@@ -138,7 +138,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
+Standard_Boolean SplitTool::SplitEdge(const TopoEdge&   edge,
                                                const Standard_Real  param1,
                                                const Standard_Real  param2,
                                                const TopoVertex& vert,
@@ -195,7 +195,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoEdge&  edge,
+Standard_Boolean SplitTool::CutEdge(const TopoEdge&  edge,
                                              const Standard_Real pend,
                                              const Standard_Real cut,
                                              const TopoFace&  face,
@@ -283,7 +283,7 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoEdge&  edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&                edge,
+Standard_Boolean SplitTool::SplitEdge(const TopoEdge&                edge,
                                                const Standard_Real               fp,
                                                const TopoVertex&              V1,
                                                const Standard_Real               lp,

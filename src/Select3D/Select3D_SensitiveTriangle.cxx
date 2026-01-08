@@ -42,14 +42,14 @@ Select3D_SensitiveTriangle::Select3D_SensitiveTriangle(
 // Purpose : Checks whether the triangle overlaps
 //           current selecting volume
 //==================================================
-Standard_Boolean Select3D_SensitiveTriangle::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                     SelectBasics_PickResult& thePickResult)
+Standard_Boolean Select3D_SensitiveTriangle::Matches(SelectingVolumeManager& theMgr,
+                                                     PickResult& thePickResult)
 {
   if (!theMgr.IsOverlapAllowed())
   {
     if (theMgr.GetActiveSelectionType() == SelectMgr_SelectionType_Polyline)
     {
-      SelectBasics_PickResult aDummy;
+      PickResult aDummy;
       return theMgr.OverlapsTriangle(myPoints[0], myPoints[1], myPoints[2], mySensType, aDummy);
     }
     return theMgr.OverlapsPoint(myPoints[0]) && theMgr.OverlapsPoint(myPoints[1])

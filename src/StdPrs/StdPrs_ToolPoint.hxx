@@ -23,7 +23,7 @@
 
 class Geom_Point;
 
-class StdPrs_ToolPoint
+class ToolPoint1
 {
 public:
   DEFINE_STANDARD_ALLOC

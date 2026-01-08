@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// JPI : Commande smooth transferee dans GeomliteTest
+// JPI : Commande smooth transferee dans GeomliteTest1
 // PMN : Ajout de la commande smooth
 // JCT : Correction d'un trap dans la commande gcarc
 
@@ -745,7 +745,7 @@ static Standard_Integer gcarc(DrawInterpreter& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-void GeometryTest::ConstraintCommands(DrawInterpreter& theCommands)
+void GeometryTest1::ConstraintCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;

@@ -32,13 +32,13 @@ class TopoShape;
 //! - obtaining type of the shapes in context of TopoCompound,
 //! - exploring shapes in context of  TopoCompound,
 //! - converting different representations of shapes (list, sequence, compound).
-class ShapeExtend_Explorer
+class Explorer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an object Explorer
-  Standard_EXPORT ShapeExtend_Explorer();
+  Standard_EXPORT Explorer();
 
   //! Converts a sequence of Shapes to a Compound
   Standard_EXPORT TopoShape

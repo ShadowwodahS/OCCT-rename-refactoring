@@ -246,7 +246,7 @@ static Standard_Integer dlog(DrawInterpreter& di, Standard_Integer n, const char
 {
   if (n != 2 && n != 3)
   {
-    Message::SendFail() << "Enable or disable logging: " << a[0] << " {on|off}\n"
+    Message1::SendFail() << "Enable or disable logging: " << a[0] << " {on|off}\n"
                         << "Reset log: " << a[0] << " reset\n"
                         << "Get log content: " << a[0] << " get";
     return 1;
@@ -280,7 +280,7 @@ static Standard_Integer dlog(DrawInterpreter& di, Standard_Integer n, const char
   }
   else
   {
-    Message::SendFail() << "Unrecognized option(s): " << a[1];
+    Message1::SendFail() << "Unrecognized option(s): " << a[1];
     return 1;
   }
   return 0;
@@ -290,7 +290,7 @@ static Standard_Integer decho(DrawInterpreter& di, Standard_Integer n, const cha
 {
   if (n != 2)
   {
-    Message::SendFail() << "Enable or disable echoing: " << a[0] << " {on|off}";
+    Message1::SendFail() << "Enable or disable echoing: " << a[0] << " {on|off}";
     return 1;
   }
 
@@ -304,7 +304,7 @@ static Standard_Integer decho(DrawInterpreter& di, Standard_Integer n, const cha
   }
   else
   {
-    Message::SendFail() << "Unrecognized option: " << a[1];
+    Message1::SendFail() << "Unrecognized option: " << a[1];
     return 1;
   }
   return 0;
@@ -330,7 +330,7 @@ static Standard_Integer dversion(DrawInterpreter& di, Standard_Integer, const ch
   // print OCCT version and OCCTY-specific macros used
   di << "Open CASCADE Technology " << OCC_VERSION_STRING_EXT << "\n";
 #ifdef OCCT_DEBUG
-  di << "Extended debug mode\n";
+  di << "Extended1 debug mode\n";
 #elif defined(_DEBUG)
   di << "Debug mode\n";
 #endif
@@ -817,7 +817,7 @@ static int dlocale(DrawInterpreter& di, Standard_Integer n, const char** argv)
       category = LC_TIME;
     else
     {
-      Message::SendFail() << "Error: cannot recognize argument " << cat << " as one of LC_ macros";
+      Message1::SendFail() << "Error: cannot recognize argument " << cat << " as one of LC_ macros";
       return 1;
     }
   }
@@ -929,7 +929,7 @@ static int dparallel(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
       const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
       if (aVal <= 0 || aVal > aDefPool->NbThreads())
       {
-        Message::SendFail()
+        Message1::SendFail()
           << "Syntax error: maximum number of threads to use should be <= of threads in the pool";
         return 1;
       }
@@ -957,7 +957,7 @@ static int dparallel(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument '" << anArg << "'";
+      Message1::SendFail() << "Syntax error: unknown argument '" << anArg << "'";
       return 1;
     }
   }
@@ -1032,7 +1032,7 @@ static int dsetsignal(DrawInterpreter& theDI, Standard_Integer theArgNb, const c
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument '" << anArg << "'";
+      Message1::SendFail() << "Syntax error: unknown argument '" << anArg << "'";
       return 1;
     }
   }
@@ -1071,7 +1071,7 @@ static int dtracelevel(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
   Message_Gravity aLevel = Message_Info;
   if (theArgNb < 1 || theArgNb > 2)
   {
-    Message::SendFail() << "Error: wrong number of arguments! See usage:";
+    Message1::SendFail() << "Error: wrong number of arguments! See usage:";
     theDI.PrintHelp(theArgVec[0]);
     return 1;
   }
@@ -1101,22 +1101,22 @@ static int dtracelevel(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
     }
     else
     {
-      Message::SendFail() << "Error: unknown gravity '" << theArgVec[1] << "'";
+      Message1::SendFail() << "Error: unknown gravity '" << theArgVec[1] << "'";
       return 1;
     }
   }
 
-  Handle(Message_Messenger) aMessenger = Message::DefaultMessenger();
+  Handle(Message_Messenger) aMessenger = Message1::DefaultMessenger();
   if (aMessenger.IsNull())
   {
-    Message::SendFail() << "Error: default messenger is unavailable";
+    Message1::SendFail() << "Error: default messenger is unavailable";
     return 1;
   }
 
   Message_SequenceOfPrinters& aPrinters = aMessenger->ChangePrinters();
   if (aPrinters.Length() < 1)
   {
-    Message::SendFail() << "Error: no printers registered in default Messenger";
+    Message1::SendFail() << "Error: no printers registered in default Messenger";
     return 0;
   }
 
@@ -1265,12 +1265,12 @@ static int dputs(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
 
-  Message::SendFail() << "Syntax error: wrong number of arguments";
+  Message1::SendFail() << "Syntax error: wrong number of arguments";
   return 1;
 }
 

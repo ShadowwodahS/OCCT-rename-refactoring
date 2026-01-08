@@ -54,7 +54,7 @@ static Standard_Integer OCC162(DrawInterpreter& di, Standard_Integer argc, const
 
 static Standard_Integer OCC172(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -80,7 +80,7 @@ static Standard_Integer OCC204(DrawInterpreter& di, Standard_Integer argc, const
     return 1;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";

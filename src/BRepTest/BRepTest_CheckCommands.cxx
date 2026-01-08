@@ -168,7 +168,7 @@ static void PrintSub(Standard_OStream&         OS,
           OS << " on shape " << Name << " :\n";
           for (; itl.More(); itl.Next())
           {
-            BRepCheck::Print(itl.Value(), OS);
+            BRepCheck1::Print(itl.Value(), OS);
           }
         }
         break;
@@ -208,7 +208,7 @@ static void Print(Standard_OStream& OS, const BRepCheck_Analyzer& Ana, const Top
       for (; itl.More(); itl.Next())
       {
         if (itl.Value() != BRepCheck_NoError)
-          BRepCheck::Print(itl.Value(), OS);
+          BRepCheck1::Print(itl.Value(), OS);
       }
     }
   }
@@ -347,7 +347,7 @@ static Standard_Integer checksection(DrawInterpreter& di, Standard_Integer narg,
   {
     ipp++;
     Sprintf(Name, "alone_%d", ipp);
-    DBRep1::Set(Name, itvx.Key());
+    DBRep1::Set(Name, itvx.Key1());
     // std::cout << Name << " " ;
     di << Name << " ";
   }
@@ -1732,7 +1732,7 @@ static Standard_Integer facintedge(DrawInterpreter& di, Standard_Integer narg, c
   for (itFacEdg.Initialize(mymap); itFacEdg.More(); itFacEdg.Next())
   {
     Sprintf(newname, "%s_%d", a[1], i);
-    DBRep1::Set(temp, itFacEdg.Key());
+    DBRep1::Set(temp, itFacEdg.Key1());
     // std::cout<<newname<<" ";
     di << newname << " ";
     i++;
@@ -1813,7 +1813,7 @@ static Standard_Integer listfuseedge(DrawInterpreter& di, Standard_Integer narg,
   TopTools_DataMapIteratorOfDataMapOfIntegerListOfShape itLstEdg;
   for (itLstEdg.Initialize(mymap); itLstEdg.More(); itLstEdg.Next())
   {
-    const Standard_Integer&            iLst    = itLstEdg.Key();
+    const Standard_Integer&            iLst    = itLstEdg.Key1();
     const ShapeList&        LmapEdg = mymap.Find(iLst);
     TopTools_ListIteratorOfListOfShape itEdg;
     i = 1;
@@ -1881,7 +1881,7 @@ static Standard_Integer validrange(DrawInterpreter& di, Standard_Integer narg, c
     return 1;
 
   Standard_Real u1, u2;
-  if (BRepLib::FindValidRange(aE, u1, u2))
+  if (BRepLib1::FindValidRange(aE, u1, u2))
   {
     if (narg > 3)
     {
@@ -1900,7 +1900,7 @@ static Standard_Integer validrange(DrawInterpreter& di, Standard_Integer narg, c
 
 //=================================================================================================
 
-void BRepTest::CheckCommands(DrawInterpreter& theCommands)
+void BRepTest1::CheckCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

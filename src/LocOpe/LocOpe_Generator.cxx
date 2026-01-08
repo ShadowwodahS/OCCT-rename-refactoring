@@ -140,7 +140,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
   // recherche des fusions de faces
   for (itm.Initialize(GEdg); itm.More(); itm.Next())
   {
-    const TopoEdge& edg = TopoDS::Edge(itm.Key());
+    const TopoEdge& edg = TopoDS::Edge(itm.Key1());
     if (!theEFMap.Contains(edg))
     {
       continue;
@@ -166,7 +166,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
         for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itf(theFFMap); itf.More();
              itf.Next())
         {
-          if (itf.Key().IsSame(fac))
+          if (itf.Key1().IsSame(fac))
           {
             continue;
           }
@@ -180,7 +180,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
           }
           if (facbisfound)
           {
-            theFFMap(itf.Key()).Append(fac);
+            theFFMap(itf.Key1()).Append(fac);
             toRemove.Add(fac);
             toRemove.Add(edg);
             break;
@@ -260,7 +260,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
 
   for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itf(theFFMap); itf.More(); itf.Next())
   {
-    const TopoFace& fac = TopoDS::Face(itf.Key());
+    const TopoFace& fac = TopoDS::Face(itf.Key1());
     for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
     {
       const TopoEdge& edg = TopoDS::Edge(exp.Current());
@@ -440,7 +440,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
   for (; ite.More(); ite.Next())
   {
     Standard_Boolean   KeepNewEdge = Standard_False;
-    const TopoEdge& edg         = TopoDS::Edge(ite.Key());
+    const TopoEdge& edg         = TopoDS::Edge(ite.Key1());
     BRepInspector::Range(edg, f, l);
     TopoShape aLocalEdge = edg.EmptyCopied();
     newedg                  = TopoDS::Edge(aLocalEdge);
@@ -509,7 +509,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
   // Fusion des faces, ou reconstruction
   for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itf(theFFMap); itf.More(); itf.Next())
   {
-    const TopoFace&   fac     = TopoDS::Face(itf.Key());
+    const TopoFace&   fac     = TopoDS::Face(itf.Key1());
     Standard_Boolean     ModFace = Standard_False;
     ShapeList listofedg;
 
@@ -1258,7 +1258,7 @@ Standard_Boolean ToFuse(const TopoFace& F1, const TopoFace& F2)
     pl1.Transform(loc1.Transformation());
     pl2.Transform(loc2.Transformation());
 
-    if (pl1.Position().IsCoplanar(pl2.Position(), tollin, tolang))
+    if (pl1.Position1().IsCoplanar(pl2.Position1(), tollin, tolang))
     {
       ValRet = Standard_True;
     }
@@ -1323,7 +1323,7 @@ Standard_Boolean ToFuse(const TopoEdge& E1, const TopoEdge& E2)
     gp_Lin li1(Handle(GeomLine)::DownCast(C1)->Lin());
     gp_Lin li2(Handle(GeomLine)::DownCast(C2)->Lin());
 
-    if (li1.Position().IsCoaxial(li2.Position(), tolang, tollin))
+    if (li1.Position1().IsCoaxial(li2.Position1(), tolang, tollin))
     {
       ValRet = Standard_True;
     }

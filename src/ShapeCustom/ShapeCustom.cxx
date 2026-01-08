@@ -101,7 +101,7 @@ void UpdateShapeBuild(const TopoShape&               theShape,
 
 //=================================================================================================
 
-TopoShape ShapeCustom::ApplyModifier(const TopoShape&                   S,
+TopoShape ShapeCustom1::ApplyModifier(const TopoShape&                   S,
                                         const Handle(BRepTools_Modification)& M,
                                         TopTools_DataMapOfShapeShape&         context,
                                         ShapeModifier&                   MD,
@@ -198,7 +198,7 @@ TopoShape ShapeCustom::ApplyModifier(const TopoShape&                   S,
 
 //=================================================================================================
 
-TopoShape ShapeCustom::DirectFaces(const TopoShape& S)
+TopoShape ShapeCustom1::DirectFaces(const TopoShape& S)
 {
   // Create a modification description
   Handle(ShapeCustom_DirectModification) DM = new ShapeCustom_DirectModification();
@@ -209,7 +209,7 @@ TopoShape ShapeCustom::DirectFaces(const TopoShape& S)
 
 //=================================================================================================
 
-TopoShape ShapeCustom::ScaleShape(const TopoShape& S, const Standard_Real scale)
+TopoShape ShapeCustom1::ScaleShape(const TopoShape& S, const Standard_Real scale)
 {
   // Create a modification description
   Transform3d T;
@@ -217,12 +217,12 @@ TopoShape ShapeCustom::ScaleShape(const TopoShape& S, const Standard_Real scale)
   Handle(ShapeCustom_TrsfModification) TM = new ShapeCustom_TrsfModification(T);
   TopTools_DataMapOfShapeShape         context;
   ShapeModifier                   MD;
-  return ShapeCustom::ApplyModifier(S, TM, context, MD);
+  return ShapeCustom1::ApplyModifier(S, TM, context, MD);
 }
 
 //=================================================================================================
 
-TopoShape ShapeCustom::BSplineRestriction(
+TopoShape ShapeCustom1::BSplineRestriction(
   const TopoShape&                              S,
   const Standard_Real                              Tol3d,
   const Standard_Real                              Tol2d,
@@ -249,34 +249,34 @@ TopoShape ShapeCustom::BSplineRestriction(
   // Modify the shape
   TopTools_DataMapOfShapeShape context;
   ShapeModifier           MD;
-  return ShapeCustom::ApplyModifier(S, BSR, context, MD);
+  return ShapeCustom1::ApplyModifier(S, BSR, context, MD);
 }
 
 //=================================================================================================
 
-TopoShape ShapeCustom::ConvertToRevolution(const TopoShape& S)
+TopoShape ShapeCustom1::ConvertToRevolution(const TopoShape& S)
 {
   // Create a modification description
   Handle(ShapeCustom_ConvertToRevolution) CRev = new ShapeCustom_ConvertToRevolution();
   TopTools_DataMapOfShapeShape            context;
   ShapeModifier                      MD;
-  return ShapeCustom::ApplyModifier(S, CRev, context, MD);
+  return ShapeCustom1::ApplyModifier(S, CRev, context, MD);
 }
 
 //=================================================================================================
 
-TopoShape ShapeCustom::SweptToElementary(const TopoShape& S)
+TopoShape ShapeCustom1::SweptToElementary(const TopoShape& S)
 {
   // Create a modification description
   Handle(ShapeCustom_SweptToElementary) SE = new ShapeCustom_SweptToElementary();
   TopTools_DataMapOfShapeShape          context;
   ShapeModifier                    MD;
-  return ShapeCustom::ApplyModifier(S, SE, context, MD);
+  return ShapeCustom1::ApplyModifier(S, SE, context, MD);
 }
 
 //=================================================================================================
 
-TopoShape ShapeCustom::ConvertToBSpline(const TopoShape&    S,
+TopoShape ShapeCustom1::ConvertToBSpline(const TopoShape&    S,
                                            const Standard_Boolean extrMode,
                                            const Standard_Boolean revolMode,
                                            const Standard_Boolean offsetMode,
@@ -290,5 +290,5 @@ TopoShape ShapeCustom::ConvertToBSpline(const TopoShape&    S,
   BSRev->SetPlaneMode(planeMode);
   TopTools_DataMapOfShapeShape context;
   ShapeModifier           MD;
-  return ShapeCustom::ApplyModifier(S, BSRev, context, MD);
+  return ShapeCustom1::ApplyModifier(S, BSRev, context, MD);
 }

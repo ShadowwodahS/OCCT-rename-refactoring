@@ -142,13 +142,13 @@ static Standard_Integer readstl(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument '" << theArgv[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error: unknown argument '" << theArgv[anArgIter] << "'";
       return 1;
     }
   }
   if (aFilePath.IsEmpty())
   {
-    Message::SendFail() << "Syntax error: not enough arguments";
+    Message1::SendFail() << "Syntax error: not enough arguments";
     return 1;
   }
 
@@ -219,7 +219,7 @@ static Standard_Integer createmesh(DrawInterpreter& theDI,
     return 0;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     theDI << "No active view. Please call 'vinit' first\n";
@@ -254,7 +254,7 @@ static Standard_Integer createmesh(DrawInterpreter& theDI,
   aContext->Deactivate(aMesh);
 
   Draw1::Set(theArgVec[1], new XSDRAWSTL_DrawableMesh(aMesh));
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
   if (!aView.IsNull())
     aView->FitAll();
 
@@ -274,7 +274,7 @@ static Standard_Integer create3d(DrawInterpreter& theDI,
     return 0;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     theDI << "No active view. Please call 'vinit' first\n";
@@ -303,7 +303,7 @@ static Standard_Integer create3d(DrawInterpreter& theDI,
   aContext->Deactivate(aMesh);
 
   Draw1::Set(theArgVec[1], new XSDRAWSTL_DrawableMesh(aMesh));
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
   if (!aView.IsNull())
     aView->FitAll();
 
@@ -355,7 +355,7 @@ static Standard_Integer setcolor(DrawInterpreter& theDI,
       aMesh->GetDrawer()->SetColor((MeshVS_DrawerAttribute)theParam,
                                    Quantity_Color(aRed, aGreen, aBlue, Quantity_TOC_RGB));
 
-      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -410,7 +410,7 @@ static Standard_Integer meshmat(DrawInterpreter& theDI,
       aMesh->GetDrawer()->SetMaterial(MeshVS_DA_FrontMaterial, aMatAsp);
       aMesh->GetDrawer()->SetMaterial(MeshVS_DA_BackMaterial, aMatAsp);
 
-      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -437,7 +437,7 @@ static Standard_Integer shrink(DrawInterpreter& theDI,
       Standard_Real aShrinkCoeff = Draw1::Atof(theArgVec[2]);
       aMesh->GetDrawer()->SetDouble(MeshVS_DA_ShrinkCoeff, aShrinkCoeff);
 
-      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -466,7 +466,7 @@ static Standard_Integer closed(DrawInterpreter& theDI,
       Standard_Boolean aFlag = Draw1::Atoi(theArgv[2]) != 0;
       aMesh->GetDrawer()->SetBoolean(MeshVS_DA_SupressBackFaces, aFlag);
 
-      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
       if (aContext.IsNull())
       {
         theDI << "The context is null\n";
@@ -493,7 +493,7 @@ static Standard_Integer mdisplay(DrawInterpreter& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -519,7 +519,7 @@ static Standard_Integer merase(DrawInterpreter& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -547,7 +547,7 @@ static Standard_Integer hidesel(DrawInterpreter& theDI,
     return 0;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   Handle(MeshVS_Mesh)            aMesh    = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
@@ -607,7 +607,7 @@ static Standard_Integer showonly(DrawInterpreter& theDI,
     return 0;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   Handle(MeshVS_Mesh)            aMesh    = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
@@ -660,7 +660,7 @@ static Standard_Integer showall(DrawInterpreter& theDI,
     return 0;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   Handle(MeshVS_Mesh)            aMesh    = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
@@ -711,7 +711,7 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
       theDI << "Mesh1 not found\n";
       return 0;
     }
-    Handle(VisualContext) anIC = ViewerTest::GetAISContext();
+    Handle(VisualContext) anIC = ViewerTest1::GetAISContext();
     if (anIC.IsNull())
     {
       theDI << "The context is null\n";
@@ -752,14 +752,14 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
             for (TColStd_PackedMapOfInteger::Iterator anIter(anAllElements); anIter.More();
                  anIter.Next())
             {
-              Quantity_Color aColor((Quantity_NameOfColor)(anIter.Key() % Quantity_NOC_WHITE));
-              aBuilder->SetColor1(anIter.Key(), aColor);
+              Quantity_Color aColor((Quantity_NameOfColor)(anIter.Key1() % Quantity_NOC_WHITE));
+              aBuilder->SetColor1(anIter.Key1(), aColor);
             }
           else
             for (TColStd_PackedMapOfInteger::Iterator anIter(anAllElements); anIter.More();
                  anIter.Next())
             {
-              aBuilder->SetColor2(anIter.Key(), aColor1, aColor2);
+              aBuilder->SetColor2(anIter.Key1(), aColor1, aColor2);
             }
 
           aMesh->AddBuilder(aBuilder, Standard_True);
@@ -777,8 +777,8 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
           for (TColStd_PackedMapOfInteger::Iterator anIter(anAllNodes); anIter.More();
                anIter.Next())
           {
-            Quantity_Color aColor((Quantity_NameOfColor)(anIter.Key() % Quantity_NOC_WHITE));
-            aBuilder->SetColor(anIter.Key(), aColor);
+            Quantity_Color aColor((Quantity_NameOfColor)(anIter.Key1() % Quantity_NOC_WHITE));
+            aBuilder->SetColor(anIter.Key1(), aColor);
           }
           aMesh->AddBuilder(aBuilder, Standard_True);
         }
@@ -819,7 +819,7 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
                anIter.Next())
           {
             // get node coordinates to aCoord variable
-            aDataSource->GetGeom(anIter.Key(), Standard_False, aCoords, aNbNodes, aType);
+            aDataSource->GetGeom(anIter.Key1(), Standard_False, aCoords, aNbNodes, aType);
 
             Standard_Real aScaleValue;
             try
@@ -832,7 +832,7 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
               aScaleValue = 0;
             }
 
-            aScaleMap.Bind(anIter.Key(), aScaleValue);
+            aScaleMap.Bind(anIter.Key1(), aScaleValue);
           }
 
           // set color map for builder and a color for invalid scale value
@@ -887,7 +887,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
     theDI << "Mesh1 not found\n";
     return 0;
   }
-  Handle(VisualContext) anIC = ViewerTest::GetAISContext();
+  Handle(VisualContext) anIC = ViewerTest1::GetAISContext();
   if (anIC.IsNull())
   {
     theDI << "The context is null\n";
@@ -975,16 +975,16 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
       Standard_Boolean IsValidData = Standard_False;
       if (anIsElement)
       {
-        aMesh->GetDataSource()->GetGeomType(anIter.Key(), anIsElement, aEntType);
+        aMesh->GetDataSource()->GetGeomType(anIter.Key1(), anIsElement, aEntType);
         if (aEntType == MeshVS_ET_Face)
-          IsValidData = aMesh->GetDataSource()->GetNormal(anIter.Key(),
+          IsValidData = aMesh->GetDataSource()->GetNormal(anIter.Key1(),
                                                           3,
                                                           aCoords.ChangeValue(1),
                                                           aCoords.ChangeValue(2),
                                                           aCoords.ChangeValue(3));
       }
       else
-        IsValidData = aMesh->GetDataSource()->GetGeom(anIter.Key(),
+        IsValidData = aMesh->GetDataSource()->GetGeom(anIter.Key1(),
                                                       Standard_False,
                                                       aCoords,
                                                       aNbNodes,
@@ -1003,7 +1003,7 @@ static Standard_Integer meshvectors(DrawInterpreter& theDI,
       {
         aNorm = Vector3d(0, 0, 1);
       }
-      aBuilder->SetVector(anIsElement, anIter.Key(), aNorm.Normalized());
+      aBuilder->SetVector(anIsElement, anIter.Key1(), aNorm.Normalized());
     }
 
     aMesh->AddBuilder(aBuilder, Standard_False);
@@ -1036,7 +1036,7 @@ static Standard_Integer meshtext(DrawInterpreter& theDI,
     return 0;
   }
 
-  Handle(VisualContext) anIC = ViewerTest::GetAISContext();
+  Handle(VisualContext) anIC = ViewerTest1::GetAISContext();
   if (anIC.IsNull())
   {
     theDI << "The context is null\n";
@@ -1079,7 +1079,7 @@ static Standard_Integer meshdeform(DrawInterpreter& theDI,
     theDI << "Mesh1 not found\n";
     return 0;
   }
-  Handle(VisualContext) anIC = ViewerTest::GetAISContext();
+  Handle(VisualContext) anIC = ViewerTest1::GetAISContext();
   if (anIC.IsNull())
   {
     theDI << "The context is null\n";
@@ -1127,19 +1127,19 @@ static Standard_Integer meshdeform(DrawInterpreter& theDI,
   for (TColStd_PackedMapOfInteger::Iterator anIter(anAllIDs); anIter.More(); anIter.Next())
   {
     TColStd_Array1OfReal aCoords(1, 3);
-    aMesh->GetDataSource()->GetGeom(anIter.Key(), Standard_False, aCoords, aNbNodes, aEntType);
+    aMesh->GetDataSource()->GetGeom(anIter.Key1(), Standard_False, aCoords, aNbNodes, aEntType);
 
     Vector3d aNorm = Vector3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
     if (!aNorm.Magnitude())
       aNorm = Vector3d(0, 0, 1);
-    aDefDS->SetVector(anIter.Key(), aNorm.Normalized());
+    aDefDS->SetVector(anIter.Key1(), aNorm.Normalized());
   }
 
   aMesh->SetDataSource(aDefDS);
 
   anIC->Redisplay(aMesh, Standard_False);
 
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
   if (!aView.IsNull())
     aView->FitAll();
 
@@ -1178,7 +1178,7 @@ static Standard_Integer mesh_edge_width(DrawInterpreter& theDI,
 
     double aWidth = Draw1::Atof(aWidthStr);
 
-    Handle(VisualContext) anIC = ViewerTest::GetAISContext();
+    Handle(VisualContext) anIC = ViewerTest1::GetAISContext();
     if (anIC.IsNull())
     {
       theDI << "The context is null\n";
@@ -1238,7 +1238,7 @@ static Standard_Integer meshinfo(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XSDRAWSTL::Factory(DrawInterpreter& theDI)
+void XSDRAWSTL1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -1291,9 +1291,9 @@ void XSDRAWSTL::Factory(DrawInterpreter& theDI)
   theDI.Add("mesh_edge_width", "set width of edges", __FILE__, mesh_edge_width, aGroup);
   theDI.Add("meshinfo", "displays the number of nodes and triangles", __FILE__, meshinfo, aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWSTL)
+DPLUGIN(XSDRAWSTL1)

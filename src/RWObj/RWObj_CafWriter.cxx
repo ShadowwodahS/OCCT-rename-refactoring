@@ -111,7 +111,7 @@ bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument
 
   if (theRootLabels.IsEmpty() || (theLabelFilter != NULL && theLabelFilter->IsEmpty()))
   {
-    Message::SendFail("Nothing to export into OBJ file");
+    Message1::SendFail("Nothing to export into OBJ file");
     return false;
   }
 
@@ -144,7 +144,7 @@ bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument
   }
   if (aNbNodesAll == 0 || aNbElemsAll == 0)
   {
-    Message::SendFail("No mesh data to save");
+    Message1::SendFail("No mesh data to save");
     return false;
   }
 
@@ -224,7 +224,7 @@ bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument
   const bool isClosed = anObjFile.Close();
   if (isDone && !isClosed)
   {
-    Message::SendFail(AsciiString1("Failed to write OBJ file\n") + myFile);
+    Message1::SendFail(AsciiString1("Failed to write OBJ file\n") + myFile);
     return false;
   }
   return isDone && !aPSentry.IsAborted();

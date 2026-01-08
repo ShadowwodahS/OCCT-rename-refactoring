@@ -27,8 +27,8 @@
 class MoniTool_Element;
 DEFINE_STANDARD_HANDLE(MoniTool_Element, RefObject)
 
-//! a Element allows to map any kind of object as a Key for a Map.
-//! This works by defining, for a Hash Code, that of the real Key,
+//! a Element allows to map any kind of object as a Key1 for a Map.
+//! This works by defining, for a Hash Code, that of the real Key1,
 //! not of the Element which acts only as an intermediate.
 //! When a Map asks for the HashCode of a Element, this one returns
 //! the code it has determined at creation time

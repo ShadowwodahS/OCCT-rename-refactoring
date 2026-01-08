@@ -55,7 +55,7 @@ Handle(TDF_Attribute) XmlTObjDrivers_XYZDriver::NewEmpty() const
 //           <aRelocTable> to keep the sharings.
 //=======================================================================
 
-Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const XmlObjMgt_Persistent&  Source,
+Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const PersistentStorage&  Source,
                                                  const Handle(TDF_Attribute)& Target,
                                                  XmlObjMgt_RRelocationTable& /*RelocTable*/) const
 {
@@ -72,17 +72,17 @@ Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const XmlObjMgt_Persistent&  So
   Standard_Real    aCoord;
 
   aStr = CoordX.ToCString();
-  if (!XmlObjMgt::GetReal(aStr, aCoord))
+  if (!XmlObjMgt1::GetReal(aStr, aCoord))
     return Standard_False;
   aXYZ.SetX(aCoord);
 
   aStr = CoordY.ToCString();
-  if (!XmlObjMgt::GetReal(aStr, aCoord))
+  if (!XmlObjMgt1::GetReal(aStr, aCoord))
     return Standard_False;
   aXYZ.SetY(aCoord);
 
   aStr = CoordZ.ToCString();
-  if (!XmlObjMgt::GetReal(aStr, aCoord))
+  if (!XmlObjMgt1::GetReal(aStr, aCoord))
     return Standard_False;
   aXYZ.SetZ(aCoord);
 
@@ -103,7 +103,7 @@ Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const XmlObjMgt_Persistent&  So
 //=======================================================================
 
 void XmlTObjDrivers_XYZDriver::Paste(const Handle(TDF_Attribute)& Source,
-                                     XmlObjMgt_Persistent&        Target,
+                                     PersistentStorage&        Target,
                                      XmlObjMgt_SRelocationTable& /*RelocTable*/) const
 {
   Handle(TObj_TXYZ) aSource = Handle(TObj_TXYZ)::DownCast(Source);

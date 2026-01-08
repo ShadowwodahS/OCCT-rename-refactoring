@@ -238,7 +238,7 @@ void NamingTool1::CurrentShapeFromShape(const TDF_LabelMap&         Valid,
 {
   NewShapeIterator it(S, Acces);
 
-  Handle(ShapeAttribute) NS = it.NamedShape();
+  Handle(ShapeAttribute) NS = it.NamedShape1();
   if (!NS.IsNull() && NS->Evolution() == TNaming_SELECTED)
     MS.Add(Tool11::GetShape(NS));
   else
@@ -280,7 +280,7 @@ void BuildDescendants2(const Handle(ShapeAttribute)& NS,
   NewShapeIterator it(NS);
   for (; it.More(); it.Next())
   {
-    if (!it.NamedShape().IsNull())
+    if (!it.NamedShape1().IsNull())
     {
 #ifdef OCCT_DEBUG_DESC
       AsciiString1 entry;
@@ -316,7 +316,7 @@ void NamingTool1::BuildDescendants(const Handle(ShapeAttribute)& NS,
   {
     if (!it2.Shape().IsNull())
     {
-      Handle(ShapeAttribute) ONS = Tool11::NamedShape(it2.Shape(), NS->Label());
+      Handle(ShapeAttribute) ONS = Tool11::NamedShape1(it2.Shape(), NS->Label());
       if (!ONS.IsNull())
       {
 #ifdef OCCT_DEBUG_DESC

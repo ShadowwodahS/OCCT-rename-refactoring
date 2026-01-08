@@ -48,7 +48,7 @@ static Standard_Integer ApplySequence(DrawInterpreter& di,
   }
 
   Handle(ShapeProcess_ShapeContext) context = new ShapeProcess_ShapeContext(Shape, arg3);
-  ShapeProcess::Perform(context, arg4);
+  ShapeProcess1::Perform(context, arg4);
   context->PrintStatistics();
 
   TopoShape result = context->Result();
@@ -67,7 +67,7 @@ static Standard_Integer ApplySequence(DrawInterpreter& di,
 
 //=================================================================================================
 
-void SWDRAW_ShapeProcess::InitCommands(DrawInterpreter& theCommands)
+void ShapeProcess2::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean initactor = 0;
   if (initactor)
@@ -76,9 +76,9 @@ void SWDRAW_ShapeProcess::InitCommands(DrawInterpreter& theCommands)
   }
   initactor = 1;
 
-  ShapeProcess_OperLibrary::Init();
+  OperLibrary::Init();
 
-  Standard_CString g = SWDRAW::GroupName(); // "Tests of DivideTool";
+  Standard_CString g = SWDRAW1::GroupName(); // "Tests of DivideTool";
 
   theCommands.Add("SPApply",
                   "SPApply result shape rscfilename [sequence]",

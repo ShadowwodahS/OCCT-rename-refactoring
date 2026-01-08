@@ -51,7 +51,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_SelectAnyList, IFSelect_SelectDeduct)
 //! SelectAnyList keeps or rejects a sub-set of the list,
 //! that is the Items of which rank in the list is in a given
 //! range (for instance form 2nd to 6th, etc...)
-//! Range is defined by two Integer values. In order to allow
+//! Range is defined by two Integer1 values. In order to allow
 //! external control of them, these values are not directly
 //! defined as fields, but accessed through IntParams, that is,
 //! referenced as Transient (Handle) objects
@@ -90,7 +90,7 @@ public:
   //! Returns Lower limit (if there is; else, value is senseless)
   Standard_EXPORT Handle(IFSelect_IntParam) Lower() const;
 
-  //! Returns Integer Value of Lower Limit (0 if none)
+  //! Returns Integer1 Value of Lower Limit (0 if none)
   Standard_EXPORT Standard_Integer LowerValue() const;
 
   //! Returns True if a Lower limit is defined
@@ -99,7 +99,7 @@ public:
   //! Returns Upper limit (if there is; else, value is senseless)
   Standard_EXPORT Handle(IFSelect_IntParam) Upper() const;
 
-  //! Returns Integer Value of Upper Limit (0 if none)
+  //! Returns Integer1 Value of Upper Limit (0 if none)
   Standard_EXPORT Standard_Integer UpperValue() const;
 
   //! Returns the list of selected entities (list of entities

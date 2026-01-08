@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // Passage en classe persistante - 23/01/91
-// Modif suite a la deuxieme revue de projet toolkit Geometry -23/01/91
+// Modif suite a la deuxieme revue de projet toolkit Geometry1 -23/01/91
 //  pmn : 21/10/95 ; Correction de la methode segment (PRO5853)
 //  pmn : 31-Dec-96; Bonne gestion des poids (bug PRO4622)
 //  xab : 07-Jul-97; le cache est instable en degree 21

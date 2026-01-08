@@ -71,7 +71,7 @@ Standard_Integer IGESSelect_WorkLibrary::ReadFile(const Standard_CString        
                                                   Handle(Interface_InterfaceModel)& model,
                                                   const Handle(Interface_Protocol)& protocol) const
 {
-  Message_Messenger::StreamBuffer sout    = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout    = Message1::SendInfo();
   Handle(IGESData_IGESModel)      igesmod = new IGESData_IGESModel;
   DeclareAndCast(IGESData_Protocol, prot, protocol);
 
@@ -91,7 +91,7 @@ Standard_Integer IGESSelect_WorkLibrary::ReadFile(const Standard_CString        
 
 Standard_Boolean IGESSelect_WorkLibrary::WriteFile(IFSelect_ContextWrite& ctx) const
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   //  Preparation
   DeclareAndCast(IGESData_IGESModel, igesmod, ctx.Model());
   DeclareAndCast(IGESData_Protocol, prot, ctx.Protocol());

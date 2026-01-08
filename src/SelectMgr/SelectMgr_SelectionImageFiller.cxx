@@ -25,7 +25,7 @@ public:
       : SelectMgr_SelectionImageFiller(thePixMap, theSelector)
   {
     // generate per-entity colors in the order as they have been activated
-    for (SelectMgr_SelectableObjectSet::Iterator anObjIter(theSelector->SelectableObjects());
+    for (SelectableObjectSet::Iterator anObjIter(theSelector->SelectableObjects());
          anObjIter.More();
          anObjIter.Next())
     {
@@ -79,7 +79,7 @@ public:
       : SelectMgr_SelectionImageFiller(thePixMap, theSelector)
   {
     // generate per-entity colors in the order as they have been activated
-    for (SelectMgr_SelectableObjectSet::Iterator anObjIter(theSelector->SelectableObjects());
+    for (SelectableObjectSet::Iterator anObjIter(theSelector->SelectableObjects());
          anObjIter.More();
          anObjIter.Next())
     {
@@ -243,7 +243,7 @@ public:
       : SelectMgr_SelectionImageFiller(thePixMap, theSelector)
   {
     // generate per-owner colors in the order as they have been activated
-    for (SelectMgr_SelectableObjectSet::Iterator anObjIter(theSelector->SelectableObjects());
+    for (SelectableObjectSet::Iterator anObjIter(theSelector->SelectableObjects());
          anObjIter.More();
          anObjIter.Next())
     {

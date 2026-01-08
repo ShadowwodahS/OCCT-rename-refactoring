@@ -22,7 +22,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Provides DRAW commands for work with TObj data structures
-class TObjDRAW
+class TObjDRAW1
 {
 public:
   DEFINE_STANDARD_ALLOC

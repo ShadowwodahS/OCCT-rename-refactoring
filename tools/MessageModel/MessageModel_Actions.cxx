@@ -172,11 +172,11 @@ void MessageModel_Actions::OnActivateReport()
   if (MyPrinterToReport->Report()->IsActiveInMessenger())
     return;
 
-  MyDeactivatedPrinters = Message::DefaultMessenger()->Printers();
-  Message::DefaultMessenger()->ChangePrinters().Clear();
+  MyDeactivatedPrinters = Message1::DefaultMessenger()->Printers();
+  Message1::DefaultMessenger()->ChangePrinters().Clear();
 
-  Message::DefaultMessenger()->AddPrinter(MyPrinterToReport);
-  Message::DefaultReport()->UpdateActiveInMessenger();
+  Message1::DefaultMessenger()->AddPrinter(MyPrinterToReport);
+  Message1::DefaultReport()->UpdateActiveInMessenger();
 
   myTreeModel->UpdateTreeModel();
 }
@@ -190,8 +190,8 @@ void MessageModel_Actions::OnDeactivateReport()
   if (MyPrinterToReport.IsNull() || !MyPrinterToReport->Report()->IsActiveInMessenger())
     return;
 
-  Message::DefaultMessenger()->RemovePrinter(MyPrinterToReport);
-  Message::DefaultMessenger()->ChangePrinters().Assign(MyDeactivatedPrinters);
+  Message1::DefaultMessenger()->RemovePrinter(MyPrinterToReport);
+  Message1::DefaultMessenger()->ChangePrinters().Assign(MyDeactivatedPrinters);
 
   myTreeModel->UpdateTreeModel();
 }

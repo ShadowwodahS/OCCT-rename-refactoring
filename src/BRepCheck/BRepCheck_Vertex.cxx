@@ -85,7 +85,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
   }
   if (!exp.More())
   {
-    BRepCheck::Add(lst, BRepCheck_SubshapeNotInShape);
+    BRepCheck1::Add(lst, BRepCheck_SubshapeNotInShape);
     return; // leaves
   }
 
@@ -165,7 +165,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
                 Controlp.Transform(L.Transformation());
                 if (prep.SquareDistance(Controlp) > Tol)
                 {
-                  BRepCheck::Add(lst, BRepCheck_InvalidPointOnCurve);
+                  BRepCheck1::Add(lst, BRepCheck_InvalidPointOnCurve);
                 }
               }
               itpr.Next();
@@ -179,7 +179,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
                 Controlp.Transform(L.Transformation());
                 if (prep.SquareDistance(Controlp) > Tol)
                 {
-                  BRepCheck::Add(lst, BRepCheck_InvalidPointOnCurve);
+                  BRepCheck1::Add(lst, BRepCheck_InvalidPointOnCurve);
                 }
               }
               if (orv == TopAbs_REVERSED || multiple)
@@ -188,7 +188,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
                 Controlp.Transform(L.Transformation());
                 if (prep.SquareDistance(Controlp) > Tol)
                 {
-                  BRepCheck::Add(lst, BRepCheck_InvalidPointOnCurve);
+                  BRepCheck1::Add(lst, BRepCheck_InvalidPointOnCurve);
                 }
               }
             }
@@ -214,7 +214,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
               Controlp.Transform(L.Transformation());
               if (prep.SquareDistance(Controlp) > Tol)
               {
-                BRepCheck::Add(lst, BRepCheck_InvalidPointOnCurveOnSurface);
+                BRepCheck1::Add(lst, BRepCheck_InvalidPointOnCurveOnSurface);
               }
             }
             if (!PC2.IsNull() && pr->IsPointOnCurveOnSurface(PC2, Su, L))
@@ -224,7 +224,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
               Controlp.Transform(L.Transformation());
               if (prep.SquareDistance(Controlp) > Tol)
               {
-                BRepCheck::Add(lst, BRepCheck_InvalidPointOnCurveOnSurface);
+                BRepCheck1::Add(lst, BRepCheck_InvalidPointOnCurveOnSurface);
               }
             }
             itpr.Next();
@@ -259,7 +259,7 @@ void BRepCheck_Vertex::InContext(const TopoShape& S)
           Controlp.Transform(L.Transformation());
           if (prep.SquareDistance(Controlp) > Tol)
           {
-            BRepCheck::Add(lst, BRepCheck_InvalidPointOnSurface);
+            BRepCheck1::Add(lst, BRepCheck_InvalidPointOnSurface);
           }
         }
         itpr.Next();
@@ -318,7 +318,7 @@ void BRepCheck_Vertex::Blind()
   //     }
   //     Controlp.Transform(loc.Transformation());
   //     if (prep.SquareDistance(Controlp) > Tol) {
-  //       BRepCheck::Add(lst,stat);
+  //       BRepCheck1::Add(lst,stat);
   //     }
   //     itpr.Next();
   //   }

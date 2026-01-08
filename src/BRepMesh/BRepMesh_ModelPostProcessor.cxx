@@ -107,7 +107,7 @@ private:
     IMeshData::IDMapOfIFacePtrsListOfIPCurves::Iterator aPolygonIt(aMapOfPCurves);
     for (; aPolygonIt.More(); aPolygonIt.Next())
     {
-      const TopoFace& aFace = aPolygonIt.Key()->GetFace();
+      const TopoFace& aFace = aPolygonIt.Key1()->GetFace();
 
       TopLoc_Location                   aLoc;
       const Handle(MeshTriangulation)& aTriangulation = BRepInspector::Triangulation(aFace, aLoc);
@@ -181,7 +181,7 @@ public:
       return;
     }
 
-    BRepLib::UpdateDeflection(aDFace->GetFace());
+    BRepLib1::UpdateDeflection(aDFace->GetFace());
 
     TopLoc_Location                   aLoc;
     const Handle(MeshTriangulation)& aTriangulation =
@@ -226,7 +226,7 @@ Standard_Boolean BRepMesh_ModelPostProcessor::performInternal(
                     PolygonCommitter(theModel),
                     Standard_True /*!theParameters.InParallel*/);
 
-  // Estimate deflection here due to BRepLib::EstimateDeflection requires
+  // Estimate deflection here due to BRepLib1::EstimateDeflection requires
   // existence of both MeshTriangulation and Poly_PolygonOnTriangulation.
   OSD_Parallel::For(0,
                     theModel->FacesNb(),

@@ -55,7 +55,7 @@ ShapeUpgrade_SplitSurface::ShapeUpgrade_SplitSurface()
 
 void ShapeUpgrade_SplitSurface::Init(const Handle(GeomSurface)& S)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   myUSplitValues   = new TColStd_HSequenceOfReal();
   myVSplitValues   = new TColStd_HSequenceOfReal();
@@ -82,7 +82,7 @@ void ShapeUpgrade_SplitSurface::Init(const Handle(GeomSurface)& S,
                                      const Standard_Real         VLast,
                                      const Standard_Real         theArea)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   mySurface      = S;
   myResSurfaces  = new ShapeExtend_CompositeSurface();
@@ -141,9 +141,9 @@ void ShapeUpgrade_SplitSurface::Init(const Handle(GeomSurface)& S,
     TopoEdge        anEdgeUiso = BRepLib_MakeEdge(anUiso);
     TopoEdge        anEdgeViso = BRepLib_MakeEdge(aViso);
     GeometricProperties       aGprop1, aGprop2;
-    BRepGProp::LinearProperties(anEdgeViso, aGprop1);
+    BRepGProp1::LinearProperties(anEdgeViso, aGprop1);
     myUsize = aGprop1.Mass();
-    BRepGProp::LinearProperties(anEdgeUiso, aGprop2);
+    BRepGProp1::LinearProperties(anEdgeUiso, aGprop2);
     myVsize = aGprop2.Mass();
   }
 
@@ -230,7 +230,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
   Standard_Real VLast  = myVSplitValues->Value(myVSplitValues->Length());
 
   if (myUSplitValues->Length() > 2 || myVSplitValues->Length() > 2)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 
   Standard_Real U1, U2, V1, V2;
   mySurface->Bounds(U1, U2, V1, V2);
@@ -294,11 +294,11 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     myResSurfaces->SetUFirstValue(myUSplitValues->Sequence().First());
     myResSurfaces->SetVFirstValue(myVSplitValues->Sequence().First());
     if (spc.Status(ShapeExtend_DONE1))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     if (spc.Status(ShapeExtend_DONE2))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     if (spc.Status(ShapeExtend_DONE3))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     return;
   }
 
@@ -362,11 +362,11 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     myResSurfaces->SetUFirstValue(myUSplitValues->Sequence().First());
     myResSurfaces->SetVFirstValue(myVSplitValues->Sequence().First());
     if (spc.Status(ShapeExtend_DONE1))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     if (spc.Status(ShapeExtend_DONE2))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     if (spc.Status(ShapeExtend_DONE3))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     return;
   }
 
@@ -501,7 +501,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     for (Standard_Integer icol = 2; icol <= myVSplitValues->Length(); icol++)
     {
       V2 = myVSplitValues->Value(icol);
-      //      if (ShapeUpgrade::Debug())  {
+      //      if (ShapeUpgrade1::Debug())  {
       //	std::cout<<".. bounds    ="<<U1    <<","<<U2   <<","<<V1    <<","<<V2   <<std::endl;
       //	std::cout<<".. -> pos ="<<irow  <<","<<icol<<std::endl;
       //      }
@@ -528,7 +528,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
             Standard_Real v2 = V2;
             Handle(Geom_BezierSurface)::DownCast(theNew)->Segment1(u1, u2, v1, v2);
           }
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
         }
         catch (ExceptionBase const& anException)
         {
@@ -567,7 +567,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
   for (i = 1; i <= nbV; i++)
     VJoints(i) = myVSplitValues->Value(i);
   myResSurfaces->Init(Surfaces, UJoints, VJoints);
-  //  if (ShapeUpgrade::Debug()) std::cout<<"SplitSurface::Build - end"<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout<<"SplitSurface::Build - end"<<std::endl;
 }
 
 //=================================================================================================
@@ -598,14 +598,14 @@ void ShapeUpgrade_SplitSurface::Perform(const Standard_Boolean Segment1)
 
 void ShapeUpgrade_SplitSurface::Compute(const Standard_Boolean /*Segment1*/)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 //=================================================================================================
 
 Standard_Boolean ShapeUpgrade_SplitSurface::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 const Handle(ShapeExtend_CompositeSurface)& ShapeUpgrade_SplitSurface::ResSurfaces() const

@@ -30,7 +30,7 @@ class BOPAlgo_BOP;
 class BOPAlgo_Section;
 class BOPAlgo_Splitter;
 
-class BOPTest_Objects
+class Objects
 {
 public:
   DEFINE_STANDARD_ALLOC

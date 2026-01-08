@@ -43,12 +43,12 @@ const Handle(AppManager)& DDocStd1::GetApplication()
 
     // Initialize standard document formats at creation - they should
     // be available even if this DRAW plugin is not loaded by pload command
-    StdLDrivers::DefineFormat(anApp);
+    StdLDrivers1::DefineFormat(anApp);
     BinLDrivers1::DefineFormat(anApp);
-    XmlLDrivers::DefineFormat(anApp);
-    StdDrivers::DefineFormat(anApp);
+    XmlLDrivers1::DefineFormat(anApp);
+    StdDrivers1::DefineFormat(anApp);
     BinDrivers1::DefineFormat(anApp);
-    XmlDrivers::DefineFormat(anApp);
+    XmlDrivers1::DefineFormat(anApp);
   }
   return anApp;
 }

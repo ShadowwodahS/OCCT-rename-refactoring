@@ -46,7 +46,7 @@ public:
   //! This method is used to set the fields of the class
   //! ConnectPoint
   //! - aPoint               : A Coordinate point
-  //! - aDisplaySymbol       : Display symbol Geometry
+  //! - aDisplaySymbol       : Display symbol Geometry1
   //! - aTypeFlag            : Type of the connection
   //! - aFunctionFlag        : Function flag for the connection
   //! - aFunctionIdentifier  : Connection Point Function Identifier

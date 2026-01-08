@@ -109,10 +109,10 @@ Handle(TColStd_HSequenceOfHAsciiString) IFSelect_SignatureList::List(
   NCollection_IndexedDataMap<AsciiString1, Standard_Integer>::Iterator iter(thedicount);
   for (; iter.More(); iter.Next())
   {
-    if (!iter.Key().StartsWith(root))
+    if (!iter.Key1().StartsWith(root))
       continue;
 
-    Handle(TCollection_HAsciiString) sign = new TCollection_HAsciiString(iter.Key());
+    Handle(TCollection_HAsciiString) sign = new TCollection_HAsciiString(iter.Key1());
     list->Append(sign);
   }
   return list;
@@ -167,7 +167,7 @@ void IFSelect_SignatureList::PrintCount(Standard_OStream& S) const
   for (; iter.More(); iter.Next())
   {
     Standard_Integer val = iter.Value();
-    S << Interface_MSG::Blanks(val, 6) << val << "	" << iter.Key() << std::endl;
+    S << MessageSystem::Blanks(val, 6) << val << "	" << iter.Key1() << std::endl;
     nbtot += val;
     nbsign++;
   }
@@ -204,7 +204,7 @@ void IFSelect_SignatureList::PrintList(Standard_OStream&                       S
   for (; iter.More(); iter.Next())
   {
     DeclareAndCast(TColStd_HSequenceOfTransient, list, iter.Value());
-    S << Name() << " : " << iter.Key() << std::endl;
+    S << Name() << " : " << iter.Key1() << std::endl;
     if (list.IsNull())
     {
       S << "  - (empty list)" << std::endl;
@@ -259,7 +259,7 @@ void IFSelect_SignatureList::PrintSum(Standard_OStream& S) const
     nbsign++;
     if (nbent > maxent)
       maxent = nbent;
-    const AsciiString1& name = iter.Key();
+    const AsciiString1& name = iter.Key1();
     //    if (!name.IsIntegerValue()) continue;  pas bien fiable
     Standard_Integer ic, nc = name.Length();
     Standard_Boolean iaint = Standard_True;
@@ -292,8 +292,8 @@ void IFSelect_SignatureList::PrintSum(Standard_OStream& S) const
   S << "    Highest count of entities : " << maxent << " on one item" << std::endl;
   if (nbval > 0)
   {
-    S << "    Summary on Integer Values" << std::endl;
-    S << "    Nb Integer Items : " << nbval << std::endl;
+    S << "    Summary on Integer1 Values" << std::endl;
+    S << "    Nb Integer1 Items : " << nbval << std::endl;
     S << "    For Nb Entities  : " << nbve << std::endl;
     S << "    Cumulated Values : " << totval << std::endl;
     S << "    Maximum Value    : " << maxval << std::endl;

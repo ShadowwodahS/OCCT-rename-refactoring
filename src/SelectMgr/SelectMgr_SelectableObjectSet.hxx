@@ -26,7 +26,7 @@
 //! depends only on camera's projection and the corresponding BVH tree needs to be updated when
 //! camera's projection parameters change, while another tree for non-persistent objects can be left
 //! unchanged in this case.
-class SelectMgr_SelectableObjectSet
+class SelectableObjectSet
 {
 public:
   //! This enumeration declares names for subsets of selectable objects. Each subset has independent
@@ -79,10 +79,10 @@ public:
     }
 
     //! Constructs and initializes the iterator.
-    Iterator(const SelectMgr_SelectableObjectSet& theSet) { Init(theSet); }
+    Iterator(const SelectableObjectSet& theSet) { Init(theSet); }
 
     //! Initializes the iterator.
-    void Init(const SelectMgr_SelectableObjectSet& theSet)
+    void Init(const SelectableObjectSet& theSet)
     {
       mySet       = &theSet;
       mySubsetIdx = 0;
@@ -112,17 +112,17 @@ public:
     const Handle(SelectMgr_SelectableObject)& Value() const { return mySubsetIt.Value(); }
 
   private:
-    const SelectMgr_SelectableObjectSet* mySet;
+    const SelectableObjectSet* mySet;
     Standard_Integer                     mySubsetIdx;
     ObjectMapIterator                    mySubsetIt;
   };
 
 public:
   //! Creates new empty objects set and initializes BVH tree builders for each subset.
-  Standard_EXPORT SelectMgr_SelectableObjectSet();
+  Standard_EXPORT SelectableObjectSet();
 
   //! Releases resources of selectable object set.
-  virtual ~SelectMgr_SelectableObjectSet() {}
+  virtual ~SelectableObjectSet() {}
 
   //! Adds the new selectable object to the set. The selectable object is placed into one of the
   //! predefined subsets depending on its persistence type. After adding an object, this method
@@ -206,26 +206,26 @@ private:
         const Handle(PrsMgr_Presentation)& aPrs3d = aPrsIter.ChangeValue();
         if (aPrs3d->CStructure()->HasGroupTransformPersistence())
         {
-          return SelectMgr_SelectableObjectSet::BVHSubset_3dPersistent;
+          return SelectableObjectSet::BVHSubset_3dPersistent;
         }
       }
-      return SelectMgr_SelectableObjectSet::BVHSubset_3d;
+      return SelectableObjectSet::BVHSubset_3d;
     }
     else if ((theObject->TransformPersistence()->Mode() & Graphic3d_TMF_2d) != 0)
     {
       if (theObject->TransformPersistence()->IsOrthoPers())
       {
-        return SelectMgr_SelectableObjectSet::BVHSubset_ortho2dPersistent;
+        return SelectableObjectSet::BVHSubset_ortho2dPersistent;
       }
-      return SelectMgr_SelectableObjectSet::BVHSubset_2dPersistent;
+      return SelectableObjectSet::BVHSubset_2dPersistent;
     }
     else if (theObject->TransformPersistence()->IsOrthoPers())
     {
-      return SelectMgr_SelectableObjectSet::BVHSubset_ortho3dPersistent;
+      return SelectableObjectSet::BVHSubset_ortho3dPersistent;
     }
     else
     {
-      return SelectMgr_SelectableObjectSet::BVHSubset_3dPersistent;
+      return SelectableObjectSet::BVHSubset_3dPersistent;
     }
   }
 

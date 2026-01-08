@@ -112,7 +112,7 @@ public:
   //! ***-----------------*   OverlappingAtEnd
   //! ***--------*   JustAfter
   //! ***---*   After
-  Standard_EXPORT Intrv_Position Position(const Interval2& Other) const;
+  Standard_EXPORT Intrv_Position Position1(const Interval2& Other) const;
 
   //! True if me is Before Other
   //! ***----------------**                              me

@@ -162,7 +162,7 @@ void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoWire&              W,
   //---------------------------------------------------------------
   for (Ite.Initialize(LinkBECont); Ite.More(); Ite.Next())
   {
-    BE   = BiLo.Graph()->BasicElt(Ite.Key());
+    BE   = BiLo.Graph()->BasicElt(Ite.Key1());
     Type = BiLo.GeomElt(BE)->DynamicType();
     KC   = Ite.Value();
     S    = TopoSeq.Value(Abs(KC));

@@ -96,7 +96,7 @@ public:
   //! the produced Check List
   Standard_EXPORT Interface_CheckIterator CheckListModel() const;
 
-  //! Returns (by Reference, hence can be changed) the Mode for new
+  //! Returns (by Reference1, hence can be changed) the Mode for new
   //! Transfer : True (D) means that each new Transfer produces a
   //! new TransferProcess. Else keeps the original one but each
   //! Transfer clears its (former results are not kept)

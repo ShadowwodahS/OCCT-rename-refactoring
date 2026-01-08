@@ -356,7 +356,7 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
   switch (myBasisCurve->GetType())
   {
     case GeomAbs_Line: {
-      Axis3d Axe = myBasisCurve->Line().Position();
+      Axis3d Axe = myBasisCurve->Line().Position1();
 
       if (myAxis.IsParallel(Axe, TolAng))
       {
@@ -417,7 +417,7 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
       aR                = C.Radius();
       //
 
-      if (!C.Position().IsCoplanar(myAxis, TolConf, TolAng))
+      if (!C.Position1().IsCoplanar(myAxis, TolConf, TolAng))
         return GeomAbs_SurfaceOfRevolution;
       else if (aLin.Distance(aLC) <= TolConf)
         return GeomAbs_Sphere;

@@ -55,10 +55,10 @@ void LeaderArrowTool::ReadOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
     PR.AddFail("Count of Segments: Not Positive");
 
   // szv#4:S4163:12Mar99 `st=` not needed
-  PR.ReadReal(PR.Current(), "Arrow Head Height", arrowHeadHeight);
-  PR.ReadReal(PR.Current(), "Arrow Head Width", arrowHeadWidth);
+  PR.ReadReal(PR.Current(), "Arrow2 Head Height", arrowHeadHeight);
+  PR.ReadReal(PR.Current(), "Arrow2 Head Width", arrowHeadWidth);
   PR.ReadReal(PR.Current(), "Z Depth", zDepth);
-  PR.ReadXY(PR.CurrentList(1, 2), "Arrow Head Position", arrowHead);
+  PR.ReadXY(PR.CurrentList(1, 2), "Arrow2 Head Position1", arrowHead);
 
   if (!segmentTails.IsNull())
   {

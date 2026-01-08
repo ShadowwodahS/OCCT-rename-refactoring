@@ -261,7 +261,7 @@ public:
   //! Definition of an axis from its origin and
   //! its orientation .
   //! This will be the current axis for rotations and movements.
-  //! Warning! raises BadValue from V3d if the vector normal is NULL. .
+  //! Warning! raises BadValue from V3d1 if the vector normal is NULL. .
   Standard_EXPORT void SetAxis(const Standard_Real X,
                                const Standard_Real Y,
                                const Standard_Real Z,
@@ -345,7 +345,7 @@ public:
   //! for which the origin is the view point of the projection,
   //! with a relative angular value in RADIANS with respect to
   //! the initial position expressed by Start = Standard_True
-  //! Warning! raises BadValue from V3d
+  //! Warning! raises BadValue from V3d1
   //! If the eye, the view point, or the high point are
   //! aligned or confused.
   Standard_EXPORT void Rotate(const Standard_Real    Ax,
@@ -974,7 +974,7 @@ public:
   //! (theWidth x theHeight), so that there is no need resizing a window control for making a dump
   //! of different size.
   Standard_EXPORT Standard_Boolean ToPixMap(Image_PixMap&               theImage,
-                                            const V3d_ImageDumpOptions& theParams);
+                                            const ImageDumpOptions& theParams);
 
   //! Dumps the full contents of the view to a pixmap.
   //! Internally this method calls Redraw() with an offscreen render buffer of requested target size
@@ -997,7 +997,7 @@ public:
                             const V3d_StereoDumpOptions theStereoOptions = V3d_SDO_MONO,
                             const Standard_CString      theLightName     = "")
   {
-    V3d_ImageDumpOptions aParams;
+    ImageDumpOptions aParams;
     aParams.Width          = theWidth;
     aParams.Height         = theHeight;
     aParams.BufferType     = theBufferType;

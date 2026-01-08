@@ -249,7 +249,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   XmlObjMgt_Element anInfoElem = aDOMDoc.createElement("info");
   theElement.appendChild(anInfoElem);
 
-  AsciiString1 aCreationDate = XmlLDrivers::CreationDate();
+  AsciiString1 aCreationDate = XmlLDrivers1::CreationDate();
 
   //  anInfoElem.setAttribute("dbv", 0);
   anInfoElem.setAttribute("date", aCreationDate.ToCString());
@@ -315,7 +315,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   {
     XmlObjMgt_Element aCItem = aDOMDoc.createElement("citem");
     aCommentsElem.appendChild(aCItem);
-    XmlObjMgt::SetExtendedString(aCItem, aComments(i));
+    XmlObjMgt1::SetExtendedString(aCItem, aComments(i));
   }
   Message_ProgressScope aPS(theRange, "Writing", 2);
   // 2a. Write document contents
@@ -387,7 +387,7 @@ Standard_Integer XmlLDrivers_DocumentStorageDriver::MakeDocument(
     Handle(Message_Messenger) aMessageDriver;
     if (anApplication.IsNull())
     {
-      aMessageDriver = Message::DefaultMessenger();
+      aMessageDriver = Message1::DefaultMessenger();
       aMessageDriver->ChangePrinters().Clear();
     }
     else
@@ -396,7 +396,7 @@ Standard_Integer XmlLDrivers_DocumentStorageDriver::MakeDocument(
       myDrivers = AttributeDrivers(aMessageDriver);
 
     //      Retrieve from DOM_Document
-    XmlMDF::FromTo(aTDF, theElement, myRelocTable, myDrivers, theRange);
+    XmlMDF1::FromTo(aTDF, theElement, myRelocTable, myDrivers, theRange);
 #ifdef OCCT_DEBUGXML
     aMessage = "First step successful";
     aMessageDriver->Send(aMessage.ToExtString(), Message_Warning);
@@ -414,7 +414,7 @@ Standard_Integer XmlLDrivers_DocumentStorageDriver::MakeDocument(
 Handle(XmlMDF_ADriverTable) XmlLDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return XmlLDrivers::AttributeDrivers(theMessageDriver);
+  return XmlLDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=======================================================================

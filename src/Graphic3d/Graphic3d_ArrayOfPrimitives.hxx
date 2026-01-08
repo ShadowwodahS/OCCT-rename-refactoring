@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(Graphic3d_ArrayOfPrimitives, RefObject)
 //!    Primitive strip types can be used to reduce memory usage as alternative to Indexed arrays.
 //! 2) Vertex array.
 //!    - Specifying the (maximum) number of vertexes within array.
-//!    - Specifying the vertex attributes, complementary to mandatory vertex Position (normal,
+//!    - Specifying the vertex attributes, complementary to mandatory vertex Position1 (normal,
 //!    color, UV texture coordinates).
 //!    - Defining vertex values by using various versions of AddVertex() or SetVertex*() methods.
 //! 3) Index array (optional).
@@ -54,7 +54,7 @@ DEFINE_STANDARD_HANDLE(Graphic3d_ArrayOfPrimitives, RefObject)
 //!    It is a preferred way for defining primitive array and main alternative to Primitive Strips
 //!    for optimal memory usage, although it is also possible (but unusual) defining Indexed
 //!    Primitive Strip. Note that it is NOT possible sharing Vertex Attributes partially (e.g. share
-//!    Position, but have different Normals); in such cases Vertex should be entirely duplicated
+//!    Position1, but have different Normals); in such cases Vertex should be entirely duplicated
 //!    with all Attributes.
 //! 4) Bounds array (optional).
 //!    - Specifying the (maximum) number of bounds.

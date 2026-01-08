@@ -159,7 +159,7 @@ void ChFi3d_Boite(const gp_Pnt2d& p1,
 // function : EnlargeBox and its friends.
 // purpose  :
 //=======================================================================
-static Handle(Adaptor3d_Surface) Geometry(TopOpeBRepDS_DataStructure& DStr,
+static Handle(Adaptor3d_Surface) Geometry1(TopOpeBRepDS_DataStructure& DStr,
                                           const Standard_Integer      ind)
 {
   if (ind == 0)
@@ -271,8 +271,8 @@ void ChFi3d_EnlargeBox(TopOpeBRepDS_DataStructure&    DStr,
   const Handle(GeomCurve2d)&    pcs2 = fi2.PCurveOnSurf();
   const Handle(GeomCurve3d)&      c3d1 = DStr.Curve(fi1.LineIndex()).Curve();
   const Handle(GeomCurve3d)&      c3d2 = DStr.Curve(fi2.LineIndex()).Curve();
-  Handle(Adaptor3d_Surface)      F1   = Geometry(DStr, sd->IndexOfS1());
-  Handle(Adaptor3d_Surface)      F2   = Geometry(DStr, sd->IndexOfS2());
+  Handle(Adaptor3d_Surface)      F1   = Geometry1(DStr, sd->IndexOfS1());
+  Handle(Adaptor3d_Surface)      F2   = Geometry1(DStr, sd->IndexOfS2());
   Standard_Real                  p1   = fi1.Parameter(isfirst);
   if (!c3d1.IsNull())
     b1.Add(c3d1->Value(p1));
@@ -1288,7 +1288,7 @@ Standard_Boolean ChFi3d_IntTraces(const Handle(ChFiDS_SurfData)& fd1,
 
 //=================================================================================================
 
-void ChFi3d_Coefficient(const Vector3d&  V3d,
+void ChFi3d_Coefficient(const Vector3d&  V3d1,
                         const Vector3d&  D1u,
                         const Vector3d&  D1v,
                         Standard_Real& DU,
@@ -1297,8 +1297,8 @@ void ChFi3d_Coefficient(const Vector3d&  V3d,
   const Standard_Real AA    = D1u.SquareMagnitude();
   const Standard_Real BB    = D1u.Dot(D1v);
   const Standard_Real CC    = D1v.SquareMagnitude();
-  const Standard_Real DD    = D1u.Dot(V3d);
-  const Standard_Real EE    = D1v.Dot(V3d);
+  const Standard_Real DD    = D1u.Dot(V3d1);
+  const Standard_Real EE    = D1v.Dot(V3d1);
   const Standard_Real Delta = AA * CC - BB * BB;
   DU                        = (DD * CC - EE * BB) / Delta;
   DV                        = (AA * EE - BB * DD) / Delta;
@@ -2291,7 +2291,7 @@ static void QueryAddVertexInEdge(TopOpeBRepDS_ListOfInterference& LI,
       Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(cur));
     if (!cpi.IsNull())
     {
-      Standard_Integer   newIV  = cpi->Geometry();
+      Standard_Integer   newIV  = cpi->Geometry1();
       TopOpeBRepDS_Kind  kv     = cpi->GeometryType();
       TopAbs_Orientation newOr  = cpi->Transition().Orientation(TopAbs_IN);
       Standard_Real      newpar = cpi->Parameter();
@@ -2357,14 +2357,14 @@ static Standard_Boolean findIndexPoint(const TopOpeBRepDS_DataStructure& DStr,
       Handle(TopOpeBRepDS_SurfaceCurveInterference)::DownCast(SCIIt.Value());
     if (SCI.IsNull())
       continue;
-    CPIIt.Initialize(DStr.CurveInterferences(SCI->Geometry()));
+    CPIIt.Initialize(DStr.CurveInterferences(SCI->Geometry1()));
     for (; CPIIt.More(); CPIIt.Next())
     {
       Handle(TopOpeBRepDS_CurvePointInterference) CPI =
         Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(CPIIt.Value());
       if (CPI.IsNull())
         continue;
-      Standard_Integer   iPoint = CPI->Geometry();
+      Standard_Integer   iPoint = CPI->Geometry1();
       Point1 tp     = DStr.Point(iPoint);
       if (P.IsEqual(tp.Point(), tp.Tolerance()))
       {
@@ -4525,7 +4525,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   // Traitment de la premiere arete
   cepadur                      = 0;
   E                            = (IsOffset) ? Spine->OffsetEdges(IF) : Spine->Edges(IF);
-  Bof                          = BRepLib::BuildCurve3d(E);
+  Bof                          = BRepLib1::BuildCurve3d(E);
   const BRepAdaptor_Curve& edc = Spine->CurrentElementarySpine(IF);
   tolpared                     = edc.Resolution(tol);
   Cv                           = BRepInspector::Curve(E, First, Last);
@@ -4685,7 +4685,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
       epsV = BRepInspector::Tolerance(V);
     }
     //
-    Bof = BRepLib::BuildCurve3d(E);
+    Bof = BRepLib1::BuildCurve3d(E);
     if (!Bof)
     {
       throw Standard_ConstructionError("PerformElSpine : BuildCurve3d error");

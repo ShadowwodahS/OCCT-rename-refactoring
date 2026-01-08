@@ -1138,7 +1138,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
 
   TDF_LabelSequence aShapes;
   aViewTool->GetRefShapeLabel(aLabel, aShapes);
-  di << "Reference shapes: ";
+  di << "Reference1 shapes: ";
   for (Standard_Integer i = 1; i <= aShapes.Length(); i++)
   {
     AsciiString1 anEntry;
@@ -1149,7 +1149,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
 
   TDF_LabelSequence aGDTs;
   aViewTool->GetRefGDTLabel(aLabel, aGDTs);
-  di << "Reference GD&Ts: ";
+  di << "Reference1 GD&Ts: ";
   for (Standard_Integer i = 1; i <= aGDTs.Length(); i++)
   {
     AsciiString1 anEntry;
@@ -1160,7 +1160,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
 
   TDF_LabelSequence aCPlanes;
   aViewTool->GetRefClippingPlaneLabel(aLabel, aCPlanes);
-  di << "Reference Clipping Planes: ";
+  di << "Reference1 Clipping Planes: ";
   for (Standard_Integer i = 1; i <= aCPlanes.Length(); i++)
   {
     AsciiString1 anEntry;
@@ -1360,7 +1360,7 @@ static Standard_Integer getClippingPlaneCapping(DrawInterpreter& di,
 
 //=================================================================================================
 
-void XDEDRAW_Views::InitCommands(DrawInterpreter& di)
+void ViewCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

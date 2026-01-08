@@ -23,7 +23,7 @@
 enum Resource_FormatType
 {
   Resource_FormatType_SJIS, //!< SJIS (Shift Japanese Industrial Standards) encoding
-  Resource_FormatType_EUC, //!< EUC (Extended Unix Code) multi-byte encoding primarily for Japanese,
+  Resource_FormatType_EUC, //!< EUC (Extended1 Unix Code) multi-byte encoding primarily for Japanese,
                            //!< Korean, and simplified Chinese
   Resource_FormatType_NoConversion, //!< format type indicating non-conversion behavior
   Resource_FormatType_GB,           //!< GB (Guobiao) encoding for Simplified Chinese

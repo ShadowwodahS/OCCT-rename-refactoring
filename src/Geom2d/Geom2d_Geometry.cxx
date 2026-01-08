@@ -23,7 +23,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Geometry, RefObject)
 
-typedef Geom2d_Geometry Geometry;
+typedef Geom2d_Geometry Geometry1;
 typedef gp_Ax2d         Ax2d;
 typedef gp_Pnt2d        Pnt2d;
 typedef gp_Vec2d        Vec2d;

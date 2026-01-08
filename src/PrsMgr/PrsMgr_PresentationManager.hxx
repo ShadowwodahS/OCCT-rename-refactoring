@@ -33,7 +33,7 @@ class ViewManager;
 DEFINE_STANDARD_HANDLE(PrsMgr_PresentationManager, RefObject)
 
 //! A framework to manage 3D displays, graphic entities and their updates.
-//! Used in the AIS package (Application Interactive Services), to enable the advanced user to
+//! Used in the AIS1 package (Application Interactive Services), to enable the advanced user to
 //! define the default display mode of a new interactive object which extends the list of signatures
 //! and types. Definition of new display types is handled by calling the presentation algorithms
 //! provided by the StdPrs package.

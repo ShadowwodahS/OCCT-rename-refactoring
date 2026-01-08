@@ -46,7 +46,7 @@ Handle(TDF_Attribute) XmlMDataStd_BooleanArrayDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const PersistentStorage&  theSource,
                                                        const Handle(TDF_Attribute)& theTarget,
                                                        XmlObjMgt_RRelocationTable&) const
 {
@@ -102,11 +102,11 @@ Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persisten
   Handle(TColStd_HArray1OfByte) hArr   = new TColStd_HArray1OfByte(0, length >> 3);
   TColStd_Array1OfByte&         arr    = hArr->ChangeArray1();
   Standard_Integer              i = 0, upper = arr.Upper();
-  Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+  Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
 
   for (; i <= upper; i++)
   {
-    if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+    if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -127,7 +127,7 @@ Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persisten
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_BooleanArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                           XmlObjMgt_Persistent&        theTarget,
+                                           PersistentStorage&        theTarget,
                                            XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_BooleanArray) aBooleanArray = Handle(TDataStd_BooleanArray)::DownCast(theSource);
@@ -159,7 +159,7 @@ void XmlMDataStd_BooleanArrayDriver::Paste(const Handle(TDF_Attribute)& theSourc
 
   if (!arr.IsEmpty())
   {
-    XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
   }
 
   if (aBooleanArray->ID() != TDataStd_BooleanArray::GetID())

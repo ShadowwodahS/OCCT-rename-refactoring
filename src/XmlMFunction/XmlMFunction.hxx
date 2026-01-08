@@ -23,7 +23,7 @@
 class XmlMDF_ADriverTable;
 class Message_Messenger;
 
-class XmlMFunction
+class XmlMFunction1
 {
 public:
   DEFINE_STANDARD_ALLOC

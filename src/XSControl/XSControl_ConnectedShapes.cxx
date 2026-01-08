@@ -52,7 +52,7 @@ Standard_Boolean XSControl_ConnectedShapes::Explore(const Standard_Integer /*lev
     TP = theTR->TransientProcess();
   if (TP.IsNull())
     return Standard_False;
-  TopoShape Shape = TransferBRep::ShapeResult(TP, ent);
+  TopoShape Shape = TransferBRep1::ShapeResult(TP, ent);
   if (Shape.IsNull())
     return Standard_False;
   Handle(TColStd_HSequenceOfTransient) li = AdjacentEntities(Shape, TP, TopAbs_FACE);
@@ -84,7 +84,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_ConnectedShapes::AdjacentEntities
   for (i = 1; i <= nb; i++)
   {
     Handle(Transfer_Binder) bnd = TP->MapItem(i);
-    TopoShape            sh  = TransferBRep::ShapeResult(bnd);
+    TopoShape            sh  = TransferBRep1::ShapeResult(bnd);
     if (sh.IsNull())
       continue;
     if (sh.ShapeType() != type)

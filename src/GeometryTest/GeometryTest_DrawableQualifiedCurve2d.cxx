@@ -69,7 +69,7 @@ void GeometryTest_DrawableQualifiedCurve2d::DrawOn(DrawDisplay& theDisplay) cons
 void GeometryTest_DrawableQualifiedCurve2d::Dump(Standard_OStream& theStream) const
 {
   theStream << "Qualified curve 2D: \n";
-  theStream << "Position :" << GccEnt1::PositionToString(myPosition) << "\n";
+  theStream << "Position1 :" << GccEnt1::PositionToString(myPosition) << "\n";
   DrawTrSurf_Curve2d::Dump(theStream);
 }
 

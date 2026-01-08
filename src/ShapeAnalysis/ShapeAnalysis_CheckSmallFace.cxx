@@ -59,11 +59,11 @@
 
 ShapeAnalysis_CheckSmallFace::ShapeAnalysis_CheckSmallFace()
 {
-  myStatusSpot      = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  myStatusStrip     = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  myStatusPin       = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  myStatusTwisted   = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  myStatusSplitVert = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusSpot      = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
+  myStatusStrip     = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
+  myStatusPin       = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
+  myStatusTwisted   = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
+  myStatusSplitVert = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 static void MinMaxPnt(const Point3d&     p,
@@ -218,10 +218,10 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSpotFace(const TopoFace&  F,
   switch (stat)
   {
     case 1:
-      myStatusSpot = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatusSpot = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       break;
     case 2:
-      myStatusSpot = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatusSpot = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       break;
     default:
       break;
@@ -285,7 +285,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoFace&  F
     }
     if (issmall)
     {
-      myStatusStrip = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatusStrip = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       return issmall; // OK, small in V
     }
     issmall = Standard_True;
@@ -306,7 +306,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoFace&  F
     }
     if (issmall)
     {
-      myStatusStrip = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatusStrip = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       return issmall;
     } // OK, small in U
   }
@@ -450,7 +450,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::FindStripEdges(const TopoFace&  F
       return Standard_False;
     else
     {
-      myStatusStrip = ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatusStrip = ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       return Standard_True;
     }
   }
@@ -558,7 +558,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoFace& 
   Standard_Real dmax;
   if (!CheckStripEdges(E1, E2, tol, dmax))
     return Standard_False;
-  myStatusStrip = ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+  myStatusStrip = ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
   return Standard_True;
 }
 
@@ -684,7 +684,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
     }
   }
   if (nbp != 0)
-    myStatusSplitVert = ShapeExtend::EncodeStatus(ShapeExtend_DONE);
+    myStatusSplitVert = ShapeExtend1::EncodeStatus(ShapeExtend_DONE);
   return nbp;
 }
 
@@ -811,10 +811,10 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPin(const TopoFace& F,
   switch (stat)
   {
     case 1:
-      myStatusPin = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatusPin = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       break;
     case 2:
-      myStatusPin = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatusPin = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       break;
     default:
       break;
@@ -826,7 +826,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPin(const TopoFace& F,
     // Standard_Boolean EqualPoles = Standard_False;
     if (CheckPoles(allpoles, 2, nbv) || CheckPoles(allpoles, 2, 1) || CheckPoles(allpoles, 1, nbu)
         || CheckPoles(allpoles, 1, 1))
-      myStatusPin = ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatusPin = ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
   }
 
   return Standard_True;
@@ -916,7 +916,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoFace& F,
                          nz(iu + 1, iv))
                < 0.)
       {
-        myStatusTwisted = ShapeExtend::EncodeStatus(ShapeExtend_DONE);
+        myStatusTwisted = ShapeExtend1::EncodeStatus(ShapeExtend_DONE);
         paramu          = umin + du * iu - du / 2;
         paramv          = vmin + dv * iv - dv / 2;
         return Standard_True;
@@ -1024,7 +1024,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoFace&     
     if (CheckPinEdges(theFirstEdge, theSecondEdge, coef1, coef2, toler))
     {
       mapEdges.Bind(theFirstEdge, theSecondEdge);
-      myStatusPinFace = ShapeExtend::EncodeStatus(ShapeExtend_DONE);
+      myStatusPinFace = ShapeExtend1::EncodeStatus(ShapeExtend_DONE);
       done            = Standard_True;
     }
 

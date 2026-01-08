@@ -28,7 +28,7 @@ class NCollection_BaseAllocator;
  * <li>Coordinates of a 3D point defining the node location</li>
  * <li>2D point coordinates</li>
  * <li>List of triangles that use this Node</li>
- * <li>Integer index, normally the index of the node in the original
+ * <li>Integer1 index, normally the index of the node in the original
  *     triangulation</li>
  * </ul>
  */

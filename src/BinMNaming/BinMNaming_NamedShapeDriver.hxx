@@ -33,7 +33,7 @@ class LocationBinarySet;
 class BinMNaming_NamedShapeDriver;
 DEFINE_STANDARD_HANDLE(BinMNaming_NamedShapeDriver, BinMDF_ADriver)
 
-//! NamedShape  Attribute Driver.
+//! NamedShape1  Attribute Driver.
 class BinMNaming_NamedShapeDriver : public BinMDF_ADriver
 {
 

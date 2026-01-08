@@ -79,7 +79,7 @@ static Standard_Boolean IsModifySize(const BRepAdaptor_Surface&     theBS,
 // function : Add
 // purpose  : Add a shape bounding to a box
 //=======================================================================
-void BRepBndLib::Add(const TopoShape& S, Box2& B, Standard_Boolean useTriangulation)
+void BRepBndLib1::Add(const TopoShape& S, Box2& B, Standard_Boolean useTriangulation)
 {
   ShapeExplorer ex;
 
@@ -215,7 +215,7 @@ void BRepBndLib::Add(const TopoShape& S, Box2& B, Standard_Boolean useTriangulat
 // purpose  : Add a precise shape bounding to a box
 //=======================================================================
 
-void BRepBndLib::AddClose(const TopoShape& S, Box2& B)
+void BRepBndLib1::AddClose(const TopoShape& S, Box2& B)
 {
   ShapeExplorer ex;
 
@@ -247,7 +247,7 @@ void BRepBndLib::AddClose(const TopoShape& S, Box2& B)
 // function : AddOptimal
 // purpose  : Add a shape bounding to a box
 //=======================================================================
-void BRepBndLib::AddOptimal(const TopoShape&    S,
+void BRepBndLib1::AddOptimal(const TopoShape&    S,
                             Box2&               B,
                             const Standard_Boolean useTriangulation,
                             const Standard_Boolean useShapeTolerance)
@@ -683,7 +683,7 @@ Standard_Boolean IsModifySize(const BRepAdaptor_Surface&     theBS,
                               const Standard_Real            theTolV)
 {
   Standard_Real pu1 = 0, pu2, pv1 = 0, pv2;
-  ElSLib1::PlaneParameters(thePln.Position(), theP, pu2, pv2);
+  ElSLib1::PlaneParameters(thePln.Position1(), theP, pu2, pv2);
   Reorder(pu1, pu2);
   Reorder(pv1, pv2);
   Handle(GeomPlane)  aPlane = new GeomPlane(thePln);

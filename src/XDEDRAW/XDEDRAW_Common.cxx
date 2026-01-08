@@ -48,20 +48,20 @@ static Standard_Integer SetCurWS(DrawInterpreter& theDI,
   }
   const AsciiString1   aSessionName(theArgVec[1]);
   Handle(ExchangeSession)   aSession;
-  const XSControl_WorkSessionMap& aWSList = XSDRAW::WorkSessionList();
+  const XSControl_WorkSessionMap& aWSList = XSDRAW1::WorkSessionList();
   if (!aWSList.Find(aSessionName, aSession))
   {
     AsciiString1 aWSs;
     for (XSControl_WorkSessionMap::Iterator anIter(aWSList); anIter.More(); anIter.Next())
     {
       aWSs += "\"";
-      aWSs += anIter.Key();
+      aWSs += anIter.Key1();
       aWSs += "\"\n";
     }
     theDI << "Error: Can't find active session. Active sessions list:\n" << aWSs;
     return 1;
   }
-  XSDRAW::SetSession(aSession);
+  XSDRAW1::SetSession(aSession);
   return 0;
 }
 
@@ -75,12 +75,12 @@ static Standard_Integer GetDicWSList(DrawInterpreter& theDI,
 {
   (void)theNbArgs;
   (void)theArgVec;
-  Message::SendInfo() << "Active sessions list:";
+  Message1::SendInfo() << "Active sessions list:";
   AsciiString1 aWSs;
-  for (XSControl_WorkSessionMap::Iterator anIter(XSDRAW::WorkSessionList()); anIter.More();
+  for (XSControl_WorkSessionMap::Iterator anIter(XSDRAW1::WorkSessionList()); anIter.More();
        anIter.Next())
   {
-    theDI << "\"" << anIter.Key() << "\"\n";
+    theDI << "\"" << anIter.Key1() << "\"\n";
   }
   return 0;
 }
@@ -95,7 +95,7 @@ static Standard_Integer GetCurWS(DrawInterpreter& theDI,
 {
   (void)theNbArgs;
   (void)theArgVec;
-  Handle(ExchangeSession) WS = XSDRAW::Session();
+  Handle(ExchangeSession) WS = XSDRAW1::Session();
   theDI << "\"" << WS->LoadedFile() << "\"";
   return 0;
 }
@@ -116,22 +116,22 @@ static Standard_Integer FromShape(DrawInterpreter& theDI,
 
   char command[256];
   Sprintf(command, "fromshape %.200s -1", theArgVec[1]);
-  const XSControl_WorkSessionMap& DictWS = XSDRAW::WorkSessionList();
+  const XSControl_WorkSessionMap& DictWS = XSDRAW1::WorkSessionList();
   if (DictWS.IsEmpty())
     return theDI.Eval(command);
 
-  Handle(ExchangeSession) aWS = XSDRAW::Session();
+  Handle(ExchangeSession) aWS = XSDRAW1::Session();
   for (XSControl_WorkSessionMap::Iterator DicIt(DictWS); DicIt.More(); DicIt.Next())
   {
     Handle(ExchangeSession) CurrentWS =
       Handle(ExchangeSession)::DownCast(DicIt.Value());
     if (!CurrentWS.IsNull())
     {
-      XSDRAW::SetSession(CurrentWS);
+      XSDRAW1::SetSession(CurrentWS);
       theDI.Eval(command);
     }
   }
-  XSDRAW::SetSession(aWS);
+  XSDRAW1::SetSession(aWS);
   return 0;
 }
 
@@ -163,7 +163,7 @@ static Standard_Integer Expand(DrawInterpreter& theDI,
 
   if (theNbArgs == 3)
   {
-    if (!XCAFDoc_Editor::Expand(Doc->Main(), recurs))
+    if (!DocumentEditor::Expand(Doc->Main(), recurs))
     {
       theDI << "No suitable labels to expand\n";
       return 1;
@@ -184,7 +184,7 @@ static Standard_Integer Expand(DrawInterpreter& theDI,
 
       if (!aLabel.IsNull())
       {
-        if (!XCAFDoc_Editor::Expand(Doc->Main(), aLabel, recurs))
+        if (!DocumentEditor::Expand(Doc->Main(), aLabel, recurs))
         {
           theDI << "The shape is assembly or not compound\n";
           return 1;
@@ -253,7 +253,7 @@ static Standard_Integer Extract(DrawInterpreter& theDI,
     return 1;
   }
 
-  if (!XCAFDoc_Editor::Extract(aSrcShapes, aDstLabel))
+  if (!DocumentEditor::Extract(aSrcShapes, aDstLabel))
   {
     theDI << "Error: Cannot extract labels\n";
     return 1;
@@ -298,7 +298,7 @@ static Standard_Integer Filter(DrawInterpreter& theDI,
     return 1;
   }
   Handle(XCAFDoc_ShapeTool) aShTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
-  if (!XCAFDoc_Editor::FilterShapeTree(aShTool, aSrcShapes))
+  if (!DocumentEditor::FilterShapeTree(aShTool, aSrcShapes))
   {
     theDI << "Error: Cannot filter shape tree. Document can be corrupted\n";
     return 1;
@@ -308,7 +308,7 @@ static Standard_Integer Filter(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XDEDRAW_Common::InitCommands(DrawInterpreter& theDI)
+void CommonCommands::InitCommands(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -359,6 +359,6 @@ void XDEDRAW_Common::InitCommands(DrawInterpreter& theDI)
             __FILE__,
             Filter,
             aGroup);
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }

@@ -26,7 +26,7 @@ class Adaptor3d_Curve;
 //! A framework to define display of lines, arcs of circles
 //! and conic sections.
 //! This is done with a fixed number of points, which can be modified.
-class StdPrs_Curve : public Prs3d_Root
+class StdPrs_Curve : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

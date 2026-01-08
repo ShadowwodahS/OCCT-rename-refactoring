@@ -39,8 +39,8 @@ ShapeUpgrade_SplitCurve::ShapeUpgrade_SplitCurve()
 
 void ShapeUpgrade_SplitCurve::Init(const Standard_Real First, const Standard_Real Last)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  //  if (ShapeUpgrade::Debug()) std::cout << "SplitCurve::Init"<<std::endl;
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
+  //  if (ShapeUpgrade1::Debug()) std::cout << "SplitCurve::Init"<<std::endl;
 
   myNbCurves = 1;
   // mySplitValues.Clear();
@@ -82,7 +82,7 @@ void ShapeUpgrade_SplitCurve::SetSplitValues(const Handle(TColStd_HSequenceOfRea
 
 void ShapeUpgrade_SplitCurve::Build(const Standard_Boolean /*Segment1*/)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 //=================================================================================================
@@ -106,12 +106,12 @@ void ShapeUpgrade_SplitCurve::Perform(const Standard_Boolean Segment1)
 
 void ShapeUpgrade_SplitCurve::Compute()
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 //=================================================================================================
 
 Standard_Boolean ShapeUpgrade_SplitCurve::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }

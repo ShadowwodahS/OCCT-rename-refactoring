@@ -39,9 +39,9 @@ void GProp_SelGProps::Perform(const Cylinder1&  S,
   Standard_Real X0, Y0, Z0, Xa1, Ya1, Za1, Xa2, Ya2, Za2, Xa3, Ya3, Za3;
   S.Location().Coord(X0, Y0, Z0);
   Standard_Real R = S.Radius();
-  S.Position().XDirection().Coord(Xa1, Ya1, Za1);
-  S.Position().YDirection().Coord(Xa2, Ya2, Za2);
-  S.Position().Direction().Coord(Xa3, Ya3, Za3);
+  S.Position1().XDirection().Coord(Xa1, Ya1, Za1);
+  S.Position1().YDirection().Coord(Xa2, Ya2, Za2);
+  S.Position1().Direction().Coord(Xa3, Ya3, Za3);
   dim               = R * (Z2 - Z1) * (Alpha2 - Alpha1);
   Standard_Real SA2 = Sin(Alpha2);
   Standard_Real SA1 = Sin(Alpha1);
@@ -108,9 +108,9 @@ void GProp_SelGProps::Perform(const Cone1&      S,
 {
   Standard_Real X0, Y0, Z0, Xa1, Ya1, Za1, Xa2, Ya2, Za2, Xa3, Ya3, Za3;
   S.Location().Coord(X0, Y0, Z0);
-  S.Position().XDirection().Coord(Xa1, Ya1, Za1);
-  S.Position().YDirection().Coord(Xa2, Ya2, Za2);
-  S.Position().Direction().Coord(Xa3, Ya3, Za3);
+  S.Position1().XDirection().Coord(Xa1, Ya1, Za1);
+  S.Position1().YDirection().Coord(Xa2, Ya2, Za2);
+  S.Position1().Direction().Coord(Xa3, Ya3, Za3);
   Standard_Real t   = S.SemiAngle();
   Standard_Real Cnt = Cos(t);
   Standard_Real Snt = Sin(t);
@@ -192,9 +192,9 @@ void GProp_SelGProps::Perform(const Sphere3&    S,
 {
   Standard_Real X0, Y0, Z0, Xa1, Ya1, Za1, Xa2, Ya2, Za2, Xa3, Ya3, Za3;
   S.Location().Coord(X0, Y0, Z0);
-  S.Position().XDirection().Coord(Xa1, Ya1, Za1);
-  S.Position().YDirection().Coord(Xa2, Ya2, Za2);
-  S.Position().Direction().Coord(Xa3, Ya3, Za3);
+  S.Position1().XDirection().Coord(Xa1, Ya1, Za1);
+  S.Position1().YDirection().Coord(Xa2, Ya2, Za2);
+  S.Position1().Direction().Coord(Xa3, Ya3, Za3);
   Standard_Real R    = S.Radius();
   Standard_Real Cnt1 = Cos(Teta1);
   Standard_Real Snt1 = Sin(Teta1);

@@ -158,7 +158,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
   Point3d             pint3d, p1, p2, pAx1, pAx2, ptat11, ptat12, ptat21, ptat22;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(GeomCurve3d) extCurv;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
                                geom1,
@@ -321,7 +321,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
       mySAttach = myPosition.Translated(vec2);
     }
   }
-  DsgPrs_PerpenPresentation::Add(aPresentation,
+  PerpenPresentation::Add(aPresentation,
                                  myDrawer,
                                  myFAttach,
                                  mySAttach,

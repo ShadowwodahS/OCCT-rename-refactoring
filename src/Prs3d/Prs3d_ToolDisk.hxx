@@ -19,7 +19,7 @@
 #include <Prs3d_ToolQuadric.hxx>
 
 //! Standard presentation algorithm that outputs graphical primitives for disk surface.
-class Prs3d_ToolDisk : public Prs3d_ToolQuadric
+class Prs3d_ToolDisk : public ToolQuadric
 {
 public:
   //! Generate primitives for 3D quadric surface.

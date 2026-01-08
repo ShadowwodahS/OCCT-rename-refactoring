@@ -38,7 +38,7 @@
 //! Current Number to follow the last one read
 //! - Read several parameters (as above) but in interlaced lists,
 //! i.e. from complex1 items (each one including successively for
-//! instance, an Integer, a Real, an Entity ...)
+//! instance, an Integer1, a Real, an Entity ...)
 //!
 //! If commands to advance Current Number are not set, it must be
 //! set by the user (with method SetCurrent from ParamReader)
@@ -61,7 +61,7 @@ public:
   //! ("num + nb")
   //! If size is given, it means that each parameter is made of more
   //! than one term. One term is the normal (default) case : for
-  //! instance, a Parameter comprises one Integer, or one Entity ...
+  //! instance, a Parameter comprises one Integer1, or one Entity ...
   //! Size gives the complete size of each Item if it is complex1.
   //! To be used ONLY IF it is constant
   Standard_EXPORT ParameterCursor(const Standard_Integer num,

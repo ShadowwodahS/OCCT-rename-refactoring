@@ -81,7 +81,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // compute the chamfer surface(cone)
 
   // compute the normals to the plane surface & to the plane face
-  Ax3 PosPl = Pln.Position();
+  Ax3 PosPl = Pln.Position1();
   Dir3d Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d norf  = Dpl;
   if (Ofpl == TopAbs_REVERSED)
@@ -173,7 +173,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   if ((dedans && !plandab) || (!dedans && plandab))
   {
     gcon->VReverse(); // be careful : the SemiAngle was changed
-    ConAx3   = gcon->Position();
+    ConAx3   = gcon->Position1();
     SemiAngl = gcon->SemiAngle();
   }
 
@@ -375,7 +375,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   Point3d POnCyl, POnPln, OrCyl;
 
   Dir3d XDir   = Spine.Direction();
-  Ax3 AxPln  = Pln.Position();
+  Ax3 AxPln  = Pln.Position1();
   Dir3d NorPln = AxPln.XDirection().Crossed(AxPln.YDirection());
   Dir3d NorF(NorPln);
   if (Or1 == TopAbs_REVERSED)
@@ -383,7 +383,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     NorF.Reverse();
   }
 
-  Ax3 AxCyl = Cyl.Position();
+  Ax3 AxCyl = Cyl.Position1();
   // OrCyl is the point on axis of cylinder in the plane normal to the
   // axis containing OrSpine
   Point3d Loc = AxCyl.Location();

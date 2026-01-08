@@ -91,11 +91,11 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
   Standard_Real           VFirst    = myVSplitValues->Value(1);
   Standard_Real           VLast     = myVSplitValues->Value(myVSplitValues->Length());
   constexpr Standard_Real precision = Precision::Confusion();
-  //  if (ShapeUpgrade::Debug()) std::cout << "SplitSurfaceContinuity::Build" << std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout << "SplitSurfaceContinuity::Build" << std::endl;
   if (mySurface->Continuity() < myCriterion)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   if (myUSplitValues->Length() > 2 || myVSplitValues->Length() > 2)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 
   if (mySurface->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
   {
@@ -116,11 +116,11 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     myVSplitValues->Clear();
     myVSplitValues->ChangeSequence() = spc.SplitValues()->Sequence();
     if (spc.Status(ShapeExtend_DONE1))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     if (spc.Status(ShapeExtend_DONE2))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     if (spc.Status(ShapeExtend_DONE3))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     return;
   }
   if (mySurface->IsKind(STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion)))
@@ -142,12 +142,12 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     myUSplitValues->Clear();
     myUSplitValues->ChangeSequence() = spc.SplitValues()->Sequence();
     if (spc.Status(ShapeExtend_DONE1))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     if (spc.Status(ShapeExtend_DONE2))
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     if (spc.Status(ShapeExtend_DONE3))
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       const Handle(GeomCurve3d)& aNewBascurve = spc.GetCurve();
       Surface->SetBasisCurve(aNewBascurve);
     }
@@ -192,7 +192,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
       case GeomAbs_C2:
         BasCriterion = GeomAbs_C3;
         break;
-      case GeomAbs_C3: // if (ShapeUpgrade::Debug()) std::cout<<". this criterion is not suitable
+      case GeomAbs_C3: // if (ShapeUpgrade1::Debug()) std::cout<<". this criterion is not suitable
                        // for a Offset Surface"<<std::endl;
 #ifdef OCCT_DEBUG
         std::cout << "Warning: ShapeUpgrade_SplitSurfaceContinuity: criterion C3 for Offset surface"
@@ -229,7 +229,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     MyBSpline = Handle(Geom_BSplineSurface)::DownCast(mySurface->Copy());
   if (MyBSpline.IsNull())
   {
-    //    if (ShapeUpgrade::Debug()) std::cout<<".  Surface is not a Bspline"<<std::endl;
+    //    if (ShapeUpgrade1::Debug()) std::cout<<".  Surface is not a Bspline"<<std::endl;
     return;
   }
   if (mySurface->Continuity() >= myCriterion)
@@ -247,7 +247,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
                    VLastInd  = MyBSpline->LastVKnotIndex() - 1;
   Standard_Integer NbVKnots  = MyBSpline->NbVKnots();
 
-  //  if (ShapeUpgrade::Debug()) std::cout<<". NbUKnots="<<NbUKnots<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout<<". NbUKnots="<<NbUKnots<<std::endl;
   if (NbUKnots > 2)
   {
     // Only the internal knots are checked.
@@ -279,7 +279,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
           if (corrected)
           {
             // at this knot, the continuity is now C1. Nothing else to do.
-            //	    if (ShapeUpgrade::Debug()) std::cout<<". Correction at UKnot
+            //	    if (ShapeUpgrade1::Debug()) std::cout<<". Correction at UKnot
             //"<<iknot<<std::endl;
             // PTV 15.05.2002 decrease iknot and ULastIndex values if knot removed
             if (newMultiplicity == 0)
@@ -287,7 +287,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
               iknot--;
               ULastInd--;
             }
-            myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+            myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
           }
           else
           {
@@ -296,14 +296,14 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
             Standard_Real u = MyBSpline->UKnot(iknot);
             myUSplitValues->InsertBefore(j++, u);
             myNbResultingRow++;
-            //	    if (ShapeUpgrade::Debug()) std::cout<<". Splitting at Knot "<<iknot<<std::endl;
+            //	    if (ShapeUpgrade1::Debug()) std::cout<<". Splitting at Knot "<<iknot<<std::endl;
           }
         }
       }
       UFirst = ULast;
     }
   }
-  //  if (ShapeUpgrade::Debug()) std::cout<<". NbVKnots="<<NbVKnots<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout<<". NbVKnots="<<NbVKnots<<std::endl;
   if (NbVKnots > 2)
   {
     // Only the internal knots are checked.
@@ -334,7 +334,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
           if (corrected)
           {
             // at this knot, the continuity is now Criterion. Nothing else to do.
-            //	    if (ShapeUpgrade::Debug()) std::cout<<". Correction at VKnot
+            //	    if (ShapeUpgrade1::Debug()) std::cout<<". Correction at VKnot
             //"<<iknot<<std::endl;
             // PTV 15.05.2002 decrease iknot and ULastIndex values if knot removed
             if (newMultiplicity == 0)
@@ -342,7 +342,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
               iknot--;
               VLastInd--;
             }
-            myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+            myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
           }
           else
           {
@@ -350,7 +350,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
             Standard_Real v = MyBSpline->VKnot(iknot);
             myVSplitValues->InsertBefore(j1++, v);
             myNbResultingCol++;
-            //	    if (ShapeUpgrade::Debug()) std::cout<<". Splitting at Knot "<<iknot<<std::endl;
+            //	    if (ShapeUpgrade1::Debug()) std::cout<<". Splitting at Knot "<<iknot<<std::endl;
           }
         }
       }
@@ -363,5 +363,5 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
   }
 
   if (myUSplitValues->Length() > 2 || myVSplitValues->Length() > 2)
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 }

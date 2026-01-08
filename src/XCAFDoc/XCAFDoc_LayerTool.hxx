@@ -153,7 +153,7 @@ public:
   Standard_EXPORT Standard_Boolean IsVisible(const DataLabel& layerL) const;
 
   //! Set the visibility of layer. If layer is invisible when on it's layer
-  //! will set UAttribute with corresponding GUID.
+  //! will set UAttribute1 with corresponding GUID.
   Standard_EXPORT void SetVisibility(const DataLabel&       layerL,
                                      const Standard_Boolean isvisible = Standard_True) const;
 

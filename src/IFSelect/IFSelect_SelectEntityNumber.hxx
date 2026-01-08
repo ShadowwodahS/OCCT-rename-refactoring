@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_SelectEntityNumber, IFSelect_SelectBase)
 //! A SelectEntityNumber gets in an InterfaceModel (through a
 //! Graph), the Entity which has a specified Number (its rank of
 //! adding into the Model) : there can be zero (if none) or one.
-//! The Number is not directly defined as an Integer, but as a
+//! The Number is not directly defined as an Integer1, but as a
 //! Parameter, which can be externally controlled
 class IFSelect_SelectEntityNumber : public IFSelect_SelectBase
 {

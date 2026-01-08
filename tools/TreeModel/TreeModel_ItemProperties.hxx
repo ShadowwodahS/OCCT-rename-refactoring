@@ -58,13 +58,13 @@ class TreeModel_ItemProperties : public RefObject
                        const QVariant&        theKey,
                        QVariant               theValue)
         : ValueStartPosition(theValueStartPosition),
-          Key(theKey),
+          Key1(theKey),
           Value(theValue)
     {
     }
 
     Standard_Integer ValueStartPosition; //!< start position of the key
-    QVariant         Key;                //!< value in the first column
+    QVariant         Key1;                //!< value in the first column
     QVariant         Value;              //!< value in the second column
     QMap<int, QVariant>
       CustomValues; //!< custom values, e.g. key is Background, value is a defined color
@@ -140,7 +140,7 @@ public:
 
   //! Returns data object of the item.
   //! \return object key
-  const AsciiString1& Key() const { return myKey; }
+  const AsciiString1& Key1() const { return myKey; }
 
   //! Returns stream value of the item.
   //! \return value

@@ -1547,7 +1547,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPerforate(const Handle(IGESBasic_Singl
       continue;
     }
     //    coplanaires ? verifier
-    if (!pln.Position().IsCoplanar(pli.Position(), GetEpsGeom(), GetEpsilon()))
+    if (!pln.Position1().IsCoplanar(pli.Position1(), GetEpsGeom(), GetEpsilon()))
     {
       Message_Msg msg1295("IGES_1295");
       msg1295.Arg(i);
@@ -1702,7 +1702,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane
 
           const TopoFace& F = MF.Face();
           GeometricProperties       G;
-          BRepGProp::SurfaceProperties(F, G);
+          BRepGProp1::SurfaceProperties(F, G);
           if (G.Mass() < 0)
           {
             if (!st->HasBoundingCurveHole())
@@ -1842,7 +1842,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_CylindricalSurface, Cyl, Surf);
       Cylinder1 TheCyl = Cyl->Cylinder();
-      ElSLib1::CylinderParameters(TheCyl.Position(),
+      ElSLib1::CylinderParameters(TheCyl.Position1(),
                                  TheCyl.Radius(),
                                  Curve3d->Value(First),
                                  paramu,
@@ -1853,7 +1853,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_ConicalSurface, Cone, Surf);
       Cone1 TheCone = Cone->Cone();
-      ElSLib1::ConeParameters(TheCone.Position(),
+      ElSLib1::ConeParameters(TheCone.Position1(),
                              TheCone.RefRadius(),
                              TheCone.SemiAngle(),
                              Curve3d->Value(First),
@@ -1865,7 +1865,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_ToroidalSurface, Tore, Surf);
       gp_Torus TheTore = Tore->Torus();
-      ElSLib1::TorusParameters(TheTore.Position(),
+      ElSLib1::TorusParameters(TheTore.Position1(),
                               TheTore.MajorRadius(),
                               TheTore.MinorRadius(),
                               Curve3d->Value(First),
@@ -1879,7 +1879,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_SphericalSurface, Sphere, Surf);
       Sphere3 TheSphere = Sphere->Sphere();
-      ElSLib1::SphereParameters(TheSphere.Position(),
+      ElSLib1::SphereParameters(TheSphere.Position1(),
                                TheSphere.Radius(),
                                Curve3d->Value(First),
                                paramu,

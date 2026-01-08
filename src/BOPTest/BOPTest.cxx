@@ -32,32 +32,32 @@
 
 //=================================================================================================
 
-void BOPTest::AllCommands(DrawInterpreter& theCommands)
+void BOPTest1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   //
-  BOPTest::BOPCommands(theCommands);
-  BOPTest::CheckCommands(theCommands);
-  BOPTest::LowCommands(theCommands);
-  BOPTest::TolerCommands(theCommands);
-  BOPTest::ObjCommands(theCommands);
-  BOPTest::PartitionCommands(theCommands);
-  BOPTest::APICommands(theCommands);
-  BOPTest::OptionCommands(theCommands);
-  BOPTest::DebugCommands(theCommands);
-  BOPTest::CellsCommands(theCommands);
-  BOPTest::UtilityCommands(theCommands);
-  BOPTest::RemoveFeaturesCommands(theCommands);
-  BOPTest::PeriodicityCommands(theCommands);
-  BOPTest::MkConnectedCommands(theCommands);
+  BOPTest1::BOPCommands(theCommands);
+  BOPTest1::CheckCommands(theCommands);
+  BOPTest1::LowCommands(theCommands);
+  BOPTest1::TolerCommands(theCommands);
+  BOPTest1::ObjCommands(theCommands);
+  BOPTest1::PartitionCommands(theCommands);
+  BOPTest1::APICommands(theCommands);
+  BOPTest1::OptionCommands(theCommands);
+  BOPTest1::DebugCommands(theCommands);
+  BOPTest1::CellsCommands(theCommands);
+  BOPTest1::UtilityCommands(theCommands);
+  BOPTest1::RemoveFeaturesCommands(theCommands);
+  BOPTest1::PeriodicityCommands(theCommands);
+  BOPTest1::MkConnectedCommands(theCommands);
 }
 
 //=================================================================================================
 
-void BOPTest::Factory(DrawInterpreter& theCommands)
+void BOPTest1::Factory(DrawInterpreter& theCommands)
 {
   static Standard_Boolean FactoryDone = Standard_False;
   if (FactoryDone)
@@ -66,20 +66,20 @@ void BOPTest::Factory(DrawInterpreter& theCommands)
   FactoryDone = Standard_True;
 
   DBRep1::BasicCommands(theCommands);
-  GeomliteTest::AllCommands(theCommands);
-  GeometryTest::AllCommands(theCommands);
-  BRepTest::AllCommands(theCommands);
-  MeshTest::Commands(theCommands);
-  HLRTest::Commands(theCommands);
-  BOPTest::AllCommands(theCommands);
-  SWDRAW::Init(theCommands);
+  GeomliteTest1::AllCommands(theCommands);
+  GeometryTest1::AllCommands(theCommands);
+  BRepTest1::AllCommands(theCommands);
+  MeshTest1::Commands(theCommands);
+  HLRTest1::Commands(theCommands);
+  BOPTest1::AllCommands(theCommands);
+  SWDRAW1::Init(theCommands);
 }
 // Declare entry point PLUGINFACTORY
-DPLUGIN(BOPTest)
+DPLUGIN(BOPTest1)
 
 //=================================================================================================
 
-void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
+void BOPTest1::ReportAlerts(const Handle(Message_Report)& theReport)
 {
   // first report warnings, then errors
   Message_Gravity            anAlertTypes[2] = {Message_Warning, Message_Fail};
@@ -101,7 +101,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
       UtfString aText = aMsgType[iGravity] + aMsg.Get();
 
       // collect all shapes if any attached to this alert
-      if (BOPTest_Objects::DrawWarnShapes())
+      if (Objects::DrawWarnShapes())
       {
         AsciiString1 aShapeList;
         Standard_Integer        aNbShapes = 0;
@@ -135,7 +135,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
 
 //=================================================================================================
 
-BOPAlgo_Operation BOPTest::GetOperationType(const Standard_CString theOp)
+BOPAlgo_Operation BOPTest1::GetOperationType(const Standard_CString theOp)
 {
   AsciiString1 anOp(theOp);
   anOp.LowerCase();

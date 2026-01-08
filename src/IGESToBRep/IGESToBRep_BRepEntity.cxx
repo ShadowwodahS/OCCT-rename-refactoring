@@ -328,7 +328,7 @@ TopoShape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& star
       IGESToBRep1::AlgoContainer()->ToolContainer()->IGESBoundary();
     IB->Init(*this, start, face, trans, uFact, filepreference);
     ShapeBuilder    B;
-    ShapeBuild_Edge sbe;
+    Edge2 sbe;
 
     for (Standard_Integer iedge = 1; iedge <= start->NbEdges(); iedge++)
     {

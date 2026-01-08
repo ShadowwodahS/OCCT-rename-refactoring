@@ -61,14 +61,14 @@ void GeneralSymbolTool::ReadOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent
   if (num > 0)
   {
     // clang-format off
-    PR.ReadEnts (IR,PR.CurrentList(num),"Geometry Entities",tempGeoms); //szv#4:S4163:12Mar99 `st=` not needed
+    PR.ReadEnts (IR,PR.CurrentList(num),"Geometry1 Entities",tempGeoms); //szv#4:S4163:12Mar99 `st=` not needed
     // clang-format on
     /*
         tempGeoms = new IGESData_HArray1OfIGESEntity(1, num);
         for ( i = 1; i <= num; i++)
           {
         Handle(IGESData_IGESEntity) tempEnt;
-        st = PR.ReadEntity(IR, PR.Current(), "Geometry Entity", tempEnt);
+        st = PR.ReadEntity(IR, PR.Current(), "Geometry1 Entity", tempEnt);
         if (st) tempGeoms->SetValue(i, tempEnt);
           }
     */

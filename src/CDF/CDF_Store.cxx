@@ -269,7 +269,7 @@ void CDF_Store::SetComment(const Standard_ExtString aComment)
   myCurrentDocument->SetRequestedComment(aComment);
 }
 
-Handle(TCollection_HExtendedString) CDF_Store::Comment() const
+Handle(TCollection_HExtendedString) CDF_Store::Comment1() const
 {
   return new TCollection_HExtendedString(myCurrentDocument->RequestedComment());
 }

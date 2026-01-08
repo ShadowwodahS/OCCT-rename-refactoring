@@ -35,8 +35,8 @@ DEFINE_STANDARD_HANDLE(DDataStd_DrawDriver, RefObject)
 //! * 1 Constraint
 //! * 2 Object
 //! * 3 Datum      (Point,Axis,Plane1)
-//! * 4 Geometry
-//! * 5 NamedShape
+//! * 4 Geometry1
+//! * 5 NamedShape1
 class DDataStd_DrawDriver : public RefObject
 {
 

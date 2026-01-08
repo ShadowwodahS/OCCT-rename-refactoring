@@ -35,16 +35,16 @@
 
 // #define POSITION_USES_MEAN_POINT
 //=======================================================================
-// function : ShapeFix_EdgeConnect
+// function : EdgeConnect
 //=======================================================================
-ShapeFix_EdgeConnect::ShapeFix_EdgeConnect() {}
+EdgeConnect::EdgeConnect() {}
 
 //=======================================================================
 // function : Add
 // purpose  : Adds connectivity information for two edges
 //=======================================================================
 
-void ShapeFix_EdgeConnect::Add(const TopoEdge& aFirst, const TopoEdge& aSecond)
+void EdgeConnect::Add(const TopoEdge& aFirst, const TopoEdge& aSecond)
 {
   // Select vertices to connect
   TopoVertex theFirstVertex  = TopExp1::LastVertex(aFirst, Standard_True);
@@ -121,7 +121,7 @@ void ShapeFix_EdgeConnect::Add(const TopoEdge& aFirst, const TopoEdge& aSecond)
 // purpose  : Adds connectivity information for the whole shape
 //=======================================================================
 
-void ShapeFix_EdgeConnect::Add(const TopoShape& aShape)
+void EdgeConnect::Add(const TopoShape& aShape)
 {
   for (ShapeExplorer expw(aShape, TopAbs_WIRE); expw.More(); expw.Next())
   {
@@ -152,7 +152,7 @@ void ShapeFix_EdgeConnect::Add(const TopoShape& aShape)
 // purpose  : Builds shared vertices
 //=======================================================================
 
-void ShapeFix_EdgeConnect::Build()
+void EdgeConnect::Build()
 {
   TopTools_ListIteratorOfListOfShape           theLIterator;
   BRep_ListIteratorOfListOfCurveRepresentation theCIterator;
@@ -167,7 +167,7 @@ void ShapeFix_EdgeConnect::Build()
        theSIterator.More();
        theSIterator.Next())
   {
-    TopoVertex               theSharedVertex = TopoDS::Vertex(theSIterator.Key());
+    TopoVertex               theSharedVertex = TopoDS::Vertex(theSIterator.Key1());
     const ShapeList& theList         = theSIterator.Value();
 
     thePositions.Clear();
@@ -325,7 +325,7 @@ void ShapeFix_EdgeConnect::Build()
 
 //=================================================================================================
 
-void ShapeFix_EdgeConnect::Clear()
+void EdgeConnect::Clear()
 {
   myVertices.Clear();
   myLists.Clear();

@@ -34,7 +34,7 @@
 #include <Prs3d_Text.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const UtfString& aText,
                                      const Point3d&                     aPntAttach,
@@ -59,10 +59,10 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(anArrayOfPoints);
 
   // texte
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
 }
 
-void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const UtfString& aText,
                                      const Point3d&                     aFAttach,
@@ -94,10 +94,10 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // texte
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
 }
 
-void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const UtfString& aText,
                                      const Frame3d&                     theAxe,
@@ -142,11 +142,11 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // texte
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
 }
 
 // jfa 16/10/2000
-void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const UtfString& aText,
                                      const Frame3d&                     theAxe,
@@ -192,13 +192,13 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // texte
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
 }
 
 // jfa 16/10/2000 end
 
 // jfa 10/10/2000
-void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const UtfString& aText,
                                      const gp_Elips&                   anEllipse,
@@ -239,7 +239,7 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // texte
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntOffset);
 }
 
 // jfa 10/10/2000 end

@@ -54,7 +54,7 @@ public:
 
 public:
   //! Creates a Window defined by his position and size in pixels from the Parent Window.
-  //! Trigger: Raises WindowDefinitionError if the Position out of the Screen Space or the window
+  //! Trigger: Raises WindowDefinitionError if the Position1 out of the Screen Space or the window
   //! creation failed.
   Standard_EXPORT WNT_Window(const Standard_CString     theTitle,
                              const Handle(WNT_WClass)&  theClass,
@@ -110,7 +110,7 @@ public:
   Standard_EXPORT virtual Standard_Real Ratio() const Standard_OVERRIDE;
 
   //! Returns The Window POSITION in PIXEL
-  Standard_EXPORT virtual void Position(Standard_Integer& X1,
+  Standard_EXPORT virtual void Position1(Standard_Integer& X1,
                                         Standard_Integer& Y1,
                                         Standard_Integer& X2,
                                         Standard_Integer& Y2) const Standard_OVERRIDE;

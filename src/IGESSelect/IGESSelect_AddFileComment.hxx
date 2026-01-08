@@ -66,7 +66,7 @@ public:
                                IGESData_IGESWriter&   writer) const Standard_OVERRIDE;
 
   //! Returns specific Label, which is
-  //! "Add <nn> Comment Lines (Start Section)"
+  //! "Add <nn> Comment1 Lines (Start Section)"
   Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_AddFileComment, IGESSelect_FileModifier)

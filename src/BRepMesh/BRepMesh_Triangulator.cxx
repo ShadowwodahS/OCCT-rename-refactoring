@@ -92,7 +92,7 @@ Standard_Boolean BRepMesh_Triangulator::Perform(NCollection_List<Triangle2>& the
 
   if (myMess.IsNull())
   {
-    myMess = Message::DefaultMessenger();
+    myMess = Message1::DefaultMessenger();
   }
 
   if (myWires.Extent() == 1)
@@ -248,7 +248,7 @@ Standard_Boolean BRepMesh_Triangulator::triangulate(
     // prepare Poly_Triangles from result triangles and add to returned list
     for (IMeshData::IteratorOfMapOfInteger aTriIter(aTriangles); aTriIter.More(); aTriIter.Next())
     {
-      const Standard_Integer   aTriangleId = aTriIter.Key();
+      const Standard_Integer   aTriangleId = aTriIter.Key1();
       const Triangle3& aTriangle   = myMeshStructure->GetElement(aTriangleId);
       if (aTriangle.Movability() == BRepMesh_Deleted)
       {

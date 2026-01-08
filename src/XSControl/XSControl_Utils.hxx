@@ -48,14 +48,14 @@ class TopoShape;
 //! Also it gives some helps on some data structures from XSTEP,
 //! such as printing on standard trace file, recignizing most
 //! currently used auxiliary types (Binder,Mapper ...)
-class XSControl_Utils
+class XSControlUtils
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! the only use of this, is to allow a frontal to get one
   //! distinct "Utils" set per separate engine
-  Standard_EXPORT XSControl_Utils();
+  Standard_EXPORT XSControlUtils();
 
   //! Just prints a line into the current Trace File. This allows to
   //! better characterise the various trace outputs, as desired.

@@ -32,7 +32,7 @@
 
 #define MultiLine BRepApprox_TheMultiLineOfApprox
 #define MultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>
-#define LineTool BRepApprox_TheMultiLineToolOfApprox
+#define LineTool TheMultiLineToolOfApprox
 #define LineTool_hxx <BRepApprox_TheMultiLineToolOfApprox.hxx>
 #define Approx_MyBSplGradient BRepApprox_MyBSplGradientOfTheComputeLineOfApprox
 #define Approx_MyBSplGradient_hxx <BRepApprox_MyBSplGradientOfTheComputeLineOfApprox.hxx>
@@ -67,7 +67,7 @@
 #define Approx_ParLeastSquareOfMyGradientbis_hxx                                                   \
   <BRepApprox_ParLeastSquareOfMyGradientbisOfTheComputeLineOfApprox.hxx>
 #define Approx_ResConstraintOfMyGradientbis                                                        \
-  BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox
+  ResConstraintOfMyGradientbisOfTheComputeLineOfApprox
 #define Approx_ResConstraintOfMyGradientbis_hxx                                                    \
   <BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox.hxx>
 #define Approx_ParFunctionOfMyGradientbis                                                          \
@@ -83,7 +83,7 @@
 #define Approx_ParLeastSquareOfMyGradientbis_hxx                                                   \
   <BRepApprox_ParLeastSquareOfMyGradientbisOfTheComputeLineOfApprox.hxx>
 #define Approx_ResConstraintOfMyGradientbis                                                        \
-  BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox
+  ResConstraintOfMyGradientbisOfTheComputeLineOfApprox
 #define Approx_ResConstraintOfMyGradientbis_hxx                                                    \
   <BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox.hxx>
 #define Approx_ParFunctionOfMyGradientbis                                                          \

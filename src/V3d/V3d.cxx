@@ -31,7 +31,7 @@ static Standard_CString V3d_Table_PrintTypeOfOrientation[26] = {
   "XNEGYNEGZPOS", "XNEGYNEGZNEG"};
 }
 
-void V3d::ArrowOfRadius(const Handle(Graphic3d_Group)& garrow,
+void V3d1::ArrowOfRadius(const Handle(Graphic3d_Group)& garrow,
                         const Standard_Real            X0,
                         const Standard_Real            Y0,
                         const Standard_Real            Z0,
@@ -101,7 +101,7 @@ void V3d::ArrowOfRadius(const Handle(Graphic3d_Group)& garrow,
   garrow->AddPrimitiveArray(aPrims);
 }
 
-void V3d::CircleInPlane(const Handle(Graphic3d_Group)& gcircle,
+void V3d1::CircleInPlane(const Handle(Graphic3d_Group)& gcircle,
                         const Standard_Real            X0,
                         const Standard_Real            Y0,
                         const Standard_Real            Z0,
@@ -161,7 +161,7 @@ void V3d::CircleInPlane(const Handle(Graphic3d_Group)& gcircle,
   }
 }
 
-void V3d::SwitchViewsinWindow(const Handle(ViewWindow)& aPreviousView,
+void V3d1::SwitchViewsinWindow(const Handle(ViewWindow)& aPreviousView,
                               const Handle(ViewWindow)& aNextView)
 {
   aPreviousView->Viewer()->SetViewOff(aPreviousView);
@@ -172,14 +172,14 @@ void V3d::SwitchViewsinWindow(const Handle(ViewWindow)& aPreviousView,
 
 //=================================================================================================
 
-Standard_CString V3d::TypeOfOrientationToString(V3d_TypeOfOrientation theType)
+Standard_CString V3d1::TypeOfOrientationToString(V3d_TypeOfOrientation theType)
 {
   return V3d_Table_PrintTypeOfOrientation[theType];
 }
 
 //=================================================================================================
 
-Standard_Boolean V3d::TypeOfOrientationFromString(Standard_CString       theTypeString,
+Standard_Boolean V3d1::TypeOfOrientationFromString(Standard_CString       theTypeString,
                                                   V3d_TypeOfOrientation& theType)
 {
   AsciiString1 aName(theTypeString);

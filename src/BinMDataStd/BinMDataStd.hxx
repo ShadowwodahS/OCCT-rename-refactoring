@@ -44,7 +44,7 @@ public:
     Standard_Boolean ok = Standard_True;
     if (aDocFormatVersion >= TDocStd_FormatVersion_VERSION_10)
     { // process user defined guid
-      const Standard_Integer& aPos = theSource.Position();
+      const Standard_Integer& aPos = theSource.Position1();
       Standard_GUID           aGuid;
       ok = theSource >> aGuid;
       if (!ok)

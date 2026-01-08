@@ -56,7 +56,7 @@ void InterferenceIterator::GeometryKind(const TopOpeBRepDS_Kind GK)
 
 //=================================================================================================
 
-void InterferenceIterator::Geometry(const Standard_Integer G)
+void InterferenceIterator::Geometry1(const Standard_Integer G)
 {
   myGDef = Standard_True;
   myG    = G;
@@ -102,7 +102,7 @@ Standard_Boolean InterferenceIterator::MatchInterference(
 {
   Standard_Boolean GK = myGKDef ? (I->GeometryType() == myGK) : Standard_True;
   Standard_Boolean SK = mySKDef ? (I->SupportType() == mySK) : Standard_True;
-  Standard_Boolean G  = myGDef ? (I->Geometry() == myG) : Standard_True;
+  Standard_Boolean G  = myGDef ? (I->Geometry1() == myG) : Standard_True;
   Standard_Boolean S  = mySDef ? (I->Support() == myS) : Standard_True;
   return (GK && SK && G && S);
 }

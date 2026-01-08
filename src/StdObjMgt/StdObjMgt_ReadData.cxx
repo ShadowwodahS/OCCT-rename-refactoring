@@ -16,14 +16,14 @@
 
 #include <Standard_GUID.hxx>
 
-StdObjMgt_ReadData::StdObjMgt_ReadData(const Handle(Storage_BaseDriver)& theDriver,
+ReadData::ReadData(const Handle(Storage_BaseDriver)& theDriver,
                                        const Standard_Integer            theNumberOfObjects)
     : myDriver(theDriver),
       myPersistentObjects(1, theNumberOfObjects)
 {
 }
 
-void StdObjMgt_ReadData::ReadPersistentObject(const Standard_Integer theRef)
+void ReadData::ReadPersistentObject(const Standard_Integer theRef)
 {
   Handle(StdObjMgt_Persistent) aPersistent = myPersistentObjects(theRef);
   if (aPersistent)
@@ -36,7 +36,7 @@ void StdObjMgt_ReadData::ReadPersistentObject(const Standard_Integer theRef)
   }
 }
 
-Handle(StdObjMgt_Persistent) StdObjMgt_ReadData::ReadReference()
+Handle(StdObjMgt_Persistent) ReadData::ReadReference()
 {
   Standard_Integer aRef;
   myDriver->GetReference(aRef);
@@ -47,9 +47,9 @@ Handle(StdObjMgt_Persistent) StdObjMgt_ReadData::ReadReference()
 // function : operator >>
 // purpose  : Read persistent data from a file
 //=======================================================================
-StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Standard_GUID& theGUID)
+ReadData& operator>>(ReadData& theReadData, Standard_GUID& theGUID)
 {
-  StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
+  ReadData::ObjectSentry aSentry(theReadData);
 
   Standard_Integer      a32b;
   Standard_ExtCharacter a16b[3];

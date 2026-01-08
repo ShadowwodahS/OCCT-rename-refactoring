@@ -326,7 +326,7 @@ Standard_Integer BRepLib_FuseEdges::NbVertices()
     TopTools_DataMapIteratorOfDataMapOfIntegerListOfShape itEdg;
     for (itEdg.Initialize(myMapLstEdg); itEdg.More(); itEdg.Next())
     {
-      const Standard_Integer&     iLst    = itEdg.Key();
+      const Standard_Integer&     iLst    = itEdg.Key1();
       const ShapeList& LmapEdg = myMapLstEdg.Find(iLst);
       nbvertices += LmapEdg.Extent() - 1;
     }
@@ -427,7 +427,7 @@ void BRepLib_FuseEdges::BuildListResultEdges()
 
     for (itLstEdg.Initialize(myMapLstEdg); itLstEdg.More(); itLstEdg.Next())
     {
-      const Standard_Integer&     iLst    = itLstEdg.Key();
+      const Standard_Integer&     iLst    = itLstEdg.Key1();
       const ShapeList& LmapEdg = myMapLstEdg.Find(iLst);
 
       TopoEdge OldEdge = TopoDS::Edge(LmapEdg.First());
@@ -563,7 +563,7 @@ void BRepLib_FuseEdges::Perform()
 
     for (itLstEdg.Initialize(myMapLstEdg); itLstEdg.More(); itLstEdg.Next())
     {
-      const Standard_Integer& iLst = itLstEdg.Key();
+      const Standard_Integer& iLst = itLstEdg.Key1();
       if (!myMapEdg.IsBound(iLst))
         continue;
       const ShapeList&        LmapEdg = myMapLstEdg.Find(iLst);
@@ -1194,7 +1194,7 @@ Standard_Boolean BRepLib_FuseEdges::UpdatePCurve(const TopoEdge&          theOld
   {
     // force same parameter
     B.SameParameter(theNewEdge, Standard_False);
-    BRepLib::SameParameter(theNewEdge, BRepInspector::Tolerance(theNewEdge));
+    BRepLib1::SameParameter(theNewEdge, BRepInspector::Tolerance(theNewEdge));
   }
 
   return Standard_True;

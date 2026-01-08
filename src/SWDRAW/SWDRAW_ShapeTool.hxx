@@ -27,12 +27,12 @@
 //! are bound with transfer needs.
 //! But these functions work on shapes, geometry, nothing else
 //! (no file, no model, no entity)
-class SWDRAW_ShapeTool
+class ShapeTool1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Defines and loads all basic functions for SWDRAW on Shapes
+  //! Defines and loads all basic functions for SWDRAW1 on Shapes
   Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:

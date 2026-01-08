@@ -49,7 +49,7 @@ class UtfString;
 //!
 //! The loaded messages are stored in static data map; all methods of that
 //! class are also static.
-class Message_MsgFile
+class MessageFile
 {
 public:
   DEFINE_STANDARD_ALLOC

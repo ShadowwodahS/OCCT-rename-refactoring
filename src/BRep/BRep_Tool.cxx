@@ -400,7 +400,7 @@ Handle(GeomCurve2d) BRepInspector::CurveOnPlane(const TopoEdge&          E,
   Handle(GeomCurve3d) ProjOnPlane =
     GeomProjLib1::ProjectOnPlane(new Geom_TrimmedCurve(C3D, f, l, Standard_True, Standard_False),
                                 GP,
-                                GP->Position().Direction(),
+                                GP->Position1().Direction(),
                                 Standard_True);
 
   Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface(GP);

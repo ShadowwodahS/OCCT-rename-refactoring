@@ -154,7 +154,7 @@ Standard_EXPORT Standard_Boolean FUN_keepFinterference
   if (I->IsKind(STANDARD_TYPE(TopOpeBRepDS_FaceEdgeInterference)))
   {
 
-    const TopoShape& EG = DS.Shape(I->Geometry());
+    const TopoShape& EG = DS.Shape(I->Geometry1());
     // I rejetee si son edge-geometrie est une arete de la face qui accede I.
     Standard_Boolean k3 = !::FUN_edgeofface(EG, F);
     res                 = res && k3;

@@ -133,7 +133,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const AsciiString1& theS
 #endif
   if (aVideoCtx.IsNull())
   {
-    Message::SendFail(AsciiString1("FFmpeg: no video stream in '") + theSrcVideo + "'");
+    Message1::SendFail(AsciiString1("FFmpeg: no video stream in '") + theSrcVideo + "'");
     return Handle(Media_Frame)();
   }
 
@@ -143,7 +143,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const AsciiString1& theS
   {
     if (!aFormatCtx->ReadPacket(aPacket))
     {
-      Message::SendFail(AsciiString1("FFmpeg: unable to read from '") + theSrcVideo
+      Message1::SendFail(AsciiString1("FFmpeg: unable to read from '") + theSrcVideo
                         + "'");
       return Handle(Media_Frame)();
     }
@@ -159,7 +159,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const AsciiString1& theS
   }
   if (aFrame->IsEmpty() || aFrame->SizeX() < 1 || aFrame->SizeY() < 1)
   {
-    Message::SendFail(AsciiString1("FFmpeg: unable to decode first video frame from '")
+    Message1::SendFail(AsciiString1("FFmpeg: unable to decode first video frame from '")
                       + theSrcVideo + "'");
     return Handle(Media_Frame)();
   }
@@ -196,7 +196,7 @@ bool Media_PlayerContext::DumpFirstFrame(const AsciiString1& theSrcVideo,
   }
   if (!aPixMap->InitZero(Image_Format_RGB, aResSizeX, aResSizeY))
   {
-    Message::SendFail("FFmpeg: Failed allocation of RGB frame (out of memory)");
+    Message1::SendFail("FFmpeg: Failed allocation of RGB frame (out of memory)");
     return false;
   }
 
@@ -209,7 +209,7 @@ bool Media_PlayerContext::DumpFirstFrame(const AsciiString1& theSrcVideo,
     Media_Scaler aScaler;
     if (!aScaler.Convert(aFrame, anRgbFrame))
     {
-      Message::SendFail(AsciiString1("FFmpeg: unable to convert frame into RGB '")
+      Message1::SendFail(AsciiString1("FFmpeg: unable to convert frame into RGB '")
                         + theSrcVideo + "'");
       return false;
     }
@@ -395,7 +395,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
     const int aBufSize  = aLineSize * aSize.y();
     if (!myBufferPools[0]->Init(aBufSize))
     {
-      Message::SendFail("FFmpeg: unable to allocate RGB24 frame buffer");
+      Message1::SendFail("FFmpeg: unable to allocate RGB24 frame buffer");
       return false;
     }
 
@@ -404,7 +404,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
     if (aFrame->buf[0] == NULL)
     {
       theFrame->Unref();
-      Message::SendFail("FFmpeg: unable to allocate RGB24 frame buffer");
+      Message1::SendFail("FFmpeg: unable to allocate RGB24 frame buffer");
       return false;
     }
 
@@ -434,7 +434,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
     if (!myBufferPools[0]->Init(aBufSize) || !myBufferPools[1]->Init(aBufSizeUV)
         || !myBufferPools[2]->Init(aBufSizeUV))
     {
-      Message::SendFail("FFmpeg: unable to allocate YUV420P frame buffers");
+      Message1::SendFail("FFmpeg: unable to allocate YUV420P frame buffers");
       return false;
     }
 
@@ -445,7 +445,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
     if (aFrame->buf[0] == NULL || aFrame->buf[1] == NULL || aFrame->buf[2] == NULL)
     {
       theFrame->Unref();
-      Message::SendFail("FFmpeg: unable to allocate YUV420P frame buffers");
+      Message1::SendFail("FFmpeg: unable to allocate YUV420P frame buffers");
       return false;
     }
 
@@ -536,7 +536,7 @@ void Media_PlayerContext::doThreadLoop()
 #endif
     if (aVideoCtx.IsNull())
     {
-      Message::SendFail(AsciiString1("FFmpeg: no video stream in '") + anInput + "'");
+      Message1::SendFail(AsciiString1("FFmpeg: no video stream in '") + anInput + "'");
       continue;
     }
 

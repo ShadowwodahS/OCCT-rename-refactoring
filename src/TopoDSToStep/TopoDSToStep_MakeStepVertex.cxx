@@ -66,7 +66,7 @@ void TopoDSToStep_MakeStepVertex::Init(const TopoVertex&                  aVerte
   if (isNMMode)
   {
     Handle(StepShape_VertexPoint)    aVP;
-    Handle(TransferBRep_ShapeMapper) aSTEPMapper = TransferBRep::ShapeMapper(FP, aVertex);
+    Handle(TransferBRep_ShapeMapper) aSTEPMapper = TransferBRep1::ShapeMapper(FP, aVertex);
     if (FP->FindTypedTransient(aSTEPMapper, STANDARD_TYPE(StepShape_VertexPoint), aVP))
     {
       // Non-manifold topology detected

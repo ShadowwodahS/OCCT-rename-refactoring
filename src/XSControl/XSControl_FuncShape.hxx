@@ -27,7 +27,7 @@
 class ExchangeSession;
 class AsciiString1;
 
-//! Defines additional commands for XSControl to :
+//! Defines additional commands for XSControl1 to :
 //! - control of initialisation (xinit, xnorm, newmodel)
 //! - analyse of the result of a transfer (recorded in a
 //! TransientProcess for Read, FinderProcess for Write) :
@@ -35,14 +35,14 @@ class AsciiString1;
 //! about one specific entity, producing a model with the
 //! abnormal result
 //!
-//! This appendix of XSControl is compiled separately to distinguish
+//! This appendix of XSControl1 is compiled separately to distinguish
 //! basic features from user callable forms
-class XSControl_FuncShape
+class ShapeFunctions
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Defines and loads all functions which work on shapes for XSControl (as ActFunc)
+  //! Defines and loads all functions which work on shapes for XSControl1 (as ActFunc)
   Standard_EXPORT static void Init();
 
   //! Analyses a name as designating Shapes from a Vars or from

@@ -93,7 +93,7 @@ void Units_Measurement::Convert(const Standard_CString aunit)
 
 //=================================================================================================
 
-Units_Measurement Units_Measurement::Integer() const
+Units_Measurement Units_Measurement::Integer1() const
 {
   return Units_Measurement((Standard_Integer)themeasurement, thetoken);
 }

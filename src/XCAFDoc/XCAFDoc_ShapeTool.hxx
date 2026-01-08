@@ -49,8 +49,8 @@ DEFINE_STANDARD_HANDLE(XCAFDoc_ShapeTool, TDataStd_GenericEmpty)
 //! sub-labels, each of which represents the instance of
 //! another shape in that assembly (component). Such sub-label
 //! stores reference to the label of the original shape in the form
-//! of TDataStd_TreeNode with GUID XCAFDoc::ShapeRefGUID(), and its
-//! location encapsulated into the NamedShape.
+//! of TDataStd_TreeNode with GUID XCAFDoc1::ShapeRefGUID(), and its
+//! location encapsulated into the NamedShape1.
 //! For correct work with an XDE document, it is necessary to use
 //! methods for analysis and methods for working with shapes.
 //! For example:
@@ -105,12 +105,12 @@ class XCAFDoc_ShapeTool : public TDataStd_GenericEmpty
 public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! Create (if not exist) ShapeTool from XCAFDoc on <L>.
+  //! Create (if not exist) ShapeTool from XCAFDoc1 on <L>.
   Standard_EXPORT static Handle(XCAFDoc_ShapeTool) Set(const DataLabel& L);
 
   //! Creates an empty tool
   //! Creates a tool to work with a document <Doc>
-  //! Attaches to label XCAFDoc::LabelShapes()
+  //! Attaches to label XCAFDoc1::LabelShapes()
   Standard_EXPORT XCAFDoc_ShapeTool();
 
   //! Returns True if the label is a label of top-level shape,

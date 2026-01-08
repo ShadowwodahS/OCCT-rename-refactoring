@@ -201,7 +201,7 @@ protected:
   //! Parameter <theAddInterfs> defines whether this interference will be added
   //! into common table of interferences or not.<br>
   //! If some of the Pave Blocks are forming the Common Blocks, the splits
-  //! of the Pave Blocks will also form a Common Block.
+  //! of the Pave Blocks will also form a Common Block1.
   Standard_EXPORT void SplitPaveBlocks(const TColStd_MapOfInteger& theMEdges,
                                        const Standard_Boolean      theAddInterfs);
 
@@ -512,12 +512,12 @@ protected:
                                                Standard_Real&         theTS1,
                                                Standard_Real&         theTS2);
 
-  //! Gets the bounding box for the given Pave Block.
-  //! If Pave Block has shrunk data it will be used to get the box,
+  //! Gets the bounding box for the given Pave Block1.
+  //! If Pave Block1 has shrunk data it will be used to get the box,
   //! and the Shrunk Range (<theSFirst>, <theSLast>).
   //! Otherwise the box will be computed using Add3dCurve method,
   //! and the Shrunk Range will be equal to the PB's range.
-  //! To avoid re-computation of the bounding box for the same Pave Block
+  //! To avoid re-computation of the bounding box for the same Pave Block1
   //! it will be saved in the map <thePBBox>.
   //! Returns FALSE in case the PB's range is less than the
   //! Precision::PConfusion(), otherwise returns TRUE.

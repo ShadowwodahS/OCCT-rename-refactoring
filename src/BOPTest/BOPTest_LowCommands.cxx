@@ -49,14 +49,14 @@ static Standard_Integer bhaspc(DrawInterpreter&, Standard_Integer, const char**)
 
 //=================================================================================================
 
-void BOPTest::LowCommands(DrawInterpreter& theCommands)
+void BOPTest1::LowCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   theCommands.Add("bclassify",
                   "use bclassify Solid Point [Tolerance=1.e-7]",
                   __FILE__,

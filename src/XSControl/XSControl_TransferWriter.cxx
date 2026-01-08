@@ -62,7 +62,7 @@ Standard_Boolean XSControl_TransferWriter::RecognizeTransient(const Handle(RefOb
 {
   if (myController.IsNull())
     return Standard_False;
-  XSControl_Utils xu;
+  XSControlUtils xu;
   TopoShape    sh = xu.BinderShape(obj);
   if (!sh.IsNull())
     return RecognizeShape(sh);

@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                           const Handle(StyleDrawer)&       aDrawer,
                                           const Standard_Real               theval,
                                           const UtfString& aText,
@@ -64,7 +64,7 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Standard_Real ArrowLength = LA->ArrowAspect()->Length();
-  DsgPrs::ComputeFilletRadiusPresentation(ArrowLength,
+  DsgPrs1::ComputeFilletRadiusPresentation(ArrowLength,
                                           theval,
                                           aPosition,
                                           aNormalDir,
@@ -109,10 +109,10 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // Drawing the text
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, DrawPosition);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, DrawPosition);
 
   // Add presentation of arrows
-  DsgPrs::ComputeSymbol(aPresentation,
+  DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         EndOfArrow,
                         EndOfArrow,

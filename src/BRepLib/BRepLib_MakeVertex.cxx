@@ -26,7 +26,7 @@
 BRepLib_MakeVertex::BRepLib_MakeVertex(const Point3d& P)
 {
   ShapeBuilder B;
-  B.MakeVertex(TopoDS::Vertex(myShape), P, BRepLib::Precision());
+  B.MakeVertex(TopoDS::Vertex(myShape), P, BRepLib1::Precision());
   Done();
 }
 

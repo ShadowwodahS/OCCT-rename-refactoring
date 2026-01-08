@@ -121,7 +121,7 @@ static Standard_Boolean checkBSplineCurve(IGESToBRep_BasicCurve*               t
     }
   // Fix coincided knots
   if (aResult)
-    ShapeConstruct_Curve::FixKnots(CKnots);
+    Curve3::FixKnots(CKnots);
 
   return aResult;
 }

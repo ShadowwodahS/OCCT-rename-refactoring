@@ -22,7 +22,7 @@
 
 typedef NCollection_DoubleMap<Standard_Integer,
                               TopoShape,
-                              NCollection_DefaultHasher<int>,
+                              DefaultHasher<int>,
                               ShapeHasher>
   TopOpeBRepDS_DoubleMapOfIntegerShape;
 typedef TopOpeBRepDS_DoubleMapOfIntegerShape::Iterator

@@ -138,7 +138,7 @@ bool RWMesh_MaterialMap::copyFileTo(const AsciiString1& theFileSrc,
     SystemFile aFileSrc(aSrcPath);
     if (!aFileSrc.Exists())
     {
-      Message::SendFail(AsciiString1("Failed to copy file - source file '") + theFileSrc
+      Message1::SendFail(AsciiString1("Failed to copy file - source file '") + theFileSrc
                         + "' does not exist");
       return false;
     }
@@ -147,7 +147,7 @@ bool RWMesh_MaterialMap::copyFileTo(const AsciiString1& theFileSrc,
   }
   catch (ExceptionBase const& theException)
   {
-    Message::SendFail(AsciiString1("Failed to copy file\n")
+    Message1::SendFail(AsciiString1("Failed to copy file\n")
                       + theException.GetMessageString());
     return false;
   }
@@ -206,7 +206,7 @@ bool RWMesh_MaterialMap::CreateTextureFolder()
   OSD_Directory aResDir(aResFolderPath);
   if (!aResDir.Exists())
   {
-    Message::SendFail() << "Failed to create textures folder '" << myFolder << "'";
+    Message1::SendFail() << "Failed to create textures folder '" << myFolder << "'";
     return false;
   }
   const OSD_Protection aParentProt = aResDir.Protection();
@@ -224,7 +224,7 @@ bool RWMesh_MaterialMap::CreateTextureFolder()
   if (aTexDir.Failed())
   {
     // fallback to the same folder as output model file
-    Message::SendFail() << "Failed to create textures folder '" << myTexFolder << "'";
+    Message1::SendFail() << "Failed to create textures folder '" << myTexFolder << "'";
     myTexFolder = myFolder;
     myTexFolderShort.Clear();
     return true;

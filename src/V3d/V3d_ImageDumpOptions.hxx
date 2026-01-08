@@ -19,7 +19,7 @@
 #include <Graphic3d_ZLayerId.hxx>
 
 //! The structure defines options for image dump functionality.
-struct V3d_ImageDumpOptions
+struct ImageDumpOptions
 {
 
   // clang-format off
@@ -36,7 +36,7 @@ struct V3d_ImageDumpOptions
 
 public:
   //! Default constructor.
-  V3d_ImageDumpOptions()
+  ImageDumpOptions()
       : Width(0),
         Height(0),
         BufferType(Graphic3d_BT_RGB),

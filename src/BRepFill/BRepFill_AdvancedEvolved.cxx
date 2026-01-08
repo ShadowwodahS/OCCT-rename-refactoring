@@ -515,12 +515,12 @@ void BRepFill_AdvancedEvolved::GetLids()
   Standard_Real aTol = Max(aFS.Tolerance(), aFS.ToleranceReached());
   aTol += myFuzzyValue;
   Box2 aProfBox;
-  BRepBndLib::Add(myProfile, aProfBox);
+  BRepBndLib1::Add(myProfile, aProfBox);
   Standard_Real aSqDiag = aProfBox.SquareExtent();
   // Square of the default angular tolerance in
   // BooleanTools::EdgesToWires(...) and BooleanTools::WiresToFaces(...) methods
   const Standard_Real aSqAnguarTol = aTol * aTol / aSqDiag;
-  const Dir3d&       aNormal      = aSurf->Position().Direction();
+  const Dir3d&       aNormal      = aSurf->Position1().Direction();
 
   // Obtain free-edges from myPipeShell. All edges must be planar
   // and parallel to the plane of mySpine
@@ -604,8 +604,8 @@ void BRepFill_AdvancedEvolved::GetLids()
     {
       const TopoFace        aF    = TopoDS::Face(anExp.Current());
       const Handle(GeomPlane) aPln  = Handle(GeomPlane)::DownCast(BRepInspector::Surface(aF));
-      const Coords3d&            aNorm = aPln->Position().Direction().XYZ();
-      const Coords3d&            aLocP = aPln->Position().Location().XYZ();
+      const Coords3d&            aNorm = aPln->Position1().Direction().XYZ();
+      const Coords3d&            aLocP = aPln->Position1().Location().XYZ();
 
       Standard_Boolean isFound = Standard_False;
 

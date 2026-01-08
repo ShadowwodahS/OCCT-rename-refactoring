@@ -52,7 +52,7 @@ Geom_Ellipse::Geom_Ellipse(const gp_Elips& E)
     : majorRadius(E.MajorRadius()),
       minorRadius(E.MinorRadius())
 {
-  pos = E.Position();
+  pos = E.Position1();
 }
 
 //=================================================================================================
@@ -120,7 +120,7 @@ void Geom_Ellipse::SetElips(const gp_Elips& E)
 
   majorRadius = E.MajorRadius();
   minorRadius = E.MinorRadius();
-  pos         = E.Position();
+  pos         = E.Position1();
 }
 
 //=================================================================================================

@@ -440,7 +440,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
       }
       //
       Box2& aBox = aSI.ChangeBox();
-      BRepBndLib::Add(aE, aBox);
+      BRepBndLib1::Add(aE, aBox);
       //
       const TColStd_ListOfInteger& aLV = aSI.SubShapes();
       aIt1.Initialize(aLV);
@@ -470,7 +470,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
       const TopoShape& aS = aSI.Shape();
       //
       Box2& aBox = aSI.ChangeBox();
-      BRepBndLib::Add(aS, aBox);
+      BRepBndLib1::Add(aS, aBox);
       //
       TColStd_ListOfInteger& aLW = aSI.ChangeSubShapes();
       aIt1.Initialize(aLW);
@@ -769,7 +769,7 @@ const BOPDS_ListOfPaveBlock& BOPDS_DS::PaveBlocks(const Standard_Integer theI) c
   //
   if (HasPaveBlocks(theI))
   {
-    aRef                              = ShapeInfo(theI).Reference();
+    aRef                              = ShapeInfo(theI).Reference1();
     const BOPDS_ListOfPaveBlock& aLPB = myPaveBlocksPool(aRef);
     return aLPB;
   }
@@ -790,7 +790,7 @@ BOPDS_ListOfPaveBlock& BOPDS_DS::ChangePaveBlocks(const Standard_Integer theI)
     InitPaveBlocks(theI);
   }
   //
-  aRef = aSI.Reference();
+  aRef = aSI.Reference1();
   return myPaveBlocksPool(aRef);
 }
 
@@ -952,7 +952,7 @@ void BOPDS_DS::UpdatePaveBlock(const Handle(BOPDS_PaveBlock)& thePB)
   //
   nE                          = thePB->OriginalEdge();
   BOPDS_ShapeInfo& aSI        = ChangeShapeInfo(nE);
-  iRef                        = aSI.Reference();
+  iRef                        = aSI.Reference1();
   BOPDS_ListOfPaveBlock& aLPB = aPBP(iRef);
   //
   aItPB.Initialize(aLPB);
@@ -999,7 +999,7 @@ void BOPDS_DS::UpdateCommonBlock(const Handle(BOPDS_CommonBlock)& theCB,
     const Handle(BOPDS_PaveBlock)& aPBCB = aItPBCB.ChangeValue();
     //
     nE                          = aPBCB->OriginalEdge();
-    iRef                        = ChangeShapeInfo(nE).Reference();
+    iRef                        = ChangeShapeInfo(nE).Reference1();
     BOPDS_ListOfPaveBlock& aLPB = aPBP(iRef);
     //
     aItPB.Initialize(aLPB);
@@ -1168,7 +1168,7 @@ const BOPDS_FaceInfo& BOPDS_DS::FaceInfo(const Standard_Integer theI) const
   //
   if (HasFaceInfo(theI))
   {
-    aRef                      = ShapeInfo(theI).Reference();
+    aRef                      = ShapeInfo(theI).Reference1();
     const BOPDS_FaceInfo& aFI = myFaceInfoPool(aRef);
     return aFI;
   }
@@ -1190,7 +1190,7 @@ BOPDS_FaceInfo& BOPDS_DS::ChangeFaceInfo(const Standard_Integer theI)
     InitFaceInfo(theI);
   }
   //
-  aRef                      = aSI.Reference();
+  aRef                      = aSI.Reference1();
   const BOPDS_FaceInfo& aFI = myFaceInfoPool(aRef);
   pFI                       = (BOPDS_FaceInfo*)&aFI;
   return *pFI;
@@ -1219,7 +1219,7 @@ void BOPDS_DS::InitFaceInfoIn(const Standard_Integer theI)
   BOPDS_ShapeInfo& aSI = ChangeShapeInfo(theI);
   if (aSI.HasReference())
   {
-    BOPDS_FaceInfo&     aFI = myFaceInfoPool(aSI.Reference());
+    BOPDS_FaceInfo&     aFI = myFaceInfoPool(aSI.Reference1());
     const TopoShape& aF  = Shape(theI);
     for (TopoDS_Iterator itS(aF); itS.More(); itS.Next())
     {
@@ -1243,7 +1243,7 @@ void BOPDS_DS::UpdateFaceInfoIn(const Standard_Integer theI)
   BOPDS_ShapeInfo& aSI = ChangeShapeInfo(theI);
   if (aSI.HasReference())
   {
-    iRef                = aSI.Reference();
+    iRef                = aSI.Reference1();
     BOPDS_FaceInfo& aFI = myFaceInfoPool(iRef);
     //
     BOPDS_IndexedMapOfPaveBlock& aMPBIn = aFI.ChangePaveBlocksIn();
@@ -1263,7 +1263,7 @@ void BOPDS_DS::UpdateFaceInfoOn(const Standard_Integer theI)
   BOPDS_ShapeInfo& aSI = ChangeShapeInfo(theI);
   if (aSI.HasReference())
   {
-    iRef                = aSI.Reference();
+    iRef                = aSI.Reference1();
     BOPDS_FaceInfo& aFI = myFaceInfoPool(iRef);
     //
     BOPDS_IndexedMapOfPaveBlock& aMPBOn = aFI.ChangePaveBlocksOn();
@@ -1413,7 +1413,7 @@ void BOPDS_DS::UpdateFaceInfoIn(const TColStd_MapOfInteger& theFaces)
       myFaceInfoPool.Appended().SetIndex(nF);
       aSI.SetReference(myFaceInfoPool.Length() - 1);
     }
-    BOPDS_FaceInfo& aFI = myFaceInfoPool(aSI.Reference());
+    BOPDS_FaceInfo& aFI = myFaceInfoPool(aSI.Reference1());
     aFI.ChangePaveBlocksIn().Clear();
     aFI.ChangeVerticesIn().Clear();
 
@@ -1432,7 +1432,7 @@ void BOPDS_DS::UpdateFaceInfoIn(const TColStd_MapOfInteger& theFaces)
     {
       Standard_Integer nV = aVF.Index1();
       HasShapeSD(nV, nV);
-      myFaceInfoPool(ShapeInfo(nF).Reference()).ChangeVerticesIn().Add(nV);
+      myFaceInfoPool(ShapeInfo(nF).Reference1()).ChangeVerticesIn().Add(nV);
     }
   }
   //
@@ -1445,7 +1445,7 @@ void BOPDS_DS::UpdateFaceInfoIn(const TColStd_MapOfInteger& theFaces)
     const Standard_Integer nF  = aEF.Index2();
     if (theFaces.Contains(nF))
     {
-      BOPDS_FaceInfo&  aFI = myFaceInfoPool(ShapeInfo(nF).Reference());
+      BOPDS_FaceInfo&  aFI = myFaceInfoPool(ShapeInfo(nF).Reference1());
       Standard_Integer nVNew;
       if (aEF.HasIndexNew(nVNew))
       {
@@ -1487,7 +1487,7 @@ void BOPDS_DS::UpdateFaceInfoOn(const TColStd_MapOfInteger& theFaces)
       myFaceInfoPool.Appended().SetIndex(nF);
       aSI.SetReference(myFaceInfoPool.Length() - 1);
     }
-    BOPDS_FaceInfo& aFI = myFaceInfoPool(aSI.Reference());
+    BOPDS_FaceInfo& aFI = myFaceInfoPool(aSI.Reference1());
     aFI.ChangePaveBlocksOn().Clear();
     aFI.ChangeVerticesOn().Clear();
 

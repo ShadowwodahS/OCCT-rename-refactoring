@@ -95,7 +95,7 @@ void BRepCheck_Face::Minimum()
     Handle(BRep_TFace)& TF = *((Handle(BRep_TFace)*)&myShape.TShape());
     if (TF->Surface().IsNull())
     {
-      BRepCheck::Add(lst, BRepCheck_NoSurface);
+      BRepCheck1::Add(lst, BRepCheck_NoSurface);
     }
     else
     {
@@ -136,7 +136,7 @@ void BRepCheck_Face::InContext(const TopoShape& S)
   }
   if (!exp.More())
   {
-    BRepCheck::Add(lst, BRepCheck_SubshapeNotInShape);
+    BRepCheck1::Add(lst, BRepCheck_SubshapeNotInShape);
     return;
   }
 
@@ -172,7 +172,7 @@ BRepCheck_Status BRepCheck_Face::IntersectWires(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myIntres);
+      BRepCheck1::Add(aStatusList, myIntres);
     }
     return myIntres;
   }
@@ -198,7 +198,7 @@ BRepCheck_Status BRepCheck_Face::IntersectWires(const Standard_Boolean Update)
       myIntres = BRepCheck_RedundantWire;
       if (Update)
       {
-        BRepCheck::Add(aStatusList, myIntres);
+        BRepCheck1::Add(aStatusList, myIntres);
       }
       return myIntres;
     }
@@ -272,7 +272,7 @@ BRepCheck_Status BRepCheck_Face::IntersectWires(const Standard_Boolean Update)
         myIntres = BRepCheck_IntersectingWires;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myIntres);
+          BRepCheck1::Add(aStatusList, myIntres);
         }
         return myIntres;
       }
@@ -281,7 +281,7 @@ BRepCheck_Status BRepCheck_Face::IntersectWires(const Standard_Boolean Update)
   }
   if (Update)
   {
-    BRepCheck::Add(aStatusList, myIntres);
+    BRepCheck1::Add(aStatusList, myIntres);
   }
   return myIntres;
 }
@@ -303,7 +303,7 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myImbres);
+      BRepCheck1::Add(aStatusList, myImbres);
     }
     return myImbres;
   }
@@ -314,7 +314,7 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myImbres);
+      BRepCheck1::Add(aStatusList, myImbres);
     }
     return myImbres;
   }
@@ -324,7 +324,7 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myImbres);
+      BRepCheck1::Add(aStatusList, myImbres);
     }
     return myImbres;
   }
@@ -377,14 +377,14 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
     {
       if (Wext.IsNull())
       {
-        Wext = TopoDS::Wire(itm.Key());
+        Wext = TopoDS::Wire(itm.Key1());
       }
       else
       {
         myImbres = BRepCheck_InvalidImbricationOfWires;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myImbres);
+          BRepCheck1::Add(aStatusList, myImbres);
         }
         return myImbres;
       }
@@ -399,7 +399,7 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
       myImbres = BRepCheck_InvalidImbricationOfWires;
       if (Update)
       {
-        BRepCheck::Add(aStatusList, myImbres);
+        BRepCheck1::Add(aStatusList, myImbres);
       }
       return myImbres;
     }
@@ -408,7 +408,7 @@ BRepCheck_Status BRepCheck_Face::ClassifyWires(const Standard_Boolean Update)
   // quit without errors
   if (Update)
   {
-    BRepCheck::Add(aStatusList, myImbres);
+    BRepCheck1::Add(aStatusList, myImbres);
   }
 
   return myImbres;
@@ -431,7 +431,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myOrires);
+      BRepCheck1::Add(aStatusList, myOrires);
     }
     return myOrires;
   }
@@ -442,7 +442,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myOrires);
+      BRepCheck1::Add(aStatusList, myOrires);
     }
     return myOrires;
   }
@@ -454,7 +454,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
   {
     if (!Infinite)
     {
-      Wext = TopoDS::Wire(itm.Key());
+      Wext = TopoDS::Wire(itm.Key1());
     }
   }
   else
@@ -463,7 +463,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
     {
       if (!itm.Value().IsEmpty())
       {
-        Wext = TopoDS::Wire(itm.Key());
+        Wext = TopoDS::Wire(itm.Key1());
       }
     }
   }
@@ -474,7 +474,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
       myOrires = BRepCheck_InvalidImbricationOfWires;
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myOrires);
+      BRepCheck1::Add(aStatusList, myOrires);
     }
     return myOrires;
   }
@@ -496,7 +496,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
         myOrires = BRepCheck_BadOrientationOfSubshape;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myOrires);
+          BRepCheck1::Add(aStatusList, myOrires);
         }
         return myOrires;
       }
@@ -505,19 +505,19 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
     {
       for (itm.Reset(); itm.More(); itm.Next())
       {
-        if (itm.Key().IsSame(wir))
+        if (itm.Key1().IsSame(wir))
         {
           break;
         }
       }
       // No control on More()
-      if (itm.Key().Orientation() == wir.Orientation())
+      if (itm.Key1().Orientation() == wir.Orientation())
       {
         // the given wire does not define a hole
         myOrires = BRepCheck_BadOrientationOfSubshape;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myOrires);
+          BRepCheck1::Add(aStatusList, myOrires);
         }
         return myOrires;
       }
@@ -526,7 +526,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
   // quit without error
   if (Update)
   {
-    BRepCheck::Add(aStatusList, myOrires);
+    BRepCheck1::Add(aStatusList, myOrires);
   }
   return myOrires;
 }
@@ -536,7 +536,7 @@ BRepCheck_Status BRepCheck_Face::OrientationOfWires(const Standard_Boolean Updat
 void BRepCheck_Face::SetUnorientable()
 {
   Standard_Mutex::Sentry aLock(myMutex.get());
-  BRepCheck::Add(*myMap(myShape), BRepCheck_UnorientableShape);
+  BRepCheck1::Add(*myMap(myShape), BRepCheck_UnorientableShape);
 }
 
 //=================================================================================================
@@ -544,7 +544,7 @@ void BRepCheck_Face::SetUnorientable()
 void BRepCheck_Face::SetStatus(const BRepCheck_Status theStatus)
 {
   Standard_Mutex::Sentry aLock(myMutex.get());
-  BRepCheck::Add(*myMap(myShape), theStatus);
+  BRepCheck1::Add(*myMap(myShape), theStatus);
 }
 
 //=================================================================================================

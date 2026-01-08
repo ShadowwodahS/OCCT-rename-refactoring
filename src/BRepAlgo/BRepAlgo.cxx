@@ -392,7 +392,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
   TopoEdge ResEdge;
 
   TopoWire theWire = aWire;
-  BRepLib::BuildCurves3d(theWire);
+  BRepLib1::BuildCurves3d(theWire);
   Handle(ShapeFix_Shape) Fixer = new ShapeFix_Shape(theWire);
   Fixer->SetPrecision(LinTol);
   Fixer->SetMaxTolerance(LinTol);

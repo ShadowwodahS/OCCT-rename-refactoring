@@ -112,7 +112,7 @@ public:
 
   //! Returns the position of the circle.
   //! It is the local coordinate system of the circle.
-  const Frame3d& Position() const { return pos; }
+  const Frame3d& Position1() const { return pos; }
 
   //! Returns the radius of this circle.
   Standard_Real Radius() const { return radius; }

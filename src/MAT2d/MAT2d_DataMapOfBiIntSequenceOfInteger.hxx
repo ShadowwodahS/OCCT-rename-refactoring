@@ -21,9 +21,9 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<MAT2d_BiInt, TColStd_SequenceOfInteger>
+typedef NCollection_DataMap<BiInt, TColStd_SequenceOfInteger>
   MAT2d_DataMapOfBiIntSequenceOfInteger;
-typedef NCollection_DataMap<MAT2d_BiInt, TColStd_SequenceOfInteger>::Iterator
+typedef NCollection_DataMap<BiInt, TColStd_SequenceOfInteger>::Iterator
   MAT2d_DataMapIteratorOfDataMapOfBiIntSequenceOfInteger;
 
 #endif

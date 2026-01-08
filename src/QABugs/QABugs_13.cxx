@@ -48,7 +48,7 @@
 
 static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  // Used to Display Geometry or Topolgy
+  // Used to Display Geometry1 or Topolgy
   char             name[255];
   Standard_Boolean check = Standard_True;
 
@@ -314,7 +314,7 @@ static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, co
 
   // Now calculated the volume of the outside tube.
   GeometricProperties gprops;
-  BRepGProp::VolumeProperties(wallSolid, gprops);
+  BRepGProp1::VolumeProperties(wallSolid, gprops);
   di << "The wallSolid's volume is: " << gprops.Mass() << "\n";
 
   if (check)
@@ -408,7 +408,7 @@ static Standard_Integer OCC544(DrawInterpreter& di, Standard_Integer argc, const
     return 1;
   }
 
-  // Used to Display Geometry or Topolgy
+  // Used to Display Geometry1 or Topolgy
   char             name[255];
   Standard_Boolean check = Standard_True;
 
@@ -721,7 +721,7 @@ static Standard_Integer OCC544(DrawInterpreter& di, Standard_Integer argc, const
 
   // Now calculated the volume of the outside tube.
   GeometricProperties gprops;
-  BRepGProp::VolumeProperties(wallSolid, gprops);
+  BRepGProp1::VolumeProperties(wallSolid, gprops);
   di << "The wallSolid's volume is: " << gprops.Mass() << "\n";
 
   if (check)
@@ -846,14 +846,14 @@ static Standard_Integer OCC817(DrawInterpreter& di, Standard_Integer argc, const
 
   // Calculate initial volume
   GeometricProperties volumeVProps;
-  BRepGProp::VolumeProperties(cutSolid, volumeVProps);
+  BRepGProp1::VolumeProperties(cutSolid, volumeVProps);
   di << "Info: Original volume  = " << volumeVProps.Mass() << "\n";
 
   //
   // build bounding box and calculate bounds for initial mesh
   //
   Box2 bndBox;
-  BRepBndLib::Add(cutSolid, bndBox);
+  BRepBndLib1::Add(cutSolid, bndBox);
   Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
   bndBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
   Xmin -= delt;
@@ -913,7 +913,7 @@ static Standard_Integer OCC817(DrawInterpreter& di, Standard_Integer argc, const
         }
         SubvolumeSolid.SetValue(l, aSubvolume);
         GeometricProperties subvolumeVProps;
-        BRepGProp::VolumeProperties(SubvolumeSolid(l), subvolumeVProps);
+        BRepGProp1::VolumeProperties(SubvolumeSolid(l), subvolumeVProps);
         const Standard_Real vol = subvolumeVProps.Mass();
         di << "Info: original subvolume " << l << " volume = " << vol << "\n";
         SubvolumeVol.SetValue(l, vol);
@@ -966,7 +966,7 @@ static Standard_Integer OCC817(DrawInterpreter& di, Standard_Integer argc, const
     {
       SubvolumeSolid.SetValue(l, commonShape);
       GeometricProperties subvolumeVProps;
-      BRepGProp::VolumeProperties(SubvolumeSolid(l), subvolumeVProps);
+      BRepGProp1::VolumeProperties(SubvolumeSolid(l), subvolumeVProps);
       const Standard_Real    vol = subvolumeVProps.Mass();
       const Standard_Boolean err = (vol > SubvolumeVol(l)) || (vol <= 0.0);
       // std::cout << (err? "ERROR" : "Info") << ": final subvolume " << l << " volume = " << vol <<

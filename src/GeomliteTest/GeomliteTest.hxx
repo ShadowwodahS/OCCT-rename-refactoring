@@ -25,7 +25,7 @@
 
 //! this  package  provides  elementary commands for  curves  and
 //! surface.
-class GeomliteTest
+class GeomliteTest1
 {
 public:
   DEFINE_STANDARD_ALLOC

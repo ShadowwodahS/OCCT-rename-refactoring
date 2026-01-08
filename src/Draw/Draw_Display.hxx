@@ -66,7 +66,7 @@ public:
 
   //! Draw1  a  circle   <C> from  angle <A1>   to  <A2>
   //! (Radians). if ModifyWithZoom  = 0,  then
-  //! rayon of circle is convert to Integer.
+  //! rayon of circle is convert to Integer1.
   Standard_EXPORT void Draw1(const gp_Circ&         C,
                             const Standard_Real    A1,
                             const Standard_Real    A2,
@@ -74,7 +74,7 @@ public:
 
   //! Draw1  a 2D circle  <C>  from angle   <A1> to <A2>
   //! (Radians). if ModifyWithZoom  = 0,  then
-  //! rayon of circle is convert to Integer.
+  //! rayon of circle is convert to Integer1.
   Standard_EXPORT void Draw1(const gp_Circ2d&       C,
                             const Standard_Real    A1,
                             const Standard_Real    A2,

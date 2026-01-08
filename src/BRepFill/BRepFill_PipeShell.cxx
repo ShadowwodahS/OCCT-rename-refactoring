@@ -473,7 +473,7 @@ void BRepFill_PipeShell::Add(const TopoShape&    Profile,
 
     // Compuite initial width of section (this will be 1.)
     GeometricProperties GlobalProps;
-    BRepGProp::LinearProperties(Profile, GlobalProps);
+    BRepGProp1::LinearProperties(Profile, GlobalProps);
     Point3d BaryCenter = GlobalProps.CentreOfMass();
 
     TopoFace ProfileFace = BRepLib_MakeFace(TopoDS::Wire(Profile), Standard_True); // only plane

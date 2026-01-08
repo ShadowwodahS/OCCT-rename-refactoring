@@ -20,7 +20,7 @@
 #include <SelectMgr_Selection.hxx>
 #include <Prs3d_Drawer.hxx>
 
-//! The StdSelect package provides the following services
+//! The StdSelect1 package provides the following services
 //! -   the definition of selection modes for topological shapes
 //! -   the definition of several concrete filtertandard
 //! Selection2d.ap classes
@@ -32,7 +32,7 @@
 //! 3D Selections:
 //!
 //! - Implementation of View Selector for dynamic selection
-//! in Views from V3d.
+//! in Views from V3d1.
 //!
 //! - Implementation of Tool class to decompose 3D BRep Objects
 //! into sensitive Primitives for every desired mode of selection
@@ -40,7 +40,7 @@
 //!
 //! -  Implementation of dedicated Sensitives Entities:
 //! Text for 2D Views (linked to Specific 2D projectors.)
-class StdSelect
+class StdSelect1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -64,7 +64,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3&          theBoxMin,
                                                        const SelectMgr_Vec3&          theBoxMax,
                                                        const SelectMgr_ViewClipRange& theClipRange,
-                                                       SelectBasics_PickResult& thePickResult) const
+                                                       PickResult& thePickResult) const
     Standard_OVERRIDE;
 
   //! Returns true if selecting axis intersects axis-aligned bounding box
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
     const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined axis and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const
@@ -91,14 +91,14 @@ public:
     const TColgp_Array1OfPnt&      theArrayOfPnts,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Checks if selecting axis intersects line segment
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
     const Point3d&                  thePnt1,
     const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined axis and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
@@ -109,7 +109,7 @@ public:
     const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined axis and given sphere with center theCenter
   //! and radius theRadius
@@ -124,7 +124,7 @@ public:
     const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -135,7 +135,7 @@ public:
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -156,7 +156,7 @@ public:
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.
@@ -209,14 +209,14 @@ protected:
   //! Also saves time of axis-segment intersection and intersection point as pick result.
   Standard_EXPORT Standard_Boolean raySegmentDistance(const Point3d&            theSegPnt1,
                                                       const Point3d&            theSegPnt2,
-                                                      SelectBasics_PickResult& thePickResult) const;
+                                                      PickResult& thePickResult) const;
 
   //! Returns true if selecting axis intersects plane.
   //! Also saves time of axis-plane intersection and intersection point as pick result.
   Standard_EXPORT Standard_Boolean
     rayPlaneIntersection(const Vector3d&            thePlane,
                          const Point3d&            thePntOnPlane,
-                         SelectBasics_PickResult& thePickResult) const;
+                         PickResult& thePickResult) const;
 
 private:
   Axis3d myAxis;

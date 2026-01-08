@@ -346,22 +346,22 @@ static void EvalParameters(const TopoEdge&          Edge,
     {
 
       case GeomAbs_Sphere:
-        Axis = GAS.Sphere().Position();
+        Axis = GAS.Sphere().Position1();
         break;
       case GeomAbs_Cone: {
         //----------------------------------------------------------
         // if myFace1 is not at the same side of the apex as the point
         // of parameter 0 0 on the cone => phase = M_PI.
         //----------------------------------------------------------
-        Axis  = GAS.Cone().Position();
+        Axis  = GAS.Cone().Position1();
         Phase = EvalPhase(Edge, Face, GAS, Axis);
         break;
       }
       case GeomAbs_Torus:
-        Axis = GAS.Torus().Position();
+        Axis = GAS.Torus().Position1();
         break;
       case GeomAbs_Cylinder:
-        Axis = GAS.Cylinder().Position();
+        Axis = GAS.Cylinder().Position1();
         break;
       case GeomAbs_SurfaceOfRevolution: {
         //----------------------------------------------------------

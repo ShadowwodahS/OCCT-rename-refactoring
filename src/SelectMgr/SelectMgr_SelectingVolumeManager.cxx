@@ -182,11 +182,11 @@ void SelectMgr_SelectingVolumeManager::SetPixelTolerance(const Standard_Integer 
 
 void SelectMgr_SelectingVolumeManager::InitPointSelectingVolume(const gp_Pnt2d& thePoint)
 {
-  Handle(SelectMgr_RectangularFrustum) aPntVolume =
-    Handle(SelectMgr_RectangularFrustum)::DownCast(myActiveSelectingVolume);
+  Handle(RectangularFrustum) aPntVolume =
+    Handle(RectangularFrustum)::DownCast(myActiveSelectingVolume);
   if (aPntVolume.IsNull())
   {
-    aPntVolume = new SelectMgr_RectangularFrustum();
+    aPntVolume = new RectangularFrustum();
   }
   aPntVolume->Init(thePoint);
   myActiveSelectingVolume = aPntVolume;
@@ -197,11 +197,11 @@ void SelectMgr_SelectingVolumeManager::InitPointSelectingVolume(const gp_Pnt2d& 
 void SelectMgr_SelectingVolumeManager::InitBoxSelectingVolume(const gp_Pnt2d& theMinPt,
                                                               const gp_Pnt2d& theMaxPt)
 {
-  Handle(SelectMgr_RectangularFrustum) aBoxVolume =
-    Handle(SelectMgr_RectangularFrustum)::DownCast(myActiveSelectingVolume);
+  Handle(RectangularFrustum) aBoxVolume =
+    Handle(RectangularFrustum)::DownCast(myActiveSelectingVolume);
   if (aBoxVolume.IsNull())
   {
-    aBoxVolume = new SelectMgr_RectangularFrustum();
+    aBoxVolume = new RectangularFrustum();
   }
   aBoxVolume->Init(theMinPt, theMaxPt);
   myActiveSelectingVolume = aBoxVolume;
@@ -288,7 +288,7 @@ void SelectMgr_SelectingVolumeManager::BuildSelectingVolume(const TColgp_Array1O
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsBox(
   const SelectMgr_Vec3&    theBoxMin,
   const SelectMgr_Vec3&    theBoxMax,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -320,7 +320,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsBox(const SelectMgr_V
 //=======================================================================
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPoint(
   const Point3d&            thePnt,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -354,7 +354,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPoint(const Point3d& 
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPolygon(
   const TColgp_Array1OfPnt& theArrayOfPnts,
   Standard_Integer          theSensType,
-  SelectBasics_PickResult&  thePickResult) const
+  PickResult&  thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -374,7 +374,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPolygon(
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSegment(
   const Point3d&            thePt1,
   const Point3d&            thePt2,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -396,7 +396,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsTriangle(
   const Point3d&            thePt2,
   const Point3d&            thePt3,
   Standard_Integer         theSensType,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -416,7 +416,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsTriangle(
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSphere(
   const Point3d&            theCenter,
   const Standard_Real      theRadius,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -449,7 +449,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCylinder(
   const Standard_Real      theHeight,
   const Transform3d&           theTrsf,
   const Standard_Boolean   theIsHollow,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -488,7 +488,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCircle(
   const Standard_Real      theRadius,
   const Transform3d&           theTrsf,
   const Standard_Boolean   theIsFilled,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -570,8 +570,8 @@ const Point3d* SelectMgr_SelectingVolumeManager::GetVertices() const
   {
     return NULL;
   }
-  const SelectMgr_RectangularFrustum* aRectFrustum =
-    static_cast<const SelectMgr_RectangularFrustum*>(myActiveSelectingVolume.get());
+  const RectangularFrustum* aRectFrustum =
+    static_cast<const RectangularFrustum*>(myActiveSelectingVolume.get());
   if (aRectFrustum == NULL)
   {
     return NULL;

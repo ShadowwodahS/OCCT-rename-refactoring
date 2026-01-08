@@ -137,7 +137,7 @@ Standard_Boolean TransferBRep_Reader::BeginTransfer()
 
 void TransferBRep_Reader::EndTransfer()
 {
-  theShapes->Append(TransferBRep::Shapes(theProc, Standard_True));
+  theShapes->Append(TransferBRep1::Shapes(theProc, Standard_True));
   Standard_Integer i, nb = theProc->NbRoots();
   for (i = 1; i <= nb; i++)
   {
@@ -261,7 +261,7 @@ TopoShape TransferBRep_Reader::OneShape() const
 
 TopoShape TransferBRep_Reader::ShapeResult(const Handle(RefObject)& ent) const
 {
-  return TransferBRep::ShapeResult(theProc, ent);
+  return TransferBRep1::ShapeResult(theProc, ent);
 }
 
 //   ######    RESULTAT : TRANSIENTS    ######

@@ -91,7 +91,7 @@ public:
 
   //! Returns the axis placement one axis with the same
   //! location and direction as <me>.
-  const Axis3d& Position() const { return pos; }
+  const Axis3d& Position1() const { return pos; }
 
   //! Computes the angle between two lines in radians.
   Standard_Real Angle(const gp_Lin& theOther) const

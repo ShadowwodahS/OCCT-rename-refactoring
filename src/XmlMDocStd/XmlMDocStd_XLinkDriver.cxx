@@ -43,11 +43,11 @@ Handle(TDF_Attribute) XmlMDocStd_XLinkDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDocStd_XLinkDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDocStd_XLinkDriver::Paste(const PersistentStorage&  theSource,
                                                const Handle(TDF_Attribute)& theTarget,
                                                XmlObjMgt_RRelocationTable&) const
 {
-  XmlObjMgt_DOMString anXPath = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString anXPath = XmlObjMgt1::GetStringValue(theSource);
 
   if (anXPath == NULL)
   {
@@ -56,7 +56,7 @@ Standard_Boolean XmlMDocStd_XLinkDriver::Paste(const XmlObjMgt_Persistent&  theS
   }
 
   AsciiString1 anEntry;
-  if (XmlObjMgt::GetTagEntryString(anXPath, anEntry) == Standard_False)
+  if (XmlObjMgt1::GetTagEntryString(anXPath, anEntry) == Standard_False)
   {
     UtfString aMessage =
       UtfString("Cannot retrieve XLink reference from \"") + anXPath + '\"';
@@ -86,7 +86,7 @@ Standard_Boolean XmlMDocStd_XLinkDriver::Paste(const XmlObjMgt_Persistent&  theS
 //           </TDocStd_XLink>    <This is reference to label 0:4:1>
 //=======================================================================
 void XmlMDocStd_XLinkDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                   XmlObjMgt_Persistent&        theTarget,
+                                   PersistentStorage&        theTarget,
                                    XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDocStd_XLink) aRef = Handle(TDocStd_XLink)::DownCast(theSource);
@@ -95,8 +95,8 @@ void XmlMDocStd_XLinkDriver::Paste(const Handle(TDF_Attribute)& theSource,
     // reference
     AsciiString1 anEntry = aRef->LabelEntry();
     XmlObjMgt_DOMString     aDOMString;
-    XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
-    XmlObjMgt::SetStringValue(theTarget, aDOMString);
+    XmlObjMgt1::SetTagEntryString(aDOMString, anEntry);
+    XmlObjMgt1::SetStringValue(theTarget, aDOMString);
 
     // document entry
     theTarget.Element().setAttribute(::DocEntryString(), aRef->DocumentEntry().ToCString());

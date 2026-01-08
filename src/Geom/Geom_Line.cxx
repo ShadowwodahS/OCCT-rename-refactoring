@@ -49,7 +49,7 @@ GeomLine::GeomLine(const Axis3d& A)
 //=================================================================================================
 
 GeomLine::GeomLine(const gp_Lin& L)
-    : pos(L.Position())
+    : pos(L.Position1())
 {
 }
 
@@ -85,7 +85,7 @@ void GeomLine::SetDirection(const Dir3d& V)
 
 void GeomLine::SetLin(const gp_Lin& L)
 {
-  pos = L.Position();
+  pos = L.Position1();
 }
 
 //=================================================================================================
@@ -104,7 +104,7 @@ void GeomLine::SetPosition(const Axis3d& A1)
 
 //=================================================================================================
 
-const Axis3d& GeomLine::Position() const
+const Axis3d& GeomLine::Position1() const
 {
   return pos;
 }

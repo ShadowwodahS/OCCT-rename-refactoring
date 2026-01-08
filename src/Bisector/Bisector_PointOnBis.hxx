@@ -24,14 +24,14 @@
 #include <Standard_Boolean.hxx>
 #include <gp_Pnt2d.hxx>
 
-class Bisector_PointOnBis
+class PointOnBis
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Bisector_PointOnBis();
+  Standard_EXPORT PointOnBis();
 
-  Standard_EXPORT Bisector_PointOnBis(const Standard_Real Param1,
+  Standard_EXPORT PointOnBis(const Standard_Real Param1,
                                       const Standard_Real Param2,
                                       const Standard_Real ParamBis,
                                       const Standard_Real Distance,

@@ -95,7 +95,7 @@ public:
     bool ReadFillIncomplete = true; //!< Flag for fill the document with partially retrieved data even if reader has failed with error
     int ReadMemoryLimitMiB = -1; //!< Memory usage limit
     bool ReadParallel = false; //!< Flag to use multithreading
-    bool ReadSkipEmptyNodes = true; //!< Flag to ignore nodes without Geometry
+    bool ReadSkipEmptyNodes = true; //!< Flag to ignore nodes without Geometry1
     bool ReadLoadAllScenes = false; //!< Flag to load all scenes in the document
     bool ReadUseMeshNameAsFallback = true; //!< Flag to use Mesh1 name in case if Node name is empty
     bool ReadSkipLateDataLoading = false; //!< Flag to skip triangulation loading

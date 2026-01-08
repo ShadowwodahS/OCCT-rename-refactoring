@@ -46,10 +46,10 @@ public:
     return Quantity_Color(195 / 255., 195 / 255., 195 / 255., Quantity_TOC_sRGB);
   }
 
-  //! Creates V3d view
+  //! Creates V3d1 view
   Standard_EXPORT void CreateView();
 
-  //! Fills V3d view by the given window
+  //! Fills V3d1 view by the given window
   //! \param depending on platform it is either WNT_Window or Xw_Window
   Standard_EXPORT void SetWindow(const Handle(Aspect_Window)& theWindow);
 

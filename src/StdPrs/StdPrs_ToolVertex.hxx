@@ -22,7 +22,7 @@
 
 class TopoVertex;
 
-class StdPrs_ToolVertex
+class VertexPresentationTool
 {
 public:
   DEFINE_STANDARD_ALLOC

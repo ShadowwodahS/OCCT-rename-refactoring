@@ -32,7 +32,7 @@
 class ShapeAttribute;
 class TDF_RelocationTable;
 
-//! store the arguments of Naming.
+//! store the arguments of Naming1.
 class TNaming_Name
 {
 public:

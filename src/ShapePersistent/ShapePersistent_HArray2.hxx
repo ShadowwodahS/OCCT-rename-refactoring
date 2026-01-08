@@ -29,7 +29,7 @@
 #include <TColgp_HArray2OfLin2d.hxx>
 #include <TColgp_HArray2OfCirc2d.hxx>
 
-class ShapePersistent_HArray2 : private StdLPersistent_HArray2
+class ShapePersistent_HArray2 : private HArray2
 {
 public:
   typedef instance<TColgp_HArray2OfXYZ>    XYZ;

@@ -199,7 +199,7 @@ Handle(StepVisual_ComplexTriangulatedSurfaceSet) GenerateComplexTriangulatedSurf
   // normals
   Handle(TColStd_HArray2OfReal) aNormals = GenerateNormalsArray(aTriangulation, aFaceTransform);
   // pnindex
-  // From "Recommended Practices Recommended Practices for 3D Tessellated Geometry", Release 1.1:
+  // From "Recommended Practices Recommended Practices for 3D Tessellated Geometry1", Release 1.1:
   // "pnindex is the table of indices of the points used in the definition of the triangles.
   //  It is an index to the coordinates_list. Its size may be:
   //  pnmax: this is the size of normals when each point has a normal.
@@ -261,7 +261,7 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoSha
     }
     else // BSpline
     {
-      ShapeConstruct_Curve      aSCC;
+      Curve3      aSCC;
       Handle(BSplineCurve3d) aBSCurve =
         aSCC.ConvertToBSpline(anEdgeCurve, aFirstParam, aLastParam, Precision::Confusion());
       for (Standard_Integer aPoleIndex = 1; aPoleIndex <= aBSCurve->NbPoles(); ++aPoleIndex)

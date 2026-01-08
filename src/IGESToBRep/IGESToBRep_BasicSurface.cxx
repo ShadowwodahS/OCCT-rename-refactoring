@@ -125,8 +125,8 @@ static Standard_Boolean checkBSplineSurface(
   // Fix coincided knots
   if (aResult)
   {
-    ShapeConstruct_Curve::FixKnots(SUKnots);
-    ShapeConstruct_Curve::FixKnots(SVKnots);
+    Curve3::FixKnots(SUKnots);
+    Curve3::FixKnots(SVKnots);
   }
 
   return aResult;
@@ -993,7 +993,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferBSplineSurface(
   //: l1 abv 6 Jan 99: USA60022 243: force periodicity on any closed surface
   Standard_Boolean isUPeriodic = (start->IsClosedU() && (start->IsPeriodicU() || res->IsUClosed()));
   Standard_Boolean isVPeriodic = (start->IsClosedV() && (start->IsPeriodicV() || res->IsVClosed()));
-  //: k0 abv 16 Dec 98: use ShapeCustom
+  //: k0 abv 16 Dec 98: use ShapeCustom1
   if (isUPeriodic || isVPeriodic)
   {
     Handle(Geom_BSplineSurface) periodicSurf =

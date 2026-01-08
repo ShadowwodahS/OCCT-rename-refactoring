@@ -395,7 +395,7 @@ void AIS_ColoredShape::fillSubshapeDrawerMap(AIS_DataMapOfShapeDrawer& theSubsha
   for (AIS_DataMapOfShapeDrawer::Iterator aKeyShapeIter(myShapeColors); aKeyShapeIter.More();
        aKeyShapeIter.Next())
   {
-    const TopoShape& aKeyShape = aKeyShapeIter.Key();
+    const TopoShape& aKeyShape = aKeyShapeIter.Key1();
     if (aKeyShape.ShapeType() != TopAbs_COMPOUND || aMapOfOwnCompounds.Contains(aKeyShape))
     {
       continue;
@@ -415,7 +415,7 @@ void AIS_ColoredShape::fillSubshapeDrawerMap(AIS_DataMapOfShapeDrawer& theSubsha
   for (AIS_DataMapOfShapeDrawer::Iterator aKeyShapeIter(myShapeColors); aKeyShapeIter.More();
        aKeyShapeIter.Next())
   {
-    const TopoShape& aKeyShape = aKeyShapeIter.Key();
+    const TopoShape& aKeyShape = aKeyShapeIter.Key1();
     if (myshape == aKeyShape
         || (aKeyShape.ShapeType() == TopAbs_COMPOUND && !aMapOfOwnCompounds.Contains(aKeyShape)))
     {
@@ -445,7 +445,7 @@ void AIS_ColoredShape::ComputeSelection(const Handle(SelectionContainer)& theSel
   const Standard_Real aDeflection  = StdPrs_ToolTriangulatedShape::GetDeflection(myshape, myDrawer);
   const Standard_Real aDeviationAngle = myDrawer->DeviationAngle();
   const Standard_Integer aPriority =
-    StdSelect_BRepSelectionTool::GetStandardPriority(myshape, aTypOfSel);
+    BRepSelectionTool::GetStandardPriority(myshape, aTypOfSel);
   if (myDrawer->IsAutoTriangulation() && !BRepTools1::Triangulation(myshape, Precision::Infinite()))
   {
     MeshGenerator aMesher(myshape, aDeflection, Standard_False, aDeviationAngle);
@@ -506,7 +506,7 @@ void AIS_ColoredShape::computeSubshapeSelection(const Handle(AIS_ColoredDrawer)&
   const Standard_Real    aMaximalParameter = 500.0;
   if (theTypOfSel == TopAbs_SHAPE && theShape.ShapeType() >= TopAbs_FACE)
   {
-    StdSelect_BRepSelectionTool::ComputeSensitive(theShape,
+    BRepSelectionTool::ComputeSensitive(theShape,
                                                   theOwner,
                                                   theSelection,
                                                   theDeflection,
@@ -521,7 +521,7 @@ void AIS_ColoredShape::computeSubshapeSelection(const Handle(AIS_ColoredDrawer)&
     const Standard_Boolean      isComesFromDecomposition = !theShape.IsEqual(myshape);
     Handle(StdSelect_BRepOwner) aBrepOwner =
       new StdSelect_BRepOwner(theShape, thePriority, isComesFromDecomposition);
-    StdSelect_BRepSelectionTool::ComputeSensitive(theShape,
+    BRepSelectionTool::ComputeSensitive(theShape,
                                                   aBrepOwner,
                                                   theSelection,
                                                   theDeflection,
@@ -564,7 +564,7 @@ void AIS_ColoredShape::addShapesWithCustomProps(
       isClosed ? theDrawerClosedFaces : theDrawerOpenedShapePerType[aShType];
     for (DataMapOfDrawerCompd::Iterator aMapIter(aDrawerShapeMap); aMapIter.More(); aMapIter.Next())
     {
-      const Handle(AIS_ColoredDrawer)& aCustomDrawer = aMapIter.Key();
+      const Handle(AIS_ColoredDrawer)& aCustomDrawer = aMapIter.Key1();
       // clang-format off
       const TopoCompound& aShapeDraw = aMapIter.Value(); // compound of subshapes with <aShType> type
       // clang-format on

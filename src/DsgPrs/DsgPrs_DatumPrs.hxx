@@ -19,7 +19,7 @@
 #include <Prs3d_Root.hxx>
 
 //! A framework for displaying an XYZ trihedron.
-class DsgPrs_DatumPrs : public Prs3d_Root
+class DsgPrs_DatumPrs : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -29,7 +29,7 @@ public:
   //! - Prs3d_DatumAspect defines arrow, line and length trihedron axis parameters,
   //! - Prs3d_TextAspect defines displayed text.
   //! The thihedron origin and axis directions are defined by theDatum coordinate system.
-  //! DsgPrs_XYZAxisPresentation framework is used to create graphical primitives for each axis.
+  //! XYZAxisPresentation framework is used to create graphical primitives for each axis.
   //! Axes are marked with "X", "Y", "Z" text.
   //! @param[out] thePresentation  the modified presentation
   //! @param[in] theDatum  the source of trihedron position

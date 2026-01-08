@@ -32,7 +32,7 @@ class Interface_EntityIterator;
 //! Sharing Lists, and gives access to them.
 //! Allows to complete with Implied References (which are not
 //! regarded as Shared Entities, but are nevertheless Referenced),
-//! this can be useful for Reference Checking
+//! this can be useful for Reference1 Checking
 class Interface_ShareTool
 {
 public:

@@ -177,7 +177,7 @@ void TopOpeBRepDS_FaceInterferenceTool::Init(const TopoShape&                   
   STATIC_TOREVERSE = Standard_False;
   if (EEisnew)
   {
-    Standard_Integer    G  = I->Geometry();
+    Standard_Integer    G  = I->Geometry1();
     const TopoEdge&  EG = TopoDS::Edge(myPBDS->Shape(G));
     TopOpeBRepDS_Config cf;
     Standard_Boolean    cfok = FDS_Config3d(E, EG, cf);

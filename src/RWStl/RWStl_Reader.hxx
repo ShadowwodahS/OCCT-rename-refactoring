@@ -39,7 +39,7 @@ public:
   //! Default constructor.
   Standard_EXPORT RWStl_Reader();
 
-  //! Reads data from STL file (either binary or Ascii).
+  //! Reads data from STL file (either binary or Ascii1).
   //! This function supports reading multi-domain STL files formed by concatenation
   //! of several "plain" files.
   //! The mesh nodes are not merged between domains.
@@ -49,11 +49,11 @@ public:
   Standard_EXPORT Standard_Boolean Read(const char*                  theFile,
                                         const Message_ProgressRange& theProgress);
 
-  //! Guess whether the stream is an Ascii STL file, by analysis of the first bytes (~200).
+  //! Guess whether the stream is an Ascii1 STL file, by analysis of the first bytes (~200).
   //! If the stream does not support seekg() then the parameter isSeekgAvailable should
   //! be passed as 'false', in this case the function attempts to put back the read symbols
   //! to the stream which thus must support ungetc().
-  //! Returns true if the stream seems to contain Ascii STL.
+  //! Returns true if the stream seems to contain Ascii1 STL.
   Standard_EXPORT Standard_Boolean IsAscii(Standard_IStream& theStream,
                                            const bool        isSeekgAvailable);
 
@@ -64,8 +64,8 @@ public:
   Standard_EXPORT Standard_Boolean ReadBinary(Standard_IStream&            theStream,
                                               const Message_ProgressRange& theProgress);
 
-  //! Reads data from the stream assumed to contain Ascii STL data.
-  //! The stream can be opened either in binary or in Ascii mode.
+  //! Reads data from the stream assumed to contain Ascii1 STL data.
+  //! The stream can be opened either in binary or in Ascii1 mode.
   //! Reading stops at the position specified by theUntilPos,
   //! or end of file is reached, or when keyword "endsolid" is found.
   //! Empty lines are not supported and will read to reading failure.

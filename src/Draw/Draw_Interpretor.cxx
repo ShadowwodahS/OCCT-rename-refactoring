@@ -164,7 +164,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
     if (toExitOnCatch != NULL && Draw1::Atoi(toExitOnCatch))
     {
-      Message::SendFail() << "An exception was caught " << anException;
+      Message1::SendFail() << "An exception was caught " << anException;
 #ifdef _WIN32
       Tcl_Exit(0);
 #else
@@ -182,7 +182,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
     if (toExitOnCatch != NULL && Draw1::Atoi(toExitOnCatch))
     {
-      Message::SendFail() << "An exception was caught " << theStdException.what() << " ["
+      Message1::SendFail() << "An exception was caught " << theStdException.what() << " ["
                           << typeid(theStdException).name() << "]";
 #ifdef _WIN32
       Tcl_Exit(0);
@@ -202,7 +202,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
     if (toExitOnCatch != NULL && Draw1::Atoi(toExitOnCatch))
     {
-      Message::SendFail() << "UNKNOWN exception was caught ";
+      Message1::SendFail() << "UNKNOWN exception was caught ";
 #ifdef _WIN32
       Tcl_Exit(0);
 #else
@@ -291,7 +291,7 @@ void DrawInterpreter::Init()
 void DrawInterpreter::SetToColorize(Standard_Boolean theToColorize)
 {
   myToColorize = theToColorize;
-  for (Message_SequenceOfPrinters::Iterator aPrinterIter(Message::DefaultMessenger()->Printers());
+  for (Message_SequenceOfPrinters::Iterator aPrinterIter(Message1::DefaultMessenger()->Printers());
        aPrinterIter.More();
        aPrinterIter.Next())
   {

@@ -79,7 +79,7 @@ private:
     unsigned int& ChangeData() { return myData; }
 
     //! Compute the sequential index of this packed node in the map.
-    Standard_Integer Key() const { return Standard_Integer(myMask & MASK_HIGH); }
+    Standard_Integer Key1() const { return Standard_Integer(myMask & MASK_HIGH); }
 
     //! Return the number of set integer keys.
     size_t NbValues() const { return size_t(myMask & MASK_LOW) + 1; }
@@ -203,10 +203,10 @@ public:
     }
 
     //! Query the iterated key.
-    Standard_Integer Key() const
+    Standard_Integer Key1() const
     {
       Standard_NoSuchObject_Raise_if((myIntMask == ~0U),
-                                     "TColStd_MapIteratorOfPackedMapOfInteger::Key");
+                                     "TColStd_MapIteratorOfPackedMapOfInteger::Key1");
       return myKey;
     }
 

@@ -30,11 +30,11 @@
 typedef NCollection_UBTree<Standard_Integer, Box2> BRepClass3d_BndBoxTree;
 
 // Class representing tree selector for point object.
-class BRepClass3d_BndBoxTreeSelectorPoint : public BRepClass3d_BndBoxTree::Selector
+class BndBoxTreeSelectorPoint : public BRepClass3d_BndBoxTree::Selector
 {
 public:
-  BRepClass3d_BndBoxTreeSelectorPoint(const TopTools_IndexedMapOfShape& theMapOfShape)
-      : BRepClass3d_BndBoxTreeSelectorPoint::Selector(),
+  BndBoxTreeSelectorPoint(const TopTools_IndexedMapOfShape& theMapOfShape)
+      : BndBoxTreeSelectorPoint::Selector(),
         myMapOfShape(theMapOfShape)
   {
   }
@@ -47,8 +47,8 @@ public:
   void SetCurrentPoint(const Point3d& theP) { myP = theP; }
 
 private:
-  BRepClass3d_BndBoxTreeSelectorPoint(const BRepClass3d_BndBoxTreeSelectorPoint&);
-  BRepClass3d_BndBoxTreeSelectorPoint& operator=(const BRepClass3d_BndBoxTreeSelectorPoint&);
+  BndBoxTreeSelectorPoint(const BndBoxTreeSelectorPoint&);
+  BndBoxTreeSelectorPoint& operator=(const BndBoxTreeSelectorPoint&);
 
 private:
   const TopTools_IndexedMapOfShape& myMapOfShape; // shapes (vertices + edges)
@@ -56,7 +56,7 @@ private:
 };
 
 // Class representing tree selector for line object.
-class BRepClass3d_BndBoxTreeSelectorLine : public BRepClass3d_BndBoxTree::Selector
+class BndBoxTreeSelectorLine : public BRepClass3d_BndBoxTree::Selector
 {
 public:
   struct EdgeParam
@@ -73,8 +73,8 @@ public:
   };
 
 public:
-  BRepClass3d_BndBoxTreeSelectorLine(const TopTools_IndexedMapOfShape& theMapOfShape)
-      : BRepClass3d_BndBoxTreeSelectorLine::Selector(),
+  BndBoxTreeSelectorLine(const TopTools_IndexedMapOfShape& theMapOfShape)
+      : BndBoxTreeSelectorLine::Selector(),
         myMapOfShape(theMapOfShape),
         myIsValid(Standard_True)
   {
@@ -126,8 +126,8 @@ public:
   Standard_Boolean IsCorrect() const { return myIsValid; }
 
 private:
-  BRepClass3d_BndBoxTreeSelectorLine(const BRepClass3d_BndBoxTreeSelectorLine&);
-  BRepClass3d_BndBoxTreeSelectorLine& operator=(const BRepClass3d_BndBoxTreeSelectorLine&);
+  BndBoxTreeSelectorLine(const BndBoxTreeSelectorLine&);
+  BndBoxTreeSelectorLine& operator=(const BndBoxTreeSelectorLine&);
 
 private:
   const TopTools_IndexedMapOfShape& myMapOfShape; // shapes (vertices + edges)

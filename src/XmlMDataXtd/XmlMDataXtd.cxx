@@ -29,7 +29,7 @@ static Standard_Integer myDocumentVersion = -1;
 
 //=================================================================================================
 
-void XmlMDataXtd::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMDataXtd1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                              const Handle(Message_Messenger)&   anMsgDrv)
 {
   aDriverTable->AddDriver(new XmlMDataXtd_GeometryDriver(anMsgDrv));
@@ -45,7 +45,7 @@ void XmlMDataXtd::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
 // function : SetDocumentVersion
 // purpose  : Sets current document version
 //=======================================================================
-void XmlMDataXtd::SetDocumentVersion(const Standard_Integer theVersion)
+void XmlMDataXtd1::SetDocumentVersion(const Standard_Integer theVersion)
 {
   myDocumentVersion = theVersion;
 }
@@ -54,7 +54,7 @@ void XmlMDataXtd::SetDocumentVersion(const Standard_Integer theVersion)
 // function : DocumentVersion
 // purpose  : Retrieved document version
 //=======================================================================
-Standard_Integer XmlMDataXtd::DocumentVersion()
+Standard_Integer XmlMDataXtd1::DocumentVersion()
 {
   return myDocumentVersion;
 }

@@ -24,7 +24,7 @@
 #include <Transfer_Finder.hxx>
 class TopoShape;
 class ShapeHasher;
-class TransferBRep_ShapeInfo;
+class ShapeInfo;
 class Transfer_Finder;
 
 class TransferBRep_ShapeMapper;

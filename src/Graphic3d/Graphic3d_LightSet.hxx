@@ -69,7 +69,7 @@ public:
     Standard_Boolean More() const { return myIter.More(); }
 
     //! Returns current item.
-    const Handle(Graphic3d_CLight)& Value() const { return myIter.Key(); }
+    const Handle(Graphic3d_CLight)& Value() const { return myIter.Key1(); }
 
     //! Moves to the next item.
     void Next()
@@ -90,16 +90,16 @@ public:
       for (; myIter.More(); myIter.Next())
       {
         if ((myFilter & IterationFilter_ExcludeAmbient) != 0
-            && myIter.Key()->Type() == Graphic3d_TypeOfLightSource_Ambient)
+            && myIter.Key1()->Type() == Graphic3d_TypeOfLightSource_Ambient)
         {
           continue;
         }
-        else if ((myFilter & IterationFilter_ExcludeDisabled) != 0 && !myIter.Key()->IsEnabled())
+        else if ((myFilter & IterationFilter_ExcludeDisabled) != 0 && !myIter.Key1()->IsEnabled())
         {
           continue;
         }
         else if ((myFilter & IterationFilter_ExcludeNoShadow) != 0
-                 && !myIter.Key()->ToCastShadows())
+                 && !myIter.Key1()->ToCastShadows())
         {
           continue;
         }

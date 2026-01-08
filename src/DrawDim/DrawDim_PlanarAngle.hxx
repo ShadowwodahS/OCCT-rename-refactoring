@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT void Sector(const Standard_Boolean inverted, const Standard_Boolean reversed);
 
-  Standard_EXPORT void Position(const Standard_Real value);
+  Standard_EXPORT void Position1(const Standard_Real value);
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 

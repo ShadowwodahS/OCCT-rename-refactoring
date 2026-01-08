@@ -44,7 +44,7 @@ void NominalSizeTool::ReadOwnParams(const Handle(IGESGraph_NominalSize)& ent,
   Handle(TCollection_HAsciiString) nominalSizeName;
   Handle(TCollection_HAsciiString) standardName;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   // clang-format off
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues); //szv#4:S4163:12Mar99 `st=` not needed
   if ( (nbPropertyValues != 2) && (nbPropertyValues != 3) )

@@ -105,7 +105,7 @@ static Standard_Integer FUN_getG(const Point3d&                              P,
     SSI = Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I);
     if (SSI.IsNull())
       continue;
-    Standard_Integer GI             = SSI->Geometry();
+    Standard_Integer GI             = SSI->Geometry1();
     iEinterf                        = SSI->Support();
     const Point1& DSP   = HDS->Point(GI);
     const Point3d&             P3d   = DSP.Point();

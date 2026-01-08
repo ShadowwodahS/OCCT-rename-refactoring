@@ -47,7 +47,7 @@ public:
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Set(
     const DataLabel&              theLabel,
-    const XCAFDoc_AssemblyItemId& theItemId);
+    const AssemblyItemId& theItemId);
 
   //! Create (if not exist) a reference to an assembly item's label attribute.
   //! \param[in]  theLabel  - label to add the attribute.
@@ -56,7 +56,7 @@ public:
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Set(
     const DataLabel&              theLabel,
-    const XCAFDoc_AssemblyItemId& theItemId,
+    const AssemblyItemId& theItemId,
     const Standard_GUID&          theGUID);
 
   //! Create (if not exist) a reference to an assembly item's subshape.
@@ -66,7 +66,7 @@ public:
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Set(
     const DataLabel&              theLabel,
-    const XCAFDoc_AssemblyItemId& theItemId,
+    const AssemblyItemId& theItemId,
     const Standard_Integer        theShapeIndex);
 
   //! @}
@@ -100,14 +100,14 @@ public:
   //! @}
 
   //! Returns the assembly item ID that the reference points to.
-  Standard_EXPORT const XCAFDoc_AssemblyItemId& GetItem() const;
+  Standard_EXPORT const AssemblyItemId& GetItem() const;
 
   //! @name Set reference data functions.
   //! @{
 
   //! Sets the assembly item ID that the reference points to.
   //! Extra reference data (if any) will be cleared.
-  Standard_EXPORT void SetItem(const XCAFDoc_AssemblyItemId& theItemId);
+  Standard_EXPORT void SetItem(const AssemblyItemId& theItemId);
 
   //! Sets the assembly item ID from a list of label entries
   //! that the reference points to.
@@ -146,7 +146,7 @@ public:
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& theOS) const Standard_OVERRIDE;
 
 private:
-  XCAFDoc_AssemblyItemId  myItemId;   ///< Assembly item ID
+  AssemblyItemId  myItemId;   ///< Assembly item ID
   Standard_Integer        myExtraRef; ///< Type of extra reference: subshape or attribute
   AsciiString1 myExtraId;  ///< Extra reference data
 };

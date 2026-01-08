@@ -71,7 +71,7 @@ public:
 
   //! Returns the  position of  the   point on the  edge
   //! returned by Edge.
-  IntRes2d_Position Position() const;
+  IntRes2d_Position Position1() const;
 
 protected:
   Geom2dHatch_FClass2dOfClassifier myClassifier;

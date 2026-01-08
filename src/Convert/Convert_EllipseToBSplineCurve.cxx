@@ -35,7 +35,7 @@
 // constructor of an arc of B-spline circle to take into account
 // the real number of poles and nodes.
 //  parameterization :
-//  Reference : Rational B-spline for Curve and Surface Representation
+//  Reference1 : Rational B-spline for Curve and Surface Representation
 //              Wayne Tiller  CADG September 1983
 //  x(t) = (1 - t^2) / (1 + t^2)
 //  y(t) =  2 t / (1 + t^2)

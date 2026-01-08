@@ -21,7 +21,7 @@
 
 #include <Draw_Interpretor.hxx>
 
-class XDEDRAW_Common
+class CommonCommands
 {
   DEFINE_STANDARD_ALLOC
 public:

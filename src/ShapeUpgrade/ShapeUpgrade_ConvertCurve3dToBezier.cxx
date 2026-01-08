@@ -75,14 +75,14 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     if (First < precision && Last > 1 - precision)
     {
       mySegments->Append(bezier);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
     }
     else
     {
       Handle(BezierCurve3d) besNew = Handle(BezierCurve3d)::DownCast(bezier->Copy());
       besNew->Segment1(First, Last);
       mySegments->Append(besNew);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     }
     return;
   }
@@ -95,7 +95,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     if (!myLineMode)
     {
       mySegments->Append(aLine);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
       return;
     }
     TColgp_Array1OfPnt poles(1, 2);
@@ -103,7 +103,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     poles(2)                        = aLine->Value(Last);
     Handle(BezierCurve3d) bezier = new BezierCurve3d(poles);
     mySegments->Append(bezier);
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return;
   }
   else if ((myCurve->IsKind(STANDARD_TYPE(Geom_Conic)) && !myConicMode)
@@ -113,7 +113,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     mySplitParams->Append(First);
     mySplitParams->Append(Last);
     mySegments->Append(myCurve);
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
     return;
   }
   else
@@ -200,7 +200,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     }
     myNbCurves = mySplitValues->Length() - 1;
   }
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 }
 
 //=================================================================================================

@@ -363,7 +363,7 @@ void TopOpeBRepBuild_FaceBuilder::DetectUnclosedWire(
             if (nEdges != 1)
               break; // stop this chain
 
-            // remove edges from Block Builder
+            // remove edges from Block1 Builder
             TColStd_ListIteratorOfListOfInteger itLOI(LOI);
             for (; itLOI.More(); itLOI.Next())
               myBlockBuilder.SetValid(itLOI.Value(), Standard_False);

@@ -90,7 +90,7 @@ void BRepCheck_Edge::Minimum()
     Standard_Boolean SameRange     = TE->SameRange();
     if (!SameRange && SameParameter)
     {
-      BRepCheck::Add(lst, BRepCheck_InvalidSameParameterFlag);
+      BRepCheck1::Add(lst, BRepCheck_InvalidSameParameterFlag);
     }
     //    Handle(GeomCurve3d) C3d;
 
@@ -117,12 +117,12 @@ void BRepCheck_Edge::Minimum()
 
     if (!exist)
     {
-      BRepCheck::Add(lst, BRepCheck_No3DCurve);
+      BRepCheck1::Add(lst, BRepCheck_No3DCurve);
       // myCref est nulle
     }
     else if (!unique)
     {
-      BRepCheck::Add(lst, BRepCheck_Multiple3DCurve);
+      BRepCheck1::Add(lst, BRepCheck_Multiple3DCurve);
     }
 
     if (myCref.IsNull() && !Degenerated)
@@ -141,7 +141,7 @@ void BRepCheck_Edge::Minimum()
     }
     else if (!myCref.IsNull() && Degenerated)
     {
-      BRepCheck::Add(lst, BRepCheck_InvalidDegeneratedFlag);
+      BRepCheck1::Add(lst, BRepCheck_InvalidDegeneratedFlag);
     }
 
     if (!myCref.IsNull())
@@ -153,7 +153,7 @@ void BRepCheck_Edge::Minimum()
       if (Last <= First)
       {
         myCref.Nullify();
-        BRepCheck::Add(lst, BRepCheck_InvalidRange);
+        BRepCheck1::Add(lst, BRepCheck_InvalidRange);
       }
       else
       {
@@ -186,12 +186,12 @@ void BRepCheck_Edge::Minimum()
           if (IsPeriodic && (Last - First > aPeriod + eps))
           {
             myCref.Nullify();
-            BRepCheck::Add(lst, BRepCheck_InvalidRange);
+            BRepCheck1::Add(lst, BRepCheck_InvalidRange);
           }
           else if (!IsPeriodic && (First < f - eps || Last > l + eps))
           {
             myCref.Nullify();
-            BRepCheck::Add(lst, BRepCheck_InvalidRange);
+            BRepCheck1::Add(lst, BRepCheck_InvalidRange);
           }
           else
           {
@@ -229,12 +229,12 @@ void BRepCheck_Edge::Minimum()
           if (IsPeriodic && (Last - First > aPeriod + eps))
           {
             myCref.Nullify();
-            BRepCheck::Add(lst, BRepCheck_InvalidRange);
+            BRepCheck1::Add(lst, BRepCheck_InvalidRange);
           }
           else if (!IsPeriodic && (First < f - eps || Last > l + eps))
           {
             myCref.Nullify();
-            BRepCheck::Add(lst, BRepCheck_InvalidRange);
+            BRepCheck1::Add(lst, BRepCheck_InvalidRange);
           }
           else
           {
@@ -287,7 +287,7 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
   }
   if (!exp.More())
   {
-    BRepCheck::Add(lst, BRepCheck_SubshapeNotInShape);
+    BRepCheck1::Add(lst, BRepCheck_SubshapeNotInShape);
     return;
   }
 
@@ -307,9 +307,9 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
         if (!SameParameter || !SameRange)
         {
           if (!SameParameter)
-            BRepCheck::Add(lst, BRepCheck_InvalidSameParameterFlag);
+            BRepCheck1::Add(lst, BRepCheck_InvalidSameParameterFlag);
           if (!SameRange)
-            BRepCheck::Add(lst, BRepCheck_InvalidSameRangeFlag);
+            BRepCheck1::Add(lst, BRepCheck_InvalidSameRangeFlag);
 
           return;
         }
@@ -348,8 +348,8 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
             //  Modified by skv - Tue Apr 27 11:50:35 2004 Begin
             if (Abs(ff - First) > eps || Abs(ll - Last) > eps)
             {
-              BRepCheck::Add(lst, BRepCheck_InvalidSameRangeFlag);
-              BRepCheck::Add(lst, BRepCheck_InvalidSameParameterFlag);
+              BRepCheck1::Add(lst, BRepCheck_InvalidSameRangeFlag);
+              BRepCheck1::Add(lst, BRepCheck_InvalidSameParameterFlag);
             }
             //  Modified by skv - Tue Apr 27 11:50:37 2004 End
             //
@@ -375,12 +375,12 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
             }
             if (IsPeriodic && (l - f > aPeriod + eps))
             {
-              BRepCheck::Add(lst, BRepCheck_InvalidRange);
+              BRepCheck1::Add(lst, BRepCheck_InvalidRange);
               return;
             }
             else if (!IsPeriodic && (f < fp - eps || l > lp + eps))
             {
-              BRepCheck::Add(lst, BRepCheck_InvalidRange);
+              BRepCheck1::Add(lst, BRepCheck_InvalidRange);
               return;
             }
 
@@ -404,16 +404,16 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
               {
                 if (cr->IsCurveOnClosedSurface())
                 {
-                  BRepCheck::Add(lst, BRepCheck_InvalidCurveOnClosedSurface);
+                  BRepCheck1::Add(lst, BRepCheck_InvalidCurveOnClosedSurface);
                 }
                 else
                 {
-                  BRepCheck::Add(lst, BRepCheck_InvalidCurveOnSurface);
+                  BRepCheck1::Add(lst, BRepCheck_InvalidCurveOnSurface);
                 }
                 //  Modified by skv - Tue Apr 27 11:53:00 2004 Begin
-                BRepCheck::Add(lst, BRepCheck_InvalidSameParameterFlag);
+                BRepCheck1::Add(lst, BRepCheck_InvalidSameParameterFlag);
                 // 	      if (SameParameter) {
-                // 		BRepCheck::Add(lst,BRepCheck_InvalidSameParameterFlag);
+                // 		BRepCheck1::Add(lst,BRepCheck_InvalidSameParameterFlag);
                 // 	      }
                 //  Modified by skv - Tue Apr 27 11:53:01 2004 End
               }
@@ -430,11 +430,11 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
                 if (!aValidateEdgeOnClosedSurf.IsDone()
                     || !aValidateEdgeOnClosedSurf.CheckTolerance(Tol))
                 {
-                  BRepCheck::Add(lst, BRepCheck_InvalidCurveOnClosedSurface);
+                  BRepCheck1::Add(lst, BRepCheck_InvalidCurveOnClosedSurface);
                   //  Modified by skv - Tue Apr 27 11:53:20 2004 Begin
                   if (SameParameter)
                   {
-                    BRepCheck::Add(lst, BRepCheck_InvalidSameParameterFlag);
+                    BRepCheck1::Add(lst, BRepCheck_InvalidSameParameterFlag);
                   }
                   //  Modified by skv - Tue Apr 27 11:53:23 2004 End
                 }
@@ -459,7 +459,7 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
           }
           if (P.IsNull())
           { // not a plane
-            BRepCheck::Add(lst, BRepCheck_NoCurveOnSurface);
+            BRepCheck1::Add(lst, BRepCheck_NoCurveOnSurface);
           }
           else
           { // on fait la projection a la volee, comme BRepInspector
@@ -477,7 +477,7 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
               Handle(GeomCurve3d)        ProjOnPlane =
                 GeomProjLib1::ProjectOnPlane(new Geom_TrimmedCurve(C3d, First, Last),
                                             P,
-                                            P->Position().Direction(),
+                                            P->Position1().Direction(),
                                             Standard_True);
               Handle(GeomAdaptor_Curve) aHCurve = new GeomAdaptor_Curve(ProjOnPlane);
 
@@ -495,7 +495,7 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
               aValidateEdgeProj.Process();
               if (!aValidateEdgeProj.IsDone() || !aValidateEdgeProj.CheckTolerance(Tol))
               {
-                BRepCheck::Add(lst, BRepCheck_InvalidCurveOnSurface);
+                BRepCheck1::Add(lst, BRepCheck_InvalidCurveOnSurface);
               }
             }
           }
@@ -520,15 +520,15 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
       }
       if (nbconnection < 2 && !TE->Degenerated())
       {
-        BRepCheck::Add(lst, BRepCheck_FreeEdge);
+        BRepCheck1::Add(lst, BRepCheck_FreeEdge);
       }
       else if (nbconnection > 2)
       {
-        BRepCheck::Add(lst, BRepCheck_InvalidMultiConnexity);
+        BRepCheck1::Add(lst, BRepCheck_InvalidMultiConnexity);
       }
       else
       {
-        BRepCheck::Add(lst, BRepCheck_NoError);
+        BRepCheck1::Add(lst, BRepCheck_NoError);
       }
     }
     break;
@@ -573,7 +573,7 @@ Standard_Boolean BRepCheck_Edge::GeometricControls() const
 void BRepCheck_Edge::SetStatus(const BRepCheck_Status theStatus)
 {
   Standard_Mutex::Sentry aLock(myMutex.get());
-  BRepCheck::Add(*myMap(myShape), theStatus);
+  BRepCheck1::Add(*myMap(myShape), theStatus);
 }
 
 //=================================================================================================

@@ -56,7 +56,7 @@ Geom2d_Line::Geom2d_Line(const Ax2d& A)
 //=================================================================================================
 
 Geom2d_Line::Geom2d_Line(const gp_Lin2d& L)
-    : pos(L.Position())
+    : pos(L.Position1())
 {
 }
 
@@ -85,7 +85,7 @@ const gp_Dir2d& Geom2d_Line::Direction() const
 
 void Geom2d_Line::SetLin2d(const gp_Lin2d& L)
 {
-  pos = L.Position();
+  pos = L.Position1();
 }
 
 //=================================================================================================
@@ -111,7 +111,7 @@ void Geom2d_Line::SetPosition(const Ax2d& A)
 
 //=================================================================================================
 
-const gp_Ax2d& Geom2d_Line::Position() const
+const gp_Ax2d& Geom2d_Line::Position1() const
 {
   return pos;
 }

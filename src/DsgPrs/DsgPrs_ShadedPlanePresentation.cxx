@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-void DsgPrs_ShadedPlanePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void ShadedPlanePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                          const Handle(StyleDrawer)&       aDrawer,
                                          const Point3d&                     aPt1,
                                          const Point3d&                     aPt2,

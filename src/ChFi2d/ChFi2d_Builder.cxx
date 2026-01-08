@@ -82,7 +82,7 @@ ChFi2d_Builder::ChFi2d_Builder(const TopoFace& F)
   {
     newFace = refFace = F;
     newFace.Orientation(TopAbs_FORWARD);
-    BRepLib::BuildCurves3d(newFace);
+    BRepLib1::BuildCurves3d(newFace);
     status = ChFi2d_Ready;
   }
   else
@@ -688,7 +688,7 @@ const TopoEdge& ChFi2d_Builder::BasisEdge(const TopoEdge& E) const
     anEdge = TopoDS::Edge(iterator.Value());
     if (anEdge.IsSame(E))
     {
-      const TopoEdge& anotherEdge = TopoDS::Edge(iterator.Key());
+      const TopoEdge& anotherEdge = TopoDS::Edge(iterator.Key1());
       return anotherEdge;
     } // if (anEdge.IsSame ...
     iterator.Next();
@@ -1128,7 +1128,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
 
   } //  else if
 
-  BRepLib::BuildCurves3d(filletEdge);
+  BRepLib1::BuildCurves3d(filletEdge);
   return filletEdge;
 } // BuildFilletEdge
 

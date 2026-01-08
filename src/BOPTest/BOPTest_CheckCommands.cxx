@@ -56,7 +56,7 @@ static Standard_Integer checkcurveonsurf(DrawInterpreter&, Standard_Integer, con
 
 //=================================================================================================
 
-void BOPTest::CheckCommands(DrawInterpreter& theCommands)
+void BOPTest1::CheckCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -64,7 +64,7 @@ void BOPTest::CheckCommands(DrawInterpreter& theCommands)
 
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   //
   theCommands.Add("bopcheck",
                   "use bopcheck Shape [level of check: 0 - 9] [-t]",
@@ -214,8 +214,8 @@ Standard_Integer bopcheck(DrawInterpreter& di, Standard_Integer n, const char** 
   }
   //
   bShowTime    = Standard_False;
-  aTol         = BOPTest_Objects::FuzzyValue();
-  bRunParallel = BOPTest_Objects::RunParallel();
+  aTol         = Objects::FuzzyValue();
+  bRunParallel = Objects::RunParallel();
   //
   for (i = 2; i < n; ++i)
   {
@@ -266,7 +266,7 @@ Standard_Integer bopcheck(DrawInterpreter& di, Standard_Integer n, const char** 
   //
   aTimer.Stop();
   //
-  BOPTest::ReportAlerts(aChecker.GetReport());
+  BOPTest1::ReportAlerts(aChecker.GetReport());
   //
   iErr = aChecker.HasErrors();
   //
@@ -418,8 +418,8 @@ Standard_Integer bopargcheck(DrawInterpreter& di, Standard_Integer n, const char
   Standard_Real    aTolerance = 0;
   Standard_Boolean bRunParallel;
   //
-  bRunParallel = BOPTest_Objects::RunParallel();
-  aTolerance   = BOPTest_Objects::FuzzyValue();
+  bRunParallel = Objects::RunParallel();
+  aTolerance   = Objects::FuzzyValue();
 
   if (n >= 3)
   {

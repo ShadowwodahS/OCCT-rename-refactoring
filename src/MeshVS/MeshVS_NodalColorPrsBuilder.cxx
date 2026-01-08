@@ -164,7 +164,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   TColStd_MapIteratorOfPackedMapOfInteger   it(anIDs);
   for (; it.More(); it.Next())
   {
-    Standard_Integer aKey = it.Key();
+    Standard_Integer aKey = it.Key1();
     if (aSource->Get3DGeom(aKey, NbNodes, aTopo))
       MeshVS_MeshPrsBuilder::HowManyPrimitives(aTopo,
                                                Standard_True,
@@ -224,12 +224,12 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   {
     Standard_Integer aNbNodes = 0;
 
-    if (!aSource->GetGeom(it.Key(), Standard_True, aCoords, aNbNodes, aType))
+    if (!aSource->GetGeom(it.Key1(), Standard_True, aCoords, aNbNodes, aType))
       continue;
 
     if (aType == MeshVS_ET_Volume)
     {
-      if (aSource->Get3DGeom(it.Key(), aNbNodes, aTopo))
+      if (aSource->Get3DGeom(it.Key1(), aNbNodes, aTopo))
       {
         for (Standard_Integer aFaceIdx = aTopo->Lower(); aFaceIdx <= aTopo->Upper(); ++aFaceIdx)
         {
@@ -277,7 +277,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
   for (it.Reset(); it.More(); it.Next())
   {
-    Standard_Integer aKey = it.Key();
+    Standard_Integer aKey = it.Key1();
 
     if (aSource->GetGeom(aKey, Standard_True, aCoords, NbNodes, aType))
     {
@@ -631,8 +631,8 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
          anIt.More();
          anIt.Next())
     {
-      const Standard_Integer anIdx1 = aLow + 3 * anIt.Key().first;
-      const Standard_Integer anIdx2 = aLow + 3 * anIt.Key().second;
+      const Standard_Integer anIdx1 = aLow + 3 * anIt.Key1().first;
+      const Standard_Integer anIdx2 = aLow + 3 * anIt.Key1().second;
 
       Standard_Real aX[] = {theCoords.Value(anIdx1 + 0), theCoords.Value(anIdx2 + 0)};
       Standard_Real aY[] = {theCoords.Value(anIdx1 + 1), theCoords.Value(anIdx2 + 1)};

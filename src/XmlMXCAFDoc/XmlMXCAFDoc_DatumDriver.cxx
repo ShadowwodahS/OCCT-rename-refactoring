@@ -44,11 +44,11 @@ Handle(TDF_Attribute) XmlMXCAFDoc_DatumDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMXCAFDoc_DatumDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_DatumDriver::Paste(const PersistentStorage&  theSource,
                                                 const Handle(TDF_Attribute)& theTarget,
                                                 XmlObjMgt_RRelocationTable&) const
 {
-  XmlObjMgt_DOMString aNameStr = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString aNameStr = XmlObjMgt1::GetStringValue(theSource);
 
   if (aNameStr == NULL)
   {
@@ -85,7 +85,7 @@ Standard_Boolean XmlMXCAFDoc_DatumDriver::Paste(const XmlObjMgt_Persistent&  the
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMXCAFDoc_DatumDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                    XmlObjMgt_Persistent&        theTarget,
+                                    PersistentStorage&        theTarget,
                                     XmlObjMgt_SRelocationTable&) const
 {
   Handle(XCAFDoc_Datum) anAtt = Handle(XCAFDoc_Datum)::DownCast(theSource);
@@ -98,7 +98,7 @@ void XmlMXCAFDoc_DatumDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!anAtt->GetIdentification().IsNull())
     anIdString = anAtt->GetIdentification()->String().ToCString();
 
-  XmlObjMgt::SetStringValue(theTarget, aNameString);
+  XmlObjMgt1::SetStringValue(theTarget, aNameString);
   theTarget.Element().setAttribute(::DescrIndexString(), aDescrString);
   theTarget.Element().setAttribute(::IdIndexString(), anIdString);
 }

@@ -21,7 +21,7 @@ class StdObjMgt_Persistent;
 class Standard_GUID;
 
 //! Auxiliary data used to write persistent objects to a file.
-class StdObjMgt_WriteData
+class WriteData
 {
 public:
   //! Auxiliary class used to automate begin and end of
@@ -30,7 +30,7 @@ public:
   class ObjectSentry
   {
   public:
-    explicit ObjectSentry(StdObjMgt_WriteData& theData)
+    explicit ObjectSentry(WriteData& theData)
         : myWriteData(&theData)
     {
       myWriteData->myDriver->BeginWriteObjectData();
@@ -39,50 +39,50 @@ public:
     ~ObjectSentry() { myWriteData->myDriver->EndWriteObjectData(); }
 
   private:
-    StdObjMgt_WriteData* myWriteData;
+    WriteData* myWriteData;
 
     ObjectSentry(const ObjectSentry&);
     ObjectSentry& operator=(const ObjectSentry&);
   };
 
-  Standard_EXPORT StdObjMgt_WriteData(const Handle(Storage_BaseDriver)& theDriver);
+  Standard_EXPORT WriteData(const Handle(Storage_BaseDriver)& theDriver);
 
   Standard_EXPORT void WritePersistentObject(const Handle(StdObjMgt_Persistent)& thePersistent);
 
   template <class Persistent>
-  StdObjMgt_WriteData& operator<<(const Handle(Persistent)& thePersistent)
+  WriteData& operator<<(const Handle(Persistent)& thePersistent)
   {
     myDriver->PutReference(thePersistent ? thePersistent->RefNum() : 0);
     return *this;
   }
 
-  Standard_EXPORT StdObjMgt_WriteData& operator<<(
+  Standard_EXPORT WriteData& operator<<(
     const Handle(StdObjMgt_Persistent)& thePersistent);
 
   template <class Type>
-  StdObjMgt_WriteData& WriteValue(const Type& theValue)
+  WriteData& WriteValue(const Type& theValue)
   {
     *myDriver << theValue;
     return *this;
   }
 
-  StdObjMgt_WriteData& operator<<(const Standard_Character& theValue)
+  WriteData& operator<<(const Standard_Character& theValue)
   {
     return WriteValue(theValue);
   }
 
-  StdObjMgt_WriteData& operator<<(const Standard_ExtCharacter& theValue)
+  WriteData& operator<<(const Standard_ExtCharacter& theValue)
   {
     return WriteValue(theValue);
   }
 
-  StdObjMgt_WriteData& operator<<(const Standard_Integer& theValue) { return WriteValue(theValue); }
+  WriteData& operator<<(const Standard_Integer& theValue) { return WriteValue(theValue); }
 
-  StdObjMgt_WriteData& operator<<(const Standard_Boolean& theValue) { return WriteValue(theValue); }
+  WriteData& operator<<(const Standard_Boolean& theValue) { return WriteValue(theValue); }
 
-  StdObjMgt_WriteData& operator<<(const Standard_Real& theValue) { return WriteValue(theValue); }
+  WriteData& operator<<(const Standard_Real& theValue) { return WriteValue(theValue); }
 
-  StdObjMgt_WriteData& operator<<(const Standard_ShortReal& theValue)
+  WriteData& operator<<(const Standard_ShortReal& theValue)
   {
     return WriteValue(theValue);
   }
@@ -91,7 +91,7 @@ private:
   Handle(Storage_BaseDriver) myDriver;
 };
 
-Standard_EXPORT StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData,
+Standard_EXPORT WriteData& operator<<(WriteData& theWriteData,
                                                 const Standard_GUID& theGUID);
 
 #endif // _StdObjMgt_WriteData_HeaderFile

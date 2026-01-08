@@ -56,7 +56,7 @@ static Standard_Boolean EncodeRegul(const TopoShape& theShape)
   try
   {
     OCC_CATCH_SIGNALS
-    BRepLib::EncodeRegularity(theShape, aToleranceAngle);
+    BRepLib1::EncodeRegularity(theShape, aToleranceAngle);
   }
   catch (const ExceptionBase&)
   {
@@ -73,7 +73,7 @@ static void TrimTolerances(const TopoShape& theShape, const Standard_Real theTol
 {
   if (ExchangeConfig::IVal("read.maxprecision.mode") == 1)
   {
-    ShapeFix_ShapeTolerance aSFST;
+    ShapeTolerance1 aSFST;
     aSFST.LimitTolerance(theShape,
                          0,
                          Max(theTolerance, ExchangeConfig::RVal("read.maxprecision.val")));
@@ -211,7 +211,7 @@ Handle(Transfer_Binder) IGESToBRep_Actor::Transfer(const Handle(RefObject)&     
     aShapeProcessor.MergeTransferInfo(TP, nbTPitems);
   }
 
-  ShapeExtend_Explorer SBE;
+  Explorer SBE;
   if (SBE.ShapeType(shape, Standard_True) != TopAbs_SHAPE)
   {
     if (!shape.IsNull())

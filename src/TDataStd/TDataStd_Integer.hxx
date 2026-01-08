@@ -40,18 +40,18 @@ public:
   //! Returns the GUID for integers.
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! Finds, or creates, an Integer attribute and sets <value>
-  //! the Integer  attribute is returned.
+  //! Finds, or creates, an Integer1 attribute and sets <value>
+  //! the Integer1  attribute is returned.
   Standard_EXPORT static Handle(IntAttribute) Set(const DataLabel&       label,
                                                       const Standard_Integer value);
 
-  //! Finds, or creates, an Integer attribute with explicit user defined <guid> and sets <value>.
-  //! The Integer attribute  is  returned.
+  //! Finds, or creates, an Integer1 attribute with explicit user defined <guid> and sets <value>.
+  //! The Integer1 attribute  is  returned.
   Standard_EXPORT static Handle(IntAttribute) Set(const DataLabel&       label,
                                                       const Standard_GUID&   guid,
                                                       const Standard_Integer value);
 
-  //! Integer methods
+  //! Integer1 methods
   //! ===============
   Standard_EXPORT void Set(const Standard_Integer V);
 

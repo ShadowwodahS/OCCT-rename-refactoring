@@ -27,12 +27,12 @@ class VisualEntity;
 class View_PreviewParameters;
 
 //! \class View_DisplayPreview
-//! \brief It is responsible for communication with AIS Interactive Context to:
+//! \brief It is responsible for communication with AIS1 Interactive Context to:
 //! - display/erase presentations;
 //! - change display mode of visualized presentations (Shaded or WireFrame mode)
 //!
 //! It contains containers of visualized presentations to obtain presentations relating only to this
-//! displayer. Displayer is connected to AIS Interactive Context
+//! displayer. Displayer is connected to AIS1 Interactive Context
 class View_DisplayPreview
 {
 public:

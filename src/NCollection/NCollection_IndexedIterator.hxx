@@ -77,13 +77,13 @@ protected: //! @name methods related to forward STL iterator
   // an appropriate method based on template arguments (at instantiation time).
 
   template <bool Condition>
-  typename std::enable_if<!Condition, ItemType&>::type Reference() const
+  typename std::enable_if<!Condition, ItemType&>::type Reference1() const
   {
     return myIndexedMap->at(myIndex);
   }
 
   template <bool Condition>
-  typename std::enable_if<Condition, const ItemType&>::type Reference() const
+  typename std::enable_if<Condition, const ItemType&>::type Reference1() const
   {
     return myIndexedMap->at(myIndex);
   }
@@ -120,13 +120,13 @@ public: //! @name methods related to forward STL iterator
   //! Get reference to current item
   typename NCollection_IndexedIterator::reference operator*() const
   {
-    return Reference<IsConstant>();
+    return Reference1<IsConstant>();
   }
 
   //! Dereferencing operator
   typename NCollection_IndexedIterator::pointer operator->() const
   {
-    return &Reference<IsConstant>();
+    return &Reference1<IsConstant>();
   }
 
   //! Prefix increment

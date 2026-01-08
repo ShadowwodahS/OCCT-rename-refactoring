@@ -34,12 +34,12 @@ static Standard_GUID StdRetrievalDriver("ad696001-5b34-11d1-b5ba-00a0c9064368");
 // purpose  : Depending from the ID, returns a list of storage
 //           or retrieval attribute drivers. Used for plugin
 //=======================================================================
-Handle(RefObject) StdDrivers::Factory(const Standard_GUID& aGUID)
+Handle(RefObject) StdDrivers1::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == StdRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "StdDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "StdDrivers1 : Retrieval Plugin" << std::endl;
 #endif
 
     static Handle(StdDrivers_DocumentRetrievalDriver) model_rd =
@@ -47,12 +47,12 @@ Handle(RefObject) StdDrivers::Factory(const Standard_GUID& aGUID)
     return model_rd;
   }
 
-  throw ExceptionBase("StdDrivers : unknown GUID");
+  throw ExceptionBase("StdDrivers1 : unknown GUID");
 }
 
 //=================================================================================================
 
-void StdDrivers::DefineFormat(const Handle(AppManager)& theApp)
+void StdDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("MDTV-Standard",
                        "Standard OCAF Document",
@@ -65,12 +65,12 @@ void StdDrivers::DefineFormat(const Handle(AppManager)& theApp)
 // function : BindTypes
 // purpose  : Register types
 //=======================================================================
-void StdDrivers::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
+void StdDrivers1::BindTypes(MapOfInstantiators& theMap)
 {
-  StdLPersistent ::BindTypes(theMap);
-  StdPersistent ::BindTypes(theMap);
-  ShapePersistent::BindTypes(theMap);
+  StdLPersistent1 ::BindTypes(theMap);
+  StdPersistent1 ::BindTypes(theMap);
+  ShapePersistent1::BindTypes(theMap);
 }
 
 // Declare entry point PLUGINFACTORY
-PLUGIN(StdDrivers)
+PLUGIN(StdDrivers1)

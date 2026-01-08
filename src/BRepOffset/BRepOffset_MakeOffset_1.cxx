@@ -446,7 +446,7 @@ static void BuildSplitsOfFace(const TopoFace&            theFace,
   aFF.Orientation(TopAbs_FORWARD);
   //
   // build pcurves for edges on the face
-  BRepLib::BuildPCurveForEdgesOnPlane(aLE, aFF);
+  BRepLib1::BuildPCurveForEdgesOnPlane(aLE, aFF);
   //
   // build splits of faces
   BOPAlgo_BuilderFace aBF;
@@ -3698,7 +3698,7 @@ void BRepOffset_BuildOffsetFaces::RemoveInvalidSplitsFromValid(
 
     for (TopTools_DataMapOfShapeListOfShape::Iterator itM(aDMFF); itM.More(); itM.Next())
     {
-      const TopoShape&        aF             = itM.Key();
+      const TopoShape&        aF             = itM.Key1();
       const TopTools_MapOfShape* pValidInverted = theDMFMVIE.Seek(aF);
 
       // either remove all of these faces or none.
@@ -4931,7 +4931,7 @@ void BRepOffset_BuildOffsetFaces::FilterEdgesImages(const TopoShape& theS)
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape aItDM(myOEImages);
   for (; aItDM.More(); aItDM.Next())
   {
-    const TopoShape&   aE    = aItDM.Key();
+    const TopoShape&   aE    = aItDM.Key1();
     ShapeList& aLEIm = aItDM.ChangeValue();
     //
     TopTools_ListIteratorOfListOfShape aIt(aLEIm);
@@ -5572,7 +5572,7 @@ void BRepOffset_BuildOffsetFaces::IntersectFaces(TopTools_MapOfShape&         th
   BRepOffset_DataMapOfShapeIndexedMapOfShape::Iterator aItM(myArtInvalidFaces);
   for (; aItM.More(); aItM.Next())
   {
-    const TopoShape&         aF     = aItM.Key();
+    const TopoShape&         aF     = aItM.Key1();
     const ShapeList& aLFInv = myInvalidFaces.FindFromKey(aF);
     aItLF.Initialize(aLFInv);
     for (; aItLF.More(); aItLF.Next())
@@ -8885,7 +8885,7 @@ void BRepOffset_BuildOffsetFaces::FillHistory()
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape aItEIm(myOEImages);
   for (; aItEIm.More(); aItEIm.Next())
   {
-    const TopoShape&         aE    = aItEIm.Key();
+    const TopoShape&         aE    = aItEIm.Key1();
     const ShapeList& aLEIm = aItEIm.Value();
 
     Standard_Boolean                   bHasImage = myImage->HasImage(aE);

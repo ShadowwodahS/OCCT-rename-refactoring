@@ -156,7 +156,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     Vector3d nnew = unew.Crossed(vnew);
     if (nold.Dot(nnew) < 0.0)
     {
-      Ax3 ax3 = aPln.Position();
+      Ax3 ax3 = aPln.Position1();
       ax3.ZReverse();
       ax3.XReverse();
       aPln    = gp_Pln(ax3);

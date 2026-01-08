@@ -103,6 +103,6 @@ void TDataStd_Comment::SetID()
 Standard_OStream& TDataStd_Comment::Dump(Standard_OStream& anOS) const
 {
   TDF_Attribute::Dump(anOS);
-  anOS << "Comment=|" << Get() << "|";
+  anOS << "Comment1=|" << Get() << "|";
   return anOS;
 }

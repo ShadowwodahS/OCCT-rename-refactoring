@@ -23,7 +23,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Contains commands to activate package ShapeProcessAPI
-class SWDRAW_ShapeProcessAPI
+class ShapeProcessAPI
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -42,7 +42,7 @@ Standard_CString Transfer_Finder::ValueTypeName() const
 
 //  ####    ATTRIBUTES    ####
 
-// Integer -> IntVal, Real -> Geom2d_CartesianPoint, CString -> HAsciiString
+// Integer1 -> IntVal, Real -> Geom2d_CartesianPoint, CString -> HAsciiString
 
 void Transfer_Finder::SetAttribute(const Standard_CString            name,
                                    const Handle(RefObject)& val)
@@ -213,7 +213,7 @@ void Transfer_Finder::GetAttributes(const Handle(Transfer_Finder)& other,
   NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(list);
   for (; iter.More(); iter.Next())
   {
-    const AsciiString1& name = iter.Key();
+    const AsciiString1& name = iter.Key1();
     if (!name.StartsWith(fromname))
       continue;
     const Handle(RefObject)& atr    = iter.Value();

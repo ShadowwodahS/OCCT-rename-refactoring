@@ -164,7 +164,7 @@ TopoShape ShapeBuild_ReShape::Apply(const TopoShape&    shape,
 
 TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnum until)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (shape.IsNull())
     return shape;
 
@@ -174,7 +174,7 @@ TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEn
   // if shape removed, return NULL
   if (newsh.IsNull())
   {
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     return newsh;
   }
 
@@ -183,7 +183,7 @@ TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEn
   if ((aConsLoc && !newsh.IsPartner(shape)) || (!aConsLoc && !newsh.IsSame(shape)))
   {
     TopoShape res = Apply(newsh, until);
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return res;
   }
 
@@ -209,16 +209,16 @@ TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEn
     newsh                  = Apply(sh, until);
     if (newsh != sh)
     {
-      if (ShapeExtend::DecodeStatus(myStatus, ShapeExtend_DONE4))
-        locStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+      if (ShapeExtend1::DecodeStatus(myStatus, ShapeExtend_DONE4))
+        locStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
       modif = 1;
     }
     if (newsh.IsNull())
     {
-      locStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+      locStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
       continue;
     }
-    locStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    locStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     if (st == TopAbs_COMPOUND || newsh.ShapeType() == sh.ShapeType())
     { // fix for SAMTECH bug OCC322 about absence internal vertices after sewing.
       B.Add(result, newsh);
@@ -231,10 +231,10 @@ TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEn
       if (subsh.ShapeType() == sh.ShapeType())
         B.Add(result, subsh);
       else
-        locStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        locStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     }
     if (!nitems)
-      locStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+      locStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   }
   if (!modif)
     return shape;
@@ -242,7 +242,7 @@ TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEn
   // restore Range on edge broken by EmptyCopied()
   if (st == TopAbs_EDGE)
   {
-    ShapeBuild_Edge sbe;
+    Edge2 sbe;
     sbe.CopyRanges(TopoDS::Edge(result), TopoDS::Edge(shape));
   }
   else if (st == TopAbs_WIRE || st == TopAbs_SHELL)
@@ -268,5 +268,5 @@ Standard_Integer ShapeBuild_ReShape::Status(const TopoShape&    ashape,
 
 Standard_Boolean ShapeBuild_ReShape::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }

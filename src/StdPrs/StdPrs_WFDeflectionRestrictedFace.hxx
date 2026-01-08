@@ -30,7 +30,7 @@
 //! V isoparametric curves. The isoparametric curves are
 //! drawn with respect to a maximal chordial deviation.
 //! The presentation includes the restriction curves.
-class StdPrs_WFDeflectionRestrictedFace : public Prs3d_Root
+class StdPrs_WFDeflectionRestrictedFace : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -451,16 +451,16 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         }
       } // end of reframing.
 
-      Circle2dBisector Bisector(circle1, circle2);
+      Circle2dBisector Bisector1(circle1, circle2);
 
       distancemini = Precision::Infinite();
 
-      if (Bisector.IsDone())
+      if (Bisector1.IsDone())
       {
-        nbsolution = Bisector.NbSolutions();
+        nbsolution = Bisector1.NbSolutions();
         for (Standard_Integer i = 1; i <= nbsolution; i++)
         {
-          Handle(GccInt_Bisec) solution = Bisector.ThisSolution(i);
+          Handle(GccInt_Bisec) solution = Bisector1.ThisSolution(i);
           Degenerate(solution, tolerance);
           sense = Standard_True;
           if (oncurve)
@@ -648,16 +648,16 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         }
       }
 
-      CircleLine2dBisector Bisector(circle1, line2);
+      CircleLine2dBisector Bisector1(circle1, line2);
 
       distancemini = Precision::Infinite();
 
-      if (Bisector.IsDone())
+      if (Bisector1.IsDone())
       {
-        nbsolution = Bisector.NbSolutions();
+        nbsolution = Bisector1.NbSolutions();
         for (Standard_Integer i = 1; i <= nbsolution; i++)
         {
-          Handle(GccInt_Bisec) solution = Bisector.ThisSolution(i);
+          Handle(GccInt_Bisec) solution = Bisector1.ThisSolution(i);
           Degenerate(solution, tolerance);
           sense = Standard_True;
           distanceptsol =
@@ -958,14 +958,14 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
       //                       Bissectrice point - circle.                          +
       //=============================================================================
     case 1: {
-      CirclePoint2dBisector Bisector(circle, asecondpoint->Pnt2d(), tolerance);
+      CirclePoint2dBisector Bisector1(circle, asecondpoint->Pnt2d(), tolerance);
       Standard_Real         distancemini = Precision::Infinite();
-      if (Bisector.IsDone())
+      if (Bisector1.IsDone())
       {
-        Standard_Integer nbsolution = Bisector.NbSolutions();
+        Standard_Integer nbsolution = Bisector1.NbSolutions();
         for (Standard_Integer i = 1; i <= nbsolution; i++)
         {
-          Handle(GccInt_Bisec) solution = Bisector.ThisSolution(i);
+          Handle(GccInt_Bisec) solution = Bisector1.ThisSolution(i);
           Degenerate(solution, tolerance);
           sense         = Standard_False;
           distanceptsol = Distance(apoint,
@@ -1078,14 +1078,14 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
       //                       Bissectrice point - straight.                          +
       //=============================================================================
     case 2: {
-      GccAna_LinPnt2dBisec Bisector(line, asecondpoint->Pnt2d());
+      GccAna_LinPnt2dBisec Bisector1(line, asecondpoint->Pnt2d());
 
 #ifdef OCCT_DEBUG
       gp_Vec2d V(line.Direction());
 #else
       line.Direction();
 #endif
-      Handle(GccInt_Bisec) solution = Bisector.ThisSolution();
+      Handle(GccInt_Bisec) solution = Bisector1.ThisSolution();
       Degenerate(solution, tolerance);
       GccInt_IType         type = solution->ArcType();
       Handle(GeomCurve2d) bisectorcurve;

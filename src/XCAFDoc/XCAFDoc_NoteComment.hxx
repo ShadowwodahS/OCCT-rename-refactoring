@@ -47,7 +47,7 @@ public:
   Standard_EXPORT void Set(const UtfString& theComment);
 
   //! Returns the comment text.
-  const UtfString& Comment() const { return myComment; }
+  const UtfString& Comment1() const { return myComment; }
 
 public:
   // Overrides TDF_Attribute virtuals
@@ -59,7 +59,7 @@ public:
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& theOS) const Standard_OVERRIDE;
 
 protected:
-  UtfString myComment; ///< Comment text.
+  UtfString myComment; ///< Comment1 text.
 };
 
 DEFINE_STANDARD_HANDLE(XCAFDoc_NoteComment, XCAFDoc_Note)

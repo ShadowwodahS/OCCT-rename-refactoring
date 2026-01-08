@@ -69,20 +69,20 @@ public:
   Standard_EXPORT Standard_Integer Type(const Standard_Integer Index) const;
 
   //! HArray1OfInteger (length 1), HArray1OfReal (length 1) for
-  //! Integer, Real, Boolean (= Integer 0/1),
+  //! Integer1, Real, Boolean (= Integer1 0/1),
   //! HAsciiString for String (the value itself),
   //! IGESEntity for Entity (the value itself)
   Standard_EXPORT Handle(RefObject) Value(const Standard_Integer Index) const;
 
-  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer
-  //! Error if Index out of Range, or not an Integer
+  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer1
+  //! Error if Index out of Range, or not an Integer1
   Standard_EXPORT Standard_Integer ValueAsInteger(const Standard_Integer ValueNum) const;
 
   //! Returns Attribute Value <AttrNum, rank ValueNum> as a Real
   //! Error if Index out of Range, or not a Real
   Standard_EXPORT Standard_Real ValueAsReal(const Standard_Integer ValueNum) const;
 
-  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer
+  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer1
   Standard_EXPORT Handle(TCollection_HAsciiString) ValueAsString(
     const Standard_Integer ValueNum) const;
 

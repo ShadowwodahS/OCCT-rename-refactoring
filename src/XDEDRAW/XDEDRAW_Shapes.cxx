@@ -1171,7 +1171,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendWarning() << "Warning: incorrect argument [" << theArgv[anInd] << "]"
+      Message1::SendWarning() << "Warning: incorrect argument [" << theArgv[anInd] << "]"
                              << " is not a label";
     }
   }
@@ -1196,7 +1196,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
   {
     if (theArgc != 3)
     {
-      theDI << "Property for [" << aNamedDataIter.Key() << "]:\n";
+      theDI << "Property for [" << aNamedDataIter.Key1() << "]:\n";
     }
     const Handle(TDataStd_NamedData)& aNamedData = aNamedDataIter.Value();
     aNamedData->LoadDeferredData();
@@ -1206,7 +1206,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
       for (TColStd_DataMapIteratorOfDataMapOfStringInteger anIter(anIntProperties); anIter.More();
            anIter.Next())
       {
-        theDI << anIter.Key() << " : " << anIter.Value() << "\n";
+        theDI << anIter.Key1() << " : " << anIter.Value() << "\n";
       }
     }
     if (aNamedData->HasReals())
@@ -1215,7 +1215,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
       for (TDataStd_DataMapIteratorOfDataMapOfStringReal anIter(aRealProperties); anIter.More();
            anIter.Next())
       {
-        theDI << anIter.Key() << " : " << anIter.Value() << "\n";
+        theDI << anIter.Key1() << " : " << anIter.Value() << "\n";
       }
     }
     if (aNamedData->HasStrings())
@@ -1224,7 +1224,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
       for (TDataStd_DataMapIteratorOfDataMapOfStringString anIter(aStringProperties); anIter.More();
            anIter.Next())
       {
-        theDI << anIter.Key() << " : " << anIter.Value() << "\n";
+        theDI << anIter.Key1() << " : " << anIter.Value() << "\n";
       }
     }
     if (aNamedData->HasBytes())
@@ -1233,7 +1233,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
       for (TDataStd_DataMapOfStringByte::Iterator anIter(aByteProperties); anIter.More();
            anIter.Next())
       {
-        theDI << anIter.Key() << " : " << anIter.Value() << "\n";
+        theDI << anIter.Key1() << " : " << anIter.Value() << "\n";
       }
     }
     if (aNamedData->HasArraysOfIntegers())
@@ -1244,7 +1244,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
            anIter.More();
            anIter.Next())
       {
-        AsciiString1 aMessage(anIter.Key() + " : ");
+        AsciiString1 aMessage(anIter.Key1() + " : ");
         for (TColStd_HArray1OfInteger::Iterator anSubIter(anIter.Value()->Array1());
              anSubIter.More();
              anSubIter.Next())
@@ -1263,7 +1263,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
            anIter.More();
            anIter.Next())
       {
-        AsciiString1 aMessage(anIter.Key() + " : ");
+        AsciiString1 aMessage(anIter.Key1() + " : ");
         for (TColStd_HArray1OfReal::Iterator anSubIter(anIter.Value()->Array1()); anSubIter.More();
              anSubIter.Next())
         {
@@ -1341,7 +1341,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
 {
   if (theArgNb < 4)
   {
-    Message::SendFail() << "Error: not enough arguments, see help " << theArgVec[0]
+    Message1::SendFail() << "Error: not enough arguments, see help " << theArgVec[0]
                         << " for details";
     return 1;
   }
@@ -1350,7 +1350,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
   DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Error: " << theArgVec[1] << " is not a document";
+    Message1::SendFail() << "Error: " << theArgVec[1] << " is not a document";
     return 1;
   }
   // get and check the label
@@ -1358,7 +1358,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
   Tool3::Label(aDoc->GetData(), theArgVec[2], aShapeLabel);
   if (aShapeLabel.IsNull())
   {
-    Message::SendFail() << "Error: no such Label: " << theArgVec[2];
+    Message1::SendFail() << "Error: no such Label: " << theArgVec[2];
     return 1;
   }
   // get the transformation
@@ -1403,7 +1403,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown options '" << anArg
+      Message1::SendFail() << "Syntax error: unknown options '" << anArg
                           << "', or incorrect option parameters";
       return 1;
     }
@@ -1418,19 +1418,19 @@ static Standard_Integer setLocation(DrawInterpreter&,
   {
     if (aShapeLabel == aRefLabel)
     {
-      Message::SendInfo() << "New location was set";
+      Message1::SendInfo() << "New location was set";
     }
     else
     {
       AsciiString1 aLabelStr;
       Tool3::Entry(aRefLabel, aLabelStr);
-      Message::SendInfo() << "Reference to the shape at label " << aLabelStr
+      Message1::SendInfo() << "Reference1 to the shape at label " << aLabelStr
                           << " was created and location was set";
     }
   }
   else
   {
-    Message::SendFail() << "Error: an attempt to set the location to a shape to which there is a "
+    Message1::SendFail() << "Error: an attempt to set the location to a shape to which there is a "
                            "reference, or to not a shape at all";
   }
 
@@ -1439,7 +1439,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
 
 //=================================================================================================
 
-void XDEDRAW_Shapes::InitCommands(DrawInterpreter& di)
+void ShapeCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

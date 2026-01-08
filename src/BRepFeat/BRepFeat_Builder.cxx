@@ -707,7 +707,7 @@ void BRepFeat_Builder::RebuildEdge(const TopoShape&        theE,
     aSI.SetShape(aSp);
     //
     Box2& aBox = aSI.ChangeBox();
-    BRepBndLib::Add(aSp, aBox);
+    BRepBndLib1::Add(aSp, aBox);
     //
     nSp = myDS->Append(aSI);
     //

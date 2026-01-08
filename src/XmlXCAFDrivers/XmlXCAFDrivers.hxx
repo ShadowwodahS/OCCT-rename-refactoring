@@ -22,7 +22,7 @@ class RefObject;
 class Standard_GUID;
 class AppManager;
 
-class XmlXCAFDrivers
+class XmlXCAFDrivers1
 {
 public:
   //! Depending from the  ID, returns a list of  storage

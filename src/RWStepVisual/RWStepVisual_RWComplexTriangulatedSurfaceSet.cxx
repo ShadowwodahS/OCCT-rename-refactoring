@@ -188,7 +188,7 @@ void RWStepVisual_RWComplexTriangulatedSurfaceSet::WriteStep(
   theSW.Send(theEnt->Pnmax());
 
   theSW.OpenSub();
-  // According to "Recommended Practices Recommended Practices for 3D Tessellated Geometry",
+  // According to "Recommended Practices Recommended Practices for 3D Tessellated Geometry1",
   // Release 1.1:
   // "...The size of the list of normals may be:
   //    0: no normals are defined..."

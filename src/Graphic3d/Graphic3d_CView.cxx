@@ -98,7 +98,7 @@ void Graphic3d_CView::Activate()
     for (Graphic3d_MapIteratorOfMapOfStructure aStructIter(aDisplayedStructs); aStructIter.More();
          aStructIter.Next())
     {
-      const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key();
+      const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key1();
       if (IsDisplayed(aStruct))
       {
         continue;
@@ -133,7 +133,7 @@ void Graphic3d_CView::Deactivate()
     for (Graphic3d_MapIteratorOfMapOfStructure aStructIter(aDisplayedStructs); aStructIter.More();
          aStructIter.Next())
     {
-      const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key();
+      const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key1();
       if (!IsDisplayed(aStruct))
       {
         continue;
@@ -310,7 +310,7 @@ void Graphic3d_CView::SetComputedMode(const Standard_Boolean theMode)
     for (Graphic3d_MapOfStructure::Iterator aStructIter(myStructsDisplayed); aStructIter.More();
          aStructIter.Next())
     {
-      const Handle(Graphic3d_Structure)& aStruct  = aStructIter.Key();
+      const Handle(Graphic3d_Structure)& aStruct  = aStructIter.Key1();
       const Graphic3d_TypeOfAnswer       anAnswer = acceptDisplay(aStruct->Visual());
       if (anAnswer != Graphic3d_TOA_COMPUTE)
       {
@@ -333,7 +333,7 @@ void Graphic3d_CView::SetComputedMode(const Standard_Boolean theMode)
        aDispStructIter.More();
        aDispStructIter.Next())
   {
-    const Handle(Graphic3d_Structure)& aStruct  = aDispStructIter.Key();
+    const Handle(Graphic3d_Structure)& aStruct  = aDispStructIter.Key1();
     const Graphic3d_TypeOfAnswer       anAnswer = acceptDisplay(aStruct->Visual());
     if (anAnswer != Graphic3d_TOA_COMPUTE)
     {
@@ -527,7 +527,7 @@ void Graphic3d_CView::DisplayedStructures(Graphic3d_MapOfStructure& theStructure
   for (Graphic3d_MapOfStructure::Iterator aStructIter(myStructsDisplayed); aStructIter.More();
        aStructIter.Next())
   {
-    theStructures.Add(aStructIter.Key());
+    theStructures.Add(aStructIter.Key1());
   }
 }
 
@@ -606,7 +606,7 @@ Box2 Graphic3d_CView::MinMaxValues(const Graphic3d_MapOfStructure& theSet,
   for (Graphic3d_MapIteratorOfMapOfStructure aStructIter(theSet); aStructIter.More();
        aStructIter.Next())
   {
-    const Handle(Graphic3d_Structure)& aStructure = aStructIter.Key();
+    const Handle(Graphic3d_Structure)& aStructure = aStructIter.Key1();
     if (aStructure->IsEmpty() || !aStructure->CStructure()->IsVisible(aViewId))
     {
       continue;
@@ -710,11 +710,11 @@ void Graphic3d_CView::Compute()
   for (Graphic3d_MapOfStructure::Iterator aStructIter(myStructsDisplayed); aStructIter.More();
        aStructIter.Next())
   {
-    const Graphic3d_TypeOfAnswer anAnswer = acceptDisplay(aStructIter.Key()->Visual());
+    const Graphic3d_TypeOfAnswer anAnswer = acceptDisplay(aStructIter.Key1()->Visual());
     if (anAnswer == Graphic3d_TOA_COMPUTE)
     {
       // clang-format off
-      aStructsSeq.Append (aStructIter.Key()); // if the structure was calculated, it is recalculated
+      aStructsSeq.Append (aStructIter.Key1()); // if the structure was calculated, it is recalculated
       // clang-format on
     }
   }

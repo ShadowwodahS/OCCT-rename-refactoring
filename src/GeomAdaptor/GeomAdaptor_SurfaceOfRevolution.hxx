@@ -147,7 +147,7 @@ public:
 
   Standard_EXPORT Cylinder1 Cylinder() const Standard_OVERRIDE;
 
-  //! Apex of the Cone = Cone.Position().Location()
+  //! Apex of the Cone = Cone.Position1().Location()
   //! ==> ReferenceRadius = 0.
   Standard_EXPORT Cone1 Cone() const Standard_OVERRIDE;
 

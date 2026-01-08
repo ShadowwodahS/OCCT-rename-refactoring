@@ -14,7 +14,7 @@
 #include <XSControl_FuncShape.hxx>
 #include <XSDRAW_Functions.hxx>
 
-void XSDRAW_Functions::Init()
+void Functions2::Init()
 {
-  XSControl_FuncShape::Init();
+  ShapeFunctions::Init();
 }

@@ -346,7 +346,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
                       << std::endl;
 #endif
           }
-          // #74 rln 10.03.99 S4135: handling use of BRepLib::SameParameter by new static parameter
+          // #74 rln 10.03.99 S4135: handling use of BRepLib1::SameParameter by new static parameter
           if (ExchangeConfig::IVal("read.stdsameparameter.mode"))
           {
             Standard_Real first, last;
@@ -367,9 +367,9 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
 #ifdef OCCT_DEBUG
             std::cout << "Warning: IGESToBRep_IGESBoundary: Deviation = " << maxdev << std::endl;
 #endif
-            ShapeFix_ShapeTolerance().SetTolerance(edge3d, Precision::Confusion());
+            ShapeTolerance1().SetTolerance(edge3d, Precision::Confusion());
             for (Standard_Integer ie = 1; ie <= iedge; ie++)
-              ShapeBuild_Edge().RemovePCurve(Lsewd3d->Edge(ie), myface);
+              Edge2().RemovePCurve(Lsewd3d->Edge(ie), myface);
             if (Preferred3d)
             {
 #ifdef OCCT_DEBUG

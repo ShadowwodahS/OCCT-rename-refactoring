@@ -292,12 +292,12 @@ void DNaming_BooleanOperationDriver::LoadNamingDS(const DataLabel&              
     SubShapes.Bind(Exp.Current(), Exp.Current());
   }
 
-  // Naming of modified faces:
+  // Naming1 of modified faces:
   TNaming_Builder modFB(theResultLabel.NewChild()); // FindChild(1,Standard_True));
   DNaming1::LoadAndOrientModifiedShapes(MS, ObjSh, TopAbs_FACE, modFB, SubShapes);
   DNaming1::LoadAndOrientModifiedShapes(MS, ToolSh, TopAbs_FACE, modFB, SubShapes);
 
-  // Naming of deleted faces:
+  // Naming1 of deleted faces:
   if (MS.HasDeleted())
   {
     TNaming_Builder delB(theResultLabel.NewChild()); // FindChild(2,Standard_True));
@@ -374,7 +374,7 @@ void DNaming_BooleanOperationDriver::LoadSectionNDS(const DataLabel&            
     SubShapes.Bind(Exp.Current(), Exp.Current());
   }
 
-  // Naming of modified faces:
+  // Naming1 of modified faces:
   TNaming_Builder genEdB(theResultLabel.NewChild()); // FindChild(1,Standard_True));
   DNaming1::LoadAndOrientGeneratedShapes(MS, ObjSh, TopAbs_FACE, genEdB, SubShapes);
   DNaming1::LoadAndOrientGeneratedShapes(MS, ToolSh, TopAbs_FACE, genEdB, SubShapes);
@@ -382,7 +382,7 @@ void DNaming_BooleanOperationDriver::LoadSectionNDS(const DataLabel&            
 
 //=======================================================================
 // function : CheckAndLoad
-// purpose  : checks result of operation and performs Topological Naming
+// purpose  : checks result of operation and performs Topological Naming1
 //=======================================================================
 Standard_Boolean DNaming_BooleanOperationDriver::CheckAndLoad(
   BRepAlgoAPI_BooleanOperation&     theMkOpe,
@@ -464,7 +464,7 @@ Standard_Boolean FixSameParameter(const TopoShape&    theShape,
     for (i = 1; i <= aMapE.Extent(); i++)
     {
       const TopoShape& aE = aMapE(i);
-      BRepLib::SameParameter(aE, Precision::Confusion(), Standard_True);
+      BRepLib1::SameParameter(aE, Precision::Confusion(), Standard_True);
     }
 
     if (!aMapE.IsEmpty())

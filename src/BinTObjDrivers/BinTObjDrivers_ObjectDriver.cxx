@@ -54,7 +54,7 @@ Standard_Boolean BinTObjDrivers_ObjectDriver::Paste(const BinObjMgt_Persistent& 
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     BinObjMgt_RRelocationTable&) const
 {
-  Standard_Integer aSavedPos = theSource.Position();
+  Standard_Integer aSavedPos = theSource.Position1();
 
   // first try to get the type as an integer ID
   Standard_Integer anID;
@@ -69,7 +69,7 @@ Standard_Boolean BinTObjDrivers_ObjectDriver::Paste(const BinObjMgt_Persistent& 
     AsciiString1 aName;
     if (!(theSource >> aName))
       return Standard_False;
-    anObject = TObj_Persistence::CreateNewObject(aName.ToCString(), theTarget->Label());
+    anObject = Persistence::CreateNewObject(aName.ToCString(), theTarget->Label());
     if (anObject.IsNull())
     {
       AsciiString1 anEntry;
@@ -78,18 +78,18 @@ Standard_Boolean BinTObjDrivers_ObjectDriver::Paste(const BinObjMgt_Persistent& 
         UtfString("TObj_TObject retrieval: wrong object type name ") + aName
           + ", entry " + anEntry,
         Message_Fail);
-      TObj_Assistant::BindType(0);
+      Assistant::BindType(0);
       return Standard_False;
     }
     // register the type
-    TObj_Assistant::BindType(anObject->DynamicType());
+    Assistant::BindType(anObject->DynamicType());
   }
   else
   {
     // use anID to get the type from earlier registered ones
-    Handle(TypeInfo) aType = TObj_Assistant::FindType(anID);
+    Handle(TypeInfo) aType = Assistant::FindType(anID);
     if (!aType.IsNull())
-      anObject = TObj_Persistence::CreateNewObject(aType->Name(), theTarget->Label());
+      anObject = Persistence::CreateNewObject(aType->Name(), theTarget->Label());
     else
     {
       return Standard_False;
@@ -117,13 +117,13 @@ void BinTObjDrivers_ObjectDriver::Paste(const Handle(TDF_Attribute)& theSource,
 
   Handle(TypeInfo) aType = anIObject->DynamicType();
 
-  Standard_Integer anID = TObj_Assistant::FindTypeIndex(anIObject->DynamicType());
+  Standard_Integer anID = Assistant::FindTypeIndex(anIObject->DynamicType());
 
   if (anID == 0)
   {
     // we first meet this type;
     // register a type and store a type name as a string
-    TObj_Assistant::BindType(aType);
+    Assistant::BindType(aType);
     AsciiString1 aName = aType->Name();
     theTarget << aName;
   }

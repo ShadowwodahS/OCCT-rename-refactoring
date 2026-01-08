@@ -35,14 +35,14 @@ static Standard_Integer bapisplit(DrawInterpreter&, Standard_Integer, const char
 
 //=================================================================================================
 
-void BOPTest::APICommands(DrawInterpreter& theCommands)
+void BOPTest1::APICommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
   theCommands.Add(
     "bapibuild",
@@ -90,7 +90,7 @@ Standard_Integer bapibop(DrawInterpreter& di, Standard_Integer n, const char** a
     return 1;
   }
 
-  BOPAlgo_Operation anOp = BOPTest::GetOperationType(a[2]);
+  BOPAlgo_Operation anOp = BOPTest1::GetOperationType(a[2]);
   if (anOp == BOPAlgo_UNKNOWN)
   {
     di << "Invalid operation type\n";
@@ -130,13 +130,13 @@ Standard_Integer bapibop(DrawInterpreter& di, Standard_Integer n, const char** a
       break;
   }
   //
-  ShapeList& aLS = BOPTest_Objects::Shapes();
-  ShapeList& aLT = BOPTest_Objects::Tools();
+  ShapeList& aLS = Objects::Shapes();
+  ShapeList& aLT = Objects::Tools();
   //
-  bRunParallel           = BOPTest_Objects::RunParallel();
-  aFuzzyValue            = BOPTest_Objects::FuzzyValue();
-  bNonDestructive        = BOPTest_Objects::NonDestructive();
-  BOPAlgo_GlueEnum aGlue = BOPTest_Objects::Glue();
+  bRunParallel           = Objects::RunParallel();
+  aFuzzyValue            = Objects::FuzzyValue();
+  bNonDestructive        = Objects::NonDestructive();
+  BOPAlgo_GlueEnum aGlue = Objects::Glue();
   //
   if (anOp != BOPAlgo_CUT21)
   {
@@ -153,19 +153,19 @@ Standard_Integer bapibop(DrawInterpreter& di, Standard_Integer n, const char** a
   pBuilder->SetFuzzyValue(aFuzzyValue);
   pBuilder->SetNonDestructive(bNonDestructive);
   pBuilder->SetGlue(aGlue);
-  pBuilder->SetCheckInverted(BOPTest_Objects::CheckInverted());
-  pBuilder->SetUseOBB(BOPTest_Objects::UseOBB());
-  pBuilder->SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  pBuilder->SetCheckInverted(Objects::CheckInverted());
+  pBuilder->SetUseOBB(Objects::UseOBB());
+  pBuilder->SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   pBuilder->Build(aProgress->Start());
-  pBuilder->SimplifyResult(BOPTest_Objects::UnifyEdges(),
-                           BOPTest_Objects::UnifyFaces(),
-                           BOPTest_Objects::Angular());
+  pBuilder->SimplifyResult(Objects::UnifyEdges(),
+                           Objects::UnifyFaces(),
+                           Objects::Angular());
 
   // Store the history of operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(pBuilder->History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(pBuilder->History());
 
   if (pBuilder->HasWarnings())
   {
@@ -208,33 +208,33 @@ Standard_Integer bapibuild(DrawInterpreter& di, Standard_Integer n, const char**
   Standard_Real           aFuzzyValue;
   BRepAlgoAPI_BuilderAlgo aBuilder;
   //
-  ShapeList aLS = BOPTest_Objects::Shapes();
-  ShapeList aLT = BOPTest_Objects::Tools();
+  ShapeList aLS = Objects::Shapes();
+  ShapeList aLT = Objects::Tools();
   //
   aLS.Append(aLT);
-  bRunParallel           = BOPTest_Objects::RunParallel();
-  aFuzzyValue            = BOPTest_Objects::FuzzyValue();
-  bNonDestructive        = BOPTest_Objects::NonDestructive();
-  BOPAlgo_GlueEnum aGlue = BOPTest_Objects::Glue();
+  bRunParallel           = Objects::RunParallel();
+  aFuzzyValue            = Objects::FuzzyValue();
+  bNonDestructive        = Objects::NonDestructive();
+  BOPAlgo_GlueEnum aGlue = Objects::Glue();
   //
   aBuilder.SetArguments(aLS);
   aBuilder.SetRunParallel(bRunParallel);
   aBuilder.SetFuzzyValue(aFuzzyValue);
   aBuilder.SetNonDestructive(bNonDestructive);
   aBuilder.SetGlue(aGlue);
-  aBuilder.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aBuilder.SetUseOBB(BOPTest_Objects::UseOBB());
-  aBuilder.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aBuilder.SetCheckInverted(Objects::CheckInverted());
+  aBuilder.SetUseOBB(Objects::UseOBB());
+  aBuilder.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aBuilder.Build(aProgress->Start());
-  aBuilder.SimplifyResult(BOPTest_Objects::UnifyEdges(),
-                          BOPTest_Objects::UnifyFaces(),
-                          BOPTest_Objects::Angular());
+  aBuilder.SimplifyResult(Objects::UnifyEdges(),
+                          Objects::UnifyFaces(),
+                          Objects::Angular());
 
   // Store the history of operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aBuilder.History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aBuilder.History());
 
   if (aBuilder.HasWarnings())
   {
@@ -275,27 +275,27 @@ Standard_Integer bapisplit(DrawInterpreter& di, Standard_Integer n, const char**
   //
   BRepAlgoAPI_Splitter aSplitter;
   // setting arguments
-  aSplitter.SetArguments(BOPTest_Objects::Shapes());
-  aSplitter.SetTools(BOPTest_Objects::Tools());
+  aSplitter.SetArguments(Objects::Shapes());
+  aSplitter.SetTools(Objects::Tools());
   // setting options
-  aSplitter.SetRunParallel(BOPTest_Objects::RunParallel());
-  aSplitter.SetFuzzyValue(BOPTest_Objects::FuzzyValue());
-  aSplitter.SetNonDestructive(BOPTest_Objects::NonDestructive());
-  aSplitter.SetGlue(BOPTest_Objects::Glue());
-  aSplitter.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aSplitter.SetUseOBB(BOPTest_Objects::UseOBB());
-  aSplitter.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aSplitter.SetRunParallel(Objects::RunParallel());
+  aSplitter.SetFuzzyValue(Objects::FuzzyValue());
+  aSplitter.SetNonDestructive(Objects::NonDestructive());
+  aSplitter.SetGlue(Objects::Glue());
+  aSplitter.SetCheckInverted(Objects::CheckInverted());
+  aSplitter.SetUseOBB(Objects::UseOBB());
+  aSplitter.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   // performing operation
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aSplitter.Build(aProgress->Start());
-  aSplitter.SimplifyResult(BOPTest_Objects::UnifyEdges(),
-                           BOPTest_Objects::UnifyFaces(),
-                           BOPTest_Objects::Angular());
+  aSplitter.SimplifyResult(Objects::UnifyEdges(),
+                           Objects::UnifyFaces(),
+                           Objects::Angular());
 
   // Store the history of operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aSplitter.History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aSplitter.History());
 
   // check warning status
   if (aSplitter.HasWarnings())

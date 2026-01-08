@@ -261,15 +261,15 @@ void TopExp1::Vertices(const TopoWire& W, TopoVertex& Vfirst, TopoVertex& Vlast)
   { // open
     TopTools_MapIteratorOfMapOfShape ite(vmap);
 
-    while (ite.More() && ite.Key().Orientation() != TopAbs_FORWARD)
+    while (ite.More() && ite.Key1().Orientation() != TopAbs_FORWARD)
       ite.Next();
     if (ite.More())
-      Vfirst = TopoDS::Vertex(ite.Key());
+      Vfirst = TopoDS::Vertex(ite.Key1());
     ite.Initialize(vmap);
-    while (ite.More() && ite.Key().Orientation() != TopAbs_REVERSED)
+    while (ite.More() && ite.Key1().Orientation() != TopAbs_REVERSED)
       ite.Next();
     if (ite.More())
-      Vlast = TopoDS::Vertex(ite.Key());
+      Vlast = TopoDS::Vertex(ite.Key1());
   }
 }
 

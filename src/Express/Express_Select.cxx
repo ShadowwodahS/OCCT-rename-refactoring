@@ -78,10 +78,10 @@ Standard_Boolean Express_Select::GenerateClass() const
       aSeqMember->Append(i);
     }
   }
-  Message::SendInfo() << "Generating SELECT " << aCPPName;
+  Message1::SendInfo() << "Generating SELECT " << aCPPName;
   if (!aSeqMember->IsEmpty())
   {
-    Message::SendInfo() << "Generating SELECTMember " << aCPPName << "Member";
+    Message1::SendInfo() << "Generating SELECTMember " << aCPPName << "Member";
     generateSelectMember(aSeqMember);
   }
   // create a package directory (if not yet exist)
@@ -343,7 +343,7 @@ Standard_Boolean Express_Select::GenerateClass() const
               "}\n";
     }
 
-    // write methods Set and Get for Integer, Real, String and Enum
+    // write methods Set and Get for Integer1, Real, String and Enum
     for (Standard_Integer i = 1; i <= aSeqMember->Length(); i++)
     {
       Standard_Integer               anIdx         = aSeqMember->Value(i);

@@ -162,7 +162,7 @@ class PrsDim_Dimension : public VisualEntity
 {
   DEFINE_STANDARD_RTTIEXT(PrsDim_Dimension, VisualEntity)
 protected:
-  //! Geometry type defines type of shapes on which the dimension is to be built.
+  //! Geometry1 type defines type of shapes on which the dimension is to be built.
   //! Some type of geometry allows automatic plane computing and
   //! can be built without user-defined plane
   //! Another types can't be built without user-defined plane.
@@ -257,7 +257,7 @@ public:
   //! @return dimension plane used for presentation computing.
   const gp_Pln& GetPlane() const { return myPlane; }
 
-  //! Geometry type defines type of shapes on which the dimension is to be built.
+  //! Geometry1 type defines type of shapes on which the dimension is to be built.
   //! @return type of geometry on which the dimension will be built.
   Standard_Integer GetGeometryType() const { return myGeometryType; }
 
@@ -285,7 +285,7 @@ public:
   virtual Point3d GetTextPosition() const { return Point3d(); }
 
 public:
-  //! Gets the dimension aspect from AIS object drawer.
+  //! Gets the dimension aspect from AIS1 object drawer.
   //! Dimension aspect contains aspects of line, text and arrows for dimension presentation.
   Handle(Prs3d_DimensionAspect) DimensionAspect() const { return myDrawer->DimensionAspect(); }
 
@@ -570,18 +570,18 @@ protected: //! @name Selection geometry
   //! Selection geometry of dimension presentation. The structure is filled with data
   //! during compute of presentation, then this data is used to generate selection
   //! sensitives when computing selection.
-  struct SelectionGeometry
+  struct SelectionGeometry1
   {
     //! Arrows are represented by directed triangles.
-    struct Arrow
+    struct Arrow2
     {
-      Point3d Position;
+      Point3d Position1;
       Dir3d Direction;
     };
 
     typedef NCollection_Sequence<Point3d> Curve;
     typedef NCollection_Handle<Curve>    HCurve;
-    typedef NCollection_Handle<Arrow>    HArrow;
+    typedef NCollection_Handle<Arrow2>    HArrow;
     typedef NCollection_Sequence<HCurve> SeqOfCurves;
     typedef NCollection_Sequence<HArrow> SeqOfArrows;
 
@@ -626,9 +626,9 @@ protected: //! @name Selection geometry
     }
 
     //! Add new arrow entry and return the reference to populate it.
-    Arrow& NewArrow()
+    Arrow2& NewArrow()
     {
-      Arrows.Append(new Arrow);
+      Arrows.Append(new Arrow2);
       HArrow& aLastArrow = Arrows.ChangeLast();
       return *aLastArrow;
     }

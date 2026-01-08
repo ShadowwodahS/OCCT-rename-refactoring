@@ -213,7 +213,7 @@ private:
   //! Custom map class with key as Node + element normal and value as Node index.
   //! NCollection_DataMap is not used, as it requires Hasher1 to be defined as class template and not
   //! class field.
-  class MergedNodesMap : public NCollection_BaseMap
+  class MergedNodesMap : public BaseMap
   {
   public:
     typedef NCollection_Vec3<int64_t> CellVec3i;

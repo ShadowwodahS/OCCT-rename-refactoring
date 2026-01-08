@@ -32,7 +32,7 @@ class Geom2d_BSplineCurve;
 
 //! Adjusts curve to have start and end points at the given
 //! points (currently works on lines and B-Splines only)
-class ShapeConstruct_Curve
+class Curve3
 {
 public:
   DEFINE_STANDARD_ALLOC

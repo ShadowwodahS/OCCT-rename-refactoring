@@ -29,7 +29,7 @@ class UtfString;
 class TopoShape;
 class Geom_Geometry;
 
-class TPrsStd_ConstraintTools
+class ConstraintPresentationTools
 {
 public:
   DEFINE_STANDARD_ALLOC

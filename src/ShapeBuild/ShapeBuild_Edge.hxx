@@ -32,7 +32,7 @@ class GeomCurve3d;
 
 //! This class provides low-level operators for building an edge
 //! 3d curve, copying edge with replaced vertices etc.
-class ShapeBuild_Edge
+class Edge2
 {
 public:
   DEFINE_STANDARD_ALLOC

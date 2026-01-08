@@ -44,7 +44,7 @@ Handle(TDF_Attribute) XmlMFunction_GraphNodeDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const PersistentStorage&  theSource,
                                                      const Handle(TDF_Attribute)& theTarget,
                                                      XmlObjMgt_RRelocationTable&) const
 {
@@ -74,7 +74,7 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   if (aFirstIndPrev == aLastIndPrev)
   {
     Standard_Integer anInteger;
-    if (!XmlObjMgt::GetStringValue(anElement).GetInteger(anInteger))
+    if (!XmlObjMgt1::GetStringValue(anElement).GetInteger(anInteger))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -86,11 +86,11 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   }
   else
   {
-    Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+    Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
 
     for (ind = aFirstIndPrev; ind <= aLastIndPrev; ind++)
     {
-      if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+      if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve integer member"
@@ -122,11 +122,11 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   }
   aLastIndNext += aLastIndPrev;
 
-  Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+  Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
 
   for (ind = 1; ind <= aLastIndNext; ind++)
   {
-    if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+    if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -160,7 +160,7 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                         XmlObjMgt_Persistent&        theTarget,
+                                         PersistentStorage&        theTarget,
                                          XmlObjMgt_SRelocationTable&) const
 {
   Handle(TFunction_GraphNode) G = Handle(TFunction_GraphNode)::DownCast(theSource);
@@ -174,7 +174,7 @@ void XmlMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   TColStd_MapIteratorOfMapOfInteger itrm(G->GetPrevious());
   for (; itrm.More(); itrm.Next())
   {
-    const Standard_Integer ID = itrm.Key();
+    const Standard_Integer ID = itrm.Key1();
     aValueStr += AsciiString1(ID);
     aValueStr += ' ';
   }
@@ -191,12 +191,12 @@ void XmlMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   itrm.Initialize(G->GetNext());
   for (; itrm.More(); itrm.Next())
   {
-    const Standard_Integer ID = itrm.Key();
+    const Standard_Integer ID = itrm.Key1();
     aValueStr += AsciiString1(ID);
     aValueStr += ' ';
   }
 
-  XmlObjMgt::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
+  XmlObjMgt1::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
 
   // Execution status
   theTarget.Element().setAttribute(::ExecutionStatus(), (Standard_Integer)G->GetStatus());

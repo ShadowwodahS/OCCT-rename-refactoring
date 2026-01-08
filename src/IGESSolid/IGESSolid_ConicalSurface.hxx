@@ -45,7 +45,7 @@ public:
   //! - anAxis    : Direction of the axis
   //! - aRadius   : Radius at axis point
   //! - anAngle   : Value of semi-angle in degrees (0<angle<90)
-  //! - aRefdir   : Reference direction (parametrised surface)
+  //! - aRefdir   : Reference1 direction (parametrised surface)
   //! Null if unparametrised surface.
   Standard_EXPORT void Init(const Handle(IGESGeom_Point)&     aLocation,
                             const Handle(IGESGeom_Direction)& anAxis,

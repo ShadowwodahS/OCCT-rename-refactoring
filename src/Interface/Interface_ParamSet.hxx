@@ -25,7 +25,7 @@
 #include <Standard_Transient.hxx>
 #include <Interface_ParamType.hxx>
 class Interface_ParamList;
-class Interface_FileParameter;
+class FileParameter;
 
 class Interface_ParamSet;
 DEFINE_STANDARD_HANDLE(Interface_ParamSet, RefObject)
@@ -58,19 +58,19 @@ public:
   //! Adds a parameter at the end of the ParamSet (transparent
   //! about reservation and "Next")
   //! Returns new count of recorded Parameters
-  Standard_EXPORT Standard_Integer Append(const Interface_FileParameter& FP);
+  Standard_EXPORT Standard_Integer Append(const FileParameter& FP);
 
   //! Returns the total count of parameters (including nexts)
   Standard_EXPORT Standard_Integer NbParams() const;
 
   //! Returns a parameter identified by its number
-  Standard_EXPORT const Interface_FileParameter& Param(const Standard_Integer num) const;
+  Standard_EXPORT const FileParameter& Param(const Standard_Integer num) const;
 
   //! Same as above, but in order to be modified on place
-  Standard_EXPORT Interface_FileParameter& ChangeParam(const Standard_Integer num);
+  Standard_EXPORT FileParameter& ChangeParam(const Standard_Integer num);
 
   //! Changes a parameter identified by its number
-  Standard_EXPORT void SetParam(const Standard_Integer num, const Interface_FileParameter& FP);
+  Standard_EXPORT void SetParam(const Standard_Integer num, const FileParameter& FP);
 
   //! Builds and returns the sub-list corresponding to parameters,
   //! from "num" included, with count "nb"

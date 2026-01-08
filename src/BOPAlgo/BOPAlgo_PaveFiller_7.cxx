@@ -133,7 +133,7 @@ public:
     }
     myTol = BooleanTools::ComputeToleranceOfCB(myCB, myDS, myContext);
     AlgoTools::MakeSplitEdge(myE, myV1, myT1, myV2, myT2, myESp);
-    BRepBndLib::Add(myESp, myBox);
+    BRepBndLib1::Add(myESp, myBox);
     myBox.SetGap(myBox.GetGap() + Precision::Confusion());
   }
 
@@ -340,7 +340,7 @@ public:
     {
       return;
     }
-    BRepLib::BuildPCurveForEdgeOnPlane(myE, myF, myCurve, myToUpdate);
+    BRepLib1::BuildPCurveForEdgeOnPlane(myE, myF, myCurve, myToUpdate);
   };
 
   //
@@ -561,7 +561,7 @@ Standard_Integer BooleanPaveFiller::SplitEdge(const Standard_Integer nE,
   aSI.SetShape(aSp);
   //
   Box2& aBox = aSI.ChangeBox();
-  BRepBndLib::Add(aSp, aBox);
+  BRepBndLib1::Add(aSp, aBox);
   aBox.SetGap(aBox.GetGap() + Precision::Confusion());
   //
   nSp = myDS->Append(aSI);

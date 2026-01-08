@@ -444,7 +444,7 @@ private:
   //! Initialize text aspect for drawing the labels.
   void updateTextAspect();
 
-  //! Simple alias for Prs3d_Text::Draw1().
+  //! Simple alias for Text::Draw1().
   //! @param[in] theGroup  presentation group
   //! @param[in] theText   text to draw
   //! @param[in] theX      X coordinate of text position

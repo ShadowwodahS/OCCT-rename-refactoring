@@ -118,11 +118,11 @@ public:
   Standard_Integer& FixFreeWireMode();
 
   //! Returns (modifiable) the mode for applying
-  //! ShapeFix::SameParameter after all fixes, by default True.
+  //! ShapeFix1::SameParameter after all fixes, by default True.
   Standard_Integer& FixSameParameterMode();
 
   //! Returns (modifiable) the mode for applying
-  //! ShapeFix::FixVertexPosition before all fixes, by default False.
+  //! ShapeFix1::FixVertexPosition before all fixes, by default False.
   Standard_Integer& FixVertexPositionMode();
 
   //! Returns (modifiable) the mode for fixing tolerances of vertices on whole shape

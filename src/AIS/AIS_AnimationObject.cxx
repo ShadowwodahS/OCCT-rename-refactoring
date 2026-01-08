@@ -31,7 +31,7 @@ AIS_AnimationObject::AIS_AnimationObject(const AsciiString1&        theAnimation
 
 //=================================================================================================
 
-void AIS_AnimationObject::update(const AIS_AnimationProgress& theProgress)
+void AIS_AnimationObject::update(const AnimationProgress& theProgress)
 {
   if (myObject.IsNull())
   {

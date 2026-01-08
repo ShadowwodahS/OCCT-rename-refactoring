@@ -34,10 +34,10 @@
 #include <math_Vector.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class BRepApprox_MyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox;
-class BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox;
+class ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParFunctionOfMyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfApprox;
 class AppParCurves_MultiCurve;

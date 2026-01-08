@@ -64,7 +64,7 @@ TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRe
     state                  = CompareShapes(s1, s2);
   }
   else if (isshape2 && !isshape1)
-  { // L1 is Block , L2 is Shape
+  { // L1 is Block1 , L2 is Shape
     TopOpeBRepBuildBlockIterator Bit1 = L1->BlockIterator();
     Bit1.Initialize();
     Standard_Boolean yena1 = Bit1.More();
@@ -83,7 +83,7 @@ TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRe
     }
   }
   else if (!isshape2 && isshape1)
-  { // L1 is Shape , L2 is Block
+  { // L1 is Shape , L2 is Block1
     const TopoShape& s1 = L1->Shape();
     ResetShape(s1);
     TopOpeBRepBuildBlockIterator Bit2 = L2->BlockIterator();
@@ -96,7 +96,7 @@ TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRe
     state = State();
   }
   else if (!isshape2 && !isshape1)
-  { // L1 is Block , L2 is Block
+  { // L1 is Block1 , L2 is Block1
     TopOpeBRepBuildBlockIterator Bit1 = L1->BlockIterator();
     Bit1.Initialize();
     Standard_Boolean yena1 = Bit1.More();

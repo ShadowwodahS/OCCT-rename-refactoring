@@ -84,18 +84,18 @@ void ExchangeConfig::Standards()
   //  ExchangeConfig::Init("XSTEP"  ,"write.surfacecurve.mode", '&',"eval NoAnalytic");
   ExchangeConfig::SetIVal("write.surfacecurve.mode", 1);
 
-  //  lastpreci : pour recuperer la derniere valeur codee (cf XSControl)
+  //  lastpreci : pour recuperer la derniere valeur codee (cf XSControl1)
   //    (0 pour dire : pas codee)
   //: S4136  ExchangeConfig::Init("std"    ,"lastpreci", 'r',"0.");
 
   // load messages if needed
-  if (!Message_MsgFile::HasMsg("XSTEP_1"))
+  if (!MessageFile::HasMsg("XSTEP_1"))
   {
-    if (!Message_MsgFile::LoadFromEnv("CSF_XSMessage", "XSTEP"))
+    if (!MessageFile::LoadFromEnv("CSF_XSMessage", "XSTEP"))
     {
-      Message_MsgFile::LoadFromString(XSMessage_XSTEP_us, sizeof(XSMessage_XSTEP_us) - 1);
+      MessageFile::LoadFromString(XSMessage_XSTEP_us, sizeof(XSMessage_XSTEP_us) - 1);
     }
-    if (!Message_MsgFile::HasMsg("XSTEP_1"))
+    if (!MessageFile::HasMsg("XSTEP_1"))
     {
       throw Standard_ProgramError(
         "Critical Error - message resources for ExchangeConfig are invalid or undefined!");

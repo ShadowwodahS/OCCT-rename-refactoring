@@ -171,7 +171,7 @@ void XCAFDoc_AssemblyGraph::addComponents(const DataLabel&       theParent,
 
     // Protection against deleted empty labels (after expand compounds, for example).
     Handle(TDataStd_TreeNode) aJumpNode;
-    if (!aComponent.FindAttribute(XCAFDoc::ShapeRefGUID(), aJumpNode))
+    if (!aComponent.FindAttribute(XCAFDoc1::ShapeRefGUID(), aJumpNode))
       continue;
 
     // Jump to the referred object (the original).

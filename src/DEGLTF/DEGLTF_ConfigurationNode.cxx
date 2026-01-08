@@ -221,7 +221,7 @@ AsciiString1 DEGLTF_ConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Flag to ignore nodes without Geometry\n";
+  aResult += "!Flag to ignore nodes without Geometry1\n";
   aResult += "!Default value: 1(true). Available values: 0(false), 1(true)\n";
   aResult += aScope + "read.skip.empty.nodes :\t " + InternalParameters.ReadSkipEmptyNodes + "\n";
   aResult += "!\n";

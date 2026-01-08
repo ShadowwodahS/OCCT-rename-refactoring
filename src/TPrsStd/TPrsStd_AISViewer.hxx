@@ -58,7 +58,7 @@ public:
                                                        const Handle(ViewManager)& viewer);
 
   //! Finds the viewer attribute at the label access, the
-  //! root of the data framework. Calling this function can be used to initialize an AIS viewer
+  //! root of the data framework. Calling this function can be used to initialize an AIS1 viewer
   Standard_EXPORT static Standard_Boolean Find(const DataLabel&           acces,
                                                Handle(TPrsStd_AISViewer)& A);
 

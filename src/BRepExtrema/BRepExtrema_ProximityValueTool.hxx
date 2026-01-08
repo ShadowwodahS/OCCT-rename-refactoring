@@ -24,11 +24,11 @@
 typedef NCollection_Vector<Coords3d> VectorOfPoint;
 
 //! Class BRepExtrema_VertexInspector
-//!   derived from NCollection_CellFilter_InspectorXYZ
+//!   derived from CellInspectorXYZ
 //!   This class define the Inspector interface for CellFilter algorithm,
 //!   working with Coords3d points in 3d space.
 //!   Used in search of coincidence points with a certain tolerance.
-class BRepExtrema_VertexInspector : public NCollection_CellFilter_InspectorXYZ
+class BRepExtrema_VertexInspector : public CellInspectorXYZ
 {
 public:
   typedef Standard_Integer Target;
@@ -66,7 +66,7 @@ private:
 };
 
 typedef NCollection_CellFilter<BRepExtrema_VertexInspector>    BRepExtrema_CellFilter;
-typedef typename BRepExtrema_ProximityDistTool::ProxPnt_Status ProxPnt_Status;
+typedef typename ProximityDistTool::ProxPnt_Status ProxPnt_Status;
 
 //! Tool class for computation of the proximity value from one BVH
 //! primitive set to another, solving max(min) problem.
@@ -85,15 +85,15 @@ public:
   Standard_EXPORT BRepExtrema_ProximityValueTool();
 
   //! Creates new proximity tool for the given element sets.
-  Standard_EXPORT BRepExtrema_ProximityValueTool(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                                                 const Handle(BRepExtrema_TriangleSet)& theSet2,
+  Standard_EXPORT BRepExtrema_ProximityValueTool(const Handle(TriangleSet1)& theSet1,
+                                                 const Handle(TriangleSet1)& theSet2,
                                                  const BRepExtrema_ShapeList& theShapeList1,
                                                  const BRepExtrema_ShapeList& theShapeList2);
 
 public:
   //! Loads the given element sets into the proximity tool.
-  Standard_EXPORT void LoadTriangleSets(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                                        const Handle(BRepExtrema_TriangleSet)& theSet2);
+  Standard_EXPORT void LoadTriangleSets(const Handle(TriangleSet1)& theSet1,
+                                        const Handle(TriangleSet1)& theSet2);
 
   //! Loads the given list of subshapes into the proximity tool.
   Standard_EXPORT void LoadShapeLists(const BRepExtrema_ShapeList& theShapeList1,
@@ -138,11 +138,11 @@ private:
                                         Standard_Real&      theStep);
 
   //! Returns the computed proximity value from first BVH to another one.
-  Standard_Real computeProximityDist(const Handle(BRepExtrema_TriangleSet)&    theSet1,
+  Standard_Real computeProximityDist(const Handle(TriangleSet1)&    theSet1,
                                      const Standard_Integer                    theNbSamples1,
                                      const BVH_Array3d&                        theAddVertices1,
                                      const NCollection_Vector<ProxPnt_Status>& theAddStatus1,
-                                     const Handle(BRepExtrema_TriangleSet)&    theSet2,
+                                     const Handle(TriangleSet1)&    theSet2,
                                      const BRepExtrema_ShapeList&              theShapeList1,
                                      const BRepExtrema_ShapeList&              theShapeList2,
                                      BVH_Vec3d&                                thePoint1,
@@ -176,9 +176,9 @@ private:
 
 private:
   //! Set of all mesh primitives of the 1st shape.
-  Handle(BRepExtrema_TriangleSet) mySet1;
+  Handle(TriangleSet1) mySet1;
   //! Set of all mesh primitives of the 2nd shape.
-  Handle(BRepExtrema_TriangleSet) mySet2;
+  Handle(TriangleSet1) mySet2;
 
   //! List of subshapes of the 1st shape.
   BRepExtrema_ShapeList myShapeList1;

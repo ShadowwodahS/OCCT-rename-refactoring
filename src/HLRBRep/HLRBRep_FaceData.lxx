@@ -365,11 +365,11 @@ inline Handle(HLRAlgo_WiresBlock)& HLRBRep_FaceData::Wires()
 }
 
 //=======================================================================
-// function : Geometry
+// function : Geometry1
 // purpose  :
 //=======================================================================
 
-inline HLRBRep_Surface& HLRBRep_FaceData::Geometry()
+inline HLRBRep_Surface& HLRBRep_FaceData::Geometry1()
 {
   return myGeometry;
 }

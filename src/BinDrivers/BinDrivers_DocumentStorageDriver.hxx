@@ -61,7 +61,7 @@ public:
   Standard_EXPORT void EnableQuickPartWriting(const Handle(Message_Messenger)& theMessageDriver,
                                               const Standard_Boolean theValue) Standard_OVERRIDE;
 
-  //! Clears the NamedShape driver
+  //! Clears the NamedShape1 driver
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BinDrivers_DocumentStorageDriver, BinLDrivers_DocumentStorageDriver)

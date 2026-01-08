@@ -117,7 +117,7 @@ public:
   //! More detail by method Data
   Standard_EXPORT Standard_Integer Status(const Standard_Integer num) const;
 
-  Standard_EXPORT Coords3d Position(const Standard_Integer num) const;
+  Standard_EXPORT Coords3d Position1(const Standard_Integer num) const;
 
   Standard_EXPORT Standard_Real UPrevious(const Standard_Integer num) const;
 
@@ -126,7 +126,7 @@ public:
   //! Returns the recorded status for a vertex
   //! With its recorded position and parameters on both edges
   //! These values are relevant regarding the status:
-  //! Status  Meaning    Position  Preceding   Following
+  //! Status  Meaning    Position1  Preceding   Following
   //! 0       Same       no        no          no
   //! 1       SameCoord  no        no          no
   //! 2       Close      no        no          no

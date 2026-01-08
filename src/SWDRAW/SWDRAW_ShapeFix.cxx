@@ -75,7 +75,7 @@ static Standard_Integer edgesameparam(DrawInterpreter& di,
   }
   TopoShape Shape = DBRep1::Get(argv[1]);
 
-  if (!ShapeFix::SameParameter(Shape, (argc > 2 && arg2[0] == 'f'), BRepBuilderAPI::Precision()))
+  if (!ShapeFix1::SameParameter(Shape, (argc > 2 && arg2[0] == 'f'), BRepBuilderAPI1::Precision()))
     di << "Some edges were not processed\n";
   di << "\n";
   return 0; // Done
@@ -159,7 +159,7 @@ static Standard_Integer settolerance(DrawInterpreter& di, Standard_Integer argc,
     di << "Maximum Tolerance to " << tmax << "\n";
   else
     di << "Tolerance Limited between " << tmin << " and " << tmax << "\n";
-  ShapeFix_ShapeTolerance sat;
+  ShapeTolerance1 sat;
   sat.LimitTolerance(Shape, tmin, tmax, styp);
   return 0; // Done
 }
@@ -172,7 +172,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
   { // help
     di << "Donner nom shape depart + nom shape resultat + option\n";
     di << "Options de chargement :  x add connected  (sinon add simple)\n"
-       << "Options de traitement :  l fix little/BRepBuilderAPI\n"
+       << "Options de traitement :  l fix little/BRepBuilderAPI1\n"
        << "Options de sortie : aucune make simple\n"
        << "  m MakeAPI r avec reorder  v vertex\n"
        << "Autres (se cumulent) :  q quid(stats)\n";
@@ -248,7 +248,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
     ShapeExplorer expw(Shape, TopAbs_WIRE);
     if (expw.More())
       awire = expw.Current();
-    saw->SetPrecision(BRepBuilderAPI::Precision());
+    saw->SetPrecision(BRepBuilderAPI1::Precision());
   }
   if (awire.IsNull())
   {
@@ -303,7 +303,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
   //  Traitement
   if (orint)
   { // reorder ?
-    ShapeAnalysis_WireOrder WO((Shape.ShapeType() != TopAbs_FACE), BRepBuilderAPI::Precision());
+    ShapeAnalysis_WireOrder WO((Shape.ShapeType() != TopAbs_FACE), BRepBuilderAPI1::Precision());
 
     Standard_Integer stwo = saw->CheckOrder(WO);
     Standard_Integer nb   = WO.NbEdges();
@@ -401,7 +401,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
           di << "Disjoined\n";
       }
       if (stat >= 3 && stat <= 5)
-        di << "\n   - Position : " << pos.X() << "  " << pos.Y() << "  " << pos.Z() << "\n";
+        di << "\n   - Position1 : " << pos.X() << "  " << pos.Y() << "  " << pos.Z() << "\n";
     }
     ShapeFix_WireVertex sfwv;
     sfwv.Init(sawv);
@@ -639,7 +639,7 @@ static Standard_Integer fixshape(DrawInterpreter& di, Standard_Integer argc, con
     di << "Use: " << argv[0]
        << " result shape [tolerance [max_tolerance]] [switches]\n"
           "[-maxtaila <degrees>] [-maxtailw <width>]\n";
-    di << "Switches allow to tune parameters of ShapeFix\n";
+    di << "Switches allow to tune parameters of ShapeFix1\n";
     di << "The following syntax is used: <symbol><parameter>\n";
     di << "- symbol may be - to set parameter off, + to set on or * to set default\n";
     di << "- parameters are identified by letters:\n";
@@ -684,7 +684,7 @@ static Standard_Integer fixshape(DrawInterpreter& di, Standard_Integer argc, con
       }
       if (mess < 0)
       {
-        aBuilder.Add(aCompound, it.Key());
+        aBuilder.Add(aCompound, it.Key1());
       }
     }
 
@@ -694,7 +694,7 @@ static Standard_Integer fixshape(DrawInterpreter& di, Standard_Integer argc, con
          anIter.More();
          anIter.Next())
     {
-      aSStream << " " << anIter.Key() << std::setw(60 - anIter.Key().Length()) << anIter.Value()
+      aSStream << " " << anIter.Key1() << std::setw(60 - anIter.Key1().Length()) << anIter.Value()
                << "\n";
     }
     aSStream << " ------------------------------------------------------------\n";
@@ -1014,7 +1014,7 @@ static Standard_Integer connectedges(DrawInterpreter& di, Standard_Integer n, co
 
 //=================================================================================================
 
-void SWDRAW_ShapeFix::InitCommands(DrawInterpreter& theCommands)
+void ShapeFix2::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)
@@ -1023,7 +1023,7 @@ void SWDRAW_ShapeFix::InitCommands(DrawInterpreter& theCommands)
   }
   initactor = 1;
 
-  Standard_CString g = SWDRAW::GroupName();
+  Standard_CString g = SWDRAW1::GroupName();
 
   theCommands.Add("edgesameparam",
                   "nom shape draw ou * [+ option force]",

@@ -55,7 +55,7 @@ public:
   //! returns the General Note entity
   Standard_EXPORT Handle(IGESDimen_GeneralNote) Note() const;
 
-  //! returns the Leader Arrow entity
+  //! returns the Leader Arrow2 entity
   Standard_EXPORT Handle(IGESDimen_LeaderArrow) Leader() const;
 
   //! returns the coordinates of the Arc Center

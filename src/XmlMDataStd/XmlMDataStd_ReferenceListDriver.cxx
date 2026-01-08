@@ -50,7 +50,7 @@ Handle(TDF_Attribute) XmlMDataStd_ReferenceListDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const PersistentStorage&  theSource,
                                                         const Handle(TDF_Attribute)& theTarget,
                                                         XmlObjMgt_RRelocationTable&) const
 {
@@ -108,14 +108,14 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
     XmlObjMgt_DOMString aValueStr;
     while (*aCurElement != anElement.getLastChild())
     {
-      aValueStr = XmlObjMgt::GetStringValue(*aCurElement);
+      aValueStr = XmlObjMgt1::GetStringValue(*aCurElement);
       if (aValueStr == NULL)
       {
         myMessageDriver->Send("Cannot retrieve reference string from element", Message_Fail);
         return Standard_False;
       }
       AsciiString1 anEntry;
-      if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
+      if (XmlObjMgt1::GetTagEntryString(aValueStr, anEntry) == Standard_False)
       {
         UtfString aMessage =
           UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
@@ -133,14 +133,14 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
     }
 
     // Last reference
-    aValueStr = XmlObjMgt::GetStringValue(*aCurElement);
+    aValueStr = XmlObjMgt1::GetStringValue(*aCurElement);
     if (aValueStr == NULL)
     {
       myMessageDriver->Send("Cannot retrieve reference string from element", Message_Fail);
       return Standard_False;
     }
     AsciiString1 anEntry;
-    if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
+    if (XmlObjMgt1::GetTagEntryString(aValueStr, anEntry) == Standard_False)
     {
       UtfString aMessage =
         UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
@@ -164,7 +164,7 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_ReferenceListDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                            XmlObjMgt_Persistent&        theTarget,
+                                            PersistentStorage&        theTarget,
                                             XmlObjMgt_SRelocationTable&) const
 {
   const Handle(TDataStd_ReferenceList) aReferenceList =
@@ -193,9 +193,9 @@ void XmlMDataStd_ReferenceListDriver::Paste(const Handle(TDF_Attribute)& theSour
       Tool3::Entry(itr.Value(), anEntry);
 
       XmlObjMgt_DOMString aDOMString;
-      XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
+      XmlObjMgt1::SetTagEntryString(aDOMString, anEntry);
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetStringValue(aCurTarget, aDOMString, Standard_True);
+      XmlObjMgt1::SetStringValue(aCurTarget, aDOMString, Standard_True);
       anElement.appendChild(aCurTarget);
     }
   }

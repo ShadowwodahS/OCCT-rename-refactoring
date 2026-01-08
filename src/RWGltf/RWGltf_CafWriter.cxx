@@ -765,7 +765,7 @@ Standard_Boolean RWGltf_CafWriter::writeShapesToBin(
 
     if (!theBinFile.good())
     {
-      Message::SendFail(AsciiString1("File '") + myBinFileNameFull
+      Message1::SendFail(AsciiString1("File '") + myBinFileNameFull
                         + "' cannot be written");
       return false;
     }
@@ -783,7 +783,7 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
 #ifndef HAVE_DRACO
   if (myDracoParameters.DracoCompression)
   {
-    Message::SendFail("Error: cannot use Draco compression, Draco library missing.");
+    Message1::SendFail("Error: cannot use Draco compression, Draco library missing.");
     return false;
   }
 #endif
@@ -825,7 +825,7 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
     aFileSystem->OpenOStream(myBinFileNameFull, std::ios::out | std::ios::binary);
   if (aBinFile.get() == NULL || !aBinFile->good())
   {
-    Message::SendFail(AsciiString1("File '") + myBinFileNameFull
+    Message1::SendFail(AsciiString1("File '") + myBinFileNameFull
                       + "' can not be created");
     return false;
   }
@@ -1085,10 +1085,10 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
       {
         if (aBuffViewId == 0)
         {
-          Message::SendFail() << "Error: mesh not encoded in draco buffer.";
+          Message1::SendFail() << "Error: mesh not encoded in draco buffer.";
           return false;
         }
-        Message::SendWarning() << "Warning: mesh is not encoded as a Draco buffer and has been "
+        Message1::SendWarning() << "Warning: mesh is not encoded as a Draco buffer and has been "
                                   "loaded into a regular buffer.";
         aNbSkippedBuffers++;
         continue;
@@ -1100,7 +1100,7 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
       aBinFile->write(anEncoderBuff.data(), std::streamsize(anEncoderBuff.size()));
       if (!aBinFile->good())
       {
-        Message::SendFail(AsciiString1("File '") + myBinFileNameFull
+        Message1::SendFail(AsciiString1("File '") + myBinFileNameFull
                           + "' cannot be written");
         return false;
       }
@@ -1116,7 +1116,7 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
       myBuffViewsDraco.push_back(aBuffViewDraco);
     }
     aDracoTimer.Stop();
-    Message::SendInfo(AsciiString1("Draco compression time: ")
+    Message1::SendInfo(AsciiString1("Draco compression time: ")
                       + aDracoTimer.ElapsedTime() + " s");
 #endif
   }
@@ -1158,7 +1158,7 @@ bool RWGltf_CafWriter::writeBinData(const Handle(AppDocument)& theDocument,
   aBinFile->flush();
   if (!aBinFile->good())
   {
-    Message::SendFail(AsciiString1("File '") + myBinFileNameFull
+    Message1::SendFail(AsciiString1("File '") + myBinFileNameFull
                       + "' cannot be written");
     return false;
   }
@@ -1189,7 +1189,7 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
     aFileSystem->OpenOStream(aFileNameGltf, std::ios::out | std::ios::binary);
   if (aGltfContentFile.get() == NULL || !aGltfContentFile->good())
   {
-    Message::SendFail(AsciiString1("File '") + aFileNameGltf + "' can not be created");
+    Message1::SendFail(AsciiString1("File '") + aFileNameGltf + "' can not be created");
     return false;
   }
   if (myIsBinary)
@@ -1260,7 +1260,7 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
       // glTF disallows empty shapes / primitive arrays
       const AsciiString1 aNodeName =
         formatName(RWMesh_NameFormat_ProductOrInstance, aDocNode.Label, aDocNode.RefLabel);
-      Message::SendWarning(AsciiString1("RWGltf_CafWriter skipped node '") + aNodeName
+      Message1::SendWarning(AsciiString1("RWGltf_CafWriter skipped node '") + aNodeName
                            + "' without geometry data");
     }
   }
@@ -1303,7 +1303,7 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
     aGltfContentFile->flush();
     if (!aGltfContentFile->good())
     {
-      Message::SendFail(AsciiString1("File '") + aFileNameGltf + "' can not be written");
+      Message1::SendFail(AsciiString1("File '") + aFileNameGltf + "' can not be written");
       return false;
     }
     aGltfContentFile.reset();
@@ -1330,7 +1330,7 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
         aFileSystem->OpenIStream(myBinFileNameFull, std::ios::in | std::ios::binary);
       if (aBinFile.get() == NULL || !aBinFile->good())
       {
-        Message::SendFail(AsciiString1("File '") + myBinFileNameFull
+        Message1::SendFail(AsciiString1("File '") + myBinFileNameFull
                           + "' cannot be opened");
         return false;
       }
@@ -1350,13 +1350,13 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
     SystemFile(aBinFilePath).Remove();
     if (SystemFile(aBinFilePath).Exists())
     {
-      Message::SendFail(AsciiString1("Unable to remove temporary glTF content file '")
+      Message1::SendFail(AsciiString1("Unable to remove temporary glTF content file '")
                         + myBinFileNameFull + "'");
     }
   }
   else
   {
-    Message::SendFail("glTF file content is too big for binary format");
+    Message1::SendFail("glTF file content is too big for binary format");
     return false;
   }
 
@@ -1369,7 +1369,7 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
   aGltfContentFile->flush();
   if (!aGltfContentFile->good())
   {
-    Message::SendFail(AsciiString1("File '") + aFileNameGltf + "' can not be written");
+    Message1::SendFail(AsciiString1("File '") + aFileNameGltf + "' can not be written");
     return false;
   }
   aGltfContentFile.reset();
@@ -1381,7 +1381,7 @@ bool RWGltf_CafWriter::writeJson(const Handle(AppDocument)&             theDocum
   (void)theLabelFilter;
   (void)theFileInfo;
   (void)theProgress;
-  Message::SendFail("Error: glTF writer is unavailable - OCCT has been built without RapidJSON "
+  Message1::SendFail("Error: glTF writer is unavailable - OCCT has been built without RapidJSON "
                     "support [HAVE_RAPIDJSON undefined]");
   return false;
 #endif
@@ -1395,7 +1395,7 @@ void RWGltf_CafWriter::writeAccessors(const GltfSceneNodeMap&)
   Standard_ProgramError_Raise_if(myWriter.get() == NULL,
                                  "Internal error: RWGltf_CafWriter::writeAccessors()");
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Accessors));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Accessors));
   myWriter->StartArray();
 
   const RWGltf_GltfArrayType                   anArrTypes[4] = {RWGltf_GltfArrayType_Position,
@@ -1511,33 +1511,33 @@ void RWGltf_CafWriter::writePositions(const RWGltf_GltfFace& theGltfFace)
   myWriter->StartObject();
   if (!myDracoParameters.DracoCompression || !hasTriangulation(theGltfFace))
   {
-    myWriter->Key("bufferView");
+    myWriter->Key1("bufferView");
     myWriter->Int(myBuffViewPos.Id);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(theGltfFace.NodePos.ByteOffset);
   }
-  myWriter->Key("componentType");
+  myWriter->Key1("componentType");
   myWriter->Int(theGltfFace.NodePos.ComponentType);
-  myWriter->Key("count");
+  myWriter->Key1("count");
   myWriter->Int64(theGltfFace.NodePos.Count);
 
   if (theGltfFace.NodePos.BndBox.IsValid())
   {
-    myWriter->Key("max");
+    myWriter->Key1("max");
     myWriter->StartArray();
     myWriter->Double(theGltfFace.NodePos.BndBox.CornerMax().x());
     myWriter->Double(theGltfFace.NodePos.BndBox.CornerMax().y());
     myWriter->Double(theGltfFace.NodePos.BndBox.CornerMax().z());
     myWriter->EndArray();
 
-    myWriter->Key("min");
+    myWriter->Key1("min");
     myWriter->StartArray();
     myWriter->Double(theGltfFace.NodePos.BndBox.CornerMin().x());
     myWriter->Double(theGltfFace.NodePos.BndBox.CornerMin().y());
     myWriter->Double(theGltfFace.NodePos.BndBox.CornerMin().z());
     myWriter->EndArray();
   }
-  myWriter->Key("type");
+  myWriter->Key1("type");
   myWriter->String("VEC3");
 
   myWriter->EndObject();
@@ -1561,18 +1561,18 @@ void RWGltf_CafWriter::writeNormals(const RWGltf_GltfFace& theGltfFace)
   myWriter->StartObject();
   if (!myDracoParameters.DracoCompression)
   {
-    myWriter->Key("bufferView");
+    myWriter->Key1("bufferView");
     myWriter->Int(myBuffViewNorm.Id);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(theGltfFace.NodeNorm.ByteOffset);
   }
-  myWriter->Key("componentType");
+  myWriter->Key1("componentType");
   myWriter->Int(theGltfFace.NodeNorm.ComponentType);
-  myWriter->Key("count");
+  myWriter->Key1("count");
   myWriter->Int64(theGltfFace.NodeNorm.Count);
   // min/max values are optional, and not very useful for normals - skip them
   /*{
-    myWriter->Key ("max");
+    myWriter->Key1 ("max");
     myWriter->StartArray();
     myWriter->Double (1.0);
     myWriter->Double (1.0);
@@ -1580,14 +1580,14 @@ void RWGltf_CafWriter::writeNormals(const RWGltf_GltfFace& theGltfFace)
     myWriter->EndArray();
   }
   {
-    myWriter->Key ("min");
+    myWriter->Key1 ("min");
     myWriter->StartArray();
     myWriter->Double (0.0);
     myWriter->Double (0.0);
     myWriter->Double (0.0);
     myWriter->EndArray();
   }*/
-  myWriter->Key("type");
+  myWriter->Key1("type");
   myWriter->String("VEC3");
 
   myWriter->EndObject();
@@ -1611,18 +1611,18 @@ void RWGltf_CafWriter::writeTextCoords(const RWGltf_GltfFace& theGltfFace)
   myWriter->StartObject();
   if (!myDracoParameters.DracoCompression)
   {
-    myWriter->Key("bufferView");
+    myWriter->Key1("bufferView");
     myWriter->Int(myBuffViewTextCoord.Id);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(theGltfFace.NodeUV.ByteOffset);
   }
-  myWriter->Key("componentType");
+  myWriter->Key1("componentType");
   myWriter->Int(theGltfFace.NodeUV.ComponentType);
-  myWriter->Key("count");
+  myWriter->Key1("count");
   myWriter->Int64(theGltfFace.NodeUV.Count);
   // min/max values are optional, and not very useful for UV coordinates - skip them
   /*{
-    myWriter->Key ("max");
+    myWriter->Key1 ("max");
     myWriter->StartArray();
     myWriter->Double (1.0);
     myWriter->Double (1.0);
@@ -1630,14 +1630,14 @@ void RWGltf_CafWriter::writeTextCoords(const RWGltf_GltfFace& theGltfFace)
     myWriter->EndArray();
   }
   {
-    myWriter->Key ("min");
+    myWriter->Key1 ("min");
     myWriter->StartArray();
     myWriter->Double (0.0);
     myWriter->Double (0.0);
     myWriter->Double (0.0);
     myWriter->EndArray();
   }*/
-  myWriter->Key("type");
+  myWriter->Key1("type");
   myWriter->String("VEC2");
 
   myWriter->EndObject();
@@ -1661,17 +1661,17 @@ void RWGltf_CafWriter::writeIndices(const RWGltf_GltfFace& theGltfFace)
   myWriter->StartObject();
   if (!myDracoParameters.DracoCompression || !hasTriangulation(theGltfFace))
   {
-    myWriter->Key("bufferView");
+    myWriter->Key1("bufferView");
     myWriter->Int(myBuffViewInd.Id);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(theGltfFace.Indices.ByteOffset);
   }
-  myWriter->Key("componentType");
+  myWriter->Key1("componentType");
   myWriter->Int(theGltfFace.Indices.ComponentType);
-  myWriter->Key("count");
+  myWriter->Key1("count");
   myWriter->Int64(theGltfFace.Indices.Count);
 
-  myWriter->Key("type");
+  myWriter->Key1("type");
   myWriter->String("SCALAR");
 
   myWriter->EndObject();
@@ -1688,7 +1688,7 @@ void RWGltf_CafWriter::writeAnimations()
                                  "Internal error: RWGltf_CafWriter::writeAnimations()");
 
   // This section should be skipped if it doesn't contain any information but not be empty
-  // myWriter->Key (RWGltf_GltfRootElementName (RWGltf_GltfRootElement_Animations));
+  // myWriter->Key1 (RWGltf_GltfRootElementName (RWGltf_GltfRootElement_Animations));
   // myWriter->StartArray();
   // myWriter->EndArray();
 }
@@ -1701,11 +1701,11 @@ void RWGltf_CafWriter::writeAsset(const TColStd_IndexedDataMapOfStringString& th
   Standard_ProgramError_Raise_if(myWriter.get() == NULL,
                                  "Internal error: RWGltf_CafWriter::writeAsset()");
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Asset));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Asset));
   myWriter->StartObject();
-  myWriter->Key("generator");
+  myWriter->Key1("generator");
   myWriter->String("Open CASCADE Technology " OCC_VERSION_STRING " [dev.opencascade.org]");
-  myWriter->Key("version");
+  myWriter->Key1("version");
   myWriter->String("2.0"); // glTF format version
 
   bool anIsStarted = false;
@@ -1715,11 +1715,11 @@ void RWGltf_CafWriter::writeAsset(const TColStd_IndexedDataMapOfStringString& th
   {
     if (!anIsStarted)
     {
-      myWriter->Key("extras");
+      myWriter->Key1("extras");
       myWriter->StartObject();
       anIsStarted = true;
     }
-    myWriter->Key(aKeyValueIter.Key().ToCString());
+    myWriter->Key1(aKeyValueIter.Key1().ToCString());
     myWriter->String(aKeyValueIter.Value().ToCString());
   }
   if (anIsStarted)
@@ -1742,21 +1742,21 @@ void RWGltf_CafWriter::writeBufferViews(const Standard_Integer theBinDataBufferI
                                  "Internal error: RWGltf_CafWriter::writeBufferViews()");
 
   int aBuffViewId = 0;
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_BufferViews));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_BufferViews));
   myWriter->StartArray();
   if (myBuffViewPos.Id != GltfAccessor::INVALID_ID)
   {
     aBuffViewId++;
     myWriter->StartObject();
-    myWriter->Key("buffer");
+    myWriter->Key1("buffer");
     myWriter->Int(theBinDataBufferId);
-    myWriter->Key("byteLength");
+    myWriter->Key1("byteLength");
     myWriter->Int64(myBuffViewPos.ByteLength);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(myBuffViewPos.ByteOffset);
-    myWriter->Key("byteStride");
+    myWriter->Key1("byteStride");
     myWriter->Int64(myBuffViewPos.ByteStride);
-    myWriter->Key("target");
+    myWriter->Key1("target");
     myWriter->Int(myBuffViewPos.Target);
     myWriter->EndObject();
   }
@@ -1764,15 +1764,15 @@ void RWGltf_CafWriter::writeBufferViews(const Standard_Integer theBinDataBufferI
   {
     aBuffViewId++;
     myWriter->StartObject();
-    myWriter->Key("buffer");
+    myWriter->Key1("buffer");
     myWriter->Int(theBinDataBufferId);
-    myWriter->Key("byteLength");
+    myWriter->Key1("byteLength");
     myWriter->Int64(myBuffViewNorm.ByteLength);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(myBuffViewNorm.ByteOffset);
-    myWriter->Key("byteStride");
+    myWriter->Key1("byteStride");
     myWriter->Int64(myBuffViewNorm.ByteStride);
-    myWriter->Key("target");
+    myWriter->Key1("target");
     myWriter->Int(myBuffViewNorm.Target);
     myWriter->EndObject();
   }
@@ -1780,15 +1780,15 @@ void RWGltf_CafWriter::writeBufferViews(const Standard_Integer theBinDataBufferI
   {
     aBuffViewId++;
     myWriter->StartObject();
-    myWriter->Key("buffer");
+    myWriter->Key1("buffer");
     myWriter->Int(theBinDataBufferId);
-    myWriter->Key("byteLength");
+    myWriter->Key1("byteLength");
     myWriter->Int64(myBuffViewTextCoord.ByteLength);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(myBuffViewTextCoord.ByteOffset);
-    myWriter->Key("byteStride");
+    myWriter->Key1("byteStride");
     myWriter->Int64(myBuffViewTextCoord.ByteStride);
-    myWriter->Key("target");
+    myWriter->Key1("target");
     myWriter->Int(myBuffViewTextCoord.Target);
     myWriter->EndObject();
   }
@@ -1796,13 +1796,13 @@ void RWGltf_CafWriter::writeBufferViews(const Standard_Integer theBinDataBufferI
   {
     aBuffViewId++;
     myWriter->StartObject();
-    myWriter->Key("buffer");
+    myWriter->Key1("buffer");
     myWriter->Int(theBinDataBufferId);
-    myWriter->Key("byteLength");
+    myWriter->Key1("byteLength");
     myWriter->Int64(myBuffViewInd.ByteLength);
-    myWriter->Key("byteOffset");
+    myWriter->Key1("byteOffset");
     myWriter->Int64(myBuffViewInd.ByteOffset);
-    myWriter->Key("target");
+    myWriter->Key1("target");
     myWriter->Int(myBuffViewInd.Target);
     myWriter->EndObject();
   }
@@ -1814,11 +1814,11 @@ void RWGltf_CafWriter::writeBufferViews(const Standard_Integer theBinDataBufferI
       {
         aBuffViewId++;
         myWriter->StartObject();
-        myWriter->Key("buffer");
+        myWriter->Key1("buffer");
         myWriter->Int(theBinDataBufferId);
-        myWriter->Key("byteLength");
+        myWriter->Key1("byteLength");
         myWriter->Int64(myBuffViewsDraco[aBufInd].ByteLength);
-        myWriter->Key("byteOffset");
+        myWriter->Key1("byteOffset");
         myWriter->Int64(myBuffViewsDraco[aBufInd].ByteOffset);
         myWriter->EndObject();
       }
@@ -1841,16 +1841,16 @@ void RWGltf_CafWriter::writeBuffers()
   Standard_ProgramError_Raise_if(myWriter.get() == NULL,
                                  "Internal error: RWGltf_CafWriter::writeBuffers()");
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Buffers));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Buffers));
   myWriter->StartArray();
   {
     myWriter->StartObject();
     {
-      myWriter->Key("byteLength");
+      myWriter->Key1("byteLength");
       myWriter->Int64(myBinDataLen64);
       if (!myIsBinary)
       {
-        myWriter->Key("uri");
+        myWriter->Key1("uri");
         myWriter->String(myBinFileNameShort.ToCString());
       }
     }
@@ -1870,19 +1870,19 @@ void RWGltf_CafWriter::writeExtensions()
 
   if (myDracoParameters.DracoCompression)
   {
-    myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_ExtensionsUsed));
+    myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_ExtensionsUsed));
 
     myWriter->StartArray();
     {
-      myWriter->Key("KHR_draco_mesh_compression");
+      myWriter->Key1("KHR_draco_mesh_compression");
     }
     myWriter->EndArray();
 
-    myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_ExtensionsRequired));
+    myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_ExtensionsRequired));
 
     myWriter->StartArray();
     {
-      myWriter->Key("KHR_draco_mesh_compression");
+      myWriter->Key1("KHR_draco_mesh_compression");
     }
     myWriter->EndArray();
   }
@@ -1990,43 +1990,43 @@ void RWGltf_CafWriter::writePrimArray(const RWGltf_GltfFace&         theGltfFace
     myWriter->StartObject();
     if (!theName.IsEmpty())
     {
-      myWriter->Key("name");
+      myWriter->Key1("name");
       myWriter->String(theName.ToCString());
     }
-    myWriter->Key("primitives");
+    myWriter->Key1("primitives");
     myWriter->StartArray();
   }
 
   const AsciiString1 aMatId = myMaterialMap->FindMaterial(theGltfFace.Style);
   myWriter->StartObject();
   {
-    myWriter->Key("attributes");
+    myWriter->Key1("attributes");
     myWriter->StartObject();
     {
       if (theGltfFace.NodeNorm.Id != GltfAccessor::INVALID_ID)
       {
-        myWriter->Key("NORMAL");
+        myWriter->Key1("NORMAL");
         myWriter->Int(theGltfFace.NodeNorm.Id);
       }
-      myWriter->Key("POSITION");
+      myWriter->Key1("POSITION");
       myWriter->Int(theGltfFace.NodePos.Id);
       if (theGltfFace.NodeUV.Id != GltfAccessor::INVALID_ID)
       {
-        myWriter->Key("TEXCOORD_0");
+        myWriter->Key1("TEXCOORD_0");
         myWriter->Int(theGltfFace.NodeUV.Id);
       }
     }
     myWriter->EndObject();
 
-    myWriter->Key("indices");
+    myWriter->Key1("indices");
     myWriter->Int(theGltfFace.Indices.Id);
     if (!aMatId.IsEmpty())
     {
-      myWriter->Key("material");
+      myWriter->Key1("material");
       myWriter->Int(aMatId.IntegerValue());
     }
 
-    myWriter->Key("mode");
+    myWriter->Key1("mode");
     switch (theGltfFace.Shape.ShapeType())
     {
       case TopAbs_EDGE:
@@ -2042,30 +2042,30 @@ void RWGltf_CafWriter::writePrimArray(const RWGltf_GltfFace&         theGltfFace
 
     if (myDracoParameters.DracoCompression && hasTriangulation(theGltfFace))
     {
-      myWriter->Key("extensions");
+      myWriter->Key1("extensions");
       myWriter->StartObject();
       {
-        myWriter->Key("KHR_draco_mesh_compression");
+        myWriter->Key1("KHR_draco_mesh_compression");
         myWriter->StartObject();
-        myWriter->Key("bufferView");
+        myWriter->Key1("bufferView");
         myWriter->Int(myBuffViewsDraco[theDracoBufInd].Id);
-        myWriter->Key("attributes");
+        myWriter->Key1("attributes");
         myWriter->StartObject();
         {
           int anAttrInd = 0;
           if (theGltfFace.NodePos.Id != GltfAccessor::INVALID_ID)
           {
-            myWriter->Key("POSITION");
+            myWriter->Key1("POSITION");
             myWriter->Int(anAttrInd++);
           }
           if (theGltfFace.NodeNorm.Id != GltfAccessor::INVALID_ID)
           {
-            myWriter->Key("NORMAL");
+            myWriter->Key1("NORMAL");
             myWriter->Int(anAttrInd++);
           }
           if (theGltfFace.NodeUV.Id != GltfAccessor::INVALID_ID)
           {
-            myWriter->Key("TEXCOORD_0");
+            myWriter->Key1("TEXCOORD_0");
             myWriter->Int(anAttrInd++);
           }
         }
@@ -2134,7 +2134,7 @@ void RWGltf_CafWriter::writeMeshes(const GltfSceneNodeMap& theSceneNodeMap)
   Standard_ProgramError_Raise_if(myWriter.get() == NULL,
                                  "Internal error: RWGltf_CafWriter::writeMeshes()");
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Meshes));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Meshes));
   myWriter->StartArray();
 
   int                                          aDracoBufInd = 0;
@@ -2255,7 +2255,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
   }
 
   // Write scene nodes using prepared map for correct order of array members
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Nodes));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Nodes));
   myWriter->StartArray();
 
   for (GltfSceneNodeMap::Iterator aSceneNodeIter(aSceneNodeMapWithChildren);
@@ -2268,7 +2268,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
     {
       if (aDocNode.IsAssembly)
       {
-        myWriter->Key("children");
+        myWriter->Key1("children");
         myWriter->StartArray();
         {
           for (ChildIterator aChildIter(aDocNode.RefLabel); aChildIter.More();
@@ -2322,7 +2322,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
           aTrsf.GetMat4(aMat4);
           if (!aMat4.IsIdentity())
           {
-            myWriter->Key("matrix");
+            myWriter->Key1("matrix");
             myWriter->StartArray();
             for (Standard_Integer aColIter = 0; aColIter < 4; ++aColIter)
             {
@@ -2338,7 +2338,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
         {
           if (hasRotation)
           {
-            myWriter->Key("rotation");
+            myWriter->Key1("rotation");
             myWriter->StartArray();
             myWriter->Double(aQuaternion.X());
             myWriter->Double(aQuaternion.Y());
@@ -2348,7 +2348,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
           }
           if (hasScale)
           {
-            myWriter->Key("scale");
+            myWriter->Key1("scale");
             myWriter->StartArray();
             myWriter->Double(aScaleFactor);
             myWriter->Double(aScaleFactor);
@@ -2357,7 +2357,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
           }
           if (hasTranslation)
           {
-            myWriter->Key("translation");
+            myWriter->Key1("translation");
             myWriter->StartArray();
             myWriter->Double(aTranslPart.X());
             myWriter->Double(aTranslPart.Y());
@@ -2373,7 +2373,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
       Standard_Integer aMeshIdx = theSceneNodeMap.FindIndex(aDocNode.Id);
       if (aMeshIdx > 0)
       {
-        myWriter->Key("mesh");
+        myWriter->Key1("mesh");
         myWriter->Int(aMeshIdx - 1);
       }
     }
@@ -2382,7 +2382,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
         formatName(myNodeNameFormat, aDocNode.Label, aDocNode.RefLabel);
       if (!aNodeName.IsEmpty())
       {
-        myWriter->Key("name");
+        myWriter->Key1("name");
         myWriter->String(aNodeName.ToCString());
       }
     }
@@ -2391,7 +2391,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
       Handle(TDataStd_NamedData) aRefNamedData = aShapeTool->GetNamedProperties(aDocNode.RefLabel);
       if (!aNamedData.IsNull() || !aRefNamedData.IsNull())
       {
-        myWriter->Key("extras");
+        myWriter->Key1("extras");
         myWriter->StartObject();
         writeExtrasAttributes(aNamedData);
         writeExtrasAttributes(aRefNamedData);
@@ -2427,8 +2427,8 @@ void RWGltf_CafWriter::writeExtrasAttributes(const Handle(TDataStd_NamedData)& t
     for (TColStd_DataMapIteratorOfDataMapOfStringInteger anIter(anIntProperties); anIter.More();
          anIter.Next())
     {
-      AsciiString1 aKey(anIter.Key());
-      myWriter->Key(aKey.ToCString());
+      AsciiString1 aKey(anIter.Key1());
+      myWriter->Key1(aKey.ToCString());
       myWriter->Int(anIter.Value());
     }
   }
@@ -2438,8 +2438,8 @@ void RWGltf_CafWriter::writeExtrasAttributes(const Handle(TDataStd_NamedData)& t
     for (TDataStd_DataMapIteratorOfDataMapOfStringReal anIter(aRealProperties); anIter.More();
          anIter.Next())
     {
-      AsciiString1 aKey(anIter.Key());
-      myWriter->Key(aKey.ToCString());
+      AsciiString1 aKey(anIter.Key1());
+      myWriter->Key1(aKey.ToCString());
       myWriter->Double(anIter.Value());
     }
   }
@@ -2449,9 +2449,9 @@ void RWGltf_CafWriter::writeExtrasAttributes(const Handle(TDataStd_NamedData)& t
     for (TDataStd_DataMapIteratorOfDataMapOfStringString anIter(aStringProperties); anIter.More();
          anIter.Next())
     {
-      AsciiString1 aKey(anIter.Key());
+      AsciiString1 aKey(anIter.Key1());
       AsciiString1 aValue(anIter.Value());
-      myWriter->Key(aKey.ToCString());
+      myWriter->Key1(aKey.ToCString());
       myWriter->String(aValue.ToCString());
     }
   }
@@ -2461,8 +2461,8 @@ void RWGltf_CafWriter::writeExtrasAttributes(const Handle(TDataStd_NamedData)& t
     for (TDataStd_DataMapOfStringByte::Iterator anIter(aByteProperties); anIter.More();
          anIter.Next())
     {
-      AsciiString1 aKey(anIter.Key());
-      myWriter->Key(aKey.ToCString());
+      AsciiString1 aKey(anIter.Key1());
+      myWriter->Key1(aKey.ToCString());
       myWriter->Int(anIter.Value());
     }
   }
@@ -2474,8 +2474,8 @@ void RWGltf_CafWriter::writeExtrasAttributes(const Handle(TDataStd_NamedData)& t
          anIter.More();
          anIter.Next())
     {
-      AsciiString1 aKey(anIter.Key());
-      myWriter->Key(aKey.ToCString());
+      AsciiString1 aKey(anIter.Key1());
+      myWriter->Key1(aKey.ToCString());
       myWriter->StartArray();
       for (TColStd_HArray1OfInteger::Iterator anSubIter(anIter.Value()->Array1()); anSubIter.More();
            anSubIter.Next())
@@ -2493,8 +2493,8 @@ void RWGltf_CafWriter::writeExtrasAttributes(const Handle(TDataStd_NamedData)& t
          anIter.More();
          anIter.Next())
     {
-      AsciiString1 aKey(anIter.Key());
-      myWriter->Key(aKey.ToCString());
+      AsciiString1 aKey(anIter.Key1());
+      myWriter->Key1(aKey.ToCString());
       myWriter->StartArray();
       for (TColStd_HArray1OfReal::Iterator anSubIter(anIter.Value()->Array1()); anSubIter.More();
            anSubIter.Next())
@@ -2521,14 +2521,14 @@ void RWGltf_CafWriter::writeSamplers()
     return;
   }
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Samplers));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Samplers));
   myWriter->StartArray();
   {
     myWriter->StartObject();
     {
-      // myWriter->Key ("magFilter");
+      // myWriter->Key1 ("magFilter");
       // myWriter->Int (9729);
-      // myWriter->Key ("minFilter");
+      // myWriter->Key1 ("minFilter");
       // myWriter->Int (9729);
     }
     myWriter->EndObject();
@@ -2545,7 +2545,7 @@ void RWGltf_CafWriter::writeScene(const Standard_Integer theDefSceneId)
   Standard_ProgramError_Raise_if(myWriter.get() == NULL,
                                  "Internal error: RWGltf_CafWriter::writeScene()");
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Scene));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Scene));
   myWriter->Int(theDefSceneId);
 #else
   (void)theDefSceneId;
@@ -2561,11 +2561,11 @@ void RWGltf_CafWriter::writeScenes(
   Standard_ProgramError_Raise_if(myWriter.get() == NULL,
                                  "Internal error: RWGltf_CafWriter::writeScenes()");
 
-  myWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Scenes));
+  myWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Scenes));
   myWriter->StartArray();
   {
     myWriter->StartObject();
-    myWriter->Key("nodes");
+    myWriter->Key1("nodes");
     myWriter->StartArray();
     for (NCollection_Sequence<Standard_Integer>::Iterator aRootIter(theSceneRootNodeInds);
          aRootIter.More();
@@ -2590,7 +2590,7 @@ void RWGltf_CafWriter::writeSkins()
                                  "Internal error: RWGltf_CafWriter::writeSkins()");
 
   // This section should be skipped if it doesn't contain any information but not be empty
-  /*myWriter->Key (RWGltf_GltfRootElementName (RWGltf_GltfRootElement_Skins));
+  /*myWriter->Key1 (RWGltf_GltfRootElementName (RWGltf_GltfRootElement_Skins));
   myWriter->StartArray();
   myWriter->EndArray();*/
 }

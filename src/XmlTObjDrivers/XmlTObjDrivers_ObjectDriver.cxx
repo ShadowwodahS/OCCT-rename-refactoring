@@ -51,16 +51,16 @@ Handle(TDF_Attribute) XmlTObjDrivers_ObjectDriver::NewEmpty() const
 //=======================================================================
 
 Standard_Boolean XmlTObjDrivers_ObjectDriver::Paste(
-  const XmlObjMgt_Persistent&  Source,
+  const PersistentStorage&  Source,
   const Handle(TDF_Attribute)& Target,
   XmlObjMgt_RRelocationTable& /*RelocTable*/) const
 {
   UtfString aString;
-  if (XmlObjMgt::GetExtendedString(Source, aString))
+  if (XmlObjMgt1::GetExtendedString(Source, aString))
   {
     AsciiString1 anAscii(aString);
     Handle(TObj_Object)     anObject =
-      TObj_Persistence::CreateNewObject(anAscii.ToCString(), Target->Label());
+      Persistence::CreateNewObject(anAscii.ToCString(), Target->Label());
     Handle(TObj_TObject)::DownCast(Target)->Set(anObject);
     return Standard_True;
   }
@@ -77,11 +77,11 @@ Standard_Boolean XmlTObjDrivers_ObjectDriver::Paste(
 //=======================================================================
 
 void XmlTObjDrivers_ObjectDriver::Paste(const Handle(TDF_Attribute)& Source,
-                                        XmlObjMgt_Persistent&        Target,
+                                        PersistentStorage&        Target,
                                         XmlObjMgt_SRelocationTable& /*RelocTable*/) const
 {
   Handle(TObj_TObject) aTObj     = Handle(TObj_TObject)::DownCast(Source);
   Handle(TObj_Object)  anIObject = aTObj->Get();
 
-  XmlObjMgt::SetExtendedString(Target, anIObject->DynamicType()->Name());
+  XmlObjMgt1::SetExtendedString(Target, anIObject->DynamicType()->Name());
 }

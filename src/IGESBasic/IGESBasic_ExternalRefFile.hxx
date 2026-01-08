@@ -36,10 +36,10 @@ public:
 
   //! This method is used to set the field of the class
   //! ExternalRefFile
-  //! - aFileIdent : External Reference File Identifier
+  //! - aFileIdent : External Reference1 File Identifier
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aFileIdent);
 
-  //! returns External Reference File Identifier
+  //! returns External Reference1 File Identifier
   Standard_EXPORT Handle(TCollection_HAsciiString) FileId() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESBasic_ExternalRefFile, IGESData_IGESEntity)

@@ -91,7 +91,7 @@ static Standard_Integer directfaces(DrawInterpreter& di, Standard_Integer argc, 
     return 1 /* Error */;
   }
 
-  TopoShape result = ShapeCustom::DirectFaces(Shape);
+  TopoShape result = ShapeCustom1::DirectFaces(Shape);
   if (result.IsNull())
   {
     di << "NO RESULT\n";
@@ -489,7 +489,7 @@ static Standard_Integer scaleshape(DrawInterpreter& di, Standard_Integer argc, c
     return 1 /* Error */;
   }
 
-  TopoShape result = ShapeCustom::ScaleShape(Shape, Draw1::Atof(argv[3]));
+  TopoShape result = ShapeCustom1::ScaleShape(Shape, Draw1::Atof(argv[3]));
   if (result.IsNull())
   {
     di << "NO RESULT\n";
@@ -560,7 +560,7 @@ static Standard_Integer BSplRes(DrawInterpreter& di, Standard_Integer argc, cons
   }
 
   Handle(ShapeCustom_RestrictionParameters) aParameters = new ShapeCustom_RestrictionParameters;
-  TopoShape                              result      = ShapeCustom::BSplineRestriction(Shape,
+  TopoShape                              result      = ShapeCustom1::BSplineRestriction(Shape,
                                                         Draw1::Atof(argv[3]),
                                                         Draw1::Atof(argv[4]),
                                                         Draw1::Atoi(argv[5]),
@@ -581,7 +581,7 @@ static Standard_Integer BSplRes(DrawInterpreter& di, Standard_Integer argc, cons
     DBRep1::Set(argv[1], result);
     return 0;
   }
-  ShapeFix::SameParameter(result, Standard_False);
+  ShapeFix1::SameParameter(result, Standard_False);
 
   DBRep1::Set(argv[1], result);
   return 0;
@@ -604,7 +604,7 @@ static Standard_Integer convtorevol(DrawInterpreter& di, Standard_Integer argc, 
     return 1;
   }
 
-  TopoShape result = ShapeCustom::ConvertToRevolution(Shape);
+  TopoShape result = ShapeCustom1::ConvertToRevolution(Shape);
   if (result.IsNull())
   {
     di << "NO RESULT\n";
@@ -622,7 +622,7 @@ static Standard_Integer convtorevol(DrawInterpreter& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-void SWDRAW_ShapeCustom::InitCommands(DrawInterpreter& theCommands)
+void ShapeCustom2::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)
@@ -631,7 +631,7 @@ void SWDRAW_ShapeCustom::InitCommands(DrawInterpreter& theCommands)
   }
   initactor = 1;
 
-  Standard_CString g = SWDRAW::GroupName();
+  Standard_CString g = SWDRAW1::GroupName();
 
   theCommands.Add("directfaces", "directfaces result shape", __FILE__, directfaces, g);
   theCommands.Add("expshape",

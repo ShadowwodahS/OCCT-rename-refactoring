@@ -66,7 +66,7 @@ bool DESTL_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
@@ -92,7 +92,7 @@ bool DESTL_Provider::Write(const AsciiString1&  thePath,
   aSTool->GetFreeShapes(aLabels);
   if (aLabels.Length() <= 0)
   {
-    Message::SendFail() << "Error in the DESTL_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DESTL_Provider during writing the file " << thePath
                         << "\t: Document contain no shapes";
     return false;
   }
@@ -100,7 +100,7 @@ bool DESTL_Provider::Write(const AsciiString1&  thePath,
   Handle(DESTL_ConfigurationNode) aNode = Handle(DESTL_ConfigurationNode)::DownCast(GetNode());
   if (aNode->GlobalParameters.LengthUnit != 1.0)
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DESTL_Provider during writing the file " << thePath
       << "\t: Target Units for writing were changed, but current format doesn't support scaling";
   }
@@ -152,11 +152,11 @@ bool DESTL_Provider::Read(const AsciiString1& thePath,
                           TopoShape&                  theShape,
                           const Message_ProgressRange&   theProgress)
 {
-  Message::SendWarning()
+  Message1::SendWarning()
     << "OCCT Stl reader does not support model scaling according to custom length unit";
   if (!GetNode()->IsKind(STANDARD_TYPE(DESTL_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return true;
   }
@@ -166,7 +166,7 @@ bool DESTL_Provider::Read(const AsciiString1& thePath,
   {
     if (aMergeAngle < 0.0 || aMergeAngle > M_PI_2)
     {
-      Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
+      Message1::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
                           << "\t: The merge angle is out of the valid range";
       return false;
     }
@@ -186,7 +186,7 @@ bool DESTL_Provider::Read(const AsciiString1& thePath,
   {
     Standard_DISABLE_DEPRECATION_WARNINGS if (!StlAPI1::Read(theShape, thePath.ToCString()))
     {
-      Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath;
+      Message1::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath;
       return false;
     }
     Standard_ENABLE_DEPRECATION_WARNINGS
@@ -200,18 +200,18 @@ bool DESTL_Provider::Write(const AsciiString1& thePath,
                            const TopoShape&            theShape,
                            const Message_ProgressRange&   theProgress)
 {
-  Message::SendWarning()
+  Message1::SendWarning()
     << "OCCT Stl writer does not support model scaling according to custom length unit";
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTL_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
   Handle(DESTL_ConfigurationNode) aNode = Handle(DESTL_ConfigurationNode)::DownCast(GetNode());
   if (aNode->GlobalParameters.LengthUnit != 1.0)
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DESTL_Provider during writing the file " << thePath
       << "\t: Target Units for writing were changed, but current format doesn't support scaling";
   }
@@ -220,7 +220,7 @@ bool DESTL_Provider::Write(const AsciiString1& thePath,
   aWriter.ASCIIMode() = aNode->InternalParameters.WriteAscii;
   if (!aWriter.Write(theShape, thePath.ToCString(), theProgress))
   {
-    Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
                         << "\t: Mesh1 writing has been failed";
     return false;
   }

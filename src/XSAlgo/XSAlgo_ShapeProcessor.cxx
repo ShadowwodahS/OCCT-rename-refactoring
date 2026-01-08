@@ -61,7 +61,7 @@ XSAlgo_ShapeProcessor::XSAlgo_ShapeProcessor(const ShapeFixParameters& theParame
 //=============================================================================
 
 TopoShape XSAlgo_ShapeProcessor::ProcessShape(const TopoShape&                  theShape,
-                                                 const ShapeProcess::OperationsFlags& theOperations,
+                                                 const ShapeProcess1::OperationsFlags& theOperations,
                                                  const Message_ProgressRange&         theProgress)
 {
   if (theShape.IsNull())
@@ -70,7 +70,7 @@ TopoShape XSAlgo_ShapeProcessor::ProcessShape(const TopoShape&                  
   }
 
   initializeContext(theShape);
-  return ShapeProcess::Perform(myContext, theOperations, theProgress) ? myContext->Result()
+  return ShapeProcess1::Perform(myContext, theOperations, theProgress) ? myContext->Result()
                                                                       : theShape;
 }
 
@@ -83,7 +83,7 @@ void XSAlgo_ShapeProcessor::initializeContext(const TopoShape& theShape)
        aParameterIter.More();
        aParameterIter.Next())
   {
-    myContext->ResourceManager()->SetResource(aParameterIter.Key().ToCString(),
+    myContext->ResourceManager()->SetResource(aParameterIter.Key1().ToCString(),
                                               aParameterIter.Value().ToCString());
   }
   // Read and set detalization level.
@@ -229,11 +229,11 @@ void XSAlgo_ShapeProcessor::MergeShapeTransferInfo(
        ShapeShapeIterator.More();
        ShapeShapeIterator.Next())
   {
-    const TopoShape anOriginalShape = ShapeShapeIterator.Key();
+    const TopoShape anOriginalShape = ShapeShapeIterator.Key1();
     const TopoShape aResultShape    = ShapeShapeIterator.Value();
 
     Handle(TransferBRep_ShapeMapper) aResultMapper =
-      TransferBRep::ShapeMapper(theFinderProcess, aResultShape);
+      TransferBRep1::ShapeMapper(theFinderProcess, aResultShape);
     Handle(Transfer_Binder) aResultBinder = theFinderProcess->Find(aResultMapper);
 
     if (aResultBinder.IsNull())
@@ -251,7 +251,7 @@ void XSAlgo_ShapeProcessor::MergeShapeTransferInfo(
         {
           const TopoShape      aCurrentSubShape = aSubShapeIter.Value();
           Handle(Transfer_Finder) aSubShapeMapper =
-            TransferBRep::ShapeMapper(theFinderProcess, aCurrentSubShape);
+            TransferBRep1::ShapeMapper(theFinderProcess, aCurrentSubShape);
           if (aSubShapeMapper.IsNull())
           {
             continue;
@@ -278,7 +278,7 @@ void XSAlgo_ShapeProcessor::MergeShapeTransferInfo(
     }
 
     Handle(TransferBRep_ShapeMapper) anOriginalMapper =
-      TransferBRep::ShapeMapper(theFinderProcess, anOriginalShape);
+      TransferBRep1::ShapeMapper(theFinderProcess, anOriginalShape);
     Handle(Transfer_Binder) anOriginalBinder = theFinderProcess->Find(anOriginalMapper);
     if (anOriginalBinder.IsNull())
     {
@@ -331,7 +331,7 @@ TopoEdge XSAlgo_ShapeProcessor::MakeEdgeOnCurve(const TopoEdge& aSourceEdge)
                                       aCurveEndPt,
                                       aStartParam,
                                       anEndParam);
-  ShapeBuild_Edge         SBE;
+  Edge2         SBE;
   SBE.SetRange3d(anEdgeMaker, aStartParam, anEndParam);
   aResult = anEdgeMaker.Edge();
   return aResult;
@@ -370,7 +370,7 @@ Standard_Boolean XSAlgo_ShapeProcessor::CheckPCurve(const TopoEdge&     theEdge,
   if (anEdgeSpanX / 8. > (aFaceSurfaceU2 / 6. - aFaceSurfaceU1 / 6.)
       || anEdgeSpanY / 8. > (aFaceSurfaceV2 / 6. - aFaceSurfaceV1 / 6.))
   {
-    ShapeBuild_Edge().RemovePCurve(theEdge, theFace);
+    Edge2().RemovePCurve(theEdge, theFace);
     return Standard_False;
   }
 
@@ -395,7 +395,7 @@ Standard_Boolean XSAlgo_ShapeProcessor::CheckPCurve(const TopoEdge&     theEdge,
 
   if (!((aDist11 <= thePrecision) && (aDist22 <= thePrecision)))
   {
-    ShapeBuild_Edge().RemovePCurve(theEdge, theFace);
+    Edge2().RemovePCurve(theEdge, theFace);
     return Standard_False;
   }
 
@@ -527,13 +527,13 @@ XSAlgo_ShapeProcessor::ProcessingData XSAlgo_ShapeProcessor::ReadProcessingData(
 
   // Copy parameters to the result.
   XSAlgo_ShapeProcessor::ParameterMap             aResultParameters;
-  ShapeProcess::OperationsFlags                   aResultFlags;
+  ShapeProcess1::OperationsFlags                   aResultFlags;
   const Resource_DataMapOfAsciiStringAsciiString& aMap = aContext->ResourceManager()->GetMap();
 
   for (Resource_DataMapOfAsciiStringAsciiString::Iterator anIter(aMap); anIter.More();
        anIter.Next())
   {
-    AsciiString1 aKey = anIter.Key();
+    AsciiString1 aKey = anIter.Key1();
     if (!aKey.StartsWith(aScope))
     {
       // Ignore all parameters that don't start with the specified scope.
@@ -553,8 +553,8 @@ XSAlgo_ShapeProcessor::ProcessingData XSAlgo_ShapeProcessor::ReadProcessingData(
 
       while (!(aToken = anIter.Value().Token(aSeparators.ToCString(), aTokenCount)).IsEmpty())
       {
-        std::pair<ShapeProcess::Operation, Standard_Boolean> anOperationFlag =
-          ShapeProcess::ToOperationFlag(aToken.ToCString());
+        std::pair<ShapeProcess1::Operation, Standard_Boolean> anOperationFlag =
+          ShapeProcess1::ToOperationFlag(aToken.ToCString());
         if (anOperationFlag.second)
         {
           aResultFlags.set(anOperationFlag.first);
@@ -726,9 +726,9 @@ void XSAlgo_ShapeProcessor::SetShapeFixParameters(
        aParamIter.More();
        aParamIter.Next())
   {
-    if (!theTargetParameterMap.IsBound(aParamIter.Key()))
+    if (!theTargetParameterMap.IsBound(aParamIter.Key1()))
     {
-      theTargetParameterMap.Bind(aParamIter.Key(), aParamIter.Value());
+      theTargetParameterMap.Bind(aParamIter.Key1(), aParamIter.Value());
     }
   }
 }

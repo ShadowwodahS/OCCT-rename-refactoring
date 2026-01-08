@@ -301,7 +301,7 @@ static int tinspector(DrawInterpreter& di, Standard_Integer theArgsNb, const cha
   if (!MyCommunicator)
     MyCommunicator = new TInspector_Communicator();
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (!aContext.IsNull())
     aDefaultParameters.Append(aContext);
 
@@ -365,7 +365,7 @@ static int tinspector(DrawInterpreter& di, Standard_Integer theArgsNb, const cha
            anOpenFileParameters);
          anOpenIt.More();
          anOpenIt.Next())
-      MyCommunicator->OpenFile(anOpenIt.Key(), anOpenIt.Value());
+      MyCommunicator->OpenFile(anOpenIt.Key1(), anOpenIt.Value());
   }
   else if (!aDefaultOpenFileParameter.IsEmpty()) // open file in active plugin
     MyCommunicator->OpenFile("", aDefaultOpenFileParameter);

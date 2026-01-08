@@ -864,7 +864,7 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
     }
     else
     {
-      Message::SendTrace(AsciiString1("Warning: compressed 2D texture ") + myResourceId
+      Message1::SendTrace(AsciiString1("Warning: compressed 2D texture ") + myResourceId
                          + " " + mySize.x() + "x" + mySize.y() + " has smallest mipmap "
                          + aMipSize.x() + "x" + aMipSize.y());
     }
@@ -1257,7 +1257,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
           }
           else
           {
-            Message::SendTrace(AsciiString1("Warning: Cubemap compressed texture ")
+            Message1::SendTrace(AsciiString1("Warning: Cubemap compressed texture ")
                                + theCubeMap->GetId() + " " + aCompImage->SizeX() + "x"
                                + aCompImage->SizeX() + " has smallest mipmap " + aMipSize.x() + "x"
                                + aMipSize.y());

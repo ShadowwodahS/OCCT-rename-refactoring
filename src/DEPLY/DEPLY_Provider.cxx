@@ -57,7 +57,7 @@ bool DEPLY_Provider::Write(const AsciiString1&  thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEPLY_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEPLY_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DEPLY_Provider during writing the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -89,7 +89,7 @@ bool DEPLY_Provider::Write(const AsciiString1&  thePath,
   else
   {
     aConverter.SetInputLengthUnit(aNode->GlobalParameters.SystemUnit / 1000.);
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEPLY_Provider during writing the file " << thePath
       << "\t: The document has no information on Units. Using global parameter as initial Unit.";
   }
@@ -105,7 +105,7 @@ bool DEPLY_Provider::Write(const AsciiString1&  thePath,
   aPlyCtx.SetFaceId(aNode->InternalParameters.WriteFaceId);
   if (!aPlyCtx.Perform(theDocument, aFileInfo, theProgress))
   {
-    Message::SendFail() << "Error in the DEPLY_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DEPLY_Provider during writing the file " << thePath
                         << "\t: Cannot perform the document";
     return false;
   }

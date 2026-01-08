@@ -1336,7 +1336,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
     {
       lsubs.Append(exp.Current());
     }
-    theSubs.Substitute(itdmss.Key(), lsubs);
+    theSubs.Substitute(itdmss.Key1(), lsubs);
   }
 
   // on reconstruit les faces
@@ -1354,7 +1354,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdmsls(myMap);
   for (; itdmsls.More(); itdmsls.Next())
   {
-    if (itdmsls.Key().ShapeType() == TopAbs_EDGE)
+    if (itdmsls.Key1().ShapeType() == TopAbs_EDGE)
     {
       ShapeList thedesc;
       theMap.Clear();
@@ -1365,9 +1365,9 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
           thedesc.Append(MapW(itl.Value()));
         }
       }
-      myMap(itdmsls.Key()) = thedesc;
+      myMap(itdmsls.Key1()) = thedesc;
     }
-    else if (itdmsls.Key().IsSame(F))
+    else if (itdmsls.Key1().IsSame(F))
     {
       myMap(F).Clear();
       for (itl.Initialize(thefaces); itl.More(); itl.Next())
@@ -1403,7 +1403,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
           thedesc.Append(itl.Value());
         }
       }
-      myMap(itdmsls.Key()) = thedesc;
+      myMap(itdmsls.Key1()) = thedesc;
     }
   }
 
@@ -1516,7 +1516,7 @@ static Standard_Boolean NewPlane(const TopoFace&     F,
         {
           Theta = -theta0 - phi;
         }
-        Axe   = LinInters.Position();
+        Axe   = LinInters.Position1();
         Newpl = Plorig.Rotated(Axe, Theta);
         return Standard_True;
       }
@@ -1684,7 +1684,7 @@ static void MakeFace(TopoFace& F, ShapeList& ledg)
     //    TopoFace NewFace = TopoDS::Face(F.EmptyCopied());
     B.Add(NewFace, itl.Value());
     GeometricProperties GP;
-    BRepGProp::SurfaceProperties(NewFace, GP);
+    BRepGProp1::SurfaceProperties(NewFace, GP);
     if (GP.Mass() < 0)
     {
       itl.ChangeValue().Reverse();

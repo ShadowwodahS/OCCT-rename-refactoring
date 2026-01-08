@@ -68,7 +68,7 @@ static Standard_Integer prj(DrawInterpreter& di, Standard_Integer n, const char*
 
 /*********************************************************************************/
 
-void BRepTest::ProjectionCommands(DrawInterpreter& theCommands)
+void BRepTest1::ProjectionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)

@@ -38,14 +38,14 @@ class TopoSolid;
 class TopoFace;
 class BRepTools_ReShape;
 
-//! The BRepLib package provides general utilities for
+//! The BRepLib1 package provides general utilities for
 //! BRep.
 //!
 //! * FindSurface : Class to compute a surface through
 //! a set of edges.
 //!
 //! * Compute missing 3d curve on an edge.
-class BRepLib
+class BRepLib1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -126,7 +126,7 @@ public:
     {
       const TopoEdge& aE = TopoDS::Edge(aIt.Value());
       if (!aE.IsNull())
-        BRepLib::BuildPCurveForEdgeOnPlane(aE, theF);
+        BRepLib1::BuildPCurveForEdgeOnPlane(aE, theF);
     }
   }
 

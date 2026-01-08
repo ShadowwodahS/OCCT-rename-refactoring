@@ -81,7 +81,7 @@ static Standard_Boolean EncodeRegul(const TopoShape& theShape)
   try
   {
     OCC_CATCH_SIGNALS
-    BRepLib::EncodeRegularity(theShape, aToleranceAngle);
+    BRepLib1::EncodeRegularity(theShape, aToleranceAngle);
   }
   catch (const ExceptionBase&)
   {
@@ -98,7 +98,7 @@ static void TrimTolerances(const TopoShape& theShape, const Standard_Real theTol
 {
   if (ExchangeConfig::IVal("read.maxprecision.mode") == 1)
   {
-    ShapeFix_ShapeTolerance SFST;
+    ShapeTolerance1 SFST;
     SFST.LimitTolerance(theShape,
                         0,
                         Max(theTolerance, ExchangeConfig::RVal("read.maxprecision.val")));
@@ -131,7 +131,7 @@ Standard_Integer IGESToBRep_Reader::LoadFile(const Standard_CString filename)
     theProc = new Transfer_TransientProcess;
   Handle(Message_Messenger) TF = theProc->Messenger();
 
-  // Message for Diagnostic file.
+  // Message1 for Diagnostic file.
   Message_Msg msg2000("IGES_2000");
   msg2000.Arg(filename);
   TF->Send(msg2000, Message_Info);
@@ -214,7 +214,7 @@ Standard_Integer IGESToBRep_Reader::LoadFile(const Standard_CString filename)
   TF->Send(Msg25, Message_Info);
   TF->Send(Msg26, Message_Info);
 
-  // Message fin de loading iGES file (elapsed time %s)
+  // Message1 fin de loading iGES file (elapsed time %s)
   char t[20];
   t[0] = '\0';
   Standard_Real    second, cpu;
@@ -337,7 +337,7 @@ void IGESToBRep_Reader::TransferRoots(const Standard_Boolean       onlyvisible,
   const Handle(Interface_Protocol) aProtocol = protocol; // to avoid ambiguity
   Interface_ShareFlags             SH(theModel, aProtocol);
   Standard_Integer                 nb = theModel->NbEntities();
-  ShapeExtend_Explorer             SBE;
+  Explorer             SBE;
 
   Standard_Integer precisionMode = ExchangeConfig::IVal("read.precision.mode");
   Message_Msg      msg2035("IGES_2035");
@@ -382,7 +382,7 @@ void IGESToBRep_Reader::TransferRoots(const Standard_Boolean       onlyvisible,
       {
         OCC_CATCH_SIGNALS
         TP.Transfer(ent, aRange);
-        shape = TransferBRep::ShapeResult(theProc, ent);
+        shape = TransferBRep1::ShapeResult(theProc, ent);
       }
       catch (ExceptionBase const&)
       {
@@ -537,10 +537,10 @@ Standard_Boolean IGESToBRep_Reader::Transfer(const Standard_Integer       num,
 
     aShapeProcessor.MergeTransferInfo(theProc, nbTPitems);
 
-    ShapeExtend_Explorer SBE;
+    Explorer SBE;
     if (SBE.ShapeType(shape, Standard_True) != TopAbs_SHAPE)
     {
-      TransferBRep::SetShapeResult(theProc, ent, shape);
+      TransferBRep1::SetShapeResult(theProc, ent, shape);
       theProc->SetRoot(ent);
       if (!shape.IsNull())
       {
@@ -643,7 +643,7 @@ void IGESToBRep_Reader::SetShapeFixParameters(
 
 //=============================================================================
 
-void IGESToBRep_Reader::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void IGESToBRep_Reader::SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags)
 {
   myShapeProcFlags.first  = theFlags;
   myShapeProcFlags.second = true;
@@ -660,7 +660,7 @@ void IGESToBRep_Reader::InitializeMissingParameters()
 
   if (!myShapeProcFlags.second)
   {
-    myShapeProcFlags.first.set(ShapeProcess::Operation::FixShape);
+    myShapeProcFlags.first.set(ShapeProcess1::Operation::FixShape);
     myShapeProcFlags.second = true;
   }
 }

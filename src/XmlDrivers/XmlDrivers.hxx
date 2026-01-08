@@ -24,7 +24,7 @@ class XmlMDF_ADriverTable;
 class Message_Messenger;
 class AppManager;
 
-class XmlDrivers
+class XmlDrivers1
 {
 public:
   Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& theGUID);

@@ -38,15 +38,15 @@
  *              This   class is   similar  to  IndexedMap     from
  *              NCollection  with the Item as  a new feature. Note
  *              the important difference on  the operator  ().  In
- *              the IndexedMap this operator returns  the Key.  In
+ *              the IndexedMap this operator returns  the Key1.  In
  *              the IndexedDataMap this operator returns the Item.
  *
  *              See  the  class   Map   from NCollection   for   a
  *              discussion about the number of buckets.
  */
 
-template <class TheKeyType, class TheItemType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
-class NCollection_IndexedDataMap : public NCollection_BaseMap
+template <class TheKeyType, class TheItemType, class Hasher1 = DefaultHasher<TheKeyType>>
+class NCollection_IndexedDataMap : public BaseMap
 {
 public:
   //! STL-compliant typedef for key type
@@ -161,10 +161,10 @@ public:
       return myMap->ChangeFromIndex(myIndex);
     }
 
-    //! Key
-    const TheKeyType& Key() const
+    //! Key1
+    const TheKeyType& Key1() const
     {
-      Standard_NoSuchObject_Raise_if(!More(), "NCollection_IndexedDataMap::Iterator::Key");
+      Standard_NoSuchObject_Raise_if(!More(), "NCollection_IndexedDataMap::Iterator::Key1");
       return myMap->FindKey(myIndex);
     }
 
@@ -203,27 +203,27 @@ public:
 
   //! Empty constructor.
   NCollection_IndexedDataMap()
-      : NCollection_BaseMap(1, true, Handle(NCollection_BaseAllocator)())
+      : BaseMap(1, true, Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_IndexedDataMap(const Standard_Integer                   theNbBuckets,
                                       const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
-      : NCollection_BaseMap(theNbBuckets, true, theAllocator)
+      : BaseMap(theNbBuckets, true, theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_IndexedDataMap(const NCollection_IndexedDataMap& theOther)
-      : NCollection_BaseMap(theOther.NbBuckets(), true, theOther.myAllocator)
+      : BaseMap(theOther.NbBuckets(), true, theOther.myAllocator)
   {
     *this = theOther;
   }
 
   //! Move constructor
   NCollection_IndexedDataMap(NCollection_IndexedDataMap&& theOther) noexcept
-      : NCollection_BaseMap(std::forward<NCollection_BaseMap>(theOther))
+      : BaseMap(std::forward<BaseMap>(theOther))
   {
   }
 
@@ -307,10 +307,10 @@ public:
     }
   }
 
-  //! Returns the Index of already bound Key or appends new Key with specified Item value.
-  //! @param theKey1 Key to search (and to bind, if it was not bound already)
-  //! @param theItem Item value to set for newly bound Key; ignored if Key was already bound
-  //! @return index of Key
+  //! Returns the Index of already bound Key1 or appends new Key1 with specified Item value.
+  //! @param theKey1 Key1 to search (and to bind, if it was not bound already)
+  //! @param theItem Item value to set for newly bound Key1; ignored if Key1 was already bound
+  //! @return index of Key1
   Standard_Integer Add(const TheKeyType& theKey1, const TheItemType& theItem)
   {
     if (Resizable())
@@ -330,10 +330,10 @@ public:
     return aNewIndex;
   }
 
-  //! Returns the Index of already bound Key or appends new Key with specified Item value.
-  //! @param theKey1 Key to search (and to bind, if it was not bound already)
-  //! @param theItem Item value to set for newly bound Key; ignored if Key was already bound
-  //! @return index of Key
+  //! Returns the Index of already bound Key1 or appends new Key1 with specified Item value.
+  //! @param theKey1 Key1 to search (and to bind, if it was not bound already)
+  //! @param theItem Item value to set for newly bound Key1; ignored if Key1 was already bound
+  //! @return index of Key1
   Standard_Integer Add(TheKeyType&& theKey1, const TheItemType& theItem)
   {
     if (Resizable())
@@ -354,10 +354,10 @@ public:
     return aNewIndex;
   }
 
-  //! Returns the Index of already bound Key or appends new Key with specified Item value.
-  //! @param theKey1 Key to search (and to bind, if it was not bound already)
-  //! @param theItem Item value to set for newly bound Key; ignored if Key was already bound
-  //! @return index of Key
+  //! Returns the Index of already bound Key1 or appends new Key1 with specified Item value.
+  //! @param theKey1 Key1 to search (and to bind, if it was not bound already)
+  //! @param theItem Item value to set for newly bound Key1; ignored if Key1 was already bound
+  //! @return index of Key1
   Standard_Integer Add(const TheKeyType& theKey1, TheItemType&& theItem)
   {
     if (Resizable())
@@ -378,10 +378,10 @@ public:
     return aNewIndex;
   }
 
-  //! Returns the Index of already bound Key or appends new Key with specified Item value.
-  //! @param theKey1 Key to search (and to bind, if it was not bound already)
-  //! @param theItem Item value to set for newly bound Key; ignored if Key was already bound
-  //! @return index of Key
+  //! Returns the Index of already bound Key1 or appends new Key1 with specified Item value.
+  //! @param theKey1 Key1 to search (and to bind, if it was not bound already)
+  //! @param theItem Item value to set for newly bound Key1; ignored if Key1 was already bound
+  //! @return index of Key1
   Standard_Integer Add(TheKeyType&& theKey1, TheItemType&& theItem)
   {
     if (Resizable())
@@ -602,15 +602,15 @@ public:
     throw Standard_NoSuchObject("NCollection_IndexedDataMap::ChangeFromKey");
   }
 
-  //! Seek returns pointer to Item by Key. Returns
-  //! NULL if Key was not found.
+  //! Seek returns pointer to Item by Key1. Returns
+  //! NULL if Key1 was not found.
   const TheItemType* Seek(const TheKeyType& theKey1) const
   {
     return const_cast<NCollection_IndexedDataMap*>(this)->ChangeSeek(theKey1);
   }
 
-  //! ChangeSeek returns modifiable pointer to Item by Key. Returns
-  //! NULL if Key was not found.
+  //! ChangeSeek returns modifiable pointer to Item by Key1. Returns
+  //! NULL if Key1 was not found.
   TheItemType* ChangeSeek(const TheKeyType& theKey1)
   {
     IndexedDataMapNode* aNode;

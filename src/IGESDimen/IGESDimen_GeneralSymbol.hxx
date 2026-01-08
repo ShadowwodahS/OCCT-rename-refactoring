@@ -60,17 +60,17 @@ public:
   //! returns Null handle for form 0 only
   Standard_EXPORT Handle(IGESDimen_GeneralNote) Note() const;
 
-  //! returns number of Geometry Entities
+  //! returns number of Geometry1 Entities
   Standard_EXPORT Standard_Integer NbGeomEntities() const;
 
-  //! returns the Index'th Geometry Entity
+  //! returns the Index'th Geometry1 Entity
   //! raises exception if Index <= 0 or Index > NbGeomEntities()
   Standard_EXPORT Handle(IGESData_IGESEntity) GeomEntity(const Standard_Integer Index) const;
 
   //! returns number of Leaders or zero if not specified
   Standard_EXPORT Standard_Integer NbLeaders() const;
 
-  //! returns the Index'th Leader Arrow
+  //! returns the Index'th Leader Arrow2
   //! raises exception if Index <= 0 or Index > NbLeaders()
   Standard_EXPORT Handle(IGESDimen_LeaderArrow) LeaderArrow(const Standard_Integer Index) const;
 

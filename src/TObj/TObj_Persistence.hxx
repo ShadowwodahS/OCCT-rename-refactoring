@@ -32,7 +32,7 @@ class DataLabel;
  *   create a new object of the type that it manages, by request
  */
 
-class TObj_Persistence
+class Persistence
 {
 public:
   /**
@@ -54,10 +54,10 @@ protected:
    */
 
   //! The constructor registers the object
-  Standard_EXPORT TObj_Persistence(const Standard_CString theType);
+  Standard_EXPORT Persistence(const Standard_CString theType);
 
   //! The destructor unregisters the object
-  virtual Standard_EXPORT ~TObj_Persistence();
+  virtual Standard_EXPORT ~Persistence();
 
   //! The method must be redefined in the derived class and return
   //! new object of the proper type
@@ -82,7 +82,7 @@ private:
   #define _TOBJOCAF_PERSISTENCE_ACCESS_
 #endif
 #define DECLARE_TOBJOCAF_PERSISTENCE(name, ancestor)                                               \
-  name(const TObj_Persistence* p, const DataLabel& aLabel)                                         \
+  name(const Persistence* p, const DataLabel& aLabel)                                         \
       : ancestor(p, aLabel)                                                                        \
   {                                                                                                \
     initFields();                                                                                  \
@@ -91,12 +91,12 @@ private:
   /* Creates an object of a proper type */                                                         \
   /* First argument is used just to avoid possible conflict with other constructors */             \
   _TOBJOCAF_PERSISTENCE_ACCESS_                                                                    \
-  class Persistence_ : public TObj_Persistence                                                     \
+  class Persistence_ : public Persistence                                                     \
   {                                                                                                \
     /* Friend private class of name, is a tool providing persistence */                            \
   public:                                                                                          \
     Persistence_()                                                                                 \
-        : TObj_Persistence(#name)                                                                  \
+        : Persistence(#name)                                                                  \
     {                                                                                              \
     } /* register the tool */                                                                      \
     virtual Handle(TObj_Object) New(const DataLabel& aLabel) const;                                \
@@ -111,7 +111,7 @@ private:
   name::Persistence_  name::myPersistence_;                                                        \
   Handle(TObj_Object) name::Persistence_::New(const DataLabel& aLabel) const                       \
   {                                                                                                \
-    return new name((const TObj_Persistence*)0, aLabel);                                           \
+    return new name((const Persistence*)0, aLabel);                                           \
   }
 
 #endif

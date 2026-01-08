@@ -25,10 +25,10 @@
 
 /**
  * Purpose:     Definition of a sequence of elements indexed by
- *              an Integer in range of 1..n
+ *              an Integer1 in range of 1..n
  */
 template <class TheItemType>
-class NCollection_Sequence : public NCollection_BaseSequence
+class NCollection_Sequence : public BaseSequence
 {
 public:
   //! STL-compliant typedef for value type
@@ -65,7 +65,7 @@ public:
 
 public:
   //!   Implementation of the Iterator interface.
-  class Iterator : public NCollection_BaseSequence::Iterator
+  class Iterator : public BaseSequence::Iterator
   {
   public:
     //! Empty constructor - for later Init
@@ -73,7 +73,7 @@ public:
 
     //! Constructor with initialisation
     Iterator(const NCollection_Sequence& theSeq, const Standard_Boolean isStart = Standard_True)
-        : NCollection_BaseSequence::Iterator(theSeq, isStart)
+        : BaseSequence::Iterator(theSeq, isStart)
     {
     }
 
@@ -138,26 +138,26 @@ public:
 
   //! Empty constructor.
   NCollection_Sequence()
-      : NCollection_BaseSequence(Handle(NCollection_BaseAllocator)())
+      : BaseSequence(Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_Sequence(const Handle(NCollection_BaseAllocator)& theAllocator)
-      : NCollection_BaseSequence(theAllocator)
+      : BaseSequence(theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_Sequence(const NCollection_Sequence& theOther)
-      : NCollection_BaseSequence(theOther.myAllocator)
+      : BaseSequence(theOther.myAllocator)
   {
     appendSeq((const Node*)theOther.myFirstItem);
   }
 
   //! Move constructor
   NCollection_Sequence(NCollection_Sequence&& theOther) noexcept
-      : NCollection_BaseSequence(theOther.myAllocator)
+      : BaseSequence(theOther.myAllocator)
   {
     this->operator=(std::forward<NCollection_Sequence>(theOther));
   }

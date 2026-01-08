@@ -18,7 +18,7 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Tool for encoding/decoding base64 stream.
-class FSD_Base64
+class Base64
 {
 public:
   //! Function encoding a buffer to base64 string.

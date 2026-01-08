@@ -702,8 +702,8 @@ static Standard_Integer show(DrawInterpreter& di, Standard_Integer argc, const c
     AsciiString1("Driver1/Document_") + argv[1] + "/View1";
   if (!TPrsStd_AISViewer::Find(aRoot, aDocViewer))
   {
-    ViewerTest::ViewerInit(aViewName);
-    aDocViewer = TPrsStd_AISViewer::New(aRoot, ViewerTest::GetAISContext());
+    ViewerTest1::ViewerInit(aViewName);
+    aDocViewer = TPrsStd_AISViewer::New(aRoot, ViewerTest1::GetAISContext());
   }
 
   // collect sequence of labels to display
@@ -874,7 +874,7 @@ private:
       aPrs->Attributes()->SetAutoTriangulation(myIsAutoTriang == 1);
     }
 
-    ViewerTest::Display(aName, aPrs, false);
+    ViewerTest1::Display(aName, aPrs, false);
     theOutDispList += aName + " ";
     return 0;
   }
@@ -884,14 +884,14 @@ private:
                             Standard_Integer  theNbArgs,
                             const char**      theArgVec)
   {
-    Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+    Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
     if (aContext.IsNull())
     {
       theDI << "Error: no active viewer";
       return 1;
     }
 
-    ViewerTest_AutoUpdater anAutoUpdater(aContext, ViewerTest::CurrentView());
+    ViewerTest_AutoUpdater anAutoUpdater(aContext, ViewerTest1::CurrentView());
     for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
     {
       AsciiString1 anArgCase(theArgVec[anArgIter]);
@@ -1131,7 +1131,7 @@ static Standard_Integer XAttributeValue(DrawInterpreter& di,
     return 1;
   }
 
-  AsciiString1 anInfo = XCAFDoc::AttributeInfo(itr.Value());
+  AsciiString1 anInfo = XCAFDoc1::AttributeInfo(itr.Value());
   if (!anInfo.IsEmpty())
   {
     di << anInfo.ToCString();
@@ -1151,7 +1151,7 @@ static Standard_Integer setviewName(DrawInterpreter& di, Standard_Integer argc, 
   Standard_Boolean mode = Standard_False;
   if (Draw1::Atoi(argv[1]) == 1)
     mode = Standard_True;
-  XCAFPrs::SetViewNameMode(mode);
+  XCAFPrs1::SetViewNameMode(mode);
   return 0;
 }
 
@@ -1161,7 +1161,7 @@ static Standard_Integer getviewName(DrawInterpreter& di,
                                     Standard_Integer /*argc*/,
                                     const char** /*argv*/)
 {
-  if (XCAFPrs::GetViewNameMode())
+  if (XCAFPrs1::GetViewNameMode())
     di << "Display names ON\n";
   else
     di << "Display names OFF\n";
@@ -1422,7 +1422,7 @@ static Standard_Integer XShowFaceBoundary(DrawInterpreter& di,
   // select appropriate line type
   if (argc == 9)
   {
-    if (!ViewerTest::ParseLineType(argv[8], aLineType))
+    if (!ViewerTest1::ParseLineType(argv[8], aLineType))
     {
       std::cout << "Syntax error: unknown line type '" << argv[8] << "'\n";
     }
@@ -1468,7 +1468,7 @@ static Standard_Integer XDumpAssemblyTree(DrawInterpreter& di,
     return 1;
   }
 
-  XCAFDoc_AssemblyItemId aRoot;
+  AssemblyItemId aRoot;
   Standard_Integer       aLevel      = INT_MAX;
   Standard_Boolean       aPrintNames = Standard_False;
   for (Standard_Integer iarg = 2; iarg < argc; ++iarg)
@@ -1482,7 +1482,7 @@ static Standard_Integer XDumpAssemblyTree(DrawInterpreter& di,
     {
       Standard_ProgramError_Raise_if(iarg + 1 >= argc, "Level is expected!");
       AsciiString1 anArg = argv[++iarg];
-      Standard_ProgramError_Raise_if(!anArg.IsIntegerValue(), "Integer value is expected!");
+      Standard_ProgramError_Raise_if(!anArg.IsIntegerValue(), "Integer1 value is expected!");
       aLevel = anArg.IntegerValue();
     }
     else if (strcmp(argv[iarg], "-names") == 0)
@@ -1493,11 +1493,11 @@ static Standard_Integer XDumpAssemblyTree(DrawInterpreter& di,
 
   Standard_SStream aSS;
 
-  XCAFDoc_AssemblyIterator anIt = aRoot.IsNull() ? XCAFDoc_AssemblyIterator(aDoc, aLevel)
-                                                 : XCAFDoc_AssemblyIterator(aDoc, aRoot, aLevel);
-  XCAFDoc_AssemblyTool::Traverse(
+  AssemblyIterator anIt = aRoot.IsNull() ? AssemblyIterator(aDoc, aLevel)
+                                                 : AssemblyIterator(aDoc, aRoot, aLevel);
+  AssemblyTool::Traverse(
     anIt,
-    [&](const XCAFDoc_AssemblyItemId& theItem) -> Standard_Boolean {
+    [&](const AssemblyItemId& theItem) -> Standard_Boolean {
       if (aPrintNames)
       {
         Standard_Boolean aFirst = Standard_True;
@@ -1605,7 +1605,7 @@ static Standard_Integer XDumpAssemblyGraph(DrawInterpreter& di,
 
   Standard_SStream aSS;
 
-  XCAFDoc_AssemblyTool::Traverse(
+  AssemblyTool::Traverse(
     aG,
     [](const Handle(XCAFDoc_AssemblyGraph)& /*theGraph*/,
        const Standard_Integer /*theNode*/) -> Standard_Boolean { return Standard_True; },
@@ -1638,7 +1638,7 @@ static Standard_Integer XDumpAssemblyGraph(DrawInterpreter& di,
       {
         for (TColStd_MapIteratorOfPackedMapOfInteger anIt1(*aLinksPtr); anIt1.More(); anIt1.Next())
         {
-          aSS << " " << anIt1.Key();
+          aSS << " " << anIt1.Key1();
         }
       }
       aSS << std::endl;
@@ -1690,7 +1690,7 @@ static Standard_Integer XDumpNomenclature(DrawInterpreter& di,
 
   Standard_SStream aSS;
 
-  XCAFDoc_AssemblyTool::Traverse(
+  AssemblyTool::Traverse(
     aG,
     [](const Handle(XCAFDoc_AssemblyGraph)& theGraph,
        const Standard_Integer               theNode) -> Standard_Boolean {
@@ -1785,9 +1785,9 @@ static Standard_Integer XRescaleGeometry(DrawInterpreter& di,
     }
   }
 
-  if (!XCAFDoc_Editor::RescaleGeometry(aLabel, aScaleFactor, aForce))
+  if (!DocumentEditor::RescaleGeometry(aLabel, aScaleFactor, aForce))
   {
-    di << "Geometry rescale failed\n";
+    di << "Geometry1 rescale failed\n";
     return 1;
   }
 
@@ -1815,8 +1815,8 @@ static Standard_Integer testDoc(DrawInterpreter&, Standard_Integer argc, const c
   aD1->Open(anApp);
 
   AsciiString1 aViewName("Driver1/DummyDocument/View1");
-  ViewerTest::ViewerInit(aViewName);
-  TPrsStd_AISViewer::New(aD1->GetData()->Root(), ViewerTest::GetAISContext());
+  ViewerTest1::ViewerInit(aViewName);
+  TPrsStd_AISViewer::New(aD1->GetData()->Root(), ViewerTest1::GetAISContext());
 
   // get shape tool for shape verification
   Handle(XCAFDoc_ShapeTool) aShapes = XCAFDoc_DocumentTool::ShapeTool(aD1->Main());
@@ -1837,16 +1837,16 @@ static Standard_Integer testDoc(DrawInterpreter&, Standard_Integer argc, const c
     prs->Display();
 
   TPrsStd_AISViewer::Update(aLab);
-  ViewerTest::GetAISContext()->Display(aTriShape, Standard_True);
+  ViewerTest1::GetAISContext()->Display(aTriShape, Standard_True);
   aD1->BeforeClose();
   aD1->Close();
-  ViewerTest::RemoveView(aViewName);
+  ViewerTest1::RemoveView(aViewName);
   return 0;
 }
 
 //=================================================================================================
 
-void XDEDRAW::Init(DrawInterpreter& di)
+void XDEDRAW1::Init(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)
@@ -1861,7 +1861,7 @@ void XDEDRAW::Init(DrawInterpreter& di)
   // Initialize XCAF formats
   Handle(AppManager) anApp = DDocStd1::GetApplication();
   BinXCAFDrivers1::DefineFormat(anApp);
-  XmlXCAFDrivers::DefineFormat(anApp);
+  XmlXCAFDrivers1::DefineFormat(anApp);
 
   // Register driver in global table for displaying XDE documents
   // in 3d viewer using OCAF mechanics
@@ -2007,22 +2007,22 @@ void XDEDRAW::Init(DrawInterpreter& di)
          g);
 
   // Specialized commands
-  XDEDRAW_Shapes::InitCommands(di);
-  XDEDRAW_Colors::InitCommands(di);
-  XDEDRAW_Layers::InitCommands(di);
-  XDEDRAW_Props::InitCommands(di);
-  XDEDRAW_GDTs::InitCommands(di);
-  XDEDRAW_Views::InitCommands(di);
-  XDEDRAW_Notes::InitCommands(di);
-  XDEDRAW_Common::InitCommands(di); // moved from EXE
+  ShapeCommands::InitCommands(di);
+  ColorCommands::InitCommands(di);
+  LayerCommands::InitCommands(di);
+  PropertyCommands::InitCommands(di);
+  GDTCommands::InitCommands(di);
+  ViewCommands::InitCommands(di);
+  NoteCommands::InitCommands(di);
+  CommonCommands::InitCommands(di); // moved from EXE
 }
 
 //==============================================================================
-// XDEDRAW::Factory
+// XDEDRAW1::Factory
 //==============================================================================
-void XDEDRAW::Factory(DrawInterpreter& theDI)
+void XDEDRAW1::Factory(DrawInterpreter& theDI)
 {
-  XDEDRAW::Init(theDI);
+  XDEDRAW1::Init(theDI);
 
 #ifdef OCCT_DEBUG
   theDI << "Draw1 Plugin : All TKXDEDRAW commands are loaded\n";
@@ -2030,4 +2030,4 @@ void XDEDRAW::Factory(DrawInterpreter& theDI)
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XDEDRAW)
+DPLUGIN(XDEDRAW1)

@@ -52,7 +52,7 @@ class Graphic3d_TransformPers;
 //! Any modification of such a group is forbidden, as aspects and primitives are mixed
 //! in memory without any high-level logical structure, and any modification is very likely to
 //! result in corruption of the group internal data. It is necessary to recreate such a group as a
-//! whole when some attribute should be changed. (for example, in terms of AIS it is necessary to
+//! whole when some attribute should be changed. (for example, in terms of AIS1 it is necessary to
 //! re-Compute() the whole presentation each time). 2) Bounded group. Developers should specify the
 //! necessary group aspects with help of SetGroupPrimitivesAspect() and then add primitives to the
 //! group. Such a group have simplified organization in memory (a single block of attributes

@@ -148,7 +148,7 @@ Standard_EXPORT Handle(GeomCurve2d) MakePCurve(const ProjLib_ProjectedCurve& PC)
 }
 
 //------------------------------------------------------------------
-static Standard_Boolean CheckApproxResults(const BRepApprox_Approx& Approx)
+static Standard_Boolean CheckApproxResults(const Approx1& Approx)
 //------------------------------------------------------------------
 {
   const AppParCurves_MultiBSpCurve& amc = Approx.Value(1);
@@ -226,7 +226,7 @@ static Standard_Boolean CheckPCurve(const Handle(GeomCurve2d)& aPC, const TopoFa
 }
 
 //------------------------------------------------------------------
-static Handle(GeomCurve3d) MakeCurve3DfromWLineApprox(const BRepApprox_Approx& Approx,
+static Handle(GeomCurve3d) MakeCurve3DfromWLineApprox(const Approx1& Approx,
                                                      const Standard_Integer)
 //------------------------------------------------------------------
 {
@@ -249,7 +249,7 @@ static Handle(GeomCurve3d) MakeCurve3DfromWLineApprox(const BRepApprox_Approx& A
 }
 
 //------------------------------------------------------------------
-static Handle(GeomCurve2d) MakeCurve2DfromWLineApproxAndPlane(const BRepApprox_Approx& Approx,
+static Handle(GeomCurve2d) MakeCurve2DfromWLineApproxAndPlane(const Approx1& Approx,
                                                                const gp_Pln&            Pl)
 //------------------------------------------------------------------
 {
@@ -272,7 +272,7 @@ static Handle(GeomCurve2d) MakeCurve2DfromWLineApproxAndPlane(const BRepApprox_A
 }
 
 //------------------------------------------------------------------
-static Handle(GeomCurve2d) MakeCurve2DfromWLineApprox(const BRepApprox_Approx& Approx,
+static Handle(GeomCurve2d) MakeCurve2DfromWLineApprox(const Approx1& Approx,
                                                        const Standard_Integer   CI)
 //------------------------------------------------------------------
 {
@@ -530,7 +530,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
 //--------------- IFV - end "improving"
 #endif
 
-  BRepApprox_Approx Approx;
+  Approx1 Approx;
 
   Standard_Integer           degmin          = 4;
   Standard_Integer           degmax          = 8;

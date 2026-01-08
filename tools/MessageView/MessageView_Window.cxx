@@ -253,15 +253,15 @@ void MessageView_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& 
   for (TInspectorAPI_IteratorOfPreferencesDataMap anItemIt(theItem); anItemIt.More();
        anItemIt.Next())
   {
-    if (anItemIt.Key().IsEqual("geometry"))
+    if (anItemIt.Key1().IsEqual("geometry"))
       myMainWindow->restoreState(TreeModel_Tools::ToByteArray(anItemIt.Value().ToCString()));
     else if (TreeModel_Tools::RestoreState(myTreeView,
-                                           anItemIt.Key().ToCString(),
+                                           anItemIt.Key1().ToCString(),
                                            anItemIt.Value().ToCString()))
       continue;
     else if (myViewWindow
              && View_Window::RestoreState(myViewWindow,
-                                          anItemIt.Key().ToCString(),
+                                          anItemIt.Key1().ToCString(),
                                           anItemIt.Value().ToCString()))
       continue;
   }
@@ -281,7 +281,7 @@ void MessageView_Window::UpdateContent()
     Init(aParameters);
     myParameters->SetParameters(aName, aParameters);
   }
-  Handle(Message_Report)  aDefaultReport = Message::DefaultReport();
+  Handle(Message_Report)  aDefaultReport = Message1::DefaultReport();
   MessageModel_TreeModel* aViewModel = dynamic_cast<MessageModel_TreeModel*>(myTreeView->model());
   if (!aDefaultReport.IsNull() && !aViewModel->HasReport(aDefaultReport))
   {
@@ -555,12 +555,12 @@ void MessageView_Window::onExportReport()
 // =======================================================================
 void MessageView_Window::onCreateDefaultReport()
 {
-  if (!Message::DefaultReport().IsNull())
+  if (!Message1::DefaultReport().IsNull())
   {
     return;
   }
 
-  addReport(Message::DefaultReport(Standard_True));
+  addReport(Message1::DefaultReport(Standard_True));
 }
 
 // =======================================================================
@@ -611,7 +611,7 @@ void MessageView_Window::onMetricStatistic()
 // =======================================================================
 void MessageView_Window::addActivateMetricActions(QMenu* theMenu)
 {
-  Handle(Message_Report) aReport = Message::DefaultReport();
+  Handle(Message_Report) aReport = Message1::DefaultReport();
   if (aReport.IsNull())
   {
     return;
@@ -623,7 +623,7 @@ void MessageView_Window::addActivateMetricActions(QMenu* theMenu)
        aMetricId++)
   {
     Message_MetricType aMetricType = (Message_MetricType)aMetricId;
-    QAction* anAction = ViewControl_Tools::CreateAction(Message::MetricToString(aMetricType),
+    QAction* anAction = ViewControl_Tools::CreateAction(Message1::MetricToString(aMetricType),
                                                         SLOT(OnActivateMetric()),
                                                         parent(),
                                                         this);
@@ -649,10 +649,10 @@ void MessageView_Window::OnActivateMetric()
   QAction* anAction = (QAction*)(sender());
 
   Message_MetricType aMetricType;
-  if (!Message::MetricFromString(anAction->text().toStdString().c_str(), aMetricType))
+  if (!Message1::MetricFromString(anAction->text().toStdString().c_str(), aMetricType))
     return;
 
-  Handle(Message_Report)                            aReport         = Message::DefaultReport();
+  Handle(Message_Report)                            aReport         = Message1::DefaultReport();
   const NCollection_IndexedMap<Message_MetricType>& anActiveMetrics = aReport->ActiveMetrics();
   aReport->SetActiveMetric(aMetricType, !anActiveMetrics.Contains(aMetricType));
 
@@ -665,7 +665,7 @@ void MessageView_Window::OnActivateMetric()
 // =======================================================================
 void MessageView_Window::OnDeactivateAllMetrics()
 {
-  Handle(Message_Report) aReport = Message::DefaultReport();
+  Handle(Message_Report) aReport = Message1::DefaultReport();
   if (aReport.IsNull())
     return;
   aReport->ClearMetrics();

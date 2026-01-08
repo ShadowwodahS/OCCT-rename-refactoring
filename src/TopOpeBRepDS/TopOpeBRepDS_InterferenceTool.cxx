@@ -59,7 +59,7 @@ Handle(TopOpeBRepDS_Interference) InterferenceTool::DuplicateCurvePointInterfere
                                                  I->SupportType(),
                                                  I->Support(),
                                                  I->GeometryType(),
-                                                 I->Geometry(),
+                                                 I->Geometry1(),
                                                  InterferenceTool::Parameter(I));
 }
 

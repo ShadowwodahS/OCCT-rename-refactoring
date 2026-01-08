@@ -299,7 +299,7 @@ Standard_IMPORT Standard_Integer GLOBAL_hassd;
 static Standard_Boolean FUN_isonbound(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                       const Handle(TopOpeBRepDS_Interference)&   I)
 {
-  Standard_Integer  G   = I->Geometry();
+  Standard_Integer  G   = I->Geometry1();
   TopOpeBRepDS_Kind KG  = I->GeometryType();
   Standard_Boolean  Gb1 = (KG == TopOpeBRepDS_VERTEX);
   if (Gb1)

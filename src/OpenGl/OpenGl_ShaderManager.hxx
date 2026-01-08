@@ -67,7 +67,7 @@ public:
     const Graphic3d_Vec4d& anEq = thePlane.GetEquation();
     if (myHasLocalOrigin)
     {
-      const Coords3d aPos = thePlane.ToPlane().Position().Location().XYZ() - myLocalOrigin;
+      const Coords3d aPos = thePlane.ToPlane().Position1().Location().XYZ() - myLocalOrigin;
       return -(anEq.x() * aPos.X() + anEq.y() * aPos.Y() + anEq.z() * aPos.Z());
     }
     return anEq.w();
@@ -731,7 +731,7 @@ protected:
   struct ShaderLightParameters
   {
     OpenGl_Vec4 Color;      //!< RGB color + Intensity (in .w)
-    OpenGl_Vec4 Position;   //!< XYZ Direction or Position + IsHeadlight (in .w)
+    OpenGl_Vec4 Position1;   //!< XYZ Direction or Position1 + IsHeadlight (in .w)
     OpenGl_Vec4 Direction;  //!< spot light XYZ direction + Range (in .w)
     OpenGl_Vec4 Parameters; //!< same as Graphic3d_CLight::PackedParams()
 

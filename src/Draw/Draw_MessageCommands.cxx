@@ -66,7 +66,7 @@ static Handle(LogPrinter) createPrinter(const Handle(TypeInfo)& theType,
   else if (aTypeName == STANDARD_TYPE(Message_PrinterToReport)->Name())
   {
     Handle(Message_PrinterToReport) aMessagePrinter = new Message_PrinterToReport();
-    const Handle(Message_Report)&   aReport         = Message::DefaultReport(Standard_True);
+    const Handle(Message_Report)&   aReport         = Message1::DefaultReport(Standard_True);
     aMessagePrinter->SetReport(aReport);
     return aMessagePrinter;
   }
@@ -89,7 +89,7 @@ static Standard_Integer SendMessage(DrawInterpreter& theDI,
     return 1;
   }
 
-  const Handle(Message_Messenger)& aMessenger = Message::DefaultMessenger();
+  const Handle(Message_Messenger)& aMessenger = Message1::DefaultMessenger();
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
     AsciiString1 anArg(theArgVec[anArgIter]);
@@ -104,7 +104,7 @@ static Standard_Integer SendMessage(DrawInterpreter& theDI,
 
 static Standard_Integer PrintMessenger(DrawInterpreter& theDI, Standard_Integer, const char**)
 {
-  const Handle(Message_Messenger)& aMessenger = Message::DefaultMessenger();
+  const Handle(Message_Messenger)& aMessenger = Message1::DefaultMessenger();
 
   Standard_SStream aSStream;
   aMessenger->DumpJson(aSStream);
@@ -128,7 +128,7 @@ static Standard_Integer SetMessagePrinter(DrawInterpreter& theDI,
 
   Standard_Boolean                          toAddPrinter = Standard_True;
   NCollection_List<AsciiString1> aPrinterTypes;
-  const Handle(Message_Messenger)&          aMessenger = Message::DefaultMessenger();
+  const Handle(Message_Messenger)&          aMessenger = Message1::DefaultMessenger();
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
     AsciiString1 anArg(theArgVec[anArgIter]);
@@ -169,7 +169,7 @@ static Standard_Integer SetMessagePrinter(DrawInterpreter& theDI,
       aMessenger->AddPrinter(aPrinter);
       if (!Handle(Message_PrinterToReport)::DownCast(aPrinter).IsNull())
       {
-        Message::DefaultReport(Standard_False)->UpdateActiveInMessenger();
+        Message1::DefaultReport(Standard_False)->UpdateActiveInMessenger();
       }
     }
     else
@@ -192,7 +192,7 @@ static Standard_Integer ClearReport(DrawInterpreter& theDI,
     return 1;
   }
 
-  const Handle(Message_Report)& aReport = Message::DefaultReport(Standard_False);
+  const Handle(Message_Report)& aReport = Message1::DefaultReport(Standard_False);
   if (aReport.IsNull())
   {
     theDI << "Error: report is no created";
@@ -215,7 +215,7 @@ static Standard_Integer SetReportMetric(DrawInterpreter& theDI,
     return 1;
   }
 
-  const Handle(Message_Report)& aReport = Message::DefaultReport(Standard_True);
+  const Handle(Message_Report)& aReport = Message1::DefaultReport(Standard_True);
   if (aReport.IsNull())
   {
     return 1;
@@ -297,7 +297,7 @@ static Standard_Integer PrintReport(DrawInterpreter& theDI,
     return 1;
   }
 
-  const Handle(Message_Report)& aReport = Message::DefaultReport(Standard_False);
+  const Handle(Message_Report)& aReport = Message1::DefaultReport(Standard_False);
   if (aReport.IsNull())
   {
     theDI << "Error: report is no created";
@@ -310,7 +310,7 @@ static Standard_Integer PrintReport(DrawInterpreter& theDI,
     anArgCase.LowerCase();
     if (anArgCase == "-messenger")
     {
-      aReport->SendMessages(Message::DefaultMessenger());
+      aReport->SendMessages(Message1::DefaultMessenger());
     }
     else if (anArgCase == "-dump" || anArgCase == "-print")
     {
@@ -336,7 +336,7 @@ void Draw1::MessageCommands(DrawInterpreter& theCommands)
     return;
   Done = Standard_True;
 
-  const char* group = "DRAW Message Commands";
+  const char* group = "DRAW Message1 Commands";
 
   theCommands.Add("PrintMessenger",
                   "PrintMessenger"

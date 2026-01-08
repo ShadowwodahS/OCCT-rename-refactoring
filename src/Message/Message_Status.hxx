@@ -21,7 +21,7 @@
 #include <Message_StatusType.hxx>
 
 //! Enumeration covering all execution statuses supported by the class
-//! Message_ExecStatus: 32 statuses per each of 4 types (DONE, WARN, ALARM, FAIL)
+//! ExecutionStatus: 32 statuses per each of 4 types (DONE, WARN, ALARM, FAIL)
 
 enum Message_Status
 {

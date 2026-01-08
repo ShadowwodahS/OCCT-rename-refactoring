@@ -233,7 +233,7 @@ static void Print(const Handle(Geom_SphericalSurface)& S,
   Print(P.Location(), OS, compact);
   if (!compact)
     OS << "\n  Axis   :";
-  Print(P.Position().Axis().Direction(), OS, compact);
+  Print(P.Position1().Axis().Direction(), OS, compact);
   if (!compact)
     OS << "\n  XAxis  :";
   Print(P.XAxis().Direction(), OS, compact);

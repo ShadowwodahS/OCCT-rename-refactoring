@@ -27,7 +27,7 @@ class Point3d;
 class Dir3d;
 
 //! class which draws the presentation of Fixed objects
-class DsgPrs_FixPresentation
+class FixPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

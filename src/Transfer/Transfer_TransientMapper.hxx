@@ -22,7 +22,7 @@
 
 #include <Transfer_Finder.hxx>
 class RefObject;
-class Transfer_DataInfo;
+class DataInfo1;
 class Transfer_Finder;
 
 class Transfer_TransientMapper;

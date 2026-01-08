@@ -21,7 +21,7 @@
 // Assign a map of sub-shapes (edges/faces) of a given shape
 static Standard_Boolean initSubShapes(const TopoShape&              theShape,
                                       BRepExtrema_ShapeList&           theSubshapesList,
-                                      Handle(BRepExtrema_TriangleSet)& theTriangleSet)
+                                      Handle(TriangleSet1)& theTriangleSet)
 {
   theSubshapesList.Clear();
 
@@ -36,7 +36,7 @@ static Standard_Boolean initSubShapes(const TopoShape&              theShape,
   }
 
   if (theTriangleSet.IsNull())
-    theTriangleSet = new BRepExtrema_TriangleSet;
+    theTriangleSet = new TriangleSet1;
   return theTriangleSet->Init(theSubshapesList);
 }
 
@@ -46,8 +46,8 @@ static Standard_Boolean initSubShapes(const TopoShape&              theShape,
 //=======================================================================
 BRepExtrema_ShapeProximity::BRepExtrema_ShapeProximity(const Standard_Real theTolerance)
     : myTolerance(theTolerance),
-      myElementSet1(new BRepExtrema_TriangleSet),
-      myElementSet2(new BRepExtrema_TriangleSet),
+      myElementSet1(new TriangleSet1),
+      myElementSet2(new TriangleSet1),
       myNbSamples1(0),
       myNbSamples2(0)
 {
@@ -63,8 +63,8 @@ BRepExtrema_ShapeProximity::BRepExtrema_ShapeProximity(const TopoShape& theShape
                                                        const TopoShape& theShape2,
                                                        const Standard_Real theTolerance)
     : myTolerance(theTolerance),
-      myElementSet1(new BRepExtrema_TriangleSet),
-      myElementSet2(new BRepExtrema_TriangleSet),
+      myElementSet1(new TriangleSet1),
+      myElementSet2(new TriangleSet1),
       myNbSamples1(0),
       myNbSamples2(0)
 {

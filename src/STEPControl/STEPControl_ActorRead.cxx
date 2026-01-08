@@ -635,7 +635,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     else
       binder = TP->Find(NAUO);
 
-    TopoShape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep1::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       Result1 = theResult;
@@ -690,7 +690,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     TopoShape theResult;
     if (!binder.IsNull())
     {
-      theResult = TransferBRep::ShapeResult(binder);
+      theResult = TransferBRep1::ShapeResult(binder);
       if (!theResult.IsNull())
       {
         Result1 = theResult;
@@ -818,7 +818,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       binder = TP->Find(PD);
       if (binder.IsNull())
         binder = TransferEntity(PD, TP, theLocalFactors, Standard_False, aPS.Next());
-      theResult = TransferBRep::ShapeResult(binder);
+      theResult = TransferBRep1::ShapeResult(binder);
       if (!theResult.IsNull())
       {
         if (iatrsf)
@@ -838,7 +838,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       if (binder.IsNull())
       {
         binder    = TransferEntity(SRR, TP, theLocalFactors, 0, Standard_False, aPS.Next());
-        theResult = TransferBRep::ShapeResult(binder);
+        theResult = TransferBRep1::ShapeResult(binder);
         if (!theResult.IsNull())
           shbinder = new TransferBRep_ShapeBinder(theResult);
       }
@@ -978,7 +978,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       isBound = Standard_True;
       binder  = TP->Find(anitem);
     }
-    TopoShape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep1::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1148,7 +1148,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     binder = TransferEntity(rep, TP, theLocalFactors, isBound, Standard_False, theProgress);
   else
     binder = TP->Find(rep);
-  theResult = TransferBRep::ShapeResult(binder);
+  theResult = TransferBRep1::ShapeResult(binder);
 
   if (!theResult.IsNull())
   {
@@ -1215,7 +1215,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       binder = TransferEntity(anitem, TP, theLocalFactors, isBound, theUseTrsf, aRange);
     else
       binder = TP->Find(anitem);
-    TopoShape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep1::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1353,7 +1353,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
         aBinder = theTP->Find(aShapeRepr);
       }
     }
-    TopoShape aResult = TransferBRep::ShapeResult(aBinder);
+    TopoShape aResult = TransferBRep1::ShapeResult(aBinder);
     if (!aResult.IsNull())
     {
       aBuilder.Add(aComp, aResult);
@@ -1479,7 +1479,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
   // clang-format on
   if (!binder.IsNull())
   {
-    TopoShape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep1::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1515,7 +1515,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
       binder = TP->Transferring(anitem, aRange);
     else
       binder = TP->Find(anitem);
-    TopoShape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep1::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1688,7 +1688,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   if (found && myShapeBuilder.IsDone())
   {
     mappedShape = myShapeBuilder.Value();
-    // Apply ShapeFix (on manifold shapes only. Non-manifold topology is processed separately:
+    // Apply ShapeFix1 (on manifold shapes only. Non-manifold topology is processed separately:
     // ssv; 13.11.2010)
     if (isManifold && aHasGeom)
     {
@@ -1796,7 +1796,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   aBuilder.MakeCompound(aCund);
   if (!shbinder.IsNull())
   {
-    aResult = TransferBRep::ShapeResult(shbinder);
+    aResult = TransferBRep1::ShapeResult(shbinder);
     aBuilder.Add(aCund, aResult);
   }
 
@@ -1875,7 +1875,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
         PrepareUnits(context, TP, aLocalFactors);
     }
 
-    // Apply ShapeFix
+    // Apply ShapeFix1
     Handle(Transfer_Binder) binder = TP->Find(fs);
     sb                             = Handle(TransferBRep_ShapeBinder)::DownCast(binder);
     if (!sb.IsNull() && !sb->Result().IsNull())
@@ -2402,7 +2402,7 @@ TopoShape STEPControl_ActorRead::TransferRelatedSRR(
     }
     if (!aBinder.IsNull())
     {
-      aResult = TransferBRep::ShapeResult(aBinder);
+      aResult = TransferBRep1::ShapeResult(aBinder);
       aBuilder.Add(theCund, aResult);
     }
   }

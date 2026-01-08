@@ -635,7 +635,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:UIso");
         }
         case GeomAbs_IsoV: {
-          return ElSLib1::CylinderVIso(cyl.Position(), cyl.Radius(), myParameter);
+          return ElSLib1::CylinderVIso(cyl.Position1(), cyl.Radius(), myParameter);
         }
         case GeomAbs_NoneIso: {
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:NoneIso");
@@ -654,7 +654,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:UIso");
         }
         case GeomAbs_IsoV: {
-          return ElSLib1::ConeVIso(cone.Position(), cone.RefRadius(), cone.SemiAngle(), myParameter);
+          return ElSLib1::ConeVIso(cone.Position1(), cone.RefRadius(), cone.SemiAngle(), myParameter);
         }
         case GeomAbs_NoneIso: {
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:NoneIso");
@@ -670,11 +670,11 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
       {
 
         case GeomAbs_IsoU: {
-          return ElSLib1::SphereUIso(sph.Position(), sph.Radius(), myParameter);
+          return ElSLib1::SphereUIso(sph.Position1(), sph.Radius(), myParameter);
         }
 
         case GeomAbs_IsoV: {
-          return ElSLib1::SphereVIso(sph.Position(), sph.Radius(), myParameter);
+          return ElSLib1::SphereVIso(sph.Position1(), sph.Radius(), myParameter);
         }
 
         case GeomAbs_NoneIso: {
@@ -691,14 +691,14 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
       {
 
         case GeomAbs_IsoU: {
-          return ElSLib1::TorusUIso(tor.Position(),
+          return ElSLib1::TorusUIso(tor.Position1(),
                                    tor.MajorRadius(),
                                    tor.MinorRadius(),
                                    myParameter);
         }
 
         case GeomAbs_IsoV: {
-          return ElSLib1::TorusVIso(tor.Position(),
+          return ElSLib1::TorusVIso(tor.Position1(),
                                    tor.MajorRadius(),
                                    tor.MinorRadius(),
                                    myParameter);

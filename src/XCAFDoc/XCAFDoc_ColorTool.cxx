@@ -207,8 +207,8 @@ void XCAFDoc_ColorTool::SetColor(const DataLabel&        L,
 {
   // set reference
   Handle(TDataStd_TreeNode) refNode, mainNode;
-  mainNode = TDataStd_TreeNode::Set(colorL, XCAFDoc::ColorRefGUID(type));
-  refNode  = TDataStd_TreeNode::Set(L, XCAFDoc::ColorRefGUID(type));
+  mainNode = TDataStd_TreeNode::Set(colorL, XCAFDoc1::ColorRefGUID(type));
+  refNode  = TDataStd_TreeNode::Set(L, XCAFDoc1::ColorRefGUID(type));
   refNode->Remove(); // abv: fix against bug in TreeNode::Append()
   mainNode->Prepend(refNode);
 }
@@ -237,7 +237,7 @@ void XCAFDoc_ColorTool::SetColor(const DataLabel&          L,
 
 void XCAFDoc_ColorTool::UnSetColor(const DataLabel& L, const XCAFDoc_ColorType type) const
 {
-  L.ForgetAttribute(XCAFDoc::ColorRefGUID(type));
+  L.ForgetAttribute(XCAFDoc1::ColorRefGUID(type));
 }
 
 //=================================================================================================
@@ -245,7 +245,7 @@ void XCAFDoc_ColorTool::UnSetColor(const DataLabel& L, const XCAFDoc_ColorType t
 Standard_Boolean XCAFDoc_ColorTool::IsSet(const DataLabel& L, const XCAFDoc_ColorType type) const
 {
   Handle(TDataStd_TreeNode) Node;
-  return L.FindAttribute(XCAFDoc::ColorRefGUID(type), Node) && Node->HasFather();
+  return L.FindAttribute(XCAFDoc1::ColorRefGUID(type), Node) && Node->HasFather();
 }
 
 //=================================================================================================
@@ -255,7 +255,7 @@ Standard_Boolean XCAFDoc_ColorTool::GetColor(const DataLabel&        L,
                                              DataLabel&              colorL)
 {
   Handle(TDataStd_TreeNode) Node;
-  if (!L.FindAttribute(XCAFDoc::ColorRefGUID(type), Node) || !Node->HasFather())
+  if (!L.FindAttribute(XCAFDoc1::ColorRefGUID(type), Node) || !Node->HasFather())
     return Standard_False;
   colorL = Node->Father()->Label();
   return Standard_True;
@@ -414,7 +414,7 @@ XCAFDoc_ColorTool::XCAFDoc_ColorTool() {}
 Standard_Boolean XCAFDoc_ColorTool::IsVisible(const DataLabel& L)
 {
   Handle(TDataStd_UAttribute) aUAttr;
-  return (!L.FindAttribute(XCAFDoc::InvisibleGUID(), aUAttr));
+  return (!L.FindAttribute(XCAFDoc1::InvisibleGUID(), aUAttr));
 }
 
 //=================================================================================================
@@ -426,11 +426,11 @@ void XCAFDoc_ColorTool::SetVisibility(const DataLabel& L, const Standard_Boolean
   {
     Handle(XCAFDoc_GraphNode) aSHUO;
     if (ShapeTool()->IsShape(L) || ShapeTool()->GetSHUO(L, aSHUO))
-      if (!L.FindAttribute(XCAFDoc::InvisibleGUID(), aUAttr))
-        TDataStd_UAttribute::Set(L, XCAFDoc::InvisibleGUID());
+      if (!L.FindAttribute(XCAFDoc1::InvisibleGUID(), aUAttr))
+        TDataStd_UAttribute::Set(L, XCAFDoc1::InvisibleGUID());
   }
   else
-    L.ForgetAttribute(XCAFDoc::InvisibleGUID());
+    L.ForgetAttribute(XCAFDoc1::InvisibleGUID());
 }
 
 //=================================================================================================
@@ -438,7 +438,7 @@ void XCAFDoc_ColorTool::SetVisibility(const DataLabel& L, const Standard_Boolean
 Standard_Boolean XCAFDoc_ColorTool::IsColorByLayer(const DataLabel& L) const
 {
   Handle(TDataStd_UAttribute) aUAttr;
-  return L.FindAttribute(XCAFDoc::ColorByLayerGUID(), aUAttr);
+  return L.FindAttribute(XCAFDoc1::ColorByLayerGUID(), aUAttr);
 }
 
 //=================================================================================================
@@ -450,11 +450,11 @@ void XCAFDoc_ColorTool::SetColorByLayer(const DataLabel& L, const Standard_Boole
   {
     Handle(XCAFDoc_GraphNode) aSHUO;
     if (ShapeTool()->IsShape(L) || ShapeTool()->GetSHUO(L, aSHUO))
-      if (!L.FindAttribute(XCAFDoc::ColorByLayerGUID(), aUAttr))
-        TDataStd_UAttribute::Set(L, XCAFDoc::ColorByLayerGUID());
+      if (!L.FindAttribute(XCAFDoc1::ColorByLayerGUID(), aUAttr))
+        TDataStd_UAttribute::Set(L, XCAFDoc1::ColorByLayerGUID());
   }
   else
-    L.ForgetAttribute(XCAFDoc::ColorByLayerGUID());
+    L.ForgetAttribute(XCAFDoc1::ColorByLayerGUID());
 }
 
 //=================================================================================================
@@ -629,15 +629,15 @@ Standard_Boolean XCAFDoc_ColorTool::ReverseChainsOfTreeNodes()
   {
     DataLabel                 aLabel = it.Value()->Label();
     Handle(TDataStd_TreeNode) mainNode;
-    if (aLabel.FindAttribute(XCAFDoc::ColorRefGUID(XCAFDoc_ColorSurf), mainNode))
+    if (aLabel.FindAttribute(XCAFDoc1::ColorRefGUID(XCAFDoc_ColorSurf), mainNode))
     {
       ReverseTreeNodes(mainNode);
     }
-    if (aLabel.FindAttribute(XCAFDoc::ColorRefGUID(XCAFDoc_ColorCurv), mainNode))
+    if (aLabel.FindAttribute(XCAFDoc1::ColorRefGUID(XCAFDoc_ColorCurv), mainNode))
     {
       ReverseTreeNodes(mainNode);
     }
-    if (aLabel.FindAttribute(XCAFDoc::ColorRefGUID(XCAFDoc_ColorGen), mainNode))
+    if (aLabel.FindAttribute(XCAFDoc1::ColorRefGUID(XCAFDoc_ColorGen), mainNode))
     {
       ReverseTreeNodes(mainNode);
     }

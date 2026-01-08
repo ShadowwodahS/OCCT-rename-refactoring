@@ -124,14 +124,14 @@ public:
   //! Else, it is added or merged as to GlobalCheck.
   Standard_EXPORT void AddCheck(const Handle(Interface_Check)& check);
 
-  //! Adds a Warning Message for an Entity from the Model
+  //! Adds a Warning Message1 for an Entity from the Model
   //! If <start> is not an Entity from the model (e.g. the
   //! model itself) this message is added to Global Check.
   Standard_EXPORT void AddWarning(const Handle(RefObject)& start,
                                   const Standard_CString            mess,
                                   const Standard_CString            orig = "");
 
-  //! Adds a Fail Message for an Entity from the Model
+  //! Adds a Fail Message1 for an Entity from the Model
   //! If <start> is not an Entity from the model (e.g. the
   //! model itself) this message is added to Global Check.
   Standard_EXPORT void AddFail(const Handle(RefObject)& start,

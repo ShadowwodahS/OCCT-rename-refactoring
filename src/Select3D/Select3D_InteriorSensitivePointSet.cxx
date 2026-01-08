@@ -246,8 +246,8 @@ void Select3D_InteriorSensitivePointSet::Swap(const Standard_Integer theIdx1,
 //=================================================================================================
 
 Standard_Boolean Select3D_InteriorSensitivePointSet::overlapsElement(
-  SelectBasics_PickResult&             thePickResult,
-  SelectBasics_SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean)
 {
@@ -261,11 +261,11 @@ Standard_Boolean Select3D_InteriorSensitivePointSet::overlapsElement(
 //=================================================================================================
 
 Standard_Boolean Select3D_InteriorSensitivePointSet::elementIsInside(
-  SelectBasics_SelectingVolumeManager& theMgr,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
-  SelectBasics_PickResult aDummy;
+  PickResult aDummy;
   return overlapsElement(aDummy, theMgr, theElemIdx, theIsFullInside);
 }
 
@@ -275,7 +275,7 @@ Standard_Boolean Select3D_InteriorSensitivePointSet::elementIsInside(
 //            screen point to center of the geometry
 // =======================================================================
 Standard_Real Select3D_InteriorSensitivePointSet::distanceToCOG(
-  SelectBasics_SelectingVolumeManager& theMgr)
+  SelectingVolumeManager& theMgr)
 {
   return theMgr.DistToGeometryCenter(myCOG);
 }

@@ -383,7 +383,7 @@ void OpenGl_Text::setupMatrix(const Handle(OpenGl_Context)& theCtx,
 
   if (myIs2d)
   {
-    const Point3d& aPoint = myText->Position();
+    const Point3d& aPoint = myText->Position1();
     Graphic3d_TransformUtils::Translate<GLdouble>(aModViewMat,
                                                   aPoint.X() + theDVec.x(),
                                                   aPoint.Y() + theDVec.y(),
@@ -432,7 +432,7 @@ void OpenGl_Text::setupMatrix(const Handle(OpenGl_Context)& theCtx,
       if (!myText->HasOwnAnchorPoint())
       {
         OpenGl_Mat4d  aPosMat;
-        const Point3d& aPoint = myText->Position();
+        const Point3d& aPoint = myText->Position1();
         aPosMat.SetColumn(3, OpenGl_Vec3d(aPoint.X(), aPoint.Y(), aPoint.Z()));
         aPosMat *= aModViewMat;
         aModViewMat.SetColumn(3, aPosMat.GetColumn(3));
@@ -735,7 +735,7 @@ void OpenGl_Text::render(const Handle(OpenGl_Context)& theCtx,
   const GLdouble aPointSize = (GLdouble)myFont->FTFont()->PointSize();
   if (!myIs2d)
   {
-    const Point3d& aPoint = myText->Position();
+    const Point3d& aPoint = myText->Position1();
     Graphic3d_TransformUtils::Project<Standard_Real>(aPoint.X(),
                                                      aPoint.Y(),
                                                      aPoint.Z(),

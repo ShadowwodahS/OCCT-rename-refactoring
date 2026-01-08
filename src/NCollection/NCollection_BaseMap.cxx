@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-Standard_Boolean NCollection_BaseMap::BeginResize(const Standard_Integer  NbBuckets,
+Standard_Boolean BaseMap::BeginResize(const Standard_Integer  NbBuckets,
                                                   Standard_Integer&       N,
                                                   NCollection_ListNode**& data1,
                                                   NCollection_ListNode**& data2) const
@@ -46,7 +46,7 @@ Standard_Boolean NCollection_BaseMap::BeginResize(const Standard_Integer  NbBuck
 
 //=================================================================================================
 
-void NCollection_BaseMap::EndResize(const Standard_Integer theNbBuckets,
+void BaseMap::EndResize(const Standard_Integer theNbBuckets,
                                     const Standard_Integer N,
                                     NCollection_ListNode** data1,
                                     NCollection_ListNode** data2)
@@ -63,7 +63,7 @@ void NCollection_BaseMap::EndResize(const Standard_Integer theNbBuckets,
 
 //=================================================================================================
 
-void NCollection_BaseMap::Destroy(NCollection_DelMapNode fDel, Standard_Boolean doReleaseMemory)
+void BaseMap::Destroy(NCollection_DelMapNode fDel, Standard_Boolean doReleaseMemory)
 {
   if (!IsEmpty())
   {
@@ -100,7 +100,7 @@ void NCollection_BaseMap::Destroy(NCollection_DelMapNode fDel, Standard_Boolean 
 
 //=================================================================================================
 
-void NCollection_BaseMap::Statistics(Standard_OStream& S) const
+void BaseMap::Statistics(Standard_OStream& S) const
 {
   S << "\nMap Statistics\n---------------\n\n";
   S << "This Map has " << myNbBuckets << " Buckets and " << mySize << " Keys\n\n";
@@ -114,7 +114,7 @@ void NCollection_BaseMap::Statistics(Standard_OStream& S) const
   NCollection_ListNode*  p;
   NCollection_ListNode** data;
 
-  S << "\nStatistics for the first Key\n";
+  S << "\nStatistics for the first Key1\n";
   for (i = 0; i <= mySize; i++)
     sizes[i] = 0;
   data = (NCollection_ListNode**)myData1;
@@ -152,7 +152,7 @@ void NCollection_BaseMap::Statistics(Standard_OStream& S) const
 
 //=================================================================================================
 
-Standard_Integer NCollection_BaseMap::NextPrimeForMap(const Standard_Integer N) const
+Standard_Integer BaseMap::NextPrimeForMap(const Standard_Integer N) const
 {
   return NCollection_Primes::NextPrimeForMap(N);
 }

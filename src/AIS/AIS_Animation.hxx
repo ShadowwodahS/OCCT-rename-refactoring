@@ -20,7 +20,7 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Structure defining current animation progress.
-struct AIS_AnimationProgress
+struct AnimationProgress
 {
   Standard_Real Pts;            //!< global presentation timestamp
   Standard_Real LocalPts;       //!< presentation within current animation
@@ -28,7 +28,7 @@ struct AIS_AnimationProgress
   Standard_Real LocalNormalized; //!< normalized position within current animation within 0..1 range
                                 // clang-format on
 
-  AIS_AnimationProgress()
+  AnimationProgress()
       : Pts(-1.0),
         LocalPts(-1.0),
         LocalNormalized(-1.0)
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(AIS_Animation, RefObject)
 //!
 //! - Animation Implementor
 //!   Sub-classes should override method AIS_Animation::update() to perform specific animation.
-//!   AIS package provides limited number of such animation atoms - classes AIS_AnimationObject and
+//!   AIS1 package provides limited number of such animation atoms - classes AIS_AnimationObject and
 //!   AIS_AnimationCamera, which could be enough for defining a simple animation. In general case,
 //!   application is expected defining own AIS_Animation sub-classes implementing
 //!   application-specific animation logic (e.g. another interpolation or another kind of
@@ -190,10 +190,10 @@ public:
 protected:
   //! Process one step of the animation according to the input time progress, including all
   //! children. Calls also ::update() to update own animation.
-  Standard_EXPORT virtual void updateWithChildren(const AIS_AnimationProgress& thePosition);
+  Standard_EXPORT virtual void updateWithChildren(const AnimationProgress& thePosition);
 
   //! Update the own animation to specified position - should be overridden by sub-class.
-  virtual void update(const AIS_AnimationProgress& theProgress) { (void)theProgress; }
+  virtual void update(const AnimationProgress& theProgress) { (void)theProgress; }
 
 protected:
   //! Defines animation state.

@@ -18,7 +18,7 @@
 
 #include <LDOMParser.hxx>
 
-//  Block of comments describing class PCDM_DOMHeaderParser
+//  Block1 of comments describing class PCDM_DOMHeaderParser
 
 class PCDM_DOMHeaderParser : public LDOMParser
 {

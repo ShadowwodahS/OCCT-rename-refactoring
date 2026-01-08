@@ -507,7 +507,7 @@ void BndLib1::Add(const gp_Circ&      C,
   Coords3d        O   = C.Location().XYZ();
   Coords3d        Xd  = C.XAxis().Direction().XYZ();
   Coords3d        Yd  = C.YAxis().Direction().XYZ();
-  const Frame3d& pos = C.Position();
+  const Frame3d& pos = C.Position1();
   //
   Standard_Real tt;
   Standard_Real xmin, xmax, txmin, txmax;
@@ -700,7 +700,7 @@ void BndLib1::Add(const gp_Elips&     C,
   Coords3d        O    = C.Location().XYZ();
   Coords3d        Xd   = C.XAxis().Direction().XYZ();
   Coords3d        Yd   = C.YAxis().Direction().XYZ();
-  const Frame3d& pos  = C.Position();
+  const Frame3d& pos  = C.Position1();
   //
   Standard_Real tt;
   Standard_Real xmin, xmax, txmin, txmax;
@@ -1146,7 +1146,7 @@ static void ComputeCyl(const Cylinder1&  Cyl,
                        const Standard_Real VMax,
                        Box2&            B)
 {
-  gp_Circ aC = ElSLib1::CylinderVIso(Cyl.Position(), Cyl.Radius(), VMin);
+  gp_Circ aC = ElSLib1::CylinderVIso(Cyl.Position1(), Cyl.Radius(), VMin);
   BndLib1::Add(aC, UMin, UMax, 0., B);
   //
   Vector3d aT = (VMax - VMin) * Cyl.Axis().Direction();
@@ -1232,7 +1232,7 @@ static void ComputeCone(const Cone1&      Cone,
                         const Standard_Real VMax,
                         Box2&            B)
 {
-  const Ax3& aPos = Cone.Position();
+  const Ax3& aPos = Cone.Position1();
   Standard_Real R    = Cone.RefRadius();
   Standard_Real sang = Cone.SemiAngle();
   gp_Circ       aC   = ElSLib1::ConeVIso(aPos, R, sang, VMin);
@@ -1363,7 +1363,7 @@ static void ComputeSphere(const Sphere3&    Sphere,
   {
     Standard_Real u, v;
     Standard_Real umax = UMin + 2. * M_PI;
-    const Ax3& Pos  = Sphere.Position();
+    const Ax3& Pos  = Sphere.Position1();
     Point3d        PExt = P;
     PExt.SetX(xmin);
     ElSLib1::SphereParameters(Pos, R, PExt, u, v);
@@ -1465,7 +1465,7 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
 
   Standard_Real anU, aV;
   Standard_Real anUmax = theUMin + 2. * M_PI;
-  const Ax3& aPos   = theTorus.Position();
+  const Ax3& aPos   = theTorus.Position1();
   Point3d        aPExt  = aP;
   aPExt.SetX(aXmin);
   ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
@@ -1798,7 +1798,7 @@ Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
   aEps = Epsilon(1.);
   iErr = 1;
   //
-  const Frame3d& aPos  = aHypr.Position();
+  const Frame3d& aPos  = aHypr.Position1();
   const Coords3d& aXDir = aPos.XDirection().XYZ();
   const Coords3d& aYDir = aPos.YDirection().XYZ();
   aRmaj               = aHypr.MajorRadius();

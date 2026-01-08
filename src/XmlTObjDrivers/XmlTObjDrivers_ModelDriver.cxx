@@ -51,19 +51,19 @@ Handle(TDF_Attribute) XmlTObjDrivers_ModelDriver::NewEmpty() const
 // purpose  : Translate the contents of <aSource> and put it
 //           into <aTarget>, using the relocation table
 //           <aRelocTable> to keep the sharings.
-//           Set CurrentModel of TObj_Assistant into Target TObj_TModel
+//           Set CurrentModel of Assistant into Target TObj_TModel
 //           if its GUID and GUID stored in Source are same
 //=======================================================================
 
-Standard_Boolean XmlTObjDrivers_ModelDriver::Paste(const XmlObjMgt_Persistent&  Source,
+Standard_Boolean XmlTObjDrivers_ModelDriver::Paste(const PersistentStorage&  Source,
                                                    const Handle(TDF_Attribute)& Target,
                                                    XmlObjMgt_RRelocationTable& /*RelocTable*/) const
 {
   UtfString aString;
-  if (XmlObjMgt::GetExtendedString(Source, aString))
+  if (XmlObjMgt1::GetExtendedString(Source, aString))
   {
     Standard_GUID      aGUID(aString.ToExtString());
-    Handle(TObj_Model) aCurrentModel = TObj_Assistant::GetCurrentModel();
+    Handle(TObj_Model) aCurrentModel = Assistant::GetCurrentModel();
     if (aGUID == aCurrentModel->GetGUID())
     {
       Handle(TObj_TModel) aTModel = Handle(TObj_TModel)::DownCast(Target);
@@ -87,7 +87,7 @@ Standard_Boolean XmlTObjDrivers_ModelDriver::Paste(const XmlObjMgt_Persistent&  
 //=======================================================================
 
 void XmlTObjDrivers_ModelDriver::Paste(const Handle(TDF_Attribute)& Source,
-                                       XmlObjMgt_Persistent&        Target,
+                                       PersistentStorage&        Target,
                                        XmlObjMgt_SRelocationTable& /*RelocTable*/) const
 {
   Handle(TObj_TModel) aTModel = Handle(TObj_TModel)::DownCast(Source);
@@ -96,6 +96,6 @@ void XmlTObjDrivers_ModelDriver::Paste(const Handle(TDF_Attribute)& Source,
   // Store model GUID.
   Standard_PCharacter aPGuidString = new Standard_Character[256];
   aModel->GetGUID().ToCString(aPGuidString);
-  XmlObjMgt::SetExtendedString(Target, aPGuidString);
+  XmlObjMgt1::SetExtendedString(Target, aPGuidString);
   delete[] aPGuidString;
 }

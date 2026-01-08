@@ -28,9 +28,9 @@ class Dir3d;
 class IGESSolid_Block;
 DEFINE_STANDARD_HANDLE(IGESSolid_Block, IGESData_IGESEntity)
 
-//! defines Block, Type <150> Form Number <0>
+//! defines Block1, Type <150> Form Number <0>
 //! in package IGESSolid1
-//! The Block is a rectangular parallelopiped, defined with
+//! The Block1 is a rectangular parallelopiped, defined with
 //! one vertex at (X1, Y1, Z1) and three edges lying along
 //! the local +X, +Y, +Z axes.
 class IGESSolid_Block : public IGESData_IGESEntity
@@ -39,7 +39,7 @@ class IGESSolid_Block : public IGESData_IGESEntity
 public:
   Standard_EXPORT IGESSolid_Block();
 
-  //! This method is used to set the fields of the class Block
+  //! This method is used to set the fields of the class Block1
   //! - aSize   : Length in each local directions
   //! - aCorner : Corner point coordinates. Default (0,0,0)
   //! - aXAxis  : Unit vector defining local X-axis
@@ -54,19 +54,19 @@ public:
   //! returns the size of the block
   Standard_EXPORT Coords3d Size() const;
 
-  //! returns the length of the Block along the local X-direction
+  //! returns the length of the Block1 along the local X-direction
   Standard_EXPORT Standard_Real XLength() const;
 
-  //! returns the length of the Block along the local Y-direction
+  //! returns the length of the Block1 along the local Y-direction
   Standard_EXPORT Standard_Real YLength() const;
 
-  //! returns the length of the Block along the local Z-direction
+  //! returns the length of the Block1 along the local Z-direction
   Standard_EXPORT Standard_Real ZLength() const;
 
-  //! returns the corner point coordinates of the Block
+  //! returns the corner point coordinates of the Block1
   Standard_EXPORT Point3d Corner() const;
 
-  //! returns the corner point coordinates of the Block after applying
+  //! returns the corner point coordinates of the Block1 after applying
   //! the TransformationMatrix
   Standard_EXPORT Point3d TransformedCorner() const;
 

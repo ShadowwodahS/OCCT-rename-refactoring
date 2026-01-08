@@ -26,7 +26,7 @@ class TopoShape;
 
 //! Gives information on an object, see template DataInfo
 //! This class is for Shape
-class TransferBRep_ShapeInfo
+class ShapeInfo
 {
 public:
   DEFINE_STANDARD_ALLOC

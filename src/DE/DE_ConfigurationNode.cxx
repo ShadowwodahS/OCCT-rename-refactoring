@@ -62,13 +62,13 @@ bool DE_ConfigurationNode::Save(const AsciiString1& theResourcePath) const
     }
     catch (ExceptionBase const&)
     {
-      Message::SendFail() << "Error: Configuration writing process was stopped. Can't build file.";
+      Message1::SendFail() << "Error: Configuration writing process was stopped. Can't build file.";
       return false;
     }
   }
   if (aFile.Failed())
   {
-    Message::SendFail() << "Error: Configuration writing process was stopped. Can't build file.";
+    Message1::SendFail() << "Error: Configuration writing process was stopped. Can't build file.";
     return false;
   }
   AsciiString1 aResConfiguration = Save();

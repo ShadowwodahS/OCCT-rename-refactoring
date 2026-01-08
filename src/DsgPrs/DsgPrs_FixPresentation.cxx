@@ -31,7 +31,7 @@
 
 //=================================================================================================
 
-void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                  const Handle(StyleDrawer)&       aDrawer,
                                  const Point3d&                     aPntAttach,
                                  const Point3d&                     aPntEnd,

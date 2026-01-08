@@ -122,8 +122,8 @@ void XCAFDoc_MaterialTool::SetMaterial(const DataLabel& L, const DataLabel& MatL
 {
   // set reference
   Handle(TDataStd_TreeNode) refNode, mainNode;
-  mainNode = TDataStd_TreeNode::Set(MatL, XCAFDoc::MaterialRefGUID());
-  refNode  = TDataStd_TreeNode::Set(L, XCAFDoc::MaterialRefGUID());
+  mainNode = TDataStd_TreeNode::Set(MatL, XCAFDoc1::MaterialRefGUID());
+  refNode  = TDataStd_TreeNode::Set(L, XCAFDoc1::MaterialRefGUID());
   refNode->Remove(); // abv: fix against bug in TreeNode::Append()
   mainNode->Append(refNode);
 }
@@ -170,7 +170,7 @@ Standard_Real XCAFDoc_MaterialTool::GetDensityForShape(const DataLabel& ShapeL)
 {
   Standard_Real             Dens = 0.0;
   Handle(TDataStd_TreeNode) Node;
-  if (!ShapeL.FindAttribute(XCAFDoc::MaterialRefGUID(), Node) || !Node->HasFather())
+  if (!ShapeL.FindAttribute(XCAFDoc1::MaterialRefGUID(), Node) || !Node->HasFather())
     return Dens;
   DataLabel                MatL = Node->Father()->Label();
   Handle(XCAFDoc_Material) MatAttr;

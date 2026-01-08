@@ -26,7 +26,7 @@
 #include <Prs3d_Text.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const Point3d&                     aPntAttach,
                                      const Point3d&                     aPntEnd,
@@ -42,21 +42,21 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   Dir3d ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
-  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
+  Arrow1::Draw1(aPresentation->CurrentGroup(),
                     aPntAttach,
                     ArrowDir,
                     LA->ArrowAspect()->Angle(),
                     LA->ArrowAspect()->Length());
 
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
 }
 
 //==========================================================================
-// function : DsgPrs_Chamf2dPresentation::Add
+// function : Chamf2dPresentation::Add
 // purpose  : it is possible to choose the symbol of extremities of the face (arrow, point ...)
 //==========================================================================
 
-void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(StyleDrawer)&       aDrawer,
                                      const Point3d&                     aPntAttach,
                                      const Point3d&                     aPntEnd,
@@ -72,11 +72,11 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPrims->AddVertex(aPntEnd);
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
 
   Dir3d ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
   Dir3d ArrowDir1 = ArrowDir;
   ArrowDir1.Reverse();
 
-  DsgPrs::ComputeSymbol(aPresentation, LA, aPntEnd, aPntAttach, ArrowDir1, ArrowDir, ArrowPrs);
+  DsgPrs1::ComputeSymbol(aPresentation, LA, aPntEnd, aPntAttach, ArrowDir1, ArrowDir, ArrowPrs);
 }

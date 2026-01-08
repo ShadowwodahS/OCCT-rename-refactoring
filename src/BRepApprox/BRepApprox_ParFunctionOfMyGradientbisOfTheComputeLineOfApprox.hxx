@@ -30,9 +30,9 @@
 #include <math_MultipleVarFunctionWithGradient.hxx>
 #include <AppParCurves_Constraint.hxx>
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class BRepApprox_ParLeastSquareOfMyGradientbisOfTheComputeLineOfApprox;
-class BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox;
+class ResConstraintOfMyGradientbisOfTheComputeLineOfApprox;
 class AppParCurves_MultiCurve;
 
 class BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox

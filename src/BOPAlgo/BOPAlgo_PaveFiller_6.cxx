@@ -828,7 +828,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
         //
         // check if the pave block has a valid range
         Standard_Real aFirst, aLast;
-        if (!BRepLib::FindValidRange(GeomAdaptor_Curve(aIC.Curve()),
+        if (!BRepLib1::FindValidRange(GeomAdaptor_Curve(aIC.Curve()),
                                      aTolR3D,
                                      aT1,
                                      BRepInspector::Pnt(aV1),
@@ -919,7 +919,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
                                        mySectionAttribute.PCurveOnS2(),
                                        myContext);
         //
-        // Append the Pave Block to the Curve j
+        // Append the Pave Block1 to the Curve j
         aLPBC.Append(aPB);
         //
         // Keep info for post treatment
@@ -963,7 +963,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
     aItMV.Initialize(aMVTol);
     for (; aItMV.More(); aItMV.Next())
     {
-      nV1                = aItMV.Key();
+      nV1                = aItMV.Key1();
       Standard_Real aTol = aItMV.Value();
       //
       const TopoVertex&        aV = *(TopoVertex*)&myDS->Shape(nV1);
@@ -973,7 +973,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
       BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nV1);
       Box2&         aBoxDS = aSIDS.ChangeBox();
       aBoxDS                  = Box2();
-      BRepBndLib::Add(aV, aBoxDS);
+      BRepBndLib1::Add(aV, aBoxDS);
       aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
       //
       if (aDMVLV.IsBound(nV1))
@@ -1530,7 +1530,7 @@ void BooleanPaveFiller::PostTreatFF(BOPDS_IndexedDataMapOfShapeCoupleOfPaveBlock
     if (pSD)
     {
       itDM.ChangeValue() = *pSD;
-      myDS->AddShapeSD(itDM.Key(), *pSD);
+      myDS->AddShapeSD(itDM.Key1(), *pSD);
     }
   }
   return;
@@ -1738,7 +1738,7 @@ void BooleanPaveFiller::UpdateFaceInfo(
       aItMV.Initialize(theDMV);
       for (; aItMV.More(); aItMV.Next())
       {
-        nV1 = aItMV.Key();
+        nV1 = aItMV.Key1();
         nV2 = aItMV.Value();
         //
         if (aMVOn.Remove(nV1))
@@ -2173,7 +2173,7 @@ void BooleanPaveFiller::PutBoundPaveOnCurve(const TopoFace&     aF1,
       aSIVn.SetShape(aVn);
 
       Box2& aBox = aSIVn.ChangeBox();
-      BRepBndLib::Add(aVn, aBox);
+      BRepBndLib1::Add(aVn, aBox);
       aBox.SetGap(aBox.GetGap() + Precision::Confusion());
 
       Standard_Integer nVn = myDS->Append(aSIVn);
@@ -2872,7 +2872,7 @@ void BooleanPaveFiller::PutPaveOnCurve(const Standard_Integer                 nV
         //
         BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nV);
         Box2&         aBoxDS = aSIDS.ChangeBox();
-        BRepBndLib::Add(aV, aBoxDS);
+        BRepBndLib1::Add(aV, aBoxDS);
         aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
       }
     }
@@ -2896,7 +2896,7 @@ void BooleanPaveFiller::ProcessExistingPaveBlocks(
   BOPDS_MapOfPaveBlock&                          theMPB)
 {
   Box2 aBoxES;
-  BRepBndLib::Add(theES, aBoxES, false);
+  BRepBndLib1::Add(theES, aBoxES, false);
 
   BOPTools_BoxTreeSelector aSelector;
   aSelector.SetBox(Tools5::Bnd2BVH(aBoxES));
@@ -3003,7 +3003,7 @@ void BooleanPaveFiller::ProcessExistingPaveBlocks(
   aItBV.Initialize(aDMBV);
   for (; aItBV.More(); aItBV.Next())
   {
-    iC                                = aItBV.Key();
+    iC                                = aItBV.Key1();
     const TColStd_ListOfInteger& aLBV = aItBV.Value();
     //
     BOPDS_Curve&           aNC   = aVC.ChangeValue(iC);
@@ -3359,7 +3359,7 @@ void BooleanPaveFiller::PutClosingPaveOnCurve(BOPDS_Curve& aNC)
   // Check if there will be valid range on the curve
   Standard_Real aFirst, aLast;
   Standard_Real aNewTolV = Max(aTolV, aDistVP + AlgoTools::DTolerance());
-  if (!BRepLib::FindValidRange(GeomAdaptor_Curve(aIC.Curve()),
+  if (!BRepLib1::FindValidRange(GeomAdaptor_Curve(aIC.Curve()),
                                aIC.Tolerance(),
                                aT[0],
                                aP[0],
@@ -3553,7 +3553,7 @@ void BooleanPaveFiller::UpdatePaveBlocks(const TColStd_DataMapOfIntegerInteger& 
       if (bRebuild)
       {
         Standard_Integer nE = aPB->Edge();
-        // Check if the Pave Block has the edge set
+        // Check if the Pave Block1 has the edge set
         if (nE < 0)
         {
           // untouched edge

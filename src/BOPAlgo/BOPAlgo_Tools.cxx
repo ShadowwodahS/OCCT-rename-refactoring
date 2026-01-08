@@ -161,7 +161,7 @@ void BooleanTools::PerformCommonBlocks(BOPDS_IndexedDataMapOfPaveBlockListOfPave
     for (aItLPB.Initialize(aLPB); aItLPB.More(); aItLPB.Next())
       pDS->SetCommonBlock(aItLPB.Value(), aCB);
 
-    // Compute tolerance for Common Block
+    // Compute tolerance for Common Block1
     Standard_Real aTolCB = BooleanTools::ComputeToleranceOfCB(aCB, pDS, theContext);
     aCB->SetTolerance(aTolCB);
   }
@@ -215,7 +215,7 @@ void BooleanTools::PerformCommonBlocks(const BOPDS_IndexedDataMapOfPaveBlockList
     }
     aCB->AppendFaces(aNewFaces);
     pDS->SetCommonBlock(aPB, aCB);
-    // Compute tolerance for Common Block
+    // Compute tolerance for Common Block1
     Standard_Real aTolCB = BooleanTools::ComputeToleranceOfCB(aCB, pDS, theContext);
     aCB->SetTolerance(aTolCB);
   }
@@ -463,7 +463,7 @@ Standard_Integer BooleanTools::EdgesToWires(const TopoShape&    theEdges,
     }
     //
     const gp_Pln& aPlnI = aDMEdgePln(i);
-    const Dir3d& aDI   = aPlnI.Position().Direction();
+    const Dir3d& aDI   = aPlnI.Position1().Direction();
     //
     aLPFence.Append(aDI);
     //
@@ -476,7 +476,7 @@ Standard_Integer BooleanTools::EdgesToWires(const TopoShape&    theEdges,
     // look for other edges with the plane parallel to current one
     for (j = i + 1; j <= aNbPlanes; ++j)
     {
-      const Dir3d& aDJ = aDMEdgePln(j).Position().Direction();
+      const Dir3d& aDJ = aDMEdgePln(j).Position1().Direction();
       if (aDI.IsParallel(aDJ, theAngTol))
       {
         const TopoShape& aEJ = aDMEdgePln.FindKey(j);
@@ -700,7 +700,7 @@ Standard_Boolean BooleanTools::WiresToFaces(const TopoShape& theWires,
       // check if the planes are the same
       const gp_Pln& aPlnJ = aDMWirePln(j);
       // check direction of the planes
-      if (!aPlnI.Position().Direction().IsParallel(aPlnJ.Position().Direction(), theAngTol))
+      if (!aPlnI.Position1().Direction().IsParallel(aPlnJ.Position1().Direction(), theAngTol))
       {
         continue;
       }
@@ -738,7 +738,7 @@ Standard_Boolean BooleanTools::WiresToFaces(const TopoShape& theWires,
       OCC_CATCH_SIGNALS
       //
       // build pcurves for edges on this face
-      BRepLib::BuildPCurveForEdgesOnPlane(aLE, aFF);
+      BRepLib1::BuildPCurveForEdgesOnPlane(aLE, aFF);
       //
       // split the face with the edges
       BOPAlgo_BuilderFace aBF;
@@ -856,7 +856,7 @@ Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, Vector3d& th
   // for the line the tangent is defined by the direction
   if (theCurve.GetType() == GeomAbs_Line)
   {
-    theTangent = theCurve.Line().Position().Direction();
+    theTangent = theCurve.Line().Position1().Direction();
     return Standard_True;
   }
   //
@@ -896,16 +896,16 @@ Standard_Boolean FindPlane(const BRepAdaptor_Curve& theCurve, gp_Pln& thePlane)
     case GeomAbs_Line:
       return Standard_False;
     case GeomAbs_Circle:
-      aVN = theCurve.Circle().Position().Direction();
+      aVN = theCurve.Circle().Position1().Direction();
       break;
     case GeomAbs_Ellipse:
-      aVN = theCurve.Ellipse().Position().Direction();
+      aVN = theCurve.Ellipse().Position1().Direction();
       break;
     case GeomAbs_Hyperbola:
-      aVN = theCurve.Hyperbola().Position().Direction();
+      aVN = theCurve.Hyperbola().Position1().Direction();
       break;
     case GeomAbs_Parabola:
-      aVN = theCurve.Parabola().Position().Direction();
+      aVN = theCurve.Parabola().Position1().Direction();
       break;
     default: {
       // for all other types of curve compute two tangent vectors
@@ -1566,7 +1566,7 @@ void BooleanTools::ClassifyFaces(const ShapeList&                theFaces,
     {
       // Build the bounding box
       Box2 aBox;
-      BRepBndLib::Add(aF, aBox);
+      BRepBndLib1::Add(aF, aBox);
       aSB.SetBox(aBox);
     }
   }
@@ -1603,7 +1603,7 @@ void BooleanTools::ClassifyFaces(const ShapeList&                theFaces,
     {
       // Build the bounding box
       Box2 aBox;
-      BRepBndLib::Add(aSolid, aBox);
+      BRepBndLib1::Add(aSolid, aBox);
       if (!aBox.IsWhole())
       {
         if (AlgoTools::IsInvertedSolid(aSolid))
@@ -1750,7 +1750,7 @@ void BooleanTools::FillInternals(const ShapeList&               theSolids,
   TopTools_DataMapOfShapeListOfShape::Iterator itM(anINFaces);
   for (; itM.More(); itM.Next())
   {
-    TopoSolid                aSd    = *(TopoSolid*)&itM.Key();
+    TopoSolid                aSd    = *(TopoSolid*)&itM.Key1();
     const ShapeList& aFaces = itM.Value();
 
     TopoCompound aCF;

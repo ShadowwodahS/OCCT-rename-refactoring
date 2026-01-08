@@ -139,7 +139,7 @@ static Standard_Integer setweight(DrawInterpreter& /*di*/, Standard_Integer n, c
 {
   if (n < 4 || n > 5)
   {
-    Message::SendFail() << "Syntax error: Wrong parameters";
+    Message1::SendFail() << "Syntax error: Wrong parameters";
     return 1;
   }
 
@@ -179,7 +179,7 @@ static Standard_Integer setweight(DrawInterpreter& /*di*/, Standard_Integer n, c
   Handle(Geom_BezierSurface)  aBezSurf  = DrawTrSurf1::GetBezierSurface(a[1]);
   if (n != 5 && (!aBSplSurf.IsNull() || !aBezSurf.IsNull()))
   {
-    Message::SendFail() << "Syntax error: Incorrect parameters";
+    Message1::SendFail() << "Syntax error: Incorrect parameters";
     return 1;
   }
 
@@ -195,13 +195,13 @@ static Standard_Integer setweight(DrawInterpreter& /*di*/, Standard_Integer n, c
     return 0;
   }
 
-  Message::SendFail() << a[1] << " is not a B-spline nor a Bezier curve/surface";
+  Message1::SendFail() << a[1] << " is not a B-spline nor a Bezier curve/surface";
   return 1;
 }
 
 //=================================================================================================
 
-void GeomliteTest::ModificationCommands(DrawInterpreter& theCommands)
+void GeomliteTest1::ModificationCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)

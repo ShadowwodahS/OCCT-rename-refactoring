@@ -33,14 +33,14 @@ static Standard_Integer BuildPcurvesOnPlane(DrawInterpreter&, Standard_Integer, 
 
 //=================================================================================================
 
-void BOPTest::UtilityCommands(DrawInterpreter& theCommands)
+void BOPTest1::UtilityCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* group = "BOPTest commands";
+  const char* group = "BOPTest1 commands";
   // Commands
 
   theCommands.Add("attachpcurve", "attachpcurve eold enew face", __FILE__, attachpcurve, group);
@@ -246,7 +246,7 @@ static Standard_Integer BuildPcurvesOnPlane(DrawInterpreter& theDI,
       ShapeExplorer      exp1(aF, TopAbs_EDGE);
       for (; exp1.More(); exp1.Next())
         aLE.Append(exp1.Current());
-      BRepLib::BuildPCurveForEdgesOnPlane(aLE, aF);
+      BRepLib1::BuildPCurveForEdgesOnPlane(aLE, aF);
     }
   }
   return 0;

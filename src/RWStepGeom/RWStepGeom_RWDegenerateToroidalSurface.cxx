@@ -78,7 +78,7 @@ void RWStepGeom_RWDegenerateToroidalSurface::WriteStep(
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- inherited field majorRadius ---
 
@@ -98,5 +98,5 @@ void RWStepGeom_RWDegenerateToroidalSurface::Share(
   Interface_EntityIterator&                         iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

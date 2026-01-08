@@ -70,7 +70,7 @@ void RWStepShape_RWTorus::WriteStep(StepData_StepWriter&           SW,
 
   // --- own field : position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : majorRadius ---
 
@@ -85,5 +85,5 @@ void RWStepShape_RWTorus::Share(const Handle(StepShape_Torus)& ent,
                                 Interface_EntityIterator&      iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

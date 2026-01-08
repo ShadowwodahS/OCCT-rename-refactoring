@@ -38,13 +38,13 @@ public:
 
   //! This method is used to set the fields of the class
   //! ExternalReferenceFile
-  //! - aNameArray : External Reference File Names
+  //! - aNameArray : External Reference1 File Names
   Standard_EXPORT void Init(const Handle(Interface_HArray1OfHAsciiString)& aNameArray);
 
-  //! returns number of External Reference File Names
+  //! returns number of External Reference1 File Names
   Standard_EXPORT Standard_Integer NbListEntries() const;
 
-  //! returns External Reference File Name
+  //! returns External Reference1 File Name
   //! raises exception if Index <= 0 or Index > NbListEntries()
   Standard_EXPORT Handle(TCollection_HAsciiString) Name(const Standard_Integer Index) const;
 

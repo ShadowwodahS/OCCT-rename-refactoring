@@ -25,7 +25,7 @@
 //! a maximal chordial deviation.
 //! The number of isoparametric curves to be drawn and their color are
 //! controlled by the furnished Drawer.
-class StdPrs_WFDeflectionSurface : public Prs3d_Root
+class StdPrs_WFDeflectionSurface : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

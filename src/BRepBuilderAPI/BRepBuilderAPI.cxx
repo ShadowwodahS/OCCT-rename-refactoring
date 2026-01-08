@@ -25,28 +25,28 @@
 
 //=================================================================================================
 
-void BRepBuilderAPI::Plane1(const Handle(GeomPlane)& P)
+void BRepBuilderAPI1::Plane1(const Handle(GeomPlane)& P)
 {
-  BRepLib::Plane1(P);
+  BRepLib1::Plane1(P);
 }
 
 //=================================================================================================
 
-const Handle(GeomPlane)& BRepBuilderAPI::Plane1()
+const Handle(GeomPlane)& BRepBuilderAPI1::Plane1()
 {
-  return BRepLib::Plane1();
+  return BRepLib1::Plane1();
 }
 
 //=================================================================================================
 
-void BRepBuilderAPI::Precision(const Standard_Real P)
+void BRepBuilderAPI1::Precision(const Standard_Real P)
 {
-  BRepLib::Precision(P);
+  BRepLib1::Precision(P);
 }
 
 //=================================================================================================
 
-Standard_Real BRepBuilderAPI::Precision()
+Standard_Real BRepBuilderAPI1::Precision()
 {
-  return BRepLib::Precision();
+  return BRepLib1::Precision();
 }

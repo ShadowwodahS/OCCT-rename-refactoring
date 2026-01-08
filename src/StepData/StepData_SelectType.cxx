@@ -160,12 +160,12 @@ static Handle(StepData_SelectMember) SelectVal(const Handle(RefObject)& thevalue
   return sm;
 }
 
-Standard_Integer StepData_SelectType::Integer() const
+Standard_Integer StepData_SelectType::Integer1() const
 {
   DeclareAndCast(StepData_SelectMember, sm, thevalue);
   if (sm.IsNull())
     return 0;
-  return sm->Integer();
+  return sm->Integer1();
 }
 
 void StepData_SelectType::SetInteger(const Standard_Integer val, const Standard_CString name)

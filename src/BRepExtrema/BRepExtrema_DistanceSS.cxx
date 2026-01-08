@@ -153,9 +153,9 @@ static void TRIM_INFINIT_EDGE(const TopoEdge& S1,
   {
     Box2 aEdgeBox;
     if (bIsTrim1)
-      BRepBndLib::Add(S2, aEdgeBox);
+      BRepBndLib1::Add(S2, aEdgeBox);
     if (bIsTrim2)
-      BRepBndLib::Add(S1, aEdgeBox);
+      BRepBndLib1::Add(S1, aEdgeBox);
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
     aEdgeBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
 
@@ -313,7 +313,7 @@ static void TRIM_INFINIT_FACE(const TopoShape& S1,
   if (bIsTrim)
   {
     Box2 aEdgeBox;
-    BRepBndLib::Add(aE, aEdgeBox);
+    BRepBndLib1::Add(aE, aEdgeBox);
 
     if (aEdgeBox.IsWhole())
       return;
@@ -572,7 +572,7 @@ static Standard_Boolean isOnBoundary(const TopoEdge&  theEdge,
 
 //=================================================================================================
 
-void BRepExtrema_DistanceSS::Perform(const TopoShape& theS1,
+void DistanceSS::Perform(const TopoShape& theS1,
                                      const TopoShape& theS2,
                                      const Box2&      theBox1,
                                      const Box2&      theBox2)
@@ -690,7 +690,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoShape& theS1,
 // function : Perform
 // purpose  : Vertex-Vertex
 //=======================================================================
-void BRepExtrema_DistanceSS::Perform(const TopoVertex&       theS1,
+void DistanceSS::Perform(const TopoVertex&       theS1,
                                      const TopoVertex&       theS2,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)
@@ -715,7 +715,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoVertex&       theS1,
 // function : Perform
 // purpose  : Vertex-Edge
 //=======================================================================
-void BRepExtrema_DistanceSS::Perform(const TopoVertex&       theS1,
+void DistanceSS::Perform(const TopoVertex&       theS1,
                                      const TopoEdge&         theS2,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)
@@ -772,7 +772,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoVertex&       theS1,
 // function : Perform
 // purpose  : Vertex-Face
 //=======================================================================
-void BRepExtrema_DistanceSS::Perform(const TopoVertex&       theS1,
+void DistanceSS::Perform(const TopoVertex&       theS1,
                                      const TopoFace&         theS2,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)
@@ -830,7 +830,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoVertex&       theS1,
 // function : Perform
 // purpose  : Edge-Edge
 //=======================================================================
-void BRepExtrema_DistanceSS::Perform(const TopoEdge&         theS1,
+void DistanceSS::Perform(const TopoEdge&         theS1,
                                      const TopoEdge&         theS2,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)
@@ -920,7 +920,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoEdge&         theS1,
 // function : Perform
 // purpose  : Edge-Face
 //=======================================================================
-void BRepExtrema_DistanceSS::Perform(const TopoEdge&         theS1,
+void DistanceSS::Perform(const TopoEdge&         theS1,
                                      const TopoFace&         theS2,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)
@@ -1075,7 +1075,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoEdge&         theS1,
 // function : Perform
 // purpose  : Face-Face
 //=======================================================================
-void BRepExtrema_DistanceSS::Perform(const TopoFace&         theS1,
+void DistanceSS::Perform(const TopoFace&         theS1,
                                      const TopoFace&         theS2,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)

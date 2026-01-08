@@ -78,12 +78,12 @@ void ProjLib_Cone::Project(const gp_Lin& L)
     aDeltaV = 1.0; // == ||L.Direction()|| == 1.0
   }
 
-  ElSLib1::ConeParameters(myCone.Position(), myCone.RefRadius(), myCone.SemiAngle(), aPnt, U, V);
+  ElSLib1::ConeParameters(myCone.Position1(), myCone.RefRadius(), myCone.SemiAngle(), aPnt, U, V);
   //
   Point3d P;
   Vector3d Vu, Vv;
 
-  ElSLib1::ConeD1(U, V, myCone.Position(), myCone.RefRadius(), myCone.SemiAngle(), P, Vu, Vv);
+  ElSLib1::ConeD1(U, V, myCone.Position1(), myCone.RefRadius(), myCone.SemiAngle(), P, Vu, Vv);
 
   Dir3d Dv(Vv);
   if (Dv.IsParallel(L.Direction(), Precision::Angular()))
@@ -107,8 +107,8 @@ void ProjLib_Cone::Project(const gp_Circ& C)
 {
   myType = GeomAbs_Line;
 
-  Ax3 ConePos = myCone.Position();
-  Ax3 CircPos = C.Position();
+  Ax3 ConePos = myCone.Position1();
+  Ax3 CircPos = C.Position1();
   //
   if (!ConePos.Direction().IsParallel(CircPos.Direction(), Precision::Angular()))
   {

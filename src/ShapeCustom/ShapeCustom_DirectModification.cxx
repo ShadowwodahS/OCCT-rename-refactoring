@@ -62,7 +62,7 @@ static Standard_Integer IsIndirectSurface(Handle(GeomSurface)& S, TopLoc_Locatio
     Transform3d          t   = L.Transformation();
     Standard_Boolean neg = t.IsNegative();
     Standard_Boolean det = (t.VectorialPart().Determinant() < 0.0);
-    Standard_Boolean dir = ES->Position().Direct();
+    Standard_Boolean dir = ES->Position1().Direct();
     if ((neg != det) == dir)
       result = 1;
     Handle(Geom_ConicalSurface) CS = Handle(Geom_ConicalSurface)::DownCast(ES);

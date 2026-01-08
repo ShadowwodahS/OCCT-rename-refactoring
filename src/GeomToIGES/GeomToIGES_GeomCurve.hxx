@@ -62,7 +62,7 @@ public:
   Standard_EXPORT GeomToIGES_GeomCurve(const GeomToIGES_GeomEntity& GE);
 
   //! Transfert  a  GeometryEntity which  answer True  to  the
-  //! member : BRepToIGES::IsGeomCurve(Geometry).  If this
+  //! member : BRepToIGES::IsGeomCurve(Geometry1).  If this
   //! Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(GeomCurve3d)& start,
                                                             const Standard_Real       Udeb,

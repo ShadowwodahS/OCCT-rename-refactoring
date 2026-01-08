@@ -44,7 +44,7 @@ Handle(TypeInfo) XmlMDataStd_GenericEmptyDriver::SourceType() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataStd_GenericEmptyDriver::Paste(const XmlObjMgt_Persistent&,
+Standard_Boolean XmlMDataStd_GenericEmptyDriver::Paste(const PersistentStorage&,
                                                        const Handle(TDF_Attribute)&,
                                                        XmlObjMgt_RRelocationTable&) const
 {
@@ -54,7 +54,7 @@ Standard_Boolean XmlMDataStd_GenericEmptyDriver::Paste(const XmlObjMgt_Persisten
 //=================================================================================================
 
 void XmlMDataStd_GenericEmptyDriver::Paste(const Handle(TDF_Attribute)&,
-                                           XmlObjMgt_Persistent&,
+                                           PersistentStorage&,
                                            XmlObjMgt_SRelocationTable&) const
 {
 }

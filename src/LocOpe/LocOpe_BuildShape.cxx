@@ -262,13 +262,13 @@ void LocOpe_BuildShape::Perform(const ShapeList& L)
     {
       TopoSolid newSo;
       B.MakeSolid(newSo);
-      B.Add(newSo, itdm.Key());
+      B.Add(newSo, itdm.Key1());
       for (itl.Initialize(itdm.Value()); itl.More(); itl.Next())
       {
         B.Add(newSo, itl.Value().Reversed());
       }
       lsolid.Append(newSo);
-      imbSh.UnBind(itdm.Key());
+      imbSh.UnBind(itdm.Key1());
     }
     else
     {
@@ -276,7 +276,7 @@ void LocOpe_BuildShape::Perform(const ShapeList& L)
       {
         TopoSolid newSo;
         B.MakeSolid(newSo);
-        B.Add(newSo, itdm.Key());
+        B.Add(newSo, itdm.Key1());
         lsolid.Append(newSo);
       }
       imbSh.Clear();
@@ -389,7 +389,7 @@ static void Propagate(const TopoShape&               F,
     TColStd_MapIteratorOfMapOfInteger itm(mapIf);
     for (; itm.More(); itm.Next())
     {
-      const TopoShape& newF = mapF(itm.Key());
+      const TopoShape& newF = mapF(itm.Key1());
       //      for (ShapeExplorer exp2(newF,TopAbs_EDGE);exp2.More(); exp2.Next()) {
       ShapeExplorer exp2(newF, TopAbs_EDGE);
       for (; exp2.More(); exp2.Next())
@@ -407,7 +407,7 @@ static void Propagate(const TopoShape&               F,
     }
     if (itm.More())
     {
-      TopoShape     FtoAdd = mapF(itm.Key());
+      TopoShape     FtoAdd = mapF(itm.Key1());
       Standard_Boolean added  = Standard_False;
       if (ored2 == ored1)
       {

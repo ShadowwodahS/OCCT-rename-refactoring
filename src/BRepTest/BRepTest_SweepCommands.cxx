@@ -104,7 +104,7 @@ static Standard_Integer prism(DrawInterpreter&, Standard_Integer n, const char**
   // History
   ShapeList anArgs;
   anArgs.Append(base);
-  BRepTest_Objects::SetHistory(anArgs, *Prism);
+  Objects1::SetHistory(anArgs, *Prism);
 
   delete Prism;
 
@@ -142,7 +142,7 @@ static Standard_Integer revol(DrawInterpreter& di, Standard_Integer n, const cha
     // History
     ShapeList anArgs;
     anArgs.Append(base);
-    BRepTest_Objects::SetHistory(anArgs, Revol);
+    Objects1::SetHistory(anArgs, Revol);
   }
   else
   {
@@ -199,12 +199,12 @@ static Standard_Integer pipe(DrawInterpreter& di, Standard_Integer n, const char
   DBRep1::Set(a[1], S);
 
   // Save history of pipe
-  if (BRepTest_Objects::IsHistoryNeeded())
+  if (Objects1::IsHistoryNeeded())
   {
     ShapeList aList;
     aList.Append(Profile);
     aList.Append(Spine);
-    BRepTest_Objects::SetHistory(aList, PipeBuilder);
+    Objects1::SetHistory(aList, PipeBuilder);
   }
 
   return 0;
@@ -244,7 +244,7 @@ static Standard_Integer geompipe(DrawInterpreter&, Standard_Integer n, const cha
   aPipe.Perform(Standard_True);
   if (!aPipe.IsDone())
   {
-    Message::SendFail() << "GeomFill_Pipe cannot make a surface";
+    Message1::SendFail() << "GeomFill_Pipe cannot make a surface";
     return 1;
   }
 
@@ -527,8 +527,8 @@ Standard_Integer thrusections(DrawInterpreter& di, Standard_Integer n, const cha
     TopoShape Shell = Generator->Shape();
     DBRep1::Set(a[index - 1], Shell);
     // Save history of the lofting
-    if (BRepTest_Objects::IsHistoryNeeded())
-      BRepTest_Objects::SetHistory(Generator->Wires(), *Generator);
+    if (Objects1::IsHistoryNeeded())
+      Objects1::SetHistory(Generator->Wires(), *Generator);
   }
   else
   {
@@ -596,9 +596,9 @@ static Standard_Integer mksweep(DrawInterpreter& di, Standard_Integer n, const c
       aUnif.SetLinearTolerance(aLinTol);
       aUnif.Build();
       Spine = aUnif.Shape();
-      if (BRepTest_Objects::IsHistoryNeeded())
+      if (Objects1::IsHistoryNeeded())
       {
-        BRepTest_Objects::SetHistory(aUnif.History());
+        Objects1::SetHistory(aUnif.History());
       }
     }
     else
@@ -968,13 +968,13 @@ static Standard_Integer buildsweep(DrawInterpreter& di, Standard_Integer n, cons
     result = Sweep->Shape();
     DBRep1::Set(a[1], result);
     // Save history of sweep
-    if (BRepTest_Objects::IsHistoryNeeded())
+    if (Objects1::IsHistoryNeeded())
     {
       ShapeList aList;
       Sweep->Profiles(aList);
       TopoShape aSpine = Sweep->Spine();
       aList.Append(aSpine);
-      BRepTest_Objects::SetHistory(aList, *Sweep);
+      Objects1::SetHistory(aList, *Sweep);
     }
   }
 
@@ -1081,7 +1081,7 @@ static Standard_Integer middlepath(DrawInterpreter& /*di*/, Standard_Integer n, 
 
 //=================================================================================================
 
-void BRepTest::SweepCommands(DrawInterpreter& theCommands)
+void BRepTest1::SweepCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

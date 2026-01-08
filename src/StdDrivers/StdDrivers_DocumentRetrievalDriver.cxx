@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StdDrivers_DocumentRetrievalDriver, StdLDrivers_Docum
 // function : bindTypes
 // purpose  : Register types
 //=======================================================================
-void StdDrivers_DocumentRetrievalDriver::bindTypes(StdObjMgt_MapOfInstantiators& theMap)
+void StdDrivers_DocumentRetrievalDriver::bindTypes(MapOfInstantiators& theMap)
 {
-  StdDrivers::BindTypes(theMap);
+  StdDrivers1::BindTypes(theMap);
 }

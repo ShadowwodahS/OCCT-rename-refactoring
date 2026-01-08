@@ -423,10 +423,10 @@ public:
                                                Standard_Integer&      NbGaussPoints,
                                                Standard_Integer&      WorkDegree);
 
-  //! translates from GeomAbs_Shape to Integer
+  //! translates from GeomAbs_Shape to Integer1
   Standard_EXPORT static Standard_Integer NivConstr(const GeomAbs_Shape ConstraintOrder);
 
-  //! translates from Integer to GeomAbs_Shape
+  //! translates from Integer1 to GeomAbs_Shape
   Standard_EXPORT static GeomAbs_Shape ConstraintOrder(const Standard_Integer NivConstr);
 
   Standard_EXPORT static void EvalLength(const Standard_Integer Degree,

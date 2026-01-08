@@ -713,7 +713,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoShape&       Sbase,
               itm.Initialize(mySlface);
               for (; itm.More(); itm.Next())
               {
-                const TopoFace&                 fac  = TopoDS::Face(itm.Key());
+                const TopoFace&                 fac  = TopoDS::Face(itm.Key1());
                 const ShapeList&        ledg = itm.Value();
                 TopTools_ListIteratorOfListOfShape itedg(ledg);
                 // Standard_Integer iiii = 0;
@@ -1322,7 +1322,7 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
   {
     for (; itm.More(); itm.Next())
     {
-      const TopoFace&                 fac  = TopoDS::Face(itm.Key());
+      const TopoFace&                 fac  = TopoDS::Face(itm.Key1());
       const ShapeList&        ledg = itm.Value();
       TopTools_ListIteratorOfListOfShape it;
       for (it.Initialize(ledg); it.More(); it.Next())

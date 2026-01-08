@@ -234,9 +234,9 @@ void HLRBRep_HLRToShape::DrawEdge(const Standard_Boolean visible,
       {
         It.Visible(sta, tolsta, end, tolend);
         if (!In3d)
-          E = HLRBRep1::MakeEdge(ed.Geometry(), sta, end);
+          E = HLRBRep1::MakeEdge(ed.Geometry1(), sta, end);
         else
-          E = HLRBRep1::MakeEdge3d(ed.Geometry(), sta, end);
+          E = HLRBRep1::MakeEdge3d(ed.Geometry1(), sta, end);
         if (!E.IsNull())
         {
           B.Add(Result, E);
@@ -250,9 +250,9 @@ void HLRBRep_HLRToShape::DrawEdge(const Standard_Boolean visible,
       {
         It.Hidden(sta, tolsta, end, tolend);
         if (!In3d)
-          E = HLRBRep1::MakeEdge(ed.Geometry(), sta, end);
+          E = HLRBRep1::MakeEdge(ed.Geometry1(), sta, end);
         else
-          E = HLRBRep1::MakeEdge3d(ed.Geometry(), sta, end);
+          E = HLRBRep1::MakeEdge3d(ed.Geometry1(), sta, end);
         if (!E.IsNull())
         {
           B.Add(Result, E);

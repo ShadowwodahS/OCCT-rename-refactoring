@@ -56,12 +56,12 @@ Standard_Boolean TransferBRep_ShapeMapper::Equates(const Handle(Transfer_Finder)
 
 Handle(TypeInfo) TransferBRep_ShapeMapper::ValueType() const
 {
-  return TransferBRep_ShapeInfo::Type(theval);
+  return ShapeInfo::Type(theval);
 }
 
 //=================================================================================================
 
 Standard_CString TransferBRep_ShapeMapper::ValueTypeName() const
 {
-  return TransferBRep_ShapeInfo::TypeName(theval);
+  return ShapeInfo::TypeName(theval);
 }

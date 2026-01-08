@@ -97,7 +97,7 @@ TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoSolid& aSol
   done = Standard_False;
 
   // Looking for the Outer Shell
-  TopoShell aOuterShell = BRepClass3d::OuterShell(aSolid);
+  TopoShell aOuterShell = BRepClass3d1::OuterShell(aSolid);
 
   if (!aOuterShell.IsNull())
   {

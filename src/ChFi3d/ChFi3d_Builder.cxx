@@ -396,7 +396,7 @@ void ChFi3d_Builder::Compute()
           if (II.IsNull())
             continue;
           TopOpeBRepDS_Kind gk = II->GeometryType();
-          Standard_Integer  gi = II->Geometry();
+          Standard_Integer  gi = II->Geometry1();
           if (gk == TopOpeBRepDS_VERTEX)
           {
             const TopoVertex& v    = TopoDS::Vertex(myDS->Shape(gi));
@@ -429,7 +429,7 @@ void ChFi3d_Builder::Compute()
       TColStd_MapIteratorOfMapOfInteger It(MapIndSo);
       for (; It.More(); It.Next())
       {
-        Standard_Integer    indsol   = It.Key();
+        Standard_Integer    indsol   = It.Key1();
         const TopoShape& curshape = DStr.Shape(indsol);
         myCoup->MergeSolid(curshape, TopAbs_IN);
       }
@@ -463,7 +463,7 @@ void ChFi3d_Builder::Compute()
         B1.MakeCompound(TopoDS::Compound(myShapeResult));
         for (It = TColStd_MapIteratorOfMapOfInteger(MapIndSo); It.More(); It.Next())
         {
-          Standard_Integer                   indsol   = It.Key();
+          Standard_Integer                   indsol   = It.Key1();
           const TopoShape&                curshape = DStr.Shape(indsol);
           TopTools_ListIteratorOfListOfShape its      = myCoup->Merged(curshape, TopAbs_IN);
           if (!its.More())
@@ -497,7 +497,7 @@ void ChFi3d_Builder::Compute()
         B1.MakeCompound(TopoDS::Compound(badShape));
         for (It = TColStd_MapIteratorOfMapOfInteger(MapIndSo); It.More(); It.Next())
         {
-          Standard_Integer                   indsol   = It.Key();
+          Standard_Integer                   indsol   = It.Key1();
           const TopoShape&                curshape = DStr.Shape(indsol);
           TopTools_ListIteratorOfListOfShape its      = myCoup->Merged(curshape, TopAbs_IN);
           if (!its.More())
@@ -614,8 +614,8 @@ void ChFi3d_Builder::Compute()
       for (; aIt.More(); aIt.Next())
       {
         const TopoShape& aF = aIt.Value();
-        BRepLib::SameParameter(aF, SameParTol, Standard_True);
-        ShapeFix::SameParameter(aF, Standard_False, SameParTol);
+        BRepLib1::SameParameter(aF, SameParTol, Standard_True);
+        ShapeFix1::SameParameter(aF, Standard_False, SameParTol);
       }
     }
   }

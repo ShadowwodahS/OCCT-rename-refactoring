@@ -112,7 +112,7 @@ public:
 
   //! Tells if this check list complies with a given status :
   //! OK (i.e. empty),  Warning (at least one Warning, but no Fail),
-  //! Fail (at least one), Message (not OK), NoFail, Any
+  //! Fail (at least one), Message1 (not OK), NoFail, Any
   Standard_EXPORT Standard_Boolean Complies(const Interface_CheckStatus status) const;
 
   //! Returns a CheckIterator which contains the checks which comply

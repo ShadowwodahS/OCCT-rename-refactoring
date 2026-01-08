@@ -46,7 +46,7 @@ Handle(TDF_Attribute) XmlMDataXtd_TriangulationDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataXtd_TriangulationDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataXtd_TriangulationDriver::Paste(const PersistentStorage&  theSource,
                                                         const Handle(TDF_Attribute)& theTarget,
                                                         XmlObjMgt_RRelocationTable&) const
 {
@@ -63,7 +63,7 @@ Standard_Boolean XmlMDataXtd_TriangulationDriver::Paste(const XmlObjMgt_Persiste
   }
 
   // Get mesh as a string.
-  const XmlObjMgt_DOMString& data = XmlObjMgt::GetStringValue(element);
+  const XmlObjMgt_DOMString& data = XmlObjMgt1::GetStringValue(element);
   std::stringstream          stream(std::string(data.GetString()));
 
   Standard_Integer i, n1, n2, n3;
@@ -119,7 +119,7 @@ Standard_Boolean XmlMDataXtd_TriangulationDriver::Paste(const XmlObjMgt_Persiste
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                            XmlObjMgt_Persistent&        theTarget,
+                                            PersistentStorage&        theTarget,
                                             XmlObjMgt_SRelocationTable&) const
 {
   const Handle(TDataXtd_Triangulation) attribute =
@@ -184,7 +184,7 @@ void XmlMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
     // clang-format off
     Standard_Character* dump = (Standard_Character*)stream.str(); // copying! Don't forget to delete it.
     // clang-format on
-    XmlObjMgt::SetStringValue(theTarget, dump, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, dump, Standard_True);
     delete[] dump;
   }
 }

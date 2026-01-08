@@ -23,7 +23,7 @@
 
 //! Contains commands to work with geometric validation
 //! properties of shapes
-class XDEDRAW_Props
+class PropertyCommands
 {
 public:
   DEFINE_STANDARD_ALLOC

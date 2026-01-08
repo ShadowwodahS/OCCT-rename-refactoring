@@ -47,7 +47,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
     for (TColStd_MapIteratorOfPackedMapOfInteger aNodesIter(anAllNodesMap); aNodesIter.More();
          aNodesIter.Next())
     {
-      const Standard_Integer aNodeIdx = aNodesIter.Key();
+      const Standard_Integer aNodeIdx = aNodesIter.Key1();
       if (theParentMesh->IsSelectableNode(aNodeIdx))
       {
         const Point3d aVertex = getVertexByIndex(aNodeIdx);
@@ -68,7 +68,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
     for (TColStd_MapIteratorOfPackedMapOfInteger aNodesIter(anAllNodesMap); aNodesIter.More();
          aNodesIter.Next())
     {
-      const Standard_Integer aNodeIdx = aNodesIter.Key();
+      const Standard_Integer aNodeIdx = aNodesIter.Key1();
       const Point3d           aVertex  = getVertexByIndex(aNodeIdx);
       aCenter += aVertex.XYZ();
       myBndBox.Add(SelectMgr_Vec3(aVertex.X(), aVertex.Y(), aVertex.Z()));
@@ -80,7 +80,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
     for (TColStd_MapIteratorOfPackedMapOfInteger anElemIter(anAllElementsMap); anElemIter.More();
          anElemIter.Next())
     {
-      const Standard_Integer anElemIdx = anElemIter.Key();
+      const Standard_Integer anElemIdx = anElemIter.Key1();
       if (theParentMesh->IsSelectableElem(anElemIdx)
           && myDataSource->GetGeomType(anElemIdx, Standard_True, aType) && aType == MeshVS_ET_Face)
       {
@@ -208,8 +208,8 @@ void MeshVS_CommonSensitiveEntity::Swap(const Standard_Integer theIdx1,
 //=================================================================================================
 
 Standard_Boolean MeshVS_CommonSensitiveEntity::overlapsElement(
-  SelectBasics_PickResult&             thePickResult,
-  SelectBasics_SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
@@ -266,7 +266,7 @@ Standard_Boolean MeshVS_CommonSensitiveEntity::overlapsElement(
 //=================================================================================================
 
 Standard_Boolean MeshVS_CommonSensitiveEntity::elementIsInside(
-  SelectBasics_SelectingVolumeManager& theMgr,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
@@ -319,7 +319,7 @@ Standard_Boolean MeshVS_CommonSensitiveEntity::elementIsInside(
 //=================================================================================================
 
 Standard_Real MeshVS_CommonSensitiveEntity::distanceToCOG(
-  SelectBasics_SelectingVolumeManager& theMgr)
+  SelectingVolumeManager& theMgr)
 {
   return theMgr.DistToGeometryCenter(myCOG);
 }

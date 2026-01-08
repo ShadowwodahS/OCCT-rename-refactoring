@@ -35,7 +35,7 @@ public:
   Standard_EXPORT V3d_PositionalLight(const Point3d&         thePos,
                                       const Quantity_Color& theColor = Quantity_NOC_WHITE);
 
-  using Graphic3d_CLight::Position;
+  using Graphic3d_CLight::Position1;
   using Graphic3d_CLight::SetPosition;
 
   //! @name hidden properties not applicable to positional light

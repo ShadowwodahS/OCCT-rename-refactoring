@@ -122,7 +122,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theType
   BinMDF_DataMapIteratorOfTypeADriverMap it(myMap);
   for (; it.More(); it.Next())
   {
-    const Handle(TypeInfo)&   aType     = it.Key();
+    const Handle(TypeInfo)&   aType     = it.Key1();
     const Handle(BinMDF_ADriver)&  aDriver   = it.Value();
     const AsciiString1& aTypeName = aDriver->TypeName();
     if (aStringIdMap.IsBound(aTypeName))
@@ -137,7 +137,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theType
   {
     if (!myMapId.IsBound2(aStrId.Value()))
     {
-      if (Handle(TypeInfo) anAdded = AddDerivedDriver(aStrId.Key().ToCString()))
+      if (Handle(TypeInfo) anAdded = AddDerivedDriver(aStrId.Key1().ToCString()))
       {
         myMapId.Bind(anAdded, aStrId.Value());
       }

@@ -26,7 +26,7 @@ class ViewWindow;
 //! using Aspect_Window::InvalidateContent() method. Normally, GUI application should done
 //! continuous rendering in simple fashion - just by drawing next frame without waiting for new
 //! events from windowing system; however, implementation of this approach is problematic in context
-//! of ViewerTest due to message loop binding mechanism implied by Tcl/Tk.
+//! of ViewerTest1 due to message loop binding mechanism implied by Tcl/Tk.
 class ViewerTest_ContinuousRedrawer
 {
 public:

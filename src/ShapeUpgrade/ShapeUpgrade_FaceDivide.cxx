@@ -80,7 +80,7 @@ void ShapeUpgrade_FaceDivide::SetSurfaceSegmentMode(const Standard_Boolean Segme
 
 Standard_Boolean ShapeUpgrade_FaceDivide::Perform(const Standard_Real theArea)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (myFace.IsNull())
     return Standard_False;
   myResult = myFace;
@@ -100,7 +100,7 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
   // myResult should be face; else return with FAIL
   if (myResult.IsNull() || myResult.ShapeType() != TopAbs_FACE)
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
     return Standard_False;
   }
   TopoFace face = TopoDS::Face(myResult);
@@ -167,10 +167,10 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
     CompShell.SetTransferParamTool(GetWireDivideTool()->GetTransferParamTool());
   CompShell.Perform();
   if (CompShell.Status(ShapeExtend_FAIL) || !CompShell.Status(ShapeExtend_DONE))
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
   myResult = CompShell.Result();
-  myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+  myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
 
   return Standard_True;
 }
@@ -191,7 +191,7 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitCurves()
     // S should be face; else return with FAIL
     if (S.IsNull() || S.ShapeType() != TopAbs_FACE)
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
       return Standard_False;
     }
     TopoFace F = TopoDS::Face(S);
@@ -208,10 +208,10 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitCurves()
       SplitWire->SetContext(Context());
       SplitWire->Perform();
       if (SplitWire->Status(ShapeExtend_FAIL))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
       if (SplitWire->Status(ShapeExtend_DONE))
       {
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
         Context()->Replace(wire, SplitWire->Wire());
       }
     }
@@ -231,7 +231,7 @@ TopoShape ShapeUpgrade_FaceDivide::Result() const
 
 Standard_Boolean ShapeUpgrade_FaceDivide::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 //=================================================================================================

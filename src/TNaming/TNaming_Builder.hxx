@@ -70,8 +70,8 @@ public:
   //! of shapes under a label.
   Standard_EXPORT void Select(const TopoShape& aShape, const TopoShape& inShape);
 
-  //! Returns the NamedShape which has been built or is under construction.
-  Standard_EXPORT Handle(ShapeAttribute) NamedShape() const;
+  //! Returns the NamedShape1 which has been built or is under construction.
+  Standard_EXPORT Handle(ShapeAttribute) NamedShape1() const;
 
 protected:
 private:

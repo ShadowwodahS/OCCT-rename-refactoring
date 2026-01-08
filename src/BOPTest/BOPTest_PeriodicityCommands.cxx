@@ -45,14 +45,14 @@ static BOPAlgo_MakePeriodic& getPeriodicityMaker()
 
 //=================================================================================================
 
-void BOPTest::PeriodicityCommands(DrawInterpreter& theCommands)
+void BOPTest1::PeriodicityCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* group = "BOPTest commands";
+  const char* group = "BOPTest1 commands";
   // Commands
   theCommands.Add("makeperiodic",
                   "makeperiodic result shape [-x/y/z period [-trim first]]\n"
@@ -166,16 +166,16 @@ Standard_Integer MakePeriodic(DrawInterpreter& theDI,
     }
   }
 
-  getPeriodicityMaker().SetRunParallel(BOPTest_Objects::RunParallel());
+  getPeriodicityMaker().SetRunParallel(Objects::RunParallel());
 
   // Perform operation
   getPeriodicityMaker().Perform();
 
   // Print Error/Warning messages
-  BOPTest::ReportAlerts(getPeriodicityMaker().GetReport());
+  BOPTest1::ReportAlerts(getPeriodicityMaker().GetReport());
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getPeriodicityMaker().History());
+  Objects1::SetHistory(getPeriodicityMaker().History());
 
   if (getPeriodicityMaker().HasErrors())
   {
@@ -270,10 +270,10 @@ Standard_Integer RepeatShape(DrawInterpreter& theDI,
   }
 
   // Print Error/Warning messages
-  BOPTest::ReportAlerts(getPeriodicityMaker().GetReport());
+  BOPTest1::ReportAlerts(getPeriodicityMaker().GetReport());
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getPeriodicityMaker().History());
+  Objects1::SetHistory(getPeriodicityMaker().History());
 
   if (getPeriodicityMaker().HasErrors())
   {
@@ -295,7 +295,7 @@ Standard_Integer ClearRepetitions(DrawInterpreter&, Standard_Integer theArgc, co
   getPeriodicityMaker().ClearRepetitions();
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getPeriodicityMaker().History());
+  Objects1::SetHistory(getPeriodicityMaker().History());
 
   if (theArgc > 1)
   {

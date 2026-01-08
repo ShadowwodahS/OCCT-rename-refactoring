@@ -27,7 +27,7 @@
 #include <XmlObjMgt_SRelocationTable.hxx>
 class Message_Messenger;
 class TDF_Attribute;
-class XmlObjMgt_Persistent;
+class PersistentStorage;
 
 class XmlMDF_ADriver;
 DEFINE_STANDARD_HANDLE(XmlMDF_ADriver, RefObject)
@@ -57,7 +57,7 @@ public:
   //! Translate the contents of <aSource> and put it
   //! into <aTarget>, using the relocation table
   //! <aRelocTable> to keep the sharings.
-  Standard_EXPORT virtual Standard_Boolean Paste(const XmlObjMgt_Persistent&  aSource,
+  Standard_EXPORT virtual Standard_Boolean Paste(const PersistentStorage&  aSource,
                                                  const Handle(TDF_Attribute)& aTarget,
                                                  XmlObjMgt_RRelocationTable& aRelocTable) const = 0;
 
@@ -65,7 +65,7 @@ public:
   //! into <aTarget>, using the relocation table
   //! <aRelocTable> to keep the sharings.
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)& aSource,
-                                     XmlObjMgt_Persistent&        aTarget,
+                                     PersistentStorage&        aTarget,
                                      XmlObjMgt_SRelocationTable&  aRelocTable) const = 0;
 
   //! Returns the current message driver of this driver
@@ -83,7 +83,7 @@ protected:
   Handle(Message_Messenger) myMessageDriver;
 
 private:
-  friend class XmlMDF;
+  friend class XmlMDF1;
 };
 
 #endif // _XmlMDF_ADriver_HeaderFile

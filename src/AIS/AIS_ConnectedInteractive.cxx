@@ -271,7 +271,7 @@ void AIS_ConnectedInteractive::computeSubShapeSelection(
   {
     const SensitiveList&        aSEList = aMapIt.Value();
     Handle(StdSelect_BRepOwner) anOwner =
-      new StdSelect_BRepOwner(aMapIt.Key(),
+      new StdSelect_BRepOwner(aMapIt.Key1(),
                               this,
                               aSEList.First()->OwnerId()->Priority(),
                               Standard_True);
@@ -286,5 +286,5 @@ void AIS_ConnectedInteractive::computeSubShapeSelection(
     }
   }
 
-  StdSelect::SetDrawerForBRepOwner(theSelection, myDrawer);
+  StdSelect1::SetDrawerForBRepOwner(theSelection, myDrawer);
 }

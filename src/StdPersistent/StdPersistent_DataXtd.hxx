@@ -25,9 +25,9 @@
 #include <TDataXtd_Geometry.hxx>
 #include <TDataXtd_Position.hxx>
 
-class StdPersistent_DataXtd
+class DataXtd
 {
-  class _void : private StdLPersistent_Void
+  class _void : private Void
   {
   public:
     template <class AttribClass>
@@ -43,14 +43,14 @@ public:
   typedef _void::Instance<TDataXtd_Plane>     Plane1;
   typedef _void::Instance<TDataXtd_Placement> Placement;
 
-  class Geometry : public StdObjMgt_Attribute<TDataXtd_Geometry>::SingleInt
+  class Geometry1 : public StdObjMgt_Attribute<TDataXtd_Geometry>::SingleInt
   {
   public:
     //! Import transient attribute from the persistent data.
     Standard_EXPORT virtual void ImportAttribute();
   };
 
-  class Position : public StdObjMgt_Attribute<TDataXtd_Position>::Simple<Point3d>
+  class Position1 : public StdObjMgt_Attribute<TDataXtd_Position>::Simple<Point3d>
   {
   public:
     //! Import transient attribute from the persistent data.
@@ -59,31 +59,31 @@ public:
 };
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataXtd_Shape>::PName() const
+inline Standard_CString Void::instance<TDataXtd_Shape>::PName() const
 {
   return "PDataXtd_Shape";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataXtd_Point>::PName() const
+inline Standard_CString Void::instance<TDataXtd_Point>::PName() const
 {
   return "PDataXtd_Point";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataXtd_Axis>::PName() const
+inline Standard_CString Void::instance<TDataXtd_Axis>::PName() const
 {
   return "PDataXtd_Axis";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataXtd_Plane>::PName() const
+inline Standard_CString Void::instance<TDataXtd_Plane>::PName() const
 {
   return "PDataXtd_Plane";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Void::instance<TDataXtd_Placement>::PName() const
+inline Standard_CString Void::instance<TDataXtd_Placement>::PName() const
 {
   return "PDataXtd_Placement";
 }

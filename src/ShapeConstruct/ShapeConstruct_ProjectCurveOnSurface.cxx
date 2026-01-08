@@ -173,7 +173,7 @@ Standard_Integer& ShapeConstruct_ProjectCurveOnSurface::AdjustOverDegenMode()
 Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Status(
   const ShapeExtend_Status theStatus) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, theStatus);
+  return ShapeExtend1::DecodeStatus(myStatus, theStatus);
 }
 
 //=================================================================================================
@@ -185,13 +185,13 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
                                                                const Standard_Real   TolFirst,
                                                                const Standard_Real   TolLast)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   // Standard_Boolean OK = Standard_True; //szv#4:S4163:12Mar99 not needed
 
   if (mySurf.IsNull())
   {
     c2d.Nullify();
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
   //  Projection Analytique
@@ -201,7 +201,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
   c2d = ProjectAnalytic(crv3dtrim);
   if (!c2d.IsNull())
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return Standard_True;
   }
 
@@ -358,7 +358,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
   nbPini = points.Length();
   if (!c2d.IsNull())
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     return Standard_True;
   } // cas particulier d iso
 
@@ -376,10 +376,10 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
 
     Handle(GeomCurve3d) newc3d = InterpolateCurve3d(nbPini, thePnts, theParams, c3d);
     if (newc3d.IsNull())
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     else
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       c3d = newc3d;
     }
   }
@@ -394,7 +394,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
   c2d = InterpolatePCurve(nbPini, thePnts2d, theParams2d, c3d);
 
   // Faut-il aussi reprendre la C3D ?
-  myStatus |= ShapeExtend::EncodeStatus(c2d.IsNull() ? ShapeExtend_FAIL1 : ShapeExtend_DONE2);
+  myStatus |= ShapeExtend1::EncodeStatus(c2d.IsNull() ? ShapeExtend_FAIL1 : ShapeExtend_DONE2);
   return Status(ShapeExtend_DONE);
 }
 
@@ -413,7 +413,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::PerformByProjLib(
   c2d.Nullify();
   if (mySurf.IsNull())
   {
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -451,12 +451,12 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::PerformByProjLib(
 
     if (c2d.IsNull())
     {
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       return Standard_False;
     }
     else
     {
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       return Standard_True;
     }
   }
@@ -468,7 +468,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::PerformByProjLib(
     std::cout << std::endl;
 #endif
     (void)anException;
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
     c2d.Nullify();
   }
   return Standard_False;
@@ -503,7 +503,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ProjectAnalytic(
   if (!Plane1.IsNull())
   {
     Handle(GeomCurve3d) ProjOnPlane =
-      GeomProjLib1::ProjectOnPlane(c3d, Plane1, Plane1->Position().Direction(), Standard_True);
+      GeomProjLib1::ProjectOnPlane(c3d, Plane1, Plane1->Position1().Direction(), Standard_True);
     Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(ProjOnPlane);
     ProjLib_ProjectedCurve    Proj(mySurf->Adaptor3d(), HC);
 
@@ -1577,7 +1577,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
                 pnt2d(j).SetX(CurX -= Up);
             }
           }
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
         }
       }
     }
@@ -1633,7 +1633,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
                 pnt2d(j).SetY(CurY -= Vp);
             }
           }
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
         }
       }
     }

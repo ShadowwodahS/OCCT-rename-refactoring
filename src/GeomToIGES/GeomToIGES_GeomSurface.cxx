@@ -703,7 +703,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   start->Cylinder().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  Ax3 Pos = start->Cylinder().Position();
+  Ax3 Pos = start->Cylinder().Position1();
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
   if (!Build.IsIdentity())
@@ -782,7 +782,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   start->Cone().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  Ax3 Pos = start->Cone().Position();
+  Ax3 Pos = start->Cone().Position1();
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
   if (!Build.IsIdentity())
@@ -854,7 +854,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     start->Sphere().Location().Coord(xloc, yloc, zloc);
     Point3d Loc;
     Loc.SetCoord(xloc, yloc, zloc);
-    Ax3 Pos = start->Sphere().Position();
+    Ax3 Pos = start->Sphere().Position1();
     Pos.SetLocation(Loc);
     Build.SetPosition(Pos);
     if (!Build.IsIdentity())
@@ -922,7 +922,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
       Point3d Loc;
       Loc.SetCoord(xloc, yloc, zloc);
   */
-  Ax3 Pos = start->Torus().Position();
+  Ax3 Pos = start->Torus().Position1();
   //: l6    Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
   if (!Build.IsIdentity())
@@ -1323,7 +1323,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSphericalSurface(
   Handle(IGESGeom_Point)      aLocation = GP.TransferPoint(mypoint);
 
   Handle(IGESGeom_Direction) anAxis = new IGESGeom_Direction;
-  anAxis->Init(aSph.Position().Axis().Direction().XYZ());
+  anAxis->Init(aSph.Position1().Axis().Direction().XYZ());
 
   Handle(IGESGeom_Direction) aRefDir = new IGESGeom_Direction;
   aRefDir->Init(aSph.XAxis().Direction().XYZ());

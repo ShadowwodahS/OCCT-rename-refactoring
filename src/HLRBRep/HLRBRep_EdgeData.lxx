@@ -394,11 +394,11 @@ inline HLRBRep_Curve& HLRBRep_EdgeData::ChangeGeometry()
 }
 
 //=======================================================================
-// function : Geometry
+// function : Geometry1
 // purpose  :
 //=======================================================================
 
-inline const HLRBRep_Curve& HLRBRep_EdgeData::Geometry() const
+inline const HLRBRep_Curve& HLRBRep_EdgeData::Geometry1() const
 {
   return myGeometry;
 }

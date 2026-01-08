@@ -31,8 +31,8 @@
 #include <MAT2d_SequenceOfConnexion.hxx>
 class Geom2d_Geometry;
 class MAT2d_Connexion;
-class MAT2d_BiInt;
-class MAT2d_MiniPath;
+class BiInt;
+class MiniPath;
 
 class MAT2d_Circuit;
 DEFINE_STANDARD_HANDLE(MAT2d_Circuit, RefObject)
@@ -93,7 +93,7 @@ private:
                                   const Standard_Integer ICurveFirst,
                                   const Standard_Integer ICurveLast);
 
-  Standard_EXPORT void SortRefToEqui(const MAT2d_BiInt& aBiInt);
+  Standard_EXPORT void SortRefToEqui(const BiInt& aBiInt);
 
   Standard_EXPORT void InitOpen(TColGeom2d_SequenceOfGeometry& Line) const;
 
@@ -106,7 +106,7 @@ private:
 
   Standard_EXPORT void ConstructCircuit(const MAT2d_SequenceOfSequenceOfGeometry& aFigure,
                                         const Standard_Integer                    IndRefLine,
-                                        const MAT2d_MiniPath&                     aPath);
+                                        const MiniPath&                     aPath);
 
   Standard_Real                         direction;
   TColGeom2d_SequenceOfGeometry         geomElements;

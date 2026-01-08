@@ -58,7 +58,7 @@ void View_Displayer::SetContext(const Handle(VisualContext)& theContext)
        aDisplayedIt.More();
        aDisplayedIt.Next())
   {
-    View_PresentationType aType = aDisplayedIt.Key();
+    View_PresentationType aType = aDisplayedIt.Key1();
     for (AIS_ListIteratorOfListOfInteractive aPresentationsIt(aDisplayedIt.Value());
          aPresentationsIt.More();
          aPresentationsIt.Next())
@@ -165,7 +165,7 @@ void View_Displayer::EraseAllPresentations(const bool theToUpdateViewer)
          aDisplayedIt(myDisplayed);
        aDisplayedIt.More();
        aDisplayedIt.Next())
-    ErasePresentations(aDisplayedIt.Key(), false);
+    ErasePresentations(aDisplayedIt.Key1(), false);
 
   if (theToUpdateViewer)
     UpdateViewer();

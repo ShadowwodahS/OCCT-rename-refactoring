@@ -26,7 +26,7 @@ V3d_DirectionalLight::V3d_DirectionalLight(const V3d_TypeOfOrientation theDirect
 {
   SetColor(theColor);
   SetHeadlight(theIsHeadlight);
-  SetDirection(V3d::GetProjAxis(theDirection));
+  SetDirection(V3d1::GetProjAxis(theDirection));
 }
 
 //=================================================================================================
@@ -45,5 +45,5 @@ V3d_DirectionalLight::V3d_DirectionalLight(const Dir3d&          theDirection,
 
 void V3d_DirectionalLight::SetDirection(V3d_TypeOfOrientation theDirection)
 {
-  SetDirection(V3d::GetProjAxis(theDirection));
+  SetDirection(V3d1::GetProjAxis(theDirection));
 }

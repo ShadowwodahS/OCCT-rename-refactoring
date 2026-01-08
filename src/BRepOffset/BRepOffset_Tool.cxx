@@ -413,7 +413,7 @@ static void BuildPCurves(const TopoEdge& E, const TopoFace& F)
 
       ShapeBuilder B;
       B.UpdateEdge(E, C2d, F, BRepInspector::Tolerance(E));
-      BRepLib::SameRange(E);
+      BRepLib1::SameRange(E);
 
       return;
     }
@@ -634,7 +634,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
   switch (AS.GetType())
   {
     case GeomAbs_Plane: {
-      Ax3 Ax = AS.Plane1().Position();
+      Ax3 Ax = AS.Plane1().Position1();
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
@@ -646,7 +646,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Cylinder: {
-      Ax3        Ax  = AS.Cylinder().Position();
+      Ax3        Ax  = AS.Cylinder().Position1();
       Standard_Real Rad = AS.Cylinder().Radius();
       for (Standard_Integer i = 0; i < n; i++)
       {
@@ -659,7 +659,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Cone: {
-      Ax3        Ax  = AS.Cone().Position();
+      Ax3        Ax  = AS.Cone().Position1();
       Standard_Real Rad = AS.Cone().RefRadius();
       Standard_Real Alp = AS.Cone().SemiAngle();
       for (Standard_Integer i = 0; i < n; i++)
@@ -673,7 +673,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Sphere: {
-      Ax3        Ax  = AS.Sphere().Position();
+      Ax3        Ax  = AS.Sphere().Position1();
       Standard_Real Rad = AS.Sphere().Radius();
       for (Standard_Integer i = 0; i < n; i++)
       {
@@ -686,7 +686,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       break;
     }
     case GeomAbs_Torus: {
-      Ax3        Ax = AS.Torus().Position();
+      Ax3        Ax = AS.Torus().Position1();
       Standard_Real R1 = AS.Torus().MajorRadius();
       Standard_Real R2 = AS.Torus().MinorRadius();
       for (Standard_Integer i = 0; i < n; i++)
@@ -1420,8 +1420,8 @@ void Tool5::Inter3D(const TopoFace&    F1,
   }
 
   // create 3D curves on faces
-  BRepLib::BuildCurves3d(F1);
-  BRepLib::BuildCurves3d(F2);
+  BRepLib1::BuildCurves3d(F1);
+  BRepLib1::BuildCurves3d(F2);
   UpdateVertexTolerances(F1);
   UpdateVertexTolerances(F2);
 
@@ -1817,7 +1817,7 @@ void Tool5::Inter3D(const TopoFace&    F1,
       {
         TopoShape aShape = eseq(i);
         TopoEdge  anEdge = TopoDS::Edge(eseq(i));
-        BRepLib::SameParameter(anEdge, aSameParTol, Standard_True);
+        BRepLib1::SameParameter(anEdge, aSameParTol, Standard_True);
         Standard_Real EdgeTol = BRepInspector::Tolerance(anEdge);
 #ifdef OCCT_DEBUG
         std::cout << "Tolerance of glued E =      " << EdgeTol << std::endl;
@@ -1828,7 +1828,7 @@ void Tool5::Inter3D(const TopoFace&    F1,
         if (EdgeTol >= 1.e-4)
         {
           ReconstructPCurves(anEdge);
-          BRepLib::SameParameter(anEdge, aSameParTol, Standard_True);
+          BRepLib1::SameParameter(anEdge, aSameParTol, Standard_True);
 #ifdef OCCT_DEBUG
           std::cout << "After projection tol of E = " << BRepInspector::Tolerance(anEdge) << std::endl;
 #endif
@@ -1853,7 +1853,7 @@ void Tool5::Inter3D(const TopoFace&    F1,
     for (; itl.More(); itl.Next())
     {
       const TopoEdge& anEdge = TopoDS::Edge(itl.Value());
-      BRepLib::SameParameter(anEdge, aSameParTol, Standard_True);
+      BRepLib1::SameParameter(anEdge, aSameParTol, Standard_True);
     }
   }
 }
@@ -1897,7 +1897,7 @@ Standard_Boolean Tool5::TryProject(const TopoFace&          F1,
     Handle(GeomCurve3d) C    = BRepInspector::Curve(CurE, L, f, l);
     if (C.IsNull())
     {
-      BRepLib::BuildCurve3d(CurE, BRepInspector::Tolerance(CurE));
+      BRepLib1::BuildCurve3d(CurE, BRepInspector::Tolerance(CurE));
       C = BRepInspector::Curve(CurE, L, f, l);
       if (C.IsNull()) // not 3d curve, can be degenerated, need to skip
       {
@@ -2242,11 +2242,11 @@ void Tool5::Inter2d(const TopoFace&    F,
   // Standard_Real   f,l;
   // Handle(GeomCurve3d) C3d1 = BRepInspector::Curve(E1,L,f,l);
   // if (C3d1.IsNull()) {
-  //  BRepLib::BuildCurve3d(E1,BRepInspector::Tolerance(E1));
+  //  BRepLib1::BuildCurve3d(E1,BRepInspector::Tolerance(E1));
   //}
   // Handle(GeomCurve3d) C3d2 = BRepInspector::Curve(E2,L,f,l);
   // if (C3d2.IsNull()) {
-  //  BRepLib::BuildCurve3d(E2,BRepInspector::Tolerance(E2));
+  //  BRepLib1::BuildCurve3d(E2,BRepInspector::Tolerance(E2));
   //}
 
   Standard_Integer NbPC1 = 1, NbPC2 = 1;
@@ -3194,7 +3194,7 @@ void Tool5::CheckBounds(const TopoFace&        F,
                    || aCurve->DynamicType() == STANDARD_TYPE(Geom2d_BSplineCurve))
           {
             Standard_Real newFpar, newLpar, deviation;
-            theLine = ShapeCustom_Curve2d::ConvertToLine2d(aCurve,
+            theLine = ShapeCustomCurve2d::ConvertToLine2d(aCurve,
                                                            fpar,
                                                            lpar,
                                                            Precision::Confusion(),
@@ -3619,10 +3619,10 @@ void Tool5::ExtentFace(const TopoFace&            F,
   // Construction de la boite englobante de la face a etendre et des bouchons pour
   // limiter les extensions.
   // Box2 ContextBox;
-  // BRepBndLib::Add(F,B);
+  // BRepBndLib1::Add(F,B);
   // TopTools_DataMapIteratorOfDataMapOfShape itTB(ToBuild);
   // for (; itTB.More(); itTB.Next()) {
-  // BRepBndLib::Add(TopBuild.Value(), ContextBox);
+  // BRepBndLib1::Add(TopBuild.Value(), ContextBox);
   //}
 
   Standard_Boolean SurfaceChange;
@@ -4280,13 +4280,13 @@ Standard_Boolean Tool5::CheckPlanesNormals(const TopoFace&  theFace1,
     return Standard_False;
   }
   //
-  Dir3d aDN1 = aBAS1.Plane1().Position().Direction();
+  Dir3d aDN1 = aBAS1.Plane1().Position1().Direction();
   if (theFace1.Orientation() == TopAbs_REVERSED)
   {
     aDN1.Reverse();
   }
   //
-  Dir3d aDN2 = aBAS2.Plane1().Position().Direction();
+  Dir3d aDN2 = aBAS2.Plane1().Position1().Direction();
   if (theFace2.Orientation() == TopAbs_REVERSED)
   {
     aDN2.Reverse();
@@ -4358,7 +4358,7 @@ void PerformPlanes(const TopoFace&    theFace1,
     O2 = TopAbs1::Reverse(O2);
   }
   //
-  BRepLib::SameParameter(aE, Precision::Confusion(), Standard_True);
+  BRepLib1::SameParameter(aE, Precision::Confusion(), Standard_True);
   //
   // Add edge to result
   theL1.Append(aE.Oriented(O1));

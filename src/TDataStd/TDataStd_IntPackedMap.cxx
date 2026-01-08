@@ -213,7 +213,7 @@ void TDataStd_IntPackedMap::DumpJson(Standard_OStream& theOStream, Standard_Inte
 
   for (TColStd_PackedMapOfInteger::Iterator aMapIt(myMap->Map()); aMapIt.More(); aMapIt.Next())
   {
-    Standard_Integer aKey = aMapIt.Key();
+    Standard_Integer aKey = aMapIt.Key1();
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, aKey)
   }
 

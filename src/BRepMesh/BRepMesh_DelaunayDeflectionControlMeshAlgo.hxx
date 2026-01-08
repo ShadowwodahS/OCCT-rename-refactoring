@@ -106,7 +106,7 @@ protected:
       IMeshData::IteratorOfMapOfInteger aTriangleIt(this->getStructure()->ElementsOfDomain());
       for (; aTriangleIt.More(); aTriangleIt.Next())
       {
-        const Triangle3& aTriangle = this->getStructure()->GetElement(aTriangleIt.Key());
+        const Triangle3& aTriangle = this->getStructure()->GetElement(aTriangleIt.Key1());
         splitTriangleGeometry(aTriangle);
       }
 

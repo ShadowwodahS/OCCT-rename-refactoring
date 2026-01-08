@@ -37,7 +37,7 @@ void StepShape_Torus::SetPosition(const Handle(StepGeom_Axis1Placement)& aPositi
   position = aPosition;
 }
 
-Handle(StepGeom_Axis1Placement) StepShape_Torus::Position() const
+Handle(StepGeom_Axis1Placement) StepShape_Torus::Position1() const
 {
   return position;
 }

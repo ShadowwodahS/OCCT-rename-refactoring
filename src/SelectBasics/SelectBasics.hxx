@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 
 //! interface class for dynamic selection
-class SelectBasics
+class SelectBasics1
 {
 public:
   //! Structure to provide all-in-one result of selection of sensitive for "Matches" method of

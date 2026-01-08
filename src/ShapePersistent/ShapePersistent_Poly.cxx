@@ -120,7 +120,7 @@ Handle(ShapePersistent_Poly::Polygon2D) ShapePersistent_Poly::Translate(
       aPP->myPersistent               = new pPolygon2D;
       aPP->myPersistent->myDeflection = thePoly->Deflection();
       aPP->myPersistent->myNodes =
-        StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
+        HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
                                                                  thePoly->Nodes());
       theMap.Bind(thePoly, aPP);
     }
@@ -143,12 +143,12 @@ Handle(ShapePersistent_Poly::Polygon3D) ShapePersistent_Poly::Translate(
       aPP->myPersistent               = new pPolygon3D;
       aPP->myPersistent->myDeflection = thePoly->Deflection();
       aPP->myPersistent->myNodes =
-        StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
+        HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
                                                                thePoly->Nodes());
       if (thePoly->HasParameters())
       {
         aPP->myPersistent->myParameters =
-          StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(thePoly->Parameters());
+          HArray1::Translate<TColStd_HArray1OfReal>(thePoly->Parameters());
       }
       theMap.Bind(thePoly, aPP);
     }
@@ -171,11 +171,11 @@ Handle(ShapePersistent_Poly::PolygonOnTriangulation) ShapePersistent_Poly::Trans
       aPPonT->myPersistent               = new pPolygonOnTriangulation;
       aPPonT->myPersistent->myDeflection = thePolyOnTriang->Deflection();
       aPPonT->myPersistent->myNodes =
-        StdLPersistent_HArray1::Translate<TColStd_HArray1OfInteger>(thePolyOnTriang->Nodes());
+        HArray1::Translate<TColStd_HArray1OfInteger>(thePolyOnTriang->Nodes());
       if (thePolyOnTriang->HasParameters())
       {
         aPPonT->myPersistent->myParameters =
-          StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(
+          HArray1::Translate<TColStd_HArray1OfReal>(
             thePolyOnTriang->Parameters()->Array1());
       }
       theMap.Bind(thePolyOnTriang, aPPonT);
@@ -213,10 +213,10 @@ Handle(ShapePersistent_Poly::Triangulation) ShapePersistent_Poly::Translate(
       }
 
       aPT->myPersistent->myNodes =
-        StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
+        HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
                                                                pArrayOfNodes);
       aPT->myPersistent->myTriangles =
-        StdLPersistent_HArray1::Translate<Poly_HArray1OfTriangle>("PPoly_HArray1OfTriangle",
+        HArray1::Translate<Poly_HArray1OfTriangle>("PPoly_HArray1OfTriangle",
                                                                   pArrayOfTriangles);
       if (thePolyTriang->HasUVNodes())
       {
@@ -229,7 +229,7 @@ Handle(ShapePersistent_Poly::Triangulation) ShapePersistent_Poly::Translate(
         }
 
         aPT->myPersistent->myUVNodes =
-          StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
+          HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
                                                                    pArrayOfUVNodes);
       }
       theMap.Bind(thePolyTriang, aPT);

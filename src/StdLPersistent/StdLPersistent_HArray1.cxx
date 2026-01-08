@@ -17,13 +17,13 @@
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void StdLPersistent_HArray1::base::Read(StdObjMgt_ReadData& theReadData)
+void HArray1::base::Read(ReadData& theReadData)
 {
   Standard_Integer aLowerBound, anUpperBound;
   theReadData >> aLowerBound >> anUpperBound;
   createArray(aLowerBound, anUpperBound);
 
-  StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
+  ReadData::ObjectSentry aSentry(theReadData);
 
   Standard_Integer aSize;
   theReadData >> aSize;
@@ -36,12 +36,12 @@ void StdLPersistent_HArray1::base::Read(StdObjMgt_ReadData& theReadData)
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void StdLPersistent_HArray1::base::Write(StdObjMgt_WriteData& theWriteData) const
+void HArray1::base::Write(WriteData& theWriteData) const
 {
   Standard_Integer aLowerBound = lowerBound(), anUpperBound = upperBound();
   theWriteData << aLowerBound << anUpperBound;
 
-  StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
+  WriteData::ObjectSentry aSentry(theWriteData);
 
   Standard_Integer aSize = anUpperBound - aLowerBound + 1;
   theWriteData << aSize;

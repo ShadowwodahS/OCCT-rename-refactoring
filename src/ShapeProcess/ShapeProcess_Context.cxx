@@ -33,7 +33,7 @@ static Standard_Mutex THE_SHAPE_PROCESS_MUTEX;
 
 ShapeProcess_Context::ShapeProcess_Context()
 {
-  myMessenger = Message::DefaultMessenger();
+  myMessenger = Message1::DefaultMessenger();
   myTraceLev  = 1;
 }
 
@@ -43,7 +43,7 @@ ShapeProcess_Context::ShapeProcess_Context(const Standard_CString file,
                                            const Standard_CString scope)
 {
   Init(file, scope);
-  myMessenger = Message::DefaultMessenger();
+  myMessenger = Message1::DefaultMessenger();
   myTraceLev  = 1;
 }
 
@@ -303,7 +303,7 @@ Standard_Boolean ShapeProcess_Context::GetInteger(const Standard_CString param,
   }
 #ifdef OCCT_DEBUG
   std::cout << "Warning: ShapeProcess_Context::GetInteger(): Parameter " << param
-            << " is neither Integer nor reference to Integer";
+            << " is neither Integer1 nor reference to Integer1";
 #endif
   return Standard_False;
 }
@@ -318,7 +318,7 @@ Standard_Boolean ShapeProcess_Context::GetBoolean(const Standard_CString param,
   try
   {
     OCC_CATCH_SIGNALS
-    val = myRC->Integer(MakeName(myScope, param)->ToCString()) != 0;
+    val = myRC->Integer1(MakeName(myScope, param)->ToCString()) != 0;
     return Standard_True;
   }
   catch (ExceptionBase const& anException)
@@ -389,7 +389,7 @@ Standard_CString ShapeProcess_Context::StringVal(const Standard_CString param,
 void ShapeProcess_Context::SetMessenger(const Handle(Message_Messenger)& messenger)
 {
   if (messenger.IsNull())
-    myMessenger = Message::DefaultMessenger();
+    myMessenger = Message1::DefaultMessenger();
   else
     myMessenger = messenger;
 }

@@ -446,7 +446,7 @@ Handle(StepRepr_RepresentationContext) STEPConstruct_Styles::FindContext(
 {
   // find context of items
   Handle(StepRepr_RepresentationContext) Context;
-  Handle(TransferBRep_ShapeMapper)       mapper = TransferBRep::ShapeMapper(FinderProcess(), Shape);
+  Handle(TransferBRep_ShapeMapper)       mapper = TransferBRep1::ShapeMapper(FinderProcess(), Shape);
   Handle(StepShape_ShapeRepresentation)  sr;
   if (FinderProcess()->FindTypedTransient(mapper, STANDARD_TYPE(StepShape_ShapeRepresentation), sr))
   {

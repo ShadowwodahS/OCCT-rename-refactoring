@@ -21,17 +21,17 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-Standard_Real BRepGProp_EdgeTool::FirstParameter(const BRepAdaptor_Curve& C)
+Standard_Real EdgeTool::FirstParameter(const BRepAdaptor_Curve& C)
 {
   return C.FirstParameter();
 }
 
-Standard_Real BRepGProp_EdgeTool::LastParameter(const BRepAdaptor_Curve& C)
+Standard_Real EdgeTool::LastParameter(const BRepAdaptor_Curve& C)
 {
   return C.LastParameter();
 }
 
-Standard_Integer BRepGProp_EdgeTool::IntegrationOrder(const BRepAdaptor_Curve& BAC)
+Standard_Integer EdgeTool::IntegrationOrder(const BRepAdaptor_Curve& BAC)
 {
   switch (BAC.GetType())
   {
@@ -64,12 +64,12 @@ Standard_Integer BRepGProp_EdgeTool::IntegrationOrder(const BRepAdaptor_Curve& B
   }
 }
 
-Point3d BRepGProp_EdgeTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U)
+Point3d EdgeTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U)
 {
   return C.Value(U);
 }
 
-void BRepGProp_EdgeTool::D1(const BRepAdaptor_Curve& C,
+void EdgeTool::D1(const BRepAdaptor_Curve& C,
                             const Standard_Real      U,
                             Point3d&                  P,
                             Vector3d&                  V1)
@@ -78,7 +78,7 @@ void BRepGProp_EdgeTool::D1(const BRepAdaptor_Curve& C,
 }
 
 // modified by NIZHNY-MKK  Thu Jun  9 12:15:15 2005.BEGIN
-Standard_Integer BRepGProp_EdgeTool::NbIntervals(const BRepAdaptor_Curve& C, const GeomAbs_Shape S)
+Standard_Integer EdgeTool::NbIntervals(const BRepAdaptor_Curve& C, const GeomAbs_Shape S)
 {
   // clang-format off
   BRepAdaptor_Curve* pC = (BRepAdaptor_Curve*) &C; // at the moment actually NbIntervals() does not modify the 
@@ -86,7 +86,7 @@ Standard_Integer BRepGProp_EdgeTool::NbIntervals(const BRepAdaptor_Curve& C, con
   return pC->NbIntervals(S);
 }
 
-void BRepGProp_EdgeTool::Intervals(const BRepAdaptor_Curve& C,TColStd_Array1OfReal& T,const GeomAbs_Shape S) 
+void EdgeTool::Intervals(const BRepAdaptor_Curve& C,TColStd_Array1OfReal& T,const GeomAbs_Shape S) 
 {
   BRepAdaptor_Curve* pC = (BRepAdaptor_Curve*) &C; // at the moment actually Intervals() does not modify the
                                                    // object "C". So it is safe to do such a cast.

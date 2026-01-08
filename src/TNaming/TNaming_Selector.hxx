@@ -35,31 +35,31 @@ class ShapeAttribute;
 //! This class is the user interface for topological
 //! naming resources.
 //! * The   <IsIdentified> method returns  (if exists)
-//! the NamedShape which  contains a given shape. The
+//! the NamedShape1 which  contains a given shape. The
 //! definition of  an  identified shape is :   a Shape
-//! handled by a NamedShape  (this shape  is the only
+//! handled by a NamedShape1  (this shape  is the only
 //! one stored) , which  has the TNaming_PRImITIVE evolution
 //!
 //! *  The   <Select> method  returns   ALWAYS a  new
-//! NamedShape at the given  label, which contains the
+//! NamedShape1 at the given  label, which contains the
 //! argument  selected  shape.    When  calling  this
 //! method, the sub-hierarchy of <label> is first cleared,
 //! then a ShapeAttribute   is ALWAYS created  at
 //! this <label>, with the TNaming_SELECTED evolution.
-//! The <Naming attribute> is associated to the selected
+//! The <Naming1 attribute> is associated to the selected
 //! shape which store the arguments of the selection .
 //! If the given selected shape was already identified
-//! (method IsIdentified)   , this   Naming attribute
+//! (method IsIdentified)   , this   Naming1 attribute
 //! contains  the reference (Identity  code)  to the
 //! argument shape.
 //!
 //! * The <Solve> method  update the current value of
-//! the NamedShape, according to the <Naming> attribute.
+//! the NamedShape1, according to the <Naming1> attribute.
 //! A boolean status  is    returned to say  if  the
 //! algorithm succeed   or not.  To read   the current
 //! value    of the selected    Named  Shape  use the
 //! Tool11::GetShape    method,    as  for  any
-//! NamedShape attribute.
+//! NamedShape1 attribute.
 class TNaming_Selector
 {
 public:
@@ -72,7 +72,7 @@ public:
   //! selection is the shape for which we want to know
   //! whether it is identified or not.
   //! If true, NS is returned as the identity of selection.
-  //! If Geometry is true, NS will be the named shape
+  //! If Geometry1 is true, NS will be the named shape
   //! containing the first appearance of selection and
   //! not any other shape. In other words, selection
   //! must be the only shape stored in NS.
@@ -80,7 +80,7 @@ public:
     const DataLabel&            access,
     const TopoShape&         selection,
     Handle(ShapeAttribute)& NS,
-    const Standard_Boolean      Geometry = Standard_False);
+    const Standard_Boolean      Geometry1 = Standard_False);
 
   //! Create a selector on this label
   //! to select a shape.
@@ -91,32 +91,32 @@ public:
   //! aLabel given as an argument at construction time.
   //! If successful, the shape Selection - found in the
   //! shape Context - is now identified in the named
-  //! shape returned in NamedShape.
-  //! If Geometry is true, NamedShape contains the
+  //! shape returned in NamedShape1.
+  //! If Geometry1 is true, NamedShape1 contains the
   //! first appearance of Selection.
   //! This syntax is more robust than the previous
   //! syntax for this method.
   Standard_EXPORT Standard_Boolean
     Select(const TopoShape&    Selection,
            const TopoShape&    Context,
-           const Standard_Boolean Geometry          = Standard_False,
+           const Standard_Boolean Geometry1          = Standard_False,
            const Standard_Boolean KeepOrientatation = Standard_False) const;
 
   //! Creates a topological naming on the label
   //! aLabel given as an argument at construction time.
   //! If successful, the shape Selection is now
-  //! identified in the named shape returned in NamedShape.
-  //! If Geometry is true, NamedShape contains the
+  //! identified in the named shape returned in NamedShape1.
+  //! If Geometry1 is true, NamedShape1 contains the
   //! first appearance of Selection.
   Standard_EXPORT Standard_Boolean
     Select(const TopoShape&    Selection,
-           const Standard_Boolean Geometry          = Standard_False,
+           const Standard_Boolean Geometry1          = Standard_False,
            const Standard_Boolean KeepOrientatation = Standard_False) const;
 
   //! Updates the topological naming on the label
   //! aLabel given as an argument at construction time.
   //! The underlying shape returned in the method
-  //! NamedShape is updated.
+  //! NamedShape1 is updated.
   //! To read this shape, use the method Tool11::GetShape
   Standard_EXPORT Standard_Boolean Solve(TDF_LabelMap& Valid) const;
 
@@ -124,9 +124,9 @@ public:
   //! This list contains the named shape on which the topological naming was built.
   Standard_EXPORT void Arguments(TDF_AttributeMap& args) const;
 
-  //! Returns the NamedShape build or under construction,
+  //! Returns the NamedShape1 build or under construction,
   //! which contains the topological naming..
-  Standard_EXPORT Handle(ShapeAttribute) NamedShape() const;
+  Standard_EXPORT Handle(ShapeAttribute) NamedShape1() const;
 
 protected:
 private:

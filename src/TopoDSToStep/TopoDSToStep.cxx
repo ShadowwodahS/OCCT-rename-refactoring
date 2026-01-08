@@ -145,7 +145,7 @@ void TopoDSToStep1::AddResult(const Handle(Transfer_FinderProcess)& FP,
   Handle(Transfer_SimpleBinderOfTransient) result = new Transfer_SimpleBinderOfTransient;
   result->SetResult(ent);
 
-  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FP, Shape);
+  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep1::ShapeMapper(FP, Shape);
   Handle(Transfer_Binder)          binder = FP->Find(mapper);
 
   if (binder.IsNull())
@@ -162,5 +162,5 @@ void TopoDSToStep1::AddResult(const Handle(Transfer_FinderProcess)& FP,
   const MoniTool_DataMapOfShapeTransient&           Map = Tool.Map();
   MoniTool_DataMapIteratorOfDataMapOfShapeTransient it(Map);
   for (; it.More(); it.Next())
-    TopoDSToStep1::AddResult(FP, it.Key(), it.Value());
+    TopoDSToStep1::AddResult(FP, it.Key1(), it.Value());
 }

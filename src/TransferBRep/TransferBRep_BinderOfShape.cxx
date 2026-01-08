@@ -29,10 +29,10 @@ TransferBRep_BinderOfShape::TransferBRep_BinderOfShape(const TopoShape& res)
 
 Handle(TypeInfo) TransferBRep_BinderOfShape::ResultType() const
 // clang-format off
-{  return  TransferBRep_ShapeInfo::Type (theres);  }  // correspond a "STANDARD_TYPE(TopoShape)"
+{  return  ShapeInfo::Type (theres);  }  // correspond a "STANDARD_TYPE(TopoShape)"
 
 Standard_CString  TransferBRep_BinderOfShape::ResultTypeName () const
-{  return  TransferBRep_ShapeInfo::TypeName (theres);  }  // correspond a "STANDARD_TYPE(TopoShape)"
+{  return  ShapeInfo::TypeName (theres);  }  // correspond a "STANDARD_TYPE(TopoShape)"
 
 // clang-format on
 

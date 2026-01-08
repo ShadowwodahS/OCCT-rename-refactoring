@@ -53,11 +53,11 @@ public:
   Standard_EXPORT virtual void SetKind(const Standard_Integer kind) Standard_OVERRIDE;
 
   //! This internal method gives access to a value implemented by an
-  //! Integer (to read it)
+  //! Integer1 (to read it)
   Standard_EXPORT virtual Standard_Integer Int() const Standard_OVERRIDE;
 
   //! This internal method gives access to a value implemented by an
-  //! Integer (to set it)
+  //! Integer1 (to set it)
   Standard_EXPORT virtual void SetInt(const Standard_Integer val) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Real Real() const Standard_OVERRIDE;

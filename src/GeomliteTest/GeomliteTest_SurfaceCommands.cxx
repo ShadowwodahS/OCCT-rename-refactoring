@@ -1626,7 +1626,7 @@ static Standard_Integer compBsplSur(DrawInterpreter&, Standard_Integer n, const 
 {
   if (n < 2)
   {
-    Message::SendFail() << "Syntax error: Invalid number of parameters";
+    Message1::SendFail() << "Syntax error: Invalid number of parameters";
     return 1;
   }
 
@@ -1634,7 +1634,7 @@ static Standard_Integer compBsplSur(DrawInterpreter&, Standard_Integer n, const 
   Handle(Geom_BSplineSurface) GBs2 = DrawTrSurf1::GetBSplineSurface(a[2]);
   if (GBs1.IsNull() || GBs2.IsNull())
   {
-    Message::SendFail() << "Syntax error: Invalid surface";
+    Message1::SendFail() << "Syntax error: Invalid surface";
     return 1;
   }
 
@@ -1824,7 +1824,7 @@ Standard_Integer bounds(DrawInterpreter&, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-void GeomliteTest::SurfaceCommands(DrawInterpreter& theCommands)
+void GeomliteTest1::SurfaceCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)

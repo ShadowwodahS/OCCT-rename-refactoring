@@ -145,7 +145,7 @@ static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_
   OS << (Standard_Byte)SPHERE;
   Sphere3 P = S->Sphere();
   OS << P.Location(); // Pnt
-  OS << P.Position().Axis().Direction();
+  OS << P.Position1().Axis().Direction();
   OS << P.XAxis().Direction();
   OS << P.YAxis().Direction();
   OS << P.Radius();

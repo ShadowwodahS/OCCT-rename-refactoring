@@ -429,7 +429,7 @@ void TopTools_ShapeSet::Dump(Standard_OStream& OS) const
     }
     OS << "\n";
 
-    // Geometry
+    // Geometry1
 
     DumpGeometry(S, OS);
   }
@@ -508,7 +508,7 @@ void TopTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
     PrintShapeEnum(S.ShapeType(), OS, Standard_True);
     OS << "\n";
 
-    // Geometry
+    // Geometry1
     WriteGeometry(S, OS);
 
     // Flags

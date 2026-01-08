@@ -39,15 +39,15 @@ public:
   //! This method is used to set the fields of the class
   //! ExternalRefLibName
   //! - aLibName  : Name of library in which ExtName resides
-  //! - anExtName : External Reference Entity Symbolic Name
+  //! - anExtName : External Reference1 Entity Symbolic Name
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aLibName,
                             const Handle(TCollection_HAsciiString)& anExtName);
 
-  //! returns name of library in which External Reference Entity
+  //! returns name of library in which External Reference1 Entity
   //! Symbolic Name resides
   Standard_EXPORT Handle(TCollection_HAsciiString) LibraryName() const;
 
-  //! returns External Reference Entity Symbolic Name
+  //! returns External Reference1 Entity Symbolic Name
   Standard_EXPORT Handle(TCollection_HAsciiString) ReferenceName() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESBasic_ExternalRefLibName, IGESData_IGESEntity)

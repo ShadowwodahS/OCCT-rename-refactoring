@@ -54,7 +54,7 @@ Transfer_ProcessForFinder::Transfer_ProcessForFinder(const Standard_Integer nb)
   therootm     = Standard_False;
   thelevel     = 0;
   therootl     = 0;
-  themessenger = Message::DefaultMessenger();
+  themessenger = Message1::DefaultMessenger();
   thetrace     = 0;
   theindex     = 0;
 }
@@ -327,7 +327,7 @@ Handle(Transfer_Binder) Transfer_ProcessForFinder::FindElseBind(
 void Transfer_ProcessForFinder::SetMessenger(const Handle(Message_Messenger)& messenger)
 {
   if (messenger.IsNull())
-    themessenger = Message::DefaultMessenger();
+    themessenger = Message1::DefaultMessenger();
   else
     themessenger = messenger;
 }

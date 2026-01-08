@@ -109,7 +109,7 @@ protected:
   //! Set default dynamic highlight properties
   Standard_EXPORT void setDefaultHighlightAttributes();
 
-public: //! @name Geometry management API
+public: //! @name Geometry1 management API
   //! @return size (width and height) of View cube sides; 100 by default.
   Standard_Real Size() const { return mySize; }
 
@@ -741,13 +741,13 @@ public:
                                         const Handle(Graphic3d_ArrayOfTriangles)& theTris);
 
   //! Checks whether element overlaps current selecting volume.
-  Standard_EXPORT virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+  Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
     Standard_OVERRIDE;
 
 protected:
   //! Checks if picking ray can be used for detection.
-  Standard_EXPORT bool isValidRay(const SelectBasics_SelectingVolumeManager& theMgr) const;
+  Standard_EXPORT bool isValidRay(const SelectingVolumeManager& theMgr) const;
 };
 
 #endif // _AIS_ViewCube_HeaderFile

@@ -54,13 +54,13 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 {
 
   // calcul du cylindre
-  Ax3 Pos1 = Pl1.Position();
+  Ax3 Pos1 = Pl1.Position1();
   Dir3d D1   = Pos1.XDirection().Crossed(Pos1.YDirection());
   if (Or1 == TopAbs_REVERSED)
   {
     D1.Reverse();
   }
-  Ax3 Pos2 = Pl2.Position();
+  Ax3 Pos2 = Pl2.Position1();
   Dir3d D2   = Pos2.XDirection().Crossed(Pos2.YDirection());
   if (Or2 == TopAbs_REVERSED)
   {

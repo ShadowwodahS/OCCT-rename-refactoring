@@ -82,7 +82,7 @@ void NewDimensionedGeometryTool::ReadOwnParams(
       Handle(IGESData_IGESEntity) tempEnt;
       // szv#4:S4163:12Mar99 `st=` not needed
       // clang-format off
-	PR.ReadEntity(IR, PR.Current(), "Geometry Entity", tempEnt, (i == num)); // The last one may be Null
+	PR.ReadEntity(IR, PR.Current(), "Geometry1 Entity", tempEnt, (i == num)); // The last one may be Null
 	tempGeomEnts->SetValue(i, tempEnt);
 
 	Standard_Integer tempInt;
@@ -240,7 +240,7 @@ void NewDimensionedGeometryTool::OwnDump(
   S << "\n"
     << "Dimension Orientation Flag : " << ent->DimensionOrientationFlag() << "\n"
     << "Angle Value Flag : " << ent->AngleValue() << "\n"
-    << "Geometry Entities :\n"
+    << "Geometry1 Entities :\n"
     << "Dimension Location Flags :\n"
     << "Points : ";
   IGESData_DumpEntities(S, dumper, -level, 1, ent->NbGeometries(), ent->GeometryEntity);
@@ -249,7 +249,7 @@ void NewDimensionedGeometryTool::OwnDump(
     for (num = ent->NbGeometries(), i = 1; i <= num; i++)
     {
       S << "[" << i << "]:\n"
-        << "Geometry Entity : ";
+        << "Geometry1 Entity : ";
       dumper.Dump(ent->GeometryEntity(i), S, 1);
       S << "\n"
         << "Dimension Location Flag : " << ent->DimensionLocationFlag(i) << "\n"

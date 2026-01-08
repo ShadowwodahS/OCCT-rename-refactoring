@@ -72,15 +72,15 @@ Handle(Select3D_SensitiveEntity) MeshVS_SensitivePolyhedron::GetConnected()
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_SensitivePolyhedron::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                     SelectBasics_PickResult& thePickResult)
+Standard_Boolean MeshVS_SensitivePolyhedron::Matches(SelectingVolumeManager& theMgr,
+                                                     PickResult& thePickResult)
 {
-  SelectBasics_PickResult aPickResult;
+  PickResult aPickResult;
   for (MeshVS_PolyhedronVertsIter aIter(myTopology); aIter.More(); aIter.Next())
   {
     if (theMgr.OverlapsPolygon(aIter.Value()->Array1(), Select3D_TOS_INTERIOR, aPickResult))
     {
-      thePickResult = SelectBasics_PickResult::Min(thePickResult, aPickResult);
+      thePickResult = PickResult::Min(thePickResult, aPickResult);
     }
   }
   if (!thePickResult.IsValid())

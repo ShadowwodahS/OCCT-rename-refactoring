@@ -14,12 +14,12 @@
 #include <MoniTool_DataInfo.hxx>
 #include <Standard_Transient.hxx>
 
-Handle(TypeInfo) MoniTool_DataInfo::Type(const Handle(RefObject)& ent)
+Handle(TypeInfo) DataInfoTool::Type(const Handle(RefObject)& ent)
 {
   return ent->DynamicType();
 }
 
-Standard_CString MoniTool_DataInfo::TypeName(const Handle(RefObject)& ent)
+Standard_CString DataInfoTool::TypeName(const Handle(RefObject)& ent)
 {
   return ent->DynamicType()->Name();
 }

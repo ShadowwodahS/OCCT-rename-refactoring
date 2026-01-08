@@ -28,7 +28,7 @@
 class Quantity_Color;
 class Graphic3d_MaterialAspect;
 
-class AIS_GraphicTool
+class GraphicTool
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -168,7 +168,7 @@ void PCDM_ReaderFilter::ClearSubTree(const Standard_Address theMap)
   {
     TagTree* aMap = (TagTree*)theMap;
     for (TagTree::Iterator aTagIter(*aMap); aTagIter.More(); aTagIter.Next())
-      if (aTagIter.Key() != -1)
+      if (aTagIter.Key1() != -1)
         ClearSubTree(aTagIter.Value());
     delete aMap;
   }
@@ -177,7 +177,7 @@ void PCDM_ReaderFilter::ClearSubTree(const Standard_Address theMap)
 void PCDM_ReaderFilter::ClearTree()
 {
   for (TagTree::Iterator aTagIter(myTree); aTagIter.More(); aTagIter.Next())
-    if (aTagIter.Key() != -1)
+    if (aTagIter.Key1() != -1)
       ClearSubTree(aTagIter.Value());
   myTree.Clear();
 }

@@ -726,7 +726,7 @@ void BoxParameters(const TopoShape& S,
 
   // calculate the parameters of a bounding box in the direction of the axis of the hole
   Box2 B;
-  BRepBndLib::Add(S, B);
+  BRepBndLib1::Add(S, B);
   Standard_Real c[6];
   B.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
   Point3d           P;

@@ -34,7 +34,7 @@ class GeomSurface;
 //! The length displayed is indicated by line segments
 //! and text alone or by a combination of line segment,
 //! text and   arrows at either or both of its ends.
-class DsgPrs_LengthPresentation
+class LengthPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

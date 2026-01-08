@@ -29,7 +29,7 @@
  *              IsEqual.
  */
 template <class TheKeyType>
-struct NCollection_DefaultHasher
+struct DefaultHasher
 {
   size_t operator()(const TheKeyType& theKey) const noexcept
   {
@@ -79,7 +79,7 @@ private:
 
 #define DEFINE_DEFAULT_HASHER_PURE(TheKeyType)                                                     \
   template <>                                                                                      \
-  struct NCollection_DefaultHasher<TheKeyType>                                                     \
+  struct DefaultHasher<TheKeyType>                                                     \
   {                                                                                                \
     size_t operator()(const TheKeyType theKey) const noexcept                                      \
     {                                                                                              \
@@ -139,7 +139,7 @@ DEFINE_DEFAULT_HASHER_PURE(unsigned long long)
 
 /// Explicit specialization for pointer.
 template <class TheKeyType>
-struct NCollection_DefaultHasher<TheKeyType*>
+struct DefaultHasher<TheKeyType*>
 {
   size_t operator()(const TheKeyType* theKey) const noexcept
   {

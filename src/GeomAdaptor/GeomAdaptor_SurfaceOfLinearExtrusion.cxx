@@ -354,7 +354,7 @@ Cylinder1 GeomAdaptor_SurfaceOfLinearExtrusion::Cylinder() const
                                  "GeomAdaptor_SurfaceOfLinearExtrusion::Cylinder");
 
   gp_Circ C = myBasisCurve->Circle();
-  Ax3  Ax3(C.Position());
+  Ax3  Ax3(C.Position1());
   if (myDirection.Dot((C.Axis()).Direction()) < 0.)
   {
     Ax3.ZReverse();

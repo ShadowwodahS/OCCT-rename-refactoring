@@ -27,7 +27,7 @@ class Point3d;
 class gp_Circ;
 class gp_Elips;
 
-class DsgPrs_MidPointPresentation
+class MidPointPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,7 +38,7 @@ public:
                                   const Handle(StyleDrawer)&       aDrawer,
                                   const Frame3d&                     theAxe,
                                   const Point3d&                     MidPoint,
-                                  const Point3d&                     Position,
+                                  const Point3d&                     Position1,
                                   const Point3d&                     AttachPoint,
                                   const Standard_Boolean            first);
 
@@ -48,7 +48,7 @@ public:
                                   const Handle(StyleDrawer)&       aDrawer,
                                   const Frame3d&                     theAxe,
                                   const Point3d&                     MidPoint,
-                                  const Point3d&                     Position,
+                                  const Point3d&                     Position1,
                                   const Point3d&                     AttachPoint,
                                   const Point3d&                     Point1,
                                   const Point3d&                     Point2,
@@ -60,7 +60,7 @@ public:
                                   const Handle(StyleDrawer)&       aDrawer,
                                   const gp_Circ&                    aCircle,
                                   const Point3d&                     MidPoint,
-                                  const Point3d&                     Position,
+                                  const Point3d&                     Position1,
                                   const Point3d&                     AttachPoint,
                                   const Point3d&                     Point1,
                                   const Point3d&                     Point2,
@@ -72,7 +72,7 @@ public:
                                   const Handle(StyleDrawer)&       aDrawer,
                                   const gp_Elips&                   anElips,
                                   const Point3d&                     MidPoint,
-                                  const Point3d&                     Position,
+                                  const Point3d&                     Position1,
                                   const Point3d&                     AttachPoint,
                                   const Point3d&                     Point1,
                                   const Point3d&                     Point2,

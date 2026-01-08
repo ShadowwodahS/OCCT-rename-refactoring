@@ -65,15 +65,15 @@ AIS_ViewCubeSensitive::AIS_ViewCubeSensitive(const Handle(SelectMgr_EntityOwner)
 
 //=================================================================================================
 
-Standard_Boolean AIS_ViewCubeSensitive::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                SelectBasics_PickResult&             thePickResult)
+Standard_Boolean AIS_ViewCubeSensitive::Matches(SelectingVolumeManager& theMgr,
+                                                PickResult&             thePickResult)
 {
   return isValidRay(theMgr) && Select3D_SensitivePrimitiveArray::Matches(theMgr, thePickResult);
 }
 
 //=================================================================================================
 
-bool AIS_ViewCubeSensitive::isValidRay(const SelectBasics_SelectingVolumeManager& theMgr) const
+bool AIS_ViewCubeSensitive::isValidRay(const SelectingVolumeManager& theMgr) const
 {
   if (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point)
   {
@@ -85,7 +85,7 @@ bool AIS_ViewCubeSensitive::isValidRay(const SelectBasics_SelectingVolumeManager
   {
     const Standard_Real anAngleToler = 10.0 * M_PI / 180.0;
     const Dir3d        aRay         = theMgr.GetViewRayDirection();
-    const Dir3d        aDir         = V3d::GetProjAxis(anOwner->MainOrientation());
+    const Dir3d        aDir         = V3d1::GetProjAxis(anOwner->MainOrientation());
     return !aRay.IsNormal(aDir, anAngleToler);
   }
   return true;
@@ -95,21 +95,21 @@ bool AIS_ViewCubeSensitive::isValidRay(const SelectBasics_SelectingVolumeManager
 
 bool AIS_ViewCube::IsBoxSide(V3d_TypeOfOrientation theOrient)
 {
-  return nbDirectionComponents(V3d::GetProjAxis(theOrient)) == 1;
+  return nbDirectionComponents(V3d1::GetProjAxis(theOrient)) == 1;
 }
 
 //=================================================================================================
 
 bool AIS_ViewCube::IsBoxEdge(V3d_TypeOfOrientation theOrient)
 {
-  return nbDirectionComponents(V3d::GetProjAxis(theOrient)) == 2;
+  return nbDirectionComponents(V3d1::GetProjAxis(theOrient)) == 2;
 }
 
 //=================================================================================================
 
 bool AIS_ViewCube::IsBoxCorner(V3d_TypeOfOrientation theOrient)
 {
-  return nbDirectionComponents(V3d::GetProjAxis(theOrient)) == 3;
+  return nbDirectionComponents(V3d1::GetProjAxis(theOrient)) == 3;
 }
 
 //=================================================================================================
@@ -441,7 +441,7 @@ void AIS_ViewCube::createBoxSideTriangles(const Handle(Graphic3d_ArrayOfTriangle
                                           Standard_Integer&                         theNbTris,
                                           V3d_TypeOfOrientation theDirection) const
 {
-  const Dir3d aDir = V3d::GetProjAxis(theDirection);
+  const Dir3d aDir = V3d1::GetProjAxis(theDirection);
   const Point3d aPos = aDir.XYZ() * (mySize * 0.5 + myBoxFacetExtension);
   const Frame3d aPosition(aPos, aDir.Reversed());
 
@@ -467,7 +467,7 @@ void AIS_ViewCube::createBoxEdgeTriangles(const Handle(Graphic3d_ArrayOfTriangle
   const Standard_Real aThickness =
     Max(myBoxFacetExtension * Coords2d(1.0, 1.0).Modulus() - myBoxEdgeGap, myBoxEdgeMinSize);
 
-  const Dir3d aDir = V3d::GetProjAxis(theDirection);
+  const Dir3d aDir = V3d1::GetProjAxis(theDirection);
   const Point3d aPos =
     aDir.XYZ() * (mySize * 0.5 * Coords2d(1.0, 1.0).Modulus() + myBoxFacetExtension * Cos(M_PI_4));
   const Frame3d aPosition(aPos, aDir.Reversed());
@@ -492,7 +492,7 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
                                             V3d_TypeOfOrientation                     theDir) const
 {
   const Standard_Real    aHSize     = mySize * 0.5;
-  const Dir3d           aDir       = V3d::GetProjAxis(theDir);
+  const Dir3d           aDir       = V3d1::GetProjAxis(theDir);
   const Coords3d           aHSizeDir  = aDir.XYZ() * (aHSize * Vector3d(1.0, 1.0, 1.0).Magnitude());
   const Standard_Integer aVertFirst = !theTris.IsNull() ? theTris->VertexNumber() : 0;
   if (myRoundRadius > 0.0)
@@ -610,7 +610,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
 
       const Standard_Real                anArrowLength = 0.2 * anAxisSize;
       Handle(Graphic3d_ArrayOfTriangles) aTriangleArray =
-        Prs3d_Arrow::DrawShaded(anAx1,
+        Arrow1::DrawShaded(anAx1,
                                 myAxesRadius,
                                 anAxisSize,
                                 myAxesConeRadius,
@@ -627,7 +627,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
           anAx1.Location().Translated(Vector3d(anAx1.Direction().X() * (anAxisSize + anArrowLength),
                                              anAx1.Direction().Y() * (anAxisSize + anArrowLength),
                                              anAx1.Direction().Z() * (anAxisSize + anArrowLength)));
-        Prs3d_Text::Draw1(anAxisLabelGroup,
+        Text::Draw1(anAxisLabelGroup,
                          aDatumAspect->TextAspect(aPart),
                          UtfString(anAxisLabel),
                          aTextOrigin);
@@ -723,7 +723,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
         continue;
       }
 
-      const Dir3d aDir = V3d::GetProjAxis(anOrient);
+      const Dir3d aDir = V3d1::GetProjAxis(anOrient);
       Dir3d       anUp = myIsYup ? gp1::DY() : gp1::DZ();
       if (myIsYup)
       {

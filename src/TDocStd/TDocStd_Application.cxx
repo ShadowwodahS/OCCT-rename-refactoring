@@ -110,7 +110,7 @@ void AppManager::ReadingFormats(TColStd_SequenceOfAsciiString& theFormats)
     const Handle(PCDM_RetrievalDriver)& aDriver = anIter.Value();
     if (aDriver.IsNull() == Standard_False)
     {
-      theFormats.Append(anIter.Key());
+      theFormats.Append(anIter.Key1());
     }
   }
 }
@@ -128,7 +128,7 @@ void AppManager::WritingFormats(TColStd_SequenceOfAsciiString& theFormats)
     const Handle(PCDM_StorageDriver)& aDriver = anIter.Value();
     if (aDriver.IsNull() == Standard_False)
     {
-      theFormats.Append(anIter.Key());
+      theFormats.Append(anIter.Key1());
     }
   }
 }

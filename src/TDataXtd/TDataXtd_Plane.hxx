@@ -44,7 +44,7 @@ public:
   Standard_EXPORT static Handle(TDataXtd_Plane) Set(const DataLabel& label);
 
   //! Finds,  or creates,  a Plane1  attribute  and sets <P>  as
-  //! generated the associated NamedShape.
+  //! generated the associated NamedShape1.
   //! Plane1 methods
   //! =============
   Standard_EXPORT static Handle(TDataXtd_Plane) Set(const DataLabel& label, const gp_Pln& P);

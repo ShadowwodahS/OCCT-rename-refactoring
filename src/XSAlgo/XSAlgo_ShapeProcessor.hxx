@@ -33,11 +33,11 @@ class XSAlgo_ShapeProcessor
 {
 public:
   using ParameterMap   = NCollection_DataMap<AsciiString1, AsciiString1>;
-  using ProcessingData = std::pair<ParameterMap, ShapeProcess::OperationsFlags>;
+  using ProcessingData = std::pair<ParameterMap, ShapeProcess1::OperationsFlags>;
   // Flags defining operations to be performed on shapes. Since there is no std::optional in C++11,
   // we use a pair. The first element is the flags, the second element is a boolean value that
   // indicates whether the flags were set.
-  using ProcessingFlags = std::pair<ShapeProcess::OperationsFlags, bool>;
+  using ProcessingFlags = std::pair<ShapeProcess1::OperationsFlags, bool>;
 
 public:
   //! Constructor.
@@ -58,7 +58,7 @@ public:
   //! @param theProgress Progress indicator.
   //! @return Processed shape. May be the same as the input shape if no modifications were made.
   Standard_EXPORT TopoShape ProcessShape(const TopoShape&                  theShape,
-                                            const ShapeProcess::OperationsFlags& theOperations,
+                                            const ShapeProcess1::OperationsFlags& theOperations,
                                             const Message_ProgressRange&         theProgress);
 
   //! Get the context of the last processing.
@@ -122,7 +122,7 @@ public:
                                                     ParameterMap&       theTargetParameterMap);
 
   //! Set the parameter in the map.
-  //! @param theKey Key of the parameter.
+  //! @param theKey Key1 of the parameter.
   //! @param theValue Value of the parameter.
   //! @param theIsReplace Flag indicating whether parameter should be replaced if it already exists
   //! in the map.
@@ -133,7 +133,7 @@ public:
                                            XSAlgo_ShapeProcessor::ParameterMap& theMap);
 
   //! Set the parameter in the map.
-  //! @param theKey Key of the parameter.
+  //! @param theKey Key1 of the parameter.
   //! @param theValue Value of the parameter.
   //! @param theIsReplace Flag indicating whether parameter should be replaced if it already exists
   //! in the map.
@@ -144,7 +144,7 @@ public:
                                            ParameterMap& theMap);
 
   //! Set the parameter in the map.
-  //! @param theKey Key of the parameter.
+  //! @param theKey Key1 of the parameter.
   //! @param theValue Value of the parameter.
   //! @param theIsReplace Flag indicating whether parameter should be replaced if it already exists
   //! in the map.

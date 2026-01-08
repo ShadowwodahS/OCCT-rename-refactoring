@@ -134,7 +134,7 @@ Standard_Boolean BRepAlgo1::IsValid(const ShapeList& theArgs,
                         {
                           bB.SameRange(TopoDS::Edge(exp.Current()), Standard_False);
                           bB.SameParameter(TopoDS::Edge(exp.Current()), Standard_False);
-                          BRepLib::SameParameter(TopoDS::Edge(exp.Current()),
+                          BRepLib1::SameParameter(TopoDS::Edge(exp.Current()),
                                                  BRepInspector::Tolerance(TopoDS::Edge(exp.Current())));
                           break;
                         }

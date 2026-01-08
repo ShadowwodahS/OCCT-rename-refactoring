@@ -33,7 +33,7 @@
 #include <StdSelect_TypeOfSelectionImage.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-class SelectMgr_SensitiveEntitySet;
+class SensitiveEntitySet;
 class SelectMgr_EntityOwner;
 class Select3D_SensitiveEntity;
 class ViewWindow;
@@ -43,10 +43,10 @@ class ViewWindow;
   #undef Status
 #endif
 typedef NCollection_DataMap<Handle(SelectMgr_SelectableObject),
-                            Handle(SelectMgr_SensitiveEntitySet)>
+                            Handle(SensitiveEntitySet)>
   SelectMgr_MapOfObjectSensitives;
 typedef NCollection_DataMap<Handle(SelectMgr_SelectableObject),
-                            Handle(SelectMgr_SensitiveEntitySet)>::Iterator
+                            Handle(SensitiveEntitySet)>::Iterator
   SelectMgr_MapOfObjectSensitivesIterator;
 
 typedef NCollection_DataMap<Standard_Integer, SelectMgr_SelectingVolumeManager>
@@ -61,7 +61,7 @@ typedef NCollection_DataMap<Standard_Integer, SelectMgr_SelectingVolumeManager>
 //! Note that in 3D, the inheriting framework
 //! StdSelect_ViewerSelector3d   is only to be used
 //! if you do not want to use the services provided by
-//! AIS.
+//! AIS1.
 //! Two tools are available to find and select objects
 //! found at a given position in the view. If you want to
 //! select the owners of all the objects detected at
@@ -254,7 +254,7 @@ public:
   SelectMgr_SelectingVolumeManager& GetManager() { return mySelectingVolumeMgr; }
 
   //! Return map of selectable objects.
-  const SelectMgr_SelectableObjectSet& SelectableObjects() const { return mySelectableObjects; }
+  const SelectableObjectSet& SelectableObjects() const { return mySelectableObjects; }
 
   //! Marks all added sensitive entities of all objects as non-selectable
   Standard_EXPORT void ResetSelectionActivationStatus();
@@ -386,7 +386,7 @@ private:
 private:
   //! Compute 3d position for detected entity.
   void updatePoint3d(SelectMgr_SortCriterion&                theCriterion,
-                     const SelectBasics_PickResult&          thePickResult,
+                     const PickResult&          thePickResult,
                      const Handle(Select3D_SensitiveEntity)& theEntity,
                      const GeneralTransform&                         theInversedTrsf,
                      const SelectMgr_SelectingVolumeManager& theMgr) const;
@@ -397,8 +397,8 @@ protected:
   Standard_Boolean                                          myToPreferClosest;
   SelectMgr_IndexedDataMapOfOwnerCriterion                  mystored;
   SelectMgr_SelectingVolumeManager                          mySelectingVolumeMgr;
-  mutable SelectMgr_SelectableObjectSet                     mySelectableObjects;
-  SelectMgr_ToleranceMap                                    myTolerances;
+  mutable SelectableObjectSet                     mySelectableObjects;
+  ToleranceMap                                    myTolerances;
   NCollection_DataMap<Graphic3d_ZLayerId, Standard_Integer> myZLayerOrderMap;
   Handle(Select3D_BVHBuilder3d)                             myEntitySetBuilder;
   Point3d                                                    myCameraEye;

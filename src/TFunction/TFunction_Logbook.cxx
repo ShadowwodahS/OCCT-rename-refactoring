@@ -141,7 +141,7 @@ void TFunction_Logbook::SetValid(const TDF_LabelMap& Ls)
   TDF_MapIteratorOfLabelMap itrm(Ls);
   for (; itrm.More(); itrm.Next())
   {
-    const DataLabel& L = itrm.Key();
+    const DataLabel& L = itrm.Key1();
     myValid.Add(L);
   }
 }
@@ -173,7 +173,7 @@ void TFunction_Logbook::GetValid(TDF_LabelMap& Ls) const
   TDF_MapIteratorOfLabelMap itrm(myValid);
   for (; itrm.More(); itrm.Next())
   {
-    const DataLabel& L = itrm.Key();
+    const DataLabel& L = itrm.Key1();
     Ls.Add(L);
   }
 }
@@ -194,17 +194,17 @@ void TFunction_Logbook::Restore(const Handle(TDF_Attribute)& other)
   TDF_MapIteratorOfLabelMap itrm;
   for (itrm.Initialize(logbook->myValid); itrm.More(); itrm.Next())
   {
-    myValid.Add(itrm.Key());
+    myValid.Add(itrm.Key1());
   }
   // Touched labels
   for (itrm.Initialize(logbook->myTouched); itrm.More(); itrm.Next())
   {
-    myTouched.Add(itrm.Key());
+    myTouched.Add(itrm.Key1());
   }
   // Impacted labels
   for (itrm.Initialize(logbook->myImpacted); itrm.More(); itrm.Next())
   {
-    myImpacted.Add(itrm.Key());
+    myImpacted.Add(itrm.Key1());
   }
 }
 
@@ -294,19 +294,19 @@ Standard_OStream& TFunction_Logbook::Dump(Standard_OStream& stream) const
   stream << "Touched labels: " << std::endl;
   for (itr.Initialize(myTouched); itr.More(); itr.Next())
   {
-    Tool3::Entry(itr.Key(), as);
+    Tool3::Entry(itr.Key1(), as);
     stream << as << std::endl;
   }
   stream << "Impacted labels: " << std::endl;
   for (itr.Initialize(myImpacted); itr.More(); itr.Next())
   {
-    Tool3::Entry(itr.Key(), as);
+    Tool3::Entry(itr.Key1(), as);
     stream << as << std::endl;
   }
   stream << "Valid labels: " << std::endl;
   for (itr.Initialize(myValid); itr.More(); itr.Next())
   {
-    Tool3::Entry(itr.Key(), as);
+    Tool3::Entry(itr.Key1(), as);
     stream << as << std::endl;
   }
 

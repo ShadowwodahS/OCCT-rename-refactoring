@@ -16,7 +16,7 @@
 
 //=================================================================================================
 
-Interface_FileParameter::Interface_FileParameter()
+FileParameter::FileParameter()
 {
   thetype = Interface_ParamMisc;
   thenum  = 0;
@@ -24,7 +24,7 @@ Interface_FileParameter::Interface_FileParameter()
 
 //=================================================================================================
 
-void Interface_FileParameter::Init(const AsciiString1& val,
+void FileParameter::Init(const AsciiString1& val,
                                    const Interface_ParamType      typ)
 {
   theval = new char[val.Length() + 1];
@@ -35,7 +35,7 @@ void Interface_FileParameter::Init(const AsciiString1& val,
 
 //=================================================================================================
 
-void Interface_FileParameter::Init(const Standard_CString val, const Interface_ParamType typ)
+void FileParameter::Init(const Standard_CString val, const Interface_ParamType typ)
 {
   theval  = (Standard_PCharacter)val; // Principe : Allocation geree par contenant (ParamSet)
   thetype = typ;
@@ -44,39 +44,39 @@ void Interface_FileParameter::Init(const Standard_CString val, const Interface_P
 
 //=================================================================================================
 
-Standard_CString Interface_FileParameter::CValue() const
+Standard_CString FileParameter::CValue() const
 {
   return theval;
 }
 
 //=================================================================================================
 
-Interface_ParamType Interface_FileParameter::ParamType() const
+Interface_ParamType FileParameter::ParamType() const
 {
   return thetype;
 }
 
 //=================================================================================================
 
-void Interface_FileParameter::SetEntityNumber(const Standard_Integer num)
+void FileParameter::SetEntityNumber(const Standard_Integer num)
 {
   thenum = num;
 }
 
 //=================================================================================================
 
-Standard_Integer Interface_FileParameter::EntityNumber() const
+Standard_Integer FileParameter::EntityNumber() const
 {
   return thenum;
 }
 
 //=================================================================================================
 
-void Interface_FileParameter::Clear()
+void FileParameter::Clear()
 {
   theval = NULL;
 } // delete theval;  pas si gere par ParamSet
 
 //=================================================================================================
 
-void Interface_FileParameter::Destroy() {}
+void FileParameter::Destroy() {}

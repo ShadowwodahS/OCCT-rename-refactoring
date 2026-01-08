@@ -31,7 +31,7 @@
 class Graphic3d_ArrayOfTriangles;
 class Image_Texture;
 
-//! Extended Reality (XR) Session interface.
+//! Extended1 Reality (XR) Session interface.
 class Aspect_XRSession : public RefObject
 {
   DEFINE_STANDARD_RTTIEXT(Aspect_XRSession, RefObject)

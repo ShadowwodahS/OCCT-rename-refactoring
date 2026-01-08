@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-void XmlMXCAFDoc::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMXCAFDoc1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                              const Handle(Message_Messenger)&   anMsgDrv)
 {
   aDriverTable->AddDriver(new XmlMXCAFDoc_CentroidDriver(anMsgDrv));

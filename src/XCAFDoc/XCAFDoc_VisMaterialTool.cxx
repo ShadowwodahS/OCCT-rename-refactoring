@@ -136,15 +136,15 @@ void XCAFDoc_VisMaterialTool::SetShapeMaterial(const DataLabel& theShapeLabel,
 {
   if (theMaterialLabel.IsNull())
   {
-    theShapeLabel.ForgetAttribute(XCAFDoc::VisMaterialRefGUID());
+    theShapeLabel.ForgetAttribute(XCAFDoc1::VisMaterialRefGUID());
     return;
   }
 
   // set reference
   Handle(TDataStd_TreeNode) aMainNode =
-    TDataStd_TreeNode::Set(theMaterialLabel, XCAFDoc::VisMaterialRefGUID());
+    TDataStd_TreeNode::Set(theMaterialLabel, XCAFDoc1::VisMaterialRefGUID());
   Handle(TDataStd_TreeNode) aRefNode =
-    TDataStd_TreeNode::Set(theShapeLabel, XCAFDoc::VisMaterialRefGUID());
+    TDataStd_TreeNode::Set(theShapeLabel, XCAFDoc1::VisMaterialRefGUID());
   aRefNode->Remove(); // abv: fix against bug in TreeNode::Append()
   aMainNode->Prepend(aRefNode);
 }
@@ -153,7 +153,7 @@ void XCAFDoc_VisMaterialTool::SetShapeMaterial(const DataLabel& theShapeLabel,
 
 void XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const DataLabel& theShapeLabel) const
 {
-  theShapeLabel.ForgetAttribute(XCAFDoc::VisMaterialRefGUID());
+  theShapeLabel.ForgetAttribute(XCAFDoc1::VisMaterialRefGUID());
 }
 
 //=================================================================================================
@@ -161,7 +161,7 @@ void XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const DataLabel& theShapeLabel)
 Standard_Boolean XCAFDoc_VisMaterialTool::IsSetShapeMaterial(const DataLabel& theLabel) const
 {
   Handle(TDataStd_TreeNode) aNode;
-  return theLabel.FindAttribute(XCAFDoc::VisMaterialRefGUID(), aNode) && aNode->HasFather();
+  return theLabel.FindAttribute(XCAFDoc1::VisMaterialRefGUID(), aNode) && aNode->HasFather();
 }
 
 //=================================================================================================
@@ -170,7 +170,7 @@ Standard_Boolean XCAFDoc_VisMaterialTool::GetShapeMaterial(const DataLabel& theS
                                                            DataLabel&       theMaterialLabel)
 {
   Handle(TDataStd_TreeNode) aNode;
-  if (!theShapeLabel.FindAttribute(XCAFDoc::VisMaterialRefGUID(), aNode) || !aNode->HasFather())
+  if (!theShapeLabel.FindAttribute(XCAFDoc1::VisMaterialRefGUID(), aNode) || !aNode->HasFather())
   {
     return Standard_False;
   }

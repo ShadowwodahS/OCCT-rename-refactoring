@@ -216,7 +216,7 @@ void BREP_correctgbound(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
         Handle(TopOpeBRepDS_ShapeShapeInterference)::DownCast(I);
       if (SSI.IsNull())
         continue;
-      Standard_Integer  GI = SSI->Geometry();
+      Standard_Integer  GI = SSI->Geometry1();
       TopOpeBRepDS_Kind GK = SSI->GeometryType();
       if (GK != TopOpeBRepDS_VERTEX)
         continue;
@@ -235,7 +235,7 @@ void BREP_correctgbound(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
         Handle(TopOpeBRepDS_ShapeShapeInterference)::DownCast(I);
       if (SSI.IsNull())
         continue;
-      Standard_Integer  GI = SSI->Geometry();
+      Standard_Integer  GI = SSI->Geometry1();
       TopOpeBRepDS_Kind GK = SSI->GeometryType();
       if (GK != TopOpeBRepDS_VERTEX)
         continue;
@@ -305,7 +305,7 @@ static Standard_Boolean FUN_shareNOG(const Handle(TopOpeBRepDS_HDataStructure)& 
   for (; it1.More(); it1.Next())
   {
     const Handle(TopOpeBRepDS_Interference)& I1 = it1.Value();
-    Standard_Integer                         G  = I1->Geometry();
+    Standard_Integer                         G  = I1->Geometry1();
     TopOpeBRepDS_Kind                        GT = I1->GeometryType();
     if (GT != TopOpeBRepDS_EDGE)
       continue;
@@ -318,7 +318,7 @@ static Standard_Boolean FUN_shareNOG(const Handle(TopOpeBRepDS_HDataStructure)& 
   for (; it2.More(); it2.Next())
   {
     const Handle(TopOpeBRepDS_Interference)& I2 = it2.Value();
-    Standard_Integer                         G  = I2->Geometry();
+    Standard_Integer                         G  = I2->Geometry1();
     TopOpeBRepDS_Kind                        GT = I2->GeometryType();
     if (GT != TopOpeBRepDS_EDGE)
       continue;
@@ -480,7 +480,7 @@ void TopOpeBRep_DSFiller::InsertIntersection(const TopoShape&                   
   TopoShape     lFF1, lFF2;
   //
   // Find all Rejected Faces on the Object and on the Tool
-  /////////////// Rejected Faces' Block
+  /////////////// Rejected Faces' Block1
   TopOpeBRepDS_DataStructure& aDataStructure = HDS->ChangeDS();
 
   TopTools_IndexedMapOfShape& aMapOfRejectedShapesObj =

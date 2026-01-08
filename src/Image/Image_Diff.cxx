@@ -93,12 +93,12 @@ Standard_Boolean Image_Diff::Init(const Handle(Image_PixMap)& theImageRef,
       || theImageRef->SizeY() != theImageNew->SizeY()
       || theImageRef->Format() != theImageNew->Format())
   {
-    Message::SendFail("Error: Images have different format or dimensions");
+    Message1::SendFail("Error: Images have different format or dimensions");
     return Standard_False;
   }
   else if (theImageRef->SizeX() >= 0xFFFF || theImageRef->SizeY() >= 0xFFFF)
   {
-    Message::SendFail("Error: Images are too large");
+    Message1::SendFail("Error: Images are too large");
     return Standard_False;
   }
 
@@ -122,7 +122,7 @@ Standard_Boolean Image_Diff::Init(const AsciiString1& theImgPathRef,
   Handle(Image_AlienPixMap) anImgNew = new Image_AlienPixMap();
   if (!anImgRef->Load(theImgPathRef) || !anImgNew->Load(theImgPathNew))
   {
-    Message::SendFail("Error: Failed to load image(s) file(s)");
+    Message1::SendFail("Error: Failed to load image(s) file(s)");
     return Standard_False;
   }
   return Init(anImgRef, anImgNew, theToBlackWhite);
@@ -332,7 +332,7 @@ Standard_Boolean Image_Diff::SaveDiffImage(Image_PixMap& theDiffImage) const
         for (TColStd_MapIteratorOfPackedMapOfInteger aPixelIter(aGroup->Map()); aPixelIter.More();
              aPixelIter.Next())
         {
-          Standard_Integer aDiffPixel(aPixelIter.Key());
+          Standard_Integer aDiffPixel(aPixelIter.Key1());
           theDiffImage.ChangeValue<unsigned char>(UnpackY(aDiffPixel), UnpackX(aDiffPixel)) = 255;
         }
         break;
@@ -346,7 +346,7 @@ Standard_Boolean Image_Diff::SaveDiffImage(Image_PixMap& theDiffImage) const
         for (TColStd_MapIteratorOfPackedMapOfInteger aPixelIter(aGroup->Map()); aPixelIter.More();
              aPixelIter.Next())
         {
-          Standard_Integer aDiffPixel(aPixelIter.Key());
+          Standard_Integer aDiffPixel(aPixelIter.Key1());
           memset(theDiffImage.ChangeValue<Standard_Byte*>(UnpackY(aDiffPixel), UnpackX(aDiffPixel)),
                  255,
                  3);
@@ -357,7 +357,7 @@ Standard_Boolean Image_Diff::SaveDiffImage(Image_PixMap& theDiffImage) const
         for (TColStd_MapIteratorOfPackedMapOfInteger aPixelIter(aGroup->Map()); aPixelIter.More();
              aPixelIter.Next())
         {
-          Standard_Integer aDiffPixel(aPixelIter.Key());
+          Standard_Integer aDiffPixel(aPixelIter.Key1());
           theDiffImage.SetPixelColor(UnpackX(aDiffPixel), UnpackY(aDiffPixel), aWhiteRgba);
         }
         break;
@@ -472,7 +472,7 @@ Standard_Integer Image_Diff::ignoreBorderEffect()
     for (TColStd_MapIteratorOfPackedMapOfInteger aPixelIter(aGroup->Map()); aPixelIter.More();
          aPixelIter.Next())
     {
-      aDiffPixel    = aPixelIter.Key();
+      aDiffPixel    = aPixelIter.Key1();
       aNeighboursNb = 0;
 
       // pixels of a line have only 1 or 2 neighbour pixels inside the same group

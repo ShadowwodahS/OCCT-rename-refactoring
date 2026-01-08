@@ -36,14 +36,14 @@ Standard_IMPORT DrawViewer dout;
 
 //=================================================================================================
 
-void HLRTest::Set(const Standard_CString Name, const HLRAlgoProjector& P)
+void HLRTest1::Set(const Standard_CString Name, const HLRAlgoProjector& P)
 {
   Draw1::Set(Name, new HLRTest_Projector(P));
 }
 
 //=================================================================================================
 
-Standard_Boolean HLRTest::GetProjector(Standard_CString& Name, HLRAlgoProjector& P)
+Standard_Boolean HLRTest1::GetProjector(Standard_CString& Name, HLRAlgoProjector& P)
 {
   Handle(HLRTest_Projector) HP = Handle(HLRTest_Projector)::DownCast(Draw1::Get(Name));
   if (HP.IsNull())
@@ -54,14 +54,14 @@ Standard_Boolean HLRTest::GetProjector(Standard_CString& Name, HLRAlgoProjector&
 
 //=================================================================================================
 
-void HLRTest::Set(const Standard_CString Name, const TopoShape& S)
+void HLRTest1::Set(const Standard_CString Name, const TopoShape& S)
 {
   Draw1::Set(Name, new HLRTest_OutLiner(S));
 }
 
 //=================================================================================================
 
-Handle(HLRTopoBRep_OutLiner) HLRTest::GetOutLiner(Standard_CString& Name)
+Handle(HLRTopoBRep_OutLiner) HLRTest1::GetOutLiner(Standard_CString& Name)
 {
   Handle(Draw_Drawable3D)  D  = Draw1::Get(Name);
   Handle(HLRTest_OutLiner) HS = Handle(HLRTest_OutLiner)::DownCast(D);
@@ -100,7 +100,7 @@ static Standard_Integer hprj(DrawInterpreter&, Standard_Integer n, const char** 
   }
 
   HLRAlgoProjector P(anAx2);
-  HLRTest::Set(a[1], P);
+  HLRTest1::Set(a[1], P);
   return 0;
 }
 
@@ -117,7 +117,7 @@ static Standard_Integer hout(DrawInterpreter& di, Standard_Integer n, const char
     di << name << " is not a shape.\n";
     return 1;
   }
-  HLRTest::Set(a[1], S);
+  HLRTest1::Set(a[1], S);
   return 0;
 }
 
@@ -131,7 +131,7 @@ static Standard_Integer hfil(DrawInterpreter& di, Standard_Integer n, const char
   if (n > 3)
     nbIso = Draw1::Atoi(a[3]);
   const char*                  name1 = a[1];
-  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest::GetOutLiner(name1);
+  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest1::GetOutLiner(name1);
   if (HS.IsNull())
   {
     di << name1 << " is not an OutLiner.\n";
@@ -139,7 +139,7 @@ static Standard_Integer hfil(DrawInterpreter& di, Standard_Integer n, const char
   }
   const char*       name2 = a[2];
   HLRAlgoProjector P;
-  if (!HLRTest::GetProjector(name2, P))
+  if (!HLRTest1::GetProjector(name2, P))
   {
     di << name2 << " is not a projector.\n";
     return 1;
@@ -157,7 +157,7 @@ static Standard_Integer sori(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   const char*                  name1 = a[1];
   const char*                  name2 = a[2];
-  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest::GetOutLiner(name2);
+  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest1::GetOutLiner(name2);
   if (HS.IsNull())
   {
     di << name2 << " is not an OutLiner.\n";
@@ -175,7 +175,7 @@ static Standard_Integer sout(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   const char*                  name1 = a[1];
   const char*                  name2 = a[2];
-  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest::GetOutLiner(name2);
+  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest1::GetOutLiner(name2);
   if (HS.IsNull())
   {
     di << name2 << " is not an OutLiner.\n";
@@ -197,7 +197,7 @@ static Standard_Integer hloa(DrawInterpreter& di, Standard_Integer n, const char
   if (n < 2)
     return 1;
   const char*                  name1 = a[1];
-  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest::GetOutLiner(name1);
+  Handle(HLRTopoBRep_OutLiner) HS    = HLRTest1::GetOutLiner(name1);
   if (HS.IsNull())
   {
     di << name1 << " is not an OutLiner.\n";
@@ -215,7 +215,7 @@ static Standard_Integer hrem(DrawInterpreter& di, Standard_Integer n, const char
   {
     const char*                  name = a[1];
     Standard_Integer             index;
-    Handle(HLRTopoBRep_OutLiner) HS = HLRTest::GetOutLiner(name);
+    Handle(HLRTopoBRep_OutLiner) HS = HLRTest1::GetOutLiner(name);
     if (HS.IsNull())
     {
       TopoShape S = DBRep1::Get(name);
@@ -265,7 +265,7 @@ static Standard_Integer sprj(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   const char*       name = a[1];
   HLRAlgoProjector P;
-  if (!HLRTest::GetProjector(name, P))
+  if (!HLRTest1::GetProjector(name, P))
   {
     di << name << " is not a projector.\n";
     return 1;
@@ -536,7 +536,7 @@ static Standard_Integer hlrin2d(DrawInterpreter&, Standard_Integer n, const char
 
 //=================================================================================================
 
-void HLRTest::Commands(DrawInterpreter& theCommands)
+void HLRTest1::Commands(DrawInterpreter& theCommands)
 {
   // Register save/restore tool
   HLRTest_Projector::RegisterFactory();

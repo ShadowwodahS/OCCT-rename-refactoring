@@ -805,7 +805,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
           copied_ints->SetValue(i, ints->Value(i));
         }
       }
-      myArraysOfIntegers->ChangeMap().Bind(itr.Key(), copied_ints);
+      myArraysOfIntegers->ChangeMap().Bind(itr.Key1(), copied_ints);
     }
   }
 
@@ -832,7 +832,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
           copied_dbls->SetValue(i, dbls->Value(i));
         }
       }
-      myArraysOfReals->ChangeMap().Bind(itr.Key(), copied_dbls);
+      myArraysOfReals->ChangeMap().Bind(itr.Key1(), copied_dbls);
     }
   }
 }
@@ -913,7 +913,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
           copied_ints->SetValue(i, ints->Value(i));
         }
       }
-      ND->myArraysOfIntegers->ChangeMap().Bind(itr.Key(), copied_ints);
+      ND->myArraysOfIntegers->ChangeMap().Bind(itr.Key1(), copied_ints);
     }
   }
 
@@ -939,7 +939,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
           copied_dbls->SetValue(i, dbls->Value(i));
         }
       }
-      ND->myArraysOfReals->ChangeMap().Bind(itr.Key(), copied_dbls);
+      ND->myArraysOfReals->ChangeMap().Bind(itr.Key1(), copied_dbls);
     }
   }
 }

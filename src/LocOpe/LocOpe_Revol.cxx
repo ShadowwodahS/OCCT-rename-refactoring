@@ -251,7 +251,7 @@ void LocOpe_Revol::Curves(TColGeom_SequenceOfCurve& Scurves) const
     gp_Circ       CAX;
     if (FindCircle(myAxis, pvt, CAX))
     {
-      Frame3d              A2 = CAX.Position();
+      Frame3d              A2 = CAX.Position1();
       Standard_Real       r  = CAX.Radius();
       Handle(GeomCircle) Ci = new GeomCircle(A2, r);
       Scurves.Append(Ci);
@@ -276,7 +276,7 @@ Handle(GeomCurve3d) LocOpe_Revol::BarycCurve() const
   Handle(GeomCircle) theCi;
   if (FindCircle(myAxis, bar, CAX))
   {
-    Frame3d        A2 = CAX.Position();
+    Frame3d        A2 = CAX.Position1();
     Standard_Real r  = CAX.Radius();
     theCi            = new GeomCircle(A2, r);
   }

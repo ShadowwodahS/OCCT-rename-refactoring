@@ -346,7 +346,7 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoFace&  Spine,
 
     BS.Perform(lcomplete);
     myRes = BS.Shape();
-    BRepLib::UpdateTolerances(myRes);
+    BRepLib1::UpdateTolerances(myRes);
   }
 }
 
@@ -531,7 +531,7 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoFace&  Spine,
 
     BS.Perform(lcomplete);
     myRes = BS.Shape();
-    BRepLib::UpdateTolerances(myRes);
+    BRepLib1::UpdateTolerances(myRes);
   }
 }
 

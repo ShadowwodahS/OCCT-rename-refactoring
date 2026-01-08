@@ -33,13 +33,13 @@ class Transfer_FinderProcess;
 //! The Result comes from a TransferProcess, either from
 //! Transient (the Complete Result is considered, it must contain
 //! only Transient Objects)
-class Transfer_TransferInput
+class TransferInput
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a TransferInput ready to use
-  Standard_EXPORT Transfer_TransferInput();
+  Standard_EXPORT TransferInput();
 
   //! Takes the transient items stored in a TransferIterator
   Standard_EXPORT Interface_EntityIterator Entities(Transfer_TransferIterator& list) const;

@@ -24,7 +24,7 @@
 
 typedef NCollection_IndexedDataMap<Handle(Transfer_Finder),
                                    Handle(Transfer_Binder),
-                                   Transfer_FindHasher>
+                                   TransferFindHasher>
   Transfer_TransferMapOfProcessForFinder;
 
 #endif // _Transfer_TransferMapOfProcessForFinder_HeaderFile

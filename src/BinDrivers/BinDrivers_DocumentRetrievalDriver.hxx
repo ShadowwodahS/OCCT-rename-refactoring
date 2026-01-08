@@ -48,7 +48,7 @@ public:
   Standard_EXPORT virtual void CheckShapeSection(const Storage_Position& thePos,
                                                  Standard_IStream&       theIS) Standard_OVERRIDE;
 
-  //! Clears the NamedShape driver
+  //! Clears the NamedShape1 driver
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
 
   //! Enables reading in the quick part access mode.

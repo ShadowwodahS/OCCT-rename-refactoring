@@ -118,7 +118,7 @@ inline Standard_Boolean Data1::MoreEdge() const
 
 inline const TopoEdge& Data1::Edge() const
 {
-  return TopoDS::Edge(myEIterator.Key());
+  return TopoDS::Edge(myEIterator.Key1());
 }
 
 //=======================================================================

@@ -201,7 +201,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::MapS()
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mymapeFs);
   for (; itm.More(); itm.Next())
   {
-    const TopoShape&         e   = itm.Key();
+    const TopoShape&         e   = itm.Key1();
     const ShapeList& lof = itm.Value();
     Standard_Integer            nf  = lof.Extent();
     if (nf > 2)
@@ -460,7 +460,7 @@ static void FUN_update(const TopoShape& fcur, TopTools_MapOfShape& edstoconnect)
 //  1. <e> is INTERNAL or EXTERNAL   -> nothing is done
 //  2. <e> is closing edge of <fcur> -> nothing is done
 //  3. <e> is already bound in <edstoconnect> -> remove it from the map
-//     (then has 2 ancestor faces stored in the current Block)
+//     (then has 2 ancestor faces stored in the current Block1)
 //  4. elsewhere, add it in the map.
 //
 // !! if <fcur> is INTERNAL/EXTERNAL -> nothing is done
@@ -505,8 +505,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
     return Standard_False;
 
   // purpose : myS -> {Blocks},
-  //           a Block is a closed shell with "valid" edges.
-  //           - a valid edge in a Block has at most two ancestor faces -
+  //           a Block1 is a closed shell with "valid" edges.
+  //           - a valid edge in a Block1 has at most two ancestor faces -
   //
   // Give us the starting couple (<ei>, <fi>) :
   // * If <ei> has only one untouched ancestor face <fj> left, fj+1 <- fj
@@ -535,7 +535,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
       TopTools_MapIteratorOfMapOfShape it(myedstoconnect);
       std::cout << "still to connect : ";
       for (; it.More(); it.Next())
-        std::cout << " e" << FUN_adds(it.Key());
+        std::cout << " e" << FUN_adds(it.Key1());
       std::cout << std::endl;
     }
 #endif
@@ -581,7 +581,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
       break;
 
     Standard_Integer advance = Standard_False;
-    //* initializing a new Block
+    //* initializing a new Block1
     // -------------------------
     if (startBlock || endBlock)
     {
@@ -638,7 +638,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::InitBlock()
   ShapeList                                eds;
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mymapeFs);
   for (; itm.More(); itm.Next())
-    eds.Append(itm.Key());
+    eds.Append(itm.Key1());
 
   TopTools_ListIteratorOfListOfShape ite(eds);
   for (; ite.More(); ite.Next())
@@ -654,7 +654,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::InitBlock()
 #ifdef OCCT_DEBUG
     Standard_Boolean trc = TopOpeBRepTool_GettraceREGUSO();
     if (trc)
-      std::cout << "* Block : first face = f" << FUN_adds(myf) << std::endl;
+      std::cout << "* Block1 : first face = f" << FUN_adds(myf) << std::endl;
 #endif
     return Standard_True;
   }
@@ -684,7 +684,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
     TopTools_MapIteratorOfMapOfShape itc(myedstoconnect);
     for (; itc.More(); itc.Next())
     {
-      const TopoShape& e       = itc.Key();
+      const TopoShape& e       = itc.Key1();
       Standard_Boolean    isBound = mymapeFs.IsBound(e);
       // all ancestor faces of <e> have been stored
       if (!isBound)

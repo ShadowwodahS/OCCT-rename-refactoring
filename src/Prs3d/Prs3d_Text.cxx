@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-Handle(Graphic3d_Text) Prs3d_Text::Draw1(const Handle(Graphic3d_Group)&    theGroup,
+Handle(Graphic3d_Text) Text::Draw1(const Handle(Graphic3d_Group)&    theGroup,
                                         const Handle(Prs3d_TextAspect)&   theAspect,
                                         const UtfString& theText,
                                         const Point3d&                     theAttachmentPoint)
@@ -43,7 +43,7 @@ Handle(Graphic3d_Text) Prs3d_Text::Draw1(const Handle(Graphic3d_Group)&    theGr
 
 //=================================================================================================
 
-Handle(Graphic3d_Text) Prs3d_Text::Draw1(const Handle(Graphic3d_Group)&    theGroup,
+Handle(Graphic3d_Text) Text::Draw1(const Handle(Graphic3d_Group)&    theGroup,
                                         const Handle(Prs3d_TextAspect)&   theAspect,
                                         const UtfString& theText,
                                         const Frame3d&                     theOrientation,

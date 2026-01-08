@@ -53,7 +53,7 @@
 
 Edge1::Edge1()
 {
-  myStatus = 0; // ShapeExtend::EncodeStatus (ShapeExtend_OK);
+  myStatus = 0; // ShapeExtend1::EncodeStatus (ShapeExtend_OK);
 }
 
 //=================================================================================================
@@ -256,7 +256,7 @@ TopoVertex Edge1::LastVertex(const TopoEdge& edge) const
 
 Standard_Boolean Edge1::Status(const ShapeExtend_Status Status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, Status);
+  return ShapeExtend1::DecodeStatus(myStatus, Status);
 }
 
 //=================================================================================================
@@ -374,7 +374,7 @@ Standard_Boolean Edge1::CheckCurve3dWithPCurve(const TopoEdge&          edge,
                                                             const Handle(GeomSurface)& surface,
                                                             const TopLoc_Location&      location)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   if (surface->IsKind(STANDARD_TYPE(GeomPlane)))
     return Standard_False;
@@ -383,7 +383,7 @@ Standard_Boolean Edge1::CheckCurve3dWithPCurve(const TopoEdge&          edge,
   Standard_Real        f2d, l2d; // szv#4:S4163:12Mar99 moved down f3d, l3d
   if (!PCurve(edge, surface, location, c2d, f2d, l2d, Standard_False))
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -391,7 +391,7 @@ Standard_Boolean Edge1::CheckCurve3dWithPCurve(const TopoEdge&          edge,
   Standard_Real      f3d, l3d; // szv#4:S4163:12Mar99 moved
   if (!Curve3d(edge, c3d, f3d, l3d, Standard_False))
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     return Standard_False;
   }
 
@@ -423,11 +423,11 @@ Standard_Boolean Edge1::CheckPoints(const Point3d&       P1A,
                                                  const Standard_Real preci1,
                                                  const Standard_Real preci2)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (P1A.SquareDistance(P2A) <= preci1 * preci1 && P1B.SquareDistance(P2B) <= preci2 * preci2)
     return Standard_False;
   else if (P1A.Distance(P2B) + (P1B.Distance(P2A)) < P1A.Distance(P2A) + (P1B.Distance(P2B)))
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   return Standard_True;
 }
 
@@ -437,7 +437,7 @@ Standard_Boolean Edge1::CheckVerticesWithCurve3d(const TopoEdge&     edge,
                                                               const Standard_Real    preci,
                                                               const Standard_Integer vtx)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   TopoVertex V1  = FirstVertex(edge);
   TopoVertex V2  = LastVertex(edge);
@@ -448,7 +448,7 @@ Standard_Boolean Edge1::CheckVerticesWithCurve3d(const TopoEdge&     edge,
   Handle(GeomCurve3d) c3d;
   if (!Curve3d(edge, c3d, cf, cl))
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -496,7 +496,7 @@ Standard_Boolean Edge1::CheckVerticesWithPCurve(const TopoEdge&          edge,
                                                              const Standard_Real         preci,
                                                              const Standard_Integer      vtx)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   TopoVertex V1  = FirstVertex(edge);
   TopoVertex V2  = LastVertex(edge);
@@ -507,7 +507,7 @@ Standard_Boolean Edge1::CheckVerticesWithPCurve(const TopoEdge&          edge,
   Handle(GeomCurve2d) c2d;
   if (!PCurve(edge, surf, loc, c2d, cf, cl))
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -545,14 +545,14 @@ static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
                                              Standard_Real&         toler1,
                                              Standard_Real&         toler2)
 {
-  Standard_Integer Status = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  Standard_Integer Status = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   Edge1 sae;
   TopoVertex      V1 = sae.FirstVertex(edge);
   TopoVertex      V2 = sae.LastVertex(edge);
   if (V1.IsNull() || V2.IsNull())
   { //: p1 abv 22 Feb 99: r76sy.stp
-    Status |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    Status |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Status;
   }
 
@@ -566,7 +566,7 @@ static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
   if (!sae.Curve3d(edge, c3d, a, b, Standard_True))
   {
     if (!BRepInspector::Degenerated(edge))
-      Status |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      Status |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     toler1 = toler2 = 0.;
     //    return Standard_False;
   }
@@ -613,7 +613,7 @@ static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
       toler2      = Max(toler2, pnt2.SquareDistance(P2));
     }
     else
-      Status |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+      Status |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
   }
 
   //: o8 abv 19 Feb 99: CTS18541.stp #18559: coeff 1.0001 added
@@ -622,9 +622,9 @@ static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
   toler1             = Max(1.0000001 * Sqrt(toler1), tole);
   toler2             = Max(1.0000001 * Sqrt(toler2), tole);
   if (toler1 > old1)
-    Status |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    Status |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (toler2 > old2)
-    Status |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    Status |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
 
   return Status;
 }
@@ -668,7 +668,7 @@ Standard_Boolean Edge1::CheckSameParameter(const TopoEdge&     edge,
                                                         Standard_Real&         maxdev,
                                                         const Standard_Integer NbControl)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (BRepInspector::Degenerated(edge))
     return Standard_False;
 
@@ -684,7 +684,7 @@ Standard_Boolean Edge1::CheckSameParameter(const TopoEdge&     edge,
   Handle(GeomCurve3d) aC3D = BRepInspector::Curve(edge, aCurveLoc, aFirst, aLast);
   if (aC3D.IsNull())
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -750,7 +750,7 @@ Standard_Boolean Edge1::CheckSameParameter(const TopoEdge&     edge,
     aValidateEdge.UpdateTolerance(maxdev);
     if (!aValidateEdge.IsDone())
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     }
   }
 
@@ -776,15 +776,15 @@ Standard_Boolean Edge1::CheckSameParameter(const TopoEdge&     edge,
       aValidateEdgeOnPlane.UpdateTolerance(maxdev);
       if (!aValidateEdgeOnPlane.IsDone())
       {
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       }
     }
   }
 
   if (maxdev > TE->Tolerance())
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (!SameParameter)
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
 
   return Status(ShapeExtend_DONE);
 }
@@ -858,7 +858,7 @@ Standard_Boolean Edge1::CheckOverlapping(const TopoEdge&  theEdge1,
 
   if (isOverlap)
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     return isOverlap;
   }
   if (theDomainDist == 0.0)
@@ -918,7 +918,7 @@ Standard_Boolean Edge1::CheckOverlapping(const TopoEdge&  theEdge1,
     }
   }
   if (isOverlap)
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
 
   theTolOverlap = aresTol;
   return isOverlap;

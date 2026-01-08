@@ -31,10 +31,10 @@
 #include <TCollection_ExtendedString.hxx>
 
 //==========================================================================
-// function : DsgPrs_DiameterPresentation::Add
+// function : DiameterPresentation::Add
 // purpose  : it is possible to choose the symbol of extremities of the face (arrow, point ...)
 //==========================================================================
-void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(StyleDrawer)&       aDrawer,
                                       const UtfString& aText,
                                       const Point3d&                     AttachmentPoint,
@@ -75,7 +75,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   UtfString Text = aText;
   if (IsDiamSymbol)
     Text = UtfString("\330  ") + aText; // VRO (2007-05-17) inserted a blank.
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, AttachmentPoint);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, AttachmentPoint);
 
   // arrows
   Dir3d arrdir(vecrap);
@@ -90,7 +90,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   ptoncirc2.Translate(vecrap2);
   arrdir2.Reverse();
 
-  DsgPrs::ComputeSymbol(aPresentation, LA, ptoncirc, ptoncirc2, arrdir, arrdir2, ArrowPrs);
+  DsgPrs1::ComputeSymbol(aPresentation, LA, ptoncirc, ptoncirc2, arrdir, arrdir2, ArrowPrs);
 }
 
 static Standard_Boolean DsgPrs_InDomain(const Standard_Real fpar,
@@ -123,11 +123,11 @@ static Standard_Boolean DsgPrs_InDomain(const Standard_Real fpar,
 }
 
 //=======================================================================
-// function : DsgPrs_DiameterPresentation::Add
+// function : DiameterPresentation::Add
 // purpose  : SZY 12-february-98
 //=======================================================================
 
-void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(StyleDrawer)&       aDrawer,
                                       const UtfString& aText,
                                       const Point3d&                     AttachmentPoint,
@@ -198,11 +198,11 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   UtfString Text = aText;
   if (IsDiamSymbol)
     Text = UtfString("\330 ") + Text; //  => \330 | \370?
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, DrawPosition);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, DrawPosition);
 
   // Add presentation of arrow
   Dir3d DirOfArrow(Vector3d(DrawPosition, EndOfArrow).XYZ());
-  DsgPrs::ComputeSymbol(aPresentation,
+  DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         EndOfArrow,
                         EndOfArrow,

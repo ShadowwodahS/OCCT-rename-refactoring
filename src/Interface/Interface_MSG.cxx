@@ -32,35 +32,35 @@ static char blank[] =
   "                                                                            ";
 static Standard_Integer maxblank = (Standard_Integer)strlen(blank);
 
-Interface_MSG::Interface_MSG(const Standard_CString key)
+MessageSystem::MessageSystem(const Standard_CString key)
     : thekey(key),
       theval(NULL)
 {
 }
 
-Interface_MSG::Interface_MSG(const Standard_CString key, const Standard_Integer i1)
+MessageSystem::MessageSystem(const Standard_CString key, const Standard_Integer i1)
     : thekey(key),
       theval(NULL)
 {
   char mess[300];
-  sprintf(mess, Interface_MSG::Translated(thekey), i1);
+  sprintf(mess, MessageSystem::Translated(thekey), i1);
   theval = new char[strlen(mess) + 1];
   strcpy(theval, mess);
 }
 
-Interface_MSG::Interface_MSG(const Standard_CString key,
+MessageSystem::MessageSystem(const Standard_CString key,
                              const Standard_Integer i1,
                              const Standard_Integer i2)
     : thekey(key),
       theval(NULL)
 {
   char mess[300];
-  sprintf(mess, Interface_MSG::Translated(thekey), i1, i2);
+  sprintf(mess, MessageSystem::Translated(thekey), i1, i2);
   theval = new char[strlen(mess) + 1];
   strcpy(theval, mess);
 }
 
-Interface_MSG::Interface_MSG(const Standard_CString key,
+MessageSystem::MessageSystem(const Standard_CString key,
                              const Standard_Real    r1,
                              const Standard_Integer intervals)
     : thekey(key),
@@ -68,40 +68,40 @@ Interface_MSG::Interface_MSG(const Standard_CString key,
 {
   char mess[300];
   sprintf(mess,
-          Interface_MSG::Translated(thekey),
-          (intervals < 0 ? r1 : Interface_MSG::Intervalled(r1, intervals)));
+          MessageSystem::Translated(thekey),
+          (intervals < 0 ? r1 : MessageSystem::Intervalled(r1, intervals)));
   theval = new char[strlen(mess) + 1];
   strcpy(theval, mess);
 }
 
-Interface_MSG::Interface_MSG(const Standard_CString key, const Standard_CString str)
+MessageSystem::MessageSystem(const Standard_CString key, const Standard_CString str)
     : thekey(key),
       theval(NULL)
 {
   char mess[300];
-  sprintf(mess, Interface_MSG::Translated(thekey), str);
+  sprintf(mess, MessageSystem::Translated(thekey), str);
   theval = new char[strlen(mess) + 1];
   strcpy(theval, mess);
 }
 
-Interface_MSG::Interface_MSG(const Standard_CString key,
+MessageSystem::MessageSystem(const Standard_CString key,
                              const Standard_Integer val,
                              const Standard_CString str)
     : thekey(key),
       theval(NULL)
 {
   char mess[300];
-  sprintf(mess, Interface_MSG::Translated(thekey), val, str);
+  sprintf(mess, MessageSystem::Translated(thekey), val, str);
   theval = new char[strlen(mess) + 1];
   strcpy(theval, mess);
 }
 
-Standard_CString Interface_MSG::Value() const
+Standard_CString MessageSystem::Value() const
 {
-  return (theval ? theval : Interface_MSG::Translated(thekey));
+  return (theval ? theval : MessageSystem::Translated(thekey));
 }
 
-void Interface_MSG::Destroy()
+void MessageSystem::Destroy()
 {
   if (theval)
   {
@@ -110,14 +110,14 @@ void Interface_MSG::Destroy()
   }
 }
 
-Interface_MSG::operator Standard_CString() const
+MessageSystem::operator Standard_CString() const
 {
   return Value();
 }
 
 //  ###########    Lecture Ecriture Fichier    ##########
 
-Standard_Integer Interface_MSG::Read(Standard_IStream& S)
+Standard_Integer MessageSystem::Read(Standard_IStream& S)
 {
   Standard_Integer i, nb = 0;
   char             buf[200], key[200];
@@ -145,7 +145,7 @@ Standard_Integer Interface_MSG::Read(Standard_IStream& S)
   return nb;
 }
 
-Standard_Integer Interface_MSG::Read(const Standard_CString file)
+Standard_Integer MessageSystem::Read(const Standard_CString file)
 {
   std::ifstream S(file);
   if (!S)
@@ -153,7 +153,7 @@ Standard_Integer Interface_MSG::Read(const Standard_CString file)
   return Read(S);
 }
 
-Standard_Integer Interface_MSG::Write(Standard_OStream& S, const Standard_CString rootkey)
+Standard_Integer MessageSystem::Write(Standard_OStream& S, const Standard_CString rootkey)
 {
   Standard_Integer nb = 0;
   if (thedic.IsEmpty())
@@ -164,9 +164,9 @@ Standard_Integer Interface_MSG::Write(Standard_OStream& S, const Standard_CStrin
     thedic);
   for (; iter.More(); iter.Next())
   {
-    if (!iter.Key().StartsWith(rootkey))
+    if (!iter.Key1().StartsWith(rootkey))
       continue;
-    S << "@" << iter.Key() << "\n";
+    S << "@" << iter.Key1() << "\n";
     const Handle(TCollection_HAsciiString)& str = iter.Value();
     if (str.IsNull())
       continue;
@@ -179,12 +179,12 @@ Standard_Integer Interface_MSG::Write(Standard_OStream& S, const Standard_CStrin
 
 //  ###########   EXPLOITATION   ##########
 
-Standard_Boolean Interface_MSG::IsKey(const Standard_CString key)
+Standard_Boolean MessageSystem::IsKey(const Standard_CString key)
 {
   return (key[0] == '^');
 }
 
-Standard_CString Interface_MSG::Translated(const Standard_CString key)
+Standard_CString MessageSystem::Translated(const Standard_CString key)
 {
   if (!therun)
     return key;
@@ -195,7 +195,7 @@ Standard_CString Interface_MSG::Translated(const Standard_CString key)
       return str->ToCString();
   }
   if (theprint)
-    std::cout << " **  Interface_MSG:Translate ?? " << key << "  **" << std::endl;
+    std::cout << " **  MessageSystem:Translate ?? " << key << "  **" << std::endl;
   if (therec)
   {
     if (thelist.IsBound(key))
@@ -206,11 +206,11 @@ Standard_CString Interface_MSG::Translated(const Standard_CString key)
       thelist.Bind(key, 1);
   }
   if (theraise)
-    throw Standard_DomainError("Interface_MSG : Translate");
+    throw Standard_DomainError("MessageSystem : Translate");
   return key;
 }
 
-void Interface_MSG::Record(const Standard_CString key, const Standard_CString item)
+void MessageSystem::Record(const Standard_CString key, const Standard_CString item)
 {
   Handle(TCollection_HAsciiString) dup;
   Handle(TCollection_HAsciiString) str = new TCollection_HAsciiString(item);
@@ -224,7 +224,7 @@ void Interface_MSG::Record(const Standard_CString key, const Standard_CString it
     return;
   }
   if (theprint)
-    std::cout << " **  Interface_MSG:Record ?? " << key << " ** " << item << "  **" << std::endl;
+    std::cout << " **  MessageSystem:Record ?? " << key << " ** " << item << "  **" << std::endl;
   if (therec)
   {
     if (thedup.IsNull())
@@ -235,22 +235,22 @@ void Interface_MSG::Record(const Standard_CString key, const Standard_CString it
     thedup->Append(dup);
   }
   if (theraise)
-    throw Standard_DomainError("Interface_MSG : Record");
+    throw Standard_DomainError("MessageSystem : Record");
 }
 
-void Interface_MSG::SetTrace(const Standard_Boolean toprint, const Standard_Boolean torecord)
+void MessageSystem::SetTrace(const Standard_Boolean toprint, const Standard_Boolean torecord)
 {
   theprint = toprint;
   therec   = torecord;
 }
 
-void Interface_MSG::SetMode(const Standard_Boolean running, const Standard_Boolean raising)
+void MessageSystem::SetMode(const Standard_Boolean running, const Standard_Boolean raising)
 {
   therun   = running;
   theraise = raising;
 }
 
-void Interface_MSG::PrintTrace(Standard_OStream& S)
+void MessageSystem::PrintTrace(Standard_OStream& S)
 {
   Handle(TCollection_HAsciiString) dup;
   Standard_Integer                 i, nb = 0;
@@ -269,13 +269,13 @@ void Interface_MSG::PrintTrace(Standard_OStream& S)
   NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator iter(thelist);
   for (; iter.More(); iter.Next())
   {
-    S << "** MSG(NB=" << iter.Value() << "): " << iter.Key() << std::endl;
+    S << "** MSG(NB=" << iter.Value() << "): " << iter.Key1() << std::endl;
   }
 }
 
 //  ###########    ARRONDIS DE FLOTTANTS    ############
 
-Standard_Real Interface_MSG::Intervalled(const Standard_Real    val,
+Standard_Real MessageSystem::Intervalled(const Standard_Real    val,
                                          const Standard_Integer order,
                                          const Standard_Boolean upper)
 {
@@ -379,7 +379,7 @@ Standard_Real Interface_MSG::Intervalled(const Standard_Real    val,
 
 //  ###########    DATES    ############
 
-void Interface_MSG::TDate(const Standard_CString text,
+void MessageSystem::TDate(const Standard_CString text,
                           const Standard_Integer yy,
                           const Standard_Integer mm,
                           const Standard_Integer dd,
@@ -428,7 +428,7 @@ void Interface_MSG::TDate(const Standard_CString text,
     sprintf(pText, &format[2], y2, m2, d2, h2, n2, s2);
 }
 
-Standard_Boolean Interface_MSG::NDate(const Standard_CString text,
+Standard_Boolean MessageSystem::NDate(const Standard_CString text,
                                       Standard_Integer&      yy,
                                       Standard_Integer&      mm,
                                       Standard_Integer&      dd,
@@ -463,7 +463,7 @@ Standard_Boolean Interface_MSG::NDate(const Standard_CString text,
   return (num > 0);
 }
 
-Standard_Integer Interface_MSG::CDate(const Standard_CString text1, const Standard_CString text2)
+Standard_Integer MessageSystem::CDate(const Standard_CString text1, const Standard_CString text2)
 {
   Standard_Integer i1 = 0, i2 = 0, i3 = 0, i4 = 0, i5 = 0, i6 = 0, j1 = 0, j2 = 0, j3 = 0, j4 = 0,
                    j5 = 0, j6 = 0;
@@ -498,11 +498,11 @@ Standard_Integer Interface_MSG::CDate(const Standard_CString text1, const Standa
   return 0;
 }
 
-Standard_CString Interface_MSG::Blanks(const Standard_Integer val, const Standard_Integer max)
+Standard_CString MessageSystem::Blanks(const Standard_Integer val, const Standard_Integer max)
 {
   Standard_Integer count;
   if (val < 0)
-    return Interface_MSG::Blanks(-val, max - 1);
+    return MessageSystem::Blanks(-val, max - 1);
   if (val < 10)
     count = 9;
   else if (val < 100)
@@ -529,7 +529,7 @@ Standard_CString Interface_MSG::Blanks(const Standard_Integer val, const Standar
   return &blank[maxblank - count];
 }
 
-Standard_CString Interface_MSG::Blanks(const Standard_CString val, const Standard_Integer max)
+Standard_CString MessageSystem::Blanks(const Standard_CString val, const Standard_Integer max)
 {
   Standard_Integer lng = (Standard_Integer)strlen(val);
   if (lng > maxblank || lng > max)
@@ -537,7 +537,7 @@ Standard_CString Interface_MSG::Blanks(const Standard_CString val, const Standar
   return &blank[maxblank - max + lng];
 }
 
-Standard_CString Interface_MSG::Blanks(const Standard_Integer count)
+Standard_CString MessageSystem::Blanks(const Standard_Integer count)
 {
   if (count <= 0)
     return "";
@@ -546,7 +546,7 @@ Standard_CString Interface_MSG::Blanks(const Standard_Integer count)
   return &blank[maxblank - count];
 }
 
-void Interface_MSG::Print(Standard_OStream&      S,
+void MessageSystem::Print(Standard_OStream&      S,
                           const Standard_CString val,
                           const Standard_Integer max,
                           const Standard_Integer just)

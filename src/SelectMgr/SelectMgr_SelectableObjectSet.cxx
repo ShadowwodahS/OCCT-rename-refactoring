@@ -25,10 +25,10 @@ namespace
 typedef NCollection_IndexedMap<Handle(SelectMgr_SelectableObject)> ObjectsMap;
 
 //-------------------------------------------------------------------------------------
-// Adaptor over regular objects subset of SelectMgr_SelectableObjectSet for BVH builder
+// Adaptor over regular objects subset of SelectableObjectSet for BVH builder
 //-------------------------------------------------------------------------------------
 
-//! This class provides direct access to fields of SelectMgr_SelectableObjectSet
+//! This class provides direct access to fields of SelectableObjectSet
 //! so the BVH builder could explicitly arrange objects in the map as necessary
 //! to provide synchronization of indexes with constructed BVH tree.
 class BVHBuilderAdaptorRegular : public BVH_Set<Standard_Real, 3>
@@ -94,10 +94,10 @@ private:
 };
 
 //----------------------------------------------------------------------------------------
-// Adaptor over persistent objects subset of SelectMgr_SelectableObjectSet for BVH builder
+// Adaptor over persistent objects subset of SelectableObjectSet for BVH builder
 //----------------------------------------------------------------------------------------
 
-//! This class provides direct access to fields of SelectMgr_SelectableObjectSet
+//! This class provides direct access to fields of SelectableObjectSet
 //! so the BVH builder could explicitly arrange objects in the map as necessary
 //! to provide synchronization of indexes with constructed BVH tree.
 class BVHBuilderAdaptorPersistent : public BVH_Set<Standard_Real, 3>
@@ -240,7 +240,7 @@ static const Graphic3d_Mat4d SelectMgr_SelectableObjectSet_THE_IDENTITY_MAT;
 
 //=================================================================================================
 
-SelectMgr_SelectableObjectSet::SelectMgr_SelectableObjectSet()
+SelectableObjectSet::SelectableObjectSet()
 {
   myBVH[BVHSubset_ortho2dPersistent] = new BVH_Tree<Standard_Real, 3>();
   myBVH[BVHSubset_ortho3dPersistent] = new BVH_Tree<Standard_Real, 3>();
@@ -274,7 +274,7 @@ SelectMgr_SelectableObjectSet::SelectMgr_SelectableObjectSet()
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_SelectableObjectSet::Append(
+Standard_Boolean SelectableObjectSet::Append(
   const Handle(SelectMgr_SelectableObject)& theObject)
 {
   // get an appropriate BVH subset to insert the object into it
@@ -301,7 +301,7 @@ Standard_Boolean SelectMgr_SelectableObjectSet::Append(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_SelectableObjectSet::Remove(
+Standard_Boolean SelectableObjectSet::Remove(
   const Handle(SelectMgr_SelectableObject)& theObject)
 {
   // remove object from the first found subset
@@ -330,7 +330,7 @@ Standard_Boolean SelectMgr_SelectableObjectSet::Remove(
 
 //=================================================================================================
 
-void SelectMgr_SelectableObjectSet::ChangeSubset(
+void SelectableObjectSet::ChangeSubset(
   const Handle(SelectMgr_SelectableObject)& theObject)
 {
   // do not do anything is object is not in the map
@@ -356,7 +356,7 @@ void SelectMgr_SelectableObjectSet::ChangeSubset(
 
 //=================================================================================================
 
-void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
+void SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
                                               const Graphic3d_Vec2i&          theWinSize)
 {
   // -----------------------------------------
@@ -487,7 +487,7 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
 
 //=================================================================================================
 
-void SelectMgr_SelectableObjectSet::MarkDirty()
+void SelectableObjectSet::MarkDirty()
 {
   myIsDirty[BVHSubset_3d]                = Standard_True;
   myIsDirty[BVHSubset_3dPersistent]      = Standard_True;
@@ -498,7 +498,7 @@ void SelectMgr_SelectableObjectSet::MarkDirty()
 
 //=================================================================================================
 
-void SelectMgr_SelectableObjectSet::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void SelectableObjectSet::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   for (Standard_Integer aSubsetIdx = 0; aSubsetIdx < BVHSubsetNb; ++aSubsetIdx)
   {

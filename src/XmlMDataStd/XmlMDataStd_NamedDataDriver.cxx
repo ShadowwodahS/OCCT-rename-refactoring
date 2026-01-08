@@ -61,26 +61,26 @@ Handle(TDF_Attribute) XmlMDataStd_NamedDataDriver::NewEmpty() const
 }
 
 //=======================================================================
-static UtfString SplitItemFromEnd(UtfString& Key)
+static UtfString SplitItemFromEnd(UtfString& Key1)
 {
   UtfString aValue;
-  const Standard_Integer     aPos = Key.SearchFromEnd(" ");
+  const Standard_Integer     aPos = Key1.SearchFromEnd(" ");
   if (aPos == -1)
     return aValue;
-  aValue = Key.Split(aPos - 1);
+  aValue = Key1.Split(aPos - 1);
   aValue.Remove(1, 1);
   return aValue;
 }
 
 //=======================================================================
-static UtfString SplitItemFromStart(UtfString& Key)
+static UtfString SplitItemFromStart(UtfString& Key1)
 {
   UtfString aValue;
-  const Standard_Integer     aPos = Key.Search(" ");
+  const Standard_Integer     aPos = Key1.Search(" ");
   if (aPos == -1)
     return aValue;
-  aValue = Key.Split(aPos);
-  Key.Remove(Key.Length(), 1);
+  aValue = Key1.Split(aPos);
+  Key1.Remove(Key1.Length(), 1);
   return aValue;
 }
 
@@ -122,7 +122,7 @@ Handle(TColStd_HArray1OfReal) BuildRealArray(const AsciiString1& ValString,
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const PersistentStorage&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable&) const
 {
@@ -179,7 +179,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
       TColStd_DataMapOfStringInteger aMap;
       for (ind = aFirstInd; ind < aLastInd; ind++)
       {
-        XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+        XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
         aValueStr = SplitItemFromEnd(aKey);
         if (aValueStr.Length() == 0)
         {
@@ -194,7 +194,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
         aCurNode    = aCurElement->getNextSibling();
         aCurElement = (LDOM_Element*)&aCurNode;
       }
-      XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
       aValueStr = SplitItemFromEnd(aKey);
       if (aValueStr.Length() == 0)
       {
@@ -261,7 +261,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
       TDataStd_DataMapOfStringReal aMap;
       for (ind = aFirstInd; ind < aLastInd; ind++)
       {
-        XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+        XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
         aValueStr = SplitItemFromEnd(aKey);
         if (aValueStr.Length() == 0)
         {
@@ -276,7 +276,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
         aCurNode    = aCurElement->getNextSibling();
         aCurElement = (LDOM_Element*)&aCurNode;
       }
-      XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
       aValueStr = SplitItemFromEnd(aKey);
       if (aValueStr.Length() == 0)
       {
@@ -340,7 +340,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
       TDataStd_DataMapOfStringString aMap;
       for (ind = aFirstInd; ind < aLastInd; ind++)
       {
-        XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+        XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
         aValue = SplitItemFromStart(aKey); // ==>from start
         if (aValue.Length() == 0)
         {
@@ -353,7 +353,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
         aCurNode    = aCurElement->getNextSibling();
         aCurElement = (LDOM_Element*)&aCurNode;
       }
-      XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
       aValue = SplitItemFromStart(aKey);
       if (aValue.Length() == 0)
       {
@@ -419,7 +419,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
       TDataStd_DataMapOfStringByte aMap;
       for (ind = aFirstInd; ind < aLastInd; ind++)
       {
-        XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+        XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
         aValueStr = SplitItemFromEnd(aKey);
         if (aValueStr.Length() == 0)
         {
@@ -436,7 +436,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
         aCurNode    = aCurElement->getNextSibling();
         aCurElement = (LDOM_Element*)&aCurNode;
       }
-      XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
       aValueStr = SplitItemFromEnd(aKey);
       if (aValueStr.Length() == 0)
       {
@@ -504,7 +504,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
 
       for (ind = aFirstInd; ind < aLastInd; ind++)
       {
-        XmlObjMgt::GetExtendedString(*aCurElement, aKey); // Len - at the end
+        XmlObjMgt1::GetExtendedString(*aCurElement, aKey); // Len - at the end
         aValueStr = SplitItemFromEnd(aKey);
         if (aValueStr.Length() == 0)
         {
@@ -531,7 +531,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
         aCurElement = (LDOM_Element*)&aCurNode;
       }
 
-      XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
       aValueStr = SplitItemFromEnd(aKey);
       if (aValueStr.Length() == 0)
       {
@@ -608,7 +608,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
 
       for (ind = aFirstInd; ind < aLastInd; ind++)
       {
-        XmlObjMgt::GetExtendedString(*aCurElement, aKey); // Len - at the end
+        XmlObjMgt1::GetExtendedString(*aCurElement, aKey); // Len - at the end
         aValueStr = SplitItemFromEnd(aKey);
         if (aValueStr.Length() == 0)
         {
@@ -635,7 +635,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
         aCurElement = (LDOM_Element*)&aCurNode;
       }
 
-      XmlObjMgt::GetExtendedString(*aCurElement, aKey);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aKey);
       aValueStr = SplitItemFromEnd(aKey);
       if (aValueStr.Length() == 0)
       {
@@ -677,7 +677,7 @@ Standard_Boolean XmlMDataStd_NamedDataDriver::Paste(const XmlObjMgt_Persistent& 
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                        XmlObjMgt_Persistent&        theTarget,
+                                        PersistentStorage&        theTarget,
                                         XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_NamedData) S = Handle(TDataStd_NamedData)::DownCast(theSource);
@@ -701,9 +701,9 @@ void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     for (i = 1; itr.More(); itr.Next(), i++)
     {
       const UtfString aValueStr =
-        itr.Key() + ' ' + UtfString(itr.Value()); // key - value;
+        itr.Key1() + ' ' + UtfString(itr.Value()); // key - value;
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr);
       anElement.appendChild(aCurTarget);
     }
   }
@@ -716,9 +716,9 @@ void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     for (i = 1; itr.More(); itr.Next(), i++)
     {
       const UtfString aValueStr =
-        itr.Key() + ' ' + UtfString(itr.Value()); // key - value;
+        itr.Key1() + ' ' + UtfString(itr.Value()); // key - value;
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr);
       anElement.appendChild(aCurTarget);
     }
   }
@@ -731,9 +731,9 @@ void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     for (i = 1; itr.More(); itr.Next(), i++)
     {
       const UtfString aValueStr =
-        itr.Key() + ' ' + UtfString(itr.Value()); // key(without blanks) - value;
+        itr.Key1() + ' ' + UtfString(itr.Value()); // key(without blanks) - value;
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr);
       anElement.appendChild(aCurTarget);
     }
   }
@@ -746,9 +746,9 @@ void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     for (i = 1; itr.More(); itr.Next(), i++)
     {
       const UtfString aValueStr =
-        itr.Key() + ' ' + UtfString(itr.Value()); // key - value;
+        itr.Key1() + ' ' + UtfString(itr.Value()); // key - value;
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr);
       anElement.appendChild(aCurTarget);
     }
   }
@@ -765,9 +765,9 @@ void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
       const Standard_Integer         aLen   = anArr1.Upper() - anArr1.Lower() + 1;
 
       const UtfString aValueStr =
-        itr.Key() + ' ' + UtfString(aLen); // key - Num_of_Arr_elements;
+        itr.Key1() + ' ' + UtfString(aLen); // key - Num_of_Arr_elements;
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr); // key
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr); // key
       anElement.appendChild(aCurTarget);
 
       // Value = Array
@@ -798,9 +798,9 @@ void XmlMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
 
       // key
       const UtfString aValueStr =
-        itr.Key() + ' ' + UtfString(aLen); // key - Num_of_Arr_elements;
+        itr.Key1() + ' ' + UtfString(aLen); // key - Num_of_Arr_elements;
       XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr); // key
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr); // key
       anElement.appendChild(aCurTarget);
 
       // Value = Array

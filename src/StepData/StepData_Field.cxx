@@ -773,7 +773,7 @@ Standard_Integer StepData_Field::Int() const
   return theint;
 }
 
-Standard_Integer StepData_Field::Integer(const Standard_Integer n1, const Standard_Integer n2) const
+Standard_Integer StepData_Field::Integer1(const Standard_Integer n1, const Standard_Integer n2) const
 {
   if ((thekind & KindArity) == 0)
   {
@@ -811,12 +811,12 @@ Standard_Integer StepData_Field::Integer(const Standard_Integer n1, const Standa
 
 Standard_Boolean StepData_Field::Boolean(const Standard_Integer n1, const Standard_Integer n2) const
 {
-  return (Integer(n1, n2) > 0);
+  return (Integer1(n1, n2) > 0);
 }
 
 StepData_Logical StepData_Field::Logical(const Standard_Integer n1, const Standard_Integer n2) const
 {
-  Standard_Integer ival = Integer(n1, n2);
+  Standard_Integer ival = Integer1(n1, n2);
   if (ival == 0)
     return StepData_LFalse;
   if (ival == 1)
@@ -916,7 +916,7 @@ Standard_CString StepData_Field::String(const Standard_Integer n1, const Standar
 
 Standard_Integer StepData_Field::Enum(const Standard_Integer n1, const Standard_Integer n2) const
 {
-  return Integer(n1, n2);
+  return Integer1(n1, n2);
 }
 
 Standard_CString StepData_Field::EnumText(const Standard_Integer n1,

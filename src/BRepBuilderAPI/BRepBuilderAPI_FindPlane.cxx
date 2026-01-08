@@ -96,7 +96,7 @@ void BRepBuilderAPI_FindPlane::Init(const TopoShape& S, const Standard_Real Tol)
         {
           found                 = Standard_True;
           Handle(Geom_Conic) Co = Handle(Geom_Conic)::DownCast(c3dptr);
-          P                     = new GeomPlane(Ax3(Co->Position()));
+          P                     = new GeomPlane(Ax3(Co->Position1()));
         }
       }
       else if (cType == STANDARD_TYPE(BezierCurve3d))

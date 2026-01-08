@@ -121,7 +121,7 @@ void SelectMgr_TriangularFrustumSet::Build()
   IMeshData::IteratorOfMapOfInteger aTriangleIt(aTriangles);
   for (; aTriangleIt.More(); aTriangleIt.Next())
   {
-    const Standard_Integer   aTriangleId      = aTriangleIt.Key();
+    const Standard_Integer   aTriangleId      = aTriangleIt.Key1();
     const Triangle3& aCurrentTriangle = aMeshStructure->GetElement(aTriangleId);
 
     if (aCurrentTriangle.Movability() == BRepMesh_Deleted)
@@ -137,7 +137,7 @@ void SelectMgr_TriangularFrustumSet::Build()
       aPts[aVertIdx]                 = aVertex.Coord();
     }
 
-    Handle(SelectMgr_TriangularFrustum) aTrFrustum = new SelectMgr_TriangularFrustum();
+    Handle(TriangularFrustum) aTrFrustum = new TriangularFrustum();
     aTrFrustum->Init(aPts[0], aPts[1], aPts[2]);
     aTrFrustum->SetBuilder(myBuilder);
     aTrFrustum->Build();
@@ -172,7 +172,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_TriangularFrustumSet::ScaleAndTransf
   aRes->SetCamera(myCamera);
   for (SelectMgr_TriangFrustums::Iterator anIter(myFrustums); anIter.More(); anIter.Next())
   {
-    aRes->myFrustums.Append(Handle(SelectMgr_TriangularFrustum)::DownCast(
+    aRes->myFrustums.Append(Handle(TriangularFrustum)::DownCast(
       anIter.Value()->ScaleAndTransform(theScale, theTrsf, theBuilder)));
   }
 
@@ -212,7 +212,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_TriangularFrustumSet::CopyWithBuilde
   for (SelectMgr_TriangFrustums::Iterator anIter(myFrustums); anIter.More(); anIter.Next())
   {
     aRes->myFrustums.Append(
-      Handle(SelectMgr_TriangularFrustum)::DownCast(anIter.Value()->CopyWithBuilder(theBuilder)));
+      Handle(TriangularFrustum)::DownCast(anIter.Value()->CopyWithBuilder(theBuilder)));
   }
   aRes->mySelectionType  = mySelectionType;
   aRes->mySelPolyline    = mySelPolyline;
@@ -227,7 +227,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsBox(
   const SelectMgr_Vec3&          theMinPnt,
   const SelectMgr_Vec3&          theMaxPnt,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -300,7 +300,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsBox(const SelectMgr_Vec
 Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsPoint(
   const Point3d&                  thePnt,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -323,7 +323,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsPolygon(
   const TColgp_Array1OfPnt&      theArrayOfPts,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -363,7 +363,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSegment(
   const Point3d&                  thePnt1,
   const Point3d&                  thePnt2,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -399,7 +399,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsTriangle(
   const Point3d&                  thePnt3,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -528,7 +528,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
   const Point3d&                  theCenter,
   const Standard_Real            theRadius,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -552,7 +552,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
   const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsHollow,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -677,7 +677,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCircle(
   const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsFilled,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Polyline,
                         "Error! SelectMgr_TriangularFrustumSet::Overlaps() should be called after "
@@ -1009,7 +1009,7 @@ void SelectMgr_TriangularFrustumSet::DumpJson(Standard_OStream& theOStream,
 
   for (SelectMgr_TriangFrustums::Iterator anIter(myFrustums); anIter.More(); anIter.Next())
   {
-    const Handle(SelectMgr_TriangularFrustum)& aFrustum = anIter.Value();
+    const Handle(TriangularFrustum)& aFrustum = anIter.Value();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, aFrustum.get())
   }
 }

@@ -27,7 +27,7 @@ class GeomSurface;
 class Prs3d_DimensionAspect;
 
 //! Describes Standard Presentations for DsgIHM objects
-class DsgPrs
+class DsgPrs1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -101,13 +101,13 @@ public:
                                                 Point3d&                aRadLineOrign,
                                                 Point3d&                aRadLineEnd);
 
-  //! computes Geometry for  fillet radius  presentation;
+  //! computes Geometry1 for  fillet radius  presentation;
   //! special case flag  SpecCase equal Standard_True if
   //! radius of  fillet circle  =  0  or if  anngle between
   //! Vec1(Center, FirstPoint)  and Vec2(Center,SecondPoint) equal 0 or PI
   Standard_EXPORT static void ComputeFilletRadiusPresentation(const Standard_Real    ArrowLength,
                                                               const Standard_Real    Value,
-                                                              const Point3d&          Position,
+                                                              const Point3d&          Position1,
                                                               const Dir3d&          NormalDir,
                                                               const Point3d&          FirstPoint,
                                                               const Point3d&          SecondPoint,

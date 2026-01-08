@@ -159,7 +159,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the torus.
-  const Ax3& Position() const { return pos; }
+  const Ax3& Position1() const { return pos; }
 
   //! returns the major radius of the torus.
   Standard_Real MajorRadius() const { return majorRadius; }

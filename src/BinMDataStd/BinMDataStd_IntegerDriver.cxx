@@ -52,7 +52,7 @@ Standard_Boolean BinMDataStd_IntegerDriver::Paste(const BinObjMgt_Persistent&  t
     anAtt->Set(aValue);
   if (theRT.GetHeaderData()->StorageVersion().IntegerValue() >= TDocStd_FormatVersion_VERSION_9)
   { // process user defined guid
-    const Standard_Integer& aPos = theSource.Position();
+    const Standard_Integer& aPos = theSource.Position1();
     Standard_GUID           aGuid;
     ok = theSource >> aGuid;
     if (!ok)

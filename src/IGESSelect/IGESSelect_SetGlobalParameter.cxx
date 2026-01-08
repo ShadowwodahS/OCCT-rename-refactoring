@@ -64,7 +64,7 @@ void IGESSelect_SetGlobalParameter::Performing(IFSelect_ContextModif&           
     ctx.CCheck()->AddFail(mess);
     return;
   }
-  Interface_FileParameter& FP = oldset->ChangeParam(thenum);
+  FileParameter& FP = oldset->ChangeParam(thenum);
   FP.Init(theval->ToCString(), FP.ParamType());
   Handle(Interface_Check) check = new Interface_Check;
   GS.Init(oldset, check);

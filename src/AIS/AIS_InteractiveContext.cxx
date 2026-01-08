@@ -177,7 +177,7 @@ VisualContext::~VisualContext()
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    const Handle(VisualEntity)& anObj = anObjIter.Key();
+    const Handle(VisualEntity)& anObj = anObjIter.Key1();
     anObj->SetContext(aNullContext);
     for (SelectMgr_SequenceOfSelection::Iterator aSelIter(anObj->Selections()); aSelIter.More();
          aSelIter.Next())
@@ -223,9 +223,9 @@ void VisualContext::DisplayedObjects(AIS_ListOfInteractive& theListOfIO) const
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    if (anObjIter.Key()->DisplayStatus() == PrsMgr_DisplayStatus_Displayed)
+    if (anObjIter.Key1()->DisplayStatus() == PrsMgr_DisplayStatus_Displayed)
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
     }
   }
 }
@@ -263,9 +263,9 @@ void VisualContext::ObjectsByDisplayStatus(const PrsMgr_DisplayStatus theStatus,
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    if (anObjIter.Key()->DisplayStatus() == theStatus)
+    if (anObjIter.Key1()->DisplayStatus() == theStatus)
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
     }
   }
 }
@@ -280,18 +280,18 @@ void VisualContext::ObjectsByDisplayStatus(const AIS_KindOfInteractive theKind,
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    if (theStatus != PrsMgr_DisplayStatus_None && anObjIter.Key()->DisplayStatus() != theStatus)
+    if (theStatus != PrsMgr_DisplayStatus_None && anObjIter.Key1()->DisplayStatus() != theStatus)
     {
       continue;
     }
-    else if (anObjIter.Key()->Type() != theKind)
+    else if (anObjIter.Key1()->Type() != theKind)
     {
       continue;
     }
 
-    if (theSign == -1 || anObjIter.Key()->Signature() == theSign)
+    if (theSign == -1 || anObjIter.Key1()->Signature() == theSign)
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
     }
   }
 }
@@ -307,7 +307,7 @@ void VisualContext::ObjectsInside(AIS_ListOfInteractive&      theListOfIO,
     for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
          anObjIter.Next())
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
     }
     return;
   }
@@ -315,14 +315,14 @@ void VisualContext::ObjectsInside(AIS_ListOfInteractive&      theListOfIO,
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    if (anObjIter.Key()->Type() != theKind)
+    if (anObjIter.Key1()->Type() != theKind)
     {
       continue;
     }
 
-    if (theSign == -1 || anObjIter.Key()->Signature() == theSign)
+    if (theSign == -1 || anObjIter.Key1()->Signature() == theSign)
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
     }
   }
 }
@@ -339,17 +339,17 @@ void VisualContext::ObjectsForView(AIS_ListOfInteractive&     theListOfIO,
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    if (theStatus != PrsMgr_DisplayStatus_None && anObjIter.Key()->DisplayStatus() != theStatus)
+    if (theStatus != PrsMgr_DisplayStatus_None && anObjIter.Key1()->DisplayStatus() != theStatus)
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
       continue;
     }
 
-    Handle(Graphic3d_ViewAffinity) anAffinity = anObjIter.Key()->ViewAffinity();
+    Handle(Graphic3d_ViewAffinity) anAffinity = anObjIter.Key1()->ViewAffinity();
     const Standard_Boolean         isVisible  = anAffinity->IsVisible(aViewId);
     if (isVisible == theIsVisibleInView)
     {
-      theListOfIO.Append(anObjIter.Key());
+      theListOfIO.Append(anObjIter.Key1());
     }
   }
 }
@@ -532,9 +532,9 @@ void VisualContext::EraseAll(const Standard_Boolean theToUpdateViewer)
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    if (anObjIter.Key()->DisplayStatus() == PrsMgr_DisplayStatus_Displayed)
+    if (anObjIter.Key1()->DisplayStatus() == PrsMgr_DisplayStatus_Displayed)
     {
-      Erase(anObjIter.Key(), Standard_False);
+      Erase(anObjIter.Key1(), Standard_False);
     }
   }
 
@@ -551,10 +551,10 @@ void VisualContext::DisplayAll(const Standard_Boolean theToUpdateViewer)
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    const PrsMgr_DisplayStatus aStatus = anObjIter.Key()->DisplayStatus();
+    const PrsMgr_DisplayStatus aStatus = anObjIter.Key1()->DisplayStatus();
     if (aStatus == PrsMgr_DisplayStatus_Erased)
     {
-      Display(anObjIter.Key(), Standard_False);
+      Display(anObjIter.Key1(), Standard_False);
     }
   }
 
@@ -897,7 +897,7 @@ void VisualContext::Redisplay(const AIS_KindOfInteractive theKOI,
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    const Handle(VisualEntity)& anObj = anObjIter.Key();
+    const Handle(VisualEntity)& anObj = anObjIter.Key1();
     if (anObj->Type() != theKOI)
     {
       continue;
@@ -905,7 +905,7 @@ void VisualContext::Redisplay(const AIS_KindOfInteractive theKOI,
 
     Redisplay(anObj, Standard_False);
     isRedisplayed =
-      anObjIter.Key()->DisplayStatus() == PrsMgr_DisplayStatus_Displayed || isRedisplayed;
+      anObjIter.Key1()->DisplayStatus() == PrsMgr_DisplayStatus_Displayed || isRedisplayed;
   }
 
   if (theToUpdateViewer && isRedisplayed)
@@ -1079,7 +1079,7 @@ void VisualContext::SetDisplayMode(const Standard_Integer theMode,
   for (AIS_DataMapIteratorOfDataMapOfIOStatus anObjIter(myObjects); anObjIter.More();
        anObjIter.Next())
   {
-    Handle(VisualEntity) anObj     = anObjIter.Key();
+    Handle(VisualEntity) anObj     = anObjIter.Key1();
     Standard_Boolean              toProcess = anObj->IsKind(STANDARD_TYPE(VisualShape))
                                  || anObj->IsKind(STANDARD_TYPE(AIS_ConnectedInteractive))
                                  || anObj->IsKind(STANDARD_TYPE(AIS_MultipleConnectedInteractive));
@@ -2105,7 +2105,7 @@ Box2 VisualContext::BoundingBoxOfSelection(const Handle(ViewWindow)& theView) co
 
   for (AIS_MapIteratorOfMapOfObjectOwners anIter(anObjectOwnerMap); anIter.More(); anIter.Next())
   {
-    const Handle(SelectMgr_SelectableObject)& anObject = anIter.Key();
+    const Handle(SelectMgr_SelectableObject)& anObject = anIter.Key1();
     Box2 aTmpBox = anObject->BndBoxOfSelected(anIter.ChangeValue());
     aBndSelected.Add(aTmpBox);
   }
@@ -2416,7 +2416,7 @@ void VisualContext::turnOnSubintensity(const Handle(VisualEntity)& theObject,
       }
 
       aStatus->SetSubIntensity(true);
-      myMainPM->Color(anObjsIter.Key(),
+      myMainPM->Color(anObjsIter.Key1(),
                       aSubStyle,
                       theDispMode != -1 ? theDispMode : aStatus->DisplayMode());
     }
@@ -2526,7 +2526,7 @@ AIS_StatusOfDetection VisualContext::moveTo(const Handle(ViewWindow)& theView,
   AIS_StatusOfDetection aStatus        = AIS_SOD_Nothing;
   Standard_Boolean      toUpdateViewer = Standard_False;
 
-  // filling of myAISDetectedSeq sequence storing information about detected AIS objects
+  // filling of myAISDetectedSeq sequence storing information about detected AIS1 objects
   // (the objects must be AIS_Shapes)
   const Standard_Integer aDetectedNb    = MainSelector()->NbPicked();
   Standard_Integer       aNewDetected   = 0;
@@ -3003,7 +3003,7 @@ void VisualContext::highlightOwners(const AIS_NListOfEntityOwner& theOwners,
          anIter.More();
          anIter.Next())
     {
-      anIter.Key()->HilightSelected(myMainPM, *anIter.Value());
+      anIter.Key1()->HilightSelected(myMainPM, *anIter.Value());
     }
     anObjOwnerMap.Clear();
   }

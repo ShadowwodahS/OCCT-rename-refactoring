@@ -44,7 +44,7 @@ void DEIGES_Provider::personizeWS(Handle(ExchangeSession)& theWS)
 {
   if (theWS.IsNull())
   {
-    Message::SendWarning() << "Warning: DEIGES_Provider :"
+    Message1::SendWarning() << "Warning: DEIGES_Provider :"
                            << " Null work session, use internal temporary session";
     theWS = new ExchangeSession();
   }
@@ -162,13 +162,13 @@ bool DEIGES_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
   if (!GetNode()->IsKind(STANDARD_TYPE(DEIGES_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -191,7 +191,7 @@ bool DEIGES_Provider::Read(const AsciiString1&  thePath,
   aReadStat                       = aReader.ReadFile(thePath.ToCString());
   if (aReadStat != IFSelect_RetDone)
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: abandon, no model loaded";
     resetStatic();
     return false;
@@ -199,7 +199,7 @@ bool DEIGES_Provider::Read(const AsciiString1&  thePath,
 
   if (!aReader.Transfer(theDocument, theProgress))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Cannot read any relevant data from the IGES file";
     resetStatic();
     return false;
@@ -217,7 +217,7 @@ bool DEIGES_Provider::Write(const AsciiString1&  thePath,
 {
   if (!GetNode()->IsKind(STANDARD_TYPE(DEIGES_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -240,7 +240,7 @@ bool DEIGES_Provider::Write(const AsciiString1&  thePath,
   else
   {
     aGS.SetCascadeUnit(aNode->GlobalParameters.SystemUnit);
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEIGES_Provider during writing the file " << thePath
       << "\t: The document has no information on Units. Using global parameter as initial Unit.";
   }
@@ -255,14 +255,14 @@ bool DEIGES_Provider::Write(const AsciiString1&  thePath,
   aWriter.SetShapeFixParameters(aNode->ShapeFixParameters);
   if (!aWriter.Transfer(theDocument, theProgress))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: The document cannot be translated or gives no result";
     resetStatic();
     return false;
   }
   if (!aWriter.Write(thePath.ToCString()))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Write failed";
     resetStatic();
     return false;
@@ -301,7 +301,7 @@ bool DEIGES_Provider::Read(const AsciiString1& thePath,
   (void)theProgress;
   if (!GetNode()->IsKind(STANDARD_TYPE(DEIGES_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -317,14 +317,14 @@ bool DEIGES_Provider::Read(const AsciiString1& thePath,
   aReadStat                       = aReader.ReadFile(thePath.ToCString());
   if (aReadStat != IFSelect_RetDone)
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Could not read file, no model loaded";
     resetStatic();
     return false;
   }
   if (aReader.TransferRoots() <= 0)
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Cannot read any relevant data from the IGES file";
     resetStatic();
     return false;
@@ -345,7 +345,7 @@ bool DEIGES_Provider::Write(const AsciiString1& thePath,
   (void)theProgress;
   if (!GetNode()->IsKind(STANDARD_TYPE(DEIGES_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEIGES_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -365,14 +365,14 @@ bool DEIGES_Provider::Write(const AsciiString1& thePath,
   Standard_Boolean aIsOk = aWriter.AddShape(theShape);
   if (!aIsOk)
   {
-    Message::SendFail() << "DEIGES_Provider: Shape not written";
+    Message1::SendFail() << "DEIGES_Provider: Shape not written";
     resetStatic();
     return false;
   }
 
   if (!(aWriter.Write(thePath.ToCString())))
   {
-    Message::SendFail() << "DEIGES_Provider: Error on writing file " << thePath;
+    Message1::SendFail() << "DEIGES_Provider: Error on writing file " << thePath;
     resetStatic();
     return false;
   }

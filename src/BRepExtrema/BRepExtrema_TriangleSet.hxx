@@ -26,17 +26,17 @@
 typedef NCollection_Vector<TopoShape> BRepExtrema_ShapeList;
 
 //! Triangle1 set corresponding to specific face.
-class BRepExtrema_TriangleSet : public BVH_PrimitiveSet3d
+class TriangleSet1 : public BVH_PrimitiveSet3d
 {
 public:
   //! Creates empty triangle set.
-  Standard_EXPORT BRepExtrema_TriangleSet();
+  Standard_EXPORT TriangleSet1();
 
   //! Creates triangle set from the given face.
-  Standard_EXPORT BRepExtrema_TriangleSet(const BRepExtrema_ShapeList& theFaces);
+  Standard_EXPORT TriangleSet1(const BRepExtrema_ShapeList& theFaces);
 
   //! Releases resources of triangle set.
-  Standard_EXPORT ~BRepExtrema_TriangleSet();
+  Standard_EXPORT ~TriangleSet1();
 
 public: //! @name methods implementing BVH set interface
   //! Returns total number of triangles.
@@ -124,9 +124,9 @@ protected:
   TColStd_DataMapOfIntegerInteger myTrgIdxMap;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(BRepExtrema_TriangleSet, BVH_PrimitiveSet3d)
+  DEFINE_STANDARD_RTTIEXT(TriangleSet1, BVH_PrimitiveSet3d)
 };
 
-DEFINE_STANDARD_HANDLE(BRepExtrema_TriangleSet, BVH_PrimitiveSet3d)
+DEFINE_STANDARD_HANDLE(TriangleSet1, BVH_PrimitiveSet3d)
 
 #endif // _BRepExtrema_TriangleSet_HeaderFile

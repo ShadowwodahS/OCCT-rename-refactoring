@@ -322,7 +322,7 @@ Standard_Real Curve2::ProjectAct(const Adaptor3d_Curve& C3D,
     {
       case GeomAbs_Circle: {
         const gp_Circ& aCirc = C3D.Circle();
-        proj                 = aCirc.Position().Location();
+        proj                 = aCirc.Position1().Location();
         if (aCirc.Radius() <= gp1::Resolution() || P3D.SquareDistance(proj) <= gp1::Resolution())
         {
           param = C3D.FirstParameter();
@@ -1074,7 +1074,7 @@ Standard_Boolean Curve2::IsPlanar(const Handle(GeomCurve3d)& curve,
   {
     // DeclareAndCast(GeomLine, Line, curve);
     Handle(GeomLine) Line = Handle(GeomLine)::DownCast(curve);
-    Coords3d            N1   = Line->Position().Direction().XYZ();
+    Coords3d            N1   = Line->Position1().Direction().XYZ();
     if (noNorm)
     {
       Normal = GetAnyNormal(N1);

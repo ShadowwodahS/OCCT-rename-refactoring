@@ -740,7 +740,7 @@ private:
                      const Aspect_Eye                  theEyeIndex) const;
 
   //! Construct "look at" orientation transformation.
-  //! Reference point differs for perspective and ortho modes
+  //! Reference1 point differs for perspective and ortho modes
   //! (made for compatibility, to be improved..).
   //! @param[in] theEye  the eye coordinates in 3D space.
   //! @param[in] theFwdDir  view direction

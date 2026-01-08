@@ -1207,7 +1207,7 @@ void ViewWindow::SetProj(const V3d_TypeOfOrientation theOrientation, const Stand
     }
   }
 
-  const Dir3d aBck = V3d::GetProjAxis(theOrientation);
+  const Dir3d aBck = V3d1::GetProjAxis(theOrientation);
 
   // retain camera panning from origin when switching projection
   const Handle(CameraOn3d)& aCamera     = Camera();
@@ -1271,7 +1271,7 @@ void ViewWindow::SetUp(const V3d_TypeOfOrientation theOrientation)
   Handle(CameraOn3d) aCamera = Camera();
 
   const Dir3d aReferencePlane(aCamera->Direction().Reversed());
-  const Dir3d anUp = V3d::GetProjAxis(theOrientation);
+  const Dir3d anUp = V3d1::GetProjAxis(theOrientation);
   if (!screenAxis(aReferencePlane, anUp, myXscreenAxis, myYscreenAxis, myZscreenAxis)
       && !screenAxis(aReferencePlane, gp1::DZ(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
       && !screenAxis(aReferencePlane, gp1::DY(), myXscreenAxis, myYscreenAxis, myZscreenAxis)
@@ -2070,7 +2070,7 @@ Point3d ViewWindow::GravityPoint() const
   for (Graphic3d_MapIteratorOfMapOfStructure aStructIter(aSetOfStructures); aStructIter.More();
        aStructIter.Next())
   {
-    if (aStructIter.Key()->IsHighlighted() && aStructIter.Key()->IsVisible())
+    if (aStructIter.Key1()->IsHighlighted() && aStructIter.Key1()->IsVisible())
     {
       hasSelection = Standard_True;
       break;
@@ -2083,7 +2083,7 @@ Point3d ViewWindow::GravityPoint() const
   for (Graphic3d_MapIteratorOfMapOfStructure aStructIter(aSetOfStructures); aStructIter.More();
        aStructIter.Next())
   {
-    const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key();
+    const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key1();
     if (!aStruct->IsVisible() || aStruct->IsInfinite()
         || (hasSelection && !aStruct->IsHighlighted()))
     {
@@ -2686,7 +2686,7 @@ Standard_Boolean ViewWindow::Dump(const Standard_CString      theFile,
 
 //=================================================================================================
 
-Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDumpOptions& theParams)
+Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const ImageDumpOptions& theParams)
 {
   Graphic3d_Vec2i aTargetSize(theParams.Width, theParams.Height);
   if (aTargetSize.x() != 0 && aTargetSize.y() != 0)
@@ -2722,7 +2722,7 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
                              Standard_Size(aTargetSize.x()),
                              Standard_Size(aTargetSize.y())))
       {
-        Message::SendFail(AsciiString1("Fail to allocate an image ") + aTargetSize.x()
+        Message1::SendFail(AsciiString1("Fail to allocate an image ") + aTargetSize.x()
                           + "x" + aTargetSize.y() + " for view dump");
         return Standard_False;
       }
@@ -2730,7 +2730,7 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
   }
   if (theImage.IsEmpty())
   {
-    Message::SendFail("ViewWindow::ToPixMap() has been called without image dimensions");
+    Message1::SendFail("ViewWindow::ToPixMap() has been called without image dimensions");
     return Standard_False;
   }
   aTargetSize.x() = (Standard_Integer)theImage.SizeX();
@@ -2774,7 +2774,7 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
       MyViewer->Driver()->InquireLimit(Graphic3d_TypeOfLimit_MaxViewDumpSizeY);
     if (theParams.TileSize > aMaxTexSizeX || theParams.TileSize > aMaxTexSizeY)
     {
-      Message::SendFail(
+      Message1::SendFail(
         AsciiString1("Image dump can not be performed - specified tile size (")
         + theParams.TileSize + ") exceeds hardware limits (" + aMaxTexSizeX + "x" + aMaxTexSizeY
         + ")");
@@ -2785,10 +2785,10 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
     {
       if (MyViewer->Driver()->InquireLimit(Graphic3d_TypeOfLimit_IsWorkaroundFBO))
       {
-        Message::SendWarning("Warning, workaround for Intel driver problem with empty FBO for "
+        Message1::SendWarning("Warning, workaround for Intel driver problem with empty FBO for "
                              "images with big width is applied");
       }
-      Message::SendInfo(AsciiString1("Info, tiling image dump is used, image size (")
+      Message1::SendInfo(AsciiString1("Info, tiling image dump is used, image size (")
                         + aFBOVPSize.x() + "x" + aFBOVPSize.y() + ") exceeds hardware limits ("
                         + aMaxTexSizeX + "x" + aMaxTexSizeY + ")");
       aFBOVPSize.x() = Min(aFBOVPSize.x(), aMaxTexSizeX);
@@ -2812,7 +2812,7 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
     }
     aFBOVPSize = aWinSize;
 
-    Message::SendWarning(
+    Message1::SendWarning(
       "Warning, on screen buffer is used for image dump - content might be invalid");
   }
 
@@ -2864,7 +2864,7 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
       // draw shadow maps
       if (!myView->ShadowMapDump(theImage, theParams.LightName))
       {
-        Message::SendFail("OpenGl_View::BufferDump() failed to dump shadowmap");
+        Message1::SendFail("OpenGl_View::BufferDump() failed to dump shadowmap");
         isSuccess = Standard_False;
       }
     }

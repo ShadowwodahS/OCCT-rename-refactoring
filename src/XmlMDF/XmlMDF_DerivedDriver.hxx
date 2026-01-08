@@ -54,7 +54,7 @@ public:
   }
 
   //! Reuses the base driver to read the base fields
-  virtual Standard_Boolean Paste(const XmlObjMgt_Persistent&  theSource,
+  virtual Standard_Boolean Paste(const PersistentStorage&  theSource,
                                  const Handle(TDF_Attribute)& theTarget,
                                  XmlObjMgt_RRelocationTable&  theRelocTable) const Standard_OVERRIDE
   {
@@ -67,7 +67,7 @@ public:
 
   //! Reuses the base driver to store the base fields
   virtual void Paste(const Handle(TDF_Attribute)& theSource,
-                     XmlObjMgt_Persistent&        theTarget,
+                     PersistentStorage&        theTarget,
                      XmlObjMgt_SRelocationTable&  theRelocTable) const Standard_OVERRIDE
   {
     myBaseDirver->Paste(theSource, theTarget, theRelocTable);

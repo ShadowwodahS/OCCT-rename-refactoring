@@ -25,13 +25,13 @@ typedef NCollection_Vector<Coords3d> VectorOfPoint;
 
 //=======================================================================
 //! Class BRepBuilderAPI_VertexInspector
-//!   derived from NCollection_CellFilter_InspectorXYZ
+//!   derived from CellInspectorXYZ
 //!   This class define the Inspector interface for CellFilter algorithm,
 //!   working with Coords3d points in 3d space.
 //!   Used in search of coincidence points with a certain tolerance.
 //=======================================================================
 
-class BRepBuilderAPI_VertexInspector : public NCollection_CellFilter_InspectorXYZ
+class BRepBuilderAPI_VertexInspector : public CellInspectorXYZ
 {
 public:
   typedef Standard_Integer Target;

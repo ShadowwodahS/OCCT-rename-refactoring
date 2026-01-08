@@ -393,7 +393,7 @@ void Graphic3d_Group::AddText(const Handle(Graphic3d_Text)& theTextParams,
   {
     myStructure->CStructure()->Is2dText = !theTextParams->HasPlane();
 
-    Point3d aPosition = theTextParams->Position();
+    Point3d aPosition = theTextParams->Position1();
     myBounds.Add(Graphic3d_Vec4((Standard_ShortReal)aPosition.X(),
                                 (Standard_ShortReal)aPosition.Y(),
                                 (Standard_ShortReal)aPosition.Z(),

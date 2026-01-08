@@ -52,7 +52,7 @@ class Interface_EntityList;
 //! - lists are not explicit, list-reading methods are provided
 //! which manage a current param. number
 //! - interpretation is made as possible (texts, reals, entities ...)
-//! (in particular, Reading a Real accepts an Integer)
+//! (in particular, Reading a Real accepts an Integer1)
 class IGESData_ParamReader
 {
 public:
@@ -105,7 +105,7 @@ public:
   Standard_EXPORT Standard_Integer NbParams() const;
 
   //! returns type of parameter; note that "Ident" or "Sub" cannot
-  //! be encountered, they correspond to "Integer", see also below
+  //! be encountered, they correspond to "Integer1", see also below
   Standard_EXPORT Interface_ParamType ParamType(const Standard_Integer num) const;
 
   //! returns literal value of a parameter, as it was in file
@@ -117,7 +117,7 @@ public:
 
   //! says if a parameter can be regarded as an entity reference
   //! (see Prepare from IGESReaderData for more explanation)
-  //! Note that such a parameter can seen as be a plain Integer too
+  //! Note that such a parameter can seen as be a plain Integer1 too
   Standard_EXPORT Standard_Boolean IsParamEntity(const Standard_Integer num) const;
 
   //! returns entity number corresponding to a parameter if there is
@@ -143,7 +143,7 @@ public:
   //! Waits on the Current Number a defined parameter or skips it :
   //! If the parameter <num> is defined, changes nothing and returns True
   //! Hence, the next reading with current cursor will concern <num>
-  //! If it is void, advances Current Position by one, and returns False
+  //! If it is void, advances Current Position1 by one, and returns False
   //! The next reading will concern <num+1> (except if <num> = NbParams)
   //!
   //! This allows to process Default values as follows (C++) :
@@ -153,17 +153,17 @@ public:
   //! <current parameter> = default value
   //! .. nothing else to do with ParamReader
   //! }
-  //! For Message
+  //! For Message1
   Standard_EXPORT Standard_Boolean DefinedElseSkip();
 
   Standard_EXPORT Standard_Boolean ReadInteger(const ParameterCursor& PC,
                                                Standard_Integer&           val);
 
-  //! Reads an Integer value designated by PC
+  //! Reads an Integer1 value designated by PC
   //! The method Current designates the current parameter and
   //! advances the Current Number by one after reading
   //! Note that if a count (not 1) is given, it is ignored
-  //! If it is not an Integer, fills Check with a Fail (using mess)
+  //! If it is not an Integer1, fills Check with a Fail (using mess)
   //! and returns False
   Standard_EXPORT Standard_Boolean ReadInteger(const ParameterCursor& PC,
                                                const Standard_CString      mess,
@@ -175,12 +175,12 @@ public:
                                                const Standard_Boolean      exact = Standard_True);
 
   //! Reads a Boolean value from parameter "num"
-  //! A Boolean is given as an Integer value 0 (False) or 1 (True)
-  //! Anyway, an Integer is demanded (else, Check is filled)
+  //! A Boolean is given as an Integer1 value 0 (False) or 1 (True)
+  //! Anyway, an Integer1 is demanded (else, Check is filled)
   //! If exact is given True, those precise values are demanded
   //! Else, Correction is done, as False for 0 or <0, True for >0
   //! (with a Warning error message, and return is True)
-  //! In case of error (not an Integer, or not 0/1 and exact True),
+  //! In case of error (not an Integer1, or not 0/1 and exact True),
   //! Check is filled with a Fail (using mess) and return is False
   Standard_EXPORT Standard_Boolean ReadBoolean(const ParameterCursor& PC,
                                                const Standard_CString      mess,
@@ -190,7 +190,7 @@ public:
   Standard_EXPORT Standard_Boolean ReadReal(const ParameterCursor& PC, Standard_Real& val);
 
   //! Reads a Real value from parameter "num"
-  //! An Integer is accepted (Check is filled with a Warning
+  //! An Integer1 is accepted (Check is filled with a Warning
   //! message) and causes return to be True (as normal case)
   //! In other cases, Check is filled with a Fail and return is False
   Standard_EXPORT Standard_Boolean ReadReal(const ParameterCursor& PC,
@@ -217,7 +217,7 @@ public:
   //! Integers are accepted (Check is filled with a Warning
   //! message) and cause return to be True (as normal case)
   //! In other cases, Check is filled with a Fail and return is False
-  //! For Message
+  //! For Message1
   Standard_EXPORT Standard_Boolean ReadXYZ(const ParameterCursor& PC,
                                            const Standard_CString      mess,
                                            Coords3d&                     val);
@@ -242,10 +242,10 @@ public:
 
   //! Reads an IGES entity from parameter "num"
   //! An Entity is known by its reference, which has the form of an
-  //! odd Integer Value (a number in the Directory)
-  //! If <canbenul> is given True, a Reference can also be Null :
+  //! odd Integer1 Value (a number in the Directory)
+  //! If <canbenul> is given True, a Reference1 can also be Null :
   //! in this case, the result is a Null Handle with no Error
-  //! If <canbenul> is False, a Null Reference causes an Error
+  //! If <canbenul> is False, a Null Reference1 causes an Error
   //! If the parameter cannot refer to an entity (or null), fills
   //! Check with a Fail (using mess) and returns False
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
@@ -308,11 +308,11 @@ public:
                                             Handle(TColStd_HArray1OfInteger)& val,
                                             const Standard_Integer            index = 1);
 
-  //! Reads a list of Integer values, defined by PC (with a count of
+  //! Reads a list of Integer1 values, defined by PC (with a count of
   //! parameters). PC can start from Current Number and command it
   //! to advance after reading (use method CurrentList to do this)
   //! The list is given as a HArray1, numered from "index"
-  //! If all params are not Integer, Check is filled (using mess)
+  //! If all params are not Integer1, Check is filled (using mess)
   //! and return value is False
   Standard_EXPORT Standard_Boolean ReadInts(const ParameterCursor&       PC,
                                             const Standard_CString            mess,
@@ -326,9 +326,9 @@ public:
 
   //! Reads a list of Real values defined by PC
   //! Same conditions as for ReadInts, for PC and index
-  //! An Integer parameter is accepted, if at least one parameter is
-  //! Integer, Check is filled with a "Warning" message
-  //! If all params are neither Real nor Integer, Check is filled
+  //! An Integer1 parameter is accepted, if at least one parameter is
+  //! Integer1, Check is filled with a "Warning" message
+  //! If all params are neither Real nor Integer1, Check is filled
   //! (using mess) and return value is False
   Standard_EXPORT Standard_Boolean ReadReals(const ParameterCursor&    PC,
                                              const Standard_CString         mess,
@@ -458,7 +458,7 @@ private:
   //! If several is given False, PC count must be one.
   //! If size is given, the TermSize from ParmCursor must be a
   //! multiple count of this size.
-  //! If one of above condition is not satisfied, a Fail Message is
+  //! If one of above condition is not satisfied, a Fail Message1 is
   //! recorded into Check, using the root "mess" and return is False
   Standard_EXPORT Standard_Boolean PrepareRead(const ParameterCursor& PC,
                                                const Standard_CString      mess,

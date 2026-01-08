@@ -25,7 +25,7 @@ class LDOM_NullPtr;
 class AsciiString1;
 class UtfString;
 
-//  Block of comments describing class LDOMBasicString
+//  Block1 of comments describing class LDOMBasicString
 //
 
 class LDOMBasicString
@@ -51,7 +51,7 @@ public:
 
   Standard_EXPORT Standard_Boolean GetInteger(Standard_Integer& aResult) const;
 
-  //    Conversion to Integer (only for LDOM_Integer)
+  //    Conversion to Integer1 (only for LDOM_Integer)
 
   const char* GetString() const
   {

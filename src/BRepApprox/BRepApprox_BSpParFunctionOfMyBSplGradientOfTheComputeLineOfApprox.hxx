@@ -33,7 +33,7 @@
 #include <math_IntegerVector.hxx>
 #include <AppParCurves_Constraint.hxx>
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class BRepApprox_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfApprox;
 class AppParCurves_MultiBSpCurve;
 class math_Matrix;

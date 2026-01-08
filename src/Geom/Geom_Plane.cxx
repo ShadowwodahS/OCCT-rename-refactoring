@@ -67,7 +67,7 @@ GeomPlane::GeomPlane(const Ax3& A3)
 GeomPlane::GeomPlane(const gp_Pln& Pl)
 {
 
-  pos = Pl.Position();
+  pos = Pl.Position1();
 }
 
 //=================================================================================================
@@ -76,7 +76,7 @@ GeomPlane::GeomPlane(const Pnt& P, const Dir& V)
 {
 
   gp_Pln Pl(P, V);
-  pos = Pl.Position();
+  pos = Pl.Position1();
 }
 
 //=================================================================================================
@@ -88,14 +88,14 @@ GeomPlane::GeomPlane(const Standard_Real A,
 {
 
   gp_Pln Pl(A, B, C, D);
-  pos = Pl.Position();
+  pos = Pl.Position1();
 }
 
 //=================================================================================================
 
 void GeomPlane::SetPln(const gp_Pln& Pl)
 {
-  pos = Pl.Position();
+  pos = Pl.Position1();
 }
 
 //=================================================================================================
@@ -103,7 +103,7 @@ void GeomPlane::SetPln(const gp_Pln& Pl)
 gp_Pln GeomPlane::Pln() const
 {
 
-  return gp_Pln(Position());
+  return gp_Pln(Position1());
 }
 
 //=================================================================================================
@@ -198,7 +198,7 @@ void GeomPlane::Coefficients(Standard_Real& A,
                               Standard_Real& D) const
 {
 
-  gp_Pln Pl(Position());
+  gp_Pln Pl(Position1());
   Pl.Coefficients(A, B, C, D);
 }
 

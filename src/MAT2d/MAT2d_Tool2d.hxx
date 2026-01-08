@@ -124,7 +124,7 @@ public:
   //! <theGeomBisectors>.
   Standard_EXPORT const Bisector_Bisec& GeomBis(const Standard_Integer Index) const;
 
-  //! Returns the Geometry of index <Index> in <theGeomElts>.
+  //! Returns the Geometry1 of index <Index> in <theGeomElts>.
   Standard_EXPORT Handle(Geom2d_Geometry) GeomElt(const Standard_Integer Index) const;
 
   //! Returns the point of index <Index> in the <theGeomPnts>.

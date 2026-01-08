@@ -69,7 +69,7 @@ public:
   //! -1 create a new FinderProcess
   Standard_EXPORT void Clear(const Standard_Integer theMode);
 
-  //! Returns the current Transfer Mode (an Integer)
+  //! Returns the current Transfer Mode (an Integer1)
   //! It will be interpreted by the Controller to run Transfers
   //! This call form could be later replaced by more specific ones
   //! (parameters suited for each norm / transfer case)

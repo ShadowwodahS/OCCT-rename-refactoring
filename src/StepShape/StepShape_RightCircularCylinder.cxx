@@ -37,7 +37,7 @@ void StepShape_RightCircularCylinder::SetPosition(const Handle(StepGeom_Axis1Pla
   position = aPosition;
 }
 
-Handle(StepGeom_Axis1Placement) StepShape_RightCircularCylinder::Position() const
+Handle(StepGeom_Axis1Placement) StepShape_RightCircularCylinder::Position1() const
 {
   return position;
 }

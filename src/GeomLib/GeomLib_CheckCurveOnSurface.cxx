@@ -684,7 +684,7 @@ Standard_Boolean PSO_Perform(GeomLib_CheckCurveOnSurface_TargetFunc& theFunction
     if (aVal > aParticle->BestDistance)
       continue;
 
-    aParticle->Position[0]     = aPrm;
+    aParticle->Position1[0]     = aPrm;
     aParticle->BestPosition[0] = aPrm;
     aParticle->Distance        = aVal;
     aParticle->BestDistance    = aVal;

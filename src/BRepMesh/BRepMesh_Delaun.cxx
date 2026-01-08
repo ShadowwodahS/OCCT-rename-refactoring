@@ -204,9 +204,9 @@ void BRepMesh_Delaun::InitCirclesTool(const Standard_Integer theCellsCountU,
   for (; aTriangleIt.More(); aTriangleIt.Next())
   {
     Standard_Integer         aNodesIndices[3];
-    const Triangle3& aTriangle = myMeshData->GetElement(aTriangleIt.Key());
+    const Triangle3& aTriangle = myMeshData->GetElement(aTriangleIt.Key1());
     myMeshData->ElementNodes(aTriangle, aNodesIndices);
-    myCircles.Bind(aTriangleIt.Key(),
+    myCircles.Bind(aTriangleIt.Key1(),
                    GetVertex(aNodesIndices[0]).Coord(),
                    GetVertex(aNodesIndices[1]).Coord(),
                    GetVertex(aNodesIndices[2]).Coord());
@@ -391,15 +391,15 @@ void BRepMesh_Delaun::RemoveAuxElements()
 
   IMeshData::IteratorOfMapOfInteger aFreeTriangles(aSelector.Elements());
   for (; aFreeTriangles.More(); aFreeTriangles.Next())
-    deleteTriangle(aFreeTriangles.Key(), aLoopEdges);
+    deleteTriangle(aFreeTriangles.Key1(), aLoopEdges);
 
   // All edges that remain free are removed from aLoopEdges;
   // only the boundary edges of the triangulation remain there
   IMeshData::MapOfIntegerInteger::Iterator aFreeEdges(aLoopEdges);
   for (; aFreeEdges.More(); aFreeEdges.Next())
   {
-    if (myMeshData->ElementsConnectedTo(aFreeEdges.Key()).IsEmpty())
-      myMeshData->RemoveLink(aFreeEdges.Key());
+    if (myMeshData->ElementsConnectedTo(aFreeEdges.Key1()).IsEmpty())
+      myMeshData->RemoveLink(aFreeEdges.Key1());
   }
 
   // The tops of the super triangle are destroyed
@@ -420,7 +420,7 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
   IMeshData::MapOfIntegerInteger::Iterator anEdges(thePoly);
   for (; anEdges.More(); anEdges.Next())
   {
-    Standard_Integer     anEdgeId = anEdges.Key();
+    Standard_Integer     anEdgeId = anEdges.Key1();
     const BRepMesh_Edge& anEdge   = GetEdge(anEdgeId);
 
     Standard_Boolean isPositive = thePoly(anEdgeId) != 0;
@@ -482,9 +482,9 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
     else
     {
       if (isPositive)
-        aLoopEdges.Append(anEdges.Key());
+        aLoopEdges.Append(anEdges.Key1());
       else
-        aLoopEdges.Append(-anEdges.Key());
+        aLoopEdges.Append(-anEdges.Key1());
 
       if (aFirstLinkDir.SquareModulus() > aLastLinkDir.SquareModulus())
         anExternalEdges.Append(Abs(anEdgesInfo[0]));
@@ -507,8 +507,8 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
 
   for (anEdges.Initialize(thePoly); anEdges.More(); anEdges.Next())
   {
-    if (myMeshData->ElementsConnectedTo(anEdges.Key()).IsEmpty())
-      myMeshData->RemoveLink(anEdges.Key());
+    if (myMeshData->ElementsConnectedTo(anEdges.Key1()).IsEmpty())
+      myMeshData->RemoveLink(anEdges.Key1());
   }
 
   while (!aLoopEdges.IsEmpty())
@@ -630,7 +630,7 @@ void BRepMesh_Delaun::insertInternalEdges()
   IMeshData::IteratorOfMapOfInteger anInernalEdgesIt(*anInternalEdges);
   for (; anInernalEdgesIt.More(); anInernalEdgesIt.Next())
   {
-    const Standard_Integer      aLinkIndex = anInernalEdgesIt.Key();
+    const Standard_Integer      aLinkIndex = anInernalEdgesIt.Key1();
     const PairOfIndex& aPair      = myMeshData->ElementsConnectedTo(aLinkIndex);
 
     // Check both sides of link for adjusted triangle.
@@ -736,7 +736,7 @@ void BRepMesh_Delaun::cleanupMesh()
     IMeshData::IteratorOfMapOfInteger aFreeEdgesIt(*aFreeEdges);
     for (; aFreeEdgesIt.More(); aFreeEdgesIt.Next())
     {
-      const Standard_Integer& aFreeEdgeId = aFreeEdgesIt.Key();
+      const Standard_Integer& aFreeEdgeId = aFreeEdgesIt.Key1();
       const BRepMesh_Edge&    anEdge      = GetEdge(aFreeEdgeId);
       if (anEdge.Movability() == BRepMesh_Frontier)
         continue;
@@ -816,7 +816,7 @@ void BRepMesh_Delaun::cleanupMesh()
     IMeshData::IteratorOfMapOfInteger aDelTrianglesIt(aDelTriangles);
     for (; aDelTrianglesIt.More(); aDelTrianglesIt.Next())
     {
-      deleteTriangle(aDelTrianglesIt.Key(), aLoopEdges);
+      deleteTriangle(aDelTrianglesIt.Key1(), aLoopEdges);
       aDeletedTrianglesNb++;
     }
 
@@ -824,8 +824,8 @@ void BRepMesh_Delaun::cleanupMesh()
     IMeshData::MapOfIntegerInteger::Iterator aLoopEdgesIt(aLoopEdges);
     for (; aLoopEdgesIt.More(); aLoopEdgesIt.Next())
     {
-      if (myMeshData->ElementsConnectedTo(aLoopEdgesIt.Key()).IsEmpty())
-        myMeshData->RemoveLink(aLoopEdgesIt.Key());
+      if (myMeshData->ElementsConnectedTo(aLoopEdgesIt.Key1()).IsEmpty())
+        myMeshData->RemoveLink(aLoopEdgesIt.Key1());
     }
 
     if (aDeletedTrianglesNb == 0)
@@ -857,7 +857,7 @@ void BRepMesh_Delaun::frontierAdjust()
     IMeshData::IteratorOfMapOfInteger aFrontierIt(*aFrontier);
     for (; aFrontierIt.More(); aFrontierIt.Next())
     {
-      Standard_Integer            aFrontierId = aFrontierIt.Key();
+      Standard_Integer            aFrontierId = aFrontierIt.Key1();
       const PairOfIndex& aPair       = myMeshData->ElementsConnectedTo(aFrontierId);
       Standard_Integer            aNbElem     = aPair.Extent();
       for (Standard_Integer aElemIt = 1; aElemIt <= aNbElem; ++aElemIt)
@@ -891,7 +891,7 @@ void BRepMesh_Delaun::frontierAdjust()
     IMeshData::MapOfIntegerInteger::Iterator aLoopEdgesIt(aLoopEdges);
     for (; aLoopEdgesIt.More(); aLoopEdgesIt.Next())
     {
-      Standard_Integer aLoopEdgeId = aLoopEdgesIt.Key();
+      Standard_Integer aLoopEdgeId = aLoopEdgesIt.Key1();
       if (myMeshData->ElementsConnectedTo(aLoopEdgeId).IsEmpty())
         myMeshData->RemoveLink(aLoopEdgeId);
     }
@@ -900,7 +900,7 @@ void BRepMesh_Delaun::frontierAdjust()
     // their replacement by makeshift triangles
     for (aFrontierIt.Reset(); aFrontierIt.More(); aFrontierIt.Next())
     {
-      Standard_Integer aFrontierId = aFrontierIt.Key();
+      Standard_Integer aFrontierId = aFrontierIt.Key1();
       if (!myMeshData->ElementsConnectedTo(aFrontierId).IsEmpty())
         continue;
 
@@ -1357,12 +1357,12 @@ void BRepMesh_Delaun::cleanupPolygon(const IMeshData::SequenceOfInteger& thePoly
   IMeshData::MapOfIntegerInteger::Iterator aLoopEdgesIt(aLoopEdges);
   for (; aLoopEdgesIt.More(); aLoopEdgesIt.Next())
   {
-    const Standard_Integer& aLoopEdgeId = aLoopEdgesIt.Key();
+    const Standard_Integer& aLoopEdgeId = aLoopEdgesIt.Key1();
     if (anIgnoredEdges.Contains(aLoopEdgeId))
       continue;
 
     if (myMeshData->ElementsConnectedTo(aLoopEdgeId).IsEmpty())
-      myMeshData->RemoveLink(aLoopEdgesIt.Key());
+      myMeshData->RemoveLink(aLoopEdgesIt.Key1());
   }
 }
 
@@ -2143,7 +2143,7 @@ void BRepMesh_Delaun::RemoveVertex(const Vertex& theVertex)
   // Loop on triangles to be destroyed :
   IMeshData::IteratorOfMapOfInteger aTriangleIt(aSelector.Elements());
   for (; aTriangleIt.More(); aTriangleIt.Next())
-    deleteTriangle(aTriangleIt.Key(), aLoopEdges);
+    deleteTriangle(aTriangleIt.Key1(), aLoopEdges);
 
   IMeshData::SequenceOfBndB2d              aBoxes;
   IMeshData::SequenceOfInteger             aPolygon;
@@ -2152,11 +2152,11 @@ void BRepMesh_Delaun::RemoveVertex(const Vertex& theVertex)
 
   if (aLoopEdgesIt.More())
   {
-    const BRepMesh_Edge& anEdge     = GetEdge(aLoopEdgesIt.Key());
+    const BRepMesh_Edge& anEdge     = GetEdge(aLoopEdgesIt.Key1());
     Standard_Integer     aFirstNode = anEdge.FirstNode();
     Standard_Integer     aLastNode;
     Standard_Integer     aPivotNode = anEdge.LastNode();
-    Standard_Integer     anEdgeId   = aLoopEdgesIt.Key();
+    Standard_Integer     anEdgeId   = aLoopEdgesIt.Key1();
 
     Standard_Boolean isPositive = aLoopEdges(anEdgeId) != 0;
     if (!isPositive)
@@ -2328,7 +2328,7 @@ Handle(IMeshData::MapOfInteger) BRepMesh_Delaun::getEdgesByType(
 
   for (; anEdgeIt.More(); anEdgeIt.Next())
   {
-    Standard_Integer anEdge  = anEdgeIt.Key();
+    Standard_Integer anEdge  = anEdgeIt.Key1();
     Standard_Boolean isToAdd = (theEdgeType == BRepMesh_Free)
                                  ? (myMeshData->ElementsConnectedTo(anEdge).Extent() <= 1)
                                  : (GetEdge(anEdge).Movability() == theEdgeType);

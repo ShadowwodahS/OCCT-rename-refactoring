@@ -545,7 +545,7 @@ void AttributeDefTool::OwnDump(const Handle(IGESDefs_AttributeDef)& ent,
           S << "  (Void)";
           break;
         case 1:
-          S << " : Integer ";
+          S << " : Integer1 ";
           break;
         case 2:
           S << " : Real    ";

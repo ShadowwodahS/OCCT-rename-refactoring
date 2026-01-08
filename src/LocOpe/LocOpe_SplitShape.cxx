@@ -119,9 +119,9 @@ Standard_Boolean LocOpe_SplitShape::CanSplit(const TopoEdge& E) const
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(myMap);
   for (; itm.More(); itm.Next())
   {
-    if (itm.Key().ShapeType() == TopAbs_WIRE && !itm.Value().IsEmpty())
+    if (itm.Key1().ShapeType() == TopAbs_WIRE && !itm.Value().IsEmpty())
     {
-      for (exp.Init(itm.Key(), TopAbs_EDGE); exp.More(); exp.Next())
+      for (exp.Init(itm.Key1(), TopAbs_EDGE); exp.More(); exp.Next())
       {
         if (exp.Current().IsSame(E))
         {
@@ -630,7 +630,7 @@ Standard_Boolean LocOpe_SplitShape::AddClosedWire(const TopoWire& W, const TopoF
   newFace.Orientation(TopAbs_FORWARD);
   B.Add(newFace, W);
   //  GeometricProperties GP;
-  //  BRepGProp::SurfaceProperties (newFace,GP);
+  //  BRepGProp1::SurfaceProperties (newFace,GP);
   //  if (GP.Mass() < 0) {
   BRepTopAdaptor_FClass2d classif(newFace, Precision::PConfusion());
   if (classif.PerformInfinitePoint() == TopAbs_IN)
@@ -1376,7 +1376,7 @@ static Standard_Boolean IsInside(const TopoFace& F, const TopoWire& W1, const To
   newFace.Orientation(TopAbs_FORWARD);
   B.Add(newFace, W2);
   //  GeometricProperties GP;
-  //  BRepGProp::SurfaceProperties(newFace,GP);
+  //  BRepGProp1::SurfaceProperties(newFace,GP);
   //  if (GP.Mass() < 0) {
   BRepTopAdaptor_FClass2d classif(newFace, Precision::PConfusion());
   Standard_Boolean        Reversed = Standard_False;

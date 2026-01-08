@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-Standard_Integer XBRepMesh::Discret(const TopoShape&    theShape,
+Standard_Integer XBRepMesh1::Discret(const TopoShape&    theShape,
                                     const Standard_Real    theDeflection,
                                     const Standard_Real    theAngle,
                                     BRepMesh_DiscretRoot*& theAlgo)
@@ -35,4 +35,4 @@ Standard_Integer XBRepMesh::Discret(const TopoShape&    theShape,
 
   return iErr;
 }
-DISCRETPLUGIN(XBRepMesh)
+DISCRETPLUGIN(XBRepMesh1)

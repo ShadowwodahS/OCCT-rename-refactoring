@@ -54,7 +54,7 @@ void DimensionedGeometryTool::ReadOwnParams(
   if (nbgeom > 0)
     PR.ReadEnts(IR,
                 PR.CurrentList(nbgeom),
-                "Geometry Entities",
+                "Geometry1 Entities",
                 GeomEntities); // szv#4:S4163:12Mar99 `st=` not needed
   /*
       {
@@ -62,7 +62,7 @@ void DimensionedGeometryTool::ReadOwnParams(
         for (Standard_Integer i = 1; i <= nbgeom; i++)
       {
             Handle(IGESData_IGESEntity) anentity;
-            st = PR.ReadEntity(IR,PR.Current(),"Geometry Entity",anentity);
+            st = PR.ReadEntity(IR,PR.Current(),"Geometry1 Entity",anentity);
         if (st) GeomEntities->SetValue(i,anentity);
       }
       }
@@ -156,7 +156,7 @@ void DimensionedGeometryTool::OwnDump(const Handle(IGESDimen_DimensionedGeometry
     << "Dimension Entity : ";
   dumper.Dump(ent->DimensionEntity(), S, (level <= 4) ? 0 : 1);
   S << "\n"
-    << "Geometry Entities : ";
+    << "Geometry1 Entities : ";
   IGESData_DumpEntities(S, dumper, level, 1, ent->NbGeometryEntities(), ent->GeometryEntity);
   S << std::endl;
 }

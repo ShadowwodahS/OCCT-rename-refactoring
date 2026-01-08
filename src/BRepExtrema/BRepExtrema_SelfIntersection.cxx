@@ -48,7 +48,7 @@ Standard_Boolean BRepExtrema_SelfIntersection::LoadShape(const TopoShape& theSha
 
   if (myElementSet.IsNull())
   {
-    myElementSet = new BRepExtrema_TriangleSet;
+    myElementSet = new TriangleSet1;
   }
 
   myIsInit = myElementSet->Init(myFaceList);
@@ -120,7 +120,7 @@ void getProjectionAxes(const BVH_Vec3d&  theNorm,
 
 //=================================================================================================
 
-BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularSharedVertex(
+ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularSharedVertex(
   const BVH_Vec3d& theSharedVert,
   const BVH_Vec3d& theTrng0Vtxs1,
   const BVH_Vec3d& theTrng0Vtxs2,
@@ -150,10 +150,10 @@ BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularS
         || rayInsideAngle(aTrng0Edges[0], aTrng1Edges[0], aTrng1Edges[1], anX, anY)
         || rayInsideAngle(aTrng0Edges[1], aTrng1Edges[0], aTrng1Edges[1], anX, anY))
     {
-      return BRepExtrema_ElementFilter::Overlap;
+      return ElementFilter::Overlap;
     }
 
-    return BRepExtrema_ElementFilter::NoCheck;
+    return ElementFilter::NoCheck;
   }
   else // shared line should lie outside at least one triangle
   {
@@ -169,7 +169,7 @@ BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularS
 
     if (aPosOutTrgn0 && aNegOutTrgn0)
     {
-      return BRepExtrema_ElementFilter::NoCheck;
+      return ElementFilter::NoCheck;
     }
 
     getProjectionAxes(aTrng1Normal, anX, anY);
@@ -184,18 +184,18 @@ BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularS
 
     if (aPosOutTrgn1 && aNegOutTrgn1)
     {
-      return BRepExtrema_ElementFilter::NoCheck;
+      return ElementFilter::NoCheck;
     }
 
     return (aPosOutTrgn0 || aPosOutTrgn1) && (aNegOutTrgn0 || aNegOutTrgn1)
-             ? BRepExtrema_ElementFilter::NoCheck
-             : BRepExtrema_ElementFilter::Overlap;
+             ? ElementFilter::NoCheck
+             : ElementFilter::Overlap;
   }
 }
 
 //=================================================================================================
 
-BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularSharedEdge(
+ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularSharedEdge(
   const BVH_Vec3d& theTrng0Vtxs0,
   const BVH_Vec3d& theTrng0Vtxs1,
   const BVH_Vec3d& theTrng0Vtxs2,
@@ -213,7 +213,7 @@ BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularS
 
   if (aCrossLine.SquareModulus() > Precision::SquareConfusion()) // non-coplanar case
   {
-    return BRepExtrema_ElementFilter::NoCheck;
+    return ElementFilter::NoCheck;
   }
 
   Standard_Integer anX;
@@ -223,19 +223,19 @@ BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::isRegularS
 
   return ccw(ZERO_VEC, aSharedEdge, aUniqueEdges[0], anX, anY)
              != ccw(ZERO_VEC, aSharedEdge, aUniqueEdges[1], anX, anY)
-           ? BRepExtrema_ElementFilter::NoCheck
-           : BRepExtrema_ElementFilter::Overlap;
+           ? ElementFilter::NoCheck
+           : ElementFilter::Overlap;
 }
 
 //=================================================================================================
 
-BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::PreCheckElements(
+ElementFilter::FilterResult BRepExtrema_SelfIntersection::PreCheckElements(
   const Standard_Integer theIndex1,
   const Standard_Integer theIndex2)
 {
   if (myElementSet->GetFaceID(theIndex1) == myElementSet->GetFaceID(theIndex2))
   {
-    return BRepExtrema_ElementFilter::NoCheck; // triangles are from the same face
+    return ElementFilter::NoCheck; // triangles are from the same face
   }
 
   BVH_Vec3d aTrng0Vtxs[3];
@@ -280,7 +280,7 @@ BRepExtrema_ElementFilter::FilterResult BRepExtrema_SelfIntersection::PreCheckEl
                                  aTrng1Vtxs[2]);
   }
 
-  return BRepExtrema_ElementFilter::DoCheck;
+  return ElementFilter::DoCheck;
 }
 
 //=================================================================================================

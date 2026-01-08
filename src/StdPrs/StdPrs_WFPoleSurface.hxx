@@ -27,7 +27,7 @@ class Adaptor3d_Surface;
 //! in the two parametric direction.
 //! The number of lines to be drawn is controlled
 //! by the NetworkNumber of the given Drawer.
-class StdPrs_WFPoleSurface : public Prs3d_Root
+class StdPrs_WFPoleSurface : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

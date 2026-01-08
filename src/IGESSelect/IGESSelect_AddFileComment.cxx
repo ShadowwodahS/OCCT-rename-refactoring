@@ -72,6 +72,6 @@ AsciiString1 IGESSelect_AddFileComment::Label() const
 {
   Standard_Integer nb = NbLines();
   char             labl[80];
-  sprintf(labl, "Add %d Comment Lines (Start Section)", nb);
+  sprintf(labl, "Add %d Comment1 Lines (Start Section)", nb);
   return AsciiString1(labl);
 }

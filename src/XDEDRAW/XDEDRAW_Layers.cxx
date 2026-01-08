@@ -522,7 +522,7 @@ static Standard_Integer getLayerRefs(DrawInterpreter& theDI,
   }
 
   Handle(XCAFDoc_GraphNode) aGraphNode;
-  aLabel.FindAttribute(XCAFDoc::LayerRefGUID(), aGraphNode);
+  aLabel.FindAttribute(XCAFDoc1::LayerRefGUID(), aGraphNode);
   if (aGraphNode.IsNull())
   {
     theDI << "Error: Label \"" << theArgv[2] << "\" does not have a layer ref.\n";
@@ -558,7 +558,7 @@ static Standard_Integer getLayerRefs(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XDEDRAW_Layers::InitCommands(DrawInterpreter& di)
+void LayerCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

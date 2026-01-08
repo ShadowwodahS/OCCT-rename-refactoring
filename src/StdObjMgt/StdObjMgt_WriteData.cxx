@@ -16,12 +16,12 @@
 
 #include <Standard_GUID.hxx>
 
-StdObjMgt_WriteData::StdObjMgt_WriteData(const Handle(Storage_BaseDriver)& theDriver)
+WriteData::WriteData(const Handle(Storage_BaseDriver)& theDriver)
     : myDriver(theDriver)
 {
 }
 
-void StdObjMgt_WriteData::WritePersistentObject(const Handle(StdObjMgt_Persistent)& thePersistent)
+void WriteData::WritePersistentObject(const Handle(StdObjMgt_Persistent)& thePersistent)
 {
   if (thePersistent)
   {
@@ -32,7 +32,7 @@ void StdObjMgt_WriteData::WritePersistentObject(const Handle(StdObjMgt_Persisten
   }
 }
 
-StdObjMgt_WriteData& StdObjMgt_WriteData::operator<<(
+WriteData& WriteData::operator<<(
   const Handle(StdObjMgt_Persistent)& thePersistent)
 {
   myDriver->PutReference(thePersistent ? thePersistent->RefNum() : 0);
@@ -43,9 +43,9 @@ StdObjMgt_WriteData& StdObjMgt_WriteData::operator<<(
 // function : operator >>
 // purpose  : Read persistent data from a file
 //=======================================================================
-StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Standard_GUID& theGUID)
+WriteData& operator<<(WriteData& theWriteData, const Standard_GUID& theGUID)
 {
-  StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
+  WriteData::ObjectSentry aSentry(theWriteData);
 
   const Standard_UUID anUUID = theGUID.ToUUID();
 

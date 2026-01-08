@@ -31,7 +31,7 @@
 class StdFail_UndefinedDerivative;
 class Standard_ConstructionError;
 class BRepAdaptor_Surface;
-class BRepApprox_SurfaceTool;
+class SurfaceTool4;
 class math_Matrix;
 
 class BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox
@@ -109,7 +109,7 @@ private:
 
 #define ThePSurface BRepAdaptor_Surface
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
-#define ThePSurfaceTool BRepApprox_SurfaceTool
+#define ThePSurfaceTool SurfaceTool4
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
 #define IntImp_ZerParFunc BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox
 #define IntImp_ZerParFunc_hxx <BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox.hxx>

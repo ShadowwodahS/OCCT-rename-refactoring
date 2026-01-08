@@ -23,7 +23,7 @@ PSOParticlesPool::PSOParticlesPool(const Standard_Integer theParticlesCount,
     : myParticlesPool(1, theParticlesCount),
       myMemory(0,
                theParticlesCount
-                   * (theDimensionCount    // Position
+                   * (theDimensionCount    // Position1
                       + theDimensionCount  // Velocity
                       + theDimensionCount) // BestPosition
                  - 1)
@@ -36,7 +36,7 @@ PSOParticlesPool::PSOParticlesPool(const Standard_Integer theParticlesCount,
   for (aParIdx = 1; aParIdx <= myParticlesCount; ++aParIdx)
   {
     aShiftIdx                             = (theDimensionCount * 3) * (aParIdx - 1);
-    myParticlesPool(aParIdx).Position     = &myMemory(aShiftIdx);
+    myParticlesPool(aParIdx).Position1     = &myMemory(aShiftIdx);
     myParticlesPool(aParIdx).Velocity     = &myMemory(aShiftIdx + theDimensionCount);
     myParticlesPool(aParIdx).BestPosition = &myMemory(aShiftIdx + 2 * theDimensionCount);
   }

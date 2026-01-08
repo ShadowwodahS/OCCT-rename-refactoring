@@ -27,20 +27,20 @@
 
 //=================================================================================================
 
-void Prs3d_Arrow::Draw1(const Handle(Graphic3d_Group)& theGroup,
+void Arrow1::Draw1(const Handle(Graphic3d_Group)& theGroup,
                        const Point3d&                  theLocation,
                        const Dir3d&                  theDirection,
                        const Standard_Real            theAngle,
                        const Standard_Real            theLength)
 {
   Handle(Graphic3d_ArrayOfSegments) aPrimitives =
-    Prs3d_Arrow::DrawSegments(theLocation, theDirection, theAngle, theLength, 15);
+    Arrow1::DrawSegments(theLocation, theDirection, theAngle, theLength, 15);
   theGroup->AddPrimitiveArray(aPrimitives);
 }
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&          theLocation,
+Handle(Graphic3d_ArrayOfSegments) Arrow1::DrawSegments(const Point3d&          theLocation,
                                                             const Dir3d&          theDir,
                                                             const Standard_Real    theAngle,
                                                             const Standard_Real    theLength,
@@ -104,7 +104,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const Axis3d&          theAxis,
+Handle(Graphic3d_ArrayOfTriangles) Arrow1::DrawShaded(const Axis3d&          theAxis,
                                                            const Standard_Real    theTubeRadius,
                                                            const Standard_Real    theAxisLength,
                                                            const Standard_Real    theConeRadius,

@@ -66,7 +66,7 @@ GeomToStep_MakeParabola::GeomToStep_MakeParabola(const Handle(Geom_Parabola)& C,
   Handle(StepGeom_Axis2Placement3d) Ax2Step;
   Standard_Real                     focal;
 
-  GeomToStep_MakeAxis2Placement3d MkAxis2(gpPar.Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis2(gpPar.Position1(), theLocalFactors);
   Ax2Step = MkAxis2.Value();
   focal   = gpPar.Focal();
   Ax2.SetValue(Ax2Step);

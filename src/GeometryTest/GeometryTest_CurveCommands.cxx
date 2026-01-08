@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// 09/06/97 : JPI : suppression des commandes redondantes suite a la creation de GeomliteTest
+// 09/06/97 : JPI : suppression des commandes redondantes suite a la creation de GeomliteTest1
 
 #include <GeometryTest.hxx>
 #include <Draw_Appli.hxx>
@@ -490,7 +490,7 @@ Standard_Integer projonplane(DrawInterpreter& di, Standard_Integer n, const char
   }
   else
   {
-    D = Pl->Pln().Position().Direction();
+    D = Pl->Pln().Position1().Direction();
   }
 
   Handle(GeomCurve3d) Res = GeomProjLib1::ProjectOnPlane(C, Pl, D, Param);
@@ -936,7 +936,7 @@ static Standard_Integer crvpoints(DrawInterpreter& di, Standard_Integer /*n*/, c
     TopoWire aWire = TopoDS::Wire(DBRep1::Get(a[2], TopAbs_WIRE));
     if (aWire.IsNull())
     {
-      Message::SendFail() << "cannot evaluate the argument " << a[2] << " as a curve";
+      Message1::SendFail() << "cannot evaluate the argument " << a[2] << " as a curve";
       return 1;
     }
     BRepAdaptor_CompCurve aCompCurve(aWire);
@@ -1009,7 +1009,7 @@ static Standard_Integer crvtpoints(DrawInterpreter& di, Standard_Integer n, cons
     TopoWire aWire = TopoDS::Wire(DBRep1::Get(a[2], TopAbs_WIRE));
     if (aWire.IsNull())
     {
-      Message::SendFail() << "cannot evaluate the argument " << a[2] << " as a curve";
+      Message1::SendFail() << "cannot evaluate the argument " << a[2] << " as a curve";
       return 1;
     }
     BRepAdaptor_CompCurve aCompCurve(aWire);
@@ -1770,7 +1770,7 @@ static Standard_Integer GetCurveContinuity(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void GeometryTest::CurveCommands(DrawInterpreter& theCommands)
+void GeometryTest1::CurveCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;

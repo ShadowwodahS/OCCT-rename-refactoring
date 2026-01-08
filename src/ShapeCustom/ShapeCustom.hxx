@@ -46,7 +46,7 @@ class ShapeCustom_RestrictionParameters;
 //! surface to bspline,
 //! modification of parameterization, degree, number of segments of bspline
 //! surfaces,  scale the shape.
-class ShapeCustom
+class ShapeCustom1
 {
 public:
   DEFINE_STANDARD_ALLOC

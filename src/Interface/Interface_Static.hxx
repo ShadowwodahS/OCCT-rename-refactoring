@@ -61,7 +61,7 @@ public:
   //! internal definition. The name must be unique.
   //!
   //! type gives the type of the parameter, default is free text
-  //! Also available : Integer, Real, Enum, Entity (i.e. Object)
+  //! Also available : Integer1, Real, Enum, Entity (i.e. Object)
   //! More precise specifications, titles, can be given to the
   //! Static once created
   //!
@@ -119,7 +119,7 @@ public:
 
   //! As Init with ParamType, but type is given as a character
   //! This allows a simpler call
-  //! Types : 'i' Integer, 'r' Real, 't' Text, 'e' Enum, 'o' Object
+  //! Types : 'i' Integer1, 'r' Real, 't' Text, 'e' Enum, 'o' Object
   //! '=' for same definition as, <init> gives the initial Static
   //! Returns False if <type> does not match this list
   Standard_EXPORT static Standard_Boolean Init(const Standard_CString   family,
@@ -154,7 +154,7 @@ public:
   Standard_EXPORT static Standard_CString CDef(const Standard_CString name,
                                                const Standard_CString part);
 
-  //! Returns a part of the definition of a Static, as an Integer
+  //! Returns a part of the definition of a Static, as an Integer1
   //! The part is designated by its name, as a CString
   //! If the required value is not a string, returns zero
   //! For a Boolean, 0 for false, 1 for true

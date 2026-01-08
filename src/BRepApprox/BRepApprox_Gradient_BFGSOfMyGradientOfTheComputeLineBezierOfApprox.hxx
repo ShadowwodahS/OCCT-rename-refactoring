@@ -24,10 +24,10 @@
 #include <math_BFGS.hxx>
 #include <math_Vector.hxx>
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class BRepApprox_MyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox;
-class BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox;
+class ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParFunctionOfMyGradientOfTheComputeLineBezierOfApprox;
 class math_MultipleVarFunctionWithGradient;
 

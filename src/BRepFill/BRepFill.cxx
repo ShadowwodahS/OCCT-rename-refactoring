@@ -411,7 +411,7 @@ TopoFace BRepFill1::Face(const TopoEdge& Edge1, const TopoEdge& Edge2)
   B.SameRange(Edge3, Standard_False);
   B.SameRange(Edge4, Standard_False);
 
-  BRepLib::SameParameter(Face);
+  BRepLib1::SameParameter(Face);
 
   if (SameLoc)
     Face.Move(L);
@@ -654,7 +654,7 @@ TopoShell BRepFill1::Shell(const TopoWire& Wire1, const TopoWire& Wire2)
   }
 
   Shell.Closed(BRepInspector::IsClosed(Shell));
-  BRepLib::SameParameter(Shell);
+  BRepLib1::SameParameter(Shell);
   return Shell;
 }
 

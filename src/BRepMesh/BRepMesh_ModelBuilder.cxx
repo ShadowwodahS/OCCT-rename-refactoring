@@ -41,7 +41,7 @@ Handle(IMeshData_Model) BRepMesh_ModelBuilder::performInternal(
   Handle(BRepMeshData_Model) aModel;
 
   Box2 aBox;
-  BRepBndLib::Add(theShape, aBox, Standard_False);
+  BRepBndLib1::Add(theShape, aBox, Standard_False);
 
   if (!aBox.IsVoid())
   {

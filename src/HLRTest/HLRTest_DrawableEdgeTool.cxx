@@ -180,7 +180,7 @@ void HLRTest_DrawableEdgeTool::DrawEdge(DrawDisplay&          D,
         iCB++;
       }
 
-      const HLRBRep_Curve& ec = ed.Geometry();
+      const HLRBRep_Curve& ec = ed.Geometry1();
 
       for (It.InitVisible(ed.Status()); It.MoreVisible(); It.NextVisible())
       {
@@ -217,7 +217,7 @@ void HLRTest_DrawableEdgeTool::DrawEdge(DrawDisplay&          D,
         iCB++;
       }
 
-      const HLRBRep_Curve& ec = ed.Geometry();
+      const HLRBRep_Curve& ec = ed.Geometry1();
 
       for (It.InitHidden(ed.Status()); It.MoreHidden(); It.NextHidden())
       {

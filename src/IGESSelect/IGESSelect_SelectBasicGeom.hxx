@@ -67,7 +67,7 @@ public:
             Interface_EntityIterator&         explored) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Curves 3d" or
-  //! "Basic Geometry"
+  //! "Basic Geometry1"
   Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   //! This method can be called from everywhere to get the curves

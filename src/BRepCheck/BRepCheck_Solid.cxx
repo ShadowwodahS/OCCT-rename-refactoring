@@ -211,7 +211,7 @@ void BRepCheck_Solid::Minimum()
     const TopoShape& aF = aExp.Current();
     if (!aMSS.Add(aF))
     {
-      BRepCheck::Add(aLST, BRepCheck_InvalidImbricationOfShells);
+      BRepCheck1::Add(aLST, BRepCheck_InvalidImbricationOfShells);
       bFound = !bFound;
     }
   }
@@ -232,7 +232,7 @@ void BRepCheck_Solid::Minimum()
       aOr = aSx.Orientation();
       if (aOr != TopAbs_INTERNAL)
       {
-        BRepCheck::Add(aLST, BRepCheck_BadOrientationOfSubshape);
+        BRepCheck1::Add(aLST, BRepCheck_BadOrientationOfSubshape);
       }
       continue;
     }
@@ -277,7 +277,7 @@ void BRepCheck_Solid::Minimum()
   if (!iCntSh && iCntShInt)
   {
     // all shells in the solid are internal
-    BRepCheck::Add(aLST, BRepCheck_BadOrientationOfSubshape);
+    BRepCheck1::Add(aLST, BRepCheck_BadOrientationOfSubshape);
   }
   //
   aNbVTS = aVTS.Size();
@@ -299,7 +299,7 @@ void BRepCheck_Solid::Minimum()
       if (aNbVTS1 > 1)
       {
         // Too many growths
-        BRepCheck::Add(aLST, BRepCheck_EnclosedRegion);
+        BRepCheck1::Add(aLST, BRepCheck_EnclosedRegion);
         break;
       }
     }
@@ -319,7 +319,7 @@ void BRepCheck_Solid::Minimum()
       if (bFlag)
       {
         // smt of solid is out of solid
-        BRepCheck::Add(aLST, BRepCheck_SubshapeNotInShape);
+        BRepCheck1::Add(aLST, BRepCheck_SubshapeNotInShape);
         bFound = !bFound;
       }
     }

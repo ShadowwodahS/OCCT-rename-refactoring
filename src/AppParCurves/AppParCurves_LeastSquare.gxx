@@ -319,7 +319,7 @@ void AppParCurves_LeastSquare::Init(const MultiLine& SSP,
   nbP   = ToolLine::NbP3d(SSP);
   Point3d Poi;
   gp_Pnt2d Poi2d;
-//  Vector3d V3d;
+//  Vector3d V3d1;
 //  gp_Vec2d V2d;
   Standard_Integer mynbP2d = nbP2d, mynbP = nbP;
   if (nbP2d == 0) mynbP2d = 1;

@@ -27,8 +27,8 @@ class MoniTool_TransientElem;
 DEFINE_STANDARD_HANDLE(MoniTool_TransientElem, MoniTool_Element)
 
 //! an TransientElem defines an Element for a specific input class
-//! its definition includes the value of the Key to be mapped,
-//! and the HashCoder associated to the class of the Key
+//! its definition includes the value of the Key1 to be mapped,
+//! and the HashCoder associated to the class of the Key1
 //!
 //! Transient from Standard defines the class to be keyed
 //! MapTransientHasher from TColStd is the associated Hasher1

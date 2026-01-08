@@ -13,7 +13,7 @@
 
 // 25.12.98 pdn renaming
 // 02.02.99 cky/rln PRO17746: transmitting 'sketch' command to XSDRAWEUC
-// 23.02.99 abv: method ShapeFix::FillFace() removed
+// 23.02.99 abv: method ShapeFix1::FillFace() removed
 // 02.03.99 cky/rln: command edgeregul only accepts tolerance
 // 15.06.99 abv/pdn: command comptol added (from S4030)
 
@@ -211,7 +211,7 @@ static Standard_Integer XSHAPE_ssolid(DrawInterpreter& di,
   B.Add(solid, sh);
   //   Pas encore fini : il faut une bonne orientation
   BRepClass3d_SolidClassifier bsc3d(solid);
-  bsc3d.PerformInfinitePoint(BRepBuilderAPI::Precision());
+  bsc3d.PerformInfinitePoint(BRepBuilderAPI1::Precision());
   if (bsc3d.State() == TopAbs_IN)
   {
     //         Ensuite, inverser C-A-D REPRENDRE LES SHELLS
@@ -241,7 +241,7 @@ static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, co
     for (ShapeExplorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
     {
       TopoEdge edge = TopoDS::Edge(exp.Current());
-      BRepLib::SameRange(edge, Precision::PConfusion());
+      BRepLib1::SameRange(edge, Precision::PConfusion());
     }
   }
   else if (argc == 7)
@@ -264,7 +264,7 @@ static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, co
   }
   else
   {
-    di << "Apply BRepLib::SameRange() to shape or GeomLib1::SameRange() to pcurve:\n";
+    di << "Apply BRepLib1::SameRange() to shape or GeomLib1::SameRange() to pcurve:\n";
     di << "> samerange shape\n";
     di << "or\n";
     di << "> samerange newcurve curve2d first last newfirst newlast\n";
@@ -277,7 +277,7 @@ static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, co
 //  ##            DECLARATIONS            ##
 //  ########################################
 
-void SWDRAW_ShapeTool::InitCommands(DrawInterpreter& theCommands)
+void ShapeTool1::InitCommands(DrawInterpreter& theCommands)
 {
   static int initactor = 0;
   if (initactor)

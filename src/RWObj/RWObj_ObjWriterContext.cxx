@@ -70,7 +70,7 @@ RWObj_ObjWriterContext::RWObj_ObjWriterContext(const AsciiString1& theName)
 {
   if (myFile == NULL)
   {
-    Message::SendFail(AsciiString1("File cannot be created\n") + theName);
+    Message1::SendFail(AsciiString1("File cannot be created\n") + theName);
     return;
   }
 }
@@ -82,7 +82,7 @@ RWObj_ObjWriterContext::~RWObj_ObjWriterContext()
   if (myFile != NULL)
   {
     ::fclose(myFile);
-    Message::SendFail(AsciiString1("File cannot be written\n") + myName);
+    Message1::SendFail(AsciiString1("File cannot be written\n") + myName);
   }
 }
 
@@ -114,7 +114,7 @@ bool RWObj_ObjWriterContext::WriteHeader(const Standard_Integer                 
        aKeyValueIter.Next())
   {
     NCollection_IndexedMap<AsciiString1> aKeyLines, aValLines;
-    splitLines(aKeyValueIter.Key(), aKeyLines);
+    splitLines(aKeyValueIter.Key1(), aKeyLines);
     splitLines(aKeyValueIter.Value(), aValLines);
     for (Standard_Integer aLineIter = 1; aLineIter <= aKeyLines.Extent(); ++aLineIter)
     {

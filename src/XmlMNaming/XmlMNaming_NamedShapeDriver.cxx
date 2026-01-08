@@ -37,8 +37,8 @@ IMPLEMENT_STANDARD_RTTIEXT(XmlMNaming_NamedShapeDriver, XmlMDF_ADriver)
 
 static TNaming_Evolution          EvolutionEnum(const XmlObjMgt_DOMString&);
 static const XmlObjMgt_DOMString& EvolutionString(const TNaming_Evolution);
-static void doTranslate(const TopoShape&, XmlMNaming_Shape1&, BRepTools_ShapeSet&);
-static int  doTranslate(const XmlMNaming_Shape1&, TopoShape&, BRepTools_ShapeSet&);
+static void doTranslate(const TopoShape&, Shape1&, BRepTools_ShapeSet&);
+static int  doTranslate(const Shape1&, TopoShape&, BRepTools_ShapeSet&);
 
 IMPLEMENT_DOMSTRING(OldsString, "olds")
 IMPLEMENT_DOMSTRING(NewsString, "news")
@@ -74,7 +74,7 @@ Handle(TDF_Attribute) XmlMNaming_NamedShapeDriver::NewEmpty() const
 // purpose  : retrieval of ShapeAttribute
 //=======================================================================
 
-Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const PersistentStorage&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable&) const
 {
@@ -95,8 +95,8 @@ Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent& 
   // apres creation Builder qui a mis la version a 1 :
   aTarget->SetVersion(aVersion);
 
-  const XmlObjMgt_Array1 OldPShapes(anElement, ::OldsString());
-  const XmlObjMgt_Array1 NewPShapes(anElement, ::NewsString());
+  const Array1 OldPShapes(anElement, ::OldsString());
+  const Array1 NewPShapes(anElement, ::NewsString());
   if (NewPShapes.Length() == 0 && OldPShapes.Length() == 0)
     return Standard_True;
 
@@ -114,8 +114,8 @@ Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent& 
 
   for (Standard_Integer i = upper; i >= lower; --i)
   {
-    const XmlMNaming_Shape1 aNewPShape  = NewPShapes.Value(i);
-    const XmlMNaming_Shape1 anOldPShape = OldPShapes.Value(i);
+    const Shape1 aNewPShape  = NewPShapes.Value(i);
+    const Shape1 anOldPShape = OldPShapes.Value(i);
 
     if (evol != TNaming_PRIMITIVE && anOldPShape.Element() != NULL)
     {
@@ -173,7 +173,7 @@ Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent& 
 //=======================================================================
 
 void XmlMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                        XmlObjMgt_Persistent&        theTarget,
+                                        PersistentStorage&        theTarget,
                                         XmlObjMgt_SRelocationTable&) const
 {
   // AGV  XmlObjMgt_Document& aDoc =
@@ -193,7 +193,7 @@ void XmlMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
 
   BRepTools_ShapeSet& aShapeSet = (BRepTools_ShapeSet&)myShapeSet;
-  XmlObjMgt_Array1    OldPShapes(1, NbShapes1), NewPShapes(1, NbShapes1);
+  Array1    OldPShapes(1, NbShapes1), NewPShapes(1, NbShapes1);
 
   OldPShapes.CreateArrayElement(theTarget, ::OldsString());
   NewPShapes.CreateArrayElement(theTarget, ::NewsString());
@@ -208,14 +208,14 @@ void XmlMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
 
     if (evol != TNaming_PRIMITIVE)
     {
-      XmlMNaming_Shape1 anOldPShape(aDoc);
+      Shape1 anOldPShape(aDoc);
       ::doTranslate(OldShape, anOldPShape, aShapeSet);
       OldPShapes.SetValue(i, anOldPShape.Element());
     }
 
     if (evol != TNaming_DELETE)
     {
-      XmlMNaming_Shape1 aNewPShape(aDoc);
+      Shape1 aNewPShape(aDoc);
       ::doTranslate(NewShape, aNewPShape, aShapeSet);
       NewPShapes.SetValue(i, aNewPShape.Element());
     }
@@ -282,7 +282,7 @@ static TNaming_Evolution EvolutionEnum(const XmlObjMgt_DOMString& theString)
 //=======================================================================
 
 static void doTranslate(const TopoShape& theShape,
-                        XmlMNaming_Shape1&  theResult,
+                        Shape1&  theResult,
                         BRepTools_ShapeSet& theShapeSet)
 {
   // Check for empty shape
@@ -307,7 +307,7 @@ static void doTranslate(const TopoShape& theShape,
 // purpose  : shape retrieval from XML
 //=======================================================================
 
-static int doTranslate(const XmlMNaming_Shape1& thePShape,
+static int doTranslate(const Shape1& thePShape,
                        TopoShape&            theResult,
                        BRepTools_ShapeSet&      theShapeSet)
 {
@@ -328,7 +328,7 @@ static int doTranslate(const XmlMNaming_Shape1& thePShape,
 void XmlMNaming_NamedShapeDriver::ReadShapeSection(const XmlObjMgt_Element&     theElement,
                                                    const Message_ProgressRange& theRange)
 {
-  XmlObjMgt_Element anElement = XmlObjMgt::FindChildByName(theElement, ::ShapesString());
+  XmlObjMgt_Element anElement = XmlObjMgt1::FindChildByName(theElement, ::ShapesString());
   if (anElement != NULL)
   {
     for (LDOM_Node aNode = anElement.getFirstChild(); aNode != NULL;

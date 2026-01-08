@@ -61,7 +61,7 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_CompSolid& S)
   TopTools_MapIteratorOfMapOfShape aFaceIter(aMapOfFaces);
   for (; aFaceIter.More(); aFaceIter.Next())
   {
-    B.Add(aShell, aFaceIter.Key());
+    B.Add(aShell, aFaceIter.Key1());
   }
   aShell.Closed(BRepInspector::IsClosed(aShell));
 

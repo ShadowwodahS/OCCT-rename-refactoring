@@ -16,7 +16,7 @@
 #ifndef LDOM_DocumentType_HeaderFile
 #define LDOM_DocumentType_HeaderFile
 
-//  Block of comments describing class DocumentType
+//  Block1 of comments describing class DocumentType
 
 class DocumentType
 {

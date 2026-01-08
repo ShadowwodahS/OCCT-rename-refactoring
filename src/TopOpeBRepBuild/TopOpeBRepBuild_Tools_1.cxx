@@ -284,7 +284,7 @@ void CorrectEdgeTolerance(const TopoEdge&  myShape,
       }
       if (P.IsNull())
       {         // not a plane
-        return; // BRepCheck::Add(lst,BRepCheck_NoCurveOnSurface);
+        return; // BRepCheck1::Add(lst,BRepCheck_NoCurveOnSurface);
       }
       else
       { // on fait la projection a la volee, comme BRepInspector
@@ -298,7 +298,7 @@ void CorrectEdgeTolerance(const TopoEdge&  myShape,
         Handle(GeomCurve3d)        ProjOnPlane =
           GeomProjLib1::ProjectOnPlane(new Geom_TrimmedCurve(C3d, First, Last),
                                       P,
-                                      P->Position().Direction(),
+                                      P->Position1().Direction(),
                                       Standard_True);
 
         Handle(GeomAdaptor_Curve) aHCurve = new GeomAdaptor_Curve(ProjOnPlane);

@@ -39,7 +39,7 @@ public:
   //! This method is used to set the fields of the class
   //! DimensionUnits
   //! - nbPropVal  : Number of property values, always = 6
-  //! - aSecondPos : Secondary Dimension Position
+  //! - aSecondPos : Secondary Dimension Position1
   //! 0 = This is the main text
   //! 1 = Before primary dimension
   //! 2 = After primary dimension

@@ -59,14 +59,14 @@ private:
    * and bit field, allocated as single piece of memory addressed
    * from the blocks array (myData).
    *
-   * The Block structure provides a logical view on the block,
+   * The Block1 structure provides a logical view on the block,
    * and provides methods to work with bit map.
    *
    * Note that NCollection_SparseArrayBase class takes responsibility
    * for correct allocation/deallocation of all the data.
    */
 
-  class Block
+  class Block1
   {
   public:
     typedef unsigned char Cell; //!< type of items used to hold bits
@@ -76,7 +76,7 @@ private:
 
   public:
     //! Initializes the block by pointer to block data
-    Block(const Standard_Address theAddr,
+    Block1(const Standard_Address theAddr,
           const Standard_Size    theNbItems,
           const Standard_Size    theItemSize)
         : Count((Standard_Size*)theAddr),
@@ -177,7 +177,7 @@ public:
     Standard_Boolean                   myHasMore;
     Standard_Size                      myIBlock;
     Standard_Size                      myInd;
-    Block                              myBlock;
+    Block1                              myBlock;
   };
   friend class Iterator;
 
@@ -205,14 +205,14 @@ protected:
 protected:
   // Data access interface for descendants
 
-  //! Creates Block structure for block pointed by theAddr
-  Block getBlock(const Standard_Address theAddr) const
+  //! Creates Block1 structure for block pointed by theAddr
+  Block1 getBlock(const Standard_Address theAddr) const
   {
-    return Block(theAddr, myBlockSize, myItemSize);
+    return Block1(theAddr, myBlockSize, myItemSize);
   }
 
   //! Find address of the item in the block by index (in the block)
-  Standard_Address getItem(const Block& theBlock, Standard_Size theInd) const
+  Standard_Address getItem(const Block1& theBlock, Standard_Size theInd) const
   {
     return ((char*)theBlock.Array) + myItemSize * theInd;
   }
@@ -222,7 +222,7 @@ protected:
   {
     Standard_OutOfRange_Raise_if(
       !HasValue(theIndex),
-      "NCollection_SparseArray::Value()") return Block::ToArray(myData[theIndex / myBlockSize],
+      "NCollection_SparseArray::Value()") return Block1::ToArray(myData[theIndex / myBlockSize],
                                                                 myBlockSize,
                                                                 myItemSize)
       + myItemSize * (theIndex % myBlockSize);

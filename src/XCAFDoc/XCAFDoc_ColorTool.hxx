@@ -113,7 +113,7 @@ public:
   Standard_EXPORT void GetColors(TDF_LabelSequence& Labels) const;
 
   //! Sets a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color
   //! defined by <colorL>. Color of shape is defined following way
   //! in dependance with type of color.
   //! If type of color is XCAFDoc_ColorGen - then this color
@@ -125,7 +125,7 @@ public:
                                 const XCAFDoc_ColorType type) const;
 
   //! Sets a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color <Color>
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color <Color>
   //! in the colortable
   //! Adds a color as necessary
   Standard_EXPORT void SetColor(const DataLabel&        L,
@@ -133,7 +133,7 @@ public:
                                 const XCAFDoc_ColorType type) const;
 
   //! Sets a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color <Color>
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color <Color>
   //! in the colortable
   //! Adds a color as necessary
   Standard_EXPORT void SetColor(const DataLabel&          L,
@@ -141,7 +141,7 @@ public:
                                 const XCAFDoc_ColorType   type) const;
 
   //! Removes a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color
   Standard_EXPORT void UnSetColor(const DataLabel& L, const XCAFDoc_ColorType type) const;
 
   //! Returns True if label <L> has a color assignment
@@ -167,7 +167,7 @@ public:
                                                    Quantity_ColorRGBA&     color);
 
   //! Sets a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color
   //! defined by <colorL>
   //! Returns False if cannot find a label for shape S
   Standard_EXPORT Standard_Boolean SetColor(const TopoShape&     S,
@@ -175,7 +175,7 @@ public:
                                             const XCAFDoc_ColorType type);
 
   //! Sets a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color <Color>
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color <Color>
   //! in the colortable
   //! Adds a color as necessary
   //! Returns False if cannot find a label for shape S
@@ -184,7 +184,7 @@ public:
                                             const XCAFDoc_ColorType type);
 
   //! Sets a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color <Color>
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color <Color>
   //! in the colortable
   //! Adds a color as necessary
   //! Returns False if cannot find a label for shape S
@@ -193,7 +193,7 @@ public:
                                             const XCAFDoc_ColorType   type);
 
   //! Removes a link with GUID defined by <type> (see
-  //! XCAFDoc::ColorRefGUID()) from label <L> to color
+  //! XCAFDoc1::ColorRefGUID()) from label <L> to color
   //! Returns True if such link existed
   Standard_EXPORT Standard_Boolean UnSetColor(const TopoShape& S, const XCAFDoc_ColorType type);
 
@@ -223,7 +223,7 @@ public:
   Standard_EXPORT static Standard_Boolean IsVisible(const DataLabel& L);
 
   //! Set the visibility of object on label. Do nothing if there no any object.
-  //! Set UAttribute with corresponding GUID.
+  //! Set UAttribute1 with corresponding GUID.
   Standard_EXPORT void SetVisibility(const DataLabel&       shapeLabel,
                                      const Standard_Boolean isvisible = Standard_True);
 
@@ -231,7 +231,7 @@ public:
   Standard_EXPORT Standard_Boolean IsColorByLayer(const DataLabel& L) const;
 
   //! Set the Color defined by Layer flag on label. Do nothing if there no any object.
-  //! Set UAttribute with corresponding GUID.
+  //! Set UAttribute1 with corresponding GUID.
   Standard_EXPORT void SetColorByLayer(const DataLabel&       shapeLabel,
                                        const Standard_Boolean isColorByLayer = Standard_False);
 

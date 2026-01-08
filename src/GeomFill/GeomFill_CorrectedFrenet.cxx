@@ -229,19 +229,19 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
     break;
 
     case GeomAbs_Circle:
-      theP = new GeomPlane(Ax3(theC->Circle().Position()));
+      theP = new GeomPlane(Ax3(theC->Circle().Position1()));
       break;
 
     case GeomAbs_Ellipse:
-      theP = new GeomPlane(Ax3(theC->Ellipse().Position()));
+      theP = new GeomPlane(Ax3(theC->Ellipse().Position1()));
       break;
 
     case GeomAbs_Hyperbola:
-      theP = new GeomPlane(Ax3(theC->Hyperbola().Position()));
+      theP = new GeomPlane(Ax3(theC->Hyperbola().Position1()));
       break;
 
     case GeomAbs_Parabola:
-      theP = new GeomPlane(Ax3(theC->Parabola().Position()));
+      theP = new GeomPlane(Ax3(theC->Parabola().Position1()));
       break;
 
     case GeomAbs_BezierCurve: {

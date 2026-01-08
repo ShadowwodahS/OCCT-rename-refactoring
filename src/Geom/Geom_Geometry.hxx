@@ -31,7 +31,7 @@ class Transform3d;
 class Geom_Geometry;
 DEFINE_STANDARD_HANDLE(Geom_Geometry, RefObject)
 
-//! The abstract class Geometry for 3D space is the root
+//! The abstract class Geometry1 for 3D space is the root
 //! class of all geometric objects from the Geom
 //! package. It describes the common behavior of these objects when:
 //! - applying geometric transformations to objects, and
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(Geom_Geometry, RefObject)
 //! composite transformations which are used to define
 //! the geometric transformations applied using the
 //! Transform or Transformed functions.
-//! Note: Geometry defines the "prototype" of the
+//! Note: Geometry1 defines the "prototype" of the
 //! abstract method Transform which is defined for each
 //! concrete type of derived object. All other
 //! transformations are implemented using the Transform method.
@@ -52,32 +52,32 @@ class Geom_Geometry : public RefObject
 {
 
 public:
-  //! Performs the symmetrical transformation of a Geometry
+  //! Performs the symmetrical transformation of a Geometry1
   //! with respect to the point P which is the center of the
   //! symmetry.
   Standard_EXPORT void Mirror(const Point3d& P);
 
-  //! Performs the symmetrical transformation of a Geometry
+  //! Performs the symmetrical transformation of a Geometry1
   //! with respect to an axis placement which is the axis of the
   //! symmetry.
   Standard_EXPORT void Mirror(const Axis3d& A1);
 
-  //! Performs the symmetrical transformation of a Geometry
+  //! Performs the symmetrical transformation of a Geometry1
   //! with respect to a plane. The axis placement A2 locates
   //! the plane of the symmetry : (Location, XDirection, YDirection).
   Standard_EXPORT void Mirror(const Frame3d& A2);
 
-  //! Rotates a Geometry. A1 is the axis of the rotation.
+  //! Rotates a Geometry1. A1 is the axis of the rotation.
   //! Ang is the angular value of the rotation in radians.
   Standard_EXPORT void Rotate(const Axis3d& A1, const Standard_Real Ang);
 
-  //! Scales a Geometry. S is the scaling value.
+  //! Scales a Geometry1. S is the scaling value.
   Standard_EXPORT void Scale(const Point3d& P, const Standard_Real S);
 
-  //! Translates a Geometry.  V is the vector of the translation.
+  //! Translates a Geometry1.  V is the vector of the translation.
   Standard_EXPORT void Translate(const Vector3d& V);
 
-  //! Translates a Geometry from the point P1 to the point P2.
+  //! Translates a Geometry1 from the point P1 to the point P2.
   Standard_EXPORT void Translate(const Point3d& P1, const Point3d& P2);
 
   //! Transformation of a geometric object. This transformation

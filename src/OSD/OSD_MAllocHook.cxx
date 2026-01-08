@@ -208,7 +208,7 @@ Standard_Boolean OSD_MAllocHook::LogFileHandler::Open(const char* theFileName)
     return Standard_False;
   }
 
-  myLogFile << "Operation type; Request Number; Block Size\n"
+  myLogFile << "Operation type; Request Number; Block1 Size\n"
                "------------------------------------------\n";
   return Standard_True;
 }

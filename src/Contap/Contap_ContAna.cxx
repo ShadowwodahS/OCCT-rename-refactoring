@@ -117,7 +117,7 @@ void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D)
 {
   done = Standard_False;
 
-  Coords3d normale(C.Position().Direction().XYZ());
+  Coords3d normale(C.Position1().Direction().XYZ());
   normale.Cross(D.XYZ());
   if (normale.Modulus() <= 1e-15)
   {
@@ -127,7 +127,7 @@ void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D)
   {
     normale.Normalize();
     typL = GeomAbs_Line;
-    dir1 = C.Position().Direction();
+    dir1 = C.Position1().Direction();
     dir2 = dir1;
     pt1.SetXYZ(C.Location().XYZ() + C.Radius() * normale);
     pt2.SetXYZ(C.Location().XYZ() - C.Radius() * normale);
@@ -141,8 +141,8 @@ void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D, const Standard
 {
   done = Standard_False;
 
-  Standard_Real Coefcos = D.Dot(C.Position().XDirection());
-  Standard_Real Coefsin = D.Dot(C.Position().YDirection());
+  Standard_Real Coefcos = D.Dot(C.Position1().XDirection());
+  Standard_Real Coefsin = D.Dot(C.Position1().YDirection());
   Standard_Real Coefcst = cos(M_PI * 0.5 + Angle);
 
   Standard_Real norm1 = Coefcos * Coefcos + Coefsin * Coefsin;
@@ -152,7 +152,7 @@ void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D, const Standard
   {
     typL  = GeomAbs_Line;
     nbSol = 2;
-    dir1 = dir2 = C.Position().Direction();
+    dir1 = dir2 = C.Position1().Direction();
 
     if (!C.Direct())
     { // The normal is inverted.
@@ -177,8 +177,8 @@ void ContourAnalyzer::Perform(const Cylinder1& C, const Dir3d& D, const Standard
     sint0 = (Coefcos * prm + Coefsin * Coefcst) / norm1;
     sint1 = (-Coefcos * prm + Coefsin * Coefcst) / norm1;
 
-    Coords3d Xdir(C.Position().XDirection().XYZ());
-    Coords3d Ydir(C.Position().YDirection().XYZ());
+    Coords3d Xdir(C.Position1().XDirection().XYZ());
+    Coords3d Ydir(C.Position1().YDirection().XYZ());
     Coords3d dirxyz;
 
     dirxyz.SetLinearForm(cost0, Xdir, sint0, Ydir);
@@ -231,8 +231,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D)
 
   Standard_Real Tgtalpha = Tan(C.SemiAngle());
 
-  Standard_Real Coefcos = D.Dot(C.Position().XDirection());
-  Standard_Real Coefsin = D.Dot(C.Position().YDirection());
+  Standard_Real Coefcos = D.Dot(C.Position1().XDirection());
+  Standard_Real Coefsin = D.Dot(C.Position1().YDirection());
   Standard_Real Coefcst = D.Dot(C.Axis().Direction()) * Tgtalpha;
 
   Standard_Real norm1 = Coefcos * Coefcos + Coefsin * Coefsin;
@@ -268,8 +268,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D)
     sint0 = (Coefcos * prm + Coefsin * Coefcst) / norm1;
     sint1 = (-Coefcos * prm + Coefsin * Coefcst) / norm1;
 
-    Coords3d Xdir(C.Position().XDirection().XYZ());
-    Coords3d Ydir(C.Position().YDirection().XYZ());
+    Coords3d Xdir(C.Position1().XDirection().XYZ());
+    Coords3d Ydir(C.Position1().YDirection().XYZ());
     Coords3d Zdir(C.Axis().Direction().XYZ());
     Coords3d dirxyz;
     dirxyz.SetLinearForm(cost0, Xdir, sint0, Ydir, 1. / Tgtalpha, Zdir);
@@ -295,8 +295,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D, const Standard_Rea
   Standard_Real Cosa = cos(Ang);
   Standard_Real Sina = sin(Ang);
 
-  Standard_Real Coefcos = D.Dot(C.Position().XDirection());
-  Standard_Real Coefsin = D.Dot(C.Position().YDirection());
+  Standard_Real Coefcos = D.Dot(C.Position1().XDirection());
+  Standard_Real Coefsin = D.Dot(C.Position1().YDirection());
 
   Standard_Real Coefcst1 = cos(M_PI * 0.5 + Angle);
 
@@ -330,8 +330,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D, const Standard_Rea
     sint0 = (Coefcos * prm + Coefsin * Coefcst) / norm1;
     sint1 = (-Coefcos * prm + Coefsin * Coefcst) / norm1;
 
-    Coords3d Xdir(C.Position().XDirection().XYZ());
-    Coords3d Ydir(C.Position().YDirection().XYZ());
+    Coords3d Xdir(C.Position1().XDirection().XYZ());
+    Coords3d Ydir(C.Position1().YDirection().XYZ());
     Coords3d Zdir(C.Axis().Direction().XYZ());
     if (!C.Direct())
     {
@@ -364,8 +364,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Dir3d& D, const Standard_Rea
     sint0 = (Coefcos * prm + Coefsin * Coefcst) / norm1;
     sint1 = (-Coefcos * prm + Coefsin * Coefcst) / norm1;
 
-    Coords3d Xdir(C.Position().XDirection().XYZ());
-    Coords3d Ydir(C.Position().YDirection().XYZ());
+    Coords3d Xdir(C.Position1().XDirection().XYZ());
+    Coords3d Ydir(C.Position1().YDirection().XYZ());
     Coords3d Zdir(C.Axis().Direction().XYZ());
     if (!C.Direct())
     {
@@ -399,8 +399,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Point3d& Eye)
   Coords3d apexeye(Eye.XYZ());
   apexeye.Subtract(C.Apex().XYZ());
 
-  Standard_Real Coefcos = apexeye.Dot(C.Position().XDirection().XYZ());
-  Standard_Real Coefsin = apexeye.Dot(C.Position().YDirection().XYZ());
+  Standard_Real Coefcos = apexeye.Dot(C.Position1().XDirection().XYZ());
+  Standard_Real Coefsin = apexeye.Dot(C.Position1().YDirection().XYZ());
   Standard_Real Coefcst = apexeye.Dot(C.Axis().Direction().XYZ()) * Tgtalpha;
 
   Standard_Real norm1 = Coefcos * Coefcos + Coefsin * Coefsin;
@@ -436,8 +436,8 @@ void ContourAnalyzer::Perform(const Cone1& C, const Point3d& Eye)
     sint0 = (Coefcos * prm + Coefsin * Coefcst) / norm1;
     sint1 = (-Coefcos * prm + Coefsin * Coefcst) / norm1;
 
-    Coords3d Xdir(C.Position().XDirection().XYZ());
-    Coords3d Ydir(C.Position().YDirection().XYZ());
+    Coords3d Xdir(C.Position1().XDirection().XYZ());
+    Coords3d Ydir(C.Position1().YDirection().XYZ());
     Coords3d Zdir(C.Axis().Direction().XYZ());
     Coords3d dirxyz;
     dirxyz.SetLinearForm(cost0, Xdir, sint0, Ydir, 1. / Tgtalpha, Zdir);

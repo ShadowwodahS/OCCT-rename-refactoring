@@ -38,20 +38,20 @@ enum AIS_ViewInputBufferType
 };
 
 //! Auxiliary structure defining viewer events
-class AIS_ViewInputBuffer
+class ViewInputBuffer
 {
 public:
   bool IsNewGesture; //!< transition from one action to another
 
   NCollection_Sequence<ScrollDelta> ZoomActions; //!< the queue with zoom actions
 
-  struct _orientation
+  struct _orientation1
   {
     bool                  ToFitAll;        //!< perform FitAll operation
     bool                  ToSetViewOrient; //!< set new view orientation
     V3d_TypeOfOrientation ViewOrient;      //!< new view orientation
 
-    _orientation()
+    _orientation1()
         : ToFitAll(false),
           ToSetViewOrient(false),
           ViewOrient(V3d_Xpos)
@@ -59,25 +59,25 @@ public:
     }
   } Orientation;
 
-  struct _highlighting
+  struct _highlighting1
   {
     bool            ToHilight; //!< perform dynamic highlighting at specified point
     Graphic3d_Vec2i Point;     //!< the new point for dynamic highlighting
 
-    _highlighting()
+    _highlighting1()
         : ToHilight(false)
     {
     }
   } MoveTo;
 
-  struct _selection
+  struct _selection1
   {
     AIS_ViewSelectionTool                 Tool;        //!< perform selection
     AIS_SelectionScheme                   Scheme;      //!< selection scheme
     NCollection_Sequence<Graphic3d_Vec2i> Points;      //!< the points for selection
     bool                                  ToApplyTool; //!< apply rubber-band selection tool
 
-    _selection()
+    _selection1()
         : Tool(AIS_ViewSelectionTool_Picking),
           Scheme(AIS_SelectionScheme_UNKNOWN),
           ToApplyTool(false)
@@ -85,21 +85,21 @@ public:
     }
   } Selection;
 
-  struct _panningParams
+  struct _panningParams1
   {
     bool            ToStart;    //!< start panning
     Graphic3d_Vec2i PointStart; //!< panning start point
     bool            ToPan;      //!< perform panning
     Graphic3d_Vec2i Delta;      //!< panning delta
 
-    _panningParams()
+    _panningParams1()
         : ToStart(false),
           ToPan(false)
     {
     }
   } Panning;
 
-  struct _draggingParams
+  struct _draggingParams1
   {
     bool            ToStart;    //!< start dragging
     bool            ToConfirm;  //!< confirm dragging
@@ -109,7 +109,7 @@ public:
     Graphic3d_Vec2i PointStart; //!< drag start point
     Graphic3d_Vec2i PointTo;    //!< drag end point
 
-    _draggingParams()
+    _draggingParams1()
         : ToStart(false),
           ToConfirm(false),
           ToMove(false),
@@ -119,41 +119,41 @@ public:
     }
   } Dragging;
 
-  struct _orbitRotation
+  struct _orbitRotation1
   {
     bool            ToStart;    //!< start orbit rotation
     Graphic3d_Vec2d PointStart; //!< orbit rotation start point
     bool            ToRotate;   //!< perform orbit rotation
     Graphic3d_Vec2d PointTo;    //!< orbit rotation end point
 
-    _orbitRotation()
+    _orbitRotation1()
         : ToStart(false),
           ToRotate(false)
     {
     }
   } OrbitRotation;
 
-  struct _viewRotation
+  struct _viewRotation1
   {
     bool            ToStart;    //!< start view rotation
     Graphic3d_Vec2d PointStart; //!< view rotation start point
     bool            ToRotate;   //!< perform view rotation
     Graphic3d_Vec2d PointTo;    //!< view rotation end point
 
-    _viewRotation()
+    _viewRotation1()
         : ToStart(false),
           ToRotate(false)
     {
     }
   } ViewRotation;
 
-  struct _zrotateParams
+  struct _zrotateParams1
   {
     Graphic3d_Vec2i Point;    //!< Z rotation start point
     double          Angle;    //!< Z rotation angle
     bool            ToRotate; //!< start Z rotation
 
-    _zrotateParams()
+    _zrotateParams1()
         : Angle(0.0),
           ToRotate(false)
     {
@@ -161,7 +161,7 @@ public:
   } ZRotate;
 
 public:
-  AIS_ViewInputBuffer()
+  ViewInputBuffer()
       : IsNewGesture(false)
   {
   }

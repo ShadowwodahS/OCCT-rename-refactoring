@@ -161,7 +161,7 @@ Standard_Integer DNaming_FilletDriver::Execute(Handle(TFunction_Logbook)& theLog
     return -1;
   }
 
-  // Naming
+  // Naming1
   LoadNamingDS(RESPOSITION(aFunction), aMkFillet, aCONTEXT);
 
   theLog->SetValid(RESPOSITION(aFunction), Standard_True);

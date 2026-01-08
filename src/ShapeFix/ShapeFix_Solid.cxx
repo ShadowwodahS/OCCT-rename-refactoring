@@ -51,7 +51,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Solid, ShapeFix_Root)
 
 ShapeFix_Solid::ShapeFix_Solid()
 {
-  myStatus                  = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                  = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myFixShellMode            = -1;
   myFixShellOrientationMode = -1;
   myFixShell                = new ShapeFix_Shell;
@@ -62,7 +62,7 @@ ShapeFix_Solid::ShapeFix_Solid()
 
 ShapeFix_Solid::ShapeFix_Solid(const TopoSolid& solid)
 {
-  myStatus                  = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                  = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myFixShellMode            = -1;
   myFixShellOrientationMode = -1;
   myFixShell                = new ShapeFix_Shell;
@@ -230,7 +230,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape aItShellHoles(aMapShellHoles);
   for (; aItShellHoles.More(); aItShellHoles.Next())
   {
-    if (aMapHoles.Contains(aItShellHoles.Key()))
+    if (aMapHoles.Contains(aItShellHoles.Key1()))
       continue;
     const ShapeList& lHoles = aItShellHoles.Value();
     if (lHoles.IsEmpty())
@@ -247,7 +247,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
     }
   }
   for (TopTools_MapIteratorOfMapOfShape aIterHoles(aMapHoles); aIterHoles.More(); aIterHoles.Next())
-    aMapShellHoles.UnBind(aIterHoles.Key());
+    aMapShellHoles.UnBind(aIterHoles.Key1());
 
   for (Standard_Integer i = 1; i <= aSeqShells.Length(); ++i)
   {
@@ -437,7 +437,7 @@ Standard_Boolean ShapeFix_Solid::Perform(const Message_ProgressRange& theProgres
       if (myFixShell->Perform(aPSFixShell.Next()))
       {
         status = Standard_True;
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       }
       NbShells += myFixShell->NbShells();
     }
@@ -487,7 +487,7 @@ Standard_Boolean ShapeFix_Solid::Perform(const Message_ProgressRange& theProgres
       if (!aShell.IsNull())
       {
         TopoSolid aSol = SolidFromShell(aShell);
-        if (ShapeExtend::DecodeStatus(myStatus, ShapeExtend_DONE2))
+        if (ShapeExtend1::DecodeStatus(myStatus, ShapeExtend_DONE2))
         {
           // clang-format off
           SendWarning (Message_Msg ("FixAdvSolid.FixOrientation.MSG20"));// Orientation of shell was corrected.
@@ -501,7 +501,7 @@ Standard_Boolean ShapeFix_Solid::Perform(const Message_ProgressRange& theProgres
     else
     {
       status = Standard_True;
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       TopoDS_Iterator aIt(tmpShape, Standard_False);
       Context()->Replace(tmpShape, aIt.Value());
       // clang-format off
@@ -610,7 +610,7 @@ TopoSolid ShapeFix_Solid::SolidFromShell(const TopoShell& shell)
       sh.Reverse();
       B.Add(soli2, sh);
       solid = soli2;
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     }
   }
   catch (ExceptionBase const& anException)
@@ -630,7 +630,7 @@ TopoSolid ShapeFix_Solid::SolidFromShell(const TopoShell& shell)
 
 Standard_Boolean ShapeFix_Solid::Status(const ShapeExtend_Status theStatus) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, theStatus);
+  return ShapeExtend1::DecodeStatus(myStatus, theStatus);
 }
 
 //=================================================================================================

@@ -361,7 +361,7 @@ static Standard_Integer EncodeStatus(const Standard_Integer status)
 
 TopoShape BRepTools_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnum until)
 {
-  myStatus = EncodeStatus(0); // ShapeExtend::EncodeStatus ( ShapeExtend_OK );
+  myStatus = EncodeStatus(0); // ShapeExtend1::EncodeStatus ( ShapeExtend_OK );
   if (shape.IsNull())
     return shape;
 
@@ -380,7 +380,7 @@ TopoShape BRepTools_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnu
       || (!myConsiderLocation && !newsh.IsSame(shape)))
   {
     TopoShape res = Apply(newsh, until);
-    myStatus |= EncodeStatus(1); // ShapeExtend::EncodeStatus ( ShapeExtend_DONE1 );
+    myStatus |= EncodeStatus(1); // ShapeExtend1::EncodeStatus ( ShapeExtend_DONE1 );
     return res;
   }
 
@@ -421,18 +421,18 @@ TopoShape BRepTools_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnu
     newsh                  = Apply(sh, until);
     if (newsh != sh)
     {
-      if (myStatus & EncodeStatus(4)) // ShapeExtend::DecodeStatus ( myStatus, ShapeExtend_DONE4 ) )
-        locStatus |= EncodeStatus(4); //|= ShapeExtend::EncodeStatus ( ShapeExtend_DONE4 );
+      if (myStatus & EncodeStatus(4)) // ShapeExtend1::DecodeStatus ( myStatus, ShapeExtend_DONE4 ) )
+        locStatus |= EncodeStatus(4); //|= ShapeExtend1::EncodeStatus ( ShapeExtend_DONE4 );
       modif = 1;
     }
     if (newsh.IsNull())
     {
-      locStatus |= EncodeStatus(4); // ShapeExtend::EncodeStatus ( ShapeExtend_DONE4 );
+      locStatus |= EncodeStatus(4); // ShapeExtend1::EncodeStatus ( ShapeExtend_DONE4 );
       continue;
     }
     if (isEmpty)
       isEmpty = Standard_False;
-    locStatus |= EncodeStatus(3); // ShapeExtend::EncodeStatus ( ShapeExtend_DONE3 );
+    locStatus |= EncodeStatus(3); // ShapeExtend1::EncodeStatus ( ShapeExtend_DONE3 );
     if (st == TopAbs_COMPOUND || newsh.ShapeType() == sh.ShapeType())
     { // fix for SAMTECH bug OCC322 about absent internal vertices after sewing.
       B.Add(result, newsh);
@@ -444,9 +444,9 @@ TopoShape BRepTools_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnu
       const TopoShape& subsh = subit.Value();
       // clang-format off
       if ( subsh.ShapeType() == sh.ShapeType() ) B.Add ( result, subsh );//fix for SAMTECH bug OCC322 about absent internal vertices after sewing.
-      else locStatus |= EncodeStatus(10);//ShapeExtend::EncodeStatus ( ShapeExtend_FAIL1 );
+      else locStatus |= EncodeStatus(10);//ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL1 );
     }
-    if ( ! nitems ) locStatus |= EncodeStatus(10);//ShapeExtend::EncodeStatus ( ShapeExtend_FAIL1 );
+    if ( ! nitems ) locStatus |= EncodeStatus(10);//ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL1 );
     // clang-format on
   }
   if (!modif)
@@ -490,7 +490,7 @@ TopoShape BRepTools_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnu
 
 /*Standard_Boolean BRepTools_ReShape::Status (const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus ( myStatus, status );
+  return ShapeExtend1::DecodeStatus ( myStatus, status );
 }*/
 
 //=================================================================================================
@@ -534,7 +534,7 @@ Handle(BRepTools_History) BRepTools_ReShape::History() const
   // Fill the history.
   for (TShapeToReplacement::Iterator aRIt(myShapeToReplacement); aRIt.More(); aRIt.Next())
   {
-    const TopoShape& aShape = aRIt.Key();
+    const TopoShape& aShape = aRIt.Key1();
     if (!BRepTools_History::IsSupportedType(aShape) || myNewShapes.Contains(aShape))
     {
       continue;

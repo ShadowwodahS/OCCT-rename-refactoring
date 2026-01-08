@@ -49,7 +49,7 @@ public:
   Standard_EXPORT Standard_Boolean Perform(NCollection_List<Triangle2>& thePolyTriangles);
 
   //! Set messenger for output information
-  //! without this Message::DefaultMessenger() will be used
+  //! without this Message1::DefaultMessenger() will be used
   void SetMessenger(const Handle(Message_Messenger)& theMess) { myMess = theMess; }
 
   BRepMesh_Triangulator& operator=(const BRepMesh_Triangulator& theOther);

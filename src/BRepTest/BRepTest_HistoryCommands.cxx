@@ -33,7 +33,7 @@ static Standard_Integer IsDeleted(DrawInterpreter&, Standard_Integer, const char
 
 //=================================================================================================
 
-void BRepTest::HistoryCommands(DrawInterpreter& theCommands)
+void BRepTest1::HistoryCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean isDone = Standard_False;
   if (isDone)
@@ -99,12 +99,12 @@ Standard_Integer SetFillHistory(DrawInterpreter& theDI,
   if (theArgc == 1)
   {
     theDI << "Filling of the history is "
-          << (BRepTest_Objects::IsHistoryNeeded() ? "enabled." : "disabled.");
+          << (Objects1::IsHistoryNeeded() ? "enabled." : "disabled.");
   }
   else
   {
     Standard_Integer iHist = Draw1::Atoi(theArgv[1]);
-    BRepTest_Objects::SetToFillHistory(iHist != 0);
+    Objects1::SetToFillHistory(iHist != 0);
   }
   return 0;
 }
@@ -122,7 +122,7 @@ Standard_Integer SaveHistory(DrawInterpreter& theDI,
   }
 
   // Get the history from the session
-  Handle(BRepTools_History) aHistory = BRepTest_Objects::History();
+  Handle(BRepTools_History) aHistory = Objects1::History();
   if (aHistory.IsNull())
   {
     theDI << "No history has been prepared yet.";

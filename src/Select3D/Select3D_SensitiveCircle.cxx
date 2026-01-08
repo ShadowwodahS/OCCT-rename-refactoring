@@ -30,7 +30,7 @@ Select3D_SensitiveCircle::Select3D_SensitiveCircle(const Handle(SelectMgr_Entity
     : Select3D_SensitiveEntity(theOwnerId)
 {
   myRadius = theCircle.Radius();
-  myTrsf.SetTransformation(theCircle.Position(), gp1::XOY());
+  myTrsf.SetTransformation(theCircle.Position1(), gp1::XOY());
 
   mySensType = theIsFilled ? Select3D_TOS_INTERIOR : Select3D_TOS_BOUNDARY;
   if (mySensType == Select3D_TOS_BOUNDARY)
@@ -43,8 +43,8 @@ Select3D_SensitiveCircle::Select3D_SensitiveCircle(const Handle(SelectMgr_Entity
 // function : Matches
 // purpose  : Checks whether the circle overlaps current selecting volume
 //=======================================================================
-Standard_Boolean Select3D_SensitiveCircle::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+Standard_Boolean Select3D_SensitiveCircle::Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
 {
   const Standard_Boolean aIsFilled = mySensType == Select3D_TOS_INTERIOR;
 

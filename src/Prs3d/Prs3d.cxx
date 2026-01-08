@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-void Prs3d::AddFreeEdges(TColgp_SequenceOfPnt&             theSegments,
+void Prs3d1::AddFreeEdges(TColgp_SequenceOfPnt&             theSegments,
                          const Handle(MeshTriangulation)& thePolyTri,
                          const Transform3d&                    theLocation)
 {
@@ -90,7 +90,7 @@ void Prs3d::AddFreeEdges(TColgp_SequenceOfPnt&             theSegments,
 
 //=================================================================================================
 
-Standard_Boolean Prs3d::MatchSegment(const Standard_Real X,
+Standard_Boolean Prs3d1::MatchSegment(const Standard_Real X,
                                      const Standard_Real Y,
                                      const Standard_Real Z,
                                      const Standard_Real aDistance,
@@ -117,7 +117,7 @@ Standard_Boolean Prs3d::MatchSegment(const Standard_Real X,
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfPrimitives) Prs3d::PrimitivesFromPolylines(
+Handle(Graphic3d_ArrayOfPrimitives) Prs3d1::PrimitivesFromPolylines(
   const Prs3d_NListOfSequenceOfPnt& thePoints)
 {
   if (thePoints.IsEmpty())
@@ -152,11 +152,11 @@ Handle(Graphic3d_ArrayOfPrimitives) Prs3d::PrimitivesFromPolylines(
 
 //=================================================================================================
 
-void Prs3d::AddPrimitivesGroup(const Handle(Prs3d_Presentation)& thePrs,
+void Prs3d1::AddPrimitivesGroup(const Handle(Prs3d_Presentation)& thePrs,
                                const Handle(Prs3d_LineAspect)&   theAspect,
                                Prs3d_NListOfSequenceOfPnt&       thePolylines)
 {
-  Handle(Graphic3d_ArrayOfPrimitives) aPrims = Prs3d::PrimitivesFromPolylines(thePolylines);
+  Handle(Graphic3d_ArrayOfPrimitives) aPrims = Prs3d1::PrimitivesFromPolylines(thePolylines);
   thePolylines.Clear();
   if (!aPrims.IsNull())
   {

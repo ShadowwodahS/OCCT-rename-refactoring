@@ -82,14 +82,14 @@ void NetworkSubfigureDefTool::ReadOwnParams(
 
   if (PR.DefinedElseSkip())
     // clang-format off
-    PR.ReadText(PR.Current(), "Primary Reference Designator", tempDesignator); //szv#4:S4163:12Mar99 `st=` not needed
+    PR.ReadText(PR.Current(), "Primary Reference1 Designator", tempDesignator); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
   else
-    PR.AddWarning("Primary Reference Designator : Null");
+    PR.AddWarning("Primary Reference1 Designator : Null");
 
   Standard_Boolean st = PR.ReadEntity(IR,
                                       PR.Current(),
-                                      "Primary Reference Designator",
+                                      "Primary Reference1 Designator",
                                       STANDARD_TYPE(IGESGraph_TextDisplayTemplate),
                                       tempTemplate,
                                       Standard_True);
@@ -252,7 +252,7 @@ void NetworkSubfigureDefTool::OwnCheck(const Handle(IGESDraw_NetworkSubfigureDef
   if ((ent->TypeFlag() < 0) || (ent->TypeFlag() > 2))
     ach->AddFail("TypeFlag has Invalid value");
   if (ent->Designator().IsNull())
-    ach->AddFail("Primary Reference Designator : not defined");
+    ach->AddFail("Primary Reference1 Designator : not defined");
 }
 
 void NetworkSubfigureDefTool::OwnDump(const Handle(IGESDraw_NetworkSubfigureDef)& ent,
@@ -269,7 +269,7 @@ void NetworkSubfigureDefTool::OwnDump(const Handle(IGESDraw_NetworkSubfigureDef)
   S << "\nAssociated Entities          : ";
   IGESData_DumpEntities(S, dumper, level, 1, ent->NbEntities(), ent->Entity);
   S << "\nType Flag : " << ent->TypeFlag() << "\n"
-    << "Primary Reference Designator : ";
+    << "Primary Reference1 Designator : ";
   IGESData_DumpString(S, ent->Designator());
   S << "\nText Display Template Entity : ";
   dumper.Dump(ent->DesignatorTemplate(), S, tempSubLevel);

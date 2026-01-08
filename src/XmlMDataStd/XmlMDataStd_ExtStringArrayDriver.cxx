@@ -68,7 +68,7 @@ Handle(TDF_Attribute) XmlMDataStd_ExtStringArrayDriver::NewEmpty() const
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
 Standard_Boolean XmlMDataStd_ExtStringArrayDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -130,18 +130,18 @@ Standard_Boolean XmlMDataStd_ExtStringArrayDriver::Paste(
     UtfString aValueStr;
     for (ind = aFirstInd; ind <= aLastInd && *aCurElement != anElement.getLastChild(); ind++)
     {
-      XmlObjMgt::GetExtendedString(*aCurElement, aValueStr);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aValueStr);
       aExtStringArray->SetValue(ind, aValueStr);
       aCurNode    = aCurElement->getNextSibling();
       aCurElement = (LDOM_Element*)&aCurNode;
     }
-    XmlObjMgt::GetExtendedString(*aCurElement, aValueStr);
+    XmlObjMgt1::GetExtendedString(*aCurElement, aValueStr);
     aExtStringArray->SetValue(aLastInd, aValueStr);
   }
   else
   {
     UtfString xstr;
-    XmlObjMgt::GetExtendedString(anElement, xstr);
+    XmlObjMgt1::GetExtendedString(anElement, xstr);
 #ifdef _DEBUG
     AsciiString1 cstr(xstr, '?');
 #endif
@@ -217,7 +217,7 @@ Standard_Boolean XmlMDataStd_ExtStringArrayDriver::Paste(
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_ExtStringArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                             XmlObjMgt_Persistent&        theTarget,
+                                             PersistentStorage&        theTarget,
                                              XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(TDataStd_ExtStringArray) aExtStringArray =
@@ -285,7 +285,7 @@ void XmlMDataStd_ExtStringArrayDriver::Paste(const Handle(TDF_Attribute)& theSou
     {
       const UtfString& aValueStr  = aExtStringArray->Value(i);
       XmlObjMgt_Element                 aCurTarget = aDoc.createElement(::ExtString());
-      XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
+      XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr);
       anElement.appendChild(aCurTarget);
     }
   }
@@ -326,7 +326,7 @@ void XmlMDataStd_ExtStringArrayDriver::Paste(const Handle(TDF_Attribute)& theSou
 #endif
 
     // Set UNICODE value.
-    XmlObjMgt::SetExtendedString(theTarget, xstr);
+    XmlObjMgt1::SetExtendedString(theTarget, xstr);
   }
   if (aExtStringArray->ID() != TDataStd_ExtStringArray::GetID())
   {

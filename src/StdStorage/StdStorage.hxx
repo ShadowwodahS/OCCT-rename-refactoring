@@ -20,7 +20,7 @@ class StdStorage_Data;
 class Storage_BaseDriver;
 class AsciiString1;
 
-//! StdStorage package is used to write and read persistent objects.
+//! StdStorage1 package is used to write and read persistent objects.
 //! These objects are read and written by a retrieval or storage
 //! algorithm (compatible with legacy Storage_Schema) in a container
 //! (disk, memory, network ...). Drivers (FSD_File objects) assign a physical
@@ -36,7 +36,7 @@ class AsciiString1;
 //! -   call the function Write from the storage, setting the driver and the
 //! Storage_Data instance as parameters,
 //! -   close the driver.
-class StdStorage
+class StdStorage1
 {
 
 public:

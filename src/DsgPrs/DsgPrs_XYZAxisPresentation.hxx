@@ -30,7 +30,7 @@ class Prs3d_ArrowAspect;
 class Prs3d_TextAspect;
 
 //! A framework for displaying the axes of an XYZ trihedron.
-class DsgPrs_XYZAxisPresentation
+class XYZAxisPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

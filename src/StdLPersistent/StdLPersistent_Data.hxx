@@ -28,9 +28,9 @@ public:
   }
 
   //! Read persistent data from a file.
-  Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+  Standard_EXPORT virtual void Read(ReadData& theReadData);
   //! Write persistent data to a file.
-  Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+  Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
   //! Gets persistent child objects
   virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
@@ -50,8 +50,8 @@ private:
 
 private:
   Standard_Integer                           myVersion;
-  Handle(StdLPersistent_HArray1::Integer)    myLabels;
-  Handle(StdLPersistent_HArray1::Persistent) myAttributes;
+  Handle(HArray1::Integer1)    myLabels;
+  Handle(HArray1::Persistent) myAttributes;
 };
 
 #endif

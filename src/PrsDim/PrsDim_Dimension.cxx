@@ -337,7 +337,7 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
 
   if (myDrawer->DimensionAspect()->IsArrows3d())
   {
-    Prs3d_Arrow::Draw1(aGroup, theLocation, theDirection, anAngle, aLength);
+    Arrow1::Draw1(aGroup, theLocation, theDirection, anAngle, aLength);
     aGroup->SetGroupPrimitivesAspect(myDrawer->DimensionAspect()->ArrowAspect()->Aspect());
   }
   else
@@ -375,8 +375,8 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
     }
   }
 
-  SelectionGeometry::Arrow& aSensitiveArrow = mySelectionGeom.NewArrow();
-  aSensitiveArrow.Position                  = theLocation;
+  SelectionGeometry1::Arrow2& aSensitiveArrow = mySelectionGeom.NewArrow();
+  aSensitiveArrow.Position1                  = theLocation;
   aSensitiveArrow.Direction                 = theDirection;
 }
 
@@ -456,7 +456,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
 
     // center shape in its bounding box (suppress border spacing added by FT_Font)
     Box2 aShapeBnd;
-    BRepBndLib::AddClose(aTextShape, aShapeBnd);
+    BRepBndLib1::AddClose(aTextShape, aShapeBnd);
 
     Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
     aShapeBnd.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
@@ -538,7 +538,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
   // generate primitives for 2D text
   myDrawer->DimensionAspect()->TextAspect()->Aspect()->SetDisplayType(Aspect_TODT_DIMENSION);
 
-  Prs3d_Text::Draw1(aGroup, myDrawer->DimensionAspect()->TextAspect(), theText, theTextPos);
+  Text::Draw1(aGroup, myDrawer->DimensionAspect()->TextAspect(), theText, theTextPos);
 
   mySelectionGeom.TextPos    = theTextPos;
   mySelectionGeom.TextDir    = theTextDir;
@@ -591,7 +591,7 @@ void PrsDim_Dimension::DrawExtension(const Handle(Prs3d_Presentation)& thePresen
   anExtPrimitive->AddVertex(anExtEnd);
 
   // add selection primitives
-  SelectionGeometry::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
+  SelectionGeometry1::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
   aSensitiveCurve.Append(anExtStart);
   aSensitiveCurve.Append(anExtEnd);
 
@@ -746,8 +746,8 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
           aPrimSegments->AddVertex(aSection2Beg);
           aPrimSegments->AddVertex(aSection2End);
 
-          SelectionGeometry::Curve& aLeftSensitiveCurve  = mySelectionGeom.NewCurve();
-          SelectionGeometry::Curve& aRightSensitiveCurve = mySelectionGeom.NewCurve();
+          SelectionGeometry1::Curve& aLeftSensitiveCurve  = mySelectionGeom.NewCurve();
+          SelectionGeometry1::Curve& aRightSensitiveCurve = mySelectionGeom.NewCurve();
           aLeftSensitiveCurve.Append(aSection1Beg);
           aLeftSensitiveCurve.Append(aSection1End);
           aRightSensitiveCurve.Append(aSection2Beg);
@@ -758,7 +758,7 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
           aPrimSegments->AddVertex(aCenterLineBegin);
           aPrimSegments->AddVertex(aCenterLineEnd);
 
-          SelectionGeometry::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
+          SelectionGeometry1::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
           aSensitiveCurve.Append(aCenterLineBegin);
           aSensitiveCurve.Append(aCenterLineEnd);
         }
@@ -866,7 +866,7 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
           aGroup->AddPrimitiveArray(aPrimSegments);
 
           // add selection primitives
-          SelectionGeometry::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
+          SelectionGeometry1::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
           aSensitiveCurve.Append(aCenterLineBegin);
           aSensitiveCurve.Append(aCenterLineEnd);
         }
@@ -932,7 +932,7 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
           aGroup->AddPrimitiveArray(aPrimSegments);
 
           // add selection primitives
-          SelectionGeometry::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
+          SelectionGeometry1::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
           aSensitiveCurve.Append(aCenterLineBegin);
           aSensitiveCurve.Append(aCenterLineEnd);
         }
@@ -1053,7 +1053,7 @@ Standard_Boolean PrsDim_Dimension::CircleFromPlanarFace(const TopoFace&  theFace
   for (; anIt.More(); anIt.Next())
   {
     TopoEdge aCurEdge = TopoDS::Edge(anIt.Current());
-    if (PrsDim::ComputeGeometry(aCurEdge, theCurve, theFirstPoint, theLastPoint))
+    if (PrsDim1::ComputeGeometry(aCurEdge, theCurve, theFirstPoint, theLastPoint))
     {
       if (theCurve->IsInstance(STANDARD_TYPE(GeomCircle)))
       {
@@ -1086,7 +1086,7 @@ Standard_Boolean PrsDim_Dimension::CircleFromEdge(const TopoEdge& theEdge,
       {
         return Standard_False;
       }
-      theCircle = gp_Circ(anEll.Position(), anEll.MinorRadius());
+      theCircle = gp_Circ(anEll.Position1(), anEll.MinorRadius());
       break;
     }
     case GeomAbs_Line:
@@ -1123,7 +1123,7 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoShape& theSha
   switch (theShape.ShapeType())
   {
     case TopAbs_FACE: {
-      PrsDim::GetPlaneFromFace(TopoDS::Face(theShape), aPln, aBasisSurf, aSurfType, anOffset);
+      PrsDim1::GetPlaneFromFace(TopoDS::Face(theShape), aPln, aBasisSurf, aSurfType, anOffset);
 
       if (aSurfType == PrsDim_KOS_Plane)
       {
@@ -1301,10 +1301,10 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectionContainer)& theSel
     Handle(Select3D_SensitiveGroup) aGroupOfSensitives =
       new Select3D_SensitiveGroup(aSensitiveOwner);
 
-    SelectionGeometry::SeqOfCurves::Iterator aCurveIt(mySelectionGeom.DimensionLine);
+    SelectionGeometry1::SeqOfCurves::Iterator aCurveIt(mySelectionGeom.DimensionLine);
     for (; aCurveIt.More(); aCurveIt.Next())
     {
-      const SelectionGeometry::HCurve& aCurveData = aCurveIt.Value();
+      const SelectionGeometry1::HCurve& aCurveData = aCurveIt.Value();
 
       TColgp_Array1OfPnt aSensitivePnts(1, aCurveData->Length());
       for (Standard_Integer aPntIt = 1; aPntIt <= aCurveData->Length(); ++aPntIt)
@@ -1319,15 +1319,15 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectionContainer)& theSel
     Standard_Real anArrowAngle  = myDrawer->DimensionAspect()->ArrowAspect()->Angle();
 
     // sensitives for arrows
-    SelectionGeometry::SeqOfArrows::Iterator anArrowIt(mySelectionGeom.Arrows);
+    SelectionGeometry1::SeqOfArrows::Iterator anArrowIt(mySelectionGeom.Arrows);
     for (; anArrowIt.More(); anArrowIt.Next())
     {
-      const SelectionGeometry::HArrow& anArrow = anArrowIt.Value();
+      const SelectionGeometry1::HArrow& anArrow = anArrowIt.Value();
 
       Point3d        aSidePnt1(gp1::Origin());
       Point3d        aSidePnt2(gp1::Origin());
       const Dir3d& aPlane = GetPlane().Axis().Direction();
-      const Point3d& aPeak  = anArrow->Position;
+      const Point3d& aPeak  = anArrow->Position1;
       const Dir3d& aDir   = anArrow->Direction;
 
       // compute points for arrow in plane

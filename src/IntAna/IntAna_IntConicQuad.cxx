@@ -141,7 +141,7 @@ PERFORM(const gp_Circ& C, const Quadric2& Quad)
   Standard_Real Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte;
 
   //----------------------------------------------------------------------
-  //-- Dans le repere liee a C.Position() :
+  //-- Dans le repere liee a C.Position1() :
   //-- xC = R * Cos[t]
   //-- yC = R * Sin[t]
   //-- zC = 0
@@ -154,7 +154,7 @@ PERFORM(const gp_Circ& C, const Quadric2& Quad)
   done = inquadric = parallel = Standard_False;
 
   Quad.Coefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte);
-  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, C.Position());
+  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, C.Position1());
 
   Standard_Real R  = C.Radius();
   Standard_Real RR = R * R;
@@ -189,7 +189,7 @@ PERFORM(const gp_Circ& C, const Quadric2& Quad)
       {
         Standard_Real t = CircQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = ElCLib1::CircleValue(t, C.Position(), R);
+        pnts[i - 1]     = ElCLib1::CircleValue(t, C.Position1(), R);
       }
     }
   }
@@ -211,7 +211,7 @@ PERFORM(const gp_Elips& E, const Quadric2& Quad)
   done = inquadric = parallel = Standard_False;
 
   //----------------------------------------------------------------------
-  //-- Dans le repere liee a E.Position() :
+  //-- Dans le repere liee a E.Position1() :
   //-- xE = R * Cos[t]
   //-- yE = r * Sin[t]
   //-- zE = 0
@@ -223,7 +223,7 @@ PERFORM(const gp_Elips& E, const Quadric2& Quad)
   //----------------------------------------------------------------------
 
   Quad.Coefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte);
-  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, E.Position());
+  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, E.Position1());
 
   Standard_Real R = E.MajorRadius();
   Standard_Real r = E.MinorRadius();
@@ -257,7 +257,7 @@ PERFORM(const gp_Elips& E, const Quadric2& Quad)
       {
         Standard_Real t = ElipsQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = ElCLib1::EllipseValue(t, E.Position(), R, r);
+        pnts[i - 1]     = ElCLib1::EllipseValue(t, E.Position1(), R, r);
       }
     }
   }
@@ -279,7 +279,7 @@ PERFORM(const gp_Parab& P, const Quadric2& Quad)
   done = inquadric = parallel = Standard_False;
 
   //----------------------------------------------------------------------
-  //-- Dans le repere liee a P.Position() :
+  //-- Dans le repere liee a P.Position1() :
   //-- xP = y*y / (2 p)
   //-- yP = y
   //-- zP = 0
@@ -291,7 +291,7 @@ PERFORM(const gp_Parab& P, const Quadric2& Quad)
   //----------------------------------------------------------------------
 
   Quad.Coefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte);
-  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, P.Position());
+  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, P.Position1());
 
   Standard_Real f         = P.Focal();
   Standard_Real Un_Sur_2p = 0.25 / f;
@@ -319,7 +319,7 @@ PERFORM(const gp_Parab& P, const Quadric2& Quad)
       {
         Standard_Real t = ParabQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = ElCLib1::ParabolaValue(t, P.Position(), f);
+        pnts[i - 1]     = ElCLib1::ParabolaValue(t, P.Position1(), f);
       }
     }
   }
@@ -341,7 +341,7 @@ PERFORM(const gp_Hypr& H, const Quadric2& Quad)
   done = inquadric = parallel = Standard_False;
 
   //----------------------------------------------------------------------
-  //-- Dans le repere liee a P.Position() :
+  //-- Dans le repere liee a P.Position1() :
   //-- xH = R Ch[t]
   //-- yH = r Sh[t]
   //-- zH = 0
@@ -353,7 +353,7 @@ PERFORM(const gp_Hypr& H, const Quadric2& Quad)
   //----------------------------------------------------------------------
 
   Quad.Coefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte);
-  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, H.Position());
+  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte, H.Position1());
 
   Standard_Real R = H.MajorRadius();
   Standard_Real r = H.MinorRadius();
@@ -388,7 +388,7 @@ PERFORM(const gp_Hypr& H, const Quadric2& Quad)
         {
           Standard_Real Lnt         = Log(t);
           paramonc[bonnessolutions] = Lnt;
-          pnts[bonnessolutions]     = ElCLib1::HyperbolaValue(Lnt, H.Position(), R, r);
+          pnts[bonnessolutions]     = ElCLib1::HyperbolaValue(Lnt, H.Position1(), R, r);
           bonnessolutions++;
         }
       }
@@ -511,7 +511,7 @@ void ConicQuadIntersection::Perform(const gp_Circ&      C,
 
   done = Standard_False;
 
-  gp_Pln             Plconic(Ax3(C.Position()));
+  gp_Pln             Plconic(Ax3(C.Position1()));
   QuadQuadGeoIntersection IntP(Plconic, P, Tolang, Tol);
   if (!IntP.IsDone())
   {
@@ -543,8 +543,8 @@ void ConicQuadIntersection::Perform(const gp_Circ&      C,
     gp_Lin Ligsol(IntP.Line(1));
 
     Vector3d V0(Plconic.Location(), Ligsol.Location());
-    Vector3d Axex(Plconic.Position().XDirection());
-    Vector3d Axey(Plconic.Position().YDirection());
+    Vector3d Axex(Plconic.Position1().XDirection());
+    Vector3d Axey(Plconic.Position1().YDirection());
 
     gp_Pnt2d Orig(Axex.Dot(V0), Axey.Dot(V0));
     gp_Vec2d Dire(Axex.Dot(Ligsol.Direction()), Axey.Dot(Ligsol.Direction()));

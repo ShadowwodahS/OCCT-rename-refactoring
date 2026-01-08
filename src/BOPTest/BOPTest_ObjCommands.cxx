@@ -35,14 +35,14 @@ static Standard_Integer bclear(DrawInterpreter&, Standard_Integer, const char**)
 
 //=================================================================================================
 
-void BOPTest::ObjCommands(DrawInterpreter& theCommands)
+void BOPTest1::ObjCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
   theCommands.Add(
     "baddobjects",
@@ -128,7 +128,7 @@ Standard_Integer baddcompound(DrawInterpreter& di, Standard_Integer n, const cha
   //
   aS = DBRep1::Get(a[1]);
   //
-  ShapeList& aLS = BOPTest_Objects::Shapes();
+  ShapeList& aLS = Objects::Shapes();
   aIt.Initialize(aS);
   for (; aIt.More(); aIt.Next())
   {
@@ -154,7 +154,7 @@ Standard_Integer baddctools(DrawInterpreter& di, Standard_Integer n, const char*
   //
   aS = DBRep1::Get(a[1]);
   //
-  ShapeList& aLT = BOPTest_Objects::Tools();
+  ShapeList& aLT = Objects::Tools();
   aIt.Initialize(aS);
   for (; aIt.More(); aIt.Next())
   {
@@ -179,7 +179,7 @@ Standard_Integer baddobjects(DrawInterpreter& di, Standard_Integer n, const char
   Standard_Integer i;
   TopoShape     aS;
   //
-  ShapeList& aLS = BOPTest_Objects::Shapes();
+  ShapeList& aLS = Objects::Shapes();
   for (i = 1; i < n; ++i)
   {
     aS = DBRep1::Get(a[i]);
@@ -198,7 +198,7 @@ Standard_Integer bclearobjects(DrawInterpreter& di, Standard_Integer n, const ch
     di.PrintHelp(a[0]);
     return 1;
   }
-  ShapeList& aLS = BOPTest_Objects::Shapes();
+  ShapeList& aLS = Objects::Shapes();
   aLS.Clear();
   //
   return 0;
@@ -217,7 +217,7 @@ Standard_Integer baddtools(DrawInterpreter& di, Standard_Integer n, const char**
   Standard_Integer i;
   TopoShape     aS;
   //
-  ShapeList& aLS = BOPTest_Objects::Tools();
+  ShapeList& aLS = Objects::Tools();
   for (i = 1; i < n; ++i)
   {
     aS = DBRep1::Get(a[i]);
@@ -236,7 +236,7 @@ Standard_Integer bcleartools(DrawInterpreter& di, Standard_Integer n, const char
     di.PrintHelp(a[0]);
     return 1;
   }
-  ShapeList& aLS = BOPTest_Objects::Tools();
+  ShapeList& aLS = Objects::Tools();
   aLS.Clear();
   //
   return 0;
@@ -252,6 +252,6 @@ Standard_Integer bclear(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPTest_Objects::Clear();
+  Objects::Clear();
   return 0;
 }

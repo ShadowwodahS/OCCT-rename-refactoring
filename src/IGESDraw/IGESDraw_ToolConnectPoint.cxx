@@ -55,7 +55,7 @@ void ConnectPointTool::ReadOwnParams(const Handle(IGESDraw_ConnectPoint)&   ent,
   // clang-format off
   PR.ReadXYZ(PR.CurrentList(1, 3), "Connect Point Coordinate", tempPoint); //szv#4:S4163:12Mar99 `st=` not needed
 
-  PR.ReadEntity(IR, PR.Current(), "Display Symbol Geometry Entity",
+  PR.ReadEntity(IR, PR.Current(), "Display Symbol Geometry1 Entity",
 		tempDisplaySymbol,Standard_True); //szv#4:S4163:12Mar99 `st=` not needed
 
   PR.ReadInteger(PR.Current(), "Type Flag", tempTypeFlag); //szv#4:S4163:12Mar99 `st=` not needed
@@ -245,7 +245,7 @@ void ConnectPointTool::OwnDump(const Handle(IGESDraw_ConnectPoint)& ent,
   S << "IGESDraw_ConnectPoint\n"
     << "Connection Point Coordinate : ";
   IGESData_DumpXYZL(S, level, ent->Point(), ent->Location());
-  S << "Display Symbol Geometry Entity : ";
+  S << "Display Symbol Geometry1 Entity : ";
   dumper.Dump(ent->DisplaySymbol(), S, tempSubLevel);
   S << "\n"
     << "Type Flag : " << ent->TypeFlag() << "  "

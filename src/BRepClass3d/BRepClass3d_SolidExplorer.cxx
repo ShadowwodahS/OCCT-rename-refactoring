@@ -226,7 +226,7 @@ TopAbs_State BRepClass3d_SolidExplorer::ClassifyUVPoint(
 {
   // first find if the point is near an edge/vertex
   Point3d                              aP3d = theSurf->Value(theP2d.X(), theP2d.Y());
-  BRepClass3d_BndBoxTreeSelectorPoint aSelectorPoint(myMapEV);
+  BndBoxTreeSelectorPoint aSelectorPoint(myMapEV);
   aSelectorPoint.SetCurrentPoint(aP3d);
   Standard_Integer aSelsVE = myTree.Select(aSelectorPoint);
   if (aSelsVE > 0)
@@ -862,7 +862,7 @@ void BRepClass3d_SolidExplorer::Destroy()
     if (ptr)
     {
       delete (IntCurvesFace_Intersector*)ptr;
-      myMapOfInter.ChangeFind(iter.Key()) = NULL;
+      myMapOfInter.ChangeFind(iter.Key1()) = NULL;
     }
   }
   myMapOfInter.Clear();
@@ -887,7 +887,7 @@ void BRepClass3d_SolidExplorer::InitShape(const TopoShape& S)
     if (ptr)
     {
       delete (IntCurvesFace_Intersector*)ptr;
-      myMapOfInter.ChangeFind(iter.Key()) = NULL;
+      myMapOfInter.ChangeFind(iter.Key1()) = NULL;
     }
   }
 
@@ -915,7 +915,7 @@ void BRepClass3d_SolidExplorer::InitShape(const TopoShape& S)
 #endif
 
 #if REJECTION
-  BRepBndLib::Add(myShape, myBox);
+  BRepBndLib1::Add(myShape, myBox);
 #endif
 
   // since the internal/external parts should be avoided in tree filler,
@@ -960,7 +960,7 @@ void BRepClass3d_SolidExplorer::InitShape(const TopoShape& S)
     const TopoShape& aS = myMapEV(i);
     //
     Box2 aBox;
-    BRepBndLib::Add(aS, aBox);
+    BRepBndLib1::Add(aS, aBox);
     aTreeFiller.Add(i, aBox);
   }
   aTreeFiller.Fill();

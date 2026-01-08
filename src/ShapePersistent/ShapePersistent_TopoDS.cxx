@@ -35,13 +35,13 @@ enum
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void ShapePersistent_TopoDS::HShape::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_TopoDS::HShape::Read(ReadData& theReadData)
 {
   theReadData >> myEntry;
   StdObject_Shape::read(theReadData);
 }
 
-void ShapePersistent_TopoDS::HShape::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_TopoDS::HShape::Write(WriteData& theWriteData) const
 {
   theWriteData << myEntry;
   StdObject_Shape::write(theWriteData);
@@ -90,7 +90,7 @@ void ShapePersistent_TopoDS::pTBase::addShapesT(TopoShape& theParent) const
   }
 }
 
-template void ShapePersistent_TopoDS::pTBase::addShapesT<StdLPersistent_HArray1::Persistent>(
+template void ShapePersistent_TopoDS::pTBase::addShapesT<HArray1::Persistent>(
   TopoShape& theParent) const;
 
 template void ShapePersistent_TopoDS::pTBase::addShapesT<StdPersistent_HArray1::Shape1>(
@@ -236,7 +236,7 @@ Handle(ShapePersistent_TopoDS::HShape) ShapePersistent_TopoDS::Translate(
       {
         aShapes->SetValue(i, Translate(anItTrans.Value(), theMap, theTriangleMode));
       }
-      aPTShape->myShapes = StdLPersistent_HArray1::Translate<StdLPersistent_HArray1OfPersistent>(
+      aPTShape->myShapes = HArray1::Translate<StdLPersistent_HArray1OfPersistent>(
         "PTopoDS_HArray1OfHShape",
         aShapes->Array1());
     }

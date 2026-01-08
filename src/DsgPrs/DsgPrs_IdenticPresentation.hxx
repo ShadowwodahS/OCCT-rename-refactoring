@@ -28,7 +28,7 @@ class Point3d;
 class Frame3d;
 class gp_Elips;
 
-class DsgPrs_IdenticPresentation
+class IdenticPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

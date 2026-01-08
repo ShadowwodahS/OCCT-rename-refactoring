@@ -43,13 +43,13 @@ Handle(TDF_Attribute) XmlMDataStd_AsciiStringDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataStd_AsciiStringDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_AsciiStringDriver::Paste(const PersistentStorage&  theSource,
                                                       const Handle(TDF_Attribute)& theTarget,
                                                       XmlObjMgt_RRelocationTable&) const
 {
   if (!theTarget.IsNull())
   {
-    const AsciiString1 aString = XmlObjMgt::GetStringValue(theSource);
+    const AsciiString1 aString = XmlObjMgt1::GetStringValue(theSource);
     Handle(TDataStd_AsciiString)::DownCast(theTarget)->Set(aString);
     // attribute id
     Standard_GUID            aGUID;
@@ -63,21 +63,21 @@ Standard_Boolean XmlMDataStd_AsciiStringDriver::Paste(const XmlObjMgt_Persistent
     Handle(TDataStd_AsciiString)::DownCast(theTarget)->SetID(aGUID);
     return Standard_True;
   }
-  myMessageDriver->Send("error retrieving AsciiString for type TDataStd_AsciiString", Message_Fail);
+  myMessageDriver->Send("error retrieving AsciiString2 for type TDataStd_AsciiString", Message_Fail);
   return Standard_False;
 }
 
 //=================================================================================================
 
 void XmlMDataStd_AsciiStringDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                          XmlObjMgt_Persistent&        theTarget,
+                                          PersistentStorage&        theTarget,
                                           XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_AsciiString) aS = Handle(TDataStd_AsciiString)::DownCast(theSource);
   if (aS.IsNull())
     return;
   XmlObjMgt_DOMString aString = aS->Get().ToCString();
-  XmlObjMgt::SetStringValue(theTarget, aString);
+  XmlObjMgt1::SetStringValue(theTarget, aString);
   if (aS->ID() != TDataStd_AsciiString::GetID())
   {
     // convert GUID

@@ -120,7 +120,7 @@ void IDFilter::IDList(TDF_IDList& anIDList) const
 {
   anIDList.Clear();
   for (TDF_MapIteratorOfIDMap itr(myIDMap); itr.More(); itr.Next())
-    anIDList.Append(itr.Key());
+    anIDList.Append(itr.Key1());
 }
 
 //=================================================================================================
@@ -156,7 +156,7 @@ void IDFilter::Dump(Standard_OStream& anOS) const
     anOS << " BUT:" << std::endl;
     for (; itr.More(); itr.Next())
     {
-      const Standard_GUID& guid = itr.Key();
+      const Standard_GUID& guid = itr.Key1();
       guid.ShallowDump(anOS);
       anOS << std::endl;
     }

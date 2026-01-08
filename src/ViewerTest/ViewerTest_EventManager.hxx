@@ -46,7 +46,7 @@ public:
     return Draw_ToExitOnCloseView;
   }
 
-  //! Use global camera animation object shared across all Views in ViewerTest.
+  //! Use global camera animation object shared across all Views in ViewerTest1.
   Standard_EXPORT static const Handle(AIS_AnimationCamera)& GlobalViewAnimation();
 
 public:
@@ -168,7 +168,7 @@ private:
   Handle(VisualContext) myCtx;
   Handle(ViewWindow)               myView;
   // clang-format off
-  NCollection_DataMap<unsigned int, Aspect_VKey> myNavKeyMap; //!< map of Hot-Key (key+modifiers) to Action
+  NCollection_DataMap<unsigned int, Aspect_VKey> myNavKeyMap; //!< map of Hot-Key1 (key+modifiers) to Action
   // clang-format on
 
   AsciiString1 myPickPntArgVec[3];

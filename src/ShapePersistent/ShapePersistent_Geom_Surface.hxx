@@ -40,17 +40,17 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 {
   typedef Surface::PersistentBase pBase;
 
-  class pSweptData
+  class pSweptData1
   {
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myBasisCurve >> myDirection;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myBasisCurve << myDirection;
     }
@@ -65,7 +65,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     Dir3d        myDirection;
   };
 
-  struct pSwept : pBase, pSweptData
+  struct pSwept : pBase, pSweptData1
   {
     inline Standard_CString PName() const { return "PGeom_SweptSurface"; }
   };
@@ -85,13 +85,13 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       pSwept::Read(theReadData);
       theReadData >> myLocation;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       pSwept::Write(theWriteData);
       theWriteData << myLocation;
@@ -107,23 +107,23 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
   typedef pBase pBounded;
 
-  class pBezier : public pBounded
+  class pBezier1 : public pBounded
   {
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    pBezier()
+    pBezier1()
         : myURational(Standard_False),
           myVRational(Standard_False)
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myURational >> myVRational >> myPoles >> myWeights;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myURational << myVRational << myPoles << myWeights;
     }
@@ -142,7 +142,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     Standard_Boolean                     myURational;
     Standard_Boolean                     myVRational;
     Handle(ShapePersistent_HArray2::Pnt) myPoles;
-    Handle(StdLPersistent_HArray2::Real) myWeights;
+    Handle(HArray2::Real) myWeights;
   };
 
   class pBSpline : public pBounded
@@ -160,7 +160,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myURational >> myVRational;
       theReadData >> myUPeriodic >> myVPeriodic;
@@ -171,7 +171,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
       theReadData >> myUMultiplicities >> myVMultiplicities;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myURational << myVRational;
       theWriteData << myUPeriodic << myVPeriodic;
@@ -204,19 +204,19 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     Standard_Integer                        myUSpineDegree;
     Standard_Integer                        myVSpineDegree;
     Handle(ShapePersistent_HArray2::Pnt)    myPoles;
-    Handle(StdLPersistent_HArray2::Real)    myWeights;
-    Handle(StdLPersistent_HArray1::Real)    myUKnots;
-    Handle(StdLPersistent_HArray1::Real)    myVKnots;
-    Handle(StdLPersistent_HArray1::Integer) myUMultiplicities;
-    Handle(StdLPersistent_HArray1::Integer) myVMultiplicities;
+    Handle(HArray2::Real)    myWeights;
+    Handle(HArray1::Real)    myUKnots;
+    Handle(HArray1::Real)    myVKnots;
+    Handle(HArray1::Integer1) myUMultiplicities;
+    Handle(HArray1::Integer1) myVMultiplicities;
   };
 
-  class pRectangularTrimmed : public pBounded
+  class pRectangularTrimmed1 : public pBounded
   {
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    pRectangularTrimmed()
+    pRectangularTrimmed1()
         : myFirstU(0.0),
           myLastU(0.0),
           myFirstV(0.0),
@@ -224,13 +224,13 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myBasisSurface;
       theReadData >> myFirstU >> myLastU >> myFirstV >> myLastV;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myBasisSurface;
       theWriteData << myFirstU << myLastU << myFirstV << myLastV;
@@ -253,22 +253,22 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     Standard_Real   myLastV;
   };
 
-  class pOffset : public pBase
+  class pOffset1 : public pBase
   {
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    pOffset()
+    pOffset1()
         : myOffsetValue(0.0)
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myBasisSurface >> myOffsetValue;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myBasisSurface << myOffsetValue;
     }
@@ -295,16 +295,16 @@ public:
   typedef instance<Elementary, Geom_SphericalSurface, Sphere3>     Spherical;
   typedef instance<Elementary, Geom_ToroidalSurface, gp_Torus>       Toroidal;
 
-  typedef subBase<Surface, pSweptData>     Swept;
+  typedef subBase<Surface, pSweptData1>     Swept;
   typedef Delayed<Swept, pLinearExtrusion> LinearExtrusion;
   typedef Delayed<Swept, pRevolution>      Revolution;
 
   typedef subBase_empty<Surface>                Bounded;
-  typedef Delayed<Bounded, pBezier>             Bezier;
+  typedef Delayed<Bounded, pBezier1>             Bezier;
   typedef Delayed<Bounded, pBSpline>            BSpline;
-  typedef Delayed<Bounded, pRectangularTrimmed> RectangularTrimmed;
+  typedef Delayed<Bounded, pRectangularTrimmed1> RectangularTrimmed;
 
-  typedef Delayed<Surface, pOffset> Offset;
+  typedef Delayed<Surface, pOffset1> Offset;
 
 public:
   //! Create a persistent object for a plane
@@ -364,7 +364,7 @@ template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   GeomPlane,
-  Ax3>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Ax3>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Conical
@@ -379,7 +379,7 @@ template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ConicalSurface,
-  Cone1>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Cone1>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Cylindrical
@@ -394,7 +394,7 @@ template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_CylindricalSurface,
-  Cylinder1>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Cylinder1>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Spherical
@@ -409,7 +409,7 @@ template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_SphericalSurface,
-  Sphere3>::Write(StdObjMgt_WriteData& theWriteData) const;
+  Sphere3>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Toroidal
@@ -424,6 +424,6 @@ template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
   Geom_ToroidalSurface,
-  gp_Torus>::Write(StdObjMgt_WriteData& theWriteData) const;
+  gp_Torus>::Write(WriteData& theWriteData) const;
 
 #endif

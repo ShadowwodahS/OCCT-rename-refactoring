@@ -48,7 +48,7 @@ public:
   //! bisector curve is on the left of <Cu1> (resp <Cu2>)
   //! else <Side1> (resp <Side2>) = -1.
   //!
-  //! the Bisector is trimmed by the Point <Origin>.
+  //! the Bisector1 is trimmed by the Point <Origin>.
   //! <DistMax> is used to trim the bisector.The distance
   //! between the points of the bisector and <Cu> is smaller
   //! than <DistMax>.
@@ -66,7 +66,7 @@ public:
   //! bisector curve is on the left of <Cu1> (resp <Cu2>)
   //! else <Side1> (resp <Side2>) = -1.
   //!
-  //! the Bisector is trimmed by the Point <Origin>.
+  //! the Bisector1 is trimmed by the Point <Origin>.
   //!
   //! <DistMax> is used to trim the bisector.The distance
   //! between the points of the bisector and <Cu> is smaller
@@ -179,7 +179,7 @@ public:
 
   Standard_EXPORT Handle(GeomCurve2d) Curve(const Standard_Integer IndCurve) const;
 
-  Standard_EXPORT const Bisector_PolyBis& Polygon() const;
+  Standard_EXPORT const PolyBis& Polygon() const;
 
   Standard_EXPORT void Dump(const Standard_Integer Deep   = 0,
                             const Standard_Integer Offset = 0) const;
@@ -211,7 +211,7 @@ private:
 
   Standard_EXPORT void Sign(const Standard_Integer Index, const Standard_Real Sign);
 
-  Standard_EXPORT void Polygon(const Bisector_PolyBis& Poly1);
+  Standard_EXPORT void Polygon(const PolyBis& Poly1);
 
   Standard_EXPORT void DistMax(const Standard_Real DistMax);
 
@@ -242,7 +242,7 @@ private:
   TColStd_SequenceOfReal startIntervals;
   TColStd_SequenceOfReal endIntervals;
   Standard_Integer       currentInterval;
-  Bisector_PolyBis       myPolygon;
+  PolyBis       myPolygon;
   Standard_Real          shiftParameter;
   Standard_Real          distMax;
   Standard_Boolean       isEmpty;

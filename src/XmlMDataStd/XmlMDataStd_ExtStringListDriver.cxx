@@ -48,7 +48,7 @@ Handle(TDF_Attribute) XmlMDataStd_ExtStringListDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const PersistentStorage&  theSource,
                                                         const Handle(TDF_Attribute)& theTarget,
                                                         XmlObjMgt_RRelocationTable&) const
 {
@@ -106,13 +106,13 @@ Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const XmlObjMgt_Persiste
     UtfString aValueStr;
     while (*aCurElement != anElement.getLastChild())
     {
-      XmlObjMgt::GetExtendedString(*aCurElement, aValueStr);
+      XmlObjMgt1::GetExtendedString(*aCurElement, aValueStr);
       anExtStringList->Append(aValueStr);
       aCurNode    = aCurElement->getNextSibling();
       aCurElement = (LDOM_Element*)&aCurNode;
     }
 
-    XmlObjMgt::GetExtendedString(*aCurElement, aValueStr);
+    XmlObjMgt1::GetExtendedString(*aCurElement, aValueStr);
     anExtStringList->Append(aValueStr);
   }
 
@@ -124,7 +124,7 @@ Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const XmlObjMgt_Persiste
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_ExtStringListDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                            XmlObjMgt_Persistent&        theTarget,
+                                            PersistentStorage&        theTarget,
                                             XmlObjMgt_SRelocationTable&) const
 {
   const Handle(TDataStd_ExtStringList) anExtStringList =
@@ -141,7 +141,7 @@ void XmlMDataStd_ExtStringListDriver::Paste(const Handle(TDF_Attribute)& theSour
   {
     const UtfString& aValueStr  = itr.Value();
     XmlObjMgt_Element                 aCurTarget = aDoc.createElement(::ExtString());
-    XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
+    XmlObjMgt1::SetExtendedString(aCurTarget, aValueStr);
     anElement.appendChild(aCurTarget);
   }
 

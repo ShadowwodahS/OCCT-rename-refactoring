@@ -38,7 +38,7 @@ ShapeUpgrade_RemoveInternalWires::ShapeUpgrade_RemoveInternalWires()
 {
   myMinArea                           = 0.;
   myRemoveFacesMode                   = Standard_True;
-  myStatus                            = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                            = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   Handle(ShapeBuild_ReShape) aContext = new ShapeBuild_ReShape;
   SetContext(aContext);
 }
@@ -59,7 +59,7 @@ void ShapeUpgrade_RemoveInternalWires::Init(const TopoShape& theShape)
   myShape = theShape;
   Context()->Apply(theShape);
   TopExp1::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, myEdgeFaces);
-  myStatus          = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus          = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myMinArea         = 0.;
   myRemoveFacesMode = Standard_True;
 }
@@ -71,7 +71,7 @@ Standard_Boolean ShapeUpgrade_RemoveInternalWires::Perform()
   Clear();
   if (myShape.IsNull())
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
   ShapeExplorer aExpF(myShape, TopAbs_FACE);
@@ -94,7 +94,7 @@ Standard_Boolean ShapeUpgrade_RemoveInternalWires::Perform(
 {
   if (myShape.IsNull())
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
   Clear();
@@ -145,7 +145,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallWire(const TopoShape& theFace,
     {
       Context()->Remove(aW);
       myRemoveWires.Append(aW);
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       if (!myRemoveFacesMode)
         continue;
 
@@ -184,7 +184,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallFaces()
       const TopoShape& aEdge = aIte.Value();
       if (!myEdgeFaces.Contains(aEdge))
       {
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
         continue;
       }
       const ShapeList&        aLface1 = myEdgeFaces.FindFromKey(aEdge);
@@ -258,7 +258,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallFaces()
   }
 
   if (myRemovedFaces.Length())
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
 }
 
 //=================================================================================================
@@ -268,5 +268,5 @@ void ShapeUpgrade_RemoveInternalWires::Clear()
   myRemoveEdges.Clear();
   myRemovedFaces.Clear();
   myRemoveWires.Clear();
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }

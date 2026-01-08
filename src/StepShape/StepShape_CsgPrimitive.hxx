@@ -41,7 +41,7 @@ public:
 
   //! Recognizes a CsgPrimitive Kind Entity that is :
   //! 1 -> Sphere
-  //! 2 -> Block
+  //! 2 -> Block1
   //! 3 -> RightAngularWedge
   //! 4 -> Torus
   //! 5 -> RightCircularCone
@@ -52,8 +52,8 @@ public:
   //! returns Value as a Sphere (Null if another type)
   Standard_EXPORT Handle(StepShape_Sphere) Sphere() const;
 
-  //! returns Value as a Block (Null if another type)
-  Standard_EXPORT Handle(StepShape_Block) Block() const;
+  //! returns Value as a Block1 (Null if another type)
+  Standard_EXPORT Handle(StepShape_Block) Block1() const;
 
   //! returns Value as a RightAngularWedge (Null if another type)
   Standard_EXPORT Handle(StepShape_RightAngularWedge) RightAngularWedge() const;

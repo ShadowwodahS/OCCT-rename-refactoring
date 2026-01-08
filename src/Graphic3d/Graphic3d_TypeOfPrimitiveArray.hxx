@@ -31,7 +31,7 @@ enum Graphic3d_TypeOfPrimitiveArray
                                  //!< with 2 previous vertexes
   Graphic3d_TOPA_TRIANGLEFANS, //!< triangle fan - each new vertex in array define triangle with the
                                //!< previous vertex and the very first vertex (fan center)
-  // rendering type with auxiliary adjacent info (can be accessed only within Geometry shader)
+  // rendering type with auxiliary adjacent info (can be accessed only within Geometry1 shader)
   Graphic3d_TOPA_LINES_ADJACENCY, //!< ADVANCED - same as Graphic3d_TOPA_SEGMENTS, but each pair of
                                   //!< vertexes defining 1 segment
                                   //!  is preceded by 1 extra vertex and followed by 1 extra vertex

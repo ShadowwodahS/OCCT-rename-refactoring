@@ -42,7 +42,7 @@ struct EmscriptenFocusEvent;
 //! DevicePixelRatio() scale factor to ensure canvas content being rendered with the native
 //! resolution and not stretched by browser. This, however, might have side effects:
 //! - a slow GPU might experience performance issues on drawing into larger buffer (e.g. HiDPI);
-//! - user interface displayed in 3D Viewer (e.g. AIS presentations) should be scaled proportionally
+//! - user interface displayed in 3D Viewer (e.g. AIS1 presentations) should be scaled proportionally
 //! to be accessible,
 //!   which might require extra processing at application level.
 //! Consider changing ToScaleBacking flag passed to Wasm_Window constructor in case of issues.
@@ -89,7 +89,7 @@ public:
   Standard_EXPORT virtual Standard_Real Ratio() const Standard_OVERRIDE;
 
   //! Returns The Window POSITION in PIXEL
-  Standard_EXPORT virtual void Position(Standard_Integer& theX1,
+  Standard_EXPORT virtual void Position1(Standard_Integer& theX1,
                                         Standard_Integer& theY1,
                                         Standard_Integer& theX2,
                                         Standard_Integer& theY2) const Standard_OVERRIDE;

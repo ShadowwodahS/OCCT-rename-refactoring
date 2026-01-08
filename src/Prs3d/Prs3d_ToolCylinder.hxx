@@ -19,7 +19,7 @@
 #include <Prs3d_ToolQuadric.hxx>
 
 //! Standard presentation algorithm that outputs graphical primitives for cylindrical surface.
-class Prs3d_ToolCylinder : public Prs3d_ToolQuadric
+class Prs3d_ToolCylinder : public ToolQuadric
 {
 public:
   //! Generate primitives for 3D quadric surface and return a filled array.

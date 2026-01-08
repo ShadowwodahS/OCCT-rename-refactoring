@@ -78,7 +78,7 @@ Standard_Integer StepData_SelectMember::Int() const
 
 void StepData_SelectMember::SetInt(const Standard_Integer) {}
 
-Standard_Integer StepData_SelectMember::Integer() const
+Standard_Integer StepData_SelectMember::Integer1() const
 {
   return Int();
 }

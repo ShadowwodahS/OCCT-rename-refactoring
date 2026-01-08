@@ -53,7 +53,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_FixSmallFace, ShapeFix_Root)
 // #include <TColStd_Array1OfReal.hxx>
 ShapeFix_FixSmallFace::ShapeFix_FixSmallFace()
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   SetPrecision(Precision::Confusion());
 }
 
@@ -93,7 +93,7 @@ TopoShape ShapeFix_FixSmallFace::FixSpotFace()
       {
         ReplaceVerticesInCaseOfSpot(F, Precision());
         RemoveFacesInCaseOfSpot(F);
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
         done     = Standard_True;
       }
     }
@@ -248,7 +248,7 @@ TopoShape ShapeFix_FixSmallFace::FixStripFace(const Standard_Boolean wasdone)
       {
         if (ReplaceInCaseOfStrip(F, E1, E2, Precision()))
           RemoveFacesInCaseOfStrip(F);
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
         done     = Standard_True;
       }
     }
@@ -595,7 +595,7 @@ TopoShape ShapeFix_FixSmallFace::FixSplitFace(const TopoShape& /*S*/)
     }
   }
   if (done)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
   myShape  = Context()->Apply(myShape);
   myResult = myShape;
   return myShape;

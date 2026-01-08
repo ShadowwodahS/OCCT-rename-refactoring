@@ -81,7 +81,7 @@ static Standard_Integer BUC60842(DrawInterpreter& di,
                                  Dir3d(0.173648, 0.984808, 0.000000),
                                  Dir3d(-0.932169, 0.164367, -0.322560))));
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
   gp_Pln               pln     = plne->Pln();
   Handle(GeomCurve2d) curve2d = GeomAPI1::To2d(ell, pln);
@@ -203,7 +203,7 @@ static Standard_Integer BUC60970(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -265,12 +265,12 @@ static Standard_Integer BUC60915_1(DrawInterpreter& di, Standard_Integer argc, c
     return 1;
   }
 
-  if (ViewerTest::GetAISContext().IsNull())
+  if (ViewerTest1::GetAISContext().IsNull())
   {
     di << "View was not created. Use 'vinit' command before " << argv[0] << "\n";
     return 1;
   }
-  Handle(VisualContext) context = ViewerTest::GetAISContext();
+  Handle(VisualContext) context = ViewerTest1::GetAISContext();
 
   // The following dimension code has problems regarding arrow_size. The desired effect is not
   // produced.
@@ -352,7 +352,7 @@ static Standard_Integer BUC60915_1(DrawInterpreter& di, Standard_Integer argc, c
 
 static Standard_Integer OCC138(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -476,7 +476,7 @@ static Standard_Integer OCC353(DrawInterpreter& di, Standard_Integer, const char
 
 static Standard_Integer OCC138LC(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -533,7 +533,7 @@ static Standard_Integer OCC566(DrawInterpreter& di, Standard_Integer n, const ch
   if (S.IsNull())
     return 1;
   Box2 B;
-  BRepBndLib::AddClose(S, B);
+  BRepBndLib1::AddClose(S, B);
   Standard_Real axmin, aymin, azmin, axmax, aymax, azmax;
   B.Get(axmin, aymin, azmin, axmax, aymax, azmax);
   di << axmin << " " << aymin << " " << azmin << " " << axmax << " " << aymax << " " << azmax;
@@ -821,7 +821,7 @@ static Standard_Integer OCC813(DrawInterpreter& di, Standard_Integer argc, const
                                  Dir3d(0.173648, 0.984808, 0.000000),
                                  Dir3d(-0.932169, 0.164367, -0.322560))));
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
   gp_Pnt2d pt2d(U, V);
   gp_Pln   pln = plne->Pln();
@@ -899,7 +899,7 @@ static Standard_Integer OCC814(DrawInterpreter& di, Standard_Integer argc, const
                                  Dir3d(0.173648, 0.984808, 0.000000),
                                  Dir3d(-0.932169, 0.164367, -0.322560))));
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
 
   gp_Pln               pln         = plne->Pln();
   Handle(GeomCurve2d) curve2d     = GeomAPI1::To2d(ell, pln);
@@ -1106,7 +1106,7 @@ static Standard_Integer OCCN1(DrawInterpreter& di, Standard_Integer argc, const 
     return 1;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -1167,7 +1167,7 @@ static Standard_Integer OCCN2(DrawInterpreter& di, Standard_Integer argc, const 
     return 1;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -1200,7 +1200,7 @@ static Standard_Integer OCCN2(DrawInterpreter& di, Standard_Integer argc, const 
 
 static Standard_Integer OCC2569(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";

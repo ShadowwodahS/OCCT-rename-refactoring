@@ -386,13 +386,13 @@ void BooleanPaveFiller::IntersectVE(const BOPDS_IndexedDataMapOfPaveBlockListOfI
 
 //=======================================================================
 // function: MakeNewCommonBlock
-// purpose: Make new Common Block from the given list of Pave Blocks
+// purpose: Make new Common Block1 from the given list of Pave Blocks
 //=======================================================================
 static void MakeNewCommonBlock(const BOPDS_ListOfPaveBlock& theLPB,
                                const TColStd_ListOfInteger& theLFaces,
                                BOPDS_PDS&                   theDS)
 {
-  // Make Common Block from the pave blocks in the list
+  // Make Common Block1 from the pave blocks in the list
   Handle(BOPDS_CommonBlock) aCBNew = new BOPDS_CommonBlock;
   aCBNew->SetPaveBlocks(theLPB);
   aCBNew->SetFaces(theLFaces);
@@ -451,8 +451,8 @@ void BooleanPaveFiller::SplitPaveBlocks(const TColStd_MapOfInteger& theMEdges,
         //
         Standard_Boolean bHasValidRange = aPBN->HasShrunkData();
         // Take into account that the edge could have really small valid range,
-        // so that the Pave Block cannot be further split. In this case, check if
-        // the vertices of the Pave Block do not interfere. And if they are, unify them.
+        // so that the Pave Block1 cannot be further split. In this case, check if
+        // the vertices of the Pave Block1 do not interfere. And if they are, unify them.
         Standard_Boolean bCheckDist = (bHasValidRange && !aPBN->IsSplittable());
         if (!bHasValidRange || bCheckDist)
         {
@@ -546,7 +546,7 @@ void BooleanPaveFiller::SplitPaveBlocks(const TColStd_MapOfInteger& theMEdges,
       //
       if (!bIsClosed)
       {
-        // Make Common Block from the pave blocks in the list
+        // Make Common Block1 from the pave blocks in the list
         MakeNewCommonBlock(aLPB, aCB->Faces(), myDS);
         continue;
       }
@@ -594,7 +594,7 @@ void BooleanPaveFiller::SplitPaveBlocks(const TColStd_MapOfInteger& theMEdges,
           aItLPB.Next();
         }
         //
-        // Make Common Block from the pave blocks in the list
+        // Make Common Block1 from the pave blocks in the list
         MakeNewCommonBlock(aLPBCB, aCB->Faces(), myDS);
       }
     }

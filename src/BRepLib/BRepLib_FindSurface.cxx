@@ -547,9 +547,9 @@ void BRepLib_FindSurface::Init(const TopoShape&    S,
       BRepTopAdaptor_FClass2d FClass(aTmpFace, 0.);
       if (FClass.PerformInfinitePoint() == TopAbs_IN)
       {
-        Dir3d aNorm = aPlane->Position().Direction();
+        Dir3d aNorm = aPlane->Position1().Direction();
         aNorm.Reverse();
-        mySurface = new GeomPlane(aPlane->Position().Location(), aNorm);
+        mySurface = new GeomPlane(aPlane->Position1().Location(), aNorm);
       }
     }
   }

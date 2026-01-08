@@ -183,7 +183,7 @@ Standard_Boolean DE_ConfigurationContext::LoadFile(const AsciiString1& theFile)
   aFile.Open(OSD_ReadOnly, OSD_Protection());
   if (aFile.Failed())
   {
-    Message::SendFail("Error: DE Context loading is stopped. Can't open the file");
+    Message1::SendFail("Error: DE Context loading is stopped. Can't open the file");
     return Standard_True;
   }
   AsciiString1 aLine;
@@ -191,7 +191,7 @@ Standard_Boolean DE_ConfigurationContext::LoadFile(const AsciiString1& theFile)
   {
     if (!load(aLine))
     {
-      Message::SendFail() << "Error: DE Context loading is stopped. Syntax error: " << aLine;
+      Message1::SendFail() << "Error: DE Context loading is stopped. Syntax error: " << aLine;
       return Standard_False;
     }
   }
@@ -214,7 +214,7 @@ Standard_Boolean DE_ConfigurationContext::LoadStr(const AsciiString1& theResourc
     {
       if (!load(aLine))
       {
-        Message::SendFail() << "Error: DE Context loading is stopped. Syntax error: " << aLine;
+        Message1::SendFail() << "Error: DE Context loading is stopped. Syntax error: " << aLine;
         return Standard_False;
       }
       aLine.Clear();

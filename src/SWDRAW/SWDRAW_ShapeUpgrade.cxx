@@ -153,7 +153,7 @@ static Standard_Integer DT_ShapeDivide(DrawInterpreter& di, Standard_Integer n, 
 
   // fixes
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
 
   DBRep1::Set(a[1], res);
   return 0;
@@ -177,7 +177,7 @@ static Standard_Integer DT_ShapeConvertRev(DrawInterpreter& di, Standard_Integer
 
   Standard_Integer c2d   = Draw1::Atoi(a[3]);
   Standard_Integer c3d   = Draw1::Atoi(a[4]);
-  TopoShape     revsh = ShapeCustom::ConvertToRevolution(inputShape);
+  TopoShape     revsh = ShapeCustom1::ConvertToRevolution(inputShape);
   if (revsh.IsNull())
   {
     di << "NO RESULT\n";
@@ -244,7 +244,7 @@ static Standard_Integer DT_ShapeConvertRev(DrawInterpreter& di, Standard_Integer
 
   // fixes
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
 
   DBRep1::Set(a[1], res);
   return 0;
@@ -488,7 +488,7 @@ static Standard_Integer DT_ShapeConvert(DrawInterpreter& di, Standard_Integer n,
 
   // fixes
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
 
   DBRep1::Set(a[1], res);
   return 0;
@@ -558,7 +558,7 @@ static Standard_Integer DT_SplitAngle(DrawInterpreter& di, Standard_Integer n, c
 
   // fixes
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
 
   DBRep1::Set(a[1], res);
   return 0;
@@ -883,7 +883,7 @@ static Standard_Integer DT_SplitFace (DrawInterpreter& di,
 
   // fixes
 
-  ShapeFix::SameParameter ( result, Standard_False );
+  ShapeFix1::SameParameter ( result, Standard_False );
 
   DBRep1::Set(a[1],result);
   return 0;
@@ -1237,7 +1237,7 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     di << "Status: FAIL8\n";
 
   TopoShape sh = SUCS.Result();
-  ShapeFix::SameParameter(sh, Standard_False);
+  ShapeFix1::SameParameter(sh, Standard_False);
   DBRep1::Set(argv[1], sh);
   return 0;
 }
@@ -1265,13 +1265,13 @@ static Standard_Integer converttobspline(DrawInterpreter& di,
     di << "Unknown shape\n";
     return 1;
   }
-  TopoShape revsh = ShapeCustom::ConvertToRevolution(inputShape);
-  TopoShape res   = ShapeCustom::ConvertToBSpline(revsh,
+  TopoShape revsh = ShapeCustom1::ConvertToRevolution(inputShape);
+  TopoShape res   = ShapeCustom1::ConvertToBSpline(revsh,
                                                    strchr(options, 'e') != 0,
                                                    strchr(options, 'r') != 0,
                                                    strchr(options, 'o') != 0,
                                                    strchr(options, 'p') != 0);
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
   DBRep1::Set(argv[1], res);
   return 0;
 }
@@ -1295,7 +1295,7 @@ static Standard_Integer splitclosed(DrawInterpreter& di, Standard_Integer argc, 
   tool.Perform();
   TopoShape res = tool.Result();
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
   DBRep1::Set(argv[1], res);
   return 0;
 }
@@ -1326,7 +1326,7 @@ static Standard_Integer splitarea(DrawInterpreter& di, Standard_Integer argc, co
   tool.Perform();
   TopoShape res = tool.Result();
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
   DBRep1::Set(argv[1], res);
   return 0;
 }
@@ -1373,7 +1373,7 @@ static Standard_Integer splitbynumber(DrawInterpreter& di,
   tool.Perform();
   TopoShape res = tool.Result();
 
-  ShapeFix::SameParameter(res, Standard_False);
+  ShapeFix1::SameParameter(res, Standard_False);
   DBRep1::Set(argv[1], res);
   return 0;
 }
@@ -1562,8 +1562,8 @@ static Standard_Integer unifysamedom(DrawInterpreter& di, Standard_Integer n, co
   Unifier().Build();
   TopoShape Result = Unifier().Shape();
 
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(Unifier().History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(Unifier().History());
 
   DBRep1::Set(a[1], Result);
   return 0;
@@ -1599,14 +1599,14 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
 {
   if (theArgc < 4)
   {
-    Message::SendFail() << "Error: wrong number of arguments. Type 'help " << theArgv[0] << "'";
+    Message1::SendFail() << "Error: wrong number of arguments. Type 'help " << theArgv[0] << "'";
     return 1;
   }
 
   TopoShape aSource = DBRep1::Get(theArgv[2]);
   if (aSource.IsNull())
   {
-    Message::SendFail() << "Error: source shape ('" << theArgv[2] << "') is null";
+    Message1::SendFail() << "Error: source shape ('" << theArgv[2] << "') is null";
     return 1;
   }
 
@@ -1625,21 +1625,21 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
     {
       if (theArgc - i < 3)
       {
-        Message::SendFail() << "Error: not enough arguments for replacement";
+        Message1::SendFail() << "Error: not enough arguments for replacement";
         return 1;
       }
 
       TopoShape aWhat = DBRep1::Get(theArgv[++i]);
       if (aWhat.IsNull())
       {
-        Message::SendFail() << "Error: argument shape ('" << theArgv[i] << "') is null";
+        Message1::SendFail() << "Error: argument shape ('" << theArgv[i] << "') is null";
         return 1;
       }
 
       TopoShape aWith = DBRep1::Get(theArgv[++i]);
       if (aWith.IsNull())
       {
-        Message::SendFail() << "Error: replacement shape ('" << theArgv[i] << "') is null";
+        Message1::SendFail() << "Error: replacement shape ('" << theArgv[i] << "') is null";
         return 1;
       }
 
@@ -1649,14 +1649,14 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
     {
       if (theArgc - i < 2)
       {
-        Message::SendFail() << "Error: not enough arguments for removal";
+        Message1::SendFail() << "Error: not enough arguments for removal";
         return 1;
       }
 
       TopoShape aWhat = DBRep1::Get(theArgv[++i]);
       if (aWhat.IsNull())
       {
-        Message::SendFail() << "Error: shape to remove ('" << theArgv[i] << "') is null";
+        Message1::SendFail() << "Error: shape to remove ('" << theArgv[i] << "') is null";
         return 1;
       }
 
@@ -1666,7 +1666,7 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
     {
       if (theArgc - i < 2)
       {
-        Message::SendFail() << "Error: not enough arguments for level specification";
+        Message1::SendFail() << "Error: not enough arguments for level specification";
         return 1;
       }
 
@@ -1693,13 +1693,13 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
         aShapeLevel = TopAbs_SHAPE;
       else
       {
-        Message::SendFail() << "Error: unknown shape type '" << theArgv[i] << "'";
+        Message1::SendFail() << "Error: unknown shape type '" << theArgv[i] << "'";
         return 1;
       }
     }
     else
     {
-      Message::SendFail() << "Error: invalid syntax at " << anOpt;
+      Message1::SendFail() << "Error: invalid syntax at " << anOpt;
       return 1;
     }
   }
@@ -1708,7 +1708,7 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
   TopoShape aResult = aReShaper->Apply(aSource, aShapeLevel);
   if (aResult.IsNull())
   {
-    Message::SendFail() << "Error: result shape is null";
+    Message1::SendFail() << "Error: result shape is null";
     return 1;
   }
 
@@ -1718,7 +1718,7 @@ static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
 
 //=================================================================================================
 
-void SWDRAW_ShapeUpgrade::InitCommands(DrawInterpreter& theCommands)
+void ShapeUpgrade2::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)
@@ -1727,7 +1727,7 @@ void SWDRAW_ShapeUpgrade::InitCommands(DrawInterpreter& theCommands)
   }
   initactor = 1;
 
-  Standard_CString g = SWDRAW::GroupName(); // "Tests of DivideTool";
+  Standard_CString g = SWDRAW1::GroupName(); // "Tests of DivideTool";
 
   theCommands.Add("DT_ShapeDivide",
                   "DT_ShapeDivide Result Shape Tol: Divides shape with C1 Criterion",

@@ -35,7 +35,7 @@
  *              The DataMap can be seen as an extended array where
  *              the Keys  are the   indices.  For this reason  the
  *              operator () is defined on DataMap to fetch an Item
- *              from a Key. So the following syntax can be used :
+ *              from a Key1. So the following syntax can be used :
  *
  *              anItem = aMap(aKey);
  *              aMap(aKey) = anItem;
@@ -45,8 +45,8 @@
  *              an item in the map.
  */
 
-template <class TheKeyType, class TheItemType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
-class NCollection_DataMap : public NCollection_BaseMap
+template <class TheKeyType, class TheItemType, class Hasher1 = DefaultHasher<TheKeyType>>
+class NCollection_DataMap : public BaseMap
 {
 public:
   //! STL-compliant typedef for key type
@@ -87,8 +87,8 @@ public:
     {
     }
 
-    //! Key
-    const TheKeyType& Key(void) const { return myKey; }
+    //! Key1
+    const TheKeyType& Key1(void) const { return myKey; }
 
     //! Static deleter to be passed to BaseMap
     static void delNode(NCollection_ListNode* theNode, Handle(NCollection_BaseAllocator)& theAl)
@@ -103,18 +103,18 @@ public:
 
 public:
   // **************** Implementation of the Iterator interface.
-  class Iterator : public NCollection_BaseMap::Iterator
+  class Iterator : public BaseMap::Iterator
   {
   public:
     //! Empty constructor
     Iterator(void)
-        : NCollection_BaseMap::Iterator()
+        : BaseMap::Iterator()
     {
     }
 
     //! Constructor
     Iterator(const NCollection_DataMap& theMap)
-        : NCollection_BaseMap::Iterator(theMap)
+        : BaseMap::Iterator(theMap)
     {
     }
 
@@ -138,11 +138,11 @@ public:
       return ((DataMapNode*)myNode)->ChangeValue();
     }
 
-    //! Key
-    const TheKeyType& Key(void) const
+    //! Key1
+    const TheKeyType& Key1(void) const
     {
-      Standard_NoSuchObject_Raise_if(!More(), "NCollection_DataMap::Iterator::Key");
-      return ((DataMapNode*)myNode)->Key();
+      Standard_NoSuchObject_Raise_if(!More(), "NCollection_DataMap::Iterator::Key1");
+      return ((DataMapNode*)myNode)->Key1();
     }
   };
 
@@ -170,32 +170,32 @@ public:
 
   //! Empty Constructor.
   NCollection_DataMap()
-      : NCollection_BaseMap(1, Standard_True, Handle(NCollection_BaseAllocator)())
+      : BaseMap(1, Standard_True, Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_DataMap(const Standard_Integer                   theNbBuckets,
                                const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
-      : NCollection_BaseMap(theNbBuckets, Standard_True, theAllocator)
+      : BaseMap(theNbBuckets, Standard_True, theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_DataMap(const NCollection_DataMap& theOther)
-      : NCollection_BaseMap(theOther.NbBuckets(), Standard_True, theOther.myAllocator)
+      : BaseMap(theOther.NbBuckets(), Standard_True, theOther.myAllocator)
   {
     const int anExt = theOther.Extent();
     if (anExt <= 0)
       return;
     ReSize(anExt - 1);
     for (Iterator anIter(theOther); anIter.More(); anIter.Next())
-      Bind(anIter.Key(), anIter.Value());
+      Bind(anIter.Key1(), anIter.Value());
   }
 
   //! Move constructor
   NCollection_DataMap(NCollection_DataMap&& theOther) noexcept
-      : NCollection_BaseMap(std::forward<NCollection_BaseMap>(theOther))
+      : BaseMap(std::forward<BaseMap>(theOther))
   {
   }
 
@@ -217,7 +217,7 @@ public:
       ReSize(anExt - 1);
       Iterator anIter(theOther);
       for (; anIter.More(); anIter.Next())
-        Bind(anIter.Key(), anIter.Value());
+        Bind(anIter.Key1(), anIter.Value());
     }
     return *this;
   }
@@ -253,7 +253,7 @@ public:
             p = olddata[i];
             while (p)
             {
-              const size_t k = HashCode(p->Key(), newBuck);
+              const size_t k = HashCode(p->Key1(), newBuck);
               q              = (DataMapNode*)p->Next();
               p->Next()      = newdata[k];
               newdata[k]     = p;
@@ -266,10 +266,10 @@ public:
     }
   }
 
-  //! Bind binds Item to Key in map.
+  //! Bind binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
-  //! @return Standard_True if Key was not bound already
+  //! @return Standard_True if Key1 was not bound already
   Standard_Boolean Bind(const TheKeyType& theKey, const TheItemType& theItem)
   {
     if (Resizable())
@@ -287,10 +287,10 @@ public:
     return Standard_True;
   }
 
-  //! Bind binds Item to Key in map.
+  //! Bind binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
-  //! @return Standard_True if Key was not bound already
+  //! @return Standard_True if Key1 was not bound already
   Standard_Boolean Bind(TheKeyType&& theKey, const TheItemType& theItem)
   {
     if (Resizable())
@@ -309,10 +309,10 @@ public:
     return Standard_True;
   }
 
-  //! Bind binds Item to Key in map.
+  //! Bind binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
-  //! @return Standard_True if Key was not bound already
+  //! @return Standard_True if Key1 was not bound already
   Standard_Boolean Bind(const TheKeyType& theKey, TheItemType&& theItem)
   {
     if (Resizable())
@@ -331,10 +331,10 @@ public:
     return Standard_True;
   }
 
-  //! Bind binds Item to Key in map.
+  //! Bind binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
-  //! @return Standard_True if Key was not bound already
+  //! @return Standard_True if Key1 was not bound already
   Standard_Boolean Bind(TheKeyType&& theKey, TheItemType&& theItem)
   {
     if (Resizable())
@@ -354,7 +354,7 @@ public:
     return Standard_True;
   }
 
-  //! Bound binds Item to Key in map.
+  //! Bound binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
   //! @return pointer to modifiable Item
@@ -375,7 +375,7 @@ public:
     return &data[aHash]->ChangeValue();
   }
 
-  //! Bound binds Item to Key in map.
+  //! Bound binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
   //! @return pointer to modifiable Item
@@ -397,7 +397,7 @@ public:
     return &data[aHash]->ChangeValue();
   }
 
-  //! Bound binds Item to Key in map.
+  //! Bound binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
   //! @return pointer to modifiable Item
@@ -419,7 +419,7 @@ public:
     return &data[aHash]->ChangeValue();
   }
 
-  //! Bound binds Item to Key in map.
+  //! Bound binds Item to Key1 in map.
   //! @param theKey  key to add/update
   //! @param theItem new item; overrides value previously bound to the key
   //! @return pointer to modifiable Item
@@ -449,7 +449,7 @@ public:
     return lookup(theKey, p);
   }
 
-  //! UnBind removes Item Key pair from map
+  //! UnBind removes Item Key1 pair from map
   Standard_Boolean UnBind(const TheKeyType& theKey)
   {
     if (IsEmpty())
@@ -460,7 +460,7 @@ public:
     DataMapNode*  q    = NULL;
     while (p)
     {
-      if (IsEqual(p->Key(), theKey))
+      if (IsEqual(p->Key1(), theKey))
       {
         Decrement();
         if (q)
@@ -477,8 +477,8 @@ public:
     return Standard_False;
   }
 
-  //! Seek returns pointer to Item by Key. Returns
-  //! NULL is Key was not bound.
+  //! Seek returns pointer to Item by Key1. Returns
+  //! NULL is Key1 was not bound.
   const TheItemType* Seek(const TheKeyType& theKey) const
   {
     DataMapNode* p = 0;
@@ -487,7 +487,7 @@ public:
     return &p->Value();
   }
 
-  //! Find returns the Item for Key. Raises if Key was not bound
+  //! Find returns the Item for Key1. Raises if Key1 was not bound
   const TheItemType& Find(const TheKeyType& theKey) const
   {
     DataMapNode* p = 0;
@@ -511,8 +511,8 @@ public:
   //! operator ()
   const TheItemType& operator()(const TheKeyType& theKey) const { return Find(theKey); }
 
-  //! ChangeSeek returns modifiable pointer to Item by Key. Returns
-  //! NULL is Key was not bound.
+  //! ChangeSeek returns modifiable pointer to Item by Key1. Returns
+  //! NULL is Key1 was not bound.
   TheItemType* ChangeSeek(const TheKeyType& theKey)
   {
     DataMapNode* p = 0;
@@ -521,7 +521,7 @@ public:
     return &p->ChangeValue();
   }
 
-  //! ChangeFind returns mofifiable Item by Key. Raises if Key was not bound
+  //! ChangeFind returns mofifiable Item by Key1. Raises if Key1 was not bound
   TheItemType& ChangeFind(const TheKeyType& theKey)
   {
     DataMapNode* p = 0;
@@ -566,7 +566,7 @@ protected:
     for (theNode = (DataMapNode*)myData1[HashCode(theKey, NbBuckets())]; theNode;
          theNode = (DataMapNode*)theNode->Next())
     {
-      if (IsEqual(theNode->Key(), theKey))
+      if (IsEqual(theNode->Key1(), theKey))
         return Standard_True;
     }
     return Standard_False; // Not found
@@ -584,7 +584,7 @@ protected:
       return Standard_False; // Not found
     for (theNode = (DataMapNode*)myData1[theHash]; theNode; theNode = (DataMapNode*)theNode->Next())
     {
-      if (IsEqual(theNode->Key(), theKey))
+      if (IsEqual(theNode->Key1(), theKey))
       {
         return Standard_True;
       }

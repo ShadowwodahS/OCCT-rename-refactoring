@@ -58,7 +58,7 @@ public:
   Standard_EXPORT void SetType(const AsciiString1& aType);
 
   //! Returns root's position in the root data section
-  Standard_EXPORT Standard_Integer Reference() const;
+  Standard_EXPORT Standard_Integer Reference1() const;
 
 private:
   Standard_EXPORT StdStorage_Root(const AsciiString1& theName,

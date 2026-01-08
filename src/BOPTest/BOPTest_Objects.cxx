@@ -210,14 +210,14 @@ static BOPTest_Session& GetSession()
 //
 //=================================================================================================
 
-void BOPTest_Objects::Init()
+void Objects::Init()
 {
   GetSession().Init();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::Clear()
+void Objects::Clear()
 {
   GetSession().Clear();
   Shapes().Clear();
@@ -226,28 +226,28 @@ void BOPTest_Objects::Clear()
 
 //=================================================================================================
 
-BooleanPaveFiller& BOPTest_Objects::PaveFiller()
+BooleanPaveFiller& Objects::PaveFiller()
 {
   return GetSession().PaveFiller();
 }
 
 //=================================================================================================
 
-BOPDS_PDS BOPTest_Objects::PDS()
+BOPDS_PDS Objects::PDS()
 {
-  return BOPTest_Objects::PaveFiller().PDS();
+  return Objects::PaveFiller().PDS();
 }
 
 //=================================================================================================
 
-BOPAlgo_Builder& BOPTest_Objects::Builder()
+BOPAlgo_Builder& Objects::Builder()
 {
   return GetSession().Builder();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetBuilder(const BOPAlgo_PBuilder& theBuilder)
+void Objects::SetBuilder(const BOPAlgo_PBuilder& theBuilder)
 {
   BOPAlgo_Builder* pB;
   //
@@ -257,14 +257,14 @@ void BOPTest_Objects::SetBuilder(const BOPAlgo_PBuilder& theBuilder)
 
 //=================================================================================================
 
-void BOPTest_Objects::SetBuilderDefault()
+void Objects::SetBuilderDefault()
 {
   GetSession().SetBuilderDefault();
 }
 
 //=================================================================================================
 
-BOPAlgo_BOP& BOPTest_Objects::BOP()
+BOPAlgo_BOP& Objects::BOP()
 {
   static BOPAlgo_BOP sBOP(Allocator1());
   return sBOP;
@@ -272,7 +272,7 @@ BOPAlgo_BOP& BOPTest_Objects::BOP()
 
 //=================================================================================================
 
-BOPAlgo_Section& BOPTest_Objects::Section()
+BOPAlgo_Section& Objects::Section()
 {
   static BOPAlgo_Section sSection(Allocator1());
   return sSection;
@@ -280,7 +280,7 @@ BOPAlgo_Section& BOPTest_Objects::Section()
 
 //=================================================================================================
 
-BOPAlgo_CellsBuilder& BOPTest_Objects::CellsBuilder()
+BOPAlgo_CellsBuilder& Objects::CellsBuilder()
 {
   static BOPAlgo_CellsBuilder sCBuilder(Allocator1());
   return sCBuilder;
@@ -288,7 +288,7 @@ BOPAlgo_CellsBuilder& BOPTest_Objects::CellsBuilder()
 
 //=================================================================================================
 
-BOPAlgo_Splitter& BOPTest_Objects::Splitter()
+BOPAlgo_Splitter& Objects::Splitter()
 {
   static BOPAlgo_Splitter aSplitter(Allocator1());
   return aSplitter;
@@ -296,161 +296,161 @@ BOPAlgo_Splitter& BOPTest_Objects::Splitter()
 
 //=================================================================================================
 
-ShapeList& BOPTest_Objects::Shapes()
+ShapeList& Objects::Shapes()
 {
   return GetSession().Shapes();
 }
 
 //=================================================================================================
 
-ShapeList& BOPTest_Objects::Tools()
+ShapeList& Objects::Tools()
 {
   return GetSession().Tools();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetDefaultOptions()
+void Objects::SetDefaultOptions()
 {
   GetSession().SetDefaultOptions();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetRunParallel(const Standard_Boolean bFlag)
+void Objects::SetRunParallel(const Standard_Boolean bFlag)
 {
   GetSession().SetRunParallel(bFlag);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::RunParallel()
+Standard_Boolean Objects::RunParallel()
 {
   return GetSession().RunParallel();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetFuzzyValue(const Standard_Real aValue)
+void Objects::SetFuzzyValue(const Standard_Real aValue)
 {
   GetSession().SetFuzzyValue(aValue);
 }
 
 //=================================================================================================
 
-Standard_Real BOPTest_Objects::FuzzyValue()
+Standard_Real Objects::FuzzyValue()
 {
   return GetSession().FuzzyValue();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetNonDestructive(const Standard_Boolean theFlag)
+void Objects::SetNonDestructive(const Standard_Boolean theFlag)
 {
   GetSession().SetNonDestructive(theFlag);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::NonDestructive()
+Standard_Boolean Objects::NonDestructive()
 {
   return GetSession().NonDestructive();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetGlue(const BOPAlgo_GlueEnum theGlue)
+void Objects::SetGlue(const BOPAlgo_GlueEnum theGlue)
 {
   GetSession().SetGlue(theGlue);
 }
 
 //=================================================================================================
 
-BOPAlgo_GlueEnum BOPTest_Objects::Glue()
+BOPAlgo_GlueEnum Objects::Glue()
 {
   return GetSession().Glue();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetDrawWarnShapes(const Standard_Boolean bDraw)
+void Objects::SetDrawWarnShapes(const Standard_Boolean bDraw)
 {
   GetSession().SetDrawWarnShapes(bDraw);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::DrawWarnShapes()
+Standard_Boolean Objects::DrawWarnShapes()
 {
   return GetSession().DrawWarnShapes();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetCheckInverted(const Standard_Boolean bCheck)
+void Objects::SetCheckInverted(const Standard_Boolean bCheck)
 {
   GetSession().SetCheckInverted(bCheck);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::CheckInverted()
+Standard_Boolean Objects::CheckInverted()
 {
   return GetSession().CheckInverted();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetUseOBB(const Standard_Boolean bUseOBB)
+void Objects::SetUseOBB(const Standard_Boolean bUseOBB)
 {
   GetSession().SetUseOBB(bUseOBB);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::UseOBB()
+Standard_Boolean Objects::UseOBB()
 {
   return GetSession().UseOBB();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetUnifyEdges(const Standard_Boolean bUE)
+void Objects::SetUnifyEdges(const Standard_Boolean bUE)
 {
   GetSession().SetUnifyEdges(bUE);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::UnifyEdges()
+Standard_Boolean Objects::UnifyEdges()
 {
   return GetSession().UnifyEdges();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetUnifyFaces(const Standard_Boolean bUF)
+void Objects::SetUnifyFaces(const Standard_Boolean bUF)
 {
   GetSession().SetUnifyFaces(bUF);
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPTest_Objects::UnifyFaces()
+Standard_Boolean Objects::UnifyFaces()
 {
   return GetSession().UnifyFaces();
 }
 
 //=================================================================================================
 
-void BOPTest_Objects::SetAngular(const Standard_Real theAngTol)
+void Objects::SetAngular(const Standard_Real theAngTol)
 {
   GetSession().SetAngular(theAngTol);
 }
 
 //=================================================================================================
 
-Standard_Real BOPTest_Objects::Angular()
+Standard_Real Objects::Angular()
 {
   return GetSession().Angular();
 }

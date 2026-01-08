@@ -14,10 +14,10 @@
 #ifndef _Aspect_VKeyFlags_HeaderFile
 #define _Aspect_VKeyFlags_HeaderFile
 
-//! Key modifier, for combining with general key from Aspect_VKey.
+//! Key1 modifier, for combining with general key from Aspect_VKey.
 typedef unsigned int Aspect_VKeyFlags;
 
-//! Key modifier, for combining with general key from Aspect_VKey.
+//! Key1 modifier, for combining with general key from Aspect_VKey.
 enum
 {
   Aspect_VKeyFlags_NONE = 0,

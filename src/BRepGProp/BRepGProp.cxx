@@ -67,7 +67,7 @@ static Point3d roughBaryCenter(const TopoShape& S)
   return Point3d(xyz);
 }
 
-void BRepGProp::LinearProperties(const TopoShape&    S,
+void BRepGProp1::LinearProperties(const TopoShape&    S,
                                  GeometricProperties&          SProps,
                                  const Standard_Boolean SkipShared,
                                  const Standard_Boolean UseTriangulation)
@@ -208,7 +208,7 @@ static Standard_Real surfaceProperties(const TopoShape&    S,
   return ErrorMax;
 }
 
-void BRepGProp::SurfaceProperties(const TopoShape&    S,
+void BRepGProp1::SurfaceProperties(const TopoShape&    S,
                                   GeometricProperties&          Props,
                                   const Standard_Boolean SkipShared,
                                   const Standard_Boolean UseTriangulation)
@@ -220,7 +220,7 @@ void BRepGProp::SurfaceProperties(const TopoShape&    S,
   surfaceProperties(S, Props, 1.0, SkipShared, UseTriangulation);
 }
 
-Standard_Real BRepGProp::SurfaceProperties(const TopoShape&    S,
+Standard_Real BRepGProp1::SurfaceProperties(const TopoShape&    S,
                                            GeometricProperties&          Props,
                                            const Standard_Real    Eps,
                                            const Standard_Boolean SkipShared)
@@ -342,7 +342,7 @@ static Standard_Real volumeProperties(const TopoShape&    S,
   return ErrorMax;
 }
 
-void BRepGProp::VolumeProperties(const TopoShape&    S,
+void BRepGProp1::VolumeProperties(const TopoShape&    S,
                                  GeometricProperties&          Props,
                                  const Standard_Boolean OnlyClosed,
                                  const Standard_Boolean SkipShared,
@@ -373,7 +373,7 @@ void BRepGProp::VolumeProperties(const TopoShape&    S,
 
 //=================================================================================================
 
-Standard_Real BRepGProp::VolumeProperties(const TopoShape&    S,
+Standard_Real BRepGProp1::VolumeProperties(const TopoShape&    S,
                                           GeometricProperties&          Props,
                                           const Standard_Real    Eps,
                                           const Standard_Boolean OnlyClosed,
@@ -504,7 +504,7 @@ static Standard_Real volumePropertiesGK(const TopoShape&    theShape,
 
 //=================================================================================================
 
-Standard_Real BRepGProp::VolumePropertiesGK(const TopoShape&    S,
+Standard_Real BRepGProp1::VolumePropertiesGK(const TopoShape&    S,
                                             GeometricProperties&          Props,
                                             const Standard_Real    Eps,
                                             const Standard_Boolean OnlyClosed,
@@ -653,7 +653,7 @@ static Standard_Real volumePropertiesGK(const TopoShape&    theShape,
 
 //=================================================================================================
 
-Standard_Real BRepGProp::VolumePropertiesGK(const TopoShape&    S,
+Standard_Real BRepGProp1::VolumePropertiesGK(const TopoShape&    S,
                                             GeometricProperties&          Props,
                                             const gp_Pln&          thePln,
                                             const Standard_Real    Eps,

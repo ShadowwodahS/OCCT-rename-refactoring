@@ -59,5 +59,5 @@ void CurveRangeLocalizeData::ListRangeOut(IntTools_ListOfCurveRangeSample& theLi
   IntTools_MapIteratorOfMapOfCurveSample anIt(myMapRangeOut);
 
   for (; anIt.More(); anIt.Next())
-    theList.Append(anIt.Key());
+    theList.Append(anIt.Key1());
 }

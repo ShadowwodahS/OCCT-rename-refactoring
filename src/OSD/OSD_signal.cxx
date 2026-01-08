@@ -105,9 +105,9 @@ static LONG             _osd_debug(void);
   #define _OSD_FPX (_EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE | _EM_OVERFLOW)
 
   #ifdef OCC_CONVERT_SIGNALS
-    #define THROW_OR_JUMP(Type, Message, Stack) Type::NewInstance(Message, Stack)->Jump()
+    #define THROW_OR_JUMP(Type, Message1, Stack) Type::NewInstance(Message1, Stack)->Jump()
   #else
-    #define THROW_OR_JUMP(Type, Message, Stack) throw Type(Message, Stack)
+    #define THROW_OR_JUMP(Type, Message1, Stack) throw Type(Message1, Stack)
   #endif
 
 //=================================================================================================
@@ -882,13 +882,13 @@ static void Handler(const int theSignal)
             Standard_DivideByZero::NewInstance("Floating Divide By Zero")->Jump();
             break;
           case FPE_INTDIV_TRAP:
-            Standard_DivideByZero::NewInstance("Integer Divide By Zero")->Jump();
+            Standard_DivideByZero::NewInstance("Integer1 Divide By Zero")->Jump();
             break;
           case FPE_FLTOVF_TRAP:
             Standard_Overflow::NewInstance("Floating Overflow")->Jump();
             break;
           case FPE_INTOVF_TRAP:
-            Standard_Overflow::NewInstance("Integer Overflow")->Jump();
+            Standard_Overflow::NewInstance("Integer1 Overflow")->Jump();
             break;
           case FPE_FLTUND_TRAP:
             Standard_NumericError::NewInstance("Floating Underflow")->Jump();

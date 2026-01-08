@@ -19,21 +19,21 @@
 
 #include <TDataXtd_Presentation.hxx>
 
-class StdPersistent_PPrsStd
+class PPrsStd
 {
 public:
   class AISPresentation : public StdObjMgt_Attribute<TDataXtd_Presentation>
   {
   public:
     //! Read persistent data from a file.
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myIsDisplayed >> myDriverGUID >> myTransparency >> myColor >> myMaterial
         >> myWidth;
     }
 
     //! Write persistent data to a file.
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myIsDisplayed << myDriverGUID << myTransparency << myColor << myMaterial
                    << myWidth;
@@ -64,14 +64,14 @@ public:
   {
   public:
     //! Read persistent data from a file.
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       AISPresentation::Read(theReadData);
       theReadData >> myMode;
     }
 
     //! Write persistent data to a file.
-    inline void Write(StdObjMgt_WriteData& theWriteData)
+    inline void Write(WriteData& theWriteData)
     {
       AISPresentation::Write(theWriteData);
       theWriteData << myMode;

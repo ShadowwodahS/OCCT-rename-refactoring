@@ -29,10 +29,10 @@ public:
   }
 
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myDriverGUID >> myFailure; }
+  inline void Read(ReadData& theReadData) { theReadData >> myDriverGUID >> myFailure; }
 
   //! Write persistent data to a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData) const
+  inline void Write(WriteData& theWriteData) const
   {
     theWriteData << myDriverGUID << myFailure;
   }

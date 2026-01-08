@@ -29,7 +29,7 @@ class Point3d;
 class gp_Elips;
 class Geom_OffsetCurve;
 
-class DsgPrs_EllipseRadiusPresentation
+class EllipseRadiusPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

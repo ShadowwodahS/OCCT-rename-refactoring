@@ -40,14 +40,14 @@ static Standard_Integer DFBrowse(DrawInterpreter& di, Standard_Integer n, const 
 {
   if (n < 2)
   {
-    Message::SendFail() << "Use: " << a[0] << " document [brower_name]";
+    Message1::SendFail() << "Use: " << a[0] << " document [brower_name]";
     return 1;
   }
 
   Handle(TDF_Data) DF;
   if (!DDF1::GetDF(a[1], DF))
   {
-    Message::SendFail() << "Error: document " << a[1] << " is not found";
+    Message1::SendFail() << "Error: document " << a[1] << " is not found";
     return 1;
   }
 
@@ -69,7 +69,7 @@ static Standard_Integer DFBrowse(DrawInterpreter& di, Standard_Integer n, const 
   }
   else
   {
-    Message::SendFail() << "Error: Could not load script " << aTclScript << "\n"
+    Message1::SendFail() << "Error: Could not load script " << aTclScript << "\n"
                         << "Check environment variable CSF_DrawPluginDefaults";
   }
 
@@ -95,7 +95,7 @@ static Standard_Integer DFOpenLabel(DrawInterpreter& di, Standard_Integer n, con
   Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
-    Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
+    Message1::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 
@@ -125,7 +125,7 @@ static Standard_Integer DFOpenAttributeList(DrawInterpreter& di,
   Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
-    Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
+    Message1::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 
@@ -155,7 +155,7 @@ static Standard_Integer DFOpenAttribute(DrawInterpreter& di, Standard_Integer n,
   Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
-    Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
+    Message1::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 

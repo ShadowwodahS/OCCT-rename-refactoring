@@ -34,7 +34,7 @@ AIS_AnimationAxisRotation::AIS_AnimationAxisRotation(
 
 //=================================================================================================
 
-void AIS_AnimationAxisRotation::update(const AIS_AnimationProgress& theProgress)
+void AIS_AnimationAxisRotation::update(const AnimationProgress& theProgress)
 {
   if (myObject.IsNull())
   {

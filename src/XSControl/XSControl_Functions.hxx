@@ -17,15 +17,15 @@
 #ifndef _XSControl_Functions_HeaderFile
 #define _XSControl_Functions_HeaderFile
 
-//! Functions from XSControl gives access to actions which can be
-//! commanded with the resources provided by XSControl: especially
+//! Functions from XSControl1 gives access to actions which can be
+//! commanded with the resources provided by XSControl1: especially
 //! Controller and Transfer
 //!
 //! It works by adding functions by method Init
-class XSControl_Functions
+class Functions1
 {
 public:
-  //! Defines and loads all functions for XSControl (as ActFunc)
+  //! Defines and loads all functions for XSControl1 (as ActFunc)
   Standard_EXPORT static void Init();
 };
 

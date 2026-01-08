@@ -31,7 +31,7 @@ IMPLEMENT_DOMSTRING(ZCoordString, "z")
 
 //=================================================================================================
 
-XmlMNaming_Shape1::XmlMNaming_Shape1(XmlObjMgt_Document& theDoc)
+Shape1::Shape1(XmlObjMgt_Document& theDoc)
     : myTShapeID(0),
       myLocID(0),
       myOrientation(TopAbs_FORWARD)
@@ -41,7 +41,7 @@ XmlMNaming_Shape1::XmlMNaming_Shape1(XmlObjMgt_Document& theDoc)
 
 //=================================================================================================
 
-XmlMNaming_Shape1::XmlMNaming_Shape1(const XmlObjMgt_Element& theEl)
+Shape1::Shape1(const XmlObjMgt_Element& theEl)
     : myElement(theEl),
       myTShapeID(0),
       myLocID(0),
@@ -68,53 +68,53 @@ XmlMNaming_Shape1::XmlMNaming_Shape1(const XmlObjMgt_Element& theEl)
         break;
       default:
         throw Standard_DomainError(
-          "XmlMNaming_Shape1; orientation value without enum term equivalence");
+          "Shape1; orientation value without enum term equivalence");
     }
     Standard_CString anIntPtr = (Standard_CString)&aPtr[1];
-    if (XmlObjMgt::GetInteger(anIntPtr, myTShapeID) == Standard_False)
+    if (XmlObjMgt1::GetInteger(anIntPtr, myTShapeID) == Standard_False)
       throw Standard_DomainError(
-        "XmlMNaming_Shape1; tshape value cannot be initialised by integer");
+        "Shape1; tshape value cannot be initialised by integer");
   }
 }
 
 //=================================================================================================
 
-const XmlObjMgt_Element& XmlMNaming_Shape1::Element() const
+const XmlObjMgt_Element& Shape1::Element() const
 {
   return myElement;
 }
 
 //=================================================================================================
 
-XmlObjMgt_Element& XmlMNaming_Shape1::Element()
+XmlObjMgt_Element& Shape1::Element()
 {
   return myElement;
 }
 
 //=================================================================================================
 
-Standard_Integer XmlMNaming_Shape1::TShapeId() const
+Standard_Integer Shape1::TShapeId() const
 {
   return myTShapeID;
 }
 
 //=================================================================================================
 
-Standard_Integer XmlMNaming_Shape1::LocId() const
+Standard_Integer Shape1::LocId() const
 {
   return myLocID;
 }
 
 //=================================================================================================
 
-TopAbs_Orientation XmlMNaming_Shape1::Orientation() const
+TopAbs_Orientation Shape1::Orientation() const
 {
   return myOrientation;
 }
 
 //=================================================================================================
 
-void XmlMNaming_Shape1::SetShape(const Standard_Integer   theID,
+void Shape1::SetShape(const Standard_Integer   theID,
                                  const Standard_Integer   theLocID,
                                  const TopAbs_Orientation theOrient)
 {
@@ -149,7 +149,7 @@ void XmlMNaming_Shape1::SetShape(const Standard_Integer   theID,
 
 //=================================================================================================
 
-void XmlMNaming_Shape1::SetVertex(const TopoShape& theVertex)
+void Shape1::SetVertex(const TopoShape& theVertex)
 {
   TopoVertex aV   = TopoDS::Vertex(theVertex);
   Point3d        aPos = BRepInspector::Pnt(aV);

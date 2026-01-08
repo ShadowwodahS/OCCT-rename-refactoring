@@ -28,7 +28,7 @@ class ShapeBuilder;
 class TopoCompound;
 
 //! Auxiliary procedures to prepare Shaded presentation of specified shape.
-class StdPrs_ShadedShape : public Prs3d_Root
+class StdPrs_ShadedShape : public Root7
 {
 public:
   //! Shades <theShape>.

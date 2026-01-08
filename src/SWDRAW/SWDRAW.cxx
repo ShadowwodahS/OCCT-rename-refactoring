@@ -27,11 +27,11 @@
 #include <SWDRAW_ShapeTool.hxx>
 #include <SWDRAW_ShapeUpgrade.hxx>
 
-// #72 rln 09.03.99 Packaging of SWDRAW
+// #72 rln 09.03.99 Packaging of SWDRAW1
 //   for NSPApply -- CKY 12 JUL 2001
 static int dejadraw = 0;
 
-// #72 rln 09.03.99 Packaging of SWDRAW
+// #72 rln 09.03.99 Packaging of SWDRAW1
 
 //=================================================================================================
 
@@ -111,21 +111,21 @@ static Standard_Integer LocDump(DrawInterpreter& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-void SWDRAW::Init(DrawInterpreter& theCommands)
+void SWDRAW1::Init(DrawInterpreter& theCommands)
 {
   if (!dejadraw)
   {
     dejadraw = 1;
   }
 
-  SWDRAW_ShapeTool::InitCommands(theCommands);
-  SWDRAW_ShapeAnalysis::InitCommands(theCommands);
-  SWDRAW_ShapeCustom::InitCommands(theCommands);
-  SWDRAW_ShapeExtend::InitCommands(theCommands);
-  SWDRAW_ShapeFix::InitCommands(theCommands);
-  SWDRAW_ShapeUpgrade::InitCommands(theCommands);
-  SWDRAW_ShapeProcess::InitCommands(theCommands);
-  SWDRAW_ShapeProcessAPI::InitCommands(theCommands);
+  ShapeTool1::InitCommands(theCommands);
+  ShapeAnalysis2::InitCommands(theCommands);
+  ShapeCustom2::InitCommands(theCommands);
+  ShapeExtend2::InitCommands(theCommands);
+  ShapeFix2::InitCommands(theCommands);
+  ShapeUpgrade2::InitCommands(theCommands);
+  ShapeProcess2::InitCommands(theCommands);
+  ShapeProcessAPI::InitCommands(theCommands);
 
   // locations
   theCommands.Add("LocSet",
@@ -136,12 +136,12 @@ void SWDRAW::Init(DrawInterpreter& theCommands)
   theCommands.Add("LocDump", "a: dump location of a", __FILE__, LocDump, "essai");
 
   // register operators for ShapeProcessing
-  ShapeProcess_OperLibrary::Init();
+  OperLibrary::Init();
 }
 
 //=================================================================================================
 
-Standard_CString SWDRAW::GroupName()
+Standard_CString SWDRAW1::GroupName()
 {
   return "Shape Healing";
 }

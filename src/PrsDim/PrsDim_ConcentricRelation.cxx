@@ -103,10 +103,10 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
   Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite;
   Standard_Boolean   isOnPlanEdge, isOnPlanVertex;
-  if (!PrsDim::ComputeGeometry(E, C, p1, p2, extCurv, isInfinite, isOnPlanEdge, myPlane))
+  if (!PrsDim1::ComputeGeometry(E, C, p1, p2, extCurv, isInfinite, isOnPlanEdge, myPlane))
     return;
   Point3d P;
-  PrsDim::ComputeGeometry(V, P, myPlane, isOnPlanVertex);
+  PrsDim1::ComputeGeometry(V, P, myPlane, isOnPlanVertex);
 
   Handle(GeomCircle) CIRCLE(Handle(GeomCircle)::DownCast(C));
   myCenter = CIRCLE->Location();
@@ -114,11 +114,11 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
   Dir3d vec(p1.XYZ() - myCenter.XYZ());
   Vector3d vectrans(vec);
   myPnt = myCenter.Translated(vectrans.Multiplied(myRad));
-  DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
+  ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
   if (!isOnPlanEdge)
-    PrsDim::ComputeProjEdgePresentation(aPresentation, myDrawer, E, CIRCLE, p1, p2);
+    PrsDim1::ComputeProjEdgePresentation(aPresentation, myDrawer, E, CIRCLE, p1, p2);
   if (!isOnPlanVertex)
-    PrsDim::ComputeProjVertexPresentation(aPresentation, myDrawer, V, P);
+    PrsDim1::ComputeProjVertexPresentation(aPresentation, myDrawer, V, P);
 }
 
 //=================================================================================================
@@ -131,18 +131,18 @@ void PrsDim_ConcentricRelation::ComputeTwoVerticesConcentric(
   V2 = TopoDS::Vertex(myFShape);
   Standard_Boolean isOnPlanVertex1(Standard_True), isOnPlanVertex2(Standard_True);
   Point3d           P1, P2;
-  PrsDim::ComputeGeometry(V1, P1, myPlane, isOnPlanVertex1);
-  PrsDim::ComputeGeometry(V2, P2, myPlane, isOnPlanVertex2);
+  PrsDim1::ComputeGeometry(V1, P1, myPlane, isOnPlanVertex1);
+  PrsDim1::ComputeGeometry(V2, P2, myPlane, isOnPlanVertex2);
   myCenter = P1;
   myRad    = 15.;
-  Dir3d vec(myPlane->Pln().Position().XDirection());
+  Dir3d vec(myPlane->Pln().Position1().XDirection());
   Vector3d vectrans(vec);
   myPnt = myCenter.Translated(vectrans.Multiplied(myRad));
-  DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
+  ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
   if (!isOnPlanVertex1)
-    PrsDim::ComputeProjVertexPresentation(aPresentation, myDrawer, V1, P1);
+    PrsDim1::ComputeProjVertexPresentation(aPresentation, myDrawer, V1, P1);
   if (!isOnPlanVertex2)
-    PrsDim::ComputeProjVertexPresentation(aPresentation, myDrawer, V2, P2);
+    PrsDim1::ComputeProjVertexPresentation(aPresentation, myDrawer, V2, P2);
 }
 
 //=================================================================================================
@@ -157,7 +157,7 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
   Handle(GeomCurve3d) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(GeomCurve3d) extCurv;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
                                geom1,
@@ -193,7 +193,7 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
   Vector3d vectrans(vec);
   myPnt = myCenter.Translated(vectrans.Multiplied(myRad));
 
-  DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
+  ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
     Point3d pf, pl;

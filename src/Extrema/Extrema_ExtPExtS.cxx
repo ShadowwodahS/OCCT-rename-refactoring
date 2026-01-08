@@ -498,20 +498,20 @@ static Frame3d GetPosition(const Handle(Adaptor3d_Curve)& C)
       gp_Lin L   = C->Line();
       gp_Pln Pln = gp_Pln(L.Location(), L.Direction());
       //: abv 30.05.02: OCC  - use constructor instead of Set...s() to avoid exception
-      Frame3d Pos(Pln.Location(), Pln.Position().Direction(), Pln.Position().XDirection());
+      Frame3d Pos(Pln.Location(), Pln.Position1().Direction(), Pln.Position1().XDirection());
       //     Pos.SetAxis(Pln.XAxis());
       //     Pos.SetXDirection(Pln.YAxis().Direction());
-      //     Pos.SetYDirection(Pln.Position().Direction());
+      //     Pos.SetYDirection(Pln.Position1().Direction());
       return Pos;
     }
     case GeomAbs_Circle:
-      return C->Circle().Position();
+      return C->Circle().Position1();
     case GeomAbs_Ellipse:
-      return C->Ellipse().Position();
+      return C->Ellipse().Position1();
     case GeomAbs_Hyperbola:
-      return C->Hyperbola().Position();
+      return C->Hyperbola().Position1();
     case GeomAbs_Parabola:
-      return C->Parabola().Position();
+      return C->Parabola().Position1();
     default:
       return Frame3d();
   }

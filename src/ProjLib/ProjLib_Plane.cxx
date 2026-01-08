@@ -91,13 +91,13 @@ void ProjLib_Plane::Init(const gp_Pln& Pl)
 static gp_Pnt2d EvalPnt2d(const Point3d& P, const gp_Pln& Pl)
 {
   Vector3d OP(Pl.Location(), P);
-  return gp_Pnt2d(OP.Dot(Vector3d(Pl.Position().XDirection())),
-                  OP.Dot(Vector3d(Pl.Position().YDirection())));
+  return gp_Pnt2d(OP.Dot(Vector3d(Pl.Position1().XDirection())),
+                  OP.Dot(Vector3d(Pl.Position1().YDirection())));
 }
 
 static gp_Dir2d EvalDir2d(const Dir3d& D, const gp_Pln& Pl)
 {
-  return gp_Dir2d(D.Dot(Pl.Position().XDirection()), D.Dot(Pl.Position().YDirection()));
+  return gp_Dir2d(D.Dot(Pl.Position1().XDirection()), D.Dot(Pl.Position1().YDirection()));
 }
 
 //=================================================================================================
@@ -117,8 +117,8 @@ void ProjLib_Plane::Project(const gp_Circ& C)
   myType = GeomAbs_Circle;
 
   gp_Pnt2d P2d = EvalPnt2d(C.Location(), myPlane);
-  gp_Dir2d X2d = EvalDir2d(C.Position().XDirection(), myPlane);
-  gp_Dir2d Y2d = EvalDir2d(C.Position().YDirection(), myPlane);
+  gp_Dir2d X2d = EvalDir2d(C.Position1().XDirection(), myPlane);
+  gp_Dir2d Y2d = EvalDir2d(C.Position1().YDirection(), myPlane);
   Ax22d Ax(P2d, X2d, Y2d);
 
   myCirc       = gp_Circ2d(Ax, C.Radius());
@@ -133,8 +133,8 @@ void ProjLib_Plane::Project(const gp_Elips& E)
   myType = GeomAbs_Ellipse;
 
   gp_Pnt2d P2d = EvalPnt2d(E.Location(), myPlane);
-  gp_Dir2d X2d = EvalDir2d(E.Position().XDirection(), myPlane);
-  gp_Dir2d Y2d = EvalDir2d(E.Position().YDirection(), myPlane);
+  gp_Dir2d X2d = EvalDir2d(E.Position1().XDirection(), myPlane);
+  gp_Dir2d Y2d = EvalDir2d(E.Position1().YDirection(), myPlane);
   Ax22d Ax(P2d, X2d, Y2d);
 
   myElips      = gp_Elips2d(Ax, E.MajorRadius(), E.MinorRadius());
@@ -149,8 +149,8 @@ void ProjLib_Plane::Project(const gp_Parab& P)
   myType = GeomAbs_Parabola;
 
   gp_Pnt2d P2d = EvalPnt2d(P.Location(), myPlane);
-  gp_Dir2d X2d = EvalDir2d(P.Position().XDirection(), myPlane);
-  gp_Dir2d Y2d = EvalDir2d(P.Position().YDirection(), myPlane);
+  gp_Dir2d X2d = EvalDir2d(P.Position1().XDirection(), myPlane);
+  gp_Dir2d Y2d = EvalDir2d(P.Position1().YDirection(), myPlane);
   Ax22d Ax(P2d, X2d, Y2d);
 
   myParab = gp_Parab2d(Ax, P.Focal());
@@ -164,8 +164,8 @@ void ProjLib_Plane::Project(const gp_Hypr& H)
   myType = GeomAbs_Hyperbola;
 
   gp_Pnt2d P2d = EvalPnt2d(H.Location(), myPlane);
-  gp_Dir2d X2d = EvalDir2d(H.Position().XDirection(), myPlane);
-  gp_Dir2d Y2d = EvalDir2d(H.Position().YDirection(), myPlane);
+  gp_Dir2d X2d = EvalDir2d(H.Position1().XDirection(), myPlane);
+  gp_Dir2d Y2d = EvalDir2d(H.Position1().YDirection(), myPlane);
   Ax22d Ax(P2d, X2d, Y2d);
 
   myHypr = gp_Hypr2d(Ax, H.MajorRadius(), H.MinorRadius());

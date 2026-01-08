@@ -28,11 +28,11 @@ class SelectMgr_EntityOwner;
 //! A framework to supply the structure of the object to be selected.
 //! At the first pick, this structure is created by calling the appropriate algorithm and retaining
 //! this framework for further picking. This abstract framework is inherited in Application
-//! Interactive Services (AIS), notably in VisualEntity. Consequently, 3D selection should
-//! be handled by the relevant daughter classes and their member functions in AIS. This is
+//! Interactive Services (AIS1), notably in VisualEntity. Consequently, 3D selection should
+//! be handled by the relevant daughter classes and their member functions in AIS1. This is
 //! particularly true in the creation of new interactive objects.
 //!
-//! Key interface methods to be implemented by every Selectable Object:
+//! Key1 interface methods to be implemented by every Selectable Object:
 //! * Presentable Object (PrsMgr_PresentableObject)
 //!   Consider defining an enumeration of supported Display Mode indexes for particular Interactive
 //!   Object or class of Interactive Objects.

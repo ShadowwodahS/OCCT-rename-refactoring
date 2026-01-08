@@ -32,7 +32,7 @@ class Dir3d;
 class Axis3d;
 
 //! A framework for displaying angles.
-class DsgPrs_AnglePresentation
+class AnglePresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

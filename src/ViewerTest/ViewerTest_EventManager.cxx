@@ -42,13 +42,13 @@
 
 void ViewerTest_EventManager::onWasmRedrawView(void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
   if (!aViewCtrl.IsNull())
   {
     aViewCtrl->myNbUpdateRequests = 0;
 
-    const Handle(ViewWindow)&               aView = ViewerTest::CurrentView();
-    const Handle(VisualContext)& aCtx  = ViewerTest::GetAISContext();
+    const Handle(ViewWindow)&               aView = ViewerTest1::CurrentView();
+    const Handle(VisualContext)& aCtx  = ViewerTest1::GetAISContext();
     if (!aView.IsNull() && !aCtx.IsNull())
     {
       aViewCtrl->ProcessExpose();
@@ -304,7 +304,7 @@ void ViewerTest_EventManager::OnSubviewChanged(const Handle(VisualContext)&,
                                                const Handle(ViewWindow)&,
                                                const Handle(ViewWindow)& theNewView)
 {
-  ViewerTest::ActivateView(theNewView, false);
+  ViewerTest1::ActivateView(theNewView, false);
 }
 
 //=================================================================================================
@@ -646,11 +646,11 @@ void ViewerTest_EventManager::ProcessKeyPress(Aspect_VKey theKey)
 //! Handle browser window resize event.
 static EM_BOOL onResizeCallback(int theEventType, const EmscriptenUiEvent* theEvent, void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
-  if (!aViewCtrl.IsNull() && !ViewerTest::CurrentView().IsNull())
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
+  if (!aViewCtrl.IsNull() && !ViewerTest1::CurrentView().IsNull())
   {
     Handle(Wasm_Window) aWindow =
-      Handle(Wasm_Window)::DownCast(ViewerTest::CurrentView()->Window());
+      Handle(Wasm_Window)::DownCast(ViewerTest1::CurrentView()->Window());
     return aWindow->ProcessUiEvent(*aViewCtrl, theEventType, theEvent) ? EM_TRUE : EM_FALSE;
   }
   return EM_FALSE;
@@ -670,11 +670,11 @@ EM_JS(int, occJSGetBoundingClientLeft, (), { return Math.round(Module._myCanvasR
 //! Handle mouse input event.
 static EM_BOOL onWasmMouseCallback(int theEventType, const EmscriptenMouseEvent* theEvent, void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
-  if (!aViewCtrl.IsNull() && !ViewerTest::CurrentView().IsNull())
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
+  if (!aViewCtrl.IsNull() && !ViewerTest1::CurrentView().IsNull())
   {
     Handle(Wasm_Window) aWindow =
-      Handle(Wasm_Window)::DownCast(ViewerTest::CurrentView()->Window());
+      Handle(Wasm_Window)::DownCast(ViewerTest1::CurrentView()->Window());
     if (theEventType == EMSCRIPTEN_EVENT_MOUSEMOVE || theEventType == EMSCRIPTEN_EVENT_MOUSEUP)
     {
       // these events are bound to EMSCRIPTEN_EVENT_TARGET_WINDOW, and coordinates should be
@@ -695,11 +695,11 @@ static EM_BOOL onWasmMouseCallback(int theEventType, const EmscriptenMouseEvent*
 //! Handle mouse wheel event.
 static EM_BOOL onWasmWheelCallback(int theEventType, const EmscriptenWheelEvent* theEvent, void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
-  if (!aViewCtrl.IsNull() && !ViewerTest::CurrentView().IsNull())
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
+  if (!aViewCtrl.IsNull() && !ViewerTest1::CurrentView().IsNull())
   {
     Handle(Wasm_Window) aWindow =
-      Handle(Wasm_Window)::DownCast(ViewerTest::CurrentView()->Window());
+      Handle(Wasm_Window)::DownCast(ViewerTest1::CurrentView()->Window());
     return aWindow->ProcessWheelEvent(*aViewCtrl, theEventType, theEvent) ? EM_TRUE : EM_FALSE;
   }
   return EM_FALSE;
@@ -708,11 +708,11 @@ static EM_BOOL onWasmWheelCallback(int theEventType, const EmscriptenWheelEvent*
 //! Handle touch input event.
 static EM_BOOL onWasmTouchCallback(int theEventType, const EmscriptenTouchEvent* theEvent, void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
-  if (!aViewCtrl.IsNull() && !ViewerTest::CurrentView().IsNull())
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
+  if (!aViewCtrl.IsNull() && !ViewerTest1::CurrentView().IsNull())
   {
     Handle(Wasm_Window) aWindow =
-      Handle(Wasm_Window)::DownCast(ViewerTest::CurrentView()->Window());
+      Handle(Wasm_Window)::DownCast(ViewerTest1::CurrentView()->Window());
     return aWindow->ProcessTouchEvent(*aViewCtrl, theEventType, theEvent) ? EM_TRUE : EM_FALSE;
   }
   return EM_FALSE;
@@ -721,11 +721,11 @@ static EM_BOOL onWasmTouchCallback(int theEventType, const EmscriptenTouchEvent*
 //! Handle keyboard input event.
 static EM_BOOL onWasmKeyCallback(int theEventType, const EmscriptenKeyboardEvent* theEvent, void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
-  if (!aViewCtrl.IsNull() && !ViewerTest::CurrentView().IsNull())
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
+  if (!aViewCtrl.IsNull() && !ViewerTest1::CurrentView().IsNull())
   {
     Handle(Wasm_Window) aWindow =
-      Handle(Wasm_Window)::DownCast(ViewerTest::CurrentView()->Window());
+      Handle(Wasm_Window)::DownCast(ViewerTest1::CurrentView()->Window());
     aWindow->ProcessKeyEvent(*aViewCtrl, theEventType, theEvent);
     return EM_TRUE;
   }
@@ -735,11 +735,11 @@ static EM_BOOL onWasmKeyCallback(int theEventType, const EmscriptenKeyboardEvent
 //! Handle focus change event.
 static EM_BOOL onWasmFocusCallback(int theEventType, const EmscriptenFocusEvent* theEvent, void*)
 {
-  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest::CurrentEventManager();
-  if (!aViewCtrl.IsNull() && !ViewerTest::CurrentView().IsNull())
+  Handle(ViewerTest_EventManager) aViewCtrl = ViewerTest1::CurrentEventManager();
+  if (!aViewCtrl.IsNull() && !ViewerTest1::CurrentView().IsNull())
   {
     Handle(Wasm_Window) aWindow =
-      Handle(Wasm_Window)::DownCast(ViewerTest::CurrentView()->Window());
+      Handle(Wasm_Window)::DownCast(ViewerTest1::CurrentView()->Window());
     return aWindow->ProcessFocusEvent(*aViewCtrl, theEventType, theEvent) ? EM_TRUE : EM_FALSE;
   }
   return EM_FALSE;
@@ -778,7 +778,7 @@ void ViewerTest_EventManager::SetupWindowCallbacks(const Handle(Aspect_Window)& 
   Handle(Wasm_Window) aWindow = Handle(Wasm_Window)::DownCast(theWin);
   if (aWindow->CanvasId().IsEmpty() || aWindow->CanvasId() == "#")
   {
-    Message::SendFail("Error: unable registering callbacks to Module.canvas");
+    Message1::SendFail("Error: unable registering callbacks to Module.canvas");
     return;
   }
 

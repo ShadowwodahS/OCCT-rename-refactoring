@@ -53,7 +53,7 @@ public:
   //! By default, the flag is set to true.
   Standard_EXPORT AIS_ExclusionFilter(const Standard_Boolean ExclusionFlagOn = Standard_True);
 
-  //! All the AIS objects of <TypeToExclude>
+  //! All the AIS1 objects of <TypeToExclude>
   //! Will be rejected by the IsOk Method.
   Standard_EXPORT AIS_ExclusionFilter(const AIS_KindOfInteractive TypeToExclude,
                                       const Standard_Boolean      ExclusionFlagOn = Standard_True);

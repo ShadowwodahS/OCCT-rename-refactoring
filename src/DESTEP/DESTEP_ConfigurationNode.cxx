@@ -251,7 +251,7 @@ AsciiString1 DESTEP_ConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Defines the using of BRepLib::SameParameter\n";
+  aResult += "!Defines the using of BRepLib1::SameParameter\n";
   aResult += "!Default value: \"Off\"(0). Available values: \"Off\"(0), \"On\"(1)\n";
   aResult +=
     aScope + "read.stdsameparameter.mode :\t " + InternalParameters.ReadSameParamMode + "\n";
@@ -269,7 +269,7 @@ AsciiString1 DESTEP_ConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!This parameter is used within the BRepLib::EncodeRegularity() function ";
+  aResult += "!This parameter is used within the BRepLib1::EncodeRegularity() function ";
   aResult += "which is called for a shape read ";
   aResult += "from an IGES or a STEP file at the end of translation process.This function sets the "
              "regularity flag of";

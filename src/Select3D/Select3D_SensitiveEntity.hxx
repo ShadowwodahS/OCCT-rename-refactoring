@@ -62,8 +62,8 @@ public:
   //! Checks whether sensitive overlaps current selecting volume.
   //! Stores minimum depth, distance to center of geometry and closest point detected into
   //! thePickResult
-  virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                   SelectBasics_PickResult&             thePickResult) = 0;
+  virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                   PickResult&             thePickResult) = 0;
 
   //! Returns the number of sub-entities or elements in sensitive entity.
   //! Is used to determine if entity is complex1 and needs to pre-build BVH at the creation of

@@ -22,7 +22,7 @@
 
 #include <Draw_Interpretor.hxx>
 
-//! commands for presentation based on AIS
+//! commands for presentation based on AIS1
 //! ======================================
 class DPrsStd1
 {

@@ -247,7 +247,7 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::GetCircle(gp_Circ&      crc,
     return Standard_False;
   //  Recalage sur P0
   Point3d PC  = crc.Location();
-  Frame3d axe = crc.Position();
+  Frame3d axe = crc.Position1();
   Vector3d VX(PC, P0);
   axe.SetXDirection(VX);
   crc.SetPosition(axe);

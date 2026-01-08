@@ -26,9 +26,9 @@ IMPLEMENT_DOMSTRING(IndString, "index")
 
 //=================================================================================================
 
-XmlObjMgt_Array1::XmlObjMgt_Array1(const XmlObjMgt_Element&   theParent,
+Array1::Array1(const XmlObjMgt_Element&   theParent,
                                    const XmlObjMgt_DOMString& theName)
-    : myElement(XmlObjMgt::FindChildByName(theParent, theName)),
+    : myElement(XmlObjMgt1::FindChildByName(theParent, theName)),
       myFirst(1),
       myLast(0)
 {
@@ -43,7 +43,7 @@ XmlObjMgt_Array1::XmlObjMgt_Array1(const XmlObjMgt_Element&   theParent,
 
 //=================================================================================================
 
-XmlObjMgt_Array1::XmlObjMgt_Array1(const Standard_Integer aFirst, const Standard_Integer aLast)
+Array1::Array1(const Standard_Integer aFirst, const Standard_Integer aLast)
     : myFirst(aFirst),
       myLast(aLast)
 {
@@ -54,7 +54,7 @@ XmlObjMgt_Array1::XmlObjMgt_Array1(const Standard_Integer aFirst, const Standard
 // purpose  : Create DOM_Element representing the array, under 'theParent'
 //=======================================================================
 
-void XmlObjMgt_Array1::CreateArrayElement(XmlObjMgt_Element&         theParent,
+void Array1::CreateArrayElement(XmlObjMgt_Element&         theParent,
                                           const XmlObjMgt_DOMString& theName)
 {
   if (myLast > 0)
@@ -75,7 +75,7 @@ void XmlObjMgt_Array1::CreateArrayElement(XmlObjMgt_Element&         theParent,
 
 //=================================================================================================
 
-void XmlObjMgt_Array1::SetValue(const Standard_Integer theIndex, XmlObjMgt_Element& theValue)
+void Array1::SetValue(const Standard_Integer theIndex, XmlObjMgt_Element& theValue)
 {
   myElement.appendChild(theValue);
   theValue.setAttribute(::IndString(), theIndex);
@@ -83,7 +83,7 @@ void XmlObjMgt_Array1::SetValue(const Standard_Integer theIndex, XmlObjMgt_Eleme
 
 //=================================================================================================
 
-XmlObjMgt_Element XmlObjMgt_Array1::Value(const Standard_Integer theIndex) const
+XmlObjMgt_Element Array1::Value(const Standard_Integer theIndex) const
 {
   XmlObjMgt_Element anElem;
 

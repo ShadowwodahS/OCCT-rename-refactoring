@@ -229,7 +229,7 @@ static Standard_Boolean IsPlanar(const Handle(GeomCurve3d)& curve, Coords3d& Nor
   if (curve->IsKind(STANDARD_TYPE(GeomLine)))
   {
     DeclareAndCast(GeomLine, Line, curve);
-    Normal = GetAnyNormal(Line->Position().Direction().XYZ());
+    Normal = GetAnyNormal(Line->Position1().Direction().XYZ());
     return Standard_True;
   }
   if (curve->IsKind(STANDARD_TYPE(Geom_Conic)))
@@ -538,7 +538,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Circ().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  Ax3 Pos = Ax3(start->Circ().Position());
+  Ax3 Pos = Ax3(start->Circ().Position1());
   // unusable  Standard_Boolean IsDirect = Pos.Direct();
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
@@ -600,7 +600,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     // #53 rln 24.12.98 CCI60005
     // Trimmed ellipse. To avoid huge weights in B-Spline first rotate it and then convert
     Handle(Geom_Ellipse) copystart = Handle(Geom_Ellipse)::DownCast(start->Copy());
-    Frame3d               pos       = copystart->Position();
+    Frame3d               pos       = copystart->Position1();
     copystart->SetPosition(pos.Rotated(pos.Axis(), Ax3(pos).Direct() ? Udeb : 2 * M_PI - Udeb));
     Handle(BSplineCurve3d) Bspline;
     //: q3 abv 17 Mar 99: use GeomConvert_ApproxCurve for precise conversion
@@ -631,7 +631,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Elips().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  Ax3 Pos = Ax3(start->Elips().Position());
+  Ax3 Pos = Ax3(start->Elips().Position1());
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
 
@@ -700,7 +700,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Hypr().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  Ax3 Pos = Ax3(start->Hypr().Position());
+  Ax3 Pos = Ax3(start->Hypr().Position1());
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
 
@@ -768,7 +768,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   start->Parab().Location().Coord(xloc, yloc, zloc);
   Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
-  Ax3 Pos = Ax3(start->Parab().Position());
+  Ax3 Pos = Ax3(start->Parab().Position1());
   Pos.SetLocation(Loc);
   Build.SetPosition(Pos);
 

@@ -23,7 +23,7 @@
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void StdLPersistent_Document::Read(StdObjMgt_ReadData& theReadData)
+void StdLPersistent_Document::Read(ReadData& theReadData)
 {
   theReadData >> myData;
 }
@@ -32,7 +32,7 @@ void StdLPersistent_Document::Read(StdObjMgt_ReadData& theReadData)
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void StdLPersistent_Document::Write(StdObjMgt_WriteData& theWriteData) const
+void StdLPersistent_Document::Write(WriteData& theWriteData) const
 {
   theWriteData << myData;
 }

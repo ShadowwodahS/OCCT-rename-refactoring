@@ -37,7 +37,7 @@ public:
   // Translate the contents of <aSource> and put it
   // into <aTarget>, using the relocation table
   // <aRelocTable> to keep the sharings.
-  // an TObj_Object is restored by TObj_Persistence basing on class name
+  // an TObj_Object is restored by Persistence basing on class name
   // stored in Source
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)& Source,

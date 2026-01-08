@@ -17,7 +17,7 @@
 // function : Element
 // purpose  :
 //=======================================================================
-inline const XmlObjMgt_Element& XmlObjMgt_Persistent::Element() const
+inline const XmlObjMgt_Element& PersistentStorage::Element() const
 {
   return myElement;
 }
@@ -26,7 +26,7 @@ inline const XmlObjMgt_Element& XmlObjMgt_Persistent::Element() const
 // function : Element
 // purpose  :
 //=======================================================================
-inline XmlObjMgt_Element& XmlObjMgt_Persistent::Element()
+inline XmlObjMgt_Element& PersistentStorage::Element()
 {
   return myElement;
 }
@@ -36,7 +36,7 @@ inline XmlObjMgt_Element& XmlObjMgt_Persistent::Element()
 // purpose  :
 //=======================================================================
 
-inline XmlObjMgt_Persistent::operator const XmlObjMgt_Element&() const
+inline PersistentStorage::operator const XmlObjMgt_Element&() const
 {
   return myElement;
 }
@@ -46,7 +46,7 @@ inline XmlObjMgt_Persistent::operator const XmlObjMgt_Element&() const
 // purpose  :
 //=======================================================================
 
-inline XmlObjMgt_Persistent::operator XmlObjMgt_Element&()
+inline PersistentStorage::operator XmlObjMgt_Element&()
 {
   return myElement;
 }
@@ -55,7 +55,7 @@ inline XmlObjMgt_Persistent::operator XmlObjMgt_Element&()
 // function : Id
 // purpose  :
 //=======================================================================
-inline Standard_Integer XmlObjMgt_Persistent::Id() const
+inline Standard_Integer PersistentStorage::Id() const
 {
   return myID;
 }

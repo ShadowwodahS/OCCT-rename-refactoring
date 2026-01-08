@@ -82,7 +82,7 @@ Handle(Image_PixMap) Graphic3d_Texture3D::GetImage(
     Handle(Image_AlienPixMap)      anImage    = new Image_AlienPixMap();
     if (!anImage->Load(aSlicePath))
     {
-      Message::SendFail() << "Graphic3d_Texture3D::GetImage() failed to load slice " << aSlice
+      Message1::SendFail() << "Graphic3d_Texture3D::GetImage() failed to load slice " << aSlice
                           << " from '" << aSlicePath << "'";
       return Handle(Image_PixMap)();
     }
@@ -98,7 +98,7 @@ Handle(Image_PixMap) Graphic3d_Texture3D::GetImage(
             NCollection_Vec3<Standard_Size>(anImage->SizeX(), anImage->SizeY(), aNbSlices),
             anImage->SizeRowBytes()))
       {
-        Message::SendFail() << "Graphic3d_Texture3D::GetImage() failed to allocate 3D image "
+        Message1::SendFail() << "Graphic3d_Texture3D::GetImage() failed to allocate 3D image "
                             << (int)anImage->SizeX() << "x" << (int)anImage->SizeY() << "x"
                             << aNbSlices;
         return Handle(Image_PixMap)();
@@ -108,7 +108,7 @@ Handle(Image_PixMap) Graphic3d_Texture3D::GetImage(
         || anImage->SizeY() != anImage3D->SizeY()
         || anImage->SizeRowBytes() != anImage3D->SizeRowBytes())
     {
-      Message::SendFail() << "Graphic3d_Texture3D::GetImage() slice " << aSlice << " from '"
+      Message1::SendFail() << "Graphic3d_Texture3D::GetImage() slice " << aSlice << " from '"
                           << aSlicePath << "' have different dimensions";
       return Handle(Image_PixMap)();
     }

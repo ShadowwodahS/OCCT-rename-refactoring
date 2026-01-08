@@ -75,9 +75,9 @@ void CircArraySubfigureTool::ReadOwnParams(const Handle(IGESDraw_CircArraySubfig
     for (I = 1; I <= tempListCount; I++)
     {
       Standard_Integer tempPosition;
-      // st = PR.ReadInteger(PR.Current(), "Number Of Position To Process",
+      // st = PR.ReadInteger(PR.Current(), "Number Of Position1 To Process",
       // tempPosition); //szv#4:S4163:12Mar99 moved in if
-      if (PR.ReadInteger(PR.Current(), "Number Of Position To Process", tempPosition))
+      if (PR.ReadInteger(PR.Current(), "Number Of Position1 To Process", tempPosition))
         tempNumPos->SetValue(I, tempPosition);
     }
   }

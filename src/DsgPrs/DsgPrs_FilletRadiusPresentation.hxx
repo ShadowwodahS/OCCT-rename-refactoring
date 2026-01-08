@@ -30,7 +30,7 @@ class Dir3d;
 class Geom_TrimmedCurve;
 
 //! A framework for displaying radii of fillets.
-class DsgPrs_FilletRadiusPresentation
+class FilletRadiusPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

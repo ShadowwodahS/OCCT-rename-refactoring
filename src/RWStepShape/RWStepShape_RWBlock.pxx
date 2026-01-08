@@ -28,7 +28,7 @@ class StepShape_Block;
 class StepData_StepWriter;
 class Interface_EntityIterator;
 
-//! Read & Write Module for Block
+//! Read & Write Module for Block1
 class RWStepShape_RWBlock
 {
 public:

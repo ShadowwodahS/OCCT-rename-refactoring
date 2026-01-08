@@ -519,7 +519,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
   Handle(Transfer_TransientProcess) aMessageHandler = theTopoDSTool.TransientProcess();
 
   // ----------------------------------------------
-  // Map the Face Geometry and create a TopoFace
+  // Map the Face Geometry1 and create a TopoFace
   // ----------------------------------------------
   Handle(StepGeom_Surface) aStepGeomSurface = theFaceSurface->FaceGeometry();
   // sln 01.10.2001 BUC61003. If corresponding entity was read with error StepSurface may be NULL.

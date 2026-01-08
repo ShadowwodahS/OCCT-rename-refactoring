@@ -25,11 +25,11 @@
 
 //=================================================================================================
 
-ShapeExtend_Explorer::ShapeExtend_Explorer() {}
+Explorer::Explorer() {}
 
 //=================================================================================================
 
-TopoShape ShapeExtend_Explorer::CompoundFromSeq(
+TopoShape Explorer::CompoundFromSeq(
   const Handle(TopTools_HSequenceOfShape)& seqval) const
 {
   ShapeBuilder    B;
@@ -59,7 +59,7 @@ static void FillList(const Handle(TopTools_HSequenceOfShape)& list,
   }
 }
 
-Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromCompound(
+Handle(TopTools_HSequenceOfShape) Explorer::SeqFromCompound(
   const TopoShape&    comp,
   const Standard_Boolean expcomp) const
 {
@@ -77,7 +77,7 @@ Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromCompound(
 
 //=================================================================================================
 
-void ShapeExtend_Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
+void Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
                                        ShapeList&                    lisval,
                                        const Standard_Boolean                   clear) const
 {
@@ -92,7 +92,7 @@ void ShapeExtend_Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& 
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromList(
+Handle(TopTools_HSequenceOfShape) Explorer::SeqFromList(
   const ShapeList& lisval) const
 {
   Handle(TopTools_HSequenceOfShape)  seqval = new TopTools_HSequenceOfShape();
@@ -104,7 +104,7 @@ Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromList(
 
 //=================================================================================================
 
-TopAbs_ShapeEnum ShapeExtend_Explorer::ShapeType(const TopoShape&    shape,
+TopAbs_ShapeEnum Explorer::ShapeType(const TopoShape&    shape,
                                                  const Standard_Boolean compound) const
 {
   if (shape.IsNull())
@@ -140,7 +140,7 @@ TopAbs_ShapeEnum ShapeExtend_Explorer::ShapeType(const TopoShape&    shape,
 
 //=================================================================================================
 
-TopoShape ShapeExtend_Explorer::SortedCompound(const TopoShape&    shape,
+TopoShape Explorer::SortedCompound(const TopoShape&    shape,
                                                   const TopAbs_ShapeEnum type,
                                                   const Standard_Boolean explore,
                                                   const Standard_Boolean compound) const
@@ -256,7 +256,7 @@ TopoShape ShapeExtend_Explorer::SortedCompound(const TopoShape&    shape,
 
 //=================================================================================================
 
-void ShapeExtend_Explorer::DispatchList(const Handle(TopTools_HSequenceOfShape)& list,
+void Explorer::DispatchList(const Handle(TopTools_HSequenceOfShape)& list,
                                         Handle(TopTools_HSequenceOfShape)&       vertices,
                                         Handle(TopTools_HSequenceOfShape)&       edges,
                                         Handle(TopTools_HSequenceOfShape)&       wires,

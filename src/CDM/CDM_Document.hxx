@@ -214,7 +214,7 @@ public:
 
   //! Returns the first of associated comments.
   //! By default the comment is an empty string.
-  Standard_EXPORT Standard_ExtString Comment() const;
+  Standard_EXPORT Standard_ExtString Comment1() const;
 
   Standard_EXPORT Standard_Boolean IsStored() const;
 
@@ -257,7 +257,7 @@ public:
 
   Standard_EXPORT UtfString RequestedPreviousVersion() const;
 
-  //! defines the Comment with  which the object should be stored.
+  //! defines the Comment1 with  which the object should be stored.
   Standard_EXPORT void SetRequestedComment(const UtfString& aComment);
 
   Standard_EXPORT UtfString RequestedComment() const;
@@ -332,7 +332,7 @@ public:
   //! returns Boolean from Standard
   Standard_EXPORT virtual void Update();
 
-  Standard_EXPORT Handle(CDM_Reference) Reference(
+  Standard_EXPORT Handle(CDM_Reference) Reference1(
     const Standard_Integer aReferenceIdentifier) const;
 
   Standard_EXPORT void SetModifications(const Standard_Integer Modifications);

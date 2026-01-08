@@ -120,7 +120,7 @@ Handle(StdObjMgt_Persistent) StdLDrivers_DocumentRetrievalDriver::read(
   NCollection_Array1<StdObjMgt_Persistent::Instantiator> anInstantiators(1,
                                                                          aTypeData.NumberOfTypes());
   {
-    StdObjMgt_MapOfInstantiators aMapOfInst;
+    MapOfInstantiators aMapOfInst;
     bindTypes(aMapOfInst);
 
     TColStd_SequenceOfAsciiString anUnknownTypes;
@@ -171,7 +171,7 @@ Handle(StdObjMgt_Persistent) StdLDrivers_DocumentRetrievalDriver::read(
   }
 
   // Read and parse reference section
-  StdObjMgt_ReadData aReadData(aFileDriver, theHeaderData.NumberOfObjects());
+  ReadData aReadData(aFileDriver, theHeaderData.NumberOfObjects());
 
   raiseOnStorageError(aFileDriver->BeginReadRefSection());
 
@@ -229,7 +229,7 @@ Handle(StdObjMgt_Persistent) StdLDrivers_DocumentRetrievalDriver::read(
   raiseOnStorageError(aFileDriver->EndReadDataSection());
 
   // Get persistent document from the root object
-  return aReadData.PersistentObject(aRootData.Roots()->First()->Reference());
+  return aReadData.PersistentObject(aRootData.Roots()->First()->Reference1());
 }
 
 //=======================================================================
@@ -305,7 +305,7 @@ void StdLDrivers_DocumentRetrievalDriver::raiseOnStorageError(Storage_Error theE
 // function : bindTypes
 // purpose  : Register types
 //=======================================================================
-void StdLDrivers_DocumentRetrievalDriver::bindTypes(StdObjMgt_MapOfInstantiators& theMap)
+void StdLDrivers_DocumentRetrievalDriver::bindTypes(MapOfInstantiators& theMap)
 {
-  StdLDrivers::BindTypes(theMap);
+  StdLDrivers1::BindTypes(theMap);
 }

@@ -146,7 +146,7 @@ public:
   //! A non-suitable text gives a negative value to be returned
   Standard_EXPORT Standard_Integer Value(const Standard_CString txt) const;
 
-  //! Same as above but works on an AsciiString
+  //! Same as above but works on an AsciiString2
   Standard_EXPORT Standard_Integer Value(const AsciiString1& txt) const;
 
 protected:

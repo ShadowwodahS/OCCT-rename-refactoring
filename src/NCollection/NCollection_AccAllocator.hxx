@@ -72,17 +72,17 @@ public:
   // --------- PROTECTED TYPES ---------
 protected:
   //! Size value aligned to a 4 byte boundary
-  class AlignedSize
+  class AlignedSize1
   {
     Standard_Size myValue;
 
   public:
-    AlignedSize()
+    AlignedSize1()
         : myValue(0)
     {
     }
 
-    AlignedSize(const Standard_Size theValue)
+    AlignedSize1(const Standard_Size theValue)
         : myValue((theValue + Align - 1) & ~(Align - 1))
     {
     }
@@ -91,17 +91,17 @@ protected:
   };
 
   //! A pointer aligned to a 4 byte boundary
-  class AlignedPtr
+  class AlignedPtr1
   {
     Standard_Byte* myValue;
 
   public:
-    AlignedPtr()
+    AlignedPtr1()
         : myValue(0)
     {
     }
 
-    AlignedPtr(const Standard_Address theValue)
+    AlignedPtr1(const Standard_Address theValue)
         : myValue((Standard_Byte*)((Standard_Size)theValue & ~(Align - 1)))
     {
     }
@@ -110,45 +110,45 @@ protected:
 
     operator Standard_Byte*() const { return myValue; }
 
-    AlignedPtr operator-(const AlignedSize theValue) const { return myValue - theValue; }
+    AlignedPtr1 operator-(const AlignedSize1 theValue) const { return myValue - theValue; }
 
-    AlignedPtr operator+(const AlignedSize theValue) const { return myValue + theValue; }
+    AlignedPtr1 operator+(const AlignedSize1 theValue) const { return myValue + theValue; }
 
-    AlignedPtr operator-=(const AlignedSize theValue) { return myValue -= theValue; }
+    AlignedPtr1 operator-=(const AlignedSize1 theValue) { return myValue -= theValue; }
 
-    AlignedPtr operator+=(const AlignedSize theValue) { return myValue += theValue; }
+    AlignedPtr1 operator+=(const AlignedSize1 theValue) { return myValue += theValue; }
   };
 
   //! A key for the map of blocks
-  struct Key
+  struct Key1
   {
     Standard_Size Value;
   };
 
-  //! Key hasher
+  //! Key1 hasher
   class Hasher1
   {
   public:
     //! Returns hash code for the given key
     //! @param theKey the key which hash code is to be computed
     //! @return a computed hash code
-    size_t operator()(const Key theKey) const noexcept { return theKey.Value; }
+    size_t operator()(const Key1 theKey) const noexcept { return theKey.Value; }
 
-    bool operator()(const Key theKey1, const Key theKey2) const noexcept
+    bool operator()(const Key1 theKey1, const Key1 theKey2) const noexcept
     {
       return theKey1.Value == theKey2.Value;
     }
   };
 
   //! Descriptor of a block
-  struct Block
+  struct Block1
   {
     Standard_Address address;
-    AlignedPtr       allocStart;
-    Block*           prevBlock;
+    AlignedPtr1       allocStart;
+    Block1*           prevBlock;
     Standard_Integer allocCount;
 
-    Block(const Standard_Address theAddress, const Standard_Size theSize, Block* thePrevBlock = 0L)
+    Block1(const Standard_Address theAddress, const Standard_Size theSize, Block1* thePrevBlock = 0L)
         : address(theAddress),
           prevBlock(thePrevBlock),
           allocCount(0)
@@ -163,7 +163,7 @@ protected:
 
     Standard_Size FreeSize() const { return (Standard_Byte*)allocStart - (Standard_Byte*)address; }
 
-    AlignedPtr Allocate(const AlignedSize theSize)
+    AlignedPtr1 Allocate(const AlignedSize1 theSize)
     {
       allocCount++;
       return allocStart -= theSize;
@@ -177,17 +177,17 @@ protected:
   // --------- PROTECTED METHODS ---------
 protected:
   //! Calculate a key for the data map basing on the given address
-  inline Key getKey(const Standard_Address theAddress) const
+  inline Key1 getKey(const Standard_Address theAddress) const
   {
-    Key aKey = {(Standard_Size)theAddress / myBlockSize};
+    Key1 aKey = {(Standard_Size)theAddress / myBlockSize};
     return aKey;
   }
 
   //! Find a block that the given allocation unit belongs to
-  Standard_EXPORT Block* findBlock(const Standard_Address theAddress, Key& theKey);
+  Standard_EXPORT Block1* findBlock(const Standard_Address theAddress, Key1& theKey);
 
   //! Allocate a new block and return a pointer to it
-  Standard_EXPORT Block* allocateNewBlock(const Standard_Size theSize);
+  Standard_EXPORT Block1* allocateNewBlock(const Standard_Size theSize);
 
   // --------- PROHIBITED METHODS ---------
 private:
@@ -196,9 +196,9 @@ private:
 
   // --------- PROTECTED DATA ---------
 protected:
-  AlignedSize                             myBlockSize;
-  Block*                                  mypLastBlock;
-  NCollection_DataMap<Key, Block, Hasher1> myBlocks;
+  AlignedSize1                             myBlockSize;
+  Block1*                                  mypLastBlock;
+  NCollection_DataMap<Key1, Block1, Hasher1> myBlocks;
 
   // Declaration of CASCADE RTTI
 public:

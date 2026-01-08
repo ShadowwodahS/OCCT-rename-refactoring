@@ -22,7 +22,7 @@
 #include <DDF.hxx>
 #include <DDocStd.hxx>
 
-// for AIS
+// for AIS1
 
 #include <TPrsStd_AISPresentation.hxx>
 #include <TPrsStd_AISViewer.hxx>

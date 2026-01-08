@@ -133,8 +133,8 @@ Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
     gp_Circ C1 = (Handle(GeomCircle)::DownCast(TheCurve1))->Circ();
     gp_Circ C2 = (Handle(GeomCircle)::DownCast(TheCurve2))->Circ();
 
-    Ax3 A1 = C1.Position();
-    Ax3 A2 = C2.Position();
+    Ax3 A1 = C1.Position1();
+    Ax3 A2 = C2.Position1();
 
     // first, A1 & A2 must be coaxials
     if (A1.Axis().IsCoaxial(A2.Axis(), Precision::Angular(), Precision::Confusion()))

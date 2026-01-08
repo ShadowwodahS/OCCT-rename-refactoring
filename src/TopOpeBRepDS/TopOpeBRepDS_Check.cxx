@@ -117,7 +117,7 @@ Standard_Boolean TopOpeBRepDS_Check::ChkIntgInterf(const TopOpeBRepDS_ListOfInte
   {
     Handle(TopOpeBRepDS_Interference) I1 = it1.Value();
     IsOK                                 = IsOK && CheckDS(I1->Support(), I1->SupportType());
-    IsOK                                 = IsOK && CheckDS(I1->Geometry(), I1->GeometryType());
+    IsOK                                 = IsOK && CheckDS(I1->Geometry1(), I1->GeometryType());
     it1.Next();
   }
   return IsOK;
@@ -453,7 +453,7 @@ Standard_OStream& TopOpeBRepDS_Check::PrintIntg(Standard_OStream& OS)
   for (TopOpeBRepDS_DataMapIteratorOfDataMapOfCheckStatus DMI(myMapShapeStatus); DMI.More();
        DMI.Next())
   {
-    i                     = DMI.Key();
+    i                     = DMI.Key1();
     const TopoShape& S = myHDS->Shape(i);
     switch (S.ShapeType())
     {
@@ -526,7 +526,7 @@ Standard_OStream& TopOpeBRepDS_Check::PrintElts(TopOpeBRepDS_DataMapOfCheckStatu
   for (TopOpeBRepDS_DataMapIteratorOfDataMapOfCheckStatus DMI(MapStat); DMI.More(); DMI.Next())
   {
     s = DMI.Value();
-    i = DMI.Key();
+    i = DMI.Key1();
     if (s == Stat)
     {
       if (b)

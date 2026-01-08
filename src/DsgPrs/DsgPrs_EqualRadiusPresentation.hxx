@@ -28,7 +28,7 @@ class Point3d;
 class GeomPlane;
 
 //! A framework to define display of equality in radii.
-class DsgPrs_EqualRadiusPresentation
+class EqualRadiusPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

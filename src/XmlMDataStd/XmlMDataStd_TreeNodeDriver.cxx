@@ -44,7 +44,7 @@ Handle(TDF_Attribute) XmlMDataStd_TreeNodeDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataStd_TreeNodeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_TreeNodeDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -68,7 +68,7 @@ Standard_Boolean XmlMDataStd_TreeNodeDriver::Paste(const XmlObjMgt_Persistent&  
   {
     Standard_CString aChildren = Standard_CString(aChildrenStr.GetString());
     Standard_Integer aNb       = 0;
-    if (!XmlObjMgt::GetInteger(aChildren, aNb))
+    if (!XmlObjMgt1::GetInteger(aChildren, aNb))
       return Standard_False;
 
     while (aNb > 0)
@@ -91,7 +91,7 @@ Standard_Boolean XmlMDataStd_TreeNodeDriver::Paste(const XmlObjMgt_Persistent&  
       aT->Append(aTChild);
 
       // Get next child ID
-      if (!XmlObjMgt::GetInteger(aChildren, aNb))
+      if (!XmlObjMgt1::GetInteger(aChildren, aNb))
         aNb = 0;
     }
   }
@@ -101,7 +101,7 @@ Standard_Boolean XmlMDataStd_TreeNodeDriver::Paste(const XmlObjMgt_Persistent&  
 //=================================================================================================
 
 void XmlMDataStd_TreeNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(TDataStd_TreeNode) aS = Handle(TDataStd_TreeNode)::DownCast(theSource);

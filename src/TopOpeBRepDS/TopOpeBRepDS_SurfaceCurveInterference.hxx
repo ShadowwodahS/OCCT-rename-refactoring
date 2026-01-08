@@ -40,7 +40,7 @@ public:
                                                         const TopOpeBRepDS_Kind        SupportType,
                                                         const Standard_Integer         Support,
                                                         const TopOpeBRepDS_Kind        GeometryType,
-                                                        const Standard_Integer         Geometry,
+                                                        const Standard_Integer         Geometry1,
                                                         const Handle(GeomCurve2d)&    PC);
 
   Standard_EXPORT TopOpeBRepDS_SurfaceCurveInterference(const Handle(TopOpeBRepDS_Interference)& I);

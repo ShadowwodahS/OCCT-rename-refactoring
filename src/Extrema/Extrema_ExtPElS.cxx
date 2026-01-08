@@ -70,7 +70,7 @@ void PointElSurfaceExtrema::Perform(const Point3d& P, const Cylinder1& S, const 
   myNbExt = 0;
 
   // Projection of point P in plane XOY of the cylinder ...
-  Ax3        Pos = S.Position();
+  Ax3        Pos = S.Position1();
   Point3d        O   = Pos.Location();
   Vector3d        OZ(Pos.Direction());
   Standard_Real V  = Vector3d(O, P).Dot(OZ);
@@ -149,7 +149,7 @@ void PointElSurfaceExtrema::Perform(const Point3d& P, const Cone1& S, const Stan
   myNbExt = 0;
 
   Point3d        M   = S.Apex();
-  Ax3        Pos = S.Position();
+  Ax3        Pos = S.Position1();
   Point3d        O   = Pos.Location();
   Standard_Real A   = S.SemiAngle();
   Vector3d        OZ(Pos.Direction());
@@ -269,7 +269,7 @@ void PointElSurfaceExtrema::Perform(const Point3d& P, const Sphere3& S, const St
   myDone  = Standard_False;
   myNbExt = 0;
 
-  Ax3 Pos = S.Position();
+  Ax3 Pos = S.Position1();
   Vector3d OP(Pos.Location(), P);
 
   // Case when P is mixed with O ...
@@ -365,7 +365,7 @@ void PointElSurfaceExtrema::Perform(const Point3d& P, const gp_Torus& S, const S
   myNbExt                  = 0;
 
   // Projection of P in plane XOY ...
-  Ax3 Pos = S.Position();
+  Ax3 Pos = S.Position1();
   Point3d O   = Pos.Location();
   Vector3d OZ(Pos.Direction());
   Point3d Pp = P.Translated(OZ.Multiplied(-(Vector3d(O, P).Dot(Pos.Direction()))));

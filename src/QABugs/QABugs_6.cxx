@@ -25,7 +25,7 @@
 
 static Standard_Integer OCC281bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     std::cerr << "use 'vinit' command before " << argv[0] << "\n";
@@ -93,8 +93,8 @@ static Standard_Integer OCC281bug(DrawInterpreter& di, Standard_Integer argc, co
         ---Category: Enumerations
   */
 
-  Handle(ViewManager) aViewer = ViewerTest::GetViewerFromContext();
-  Handle(ViewWindow)   aView   = ViewerTest::CurrentView();
+  Handle(ViewManager) aViewer = ViewerTest1::GetViewerFromContext();
+  Handle(ViewWindow)   aView   = ViewerTest1::CurrentView();
 
   aViewer->ActivateGrid(Aspect_GT_Rectangular, Aspect_GDM_Lines);
   Handle(Graphic3d_AspectMarker3d) GridAsp =

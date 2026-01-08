@@ -694,13 +694,13 @@ void IntCurveSurface_Polyhedron::Triangle1 (const Standard_Integer Index,
 
 // General formula = (line-1)*(nbdeltaV+1)+colpnt
   
-//  Position of P1 = MesXYZ(line,colpnt);
+//  Position1 of P1 = MesXYZ(line,colpnt);
   P1= (line-1)*(nbdeltaV+1) + colpnt;
 
-//  Position of P2= MesXYZ(line+1,colpnt+((colon-1)%2));
+//  Position1 of P2= MesXYZ(line+1,colpnt+((colon-1)%2));
   P2= line*(nbdeltaV+1) + colpnt+((colon-1)%2);
 
-//  Position of P3= MesXYZ(line+(colon%2),colpnt+1);
+//  Position1 of P3= MesXYZ(line+(colon%2),colpnt+1);
   P3= (line-1+(colon%2))*(nbdeltaV+1) + colpnt + 1;
 }
 //=======================================================================

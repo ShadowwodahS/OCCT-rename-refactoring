@@ -20,14 +20,14 @@
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void StdPersistent_TopLoc::Datum3D::Read(StdObjMgt_ReadData& theReadData)
+void TopLoc::Datum3D1::Read(ReadData& theReadData)
 {
   Transform3d aTrsf;
   theReadData >> aTrsf;
   myTransient = new TopLoc_Datum3D(aTrsf);
 }
 
-void StdPersistent_TopLoc::Datum3D::Write(StdObjMgt_WriteData& theWriteData) const
+void TopLoc::Datum3D1::Write(WriteData& theWriteData) const
 {
   theWriteData << myTransient->Transformation();
 }
@@ -36,7 +36,7 @@ void StdPersistent_TopLoc::Datum3D::Write(StdObjMgt_WriteData& theWriteData) con
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void StdPersistent_TopLoc::ItemLocation::Read(StdObjMgt_ReadData& theReadData)
+void TopLoc::ItemLocation::Read(ReadData& theReadData)
 {
   theReadData >> myDatum >> myPower >> myNext;
 }
@@ -45,7 +45,7 @@ void StdPersistent_TopLoc::ItemLocation::Read(StdObjMgt_ReadData& theReadData)
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void StdPersistent_TopLoc::ItemLocation::Write(StdObjMgt_WriteData& theWriteData) const
+void TopLoc::ItemLocation::Write(WriteData& theWriteData) const
 {
   theWriteData << myDatum << myPower << myNext;
 }
@@ -54,7 +54,7 @@ void StdPersistent_TopLoc::ItemLocation::Write(StdObjMgt_WriteData& theWriteData
 // function : PChildren
 // purpose  : Gets persistent child objects
 //=======================================================================
-void StdPersistent_TopLoc::ItemLocation::PChildren(
+void TopLoc::ItemLocation::PChildren(
   StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
 {
   theChildren.Append(myDatum);
@@ -65,7 +65,7 @@ void StdPersistent_TopLoc::ItemLocation::PChildren(
 // function : Import
 // purpose  : Import transient object from the persistent data
 //=======================================================================
-TopLoc_Location StdPersistent_TopLoc::ItemLocation::Import() const
+TopLoc_Location TopLoc::ItemLocation::Import() const
 {
   TopLoc_Location aNext = myNext.Import();
   if (myDatum)
@@ -78,7 +78,7 @@ TopLoc_Location StdPersistent_TopLoc::ItemLocation::Import() const
 // function : Translate
 // purpose  : Create a persistent object from a location
 //=======================================================================
-Handle(StdPersistent_TopLoc::ItemLocation) StdPersistent_TopLoc::Translate(
+Handle(TopLoc::ItemLocation) TopLoc::Translate(
   const TopLoc_Location&            theLoc,
   StdObjMgt_TransientPersistentMap& theMap)
 {
@@ -93,18 +93,18 @@ Handle(StdPersistent_TopLoc::ItemLocation) StdPersistent_TopLoc::Translate(
 // function : Translate
 // purpose  : Create a persistent object from a location datum
 //=======================================================================
-Handle(StdPersistent_TopLoc::Datum3D) StdPersistent_TopLoc::Translate(
+Handle(TopLoc::Datum3D1) TopLoc::Translate(
   const Handle(TopLoc_Datum3D)&     theDatum,
   StdObjMgt_TransientPersistentMap& theMap)
 {
-  Handle(Datum3D) aPDatum;
+  Handle(Datum3D1) aPDatum;
   if (theMap.IsBound(theDatum))
   {
-    aPDatum = Handle(Datum3D)::DownCast(theMap.Find(theDatum));
+    aPDatum = Handle(Datum3D1)::DownCast(theMap.Find(theDatum));
   }
   else
   {
-    aPDatum = new Datum3D;
+    aPDatum = new Datum3D1;
     aPDatum->Transient(theDatum);
     theMap.Bind(theDatum, aPDatum);
   }

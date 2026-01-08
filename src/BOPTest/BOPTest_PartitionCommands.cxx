@@ -40,14 +40,14 @@ static Standard_Integer buildbop(DrawInterpreter&, Standard_Integer, const char*
 
 //=================================================================================================
 
-void BOPTest::PartitionCommands(DrawInterpreter& theCommands)
+void BOPTest1::PartitionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
   theCommands.Add("bfillds",
                   "Performs intersection of the arguments added for the operation by baddobjects "
@@ -136,7 +136,7 @@ Standard_Integer bfillds(DrawInterpreter& di, Standard_Integer n, const char** a
   Standard_Real                      aTol;
   TopTools_ListIteratorOfListOfShape aIt;
   ShapeList               aLC;
-  ShapeList&              aLS = BOPTest_Objects::Shapes();
+  ShapeList&              aLS = Objects::Shapes();
   aNbS                                   = aLS.Extent();
   if (!aNbS)
   {
@@ -146,10 +146,10 @@ Standard_Integer bfillds(DrawInterpreter& di, Standard_Integer n, const char** a
   //
   bShowTime = Standard_False;
   //
-  bRunParallel           = BOPTest_Objects::RunParallel();
-  bNonDestructive        = BOPTest_Objects::NonDestructive();
-  aTol                   = BOPTest_Objects::FuzzyValue();
-  BOPAlgo_GlueEnum aGlue = BOPTest_Objects::Glue();
+  bRunParallel           = Objects::RunParallel();
+  bNonDestructive        = Objects::NonDestructive();
+  aTol                   = Objects::FuzzyValue();
+  BOPAlgo_GlueEnum aGlue = Objects::Glue();
   //
   if (n == 2)
   {
@@ -163,7 +163,7 @@ Standard_Integer bfillds(DrawInterpreter& di, Standard_Integer n, const char** a
     }
   }
   //
-  ShapeList& aLT = BOPTest_Objects::Tools();
+  ShapeList& aLT = Objects::Tools();
   //
   aIt.Initialize(aLS);
   for (; aIt.More(); aIt.Next())
@@ -179,21 +179,21 @@ Standard_Integer bfillds(DrawInterpreter& di, Standard_Integer n, const char** a
     aLC.Append(aS);
   }
   //
-  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = Objects::PaveFiller();
   //
   aPF.SetArguments(aLC);
   aPF.SetRunParallel(bRunParallel);
   aPF.SetNonDestructive(bNonDestructive);
   aPF.SetFuzzyValue(aTol);
   aPF.SetGlue(aGlue);
-  aPF.SetUseOBB(BOPTest_Objects::UseOBB());
+  aPF.SetUseOBB(Objects::UseOBB());
   //
   OSD_Timer aTimer;
   aTimer.Start();
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aPF.Perform(aProgress->Start());
-  BOPTest::ReportAlerts(aPF.GetReport());
+  BOPTest1::ReportAlerts(aPF.GetReport());
   if (aPF.HasErrors())
   {
     return 0;
@@ -220,7 +220,7 @@ Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << "Prepare PaveFiller first\n";
@@ -232,13 +232,13 @@ Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
 
   TopTools_ListIteratorOfListOfShape aIt;
   //
-  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = Objects::PaveFiller();
   //
-  BOPTest_Objects::SetBuilderDefault();
-  BOPAlgo_Builder& aBuilder = BOPTest_Objects::Builder();
+  Objects::SetBuilderDefault();
+  BOPAlgo_Builder& aBuilder = Objects::Builder();
   aBuilder.Clear();
   //
-  ShapeList& aLSObj = BOPTest_Objects::Shapes();
+  ShapeList& aLSObj = Objects::Shapes();
   aIt.Initialize(aLSObj);
   for (; aIt.More(); aIt.Next())
   {
@@ -246,7 +246,7 @@ Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
     aBuilder.AddArgument(aS);
   }
   //
-  ShapeList& aLSTool = BOPTest_Objects::Tools();
+  ShapeList& aLSTool = Objects::Tools();
   aIt.Initialize(aLSTool);
   for (; aIt.More(); aIt.Next())
   {
@@ -255,7 +255,7 @@ Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
   }
   //
   bShowTime    = Standard_False;
-  bRunParallel = BOPTest_Objects::RunParallel();
+  bRunParallel = Objects::RunParallel();
   if (n == 3)
   {
     if (!strcmp(a[2], "-t"))
@@ -268,8 +268,8 @@ Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
     }
   }
   aBuilder.SetRunParallel(bRunParallel);
-  aBuilder.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aBuilder.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aBuilder.SetCheckInverted(Objects::CheckInverted());
+  aBuilder.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   //
@@ -277,11 +277,11 @@ Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
   aTimer.Start();
   //
   aBuilder.PerformWithFiller(aPF, aProgress->Start());
-  BOPTest::ReportAlerts(aBuilder.GetReport());
+  BOPTest1::ReportAlerts(aBuilder.GetReport());
 
   // Set history of GF operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aPF.Arguments(), aBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aPF.Arguments(), aBuilder);
 
   if (aBuilder.HasErrors())
   {
@@ -317,14 +317,14 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << "Prepare PaveFiller first\n";
     return 0;
   }
   //
-  BOPAlgo_Operation anOp = BOPTest::GetOperationType(a[2]);
+  BOPAlgo_Operation anOp = BOPTest1::GetOperationType(a[2]);
   if (anOp == BOPAlgo_UNKNOWN)
   {
     di << "Invalid operation type\n";
@@ -332,7 +332,7 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
   }
 
   Standard_Boolean bShowTime    = Standard_False;
-  Standard_Boolean bRunParallel = BOPTest_Objects::RunParallel();
+  Standard_Boolean bRunParallel = Objects::RunParallel();
   if (n == 4)
   {
     if (!strcmp(a[3], "-t"))
@@ -345,22 +345,22 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
     }
   }
   //
-  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = Objects::PaveFiller();
   //
   BOPAlgo_Builder* pBuilder = NULL;
 
   if (anOp != BOPAlgo_SECTION)
   {
-    pBuilder = &BOPTest_Objects::BOP();
+    pBuilder = &Objects::BOP();
   }
   else
   {
-    pBuilder = &BOPTest_Objects::Section();
+    pBuilder = &Objects::Section();
   }
   //
   pBuilder->Clear();
   //
-  ShapeList&              aLSObj = BOPTest_Objects::Shapes();
+  ShapeList&              aLSObj = Objects::Shapes();
   TopTools_ListIteratorOfListOfShape aIt(aLSObj);
   for (; aIt.More(); aIt.Next())
   {
@@ -372,7 +372,7 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
   {
     BOPAlgo_BOP* pBOP = (BOPAlgo_BOP*)pBuilder;
     //
-    ShapeList& aLSTools = BOPTest_Objects::Tools();
+    ShapeList& aLSTools = Objects::Tools();
     aIt.Initialize(aLSTools);
     for (; aIt.More(); aIt.Next())
     {
@@ -384,7 +384,7 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
   }
   else
   {
-    ShapeList& aLSTools = BOPTest_Objects::Tools();
+    ShapeList& aLSTools = Objects::Tools();
     aIt.Initialize(aLSTools);
     for (; aIt.More(); aIt.Next())
     {
@@ -394,8 +394,8 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
   }
   //
   pBuilder->SetRunParallel(bRunParallel);
-  pBuilder->SetCheckInverted(BOPTest_Objects::CheckInverted());
-  pBuilder->SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  pBuilder->SetCheckInverted(Objects::CheckInverted());
+  pBuilder->SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   //
@@ -403,11 +403,11 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
   aTimer.Start();
   //
   pBuilder->PerformWithFiller(aPF, aProgress->Start());
-  BOPTest::ReportAlerts(pBuilder->GetReport());
+  BOPTest1::ReportAlerts(pBuilder->GetReport());
 
   // Set history of Boolean operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aPF.Arguments(), *pBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aPF.Arguments(), *pBuilder);
 
   if (pBuilder->HasErrors())
   {
@@ -430,7 +430,7 @@ Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 0;
   }
   //
-  BOPTest_Objects::SetBuilder(pBuilder);
+  Objects::SetBuilder(pBuilder);
   //
   DBRep1::Set(a[1], aR);
   return 0;
@@ -446,32 +446,32 @@ Standard_Integer bsplit(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << "Prepare PaveFiller first\n";
     return 0;
   }
   //
-  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = Objects::PaveFiller();
   //
-  BOPAlgo_Splitter* pSplitter = &BOPTest_Objects::Splitter();
+  BOPAlgo_Splitter* pSplitter = &Objects::Splitter();
   pSplitter->Clear();
   //
   // set objects
-  const ShapeList& aLSObjects = BOPTest_Objects::Shapes();
+  const ShapeList& aLSObjects = Objects::Shapes();
   pSplitter->SetArguments(aLSObjects);
   //
   // set tools
-  ShapeList& aLSTools = BOPTest_Objects::Tools();
+  ShapeList& aLSTools = Objects::Tools();
   pSplitter->SetTools(aLSTools);
   //
   // set options
-  pSplitter->SetRunParallel(BOPTest_Objects::RunParallel());
-  pSplitter->SetNonDestructive(BOPTest_Objects::NonDestructive());
-  pSplitter->SetFuzzyValue(BOPTest_Objects::FuzzyValue());
-  pSplitter->SetCheckInverted(BOPTest_Objects::CheckInverted());
-  pSplitter->SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  pSplitter->SetRunParallel(Objects::RunParallel());
+  pSplitter->SetNonDestructive(Objects::NonDestructive());
+  pSplitter->SetFuzzyValue(Objects::FuzzyValue());
+  pSplitter->SetCheckInverted(Objects::CheckInverted());
+  pSplitter->SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   // measure the time of the operation
   OSD_Timer aTimer;
@@ -482,11 +482,11 @@ Standard_Integer bsplit(DrawInterpreter& di, Standard_Integer n, const char** a)
   pSplitter->PerformWithFiller(aPF, aProgress->Start());
   //
   aTimer.Stop();
-  BOPTest::ReportAlerts(pSplitter->GetReport());
+  BOPTest1::ReportAlerts(pSplitter->GetReport());
 
   // Set history of Split operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aPF.Arguments(), *pSplitter);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aPF.Arguments(), *pSplitter);
 
   if (pSplitter->HasErrors())
   {
@@ -509,7 +509,7 @@ Standard_Integer bsplit(DrawInterpreter& di, Standard_Integer n, const char** a)
   }
   //
   // Debug commands support
-  BOPTest_Objects::SetBuilder(pSplitter);
+  Objects::SetBuilder(pSplitter);
   //
   const TopoShape& aR = pSplitter->Shape();
   if (aR.IsNull())
@@ -532,14 +532,14 @@ Standard_Integer buildbop(DrawInterpreter& di, Standard_Integer n, const char** 
     return 1;
   }
 
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << "Error: perform intersection of arguments first";
     return 1;
   }
 
-  BOPAlgo_Builder* pBuilder = &BOPTest_Objects::Builder();
+  BOPAlgo_Builder* pBuilder = &Objects::Builder();
   if (pBuilder->HasErrors())
   {
     di << "Error: there were problems during GF";
@@ -653,7 +653,7 @@ Standard_Integer buildbop(DrawInterpreter& di, Standard_Integer n, const char** 
   pBuilder->BuildBOP(aLObjects, aLTools, anOp, aProgress->Start(), aReport);
 
   // Report alerts of the operation
-  BOPTest::ReportAlerts(aReport);
+  BOPTest1::ReportAlerts(aReport);
 
   if (!aReport->GetAlerts(Message_Fail).IsEmpty())
   {
@@ -661,8 +661,8 @@ Standard_Integer buildbop(DrawInterpreter& di, Standard_Integer n, const char** 
   }
 
   // Set history of Split operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(pDS->Arguments(), *pBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(pDS->Arguments(), *pBuilder);
 
   // Result shape
   const TopoShape& aR = pBuilder->Shape();

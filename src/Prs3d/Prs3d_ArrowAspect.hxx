@@ -53,7 +53,7 @@ public:
   //! Turns usage of arrow zoomable on/off
   void SetZoomable(bool theIsZoomable) { myIsZoomable = theIsZoomable; }
 
-  //! Returns TRUE when the Arrow Zoomable is on; TRUE by default.
+  //! Returns TRUE when the Arrow2 Zoomable is on; TRUE by default.
   bool IsZoomable() const { return myIsZoomable; }
 
   void SetColor(const Quantity_Color& theColor) { myArrowAspect->SetColor(theColor); }

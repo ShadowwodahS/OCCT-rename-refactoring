@@ -88,7 +88,7 @@ bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument
 
   if (theRootLabels.IsEmpty() || (theLabelFilter != NULL && theLabelFilter->IsEmpty()))
   {
-    Message::SendFail("Nothing to export into PLY file");
+    Message1::SendFail("Nothing to export into PLY file");
     return false;
   }
 
@@ -121,7 +121,7 @@ bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument
   }
   if (aNbNodesAll == 0)
   {
-    Message::SendFail("No mesh data to save");
+    Message1::SendFail("No mesh data to save");
     return false;
   }
 
@@ -177,7 +177,7 @@ bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument
   const bool isClosed = aPlyCtx.Close();
   if (isDone && !isClosed)
   {
-    Message::SendFail(AsciiString1("Failed to write PLY file\n") + myFile);
+    Message1::SendFail(AsciiString1("Failed to write PLY file\n") + myFile);
     return false;
   }
   return isDone && !aPSentry.IsAborted();

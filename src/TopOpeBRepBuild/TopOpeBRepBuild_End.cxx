@@ -368,7 +368,7 @@ void TopOpeBRepBuild_Builder::UpdateSplitAndMerged(const TopTools_DataMapOfInteg
   TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeListOfShapeOn1State it;
   for (it.Initialize(MapSplit); it.More(); it.Next())
   {
-    const TopoShape& e = it.Key();
+    const TopoShape& e = it.Key1();
 
     // For each edge of the MapSplit
     if (e.ShapeType() == TopAbs_EDGE)
@@ -390,7 +390,7 @@ void TopOpeBRepBuild_Builder::UpdateSplitAndMerged(const TopTools_DataMapOfInteg
         Standard_Boolean Found = Standard_False;
         while (itLstEdg.More() && !Found)
         {
-          const Standard_Integer&     iLst    = itLstEdg.Key();
+          const Standard_Integer&     iLst    = itLstEdg.Key1();
           const ShapeList& LmapEdg = mle.Find(iLst);
 
           // look for each edge of the list if it is in the map Split

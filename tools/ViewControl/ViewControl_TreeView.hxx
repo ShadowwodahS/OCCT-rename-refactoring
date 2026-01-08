@@ -26,7 +26,7 @@
 class QWidget;
 
 //! \class ViewControl_TreeView
-//! Extended tree view control with possibility to set predefined size.
+//! Extended1 tree view control with possibility to set predefined size.
 class ViewControl_TreeView : public QTreeView
 {
 public:

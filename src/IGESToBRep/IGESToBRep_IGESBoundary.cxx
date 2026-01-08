@@ -322,13 +322,13 @@ void IGESToBRep_IGESBoundary::ReverseCurves3d(const Handle(ShapeExtend_WireData)
     Standard_Real      p1, p2;
     Handle(GeomCurve3d) curve = BRepInspector::Curve(oldedge, L, p1, p2);
     if (curve->IsPeriodic()) // #21
-      ShapeBuild_Edge().MakeEdge(newedge,
+      Edge2().MakeEdge(newedge,
                                  curve->Reversed(),
                                  L,
                                  curve->ReversedParameter(p2),
                                  curve->ReversedParameter(p1));
     else
-      ShapeBuild_Edge().MakeEdge(
+      Edge2().MakeEdge(
         newedge,
         curve->Reversed(),
         L,
@@ -363,13 +363,13 @@ void IGESToBRep_IGESBoundary::ReverseCurves2d(const Handle(ShapeExtend_WireData)
 
     // skl 24.04.2002 for OCC314
     if (curve->IsPeriodic())
-      ShapeBuild_Edge().MakeEdge(newedge,
+      Edge2().MakeEdge(newedge,
                                  curve->Reversed(),
                                  face,
                                  curve->ReversedParameter(p2),
                                  curve->ReversedParameter(p1));
     else
-      ShapeBuild_Edge().MakeEdge(
+      Edge2().MakeEdge(
         newedge,
         curve->Reversed(),
         face,

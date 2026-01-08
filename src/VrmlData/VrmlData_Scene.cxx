@@ -640,7 +640,7 @@ void VrmlData_Scene::createShape(TopoShape&                      outShape,
       Handle(VrmlData_ShapeNode)::DownCast(anIter.Value());
     if (aNodeShape.IsNull() == Standard_False)
     {
-      const Handle(VrmlData_Geometry) aNodeGeom = aNodeShape->Geometry();
+      const Handle(VrmlData_Geometry) aNodeGeom = aNodeShape->Geometry1();
       if (aNodeGeom.IsNull() == Standard_False)
       {
         if (aSingleShape.IsNull() == Standard_False)
@@ -1157,7 +1157,7 @@ void dumpNode(Standard_OStream&              theStream,
     if (theIndent.IsEmpty() == Standard_False)
     {
       dumpNode(theStream, aShape->Appearance(), aNewIndent);
-      dumpNode(theStream, aShape->Geometry(), aNewIndent);
+      dumpNode(theStream, aShape->Geometry1(), aNewIndent);
     }
   }
   else if (theNode->IsKind(STANDARD_TYPE(VrmlData_Box)))

@@ -32,14 +32,14 @@ public:
   // Creates a new attribute
 
   Standard_EXPORT Standard_Boolean
-    Paste(const XmlObjMgt_Persistent&  theSource,
+    Paste(const PersistentStorage&  theSource,
           const Handle(TDF_Attribute)& theTarget,
           XmlObjMgt_RRelocationTable&  theRelocTable) const Standard_OVERRIDE;
   // Translate the contents of <theSource> and put it
   // into <theTarget>
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)& theSource,
-                             XmlObjMgt_Persistent&        theTarget,
+                             PersistentStorage&        theTarget,
                              XmlObjMgt_SRelocationTable&  theRelocTable) const Standard_OVERRIDE;
   // Translate the contents of <aSource> and put it
   // into <aTarget>

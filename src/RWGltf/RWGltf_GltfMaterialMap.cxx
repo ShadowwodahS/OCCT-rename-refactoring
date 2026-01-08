@@ -120,14 +120,14 @@ void RWGltf_GltfMaterialMap::addImage(GltfBinaryWriter*    theWriter,
 
   if (!theIsStarted)
   {
-    theWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Images));
+    theWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Images));
     theWriter->StartArray();
     theIsStarted = true;
   }
 
   theWriter->StartObject();
   {
-    theWriter->Key("uri");
+    theWriter->Key1("uri");
     theWriter->String(aTextureUri.ToCString());
   }
   theWriter->EndObject();
@@ -195,11 +195,11 @@ void RWGltf_GltfMaterialMap::FlushGlbBufferViews(GltfBinaryWriter* theWriter,
 
     aBuffView.Id = theBuffViewId++;
     theWriter->StartObject();
-    theWriter->Key("buffer");
+    theWriter->Key1("buffer");
     theWriter->Int(theBinDataBufferId);
-    theWriter->Key("byteLength");
+    theWriter->Key1("byteLength");
     theWriter->Int64(aBuffView.ByteLength);
-    theWriter->Key("byteOffset");
+    theWriter->Key1("byteOffset");
     theWriter->Int64(aBuffView.ByteOffset);
     theWriter->EndObject();
   }
@@ -221,7 +221,7 @@ void RWGltf_GltfMaterialMap::FlushGlbImages(GltfBinaryWriter* theWriter)
        aBufViewIter.More();
        aBufViewIter.Next())
   {
-    const Handle(Image_Texture)& aTexture  = aBufViewIter.Key();
+    const Handle(Image_Texture)& aTexture  = aBufViewIter.Key1();
     const GltfBufferView& aBuffView = aBufViewIter.Value();
     if (aBuffView.ByteLength <= 0)
     {
@@ -230,7 +230,7 @@ void RWGltf_GltfMaterialMap::FlushGlbImages(GltfBinaryWriter* theWriter)
 
     if (!isStarted)
     {
-      theWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Images));
+      theWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Images));
       theWriter->StartArray();
       isStarted = true;
     }
@@ -240,13 +240,13 @@ void RWGltf_GltfMaterialMap::FlushGlbImages(GltfBinaryWriter* theWriter)
       const AsciiString1 anImageFormat = aTexture->MimeType();
       if (anImageFormat != "image/png" && anImageFormat != "image/jpeg")
       {
-        Message::SendWarning(AsciiString1("Warning! Non-standard mime-type ")
+        Message1::SendWarning(AsciiString1("Warning! Non-standard mime-type ")
                              + anImageFormat + " (texture " + aTexture->TextureId()
                              + ") within glTF file");
       }
-      theWriter->Key("mimeType");
+      theWriter->Key1("mimeType");
       theWriter->String(anImageFormat.ToCString());
-      theWriter->Key("bufferView");
+      theWriter->Key1("bufferView");
       theWriter->Int(aBuffView.Id);
     }
     theWriter->EndObject();
@@ -276,7 +276,7 @@ void RWGltf_GltfMaterialMap::AddMaterial(GltfBinaryWriter* theWriter,
 
   if (!theIsStarted)
   {
-    theWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Materials));
+    theWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Materials));
     theWriter->StartArray();
     theIsStarted = true;
   }
@@ -327,16 +327,16 @@ void RWGltf_GltfMaterialMap::addTexture(GltfBinaryWriter*    theWriter,
 
   if (!theIsStarted)
   {
-    theWriter->Key(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Textures));
+    theWriter->Key1(RWGltf_GltfRootElementName(RWGltf_GltfRootElement_Textures));
     theWriter->StartArray();
     theIsStarted = true;
   }
 
   theWriter->StartObject();
   {
-    theWriter->Key("sampler");
+    theWriter->Key1("sampler");
     theWriter->Int(myDefSamplerId); // mandatory field by specs
-    theWriter->Key("source");
+    theWriter->Key1("source");
     theWriter->Int(anImgKey);
   }
   theWriter->EndObject();
@@ -393,13 +393,13 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
   }
   myWriter->StartObject();
   {
-    myWriter->Key("name");
+    myWriter->Key1("name");
     myWriter->String(theName.ToCString());
 
-    myWriter->Key("pbrMetallicRoughness");
+    myWriter->Key1("pbrMetallicRoughness");
     myWriter->StartObject();
     {
-      myWriter->Key("baseColorFactor");
+      myWriter->Key1("baseColorFactor");
       myWriter->StartArray();
       {
         myWriter->Double(aPbrMat.BaseColor.GetRGB().Red());
@@ -414,10 +414,10 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
         const Standard_Integer aBaseImageIdx = myImageMap.FindIndex(aBaseTexture) - 1;
         if (aBaseImageIdx != -1)
         {
-          myWriter->Key("baseColorTexture");
+          myWriter->Key1("baseColorTexture");
           myWriter->StartObject();
           {
-            myWriter->Key("index");
+            myWriter->Key1("index");
             myWriter->Int(aBaseImageIdx);
           }
           myWriter->EndObject();
@@ -426,7 +426,7 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
 
       if (hasMaterial || aPbrMat.Metallic != 1.0f)
       {
-        myWriter->Key("metallicFactor");
+        myWriter->Key1("metallicFactor");
         myWriter->Double(aPbrMat.Metallic);
       }
 
@@ -436,10 +436,10 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
           : -1;
       if (aMetRoughImageIdx != -1)
       {
-        myWriter->Key("metallicRoughnessTexture");
+        myWriter->Key1("metallicRoughnessTexture");
         myWriter->StartObject();
         {
-          myWriter->Key("index");
+          myWriter->Key1("index");
           myWriter->Int(aMetRoughImageIdx);
         }
         myWriter->EndObject();
@@ -447,7 +447,7 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
 
       if (hasMaterial || aPbrMat.Roughness != 1.0f)
       {
-        myWriter->Key("roughnessFactor");
+        myWriter->Key1("roughnessFactor");
         myWriter->Double(aPbrMat.Roughness);
       }
     }
@@ -464,7 +464,7 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
              == Graphic3d_TypeOfBackfacingModel_FrontCulled) // front culling flag cannot be
                                                              // exported to glTF
     {
-      myWriter->Key("doubleSided");
+      myWriter->Key1("doubleSided");
       myWriter->Bool(true);
     }
 
@@ -476,7 +476,7 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
       case Graphic3d_AlphaMode_BlendAuto: {
         if (aPbrMat.BaseColor.Alpha() < 1.0f)
         {
-          myWriter->Key("alphaMode");
+          myWriter->Key1("alphaMode");
           myWriter->String("BLEND");
         }
         break;
@@ -485,26 +485,26 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
         break;
       }
       case Graphic3d_AlphaMode_Mask: {
-        myWriter->Key("alphaMode");
+        myWriter->Key1("alphaMode");
         myWriter->String("MASK");
         break;
       }
       case Graphic3d_AlphaMode_Blend:
       case Graphic3d_AlphaMode_MaskBlend: {
-        myWriter->Key("alphaMode");
+        myWriter->Key1("alphaMode");
         myWriter->String("BLEND");
         break;
       }
     }
     if (!theStyle.Material().IsNull() && theStyle.Material()->AlphaCutOff() != 0.5f)
     {
-      myWriter->Key("alphaCutoff");
+      myWriter->Key1("alphaCutoff");
       myWriter->Double(theStyle.Material()->AlphaCutOff());
     }
 
     if (aPbrMat.EmissiveFactor != Graphic3d_Vec3(0.0f, 0.0f, 0.0f))
     {
-      myWriter->Key("emissiveFactor");
+      myWriter->Key1("emissiveFactor");
       myWriter->StartArray();
       {
         myWriter->Double(aPbrMat.EmissiveFactor.r());
@@ -518,10 +518,10 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
       !aPbrMat.EmissiveTexture.IsNull() ? myImageMap.FindIndex(aPbrMat.EmissiveTexture) - 1 : -1;
     if (anEmissImageIdx != -1)
     {
-      myWriter->Key("emissiveTexture");
+      myWriter->Key1("emissiveTexture");
       myWriter->StartObject();
       {
-        myWriter->Key("index");
+        myWriter->Key1("index");
         myWriter->Int(anEmissImageIdx);
       }
       myWriter->EndObject();
@@ -531,10 +531,10 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
       !aPbrMat.NormalTexture.IsNull() ? myImageMap.FindIndex(aPbrMat.NormalTexture) - 1 : -1;
     if (aNormImageIdx != -1)
     {
-      myWriter->Key("normalTexture");
+      myWriter->Key1("normalTexture");
       myWriter->StartObject();
       {
-        myWriter->Key("index");
+        myWriter->Key1("index");
         myWriter->Int(aNormImageIdx);
       }
       myWriter->EndObject();
@@ -544,10 +544,10 @@ void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
       !aPbrMat.OcclusionTexture.IsNull() ? myImageMap.FindIndex(aPbrMat.OcclusionTexture) - 1 : -1;
     if (anOcclusImageIdx != -1)
     {
-      myWriter->Key("occlusionTexture");
+      myWriter->Key1("occlusionTexture");
       myWriter->StartObject();
       {
-        myWriter->Key("index");
+        myWriter->Key1("index");
         myWriter->Int(anOcclusImageIdx);
       }
       myWriter->EndObject();

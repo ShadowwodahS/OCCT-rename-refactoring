@@ -29,11 +29,11 @@
 #include <AppParCurves_HArray1OfConstraintCouple.hxx>
 class Standard_OutOfRange;
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class AppParCurves_MultiCurve;
 class math_Matrix;
 
-class BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox
+class ResConstraintOfMyGradientbisOfTheComputeLineOfApprox
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -48,7 +48,7 @@ public:
   //! and DA is the derivative bernstein matrix.(They can come
   //! from an approximation with ParLeastSquare.)
   //! The MultiCurve is modified. New MultiPoles are given.
-  Standard_EXPORT BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox(
+  Standard_EXPORT ResConstraintOfMyGradientbisOfTheComputeLineOfApprox(
     const BRepApprox_TheMultiLineOfApprox&                SSP,
     AppParCurves_MultiCurve&                              SCurv,
     const Standard_Integer                                FirstPoint,

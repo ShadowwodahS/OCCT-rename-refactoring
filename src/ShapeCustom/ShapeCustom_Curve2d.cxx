@@ -47,7 +47,7 @@ static gp_Lin2d GetLine(const gp_Pnt2d&     P1,
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_Curve2d::IsLinear(const TColgp_Array1OfPnt2d& thePoles,
+Standard_Boolean ShapeCustomCurve2d::IsLinear(const TColgp_Array1OfPnt2d& thePoles,
                                                const Standard_Real         tolerance,
                                                Standard_Real&              Deviation)
 {
@@ -96,7 +96,7 @@ Standard_Boolean ShapeCustom_Curve2d::IsLinear(const TColgp_Array1OfPnt2d& thePo
 
 //=================================================================================================
 
-Handle(Geom2d_Line) ShapeCustom_Curve2d::ConvertToLine2d(const Handle(GeomCurve2d)& theCurve,
+Handle(Geom2d_Line) ShapeCustomCurve2d::ConvertToLine2d(const Handle(GeomCurve2d)& theCurve,
                                                          const Standard_Real         c1,
                                                          const Standard_Real         c2,
                                                          const Standard_Real         theTolerance,
@@ -117,7 +117,7 @@ Handle(Geom2d_Line) ShapeCustom_Curve2d::ConvertToLine2d(const Handle(GeomCurve2
     Standard_Integer     nbPoles = bsc->NbPoles();
     TColgp_Array1OfPnt2d Poles(1, nbPoles);
     bsc->Poles(Poles);
-    if (!ShapeCustom_Curve2d::IsLinear(Poles, theTolerance, theDeviation))
+    if (!ShapeCustomCurve2d::IsLinear(Poles, theTolerance, theDeviation))
       return aLine2d; // non
     gp_Lin2d alin = GetLine(P1, P2, c1, cf, cl);
     aLine2d       = new Geom2d_Line(alin);
@@ -130,7 +130,7 @@ Handle(Geom2d_Line) ShapeCustom_Curve2d::ConvertToLine2d(const Handle(GeomCurve2
     Standard_Integer     nbPoles = bzc->NbPoles();
     TColgp_Array1OfPnt2d Poles(1, nbPoles);
     bzc->Poles(Poles);
-    if (!ShapeCustom_Curve2d::IsLinear(Poles, theTolerance, theDeviation))
+    if (!ShapeCustomCurve2d::IsLinear(Poles, theTolerance, theDeviation))
       return aLine2d; // non
     gp_Lin2d alin = GetLine(P1, P2, c1, cf, cl);
     aLine2d       = new Geom2d_Line(alin);
@@ -142,7 +142,7 @@ Handle(Geom2d_Line) ShapeCustom_Curve2d::ConvertToLine2d(const Handle(GeomCurve2
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_Curve2d::SimplifyBSpline2d(Handle(Geom2d_BSplineCurve)& theBSpline2d,
+Standard_Boolean ShapeCustomCurve2d::SimplifyBSpline2d(Handle(Geom2d_BSplineCurve)& theBSpline2d,
                                                         const Standard_Real          theTolerance)
 {
   Standard_Integer aInitNbK;

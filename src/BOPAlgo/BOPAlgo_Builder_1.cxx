@@ -44,7 +44,7 @@ void BOPAlgo_Builder::FillImagesVertices(const Message_ProgressRange& theRange)
     {
       return;
     }
-    Standard_Integer nV   = aIt.Key();
+    Standard_Integer nV   = aIt.Key1();
     Standard_Integer nVSD = aIt.Value();
 
     const TopoShape& aV   = myDS->Shape(nV);

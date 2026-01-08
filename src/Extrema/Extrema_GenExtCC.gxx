@@ -99,7 +99,7 @@ static void ChangeIntervals(Handle(TColStd_HArray1OfReal)& theInts, const Standa
   }
   theInts = aNewInts;
 }
-class Extrema_CCPointsInspector : public NCollection_CellFilter_InspectorXY
+class Extrema_CCPointsInspector : public CellInspectorXY
 {
 public:
   typedef Coords2d Target;

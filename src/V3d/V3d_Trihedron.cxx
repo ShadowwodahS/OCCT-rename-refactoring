@@ -343,7 +343,7 @@ void V3d_Trihedron::compute()
       }
 
       Handle(Graphic3d_ArrayOfTriangles) aTriangles =
-        Prs3d_Arrow::DrawShaded(anAxes[anIter],
+        Arrow1::DrawShaded(anAxes[anIter],
                                 myIsWireframe ? 0.0 : aCylinderRadius,
                                 aCylinderLength + aConeLength,
                                 aConeRadius,
@@ -362,7 +362,7 @@ void V3d_Trihedron::compute()
                                            Point3d(-2.0 * aRayon, 0.5 * aRayon, aScale + 3.0 * aRayon)};
     for (Standard_Integer anAxisIter = 0; anAxisIter < 3; ++anAxisIter)
     {
-      Prs3d_Text::Draw1(aLabelGroup,
+      Text::Draw1(aLabelGroup,
                        myTextAspects[anAxisIter],
                        myLabels[anAxisIter],
                        aPoints[anAxisIter]);

@@ -64,13 +64,13 @@ bool DEOBJ_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DEOBJ_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEOBJ_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEOBJ_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEOBJ_ConfigurationNode during reading the file "
+    Message1::SendFail() << "Error in the DEOBJ_ConfigurationNode during reading the file "
                         << thePath << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -86,7 +86,7 @@ bool DEOBJ_Provider::Read(const AsciiString1&  thePath,
   aReader.SetMemoryLimitMiB(aNode->InternalParameters.ReadMemoryLimitMiB);
   if (!aReader.Perform(thePath, theProgress))
   {
-    Message::SendFail() << "Error in the DEOBJ_ConfigurationNode during reading the file "
+    Message1::SendFail() << "Error in the DEOBJ_ConfigurationNode during reading the file "
                         << thePath;
     return false;
   }
@@ -104,7 +104,7 @@ bool DEOBJ_Provider::Write(const AsciiString1&  thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEOBJ_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEOBJ_ConfigurationNode during writing the file "
+    Message1::SendFail() << "Error in the DEOBJ_ConfigurationNode during writing the file "
                         << thePath << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -131,7 +131,7 @@ bool DEOBJ_Provider::Write(const AsciiString1&  thePath,
   else
   {
     aConverter.SetInputLengthUnit(aNode->GlobalParameters.SystemUnit / 1000.);
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEOBJ_Provider during writing the file " << thePath
       << "\t: The document has no information on Units. Using global parameter as initial Unit.";
   }
@@ -143,7 +143,7 @@ bool DEOBJ_Provider::Write(const AsciiString1&  thePath,
   aWriter.SetCoordinateSystemConverter(aConverter);
   if (!aWriter.Perform(theDocument, aFileInfo, theProgress))
   {
-    Message::SendFail() << "Error in the DEOBJ_ConfigurationNode during writing the file "
+    Message1::SendFail() << "Error in the DEOBJ_ConfigurationNode during writing the file "
                         << thePath;
     return false;
   }
@@ -180,7 +180,7 @@ bool DEOBJ_Provider::Read(const AsciiString1& thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEOBJ_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEOBJ_ConfigurationNode during writing the file "
+    Message1::SendFail() << "Error in the DEOBJ_ConfigurationNode during writing the file "
                         << thePath << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -199,7 +199,7 @@ bool DEOBJ_Provider::Read(const AsciiString1& thePath,
   aSimpleReader.SetMemoryLimit(aNode->InternalParameters.ReadMemoryLimitMiB);
   if (!aSimpleReader.Read(thePath, theProgress))
   {
-    Message::SendFail() << "Error in the DEOBJ_ConfigurationNode during reading the file "
+    Message1::SendFail() << "Error in the DEOBJ_ConfigurationNode during reading the file "
                         << thePath;
     return false;
   }

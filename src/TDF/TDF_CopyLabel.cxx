@@ -78,7 +78,7 @@ void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
     //     "<<entr1 <<std::endl;
     for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
     {
-      const Handle(TDF_Attribute)& att = attMItr.Key();
+      const Handle(TDF_Attribute)& att = attMItr.Key1();
 
       //       Tool3::Entry(att->Label(), entr1);
       //       std::cout<<"\t\tReferences attribute dynamic type = "<<att->DynamicType()<<" Label =
@@ -95,15 +95,15 @@ void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
 
     //     const TDF_LabelMap& labMap = ds->Labels();
     //     for (TDF_MapIteratorOfLabelMap labMItr(labMap);labMItr.More(); labMItr.Next()) {
-    //       Tool3::Entry(labMItr.Key(), entr1);
+    //       Tool3::Entry(labMItr.Key1(), entr1);
     // 	std::cout<<"\t\tLABELS from DS of Attr:: Lab = "<<entr1<<std::endl;
-    //       if (!labMItr.Key().IsDescendant(aRefLabel) && labMItr.Key().IsDifferent(aRefLabel)) {
+    //       if (!labMItr.Key1().IsDescendant(aRefLabel) && labMItr.Key1().IsDifferent(aRefLabel)) {
     // //	aExternals.Add(itr.Value()); // ??? LabelMap of Attribute has label which don't
     // 	// belongs to source hierarchy. So, what we should do ?
     // 	// Add this Attribute to the aExternals or add all attributes
     // 	// from this label ?
     // 	AsciiString1 entr1, entr2;
-    // 	Tool3::Entry(labMItr.Key(), entr1);
+    // 	Tool3::Entry(labMItr.Key1(), entr1);
     // 	Tool3::Entry(aRefLabel, entr2);
     // 	std::cout<<"\t\t\tNot descendant label:: Lab1 = "<<entr1<<" and RefLab =
     // "<<entr2<<std::endl;
@@ -169,7 +169,7 @@ void TDF_CopyLabel::Perform()
   {
     for (TDF_MapIteratorOfAttributeMap attMItr(myMapOfExt); attMItr.More(); attMItr.Next())
     {
-      const Handle(TDF_Attribute)& att = attMItr.Key();
+      const Handle(TDF_Attribute)& att = attMItr.Key1();
       myRT->SetRelocation(att, att);
 #ifdef OCCT_DEBUG
       PrintEntry(att->Label(), Standard_True);

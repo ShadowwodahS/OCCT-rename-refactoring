@@ -24,7 +24,7 @@
 class XmlMDF_ADriverTable;
 class Message_Messenger;
 
-class XmlMNaming
+class XmlMNaming1
 {
 public:
   DEFINE_STANDARD_ALLOC

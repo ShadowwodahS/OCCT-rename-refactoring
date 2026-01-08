@@ -109,7 +109,7 @@ public:
   //! Say if the law is Constant
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
 
-  //! Say if the law is defined, only by the 3d Geometry of
+  //! Say if the law is defined, only by the 3d Geometry1 of
   //! the set Curve
   //! Return False by Default.
   Standard_EXPORT virtual Standard_Boolean IsOnlyBy3dCurve() const Standard_OVERRIDE;

@@ -91,7 +91,7 @@ static Handle(BSplineCurve3d) BSplineCurveBuilder(const Handle(Geom_Conic)&     
   TheCurve =
     new BSplineCurve3d(Poles, Weights, Knots, Mults, Convert.Degree(), Convert.IsPeriodic());
   Transform3d T;
-  T.SetTransformation(TheConic->Position(), gp1::XOY());
+  T.SetTransformation(TheConic->Position1(), gp1::XOY());
   Handle(BSplineCurve3d) Cres;
   Cres = Handle(BSplineCurve3d)::DownCast(TheCurve->Transformed(T));
   return Cres;

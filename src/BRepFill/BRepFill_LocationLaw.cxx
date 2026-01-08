@@ -619,7 +619,7 @@ void BRepFill_LocationLaw::Parameter(const Standard_Real Abcissa,
 
 //===================================================================
 // function : D0
-// purpose  : Position of a section, with a given curviline abscissa
+// purpose  : Position1 of a section, with a given curviline abscissa
 //===================================================================
 void BRepFill_LocationLaw::D0(const Standard_Real Abcissa, TopoShape& W)
 {

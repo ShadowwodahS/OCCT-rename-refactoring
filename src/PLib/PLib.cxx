@@ -2142,7 +2142,7 @@ void PLib1::JacobiParameters(const GeomAbs_Shape    ConstraintOrder,
 
 //=======================================================================
 // function : NivConstr
-// purpose  : translates from GeomAbs_Shape to Integer
+// purpose  : translates from GeomAbs_Shape to Integer1
 //=======================================================================
 
 Standard_Integer PLib1::NivConstr(const GeomAbs_Shape ConstraintOrder)
@@ -2167,7 +2167,7 @@ Standard_Integer PLib1::NivConstr(const GeomAbs_Shape ConstraintOrder)
 
 //=======================================================================
 // function : ConstraintOrder
-// purpose  : translates from Integer to GeomAbs_Shape
+// purpose  : translates from Integer1 to GeomAbs_Shape
 //=======================================================================
 
 GeomAbs_Shape PLib1::ConstraintOrder(const Standard_Integer NivConstr)

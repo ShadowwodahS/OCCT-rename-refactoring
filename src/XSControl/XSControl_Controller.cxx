@@ -367,7 +367,7 @@ void XSControl_Controller::Customise(Handle(ExchangeSession)& WS)
     NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(
       myAdaptorSession);
     for (; iter.More(); iter.Next())
-      WS->AddNamedItem(iter.Key().ToCString(), iter.ChangeValue());
+      WS->AddNamedItem(iter.Key1().ToCString(), iter.ChangeValue());
   }
 
   if (WS->NamedItem("xst-model-all").IsNull())

@@ -25,7 +25,7 @@ class GeomPlane;
 
 //! This package provides basic building tools for other packages in ShapeHealing.
 //! These tools are rather internal for ShapeHealing .
-class ShapeBuild
+class ShapeBuild1
 {
 public:
   DEFINE_STANDARD_ALLOC

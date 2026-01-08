@@ -56,7 +56,7 @@ protected:
   //! Data needed to build the BVH.
   BuildTool& myBuildTool;
 
-  //! Reference to BVH build queue.
+  //! Reference1 to BVH build queue.
   BVH_BuildQueue& myBuildQueue;
 
   //! Thread to execute work items.

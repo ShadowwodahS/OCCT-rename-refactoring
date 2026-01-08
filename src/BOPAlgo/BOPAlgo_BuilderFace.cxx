@@ -550,7 +550,7 @@ void BOPAlgo_BuilderFace::PerformAreas(const Message_ProgressRange& theRange)
   if (aHoleFaces.Extent() != aHoleFaceMap.Extent())
   {
     Box2 aBoxF;
-    BRepBndLib::Add(myFace, aBoxF);
+    BRepBndLib1::Add(myFace, aBoxF);
     if (aBoxF.IsOpenXmin() || aBoxF.IsOpenXmax() || aBoxF.IsOpenYmin() || aBoxF.IsOpenYmax()
         || aBoxF.IsOpenZmin() || aBoxF.IsOpenZmax())
     {

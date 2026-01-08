@@ -34,7 +34,7 @@ GeomToStep_MakeToroidalSurface::GeomToStep_MakeToroidalSurface(
   Handle(StepGeom_Axis2Placement3d) aPosition;
   Standard_Real                     aMajorRadius, aMinorRadius;
 
-  GeomToStep_MakeAxis2Placement3d MkAxis2(S->Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis2(S->Position1(), theLocalFactors);
   aPosition                             = MkAxis2.Value();
   aMajorRadius                          = S->MajorRadius();
   aMinorRadius                          = S->MinorRadius();

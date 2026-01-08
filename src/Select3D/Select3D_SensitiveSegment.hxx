@@ -50,8 +50,8 @@ public:
   Standard_EXPORT virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;
 
   //! Checks whether the segment overlaps current selecting volume
-  Standard_EXPORT virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+  Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
     Standard_OVERRIDE;
 
   //! Returns center of the segment. If location transformation

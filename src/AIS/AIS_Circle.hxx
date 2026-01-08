@@ -27,11 +27,11 @@ class AIS_Circle : public VisualEntity
 {
   DEFINE_STANDARD_RTTIEXT(AIS_Circle, VisualEntity)
 public:
-  //! Initializes this algorithm for constructing AIS circle
+  //! Initializes this algorithm for constructing AIS1 circle
   //! datums initializes the circle aCircle
   Standard_EXPORT AIS_Circle(const Handle(GeomCircle)& aCircle);
 
-  //! Initializes this algorithm for constructing AIS circle datums.
+  //! Initializes this algorithm for constructing AIS1 circle datums.
   //! Initializes the circle theCircle, the arc
   //! starting point theUStart, the arc ending point theUEnd,
   //! and the type of sensitivity theIsFilledCircleSens.

@@ -918,7 +918,7 @@ void Graphic3d_Structure::PrintNetwork(const Handle(Graphic3d_Structure)& theStr
   Graphic3d_Structure::Network(theStructure.get(), theType, aSet);
   for (NCollection_Map<Graphic3d_Structure*>::Iterator anIter(aSet); anIter.More(); anIter.Next())
   {
-    std::cout << "\tIdent " << (anIter.Key())->Identification() << "\n";
+    std::cout << "\tIdent " << (anIter.Key1())->Identification() << "\n";
   }
   std::cout << std::flush;
 }

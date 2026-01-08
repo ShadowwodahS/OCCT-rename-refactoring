@@ -356,7 +356,7 @@ Standard_Boolean IGESControl_Controller::Init()
   {
     Handle(IGESControl_Controller) ADIGES = new IGESControl_Controller(Standard_False);
     ADIGES->AutoRecord();
-    XSAlgo::Init();
+    XSAlgo1::Init();
     IGESToBRep1::Init();
     IGESToBRep1::SetAlgoContainer(new IGESControl_AlgoContainer());
     inic = Standard_True;

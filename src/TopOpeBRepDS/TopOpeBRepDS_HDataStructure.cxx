@@ -47,7 +47,7 @@ static void FUN_HDS_data(const Handle(TopOpeBRepDS_Interference)& I,
   if (I.IsNull())
     return;
   GT1 = I->GeometryType();
-  G1  = I->Geometry();
+  G1  = I->Geometry1();
   ST1 = I->SupportType();
   S1  = I->Support();
 }
@@ -376,9 +376,9 @@ Standard_Integer TopOpeBRepDS_HDataStructure::MakeCurve(const TopOpeBRepDS_Curve
 
   // the geometry of the new surface/curve interf. is new curve inewC
   if (!SCI1.IsNull())
-    SCI1->Geometry(inewC);
+    SCI1->Geometry1(inewC);
   if (!SCI2.IsNull())
-    SCI2->Geometry(inewC);
+    SCI2->Geometry1(inewC);
 
   return inewC;
 }
@@ -591,7 +591,7 @@ Standard_Boolean TopOpeBRepDS_HDataStructure::ScanInterfList(
   for (; IT.More(); IT.Next())
   {
     TopOpeBRepDS_Kind GT = IT.Value()->GeometryType();
-    Standard_Integer  G  = IT.Value()->Geometry();
+    Standard_Integer  G  = IT.Value()->Geometry1();
     if (GT == TopOpeBRepDS_POINT)
     {
       const Point1& OOPDS = myDS.Point(G);
@@ -621,7 +621,7 @@ Standard_Boolean TopOpeBRepDS_HDataStructure::GetGeometry(
   Standard_Boolean found = ScanInterfList(IT, PDS);
   if (found)
   {
-    G = IT.Value()->Geometry();
+    G = IT.Value()->Geometry1();
     K = IT.Value()->GeometryType();
   }
   return found;
@@ -630,7 +630,7 @@ Standard_Boolean TopOpeBRepDS_HDataStructure::GetGeometry(
 //=======================================================================
 // function : StoreInterference
 // purpose  : Append an interference I to a list of interference LI
-//           Append I to the interf. list connected to I Geometry()
+//           Append I to the interf. list connected to I Geometry1()
 //=======================================================================
 void TopOpeBRepDS_HDataStructure::StoreInterference(const Handle(TopOpeBRepDS_Interference)& I,
                                                     TopOpeBRepDS_ListOfInterference&         LI,
@@ -638,9 +638,9 @@ void TopOpeBRepDS_HDataStructure::StoreInterference(const Handle(TopOpeBRepDS_In
 {
   // append I to list LI
   LI.Append(I);
-  Standard_Integer G = I->Geometry();
+  Standard_Integer G = I->Geometry1();
 
-  // append I to list of interference connected to G = I->Geometry()
+  // append I to list of interference connected to G = I->Geometry1()
   switch (I->GeometryType())
   {
 

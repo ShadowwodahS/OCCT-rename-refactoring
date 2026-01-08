@@ -53,12 +53,12 @@ public:
   Standard_EXPORT void Init(const TopOpeBRepDS_ListOfInterference& L);
 
   //! define a condition on interference iteration process.
-  //! Interference must match the Geometry Kind <ST>
+  //! Interference must match the Geometry1 Kind <ST>
   Standard_EXPORT void GeometryKind(const TopOpeBRepDS_Kind GK);
 
   //! define a condition on interference iteration process.
-  //! Interference must match the Geometry <G>
-  Standard_EXPORT void Geometry(const Standard_Integer G);
+  //! Interference must match the Geometry1 <G>
+  Standard_EXPORT void Geometry1(const Standard_Integer G);
 
   //! define a condition on interference iteration process.
   //! Interference must match the Support Kind <ST>

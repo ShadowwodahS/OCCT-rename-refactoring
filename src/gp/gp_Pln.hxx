@@ -116,7 +116,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinate system of the plane .
-  const Ax3& Position() const { return pos; }
+  const Ax3& Position1() const { return pos; }
 
   //! Computes the distance between <me> and the point <theP>.
   Standard_Real Distance(const Point3d& theP) const;

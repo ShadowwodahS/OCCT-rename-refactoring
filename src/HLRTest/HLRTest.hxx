@@ -30,7 +30,7 @@ class HLRTopoBRep_OutLiner;
 //! This package   is  a test  of  the    Hidden Lines
 //! algorithms instantiated on the BRep Data Structure
 //! and using the Draw1 package to display the results.
-class HLRTest
+class HLRTest1
 {
 public:
   DEFINE_STANDARD_ALLOC

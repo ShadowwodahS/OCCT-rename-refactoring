@@ -89,7 +89,7 @@ public:
   const gp_Pnt2d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the conic.
-  const Ax22d& Position() const { return pos; }
+  const Ax22d& Position1() const { return pos; }
 
   //! Reverses the direction of parameterization of <me>.
   //! The local coordinate system of the conic is modified.

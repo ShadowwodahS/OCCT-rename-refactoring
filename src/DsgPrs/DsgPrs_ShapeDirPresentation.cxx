@@ -189,7 +189,7 @@ static Standard_Boolean ComputeDir(const TopoShape&    shape,
 
 //=================================================================================================
 
-void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
+void ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
                                       const Handle(StyleDrawer)&       drawer,
                                       const TopoShape&               shape,
                                       const Standard_Integer            mode)
@@ -205,12 +205,12 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
   if (shape.ShapeType() == TopAbs_EDGE)
   {
     ComputeDir(shape, pt, dir, mode);
-    BRepBndLib::Add(shape, box);
+    BRepBndLib1::Add(shape, box);
   }
   else if (shape.ShapeType() == TopAbs_FACE)
   {
     ComputeDir(shape, pt, dir, mode);
-    BRepBndLib::Add(shape, box);
+    BRepBndLib1::Add(shape, box);
   }
   else if (shape.ShapeType() == TopAbs_WIRE)
   {
@@ -222,7 +222,7 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
       const TopoEdge& edge = anExp.Current();
       nb++;
       if (nb <= 3)
-        BRepBndLib::Add(edge, box);
+        BRepBndLib1::Add(edge, box);
       aList.Append(edge);
     }
 
@@ -248,7 +248,7 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
       nb++;
       const TopoFace& face = TopoDS::Face(faceExp.Current());
       aList.Append(face);
-      BRepBndLib::Add(face, box);
+      BRepBndLib1::Add(face, box);
       if (nb > 3)
         break;
     }
@@ -274,5 +274,5 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
   aPrims->AddVertex(pt2);
   prs->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  Prs3d_Arrow::Draw1(prs->CurrentGroup(), pt2, dir, M_PI / 180. * 10., leng * 0.3);
+  Arrow1::Draw1(prs->CurrentGroup(), pt2, dir, M_PI / 180. * 10., leng * 0.3);
 }

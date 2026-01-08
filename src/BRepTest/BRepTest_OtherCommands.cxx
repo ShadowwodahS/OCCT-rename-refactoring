@@ -73,7 +73,7 @@ static Standard_Integer xclassify(DrawInterpreter&, Standard_Integer, const char
 
 //=================================================================================================
 
-void BRepTest::OtherCommands(DrawInterpreter& theCommands)
+void BRepTest1::OtherCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -294,7 +294,7 @@ Standard_Integer brepintcs(DrawInterpreter& di, Standard_Integer n, const char**
 {
   if (n <= 2)
   {
-    Message::SendFail()
+    Message1::SendFail()
       << "Invalid input arguments. Should be: curve1 [curve2 ...] shape [result] [tol]";
     return 1;
   }
@@ -308,7 +308,7 @@ Standard_Integer brepintcs(DrawInterpreter& di, Standard_Integer n, const char**
   }
   if (S.IsNull())
   {
-    Message::SendFail() << "Invalid input shape";
+    Message1::SendFail() << "Invalid input shape";
     return 1;
   }
 

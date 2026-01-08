@@ -181,7 +181,7 @@ Standard_Integer IGESData_IGESReaderData::FindNextRecord(const Standard_Integer 
     return (num + 1);
 }
 
-// Reference a d'autres entites : c'est a la fois tres simple et problematique
+// Reference1 a d'autres entites : c'est a la fois tres simple et problematique
 // Tres simple : une reference a une entite est un numero (dans directory list)
 // qui vaut (2*N-1) si N est le rang vrai de l'entite
 // Problematique : ce numero est un Entier ... rien ne le distingue d'un autre
@@ -198,7 +198,7 @@ void IGESData_IGESReaderData::SetEntityNumbers()
     for (Standard_Integer i = 1; i <= nbd; i ++) {
       Standard_Integer nbp = NbParams(i);
       for (Standard_Integer j = 1; j <= nbp; j ++) {
-        Interface_FileParameter& FP = ChangeParam(i,j);
+        FileParameter& FP = ChangeParam(i,j);
         if (FP.ParamType() == Interface_ParamInteger) {
       Standard_Integer val = atoi(FP.CValue());
       if (val > 0) {

@@ -226,7 +226,7 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
     const TopoShape& aNewShape  = aShapeAttrIt.NewShape();
 
     Handle(ShapeAttribute) anOldAttr =
-      Tool11::NamedShape(anOldShape, aShapeAttr->Label());
+      Tool11::NamedShape1(anOldShape, aShapeAttr->Label());
     aValues << DFBrowserPane_Tools::ToName(DB_NS_TYPE, aShapeAttrIt.Evolution()).ToCString();
     aHasModified = aHasModified | aShapeAttrIt.IsModification();
 
@@ -429,7 +429,7 @@ void DFBrowserPane_TNamingNamedShape::GetReferences(const Handle(TDF_Attribute)&
     const TopoShape& anOldShape = aShapeAttrIt.OldShape();
 
     Handle(ShapeAttribute) anOldAttr =
-      Tool11::NamedShape(anOldShape, aShapeAttr->Label());
+      Tool11::NamedShape1(anOldShape, aShapeAttr->Label());
     QString aLabelInfo;
     if (!anOldAttr.IsNull())
     {

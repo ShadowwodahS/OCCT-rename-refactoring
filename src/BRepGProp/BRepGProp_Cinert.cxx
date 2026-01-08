@@ -32,9 +32,9 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
   Standard_Real Ix, Iy, Iz, Ixx, Iyy, Izz, Ixy, Ixz, Iyz;
   dim = Ix = Iy = Iz = Ixx = Iyy = Izz = Ixy = Ixz = Iyz = 0.0;
 
-  Standard_Real    Lower = BRepGProp_EdgeTool::FirstParameter(C);
-  Standard_Real    Upper = BRepGProp_EdgeTool::LastParameter(C);
-  Standard_Integer Order = Min(BRepGProp_EdgeTool::IntegrationOrder(C), math1::GaussPointsMax());
+  Standard_Real    Lower = EdgeTool::FirstParameter(C);
+  Standard_Real    Upper = EdgeTool::LastParameter(C);
+  Standard_Integer Order = Min(EdgeTool::IntegrationOrder(C), math1::GaussPointsMax());
 
   Point3d        P;  // value on the curve
   Vector3d        V1; // first derivative on the curve
@@ -51,13 +51,13 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
   math1::GaussWeights(Order, GaussW);
 
   // modified by NIZHNY-MKK  Thu Jun  9 12:13:21 2005.BEGIN
-  Standard_Integer     nbIntervals   = BRepGProp_EdgeTool::NbIntervals(C, GeomAbs_CN);
+  Standard_Integer     nbIntervals   = EdgeTool::NbIntervals(C, GeomAbs_CN);
   Standard_Boolean     bHasIntervals = (nbIntervals > 1);
   TColStd_Array1OfReal TI(1, nbIntervals + 1);
 
   if (bHasIntervals)
   {
-    BRepGProp_EdgeTool::Intervals(C, TI, GeomAbs_CN);
+    EdgeTool::Intervals(C, TI, GeomAbs_CN);
   }
   else
   {
@@ -97,7 +97,7 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
     for (i = 1; i <= Order; i++)
     {
       u = um + ur * GaussP(i);
-      BRepGProp_EdgeTool::D1(C, u, P, V1);
+      EdgeTool::D1(C, u, P, V1);
       ds = V1.Magnitude();
       P.Coord(x, y, z);
       x -= xloc;

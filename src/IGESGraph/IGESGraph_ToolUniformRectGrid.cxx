@@ -48,18 +48,18 @@ void UniformRectGridTool::ReadOwnParams(const Handle(IGESGraph_UniformRectGrid)&
   Standard_Integer nbPointsX = 0;
   Standard_Integer nbPointsY = 0;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues);
   if (nbPropertyValues != 9)
     PR.AddFail("No. of Property values : Value is not 9");
 
-  // Reading finite(Integer)
+  // Reading finite(Integer1)
   PR.ReadInteger(PR.Current(), "Finite/infinite grid flag", finite);
 
-  // Reading line(Integer)
+  // Reading line(Integer1)
   PR.ReadInteger(PR.Current(), "Line/point grid flag", line);
 
-  // Reading weighted(Integer)
+  // Reading weighted(Integer1)
   PR.ReadInteger(PR.Current(), "Weighted/unweighted grid flag", weighted);
 
   // Reading gridPoint(XY)
@@ -68,11 +68,11 @@ void UniformRectGridTool::ReadOwnParams(const Handle(IGESGraph_UniformRectGrid)&
   // Reading gridSpacing(XY)
   PR.ReadXY(PR.CurrentList(1, 2), "Grid Spacing coordinates", gridSpacing);
 
-  // Reading nbPointsX(Integer)  ?? even if not IsFinite ?
+  // Reading nbPointsX(Integer1)  ?? even if not IsFinite ?
   if (finite != 0 || PR.DefinedElseSkip())
     PR.ReadInteger(PR.Current(), "No. of points/lines in X direction", nbPointsX);
 
-  // Reading nbPointsY(Integer)
+  // Reading nbPointsY(Integer1)
   if (finite != 0 || PR.DefinedElseSkip())
     PR.ReadInteger(PR.Current(), "No. of points/lines in Y direction", nbPointsY);
 

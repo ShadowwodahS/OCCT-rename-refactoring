@@ -24,11 +24,11 @@
 
 //! FindHasher defines HashCode for Finder, which is : ask a
 //! Finder its HashCode !  Because this is the Finder itself which
-//! brings the HashCode for its Key
+//! brings the HashCode for its Key1
 //!
 //! This class complies to the template given in TCollection by
 //! MapHasher itself
-class Transfer_FindHasher
+class TransferFindHasher
 {
 public:
   size_t operator()(const Handle(Transfer_Finder)& theFinder) const

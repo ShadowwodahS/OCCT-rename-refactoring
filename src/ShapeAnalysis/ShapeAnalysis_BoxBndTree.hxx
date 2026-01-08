@@ -41,7 +41,7 @@ public:
         myTol(1e-7),
         myMin3d(1e-7),
         myArrIndices(1, 2),
-        myStatus(ShapeExtend::EncodeStatus(ShapeExtend_OK))
+        myStatus(ShapeExtend1::EncodeStatus(ShapeExtend_OK))
   {
     myArrIndices.Init(0);
   }
@@ -57,14 +57,14 @@ public:
   {
     myFVertex = theVf;
     myLVertex = theVl;
-    myStatus  = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+    myStatus  = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   }
 
   void DefinePnt(const Point3d& theFPnt, const Point3d& theLPnt)
   {
     myFPnt   = theFPnt;
     myLPnt   = theLPnt;
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   }
 
   Standard_Integer GetNb() { return myNb; }
@@ -79,14 +79,14 @@ public:
   {
     myTol    = theTol;
     myMin3d  = theTol;
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   }
 
   Standard_Boolean ContWire(Standard_Integer nbWire) { return myList.Contains(nbWire); }
 
   inline Standard_Boolean LastCheckStatus(const ShapeExtend_Status theStatus) const
   {
-    return ShapeExtend::DecodeStatus(myStatus, theStatus);
+    return ShapeExtend1::DecodeStatus(myStatus, theStatus);
   }
 
   Standard_Boolean Reject(const Box2& theBnd) const;

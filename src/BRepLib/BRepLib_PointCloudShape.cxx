@@ -123,7 +123,7 @@ Standard_Real BRepLib_PointCloudShape::faceArea(const TopoShape& theShape)
   }
 
   GeometricProperties aFaceProps;
-  BRepGProp::SurfaceProperties(theShape, aFaceProps);
+  BRepGProp1::SurfaceProperties(theShape, aFaceProps);
   anArea = aFaceProps.Mass();
   myFaceArea.Bind(theShape, anArea);
   return anArea;
@@ -259,7 +259,7 @@ Standard_Boolean BRepLib_PointCloudShape::addTriangulationPoints(const TopoShape
   Handle(GeomSurface) aSurf = BRepInspector::Surface(aFace, aLoc1);
   const Transform3d&       aTrsf = aLoc.Transformation();
 
-  BRepLib_ToolTriangulatedShape::ComputeNormals(aFace, aTriangulation);
+  ToolTriangulatedShape::ComputeNormals(aFace, aTriangulation);
   Standard_Boolean aHasUVNode = aTriangulation->HasUVNodes();
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aTriangulation->NbNodes(); ++aNodeIter)
   {

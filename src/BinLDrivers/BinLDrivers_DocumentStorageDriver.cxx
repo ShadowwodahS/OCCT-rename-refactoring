@@ -413,7 +413,7 @@ void BinLDrivers_DocumentStorageDriver::WriteInfoSection(const Handle(CDM_Docume
   // Magic number
   theOStream.write(FSD_BinaryFile::MagicNumber(), strlen(FSD_BinaryFile::MagicNumber()));
 
-  FSD_FileHeader aHeader;
+  FileHeader aHeader;
 
   {
     aHeader.testindian = -1;

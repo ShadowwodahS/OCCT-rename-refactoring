@@ -90,7 +90,7 @@ Handle(TColStd_HSequenceOfAsciiString) IFSelect_Activator::Commands(const Standa
   Handle(TColStd_HSequenceOfAsciiString) list = new TColStd_HSequenceOfAsciiString();
   for (; iter.More(); iter.Next())
   {
-    if (!iter.Key().StartsWith(command))
+    if (!iter.Key1().StartsWith(command))
       continue;
     if (mode < 0)
     {
@@ -98,13 +98,13 @@ Handle(TColStd_HSequenceOfAsciiString) IFSelect_Activator::Commands(const Standa
       if (acti.IsNull())
         continue;
       if (command[0] == '\0' || !strcmp(command, acti->Group()))
-        list->Append(iter.Key());
+        list->Append(iter.Key1());
     }
     else
     {
       num = iter.Value();
       if (themodes(num) == mode)
-        list->Append(iter.Key());
+        list->Append(iter.Key1());
     }
   }
   return list;

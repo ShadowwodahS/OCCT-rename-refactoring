@@ -78,7 +78,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
   myNbExt = 0;
   myIsPar = Standard_False;
 
-  Ax3 Pos = S.Position();
+  Ax3 Pos = S.Position1();
 
   Standard_Boolean isParallel = Standard_False;
 
@@ -301,7 +301,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  Frame3d Pos   = C.Position();
+  Frame3d Pos   = C.Position1();
   Dir3d NCirc = Pos.Direction();
   Dir3d NPln  = S.Axis().Direction();
 
@@ -356,11 +356,11 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
       PointOnSurface1  POnS;
       for (i = 0; i < 2; ++i)
       {
-        PC = ElCLib1::CircleValue(T[i], C.Position(), C.Radius());
+        PC = ElCLib1::CircleValue(T[i], C.Position1(), C.Radius());
         POnC.SetValues(T[i], PC);
         myPoint1->SetValue(i + 1, POnC);
-        ElSLib1::PlaneParameters(S.Position(), PC, U, V);
-        PP = ElSLib1::PlaneValue(U, V, S.Position());
+        ElSLib1::PlaneParameters(S.Position1(), PC, U, V);
+        PP = ElSLib1::PlaneValue(U, V, S.Position1());
         POnS.SetParameters(U, V, PP);
         myPoint2->SetValue(i + 1, POnS);
         mySqDist->SetValue(i + 1, PC.SquareDistance(PP));
@@ -372,11 +372,11 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
         for (i = 1; i <= anInter.NbPoints(); ++i)
         {
           Standard_Real t = anInter.ParamOnConic(i);
-          PC              = ElCLib1::CircleValue(t, C.Position(), C.Radius());
+          PC              = ElCLib1::CircleValue(t, C.Position1(), C.Radius());
           POnC.SetValues(t, PC);
           myPoint1->SetValue(i + 2, POnC);
-          ElSLib1::PlaneParameters(S.Position(), PC, U, V);
-          PP = ElSLib1::PlaneValue(U, V, S.Position());
+          ElSLib1::PlaneParameters(S.Position1(), PC, U, V);
+          PP = ElSLib1::PlaneValue(U, V, S.Position1());
           POnS.SetParameters(U, V, PP);
           myPoint2->SetValue(i + 2, POnS);
           mySqDist->SetValue(i + 2, PC.SquareDistance(PP));
@@ -716,7 +716,7 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  Frame3d Pos   = C.Position();
+  Frame3d Pos   = C.Position1();
   Dir3d NHypr = Pos.Direction();
   Dir3d NPln  = S.Axis().Direction();
 
@@ -749,8 +749,8 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
       mySqDist->SetValue(1, S.SquareDistance(Ph));
 
       Standard_Real U, V;
-      ElSLib1::PlaneParameters(S.Position(), Ph, U, V);
-      Point3d          Pp = ElSLib1::PlaneValue(U, V, S.Position());
+      ElSLib1::PlaneParameters(S.Position1(), Ph, U, V);
+      Point3d          Pp = ElSLib1::PlaneValue(U, V, S.Position1());
       PointOnSurface1 PS(U, V, Pp);
       myPoint2 = new Extrema_HArray1OfPOnSurf(1, 1);
       myPoint2->SetValue(1, PS);

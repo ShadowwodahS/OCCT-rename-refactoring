@@ -706,7 +706,7 @@ public:
   //! @return messenger instance
   inline const Handle(Message_Messenger)& Messenger() const
   {
-    return ::Message::DefaultMessenger();
+    return ::Message1::DefaultMessenger();
   }
 
   //! Callback for GL_ARB_debug_output extension
@@ -1077,7 +1077,7 @@ public: //! @name extensions
   OpenGl_FeatureFlag     hasFloatBuffer;     //!< Complex flag indicating support of float color buffer format (desktop OpenGL 3.0, GL_ARB_color_buffer_float, GL_EXT_color_buffer_float)
   OpenGl_FeatureFlag     hasHalfFloatBuffer; //!< Complex flag indicating support of half-float color buffer format (desktop OpenGL 3.0, GL_ARB_color_buffer_float, GL_EXT_color_buffer_half_float)
   OpenGl_FeatureFlag     hasSampleVariables; //!< Complex flag indicating support of MSAA variables in GLSL shader (desktop OpenGL 4.0, GL_ARB_sample_shading)
-  OpenGl_FeatureFlag     hasGeometryStage;   //!< Complex flag indicating support of Geometry shader (desktop OpenGL 3.2, OpenGL ES 3.2, GL_EXT_geometry_shader)
+  OpenGl_FeatureFlag     hasGeometryStage;   //!< Complex flag indicating support of Geometry1 shader (desktop OpenGL 3.2, OpenGL ES 3.2, GL_EXT_geometry_shader)
   Standard_Boolean       arbDrawBuffers;     //!< GL_ARB_draw_buffers
   Standard_Boolean       arbNPTW;            //!< GL_ARB_texture_non_power_of_two
   Standard_Boolean       arbTexRG;           //!< GL_ARB_texture_rg

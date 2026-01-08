@@ -25,7 +25,7 @@
 // drawn with a fixed number of points.
 // The presentation includes the restriction curves.
 
-class StdPrs_WFRestrictedFace : public Prs3d_Root
+class StdPrs_WFRestrictedFace : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

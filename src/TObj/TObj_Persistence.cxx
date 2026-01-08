@@ -23,7 +23,7 @@
 // purpose  : Returns the map of types
 //=======================================================================
 
-TObj_DataMapOfStringPointer& TObj_Persistence::getMapOfTypes()
+TObj_DataMapOfStringPointer& Persistence::getMapOfTypes()
 {
   static TObj_DataMapOfStringPointer myMapOfTypes;
   return myMapOfTypes;
@@ -34,7 +34,7 @@ TObj_DataMapOfStringPointer& TObj_Persistence::getMapOfTypes()
 // purpose  : Register the type for persistence
 //=======================================================================
 
-TObj_Persistence::TObj_Persistence(const Standard_CString theType)
+Persistence::Persistence(const Standard_CString theType)
 {
   myType = theType;
   getMapOfTypes().Bind(theType, this);
@@ -45,19 +45,19 @@ TObj_Persistence::TObj_Persistence(const Standard_CString theType)
 // purpose  : Unregister the type
 //=======================================================================
 
-TObj_Persistence::~TObj_Persistence()
+Persistence::~Persistence()
 {
   getMapOfTypes().UnBind(myType);
 }
 
 //=================================================================================================
 
-Handle(TObj_Object) TObj_Persistence::CreateNewObject(const Standard_CString theType,
+Handle(TObj_Object) Persistence::CreateNewObject(const Standard_CString theType,
                                                       const DataLabel&       theLabel)
 {
   if (getMapOfTypes().IsBound(theType))
   {
-    TObj_Persistence* tool = (TObj_Persistence*)getMapOfTypes().Find(theType);
+    Persistence* tool = (Persistence*)getMapOfTypes().Find(theType);
     if (tool)
       return tool->New(theLabel);
   }
@@ -66,11 +66,11 @@ Handle(TObj_Object) TObj_Persistence::CreateNewObject(const Standard_CString the
 
 //=================================================================================================
 
-void TObj_Persistence::DumpTypes(Standard_OStream& theOs)
+void Persistence::DumpTypes(Standard_OStream& theOs)
 {
   TObj_DataMapOfStringPointer::Iterator it(getMapOfTypes());
   for (; it.More(); it.Next())
   {
-    theOs << it.Key() << std::endl;
+    theOs << it.Key1() << std::endl;
   }
 }

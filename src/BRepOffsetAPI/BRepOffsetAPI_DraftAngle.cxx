@@ -294,7 +294,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
       TopTools_MapIteratorOfMapOfShape mapit(emap);
       for (; mapit.More(); mapit.Next())
       {
-        CurEdge = mapit.Key();
+        CurEdge = mapit.Key1();
         if (BRepTools1::IsReallyClosed(TopoDS::Edge(CurEdge), TopoDS::Face(CurFace)))
         {
           Eseq.Append(CurEdge);
@@ -474,7 +474,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
         }
       }
     }
-    Emap(iter.Key()) = Seq;
+    Emap(iter.Key1()) = Seq;
   }
   BRepFill_DataMapOfShapeSequenceOfReal  EPmap;
   TopTools_DataMapOfShapeSequenceOfShape EVmap; // Seam
@@ -483,11 +483,11 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
   for (; iter.More(); iter.Next())
   {
     TColStd_SequenceOfReal parseq;
-    EPmap.Bind(iter.Key(), parseq);
+    EPmap.Bind(iter.Key1(), parseq);
     TopTools_SequenceOfShape shapeseq;
-    EVmap.Bind(iter.Key(), shapeseq);
+    EVmap.Bind(iter.Key1(), shapeseq);
     TopTools_SequenceOfShape shapeseq2;
-    EWmap.Bind(iter.Key(), shapeseq2);
+    EWmap.Bind(iter.Key1(), shapeseq2);
   }
 
   // Reconstruction of non-seam edges
@@ -588,9 +588,9 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
     TColStd_SequenceOfReal Seq;
     Seq = iter.Value();
     TopTools_SequenceOfShape SeqShape;
-    SeqShape = EVmap(iter.Key());
+    SeqShape = EVmap(iter.Key1());
     TopTools_SequenceOfShape SeqShape2;
-    SeqShape2 = EWmap(iter.Key());
+    SeqShape2 = EWmap(iter.Key1());
     for (i = 1; i < Seq.Length(); i++)
     {
       for (j = i + 1; j <= Seq.Length(); j++)
@@ -610,9 +610,9 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
       }
     }
 
-    EPmap(iter.Key()) = Seq;
-    EVmap(iter.Key()) = SeqShape;
-    EWmap(iter.Key()) = SeqShape2;
+    EPmap(iter.Key1()) = Seq;
+    EVmap(iter.Key1()) = SeqShape;
+    EWmap(iter.Key1()) = SeqShape2;
   }
   iter.Initialize(EPmap);
   for (; iter.More(); iter.Next())
@@ -620,9 +620,9 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
     TColStd_SequenceOfReal Seq;
     Seq = iter.Value();
     TopTools_SequenceOfShape SeqShape;
-    SeqShape = EVmap(iter.Key());
+    SeqShape = EVmap(iter.Key1());
     TopTools_SequenceOfShape SeqShape2;
-    SeqShape2               = EWmap(iter.Key());
+    SeqShape2               = EWmap(iter.Key1());
     Standard_Boolean remove = Standard_True;
     while (remove)
     {
@@ -638,9 +638,9 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
         }
       }
     }
-    EPmap(iter.Key()) = Seq;
-    EVmap(iter.Key()) = SeqShape;
-    EWmap(iter.Key()) = SeqShape2;
+    EPmap(iter.Key1()) = Seq;
+    EVmap(iter.Key1()) = SeqShape;
+    EWmap(iter.Key1()) = SeqShape2;
   }
 
   // Reconstruction of seam edges
@@ -648,7 +648,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
   iter.Initialize(Emap);
   for (; iter.More(); iter.Next())
   {
-    TopoEdge            anEdge   = TopoDS::Edge(iter.Key());
+    TopoEdge            anEdge   = TopoDS::Edge(iter.Key1());
     Standard_Boolean       onepoint = Standard_False;
     ShapeList   NewEdges;
     TColStd_SequenceOfReal Seq;
@@ -763,7 +763,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
   TopTools_DataMapIteratorOfDataMapOfShapeShape itve(VEmap);
   for (; itve.More(); itve.Next())
   {
-    const TopoShape& V = itve.Key();
+    const TopoShape& V = itve.Key1();
     const TopoShape& E = itve.Value();
     TopoShape        W;
     for (i = 1; i <= Eseq.Length(); i++)
@@ -809,7 +809,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itww(WWmap);
   for (; itww.More(); itww.Next())
   {
-    CurWire = itww.Key();
+    CurWire = itww.Key1();
     theCopy = aSub.Copy(CurWire);
     CurWire = theCopy.First();
     CurWire.Free(Standard_True);
@@ -958,7 +958,7 @@ void BRepOffsetAPI_DraftAngle::CorrectVertexTol()
   TopTools_DataMapIteratorOfDataMapOfShapeShape anIter(myVtxToReplace);
   for (; anIter.More(); anIter.Next())
   {
-    mySubs.Replace(anIter.Key(), anIter.Value());
+    mySubs.Replace(anIter.Key1(), anIter.Value());
   }
   mySubs.Apply(myShape);
   myShape = mySubs.Value(myShape);

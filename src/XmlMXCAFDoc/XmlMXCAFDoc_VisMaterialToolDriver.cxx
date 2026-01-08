@@ -37,7 +37,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_VisMaterialToolDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMXCAFDoc_VisMaterialToolDriver::Paste(const XmlObjMgt_Persistent&,
+Standard_Boolean XmlMXCAFDoc_VisMaterialToolDriver::Paste(const PersistentStorage&,
                                                           const Handle(TDF_Attribute)&,
                                                           XmlObjMgt_RRelocationTable&) const
 {
@@ -47,7 +47,7 @@ Standard_Boolean XmlMXCAFDoc_VisMaterialToolDriver::Paste(const XmlObjMgt_Persis
 //=================================================================================================
 
 void XmlMXCAFDoc_VisMaterialToolDriver::Paste(const Handle(TDF_Attribute)&,
-                                              XmlObjMgt_Persistent&,
+                                              PersistentStorage&,
                                               XmlObjMgt_SRelocationTable&) const
 {
   //

@@ -22,7 +22,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Contains commands to work with colors
-class XDEDRAW_Colors
+class ColorCommands
 {
 public:
   DEFINE_STANDARD_ALLOC

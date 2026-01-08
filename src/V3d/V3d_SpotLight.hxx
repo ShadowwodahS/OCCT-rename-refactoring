@@ -48,7 +48,7 @@ public:
   //! Defines the direction of the light source
   //! according to a predefined directional vector.
   Standard_EXPORT void SetDirection(V3d_TypeOfOrientation theOrientation);
-  using Graphic3d_CLight::Position;
+  using Graphic3d_CLight::Position1;
   using Graphic3d_CLight::SetDirection;
   using Graphic3d_CLight::SetPosition;
 };

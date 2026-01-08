@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-Standard_Boolean BRepClass3d_BndBoxTreeSelectorPoint::Accept(const Standard_Integer& theObj)
+Standard_Boolean BndBoxTreeSelectorPoint::Accept(const Standard_Integer& theObj)
 {
   // Box1-point collision.
   if (theObj > myMapOfShape.Extent())
@@ -68,7 +68,7 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorPoint::Accept(const Standard_Inte
 
 //=================================================================================================
 
-Standard_Boolean BRepClass3d_BndBoxTreeSelectorLine::Accept(const Standard_Integer& theObj)
+Standard_Boolean BndBoxTreeSelectorLine::Accept(const Standard_Integer& theObj)
 {
   // box-line collision
   if (theObj > myMapOfShape.Extent())

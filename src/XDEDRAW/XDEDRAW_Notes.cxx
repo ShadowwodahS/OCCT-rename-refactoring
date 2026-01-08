@@ -584,7 +584,7 @@ static Standard_Integer noteAdd(DrawInterpreter& di, Standard_Integer argc, cons
     di << aNoteEntry << ": invalid note entry.\n";
     return 1;
   }
-  XCAFDoc_AssemblyItemId anItemId(anItemEntry);
+  AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
   Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
@@ -704,7 +704,7 @@ static Standard_Integer noteRemove(DrawInterpreter& di, Standard_Integer argc, c
     di << aNoteEntry << ": invalid note entry.\n";
     return 1;
   }
-  XCAFDoc_AssemblyItemId anItemId(anItemEntry);
+  AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
   Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
@@ -814,7 +814,7 @@ static Standard_Integer noteRemoveAll(DrawInterpreter& di,
 
   AsciiString1 anItemEntry = argv[++iarg];
 
-  XCAFDoc_AssemblyItemId anItemId(anItemEntry);
+  AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
   Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
@@ -924,7 +924,7 @@ static Standard_Integer noteFindAnnotated(DrawInterpreter& di,
 
   AsciiString1 anItemEntry = argv[++iarg];
 
-  XCAFDoc_AssemblyItemId anItemId(anItemEntry);
+  AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
   Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
@@ -1021,7 +1021,7 @@ static Standard_Integer noteGetNotes(DrawInterpreter& di, Standard_Integer argc,
 
   AsciiString1 anItemEntry = argv[++iarg];
 
-  XCAFDoc_AssemblyItemId anItemId(anItemEntry);
+  AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
   Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
@@ -1238,11 +1238,11 @@ static Standard_Integer noteDump(DrawInterpreter& di, Standard_Integer argc, con
   di << "Type      : " << aNote->get_type_name() << "\n";
   if (Handle(XCAFDoc_NoteComment) aComment = Handle(XCAFDoc_NoteComment)::DownCast(aNote))
   {
-    di << "Comment   : " << aComment->Comment() << "\n";
+    di << "Comment1   : " << aComment->Comment1() << "\n";
   }
   else if (Handle(XCAFDoc_NoteBalloon) aBalloon = Handle(XCAFDoc_NoteBalloon)::DownCast(aNote))
   {
-    di << "Comment   : " << aBalloon->Comment() << "\n";
+    di << "Comment1   : " << aBalloon->Comment1() << "\n";
   }
   else if (Handle(XCAFDoc_NoteBinData) aBinData = Handle(XCAFDoc_NoteBinData)::DownCast(aNote))
   {
@@ -1411,7 +1411,7 @@ static Standard_Integer noteIsRefOrphan(DrawInterpreter& di,
 
 //=================================================================================================
 
-void XDEDRAW_Notes::InitCommands(DrawInterpreter& di)
+void NoteCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initialized = Standard_False;
   if (initialized)

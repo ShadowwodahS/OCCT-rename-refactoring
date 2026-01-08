@@ -60,7 +60,7 @@ Handle(TDF_Attribute) XmlTObjDrivers_ReferenceDriver::NewEmpty() const
 //=======================================================================
 
 Standard_Boolean XmlTObjDrivers_ReferenceDriver::Paste(
-  const XmlObjMgt_Persistent&  Source,
+  const PersistentStorage&  Source,
   const Handle(TDF_Attribute)& Target,
   XmlObjMgt_RRelocationTable& /*RelocTable*/) const
 {
@@ -80,7 +80,7 @@ Standard_Boolean XmlTObjDrivers_ReferenceDriver::Paste(
     Tool3::Label(Target->Label().Data(), RefEntry, aLabel, Standard_True);
   else
   {
-    Handle(TObj_Model) aModel = TObj_Assistant::FindModel(InHolderEntry.ToCString());
+    Handle(TObj_Model) aModel = Assistant::FindModel(InHolderEntry.ToCString());
     Tool3::Label(aModel->GetLabel().Data(), RefEntry, aLabel, Standard_True);
   }
   Handle(TObj_TReference) aTarget = Handle(TObj_TReference)::DownCast(Target);
@@ -99,7 +99,7 @@ Standard_Boolean XmlTObjDrivers_ReferenceDriver::Paste(
 //=======================================================================
 
 void XmlTObjDrivers_ReferenceDriver::Paste(const Handle(TDF_Attribute)& Source,
-                                           XmlObjMgt_Persistent&        Target,
+                                           PersistentStorage&        Target,
                                            XmlObjMgt_SRelocationTable& /*RelocTable*/) const
 {
   Handle(TObj_TReference) aSource = Handle(TObj_TReference)::DownCast(Source);

@@ -65,7 +65,7 @@ void TextDisplayTemplateTool::ReadOwnParams(
   Standard_Integer curnum = PR.CurrentNumber();
   if (PR.DefinedElseSkip())
   {
-    // Reading fontCode(Integer, must be positive)
+    // Reading fontCode(Integer1, must be positive)
     PR.ReadInteger(PR.Current(), "Font Code", fontCode); // szv#4:S4163:12Mar99 `st=` not needed
     // Reading fontEnt(TextFontDef) ?
     if (fontCode < 0)
@@ -89,10 +89,10 @@ void TextDisplayTemplateTool::ReadOwnParams(
   PR.ReadReal (PR.Current(), "Rotation Angle", rotationAngle); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
 
-  // Reading mirrorFlag(Integer)
+  // Reading mirrorFlag(Integer1)
   PR.ReadInteger(PR.Current(), "Mirror Flag", mirrorFlag); // szv#4:S4163:12Mar99 `st=` not needed
 
-  // Reading rotateFlag(Integer)
+  // Reading rotateFlag(Integer1)
   PR.ReadInteger(PR.Current(), "Rotate Flag", rotateFlag); // szv#4:S4163:12Mar99 `st=` not needed
 
   // Reading corner(XYZ)

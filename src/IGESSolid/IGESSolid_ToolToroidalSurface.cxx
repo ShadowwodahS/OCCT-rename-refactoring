@@ -61,7 +61,7 @@ void ToroidalSurfaceTool::ReadOwnParams(const Handle(IGESSolid_ToroidalSurface)&
 
   if (ent->FormNumber() == 1)  // Parametrised surface
                                // clang-format off
-    PR.ReadEntity(IR, PR.Current(), "Reference direction", tempRefdir); //szv#4:S4163:12Mar99 `st=` not needed
+    PR.ReadEntity(IR, PR.Current(), "Reference1 direction", tempRefdir); //szv#4:S4163:12Mar99 `st=` not needed
                                // clang-format on
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -157,7 +157,7 @@ void ToroidalSurfaceTool::OwnDump(const Handle(IGESSolid_ToroidalSurface)& ent,
     << "Minor Radius : " << ent->MinorRadius() << "\n";
   if (ent->IsParametrised())
   {
-    S << "Surface is Parametrised  -  Reference direction : ";
+    S << "Surface is Parametrised  -  Reference1 direction : ";
     dumper.Dump(ent->ReferenceDir(), S, sublevel);
     S << std::endl;
   }

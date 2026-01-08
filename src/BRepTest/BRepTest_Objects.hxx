@@ -19,7 +19,7 @@
 #include <BRepTools_History.hxx>
 
 //! Provides the access to the useful tools common for the algorithms.
-class BRepTest_Objects
+class Objects1
 {
 public:
   //! Sets the given history into the session.

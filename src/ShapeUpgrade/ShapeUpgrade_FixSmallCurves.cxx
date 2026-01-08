@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_FixSmallCurves, ShapeUpgrade_Tool)
 
 ShapeUpgrade_FixSmallCurves::ShapeUpgrade_FixSmallCurves()
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 //=================================================================================================
@@ -88,5 +88,5 @@ Handle(ShapeUpgrade_SplitCurve2d) ShapeUpgrade_FixSmallCurves::GetSplitCurve2dTo
 
 Standard_Boolean ShapeUpgrade_FixSmallCurves::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }

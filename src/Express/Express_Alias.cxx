@@ -46,7 +46,7 @@ const AsciiString1 Express_Alias::CPPName() const
 
 Standard_Boolean Express_Alias::GenerateClass() const
 {
-  Message::SendInfo() << "ALIAS " << Name() << " = " << Type()->CPPName()
+  Message1::SendInfo() << "ALIAS " << Name() << " = " << Type()->CPPName()
                       << " used; no generation is needed";
   return Standard_False;
 }

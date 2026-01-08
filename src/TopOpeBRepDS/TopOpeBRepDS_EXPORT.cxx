@@ -156,7 +156,7 @@ Standard_EXPORT void FDS_data
   if (I.IsNull())
     return;
   GT1 = I->GeometryType();
-  G1  = I->Geometry();
+  G1  = I->Geometry1();
   ST1 = I->SupportType();
   S1  = I->Support();
 }
@@ -2030,7 +2030,7 @@ Standard_EXPORT void FUN_ds_completeforSE6(const Handle(TopOpeBRepDS_HDataStruct
     for (TopOpeBRepDS_ListIteratorOfListOfInterference it(LIa); it.More(); it.Next())
     {
       const Handle(TopOpeBRepDS_Interference)& Ia = it.Value();
-      Standard_Integer                         G  = Ia->Geometry();
+      Standard_Integer                         G  = Ia->Geometry1();
       TopoShape                             vGsd;
       Standard_Boolean                         hassd = FUN_ds_getoov(BDS.Shape(G), HDS, vGsd);
       if (!hassd)
@@ -2621,7 +2621,7 @@ Standard_EXPORT void FUN_ds_PointToVertex(const Handle(TopOpeBRepDS_HDataStructu
   TColStd_DataMapIteratorOfDataMapOfIntegerInteger itm(iPiV);
   for (; itm.More(); itm.Next())
   {
-    Standard_Integer G = itm.Key();
+    Standard_Integer G = itm.Key1();
     BDS.RemovePoint(G);
   }
 } // PointToVertex
@@ -3213,7 +3213,7 @@ Standard_EXPORT void FUN_ds_FEIGb1TO0(Handle(TopOpeBRepDS_HDataStructure)&      
         Handle(TopOpeBRepDS_FaceEdgeInterference)::DownCast(it.Value());
       Standard_Integer   S  = IGb1->Support();
       const TopoFace& FS = TopoDS::Face(BDS.Shape(S));
-      Standard_Integer   G  = IGb1->Geometry();
+      Standard_Integer   G  = IGb1->Geometry1();
       Standard_Integer   Gsd;
       Standard_Boolean   findSD = DataStructureTool::GetEsd(HDS, FS, G, Gsd);
       if (!findSD)
@@ -3228,7 +3228,7 @@ Standard_EXPORT void FUN_ds_FEIGb1TO0(Handle(TopOpeBRepDS_HDataStructure)&      
       for (; itt.More(); itt.Next())
       {
         const Handle(TopOpeBRepDS_Interference)& II = itt.Value();
-        Standard_Boolean isfound = (II->Support() == S) && (II->Geometry() == Gsd);
+        Standard_Boolean isfound = (II->Support() == S) && (II->Geometry1() == Gsd);
         if (isfound)
         {
           stored = Standard_True;
@@ -3386,7 +3386,7 @@ Standard_EXPORT void FUN_ds_complete1dForSESDM(const Handle(TopOpeBRepDS_HDataSt
             for (; iti.More(); iti.Next())
             {
               const Handle(TopOpeBRepDS_Interference)& I1  = iti.Value();
-              Standard_Integer                         gi  = I1->Geometry();
+              Standard_Integer                         gi  = I1->Geometry1();
               const TopoShape&                      aVG = BDS.Shape(gi);
               if (aVGMap.Contains(aVG))
                 break;

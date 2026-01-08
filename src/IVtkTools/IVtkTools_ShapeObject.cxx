@@ -41,7 +41,7 @@ IVtkTools_ShapeObject::KeyPtr IVtkTools_ShapeObject::getKey()
 {
   if (!myKey)
   {
-    myKey = new vtkInformationObjectBaseKey("OccShapePtr", "IVtkTools_ShapeObject::Key");
+    myKey = new vtkInformationObjectBaseKey("OccShapePtr", "IVtkTools_ShapeObject::Key1");
   }
 
   return myKey;

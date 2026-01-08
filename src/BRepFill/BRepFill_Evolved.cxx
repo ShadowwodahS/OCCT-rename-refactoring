@@ -530,7 +530,7 @@ void BRepFill_Evolved::PrivatePerform(const TopoFace&     Spine,
     MakeSolid();
 
   //  modified by NIZHNY-EAP Mon Jan 24 11:26:48 2000 ___BEGIN___
-  BRepLib::UpdateTolerances(myShape, Standard_False);
+  BRepLib1::UpdateTolerances(myShape, Standard_False);
   //  modified by NIZHNY-EAP Mon Jan 24 11:26:50 2000 ___END___
   myIsDone = Standard_True;
 }
@@ -1082,7 +1082,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
 
   for (ite1.Initialize(myMap); ite1.More(); ite1.Next())
   {
-    CurrentSpine = ite1.Key();
+    CurrentSpine = ite1.Key1();
 
     for (ProfExp.Init(myProfile); ProfExp.More(); ProfExp.Next())
     {
@@ -1206,7 +1206,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
   //-------------------------------------------------------------------
   for (ite1.Initialize(myMap); ite1.More(); ite1.Next())
   {
-    CurrentSpine = ite1.Key();
+    CurrentSpine = ite1.Key1();
 
     for (ProfExp.Init(myProfile); ProfExp.More(); ProfExp.Next())
     {
@@ -1530,23 +1530,23 @@ void BRepFill_Evolved::VerticalPerform(const TopoFace&              Sp,
     {
       const ShapeList&        LOF = it.Value()(V1);
       TopTools_ListIteratorOfListOfShape itLOF(LOF);
-      if (!myMap(it.Key()).IsBound(V2))
+      if (!myMap(it.Key1()).IsBound(V2))
       {
         ShapeList L;
-        myMap(it.Key()).Bind(V2, L);
+        myMap(it.Key1()).Bind(V2, L);
       }
 
-      if (!myMap(it.Key()).IsBound(E))
+      if (!myMap(it.Key1()).IsBound(E))
       {
         ShapeList L;
-        myMap(it.Key()).Bind(E, L);
+        myMap(it.Key1()).Bind(E, L);
       }
 
       for (; itLOF.More(); itLOF.Next())
       {
         const TopoShape& OS = itLOF.Value();
-        myMap(it.Key())(V2).Append(PS.LastShape(OS));
-        myMap(it.Key())(E).Append(PS.Shape(OS));
+        myMap(it.Key1())(V2).Append(PS.LastShape(OS));
+        myMap(it.Key1())(E).Append(PS.Shape(OS));
       }
     }
   }
@@ -1734,7 +1734,7 @@ void BRepFill_Evolved::PrepareProfile(ShapeList&         WorkProf,
   TopTools_DataMapIteratorOfDataMapOfShapeShape gilbert(MapVerRefMoved);
   for (; gilbert.More(); gilbert.Next())
   {
-    MapProf.Bind(gilbert.Value(), gilbert.Key());
+    MapProf.Bind(gilbert.Value(), gilbert.Key1());
   }
 }
 
@@ -1797,7 +1797,7 @@ void BRepFill_Evolved::PrepareSpine(TopoFace&                  WorkSpine,
   }
 
   // Construct curves 3D of the spine
-  BRepLib::BuildCurves3d(WorkSpine);
+  BRepLib1::BuildCurves3d(WorkSpine);
 
 #ifdef DRAW
   if (AffichEdge)
@@ -1901,7 +1901,7 @@ void BRepFill_Evolved::Add(BRepFill_Evolved& Vevo, const TopoWire& Prof, ShapeQu
     {
       for (iteS.Initialize(myMap); iteS.More(); iteS.Next())
       {
-        const TopoShape& SP = iteS.Key();
+        const TopoShape& SP = iteS.Key1();
         if (iteS.Value().IsBound(VV) && MapVevo.IsBound(SP) && MapVevo(SP).IsBound(VV))
         {
 
@@ -1934,10 +1934,10 @@ void BRepFill_Evolved::Add(BRepFill_Evolved& Vevo, const TopoWire& Prof, ShapeQu
 
   for (iteS.Initialize(MapVevo); iteS.More(); iteS.Next())
   {
-    CurrentSpine = iteS.Key();
+    CurrentSpine = iteS.Key1();
     for (iteP.Initialize(MapVevo(CurrentSpine)); iteP.More(); iteP.Next())
     {
-      CurrentProf = iteP.Key();
+      CurrentProf = iteP.Key1();
       if (!myMap.IsBound(CurrentSpine))
       {
         //------------------------------------------------
@@ -1998,7 +1998,7 @@ void BRepFill_Evolved::Transfert(BRepFill_Evolved&                   Vevo,
   {
     B.SameRange(TopoDS::Edge(ex.Current()), Standard_False);
     B.SameParameter(TopoDS::Edge(ex.Current()), Standard_False);
-    BRepLib::SameParameter(TopoDS::Edge(ex.Current()));
+    BRepLib1::SameParameter(TopoDS::Edge(ex.Current()));
     ex.Next();
   }
 
@@ -2015,15 +2015,15 @@ void BRepFill_Evolved::Transfert(BRepFill_Evolved&                   Vevo,
 
   for (iteS.Initialize(MapVevo); iteS.More(); iteS.Next())
   {
-    InitialSpine = MapSpine(iteS.Key());
+    InitialSpine = MapSpine(iteS.Key1());
     InitialSpine.Move(LS);
 
-    for (iteP.Initialize(MapVevo(iteS.Key())); iteP.More(); iteP.Next())
+    for (iteP.Initialize(MapVevo(iteS.Key1())); iteP.More(); iteP.Next())
     {
-      InitialProf = MapProf(iteP.Key());
+      InitialProf = MapProf(iteP.Key1());
       InitialProf.Location(InitLP);
 
-      ShapeList& GenShapes = MapVevo.ChangeFind(iteS.Key()).ChangeFind(iteP.Key());
+      ShapeList& GenShapes = MapVevo.ChangeFind(iteS.Key1()).ChangeFind(iteP.Key1());
 
       TopTools_ListIteratorOfListOfShape itl;
       for (itl.Initialize(GenShapes); itl.More(); itl.Next())
@@ -2354,7 +2354,7 @@ void BRepFill_Evolved::MakeRevol(const TopoEdge&   SE,
 
   Axis3d AxeRev(BRepInspector::Pnt(VLast), -gp1::DZ());
 
-  // Position of the sewing on the edge of the spine
+  // Position1 of the sewing on the edge of the spine
   // so that the bissectrices didn't cross the sewings.
   Transform3d dummy;
   dummy.SetRotation(AxeRev, 1.5 * M_PI);
@@ -2443,7 +2443,7 @@ TopLoc_Location BRepFill_Evolved::FindLocation(const TopoFace& Face) const
     S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
   Handle(GeomPlane) P    = Handle(GeomPlane)::DownCast(S);
-  Ax3             Axis = P->Position();
+  Ax3             Axis = P->Position1();
 
   Transform3d T;
   Ax3  AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
@@ -2514,7 +2514,7 @@ void BRepFill_Evolved::ContinuityOnOffsetEdge(const ShapeList&)
         //-----------------------------------------------------
         for (iteS.Initialize(myMap); iteS.More(); iteS.Next())
         {
-          const TopoShape& SP = iteS.Key();
+          const TopoShape& SP = iteS.Key1();
           if (myMap(SP).IsBound(V) && myMap(SP).IsBound(CurE) && myMap(SP).IsBound(PrecE))
           {
             if (!myMap(SP)(V).IsEmpty() && !myMap(SP)(CurE).IsEmpty()
@@ -2548,7 +2548,7 @@ void BRepFill_Evolved::ContinuityOnOffsetEdge(const ShapeList&)
       //---------------------------------------------
       for (iteS.Initialize(myMap); iteS.More(); iteS.Next())
       {
-        const TopoShape& SP = iteS.Key();
+        const TopoShape& SP = iteS.Key1();
         if (myMap(SP).IsBound(VF) && myMap(SP).IsBound(CurE) && myMap(SP).IsBound(FirstE))
         {
           if (!myMap(SP)(VF).IsEmpty() && !myMap(SP)(CurE).IsEmpty()
@@ -2776,9 +2776,9 @@ const TopoWire PutProfilAt(const TopoWire&     ProfRef,
       C2d->D1(First, P, D1);
   }
   Point3d P3d(P.X(), P.Y(), 0.);
-  Vector3d V3d(D1.X(), D1.Y(), 0.);
+  Vector3d V3d1(D1.X(), D1.Y(), 0.);
 
-  Ax3  Ax(P3d, gp1::DZ(), V3d);
+  Ax3  Ax(P3d, gp1::DZ(), V3d1);
   Transform3d Trans;
   Trans.SetTransformation(Ax, AxeRef);
   TopoShape aLocalShape = ProfRef.Moved(TopLoc_Location(Trans));
@@ -2879,7 +2879,7 @@ void TrimEdge(const TopoEdge&              Edge,
     }
     TheBuilder.Range(NewEdge, ThePar.Value(k), ThePar.Value(k + 1));
     //  modified by NIZHNY-EAP Wed Dec 22 12:09:48 1999 ___BEGIN___
-    BRepLib::UpdateTolerances(NewEdge, Standard_False);
+    BRepLib1::UpdateTolerances(NewEdge, Standard_False);
     //  modified by NIZHNY-EAP Wed Dec 22 13:34:19 1999 ___END___
     S.Append(NewEdge);
   }
@@ -3272,7 +3272,7 @@ void CutEdgeProf(const TopoEdge&            E,
 void CutEdge(const TopoEdge& E, const TopoFace& F, ShapeList& Cuts)
 {
   Cuts.Clear();
-  MAT2d_CutCurve              Cuter;
+  MAT2dCutCurve              Cuter;
   Standard_Real               f, l;
   Handle(GeomCurve2d)        C2d;
   Handle(Geom2d_TrimmedCurve) CT2d;

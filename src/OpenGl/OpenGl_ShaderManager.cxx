@@ -73,9 +73,9 @@ static void bindLight(const Graphic3d_CLight& theLight,
     case Graphic3d_TypeOfLightSource_Positional: {
       // to create a realistic effect, set the GL_SPECULAR parameter to the same value as the
       // GL_DIFFUSE
-      const OpenGl_Vec4 aPosition(static_cast<float>(theLight.Position().X()),
-                                  static_cast<float>(theLight.Position().Y()),
-                                  static_cast<float>(theLight.Position().Z()),
+      const OpenGl_Vec4 aPosition(static_cast<float>(theLight.Position1().X()),
+                                  static_cast<float>(theLight.Position1().Y()),
+                                  static_cast<float>(theLight.Position1().Z()),
                                   1.0f);
       theCtx->core11ffp->glLightfv(theLightGlId, GL_AMBIENT, THE_DEFAULT_AMBIENT);
       theCtx->core11ffp->glLightfv(theLightGlId, GL_DIFFUSE, aLightColor.GetData());
@@ -94,9 +94,9 @@ static void bindLight(const Graphic3d_CLight& theLight,
       break;
     }
     case Graphic3d_TypeOfLightSource_Spot: {
-      const OpenGl_Vec4 aPosition(static_cast<float>(theLight.Position().X()),
-                                  static_cast<float>(theLight.Position().Y()),
-                                  static_cast<float>(theLight.Position().Z()),
+      const OpenGl_Vec4 aPosition(static_cast<float>(theLight.Position1().X()),
+                                  static_cast<float>(theLight.Position1().Y()),
+                                  static_cast<float>(theLight.Position1().Z()),
                                   1.0f);
       theCtx->core11ffp->glLightfv(theLightGlId, GL_AMBIENT, THE_DEFAULT_AMBIENT);
       theCtx->core11ffp->glLightfv(theLightGlId, GL_DIFFUSE, aLightColor.GetData());
@@ -502,12 +502,12 @@ void OpenGl_ShaderManager::pushLightSourceState(
         if (aLight.IsHeadlight())
         {
           const Graphic3d_Mat4& anOrientInv = myWorldViewState.WorldViewMatrixInverse();
-          aLightParams.Position = anOrientInv * Graphic3d_Vec4(-aLight.PackedDirection(), 0.0f);
-          aLightParams.Position.SetValues(aLightParams.Position.xyz().Normalized(), 0.0f);
+          aLightParams.Position1 = anOrientInv * Graphic3d_Vec4(-aLight.PackedDirection(), 0.0f);
+          aLightParams.Position1.SetValues(aLightParams.Position1.xyz().Normalized(), 0.0f);
         }
         else
         {
-          aLightParams.Position = Graphic3d_Vec4(-aLight.PackedDirection(), 0.0f);
+          aLightParams.Position1 = Graphic3d_Vec4(-aLight.PackedDirection(), 0.0f);
         }
         break;
       }
@@ -527,18 +527,18 @@ void OpenGl_ShaderManager::pushLightSourceState(
       case Graphic3d_TypeOfLightSource_Positional: {
         if (aLight.IsHeadlight())
         {
-          aLightParams.Position.x()         = static_cast<float>(aLight.Position().X());
-          aLightParams.Position.y()         = static_cast<float>(aLight.Position().Y());
-          aLightParams.Position.z()         = static_cast<float>(aLight.Position().Z());
+          aLightParams.Position1.x()         = static_cast<float>(aLight.Position1().X());
+          aLightParams.Position1.y()         = static_cast<float>(aLight.Position1().Y());
+          aLightParams.Position1.z()         = static_cast<float>(aLight.Position1().Z());
           const Graphic3d_Mat4& anOrientInv = myWorldViewState.WorldViewMatrixInverse();
-          aLightParams.Position = anOrientInv * Graphic3d_Vec4(aLightParams.Position.xyz(), 1.0f);
+          aLightParams.Position1 = anOrientInv * Graphic3d_Vec4(aLightParams.Position1.xyz(), 1.0f);
         }
         else
         {
-          aLightParams.Position.x() = static_cast<float>(aLight.Position().X() - myLocalOrigin.X());
-          aLightParams.Position.y() = static_cast<float>(aLight.Position().Y() - myLocalOrigin.Y());
-          aLightParams.Position.z() = static_cast<float>(aLight.Position().Z() - myLocalOrigin.Z());
-          aLightParams.Position.w() = 0.0f;
+          aLightParams.Position1.x() = static_cast<float>(aLight.Position1().X() - myLocalOrigin.X());
+          aLightParams.Position1.y() = static_cast<float>(aLight.Position1().Y() - myLocalOrigin.Y());
+          aLightParams.Position1.z() = static_cast<float>(aLight.Position1().Z() - myLocalOrigin.Z());
+          aLightParams.Position1.w() = 0.0f;
         }
         aLightParams.Direction.w() = aLight.Range();
         break;
@@ -777,7 +777,7 @@ void OpenGl_ShaderManager::pushClippingState(const Handle(OpenGl_ShaderProgram)&
       }
       else if (aPlaneId >= aNbMaxPlanes)
       {
-        Message::SendWarning() << "OpenGl_ShaderManager, warning: clipping planes limit ("
+        Message1::SendWarning() << "OpenGl_ShaderManager, warning: clipping planes limit ("
                                << aNbMaxPlanes << ") has been exceeded";
         break;
       }
@@ -790,7 +790,7 @@ void OpenGl_ShaderManager::pushClippingState(const Handle(OpenGl_ShaderProgram)&
       aPlaneEq.w()                                    = anEquation.w();
       if (myHasLocalOrigin)
       {
-        const Coords3d        aPos = aPlane->ToPlane().Position().Location().XYZ() - myLocalOrigin;
+        const Coords3d        aPos = aPlane->ToPlane().Position1().Location().XYZ() - myLocalOrigin;
         const Standard_Real aD =
           -(anEquation.x() * aPos.X() + anEquation.y() * aPos.Y() + anEquation.z() * aPos.Z());
         aPlaneEq.w() = aD;

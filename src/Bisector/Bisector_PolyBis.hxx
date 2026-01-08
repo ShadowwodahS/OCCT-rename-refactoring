@@ -26,24 +26,24 @@
 class Transform2d;
 
 //! Polygon of PointOnBis
-class Bisector_PolyBis
+class PolyBis
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Bisector_PolyBis();
+  Standard_EXPORT PolyBis();
 
-  Standard_EXPORT void Append(const Bisector_PointOnBis& Point);
+  Standard_EXPORT void Append(const PointOnBis& Point);
 
   Standard_EXPORT Standard_Integer Length() const;
 
   Standard_EXPORT Standard_Boolean IsEmpty() const;
 
-  Standard_EXPORT const Bisector_PointOnBis& Value(const Standard_Integer Index) const;
+  Standard_EXPORT const PointOnBis& Value(const Standard_Integer Index) const;
 
-  Standard_EXPORT const Bisector_PointOnBis& First() const;
+  Standard_EXPORT const PointOnBis& First() const;
 
-  Standard_EXPORT const Bisector_PointOnBis& Last() const;
+  Standard_EXPORT const PointOnBis& Last() const;
 
   Standard_EXPORT Standard_Integer Interval1(const Standard_Real U) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Bisector_PointOnBis thePoints[30];
+  PointOnBis thePoints[30];
   Standard_Integer    nbPoints;
 };
 

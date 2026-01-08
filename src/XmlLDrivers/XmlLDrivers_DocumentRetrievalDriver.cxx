@@ -281,7 +281,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
     {
       if (aNode.getNodeType() == LDOM_Node::ELEMENT_NODE)
       {
-        if (XmlObjMgt::GetExtendedString((LDOM_Element&)aNode, anInfo))
+        if (XmlObjMgt1::GetExtendedString((LDOM_Element&)aNode, anInfo))
         {
 
           // Read ref counter
@@ -444,7 +444,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
     {
       if (aNode.getNodeType() == LDOM_Node::ELEMENT_NODE)
       {
-        if (XmlObjMgt::GetExtendedString((LDOM_Element&)aNode, aComment))
+        if (XmlObjMgt1::GetExtendedString((LDOM_Element&)aNode, aComment))
         {
           theNewDocument->AddComment(aComment);
         }
@@ -517,7 +517,7 @@ Standard_Boolean XmlLDrivers_DocumentRetrievalDriver::MakeDocument(
   if (!TDOC.IsNull())
   {
     Handle(TDF_Data) aTDF = new TDF_Data();
-    aResult               = XmlMDF::FromTo(theElement, aTDF, myRelocTable, myDrivers, theRange);
+    aResult               = XmlMDF1::FromTo(theElement, aTDF, myRelocTable, myDrivers, theRange);
     if (aResult)
     {
       TDOC->SetData(aTDF);
@@ -532,7 +532,7 @@ Standard_Boolean XmlLDrivers_DocumentRetrievalDriver::MakeDocument(
 Handle(XmlMDF_ADriverTable) XmlLDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return XmlLDrivers::AttributeDrivers(theMessageDriver);
+  return XmlLDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=======================================================================

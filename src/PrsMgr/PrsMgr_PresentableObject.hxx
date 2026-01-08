@@ -35,11 +35,11 @@ typedef PrsMgr_PresentationManager PrsMgr_PresentationManager3d;
 //! A framework to supply the Graphic3d structure of the object to be presented.
 //! On the first display request, this structure is created by calling the appropriate algorithm and
 //! retaining this framework for further display. This abstract framework is inherited in
-//! Application Interactive Services (AIS), notably by VisualEntity. Consequently, 3D
+//! Application Interactive Services (AIS1), notably by VisualEntity. Consequently, 3D
 //! presentation should be handled by the relevant daughter classes and their member functions in
-//! AIS. This is particularly true in the creation of new interactive objects.
+//! AIS1. This is particularly true in the creation of new interactive objects.
 //!
-//! Key interface methods to be implemented by every Selectable Object:
+//! Key1 interface methods to be implemented by every Selectable Object:
 //! - AcceptDisplayMode() accepting display modes implemented by this object;
 //! - Compute() computing presentation for the given display mode index.
 //!
@@ -229,7 +229,7 @@ public: //! @name presentation attributes
 
 public: //! @name object transformation
   //! Returns Transformation Persistence defining a special Local Coordinate system where this
-  //! presentable object is located or NULL handle if not defined. Position of the object having
+  //! presentable object is located or NULL handle if not defined. Position1 of the object having
   //! Transformation Persistence is mutable and depends on camera position. The same applies to a
   //! bounding box of the object.
   //! @sa Graphic3d_TransformPers class description

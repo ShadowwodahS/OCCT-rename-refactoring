@@ -107,7 +107,7 @@ Standard_Real Wasm_Window::Ratio() const
 
 //=================================================================================================
 
-void Wasm_Window::Position(Standard_Integer& theX1,
+void Wasm_Window::Position1(Standard_Integer& theX1,
                            Standard_Integer& theY1,
                            Standard_Integer& theX2,
                            Standard_Integer& theY2) const

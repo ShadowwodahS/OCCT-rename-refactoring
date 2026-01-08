@@ -55,15 +55,15 @@ Standard_OStream& TDF_DataSet::Dump(Standard_OStream& anOS) const
   anOS << std::endl << "Labels :" << std::endl << "========" << std::endl;
   for (TDF_MapIteratorOfLabelMap itr2(myLabelMap); itr2.More(); itr2.Next())
   {
-    itr2.Key().EntryDump(anOS);
+    itr2.Key1().EntryDump(anOS);
     anOS << " | ";
   }
   anOS << std::endl << "Attributes :" << std::endl << "============" << std::endl << std::endl;
   for (TDF_MapIteratorOfAttributeMap itr3(myAttributeMap); itr3.More(); itr3.Next())
   {
-    itr3.Key()->Label().EntryDump(anOS);
+    itr3.Key1()->Label().EntryDump(anOS);
     anOS << " \t";
-    itr3.Key()->Dump(anOS);
+    itr3.Key1()->Dump(anOS);
     anOS << std::endl;
   }
   anOS << std::endl;

@@ -25,12 +25,12 @@
 #include <Standard_HashUtils.hxx>
 
 //! BiInt is a set of two integers.
-class MAT2d_BiInt
+class BiInt
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT MAT2d_BiInt(const Standard_Integer I1, const Standard_Integer I2);
+  Standard_EXPORT BiInt(const Standard_Integer I1, const Standard_Integer I2);
 
   Standard_EXPORT Standard_Integer FirstIndex() const;
 
@@ -40,9 +40,9 @@ public:
 
   Standard_EXPORT void SecondIndex(const Standard_Integer I2);
 
-  Standard_EXPORT Standard_Boolean IsEqual(const MAT2d_BiInt& B) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const BiInt& B) const;
 
-  Standard_Boolean operator==(const MAT2d_BiInt& B) const { return IsEqual(B); }
+  Standard_Boolean operator==(const BiInt& B) const { return IsEqual(B); }
 
 protected:
 private:
@@ -53,9 +53,9 @@ private:
 namespace std
 {
 template <>
-struct hash<MAT2d_BiInt>
+struct hash<BiInt>
 {
-  size_t operator()(const MAT2d_BiInt& theBiInt) const noexcept
+  size_t operator()(const BiInt& theBiInt) const noexcept
   {
     // Combine two int values into a single hash value.
     int aCombination[2]{theBiInt.FirstIndex(), theBiInt.SecondIndex()};

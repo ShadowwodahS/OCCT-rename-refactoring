@@ -14,7 +14,7 @@
 /*============================================================================*/
 /*==== Title: Aspect_RenderingContext.hxx                                     */
 /*==== Role: The header file of primitive type "RenderingContext" from package*/
-/*==== "V3d"                                                                  */
+/*==== "V3d1"                                                                  */
 /*==== Implementation:  This is a primitive type implemented with typedef     */
 /*============================================================================*/
 // To manage 2D or 3D graphic context

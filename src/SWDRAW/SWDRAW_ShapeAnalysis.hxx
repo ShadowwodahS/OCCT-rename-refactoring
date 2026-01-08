@@ -27,7 +27,7 @@
 //! tolerance - ShapeTolerance
 //! projcurve - Curve2
 //! projface  - ShapeAnalysis_Surface
-class SWDRAW_ShapeAnalysis
+class ShapeAnalysis2
 {
 public:
   DEFINE_STANDARD_ALLOC

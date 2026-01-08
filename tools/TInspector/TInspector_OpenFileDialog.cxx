@@ -153,7 +153,7 @@ void TInspector_OpenFileDialog::GetPluginRecentlyOpenedFiles(
   for (TInspectorAPI_IteratorOfPreferencesDataMap anItemIt(aPreferencesItem); anItemIt.More();
        anItemIt.Next())
   {
-    if (!anItemIt.Key().IsEqual("recently_opened_files"))
+    if (!anItemIt.Key1().IsEqual("recently_opened_files"))
       continue;
 #include <Standard_WarningsDisable.hxx>
     theFileNames = QString(anItemIt.Value().ToCString()).split(";", QString::SkipEmptyParts);

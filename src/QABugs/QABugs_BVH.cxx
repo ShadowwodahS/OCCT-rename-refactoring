@@ -214,7 +214,7 @@ static Standard_Integer QABVH_ShapeSelect(DrawInterpreter& theDI,
     const TopoShape& aS = aMapShapes(iS);
 
     Box2 aSBox;
-    BRepBndLib::Add(aS, aSBox);
+    BRepBndLib1::Add(aS, aSBox);
 
     aShapeBoxSet->Add(aS, Tools5::Bnd2BVH(aSBox));
   }
@@ -226,7 +226,7 @@ static Standard_Integer QABVH_ShapeSelect(DrawInterpreter& theDI,
 
   // Prepare a Box1 for selection
   Box2 aSelectionBox;
-  BRepBndLib::Add(aBShape, aSelectionBox);
+  BRepBndLib1::Add(aBShape, aSelectionBox);
 
   // Perform selection
   if (!useVoidSelector)
@@ -417,7 +417,7 @@ static Standard_Integer QABVH_PairSelect(DrawInterpreter& theDI,
       const TopoShape& aS = aMapShapes(iS);
 
       Box2 aSBox;
-      BRepBndLib::Add(aS, aSBox);
+      BRepBndLib1::Add(aS, aSBox);
 
       aShapeBoxSet[i]->Add(aS, Tools5::Bnd2BVH(aSBox));
     }

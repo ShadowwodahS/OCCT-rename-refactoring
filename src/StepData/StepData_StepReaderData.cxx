@@ -453,7 +453,7 @@ void StepData_StepReaderData::SetRecord(const Standard_Integer num,
                 break;
             }
 
-            Message_Messenger::StreamBuffer sout = Message::SendTrace();
+            Message_Messenger::StreamBuffer sout = Message1::SendTrace();
             sout << "  ***  Incorrect record " << num << " (on " << NbRecords() << " -> "
                  << num * 100 / NbRecords() << " % in File)  ***";
             if (prev > 0)
@@ -548,7 +548,7 @@ Standard_Integer StepData_StepReaderData::SubListNumber(const Standard_Integer n
 {
   if (nump == 0 || nump > NbParams(num))
     return 0;
-  const Interface_FileParameter& FP = Param(num, nump);
+  const FileParameter& FP = Param(num, nump);
   if (FP.ParamType() != Interface_ParamSub)
     return 0;
   if (aslast)
@@ -753,7 +753,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
   }
 
   //  cas courant : faire un HArray1 de ... de ... de quoi au fait
-  const Interface_FileParameter&          FP0 = Param(numsub, 1);
+  const FileParameter&          FP0 = Param(numsub, 1);
   Interface_ParamType                     FT, FT0 = FP0.ParamType();
   Standard_CString                        str = FP0.CValue();
   Handle(TColStd_HArray1OfTransient)      htr;
@@ -823,7 +823,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
 
   for (Standard_Integer ip = 1; ip <= nbp; ip++)
   {
-    const Interface_FileParameter& FP = Param(numsub, ip);
+    const FileParameter& FP = Param(numsub, ip);
     str                               = FP.CValue();
     FT                                = FP.ParamType();
     switch (kod)
@@ -1054,7 +1054,7 @@ Standard_Boolean StepData_StepReaderData::ReadField(const Standard_Integer      
                                                     const Handle(StepData_PDescr)& descr,
                                                     StepData_Field&                fild) const
 {
-  const Interface_FileParameter&   FP  = Param(num, nump);
+  const FileParameter&   FP  = Param(num, nump);
   Standard_CString                 str = FP.CValue();
   Standard_Boolean                 OK  = Standard_True;
   Standard_Integer                 nent, kind;
@@ -1153,7 +1153,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
                                                   const Handle(StepData_PDescr)& descr,
                                                   Handle(RefObject)&    val) const
 {
-  const Interface_FileParameter& FP  = Param(num, nump);
+  const FileParameter& FP  = Param(num, nump);
   Standard_CString               str = FP.CValue();
   Interface_ParamType            FT  = FP.ParamType();
 
@@ -1341,13 +1341,13 @@ Standard_Boolean StepData_StepReaderData::ReadXY(const Standard_Integer   num,
   {
     if (NbParams(numsub) == 2)
     {
-      const Interface_FileParameter& FPX = Param(numsub, 1);
+      const FileParameter& FPX = Param(numsub, 1);
       if (FPX.ParamType() == Interface_ParamReal)
         X = Interface_FileReaderData::Fastof(FPX.CValue());
       else
         errmess = new String("Parameter n0.%d (%s) : (X,Y) X not a Real");
 
-      const Interface_FileParameter& FPY = Param(numsub, 2);
+      const FileParameter& FPY = Param(numsub, 2);
       if (FPY.ParamType() == Interface_ParamReal)
         Y = Interface_FileReaderData::Fastof(FPY.CValue());
       else
@@ -1382,19 +1382,19 @@ Standard_Boolean StepData_StepReaderData::ReadXYZ(const Standard_Integer   num,
   {
     if (NbParams(numsub) == 3)
     {
-      const Interface_FileParameter& FPX = Param(numsub, 1);
+      const FileParameter& FPX = Param(numsub, 1);
       if (FPX.ParamType() == Interface_ParamReal)
         X = Interface_FileReaderData::Fastof(FPX.CValue());
       else
         errmess = new String("Parameter n0.%d (%s) : (X,Y,Z) X not a Real");
 
-      const Interface_FileParameter& FPY = Param(numsub, 2);
+      const FileParameter& FPY = Param(numsub, 2);
       if (FPY.ParamType() == Interface_ParamReal)
         Y = Interface_FileReaderData::Fastof(FPY.CValue());
       else
         errmess = new String("Parameter n0.%d (%s) : (X,Y,Z) Y not a Real");
 
-      const Interface_FileParameter& FPZ = Param(numsub, 3);
+      const FileParameter& FPZ = Param(numsub, 3);
       if (FPZ.ParamType() == Interface_ParamReal)
         Z = Interface_FileReaderData::Fastof(FPZ.CValue());
       else
@@ -1424,7 +1424,7 @@ Standard_Boolean StepData_StepReaderData::ReadReal(const Standard_Integer   num,
   Handle(String) errmess; // Null si pas d erreur
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamReal || FP.ParamType() == Interface_ParamInteger)
       val = Interface_FileReaderData::Fastof(FP.CValue());
     else
@@ -1455,7 +1455,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer     
   Standard_Boolean warn = Standard_False;
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP   = Param(num, nump);
+    const FileParameter& FP   = Param(num, nump);
     Standard_Integer               nent = FP.EntityNumber();
     if (FP.ParamType() == Interface_ParamIdent)
     {
@@ -1510,7 +1510,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer   nu
   Standard_Boolean warn = Standard_False;
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP   = Param(num, nump);
+    const FileParameter& FP   = Param(num, nump);
     Standard_Integer               nent = FP.EntityNumber();
     if (FP.ParamType() == Interface_ParamIdent)
     {
@@ -1580,7 +1580,7 @@ Standard_Boolean StepData_StepReaderData::ReadInteger(const Standard_Integer   n
   Standard_Boolean warn = Standard_False;
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamInteger)
       val = atoi(FP.CValue());
     else if (FP.ParamType() == Interface_ParamReal)
@@ -1592,7 +1592,7 @@ Standard_Boolean StepData_StepReaderData::ReadInteger(const Standard_Integer   n
       errmess = new String("Parameter n0.%d (%s) was rounded");
     }
     if (FP.ParamType() != Interface_ParamInteger && FP.ParamType() != Interface_ParamReal)
-      errmess = new String("Parameter n0.%d (%s) not an Integer");
+      errmess = new String("Parameter n0.%d (%s) not an Integer1");
   }
   else
     errmess = new String("Parameter n0.%d (%s) absent");
@@ -1619,7 +1619,7 @@ Standard_Boolean StepData_StepReaderData::ReadBoolean(const Standard_Integer   n
   Handle(String) errmess; // Null si pas d erreur
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamEnum)
     {
       Standard_CString txt = FP.CValue();
@@ -1654,7 +1654,7 @@ Standard_Boolean StepData_StepReaderData::ReadLogical(const Standard_Integer   n
   Handle(String) errmess; // Null si pas d erreur
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamEnum)
     {
       Standard_CString txt = FP.CValue();
@@ -1692,7 +1692,7 @@ Standard_Boolean StepData_StepReaderData::ReadString(const Standard_Integer     
   Standard_Boolean warn = Standard_False;
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamText)
     {
       /*Standard_CString anStr = FP.CValue();
@@ -1737,7 +1737,7 @@ Standard_Boolean StepData_StepReaderData::ReadEnumParam(const Standard_Integer  
   Standard_Boolean warn = Standard_False;
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamEnum)
     {
       text = FP.CValue();
@@ -1790,7 +1790,7 @@ Standard_Boolean StepData_StepReaderData::ReadEnum(const Standard_Integer   num,
   Standard_Boolean warn = Standard_False;
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() == Interface_ParamEnum)
     {
       val = enumtool.Value(FP.CValue());
@@ -1837,7 +1837,7 @@ Standard_Boolean StepData_StepReaderData::ReadTypedParam(const Standard_Integer 
   Handle(String) errmess; // Null si pas d erreur
   if (nump > 0 && nump <= NbParams(num))
   {
-    const Interface_FileParameter& FP = Param(num, nump);
+    const FileParameter& FP = Param(num, nump);
     if (FP.ParamType() != Interface_ParamSub)
     {
       //    Pas une sous-liste : OK si admis
@@ -1951,7 +1951,7 @@ Standard_Integer StepData_StepReaderData::FindEntityNumber(const Standard_Intege
   Standard_Integer nb = NbParams(num);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    const Interface_FileParameter& FP = Param(num, i);
+    const FileParameter& FP = Param(num, i);
     if (FP.ParamType() != Interface_ParamIdent)
       continue;
     Standard_Integer ixp = atoi(&FP.CValue()[1]);
@@ -1994,7 +1994,7 @@ Standard_Integer StepData_StepReaderData::FindEntityNumber(const Standard_Intege
 
 void StepData_StepReaderData::SetEntityNumbers(const Standard_Boolean withmap)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendTrace();
+  Message_Messenger::StreamBuffer sout = Message1::SendTrace();
   //   Passe initiale : Resolution directe par Map
   //   si tout passe (pas de collision), OK. Sinon, autres passes a prevoir
   //   On resoud du meme coup les sous-listes
@@ -2041,15 +2041,15 @@ void StepData_StepReaderData::SetEntityNumbers(const Standard_Boolean withmap)
     for (Standard_Integer na = nba; na > 0; na--)
     {
       //    On traite : les sous-listes (sf subn), les idents (si Map dit OK ...)
-      Interface_FileParameter& FP = ChangeParameter(nda + na);
-      //      Interface_FileParameter& FP = ChangeParam (num,na);
+      FileParameter& FP = ChangeParameter(nda + na);
+      //      FileParameter& FP = ChangeParam (num,na);
       Interface_ParamType letype = FP.ParamType();
       if (letype == Interface_ParamSub)
       {
         Standard_Integer numsub = FP.EntityNumber();
         if (numsub > thelastn)
         {
-          Message::SendInfo() << "Bad Sub.N0, Record " << num << " Param " << na << ":$" << numsub
+          Message1::SendInfo() << "Bad Sub.N0, Record " << num << " Param " << na << ":$" << numsub
                               << std::endl;
           continue;
         }
@@ -2076,13 +2076,13 @@ void StepData_StepReaderData::SetEntityNumbers(const Standard_Boolean withmap)
           }
           char failmess[100];
           //  ...  Construire le Check  ...
-          sprintf(failmess, "Unresolved Reference, Ent.Id.#%d Param.n0 %d (Id.#%d)", ident, na, id);
-          thecheck->AddFail(failmess, "Unresolved Reference");
+          sprintf(failmess, "Unresolved Reference1, Ent.Id.#%d Param.n0 %d (Id.#%d)", ident, na, id);
+          thecheck->AddFail(failmess, "Unresolved Reference1");
           //  ...  Et sortir message un peu plus complet
           sout << "*** ERR StepReaderData *** Entite #" << ident << "\n    Type:" << RecordType(num)
                << "  Param.n0 " << na << ": #" << id << " Not found" << std::endl;
         } // FIN  Mapping
-      } // FIN  Traitement Reference
+      } // FIN  Traitement Reference1
     } // FIN  Boucle Parametres
   } // FIN  Boucle Repertoires
 
@@ -2229,7 +2229,7 @@ void StepData_StepReaderData::SetEntityNumbers(const Standard_Boolean withmap)
       Standard_Integer nba = NbParams(num);
       for (Standard_Integer na = 1; na <= nba; na++)
       {
-        Interface_FileParameter& FP = ChangeParam(num, na);
+        FileParameter& FP = ChangeParam(num, na);
         if (FP.ParamType() != Interface_ParamIdent)
           continue;
         Standard_Integer id = -FP.EntityNumber();
@@ -2294,7 +2294,7 @@ void StepData_StepReaderData::SetEntityNumbers(const Standard_Boolean withmap)
       //  On lit depuis la fin : cela permet de traiter les sous-listes dans la foulee
       //  Sinon, on devrait noter qu il y a eu des sous-listes et reprendre ensuite
 
-      Interface_FileParameter& FP     = ChangeParam(num, na);
+      FileParameter& FP     = ChangeParam(num, na);
       Interface_ParamType      letype = FP.ParamType();
       if (letype == Interface_ParamSub)
       {
@@ -2426,19 +2426,19 @@ void StepData_StepReaderData::SetEntityNumbers(const Standard_Boolean withmap)
           }
           //  ...  Construire le Check  ...
           sprintf(failmess,
-                  "Unresolved Reference, Ent.n0 %d (Id.#%d) Param.n0 %d (Id.#%d)",
+                  "Unresolved Reference1, Ent.n0 %d (Id.#%d) Param.n0 %d (Id.#%d)",
                   nument,
                   ident,
                   na,
                   id);
-          thecheck->AddFail(failmess, "Unresolved Reference");
+          thecheck->AddFail(failmess, "Unresolved Reference1");
 
           //  ...  Et sortir message un peu plus complet
           sout << "*** ERR StepReaderData *** Entite " << nument << ", a " << (nr * 100) / nbseq
                << "% de DATA : #" << ident << "\n    Type:" << RecordType(num) << "  Param.n0 "
                << na << ": #" << id << " Not found" << std::endl;
 
-          FP.SetEntityNumber(0); // -> Reference non resolue
+          FP.SetEntityNumber(0); // -> Reference1 non resolue
         }
       }
     }
@@ -2506,7 +2506,7 @@ void StepData_StepReaderData::PrepareHeader()
   ..  On lit depuis la fin : cela permet de traiter les sous-listes dans la foulee
   ..  Sinon, on devrait noter qu il y a eu des sous-listes et reprendre ensuite
 
-        Interface_FileParameter& FP = ChangeParam(num,na);
+        FileParameter& FP = ChangeParam(num,na);
         Interface_ParamType letype = FP.ParamType();
         if (letype == Interface_ParamSub) {
   ..  parametre type sous-liste : numero de la sous-liste lu par depilement

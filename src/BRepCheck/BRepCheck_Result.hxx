@@ -50,7 +50,7 @@ public:
 
   Standard_Boolean MoreShapeInContext() const { return myIter.More(); }
 
-  const TopoShape& ContextualShape() const { return myIter.Key(); }
+  const TopoShape& ContextualShape() const { return myIter.Key1(); }
 
   const BRepCheck_ListOfStatus& StatusOnShape() const { return *myIter.Value(); }
 

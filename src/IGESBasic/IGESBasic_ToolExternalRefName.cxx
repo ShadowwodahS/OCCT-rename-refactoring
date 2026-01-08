@@ -39,7 +39,7 @@ void ExternalRefNameTool::ReadOwnParams(const Handle(IGESBasic_ExternalRefName)&
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Handle(TCollection_HAsciiString) tempExtRefEntitySymbName;
   PR.ReadText(PR.Current(),
-              "External Reference Symbolic Name",
+              "External Reference1 Symbolic Name",
               tempExtRefEntitySymbName); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -92,7 +92,7 @@ void ExternalRefNameTool::OwnDump(const Handle(IGESBasic_ExternalRefName)& ent,
                                             const Standard_Integer /* level */) const
 {
   S << "IGESBasic_ExternalRefName\n"
-    << "External Reference Symbolic Name : ";
+    << "External Reference1 Symbolic Name : ";
   IGESData_DumpString(S, ent->ReferenceName());
   S << std::endl;
 }

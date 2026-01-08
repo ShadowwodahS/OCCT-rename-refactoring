@@ -25,25 +25,25 @@
 // function : BindTypes
 // purpose  : Register types
 //=======================================================================
-void ShapePersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
+void ShapePersistent1::BindTypes(MapOfInstantiators& theMap)
 {
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PTopoDS_HArray1OfHShape");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom_HArray1OfCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom_HArray1OfBoundedCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom_HArray1OfBezierCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom_HArray1OfBSplineCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom_HArray1OfSurface");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom_HArray1OfBoundedSurface");
-  theMap.Bind<StdLPersistent_HArray2::Persistent>("PColPGeom_HArray2OfSurface");
-  theMap.Bind<StdLPersistent_HArray2::Persistent>("PColPGeom_HArray2OfBoundedSurface");
-  theMap.Bind<StdLPersistent_HArray2::Persistent>("PColPGeom_HArray2OfBezierSurface");
-  theMap.Bind<StdLPersistent_HArray2::Persistent>("PColPGeom_HArray2OfBSplineSurface");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom2d_HArray1OfCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom2d_HArray1OfBoundedCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom2d_HArray1OfBezierCurve");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColPGeom2d_HArray1OfBSplineCurve");
+  theMap.Bind<HArray1::Persistent>("PTopoDS_HArray1OfHShape");
+  theMap.Bind<HArray1::Persistent>("PColPGeom_HArray1OfCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom_HArray1OfBoundedCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom_HArray1OfBezierCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom_HArray1OfBSplineCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom_HArray1OfSurface");
+  theMap.Bind<HArray1::Persistent>("PColPGeom_HArray1OfBoundedSurface");
+  theMap.Bind<HArray2::Persistent>("PColPGeom_HArray2OfSurface");
+  theMap.Bind<HArray2::Persistent>("PColPGeom_HArray2OfBoundedSurface");
+  theMap.Bind<HArray2::Persistent>("PColPGeom_HArray2OfBezierSurface");
+  theMap.Bind<HArray2::Persistent>("PColPGeom_HArray2OfBSplineSurface");
+  theMap.Bind<HArray1::Persistent>("PColPGeom2d_HArray1OfCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom2d_HArray1OfBoundedCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom2d_HArray1OfBezierCurve");
+  theMap.Bind<HArray1::Persistent>("PColPGeom2d_HArray1OfBSplineCurve");
 
-  theMap.Bind<StdLPersistent_HArray2::Real>("PColStd_HArray2OfReal");
+  theMap.Bind<HArray2::Real>("PColStd_HArray2OfReal");
 
   theMap.Bind<ShapePersistent_TopoDS::HShape>("PTopoDS_HShape");
   theMap.Bind<ShapePersistent_TopoDS::HShape>("PTopoDS_Vertex");
@@ -98,22 +98,22 @@ void ShapePersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
   theMap.Bind<ShapePersistent_HArray2::Lin2d>("PColgp_HArray2OfLin2d");
   theMap.Bind<ShapePersistent_HArray2::Circ2d>("PColgp_HArray2OfCirc2d");
 
-  theMap.Bind<ShapePersistent_HSequence::XYZ>("PColgp_HSequenceOfXYZ");
-  theMap.Bind<ShapePersistent_HSequence::Pnt>("PColgp_HSequenceOfPnt");
-  theMap.Bind<ShapePersistent_HSequence::Dir>("PColgp_HSequenceOfDir");
-  theMap.Bind<ShapePersistent_HSequence::Vec>("PColgp_HSequenceOfVec");
+  theMap.Bind<HSequence::XYZ>("PColgp_HSequenceOfXYZ");
+  theMap.Bind<HSequence::Pnt>("PColgp_HSequenceOfPnt");
+  theMap.Bind<HSequence::Dir>("PColgp_HSequenceOfDir");
+  theMap.Bind<HSequence::Vec>("PColgp_HSequenceOfVec");
 
-  theMap.Bind<ShapePersistent_HSequence::XYZ::Node>("PColgp_SeqNodeOfHSequenceOfXYZ");
+  theMap.Bind<HSequence::XYZ::Node>("PColgp_SeqNodeOfHSequenceOfXYZ");
 
-  theMap.Bind<ShapePersistent_HSequence::Pnt::Node>("PColgp_SeqNodeOfHSequenceOfPnt");
+  theMap.Bind<HSequence::Pnt::Node>("PColgp_SeqNodeOfHSequenceOfPnt");
 
-  theMap.Bind<ShapePersistent_HSequence::Dir::Node>("PColgp_SeqNodeOfHSequenceOfDir");
+  theMap.Bind<HSequence::Dir::Node>("PColgp_SeqNodeOfHSequenceOfDir");
 
-  theMap.Bind<ShapePersistent_HSequence::Vec::Node>("PColgp_SeqNodeOfHSequenceOfVec");
+  theMap.Bind<HSequence::Vec::Node>("PColgp_SeqNodeOfHSequenceOfVec");
 
   theMap.Bind<ShapePersistent_Geom2d::Transformation>("PGeom2d_Transformation");
 
-  theMap.Bind<ShapePersistent_Geom2d::Geometry>("PGeom2d_Geometry");
+  theMap.Bind<ShapePersistent_Geom2d::Geometry1>("PGeom2d_Geometry");
 
   theMap.Bind<ShapePersistent_Geom2d::Point>("PGeom2d_Point");
 
@@ -153,7 +153,7 @@ void ShapePersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
 
   theMap.Bind<ShapePersistent_Geom::Transformation>("PGeom_Transformation");
 
-  theMap.Bind<ShapePersistent_Geom::Geometry>("PGeom_Geometry");
+  theMap.Bind<ShapePersistent_Geom::Geometry1>("PGeom_Geometry");
 
   theMap.Bind<ShapePersistent_Geom::Point>("PGeom_Point");
 

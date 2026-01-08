@@ -1052,7 +1052,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
   if (!isplanar)
   {
     Standard_Real Tol = 1.e-5;
-    BRepLib::BuildCurves3d(S, Tol);
+    BRepLib1::BuildCurves3d(S, Tol);
   }
 
   DBRep1::Set(a[1], S);
@@ -1297,7 +1297,7 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
   if (!isplanar)
   {
     Standard_Real Tol = 1.e-5;
-    BRepLib::BuildCurves3d(S, Tol);
+    BRepLib1::BuildCurves3d(S, Tol);
   }
 
   DBRep1::Set(a[1], S);
@@ -2067,11 +2067,11 @@ Standard_Integer build3d(DrawInterpreter& di, Standard_Integer n, const char** a
 
   if (n == 2)
   {
-    Ok = BRepLib::BuildCurves3d(S);
+    Ok = BRepLib1::BuildCurves3d(S);
   }
   else
   {
-    Ok = BRepLib::BuildCurves3d(S, Draw1::Atof(a[2]));
+    Ok = BRepLib1::BuildCurves3d(S, Draw1::Atof(a[2]));
   }
   // if (!Ok) {std::cout << " one of the computation failed" << std::endl;}
   if (!Ok)
@@ -2108,7 +2108,7 @@ Standard_Integer reducepcurves(DrawInterpreter& di, Standard_Integer n, const ch
 
 //=================================================================================================
 
-void BRepTest::CurveCommands(DrawInterpreter& theCommands)
+void BRepTest1::CurveCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -2116,7 +2116,7 @@ void BRepTest::CurveCommands(DrawInterpreter& theCommands)
   done = Standard_True;
 
   DBRep1::BasicCommands(theCommands);
-  GeometryTest::CurveCommands(theCommands);
+  GeometryTest1::CurveCommands(theCommands);
 
   const char* g = "TOPOLOGY Curve topology commands";
 

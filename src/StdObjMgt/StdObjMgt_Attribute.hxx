@@ -48,10 +48,10 @@ public:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myData; }
+    virtual void Read(ReadData& theReadData) { theReadData >> myData; }
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const { theWriteData << myData; }
+    virtual void Write(WriteData& theWriteData) const { theWriteData << myData; }
 
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const {}
 
@@ -75,14 +75,14 @@ private:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData)
+    virtual void Read(ReadData& theReadData)
     {
       myPersistent = new Persistent;
       myPersistent->Read(theReadData);
     }
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const
+    virtual void Write(WriteData& theWriteData) const
     {
       myPersistent->Write(theWriteData);
     }

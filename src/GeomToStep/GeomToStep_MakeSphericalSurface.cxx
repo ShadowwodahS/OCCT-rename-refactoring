@@ -35,7 +35,7 @@ GeomToStep_MakeSphericalSurface::GeomToStep_MakeSphericalSurface(
   Handle(StepGeom_Axis2Placement3d) aPosition;
   Standard_Real                     aRadius;
 
-  GeomToStep_MakeAxis2Placement3d MkAxis2(S->Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis2(S->Position1(), theLocalFactors);
   aPosition                             = MkAxis2.Value();
   aRadius                               = S->Radius();
   Surf                                  = new StepGeom_SphericalSurface;

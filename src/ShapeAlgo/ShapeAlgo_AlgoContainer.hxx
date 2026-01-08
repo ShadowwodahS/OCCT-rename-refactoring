@@ -83,7 +83,7 @@ public:
     Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS) const;
 
   //! Converts C0 B-Spline curve into sequence of C1 B-Spline curves.
-  //! Calls ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve.
+  //! Calls ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve.
   Standard_EXPORT virtual Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
     const Handle(Geom2d_BSplineCurve)&          BS,
     Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS) const;
@@ -93,7 +93,7 @@ public:
                                                         const Standard_Real tol) const;
 
   //! Converts a surface to B-Spline.
-  //! Uses ShapeConstruct.
+  //! Uses ShapeConstruct1.
   Standard_EXPORT virtual Handle(Geom_BSplineSurface) ConvertSurfaceToBSpline(
     const Handle(GeomSurface)& surf,
     const Standard_Real         UF,

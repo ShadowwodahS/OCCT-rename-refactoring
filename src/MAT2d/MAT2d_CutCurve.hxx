@@ -30,14 +30,14 @@ class Geom2d_TrimmedCurve;
 //! Cuts a curve at the extremas of curvature
 //! and at the inflections. Constructs a trimmed
 //! Curve for each interval.
-class MAT2d_CutCurve
+class MAT2dCutCurve
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT MAT2d_CutCurve();
+  Standard_EXPORT MAT2dCutCurve();
 
-  Standard_EXPORT MAT2d_CutCurve(const Handle(GeomCurve2d)& C);
+  Standard_EXPORT MAT2dCutCurve(const Handle(GeomCurve2d)& C);
 
   //! Cuts a curve at the extremas of curvature
   //! and at the inflections.

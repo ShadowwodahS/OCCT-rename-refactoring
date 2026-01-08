@@ -263,7 +263,7 @@ static Standard_Integer PolygonProps(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void GeometryTest::PolyCommands(DrawInterpreter& theCommands)
+void GeometryTest1::PolyCommands(DrawInterpreter& theCommands)
 {
 
   const char* g = "Poly1 Commands";

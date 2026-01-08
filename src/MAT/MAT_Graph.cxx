@@ -98,7 +98,7 @@ void MAT_Graph::Perform(const Standard_Boolean            SemiInfinite,
 
   //--------------------------------------------------------------------
   // ... Creation des ARCS et des NODES.
-  //     Construction des arbres d arcs a partir des <Bisector> racines.
+  //     Construction des arbres d arcs a partir des <Bisector1> racines.
   //--------------------------------------------------------------------
 
   if (SemiInfinite)
@@ -462,7 +462,7 @@ void MAT_Graph::ChangeBasicElts(const MAT_DataMapOfIntegerBasicElt& NewMap)
   MAT_DataMapIteratorOfDataMapOfIntegerBasicElt Ite;
   for (Ite.Initialize(theBasicElts); Ite.More(); Ite.Next())
   {
-    Ite.Value()->SetIndex(Ite.Key());
+    Ite.Value()->SetIndex(Ite.Key1());
   }
 }
 
@@ -513,7 +513,7 @@ static Handle(MAT_Arc) MakeArc(const Handle(MAT_Bisector)&   aBisector,
 
 #ifdef OCCT_DEBUG_Graph
   std::cout << "Construction Arc : Index" << aBisector->IndexNumber() << std::endl;
-  std::cout << "Construction Arc : Bisector" << aBisector->BisectorNumber() << std::endl;
+  std::cout << "Construction Arc : Bisector1" << aBisector->BisectorNumber() << std::endl;
 #endif
 
   CurrentArc = new MAT_Arc(IndTabArcs,

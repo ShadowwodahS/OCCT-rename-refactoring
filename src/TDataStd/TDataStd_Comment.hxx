@@ -22,7 +22,7 @@
 class TDataStd_Comment;
 DEFINE_STANDARD_HANDLE(TDataStd_Comment, TDataStd_GenericExtString)
 
-//! Comment attribute. may be  associated to any label
+//! Comment1 attribute. may be  associated to any label
 //! to store user comment.
 class TDataStd_Comment : public TDataStd_GenericExtString
 {
@@ -33,13 +33,13 @@ public:
   //! Returns the GUID for comments.
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! Find, or create  a   Comment attribute.  the  Comment
+  //! Find, or create  a   Comment1 attribute.  the  Comment1
   //! attribute is returned.
   Standard_EXPORT static Handle(TDataStd_Comment) Set(const DataLabel& label);
 
-  //! Finds, or creates a Comment attribute and sets the string.
-  //! the Comment attribute is returned.
-  //! Comment methods
+  //! Finds, or creates a Comment1 attribute and sets the string.
+  //! the Comment1 attribute is returned.
+  //! Comment1 methods
   //! ============
   Standard_EXPORT static Handle(TDataStd_Comment) Set(const DataLabel&                  label,
                                                       const UtfString& string);

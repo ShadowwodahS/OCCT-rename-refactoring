@@ -29,7 +29,7 @@ void TopOpeBRepDS_Filter::ProcessCurveInterferences(const Standard_Integer CIX)
   while (it1.More())
   {
     const Handle(TopOpeBRepDS_Interference)& I1  = it1.Value();
-    Standard_Integer                         G1  = I1->Geometry();
+    Standard_Integer                         G1  = I1->Geometry1();
     TopOpeBRepDS_Kind                        GT1 = I1->GeometryType();
     TopAbs_Orientation                       O1  = I1->Transition().Orientation(TopAbs_IN);
 
@@ -42,7 +42,7 @@ void TopOpeBRepDS_Filter::ProcessCurveInterferences(const Standard_Integer CIX)
       while (it2.More())
       {
         const Handle(TopOpeBRepDS_Interference)& I2  = it2.Value();
-        Standard_Integer                         G2  = I2->Geometry();
+        Standard_Integer                         G2  = I2->Geometry1();
         TopOpeBRepDS_Kind                        GT2 = I2->GeometryType();
         TopAbs_Orientation                       O2  = I2->Transition().Orientation(TopAbs_IN);
 

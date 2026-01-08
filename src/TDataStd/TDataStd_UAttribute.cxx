@@ -99,7 +99,7 @@ void TDataStd_UAttribute::References(const Handle(TDF_DataSet)& /*DS*/) const {}
 
 Standard_OStream& TDataStd_UAttribute::Dump(Standard_OStream& anOS) const
 {
-  anOS << "UAttribute";
+  anOS << "UAttribute1";
   TDF_Attribute::Dump(anOS);
   return anOS;
 }

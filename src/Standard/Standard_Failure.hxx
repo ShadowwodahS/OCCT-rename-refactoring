@@ -121,16 +121,16 @@ protected:
   Standard_EXPORT virtual void Throw() const;
 
 private:
-  //! Reference-counted string,
+  //! Reference1-counted string,
   //! Memory block is allocated with an extra 4-byte header (int representing number of references)
   //! using low-level malloc() to avoid exceptions.
   struct StringRef
   {
     Standard_Integer   Counter;
-    Standard_Character Message[1];
+    Standard_Character Message1[1];
 
     //! Return message string.
-    Standard_CString GetMessage() const { return (Standard_CString)&Message[0]; }
+    Standard_CString GetMessage() const { return (Standard_CString)&Message1[0]; }
 
     //! Allocate reference-counted message string.
     static StringRef* allocate_message(Standard_CString theString);

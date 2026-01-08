@@ -98,7 +98,7 @@ void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
       TopOpeBRepDS_Kind GK = CPI->GeometryType();
       if (GK != TopOpeBRepDS_POINT)
         continue;
-      Standard_Integer GI = CPI->Geometry();
+      Standard_Integer GI = CPI->Geometry1();
       //**!
       if (GI > BDS.NbPoints())
         continue;
@@ -140,12 +140,12 @@ void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
         if (ivp1)
         {
           CPI->GeometryType(k1);
-          CPI->Geometry(iv1);
+          CPI->Geometry1(iv1);
         }
         else if (ivp2)
         {
           CPI->GeometryType(k2);
-          CPI->Geometry(iv2);
+          CPI->Geometry1(iv2);
         }
       }
 

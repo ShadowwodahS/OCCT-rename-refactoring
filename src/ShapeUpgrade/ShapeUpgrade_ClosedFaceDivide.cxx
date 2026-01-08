@@ -66,7 +66,7 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
 
   if (myResult.IsNull() || myResult.ShapeType() != TopAbs_FACE)
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
     return Standard_False;
   }
   TopoFace face = TopoDS::Face(myResult);
@@ -239,10 +239,10 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   CompShell.SetContext(Context());
   CompShell.Perform();
   if (CompShell.Status(ShapeExtend_FAIL) || !CompShell.Status(ShapeExtend_DONE))
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
   TopoShape res = CompShell.Result();
-  myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+  myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   for (ShapeExplorer exp(res, TopAbs_FACE); exp.More(); exp.Next())
   {
     // smh#8

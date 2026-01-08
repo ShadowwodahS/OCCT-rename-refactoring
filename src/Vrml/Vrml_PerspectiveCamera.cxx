@@ -42,7 +42,7 @@ void Vrml_PerspectiveCamera::SetPosition(const Vector3d& aPosition)
   myPosition = aPosition;
 }
 
-Vector3d Vrml_PerspectiveCamera::Position() const
+Vector3d Vrml_PerspectiveCamera::Position1() const
 {
   return myPosition;
 }

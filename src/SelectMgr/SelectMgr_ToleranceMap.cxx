@@ -15,7 +15,7 @@
 
 //=================================================================================================
 
-SelectMgr_ToleranceMap::SelectMgr_ToleranceMap()
+ToleranceMap::ToleranceMap()
     : myLargestKey(-1),
       myCustomTolerance(-1)
 {
@@ -24,14 +24,14 @@ SelectMgr_ToleranceMap::SelectMgr_ToleranceMap()
 
 //=================================================================================================
 
-SelectMgr_ToleranceMap::~SelectMgr_ToleranceMap()
+ToleranceMap::~ToleranceMap()
 {
   myTolerances.Clear();
 }
 
 //=================================================================================================
 
-void SelectMgr_ToleranceMap::Add(const Standard_Integer& theTolerance)
+void ToleranceMap::Add(const Standard_Integer& theTolerance)
 {
   if (Standard_Integer* aFreq = myTolerances.ChangeSeek(theTolerance))
   {
@@ -56,7 +56,7 @@ void SelectMgr_ToleranceMap::Add(const Standard_Integer& theTolerance)
 
 //=================================================================================================
 
-void SelectMgr_ToleranceMap::Decrement(const Standard_Integer& theTolerance)
+void ToleranceMap::Decrement(const Standard_Integer& theTolerance)
 {
   Standard_Integer* aFreq = myTolerances.ChangeSeek(theTolerance);
   if (aFreq == NULL)
@@ -65,7 +65,7 @@ void SelectMgr_ToleranceMap::Decrement(const Standard_Integer& theTolerance)
   }
 
   Standard_ProgramError_Raise_if(*aFreq == 0,
-                                 "SelectMgr_ToleranceMap::Decrement() - internal error");
+                                 "ToleranceMap::Decrement() - internal error");
   --(*aFreq);
 
   if (theTolerance == myLargestKey && *aFreq == 0)
@@ -77,7 +77,7 @@ void SelectMgr_ToleranceMap::Decrement(const Standard_Integer& theTolerance)
     {
       if (anIter.Value() != 0)
       {
-        myLargestKey = Max(myLargestKey, anIter.Key());
+        myLargestKey = Max(myLargestKey, anIter.Key1());
       }
     }
   }

@@ -210,7 +210,7 @@ Standard_Boolean XSControl_Reader::TransferEntity(const Handle(RefObject)& start
   if (TR->TransferOne(start, Standard_True, theProgress) == 0)
     return Standard_False;
   TopoShape sh = TR->ShapeResult(start);
-  // ShapeExtend_Explorer STU;
+  // Explorer STU;
   // SMH May 00: allow empty shapes (STEP CAX-IF, external references)
   // if (STU.ShapeType(sh,Standard_True) == TopAbs_SHAPE) return Standard_False;  // nulle-vide
   theshapes.Append(sh);
@@ -230,7 +230,7 @@ Standard_Integer XSControl_Reader::TransferList(const Handle(TColStd_HSequenceOf
   TR->BeginTransfer();
   InitializeMissingParameters();
   ClearShapes();
-  ShapeExtend_Explorer  STU;
+  Explorer  STU;
   Message_ProgressScope PS(theProgress, NULL, nb);
   for (i = 1; i <= nb && PS.More(); i++)
   {
@@ -258,7 +258,7 @@ Standard_Integer XSControl_Reader::TransferRoots(const Message_ProgressRange& th
   TR->BeginTransfer();
   InitializeMissingParameters();
   ClearShapes();
-  ShapeExtend_Explorer  STU;
+  Explorer  STU;
   Message_ProgressScope PS(theProgress, "Root", nb);
   for (i = 1; i <= nb && PS.More(); i++)
   {
@@ -335,7 +335,7 @@ void XSControl_Reader::PrintCheckLoad(Standard_OStream&         theStream,
 void XSControl_Reader::PrintCheckLoad(const Standard_Boolean    failsonly,
                                       const IFSelect_PrintCount mode) const
 {
-  Message_Messenger::StreamBuffer aBuffer = Message::SendInfo();
+  Message_Messenger::StreamBuffer aBuffer = Message1::SendInfo();
   PrintCheckLoad(aBuffer, failsonly, mode);
 }
 
@@ -356,7 +356,7 @@ void XSControl_Reader::PrintCheckTransfer(Standard_OStream&         theStream,
 void XSControl_Reader::PrintCheckTransfer(const Standard_Boolean    failsonly,
                                           const IFSelect_PrintCount mode) const
 {
-  Message_Messenger::StreamBuffer aBuffer = Message::SendInfo();
+  Message_Messenger::StreamBuffer aBuffer = Message1::SendInfo();
   PrintCheckTransfer(aBuffer, failsonly, mode);
 }
 
@@ -374,7 +374,7 @@ void XSControl_Reader::PrintStatsTransfer(Standard_OStream&      theStream,
 void XSControl_Reader::PrintStatsTransfer(const Standard_Integer what,
                                           const Standard_Integer mode) const
 {
-  Message_Messenger::StreamBuffer aBuffer = Message::SendInfo();
+  Message_Messenger::StreamBuffer aBuffer = Message1::SendInfo();
   PrintStatsTransfer(aBuffer, what, mode);
 }
 
@@ -455,7 +455,7 @@ const XSAlgo_ShapeProcessor::ParameterMap& XSControl_Reader::GetShapeFixParamete
 
 //=============================================================================
 
-void XSControl_Reader::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void XSControl_Reader::SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags)
 {
   if (Handle(Transfer_ActorOfTransientProcess) anActor = GetActor())
   {

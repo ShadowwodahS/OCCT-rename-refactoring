@@ -95,7 +95,7 @@ static Graphic3d_AlphaMode alphaModeFromString(const char* theMode)
 }
 
 //! Encode short real value.
-static void writeReal(XmlObjMgt_Persistent&      theTarget,
+static void writeReal(PersistentStorage&      theTarget,
                       const XmlObjMgt_DOMString& theName,
                       const Standard_ShortReal   theValue)
 {
@@ -108,7 +108,7 @@ static bool readReal(const XmlObjMgt_Element&   theElement,
                      Standard_ShortReal&        theValue)
 {
   Standard_Real aValue = 0.0;
-  if (XmlObjMgt::GetReal(theElement.getAttribute(theName), aValue))
+  if (XmlObjMgt1::GetReal(theElement.getAttribute(theName), aValue))
   {
     theValue = (Standard_ShortReal)aValue;
     return true;
@@ -117,7 +117,7 @@ static bool readReal(const XmlObjMgt_Element&   theElement,
 }
 
 //! Encode vec3.
-static void writeVec3(XmlObjMgt_Persistent&      theTarget,
+static void writeVec3(PersistentStorage&      theTarget,
                       const XmlObjMgt_DOMString& theName,
                       const Graphic3d_Vec3&      theVec3)
 {
@@ -163,7 +163,7 @@ static bool readColor(const XmlObjMgt_Element&   theElement,
 }
 
 //! Encode vec4.
-static void writeVec4(XmlObjMgt_Persistent&      theTarget,
+static void writeVec4(PersistentStorage&      theTarget,
                       const XmlObjMgt_DOMString& theName,
                       const Graphic3d_Vec4&      theVec4)
 {
@@ -211,7 +211,7 @@ static bool readColor(const XmlObjMgt_Element&   theElement,
 }
 
 //! Encode texture path.
-static void writeTexture(XmlObjMgt_Persistent&        theTarget,
+static void writeTexture(PersistentStorage&        theTarget,
                          const XmlObjMgt_DOMString&   theName,
                          const Handle(Image_Texture)& theImage)
 {
@@ -234,7 +234,7 @@ static void writeTexture(XmlObjMgt_Persistent&        theTarget,
   }
   else
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning: XmlMXCAFDoc_VisMaterialDriver : Can't write a texture to buffer.";
   }
 }
@@ -271,7 +271,7 @@ static void readTexture(const XmlObjMgt_Element&   theElement,
   }
   else if (!anId.IsEmpty())
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning: XmlMXCAFDoc_VisMaterialDriver : Can't write a texture to buffer.";
   }
 }
@@ -296,7 +296,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_VisMaterialDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMXCAFDoc_VisMaterialDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_VisMaterialDriver::Paste(const PersistentStorage&  theSource,
                                                       const Handle(TDF_Attribute)& theTarget,
                                                       XmlObjMgt_RRelocationTable&) const
 {
@@ -367,7 +367,7 @@ Standard_Boolean XmlMXCAFDoc_VisMaterialDriver::Paste(const XmlObjMgt_Persistent
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMXCAFDoc_VisMaterialDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                          XmlObjMgt_Persistent&        theTarget,
+                                          PersistentStorage&        theTarget,
                                           XmlObjMgt_SRelocationTable&) const
 {
   Handle(XCAFDoc_VisMaterial) aMat            = Handle(XCAFDoc_VisMaterial)::DownCast(theSource);

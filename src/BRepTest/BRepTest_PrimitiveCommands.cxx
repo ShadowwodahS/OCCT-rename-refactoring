@@ -126,7 +126,7 @@ static Standard_Integer box(DrawInterpreter&, Standard_Integer n, const char** a
       }
       else
       {
-        Message::SendFail() << "Syntax error";
+        Message1::SendFail() << "Syntax error";
         return 1;
       }
     }
@@ -265,14 +265,14 @@ static Standard_Integer cylinder(DrawInterpreter&, Standard_Integer n, const cha
                                    Draw1::Atof(a[3]),
                                    Draw1::Atof(a[4]) * (M_PI / 180.0));
     else
-      S = CylinderMaker(P->Pln().Position().Ax2(), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
+      S = CylinderMaker(P->Pln().Position1().Ax2(), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
   }
   else if (n == 6)
   {
     if (P.IsNull())
       return 1;
     else
-      S = CylinderMaker(P->Pln().Position().Ax2(),
+      S = CylinderMaker(P->Pln().Position1().Ax2(),
                                    Draw1::Atof(a[3]),
                                    Draw1::Atof(a[4]),
                                    Draw1::Atof(a[5]) * (M_PI / 180.0));
@@ -308,14 +308,14 @@ static Standard_Integer cone(DrawInterpreter&, Standard_Integer n, const char** 
                                Draw1::Atof(a[4]),
                                Draw1::Atof(a[5]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeCone(P->Pln().Position().Ax2(),
+      S = BRepPrimAPI_MakeCone(P->Pln().Position1().Ax2(),
                                Draw1::Atof(a[3]),
                                Draw1::Atof(a[4]),
                                Draw1::Atof(a[5]));
   }
   else if (n == 7)
   {
-    S = BRepPrimAPI_MakeCone(P->Pln().Position().Ax2(),
+    S = BRepPrimAPI_MakeCone(P->Pln().Position1().Ax2(),
                              Draw1::Atof(a[3]),
                              Draw1::Atof(a[4]),
                              Draw1::Atof(a[5]),
@@ -349,7 +349,7 @@ static Standard_Integer sphere(DrawInterpreter&, Standard_Integer n, const char*
     if (P.IsNull())
       S = BRepPrimAPI_MakeSphere(Draw1::Atof(a[2]), Draw1::Atof(a[3]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(), Draw1::Atof(a[3]));
+      S = BRepPrimAPI_MakeSphere(P->Pln().Position1().Ax2(), Draw1::Atof(a[3]));
   }
   else if (n == 5)
   {
@@ -358,7 +358,7 @@ static Standard_Integer sphere(DrawInterpreter&, Standard_Integer n, const char*
                                  Draw1::Atof(a[3]) * (M_PI / 180.0),
                                  Draw1::Atof(a[4]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(),
+      S = BRepPrimAPI_MakeSphere(P->Pln().Position1().Ax2(),
                                  Draw1::Atof(a[3]),
                                  Draw1::Atof(a[4]) * (M_PI / 180.0));
   }
@@ -370,14 +370,14 @@ static Standard_Integer sphere(DrawInterpreter&, Standard_Integer n, const char*
                                  Draw1::Atof(a[4]) * (M_PI / 180.0),
                                  Draw1::Atof(a[5]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(),
+      S = BRepPrimAPI_MakeSphere(P->Pln().Position1().Ax2(),
                                  Draw1::Atof(a[3]),
                                  Draw1::Atof(a[4]) * (M_PI / 180.0),
                                  Draw1::Atof(a[5]) * (M_PI / 180.0));
   }
   else if (n == 7)
   {
-    S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(),
+    S = BRepPrimAPI_MakeSphere(P->Pln().Position1().Ax2(),
                                Draw1::Atof(a[3]),
                                Draw1::Atof(a[4]) * (M_PI / 180.0),
                                Draw1::Atof(a[5]) * (M_PI / 180.0),
@@ -413,7 +413,7 @@ static Standard_Integer torus(DrawInterpreter&, Standard_Integer n, const char**
                                 Draw1::Atof(a[3]),
                                 Draw1::Atof(a[4]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
+      S = BRepPrimAPI_MakeTorus(P->Pln().Position1().Ax2(), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
   }
   else if (n == 6)
   {
@@ -423,7 +423,7 @@ static Standard_Integer torus(DrawInterpreter&, Standard_Integer n, const char**
                                 Draw1::Atof(a[4]) * (M_PI / 180.0),
                                 Draw1::Atof(a[5]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(),
+      S = BRepPrimAPI_MakeTorus(P->Pln().Position1().Ax2(),
                                 Draw1::Atof(a[3]),
                                 Draw1::Atof(a[4]),
                                 Draw1::Atof(a[5]) * (M_PI / 180.0));
@@ -437,7 +437,7 @@ static Standard_Integer torus(DrawInterpreter&, Standard_Integer n, const char**
                                 Draw1::Atof(a[5]) * (M_PI / 180.0),
                                 Draw1::Atof(a[6]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(),
+      S = BRepPrimAPI_MakeTorus(P->Pln().Position1().Ax2(),
                                 Draw1::Atof(a[3]),
                                 Draw1::Atof(a[4]),
                                 Draw1::Atof(a[5]) * (M_PI / 180.0),
@@ -445,7 +445,7 @@ static Standard_Integer torus(DrawInterpreter&, Standard_Integer n, const char**
   }
   else if (n == 8)
   {
-    S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(),
+    S = BRepPrimAPI_MakeTorus(P->Pln().Position1().Ax2(),
                               Draw1::Atof(a[3]),
                               Draw1::Atof(a[4]),
                               Draw1::Atof(a[5]) * (M_PI / 180.0),
@@ -461,7 +461,7 @@ static Standard_Integer torus(DrawInterpreter&, Standard_Integer n, const char**
 
 //=================================================================================================
 
-void BRepTest::PrimitiveCommands(DrawInterpreter& theCommands)
+void BRepTest1::PrimitiveCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

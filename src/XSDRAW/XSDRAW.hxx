@@ -36,13 +36,13 @@ class XSControl_TransferReader;
 class AsciiString1;
 class AppDocument;
 
-//! Basic package to work functions of X-STEP (IFSelect & Co)
+//! Basic package to work functions of X-STEP (IFSelect1 & Co)
 //! under control of DRAW
 //!
 //! Works with some "static" data : a SessionPilot (used to run)
 //! with its WorkSession and Model and TransferReader, a
 //! FinderProcess
-class XSDRAW
+class XSDRAW1
 {
 public:
   //! Takes variables to/from the DRAW session
@@ -100,11 +100,11 @@ public:
   Standard_EXPORT static Handle(IFSelect_SessionPilot) Pilot();
 
   //! Updates the WorkSession defined in AddDraw (through Pilot)
-  //! It is from XSControl, it brings functionalities for Transfers
+  //! It is from XSControl1, it brings functionalities for Transfers
   Standard_EXPORT static void SetSession(const Handle(ExchangeSession)& theSession);
 
   //! Returns the WorkSession defined in AddDraw (through Pilot)
-  //! It is from XSControl, it brings functionalities for Transfers
+  //! It is from XSControl1, it brings functionalities for Transfers
   Standard_EXPORT static const Handle(ExchangeSession) Session();
 
   //! Defines a Controller for the command "xinit" and applies it
@@ -239,7 +239,7 @@ public:
   //! @param[in] theName the session file name
   Standard_EXPORT static void CollectActiveWorkSessions(const AsciiString1& theName);
 
-  //! Loads all Draw1 commands of XSDRAW. Used for plugin.
+  //! Loads all Draw1 commands of XSDRAW1. Used for plugin.
   Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 

@@ -89,14 +89,14 @@ public:
 
   //! Returns the List of Attributes <AttrNum>, as a Transient.
   //! Its effective Type depends of the Type of Attribute :
-  //! HArray1OfInteger for Integer, Logical(0-1),
+  //! HArray1OfInteger for Integer1, Logical(0-1),
   //! HArray1OfReal for Real, HArray1OfHSaciiString for String,
   //! HArray1OfIGESEntity for Entity (Pointer)
   //! See methods AttributeAs... for an accurate access
   Standard_EXPORT Handle(RefObject) AttributeList(const Standard_Integer AttrNum) const;
 
-  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer
-  //! Error if Indices out of Range, or no Value defined, or not an Integer
+  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer1
+  //! Error if Indices out of Range, or no Value defined, or not an Integer1
   Standard_EXPORT Standard_Integer AttributeAsInteger(const Standard_Integer AttrNum,
                                                       const Standard_Integer ValueNum) const;
 
@@ -105,7 +105,7 @@ public:
   Standard_EXPORT Standard_Real AttributeAsReal(const Standard_Integer AttrNum,
                                                 const Standard_Integer ValueNum) const;
 
-  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer
+  //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer1
   Standard_EXPORT Handle(TCollection_HAsciiString) AttributeAsString(
     const Standard_Integer AttrNum,
     const Standard_Integer ValueNum) const;

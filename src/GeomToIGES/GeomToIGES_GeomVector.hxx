@@ -44,7 +44,7 @@ public:
   Standard_EXPORT GeomToIGES_GeomVector(const GeomToIGES_GeomEntity& GE);
 
   //! Transfert  a  GeometryEntity which  answer True  to  the
-  //! member : BRepToIGES::IsGeomVector(Geometry).  If this
+  //! member : BRepToIGES::IsGeomVector(Geometry1).  If this
   //! Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESGeom_Direction) TransferVector(const Handle(Geom_Vector)& start);
 

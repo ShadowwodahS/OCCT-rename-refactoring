@@ -229,7 +229,7 @@ static Standard_Integer incrementalmesh(DrawInterpreter& theDI,
 
   if (aListOfShapes.IsEmpty())
   {
-    Message::SendFail("Syntax error: wrong number of arguments.");
+    Message1::SendFail("Syntax error: wrong number of arguments.");
     return 1;
   }
 
@@ -330,7 +330,7 @@ static Standard_Integer tessellate(DrawInterpreter& /*di*/,
 {
   if (nbarg != 5)
   {
-    Message::SendFail() << "Builds regular triangulation with specified number of triangles\n"
+    Message1::SendFail() << "Builds regular triangulation with specified number of triangles\n"
                            "    Usage: tessellate result {surface|face} nbu nbv\n"
                            "    Triangulation is put into the face with natural bounds (result);\n"
                            "    it will have 2*nbu*nbv triangles and (nbu+1)*(nbv+1) nodes";
@@ -344,7 +344,7 @@ static Standard_Integer tessellate(DrawInterpreter& /*di*/,
 
   if (aNbU <= 0 || aNbV <= 0)
   {
-    Message::SendFail() << "Error: Arguments nbu and nbv must be both greater than 0";
+    Message1::SendFail() << "Error: Arguments nbu and nbv must be both greater than 0";
     return 1;
   }
 
@@ -359,14 +359,14 @@ static Standard_Integer tessellate(DrawInterpreter& /*di*/,
     TopoShape aShape = DBRep1::Get(aSrcName);
     if (aShape.IsNull() || aShape.ShapeType() != TopAbs_FACE)
     {
-      Message::SendFail() << "Error: " << aSrcName << " is not a face";
+      Message1::SendFail() << "Error: " << aSrcName << " is not a face";
       return 1;
     }
     TopoFace aFace = TopoDS::Face(aShape);
     aSurf             = BRepInspector::Surface(aFace);
     if (aSurf.IsNull())
     {
-      Message::SendFail() << "Error: Face " << aSrcName << " has no surface";
+      Message1::SendFail() << "Error: Face " << aSrcName << " has no surface";
       return 1;
     }
 
@@ -375,14 +375,14 @@ static Standard_Integer tessellate(DrawInterpreter& /*di*/,
   if (Precision::IsInfinite(aUMin) || Precision::IsInfinite(aUMax) || Precision::IsInfinite(aVMin)
       || Precision::IsInfinite(aVMax))
   {
-    Message::SendFail() << "Error: surface has infinite parametric range, aborting";
+    Message1::SendFail() << "Error: surface has infinite parametric range, aborting";
     return 1;
   }
 
   FaceMaker aFaceMaker(aSurf, aUMin, aUMax, aVMin, aVMax, Precision::Confusion());
   if (!aFaceMaker.IsDone())
   {
-    Message::SendFail() << "Error: cannot build face with natural bounds, aborting";
+    Message1::SendFail() << "Error: cannot build face with natural bounds, aborting";
     return 1;
   }
   TopoFace aFace = aFaceMaker;
@@ -539,7 +539,7 @@ static Standard_Integer TrLateLoad(DrawInterpreter& theDI,
           Standard_Integer anIndexToLoad = aLoadArg.IntegerValue();
           if (anIndexToLoad < -1)
           {
-            Message::SendWarning("Invalid negative triangulation index to be loaded");
+            Message1::SendWarning("Invalid negative triangulation index to be loaded");
             continue;
           }
           if (BRepTools1::LoadTriangulation(aShape, anIndexToLoad))
@@ -580,7 +580,7 @@ static Standard_Integer TrLateLoad(DrawInterpreter& theDI,
           Standard_Integer anIndexToUnload = anUnloadArg.IntegerValue();
           if (anIndexToUnload < -1)
           {
-            Message::SendWarning("Invalid negative triangulation index to be unloaded");
+            Message1::SendWarning("Invalid negative triangulation index to be unloaded");
             continue;
           }
           if (BRepTools1::UnloadTriangulation(aShape, anIndexToUnload))
@@ -605,7 +605,7 @@ static Standard_Integer TrLateLoad(DrawInterpreter& theDI,
         AsciiString1(theArgVec[++anArgIter]).IntegerValue();
       if (anIndexToActivate < 0)
       {
-        Message::SendWarning("Invalid negative triangulation index to be activated");
+        Message1::SendWarning("Invalid negative triangulation index to be activated");
         continue;
       }
       if (BRepTools1::ActivateTriangulation(aShape, anIndexToActivate, false))
@@ -622,7 +622,7 @@ static Standard_Integer TrLateLoad(DrawInterpreter& theDI,
         AsciiString1(theArgVec[++anArgIter]).IntegerValue();
       if (anIndexToActivate < 0)
       {
-        Message::SendWarning("Invalid negative triangulation index to be activated");
+        Message1::SendWarning("Invalid negative triangulation index to be activated");
         continue;
       }
       if (BRepTools1::ActivateTriangulation(aShape, anIndexToActivate, true))
@@ -641,7 +641,7 @@ static Standard_Integer TrLateLoad(DrawInterpreter& theDI,
       }
       if (anIndexToSingleLoad < -1)
       {
-        Message::SendWarning("Invalid negative triangulation index to be single loaded");
+        Message1::SendWarning("Invalid negative triangulation index to be single loaded");
         continue;
       }
       // Unload all triangulations
@@ -674,7 +674,7 @@ static Standard_Integer TrLateLoad(DrawInterpreter& theDI,
       }
       if (anIndexToSingleLoad <= -1)
       {
-        Message::SendWarning("Invalid negative triangulation index to be single loaded");
+        Message1::SendWarning("Invalid negative triangulation index to be single loaded");
         continue;
       }
       // Unload all triangulations
@@ -707,7 +707,7 @@ static Standard_Integer trianglesinfo(DrawInterpreter& theDI,
 {
   if (theNbArgs < 2)
   {
-    Message::SendFail("Syntax error: not enough arguments");
+    Message1::SendFail("Syntax error: not enough arguments");
     return 1;
   }
   TopoShape aShape = DBRep1::Get(theArgVec[1]);
@@ -934,7 +934,7 @@ static Standard_Integer trianglesinfo(DrawInterpreter& theDI,
          anIter.Next())
     {
       const TriangulationStat& aLodStat = anIter.Value();
-      aLODsStatStr += AsciiString1("LOD #") + anIter.Key() + ". ";
+      aLODsStatStr += AsciiString1("LOD #") + anIter.Key1() + ". ";
       // aLODsStatStr += AsciiString1("NbFaces: ") + aLodStat.NbFaces;
       if (aLodStat.NbEmptyFaces > 0 || aLodStat.NbFaces < aNbFaces)
       {
@@ -962,7 +962,7 @@ static Standard_Integer trianglesinfo(DrawInterpreter& theDI,
            aTypeIter.Next(), aCounter++)
       {
         aLODsStatStr +=
-          AsciiString1(aTypeIter.Key()->Name()) + " (" + aTypeIter.Value() + ")";
+          AsciiString1(aTypeIter.Key1()->Name()) + " (" + aTypeIter.Value() + ")";
         if (aCounter < aLodStat.TypeMap.Size() - 1)
         {
           aLODsStatStr += AsciiString1(", ");
@@ -1324,7 +1324,7 @@ static Standard_Integer wavefront(DrawInterpreter&, Standard_Integer nbarg, cons
 
   Box2       B;
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
-  BRepBndLib::Add(S, B);
+  BRepBndLib1::Add(S, B);
   B.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
   Standard_Real aDeflection = MAX3(aXmax - aXmin, aYmax - aYmin, aZmax - aZmin) * 0.004;
 
@@ -1484,7 +1484,7 @@ static Standard_Integer triedgepoints(DrawInterpreter& di,
     Standard_Integer nbEdge = 1;
     for (it.Initialize(anEdgeMap); it.More(); it.Next())
     {
-      BRepInspector::PolygonOnTriangulation(TopoDS::Edge(it.Key()), aPoly, aT, aLoc);
+      BRepInspector::PolygonOnTriangulation(TopoDS::Edge(it.Key1()), aPoly, aT, aLoc);
       if (aT.IsNull() || aPoly.IsNull())
         continue;
 
@@ -1657,7 +1657,7 @@ static Standard_Integer correctnormals(DrawInterpreter& theDI,
 
   // Use "correctnormals shape"
 
-  if (!BRepLib::EnsureNormalConsistency(S))
+  if (!BRepLib1::EnsureNormalConsistency(S))
   {
     theDI << "Normals have not been changed!\n";
   }
@@ -1670,13 +1670,13 @@ static Standard_Integer correctnormals(DrawInterpreter& theDI,
 }
 
 //=======================================================================
-void MeshTest::Commands(DrawInterpreter& theCommands)
+void MeshTest1::Commands(DrawInterpreter& theCommands)
 //=======================================================================
 {
   Draw1::Commands(theCommands);
-  BRepTest::AllCommands(theCommands);
-  GeometryTest::AllCommands(theCommands);
-  MeshTest::PluginCommands(theCommands);
+  BRepTest1::AllCommands(theCommands);
+  GeometryTest1::AllCommands(theCommands);
+  MeshTest1::PluginCommands(theCommands);
   const char* g;
 
   g = "Mesh1 Commands";

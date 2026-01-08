@@ -330,7 +330,7 @@ VrmlData_ErrorStatus VrmlData_ShapeNode::Read(InputBuffer& theBuffer)
       Handle(VrmlData_Node) aNode;
       aStatus    = ReadNode(theBuffer, aNode);
       myGeometry = Handle(VrmlData_Geometry)::DownCast(aNode);
-      // here we do not check for the Geometry type because unknown node types can
+      // here we do not check for the Geometry1 type because unknown node types can
       // occur (IndexedLineSet, etc.)
       //                          STANDARD_TYPE(VrmlData_Geometry));
     }

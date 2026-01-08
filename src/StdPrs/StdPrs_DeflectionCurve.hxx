@@ -26,7 +26,7 @@ class Adaptor3d_Curve;
 //! A framework to provide display of any curve with
 //! respect to the maximal chordal deviation defined in
 //! the StyleDrawer attributes manager.
-class StdPrs_DeflectionCurve : public Prs3d_Root
+class StdPrs_DeflectionCurve : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

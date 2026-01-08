@@ -72,7 +72,7 @@ MirrorBuilder::MirrorBuilder(const Frame3d& Plane1)
 
 MirrorBuilder::MirrorBuilder(const gp_Pln& Plane1)
 {
-  TheMirror.SetMirror(Plane1.Position().Ax2());
+  TheMirror.SetMirror(Plane1.Position1().Ax2());
 }
 
 const Transform3d& MirrorBuilder::Value() const

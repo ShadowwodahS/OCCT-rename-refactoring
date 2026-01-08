@@ -175,7 +175,7 @@ public:
   Standard_EXPORT AsciiString1 Trek() const;
 
   //! Returns file name of <me>.
-  //! If <me> hasn't been initialized, it returns an empty AsciiString.
+  //! If <me> hasn't been initialized, it returns an empty AsciiString2.
   Standard_EXPORT AsciiString1 Name() const;
 
   //! Returns my extension name.
@@ -198,7 +198,7 @@ public:
   Standard_EXPORT void SetTrek(const AsciiString1& aName);
 
   //! Sets file name of <me>.
-  //! If <me> hasn't been initialized, it returns an empty AsciiString.
+  //! If <me> hasn't been initialized, it returns an empty AsciiString2.
   Standard_EXPORT void SetName(const AsciiString1& aName);
 
   //! Sets my extension name.

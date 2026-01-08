@@ -401,11 +401,11 @@ void ProjectOnLAndIntersectWithLDomain(const gp_Circ2d&       Circle,
     Standard_Real Cinf = 
       ElCLib1::CircleParameter(Circle.Axis()					       
 			      ,ElCLib1::LineValue(LInterAndDomain.Binf,
-					Line.Position()));
+					Line.Position1()));
     Standard_Real Csup = 
       ElCLib1::CircleParameter(Circle.Axis()
 			      ,ElCLib1::LineValue(LInterAndDomain.Bsup
-					,Line.Position()));
+					,Line.Position1()));
 
     if(Cinf<CDomainAndRes.Binf) Cinf = CDomainAndRes.Binf;
     if(Csup>CDomainAndRes.Bsup) Csup = CDomainAndRes.Bsup;
@@ -2357,7 +2357,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
   if (NbSolTotal)
   {
     Ax22d            CircleAxis = Circle.Axis();
-    gp_Ax2d             LineAxis   = Line.Position();
+    gp_Ax2d             LineAxis   = Line.Position1();
     gp_Pnt2d            P1a, P2a, P1b, P2b;
     gp_Vec2d            Tan1, Tan2, Norm1;
     gp_Vec2d            Norm2(0.0, 0.0);
@@ -2600,7 +2600,7 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
   aTr.SetTransformation(anElAxis.XAxis());
   gp_Elips2d       aTEllipse = Ellipse.Transformed(aTr);
   gp_Lin2d         aTLine    = Line.Transformed(aTr);
-  Standard_Real    aDY       = aTLine.Position().Direction().Y();
+  Standard_Real    aDY       = aTLine.Position1().Direction().Y();
   Standard_Boolean IsVert    = Abs(aDY) > 1. - 2. * Epsilon(1.);
   //
   Standard_Real a  = aTEllipse.MajorRadius();
@@ -2618,7 +2618,7 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
   aTLine.Coefficients(anA, aB, aC);
   if (IsVert)
   {
-    aC += aB * aTLine.Position().Location().Y();
+    aC += aB * aTLine.Position1().Location().Y();
     aB = 0.;
   }
   //
@@ -2948,7 +2948,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
   if (NbSolTotal)
   {
     Ax22d            EllipseAxis = E.Axis();
-    gp_Ax2d             LineAxis    = L.Position();
+    gp_Ax2d             LineAxis    = L.Position1();
     gp_Pnt2d            P1a, P2a, P1b, P2b;
     gp_Vec2d            Tan1, Tan2, Norm1;
     gp_Vec2d            Norm2(0.0, 0.0);

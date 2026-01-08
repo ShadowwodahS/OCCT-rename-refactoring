@@ -39,7 +39,7 @@ class TopoFace;
 //! Given a Shape and a mode of selection
 //! (selection of vertices,
 //! edges,faces ...) , This Tool Computes corresponding sensitive primitives,
-//! puts them in an entity called Selection (see package SelectMgr) and returns it.
+//! puts them in an entity called Selection (see package SelectMgr1) and returns it.
 //!
 //! A Priority for the decomposed pickable objects can be given ;
 //! by default There is A Preset Hierarchy:
@@ -50,17 +50,17 @@ class TopoFace;
 //! Shell,solid,shape  priority : 1
 //! the default priority in the following methods has no sense - it's only taken in account
 //! when the user gives a value between 0 and 10.
-//! IMPORTANT : This decomposition creates BRepEntityOwner instances (from StdSelect).
+//! IMPORTANT : This decomposition creates BRepEntityOwner instances (from StdSelect1).
 //! which are stored in the Sensitive Entities coming from The Decomposition.
 //!
-//! the result of picking in a ViewerSelector return EntityOwner from SelectMgr;
+//! the result of picking in a ViewerSelector return EntityOwner from SelectMgr1;
 //! to know what kind of object was picked :
 //!
 //! ENTITY_OWNER -> Selectable() gives the selectableobject which
 //! was decomposed into pickable elements.
 //! Handle(StdSelect_BRepOwner)::DownCast(ENTITY_OWNER) -> Shape()
 //! gives the real picked shape (edge,vertex,shape...)
-class StdSelect_BRepSelectionTool
+class BRepSelectionTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -94,7 +94,7 @@ public:
   //! a mode of decomposition <aType>. These entities are stored in <aSelection>
   //! The Major difference is that the known users are first inserted in the
   //! BRepOwners. the original shape is the last user...
-  //! (see EntityOwner from SelectBasics and BrepOwner)...
+  //! (see EntityOwner from SelectBasics1 and BrepOwner)...
   Standard_EXPORT static void Load(const Handle(SelectionContainer)&        aSelection,
                                    const Handle(SelectMgr_SelectableObject)& Origin,
                                    const TopoShape&                       aShape,

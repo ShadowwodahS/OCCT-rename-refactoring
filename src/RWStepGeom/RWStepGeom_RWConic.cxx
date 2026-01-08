@@ -56,12 +56,12 @@ void RWStepGeom_RWConic::WriteStep(StepData_StepWriter& SW, const Handle(StepGeo
 
   // --- own field : position ---
 
-  SW.Send(ent->Position().Value());
+  SW.Send(ent->Position1().Value());
 }
 
 void RWStepGeom_RWConic::Share(const Handle(StepGeom_Conic)& ent,
                                Interface_EntityIterator&     iter) const
 {
 
-  iter.GetOneItem(ent->Position().Value());
+  iter.GetOneItem(ent->Position1().Value());
 }

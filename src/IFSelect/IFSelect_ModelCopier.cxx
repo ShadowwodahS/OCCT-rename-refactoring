@@ -138,7 +138,7 @@ Interface_CheckIterator IFSelect_ModelCopier::Copying(IFSelect_ShareOutResult&  
                                                       const Handle(Interface_Protocol)&   protocol,
                                                       Interface_CopyTool&                 TC)
 {
-  Message::SendInfo() << "** WorkSession : Copying split data before sending" << std::endl;
+  Message1::SendInfo() << "** WorkSession : Copying split data before sending" << std::endl;
   const Interface_Graph&  G = eval.Graph();
   Interface_CheckIterator checks;
   theshareout = eval.ShareOut();
@@ -177,7 +177,7 @@ Interface_CheckIterator IFSelect_ModelCopier::Copying(IFSelect_ShareOutResult&  
 Interface_CheckIterator IFSelect_ModelCopier::SendCopied(const Handle(IFSelect_WorkLibrary)& WL,
                                                          const Handle(Interface_Protocol)& protocol)
 {
-  Message::SendInfo() << "** WorkSession : Sending split data already copied" << std::endl;
+  Message1::SendInfo() << "** WorkSession : Sending split data already copied" << std::endl;
   Standard_Integer        nb = NbFiles();
   Interface_CheckIterator checks;
   if (nb > 0)
@@ -201,7 +201,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendCopied(const Handle(IFSelect_W
         char mess[100];
         sprintf(mess, "Split Send (WriteFile) abandon on file n0.%d", i);
         checks.CCheck(0)->AddFail(mess);
-        Message::SendInfo() << "  **  Sending File n0." << i << " has failed, abandon  **"
+        Message1::SendInfo() << "  **  Sending File n0." << i << " has failed, abandon  **"
                             << std::endl;
         return checks;
       }
@@ -231,7 +231,7 @@ Interface_CheckIterator IFSelect_ModelCopier::Sending(IFSelect_ShareOutResult&  
   const Interface_Graph&  G = eval.Graph();
   Interface_CheckIterator checks;
   Standard_Integer        i = 0;
-  Message::SendInfo() << "** WorkSession : Copying then sending split data" << std::endl;
+  Message1::SendInfo() << "** WorkSession : Copying then sending split data" << std::endl;
   theshareout = eval.ShareOut();
   theremain   = new TColStd_HArray1OfInteger(0, G.Size());
   theremain->Init(0);
@@ -269,7 +269,7 @@ Interface_CheckIterator IFSelect_ModelCopier::Sending(IFSelect_ShareOutResult&  
       char mess[100];
       sprintf(mess, "Split Send (WriteFile) abandon on file n0.%d", i);
       checks.CCheck(0)->AddFail(mess);
-      Message::SendInfo() << "  **  Sending File " << filename << " has failed, abandon  **"
+      Message1::SendInfo() << "  **  Sending File " << filename << " has failed, abandon  **"
                           << std::endl;
       checks.SetName("X-STEP WorkSession : Split Send (only Write)");
       return checks;
@@ -290,7 +290,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendAll(const Standard_CString    
 {
   Interface_CheckIterator checks;
   checks.SetName("X-STEP WorkSession : Send All");
-  Message::SendInfo() << "** WorkSession : Sending all data" << std::endl;
+  Message1::SendInfo() << "** WorkSession : Sending all data" << std::endl;
   const Handle(Interface_InterfaceModel)& model = G.Model();
   if (model.IsNull() || protocol.IsNull() || WL.IsNull())
     return checks;
@@ -322,7 +322,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendAll(const Standard_CString    
   if (!res)
     checks.CCheck(0)->AddFail("SendAll (WriteFile) has failed");
   //  if (!checks.IsEmpty(Standard_False)) {
-  //    Message::SendWarning() <<
+  //    Message1::SendWarning() <<
   //      "  **    SendAll has produced Check Messages :    **"<<std::endl;
   //    checks.Print (sout,model,Standard_False);
   //  }
@@ -341,7 +341,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendSelected(
 {
   Interface_CheckIterator checks;
   checks.SetName("X-STEP WorkSession : Send Selected");
-  Message::SendInfo() << "** WorkSession : Sending selected data" << std::endl;
+  Message1::SendInfo() << "** WorkSession : Sending selected data" << std::endl;
   const Handle(Interface_InterfaceModel)& original = G.Model();
   if (original.IsNull() || protocol.IsNull() || WL.IsNull())
     return checks;
@@ -392,7 +392,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendSelected(
   if (!res)
     checks.CCheck(0)->AddFail("SendSelected (WriteFile) has failed");
   //  if (!checks.IsEmpty(Standard_False)) {
-  //    Message::SendWarning() <<
+  //    Message1::SendWarning() <<
   //      "  **    SendSelected has produced Check Messages :    **"<<std::endl;
   //    checks.Print (sout,original,Standard_False);
   //  }
@@ -469,7 +469,7 @@ void IFSelect_ModelCopier::CopiedModel(const Interface_Graph&              G,
 
     //    Faut-il enregistrer les erreurs dans newmod ? bonne question
     //    if (!checks.IsEmpty(Standard_False)) {
-    //      Message::SendWarning() <<
+    //      Message1::SendWarning() <<
     //        " Messages on Copied Model n0 "<<numod<<", Dispatch Rank "<<dispnum<<std::endl;
     //      checks.Print(sout,newmod,Standard_False);
     //    }

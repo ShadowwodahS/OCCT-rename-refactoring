@@ -122,7 +122,7 @@ Standard_Real StdPrs_ToolTriangulatedShape::GetDeflection(const TopoShape&      
   }
 
   Box2 aBndBox;
-  BRepBndLib::Add(theShape, aBndBox, Standard_False);
+  BRepBndLib1::Add(theShape, aBndBox, Standard_False);
   if (aBndBox.IsVoid())
   {
     return theDrawer->MaximalChordialDeviation();
@@ -138,7 +138,7 @@ Standard_Real StdPrs_ToolTriangulatedShape::GetDeflection(const TopoShape&      
 
   // store computed relative deflection of shape as absolute deviation coefficient in case relative
   // type to use it later on for sub-shapes
-  const Standard_Real aDeflection = Prs3d::GetDeflection(aBndBox,
+  const Standard_Real aDeflection = Prs3d1::GetDeflection(aBndBox,
                                                          theDrawer->DeviationCoefficient(),
                                                          theDrawer->MaximalChordialDeviation());
   theDrawer->SetMaximalChordialDeviation(aDeflection);

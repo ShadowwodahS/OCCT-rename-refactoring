@@ -47,7 +47,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_GraphNodeDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const PersistentStorage&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable& theRelocTable) const
 {
@@ -68,7 +68,7 @@ Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const XmlObjMgt_Persistent& 
   {
     Standard_CString aChildren = Standard_CString(aDOMStr.GetString());
     Standard_Integer aNb       = 0;
-    if (!XmlObjMgt::GetInteger(aChildren, aNb))
+    if (!XmlObjMgt1::GetInteger(aChildren, aNb))
       return Standard_False;
 
     while (aNb > 0)
@@ -91,7 +91,7 @@ Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const XmlObjMgt_Persistent& 
       aT->SetFather(aTChild);
 
       // Get next child ID
-      if (!XmlObjMgt::GetInteger(aChildren, aNb))
+      if (!XmlObjMgt1::GetInteger(aChildren, aNb))
         aNb = 0;
     }
   }
@@ -102,7 +102,7 @@ Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const XmlObjMgt_Persistent& 
   {
     Standard_CString aChildren = Standard_CString(aDOMStr.GetString());
     Standard_Integer aNb       = 0;
-    if (!XmlObjMgt::GetInteger(aChildren, aNb))
+    if (!XmlObjMgt1::GetInteger(aChildren, aNb))
       return Standard_False;
 
     while (aNb > 0)
@@ -125,7 +125,7 @@ Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const XmlObjMgt_Persistent& 
       aT->SetChild(aTChild);
 
       // Get next child ID
-      if (!XmlObjMgt::GetInteger(aChildren, aNb))
+      if (!XmlObjMgt1::GetInteger(aChildren, aNb))
         aNb = 0;
     }
   }
@@ -138,7 +138,7 @@ Standard_Boolean XmlMXCAFDoc_GraphNodeDriver::Paste(const XmlObjMgt_Persistent& 
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMXCAFDoc_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                        XmlObjMgt_Persistent&        theTarget,
+                                        PersistentStorage&        theTarget,
                                         XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(XCAFDoc_GraphNode) aS = Handle(XCAFDoc_GraphNode)::DownCast(theSource);

@@ -23,18 +23,18 @@
 //! sensitive entities. Overlap detection tests are implemented according to the terms of separating
 //! axis theorem (SAT). NOTE: the object of this class can be created only as part of
 //! SelectMgr_TriangularFrustumSet.
-class SelectMgr_TriangularFrustum : public SelectMgr_Frustum<3>
+class TriangularFrustum : public SelectMgr_Frustum<3>
 {
 public:
   //! Auxiliary structure to define selection triangle
-  struct SelectionTriangle
+  struct SelectionTriangle1
   {
     gp_Pnt2d Points[3];
   };
 
 public:
   //! Destructor.
-  Standard_EXPORT virtual ~SelectMgr_TriangularFrustum();
+  Standard_EXPORT virtual ~TriangularFrustum();
 
   //! Initializes selection triangle by input points
   Standard_EXPORT void Init(const gp_Pnt2d& theP1, const gp_Pnt2d& theP2, const gp_Pnt2d& theP3);
@@ -67,7 +67,7 @@ public: //! @name SAT Tests for different objects
   Standard_EXPORT virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3&          theMinPnt,
                                                        const SelectMgr_Vec3&          theMaxPnt,
                                                        const SelectMgr_ViewClipRange& theClipRange,
-                                                       SelectBasics_PickResult& thePickResult) const
+                                                       PickResult& thePickResult) const
     Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by axis-aligned bounding box
@@ -81,7 +81,7 @@ public: //! @name SAT Tests for different objects
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
     const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Always returns FALSE (not applicable to this selector).
   virtual Standard_Boolean OverlapsPoint(const Point3d&) const Standard_OVERRIDE
@@ -96,14 +96,14 @@ public: //! @name SAT Tests for different objects
     const TColgp_Array1OfPnt&      theArrayOfPnts,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Checks if line segment overlaps selecting frustum
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
     const Point3d&                  thePnt1,
     const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! SAT intersection test between defined volume and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
@@ -114,7 +114,7 @@ public: //! @name SAT Tests for different objects
     const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
@@ -129,7 +129,7 @@ public: //! @name SAT Tests for different objects
     const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -140,7 +140,7 @@ public: //! @name SAT Tests for different objects
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -161,7 +161,7 @@ public: //! @name SAT Tests for different objects
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.
@@ -188,18 +188,18 @@ public:
 
 protected:
   //! Creates an empty triangular frustum.
-  Standard_EXPORT SelectMgr_TriangularFrustum();
+  Standard_EXPORT TriangularFrustum();
 
 private:
-  void cacheVertexProjections(SelectMgr_TriangularFrustum* theFrustum) const;
+  void cacheVertexProjections(TriangularFrustum* theFrustum) const;
 
 protected:
   // clang-format off
-  SelectionTriangle mySelTriangle; //!< parameters of selection triangle (it is used to build triangle frustum)
+  SelectionTriangle1 mySelTriangle; //!< parameters of selection triangle (it is used to build triangle frustum)
   // clang-format on
 
 public:
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_TriangularFrustum, SelectMgr_Frustum<3>)
+  DEFINE_STANDARD_RTTIEXT(TriangularFrustum, SelectMgr_Frustum<3>)
   friend class SelectMgr_TriangularFrustumSet;
 };
 

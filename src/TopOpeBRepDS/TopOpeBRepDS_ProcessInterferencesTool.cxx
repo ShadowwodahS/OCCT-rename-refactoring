@@ -271,7 +271,7 @@ Standard_EXPORT Standard_Integer FUN_selectGIinterference
   TopOpeBRepDS_ListIteratorOfListOfInterference it1(L1);
   while (it1.More())
   {
-    Standard_Integer gi = it1.Value()->Geometry();
+    Standard_Integer gi = it1.Value()->Geometry1();
     if (gi == GI)
     {
       L2.Append(it1.Value());

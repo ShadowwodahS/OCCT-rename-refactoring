@@ -113,7 +113,7 @@ aMapOfShapeWithState)
     AsciiString1 ann;
     ann+=postfix; ann+=aI;
 
-    printf("Key: %-8s , " , ann.ToCString());
+    printf("Key1: %-8s , " , ann.ToCString());
     printf("%s, ", ShapeType[aShape.ShapeType()]);
     if (!iP)
       printf("State comp.with Tool=%s\n",  ShapeState[aShapeWithState.State()]);
@@ -325,7 +325,7 @@ void TopOpeBRepBuild_Builder1::PerformShapeWithStates()
   processedEdges.Clear();
   PerformShapeWithStates(myShape2, myShape1);
   processedEdges.Clear();
-  // Print Block
+  // Print Block1
   //  printf(" ..::PerformShapeWithStates() [Dump is off]\n");
 
   /*  printf(" ..::PerformShapeWithStates() [Dump is on]\n");

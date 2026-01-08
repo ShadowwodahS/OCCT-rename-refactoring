@@ -386,7 +386,7 @@ void TInspector_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& t
   for (TInspectorAPI_IteratorOfPreferencesDataMap anItemIt(theItem); anItemIt.More();
        anItemIt.Next())
   {
-    if (anItemIt.Key().IsEqual("geometry"))
+    if (anItemIt.Key1().IsEqual("geometry"))
       myMainWindow->restoreGeometry(TreeModel_Tools::ToByteArray(anItemIt.Value().ToCString()));
   }
 }

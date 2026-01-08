@@ -68,7 +68,7 @@ ShapeUpgrade_WireDivide::ShapeUpgrade_WireDivide()
     : ShapeUpgrade_Tool(),
       myStatus(0)
 {
-  //  if (ShapeUpgrade::Debug()) std::cout <<"ShapeUpgrade_WireDivide"<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout <<"ShapeUpgrade_WireDivide"<<std::endl;
   mySplitCurve3dTool  = new ShapeUpgrade_SplitCurve3d;
   mySplitCurve2dTool  = new ShapeUpgrade_SplitCurve2d;
   myTransferParamTool = new ShapeAnalysis_TransferParametersProj;
@@ -81,23 +81,23 @@ ShapeUpgrade_WireDivide::ShapeUpgrade_WireDivide()
 
 void ShapeUpgrade_WireDivide::Init(const TopoWire& W, const TopoFace& F)
 {
-  //  if (ShapeUpgrade::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire,
+  //  if (ShapeUpgrade1::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire,
   //  Face"<<std::endl;
   myWire   = W;
   myFace   = F;
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 //=================================================================================================
 
 void ShapeUpgrade_WireDivide::Init(const TopoWire& W, const Handle(GeomSurface)& S)
 {
-  //  if (ShapeUpgrade::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire, Surface
+  //  if (ShapeUpgrade1::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire, Surface
   //  "<<std::endl;
   myWire = W;
   BRepLib_MakeFace mkf(S, Precision::Confusion());
   myFace   = mkf.Face();
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 }
 
 //=================================================================================================
@@ -260,9 +260,9 @@ static void CorrectSplitValues(const Handle(TColStd_HSequenceOfReal)& orig3d,
 void ShapeUpgrade_WireDivide::Perform()
 {
 
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
-  //  if (ShapeUpgrade::Debug()) std::cout << "ShapeUpgrade_WireDivide::Perform" << std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout << "ShapeUpgrade_WireDivide::Perform" << std::endl;
 
   ShapeBuilder       B;
   Edge1 sae;
@@ -299,7 +299,7 @@ void ShapeUpgrade_WireDivide::Perform()
     for (ShapeExplorer exp(sh, TopAbs_EDGE); exp.More(); exp.Next())
     {
       TopoEdge E = TopoDS::Edge(exp.Current());
-      //      if (ShapeUpgrade::Debug()) std::cout << ".. Edge " << (void*) &(*E.TShape()) <<
+      //      if (ShapeUpgrade1::Debug()) std::cout << ".. Edge " << (void*) &(*E.TShape()) <<
       //      std::endl;
 
       // skip degenerated edges (and also INTERNAL/EXTERNAL, to avoid failures)
@@ -499,7 +499,7 @@ void ShapeUpgrade_WireDivide::Perform()
         continue;
       }
 
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 
       TopoWire resWire;
       B.MakeWire(resWire);
@@ -645,14 +645,14 @@ void ShapeUpgrade_WireDivide::Perform()
             V = V2;
           // else  V2;
           // }
-          //	  if (ShapeUpgrade::Debug()) std::cout <<"... New intermediate Vertex ("
+          //	  if (ShapeUpgrade1::Debug()) std::cout <<"... New intermediate Vertex ("
           //	    <<P.X()<<","<<P.Y()<<","<<P.Z()<<") :"<<(void*) &(*V.TShape())
           //	      <<" with Tolerance "<<TolEdge <<std::endl;
         }
         // else V = V2;
 
         TopoEdge     newEdge;
-        ShapeBuild_Edge sbe;
+        Edge2 sbe;
         if (isForward)
         {
           V1.Orientation(TopAbs_FORWARD);
@@ -794,7 +794,7 @@ void ShapeUpgrade_WireDivide::Perform()
           n--;
         }
 
-        //	if (ShapeUpgrade::Debug()) std::cout <<"... New Edge "
+        //	if (ShapeUpgrade1::Debug()) std::cout <<"... New Edge "
         //	  <<(void*) &(*newEdge.TShape())<<" on vertices "
         //	    <<(void*) &(*V1.TShape())<<", " <<(void*) &(*V.TShape())
         //	      <<" with Tolerance "<<TolEdge <<std::endl;
@@ -832,7 +832,7 @@ const TopoWire& ShapeUpgrade_WireDivide::Wire() const
 
 Standard_Boolean ShapeUpgrade_WireDivide::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 //=================================================================================================

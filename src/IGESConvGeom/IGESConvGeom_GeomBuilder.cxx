@@ -108,7 +108,7 @@ Handle(IGESGeom_CopiousData) IGESConvGeom_GeomBuilder::MakeCopiousData(
   return res;
 }
 
-Transform3d IGESConvGeom_GeomBuilder::Position() const
+Transform3d IGESConvGeom_GeomBuilder::Position1() const
 {
   return thepos;
 }

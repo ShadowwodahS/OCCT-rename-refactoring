@@ -82,9 +82,9 @@ void NamingTranslator::Perform()
   TopTools_DataMapIteratorOfDataMapOfShapeShape itm(myDataMapOfResults);
   for (; itm.More(); itm.Next())
   {
-    ShapeCopier::CopyTool(itm.Key(), myMap, Result);
+    ShapeCopier::CopyTool(itm.Key1(), myMap, Result);
     if (!Result.IsNull())
-      myDataMapOfResults(itm.Key()) = Result;
+      myDataMapOfResults(itm.Key1()) = Result;
     Result.Nullify();
   }
   if (myDataMapOfResults.Extent())

@@ -21,7 +21,7 @@
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <class AttribClass>
-void StdLPersistent_Value::integer<AttribClass>::ImportAttribute()
+void Value::integer<AttribClass>::ImportAttribute()
 {
   this->myTransient->Set(this->myData);
 }
@@ -31,7 +31,7 @@ void StdLPersistent_Value::integer<AttribClass>::ImportAttribute()
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <class AttribClass, class HStringClass>
-void StdLPersistent_Value::string<AttribClass, HStringClass>::ImportAttribute()
+void Value::string<AttribClass, HStringClass>::ImportAttribute()
 {
   Handle(HStringClass) anHString = Handle(HStringClass)::DownCast(this->myData);
   if (anHString)
@@ -46,7 +46,7 @@ void StdLPersistent_Value::string<AttribClass, HStringClass>::ImportAttribute()
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <>
-void StdLPersistent_Value::string<TDF_Reference>::ImportAttribute()
+void Value::string<TDF_Reference>::ImportAttribute()
 {
   if (this->myData)
   {
@@ -62,7 +62,7 @@ void StdLPersistent_Value::string<TDF_Reference>::ImportAttribute()
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <>
-void StdLPersistent_Value::string<TDataStd_UAttribute>::ImportAttribute()
+void Value::string<TDataStd_UAttribute>::ImportAttribute()
 {
 }
 
@@ -70,9 +70,9 @@ void StdLPersistent_Value::string<TDataStd_UAttribute>::ImportAttribute()
 // function : CreateAttribute
 // purpose  : Create an empty transient attribute
 //=======================================================================
-Handle(TDF_Attribute) StdLPersistent_Value::UAttribute::CreateAttribute()
+Handle(TDF_Attribute) Value::UAttribute1::CreateAttribute()
 {
-  string<TDataStd_UAttribute, StdLPersistent_HString::Extended>::CreateAttribute();
+  string<TDataStd_UAttribute, HString::Extended1>::CreateAttribute();
 
   if (this->myData)
   {
@@ -86,7 +86,7 @@ Handle(TDF_Attribute) StdLPersistent_Value::UAttribute::CreateAttribute()
 }
 
 //=======================================================================
-Handle(TDF_Attribute) StdLPersistent_Value::Integer::CreateAttribute()
+Handle(TDF_Attribute) Value::Integer1::CreateAttribute()
 {
   integer<IntAttribute>::CreateAttribute();
 
@@ -99,7 +99,7 @@ Handle(TDF_Attribute) StdLPersistent_Value::Integer::CreateAttribute()
 }
 
 //=======================================================================
-Handle(TDF_Attribute) StdLPersistent_Value::Name::CreateAttribute()
+Handle(TDF_Attribute) Value::Name::CreateAttribute()
 {
   string<NameAttribute>::CreateAttribute();
 
@@ -112,9 +112,9 @@ Handle(TDF_Attribute) StdLPersistent_Value::Name::CreateAttribute()
 }
 
 //=======================================================================
-Handle(TDF_Attribute) StdLPersistent_Value::AsciiString::CreateAttribute()
+Handle(TDF_Attribute) Value::AsciiString2::CreateAttribute()
 {
-  string<TDataStd_AsciiString, StdLPersistent_HString::Ascii>::CreateAttribute();
+  string<TDataStd_AsciiString, HString::Ascii1>::CreateAttribute();
 
   if (this->myData)
   {
@@ -124,11 +124,11 @@ Handle(TDF_Attribute) StdLPersistent_Value::AsciiString::CreateAttribute()
   return this->myTransient;
 }
 
-template class StdLPersistent_Value::integer<IntAttribute>;
-template class StdLPersistent_Value::integer<TDF_TagSource>;
+template class Value::integer<IntAttribute>;
+template class Value::integer<TDF_TagSource>;
 
-template class StdLPersistent_Value::string<TDF_Reference>;
-template class StdLPersistent_Value::string<TDataStd_UAttribute>;
-template class StdLPersistent_Value::string<NameAttribute>;
-template class StdLPersistent_Value::string<TDataStd_Comment>;
-template class StdLPersistent_Value::string<TDataStd_AsciiString, StdLPersistent_HString::Ascii>;
+template class Value::string<TDF_Reference>;
+template class Value::string<TDataStd_UAttribute>;
+template class Value::string<NameAttribute>;
+template class Value::string<TDataStd_Comment>;
+template class Value::string<TDataStd_AsciiString, HString::Ascii1>;

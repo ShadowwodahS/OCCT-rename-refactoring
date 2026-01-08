@@ -45,7 +45,7 @@ void IGESData_DefaultSpecific::OwnDump(const Standard_Integer /*CN*/,
   Handle(Interface_UndefinedContent) cont = lent->UndefinedContent();
   Standard_Integer                   nb   = cont->NbParams();
   S << " UNDEFINED ENTITY ...\n"
-    << nb << " Parameters (WARNING : Odd Integer Values Interpreted as Entities)\n";
+    << nb << " Parameters (WARNING : Odd Integer1 Values Interpreted as Entities)\n";
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     Interface_ParamType ptyp = cont->ParamType(i);

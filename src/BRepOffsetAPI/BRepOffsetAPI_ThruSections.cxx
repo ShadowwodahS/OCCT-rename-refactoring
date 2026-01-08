@@ -507,7 +507,7 @@ void BRepOffsetAPI_ThruSections::Build(const Message_ProgressRange& /*theRange*/
     return;
   }
   // Encode the Regularities
-  BRepLib::EncodeRegularity(myShape);
+  BRepLib1::EncodeRegularity(myShape);
 }
 
 //=================================================================================================
@@ -1011,14 +1011,14 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     Standard_Real aTolerance = BRepInspector::Tolerance(aCurEdge);
     if (myMutableInput)
     {
-      BRepLib::SameParameter(aCurEdge, aTolerance);
+      BRepLib1::SameParameter(aCurEdge, aTolerance);
     }
     else
     {
       // all edges from myShape can be safely updated/changed
       // all vertices from myShape are the part of the original wires
       Standard_Real aNewTolerance = -1;
-      BRepLib::SameParameter(aCurEdge, aTolerance, aNewTolerance, Standard_True);
+      BRepLib1::SameParameter(aCurEdge, aTolerance, aNewTolerance, Standard_True);
       if (aNewTolerance > 0)
       {
         TopoVertex aVertex1, aVertex2;
@@ -1050,7 +1050,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     TopTools_DataMapIteratorOfDataMapOfShapeReal aMapIterator(aVertexToleranceMap);
     for (; aMapIterator.More(); aMapIterator.Next())
     {
-      const TopoVertex& aVertex       = TopoDS::Vertex(aMapIterator.Key());
+      const TopoVertex& aVertex       = TopoDS::Vertex(aMapIterator.Key1());
       Standard_Real        aNewTolerance = aMapIterator.Value();
       if (BRepInspector::Tolerance(aVertex) < aNewTolerance)
       {

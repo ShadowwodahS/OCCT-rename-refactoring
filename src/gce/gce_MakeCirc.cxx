@@ -188,7 +188,7 @@ gce_MakeCirc::gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius)
 //=========================================================================
 gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Pln& Plane1, const Standard_Real Radius)
 {
-  gce_MakeCirc C = gce_MakeCirc(Center, Plane1.Position().Direction(), Radius);
+  gce_MakeCirc C = gce_MakeCirc(Center, Plane1.Position1().Direction(), Radius);
   TheCirc        = C.Value();
   TheError       = C.Status();
 }
@@ -414,7 +414,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist)
   }
   else
   {
-    TheCirc  = gp_Circ(Circ.Position(), Rad);
+    TheCirc  = gp_Circ(Circ.Position1(), Rad);
     TheError = gce_Done;
   }
 }
@@ -427,7 +427,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist)
 gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Point3d& P)
 {
   Standard_Real Rad = gp_Lin(Circ.Axis()).Distance(P);
-  TheCirc           = gp_Circ(Circ.Position(), Rad);
+  TheCirc           = gp_Circ(Circ.Position1(), Rad);
   TheError          = gce_Done;
 }
 

@@ -182,7 +182,7 @@ void Resource_Manager::Load(const AsciiString1&            thePath,
   }
   File.Close();
   if (myVerbose)
-    std::cout << "Resource Manager: " << ((&aMap == &myUserMap) ? "User" : "Reference")
+    std::cout << "Resource Manager: " << ((&aMap == &myUserMap) ? "User" : "Reference1")
               << " file \"" << FileName << "\" loaded" << std::endl;
 }
 
@@ -213,7 +213,7 @@ static Resource_KindOfLine WhatKindOfLine(SystemFile&                aFile,
   aToken1 = Line.SubString(Pos1, Pos);
 
   if (Debug)
-    std::cout << "Key = '" << aToken1 << std::flush;
+    std::cout << "Key1 = '" << aToken1 << std::flush;
 
   Pos = Line.FirstLocationNotInSet(WhiteSpace, Pos2 + 1, Line.Length());
   if (Pos)
@@ -362,7 +362,7 @@ Standard_Boolean Resource_Manager::Save() const
 
     Standard_Integer Index;
     for (Index = 1; Iter.More(); Iter.Next())
-      KeyArray(Index++) = Iter.Key();
+      KeyArray(Index++) = Iter.Key1();
 
     std::sort(KeyArray.begin(), KeyArray.end());
 
@@ -394,11 +394,11 @@ Standard_Boolean Resource_Manager::Save() const
 }
 
 //=======================================================================
-// function : Integer
+// function : Integer1
 // purpose  : Gets the value of an integer resource
 //=======================================================================
 
-Standard_Integer Resource_Manager::Integer(const Standard_CString aResourceName) const
+Standard_Integer Resource_Manager::Integer1(const Standard_CString aResourceName) const
 {
   AsciiString1 Result = Value(aResourceName);
   if (!Result.IsIntegerValue())

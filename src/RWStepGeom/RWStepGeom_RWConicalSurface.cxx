@@ -70,7 +70,7 @@ void RWStepGeom_RWConicalSurface::WriteStep(StepData_StepWriter&                
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : radius ---
 
@@ -85,5 +85,5 @@ void RWStepGeom_RWConicalSurface::Share(const Handle(StepGeom_ConicalSurface)& e
                                         Interface_EntityIterator&              iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

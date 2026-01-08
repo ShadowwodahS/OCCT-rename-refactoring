@@ -547,7 +547,7 @@ TopoFace BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoEdge& theOrigEdge)
   aBB.Add(aWire, aWall2);
 
   // Build 3d curves on wire
-  BRepLib::BuildCurves3d(aWire);
+  BRepLib1::BuildCurves3d(aWire);
 
   // Try to build using simple planar approach.
   TopoFace aF;

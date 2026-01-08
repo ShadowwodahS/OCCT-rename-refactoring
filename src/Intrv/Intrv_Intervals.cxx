@@ -72,7 +72,7 @@ void Intervals::Subtract(const Interval2& Tool)
   while (index <= myInter.Length())
   {
 
-    switch (Tool.Position(myInter(index)))
+    switch (Tool.Position1(myInter(index)))
     {
 
       case Intrv_Before:
@@ -141,7 +141,7 @@ void Intervals::Unite(const Interval2& Tool)
   while (index <= myInter.Length())
   {
 
-    switch (Tins.Position(myInter(index)))
+    switch (Tins.Position1(myInter(index)))
     {
 
       case Intrv_Before:

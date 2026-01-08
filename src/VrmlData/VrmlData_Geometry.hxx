@@ -20,7 +20,7 @@
 #include <TopoDS_TShape.hxx>
 
 /**
- *  Implementation of the Geometry node.
+ *  Implementation of the Geometry1 node.
  *  Contains the topological representation (TopoShell) of the VRML geometry
  */
 

@@ -60,7 +60,7 @@ Standard_Boolean CDF_StoreList::IsConsistent() const
   CDM_MapIteratorOfMapOfDocument it(myItems);
   for (; it.More() && yes; it.Next())
   {
-    yes = it.Key()->HasRequestedFolder();
+    yes = it.Key1()->HasRequestedFolder();
   }
   return yes && myMainDocument->HasRequestedFolder();
 }
@@ -82,7 +82,7 @@ void CDF_StoreList::Next()
 
 Handle(CDM_Document) CDF_StoreList::Value() const
 {
-  return myIterator.Key();
+  return myIterator.Key1();
 }
 
 PCDM_StoreStatus CDF_StoreList::Store(Handle(CDM_MetaData)&        aMetaData,

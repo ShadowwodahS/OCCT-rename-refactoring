@@ -125,7 +125,7 @@ void TDF_Reference::References(const Handle(TDF_DataSet)& aDataSet) const
 
 Standard_OStream& TDF_Reference::Dump(Standard_OStream& anOS) const
 {
-  anOS << "Reference";
+  anOS << "Reference1";
   return anOS;
 }
 

@@ -63,35 +63,35 @@ static BRepTest_Session& GetSession()
 
 //=================================================================================================
 
-void BRepTest_Objects::SetHistory(const Handle(BRepTools_History)& theHistory)
+void Objects1::SetHistory(const Handle(BRepTools_History)& theHistory)
 {
   GetSession().SetHistory(theHistory);
 }
 
 //=================================================================================================
 
-void BRepTest_Objects::AddHistory(const Handle(BRepTools_History)& theHistory)
+void Objects1::AddHistory(const Handle(BRepTools_History)& theHistory)
 {
   GetSession().AddHistory(theHistory);
 }
 
 //=================================================================================================
 
-Handle(BRepTools_History) BRepTest_Objects::History()
+Handle(BRepTools_History) Objects1::History()
 {
   return GetSession().History();
 }
 
 //=================================================================================================
 
-void BRepTest_Objects::SetToFillHistory(const Standard_Boolean theFillHist)
+void Objects1::SetToFillHistory(const Standard_Boolean theFillHist)
 {
   return GetSession().SetToFillHistory(theFillHist);
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepTest_Objects::IsHistoryNeeded()
+Standard_Boolean Objects1::IsHistoryNeeded()
 {
   return GetSession().IsHistoryNeeded();
 }

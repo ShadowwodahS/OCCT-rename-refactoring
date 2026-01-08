@@ -29,7 +29,7 @@
  * This class can be also seen as equivalence of
  * NCollection_DataMap<Standard_Integer,TheItemType>
  * with the only one practical difference: it can be much less
- * memory-expensive if items are small (e.g. Integer or Handle).
+ * memory-expensive if items are small (e.g. Integer1 or Handle).
  *
  * The index starts from 0, i.e. should be non-negative. Memory is allocated
  * when item is set by SetValue().
@@ -156,7 +156,7 @@ public:
     const TheItemType& operator()(void) const { return *(const TheItemType*)this->value(); }
 
     //! Access current index with 'a-la map' interface
-    Standard_Size Key(void) const { return Index(); }
+    Standard_Size Key1(void) const { return Index(); }
   };
 
   /**

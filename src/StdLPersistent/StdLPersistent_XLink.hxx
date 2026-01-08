@@ -23,10 +23,10 @@ class StdLPersistent_XLink : public StdObjMgt_Attribute<TDocStd_XLink>
 {
 public:
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myDocEntry >> myLabEntry; }
+  inline void Read(ReadData& theReadData) { theReadData >> myDocEntry >> myLabEntry; }
 
   //! Write persistent data to a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData) const
+  inline void Write(WriteData& theWriteData) const
   {
     theWriteData << myDocEntry << myLabEntry;
   }
@@ -52,8 +52,8 @@ public:
   }
 
 private:
-  Handle(StdLPersistent_HString::Ascii) myDocEntry;
-  Handle(StdLPersistent_HString::Ascii) myLabEntry;
+  Handle(HString::Ascii1) myDocEntry;
+  Handle(HString::Ascii1) myLabEntry;
 };
 
 #endif

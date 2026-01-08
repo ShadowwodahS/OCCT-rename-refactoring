@@ -42,7 +42,7 @@ void Vrml_OrthographicCamera::SetPosition(const Vector3d& aPosition)
   myPosition = aPosition;
 }
 
-Vector3d Vrml_OrthographicCamera::Position() const
+Vector3d Vrml_OrthographicCamera::Position1() const
 {
   return myPosition;
 }

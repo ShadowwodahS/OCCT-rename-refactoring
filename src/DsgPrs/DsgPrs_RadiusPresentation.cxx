@@ -46,7 +46,7 @@ static Standard_Boolean DsgPrs_InDomain(const Standard_Real fpar,
 
 //=================================================================================================
 
-void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(StyleDrawer)&       aDrawer,
                                     const UtfString& aText,
                                     const Point3d&                     AttachmentPoint,
@@ -122,23 +122,23 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     arrdir.Reverse();
 
   // fleche
-  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
+  Arrow1::Draw1(aPresentation->CurrentGroup(),
                     ptoncirc,
                     arrdir,
                     LA->ArrowAspect()->Angle(),
                     LA->ArrowAspect()->Length());
 
   // texte
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, attpoint);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, attpoint);
 }
 
 //=======================================================================
-// function : DsgPrs_RadiusPresentation::Add
+// function : RadiusPresentation::Add
 // purpose  : SZY 20-february-98
 //         : adds radius representation according drawFromCenter value
 //=======================================================================
 
-void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(StyleDrawer)&       aDrawer,
                                     const UtfString& aText,
                                     const Point3d&                     AttachmentPoint,
@@ -152,7 +152,7 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Point3d LineOrigin, LineEnd;
-  DsgPrs::ComputeRadiusLine(Center,
+  DsgPrs1::ComputeRadiusLine(Center,
                             EndOfArrow,
                             AttachmentPoint,
                             drawFromCenter,
@@ -165,12 +165,12 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // text
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, AttachmentPoint);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, AttachmentPoint);
 
   Dir3d ArrowDir = gce_MakeDir(LineOrigin, LineEnd);
   if (reverseArrow)
     ArrowDir.Reverse();
-  DsgPrs::ComputeSymbol(aPresentation,
+  DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         Center,
                         EndOfArrow,

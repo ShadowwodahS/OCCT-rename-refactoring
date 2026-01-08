@@ -71,7 +71,7 @@ public:
 
   //! Returns Messenger used for outputting messages.
   //! The returned object is guaranteed to be non-null;
-  //! default is Message::Messenger().
+  //! default is Message1::Messenger().
   Standard_EXPORT Handle(Message_Messenger) Messenger() const;
 
   //! Sets trace level used for outputting messages
@@ -168,7 +168,7 @@ public:
   //! To work, each Interface can define a method in its proper
   //! Transient class, like this (given as an example) :
   //! AnalyseRecord (me  : mutable; FR     : in out FileReaderTool;
-  //! num : Integer; acheck : in out Check)
+  //! num : Integer1; acheck : in out Check)
   //! returns Boolean;
   //! and call it from AnalyseRecord
   //!

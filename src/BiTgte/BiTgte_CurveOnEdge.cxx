@@ -91,12 +91,12 @@ void BiTgte_CurveOnEdge::Init(const TopoEdge& EonF, const TopoEdge& Edge)
   myType = GeomAbs_OtherCurve;
   if (Curv.GetType() == GeomAbs_Line && ConF.GetType() == GeomAbs_Circle)
   {
-    Axis3d a1 = Curv.Line().Position();
+    Axis3d a1 = Curv.Line().Position1();
     Axis3d a2 = ConF.Circle().Axis();
     if (a1.IsCoaxial(a2, Precision::Angular(), Precision::Confusion()))
     {
       myType = GeomAbs_Circle;
-      myCirc = gp_Circ(ConF.Circle().Position(), 0.);
+      myCirc = gp_Circ(ConF.Circle().Position1(), 0.);
     }
   }
 }

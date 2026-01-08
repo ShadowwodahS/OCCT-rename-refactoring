@@ -22,7 +22,7 @@
 
 class XSAlgo_AlgoContainer;
 
-class XSAlgo
+class XSAlgo1
 {
 public:
   DEFINE_STANDARD_ALLOC

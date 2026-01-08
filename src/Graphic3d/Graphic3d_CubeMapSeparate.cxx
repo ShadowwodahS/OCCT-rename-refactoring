@@ -120,7 +120,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
     return anImage;
   }
 
-  Message::SendWarning(AsciiString1() + "'" + aFilePath
+  Message1::SendWarning(AsciiString1() + "'" + aFilePath
                        + "' inconsistent image format or dimension in Graphic3d_CubeMapSeparate");
   return Handle(Image_CompressedPixMap)();
 }
@@ -168,7 +168,7 @@ Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
             }
             else
             {
-              Message::SendWarning(
+              Message1::SendWarning(
                 AsciiString1() + "'" + aFilePath
                 + "' inconsistent image format or dimension in Graphic3d_CubeMapSeparate");
             }
@@ -177,13 +177,13 @@ Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
       }
       else
       {
-        Message::SendWarning(AsciiString1() + "Unable to load '" + aFilePath
+        Message1::SendWarning(AsciiString1() + "Unable to load '" + aFilePath
                              + "' image of Graphic3d_CubeMapSeparate");
       }
     }
     else
     {
-      Message::SendWarning(AsciiString1() + "[" + myCurrentSide
+      Message1::SendWarning(AsciiString1() + "[" + myCurrentSide
                            + "] path of Graphic3d_CubeMapSeparate is invalid");
     }
   }

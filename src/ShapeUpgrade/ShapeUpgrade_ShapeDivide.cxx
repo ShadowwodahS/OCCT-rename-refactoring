@@ -110,10 +110,10 @@ void ShapeUpgrade_ShapeDivide::SetSurfaceSegmentMode(const Standard_Boolean Segm
 
 Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newContext)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (myShape.IsNull())
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -192,7 +192,7 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
             SplitFace->Perform();
             if (SplitFace->Status(ShapeExtend_FAIL))
             {
-              myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+              myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
             }
             if (SplitFace->Status(ShapeExtend_DONE))
             {
@@ -200,11 +200,11 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
               SendMsg(face, doneMsg, Message_Info);
               if (SplitFace->Status(ShapeExtend_DONE1))
               {
-                myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+                myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
               }
               if (SplitFace->Status(ShapeExtend_DONE2))
               {
-                myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+                myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
               }
             }
           }
@@ -217,7 +217,7 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
           std::cout << std::endl;
 #endif
           (void)anException;
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
         }
 
         if (!exp2.More())
@@ -254,13 +254,13 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
         SplitWire->Perform();
         if (SplitWire->Status(ShapeExtend_FAIL))
         {
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
         }
         if (SplitWire->Status(ShapeExtend_DONE))
         {
           myContext->Replace(wire, SplitWire->Wire());
           SendMsg(wire, doneMsg, Message_Info);
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
         }
       }
     }
@@ -287,13 +287,13 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
         SplitWire->Perform();
         if (SplitWire->Status(ShapeExtend_FAIL))
         {
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL3);
         }
         if (SplitWire->Status(ShapeExtend_DONE))
         {
           myContext->Replace(edge, SplitWire->Wire());
           SendMsg(edge, edgeDoneMsg, Message_Info);
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
         }
       }
     }
@@ -343,7 +343,7 @@ Handle(ShapeUpgrade_FaceDivide) ShapeUpgrade_ShapeDivide::GetSplitFaceTool() con
 
 Standard_Boolean ShapeUpgrade_ShapeDivide::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 //=================================================================================================

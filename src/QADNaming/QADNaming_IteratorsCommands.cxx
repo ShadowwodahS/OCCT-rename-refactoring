@@ -61,7 +61,7 @@ static Standard_Integer GetNewShapes(DrawInterpreter& di, Standard_Integer nb, c
     Handle(ShapeAttribute) aNS;
     if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
     {
-      di << "Label has no NamedShape\n";
+      di << "Label has no NamedShape1\n";
       return 1;
     }
     di << EvolutionString(aNS->Evolution());
@@ -98,7 +98,7 @@ static Standard_Integer GetOldShapes(DrawInterpreter& di, Standard_Integer nb, c
     Handle(ShapeAttribute) aNS;
     if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
     {
-      di << "Label has no NamedShape\n";
+      di << "Label has no NamedShape1\n";
       return 1;
     }
     di << EvolutionString(aNS->Evolution());
@@ -163,7 +163,7 @@ static Standard_Integer GetAllNewShapes(DrawInterpreter& di, Standard_Integer nb
       Handle(ShapeAttribute) aNS;
       if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
       {
-        di << "Label has no NamedShape\n";
+        di << "Label has no NamedShape1\n";
         return 1;
       }
       Standard_Integer a;
@@ -209,7 +209,7 @@ static int GetAllOld(const TopoShape&            theShape,
                      Standard_Integer               theIndex)
 {
   AsciiString1    aName;
-  Handle(ShapeAttribute) aNS = Tool11::NamedShape(theShape, theAccess);
+  Handle(ShapeAttribute) aNS = Tool11::NamedShape1(theShape, theAccess);
   if (aNS.IsNull())
     return theIndex;
   Iterator1 anIter(aNS);
@@ -245,7 +245,7 @@ static Standard_Integer GetAllOldShapes(DrawInterpreter& di, Standard_Integer nb
       Handle(ShapeAttribute) aNS;
       if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
       {
-        di << "Label has no NamedShape\n";
+        di << "Label has no NamedShape1\n";
         return 1;
       }
       Standard_Integer a;
@@ -329,7 +329,7 @@ void QADNaming1::IteratorsCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "Naming builder commands";
+  const char* g = "Naming1 builder commands";
 
   theCommands.Add("GetNewShapes", "GetNewShapes df entry [res]", __FILE__, GetNewShapes, g);
 

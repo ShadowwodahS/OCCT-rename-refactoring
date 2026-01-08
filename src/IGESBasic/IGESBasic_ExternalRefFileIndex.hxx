@@ -41,8 +41,8 @@ public:
 
   //! This method is used to set the fields of the class
   //! ExternalRefFileIndex
-  //! - aNameArray  : External Reference Entity symbolic names
-  //! - allEntities : External Reference Entities
+  //! - aNameArray  : External Reference1 Entity symbolic names
+  //! - allEntities : External Reference1 Entities
   //! raises exception if array lengths are not equal
   //! if size of aNameArray is not equal to size of allEntities
   Standard_EXPORT void Init(const Handle(Interface_HArray1OfHAsciiString)& aNameArray,
@@ -51,7 +51,7 @@ public:
   //! returns number of index entries
   Standard_EXPORT Standard_Integer NbEntries() const;
 
-  //! returns the External Reference Entity symbolic name
+  //! returns the External Reference1 Entity symbolic name
   //! raises exception if Index <= 0 or Index > NbEntries()
   Standard_EXPORT Handle(TCollection_HAsciiString) Name(const Standard_Integer Index) const;
 

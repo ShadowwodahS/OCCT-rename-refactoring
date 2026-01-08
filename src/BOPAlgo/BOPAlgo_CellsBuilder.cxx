@@ -479,7 +479,7 @@ void BOPAlgo_CellsBuilder::RemoveInternalBoundaries()
   TopTools_MapOfShape                                   aKeepMap[2];
   for (; aItM.More(); aItM.Next())
   {
-    Standard_Integer      iMaterial = aItM.Key();
+    Standard_Integer      iMaterial = aItM.Key1();
     ShapeList& aLS       = aItM.ChangeValue();
     //
     if (aLS.IsEmpty())

@@ -67,7 +67,7 @@ GeomToStep_MakeHyperbola::GeomToStep_MakeHyperbola(const Handle(Geom_Hyperbola)&
   Handle(StepGeom_Axis2Placement3d) Ax2Step;
   Standard_Real                     majorR, minorR;
 
-  GeomToStep_MakeAxis2Placement3d MkAxis2(gpHyp.Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis2(gpHyp.Position1(), theLocalFactors);
   Ax2Step = MkAxis2.Value();
   majorR  = gpHyp.MajorRadius();
   minorR  = gpHyp.MinorRadius();

@@ -72,7 +72,7 @@ public:
 
   Standard_EXPORT void SetComment(const Standard_ExtString aComment);
 
-  Standard_EXPORT Handle(TCollection_HExtendedString) Comment() const;
+  Standard_EXPORT Handle(TCollection_HExtendedString) Comment1() const;
 
   //! defines the name under which the document should be stored.
   //! uses for example after modification of the folder.

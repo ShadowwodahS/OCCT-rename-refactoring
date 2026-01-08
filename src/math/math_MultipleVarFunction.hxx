@@ -41,7 +41,7 @@ public:
   //! return the state of the function corresponding to the latestt
   //! call of any methods associated to the function. This
   //! function is called by each of the algorithms described
-  //! later which define the function Integer
+  //! later which define the function Integer1
   //! Algorithm::StateNumber(). The algorithm has the
   //! responsibility to call this function when it has found
   //! a solution (i.e. a root or a minimum) and has to maintain
@@ -51,7 +51,7 @@ public:
   //! algorithm: no state has been saved). It is the
   //! responsibility of the programmer to decide if he needs
   //! to save the current state of the function and to return
-  //! an Integer that allows retrieval of the state.
+  //! an Integer1 that allows retrieval of the state.
   Standard_EXPORT virtual Standard_Integer GetStateNumber();
   Standard_EXPORT virtual ~MultipleVarFunction();
 

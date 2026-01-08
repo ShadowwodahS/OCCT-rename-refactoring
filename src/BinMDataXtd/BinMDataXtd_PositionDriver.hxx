@@ -28,7 +28,7 @@ class BinObjMgt_Persistent;
 class BinMDataXtd_PositionDriver;
 DEFINE_STANDARD_HANDLE(BinMDataXtd_PositionDriver, BinMDF_ADriver)
 
-//! Position Attribute Driver.
+//! Position1 Attribute Driver.
 class BinMDataXtd_PositionDriver : public BinMDF_ADriver
 {
 

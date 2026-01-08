@@ -148,7 +148,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
       {
         Cylinder1 cyl   = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
         Axis3d      axcyl = cyl.Axis();
-        Cir               = ElSLib1::CylinderVIso(cyl.Position(), cyl.Radius(), 0.);
+        Cir               = ElSLib1::CylinderVIso(cyl.Position1(), cyl.Radius(), 0.);
         Vector3d VV(cyl.Location(), NeutralPlane.Location());
         Cir.Translate(VV.Dot(axcyl.Direction()) * axcyl.Direction());
       }
@@ -179,7 +179,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
           return Standard_False;
         }
 
-        Ax3        Axis = NeutralPlane.Position();
+        Ax3        Axis = NeutralPlane.Position1();
         Standard_Real L    = Vector3d(Cir.Location(), Axis.Location()).Dot(Axis.Direction());
         Standard_Real Cos  = theDirextr.Dot(Axis.Direction());
         Vector3d        VV   = (L / Cos) * theDirextr;
@@ -400,7 +400,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
                 TopTools_MapIteratorOfMapOfShape itm(MapOfE);
                 for (; itm.More(); itm.Next())
                 {
-                  myEMap.RemoveKey(TopoDS::Edge(itm.Key()));
+                  myEMap.RemoveKey(TopoDS::Edge(itm.Key1()));
                 }
               }
             }
@@ -547,7 +547,7 @@ Standard_Boolean Draft_Modification::Propagate()
   for (Standard_Integer i = 1; i <= myEMap.Extent(); i++)
   {
     Draft_EdgeInfo& Einf = myEMap.ChangeFromIndex(i);
-    if (Einf.NewGeometry() && Einf.Geometry().IsNull() && Einf.SecondFace().IsNull())
+    if (Einf.NewGeometry() && Einf.Geometry1().IsNull() && Einf.SecondFace().IsNull())
     {
 
       TopLoc_Location      Loc;
@@ -567,7 +567,7 @@ Standard_Boolean Draft_Modification::Propagate()
       {
         if (C->IsKind(STANDARD_TYPE(Geom_Conic)))
         {
-          Ax3 thePl(Handle(Geom_Conic)::DownCast(C)->Position());
+          Ax3 thePl(Handle(Geom_Conic)::DownCast(C)->Position1());
           S2 = new GeomPlane(thePl);
         }
         else if (C->DynamicType() == STANDARD_TYPE(GeomLine))
@@ -717,7 +717,7 @@ void Draft_Modification::Perform()
     {
       const TopoFace& FK   = myFMap.FindKey(i);
       Draft_FaceInfo&    Finf = myFMap.ChangeFromIndex(i);
-      if (Finf.NewGeometry() && Finf.Geometry().IsNull())
+      if (Finf.NewGeometry() && Finf.Geometry1().IsNull())
       {
         const TopoFace& F1 = Finf.FirstFace();
         const TopoFace& F2 = Finf.SecondFace();
@@ -728,8 +728,8 @@ void Draft_Modification::Perform()
           badShape = FK;
           return;
         }
-        Handle(GeomSurface) S1 = myFMap.FindFromKey(F1).Geometry();
-        Handle(GeomSurface) S2 = myFMap.FindFromKey(F2).Geometry();
+        Handle(GeomSurface) S1 = myFMap.FindFromKey(F1).Geometry1();
+        Handle(GeomSurface) S2 = myFMap.FindFromKey(F2).Geometry1();
         if (S1.IsNull() || S2.IsNull())
         {
           errStat  = Draft_FaceRecomputation;
@@ -774,7 +774,7 @@ void Draft_Modification::Perform()
 
         if (RefSurf->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
         {
-          Ax3 AxeRef = Handle(Geom_CylindricalSurface)::DownCast(RefSurf)->Cylinder().Position();
+          Ax3 AxeRef = Handle(Geom_CylindricalSurface)::DownCast(RefSurf)->Cylinder().Position1();
           DirRef        = AxeRef.Direction();
         }
         else if (RefSurf->DynamicType() == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
@@ -826,7 +826,7 @@ void Draft_Modification::Perform()
       C = BRepInspector::Curve(theEdge, L, f, l);
       C = Handle(GeomCurve3d)::DownCast(C->Transformed(L.Transformation()));
 
-      if (Einf.NewGeometry() && Einf.Geometry().IsNull())
+      if (Einf.NewGeometry() && Einf.Geometry1().IsNull())
       {
         Point3d ptfixe;
         if (!Einf.IsTangent(ptfixe))
@@ -834,8 +834,8 @@ void Draft_Modification::Perform()
           const TopoFace& FirstFace  = Einf.FirstFace();
           const TopoFace& SecondFace = Einf.SecondFace();
 
-          S1 = myFMap.FindFromKey(FirstFace).Geometry();
-          S2 = myFMap.FindFromKey(SecondFace).Geometry();
+          S1 = myFMap.FindFromKey(FirstFace).Geometry1();
+          S2 = myFMap.FindFromKey(SecondFace).Geometry1();
 
           Standard_Integer detrompeur = 0;
 
@@ -896,7 +896,7 @@ void Draft_Modification::Perform()
               && S2->DynamicType() == STANDARD_TYPE(GeomPlane))
           {
             KPart       = Standard_True;
-            Axis        = Handle(GeomPlane)::DownCast(S2)->Position();
+            Axis        = Handle(GeomPlane)::DownCast(S2)->Position1();
             TheNewCurve = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S1)->BasisCurve();
             TheDirExtr  = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S1)->Direction();
           }
@@ -905,7 +905,7 @@ void Draft_Modification::Perform()
           {
             KPart       = Standard_True;
             PC1         = Standard_False;
-            Axis        = Handle(GeomPlane)::DownCast(S1)->Position();
+            Axis        = Handle(GeomPlane)::DownCast(S1)->Position1();
             TheNewCurve = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S2)->BasisCurve();
             TheDirExtr  = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S2)->Direction();
           }
@@ -917,7 +917,7 @@ void Draft_Modification::Perform()
               KPart = Standard_False;
             else
             {
-              Dir3d AxofCirc = aCirc->Position().Direction();
+              Dir3d AxofCirc = aCirc->Position1().Direction();
               if (AxofCirc.IsParallel(Axis.Direction(), Precision::Angular()))
                 KPart = Standard_True;
               else
@@ -945,8 +945,8 @@ void Draft_Modification::Perform()
           }
           else
           {
-            S1 = myFMap.FindFromKey(Einf.FirstFace()).Geometry();
-            S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry();
+            S1 = myFMap.FindFromKey(Einf.FirstFace()).Geometry1();
+            S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry1();
 
             // PCurves are not calculated immediately for 2 reasons:
             // 1 - If ProjLib1 should make an Approx, it is stupid to approximate the
@@ -1169,7 +1169,7 @@ void Draft_Modification::Perform()
                 if (Candidates.Length() == 0)
                 {
                   // errStat = Draft_EdgeRecomputation;
-                  // badShape = TopoDS::Edge(ite.Key());
+                  // badShape = TopoDS::Edge(ite.Key1());
                   // return;
                   for (i = 1; i <= i2s.NbLines(); i++)
                     Candidates.Append(i2s.Line(i));
@@ -1297,8 +1297,8 @@ void Draft_Modification::Perform()
           const TopoFace& F1 = Einf.FirstFace();
           const TopoFace& F2 = Einf.SecondFace();
 
-          Handle(GeomSurface) aLocalS1 = myFMap.FindFromKey(F1).Geometry();
-          Handle(GeomSurface) aLocalS2 = myFMap.FindFromKey(F2).Geometry();
+          Handle(GeomSurface) aLocalS1 = myFMap.FindFromKey(F1).Geometry1();
+          Handle(GeomSurface) aLocalS2 = myFMap.FindFromKey(F2).Geometry1();
           if (aLocalS1.IsNull() || aLocalS2.IsNull())
           {
             errStat  = Draft_EdgeRecomputation;
@@ -1426,8 +1426,8 @@ void Draft_Modification::Perform()
           // const Draft_EdgeInfo& Einf1 = myEMap(Edg1);
           Draft_EdgeInfo& Einf1 = myEMap.ChangeFromKey(Edg1);
           Point3d          vtori = BRepInspector::Pnt(TVV);
-          // Einf1.Geometry()->D0(Vinf.Parameter(Edg1), pvt);
-          GeomAPI_ProjectPointOnCurve Projector(vtori, Einf1.Geometry()); // patch
+          // Einf1.Geometry1()->D0(Vinf.Parameter(Edg1), pvt);
+          GeomAPI_ProjectPointOnCurve Projector(vtori, Einf1.Geometry1()); // patch
           pvt = Projector.NearestPoint();
 
 #ifdef OCCT_DEBUG
@@ -1449,7 +1449,7 @@ void Draft_Modification::Perform()
             Draft_EdgeInfo& Einf2 = myEMap.ChangeFromKey(Edg2);
             //	    Standard_Real f;
             Point3d opvt;
-            Einf2.Geometry()->D0(Vinf.Parameter(Edg2), opvt);
+            Einf2.Geometry1()->D0(Vinf.Parameter(Edg2), opvt);
 
 #ifdef OCCT_DEBUG
             if (VertexRecomp != 0)
@@ -1463,13 +1463,13 @@ void Draft_Modification::Perform()
             {
               pvt = opvt;
             }
-            // Vinf.ChangeParameter(Edg2) = Parameter(Einf2.Geometry(), pvt);
+            // Vinf.ChangeParameter(Edg2) = Parameter(Einf2.Geometry1(), pvt);
             Standard_Integer done;
-            Standard_Real    param = Parameter(Einf2.Geometry(), pvt, done);
+            Standard_Real    param = Parameter(Einf2.Geometry1(), pvt, done);
             if (done != 0)
             {
-              Handle(GeomSurface) S1 = myFMap.FindFromKey(Einf2.FirstFace()).Geometry();
-              Handle(GeomSurface) S2 = myFMap.FindFromKey(Einf2.SecondFace()).Geometry();
+              Handle(GeomSurface) S1 = myFMap.FindFromKey(Einf2.FirstFace()).Geometry1();
+              Handle(GeomSurface) S2 = myFMap.FindFromKey(Einf2.SecondFace()).Geometry1();
               Vinf.ChangeParameter(Edg2) =
                 SmartParameter(Einf2, BRepInspector::Tolerance(Edg2), pvt, done, S1, S2);
             }
@@ -1478,13 +1478,13 @@ void Draft_Modification::Perform()
           }
 
           Vinf.ChangeGeometry() = pvt;
-          // Vinf.ChangeParameter(Edg1) = Parameter(Einf1.Geometry(), pvt);
+          // Vinf.ChangeParameter(Edg1) = Parameter(Einf1.Geometry1(), pvt);
           Standard_Integer done;
-          Standard_Real    param = Parameter(Einf1.Geometry(), pvt, done);
+          Standard_Real    param = Parameter(Einf1.Geometry1(), pvt, done);
           if (done != 0)
           {
-            Handle(GeomSurface) S1 = myFMap.FindFromKey(Einf1.FirstFace()).Geometry();
-            Handle(GeomSurface) S2 = myFMap.FindFromKey(Einf1.SecondFace()).Geometry();
+            Handle(GeomSurface) S1 = myFMap.FindFromKey(Einf1.FirstFace()).Geometry1();
+            Handle(GeomSurface) S2 = myFMap.FindFromKey(Einf1.SecondFace()).Geometry1();
             Vinf.ChangeParameter(Edg1) =
               SmartParameter(Einf1, BRepInspector::Tolerance(Edg1), pvt, done, S1, S2);
           }
@@ -1563,13 +1563,13 @@ void Draft_Modification::Perform()
         Standard_Real      initpar = Vinf.Parameter(Edg);
         // const Draft_EdgeInfo& Einf = myEMap(Edg);
         Draft_EdgeInfo& Einf = myEMap.ChangeFromKey(Edg);
-        // Vinf.ChangeParameter(Edg) = Parameter(Einf.Geometry(),pvt);
+        // Vinf.ChangeParameter(Edg) = Parameter(Einf.Geometry1(),pvt);
         Standard_Integer done;
-        Standard_Real    param = Parameter(Einf.Geometry(), pvt, done);
+        Standard_Real    param = Parameter(Einf.Geometry1(), pvt, done);
         if (done != 0)
         {
-          Handle(GeomSurface) S1 = myFMap.FindFromKey(Einf.FirstFace()).Geometry();
-          Handle(GeomSurface) S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry();
+          Handle(GeomSurface) S1 = myFMap.FindFromKey(Einf.FirstFace()).Geometry1();
+          Handle(GeomSurface) S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry1();
           Vinf.ChangeParameter(Edg) =
             SmartParameter(Einf, BRepInspector::Tolerance(Edg), pvt, done, S1, S2);
         }
@@ -1621,7 +1621,7 @@ void Draft_Modification::Perform()
         TopLoc_Location          aLoc;
         Standard_Real            aF = 0.0, aL = 0.0;
         const Handle(GeomCurve3d) aSCurve   = BRepInspector::Curve(edg, aF, aL);
-        Handle(GeomCurve3d)       anIntCurv = aEinf.Geometry();
+        Handle(GeomCurve3d)       anIntCurv = aEinf.Geometry1();
         Point3d                   aPf, aPl;
         Vector3d                   aDirNF, aDirNL, aDirOF, aDirOL;
         aSCurve->D1(BRepInspector::Parameter(Vf, edg), aPf, aDirOF);
@@ -1654,12 +1654,12 @@ void Draft_Modification::Perform()
           Standard_Integer anErr = 0;
           anIntCurv->Reverse();
           aEinf.ChangeGeometry() = anIntCurv;
-          Standard_Real aPar     = Parameter(aEinf.Geometry(), aPf, anErr);
+          Standard_Real aPar     = Parameter(aEinf.Geometry1(), aPf, anErr);
           if (anErr == 0)
           {
             myVMap.ChangeFromKey(Vf).ChangeParameter(edg) = aPar;
           }
-          aPar = Parameter(aEinf.Geometry(), aPl, anErr);
+          aPar = Parameter(aEinf.Geometry1(), aPl, anErr);
           if (anErr == 0)
           {
             myVMap.ChangeFromKey(Vl).ChangeParameter(edg) = aPar;
@@ -1679,12 +1679,12 @@ void Draft_Modification::Perform()
     }
     if (pl <= pf)
     {
-      //      const Handle(GeomCurve3d) gc=ite.Value().Geometry();
+      //      const Handle(GeomCurve3d) gc=ite.Value().Geometry1();
       //      if (!gc.IsNull()) {
       //	pl = gc->LastParameter();
       //	pf = gc->FirstParameter();
       //      }
-      Handle(GeomCurve3d) theCurve = myEMap.FindFromKey(edg).Geometry();
+      Handle(GeomCurve3d) theCurve = myEMap.FindFromKey(edg).Geometry1();
       if (theCurve->IsClosed())
       {
         // pf >= pl
@@ -1783,7 +1783,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
 #endif
         return NewS;
       }
-      Ax3 axcone = Cy.Position();
+      Ax3 axcone = Cy.Position1();
       // Pb : Where is the material???
       Standard_Real    alpha = Angle;
       Standard_Boolean direct(axcone.Direct());
@@ -1847,7 +1847,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
 #endif
       return NewS;
     }
-    Ax3 axcone = Co1.Position();
+    Ax3 axcone = Co1.Position1();
     // Pb : Where is the material???
     Standard_Real    alpha = Angle;
     Standard_Boolean direct(axcone.Direct());
@@ -2021,7 +2021,7 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
   // const Draft_EdgeInfo& Einf = theEMap(Eref);
   Draft_EdgeInfo& Einf = theEMap.ChangeFromKey(Eref);
 
-  AC.Load(Einf.Geometry());
+  AC.Load(Einf.Geometry1());
 
   Standard_Real      f, l, prm;
   TopLoc_Location    Loc;
@@ -2033,8 +2033,8 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
   Standard_Real    param = Parameter(C, BRepInspector::Pnt(Vtx), done);
   if (done != 0)
   {
-    Handle(GeomSurface) S1 = theFMap.FindFromKey(Einf.FirstFace()).Geometry();
-    Handle(GeomSurface) S2 = theFMap.FindFromKey(Einf.SecondFace()).Geometry();
+    Handle(GeomSurface) S1 = theFMap.FindFromKey(Einf.FirstFace()).Geometry1();
+    Handle(GeomSurface) S2 = theFMap.FindFromKey(Einf.SecondFace()).Geometry1();
     prm = SmartParameter(Einf, BRepInspector::Tolerance(Eref), BRepInspector::Pnt(Vtx), done, S1, S2);
   }
   else
@@ -2060,8 +2060,8 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
         Standard_Real    anewparam = Parameter(C, BRepInspector::Pnt(Vtx), anewdone);
         if (anewdone != 0)
         {
-          Handle(GeomSurface) S1 = theFMap.FindFromKey(Einfo.FirstFace()).Geometry();
-          Handle(GeomSurface) S2 = theFMap.FindFromKey(Einfo.SecondFace()).Geometry();
+          Handle(GeomSurface) S1 = theFMap.FindFromKey(Einfo.FirstFace()).Geometry1();
+          Handle(GeomSurface) S2 = theFMap.FindFromKey(Einfo.SecondFace()).Geometry1();
           prm =
             SmartParameter(Einfo, BRepInspector::Tolerance(Edg), BRepInspector::Pnt(Vtx), anewdone, S1, S2);
         }
@@ -2088,22 +2088,22 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
 
     if (Einf2.FirstFace().IsSame(Einf.FirstFace()) || Einf2.FirstFace().IsSame(Einf.SecondFace()))
     {
-      AS.Load(theFMap.FindFromKey(Einf2.SecondFace()).Geometry());
+      AS.Load(theFMap.FindFromKey(Einf2.SecondFace()).Geometry1());
     }
     else
     {
-      AS.Load(theFMap.FindFromKey(Einf2.FirstFace()).Geometry());
+      AS.Load(theFMap.FindFromKey(Einf2.FirstFace()).Geometry1());
     }
   }
   else
   {
     if (Einf2.FirstFace().IsSame(Einf.FirstFace()))
     {
-      AS.Load(theFMap.FindFromKey(Einf2.SecondFace()).Geometry());
+      AS.Load(theFMap.FindFromKey(Einf2.SecondFace()).Geometry1());
     }
     else
     {
-      AS.Load(theFMap.FindFromKey(Einf2.FirstFace()).Geometry());
+      AS.Load(theFMap.FindFromKey(Einf2.FirstFace()).Geometry1());
     }
   }
   return Standard_True;
@@ -2221,7 +2221,7 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
 
   if (pcu1.IsNull())
   {
-    Handle(GeomCurve3d) theCurve = Einf.Geometry();
+    Handle(GeomCurve3d) theCurve = Einf.Geometry1();
     pcu1                        = GeomProjLib1::Curve2d(theCurve,
                                 theCurve->FirstParameter(),
                                 theCurve->LastParameter(),
@@ -2231,7 +2231,7 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
   }
   if (pcu2.IsNull())
   {
-    Handle(GeomCurve3d) theCurve = Einf.Geometry();
+    Handle(GeomCurve3d) theCurve = Einf.Geometry1();
     pcu2                        = GeomProjLib1::Curve2d(theCurve,
                                 theCurve->FirstParameter(),
                                 theCurve->LastParameter(),
@@ -2297,9 +2297,9 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
   Einf.SetNewGeometry(Standard_True);
 
   if (sign == -1)
-    return Einf.Geometry()->FirstParameter();
+    return Einf.Geometry1()->FirstParameter();
   else
-    return Einf.Geometry()->LastParameter();
+    return Einf.Geometry1()->LastParameter();
 }
 
 //=================================================================================================
@@ -2345,7 +2345,7 @@ static Standard_Boolean FindRotation(const gp_Pln&            Pl,
     {
       Standard_Real    b = Direction.Dot(ny);
       Standard_Real    c = Direction.Dot(Pl.Axis().Direction());
-      Standard_Boolean direct(Pl.Position().Direct());
+      Standard_Boolean direct(Pl.Position1().Direct());
       if ((direct && Oris == TopAbs_REVERSED) || (!direct && Oris == TopAbs_FORWARD))
       {
         b = -b;
@@ -2368,7 +2368,7 @@ static Standard_Boolean FindRotation(const gp_Pln&            Pl,
           theta = theta + M_PI * (theta < 0 ? 1 : -1);
         }
         //  modified by NIZHNY-EAP Tue Nov 16 15:53:32 1999 ___END___
-        Axe = li.Position();
+        Axe = li.Position1();
         return Standard_True;
       }
     }

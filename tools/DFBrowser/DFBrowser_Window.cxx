@@ -314,14 +314,14 @@ void DFBrowser_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& th
   for (TInspectorAPI_IteratorOfPreferencesDataMap anItemIt(theItem); anItemIt.More();
        anItemIt.Next())
   {
-    if (anItemIt.Key().IsEqual("geometry"))
+    if (anItemIt.Key1().IsEqual("geometry"))
       myMainWindow->restoreState(TreeModel_Tools::ToByteArray(anItemIt.Value().ToCString()));
     else if (TreeModel_Tools::RestoreState(myTreeView,
-                                           anItemIt.Key().ToCString(),
+                                           anItemIt.Key1().ToCString(),
                                            anItemIt.Value().ToCString()))
       continue;
     else if (View_Window::RestoreState(myViewWindow,
-                                       anItemIt.Key().ToCString(),
+                                       anItemIt.Key1().ToCString(),
                                        anItemIt.Value().ToCString()))
       continue;
   }

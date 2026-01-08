@@ -449,9 +449,9 @@ void Extrema_GenExtCS::GlobMinGenCS(const Adaptor3d_Curve& theC,
 
         if (aSqDist < aParticle->Distance)
         {
-          aParticle->Position[0] = aCU2;
-          aParticle->Position[1] = aSU;
-          aParticle->Position[2] = aSV;
+          aParticle->Position1[0] = aCU2;
+          aParticle->Position1[1] = aSU;
+          aParticle->Position1[2] = aSV;
 
           aParticle->BestPosition[0] = aCU2;
           aParticle->BestPosition[1] = aSU;
@@ -534,8 +534,8 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
 
       if (aSqDist < aParticle->Distance)
       {
-        aParticle->Position[0] = aSU;
-        aParticle->Position[1] = aSV;
+        aParticle->Position1[0] = aSU;
+        aParticle->Position1[1] = aSV;
 
         aParticle->BestPosition[0] = aSU;
         aParticle->BestPosition[1] = aSV;
@@ -734,7 +734,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
 
     if (aSqDist < aParticle->Distance)
     {
-      aParticle->Position[0] = aCT;
+      aParticle->Position1[0] = aCT;
 
       aParticle->BestPosition[0] = aCT;
 

@@ -73,7 +73,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
   }
 
   Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
-  Prs3d::AddFreeEdges(*aPoints, aPolyTri, aTrsf);
+  Prs3d1::AddFreeEdges(*aPoints, aPolyTri, aTrsf);
   if (!aPoints->IsEmpty())
   {
     theSeqFree.Append(aPoints);
@@ -182,7 +182,7 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
 
 //=================================================================================================
 
-void SelectMgr::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePrs,
+void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePrs,
                                     const Handle(SelectionContainer)&     theSel,
                                     const Transform3d&                         theLoc,
                                     const Handle(Graphic3d_TransformPers)& theTrsfPers)
@@ -310,13 +310,13 @@ void SelectMgr::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePr
   }
   if (!aSeqLines.IsEmpty())
   {
-    Prs3d::AddPrimitivesGroup(thePrs,
+    Prs3d1::AddPrimitivesGroup(thePrs,
                               new Prs3d_LineAspect(Quantity_NOC_AQUAMARINE1, Aspect_TOL_DASH, 1.0),
                               aSeqLines);
   }
   if (!aSeqFree.IsEmpty())
   {
-    Prs3d::AddPrimitivesGroup(thePrs,
+    Prs3d1::AddPrimitivesGroup(thePrs,
                               new Prs3d_LineAspect(Quantity_NOC_GREEN, Aspect_TOL_SOLID, 2.0),
                               aSeqFree);
   }

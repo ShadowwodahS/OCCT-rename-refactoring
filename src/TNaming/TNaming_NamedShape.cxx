@@ -586,7 +586,7 @@ TNaming_Builder::TNaming_Builder(const DataLabel& L)
 
 //=================================================================================================
 
-Handle(ShapeAttribute) TNaming_Builder::NamedShape() const
+Handle(ShapeAttribute) TNaming_Builder::NamedShape1() const
 {
   return myAtt;
 }
@@ -1094,7 +1094,7 @@ DataLabel NewShapeIterator::Label() const
 
 //=================================================================================================
 
-Handle(ShapeAttribute) NewShapeIterator::NamedShape() const
+Handle(ShapeAttribute) NewShapeIterator::NamedShape1() const
 {
   Standard_NoSuchObject_Raise_if(myNode == 0L, "NewShapeIterator::Label");
   return myNode->myAtt;
@@ -1248,7 +1248,7 @@ DataLabel OldShapeIterator::Label() const
 
 //=================================================================================================
 
-Handle(ShapeAttribute) OldShapeIterator::NamedShape() const
+Handle(ShapeAttribute) OldShapeIterator::NamedShape1() const
 {
   if (myNode == 0L)
     throw Standard_NoSuchObject("OldShapeIterator::Label");
@@ -1336,7 +1336,7 @@ DataLabel TNaming_RefShape::Label() const
 
 //=================================================================================================
 
-Handle(ShapeAttribute) TNaming_RefShape::NamedShape() const
+Handle(ShapeAttribute) TNaming_RefShape::NamedShape1() const
 {
   return myFirstUse->myAtt;
 }
@@ -1427,7 +1427,7 @@ DataLabel Tool11::Label(const Handle(TNaming_UsedShapes)& Shapes,
 
 //=================================================================================================
 
-Handle(ShapeAttribute) Tool11::NamedShape(const TopoShape& S, const DataLabel& Acces)
+Handle(ShapeAttribute) Tool11::NamedShape1(const TopoShape& S, const DataLabel& Acces)
 {
   Handle(TNaming_UsedShapes) US;
   Acces.Root().FindAttribute(TNaming_UsedShapes::GetID(), US);

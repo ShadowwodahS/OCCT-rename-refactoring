@@ -53,7 +53,7 @@ Standard_Boolean BinMDataStd_RealDriver::Paste(const BinObjMgt_Persistent&  theS
   if (theRelocTable.GetHeaderData()->StorageVersion().IntegerValue()
       >= TDocStd_FormatVersion_VERSION_9)
   { // process user defined guid
-    const Standard_Integer& aPos = theSource.Position();
+    const Standard_Integer& aPos = theSource.Position1();
     Standard_GUID           aGuid;
     ok = theSource >> aGuid;
     if (!ok)

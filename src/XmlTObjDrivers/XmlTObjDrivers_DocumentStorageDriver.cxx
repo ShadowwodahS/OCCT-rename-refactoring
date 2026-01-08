@@ -35,10 +35,10 @@ Handle(XmlMDF_ADriverTable) XmlTObjDrivers_DocumentStorageDriver::AttributeDrive
   const Handle(Message_Messenger)& theMsgDrv)
 {
   // Standard drivers
-  Handle(XmlMDF_ADriverTable) aTable = XmlLDrivers::AttributeDrivers(theMsgDrv);
+  Handle(XmlMDF_ADriverTable) aTable = XmlLDrivers1::AttributeDrivers(theMsgDrv);
 
   // Native drivers
-  XmlTObjDrivers::AddDrivers(aTable, theMsgDrv);
+  XmlTObjDrivers1::AddDrivers(aTable, theMsgDrv);
 
   return aTable;
 }

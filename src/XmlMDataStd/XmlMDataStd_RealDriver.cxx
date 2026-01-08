@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 150202: Changed prototype XmlObjMgt::SetStringValue()
+// AGV 150202: Changed prototype XmlObjMgt1::SetStringValue()
 
 #include <Message_Messenger.hxx>
 #include <Standard_Type.hxx>
@@ -45,7 +45,7 @@ Handle(TDF_Attribute) XmlMDataStd_RealDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_RealDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_RealDriver::Paste(const PersistentStorage&  theSource,
                                                const Handle(TDF_Attribute)& theTarget,
                                                XmlObjMgt_RRelocationTable&) const
 {
@@ -61,9 +61,9 @@ Standard_Boolean XmlMDataStd_RealDriver::Paste(const XmlObjMgt_Persistent&  theS
   Handle(TDataStd_Real)::DownCast(theTarget)->SetID(aGUID);
 
   Standard_Real              aValue(0.);
-  const XmlObjMgt_DOMString& aRealStr  = XmlObjMgt::GetStringValue(theSource);
+  const XmlObjMgt_DOMString& aRealStr  = XmlObjMgt1::GetStringValue(theSource);
   Standard_CString           aValueStr = Standard_CString(aRealStr.GetString());
-  if (XmlObjMgt::GetReal(aRealStr, aValue) == Standard_False)
+  if (XmlObjMgt1::GetReal(aRealStr, aValue) == Standard_False)
   {
     UtfString aMessageString =
       UtfString("Cannot retrieve Real attribute from \"") + aValueStr + "\"";
@@ -80,7 +80,7 @@ Standard_Boolean XmlMDataStd_RealDriver::Paste(const XmlObjMgt_Persistent&  theS
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_RealDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                   XmlObjMgt_Persistent&        theTarget,
+                                   PersistentStorage&        theTarget,
                                    XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_Real) anAtt = Handle(TDataStd_Real)::DownCast(theSource);
@@ -88,7 +88,7 @@ void XmlMDataStd_RealDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Sprintf(aValueChar, "%.17g", anAtt->Get());
   AsciiString1 aValueStr(aValueChar);
   // No occurrence of '&', '<' and other irregular XML characters
-  XmlObjMgt::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
+  XmlObjMgt1::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
   if (anAtt->ID() != TDataStd_Real::GetID())
   {
     // convert GUID

@@ -16,11 +16,11 @@
 //    rln 03.03.99 S4135: removed unnecessary check for Geom_SphericalSurface (as not V-closed)
 //: q8 abv 23.03.99: bm4_al_eye.stp #53710: avoid shifting pcurves for pseudo-seam
 // #78 rln 12.03.99 S4135: checking spatial closure with prec
-// #81 rln 15.03.99 S4135: for not SP edge chose the best result (either BRepLib or deviation only)
+// #81 rln 15.03.99 S4135: for not SP edge chose the best result (either BRepLib1 or deviation only)
 // #82 rln 16.03.99 S4135: avoiding setting input precision into the edge in FixAddPCurve
 //: r4 abv 02.04.99 improving method FixSameParameter()
 //: s5 abv 22.04.99 Adding debug printouts in catch {} blocks
-//    abv 05.05.99 S4137: method CopyPCurves moved to ShapeBuild_Edge
+//    abv 05.05.99 S4137: method CopyPCurves moved to Edge2
 
 #include <BRep_Builder.hxx>
 #include <BRep_GCurve.hxx>
@@ -62,7 +62,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Edge, RefObject)
 
 ShapeFix_Edge::ShapeFix_Edge()
 {
-  myStatus    = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus    = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myProjector = new ShapeConstruct_ProjectCurveOnSurface;
 }
 
@@ -88,11 +88,11 @@ Standard_Boolean ShapeFix_Edge::FixRemovePCurve(const TopoEdge&          edge,
                                                 const Handle(GeomSurface)& surface,
                                                 const TopLoc_Location&      location)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   Edge1 EA;
   Standard_Boolean   result = EA.CheckVerticesWithPCurve(edge, surface, location);
   if (result)
-    ShapeBuild_Edge().RemovePCurve(edge, surface, location);
+    Edge2().RemovePCurve(edge, surface, location);
   return result;
 }
 
@@ -100,11 +100,11 @@ Standard_Boolean ShapeFix_Edge::FixRemovePCurve(const TopoEdge&          edge,
 
 Standard_Boolean ShapeFix_Edge::FixRemoveCurve3d(const TopoEdge& edge)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   Edge1 EA;
   Standard_Boolean   result = EA.CheckVerticesWithCurve3d(edge);
   if (result)
-    ShapeBuild_Edge().RemoveCurve3d(edge);
+    Edge2().RemoveCurve3d(edge);
   return result;
 }
 
@@ -306,10 +306,10 @@ static Handle(GeomCurve2d) TranslatePCurve(const Handle(GeomSurface)& aSurf,
 
 //=================================================================================================
 
-//: b0 abv 16 Feb 98: This is a copy of BRepLib::SameRange()
+//: b0 abv 16 Feb 98: This is a copy of BRepLib1::SameRange()
 // modified in order to be able to fix seam edges
-// NOTE: It is to be removed when is fixed either BRepLib::SameRange()
-// (concerning seam edges) or BRepLib::SameParameter() (concerning call
+// NOTE: It is to be removed when is fixed either BRepLib1::SameRange()
+// (concerning seam edges) or BRepLib1::SameParameter() (concerning call
 // to GeomLib1::SameRange() with 3d tolerance)
 
 static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
@@ -453,7 +453,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
                                              const Standard_Real                  prec)
 {
   Edge1 sae;
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if ((!isSeam && sae.HasPCurve(edge, surf, location))
       || (isSeam && sae.IsSeam(edge, surf, location)))
     return Standard_False;
@@ -475,7 +475,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
     //  Handle(GeomCurve3d) c3d = BRepInspector::Curve(E, First, Last);
     if (c3d.IsNull())
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
       return Standard_False;
     }
 
@@ -504,7 +504,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
       myProjector->Perform(c3d, First, Last, c2d, TolFirst, TolLast);
       //  stat = 2 : reinterpoler la c3d ?
       if (myProjector->Status(ShapeExtend_DONE4))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       a1 = First;
       b1 = Last;
     }
@@ -575,9 +575,9 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
     std::cout << std::endl;
 #endif
     (void)anException;
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
   }
-  myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   return Standard_True;
 }
 
@@ -585,19 +585,19 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
 
 Standard_Boolean ShapeFix_Edge::FixAddCurve3d(const TopoEdge& edge)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   Edge1 EA;
   if (BRepInspector::Degenerated(edge) || EA.HasCurve3d(edge))
     return Standard_False;
   if (!BRepInspector::SameRange(edge))
     TempSameRange(edge, Precision::PConfusion());
 
-  if (!ShapeBuild_Edge().BuildCurve3d(edge))
+  if (!Edge2().BuildCurve3d(edge))
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
-  myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   return Standard_True;
 }
 
@@ -605,7 +605,7 @@ Standard_Boolean ShapeFix_Edge::FixAddCurve3d(const TopoEdge& edge)
 
 Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge, const TopoFace& face)
 {
-  myStatus                      = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                      = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   TopoEdge        anEdgeCopy = edge;
   Edge1 sae;
   if (!Context().IsNull())
@@ -617,9 +617,9 @@ Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge, const T
   if (!sae.CheckVertexTolerance(anEdgeCopy, face, toler1, toler2))
     return Standard_False;
   if (sae.Status(ShapeExtend_DONE1))
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (sae.Status(ShapeExtend_DONE2))
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   ShapeBuilder  B;
   TopoVertex V1 = sae.FirstVertex(anEdgeCopy);
   TopoVertex V2 = sae.LastVertex(anEdgeCopy);
@@ -640,7 +640,7 @@ Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge, const T
 
 Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge)
 {
-  myStatus                      = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                      = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   TopoEdge        anEdgeCopy = edge;
   Edge1 sae;
   if (!Context().IsNull())
@@ -651,9 +651,9 @@ Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge)
   if (!sae.CheckVertexTolerance(anEdgeCopy, toler1, toler2))
     return Standard_False;
   if (sae.Status(ShapeExtend_DONE1))
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (sae.Status(ShapeExtend_DONE2))
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   ShapeBuilder  B;
   TopoVertex V1 = sae.FirstVertex(anEdgeCopy);
   TopoVertex V2 = sae.LastVertex(anEdgeCopy);
@@ -685,14 +685,14 @@ Standard_Boolean ShapeFix_Edge::FixReversed2d(const TopoEdge&          edge,
                                               const Handle(GeomSurface)& surface,
                                               const TopLoc_Location&      location)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   Edge1 EA;
   EA.CheckCurve3dWithPCurve(edge, surface, location);
   if (EA.Status(ShapeExtend_FAIL1))
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
   if (EA.Status(ShapeExtend_FAIL2))
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
   if (!EA.Status(ShapeExtend_DONE))
     return Standard_False;
 
@@ -715,7 +715,7 @@ Standard_Boolean ShapeFix_Edge::FixReversed2d(const TopoEdge&          edge,
     B.SameRange(edge, Standard_False);
     B.SameParameter(edge, Standard_False);
   }
-  myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   return Standard_True;
 }
 
@@ -734,7 +734,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
                                                  const TopoFace&  face,
                                                  const Standard_Real tolerance)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   if (BRepInspector::Degenerated(edge))
   {
@@ -745,7 +745,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
     return Standard_False;
   }
 
-  ShapeFix_ShapeTolerance SFST;
+  ShapeTolerance1 SFST;
   Edge1      sae;
   ShapeBuilder            B;
 
@@ -763,25 +763,25 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
       OCC_CATCH_SIGNALS
       if (!BRepInspector::SameRange(edge))
         TempSameRange(edge, Precision::PConfusion());
-      // #81 rln 15.03.99 S4135: for not SP edge choose the best result (either BRepLib or deviation
+      // #81 rln 15.03.99 S4135: for not SP edge choose the best result (either BRepLib1 or deviation
       // only)
       if (!wasSP)
       {
         // create copyedge as copy of edge with the same vertices and copy of pcurves on the same
         // surface(s)
-        copyedge = ShapeBuild_Edge().Copy(edge, Standard_False);
+        copyedge = Edge2().Copy(edge, Standard_False);
         B.SameParameter(copyedge, Standard_False);
-        // ShapeBuild_Edge::Copy() may change 3D curve range (if it's outside of its period).
-        // In this case pcurves in BRepLib::SameParameter() will be changed as well
-        // and later ShapeBuild_Edge::CopyPCurves() will copy pcurves keeping original range.
+        // Edge2::Copy() may change 3D curve range (if it's outside of its period).
+        // In this case pcurves in BRepLib1::SameParameter() will be changed as well
+        // and later Edge2::CopyPCurves() will copy pcurves keeping original range.
         // To prevent this discrepancy we enforce original 3D range.
         Standard_Real aF, aL;
         BRepInspector::Range(edge, aF, aL);
         B.Range(copyedge, aF, aL, Standard_True); // only 3D
-        BRepLib::SameParameter(copyedge, (tolerance >= Precision::Confusion() ? tolerance : tol));
+        BRepLib1::SameParameter(copyedge, (tolerance >= Precision::Confusion() ? tolerance : tol));
         SP = BRepInspector::SameParameter(copyedge);
         if (!SP)
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       }
     }
     catch (ExceptionBase const& anException)
@@ -792,7 +792,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
       std::cout << std::endl;
 #endif
       (void)anException;
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
     }
   }
 
@@ -810,14 +810,14 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
 
   sae.CheckSameParameter(edge, aFace, maxdev);
   if (sae.Status(ShapeExtend_FAIL2))
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
 
-  // if BRepLib was OK, compare and select the best variant
+  // if BRepLib1 was OK, compare and select the best variant
   if (SP)
   {
     Standard_Real BRLTol = BRepInspector::Tolerance(copyedge), BRLDev;
     sae.CheckSameParameter(copyedge, BRLDev);
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     if (BRLTol < BRLDev)
       BRLTol = BRLDev;
 
@@ -825,16 +825,16 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
     if (BRLTol < maxdev)
     {
       if (sae.Status(ShapeExtend_FAIL2))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
       // copy pcurves and tolerances from copyedge
-      ShapeBuild_Edge().CopyPCurves(edge, copyedge);
+      Edge2().CopyPCurves(edge, copyedge);
       maxdev = BRLTol;
       SFST.SetTolerance(edge, BRLTol, TopAbs_EDGE);
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
     }
   }
 
-  // restore tolerances because they could be modified by BRepLib
+  // restore tolerances because they could be modified by BRepLib1
   if (!V1.IsNull())
     SFST.SetTolerance(V1, Max(maxdev, TolFV), TopAbs_VERTEX);
   if (!V2.IsNull())
@@ -842,13 +842,13 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
 
   if (maxdev > tol)
   {
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     B.UpdateEdge(edge, maxdev);
     FixVertexTolerance(edge);
   }
 
   if (!wasSP && !SP)
-    myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   return Status(ShapeExtend_DONE);
 }
 
@@ -856,7 +856,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
 
 Standard_Boolean ShapeFix_Edge::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 //=================================================================================================

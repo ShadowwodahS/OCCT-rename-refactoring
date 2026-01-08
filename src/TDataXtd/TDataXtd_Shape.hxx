@@ -24,7 +24,7 @@ class TDataXtd_Shape;
 DEFINE_STANDARD_HANDLE(TDataXtd_Shape, TDataStd_GenericEmpty)
 
 //! A Shape is associated in the framework with :
-//! a NamedShape attribute
+//! a NamedShape1 attribute
 class TDataXtd_Shape : public TDataStd_GenericEmpty
 {
 
@@ -40,12 +40,12 @@ public:
   //! is returned. Raises if <label> has attribute.
   Standard_EXPORT static Handle(TDataXtd_Shape) New(const DataLabel& label);
 
-  //! Create or update associated NamedShape attribute.  the
+  //! Create or update associated NamedShape1 attribute.  the
   //! Shape attribute is returned.
   Standard_EXPORT static Handle(TDataXtd_Shape) Set(const DataLabel&    label,
                                                     const TopoShape& shape);
 
-  //! the Shape from  associated NamedShape attribute
+  //! the Shape from  associated NamedShape1 attribute
   //! is returned.
   Standard_EXPORT static TopoShape Get(const DataLabel& label);
 

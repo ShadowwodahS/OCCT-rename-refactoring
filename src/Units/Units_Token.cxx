@@ -17,7 +17,7 @@
 // Updated:	Gerard GRAS le 090597
 //		reason is PRO6934 -> plantage sur HP 10.2
 //		changes are : Replace the field theword,themean from HAsciiString
-//			      to AsciiString.
+//			      to AsciiString2.
 //		because the compiler try to destroies the handle of HAsciiString to early
 //		due to inline use probably.
 //		See also Units_Token.lxx

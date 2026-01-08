@@ -44,9 +44,9 @@ static IFSelect_ReturnStatus XSControl_xinit(const Handle(IFSelect_SessionPilot)
   const Standard_CString arg1 = pilot->Arg(1);
   //        ****    xinit        ****
   if (argc > 1)
-    return (XSControl::Session(pilot)->SelectNorm(arg1) ? IFSelect_RetDone : IFSelect_RetFail);
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
-  sout << "Selected Norm:" << XSControl::Session(pilot)->SelectedNorm() << std::endl;
+    return (XSControl1::Session(pilot)->SelectNorm(arg1) ? IFSelect_RetDone : IFSelect_RetFail);
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
+  sout << "Selected Norm:" << XSControl1::Session(pilot)->SelectedNorm() << std::endl;
   return IFSelect_RetVoid;
 }
 
@@ -58,9 +58,9 @@ static IFSelect_ReturnStatus XSControl_xnorm(const Handle(IFSelect_SessionPilot)
   Standard_Integer       argc = pilot->NbWords();
   const Standard_CString arg1 = pilot->Arg(1);
   //        ****    xnorm        ****
-  Handle(ExchangeSession)   WS      = XSControl::Session(pilot);
+  Handle(ExchangeSession)   WS      = XSControl1::Session(pilot);
   Handle(XSControl_Controller)    control = WS->NormAdaptor();
-  Message_Messenger::StreamBuffer sout    = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout    = Message1::SendInfo();
   if (argc == 1)
     sout << "Current Norm. xnorm newnorm to change" << std::endl;
   else
@@ -91,9 +91,9 @@ static IFSelect_ReturnStatus XSControl_xnorm(const Handle(IFSelect_SessionPilot)
 static IFSelect_ReturnStatus XSControl_newmodel(const Handle(IFSelect_SessionPilot)& pilot)
 {
   //        ****    newmodel        ****
-  if (!XSControl::Session(pilot)->NewModel().IsNull())
+  if (!XSControl1::Session(pilot)->NewModel().IsNull())
     return IFSelect_RetDone;
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   sout << "No new Model produced" << std::endl;
   return IFSelect_RetDone;
 }
@@ -106,10 +106,10 @@ static IFSelect_ReturnStatus XSControl_tpclear(const Handle(IFSelect_SessionPilo
   //        ****    tpclear/twclear        ****
   const Standard_Boolean                modew = (pilot->Word(0).Value(2) == 'w');
   const Handle(Transfer_FinderProcess)& FP =
-    XSControl::Session(pilot)->TransferWriter()->FinderProcess();
+    XSControl1::Session(pilot)->TransferWriter()->FinderProcess();
   const Handle(Transfer_TransientProcess)& TP =
-    XSControl::Session(pilot)->TransferReader()->TransientProcess();
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    XSControl1::Session(pilot)->TransferReader()->TransientProcess();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (modew)
   {
     if (!FP.IsNull())
@@ -136,8 +136,8 @@ static IFSelect_ReturnStatus XSControl_tpstat(const Handle(IFSelect_SessionPilot
   const Standard_CString arg1 = pilot->Arg(1);
   // const Standard_CString arg2 = pilot->Arg(2);
   const Handle(Transfer_TransientProcess)& TP =
-    XSControl::Session(pilot)->TransferReader()->TransientProcess();
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+    XSControl1::Session(pilot)->TransferReader()->TransientProcess();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (TP.IsNull())
   {
     sout << "No Transfer Read" << std::endl;
@@ -256,7 +256,7 @@ static IFSelect_ReturnStatus XSControl_tpstat(const Handle(IFSelect_SessionPilot
     if (TP->Model() != pilot->Session()->Model())
       sout << "Model differs from the session";
     Handle(TColStd_HSequenceOfTransient) list =
-      IFSelect_Functions::GiveList(pilot->Session(), pilot->CommandPart(2));
+      IFSelectFunctions::GiveList(pilot->Session(), pilot->CommandPart(2));
     XSControl_TransferReader::PrintStatsOnList(TP, list, mod1, mod2);
     //    TP->PrintStats (1,sout);
   }
@@ -273,9 +273,9 @@ static IFSelect_ReturnStatus XSControl_tpent(const Handle(IFSelect_SessionPilot)
   Standard_Integer                         argc = pilot->NbWords();
   const Standard_CString                   arg1 = pilot->Arg(1);
   const Handle(Transfer_TransientProcess)& TP =
-    XSControl::Session(pilot)->TransferReader()->TransientProcess();
+    XSControl1::Session(pilot)->TransferReader()->TransientProcess();
   //        ****    tpent        ****
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (TP.IsNull())
   {
     sout << "No Transfer Read" << std::endl;
@@ -301,7 +301,7 @@ static IFSelect_ReturnStatus XSControl_tpent(const Handle(IFSelect_SessionPilot)
   if (index == 0)
     sout << "Entity " << num << "  not recorded in transfer" << std::endl;
   else
-    XSControl::Session(pilot)->PrintTransferStatus(index, Standard_False, sout);
+    XSControl1::Session(pilot)->PrintTransferStatus(index, Standard_False, sout);
   return IFSelect_RetVoid;
 }
 
@@ -313,7 +313,7 @@ static IFSelect_ReturnStatus XSControl_tpitem(const Handle(IFSelect_SessionPilot
   Standard_Integer       argc = pilot->NbWords();
   const Standard_CString arg1 = pilot->Arg(1);
   //        ****    tpitem/tproot/twitem/twroot        ****
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (argc < 2)
   {
     sout << "Give ITEM NUMBER (in TransferProcess)" << std::endl;
@@ -328,7 +328,7 @@ static IFSelect_ReturnStatus XSControl_tpitem(const Handle(IFSelect_SessionPilot
   Handle(Transfer_Binder)    binder;
   Handle(Transfer_Finder)    finder;
   Handle(RefObject) ent;
-  if (!XSControl::Session(pilot)->PrintTransferStatus(num, modew, sout))
+  if (!XSControl1::Session(pilot)->PrintTransferStatus(num, modew, sout))
   {
     sout << " - Num=" << num << " incorrect" << std::endl;
   }
@@ -343,14 +343,14 @@ static IFSelect_ReturnStatus XSControl_trecord(const Handle(IFSelect_SessionPilo
   Standard_Integer                         argc = pilot->NbWords();
   const Standard_CString                   arg1 = pilot->Arg(1);
   const Handle(Transfer_TransientProcess)& TP =
-    XSControl::Session(pilot)->TransferReader()->TransientProcess();
+    XSControl1::Session(pilot)->TransferReader()->TransientProcess();
   //        ****    trecord : TransferReader        ****
   Standard_Boolean                        tous = (argc == 1);
   Standard_Integer                        num  = -1;
-  const Handle(Interface_InterfaceModel)& mdl  = XSControl::Session(pilot)->Model();
-  const Handle(XSControl_TransferReader)& TR   = XSControl::Session(pilot)->TransferReader();
+  const Handle(Interface_InterfaceModel)& mdl  = XSControl1::Session(pilot)->Model();
+  const Handle(XSControl_TransferReader)& TR   = XSControl1::Session(pilot)->TransferReader();
   Handle(RefObject)              ent;
-  Message_Messenger::StreamBuffer         sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer         sout = Message1::SendInfo();
   if (mdl.IsNull() || TR.IsNull() || TP.IsNull())
   {
     sout << " init not done" << std::endl;
@@ -391,9 +391,9 @@ static IFSelect_ReturnStatus XSControl_trstat(const Handle(IFSelect_SessionPilot
 {
   Standard_Integer                argc = pilot->NbWords();
   const Standard_CString          arg1 = pilot->Arg(1);
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   //        ****    trstat : TransferReader        ****
-  const Handle(XSControl_TransferReader)& TR = XSControl::Session(pilot)->TransferReader();
+  const Handle(XSControl_TransferReader)& TR = XSControl1::Session(pilot)->TransferReader();
   if (TR.IsNull())
   {
     sout << " init not done" << std::endl;
@@ -454,7 +454,7 @@ static IFSelect_ReturnStatus XSControl_trstat(const Handle(IFSelect_SessionPilot
 static IFSelect_ReturnStatus XSControl_trbegin(const Handle(IFSelect_SessionPilot)& pilot)
 {
   //        ****    trbegin : TransferReader        ****
-  Handle(XSControl_TransferReader) TR   = XSControl::Session(pilot)->TransferReader();
+  Handle(XSControl_TransferReader) TR   = XSControl1::Session(pilot)->TransferReader();
   Standard_Boolean                 init = TR.IsNull();
   if (pilot->NbWords() > 1)
   {
@@ -463,11 +463,11 @@ static IFSelect_ReturnStatus XSControl_trbegin(const Handle(IFSelect_SessionPilo
   }
   if (init)
   {
-    XSControl::Session(pilot)->InitTransferReader(0);
-    TR = XSControl::Session(pilot)->TransferReader();
+    XSControl1::Session(pilot)->InitTransferReader(0);
+    TR = XSControl1::Session(pilot)->TransferReader();
     if (TR.IsNull())
     {
-      Message_Messenger::StreamBuffer sout = Message::SendInfo();
+      Message_Messenger::StreamBuffer sout = Message1::SendInfo();
       sout << " init not done or failed" << std::endl;
       return IFSelect_RetError;
     }
@@ -484,8 +484,8 @@ static IFSelect_ReturnStatus XSControl_tread(const Handle(IFSelect_SessionPilot)
   Standard_Integer argc = pilot->NbWords();
   // const Standard_CString arg1 = pilot->Arg(1);
   //         ****    tread : TransferReader        ****
-  Message_Messenger::StreamBuffer         sout = Message::SendInfo();
-  const Handle(XSControl_TransferReader)& TR   = XSControl::Session(pilot)->TransferReader();
+  Message_Messenger::StreamBuffer         sout = Message1::SendInfo();
+  const Handle(XSControl_TransferReader)& TR   = XSControl1::Session(pilot)->TransferReader();
   if (TR.IsNull())
   {
     sout << " init not done" << std::endl;
@@ -512,7 +512,7 @@ static IFSelect_ReturnStatus XSControl_tread(const Handle(IFSelect_SessionPilot)
   else
   {
     Handle(TColStd_HSequenceOfTransient) list =
-      IFSelect_Functions::GiveList(pilot->Session(), pilot->CommandPart(1));
+      IFSelectFunctions::GiveList(pilot->Session(), pilot->CommandPart(1));
     sout << " Transfer of " << list->Length() << " entities" << std::endl;
     Standard_Integer nb = TR->TransferList(list);
     sout << " Gives " << nb << " results" << std::endl;
@@ -526,8 +526,8 @@ static IFSelect_ReturnStatus XSControl_tread(const Handle(IFSelect_SessionPilot)
 static IFSelect_ReturnStatus XSControl_trtp(const Handle(IFSelect_SessionPilot)& pilot)
 {
   //        ****    TReader -> TProcess         ****
-  const Handle(XSControl_TransferReader)& TR   = XSControl::Session(pilot)->TransferReader();
-  Message_Messenger::StreamBuffer         sout = Message::SendInfo();
+  const Handle(XSControl_TransferReader)& TR   = XSControl1::Session(pilot)->TransferReader();
+  Message_Messenger::StreamBuffer         sout = Message1::SendInfo();
   if (TR.IsNull())
     sout << " No TransferReader" << std::endl;
   else if (TR->TransientProcess().IsNull())
@@ -541,7 +541,7 @@ static IFSelect_ReturnStatus XSControl_trtp(const Handle(IFSelect_SessionPilot)&
 static IFSelect_ReturnStatus XSControl_tptr(const Handle(IFSelect_SessionPilot)& pilot)
 {
   //        ****    TProcess -> TReader         ****
-  XSControl::Session(pilot)->InitTransferReader(3);
+  XSControl1::Session(pilot)->InitTransferReader(3);
   return IFSelect_RetDone;
 }
 
@@ -553,10 +553,10 @@ static IFSelect_ReturnStatus XSControl_twmode(const Handle(IFSelect_SessionPilot
   Standard_Integer       argc = pilot->NbWords();
   const Standard_CString arg1 = pilot->Arg(1);
   //        ****    twmode         ****
-  Handle(XSControl_TransferWriter) TW      = XSControl::Session(pilot)->TransferWriter();
-  Handle(XSControl_Controller)     control = XSControl::Session(pilot)->NormAdaptor();
+  Handle(XSControl_TransferWriter) TW      = XSControl1::Session(pilot)->TransferWriter();
+  Handle(XSControl_Controller)     control = XSControl1::Session(pilot)->NormAdaptor();
   Standard_Integer                 modemin, modemax;
-  Message_Messenger::StreamBuffer  sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer  sout = Message1::SendInfo();
   if (control->ModeWriteBounds(modemin, modemax))
   {
     sout << "Write Mode : allowed values  " << modemin << " to " << modemax << std::endl;
@@ -585,10 +585,10 @@ static IFSelect_ReturnStatus XSControl_twstat(const Handle(IFSelect_SessionPilot
   // const Standard_CString arg1 = pilot->Arg(1);
   // const Standard_CString arg2 = pilot->Arg(2);
   const Handle(Transfer_FinderProcess)& FP =
-    XSControl::Session(pilot)->TransferWriter()->FinderProcess();
+    XSControl1::Session(pilot)->TransferWriter()->FinderProcess();
   //        ****    twstat        ****
   //  Pour Write
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (!FP.IsNull())
   {
     sout << "TransferWrite:";
@@ -607,14 +607,14 @@ static IFSelect_ReturnStatus XSControl_settransfert(const Handle(IFSelect_Sessio
 {
   //        ****    SelectForTransfer           ****
   return pilot->RecordItem(
-    new XSControl_SelectForTransfer(XSControl::Session(pilot)->TransferReader()));
+    new XSControl_SelectForTransfer(XSControl1::Session(pilot)->TransferReader()));
 }
 
 static int THE_XSControl_Functions_initactor = 0;
 
 //=================================================================================================
 
-void XSControl_Functions::Init()
+void Functions1::Init()
 {
   if (THE_XSControl_Functions_initactor)
   {

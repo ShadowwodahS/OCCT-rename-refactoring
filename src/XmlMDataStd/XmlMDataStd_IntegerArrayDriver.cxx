@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 150202: Changed prototype XmlObjMgt::SetStringValue()
+// AGV 150202: Changed prototype XmlObjMgt1::SetStringValue()
 
 #include <Message_Messenger.hxx>
 #include <NCollection_LocalArray.hxx>
@@ -52,7 +52,7 @@ Handle(TDF_Attribute) XmlMDataStd_IntegerArrayDriver::NewEmpty() const
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
 Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -98,7 +98,7 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
 
   if (aFirstInd == aLastInd)
   {
-    if (!XmlObjMgt::GetStringValue(anElement).GetInteger(aValue))
+    if (!XmlObjMgt1::GetStringValue(anElement).GetInteger(aValue))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -111,11 +111,11 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
   else
   {
     // Warning: check implementation of XmlObjMgt_DOMString !! For LDOM this is OK
-    Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+    Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
 
     for (ind = aFirstInd; ind <= aLastInd; ind++)
     {
-      if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+      if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve integer member"
@@ -156,7 +156,7 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_IntegerArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                           XmlObjMgt_Persistent&        theTarget,
+                                           PersistentStorage&        theTarget,
                                            XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_IntegerArray) anIntArray = Handle(TDataStd_IntegerArray)::DownCast(theSource);
@@ -189,7 +189,7 @@ void XmlMDataStd_IntegerArrayDriver::Paste(const Handle(TDF_Attribute)& theSourc
   {
     // No occurrence of '&', '<' and other irregular XML characters
     str[iChar - 1] = '\0';
-    XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
   }
   if (anIntArray->ID() != TDataStd_IntegerArray::GetID())
   {

@@ -39,13 +39,13 @@ class Standard_GUID;
 //! Management of these attributes is realized by OCAF. For getting
 //! the attributes attached to a label the method class
 //! DataLabel::FindAttribute() should be used.
-class XCAFDoc
+class XCAFDoc1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! class for containing GraphNodes.
-  //! Returns GUID for UAttribute identifying assembly
+  //! Returns GUID for UAttribute1 identifying assembly
   Standard_EXPORT static const Standard_GUID& AssemblyGUID();
 
   //! Returns GUID for TreeNode representing assembly link
@@ -86,10 +86,10 @@ public:
 
   Standard_EXPORT static const Standard_GUID& ColorByLayerGUID();
 
-  //! Returns GUID for UAttribute identifying external reference on no-step file
+  //! Returns GUID for UAttribute1 identifying external reference on no-step file
   Standard_EXPORT static const Standard_GUID& ExternRefGUID();
 
-  //! Returns GUID for UAttribute identifying specified higher usage occurrence
+  //! Returns GUID for UAttribute1 identifying specified higher usage occurrence
   Standard_EXPORT static const Standard_GUID& SHUORefGUID();
 
   //! Return GUIDs for TreeNode representing specified types of View
@@ -108,7 +108,7 @@ public:
   Standard_EXPORT static const Standard_GUID& ViewRefNoteGUID();
   Standard_EXPORT static const Standard_GUID& ViewRefAnnotationGUID();
 
-  //! Returns GUID for UAttribute identifying lock flag
+  //! Returns GUID for UAttribute1 identifying lock flag
   Standard_EXPORT static const Standard_GUID& LockGUID();
 
   //! Prints attribute information into a string.

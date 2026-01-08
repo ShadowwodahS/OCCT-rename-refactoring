@@ -709,7 +709,7 @@ static Standard_Integer nexplode(DrawInterpreter& di, Standard_Integer n, const 
     const TopoShape& aS = aShapes(Index);
     if (aS.ShapeType() != TopAbs_VERTEX)
     {
-      BRepGProp::LinearProperties(aS, GPr);
+      BRepGProp1::LinearProperties(aS, GPr);
       GPoint = GPr.CentreOfMass();
     }
     else
@@ -1387,7 +1387,7 @@ static Standard_Integer normals(DrawInterpreter& theDI,
        aFaceIt.Next())
   {
     Standard_Boolean   bReverse = Standard_False;
-    TopAbs_Orientation aFaceOri = aFaceIt.Key().Orientation();
+    TopAbs_Orientation aFaceOri = aFaceIt.Key1().Orientation();
     const DrawColor   aColor   = DBRep_ColorOrientation(aFaceOri);
     if (aFaceOri == TopAbs_REVERSED)
       bReverse = Standard_True;

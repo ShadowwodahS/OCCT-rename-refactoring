@@ -27,7 +27,7 @@
 #include <math_Vector.hxx>
 class StdFail_UndefinedDerivative;
 class BRepAdaptor_Surface;
-class BRepApprox_SurfaceTool;
+class SurfaceTool4;
 class Quadric1;
 class QuadricTool;
 class math_Matrix;
@@ -105,7 +105,7 @@ private:
 
 #define ThePSurface BRepAdaptor_Surface
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
-#define ThePSurfaceTool BRepApprox_SurfaceTool
+#define ThePSurfaceTool SurfaceTool4
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
 #define TheISurface Quadric1
 #define TheISurface_hxx <IntSurf_Quadric.hxx>

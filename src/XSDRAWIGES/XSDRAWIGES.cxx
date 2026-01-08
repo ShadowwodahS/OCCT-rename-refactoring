@@ -150,7 +150,7 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  Handle(ExchangeSession)  aWS = XSDRAW::Session();
+  Handle(ExchangeSession)  aWS = XSDRAW1::Session();
   Handle(IGESControl_Controller) aCtl =
     Handle(IGESControl_Controller)::DownCast(aWS->NormAdaptor());
   if (aCtl.IsNull())
@@ -162,7 +162,7 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
   Handle(Draw_ProgressIndicator) progress = new Draw_ProgressIndicator(theDI, 1);
   Message_ProgressScope          aPSRoot(progress->Start(), "Reading", 100);
 
-  IgesFileReader Reader(XSDRAW::Session(), Standard_False);
+  IgesFileReader Reader(XSDRAW1::Session(), Standard_False);
   Standard_Boolean   aFullMode = Standard_True;
   Reader.WS()->SetModeStat(aFullMode);
 
@@ -188,7 +188,7 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
 
   if (modfic)
     readstat = Reader.ReadFile(fnom.ToCString());
-  else if (XSDRAW::Session()->NbStartingEntities() > 0)
+  else if (XSDRAW1::Session()->NbStartingEntities() > 0)
     readstat = IFSelect_RetDone;
 
   aPSRoot.Next(20); // On average loading takes 20%
@@ -238,7 +238,7 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
     }
     else if (modepri <= 2)
     { // 1 : Visible Roots, 2 : All Roots
-      theDI << "All Geometry Transfer\n";
+      theDI << "All Geometry1 Transfer\n";
       theDI << "spline_continuity (read) : "
             << ExchangeConfig::IVal("read.iges.bspline.continuity")
             << " (0 : no modif, 1 : C1, 2 : C2)\n";
@@ -371,7 +371,7 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
 
       if (fromtcl && theArgVec[3][0] == '*' && theArgVec[3][1] == '\0')
       {
-        theDI << "All Geometry Transfer\n";
+        theDI << "All Geometry1 Transfer\n";
         theDI << "spline_continuity (read) : "
               << ExchangeConfig::IVal("read.iges.bspline.continuity")
               << " (0 : no modif, 1 : C1, 2 : C2)\n";
@@ -416,13 +416,13 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
         if (theArgVec[3][0] == '*' && theArgVec[3][1] == 'r' && theArgVec[3][2] == '\0')
         {
           theDI << "All Roots : ";
-          list = XSDRAW::Session()->GiveList("xst-model-roots");
+          list = XSDRAW1::Session()->GiveList("xst-model-roots");
         }
         else
         {
           AsciiString1 compart = XSDRAW_CommandPart(theNbArgs, theArgVec, 3);
           theDI << "List given by " << compart.ToCString() << " : ";
-          list = XSDRAW::Session()->GiveList(compart.ToCString());
+          list = XSDRAW1::Session()->GiveList(compart.ToCString());
         }
         if (list.IsNull())
         {
@@ -434,7 +434,7 @@ static Standard_Integer igesbrep(DrawInterpreter& theDI,
       else
       {
         std::cout << "Name of Selection :" << std::flush;
-        list = XSDRAW::Session()->GiveList("");
+        list = XSDRAW1::Session()->GiveList("");
         if (list.IsNull())
         {
           std::cout << "No list defined" << std::endl;
@@ -568,7 +568,7 @@ static Standard_Integer brepiges(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  Handle(ExchangeSession) aWorkSession = XSDRAW::Session();
+  Handle(ExchangeSession) aWorkSession = XSDRAW1::Session();
   aWorkSession->SelectNorm("IGES");
 
   IgesFileWriter anIgesWriter(ExchangeConfig::CVal("write.iges.unit"),
@@ -696,7 +696,7 @@ static Standard_Integer XSDRAWIGES_tplosttrim(DrawInterpreter& theDI,
                                               Standard_Integer  theNbArgs,
                                               const char**      theArgVec)
 {
-  Handle(ExchangeSession)            aWorkSession = XSDRAW::Session();
+  Handle(ExchangeSession)            aWorkSession = XSDRAW1::Session();
   const Handle(Transfer_TransientProcess)& anTransientProcess =
     aWorkSession->TransferReader()->TransientProcess();
   TColStd_Array1OfAsciiString                  aTypeStrings(1, 3);
@@ -800,7 +800,7 @@ static Standard_Integer XSDRAWIGES_tplosttrim(DrawInterpreter& theDI,
       Standard_SStream                    aTmpStream;
       for (anMapIterator.Initialize(aFaceMap); anMapIterator.More(); anMapIterator.Next())
       {
-        aWorkSession->Model()->Print(anMapIterator.Key(), aTmpStream);
+        aWorkSession->Model()->Print(anMapIterator.Key1(), aTmpStream);
         aTmpStream << "  ";
       }
       theDI << aTmpStream.str().c_str();
@@ -831,7 +831,7 @@ static Standard_Integer XSDRAWIGES_TPSTAT(DrawInterpreter& theDI,
                                           Standard_Integer  theNbArgs,
                                           const char**      theArgVec)
 {
-  Handle(ExchangeSession)            aWorkSession = XSDRAW::Session();
+  Handle(ExchangeSession)            aWorkSession = XSDRAW1::Session();
   const Standard_CString                   anArg1       = theArgVec[1];
   const Handle(Transfer_TransientProcess)& aTransientProcess =
     aWorkSession->TransferReader()->TransientProcess();
@@ -928,19 +928,19 @@ static Standard_Integer ReadIges(DrawInterpreter& theDI,
     return 0;
   }
 
-  DeclareAndCast(IGESControl_Controller, aController, XSDRAW::Controller());
+  DeclareAndCast(IGESControl_Controller, aController, XSDRAW1::Controller());
   if (aController.IsNull())
-    XSDRAW::SetNorm("IGES");
+    XSDRAW1::SetNorm("IGES");
 
   AsciiString1 aFileName, aModelName;
   Standard_Boolean        isModified =
-    XSDRAW::FileAndVar(theArgVec[2], theArgVec[1], "IGES", aFileName, aModelName);
+    XSDRAW1::FileAndVar(theArgVec[2], theArgVec[1], "IGES", aFileName, aModelName);
   if (isModified)
     theDI << " File IGES to read : " << aFileName.ToCString() << "\n";
   else
     theDI << " Model taken from the session : " << aModelName.ToCString() << "\n";
 
-  IGESCAFControl_Reader aReader(XSDRAW::Session(), isModified);
+  IGESCAFControl_Reader aReader(XSDRAW1::Session(), isModified);
   Standard_Integer      onlyVisible = ExchangeConfig::IVal("read.iges.onlyvisible");
   aReader.SetReadVisible(onlyVisible == 1);
 
@@ -977,7 +977,7 @@ static Standard_Integer ReadIges(DrawInterpreter& theDI,
     aReadScope.Show();
     aReadStatus = aReader.ReadFile(aFileName.ToCString());
   }
-  else if (XSDRAW::Session()->NbStartingEntities() > 0)
+  else if (XSDRAW1::Session()->NbStartingEntities() > 0)
   {
     aReadStatus = IFSelect_RetDone;
   }
@@ -1040,16 +1040,16 @@ static Standard_Integer WriteIges(DrawInterpreter& theDI,
     return 1;
   }
 
-  XSDRAW::SetNorm("IGES");
+  XSDRAW1::SetNorm("IGES");
 
   AsciiString1 aFileName, aModelName;
   const Standard_Boolean  isModified =
-    XSDRAW::FileAndVar(theArgVec[2], theArgVec[1], "IGES", aFileName, aModelName);
+    XSDRAW1::FileAndVar(theArgVec[2], theArgVec[1], "IGES", aFileName, aModelName);
 
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI);
   Message_ProgressScope          aRootScope(aProgress->Start(), "IGES export", isModified ? 2 : 1);
 
-  IGESCAFControl_Writer aWriter(XSDRAW::Session(), Standard_True);
+  IGESCAFControl_Writer aWriter(XSDRAW1::Session(), Standard_True);
   if (theNbArgs == 4)
   {
     Standard_Boolean mode = Standard_True;
@@ -1102,7 +1102,7 @@ static Standard_Integer WriteIges(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XSDRAWIGES::Factory(DrawInterpreter& theDI)
+void XSDRAWIGES1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -1161,9 +1161,9 @@ void XSDRAWIGES::Factory(DrawInterpreter& theDI)
   theDI.Add("brepiges", "brepiges sh1 [+sh2 [+sh3 ..]] filename.igs", __FILE__, brepiges, aGroup);
   theDI.Add("testwriteiges", "testwriteiges filename.igs shape", __FILE__, testwrite, aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWIGES)
+DPLUGIN(XSDRAWIGES1)

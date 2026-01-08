@@ -25,7 +25,7 @@ static const char* Translate(const char* theStr, Coords3d& P);
 
 //=================================================================================================
 
-XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const Transform3d& aTrsf)
+XmlObjMgt_DOMString GPStorage::Translate(const Transform3d& aTrsf)
 {
   char                buf[256];
   XmlObjMgt_DOMString S1(Translate(aTrsf.HVectorialPart())), S2(Translate(aTrsf.TranslationPart()));
@@ -36,7 +36,7 @@ XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const Transform3d& aTrsf)
 
 //=================================================================================================
 
-XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const gp_Mat& aMat)
+XmlObjMgt_DOMString GPStorage::Translate(const gp_Mat& aMat)
 {
   char                buf[128];
   XmlObjMgt_DOMString S1(Translate(aMat.Row(1))), S2(Translate(aMat.Row(2))),
@@ -47,7 +47,7 @@ XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const gp_Mat& aMat)
 
 //=================================================================================================
 
-XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const Coords3d& anXYZ)
+XmlObjMgt_DOMString GPStorage::Translate(const Coords3d& anXYZ)
 {
   char buf[75]; // (24 + 1) * 3
   Sprintf(buf, "%.17g %.17g %.17g", anXYZ.X(), anXYZ.Y(), anXYZ.Z());
@@ -58,7 +58,7 @@ XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const Coords3d& anXYZ)
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, Transform3d& T)
+Standard_Boolean GPStorage::Translate(const XmlObjMgt_DOMString& theStr, Transform3d& T)
 {
   Standard_Boolean aResult = Standard_False;
   const char*      aStr    = theStr.GetString();
@@ -91,14 +91,14 @@ Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, Tran
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, gp_Mat& M)
+Standard_Boolean GPStorage::Translate(const XmlObjMgt_DOMString& theStr, gp_Mat& M)
 {
   return (::Translate(theStr.GetString(), M) != 0);
 }
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, Coords3d& P)
+Standard_Boolean GPStorage::Translate(const XmlObjMgt_DOMString& theStr, Coords3d& P)
 {
   return (::Translate(theStr.GetString(), P) != 0);
 }

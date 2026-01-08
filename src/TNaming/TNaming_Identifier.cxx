@@ -103,7 +103,7 @@ void TNaming_Identifier::Init(const TopoShape& Context)
   Localizer.Init(US, myTDFAcces.Transaction());
 
   Handle(ShapeAttribute) NS;
-  NS = Tool11::NamedShape(myShape, myTDFAcces);
+  NS = Tool11::NamedShape1(myShape, myTDFAcces);
   if (NS.IsNull())
   {
     AncestorIdentification(Localizer, Context);
@@ -115,7 +115,7 @@ void TNaming_Identifier::Init(const TopoShape& Context)
   std::cout << "Identifier:: (S) Label = " << entry << std::endl;
 #endif
   //-------------------------------------
-  // S est New dans un NamedShape
+  // S est New dans un NamedShape1
   //-------------------------------------
   TNaming_Evolution Evol = NS->Evolution();
   if (Evol == TNaming_PRIMITIVE)
@@ -208,7 +208,7 @@ TopoShape TNaming_Identifier::ShapeContext() const
 {
   const TopoShape&        S = myShapeArgs.First();
   TopoShape               SC;
-  Handle(ShapeAttribute) NS = Tool11::NamedShape(S, myTDFAcces);
+  Handle(ShapeAttribute) NS = Tool11::NamedShape1(S, myTDFAcces);
   TNaming_Localizer::FindShapeContext(NS, S, SC); // szy ==> added par. S
   return SC;
 }
@@ -242,7 +242,7 @@ void TNaming_Identifier::AncestorIdentification(TNaming_Localizer&  Localizer,
   myType = TNaming_INTERSECTION;
   TopTools_MapIteratorOfMapOfShape itS(AncInFeature);
   for (; itS.More(); itS.Next())
-    myShapeArgs.Append(itS.Key());
+    myShapeArgs.Append(itS.Key1());
   myDone = 1;
 }
 
@@ -325,10 +325,10 @@ void TNaming_Identifier::Identification(TNaming_Localizer&                Locali
   myType = TNaming_INTERSECTION;
   TNaming_MapIteratorOfMapOfNamedShape itP(Primitives);
   for (; itP.More(); itP.Next())
-    myPrimitiveArgs.Append(itP.Key());
+    myPrimitiveArgs.Append(itP.Key1());
   TopTools_MapIteratorOfMapOfShape itS(Shapes);
   for (; itS.More(); itS.Next())
-    myShapeArgs.Append(itS.Key());
+    myShapeArgs.Append(itS.Key1());
 
   if (myPrimitiveArgs.Extent() == 1 && myShapeArgs.IsEmpty())
   {

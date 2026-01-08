@@ -79,7 +79,7 @@ Box2 StdPrs_ShapeTool::FaceBound() const
 {
   const TopoFace& F = TopoDS::Face(myFaceExplorer.Current());
   Box2            B;
-  BRepBndLib::Add(F, B);
+  BRepBndLib1::Add(F, B);
   return B;
 }
 
@@ -111,7 +111,7 @@ Box2 StdPrs_ShapeTool::CurveBound() const
 {
   const TopoEdge& E = TopoDS::Edge(myEdgeMap.FindKey(myEdge));
   Box2            B;
-  BRepBndLib::Add(E, B);
+  BRepBndLib1::Add(E, B);
   return B;
 }
 

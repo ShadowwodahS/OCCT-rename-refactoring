@@ -164,11 +164,11 @@ static Standard_Integer Getentry(DrawInterpreter& di, Standard_Integer n, const 
 }
 
 //=======================================================================
-// function : NamedShape
+// function : NamedShape1
 // purpose  : retrieve label of Primitive or a Generated shape
 //=======================================================================
 
-static Standard_Integer NamedShape(DrawInterpreter& di, Standard_Integer n, const char** a)
+static Standard_Integer NamedShape1(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
@@ -185,7 +185,7 @@ static Standard_Integer NamedShape(DrawInterpreter& di, Standard_Integer n, cons
     return 0;
   }
 
-  Handle(ShapeAttribute) NS = Tool11::NamedShape(SS, ND->Root());
+  Handle(ShapeAttribute) NS = Tool11::NamedShape1(SS, ND->Root());
 
   if (NS.IsNull())
   {
@@ -404,7 +404,7 @@ static Standard_Integer Collect(DrawInterpreter& di, Standard_Integer nb, const 
     for (TNaming_MapIteratorOfMapOfNamedShape it(MNS); it.More(); it.Next())
     {
       AsciiString1 Name;
-      Tool3::Entry(it.Key()->Label(), Name);
+      Tool3::Entry(it.Key1()->Label(), Name);
       di << Name.ToCString() << " ";
     }
   }
@@ -470,7 +470,7 @@ void QADNaming1::BasicCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "Naming data commands";
+  const char* g = "Naming1 data commands";
 
   // Exploration
   theCommands.Add("Ascendants", "Ascendants df shape [trans]", __FILE__, Ascendants, g);
@@ -483,7 +483,7 @@ void QADNaming1::BasicCommands(DrawInterpreter& theCommands)
 
   theCommands.Add("GetCreationEntry", "GetCreationEntry df shape", __FILE__, Getcreationentry, g);
 
-  theCommands.Add("NamedShape", "NamedShape df shape", __FILE__, NamedShape, g);
+  theCommands.Add("NamedShape1", "NamedShape1 df shape", __FILE__, NamedShape1, g);
 
   theCommands.Add("InitialShape", "InitialShape df shape res", __FILE__, Initialshape, g);
 

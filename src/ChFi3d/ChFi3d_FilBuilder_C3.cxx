@@ -231,8 +231,8 @@ static Standard_Boolean ToricCorner(const TopoFace&  F,
   {
     return Standard_False;
   }
-  Standard_Real scal1 = Abs(bs.Plane1().Position().XDirection().Dot(v));
-  Standard_Real scal2 = Abs(bs.Plane1().Position().YDirection().Dot(v));
+  Standard_Real scal1 = Abs(bs.Plane1().Position1().XDirection().Dot(v));
+  Standard_Real scal2 = Abs(bs.Plane1().Position1().YDirection().Dot(v));
   return (scal1 <= Precision::Confusion() && scal2 <= Precision::Confusion());
 }
 

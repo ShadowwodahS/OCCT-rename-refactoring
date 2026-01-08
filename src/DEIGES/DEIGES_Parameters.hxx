@@ -97,7 +97,7 @@ public:
   double ReadPrecisionVal = 0.0001; //<! ReadMode_Precision for shape construction (if enabled user mode)
   ReadMode_MaxPrecision ReadMaxPrecisionMode = ReadMode_MaxPrecision_Preferred; //<! Defines the mode of applying the maximum allowed tolerance
   double ReadMaxPrecisionVal = 1; //<! Defines the maximum allowable tolerance
-  bool ReadSameParamMode = false; //<! Defines the using of BRepLib::SameParameter
+  bool ReadSameParamMode = false; //<! Defines the using of BRepLib1::SameParameter
   ReadMode_SurfaceCurve ReadSurfaceCurveMode = ReadMode_SurfaceCurve_Default; //<! reference for the computation of curves in case of 2D/3D
   double EncodeRegAngle = 0.57295779513; //<! Continuity which these two faces are connected with at that edge
 

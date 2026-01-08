@@ -58,7 +58,7 @@ Standard_Boolean BRepGProp_UFunction::Value(const Standard_Real X, Standard_Real
       || myValueType == GProp_CenterMassZ)
     return CenterMassValue(X, F);
 
-  // Inertia computation
+  // Inertia1 computation
   if (myValueType == GProp_InertiaXX || myValueType == GProp_InertiaYY
       || myValueType == GProp_InertiaZZ || myValueType == GProp_InertiaXY
       || myValueType == GProp_InertiaXZ || myValueType == GProp_InertiaYZ)
@@ -168,7 +168,7 @@ Standard_Boolean BRepGProp_UFunction::InertiaValue(const Standard_Real X, Standa
 
   F = VolumeValue(X, aPmP0, aS, aD1);
 
-  // Inertia computation for ByPoint mode.
+  // Inertia1 computation for ByPoint mode.
   if (myIsByPoint)
   {
     switch (myValueType)
@@ -201,7 +201,7 @@ Standard_Boolean BRepGProp_UFunction::InertiaValue(const Standard_Real X, Standa
     return Standard_True;
   }
 
-  // Inertia computation for ByPlane mode.
+  // Inertia1 computation for ByPlane mode.
   Standard_Real aD2 = aD1 * aD1;
   Standard_Real aD3 = aD1 * aD2 / 3.;
   Standard_Real aPPar1;
@@ -209,7 +209,7 @@ Standard_Boolean BRepGProp_UFunction::InertiaValue(const Standard_Real X, Standa
   Standard_Real aCoeff1;
   Standard_Real aCoeff2;
 
-  // Inertia computation for XX, YY and ZZ.
+  // Inertia1 computation for XX, YY and ZZ.
   if (myValueType == GProp_InertiaXX || myValueType == GProp_InertiaYY
       || myValueType == GProp_InertiaZZ)
   {
@@ -246,7 +246,7 @@ Standard_Boolean BRepGProp_UFunction::InertiaValue(const Standard_Real X, Standa
     return Standard_True;
   }
 
-  // Inertia computation for XY, YZ and XZ.
+  // Inertia1 computation for XY, YZ and XZ.
   if (myValueType == GProp_InertiaXY || myValueType == GProp_InertiaYZ
       || myValueType == GProp_InertiaXZ)
   {

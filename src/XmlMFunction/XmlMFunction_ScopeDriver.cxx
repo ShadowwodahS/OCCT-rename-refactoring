@@ -47,7 +47,7 @@ Handle(TDF_Attribute) XmlMFunction_ScopeDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMFunction_ScopeDriver::Paste(const PersistentStorage&  theSource,
                                                  const Handle(TDF_Attribute)& theTarget,
                                                  XmlObjMgt_RRelocationTable&) const
 {
@@ -78,7 +78,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   if (aFirstInd == aLastInd)
   {
     Standard_Integer anInteger;
-    if (!XmlObjMgt::GetStringValue(anElement).GetInteger(anInteger))
+    if (!XmlObjMgt1::GetStringValue(anElement).GetInteger(anInteger))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -90,11 +90,11 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   }
   else
   {
-    Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+    Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
 
     for (ind = aFirstInd; ind <= aLastInd; ind++)
     {
-      if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+      if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve integer member"
@@ -136,7 +136,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   XmlObjMgt_DOMString aValueStr;
   while (*aCurElement != anElement.getLastChild())
   {
-    aValueStr = XmlObjMgt::GetStringValue(*aCurElement);
+    aValueStr = XmlObjMgt1::GetStringValue(*aCurElement);
     if (aValueStr == NULL)
     {
       aCurNode    = aCurElement->getNextSibling();
@@ -144,7 +144,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
       continue;
     }
     AsciiString1 anEntry;
-    if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
+    if (XmlObjMgt1::GetTagEntryString(aValueStr, anEntry) == Standard_False)
     {
       UtfString aMessage =
         UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
@@ -163,14 +163,14 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   }
 
   // Last reference
-  aValueStr = XmlObjMgt::GetStringValue(*aCurElement);
+  aValueStr = XmlObjMgt1::GetStringValue(*aCurElement);
   if (aValueStr == NULL)
   {
     myMessageDriver->Send("Cannot retrieve reference string from element", Message_Fail);
     return Standard_False;
   }
   AsciiString1 anEntry;
-  if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
+  if (XmlObjMgt1::GetTagEntryString(aValueStr, anEntry) == Standard_False)
   {
     UtfString aMessage =
       UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
@@ -216,7 +216,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                     XmlObjMgt_Persistent&        theTarget,
+                                     PersistentStorage&        theTarget,
                                      XmlObjMgt_SRelocationTable&) const
 {
   Handle(TFunction_Scope) S = Handle(TFunction_Scope)::DownCast(theSource);
@@ -236,7 +236,7 @@ void XmlMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
   aValueStr += "\n";
 
-  XmlObjMgt::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
+  XmlObjMgt1::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
 
   // Labels
   // ======
@@ -254,9 +254,9 @@ void XmlMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
     Tool3::Entry(L, anEntry);
 
     XmlObjMgt_DOMString aDOMString;
-    XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
+    XmlObjMgt1::SetTagEntryString(aDOMString, anEntry);
     XmlObjMgt_Element aCurTarget = aDoc.createElement(::ExtString());
-    XmlObjMgt::SetStringValue(aCurTarget, aDOMString, Standard_True);
+    XmlObjMgt1::SetStringValue(aCurTarget, aDOMString, Standard_True);
     anElement.appendChild(aCurTarget);
   }
 }

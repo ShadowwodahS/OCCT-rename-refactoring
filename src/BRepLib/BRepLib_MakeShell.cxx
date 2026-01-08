@@ -375,8 +375,8 @@ void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
   }
 
   // codage des courbes 3d et regularites.
-  BRepLib::BuildCurves3d(myShape, tol);
-  BRepLib::EncodeRegularity(myShape);
+  BRepLib1::BuildCurves3d(myShape, tol);
+  BRepLib1::EncodeRegularity(myShape);
   myShape.Closed(BRepInspector::IsClosed(myShape));
 
   // Additional checking for degenerated edges

@@ -208,7 +208,7 @@ static Standard_Integer transform(DrawInterpreter&, Standard_Integer n, const ch
       TopoShape S = DBRep1::Get(a[i]);
       if (S.IsNull())
       {
-        Message::SendFail() << "Error: " << a[i] << " is not a valid shape";
+        Message1::SendFail() << "Error: " << a[i] << " is not a valid shape";
         return 1;
       }
       else
@@ -227,7 +227,7 @@ static Standard_Integer transform(DrawInterpreter&, Standard_Integer n, const ch
         catch (const Standard_DomainError&)
         {
           AsciiString1 aScale(T.ScaleFactor());
-          Message::SendWarning() << "Operation is not done: " << aName
+          Message1::SendWarning() << "Operation is not done: " << aName
                                  << " is not a valid transformation - scale = " << aScale;
           return 0;
         }
@@ -242,7 +242,7 @@ static Standard_Integer transform(DrawInterpreter&, Standard_Integer n, const ch
       TopoShape S = DBRep1::Get(a[i]);
       if (S.IsNull())
       {
-        Message::SendFail() << "Error: " << a[i] << " is not a valid shape";
+        Message1::SendFail() << "Error: " << a[i] << " is not a valid shape";
         return 1;
       }
       else
@@ -329,7 +329,7 @@ static Standard_Integer tcopy(DrawInterpreter& di, Standard_Integer n, const cha
 
   if (n < 3 || (n - iFirst) % 2)
   {
-    Message::SendFail() << "Use: " << a[0]
+    Message1::SendFail() << "Use: " << a[0]
                         << " [-n(ogeom)] [-m(esh)] shape1 copy1 [shape2 copy2 [...]]\n"
                         << "Option -n forbids copying of geometry (it will be shared)\n"
                         << "Option -m forces copying of mesh (disabled by default)";
@@ -399,7 +399,7 @@ static Standard_Integer mkedgecurve(DrawInterpreter&, Standard_Integer n, const 
   if (S.IsNull())
     return 1;
 
-  BRepLib::BuildCurves3d(S, Tolerance);
+  BRepLib1::BuildCurves3d(S, Tolerance);
   return 0;
 }
 
@@ -433,13 +433,13 @@ static Standard_Integer sameparameter(DrawInterpreter& di, Standard_Integer n, c
   {
     TopoShape      aResultSh;
     BRepTools_ReShape aResh;
-    BRepLib::SameParameter(anInpS, aResh, aTol, force);
+    BRepLib1::SameParameter(anInpS, aResh, aTol, force);
     aResultSh = aResh.Apply(anInpS);
     DBRep1::Set(a[1], aResultSh);
   }
   else
   {
-    BRepLib::SameParameter(anInpS, aTol, force);
+    BRepLib1::SameParameter(anInpS, aTol, force);
     DBRep1::Set(a[1], anInpS);
   }
 
@@ -469,13 +469,13 @@ static Standard_Integer updatetol(DrawInterpreter& di, Standard_Integer n, const
   {
     TopoShape      aResultSh;
     BRepTools_ReShape aResh;
-    BRepLib::UpdateTolerances(anInpS, aResh, IsF);
+    BRepLib1::UpdateTolerances(anInpS, aResh, IsF);
     aResultSh = aResh.Apply(anInpS);
     DBRep1::Set(a[1], aResultSh);
   }
   else
   {
-    BRepLib::UpdateTolerances(anInpS, IsF);
+    BRepLib1::UpdateTolerances(anInpS, IsF);
     DBRep1::Set(a[1], anInpS);
   }
 
@@ -495,7 +495,7 @@ static Standard_Integer orientsolid(DrawInterpreter&, Standard_Integer n, const 
   if (S.ShapeType() != TopAbs_SOLID)
     return 1;
 
-  BRepLib::OrientClosedSolid(TopoDS::Solid(S));
+  BRepLib1::OrientClosedSolid(TopoDS::Solid(S));
 
   DBRep1::Set(a[1], S);
   return 0;
@@ -633,25 +633,25 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at argument '" << theArgVal[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at argument '" << theArgVal[anArgIter] << "'";
       return 1;
     }
   }
 
   if (anAABB.IsVoid() && aShape.IsNull())
   {
-    Message::SendFail() << "Syntax error: input is not specified (neither shape nor coordinates)";
+    Message1::SendFail() << "Syntax error: input is not specified (neither shape nor coordinates)";
     return 1;
   }
   else if (!anAABB.IsVoid() && (isOBB || isOptimal || isTolerUsed))
   {
-    Message::SendFail() << "Syntax error: Options -obb, -optimal and -extToler cannot be used for "
+    Message1::SendFail() << "Syntax error: Options -obb, -optimal and -extToler cannot be used for "
                            "explicitly defined AABB";
     return 1;
   }
   else if (isOBB && !anOutVars[0].IsEmpty())
   {
-    Message::SendFail() << "Error: Option -save works only with axes-aligned boxes";
+    Message1::SendFail() << "Error: Option -save works only with axes-aligned boxes";
     return 1;
   }
 
@@ -667,7 +667,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
   if (isOBB)
   {
     OrientedBox anOBB;
-    BRepBndLib::AddOBB(aShape, anOBB, isTriangulationReq, isOptimal, isTolerUsed);
+    BRepBndLib1::AddOBB(aShape, anOBB, isTriangulationReq, isOptimal, isTolerUsed);
 
     if (anOBB.IsVoid())
     {
@@ -715,11 +715,11 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
       anAABB.SetVoid();
       if (isOptimal)
       {
-        BRepBndLib::AddOptimal(aShape, anAABB, isTriangulationReq, isTolerUsed);
+        BRepBndLib1::AddOptimal(aShape, anAABB, isTriangulationReq, isTolerUsed);
       }
       else
       {
-        BRepBndLib::Add(aShape, anAABB, isTriangulationReq);
+        BRepBndLib1::Add(aShape, anAABB, isTriangulationReq);
       }
     }
 
@@ -824,8 +824,8 @@ static Standard_Integer IsBoxesInterfered(DrawInterpreter& theDI,
   if (isOBB)
   {
     OrientedBox anOBB1, anOBB2;
-    BRepBndLib::AddOBB(aShape1, anOBB1);
-    BRepBndLib::AddOBB(aShape2, anOBB2);
+    BRepBndLib1::AddOBB(aShape1, anOBB1);
+    BRepBndLib1::AddOBB(aShape2, anOBB2);
 
     if (anOBB1.IsOut(anOBB2))
     {
@@ -839,8 +839,8 @@ static Standard_Integer IsBoxesInterfered(DrawInterpreter& theDI,
   else
   {
     Box2 anAABB1, anAABB2;
-    BRepBndLib::Add(aShape1, anAABB1);
-    BRepBndLib::Add(aShape2, anAABB2);
+    BRepBndLib1::Add(aShape1, anAABB1);
+    BRepBndLib1::Add(aShape2, anAABB2);
 
     if (anAABB1.IsOut(anAABB2))
     {
@@ -988,12 +988,12 @@ static Standard_Integer precision(DrawInterpreter& di, Standard_Integer n, const
 
   if (n == 0)
   {
-    // std::cout << " Current Precision = " << BRepBuilderAPI::Precision() << std::endl;
-    di << " Current Precision = " << BRepBuilderAPI::Precision() << "\n";
+    // std::cout << " Current Precision = " << BRepBuilderAPI1::Precision() << std::endl;
+    di << " Current Precision = " << BRepBuilderAPI1::Precision() << "\n";
   }
   else
   {
-    BRepBuilderAPI::Precision(Draw1::Atof(a[1]));
+    BRepBuilderAPI1::Precision(Draw1::Atof(a[1]));
   }
   return 0;
 }
@@ -1557,7 +1557,7 @@ static Standard_Integer checkloc(DrawInterpreter& di, Standard_Integer /*n*/, co
   return 0;
 }
 
-void BRepTest::BasicCommands(DrawInterpreter& theCommands)
+void BRepTest1::BasicCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

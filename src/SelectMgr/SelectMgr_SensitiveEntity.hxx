@@ -33,7 +33,7 @@ public:
   //! Clears up all resources and memory
   Standard_EXPORT void Clear();
 
-  //! Returns related instance of SelectBasics class
+  //! Returns related instance of SelectBasics1 class
   const Handle(Select3D_SensitiveEntity)& BaseSensitive() const { return mySensitive; }
 
   //! Returns true if this entity belongs to the active selection
@@ -53,7 +53,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(SelectMgr_SensitiveEntity, RefObject) // Type definition
 
 private:
-  Handle(Select3D_SensitiveEntity) mySensitive;            //!< Related SelectBasics entity
+  Handle(Select3D_SensitiveEntity) mySensitive;            //!< Related SelectBasics1 entity
   mutable Standard_Boolean         myIsActiveForSelection; //!< Selection activity status
 };
 

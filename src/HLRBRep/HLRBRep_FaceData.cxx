@@ -37,7 +37,7 @@ void HLRBRep_FaceData::Set(const TopoFace&       FG,
                            const Standard_Integer   NW)
 {
   Closed(Cl);
-  Geometry().Surface(FG);
+  Geometry1().Surface(FG);
   myTolerance = (Standard_ShortReal)(BRepInspector::Tolerance(FG));
   Orientation(Or);
   Wires() = new HLRAlgo_WiresBlock(NW);

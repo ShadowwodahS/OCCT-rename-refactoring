@@ -37,23 +37,23 @@ public:
 private:
   Handle(StdObjMgt_Persistent) myData;
 
-  friend StdObjMgt_ReadData&  operator>>(StdObjMgt_ReadData&, StdObject_Location&);
-  friend StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData&, const StdObject_Location&);
+  friend ReadData&  operator>>(ReadData&, StdObject_Location&);
+  friend WriteData& operator<<(WriteData&, const StdObject_Location&);
 };
 
 //! Read persistent data from a file.
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData,
+inline ReadData& operator>>(ReadData& theReadData,
                                       StdObject_Location& theLocation)
 {
-  StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
+  ReadData::ObjectSentry aSentry(theReadData);
   return theReadData >> theLocation.myData;
 }
 
 //! Write persistent data to a file.
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData&      theWriteData,
+inline WriteData& operator<<(WriteData&      theWriteData,
                                        const StdObject_Location& theLocation)
 {
-  StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
+  WriteData::ObjectSentry aSentry(theWriteData);
   return theWriteData << theLocation.myData;
 }
 

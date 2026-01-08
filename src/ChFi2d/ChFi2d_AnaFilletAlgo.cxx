@@ -45,7 +45,7 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
   Point3d              start  = AC.Value(f);
   Point3d              end    = AC.Value(l);
   Point3d              center = AC.Circle().Location();
-  Ax3              plane  = AC.Circle().Position();
+  Ax3              plane  = AC.Circle().Position1();
 
   // Get point on circle at half angle
   Point3d m;
@@ -355,13 +355,13 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
     return Standard_False;
 
   // Invert the fillet for left-handed plane.
-  if (plane.Position().Direct() == Standard_False)
+  if (plane.Position1().Direct() == Standard_False)
     cw = !cw;
 
   // Construct a fillet.
   // Make circle.
   Point3d        center = ElSLib1::Value(xc, yc, plane);
-  const Dir3d& normal = plane.Position().Direction();
+  const Dir3d& normal = plane.Position1().Direction();
   gp_Circ       circ(Frame3d(center, cw ? -normal : normal), radius);
 
   // Fillet may only shrink a neighbour edge, it can't prolongate it.
@@ -395,7 +395,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
       if (bRet)
       {
         // Invert the fillet for left-handed planes.
-        if (plane.Position().Direct() == Standard_False)
+        if (plane.Position1().Direct() == Standard_False)
           cw = !cw;
 
         // Make the circle again.

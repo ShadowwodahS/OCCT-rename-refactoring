@@ -84,7 +84,7 @@ TopoShape XSAlgo_AlgoContainer::ProcessShape(const TopoShape&          theShape,
   aStr += ".exec.op";
   if (!aRsc->Find(aStr.ToCString()))
   {
-    // if reading, do default ShapeFix
+    // if reading, do default ShapeFix1
     if (!strncmp(thePseq, "read.", 5))
     {
       try
@@ -124,7 +124,7 @@ TopoShape XSAlgo_AlgoContainer::ProcessShape(const TopoShape&          theShape,
   aRsc->SetResource("Runtime.Tolerance", thePrec);
   aRsc->SetResource("Runtime.MaxTolerance", theMaxTol);
 
-  if (!ShapeProcess::Perform(aContext, aSeq, theProgress))
+  if (!ShapeProcess1::Perform(aContext, aSeq, theProgress))
     return theShape; // return original shape
 
   return aContext->Result();
@@ -236,8 +236,8 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
   for (; ShapeShapeIterator.More(); ShapeShapeIterator.Next())
   {
 
-    TopoShape orig = ShapeShapeIterator.Key(), res = ShapeShapeIterator.Value();
-    Handle(TransferBRep_ShapeMapper) resMapper = TransferBRep::ShapeMapper(FP, res);
+    TopoShape orig = ShapeShapeIterator.Key1(), res = ShapeShapeIterator.Value();
+    Handle(TransferBRep_ShapeMapper) resMapper = TransferBRep1::ShapeMapper(FP, res);
     Handle(Transfer_Binder)          resBinder = FP->Find(resMapper);
 
     if (resBinder.IsNull())
@@ -251,7 +251,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
         Handle(Transfer_TransientListBinder) TransientListBinder = new Transfer_TransientListBinder;
         for (TopoDS_Iterator it(res); it.More(); it.Next())
         {
-          Handle(Transfer_Finder) subMapper = TransferBRep::ShapeMapper(FP, it.Value());
+          Handle(Transfer_Finder) subMapper = TransferBRep1::ShapeMapper(FP, it.Value());
           if (subMapper.IsNull())
             continue;
 
@@ -270,7 +270,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
       }
     }
 
-    Handle(TransferBRep_ShapeMapper) origMapper = TransferBRep::ShapeMapper(FP, orig);
+    Handle(TransferBRep_ShapeMapper) origMapper = TransferBRep1::ShapeMapper(FP, orig);
     Handle(Transfer_Binder)          origBinder = FP->Find(origMapper);
     if (origBinder.IsNull())
     {

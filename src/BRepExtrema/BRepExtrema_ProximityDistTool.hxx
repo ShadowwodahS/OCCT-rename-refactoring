@@ -33,8 +33,8 @@
 //!
 //! Please note that algorithm results are approximate and depend greatly
 //! on the quality of input tessellation(s).
-class BRepExtrema_ProximityDistTool
-    : public BVH_Distance<Standard_Real, 3, BVH_Vec3d, BRepExtrema_TriangleSet>
+class ProximityDistTool
+    : public BVH_Distance<Standard_Real, 3, BVH_Vec3d, TriangleSet1>
 {
 public:
   typedef typename BVH_Tools<Standard_Real, 3>::BVH_PrjStateInTriangle BVH_PrjState;
@@ -49,9 +49,9 @@ public:
 public:
   //! Struct with information about projection point state from 2nd BVH,
   //! providing proximity point of 2nd shape
-  struct PrjState
+  struct PrjState1
   {
-    PrjState()
+    PrjState1()
         : myTrgIdx(0),
           myPrjState(BVH_PrjState::BVH_PrjStateInTriangle_INNER),
           myNumberOfFirstNode(0),
@@ -59,7 +59,7 @@ public:
     {
     }
 
-    PrjState(const Standard_Integer theTrgIdx,
+    PrjState1(const Standard_Integer theTrgIdx,
              const BVH_PrjState     thePrjState,
              const Standard_Integer theNumberOfFirstNode,
              const Standard_Integer theNumberOfLastNode)
@@ -80,7 +80,7 @@ public:
 
   private:
     Standard_Integer myTrgIdx;   //!< Index of triangle on which the projection is located
-    BVH_PrjState     myPrjState; //!< Position of a projection on the triangle (vertex, edge, inner)
+    BVH_PrjState     myPrjState; //!< Position1 of a projection on the triangle (vertex, edge, inner)
                                  // clang-format off
     Standard_Integer myNumberOfFirstNode; //!< The 1st vtx of the triangle edge on which the projection is located
     Standard_Integer myNumberOfLastNode; //!< The 2nd vtx of the triangle edge on which the projection is located
@@ -89,22 +89,22 @@ public:
 
 public:
   //! Creates new uninitialized tool.
-  Standard_EXPORT BRepExtrema_ProximityDistTool();
+  Standard_EXPORT ProximityDistTool();
 
   //! Creates new tool for the given element sets.
-  Standard_EXPORT BRepExtrema_ProximityDistTool(
-    const Handle(BRepExtrema_TriangleSet)&    theSet1,
+  Standard_EXPORT ProximityDistTool(
+    const Handle(TriangleSet1)&    theSet1,
     const Standard_Integer                    theNbSamples1,
     const BVH_Array3d&                        theAddVertices1,
     const NCollection_Vector<ProxPnt_Status>& theAddStatus1,
-    const Handle(BRepExtrema_TriangleSet)&    theSet2,
+    const Handle(TriangleSet1)&    theSet2,
     const BRepExtrema_ShapeList&              theShapeList1,
     const BRepExtrema_ShapeList&              theShapeList2);
 
 public:
   //! Loads the given element sets into the tool.
-  Standard_EXPORT void LoadTriangleSets(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                                        const Handle(BRepExtrema_TriangleSet)& theSet2);
+  Standard_EXPORT void LoadTriangleSets(const Handle(TriangleSet1)& theSet1,
+                                        const Handle(TriangleSet1)& theSet2);
 
   //! Loads the given list of subshapes into the tool.
   Standard_EXPORT void LoadShapeLists(const BRepExtrema_ShapeList& theShapeList1,
@@ -193,9 +193,9 @@ protected:
 
 private:
   //! Set of all mesh elements (triangles) of the 1st shape.
-  Handle(BRepExtrema_TriangleSet) mySet1;
+  Handle(TriangleSet1) mySet1;
   //! Set of all mesh elements (triangles) of the 2nd shape.
-  Handle(BRepExtrema_TriangleSet) mySet2;
+  Handle(TriangleSet1) mySet2;
 
   //! List of subshapes of the 1st shape.
   BRepExtrema_ShapeList myShapeList1;
@@ -215,13 +215,13 @@ private:
   Standard_Integer myProxVtxIdx1;
 
   //! Information of projection point state from 2nd BVH providing proximity point of 2nd shape
-  PrjState myProxPrjState;
+  PrjState1 myProxPrjState;
 
   //! Information of projection point state from 2nd BVH providing the extrema
-  PrjState myExtPrjState;
+  PrjState1 myExtPrjState;
 
   //! Information of projection point state from 2nd BVH providing the minimal distance
-  PrjState myMinPrjState;
+  PrjState1 myMinPrjState;
 };
 
 #endif // _BRepExtrema_ProximityDistTool_HeaderFile

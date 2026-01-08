@@ -40,7 +40,7 @@ void IntercharacterSpacingTool::ReadOwnParams(
   Standard_Integer nbPropertyValues;
   Standard_Real    iSpace;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   // clang-format off
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues); //szv#4:S4163:12Mar99 `st=` not needed
   if (nbPropertyValues != 1)

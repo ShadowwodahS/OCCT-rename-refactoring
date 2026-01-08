@@ -90,20 +90,20 @@ Standard_Integer props(DrawInterpreter& di, Standard_Integer n, const char** a)
     if (Abs(eps) < Precision::Angular())
       return 2;
     if (*a[0] == 'l')
-      BRepGProp::LinearProperties(S, G, SkipShared);
+      BRepGProp1::LinearProperties(S, G, SkipShared);
     else if (*a[0] == 's')
-      eps = BRepGProp::SurfaceProperties(S, G, eps, SkipShared);
+      eps = BRepGProp1::SurfaceProperties(S, G, eps, SkipShared);
     else
-      eps = BRepGProp::VolumeProperties(S, G, eps, onlyClosed, SkipShared);
+      eps = BRepGProp1::VolumeProperties(S, G, eps, onlyClosed, SkipShared);
   }
   else
   {
     if (*a[0] == 'l')
-      BRepGProp::LinearProperties(S, G, SkipShared, UseTriangulation);
+      BRepGProp1::LinearProperties(S, G, SkipShared, UseTriangulation);
     else if (*a[0] == 's')
-      BRepGProp::SurfaceProperties(S, G, SkipShared, UseTriangulation);
+      BRepGProp1::SurfaceProperties(S, G, SkipShared, UseTriangulation);
     else
-      BRepGProp::VolumeProperties(S, G, onlyClosed, SkipShared, UseTriangulation);
+      BRepGProp1::VolumeProperties(S, G, onlyClosed, SkipShared, UseTriangulation);
   }
 
   Point3d P = G.CentreOfMass();
@@ -135,7 +135,7 @@ Standard_Integer props(DrawInterpreter& di, Standard_Integer n, const char** a)
     aSStream1 << "Z = " << std::setw(15) << P.Z() << "\n";
     aSStream1 << "\n";
 
-    aSStream1 << "Matrix of Inertia : \n";
+    aSStream1 << "Matrix of Inertia1 : \n";
     aSStream1 << std::setw(15) << I(1, 1);
     aSStream1 << " " << std::setw(15) << I(1, 2);
     aSStream1 << " " << std::setw(15) << I(1, 3) << "\n";
@@ -171,7 +171,7 @@ Standard_Integer props(DrawInterpreter& di, Standard_Integer n, const char** a)
     di << "Y = " << P.Y() << "\n";
     di << "Z = " << P.Z() << "\n\n";
 
-    di << "Matrix of Inertia :\n";
+    di << "Matrix of Inertia1 :\n";
     di << I(1, 1) << "    " << I(1, 2) << "    " << I(1, 3) << "\n";
     di << I(2, 1) << "    " << I(2, 2) << "    " << I(2, 3) << "\n";
     di << I(3, 1) << "    " << I(3, 2) << "    " << I(3, 3) << "\n\n";
@@ -253,7 +253,7 @@ Standard_Integer vpropsgk(DrawInterpreter& di, Standard_Integer n, const char** 
 
   // aChrono.Reset();
   // aChrono.Start();
-  eps = BRepGProp::VolumePropertiesGK(S, G, eps, onlyClosed, isUseSpan, CGFlag, IFlag, SkipShared);
+  eps = BRepGProp1::VolumePropertiesGK(S, G, eps, onlyClosed, isUseSpan, CGFlag, IFlag, SkipShared);
   // aChrono.Stop();
 
   Standard_SStream aSStream0;
@@ -294,7 +294,7 @@ Standard_Integer vpropsgk(DrawInterpreter& di, Standard_Integer n, const char** 
     {
       gp_Mat I = G.MatrixOfInertia();
 
-      aSStream1 << "Matrix of Inertia : \n";
+      aSStream1 << "Matrix of Inertia1 : \n";
       aSStream1 << std::setw(anOutWidth) << I(1, 1);
       aSStream1 << " " << std::setw(anOutWidth) << I(1, 2);
       aSStream1 << " " << std::setw(anOutWidth) << I(1, 3) << "\n";
@@ -341,7 +341,7 @@ Standard_Integer vpropsgk(DrawInterpreter& di, Standard_Integer n, const char** 
 
 //=================================================================================================
 
-void BRepTest::GPropCommands(DrawInterpreter& theCommands)
+void BRepTest1::GPropCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

@@ -540,7 +540,7 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
   std::cout << std::endl;
   for (i = 1; MoreShapes(); NextShape(), i++, nb++)
   {
-    std::cout << "Block number" << nb << " (old)." << std::endl;
+    std::cout << "Block1 number" << nb << " (old)." << std::endl;
     const TopoShape& e = Shape();
     TopoDS_Iterator     ShapIter(e);
     for (ne = 1; ShapIter.More(); ShapIter.Next(), ne++)
@@ -566,7 +566,7 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
     curr                  = mos.Extent();
     if (mos.Add(e) > curr)
     {
-      std::cout << "#Block number" << nb << " (new)." << std::endl;
+      std::cout << "#Block1 number" << nb << " (new)." << std::endl;
       nb++;
       ne++;
       enam = "";

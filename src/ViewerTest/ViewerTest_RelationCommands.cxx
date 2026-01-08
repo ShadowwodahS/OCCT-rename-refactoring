@@ -93,7 +93,7 @@ extern Handle(VisualContext)& TheAISContext();
 //=======================================================================
 static Point3d Get3DPointAtMousePosition()
 {
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
 
   Standard_Real xv, yv, zv;
   aView->Proj(xv, yv, zv);
@@ -104,7 +104,7 @@ static Point3d Get3DPointAtMousePosition()
   Standard_Integer aPixX, aPixY;
   Standard_Real    aX, aY, aZ, aDX, aDY, aDZ;
 
-  ViewerTest::GetMousePosition(aPixX, aPixY);
+  ViewerTest1::GetMousePosition(aPixX, aPixY);
   aView->ConvertWithProj(aPixX, aPixY, aX, aY, aZ, aDX, aDY, aDZ);
   gp_Lin aLine(Point3d(aX, aY, aZ), Dir3d(aDX, aDY, aDZ));
 
@@ -130,13 +130,13 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
 {
   theOutputPoint = gp1::Origin();
 
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
 
   Standard_Integer aPixX, aPixY;
   Standard_Real    aX, aY, aZ, aDx, aDy, aDz, aUx, aUy, aUz;
 
   // Get 3D point in view coordinates and projection vector from the pixel point.
-  ViewerTest::GetMousePosition(aPixX, aPixY);
+  ViewerTest1::GetMousePosition(aPixX, aPixY);
   aView->ConvertWithProj(aPixX, aPixY, aX, aY, aZ, aDx, aDy, aDz);
   gp_Lin aProjLin(Point3d(aX, aY, aZ), Dir3d(aDx, aDy, aDz));
 
@@ -238,7 +238,7 @@ static int ParseDimensionParams(
     {
       if (!theShapeList)
       {
-        Message::SendFail() << "Error: unknown parameter '" << aParam << "'";
+        Message1::SendFail() << "Error: unknown parameter '" << aParam << "'";
         return 1;
       }
 
@@ -257,7 +257,7 @@ static int ParseDimensionParams(
     // Before all non-boolean flags parsing check if a flag have at least one value.
     if (anIt + 1 >= theArgNum)
     {
-      Message::SendFail() << "Error: " << aParam << " flag should have value.";
+      Message1::SendFail() << "Error: " << aParam << " flag should have value.";
       return 1;
     }
 
@@ -266,7 +266,7 @@ static int ParseDimensionParams(
     {
       if (!theShapeList)
       {
-        Message::SendFail() << "Error: unknown parameter '" << aParam << "'";
+        Message1::SendFail() << "Error: unknown parameter '" << aParam << "'";
         return 1;
       }
 
@@ -283,7 +283,7 @@ static int ParseDimensionParams(
         }
         else if (!GetMapOfAIS().Find2(anArgString, anAISObject) || anAISObject.IsNull())
         {
-          Message::SendFail() << "Error: shape with name '" << aStr << "' is not found.";
+          Message1::SendFail() << "Error: shape with name '" << aStr << "' is not found.";
           return 1;
         }
         theShapeList->Append(anAISObject);
@@ -322,7 +322,7 @@ static int ParseDimensionParams(
     {
       if (anIt + 1 >= theArgNum)
       {
-        Message::SendFail() << "Error: wrong number of values for parameter '" << aParam << "'";
+        Message1::SendFail() << "Error: wrong number of values for parameter '" << aParam << "'";
         return 1;
       }
 
@@ -366,7 +366,7 @@ static int ParseDimensionParams(
         }
         else
         {
-          Message::SendFail() << "Error: invalid label position: '" << aParamValue << "'.";
+          Message1::SendFail() << "Error: invalid label position: '" << aParamValue << "'.";
           return 1;
         }
       } while (anIt + 1 < theArgNum && theArgVec[anIt + 1][0] != '-');
@@ -395,7 +395,7 @@ static int ParseDimensionParams(
       Standard_Boolean        isZoomableArrow = Standard_True;
       if (!Draw1::ParseOnOff(aValue.ToCString(), isZoomableArrow))
       {
-        Message::SendFail() << "Error: zoomable arrow value should be 0 or 1.";
+        Message1::SendFail() << "Error: zoomable arrow value should be 0 or 1.";
         return 1;
       }
       theAspect->ArrowAspect()->SetZoomable(isZoomableArrow);
@@ -405,7 +405,7 @@ static int ParseDimensionParams(
       AsciiString1 aValue(theArgVec[++anIt]);
       if (!aValue.IsRealValue(Standard_True))
       {
-        Message::SendFail() << "Error: arrow length should be float degree value.";
+        Message1::SendFail() << "Error: arrow length should be float degree value.";
         return 1;
       }
       theAspect->ArrowAspect()->SetLength(Draw1::Atof(aValue.ToCString()));
@@ -415,7 +415,7 @@ static int ParseDimensionParams(
       AsciiString1 aValue(theArgVec[++anIt]);
       if (!aValue.IsRealValue(Standard_True))
       {
-        Message::SendFail("Error: arrow angle should be float degree value.");
+        Message1::SendFail("Error: arrow angle should be float degree value.");
         return 1;
       }
       theAspect->ArrowAspect()->SetAngle(Draw1::Atof(aValue.ToCString()));
@@ -428,7 +428,7 @@ static int ParseDimensionParams(
       anIt += aNbParsed;
       if (aNbParsed == 0)
       {
-        Message::SendFail() << "Error: wrong syntax at '" << aParam << "'";
+        Message1::SendFail() << "Error: wrong syntax at '" << aParam << "'";
         return 1;
       }
       theAspect->SetCommonColor(aColor);
@@ -438,7 +438,7 @@ static int ParseDimensionParams(
       AsciiString1 aLocalParam(theArgVec[++anIt]);
       if (!aLocalParam.IsRealValue(Standard_True))
       {
-        Message::SendFail("Error: extension size for dimension should be real value.");
+        Message1::SendFail("Error: extension size for dimension should be real value.");
         return 1;
       }
       theAspect->SetExtensionSize(Draw1::Atof(aLocalParam.ToCString()));
@@ -464,7 +464,7 @@ static int ParseDimensionParams(
       }
       else
       {
-        Message::SendFail() << "Error: wrong plane '" << aValue << "'";
+        Message1::SendFail() << "Error: wrong plane '" << aValue << "'";
         return 1;
       }
     }
@@ -473,7 +473,7 @@ static int ParseDimensionParams(
       AsciiString1 aLocalParam(theArgVec[++anIt]);
       if (!aLocalParam.IsRealValue(Standard_True))
       {
-        Message::SendFail("Error: flyout for dimension should be real value.");
+        Message1::SendFail("Error: flyout for dimension should be real value.");
         return 1;
       }
 
@@ -484,7 +484,7 @@ static int ParseDimensionParams(
       AsciiString1 aLocalParam(theArgVec[++anIt]);
       if (!aLocalParam.IsRealValue(Standard_True))
       {
-        Message::SendFail("Error: dimension value for dimension should be real value");
+        Message1::SendFail("Error: dimension value for dimension should be real value");
         return 1;
       }
 
@@ -510,7 +510,7 @@ static int ParseDimensionParams(
     }
     else
     {
-      Message::SendFail() << "Error: unknown parameter '" << aParam << "'";
+      Message1::SendFail() << "Error: unknown parameter '" << aParam << "'";
       return 1;
     }
   }
@@ -581,14 +581,14 @@ static int ParseAngleDimensionParams(
 
     if (aParam.Search("-") == -1)
     {
-      Message::SendFail() << "Error: wrong parameter '" << aParam << "'.";
+      Message1::SendFail() << "Error: wrong parameter '" << aParam << "'.";
       return 1;
     }
 
     // Before all non-boolean flags parsing check if a flag have at least one value.
     if (anIt + 1 >= theArgNum)
     {
-      Message::SendFail() << "Error: " << aParam << " flag should have value.";
+      Message1::SendFail() << "Error: " << aParam << " flag should have value.";
       return 1;
     }
 
@@ -606,7 +606,7 @@ static int ParseAngleDimensionParams(
     }
     else
     {
-      Message::SendFail() << "Error: unknown parameter '" << aParam << "'.";
+      Message1::SendFail() << "Error: unknown parameter '" << aParam << "'.";
       return 1;
     }
   }
@@ -642,7 +642,7 @@ static void SetAngleDimensionParams(
     }
     else
     {
-      Message::SendFail() << "Error: wrong angle type.";
+      Message1::SendFail() << "Error: wrong angle type.";
     }
     anAngleDim->SetType(anAngleType);
   }
@@ -669,7 +669,7 @@ static void SetAngleDimensionParams(
     }
     else
     {
-      Message::SendFail() << "Error: wrong showarrow type.";
+      Message1::SendFail() << "Error: wrong showarrow type.";
     }
     anAngleDim->SetArrowsVisibility(anArrowType);
   }
@@ -686,7 +686,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
 {
   if (theArgsNb < 2)
   {
-    Message::SendFail("Syntax error: wrong number of arguments");
+    Message1::SendFail("Syntax error: wrong number of arguments");
     return 1;
   }
 
@@ -722,7 +722,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
   }
   else
   {
-    Message::SendFail("Error: wrong type of dimension");
+    Message1::SendFail("Error: wrong type of dimension");
     return 1;
   }
 
@@ -749,12 +749,12 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
         Handle(VisualShape) aFirstShapePrs = Handle(VisualShape)::DownCast(aShapes.First());
         if (aFirstShapePrs.IsNull() || aFirstShapePrs->Shape().ShapeType() != TopAbs_EDGE)
         {
-          Message::SendFail("Error: wrong shape type");
+          Message1::SendFail("Error: wrong shape type");
           return 1;
         }
         if (!isPlaneCustom)
         {
-          Message::SendFail("Error: can not build dimension without working plane");
+          Message1::SendFail("Error: can not build dimension without working plane");
           return 1;
         }
 
@@ -792,7 +792,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
 
         if (aShape1.IsNull() || aShape2.IsNull())
         {
-          Message::SendFail("Error: wrong shape type.");
+          Message1::SendFail("Error: wrong shape type.");
           return 1;
         }
 
@@ -812,7 +812,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
         }
         else if (aShape1.ShapeType() == TopAbs_VERTEX && aShape2.ShapeType() == TopAbs_VERTEX)
         {
-          Message::SendFail("Error: can not build dimension without working plane");
+          Message1::SendFail("Error: can not build dimension without working plane");
           return 1;
         }
         aLenDim->SetMeasuredShapes(aShape1, aShape2);
@@ -820,7 +820,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
       }
       else
       {
-        Message::SendFail("Error: wrong number of shapes to build dimension");
+        Message1::SendFail("Error: wrong number of shapes to build dimension");
         return 1;
       }
 
@@ -850,7 +850,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
           }
           else
           {
-            Message::SendFail("Error: wrong shapes for angle dimension");
+            Message1::SendFail("Error: wrong shapes for angle dimension");
             return 1;
           }
           break;
@@ -876,7 +876,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
       }
       if (aDim.IsNull())
       {
-        Message::SendFail("Error: wrong number of shapes to build dimension");
+        Message1::SendFail("Error: wrong number of shapes to build dimension");
         return 1;
       }
       break;
@@ -899,7 +899,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
       }
       if (aShapes.Extent() != 1)
       {
-        Message::SendFail("Syntax error: wrong number of shapes to build dimension");
+        Message1::SendFail("Syntax error: wrong number of shapes to build dimension");
         return 1;
       }
 
@@ -926,7 +926,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
       }
       else
       {
-        Message::SendFail("Error: shape for radius has wrong type");
+        Message1::SendFail("Error: shape for radius has wrong type");
         return 1;
       }
       break;
@@ -945,7 +945,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
           Handle(VisualShape) aShape = Handle(VisualShape)::DownCast(aShapes.First());
           if (aShape.IsNull())
           {
-            Message::SendFail("Error: shape for radius is of wrong type");
+            Message1::SendFail("Error: shape for radius is of wrong type");
             return 1;
           }
           aDim = new PrsDim_DiameterDimension(aShape->Shape());
@@ -953,14 +953,14 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
       }
       else
       {
-        Message::SendFail("Error: wrong number of shapes to build dimension");
+        Message1::SendFail("Error: wrong number of shapes to build dimension");
         return 1;
       }
 
       break;
     }
     default: {
-      Message::SendFail("Error: wrong type of dimension. Type help for more information");
+      Message1::SendFail("Error: wrong type of dimension. Type help for more information");
       return 1;
     }
   }
@@ -968,7 +968,7 @@ static int VDimBuilder(DrawInterpreter& /*theDi*/,
   // Check dimension geometry
   if (!aDim->IsValid())
   {
-    Message::SendFail() << "Error: dimension geometry is invalid, " << aDimType
+    Message1::SendFail() << "Error: dimension geometry is invalid, " << aDimType
                         << " dimension can't be built on input shapes.";
     return 1;
   }
@@ -1007,7 +1007,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
 {
   if (theArgsNb < 2)
   {
-    Message::SendFail("Error: wrong number of arguments");
+    Message1::SendFail("Error: wrong number of arguments");
     return 1;
   }
 
@@ -1057,7 +1057,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
   }
 
   ShapeList aShapes;
-  ViewerTest::GetSelectedShapes(aShapes);
+  ViewerTest1::GetSelectedShapes(aShapes);
 
   // Build relation.
   Handle(PrsDim_Relation) aRelation;
@@ -1066,7 +1066,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_CONCENTRIC: {
       if (aShapes.Extent() != 2)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1075,7 +1075,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
 
       if (!(aShape1.ShapeType() == TopAbs_EDGE && aShape2.ShapeType() == TopAbs_EDGE))
       {
-        Message::SendFail("Syntax error: selected shapes are not edges");
+        Message1::SendFail("Syntax error: selected shapes are not edges");
         return 1;
       }
 
@@ -1093,7 +1093,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_EQUALDISTANCE: {
       if (aShapes.Extent() != 4)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1109,7 +1109,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
       if (!IsParallel(aSelectedShapes[0], aSelectedShapes[1])
           || !IsParallel(aSelectedShapes[2], aSelectedShapes[3]))
       {
-        Message::SendFail("Syntax error: non parallel edges");
+        Message1::SendFail("Syntax error: non parallel edges");
         return 1;
       }
 
@@ -1164,7 +1164,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_EQUALRADIUS: {
       if (aShapes.Extent() != 2 && aShapes.Extent() != 1)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1172,7 +1172,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
       const TopoShape& aShape2 = (aShapes.Extent() == 2) ? aShapes.Last() : aShape1;
       if (!(aShape1.ShapeType() == TopAbs_EDGE && aShape2.ShapeType() == TopAbs_EDGE))
       {
-        Message::SendFail("Syntax error: selected shapes are not edges");
+        Message1::SendFail("Syntax error: selected shapes are not edges");
         return 1;
       }
 
@@ -1190,14 +1190,14 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_FIX: {
       if (aShapes.Extent() != 1)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
       const TopoShape& aShape = aShapes.First();
       if (aShape.ShapeType() != TopAbs_EDGE)
       {
-        Message::SendFail("Syntax error: selected shapes are not edges");
+        Message1::SendFail("Syntax error: selected shapes are not edges");
         return 1;
       }
 
@@ -1215,7 +1215,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_IDENTIC: {
       if (aShapes.Extent() != 2)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1284,7 +1284,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_OFFSET: {
       if (aShapes.Extent() != 2)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1292,7 +1292,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
       const TopoShape& aShape2 = aShapes.Last();
       if (!(aShape1.ShapeType() == TopAbs_FACE && aShape2.ShapeType() == TopAbs_FACE))
       {
-        Message::SendFail("Syntax error: selected shapes are not faces");
+        Message1::SendFail("Syntax error: selected shapes are not faces");
         return 1;
       }
 
@@ -1302,7 +1302,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
       BRepExtrema_ExtFF aDelta(aFace1, aFace2);
       if (!aDelta.IsParallel())
       {
-        Message::SendFail("Syntax error: the faces are not parallel");
+        Message1::SendFail("Syntax error: the faces are not parallel");
         return 1;
       }
 
@@ -1315,7 +1315,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_PARALLEL: {
       if (aShapes.Extent() != 2)
       {
-        Message::SendFail("Error: wrong number of selected shapes");
+        Message1::SendFail("Error: wrong number of selected shapes");
         return 1;
       }
 
@@ -1329,7 +1329,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
 
         if (!aDeltaEdge.IsParallel())
         {
-          Message::SendFail("Error: the edges are not parallel");
+          Message1::SendFail("Error: the edges are not parallel");
           return 1;
         }
 
@@ -1352,7 +1352,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
         BRepExtrema_ExtFF aDeltaFace(aFaceA, aFaceB);
         if (!aDeltaFace.IsParallel())
         {
-          Message::SendFail("Error: the faces are not parallel");
+          Message1::SendFail("Error: the faces are not parallel");
           return 1;
         }
 
@@ -1377,7 +1377,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_PERPENDICULAR: {
       if (aShapes.Extent() != 2)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1428,7 +1428,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_TANGENT: {
       if (aShapes.Extent() != 2)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1478,7 +1478,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
     case PrsDim_KOR_SYMMETRIC: {
       if (aShapes.Extent() != 3)
       {
-        Message::SendFail("Error: Wrong number of selected shapes");
+        Message1::SendFail("Error: Wrong number of selected shapes");
         return 1;
       }
 
@@ -1502,12 +1502,12 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
 
         if (!aDeltaEdgeAB.IsParallel())
         {
-          Message::SendFail("Syntax error: the edges are not parallel");
+          Message1::SendFail("Syntax error: the edges are not parallel");
           return 1;
         }
         if (!aDeltaEdgeAC.IsParallel())
         {
-          Message::SendFail("Syntax error: the edges are not parallel");
+          Message1::SendFail("Syntax error: the edges are not parallel");
           return 1;
         }
 
@@ -1542,7 +1542,7 @@ static int VRelationBuilder(DrawInterpreter& /*theDi*/,
       break;
     }
     case PrsDim_KOR_NONE: {
-      Message::SendFail("Error: Unknown type of relation!");
+      Message1::SendFail("Error: Unknown type of relation!");
       return 1;
     }
   }
@@ -1607,14 +1607,14 @@ static int VDimParam(DrawInterpreter& theDi, Standard_Integer theArgNum, const c
 
   if (!aDim->IsValid())
   {
-    Message::SendFail("Error: Dimension geometry or plane is not valid");
+    Message1::SendFail("Error: Dimension geometry or plane is not valid");
     return 1;
   }
 
   // Redisplay a dimension after parameter changing.
-  if (ViewerTest::GetAISContext()->IsDisplayed(aDim))
+  if (ViewerTest1::GetAISContext()->IsDisplayed(aDim))
   {
-    ViewerTest::GetAISContext()->Redisplay(aDim, toUpdate);
+    ViewerTest1::GetAISContext()->Redisplay(aDim, toUpdate);
   }
 
   return 0;
@@ -1628,7 +1628,7 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
 {
   if (theArgNum < 3)
   {
-    Message::SendFail("Syntax error: the wrong number of input parameters");
+    Message1::SendFail("Syntax error: the wrong number of input parameters");
     return 1;
   }
 
@@ -1636,14 +1636,14 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
   Handle(VisualEntity) anObject;
   if (!GetMapOfAIS().Find2(aName, anObject))
   {
-    Message::SendFail() << "Syntax error: no object with name '" << aName << "'";
+    Message1::SendFail() << "Syntax error: no object with name '" << aName << "'";
     return 1;
   }
 
   Handle(PrsDim_LengthDimension) aLengthDim = Handle(PrsDim_LengthDimension)::DownCast(anObject);
   if (aLengthDim.IsNull())
   {
-    Message::SendFail() << "Syntax error: no length dimension with name '" << aName << "'";
+    Message1::SendFail() << "Syntax error: no length dimension with name '" << aName << "'";
     return 1;
   }
 
@@ -1658,7 +1658,7 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
   {
     if (anArgumentIt + 1 >= theArgNum)
     {
-      Message::SendFail() << "Error: " << aParam << " direction should have value";
+      Message1::SendFail() << "Error: " << aParam << " direction should have value";
       return 1;
     }
     anArgumentIt++;
@@ -1677,7 +1677,7 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
     {
       if (anArgumentIt + 2 >= theArgNum)
       {
-        Message::SendFail() << "Error: wrong number of values for parameter '" << aParam << "'";
+        Message1::SendFail() << "Error: wrong number of values for parameter '" << aParam << "'";
         return 1;
       }
       // access coordinate arguments
@@ -1694,7 +1694,7 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
       // non-numeric argument too early
       if (aCoords.IsEmpty() || aCoords.Size() != 3)
       {
-        Message::SendFail("Error: wrong number of direction arguments");
+        Message1::SendFail("Error: wrong number of direction arguments");
         return 1;
       }
       aDirection = Dir3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
@@ -1704,14 +1704,14 @@ static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char
   aLengthDim->SetDirection(aDirection, isCustomDirection);
   if (!aLengthDim->IsValid())
   {
-    Message::SendFail("Error: Dimension geometry or plane is not valid");
+    Message1::SendFail("Error: Dimension geometry or plane is not valid");
     return 1;
   }
 
   // Redisplay a dimension after parameter changing.
-  if (ViewerTest::GetAISContext()->IsDisplayed(aLengthDim))
+  if (ViewerTest1::GetAISContext()->IsDisplayed(aLengthDim))
   {
-    ViewerTest::GetAISContext()->Redisplay(aLengthDim, true);
+    ViewerTest1::GetAISContext()->Redisplay(aLengthDim, true);
   }
 
   return 0;
@@ -1758,14 +1758,14 @@ static int VAngleParam(DrawInterpreter& theDi, Standard_Integer theArgNum, const
 
   if (!aDim->IsValid())
   {
-    Message::SendFail("Error: Dimension geometry or plane is not valid");
+    Message1::SendFail("Error: Dimension geometry or plane is not valid");
     return 1;
   }
 
   // Redisplay a dimension after parameter changing.
-  if (ViewerTest::GetAISContext()->IsDisplayed(aDim))
+  if (ViewerTest1::GetAISContext()->IsDisplayed(aDim))
   {
-    ViewerTest::GetAISContext()->Redisplay(aDim, toUpdate);
+    ViewerTest1::GetAISContext()->Redisplay(aDim, toUpdate);
   }
   return 0;
 }
@@ -1928,9 +1928,9 @@ static int VMoveDim(DrawInterpreter& theDi, Standard_Integer theArgNum, const ch
 
 //=================================================================================================
 
-void ViewerTest::RelationCommands(DrawInterpreter& theCommands)
+void ViewerTest1::RelationCommands(DrawInterpreter& theCommands)
 {
-  const char* aGroup    = "AIS Viewer";
+  const char* aGroup    = "AIS1 Viewer";
   const char* aFileName = __FILE__;
   auto        addCmd =
     [&](const char* theName, DrawInterpreter::CommandFunction theFunc, const char* theHelp) {

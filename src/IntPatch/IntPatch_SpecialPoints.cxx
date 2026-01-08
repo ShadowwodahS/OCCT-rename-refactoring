@@ -852,8 +852,8 @@ Standard_Boolean SpecialPoints::AddSingularPole(const Handle(Adaptor3d_Surface)&
 
   // Transforms parametric surface in coordinate-system of the quadric
   Transform3d aTr;
-  aTr.SetTransformation((theQSurf->GetType() == GeomAbs_Sphere) ? theQSurf->Sphere().Position()
-                                                                : theQSurf->Cone().Position());
+  aTr.SetTransformation((theQSurf->GetType() == GeomAbs_Sphere) ? theQSurf->Sphere().Position1()
+                                                                : theQSurf->Cone().Position1());
 
   // Derivatives of transformed thePSurf
   aVecDu.Transform(aTr);
@@ -983,7 +983,7 @@ Standard_Boolean SpecialPoints::ContinueAfterSpecialPoint(
 
     // Transforms parametric surface in coordinate-system of the quadric
     Transform3d aTr;
-    aTr.SetTransformation(theQSurf->Cone().Position());
+    aTr.SetTransformation(theQSurf->Cone().Position1());
 
     // Derivatives of transformed thePSurf
     aVecDu.Transform(aTr);

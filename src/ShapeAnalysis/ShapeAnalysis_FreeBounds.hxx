@@ -40,7 +40,7 @@ class TopoShape;
 //! performing sewing
 //! 2. compound of shells.
 //! Actual free bounds (edges shared by the only face in the shell)
-//! are output in this case. ShapeAnalysis_Shell is used for that.
+//! are output in this case. Shell3 is used for that.
 //!
 //! When connecting edges into the wires algorithm tries to build
 //! wires of maximum length. Two options are provided for a user
@@ -82,7 +82,7 @@ public:
   //! <shape> should be a compound of shells.
   //! This constructor is to be used for getting free edges (ones
   //! referenced by the only face) with help of analyzer
-  //! ShapeAnalysis_Shell.
+  //! Shell3.
   //! Free edges are connected into wires only when they share the
   //! same vertex.
   //! If <splitclosed> is True extracts closed sub-wires out of

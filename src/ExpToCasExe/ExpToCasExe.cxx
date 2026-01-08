@@ -55,11 +55,11 @@ static Standard_Boolean LoadList(const char*                   theFileName,
 
   if (aStreamPtr == nullptr)
   {
-    Message::SendFail() << "Error: cannot open " << theFileName;
+    Message1::SendFail() << "Error: cannot open " << theFileName;
     return Standard_False;
   }
 
-  Message::SendInfo() << "Loading " << theFileName << "...";
+  Message1::SendInfo() << "Loading " << theFileName << "...";
   char             aBuf[512];
   Standard_Integer aLineNum = 0;
   // a line entry in file has the next format:
@@ -134,7 +134,7 @@ static Standard_Boolean LoadList(const char*                   theFileName,
     // make warning if there is another package for the item
     if (anItem->IsPackageNameSet() && anItem->GetPackageName().IsDifferent(aPackageName))
     {
-      Message::SendWarning() << "Warning: Package is redefined for item " << anItemName;
+      Message1::SendWarning() << "Warning: Package is redefined for item " << anItemName;
     }
     anItem->SetPackageName(aPackageName);
     anItem->SetGenMode(theMark ? Express_Item::GM_GenByUser : Express_Item::GM_NoGen);
@@ -165,7 +165,7 @@ static Standard_Boolean LoadList(const char*                   theFileName,
     }
     if (!std::isalpha(*aShortName))
     {
-      Message::SendWarning() << "Warning: Not recognized a shortname at the line " << aLineNum;
+      Message1::SendWarning() << "Warning: Not recognized a shortname at the line " << aLineNum;
       continue;
     }
     // if short name "-" then just do not set it
@@ -204,7 +204,7 @@ static Standard_Boolean LoadList(const char*                   theFileName,
     }
     if (!(*aCheckFlag == '0' || *aCheckFlag == '1'))
     {
-      Message::SendWarning() << "Warning: Not recognized a check flag at the line " << aLineNum;
+      Message1::SendWarning() << "Warning: Not recognized a check flag at the line " << aLineNum;
       continue;
     }
     Standard_Boolean hasCheck = (*aCheckFlag == '0' ? Standard_False : Standard_True);
@@ -236,7 +236,7 @@ static Standard_Boolean LoadList(const char*                   theFileName,
     }
     if (!(*aFillSharedFlag == '0' || *aFillSharedFlag == '1'))
     {
-      Message::SendWarning() << "Warning: Not recognized a fill shared flag at the line "
+      Message1::SendWarning() << "Warning: Not recognized a fill shared flag at the line "
                              << aLineNum;
       continue;
     }
@@ -260,7 +260,7 @@ static Standard_Boolean LoadList(const char*                   theFileName,
     aCurPos[aSepIdx] = '\0';
     if (!std::isalpha(*aCategoryName))
     {
-      Message::SendWarning() << "Warning: Not recognized a category name at the line " << aLineNum;
+      Message1::SendWarning() << "Warning: Not recognized a category name at the line " << aLineNum;
       continue;
     }
     // if category name "-" then just do not set it
@@ -274,7 +274,7 @@ static Standard_Boolean LoadList(const char*                   theFileName,
       }
     }
   }
-  Message::SendInfo() << " Done";
+  Message1::SendInfo() << " Done";
 
   return Standard_True;
 }
@@ -285,7 +285,7 @@ int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    Message::SendInfo()
+    Message1::SendInfo()
       << "EXPRESS -> CASCADE/XSTEP classes generator 3.0\n"
          "Use: ExpToCas <schema.exp> [<create.lst> [<packaging.lst> [start_index]]]\n"
          "Where: \n"
@@ -308,24 +308,24 @@ int main(int argc, char* argv[])
   SystemFile aFile(aPath);
   if (!aFile.IsReadable())
   {
-    Message::SendFail() << "Error: Cannot open " << argv[1];
+    Message1::SendFail() << "Error: Cannot open " << argv[1];
     return -1;
   }
 
   // parse
-  Message::SendInfo() << "Starting parsing " << argv[1];
+  Message1::SendInfo() << "Starting parsing " << argv[1];
   Handle(Express_Schema) aSchema = GetSchema(argv[1]);
 
   if (aSchema.IsNull())
   {
-    Message::SendFail() << "Error: Parsing finished with no result";
+    Message1::SendFail() << "Error: Parsing finished with no result";
     return -1;
   }
   else
   {
-    Message::SendInfo() << "Schema " << aSchema->Name()->ToCString() << " successfully parsed";
+    Message1::SendInfo() << "Schema " << aSchema->Name()->ToCString() << " successfully parsed";
   }
-  Message::SendInfo() << "Total " << aSchema->NbItems() << " items";
+  Message1::SendInfo() << "Total " << aSchema->NbItems() << " items";
 
   //=================================
   // Step 2: Prepare data for creating classes
@@ -363,7 +363,7 @@ int main(int argc, char* argv[])
     anIndex = (Standard_Integer)strtol(argv[4], &aStopSymbol, 10);
     if (*aStopSymbol != '\0')
     {
-      Message::SendFail() << "Error: invalid starting index: " << argv[4];
+      Message1::SendFail() << "Error: invalid starting index: " << argv[4];
       return -1;
     }
   }

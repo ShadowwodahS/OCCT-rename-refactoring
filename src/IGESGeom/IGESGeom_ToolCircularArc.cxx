@@ -131,7 +131,7 @@ void CircularArcTool::OwnCheck(const Handle(IGESGeom_CircularArc)& /*ent*/,
     if (ratio > eps) {
       char mess[80];
       Sprintf(mess,"Radius at Start & End Points, relative gap over %f",
-          Interface_MSG::Intervalled (ratio));
+          MessageSystem::Intervalled (ratio));
       ach.AddFail(mess,"Radius at Start & End Points, relative gap over %f");
     }
   */

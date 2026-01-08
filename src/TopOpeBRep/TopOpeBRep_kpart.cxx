@@ -98,7 +98,7 @@ static Standard_Boolean FUNBREP_HasSameGPoint(const Point1&                DSP,
 {
   // returns <true> if <DSP> shares same geometric point with
   // <I> geometry.
-  Standard_Integer G      = I->Geometry();
+  Standard_Integer G      = I->Geometry1();
   Standard_Boolean samegp = Standard_False;
   if (I->GeometryType() == TopOpeBRepDS_POINT)
   {

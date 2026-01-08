@@ -161,7 +161,7 @@ void MAT2d_Circuit::Perform(MAT2d_SequenceOfSequenceOfGeometry& FigItem,
   //---------------------------------------------------------
   // Calcul de l ensemble des connexions realisant le chemin.
   //---------------------------------------------------------
-  MAT2d_MiniPath Road;
+  MiniPath Road;
   Road.Perform(FigItem, IndRefLine, Trigo);
 
   //------------------------
@@ -363,7 +363,7 @@ static void SubSequence(const TColGeom2d_SequenceOfGeometry& S1,
 
 void MAT2d_Circuit::ConstructCircuit(const MAT2d_SequenceOfSequenceOfGeometry& FigItem,
                                      const Standard_Integer                    IndRefLine,
-                                     const MAT2d_MiniPath&                     Road)
+                                     const MiniPath&                     Road)
 {
   Handle(MAT2d_Connexion)       PrevC, CurC;
   TColGeom2d_SequenceOfGeometry SetOfItem;
@@ -463,7 +463,7 @@ void MAT2d_Circuit::ConstructCircuit(const MAT2d_SequenceOfSequenceOfGeometry& F
   {
     if (Ite.Value().Length() > 1)
     {
-      SortRefToEqui(Ite.Key());
+      SortRefToEqui(Ite.Key1());
     }
   }
 
@@ -734,13 +734,13 @@ Handle(Geom2d_Geometry) MAT2d_Circuit::Value(const Standard_Integer Index) const
 const TColStd_SequenceOfInteger& MAT2d_Circuit::RefToEqui(const Standard_Integer IndLine,
                                                           const Standard_Integer IndCurve) const
 {
-  MAT2d_BiInt Key(IndLine, IndCurve);
-  return linkRefEqui(Key);
+  BiInt Key1(IndLine, IndCurve);
+  return linkRefEqui(Key1);
 }
 
 //=================================================================================================
 
-void MAT2d_Circuit::SortRefToEqui(const MAT2d_BiInt& BiRef)
+void MAT2d_Circuit::SortRefToEqui(const BiInt& BiRef)
 {
   Standard_Integer           i;
   TColStd_SequenceOfInteger& S = linkRefEqui.ChangeFind(BiRef);
@@ -837,16 +837,16 @@ void MAT2d_Circuit::UpDateLink(const Standard_Integer IFirst,
 
   for (i = ICurveFirst; i <= ICurveLast; i++)
   {
-    MAT2d_BiInt Key(ILine, i);
-    if (linkRefEqui.IsBound(Key))
+    BiInt Key1(ILine, i);
+    if (linkRefEqui.IsBound(Key1))
     {
-      linkRefEqui(Key).Append(IEqui);
+      linkRefEqui(Key1).Append(IEqui);
     }
     else
     {
       TColStd_SequenceOfInteger L;
-      linkRefEqui.Bind(Key, L);
-      linkRefEqui(Key).Append(IEqui);
+      linkRefEqui.Bind(Key1, L);
+      linkRefEqui(Key1).Append(IEqui);
     }
     IEqui++;
   }

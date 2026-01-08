@@ -135,7 +135,7 @@ Standard_Integer StepElement_ElementAspect::Volume3dFace() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("VOLUME_3D_FACE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -165,7 +165,7 @@ Standard_Integer StepElement_ElementAspect::Volume2dFace() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("VOLUME_2D_FACE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -195,7 +195,7 @@ Standard_Integer StepElement_ElementAspect::Volume3dEdge() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("VOLUME_3D_EDGE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -225,7 +225,7 @@ Standard_Integer StepElement_ElementAspect::Volume2dEdge() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("VOLUME_2D_EDGE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -255,7 +255,7 @@ Standard_Integer StepElement_ElementAspect::Surface3dFace() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("SURFACE_3D_FACE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -285,7 +285,7 @@ Standard_Integer StepElement_ElementAspect::Surface2dFace() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("SURFACE_2D_FACE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -315,7 +315,7 @@ Standard_Integer StepElement_ElementAspect::Surface3dEdge() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("SURFACE_3D_EDGE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 
@@ -345,7 +345,7 @@ Standard_Integer StepElement_ElementAspect::Surface2dEdge() const
   Handle(TCollection_HAsciiString) nameitem = new TCollection_HAsciiString("SURFACE_2D_EDGE");
   if (name->IsDifferent(nameitem))
     return 0;
-  Standard_Integer val = SelMem->Integer();
+  Standard_Integer val = SelMem->Integer1();
   return val;
 }
 

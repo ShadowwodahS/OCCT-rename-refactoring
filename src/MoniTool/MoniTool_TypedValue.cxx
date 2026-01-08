@@ -34,8 +34,8 @@ static NCollection_DataMap<AsciiString1, Handle(RefObject)>& libtv()
   if (thelibtv.IsEmpty())
   {
     Handle(MoniTool_TypedValue) tv;
-    tv = new MoniTool_TypedValue("Integer", MoniTool_ValueInteger);
-    thelibtv.Bind("Integer", tv);
+    tv = new MoniTool_TypedValue("Integer1", MoniTool_ValueInteger);
+    thelibtv.Bind("Integer1", tv);
     tv = new MoniTool_TypedValue("Real", MoniTool_ValueReal);
     thelibtv.Bind("Real", tv);
     tv = new MoniTool_TypedValue("Text", MoniTool_ValueText);
@@ -142,7 +142,7 @@ MoniTool_TypedValue::MoniTool_TypedValue(const Handle(MoniTool_TypedValue)& othe
   {
     NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator itad(eadds);
     for (; itad.More(); itad.Next())
-      theeadds.Bind(itad.Key(), itad.Value());
+      theeadds.Bind(itad.Key1(), itad.Value());
   }
 
   //  on duplique la string
@@ -181,7 +181,7 @@ AsciiString1 MoniTool_TypedValue::Definition() const
   switch (thetype)
   {
     case MoniTool_ValueInteger: {
-      def.AssignCat("Integer");
+      def.AssignCat("Integer1");
       Standard_Integer ilim;
       if (IntegerLimit(Standard_False, ilim))
       {
@@ -236,7 +236,7 @@ AsciiString1 MoniTool_TypedValue::Definition() const
         NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator listadd(theeadds);
         for (; listadd.More(); listadd.Next())
         {
-          const AsciiString1& aName = listadd.Key();
+          const AsciiString1& aName = listadd.Key1();
           Standard_CString               enva  = aName.ToCString();
           if (enva[0] == '?')
             continue;
@@ -382,7 +382,7 @@ Standard_Integer MoniTool_TypedValue::MaxLength() const
 void MoniTool_TypedValue::SetIntegerLimit(const Standard_Boolean max, const Standard_Integer val)
 {
   if (thetype != MoniTool_ValueInteger)
-    throw Standard_ConstructionError("MoniTool_TypedValue : SetIntegerLimit, not an Integer");
+    throw Standard_ConstructionError("MoniTool_TypedValue : SetIntegerLimit, not an Integer1");
 
   if (max)
   {
@@ -714,7 +714,7 @@ Handle(TCollection_HAsciiString) MoniTool_TypedValue::Interpret(
     return theinterp(this, hval, native);
   if (thetype == MoniTool_ValueEnum)
   {
-    //  On admet les deux formes : Enum de preference, sinon Integer
+    //  On admet les deux formes : Enum de preference, sinon Integer1
     Standard_Integer startcase, endcase;
     Standard_Boolean match;
     EnumDef(startcase, endcase, match);
@@ -767,7 +767,7 @@ Standard_Boolean MoniTool_TypedValue::Satisfies(const Handle(TCollection_HAsciiS
       return Standard_True;
     }
     case MoniTool_ValueEnum: {
-      //  On admet les deux formes : Enum de preference, sinon Integer
+      //  On admet les deux formes : Enum de preference, sinon Integer1
       Standard_Integer startcase, endcase; // unused ival;
       Standard_Boolean match;
       EnumDef(startcase, endcase, match);
@@ -967,7 +967,7 @@ Handle(TColStd_HSequenceOfAsciiString) MoniTool_TypedValue::LibList()
   NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator it(libtv());
   for (; it.More(); it.Next())
   {
-    list->Append(it.Key());
+    list->Append(it.Key1());
   }
   return list;
 }

@@ -79,7 +79,7 @@ protected:
   //! Should return True if user has sent a break signal.
   //!
   //! This method can be called concurrently, thus implementation should
-  //! be thread-safe. It should not call Show() or Position() to
+  //! be thread-safe. It should not call Show() or Position1() to
   //! avoid possible data races. The method should return as soon
   //! as possible to avoid delaying the calling algorithm.
   //!

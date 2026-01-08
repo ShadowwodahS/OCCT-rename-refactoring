@@ -159,7 +159,7 @@ void VInspector_ItemGraphic3dCLight::StoreItemProperties(const int       theRow,
       return;
     }
 
-    // "Position"
+    // "Position1"
     Point3d aPnt;
     if (aPnt.InitFromJson(aStream, aStartPos))
     {
@@ -170,7 +170,7 @@ void VInspector_ItemGraphic3dCLight::StoreItemProperties(const int       theRow,
 
   QString  aPropertyName  = aProperties->Data(theRow, 0).toString();
   QVariant aPropertyValue = aProperties->Data(theRow, 1);
-  if (aPropertyName == "Position")
+  if (aPropertyName == "Position1")
   {
   }
   else if (aPropertyName == "Intensity")

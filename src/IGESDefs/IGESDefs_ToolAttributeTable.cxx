@@ -344,7 +344,7 @@ void AttributeTableTool::OwnDump(const Handle(IGESDefs_AttributeTable)& ent,
             S << "  (Void) ";
             break;
           case 1:
-            S << "  Integer";
+            S << "  Integer1";
             break;
           case 2:
             S << "  Real   ";

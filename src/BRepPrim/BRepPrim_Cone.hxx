@@ -34,7 +34,7 @@ public:
 
   //! the STEP definition
   //! Angle = semi-angle of the cone
-  //! Position : the coordinate system
+  //! Position1 : the coordinate system
   //! Height : height of the cone.
   //! Radius : radius of truncated face at z = 0
   //!
@@ -44,7 +44,7 @@ public:
   //! Angle < Resolution / Height
   //! Angle > PI/2 - Resolution / Height
   Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle,
-                                const Frame3d&       Position,
+                                const Frame3d&       Position1,
                                 const Standard_Real Height,
                                 const Standard_Real Radius = 0);
 

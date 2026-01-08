@@ -63,7 +63,7 @@ Standard_OStream& MatrixTransform::Print(Standard_OStream& anOStream) const
     {
       for (i = 1; i <= 3; i++)
       {
-        //  Value (me; Row, Col : Integer)   returns Real
+        //  Value (me; Row, Col : Integer1)   returns Real
         anOStream << myMatrix.Value(i, j) << ' ';
       }
       if (j != 4)

@@ -62,7 +62,7 @@ public:
 
 public:
   typedef NCollection_OccAllocator<TheItemType> allocator_type;
-  typedef NCollection_BasePointerVector         vector;
+  typedef BasePointerVector         vector;
 
 public:
   // Define various type aliases for convenience

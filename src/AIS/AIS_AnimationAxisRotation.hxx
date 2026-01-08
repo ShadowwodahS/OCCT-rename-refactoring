@@ -38,7 +38,7 @@ public:
 
 protected:
   //! Update the progress.
-  Standard_EXPORT virtual void update(const AIS_AnimationProgress& theProgress) Standard_OVERRIDE;
+  Standard_EXPORT virtual void update(const AnimationProgress& theProgress) Standard_OVERRIDE;
 
 private:
   Axis3d        myRotAxis;    //!< rotation axis

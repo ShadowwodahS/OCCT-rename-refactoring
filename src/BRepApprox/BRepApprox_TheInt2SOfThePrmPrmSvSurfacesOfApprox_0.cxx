@@ -30,7 +30,7 @@
 
 #define ThePSurface BRepAdaptor_Surface
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
-#define ThePSurfaceTool BRepApprox_SurfaceTool
+#define ThePSurfaceTool SurfaceTool4
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
 #define IntImp_TheFunction BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox
 #define IntImp_TheFunction_hxx <BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox.hxx>

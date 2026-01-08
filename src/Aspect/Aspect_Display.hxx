@@ -14,7 +14,7 @@
 /*============================================================================*/
 /*==== Title: Aspect_Display.hxx                                               */
 /*==== Role : The header file of primitive type "Display" from package        */
-/*==== "V3d"                                                           */
+/*==== "V3d1"                                                           */
 /*==== Implementation:  This is a primitive type implemented with typedef     */
 /*============================================================================*/
 // To manage Display

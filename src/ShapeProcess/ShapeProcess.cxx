@@ -55,7 +55,7 @@ private:
 
 //=================================================================================================
 
-Standard_Boolean ShapeProcess::RegisterOperator(const Standard_CString               name,
+Standard_Boolean ShapeProcess1::RegisterOperator(const Standard_CString               name,
                                                 const Handle(ShapeProcess_Operator)& op)
 {
   if (aMapOfOperators.IsBound(name))
@@ -71,7 +71,7 @@ Standard_Boolean ShapeProcess::RegisterOperator(const Standard_CString          
 
 //=================================================================================================
 
-Standard_Boolean ShapeProcess::FindOperator(const Standard_CString         name,
+Standard_Boolean ShapeProcess1::FindOperator(const Standard_CString         name,
                                             Handle(ShapeProcess_Operator)& op)
 {
   if (!aMapOfOperators.IsBound(name))
@@ -87,7 +87,7 @@ Standard_Boolean ShapeProcess::FindOperator(const Standard_CString         name,
 
 //=================================================================================================
 
-Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& context,
+Standard_Boolean ShapeProcess1::Perform(const Handle(ShapeProcess_Context)& context,
                                        const Standard_CString              seq,
                                        const Message_ProgressRange&        theProgress)
 {
@@ -150,7 +150,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& conte
     }
 
     Handle(ShapeProcess_Operator) op;
-    if (!ShapeProcess::FindOperator(oper.ToCString(), op))
+    if (!ShapeProcess1::FindOperator(oper.ToCString(), op))
     {
       if (context->TraceLevel() > 0)
       {
@@ -180,8 +180,8 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& conte
 
 //=================================================================================================
 
-Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)&  theContext,
-                                       const ShapeProcess::OperationsFlags& theOperations,
+Standard_Boolean ShapeProcess1::Perform(const Handle(ShapeProcess_Context)&  theContext,
+                                       const ShapeProcess1::OperationsFlags& theOperations,
                                        const Message_ProgressRange&         theProgress)
 {
   if (!theContext)
@@ -223,7 +223,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)&  theC
 
 //=================================================================================================
 
-std::pair<ShapeProcess::Operation, bool> ShapeProcess::ToOperationFlag(const char* theName)
+std::pair<ShapeProcess1::Operation, bool> ShapeProcess1::ToOperationFlag(const char* theName)
 {
   if (!theName)
   {
@@ -245,8 +245,8 @@ std::pair<ShapeProcess::Operation, bool> ShapeProcess::ToOperationFlag(const cha
 
 //=================================================================================================
 
-std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> ShapeProcess::getOperators(
-  const ShapeProcess::OperationsFlags& theFlags)
+std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> ShapeProcess1::getOperators(
+  const ShapeProcess1::OperationsFlags& theFlags)
 {
   std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> aResult;
   for (std::underlying_type<Operation>::type anOperation = Operation::First;
@@ -272,7 +272,7 @@ std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> ShapeProcess:
 
 //=================================================================================================
 
-const char* ShapeProcess::toOperationName(const Operation theOperation)
+const char* ShapeProcess1::toOperationName(const Operation theOperation)
 {
   switch (theOperation)
   {

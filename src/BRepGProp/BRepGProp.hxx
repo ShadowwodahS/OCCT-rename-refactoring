@@ -40,7 +40,7 @@ class gp_Pln;
 //! - its radius of gyration about an axis,
 //! - and its principal properties of inertia such as
 //! principal axis, principal moments, principal radius of gyration.
-class BRepGProp
+class BRepGProp1
 {
 public:
   DEFINE_STANDARD_ALLOC

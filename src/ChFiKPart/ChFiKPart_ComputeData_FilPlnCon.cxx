@@ -61,7 +61,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 {
   // calculate the fillet (torus or sphere).
   Standard_Boolean c1sphere = Standard_False;
-  Ax3           PosPl    = Pln.Position();
+  Ax3           PosPl    = Pln.Position1();
   Dir3d           Dpnat    = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d           Dp       = Dpnat;
   Dir3d           Df       = Dp;

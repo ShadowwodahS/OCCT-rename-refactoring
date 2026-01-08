@@ -27,7 +27,7 @@
 class gp_Pln;
 
 //! The   GeomAPI1   package  provides  an  Application
-//! Programming Interface for the Geometry.
+//! Programming Interface for the Geometry1.
 //!
 //! The API is a set of  classes and methods aiming to
 //! provide :
@@ -39,7 +39,7 @@ class gp_Pln;
 //! implementation of high-level calls.
 //!
 //! The API  provides classes to  call the algorithms
-//! of the Geometry
+//! of the Geometry1
 //!
 //! * The  constructors  of the classes  provides  the
 //! different constructions methods.

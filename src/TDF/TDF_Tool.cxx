@@ -148,7 +148,7 @@ static Standard_Boolean TDF_Tool_DescendantRef(const DataLabel&           aRefLa
 
       for (TDF_MapIteratorOfLabelMap labMItr(labMap); labMItr.More(); labMItr.Next())
       {
-        if (!labMItr.Key().IsDescendant(aRefLabel))
+        if (!labMItr.Key1().IsDescendant(aRefLabel))
           return Standard_False;
       }
       // Then the referenced attributes.
@@ -156,8 +156,8 @@ static Standard_Boolean TDF_Tool_DescendantRef(const DataLabel&           aRefLa
       for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
       {
         // CLE
-        // const Handle(TDF_Attribute)& att = attMItr.Key();
-        const Handle(TDF_Attribute)& att = attMItr.Key();
+        // const Handle(TDF_Attribute)& att = attMItr.Key1();
+        const Handle(TDF_Attribute)& att = attMItr.Key1();
         if (!att.IsNull() && !att->Label().IsNull())
         {
           // ENDCLE
@@ -216,8 +216,8 @@ static void TDF_Tool_OutReferers(const DataLabel&           aRefLabel,
     for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
     {
       // CLE
-      // const Handle(TDF_Attribute)& att = attMItr.Key();
-      const Handle(TDF_Attribute)& att = attMItr.Key();
+      // const Handle(TDF_Attribute)& att = attMItr.Key1();
+      const Handle(TDF_Attribute)& att = attMItr.Key1();
       // ENDCLE
       if (aFilterForReferences.IsKept(att) && !att->Label().IsNull()
           && !att->Label().IsDescendant(aRefLabel))
@@ -233,7 +233,7 @@ static void TDF_Tool_OutReferers(const DataLabel&           aRefLabel,
       const TDF_LabelMap& labMap = ds->Labels();
       for (TDF_MapIteratorOfLabelMap labMItr(labMap); labMItr.More(); labMItr.Next())
       {
-        if (!labMItr.Key().IsDescendant(aRefLabel))
+        if (!labMItr.Key1().IsDescendant(aRefLabel))
         {
           atts.Add(itr.Value());
           break;
@@ -286,7 +286,7 @@ static void TDF_Tool_OutReferences(const DataLabel&           aRefLabel,
     const TDF_AttributeMap& attMap = ds->Attributes();
     for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
     {
-      const Handle(TDF_Attribute)& att = attMItr.Key();
+      const Handle(TDF_Attribute)& att = attMItr.Key1();
       if (aFilterForReferences.IsKept(att) && !att->Label().IsNull()
           && !att->Label().IsDescendant(aRefLabel))
       {
@@ -296,9 +296,9 @@ static void TDF_Tool_OutReferences(const DataLabel&           aRefLabel,
     const TDF_LabelMap& labMap = ds->Labels();
     for (TDF_MapIteratorOfLabelMap labMItr(labMap); labMItr.More(); labMItr.Next())
     {
-      if (!labMItr.Key().IsDescendant(aRefLabel))
+      if (!labMItr.Key1().IsDescendant(aRefLabel))
       {
-        TDF_AttributeIterator itra(labMItr.Key());
+        TDF_AttributeIterator itra(labMItr.Key1());
         for (; itra.More(); itra.Next())
         {
           if (aFilterForReferences.IsKept(itra.Value()))
@@ -571,7 +571,7 @@ void Tool3::DeepDump(Standard_OStream& anOS, const Handle(TDF_Data)& aDF)
 
 //=======================================================================
 // function : ExtendedDeepDump
-// purpose  : Extended deep dump of a DF.
+// purpose  : Extended1 deep dump of a DF.
 //=======================================================================
 
 void Tool3::ExtendedDeepDump(Standard_OStream&       anOS,
@@ -600,7 +600,7 @@ void Tool3::DeepDump(Standard_OStream& anOS, const DataLabel& aLabel)
 
 //=======================================================================
 // function : ExtendedDeepDump
-// purpose  : Extended deep dump of a label.
+// purpose  : Extended1 deep dump of a label.
 //=======================================================================
 
 void Tool3::ExtendedDeepDump(Standard_OStream&   anOS,
@@ -615,7 +615,7 @@ void Tool3::ExtendedDeepDump(Standard_OStream&   anOS,
     anOS << "s";
   anOS << " referenced by the label structure." << std::endl;
 
-  anOS << std::endl << "Extended dump of filtered attribute(s):" << std::endl;
+  anOS << std::endl << "Extended1 dump of filtered attribute(s):" << std::endl;
   Standard_Integer        nba = 0;
   AsciiString1 entry;
   Standard_Integer        i;

@@ -45,7 +45,7 @@ class Interface_EntityIterator;
 //! Entities are Mapped according their Number in the Model
 //!
 //! Each Entity from the Model can be known as "Present" or
-//! not; if it is, it is Mapped with a Status : an Integer
+//! not; if it is, it is Mapped with a Status : an Integer1
 //! which can be used according to needs of each algorithm
 //! In addition, the Graph brings a BitMap which can be used
 //! by any caller

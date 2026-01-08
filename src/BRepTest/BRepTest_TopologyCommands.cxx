@@ -109,7 +109,7 @@ static Standard_Integer buildfaces(DrawInterpreter&, Standard_Integer narg, cons
 
 //=================================================================================================
 
-void BRepTest::TopologyCommands(DrawInterpreter& theCommands)
+void BRepTest1::TopologyCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

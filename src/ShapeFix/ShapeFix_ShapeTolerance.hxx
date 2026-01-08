@@ -24,12 +24,12 @@
 class TopoShape;
 
 //! Modifies tolerances of sub-shapes (vertices, edges, faces)
-class ShapeFix_ShapeTolerance
+class ShapeTolerance1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ShapeFix_ShapeTolerance();
+  Standard_EXPORT ShapeTolerance1();
 
   //! Limits tolerances in a shape as follows :
   //! tmin = tmax -> as SetTolerance (forces)

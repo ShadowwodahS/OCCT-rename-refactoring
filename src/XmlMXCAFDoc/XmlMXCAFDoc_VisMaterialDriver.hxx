@@ -35,13 +35,13 @@ public:
 
   //! Paste attribute from persistence into document.
   Standard_EXPORT Standard_Boolean
-    Paste(const XmlObjMgt_Persistent&  theSource,
+    Paste(const PersistentStorage&  theSource,
           const Handle(TDF_Attribute)& theTarget,
           XmlObjMgt_RRelocationTable&  theRelocTable) const Standard_OVERRIDE;
 
   //! Paste attribute from document into persistence.
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)& theSource,
-                             XmlObjMgt_Persistent&        theTarget,
+                             PersistentStorage&        theTarget,
                              XmlObjMgt_SRelocationTable&  theRelocTable) const Standard_OVERRIDE;
 };
 

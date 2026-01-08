@@ -66,13 +66,13 @@ bool DEVRML_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEVRML_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -92,11 +92,11 @@ bool DEVRML_Provider::Read(const AsciiString1&  thePath,
   {
     if (aVrmlReader.ExtraStatus() != RWMesh_CafReaderStatusEx_Partial)
     {
-      Message::SendFail() << "Error in the DEVRML_Provider during reading the file '" << thePath
+      Message1::SendFail() << "Error in the DEVRML_Provider during reading the file '" << thePath
                           << "'";
       return false;
     }
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEVRML_Provider during reading the file: file has been read paratially "
       << "(due to unexpected EOF, syntax error, memory limit) '" << thePath << "'";
   }
@@ -112,7 +112,7 @@ bool DEVRML_Provider::Write(const AsciiString1&  thePath,
   (void)theProgress;
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEVRML_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEVRML_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DEVRML_Provider during writing the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -132,13 +132,13 @@ bool DEVRML_Provider::Write(const AsciiString1&  thePath,
   else
   {
     aScaling = aNode->GlobalParameters.SystemUnit / aNode->GlobalParameters.LengthUnit;
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEVRML_Provider during writing the file " << thePath
       << "\t: The document has no information on Units. Using global parameter as initial Unit.";
   }
   if (!aWriter.WriteDoc(theDocument, thePath.ToCString(), aScaling))
   {
-    Message::SendFail() << "Error in the DEVRML_Provider during wtiting the file " << thePath
+    Message1::SendFail() << "Error in the DEVRML_Provider during wtiting the file " << thePath
                         << "\t: File was not written";
     return false;
   }
@@ -177,7 +177,7 @@ bool DEVRML_Provider::Read(const AsciiString1& thePath,
   (void)theProgress;
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEVRML_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -278,7 +278,7 @@ bool DEVRML_Provider::Read(const AsciiString1& thePath,
     }
     if (aStr)
     {
-      Message::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
+      Message1::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
                           << "\t: ++ VRML Error: " << aStr << " in line " << aScene.GetLineError();
       return false;
     }
@@ -289,7 +289,7 @@ bool DEVRML_Provider::Read(const AsciiString1& thePath,
   }
   else
   {
-    Message::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEVRML_Provider during reading the file " << thePath
                         << "\t: cannot open file";
     return false;
   }

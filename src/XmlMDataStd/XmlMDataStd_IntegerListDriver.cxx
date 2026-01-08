@@ -46,7 +46,7 @@ Handle(TDF_Attribute) XmlMDataStd_IntegerListDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_IntegerListDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_IntegerListDriver::Paste(const PersistentStorage&  theSource,
                                                       const Handle(TDF_Attribute)& theTarget,
                                                       XmlObjMgt_RRelocationTable&) const
 {
@@ -94,7 +94,7 @@ Standard_Boolean XmlMDataStd_IntegerListDriver::Paste(const XmlObjMgt_Persistent
     aFirstInd = 0;
   if (aFirstInd == aLastInd && aLastInd > 0)
   {
-    if (!XmlObjMgt::GetStringValue(anElement).GetInteger(aValue))
+    if (!XmlObjMgt1::GetStringValue(anElement).GetInteger(aValue))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -106,10 +106,10 @@ Standard_Boolean XmlMDataStd_IntegerListDriver::Paste(const XmlObjMgt_Persistent
   }
   else if (aLastInd >= 1)
   {
-    Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+    Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
     for (ind = aFirstInd; ind <= aLastInd; ind++)
     {
-      if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+      if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve integer member"
@@ -130,7 +130,7 @@ Standard_Boolean XmlMDataStd_IntegerListDriver::Paste(const XmlObjMgt_Persistent
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_IntegerListDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                          XmlObjMgt_Persistent&        theTarget,
+                                          PersistentStorage&        theTarget,
                                           XmlObjMgt_SRelocationTable&) const
 {
   const Handle(TDataStd_IntegerList) anIntList = Handle(TDataStd_IntegerList)::DownCast(theSource);
@@ -153,7 +153,7 @@ void XmlMDataStd_IntegerListDriver::Paste(const Handle(TDF_Attribute)& theSource
     }
   }
   // No occurrence of '&', '<' and other irregular XML characters
-  XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+  XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
 
   if (anIntList->ID() != TDataStd_IntegerList::GetID())
   {

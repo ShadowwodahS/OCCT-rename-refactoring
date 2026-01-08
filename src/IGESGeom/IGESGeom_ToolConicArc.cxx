@@ -202,7 +202,7 @@ void ConicArcTool::OwnCheck(const Handle(IGESGeom_ConicArc)& ent,
   //  These messages are transferred in the translation procedure
   /*  if (eq < -eps || eq > eps) {
       Sprintf(mess,"Start point does not satisfy conic equation, gap over %f",
-          Interface_MSG::Intervalled(eq));
+          MessageSystem::Intervalled(eq));
       ach.AddFail(mess,"Start point does not satisfy conic equation, gap over %f");
 
     }
@@ -213,7 +213,7 @@ void ConicArcTool::OwnCheck(const Handle(IGESGeom_ConicArc)& ent,
   // eq = (A*x*x + B*x*y + C*y*y + D*x + E*y + F);
   /*  if (eq < -eps || eq > eps) {
       Sprintf(mess,"End point does not satisfy conic equation, gap over %f",
-          Interface_MSG::Intervalled(eq));
+          MessageSystem::Intervalled(eq));
       ach.AddFail(mess,"End point does not satisfy conic equation, gap over %f");
     }
   */

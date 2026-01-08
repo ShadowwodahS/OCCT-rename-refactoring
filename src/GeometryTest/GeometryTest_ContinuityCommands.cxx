@@ -119,7 +119,7 @@ static Standard_Integer surfaceCcontinuity(DrawInterpreter& di, Standard_Integer
         case 8:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 8 - 10 parameters";
           return 1;
       }
@@ -142,7 +142,7 @@ static Standard_Integer surfaceCcontinuity(DrawInterpreter& di, Standard_Integer
         case 8:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 8 - 11 parameters";
           return 1;
       }
@@ -168,14 +168,14 @@ static Standard_Integer surfaceCcontinuity(DrawInterpreter& di, Standard_Integer
         case 8:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 8 - 12 parameters";
           return 1;
       }
     }
     break;
     default:
-      Message::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
+      Message1::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
                           << "): should be 0, 1, or 2";
       return 1;
   }
@@ -247,7 +247,7 @@ static Standard_Integer surfaceGcontinuity(DrawInterpreter& di, Standard_Integer
         case 8:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 8 - 11 parameters";
           return 1;
       }
@@ -276,14 +276,14 @@ static Standard_Integer surfaceGcontinuity(DrawInterpreter& di, Standard_Integer
         case 8:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 8 - 13 parameters";
           return 1;
       }
     }
     break;
     default:
-      Message::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
+      Message1::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
                           << "): should be 1 or 2";
       return 1;
   }
@@ -351,7 +351,7 @@ static Standard_Integer curveGcontinuity(DrawInterpreter& di, Standard_Integer n
         case 6:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 6 - 8 parameters";
           return 1;
       }
@@ -382,7 +382,7 @@ static Standard_Integer curveGcontinuity(DrawInterpreter& di, Standard_Integer n
         case 6:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 6 - 12 parameters";
           return 1;
       }
@@ -390,7 +390,7 @@ static Standard_Integer curveGcontinuity(DrawInterpreter& di, Standard_Integer n
     break;
 
     default:
-      Message::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
+      Message1::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
                           << "): should be 1 or 2";
       return 1;
   }
@@ -455,7 +455,7 @@ static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n
         case 6:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 6 - 8 parameters";
           return 1;
       }
@@ -477,7 +477,7 @@ static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n
         case 6:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 6 - 9 parameters";
           return 1;
       }
@@ -503,7 +503,7 @@ static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n
         case 6:
           break;
         default:
-          Message::SendFail()
+          Message1::SendFail()
             << "Error: invalid number of arguments: expected to get 6 - 10 parameters";
           return 1;
       }
@@ -511,7 +511,7 @@ static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n
     break;
 
     default:
-      Message::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
+      Message1::SendFail() << "Error: invalid value of parameter 1 (" << a[1]
                           << "): should be 0, 1, or 2";
       return 1;
   }
@@ -526,7 +526,7 @@ static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n
 }
 
 /***************************************************************************/
-void GeometryTest::ContinuityCommands(DrawInterpreter& theCommands)
+void GeometryTest1::ContinuityCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)

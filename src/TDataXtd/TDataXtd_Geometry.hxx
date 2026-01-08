@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(TDataXtd_Geometry, TDF_Attribute)
 //! attribute is defined by an element of the
 //! enumeration TDataXtd_GeometryEnum.
 //! This attribute may  also be used to qualify  underlying
-//! geometry  of   the  associated NamedShape.     for
+//! geometry  of   the  associated NamedShape1.     for
 //! Constructuion element by example.
 class TDataXtd_Geometry : public TDF_Attribute
 {
@@ -50,7 +50,7 @@ class TDataXtd_Geometry : public TDF_Attribute
 public:
   //! API class methods
   //! =================
-  //! Finds, or  creates, a Geometry attribute  defined by the label label.
+  //! Finds, or  creates, a Geometry1 attribute  defined by the label label.
   //! The default type of geometry is the value
   //! ANY_GEOM of the enumeration TDataXtd_GeometryEnum.
   //! To specify another value of this enumeration, use
@@ -114,8 +114,8 @@ public:
   //! Returns the GUID for geometry attributes.
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! This and the next methods are used to retrieve underlying geometry of the NamedShape,
-  //! even if no Geometry Attribute is associated.
+  //! This and the next methods are used to retrieve underlying geometry of the NamedShape1,
+  //! even if no Geometry1 Attribute is associated.
   //! if not found or not compliant geometry return False.
   Standard_EXPORT TDataXtd_Geometry();
 

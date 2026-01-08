@@ -27,7 +27,7 @@ class TopLoc_Location;
 
 //! Presentation (visualiation, selection etc.) tools for
 //! DECAF documents
-class XCAFPrs
+class XCAFPrs1
 {
 public:
   DEFINE_STANDARD_ALLOC

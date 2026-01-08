@@ -31,12 +31,12 @@
 static Standard_GUID XmlStorageDriver("f78ff4a0-a779-11d5-aab4-0050044b1af1");
 static Standard_GUID XmlRetrievalDriver("f78ff4a1-a779-11d5-aab4-0050044b1af1");
 
-const Handle(RefObject)& XmlTObjDrivers::Factory(const Standard_GUID& aGUID)
+const Handle(RefObject)& XmlTObjDrivers1::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == XmlStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlTObjDrivers : Storage Plugin" << std::endl;
+    std::cout << "XmlTObjDrivers1 : Storage Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_sd =
       new XmlTObjDrivers_DocumentStorageDriver("Copyright: Open CASCADE 2004"); // default copyright
@@ -46,18 +46,18 @@ const Handle(RefObject)& XmlTObjDrivers::Factory(const Standard_GUID& aGUID)
   if (aGUID == XmlRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlTObjDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "XmlTObjDrivers1 : Retrieval Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new XmlTObjDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 
-  return XmlLDrivers::Factory(aGUID);
+  return XmlLDrivers1::Factory(aGUID);
 }
 
 //=================================================================================================
 
-void XmlTObjDrivers::DefineFormat(const Handle(AppManager)& theApp)
+void XmlTObjDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("TObjXml",
                        "Xml TObj OCAF Document",
@@ -68,7 +68,7 @@ void XmlTObjDrivers::DefineFormat(const Handle(AppManager)& theApp)
 
 //=================================================================================================
 
-void XmlTObjDrivers::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlTObjDrivers1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                                 const Handle(Message_Messenger)&   anMsgDrv)
 {
   aDriverTable->AddDriver(new XmlTObjDrivers_ModelDriver(anMsgDrv));
@@ -78,4 +78,4 @@ void XmlTObjDrivers::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
   aDriverTable->AddDriver(new XmlTObjDrivers_IntSparseArrayDriver(anMsgDrv));
 }
 
-PLUGIN(XmlTObjDrivers)
+PLUGIN(XmlTObjDrivers1)

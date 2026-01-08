@@ -37,7 +37,7 @@ class Standard_OutOfRange;
 class Standard_DimensionError;
 class Standard_NoSuchObject;
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class AppParCurves_MultiCurve;
 class AppParCurves_MultiBSpCurve;
 class math_Matrix;

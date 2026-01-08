@@ -45,14 +45,14 @@
 #endif
 
 //=======================================================================
-// function : ShapeFix_FaceConnect
+// function : FaceConnect
 //=======================================================================
 
-ShapeFix_FaceConnect::ShapeFix_FaceConnect() {}
+FaceConnect::FaceConnect() {}
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_FaceConnect::Add(const TopoFace& aFirst, const TopoFace& aSecond)
+Standard_Boolean FaceConnect::Add(const TopoFace& aFirst, const TopoFace& aSecond)
 {
   if (!aFirst.IsNull() && !aSecond.IsNull())
   {
@@ -101,7 +101,7 @@ Standard_Boolean ShapeFix_FaceConnect::Add(const TopoFace& aFirst, const TopoFac
 
 //=================================================================================================
 
-TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
+TopoShell FaceConnect::Build(const TopoShell& shell,
                                          const Standard_Real sewtoler,
                                          const Standard_Real fixtoler)
 {
@@ -140,7 +140,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
        theFEIter.Next())
   {
     // Get pair (face / free edge)
-    theEdge = theFEIter.Key(), theFace = theFEIter.Value();
+    theEdge = theFEIter.Key1(), theFace = theFEIter.Value();
     // Process faces with bad connectivities only
     if (myConnected.IsBound(theFace) && !BRepInspector::Degenerated(TopoDS::Edge(theEdge)))
     {
@@ -219,7 +219,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
          theConnectedIter.Next())
     {
       // Process first face only if it is in the map of faces / free edges
-      theFirstFace = theConnectedIter.Key();
+      theFirstFace = theConnectedIter.Key1();
       if (myOriFreeEdges.IsBound(theFirstFace))
       {
 
@@ -264,7 +264,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
               if (theFirstFace.IsSame(theSecondFace))
               {
 #ifdef OCCT_DEBUG
-                std::cout << "Warning: ShapeFix_FaceConnect::Build: Self-connected face"
+                std::cout << "Warning: FaceConnect::Build: Self-connected face"
                           << std::endl;
 #endif
               }
@@ -372,7 +372,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
                      theResIter.More();
                      theResIter.Next())
                 {
-                  theAuxE = theResIter.Key();
+                  theAuxE = theResIter.Key1();
                   myResFreeEdges(theResIter.Value()).Append(theAuxE);
                 }
               }
@@ -552,7 +552,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
       for (TopTools_DataMapIteratorOfDataMapOfShapeShape theREIter(theRepEdges); theREIter.More();
            theREIter.Next())
       {
-        theReShape->Replace(theREIter.Key() /*.Oriented(TopAbs_FORWARD)*/,
+        theReShape->Replace(theREIter.Key1() /*.Oriented(TopAbs_FORWARD)*/,
                             theREIter.Value() /*.Oriented(TopAbs_FORWARD)*/);
       }
       // smh#8
@@ -561,14 +561,14 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
       if (theReShape->Status(ShapeExtend_OK))
       {
 #ifdef OCCT_DEBUG
-        std::cout << "Warning: ShapeFix_FaceConnect::Build: Edges not replaced by ReShape"
+        std::cout << "Warning: FaceConnect::Build: Edges not replaced by ReShape"
                   << std::endl;
 #endif
       }
       else if (theReShape->Status(ShapeExtend_FAIL1))
       {
 #ifdef OCCT_DEBUG
-        std::cout << "Error: ShapeFix_FaceConnect::Build: ReShape failed on edges" << std::endl;
+        std::cout << "Error: FaceConnect::Build: ReShape failed on edges" << std::endl;
 #endif
       }
       else
@@ -646,7 +646,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
                theRV1Iter.Next())
           {
             // Get the old vertex, create empty list of replaced vertices
-            theOld = theRV1Iter.Key();
+            theOld = theRV1Iter.Key1();
             ShapeList theNewList;
             // Explore the list of new vertices
             TopTools_ListIteratorOfListOfShape theN1Iter;
@@ -688,7 +688,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
                theRV2Iter.More();
                theRV2Iter.Next())
           {
-            theNewVert = TopoDS::Vertex(theRV2Iter.Key());
+            theNewVert = TopoDS::Vertex(theRV2Iter.Key1());
             // Calculate the vertex position
             Point3d theLBound, theRBound, thePosition;
             theLBound = theRBound = BRepInspector::Pnt(theNewVert);
@@ -735,7 +735,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
           for (TopTools_DataMapIteratorOfDataMapOfShapeShape theNVIter(theOldVertices);
                theNVIter.More();
                theNVIter.Next())
-            theReShape->Replace(theNVIter.Key().Oriented(TopAbs_FORWARD),
+            theReShape->Replace(theNVIter.Key1().Oriented(TopAbs_FORWARD),
                                 theNVIter.Value().Oriented(TopAbs_FORWARD));
           // smh#8
           TopoShape tmpshape = theReShape->Apply(result);
@@ -744,7 +744,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
           if (theReShape->Status(ShapeExtend_FAIL1))
           {
 #ifdef OCCT_DEBUG
-            std::cout << "Error: ShapeFix_FaceConnect::Build: ReShape failed on vertices"
+            std::cout << "Error: FaceConnect::Build: ReShape failed on vertices"
                       << std::endl;
 #endif
           }
@@ -795,7 +795,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
 
 //=================================================================================================
 
-void ShapeFix_FaceConnect::Clear()
+void FaceConnect::Clear()
 {
   myConnected.Clear();
   myOriFreeEdges.Clear();

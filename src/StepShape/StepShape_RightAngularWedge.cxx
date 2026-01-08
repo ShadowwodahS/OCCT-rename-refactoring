@@ -41,7 +41,7 @@ void StepShape_RightAngularWedge::SetPosition(const Handle(StepGeom_Axis2Placeme
   position = aPosition;
 }
 
-Handle(StepGeom_Axis2Placement3d) StepShape_RightAngularWedge::Position() const
+Handle(StepGeom_Axis2Placement3d) StepShape_RightAngularWedge::Position1() const
 {
   return position;
 }

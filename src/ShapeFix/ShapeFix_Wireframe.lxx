@@ -20,7 +20,7 @@
 
 inline Standard_Boolean ShapeFix_Wireframe::StatusWireGaps(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusWireGaps, status);
+  return ShapeExtend1::DecodeStatus(myStatusWireGaps, status);
 }
 
 //=======================================================================
@@ -30,7 +30,7 @@ inline Standard_Boolean ShapeFix_Wireframe::StatusWireGaps(const ShapeExtend_Sta
 
 inline Standard_Boolean ShapeFix_Wireframe::StatusSmallEdges(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusSmallEdges, status);
+  return ShapeExtend1::DecodeStatus(myStatusSmallEdges, status);
 }
 
 //=======================================================================

@@ -23,7 +23,7 @@
 //! 0 <= aDimidx <= myDimensionCount - 1
 struct PSO_Particle1
 {
-  Standard_Real* Position; // Data for pointers allocated within PSOParticlesPool instance.
+  Standard_Real* Position1; // Data for pointers allocated within PSOParticlesPool instance.
   Standard_Real* Velocity; // Not need to delete it manually.
   Standard_Real* BestPosition;
   Standard_Real  Distance;
@@ -33,7 +33,7 @@ struct PSO_Particle1
   {
     Distance     = RealLast();
     BestDistance = RealLast();
-    Position     = 0;
+    Position1     = 0;
     Velocity     = 0;
     BestPosition = 0;
   }

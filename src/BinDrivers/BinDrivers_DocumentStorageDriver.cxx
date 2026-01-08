@@ -111,7 +111,7 @@ void BinDrivers_DocumentStorageDriver::EnableQuickPartWriting(
 
 void BinDrivers_DocumentStorageDriver::Clear()
 {
-  // Clear NamedShape driver
+  // Clear NamedShape1 driver
   Handle(BinMDF_ADriver) aDriver;
   if (myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver))
   {

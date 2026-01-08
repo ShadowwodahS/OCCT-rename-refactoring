@@ -71,7 +71,7 @@ Standard_Integer TColStd_PackedMapOfInteger::TColStd_intMapNode_findNext(
     }
     theMask = (aMask << 1);
   }
-  return nZeros + aNode->Key();
+  return nZeros + aNode->Key1();
 }
 
 //=================================================================================================
@@ -119,7 +119,7 @@ Standard_Integer TColStd_PackedMapOfInteger::TColStd_intMapNode_findPrev(
     }
     theMask = (aMask >> 1);
   }
-  return (31 - nZeros) + aNode->Key();
+  return (31 - nZeros) + aNode->Key1();
 }
 
 //=================================================================================================
@@ -147,7 +147,7 @@ TColStd_PackedMapOfInteger& TColStd_PackedMapOfInteger::Assign(
       }
       //       TColStd_MapIteratorOfPackedMapOfInteger anIt (theOther);
       //       for (; anIt.More(); anIt.Next())
-      //         Add (anIt.Key());
+      //         Add (anIt.Key1());
     }
   }
   myExtent = theOther.myExtent;
@@ -334,7 +334,7 @@ Standard_Integer TColStd_PackedMapOfInteger::GetMinimalMapped() const
   {
     for (const TColStd_intMapNode* p = myData1[i]; p != 0L; p = p->Next())
     {
-      const Standard_Integer aKey = p->Key();
+      const Standard_Integer aKey = p->Key1();
       if (aResult > aKey)
       {
         aResult    = aKey;
@@ -368,7 +368,7 @@ Standard_Integer TColStd_PackedMapOfInteger::GetMaximalMapped() const
   {
     for (const TColStd_intMapNode* p = myData1[i]; p != 0L; p = p->Next())
     {
-      const Standard_Integer aKey = p->Key();
+      const Standard_Integer aKey = p->Key1();
       if (aResult < aKey)
       {
         aResult    = aKey;
@@ -412,7 +412,7 @@ void TColStd_PackedMapOfInteger::Union(const TColStd_PackedMapOfInteger& theMap1
       while (p1 != 0L)
       {
         // Find aKey - the base address of currently iterated block
-        const Standard_Integer aKey     = p1->Key();
+        const Standard_Integer aKey     = p1->Key1();
         const Standard_Integer aKeyInt  = packedKeyIndex(aKey);
         unsigned int           aNewMask = p1->Mask();
         unsigned int           aNewData = p1->Data();
@@ -448,7 +448,7 @@ void TColStd_PackedMapOfInteger::Union(const TColStd_PackedMapOfInteger& theMap1
       while (p2 != 0L)
       {
         // Find aKey - the base address of currently iterated block
-        const Standard_Integer aKey    = p2->Key();
+        const Standard_Integer aKey    = p2->Key1();
         const Standard_Integer aKeyInt = packedKeyIndex(aKey);
         // Find the corresponding block in the 1st map
         const TColStd_intMapNode* p1 = theMap1.myData1[HashCode(aKeyInt, nBuckets1)];
@@ -502,7 +502,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::Unite(const TColStd_PackedMapOfInte
     while (p2 != 0L)
     {
       // Find aKey - the base address of currently iterated block of integers
-      const Standard_Integer aKey    = p2->Key();
+      const Standard_Integer aKey    = p2->Key1();
       const Standard_Integer aKeyInt = packedKeyIndex(aKey);
       // Find the corresponding block in the 1st (this) map
       size_t              aHashCode = HashCode(aKeyInt, myNbBuckets);
@@ -584,7 +584,7 @@ void TColStd_PackedMapOfInteger::Intersection(const TColStd_PackedMapOfInteger& 
       while (p1 != 0L)
       {
         // Find aKey - the base address of currently iterated block
-        const Standard_Integer aKey    = p1->Key();
+        const Standard_Integer aKey    = p1->Key1();
         const Standard_Integer aKeyInt = packedKeyIndex(aKey);
         // Find the corresponding block in the 2nd map
         const TColStd_intMapNode* p2 = aData2[HashCode(aKeyInt, nBuckets2)];
@@ -644,7 +644,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::Intersect(const TColStd_PackedMapOf
     while (p1 != 0L)
     {
       // Find aKey - the base address of currently iterated block of integers
-      const Standard_Integer aKey    = p1->Key();
+      const Standard_Integer aKey    = p1->Key1();
       const Standard_Integer aKeyInt = packedKeyIndex(aKey);
       // Find the corresponding block in the 2nd map
       const TColStd_intMapNode* p2 = theMap.myData1[HashCode(aKeyInt, nBuckets2)];
@@ -723,7 +723,7 @@ void TColStd_PackedMapOfInteger::Subtraction(const TColStd_PackedMapOfInteger& t
       while (p1 != 0L)
       {
         // Find aKey - the base address of currently iterated block of integers
-        const Standard_Integer aKey     = p1->Key();
+        const Standard_Integer aKey     = p1->Key1();
         const Standard_Integer aKeyInt  = packedKeyIndex(aKey);
         unsigned int           aNewMask = p1->Mask();
         unsigned int           aNewData = p1->Data();
@@ -784,7 +784,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::Subtract(const TColStd_PackedMapOfI
       while (p1 != 0L)
       {
         // Find aKey - the base address of currently iterated block of integers
-        const Standard_Integer aKey    = p1->Key();
+        const Standard_Integer aKey    = p1->Key1();
         const Standard_Integer aKeyInt = packedKeyIndex(aKey);
         TColStd_intMapNode*    pNext   = p1->Next();
         // Find the corresponding block in the 2nd map
@@ -864,7 +864,7 @@ void TColStd_PackedMapOfInteger::Difference(const TColStd_PackedMapOfInteger& th
       while (p1 != 0L)
       {
         // Find aKey - the base address of currently iterated block of integers
-        const Standard_Integer aKey     = p1->Key();
+        const Standard_Integer aKey     = p1->Key1();
         const Standard_Integer aKeyInt  = packedKeyIndex(aKey);
         unsigned int           aNewMask = p1->Mask();
         unsigned int           aNewData = p1->Data();
@@ -904,7 +904,7 @@ void TColStd_PackedMapOfInteger::Difference(const TColStd_PackedMapOfInteger& th
       while (p2 != 0L)
       {
         // Find aKey - the base address of currently iterated block
-        const Standard_Integer aKey    = p2->Key();
+        const Standard_Integer aKey    = p2->Key1();
         const Standard_Integer aKeyInt = packedKeyIndex(aKey);
         // Find the corresponding block in the 1st map
         const TColStd_intMapNode* p1 = theMap1.myData1[HashCode(aKeyInt, nBuckets1)];
@@ -964,7 +964,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::Differ(const TColStd_PackedMapOfInt
     while (p2 != 0L)
     {
       // Find aKey - the base address of currently iterated block
-      const Standard_Integer aKey    = p2->Key();
+      const Standard_Integer aKey    = p2->Key1();
       const Standard_Integer aKeyInt = packedKeyIndex(aKey);
 
       // Find the corresponding block in the 1st map
@@ -1040,7 +1040,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::IsEqual(const TColStd_PackedMapOfIn
     while (p1 != 0L)
     {
       // Find aKey - the base address of currently iterated block of integers
-      const Standard_Integer aKey    = p1->Key();
+      const Standard_Integer aKey    = p1->Key1();
       const Standard_Integer aKeyInt = packedKeyIndex(aKey);
       TColStd_intMapNode*    pNext   = p1->Next();
       // Find the corresponding block in the 2nd map
@@ -1090,7 +1090,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::IsSubset(
     while (p1 != 0L)
     {
       // Find aKey - the base address of currently iterated block of integers
-      const Standard_Integer aKey    = p1->Key();
+      const Standard_Integer aKey    = p1->Key1();
       const Standard_Integer aKeyInt = packedKeyIndex(aKey);
       TColStd_intMapNode*    pNext   = p1->Next();
       // Find the corresponding block in the 2nd map
@@ -1135,7 +1135,7 @@ Standard_Boolean TColStd_PackedMapOfInteger::HasIntersection(
     while (p1 != 0L)
     {
       // Find aKey - the base address of currently iterated block of integers
-      const Standard_Integer aKey    = p1->Key();
+      const Standard_Integer aKey    = p1->Key1();
       const Standard_Integer aKeyInt = packedKeyIndex(aKey);
       TColStd_intMapNode*    pNext   = p1->Next();
       // Find the corresponding block in the 2nd map
@@ -1171,7 +1171,7 @@ void TColStd_PackedMapOfInteger::Statistics(Standard_OStream& theStream) const
   NCollection_Array1<Standard_Integer> aSizes(0, myNbPackedMapNodes);
   aSizes.Init(0);
 
-  theStream << "\nStatistics for the first Key\n";
+  theStream << "\nStatistics for the first Key1\n";
   Standard_Integer aNbNonEmpty = 0;
   for (Standard_Integer aBucketIter = 0; aBucketIter <= myNbBuckets; ++aBucketIter)
   {

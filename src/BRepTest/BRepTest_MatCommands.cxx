@@ -290,10 +290,10 @@ void DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice)
 }
 
 //==========================================================================
-// function BRepTest:: MatCommands
+// function BRepTest1:: MatCommands
 //==========================================================================
 
-void BRepTest::MatCommands(DrawInterpreter& theCommands)
+void BRepTest1::MatCommands(DrawInterpreter& theCommands)
 {
   theCommands.Add("topoload", "load face: topoload face [-approx]", __FILE__, topoload);
   theCommands.Add("drawcont", "display current contour", __FILE__, drawcont);

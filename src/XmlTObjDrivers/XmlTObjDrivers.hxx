@@ -26,7 +26,7 @@ class AppManager;
 
 //! Class for registering storage/retrieval drivers for TObj XML persistence
 
-class XmlTObjDrivers
+class XmlTObjDrivers1
 {
 public:
   //! Returns a driver corresponding to <aGUID>. Used for plugin.

@@ -22,15 +22,15 @@
 
 #include <Draw_Interpretor.hxx>
 
-//! Contains commands to activate package ShapeExtend
+//! Contains commands to activate package ShapeExtend1
 //! List of DRAW commands and corresponding functionalities:
-//! sortcompound - ShapeExtend_Explorer::SortedCompound
-class SWDRAW_ShapeExtend
+//! sortcompound - Explorer::SortedCompound
+class ShapeExtend2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads commands defined in ShapeExtend
+  //! Loads commands defined in ShapeExtend1
   Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:

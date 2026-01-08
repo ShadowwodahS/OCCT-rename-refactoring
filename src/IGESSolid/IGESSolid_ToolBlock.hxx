@@ -33,7 +33,7 @@ class Interface_Check;
 class Interface_CopyTool;
 class IGESData_IGESDumper;
 
-//! Tool to work on a Block. Called by various Modules
+//! Tool to work on a Block1. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
 class BlockTool
 {
@@ -53,7 +53,7 @@ public:
   Standard_EXPORT void WriteOwnParams(const Handle(IGESSolid_Block)& ent,
                                       IGESData_IGESWriter&           IW) const;
 
-  //! Lists the Entities shared by a Block <ent>, from
+  //! Lists the Entities shared by a Block1 <ent>, from
   //! its specific (own) parameters
   Standard_EXPORT void OwnShared(const Handle(IGESSolid_Block)& ent,
                                  Interface_EntityIterator&      iter) const;

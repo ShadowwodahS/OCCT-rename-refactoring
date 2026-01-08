@@ -71,7 +71,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
                                       const Standard_Boolean         DisOnP)
 {
   // Compute the chamfer surface(cone)
-  Ax3 PosPl = Pln.Position();
+  Ax3 PosPl = Pln.Position1();
   Dir3d Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d norf  = Dpl;
   if (Ofpl == TopAbs_REVERSED)
@@ -246,7 +246,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     if (!plandab)
     {
       gcyl->VReverse(); // be careful : the SemiAngle was changed
-      ChamfAx3 = gcyl->Position();
+      ChamfAx3 = gcyl->Position1();
     }
 
     // changes due to the fact we have reversed the V direction of
@@ -423,7 +423,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     if (!plandab)
     {
       gcon->VReverse(); // be careful : the SemiAngle was changed
-      ChamfAx3 = gcon->Position();
+      ChamfAx3 = gcon->Position1();
       SemiAngl = gcon->SemiAngle();
     }
 

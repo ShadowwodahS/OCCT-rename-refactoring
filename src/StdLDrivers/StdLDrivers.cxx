@@ -31,12 +31,12 @@ static Standard_GUID StdLRetrievalDriver("bd696001-5b34-11d1-b5ba-00a0c9064368")
 // purpose  : Depending from the ID, returns a list of storage
 //           or retrieval attribute drivers. Used for plugin
 //=======================================================================
-Handle(RefObject) StdLDrivers::Factory(const Standard_GUID& aGUID)
+Handle(RefObject) StdLDrivers1::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == StdLRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "StdLDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "StdLDrivers1 : Retrieval Plugin" << std::endl;
 #endif
 
     static Handle(StdLDrivers_DocumentRetrievalDriver) model_rd =
@@ -44,12 +44,12 @@ Handle(RefObject) StdLDrivers::Factory(const Standard_GUID& aGUID)
     return model_rd;
   }
 
-  throw ExceptionBase("StdLDrivers : unknown GUID");
+  throw ExceptionBase("StdLDrivers1 : unknown GUID");
 }
 
 //=================================================================================================
 
-void StdLDrivers::DefineFormat(const Handle(AppManager)& theApp)
+void StdLDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("OCC-StdLite",
                        "Lite OCAF Document",
@@ -62,10 +62,10 @@ void StdLDrivers::DefineFormat(const Handle(AppManager)& theApp)
 // function : BindTypes
 // purpose  : Register types
 //=======================================================================
-void StdLDrivers::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
+void StdLDrivers1::BindTypes(MapOfInstantiators& theMap)
 {
-  StdLPersistent::BindTypes(theMap);
+  StdLPersistent1::BindTypes(theMap);
 }
 
 // Declare entry point PLUGINFACTORY
-PLUGIN(StdLDrivers)
+PLUGIN(StdLDrivers1)

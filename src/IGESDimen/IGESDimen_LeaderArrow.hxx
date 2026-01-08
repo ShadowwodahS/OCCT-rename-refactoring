@@ -54,7 +54,7 @@ public:
                             const Coords2d&                      position,
                             const Handle(TColgp_HArray1OfXY)& segments);
 
-  //! Changes FormNumber (indicates the Shape of the Arrow)
+  //! Changes FormNumber (indicates the Shape of the Arrow2)
   //! Error if not in range [0-12]
   Standard_EXPORT void SetFormNumber(const Standard_Integer form);
 

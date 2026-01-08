@@ -500,7 +500,7 @@ protected:
 
 class Coords3d;
 
-struct NCollection_CellFilter_InspectorXYZ
+struct CellInspectorXYZ
 {
   //! Points dimension
   enum
@@ -529,7 +529,7 @@ struct NCollection_CellFilter_InspectorXYZ
 
 class Coords2d;
 
-struct NCollection_CellFilter_InspectorXY
+struct CellInspectorXY
 {
   //! Points dimension
   enum

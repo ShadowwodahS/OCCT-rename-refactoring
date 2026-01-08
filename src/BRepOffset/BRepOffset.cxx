@@ -56,7 +56,7 @@ Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
   if (TheType == STANDARD_TYPE(GeomPlane))
   {
     Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(Surface);
-    Vector3d             T = P->Position().XDirection() ^ P->Position().YDirection();
+    Vector3d             T = P->Position1().XDirection() ^ P->Position1().YDirection();
     T *= Offset;
     Result = Handle(GeomPlane)::DownCast(P->Translated(T));
   }
@@ -64,7 +64,7 @@ Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
   {
     Handle(Geom_CylindricalSurface) C      = Handle(Geom_CylindricalSurface)::DownCast(Surface);
     Standard_Real                   Radius = C->Radius();
-    Ax3                          Axis   = C->Position();
+    Ax3                          Axis   = C->Position1();
     if (Axis.Direct())
       Radius += Offset;
     else
@@ -89,7 +89,7 @@ Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
     Handle(Geom_ConicalSurface) C      = Handle(Geom_ConicalSurface)::DownCast(Surface);
     Standard_Real               Alpha  = C->SemiAngle();
     Standard_Real               Radius = C->RefRadius() + Offset * Cos(Alpha);
-    Ax3                      Axis   = C->Position();
+    Ax3                      Axis   = C->Position1();
     if (Radius >= 0.)
     {
       Vector3d Z(Axis.Direction());
@@ -111,7 +111,7 @@ Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
   {
     Handle(Geom_SphericalSurface) S      = Handle(Geom_SphericalSurface)::DownCast(Surface);
     Standard_Real                 Radius = S->Radius();
-    Ax3                        Axis   = S->Position();
+    Ax3                        Axis   = S->Position1();
     if (Axis.Direct())
       Radius += Offset;
     else
@@ -137,7 +137,7 @@ Handle(GeomSurface) BRepOffset1::Surface(const Handle(GeomSurface)& Surface,
     Handle(Geom_ToroidalSurface) S           = Handle(Geom_ToroidalSurface)::DownCast(Surface);
     Standard_Real                MajorRadius = S->MajorRadius();
     Standard_Real                MinorRadius = S->MinorRadius();
-    Ax3                       Axis        = S->Position();
+    Ax3                       Axis        = S->Position1();
     if (MinorRadius < MajorRadius)
     { // A FINIR
       if (Axis.Direct())

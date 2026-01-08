@@ -130,21 +130,21 @@ void IFSelect_Editor::PrintNames(Standard_OStream& S) const
   S << "****    Nb Values = " << nb << "    ****    Names / Labels" << std::endl;
   S << " Num ";
   if (themaxsh > 0)
-    S << "Short" << Interface_MSG::Blanks("Short", themaxsh) << " ";
-  S << "Complete" << Interface_MSG::Blanks("Complete", themaxco) << "  Label" << std::endl;
+    S << "Short" << MessageSystem::Blanks("Short", themaxsh) << " ";
+  S << "Complete" << MessageSystem::Blanks("Complete", themaxco) << "  Label" << std::endl;
 
   for (i = 1; i <= nb; i++)
   {
     Handle(Interface_TypedValue) tv = TypedValue(i);
     if (tv.IsNull())
       continue;
-    S << Interface_MSG::Blanks(i, 3) << i << " ";
+    S << MessageSystem::Blanks(i, 3) << i << " ";
     if (themaxsh > 0)
     {
       const AsciiString1& sho = theshorts(i);
-      S << sho << Interface_MSG::Blanks(sho.ToCString(), themaxsh) << " ";
+      S << sho << MessageSystem::Blanks(sho.ToCString(), themaxsh) << " ";
     }
-    S << tv->Name() << Interface_MSG::Blanks(tv->Name(), themaxco) << "  " << tv->Label()
+    S << tv->Name() << MessageSystem::Blanks(tv->Name(), themaxco) << "  " << tv->Label()
       << std::endl;
   }
 }
@@ -157,12 +157,12 @@ void IFSelect_Editor::PrintDefs(Standard_OStream& S, const Standard_Boolean labe
     << "  /  Definitions" << std::endl;
   S << " Num ";
   if (labels)
-    S << "Label" << Interface_MSG::Blanks("Label", themaxla);
+    S << "Label" << MessageSystem::Blanks("Label", themaxla);
   else
   {
     if (themaxsh > 0)
-      S << "Short" << Interface_MSG::Blanks("Short", themaxsh + 1);
-    S << "Complete" << Interface_MSG::Blanks("Complete", themaxco);
+      S << "Short" << MessageSystem::Blanks("Short", themaxsh + 1);
+    S << "Complete" << MessageSystem::Blanks("Complete", themaxco);
   }
   S << "  Edit Mode  &  Definition" << std::endl;
 
@@ -171,17 +171,17 @@ void IFSelect_Editor::PrintDefs(Standard_OStream& S, const Standard_Boolean labe
     Handle(Interface_TypedValue) tv = TypedValue(i);
     if (tv.IsNull())
       continue;
-    S << " " << Interface_MSG::Blanks(i, 3) << i << " ";
+    S << " " << MessageSystem::Blanks(i, 3) << i << " ";
     if (labels)
-      S << tv->Label() << Interface_MSG::Blanks(tv->Label(), themaxla);
+      S << tv->Label() << MessageSystem::Blanks(tv->Label(), themaxla);
     else
     {
       if (themaxsh > 0)
       {
         const AsciiString1& sho = theshorts(i);
-        S << sho << Interface_MSG::Blanks(sho.ToCString(), themaxsh) << " ";
+        S << sho << MessageSystem::Blanks(sho.ToCString(), themaxsh) << " ";
       }
-      S << tv->Name() << Interface_MSG::Blanks(tv->Name(), themaxco);
+      S << tv->Name() << MessageSystem::Blanks(tv->Name(), themaxco);
     }
 
     S << " ";

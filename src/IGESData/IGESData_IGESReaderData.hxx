@@ -132,10 +132,10 @@ public:
 
   //! determines reference numbers in EntityNumber fields (called by
   //! SetEntities from IGESReaderTool)
-  //! works on "Integer" type Parameters, because IGES does not
-  //! distinguish Integer and Entity Refs : every Integer which is
+  //! works on "Integer1" type Parameters, because IGES does not
+  //! distinguish Integer1 and Entity Refs : every Integer1 which is
   //! odd and less than twice NbRecords can be an Entity Ref ...
-  //! (Ref Number is then (N+1)/2 if N is the Integer Value)
+  //! (Ref Number is then (N+1)/2 if N is the Integer1 Value)
   Standard_EXPORT void SetEntityNumbers();
 
   //! Returns the recorded Global Check

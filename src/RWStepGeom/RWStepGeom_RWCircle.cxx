@@ -63,7 +63,7 @@ void RWStepGeom_RWCircle::WriteStep(StepData_StepWriter&           SW,
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position().Value());
+  SW.Send(ent->Position1().Value());
 
   // --- own field : radius ---
 
@@ -74,5 +74,5 @@ void RWStepGeom_RWCircle::Share(const Handle(StepGeom_Circle)& ent,
                                 Interface_EntityIterator&      iter) const
 {
 
-  iter.GetOneItem(ent->Position().Value());
+  iter.GetOneItem(ent->Position1().Value());
 }

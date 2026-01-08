@@ -82,7 +82,7 @@ Handle(TDF_Attribute) XmlMDataXtd_ConstraintDriver::NewEmpty() const
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
 Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -101,7 +101,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
     {
       aMsgString =
         UtfString("XmlMDataXtd_ConstraintDriver: "
-                                   "Cannot retrieve reference on Integer attribute from \"")
+                                   "Cannot retrieve reference on Integer1 attribute from \"")
         + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
       return Standard_False;
@@ -126,11 +126,11 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
     Standard_CString aGs = Standard_CString(aDOMStr.GetString());
 
     // first geometry
-    if (!XmlObjMgt::GetInteger(aGs, aNb))
+    if (!XmlObjMgt1::GetInteger(aGs, aNb))
     {
       aMsgString =
         UtfString(
-          "XmlMDataXtd_ConstraintDriver: Cannot retrieve reference on first Geometry from \"")
+          "XmlMDataXtd_ConstraintDriver: Cannot retrieve reference on first Geometry1 from \"")
         + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
       return Standard_False;
@@ -149,7 +149,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
       aC->SetGeometry(i, aG);
 
       // next geometry
-      if (!XmlObjMgt::GetInteger(aGs, aNb))
+      if (!XmlObjMgt1::GetInteger(aGs, aNb))
         aNb = 0;
       i++;
     }
@@ -202,7 +202,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                         XmlObjMgt_Persistent&        theTarget,
+                                         PersistentStorage&        theTarget,
                                          XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(TDataXtd_Constraint) aC     = Handle(TDataXtd_Constraint)::DownCast(theSource);

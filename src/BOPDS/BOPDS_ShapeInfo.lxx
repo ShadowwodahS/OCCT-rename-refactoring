@@ -154,10 +154,10 @@ inline void BOPDS_ShapeInfo::SetReference(const Standard_Integer theI)
 }
 
 //=======================================================================
-// function : Reference
+// function : Reference1
 // purpose  :
 //=======================================================================
-inline Standard_Integer BOPDS_ShapeInfo::Reference() const
+inline Standard_Integer BOPDS_ShapeInfo::Reference1() const
 {
   return myReference;
 }

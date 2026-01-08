@@ -112,7 +112,7 @@ public:
   //! Record a message for shape S
   //! Shape S should be one of subshapes of original shape
   //! (or whole one), but not one of intermediate shapes
-  //! Records only if Message() is not Null
+  //! Records only if Message1() is not Null
   Standard_EXPORT void AddMessage(const TopoShape&   S,
                                   const Message_Msg&    msg,
                                   const Message_Gravity gravity = Message_Warning);

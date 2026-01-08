@@ -567,7 +567,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     Vector3d norface = norpl;
     if (face[pivot].Orientation() == TopAbs_REVERSED)
       norface.Reverse();
-    Vector3d norcoin = gpl->Pln().Position().XDirection().Crossed(gpl->Pln().Position().YDirection());
+    Vector3d norcoin = gpl->Pln().Position1().XDirection().Crossed(gpl->Pln().Position1().YDirection());
     if (norcoin.Dot(norface) <= 0.)
       coin->ChangeOrientation() = TopAbs_REVERSED;
     else

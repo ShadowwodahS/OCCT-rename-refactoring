@@ -26,7 +26,7 @@
 class Interface_IntVal;
 DEFINE_STANDARD_HANDLE(Interface_IntVal, RefObject)
 
-//! An Integer through a Handle (i.e. managed as TShared)
+//! An Integer1 through a Handle (i.e. managed as TShared)
 class Interface_IntVal : public RefObject
 {
 

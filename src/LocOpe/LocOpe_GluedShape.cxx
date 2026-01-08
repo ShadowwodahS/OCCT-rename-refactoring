@@ -92,7 +92,7 @@ void LocOpe_GluedShape::MapEdgeAndVertices()
 
   for (; itm.More(); itm.Next())
   {
-    const TopoFace& fac = TopoDS::Face(itm.Key());
+    const TopoFace& fac = TopoDS::Face(itm.Key1());
     for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
     {
       const TopoEdge& edg = TopoDS::Edge(exp.Current());

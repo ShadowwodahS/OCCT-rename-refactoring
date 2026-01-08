@@ -331,21 +331,21 @@ static void ComputeProperties(const TopoShape& theS, GeometricProperties& theGCo
   for (anExp.Init(theS, TopAbs_SOLID); anExp.More(); anExp.Next())
   {
     GeometricProperties aG;
-    BRepGProp::VolumeProperties(anExp.Current(), aG, Standard_True);
+    BRepGProp1::VolumeProperties(anExp.Current(), aG, Standard_True);
     theGCommon.Add(aG);
   }
 
   for (anExp.Init(theS, TopAbs_FACE, TopAbs_SOLID); anExp.More(); anExp.Next())
   {
     GeometricProperties aG;
-    BRepGProp::SurfaceProperties(anExp.Current(), aG, Standard_True);
+    BRepGProp1::SurfaceProperties(anExp.Current(), aG, Standard_True);
     theGCommon.Add(aG);
   }
 
   for (anExp.Init(theS, TopAbs_EDGE, TopAbs_FACE); anExp.More(); anExp.Next())
   {
     GeometricProperties aG;
-    BRepGProp::LinearProperties(anExp.Current(), aG, Standard_True);
+    BRepGProp1::LinearProperties(anExp.Current(), aG, Standard_True);
     theGCommon.Add(aG);
   }
 
@@ -392,11 +392,11 @@ static void ComputePCA(const TopoShape&    theS,
   Box2 aShapeBox;
   if (theIsOptimal)
   {
-    BRepBndLib::AddOptimal(aST, aShapeBox, theIsTriangulationUsed, theIsShapeToleranceUsed);
+    BRepBndLib1::AddOptimal(aST, aShapeBox, theIsTriangulationUsed, theIsShapeToleranceUsed);
   }
   else
   {
-    BRepBndLib::Add(aST, aShapeBox);
+    BRepBndLib1::Add(aST, aShapeBox);
   }
   if (aShapeBox.IsVoid())
   {
@@ -472,7 +472,7 @@ static void ComputePCA(const TopoShape&    theS,
 
 //=================================================================================================
 
-void BRepBndLib::AddOBB(const TopoShape&    theS,
+void BRepBndLib1::AddOBB(const TopoShape&    theS,
                         OrientedBox&               theOBB,
                         const Standard_Boolean theIsTriangulationUsed,
                         const Standard_Boolean theIsOptimal,

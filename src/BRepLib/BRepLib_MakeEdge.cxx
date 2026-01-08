@@ -528,7 +528,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
 
 void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C, const Point3d& P1, const Point3d& P2)
 {
-  Standard_Real Tol = BRepLib::Precision();
+  Standard_Real Tol = BRepLib1::Precision();
 
   ShapeBuilder  B;
   TopoVertex V1, V2;
@@ -577,7 +577,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
                             const Standard_Real       p1,
                             const Standard_Real       p2)
 {
-  Standard_Real Tol = BRepLib::Precision();
+  Standard_Real Tol = BRepLib1::Precision();
   ShapeBuilder  B;
 
   TopoVertex V1, V2;
@@ -668,7 +668,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& CC,
   if (!p2inf)
     P2 = aCA.Value(p2);
 
-  Standard_Real preci = BRepLib::Precision();
+  Standard_Real preci = BRepLib1::Precision();
   ShapeBuilder  B;
 
   // check for closed curve
@@ -806,7 +806,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
                             const Point3d&               P1,
                             const Point3d&               P2)
 {
-  Standard_Real Tol = BRepLib::Precision();
+  Standard_Real Tol = BRepLib1::Precision();
 
   ShapeBuilder  B;
   TopoVertex V1, V2;
@@ -857,7 +857,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
                             const Standard_Real         p1,
                             const Standard_Real         p2)
 {
-  Standard_Real Tol = BRepLib::Precision();
+  Standard_Real Tol = BRepLib1::Precision();
   ShapeBuilder  B;
 
   TopoVertex V1, V2;
@@ -951,7 +951,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& CC,
     P2   = S->Value(P2d2.X(), P2d2.Y());
   }
 
-  Standard_Real preci = BRepLib::Precision();
+  Standard_Real preci = BRepLib1::Precision();
   ShapeBuilder  B;
 
   // check for closed curve

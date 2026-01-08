@@ -33,8 +33,8 @@ public:
   Standard_EXPORT virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;
 
   //! Checks whether sensitive overlaps current selecting volume.
-  virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                   SelectBasics_PickResult& thePickResult) Standard_OVERRIDE
+  virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                   PickResult& thePickResult) Standard_OVERRIDE
   {
     (void)theMgr;
     (void)thePickResult;

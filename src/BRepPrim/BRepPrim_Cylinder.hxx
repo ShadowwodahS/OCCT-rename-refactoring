@@ -33,14 +33,14 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! the STEP definition
-  //! Position : center of a Face and Axis
+  //! Position1 : center of a Face and Axis
   //! Radius : radius of cylinder
   //! Height : distance between faces
   //! on positive side
   //!
   //! Errors : Height < Resolution
   //! Radius < Resolution
-  Standard_EXPORT BRepPrim_Cylinder(const Frame3d&       Position,
+  Standard_EXPORT BRepPrim_Cylinder(const Frame3d&       Position1,
                                     const Standard_Real Radius,
                                     const Standard_Real Height);
 

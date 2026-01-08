@@ -47,7 +47,7 @@ TPrsStd_NamedShapeDriver::TPrsStd_NamedShapeDriver() {}
 //=================================================================================================
 
 Standard_Boolean TPrsStd_NamedShapeDriver::Update(const DataLabel&               aLabel,
-                                                  Handle(VisualEntity)& AIS)
+                                                  Handle(VisualEntity)& AIS1)
 {
   Handle(ShapeAttribute) NS;
 
@@ -65,11 +65,11 @@ Standard_Boolean TPrsStd_NamedShapeDriver::Update(const DataLabel&              
   TopLoc_Location L = S.Location();
 
   Handle(VisualShape) AISShape;
-  if (AIS.IsNull())
+  if (AIS1.IsNull())
     AISShape = new VisualShape(S);
   else
   {
-    AISShape = Handle(VisualShape)::DownCast(AIS);
+    AISShape = Handle(VisualShape)::DownCast(AIS1);
     if (AISShape.IsNull())
     {
       AISShape = new VisualShape(S);
@@ -104,6 +104,6 @@ Standard_Boolean TPrsStd_NamedShapeDriver::Update(const DataLabel&              
 
     AISShape->SetInfiniteState(S.Infinite());
   }
-  AIS = AISShape;
+  AIS1 = AISShape;
   return Standard_True;
 }

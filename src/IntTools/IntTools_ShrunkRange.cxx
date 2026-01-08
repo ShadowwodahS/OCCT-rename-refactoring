@@ -144,7 +144,7 @@ void IntTools_ShrunkRange::Perform()
   // compute the shrunk range - part of the edge not covered
   // by the tolerance spheres of its vertices
   BRepAdaptor_Curve aBAC(myEdge);
-  if (!BRepLib::FindValidRange(aBAC, aTolE, myT1, aP1, aTolV1, myT2, aP2, aTolV2, myTS1, myTS2))
+  if (!BRepLib1::FindValidRange(aBAC, aTolE, myT1, aP1, aTolV1, myT2, aP2, aTolV2, myTS1, myTS2))
   {
     // no valid range
     return;

@@ -42,7 +42,7 @@ class TopoEdge;
 //! following:
 //! projecting curves on surface,
 //! adjusting curve to have given start and end points. P
-class ShapeConstruct
+class ShapeConstruct1
 {
 public:
   DEFINE_STANDARD_ALLOC

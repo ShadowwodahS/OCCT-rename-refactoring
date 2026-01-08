@@ -196,7 +196,7 @@ TopoShape IGESToBRep_CurveAndSurface::TransferCurveAndSurface(
       try {
         OCC_CATCH_SIGNALS
         Standard_Real Eps = GetEpsGeom()*GetUnitFactor();
-        BRepLib::SameParameter(res,Eps);
+        BRepLib1::SameParameter(res,Eps);
       }
       catch(ExceptionBase) {
       Message_Msg msg1010("IGES_1010");

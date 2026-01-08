@@ -550,7 +550,7 @@ void SelectMgr_SelectionManager::buildBVH(const Handle(SelectionContainer)& theS
   }
   else
   {
-    StdSelect_BRepSelectionTool::PreBuildBVH(theSelection);
+    BRepSelectionTool::PreBuildBVH(theSelection);
   }
 }
 

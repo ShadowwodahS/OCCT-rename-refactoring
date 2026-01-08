@@ -50,7 +50,7 @@ Handle(TDF_Attribute) XmlMDataStd_ByteArrayDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const PersistentStorage&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable& theRelocTable) const
 {
@@ -106,11 +106,11 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
   Handle(TColStd_HArray1OfByte) hArr = new TColStd_HArray1OfByte(aFirstInd, aLastInd);
   TColStd_Array1OfByte&         arr  = hArr->ChangeArray1();
 
-  Standard_CString aValueStr = Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+  Standard_CString aValueStr = Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
   Standard_Integer i = arr.Lower(), upper = arr.Upper();
   for (; i <= upper; i++)
   {
-    if (!XmlObjMgt::GetInteger(aValueStr, aValue))
+    if (!XmlObjMgt1::GetInteger(aValueStr, aValue))
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve integer member"
@@ -155,7 +155,7 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_ByteArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                        XmlObjMgt_Persistent&        theTarget,
+                                        PersistentStorage&        theTarget,
                                         XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_ByteArray) aByteArray = Handle(TDataStd_ByteArray)::DownCast(theSource);
@@ -189,7 +189,7 @@ void XmlMDataStd_ByteArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
     }
 
     // Transfer the string (array of chars) to XML.
-    XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
   }
   if (aByteArray->ID() != TDataStd_ByteArray::GetID())
   {

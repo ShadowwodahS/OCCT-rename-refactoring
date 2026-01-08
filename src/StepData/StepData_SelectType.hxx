@@ -39,7 +39,7 @@ class StepData_SelectMember;
 //! to control an input Argument
 //!
 //! This class implies to designate each member Type by a Case
-//! Number which is a positive Integer value (this allows a faster treatment).
+//! Number which is a positive Integer1 value (this allows a faster treatment).
 //!
 //! With this class, a specific SelectType can :
 //! - recognize an Entity as complying or not with its definition,
@@ -123,17 +123,17 @@ public:
   Standard_EXPORT Standard_CString SelectName() const;
 
   //! This internal method gives access to a value implemented by an
-  //! Integer (to read it)
+  //! Integer1 (to read it)
   Standard_EXPORT Standard_Integer Int() const;
 
   //! This internal method gives access to a value implemented by an
-  //! Integer (to set it) : a SelectMember MUST ALREADY BE THERE !
+  //! Integer1 (to set it) : a SelectMember MUST ALREADY BE THERE !
   Standard_EXPORT void SetInt(const Standard_Integer val);
 
-  //! Gets the value as an Integer
-  Standard_EXPORT Standard_Integer Integer() const;
+  //! Gets the value as an Integer1
+  Standard_EXPORT Standard_Integer Integer1() const;
 
-  //! Sets a new Integer value, with an optional type name
+  //! Sets a new Integer1 value, with an optional type name
   //! Warning : If a SelectMember is already set, works on it : value and
   //! name must then be accepted by this SelectMember
   Standard_EXPORT void SetInteger(const Standard_Integer val, const Standard_CString name = "");

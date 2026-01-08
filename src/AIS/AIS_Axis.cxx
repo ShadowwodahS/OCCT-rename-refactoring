@@ -50,8 +50,8 @@ VisualAxis::VisualAxis(const Handle(GeomLine)& aComponent)
   myDrawer->SetLineAspect(new Prs3d_LineAspect(Quantity_NOC_RED, Aspect_TOL_DOTDASH, 1.));
   SetInfiniteState();
 
-  Dir3d        thedir  = myComponent->Position().Direction();
-  Point3d        loc     = myComponent->Position().Location();
+  Dir3d        thedir  = myComponent->Position1().Direction();
+  Point3d        loc     = myComponent->Position1().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
@@ -96,8 +96,8 @@ VisualAxis::VisualAxis(const Handle(Geom_Axis1Placement)& anAxis)
   myDrawer->SetLineAspect(new Prs3d_LineAspect(Quantity_NOC_RED, Aspect_TOL_DOTDASH, 1.));
   SetInfiniteState();
 
-  Dir3d        thedir  = myComponent->Position().Direction();
-  Point3d        loc     = myComponent->Position().Location();
+  Dir3d        thedir  = myComponent->Position1().Direction();
+  Point3d        loc     = myComponent->Position1().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
@@ -137,8 +137,8 @@ void VisualAxis::SetComponent(const Handle(GeomLine)& aComponent)
   myIsXYZAxis  = Standard_False;
   SetInfiniteState();
 
-  Dir3d        thedir  = myComponent->Position().Direction();
-  Point3d        loc     = myComponent->Position().Location();
+  Dir3d        thedir  = myComponent->Position1().Direction();
+  Point3d        loc     = myComponent->Position1().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
@@ -176,7 +176,7 @@ void VisualAxis::Compute(const Handle(PrsMgr_PresentationManager)&,
   }
   else
   {
-    DsgPrs_XYZAxisPresentation::Add(thePrs,
+    XYZAxisPresentation::Add(thePrs,
                                     myLineAspect,
                                     myDir,
                                     myVal,

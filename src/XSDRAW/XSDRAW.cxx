@@ -79,7 +79,7 @@ static void collectActiveWorkSessions(const Handle(ExchangeSession)& theWS,
   for (XSControl_WorkSessionMap::Iterator anIter(theWS->Context()); anIter.More(); anIter.Next())
   {
     Handle(ExchangeSession) aWS = Handle(ExchangeSession)::DownCast(anIter.Value());
-    collectActiveWorkSessions(aWS, anIter.Key(), theMap, Standard_False);
+    collectActiveWorkSessions(aWS, anIter.Key1(), theMap, Standard_False);
   }
 }
 } // namespace
@@ -93,7 +93,7 @@ static Standard_Integer XSTEPDRAWRUN(DrawInterpreter& di, Standard_Integer argc,
     mess.AssignCat(" ");
   }
 
-  const Handle(Message_Messenger)& aMsgMgr = Message::DefaultMessenger();
+  const Handle(Message_Messenger)& aMsgMgr = Message1::DefaultMessenger();
   Message_SequenceOfPrinters       aPrinters;
   aPrinters.Append(aMsgMgr->ChangePrinters());
   aMsgMgr->AddPrinter(new Draw_Printer(di));
@@ -109,7 +109,7 @@ static Standard_Integer XSTEPDRAWRUN(DrawInterpreter& di, Standard_Integer argc,
     return 0;
 }
 
-void XSDRAW::ChangeCommand(const Standard_CString oldname, const Standard_CString newname)
+void XSDRAW1::ChangeCommand(const Standard_CString oldname, const Standard_CString newname)
 {
   Standard_Integer num = 0;
   if (newname[0] != '\0')
@@ -123,12 +123,12 @@ void XSDRAW::ChangeCommand(const Standard_CString oldname, const Standard_CStrin
   theolds.Bind(oldname, num);
 }
 
-void XSDRAW::RemoveCommand(const Standard_CString oldname)
+void XSDRAW1::RemoveCommand(const Standard_CString oldname)
 {
   ChangeCommand(oldname, "");
 }
 
-Standard_Boolean XSDRAW::LoadSession()
+Standard_Boolean XSDRAW1::LoadSession()
 {
   if (deja)
     return Standard_False;
@@ -138,30 +138,30 @@ Standard_Boolean XSDRAW::LoadSession()
   WS->SetVars(new XSDRAW_Vars);
   thepilot->SetSession(WS);
 
-  IFSelect_Functions::Init();
-  XSControl_Functions::Init();
-  XSControl_FuncShape::Init();
-  XSAlgo::Init();
+  IFSelectFunctions::Init();
+  Functions1::Init();
+  ShapeFunctions::Init();
+  XSAlgo1::Init();
   //  XSDRAW_Shape::Init();   passe a present par theCommands
   return Standard_True;
 }
 
-void XSDRAW::LoadDraw(DrawInterpreter& theCommands)
+void XSDRAW1::LoadDraw(DrawInterpreter& theCommands)
 {
   if (dejald)
   {
     return;
   }
   dejald = 1;
-  //  Pour tout faire d un coup : BRepTest & cie:
+  //  Pour tout faire d un coup : BRepTest1 & cie:
   LoadSession();
 
   // skl: we make remove commands "x" and "exit" in order to this commands are
   //      performed not in IFSelect_SessionPilot but in standard Tcl interpretor
-  XSDRAW::RemoveCommand("x");
-  XSDRAW::RemoveCommand("exit");
+  XSDRAW1::RemoveCommand("x");
+  XSDRAW1::RemoveCommand("exit");
 
-  //  if (!getenv("WBHOSTTOP")) XSDRAW::RemoveCommand("xsnew");
+  //  if (!getenv("WBHOSTTOP")) XSDRAW1::RemoveCommand("xsnew");
   Handle(TColStd_HSequenceOfAsciiString) list = IFSelect_Activator::Commands(0);
   for (TColStd_HSequenceOfAsciiString::Iterator aCmdIter(*list); aCmdIter.More(); aCmdIter.Next())
   {
@@ -193,7 +193,7 @@ void XSDRAW::LoadDraw(DrawInterpreter& theCommands)
   }
 }
 
-Standard_Integer XSDRAW::Execute(const Standard_CString command, const Standard_CString varname)
+Standard_Integer XSDRAW1::Execute(const Standard_CString command, const Standard_CString varname)
 {
   char mess[100];
   Sprintf(mess, command, varname);
@@ -201,25 +201,25 @@ Standard_Integer XSDRAW::Execute(const Standard_CString command, const Standard_
   return 1; // stat ?
 }
 
-Handle(IFSelect_SessionPilot) XSDRAW::Pilot()
+Handle(IFSelect_SessionPilot) XSDRAW1::Pilot()
 {
   return thepilot;
 }
 
-void XSDRAW::SetSession(const Handle(ExchangeSession)& theSession)
+void XSDRAW1::SetSession(const Handle(ExchangeSession)& theSession)
 {
   Pilot()->SetSession(theSession);
 }
 
-const Handle(ExchangeSession) XSDRAW::Session()
+const Handle(ExchangeSession) XSDRAW1::Session()
 {
-  return XSControl::Session(thepilot);
+  return XSControl1::Session(thepilot);
 }
 
-void XSDRAW::SetController(const Handle(XSControl_Controller)& control)
+void XSDRAW1::SetController(const Handle(XSControl_Controller)& control)
 {
   if (thepilot.IsNull())
-    XSDRAW::LoadSession();
+    XSDRAW1::LoadSession();
   if (control.IsNull())
     std::cout << "XSTEP Controller not defined" << std::endl;
   else if (!Session().IsNull())
@@ -228,49 +228,49 @@ void XSDRAW::SetController(const Handle(XSControl_Controller)& control)
     std::cout << "XSTEP Session badly or not defined" << std::endl;
 }
 
-Handle(XSControl_Controller) XSDRAW::Controller()
+Handle(XSControl_Controller) XSDRAW1::Controller()
 {
   return Session()->NormAdaptor();
 }
 
-Standard_Boolean XSDRAW::SetNorm(const Standard_CString norm)
+Standard_Boolean XSDRAW1::SetNorm(const Standard_CString norm)
 {
   return Session()->SelectNorm(norm);
 }
 
-Handle(Interface_Protocol) XSDRAW::Protocol()
+Handle(Interface_Protocol) XSDRAW1::Protocol()
 {
   return thepilot->Session()->Protocol();
 }
 
-Handle(Interface_InterfaceModel) XSDRAW::Model()
+Handle(Interface_InterfaceModel) XSDRAW1::Model()
 {
   return thepilot->Session()->Model();
 }
 
-void XSDRAW::SetModel(const Handle(Interface_InterfaceModel)& model, const Standard_CString file)
+void XSDRAW1::SetModel(const Handle(Interface_InterfaceModel)& model, const Standard_CString file)
 {
   thepilot->Session()->SetModel(model);
   if (file && file[0] != '\0')
     thepilot->Session()->SetLoadedFile(file);
 }
 
-Handle(Interface_InterfaceModel) XSDRAW::NewModel()
+Handle(Interface_InterfaceModel) XSDRAW1::NewModel()
 {
   return Session()->NewModel();
 }
 
-Handle(RefObject) XSDRAW::Entity(const Standard_Integer num)
+Handle(RefObject) XSDRAW1::Entity(const Standard_Integer num)
 {
   return thepilot->Session()->StartingEntity(num);
 }
 
-Standard_Integer XSDRAW::Number(const Handle(RefObject)& ent)
+Standard_Integer XSDRAW1::Number(const Handle(RefObject)& ent)
 {
   return thepilot->Session()->StartingNumber(ent);
 }
 
-void XSDRAW::SetTransferProcess(const Handle(RefObject)& ATP)
+void XSDRAW1::SetTransferProcess(const Handle(RefObject)& ATP)
 {
   DeclareAndCast(Transfer_FinderProcess, FP, ATP);
   DeclareAndCast(Transfer_TransientProcess, TP, ATP);
@@ -288,17 +288,17 @@ void XSDRAW::SetTransferProcess(const Handle(RefObject)& ATP)
   }
 }
 
-Handle(Transfer_TransientProcess) XSDRAW::TransientProcess()
+Handle(Transfer_TransientProcess) XSDRAW1::TransientProcess()
 {
   return Session()->TransferReader()->TransientProcess();
 }
 
-Handle(Transfer_FinderProcess) XSDRAW::FinderProcess()
+Handle(Transfer_FinderProcess) XSDRAW1::FinderProcess()
 {
   return Session()->TransferWriter()->FinderProcess();
 }
 
-void XSDRAW::InitTransferReader(const Standard_Integer mode)
+void XSDRAW1::InitTransferReader(const Standard_Integer mode)
 {
   //   0 nullify  1 clear
   //   2 init TR avec contenu TP (roots)  3 init TP avec contenu TR
@@ -306,24 +306,24 @@ void XSDRAW::InitTransferReader(const Standard_Integer mode)
   Session()->InitTransferReader(mode);
 }
 
-Handle(XSControl_TransferReader) XSDRAW::TransferReader()
+Handle(XSControl_TransferReader) XSDRAW1::TransferReader()
 {
   return Session()->TransferReader();
 }
 
 //  ############  AUXILIAIRES  #############
 
-Handle(RefObject) XSDRAW::GetEntity(const Standard_CString name)
+Handle(RefObject) XSDRAW1::GetEntity(const Standard_CString name)
 {
-  return IFSelect_Functions::GiveEntity(Session(), name);
+  return IFSelectFunctions::GiveEntity(Session(), name);
 }
 
-Standard_Integer XSDRAW::GetEntityNumber(const Standard_CString name)
+Standard_Integer XSDRAW1::GetEntityNumber(const Standard_CString name)
 {
-  return IFSelect_Functions::GiveEntityNumber(Session(), name);
+  return IFSelectFunctions::GiveEntityNumber(Session(), name);
 }
 
-Handle(TColStd_HSequenceOfTransient) XSDRAW::GetList(const Standard_CString first,
+Handle(TColStd_HSequenceOfTransient) XSDRAW1::GetList(const Standard_CString first,
                                                      const Standard_CString second)
 {
   if (!first || first[0] == '\0')
@@ -335,35 +335,35 @@ Handle(TColStd_HSequenceOfTransient) XSDRAW::GetList(const Standard_CString firs
     std::cin.get(terminateSymbol);
 
     if (terminateSymbol == '\n')
-      return XSDRAW::GetList(aLineFirst.c_str(), nullptr);
+      return XSDRAW1::GetList(aLineFirst.c_str(), nullptr);
     else
     {
       std::string aLineSecond;
       std::cin >> aLineSecond;
-      return XSDRAW::GetList(aLineFirst.c_str(), aLineSecond.c_str());
+      return XSDRAW1::GetList(aLineFirst.c_str(), aLineSecond.c_str());
     }
   }
-  return IFSelect_Functions::GiveList(Session(), first, second);
+  return IFSelectFunctions::GiveList(Session(), first, second);
 }
 
-Standard_Boolean XSDRAW::FileAndVar(const Standard_CString   file,
+Standard_Boolean XSDRAW1::FileAndVar(const Standard_CString   file,
                                     const Standard_CString   var,
                                     const Standard_CString   def,
                                     AsciiString1& resfile,
                                     AsciiString1& resvar)
 {
-  return XSControl_FuncShape::FileAndVar(XSDRAW::Session(), file, var, def, resfile, resvar);
+  return ShapeFunctions::FileAndVar(XSDRAW1::Session(), file, var, def, resfile, resvar);
 }
 
-Standard_Integer XSDRAW::MoreShapes(Handle(TopTools_HSequenceOfShape)& list,
+Standard_Integer XSDRAW1::MoreShapes(Handle(TopTools_HSequenceOfShape)& list,
                                     const Standard_CString             name)
 {
-  return XSControl_FuncShape::MoreShapes(XSDRAW::Session(), list, name);
+  return ShapeFunctions::MoreShapes(XSDRAW1::Session(), list, name);
 }
 
 //=================================================================================================
 
-Standard_Real XSDRAW::GetLengthUnit(const Handle(AppDocument)& theDoc)
+Standard_Real XSDRAW1::GetLengthUnit(const Handle(AppDocument)& theDoc)
 {
   if (!theDoc.IsNull())
   {
@@ -382,7 +382,7 @@ Standard_Real XSDRAW::GetLengthUnit(const Handle(AppDocument)& theDoc)
 
 //=================================================================================================
 
-XSControl_WorkSessionMap& XSDRAW::WorkSessionList()
+XSControl_WorkSessionMap& XSDRAW1::WorkSessionList()
 {
   static std::shared_ptr<XSControl_WorkSessionMap> THE_PREVIOUS_WORK_SESSIONS;
   if (THE_PREVIOUS_WORK_SESSIONS == nullptr)
@@ -394,7 +394,7 @@ XSControl_WorkSessionMap& XSDRAW::WorkSessionList()
 
 //=================================================================================================
 
-void XSDRAW::CollectActiveWorkSessions(const Handle(ExchangeSession)& theWS,
+void XSDRAW1::CollectActiveWorkSessions(const Handle(ExchangeSession)& theWS,
                                        const AsciiString1&       theName,
                                        XSControl_WorkSessionMap&            theMap)
 {
@@ -403,17 +403,17 @@ void XSDRAW::CollectActiveWorkSessions(const Handle(ExchangeSession)& theWS,
 
 //=================================================================================================
 
-void XSDRAW::CollectActiveWorkSessions(const AsciiString1& theName)
+void XSDRAW1::CollectActiveWorkSessions(const AsciiString1& theName)
 {
   collectActiveWorkSessions(Session(), theName, WorkSessionList(), Standard_True);
 }
 
 //=================================================================================================
 
-void XSDRAW::Factory(DrawInterpreter& theDI)
+void XSDRAW1::Factory(DrawInterpreter& theDI)
 {
-  XSDRAW::LoadDraw(theDI);
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAW)
+DPLUGIN(XSDRAW1)

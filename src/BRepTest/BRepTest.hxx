@@ -24,7 +24,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Provides commands to test BRep.
-class BRepTest
+class BRepTest1
 {
 public:
   DEFINE_STANDARD_ALLOC

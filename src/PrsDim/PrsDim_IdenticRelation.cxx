@@ -376,7 +376,7 @@ void PrsDim_IdenticRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 // note    : if we are in the case of lines, we create a segment between
 //           myFAttach and mySAttach. In the case of Circles, we create
 //           an arc of circle between the sames points. We Add a segment
-//           to link Position to its projection on the curve described
+//           to link Position1 to its projection on the curve described
 //           before.
 //=======================================================================
 
@@ -403,7 +403,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
       Point3d             firstp1, lastp1, firstp2, lastp2;
       Standard_Boolean   isInfinite1, isInfinite2;
       Handle(GeomCurve3d) extCurv;
-      if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
+      if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape),
                                    TopoDS::Edge(mySShape),
                                    myExtShape,
                                    curv1,
@@ -450,7 +450,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
         seg = new Select3D_SensitiveSegment(own, myFAttach, mySAttach);
         aSelection->Add(seg);
 
-        // attach = projection of Position() on the curve;
+        // attach = projection of Position1() on the curve;
         Vector3d v1(myFAttach, mySAttach);
         Vector3d v2(myFAttach, myPosition);
         if (v1.IsParallel(v2, Precision::Angular()))
@@ -490,7 +490,7 @@ void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Pres
   Standard_Boolean   isInfinite1, isInfinite2;
 
   Handle(GeomCurve3d) extCurv;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
                                curv1,
@@ -597,7 +597,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
         ElCLib1::Value(ElCLib1::Parameter(thelin->Lin(), myPosition), thelin->Lin());
     }
     UtfString vals(" ==");
-    DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, myPosition);
+    IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, myPosition);
   }
   else
   {
@@ -746,7 +746,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
 
     // Display of the presentation
     UtfString vals(" ==");
-    DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, mySAttach, curpos);
+    IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, mySAttach, curpos);
   }
 }
 
@@ -995,10 +995,10 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
   UtfString vals(" ==");
   Point3d                     attach = myPosition;
   ComputeAttach(thecirc->Circ(), myFAttach, mySAttach, attach);
-  DsgPrs_IdenticPresentation::Add(aPrs,
+  IdenticPresentation::Add(aPrs,
                                   myDrawer,
                                   vals,
-                                  myPlane->Pln().Position().Ax2(),
+                                  myPlane->Pln().Position1().Ax2(),
                                   myCenter,
                                   myFAttach,
                                   mySAttach,
@@ -1355,7 +1355,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
   UtfString vals(" ==");
   Point3d                     attach = myPosition;
   ComputeAttach(theEll->Elips(), myFAttach, mySAttach, attach);
-  DsgPrs_IdenticPresentation::Add(aPrs,
+  IdenticPresentation::Add(aPrs,
                                   myDrawer,
                                   vals,
                                   theEll->Elips(),
@@ -1485,8 +1485,8 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
   const TopoVertex& FVertex = TopoDS::Vertex(myFShape);
   const TopoVertex& SVertex = TopoDS::Vertex(mySShape);
 
-  PrsDim::ComputeGeometry(FVertex, myFAttach, myPlane, isOnPlane1);
-  PrsDim::ComputeGeometry(SVertex, mySAttach, myPlane, isOnPlane2);
+  PrsDim1::ComputeGeometry(FVertex, myFAttach, myPlane, isOnPlane1);
+  PrsDim1::ComputeGeometry(SVertex, mySAttach, myPlane, isOnPlane2);
 
   if (isOnPlane1 && isOnPlane2)
     myExtShape = 0;
@@ -1566,7 +1566,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
 
   // Presentation computation
   UtfString vals(" ++");
-  DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, curpos);
+  IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, curpos);
   // Calculate the projection of vertex
   if (myExtShape == 1)
     ComputeProjVertexPresentation(aPrs, FVertex, myFAttach);
@@ -1606,7 +1606,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoWire&   aWir
   // Case with 2 edges connected to the vertex <VERT>
   if (!edg1.IsNull() && !edg2.IsNull())
   {
-    if (!PrsDim::ComputeGeometry(edg1,
+    if (!PrsDim1::ComputeGeometry(edg1,
                                  edg2,
                                  curv1,
                                  curv2,
@@ -1659,7 +1659,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoWire&   aWir
     else
       return Standard_False;
 
-    if (!PrsDim::ComputeGeometry(VEdge, curv1, firstp1, lastp1))
+    if (!PrsDim1::ComputeGeometry(VEdge, curv1, firstp1, lastp1))
       return Standard_False;
     if (curv1->IsInstance(STANDARD_TYPE(GeomCircle)))
     {
@@ -1723,7 +1723,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
   Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite;
   Standard_Boolean   isOnPlanEdge, isOnPlanVertex;
-  if (!PrsDim::ComputeGeometry(E,
+  if (!PrsDim1::ComputeGeometry(E,
                                aCurve,
                                ptonedge1,
                                ptonedge2,
@@ -1733,7 +1733,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
                                myPlane))
     return;
   aPrs->SetInfiniteState(isInfinite);
-  PrsDim::ComputeGeometry(V, myFAttach, myPlane, isOnPlanVertex);
+  PrsDim1::ComputeGeometry(V, myFAttach, myPlane, isOnPlanVertex);
 
   // only the curve can be projected
   if (!isOnPlanEdge && !isOnPlanVertex)
@@ -1795,7 +1795,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
 
   // Presentation computation
   UtfString vals(" -+-");
-  DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, curpos);
+  IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, curpos);
   if (myExtShape != 0)
   {
     if (!extCurv.IsNull())

@@ -37,13 +37,13 @@ public:
 
 protected:
   //! Read persistent data from a file.
-  inline void read(StdObjMgt_ReadData& theReadData)
+  inline void read(ReadData& theReadData)
   {
     theReadData >> myTShape >> myLocation >> myOrient;
   }
 
   //! Write persistent data to a file.
-  inline void write(StdObjMgt_WriteData& theWriteData) const
+  inline void write(WriteData& theWriteData) const
   {
     theWriteData << myTShape << myLocation << myOrient;
   }
@@ -53,23 +53,23 @@ protected:
   StdObject_Location                   myLocation;
   Standard_Integer                     myOrient;
 
-  friend StdObjMgt_ReadData&  operator>>(StdObjMgt_ReadData&, StdObject_Shape&);
-  friend StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData&, const StdObject_Shape&);
+  friend ReadData&  operator>>(ReadData&, StdObject_Shape&);
+  friend WriteData& operator<<(WriteData&, const StdObject_Shape&);
 };
 
 //! Read persistent data from a file.
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, StdObject_Shape& theShape)
+inline ReadData& operator>>(ReadData& theReadData, StdObject_Shape& theShape)
 {
-  StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
+  ReadData::ObjectSentry aSentry(theReadData);
   theShape.read(theReadData);
   return theReadData;
 }
 
 //! Write persistent data to a file.
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData&   theWriteData,
+inline WriteData& operator<<(WriteData&   theWriteData,
                                        const StdObject_Shape& theShape)
 {
-  StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
+  WriteData::ObjectSentry aSentry(theWriteData);
   theShape.write(theWriteData);
   return theWriteData;
 }

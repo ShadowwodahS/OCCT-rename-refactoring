@@ -469,7 +469,7 @@ Handle(TColStd_HSequenceOfHAsciiString) ExchangeConfig::Items(const Standard_Int
       ok = item->UpdatedStatus();
 
     if (ok)
-      list->Append(new TCollection_HAsciiString(iter.Key()));
+      list->Append(new TCollection_HAsciiString(iter.Key1()));
   }
   return list;
 }
@@ -501,6 +501,6 @@ void ExchangeConfig::FillMap(
       continue;
     }
 
-    theMap.Bind(anIt.Key(), aValue->HStringValue()->String());
+    theMap.Bind(anIt.Key1(), aValue->HStringValue()->String());
   }
 }

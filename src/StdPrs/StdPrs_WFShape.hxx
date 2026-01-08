@@ -26,7 +26,7 @@
 class Graphic3d_ArrayOfPoints;
 
 //! Tool for computing wireframe presentation of a TopoShape.
-class StdPrs_WFShape : public Prs3d_Root
+class StdPrs_WFShape : public Root7
 {
 public:
   //! Computes wireframe presentation of a shape.

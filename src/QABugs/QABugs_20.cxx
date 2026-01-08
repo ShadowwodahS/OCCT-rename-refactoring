@@ -2107,7 +2107,7 @@ static Standard_Integer OCC27235(DrawInterpreter& theDI, Standard_Integer n, con
   }
 
   GeometricProperties aG;
-  BRepGProp::LinearProperties(aPresentations, aG);
+  BRepGProp1::LinearProperties(aPresentations, aG);
   Point3d aPnt = aG.CentreOfMass();
   theDI << "Centre of mass: " << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z() << "\n";
   theDI << "Mass: " << aG.Mass() << "\n";
@@ -3665,7 +3665,7 @@ static Standard_Integer OCC29311(DrawInterpreter& theDI,
   for (Standard_Integer aN = aNbIter; aN > 0; --aN)
   {
     anOBB.SetVoid();
-    BRepBndLib::AddOBB(aShape, anOBB, Standard_False, Standard_False, Standard_False);
+    BRepBndLib1::AddOBB(aShape, anOBB, Standard_False, Standard_False, Standard_False);
   }
   aTimer.Stop();
 
@@ -3840,10 +3840,10 @@ void* threadFunction(void* theArgs)
     OCC_CATCH_SIGNALS;
     BinLDrivers1::DefineFormat(anApp);
     BinDrivers1::DefineFormat(anApp);
-    XmlLDrivers::DefineFormat(anApp);
-    XmlDrivers::DefineFormat(anApp);
-    StdLDrivers::DefineFormat(anApp);
-    StdDrivers::DefineFormat(anApp);
+    XmlLDrivers1::DefineFormat(anApp);
+    XmlDrivers1::DefineFormat(anApp);
+    StdLDrivers1::DefineFormat(anApp);
+    StdDrivers1::DefineFormat(anApp);
 
     for (int aFileIndex = 0; aFileIndex < 3; aFileIndex++)
     {
@@ -4360,7 +4360,7 @@ static Standard_Integer OCC30704(DrawInterpreter& di, Standard_Integer, const ch
 
   // Add a bounding box of a shape to a void bounding box.
   OrientedBox aVoidBox, aBox;
-  BRepBndLib::AddOBB(box, aBox, Standard_False, Standard_False, Standard_False);
+  BRepBndLib1::AddOBB(box, aBox, Standard_False, Standard_False, Standard_False);
   aVoidBox.Add(aBox);
 
   // Print the center point of the bounding box.
@@ -4654,11 +4654,11 @@ private:
     const PCDM_ReaderStatus  aReaderStatus = myXdeApp->Open(myFilePath, aNewDoc);
     if (aReaderStatus != PCDM_RS_OK)
     {
-      Message::SendFail("Error occurred while reading the file");
+      Message1::SendFail("Error occurred while reading the file");
       return;
     }
     myXdeDoc = aNewDoc;
-    Message::SendInfo() << "Info: document has been opened";
+    Message1::SendInfo() << "Info: document has been opened";
   }
 
   static Standard_Address performThread(Standard_Address theData)
@@ -4672,7 +4672,7 @@ private:
     }
     catch (ExceptionBase const& theExcep)
     {
-      Message::SendFail() << "Error: unexpected exception " << theExcep;
+      Message1::SendFail() << "Error: unexpected exception " << theExcep;
       return 0;
     }
     return 0;

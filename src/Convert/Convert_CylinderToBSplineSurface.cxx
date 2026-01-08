@@ -113,7 +113,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const Cylinde
   // and calculate the weight of the bspline.
   Standard_Real W1;
   Transform3d       Trsf;
-  Trsf.SetTransformation(Cyl.Position(), gp1::XOY());
+  Trsf.SetTransformation(Cyl.Position1(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {
@@ -175,7 +175,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const Cylinde
   // and calculate the weight of the bspline.
   Standard_Real W;
   Transform3d       Trsf;
-  Trsf.SetTransformation(Cyl.Position(), gp1::XOY());
+  Trsf.SetTransformation(Cyl.Position1(), gp1::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
   {

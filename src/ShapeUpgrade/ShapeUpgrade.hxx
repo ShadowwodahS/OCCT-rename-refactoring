@@ -34,7 +34,7 @@ class Geom2d_BSplineCurve;
 //! converting geometry of shapes up to given continuity,
 //! splitting revolutions by U to segments less than given value,
 //! converting to beziers, splitting closed faces.
-class ShapeUpgrade
+class ShapeUpgrade1
 {
 public:
   DEFINE_STANDARD_ALLOC

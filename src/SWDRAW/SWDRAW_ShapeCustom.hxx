@@ -22,16 +22,16 @@
 
 #include <Draw_Interpretor.hxx>
 
-//! Contains commands to activate package ShapeCustom
+//! Contains commands to activate package ShapeCustom1
 //! List of DRAW commands and corresponding functionalities:
-//! directfaces - ShapeCustom::DirectFaces
-//! scaleshape  - ShapeCustom::ScaleShape
-class SWDRAW_ShapeCustom
+//! directfaces - ShapeCustom1::DirectFaces
+//! scaleshape  - ShapeCustom1::ScaleShape
+class ShapeCustom2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads commands defined in ShapeCustom
+  //! Loads commands defined in ShapeCustom1
   Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:

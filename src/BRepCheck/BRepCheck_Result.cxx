@@ -54,7 +54,7 @@ void BRepCheck_Result::SetFailStatus(const TopoShape& S)
     myMap.Bind(S, aList);
   }
 
-  BRepCheck::Add(*aList, BRepCheck_CheckFail);
+  BRepCheck1::Add(*aList, BRepCheck_CheckFail);
 }
 
 //=================================================================================================
@@ -63,7 +63,7 @@ void BRepCheck_Result::InitContextIterator()
 {
   myIter.Initialize(myMap);
   // At least 1 element : the Shape itself
-  if (myIter.Key().IsSame(myShape))
+  if (myIter.Key1().IsSame(myShape))
   {
     myIter.Next();
   }
@@ -74,7 +74,7 @@ void BRepCheck_Result::InitContextIterator()
 void BRepCheck_Result::NextShapeInContext()
 {
   myIter.Next();
-  if (myIter.More() && myIter.Key().IsSame(myShape))
+  if (myIter.More() && myIter.Key1().IsSame(myShape))
   {
     myIter.Next();
   }

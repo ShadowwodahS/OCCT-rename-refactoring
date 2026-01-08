@@ -69,7 +69,7 @@ void PrsDim_MidPointRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
   {
     Point3d           pp;
     Standard_Boolean isonplane;
-    if (PrsDim::ComputeGeometry(TopoDS::Vertex(myTool), pp, myPlane, isonplane))
+    if (PrsDim1::ComputeGeometry(TopoDS::Vertex(myTool), pp, myPlane, isonplane))
     {
       if (!isonplane)
         ComputeProjVertexPresentation(aprs, TopoDS::Vertex(myTool), pp);
@@ -144,7 +144,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
   }
 
   // center of the symmetry - circle around the MidPoint
-  Frame3d ax = myPlane->Pln().Position().Ax2();
+  Frame3d ax = myPlane->Pln().Position1().Ax2();
   ax.SetLocation(myMidPoint);
   Standard_Real                   rad = myFAttach.Distance(myMidPoint) / 20.0;
   gp_Circ                         aCircleM(ax, rad);
@@ -161,7 +161,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
   if (myFShape.ShapeType() == TopAbs_EDGE)
   {
     TopoEdge E = TopoDS::Edge(myFShape);
-    if (!PrsDim::ComputeGeometry(E, curv, firstp, lastp, extCurv, isInfinite, isOnPlane, myPlane))
+    if (!PrsDim1::ComputeGeometry(E, curv, firstp, lastp, extCurv, isInfinite, isOnPlane, myPlane))
       return;
     if (curv->IsInstance(STANDARD_TYPE(GeomLine))) // case of line
     {
@@ -197,7 +197,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
   if (mySShape.ShapeType() == TopAbs_EDGE)
   {
     TopoEdge E = TopoDS::Edge(mySShape);
-    if (!PrsDim::ComputeGeometry(E, curv, firstp, lastp, extCurv, isInfinite, isOnPlane, myPlane))
+    if (!PrsDim1::ComputeGeometry(E, curv, firstp, lastp, extCurv, isInfinite, isOnPlane, myPlane))
       return;
     if (curv->IsInstance(STANDARD_TYPE(GeomLine))) // case of line
     {
@@ -252,10 +252,10 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
   Point3d             ptat1, ptat2;
   Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite, isOnPlane;
-  if (!PrsDim::ComputeGeometry(E, geom, ptat1, ptat2, extCurv, isInfinite, isOnPlane, myPlane))
+  if (!PrsDim1::ComputeGeometry(E, geom, ptat1, ptat2, extCurv, isInfinite, isOnPlane, myPlane))
     return;
 
-  Frame3d ax = myPlane->Pln().Position().Ax2();
+  Frame3d ax = myPlane->Pln().Position1().Ax2();
 
   if (geom->IsInstance(STANDARD_TYPE(GeomLine)))
   {
@@ -267,7 +267,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
       ComputePointsOnLine(line, first);
     }
     if (first)
-      DsgPrs_MidPointPresentation::Add(aprs,
+      MidPointPresentation::Add(aprs,
                                        myDrawer,
                                        ax,
                                        myMidPoint,
@@ -277,7 +277,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
                                        myFirstPnt2,
                                        first);
     else
-      DsgPrs_MidPointPresentation::Add(aprs,
+      MidPointPresentation::Add(aprs,
                                        myDrawer,
                                        ax,
                                        myMidPoint,
@@ -293,7 +293,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
     gp_Circ             circ(geom_cir->Circ());
     ComputePointsOnCirc(circ, ptat1, ptat2, first);
     if (first)
-      DsgPrs_MidPointPresentation::Add(aprs,
+      MidPointPresentation::Add(aprs,
                                        myDrawer,
                                        circ,
                                        myMidPoint,
@@ -303,7 +303,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
                                        myFirstPnt2,
                                        first);
     else
-      DsgPrs_MidPointPresentation::Add(aprs,
+      MidPointPresentation::Add(aprs,
                                        myDrawer,
                                        circ,
                                        myMidPoint,
@@ -319,7 +319,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
     gp_Elips             elips(geom_ell->Elips());
     ComputePointsOnElips(elips, ptat1, ptat2, first);
     if (first)
-      DsgPrs_MidPointPresentation::Add(aprs,
+      MidPointPresentation::Add(aprs,
                                        myDrawer,
                                        elips,
                                        myMidPoint,
@@ -329,7 +329,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
                                        myFirstPnt2,
                                        first);
     else
-      DsgPrs_MidPointPresentation::Add(aprs,
+      MidPointPresentation::Add(aprs,
                                        myDrawer,
                                        elips,
                                        myMidPoint,
@@ -352,13 +352,13 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
 void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentation)& aprs,
                                                    const Standard_Boolean            first)
 {
-  Frame3d ax = myPlane->Pln().Position().Ax2();
+  Frame3d ax = myPlane->Pln().Position1().Ax2();
   if (first)
   {
     Standard_Boolean isOnPlane;
     TopoVertex    V = TopoDS::Vertex(myFShape);
-    PrsDim::ComputeGeometry(V, myFAttach, myPlane, isOnPlane);
-    DsgPrs_MidPointPresentation::Add(aprs, myDrawer, ax, myMidPoint, myPosition, myFAttach, first);
+    PrsDim1::ComputeGeometry(V, myFAttach, myPlane, isOnPlane);
+    MidPointPresentation::Add(aprs, myDrawer, ax, myMidPoint, myPosition, myFAttach, first);
     if (!isOnPlane)
       ComputeProjVertexPresentation(aprs, V, myFAttach);
   }
@@ -366,8 +366,8 @@ void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentati
   {
     Standard_Boolean isOnPlane;
     TopoVertex    V = TopoDS::Vertex(mySShape);
-    PrsDim::ComputeGeometry(V, mySAttach, myPlane, isOnPlane);
-    DsgPrs_MidPointPresentation::Add(aprs, myDrawer, ax, myMidPoint, myPosition, mySAttach, first);
+    PrsDim1::ComputeGeometry(V, mySAttach, myPlane, isOnPlane);
+    MidPointPresentation::Add(aprs, myDrawer, ax, myMidPoint, myPosition, mySAttach, first);
     if (!isOnPlane)
       ComputeProjVertexPresentation(aprs, V, mySAttach);
   }

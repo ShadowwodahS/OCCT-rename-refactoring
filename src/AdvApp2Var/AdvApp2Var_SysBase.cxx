@@ -204,7 +204,7 @@ int SystemBase::macrai4_(integer*  nbelem,
   /*     ----------------- */
   /*       NBELEM : Number of required units */
   /*       MAXELM : Max number of units available in ITABLO */
-  /*       ITABLO : Reference Address of the rented zone */
+  /*       ITABLO : Reference1 Address of the rented zone */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------- */
@@ -275,7 +275,7 @@ int SystemBase::macrar8_(integer*    nbelem,
   /*     ------------------ */
   /*       NBELEM : Nb of units required */
   /*       MAXELM : Max Nb of units available in XTABLO */
-  /*       XTABLO : Reference address of the rented zone */
+  /*       XTABLO : Reference1 address of the rented zone */
 
   /*     OUTPUT ARGUMENTS : */
   /*     ------------------ */
@@ -485,7 +485,7 @@ int SystemBase::macrdi4_(integer* nbelem,
   /*     ------------------ */
   /*       NBELEM : Nb of units required */
   /*       MAXELM : Max Nb of units available in ITABLO */
-  /*       ITABLO : Reference Address of the allocated zone */
+  /*       ITABLO : Reference1 Address of the allocated zone */
   /*       IOFSET : Offset */
 
   /*     OUTPUT ARGUMENTS : */
@@ -550,7 +550,7 @@ int SystemBase::macrdr8_(integer* nbelem,
   /*     -------------------- */
   /*       NBELEM : Nb of units required */
   /*       MAXELM : Max nb of units available in XTABLO */
-  /*       XTABLO : Reference Address of the allocated zone */
+  /*       XTABLO : Reference1 Address of the allocated zone */
   /*       IOFSET : Offset */
 
   /*     OUTPUT ARGUMENTS  : */
@@ -964,7 +964,7 @@ int macrmsg_(const char*, // crout,
       }
 
     } else {
-      __s__copy(cfm, "('   Message number ',I5,' is missing '                \
+      __s__copy(cfm, "('   Message1 number ',I5,' is missing '                \
               ,'for program named: ',A8)", 80L, 93L);
       if (__s__cmp(crout, "MCRLIST", crout_len, 7L) == 0) {
         if (*num == 1) {
@@ -2965,7 +2965,7 @@ int SystemBase::msifill_(integer* nbintg, integer* ivecin, integer* ivecou)
 
   /*     FUNCTION : */
   /*     ---------- */
-  /*      transfer Integer from one  zone to another */
+  /*      transfer Integer1 from one  zone to another */
 
   /*     KEYWORDS : */
   /*     ----------- */

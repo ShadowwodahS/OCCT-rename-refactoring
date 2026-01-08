@@ -113,7 +113,7 @@ AsciiString1 IGESSelect_FloatFormat::Label() const
     //    lab.AssignCat(mess);
     //    ... FloatFormat a droit aussi a un beau format pour son propre compte ...
     lab.AssignCat(", in range ");
-    Standard_Integer convlen = Interface_FloatWriter::Convert(therangemin,
+    Standard_Integer convlen = InterfaceFloatWriter::Convert(therangemin,
                                                               mess,
                                                               Standard_True,
                                                               therangemin / 2.,
@@ -123,7 +123,7 @@ AsciiString1 IGESSelect_FloatFormat::Label() const
     mess[convlen]            = ' ';
     mess[convlen + 1]        = '\0';
     lab.AssignCat(mess);
-    convlen           = Interface_FloatWriter::Convert(therangemax,
+    convlen           = InterfaceFloatWriter::Convert(therangemax,
                                              mess,
                                              Standard_True,
                                              therangemin / 2.,

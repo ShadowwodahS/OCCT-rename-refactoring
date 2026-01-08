@@ -161,7 +161,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
           Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(aCurve);
           if (!aLine.IsNull())
           {
-            anAXIS   = aLine->Position();
+            anAXIS   = aLine->Position1();
             anAxisOK = Standard_True;
           }
         }
@@ -205,14 +205,14 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
     if (aVol)
     {
       GeometricProperties aGProp;
-      BRepGProp::VolumeProperties(aResult, aGProp);
+      BRepGProp1::VolumeProperties(aResult, aGProp);
       if (aGProp.Mass() <= Precision::Confusion())
       {
         aFunction->SetFailure(RESULT_NOT_VALID);
         return -1;
       }
     }
-    // Naming
+    // Naming1
     if (anIsAttachment)
       LoadNamingDS(RESPOSITION(aFunction), aMakeRevol, aBASIS, aContextOfBasis->Get());
     else
@@ -257,7 +257,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
     if (aVol)
     {
       GeometricProperties aGProp;
-      BRepGProp::VolumeProperties(aResult, aGProp);
+      BRepGProp1::VolumeProperties(aResult, aGProp);
       if (aGProp.Mass() <= Precision::Confusion())
       {
         aFunction->SetFailure(RESULT_NOT_VALID);
@@ -265,7 +265,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
       }
     }
 
-    // Naming
+    // Naming1
     if (anIsAttachment)
       LoadNamingDS(RESPOSITION(aFunction), aMakeRevol, aBASIS, aContextOfBasis->Get());
     else
@@ -374,7 +374,7 @@ Standard_Boolean HasDangleShapes(const TopoShape& ShapeIn)
     BuildAtomicMap(ShapeIn, M);
     TopTools_MapIteratorOfMapOfShape it(M);
     for (; it.More(); it.Next())
-      if (HasDangle(it.Key()))
+      if (HasDangle(it.Key1()))
         return Standard_True;
   }
   else

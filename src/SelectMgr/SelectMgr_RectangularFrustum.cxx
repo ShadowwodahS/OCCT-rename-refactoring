@@ -24,17 +24,17 @@
 
 //=================================================================================================
 
-SelectMgr_RectangularFrustum::SelectMgr_RectangularFrustum()
+RectangularFrustum::RectangularFrustum()
     : myScale(1.0)
 {
 }
 
 //=================================================================================================
 
-void SelectMgr_RectangularFrustum::segmentSegmentDistance(
+void RectangularFrustum::segmentSegmentDistance(
   const Point3d&            theSegPnt1,
   const Point3d&            theSegPnt2,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   Coords3d anU = theSegPnt2.XYZ() - theSegPnt1.XYZ();
   // clang-format off
@@ -103,10 +103,10 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
 
 //=================================================================================================
 
-bool SelectMgr_RectangularFrustum::segmentPlaneIntersection(
+bool RectangularFrustum::segmentPlaneIntersection(
   const Vector3d&            thePlane,
   const Point3d&            thePntOnPlane,
-  SelectBasics_PickResult& thePickResult) const
+  PickResult& thePickResult) const
 {
   // clang-format off
   Coords3d anU = myFarPickedPnt.XYZ() - myNearPickedPnt.XYZ(); // use unnormalized vector instead of myViewRayDir to clip solutions behind Far plane by > 1.0 check
@@ -211,8 +211,8 @@ void computeNormals(const Vector3d* theEdges, Vector3d* theNormals)
 // purpose  : Caches projection of frustum's vertices onto its plane directions
 //            and {i, j, k}
 // =======================================================================
-void SelectMgr_RectangularFrustum::cacheVertexProjections(
-  SelectMgr_RectangularFrustum* theFrustum) const
+void RectangularFrustum::cacheVertexProjections(
+  RectangularFrustum* theFrustum) const
 {
   if (theFrustum->Camera()->IsOrthographic())
   {
@@ -274,7 +274,7 @@ void SelectMgr_RectangularFrustum::cacheVertexProjections(
 
 //=================================================================================================
 
-void SelectMgr_RectangularFrustum::Init(const gp_Pnt2d& thePoint)
+void RectangularFrustum::Init(const gp_Pnt2d& thePoint)
 {
   mySelectionType = SelectMgr_SelectionType_Point;
   mySelRectangle.SetMousePos(thePoint);
@@ -282,7 +282,7 @@ void SelectMgr_RectangularFrustum::Init(const gp_Pnt2d& thePoint)
 
 //=================================================================================================
 
-void SelectMgr_RectangularFrustum::Init(const gp_Pnt2d& theMinPnt, const gp_Pnt2d& theMaxPnt)
+void RectangularFrustum::Init(const gp_Pnt2d& theMinPnt, const gp_Pnt2d& theMaxPnt)
 {
   mySelectionType = SelectMgr_SelectionType_Box;
   mySelRectangle.SetMinPnt(theMinPnt);
@@ -291,11 +291,11 @@ void SelectMgr_RectangularFrustum::Init(const gp_Pnt2d& theMinPnt, const gp_Pnt2
 
 //=================================================================================================
 
-void SelectMgr_RectangularFrustum::Build()
+void RectangularFrustum::Build()
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Build() should be called after "
+                        "Error! RectangularFrustum::Build() should be called after "
                         "selection frustum initialization");
   gp_Pnt2d aMinPnt, aMaxPnt;
   if (mySelectionType == SelectMgr_SelectionType_Point)
@@ -347,20 +347,20 @@ void SelectMgr_RectangularFrustum::Build()
 //                  as any negative value;
 //                - scale only is needed: @theTrsf must be set to gp_Identity.
 // =======================================================================
-Handle(SelectMgr_BaseIntersector) SelectMgr_RectangularFrustum::ScaleAndTransform(
+Handle(SelectMgr_BaseIntersector) RectangularFrustum::ScaleAndTransform(
   const Standard_Integer                  theScaleFactor,
   const GeneralTransform&                         theTrsf,
   const Handle(SelectMgr_FrustumBuilder)& theBuilder) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::ScaleAndTransform() should be called "
+                        "Error! RectangularFrustum::ScaleAndTransform() should be called "
                         "after selection frustum initialization");
 
   Standard_ASSERT_RAISE(theScaleFactor >= 0,
                         "Error! Pixel tolerance for selection should not be negative");
 
-  Handle(SelectMgr_RectangularFrustum) aRes      = new SelectMgr_RectangularFrustum();
+  Handle(RectangularFrustum) aRes      = new RectangularFrustum();
   const Standard_Boolean               isToScale = theScaleFactor != 1;
   const Standard_Boolean               isToTrsf  = theTrsf.Form() != gp_Identity;
 
@@ -371,7 +371,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_RectangularFrustum::ScaleAndTransfor
   }
 
   aRes->SetCamera(myCamera);
-  const SelectMgr_RectangularFrustum* aRef = this;
+  const RectangularFrustum* aRef = this;
 
   if (isToScale)
   {
@@ -446,19 +446,19 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_RectangularFrustum::ScaleAndTransfor
 // purpose  : Returns a copy of the frustum using the given frustum builder configuration.
 //            Returned frustum should be re-constructed before being used.
 // =======================================================================
-Handle(SelectMgr_BaseIntersector) SelectMgr_RectangularFrustum::CopyWithBuilder(
+Handle(SelectMgr_BaseIntersector) RectangularFrustum::CopyWithBuilder(
   const Handle(SelectMgr_FrustumBuilder)& theBuilder) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::CopyWithBuilder() should be called "
+                        "Error! RectangularFrustum::CopyWithBuilder() should be called "
                         "after selection frustum initialization");
 
   Standard_ASSERT_RAISE(
     !theBuilder.IsNull(),
-    "Error! SelectMgr_RectangularFrustum::CopyWithBuilder() should be called with valid builder");
+    "Error! RectangularFrustum::CopyWithBuilder() should be called with valid builder");
 
-  Handle(SelectMgr_RectangularFrustum) aRes = new SelectMgr_RectangularFrustum();
+  Handle(RectangularFrustum) aRes = new RectangularFrustum();
   aRes->mySelectionType                     = mySelectionType;
   aRes->mySelRectangle                      = mySelRectangle;
   aRes->myPixelTolerance                    = myPixelTolerance;
@@ -469,7 +469,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_RectangularFrustum::CopyWithBuilder(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::IsScalable() const
+Standard_Boolean RectangularFrustum::IsScalable() const
 {
   return mySelectionType == SelectMgr_SelectionType_Point;
 }
@@ -480,13 +480,13 @@ Standard_Boolean SelectMgr_RectangularFrustum::IsScalable() const
 //            axis-aligned bounding box with minimum corner at point
 //            theMinPnt and maximum at point theMaxPnt
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsBox(const SelectMgr_Vec3& theBoxMin,
+Standard_Boolean RectangularFrustum::OverlapsBox(const SelectMgr_Vec3& theBoxMin,
                                                            const SelectMgr_Vec3& theBoxMax,
                                                            Standard_Boolean*     theInside) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   return hasBoxOverlap(theBoxMin, theBoxMax, theInside);
@@ -497,15 +497,15 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsBox(const SelectMgr_Vec3&
 // purpose  : SAT intersection test between defined volume and
 //            given axis-aligned box
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsBox(
+Standard_Boolean RectangularFrustum::OverlapsBox(
   const SelectMgr_Vec3&          theBoxMin,
   const SelectMgr_Vec3&          theBoxMax,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   if (!hasBoxOverlap(theBoxMin, theBoxMax))
@@ -549,14 +549,14 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsBox(
 // function : OverlapsPoint
 // purpose  : Intersection test between defined volume and given point
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPoint(
+Standard_Boolean RectangularFrustum::OverlapsPoint(
   const Point3d&                  thePnt,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   if (!hasPointOverlap(thePnt))
@@ -575,11 +575,11 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPoint(
 // function : OverlapsPoint
 // purpose  : Intersection test between defined volume and given point
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPoint(const Point3d& thePnt) const
+Standard_Boolean RectangularFrustum::OverlapsPoint(const Point3d& thePnt) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   return hasPointOverlap(thePnt);
@@ -589,15 +589,15 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPoint(const Point3d& theP
 // function : OverlapsSegment
 // purpose  : Checks if line segment overlaps selecting frustum
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSegment(
+Standard_Boolean RectangularFrustum::OverlapsSegment(
   const Point3d&                  thePnt1,
   const Point3d&                  thePnt2,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   if (!hasSegmentOverlap(thePnt1, thePnt2))
@@ -615,21 +615,21 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSegment(
 //            may be considered of interior part or boundary line defined
 //            by segments depending on given sensitivity type
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPolygon(
+Standard_Boolean RectangularFrustum::OverlapsPolygon(
   const TColgp_Array1OfPnt&      theArrayOfPnts,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   if (theSensType == Select3D_TOS_BOUNDARY)
   {
     Standard_Integer        aMatchingSegmentsNb = -1;
-    SelectBasics_PickResult aPickResult;
+    PickResult aPickResult;
     thePickResult.Invalidate();
     const Standard_Integer aLower  = theArrayOfPnts.Lower();
     const Standard_Integer anUpper = theArrayOfPnts.Upper();
@@ -641,7 +641,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPolygon(
       {
         aMatchingSegmentsNb++;
         segmentSegmentDistance(aStartPnt, aEndPnt, aPickResult);
-        thePickResult = SelectBasics_PickResult::Min(thePickResult, aPickResult);
+        thePickResult = PickResult::Min(thePickResult, aPickResult);
       }
     }
 
@@ -677,17 +677,17 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPolygon(
 //            boundary line defined by triangle vertices depending on
 //            given sensitivity type
 // =======================================================================
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
+Standard_Boolean RectangularFrustum::OverlapsTriangle(
   const Point3d&                  thePnt1,
   const Point3d&                  thePnt2,
   const Point3d&                  thePnt3,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   if (theSensType == Select3D_TOS_BOUNDARY)
@@ -722,14 +722,14 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
     if (Abs(anAlpha) < gp1::Resolution())
     {
       // handle the case when triangle normal and selecting frustum direction are orthogonal
-      SelectBasics_PickResult aPickResult;
+      PickResult aPickResult;
       thePickResult.Invalidate();
       for (Standard_Integer anEdgeIter = 0; anEdgeIter < 3; ++anEdgeIter)
       {
         const Point3d& aStartPnt = aPnts[anEdgeIter];
         const Point3d& anEndPnt  = aPnts[anEdgeIter < 2 ? anEdgeIter + 1 : 0];
         segmentSegmentDistance(aStartPnt, anEndPnt, aPickResult);
-        thePickResult = SelectBasics_PickResult::Min(thePickResult, aPickResult);
+        thePickResult = PickResult::Min(thePickResult, aPickResult);
       }
       thePickResult.SetSurfaceNormal(aTriangleNormal);
       return !theClipRange.IsClipped(thePickResult.Depth());
@@ -785,18 +785,18 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
+Standard_Boolean RectangularFrustum::OverlapsCylinder(
   const Standard_Real            theBottomRad,
   const Standard_Real            theTopRad,
   const Standard_Real            theHeight,
   const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsHollow,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
   Standard_Real aTimes[2] = {0.0, 0.0};
   const Transform3d aTrsfInv  = theTrsf.Inverted();
@@ -842,16 +842,16 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
+Standard_Boolean RectangularFrustum::OverlapsCircle(
   const Standard_Real            theRadius,
   const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsFilled,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
   Standard_Real aTime    = 0.0;
   const Transform3d aTrsfInv = theTrsf.Inverted();
@@ -895,7 +895,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::isIntersectCircle(
+Standard_Boolean RectangularFrustum::isIntersectCircle(
   const Standard_Real       theRadius,
   const Point3d&             theCenter,
   const Transform3d&            theTrsf,
@@ -945,7 +945,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::isIntersectCircle(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::isSegmentsIntersect(const Point3d& thePnt1Seg1,
+Standard_Boolean RectangularFrustum::isSegmentsIntersect(const Point3d& thePnt1Seg1,
                                                                    const Point3d& thePnt2Seg1,
                                                                    const Point3d& thePnt1Seg2,
                                                                    const Point3d& thePnt2Seg2) const
@@ -1004,7 +1004,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::isSegmentsIntersect(const Point3d
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(const Standard_Real    theBottomRad,
+Standard_Boolean RectangularFrustum::OverlapsCylinder(const Standard_Real    theBottomRad,
                                                                 const Standard_Real    theTopRad,
                                                                 const Standard_Real    theHeight,
                                                                 const Transform3d&         theTrsf,
@@ -1013,7 +1013,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(const Standard_R
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   return hasCylinderOverlap(theBottomRad, theTopRad, theHeight, theTrsf, theIsHollow, theInside);
@@ -1021,14 +1021,14 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(const Standard_R
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(const Standard_Real    theRadius,
+Standard_Boolean RectangularFrustum::OverlapsCircle(const Standard_Real    theRadius,
                                                               const Transform3d&         theTrsf,
                                                               const Standard_Boolean theIsFilled,
                                                               Standard_Boolean* theInside) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
 
   return hasCircleOverlap(theRadius, theTrsf, theIsFilled, theInside);
@@ -1036,7 +1036,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(const Standard_Rea
 
 //=================================================================================================
 
-const gp_Pnt2d& SelectMgr_RectangularFrustum::GetMousePosition() const
+const gp_Pnt2d& RectangularFrustum::GetMousePosition() const
 {
   if (mySelectionType == SelectMgr_SelectionType_Point)
   {
@@ -1047,15 +1047,15 @@ const gp_Pnt2d& SelectMgr_RectangularFrustum::GetMousePosition() const
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSphere(
+Standard_Boolean RectangularFrustum::OverlapsSphere(
   const Point3d&                  theCenter,
   const Standard_Real            theRadius,
   const SelectMgr_ViewClipRange& theClipRange,
-  SelectBasics_PickResult&       thePickResult) const
+  PickResult&       thePickResult) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
   Standard_Real aTimeEnter = 0.0, aTimeLeave = 0.0;
   if (!RaySphereIntersection(theCenter,
@@ -1082,13 +1082,13 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSphere(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSphere(const Point3d&       theCenter,
+Standard_Boolean RectangularFrustum::OverlapsSphere(const Point3d&       theCenter,
                                                               const Standard_Real theRadius,
                                                               Standard_Boolean*   theInside) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
+                        "Error! RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
   return hasSphereOverlap(theCenter, theRadius, theInside);
 }
@@ -1098,11 +1098,11 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSphere(const Point3d&    
 // purpose  : Measures distance between 3d projection of user-picked
 //            screen point and given point theCOG
 // =======================================================================
-Standard_Real SelectMgr_RectangularFrustum::DistToGeometryCenter(const Point3d& theCOG) const
+Standard_Real RectangularFrustum::DistToGeometryCenter(const Point3d& theCOG) const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point
                           || mySelectionType == SelectMgr_SelectionType_Box,
-                        "Error! SelectMgr_RectangularFrustum::DistToGeometryCenter() should be "
+                        "Error! RectangularFrustum::DistToGeometryCenter() should be "
                         "called after selection frustum initialization");
 
   return theCOG.Distance(myNearPickedPnt) * myScale;
@@ -1113,17 +1113,17 @@ Standard_Real SelectMgr_RectangularFrustum::DistToGeometryCenter(const Point3d& 
 // purpose  : Calculates the point on a view ray that was detected during
 //            the run of selection algo by given depth
 // =======================================================================
-Point3d SelectMgr_RectangularFrustum::DetectedPoint(const Standard_Real theDepth) const
+Point3d RectangularFrustum::DetectedPoint(const Standard_Real theDepth) const
 {
   Standard_ASSERT_RAISE(
     mySelectionType == SelectMgr_SelectionType_Point,
-    "SelectMgr_RectangularFrustum::DetectedPoint() should be called only for Point selection type");
+    "RectangularFrustum::DetectedPoint() should be called only for Point selection type");
   return myNearPickedPnt.XYZ() + myViewRayDir.XYZ() * theDepth / myScale;
 }
 
 //=================================================================================================
 
-void SelectMgr_RectangularFrustum::GetPlanes(
+void RectangularFrustum::GetPlanes(
   NCollection_Vector<SelectMgr_Vec4>& thePlaneEquations) const
 {
   thePlaneEquations.Clear();
@@ -1145,10 +1145,10 @@ void SelectMgr_RectangularFrustum::GetPlanes(
 
 //=================================================================================================
 
-void SelectMgr_RectangularFrustum::DumpJson(Standard_OStream& theOStream,
+void RectangularFrustum::DumpJson(Standard_OStream& theOStream,
                                             Standard_Integer  theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, SelectMgr_RectangularFrustum)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, RectangularFrustum)
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, SelectMgr_Frustum)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myNearPickedPnt)

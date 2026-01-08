@@ -31,7 +31,7 @@ Standard_CString ShapePersistent_Geom::
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Direction, Geom2d_Direction, gp_Dir2d>::
-  Write(StdObjMgt_WriteData& theWriteData) const
+  Write(WriteData& theWriteData) const
 {
   Handle(Geom2d_Direction) aMyGeom = Handle(Geom2d_Direction)::DownCast(myTransient);
   theWriteData << aMyGeom->Dir2d();
@@ -51,7 +51,7 @@ Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWi
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
                                     Geom2d_VectorWithMagnitude,
-                                    gp_Vec2d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                    gp_Vec2d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom2d_VectorWithMagnitude) aMyGeom =
     Handle(Geom2d_VectorWithMagnitude)::DownCast(myTransient);
@@ -71,7 +71,7 @@ Standard_CString ShapePersistent_Geom::
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::AxisPlacement,
                                     Geom2d_AxisPlacement,
-                                    gp_Ax2d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                    gp_Ax2d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom2d_AxisPlacement) aMyGeom = Handle(Geom2d_AxisPlacement)::DownCast(myTransient);
   write(theWriteData, aMyGeom->Ax2d());
@@ -97,7 +97,7 @@ void ShapePersistent_Geom::
 template <>
 void ShapePersistent_Geom2d::instance<ShapePersistent_Geom2d::Transformation,
                                       Geom2d_Transformation,
-                                      Transform2d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                      Transform2d>::Write(WriteData& theWriteData) const
 {
   theWriteData << myTransient->Trsf2d();
 }

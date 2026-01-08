@@ -42,7 +42,7 @@
 
 //=================================================================================================
 
-void XmlMDataStd::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMDataStd1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                              const Handle(Message_Messenger)&   anMsgDrv)
 {
   aDriverTable->AddDriver(new XmlMDataStd_IntegerArrayDriver(anMsgDrv));

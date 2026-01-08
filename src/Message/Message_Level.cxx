@@ -25,7 +25,7 @@
 
 Message_Level::Message_Level(const AsciiString1& theName)
 {
-  const Handle(Message_Report)& aDefaultReport = Message::DefaultReport();
+  const Handle(Message_Report)& aDefaultReport = Message1::DefaultReport();
   if (!aDefaultReport.IsNull() && aDefaultReport->IsActiveInMessenger())
   {
     aDefaultReport->AddLevel(this, theName);
@@ -83,7 +83,7 @@ Standard_Boolean Message_Level::AddAlert(const Message_Gravity        theGravity
 
 void Message_Level::remove()
 {
-  const Handle(Message_Report)& aDefaultReport = Message::DefaultReport();
+  const Handle(Message_Report)& aDefaultReport = Message1::DefaultReport();
   if (aDefaultReport.IsNull() || !aDefaultReport->IsActiveInMessenger())
   {
     return;
@@ -91,8 +91,8 @@ void Message_Level::remove()
 
   Message_AttributeMeter::StopAlert(myLastAlert);
 
-  if (!Message::DefaultReport().IsNull())
+  if (!Message1::DefaultReport().IsNull())
   {
-    Message::DefaultReport()->RemoveLevel(this);
+    Message1::DefaultReport()->RemoveLevel(this);
   }
 }

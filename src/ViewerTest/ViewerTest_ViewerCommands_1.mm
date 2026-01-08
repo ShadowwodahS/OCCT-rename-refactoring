@@ -85,11 +85,11 @@ AsciiString1 FindViewId (const NSWindow* theWindow)
 {
   (void )theNotification;
   AsciiString1 aViewId = "";
-  if (ViewerTest_myViews.IsBound2 (ViewerTest::CurrentView()))
+  if (ViewerTest_myViews.IsBound2 (ViewerTest1::CurrentView()))
   {
-    aViewId = ViewerTest_myViews.Find2 (ViewerTest::CurrentView());
+    aViewId = ViewerTest_myViews.Find2 (ViewerTest1::CurrentView());
   }
-  ViewerTest::RemoveView (aViewId);
+  ViewerTest1::RemoveView (aViewId);
 }
 
 - (void )windowDidBecomeKey: (NSNotification* )theNotification
@@ -187,7 +187,7 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 - (void )setFrameSize: (NSSize )theNewSize
 {
   [super setFrameSize: theNewSize];
-  ViewerTest::CurrentEventManager()->ProcessConfigure();
+  ViewerTest1::CurrentEventManager()->ProcessConfigure();
 }
 
 // =======================================================================
@@ -197,9 +197,9 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 - (void )drawRect: (NSRect )theDirtyRect
 {
   (void )theDirtyRect;
-  if (!ViewerTest::CurrentEventManager().IsNull())
+  if (!ViewerTest1::CurrentEventManager().IsNull())
   {
-    ViewerTest::CurrentEventManager()->ProcessExpose();
+    ViewerTest1::CurrentEventManager()->ProcessExpose();
   }
 }
 
@@ -211,9 +211,9 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  const Aspect_VKeyMouse aButtons = ViewerTest::CurrentEventManager()->PressedMouseButtons();
-  ViewerTest::CurrentEventManager()->UpdateMousePosition (aPos, aButtons, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  const Aspect_VKeyMouse aButtons = ViewerTest1::CurrentEventManager()->PressedMouseButtons();
+  ViewerTest1::CurrentEventManager()->UpdateMousePosition (aPos, aButtons, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -233,8 +233,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  ViewerTest::CurrentEventManager()->PressMouseButton (aPos, Aspect_VKeyMouse_LeftButton, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  ViewerTest1::CurrentEventManager()->PressMouseButton (aPos, Aspect_VKeyMouse_LeftButton, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -245,8 +245,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  ViewerTest::CurrentEventManager()->ReleaseMouseButton (aPos, Aspect_VKeyMouse_LeftButton, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  ViewerTest1::CurrentEventManager()->ReleaseMouseButton (aPos, Aspect_VKeyMouse_LeftButton, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -257,9 +257,9 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  const Aspect_VKeyMouse aButtons = ViewerTest::CurrentEventManager()->PressedMouseButtons();
-  ViewerTest::CurrentEventManager()->UpdateMousePosition (aPos, aButtons, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  const Aspect_VKeyMouse aButtons = ViewerTest1::CurrentEventManager()->PressedMouseButtons();
+  ViewerTest1::CurrentEventManager()->UpdateMousePosition (aPos, aButtons, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -270,8 +270,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  ViewerTest::CurrentEventManager()->PressMouseButton (aPos, Aspect_VKeyMouse_RightButton, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  ViewerTest1::CurrentEventManager()->PressMouseButton (aPos, Aspect_VKeyMouse_RightButton, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -282,8 +282,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  ViewerTest::CurrentEventManager()->ReleaseMouseButton (aPos, Aspect_VKeyMouse_RightButton, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  ViewerTest1::CurrentEventManager()->ReleaseMouseButton (aPos, Aspect_VKeyMouse_RightButton, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -294,9 +294,9 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
 {
   const Graphic3d_Vec2i  aPos   = getMouseCoords (self, theEvent);
   const Aspect_VKeyFlags aFlags = getMouseKeyFlags (theEvent);
-  const Aspect_VKeyMouse aButtons = ViewerTest::CurrentEventManager()->PressedMouseButtons();
-  ViewerTest::CurrentEventManager()->UpdateMousePosition (aPos, aButtons, aFlags, false);
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  const Aspect_VKeyMouse aButtons = ViewerTest1::CurrentEventManager()->PressedMouseButtons();
+  ViewerTest1::CurrentEventManager()->UpdateMousePosition (aPos, aButtons, aFlags, false);
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -315,8 +315,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
     return;
   }
 
-  ViewerTest::CurrentEventManager()->UpdateMouseScroll (ScrollDelta (aPos, aDelta, aFlags));
-  ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+  ViewerTest1::CurrentEventManager()->UpdateMouseScroll (ScrollDelta (aPos, aDelta, aFlags));
+  ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
 }
 
 // =======================================================================
@@ -330,8 +330,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
   if (aVKey != Aspect_VKey_UNKNOWN)
   {
     const double aTimeStamp = [theEvent timestamp];
-    ViewerTest::CurrentEventManager()->KeyDown (aVKey, aTimeStamp);
-    ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+    ViewerTest1::CurrentEventManager()->KeyDown (aVKey, aTimeStamp);
+    ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
   }
 
   //NSString* aStringNs = [theEvent characters];
@@ -352,8 +352,8 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
   if (aVKey != Aspect_VKey_UNKNOWN)
   {
     const double aTimeStamp = [theEvent timestamp];
-    ViewerTest::CurrentEventManager()->KeyUp (aVKey, aTimeStamp);
-    ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
+    ViewerTest1::CurrentEventManager()->KeyUp (aVKey, aTimeStamp);
+    ViewerTest1::CurrentEventManager()->FlushViewEvents (ViewerTest1::GetAISContext(), ViewerTest1::CurrentView(), true);
   }
 }
 

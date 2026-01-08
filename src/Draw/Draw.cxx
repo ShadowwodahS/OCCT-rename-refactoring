@@ -704,7 +704,7 @@ void Draw1::Load(DrawInterpreter&              theDI,
                                                                     theIsVerbose);
     if (!aPluginResource->Find(theKey, aPluginLibrary))
     {
-      Message::SendFail() << "could not find the resource:" << theKey;
+      Message1::SendFail() << "could not find the resource:" << theKey;
       Standard_SStream aMsg;
       aMsg << "Could not find the resource:" << theKey << std::endl;
       throw Draw_Failure(aMsg.str().c_str());

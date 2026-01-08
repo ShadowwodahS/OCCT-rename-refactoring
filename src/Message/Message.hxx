@@ -30,7 +30,7 @@ class Message_Report;
 //! Defines
 //! - tools to work with messages
 //! - basic tools intended for progress indication
-class Message
+class Message1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -42,10 +42,10 @@ public:
   //!
   //! The following syntax can be used to print messages:
   //! @code
-  //!   Message::DefaultMessenger()->Send ("My Warning", Message_Warning);
-  //!   Message::SendWarning ("My Warning"); // short-cut for Message_Warning
-  //!   Message::SendWarning() << "My Warning with " << theCounter << " arguments";
-  //!   Message::SendFail ("My Failure"); // short-cut for Message_Fail
+  //!   Message1::DefaultMessenger()->Send ("My Warning", Message_Warning);
+  //!   Message1::SendWarning ("My Warning"); // short-cut for Message_Warning
+  //!   Message1::SendWarning() << "My Warning with " << theCounter << " arguments";
+  //!   Message1::SendFail ("My Failure"); // short-cut for Message_Fail
   //! @endcode
   Standard_EXPORT static const Handle(Message_Messenger)& DefaultMessenger();
 

@@ -86,7 +86,7 @@ const AsciiString1& Express_Item::GetPackageName() const
 {
   if (myPack.IsNull())
   {
-    Message::SendWarning() << "Warning: item " << Name() << " still has no package assigned, used "
+    Message1::SendWarning() << "Warning: item " << Name() << " still has no package assigned, used "
                            << GetUnknownPackageName();
     return GetUnknownPackageName();
   }
@@ -185,7 +185,7 @@ void Express_Item::Use2(const AsciiString1& theRefName,
   // issue a warning message if item does not have package assigned
   if (!IsPackageNameSet())
   {
-    Message::SendWarning() << "Warning: item " << Name() << " has no package assigned but used by "
+    Message1::SendWarning() << "Warning: item " << Name() << " has no package assigned but used by "
                            << theRefName << ", setting " << theRefPack;
     SetPackageName(theRefPack);
   }

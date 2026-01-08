@@ -77,7 +77,7 @@ Standard_Integer TopOpeBRepTool_PurgeInternalEdges::NbEdges() const
 
     for (itFacEdg.Initialize(myMapFacLstEdg); itFacEdg.More(); itFacEdg.Next())
     {
-      const TopoShape&         facecur = itFacEdg.Key();
+      const TopoShape&         facecur = itFacEdg.Key1();
       const ShapeList& LmapEdg = myMapFacLstEdg.Find(facecur);
 
       nbedges += LmapEdg.Extent();
@@ -246,7 +246,7 @@ void TopOpeBRepTool_PurgeInternalEdges::Perform()
 
     for (itFacEdg.Initialize(myMapFacLstEdg); itFacEdg.More(); itFacEdg.Next())
     {
-      const TopoShape&         facecur = itFacEdg.Key();
+      const TopoShape&         facecur = itFacEdg.Key1();
       const ShapeList& LmapEdg = myMapFacLstEdg.Find(facecur);
 
       for (itEdg.Initialize(LmapEdg); itEdg.More(); itEdg.Next())

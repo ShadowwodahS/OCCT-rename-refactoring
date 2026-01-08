@@ -49,7 +49,7 @@ public:
 
   //! Creates a TransferOutput from an already existing
   //! TransientProcess, and a Model
-  //! Returns (by Reference, hence can be changed) the Mode for
+  //! Returns (by Reference1, hence can be changed) the Mode for
   //! Scope Management. False (D) means Scope is ignored.
   //! True means that each individual Transfer (direct or through
   //! TransferRoots) is regarded as one Scope

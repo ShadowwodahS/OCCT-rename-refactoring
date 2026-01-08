@@ -21,13 +21,13 @@
 //! tolerance value will be recalculated. If a user enables custom precision using
 //! StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities
 //! without any checks.
-class SelectMgr_ToleranceMap
+class ToleranceMap
 {
 public:
   //! Sets tolerance values to -1.0
-  Standard_EXPORT SelectMgr_ToleranceMap();
+  Standard_EXPORT ToleranceMap();
 
-  Standard_EXPORT ~SelectMgr_ToleranceMap();
+  Standard_EXPORT ~ToleranceMap();
 
   //! Adds the value given to map, checks if the current tolerance value
   //! should be replaced by theTolerance

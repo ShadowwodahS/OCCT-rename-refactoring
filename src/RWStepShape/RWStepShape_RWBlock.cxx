@@ -76,7 +76,7 @@ void RWStepShape_RWBlock::WriteStep(StepData_StepWriter&           SW,
 
   // --- own field : position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : x ---
 
@@ -95,5 +95,5 @@ void RWStepShape_RWBlock::Share(const Handle(StepShape_Block)& ent,
                                 Interface_EntityIterator&      iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

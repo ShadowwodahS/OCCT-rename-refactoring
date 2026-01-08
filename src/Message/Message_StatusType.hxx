@@ -19,7 +19,7 @@
 #define Message_StatusType_HeaderFile
 
 //! Definition of types of execution status supported by
-//! the class Message_ExecStatus
+//! the class ExecutionStatus
 
 enum Message_StatusType
 {

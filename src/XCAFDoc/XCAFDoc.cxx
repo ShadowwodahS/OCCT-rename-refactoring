@@ -40,7 +40,7 @@
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ShapeRefGUID()
+const Standard_GUID& XCAFDoc1::ShapeRefGUID()
 {
   static const Standard_GUID ID("5b896afe-3adf-11d4-b9b7-0060b0ee281b");
   return ID;
@@ -48,7 +48,7 @@ const Standard_GUID& XCAFDoc::ShapeRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::AssemblyGUID()
+const Standard_GUID& XCAFDoc1::AssemblyGUID()
 {
   static const Standard_GUID ID("5b896b00-3adf-11d4-b9b7-0060b0ee281b");
   return ID;
@@ -56,7 +56,7 @@ const Standard_GUID& XCAFDoc::AssemblyGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ExternRefGUID()
+const Standard_GUID& XCAFDoc1::ExternRefGUID()
 {
   static const Standard_GUID ID("6b896b01-3adf-11d4-b9b7-0060b0ee281b");
   return ID;
@@ -64,7 +64,7 @@ const Standard_GUID& XCAFDoc::ExternRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ColorRefGUID(const XCAFDoc_ColorType type)
+const Standard_GUID& XCAFDoc1::ColorRefGUID(const XCAFDoc_ColorType type)
 {
   static const Standard_GUID IDcol("efd212e4-6dfd-11d4-b9c8-0060b0ee281b");
   static const Standard_GUID IDcolSurf("efd212e5-6dfd-11d4-b9c8-0060b0ee281b");
@@ -84,7 +84,7 @@ const Standard_GUID& XCAFDoc::ColorRefGUID(const XCAFDoc_ColorType type)
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::DimTolRefGUID()
+const Standard_GUID& XCAFDoc1::DimTolRefGUID()
 {
   // static const Standard_GUID IDDimTol("58ed092d-44de-11d8-8776-001083004c77");
   static const Standard_GUID ID("efd212e9-6dfd-11d4-b9c8-0060b0ee281b");
@@ -94,7 +94,7 @@ const Standard_GUID& XCAFDoc::DimTolRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::DimensionRefFirstGUID()
+const Standard_GUID& XCAFDoc1::DimensionRefFirstGUID()
 {
   static const Standard_GUID ID("efd212e3-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -102,7 +102,7 @@ const Standard_GUID& XCAFDoc::DimensionRefFirstGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::DimensionRefSecondGUID()
+const Standard_GUID& XCAFDoc1::DimensionRefSecondGUID()
 {
   static const Standard_GUID ID("efd212e0-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -110,7 +110,7 @@ const Standard_GUID& XCAFDoc::DimensionRefSecondGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::GeomToleranceRefGUID()
+const Standard_GUID& XCAFDoc1::GeomToleranceRefGUID()
 {
   static const Standard_GUID ID("efd213e3-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -118,7 +118,7 @@ const Standard_GUID& XCAFDoc::GeomToleranceRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::DatumRefGUID()
+const Standard_GUID& XCAFDoc1::DatumRefGUID()
 {
   static const Standard_GUID ID("efd212e2-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -126,7 +126,7 @@ const Standard_GUID& XCAFDoc::DatumRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::DatumTolRefGUID()
+const Standard_GUID& XCAFDoc1::DatumTolRefGUID()
 {
   // static const Standard_GUID IDDimTol("58ed092d-44de-11d8-8776-001083004c77");
   static const Standard_GUID ID("efd212e7-6dfd-11d4-b9c8-0060b0ee281b");
@@ -136,7 +136,7 @@ const Standard_GUID& XCAFDoc::DatumTolRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::LayerRefGUID()
+const Standard_GUID& XCAFDoc1::LayerRefGUID()
 {
   static const Standard_GUID ID("efd212e8-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -144,7 +144,7 @@ const Standard_GUID& XCAFDoc::LayerRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::MaterialRefGUID()
+const Standard_GUID& XCAFDoc1::MaterialRefGUID()
 {
   static const Standard_GUID ID("efd212f7-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -152,7 +152,7 @@ const Standard_GUID& XCAFDoc::MaterialRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::VisMaterialRefGUID()
+const Standard_GUID& XCAFDoc1::VisMaterialRefGUID()
 {
   static const Standard_GUID ID("936F4070-5369-405D-A7AD-2AC76C860EC8");
   return ID;
@@ -160,7 +160,7 @@ const Standard_GUID& XCAFDoc::VisMaterialRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::NoteRefGUID()
+const Standard_GUID& XCAFDoc1::NoteRefGUID()
 {
   static const Standard_GUID ID("F3599E50-F84A-493e-8D1B-1284E79322F1");
   return ID;
@@ -168,7 +168,7 @@ const Standard_GUID& XCAFDoc::NoteRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::InvisibleGUID()
+const Standard_GUID& XCAFDoc1::InvisibleGUID()
 {
   static const Standard_GUID ID("5b896aff-3adf-11d4-b9b7-0060b0ee281b");
   return ID;
@@ -176,7 +176,7 @@ const Standard_GUID& XCAFDoc::InvisibleGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ColorByLayerGUID()
+const Standard_GUID& XCAFDoc1::ColorByLayerGUID()
 {
   static const Standard_GUID ID("279e8c1e-70af-4130-b626-9cc52a537db8");
   return ID;
@@ -184,7 +184,7 @@ const Standard_GUID& XCAFDoc::ColorByLayerGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::SHUORefGUID()
+const Standard_GUID& XCAFDoc1::SHUORefGUID()
 {
   static const Standard_GUID ID("efd212ea-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -192,7 +192,7 @@ const Standard_GUID& XCAFDoc::SHUORefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ViewRefGUID()
+const Standard_GUID& XCAFDoc1::ViewRefGUID()
 {
   static const Standard_GUID ID("efd213e5-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -200,7 +200,7 @@ const Standard_GUID& XCAFDoc::ViewRefGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ViewRefShapeGUID()
+const Standard_GUID& XCAFDoc1::ViewRefShapeGUID()
 {
   static const Standard_GUID ID("efd213e6-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -208,7 +208,7 @@ const Standard_GUID& XCAFDoc::ViewRefShapeGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ViewRefGDTGUID()
+const Standard_GUID& XCAFDoc1::ViewRefGDTGUID()
 {
   static const Standard_GUID ID("efd213e7-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -216,7 +216,7 @@ const Standard_GUID& XCAFDoc::ViewRefGDTGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ViewRefPlaneGUID()
+const Standard_GUID& XCAFDoc1::ViewRefPlaneGUID()
 {
   static const Standard_GUID ID("efd213e9-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -224,7 +224,7 @@ const Standard_GUID& XCAFDoc::ViewRefPlaneGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ViewRefNoteGUID()
+const Standard_GUID& XCAFDoc1::ViewRefNoteGUID()
 {
   static const Standard_GUID ID("C814ACC6-43AC-4812-9B2A-4E9A2A549354");
   return ID;
@@ -232,7 +232,7 @@ const Standard_GUID& XCAFDoc::ViewRefNoteGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::ViewRefAnnotationGUID()
+const Standard_GUID& XCAFDoc1::ViewRefAnnotationGUID()
 {
   static const Standard_GUID ID("A2B5BA42-DD00-43f5-8882-4B5F8E76B9D2");
   return ID;
@@ -240,7 +240,7 @@ const Standard_GUID& XCAFDoc::ViewRefAnnotationGUID()
 
 //=================================================================================================
 
-const Standard_GUID& XCAFDoc::LockGUID()
+const Standard_GUID& XCAFDoc1::LockGUID()
 {
   static const Standard_GUID ID("efd213eb-6dfd-11d4-b9c8-0060b0ee281b");
   return ID;
@@ -248,26 +248,26 @@ const Standard_GUID& XCAFDoc::LockGUID()
 
 //=================================================================================================
 
-AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
+AsciiString1 XCAFDoc1::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
 {
   AsciiString1 anInfo;
 
   if (theAtt->IsKind(STANDARD_TYPE(TDataStd_TreeNode)))
   {
     Standard_CString type = "";
-    if (theAtt->ID() == XCAFDoc::ShapeRefGUID())
+    if (theAtt->ID() == XCAFDoc1::ShapeRefGUID())
       type = "Shape Instance Link1";
-    else if (theAtt->ID() == XCAFDoc::ColorRefGUID(XCAFDoc_ColorGen))
+    else if (theAtt->ID() == XCAFDoc1::ColorRefGUID(XCAFDoc_ColorGen))
       type = "Generic Color Link1";
-    else if (theAtt->ID() == XCAFDoc::ColorRefGUID(XCAFDoc_ColorSurf))
+    else if (theAtt->ID() == XCAFDoc1::ColorRefGUID(XCAFDoc_ColorSurf))
       type = "Surface Color Link1";
-    else if (theAtt->ID() == XCAFDoc::ColorRefGUID(XCAFDoc_ColorCurv))
+    else if (theAtt->ID() == XCAFDoc1::ColorRefGUID(XCAFDoc_ColorCurv))
       type = "Curve Color Link1";
-    else if (theAtt->ID() == XCAFDoc::DimTolRefGUID())
+    else if (theAtt->ID() == XCAFDoc1::DimTolRefGUID())
       type = "DGT Link1";
-    else if (theAtt->ID() == XCAFDoc::DatumRefGUID())
+    else if (theAtt->ID() == XCAFDoc1::DatumRefGUID())
       type = "Datum Link1";
-    else if (theAtt->ID() == XCAFDoc::MaterialRefGUID())
+    else if (theAtt->ID() == XCAFDoc1::MaterialRefGUID())
       type = "Material Link1";
     Handle(TDataStd_TreeNode) TN = Handle(TDataStd_TreeNode)::DownCast(theAtt);
     AsciiString1   ref;
@@ -408,9 +408,9 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_UAttribute)))
   {
-    if (theAtt->ID() == XCAFDoc::AssemblyGUID())
+    if (theAtt->ID() == XCAFDoc1::AssemblyGUID())
       anInfo += AsciiString1("is assembly");
-    if (theAtt->ID() == XCAFDoc::InvisibleGUID())
+    if (theAtt->ID() == XCAFDoc1::InvisibleGUID())
       anInfo += AsciiString1("invisible");
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_Color)))
@@ -535,43 +535,43 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_GraphNode)))
   {
     Standard_CString type;
-    if (theAtt->ID() == XCAFDoc::LayerRefGUID())
+    if (theAtt->ID() == XCAFDoc1::LayerRefGUID())
     {
       type = "Layer Instance Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::SHUORefGUID())
+    else if (theAtt->ID() == XCAFDoc1::SHUORefGUID())
     {
       type = "SHUO Instance Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::DatumTolRefGUID())
+    else if (theAtt->ID() == XCAFDoc1::DatumTolRefGUID())
     {
       type = "DatumToler Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::DimensionRefFirstGUID())
+    else if (theAtt->ID() == XCAFDoc1::DimensionRefFirstGUID())
     {
       type = "Dimension Link1 First";
     }
-    else if (theAtt->ID() == XCAFDoc::DimensionRefSecondGUID())
+    else if (theAtt->ID() == XCAFDoc1::DimensionRefSecondGUID())
     {
       type = "Dimension Link1 Second";
     }
-    else if (theAtt->ID() == XCAFDoc::GeomToleranceRefGUID())
+    else if (theAtt->ID() == XCAFDoc1::GeomToleranceRefGUID())
     {
       type = "GeomTolerance Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::DatumRefGUID())
+    else if (theAtt->ID() == XCAFDoc1::DatumRefGUID())
     {
       type = "Datum Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::ViewRefShapeGUID())
+    else if (theAtt->ID() == XCAFDoc1::ViewRefShapeGUID())
     {
       type = "View Shape Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::ViewRefGDTGUID())
+    else if (theAtt->ID() == XCAFDoc1::ViewRefGDTGUID())
     {
       type = "View GD&T Link1";
     }
-    else if (theAtt->ID() == XCAFDoc::ViewRefPlaneGUID())
+    else if (theAtt->ID() == XCAFDoc1::ViewRefPlaneGUID())
     {
       type = "View Clipping Plane1 Link1";
     }

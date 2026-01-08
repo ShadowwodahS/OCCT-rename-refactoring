@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT void SetNewGeometry(const Standard_Boolean NewGeom);
 
-  Standard_EXPORT const Handle(GeomCurve3d)& Geometry() const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Geometry1() const;
 
   Standard_EXPORT const TopoFace& FirstFace() const;
 

@@ -71,7 +71,7 @@ Interval2::Interval2(const Standard_Real      Start,
 
 //=================================================================================================
 
-Intrv_Position Interval2::Position(const Interval2& Other) const
+Intrv_Position Interval2::Position1(const Interval2& Other) const
 {
   Standard_Real  mySMin = myStart - myTolStart;
   Standard_Real  mySMax = myStart + myTolStart;

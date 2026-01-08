@@ -60,14 +60,14 @@ Handle(Select3D_SensitiveEntity) MeshVS_SensitiveQuad::GetConnected()
 // function : Matches
 // purpose  : Checks whether the box overlaps current selecting volume
 //=======================================================================
-Standard_Boolean MeshVS_SensitiveQuad::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                               SelectBasics_PickResult&             thePickResult)
+Standard_Boolean MeshVS_SensitiveQuad::Matches(SelectingVolumeManager& theMgr,
+                                               PickResult&             thePickResult)
 {
   if (!theMgr.IsOverlapAllowed()) // check for inclusion
   {
     if (theMgr.GetActiveSelectionType() == SelectMgr_SelectionType_Polyline)
     {
-      SelectBasics_PickResult aDummy;
+      PickResult aDummy;
       return theMgr.OverlapsTriangle(myVertices[0],
                                      myVertices[1],
                                      myVertices[2],
@@ -89,7 +89,7 @@ Standard_Boolean MeshVS_SensitiveQuad::Matches(SelectBasics_SelectingVolumeManag
   }
 
   // check for overlap
-  SelectBasics_PickResult aPickResult1, aPickResult2;
+  PickResult aPickResult1, aPickResult2;
   if (!theMgr.OverlapsTriangle(myVertices[0],
                                myVertices[1],
                                myVertices[2],
@@ -104,7 +104,7 @@ Standard_Boolean MeshVS_SensitiveQuad::Matches(SelectBasics_SelectingVolumeManag
     return Standard_False;
   }
 
-  thePickResult = SelectBasics_PickResult::Min(aPickResult1, aPickResult2);
+  thePickResult = PickResult::Min(aPickResult1, aPickResult2);
   thePickResult.SetDistToGeomCenter(theMgr.DistToGeometryCenter(CenterOfGeometry()));
   return Standard_True;
 }

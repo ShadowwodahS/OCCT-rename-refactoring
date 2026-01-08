@@ -53,7 +53,7 @@
 
 Interface_FileReaderTool::Interface_FileReaderTool()
 {
-  themessenger = Message::DefaultMessenger();
+  themessenger = Message1::DefaultMessenger();
   theerrhand   = Standard_True;
   thetrace     = 0;
   thenbrep0 = thenbreps = 0;
@@ -101,7 +101,7 @@ Handle(Interface_InterfaceModel) Interface_FileReaderTool::Model() const
 void Interface_FileReaderTool::SetMessenger(const Handle(Message_Messenger)& messenger)
 {
   if (messenger.IsNull())
-    themessenger = Message::DefaultMessenger();
+    themessenger = Message1::DefaultMessenger();
   else
     themessenger = messenger;
 }

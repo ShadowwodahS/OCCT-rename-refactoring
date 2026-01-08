@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-TopoVertex ShapeBuild_Vertex::CombineVertex(const TopoVertex& V1,
+TopoVertex Vertex2::CombineVertex(const TopoVertex& V1,
                                                const TopoVertex& V2,
                                                const Standard_Real  tolFactor) const
 {
@@ -35,7 +35,7 @@ TopoVertex ShapeBuild_Vertex::CombineVertex(const TopoVertex& V1,
 
 //=================================================================================================
 
-TopoVertex ShapeBuild_Vertex::CombineVertex(const Point3d&       pnt1,
+TopoVertex Vertex2::CombineVertex(const Point3d&       pnt1,
                                                const Point3d&       pnt2,
                                                const Standard_Real tol1,
                                                const Standard_Real tol2,

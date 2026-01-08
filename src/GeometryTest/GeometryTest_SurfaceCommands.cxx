@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// 09/06/97 : JPI : suppression des commandes redondantes suite a la creation de GeomliteTest
+// 09/06/97 : JPI : suppression des commandes redondantes suite a la creation de GeomliteTest1
 // Modified:	Mon Jan 18 11:06:46 1999
 //		option -NS dans la commande tuyau pour distinguer les tuyaux
 //		a section evolutive des tuyaux a N sections avec N = 2
@@ -395,7 +395,7 @@ static Standard_Integer GetSurfaceContinuity(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void GeometryTest::SurfaceCommands(DrawInterpreter& theCommands)
+void GeometryTest1::SurfaceCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)

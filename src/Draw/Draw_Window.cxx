@@ -1272,7 +1272,7 @@ Standard_Boolean Init_Appli()
   }
   catch (ExceptionBase const& theFail)
   {
-    Message::SendFail() << "TK_Init() failed with " << theFail;
+    Message1::SendFail() << "TK_Init() failed with " << theFail;
   }
 
   Tcl_StaticPackage(interp, "Tk", Tk_Init, (Tcl_PackageInitProc*)NULL);

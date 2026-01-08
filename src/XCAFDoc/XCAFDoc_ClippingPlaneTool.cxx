@@ -167,7 +167,7 @@ DataLabel XCAFDoc_ClippingPlaneTool::AddClippingPlane(
 Standard_Boolean XCAFDoc_ClippingPlaneTool::RemoveClippingPlane(const DataLabel& theLabel) const
 {
   Handle(TDataStd_TreeNode) Node;
-  if (!IsClippingPlane(theLabel) || theLabel.FindAttribute(XCAFDoc::ViewRefPlaneGUID(), Node))
+  if (!IsClippingPlane(theLabel) || theLabel.FindAttribute(XCAFDoc1::ViewRefPlaneGUID(), Node))
     return Standard_False;
 
   theLabel.ForgetAllAttributes(Standard_True);

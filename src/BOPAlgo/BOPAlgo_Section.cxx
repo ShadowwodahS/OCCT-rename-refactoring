@@ -205,7 +205,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     aItMI.Initialize(aMVSc);
     for (; aItMI.More(); aItMI.Next())
     {
-      nV                     = aItMI.Key();
+      nV                     = aItMI.Key1();
       const TopoShape& aV = myDS->Shape(nV);
       aBB.Add(aRC1, aV);
     }
@@ -215,7 +215,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     aItMI.Initialize(aMI);
     for (; aItMI.More(); aItMI.Next())
     {
-      nV = aItMI.Key();
+      nV = aItMI.Key1();
       if (nV < 0)
       {
         continue;

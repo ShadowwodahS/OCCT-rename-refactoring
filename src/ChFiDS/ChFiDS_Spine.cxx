@@ -846,7 +846,7 @@ gp_Lin ChFiDS_Spine::Line() const
 
 gp_Circ ChFiDS_Spine::Circle() const
 {
-  Frame3d Ac = myCurve.Circle().Position();
+  Frame3d Ac = myCurve.Circle().Position1();
   Dir3d Dc(Vector3d(Ac.Location(), myCurve.Value(myCurve.FirstParameter())));
   Dir3d ZZ(Ac.Direction());
 

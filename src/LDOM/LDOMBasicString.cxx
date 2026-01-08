@@ -42,7 +42,7 @@ LDOMBasicString::LDOMBasicString(const char* aValue)
 
 //=======================================================================
 // function : LDOMString
-// purpose  : Create an Ascii string managed by LDOM_Document
+// purpose  : Create an Ascii1 string managed by LDOM_Document
 //=======================================================================
 
 LDOMBasicString::LDOMBasicString(const char* aValue, const Handle(LDOM_MemManager)& aDoc)
@@ -63,7 +63,7 @@ LDOMBasicString::LDOMBasicString(const char* aValue, const Handle(LDOM_MemManage
 
 //=======================================================================
 // function : LDOMString
-// purpose  : Create an Ascii string managed by LDOM_Document
+// purpose  : Create an Ascii1 string managed by LDOM_Document
 //=======================================================================
 
 LDOMBasicString::LDOMBasicString(const char*                    aValue,
@@ -265,7 +265,7 @@ LDOMBasicString::operator UtfString() const
       if (strtol(&buf[0], NULL, 16) != aUnicodeHeader)
         return UtfString(ptr);
 
-      // convert Unicode to Extended String
+      // convert Unicode to Extended1 String
       ptr += 2;
       Standard_Size          aLength = (strlen(ptr) / 4), j = 0;
       Standard_ExtCharacter* aResult = new Standard_ExtCharacter[aLength--];
@@ -296,7 +296,7 @@ LDOMBasicString::operator UtfString() const
 
 //=======================================================================
 // function : GetInteger
-// purpose  : Conversion to Integer
+// purpose  : Conversion to Integer1
 //=======================================================================
 
 Standard_Boolean LDOMBasicString::GetInteger(Standard_Integer& aResult) const

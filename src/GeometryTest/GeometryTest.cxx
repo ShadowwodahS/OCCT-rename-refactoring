@@ -19,23 +19,23 @@
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
 
-void GeometryTest::AllCommands(DrawInterpreter& theCommands)
+void GeometryTest1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  GeomliteTest::AllCommands(theCommands);
-  GeometryTest::CurveCommands(theCommands);
-  GeometryTest::CurveTanCommands(theCommands);
-  GeometryTest::FairCurveCommands(theCommands);
-  GeometryTest::SurfaceCommands(theCommands);
-  GeometryTest::ConstraintCommands(theCommands);
-  GeometryTest::APICommands(theCommands);
-  GeometryTest::ContinuityCommands(theCommands);
-  GeometryTest::TestProjCommands(theCommands);
-  GeometryTest::PolyCommands(theCommands);
+  GeomliteTest1::AllCommands(theCommands);
+  GeometryTest1::CurveCommands(theCommands);
+  GeometryTest1::CurveTanCommands(theCommands);
+  GeometryTest1::FairCurveCommands(theCommands);
+  GeometryTest1::SurfaceCommands(theCommands);
+  GeometryTest1::ConstraintCommands(theCommands);
+  GeometryTest1::APICommands(theCommands);
+  GeometryTest1::ContinuityCommands(theCommands);
+  GeometryTest1::TestProjCommands(theCommands);
+  GeometryTest1::PolyCommands(theCommands);
 
   // define the TCL variable Draw_GEOMETRY
   // char* com = "set Draw_GEOMETRY 1";

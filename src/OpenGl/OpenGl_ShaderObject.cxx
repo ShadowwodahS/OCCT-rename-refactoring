@@ -57,7 +57,7 @@ static AsciiString1 getShaderTypeString(GLenum theType)
     case GL_FRAGMENT_SHADER:
       return "Fragment Shader";
     case GL_GEOMETRY_SHADER:
-      return "Geometry Shader";
+      return "Geometry1 Shader";
     case GL_TESS_CONTROL_SHADER:
       return "Tessellation Control Shader";
     case GL_TESS_EVALUATION_SHADER:
@@ -327,7 +327,7 @@ static bool dumpShaderSource(const AsciiString1& theFileName,
   }
   if (!aFile.IsOpen())
   {
-    Message::SendFail(AsciiString1("Error: File '") + theFileName
+    Message1::SendFail(AsciiString1("Error: File '") + theFileName
                       + "' cannot be opened to save shader");
     return false;
   }
@@ -337,7 +337,7 @@ static bool dumpShaderSource(const AsciiString1& theFileName,
     aFile.Write(aSource.ToCString(), aSource.Length());
   }
   aFile.Close();
-  Message::SendWarning(AsciiString1("Shader source dumped into '") + theFileName + "'");
+  Message1::SendWarning(AsciiString1("Shader source dumped into '") + theFileName + "'");
   return true;
 }
 
@@ -349,7 +349,7 @@ static bool restoreShaderSource(AsciiString1&       theSource,
   aFile.Open(OSD_ReadOnly, OSD_Protection());
   if (!aFile.IsOpen())
   {
-    Message::SendFail(AsciiString1("File '") + theFileName
+    Message1::SendFail(AsciiString1("File '") + theFileName
                       + "' cannot be opened to load shader");
     return false;
   }
@@ -361,7 +361,7 @@ static bool restoreShaderSource(AsciiString1&       theSource,
     aFile.Read(theSource, aSize);
   }
   aFile.Close();
-  Message::SendWarning(AsciiString1("Restored shader dump from '") + theFileName + "'");
+  Message1::SendWarning(AsciiString1("Restored shader dump from '") + theFileName + "'");
   return true;
 }
 

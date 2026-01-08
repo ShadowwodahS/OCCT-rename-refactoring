@@ -50,7 +50,7 @@ ExchangeSession::ExchangeSession()
 
 void ExchangeSession::ClearData(const Standard_Integer mode)
 {
-  // 1-2-3-4 : standard IFSelect
+  // 1-2-3-4 : standard IFSelect1
   if (mode >= 1 && mode <= 4)
     IFSelect_WorkSession::ClearData(mode);
 

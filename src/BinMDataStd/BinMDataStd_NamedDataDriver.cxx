@@ -213,7 +213,7 @@ void BinMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TColStd_DataMapIteratorOfDataMapOfStringInteger itr(S->GetIntegersContainer());
     for (; itr.More(); itr.Next())
     {
-      theTarget << itr.Key() << itr.Value(); // key - value;
+      theTarget << itr.Key1() << itr.Value(); // key - value;
     }
   }
   else
@@ -227,7 +227,7 @@ void BinMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TDataStd_DataMapIteratorOfDataMapOfStringReal itr(S->GetRealsContainer());
     for (; itr.More(); itr.Next())
     {
-      theTarget << itr.Key() << itr.Value();
+      theTarget << itr.Key1() << itr.Value();
     }
   }
   else
@@ -241,7 +241,7 @@ void BinMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TDataStd_DataMapIteratorOfDataMapOfStringString itr(S->GetStringsContainer());
     for (; itr.More(); itr.Next())
     {
-      theTarget << itr.Key() << itr.Value();
+      theTarget << itr.Key1() << itr.Value();
     }
   }
   else
@@ -255,7 +255,7 @@ void BinMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TDataStd_DataMapIteratorOfDataMapOfStringByte itr(S->GetBytesContainer());
     for (; itr.More(); itr.Next())
     {
-      theTarget << itr.Key() << (Standard_Byte)itr.Value();
+      theTarget << itr.Key1() << (Standard_Byte)itr.Value();
     }
   }
   else
@@ -270,7 +270,7 @@ void BinMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
       S->GetArraysOfIntegersContainer());
     for (; itr.More(); itr.Next())
     {
-      theTarget << itr.Key(); // key
+      theTarget << itr.Key1(); // key
       const TColStd_Array1OfInteger& anArr1 = itr.Value()->Array1();
       theTarget << anArr1.Lower() << anArr1.Upper(); // value Arr1 dimensions
       Standard_Integer* aPtr = (Standard_Integer*)&anArr1(anArr1.Lower());
@@ -288,7 +288,7 @@ void BinMDataStd_NamedDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfReal itr(S->GetArraysOfRealsContainer());
     for (; itr.More(); itr.Next())
     {
-      theTarget << itr.Key(); // key
+      theTarget << itr.Key1(); // key
       const TColStd_Array1OfReal& anArr1 = itr.Value()->Array1();
       theTarget << anArr1.Lower() << anArr1.Upper(); // value Arr1 dimensions
       Standard_Real* aPtr = (Standard_Real*)&anArr1(anArr1.Lower());

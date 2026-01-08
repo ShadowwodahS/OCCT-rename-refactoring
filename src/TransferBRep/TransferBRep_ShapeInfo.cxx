@@ -15,12 +15,12 @@
 #include <TopoDS_TShape.hxx>
 #include <TransferBRep_ShapeInfo.hxx>
 
-Handle(TypeInfo) TransferBRep_ShapeInfo::Type(const TopoShape& /*ent*/)
+Handle(TypeInfo) ShapeInfo::Type(const TopoShape& /*ent*/)
 {
   return STANDARD_TYPE(TopoDS_TShape);
 }
 
-Standard_CString TransferBRep_ShapeInfo::TypeName(const TopoShape& ent)
+Standard_CString ShapeInfo::TypeName(const TopoShape& ent)
 {
   if (ent.IsNull())
     return "TopoShape";

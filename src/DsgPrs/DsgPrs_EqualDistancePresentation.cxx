@@ -37,7 +37,7 @@
 //=================================================================================
 // function  : Add
 //=================================================================================
-void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(StyleDrawer)&       aDrawer,
                                            const Point3d&                     Point1,
                                            const Point3d&                     Point2,
@@ -59,7 +59,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
 
   // Add presentation of arrows (points)
   Dir3d aDir(0, 0, 1);
-  DsgPrs::ComputeSymbol(aPresentation, LA, Middle12, Middle34, aDir, aDir, DsgPrs_AS_BOTHPT);
+  DsgPrs1::ComputeSymbol(aPresentation, LA, Middle12, Middle34, aDir, aDir, DsgPrs_AS_BOTHPT);
   // ota -- begin --
   // Two small lines in the middle of this line
   Point3d        Middle((Middle12.XYZ() + Middle34.XYZ()) * 0.5), aTextPos;
@@ -111,7 +111,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
   UtfString aText("==");
 
   // Draw1 the text
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
 }
 
 //==================================================================================
@@ -119,7 +119,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
 // purpose   : is used for presentation of interval between two lines or two points,
 //            or between one line and one point.
 //==================================================================================
-void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentation)& aPresentation,
+void EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentation)& aPresentation,
                                                    const Handle(StyleDrawer)&       aDrawer,
                                                    const Point3d&                     aPoint1,
                                                    const Point3d&                     aPoint2,
@@ -147,7 +147,7 @@ void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentati
   // add arrows presentation
   Dir3d aDir(aProj2.XYZ() - aProj1.XYZ());
 
-  DsgPrs::ComputeSymbol(aPresentation, LA, aProj1, aProj2, aDir.Reversed(), aDir, anArrowSide);
+  DsgPrs1::ComputeSymbol(aPresentation, LA, aProj1, aProj2, aDir.Reversed(), aDir, anArrowSide);
 }
 
 //========================================================================
@@ -155,7 +155,7 @@ void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentati
 // purpose  : is used for presentation of interval between two arcs. One
 //            of the arcs can have a zero radius (being a point really)
 //========================================================================
-void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
+void EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   const Handle(Prs3d_Presentation)& aPresentation,
   const Handle(StyleDrawer)&       aDrawer,
   const gp_Circ&                    aCirc1,
@@ -243,7 +243,7 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   }
 
   // Add presentation of arrows
-  DsgPrs::ComputeSymbol(aPresentation,
+  DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         aPoint2,
                         aPoint4,

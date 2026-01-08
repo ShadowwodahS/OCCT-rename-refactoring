@@ -109,6 +109,6 @@ Standard_OStream& XCAFDoc_NoteComment::Dump(Standard_OStream& theOS) const
 {
   XCAFDoc_Note::Dump(theOS);
   theOS << "\n"
-        << "Comment : " << (!myComment.IsEmpty() ? myComment : "<empty>");
+        << "Comment1 : " << (!myComment.IsEmpty() ? myComment : "<empty>");
   return theOS;
 }

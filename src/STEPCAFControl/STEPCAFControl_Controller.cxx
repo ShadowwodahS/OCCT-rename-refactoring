@@ -43,8 +43,8 @@ Standard_Boolean STEPCAFControl_Controller::Init()
   }
   // self-registering
   Handle(STEPCAFControl_Controller) STEPCTL = new STEPCAFControl_Controller;
-  // do XSAlgo::Init, cause it does not called before.
-  XSAlgo::Init();
+  // do XSAlgo1::Init, cause it does not called before.
+  XSAlgo1::Init();
   // do something to avoid warnings...
   STEPCTL->AutoRecord();
 

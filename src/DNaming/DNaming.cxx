@@ -221,7 +221,7 @@ static void LoadC0Vertices(const TopoShape& S, const Handle(TDF_TagSource)& Tagg
     if (naborFaces.Extent() < 3)
     {
       TNaming_Builder bC0Vertex(Tagger->NewChild());
-      bC0Vertex.Generated(itr.Key());
+      bC0Vertex.Generated(itr.Key1());
     }
   }
 }
@@ -278,7 +278,7 @@ static void LoadC0Edges(const TopoShape& S, const Handle(TDF_TagSource)& Tagger)
       TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itr(edgeNaborFaces);
       for (; itr.More(); itr.Next())
       {
-        const TopoShape& anEdge2 = itr.Key();
+        const TopoShape& anEdge2 = itr.Key1();
         if (anEdgesToDelete.Contains(anEdge2))
           continue;
         if (anEdge1.IsSame(anEdge2))
@@ -306,7 +306,7 @@ static void LoadC0Edges(const TopoShape& S, const Handle(TDF_TagSource)& Tagger)
       TopTools_MapIteratorOfMapOfShape itDelete(anEdgesToDelete);
       for (; itDelete.More(); itDelete.Next())
       {
-        edgeNaborFaces.UnBind(itDelete.Key());
+        edgeNaborFaces.UnBind(itDelete.Key1());
       }
       edgeNaborFaces.UnBind(anEdge1);
     }
@@ -359,7 +359,7 @@ static void LoadGeneratedDangleShapes(const TopoShape&    ShapeIn,
     return;
   TopTools_DataMapIteratorOfDataMapOfShapeShape itr(dangles);
   for (; itr.More(); itr.Next())
-    Builder.Generated(itr.Key(), itr.Value());
+    Builder.Generated(itr.Key1(), itr.Value());
 }
 
 //=======================================================================
@@ -537,7 +537,7 @@ Handle(TDataStd_Real) DNaming1::GetReal(const Handle(TFunction_Function)& theFun
 }
 
 //=======================================================================
-// function : Integer
+// function : Integer1
 // purpose  : Give an access to integer attribute
 //=======================================================================
 Handle(IntAttribute) DNaming1::GetInteger(const Handle(TFunction_Function)& theFunction,
@@ -577,7 +577,7 @@ Handle(ShapeAttribute) DNaming1::GetFunctionResult(const Handle(TFunction_Functi
 
 //=======================================================================
 // function : Object
-// purpose  : Returns UAttribute associated with Object
+// purpose  : Returns UAttribute1 associated with Object
 //=======================================================================
 Handle(TDataStd_UAttribute) DNaming1::GetObjectArg(const Handle(TFunction_Function)& theFunction,
                                                   const Standard_Integer            thePosition)
@@ -605,7 +605,7 @@ void DNaming1::SetObjectArg(const Handle(TFunction_Function)&  theFunction,
 
 //=======================================================================
 // function : GetObjectValue
-// purpose  : Returns NamedShape of the Object
+// purpose  : Returns NamedShape1 of the Object
 //=======================================================================
 Handle(ShapeAttribute) DNaming1::GetObjectValue(const Handle(TDataStd_UAttribute)& theObject)
 {
@@ -899,7 +899,7 @@ Standard_Boolean DNaming1::ComputeAxis(const Handle(ShapeAttribute)& theNS, Axis
       Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(aCurve);
       if (!aLine.IsNull())
       {
-        theAx1 = aLine->Position();
+        theAx1 = aLine->Position1();
         return Standard_True;
       }
     }

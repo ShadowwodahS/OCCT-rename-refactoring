@@ -382,7 +382,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dCompositeCurve(
 {
   TopoShape res;
   res = TransferCompositeCurveGeneral(start, Standard_True, face, trans, uFact);
-  // Message occur if needed in TransferCompositeCurveGeneral
+  // Message1 occur if needed in TransferCompositeCurveGeneral
   // if (start->HasTransf()) {
   //  Message_Msg Msg1036("IGES_1036"); //"The Trsf cannot be applied to the entity."
   //  SendWarning(start,Msg1036);
@@ -780,7 +780,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dOffsetCurve(const Handle(IGESGeom_Offs
       BRepInspector::CurveOnSurface(TopoDS::Edge(Sh), Crv, Srf, aLoc, a, b);
       OffCrv = new Geom2d_OffsetCurve(Crv, Offset * uFact);
       TopoEdge anEdge;
-      ShapeBuild_Edge().MakeEdge(anEdge,
+      Edge2().MakeEdge(anEdge,
                                  OffCrv,
                                  face,
                                  start->StartParameter(),
@@ -806,7 +806,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dOffsetCurve(const Handle(IGESGeom_Offs
         BRepInspector::CurveOnSurface(anEdge, Crv, Srf, aLoc, a, b);
         OffCrv = new Geom2d_OffsetCurve(Crv, Offset * uFact);
         TopoEdge anotherEdge;
-        ShapeBuild_Edge().MakeEdge(anotherEdge,
+        Edge2().MakeEdge(anotherEdge,
                                    OffCrv,
                                    face,
                                    start->StartParameter(),
@@ -1180,7 +1180,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
       ntrsf.SetScale(gp_Pnt2d(0, 0), GetUnitFactor());
 
     Standard_Real   a = mycurve2d->FirstParameter(), b = mycurve2d->LastParameter();
-    ShapeBuild_Edge sbe;
+    Edge2 sbe;
     mycurve2d = sbe.TransformPCurve(mycurve2d, ntrsf, uFact, a, b);
 
     if ((mycurve2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
@@ -1193,7 +1193,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
       Standard_Integer NbC0 = seqBS->Length();
       for (Standard_Integer i = 1; i <= NbC0; i++)
       {
-        ShapeBuild_Edge().MakeEdge(myedge, seqBS->Value(i), face);
+        Edge2().MakeEdge(myedge, seqBS->Value(i), face);
         //	EdgeMaker ME (seqBS->Value (i), mysurf);
         if (myedge.IsNull() /*!ME.IsDone()*/)
         {
@@ -1203,7 +1203,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
           return myshape;
         }
         //	myedge = ME.Edge();
-        //	ShapeBuild_Edge().RemovePCurve (myedge, mysurf);
+        //	Edge2().RemovePCurve (myedge, mysurf);
         //	B.UpdateEdge (myedge, seqBS->Value (i), face, 0);
         sewd->Add(myedge);
       }
@@ -1215,7 +1215,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
         Handle(Geom2d_TrimmedCurve) tmp = Handle(Geom2d_TrimmedCurve)::DownCast(mycurve2d);
         mycurve2d                       = tmp->BasisCurve();
       }
-      ShapeBuild_Edge().MakeEdge(myedge, mycurve2d, face, a, b);
+      Edge2().MakeEdge(myedge, mycurve2d, face, a, b);
       //      EdgeMaker ME (mycurve2d, mysurf);
       if (myedge.IsNull() /*!ME.IsDone()*/)
       {
@@ -1224,7 +1224,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
         return myshape;
       }
       //      myedge = ME.Edge();
-      //      ShapeBuild_Edge().RemovePCurve (myedge, mysurf);
+      //      Edge2().RemovePCurve (myedge, mysurf);
       //      B.UpdateEdge (myedge, mycurve2d, face, 0);
       sewd->Add(myedge);
     }

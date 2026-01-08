@@ -33,12 +33,12 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! the STEP definition
-  //! Position : center and axes
+  //! Position1 : center and axes
   //! Major, Minor : Radii
   //!
   //! Errors : Major < Resolution
   //! Minor < Resolution
-  Standard_EXPORT BRepPrim_Torus(const Frame3d&       Position,
+  Standard_EXPORT BRepPrim_Torus(const Frame3d&       Position1,
                                  const Standard_Real Major,
                                  const Standard_Real Minor);
 

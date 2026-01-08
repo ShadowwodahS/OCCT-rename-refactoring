@@ -100,7 +100,7 @@ public:
 
   Standard_EXPORT Standard_Integer VOrder() const;
 
-  Standard_EXPORT Standard_Integer Position() const;
+  Standard_EXPORT Standard_Integer Position1() const;
 
   Standard_EXPORT Standard_Integer NbCoeff() const;
 

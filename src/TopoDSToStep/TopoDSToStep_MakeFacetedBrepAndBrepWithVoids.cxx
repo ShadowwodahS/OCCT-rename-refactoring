@@ -63,7 +63,7 @@ TopoDSToStep_MakeFacetedBrepAndBrepWithVoids::TopoDSToStep_MakeFacetedBrepAndBre
   Handle(StepShape_HArray1OfOrientedClosedShell)  aVoids;
   TColStd_SequenceOfTransient                     aTessShells;
 
-  aOutShell = BRepClass3d::OuterShell(aSolid);
+  aOutShell = BRepClass3d1::OuterShell(aSolid);
 
   Handle(StepData_StepModel) aStepModel = Handle(StepData_StepModel)::DownCast(FP->Model());
   TopoDSToStep_Builder       StepB;

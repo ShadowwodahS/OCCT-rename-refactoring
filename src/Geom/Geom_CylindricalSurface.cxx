@@ -66,7 +66,7 @@ Geom_CylindricalSurface::Geom_CylindricalSurface(const Cylinder1& C)
     : radius(C.Radius())
 {
 
-  pos = C.Position();
+  pos = C.Position1();
 }
 
 //=================================================================================================
@@ -135,7 +135,7 @@ void Geom_CylindricalSurface::SetCylinder(const Cylinder1& C)
 {
 
   radius = C.Radius();
-  pos    = C.Position();
+  pos    = C.Position1();
 }
 
 //=================================================================================================

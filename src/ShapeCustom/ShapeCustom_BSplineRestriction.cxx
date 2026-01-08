@@ -586,7 +586,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
       GeomAbs_Shape cnt = Surface->Continuity();
       cnt               = (cnt > GeomAbs_C2 ? GeomAbs_C2 : cnt);
       Handle(BSplineCurve3d) bspl =
-        ShapeConstruct::ConvertCurveToBSpline(BasCurve, UF, UL, TolS, cnt, myNbMaxSeg, myMaxDegree);
+        ShapeConstruct1::ConvertCurveToBSpline(BasCurve, UF, UL, TolS, cnt, myNbMaxSeg, myMaxDegree);
       BasCurve = bspl;
       ConvertCurve(BasCurve,
                    ResCurve,

@@ -44,7 +44,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_NoteBinDataDriver::NewEmpty() const
 //=================================================================================================
 
 Standard_Boolean XmlMXCAFDoc_NoteBinDataDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -66,7 +66,7 @@ Standard_Boolean XmlMXCAFDoc_NoteBinDataDriver::Paste(
   if (!aSize.GetInteger(nbSize))
     return Standard_False;
 
-  XmlObjMgt_DOMString aDataStr = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString aDataStr = XmlObjMgt1::GetStringValue(theSource);
   Standard_SStream    anSS(aDataStr.GetString());
 
   Handle(TColStd_HArray1OfByte) aData = new TColStd_HArray1OfByte(1, nbSize);
@@ -85,7 +85,7 @@ Standard_Boolean XmlMXCAFDoc_NoteBinDataDriver::Paste(
 //=================================================================================================
 
 void XmlMXCAFDoc_NoteBinDataDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                          XmlObjMgt_Persistent&        theTarget,
+                                          PersistentStorage&        theTarget,
                                           XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   XmlMXCAFDoc_NoteDriver::Paste(theSource, theTarget, theRelocTable);
@@ -110,7 +110,7 @@ void XmlMXCAFDoc_NoteBinDataDriver::Paste(const Handle(TDF_Attribute)& theSource
     // clang-format off
     Standard_Character* dump = (Standard_Character*)anOSS.str(); // copying! Don't forget to delete it.
     // clang-format on
-    XmlObjMgt::SetStringValue(theTarget, dump, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, dump, Standard_True);
     delete[] dump;
   }
 }

@@ -275,7 +275,7 @@ void BRepMesh_DataStructureOfDelaun::ClearDomain()
   IMeshData::IteratorOfMapOfInteger aElementIt(myElementsOfDomain);
   for (; aElementIt.More(); aElementIt.Next())
   {
-    const Standard_Integer aElementId = aElementIt.Key();
+    const Standard_Integer aElementId = aElementIt.Key1();
     Triangle3&     aElement   = (Triangle3&)GetElement(aElementId);
 
     const Standard_Integer(&e)[3] = aElement.myEdges;
@@ -290,7 +290,7 @@ void BRepMesh_DataStructureOfDelaun::ClearDomain()
 
   IMeshData::IteratorOfMapOfInteger aEdgeIt(aFreeEdges);
   for (; aEdgeIt.More(); aEdgeIt.Next())
-    RemoveLink(aEdgeIt.Key());
+    RemoveLink(aEdgeIt.Key1());
 }
 
 //=================================================================================================
@@ -476,7 +476,7 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
       IMeshData::IteratorOfMapOfInteger aLinksIt(aMeshData->LinksOfDomain());
       for (; aLinksIt.More(); aLinksIt.Next())
       {
-        const BRepMesh_Edge& aLink = aMeshData->GetLink(aLinksIt.Key());
+        const BRepMesh_Edge& aLink = aMeshData->GetLink(aLinksIt.Key1());
         Point3d               aPnt[2];
         for (Standard_Integer i = 0; i < 2; ++i)
         {

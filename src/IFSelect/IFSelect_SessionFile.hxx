@@ -32,12 +32,12 @@ class IFSelect_WorkSession;
 class RefObject;
 
 //! A SessionFile is intended to manage access between a
-//! WorkSession and an Ascii Form, to be considered as a Dump.
+//! WorkSession and an Ascii1 Form, to be considered as a Dump.
 //! It allows to write the File from the WorkSession, and later
 //! read the File to the WorkSession, by keeping required
 //! descriptions (such as dependences).
 //!
-//! The produced File is under an Ascii Form, then it may be
+//! The produced File is under an Ascii1 Form, then it may be
 //! easily consulted.
 //! It is possible to cumulate reading of several Files. But in
 //! case of Names conflict, the newer Names are forgottens.
@@ -124,7 +124,7 @@ public:
   //! IsDone can be called too (will return True for OK)
   Standard_EXPORT Standard_Integer Read(const Standard_CString filename);
 
-  //! Prepares the Write operation from a WorkSession (IFSelect) to
+  //! Prepares the Write operation from a WorkSession (IFSelect1) to
   //! a File, i.e. fills the list of lines (the file itself remains
   //! to be written; or NbLines/Line may be called)
   //! Important Remark : this excludes the reading of the last line,

@@ -62,7 +62,7 @@ public:
   Standard_EXPORT Handle(AIS_Line) YAxis() const;
 
   //! Returns the point of origin of the plane trihedron.
-  Standard_EXPORT Handle(VisualPoint) Position() const;
+  Standard_EXPORT Handle(VisualPoint) Position1() const;
 
   //! Sets the length of the X and Y axes.
   Standard_EXPORT void SetLength(const Standard_Real theLength);

@@ -48,9 +48,9 @@ public:
     }
 
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Write persistent data to a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
     //! Gets persistent child objects
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
@@ -76,8 +76,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PointOnCurve"; }
@@ -93,8 +93,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PointsOnSurface"; }
@@ -108,8 +108,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PointOnCurveOnSurface"; }
@@ -130,8 +130,8 @@ public:
     {
     }
 
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
 
     virtual Standard_CString PName() const { return "PBRep_PointOnSurface"; }
 
@@ -147,9 +147,9 @@ public:
 
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Write persistent data from a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
     //! Gets persistent child objects
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
@@ -180,8 +180,8 @@ public:
     {
     }
 
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
 
     virtual Standard_CString PName() const { return "PBRep_GCurve"; }
 
@@ -195,8 +195,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_Curve3D"; }
@@ -212,8 +212,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_CurveOnSurface"; }
@@ -237,8 +237,8 @@ public:
     {
     }
 
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_CurveOnClosedSurface"; }
@@ -257,8 +257,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_Polygon3D"; }
@@ -274,8 +274,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PolygonOnTriangulation"; }
@@ -292,8 +292,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PolygonOnClosedTriangulation"; }
@@ -309,8 +309,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PolygonOnSurface"; }
@@ -327,8 +327,8 @@ public:
     friend class ShapePersistent_BRep;
 
   public:
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_PolygonOnClosedSurface"; }
@@ -349,8 +349,8 @@ public:
     {
     }
 
-    virtual void Read(StdObjMgt_ReadData& theReadData);
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    virtual void Read(ReadData& theReadData);
+    virtual void Write(WriteData& theWriteData) const;
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
     virtual Standard_CString PName() const { return "PBRep_CurveOn2Surfaces"; }
@@ -375,13 +375,13 @@ private:
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       pTBase::Read(theReadData);
       theReadData >> myTolerance >> myPnt >> myPoints;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       pTBase::Write(theWriteData);
       theWriteData << myTolerance << myPnt << myPoints;
@@ -415,13 +415,13 @@ private:
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       pTBase::Read(theReadData);
       theReadData >> myTolerance >> myFlags >> myCurves;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       pTBase::Write(theWriteData);
       theWriteData << myTolerance << myFlags << myCurves;
@@ -455,14 +455,14 @@ private:
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       pTBase::Read(theReadData);
       theReadData >> mySurface >> myTriangulation >> myLocation;
       theReadData >> myTolerance >> myNaturalRestriction;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       pTBase::Write(theWriteData);
       theWriteData << mySurface << myTriangulation << myLocation;

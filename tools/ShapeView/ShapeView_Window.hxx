@@ -131,7 +131,7 @@ protected slots:
   //! Views BREP files of selected items if exist
   void onExportToBREP();
 
-  //! Converts file name to Ascii String and perform opening file
+  //! Converts file name to Ascii1 String and perform opening file
   //! \param theFileName a file name to be opened
   void onOpenFile(const QString& theFileName)
   {

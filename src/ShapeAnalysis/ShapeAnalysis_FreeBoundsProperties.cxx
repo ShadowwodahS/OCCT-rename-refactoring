@@ -207,7 +207,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::DispatchBounds()
     tmpOpenBounds   = safb.GetOpenWires();
   }
 
-  ShapeExtend_Explorer              shexpl;
+  Explorer              shexpl;
   Handle(TopTools_HSequenceOfShape) tmpSeq =
     shexpl.SeqFromCompound(tmpClosedBounds, Standard_False);
   Standard_Integer i; // svv Jan11 2000 : porting on DEC

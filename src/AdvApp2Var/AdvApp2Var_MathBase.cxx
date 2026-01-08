@@ -1208,7 +1208,7 @@ int mmarc41_(integer*    ndimax,
   /*        S(U(t)) are calculated step by step with help of table TBAUX. */
   /*        At each step number N (N=2 to NCOEFF), TBAUX(n) contains */
   /*        the n-th coefficient of U(t)**N for n=1 to N. (RBD) */
-  /* ---> Reference : KNUTH, 'The Art of Computer Programming', */
+  /* ---> Reference1 : KNUTH, 'The Art of Computer Programming', */
   /*                        Vol. 2/'Seminumerical Algorithms', */
   /*                        Ex. 11 p:451 et solution p:562. (RBD) */
 
@@ -1789,7 +1789,7 @@ int MathBase::mmbulld_(integer*    nbcoln,
   /*       - NBCOLN : Number of columns in the table */
   /*       - NBLIGN : Number of lines in the table */
   /*       - DTABTR : Table of integers to be parsed */
-  /*       - NUMCLE : Position of the key on the column */
+  /*       - NUMCLE : Position1 of the key on the column */
 
   /*     OUTPUT ARGUMENTS : */
   /*     --------------------- */
@@ -2360,7 +2360,7 @@ int mmchole_(integer*, // mxcoef,
   /*     AMATRI(MXCOEF) : Coefficients of the matrix profile */
   /*        APOSIT(1,*) : Distance diagonal-left extremity of the line
    */
-  /*        APOSIT(2,*) : Position of diagonal terms in HESSIE */
+  /*        APOSIT(2,*) : Position1 of diagonal terms in HESSIE */
   /*     POSUIV(MXCOEF) :  first line inferior not out of profile */
 
   /*     OUTPUT ARGUMENTS : */
@@ -3062,7 +3062,7 @@ int MathBase::mmdrc11_(integer*    iordre,
   /*             --------- */
   /*                n! */
 
-  /*      Reference : D. KNUTH, "The Art of Computer Programming" */
+  /*      Reference1 : D. KNUTH, "The Art of Computer Programming" */
   /*      ---------              Vol. 2/Seminumerical Algorithms */
   /*                             Addison-Wesley Pub. Co. (1969) */
   /*                             pages 423-425. */
@@ -3251,7 +3251,7 @@ int mmdrvcb_(integer*    ideriv,
   /*             --------- */
   /*                n! */
 
-  /*      Reference : D. KNUTH, "The Art of Computer Programming" */
+  /*      Reference1 : D. KNUTH, "The Art of Computer Programming" */
   /*      ---------              Vol. 2/Seminumerical Algorithms */
   /*                             Addison-Wesley Pub. Co. (1969) */
   /*                             pages 423-425. */
@@ -6488,7 +6488,7 @@ int MathBase::mmpobas_(doublereal* tparam,
 
   /*     FUNCTION : */
   /*     ---------- */
-  /*       Position on the polynoms of base hermit-Jacobi */
+  /*       Position1 on the polynoms of base hermit-Jacobi */
   /*       and their successive derivatives */
 
   /*     KEYWORDS : */
@@ -6501,8 +6501,8 @@ int MathBase::mmpobas_(doublereal* tparam,
   /*       IORDRE : Orderof hermit-Jacobi (-1,0,1, ou 2) */
   /*       NCOEFF : Number of coefficients of polynoms (Nb of value to calculate) */
   /*       NDERIV : Number of derivative to calculate (0<= N <=3) */
-  /*              0 -> Position simple on base functions */
-  /*              N -> Position on base functions and derivative */
+  /*              0 -> Position1 simple on base functions */
+  /*              N -> Position1 on base functions and derivative */
   /*              of order 1 to N */
 
   /*     OUTPUT ARGUMENTS : */
@@ -6945,7 +6945,7 @@ int MathBase::mmmpocur_(integer*    ncofmx,
 
   /*     FUNCTION : */
   /*     ---------- */
-  /*        Position of a point on curve (ncofmx,ndim). */
+  /*        Position1 of a point on curve (ncofmx,ndim). */
 
   /*     KEYWORDS : */
   /*     ----------- */
@@ -7049,8 +7049,8 @@ int mmpojac_(doublereal*                     tparam,
   /*       NCOEFF : Number of coeeficients of polynoms (Nb of value to */
   /*                calculate) */
   /*       NDERIV : Number of derivative to calculate (0<= N <=3) */
-  /*              0 -> Position simple on jacobi functions */
-  /*              N -> Position on jacobi functions and their */
+  /*              0 -> Position1 simple on jacobi functions */
+  /*              N -> Position1 on jacobi functions and their */
   /*              derivatives of order 1 to N. */
 
   /*     OUTPUT ARGUMENTS : */
@@ -7818,7 +7818,7 @@ int mmrslss_(integer*, // mxcoef,
   /*     SMATRI(MXCOEF) : Values of coefficients of the matrix */
   /*     SPOSIT(2,DIMENS): */
   /*       SPOSIT(1,*) : Distance diagonal-extremity of the line */
-  /*       SPOSIT(2,*) : Position of diagonal terms in AMATRI */
+  /*       SPOSIT(2,*) : Position1 of diagonal terms in AMATRI */
   /*     POSUIV(MXCOEF): first line inferior not out of profile */
   /*     MSCNMBR(DIMENS): Vector second member of the equation */
 

@@ -26,18 +26,18 @@
 /*
 // Debug state= True / False.
 static Standard_Boolean Dbg=Standard_False;
-void ShapeUpgrade::SetDebug(const Standard_Boolean State)
+void ShapeUpgrade1::SetDebug(const Standard_Boolean State)
 {
   Dbg=State;
 }
-Standard_Boolean ShapeUpgrade::Debug()
+Standard_Boolean ShapeUpgrade1::Debug()
 {
   return Dbg;
 }
 */
 //=================================================================================================
 
-Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
+Standard_Boolean ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(BSplineCurve3d)&          BS,
   Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS)
 {
@@ -183,7 +183,7 @@ static Handle(Geom2d_BSplineCurve) BSplineCurve3dTo2d(const Handle(BSplineCurve3
   return BS2d;
 }
 
-Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
+Standard_Boolean ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(Geom2d_BSplineCurve)&          BS,
   Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS)
 {

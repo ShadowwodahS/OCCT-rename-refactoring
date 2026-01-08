@@ -17,7 +17,7 @@
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void StdLPersistent_TreeNode::Read(StdObjMgt_ReadData& theReadData)
+void TreeNode::Read(ReadData& theReadData)
 {
   myDynamicData = new dynamic;
   theReadData >> myDynamicData->First >> myNext >> myDynamicData->TreeID;
@@ -27,7 +27,7 @@ void StdLPersistent_TreeNode::Read(StdObjMgt_ReadData& theReadData)
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void StdLPersistent_TreeNode::Write(StdObjMgt_WriteData& theWriteData) const
+void TreeNode::Write(WriteData& theWriteData) const
 {
   theWriteData << myDynamicData->First << myNext << myDynamicData->TreeID;
 }
@@ -36,7 +36,7 @@ void StdLPersistent_TreeNode::Write(StdObjMgt_WriteData& theWriteData) const
 // function : PChildren
 // purpose  : Gets persistent child objects
 //=======================================================================
-void StdLPersistent_TreeNode::PChildren(
+void TreeNode::PChildren(
   StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
 {
   theChildren.Append(myNext);
@@ -48,7 +48,7 @@ void StdLPersistent_TreeNode::PChildren(
 // function : CreateAttribute
 // purpose  : Create an empty transient attribute
 //=======================================================================
-Handle(TDF_Attribute) StdLPersistent_TreeNode::CreateAttribute()
+Handle(TDF_Attribute) TreeNode::CreateAttribute()
 {
   Static::CreateAttribute();
   myTransient->SetTreeID(myDynamicData->TreeID);
@@ -59,16 +59,16 @@ Handle(TDF_Attribute) StdLPersistent_TreeNode::CreateAttribute()
 // function : ImportAttribute
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
-void StdLPersistent_TreeNode::ImportAttribute()
+void TreeNode::ImportAttribute()
 {
   if (myDynamicData)
   {
-    Handle(StdLPersistent_TreeNode) aChild = myDynamicData->First;
+    Handle(TreeNode) aChild = myDynamicData->First;
     while (aChild)
     {
       if (aChild->myTransient)
         myTransient->Append(aChild->myTransient);
-      StdLPersistent_TreeNode* aCurr = aChild.get();
+      TreeNode* aCurr = aChild.get();
       aChild                         = aChild->myNext;
       aCurr->myNext.Nullify(); // this reference is no longer needed
     }

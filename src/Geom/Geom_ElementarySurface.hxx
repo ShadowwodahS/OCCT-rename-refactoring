@@ -84,7 +84,7 @@ public:
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the surface.
-  const Ax3& Position() const { return pos; }
+  const Ax3& Position1() const { return pos; }
 
   //! Reverses the U parametric direction of the surface.
   Standard_EXPORT virtual void UReverse() Standard_OVERRIDE;

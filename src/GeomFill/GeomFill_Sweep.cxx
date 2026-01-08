@@ -645,7 +645,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         //  Modified by skv - Thu Feb  5 11:39:08 2004 OCC5073 End
         gp_Lin L = AC.Line();
         L.Transform(Tf2);
-        DS.SetXYZ(L.Position().Direction().XYZ());
+        DS.SetXYZ(L.Position1().Direction().XYZ());
         DS.Normalize();
         levier = Abs(DS.Dot(DP));
         SError = error + levier * Abs(Last - First);
@@ -667,16 +667,16 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         gp_Circ C = AC.Circle();
         C.Transform(Tf2);
 
-        DS.SetXYZ(C.Position().Direction().XYZ());
+        DS.SetXYZ(C.Position1().Direction().XYZ());
         DS.Normalize();
         levier = Abs(DS.CrossMagnitude(DP)) * C.Radius();
         SError = levier * Abs(Last - First);
         if (SError <= TolProd)
         {
           Ok = Standard_True;
-          Ax3 axe(C.Location(), DP, C.Position().XDirection());
+          Ax3 axe(C.Location(), DP, C.Position1().XDirection());
           S = new (Geom_CylindricalSurface)(axe, C.Radius());
-          if (C.Position().Direction().IsOpposite(axe.Direction(), 0.1))
+          if (C.Position1().Direction().IsOpposite(axe.Direction(), 0.1))
           {
             Standard_Real f, l;
             // L'orientation parametrique est inversee
@@ -864,7 +864,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         // On verifie d'abord que le plan de la section est // a
         // l'axe de rotation
         Vector3d NC;
-        NC.SetXYZ(C.Position().Direction().XYZ());
+        NC.SetXYZ(C.Position1().Direction().XYZ());
         NC.Normalize();
         error = Abs(NC.Dot(DN));
         // Puis on evalue l'erreur commise sur la section,
@@ -943,9 +943,9 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             Handle(GeomCircle) Iso;
             Iso = Handle(GeomCircle)::DownCast(S->UIso(0.));
             Frame3d axeiso;
-            axeiso = Iso->Circ().Position();
+            axeiso = Iso->Circ().Position1();
 
-            if (C.Position().Direction().IsOpposite(axeiso.Direction(), 0.1))
+            if (C.Position1().Direction().IsOpposite(axeiso.Direction(), 0.1))
             {
               Standard_Real f, l;
               // L'orientation parametrique est inversee
@@ -957,7 +957,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             }
             // On calcul le "glissement" parametrique.
             Standard_Real rot;
-            rot = C.Position().XDirection().AngleWithRef(axeiso.XDirection(), axeiso.Direction());
+            rot = C.Position1().XDirection().AngleWithRef(axeiso.XDirection(), axeiso.Direction());
             UFirst -= rot;
             ULast -= rot;
 

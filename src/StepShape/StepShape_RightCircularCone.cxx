@@ -39,7 +39,7 @@ void StepShape_RightCircularCone::SetPosition(const Handle(StepGeom_Axis1Placeme
   position = aPosition;
 }
 
-Handle(StepGeom_Axis1Placement) StepShape_RightCircularCone::Position() const
+Handle(StepGeom_Axis1Placement) StepShape_RightCircularCone::Position1() const
 {
   return position;
 }

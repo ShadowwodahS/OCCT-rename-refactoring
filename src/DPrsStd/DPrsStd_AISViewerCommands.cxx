@@ -57,8 +57,8 @@ static Standard_Integer DPrsStd_AISInitViewer(DrawInterpreter& theDI,
     AsciiString1("Driver1/Document_") + theArgVec[1] + "/View1";
   if (!TPrsStd_AISViewer::Find(aRoot, aDocViewer))
   {
-    ViewerTest::ViewerInit(aViewName);
-    aDocViewer = TPrsStd_AISViewer::New(aRoot, ViewerTest::GetAISContext());
+    ViewerTest1::ViewerInit(aViewName);
+    aDocViewer = TPrsStd_AISViewer::New(aRoot, ViewerTest1::GetAISContext());
   }
 
   DDF1::ReturnLabel(theDI, aDocViewer->Label());
@@ -99,5 +99,5 @@ void DPrsStd1::AISViewerCommands(DrawInterpreter& theCommands)
 
   theCommands.Add("AISInitViewer", "AISInitViewer (DOC)", __FILE__, DPrsStd_AISInitViewer, g);
 
-  theCommands.Add("AISRepaint", "update the AIS viewer", __FILE__, DPrsStd_AISRepaint, g);
+  theCommands.Add("AISRepaint", "update the AIS1 viewer", __FILE__, DPrsStd_AISRepaint, g);
 }

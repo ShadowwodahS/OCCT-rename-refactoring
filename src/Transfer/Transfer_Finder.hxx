@@ -29,8 +29,8 @@
 class Transfer_Finder;
 DEFINE_STANDARD_HANDLE(Transfer_Finder, RefObject)
 
-//! a Finder allows to map any kind of object as a Key for a Map.
-//! This works by defining, for a Hash Code, that of the real Key,
+//! a Finder allows to map any kind of object as a Key1 for a Map.
+//! This works by defining, for a Hash Code, that of the real Key1,
 //! not of the Finder which acts only as an intermediate.
 //! When a Map asks for the HashCode of a Finder, this one returns
 //! the code it has determined at creation time
@@ -74,7 +74,7 @@ public:
                                                 Handle(RefObject)&  val) const;
 
   //! Returns an attribute from its name. Null Handle if not recorded
-  //! (whatever Transient, Integer, Real ...)
+  //! (whatever Transient, Integer1, Real ...)
   Standard_EXPORT Handle(RefObject) Attribute(const Standard_CString name) const;
 
   //! Returns the type of an attribute :
@@ -137,7 +137,7 @@ public:
   //! name beginning by <fromname>
   //!
   //! For each attribute, if <copied> is True (D), its value is also
-  //! copied if it is a basic type (Integer,Real,String), else it
+  //! copied if it is a basic type (Integer1,Real,String), else it
   //! remains shared between <other> and <me>
   //!
   //! These new attributes are added to the existing ones in <me>,

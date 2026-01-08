@@ -34,7 +34,7 @@
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
 
-class BRepApprox_SurfaceTool
+class SurfaceTool4
 {
 public:
   DEFINE_STANDARD_ALLOC

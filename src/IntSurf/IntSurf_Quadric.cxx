@@ -37,7 +37,7 @@ Quadric1::Quadric1()
 
 // ============================================================
 Quadric1::Quadric1(const gp_Pln& P)
-    : ax3(P.Position()),
+    : ax3(P.Position1()),
       typ(GeomAbs_Plane)
 {
   ax3direc = ax3.Direct();
@@ -48,7 +48,7 @@ Quadric1::Quadric1(const gp_Pln& P)
 Quadric1::Quadric1(const Cylinder1& C)
     :
 
-      ax3(C.Position()),
+      ax3(C.Position1()),
       lin(ax3.Axis()),
       typ(GeomAbs_Cylinder)
 {
@@ -61,7 +61,7 @@ Quadric1::Quadric1(const Cylinder1& C)
 Quadric1::Quadric1(const Sphere3& S)
     :
 
-      ax3(S.Position()),
+      ax3(S.Position1()),
       lin(ax3.Axis()),
       typ(GeomAbs_Sphere)
 {
@@ -74,7 +74,7 @@ Quadric1::Quadric1(const Sphere3& S)
 Quadric1::Quadric1(const Cone1& C)
     :
 
-      ax3(C.Position()),
+      ax3(C.Position1()),
       typ(GeomAbs_Cone)
 {
   ax3direc = ax3.Direct();
@@ -89,7 +89,7 @@ Quadric1::Quadric1(const Cone1& C)
 Quadric1::Quadric1(const gp_Torus& T)
     :
 
-      ax3(T.Position()),
+      ax3(T.Position1()),
       typ(GeomAbs_Torus)
 {
   ax3direc = ax3.Direct();
@@ -104,7 +104,7 @@ Quadric1::Quadric1(const gp_Torus& T)
 void Quadric1::SetValue(const gp_Pln& P)
 {
   typ      = GeomAbs_Plane;
-  ax3      = P.Position();
+  ax3      = P.Position1();
   ax3direc = ax3.Direct();
   P.Coefficients(prm1, prm2, prm3, prm4);
 }
@@ -113,7 +113,7 @@ void Quadric1::SetValue(const gp_Pln& P)
 void Quadric1::SetValue(const Cylinder1& C)
 {
   typ      = GeomAbs_Cylinder;
-  ax3      = C.Position();
+  ax3      = C.Position1();
   ax3direc = ax3.Direct();
   lin.SetPosition(ax3.Axis());
   prm1 = C.Radius();
@@ -124,7 +124,7 @@ void Quadric1::SetValue(const Cylinder1& C)
 void Quadric1::SetValue(const Sphere3& S)
 {
   typ      = GeomAbs_Sphere;
-  ax3      = S.Position();
+  ax3      = S.Position1();
   ax3direc = ax3.Direct();
   lin.SetPosition(ax3.Axis());
   prm1 = S.Radius();
@@ -135,7 +135,7 @@ void Quadric1::SetValue(const Sphere3& S)
 void Quadric1::SetValue(const Cone1& C)
 {
   typ      = GeomAbs_Cone;
-  ax3      = C.Position();
+  ax3      = C.Position1();
   ax3direc = ax3.Direct();
   lin.SetPosition(ax3.Axis());
   prm1 = C.RefRadius();
@@ -148,7 +148,7 @@ void Quadric1::SetValue(const Cone1& C)
 void Quadric1::SetValue(const gp_Torus& T)
 {
   typ      = GeomAbs_Torus;
-  ax3      = T.Position();
+  ax3      = T.Position1();
   ax3direc = ax3.Direct();
   lin.SetPosition(ax3.Axis());
   prm1 = T.MajorRadius();

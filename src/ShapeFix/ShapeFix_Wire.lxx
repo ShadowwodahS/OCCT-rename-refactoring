@@ -424,7 +424,7 @@ inline Standard_Integer& WireHealer::FixTailMode()
 
 inline Standard_Boolean WireHealer::StatusReorder(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusReorder, status);
+  return ShapeExtend1::DecodeStatus(myStatusReorder, status);
 }
 
 //=======================================================================
@@ -434,7 +434,7 @@ inline Standard_Boolean WireHealer::StatusReorder(const ShapeExtend_Status statu
 
 inline Standard_Boolean WireHealer::StatusSmall(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusSmall, status);
+  return ShapeExtend1::DecodeStatus(myStatusSmall, status);
 }
 
 //=======================================================================
@@ -444,7 +444,7 @@ inline Standard_Boolean WireHealer::StatusSmall(const ShapeExtend_Status status)
 
 inline Standard_Boolean WireHealer::StatusConnected(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusConnected, status);
+  return ShapeExtend1::DecodeStatus(myStatusConnected, status);
 }
 
 //=======================================================================
@@ -454,7 +454,7 @@ inline Standard_Boolean WireHealer::StatusConnected(const ShapeExtend_Status sta
 
 inline Standard_Boolean WireHealer::StatusEdgeCurves(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusEdgeCurves, status);
+  return ShapeExtend1::DecodeStatus(myStatusEdgeCurves, status);
 }
 
 //=======================================================================
@@ -464,7 +464,7 @@ inline Standard_Boolean WireHealer::StatusEdgeCurves(const ShapeExtend_Status st
 
 inline Standard_Boolean WireHealer::StatusDegenerated(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusDegenerated, status);
+  return ShapeExtend1::DecodeStatus(myStatusDegenerated, status);
 }
 
 //=======================================================================
@@ -474,7 +474,7 @@ inline Standard_Boolean WireHealer::StatusDegenerated(const ShapeExtend_Status s
 
 inline Standard_Boolean WireHealer::StatusLacking(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusLacking, status);
+  return ShapeExtend1::DecodeStatus(myStatusLacking, status);
 }
 
 //=======================================================================
@@ -484,7 +484,7 @@ inline Standard_Boolean WireHealer::StatusLacking(const ShapeExtend_Status statu
 
 inline Standard_Boolean WireHealer::StatusSelfIntersection(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusSelfIntersection, status);
+  return ShapeExtend1::DecodeStatus(myStatusSelfIntersection, status);
 }
 
 //=======================================================================
@@ -494,7 +494,7 @@ inline Standard_Boolean WireHealer::StatusSelfIntersection(const ShapeExtend_Sta
 
 inline Standard_Boolean WireHealer::StatusGaps3d(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusGaps3d, status);
+  return ShapeExtend1::DecodeStatus(myStatusGaps3d, status);
 }
 
 //=======================================================================
@@ -504,7 +504,7 @@ inline Standard_Boolean WireHealer::StatusGaps3d(const ShapeExtend_Status status
 
 inline Standard_Boolean WireHealer::StatusGaps2d(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusGaps2d, status);
+  return ShapeExtend1::DecodeStatus(myStatusGaps2d, status);
 }
 
 //=======================================================================
@@ -514,7 +514,7 @@ inline Standard_Boolean WireHealer::StatusGaps2d(const ShapeExtend_Status status
 
 inline Standard_Boolean WireHealer::StatusClosed(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusClosed, status);
+  return ShapeExtend1::DecodeStatus(myStatusClosed, status);
 }
 
 //=======================================================================
@@ -524,7 +524,7 @@ inline Standard_Boolean WireHealer::StatusClosed(const ShapeExtend_Status status
 
 inline Standard_Boolean WireHealer::StatusNotches(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusNotches, status);
+  return ShapeExtend1::DecodeStatus(myStatusNotches, status);
 }
 
 //=======================================================================
@@ -533,7 +533,7 @@ inline Standard_Boolean WireHealer::StatusNotches(const ShapeExtend_Status statu
 //=======================================================================
 inline Standard_Boolean WireHealer::StatusFixTails(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusFixTails, status);
+  return ShapeExtend1::DecodeStatus(myStatusFixTails, status);
 }
 
 //=======================================================================
@@ -543,7 +543,7 @@ inline Standard_Boolean WireHealer::StatusFixTails(const ShapeExtend_Status stat
 
 inline Standard_Boolean WireHealer::LastFixStatus(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myLastFixStatus, status);
+  return ShapeExtend1::DecodeStatus(myLastFixStatus, status);
 }
 
 //=======================================================================

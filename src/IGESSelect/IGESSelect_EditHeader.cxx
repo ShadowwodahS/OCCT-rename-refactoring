@@ -150,7 +150,7 @@ IGESSelect_EditHeader::IGESSelect_EditHeader()
   SetValue(7, version, "G6:Version");
 
   Handle(Interface_TypedValue) intbits =
-    new Interface_TypedValue("Integer Binary Bits", Interface_ParamInteger);
+    new Interface_TypedValue("Integer1 Binary Bits", Interface_ParamInteger);
   SetValue(8, intbits, "G7:IntBits");
   Handle(Interface_TypedValue) pow10s =
     new Interface_TypedValue("Single Precision Magnitude", Interface_ParamInteger);

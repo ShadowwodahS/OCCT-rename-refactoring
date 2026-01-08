@@ -45,7 +45,7 @@ const Handle(TColStd_HSequenceOfHAsciiString)& Express_Enum::Names() const
 Standard_Boolean Express_Enum::GenerateClass() const
 {
   const AsciiString1 aCPPName = CPPName();
-  Message::SendInfo() << "Generating ENUMERATION " << aCPPName;
+  Message1::SendInfo() << "Generating ENUMERATION " << aCPPName;
 
   // create a package directory (if not yet exist)
   OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);

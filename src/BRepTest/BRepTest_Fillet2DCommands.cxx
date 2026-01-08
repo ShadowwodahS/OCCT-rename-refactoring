@@ -454,7 +454,7 @@ static Standard_Integer chamfer2d(DrawInterpreter& di, Standard_Integer n, const
 
 //=================================================================================================
 
-void BRepTest::Fillet2DCommands(DrawInterpreter& theCommands)
+void BRepTest1::Fillet2DCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

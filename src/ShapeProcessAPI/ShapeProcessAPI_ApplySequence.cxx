@@ -35,7 +35,7 @@ ShapeProcessAPI_ApplySequence::ShapeProcessAPI_ApplySequence(const Standard_CStr
   AsciiString1 str(seqName);
 
   // initialize operators
-  ShapeProcess_OperLibrary::Init();
+  OperLibrary::Init();
 
   mySeq = str;
 }
@@ -63,7 +63,7 @@ TopoShape ShapeProcessAPI_ApplySequence::PrepareShape(const TopoShape& shape,
   str += ".exec.op";
   if (rsc->Find(str.ToCString()))
   {
-    ShapeProcess::Perform(myContext, mySeq.ToCString(), theProgress);
+    ShapeProcess1::Perform(myContext, mySeq.ToCString(), theProgress);
   }
 
   return myContext->Result();
@@ -90,7 +90,7 @@ void ShapeProcessAPI_ApplySequence::PrintPreparationResult() const
   Standard_Integer SS = 0, SN = 0, FF = 0, FS = 0, FN = 0;
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape It(myContext->Map()); It.More(); It.Next())
   {
-    TopoShape keyshape = It.Key(), valueshape = It.Value();
+    TopoShape keyshape = It.Key1(), valueshape = It.Value();
     if (keyshape.ShapeType() == TopAbs_SHELL)
     {
       if (valueshape.IsNull())

@@ -88,7 +88,7 @@ public:
 
   //! Sets flags defining operations to be performed on shapes.
   //! @param theFlags The flags defining operations to be performed on shapes.
-  Standard_EXPORT void SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags);
+  Standard_EXPORT void SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags);
 
   //! Returns flags defining operations to be performed on shapes.
   //! @return Pair of values defining operations to be performed on shapes and a boolean value

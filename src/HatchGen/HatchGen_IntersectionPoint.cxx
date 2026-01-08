@@ -74,17 +74,17 @@ Standard_Real IntersectionPoint2::Parameter() const
 // Purpose  : Sets the position of the point on the curve.
 //=======================================================================
 
-void IntersectionPoint2::SetPosition(const TopAbs_Orientation Position)
+void IntersectionPoint2::SetPosition(const TopAbs_Orientation Position1)
 {
-  myPosit = Position;
+  myPosit = Position1;
 }
 
 //=======================================================================
-// Function : Position
+// Function : Position1
 // Purpose  : Returns the position of the point on the element.
 //=======================================================================
 
-TopAbs_Orientation IntersectionPoint2::Position() const
+TopAbs_Orientation IntersectionPoint2::Position1() const
 {
   return myPosit;
 }

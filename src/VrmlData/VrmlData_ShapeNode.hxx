@@ -46,9 +46,9 @@ public:
   inline const Handle(VrmlData_Appearance)& Appearance() const { return myAppearance; }
 
   /**
-   * Query the Geometry.
+   * Query the Geometry1.
    */
-  inline const Handle(VrmlData_Geometry)& Geometry() const { return myGeometry; }
+  inline const Handle(VrmlData_Geometry)& Geometry1() const { return myGeometry; }
 
   /**
    * Set the Appearance
@@ -59,7 +59,7 @@ public:
   }
 
   /**
-   * Set the Geometry
+   * Set the Geometry1
    */
   inline void SetGeometry(const Handle(VrmlData_Geometry)& theGeometry)
   {

@@ -58,7 +58,7 @@ Handle(TDF_Attribute) XmlMDataXtd_PatternStdDriver::NewEmpty() const
 //=================================================================================================
 
 Standard_Boolean XmlMDataXtd_PatternStdDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -221,7 +221,7 @@ Standard_Boolean XmlMDataXtd_PatternStdDriver::Paste(
 //=================================================================================================
 
 void XmlMDataXtd_PatternStdDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                         XmlObjMgt_Persistent&        theTarget,
+                                         PersistentStorage&        theTarget,
                                          XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(TDataXtd_PatternStd) aP     = Handle(TDataXtd_PatternStd)::DownCast(theSource);

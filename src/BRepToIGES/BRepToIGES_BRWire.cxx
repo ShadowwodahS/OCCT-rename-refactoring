@@ -493,7 +493,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
       uFact = 1. / myLen;
     }
 
-    ShapeBuild_Edge sbe;
+    Edge2 sbe;
     Curve2d = sbe.TransformPCurve(Curve2d, trans, uFact, First, Last);
     //      (Curve2d, Surf, First, Last, myLen, isBRepMode);
     // if the edge is REVERSED, it is necessary to "REVERSE" the curve 2d.

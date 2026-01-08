@@ -29,7 +29,7 @@ class Adaptor3d_Curve;
 
 //! This package  provides tools to check the validity
 //! of the BRep.
-class BRepCheck
+class BRepCheck1
 {
 public:
   DEFINE_STANDARD_ALLOC

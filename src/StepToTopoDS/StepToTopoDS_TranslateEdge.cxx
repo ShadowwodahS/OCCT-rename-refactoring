@@ -102,7 +102,7 @@ static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
       TP->AddFail(orig, " Point with infinite Parameter");
       break;
     case (BRepLib_DifferentsPointAndParameter):
-      if (!ShapeConstruct_Curve().AdjustCurve(myCurve,
+      if (!Curve3().AdjustCurve(myCurve,
                                               BRepInspector::Pnt(V1),
                                               BRepInspector::Pnt(V2),
                                               Standard_True,
@@ -316,7 +316,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   done = Standard_True;
 
   // ----------------------------------------------------------
-  // --- The EdgeCurve Geometry is of StepGeom_Curve Type
+  // --- The EdgeCurve Geometry1 is of StepGeom_Curve Type
   // --- It can be : * a Pcurve : no 3D curve is constructed
   // ---             * a Surface Curve, Intersection Curve
   // ---               or a Seam Curve
@@ -333,7 +333,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   else if (C->IsKind(STANDARD_TYPE(StepGeom_SurfaceCurve)))
   {
     // For SeamCurve and IntersectionCurve types
-    // --- The Edge Geometry is a Surface Curve ---
+    // --- The Edge Geometry1 is a Surface Curve ---
     // ---     (3d + 2 Pcurve Or Surface)       ---
     Handle(StepGeom_SurfaceCurve) Sc = Handle(StepGeom_SurfaceCurve)::DownCast(C);
     Handle(StepGeom_Curve)        C1 = Sc->Curve3d();
@@ -341,7 +341,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   }
   else
   {
-    // --- The Edge Geometry is a Single 3d Curve ---
+    // --- The Edge Geometry1 is a Single 3d Curve ---
     MakeFromCurve3D(C, EC, Vend, Precision(), E, V1, V2, aTool, theLocalFactors);
   }
   // Force set flags SameRange and SameParameter to Standard_False
@@ -448,7 +448,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
     {
       Handle(GeomLine) aLine    = Handle(GeomLine)::DownCast(C1);
       gp_Lin            aLin     = aLine->Lin();
-      Point3d            anOrigin = pnt1.XYZ() - aLin.Position().Direction().XYZ() * U1;
+      Point3d            anOrigin = pnt1.XYZ() - aLin.Position1().Direction().XYZ() * U1;
       aLin.SetLocation(anOrigin);
       C1 = new GeomLine(aLin);
 

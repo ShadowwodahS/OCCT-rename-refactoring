@@ -39,7 +39,7 @@ void ExternalRefFileTool::ReadOwnParams(const Handle(IGESBasic_ExternalRefFile)&
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Handle(TCollection_HAsciiString) tempExtRefFileIdentifier;
   PR.ReadText(PR.Current(),
-              "External Reference File Identifier",
+              "External Reference1 File Identifier",
               tempExtRefFileIdentifier); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -91,7 +91,7 @@ void ExternalRefFileTool::OwnDump(const Handle(IGESBasic_ExternalRefFile)& ent,
                                             const Standard_Integer /* level */) const
 {
   S << "IGESBasic_ExternalRefFile\n"
-    << "External Reference File Identifier : ";
+    << "External Reference1 File Identifier : ";
   IGESData_DumpString(S, ent->FileId());
   S << std::endl;
 }

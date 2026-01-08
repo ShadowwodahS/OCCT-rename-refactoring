@@ -31,24 +31,24 @@ class IFSelect_WorkSession;
 //!
 //! Remark that this corresponds to the description of a
 //! "scenario" of sharing out a File. Parts of this Scenario
-//! are intended to be permanently stored. IFSelect provides
+//! are intended to be permanently stored. IFSelect1 provides
 //! the Transient, active counterparts (to run the Scenario).
 //! But a permanent one (either as Persistent Objects or as
 //! interpretable Text) must be provided elsewhere.
-class IFSelect
+class IFSelect1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Saves the state of a WorkSession from IFSelect, by using a
-  //! SessionFile from IFSelect. Returns True if Done, False in
+  //! Saves the state of a WorkSession from IFSelect1, by using a
+  //! SessionFile from IFSelect1. Returns True if Done, False in
   //! case of Error on Writing. <file> gives the name of the File
   //! to be produced (this avoids to export the class SessionFile).
   Standard_EXPORT static Standard_Boolean SaveSession(const Handle(IFSelect_WorkSession)& WS,
                                                       const Standard_CString              file);
 
-  //! Restore the state of a WorkSession from IFSelect, by using a
-  //! SessionFile from IFSelect. Returns True if Done, False in
+  //! Restore the state of a WorkSession from IFSelect1, by using a
+  //! SessionFile from IFSelect1. Returns True if Done, False in
   //! case of Error on Writing. <file> gives the name of the File
   //! to be used (this avoids to export the class SessionFile).
   Standard_EXPORT static Standard_Boolean RestoreSession(const Handle(IFSelect_WorkSession)& WS,

@@ -186,9 +186,9 @@ static Standard_Integer Pload(DrawInterpreter& theDI,
 {
   // Define a map of aPlugin keys to their corresponding factory methods
   std::unordered_map<std::string, std::function<void(DrawInterpreter&)>> aPluginMap = {
-    {"TOPTEST", BOPTest::Factory},
+    {"TOPTEST", BOPTest1::Factory},
     {"DCAF", DPrsStd1::Factory},
-    {"AISV", ViewerTest::Factory},
+    {"AISV", ViewerTest1::Factory},
   #if defined(HAVE_OPENGL)
     {"GL", OpenGlTest1::Factory},
     {"OPENGL", OpenGlTest1::Factory},
@@ -197,16 +197,16 @@ static Standard_Integer Pload(DrawInterpreter& theDI,
     {"GLES", OpenGlTest1::Factory},
     {"OPENGLES", OpenGlTest1::Factory},
   #endif
-    {"XSDRAW", XSDRAW::Factory},
-    {"XDEDRAW", XDEDRAW::Factory},
-    {"STEP", XSDRAWSTEP::Factory},
-    {"IGES", XSDRAWIGES::Factory},
-    {"PLY", XSDRAWPLY::Factory},
-    {"GLTF", XSDRAWGLTF::Factory},
-    {"VRML", XSDRAWVRML::Factory},
-    {"STL", XSDRAWSTL::Factory},
-    {"OBJ", XSDRAWOBJ::Factory},
-    {"DE", XSDRAWDE::Factory}};
+    {"XSDRAW1", XSDRAW1::Factory},
+    {"XDEDRAW1", XDEDRAW1::Factory},
+    {"STEP", XSDRAWSTEP1::Factory},
+    {"IGES", XSDRAWIGES1::Factory},
+    {"PLY", XSDRAWPLY1::Factory},
+    {"GLTF", XSDRAWGLTF1::Factory},
+    {"VRML", XSDRAWVRML1::Factory},
+    {"STL", XSDRAWSTL1::Factory},
+    {"OBJ", XSDRAWOBJ1::Factory},
+    {"DE", XSDRAWDE1::Factory}};
 
   // Define a map of aliases to their corresponding aPlugin keys
   std::unordered_map<std::string, std::vector<std::string>> anAliasMap = {
@@ -214,10 +214,10 @@ static Standard_Integer Pload(DrawInterpreter& theDI,
     {"MODELING", {"TOPTEST"}},
     {"VISUALIZATION", {"AISV"}},
     {"OCAFKERNEL", {"DCAF"}},
-    {"DATAEXCHANGEKERNEL", {"XSDRAW", "DE"}},
+    {"DATAEXCHANGEKERNEL", {"XSDRAW1", "DE"}},
     {"OCAF", {"VISUALIZATION", "OCAFKERNEL"}},
     {"DATAEXCHANGE", {"XDE", "VISUALIZATION"}},
-    {"XDE", {"DATAEXCHANGEKERNEL", "XDEDRAW", "STEP", "IGES", "GLTF", "OBJ", "PLY", "STL", "VRML"}},
+    {"XDE", {"DATAEXCHANGEKERNEL", "XDEDRAW1", "STEP", "IGES", "GLTF", "OBJ", "PLY", "STL", "VRML"}},
     {"ALL", {"MODELING", "OCAFKERNEL", "DATAEXCHANGE"}}};
 
   NCollection_IndexedMap<AsciiString1> aPlugins;
@@ -275,12 +275,12 @@ void Draw_InitAppli(DrawInterpreter& theDI)
   Message_Gravity                  aGravity = Message_Info;
   Handle(Message_PrinterSystemLog) aJSConsolePrinter =
     new Message_PrinterSystemLog("DRAWEXE", aGravity);
-  Message::DefaultMessenger()->AddPrinter(aJSConsolePrinter);
+  Message1::DefaultMessenger()->AddPrinter(aJSConsolePrinter);
   // replace printer into std::cout by a printer into a custom callback Module.printMessage
   // accepting message gravity
-  Message::DefaultMessenger()->RemovePrinters(STANDARD_TYPE(Message_PrinterOStream));
+  Message1::DefaultMessenger()->RemovePrinters(STANDARD_TYPE(Message_PrinterOStream));
   Handle(DRAWEXE_WasmModulePrinter) aJSModulePrinter = new DRAWEXE_WasmModulePrinter(aGravity);
-  Message::DefaultMessenger()->AddPrinter(aJSModulePrinter);
+  Message1::DefaultMessenger()->AddPrinter(aJSModulePrinter);
 #endif
 
   Draw1::Commands(theDI);

@@ -67,7 +67,7 @@ Standard_Boolean TFunction_IFunction::DeleteFunction(const DataLabel& L)
     TColStd_MapIteratorOfMapOfInteger itrm(prev);
     for (; itrm.More(); itrm.Next())
     {
-      const Standard_Integer      ID = itrm.Key();
+      const Standard_Integer      ID = itrm.Key1();
       const DataLabel&            La = scope->GetFunctions().Find1(ID);
       Handle(TFunction_GraphNode) G;
       if (La.FindAttribute(TFunction_GraphNode::GetID(), G))
@@ -78,7 +78,7 @@ Standard_Boolean TFunction_IFunction::DeleteFunction(const DataLabel& L)
     // Disconnect next functions
     for (itrm.Initialize(next); itrm.More(); itrm.Next())
     {
-      const Standard_Integer      ID = itrm.Key();
+      const Standard_Integer      ID = itrm.Key1();
       const DataLabel&            La = scope->GetFunctions().Find1(ID);
       Handle(TFunction_GraphNode) G;
       if (La.FindAttribute(TFunction_GraphNode::GetID(), G))
@@ -158,7 +158,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access
     // Find the functions, which produce the arguments of this function.
     for (itrd.Initialize(table); itrd.More(); itrd.Next())
     {
-      const DataLabel& anotherL = itrd.Key();
+      const DataLabel& anotherL = itrd.Key1();
       if (L == anotherL)
         continue;
       const TDF_LabelList& anotherRes = itrd.Value();
@@ -318,7 +318,7 @@ void TFunction_IFunction::GetPrevious(TDF_LabelList& prev) const
   TColStd_MapIteratorOfMapOfInteger itrm(map);
   for (; itrm.More(); itrm.Next())
   {
-    const Standard_Integer funcID = itrm.Key();
+    const Standard_Integer funcID = itrm.Key1();
     if (scope->GetFunctions().IsBound1(funcID))
     {
       prev.Append(scope->GetFunctions().Find1(funcID));
@@ -340,7 +340,7 @@ void TFunction_IFunction::GetNext(TDF_LabelList& next) const
   TColStd_MapIteratorOfMapOfInteger itrm(map);
   for (; itrm.More(); itrm.Next())
   {
-    const Standard_Integer funcID = itrm.Key();
+    const Standard_Integer funcID = itrm.Key1();
     if (scope->GetFunctions().IsBound1(funcID))
     {
       next.Append(scope->GetFunctions().Find1(funcID));

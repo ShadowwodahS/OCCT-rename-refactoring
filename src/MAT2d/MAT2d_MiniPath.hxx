@@ -41,12 +41,12 @@ class MAT2d_Connexion;
 //! The children of a line are ordered by the relation
 //! <IsAfter> defined on the connexions.
 //! (See MAT2s_Connexion.cdl).
-class MAT2d_MiniPath
+class MiniPath
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT MAT2d_MiniPath();
+  Standard_EXPORT MiniPath();
 
   //! Computes the path  to link the  lines in <Figure>.
   //! the path   starts on the  line  of index <IndStart>

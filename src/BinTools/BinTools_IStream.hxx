@@ -40,7 +40,7 @@ public:
   Standard_EXPORT TopAbs_Orientation ShapeOrientation();
 
   //! Returns the current position in the stream.
-  Standard_EXPORT uint64_t Position() { return myPosition; }
+  Standard_EXPORT uint64_t Position1() { return myPosition; }
 
   //! Moves the current stream position to the given one.
   Standard_EXPORT void GoTo(const uint64_t& thePosition);

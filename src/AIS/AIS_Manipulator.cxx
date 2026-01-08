@@ -69,7 +69,7 @@ public:
   }
 
   //! Checks if picking ray can be used for detection.
-  Standard_Boolean isValidRay(const SelectBasics_SelectingVolumeManager& theMgr) const
+  Standard_Boolean isValidRay(const SelectingVolumeManager& theMgr) const
   {
     if (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point)
     {
@@ -92,13 +92,13 @@ public:
   //! Main constructor.
   ManipSensCircle(const Handle(SelectMgr_EntityOwner)& theOwnerId, const gp_Circ& theCircle)
       : Select3D_SensitiveCircle(theOwnerId, theCircle, Standard_False),
-        ManipSensRotation(theCircle.Position().Direction())
+        ManipSensRotation(theCircle.Position1().Direction())
   {
   }
 
   //! Checks whether the circle overlaps current selecting volume
-  virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                   SelectBasics_PickResult& thePickResult) Standard_OVERRIDE
+  virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                   PickResult& thePickResult) Standard_OVERRIDE
   {
     return isValidRay(theMgr) && Select3D_SensitiveCircle::Matches(theMgr, thePickResult);
   }
@@ -117,8 +117,8 @@ public:
   }
 
   //! Checks whether the circle overlaps current selecting volume
-  virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                   SelectBasics_PickResult& thePickResult) Standard_OVERRIDE
+  virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                   PickResult& thePickResult) Standard_OVERRIDE
   {
     return isValidRay(theMgr) && Select3D_SensitiveTriangulation::Matches(theMgr, thePickResult);
   }
@@ -374,7 +374,7 @@ void AIS_Manipulator::adjustSize(const Box2& theBox)
 //=================================================================================================
 
 void AIS_Manipulator::Attach(const Handle(VisualEntity)& theObject,
-                             const OptionsForAttach&              theOptions)
+                             const OptionsForAttach1&              theOptions)
 {
   if (theObject->IsKind(STANDARD_TYPE(AIS_Manipulator)))
   {
@@ -389,7 +389,7 @@ void AIS_Manipulator::Attach(const Handle(VisualEntity)& theObject,
 //=================================================================================================
 
 void AIS_Manipulator::Attach(const Handle(AIS_ManipulatorObjectSequence)& theObjects,
-                             const OptionsForAttach&                      theOptions)
+                             const OptionsForAttach1&                      theOptions)
 {
   if (theObjects->Size() < 1)
   {
@@ -533,7 +533,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
   {
     case AIS_MM_Translation:
     case AIS_MM_Scaling: {
-      const gp_Lin aLine(myStartPosition.Location(), myAxes[myCurrentIndex].Position().Direction());
+      const gp_Lin aLine(myStartPosition.Location(), myAxes[myCurrentIndex].Position1().Direction());
       ExtElC anExtrema(anInputLine, aLine, Precision::Angular());
       if (!anExtrema.IsDone() || anExtrema.IsParallel() || anExtrema.NbExt() != 1)
       {
@@ -1890,7 +1890,7 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
     }
     else
     {
-      myTriangleArray = Prs3d_Arrow::DrawShaded(Axis3d(gp1::Origin(), myReferenceAxis.Direction()),
+      myTriangleArray = Arrow1::DrawShaded(Axis3d(gp1::Origin(), myReferenceAxis.Direction()),
                                                 myAxisRadius,
                                                 myLength,
                                                 myAxisRadius * 1.5,

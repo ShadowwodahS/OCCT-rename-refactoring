@@ -55,7 +55,7 @@
 
 //=================================================================================================
 
-TopoEdge ShapeBuild_Edge::CopyReplaceVertices(const TopoEdge&   edge,
+TopoEdge Edge2::CopyReplaceVertices(const TopoEdge&   edge,
                                                  const TopoVertex& V1,
                                                  const TopoVertex& V2) const
 {
@@ -180,7 +180,7 @@ Standard_Boolean IsPeriodic(const Handle(GeomCurve2d)& theCurve)
   return aTmpCurve->IsPeriodic();
 }
 
-void ShapeBuild_Edge::CopyRanges(const TopoEdge&  toedge,
+void Edge2::CopyRanges(const TopoEdge&  toedge,
                                  const TopoEdge&  fromedge,
                                  const Standard_Real alpha,
                                  const Standard_Real beta) const
@@ -297,7 +297,7 @@ void ShapeBuild_Edge::CopyRanges(const TopoEdge&  toedge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::SetRange3d(const TopoEdge&  edge,
+void Edge2::SetRange3d(const TopoEdge&  edge,
                                  const Standard_Real first,
                                  const Standard_Real last) const
 {
@@ -317,7 +317,7 @@ void ShapeBuild_Edge::SetRange3d(const TopoEdge&  edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::CopyPCurves(const TopoEdge& toedge, const TopoEdge& fromedge) const
+void Edge2::CopyPCurves(const TopoEdge& toedge, const TopoEdge& fromedge) const
 {
   const TopLoc_Location& fromLoc = fromedge.Location();
   const TopLoc_Location& toLoc   = toedge.Location();
@@ -369,7 +369,7 @@ void ShapeBuild_Edge::CopyPCurves(const TopoEdge& toedge, const TopoEdge& fromed
 
 //=================================================================================================
 
-TopoEdge ShapeBuild_Edge::Copy(const TopoEdge&     edge,
+TopoEdge Edge2::Copy(const TopoEdge&     edge,
                                   const Standard_Boolean sharepcurves) const
 {
   TopoVertex dummy1, dummy2;
@@ -381,7 +381,7 @@ TopoEdge ShapeBuild_Edge::Copy(const TopoEdge&     edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemovePCurve(const TopoEdge& edge, const TopoFace& face) const
+void Edge2::RemovePCurve(const TopoEdge& edge, const TopoFace& face) const
 {
   ShapeBuilder         B;
   Handle(GeomCurve2d) c2dNull;
@@ -394,14 +394,14 @@ void ShapeBuild_Edge::RemovePCurve(const TopoEdge& edge, const TopoFace& face) c
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemovePCurve(const TopoEdge& edge, const Handle(GeomSurface)& surf) const
+void Edge2::RemovePCurve(const TopoEdge& edge, const Handle(GeomSurface)& surf) const
 {
   RemovePCurve(edge, surf, TopLoc_Location());
 }
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemovePCurve(const TopoEdge&          edge,
+void Edge2::RemovePCurve(const TopoEdge&          edge,
                                    const Handle(GeomSurface)& surf,
                                    const TopLoc_Location&      loc) const
 {
@@ -416,7 +416,7 @@ void ShapeBuild_Edge::RemovePCurve(const TopoEdge&          edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::ReplacePCurve(const TopoEdge&          edge,
+void Edge2::ReplacePCurve(const TopoEdge&          edge,
                                     const Handle(GeomCurve2d)& pcurve,
                                     const TopoFace&          face) const
 {
@@ -466,7 +466,7 @@ static Standard_Integer CountPCurves(const TopoEdge& edge, const TopoFace& face)
   return 0;
 }
 
-Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoEdge& edge,
+Standard_Boolean Edge2::ReassignPCurve(const TopoEdge& edge,
                                                  const TopoFace& old,
                                                  const TopoFace& sub) const
 {
@@ -521,7 +521,7 @@ Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoEdge& edge,
 
 //=================================================================================================
 
-Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& pcurve,
+Handle(GeomCurve2d) Edge2::TransformPCurve(const Handle(GeomCurve2d)& pcurve,
                                                       const Transform2d&            trans,
                                                       const Standard_Real         uFact,
                                                       Standard_Real&              aFirst,
@@ -621,7 +621,7 @@ Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& 
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemoveCurve3d(const TopoEdge& edge) const
+void Edge2::RemoveCurve3d(const TopoEdge& edge) const
 {
   ShapeBuilder       B;
   Handle(GeomCurve3d) c3dNull;
@@ -631,7 +631,7 @@ void ShapeBuild_Edge::RemoveCurve3d(const TopoEdge& edge) const
 
 //=================================================================================================
 
-Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoEdge& edge) const
+Standard_Boolean Edge2::BuildCurve3d(const TopoEdge& edge) const
 {
   try
   {
@@ -640,7 +640,7 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoEdge& edge) const
     // C0 surface (but curve 3d is required as C1) and tolerance is 1e-07
     // lets use maximum of tolerance and default parameter 1.e-5
     // Another solutions: use quite big Tolerance or require C0 curve on C0 surface
-    if (BRepLib::BuildCurve3d(edge, Max(1.e-5, BRepInspector::Tolerance(edge))))
+    if (BRepLib1::BuildCurve3d(edge, Max(1.e-5, BRepInspector::Tolerance(edge))))
     {
       // #50 S4054 rln 14.12.98 write cylinder in BRep mode into IGES and read back
       // with 2DUse_Forced - pcurve and removed 3D curves have different ranges
@@ -682,7 +682,7 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoEdge& edge) const
   catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "\nWarning: ShapeBuild_Edge: Exception in BuildCurve3d: ";
+    std::cout << "\nWarning: Edge2: Exception in BuildCurve3d: ";
     anException.Print(std::cout);
     std::cout << std::endl;
 #endif
@@ -693,7 +693,7 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoEdge& edge) const
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
+void Edge2::MakeEdge(TopoEdge&              edge,
                                const Handle(GeomCurve3d)& curve,
                                const TopLoc_Location&    L) const
 {
@@ -702,7 +702,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
+void Edge2::MakeEdge(TopoEdge&              edge,
                                const Handle(GeomCurve3d)& curve,
                                const TopLoc_Location&    L,
                                const Standard_Real       p1,
@@ -712,7 +712,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
   if (!ME.IsDone())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "\nWarning: ShapeBuild_Edge::MakeEdge BRepAPI_NotDone";
+    std::cout << "\nWarning: Edge2::MakeEdge BRepAPI_NotDone";
 #endif
     return;
   }
@@ -735,7 +735,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+void Edge2::MakeEdge(TopoEdge&                edge,
                                const Handle(GeomCurve2d)& pcurve,
                                const TopoFace&          face) const
 {
@@ -744,7 +744,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+void Edge2::MakeEdge(TopoEdge&                edge,
                                const Handle(GeomCurve2d)& pcurve,
                                const TopoFace&          face,
                                const Standard_Real         p1,
@@ -757,7 +757,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+void Edge2::MakeEdge(TopoEdge&                edge,
                                const Handle(GeomCurve2d)& pcurve,
                                const Handle(GeomSurface)& S,
                                const TopLoc_Location&      L) const
@@ -767,7 +767,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+void Edge2::MakeEdge(TopoEdge&                edge,
                                const Handle(GeomCurve2d)& pcurve,
                                const Handle(GeomSurface)& S,
                                const TopLoc_Location&      L,
@@ -778,7 +778,7 @@ void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
   if (!ME.IsDone())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "\nWarning: ShapeBuild_Edge::MakeEdge BRepAPI_NotDone";
+    std::cout << "\nWarning: Edge2::MakeEdge BRepAPI_NotDone";
 #endif
     return;
   }

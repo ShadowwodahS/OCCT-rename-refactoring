@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void SetPosition(const StepGeom_Axis2Placement& aPosition);
 
-  Standard_EXPORT StepGeom_Axis2Placement Position() const;
+  Standard_EXPORT StepGeom_Axis2Placement Position1() const;
 
   DEFINE_STANDARD_RTTIEXT(StepGeom_Conic, StepGeom_Curve)
 

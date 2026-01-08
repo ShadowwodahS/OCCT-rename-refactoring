@@ -64,7 +64,7 @@ void ProjLib_Sphere::Init(const Sphere3& Sp)
 // function : EvalPnt2d / EvalDir2d
 // purpose  : returns the Projected Pnt / Dir in the parametrization range
 //           of mySphere.
-//           P is a point on a sphere with the same Position as Sp,
+//           P is a point on a sphere with the same Position1 as Sp,
 //           but with a radius equal to 1. ( in order to avoid to divide
 //           by Radius)
 //                / X = cosV cosU        U = Atan(Y/X)
@@ -74,9 +74,9 @@ void ProjLib_Sphere::Init(const Sphere3& Sp)
 
 static gp_Pnt2d EvalPnt2d(const Vector3d& P, const Sphere3& Sp)
 {
-  Standard_Real X = P.Dot(Vector3d(Sp.Position().XDirection()));
-  Standard_Real Y = P.Dot(Vector3d(Sp.Position().YDirection()));
-  Standard_Real Z = P.Dot(Vector3d(Sp.Position().Direction()));
+  Standard_Real X = P.Dot(Vector3d(Sp.Position1().XDirection()));
+  Standard_Real Y = P.Dot(Vector3d(Sp.Position1().YDirection()));
+  Standard_Real Z = P.Dot(Vector3d(Sp.Position1().Direction()));
   Standard_Real U, V;
 
   if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
@@ -111,12 +111,12 @@ void ProjLib_Sphere::Project(const gp_Circ& C)
   //                      O,Zs is in the Plane1 O,Xc,Yc;       ->IsoU;
 
   O  = mySphere.Location();
-  Xc = C.Position().XDirection();
-  Yc = C.Position().YDirection();
+  Xc = C.Position1().XDirection();
+  Yc = C.Position1().YDirection();
   Zc = Xc ^ Yc;
-  Xs = mySphere.Position().XDirection();
-  Ys = mySphere.Position().YDirection();
-  Zs = mySphere.Position().Direction();
+  Xs = mySphere.Position1().XDirection();
+  Ys = mySphere.Position1().YDirection();
+  Zs = mySphere.Position1().Direction();
 
   Standard_Boolean        isIsoU, isIsoV;
   constexpr Standard_Real Tol = Precision::Confusion();

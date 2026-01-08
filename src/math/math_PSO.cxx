@@ -86,7 +86,7 @@ void PSO::Perform(const math_Vector&     theSteps,
       Standard_Integer aDimIdx;
       for (aDimIdx = 0; aDimIdx < myN; ++aDimIdx)
       {
-        aParticle->Position[aDimIdx]     = aCurrPoint(aDimIdx + 1);
+        aParticle->Position1[aDimIdx]     = aCurrPoint(aDimIdx + 1);
         aParticle->BestPosition[aDimIdx] = aCurrPoint(aDimIdx + 1);
       }
       aParticle->Distance     = aCurrValue;
@@ -150,7 +150,7 @@ void PSO::performPSOWithGivenParticles(PSOParticlesPool& theParticles,
 
   aParticle = aParticles.GetBestParticle();
   for (Standard_Integer aDimIdx = 0; aDimIdx < myN; ++aDimIdx)
-    aBestGlobalPosition(aDimIdx + 1) = aParticle->Position[aDimIdx];
+    aBestGlobalPosition(aDimIdx + 1) = aParticle->Position1[aDimIdx];
   Standard_Real aBestGlobalDistance = aParticle->Distance;
 
   // This velocity is used for detecting stagnation state.
@@ -179,15 +179,15 @@ void PSO::performPSOWithGivenParticles(PSOParticlesPool& theParticles,
       {
         aParticle->Velocity[aDimIdx] =
           aParticle->Velocity[aDimIdx] * aRetentWeight
-          + (aParticle->BestPosition[aDimIdx] - aParticle->Position[aDimIdx])
+          + (aParticle->BestPosition[aDimIdx] - aParticle->Position1[aDimIdx])
               * (aPersonWeight * aKsi1)
-          + (aBestGlobalPosition(aDimIdx + 1) - aParticle->Position[aDimIdx])
+          + (aBestGlobalPosition(aDimIdx + 1) - aParticle->Position1[aDimIdx])
               * (aSocialWeight * aKsi2);
 
-        aParticle->Position[aDimIdx] += aParticle->Velocity[aDimIdx];
-        aParticle->Position[aDimIdx] =
-          Min(Max(aParticle->Position[aDimIdx], aMinUV(aDimIdx + 1)), aMaxUV(aDimIdx + 1));
-        aCurrPoint(aDimIdx + 1) = aParticle->Position[aDimIdx];
+        aParticle->Position1[aDimIdx] += aParticle->Velocity[aDimIdx];
+        aParticle->Position1[aDimIdx] =
+          Min(Max(aParticle->Position1[aDimIdx], aMinUV(aDimIdx + 1)), aMaxUV(aDimIdx + 1));
+        aCurrPoint(aDimIdx + 1) = aParticle->Position1[aDimIdx];
 
         aMinimalVelocity(aDimIdx + 1) =
           Min(Abs(aParticle->Velocity[aDimIdx]), aMinimalVelocity(aDimIdx + 1));
@@ -198,13 +198,13 @@ void PSO::performPSOWithGivenParticles(PSOParticlesPool& theParticles,
       {
         aParticle->BestDistance = aParticle->Distance;
         for (Standard_Integer aDimIdx = 0; aDimIdx < myN; ++aDimIdx)
-          aParticle->BestPosition[aDimIdx] = aParticle->Position[aDimIdx];
+          aParticle->BestPosition[aDimIdx] = aParticle->Position1[aDimIdx];
 
         if (aParticle->Distance < aBestGlobalDistance)
         {
           aBestGlobalDistance = aParticle->Distance;
           for (Standard_Integer aDimIdx = 0; aDimIdx < myN; ++aDimIdx)
-            aBestGlobalPosition(aDimIdx + 1) = aParticle->Position[aDimIdx];
+            aBestGlobalPosition(aDimIdx + 1) = aParticle->Position1[aDimIdx];
         }
       }
     }
@@ -237,10 +237,10 @@ void PSO::performPSOWithGivenParticles(PSOParticlesPool& theParticles,
 
         for (Standard_Integer aDimIdx = 0; aDimIdx < myN; ++aDimIdx)
         {
-          if (aParticle->Position[aDimIdx] == aMinUV(aDimIdx + 1)
-              || aParticle->Position[aDimIdx] == aMaxUV(aDimIdx + 1))
+          if (aParticle->Position1[aDimIdx] == aMinUV(aDimIdx + 1)
+              || aParticle->Position1[aDimIdx] == aMaxUV(aDimIdx + 1))
           {
-            aParticle->Velocity[aDimIdx] = aParticle->Position[aDimIdx] == aMinUV(aDimIdx + 1)
+            aParticle->Velocity[aDimIdx] = aParticle->Position1[aDimIdx] == aMinUV(aDimIdx + 1)
                                              ? mySteps(aDimIdx + 1) * aKsi
                                              : -mySteps(aDimIdx + 1) * aKsi;
           }

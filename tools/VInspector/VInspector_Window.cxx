@@ -256,7 +256,7 @@ void VInspector_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& t
   for (TInspectorAPI_IteratorOfPreferencesDataMap anItemIt(theItem); anItemIt.More();
        anItemIt.Next())
   {
-    AsciiString1 anItemKey   = anItemIt.Key();
+    AsciiString1 anItemKey   = anItemIt.Key1();
     AsciiString1 anItemValue = anItemIt.Value();
     if (anItemKey.IsEqual("geometry"))
       myMainWindow->restoreState(TreeModel_Tools::ToByteArray(anItemValue.ToCString()));
@@ -277,7 +277,7 @@ void VInspector_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& t
       continue;
     else if (myViewWindow
              && View_Window::RestoreState(myViewWindow,
-                                          anItemIt.Key().ToCString(),
+                                          anItemIt.Key1().ToCString(),
                                           anItemIt.Value().ToCString()))
       continue;
   }

@@ -76,7 +76,7 @@ Bisector_BisecPC::Bisector_BisecPC(const Handle(GeomCurve2d)& Cu,
   extensionEnd   = Standard_False;
   pointStartBis  = Value(UMin);
   pointEndBis    = Value(UMax);
-  isConvex       = Bisector::IsConvex(curve, sign);
+  isConvex       = Bisector1::IsConvex(curve, sign);
 }
 
 //=================================================================================================
@@ -90,7 +90,7 @@ void Bisector_BisecPC::Perform(const Handle(GeomCurve2d)& Cu,
   point    = P;
   distMax  = DistMax;
   sign     = Side;
-  isConvex = Bisector::IsConvex(curve, sign);
+  isConvex = Bisector1::IsConvex(curve, sign);
   //--------------------------------------------
   // Calculate interval of definition.
   //--------------------------------------------

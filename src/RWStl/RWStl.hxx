@@ -35,7 +35,7 @@ public:
     const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! write the meshing in a file following the
-  //! Ascii  format of an STL file.
+  //! Ascii1  format of an STL file.
   //! Returns false if the cannot be opened;
   Standard_EXPORT static Standard_Boolean WriteAscii(
     const Handle(MeshTriangulation)& theMesh,
@@ -86,7 +86,7 @@ public:
     const SystemPath&              thePath,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
-  //! Read triangulation from an Ascii STL file
+  //! Read triangulation from an Ascii1 STL file
   //! In case of error, returns Null handle.
   Standard_EXPORT static Handle(MeshTriangulation) ReadAscii(
     const SystemPath&              thePath,

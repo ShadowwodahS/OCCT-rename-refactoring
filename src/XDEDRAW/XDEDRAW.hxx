@@ -22,7 +22,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Provides DRAW commands for work with DECAF data structures
-class XDEDRAW
+class XDEDRAW1
 {
   DEFINE_STANDARD_ALLOC
 public:

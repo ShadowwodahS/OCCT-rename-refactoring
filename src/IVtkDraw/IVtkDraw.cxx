@@ -319,7 +319,7 @@ void IVtkDraw::ViewerInit(const IVtkWinParams& theParams)
 #else
     if (theParams.UseSRGBColorSpace)
     {
-      Message::SendWarning() << "Warning: skipped option -srgb unsupported by old VTK";
+      Message1::SendWarning() << "Warning: skipped option -srgb unsupported by old VTK";
     }
 #endif
 
@@ -411,7 +411,7 @@ static Standard_Integer VtkInit(DrawInterpreter&,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
@@ -426,7 +426,7 @@ static Standard_Integer VtkClose(DrawInterpreter&, Standard_Integer theNbArgs, c
 {
   if (theNbArgs > 1)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -457,12 +457,12 @@ static Standard_Integer VtkRenderParams(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Syntax error: call ivtkinit before";
+    Message1::SendFail() << "Syntax error: call ivtkinit before";
     return 1;
   }
   else if (theNbArgs <= 1)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -486,12 +486,12 @@ static Standard_Integer VtkRenderParams(DrawInterpreter&,
 #if (VTK_MAJOR_VERSION >= 7)
       GetRenderer()->SetUseShadows(toUseShadows);
 #else
-      Message::SendWarning() << "Warning: skipped option -shadows unsupported by old VTK";
+      Message1::SendWarning() << "Warning: skipped option -shadows unsupported by old VTK";
 #endif
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
@@ -602,12 +602,12 @@ static Standard_Integer VtkDisplay(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error : call ivtkinit before";
+    Message1::SendFail() << "Error : call ivtkinit before";
     return 1;
   }
   if (theArgNum < 2)
   {
-    Message::SendFail() << "Error : expects at least 1 argument\n";
+    Message1::SendFail() << "Error : expects at least 1 argument\n";
     return 1;
   }
 
@@ -686,7 +686,7 @@ static Standard_Integer VtkErase(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
 
@@ -710,7 +710,7 @@ static Standard_Integer VtkErase(DrawInterpreter&,
       vtkSmartPointer<vtkActor> anActor;
       if (!GetMapOfActors().Find2(aName, anActor))
       {
-        Message::SendFail() << "Syntax error: object '" << aName << "' not found";
+        Message1::SendFail() << "Syntax error: object '" << aName << "' not found";
         return 1;
       }
 
@@ -734,7 +734,7 @@ static Standard_Integer VtkRemove(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
 
@@ -776,7 +776,7 @@ static Standard_Integer VtkRemove(DrawInterpreter&,
       vtkSmartPointer<vtkActor> anActor;
       if (!GetMapOfActors().Find2(aName, anActor))
       {
-        Message::SendFail() << "Syntax error: object '" << aName << "' not found";
+        Message1::SendFail() << "Syntax error: object '" << aName << "' not found";
         return 1;
       }
 
@@ -962,12 +962,12 @@ static Standard_Integer VtkSetSelectionMode(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
   else if (theArgNum != 3 && theArgNum != 4)
   {
-    Message::SendFail() << "Syntax error: expects 2 or 3 arguments";
+    Message1::SendFail() << "Syntax error: expects 2 or 3 arguments";
     return 1;
   }
 
@@ -978,7 +978,7 @@ static Standard_Integer VtkSetSelectionMode(DrawInterpreter&,
     Standard_Boolean       isTurnOn = true;
     if (aMode < 0 || aMode > 8 || !Draw1::ParseOnOff(theArgs[2], isTurnOn))
     {
-      Message::SendFail() << "Syntax error: only 0-8 selection modes are supported";
+      Message1::SendFail() << "Syntax error: only 0-8 selection modes are supported";
       return 1;
     }
     DoubleMapOfActorsAndNames::Iterator anIter(GetMapOfActors());
@@ -1040,7 +1040,7 @@ static Standard_Integer VtkSetSelectionMode(DrawInterpreter&,
     Standard_Boolean       isTurnOn = true;
     if (aMode < 0 || aMode > 8 || !Draw1::ParseOnOff(theArgs[3], isTurnOn))
     {
-      Message::SendFail() << "Syntax error: only 0-8 selection modes are supported";
+      Message1::SendFail() << "Syntax error: only 0-8 selection modes are supported";
       return 1;
     }
 
@@ -1108,7 +1108,7 @@ static Standard_Integer VtkSetColor(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before\n";
+    Message1::SendFail() << "Error: call ivtkinit before\n";
     return 1;
   }
 
@@ -1121,7 +1121,7 @@ static Standard_Integer VtkSetColor(DrawInterpreter&,
     vtkSmartPointer<vtkActor> anActor;
     if (hasColor)
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
     else if (GetMapOfActors().Find2(anArg, anActor))
@@ -1134,7 +1134,7 @@ static Standard_Integer VtkSetColor(DrawInterpreter&,
         Draw1::ParseColor(theArgNb - anArgIter, theArgVec + anArgIter, aQColor);
       if (aNbParsed == 0)
       {
-        Message::SendFail() << "Syntax error at '" << anArg << "'";
+        Message1::SendFail() << "Syntax error at '" << anArg << "'";
         return 1;
       }
       anArgIter += aNbParsed - 1;
@@ -1143,7 +1143,7 @@ static Standard_Integer VtkSetColor(DrawInterpreter&,
   }
   if (!hasColor || anActorSeq.IsEmpty())
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -1175,7 +1175,7 @@ static Standard_Integer VtkSetTransparency(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before\n";
+    Message1::SendFail() << "Error: call ivtkinit before\n";
     return 1;
   }
 
@@ -1187,7 +1187,7 @@ static Standard_Integer VtkSetTransparency(DrawInterpreter&,
     vtkSmartPointer<vtkActor> anActor;
     if (aTransparency >= 0.0)
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
     else if (GetMapOfActors().Find2(anArg, anActor))
@@ -1197,13 +1197,13 @@ static Standard_Integer VtkSetTransparency(DrawInterpreter&,
     else if (!Draw1::ParseReal(theArgVec[anArgIter], aTransparency) || aTransparency < 0.0
              || aTransparency >= 1.0)
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
   if (aTransparency < 0.0 || aTransparency >= 1)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -1230,12 +1230,12 @@ static Standard_Integer VtkMoveTo(DrawInterpreter& theDI,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
   else if (theArgNum != 3)
   {
-    Message::SendFail() << "Syntax error: expects 2 arguments";
+    Message1::SendFail() << "Syntax error: expects 2 arguments";
     return 1;
   }
 
@@ -1256,12 +1256,12 @@ static Standard_Integer VtkSelect(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
   else if (theArgNum != 3)
   {
-    Message::SendFail() << "Syntax error: expects 3 arguments";
+    Message1::SendFail() << "Syntax error: expects 3 arguments";
     return 1;
   }
 
@@ -1281,12 +1281,12 @@ static Standard_Integer VtkViewProj(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
   else if (theNbArgs != 1)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -1333,7 +1333,7 @@ static Standard_Integer VtkViewProj(DrawInterpreter&,
 
   if (hasProjDir)
   {
-    const Dir3d    aBck = V3d::GetProjAxis(aProj);
+    const Dir3d    aBck = V3d1::GetProjAxis(aProj);
     Graphic3d_Vec3d anUp(0.0, 0.0, 1.0);
     if (aProj == V3d_Zpos)
     {
@@ -1367,12 +1367,12 @@ static int VtkViewParams(DrawInterpreter& theDI,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
   else if (theArgsNb != 1)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -1464,7 +1464,7 @@ static int VtkCamera(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
 
@@ -1498,7 +1498,7 @@ static int VtkCamera(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
     }
     else
     {
-      Message::SendFail() << "Error: unknown argument '" << anArg << "'";
+      Message1::SendFail() << "Error: unknown argument '" << anArg << "'";
       return 1;
     }
   }
@@ -1515,12 +1515,12 @@ static Standard_Integer VtkDump(DrawInterpreter&, Standard_Integer theArgNum, co
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error : call ivtkinit before";
+    Message1::SendFail() << "Error : call ivtkinit before";
     return 1;
   }
   else if (theArgNum < 2)
   {
-    Message::SendFail() << "Syntax error: wrong number of parameters";
+    Message1::SendFail() << "Syntax error: wrong number of parameters";
     return 1;
   }
 
@@ -1569,7 +1569,7 @@ static Standard_Integer VtkDump(DrawInterpreter&, Standard_Integer theArgNum, co
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown value for stereo projection";
+      Message1::SendFail() << "Syntax error: unknown value for stereo projection";
       return 1;
     }
   }
@@ -1607,7 +1607,7 @@ static Standard_Integer VtkDump(DrawInterpreter&, Standard_Integer theArgNum, co
   {
     if (aFormat.IsEmpty())
     {
-      Message::SendWarning() << "Warning: the image format is not set.\n"
+      Message1::SendWarning() << "Warning: the image format is not set.\n"
                              << "The image will be saved into PNG format.";
       anImageWriter = vtkSmartPointer<vtkPNGWriter>::New();
       aFormat       = AsciiString1("png");
@@ -1623,7 +1623,7 @@ static Standard_Integer VtkDump(DrawInterpreter&, Standard_Integer theArgNum, co
     }
     else
     {
-      Message::SendFail() << "Error: the image format " << aFormat << " is not supported";
+      Message1::SendFail() << "Error: the image format " << aFormat << " is not supported";
       return 1;
     }
   }
@@ -1664,7 +1664,7 @@ static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
-    Message::SendFail() << "Error: call ivtkinit before";
+    Message1::SendFail() << "Error: call ivtkinit before";
     return 1;
   }
 
@@ -1672,7 +1672,7 @@ static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
   const Standard_Integer aNbParsed1 = Draw1::ParseColor(theArgNum - 1, theArgs + 1, aQColor1);
   if (aNbParsed1 == 0)
   {
-    Message::SendFail() << "Syntax error: wrong number of parameters";
+    Message1::SendFail() << "Syntax error: wrong number of parameters";
     return 1;
   }
 
@@ -1692,7 +1692,7 @@ static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
       Draw1::ParseColor(theArgNum - 1 - aNbParsed1, theArgs + 1 + aNbParsed1, aQColor2);
     if (aNbParsed2 == 0)
     {
-      Message::SendFail() << "Syntax error: wrong number of parameters";
+      Message1::SendFail() << "Syntax error: wrong number of parameters";
       return 1;
     }
 

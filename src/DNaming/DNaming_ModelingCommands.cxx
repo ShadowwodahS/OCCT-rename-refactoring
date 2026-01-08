@@ -83,7 +83,7 @@ static Handle(TDataStd_UAttribute) AddObject(const Handle(AppDocument)& aDoc)
 //=======================================================================
 // function : DNaming_AddObject
 // purpose  : AddObject D [Name]
-//           - adds new object (UAttribute) under main label
+//           - adds new object (UAttribute1) under main label
 //=======================================================================
 static Standard_Integer DNaming_AddObject(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
@@ -348,7 +348,7 @@ static Standard_Integer DNaming_AddBox(DrawInterpreter& theDI,
     DDF1::ReturnLabel(theDI, anObj->Label());
     return 0;
   }
-  Message::SendFail() << "DNaming_AddBox : Error";
+  Message1::SendFail() << "DNaming_AddBox : Error";
   return 1;
 }
 
@@ -415,7 +415,7 @@ static Standard_Integer DNaming_BoxDX(DrawInterpreter& theDI,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_BoxDX : Error";
+  Message1::SendFail() << "DNaming_BoxDX : Error";
   return 1;
 }
 
@@ -454,7 +454,7 @@ static Standard_Integer DNaming_BoxDY(DrawInterpreter& theDI,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_BoxDY : Error";
+  Message1::SendFail() << "DNaming_BoxDY : Error";
   return 1;
 }
 
@@ -493,7 +493,7 @@ static Standard_Integer DNaming_BoxDZ(DrawInterpreter& theDI,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_BoxDZ : Error";
+  Message1::SendFail() << "DNaming_BoxDZ : Error";
   return 1;
 }
 
@@ -578,7 +578,7 @@ static Standard_Integer DNaming_SolveFlatFrom(DrawInterpreter& /*theDI*/,
           Standard_Integer aRes = ComputeFunction(aFun, logbook);
           if (aRes != 0)
           {
-            Message::SendFail() << "DNaming_SolveFlatFrom: Driver failed at label = " << entry;
+            Message1::SendFail() << "DNaming_SolveFlatFrom: Driver failed at label = " << entry;
             return 1;
           }
 #ifdef OCCT_DEBUG
@@ -596,7 +596,7 @@ static Standard_Integer DNaming_SolveFlatFrom(DrawInterpreter& /*theDI*/,
     return 0;
   }
 ERR:
-  Message::SendFail() << "DNaming_SolveFlatFrom : Error";
+  Message1::SendFail() << "DNaming_SolveFlatFrom : Error";
   return 1;
 }
 
@@ -630,7 +630,7 @@ static Standard_Integer DNaming_InitLogBook(DrawInterpreter& /*theDI*/,
     }
     return 0;
   }
-  Message::SendFail() << "DNaming_InitLogBook : Error - No document ==> " << theNb;
+  Message1::SendFail() << "DNaming_InitLogBook : Error - No document ==> " << theNb;
   return 1;
 }
 
@@ -659,13 +659,13 @@ static Standard_Integer DNaming_CheckLogBook(DrawInterpreter& /*theDI*/,
       std::cout << "DNaming_CheckLogBook : LogBook current state:" << std::endl;
       for (; it.More(); it.Next())
       {
-        Tool3::Entry(it.Key(), entry);
+        Tool3::Entry(it.Key1(), entry);
         std::cout << entry << std::endl;
       }
     }
     return 0;
   }
-  Message::SendFail() << "DNaming_CheckLogBook : Error - No document ==> " << theNb;
+  Message1::SendFail() << "DNaming_CheckLogBook : Error - No document ==> " << theNb;
   return 1;
 }
 
@@ -697,7 +697,7 @@ static Standard_Integer DNaming_ComputeFun(DrawInterpreter& /*theDI*/,
       Standard_Integer          aRes    = ComputeFunction(aFun, logbook);
       if (aRes != 0)
       {
-        Message::SendFail() << "DNaming_ComputeFun : No Driver or Driver failed";
+        Message1::SendFail() << "DNaming_ComputeFun : No Driver or Driver failed";
         return 1;
       }
 #ifdef OCCT_DEBUG
@@ -707,13 +707,13 @@ static Standard_Integer DNaming_ComputeFun(DrawInterpreter& /*theDI*/,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_ComputeFun : Error";
+  Message1::SendFail() << "DNaming_ComputeFun : Error";
   return 1;
 }
 
 //=======================================================================
 // function : DNaming_AttachShape
-// purpose  : "AttachShape Doc Shape Context [Container [KeepOrientation [Geometry]]]"
+// purpose  : "AttachShape Doc Shape Context [Container [KeepOrientation [Geometry1]]]"
 //=======================================================================
 static Standard_Integer DNaming_AttachShape(DrawInterpreter& di,
                                             Standard_Integer  nb,
@@ -808,13 +808,13 @@ static Standard_Integer DNaming_AttachShape(DrawInterpreter& di,
       }
     } // ###
   }
-  Message::SendFail() << "DNaming_AttachShape : Error";
+  Message1::SendFail() << "DNaming_AttachShape : Error";
   return 1;
 }
 
 //=======================================================================
 // function : DNaming_XAttachShape
-// purpose  : "AttachShape Doc Shape Context [KeepOrientation [Geometry]]"
+// purpose  : "AttachShape Doc Shape Context [KeepOrientation [Geometry1]]"
 //=======================================================================
 static Standard_Integer DNaming_XAttachShape(DrawInterpreter& di,
                                              Standard_Integer  nb,
@@ -884,7 +884,7 @@ static Standard_Integer DNaming_XAttachShape(DrawInterpreter& di,
       }
     }
   }
-  Message::SendFail() << "DNaming_XAttachShape : Error";
+  Message1::SendFail() << "DNaming_XAttachShape : Error";
   return 1;
 }
 
@@ -933,7 +933,7 @@ static Standard_Integer DNaming_AddCylinder(DrawInterpreter& theDI,
     DDF1::ReturnLabel(theDI, anObj->Label());
     return 0;
   }
-  Message::SendFail() << "DNaming_AddCylinder : Error";
+  Message1::SendFail() << "DNaming_AddCylinder : Error";
   return 1;
 }
 
@@ -972,7 +972,7 @@ static Standard_Integer DNaming_CylRad(DrawInterpreter& theDI,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_CylRadius : Error";
+  Message1::SendFail() << "DNaming_CylRadius : Error";
   return 1;
 }
 
@@ -1013,7 +1013,7 @@ static Standard_Integer DNaming_AddFuse(DrawInterpreter& theDI,
     DDF1::ReturnLabel(theDI, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DModel_AddFuse : Error";
+  Message1::SendFail() << "DModel_AddFuse : Error";
   return 1;
 }
 
@@ -1054,7 +1054,7 @@ static Standard_Integer DNaming_AddCut(DrawInterpreter& theDI,
     DDF1::ReturnLabel(theDI, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DModel_AddCut : Error";
+  Message1::SendFail() << "DModel_AddCut : Error";
   return 1;
 }
 
@@ -1095,7 +1095,7 @@ static Standard_Integer DNaming_AddCommon(DrawInterpreter& theDI,
     DDF1::ReturnLabel(theDI, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DModel_AddComm : Error";
+  Message1::SendFail() << "DModel_AddComm : Error";
   return 1;
 }
 
@@ -1136,7 +1136,7 @@ static Standard_Integer DNaming_AddSection(DrawInterpreter& theDI,
     DDF1::ReturnLabel(theDI, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DModel_AddSection : Error";
+  Message1::SendFail() << "DModel_AddSection : Error";
   return 1;
 }
 
@@ -1150,7 +1150,7 @@ static Standard_Integer DNaming_AddFillet(DrawInterpreter& theDI,
 {
   if (theNb < 5)
   {
-    Message::SendFail() << "DNaming_AddFillet(): Wrong number of arguments";
+    Message1::SendFail() << "DNaming_AddFillet(): Wrong number of arguments";
     return 1;
   }
 
@@ -1236,7 +1236,7 @@ static Standard_Integer DNaming_PTranslateDXYZ(DrawInterpreter& di,
     DDF1::ReturnLabel(di, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DNaming_Translate : Error";
+  Message1::SendFail() << "DNaming_Translate : Error";
   return 1;
 }
 
@@ -1282,7 +1282,7 @@ static Standard_Integer DNaming_PTranslateLine(DrawInterpreter& di,
     DDF1::ReturnLabel(di, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DNaming_PTranslateAlongLine : Error";
+  Message1::SendFail() << "DNaming_PTranslateAlongLine : Error";
   return 1;
 }
 
@@ -1327,7 +1327,7 @@ static Standard_Integer DNaming_PRotateLine(DrawInterpreter& di,
     DDF1::ReturnLabel(di, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DNaming_PRotateRoundLine : Error";
+  Message1::SendFail() << "DNaming_PRotateRoundLine : Error";
   return 1;
 }
 
@@ -1366,7 +1366,7 @@ static Standard_Integer DNaming_PMirrorObject(DrawInterpreter& di,
     DDF1::ReturnLabel(di, aFun->Label());
     return 0;
   }
-  Message::SendFail() << "DNaming_PMirrorObject : Error";
+  Message1::SendFail() << "DNaming_PMirrorObject : Error";
   return 1;
 }
 
@@ -1380,7 +1380,7 @@ static Standard_Integer DNaming_AddPrism(DrawInterpreter& theDI,
 {
   if (theNb < 5)
   {
-    Message::SendFail() << "DNaming_AddPrism(): Wrong number of arguments";
+    Message1::SendFail() << "DNaming_AddPrism(): Wrong number of arguments";
     return 1;
   }
   //
@@ -1450,7 +1450,7 @@ static Standard_Integer DNaming_PrismHeight(DrawInterpreter& theDI,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_PrismHeight : Error";
+  Message1::SendFail() << "DNaming_PrismHeight : Error";
   return 1;
 }
 
@@ -1465,7 +1465,7 @@ static Standard_Integer DNaming_AddRevol(DrawInterpreter& theDI,
 {
   if (theNb < 4)
   {
-    Message::SendFail() << "DNaming_AddRevol(): Wrong number of arguments";
+    Message1::SendFail() << "DNaming_AddRevol(): Wrong number of arguments";
     return 1;
   }
 
@@ -1559,7 +1559,7 @@ static Standard_Integer DNaming_RevolutionAngle(DrawInterpreter& theDI,
       return 0;
     }
   }
-  Message::SendFail() << "DNaming_RevolutionAngle : Error";
+  Message1::SendFail() << "DNaming_RevolutionAngle : Error";
   return 1;
 }
 
@@ -1573,7 +1573,7 @@ static Standard_Integer DNaming_AddSphere(DrawInterpreter& theDI,
 {
   if (theNb != 4)
   {
-    Message::SendFail() << "DNaming_AddSphere(): Wrong number of arguments";
+    Message1::SendFail() << "DNaming_AddSphere(): Wrong number of arguments";
     return 1;
   }
   Handle(AppDocument) aDocument;
@@ -1642,7 +1642,7 @@ static Standard_Integer DNaming_SphereRadius(DrawInterpreter& theDI,
     }
   }
 
-  Message::SendFail() << "DNaming_SphRadius : Error";
+  Message1::SendFail() << "DNaming_SphRadius : Error";
   return 1;
 }
 
@@ -1689,7 +1689,7 @@ static Standard_Integer DNaming_AddPoint(DrawInterpreter& theDI,
     return 0;
   }
 
-  Message::SendFail() << "DNaming_AddPoint : Error";
+  Message1::SendFail() << "DNaming_AddPoint : Error";
   return 1;
 }
 
@@ -1743,7 +1743,7 @@ static Standard_Integer DNaming_AddPointRlt(DrawInterpreter& theDI,
     return 0;
   }
 
-  Message::SendFail() << "DNaming_AddPoint : Error";
+  Message1::SendFail() << "DNaming_AddPoint : Error";
   return 1;
 }
 
@@ -1807,7 +1807,7 @@ static Standard_Integer DNaming_PntOffset(DrawInterpreter& theDI,
     }
   }
 
-  Message::SendFail() << "DNaming_PntOffset : Error";
+  Message1::SendFail() << "DNaming_PntOffset : Error";
   return 1;
 }
 
@@ -1822,7 +1822,7 @@ static Standard_Integer DNaming_Line3D(DrawInterpreter& theDI,
 {
   if (theNb < 5)
   {
-    Message::SendFail() << "DNaming_AddLine3D: Wrong number of arguments";
+    Message1::SendFail() << "DNaming_AddLine3D: Wrong number of arguments";
     return 1;
   }
   Handle(AppDocument) aDocument;
@@ -1939,7 +1939,7 @@ inline static void CollectMultShapes(const TopoShape& S, ShapeList& List)
 static Standard_Boolean MakeSelection(const Handle(TDataStd_UAttribute)& Obj,
                                       const TopoShape&                Selection,
                                       const Handle(TDataStd_UAttribute)& ContextObj,
-                                      const Standard_Boolean             Geometry,
+                                      const Standard_Boolean             Geometry1,
                                       const Standard_Boolean             KeepOrientation)
 {
   if (!Obj.IsNull())
@@ -1968,7 +1968,7 @@ static Standard_Boolean MakeSelection(const Handle(TDataStd_UAttribute)& Obj,
         {
           const TopoShape& aContext = aNS->Get();
           TNaming_Selector    aSelector(aResultLabel);
-          if (!aSelector.Select(Selection, aContext, Geometry, KeepOrientation))
+          if (!aSelector.Select(Selection, aContext, Geometry1, KeepOrientation))
             return Standard_False;
         }
         catch (...)
@@ -2004,7 +2004,7 @@ static Standard_Boolean MakeSelection(const Handle(TDataStd_UAttribute)& Obj,
 static Standard_Boolean MakeXSelection(const Handle(TDataStd_UAttribute)& Obj,
                                        const TopoShape&                Selection,
                                        const Handle(TDataStd_UAttribute)& ContextObj,
-                                       const Standard_Boolean             Geometry,
+                                       const Standard_Boolean             Geometry1,
                                        const Standard_Boolean             KeepOrientation)
 {
   if (!Obj.IsNull())
@@ -2035,7 +2035,7 @@ static Standard_Boolean MakeXSelection(const Handle(TDataStd_UAttribute)& Obj,
         {
           const TopoShape& aContext = aNS->Get();
           TNaming_Selector    aSelector(aResultLabel);
-          if (!aSelector.Select(Selection, aContext, Geometry, KeepOrientation))
+          if (!aSelector.Select(Selection, aContext, Geometry1, KeepOrientation))
             return Standard_False;
         }
         catch (...)
@@ -2175,7 +2175,7 @@ inline static UtfString compareShapes(const TopoShape& theShape,
 
 //=======================================================================
 // function : DNaming_TestSingle
-// purpose  : "TestSingleSelection Doc ObjectLabel [Orientation [Xselection [Geometry]]]"
+// purpose  : "TestSingleSelection Doc ObjectLabel [Orientation [Xselection [Geometry1]]]"
 //         : returns DDF1::ReturnLabel of a first Aux object
 //=======================================================================
 static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
@@ -2197,13 +2197,13 @@ static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
       return 1;
     Standard_Boolean Orientation(Standard_False);
     Standard_Boolean XSelection(Standard_False);
-    Standard_Boolean Geometry(Standard_False);
+    Standard_Boolean Geometry1(Standard_False);
     if (theNb == 4)
       Orientation = Draw1::Atoi(theArg[3]) != 0;
     if (theNb == 5)
       XSelection = Draw1::Atoi(theArg[4]) != 0;
     if (theNb == 6)
-      Geometry = Draw1::Atoi(theArg[5]) != 0;
+      Geometry1 = Draw1::Atoi(theArg[5]) != 0;
     Handle(ShapeAttribute) aNS = DNaming1::GetObjectValue(aCntObj);
 
     if (!aNS.IsNull() && !aNS->IsEmpty())
@@ -2245,9 +2245,9 @@ static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
           OCC_CATCH_SIGNALS
           {
             if (!XSelection)
-              isSelected = MakeSelection(auxObj, aCurShape, aCntObj, Geometry, Orientation);
+              isSelected = MakeSelection(auxObj, aCurShape, aCntObj, Geometry1, Orientation);
             else
-              isSelected = MakeXSelection(auxObj, aCurShape, aCntObj, Geometry, Orientation);
+              isSelected = MakeXSelection(auxObj, aCurShape, aCntObj, Geometry1, Orientation);
           }
         }
         catch (ExceptionBase const& anException)
@@ -2326,13 +2326,13 @@ static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
     }
   }
 
-  Message::SendFail() << "DNaming_TestSingle : Error";
+  Message1::SendFail() << "DNaming_TestSingle : Error";
   return 1;
 }
 
 //=======================================================================
 // function : DNaming_Multiple
-// purpose  : "TestMultipleSelection Doc ObjectLabel [Orientation [Xselection [Geometry]]]"
+// purpose  : "TestMultipleSelection Doc ObjectLabel [Orientation [Xselection [Geometry1]]]"
 //         : returns DDF1::ReturnLabel of a first Aux object
 //=======================================================================
 static Standard_Integer DNaming_Multiple(DrawInterpreter& theDI,
@@ -2354,13 +2354,13 @@ static Standard_Integer DNaming_Multiple(DrawInterpreter& theDI,
       return 1;
     Standard_Boolean Orientation(Standard_False);
     Standard_Boolean XSelection(Standard_False);
-    Standard_Boolean Geometry(Standard_False);
+    Standard_Boolean Geometry1(Standard_False);
     if (theNb == 4)
       Orientation = Draw1::Atoi(theArg[3]) != 0;
     if (theNb == 5)
       XSelection = Draw1::Atoi(theArg[4]) != 0;
     if (theNb == 6)
-      Geometry = Draw1::Atoi(theArg[5]) != 0;
+      Geometry1 = Draw1::Atoi(theArg[5]) != 0;
     Handle(ShapeAttribute) aNS = DNaming1::GetObjectValue(aCntObj);
 
     if (!aNS.IsNull() && !aNS->IsEmpty())
@@ -2401,9 +2401,9 @@ static Standard_Integer DNaming_Multiple(DrawInterpreter& theDI,
           OCC_CATCH_SIGNALS
           {
             if (!XSelection)
-              isSelected = MakeSelection(auxObj, aCurShape, aCntObj, Geometry, Orientation);
+              isSelected = MakeSelection(auxObj, aCurShape, aCntObj, Geometry1, Orientation);
             else
-              isSelected = MakeXSelection(auxObj, aCurShape, aCntObj, Geometry, Orientation);
+              isSelected = MakeXSelection(auxObj, aCurShape, aCntObj, Geometry1, Orientation);
           }
         }
         catch (ExceptionBase const& anException)
@@ -2473,7 +2473,7 @@ static Standard_Integer DNaming_Multiple(DrawInterpreter& theDI,
     }
   }
 
-  Message::SendFail() << "DNaming_TestMultiple : Error";
+  Message1::SendFail() << "DNaming_TestMultiple : Error";
   return 1;
 }
 
@@ -2486,7 +2486,7 @@ void DNaming1::ModelingCommands(DrawInterpreter& theCommands)
   if (done)
     return;
   done           = Standard_True;
-  const char* g2 = "Naming modeling commands";
+  const char* g2 = "Naming1 modeling commands";
 
   theCommands.Add("AddObject", "AddObject D", __FILE__, DNaming_AddObject, g2);
 
@@ -2518,13 +2518,13 @@ void DNaming1::ModelingCommands(DrawInterpreter& theCommands)
     g2);
 
   theCommands.Add("AttachShape",
-                  "AttachShape Doc Shape Context [Container [KeepOrientation [Geometry]]]",
+                  "AttachShape Doc Shape Context [Container [KeepOrientation [Geometry1]]]",
                   __FILE__,
                   DNaming_AttachShape,
                   g2);
 
   theCommands.Add("XAttachShape",
-                  "XAttachShape Doc Shape Context [KeepOrientation [Geometry]]",
+                  "XAttachShape Doc Shape Context [KeepOrientation [Geometry1]]",
                   __FILE__,
                   DNaming_XAttachShape,
                   g2);
@@ -2609,7 +2609,7 @@ void DNaming1::ModelingCommands(DrawInterpreter& theCommands)
                   g2);
 
   theCommands.Add("TestSingleSelection",
-                  "TestSingleSelection Doc ObjectLabel [Orientation [Xselection [Geometry]]]",
+                  "TestSingleSelection Doc ObjectLabel [Orientation [Xselection [Geometry1]]]",
                   __FILE__,
                   DNaming_TestSingle,
                   g2);
@@ -2623,7 +2623,7 @@ void DNaming1::ModelingCommands(DrawInterpreter& theCommands)
   theCommands.Add("CheckLogBook", "CheckLogBook Doc", __FILE__, DNaming_CheckLogBook, g2);
 
   theCommands.Add("TestMultipleSelection",
-                  "TestMultipleSelection Doc ObjectLabel [Orientation [Xselection [Geometry]]]",
+                  "TestMultipleSelection Doc ObjectLabel [Orientation [Xselection [Geometry1]]]",
                   __FILE__,
                   DNaming_Multiple,
                   g2);

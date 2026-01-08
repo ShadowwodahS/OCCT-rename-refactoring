@@ -146,7 +146,7 @@ Standard_Boolean FillValidMap(const DataLabel& theLabel, TDF_LabelMap& theValidM
     Tool3::OutReferences(aLabel, anExtMap);
     for (TDF_MapIteratorOfAttributeMap attMItr(anExtMap); attMItr.More(); attMItr.Next())
     {
-      const Handle(TDF_Attribute)& att = attMItr.Key();
+      const Handle(TDF_Attribute)& att = attMItr.Key1();
 #ifdef OCCT_DEBUG_SELN
       Tool3::Entry(att->Label(), entr1);
       std::cout << "## References attribute dynamic type = " << att->DynamicType()
@@ -197,7 +197,7 @@ static Standard_Integer DNaming_SolveSelection(DrawInterpreter& di,
     std::cout << "== Valid Label map ==" << std::endl;
     for (TDF_MapIteratorOfLabelMap mapItr(aValidMap); mapItr.More(); mapItr.Next())
     {
-      const DataLabel& aLab = mapItr.Key();
+      const DataLabel& aLab = mapItr.Key1();
 
       AsciiString1 entr1;
       Tool3::Entry(aLab, entr1);
@@ -209,7 +209,7 @@ static Standard_Integer DNaming_SolveSelection(DrawInterpreter& di,
     Standard_Boolean isSolved = SL.Solve(aValidMap);
     if (!isSolved)
       di << "!!! Solver is failed\n";
-    TopoShape Res = Tool11::CurrentShape(SL.NamedShape());
+    TopoShape Res = Tool11::CurrentShape(SL.NamedShape1());
     Sprintf(name, "%s_%s", "new", a[2]);
     Display(name, Res);
     return 0;
@@ -297,7 +297,7 @@ static Standard_Integer DNaming_ArgsSelection(DrawInterpreter& di,
     SL.Arguments(args);
     for (TDF_MapIteratorOfAttributeMap it(args); it.More(); it.Next())
     {
-      Tool3::Entry(it.Key()->Label(), Entry);
+      Tool3::Entry(it.Key1()->Label(), Entry);
       di << Entry.ToCString() << " ";
     }
     di << "\n";
@@ -373,7 +373,7 @@ static Standard_Integer DNaming_Attachment(DrawInterpreter& di, Standard_Integer
     di << "\n";
     for (TNaming_MapIteratorOfMapOfNamedShape ita(attachment); ita.More(); ita.Next())
     {
-      Tool3::Entry(ita.Key()->Label(), Entry);
+      Tool3::Entry(ita.Key1()->Label(), Entry);
       di << Entry.ToCString() << " ";
     }
     di << "\n";
@@ -393,7 +393,7 @@ void DNaming1::SelectionCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "Naming data commands";
+  const char* g = "Naming1 data commands";
 
   theCommands.Add("SelectShape",
                   "SelectShape DF entry shape [context [Orient]]",

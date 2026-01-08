@@ -34,7 +34,7 @@ void ChFiKPart_CornerSpine(const Handle(Adaptor3d_Surface)& S1,
                            Standard_Real&      Last)
 
 {
-  Ax3 ax = S1->Plane1().Position();
+  Ax3 ax = S1->Plane1().Position1();
   Vector3d V1(ax.XDirection());
   Vector3d V2(ax.YDirection());
   Point3d P;

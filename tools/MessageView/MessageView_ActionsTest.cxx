@@ -172,7 +172,7 @@ void MessageView_ActionsTest::OnTestMetric()
 
   for (int aTopIt = 0; aTopIt < 4; aTopIt++)
   {
-    Message::SendInfo() << "Calculate";
+    Message1::SendInfo() << "Calculate";
     for (int j = 0; j < aCounter; j++)
     {
       for (int i = 0; i < aCounter; i++)
@@ -199,12 +199,12 @@ void createShapeOnLevel()
 {
   OCCT_ADD_MESSAGE_LEVEL_SENTRY("createShapeOnLevel")
 
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   EdgeMaker aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
   TopoShape            aShape = aBuilder.Shape();
 
-  Message::DefaultMessenger() << aShape;
+  Message1::DefaultMessenger() << aShape;
 }
 
 // =======================================================================
@@ -213,11 +213,11 @@ void createShapeOnLevel()
 // =======================================================================
 void createShape()
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   EdgeMaker         aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
   TopoShape                    aShape = aBuilder.Shape();
 
-  Message::DefaultMessenger() << aShape;
+  Message1::DefaultMessenger() << aShape;
   createShapeOnLevel();
 }
 
@@ -230,10 +230,10 @@ void MessageView_ActionsTest::OnTestMessenger()
   // string messages
   OCCT_ADD_MESSAGE_LEVEL_SENTRY("MessageModel_Actions::OnTestMessenger()")
 
-  Message::DefaultMessenger()->Send("Values");
-  Message::DefaultMessenger()->Send("Values second");
+  Message1::DefaultMessenger()->Send("Values");
+  Message1::DefaultMessenger()->Send("Values second");
 
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   // Coords3d
   {
     Coords3d aCoords(1.3, 2.3, 3.4);
@@ -322,7 +322,7 @@ void levelAlerts(const int theCurrentLevel, const int theTopLevel)
 
   OCCT_ADD_MESSAGE_LEVEL_SENTRY(AsciiString1("Level: ") + theCurrentLevel)
 
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   sout << "Alert(" << theCurrentLevel << "): " << 1 << ", " << 2 << std::endl;
   sout << "Alert(" << theCurrentLevel << "): " << 3 << ", " << 4 << std::endl;
 
@@ -342,7 +342,7 @@ void levelAlert(const int theCurrentLevel, const int theTopLevel)
 
   OCCT_ADD_MESSAGE_LEVEL_SENTRY("levelAlert")
 
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   sout << "Level: " << theCurrentLevel << "(Single, no alerts on the level)" << std::endl;
 
   levelAlerts(theCurrentLevel + 1, theTopLevel);
@@ -355,7 +355,7 @@ void levelAlert(const int theCurrentLevel, const int theTopLevel)
 void MessageView_ActionsTest::OnTestReportTree()
 {
   OCCT_ADD_MESSAGE_LEVEL_SENTRY("MessageModel_Actions::OnTestReportTree()")
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   int aTopLevel = 3;
   levelAlerts(1, aTopLevel);

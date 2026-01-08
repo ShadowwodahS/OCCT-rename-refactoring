@@ -27,7 +27,7 @@ class Point3d;
 class Dir3d;
 
 //! A framework to define display of relations of concentricity.
-class DsgPrs_ConcentricPresentation
+class ConcentricPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

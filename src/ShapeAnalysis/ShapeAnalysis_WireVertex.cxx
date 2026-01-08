@@ -259,14 +259,14 @@ Standard_Integer ShapeAnalysis_WireVertex::Status(const Standard_Integer num) co
 
 //=================================================================================================
 
-Coords3d ShapeAnalysis_WireVertex::Position(const Standard_Integer num) const
+Coords3d ShapeAnalysis_WireVertex::Position1(const Standard_Integer num) const
 {
   return myPos->Value(num);
 }
 
 //=================================================================================================
 
-// szv#4:S4163:12Mar99 was bug: returned Integer
+// szv#4:S4163:12Mar99 was bug: returned Integer1
 Standard_Real ShapeAnalysis_WireVertex::UPrevious(const Standard_Integer num) const
 {
   return myUPre->Value(num);
@@ -274,7 +274,7 @@ Standard_Real ShapeAnalysis_WireVertex::UPrevious(const Standard_Integer num) co
 
 //=================================================================================================
 
-// szv#4:S4163:12Mar99 was bug: returned Integer
+// szv#4:S4163:12Mar99 was bug: returned Integer1
 Standard_Real ShapeAnalysis_WireVertex::UFollowing(const Standard_Integer num) const
 {
   return myUFol->Value(num);

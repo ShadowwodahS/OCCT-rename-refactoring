@@ -46,12 +46,12 @@ Handle(TDF_Attribute) XmlMXCAFDoc_DimTolDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const PersistentStorage&  theSource,
                                                  const Handle(TDF_Attribute)& theTarget,
                                                  XmlObjMgt_RRelocationTable&) const
 {
   Standard_Integer    aKind;
-  XmlObjMgt_DOMString anIntStr = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString anIntStr = XmlObjMgt1::GetStringValue(theSource);
 
   if (anIntStr.GetInteger(aKind) == Standard_False)
   {
@@ -108,7 +108,7 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
     Standard_CString aValueStr         = Standard_CString(aString.GetString());
     for (Standard_Integer ind = aFirstInd; ind <= aLastInd; ind++)
     {
-      if (!XmlObjMgt::GetReal(aValueStr, aValue))
+      if (!XmlObjMgt1::GetReal(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve real member"
@@ -132,7 +132,7 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMXCAFDoc_DimTolDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                     XmlObjMgt_Persistent&        theTarget,
+                                     PersistentStorage&        theTarget,
                                      XmlObjMgt_SRelocationTable&) const
 {
   Handle(XCAFDoc_DimTol) anAtt = Handle(XCAFDoc_DimTol)::DownCast(theSource);
@@ -143,7 +143,7 @@ void XmlMXCAFDoc_DimTolDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!anAtt->GetDescription().IsNull())
     aDescrString = anAtt->GetDescription()->String().ToCString();
 
-  XmlObjMgt::SetStringValue(theTarget, anAtt->GetKind());
+  XmlObjMgt1::SetStringValue(theTarget, anAtt->GetKind());
   theTarget.Element().setAttribute(::NameIndexString(), aNameString);
   theTarget.Element().setAttribute(::DescrIndexString(), aDescrString);
 

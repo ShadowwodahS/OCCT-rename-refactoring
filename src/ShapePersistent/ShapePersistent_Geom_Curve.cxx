@@ -21,7 +21,7 @@
 #include <Geom_TrimmedCurve.hxx>
 #include <Geom_OffsetCurve.hxx>
 
-Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pBezier::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pBezier1::Import() const
 {
   if (myPoles.IsNull())
     return NULL;
@@ -61,7 +61,7 @@ Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pBSpline::Import() const
                                  myPeriodic);
 }
 
-Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pTrimmed::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pTrimmed1::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -69,7 +69,7 @@ Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pTrimmed::Import() const
   return new Geom_TrimmedCurve(myBasisCurve->Import(), myFirstU, myLastU);
 }
 
-Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pOffset::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pOffset1::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -89,10 +89,10 @@ Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geo
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::Write(
-  StdObjMgt_WriteData& theWriteData) const
+  WriteData& theWriteData) const
 {
   Handle(GeomLine) aMyGeom = Handle(GeomLine)::DownCast(myTransient);
-  write(theWriteData, aMyGeom->Position());
+  write(theWriteData, aMyGeom->Position1());
 }
 
 Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
@@ -136,7 +136,7 @@ Standard_CString ShapePersistent_Geom::
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::Write(
-  StdObjMgt_WriteData& theWriteData) const
+  WriteData& theWriteData) const
 {
   Handle(GeomCircle) aMyGeom = Handle(GeomCircle)::DownCast(myTransient);
   theWriteData << aMyGeom->Circ();
@@ -173,7 +173,7 @@ Standard_CString ShapePersistent_Geom::
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Ellipse, gp_Elips>::
-  Write(StdObjMgt_WriteData& theWriteData) const
+  Write(WriteData& theWriteData) const
 {
   Handle(Geom_Ellipse) aMyGeom = Handle(Geom_Ellipse)::DownCast(myTransient);
   theWriteData << aMyGeom->Elips();
@@ -210,7 +210,7 @@ Standard_CString ShapePersistent_Geom::
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Hyperbola, gp_Hypr>::
-  Write(StdObjMgt_WriteData& theWriteData) const
+  Write(WriteData& theWriteData) const
 {
   Handle(Geom_Hyperbola) aMyGeom = Handle(Geom_Hyperbola)::DownCast(myTransient);
   theWriteData << aMyGeom->Hypr();
@@ -247,7 +247,7 @@ Standard_CString ShapePersistent_Geom::
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Parabola, gp_Parab>::
-  Write(StdObjMgt_WriteData& theWriteData) const
+  Write(WriteData& theWriteData) const
 {
   Handle(Geom_Parabola) aMyGeom = Handle(Geom_Parabola)::DownCast(myTransient);
   theWriteData << aMyGeom->Parab();
@@ -287,14 +287,14 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
     else
     {
       Handle(Bezier)  aPBC  = new Bezier;
-      Handle(pBezier) aPpBC = new pBezier;
+      Handle(pBezier1) aPpBC = new pBezier1;
       aPpBC->myRational     = theCurve->IsRational();
-      aPpBC->myPoles = StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
+      aPpBC->myPoles = HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
                                                                               theCurve->Poles());
       if (theCurve->IsRational())
       {
         aPpBC->myWeights =
-          StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
+          HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
       }
       aPBC->myPersistent = aPpBC;
       aPC                = aPBC;
@@ -323,16 +323,16 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
       aPpBSC->myPeriodic      = theCurve->IsPeriodic();
       aPpBSC->mySpineDegree   = theCurve->Degree();
       aPpBSC->myPoles =
-        StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
+        HArray1::Translate<TColgp_HArray1OfPnt>("PColgp_HArray1OfPnt",
                                                                theCurve->Poles());
       if (theCurve->IsRational())
       {
         aPpBSC->myWeights =
-          StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
+          HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
       }
-      aPpBSC->myKnots = StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(theCurve->Knots());
+      aPpBSC->myKnots = HArray1::Translate<TColStd_HArray1OfReal>(theCurve->Knots());
       aPpBSC->myMultiplicities =
-        StdLPersistent_HArray1::Translate<TColStd_HArray1OfInteger>(theCurve->Multiplicities());
+        HArray1::Translate<TColStd_HArray1OfInteger>(theCurve->Multiplicities());
       aPBSC->myPersistent = aPpBSC;
       aPC                 = aPBSC;
     }
@@ -355,7 +355,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
     else
     {
       Handle(Trimmed)  aPTC  = new Trimmed;
-      Handle(pTrimmed) aPpTC = new pTrimmed;
+      Handle(pTrimmed1) aPpTC = new pTrimmed1;
       aPpTC->myFirstU        = theCurve->FirstParameter();
       aPpTC->myLastU         = theCurve->LastParameter();
       aPpTC->myBasisCurve    = ShapePersistent_Geom::Translate(theCurve->BasisCurve(), theMap);
@@ -381,7 +381,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
     else
     {
       Handle(Offset)  aPOC     = new Offset;
-      Handle(pOffset) aPpOC    = new pOffset;
+      Handle(pOffset1) aPpOC    = new pOffset1;
       aPpOC->myOffsetDirection = theCurve->Direction();
       aPpOC->myOffsetValue     = theCurve->Offset();
       aPpOC->myBasisCurve      = ShapePersistent_Geom::Translate(theCurve->BasisCurve(), theMap);

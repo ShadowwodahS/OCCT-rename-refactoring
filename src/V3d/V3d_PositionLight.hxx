@@ -29,7 +29,7 @@ protected:
 
   //! @name hidden properties not applicable to positional light
 protected:
-  using Graphic3d_CLight::Position;
+  using Graphic3d_CLight::Position1;
   using Graphic3d_CLight::SetPosition;
 };
 

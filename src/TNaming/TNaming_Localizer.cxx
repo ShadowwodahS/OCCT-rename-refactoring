@@ -124,7 +124,7 @@ void TNaming_Localizer::FindFeaturesInAncestors(const TopoShape&  S,
 #ifdef OCCT_DEBUG_SC
       LWrite(AS, "Localizer_AS.brep");
 #endif
-      Handle(ShapeAttribute) NS = Tool11::NamedShape(AS, myUS->Label());
+      Handle(ShapeAttribute) NS = Tool11::NamedShape1(AS, myUS->Label());
       if (!NS.IsNull())
       {
         //      if (Tool11::HasLabel(myUS,AS)) {
@@ -332,9 +332,9 @@ void TNaming_Localizer::GoBack(const TopoShape&       S,
       TopTools_MapIteratorOfMapOfShape itF(AncInFeature);
       for (; itF.More(); itF.Next())
       {
-        const TopoShape& AncOfS = itF.Key();
+        const TopoShape& AncOfS = itF.Key1();
         LBS.Append(AncOfS);
-        LBNS.Append(Tool11::NamedShape(AncOfS, Lab));
+        LBNS.Append(Tool11::NamedShape1(AncOfS, Lab));
       }
     }
   }
@@ -342,14 +342,14 @@ void TNaming_Localizer::GoBack(const TopoShape&       S,
   {
     for (; it.More(); it.Next())
     {
-      //      if (it.NamedShape()->Evolution() != TNaming_SELECTED) {
-      if (it.NamedShape()->Evolution() == Evol)
+      //      if (it.NamedShape1()->Evolution() != TNaming_SELECTED) {
+      if (it.NamedShape1()->Evolution() == Evol)
       {
-        Handle(ShapeAttribute) NS = Tool11::NamedShape(it.Shape(), Lab);
+        Handle(ShapeAttribute) NS = Tool11::NamedShape1(it.Shape(), Lab);
         if (!NS.IsNull())
         {
           LBS.Append(it.Shape());
-          LBNS.Append(Tool11::NamedShape(it.Shape(), Lab));
+          LBNS.Append(Tool11::NamedShape1(it.Shape(), Lab));
         }
         else
         {
@@ -443,7 +443,7 @@ void TNaming_Localizer::Backward (const TopoShape&  S,
 
 //=================================================================================================
 
-Handle(ShapeAttribute) NamedShape(const DataLabel& Lab)
+Handle(ShapeAttribute) NamedShape1(const DataLabel& Lab)
 {
   Handle(ShapeAttribute) NS;
   Lab.FindAttribute(ShapeAttribute::GetID(), NS);
@@ -675,7 +675,7 @@ void TNaming_Localizer::Localize(const TopoShape& PrevIn,
     Standard_Boolean First = Standard_True;
 
     for ( ; itF.More(); itF.Next()) {
-      const TopoShape& AncOfS = itF.Key();
+      const TopoShape& AncOfS = itF.Key1();
       ShapesSet   ResAnc;
 
       Localize (PrevIn, CurIn, AncOfS, ResAnc);
@@ -780,7 +780,7 @@ void TNaming_Localizer::FindShapeContext(const Handle(ShapeAttribute)& NS,
   // end szy
   if (!SC.IsNull())
   {
-    Handle(ShapeAttribute) aNS = Tool11::NamedShape(SC, Father);
+    Handle(ShapeAttribute) aNS = Tool11::NamedShape1(SC, Father);
     if (!aNS.IsNull())
     {
 #ifdef OCCT_DEBUG_SC
@@ -884,7 +884,7 @@ void  TNaming_Localizer::Forward(const TopTools_MapOfShape&  CurSubShapes,
 
   for (; itV.More(); itV.Next()) {
     YaFromValid = 1;
-    const TopoShape& NS = itV.Key();
+    const TopoShape& NS = itV.Key1();
     if (First) {
       GoForward  (NS, CurSubShapes, TS, Res);
       First = 0;
@@ -901,7 +901,7 @@ void  TNaming_Localizer::Forward(const TopTools_MapOfShape&  CurSubShapes,
 
   for ( ; itP.More(); itP.Next()) {
     YaFromPrimitives = 1;
-    const DataLabel&  Lab = itP.Key();
+    const DataLabel&  Lab = itP.Key1();
     Iterator1  itL(Lab,myCurTrans);
     ShapesSet ResLab;
 
@@ -950,7 +950,7 @@ void TNaming_Localizer::FilterByNeighbourgs(const TopoShape& PrevIn,
 
   ShapesSet NewNeig;
   for (; itNeig.More(); itNeig.Next()) {
-    const TopoShape& Neig = itNeig.Key();
+    const TopoShape& Neig = itNeig.Key1();
     //--------------------------------------------
     // Localisation des voisins.
     //--------------------------------------------
@@ -982,7 +982,7 @@ void TNaming_Localizer::FilterByNeighbourgs(const TopoShape& PrevIn,
     FindNeighbourg (CurIn,CurAnc,Cand,Neighbourg);
     TopTools_MapIteratorOfMapOfShape itNeig(Neighbourg);
     for (; itNeig.More(); itNeig.Next()) {
-      const TopoShape& Neig = itNeig.Key();
+      const TopoShape& Neig = itNeig.Key1();
       if (!NewNeig.Contains(Neig))  {
     Reject.Add(Cand);
     break;

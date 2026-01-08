@@ -933,7 +933,7 @@ Handle(TColStd_HSequenceOfHAsciiString) Interface_InterfaceModel::ListTemplates(
   NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(atemp);
   for (; iter.More(); iter.Next())
   {
-    list->Append(new TCollection_HAsciiString(iter.Key()));
+    list->Append(new TCollection_HAsciiString(iter.Key1()));
   }
   return list;
 }

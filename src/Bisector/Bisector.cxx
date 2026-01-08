@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Standard_Boolean Bisector::IsConvex(const Handle(GeomCurve2d)& Cu, const Standard_Real Sign)
+Standard_Boolean Bisector1::IsConvex(const Handle(GeomCurve2d)& Cu, const Standard_Real Sign)
 {
 
   Standard_Real U1 = (Cu->LastParameter() + Cu->FirstParameter()) / 2.;

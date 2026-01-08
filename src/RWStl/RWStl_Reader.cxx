@@ -135,17 +135,17 @@ Standard_Boolean RWStl_Reader::Read(const char* theFile, const Message_ProgressR
     aFileSystem->OpenIStream(theFile, std::ios::in | std::ios::binary);
   if (aStream.get() == NULL)
   {
-    Message::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
+    Message1::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
     return Standard_False;
   }
-  // get length of file to feed progress indicator in Ascii mode
+  // get length of file to feed progress indicator in Ascii1 mode
   aStream->seekg(0, aStream->end);
   std::streampos theEnd = aStream->tellg();
   aStream->seekg(0, aStream->beg);
 
   // binary STL files cannot be shorter than 134 bytes
   // (80 bytes header + 4 bytes facet count + 50 bytes for one facet);
-  // thus assume files shorter than 134 as Ascii without probing
+  // thus assume files shorter than 134 as Ascii1 without probing
   // (probing may bring stream to fail state if EOF is reached)
   bool isAscii = ((size_t)theEnd < THE_STL_MIN_FILE_SIZE || IsAscii(*aStream, true));
 
@@ -188,7 +188,7 @@ Standard_Boolean RWStl_Reader::IsAscii(Standard_IStream& theStream, const bool i
   std::streamsize aNbRead = theStream.read(aBuffer, THE_STL_MIN_FILE_SIZE).gcount();
   if (!theStream)
   {
-    Message::SendFail("Error: Cannot read file");
+    Message1::SendFail("Error: Cannot read file");
     return true;
   }
 
@@ -213,7 +213,7 @@ Standard_Boolean RWStl_Reader::IsAscii(Standard_IStream& theStream, const bool i
   }
 
   // otherwise, detect binary format by presence of non-ascii symbols in first 128 bytes
-  // (note that binary STL file may start with the same bytes "solid " as Ascii one)
+  // (note that binary STL file may start with the same bytes "solid " as Ascii1 one)
   for (Standard_Integer aByteIter = 0; aByteIter < aNbRead; ++aByteIter)
   {
     if ((unsigned char)aBuffer[aByteIter] > (unsigned char)'~')
@@ -298,7 +298,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
   }
   if (aLine == NULL)
   {
-    Message::SendFail("Error: premature end of file");
+    Message1::SendFail("Error: premature end of file");
     return false;
   }
 
@@ -329,7 +329,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
     aLine = theBuffer.ReadLine(theStream, aLineLen); // "facet normal nx ny nz"
     if (aLine == NULL)
     {
-      Message::SendFail("Error: premature end of file");
+      Message1::SendFail("Error: premature end of file");
       return false;
     }
     if (str_starts_with(aLine, "endsolid", 8))
@@ -339,7 +339,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
     }
     if (!str_starts_with(aLine, "facet", 5))
     {
-      Message::SendFail(AsciiString1("Error: unexpected format of facet at line ")
+      Message1::SendFail(AsciiString1("Error: unexpected format of facet at line ")
                         + (aNbLine + 1));
       return false;
     }
@@ -347,7 +347,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
     aLine = theBuffer.ReadLine(theStream, aLineLen); // "outer loop"
     if (aLine == NULL || !str_starts_with(aLine, "outer", 5))
     {
-      Message::SendFail(AsciiString1("Error: unexpected format of facet at line ")
+      Message1::SendFail(AsciiString1("Error: unexpected format of facet at line ")
                         + (aNbLine + 1));
       return false;
     }
@@ -368,7 +368,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
                       aReadVertex.ChangeCoord(2),
                       aReadVertex.ChangeCoord(3)))
       {
-        Message::SendFail(AsciiString1("Error: cannot read vertex coordinates at line ")
+        Message1::SendFail(AsciiString1("Error: cannot read vertex coordinates at line ")
                           + aNbLine);
         return false;
       }
@@ -407,7 +407,7 @@ Standard_Boolean RWStl_Reader::ReadBinary(Standard_IStream&            theStream
     if ((theFileLen - THE_STL_HEADER_SIZE) % THE_STL_SIZEOF_FACET != 0
      || (theFileLen < THE_STL_MIN_FILE_SIZE))
     {
-      Message::SendFail ("Error: Corrupted binary STL file (inconsistent file size)");
+      Message1::SendFail ("Error: Corrupted binary STL file (inconsistent file size)");
       return Standard_False;
     }
     const Standard_Integer  aNbFacets = Standard_Integer((theFileLen - THE_STL_HEADER_SIZE) /
@@ -418,7 +418,7 @@ Standard_Boolean RWStl_Reader::ReadBinary(Standard_IStream&            theStream
   char aHeader[THE_STL_HEADER_SIZE + 1];
   if (theStream.read(aHeader, THE_STL_HEADER_SIZE).gcount() != std::streamsize(THE_STL_HEADER_SIZE))
   {
-    Message::SendFail("Error: Corrupted binary STL file");
+    Message1::SendFail("Error: Corrupted binary STL file");
     return false;
   }
 
@@ -453,7 +453,7 @@ Standard_Boolean RWStl_Reader::ReadBinary(Standard_IStream&            theStream
       const std::streamsize aDataToRead = aNbFacesInBuffer * aFaceDataLen;
       if (theStream.read(aBuffer, aDataToRead).gcount() != aDataToRead)
       {
-        Message::SendFail("Error: binary STL read failed");
+        Message1::SendFail("Error: binary STL read failed");
         return false;
       }
       aBufferPtr = aBuffer;

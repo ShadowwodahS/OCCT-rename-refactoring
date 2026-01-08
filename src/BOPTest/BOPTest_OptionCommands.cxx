@@ -31,14 +31,14 @@ static Standard_Integer bsimplify(DrawInterpreter&, Standard_Integer, const char
 
 //=================================================================================================
 
-void BOPTest::OptionCommands(DrawInterpreter& theCommands)
+void BOPTest1::OptionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
   theCommands.Add("boptions",
                   "Usage: boptions [-default]\n"
@@ -129,26 +129,26 @@ Standard_Integer boptions(DrawInterpreter& di, Standard_Integer n, const char** 
     }
 
     // Set all options to default values
-    BOPTest_Objects::SetDefaultOptions();
+    Objects::SetDefaultOptions();
     return 0;
   }
   //
   char             buf[128];
-  BOPAlgo_GlueEnum aGlue = BOPTest_Objects::Glue();
+  BOPAlgo_GlueEnum aGlue = Objects::Glue();
   //
   Sprintf(buf,
           " RunParallel: %s \t\t(%s)\n",
-          BOPTest_Objects::RunParallel() ? "Yes" : "No",
+          Objects::RunParallel() ? "Yes" : "No",
           "use \"brunparallel\" command to change");
   di << buf;
   Sprintf(buf,
           " NonDestructive: %s \t\t(%s)\n",
-          BOPTest_Objects::NonDestructive() ? "Yes" : "No",
+          Objects::NonDestructive() ? "Yes" : "No",
           "use \"bnondestructive\" command to change");
   di << buf;
   Sprintf(buf,
           " FuzzyValue: %g \t\t(%s)\n",
-          BOPTest_Objects::FuzzyValue(),
+          Objects::FuzzyValue(),
           "use \"bfuzzyvalue\" command to change");
   di << buf;
   Sprintf(buf,
@@ -158,32 +158,32 @@ Standard_Integer boptions(DrawInterpreter& di, Standard_Integer n, const char** 
   di << buf;
   Sprintf(buf,
           " Draw1 Warning Shapes: %s \t(%s)\n",
-          BOPTest_Objects::DrawWarnShapes() ? "Yes" : "No",
+          Objects::DrawWarnShapes() ? "Yes" : "No",
           "use \"bdrawwarnshapes\" command to change");
   di << buf;
   Sprintf(buf,
           " Check for invert solids: %s \t(%s)\n",
-          BOPTest_Objects::CheckInverted() ? "Yes" : "No",
+          Objects::CheckInverted() ? "Yes" : "No",
           "use \"bcheckinverted\" command to change");
   di << buf;
   Sprintf(buf,
           " Use OBB: %s \t\t\t(%s)\n",
-          BOPTest_Objects::UseOBB() ? "Yes" : "No",
+          Objects::UseOBB() ? "Yes" : "No",
           "use \"buseobb\" command to change");
   di << buf;
   Sprintf(buf,
           " Unify Edges: %s \t\t(%s)\n",
-          BOPTest_Objects::UnifyEdges() ? "Yes" : "No",
+          Objects::UnifyEdges() ? "Yes" : "No",
           "use \"bsimplify -e\" command to change");
   di << buf;
   Sprintf(buf,
           " Unify Faces: %s \t\t(%s)\n",
-          BOPTest_Objects::UnifyFaces() ? "Yes" : "No",
+          Objects::UnifyFaces() ? "Yes" : "No",
           "use \"bsimplify -f\" command to change");
   di << buf;
   Sprintf(buf,
           " Angular: %g \t\t(%s)\n",
-          BOPTest_Objects::Angular(),
+          Objects::Angular(),
           "use \"bsimplify -a\" command to change");
   di << buf;
   //
@@ -201,7 +201,7 @@ Standard_Integer bfuzzyvalue(DrawInterpreter& di, Standard_Integer n, const char
   }
 
   Standard_Real aFuzzyValue = Draw1::Atof(a[1]);
-  BOPTest_Objects::SetFuzzyValue(aFuzzyValue);
+  Objects::SetFuzzyValue(aFuzzyValue);
   return 0;
 }
 
@@ -216,7 +216,7 @@ Standard_Integer brunparallel(DrawInterpreter& di, Standard_Integer n, const cha
   }
 
   Standard_Integer iRunParallel = Draw1::Atoi(a[1]);
-  BOPTest_Objects::SetRunParallel(iRunParallel != 0);
+  Objects::SetRunParallel(iRunParallel != 0);
   return 0;
 }
 
@@ -231,7 +231,7 @@ Standard_Integer bnondestructive(DrawInterpreter& di, Standard_Integer n, const 
   }
 
   Standard_Integer iNonDestructive = Draw1::Atoi(a[1]);
-  BOPTest_Objects::SetNonDestructive(iNonDestructive != 0);
+  Objects::SetNonDestructive(iNonDestructive != 0);
   return 0;
 }
 
@@ -254,7 +254,7 @@ Standard_Integer bGlue(DrawInterpreter& di, Standard_Integer n, const char** a)
   }
 
   BOPAlgo_GlueEnum aGlue = BOPAlgo_GlueEnum(iGlue);
-  BOPTest_Objects::SetGlue(aGlue);
+  Objects::SetGlue(aGlue);
   return 0;
 }
 
@@ -269,7 +269,7 @@ Standard_Integer bdrawwarnshapes(DrawInterpreter& di, Standard_Integer n, const 
   }
 
   Standard_Integer iDraw = Draw1::Atoi(a[1]);
-  BOPTest_Objects::SetDrawWarnShapes(iDraw != 0);
+  Objects::SetDrawWarnShapes(iDraw != 0);
   return 0;
 }
 
@@ -284,7 +284,7 @@ Standard_Integer bcheckinverted(DrawInterpreter& di, Standard_Integer n, const c
   }
 
   Standard_Integer iCheck = Draw1::Atoi(a[1]);
-  BOPTest_Objects::SetCheckInverted(iCheck != 0);
+  Objects::SetCheckInverted(iCheck != 0);
   return 0;
 }
 
@@ -299,7 +299,7 @@ Standard_Integer buseobb(DrawInterpreter& di, Standard_Integer n, const char** a
   }
 
   Standard_Integer iUse = Draw1::Atoi(a[1]);
-  BOPTest_Objects::SetUseOBB(iUse != 0);
+  Objects::SetUseOBB(iUse != 0);
   return 0;
 }
 
@@ -318,17 +318,17 @@ Standard_Integer bsimplify(DrawInterpreter& di, Standard_Integer n, const char**
     if (!strcmp(a[i], "-e"))
     {
       Standard_Integer iUnifyEdges = Draw1::Atoi(a[++i]);
-      BOPTest_Objects::SetUnifyEdges(iUnifyEdges != 0);
+      Objects::SetUnifyEdges(iUnifyEdges != 0);
     }
     else if (!strcmp(a[i], "-f"))
     {
       Standard_Integer iUnifyFaces = Draw1::Atoi(a[++i]);
-      BOPTest_Objects::SetUnifyFaces(iUnifyFaces != 0);
+      Objects::SetUnifyFaces(iUnifyFaces != 0);
     }
     else if (!strcmp(a[i], "-a"))
     {
       Standard_Real anAngTol = Draw1::Atof(a[++i]) * (M_PI / 180.0);
-      BOPTest_Objects::SetAngular(anAngTol);
+      Objects::SetAngular(anAngTol);
     }
     else
     {

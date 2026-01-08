@@ -1662,7 +1662,7 @@ int mma1nop_(integer*    nbroot,
   /*                defined on (-1,1). */
   /*        ROOTLG: Table of discretization parameters on )-1,1( */
   /*                of the iso. */
-  /*        UVFONC: Block of definition of the iso */
+  /*        UVFONC: Block1 of definition of the iso */
   /*        ISOFAV: = 1, this is iso-u; =2, this is iso-v. */
 
   /*     OUTPUT ARGUMENTS : */

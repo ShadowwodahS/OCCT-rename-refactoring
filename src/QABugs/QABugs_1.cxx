@@ -194,7 +194,7 @@ static Standard_Integer OCC73_SelectionMode(DrawInterpreter& di,
 
 static Standard_Integer OCC10bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -226,7 +226,7 @@ static Standard_Integer OCC10bug(DrawInterpreter& di, Standard_Integer argc, con
     // on recupere la shape dans la map des objets displayes
     Handle(VisualEntity) aShape = GetMapOfAIS().Find2(name);
 
-    // On verifie que l'AIS InteraciveObject est bien
+    // On verifie que l'AIS1 InteraciveObject est bien
     // un AIS_PlaneTrihedron
     if (aShape->Type() == AIS_KindOfInteractive_Datum && aShape->Signature() == 4)
     {
@@ -301,7 +301,7 @@ static Standard_Integer OCC10bug(DrawInterpreter& di, Standard_Integer argc, con
 
 static Standard_Integer OCC74bug_set(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << argv[0] << "ERROR : use 'vinit' command before \n";
@@ -339,7 +339,7 @@ static Standard_Integer OCC74bug_set(DrawInterpreter& di, Standard_Integer argc,
 
 static Standard_Integer OCC74bug_get(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << argv[0] << "ERROR : use 'vinit' command before \n";
@@ -406,7 +406,7 @@ static Standard_Integer OCC361bug(DrawInterpreter& di, Standard_Integer nb, cons
   TNaming_Builder aBuilder2(aTestLabel);
   aBuilder2.Generated(aTBox1);
 
-  aTBox = aBuilder2.NamedShape()->Get();
+  aTBox = aBuilder2.NamedShape1()->Get();
   if (aTBox.Orientation() != TopAbs_REVERSED)
   {
     di << "1\n";
@@ -431,7 +431,7 @@ static Standard_Integer OCC30182(DrawInterpreter& di,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  if (ViewerTest::CurrentView().IsNull())
+  if (ViewerTest1::CurrentView().IsNull())
   {
     di << "Error: no active view\n";
     return 1;
@@ -548,7 +548,7 @@ static Standard_Integer OCC30182(DrawInterpreter& di,
     anAspect->TextureMap()->GetParams()->SetScale(Graphic3d_Vec2(1.0f, -1.0f));
   }
 
-  ViewerTest::Display(aPrsName, aPrs, true, true);
+  ViewerTest1::Display(aPrsName, aPrs, true, true);
   return 0;
 }
 
@@ -560,7 +560,7 @@ static Standard_Integer OCC31956(DrawInterpreter& di,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  if (ViewerTest::CurrentView().IsNull())
+  if (ViewerTest1::CurrentView().IsNull())
   {
     di << "Error: no active view\n";
     return 1;
@@ -654,7 +654,7 @@ static Standard_Integer OCC31956(DrawInterpreter& di,
     anAspect->TextureMap()->GetParams()->SetScale(Graphic3d_Vec2(1.0f, -1.0f));
   }
 
-  ViewerTest::Display(aPrsName, aPrs, true, true);
+  ViewerTest1::Display(aPrsName, aPrs, true, true);
   return 0;
 }
 

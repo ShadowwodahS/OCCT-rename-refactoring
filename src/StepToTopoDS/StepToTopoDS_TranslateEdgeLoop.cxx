@@ -81,7 +81,7 @@
 // ============================================================================
 static void RemoveSinglePCurve(const TopoEdge& aEdge, const TopoFace& aFace)
 {
-  ShapeBuild_Edge().RemovePCurve(aEdge, aFace);
+  Edge2().RemovePCurve(aEdge, aFace);
 }
 
 // ============================================================================
@@ -512,7 +512,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
       // ------------------------------------------
 
       // --------------------------------------------
-      // CASE 1 : The Edge Geometry is of Pcurve Type
+      // CASE 1 : The Edge Geometry1 is of Pcurve Type
       // --------------------------------------------
       if (C.IsNull())
       {
@@ -617,7 +617,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
       }
 
       // ----------------------------------------------------------
-      // CASE 3 : The EdgeCurve Geometry is not a Pcurve
+      // CASE 3 : The EdgeCurve Geometry1 is not a Pcurve
       //          nor a SurfaceCurve (i.e. it is a single 3D curve)
       // ----------------------------------------------------------
 

@@ -17,24 +17,24 @@
 
 #include <Standard_Dump.hxx>
 
-XCAFDoc_AssemblyItemId::XCAFDoc_AssemblyItemId() {}
+AssemblyItemId::AssemblyItemId() {}
 
-XCAFDoc_AssemblyItemId::XCAFDoc_AssemblyItemId(const TColStd_ListOfAsciiString& thePath)
+AssemblyItemId::AssemblyItemId(const TColStd_ListOfAsciiString& thePath)
 {
   Init(thePath);
 }
 
-XCAFDoc_AssemblyItemId::XCAFDoc_AssemblyItemId(const AsciiString1& theString)
+AssemblyItemId::AssemblyItemId(const AsciiString1& theString)
 {
   Init(theString);
 }
 
-void XCAFDoc_AssemblyItemId::Init(const TColStd_ListOfAsciiString& thePath)
+void AssemblyItemId::Init(const TColStd_ListOfAsciiString& thePath)
 {
   myPath = thePath;
 }
 
-void XCAFDoc_AssemblyItemId::Init(const AsciiString1& theString)
+void AssemblyItemId::Init(const AsciiString1& theString)
 {
   myPath.Clear();
 
@@ -48,17 +48,17 @@ void XCAFDoc_AssemblyItemId::Init(const AsciiString1& theString)
   }
 }
 
-Standard_Boolean XCAFDoc_AssemblyItemId::IsNull() const
+Standard_Boolean AssemblyItemId::IsNull() const
 {
   return myPath.IsEmpty();
 }
 
-void XCAFDoc_AssemblyItemId::Nullify()
+void AssemblyItemId::Nullify()
 {
   myPath.Clear();
 }
 
-Standard_Boolean XCAFDoc_AssemblyItemId::IsChild(const XCAFDoc_AssemblyItemId& theOther) const
+Standard_Boolean AssemblyItemId::IsChild(const AssemblyItemId& theOther) const
 {
   if (myPath.Size() <= theOther.myPath.Size())
     return Standard_False;
@@ -73,12 +73,12 @@ Standard_Boolean XCAFDoc_AssemblyItemId::IsChild(const XCAFDoc_AssemblyItemId& t
   return Standard_True;
 }
 
-Standard_Boolean XCAFDoc_AssemblyItemId::IsDirectChild(const XCAFDoc_AssemblyItemId& theOther) const
+Standard_Boolean AssemblyItemId::IsDirectChild(const AssemblyItemId& theOther) const
 {
   return ((myPath.Size() == theOther.myPath.Size() - 1) && IsChild(theOther));
 }
 
-Standard_Boolean XCAFDoc_AssemblyItemId::IsEqual(const XCAFDoc_AssemblyItemId& theOther) const
+Standard_Boolean AssemblyItemId::IsEqual(const AssemblyItemId& theOther) const
 {
   if (this == &theOther)
     return Standard_True;
@@ -96,12 +96,12 @@ Standard_Boolean XCAFDoc_AssemblyItemId::IsEqual(const XCAFDoc_AssemblyItemId& t
   return Standard_True;
 }
 
-const TColStd_ListOfAsciiString& XCAFDoc_AssemblyItemId::GetPath() const
+const TColStd_ListOfAsciiString& AssemblyItemId::GetPath() const
 {
   return myPath;
 }
 
-AsciiString1 XCAFDoc_AssemblyItemId::ToString() const
+AsciiString1 AssemblyItemId::ToString() const
 {
   AsciiString1 aStr;
   for (TColStd_ListOfAsciiString::Iterator anIt(myPath); anIt.More(); anIt.Next())
@@ -115,9 +115,9 @@ AsciiString1 XCAFDoc_AssemblyItemId::ToString() const
 
 //=================================================================================================
 
-void XCAFDoc_AssemblyItemId::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void AssemblyItemId::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, XCAFDoc_AssemblyItemId)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, AssemblyItemId)
 
   for (TColStd_ListOfAsciiString::Iterator aPathIt(myPath); aPathIt.More(); aPathIt.Next())
   {

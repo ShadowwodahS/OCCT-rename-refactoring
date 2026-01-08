@@ -24,7 +24,7 @@ class XmlMDF_ADriverTable;
 class Message_Messenger;
 
 //! Driver for TDocStd_XLink
-class XmlMDocStd
+class XmlMDocStd1
 {
 public:
   DEFINE_STANDARD_ALLOC

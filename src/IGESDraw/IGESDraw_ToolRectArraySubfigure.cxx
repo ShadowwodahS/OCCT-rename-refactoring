@@ -89,9 +89,9 @@ void RectArraySubfigureTool::ReadOwnParams(const Handle(IGESDraw_RectArraySubfig
     for (I = 1; I <= tempListCount; I++)
     {
       Standard_Integer tempPos;
-      // st = PR.ReadInteger(PR.Current(), "Number Of Position To Process",
+      // st = PR.ReadInteger(PR.Current(), "Number Of Position1 To Process",
       // tempPos); //szv#4:S4163:12Mar99 moved in if
-      if (PR.ReadInteger(PR.Current(), "Number Of Position To Process", tempPos))
+      if (PR.ReadInteger(PR.Current(), "Number Of Position1 To Process", tempPos))
         tempPositions->SetValue(I, tempPos);
     }
   }

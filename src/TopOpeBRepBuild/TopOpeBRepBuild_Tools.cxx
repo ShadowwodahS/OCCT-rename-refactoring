@@ -105,7 +105,7 @@ void Tools3::PropagateState(
   TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeState anItSS(aSplShapesState);
   for (; anItSS.More(); anItSS.Next())
   {
-    const TopoShape&        aShape = anItSS.Key();
+    const TopoShape&        aShape = anItSS.Key1();
     TopAbs_State               aState = anItSS.Value();
     TopTools_IndexedMapOfShape aSubshapes;
     TopExp1::MapShapes(aShape, aSubshEnum, aSubshapes);
@@ -128,7 +128,7 @@ void Tools3::PropagateState(
   anItSS.Initialize(aMapSS1);
   for (; anItSS.More(); anItSS.Next())
   {
-    const TopoShape& aSubsh = anItSS.Key();
+    const TopoShape& aSubsh = anItSS.Key1();
     TopAbs_State        aState = anItSS.Value();
     if (aMapSubshAnc.Contains(aSubsh))
     {
@@ -177,14 +177,14 @@ void Tools3::PropagateState(
     TopTools_MapIteratorOfMapOfShape aMapIt;
     aMapIt.Initialize(aNonPassedShapes);
     for (; aMapIt.More(); aMapIt.Next())
-      TopExp1::MapShapesAndAncestors(aMapIt.Key(), aSubshEnum, aShapeEnum, aMapSubshAnc);
+      TopExp1::MapShapesAndAncestors(aMapIt.Key1(), aSubshEnum, aShapeEnum, aMapSubshAnc);
 
     aMapSS.Clear();
     aMapIt.Initialize(aNonPassedShapes);
     for (; aMapIt.More(); aMapIt.Next())
     {
       // Face
-      const TopoShape& aNonPassedShape = aMapIt.Key();
+      const TopoShape& aNonPassedShape = aMapIt.Key1();
 
       if (!aMapSS.IsBound(aNonPassedShape))
       {
@@ -221,8 +221,8 @@ void Tools3::PropagateState(
     for (; anII.More(); anII.Next())
     {
       aShapeWithState.SetState(anII.Value());
-      if (anII.Key().ShapeType() != TopAbs_VERTEX)
-        aMapOfShapeWithState.Add(anII.Key(), aShapeWithState);
+      if (anII.Key1().ShapeType() != TopAbs_VERTEX)
+        aMapOfShapeWithState.Add(anII.Key1(), aShapeWithState);
     }
   }
 }

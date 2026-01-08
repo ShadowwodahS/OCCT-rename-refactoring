@@ -17,7 +17,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <StdObjMgt_Persistent.hxx>
 
-class StdObjMgt_SharedObject
+class SharedObject
 {
 public:
   template <class Transient>
@@ -60,10 +60,10 @@ public:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData) { PersistentData().Read(theReadData); }
+    virtual void Read(ReadData& theReadData) { PersistentData().Read(theReadData); }
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const
+    virtual void Write(WriteData& theWriteData) const
     {
       PersistentData().Write(theWriteData);
     }
@@ -121,7 +121,7 @@ public:
 
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData)
+    virtual void Read(ReadData& theReadData)
     {
       Handle(Persistent) aPersistent = new Persistent;
       aPersistent->Read(theReadData);
@@ -129,13 +129,13 @@ public:
     }
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const
+    virtual void Write(WriteData& theWriteData) const
     {
       Handle(Persistent) aPersistent =
         DownCast<Persistent, typename Base::PersistentBase>::make(this->myPersistent);
       Standard_NoSuchObject_Raise_if(
         aPersistent.IsNull(),
-        "StdObjMgt_SharedObject::Delayed::Write - persistent object wasn't set for writing!");
+        "SharedObject::Delayed::Write - persistent object wasn't set for writing!");
       aPersistent->Write(theWriteData);
     }
 
@@ -146,7 +146,7 @@ public:
         DownCast<Persistent, typename Base::PersistentBase>::make(this->myPersistent);
       Standard_NoSuchObject_Raise_if(
         aPersistent.IsNull(),
-        "StdObjMgt_SharedObject::Delayed::PChildren - persistent object wasn't set for writing!");
+        "SharedObject::Delayed::PChildren - persistent object wasn't set for writing!");
       aPersistent->PChildren(theChildren);
     }
 
@@ -157,7 +157,7 @@ public:
         DownCast<Persistent, typename Base::PersistentBase>::make(this->myPersistent);
       Standard_NoSuchObject_Raise_if(
         aPersistent.IsNull(),
-        "StdObjMgt_SharedObject::Delayed::PName - persistent object wasn't set for writing!");
+        "SharedObject::Delayed::PName - persistent object wasn't set for writing!");
       return aPersistent->PName();
     }
   };

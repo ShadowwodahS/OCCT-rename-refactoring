@@ -76,7 +76,7 @@ public:
   Standard_EXPORT UtfString(const Standard_WideChar* theStringUtf);
 #endif
 
-  //! Initializes a AsciiString with a single character.
+  //! Initializes a AsciiString2 with a single character.
   Standard_EXPORT UtfString(const Standard_Character aChar);
 
   //! Initializes a ExtendedString with a single character.
@@ -100,7 +100,7 @@ public:
   Standard_EXPORT UtfString(UtfString&& theOther)
     Standard_Noexcept;
 
-  //! Creation by converting an Ascii string to an extended
+  //! Creation by converting an Ascii1 string to an extended
   //! string. The string is treated as having UTF-8 coding.
   //! If it is not a UTF-8 or multi byte then
   //! each character is copied to ExtCharacter.
@@ -240,7 +240,7 @@ public:
   Standard_EXPORT Standard_Boolean EndsWith(const UtfString& theEndString) const;
 
   //! Returns True if the ExtendedString contains only
-  //! "Ascii Range" characters .
+  //! "Ascii1 Range" characters .
   Standard_EXPORT Standard_Boolean IsAscii() const;
 
   //! Returns the number of 16-bit code units
@@ -293,7 +293,7 @@ public:
   //! By default, the <separators> is set to space and tabulation.
   //! By default, the token extracted is the first one (whichone = 1).
   //! <separators> contains all separators you need.
-  //! If no token indexed by <whichone> is found, it returns an empty AsciiString.
+  //! If no token indexed by <whichone> is found, it returns an empty AsciiString2.
   //! Example:
   //! aString contains "This is a     message"
   //! aString.Token()  returns "This"

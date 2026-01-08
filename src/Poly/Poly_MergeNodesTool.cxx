@@ -45,8 +45,8 @@ public:
   {
   }
 
-  //! Key.
-  const Poly_MergeNodesTool::Vec3AndNormal1& Key() const { return myKey; }
+  //! Key1.
+  const Poly_MergeNodesTool::Vec3AndNormal1& Key1() const { return myKey; }
 
   //! Static deleter to be passed to BaseMap
   static void delNode(NCollection_ListNode* theNode, Handle(NCollection_BaseAllocator)& theAl)
@@ -62,7 +62,7 @@ private:
 //=================================================================================================
 
 Poly_MergeNodesTool::MergedNodesMap::MergedNodesMap(const int theNbBuckets)
-    : NCollection_BaseMap(theNbBuckets, true, new NCollection_IncAllocator()),
+    : BaseMap(theNbBuckets, true, new NCollection_IncAllocator()),
       myTolerance(0.0f),
       myInvTol(0.0f),
       myAngle(1.0f),
@@ -212,7 +212,7 @@ inline bool Poly_MergeNodesTool::MergedNodesMap::Bind(int&                      
   for (DataMapNode* aNodeIter = aData[aHash]; aNodeIter != NULL;
        aNodeIter              = (DataMapNode*)aNodeIter->Next())
   {
-    if (isEqual(aNodeIter->Key(), thePos, theNorm, theIsOpposite))
+    if (isEqual(aNodeIter->Key1(), thePos, theNorm, theIsOpposite))
     {
       theIndex = aNodeIter->ChangeValue();
       return false;
@@ -236,7 +236,7 @@ inline bool Poly_MergeNodesTool::MergedNodesMap::Bind(int&                      
       for (DataMapNode* aNodeIter = aData[aHashEx]; aNodeIter != NULL;
            aNodeIter              = (DataMapNode*)aNodeIter->Next())
       {
-        if (isEqual(aNodeIter->Key(), thePos, theNorm, theIsOpposite))
+        if (isEqual(aNodeIter->Key1(), thePos, theNorm, theIsOpposite))
         {
           theIndex = aNodeIter->ChangeValue();
           return false;
@@ -265,7 +265,7 @@ inline void Poly_MergeNodesTool::MergedNodesMap::ReSize(const int theSize)
       {
         for (DataMapNode* anOldNodeIter = anOldData[anOldBuckIter]; anOldNodeIter != NULL;)
         {
-          const size_t aNewHash  = hashCode(anOldNodeIter->Key(), aNbNewBuck);
+          const size_t aNewHash  = hashCode(anOldNodeIter->Key1(), aNbNewBuck);
           DataMapNode* aNextNode = (DataMapNode*)anOldNodeIter->Next();
           anOldNodeIter->Next()  = aNewData[aNewHash];
           aNewData[aNewHash]     = anOldNodeIter;

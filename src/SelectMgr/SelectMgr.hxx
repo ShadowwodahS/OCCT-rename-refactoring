@@ -21,8 +21,8 @@ class Graphic3d_TransformPers;
 class SelectionContainer;
 class Transform3d;
 
-//! Auxiliary tools for SelectMgr package.
-class SelectMgr
+//! Auxiliary tools for SelectMgr1 package.
+class SelectMgr1
 {
 public:
   //! Compute debug presentation for sensitive objects.

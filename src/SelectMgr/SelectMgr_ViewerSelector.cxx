@@ -77,7 +77,7 @@ static const Graphic3d_Mat4d SelectMgr_ViewerSelector_THE_IDENTITY_MAT;
 //=================================================================================================
 
 void SelectMgr_ViewerSelector::updatePoint3d(SelectMgr_SortCriterion&                theCriterion,
-                                             const SelectBasics_PickResult&          thePickResult,
+                                             const PickResult&          thePickResult,
                                              const Handle(Select3D_SensitiveEntity)& theEntity,
                                              const GeneralTransform& theInversedTrsf,
                                              const SelectMgr_SelectingVolumeManager& theMgr) const
@@ -270,7 +270,7 @@ void SelectMgr_ViewerSelector::checkOverlap(const Handle(Select3D_SensitiveEntit
   const Handle(SelectMgr_EntityOwner)& anOwner = theEntity->OwnerId();
   Handle(SelectMgr_SelectableObject)   aSelectable =
     !anOwner.IsNull() ? anOwner->Selectable() : Handle(SelectMgr_SelectableObject)();
-  SelectBasics_PickResult aPickResult;
+  PickResult aPickResult;
   const Standard_Boolean  isMatched = theEntity->Matches(theMgr, aPickResult);
   if (!isMatched || anOwner.IsNull())
   {
@@ -399,7 +399,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
                                               const Graphic3d_Mat4d& theWorldViewMat,
                                               const Graphic3d_Vec2i& theWinSize)
 {
-  Handle(SelectMgr_SensitiveEntitySet)& anEntitySet = myMapOfObjectSensitives.ChangeFind(theObject);
+  Handle(SensitiveEntitySet)& anEntitySet = myMapOfObjectSensitives.ChangeFind(theObject);
   if (anEntitySet->Size() == 0)
   {
     return;
@@ -685,16 +685,16 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
   }
   mySelectableObjects.UpdateBVH(aCamera, aWinSize);
 
-  for (Standard_Integer aBVHSetIt = 0; aBVHSetIt < SelectMgr_SelectableObjectSet::BVHSubsetNb;
+  for (Standard_Integer aBVHSetIt = 0; aBVHSetIt < SelectableObjectSet::BVHSubsetNb;
        ++aBVHSetIt)
   {
-    const SelectMgr_SelectableObjectSet::BVHSubset aBVHSubset =
-      (SelectMgr_SelectableObjectSet::BVHSubset)aBVHSetIt;
+    const SelectableObjectSet::BVHSubset aBVHSubset =
+      (SelectableObjectSet::BVHSubset)aBVHSetIt;
     if (mySelectableObjects.IsEmpty(aBVHSubset))
     {
       continue;
     }
-    if (aCamera.IsNull() && aBVHSubset != SelectMgr_SelectableObjectSet::BVHSubset_3d)
+    if (aCamera.IsNull() && aBVHSubset != SelectableObjectSet::BVHSubset_3d)
     {
       continue;
     }
@@ -704,8 +704,8 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
     // for 2D space selection transform selecting volumes to perform overlap testing
     // directly in camera's eye space omitting the camera position, which is not
     // needed there at all
-    if (aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_2dPersistent
-        || aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_ortho2dPersistent)
+    if (aBVHSubset == SelectableObjectSet::BVHSubset_2dPersistent
+        || aBVHSubset == SelectableObjectSet::BVHSubset_ortho2dPersistent)
     {
       GeneralTransform aTFrustum;
       aTFrustum.SetValue(1, 1, aWorldViewMat.GetValue(0, 0));
@@ -726,7 +726,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
       Handle(CameraOn3d)         aNewCamera = new CameraOn3d();
       aNewCamera->CopyMappingData(aCamera);
       aNewCamera->SetIdentityOrientation();
-      if (aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_ortho2dPersistent)
+      if (aBVHSubset == SelectableObjectSet::BVHSubset_ortho2dPersistent)
       {
         aNewCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
       }
@@ -736,7 +736,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
       aBuilder->SetWindowSize(aWinSize.x(), aWinSize.y());
       aMgr = mySelectingVolumeMgr.ScaleAndTransform(1, aTFrustum, aBuilder);
     }
-    else if (aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_ortho3dPersistent)
+    else if (aBVHSubset == SelectableObjectSet::BVHSubset_ortho3dPersistent)
     {
       // define corresponding frustum builder parameters for 3d orthographic persistence.
       Handle(SelectMgr_FrustumBuilder) aBuilder   = new SelectMgr_FrustumBuilder();
@@ -1052,8 +1052,8 @@ void SelectMgr_ViewerSelector::AddSelectableObject(
   if (!myMapOfObjectSensitives.IsBound(theObject))
   {
     mySelectableObjects.Append(theObject);
-    Handle(SelectMgr_SensitiveEntitySet) anEntitySet =
-      new SelectMgr_SensitiveEntitySet(myEntitySetBuilder);
+    Handle(SensitiveEntitySet) anEntitySet =
+      new SensitiveEntitySet(myEntitySetBuilder);
     myMapOfObjectSensitives.Bind(theObject, anEntitySet);
   }
 }
@@ -1066,7 +1066,7 @@ void SelectMgr_ViewerSelector::AddSelectionToObject(
   const Handle(SelectMgr_SelectableObject)& theObject,
   const Handle(SelectionContainer)&        theSelection)
 {
-  if (Handle(SelectMgr_SensitiveEntitySet)* anEntitySet =
+  if (Handle(SensitiveEntitySet)* anEntitySet =
         myMapOfObjectSensitives.ChangeSeek(theObject))
   {
     (*anEntitySet)->Append(theSelection);
@@ -1110,7 +1110,7 @@ void SelectMgr_ViewerSelector::RemoveSelectionOfObject(
   const Handle(SelectMgr_SelectableObject)& theObject,
   const Handle(SelectionContainer)&        theSelection)
 {
-  if (Handle(SelectMgr_SensitiveEntitySet)* anEntitySet =
+  if (Handle(SensitiveEntitySet)* anEntitySet =
         myMapOfObjectSensitives.ChangeSeek(theObject))
   {
     (*anEntitySet)->Remove(theSelection);
@@ -1145,7 +1145,7 @@ void SelectMgr_ViewerSelector::RebuildSensitivesTree(
   if (!Contains(theObject))
     return;
 
-  Handle(SelectMgr_SensitiveEntitySet)& anEntitySet = myMapOfObjectSensitives.ChangeFind(theObject);
+  Handle(SensitiveEntitySet)& anEntitySet = myMapOfObjectSensitives.ChangeFind(theObject);
   anEntitySet->MarkDirty();
 
   if (theIsForce)
@@ -1165,7 +1165,7 @@ void SelectMgr_ViewerSelector::ResetSelectionActivationStatus()
        aSensitivesIter.More();
        aSensitivesIter.Next())
   {
-    Handle(SelectMgr_SensitiveEntitySet)& anEntitySet  = aSensitivesIter.ChangeValue();
+    Handle(SensitiveEntitySet)& anEntitySet  = aSensitivesIter.ChangeValue();
     const Standard_Integer                anEntitiesNb = anEntitySet->Size();
     for (Standard_Integer anIdx = 0; anIdx < anEntitiesNb; ++anIdx)
     {
@@ -1184,7 +1184,7 @@ void SelectMgr_ViewerSelector::ActiveOwners(
   for (SelectMgr_MapOfObjectSensitivesIterator anIter(myMapOfObjectSensitives); anIter.More();
        anIter.Next())
   {
-    const Handle(SelectMgr_SensitiveEntitySet)& anEntitySet  = anIter.Value();
+    const Handle(SensitiveEntitySet)& anEntitySet  = anIter.Value();
     const Standard_Integer                      anEntitiesNb = anEntitySet->Size();
     for (Standard_Integer anIdx = 0; anIdx < anEntitiesNb; ++anIdx)
     {
@@ -1337,7 +1337,7 @@ Standard_Boolean SelectMgr_ViewerSelector::ToPixMap(Image_PixMap&               
 //=======================================================================
 void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(ViewWindow)& theView)
 {
-  for (SelectMgr_SelectableObjectSet::Iterator aSelectableIt(mySelectableObjects);
+  for (SelectableObjectSet::Iterator aSelectableIt(mySelectableObjects);
        aSelectableIt.More();
        aSelectableIt.Next())
   {
@@ -1349,7 +1349,7 @@ void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(ViewWindow)& theVie
     {
       if (aSelIter.Value()->GetSelectionState() == SelectMgr_SOS_Activated)
       {
-        SelectMgr::ComputeSensitivePrs(aStruct,
+        SelectMgr1::ComputeSensitivePrs(aStruct,
                                        aSelIter.Value(),
                                        anObj->Transformation(),
                                        anObj->TransformPersistence());
@@ -1405,7 +1405,7 @@ void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(SelectionContainer)
   Handle(Graphic3d_Structure) aStruct =
     new Graphic3d_Structure(theView->Viewer()->StructureManager());
 
-  SelectMgr::ComputeSensitivePrs(aStruct, theSel, theTrsf, Handle(Graphic3d_TransformPers)());
+  SelectMgr1::ComputeSensitivePrs(aStruct, theSel, theTrsf, Handle(Graphic3d_TransformPers)());
 
   myStructs.Append(aStruct);
   myStructs.Last()->SetDisplayPriority(Graphic3d_DisplayPriority_Topmost);
@@ -1428,7 +1428,7 @@ void SelectMgr_ViewerSelector::DumpJson(Standard_OStream& theOStream,
   OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &mySelectableObjects)
 
   Standard_Integer aNbOfSelectableObjects = 0;
-  for (SelectMgr_SelectableObjectSet::Iterator aSelectableIt(mySelectableObjects);
+  for (SelectableObjectSet::Iterator aSelectableIt(mySelectableObjects);
        aSelectableIt.More();
        aSelectableIt.Next())
   {

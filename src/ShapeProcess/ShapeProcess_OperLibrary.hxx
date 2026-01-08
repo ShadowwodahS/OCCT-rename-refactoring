@@ -44,7 +44,7 @@ class ShapeExtend_MsgRegistrator;
 //! DropSmallEdges
 //! FixShape
 //! SplitClosedEdges
-class ShapeProcess_OperLibrary
+class OperLibrary
 {
 public:
   DEFINE_STANDARD_ALLOC

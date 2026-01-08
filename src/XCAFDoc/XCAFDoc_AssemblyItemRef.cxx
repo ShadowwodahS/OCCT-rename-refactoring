@@ -51,7 +51,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Get(const DataLabel& th
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
   const DataLabel&              theLabel,
-  const XCAFDoc_AssemblyItemId& theItemId)
+  const AssemblyItemId& theItemId)
 {
   Handle(XCAFDoc_AssemblyItemRef) aThis;
   if (!theLabel.IsNull() && !theLabel.FindAttribute(XCAFDoc_AssemblyItemRef::GetID(), aThis))
@@ -65,7 +65,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
   const DataLabel&              theLabel,
-  const XCAFDoc_AssemblyItemId& theItemId,
+  const AssemblyItemId& theItemId,
   const Standard_GUID&          theAttrGUID)
 {
   Handle(XCAFDoc_AssemblyItemRef) aThis;
@@ -81,7 +81,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
   const DataLabel&              theLabel,
-  const XCAFDoc_AssemblyItemId& theItemId,
+  const AssemblyItemId& theItemId,
   const Standard_Integer        theShapeIndex)
 {
   Handle(XCAFDoc_AssemblyItemRef) aThis;
@@ -165,7 +165,7 @@ Standard_Boolean XCAFDoc_AssemblyItemRef::IsSubshapeIndex() const
   return (myExtraRef == ExtraRef_SubshapeIndex && myExtraId.IsIntegerValue());
 }
 
-const XCAFDoc_AssemblyItemId& XCAFDoc_AssemblyItemRef::GetItem() const
+const AssemblyItemId& XCAFDoc_AssemblyItemRef::GetItem() const
 {
   return myItemId;
 }
@@ -186,7 +186,7 @@ Standard_Integer XCAFDoc_AssemblyItemRef::GetSubshapeIndex() const
     return 0;
 }
 
-void XCAFDoc_AssemblyItemRef::SetItem(const XCAFDoc_AssemblyItemId& theItemId)
+void XCAFDoc_AssemblyItemRef::SetItem(const AssemblyItemId& theItemId)
 {
   Backup();
   myItemId = theItemId;

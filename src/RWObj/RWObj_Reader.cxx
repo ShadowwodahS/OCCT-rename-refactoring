@@ -108,7 +108,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   Standard_CLocaleSentry aLocaleSentry;
   if (!theStream.good())
   {
-    Message::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
+    Message1::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
     return Standard_False;
   }
 
@@ -118,7 +118,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   theStream.seekg(0, theStream.beg);
   if (aFileLen <= 0L)
   {
-    Message::SendFail(AsciiString1("Error: file '") + theFile + "' is empty");
+    Message1::SendFail(AsciiString1("Error: file '") + theFile + "' is empty");
     return Standard_False;
   }
 
@@ -273,7 +273,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   }
   if (myNbElemsBig != 0)
   {
-    Message::SendWarning(AsciiString1("Warning: OBJ reader, ") + myNbElemsBig
+    Message1::SendWarning(AsciiString1("Warning: OBJ reader, ") + myNbElemsBig
                          + " polygon(s) have been split into triangles");
   }
 
@@ -346,7 +346,7 @@ void RWObj_Reader::pushIndices(const char* thePos)
       if (a3Indices[0] < myObjVerts.Lower() || a3Indices[0] > myObjVerts.Upper())
       {
         myToAbort = true;
-        Message::SendFail(AsciiString1("Error: invalid OBJ syntax at line ") + myNbLines
+        Message1::SendFail(AsciiString1("Error: invalid OBJ syntax at line ") + myNbLines
                           + ": vertex index is out of range");
         return;
       }
@@ -357,12 +357,12 @@ void RWObj_Reader::pushIndices(const char* thePos)
       {
         if (myObjVertsUV.IsEmpty())
         {
-          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
+          Message1::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines + ": UV index is specified but no UV nodes are defined");
         }
         else if (a3Indices[1] < myObjVertsUV.Lower() || a3Indices[1] > myObjVertsUV.Upper())
         {
-          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
+          Message1::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines + ": UV index is out of range");
           setNodeUV(anIndex, Graphic3d_Vec2(0.0f, 0.0f));
         }
@@ -375,13 +375,13 @@ void RWObj_Reader::pushIndices(const char* thePos)
       {
         if (myObjNorms.IsEmpty())
         {
-          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
+          Message1::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines
                                + ": Normal index is specified but no Normals nodes are defined");
         }
         else if (a3Indices[2] < myObjNorms.Lower() || a3Indices[2] > myObjNorms.Upper())
         {
-          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
+          Message1::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines + ": Normal index is out of range");
           setNodeNormal(anIndex, Graphic3d_Vec3(0.0f, 0.0f, 1.0f));
         }
@@ -578,7 +578,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
     Standard_Integer aNbTrisAdded = 0;
     for (IMeshData::MapOfInteger::Iterator aTriIter(aTriangles); aTriIter.More(); aTriIter.Next())
     {
-      const Standard_Integer   aTriangleId = aTriIter.Key();
+      const Standard_Integer   aTriangleId = aTriIter.Key1();
       const Triangle3& aTriangle   = aMeshStructure->GetElement(aTriangleId);
       if (aTriangle.Movability() == BRepMesh_Deleted)
       {
@@ -601,7 +601,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
   }
   catch (ExceptionBase const& theFailure)
   {
-    Message::SendWarning(AsciiString1("Error: exception raised during polygon split\n[")
+    Message1::SendWarning(AsciiString1("Error: exception raised during polygon split\n[")
                          + theFailure.GetMessageString() + "]");
   }
   return triangulatePolygonFan(theIndices);
@@ -675,7 +675,7 @@ void RWObj_Reader::pushMaterial(const char* theMaterialName)
   }
   else if (!myMaterials.IsBound(aNewMat))
   {
-    Message::SendWarning(AsciiString1("Warning: use of undefined OBJ material at line ")
+    Message1::SendWarning(AsciiString1("Warning: use of undefined OBJ material at line ")
                          + myNbLines);
     return;
   }
@@ -699,7 +699,7 @@ void RWObj_Reader::readMaterialLib(const char* theFileName)
   AsciiString1 aMatPath;
   if (!RWObj_Tools::ReadName(theFileName, aMatPath))
   {
-    Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
+    Message1::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                          + myNbLines);
     return;
   }
@@ -720,7 +720,7 @@ bool RWObj_Reader::checkMemory()
     return true;
   }
 
-  Message::SendFail(AsciiString1("Error: OBJ file content does not fit into ")
+  Message1::SendFail(AsciiString1("Error: OBJ file content does not fit into ")
                     + Standard_Integer(myMemLimitBytes / (1024 * 1024)) + " MiB limit."
                     + "\nMesh data will be truncated.");
   myToAbort = true;

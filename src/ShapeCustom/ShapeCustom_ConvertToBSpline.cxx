@@ -118,7 +118,7 @@ Standard_Boolean ShapeCustom_ConvertToBSpline::NewSurface(const TopoFace&    F,
     Handle(GeomSurface)        basis  = OS->BasisSurface();
     Standard_Real               offset = OS->Offset();
     Handle(Geom_BSplineSurface) bspl =
-      ShapeConstruct::ConvertSurfaceToBSpline(basis,
+      ShapeConstruct1::ConvertSurfaceToBSpline(basis,
                                               U1,
                                               U2,
                                               V1,
@@ -135,7 +135,7 @@ Standard_Boolean ShapeCustom_ConvertToBSpline::NewSurface(const TopoFace&    F,
     GeomAbs_Shape cnt = surf->Continuity();
     if (surf->IsKind(STANDARD_TYPE(Geom_OffsetSurface)))
       cnt = GeomAbs_C0; // pdn 30.06.99 because of hang-up in GeomConvert_ApproxSurface
-    res = ShapeConstruct::ConvertSurfaceToBSpline(surf,
+    res = ShapeConstruct1::ConvertSurfaceToBSpline(surf,
                                                   U1,
                                                   U2,
                                                   V1,

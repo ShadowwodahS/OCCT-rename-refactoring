@@ -78,7 +78,7 @@ IGESData_IGESWriter::IGESData_IGESWriter(const IGESData_IGESWriter&)
 
 //  ....                Controle d Envoi des Flottants                ....
 
-Interface_FloatWriter& IGESData_IGESWriter::FloatWriter()
+InterfaceFloatWriter& IGESData_IGESWriter::FloatWriter()
 {
   return thefloatw;
 } // s y reporter
@@ -119,7 +119,7 @@ void IGESData_IGESWriter::SendStartLine(const Standard_CString startline)
 
 void IGESData_IGESWriter::SendModel(const Handle(IGESData_Protocol)& protocol)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   IGESData_WriterLib              lib(protocol);
 
   Standard_Integer nb = themodel->NbEntities();
@@ -201,7 +201,7 @@ void IGESData_IGESWriter::SectionG(const IGESData_GlobalSection& header)
   Standard_Integer           nb = gl->NbParams();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    const Interface_FileParameter& FP = gl->Param(i);
+    const FileParameter& FP = gl->Param(i);
     AddString(FP.CValue());
     if (i < nb)
       AddChar(thesep);
@@ -508,7 +508,7 @@ void IGESData_IGESWriter::Send(const Handle(IGESData_IGESEntity)& val,
     num = themodel->DNum(val);
   if (negative)
     num = -num;
-  Send(num); // qui faut tout, une fois Entity convertie en Integer
+  Send(num); // qui faut tout, une fois Entity convertie en Integer1
 }
 
 void IGESData_IGESWriter::Send(const Coords2d& val)

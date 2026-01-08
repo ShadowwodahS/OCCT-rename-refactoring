@@ -12,7 +12,7 @@
 // commercial license or contractual agreement.
 
 //:   abv 09.04.99: S4136: remove parameter lastpreci
-// szv#11:CASCADE30:01Feb00 BRepBuilderAPI::Precision(p) removed
+// szv#11:CASCADE30:01Feb00 BRepBuilderAPI1::Precision(p) removed
 
 #include <BRepBuilderAPI.hxx>
 #include <BRepLib.hxx>
@@ -351,14 +351,14 @@ TopoShape XSControl_TransferReader::ShapeResult(const Handle(RefObject)& ent) co
   Handle(Transfer_ResultFromTransient) mres = res->MainResult();
   if (mres.IsNull())
     return tres;
-  XSControl_Utils xu;
+  XSControlUtils xu;
   TopoShape    sh = xu.BinderShape(mres->Binder());
 
   //   Ouh la vilaine verrue
   Standard_Real tolang = ExchangeConfig::RVal("read.encoderegularity.angle");
   if (tolang <= 0 || sh.IsNull())
     return sh;
-  ShapeFix::EncodeRegularity(sh, tolang);
+  ShapeFix1::EncodeRegularity(sh, tolang);
   return sh;
 }
 
@@ -398,7 +398,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromResult(
 {
   Handle(RefObject) nulh;
   //  cas de la shape
-  XSControl_Utils xu;
+  XSControlUtils xu;
   TopoShape    sh = xu.BinderShape(res);
   if (!sh.IsNull())
     return EntityFromShapeResult(sh, mode);
@@ -477,7 +477,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
     return nulh;
   Standard_Integer i, j, nb;
 
-  XSControl_Utils xu;
+  XSControlUtils xu;
   if (mode == 0 || mode == 1 || mode == -1)
   {
     //  on regarde dans le TransientProcess
@@ -490,7 +490,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
         if (i == 0)
           continue;
         Handle(RefObject) ent = myTP->Mapped(i);
-        TopoShape               sh  = TransferBRep::ShapeResult(myTP, ent);
+        TopoShape               sh  = TransferBRep1::ShapeResult(myTP, ent);
         if (!sh.IsNull())
         {
           if (sh == res)
@@ -559,7 +559,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::EntitiesFromShape
 
   //  A present, recherche et enregistrement
 
-  XSControl_Utils xu;
+  XSControlUtils xu;
   if (mode == 0 || mode == 1)
   {
     //  on regarde dans le TransientProcess
@@ -664,15 +664,15 @@ Interface_CheckIterator XSControl_TransferReader::CheckList(const Handle(RefObje
     chl = rec->CheckList(Standard_False, level); // manque level ...
   }
   if (ent == myModel)
-    chl.SetName("XSControl : CheckList complete Model");
+    chl.SetName("XSControl1 : CheckList complete Model");
   else if (level < 0)
-    chl.SetName("XSControl : CheckList Last");
+    chl.SetName("XSControl1 : CheckList Last");
   else if (level == 0)
-    chl.SetName("XSControl : CheckList Final Main");
+    chl.SetName("XSControl1 : CheckList Final Main");
   else if (level == 1)
-    chl.SetName("XSControl : CheckList Final Main+Subs");
+    chl.SetName("XSControl1 : CheckList Final Main+Subs");
   else if (level >= 2)
-    chl.SetName("XSControl : CheckList Final Complete");
+    chl.SetName("XSControl1 : CheckList Final Complete");
   return chl;
 }
 
@@ -802,11 +802,11 @@ Standard_Integer XSControl_TransferReader::TransferOne(const Handle(RefObject)& 
     sout << "\n*******************************************************************\n";
     sout << "******           Transferring one Entity                     ******" << std::endl;
     if (!lab.IsNull())
-      sout << "******    N0 in file : " << Interface_MSG::Blanks(num, 5) << num
-           << "      Ident : " << lab->ToCString() << Interface_MSG::Blanks(14 - lab->Length())
+      sout << "******    N0 in file : " << MessageSystem::Blanks(num, 5) << num
+           << "      Ident : " << lab->ToCString() << MessageSystem::Blanks(14 - lab->Length())
            << "******\n";
     sout << "******    Type : " << myModel->TypeName(ent, Standard_False)
-         << Interface_MSG::Blanks(
+         << MessageSystem::Blanks(
               (Standard_Integer)(44 - strlen(myModel->TypeName(ent, Standard_False))))
          << "******";
     sout << "\n*******************************************************************\n";
@@ -865,7 +865,7 @@ Standard_Integer XSControl_TransferReader::TransferList(
   {
     Message_Messenger::StreamBuffer sout = myTP->Messenger()->SendInfo();
     sout << "\n*******************************************************************\n";
-    sout << "******           Transferring a list of " << Interface_MSG::Blanks(nb, 5)
+    sout << "******           Transferring a list of " << MessageSystem::Blanks(nb, 5)
          << " Entities       ******" << std::endl;
     sout << "\n*******************************************************************\n";
 
@@ -928,7 +928,7 @@ Standard_Integer XSControl_TransferReader::TransferRoots(const Interface_Graph& 
     Standard_Integer                nb    = roots.NbEntities();
     Message_Messenger::StreamBuffer sout  = myTP->Messenger()->SendInfo();
     sout << "\n*******************************************************************\n";
-    sout << "******           Transferring the " << Interface_MSG::Blanks(nb, 5)
+    sout << "******           Transferring the " << MessageSystem::Blanks(nb, 5)
          << " Root Entities        ******" << std::endl;
     sout << "\n*******************************************************************\n";
     Handle(IFSelect_SignatureList) sl = new IFSelect_SignatureList;
@@ -957,7 +957,7 @@ Standard_Integer XSControl_TransferReader::TransferRoots(const Interface_Graph& 
   }
 
   //  Resultat ... on note soigneuseument les Shapes
-  myShapeResult = TransferBRep::Shapes(myTP, Standard_True);
+  myShapeResult = TransferBRep1::Shapes(myTP, Standard_True);
   // ????  Et ici, il faut alimenter Imagine ...
   return myShapeResult->Length();
 }
@@ -1026,7 +1026,7 @@ void XSControl_TransferReader::PrintStats(Standard_OStream&      sout,
     }
     if (mode == 1 || mode == 2)
     {
-      sout << "[ " << Interface_MSG::Blanks(i, 6) << " ]:";
+      sout << "[ " << MessageSystem::Blanks(i, 6) << " ]:";
       myModel->Print(ent, sout);
       sout << "  Type:" << myModel->TypeName(ent, Standard_False);
     }
@@ -1084,7 +1084,7 @@ const Handle(TopTools_HSequenceOfShape)& XSControl_TransferReader::ShapeResultLi
   if (!rec)
   {
     if (myShapeResult.IsNull())
-      myShapeResult = TransferBRep::Shapes(myTP, Standard_True);
+      myShapeResult = TransferBRep1::Shapes(myTP, Standard_True);
     if (myShapeResult.IsNull())
       myShapeResult = new TopTools_HSequenceOfShape();
   }
@@ -1285,7 +1285,7 @@ void XSControl_TransferReader::PrintStatsOnList(const Handle(Transfer_TransientP
           counter->Add(ent, "(not recorded)");
         else if (mode == 1 || mode == 2)
         {
-          sout << "[" << Interface_MSG::Blanks(nbi, 4) << nbi << " ]:";
+          sout << "[" << MessageSystem::Blanks(nbi, 4) << nbi << " ]:";
           model->Print(ent, sout);
           sout << "   " << model->TypeName(ent, Standard_False) << "  (not recorded)" << std::endl;
           continue;
@@ -1316,7 +1316,7 @@ void XSControl_TransferReader::PrintStatsOnList(const Handle(Transfer_TransientP
       //  mode : 0 list num;  1 : num+label + type + result (abrege);  2 : complet
       if (mode == 1 || mode == 2)
       {
-        sout << "[" << Interface_MSG::Blanks(i, 4) << i << " ]:";
+        sout << "[" << MessageSystem::Blanks(i, 4) << i << " ]:";
         model->Print(ent, sout);
         sout << "   " << model->TypeName(ent, Standard_False);
         sout << "	Result:" << mess << std::endl;

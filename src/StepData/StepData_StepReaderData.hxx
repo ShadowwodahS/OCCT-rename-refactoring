@@ -153,7 +153,7 @@ public:
 
   //! Checks Count of Parameters of record <num> to equate <nbreq>
   //! If this Check is successful, returns True
-  //! Else, fills <ach> with an Error Message then returns False
+  //! Else, fills <ach> with an Error Message1 then returns False
   //! <mess> is included in the Error message if given non empty
   Standard_EXPORT Standard_Boolean CheckNbParams(const Standard_Integer   num,
                                                  const Standard_Integer   nbreq,
@@ -178,7 +178,7 @@ public:
                                                const Standard_Integer   lenmax   = 0) const;
 
   //! reads the content of a sub-list into a transient :
-  //! SelectNamed, or HArray1 of Integer,Real,String,Transient ...
+  //! SelectNamed, or HArray1 of Integer1,Real,String,Transient ...
   //! recursive call if list of list ...
   //! If a sub-list has mixed types, an HArray1OfTransient is
   //! produced, it may contain SelectMember
@@ -241,8 +241,8 @@ public:
 
   //! Reads parameter <nump> of record <num> into a Transient Value
   //! according to the type of the parameter :
-  //! Named for Integer,Boolean,Logical,Enum,Real : SelectNamed
-  //! Immediate Integer,Boolean,Logical,Enum,Real : SelectInt/Real
+  //! Named for Integer1,Boolean,Logical,Enum,Real : SelectNamed
+  //! Immediate Integer1,Boolean,Logical,Enum,Real : SelectInt/Real
   //! Text  : HAsciiString
   //! Ident : the referenced Entity
   //! Sub-List not processed, see ReadSub
@@ -329,8 +329,8 @@ public:
                                               Handle(Interface_Check)& ach,
                                               StepData_SelectType&     sel) const;
 
-  //! reads parameter <nump> of record <num> as a single Integer.
-  //! Return value & Check managed as by ReadXY (demands an Integer)
+  //! reads parameter <nump> of record <num> as a single Integer1.
+  //! Return value & Check managed as by ReadXY (demands an Integer1)
   Standard_EXPORT Standard_Boolean ReadInteger(const Standard_Integer   num,
                                                const Standard_Integer   nump,
                                                const Standard_CString   mess,
@@ -410,7 +410,7 @@ public:
 
   //! Checks if parameter <nump> of record <num> is given as Derived
   //! If this Check is successful (i.e. Param = "*"), returns True
-  //! Else, fills <ach> with a Message which contains <mess> and
+  //! Else, fills <ach> with a Message1 which contains <mess> and
   //! returns False. According to <errstat>, this message is Warning
   //! if errstat is False (Default), Fail if errstat is True
   Standard_EXPORT Standard_Boolean
@@ -444,7 +444,7 @@ public:
   Standard_EXPORT Standard_Integer FindNextHeaderRecord(const Standard_Integer num) const;
 
   //! Works as SetEntityNumbers but for Header : more simple because
-  //! there are no Reference, only Sub-Lists
+  //! there are no Reference1, only Sub-Lists
   Standard_EXPORT void PrepareHeader();
 
   //! Returns the Global Check. It can record Fail messages about

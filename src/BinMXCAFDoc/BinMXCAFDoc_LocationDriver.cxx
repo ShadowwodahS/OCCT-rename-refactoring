@@ -199,7 +199,7 @@ void BinMXCAFDoc_LocationDriver::Translate(const TopLoc_Location&      theLoc,
   if (myNSDriver.IsNull())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "NamedShape Driver is NULL\n";
+    std::cout << "NamedShape1 Driver is NULL\n";
 #endif
     return;
   }

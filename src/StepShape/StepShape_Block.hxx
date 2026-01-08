@@ -31,7 +31,7 @@ class StepShape_Block : public StepGeom_GeometricRepresentationItem
 {
 
 public:
-  //! Returns a Block
+  //! Returns a Block1
   Standard_EXPORT StepShape_Block();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&  aName,
@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT void SetPosition(const Handle(StepGeom_Axis2Placement3d)& aPosition);
 
-  Standard_EXPORT Handle(StepGeom_Axis2Placement3d) Position() const;
+  Standard_EXPORT Handle(StepGeom_Axis2Placement3d) Position1() const;
 
   Standard_EXPORT void SetX(const Standard_Real aX);
 

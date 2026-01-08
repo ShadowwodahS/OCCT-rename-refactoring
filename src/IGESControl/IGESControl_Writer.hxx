@@ -90,7 +90,7 @@ public:
     AddShape(const TopoShape&          sh,
              const Message_ProgressRange& theProgress = Message_ProgressRange());
 
-  //! Translates a Geometry (Surface or Curve) to IGES Entities and
+  //! Translates a Geometry1 (Surface or Curve) to IGES Entities and
   //! adds them to the model
   //! Returns True if done, False if geom is neither a Surface or
   //! a Curve suitable for IGES or is null
@@ -146,11 +146,11 @@ public:
 
   //! Sets flags defining operations to be performed on shapes.
   //! @param theFlags The flags defining operations to be performed on shapes.
-  Standard_EXPORT void SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags);
+  Standard_EXPORT void SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags);
 
   //! Returns flags defining operations to be performed on shapes.
   //! @return The flags defining operations to be performed on shapes.
-  inline const ShapeProcess::OperationsFlags& GetShapeProcessFlags() const
+  inline const ShapeProcess1::OperationsFlags& GetShapeProcessFlags() const
   {
     return myShapeProcFlags.first;
   }

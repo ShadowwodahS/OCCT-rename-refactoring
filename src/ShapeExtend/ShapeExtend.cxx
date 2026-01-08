@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-void ShapeExtend::Init()
+void ShapeExtend1::Init()
 {
   static Standard_Boolean init = Standard_False;
   if (init)
@@ -32,24 +32,24 @@ void ShapeExtend::Init()
 
   init = Standard_True;
 
-  // load Message File for Shape Healing
-  if (!Message_MsgFile::HasMsg("ShapeFix.FixSmallSolid.MSG0"))
+  // load Message1 File for Shape Healing
+  if (!MessageFile::HasMsg("ShapeFix1.FixSmallSolid.MSG0"))
   {
-    if (!Message_MsgFile::LoadFromEnv("CSF_SHMessage", "SHAPE"))
+    if (!MessageFile::LoadFromEnv("CSF_SHMessage", "SHAPE"))
     {
-      Message_MsgFile::LoadFromString(SHMessage_SHAPE_us, sizeof(SHMessage_SHAPE_us) - 1);
+      MessageFile::LoadFromString(SHMessage_SHAPE_us, sizeof(SHMessage_SHAPE_us) - 1);
     }
-    if (!Message_MsgFile::HasMsg("ShapeFix.FixSmallSolid.MSG0"))
+    if (!MessageFile::HasMsg("ShapeFix1.FixSmallSolid.MSG0"))
     {
       throw Standard_ProgramError(
-        "Critical Error - message resources for ShapeExtend are invalid or undefined!");
+        "Critical Error - message resources for ShapeExtend1 are invalid or undefined!");
     }
   }
 }
 
 //=================================================================================================
 
-Standard_Integer ShapeExtend::EncodeStatus(const ShapeExtend_Status status)
+Standard_Integer ShapeExtend1::EncodeStatus(const ShapeExtend_Status status)
 {
   switch (status)
   {
@@ -97,10 +97,10 @@ Standard_Integer ShapeExtend::EncodeStatus(const ShapeExtend_Status status)
 
 //=================================================================================================
 
-Standard_Boolean ShapeExtend::DecodeStatus(const Standard_Integer   flag,
+Standard_Boolean ShapeExtend1::DecodeStatus(const Standard_Integer   flag,
                                            const ShapeExtend_Status status)
 {
   if (status == ShapeExtend_OK)
     return (flag == 0);
-  return (flag & ShapeExtend::EncodeStatus(status) ? Standard_True : Standard_False);
+  return (flag & ShapeExtend1::EncodeStatus(status) ? Standard_True : Standard_False);
 }

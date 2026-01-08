@@ -47,7 +47,7 @@ Handle(StepShape_Sphere) StepShape_CsgPrimitive::Sphere() const
   return GetCasted(StepShape_Sphere, Value());
 }
 
-Handle(StepShape_Block) StepShape_CsgPrimitive::Block() const
+Handle(StepShape_Block) StepShape_CsgPrimitive::Block1() const
 {
   return GetCasted(StepShape_Block, Value());
 }

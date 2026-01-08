@@ -21,14 +21,14 @@
 
 //=================================================================================================
 
-Bisector_PolyBis::Bisector_PolyBis()
+PolyBis::PolyBis()
 {
   nbPoints = 0;
 }
 
 //=================================================================================================
 
-void Bisector_PolyBis::Append(const Bisector_PointOnBis& P)
+void PolyBis::Append(const PointOnBis& P)
 {
   nbPoints++;
   thePoints[nbPoints] = P;
@@ -36,49 +36,49 @@ void Bisector_PolyBis::Append(const Bisector_PointOnBis& P)
 
 //=================================================================================================
 
-Standard_Integer Bisector_PolyBis::Length() const
+Standard_Integer PolyBis::Length() const
 {
   return nbPoints;
 }
 
 //=================================================================================================
 
-Standard_Boolean Bisector_PolyBis::IsEmpty() const
+Standard_Boolean PolyBis::IsEmpty() const
 {
   return (nbPoints == 0);
 }
 
 //=================================================================================================
 
-const Bisector_PointOnBis& Bisector_PolyBis::Value(const Standard_Integer Index) const
+const PointOnBis& PolyBis::Value(const Standard_Integer Index) const
 {
   return thePoints[Index];
 }
 
 //=================================================================================================
 
-const Bisector_PointOnBis& Bisector_PolyBis::First() const
+const PointOnBis& PolyBis::First() const
 {
   return thePoints[1];
 }
 
 //=================================================================================================
 
-const Bisector_PointOnBis& Bisector_PolyBis::Last() const
+const PointOnBis& PolyBis::Last() const
 {
   return thePoints[nbPoints];
 }
 
 //=================================================================================================
 
-// const PointOnBis& Bisector_PolyBis::Points()
+// const PointOnBis& PolyBis::Points()
 //{
 //  return thePoints;
 //}
 
 //=================================================================================================
 
-Standard_Integer Bisector_PolyBis::Interval1(const Standard_Real U) const
+Standard_Integer PolyBis::Interval1(const Standard_Real U) const
 {
   if (Last().ParamOnBis() - U < gp1::Resolution())
   {
@@ -118,7 +118,7 @@ Standard_Integer Bisector_PolyBis::Interval1(const Standard_Real U) const
 
 //=================================================================================================
 
-void Bisector_PolyBis::Transform(const Transform2d& T)
+void PolyBis::Transform(const Transform2d& T)
 {
   for (Standard_Integer i = 1; i <= nbPoints; i++)
   {

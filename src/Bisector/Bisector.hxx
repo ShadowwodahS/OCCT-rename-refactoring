@@ -27,7 +27,7 @@ class GeomCurve2d;
 
 //! This package provides the bisecting line between two
 //! geometric elements.
-class Bisector
+class Bisector1
 {
 public:
   DEFINE_STANDARD_ALLOC

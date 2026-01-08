@@ -46,8 +46,8 @@ BRepExtrema_ProximityValueTool::BRepExtrema_ProximityValueTool()
 // purpose  : Creates new proximity tool for the given element sets
 //=======================================================================
 BRepExtrema_ProximityValueTool::BRepExtrema_ProximityValueTool(
-  const Handle(BRepExtrema_TriangleSet)& theSet1,
-  const Handle(BRepExtrema_TriangleSet)& theSet2,
+  const Handle(TriangleSet1)& theSet1,
+  const Handle(TriangleSet1)& theSet2,
   const BRepExtrema_ShapeList&           theShapeList1,
   const BRepExtrema_ShapeList&           theShapeList2)
     : myIsRefinementRequired1(Standard_False),
@@ -66,8 +66,8 @@ BRepExtrema_ProximityValueTool::BRepExtrema_ProximityValueTool(
 // purpose  : Loads the given element sets into the proximity tool
 //=======================================================================
 void BRepExtrema_ProximityValueTool::LoadTriangleSets(
-  const Handle(BRepExtrema_TriangleSet)& theSet1,
-  const Handle(BRepExtrema_TriangleSet)& theSet2)
+  const Handle(TriangleSet1)& theSet1,
+  const Handle(TriangleSet1)& theSet2)
 {
   mySet1 = theSet1;
   mySet2 = theSet2;
@@ -102,7 +102,7 @@ static Standard_Real calcFaceRefinementStep(const TopoFace&     theFace,
     return 0;
 
   GeometricProperties props;
-  BRepGProp::SurfaceProperties(theFace, props);
+  BRepGProp1::SurfaceProperties(theFace, props);
   Standard_Real aArea = props.Mass();
   return 2 * (aArea / (Standard_Real)theNbTrg);
 }
@@ -200,11 +200,11 @@ void BRepExtrema_ProximityValueTool::SetNbSamplePoints(const Standard_Integer th
 // purpose  : Returns the computed proximity value from first BVH to another one
 //=======================================================================
 Standard_Real BRepExtrema_ProximityValueTool::computeProximityDist(
-  const Handle(BRepExtrema_TriangleSet)&    theSet1,
+  const Handle(TriangleSet1)&    theSet1,
   const Standard_Integer                    theNbSamples1,
   const BVH_Array3d&                        theAddVertices1,
   const NCollection_Vector<ProxPnt_Status>& theAddStatus1,
-  const Handle(BRepExtrema_TriangleSet)&    theSet2,
+  const Handle(TriangleSet1)&    theSet2,
   const BRepExtrema_ShapeList&              theShapeList1,
   const BRepExtrema_ShapeList&              theShapeList2,
   BVH_Vec3d&                                thePoint1,
@@ -212,7 +212,7 @@ Standard_Real BRepExtrema_ProximityValueTool::computeProximityDist(
   ProxPnt_Status&                           thePointStatus1,
   ProxPnt_Status&                           thePointStatus2) const
 {
-  BRepExtrema_ProximityDistTool aProxDistTool(theSet1,
+  ProximityDistTool aProxDistTool(theSet1,
                                               theNbSamples1,
                                               theAddVertices1,
                                               theAddStatus1,
@@ -391,7 +391,7 @@ static void getEdgesStatus(const Standard_Integer            theTriIdx,
   {
     Standard_Integer k = (j + 1) % 3;
 
-    if (BRepExtrema_ProximityDistTool::IsEdgeOnBorder(theTriIdx, j, k, theTr))
+    if (ProximityDistTool::IsEdgeOnBorder(theTriIdx, j, k, theTr))
     {
       theEdgesStatus1[j] = ProxPnt_Status::ProxPnt_Status_BORDER;
     }

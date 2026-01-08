@@ -46,14 +46,14 @@ Handle(TDF_Attribute) XmlMXCAFDoc_MaterialDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMXCAFDoc_MaterialDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_MaterialDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&) const
 {
   Standard_Real       aDensity;
-  XmlObjMgt_DOMString aRealStr = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString aRealStr = XmlObjMgt1::GetStringValue(theSource);
 
-  if (XmlObjMgt::GetReal(aRealStr, aDensity) == Standard_False)
+  if (XmlObjMgt1::GetReal(aRealStr, aDensity) == Standard_False)
   {
     UtfString aMessageString =
       UtfString("Cannot retrieve Material attribute density from \"") + aRealStr
@@ -93,7 +93,7 @@ Standard_Boolean XmlMXCAFDoc_MaterialDriver::Paste(const XmlObjMgt_Persistent&  
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMXCAFDoc_MaterialDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&) const
 {
   Handle(XCAFDoc_Material) anAtt = Handle(XCAFDoc_Material)::DownCast(theSource);
@@ -109,7 +109,7 @@ void XmlMXCAFDoc_MaterialDriver::Paste(const Handle(TDF_Attribute)& theSource,
     aDensTypeStr = anAtt->GetDensValType()->String().ToCString();
 
   AsciiString1 aDensityStr(anAtt->GetDensity());
-  XmlObjMgt::SetStringValue(theTarget, aDensityStr.ToCString());
+  XmlObjMgt1::SetStringValue(theTarget, aDensityStr.ToCString());
   theTarget.Element().setAttribute(::NameIndexString(), aNameString);
   theTarget.Element().setAttribute(::DescrIndexString(), aDescrString);
   theTarget.Element().setAttribute(::DensNameIndexString(), aDensNameStr);

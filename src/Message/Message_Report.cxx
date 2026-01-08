@@ -119,7 +119,7 @@ void Message_Report::ActivateInMessenger(const Standard_Boolean           toActi
 
   myIsActiveInMessenger = toActivate;
   Handle(Message_Messenger) aMessenger =
-    theMessenger.IsNull() ? Message::DefaultMessenger() : theMessenger;
+    theMessenger.IsNull() ? Message1::DefaultMessenger() : theMessenger;
   if (toActivate)
   {
     Handle(Message_PrinterToReport) aPrinterToReport = new Message_PrinterToReport();
@@ -150,7 +150,7 @@ void Message_Report::ActivateInMessenger(const Standard_Boolean           toActi
 void Message_Report::UpdateActiveInMessenger(const Handle(Message_Messenger)& theMessenger)
 {
   Handle(Message_Messenger) aMessenger =
-    theMessenger.IsNull() ? Message::DefaultMessenger() : theMessenger;
+    theMessenger.IsNull() ? Message1::DefaultMessenger() : theMessenger;
   for (Message_SequenceOfPrinters::Iterator anIterator(aMessenger->Printers()); anIterator.More();
        anIterator.Next())
   {

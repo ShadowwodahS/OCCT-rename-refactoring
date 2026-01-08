@@ -21,7 +21,7 @@
 #include <Interface_VectorOfFileParameter.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
-class Interface_FileParameter;
+class FileParameter;
 
 class Interface_ParamList;
 DEFINE_STANDARD_HANDLE(Interface_ParamList, RefObject)
@@ -45,22 +45,22 @@ public:
   Standard_Integer Upper() const;
 
   //! Assigns the value <Value> to the <Index>-th item of this array.
-  Standard_EXPORT void SetValue(const Standard_Integer Index, const Interface_FileParameter& Value);
+  Standard_EXPORT void SetValue(const Standard_Integer Index, const FileParameter& Value);
 
   //! Return the value of  the  <Index>th element of the
   //! array.
-  Standard_EXPORT const Interface_FileParameter& Value(const Standard_Integer Index) const;
+  Standard_EXPORT const FileParameter& Value(const Standard_Integer Index) const;
 
-  const Interface_FileParameter& operator()(const Standard_Integer Index) const
+  const FileParameter& operator()(const Standard_Integer Index) const
   {
     return Value(Index);
   }
 
   //! return the value  of the <Index>th element  of the
   //! array.
-  Standard_EXPORT Interface_FileParameter& ChangeValue(const Standard_Integer Index);
+  Standard_EXPORT FileParameter& ChangeValue(const Standard_Integer Index);
 
-  Interface_FileParameter& operator()(const Standard_Integer Index) { return ChangeValue(Index); }
+  FileParameter& operator()(const Standard_Integer Index) { return ChangeValue(Index); }
 
   Standard_EXPORT void Clear();
 

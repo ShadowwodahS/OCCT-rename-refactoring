@@ -32,16 +32,16 @@
 #include <Geom_Transformation.hxx>
 #include <Geom_Surface.hxx>
 
-class ShapePersistent_Geom : public StdObjMgt_SharedObject
+class ShapePersistent_Geom : public SharedObject
 {
 public:
-  class Geometry : public StdObjMgt_Persistent
+  class Geometry1 : public StdObjMgt_Persistent
   {
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Write persistent data to a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
     //! Gets persistent objects
     Standard_EXPORT virtual void PChildren(SequenceOfPersistent& theChildren) const;
 
@@ -51,10 +51,10 @@ public:
 
 protected:
   template <class Transient>
-  struct geometryBase : public DelayedBase<Geometry, Transient>
+  struct geometryBase : public DelayedBase<Geometry1, Transient>
   {
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData&) const
+    virtual void Write(WriteData&) const
     {
       Standard_NotImplemented::Raise("ShapePersistent_Geom::geometryBase::Write - not implemented");
     }
@@ -75,10 +75,10 @@ protected:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData) { PData().Read(theReadData); }
+    virtual void Read(ReadData& theReadData) { PData().Read(theReadData); }
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData& theWriteData) const { PData().Write(theWriteData); }
+    virtual void Write(WriteData& theWriteData) const { PData().Write(theWriteData); }
 
     //! Gets persistent child objects
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const
@@ -99,10 +99,10 @@ protected:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData&) {}
+    virtual void Read(ReadData&) {}
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData&) const {}
+    virtual void Write(WriteData&) const {}
 
     //! Gets persistent child objects
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const {}
@@ -132,7 +132,7 @@ protected:
   {
   public:
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData)
+    virtual void Read(ReadData& theReadData)
     {
       Data aData;
       theReadData >> aData;
@@ -143,7 +143,7 @@ protected:
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const {}
 
     //! Write persistent data to a file.
-    virtual void Write(StdObjMgt_WriteData&) const
+    virtual void Write(WriteData&) const
     {
       Standard_NotImplemented::Raise("ShapePersistent_Geom::instance::Write - not implemented");
     }
@@ -210,7 +210,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Point,
                                            Geom_CartesianPoint,
-                                           Point3d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Point3d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom_CartesianPoint) aMyGeom = Handle(Geom_CartesianPoint)::DownCast(myTransient);
   theWriteData << aMyGeom->Pnt();
@@ -241,7 +241,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Direction,
                                            Geom_Direction,
-                                           Dir3d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Dir3d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom_Direction) aMyGeom = Handle(Geom_Direction)::DownCast(myTransient);
   theWriteData << aMyGeom->Dir();
@@ -262,7 +262,7 @@ inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Vec
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagnitude,
                                            Geom_VectorWithMagnitude,
-                                           Vector3d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Vector3d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom_VectorWithMagnitude) aMyGeom =
     Handle(Geom_VectorWithMagnitude)::DownCast(myTransient);
@@ -294,7 +294,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Axis1Placement,
                                            Geom_Axis1Placement,
-                                           Axis3d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Axis3d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom_Axis1Placement) aMyGeom = Handle(Geom_Axis1Placement)::DownCast(myTransient);
   write(theWriteData, aMyGeom->Ax1());
@@ -313,7 +313,7 @@ inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Axi
 
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
-                                           Geom_Axis2Placement>::Read(StdObjMgt_ReadData&
+                                           Geom_Axis2Placement>::Read(ReadData&
                                                                         theReadData)
 {
   Axis3d anAxis;
@@ -326,7 +326,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
 
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
-                                           Geom_Axis2Placement>::Write(StdObjMgt_WriteData&
+                                           Geom_Axis2Placement>::Write(WriteData&
                                                                          theWriteData) const
 {
   Handle(Geom_Axis2Placement) aMyGeom      = Handle(Geom_Axis2Placement)::DownCast(myTransient);
@@ -349,13 +349,13 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Transformation,
                                            Geom_Transformation,
-                                           Transform3d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Transform3d>::Write(WriteData& theWriteData) const
 {
   theWriteData << myTransient->Trsf();
 }
 
 //=======================================================================
-// Geometry
+// Geometry1
 //=======================================================================
 
 template <>

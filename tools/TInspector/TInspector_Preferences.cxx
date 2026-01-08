@@ -68,7 +68,7 @@ void TInspector_Preferences::StorePreferences()
        aPrefsIt.Next())
   {
     QDomElement aPluginElement = aDomDocument.createElement(pluginKey());
-    aPluginElement.setAttribute(nameKey(), aPrefsIt.Key().ToCString());
+    aPluginElement.setAttribute(nameKey(), aPrefsIt.Key1().ToCString());
     aRootElement.appendChild(aPluginElement);
 
     const TInspectorAPI_PreferencesDataMap& aPluginMap = aPrefsIt.Value();
@@ -77,7 +77,7 @@ void TInspector_Preferences::StorePreferences()
          aPluginPrefsIt.Next())
     {
       QDomElement aParameterElement = aDomDocument.createElement(parameterKey());
-      aParameterElement.setAttribute(nameKey(), aPluginPrefsIt.Key().ToCString());
+      aParameterElement.setAttribute(nameKey(), aPluginPrefsIt.Key1().ToCString());
       aParameterElement.setAttribute(valueKey(), aPluginPrefsIt.Value().ToCString());
       aPluginElement.appendChild(aParameterElement);
     }

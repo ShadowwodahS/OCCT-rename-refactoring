@@ -150,7 +150,7 @@ public:
 
   //! Returns value of myKeep (does not evaluate states)
   //! False at creation of VPoint.
-  //! Updated by State(State from TopAbs1,Integer from Standard)
+  //! Updated by State(State from TopAbs1,Integer1 from Standard)
   Standard_Boolean Keep() const;
 
   //! updates VPointInter flag "keep" with <keep>.

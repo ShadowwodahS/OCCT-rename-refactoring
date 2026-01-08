@@ -71,7 +71,7 @@ protected:
     DataTag_Last = DataTag_First + 100
   };
 
-  // enumeration for the ranks of label under Reference section.
+  // enumeration for the ranks of label under Reference1 section.
   enum RefTag
   {
     RefTag_First = TObj_Object::RefTag_Last,
@@ -546,7 +546,7 @@ static Standard_Integer hasModifications(DrawInterpreter& di,
 
 //=================================================================================================
 
-void TObjDRAW::Init(DrawInterpreter& di)
+void TObjDRAW1::Init(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)
@@ -624,21 +624,21 @@ void TObjDRAW::Init(DrawInterpreter& di)
 }
 
 //==============================================================================
-// TObjDRAW::Factory
+// TObjDRAW1::Factory
 
 //==============================================================================
-void TObjDRAW::Factory(DrawInterpreter& theDI)
+void TObjDRAW1::Factory(DrawInterpreter& theDI)
 {
   // Initialize TObj OCAF formats
   Handle(AppManager) anApp = TObj_Application::GetInstance(); // DDocStd1::GetApplication();
   BinTObjDrivers1::DefineFormat(anApp);
-  XmlTObjDrivers::DefineFormat(anApp);
+  XmlTObjDrivers1::DefineFormat(anApp);
 
   // define formats for TObj specific application
   BinTObjDrivers1::DefineFormat(anApp);
-  XmlTObjDrivers::DefineFormat(anApp);
+  XmlTObjDrivers1::DefineFormat(anApp);
 
-  TObjDRAW::Init(theDI);
+  TObjDRAW1::Init(theDI);
 
 #ifdef OCCT_DEBUG
   theDI << "Draw1 Plugin : All TKTObjDRAW commands are loaded\n";
@@ -646,4 +646,4 @@ void TObjDRAW::Factory(DrawInterpreter& theDI)
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(TObjDRAW)
+DPLUGIN(TObjDRAW1)

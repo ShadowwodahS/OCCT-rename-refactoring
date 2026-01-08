@@ -516,14 +516,14 @@ public:
                                                     const Standard_Integer Depth);
 
   //! Copy  the  pole at  position  <Index>  in  the Boor
-  //! scheme of   dimension <Dimension> to  <Position> in
-  //! the array <Pole>. <Position> is updated.
+  //! scheme of   dimension <Dimension> to  <Position1> in
+  //! the array <Pole>. <Position1> is updated.
   Standard_EXPORT static void GetPole(const Standard_Integer Index,
                                       const Standard_Integer Length,
                                       const Standard_Integer Depth,
                                       const Standard_Integer Dimension,
                                       Standard_Real&         LocPoles,
-                                      Standard_Integer&      Position,
+                                      Standard_Integer&      Position1,
                                       TColStd_Array1OfReal&  Pole);
 
   //! Returns in <NbPoles, NbKnots> the  new number of poles

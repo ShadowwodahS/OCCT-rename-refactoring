@@ -19,7 +19,7 @@
 class TopoShape;
 class Point3d;
 
-class BRepExtrema_Poly
+class Poly2
 {
 public:
   //! returns Standard_True if OK.

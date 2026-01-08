@@ -49,7 +49,7 @@ public:
   Graphic3d_Vec2i TopLeft() const
   {
     Graphic3d_Vec2i aTopLeft, aBotRight;
-    Position(aTopLeft.x(), aTopLeft.y(), aBotRight.x(), aBotRight.y());
+    Position1(aTopLeft.x(), aTopLeft.y(), aBotRight.x(), aBotRight.y());
     return aTopLeft;
   }
 
@@ -110,7 +110,7 @@ public:
   Standard_EXPORT virtual Standard_Real Ratio() const = 0;
 
   //! Returns The Window POSITION in PIXEL
-  Standard_EXPORT virtual void Position(Standard_Integer& X1,
+  Standard_EXPORT virtual void Position1(Standard_Integer& X1,
                                         Standard_Integer& Y1,
                                         Standard_Integer& X2,
                                         Standard_Integer& Y2) const = 0;

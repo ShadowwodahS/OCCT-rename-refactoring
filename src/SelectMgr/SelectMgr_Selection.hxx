@@ -42,7 +42,7 @@ class Select3D_SensitiveEntity;
 //! -   mode 1 : selection of the origin of the trihedron
 //! -   mode 2 : selection of the axes
 //! -   mode 3 : selection of the planes XOY, YOZ, XOZ
-//! when you activate one of modes 1 2 3 4 , you pick AIS objects of type:
+//! when you activate one of modes 1 2 3 4 , you pick AIS1 objects of type:
 //! -   VisualPoint
 //! -   VisualAxis (and information on the type of axis)
 //! -   AIS_Plane (and information on the type of plane).

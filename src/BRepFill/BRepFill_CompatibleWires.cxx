@@ -217,7 +217,7 @@ static Standard_Boolean PlaneOfWire(const TopoWire& W, gp_Pln& P)
 
   if (!isBaryDefined)
   {
-    BRepGProp::LinearProperties(W, GP);
+    BRepGProp1::LinearProperties(W, GP);
     Bary = GP.CentreOfMass();
   }
 
@@ -447,7 +447,7 @@ static Standard_Boolean SearchRoot(const TopoVertex&                      V,
     if (ilyest)
     {
       trouve = Standard_True;
-      VRoot  = TopoDS::Vertex(it.Key());
+      VRoot  = TopoDS::Vertex(it.Key1());
     }
     if (trouve)
       break;
@@ -514,7 +514,7 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
   //             finally, nothing is better than a blocking box
   //  Standard_Real dernierparam = 100 * P1.Distance(P2);
   Box2 B;
-  BRepBndLib::Add(W, B);
+  BRepBndLib1::Add(W, B);
   Standard_Real x1, x2, y1, y2, z1, z2;
   B.Get(x1, y1, z1, x2, y2, z2);
   Point3d           BP1(x1, y1, z1), BP2(x2, y2, z2);
@@ -1394,7 +1394,7 @@ void CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean WithRotatio
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itmap(myMap);
   for (; itmap.More(); itmap.Next())
   {
-    const TopoShape&  anEdge = itmap.Key();
+    const TopoShape&  anEdge = itmap.Key1();
     ShapeList ListOfNewEdges;
 
     // for each edge of <myMap> find all newest edges
@@ -1594,7 +1594,7 @@ void CompatibleWires::SameNumberByACR(const Standard_Boolean report)
 
                 if (Ecur.IsSame(ECur))
                 {
-                  Ancestor = TopoDS::Edge(itmap.Key());
+                  Ancestor = TopoDS::Edge(itmap.Key1());
                   found    = Standard_True;
                   myMap(Ancestor).InsertBefore(LE, itlist);
                   myMap(Ancestor).Remove(itlist);

@@ -25,7 +25,7 @@
 #include <gp_XYZ.hxx>
 
 class TObj_Model;
-class TObj_Persistence;
+class Persistence;
 class TObj_ObjectIterator;
 class TObj_TNameContainer;
 class TCollection_HExtendedString;
@@ -77,7 +77,7 @@ protected:
     ChildTag_Last  = ChildTag_First //!< No children
   };
 
-  //! enumeration for the ranks of label under Reference section.
+  //! enumeration for the ranks of label under Reference1 section.
   enum RefTag
   {
     RefTag_First = 0,
@@ -100,10 +100,10 @@ protected:
                               const Standard_Boolean theSetName = Standard_True);
 
   //! The special constructor intended for implementation of persistence
-  //! mechanism. See class TObj_Persistence for more details.
+  //! mechanism. See class Persistence for more details.
   //! The first argument is used only to avoid confusion with
   //! other constructors.
-  TObj_Object(const TObj_Persistence*, const DataLabel& theLabel)
+  TObj_Object(const Persistence*, const DataLabel& theLabel)
       : myLabel(theLabel)
   {
   }
@@ -424,8 +424,8 @@ protected:
                                          const Standard_Integer theRank2 = 0) const;
 
   //! Returns the theRank2-th sub label of the theRank1-th  sublabel of the
-  //! Reference label of the object.
-  //! If theRank2 is 0 (default), sub label theRank1 of Reference label is returned.
+  //! Reference1 label of the object.
+  //! If theRank2 is 0 (default), sub label theRank1 of Reference1 label is returned.
   //! If requested label does not exist, it is created.
   Standard_EXPORT DataLabel getReferenceLabel(const Standard_Integer theRank1,
                                               const Standard_Integer theRank2 = 0) const;

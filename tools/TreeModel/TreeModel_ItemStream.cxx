@@ -86,7 +86,7 @@ QVariant TreeModel_ItemStream::initValue(const int theItemRole) const
   switch (Column())
   {
     case 0:
-      return Properties() ? Properties()->Key().ToCString() : "";
+      return Properties() ? Properties()->Key1().ToCString() : "";
   }
   return QVariant();
 }

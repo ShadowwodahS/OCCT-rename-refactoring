@@ -29,10 +29,10 @@ public:
   }
 
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myIsConstant >> myUnit; }
+  inline void Read(ReadData& theReadData) { theReadData >> myIsConstant >> myUnit; }
 
   //! Write persistent data to a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData) const
+  inline void Write(WriteData& theWriteData) const
   {
     theWriteData << myIsConstant << myUnit;
   }
@@ -56,7 +56,7 @@ public:
 
 private:
   Standard_Boolean                      myIsConstant;
-  Handle(StdLPersistent_HString::Ascii) myUnit;
+  Handle(HString::Ascii1) myUnit;
 };
 
 #endif

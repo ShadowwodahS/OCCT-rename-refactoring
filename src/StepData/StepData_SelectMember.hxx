@@ -74,15 +74,15 @@ public:
   Standard_EXPORT Interface_ParamType ParamType() const;
 
   //! This internal method gives access to a value implemented by an
-  //! Integer (to read it)
+  //! Integer1 (to read it)
   Standard_EXPORT virtual Standard_Integer Int() const;
 
   //! This internal method gives access to a value implemented by an
-  //! Integer (to set it)
+  //! Integer1 (to set it)
   Standard_EXPORT virtual void SetInt(const Standard_Integer val);
 
-  //! Gets the value as an Integer
-  Standard_EXPORT Standard_Integer Integer() const;
+  //! Gets the value as an Integer1
+  Standard_EXPORT Standard_Integer Integer1() const;
 
   Standard_EXPORT void SetInteger(const Standard_Integer val);
 

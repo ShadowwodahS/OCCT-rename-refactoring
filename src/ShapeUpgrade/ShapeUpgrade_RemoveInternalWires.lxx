@@ -71,5 +71,5 @@ inline TopoShape ShapeUpgrade_RemoveInternalWires::GetResult() const
 inline Standard_Boolean ShapeUpgrade_RemoveInternalWires::Status(
   const ShapeExtend_Status theStatus) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, theStatus);
+  return ShapeExtend1::DecodeStatus(myStatus, theStatus);
 }

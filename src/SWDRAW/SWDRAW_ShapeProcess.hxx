@@ -22,8 +22,8 @@
 
 #include <Draw_Interpretor.hxx>
 
-//! Contains commands to activate package ShapeProcess
-class SWDRAW_ShapeProcess
+//! Contains commands to activate package ShapeProcess1
+class ShapeProcess2
 {
 public:
   DEFINE_STANDARD_ALLOC

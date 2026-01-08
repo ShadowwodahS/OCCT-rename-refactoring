@@ -32,7 +32,7 @@ static const char aRefElem2[]  = "]";
 // purpose  : return name of ID attribute to be used everywhere
 //=======================================================================
 
-const XmlObjMgt_DOMString& XmlObjMgt::IdString()
+const XmlObjMgt_DOMString& XmlObjMgt1::IdString()
 {
   static const LDOMString aString("id");
   return aString;
@@ -45,7 +45,7 @@ const XmlObjMgt_DOMString& XmlObjMgt::IdString()
 //           does not contain '&', '<', '>', '\"', '\'', etc.
 //=======================================================================
 
-void XmlObjMgt::SetStringValue(XmlObjMgt_Element&         theElement,
+void XmlObjMgt1::SetStringValue(XmlObjMgt_Element&         theElement,
                                const XmlObjMgt_DOMString& theData,
                                const Standard_Boolean     isClearText)
 {
@@ -61,7 +61,7 @@ void XmlObjMgt::SetStringValue(XmlObjMgt_Element&         theElement,
 // purpose  : returns the first child text node
 //=======================================================================
 
-XmlObjMgt_DOMString XmlObjMgt::GetStringValue(const XmlObjMgt_Element& theElement)
+XmlObjMgt_DOMString XmlObjMgt1::GetStringValue(const XmlObjMgt_Element& theElement)
 {
   XmlObjMgt_DOMString aString;
   for (LDOM_Node aNode = theElement.getFirstChild(); aNode != NULL; aNode = aNode.getNextSibling())
@@ -109,7 +109,7 @@ void SprintfExtStr(char* out, const UtfString& theString)
 // purpose  : Add text node to element and initialize it with string
 //=======================================================================
 
-Standard_Boolean XmlObjMgt::SetExtendedString(XmlObjMgt_Element&                theElement,
+Standard_Boolean XmlObjMgt1::SetExtendedString(XmlObjMgt_Element&                theElement,
                                               const UtfString& theString)
 {
   AsciiString1 anAString;
@@ -149,7 +149,7 @@ Standard_Boolean XmlObjMgt::SetExtendedString(XmlObjMgt_Element&                
 // purpose  : Get the first text node in theElement and convert to ExtendedStr
 //=======================================================================
 
-Standard_Boolean XmlObjMgt::GetExtendedString(const XmlObjMgt_Element&    theElement,
+Standard_Boolean XmlObjMgt1::GetExtendedString(const XmlObjMgt_Element&    theElement,
                                               UtfString& theString)
 {
   theString = GetStringValue(theElement);
@@ -162,7 +162,7 @@ Standard_Boolean XmlObjMgt::GetExtendedString(const XmlObjMgt_Element&    theEle
 //           Returns False on error
 //=======================================================================
 
-Standard_Boolean XmlObjMgt::GetTagEntryString(const XmlObjMgt_DOMString& theSource,
+Standard_Boolean XmlObjMgt1::GetTagEntryString(const XmlObjMgt_DOMString& theSource,
                                               AsciiString1&   theTagEntry)
 {
   //    Check the prefix
@@ -217,7 +217,7 @@ Standard_Boolean XmlObjMgt::GetTagEntryString(const XmlObjMgt_DOMString& theSour
 // purpose  : Form an XPath string corresponding to the input TagEntry
 //=======================================================================
 
-void XmlObjMgt::SetTagEntryString(XmlObjMgt_DOMString&           theTarget,
+void XmlObjMgt1::SetTagEntryString(XmlObjMgt_DOMString&           theTarget,
                                   const AsciiString1& theTagEntry)
 {
   //    Begin parsing theTagEntry
@@ -271,7 +271,7 @@ void XmlObjMgt::SetTagEntryString(XmlObjMgt_DOMString&           theTarget,
 
 //=================================================================================================
 
-XmlObjMgt_Element XmlObjMgt::FindChildElement(const XmlObjMgt_Element& theSource,
+XmlObjMgt_Element XmlObjMgt1::FindChildElement(const XmlObjMgt_Element& theSource,
                                               const Standard_Integer   theId)
 {
   LDOM_Node        aNode = theSource.getFirstChild();
@@ -296,7 +296,7 @@ XmlObjMgt_Element XmlObjMgt::FindChildElement(const XmlObjMgt_Element& theSource
 
 //=================================================================================================
 
-XmlObjMgt_Element XmlObjMgt::FindChildByRef(const XmlObjMgt_Element&   theSource,
+XmlObjMgt_Element XmlObjMgt1::FindChildByRef(const XmlObjMgt_Element&   theSource,
                                             const XmlObjMgt_DOMString& theRefName)
 {
   Standard_Integer anID;
@@ -307,7 +307,7 @@ XmlObjMgt_Element XmlObjMgt::FindChildByRef(const XmlObjMgt_Element&   theSource
 
 //=================================================================================================
 
-XmlObjMgt_Element XmlObjMgt::FindChildByName(const XmlObjMgt_Element&   theSource,
+XmlObjMgt_Element XmlObjMgt1::FindChildByName(const XmlObjMgt_Element&   theSource,
                                              const XmlObjMgt_DOMString& theName)
 {
   return theSource.GetChildByTagName(theName);
@@ -315,7 +315,7 @@ XmlObjMgt_Element XmlObjMgt::FindChildByName(const XmlObjMgt_Element&   theSourc
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt::GetInteger(Standard_CString& theString, Standard_Integer& theValue)
+Standard_Boolean XmlObjMgt1::GetInteger(Standard_CString& theString, Standard_Integer& theValue)
 {
   char* ptr;
   errno       = 0;
@@ -329,7 +329,7 @@ Standard_Boolean XmlObjMgt::GetInteger(Standard_CString& theString, Standard_Int
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt::GetReal(Standard_CString& theString, Standard_Real& theValue)
+Standard_Boolean XmlObjMgt1::GetReal(Standard_CString& theString, Standard_Real& theValue)
 {
   char* ptr;
   errno    = 0;
@@ -372,7 +372,7 @@ Standard_Boolean XmlObjMgt::GetReal(Standard_CString& theString, Standard_Real& 
 // function : GetReal
 // purpose  : Convert LDOMString to Real
 //=======================================================================
-Standard_Boolean XmlObjMgt::GetReal(const XmlObjMgt_DOMString& theString, Standard_Real& theValue)
+Standard_Boolean XmlObjMgt1::GetReal(const XmlObjMgt_DOMString& theString, Standard_Real& theValue)
 {
   switch (theString.Type())
   {

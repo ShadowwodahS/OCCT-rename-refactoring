@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-void StdSelect::SetDrawerForBRepOwner(const Handle(SelectionContainer)& /*Sel*/,
+void StdSelect1::SetDrawerForBRepOwner(const Handle(SelectionContainer)& /*Sel*/,
                                       const Handle(StyleDrawer)& /*Drwr*/)
 {
   //  Handle(StdSelect_BRepOwner) BROWN;

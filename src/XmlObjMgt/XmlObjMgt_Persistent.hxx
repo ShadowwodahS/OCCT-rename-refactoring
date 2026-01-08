@@ -24,19 +24,19 @@
 #include <XmlObjMgt_DOMString.hxx>
 
 //! root for XML-persistence
-class XmlObjMgt_Persistent
+class PersistentStorage
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! empty constructor
-  Standard_EXPORT XmlObjMgt_Persistent();
+  Standard_EXPORT PersistentStorage();
 
   //! constructor
-  Standard_EXPORT XmlObjMgt_Persistent(const XmlObjMgt_Element& theElement);
+  Standard_EXPORT PersistentStorage(const XmlObjMgt_Element& theElement);
 
   //! constructor from sub-element of Element referenced by theRef
-  Standard_EXPORT XmlObjMgt_Persistent(const XmlObjMgt_Element&   theElement,
+  Standard_EXPORT PersistentStorage(const XmlObjMgt_Element&   theElement,
                                        const XmlObjMgt_DOMString& theRef);
 
   //! myElement := <theType id="theID"/>

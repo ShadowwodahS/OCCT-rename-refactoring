@@ -108,7 +108,7 @@ void AIS_ExclusionFilter::Clear()
 {
   TColStd_DataMapIteratorOfDataMapOfIntegerListOfInteger Mit(myStoredTypes);
   for (; Mit.More(); Mit.Next())
-    myStoredTypes.ChangeFind(Mit.Key()).Clear();
+    myStoredTypes.ChangeFind(Mit.Key1()).Clear();
   myStoredTypes.Clear();
 }
 
@@ -142,7 +142,7 @@ void AIS_ExclusionFilter::ListOfStoredTypes(TColStd_ListOfInteger& TheList) cons
   TheList.Clear();
   TColStd_DataMapIteratorOfDataMapOfIntegerListOfInteger MIT(myStoredTypes);
   for (; MIT.More(); MIT.Next())
-    TheList.Append(MIT.Key());
+    TheList.Append(MIT.Key1());
 }
 
 //=================================================================================================
@@ -169,10 +169,10 @@ Standard_Boolean AIS_ExclusionFilter::IsOk(const Handle(SelectMgr_EntityOwner)& 
   if (IO.IsNull())
     return Standard_False;
 
-  // type of AIS is not in the map...
+  // type of AIS1 is not in the map...
   if (!myStoredTypes.IsBound(IO->Type()))
     return myIsExclusionFlagOn;
-  // type of AIS is not in the map and there is no signature indicated
+  // type of AIS1 is not in the map and there is no signature indicated
   if (myStoredTypes(IO->Type()).IsEmpty())
     return !myIsExclusionFlagOn;
   // one or several signatures are indicated...

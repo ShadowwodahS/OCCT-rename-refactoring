@@ -48,7 +48,7 @@ inline Standard_Character ToCharacter(const Standard_ExtCharacter achar)
 }
 
 // ------------------------------------------------------------------
-// IsAnAscii : Returns True if an ExtCharacter is in the "Ascii Range"
+// IsAnAscii : Returns True if an ExtCharacter is in the "Ascii1 Range"
 // ------------------------------------------------------------------
 inline Standard_Boolean IsAnAscii(const Standard_ExtCharacter achar)
 {

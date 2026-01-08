@@ -29,7 +29,7 @@ class GeomCurve3d;
 class GeomCurve2d;
 class GeomTools_UndefinedTypeHandler;
 
-//! The GeomTools1 package provides  utilities for Geometry.
+//! The GeomTools1 package provides  utilities for Geometry1.
 //!
 //! *  SurfaceSet,  CurveSet, Curve2dSet  : Tools used
 //! for dumping, writing and reading.

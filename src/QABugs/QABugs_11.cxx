@@ -102,7 +102,7 @@ Standard_EXPORT ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 
 static Standard_Integer OCC128(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0];
@@ -162,7 +162,7 @@ static Standard_Integer OCC136(DrawInterpreter& di, Standard_Integer argc, const
   anAx2.SetDirection(Dir3d(-1, -1, 1));
   TopoSolid aCyl = CylinderMaker(anAx2, Size * 0.5, Size);
 
-  Handle(VisualContext) anAISCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) anAISCtx = ViewerTest1::GetAISContext();
   if (anAISCtx.IsNull())
   {
     di << "Null interactive context. Use 'vinit' at first.\n";
@@ -566,7 +566,7 @@ Standard_Integer OCC165(DrawInterpreter& di, Standard_Integer n, const char** a)
 static Standard_Integer OCC297(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 
 {
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -628,7 +628,7 @@ static Standard_Integer OCC305(DrawInterpreter& di, Standard_Integer argc, const
   }
   Standard_CString file = argv[1];
 
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -655,7 +655,7 @@ static Standard_Integer OCC305(DrawInterpreter& di, Standard_Integer argc, const
     builder.Add(wire, ed);
 
     GeometricProperties lprop;
-    BRepGProp::LinearProperties(ed, lprop);
+    BRepGProp1::LinearProperties(ed, lprop);
     printf("\n length = %f", lprop.Mass());
   }
   DBRep1::Set("Wire", wire);
@@ -1244,17 +1244,17 @@ static Standard_Integer OCC24(DrawInterpreter& di, Standard_Integer argc, const 
     const char* aSequenceName = argv[5];
 
     // 3. Initialize ShapeContext and perform sequence of operation specified with resource file
-    ShapeProcess_OperLibrary::Init();
+    OperLibrary::Init();
     Handle(ShapeProcess_ShapeContext) aShapeContext =
       new ShapeProcess_ShapeContext(aSubShapes, aResourceFile);
     aShapeContext->SetDetalisation(TopAbs_EDGE);
-    ShapeProcess::Perform(aShapeContext, aSequenceName);
+    ShapeProcess1::Perform(aShapeContext, aSequenceName);
 
     // 4. Rebuild initil shape in accordance with performed operation
     Handle(ShapeBuild_ReShape)                    aReshape = new ShapeBuild_ReShape;
     TopTools_DataMapIteratorOfDataMapOfShapeShape anIter(aShapeContext->Map());
     for (; anIter.More(); anIter.Next())
-      aReshape->Replace(anIter.Key(), anIter.Value());
+      aReshape->Replace(anIter.Key1(), anIter.Value());
     TopoShape aResultShape = aReshape->Apply(anInitShape);
 
     // 5 Create resultant Draw1 shape
@@ -1511,7 +1511,7 @@ static Standard_Integer OCC738_ShapeRef(DrawInterpreter& di,
     di << "Usage : " << argv[0] << "\n";
     return -1;
   }
-  const Standard_GUID& guid = XCAFDoc::ShapeRefGUID();
+  const Standard_GUID& guid = XCAFDoc1::ShapeRefGUID();
   // guid.ShallowDump(std::cout);
   Standard_SStream aSStream;
   guid.ShallowDump(aSStream);
@@ -1530,7 +1530,7 @@ static Standard_Integer OCC738_Assembly(DrawInterpreter& di,
     di << "Usage : " << argv[0] << "\n";
     return -1;
   }
-  const Standard_GUID& guid = XCAFDoc::AssemblyGUID();
+  const Standard_GUID& guid = XCAFDoc1::AssemblyGUID();
   // guid.ShallowDump(std::cout);
   Standard_SStream aSStream;
   guid.ShallowDump(aSStream);
@@ -1565,7 +1565,7 @@ static Standard_Integer OCC739_DrawPresentation(DrawInterpreter& di,
 
 static Standard_Integer OCC708(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << argv[0] << "ERROR : use 'vinit' command before \n";
@@ -2288,12 +2288,12 @@ static Standard_Integer OCC6143(DrawInterpreter& di, Standard_Integer argc, cons
   Succes = Standard_True;
   // OSD::SetSignal();
 
-  { //==== Test Divide ByZero (Integer) ========================================
+  { //==== Test Divide ByZero (Integer1) ========================================
     try
     {
       OCC_CATCH_SIGNALS
-      std::cout << "(Integer) Divide By Zero..." << std::endl;
-      di << "(Integer) Divide By Zero...";
+      std::cout << "(Integer1) Divide By Zero..." << std::endl;
+      di << "(Integer1) Divide By Zero...";
       // std::cout.flush();
       di << "\n";
       Standard_Integer res, a = 4, b = 0;
@@ -2355,12 +2355,12 @@ static Standard_Integer OCC6143(DrawInterpreter& di, Standard_Integer argc, cons
     }
   }
 
-  { //==== Test Overflow (Integer) =============================================
+  { //==== Test Overflow (Integer1) =============================================
     try
     {
       OCC_CATCH_SIGNALS
-      std::cout << "(Integer) Overflow..." << std::endl;
-      di << "(Integer) Overflow...";
+      std::cout << "(Integer1) Overflow..." << std::endl;
+      di << "(Integer1) Overflow...";
       // std::cout.flush();
       di << "\n";
 #if defined(__clang__)
@@ -3222,7 +3222,7 @@ static Standard_Integer OCC8797(DrawInterpreter& di, Standard_Integer argc, cons
   // length!! 2.
   TopoEdge  edge = EdgeMaker(spline);
   GeometricProperties prop;
-  BRepGProp::LinearProperties(edge, prop);
+  BRepGProp1::LinearProperties(edge, prop);
   l_gprop = prop.Mass();
   std::cout << "Length Spline(GeometricProperties): " << l_gprop << std::endl;
 
@@ -3239,7 +3239,7 @@ static Standard_Integer OCC7068(DrawInterpreter& di, Standard_Integer argc, cons
     return 1;
   }
 
-  Handle(VisualContext) AISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) AISContext = ViewerTest1::GetAISContext();
   if (AISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -3275,9 +3275,9 @@ static Standard_Integer OCC31965(DrawInterpreter& theDI,
   }
 
   Handle(VisualEntity) aPrs = GetMapOfAIS().Find2(theArgVec[1]);
-  ViewerTest::GetAISContext()->HilightWithColor(
+  ViewerTest1::GetAISContext()->HilightWithColor(
     aPrs,
-    ViewerTest::GetAISContext()->HighlightStyle(Prs3d_TypeOfHighlight_Dynamic),
+    ViewerTest1::GetAISContext()->HighlightStyle(Prs3d_TypeOfHighlight_Dynamic),
     true);
   return 0;
 }
@@ -4659,7 +4659,7 @@ static Standard_Integer OCC16782(DrawInterpreter& di, Standard_Integer argc, con
 
 static Standard_Integer OCC12584(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << argv[0] << " ERROR : use 'vinit' command before \n";
@@ -4681,7 +4681,7 @@ static Standard_Integer OCC12584(DrawInterpreter& di, Standard_Integer argc, con
     di << "Usage : " << argv[0] << " [mode = 0/1/2]\n";
     return 1;
   }
-  Handle(ViewWindow)              V = ViewerTest::CurrentView();
+  Handle(ViewWindow)              V = ViewerTest1::CurrentView();
   static Handle(AIS_ColorScale) aCS;
   if (aCS.IsNull())
   {
@@ -5085,14 +5085,14 @@ Standard_Integer OCC28478(DrawInterpreter& di, Standard_Integer argc, const char
 Standard_Integer OCC31189(DrawInterpreter& theDI, Standard_Integer /*argc*/, const char** /*argv*/)
 {
   // redirect output of default messenger to DRAW (temporarily)
-  const Handle(Message_Messenger)& aMsgMgr = Message::DefaultMessenger();
+  const Handle(Message_Messenger)& aMsgMgr = Message1::DefaultMessenger();
   Message_SequenceOfPrinters       aPrinters;
   aPrinters.Append(aMsgMgr->ChangePrinters());
   aMsgMgr->AddPrinter(new Draw_Printer(theDI));
 
   // scope block to test output of message on destruction of a stream buffer
   {
-    Message_Messenger::StreamBuffer aSender = Message::SendInfo();
+    Message_Messenger::StreamBuffer aSender = Message1::SendInfo();
 
     // check that messages output to sender and directly to messenger do not intermix
     aSender << "Sender message 1: start ...";
@@ -5100,13 +5100,13 @@ Standard_Integer OCC31189(DrawInterpreter& theDI, Standard_Integer /*argc*/, con
     aSender << "... end" << std::endl; // endl should send the message
 
     // check that empty stream buffer does not produce output on destruction
-    Message::SendInfo();
+    Message1::SendInfo();
 
     // additional message to check that they go in expected order
     aMsgMgr->Send("Direct message 2");
 
     // check that empty stream buffer does produce empty line if std::endl is passed
-    Message::SendInfo() << std::endl;
+    Message1::SendInfo() << std::endl;
 
     // last message should be sent on destruction of a sender
     aSender << "Sender message 2";

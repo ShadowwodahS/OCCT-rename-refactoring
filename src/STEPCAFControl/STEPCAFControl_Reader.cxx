@@ -598,7 +598,7 @@ Standard_Boolean STEPCAFControl_Reader::Transfer(StepFileReader&             rea
       if (index > 0)
       {
         Handle(Transfer_Binder) binder = TP->MapItem(index);
-        TopoShape            S      = TransferBRep::ShapeResult(binder);
+        TopoShape            S      = TransferBRep1::ShapeResult(binder);
         if (!S.IsNull() && ShapesMap.Contains(S))
         {
           NewShapesMap.Add(S);
@@ -614,7 +614,7 @@ Standard_Boolean STEPCAFControl_Reader::Transfer(StepFileReader&             rea
       if (index > 0)
       {
         Handle(Transfer_Binder) binder = TP->MapItem(index);
-        TopoShape            S      = TransferBRep::ShapeResult(binder);
+        TopoShape            S      = TransferBRep1::ShapeResult(binder);
         if (!S.IsNull() && ShapesMap.Contains(S))
           NewShapesMap.Add(S);
       }
@@ -1062,7 +1062,7 @@ static void SetAssemblyComponentStyle(
   aBinder = theTP->Find(aSRR);
   if (!aBinder.IsNull())
   {
-    aShape = TransferBRep::ShapeResult(aBinder);
+    aShape = TransferBRep1::ShapeResult(aBinder);
   }
   if (aShape.IsNull())
     return;
@@ -1210,7 +1210,7 @@ static void SetStyle(const Handle(ExchangeSession)&        theWS,
     if (anIndex > 0)
     {
       Handle(Transfer_Binder) aBinder = aTP->MapItem(anIndex);
-      aS                              = TransferBRep::ShapeResult(aBinder);
+      aS                              = TransferBRep1::ShapeResult(aBinder);
     }
     Standard_Boolean isSkipSHUOstyle = Standard_False;
     // take shape with real location.
@@ -1449,7 +1449,7 @@ static DataLabel GetLabelFromPD(const Handle(StepBasic_ProductDefinition)&  PD,
   Handle(Transfer_Binder) binder = TP->Find(PD);
   if (binder.IsNull() || !binder->HasResult())
     return L;
-  S = TransferBRep::ShapeResult(TP, binder);
+  S = TransferBRep1::ShapeResult(TP, binder);
   if (S.IsNull())
     return L;
 
@@ -1482,7 +1482,7 @@ DataLabel STEPCAFControl_Reader::FindInstance(
     return L;
   }
 
-  TopoShape S = TransferBRep::ShapeResult(TP, binder);
+  TopoShape S = TransferBRep1::ShapeResult(TP, binder);
   if (S.IsNull())
   {
 #ifdef OCCT_DEBUG
@@ -1751,7 +1751,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadValProps(
         if (binder.IsNull() || !binder->HasResult())
           continue;
         TopoShape S;
-        S = TransferBRep::ShapeResult(TP, binder);
+        S = TransferBRep1::ShapeResult(TP, binder);
         if (S.IsNull())
           continue;
         if (myMap.IsBound(S))
@@ -1844,7 +1844,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadLayers(const Handle(ExchangeSession)
       if (binder.IsNull() || !binder->HasResult())
         continue;
 
-      TopoShape S = TransferBRep::ShapeResult(TP, binder);
+      TopoShape S = TransferBRep1::ShapeResult(TP, binder);
       if (S.IsNull())
         continue;
 
@@ -1894,7 +1894,7 @@ static Standard_Boolean findNextSHUOlevel(
   //   Handle(Transfer_Binder) binder = TP->Find(NUNAUO);
   //   if ( binder.IsNull() || ! binder->HasResult() )
   //     return Standard_False;
-  //   TopoShape NUSh = TransferBRep::ShapeResult ( TP, binder );
+  //   TopoShape NUSh = TransferBRep1::ShapeResult ( TP, binder );
   // get label of NAUO next level
   DataLabel          NULab;
   STEPConstruct_Tool Tool(WS);
@@ -1936,11 +1936,11 @@ static DataLabel setSHUOintoDoc(const Handle(ExchangeSession)&                  
   //   Handle(Transfer_Binder) binder = TP->Find(UUNAUO);
   //   if ( binder.IsNull() || ! binder->HasResult() )
   //     return aMainLabel;
-  //   UUSh = TransferBRep::ShapeResult ( TP, binder );
+  //   UUSh = TransferBRep1::ShapeResult ( TP, binder );
   //   binder = TP->Find(NUNAUO);
   //   if ( binder.IsNull() || ! binder->HasResult() )
   //     return aMainLabel;
-  //   NUSh = TransferBRep::ShapeResult ( TP, binder );
+  //   NUSh = TransferBRep1::ShapeResult ( TP, binder );
 
   // get first labels for first SHUO attribute
   DataLabel          UULab, NULab;
@@ -2325,7 +2325,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
         Handle(Transfer_Binder) aBinder = theTR->Actor()->Transfer(aCurveItem, aTP);
         if (!aBinder.IsNull() && aBinder->HasResult())
         {
-          anAnnotationShape = TransferBRep::ShapeResult(aTP, aBinder);
+          anAnnotationShape = TransferBRep1::ShapeResult(aTP, aBinder);
         }
       }
     }
@@ -2434,7 +2434,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
       aNbShapes++;
       aB.Add(aResAnnotation, anAnnotationShape);
       if (i == anAnnotations.Length() - 1)
-        BRepBndLib::AddClose(anAnnotationShape, aBox);
+        BRepBndLib1::AddClose(anAnnotationShape, aBox);
     }
   }
 
@@ -2461,7 +2461,7 @@ Standard_Boolean readAnnotationPlane(const Handle(StepVisual_AnnotationPlane)& t
   if (aPlaneItem->IsKind(STANDARD_TYPE(StepGeom_Plane)))
   {
     Handle(StepGeom_Plane) aPlane = Handle(StepGeom_Plane)::DownCast(aPlaneItem);
-    aA2P3D                        = aPlane->Position();
+    aA2P3D                        = aPlane->Position1();
   }
   else if (aPlaneItem->IsKind(STANDARD_TYPE(StepVisual_PlanarBox)))
   {
@@ -2840,7 +2840,7 @@ static Standard_Boolean ReadDatums(
       if (index > 0)
       {
         Handle(Transfer_Binder) binder = TP->MapItem(index);
-        aSh                            = TransferBRep::ShapeResult(binder);
+        aSh                            = TransferBRep1::ShapeResult(binder);
       }
       if (aSh.IsNull())
         continue;
@@ -2952,7 +2952,7 @@ static DataLabel getShapeLabel(const Handle(StepRepr_RepresentationItem)& theIte
   if (index > 0)
   {
     Handle(Transfer_Binder) aBinder = aTP->MapItem(index);
-    aShape                          = TransferBRep::ShapeResult(aBinder);
+    aShape                          = TransferBRep1::ShapeResult(aBinder);
   }
   if (aShape.IsNull())
     return aShapeL;
@@ -3115,7 +3115,7 @@ Standard_Boolean STEPCAFControl_Reader::setDatumToXCAF(
       if (anItemIndex > 0)
       {
         Handle(Transfer_Binder) aBinder     = aTP->MapItem(anItemIndex);
-        TopoShape            anItemShape = TransferBRep::ShapeResult(aBinder);
+        TopoShape            anItemShape = TransferBRep1::ShapeResult(aBinder);
         aDatTargetObj->SetDatumTarget(anItemShape);
         isValidDT = Standard_True;
       }
@@ -3684,7 +3684,7 @@ DataLabel STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(RefObject)& 
             if (index > 0)
             {
               Handle(Transfer_Binder) binder = aTP->MapItem(index);
-              aSh                            = TransferBRep::ShapeResult(binder);
+              aSh                            = TransferBRep1::ShapeResult(binder);
             }
             if (aSh.IsNull())
               continue;
@@ -3729,7 +3729,7 @@ DataLabel STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(RefObject)& 
             if (index > 0)
             {
               Handle(Transfer_Binder) binder = aTP->MapItem(index);
-              aSh                            = TransferBRep::ShapeResult(binder);
+              aSh                            = TransferBRep1::ShapeResult(binder);
             }
             if (aSh.IsNull())
               continue;
@@ -3854,7 +3854,7 @@ DataLabel STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(RefObject)& 
     if (anIndex > 0)
     {
       Handle(Transfer_Binder) aBinder = aTP->MapItem(anIndex);
-      aSh                             = TransferBRep::ShapeResult(aBinder);
+      aSh                             = TransferBRep1::ShapeResult(aBinder);
     }
     if (!aSh.IsNull())
     {
@@ -3886,7 +3886,7 @@ DataLabel STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(RefObject)& 
       if (anIndex > 0)
       {
         Handle(Transfer_Binder) aBinder = aTP->MapItem(anIndex);
-        aSh                             = TransferBRep::ShapeResult(aBinder);
+        aSh                             = TransferBRep1::ShapeResult(aBinder);
       }
       if (!aSh.IsNull())
       {
@@ -4396,7 +4396,7 @@ static void setDimObjectToXCAF(const Handle(RefObject)&    theEnt,
         if (anIndex > 0)
         {
           Handle(Transfer_Binder) aBinder = aTP->MapItem(anIndex);
-          aSh                             = TopoDS::Edge(TransferBRep::ShapeResult(aBinder));
+          aSh                             = TopoDS::Edge(TransferBRep1::ShapeResult(aBinder));
         }
         if (aSh.IsNull())
           return;
@@ -5104,7 +5104,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadMaterials(
       {
         Handle(Transfer_Binder) binder = TP->MapItem(index);
         if (!binder.IsNull())
-          aSh = TransferBRep::ShapeResult(binder);
+          aSh = TransferBRep1::ShapeResult(binder);
       }
     }
     if (aSh.IsNull())
@@ -5137,7 +5137,7 @@ void collectViewShapes(const Handle(ExchangeSession)&   theWS,
   if (anIndex > 0)
   {
     Handle(Transfer_Binder) aBinder = aTP->MapItem(anIndex);
-    aSh                             = TransferBRep::ShapeResult(aBinder);
+    aSh                             = TransferBRep1::ShapeResult(aBinder);
   }
   if (!aSh.IsNull())
   {
@@ -5414,7 +5414,7 @@ DataLabel STEPCAFControl_Reader::SettleShapeData(const Handle(StepRepr_Represent
   if (aBinder.IsNull())
     return aResult;
 
-  TopoShape aShape = TransferBRep::ShapeResult(aBinder);
+  TopoShape aShape = TransferBRep1::ShapeResult(aBinder);
   if (aShape.IsNull())
     return aResult;
 
@@ -5484,7 +5484,7 @@ void STEPCAFControl_Reader::ExpandSubShapes(const Handle(XCAFDoc_ShapeTool)&    
 
   for (STEPCAFControl_DataMapIteratorOfDataMapOfShapePD it(ShapePDMap); it.More(); it.Next())
   {
-    const TopoShape&                        aRootShape = it.Key();
+    const TopoShape&                        aRootShape = it.Key1();
     const Handle(StepBasic_ProductDefinition)& aPDef      = it.Value();
     if (aPDef.IsNull())
       continue;
@@ -5843,7 +5843,7 @@ const XSAlgo_ShapeProcessor::ParameterMap& STEPCAFControl_Reader::GetShapeFixPar
 
 //=============================================================================
 
-void STEPCAFControl_Reader::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void STEPCAFControl_Reader::SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags)
 {
   return myReader.SetShapeProcessFlags(theFlags);
 }
@@ -5869,7 +5869,7 @@ DataLabel STEPCAFControl_Reader::getShapeLabelFromProductDefinition(
     return aShapeLabel;
   }
 
-  const TopoShape aShape = TransferBRep::ShapeResult(theTransferProcess, aBinder);
+  const TopoShape aShape = TransferBRep1::ShapeResult(theTransferProcess, aBinder);
   if (aShape.IsNull())
   {
     return aShapeLabel;
@@ -5943,7 +5943,7 @@ std::vector<DataLabel> STEPCAFControl_Reader::collectShapeLabels(
   NCollection_List<Handle(Transfer_Binder)>::Iterator aBindIt(aBinders);
   for (; aBindIt.More(); aBindIt.Next())
   {
-    const TopoShape aShape = TransferBRep::ShapeResult(theTransferProcess, aBindIt.Value());
+    const TopoShape aShape = TransferBRep1::ShapeResult(theTransferProcess, aBindIt.Value());
     if (aShape.IsNull())
     {
       continue;
@@ -6425,7 +6425,7 @@ Standard_Boolean STEPCAFControl_Reader::fillAttributes(
           Interface_ParamType aParamType = aMeasureValueMem->ParamType();
           if (aParamType == Interface_ParamInteger)
           {
-            theAttr->SetInteger(aPropName, aMeasureValueMem->Integer());
+            theAttr->SetInteger(aPropName, aMeasureValueMem->Integer1());
           }
           else if (aParamType == Interface_ParamReal)
           {

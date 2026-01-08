@@ -54,7 +54,7 @@ typedef void (*NCollection_DelSeqNode)(NCollection_SeqNode*,
  * Purpose:     This  is  a base  class  for  the  Sequence.  It  deals with
  *              an indexed bidirectional list of NCollection_SeqNode's.
  */
-class NCollection_BaseSequence
+class BaseSequence
 {
 public:
   //! Memory allocation
@@ -73,13 +73,13 @@ public:
     }
 
     //! Constructor with initialisation
-    Iterator(const NCollection_BaseSequence& theSeq, const Standard_Boolean isStart)
+    Iterator(const BaseSequence& theSeq, const Standard_Boolean isStart)
     {
       Init(theSeq, isStart);
     }
 
     //! Initialisation
-    void Init(const NCollection_BaseSequence& theSeq,
+    void Init(const BaseSequence& theSeq,
               const Standard_Boolean          isStart = Standard_True)
     {
       myCurrent  = (isStart ? theSeq.myFirstItem : NULL);
@@ -97,7 +97,7 @@ public:
   protected:
     NCollection_SeqNode* myCurrent;  //!< Pointer to the current node
     NCollection_SeqNode* myPrevious; //!< Pointer to the previous node
-    friend class NCollection_BaseSequence;
+    friend class BaseSequence;
   };
 
 public:
@@ -113,7 +113,7 @@ public:
 protected:
   // Methods PROTECTED
   //
-  NCollection_BaseSequence(const Handle(NCollection_BaseAllocator)& theAllocator)
+  BaseSequence(const Handle(NCollection_BaseAllocator)& theAllocator)
       : myFirstItem(NULL),
         myLastItem(NULL),
         myCurrentItem(NULL),
@@ -125,17 +125,17 @@ protected:
   }
 
   //! Destructor
-  virtual ~NCollection_BaseSequence() {}
+  virtual ~BaseSequence() {}
 
   Standard_EXPORT void ClearSeq(NCollection_DelSeqNode fDel);
   Standard_EXPORT void PAppend(NCollection_SeqNode*);
-  Standard_EXPORT void PAppend(NCollection_BaseSequence& S);
+  Standard_EXPORT void PAppend(BaseSequence& S);
   Standard_EXPORT void PPrepend(NCollection_SeqNode*);
-  Standard_EXPORT void PPrepend(NCollection_BaseSequence& S);
+  Standard_EXPORT void PPrepend(BaseSequence& S);
   Standard_EXPORT void PInsertAfter(Iterator& thePosition, NCollection_SeqNode*);
   Standard_EXPORT void PInsertAfter(const Standard_Integer Index, NCollection_SeqNode*);
-  Standard_EXPORT void PInsertAfter(const Standard_Integer Index, NCollection_BaseSequence& S);
-  Standard_EXPORT void PSplit(const Standard_Integer Index, NCollection_BaseSequence& Sub);
+  Standard_EXPORT void PInsertAfter(const Standard_Integer Index, BaseSequence& S);
+  Standard_EXPORT void PSplit(const Standard_Integer Index, BaseSequence& Sub);
   Standard_EXPORT void RemoveSeq(Iterator& thePosition, NCollection_DelSeqNode fDel);
   Standard_EXPORT void RemoveSeq(const Standard_Integer Index, NCollection_DelSeqNode fDel);
   Standard_EXPORT void RemoveSeq(const Standard_Integer From,
@@ -158,7 +158,7 @@ protected:
 private:
   // Methods PRIVATE
   //
-  Standard_EXPORT NCollection_BaseSequence(const NCollection_BaseSequence& Other);
+  Standard_EXPORT BaseSequence(const BaseSequence& Other);
 
   void Nullify()
   {

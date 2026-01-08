@@ -88,7 +88,7 @@ void ShapeUpgrade_SplitSurfaceAngle::Compute(const Standard_Boolean /*Segment1*/
     Standard_Integer nbSegments = Standard_Integer((uLength - Precision::Angular()) / maxAngle) + 1;
     if (nbSegments == 1)
       if (!isRect || !(uLength < maxAngle) || !((U2 - U1) < maxAngle))
-        myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     Standard_Real                   segAngle    = uLength / nbSegments;
     Standard_Real                   currAngle   = segAngle + UFirst;
     Handle(TColStd_HSequenceOfReal) splitValues = new TColStd_HSequenceOfReal;

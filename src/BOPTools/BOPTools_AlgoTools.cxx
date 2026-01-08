@@ -1412,7 +1412,7 @@ Standard_Boolean AlgoTools::IsSplitToReverse(const TopoEdge&              theESp
 
   // Find valid range of the split edge, to ensure that the point for computing
   // tangent vectors will be inside both edges.
-  if (!BRepLib::FindValidRange(theESp, f, l))
+  if (!BRepLib1::FindValidRange(theESp, f, l))
     BRepInspector::Range(theESp, f, l);
 
   // Error code
@@ -1653,9 +1653,9 @@ void AlgoTools::MakePCurve(const TopoEdge&              aE,
     }
     //
     aBB.UpdateEdge(aE, aC2DA, aFFWD, aTolE);
-    // BRepLib::SameParameter(aE);
+    // BRepLib1::SameParameter(aE);
   }
-  BRepLib::SameParameter(aE);
+  BRepLib1::SameParameter(aE);
 }
 
 //=================================================================================================
@@ -1740,7 +1740,7 @@ void AlgoTools::MakeVertex(const ShapeList& aLV, TopoVertex& aVnew)
   {
     Standard_Real aNTol;
     Point3d        aNC;
-    BRepLib::BoundingVertex(aLV, aNC, aNTol);
+    BRepLib1::BoundingVertex(aLV, aNC, aNTol);
     ShapeBuilder aBB;
     aBB.MakeVertex(aVnew, aNC, aNTol);
   }

@@ -28,7 +28,7 @@ class TDF_RelocationTable;
 class TDataXtd_Position;
 DEFINE_STANDARD_HANDLE(TDataXtd_Position, TDF_Attribute)
 
-//! Position of a Label
+//! Position1 of a Label
 class TDataXtd_Position : public TDF_Attribute
 {
 
@@ -36,8 +36,8 @@ public:
   //! Create if not found the TDataXtd_Position attribute set its position to <aPos>
   Standard_EXPORT static void Set(const DataLabel& aLabel, const Point3d& aPos);
 
-  //! Find an existing, or create an empty, Position.
-  //! the Position attribute is returned.
+  //! Find an existing, or create an empty, Position1.
+  //! the Position1 attribute is returned.
   Standard_EXPORT static Handle(TDataXtd_Position) Set(const DataLabel& aLabel);
 
   //! Search label <aLabel) for the TDataXtd_Position attribute and get its position

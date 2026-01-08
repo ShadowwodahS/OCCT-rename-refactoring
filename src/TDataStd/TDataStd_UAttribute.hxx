@@ -35,9 +35,9 @@ class TDataStd_UAttribute : public TDF_Attribute
 public:
   //! api class methods
   //! =============
-  //! Find, or create, a UAttribute attribute with <LocalID> as Local GUID.
-  //! The UAttribute attribute is returned.
-  //! UAttribute methods
+  //! Find, or create, a UAttribute1 attribute with <LocalID> as Local GUID.
+  //! The UAttribute1 attribute is returned.
+  //! UAttribute1 methods
   //! ============
   Standard_EXPORT static Handle(TDataStd_UAttribute) Set(const DataLabel&     label,
                                                          const Standard_GUID& LocalID);

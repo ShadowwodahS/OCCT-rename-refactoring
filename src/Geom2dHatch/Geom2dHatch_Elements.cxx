@@ -114,7 +114,7 @@ Standard_Boolean HatchElements::OtherSegment(const gp_Pnt2d& P,
       continue;
 
     void*                ptrmyMap = (void*)(&myMap);
-    Geom2dHatch_Element& Item = ((Geom2dHatch_MapOfElements*)ptrmyMap)->ChangeFind(Itertemp.Key());
+    Geom2dHatch_Element& Item = ((Geom2dHatch_MapOfElements*)ptrmyMap)->ChangeFind(Itertemp.Key1());
     Geom2dAdaptor_Curve& E    = Item.ChangeCurve();
     TopAbs_Orientation   Or   = Item.Orientation();
     if (Or == TopAbs_FORWARD || Or == TopAbs_REVERSED)
@@ -223,7 +223,7 @@ Standard_Boolean HatchElements::RejectEdge(const gp_Lin2d&, const Standard_Real)
 void HatchElements::CurrentEdge(Geom2dAdaptor_Curve& E, TopAbs_Orientation& Or) const
 {
   void*                ptrmyMap = (void*)(&myMap);
-  Geom2dHatch_Element& Item     = ((Geom2dHatch_MapOfElements*)ptrmyMap)->ChangeFind(Iter.Key());
+  Geom2dHatch_Element& Item     = ((Geom2dHatch_MapOfElements*)ptrmyMap)->ChangeFind(Iter.Key1());
 
   E  = Item.ChangeCurve();
   Or = Item.Orientation();

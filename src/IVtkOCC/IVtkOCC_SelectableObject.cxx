@@ -104,7 +104,7 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectionContainer)
   try
   {
     OCC_CATCH_SIGNALS
-    StdSelect_BRepSelectionTool::Load(theSelection,
+    BRepSelectionTool::Load(theSelection,
                                       this,
                                       anOcctShape,
                                       aTypeOfSel,
@@ -114,7 +114,7 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectionContainer)
   }
   catch (const ExceptionBase& anException)
   {
-    Message::SendFail(AsciiString1("Error: IVtkOCC_SelectableObject::ComputeSelection(")
+    Message1::SendFail(AsciiString1("Error: IVtkOCC_SelectableObject::ComputeSelection(")
                       + theMode + ") has failed (" + anException.GetMessageString() + ")");
     if (theMode == 0)
     {
@@ -148,7 +148,7 @@ const Box2& IVtkOCC_SelectableObject::BoundingBox()
 
   if (myBndBox.IsVoid())
   {
-    BRepBndLib::Add(anOcctShape, myBndBox, true);
+    BRepBndLib1::Add(anOcctShape, myBndBox, true);
   }
 
   return myBndBox;

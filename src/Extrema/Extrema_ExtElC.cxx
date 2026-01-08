@@ -321,7 +321,7 @@ ExtElC::ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const Standard_Real)
     mySqDist[anIdx] = RealLast();
   }
 
-  const Dir3d &      aD1 = theC1.Position().Direction(), &aD2 = theC2.Position().Direction();
+  const Dir3d &      aD1 = theC1.Position1().Direction(), &aD2 = theC2.Position1().Direction();
   const Standard_Real aCosA   = aD1.Dot(aD2);
   const Standard_Real aSqSinA = 1.0 - aCosA * aCosA;
   Standard_Real       aU1 = 0.0, aU2 = 0.0;
@@ -373,8 +373,8 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
   // intersections in 2D-space.
 
   const Coords3d& aCLoc = theCirc.Location().XYZ();
-  const Coords3d &aDCx  = theCirc.Position().XDirection().XYZ(),
-               &aDCy  = theCirc.Position().YDirection().XYZ();
+  const Coords3d &aDCx  = theCirc.Position1().XDirection().XYZ(),
+               &aDCy  = theCirc.Position1().YDirection().XYZ();
 
   const Coords3d& aLLoc = theLin.Location().XYZ();
   const Coords3d& aLDir = theLin.Direction().XYZ();
@@ -424,8 +424,8 @@ Standard_Boolean ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
       aCircPar = anInters.Point(aDelta).ParamOnSecond();
     }
 
-    const Point3d aPOnL(ElCLib1::LineValue(aLinPar, theLin.Position())),
-      aPOnC(ElCLib1::CircleValue(aCircPar, theCirc.Position(), theCirc.Radius()));
+    const Point3d aPOnL(ElCLib1::LineValue(aLinPar, theLin.Position1())),
+      aPOnC(ElCLib1::CircleValue(aCircPar, theCirc.Position1(), theCirc.Radius()));
 
     mySqDist[myNbExt] = aPOnL.SquareDistance(aPOnC);
     myPoint[myNbExt][0].SetValues(aLinPar, aPOnL);
@@ -717,7 +717,7 @@ ExtElC::ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   if (Sol.InfiniteRoots())
   {
     myIsPar     = Standard_True;
-    Point3d aP   = ElCLib1::EllipseValue(0., C2.Position(), C2.MajorRadius(), C2.MinorRadius());
+    Point3d aP   = ElCLib1::EllipseValue(0., C2.Position1(), C2.MajorRadius(), C2.MinorRadius());
     mySqDist[0] = C1.SquareDistance(aP);
     myNbExt     = 1;
     myDone      = Standard_True;

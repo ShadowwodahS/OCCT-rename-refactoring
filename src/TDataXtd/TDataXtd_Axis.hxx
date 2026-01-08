@@ -45,7 +45,7 @@ public:
   Standard_EXPORT static Handle(TDataXtd_Axis) Set(const DataLabel& label);
 
   //! Find,  or create,  an Axis  attribute  and set <P>  as
-  //! generated in the associated NamedShape.
+  //! generated in the associated NamedShape1.
   //! Axis methods
   //! ============
   Standard_EXPORT static Handle(TDataXtd_Axis) Set(const DataLabel& label, const gp_Lin& L);

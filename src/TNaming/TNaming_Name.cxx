@@ -92,7 +92,7 @@ void PrintEntries(const TDF_LabelMap& map)
   TDF_MapIteratorOfLabelMap it(map);
   for (; it.More(); it.Next())
   {
-    Tool3::Entry(it.Key(), entry);
+    Tool3::Entry(it.Key1(), entry);
     std::cout << "LabelEntry = " << entry << std::endl;
   }
 }
@@ -171,7 +171,7 @@ static Standard_Boolean ValidArgs(const TNaming_ListOfNamedShape& Args)
     if (aNS.IsNull())
     {
 #ifdef OCCT_DEBUG_ARG
-      std::cout << "ValidArgs:: NS (Naming argument) is NULL" << std::endl;
+      std::cout << "ValidArgs:: NS (Naming1 argument) is NULL" << std::endl;
 #endif
       return Standard_False;
     }
@@ -505,10 +505,10 @@ static Standard_Boolean FindModifUntil(NewShapeIterator&         it,
     if (!it.Shape().IsNull())
     {
 #ifdef OCCT_DEBUG_MODUN
-      if (!it.NamedShape().IsNull())
-        PrintEntry(it.NamedShape()->Label());
+      if (!it.NamedShape1().IsNull())
+        PrintEntry(it.NamedShape1()->Label());
 #endif
-      if (it.NamedShape() == Context)
+      if (it.NamedShape1() == Context)
       {
         MS.Add(S);
         found = Standard_True;
@@ -591,7 +591,7 @@ static void SearchModifUntil(const TDF_LabelMap& /*Valid*/,
 
 //=================================================================================================
 
-// NamedShape for this type is assembled from all last modifications of the
+// NamedShape1 for this type is assembled from all last modifications of the
 // last argument shapes (see method  NamingTool1::CurrentShape),
 // which are not descendants (see method NamingTool1::BuildDescendants)
 // of the stop shape. This type of naming is used for identification shapes,
@@ -642,7 +642,7 @@ static Standard_Boolean ModifUntil(const DataLabel&                  L,
 // from the NS of the first argument Iterator1 is started, shape "S"
 // is the NewShape from Iterator with index "myIndex" of the Name, this
 // shape and all last modifications (except NamedShapes - descendants of
-// the stop shape) are the parts of resulting NamedShape.
+// the stop shape) are the parts of resulting NamedShape1.
 //=======================================================================
 static Standard_Boolean ConstShape(const DataLabel&                  L,
                                    const TDF_LabelMap&               Valid,
@@ -691,7 +691,7 @@ static Standard_Boolean ConstShape(const DataLabel&                  L,
 // 3. Takes next argument of Name (with method CurrentShape) and removes
 //    from the map "S" all ancestors, which not belongs to the shape of
 //    this argument. This step is repeated for all arguments of this Name.
-// 4. Adds to the result NamedShape all rest of shapes from the map "S".
+// 4. Adds to the result NamedShape1 all rest of shapes from the map "S".
 //=======================================================================
 static Standard_Boolean Intersection(const DataLabel&                  L,
                                      const TDF_LabelMap&               Valid,
@@ -763,7 +763,7 @@ static Standard_Boolean Intersection(const DataLabel&                  L,
     for (; itm.More(); itm.Next(), j++)
     {
       aName3 = aNam2 + i + "_" + j + ".brep";
-      DbgTools_Write(itm.Key(), aName3.ToCString());
+      DbgTools_Write(itm.Key1(), aName3.ToCString());
     }
 #endif
   }
@@ -851,7 +851,7 @@ static Standard_Boolean Intersection(const DataLabel&                  L,
     for (TopTools_MapIteratorOfMapOfShape itM(S.Map()); itM.More(); itM.Next())
     {
 #endif
-      const TopoShape& S1 = itM.Key();
+      const TopoShape& S1 = itM.Key1();
 #ifdef OCCT_DEBUG_INT
       AsciiString1 aName = aNam + i + ext;
       DbgTools_Write(S1, aName.ToCString());
@@ -904,7 +904,7 @@ static void KeepInList(const TopoShape&    CS,
 
 //=================================================================================================
 
-// Resulting NamedShape contains compound of next shapes:
+// Resulting NamedShape1 contains compound of next shapes:
 // compound of last modifications of each argument (see CurrentShape method)
 // without descendants of the stop shape.
 //=======================================================================
@@ -926,9 +926,9 @@ static Standard_Boolean Union(const DataLabel&                  L,
     if(!aLabel.IsNull()) {
     PrintEntry(L);
     PrintEntry(aLabel);
-      Handle (TNaming_Naming)  Naming;
-      if(aLabel.FindAttribute(TNaming_Naming::GetID(), Naming)) {
-        const TNaming_Name& aName = Naming->GetName();
+      Handle (TNaming_Naming)  Naming1;
+      if(aLabel.FindAttribute(TNaming_Naming::GetID(), Naming1)) {
+        const TNaming_Name& aName = Naming1->GetName();
         if(aName.Type() == TNaming_ORIENTATION) {
       const TNaming_ListOfNamedShape&   Args = aName.Arguments();
       if(Args.Extent() > 2) {
@@ -1016,7 +1016,7 @@ static Standard_Boolean Union(const DataLabel&                  L,
       for (Standard_Integer i = 1; it.More(); it.Next(), i++)
       {
         AsciiString1 aName = aN + i + ".brep";
-        DbgTools_Write(it.Key(), aName.ToCString());
+        DbgTools_Write(it.Key1(), aName.ToCString());
       }
 #endif
     }
@@ -1031,9 +1031,9 @@ static Standard_Boolean Union(const DataLabel&                  L,
     TopTools_MapIteratorOfMapOfShape it1(S.Map());
     for (int i = 1; it1.More(); it1.Next(), i++)
     {
-      std::cout << "Map(" << i << "): TShape = " << it1.Key().TShape()
-                << " Orient = " << it1.Key().Orientation() << std::endl;
-      aTyp = it1.Key().ShapeType();
+      std::cout << "Map(" << i << "): TShape = " << it1.Key1().TShape()
+                << " Orient = " << it1.Key1().Orientation() << std::endl;
+      aTyp = it1.Key1().ShapeType();
     }
 
     ShapeExplorer exp(aContext, aTyp);
@@ -1087,7 +1087,7 @@ static Standard_Boolean Union(const DataLabel&                  L,
     if (!isOr)
       for (TopTools_MapIteratorOfMapOfShape itM(S.Map()); itM.More(); itM.Next())
       {
-        aCompoundBuilder.Add(aCompound, itM.Key());
+        aCompoundBuilder.Add(aCompound, itM.Key1());
       }
     else
       for (TopTools_ListIteratorOfListOfShape itL(aListS); itL.More(); itL.Next())
@@ -1115,18 +1115,18 @@ static TopoShape FindShape(const TNaming_DataMapOfShapeMapOfShape& DM)
   TNaming_DataMapIteratorOfDataMapOfShapeMapOfShape it(DM);
   if (it.More())
   {
-    const TopoShape&       aKey1 = it.Key();
+    const TopoShape&       aKey1 = it.Key1();
     const TNaming_MapOfShape& aMap  = it.Value();
 
     TNaming_MapIteratorOfMapOfShape itm(aMap); // iterate first map
     for (; itm.More(); itm.Next())
     {
-      const TopoShape&                               aS = itm.Key(); // element of the first map
+      const TopoShape&                               aS = itm.Key1(); // element of the first map
       Standard_Boolean                                  isCand(Standard_True); // aS is a Candidate
       TNaming_DataMapIteratorOfDataMapOfShapeMapOfShape it2(DM);
       for (; it2.More(); it2.Next())
       {
-        const TopoShape& aKey2 = it2.Key();
+        const TopoShape& aKey2 = it2.Key1();
         if (aKey2 == aKey1)
           continue;
         const TNaming_MapOfShape& aMap2 = it2.Value();
@@ -1157,8 +1157,8 @@ static TopoShape FindShape(const TNaming_DataMapOfShapeMapOfShape& DM)
 // purpose  : Resolves Name from arguments: arg1 - generated (target shape)
 //         : arg2 - the generator: the oldest ancestor (usually NS with
 //         : PRIMITIVE evolution. (See TNaming_Localizer::FindGenerator).
-//         : Resulting NamedShape contains shape, which is in the first
-//         : argument NamedShape and is modification of the last argument NS.
+//         : Resulting NamedShape1 contains shape, which is in the first
+//         : argument NamedShape1 and is modification of the last argument NS.
 //=======================================================================
 
 static Standard_Boolean Generated(const DataLabel&                L,
@@ -1396,13 +1396,13 @@ static Standard_Boolean Generated(const DataLabel&                L,
 
 //=======================================================================
 // function : Identity
-// purpose  : Regenerates Naming attribute with Name = IDENTITY
+// purpose  : Regenerates Naming1 attribute with Name = IDENTITY
 //=======================================================================
-// Name with this type must contain only one NamedShape attribute as argument.
-// Algorithm takes all last modifications of NamedShape of this argument
+// Name with this type must contain only one NamedShape1 attribute as argument.
+// Algorithm takes all last modifications of NamedShape1 of this argument
 // starting with this one ( see method NamingTool1::CurrentShape ).
 // Algorithm takes only NamedShapes belonging to the labels from the Valid
-// labels map (if it's not empty) and put to the resulting NamedShape as compound.
+// labels map (if it's not empty) and put to the resulting NamedShape1 as compound.
 //=======================================================================
 static Standard_Boolean Identity(const DataLabel&                L,
                                  const TDF_LabelMap&             Valid,
@@ -1546,8 +1546,8 @@ static Standard_Boolean FilterByNeighbourgs(const DataLabel&                  L,
     { // 2 ==> for each Arg
       Standard_Boolean Connected = Standard_False;
       // Le candidat doit etre  connexe a au moins un shape de
-      // chaque NamedShape des voisins.
-      // The candidate should be connectedand and have at least one shape of NamedShape
+      // chaque NamedShape1 des voisins.
+      // The candidate should be connectedand and have at least one shape of NamedShape1
       // of each neighbor.
       const Handle(ShapeAttribute)& NSVois = it.Value(); // neighbor
 
@@ -1989,8 +1989,8 @@ static Standard_Boolean WireIN(const DataLabel&                  L,
     TopTools_MapIteratorOfMapOfShape it1(aSet.Map());
     for (int i = 1; it1.More(); it1.Next(), i++)
     {
-      std::cout << "Map(" << i << "): TShape = " << it1.Key().TShape()
-                << " Orient = " << it1.Key().Orientation() << " Type = " << it1.Key().ShapeType()
+      std::cout << "Map(" << i << "): TShape = " << it1.Key1().TShape()
+                << " Orient = " << it1.Key1().Orientation() << " Type = " << it1.Key1().ShapeType()
                 << std::endl;
     }
 
@@ -2026,7 +2026,7 @@ static Standard_Boolean WireIN(const DataLabel&                  L,
           {
             for (; it.More(); it.Next())
             {
-              if (aView.Contains(it.Key()))
+              if (aView.Contains(it.Key1()))
               {
                 aNum--;
               }
@@ -2163,8 +2163,8 @@ static Standard_Boolean ShellIN(const DataLabel&                  L,
     TopTools_MapIteratorOfMapOfShape it1(aSet.Map());
     for (int i = 1; it1.More(); it1.Next(), i++)
     {
-      std::cout << "Map(" << i << "): TShape = " << it1.Key().TShape()
-                << " Orient = " << it1.Key().Orientation() << " Type = " << it1.Key().ShapeType()
+      std::cout << "Map(" << i << "): TShape = " << it1.Key1().TShape()
+                << " Orient = " << it1.Key1().Orientation() << " Type = " << it1.Key1().ShapeType()
                 << std::endl;
     }
 
@@ -2200,7 +2200,7 @@ static Standard_Boolean ShellIN(const DataLabel&                  L,
             TopTools_MapIteratorOfMapOfShape it(aSet.Map());
             for (; it.More(); it.Next())
             {
-              if (aView.Contains(it.Key()))
+              if (aView.Contains(it.Key1()))
               {
                 aNum--;
               }

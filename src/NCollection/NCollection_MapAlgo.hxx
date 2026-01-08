@@ -46,14 +46,14 @@ void Union(MapType& theMap, const MapType& theLeftMap, const MapType& theRightMa
   {
     for (typename MapType::Iterator anIter(theLeftMap); anIter.More(); anIter.Next())
     {
-      theMap.Add(anIter.Key());
+      theMap.Add(anIter.Key1());
     }
   }
   if (&theMap != &theRightMap)
   {
     for (typename MapType::Iterator anIter(theRightMap); anIter.More(); anIter.Next())
     {
-      theMap.Add(anIter.Key());
+      theMap.Add(anIter.Key1());
     }
   }
 }
@@ -131,9 +131,9 @@ void Intersection(MapType& theMap, const MapType& theLeftMap, const MapType& the
   {
     for (typename MapType::Iterator anIter(theLeftMap); anIter.More(); anIter.Next())
     {
-      if (theRightMap.Contains(anIter.Key()))
+      if (theRightMap.Contains(anIter.Key1()))
       {
-        theMap.Add(anIter.Key());
+        theMap.Add(anIter.Key1());
       }
     }
   }
@@ -141,9 +141,9 @@ void Intersection(MapType& theMap, const MapType& theLeftMap, const MapType& the
   {
     for (typename MapType::Iterator anIter(theRightMap); anIter.More(); anIter.Next())
     {
-      if (theLeftMap.Contains(anIter.Key()))
+      if (theLeftMap.Contains(anIter.Key1()))
       {
-        theMap.Add(anIter.Key());
+        theMap.Add(anIter.Key1());
       }
     }
   }
@@ -188,7 +188,7 @@ bool Subtract(MapType& theMap, const MapType& theOtherMap)
   const int anOldExtent = theMap.Extent();
   for (typename MapType::Iterator anIter(theOtherMap); anIter.More(); anIter.Next())
   {
-    theMap.Remove(anIter.Key());
+    theMap.Remove(anIter.Key1());
   }
   return anOldExtent != theMap.Extent();
 }
@@ -248,16 +248,16 @@ void Difference(MapType& theMap, const MapType& theLeftMap, const MapType& theRi
   theMap.Clear();
   for (typename MapType::Iterator anIter(theLeftMap); anIter.More(); anIter.Next())
   {
-    if (!theRightMap.Contains(anIter.Key()))
+    if (!theRightMap.Contains(anIter.Key1()))
     {
-      theMap.Add(anIter.Key());
+      theMap.Add(anIter.Key1());
     }
   }
   for (typename MapType::Iterator anIter(theRightMap); anIter.More(); anIter.Next())
   {
-    if (!theLeftMap.Contains(anIter.Key()))
+    if (!theLeftMap.Contains(anIter.Key1()))
     {
-      theMap.Add(anIter.Key());
+      theMap.Add(anIter.Key1());
     }
   }
 }
@@ -305,7 +305,7 @@ bool Contains(const MapType& theMap, const MapType& theOtherMap)
 
   for (typename MapType::Iterator anIter(theOtherMap); anIter.More(); anIter.Next())
   {
-    if (!theMap.Contains(anIter.Key()))
+    if (!theMap.Contains(anIter.Key1()))
     {
       return false;
     }

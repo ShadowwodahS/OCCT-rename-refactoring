@@ -15,14 +15,14 @@
 
 #include <Interface_FloatWriter.hxx>
 
-Interface_FloatWriter::Interface_FloatWriter(const Standard_Integer chars)
+InterfaceFloatWriter::InterfaceFloatWriter(const Standard_Integer chars)
 {
   SetDefaults(chars);
 }
 
 //  ....                Controle d Envoi des Flottants                ....
 
-void Interface_FloatWriter::SetFormat(const Standard_CString form, const Standard_Boolean reset)
+void InterfaceFloatWriter::SetFormat(const Standard_CString form, const Standard_Boolean reset)
 {
   strcpy(themainform, form);
   if (!reset)
@@ -31,7 +31,7 @@ void Interface_FloatWriter::SetFormat(const Standard_CString form, const Standar
   thezerosup            = Standard_False;
 }
 
-void Interface_FloatWriter::SetFormatForRange(const Standard_CString form,
+void InterfaceFloatWriter::SetFormatForRange(const Standard_CString form,
                                               const Standard_Real    R1,
                                               const Standard_Real    R2)
 {
@@ -40,12 +40,12 @@ void Interface_FloatWriter::SetFormatForRange(const Standard_CString form,
   therange2 = R2;
 }
 
-void Interface_FloatWriter::SetZeroSuppress(const Standard_Boolean mode)
+void InterfaceFloatWriter::SetZeroSuppress(const Standard_Boolean mode)
 {
   thezerosup = mode;
 }
 
-void Interface_FloatWriter::SetDefaults(const Standard_Integer chars)
+void InterfaceFloatWriter::SetDefaults(const Standard_Integer chars)
 {
   if (chars <= 0)
   {
@@ -64,7 +64,7 @@ void Interface_FloatWriter::SetDefaults(const Standard_Integer chars)
   thezerosup = Standard_True;
 }
 
-void Interface_FloatWriter::Options(Standard_Boolean& zerosup,
+void InterfaceFloatWriter::Options(Standard_Boolean& zerosup,
                                     Standard_Boolean& range,
                                     Standard_Real&    R1,
                                     Standard_Real&    R2) const
@@ -75,13 +75,13 @@ void Interface_FloatWriter::Options(Standard_Boolean& zerosup,
   R2      = therange2;
 }
 
-Standard_CString Interface_FloatWriter::MainFormat() const
+Standard_CString InterfaceFloatWriter::MainFormat() const
 {
   const Standard_CString mainform = Standard_CString(&themainform[0]);
   return mainform;
 }
 
-Standard_CString Interface_FloatWriter::FormatForRange() const
+Standard_CString InterfaceFloatWriter::FormatForRange() const
 {
   const Standard_CString rangeform = Standard_CString(&therangeform[0]);
   return rangeform;
@@ -89,7 +89,7 @@ Standard_CString Interface_FloatWriter::FormatForRange() const
 
 //  ########################################################################
 
-Standard_Integer Interface_FloatWriter::Write(const Standard_Real    val,
+Standard_Integer InterfaceFloatWriter::Write(const Standard_Real    val,
                                               const Standard_CString text) const
 {
   const Standard_CString mainform  = Standard_CString(themainform);
@@ -99,7 +99,7 @@ Standard_Integer Interface_FloatWriter::Write(const Standard_Real    val,
 
 //=================================================================================================
 
-Standard_Integer Interface_FloatWriter::Convert(const Standard_Real    val,
+Standard_Integer InterfaceFloatWriter::Convert(const Standard_Real    val,
                                                 const Standard_CString text,
                                                 const Standard_Boolean zsup,
                                                 const Standard_Real    R1,

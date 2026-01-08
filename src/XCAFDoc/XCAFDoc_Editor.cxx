@@ -60,7 +60,7 @@
 // function : Expand
 // purpose  : Convert Shape to assembly
 //=======================================================================
-Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
+Standard_Boolean DocumentEditor::Expand(const DataLabel&       theDoc,
                                         const DataLabel&       theShape,
                                         const Standard_Boolean theRecursively)
 {
@@ -93,7 +93,7 @@ Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
         TopoShape aShape = aShapeTool->GetShape(aChild);
         if (!aShapeTool->GetShape(aPart.Father()).IsNull())
         {
-          aPart.ForgetAttribute(XCAFDoc::ShapeRefGUID());
+          aPart.ForgetAttribute(XCAFDoc1::ShapeRefGUID());
           if (aShapeTool->GetShape(aPart.Father()).ShapeType() == TopAbs_COMPOUND)
           {
             aShapeTool->SetShape(aPart, aShape);
@@ -115,7 +115,7 @@ Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
           {
             DataLabel aSubLabel = anIter.Value();
             // remove unnecessary links
-            aSubLabel.ForgetAttribute(XCAFDoc::ShapeRefGUID());
+            aSubLabel.ForgetAttribute(XCAFDoc1::ShapeRefGUID());
             aSubLabel.ForgetAttribute(XCAFDoc_ShapeMapTool::GetID());
             CloneMetaData(aChild, aSubLabel, NULL);
           }
@@ -148,7 +148,7 @@ Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
 // function : Expand
 // purpose  : Convert all compounds in Doc to assembly
 //=======================================================================
-Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
+Standard_Boolean DocumentEditor::Expand(const DataLabel&       theDoc,
                                         const Standard_Boolean theRecursively)
 {
   if (theDoc.IsNull())
@@ -176,7 +176,7 @@ Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_Editor::Extract(const TDF_LabelSequence& theSrcLabels,
+Standard_Boolean DocumentEditor::Extract(const TDF_LabelSequence& theSrcLabels,
                                          const DataLabel&         theDstLabel,
                                          const Standard_Boolean   theIsNoVisMat)
 {
@@ -216,7 +216,7 @@ Standard_Boolean XCAFDoc_Editor::Extract(const TDF_LabelSequence& theSrcLabels,
     // Attributes
     for (TDF_LabelDataMap::Iterator aLabelIter(aMap); aLabelIter.More(); aLabelIter.Next())
     {
-      CloneMetaData(aLabelIter.Key(),
+      CloneMetaData(aLabelIter.Key1(),
                     aLabelIter.Value(),
                     &aVisMatMap,
                     true,
@@ -230,7 +230,7 @@ Standard_Boolean XCAFDoc_Editor::Extract(const TDF_LabelSequence& theSrcLabels,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_Editor::Extract(const DataLabel&       theSrcLabel,
+Standard_Boolean DocumentEditor::Extract(const DataLabel&       theSrcLabel,
                                          const DataLabel&       theDstLabel,
                                          const Standard_Boolean theIsNoVisMat)
 {
@@ -241,7 +241,7 @@ Standard_Boolean XCAFDoc_Editor::Extract(const DataLabel&       theSrcLabel,
 
 //=================================================================================================
 
-DataLabel XCAFDoc_Editor::CloneShapeLabel(const DataLabel&                 theSrcLabel,
+DataLabel DocumentEditor::CloneShapeLabel(const DataLabel&                 theSrcLabel,
                                           const Handle(XCAFDoc_ShapeTool)& theSrcShapeTool,
                                           const Handle(XCAFDoc_ShapeTool)& theDstShapeTool,
                                           TDF_LabelDataMap&                theMap)
@@ -305,7 +305,7 @@ DataLabel XCAFDoc_Editor::CloneShapeLabel(const DataLabel&                 theSr
 
 //=================================================================================================
 
-void XCAFDoc_Editor::CloneMetaData(
+void DocumentEditor::CloneMetaData(
   const DataLabel&                                                               theSrcLabel,
   const DataLabel&                                                               theDstLabel,
   NCollection_DataMap<Handle(XCAFDoc_VisMaterial), Handle(XCAFDoc_VisMaterial)>* theVisMatMap,
@@ -364,7 +364,7 @@ void XCAFDoc_Editor::CloneMetaData(
   if (toCopyMaterial)
   {
     Handle(TDataStd_TreeNode) aMatNode;
-    if (theSrcLabel.FindAttribute(XCAFDoc::MaterialRefGUID(), aMatNode) && aMatNode->HasFather())
+    if (theSrcLabel.FindAttribute(XCAFDoc1::MaterialRefGUID(), aMatNode) && aMatNode->HasFather())
     {
       DataLabel aMaterialL = aMatNode->Father()->Label();
       if (!aMaterialL.IsNull())
@@ -533,7 +533,7 @@ static void rescaleDimensionRefLabels(const TDF_LabelSequence&             theRe
         {
           Standard_SStream aSS;
           aSS << "Dimension PMI " << theEntryDimension << " is not scaled.";
-          Message::SendWarning(aSS.str().c_str());
+          Message1::SendWarning(aSS.str().c_str());
         }
         else
         {
@@ -576,7 +576,7 @@ static Standard_Boolean shouldRescaleAndCheckRefLabels(
         theAllInG = Standard_False;
         continue;
       }
-      const XCAFDoc_AssemblyItemId& anItemId = anItemRefAttr->GetItem();
+      const AssemblyItemId& anItemId = anItemRefAttr->GetItem();
       if (anItemId.IsNull())
       {
         theAllInG = Standard_False;
@@ -597,7 +597,7 @@ static Standard_Boolean shouldRescaleAndCheckRefLabels(
 
 //=================================================================================================
 
-void XCAFDoc_Editor::GetChildShapeLabels(const DataLabel& theLabel, TDF_LabelMap& theRelatedLabels)
+void DocumentEditor::GetChildShapeLabels(const DataLabel& theLabel, TDF_LabelMap& theRelatedLabels)
 {
   if (theLabel.IsNull() || !XCAFDoc_ShapeTool::IsShape(theLabel))
   {
@@ -625,7 +625,7 @@ void XCAFDoc_Editor::GetChildShapeLabels(const DataLabel& theLabel, TDF_LabelMap
 
 //=================================================================================================
 
-void XCAFDoc_Editor::GetParentShapeLabels(const DataLabel& theLabel, TDF_LabelMap& theRelatedLabels)
+void DocumentEditor::GetParentShapeLabels(const DataLabel& theLabel, TDF_LabelMap& theRelatedLabels)
 {
   if (theLabel.IsNull() || !XCAFDoc_ShapeTool::IsShape(theLabel))
   {
@@ -657,7 +657,7 @@ void XCAFDoc_Editor::GetParentShapeLabels(const DataLabel& theLabel, TDF_LabelMa
 
 //=================================================================================================
 
-bool XCAFDoc_Editor::FilterShapeTree(const Handle(XCAFDoc_ShapeTool)& theShapeTool,
+bool DocumentEditor::FilterShapeTree(const Handle(XCAFDoc_ShapeTool)& theShapeTool,
                                      const TDF_LabelMap&              theLabelsToKeep)
 {
   if (theLabelsToKeep.IsEmpty())
@@ -668,12 +668,12 @@ bool XCAFDoc_Editor::FilterShapeTree(const Handle(XCAFDoc_ShapeTool)& theShapeTo
   TDF_LabelMap                      aLabelsToKeep(theLabelsToKeep.Size(), anAllocator);
   for (TDF_LabelMap::Iterator aLabelIter(theLabelsToKeep); aLabelIter.More(); aLabelIter.Next())
   {
-    GetChildShapeLabels(aLabelIter.Key(), aLabelsToKeep);
+    GetChildShapeLabels(aLabelIter.Key1(), aLabelsToKeep);
   }
   TDF_LabelMap aInternalLabels(1, anAllocator);
   for (TDF_LabelMap::Iterator aLabelIter(theLabelsToKeep); aLabelIter.More(); aLabelIter.Next())
   {
-    GetParentShapeLabels(aLabelIter.Key(), aInternalLabels);
+    GetParentShapeLabels(aLabelIter.Key1(), aInternalLabels);
     NCollection_MapAlgo::Unite(aLabelsToKeep, aInternalLabels);
     aInternalLabels.Clear(false);
   }
@@ -695,26 +695,26 @@ bool XCAFDoc_Editor::FilterShapeTree(const Handle(XCAFDoc_ShapeTool)& theShapeTo
 // purpose  : Applies geometrical scale to all assembly parts, component
 //           locations and related attributes
 //=======================================================================
-Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel,
+Standard_Boolean DocumentEditor::RescaleGeometry(const DataLabel&       theLabel,
                                                  const Standard_Real    theScaleFactor,
                                                  const Standard_Boolean theForceIfNotRoot)
 {
   if (theLabel.IsNull())
   {
-    Message::SendFail("Null label.");
+    Message1::SendFail("Null label.");
     return Standard_False;
   }
 
   if (Abs(theScaleFactor) <= gp1::Resolution())
   {
-    Message::SendFail("Scale factor is too small.");
+    Message1::SendFail("Scale factor is too small.");
     return Standard_False;
   }
 
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(theLabel);
   if (aShapeTool.IsNull())
   {
-    Message::SendFail("Couldn't find XCAFDoc_ShapeTool attribute.");
+    Message1::SendFail("Couldn't find XCAFDoc_ShapeTool attribute.");
     return Standard_False;
   }
 
@@ -737,7 +737,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
       Tool3::Entry(theLabel, anEntry);
       Standard_SStream aSS;
       aSS << "Label " << anEntry << " is not a root. Set ForceIfNotRoot true to rescale forcibly.";
-      Message::SendFail(aSS.str().c_str());
+      Message1::SendFail(aSS.str().c_str());
       return Standard_False;
     }
   }
@@ -745,7 +745,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
   Handle(XCAFDoc_AssemblyGraph) aG = new XCAFDoc_AssemblyGraph(theLabel);
   if (aG.IsNull())
   {
-    Message::SendFail("Couldn't create assembly graph.");
+    Message1::SendFail("Couldn't create assembly graph.");
     return Standard_False;
   }
 
@@ -755,7 +755,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
   aTrsf.SetScaleFactor(theScaleFactor);
   BRepBuilderAPI_Transform aBRepTrsf(aTrsf);
 
-  XCAFDoc_AssemblyTool::Traverse(
+  AssemblyTool::Traverse(
     aG,
     [](const Handle(XCAFDoc_AssemblyGraph)& theGraph,
        const Standard_Integer               theNode) -> Standard_Boolean {
@@ -778,7 +778,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
           AsciiString1 anEntry;
           Tool3::Entry(aLabel, anEntry);
           aSS << "Shape " << anEntry << " is not scaled!";
-          Message::SendFail(aSS.str().c_str());
+          Message1::SendFail(aSS.str().c_str());
           anIsDone = Standard_False;
           return Standard_False;
         }
@@ -864,7 +864,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
         {
           Standard_SStream aSS;
           aSS << "Dimension PMI " << anEntryDimension << " is not scaled!";
-          Message::SendWarning(aSS.str().c_str());
+          Message1::SendWarning(aSS.str().c_str());
           continue;
         }
 
@@ -900,7 +900,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
             Standard_SStream aSS;
             aSS << "Dimension PMI " << anEntryDimension
                 << " base shapes do not belong to the rescaled assembly!";
-            Message::SendWarning(aSS.str().c_str());
+            Message1::SendWarning(aSS.str().c_str());
             continue;
           }
           Standard_Boolean      aRescaleOtherValues = Standard_False;
@@ -911,7 +911,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
             case XCAFDimTolObjects_DimensionType_Location_CurvedDistance: {
               Standard_SStream aSS;
               aSS << "Dimension PMI " << anEntryDimension << " is not scaled.";
-              Message::SendWarning(aSS.str().c_str());
+              Message1::SendWarning(aSS.str().c_str());
             }
             break;
             case XCAFDimTolObjects_DimensionType_Location_LinearDistance:
@@ -933,7 +933,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
             case XCAFDimTolObjects_DimensionType_Location_WithPath: {
               Standard_SStream aSS;
               aSS << "Dimension PMI " << anEntryDimension << " is not scaled.";
-              Message::SendWarning(aSS.str().c_str());
+              Message1::SendWarning(aSS.str().c_str());
             }
             break;
             case XCAFDimTolObjects_DimensionType_Size_CurveLength:
@@ -958,13 +958,13 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
             case XCAFDimTolObjects_DimensionType_DimensionPresentation: {
               Standard_SStream aSS;
               aSS << "Dimension PMI " << anEntryDimension << " is not scaled.";
-              Message::SendWarning(aSS.str().c_str());
+              Message1::SendWarning(aSS.str().c_str());
             }
             break;
             default: {
               Standard_SStream aSS;
               aSS << "Dimension PMI of unsupported type " << anEntryDimension << " is not scaled.";
-              Message::SendWarning(aSS.str().c_str());
+              Message1::SendWarning(aSS.str().c_str());
             }
           }
           rescaleDimensionRefLabels(aShapeLFirst, aBRepTrsf, aG, anEntryDimension);
@@ -989,7 +989,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
         {
           Standard_SStream aSS;
           aSS << "Dimension PMI values " << anEntryDimension << " are not scaled.";
-          Message::SendWarning(aSS.str().c_str());
+          Message1::SendWarning(aSS.str().c_str());
         }
 
         aDimAttr->SetObject(aDimObj);
@@ -1018,7 +1018,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
           // TODO: Should we rescale target length and width?
           Standard_SStream aSS;
           aSS << "Datum PMI target length and width " << anEntryDatum << " are not scaled.";
-          Message::SendWarning(aSS.str().c_str());
+          Message1::SendWarning(aSS.str().c_str());
           // aDatumObj->SetDatumTargetLength(aDatumObj->GetDatumTargetLength() * theScaleFactor);
           // aDatumObj->SetDatumTargetWidth(aDatumObj->GetDatumTargetWidth() * theScaleFactor);
         }
@@ -1058,7 +1058,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
       {
         Standard_SStream aSS;
         aSS << "DimTol PMI " << anEntryDimTol << " is not scaled.";
-        Message::SendWarning(aSS.str().c_str());
+        Message1::SendWarning(aSS.str().c_str());
       }
     }
   }

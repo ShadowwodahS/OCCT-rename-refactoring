@@ -153,7 +153,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     return -1;
   }
 
-  // Naming
+  // Naming1
   LoadNamingDS(RESPOSITION(aFunction), aMakeCylinder);
 
   // restore location

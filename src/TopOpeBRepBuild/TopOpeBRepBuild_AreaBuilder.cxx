@@ -108,7 +108,7 @@ void AreaBuilder::Atomize(TopAbs_State& state, const TopAbs_State newstate) cons
 {
   if (myUNKNOWNRaise)
   {
-    Standard_DomainError_Raise_if((state == TopAbs_UNKNOWN), "AreaBuilder : Position Unknown");
+    Standard_DomainError_Raise_if((state == TopAbs_UNKNOWN), "AreaBuilder : Position1 Unknown");
   }
   else
   {

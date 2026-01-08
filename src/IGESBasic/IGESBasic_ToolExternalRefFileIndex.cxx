@@ -60,7 +60,7 @@ void ExternalRefFileIndexTool::ReadOwnParams(
     {
       Handle(TCollection_HAsciiString) tempNam;
       if (PR.ReadText(PR.Current(),
-                      "External Reference Entity",
+                      "External Reference1 Entity",
                       tempNam)) // szv#4:S4163:12Mar99 `st=` not needed
         tempNames->SetValue(i, tempNam);
       Handle(IGESData_IGESEntity) tempEnt;
@@ -142,7 +142,7 @@ void ExternalRefFileIndexTool::OwnDump(const Handle(IGESBasic_ExternalRefFileInd
 {
   Standard_Integer i, num;
   S << "IGESBasic_ExternalRefFileIndex\n"
-    << "External Reference Names :\n"
+    << "External Reference1 Names :\n"
     << "Internal Entities : ";
   IGESData_DumpEntities(S, dumper, -level, 1, ent->NbEntries(), ent->Entity);
   S << "\n";
@@ -150,7 +150,7 @@ void ExternalRefFileIndexTool::OwnDump(const Handle(IGESBasic_ExternalRefFileInd
     for (num = ent->NbEntries(), i = 1; i <= num; i++)
     {
       S << "[" << i << "]: "
-        << "External Reference Name : ";
+        << "External Reference1 Name : ";
       IGESData_DumpString(S, ent->Name(i));
       S << "  Internal Entity : ";
       dumper.Dump(ent->Entity(i), S, 1);

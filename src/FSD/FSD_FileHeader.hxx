@@ -18,7 +18,7 @@
 
 #include <Standard_PrimitiveTypes.hxx>
 
-struct FSD_FileHeader
+struct FileHeader
 {
   Standard_Integer testindian;
   Standard_Integer binfo;

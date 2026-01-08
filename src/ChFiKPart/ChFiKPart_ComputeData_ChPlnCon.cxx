@@ -88,7 +88,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Standard_Real    angle;
   Standard_Boolean IsResol;
 
-  Ax3 PosPl = Pln.Position();
+  Ax3 PosPl = Pln.Position1();
   Dir3d Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
   if (Or1 == TopAbs_REVERSED)
     Dpl.Reverse();
@@ -159,7 +159,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 
 /*
  // Compute the chamfer surface(cone)
-  Ax3 PosPl = Pln.Position();
+  Ax3 PosPl = Pln.Position1();
   Dir3d Dpl = PosPl.XDirection().Crossed(PosPl.YDirection());
   Dir3d norf = Dpl;
   if (Ofpl == TopAbs_REVERSED ) norf.Reverse();
@@ -238,7 +238,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     // from surface S1 to surface S2
   if ( (dedans && !plandab) || (!dedans && plandab) ) {
     gcon->VReverse();// be careful : the SemiAngle was changed
-    ChamfAx3 = gcon->Position();
+    ChamfAx3 = gcon->Position1();
     SemiAngl = gcon->SemiAngle();
   }
 

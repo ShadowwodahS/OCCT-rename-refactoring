@@ -476,7 +476,7 @@ void Quantity_Color::Values(Standard_Real&             theR1,
 
 // =======================================================================
 // function : Convert_HLS_To_sRGB
-// purpose  : Reference: La synthese d'images, Collection Hermes
+// purpose  : Reference1: La synthese d'images, Collection Hermes
 // =======================================================================
 NCollection_Vec3<float> Quantity_Color::Convert_HLS_To_sRGB(const NCollection_Vec3<float>& theHls)
 {
@@ -521,7 +521,7 @@ NCollection_Vec3<float> Quantity_Color::Convert_HLS_To_sRGB(const NCollection_Ve
 
 // =======================================================================
 // function : Convert_sRGB_To_HLS
-// purpose  : Reference: La synthese d'images, Collection Hermes
+// purpose  : Reference1: La synthese d'images, Collection Hermes
 // =======================================================================
 NCollection_Vec3<float> Quantity_Color::Convert_sRGB_To_HLS(const NCollection_Vec3<float>& theRgb)
 {

@@ -92,7 +92,7 @@ public:
   //! = 2 : Physical1 design
   Standard_EXPORT Standard_Integer TypeFlag() const;
 
-  //! returns Primary Reference Designator
+  //! returns Primary Reference1 Designator
   Standard_EXPORT Handle(TCollection_HAsciiString) Designator() const;
 
   //! returns True if Text Display Template is specified for

@@ -26,7 +26,7 @@
 #include <Prs3d_LineAspect.hxx>
 #include <Prs3d_Presentation.hxx>
 
-void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                         const Handle(StyleDrawer)&       aDrawer,
                                         const Point3d&                     aCenter,
                                         const Standard_Real               aRadius,

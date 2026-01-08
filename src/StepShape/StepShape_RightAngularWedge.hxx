@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT void SetPosition(const Handle(StepGeom_Axis2Placement3d)& aPosition);
 
-  Standard_EXPORT Handle(StepGeom_Axis2Placement3d) Position() const;
+  Standard_EXPORT Handle(StepGeom_Axis2Placement3d) Position1() const;
 
   Standard_EXPORT void SetX(const Standard_Real aX);
 

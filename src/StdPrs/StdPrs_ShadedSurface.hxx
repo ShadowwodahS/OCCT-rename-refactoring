@@ -27,7 +27,7 @@ class Adaptor3d_Surface;
 //! a maximal chordial deviation.
 //! The number of isoparametric curves to be drawn and their color are
 //! controlled by the furnished Drawer.
-class StdPrs_ShadedSurface : public Prs3d_Root
+class StdPrs_ShadedSurface : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

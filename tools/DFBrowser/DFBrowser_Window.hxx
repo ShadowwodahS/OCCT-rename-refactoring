@@ -235,7 +235,7 @@ private:
     myPropertyPanel; //!< property panel shows full information about attribute or search view
   ViewControl_PropertyView*
                myPropertyView; //!< property control to display model item values if exist
-  View_Window* myViewWindow; //!< V3d view to visualize presentations/references if it can be build
+  View_Window* myViewWindow; //!< V3d1 view to visualize presentations/references if it can be build
                              //!< for a selected item
   DFBrowser_DumpView* myDumpView; //!< Text editor where "Dump" method output is shown
   ViewControl_MessageDialog*

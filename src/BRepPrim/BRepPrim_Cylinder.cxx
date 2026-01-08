@@ -27,10 +27,10 @@
 
 //=================================================================================================
 
-BRepPrim_Cylinder::BRepPrim_Cylinder(const Frame3d&       Position,
+BRepPrim_Cylinder::BRepPrim_Cylinder(const Frame3d&       Position1,
                                      const Standard_Real Radius,
                                      const Standard_Real Height)
-    : BRepPrim_Revolution(Position, 0, Height),
+    : BRepPrim_Revolution(Position1, 0, Height),
       myRadius(Radius)
 {
   SetMeridian();

@@ -31,7 +31,7 @@ class UtfString;
 //! semantic information about each feature together.
 //!
 //! The only one concrete   attribute defined in  this
-//! package is the TagSource attribute.This attribute
+//! package is the TagSource1 attribute.This attribute
 //! is used for  random creation of child labels under
 //! a given label. Tags are randomly delivered.
 class TDF1

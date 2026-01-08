@@ -22,7 +22,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Contains commands to work with notes
-class XDEDRAW_Notes
+class NoteCommands
 {
 public:
   DEFINE_STANDARD_ALLOC

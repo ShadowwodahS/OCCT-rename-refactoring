@@ -114,10 +114,10 @@ public:
   }
 
   //! Returns set of all the face triangles of the 1st shape.
-  const Handle(BRepExtrema_TriangleSet)& ElementSet1() const { return myElementSet1; }
+  const Handle(TriangleSet1)& ElementSet1() const { return myElementSet1; }
 
   //! Returns set of all the face triangles of the 2nd shape.
-  const Handle(BRepExtrema_TriangleSet)& ElementSet2() const { return myElementSet2; }
+  const Handle(TriangleSet1)& ElementSet2() const { return myElementSet2; }
 
   //! Returns the point on the 1st shape, which could be used as a reference point
   //! for the value of the proximity.
@@ -150,9 +150,9 @@ private:
   BRepExtrema_ShapeList myShapeList2;
 
   //! Set of all the face triangles of the 1st shape.
-  Handle(BRepExtrema_TriangleSet) myElementSet1;
+  Handle(TriangleSet1) myElementSet1;
   //! Set of all the face triangles of the 2nd shape.
-  Handle(BRepExtrema_TriangleSet) myElementSet2;
+  Handle(TriangleSet1) myElementSet2;
 
   //! Number of sample points on the 1st shape used to compute the proximity value
   //! (if zero (default), all triangulation nodes will be used).
@@ -161,9 +161,9 @@ private:
   //! (if zero (default), all triangulation nodes will be used).
   Standard_Integer myNbSamples2;
 
-  //! Reference point of the proximity value on the 1st shape.
+  //! Reference1 point of the proximity value on the 1st shape.
   Point3d myProxPoint1;
-  //! Reference point of the proximity value on the 2nd shape.
+  //! Reference1 point of the proximity value on the 2nd shape.
   Point3d myProxPoint2;
 
   //! Status of reference points of the proximity value.

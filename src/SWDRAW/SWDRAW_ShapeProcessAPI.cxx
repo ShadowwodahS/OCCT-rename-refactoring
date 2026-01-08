@@ -56,7 +56,7 @@ static Standard_Integer ApplySequence(DrawInterpreter& di,
 
 //=================================================================================================
 
-void SWDRAW_ShapeProcessAPI::InitCommands(DrawInterpreter& theCommands)
+void ShapeProcessAPI::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean initactor = Standard_False;
   if (!initactor)
@@ -64,7 +64,7 @@ void SWDRAW_ShapeProcessAPI::InitCommands(DrawInterpreter& theCommands)
 
     initactor = Standard_True;
 
-    Standard_CString g = SWDRAW::GroupName(); // "Tests of DivideTool";
+    Standard_CString g = SWDRAW1::GroupName(); // "Tests of DivideTool";
 
     theCommands.Add("DT_ApplySeq",
                     "DT_ApplySeq result shape rscfilename [prefix]",

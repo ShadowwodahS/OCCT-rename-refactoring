@@ -22,14 +22,14 @@ class StdPersistent_DataXtd_PatternStd : public StdObjMgt_Attribute<TDataXtd_Pat
 {
 public:
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData)
+  inline void Read(ReadData& theReadData)
   {
     theReadData >> mySignature >> myAxis1Reversed >> myAxis2Reversed >> myAxis1 >> myAxis2
       >> myValue1 >> myValue2 >> myNb1 >> myNb2 >> myMirror;
   }
 
   //! Write persistent data to a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData)
+  inline void Write(WriteData& theWriteData)
   {
     theWriteData << mySignature << myAxis1Reversed << myAxis2Reversed << myAxis1 << myAxis2
                  << myValue1 << myValue2 << myNb1 << myNb2 << myMirror;

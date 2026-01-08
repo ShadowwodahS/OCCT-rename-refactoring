@@ -123,7 +123,7 @@ void BRepMAT2d_BisectingLocus::Compute(BRepMAT2d_Explorer&    anExplo,
   // ----------------------------------------------------------------
   for (TheMAT.Init(); TheMAT.More(); TheMAT.Next())
   {
-    TheRoots->BackAdd(TheMAT.Bisector());
+    TheRoots->BackAdd(TheMAT.Bisector1());
   }
 
   theGraph->Perform(TheMAT.SemiInfinite(),
@@ -243,7 +243,7 @@ Standard_Integer BRepMAT2d_BisectingLocus::NumberOfElts(const Standard_Integer I
 Standard_Integer BRepMAT2d_BisectingLocus::NumberOfSections(const Standard_Integer IndLine,
                                                             const Standard_Integer Index) const
 {
-  MAT2d_BiInt B(IndLine, Index);
+  BiInt B(IndLine, Index);
   return nbSect(B);
 }
 
@@ -316,7 +316,7 @@ gp_Pnt2d BRepMAT2d_BisectingLocus::GeomElt(const Handle(MAT_Node)& aNode) const
 static void CutSketch(MAT2d_SequenceOfSequenceOfGeometry& Figure,
                       MAT2d_DataMapOfBiIntInteger&        NbSect)
 {
-  MAT2d_CutCurve   Cuter;
+  MAT2dCutCurve   Cuter;
   Standard_Integer i, j, k, ico;
   Standard_Integer ICurveInit;
   Standard_Integer NbSection;
@@ -343,7 +343,7 @@ static void CutSketch(MAT2d_SequenceOfSequenceOfGeometry& Figure,
         Contour.Remove(ico);
         j--;
       }
-      MAT2d_BiInt B(i, ICurveInit);
+      BiInt B(i, ICurveInit);
       NbSect.Bind(B, NbSection);
     }
   }

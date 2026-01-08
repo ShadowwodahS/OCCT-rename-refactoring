@@ -76,9 +76,9 @@ void ShapeUpgrade_SplitCurve2dContinuity::SetTolerance(const Standard_Real Tol)
 void ShapeUpgrade_SplitCurve2dContinuity::Compute()
 {
   if (myCurve->Continuity() < myCriterion)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
   if (mySplitValues->Length() > 2)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   constexpr Standard_Real precision = Precision::PConfusion();
   Standard_Real           First     = mySplitValues->Value(1);
   Standard_Real           Last      = mySplitValues->Value(mySplitValues->Length());
@@ -111,7 +111,7 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
       case GeomAbs_C2:
         BasCriterion = GeomAbs_C3;
         break;
-      case GeomAbs_C3: // if (ShapeUpgrade::Debug()) std::cout<<". this criterion is not suitable
+      case GeomAbs_C3: // if (ShapeUpgrade1::Debug()) std::cout<<". this criterion is not suitable
                        // for a Offset curve"<<std::endl;
 #ifdef OCCT_DEBUG
         std::cout << "Warning: ShapeUpgrade_SplitCurve2dContinuity: criterion C3 for Offset curve"
@@ -140,14 +140,14 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
   Handle(Geom2d_BSplineCurve) MyBSpline = Handle(Geom2d_BSplineCurve)::DownCast(myCurve);
   if (MyBSpline.IsNull())
   {
-    //    if (ShapeUpgrade::Debug()) std::cout<<". curve is not a Bspline"<<std::endl;
+    //    if (ShapeUpgrade1::Debug()) std::cout<<". curve is not a Bspline"<<std::endl;
     return;
   }
 
   myNbCurves               = 1;
   Standard_Integer Deg     = MyBSpline->Degree();
   Standard_Integer NbKnots = MyBSpline->NbKnots();
-  //  if (ShapeUpgrade::Debug()) std::cout<<". NbKnots="<<NbKnots<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout<<". NbKnots="<<NbKnots<<std::endl;
   if (NbKnots <= 2)
   {
     return;
@@ -193,8 +193,8 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
         if (corrected)
         {
           // at this knot, the continuity is now C1. Nothing else to do.
-          //	  if (ShapeUpgrade::Debug()) std::cout<<". Correction at Knot "<<iknot<<std::endl;
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+          //	  if (ShapeUpgrade1::Debug()) std::cout<<". Correction at Knot "<<iknot<<std::endl;
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
         }
         else
         {
@@ -202,7 +202,7 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
           // this knot will be a splitting value.
           mySplitValues->InsertBefore(j++, MyBSpline->Knot(iknot));
           myNbCurves++;
-          //	  if (ShapeUpgrade::Debug()) std::cout<<". Splitting at Knot "<<iknot<<std::endl;
+          //	  if (ShapeUpgrade1::Debug()) std::cout<<". Splitting at Knot "<<iknot<<std::endl;
         }
       }
     }
@@ -211,5 +211,5 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
   }
 
   if (mySplitValues->Length() > 2)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 }

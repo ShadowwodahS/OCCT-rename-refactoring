@@ -43,14 +43,14 @@ void DrawingUnitsTool::ReadOwnParams(const Handle(IGESGraph_DrawingUnits)& ent,
   Standard_Integer                 flag;
   Handle(TCollection_HAsciiString) unit;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   // clang-format off
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
   if (nbPropertyValues != 2)
     PR.AddFail("No. of Property values : Value is not 2");
 
-  // Reading flag(Integer)
+  // Reading flag(Integer1)
   PR.ReadInteger(PR.Current(), "Units Flag", flag); // szv#4:S4163:12Mar99 `st=` not needed
 
   // Reading unit(String)

@@ -90,7 +90,7 @@ public:
       myIsRegistered = true;
       return true;
     }
-    // Message::SendTrace() << "RegisterTouchWindow() FAILED";
+    // Message1::SendTrace() << "RegisterTouchWindow() FAILED";
     return false;
   }
 
@@ -377,7 +377,7 @@ Standard_Real WNT_Window::Ratio() const
 
 //=================================================================================================
 
-void WNT_Window::Position(Standard_Integer& theX1,
+void WNT_Window::Position1(Standard_Integer& theX1,
                           Standard_Integer& theY1,
                           Standard_Integer& theX2,
                           Standard_Integer& theY2) const
@@ -762,7 +762,7 @@ int WNT_Window::RegisterRawInputDevices(unsigned int theRawDeviceMask)
       return aTryIter;
     }
 
-    Message::SendTrace(
+    Message1::SendTrace(
       aRawInDevList[aTryIter - 1].usUsage == THE_HID_USAGE_GENERIC_MULTI_AXIS_CONTROLLER
         ? "Warning: RegisterRawInputDevices() failed to register RAW multi-axis controller input"
         : "Warning: RegisterRawInputDevices() failed to register RAW mouse input");
@@ -844,7 +844,7 @@ bool WNT_Window::ProcessMessage(Aspect_WindowInputListener& theListener, MSG& th
         isEmulated = true;
         if (!myTouchInputHelper.IsNull() && myTouchInputHelper->IsRegistered())
         {
-          // Message::SendTrace ("Skipping mouse message emulated from touches...");
+          // Message1::SendTrace ("Skipping mouse message emulated from touches...");
           break;
         }
       }
@@ -989,7 +989,7 @@ bool WNT_Window::ProcessMessage(Aspect_WindowInputListener& theListener, MSG& th
       }
 
       Graphic3d_Vec2i aWinTopLeft, aWinBotRight;
-      Position(aWinTopLeft.x(), aWinTopLeft.y(), aWinBotRight.x(), aWinBotRight.y());
+      Position1(aWinTopLeft.x(), aWinTopLeft.y(), aWinBotRight.x(), aWinBotRight.y());
 
       bool hasUpdates = false;
       for (size_t aTouchIter = 0; aTouchIter < aSrcTouches.Size(); ++aTouchIter)

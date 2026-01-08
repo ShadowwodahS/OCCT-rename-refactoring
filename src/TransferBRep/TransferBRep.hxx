@@ -43,7 +43,7 @@ class Interface_InterfaceModel;
 //! This package gathers services to simply read files and convert
 //! them to Shapes from CasCade. IE. it can be used in conjunction
 //! with purely CasCade software
-class TransferBRep
+class TransferBRep1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -139,16 +139,16 @@ public:
     const Handle(TransferBRep_TransferResultInfo)& ResultInfo,
     const Standard_Boolean                         printEmpty = Standard_True);
 
-  //! Performs a heavy check by calling the Analyser from BRepCheck
+  //! Performs a heavy check by calling the Analyser from BRepCheck1
   //! This tool computes a lot of information about integrity of a
   //! Shape. This method uses it and converts its internal result
   //! to a classic check-list.
   //! <lev> allows to get more information :
-  //! 0 : BRepCheck only
+  //! 0 : BRepCheck1 only
   //! 1(D) + Curves/Surfaces not C0  ;  2 + SameParameter on Edges
   //! Warning : entities to which checks are bound are the Shapes themselves,
   //! embedded in ShapeMapper
-  Standard_EXPORT static Interface_CheckIterator BRepCheck(const TopoShape&    shape,
+  Standard_EXPORT static Interface_CheckIterator BRepCheck1(const TopoShape&    shape,
                                                            const Standard_Integer lev = 1);
 
   //! Takes a starting CheckIterator which brings checks bound with

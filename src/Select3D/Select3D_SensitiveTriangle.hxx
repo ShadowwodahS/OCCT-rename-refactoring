@@ -38,8 +38,8 @@ public:
     const Select3D_TypeOfSensitivity     theType = Select3D_TOS_INTERIOR);
 
   //! Checks whether the triangle overlaps current selecting volume
-  Standard_EXPORT virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+  Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
     Standard_OVERRIDE;
 
   //! Returns the 3D points P1, P2, P3 used at the time of construction.

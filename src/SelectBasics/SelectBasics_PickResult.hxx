@@ -21,19 +21,19 @@
 //! This structure provides unified access to the results of Matches() method in all sensitive
 //! entities, so that it defines a Depth (distance to the entity along picking ray) and a closest
 //! Point on entity.
-struct SelectBasics_PickResult
+struct PickResult
 {
 public:
   //! Return closest result between two Pick Results according to Depth value.
-  static const SelectBasics_PickResult& Min(const SelectBasics_PickResult& thePickResult1,
-                                            const SelectBasics_PickResult& thePickResult2)
+  static const PickResult& Min(const PickResult& thePickResult1,
+                                            const PickResult& thePickResult2)
   {
     return thePickResult1.Depth() <= thePickResult2.Depth() ? thePickResult1 : thePickResult2;
   }
 
 public:
   //! Empty constructor defining an invalid result.
-  SelectBasics_PickResult()
+  PickResult()
       : myObjPickedPnt(RealLast(), 0.0, 0.0),
         myDepth(RealLast()),
         myDistToCenter(RealLast())
@@ -41,7 +41,7 @@ public:
   }
 
   //! Constructor with initialization.
-  SelectBasics_PickResult(Standard_Real theDepth,
+  PickResult(Standard_Real theDepth,
                           Standard_Real theDistToCenter,
                           const Point3d& theObjPickedPnt)
       : myObjPickedPnt(theObjPickedPnt),

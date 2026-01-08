@@ -31,7 +31,7 @@
 //!
 //! It  provides deferred methods to trace the history
 //! of sub-shapes.
-class BRepBuilderAPI_MakeShape : public BRepBuilderAPI_Command
+class BRepBuilderAPI_MakeShape : public Command
 {
 public:
   DEFINE_STANDARD_ALLOC

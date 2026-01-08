@@ -37,13 +37,13 @@ void HighLightTool::ReadOwnParams(const Handle(IGESGraph_HighLight)& ent,
   Standard_Integer nbPropertyValues;
   Standard_Integer highLightStatus;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues);
   if (nbPropertyValues != 1)
     PR.AddFail("No. of Property values : Value is not 1");
 
   if (PR.DefinedElseSkip())
-    // Reading highLightStatus(Integer)
+    // Reading highLightStatus(Integer1)
     PR.ReadInteger(PR.Current(), "Highlight flag", highLightStatus);
   else
     highLightStatus = 0; // Default Value

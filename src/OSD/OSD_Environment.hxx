@@ -39,7 +39,7 @@ public:
   Standard_EXPORT OSD_Environment();
 
   //! Creates an Environment variable initialized with value
-  //! set to an empty AsciiString.
+  //! set to an empty AsciiString2.
   Standard_EXPORT OSD_Environment(const AsciiString1& Name);
 
   //! Creates an Environment variable initialized with Value.

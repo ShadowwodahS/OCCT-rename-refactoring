@@ -48,7 +48,7 @@ Standard_Boolean TPrsStd_PointDriver::Update(const DataLabel&               aLab
   }
   Handle(Geom_CartesianPoint) apt = new Geom_CartesianPoint(pnt);
 
-  //  Update de l'AIS
+  //  Update de l'AIS1
   Handle(VisualPoint) aistrihed;
   if (anAISObject.IsNull())
     aistrihed = new VisualPoint(apt);

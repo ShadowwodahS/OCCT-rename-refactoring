@@ -31,7 +31,7 @@
 class Standard_OutOfRange;
 class StdFail_NotDone;
 class BRepAdaptor_Surface;
-class BRepApprox_SurfaceTool;
+class SurfaceTool4;
 class Quadric1;
 class QuadricTool;
 class BRepApprox_ApproxLine;
@@ -40,7 +40,7 @@ class BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox;
 class BRepApprox_TheImpPrmSvSurfacesOfApprox;
 class BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox;
 class BRepApprox_TheMultiLineOfApprox;
-class BRepApprox_TheMultiLineToolOfApprox;
+class TheMultiLineToolOfApprox;
 class BRepApprox_TheComputeLineOfApprox;
 class BRepApprox_MyBSplGradientOfTheComputeLineOfApprox;
 class BRepApprox_MyGradientbisOfTheComputeLineOfApprox;
@@ -48,7 +48,7 @@ class BRepApprox_TheComputeLineBezierOfApprox;
 class BRepApprox_MyGradientOfTheComputeLineBezierOfApprox;
 class AppParCurves_MultiBSpCurve;
 
-class BRepApprox_Approx
+class Approx1
 {
 private:
   struct Approx_Data1
@@ -82,7 +82,7 @@ private:
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepApprox_Approx();
+  Standard_EXPORT Approx1();
 
   Standard_EXPORT void Perform(const BRepAdaptor_Surface&           Surf1,
                                const BRepAdaptor_Surface&           Surf2,

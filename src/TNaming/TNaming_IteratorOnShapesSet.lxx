@@ -70,5 +70,5 @@ inline void ShapesSetIterator::Next()
 
 inline const TopoShape& ShapesSetIterator::Value() const
 {
-  return myIt.Key();
+  return myIt.Key1();
 }

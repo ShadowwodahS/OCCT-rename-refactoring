@@ -174,7 +174,7 @@ static const char Shaders_Declarations_glsl[] =
   "//! Is light a headlight, bool? DEPRECATED method.\n"
   "#define occLight_IsHeadlight(theId) false\n"
   "\n"
-  "//! Position of specified light source or direction of directional light source, vec3.\n"
+  "//! Position1 of specified light source or direction of directional light source, vec3.\n"
   "#define occLight_Position(theId)          occLightSources[occLight_Index(theId) * 4 + 1].xyz\n"
   "\n"
   "//! Direction of specified spot light source, vec3.\n"

@@ -24,11 +24,11 @@
 
 #define MultiLine BRepApprox_TheMultiLineOfApprox
 #define MultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>
-#define ToolLine BRepApprox_TheMultiLineToolOfApprox
+#define ToolLine TheMultiLineToolOfApprox
 #define ToolLine_hxx <BRepApprox_TheMultiLineToolOfApprox.hxx>
 #define Squares BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox
 #define Squares_hxx <BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox.hxx>
-#define ResolCons BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox
+#define ResolCons ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox
 #define ResolCons_hxx <BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox.hxx>
 #define AppParCurves_Function BRepApprox_ParFunctionOfMyGradientOfTheComputeLineBezierOfApprox
 #define AppParCurves_Function_hxx                                                                  \

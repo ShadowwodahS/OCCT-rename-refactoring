@@ -35,7 +35,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Message_Algorithm, RefObject)
 
 Message_Algorithm::Message_Algorithm()
 {
-  myMessenger = Message::DefaultMessenger();
+  myMessenger = Message1::DefaultMessenger();
 }
 
 //=================================================================================================
@@ -43,7 +43,7 @@ Message_Algorithm::Message_Algorithm()
 void Message_Algorithm::SetMessenger(const Handle(Message_Messenger)& theMsgr)
 {
   if (theMsgr.IsNull())
-    myMessenger = Message::DefaultMessenger();
+    myMessenger = Message1::DefaultMessenger();
   else
     myMessenger = theMsgr;
 }
@@ -63,14 +63,14 @@ void Message_Algorithm::SetStatus(const Message_Status& theStat, const Standard_
   SetStatus(theStat);
 
   // Find index of bit corresponding to that flag
-  Standard_Integer aFlagIndex = Message_ExecStatus::StatusIndex(theStat);
+  Standard_Integer aFlagIndex = ExecutionStatus::StatusIndex(theStat);
   if (!aFlagIndex)
     return;
 
   // Create map of integer parameters for a given flag, if not yet done
   if (myReportIntegers.IsNull())
-    myReportIntegers = new TColStd_HArray1OfTransient(Message_ExecStatus::FirstStatus,
-                                                      Message_ExecStatus::LastStatus);
+    myReportIntegers = new TColStd_HArray1OfTransient(ExecutionStatus::FirstStatus,
+                                                      ExecutionStatus::LastStatus);
   Handle(RefObject)& aData = myReportIntegers->ChangeValue(aFlagIndex);
   if (aData.IsNull())
     aData = new TColStd_HPackedMapOfInteger;
@@ -91,14 +91,14 @@ void Message_Algorithm::SetStatus(const Message_Status&                      the
     return;
 
   // Find index of bit corresponding to that flag
-  Standard_Integer aFlagIndex = Message_ExecStatus::StatusIndex(theStat);
+  Standard_Integer aFlagIndex = ExecutionStatus::StatusIndex(theStat);
   if (!aFlagIndex)
     return;
 
   // Create sequence of string parameters for a given flag, if not yet done
   if (myReportStrings.IsNull())
-    myReportStrings = new TColStd_HArray1OfTransient(Message_ExecStatus::FirstStatus,
-                                                     Message_ExecStatus::LastStatus);
+    myReportStrings = new TColStd_HArray1OfTransient(ExecutionStatus::FirstStatus,
+                                                     ExecutionStatus::LastStatus);
   Handle(RefObject)& aData = myReportStrings->ChangeValue(aFlagIndex);
   if (aData.IsNull())
     aData = new TColStd_HSequenceOfHExtendedString;
@@ -127,7 +127,7 @@ void Message_Algorithm::SetStatus(const Message_Status& theStat, const Message_M
   SetStatus(theStat);
 
   // Find index of bit corresponding to that flag
-  Standard_Integer aFlagIndex = Message_ExecStatus::StatusIndex(theStat);
+  Standard_Integer aFlagIndex = ExecutionStatus::StatusIndex(theStat);
   if (aFlagIndex == 0)
   {
     return;
@@ -137,7 +137,7 @@ void Message_Algorithm::SetStatus(const Message_Status& theStat, const Message_M
   if (myReportMessages.IsNull())
   {
     myReportMessages =
-      new Message_ArrayOfMsg(Message_ExecStatus::FirstStatus, Message_ExecStatus::LastStatus);
+      new Message_ArrayOfMsg(ExecutionStatus::FirstStatus, ExecutionStatus::LastStatus);
   }
 
   myReportMessages->ChangeValue(aFlagIndex) = new Message_Msg(theMsg);
@@ -155,7 +155,7 @@ void Message_Algorithm::ClearStatus()
 
 //=================================================================================================
 
-void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
+void Message_Algorithm::SendStatusMessages(const ExecutionStatus& theStatus,
                                            const Message_Gravity     theTraceLevel,
                                            const Standard_Integer    theMaxCount) const
 {
@@ -166,10 +166,10 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
   }
 
   // Iterate on all set flags in the specified range
-  for (Standard_Integer i = Message_ExecStatus::FirstStatus; i <= Message_ExecStatus::LastStatus;
+  for (Standard_Integer i = ExecutionStatus::FirstStatus; i <= ExecutionStatus::LastStatus;
        i++)
   {
-    Message_Status stat = Message_ExecStatus::StatusByIndex(i);
+    Message_Status stat = ExecutionStatus::StatusByIndex(i);
     if (!theStatus.IsSet(stat) || !myStatus.IsSet(stat))
     {
       continue;
@@ -187,7 +187,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
 
     // construct message suffix
     AsciiString1 aSuffix;
-    switch (Message_ExecStatus::TypeOfStatus(stat))
+    switch (ExecutionStatus::TypeOfStatus(stat))
     {
       case Message_DONE:
         aSuffix.AssignCat(".Done");
@@ -204,7 +204,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
       default:
         continue;
     }
-    aSuffix.AssignCat(Message_ExecStatus::LocalStatusIndex(stat));
+    aSuffix.AssignCat(ExecutionStatus::LocalStatusIndex(stat));
 
     // find message, prefixed by class type name, iterating by base classes if necessary
     AsciiString1 aMsgName;
@@ -212,7 +212,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
     {
       aMsgName = aType->Name();
       aMsgName += aSuffix;
-      if (Message_MsgFile::HasMsg(aMsgName))
+      if (MessageFile::HasMsg(aMsgName))
         break;
     }
 
@@ -250,7 +250,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
 void Message_Algorithm::SendMessages(const Message_Gravity  theTraceLevel,
                                      const Standard_Integer theMaxCount) const
 {
-  Message_ExecStatus aStat;
+  ExecutionStatus aStat;
   aStat.SetAllWarn();
   aStat.SetAllAlarm();
   aStat.SetAllFail();
@@ -266,15 +266,15 @@ void Message_Algorithm::AddStatus(const Handle(Message_Algorithm)& theOtherAlgo)
 
 //=================================================================================================
 
-void Message_Algorithm::AddStatus(const Message_ExecStatus&        theAllowedStatus,
+void Message_Algorithm::AddStatus(const ExecutionStatus&        theAllowedStatus,
                                   const Handle(Message_Algorithm)& theOtherAlgo)
 {
   // Iterate on all set flags in the specified range
-  const Message_ExecStatus& aStatusOfAlgo = theOtherAlgo->GetStatus();
-  for (Standard_Integer i = Message_ExecStatus::FirstStatus; i <= Message_ExecStatus::LastStatus;
+  const ExecutionStatus& aStatusOfAlgo = theOtherAlgo->GetStatus();
+  for (Standard_Integer i = ExecutionStatus::FirstStatus; i <= ExecutionStatus::LastStatus;
        i++)
   {
-    Message_Status stat = Message_ExecStatus::StatusByIndex(i);
+    Message_Status stat = ExecutionStatus::StatusByIndex(i);
     if (!theAllowedStatus.IsSet(stat) || !aStatusOfAlgo.IsSet(stat))
       continue;
 
@@ -288,8 +288,8 @@ void Message_Algorithm::AddStatus(const Message_ExecStatus&        theAllowedSta
     {
       // Create sequence of integer parameters for a given flag, if not yet done
       if (myReportIntegers.IsNull())
-        myReportIntegers = new TColStd_HArray1OfTransient(Message_ExecStatus::FirstStatus,
-                                                          Message_ExecStatus::LastStatus);
+        myReportIntegers = new TColStd_HArray1OfTransient(ExecutionStatus::FirstStatus,
+                                                          ExecutionStatus::LastStatus);
       Handle(RefObject)& aData = myReportIntegers->ChangeValue(i);
       if (aData.IsNull())
         aData = new TColStd_HPackedMapOfInteger;
@@ -316,7 +316,7 @@ Handle(TColStd_HPackedMapOfInteger) Message_Algorithm::GetMessageNumbers(
     return 0;
 
   // Find index of bit corresponding to that flag
-  Standard_Integer aFlagIndex = Message_ExecStatus::StatusIndex(theStatus);
+  Standard_Integer aFlagIndex = ExecutionStatus::StatusIndex(theStatus);
   if (!aFlagIndex)
     return 0;
 
@@ -332,7 +332,7 @@ Handle(TColStd_HSequenceOfHExtendedString) Message_Algorithm::GetMessageStrings(
     return 0;
 
   // Find index of bit corresponding to that flag
-  Standard_Integer aFlagIndex = Message_ExecStatus::StatusIndex(theStatus);
+  Standard_Integer aFlagIndex = ExecutionStatus::StatusIndex(theStatus);
   if (!aFlagIndex)
     return 0;
 
@@ -355,7 +355,7 @@ UtfString Message_Algorithm::PrepareReport(
   {
     if (nb > 1)
       aNewReport += " ";
-    aNewReport += anIt.Key();
+    aNewReport += anIt.Key1();
   }
 
   if (anIt.More())

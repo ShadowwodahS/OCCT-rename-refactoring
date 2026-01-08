@@ -110,7 +110,7 @@ void Curve1::SetConeQuadValues(const Cone1&         Cone,
                                      const Standard_Boolean takezpositive)
 {
 
-  Ax3  = Cone.Position();
+  Ax3  = Cone.Position1();
   RCyl = Cone.RefRadius();
 
   Angle                      = Cone.SemiAngle();
@@ -176,7 +176,7 @@ void Curve1::SetCylinderQuadValues(const Cylinder1&     Cyl,
                                          const Standard_Boolean takezpositive)
 {
 
-  Ax3         = Cyl.Position();
+  Ax3         = Cyl.Position1();
   RCyl        = Cyl.Radius();
   typequadric = GeomAbs_Cylinder;
 

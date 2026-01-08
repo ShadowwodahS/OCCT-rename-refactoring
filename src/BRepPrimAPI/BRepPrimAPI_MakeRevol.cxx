@@ -37,7 +37,7 @@
 // perform checks on the argument
 static const TopoShape& check(const TopoShape& S)
 {
-  BRepLib::BuildCurves3d(S);
+  BRepLib1::BuildCurves3d(S);
   return S;
 }
 
@@ -100,7 +100,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
     return;
   }
   myShape = myRevol.Shape();
-  BRepLib::UpdateInnerTolerances(myShape);
+  BRepLib1::UpdateInnerTolerances(myShape);
 
   Done();
   myIsBuild = Standard_True;
@@ -179,7 +179,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
     {
       aSubs.Clear();
       isReplaced                              = Standard_False;
-      const TopoShape&                aF   = aFIter.Key();
+      const TopoShape&                aF   = aFIter.Key1();
       const ShapeList&        aDEL = aFIter.ChangeValue();
       TopTools_ListIteratorOfListOfShape anEIter(aDEL);
       for (; anEIter.More(); anEIter.Next())

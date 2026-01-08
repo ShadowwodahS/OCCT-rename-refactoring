@@ -88,11 +88,11 @@ inline Standard_IStream& operator>>(Standard_IStream& theIS, BinObjMgt_Persisten
 }
 
 //=======================================================================
-// function : Position
+// function : Position1
 // purpose  : Tells the current position for get/put
 //=======================================================================
 
-inline Standard_Integer BinObjMgt_Persistent::Position() const
+inline Standard_Integer BinObjMgt_Persistent::Position1() const
 {
   return (myIndex - 1) * BP_PIECESIZE + myOffset;
 }
@@ -120,7 +120,7 @@ inline Standard_Boolean BinObjMgt_Persistent::SetPosition(const Standard_Integer
 
 inline void BinObjMgt_Persistent::Truncate()
 {
-  mySize = Position();
+  mySize = Position1();
 }
 
 //=======================================================================
@@ -185,7 +185,7 @@ inline Standard_Integer BinObjMgt_Persistent::prepareForPut(const Standard_Integ
   if (nbToAdd > 0)
     // create needed pieces
     incrementData(nbToAdd);
-  Standard_Integer aNewPosition = Position() + theSize;
+  Standard_Integer aNewPosition = Position1() + theSize;
   if (aNewPosition > mySize)
     mySize = aNewPosition;
   return nbPieces;
@@ -199,7 +199,7 @@ inline Standard_Integer BinObjMgt_Persistent::prepareForPut(const Standard_Integ
 
 inline Standard_Boolean BinObjMgt_Persistent::noMoreData(const Standard_Integer theSize) const
 {
-  ((BinObjMgt_Persistent*)this)->myIsError = Position() + theSize > mySize;
+  ((BinObjMgt_Persistent*)this)->myIsError = Position1() + theSize > mySize;
   return myIsError;
 }
 

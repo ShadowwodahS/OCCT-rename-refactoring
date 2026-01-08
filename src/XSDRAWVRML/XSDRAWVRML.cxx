@@ -90,7 +90,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
       aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
-        Message::SendFail() << "Error: wrong length unit '" << aUnitStr << "'";
+        Message1::SendFail() << "Error: wrong length unit '" << aUnitStr << "'";
         return 1;
       }
     }
@@ -98,7 +98,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgv[++anArgIt], aFileCoordSys))
       {
-        Message::SendFail() << "Error: unknown coordinate system '" << theArgv[anArgIt] << "'";
+        Message1::SendFail() << "Error: unknown coordinate system '" << theArgv[anArgIt] << "'";
         return 1;
       }
     }
@@ -106,7 +106,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgv[++anArgIt], aSystemCoordSys))
       {
-        Message::SendFail() << "Error: unknown coordinate system '" << theArgv[anArgIt] << "'";
+        Message1::SendFail() << "Error: unknown coordinate system '" << theArgv[anArgIt] << "'";
         return 1;
       }
     }
@@ -133,14 +133,14 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgv[anArgIt] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgv[anArgIt] << "'";
       return 1;
     }
   }
 
   if (aFilePath.IsEmpty() || aDocName == nullptr)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -148,7 +148,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
   {
     if (toUseExistingDoc)
     {
-      Message::SendFail() << "Error: document with name " << aDocName << " does not exist";
+      Message1::SendFail() << "Error: document with name " << aDocName << " does not exist";
       return 1;
     }
     Handle(AppManager) anApp = DDocStd1::GetApplication();
@@ -156,7 +156,7 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
   }
   else if (!toUseExistingDoc)
   {
-    Message::SendFail() << "Error: document with name " << aDocName << " already exists\n";
+    Message1::SendFail() << "Error: document with name " << aDocName << " already exists\n";
     return 1;
   }
 
@@ -180,10 +180,10 @@ static Standard_Integer ReadVrml(DrawInterpreter& theDI,
   {
     if (aVrmlReader.ExtraStatus() != RWMesh_CafReaderStatusEx_Partial)
     {
-      Message::SendFail() << "Error: file reading failed '" << aFilePath << "'";
+      Message1::SendFail() << "Error: file reading failed '" << aFilePath << "'";
       return 1;
     }
-    Message::SendWarning() << "Warning: file has been read paratially (due to unexpected EOF, "
+    Message1::SendWarning() << "Warning: file has been read paratially (due to unexpected EOF, "
                               "syntax error, memory limit) "
                            << aFilePath;
   }
@@ -271,7 +271,7 @@ static Standard_Integer loadvrml(DrawInterpreter& di, Standard_Integer argc, con
       }
 
       VrmlData_Scene      aScene;
-      const Standard_Real anOCCUnitMM = XSDRAW::GetLengthUnit();
+      const Standard_Real anOCCUnitMM = XSDRAW1::GetLengthUnit();
       aScene.SetLinearScale(1000. / anOCCUnitMM);
 
       aScene.SetVrmlDir(aVrmlDir);
@@ -410,7 +410,7 @@ static Standard_Integer writevrml(DrawInterpreter& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-void XSDRAWVRML::Factory(DrawInterpreter& theDI)
+void XSDRAWVRML1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean anInitActor = Standard_False;
   if (anInitActor)
@@ -450,9 +450,9 @@ void XSDRAWVRML::Factory(DrawInterpreter& theDI)
             writevrml,
             aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWVRML)
+DPLUGIN(XSDRAWVRML1)

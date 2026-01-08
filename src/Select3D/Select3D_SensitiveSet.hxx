@@ -59,8 +59,8 @@ public:
 
   //! Checks whether one or more entities of the set overlap current selecting volume.
   //! Implements the traverse of BVH tree built for the set
-  virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                   SelectBasics_PickResult& thePickResult) Standard_OVERRIDE
+  virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                   PickResult& thePickResult) Standard_OVERRIDE
   {
     return matches(theMgr, thePickResult, false);
   }
@@ -112,8 +112,8 @@ protected:
   //!        the method will return TRUE if at least one sub-element is fully inside selection
   //!        volume ::elementIsInside(); this is useful for entities allowing local selection of
   //!        sub-elements using single Owner object.
-  Standard_EXPORT Standard_Boolean matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                           SelectBasics_PickResult&             thePickResult,
+  Standard_EXPORT Standard_Boolean matches(SelectingVolumeManager& theMgr,
+                                           PickResult&             thePickResult,
                                            Standard_Boolean theToCheckAllInside);
 
   //! Checks whether the entity with index theIdx (partially) overlaps the current selecting volume.
@@ -124,8 +124,8 @@ protected:
   //! selection volume (in case of rectangle selection);
   //!                             in this case algorithm might skip checking the element and just
   //!                             register it as detected
-  virtual Standard_Boolean overlapsElement(SelectBasics_PickResult&             thePickResult,
-                                           SelectBasics_SelectingVolumeManager& theMgr,
+  virtual Standard_Boolean overlapsElement(PickResult&             thePickResult,
+                                           SelectingVolumeManager& theMgr,
                                            Standard_Integer                     theElemIdx,
                                            Standard_Boolean theIsFullInside) = 0;
 
@@ -136,13 +136,13 @@ protected:
   //! selection volume (in case of rectangle selection);
   //!                             in this case algorithm might skip checking the element and just
   //!                             register it as detected
-  virtual Standard_Boolean elementIsInside(SelectBasics_SelectingVolumeManager& theMgr,
+  virtual Standard_Boolean elementIsInside(SelectingVolumeManager& theMgr,
                                            Standard_Integer                     theElemIdx,
                                            Standard_Boolean theIsFullInside) = 0;
 
   //! Calculates distance from the 3d projection of used-picked screen point to center of the
   //! geometry
-  virtual Standard_Real distanceToCOG(SelectBasics_SelectingVolumeManager& theMgr) = 0;
+  virtual Standard_Real distanceToCOG(SelectingVolumeManager& theMgr) = 0;
 
   //! Process elements overlapped by the selection volume
   //! @param theMgr selection manager
@@ -154,12 +154,12 @@ protected:
   //! @param[out] theMatchesNb  number of processed elements
   //! @return FALSE if some element is outside the selection volume (if IsOverlapAllowed is FALSE);
   //! TRUE otherwise
-  Standard_EXPORT Standard_Boolean processElements(SelectBasics_SelectingVolumeManager& theMgr,
+  Standard_EXPORT Standard_Boolean processElements(SelectingVolumeManager& theMgr,
                                                    Standard_Integer         theFirstElem,
                                                    Standard_Integer         theLastElem,
                                                    Standard_Boolean         theIsFullInside,
                                                    Standard_Boolean         theToCheckAllInside,
-                                                   SelectBasics_PickResult& thePickResult,
+                                                   PickResult& thePickResult,
                                                    Standard_Integer&        theMatchesNb);
 
 protected:

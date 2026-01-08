@@ -83,7 +83,7 @@ Geom_ToroidalSurface::Geom_ToroidalSurface(const gp_Torus& T)
       minorRadius(T.MinorRadius())
 {
 
-  pos = T.Position();
+  pos = T.Position1();
 }
 
 //=================================================================================================
@@ -179,7 +179,7 @@ void Geom_ToroidalSurface::SetTorus(const gp_Torus& T)
 
   minorRadius = T.MinorRadius();
   majorRadius = T.MajorRadius();
-  pos         = T.Position();
+  pos         = T.Position1();
 }
 
 //=================================================================================================

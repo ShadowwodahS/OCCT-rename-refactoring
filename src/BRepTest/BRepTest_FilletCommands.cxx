@@ -195,11 +195,11 @@ static Standard_Integer BLEND(DrawInterpreter& di, Standard_Integer narg, const 
     return 1;
 
   // Save history for fillet
-  if (BRepTest_Objects::IsHistoryNeeded())
+  if (Objects1::IsHistoryNeeded())
   {
     ShapeList anArg;
     anArg.Append(V);
-    BRepTest_Objects::SetHistory(anArg, *Rakk);
+    Objects1::SetHistory(anArg, *Rakk);
   }
 
   TopoShape res = Rakk->Shape();
@@ -367,7 +367,7 @@ Standard_Integer boptopoblend(DrawInterpreter& di, Standard_Integer narg, const 
   printtolblend(di);
   if (narg < 5)
   {
-    Message::SendFail() << "Use <command name> result shape1 shape2 radius [-d]";
+    Message1::SendFail() << "Use <command name> result shape1 shape2 radius [-d]";
     return 1;
   }
 
@@ -376,7 +376,7 @@ Standard_Integer boptopoblend(DrawInterpreter& di, Standard_Integer narg, const 
   TopoShape     S2   = DBRep1::Get(a[3]);
   if (S1.IsNull() || S2.IsNull())
   {
-    Message::SendFail() << " Null shapes are not allowed";
+    Message1::SendFail() << " Null shapes are not allowed";
     return 1;
   }
   Standard_Real    Rad     = Draw1::Atof(a[4]);
@@ -401,7 +401,7 @@ Standard_Integer boptopoblend(DrawInterpreter& di, Standard_Integer narg, const 
   theDSFiller.Perform(aPS.Next(8));
   if (theDSFiller.HasErrors())
   {
-    Message::SendFail() << "Check types of the arguments, please";
+    Message1::SendFail() << "Check types of the arguments, please";
     return 1;
   }
 
@@ -414,7 +414,7 @@ Standard_Integer boptopoblend(DrawInterpreter& di, Standard_Integer narg, const 
   Standard_Boolean anIsDone = pBuilder->IsDone();
   if (!anIsDone)
   {
-    Message::SendFail() << "boolean operation not done HasErrors()=" << pBuilder->HasErrors();
+    Message1::SendFail() << "boolean operation not done HasErrors()=" << pBuilder->HasErrors();
     return 1;
   }
 
@@ -776,7 +776,7 @@ Standard_Integer rollingball(DrawInterpreter& di, Standard_Integer n, const char
 
 //=================================================================================================
 
-void BRepTest::FilletCommands(DrawInterpreter& theCommands)
+void BRepTest1::FilletCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

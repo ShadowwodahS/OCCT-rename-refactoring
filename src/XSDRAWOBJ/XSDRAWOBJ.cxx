@@ -83,7 +83,7 @@ static Standard_Integer ReadObj(DrawInterpreter& theDI,
       aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
-        Message::SendFail() << "Syntax error: wrong length unit '" << aUnitStr << "'";
+        Message1::SendFail() << "Syntax error: wrong length unit '" << aUnitStr << "'";
         return 1;
       }
     }
@@ -93,7 +93,7 @@ static Standard_Integer ReadObj(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgVec[++anArgIter], aFileCoordSys))
       {
-        Message::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
+        Message1::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
                             << "'";
         return 1;
       }
@@ -104,7 +104,7 @@ static Standard_Integer ReadObj(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgVec[++anArgIter], aResultCoordSys))
       {
-        Message::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
+        Message1::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
                             << "'";
         return 1;
       }
@@ -146,13 +146,13 @@ static Standard_Integer ReadObj(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
   if (aFilePath.IsEmpty())
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -167,18 +167,18 @@ static Standard_Integer ReadObj(DrawInterpreter& theDI,
     {
       if (toUseExistingDoc)
       {
-        Message::SendFail() << "Error: document with name " << aDestName << " does not exist";
+        Message1::SendFail() << "Error: document with name " << aDestName << " does not exist";
         return 1;
       }
       anApp->NewDocument(UtfString("BinXCAF"), aDoc);
     }
     else if (!toUseExistingDoc)
     {
-      Message::SendFail() << "Error: document with name " << aDestName << " already exists";
+      Message1::SendFail() << "Error: document with name " << aDestName << " already exists";
       return 1;
     }
   }
-  const Standard_Real aScaleFactorM = XSDRAW::GetLengthUnit() / 1000;
+  const Standard_Real aScaleFactorM = XSDRAW1::GetLengthUnit() / 1000;
 
   RWObj_CafReader aReader;
   aReader.SetSinglePrecision(isSinglePrecision);
@@ -259,7 +259,7 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
       aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
-        Message::SendFail() << "Syntax error: wrong length unit '" << aUnitStr << "'";
+        Message1::SendFail() << "Syntax error: wrong length unit '" << aUnitStr << "'";
         return 1;
       }
     }
@@ -269,7 +269,7 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgVec[++anArgIter], aFileCoordSys))
       {
-        Message::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
+        Message1::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
                             << "'";
         return 1;
       }
@@ -280,7 +280,7 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
     {
       if (!parseCoordinateSystem(theArgVec[++anArgIter], aSystemCoordSys))
       {
-        Message::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
+        Message1::SendFail() << "Syntax error: unknown coordinate system '" << theArgVec[anArgIter]
                             << "'";
         return 1;
       }
@@ -302,7 +302,7 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
         TopoShape aShape = DBRep1::Get(aNameVar);
         if (aShape.IsNull())
         {
-          Message::SendFail() << "Syntax error: '" << aNameVar << "' is not a shape nor document";
+          Message1::SendFail() << "Syntax error: '" << aNameVar << "' is not a shape nor document";
           return 1;
         }
 
@@ -317,19 +317,19 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
   if (anObjFilePath.IsEmpty())
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI, 1);
 
-  const Standard_Real aSystemUnitFactor = XSDRAW::GetLengthUnit() * 0.001;
+  const Standard_Real aSystemUnitFactor = XSDRAW1::GetLengthUnit() * 0.001;
   RWObj_CafWriter     aWriter(anObjFilePath);
   aWriter.ChangeCoordinateSystemConverter().SetInputLengthUnit(aSystemUnitFactor);
   aWriter.ChangeCoordinateSystemConverter().SetInputCoordinateSystem(aSystemCoordSys);
@@ -341,7 +341,7 @@ static Standard_Integer WriteObj(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XSDRAWOBJ::Factory(DrawInterpreter& theDI)
+void XSDRAWOBJ1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -390,9 +390,9 @@ void XSDRAWOBJ::Factory(DrawInterpreter& theDI)
     aGroup);
   theDI.Add("writeobj", "writeobj shape file", __FILE__, WriteObj, aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWOBJ)
+DPLUGIN(XSDRAWOBJ1)

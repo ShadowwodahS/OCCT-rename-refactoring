@@ -27,7 +27,7 @@ class UtfString;
 class Point3d;
 
 //! A framework to define display of symbols.
-class DsgPrs_SymbPresentation
+class SymbPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

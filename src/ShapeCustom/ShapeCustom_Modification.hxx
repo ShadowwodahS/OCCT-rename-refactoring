@@ -26,7 +26,7 @@ class Message_Msg;
 class ShapeCustom_Modification;
 DEFINE_STANDARD_HANDLE(ShapeCustom_Modification, BRepTools_Modification)
 
-//! A base class of Modification's from ShapeCustom.
+//! A base class of Modification's from ShapeCustom1.
 //! Implements message sending mechanism.
 class ShapeCustom_Modification : public BRepTools_Modification
 {

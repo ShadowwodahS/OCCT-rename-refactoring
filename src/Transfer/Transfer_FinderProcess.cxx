@@ -96,10 +96,10 @@ void Transfer_FinderProcess::PrintStats(const Standard_Integer mode, Standard_OS
     if (nbr > nbroots)
       S << "****      ( Itermediate Results : " << nbr - nbroots << " )\n";
     if (nbe > 0)
-      S << "****                  Errors on :" << Interface_MSG::Blanks(nbe, 4) << nbe
+      S << "****                  Errors on :" << MessageSystem::Blanks(nbe, 4) << nbe
         << " Entities\n";
     if (nbw > 0)
-      S << "****                Warnings on : " << Interface_MSG::Blanks(nbw, 4) << nbw
+      S << "****                Warnings on : " << MessageSystem::Blanks(nbw, 4) << nbw
         << " Entities\n";
     S << "*******************************************************************";
   }

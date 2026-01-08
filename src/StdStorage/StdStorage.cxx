@@ -36,19 +36,19 @@
 #include <stdio.h>
 
 //=======================================================================
-// StdStorage::Version
+// StdStorage1::Version
 //=======================================================================
-AsciiString1 StdStorage::Version()
+AsciiString1 StdStorage1::Version()
 {
   AsciiString1 v("1.3");
   return v;
 }
 
 //=======================================================================
-// StdStorage::Read
+// StdStorage1::Read
 // Reads data from a file
 //=======================================================================
-Storage_Error StdStorage::Read(const AsciiString1& theFileName,
+Storage_Error StdStorage1::Read(const AsciiString1& theFileName,
                                Handle(StdStorage_Data)&       theData)
 {
   // Create a driver appropriate for the given file
@@ -71,10 +71,10 @@ Storage_Error StdStorage::Read(const AsciiString1& theFileName,
 }
 
 //=======================================================================
-// StdStorage::Read
+// StdStorage1::Read
 // Reads data from a pre-opened for reading driver
 //=======================================================================
-Storage_Error StdStorage::Read(const Handle(Storage_BaseDriver)& theDriver,
+Storage_Error StdStorage1::Read(const Handle(Storage_BaseDriver)& theDriver,
                                Handle(StdStorage_Data)&          theData)
 {
   if (theData.IsNull())
@@ -114,7 +114,7 @@ Storage_Error StdStorage::Read(const Handle(Storage_BaseDriver)& theDriver,
   Storage_Error anError;
 
   // Read and parse reference section
-  StdObjMgt_ReadData aReadData(theDriver, aHeaderData->NumberOfObjects());
+  ReadData aReadData(theDriver, aHeaderData->NumberOfObjects());
 
   anError = theDriver->BeginReadRefSection();
   if (anError != Storage_VSOk)
@@ -185,7 +185,7 @@ Storage_Error StdStorage::Read(const Handle(Storage_BaseDriver)& theDriver,
     for (StdStorage_HSequenceOfRoots::Iterator anIt(*aRoots); anIt.More(); anIt.Next())
     {
       Handle(StdStorage_Root)& aRoot = anIt.ChangeValue();
-      aRoot->SetObject(aReadData.PersistentObject(aRoot->Reference()));
+      aRoot->SetObject(aReadData.PersistentObject(aRoot->Reference1()));
     }
   }
 
@@ -193,7 +193,7 @@ Storage_Error StdStorage::Read(const Handle(Storage_BaseDriver)& theDriver,
 }
 
 //=======================================================================
-// StdStorage::currentDate
+// StdStorage1::currentDate
 //=======================================================================
 static AsciiString1 currentDate()
 {
@@ -214,9 +214,9 @@ static AsciiString1 currentDate()
 }
 
 //=======================================================================
-// StdStorage::Write
+// StdStorage1::Write
 //=======================================================================
-Storage_Error StdStorage::Write(const Handle(Storage_BaseDriver)& theDriver,
+Storage_Error StdStorage1::Write(const Handle(Storage_BaseDriver)& theDriver,
                                 const Handle(StdStorage_Data)&    theData)
 {
   Standard_NullObject_Raise_if(theData.IsNull(), "Null storage data");
@@ -266,7 +266,7 @@ Storage_Error StdStorage::Write(const Handle(Storage_BaseDriver)& theDriver,
     }
   }
 
-  aHeaderData->SetStorageVersion(StdStorage::Version());
+  aHeaderData->SetStorageVersion(StdStorage1::Version());
   aHeaderData->SetNumberOfObjects(aPObjs.Length());
 
   try
@@ -307,7 +307,7 @@ Storage_Error StdStorage::Write(const Handle(Storage_BaseDriver)& theDriver,
     if (anError != Storage_VSOk)
       return anError;
 
-    StdObjMgt_WriteData aWriteData(theDriver);
+    WriteData aWriteData(theDriver);
     for (StdStorage_BucketIterator anIt(&aPObjs); anIt.More(); anIt.Next())
     {
       Handle(StdObjMgt_Persistent) aPObj = anIt.Value();

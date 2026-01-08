@@ -19,7 +19,7 @@
 #include <VrmlData_Geometry.hxx>
 
 /**
- *  Common API of faceted Geometry nodes: IndexedFaceSet, ElevationGrid,
+ *  Common API of faceted Geometry1 nodes: IndexedFaceSet, ElevationGrid,
  *  Extrusion.
  */
 class VrmlData_Faceted : public VrmlData_Geometry

@@ -22,7 +22,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Contains commands to work with shapes and assemblies
-class XDEDRAW_Shapes
+class ShapeCommands
 {
 public:
   DEFINE_STANDARD_ALLOC

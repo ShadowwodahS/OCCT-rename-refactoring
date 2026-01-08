@@ -146,7 +146,7 @@ Handle(Image_PixMap) Image_Texture::loadImageBuffer(const Handle(NCollection_Buf
   }
   else if (theBuffer->Size() > (Standard_Size)IntegerLast())
   {
-    Message::SendFail(AsciiString1("Error: Image file size is too big '") + theId + "'");
+    Message1::SendFail(AsciiString1("Error: Image file size is too big '") + theId + "'");
     return Handle(Image_PixMap)();
   }
 
@@ -166,7 +166,7 @@ Handle(Image_PixMap) Image_Texture::loadImageOffset(const AsciiString1& thePath,
 {
   if (theLength > IntegerLast())
   {
-    Message::SendFail(AsciiString1("Error: Image file size is too big '") + thePath
+    Message1::SendFail(AsciiString1("Error: Image file size is too big '") + thePath
                       + "'");
     return Handle(Image_PixMap)();
   }
@@ -176,14 +176,14 @@ Handle(Image_PixMap) Image_Texture::loadImageOffset(const AsciiString1& thePath,
     aFileSystem->OpenIStream(thePath, std::ios::in | std::ios::binary);
   if (aFile.get() == NULL)
   {
-    Message::SendFail(AsciiString1("Error: Image file '") + thePath
+    Message1::SendFail(AsciiString1("Error: Image file '") + thePath
                       + "' cannot be opened");
     return Handle(Image_PixMap)();
   }
   aFile->seekg((std::streamoff)theOffset, std::ios_base::beg);
   if (!aFile->good())
   {
-    Message::SendFail(AsciiString1("Error: Image is defined with invalid file offset '")
+    Message1::SendFail(AsciiString1("Error: Image is defined with invalid file offset '")
                       + thePath + "'");
     return Handle(Image_PixMap)();
   }
@@ -239,7 +239,7 @@ AsciiString1 Image_Texture::ProbeImageFileFormat() const
       aFileSystem->OpenIStream(myImagePath, std::ios::in | std::ios::binary);
     if (aFileIn.get() == NULL)
     {
-      Message::SendFail(AsciiString1("Error: Unable to open file '") + myImagePath
+      Message1::SendFail(AsciiString1("Error: Unable to open file '") + myImagePath
                         + "'");
       return false;
     }
@@ -248,7 +248,7 @@ AsciiString1 Image_Texture::ProbeImageFileFormat() const
       aFileIn->seekg((std::streamoff)myOffset, std::ios_base::beg);
       if (!aFileIn->good())
       {
-        Message::SendFail(
+        Message1::SendFail(
           AsciiString1("Error: Image is defined with invalid file offset '")
           + myImagePath + "'");
         return false;
@@ -257,7 +257,7 @@ AsciiString1 Image_Texture::ProbeImageFileFormat() const
 
     if (!aFileIn->read(aBuffer, THE_PROBE_SIZE))
     {
-      Message::SendFail(AsciiString1("Error: unable to read image file '") + myImagePath
+      Message1::SendFail(AsciiString1("Error: unable to read image file '") + myImagePath
                         + "'");
       return false;
     }
@@ -309,7 +309,7 @@ Standard_Boolean Image_Texture::WriteImage(const AsciiString1& theFile)
     aFileSystem->OpenOStream(theFile, std::ios::out | std::ios::binary | std::ios::trunc);
   if (aFileOut.get() == NULL)
   {
-    Message::SendFail(AsciiString1("Error: Unable to create file '") + theFile + "'");
+    Message1::SendFail(AsciiString1("Error: Unable to create file '") + theFile + "'");
     return false;
   }
 
@@ -321,7 +321,7 @@ Standard_Boolean Image_Texture::WriteImage(const AsciiString1& theFile)
   aFileOut->flush();
   if (!aFileOut->good())
   {
-    Message::SendFail(AsciiString1("Error: Unable to write file '") + theFile + "'");
+    Message1::SendFail(AsciiString1("Error: Unable to write file '") + theFile + "'");
     return false;
   }
   aFileOut.reset();
@@ -338,7 +338,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     theStream.write((const char*)myBuffer->Data(), myBuffer->Size());
     if (!theStream.good())
     {
-      Message::SendFail(AsciiString1("File '") + theFile + "' cannot be written");
+      Message1::SendFail(AsciiString1("File '") + theFile + "' cannot be written");
       return false;
     }
     return true;
@@ -349,7 +349,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     aFileSystem->OpenIStream(myImagePath, std::ios::in | std::ios::binary);
   if (aFileIn.get() == NULL)
   {
-    Message::SendFail(AsciiString1("Error: Unable to open file ") + myImagePath + "!");
+    Message1::SendFail(AsciiString1("Error: Unable to open file ") + myImagePath + "!");
     return false;
   }
 
@@ -359,7 +359,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     aFileIn->seekg((std::streamoff)myOffset, std::ios_base::beg);
     if (!aFileIn->good())
     {
-      Message::SendFail(
+      Message1::SendFail(
         AsciiString1("Error: Image is defined with invalid file offset '") + myImagePath
         + "'");
       return false;
@@ -382,7 +382,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     }
     if (!aFileIn->read((char*)&aBuffer.ChangeFirst(), aChunkSize))
     {
-      Message::SendFail(AsciiString1("Error: unable to read image file '") + myImagePath
+      Message1::SendFail(AsciiString1("Error: unable to read image file '") + myImagePath
                         + "'");
       return false;
     }
@@ -390,7 +390,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
   }
   if (!theStream.good())
   {
-    Message::SendFail(AsciiString1("File '") + theFile + "' can not be written");
+    Message1::SendFail(AsciiString1("File '") + theFile + "' can not be written");
     return false;
   }
   return true;

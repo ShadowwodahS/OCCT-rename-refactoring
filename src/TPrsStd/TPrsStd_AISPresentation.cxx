@@ -208,7 +208,7 @@ void TPrsStd_AISPresentation::SetMaterial(const Graphic3d_NameOfMaterial theName
   if (!myAIS.IsNull())
   {
     if (myAIS->HasMaterial() && myAIS->Material() == theName)
-      return; // AIS has already had that material
+      return; // AIS1 has already had that material
 
     Handle(VisualContext) aContext = getAISContext();
 
@@ -243,7 +243,7 @@ void TPrsStd_AISPresentation::SetTransparency(const Standard_Real theValue)
   if (!myAIS.IsNull())
   {
     if (myAIS->Transparency() == theValue)
-      return; // AIS has already had that transparency
+      return; // AIS1 has already had that transparency
 
     Handle(VisualContext) aContext = getAISContext();
 
@@ -351,7 +351,7 @@ void TPrsStd_AISPresentation::SetColor(const Quantity_NameOfColor theColor)
       myAIS->Color(aColor);
       if (aColor.Name() == theColor)
       {
-        return; // AIS has already had that color
+        return; // AIS1 has already had that color
       }
     }
 
@@ -392,7 +392,7 @@ void TPrsStd_AISPresentation::SetWidth(const Standard_Real theWidth)
   if (!myAIS.IsNull())
   {
     if (myAIS->HasWidth() && myAIS->Width() == theWidth)
-      return; // AIS has already had that width
+      return; // AIS1 has already had that width
 
     Handle(VisualContext) aContext = getAISContext();
 
@@ -458,7 +458,7 @@ void TPrsStd_AISPresentation::SetMode(const Standard_Integer theMode)
   if (!myAIS.IsNull())
   {
     if (myAIS->DisplayMode() == theMode)
-      return; // AIS has already had that mode
+      return; // AIS1 has already had that mode
 
     Handle(VisualContext) aContext = getAISContext();
 
@@ -654,7 +654,7 @@ void TPrsStd_AISPresentation::AfterResume()
 
 //=======================================================================
 // function : BeforeUndo
-// purpose  : le NamedShape associe doit etre present
+// purpose  : le NamedShape1 associe doit etre present
 //=======================================================================
 Standard_Boolean TPrsStd_AISPresentation::BeforeUndo(const Handle(TDF_AttributeDelta)& AD,
                                                      const Standard_Boolean)
@@ -681,7 +681,7 @@ Standard_Boolean TPrsStd_AISPresentation::BeforeUndo(const Handle(TDF_AttributeD
 
 //=======================================================================
 // function : AfterUndo
-// purpose  : le NamedShape associe doit etre present
+// purpose  : le NamedShape1 associe doit etre present
 //=======================================================================
 Standard_Boolean TPrsStd_AISPresentation::AfterUndo(const Handle(TDF_AttributeDelta)& AD,
                                                     const Standard_Boolean)
@@ -720,7 +720,7 @@ void TPrsStd_AISPresentation::AISUpdate()
     Handle(TPrsStd_Driver) aDriver;
     if (TPrsStd_DriverTable::Get()->FindDriver(GetDriverGUID(), aDriver))
     {
-      // Build a new  AIS.
+      // Build a new  AIS1.
       if (myAIS.IsNull())
       {
         Handle(VisualEntity) aNewObj;
@@ -739,7 +739,7 @@ void TPrsStd_AISPresentation::AISUpdate()
             if (!aContext.IsNull())
               aContext->Remove(myAIS, Standard_False);
 
-            // Driver has built new AIS.
+            // Driver has built new AIS1.
             myAIS = anObj;
             anObj->SetOwner(this);
           }

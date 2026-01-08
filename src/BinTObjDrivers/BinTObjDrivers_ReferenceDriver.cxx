@@ -70,7 +70,7 @@ Standard_Boolean BinTObjDrivers_ReferenceDriver::Paste(const BinObjMgt_Persisten
     AsciiString1 aName;
     if (!(theSource >> aName))
       return Standard_False;
-    Handle(TObj_Model) aModel = TObj_Assistant::FindModel(aName.ToCString());
+    Handle(TObj_Model) aModel = Assistant::FindModel(aName.ToCString());
     if (aModel.IsNull())
     {
       AsciiString1 anEntry;

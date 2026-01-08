@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 150202: Changed prototype XmlObjMgt::SetStringValue()
+// AGV 150202: Changed prototype XmlObjMgt1::SetStringValue()
 
 #include <Message_Messenger.hxx>
 #include <Standard_Type.hxx>
@@ -43,11 +43,11 @@ Handle(TDF_Attribute) XmlMDF_ReferenceDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDF_ReferenceDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDF_ReferenceDriver::Paste(const PersistentStorage&  theSource,
                                                const Handle(TDF_Attribute)& theTarget,
                                                XmlObjMgt_RRelocationTable&) const
 {
-  XmlObjMgt_DOMString anXPath = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString anXPath = XmlObjMgt1::GetStringValue(theSource);
 
   if (anXPath == NULL)
   {
@@ -56,7 +56,7 @@ Standard_Boolean XmlMDF_ReferenceDriver::Paste(const XmlObjMgt_Persistent&  theS
   }
 
   AsciiString1 anEntry;
-  if (XmlObjMgt::GetTagEntryString(anXPath, anEntry) == Standard_False)
+  if (XmlObjMgt1::GetTagEntryString(anXPath, anEntry) == Standard_False)
   {
     UtfString aMessage =
       UtfString("Cannot retrieve reference from \"") + anXPath + '\"';
@@ -90,7 +90,7 @@ Standard_Boolean XmlMDF_ReferenceDriver::Paste(const XmlObjMgt_Persistent&  theS
 //           </TDF_Reference>    <This is reference to label 0:4:1>
 //=======================================================================
 void XmlMDF_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                   XmlObjMgt_Persistent&        theTarget,
+                                   PersistentStorage&        theTarget,
                                    XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDF_Reference) aRef = Handle(TDF_Reference)::DownCast(theSource);
@@ -107,9 +107,9 @@ void XmlMDF_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSource,
         Tool3::Entry(refLab, anEntry);
 
         XmlObjMgt_DOMString aDOMString;
-        XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
+        XmlObjMgt1::SetTagEntryString(aDOMString, anEntry);
         // No occurrence of '&', '<' and other irregular XML characters
-        XmlObjMgt::SetStringValue(theTarget, aDOMString, Standard_True);
+        XmlObjMgt1::SetStringValue(theTarget, aDOMString, Standard_True);
       }
     }
   }

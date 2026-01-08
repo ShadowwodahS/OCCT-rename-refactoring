@@ -257,7 +257,7 @@ public:
   }
 
   //! Returns the coordinate system of the hyperbola.
-  const Frame3d& Position() const { return pos; }
+  const Frame3d& Position1() const { return pos; }
 
   //! Computes an axis, whose
   //! -   the origin is the center of this hyperbola, and

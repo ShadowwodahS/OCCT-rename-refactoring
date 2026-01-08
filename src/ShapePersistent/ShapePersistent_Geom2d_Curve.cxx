@@ -20,7 +20,7 @@
 #include <Geom2d_TrimmedCurve.hxx>
 #include <Geom2d_OffsetCurve.hxx>
 
-Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBezier::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBezier1::Import() const
 {
   if (myPoles.IsNull())
     return NULL;
@@ -60,7 +60,7 @@ Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBSpline::Import() const
                                    myPeriodic);
 }
 
-Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pTrimmed::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pTrimmed1::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -68,7 +68,7 @@ Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pTrimmed::Import() const
   return new Geom2d_TrimmedCurve(myBasisCurve->Import(), myFirstU, myLastU);
 }
 
-Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pOffset::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pOffset1::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -88,10 +88,10 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 
 template <>
 void ShapePersistent_Geom2d_Curve::instance<ShapePersistent_Geom2d::Curve, Geom2d_Line, gp_Ax2d>::
-  Write(StdObjMgt_WriteData& theWriteData) const
+  Write(WriteData& theWriteData) const
 {
   Handle(Geom2d_Line) aMyGeom = Handle(Geom2d_Line)::DownCast(myTransient);
-  write(theWriteData, aMyGeom->Position());
+  write(theWriteData, aMyGeom->Position1());
 }
 
 Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
@@ -136,7 +136,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Circle, gp_Circ2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const
+    WriteData& theWriteData) const
 {
   Handle(Geom2d_Circle) aMyGeom = Handle(Geom2d_Circle)::DownCast(myTransient);
   theWriteData << aMyGeom->Circ2d();
@@ -174,7 +174,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Ellipse, gp_Elips2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const
+    WriteData& theWriteData) const
 {
   Handle(Geom2d_Ellipse) aMyGeom = Handle(Geom2d_Ellipse)::DownCast(myTransient);
   theWriteData << aMyGeom->Elips2d();
@@ -212,7 +212,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Hyperbola, gp_Hypr2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const
+    WriteData& theWriteData) const
 {
   Handle(Geom2d_Hyperbola) aMyGeom = Handle(Geom2d_Hyperbola)::DownCast(myTransient);
   theWriteData << aMyGeom->Hypr2d();
@@ -250,7 +250,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Parabola, gp_Parab2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const
+    WriteData& theWriteData) const
 {
   Handle(Geom2d_Parabola) aMyGeom = Handle(Geom2d_Parabola)::DownCast(myTransient);
   theWriteData << aMyGeom->Parab2d();
@@ -290,15 +290,15 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
     else
     {
       Handle(Bezier)  aPBC  = new Bezier;
-      Handle(pBezier) aPpBC = new pBezier;
+      Handle(pBezier1) aPpBC = new pBezier1;
       aPpBC->myRational     = theCurve->IsRational();
       aPpBC->myPoles =
-        StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
+        HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
                                                                  theCurve->Poles());
       if (theCurve->IsRational())
       {
         aPpBC->myWeights =
-          StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
+          HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
       }
       aPBC->myPersistent = aPpBC;
       aPC                = aPBC;
@@ -327,16 +327,16 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
       aPpBSC->myPeriodic      = theCurve->IsPeriodic();
       aPpBSC->mySpineDegree   = theCurve->Degree();
       aPpBSC->myPoles =
-        StdLPersistent_HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
+        HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
                                                                  theCurve->Poles());
       if (theCurve->IsRational())
       {
         aPpBSC->myWeights =
-          StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
+          HArray1::Translate<TColStd_HArray1OfReal>(*theCurve->Weights());
       }
-      aPpBSC->myKnots = StdLPersistent_HArray1::Translate<TColStd_HArray1OfReal>(theCurve->Knots());
+      aPpBSC->myKnots = HArray1::Translate<TColStd_HArray1OfReal>(theCurve->Knots());
       aPpBSC->myMultiplicities =
-        StdLPersistent_HArray1::Translate<TColStd_HArray1OfInteger>(theCurve->Multiplicities());
+        HArray1::Translate<TColStd_HArray1OfInteger>(theCurve->Multiplicities());
       aPBSC->myPersistent = aPpBSC;
       aPC                 = aPBSC;
     }
@@ -359,7 +359,7 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
     else
     {
       Handle(Trimmed)  aPTC  = new Trimmed;
-      Handle(pTrimmed) aPpTC = new pTrimmed;
+      Handle(pTrimmed1) aPpTC = new pTrimmed1;
       aPpTC->myFirstU        = theCurve->FirstParameter();
       aPpTC->myLastU         = theCurve->LastParameter();
       aPpTC->myBasisCurve    = ShapePersistent_Geom2d::Translate(theCurve->BasisCurve(), theMap);
@@ -385,7 +385,7 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
     else
     {
       Handle(Offset)  aPOC  = new Offset;
-      Handle(pOffset) aPpOC = new pOffset;
+      Handle(pOffset1) aPpOC = new pOffset1;
       aPpOC->myOffsetValue  = theCurve->Offset();
       aPpOC->myBasisCurve   = ShapePersistent_Geom2d::Translate(theCurve->BasisCurve(), theMap);
       aPOC->myPersistent    = aPpOC;

@@ -35,10 +35,10 @@ class StdStorage_RootData;
 //! persistent objects (roots) to be stored using
 //! the StdStorage_RootData's function AddRoot. When the set of
 //! data is complete, write it to a container using the
-//! function Write in your StdStorage algorithm.
+//! function Write in your StdStorage1 algorithm.
 //! -   Retrieval mechanism: a StdStorage_Data
 //! object is returned by the Read function from
-//! your StdStorage algorithm. Use the StdStorage_RootData's
+//! your StdStorage1 algorithm. Use the StdStorage_RootData's
 //! functions NumberOfRoots and Roots to find the roots which
 //! were stored in the read container.
 //! The roots of a StdStorage_Data object may share
@@ -61,7 +61,7 @@ public:
   //! Then use the function StdStorage_RootData's AddRoot
   //! to add persistent objects to the set of data.
   //! A StdStorage_Data object is also returned by the
-  //! Read function of a StdStorage algorithm. Use the
+  //! Read function of a StdStorage1 algorithm. Use the
   //! StdStorage_RootData's functions NumberOfRoots and
   //! Roots to find the roots which were stored in the
   //! read container.

@@ -52,7 +52,7 @@ GeomCircle::GeomCircle(const gp_Circ& C)
     : radius(C.Radius())
 {
 
-  pos = C.Position();
+  pos = C.Position1();
 }
 
 //=================================================================================================
@@ -121,7 +121,7 @@ void GeomCircle::SetCirc(const gp_Circ& C)
 {
 
   radius = C.Radius();
-  pos    = C.Position();
+  pos    = C.Position1();
 }
 
 //=================================================================================================

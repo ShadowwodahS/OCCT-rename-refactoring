@@ -461,7 +461,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
     // cylindrical surface
     gp_Circ c1  = aC1Adaptor.Circle();
     gp_Circ c2  = aC2Adaptor.Circle();
-    Ax3  Ac1 = c1.Position();
+    Ax3  Ac1 = c1.Position1();
     V           = Vector3d(c1.Location(), c2.Location()).Dot(Vector3d(Ac1.Direction()));
     if (V < 0.)
     {
@@ -475,7 +475,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
   {
     // conical surface
     gp_Circ k1  = aC1Adaptor.Circle();
-    Ax3  Ak1 = k1.Position();
+    Ax3  Ak1 = k1.Position1();
     if (degen2)
     {
       V   = Vector3d(k1.Location(), BRepInspector::Pnt(v2f)).Dot(Vector3d(Ak1.Direction()));
@@ -502,7 +502,7 @@ Standard_Boolean CreateKPart(const TopoEdge&     Edge1,
   {
     // conical surface with the top at the beginning (degen1 is true)
     gp_Circ k2  = aC2Adaptor.Circle();
-    Ax3  Ak2 = k2.Position();
+    Ax3  Ak2 = k2.Position1();
     Ak2.SetLocation(BRepInspector::Pnt(v1f));
     V   = Vector3d(BRepInspector::Pnt(v1f), k2.Location()).Dot(Vector3d(Ak2.Direction()));
     Rad = k2.Radius(); // - k2.Radius();
@@ -1106,18 +1106,18 @@ void BRepFill_Generator::Perform()
   // all vertices from myShell are the part of orig. section wires
   if (myMutableInput)
   {
-    BRepLib::SameParameter(myShell);
+    BRepLib1::SameParameter(myShell);
   }
   else
   {
     TopTools_DataMapIteratorOfDataMapOfShapeShape aMapIt(myOldNewShapes);
     for (; aMapIt.More(); aMapIt.Next())
     {
-      const TopoShape& aK   = aMapIt.Key();
+      const TopoShape& aK   = aMapIt.Key1();
       const TopoShape& aVal = aMapIt.Value();
       myReshaper.Replace(aK, aVal);
     }
-    BRepLib::SameParameter(myShell, myReshaper);
+    BRepLib1::SameParameter(myShell, myReshaper);
     myShell = TopoDS::Shell(myReshaper.Apply(myShell));
   }
 

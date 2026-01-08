@@ -41,7 +41,7 @@ static Standard_Integer qcurve(DrawInterpreter&,
 {
   if (theArgsNb < 5)
   {
-    Message::SendFail() << "Error: wrong number of argument";
+    Message1::SendFail() << "Error: wrong number of argument";
     return 1;
   }
 
@@ -68,7 +68,7 @@ static Standard_Integer qcurve(DrawInterpreter&,
   {
     if (theArgsNb < 6)
     {
-      Message::SendFail() << "Error: wrong number of arguments";
+      Message1::SendFail() << "Error: wrong number of arguments";
       return 1;
     }
     aResult2d = new Geom2d_Line(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])),
@@ -78,7 +78,7 @@ static Standard_Integer qcurve(DrawInterpreter&,
   }
   else
   {
-    Message::SendFail() << "Error: wrong command name";
+    Message1::SendFail() << "Error: wrong command name";
     return 1;
   }
 
@@ -102,7 +102,7 @@ static Standard_Integer solutions(DrawInterpreter&  theDI,
 {
   if (!theCirTan3.IsDone())
   {
-    Message::SendFail() << "Circle2dThreeTangent is not done";
+    Message1::SendFail() << "Circle2dThreeTangent is not done";
     return 1;
   }
 
@@ -171,7 +171,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
 {
   if (theArgsNb < 5)
   {
-    Message::SendFail() << "Error: wrong number of arguments";
+    Message1::SendFail() << "Error: wrong number of arguments";
     return 1;
   }
 
@@ -195,7 +195,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   {
     if (!anIsPoint1 || !anIsPoint2 || !anIsPoint3)
     {
-      Message::SendFail() << "Error: wrong points definition";
+      Message1::SendFail() << "Error: wrong points definition";
       return 1;
     }
     Circle2dThreeTangent aCircBuilder(aPoint1, aPoint2, aPoint3, aTolerance);
@@ -207,7 +207,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   {
     if (!anIsPoint2 || !anIsPoint3)
     {
-      Message::SendFail() << "Error: wrong points definition";
+      Message1::SendFail() << "Error: wrong points definition";
       return 1;
     }
     Geom2dAdaptor_Curve anAdaptorCurve1(aQCurve1->GetCurve());
@@ -223,7 +223,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
       Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aPoint2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
-    Message::SendFail() << "Error: wrong curve type";
+    Message1::SendFail() << "Error: wrong curve type";
     return 1;
   }
 
@@ -233,7 +233,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   {
     if (!anIsPoint3)
     {
-      Message::SendFail() << "Error: wrong point definition";
+      Message1::SendFail() << "Error: wrong point definition";
       return 1;
     }
     Geom2dAdaptor_Curve anAdaptorCurve1(aQCurve1->GetCurve());
@@ -260,7 +260,7 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
       Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
-    Message::SendFail() << "Error: wrong curve type";
+    Message1::SendFail() << "Error: wrong curve type";
     return 1;
   }
 
@@ -313,13 +313,13 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
     return solutions(theDI, aCircBuilder, theArgVec[1]);
   }
 
-  Message::SendFail() << "Error: wrong curve type";
+  Message1::SendFail() << "Error: wrong curve type";
   return 1;
 }
 
 //=================================================================================================
 
-void GeometryTest::CurveTanCommands(DrawInterpreter& theCommands)
+void GeometryTest1::CurveTanCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean aLoaded = Standard_False;
   if (aLoaded)

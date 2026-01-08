@@ -28,8 +28,8 @@ BRepExtrema_OverlapTool::BRepExtrema_OverlapTool()
 
 //=================================================================================================
 
-BRepExtrema_OverlapTool::BRepExtrema_OverlapTool(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                                                 const Handle(BRepExtrema_TriangleSet)& theSet2)
+BRepExtrema_OverlapTool::BRepExtrema_OverlapTool(const Handle(TriangleSet1)& theSet1,
+                                                 const Handle(TriangleSet1)& theSet2)
     : myFilter(NULL),
       myTolerance(0.0)
 {
@@ -38,8 +38,8 @@ BRepExtrema_OverlapTool::BRepExtrema_OverlapTool(const Handle(BRepExtrema_Triang
 
 //=================================================================================================
 
-void BRepExtrema_OverlapTool::LoadTriangleSets(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                                               const Handle(BRepExtrema_TriangleSet)& theSet2)
+void BRepExtrema_OverlapTool::LoadTriangleSets(const Handle(TriangleSet1)& theSet1,
+                                               const Handle(TriangleSet1)& theSet2)
 {
   mySet1 = theSet1;
   mySet2 = theSet2;
@@ -516,11 +516,11 @@ void BRepExtrema_OverlapTool::intersectTrianglesExact(const Standard_Integer the
     return;
   }
 
-  BRepExtrema_ElementFilter::FilterResult aResult =
-    myFilter == NULL ? BRepExtrema_ElementFilter::DoCheck
+  ElementFilter::FilterResult aResult =
+    myFilter == NULL ? ElementFilter::DoCheck
                      : myFilter->PreCheckElements(theTrgIdx1, theTrgIdx2);
 
-  if (aResult == BRepExtrema_ElementFilter::Overlap)
+  if (aResult == ElementFilter::Overlap)
   {
     getSetOfFaces(myOverlapSubShapes1, aFaceIdx1).Add(aFaceIdx2);
     getSetOfFaces(myOverlapSubShapes2, aFaceIdx2).Add(aFaceIdx1);
@@ -538,7 +538,7 @@ void BRepExtrema_OverlapTool::intersectTrianglesExact(const Standard_Integer the
     }
 #endif
   }
-  else if (aResult == BRepExtrema_ElementFilter::DoCheck)
+  else if (aResult == ElementFilter::DoCheck)
   {
     BVH_Vec3d aTrg2Vert1;
     BVH_Vec3d aTrg2Vert2;
@@ -597,11 +597,11 @@ void BRepExtrema_OverlapTool::intersectTrianglesToler(const Standard_Integer the
     return;
   }
 
-  BRepExtrema_ElementFilter::FilterResult aResult =
-    myFilter == NULL ? BRepExtrema_ElementFilter::DoCheck
+  ElementFilter::FilterResult aResult =
+    myFilter == NULL ? ElementFilter::DoCheck
                      : myFilter->PreCheckElements(theTrgIdx1, theTrgIdx2);
 
-  if (aResult == BRepExtrema_ElementFilter::Overlap)
+  if (aResult == ElementFilter::Overlap)
   {
     getSetOfFaces(myOverlapSubShapes1, aFaceIdx1).Add(aFaceIdx2);
     getSetOfFaces(myOverlapSubShapes2, aFaceIdx2).Add(aFaceIdx1);
@@ -619,7 +619,7 @@ void BRepExtrema_OverlapTool::intersectTrianglesToler(const Standard_Integer the
     }
 #endif
   }
-  else if (aResult == BRepExtrema_ElementFilter::DoCheck)
+  else if (aResult == ElementFilter::DoCheck)
   {
     if (!aPrism1.IsInited)
     {

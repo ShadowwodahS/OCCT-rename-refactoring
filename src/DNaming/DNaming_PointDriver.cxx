@@ -110,7 +110,7 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
     return -1;
   }
 
-  // Naming
+  // Naming1
   const DataLabel& aResultLabel = RESPOSITION(aFunction);
   TNaming_Builder  aBuilder(aResultLabel);
   aBuilder.Generated(aMakeVertex.Shape());

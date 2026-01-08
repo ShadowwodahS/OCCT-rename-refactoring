@@ -38,7 +38,7 @@ Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
   }
 
   Box2 aBox;
-  BRepBndLib::Add(theShape, aBox, Standard_False);
+  BRepBndLib1::Add(theShape, aBox, Standard_False);
 
   Standard_Real aShapeSize = theRelativeDeflection;
   BRepMesh_ShapeTool::BoxMaxDimension(aBox, aShapeSize);

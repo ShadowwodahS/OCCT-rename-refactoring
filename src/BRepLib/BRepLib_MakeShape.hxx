@@ -33,7 +33,7 @@ class TopoEdge;
 //!
 //! It  provides deferred methods to trace the history
 //! of sub-shapes.
-class BRepLib_MakeShape : public BRepLib_Command
+class BRepLib_MakeShape : public Command1
 {
 public:
   DEFINE_STANDARD_ALLOC

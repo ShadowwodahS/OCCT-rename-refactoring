@@ -33,7 +33,7 @@ typedef void (*NCollection_DelListNode)(NCollection_ListNode*,
                                         Handle(NCollection_BaseAllocator)& theAl);
 
 // ********************************************************** BaseList class
-class NCollection_BaseList
+class BaseList
 {
 public:
   //! Memory allocation
@@ -52,21 +52,21 @@ public:
     }
 
     // ******** Constructor with initialisation
-    Iterator(const NCollection_BaseList& theList)
+    Iterator(const BaseList& theList)
         : myCurrent(theList.myFirst),
           myPrevious(NULL)
     {
     }
 
     // ******** Initialisation
-    void Init(const NCollection_BaseList& theList)
+    void Init(const BaseList& theList)
     {
       myCurrent  = theList.myFirst;
       myPrevious = NULL;
     }
 
     // ******** Initialisation
-    void Initialize(const NCollection_BaseList& theList) { Init(theList); }
+    void Initialize(const BaseList& theList) { Init(theList); }
 
     // ******** More
     Standard_Boolean More(void) const { return (myCurrent != NULL); }
@@ -81,7 +81,7 @@ public:
     Standard_Boolean IsEqual(const Iterator& theOther) const { return *this == theOther; }
 
   protected:
-    void Init(const NCollection_BaseList& theList, NCollection_ListNode* const thePrev)
+    void Init(const BaseList& theList, NCollection_ListNode* const thePrev)
     {
       myCurrent  = thePrev ? thePrev->Next() : (NCollection_ListNode*)theList.PLast();
       myPrevious = thePrev;
@@ -90,7 +90,7 @@ public:
   public:
     NCollection_ListNode* myCurrent;  // Pointer to the current node
     NCollection_ListNode* myPrevious; // Pointer to the previous one
-    friend class NCollection_BaseList;
+    friend class BaseList;
   }; // End of nested class Iterator
 
 public:
@@ -109,14 +109,14 @@ public:
 
   // ******** Destructor
   // Purpose: defines virtual interface
-  virtual ~NCollection_BaseList(void) {}
+  virtual ~BaseList(void) {}
 
 protected:
   // --------- PROTECTED METHODS ----------
 
   // ******** Constructor
   // Purpose: Initializes an empty list
-  NCollection_BaseList(const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
+  BaseList(const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
       : myFirst(NULL),
         myLast(NULL),
         myLength(0)
@@ -152,7 +152,7 @@ protected:
 
   // ******** PAppend
   // Purpose: Appends theOther list at the end (clearing it)
-  Standard_EXPORT void PAppend(NCollection_BaseList& theOther);
+  Standard_EXPORT void PAppend(BaseList& theOther);
 
   // ******** PPrepend
   // Purpose: Prepends theNode at the beginning
@@ -160,7 +160,7 @@ protected:
 
   // ******** PPrepend
   // Purpose: Prepends theOther list at the beginning (clearing it)
-  Standard_EXPORT void PPrepend(NCollection_BaseList& theOther);
+  Standard_EXPORT void PPrepend(BaseList& theOther);
 
   // ******** PRemoveFirst
   // Purpose: Removes first node
@@ -176,7 +176,7 @@ protected:
 
   // ******** PInsertBefore
   // Purpose: Inserts theOther list before the node pointed by theIter[ator]
-  Standard_EXPORT void PInsertBefore(NCollection_BaseList& theOther, Iterator& theIter);
+  Standard_EXPORT void PInsertBefore(BaseList& theOther, Iterator& theIter);
 
   // ******** PInsertAfter
   // Purpose: Inserts theNode after one pointed by theIter[ator]
@@ -184,7 +184,7 @@ protected:
 
   // ******** PInsertAfter
   // Purpose: Inserts theOther list after the node pointed by theIter[ator]
-  Standard_EXPORT void PInsertAfter(NCollection_BaseList& theOther, Iterator& theIter);
+  Standard_EXPORT void PInsertAfter(BaseList& theOther, Iterator& theIter);
 
   // ******** PReverse
   // Purpose: Reverse the list

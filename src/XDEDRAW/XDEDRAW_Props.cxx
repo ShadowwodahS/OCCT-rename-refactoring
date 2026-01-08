@@ -223,7 +223,7 @@ static Standard_Integer SetProps(DrawInterpreter& di, Standard_Integer argc, con
       anEps = 0.001;
 
     GeometricProperties G;
-    BRepGProp::VolumeProperties(aShape, G, anEps, Standard_True);
+    BRepGProp1::VolumeProperties(aShape, G, anEps, Standard_True);
     Vres                           = G.Mass();
     Handle(XCAFDoc_Volume) aVolume = new XCAFDoc_Volume;
     if (!aLabel.FindAttribute(XCAFDoc_Volume::GetID(), aVolume))
@@ -236,7 +236,7 @@ static Standard_Integer SetProps(DrawInterpreter& di, Standard_Integer argc, con
       aLabel.AddAttribute(aCentroid);
     aCentroid->Set(aPoint);
 
-    BRepGProp::SurfaceProperties(aShape, G, anEps);
+    BRepGProp1::SurfaceProperties(aShape, G, anEps);
     Ares                       = G.Mass();
     Handle(XCAFDoc_Area) aArea = new XCAFDoc_Area;
     if (!aLabel.FindAttribute(XCAFDoc_Area::GetID(), aArea))
@@ -609,7 +609,7 @@ static Standard_Integer CheckProps(DrawInterpreter& di, Standard_Integer argc, c
       try
       {
         OCC_CATCH_SIGNALS
-        BRepGProp::SurfaceProperties(aShape, G, 0.001);
+        BRepGProp1::SurfaceProperties(aShape, G, 0.001);
         // printf ("%s%9.1f (%3d%%)%s", ( wholeDoc ? "" : "  Area defect:   " ),
         //	aArea->Get() - G.Mass(),
         //	(Standard_Integer)( Abs ( G.Mass() ) > 1e-10 ? 100. * ( aArea->Get() - G.Mass() ) /
@@ -662,7 +662,7 @@ static Standard_Integer CheckProps(DrawInterpreter& di, Standard_Integer argc, c
         }
         else
         {
-          BRepGProp::VolumeProperties(aShape, G, 0.001, Standard_True);
+          BRepGProp1::VolumeProperties(aShape, G, 0.001, Standard_True);
           localVolume = G.Mass();
           pcg         = G.CentreOfMass();
         }
@@ -807,7 +807,7 @@ static Standard_Boolean GetMassProps(const DataLabel&    aLabel,
   {
     TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aLabel);
     GeometricProperties G;
-    BRepGProp::VolumeProperties(aShape, G, 0.001, Standard_True);
+    BRepGProp1::VolumeProperties(aShape, G, 0.001, Standard_True);
     Standard_Real localVolume = G.Mass();
     theMassVal                = aDensity * localVolume;
     theCenterGravity          = G.CentreOfMass().XYZ();
@@ -829,7 +829,7 @@ static Standard_Boolean GetMassProps(const DataLabel&    aLabel,
     // if(aSh.ShapeType()==TopAbs_SOLID) return Standard_False;
 
     Handle(TDataStd_TreeNode) Node;
-    if (aLabel.FindAttribute(XCAFDoc::ShapeRefGUID(), Node) && Node->HasFather())
+    if (aLabel.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node) && Node->HasFather())
     {
       DataLabel SubL = Node->Father()->Label();
       if (GetMassProps(SubL, theCenterGravity, theMassVal, thetol))
@@ -1101,7 +1101,7 @@ static Standard_Integer GetValidationProps(DrawInterpreter& di,
 
 //=================================================================================================
 
-void XDEDRAW_Props::InitCommands(DrawInterpreter& di)
+void PropertyCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

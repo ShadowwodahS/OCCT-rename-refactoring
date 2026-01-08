@@ -26,7 +26,7 @@ V3d_SpotLight::V3d_SpotLight(const Point3d&               thePos,
 {
   SetColor(theColor);
   SetPosition(thePos);
-  SetDirection(V3d::GetProjAxis(theDirection));
+  SetDirection(V3d1::GetProjAxis(theDirection));
 }
 
 //=================================================================================================
@@ -45,5 +45,5 @@ V3d_SpotLight::V3d_SpotLight(const Point3d&         thePos,
 
 void V3d_SpotLight::SetDirection(V3d_TypeOfOrientation theDirection)
 {
-  SetDirection(V3d::GetProjAxis(theDirection));
+  SetDirection(V3d1::GetProjAxis(theDirection));
 }

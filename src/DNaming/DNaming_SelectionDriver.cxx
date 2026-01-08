@@ -107,7 +107,7 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
   TDF_MapIteratorOfLabelMap anItr(aMap);
   for (; anItr.More(); anItr.Next())
   {
-    const DataLabel&        aLabel = anItr.Key();
+    const DataLabel&        aLabel = anItr.Key1();
     AsciiString1 anEntry;
     Tool3::Entry(aLabel, anEntry);
     std::cout << "\tLabel = " << anEntry << std::endl;
@@ -128,17 +128,17 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
     Handle(ShapeAttribute) aNS;
     if (!aRLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
     {
-      std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape is not found" << std::endl;
+      std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape1 is not found" << std::endl;
     }
     else
     {
       if (aNS.IsNull())
       {
-        std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape is NULL" << std::endl;
+        std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape1 is NULL" << std::endl;
       }
       else if (aNS->IsEmpty())
       {
-        std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape is EMPTY on Label = ";
+        std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape1 is EMPTY on Label = ";
         aNS->Label().EntryDump(std::cout);
         std::cout << std::endl;
       }

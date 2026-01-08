@@ -24,7 +24,7 @@
 class Draw_ProgressIndicator;
 DEFINE_STANDARD_HANDLE(Draw_ProgressIndicator, Message_ProgressIndicator)
 
-//! Implements ProgressIndicator (interface provided by Message)
+//! Implements ProgressIndicator (interface provided by Message1)
 //! for DRAW, with possibility to output to TCL window
 //! and/or trace file
 class Draw_ProgressIndicator : public Message_ProgressIndicator

@@ -219,7 +219,7 @@ void HatchGen_PointOnElement::Dump(const Standard_Integer Index) const
 
   std::cout << "        Index of the element = " << myIndex << std::endl;
   std::cout << "        Parameter on element = " << myParam << std::endl;
-  std::cout << "        Position  on element = ";
+  std::cout << "        Position1  on element = ";
   switch (myPosit)
   {
     case TopAbs_FORWARD:

@@ -32,7 +32,7 @@
 //!   aMgr.SetWindowSize (aWidth, aHeight);
 //!   aMgr.BuildSelectingVolume();
 //! @endcode
-class SelectMgr_SelectingVolumeManager : public SelectBasics_SelectingVolumeManager
+class SelectMgr_SelectingVolumeManager : public SelectingVolumeManager
 {
 public:
   //! Creates instances of all available selecting volume types
@@ -120,7 +120,7 @@ public:
   //! SAT intersection test between defined volume and given axis-aligned box
   Standard_EXPORT virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3&    theBoxMin,
                                                        const SelectMgr_Vec3&    theBoxMax,
-                                                       SelectBasics_PickResult& thePickResult) const
+                                                       PickResult& thePickResult) const
     Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by axis-aligned bounding box
@@ -133,7 +133,7 @@ public:
   //! Intersection test between defined volume and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
     const Point3d&            thePnt,
-    SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
+    PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const
@@ -145,13 +145,13 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsPolygon(
     const TColgp_Array1OfPnt& theArrayOfPts,
     Standard_Integer          theSensType,
-    SelectBasics_PickResult&  thePickResult) const Standard_OVERRIDE;
+    PickResult&  thePickResult) const Standard_OVERRIDE;
 
   //! Checks if line segment overlaps selecting frustum
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
     const Point3d&            thePnt1,
     const Point3d&            thePnt2,
-    SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
+    PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! SAT intersection test between defined volume and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
@@ -161,13 +161,13 @@ public:
     const Point3d&            thePnt2,
     const Point3d&            thePnt3,
     Standard_Integer         theSensType,
-    SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
+    PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
     const Point3d&            theCenter,
     const Standard_Real      theRadius,
-    SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
+    PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
@@ -183,7 +183,7 @@ public:
     const Standard_Real      theHeight,
     const Transform3d&           theTrsf,
     const Standard_Boolean   theIsHollow,
-    SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
+    PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -203,7 +203,7 @@ public:
     const Standard_Real      theBottomRad,
     const Transform3d&           theTrsf,
     const Standard_Boolean   theIsFilled,
-    SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
+    PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.

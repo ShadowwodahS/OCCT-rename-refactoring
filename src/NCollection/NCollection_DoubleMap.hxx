@@ -33,9 +33,9 @@
 
 template <class TheKey1Type,
           class TheKey2Type,
-          class Hasher1 = NCollection_DefaultHasher<TheKey1Type>,
-          class Hasher2 = NCollection_DefaultHasher<TheKey2Type>>
-class NCollection_DoubleMap : public NCollection_BaseMap
+          class Hasher1 = DefaultHasher<TheKey1Type>,
+          class Hasher2 = DefaultHasher<TheKey2Type>>
+class NCollection_DoubleMap : public BaseMap
 {
 public:
   //! STL-compliant typedef for key1 type
@@ -82,7 +82,7 @@ public:
 
 public:
   // **************** Implementation of the Iterator interface.
-  class Iterator : public NCollection_BaseMap::Iterator
+  class Iterator : public BaseMap::Iterator
   {
   public:
     //! Empty constructor
@@ -90,7 +90,7 @@ public:
 
     //! Constructor
     Iterator(const NCollection_DoubleMap& theMap)
-        : NCollection_BaseMap::Iterator(theMap)
+        : BaseMap::Iterator(theMap)
     {
     }
 
@@ -127,20 +127,20 @@ public:
 
   //! Empty constructor.
   NCollection_DoubleMap()
-      : NCollection_BaseMap(1, Standard_False, Handle(NCollection_BaseAllocator)())
+      : BaseMap(1, Standard_False, Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_DoubleMap(const Standard_Integer                   theNbBuckets,
                                  const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
-      : NCollection_BaseMap(theNbBuckets, Standard_False, theAllocator)
+      : BaseMap(theNbBuckets, Standard_False, theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_DoubleMap(const NCollection_DoubleMap& theOther)
-      : NCollection_BaseMap(theOther.NbBuckets(), Standard_False, theOther.myAllocator)
+      : BaseMap(theOther.NbBuckets(), Standard_False, theOther.myAllocator)
   {
     *this = theOther;
   }

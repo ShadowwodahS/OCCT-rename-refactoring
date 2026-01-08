@@ -111,7 +111,7 @@ void ShapeAnalysis_TransferParameters::TransferRange(TopoEdge&           newEdge
                                                      const Standard_Real    currPar,
                                                      const Standard_Boolean Is2d)
 {
-  ShapeBuild_Edge sbe;
+  Edge2 sbe;
   if (Is2d)
   {
     Standard_Real span2d = myLast2d - myFirst2d;

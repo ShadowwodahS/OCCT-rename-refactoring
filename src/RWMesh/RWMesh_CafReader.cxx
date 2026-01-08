@@ -155,7 +155,7 @@ Standard_Boolean RWMesh_CafReader::perform(std::istream&                  theStr
 
   aLoadingTimer.Stop();
 
-  Message::SendInfo(AsciiString1("Mesh1 ") + theFile + "\n[" + aNbNodes + " nodes] ["
+  Message1::SendInfo(AsciiString1("Mesh1 ") + theFile + "\n[" + aNbNodes + " nodes] ["
                     + aNbElems + " 2d elements]" + "\n[" + (!isDone ? "PARTIALLY " : "")
                     + "read in " + aLoadingTimer.ElapsedTime() + " s]");
   return Standard_True;
@@ -178,7 +178,7 @@ void RWMesh_CafReader::fillDocument()
   }
   else if (aLengthUnit != SystemLengthUnit())
   {
-    Message::SendWarning("Warning: Length unit of document not equal to the system length unit");
+    Message1::SendWarning("Warning: Length unit of document not equal to the system length unit");
   }
 
   const Standard_Boolean wasAutoNaming = XCAFDoc_ShapeTool::AutoNaming();
@@ -263,7 +263,7 @@ void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
   {
     if (anOtherNamedData->Label() != aNameDataLabel)
     {
-      Message::SendAlarm("Error! Different NamedData is already set to shape");
+      Message1::SendAlarm("Error! Different NamedData is already set to shape");
     }
   }
   else
@@ -274,7 +274,7 @@ void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
     }
     else
     {
-      Message::SendAlarm("Error! Skipped NamedData instance shared across shapes");
+      Message1::SendAlarm("Error! Skipped NamedData instance shared across shapes");
     }
   }
 }

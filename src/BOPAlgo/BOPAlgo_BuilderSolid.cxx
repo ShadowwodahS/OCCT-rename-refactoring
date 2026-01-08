@@ -449,7 +449,7 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
       myAreas.Append(aSol);
       // Build box
       Box2 aBox;
-      BRepBndLib::Add(aSol, aBox);
+      BRepBndLib1::Add(aSol, aBox);
       myBoxes.Bind(aSol, aBox);
     }
     return;
@@ -466,7 +466,7 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
     const TopoShape& aHShell = aHoleShells(i);
     //
     Box2 aBox;
-    BRepBndLib::Add(aHShell, aBox);
+    BRepBndLib1::Add(aHShell, aBox);
     aBBTree.Add(i, Tools5::Bnd2BVH(aBox));
 
     myBoxes.Bind(aHShell, aBox);
@@ -490,7 +490,7 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
 
     // Build box
     Box2 aBox;
-    BRepBndLib::Add(aSolid, aBox);
+    BRepBndLib1::Add(aSolid, aBox);
 
     myBoxes.Bind(aSolid, aBox);
 

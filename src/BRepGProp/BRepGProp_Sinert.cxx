@@ -77,7 +77,7 @@ void BRepGProp_Sinert::Perform(const BRepGProp_Face& theSurface)
 {
   myEpsilon = 1.0;
 
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Sinert);
+  Gauss1 aGauss(Gauss1::Sinert);
   aGauss.Compute(theSurface, loc, dim, g, inertia);
 }
 
@@ -87,7 +87,7 @@ void BRepGProp_Sinert::Perform(BRepGProp_Face& theSurface, BRepGProp_Domain& the
 {
   myEpsilon = 1.0;
 
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Sinert);
+  Gauss1 aGauss(Gauss1::Sinert);
   aGauss.Compute(theSurface, theDomain, loc, dim, g, inertia);
 }
 
@@ -105,7 +105,7 @@ Standard_Real BRepGProp_Sinert::Perform(BRepGProp_Face&     theSurface,
                                         BRepGProp_Domain&   theDomain,
                                         const Standard_Real theEps)
 {
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Sinert);
+  Gauss1 aGauss(Gauss1::Sinert);
   return myEpsilon = aGauss.Compute(theSurface, theDomain, loc, theEps, dim, g, inertia);
 }
 

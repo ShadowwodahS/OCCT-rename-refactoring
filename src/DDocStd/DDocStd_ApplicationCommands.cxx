@@ -416,7 +416,7 @@ static Standard_Integer DDocStd_Close(DrawInterpreter& theDI,
         for (V3d_ListOfViewIterator aViewIter(aViews); aViewIter.More(); aViewIter.Next())
         {
           Handle(ViewWindow) aView = aViewIter.Value();
-          ViewerTest::RemoveView(aView);
+          ViewerTest1::RemoveView(aView);
         }
       }
       aDocApp->Close(aDoc);

@@ -196,7 +196,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
   if (aVol)
   {
     GeometricProperties aGProp;
-    BRepGProp::VolumeProperties(aResult, aGProp);
+    BRepGProp1::VolumeProperties(aResult, aGProp);
     if (aGProp.Mass() <= Precision::Confusion())
     {
       aFunction->SetFailure(RESULT_NOT_VALID);
@@ -204,7 +204,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
     }
   }
 
-  // Naming
+  // Naming1
   if (anIsAttachment)
     LoadNamingDS(RESPOSITION(aFunction), aMakePrism, aBASIS, aContextOfBasis->Get());
   else

@@ -23,14 +23,14 @@ class StdPersistent_DataXtd_Constraint : public StdObjMgt_Attribute<TDataXtd_Con
 {
 public:
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData)
+  inline void Read(ReadData& theReadData)
   {
     theReadData >> myType >> myGeometries >> myValue >> myIsReversed >> myIsInverted >> myIsVerified
       >> myPlane;
   }
 
   //! Write persistent data to a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData) const
+  inline void Write(WriteData& theWriteData) const
   {
     theWriteData << myType << myGeometries << myValue << myIsReversed << myIsInverted
                  << myIsVerified << myPlane;
@@ -52,7 +52,7 @@ public:
 
 private:
   Standard_Integer                           myType;
-  Handle(StdLPersistent_HArray1::Persistent) myGeometries;
+  Handle(HArray1::Persistent) myGeometries;
   Handle(StdObjMgt_Persistent)               myValue;
   Standard_Boolean                           myIsReversed;
   Standard_Boolean                           myIsInverted;

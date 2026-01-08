@@ -25,7 +25,7 @@
 #include <TDataStd_Comment.hxx>
 #include <TDataStd_AsciiString.hxx>
 
-class StdLPersistent_Value
+class Value
 {
   template <class AttribClass>
   class integer : public StdObjMgt_Attribute<AttribClass>::SingleInt
@@ -35,7 +35,7 @@ class StdLPersistent_Value
     Standard_EXPORT virtual void ImportAttribute();
   };
 
-  template <class AttribClass, class HStringClass = StdLPersistent_HString::Extended>
+  template <class AttribClass, class HStringClass = HString::Extended1>
   class string : public StdObjMgt_Attribute<AttribClass>::SingleRef
   {
   public:
@@ -44,25 +44,25 @@ class StdLPersistent_Value
   };
 
 public:
-  class TagSource : public integer<TDF_TagSource>
+  class TagSource1 : public integer<TDF_TagSource>
   {
   public:
     Standard_CString PName() const { return "PDF_TagSource"; }
   };
 
-  class Reference : public string<TDF_Reference>
+  class Reference1 : public string<TDF_Reference>
   {
   public:
     Standard_CString PName() const { return "PDF_Reference"; }
   };
 
-  class Comment : public string<TDataStd_Comment>
+  class Comment1 : public string<TDataStd_Comment>
   {
   public:
     Standard_CString PName() const { return "PDF_Comment"; }
   };
 
-  class UAttribute : public string<TDataStd_UAttribute>
+  class UAttribute1 : public string<TDataStd_UAttribute>
   {
   public:
     //! Create an empty transient attribute
@@ -71,7 +71,7 @@ public:
     Standard_CString PName() const { return "PDataStd_UAttribute"; }
   };
 
-  class Integer : public integer<IntAttribute>
+  class Integer1 : public integer<IntAttribute>
   {
   public:
     //! Create an empty transient attribute
@@ -89,7 +89,7 @@ public:
     Standard_CString PName() const { return "PDataStd_Name"; }
   };
 
-  class AsciiString : public string<TDataStd_AsciiString, StdLPersistent_HString::Ascii>
+  class AsciiString2 : public string<TDataStd_AsciiString, HString::Ascii1>
   {
   public:
     //! Create an empty transient attribute

@@ -30,7 +30,7 @@
 #include <TDataStd_ReferenceList.hxx>
 #include <TDataStd_IntPackedMap.hxx>
 
-class StdLPersistent_Collection
+class Collection
 {
   // Converters
   struct noConversion;
@@ -52,7 +52,7 @@ class StdLPersistent_Collection
     }
 
     //! Read persistent data from a file.
-    virtual void Read(StdObjMgt_ReadData& theReadData)
+    virtual void Read(ReadData& theReadData)
     {
       Base::Read(theReadData);
       theReadData >> myLower >> myUpper;
@@ -119,7 +119,7 @@ class StdLPersistent_Collection
     }
 
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
 
     //! Import transient attribute from the persistent data.
     Standard_EXPORT virtual void ImportAttribute();
@@ -155,9 +155,9 @@ class StdLPersistent_Collection
   };
 
   // Internal array types
-  typedef StdLPersistent_HArray1::Integer    integer;
-  typedef StdLPersistent_HArray1::Real       real;
-  typedef StdLPersistent_HArray1::Persistent persistent;
+  typedef HArray1::Integer1    integer;
+  typedef HArray1::Real       real;
+  typedef HArray1::Persistent persistent;
 
 public:
   // Final specialization

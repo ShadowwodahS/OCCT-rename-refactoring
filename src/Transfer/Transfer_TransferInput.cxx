@@ -26,11 +26,11 @@
 #include <Transfer_TransientProcess.hxx>
 #include <Transfer_VoidBinder.hxx>
 
-Transfer_TransferInput::Transfer_TransferInput() {}
+TransferInput::TransferInput() {}
 
 //  Resultats : Pour le Modele ...
 
-Interface_EntityIterator Transfer_TransferInput::Entities(Transfer_TransferIterator& list) const
+Interface_EntityIterator TransferInput::Entities(Transfer_TransferIterator& list) const
 {
   Interface_EntityIterator iter;
   for (list.Start(); list.More(); list.Next())
@@ -65,7 +65,7 @@ Interface_EntityIterator Transfer_TransferInput::Entities(Transfer_TransferItera
   return iter;
 }
 
-void Transfer_TransferInput::FillModel(const Handle(Transfer_TransientProcess)& proc,
+void TransferInput::FillModel(const Handle(Transfer_TransientProcess)& proc,
                                        const Handle(Interface_InterfaceModel)&  amodel) const
 {
   Transfer_TransferIterator list = proc->CompleteResult();
@@ -73,7 +73,7 @@ void Transfer_TransferInput::FillModel(const Handle(Transfer_TransientProcess)& 
   amodel->GetFromTransfer(iter);
 }
 
-void Transfer_TransferInput::FillModel(const Handle(Transfer_TransientProcess)& proc,
+void TransferInput::FillModel(const Handle(Transfer_TransientProcess)& proc,
                                        const Handle(Interface_InterfaceModel)&  amodel,
                                        const Handle(Interface_Protocol)&        proto,
                                        const Standard_Boolean                   roots) const
@@ -88,7 +88,7 @@ void Transfer_TransferInput::FillModel(const Handle(Transfer_TransientProcess)& 
     amodel->AddWithRefs(iter.Value(), proto);
 }
 
-void Transfer_TransferInput::FillModel(const Handle(Transfer_FinderProcess)&   proc,
+void TransferInput::FillModel(const Handle(Transfer_FinderProcess)&   proc,
                                        const Handle(Interface_InterfaceModel)& amodel) const
 {
   Transfer_TransferIterator list = proc->CompleteResult();
@@ -96,7 +96,7 @@ void Transfer_TransferInput::FillModel(const Handle(Transfer_FinderProcess)&   p
   amodel->GetFromTransfer(iter);
 }
 
-void Transfer_TransferInput::FillModel(const Handle(Transfer_FinderProcess)&   proc,
+void TransferInput::FillModel(const Handle(Transfer_FinderProcess)&   proc,
                                        const Handle(Interface_InterfaceModel)& amodel,
                                        const Handle(Interface_Protocol)&       proto,
                                        const Standard_Boolean                  roots) const

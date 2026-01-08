@@ -81,13 +81,13 @@ public:
   //! @name positional/spot light properties
 public:
   //! Returns location of positional/spot light; (0, 0, 0) by default.
-  const Point3d& Position() const { return myPosition; }
+  const Point3d& Position1() const { return myPosition; }
 
   //! Setup location of positional/spot light.
   Standard_EXPORT void SetPosition(const Point3d& thePosition);
 
   //! Returns location of positional/spot light.
-  void Position(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
+  void Position1(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
   {
     theX = myPosition.X();
     theY = myPosition.Y();
@@ -153,7 +153,7 @@ public:
   }
 
   //! Returns location of positional/spot/directional light, which is the same as returned by
-  //! Position().
+  //! Position1().
   const Point3d& DisplayPosition() const { return myPosition; }
 
   //! Setup location of positional/spot/directional light,

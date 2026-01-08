@@ -663,7 +663,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       //          = f(O) + R1 * Cos(u) * f(Xc) + R2 * Sin(u) * f(Yc)
 
       gp_Circ Circ = myCurve->Circle();
-      Axis         = Circ.Position();
+      Axis         = Circ.Position1();
       R1 = R2 = Circ.Radius();
     }
       Standard_FALLTHROUGH
@@ -671,7 +671,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       if (Type == GeomAbs_Ellipse)
       {
         gp_Elips E = myCurve->Ellipse();
-        Axis       = E.Position();
+        Axis       = E.Position1();
         R1         = E.MajorRadius();
         R2         = E.MinorRadius();
       }
@@ -825,7 +825,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       //          = f(O) + (u*u)/(4*f) * f(Xc) + u * f(Yc)
 
       gp_Parab Parab  = myCurve->Parabola();
-      Frame3d   AxeRef = Parab.Position();
+      Frame3d   AxeRef = Parab.Position1();
       Vector3d   Xc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.XDirection()));
       Vector3d   Yc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.YDirection()));
       Point3d   P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
@@ -876,7 +876,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       //          = f(O) + R1 * Cosh(u) * f(Xc) + R2 * Sinh(u) * f(Yc)
 
       gp_Hypr       Hypr   = myCurve->Hyperbola();
-      Frame3d        AxeRef = Hypr.Position();
+      Frame3d        AxeRef = Hypr.Position1();
       Vector3d        Xc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.XDirection()));
       Vector3d        Yc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.YDirection()));
       Point3d        P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
@@ -1439,7 +1439,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
   gp_Lin anXLine(aP0, anXDir);
   Point3d aP1 = Value(aT + 10. * aF);
   //
-  Standard_Real anX   = ElCLib1::LineParameter(anXLine.Position(), aP1);
+  Standard_Real anX   = ElCLib1::LineParameter(anXLine.Position1(), aP1);
   Standard_Real anY   = anXLine.Distance(aP1);
   Standard_Real aNewF = anY * anY / 4. / anX;
   Dir3d        anN   = anXDir ^ anYDir;
@@ -1489,7 +1489,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
     else
     {
       gp_Hypr Hypr   = myCurve->Hyperbola();
-      Frame3d  AxeRef = Hypr.Position();
+      Frame3d  AxeRef = Hypr.Position1();
       Point3d  P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
       Dir3d  Z      = myPlane.Direction();
       Point3d  aP0    = aProps.Value();

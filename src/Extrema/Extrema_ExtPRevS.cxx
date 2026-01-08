@@ -64,13 +64,13 @@ static Frame3d GetPosition(
       return Frame3d(L.Location(), N, L.Direction());
     }
     case GeomAbs_Circle:
-      return C->Circle().Position();
+      return C->Circle().Position1();
     case GeomAbs_Ellipse:
-      return C->Ellipse().Position();
+      return C->Ellipse().Position1();
     case GeomAbs_Hyperbola:
-      return C->Hyperbola().Position();
+      return C->Hyperbola().Position1();
     case GeomAbs_Parabola:
-      return C->Parabola().Position();
+      return C->Parabola().Position1();
     default:
       return Frame3d();
   }

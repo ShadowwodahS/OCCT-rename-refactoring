@@ -299,7 +299,7 @@ static Standard_Integer WritePly(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XSDRAWPLY::Factory(DrawInterpreter& theDI)
+void XSDRAWPLY1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -309,7 +309,7 @@ void XSDRAWPLY::Factory(DrawInterpreter& theDI)
   aIsActivated = Standard_True;
 
   const char* aGroup = "XSTEP-STL/VRML"; // Step transfer file commands
-  // XSDRAW::LoadDraw(theCommands);
+  // XSDRAW1::LoadDraw(theCommands);
   theDI.Add("WritePly",
             R"(
 WritePly Doc file [-normals {0|1}]=1 [-colors {0|1}]=1 [-uv {0|1}]=0 [-partId {0|1}]=1 [-faceId {0|1}]=0
@@ -332,9 +332,9 @@ Generate point cloud out of the shape and write it into PLY file.
             aGroup);
   theDI.Add("writeply", "writeply shape file", __FILE__, WritePly, aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWPLY)
+DPLUGIN(XSDRAWPLY1)

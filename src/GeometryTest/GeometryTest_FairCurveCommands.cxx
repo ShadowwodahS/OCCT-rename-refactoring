@@ -343,7 +343,7 @@ static Standard_Integer SetPhysicalRatio(DrawInterpreter& di,
 }
 
 //=======================================================================
-void GeometryTest::FairCurveCommands(DrawInterpreter& TheCommande)
+void GeometryTest1::FairCurveCommands(DrawInterpreter& TheCommande)
 //=======================================================================
 
 {

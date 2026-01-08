@@ -684,7 +684,7 @@ void OpenGl_View::SetBackgroundImage(const Handle(Graphic3d_TextureMap)& theText
   {
     if (!theTextureMap.IsNull())
     {
-      Message::SendFail("Error: unable to set image background");
+      Message1::SendFail("Error: unable to set image background");
     }
     aNewMap.Nullify();
   }
@@ -3138,7 +3138,7 @@ void OpenGl_View::drawStereoPair(OpenGl_FrameBuffer* theDrawFbo)
     Standard_Integer dy() { return bottom - top; }
   } aGeom;
 
-  myWindow->PlatformWindow()->Position(aGeom.left, aGeom.top, aGeom.right, aGeom.bottom);
+  myWindow->PlatformWindow()->Position1(aGeom.left, aGeom.top, aGeom.right, aGeom.bottom);
 
   Standard_Boolean       toReverse = myRenderParams.ToReverseStereo;
   const Standard_Boolean isOddY    = (aGeom.top + aGeom.dy()) % 2 == 1;

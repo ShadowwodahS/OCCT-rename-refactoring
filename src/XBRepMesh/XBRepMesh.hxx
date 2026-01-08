@@ -23,7 +23,7 @@
 
 class TopoShape;
 
-class XBRepMesh
+class XBRepMesh1
 {
 public:
   DEFINE_STANDARD_ALLOC

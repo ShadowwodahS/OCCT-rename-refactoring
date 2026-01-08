@@ -45,10 +45,10 @@ Standard_Boolean MoniTool_TransientElem::Equates(const Handle(MoniTool_Element)&
 
 Handle(TypeInfo) MoniTool_TransientElem::ValueType() const
 {
-  return MoniTool_DataInfo::Type(theval);
+  return DataInfoTool::Type(theval);
 }
 
 Standard_CString MoniTool_TransientElem::ValueTypeName() const
 {
-  return MoniTool_DataInfo::TypeName(theval);
+  return DataInfoTool::TypeName(theval);
 }

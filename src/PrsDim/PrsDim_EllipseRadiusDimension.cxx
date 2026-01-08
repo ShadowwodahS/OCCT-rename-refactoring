@@ -94,7 +94,7 @@ void PrsDim_EllipseRadiusDimension::ComputeFaceGeometry()
   Handle(GeomSurface) aBasisSurf;
   PrsDim_KindOfSurface aSurfType;
   Standard_Real        Offset;
-  PrsDim::GetPlaneFromFace(TopoDS::Face(myFShape), aPln, aBasisSurf, aSurfType, Offset);
+  PrsDim1::GetPlaneFromFace(TopoDS::Face(myFShape), aPln, aBasisSurf, aSurfType, Offset);
 
   if (aSurfType == PrsDim_KOS_Plane)
     ComputePlanarFaceGeometry();
@@ -151,7 +151,7 @@ void PrsDim_EllipseRadiusDimension::ComputeCylFaceGeometry(const PrsDim_KindOfSu
     }
     else
     {
-      throw Standard_ConstructionError("PrsDim:: Not expected type of surface");
+      throw Standard_ConstructionError("PrsDim1:: Not expected type of surface");
       return;
     }
 
@@ -162,7 +162,7 @@ void PrsDim_EllipseRadiusDimension::ComputeCylFaceGeometry(const PrsDim_KindOfSu
       if (Offset < 0.0 && Abs(Offset) > myEllipse.MinorRadius())
       {
         throw Standard_ConstructionError(
-          "PrsDim:: Absolute value of negative offset is larger than MinorRadius");
+          "PrsDim1:: Absolute value of negative offset is larger than MinorRadius");
         return;
       }
 
@@ -195,7 +195,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
     TopoEdge          curedge = TopoDS::Edge(ExploEd.Current());
     Handle(GeomCurve3d)   curv;
     Handle(Geom_Ellipse) ellips;
-    if (PrsDim::ComputeGeometry(curedge, curv, ptfirst, ptend))
+    if (PrsDim1::ComputeGeometry(curedge, curv, ptfirst, ptend))
     {
       if (curv->DynamicType() == STANDARD_TYPE(Geom_Ellipse))
       {
@@ -211,7 +211,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
   }
   if (!find)
   {
-    throw Standard_ConstructionError("PrsDim:: Curve is not an ellipsee or is Null");
+    throw Standard_ConstructionError("PrsDim1:: Curve is not an ellipsee or is Null");
     return;
   }
 
@@ -234,7 +234,7 @@ void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
 {
   Point3d             ptfirst, ptend;
   Handle(GeomCurve3d) curv;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape), curv, ptfirst, ptend))
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape), curv, ptfirst, ptend))
     return;
 
   Handle(Geom_Ellipse) elips = Handle(Geom_Ellipse)::DownCast(curv);
@@ -243,7 +243,7 @@ void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
 
   myEllipse = elips->Elips();
   gp_Pln aPlane;
-  aPlane.SetPosition(Ax3(myEllipse.Position()));
+  aPlane.SetPosition(Ax3(myEllipse.Position1()));
   myPlane = new GeomPlane(aPlane);
 
   if (ptfirst.IsEqual(ptend, Precision::Confusion()))

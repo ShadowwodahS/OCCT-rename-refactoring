@@ -101,7 +101,7 @@ public:
   Standard_EXPORT virtual Standard_Real Ratio() const Standard_OVERRIDE;
 
   //! Returns The Window POSITION in PIXEL
-  Standard_EXPORT virtual void Position(Standard_Integer& X1,
+  Standard_EXPORT virtual void Position1(Standard_Integer& X1,
                                         Standard_Integer& Y1,
                                         Standard_Integer& X2,
                                         Standard_Integer& Y2) const Standard_OVERRIDE;

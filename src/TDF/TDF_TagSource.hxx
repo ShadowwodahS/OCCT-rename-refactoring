@@ -39,13 +39,13 @@ public:
   //! =============
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! Find, or create, a  TagSource attribute. the TagSource
+  //! Find, or create, a  TagSource1 attribute. the TagSource1
   //! attribute is returned.
   Standard_EXPORT static Handle(TDF_TagSource) Set(const DataLabel& label);
 
   //! Find (or create) a  tagSource attribute located at <L>
   //! and make a new child label.
-  //! TagSource methods
+  //! TagSource1 methods
   //! =================
   Standard_EXPORT static DataLabel NewChild(const DataLabel& L);
 

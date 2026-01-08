@@ -265,7 +265,7 @@ static Standard_Boolean KPartCircle(const TopoFace&                             
       }
       gp_Circ2d theCirc = AHC->Circle();
       if (anOffset > 0. || Abs(anOffset) < theCirc.Radius())
-        OC = new Geom2d_Circle(theCirc.Position(), theCirc.Radius() + anOffset);
+        OC = new Geom2d_Circle(theCirc.Position1(), theCirc.Radius() + anOffset);
       else
       {
         myIsDone = Standard_False;
@@ -282,7 +282,7 @@ static Standard_Boolean KPartCircle(const TopoFace&                             
     Handle(GeomSurface) aSurf  = BRepInspector::Surface(mySpine);
     Handle(GeomPlane)   aPlane = Handle(GeomPlane)::DownCast(aSurf);
     myShape                     = BRepLib_MakeEdge(OC, aPlane, f, l);
-    BRepLib::BuildCurve3d(TopoDS::Edge(myShape));
+    BRepLib1::BuildCurve3d(TopoDS::Edge(myShape));
 
     myShape.Orientation(E.Orientation());
     myShape.Location(L);
@@ -401,31 +401,31 @@ const ShapeList& BRepFill_OffsetWire::GeneratedShapes(const TopoShape& SpineShap
       TopTools_DataMapIteratorOfDataMapOfShapeShape it(myMapSpine);
       for (; it.More(); it.Next())
       {
-        if (myMap.Contains(it.Key()))
+        if (myMap.Contains(it.Key1()))
         {
           if (!myMap.Contains(it.Value()))
           {
             ShapeList L;
             myMap.Add(it.Value(), L);
           }
-          if (!it.Value().IsSame(it.Key()))
+          if (!it.Value().IsSame(it.Key1()))
           {
-            myMap.ChangeFromKey(it.Value()).Append(myMap.ChangeFromKey(it.Key()));
-            myMap.RemoveKey(it.Key());
+            myMap.ChangeFromKey(it.Value()).Append(myMap.ChangeFromKey(it.Key1()));
+            myMap.RemoveKey(it.Key1());
           }
         }
-        if (myMap.Contains(it.Key().Reversed()))
+        if (myMap.Contains(it.Key1().Reversed()))
         {
           if (!myMap.Contains(it.Value().Reversed()))
           {
             ShapeList L;
             myMap.Add(it.Value().Reversed(), L);
           }
-          if (!it.Value().IsSame(it.Key()))
+          if (!it.Value().IsSame(it.Key1()))
           {
             myMap.ChangeFromKey(it.Value().Reversed())
-              .Append(myMap.ChangeFromKey(it.Key().Reversed()));
-            myMap.RemoveKey(it.Key().Reversed());
+              .Append(myMap.ChangeFromKey(it.Key1().Reversed()));
+            myMap.RemoveKey(it.Key1().Reversed());
           }
         }
       }
@@ -560,7 +560,7 @@ void BRepFill_OffsetWire::Perform(const Standard_Real Offset, const Standard_Rea
       aSubst.Clear();
       TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itmap(wwmap);
       for (; itmap.More(); itmap.Next())
-        aSubst.Substitute(itmap.Key(), itmap.Value());
+        aSubst.Substitute(itmap.Key1(), itmap.Value());
 
       aSubst.Build(myWorkSpine);
 
@@ -1108,7 +1108,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
   }
 
   // Construction of curves 3d.
-  BRepLib::BuildCurves3d(myShape);
+  BRepLib1::BuildCurves3d(myShape);
   MapVertex.Clear();
   ShapeExplorer Explo(myShape, TopAbs_EDGE);
   for (; Explo.More(); Explo.Next())
@@ -1832,7 +1832,7 @@ Standard_Integer CutEdge(const TopoEdge&    E,
                          ShapeList& Cuts)
 {
   Cuts.Clear();
-  MAT2d_CutCurve              Cuter;
+  MAT2dCutCurve              Cuter;
   TColGeom2d_SequenceOfCurve  theCurves;
   Standard_Real               f, l;
   Handle(GeomCurve2d)        C2d;

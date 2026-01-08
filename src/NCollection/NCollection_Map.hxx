@@ -53,8 +53,8 @@
  *              optimisation issues.
  */
 
-template <class TheKeyType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
-class NCollection_Map : public NCollection_BaseMap
+template <class TheKeyType, class Hasher1 = DefaultHasher<TheKeyType>>
+class NCollection_Map : public BaseMap
 {
 public:
   //! STL-compliant typedef for key type
@@ -78,24 +78,24 @@ public:
     {
     }
 
-    //! Key
-    const TheKeyType& Key(void) { return this->Value(); }
+    //! Key1
+    const TheKeyType& Key1(void) { return this->Value(); }
   };
 
 public:
   //!   Implementation of the Iterator interface.
-  class Iterator : public NCollection_BaseMap::Iterator
+  class Iterator : public BaseMap::Iterator
   {
   public:
     //! Empty constructor
     Iterator(void)
-        : NCollection_BaseMap::Iterator()
+        : BaseMap::Iterator()
     {
     }
 
     //! Constructor
     Iterator(const NCollection_Map& theMap)
-        : NCollection_BaseMap::Iterator(theMap)
+        : BaseMap::Iterator(theMap)
     {
     }
 
@@ -112,10 +112,10 @@ public:
       return ((MapNode*)myNode)->Value();
     }
 
-    //! Key
-    const TheKeyType& Key(void) const
+    //! Key1
+    const TheKeyType& Key1(void) const
     {
-      Standard_NoSuchObject_Raise_if(!More(), "NCollection_Map::Iterator::Key");
+      Standard_NoSuchObject_Raise_if(!More(), "NCollection_Map::Iterator::Key1");
       return ((MapNode*)myNode)->Value();
     }
   };
@@ -135,32 +135,32 @@ public:
 
   //! Empty constructor.
   NCollection_Map()
-      : NCollection_BaseMap(1, Standard_True, Handle(NCollection_BaseAllocator)())
+      : BaseMap(1, Standard_True, Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_Map(const Standard_Integer                   theNbBuckets,
                            const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
-      : NCollection_BaseMap(theNbBuckets, Standard_True, theAllocator)
+      : BaseMap(theNbBuckets, Standard_True, theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_Map(const NCollection_Map& theOther)
-      : NCollection_BaseMap(theOther.NbBuckets(), Standard_True, theOther.myAllocator)
+      : BaseMap(theOther.NbBuckets(), Standard_True, theOther.myAllocator)
   {
     const int anExt = theOther.Extent();
     if (anExt <= 0)
       return;
     ReSize(anExt - 1);
     for (Iterator anIter(theOther); anIter.More(); anIter.Next())
-      Add(anIter.Key());
+      Add(anIter.Key1());
   }
 
   //! Move constructor
   NCollection_Map(NCollection_Map&& theOther) noexcept
-      : NCollection_BaseMap(std::forward<NCollection_BaseMap>(theOther))
+      : BaseMap(std::forward<BaseMap>(theOther))
   {
   }
 
@@ -182,7 +182,7 @@ public:
       ReSize(anExt - 1);
       Iterator anIter(theOther);
       for (; anIter.More(); anIter.Next())
-        Add(anIter.Key());
+        Add(anIter.Key1());
     }
     return *this;
   }
@@ -218,7 +218,7 @@ public:
             p = olddata[i];
             while (p)
             {
-              const size_t k = HashCode(p->Key(), newBuck);
+              const size_t k = HashCode(p->Key1(), newBuck);
               q              = (MapNode*)p->Next();
               p->Next()      = newdata[k];
               newdata[k]     = p;
@@ -275,12 +275,12 @@ public:
     size_t   aHash;
     if (lookup(theKey, aNode, aHash))
     {
-      return aNode->Key();
+      return aNode->Key1();
     }
     MapNode** data = (MapNode**)myData1;
     data[aHash]    = new (this->myAllocator) MapNode(theKey, data[aHash]);
     Increment();
-    return data[aHash]->Key();
+    return data[aHash]->Key1();
   }
 
   //! Added: add a new key if not yet in the map, and return
@@ -293,12 +293,12 @@ public:
     size_t   aHash;
     if (lookup(theKey, aNode, aHash))
     {
-      return aNode->Key();
+      return aNode->Key1();
     }
     MapNode** data = (MapNode**)myData1;
     data[aHash]    = new (this->myAllocator) MapNode(std::forward<TheKeyType>(theKey), data[aHash]);
     Increment();
-    return data[aHash]->Key();
+    return data[aHash]->Key1();
   }
 
   //! Contains
@@ -319,7 +319,7 @@ public:
     MapNode*     q    = NULL;
     while (p)
     {
-      if (IsEqual(p->Key(), K))
+      if (IsEqual(p->Key1(), K))
       {
         Decrement();
         if (q)
@@ -498,7 +498,7 @@ protected:
       return Standard_False; // Not found
     for (theNode = (MapNode*)myData1[theHash]; theNode; theNode = (MapNode*)theNode->Next())
     {
-      if (IsEqual(theNode->Key(), theKey))
+      if (IsEqual(theNode->Key1(), theKey))
         return Standard_True;
     }
     return Standard_False; // Not found
@@ -515,7 +515,7 @@ protected:
     for (theNode = (MapNode*)myData1[HashCode(theKey, NbBuckets())]; theNode;
          theNode = (MapNode*)theNode->Next())
     {
-      if (IsEqual(theNode->Key(), theKey))
+      if (IsEqual(theNode->Key1(), theKey))
       {
         return Standard_True;
       }

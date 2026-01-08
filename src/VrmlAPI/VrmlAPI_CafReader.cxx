@@ -109,12 +109,12 @@ bool VrmlAPI_CafReader::performMesh(std::istream&                  theStream,
   (void)theProgress;
   if (!theStream.good())
   {
-    Message::SendFail() << "Error in VrmlAPI_CafReader: file '" << theFile << "' is not found";
+    Message1::SendFail() << "Error in VrmlAPI_CafReader: file '" << theFile << "' is not found";
     return false;
   }
   if (theToProbe)
   {
-    Message::SendFail() << "Error in VrmlAPI_CafReader: theToProbe parameter isn't supported";
+    Message1::SendFail() << "Error in VrmlAPI_CafReader: theToProbe parameter isn't supported";
     return false; // unsupported
   }
 
@@ -137,7 +137,7 @@ bool VrmlAPI_CafReader::performMesh(std::istream&                  theStream,
   }
   if (aScene.Status() != VrmlData_StatusOK || aShape.IsNull())
   {
-    Message::SendFail() << "Error in VrmlAPI_CafReader: " << getVrmlErrorName(aScene.Status())
+    Message1::SendFail() << "Error in VrmlAPI_CafReader: " << getVrmlErrorName(aScene.Status())
                         << "occurred at line " << aScene.GetLineError()
                         << "\nwhile reading VRML file '" << theFile << "'";
     return false;

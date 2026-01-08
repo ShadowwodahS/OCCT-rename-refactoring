@@ -47,13 +47,13 @@ bool DESTEP_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTEP_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -76,14 +76,14 @@ bool DESTEP_Provider::Read(const AsciiString1&  thePath,
   aReadStat                       = aReader.ReadFile(thePath.ToCString(), aParams);
   if (aReadStat != IFSelect_RetDone)
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: abandon";
     return false;
   }
 
   if (!aReader.Transfer(theDocument, theProgress))
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: Cannot read any relevant data from the STEP file";
     return false;
   }
@@ -99,7 +99,7 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTEP_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -127,7 +127,7 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
   else
   {
     aModel->SetLocalLengthUnit(aNode->GlobalParameters.SystemUnit);
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DESTEP_Provider during writing the file " << thePath
       << "\t: The document has no information on Units. Using global parameter as initial Unit.";
   }
@@ -139,7 +139,7 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
   DataLabel aLabel;
   if (!aWriter.Transfer(theDocument, aParams, aMode, 0, theProgress))
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
                         << "\t: The document cannot be translated or gives no result";
     return false;
   }
@@ -147,7 +147,7 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
   switch (aStatus)
   {
     case IFSelect_RetVoid: {
-      Message::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
                           << "\t: No file written";
       return false;
       ;
@@ -156,7 +156,7 @@ bool DESTEP_Provider::Write(const AsciiString1&  thePath,
       break;
     }
     default: {
-      Message::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
                           << "\t: Error on writing file";
       return false;
     }
@@ -194,7 +194,7 @@ bool DESTEP_Provider::Read(const AsciiString1& thePath,
   (void)theProgress;
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTEP_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -209,14 +209,14 @@ bool DESTEP_Provider::Read(const AsciiString1& thePath,
   Handle(StepData_StepModel) aModel = aReader.StepModel();
   if (aReadstat != IFSelect_RetDone)
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: abandon, no model loaded";
     return false;
   }
   aModel->SetLocalLengthUnit(aNode->GlobalParameters.LengthUnit);
   if (aReader.TransferRoots() <= 0)
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t:Cannot read any relevant data from the STEP file";
     return false;
   }
@@ -233,7 +233,7 @@ bool DESTEP_Provider::Write(const AsciiString1& thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTEP_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -254,7 +254,7 @@ bool DESTEP_Provider::Write(const AsciiString1& thePath,
   if (aTargetUnit == UnitsMethods_LengthUnit_Undefined)
   {
     aModel->SetWriteLengthUnit(1.0);
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Custom units are not supported by STEP format, but LengthUnit global parameter doesn't "
          "fit any predefined unit. Units will be scaled to Millimeters";
   }
@@ -270,13 +270,13 @@ bool DESTEP_Provider::Write(const AsciiString1& thePath,
                                 theProgress);
   if (aWritestat != IFSelect_RetDone)
   {
-    Message::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DESTEP_Provider during reading the file " << thePath
                         << "\t: abandon, no model loaded";
     return false;
   }
   if (aWriter.Write(thePath.ToCString()) != IFSelect_RetDone)
   {
-    Message::SendFail() << "DESTEP_Provider: Error on writing file";
+    Message1::SendFail() << "DESTEP_Provider: Error on writing file";
     return false;
   }
   return true;
@@ -322,7 +322,7 @@ void DESTEP_Provider::personizeWS(Handle(ExchangeSession)& theWS)
 {
   if (theWS.IsNull())
   {
-    Message::SendWarning() << "Warning: DESTEP_Provider :"
+    Message1::SendWarning() << "Warning: DESTEP_Provider :"
                            << " Null work session, use internal temporary session";
     theWS = new ExchangeSession();
   }

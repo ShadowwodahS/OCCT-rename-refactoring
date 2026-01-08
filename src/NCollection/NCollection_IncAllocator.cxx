@@ -98,7 +98,7 @@ void* NCollection_IncAllocator::AllocateOptimal(const size_t theSize)
 {
   Standard_Mutex::Sentry aLock(myMutex);
   // Allocating using general block
-  IBlock* aBlock = nullptr;
+  IBlock1* aBlock = nullptr;
   // Use allocated blocks
   if (myAllocationHeap && myAllocationHeap->AvailableSize >= theSize)
   {
@@ -114,8 +114,8 @@ void* NCollection_IncAllocator::AllocateOptimal(const size_t theSize)
     {
       myBlockSize = static_cast<unsigned>(theSize);
     }
-    void* aBufferBlock       = Standard::AllocateOptimal(myBlockSize + sizeof(IBlock));
-    aBlock                   = new (aBufferBlock) IBlock(aBufferBlock, myBlockSize);
+    void* aBufferBlock       = Standard::AllocateOptimal(myBlockSize + sizeof(IBlock1));
+    aBlock                   = new (aBufferBlock) IBlock1(aBufferBlock, myBlockSize);
     aBlock->NextBlock        = myAllocationHeap;
     aBlock->NextOrderedBlock = myOrderedBlocks;
     myOrderedBlocks          = aBlock;
@@ -132,8 +132,8 @@ void* NCollection_IncAllocator::AllocateOptimal(const size_t theSize)
   }
   else
   {
-    IBlock* aBlockIter           = aBlock->NextBlock;
-    IBlock* aBlockToReplaceAfter = nullptr;
+    IBlock1* aBlockIter           = aBlock->NextBlock;
+    IBlock1* aBlockToReplaceAfter = nullptr;
     while (aBlockIter) // Search new sorted position
     {
       if (aBlockIter->AvailableSize > aBlock->AvailableSize)
@@ -146,7 +146,7 @@ void* NCollection_IncAllocator::AllocateOptimal(const size_t theSize)
     }
     if (aBlockToReplaceAfter) // Update list order
     {
-      IBlock* aNext                   = aBlockToReplaceAfter->NextBlock;
+      IBlock1* aNext                   = aBlockToReplaceAfter->NextBlock;
       aBlockToReplaceAfter->NextBlock = aBlock;
       myAllocationHeap                = aBlock->NextBlock;
       aBlock->NextBlock               = aNext;
@@ -169,10 +169,10 @@ void* NCollection_IncAllocator::Allocate(const size_t theSize)
 void NCollection_IncAllocator::clean()
 {
   Standard_Mutex::Sentry aLock(myMutex);
-  IBlock*                aHeapIter = myOrderedBlocks;
+  IBlock1*                aHeapIter = myOrderedBlocks;
   while (aHeapIter)
   {
-    IBlock* aCur = aHeapIter;
+    IBlock1* aCur = aHeapIter;
     aHeapIter    = aHeapIter->NextOrderedBlock;
     Standard::Free(aCur);
   }
@@ -208,12 +208,12 @@ void NCollection_IncAllocator::increaseBlockSize()
 
 //=================================================================================================
 
-void NCollection_IncAllocator::resetBlock(IBlock* theBlock) const
+void NCollection_IncAllocator::resetBlock(IBlock1* theBlock) const
 {
   theBlock->AvailableSize =
     theBlock->AvailableSize
-    + (theBlock->CurPointer - (reinterpret_cast<char*>(theBlock) + sizeof(IBlock)));
-  theBlock->CurPointer = reinterpret_cast<char*>(theBlock) + sizeof(IBlock);
+    + (theBlock->CurPointer - (reinterpret_cast<char*>(theBlock) + sizeof(IBlock1)));
+  theBlock->CurPointer = reinterpret_cast<char*>(theBlock) + sizeof(IBlock1);
 }
 
 //=================================================================================================
@@ -226,10 +226,10 @@ void NCollection_IncAllocator::Reset(const Standard_Boolean theReleaseMemory)
     return;
   }
   Standard_Mutex::Sentry aLock(myMutex);
-  IBlock*                aHeapIter = myOrderedBlocks;
+  IBlock1*                aHeapIter = myOrderedBlocks;
   while (aHeapIter)
   {
-    IBlock* aCur    = aHeapIter;
+    IBlock1* aCur    = aHeapIter;
     aHeapIter       = aHeapIter->NextOrderedBlock;
     aCur->NextBlock = aHeapIter;
     resetBlock(aCur); // reset size and pointer
@@ -240,8 +240,8 @@ void NCollection_IncAllocator::Reset(const Standard_Boolean theReleaseMemory)
 
 //=================================================================================================
 
-NCollection_IncAllocator::IBlock::IBlock(void* thePointer, const size_t theSize)
-    : CurPointer(static_cast<char*>(thePointer) + sizeof(IBlock)),
+NCollection_IncAllocator::IBlock1::IBlock1(void* thePointer, const size_t theSize)
+    : CurPointer(static_cast<char*>(thePointer) + sizeof(IBlock1)),
       AvailableSize(theSize)
 {
 }

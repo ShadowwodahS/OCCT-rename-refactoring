@@ -42,7 +42,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_AssemblyItemRefDriver::NewEmpty() const
 //=================================================================================================
 
 Standard_Boolean XmlMXCAFDoc_AssemblyItemRefDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable& /*theRelocTable*/) const
 {
@@ -83,7 +83,7 @@ Standard_Boolean XmlMXCAFDoc_AssemblyItemRefDriver::Paste(
 //=================================================================================================
 
 void XmlMXCAFDoc_AssemblyItemRefDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                              XmlObjMgt_Persistent&        theTarget,
+                                              PersistentStorage&        theTarget,
                                               XmlObjMgt_SRelocationTable& /*theRelocTable*/) const
 {
   Handle(XCAFDoc_AssemblyItemRef) aThis = Handle(XCAFDoc_AssemblyItemRef)::DownCast(theSource);

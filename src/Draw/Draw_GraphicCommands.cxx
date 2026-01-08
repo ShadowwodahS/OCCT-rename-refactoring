@@ -207,12 +207,12 @@ static Standard_Integer wzoom(DrawInterpreter& di, Standard_Integer argc, const 
     id = atoi(argv[1]);
     if ((id < 0) || (id >= MAXVIEW))
     {
-      Message::SendFail() << "Incorrect view-id, must be in 0.." << (MAXVIEW - 1);
+      Message1::SendFail() << "Incorrect view-id, must be in 0.." << (MAXVIEW - 1);
       return 1;
     }
     if (!dout.HasView(id))
     {
-      Message::SendFail() << "View " << id << " does not exist";
+      Message1::SendFail() << "View " << id << " does not exist";
       return 1;
     }
     X1 = atoi(argv[2]);

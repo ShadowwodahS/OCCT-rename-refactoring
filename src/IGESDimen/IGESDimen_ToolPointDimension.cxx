@@ -120,7 +120,7 @@ void PointDimensionTool::OwnDump(const Handle(IGESDimen_PointDimension)& ent,
   S << "General Note : ";
   dumper.Dump(ent->Note(), S, sublevel);
   S << "\n"
-    << "Leader Arrow : ";
+    << "Leader Arrow2 : ";
   dumper.Dump(ent->LeaderArrow(), S, sublevel);
   S << "\n";
   if (!ent->Geom().IsNull())

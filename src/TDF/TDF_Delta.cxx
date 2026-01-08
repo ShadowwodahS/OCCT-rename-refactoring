@@ -192,7 +192,7 @@ void TDF_Delta::Labels(TDF_LabelList& aLabelList) const
   aLabelList.Clear();
   for (TDF_MapIteratorOfLabelMap it3(labMap); it3.More(); it3.Next())
   {
-    aLabelList.Append(it3.Key());
+    aLabelList.Append(it3.Key1());
   }
 }
 

@@ -57,7 +57,7 @@ void StepFile_Interrupt(Standard_CString theErrorMessage, const Standard_Boolean
   if (theErrorMessage == NULL)
     return;
 
-  Message_Messenger::StreamBuffer sout = theIsFail ? Message::SendFail() : Message::SendTrace();
+  Message_Messenger::StreamBuffer sout = theIsFail ? Message1::SendFail() : Message1::SendTrace();
   sout << "**** ERR StepFile : " << theErrorMessage << "    ****" << std::endl;
 }
 
@@ -88,7 +88,7 @@ static Standard_Integer StepFile_Read(const char*                            the
   c.Start();
 #endif
 
-  Message_Messenger::StreamBuffer sout = Message::SendTrace();
+  Message_Messenger::StreamBuffer sout = Message1::SendTrace();
   sout << "      ...    Step File Reading : '" << theName << "'";
 
   StepFile_ReadData aFileDataModel;
@@ -108,7 +108,7 @@ static Standard_Integer StepFile_Read(const char*                            the
   }
   catch (ExceptionBase const& anException)
   {
-    Message::SendFail() << " ...  Exception Raised while reading Step File : '" << theName << "':\n"
+    Message1::SendFail() << " ...  Exception Raised while reading Step File : '" << theName << "':\n"
                         << anException << "    ...";
     return 1;
   }
@@ -151,7 +151,7 @@ static Standard_Integer StepFile_Read(const char*                            the
   Standard_Integer anFailsCount = undirec->GlobalCheck()->NbFails();
   if (anFailsCount > 0)
   {
-    Message::SendInfo() << "**** ERR StepFile : Incorrect Syntax : Fails Count : " << anFailsCount
+    Message1::SendInfo() << "**** ERR StepFile : Incorrect Syntax : Fails Count : " << anFailsCount
                         << " ****";
   }
 
@@ -186,7 +186,7 @@ static Standard_Integer StepFile_Read(const char*                            the
   anFailsCount = undirec->GlobalCheck()->NbFails() - anFailsCount;
   if (anFailsCount > 0)
   {
-    Message::SendInfo() << "*** ERR StepReaderData : Unresolved Reference : Fails Count : "
+    Message1::SendInfo() << "*** ERR StepReaderData : Unresolved Reference1 : Fails Count : "
                         << anFailsCount << " ***";
   }
 

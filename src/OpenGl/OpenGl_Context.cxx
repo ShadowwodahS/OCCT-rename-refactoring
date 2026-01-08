@@ -1150,7 +1150,7 @@ void OpenGl_Context::PushMessage(const unsigned int                theSource,
   aMsg += (Standard_Integer)theId;
   aMsg += " | Severity: ";
   aMsg += aSev;
-  aMsg += " | Message:\n  ";
+  aMsg += " | Message1:\n  ";
   aMsg += theMessage;
   Messenger()->Send(aMsg, aGrav);
 }
@@ -1524,7 +1524,7 @@ void OpenGl_Context::init(const Standard_Boolean theIsCoreProfile)
     }
     if (!myIsSRgbWindow)
     {
-      Message::SendTrace("OpenGl_Context, warning: window buffer is not sRGB-ready.\n"
+      Message1::SendTrace("OpenGl_Context, warning: window buffer is not sRGB-ready.\n"
                          "Check OpenGL window creation parameters for optimal performance.");
     }
   }
@@ -1696,7 +1696,7 @@ AsciiString1 OpenGl_Context::MemoryInfo() const
     {
       aText += "\n";
     }
-    aText += AsciiString1("  ") + anIter.Key() + ": " + anIter.Value();
+    aText += AsciiString1("  ") + anIter.Key1() + ": " + anIter.Value();
   }
   return aText;
 }
@@ -2093,7 +2093,7 @@ void OpenGl_Context::ReleaseDelayed()
       continue; // postpone release one more frame to ensure no one uses it periodically
     }
 
-    const AsciiString1& aKey = anIter.Key();
+    const AsciiString1& aKey = anIter.Key1();
     if (!mySharedResources->IsBound(aKey))
     {
       // mixed unshared strategy delayed/undelayed was used!

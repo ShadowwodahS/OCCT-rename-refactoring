@@ -103,7 +103,7 @@ static Standard_Boolean getShapesOfSHUO(TopLoc_IndexedMapOfLocation&     theaPre
 
 //=================================================================================================
 
-void XCAFPrs::CollectStyleSettings(const DataLabel&                    theLabel,
+void XCAFPrs1::CollectStyleSettings(const DataLabel&                    theLabel,
                                    const TopLoc_Location&              theLoc,
                                    XCAFPrs_IndexedDataMapOfShapeStyle& theSettings,
                                    const Quantity_ColorRGBA&           theLayerColor)
@@ -309,14 +309,14 @@ void XCAFPrs::CollectStyleSettings(const DataLabel&                    theLabel,
 
 //=================================================================================================
 
-void XCAFPrs::SetViewNameMode(const Standard_Boolean aNameMode)
+void XCAFPrs1::SetViewNameMode(const Standard_Boolean aNameMode)
 {
   viewnameMode = aNameMode;
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFPrs::GetViewNameMode()
+Standard_Boolean XCAFPrs1::GetViewNameMode()
 {
   return viewnameMode;
 }

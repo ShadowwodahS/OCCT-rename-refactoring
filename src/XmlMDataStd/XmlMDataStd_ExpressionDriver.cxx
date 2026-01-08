@@ -46,7 +46,7 @@ Handle(TDF_Attribute) XmlMDataStd_ExpressionDriver::NewEmpty() const
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
 Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -58,7 +58,7 @@ Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
 
   // expression
   UtfString aString;
-  if (!XmlObjMgt::GetExtendedString(theSource, aString))
+  if (!XmlObjMgt1::GetExtendedString(theSource, aString))
   {
     myMessageDriver->Send("error retrieving ExtendedString for type TDataStd_Expression",
                           Message_Fail);
@@ -73,7 +73,7 @@ Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
     Standard_CString aVs = Standard_CString(aDOMStr.GetString());
 
     // first variable
-    if (!XmlObjMgt::GetInteger(aVs, aNb))
+    if (!XmlObjMgt1::GetInteger(aVs, aNb))
     {
       aMsgString =
         UtfString(
@@ -95,7 +95,7 @@ Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
       aC->GetVariables().Append(aV);
 
       // next variable
-      if (!XmlObjMgt::GetInteger(aVs, aNb))
+      if (!XmlObjMgt1::GetInteger(aVs, aNb))
         aNb = 0;
     }
   }
@@ -108,7 +108,7 @@ Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_ExpressionDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                         XmlObjMgt_Persistent&        theTarget,
+                                         PersistentStorage&        theTarget,
                                          XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(TDataStd_Expression) aC     = Handle(TDataStd_Expression)::DownCast(theSource);
@@ -118,7 +118,7 @@ void XmlMDataStd_ExpressionDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Handle(TDF_Attribute) TV;
 
   // expression
-  XmlObjMgt::SetExtendedString(theTarget, aC->Name());
+  XmlObjMgt1::SetExtendedString(theTarget, aC->Name());
 
   // variables
   Standard_Integer nbvar = aC->GetVariables().Extent();

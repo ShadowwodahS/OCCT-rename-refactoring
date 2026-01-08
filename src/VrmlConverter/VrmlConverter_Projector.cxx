@@ -51,7 +51,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
 
   for (i = Shapes.Lower(); i <= Shapes.Upper(); i++)
   {
-    BRepBndLib::AddClose(Shapes.Value(i), box);
+    BRepBndLib1::AddClose(Shapes.Value(i), box);
   }
 
   Standard_Real DistMax = 500000;

@@ -144,7 +144,7 @@ void TopOpeBRepBuild_Builder::RegularizeFaces(const TopoShape&         FF,
   ShapeBuilder BB;
   TopTools_MapIteratorOfMapOfShape it(meI);
   for (; it.More(); it.Next()){
-    const TopoEdge& E = TopoDS::Edge(it.Key());
+    const TopoEdge& E = TopoDS::Edge(it.Key1());
     BB.Remove(F,E.Oriented(TopAbs_FORWARD));
     BB.Remove(F,E.Oriented(TopAbs_REVERSED));
     BB.Add(F,E);
@@ -213,7 +213,7 @@ void TopOpeBRepBuild_Builder::RegularizeFace(const TopoShape&   FF,
       Standard_Boolean kept = lw.IsEmpty();
       if (kept)
       {
-        const TopoWire& ow = TopoDS::Wire(itownw.Key());
+        const TopoWire& ow = TopoDS::Wire(itownw.Key1());
         wtof.AddWire(ow);
       }
       for (TopTools_ListIteratorOfListOfShape iw(lw); iw.More(); iw.Next())

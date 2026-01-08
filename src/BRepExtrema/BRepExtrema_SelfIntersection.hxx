@@ -31,7 +31,7 @@
 //! detected). As a result, this tool can be used for relatively
 //! fast approximated test which provides sub-set of potentially
 //! overlapped faces.
-class BRepExtrema_SelfIntersection : public BRepExtrema_ElementFilter
+class BRepExtrema_SelfIntersection : public ElementFilter
 {
   friend class BRepExtrema_OverlapTool;
 
@@ -72,7 +72,7 @@ public:
   }
 
   //! Returns set of all the face triangles of the shape.
-  const Handle(BRepExtrema_TriangleSet)& ElementSet() const { return myElementSet; }
+  const Handle(TriangleSet1)& ElementSet() const { return myElementSet; }
 
 #ifdef OVERLAP_TOOL_OUTPUT_TRIANGLES
   //! Returns set of overlapped mesh elements (only triangles).
@@ -84,12 +84,12 @@ public:
 
 protected:
   //! Filter out correct adjacent mesh elements.
-  Standard_EXPORT virtual BRepExtrema_ElementFilter::FilterResult PreCheckElements(
+  Standard_EXPORT virtual ElementFilter::FilterResult PreCheckElements(
     const Standard_Integer theIndex1,
     const Standard_Integer theIndex2);
 
   //! Checks if the given triangles have only single common vertex.
-  Standard_EXPORT BRepExtrema_ElementFilter::FilterResult isRegularSharedVertex(
+  Standard_EXPORT ElementFilter::FilterResult isRegularSharedVertex(
     const BVH_Vec3d& theSharedVert,
     const BVH_Vec3d& theTrng1Vtxs1,
     const BVH_Vec3d& theTrng1Vtxs2,
@@ -97,7 +97,7 @@ protected:
     const BVH_Vec3d& theTrng2Vtxs2);
 
   //! Checks if the given triangles have only single common edge.
-  Standard_EXPORT BRepExtrema_ElementFilter::FilterResult isRegularSharedEdge(
+  Standard_EXPORT ElementFilter::FilterResult isRegularSharedEdge(
     const BVH_Vec3d& theTrng1Vtxs0,
     const BVH_Vec3d& theTrng1Vtxs1,
     const BVH_Vec3d& theTrng1Vtxs2,
@@ -114,7 +114,7 @@ private:
   BRepExtrema_ShapeList myFaceList;
 
   //! Set of all the face triangles of the shape.
-  Handle(BRepExtrema_TriangleSet) myElementSet;
+  Handle(TriangleSet1) myElementSet;
 
   //! Overlap tool used for self-intersection test.
   BRepExtrema_OverlapTool myOverlapTool;

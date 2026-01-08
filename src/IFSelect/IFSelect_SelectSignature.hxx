@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_SelectSignature, IFSelect_SelectExtract)
 //! as such, super-types are not considered
 //!
 //! Also, numeric (integer) comparisons are supported : an item
-//! can be <val ou <=val or >val or >=val , val being an Integer
+//! can be <val ou <=val or >val or >=val , val being an Integer1
 //!
 //! A SelectSignature may also be created from a SignCounter,
 //! which then just gives its LastValue as SignatureValue
@@ -59,7 +59,7 @@ public:
                                            const Standard_CString            signtext,
                                            const Standard_Boolean            exact = Standard_True);
 
-  //! As above with an AsciiString
+  //! As above with an AsciiString2
   Standard_EXPORT IFSelect_SelectSignature(const Handle(IFSelect_Signature)& matcher,
                                            const AsciiString1&    signtext,
                                            const Standard_Boolean            exact = Standard_True);

@@ -57,7 +57,7 @@
 
 //=================================================================================================
 
-Handle(BSplineCurve3d) ShapeConstruct::ConvertCurveToBSpline(const Handle(GeomCurve3d)& C3D,
+Handle(BSplineCurve3d) ShapeConstruct1::ConvertCurveToBSpline(const Handle(GeomCurve3d)& C3D,
                                                                 const Standard_Real       First,
                                                                 const Standard_Real       Last,
                                                                 const Standard_Real       Tol3d,
@@ -102,7 +102,7 @@ Handle(BSplineCurve3d) ShapeConstruct::ConvertCurveToBSpline(const Handle(GeomCu
 
 //=================================================================================================
 
-Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
+Handle(Geom2d_BSplineCurve) ShapeConstruct1::ConvertCurveToBSpline(
   const Handle(GeomCurve2d)& C2D,
   const Standard_Real         First,
   const Standard_Real         Last,
@@ -140,7 +140,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
 // and degree as arguments instead of deducing them from the surface.
 // Eventually it may be merged back to GeomConvert1.
 
-Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
+Handle(Geom_BSplineSurface) ShapeConstruct1::ConvertSurfaceToBSpline(
   const Handle(GeomSurface)& surf,
   const Standard_Real         UF,
   const Standard_Real         UL,
@@ -297,7 +297,7 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfShape)& edges,
+Standard_Boolean ShapeConstruct1::JoinPCurves(const Handle(TopTools_HSequenceOfShape)& edges,
                                              const TopoFace&                       theFace,
                                              TopoEdge&                             theEdge)
 {
@@ -415,7 +415,7 @@ Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfSh
   {
 #ifdef OCCT_DEBUG
     std::cout
-      << "Error: ShapeConstruct::JoinPCurves Exception in GeomConvert_CompCurveToBSplineCurve: ";
+      << "Error: ShapeConstruct1::JoinPCurves Exception in GeomConvert_CompCurveToBSplineCurve: ";
     anException.Print(std::cout);
     std::cout << std::endl;
 #endif
@@ -487,7 +487,7 @@ static inline void GetReversedParameters(const HPoint&     p11,
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve3d)& ac3d1,
+Standard_Boolean ShapeConstruct1::JoinCurves(const Handle(GeomCurve3d)& ac3d1,
                                             const Handle(GeomCurve3d)& ac3d2,
                                             const TopAbs_Orientation  Orient1,
                                             const TopAbs_Orientation  Orient2,
@@ -504,7 +504,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve3d)& ac3d1,
 
   c3d1 = GetCurveCopy(ac3d1, first1, last1, Orient1);
   c3d2 = GetCurveCopy(ac3d2, first2, last2, Orient2);
-  ShapeConstruct_Curve      scc;
+  Curve3      scc;
   Standard_Boolean          After = Standard_True;
   Handle(BSplineCurve3d) bsplc1 =
     scc.ConvertToBSpline(c3d1, first1, last1, Precision::Confusion());
@@ -547,7 +547,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve3d)& ac3d1,
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve2d)& aC2d1,
+Standard_Boolean ShapeConstruct1::JoinCurves(const Handle(GeomCurve2d)& aC2d1,
                                             const Handle(GeomCurve2d)& aC2d2,
                                             const TopAbs_Orientation    Orient1,
                                             const TopAbs_Orientation    Orient2,
@@ -563,7 +563,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve2d)& aC2d1,
   Handle(GeomCurve2d) c2d1, c2d2;
   c2d1 = GetCurveCopy(aC2d1, first1, last1, Orient1);
   c2d2 = GetCurveCopy(aC2d2, first2, last2, Orient2);
-  ShapeConstruct_Curve scc;
+  Curve3 scc;
   Standard_Boolean     After = Standard_True;
 
   Handle(Geom2d_BSplineCurve) bsplc12d =

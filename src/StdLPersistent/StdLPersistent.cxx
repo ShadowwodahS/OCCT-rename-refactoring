@@ -32,67 +32,67 @@
 // function : BindTypes
 // purpose  : Register types
 //=======================================================================
-void StdLPersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
+void StdLPersistent1::BindTypes(MapOfInstantiators& theMap)
 {
   // Non-attribute data
   theMap.Bind<StdLPersistent_Document>("PDocStd_Document");
   theMap.Bind<StdLPersistent_Data>("PDF_Data");
 
-  theMap.Bind<StdLPersistent_HString::Ascii>("PCollection_HAsciiString");
-  theMap.Bind<StdLPersistent_HString::Extended>("PCollection_HExtendedString");
+  theMap.Bind<HString::Ascii1>("PCollection_HAsciiString");
+  theMap.Bind<HString::Extended1>("PCollection_HExtendedString");
 
-  theMap.Bind<StdLPersistent_HArray1::Integer>("PColStd_HArray1OfInteger");
-  theMap.Bind<StdLPersistent_HArray1::Real>("PColStd_HArray1OfReal");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PColStd_HArray1OfExtendedString");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PDF_HAttributeArray1");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PDataStd_HArray1OfHAsciiString");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PDataStd_HArray1OfHArray1OfInteger");
-  theMap.Bind<StdLPersistent_HArray1::Persistent>("PDataStd_HArray1OfHArray1OfReal");
-  theMap.Bind<StdLPersistent_HArray1::Byte>("PDataStd_HArray1OfByte");
+  theMap.Bind<HArray1::Integer1>("PColStd_HArray1OfInteger");
+  theMap.Bind<HArray1::Real>("PColStd_HArray1OfReal");
+  theMap.Bind<HArray1::Persistent>("PColStd_HArray1OfExtendedString");
+  theMap.Bind<HArray1::Persistent>("PDF_HAttributeArray1");
+  theMap.Bind<HArray1::Persistent>("PDataStd_HArray1OfHAsciiString");
+  theMap.Bind<HArray1::Persistent>("PDataStd_HArray1OfHArray1OfInteger");
+  theMap.Bind<HArray1::Persistent>("PDataStd_HArray1OfHArray1OfReal");
+  theMap.Bind<HArray1::Byte>("PDataStd_HArray1OfByte");
 
-  theMap.Bind<StdLPersistent_HArray2::Integer>("PColStd_HArray2OfInteger");
+  theMap.Bind<HArray2::Integer1>("PColStd_HArray2OfInteger");
 
   // Attributes
-  theMap.Bind<StdLPersistent_Void::Directory>("PDataStd_Directory");
-  theMap.Bind<StdLPersistent_Void::Tick>("PDataStd_Tick");
-  theMap.Bind<StdLPersistent_Void::NoteBook>("PDataStd_NoteBook");
+  theMap.Bind<Void::Directory>("PDataStd_Directory");
+  theMap.Bind<Void::Tick>("PDataStd_Tick");
+  theMap.Bind<Void::NoteBook>("PDataStd_NoteBook");
 
-  theMap.Bind<StdLPersistent_Value::Integer>("PDataStd_Integer");
-  theMap.Bind<StdLPersistent_Value::TagSource>("PDF_TagSource");
-  theMap.Bind<StdLPersistent_Value::Reference>("PDF_Reference");
-  theMap.Bind<StdLPersistent_Value::UAttribute>("PDataStd_UAttribute");
+  theMap.Bind<Value::Integer1>("PDataStd_Integer");
+  theMap.Bind<Value::TagSource1>("PDF_TagSource");
+  theMap.Bind<Value::Reference1>("PDF_Reference");
+  theMap.Bind<Value::UAttribute1>("PDataStd_UAttribute");
 
-  theMap.Bind<StdLPersistent_Value::Name>("PDataStd_Name");
-  theMap.Bind<StdLPersistent_Value::Comment>("PDataStd_Comment");
-  theMap.Bind<StdLPersistent_Value::AsciiString>("PDataStd_AsciiString");
+  theMap.Bind<Value::Name>("PDataStd_Name");
+  theMap.Bind<Value::Comment1>("PDataStd_Comment");
+  theMap.Bind<Value::AsciiString2>("PDataStd_AsciiString");
 
-  theMap.Bind<StdLPersistent_Collection::IntegerArray>("PDataStd_IntegerArray");
-  theMap.Bind<StdLPersistent_Collection::RealArray>("PDataStd_RealArray");
-  theMap.Bind<StdLPersistent_Collection::ByteArray>("PDataStd_ByteArray");
-  theMap.Bind<StdLPersistent_Collection::ExtStringArray>("PDataStd_ExtStringArray");
-  theMap.Bind<StdLPersistent_Collection::BooleanArray>("PDataStd_BooleanArray");
-  theMap.Bind<StdLPersistent_Collection::ReferenceArray>("PDataStd_ReferenceArray");
+  theMap.Bind<Collection::IntegerArray>("PDataStd_IntegerArray");
+  theMap.Bind<Collection::RealArray>("PDataStd_RealArray");
+  theMap.Bind<Collection::ByteArray>("PDataStd_ByteArray");
+  theMap.Bind<Collection::ExtStringArray>("PDataStd_ExtStringArray");
+  theMap.Bind<Collection::BooleanArray>("PDataStd_BooleanArray");
+  theMap.Bind<Collection::ReferenceArray>("PDataStd_ReferenceArray");
 
-  theMap.Bind<StdLPersistent_Collection::IntegerArray_1>("PDataStd_IntegerArray_1");
-  theMap.Bind<StdLPersistent_Collection::RealArray_1>("PDataStd_RealArray_1");
-  theMap.Bind<StdLPersistent_Collection::ByteArray_1>("PDataStd_ByteArray_1");
-  theMap.Bind<StdLPersistent_Collection::ExtStringArray_1>("PDataStd_ExtStringArray_1");
+  theMap.Bind<Collection::IntegerArray_1>("PDataStd_IntegerArray_1");
+  theMap.Bind<Collection::RealArray_1>("PDataStd_RealArray_1");
+  theMap.Bind<Collection::ByteArray_1>("PDataStd_ByteArray_1");
+  theMap.Bind<Collection::ExtStringArray_1>("PDataStd_ExtStringArray_1");
 
-  theMap.Bind<StdLPersistent_Collection::IntegerList>("PDataStd_IntegerList");
-  theMap.Bind<StdLPersistent_Collection::RealList>("PDataStd_RealList");
-  theMap.Bind<StdLPersistent_Collection::BooleanList>("PDataStd_BooleanList");
-  theMap.Bind<StdLPersistent_Collection::ExtStringList>("PDataStd_ExtStringList");
-  theMap.Bind<StdLPersistent_Collection::ReferenceList>("PDataStd_ReferenceList");
+  theMap.Bind<Collection::IntegerList>("PDataStd_IntegerList");
+  theMap.Bind<Collection::RealList>("PDataStd_RealList");
+  theMap.Bind<Collection::BooleanList>("PDataStd_BooleanList");
+  theMap.Bind<Collection::ExtStringList>("PDataStd_ExtStringList");
+  theMap.Bind<Collection::ReferenceList>("PDataStd_ReferenceList");
 
-  theMap.Bind<StdLPersistent_Collection::IntPackedMap>("PDataStd_IntPackedMap");
-  theMap.Bind<StdLPersistent_Collection::IntPackedMap_1>("PDataStd_IntPackedMap_1");
+  theMap.Bind<Collection::IntPackedMap>("PDataStd_IntPackedMap");
+  theMap.Bind<Collection::IntPackedMap_1>("PDataStd_IntPackedMap_1");
 
-  theMap.Bind<StdLPersistent_Real>("PDataStd_Real");
-  theMap.Bind<StdLPersistent_Dependency::Expression>("PDataStd_Expression");
-  theMap.Bind<StdLPersistent_Dependency::Relation>("PDataStd_Relation");
+  theMap.Bind<Real>("PDataStd_Real");
+  theMap.Bind<Dependency::Expression>("PDataStd_Expression");
+  theMap.Bind<Dependency::Relation>("PDataStd_Relation");
   theMap.Bind<StdLPersistent_Variable>("PDataStd_Variable");
   theMap.Bind<StdLPersistent_XLink>("PDocStd_XLink");
   theMap.Bind<StdLPersistent_Function>("PFunction_Function");
-  theMap.Bind<StdLPersistent_TreeNode>("PDataStd_TreeNode");
+  theMap.Bind<TreeNode>("PDataStd_TreeNode");
   theMap.Bind<StdLPersistent_NamedData>("PDataStd_NamedData");
 }

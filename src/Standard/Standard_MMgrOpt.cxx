@@ -49,7 +49,7 @@ extern "C" int getpagesize();
 // On WNT, sizeof(HANDLE) is equal of multiple of sizeof(Standard_Size)
 
 //======================================================================
-// Naming conventions
+// Naming1 conventions
 //======================================================================
 
 // For clarity of implementation, the following conventions are used
@@ -63,7 +63,7 @@ extern "C" int getpagesize();
 //
 // ...Storage: address of the user area of the memory block (Standard_Address)
 //
-// ...Block: address of the hole memory block (header) (Standard_Size*)
+// ...Block1: address of the hole memory block (header) (Standard_Size*)
 
 //======================================================================
 // Macro definitions
@@ -729,12 +729,12 @@ retry:
 #ifndef _WIN32
 
     // align size to page size
-    const Standard_Size AlignedSize = PAGE_ALIGN(Size, myPageSize);
+    const Standard_Size AlignedSize1 = PAGE_ALIGN(Size, myPageSize);
 
     // allocate memory
     // note that on UNIX myMMap is file descriptor for /dev/null
     aBlock = (Standard_Size*)
-      mmap((char*)MMAP_BASE_ADDRESS, AlignedSize, PROT_READ | PROT_WRITE, MMAP_FLAGS, myMMap, 0);
+      mmap((char*)MMAP_BASE_ADDRESS, AlignedSize1, PROT_READ | PROT_WRITE, MMAP_FLAGS, myMMap, 0);
     if (aBlock == MAP_FAILED /* -1 */)
     {
       int errcode = errno;
@@ -746,20 +746,20 @@ retry:
     }
 
     // save actually allocated size into argument
-    Size = AlignedSize;
+    Size = AlignedSize1;
 
 #else /* _WIN32 */
 
     // align size to page size, taking into account additional space needed to
     // store handle to the memory map
-    const Standard_Size AlignedSize = PAGE_ALIGN(Size + sizeof(HANDLE), myPageSize);
+    const Standard_Size AlignedSize1 = PAGE_ALIGN(Size + sizeof(HANDLE), myPageSize);
 
     // allocate mapped file
     HANDLE  hMap    = CreateFileMapping(INVALID_HANDLE_VALUE,
                                     NULL,
                                     PAGE_READWRITE,
-                                    DWORD(AlignedSize / 0x80000000),
-                                    DWORD(AlignedSize % 0x80000000),
+                                    DWORD(AlignedSize1 / 0x80000000),
+                                    DWORD(AlignedSize1 % 0x80000000),
                                     NULL);
     HANDLE* aMBlock = (hMap && GetLastError() != ERROR_ALREADY_EXISTS
                          ? (HANDLE*)MapViewOfFile(hMap, FILE_MAP_WRITE, 0, 0, 0)
@@ -797,7 +797,7 @@ retry:
     aBlock = (Standard_Size*)(aMBlock + 1);
 
     // save actually allocated size into argument
-    Size = AlignedSize - sizeof(HANDLE);
+    Size = AlignedSize1 - sizeof(HANDLE);
 #endif
   }
   // else just allocate by malloc or calloc
@@ -834,8 +834,8 @@ void Standard_MMgrOpt::FreeMemory(Standard_Address aBlock,
   {
 #ifndef _WIN32
     // align size to page size, just the same as in AllocMemory()
-    const Standard_Size AlignedSize = PAGE_ALIGN(aSize, myPageSize);
-    munmap((char*)aBlock, AlignedSize);
+    const Standard_Size AlignedSize1 = PAGE_ALIGN(aSize, myPageSize);
+    munmap((char*)aBlock, AlignedSize1);
 #else
     // recover handle to the memory mapping stored just before the block
     const HANDLE* aMBlock = (const HANDLE*)aBlock;

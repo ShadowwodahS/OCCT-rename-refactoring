@@ -152,7 +152,7 @@ public:
   const Ax22d& Axis() const { return pos; }
 
   //! returns the position of the circle. Idem Axis(me).
-  const Ax22d& Position() const { return pos; }
+  const Ax22d& Position1() const { return pos; }
 
   //! returns the X axis of the circle.
   gp_Ax2d XAxis() const { return gp_Ax2d(pos.XAxis()); }

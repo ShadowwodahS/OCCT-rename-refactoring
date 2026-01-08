@@ -46,7 +46,7 @@ ViewerTest_V3dView::ViewerTest_V3dView(const Handle(ViewManager)& theViewer,
 bool ViewerTest_V3dView::IsCurrentViewIn2DMode()
 {
   if (Handle(ViewerTest_V3dView) aV3dView =
-        Handle(ViewerTest_V3dView)::DownCast(ViewerTest::CurrentView()))
+        Handle(ViewerTest_V3dView)::DownCast(ViewerTest1::CurrentView()))
   {
     return aV3dView->IsViewIn2DMode();
   }
@@ -58,7 +58,7 @@ bool ViewerTest_V3dView::IsCurrentViewIn2DMode()
 void ViewerTest_V3dView::SetCurrentView2DMode(bool theIs2d)
 {
   if (Handle(ViewerTest_V3dView) aV3dView =
-        Handle(ViewerTest_V3dView)::DownCast(ViewerTest::CurrentView()))
+        Handle(ViewerTest_V3dView)::DownCast(ViewerTest1::CurrentView()))
   {
     aV3dView->SetView2DMode(theIs2d);
   }

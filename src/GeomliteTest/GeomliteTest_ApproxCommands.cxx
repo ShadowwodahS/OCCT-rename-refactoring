@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // PMN : Ajout de la commande smooth
-// PMN : 11/07/97 Passage a GeomliteTest de bsmooth.
+// PMN : 11/07/97 Passage a GeomliteTest1 de bsmooth.
 
 #include <Standard_Stream.hxx>
 
@@ -778,7 +778,7 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
 
 //=================================================================================================
 
-void GeomliteTest::ApproxCommands(DrawInterpreter& theCommands)
+void GeomliteTest1::ApproxCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;

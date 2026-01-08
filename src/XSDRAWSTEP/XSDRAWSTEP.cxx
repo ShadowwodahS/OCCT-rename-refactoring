@@ -71,9 +71,9 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
   Handle(Draw_ProgressIndicator) progress = new Draw_ProgressIndicator(theDI, 1);
   Message_ProgressScope          aPSRoot(progress->Start(), "Reading", 100);
 
-  StepFileReader      sr(XSDRAW::Session(), Standard_False);
+  StepFileReader      sr(XSDRAW1::Session(), Standard_False);
   AsciiString1 fnom, rnom;
-  Standard_Boolean modfic = XSDRAW::FileAndVar(theArgVec[1], theArgVec[2], "STEP", fnom, rnom);
+  Standard_Boolean modfic = XSDRAW1::FileAndVar(theArgVec[1], theArgVec[2], "STEP", fnom, rnom);
   if (modfic)
     theDI << " File STEP to read : " << fnom.ToCString() << "\n";
   else
@@ -114,7 +114,7 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
 
   if (modfic)
     readstat = sr.ReadFile(fnom.ToCString());
-  else if (XSDRAW::Session()->NbStartingEntities() > 0)
+  else if (XSDRAW1::Session()->NbStartingEntities() > 0)
     readstat = IFSelect_RetDone;
 
   aPSRoot.Next(20); // On average loading takes 20%
@@ -130,7 +130,7 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
     return 1;
   }
 
-  sr.SetSystemLengthUnit(XSDRAW::GetLengthUnit());
+  sr.SetSystemLengthUnit(XSDRAW1::GetLengthUnit());
   XSAlgo_ShapeProcessor::ProcessingData aProcessingData =
     XSAlgo_ShapeProcessor::ReadProcessingData("read.step.resource.name", "read.step.sequence");
   sr.SetShapeFixParameters(std::move(aProcessingData.first));
@@ -194,7 +194,7 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
     else if (modepri == 3)
     {
       std::cout << "Entity : " << std::flush;
-      num = XSDRAW::GetEntityNumber("");
+      num = XSDRAW1::GetEntityNumber("");
       if (!sr.TransferOne(num))
         theDI << "Transfer entity n0 " << num << " : no result\n";
       else
@@ -221,7 +221,7 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
         if (theArgVec[k][0] == '*' && theArgVec[k][1] == '\0')
         {
           theDI << "Transferrable Roots : ";
-          list = XSDRAW::Session()->GiveList("xst-transferrable-roots");
+          list = XSDRAW1::Session()->GiveList("xst-transferrable-roots");
           // list = new TColStd_HSequenceOfTransient;
           // for(Standard_Integer j=1; j<=num; j++)
           //   list->Append(sr.RootForTransfer(j));
@@ -233,7 +233,7 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
             theDI << " " << theArgVec[k + 1];
           theDI << " : ";
           list =
-            XSDRAW::Session()->GiveList(theArgVec[k], (theNbArgs > (k + 1) ? theArgVec[k + 1] : 0));
+            XSDRAW1::Session()->GiveList(theArgVec[k], (theNbArgs > (k + 1) ? theArgVec[k + 1] : 0));
         }
         if (list.IsNull())
         {
@@ -244,7 +244,7 @@ static Standard_Integer stepread(DrawInterpreter& theDI,
       else
       {
         std::cout << "Name of Selection :" << std::flush;
-        list = XSDRAW::Session()->GiveList("");
+        list = XSDRAW1::Session()->GiveList("");
         if (list.IsNull())
         {
           theDI << "No list defined\n";
@@ -357,7 +357,7 @@ static Standard_Integer testreadstep(DrawInterpreter& theDI,
   NCollection_DataMap<AsciiString1, TopoShape>::Iterator anIt(aShapesMap);
   for (; anIt.More(); anIt.Next())
   {
-    DBRep1::Set(anIt.Key().ToCString(), anIt.Value());
+    DBRep1::Set(anIt.Key1().ToCString(), anIt.Value());
   }
   theDI << "Count of shapes produced : " << aNbSubShape << "\n";
   return 0;
@@ -374,7 +374,7 @@ static Standard_Integer steptrans(DrawInterpreter& theDI,
     theDI << "give shape-name new-shape + entity-n0 entity-n0: AXIS2\n";
     return 1;
   }
-  Handle(ExchangeSession) aWS   = XSDRAW::Session();
+  Handle(ExchangeSession) aWS   = XSDRAW1::Session();
   TopoShape                  shape = DBRep1::Get(theArgVec[1]);
   if (shape.IsNull())
   {
@@ -383,9 +383,9 @@ static Standard_Integer steptrans(DrawInterpreter& theDI,
   }
   Handle(StepGeom_Axis2Placement3d) ax1, ax2;
   Standard_Integer                  n1 = 0, n2 = 0;
-  n1 = XSDRAW::GetEntityNumber(theArgVec[3]);
+  n1 = XSDRAW1::GetEntityNumber(theArgVec[3]);
   if (theNbArgs > 4)
-    n2 = XSDRAW::GetEntityNumber(theArgVec[4]);
+    n2 = XSDRAW1::GetEntityNumber(theArgVec[4]);
   if (n1 > 0)
     ax1 = Handle(StepGeom_Axis2Placement3d)::DownCast(aWS->StartingEntity(n1));
   if (n2 > 0)
@@ -410,7 +410,7 @@ static Standard_Integer stepwrite(DrawInterpreter& theDI,
                                   Standard_Integer  theNbArgs,
                                   const char**      theArgVec)
 {
-  Handle(ExchangeSession)  aWS = XSDRAW::Session();
+  Handle(ExchangeSession)  aWS = XSDRAW1::Session();
   Handle(STEPControl_Controller) aCtl =
     Handle(STEPControl_Controller)::DownCast(aWS->NormAdaptor());
   if (aCtl.IsNull())
@@ -518,7 +518,7 @@ static Standard_Integer stepwrite(DrawInterpreter& theDI,
       theDI << "Error: File " << nomfic << " written with fail messages\n";
       break;
   }
-  XSDRAW::CollectActiveWorkSessions(aWS, nomfic, XSDRAW::WorkSessionList());
+  XSDRAW1::CollectActiveWorkSessions(aWS, nomfic, XSDRAW1::WorkSessionList());
   return 0;
 }
 
@@ -600,7 +600,7 @@ static Standard_Integer countexpected(DrawInterpreter& theDI,
                                       Standard_Integer /*theNbArgs*/,
                                       const char** /*theArgVec*/)
 {
-  Handle(ExchangeSession) WS    = XSDRAW::Session();
+  Handle(ExchangeSession) WS    = XSDRAW1::Session();
   const Interface_Graph&        graph = WS->Graph();
 
   Handle(TColStd_HSequenceOfTransient) roots = WS->GiveList("xst-transferrable-roots", "");
@@ -632,7 +632,7 @@ static Standard_Integer dumpassembly(DrawInterpreter& /*theDI*/,
                                      Standard_Integer /*theNbArgs*/,
                                      const char** /*theArgVec*/)
 {
-  Handle(ExchangeSession) WS    = XSDRAW::Session();
+  Handle(ExchangeSession) WS    = XSDRAW1::Session();
   const Interface_Graph&        graph = WS->Graph();
 
   STEPSelections_AssemblyExplorer exp(graph);
@@ -692,10 +692,10 @@ static Standard_Integer ReadStep(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  DeclareAndCast(STEPControl_Controller, aController, XSDRAW::Controller());
+  DeclareAndCast(STEPControl_Controller, aController, XSDRAW1::Controller());
   if (aController.IsNull())
   {
-    XSDRAW::SetNorm("STEP");
+    XSDRAW1::SetNorm("STEP");
   }
 
   Standard_CString        aDocumentName = NULL;
@@ -725,14 +725,14 @@ static Standard_Integer ReadStep(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
 
   AsciiString1 aFileName, anOldVarName;
   Standard_Boolean        isFileMode =
-    XSDRAW::FileAndVar(aFilePath.ToCString(), aDocumentName, "STEP", aFileName, anOldVarName);
+    XSDRAW1::FileAndVar(aFilePath.ToCString(), aDocumentName, "STEP", aFileName, anOldVarName);
 
   if (isFileMode)
   {
@@ -743,7 +743,7 @@ static Standard_Integer ReadStep(DrawInterpreter& theDI,
     theDI << " Model taken from the session : " << aFileName << "\n";
   }
 
-  STEPCAFControl_Reader aReader(XSDRAW::Session(), isFileMode);
+  STEPCAFControl_Reader aReader(XSDRAW1::Session(), isFileMode);
   if (!aModeStr.IsEmpty())
   {
     Standard_Boolean aMode = Standard_True;
@@ -774,7 +774,7 @@ static Standard_Integer ReadStep(DrawInterpreter& theDI,
           aReader.SetMetaMode(aMode);
           break;
         default:
-          Message::SendFail() << "Syntax error at '" << aModeStr << "'\n";
+          Message1::SendFail() << "Syntax error at '" << aModeStr << "'\n";
           return 1;
       }
     }
@@ -803,7 +803,7 @@ static Standard_Integer ReadStep(DrawInterpreter& theDI,
       aReadStat = aReader.ReadFile(aFileName.ToCString());
     }
   }
-  else if (XSDRAW::Session()->NbStartingEntities() > 0)
+  else if (XSDRAW1::Session()->NbStartingEntities() > 0)
   {
     aReadStat = IFSelect_RetDone;
   }
@@ -848,12 +848,12 @@ static Standard_Integer ReadStep(DrawInterpreter& theDI,
 
   theDI << "Document saved with name " << aDocumentName;
 
-  XSDRAW::CollectActiveWorkSessions(aFilePath);
+  XSDRAW1::CollectActiveWorkSessions(aFilePath);
   for (ExternalFileMap::Iterator anIter(aReader.ExternFiles()); anIter.More(); anIter.Next())
   {
-    XSDRAW::CollectActiveWorkSessions(anIter.Value()->GetWS(),
-                                      anIter.Key(),
-                                      XSDRAW::WorkSessionList());
+    XSDRAW1::CollectActiveWorkSessions(anIter.Value()->GetWS(),
+                                      anIter.Key1(),
+                                      XSDRAW1::WorkSessionList());
   }
 
   return 0;
@@ -867,13 +867,13 @@ static Standard_Integer WriteStep(DrawInterpreter& theDI,
                                   Standard_Integer  theNbArgs,
                                   const char**      theArgVec)
 {
-  DeclareAndCast(STEPControl_Controller, aController, XSDRAW::Controller());
+  DeclareAndCast(STEPControl_Controller, aController, XSDRAW1::Controller());
   if (aController.IsNull())
   {
-    XSDRAW::SetNorm("STEP");
+    XSDRAW1::SetNorm("STEP");
   }
 
-  STEPCAFControl_Writer aWriter(XSDRAW::Session(), Standard_True);
+  STEPCAFControl_Writer aWriter(XSDRAW1::Session(), Standard_True);
 
   Handle(AppDocument)  aDocument;
   AsciiString1   aDocumentName, aFilePath;
@@ -996,7 +996,7 @@ static Standard_Integer WriteStep(DrawInterpreter& theDI,
   }
 
   AsciiString1 aFileName, anOldVarName;
-  const Standard_Boolean  isFileMode = XSDRAW::FileAndVar(aFilePath.ToCString(),
+  const Standard_Boolean  isFileMode = XSDRAW1::FileAndVar(aFilePath.ToCString(),
                                                          aDocumentName.ToCString(),
                                                          "STEP",
                                                          aFileName,
@@ -1074,12 +1074,12 @@ static Standard_Integer WriteStep(DrawInterpreter& theDI,
     case IFSelect_RetDone: {
       theDI << "File " << aFilePath << " written\n";
 
-      XSDRAW::CollectActiveWorkSessions(aFilePath);
+      XSDRAW1::CollectActiveWorkSessions(aFilePath);
       for (ExternalFileMap::Iterator anIter(aWriter.ExternFiles()); anIter.More(); anIter.Next())
       {
-        XSDRAW::CollectActiveWorkSessions(anIter.Value()->GetWS(),
-                                          anIter.Key(),
-                                          XSDRAW::WorkSessionList());
+        XSDRAW1::CollectActiveWorkSessions(anIter.Value()->GetWS(),
+                                          anIter.Key1(),
+                                          XSDRAW1::WorkSessionList());
       }
       break;
     }
@@ -1093,7 +1093,7 @@ static Standard_Integer WriteStep(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void XSDRAWSTEP::Factory(DrawInterpreter& theDI)
+void XSDRAWSTEP1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -1145,9 +1145,9 @@ void XSDRAWSTEP::Factory(DrawInterpreter& theDI)
     WriteStep,
     aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWSTEP)
+DPLUGIN(XSDRAWSTEP1)

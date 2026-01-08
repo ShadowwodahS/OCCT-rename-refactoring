@@ -51,7 +51,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_LocationDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMXCAFDoc_LocationDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_LocationDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -67,7 +67,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Paste(const XmlObjMgt_Persistent&  
 //=================================================================================================
 
 void XmlMXCAFDoc_LocationDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   Handle(XCAFDoc_Location) aS     = Handle(XCAFDoc_Location)::DownCast(theSource);
@@ -129,7 +129,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
                                                        TopLoc_Location&            theLoc,
                                                        XmlObjMgt_RRelocationTable& theMap) const
 {
-  XmlObjMgt_Element aLocElem = XmlObjMgt::FindChildByName(theParent, ::LocationString());
+  XmlObjMgt_Element aLocElem = XmlObjMgt1::FindChildByName(theParent, ::LocationString());
   if (aLocElem == NULL)
     return Standard_False;
 
@@ -158,7 +158,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
     aLocElem.getAttribute(::PowerString()).GetInteger(aPower);
 
     //  get datum
-    XmlObjMgt_Persistent aPD(aLocElem, ::DatumString());
+    PersistentStorage aPD(aLocElem, ::DatumString());
     if (aPD.Id() <= 0)
     {
       Standard_Integer aDatumID;
@@ -171,7 +171,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
     else
     {
       Transform3d aTrsf;
-      XmlObjMgt_GP::Translate(aPD.Element().getAttribute(::TrsfString()), aTrsf);
+      GPStorage::Translate(aPD.Element().getAttribute(::TrsfString()), aTrsf);
       aDatum = new TopLoc_Datum3D(aTrsf);
       theMap.Bind(aPD.Id(), aDatum);
     }

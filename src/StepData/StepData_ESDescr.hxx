@@ -64,7 +64,7 @@ public:
   //! Returns the type name given at creation time
   Standard_EXPORT Standard_CString TypeName() const;
 
-  //! Returns the type name as an AsciiString
+  //! Returns the type name as an AsciiString2
   Standard_EXPORT const AsciiString1& StepType() const;
 
   //! Returns the basic ESDescr, null if <me> is not derived

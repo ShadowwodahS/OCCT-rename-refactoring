@@ -20,7 +20,7 @@
 
 //! Filtering tool used to detect if two given mesh elements
 //! should be tested for overlapping/intersection or not.
-struct BRepExtrema_ElementFilter
+struct ElementFilter
 {
   //! Result of filtering function.
   enum FilterResult
@@ -31,7 +31,7 @@ struct BRepExtrema_ElementFilter
   };
 
   //! Releases resources of element filter.
-  virtual ~BRepExtrema_ElementFilter()
+  virtual ~ElementFilter()
   {
     //
   }

@@ -61,7 +61,7 @@ void SphericalSurfaceTool::ReadOwnParams(const Handle(IGESSolid_SphericalSurface
 
     PR.ReadEntity(IR,
                   PR.Current(),
-                  "Reference direction",
+                  "Reference1 direction",
                   STANDARD_TYPE(IGESGeom_Direction),
                   tempRefdir); // szv#4:S4163:12Mar99 `st=` not needed
   }
@@ -159,7 +159,7 @@ void SphericalSurfaceTool::OwnDump(const Handle(IGESSolid_SphericalSurface)& ent
       << "Axis direction      : ";
     dumper.Dump(ent->Axis(), S, sublevel);
     S << "\n"
-      << "Reference direction : ";
+      << "Reference1 direction : ";
     dumper.Dump(ent->ReferenceDir(), S, sublevel);
     S << std::endl;
   }

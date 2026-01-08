@@ -30,7 +30,7 @@ void ShapeAlgo1::Init()
   theContainer = new ShapeAlgo_AlgoContainer;
 
   // initialization of Standard Shape Healing
-  ShapeExtend::Init();
+  ShapeExtend1::Init();
 }
 
 //=================================================================================================

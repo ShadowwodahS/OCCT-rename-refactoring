@@ -36,7 +36,7 @@ class TopoEdge;
 class TopoVertex;
 
 //! One of the four types of interactive object in
-//! AIS,comprising dimensions and constraints. Serves
+//! AIS1,comprising dimensions and constraints. Serves
 //! as the abstract class for the seven relation classes as
 //! well as the seven dimension classes.
 //! The statuses available for relations between shapes are as follows:
@@ -105,7 +105,7 @@ public:
   void SetValue(const Standard_Real theVal) { myVal = theVal; }
 
   //! Returns the position set using SetPosition.
-  const Point3d& Position() const { return myPosition; }
+  const Point3d& Position1() const { return myPosition; }
 
   //! Allows you to provide the objects in the relation with
   //! settings for a non-default position.
@@ -162,7 +162,7 @@ public:
   //! Returns true if the display mode aMode is accepted
   //! for the Interactive Objects in the relation.
   //! ComputeProjPresentation(me;
-  //! aPres    : Presentation from Prs3d;
+  //! aPres    : Presentation from Prs3d1;
   //! Curve1   : Curve                from Geom;
   //! Curve2   : Curve                from Geom;
   //! FirstP1  : Pnt                  from gp1;

@@ -45,7 +45,7 @@ ExceptionBase::StringRef* ExceptionBase::StringRef::allocate_message(
   StringRef* aStrPtr = (StringRef*)Standard::AllocateOptimal(aLen + sizeof(Standard_Integer) + 1);
   if (aStrPtr != NULL)
   {
-    strcpy((char*)&aStrPtr->Message[0], theString);
+    strcpy((char*)&aStrPtr->Message1[0], theString);
     aStrPtr->Counter = 1;
   }
   return aStrPtr;

@@ -24,7 +24,7 @@ class Message_Messenger;
 
 //! Storage and Retrieval drivers for modelling attributes.
 //! Transient attributes are defined in package TDataStd1.
-class XmlMDataStd
+class XmlMDataStd1
 {
 public:
   DEFINE_STANDARD_ALLOC

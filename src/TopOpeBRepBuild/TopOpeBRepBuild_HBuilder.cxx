@@ -295,7 +295,7 @@ void TopOpeBRepBuild_HBuilder::MakeEdgeAncestorMap()
   TopTools_ListIteratorOfListOfShape                              its;
   for (; it.More(); it.Next())
   {
-    const TopoShape& ShaSpl = it.Key();
+    const TopoShape& ShaSpl = it.Key1();
     ei                         = DS.Shape(ShaSpl);
     re                         = DS.AncestorRank(ShaSpl);
     if (!re)
@@ -336,7 +336,7 @@ void TopOpeBRepBuild_HBuilder::MakeEdgeAncestorMap()
       if (SSI.IsNull())
         continue;
       gk = SSI->GeometryType();
-      gi = SSI->Geometry();
+      gi = SSI->Geometry1();
       if (gk != TopOpeBRepDS_EDGE)
         continue;
       rf = DS.AncestorRank(fds);

@@ -22,22 +22,22 @@
 //! Unique item identifier in the hierarchical product structure.
 //! A full path to an assembly component in the "part-of" graph starting from
 //! the root node.
-class XCAFDoc_AssemblyItemId
+class AssemblyItemId
 {
 
 public:
   //! Constructs an empty item ID.
-  Standard_EXPORT XCAFDoc_AssemblyItemId();
+  Standard_EXPORT AssemblyItemId();
 
   //! Constructs an item ID from a list of strings, where every
   //! string is a label entry.
   //! \param[in]  thePath - list of label entries.
-  Standard_EXPORT XCAFDoc_AssemblyItemId(const TColStd_ListOfAsciiString& thePath);
+  Standard_EXPORT AssemblyItemId(const TColStd_ListOfAsciiString& thePath);
 
   //! Constructs an item ID from a formatted path, where label entries
   //! are separated by '/' symbol.
   //! \param[in]  theString - formatted full path.
-  Standard_EXPORT XCAFDoc_AssemblyItemId(const AsciiString1& theString);
+  Standard_EXPORT AssemblyItemId(const AsciiString1& theString);
 
   //! Initializes the item ID from a list of strings, where every
   //! string is a label entry.
@@ -58,17 +58,17 @@ public:
   //! Checks if this item is a child of the given item.
   //! \param[in]  theOther - potentially ancestor item.
   //! \return true if the item is a child of theOther item, otherwise - false.
-  Standard_EXPORT Standard_Boolean IsChild(const XCAFDoc_AssemblyItemId& theOther) const;
+  Standard_EXPORT Standard_Boolean IsChild(const AssemblyItemId& theOther) const;
 
   //! Checks if this item is a direct child of the given item.
   //! \param[in]  theOther - potentially parent item.
   //! \return true if the item is a direct child of theOther item, otherwise - false.
-  Standard_EXPORT Standard_Boolean IsDirectChild(const XCAFDoc_AssemblyItemId& theOther) const;
+  Standard_EXPORT Standard_Boolean IsDirectChild(const AssemblyItemId& theOther) const;
 
   //! Checks for item IDs equality.
   //! \param[in]  theOther - the item ID to check equality with.
   //! \return true if this ID is equal to theOther, otherwise - false.
-  Standard_EXPORT Standard_Boolean IsEqual(const XCAFDoc_AssemblyItemId& theOther) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const AssemblyItemId& theOther) const;
 
   //! Returns the full path as a list of label entries.
   Standard_EXPORT const TColStd_ListOfAsciiString& GetPath() const;
@@ -80,7 +80,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  bool operator==(const XCAFDoc_AssemblyItemId& theOther) const { return IsEqual(theOther); }
+  bool operator==(const AssemblyItemId& theOther) const { return IsEqual(theOther); }
 
 private:
   TColStd_ListOfAsciiString myPath; ///< List of label entries
@@ -90,9 +90,9 @@ namespace std
 {
 
 template <>
-struct hash<XCAFDoc_AssemblyItemId>
+struct hash<AssemblyItemId>
 {
-  size_t operator()(const XCAFDoc_AssemblyItemId& theAssemblyItemId) const
+  size_t operator()(const AssemblyItemId& theAssemblyItemId) const
   {
     return std::hash<AsciiString1>{}(theAssemblyItemId.ToString());
   }

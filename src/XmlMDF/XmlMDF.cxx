@@ -50,7 +50,7 @@ static TColStd_MapOfTransient& UnsuppTypesMap()
 // function : FromTo
 // purpose  : Paste transient data into DOM_Element
 //=======================================================================
-void XmlMDF::FromTo(const Handle(TDF_Data)&            theData,
+void XmlMDF1::FromTo(const Handle(TDF_Data)&            theData,
                     XmlObjMgt_Element&                 theElement,
                     XmlObjMgt_SRelocationTable&        theRelocTable,
                     const Handle(XmlMDF_ADriverTable)& theDrivers,
@@ -64,7 +64,7 @@ void XmlMDF::FromTo(const Handle(TDF_Data)&            theData,
 
 //=================================================================================================
 
-Standard_Integer XmlMDF::WriteSubTree(const DataLabel&                   theLabel,
+Standard_Integer XmlMDF1::WriteSubTree(const DataLabel&                   theLabel,
                                       XmlObjMgt_Element&                 theElement,
                                       XmlObjMgt_SRelocationTable&        theRelocTable,
                                       const Handle(XmlMDF_ADriverTable)& theDrivers,
@@ -91,7 +91,7 @@ Standard_Integer XmlMDF::WriteSubTree(const DataLabel&                   theLabe
       Standard_Integer anId = theRelocTable.Add(tAtt);
 
       //    Create DOM data item
-      XmlObjMgt_Persistent pAtt;
+      PersistentStorage pAtt;
       // In the document version 8 the attribute TPrsStd_AISPresentation
       // was replaced by TDataXtd_Presentation. Therefore, for old versions
       // we write old name of the attribute (TPrsStd_AISPresentation).
@@ -144,7 +144,7 @@ Standard_Integer XmlMDF::WriteSubTree(const DataLabel&                   theLabe
 // function : FromTo
 // purpose  : Paste data from DOM_Element into transient document
 //=======================================================================
-Standard_Boolean XmlMDF::FromTo(const XmlObjMgt_Element&           theElement,
+Standard_Boolean XmlMDF1::FromTo(const XmlObjMgt_Element&           theElement,
                                 Handle(TDF_Data)&                  theData,
                                 XmlObjMgt_RRelocationTable&        theRelocTable,
                                 const Handle(XmlMDF_ADriverTable)& theDrivers,
@@ -181,7 +181,7 @@ Standard_Boolean XmlMDF::FromTo(const XmlObjMgt_Element&           theElement,
 
 //=================================================================================================
 
-Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
+Standard_Integer XmlMDF1::ReadSubTree(const XmlObjMgt_Element&     theElement,
                                      const DataLabel&             theLabel,
                                      XmlObjMgt_RRelocationTable&  theRelocTable,
                                      const XmlMDF_MapOfDriver&    theDriverMap,
@@ -244,7 +244,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
         {
           count++;
           const Handle(XmlMDF_ADriver)& driver = theDriverMap.Find(aName);
-          XmlObjMgt_Persistent          pAtt(anElem);
+          PersistentStorage          pAtt(anElem);
           Standard_Integer              anID = pAtt.Id();
           if (anID <= 0)
           { // check for ID validity
@@ -321,7 +321,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
 
 //=================================================================================================
 
-void XmlMDF::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMDF1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                         const Handle(Message_Messenger)&   aMessageDriver)
 {
   aDriverTable->AddDriver(new XmlMDF_TagSourceDriver(aMessageDriver));

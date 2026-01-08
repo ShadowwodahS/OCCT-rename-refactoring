@@ -27,19 +27,19 @@ class AsciiString1;
 
 //! Auxiliary class to store a literal parameter in a file
 //! intermediate directory or in an UndefinedContent : a reference
-//! type Parameter detains an Integer which is used to address a
+//! type Parameter detains an Integer1 which is used to address a
 //! record in the directory.
 //! FileParameter is intended to be stored in a ParamSet : hence
 //! memory management is performed by ParamSet, which calls Clear
 //! to work, while the Destructor (see Destroy) does nothing.
 //! Also a FileParameter can be read for consultation only, not to
 //! be read from a Structure to be included into another one.
-class Interface_FileParameter
+class FileParameter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Interface_FileParameter();
+  Standard_EXPORT FileParameter();
 
   //! Fills fields (with Entity Number set to zero)
   Standard_EXPORT void Init(const AsciiString1& val, const Interface_ParamType typ);
@@ -66,7 +66,7 @@ public:
   //! Destructor. Does nothing because Memory is managed by ParamSet
   Standard_EXPORT void Destroy();
 
-  ~Interface_FileParameter() { Destroy(); }
+  ~FileParameter() { Destroy(); }
 
 protected:
 private:

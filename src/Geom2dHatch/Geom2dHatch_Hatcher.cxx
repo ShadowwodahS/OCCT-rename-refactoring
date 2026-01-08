@@ -400,7 +400,7 @@ static void IntersectionPointDump(const IntRes2d_IntersectionPoint& Pnt,
             << std::endl;
   std::cout << "-- U: " << Pnt.Value().X() << "    V: " << Pnt.Value().Y() << std::endl;
   std::cout << "-- Parameter on first   : " << Pnt.ParamOnFirst() << std::endl;
-  std::cout << "-- Position  on first   : ";
+  std::cout << "-- Position1  on first   : ";
   switch (Pnt.TransitionOfFirst().PositionOnCurve())
   {
     case IntRes2d_Head:
@@ -450,7 +450,7 @@ static void IntersectionPointDump(const IntRes2d_IntersectionPoint& Pnt,
   }
   std::cout << "--------------------------------------------" << std::endl;
   std::cout << "-- Parameter on second  : " << Pnt.ParamOnSecond() << std::endl;
-  std::cout << "-- Position  on second  : ";
+  std::cout << "-- Position1  on second  : ";
   switch (Pnt.TransitionOfSecond().PositionOnCurve())
   {
     case IntRes2d_Head:
@@ -685,7 +685,7 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
             break;
           }
         }
-        PntE.SetIntersectionType((PntE.Position() == TopAbs_INTERNAL) ? HatchGen_TRUE
+        PntE.SetIntersectionType((PntE.Position1() == TopAbs_INTERNAL) ? HatchGen_TRUE
                                                                       : HatchGen_TOUCH);
         PntE.SetStateBefore((TypePnt1H == IntRes2d_In) ? TopAbs_OUT : TopAbs_IN);
         PntE.SetStateAfter((TypePnt2H == IntRes2d_In) ? TopAbs_OUT : TopAbs_IN);
@@ -880,7 +880,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
     TopAbs_Orientation ElementOrientation = Element.Orientation();
     Standard_Boolean   ToReverse          = (ElementOrientation == TopAbs_REVERSED);
     Standard_Real      Param;
-    switch (PntE.Position())
+    switch (PntE.Position1())
     {
       case TopAbs_FORWARD:
         Param = ToReverse ? CurveE.LastParameter() : CurveE.FirstParameter();
@@ -927,7 +927,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
 
     else if (PntE.IntersectionType() == HatchGen_TANGENT)
     {
-      if (PntE.Position() == TopAbs_INTERNAL)
+      if (PntE.Position1() == TopAbs_INTERNAL)
       {
         switch (PntE.StateBefore())
         {
@@ -975,7 +975,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
     // Orientation de la tangente au point d interference.
     //-----------------------------------------------------------------------
     TopAbs_Orientation TangenteOrientation = TopAbs_FORWARD;
-    switch (PntE.Position())
+    switch (PntE.Position1())
     {
       case TopAbs_FORWARD:
         TangenteOrientation = ToReverse ? TopAbs_REVERSED : TopAbs_FORWARD;

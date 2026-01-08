@@ -335,7 +335,7 @@ Standard_Boolean TopOpeBRepTool_CORRISO::PurgeFyClosingE(const ShapeList& ClEds,
     Standard_Integer nfy = fyeds.Extent();
 
     TopTools_DataMapIteratorOfDataMapOfOrientedShapeInteger itm(fyceds);
-    const TopoEdge&                                      cE = TopoDS::Edge(itm.Key());
+    const TopoEdge&                                      cE = TopoDS::Edge(itm.Key1());
 
     TopAbs_Orientation OocE   = TopAbs1::Complement(cE.Orientation());
     Standard_Boolean   isoncE = mapcl.Contains(cE.Oriented(OocE));
@@ -399,7 +399,7 @@ Standard_Boolean TopOpeBRepTool_CORRISO::PurgeFyClosingE(const ShapeList& ClEds,
     TopTools_DataMapIteratorOfDataMapOfOrientedShapeInteger itm(fyceds);
     for (; itm.More(); itm.Next())
     {
-      const TopoEdge&  cE = TopoDS::Edge(itm.Key());
+      const TopoEdge&  cE = TopoDS::Edge(itm.Key1());
       TopOpeBRepTool_C2DF c2df;
       Standard_Boolean    isb = UVRep(cE, c2df);
       if (!isb)
@@ -1082,7 +1082,7 @@ Standard_Boolean TopOpeBRepTool_CORRISO::EdgeWithFaultyUV(const ShapeList& EdsTo
     return Standard_False;
 
   TopTools_DataMapIteratorOfDataMapOfOrientedShapeInteger itm(FyEds);
-  fyE     = itm.Key();
+  fyE     = itm.Key1();
   Ifaulty = itm.Value();
   return Standard_True;
 }
@@ -1112,7 +1112,7 @@ Standard_Boolean TopOpeBRepTool_CORRISO::TrslUV(const Standard_Boolean          
   TopTools_DataMapIteratorOfDataMapOfOrientedShapeInteger itm(FyEds);
   for (; itm.More(); itm.Next())
   {
-    const TopoEdge&  E = TopoDS::Edge(itm.Key());
+    const TopoEdge&  E = TopoDS::Edge(itm.Key1());
     TopOpeBRepTool_C2DF C2DF;
     Standard_Boolean    isb = UVRep(E, C2DF);
     if (!isb)

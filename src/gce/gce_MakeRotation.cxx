@@ -26,7 +26,7 @@
 //=========================================================================
 RotationBuilder::RotationBuilder(const gp_Lin& Line, const Standard_Real Angle)
 {
-  TheRotation.SetRotation(Axis3d(Line.Position()), Angle);
+  TheRotation.SetRotation(Axis3d(Line.Position1()), Angle);
 }
 
 //=========================================================================

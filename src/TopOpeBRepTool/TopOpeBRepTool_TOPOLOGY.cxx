@@ -1134,10 +1134,10 @@ Standard_EXPORT Standard_Integer FUN_tool_comparebndkole(const TopoShape& sh1,
 //          else returns 0
 {
   Box2 bnd1;
-  BRepBndLib::Add(sh1, bnd1);
+  BRepBndLib1::Add(sh1, bnd1);
   bnd1.SetGap(0.);
   Box2 bnd2;
-  BRepBndLib::Add(sh2, bnd2);
+  BRepBndLib1::Add(sh2, bnd2);
   bnd2.SetGap(0.);
 
   if (bnd1.IsOut(bnd2))

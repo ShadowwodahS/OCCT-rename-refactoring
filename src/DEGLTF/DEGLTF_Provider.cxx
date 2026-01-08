@@ -87,14 +87,14 @@ bool DEGLTF_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
   if (GetNode().IsNull()
       || (!GetNode().IsNull() && !GetNode()->IsKind(STANDARD_TYPE(DEGLTF_ConfigurationNode))))
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -107,7 +107,7 @@ bool DEGLTF_Provider::Read(const AsciiString1&  thePath,
                                       UnitsMethods_LengthUnit_Millimeter);
   if (!aReader.Perform(thePath, theProgress))
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath;
+    Message1::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath;
     return false;
   }
 
@@ -122,7 +122,7 @@ bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEGLTF_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DEGLTF_Provider during writing the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -133,14 +133,14 @@ bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
   if (!XCAFDoc_DocumentTool::GetLengthUnit(theDocument, aScaleFactorM))
   {
     aConverter.SetInputLengthUnit(aNode->GlobalParameters.SystemUnit / 1000.);
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEGLTF_Provider during writing the file " << thePath
       << "\t: The document has no information on Units. Using global parameter as initial Unit.";
   }
   aConverter.SetInputCoordinateSystem(aNode->InternalParameters.SystemCS);
   if (aNode->GlobalParameters.LengthUnit != 1000.)
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEGLTF_Provider during writing the file " << thePath
       << "\t: Target format doesn't support custom units. Model will be scaled to Meters";
   }
@@ -170,7 +170,7 @@ bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
   aWriter.SetSplitIndices16(aNode->InternalParameters.WriteSplitIndices16);
   if (!aWriter.Perform(theDocument, aFileInfo, theProgress))
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during writing the file " << thePath;
+    Message1::SendFail() << "Error in the DEGLTF_Provider during writing the file " << thePath;
     return false;
   }
   return true;
@@ -206,7 +206,7 @@ bool DEGLTF_Provider::Read(const AsciiString1& thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEGLTF_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -215,7 +215,7 @@ bool DEGLTF_Provider::Read(const AsciiString1& thePath,
   SetReaderParameters(aReader, aNode);
   if (!aReader.Perform(thePath, theProgress))
   {
-    Message::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath;
+    Message1::SendFail() << "Error in the DEGLTF_Provider during reading the file " << thePath;
     return false;
   }
   theShape = aReader.SingleShape();

@@ -69,7 +69,7 @@ private:
     mutable OpenGl_Text           Label;
     mutable OpenGl_PrimitiveArray Tickmark;
     mutable OpenGl_PrimitiveArray Line;
-    mutable OpenGl_PrimitiveArray Arrow;
+    mutable OpenGl_PrimitiveArray Arrow2;
 
   public:
     Axis(const GraduatedTrihedron::AxisAspect& theAspect =

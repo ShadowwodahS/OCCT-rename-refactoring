@@ -184,7 +184,7 @@ static Standard_Integer setColor(DrawInterpreter&, Standard_Integer argc, const 
 {
   if (argc < 4)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -192,7 +192,7 @@ static Standard_Integer setColor(DrawInterpreter&, Standard_Integer argc, const 
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -204,7 +204,7 @@ static Standard_Integer setColor(DrawInterpreter&, Standard_Integer argc, const 
     aShape = DBRep1::Get(argv[2]);
     if (aShape.IsNull())
     {
-      Message::SendFail() << "Syntax error: " << argv[2] << " is not a label nor shape";
+      Message1::SendFail() << "Syntax error: " << argv[2] << " is not a label nor shape";
       return 1;
     }
   }
@@ -224,20 +224,20 @@ static Standard_Integer setColor(DrawInterpreter&, Standard_Integer argc, const 
       Standard_Integer aNbParsed = Draw1::ParseColor(argc - anArgIter, argv + anArgIter, aColor);
       if (aNbParsed == 0)
       {
-        Message::SendFail() << "Syntax error at '" << argv[anArgIter] << "'";
+        Message1::SendFail() << "Syntax error at '" << argv[anArgIter] << "'";
         return 1;
       }
       anArgIter += aNbParsed - 1;
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << argv[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << argv[anArgIter] << "'";
       return 1;
     }
   }
   if (!isColorDefined)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -248,7 +248,7 @@ static Standard_Integer setColor(DrawInterpreter&, Standard_Integer argc, const 
   }
   else if (!aColorTool->SetColor(aShape, aColor, aColType))
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a label nor shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a label nor shape";
     return 1;
   }
   return 0;
@@ -258,7 +258,7 @@ static Standard_Integer getColor(DrawInterpreter& di, Standard_Integer argc, con
 {
   if (argc != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -266,7 +266,7 @@ static Standard_Integer getColor(DrawInterpreter& di, Standard_Integer argc, con
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -296,7 +296,7 @@ static Standard_Integer getShapeColor(DrawInterpreter& di,
 {
   if (argc != 3 && argc != 4)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -304,7 +304,7 @@ static Standard_Integer getShapeColor(DrawInterpreter& di,
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -312,7 +312,7 @@ static Standard_Integer getShapeColor(DrawInterpreter& di,
   Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    Message::SendFail() << "Syntax error: '" << argv[2] << "' label is not found in the document";
+    Message1::SendFail() << "Syntax error: '" << argv[2] << "' label is not found in the document";
     return 1;
   }
 
@@ -320,7 +320,7 @@ static Standard_Integer getShapeColor(DrawInterpreter& di,
   XCAFDoc_ColorType         aColType = XCAFDoc_ColorGen;
   if (argc > 3 && !parseXDocColorType(argv[3], aColType))
   {
-    Message::SendFail() << "Syntax error: unknown color type '" << argv[3] << "'";
+    Message1::SendFail() << "Syntax error: unknown color type '" << argv[3] << "'";
     return 1;
   }
 
@@ -346,7 +346,7 @@ static Standard_Integer getAllColors(DrawInterpreter& di, Standard_Integer argc,
 {
   if (argc != 2)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -354,7 +354,7 @@ static Standard_Integer getAllColors(DrawInterpreter& di, Standard_Integer argc,
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -388,7 +388,7 @@ static Standard_Integer addColor(DrawInterpreter& di, Standard_Integer argc, con
 {
   if (argc < 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -396,7 +396,7 @@ static Standard_Integer addColor(DrawInterpreter& di, Standard_Integer argc, con
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -404,7 +404,7 @@ static Standard_Integer addColor(DrawInterpreter& di, Standard_Integer argc, con
   Standard_Integer   aNbParsed = Draw1::ParseColor(argc - 2, argv + 2, aColRGBA);
   if (aNbParsed != argc - 2)
   {
-    Message::SendFail() << "Syntax error at '" << argv[2] << "'";
+    Message1::SendFail() << "Syntax error at '" << argv[2] << "'";
     return 1;
   }
 
@@ -420,7 +420,7 @@ static Standard_Integer removeColor(DrawInterpreter&, Standard_Integer argc, con
 {
   if (argc != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -429,13 +429,13 @@ static Standard_Integer removeColor(DrawInterpreter&, Standard_Integer argc, con
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
   Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " label is not found in the document";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " label is not found in the document";
     return 1;
   }
 
@@ -448,7 +448,7 @@ static Standard_Integer findColor(DrawInterpreter& di, Standard_Integer argc, co
 {
   if (argc < 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -456,7 +456,7 @@ static Standard_Integer findColor(DrawInterpreter& di, Standard_Integer argc, co
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -464,7 +464,7 @@ static Standard_Integer findColor(DrawInterpreter& di, Standard_Integer argc, co
   Standard_Integer   aNbParsed = Draw1::ParseColor(argc - 2, argv + 2, aColRGBA);
   if (aNbParsed != argc - 2)
   {
-    Message::SendFail() << "Syntax error at '" << argv[2] << "'";
+    Message1::SendFail() << "Syntax error at '" << argv[2] << "'";
     return 1;
   }
 
@@ -479,7 +479,7 @@ static Standard_Integer unsetColor(DrawInterpreter&, Standard_Integer argc, cons
 {
   if (argc != 4)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -487,14 +487,14 @@ static Standard_Integer unsetColor(DrawInterpreter&, Standard_Integer argc, cons
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
   XCAFDoc_ColorType aColType = XCAFDoc_ColorGen;
   if (!parseXDocColorType(argv[3], aColType))
   {
-    Message::SendFail() << "Syntax error: unknown color type '" << argv[3] << "'";
+    Message1::SendFail() << "Syntax error: unknown color type '" << argv[3] << "'";
     return 1;
   }
 
@@ -510,7 +510,7 @@ static Standard_Integer unsetColor(DrawInterpreter&, Standard_Integer argc, cons
   TopoShape aShape = DBRep1::Get(argv[2]);
   if (aShape.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a label nor shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a label nor shape";
     return 1;
   }
   myColors->UnSetColor(aShape, aColType);
@@ -521,7 +521,7 @@ static Standard_Integer setVisibility(DrawInterpreter&, Standard_Integer argc, c
 {
   if (argc != 3 && argc != 4)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -530,7 +530,7 @@ static Standard_Integer setVisibility(DrawInterpreter&, Standard_Integer argc, c
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -547,7 +547,7 @@ static Standard_Integer setVisibility(DrawInterpreter&, Standard_Integer argc, c
   }
   if (aLabel.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a label not shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a label not shape";
     return 1;
   }
 
@@ -565,7 +565,7 @@ static Standard_Integer setVisibility(DrawInterpreter&, Standard_Integer argc, c
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument '" << argv[3] << "'";
+      Message1::SendFail() << "Syntax error: unknown argument '" << argv[3] << "'";
       return 1;
     }
   }
@@ -579,7 +579,7 @@ static Standard_Integer getVisibility(DrawInterpreter& di,
 {
   if (argc != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -587,7 +587,7 @@ static Standard_Integer getVisibility(DrawInterpreter& di,
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
@@ -605,7 +605,7 @@ static Standard_Integer getVisibility(DrawInterpreter& di,
   }
   if (aLabel.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a label not shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a label not shape";
     return 1;
   }
 
@@ -619,7 +619,7 @@ static Standard_Integer getStyledVisibility(DrawInterpreter& di,
 {
   if (argc != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -628,12 +628,12 @@ static Standard_Integer getStyledVisibility(DrawInterpreter& di,
   TopoShape aShape = DBRep1::Get(argv[2]);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
   if (aShape.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a shape";
     return 1;
   }
 
@@ -648,7 +648,7 @@ static Standard_Integer getStyledcolor(DrawInterpreter& di,
 {
   if (argc != 3 && argc != 4)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -658,17 +658,17 @@ static Standard_Integer getStyledcolor(DrawInterpreter& di,
   TopoShape aShape = DBRep1::Get(argv[2]);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
   if (aShape.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a shape";
     return 1;
   }
   if (argc > 3 && !parseXDocColorType(argv[3], aColType))
   {
-    Message::SendFail() << "Syntax error: unknown color type '" << argv[3] << "'";
+    Message1::SendFail() << "Syntax error: unknown color type '" << argv[3] << "'";
     return 1;
   }
 
@@ -692,7 +692,7 @@ static Standard_Integer setStyledcolor(DrawInterpreter&, Standard_Integer argc, 
 {
   if (argc < 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -700,14 +700,14 @@ static Standard_Integer setStyledcolor(DrawInterpreter&, Standard_Integer argc, 
   DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
 
   TopoShape aShape = DBRep1::Get(argv[2]);
   if (aShape.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << argv[2] << " is not a shape";
+    Message1::SendFail() << "Syntax error: " << argv[2] << " is not a shape";
     return 1;
   }
 
@@ -724,7 +724,7 @@ static Standard_Integer setStyledcolor(DrawInterpreter&, Standard_Integer argc, 
       Standard_Integer aNbParsed = Draw1::ParseColor(argc - anArgIter, argv + anArgIter, aColRGBA);
       if (aNbParsed == 0)
       {
-        Message::SendFail() << "Syntax error at '" << argv[anArgIter] << "'";
+        Message1::SendFail() << "Syntax error at '" << argv[anArgIter] << "'";
         return 1;
       }
       anArgIter += aNbParsed - 1;
@@ -734,7 +734,7 @@ static Standard_Integer setStyledcolor(DrawInterpreter&, Standard_Integer argc, 
   Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   if (!aColorTool->SetInstanceColor(aShape, aColorType, aColRGBA))
   {
-    Message::SendFail() << "Error: cannot set color for the indicated component";
+    Message1::SendFail() << "Error: cannot set color for the indicated component";
     return 1;
   }
   return 0;
@@ -748,7 +748,7 @@ static Standard_Integer XGetAllVisMaterials(DrawInterpreter& theDI,
 {
   if (theNbArgs != 2 && theNbArgs != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -756,7 +756,7 @@ static Standard_Integer XGetAllVisMaterials(DrawInterpreter& theDI,
   DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
     return 1;
   }
 
@@ -812,7 +812,7 @@ static Standard_Integer XGetVisMaterial(DrawInterpreter& theDI,
 {
   if (theNbArgs != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -820,7 +820,7 @@ static Standard_Integer XGetVisMaterial(DrawInterpreter& theDI,
   DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
     return 1;
   }
 
@@ -849,7 +849,7 @@ static Standard_Integer XGetVisMaterial(DrawInterpreter& theDI,
     }
     if (aShapeLab.IsNull())
     {
-      Message::SendFail() << "Syntax error: " << theArgVec[2] << " is not material nor shape";
+      Message1::SendFail() << "Syntax error: " << theArgVec[2] << " is not material nor shape";
       return 1;
     }
 
@@ -935,7 +935,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
 {
   if (theNbArgs < 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -943,7 +943,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
   DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
     return 1;
   }
 
@@ -977,7 +977,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
       aMatPbr.RefractionIndex = (Standard_ShortReal)Draw1::Atof(theArgVec[anArgIter + 1]);
       if (aMatPbr.RefractionIndex < 1.0f || aMatPbr.RefractionIndex > 3.0f)
       {
-        Message::SendFail() << "Syntax error at '" << anArg << "'";
+        Message1::SendFail() << "Syntax error at '" << anArg << "'";
         return 1;
       }
 
@@ -1012,7 +1012,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
       }
       else
       {
-        Message::SendFail() << "Syntax error at '" << anArg << "'";
+        Message1::SendFail() << "Syntax error at '" << anArg << "'";
         return 1;
       }
       aMat->SetAlphaMode(anAlphaMode, aRealValue);
@@ -1025,7 +1025,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
         Draw1::ParseColor(theNbArgs - anArgIter - 1, theArgVec + anArgIter + 1, aColorRGBA);
       if (aNbParsed == 0)
       {
-        Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+        Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
         return 1;
       }
       anArgIter += aNbParsed;
@@ -1073,7 +1073,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
       aMatCom.Shininess = (float)Draw1::Atof(theArgVec[++anArgIter]);
       if (aMatCom.Shininess < 0.0f || aMatCom.Shininess > 1.0f)
       {
-        Message::SendFail() << "Syntax error at '" << anArg << "'";
+        Message1::SendFail() << "Syntax error at '" << anArg << "'";
         return 1;
       }
     }
@@ -1156,7 +1156,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
       }
       else
       {
-        Message::SendFail() << "Syntax error at '" << anArg << "'";
+        Message1::SendFail() << "Syntax error at '" << anArg << "'";
         return 1;
       }
       aMat->SetFaceCulling(aMode);
@@ -1175,7 +1175,7 @@ static Standard_Integer XAddVisMaterial(DrawInterpreter&,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
@@ -1193,7 +1193,7 @@ static Standard_Integer XRemoveVisMaterial(DrawInterpreter&,
 {
   if (theNbArgs != 3)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -1201,14 +1201,14 @@ static Standard_Integer XRemoveVisMaterial(DrawInterpreter&,
   DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
     return 1;
   }
 
   DataLabel aMatLab = findVisMaterial(aDoc, theArgVec[2]);
   if (aMatLab.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[2] << " is not a material";
+    Message1::SendFail() << "Syntax error: " << theArgVec[2] << " is not a material";
     return 1;
   }
 
@@ -1225,7 +1225,7 @@ static Standard_Integer XSetVisMaterial(DrawInterpreter&,
 {
   if (theNbArgs != 3 && theNbArgs != 4)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -1234,7 +1234,7 @@ static Standard_Integer XSetVisMaterial(DrawInterpreter&,
   DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
+    Message1::SendFail() << "Syntax error: " << theArgVec[1] << " is not a document";
     return 1;
   }
 
@@ -1251,7 +1251,7 @@ static Standard_Integer XSetVisMaterial(DrawInterpreter&,
   }
   if (aShapeLab.IsNull())
   {
-    Message::SendFail() << "Syntax error: " << theArgVec[2] << " is not a label not shape";
+    Message1::SendFail() << "Syntax error: " << theArgVec[2] << " is not a label not shape";
     return 1;
   }
 
@@ -1261,7 +1261,7 @@ static Standard_Integer XSetVisMaterial(DrawInterpreter&,
     aMatLab = findVisMaterial(aDoc, theArgVec[3]);
     if (aMatLab.IsNull())
     {
-      Message::SendFail() << "Syntax error: " << theArgVec[3] << " is not a material";
+      Message1::SendFail() << "Syntax error: " << theArgVec[3] << " is not a material";
       return 1;
     }
   }
@@ -1273,7 +1273,7 @@ static Standard_Integer XSetVisMaterial(DrawInterpreter&,
 
 //=================================================================================================
 
-void XDEDRAW_Colors::InitCommands(DrawInterpreter& di)
+void ColorCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

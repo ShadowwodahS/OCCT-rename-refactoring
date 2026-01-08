@@ -49,7 +49,7 @@ Handle(TDF_Attribute) BinTObjDrivers_ModelDriver::NewEmpty() const
 // function : Paste
 // purpose  : Translate the contents of <theSource> and put it
 //           into <theTarget>.
-//           Set CurrentModel of TObj_Assistant into theTarget TObj_TModel
+//           Set CurrentModel of Assistant into theTarget TObj_TModel
 //           if its GUID and GUID stored in theSource are same
 //=======================================================================
 
@@ -61,7 +61,7 @@ Standard_Boolean BinTObjDrivers_ModelDriver::Paste(const BinObjMgt_Persistent&  
   if (!(theSource >> aGUID))
     return Standard_False;
 
-  Handle(TObj_Model) aCurrentModel = TObj_Assistant::GetCurrentModel();
+  Handle(TObj_Model) aCurrentModel = Assistant::GetCurrentModel();
   if (aCurrentModel.IsNull())
     return Standard_False;
 

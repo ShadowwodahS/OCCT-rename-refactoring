@@ -54,7 +54,7 @@ Handle(TDF_Attribute) XmlMDataXtd_GeometryDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataXtd_GeometryDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataXtd_GeometryDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&) const
 {
@@ -77,7 +77,7 @@ Standard_Boolean XmlMDataXtd_GeometryDriver::Paste(const XmlObjMgt_Persistent&  
 //=================================================================================================
 
 void XmlMDataXtd_GeometryDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataXtd_Geometry) aG = Handle(TDataXtd_Geometry)::DownCast(theSource);

@@ -79,7 +79,7 @@ Standard_Boolean Draft_FaceInfo::NewGeometry() const
 
 //=================================================================================================
 
-const Handle(GeomSurface)& Draft_FaceInfo::Geometry() const
+const Handle(GeomSurface)& Draft_FaceInfo::Geometry1() const
 {
   return myGeom;
 }

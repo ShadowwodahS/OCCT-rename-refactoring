@@ -37,7 +37,7 @@ class TPrsStd_AISPresentation;
 DEFINE_STANDARD_HANDLE(TPrsStd_AISPresentation, TDF_Attribute)
 
 //! An attribute to associate an
-//! VisualEntity to a label in an AIS viewer.
+//! VisualEntity to a label in an AIS1 viewer.
 //! This attribute works in collaboration with TPrsStd_AISViewer.
 //! Note that all the Set... and Unset... attribute
 //! methods as well as the query methods for
@@ -69,14 +69,14 @@ public:
 
   Standard_EXPORT void SetDisplayed(const Standard_Boolean B);
 
-  //! Display presentation of object in AIS viewer.
+  //! Display presentation of object in AIS1 viewer.
   //! If <update> = True then AISObject is recomputed and all
   //! the visualization settings are applied
   Standard_EXPORT void Display(const Standard_Boolean update = Standard_False);
 
-  //! Removes the presentation of this AIS
+  //! Removes the presentation of this AIS1
   //! presentation attribute from the TPrsStd_AISViewer.
-  //! If remove is true, this AIS presentation attribute
+  //! If remove is true, this AIS1 presentation attribute
   //! is removed from the interactive context.
   Standard_EXPORT void Erase(const Standard_Boolean remove = Standard_False);
 
@@ -87,7 +87,7 @@ public:
 
   Standard_EXPORT void SetDriverGUID(const Standard_GUID& guid);
 
-  //! Returns true if this AIS presentation attribute is displayed.
+  //! Returns true if this AIS1 presentation attribute is displayed.
   Standard_EXPORT Standard_Boolean IsDisplayed() const;
 
   //! Returns VisualEntity stored in the presentation attribute
@@ -191,7 +191,7 @@ public:
     const Handle(TDF_AttributeDelta)& anAttDelta,
     const Standard_Boolean            forceIt = Standard_False) Standard_OVERRIDE;
 
-  //! update AIS viewer according to delta
+  //! update AIS1 viewer according to delta
   Standard_EXPORT virtual Standard_Boolean AfterUndo(
     const Handle(TDF_AttributeDelta)& anAttDelta,
     const Standard_Boolean            forceIt = Standard_False) Standard_OVERRIDE;

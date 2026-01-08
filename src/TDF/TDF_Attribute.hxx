@@ -64,7 +64,7 @@ DEFINE_STANDARD_HANDLE(TDF_Attribute, RefObject)
 //!
 //! An attribute can be identified by its ID. Every
 //! attributes used with the same meaning (for
-//! example: Integer, String, Topology...) have the
+//! example: Integer1, String, Topology...) have the
 //! same worldwide unique ID.
 //!
 //! Addition:

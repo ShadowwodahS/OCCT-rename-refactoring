@@ -44,7 +44,7 @@ Handle(TDF_Attribute) XmlMFunction_FunctionDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMFunction_FunctionDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMFunction_FunctionDriver::Paste(const PersistentStorage&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable&) const
 {
@@ -82,7 +82,7 @@ Standard_Boolean XmlMFunction_FunctionDriver::Paste(const XmlObjMgt_Persistent& 
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMFunction_FunctionDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                        XmlObjMgt_Persistent&        theTarget,
+                                        PersistentStorage&        theTarget,
                                         XmlObjMgt_SRelocationTable&) const
 {
   Handle(TFunction_Function) aF = Handle(TFunction_Function)::DownCast(theSource);

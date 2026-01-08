@@ -91,7 +91,7 @@ Standard_Size Graphic3d_LightSet::UpdateRevision()
          aLightIter.More();
          aLightIter.Next())
     {
-      const Handle(Graphic3d_CLight)& aLight = aLightIter.Key();
+      const Handle(Graphic3d_CLight)& aLight = aLightIter.Key1();
       if (aLightIter.Value() != aLight->Revision())
       {
         ++myRevision;
@@ -115,7 +115,7 @@ Standard_Size Graphic3d_LightSet::UpdateRevision()
        aLightIter.More();
        aLightIter.Next())
   {
-    const Handle(Graphic3d_CLight)& aLight = aLightIter.Key();
+    const Handle(Graphic3d_CLight)& aLight = aLightIter.Key1();
     aLightIter.ChangeValue()               = aLight->Revision();
     if (!aLight->IsEnabled())
     {

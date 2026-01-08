@@ -30,7 +30,7 @@ class Transform2d;
 class Geom2d_Geometry;
 DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
 
-//! The general abstract class Geometry in 2D space describes
+//! The general abstract class Geometry1 in 2D space describes
 //! the common behaviour of all the geometric entities.
 //!
 //! All the objects derived from this class can be move with a
@@ -49,7 +49,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
 //! Transform2d composite transformations which are
 //! used to define the geometric transformations applied
 //! using the Transform or Transformed functions.
-//! Note: Geometry defines the "prototype" of the
+//! Note: Geometry1 defines the "prototype" of the
 //! abstract method Transform which is defined for each
 //! concrete type of derived object. All other
 //! transformations are implemented using the Transform method.
@@ -57,26 +57,26 @@ class Geom2d_Geometry : public RefObject
 {
 
 public:
-  //! Performs the symmetrical transformation of a Geometry
+  //! Performs the symmetrical transformation of a Geometry1
   //! with respect to the point P which is the center of the
   //! symmetry and assigns the result to this geometric object.
   Standard_EXPORT void Mirror(const gp_Pnt2d& P);
 
-  //! Performs the symmetrical transformation of a Geometry
+  //! Performs the symmetrical transformation of a Geometry1
   //! with respect to an axis placement which is the axis of the symmetry.
   Standard_EXPORT void Mirror(const gp_Ax2d& A);
 
-  //! Rotates a Geometry. P is the center of the rotation.
+  //! Rotates a Geometry1. P is the center of the rotation.
   //! Ang is the angular value of the rotation in radians.
   Standard_EXPORT void Rotate(const gp_Pnt2d& P, const Standard_Real Ang);
 
-  //! Scales a Geometry. S is the scaling value.
+  //! Scales a Geometry1. S is the scaling value.
   Standard_EXPORT void Scale(const gp_Pnt2d& P, const Standard_Real S);
 
-  //! Translates a Geometry.  V is the vector of the translation.
+  //! Translates a Geometry1.  V is the vector of the translation.
   Standard_EXPORT void Translate(const gp_Vec2d& V);
 
-  //! Translates a Geometry from the point P1 to the point P2.
+  //! Translates a Geometry1 from the point P1 to the point P2.
   Standard_EXPORT void Translate(const gp_Pnt2d& P1, const gp_Pnt2d& P2);
 
   //! Transformation of a geometric object. This transformation

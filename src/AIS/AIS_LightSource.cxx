@@ -392,12 +392,12 @@ void AIS_LightSource::updateLightTransformPersistence()
           }
           else
           {
-            aTrsfPers = new Graphic3d_TransformPers(aMode, myLightSource->Position());
+            aTrsfPers = new Graphic3d_TransformPers(aMode, myLightSource->Position1());
           }
         }
         if (aMode == Graphic3d_TMF_ZoomPers)
         {
-          aTrsfPers->SetAnchorPoint(myLightSource->Position());
+          aTrsfPers->SetAnchorPoint(myLightSource->Position1());
         }
       }
       else
@@ -422,7 +422,7 @@ void AIS_LightSource::updateLightLocalTransformation()
       if (myIsZoomable)
       {
         Transform3d aTrsf;
-        aTrsf.SetTranslation(gp1::Origin(), myLightSource->Position());
+        aTrsf.SetTranslation(gp1::Origin(), myLightSource->Position1());
         myLocalTransformation = new TopLoc_Datum3D(aTrsf);
       }
       break;
@@ -441,14 +441,14 @@ void AIS_LightSource::updateLightLocalTransformation()
       if (myIsZoomable)
       {
         Transform3d aTrsf;
-        aTrsf.SetTranslation(gp1::Origin(), myLightSource->Position());
+        aTrsf.SetTranslation(gp1::Origin(), myLightSource->Position1());
         myLocalTransformation = new TopLoc_Datum3D(aTrsf);
       }
       break;
     }
     case Graphic3d_TypeOfLightSource_Spot: {
       Transform3d      aTrsf;
-      const Frame3d anAx2(myIsZoomable ? myLightSource->Position() : gp1::Origin(),
+      const Frame3d anAx2(myIsZoomable ? myLightSource->Position1() : gp1::Origin(),
                          -myLightSource->Direction());
       aTrsf.SetTransformation(anAx2, Ax3());
       myLocalTransformation = new TopLoc_Datum3D(aTrsf);
@@ -539,7 +539,7 @@ void AIS_LightSource::Compute(const Handle(PrsMgr_PresentationManager)&,
     AsciiString1 aPrefix =
       !myTransformPersistence.IsNull() && myTransformPersistence->IsTrihedronOr2d() ? "\n" : "   ";
     AsciiString1 aName = aPrefix + myLightSource->Name();
-    Prs3d_Text::Draw1(thePrs->NewGroup(), myDrawer->TextAspect(), aName, gp1::Origin());
+    Text::Draw1(thePrs->NewGroup(), myDrawer->TextAspect(), aName, gp1::Origin());
   }
 }
 

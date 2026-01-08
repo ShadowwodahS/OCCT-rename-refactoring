@@ -206,7 +206,7 @@ void MeshVS_MeshPrsBuilder::BuildNodes(const Handle(Prs3d_Presentation)& Prs,
   TColStd_MapIteratorOfPackedMapOfInteger it(anIDs);
   for (; it.More(); it.Next())
   {
-    Standard_Integer aKey = it.Key();
+    Standard_Integer aKey = it.Key1();
     if (aSource->GetGeom(aKey, Standard_False, aCoords, NbNodes, aType))
     {
       if (IsExcludingOn())
@@ -321,12 +321,12 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
   {
     Standard_Integer aNbNodes = 0;
 
-    if (!aSource->GetGeom(it.Key(), Standard_True, aCoords, aNbNodes, aType))
+    if (!aSource->GetGeom(it.Key1(), Standard_True, aCoords, aNbNodes, aType))
       continue;
 
     if (aType == MeshVS_ET_Volume)
     {
-      if (aSource->Get3DGeom(it.Key(), aNbNodes, aTopo))
+      if (aSource->Get3DGeom(it.Key1(), aNbNodes, aTopo))
       {
         for (Standard_Integer aFaceIdx = aTopo->Lower(); aFaceIdx <= aTopo->Upper(); ++aFaceIdx)
         {
@@ -398,11 +398,11 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
   {
     for (it.Reset(); it.More(); it.Next())
     {
-      if (aSource->GetGeomType(it.Key(), Standard_True, aType) && aType == MeshVS_ET_Link)
+      if (aSource->GetGeomType(it.Key1(), Standard_True, aType) && aType == MeshVS_ET_Link)
       {
         Standard_Integer aNbNodes;
 
-        if (aSource->GetNodesByElement(it.Key(), aNodes, aNbNodes) && aNbNodes == 2)
+        if (aSource->GetNodesByElement(it.Key1(), aNodes, aNbNodes) && aNbNodes == 2)
         {
           aLinkNodes.Add(TwoNodes(aNodes(1), aNodes(2)));
         }
@@ -414,7 +414,7 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
 
   for (it.Reset(); it.More(); it.Next())
   {
-    const Standard_Integer aKey = it.Key();
+    const Standard_Integer aKey = it.Key1();
 
     Standard_Integer NbNodes;
     if (!aSource->GetGeom(aKey, Standard_True, aCoords, NbNodes, aType))
@@ -624,7 +624,7 @@ void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Pr
 
   // Hilight one element or node
   TColStd_MapIteratorOfPackedMapOfInteger it(IDs);
-  Standard_Integer                        ID = it.Key(), NbNodes;
+  Standard_Integer                        ID = it.Key1(), NbNodes;
   MeshVS_EntityType                       aType;
 
   if (!aSource->GetGeom(ID, IsElement, aCoords, NbNodes, aType))
@@ -995,8 +995,8 @@ void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOf
          anIt.More();
          anIt.Next())
     {
-      const Standard_Integer anIdx1 = aLow + 3 * anIt.Key().first;
-      const Standard_Integer anIdx2 = aLow + 3 * anIt.Key().second;
+      const Standard_Integer anIdx1 = aLow + 3 * anIt.Key1().first;
+      const Standard_Integer anIdx2 = aLow + 3 * anIt.Key1().second;
 
       Standard_Real aX[] = {theNodes.Value(anIdx1 + 0), theNodes.Value(anIdx2 + 0)};
       Standard_Real aY[] = {theNodes.Value(anIdx1 + 1), theNodes.Value(anIdx2 + 1)};

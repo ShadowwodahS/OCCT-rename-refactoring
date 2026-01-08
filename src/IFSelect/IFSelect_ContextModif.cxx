@@ -293,7 +293,7 @@ void IFSelect_ContextModif::TraceModifier(const Handle(IFSelect_GeneralModifier)
   if (modif.IsNull())
     return;
 
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   sout << "---   Run Modifier:" << std::endl;
   Handle(IFSelect_Selection) sel = modif->Selection();
   if (!sel.IsNull())
@@ -321,14 +321,14 @@ void IFSelect_ContextModif::Trace(const Standard_CString mess)
   //  Trace courante
   if (thecurr <= 0)
     return;
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (ValueOriginal() == ValueResult())
     sout << "--  ContextModif. Entity  n0 " << thecurr << std::endl;
   else
     sout << "--  ContextModif. Entity in Original, n0 " << thecurr << " in Result, n0 " << thecurt
          << std::endl;
   if (mess[0] != '\0')
-    sout << "--  Message:" << mess << std::endl;
+    sout << "--  Message1:" << mess << std::endl;
 }
 
 //=================================================================================================

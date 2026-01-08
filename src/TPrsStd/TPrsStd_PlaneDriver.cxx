@@ -49,7 +49,7 @@ Standard_Boolean TPrsStd_PlaneDriver::Update(const DataLabel&               aLab
   }
   Handle(GeomPlane) apt = new GeomPlane(pln);
 
-  //  Update AIS
+  //  Update AIS1
   Handle(AIS_Plane) aisplane;
   if (anAISObject.IsNull())
     aisplane = new AIS_Plane(apt, pln.Location());

@@ -99,7 +99,7 @@ static void ResetPreci(Handle(StepData_StepModel)& theStepModel,
   Standard_Integer modetol = theStepModel->InternalParameters.ReadMaxPrecisionMode;
   if (modetol)
   {
-    ShapeFix_ShapeTolerance STU;
+    ShapeTolerance1 STU;
     STU.LimitTolerance(S, Precision::Confusion(), maxtol);
   }
 }
@@ -265,7 +265,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_BrepWithVoids)&   theBRep
     sout << "                        - C2 : " << aTool.C2Cur2() << std::endl;
   }
 
-  //: S4136  ShapeFix::SameParameter (S,Standard_False);
+  //: S4136  ShapeFix1::SameParameter (S,Standard_False);
   Handle(StepData_StepModel) aStepModel = Handle(StepData_StepModel)::DownCast(theTP->Model());
   ResetPreci(aStepModel, aSolid, MaxTol());
 }
@@ -474,7 +474,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_ShellBasedSurfaceModel)& 
     sout << "                        - C2 : " << myTool.C2Cur2() << std::endl;
   }
 
-  //: S4136  ShapeFix::SameParameter (S,Standard_False);
+  //: S4136  ShapeFix1::SameParameter (S,Standard_False);
   Handle(StepData_StepModel) aStepModel = Handle(StepData_StepModel)::DownCast(TP->Model());
   ResetPreci(aStepModel, S, MaxTol());
   ResetPreci(aStepModel, Shl, MaxTol()); // skl
@@ -689,7 +689,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_GeometricSet)&           
     StepShape_GeometricSetSelect      aGSS   = GCS->ElementsValue(i);
     const Handle(RefObject)& ent    = aGSS.Value();
 
-    TopoShape res = TransferBRep::ShapeResult(TP, ent);
+    TopoShape res = TransferBRep1::ShapeResult(TP, ent);
     if (!res.IsNull())
     { // already translated
       B.Add(S, res);
@@ -822,7 +822,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_GeometricSet)&           
             anActor->TransferShape(GRI, TP, theLocalFactors, isManifold, Standard_False, aRange);
         if (!binder.IsNull())
         {
-          res = TransferBRep::ShapeResult(binder);
+          res = TransferBRep1::ShapeResult(binder);
         }
       }
     }
@@ -831,7 +831,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_GeometricSet)&           
     if (!res.IsNull())
     {
       B.Add(S, res);
-      TransferBRep::SetShapeResult(TP, ent, res);
+      TransferBRep1::SetShapeResult(TP, ent, res);
     }
     else
       TP->AddWarning(ent, " Entity not mapped to TopoDS");

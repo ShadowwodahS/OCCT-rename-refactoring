@@ -66,7 +66,7 @@ public:
 
   //! The 3D point of attachment is projected.
   //! If the orientation is defined, the text is written in the plane of projection.
-  const Point3d& Position() const { return myOrientation.Location(); }
+  const Point3d& Position1() const { return myOrientation.Location(); }
 
   //! Sets text point.
   void SetPosition(const Point3d& thePoint) { myOrientation.SetLocation(thePoint); }

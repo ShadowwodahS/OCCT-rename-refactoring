@@ -496,7 +496,7 @@ static Standard_Integer transform(DrawInterpreter& di, Standard_Integer n, const
       else if (*a[0] == 's')
       {
         gp_Pln Pl(O, D);
-        T.SetMirror(Pl.Position().Ax2());
+        T.SetMirror(Pl.Position1().Ax2());
       }
     }
   }
@@ -647,7 +647,7 @@ void DrawTrSurf1::Set(const Standard_CString theName, const gp_Pnt2d& thePoint)
 
 //=======================================================================
 // function : Set
-// purpose  : Geometry from Geom
+// purpose  : Geometry1 from Geom
 //=======================================================================
 void DrawTrSurf1::Set(const Standard_CString       theName,
                      const Handle(Geom_Geometry)& theGeometry,

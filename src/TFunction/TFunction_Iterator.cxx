@@ -193,7 +193,7 @@ void TFunction_Iterator::Next()
     TColStd_MapIteratorOfMapOfInteger itrm(next);
     for (; itrm.More(); itrm.Next())
     {
-      const Standard_Integer IDnext = itrm.Key();
+      const Standard_Integer IDnext = itrm.Key1();
       const DataLabel&       Lnext  = myScope->GetFunctions().Find1(IDnext);
 
       if (myUsageOfExecutionStatus)
@@ -216,7 +216,7 @@ void TFunction_Iterator::Next()
         TColStd_MapIteratorOfMapOfInteger itrp(prevOfNext);
         for (; itrp.More(); itrp.Next())
         {
-          const Standard_Integer      IDprevOfNext = itrp.Key();
+          const Standard_Integer      IDprevOfNext = itrp.Key1();
           const DataLabel&            LprevOfNext  = myScope->GetFunctions().Find1(IDprevOfNext);
           Handle(TFunction_GraphNode) GprevOfNext;
           LprevOfNext.FindAttribute(TFunction_GraphNode::GetID(), GprevOfNext);
@@ -249,7 +249,7 @@ void TFunction_Iterator::Next()
   TDF_MapIteratorOfLabelMap itrm(next_current);
   for (; itrm.More(); itrm.Next())
   {
-    myCurrent.Append(itrm.Key());
+    myCurrent.Append(itrm.Key1());
   }
 }
 
@@ -338,7 +338,7 @@ Standard_OStream& TFunction_Iterator::Dump(Standard_OStream& anOS) const
   TDF_DataMapIteratorOfLabelIntegerMap itrm(saved_status);
   for (; itrm.More(); itrm.Next())
   {
-    const DataLabel&          L      = itrm.Key();
+    const DataLabel&          L      = itrm.Key1();
     TFunction_ExecutionStatus status = (TFunction_ExecutionStatus)itrm.Value();
 
     Handle(TFunction_GraphNode) G;

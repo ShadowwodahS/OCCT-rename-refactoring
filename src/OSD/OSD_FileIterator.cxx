@@ -136,7 +136,7 @@ static int strcmp_joker(char *fileMask,char *fileName)
     int compare_result;
     int beginning = 1;   // 0 if first character is a joker, otherwise 1
 
-    while (*fileName) {        // Test end of AsciiString
+    while (*fileName) {        // Test end of AsciiString2
 
      if (*fileMask == NO_MASK) {
       beginning = 0;

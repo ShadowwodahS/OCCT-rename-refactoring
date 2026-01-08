@@ -38,7 +38,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Shape, ShapeFix_Root)
 
 ShapeFix_Shape::ShapeFix_Shape()
 {
-  myStatus                = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myFixSolidMode          = -1;
   myFixShellMode          = -1;
   myFixFaceMode           = -1;
@@ -53,7 +53,7 @@ ShapeFix_Shape::ShapeFix_Shape()
 
 ShapeFix_Shape::ShapeFix_Shape(const TopoShape& shape)
 {
-  myStatus                = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myFixSolidMode          = -1;
   myFixShellMode          = -1;
   myFixFaceMode           = -1;
@@ -94,7 +94,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
     }
   }
 
-  myStatus                = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus                = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   Standard_Boolean status = Standard_False;
   TopAbs_ShapeEnum st;
 
@@ -116,7 +116,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
   myShape.Location(L, Standard_False);
   TopoShape S = Context()->Apply(myShape);
   if (NeedFix(myFixVertexPositionMode))
-    ShapeFix::FixVertexPosition(S, Precision(), Context());
+    ShapeFix1::FixVertexPosition(S, Precision(), Context());
 
   st = S.ShapeType();
 
@@ -160,7 +160,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
       if (myFixSolid->Perform(aPS.Next()))
         status = Standard_True;
 
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
       break;
     }
     case TopAbs_SHELL: {
@@ -173,7 +173,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
       if (sfsh->Perform(aPS.Next()))
         status = Standard_True;
 
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
       break;
     }
     case TopAbs_FACE: {
@@ -190,7 +190,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
         status = Standard_True;
       }
       sff->FixWireTool()->ModifyTopologyMode() = savTopoMode;
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
       break;
     }
     case TopAbs_WIRE: {
@@ -212,14 +212,14 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
       }
       sfw->ModifyTopologyMode() = savTopoMode;
       sfw->ClosedWireMode()     = savClosedMode;
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       break;
     }
     case TopAbs_EDGE: {
       Handle(ShapeFix_Edge) sfe = FixEdgeTool();
       sfe->SetContext(Context());
       if (sfe->FixVertexTolerance(TopoDS::Edge(S)))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       break;
     }
     case TopAbs_VERTEX:
@@ -276,7 +276,7 @@ void ShapeFix_Shape::SameParameter(const TopoShape&          sh,
                                    const Standard_Boolean       enforce,
                                    const Message_ProgressRange& theProgress)
 {
-  ShapeFix::SameParameter(sh, enforce, 0.0, theProgress);
+  ShapeFix1::SameParameter(sh, enforce, 0.0, theProgress);
 }
 
 //=================================================================================================
@@ -322,5 +322,5 @@ void ShapeFix_Shape::SetMaxTolerance(const Standard_Real maxtol)
 
 Standard_Boolean ShapeFix_Shape::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }

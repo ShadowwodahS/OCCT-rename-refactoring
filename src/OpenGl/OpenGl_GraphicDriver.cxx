@@ -290,7 +290,7 @@ void OpenGl_GraphicDriver::ReleaseContext()
       if (eglMakeCurrent((EGLDisplay)myEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT)
           != EGL_TRUE)
       {
-        ::Message::SendWarning("OpenGl_GraphicDriver, FAILED to release OpenGL context");
+        ::Message1::SendWarning("OpenGl_GraphicDriver, FAILED to release OpenGL context");
       }
       eglDestroyContext((EGLDisplay)myEglDisplay, (EGLContext)myEglContext);
     }
@@ -299,7 +299,7 @@ void OpenGl_GraphicDriver::ReleaseContext()
     {
       if (eglTerminate((EGLDisplay)myEglDisplay) != EGL_TRUE)
       {
-        ::Message::SendWarning("OpenGl_GraphicDriver, EGL, eglTerminate FAILED");
+        ::Message1::SendWarning("OpenGl_GraphicDriver, EGL, eglTerminate FAILED");
       }
     }
   }
@@ -330,7 +330,7 @@ Standard_Boolean OpenGl_GraphicDriver::InitContext()
   #endif
   if ((EGLDisplay)myEglDisplay == EGL_NO_DISPLAY)
   {
-    ::Message::SendFail("Error: no EGL display");
+    ::Message1::SendFail("Error: no EGL display");
     return Standard_False;
   }
 
@@ -338,14 +338,14 @@ Standard_Boolean OpenGl_GraphicDriver::InitContext()
   EGLint aVerMinor = 0;
   if (eglInitialize((EGLDisplay)myEglDisplay, &aVerMajor, &aVerMinor) != EGL_TRUE)
   {
-    ::Message::SendFail("Error: EGL display is unavailable");
+    ::Message1::SendFail("Error: EGL display is unavailable");
     return Standard_False;
   }
 
   myEglConfig = chooseEglSurfConfig((EGLDisplay)myEglDisplay, myCaps);
   if (myEglConfig == NULL)
   {
-    ::Message::SendFail("Error: EGL does not provide compatible configurations");
+    ::Message1::SendFail("Error: EGL does not provide compatible configurations");
     return Standard_False;
   }
 
@@ -354,7 +354,7 @@ Standard_Boolean OpenGl_GraphicDriver::InitContext()
   EGLint anEglCtxAttribs2[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE, EGL_NONE};
   if (eglBindAPI(EGL_OPENGL_ES_API) != EGL_TRUE)
   {
-    ::Message::SendFail("Error: EGL does not provide OpenGL ES client");
+    ::Message1::SendFail("Error: EGL does not provide OpenGL ES client");
     return Standard_False;
   }
   if (myCaps->contextMajorVersionUpper != 2)
@@ -371,7 +371,7 @@ Standard_Boolean OpenGl_GraphicDriver::InitContext()
   EGLint* anEglCtxAttribs = NULL;
   if (eglBindAPI(EGL_OPENGL_API) != EGL_TRUE)
   {
-    ::Message::SendFail("Error: EGL does not provide OpenGL client");
+    ::Message1::SendFail("Error: EGL does not provide OpenGL client");
     return Standard_False;
   }
   myEglContext = (Aspect_RenderingContext)
@@ -380,14 +380,14 @@ Standard_Boolean OpenGl_GraphicDriver::InitContext()
 
   if ((EGLContext)myEglContext == EGL_NO_CONTEXT)
   {
-    ::Message::SendFail("Error: EGL is unable to create OpenGL context");
+    ::Message1::SendFail("Error: EGL is unable to create OpenGL context");
     return Standard_False;
   }
   // eglMakeCurrent() fails or even crash with EGL_NO_SURFACE on some implementations
   // if (eglMakeCurrent ((EGLDisplay )myEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, (EGLContext
   // )myEglContext) != EGL_TRUE)
   //{
-  //  ::Message::SendFail ("Error: EGL is unable bind OpenGL context");
+  //  ::Message1::SendFail ("Error: EGL is unable bind OpenGL context");
   //  return Standard_False;
   //}
 #endif
@@ -423,7 +423,7 @@ Standard_Boolean OpenGl_GraphicDriver::InitEglContext(Aspect_Display          th
     myEglConfig = chooseEglSurfConfig((EGLDisplay)myEglDisplay, myCaps);
     if (myEglConfig == NULL)
     {
-      ::Message::SendFail("Error: EGL does not provide compatible configurations");
+      ::Message1::SendFail("Error: EGL does not provide compatible configurations");
       return Standard_False;
     }
   }
@@ -471,7 +471,7 @@ void OpenGl_GraphicDriver::chooseVisualInfo()
   if (!XQueryExtension(aDisp, "GLX", &aDummy, &aDummy, &aDummy)
       || !glXQueryExtension(aDisp, &aDummy, &aDummy))
   {
-    Message::SendFail("Error: OpenGl_GraphicDriver, GLX extension is unavailable");
+    Message1::SendFail("Error: OpenGl_GraphicDriver, GLX extension is unavailable");
   }
 
   // FBConfigs were added in GLX version 1.3
@@ -494,7 +494,7 @@ void OpenGl_GraphicDriver::chooseVisualInfo()
       /*int aDepthSize = 0, aStencilSize = 0;
       glXGetFBConfigAttrib (aDisp, anFBConfig, GLX_DEPTH_SIZE, &aDepthSize);
       glXGetFBConfigAttrib (aDisp, anFBConfig, GLX_STENCIL_SIZE, &aStencilSize);
-      Message::SendInfo() << "GLX FBConfig:"
+      Message1::SendInfo() << "GLX FBConfig:"
                           << "\n  DepthSize= " << aDepthSize
                           << "\n  StencilSize= " << aStencilSize;*/
     }
@@ -512,7 +512,7 @@ void OpenGl_GraphicDriver::chooseVisualInfo()
   }
   else
   {
-    Message::SendWarning(
+    Message1::SendWarning(
       "OpenGl_GraphicDriver, couldn't find compatible Visual (RGBA, double-buffered)");
   }
 #endif

@@ -235,7 +235,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   TColStd_MapIteratorOfPackedMapOfInteger it(anIDs);
   for (; it.More(); it.Next())
   {
-    Standard_Integer aKey = it.Key();
+    Standard_Integer aKey = it.Key1();
     if (GetVector(IsElement, aKey, aVec))
     {
       aValue = aVec.Magnitude();

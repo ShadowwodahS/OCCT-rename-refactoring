@@ -25,7 +25,7 @@
 
 //! this  package  provides  commands for  curves  and
 //! surface.
-class GeometryTest
+class GeometryTest1
 {
 public:
   DEFINE_STANDARD_ALLOC

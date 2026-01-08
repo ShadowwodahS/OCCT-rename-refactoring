@@ -66,7 +66,7 @@ static Standard_Integer DDataStd_Rmdraw(DrawInterpreter&, Standard_Integer nb, c
 {
   if (nb != 2)
   {
-    Message::SendFail() << "Syntax error: wrong number of arguments";
+    Message1::SendFail() << "Syntax error: wrong number of arguments";
     return 1;
   }
 
@@ -77,7 +77,7 @@ static Standard_Integer DDataStd_Rmdraw(DrawInterpreter&, Standard_Integer nb, c
   }
   else
   {
-    Message::SendFail() << "Syntax error: variable '" << arg[1] << "' not found";
+    Message1::SendFail() << "Syntax error: variable '" << arg[1] << "' not found";
     return 1;
   }
 }

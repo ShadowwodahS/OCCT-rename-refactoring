@@ -662,7 +662,7 @@ static Standard_Boolean FUN_selectGinterference(const TopOpeBRepDS_ListOfInterfe
   for (; it.More(); it.Next())
   {
     const Handle(TopOpeBRepDS_Interference)& I = it.Value();
-    if (I->Geometry() == G)
+    if (I->Geometry1() == G)
       lIonG.Append(I);
   }
   Standard_Boolean noIfound = lIonG.IsEmpty();
@@ -681,7 +681,7 @@ static Standard_Boolean FUN_sameGsameS(const TopOpeBRepDS_ListOfInterference& lo
   for (; PI.More(); PI.Next())
   {
     const Handle(TopOpeBRepDS_Interference)& EPI  = PI.Value();
-    Standard_Integer                         GEPI = EPI->Geometry();
+    Standard_Integer                         GEPI = EPI->Geometry1();
     Standard_Integer                         SEPI = EPI->Support();
     if (GEPI == G && SEPI == S)
       loIfound.Append(EPI);

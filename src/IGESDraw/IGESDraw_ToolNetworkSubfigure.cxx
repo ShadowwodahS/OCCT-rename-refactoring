@@ -86,7 +86,7 @@ void NetworkSubfigureTool::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)
 
   scale.SetCoord(scaleX, scaleY, scaleZ);
 
-  if (PR.DefinedElseSkip())                              // Reading typeflag(Integer)
+  if (PR.DefinedElseSkip())                              // Reading typeflag(Integer1)
     PR.ReadInteger(PR.Current(), "Type flag", typeflag); // szv#4:S4163:12Mar99 `st=` not needed
   else
     typeflag = 0; // Default Value
@@ -107,7 +107,7 @@ void NetworkSubfigureTool::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)
                                       textTemplate,
                                       Standard_True);
 
-  // Reading nbval(Integer)
+  // Reading nbval(Integer1)
   if (PR.DefinedElseSkip())
     // clang-format off
     st = PR.ReadInteger(PR.Current(),"Count of Connect Points", nbval); //szv#4:S4163:12Mar99 `st=` not needed
@@ -232,7 +232,7 @@ void NetworkSubfigureTool::OwnCheck(const Handle(IGESDraw_NetworkSubfigure)& ent
   if (ent->NbConnectPoints() != ent->SubfigureDefinition()->NbPointEntities())
     ach->AddFail("Count of associated Connect Points inconsistent with Definition");
   if (ent->ReferenceDesignator().IsNull())
-    ach->AddFail("Primary Reference Designator : not defined");
+    ach->AddFail("Primary Reference1 Designator : not defined");
 }
 
 void NetworkSubfigureTool::OwnDump(const Handle(IGESDraw_NetworkSubfigure)& ent,
@@ -250,7 +250,7 @@ void NetworkSubfigureTool::OwnDump(const Handle(IGESDraw_NetworkSubfigure)& ent,
   S << "\nScale Factors    : ";
   IGESData_DumpXYZ(S, ent->ScaleFactors());
   S << "\nType Flag : " << ent->TypeFlag() << "\n"
-    << "Primary Reference Designator : ";
+    << "Primary Reference1 Designator : ";
   IGESData_DumpString(S, ent->ReferenceDesignator());
   S << "\nText Display Template Entity : ";
   dumper.Dump(ent->DesignatorTemplate(), S, sublevel);

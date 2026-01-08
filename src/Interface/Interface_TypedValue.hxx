@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(Interface_TypedValue, MoniTool_TypedValue)
 //!
 //! This class allows to dynamically manage .. typed values, i.e.
 //! values which have an alphanumeric expression, but with
-//! controls. Such as "must be an Integer" or "Enumerative Text"
+//! controls. Such as "must be an Integer1" or "Enumerative Text"
 //! etc
 //!
 //! Hence, a TypedValue brings a specification (type + constraints
@@ -49,7 +49,7 @@ public:
   //! Creates a TypedValue, with a name
   //!
   //! type gives the type of the parameter, default is free text
-  //! Also available : Integer, Real, Enum, Entity (i.e. Object)
+  //! Also available : Integer1, Real, Enum, Entity (i.e. Object)
   //! More precise specifications, titles, can be given to the
   //! TypedValue once created
   //!

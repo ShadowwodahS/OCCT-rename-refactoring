@@ -672,7 +672,7 @@ static Standard_Integer BUC60924(DrawInterpreter& di, Standard_Integer argc, con
 static Standard_Integer BUC60920(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
 
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     std::cerr << "use 'vinit' command before " << argv[0] << "\n";
@@ -692,7 +692,7 @@ static Standard_Integer BUC60920(DrawInterpreter& di, Standard_Integer /*argc*/,
   Handle(VisualShape) anAISShape = new VisualShape(theShape);
   myAISContext->Display(anAISShape, Standard_True);
 
-  Handle(ViewWindow) myV3dView = ViewerTest::CurrentView();
+  Handle(ViewWindow) myV3dView = ViewerTest1::CurrentView();
 
   double Xv, Yv;
   myV3dView->Project(20, 20, 0, Xv, Yv);
@@ -1014,13 +1014,13 @@ static Standard_Integer OCC2932_SetIDUAttribute(DrawInterpreter& di,
   Handle(TDataStd_UAttribute) UA;
   if (!label.FindAttribute(old_guid, UA))
   {
-    di << "No UAttribute Attribute on label " << argv[2] << "\n";
+    di << "No UAttribute1 Attribute on label " << argv[2] << "\n";
     return 0;
   }
   Handle(TDataStd_UAttribute) anotherUA;
   if (label.FindAttribute(new_guid, anotherUA))
   {
-    di << "There is this UAttribute Attribute on label " << argv[2] << "\n";
+    di << "There is this UAttribute1 Attribute on label " << argv[2] << "\n";
     return 0;
   }
   UA->SetID(new_guid);

@@ -70,7 +70,7 @@ static Standard_Integer VBLEND(DrawInterpreter& di, Standard_Integer narg, const
 
   Standard_Integer                NbToPick = (narg - 4) / 2;
   Handle(TopTools_HArray1OfShape) arr      = new TopTools_HArray1OfShape(1, NbToPick);
-  if (ViewerTest::PickShapes(TopAbs_EDGE, arr))
+  if (ViewerTest1::PickShapes(TopAbs_EDGE, arr))
   {
     for (Standard_Integer i = 1; i <= NbToPick; i++)
     {
@@ -124,12 +124,12 @@ static Standard_Integer VBLEND(DrawInterpreter& di, Standard_Integer narg, const
   DBRep1::Set(a[1], res);
 
   // visu resultat...
-  ViewerTest::Display(a[2], Handle(VisualEntity)(), false);
-  ViewerTest::Display(a[1], new VisualShape(res), true);
+  ViewerTest1::Display(a[2], Handle(VisualEntity)(), false);
+  ViewerTest1::Display(a[1], new VisualShape(res), true);
   return 0;
 }
 
-void ViewerTest::FilletCommands(DrawInterpreter& theCommands)
+void ViewerTest1::FilletCommands(DrawInterpreter& theCommands)
 {
   const char* g = "Viewer Fillet construction commands";
   theCommands.Add("vblend",

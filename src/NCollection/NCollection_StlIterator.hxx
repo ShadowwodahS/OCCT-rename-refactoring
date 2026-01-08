@@ -71,13 +71,13 @@ protected: //! @name methods related to forward STL iterator
   // an appropriate method based on template arguments (at instantiation time).
 
   template <bool Condition>
-  typename std::enable_if<!Condition, ItemType&>::type Reference() const
+  typename std::enable_if<!Condition, ItemType&>::type Reference1() const
   {
     return myIterator.ChangeValue();
   }
 
   template <bool Condition>
-  typename std::enable_if<Condition, const ItemType&>::type Reference() const
+  typename std::enable_if<Condition, const ItemType&>::type Reference1() const
   {
     return myIterator.Value();
   }
@@ -94,10 +94,10 @@ public: //! @name methods related to forward STL iterator
   bool operator!=(const NCollection_StlIterator& theOther) const { return !(*this == theOther); }
 
   //! Get reference to current item
-  typename NCollection_StlIterator::reference operator*() const { return Reference<IsConstant>(); }
+  typename NCollection_StlIterator::reference operator*() const { return Reference1<IsConstant>(); }
 
   //! Dereferencing operator
-  typename NCollection_StlIterator::pointer operator->() const { return &Reference<IsConstant>(); }
+  typename NCollection_StlIterator::pointer operator->() const { return &Reference1<IsConstant>(); }
 
   //! Prefix increment
   NCollection_StlIterator& operator++()

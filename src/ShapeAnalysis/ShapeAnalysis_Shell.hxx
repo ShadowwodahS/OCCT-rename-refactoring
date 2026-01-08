@@ -27,13 +27,13 @@ class TopoCompound;
 
 //! This class provides operators to analyze edges orientation
 //! in the shell.
-class ShapeAnalysis_Shell
+class Shell3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT ShapeAnalysis_Shell();
+  Standard_EXPORT Shell3();
 
   //! Clears data about loaded shells and performed checks
   Standard_EXPORT void Clear();

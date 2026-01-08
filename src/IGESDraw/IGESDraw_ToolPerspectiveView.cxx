@@ -56,7 +56,7 @@ void PerspectiveViewTool::ReadOwnParams(const Handle(IGESDraw_PerspectiveView)& 
   PR.ReadInteger(PR.Current(), "View Number", tempViewNumber);
   PR.ReadReal(PR.Current(), "Scale Number", tempScaleFactor);
   PR.ReadXYZ(PR.CurrentList(1, 3), "View Plane1 Normal Vector", tempViewNormalVector);
-  PR.ReadXYZ(PR.CurrentList(1, 3), "View Reference Point", tempViewReferencePoint);
+  PR.ReadXYZ(PR.CurrentList(1, 3), "View Reference1 Point", tempViewReferencePoint);
   PR.ReadXYZ(PR.CurrentList(1, 3), "Center Of Projection", tempCenterOfProjection);
   PR.ReadXYZ(PR.CurrentList(1, 3), "View Up Vector", tempViewUpVector);
   PR.ReadReal(PR.Current(), "View Plane1 Distance", tempViewPlaneDistance);
@@ -189,7 +189,7 @@ void PerspectiveViewTool::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
     << "Scale Factor : " << ent->ScaleFactor() << "\n"
     << "View Plane1 Normal Vector : ";
   IGESData_DumpXYZL(S, level, ent->ViewNormalVector(), ent->Location());
-  S << "\nView Reference Point     : ";
+  S << "\nView Reference1 Point     : ";
   IGESData_DumpXYZL(S, level, ent->ViewReferencePoint(), ent->Location());
   S << "\nCenter Of Projection     : ";
   IGESData_DumpXYZL(S, level, ent->CenterOfProjection(), ent->Location());

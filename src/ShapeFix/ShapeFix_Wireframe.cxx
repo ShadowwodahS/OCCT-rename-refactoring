@@ -73,7 +73,7 @@ ShapeFix_Wireframe::ShapeFix_Wireframe(const TopoShape& shape)
 
 void ShapeFix_Wireframe::ClearStatuses()
 {
-  Standard_Integer emptyStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  Standard_Integer emptyStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
 
   myStatusWireGaps   = emptyStatus;
   myStatusSmallEdges = emptyStatus;
@@ -91,7 +91,7 @@ void ShapeFix_Wireframe::Load(const TopoShape& shape)
 
 Standard_Boolean ShapeFix_Wireframe::FixWireGaps()
 {
-  myStatusWireGaps = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusWireGaps = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (myShape.IsNull())
     return Standard_False;
 
@@ -165,14 +165,14 @@ Standard_Boolean ShapeFix_Wireframe::FixWireGaps()
       sfw->FixReorder();
       sfw->FixGaps3d();
       if (sfw->StatusGaps3d(ShapeExtend_DONE))
-        myStatusWireGaps |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatusWireGaps |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       if (sfw->StatusGaps3d(ShapeExtend_FAIL))
-        myStatusWireGaps |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+        myStatusWireGaps |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
       sfw->FixGaps2d();
       if (sfw->StatusGaps2d(ShapeExtend_DONE))
-        myStatusWireGaps |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatusWireGaps |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
       if (sfw->StatusGaps2d(ShapeExtend_FAIL))
-        myStatusWireGaps |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+        myStatusWireGaps |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
       if (sfw->StatusGaps3d(ShapeExtend_DONE) || sfw->StatusGaps2d(ShapeExtend_DONE))
         SendWarning(itw.Value(), Message_Msg("FixWireframe.FixFixWireGaps.MSG0"));
     }
@@ -191,9 +191,9 @@ Standard_Boolean ShapeFix_Wireframe::FixWireGaps()
     sfw->FixReorder();
     sfw->FixGaps3d();
     if (sfw->StatusGaps3d(ShapeExtend_DONE))
-      myStatusWireGaps |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatusWireGaps |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     if (sfw->StatusGaps3d(ShapeExtend_FAIL))
-      myStatusWireGaps |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+      myStatusWireGaps |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     if (sfw->StatusGaps3d(ShapeExtend_DONE))
       SendWarning(expw.Current(), Message_Msg("FixWireframe.FixFixWireGaps.MSG0"));
   }
@@ -204,7 +204,7 @@ Standard_Boolean ShapeFix_Wireframe::FixWireGaps()
 
     myShape = Context()->Apply(myShape);
 
-    ShapeFix::SameParameter(myShape, Standard_False);
+    ShapeFix1::SameParameter(myShape, Standard_False);
 
     TopoWire           wire;
     Handle(ShapeFix_Edge) sfe = new ShapeFix_Edge;
@@ -285,7 +285,7 @@ static Standard_Boolean JoinEdges(const TopoEdge&          E1,
     Handle(GeomCurve3d) CRes;
     Standard_Boolean   isRev1, isRev2;
     //     Standard_Real newf,newl;
-    if (!ShapeConstruct::JoinCurves(c3d1,
+    if (!ShapeConstruct1::JoinCurves(c3d1,
                                     c3d2,
                                     E1.Orientation(),
                                     E2.Orientation(),
@@ -343,7 +343,7 @@ static Standard_Boolean JoinEdges(const TopoEdge&          E1,
 
       Handle(GeomCurve2d) C2dRes;
       Standard_Boolean     isRev12, isRev22;
-      if (!ShapeConstruct::JoinCurves(c2d1,
+      if (!ShapeConstruct1::JoinCurves(c2d1,
                                       c2d2,
                                       OrEdge1,
                                       OrEdge2,
@@ -384,7 +384,7 @@ static Standard_Boolean JoinEdges(const TopoEdge&          E1,
         sae.PCurve(E2t, face, c2d22, first2, last2, Standard_False);
 
         Handle(GeomCurve2d) C2dRes2;
-        if (!ShapeConstruct::JoinCurves(c2d12,
+        if (!ShapeConstruct1::JoinCurves(c2d12,
                                         c2d22,
                                         OrEdge1,
                                         OrEdge2,
@@ -431,7 +431,7 @@ static Standard_Boolean JoinEdges(const TopoEdge&          E1,
 
 Standard_Boolean ShapeFix_Wireframe::FixSmallEdges()
 {
-  myStatusSmallEdges = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusSmallEdges = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (myShape.IsNull())
     return Standard_False;
 
@@ -870,7 +870,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                   if (edge3.IsNull())
                   {
                     index++;
-                    myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+                    myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
                   }
                   else
                   {
@@ -982,7 +982,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                           theFaceWithSmall.UnBind(curface);
                       }
                     }
-                    myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+                    myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
                   }
                 }
                 else if (aModeDrop)
@@ -1070,7 +1070,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                         }
                       }
                     }
-                    myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+                    myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
                   }
                   else
                     index++;
@@ -1106,7 +1106,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                       if (theSmallEdges.Contains(edge1))
                         theSmallEdges.Remove(edge1);
                       theEdgeToFaces.UnBind(edge1);
-                      myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+                      myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
                     }
                     else
                       index++;
@@ -1122,7 +1122,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                       if (theSmallEdges.Contains(edge2))
                         theSmallEdges.Remove(edge2);
                       theEdgeToFaces.UnBind(edge2);
-                      myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+                      myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
                     }
                     else
                       index++;
@@ -1146,7 +1146,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                 theEdgeToFaces.UnBind(edge1);
                 Context()->Remove(aWire);
                 SendWarning(aWire, Message_Msg("FixWireframe.FixSmallEdges.MSG1"));
-                myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+                myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
               }
             }
             else
@@ -1350,7 +1350,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
             if (edge3.IsNull())
             {
               index++;
-              myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+              myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
             }
             else
             {
@@ -1461,7 +1461,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                     theFaceWithSmall.UnBind(curface);
                 }
               }
-              myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+              myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
             }
           }
           else if (aModeDrop)
@@ -1549,7 +1549,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                   }
                 }
               }
-              myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+              myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
             }
             else
               index++;
@@ -1585,7 +1585,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                 if (theSmallEdges.Contains(edge1))
                   theSmallEdges.Remove(edge1);
                 theEdgeToFaces.UnBind(edge1);
-                myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+                myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
               }
               else
                 index++;
@@ -1601,7 +1601,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                 if (theSmallEdges.Contains(edge2))
                   theSmallEdges.Remove(edge2);
                 theEdgeToFaces.UnBind(edge2);
-                myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+                myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
               }
               else
                 index++;
@@ -1625,7 +1625,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
           theEdgeToFaces.UnBind(edge1);
           Context()->Remove(aWire);
           SendWarning(aWire, Message_Msg("FixWireframe.FixSmallEdges.MSG1"));
-          myStatusSmallEdges |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+          myStatusSmallEdges |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
         }
       }
       else
@@ -1637,13 +1637,13 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
     // end enk block
     // Record vertex replacements in context
     for (TopTools_DataMapIteratorOfDataMapOfShapeShape itv(theNewVertices); itv.More(); itv.Next())
-      Context()->Replace(itv.Key(), itv.Value());
+      Context()->Replace(itv.Key1(), itv.Value());
 
     TopoShape shape = myShape;
     myShape.Nullify();
     myShape = Context()->Apply(shape);
 
-    ShapeFix::SameParameter(myShape, Standard_False);
+    ShapeFix1::SameParameter(myShape, Standard_False);
 
     return StatusSmallEdges(ShapeExtend_DONE);
   }

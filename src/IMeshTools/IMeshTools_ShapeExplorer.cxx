@@ -72,7 +72,7 @@ void IMeshTools_ShapeExplorer::Accept(const Handle(IMeshTools_ShapeVisitor)& the
   // Explore all related to some face edges in shape.
   // make array of faces suitable for processing (excluding faces without surface)
   ShapeList aFaceList;
-  BRepLib::ReverseSortFaces(GetShape(), aFaceList);
+  BRepLib1::ReverseSortFaces(GetShape(), aFaceList);
   TopTools_MapOfShape aFaceMap;
 
   const TopLoc_Location              aEmptyLoc;

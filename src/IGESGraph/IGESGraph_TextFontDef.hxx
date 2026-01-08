@@ -50,7 +50,7 @@ public:
   //! - aScale            : No. of grid units = 1 text height unit
   //! - allASCIICodes     : ASCII codes for characters
   //! - allNextCharX & Y  : Grid locations of the next
-  //! character's origin (Integer vals)
+  //! character's origin (Integer1 vals)
   //! - allPenMotions     : No. of pen motions for the characters
   //! - allPenFlags       : Pen up/down flags,
   //! 0 = Down (default), 1 = Up

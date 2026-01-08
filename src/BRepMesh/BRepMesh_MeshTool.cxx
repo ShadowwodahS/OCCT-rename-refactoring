@@ -134,7 +134,7 @@ void BRepMesh_MeshTool::CleanFrontierLinks()
   IMeshData::IteratorOfMapOfInteger aFrontierIt(*aFrontier);
   for (; aFrontierIt.More(); aFrontierIt.Next())
   {
-    Standard_Integer     aFrontierId = aFrontierIt.Key();
+    Standard_Integer     aFrontierId = aFrontierIt.Key1();
     const BRepMesh_Edge& aLink       = myStructure->GetLink(aFrontierId);
 
     Standard_Boolean            isTriangleFound = Standard_False;
@@ -173,7 +173,7 @@ void BRepMesh_MeshTool::EraseTriangles(const IMeshData::MapOfInteger&  theTriang
   IMeshData::IteratorOfMapOfInteger aFreeTriangles(theTriangles);
   for (; aFreeTriangles.More(); aFreeTriangles.Next())
   {
-    EraseTriangle(aFreeTriangles.Key(), theLoopEdges);
+    EraseTriangle(aFreeTriangles.Key1(), theLoopEdges);
   }
 }
 
@@ -271,9 +271,9 @@ void BRepMesh_MeshTool::EraseFreeLinks(const IMeshData::MapOfIntegerInteger& the
   IMeshData::MapOfIntegerInteger::Iterator aFreeEdges(theLinks);
   for (; aFreeEdges.More(); aFreeEdges.Next())
   {
-    if (myStructure->ElementsConnectedTo(aFreeEdges.Key()).IsEmpty())
+    if (myStructure->ElementsConnectedTo(aFreeEdges.Key1()).IsEmpty())
     {
-      myStructure->RemoveLink(aFreeEdges.Key());
+      myStructure->RemoveLink(aFreeEdges.Key1());
     }
   }
 }
@@ -288,10 +288,10 @@ Handle(IMeshData::MapOfInteger) BRepMesh_MeshTool::GetEdgesByType(
 
   for (; aEdgeIt.More(); aEdgeIt.Next())
   {
-    const BRepMesh_Edge& aEdge = myStructure->GetLink(aEdgeIt.Key());
+    const BRepMesh_Edge& aEdge = myStructure->GetLink(aEdgeIt.Key1());
     if (aEdge.Movability() == theEdgeType)
     {
-      aResult->Add(aEdgeIt.Key());
+      aResult->Add(aEdgeIt.Key1());
     }
   }
 
@@ -310,11 +310,11 @@ void BRepMesh_MeshTool::DumpTriangles(const Standard_CString   theFileName,
   const IMeshData::MapOfInteger& aTriangles = myStructure->ElementsOfDomain();
   for (IMeshData::IteratorOfMapOfInteger aIt(aTriangles); aIt.More(); aIt.Next())
   {
-    if (theTriangles != NULL && !theTriangles->Contains(aIt.Key()))
+    if (theTriangles != NULL && !theTriangles->Contains(aIt.Key1()))
       continue;
 
     Standard_Integer         aNodes[3];
-    const Triangle3& aTri = myStructure->GetElement(aIt.Key());
+    const Triangle3& aTri = myStructure->GetElement(aIt.Key1());
     myStructure->ElementNodes(aTri, aNodes);
 
     const Coords2d& aV1 = myStructure->GetNode(aNodes[0]).Coord();

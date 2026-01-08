@@ -32,7 +32,7 @@ void StepGeom_Conic::SetPosition(const StepGeom_Axis2Placement& aPosition)
   position = aPosition;
 }
 
-StepGeom_Axis2Placement StepGeom_Conic::Position() const
+StepGeom_Axis2Placement StepGeom_Conic::Position1() const
 {
   return position;
 }

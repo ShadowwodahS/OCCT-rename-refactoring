@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-void XmlMDocStd::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMDocStd1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                             const Handle(Message_Messenger)&   aMessageDriver)
 {
   aDriverTable->AddDriver(new XmlMDocStd_XLinkDriver(aMessageDriver));

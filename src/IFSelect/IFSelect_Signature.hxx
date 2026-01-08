@@ -96,7 +96,7 @@ public:
                                                      const AsciiString1& text,
                                                      const Standard_Boolean         exact);
 
-  //! This procedure converts an Integer to a CString
+  //! This procedure converts an Integer1 to a CString
   //! It is a convenient way when the value of a signature has the
   //! form of a simple integer value
   //! The value is to be used immediately (one buffer only, no copy)

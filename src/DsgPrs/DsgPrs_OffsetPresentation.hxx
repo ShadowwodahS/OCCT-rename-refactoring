@@ -28,7 +28,7 @@ class Point3d;
 class Dir3d;
 
 //! A framework to define display of offsets.
-class DsgPrs_OffsetPresentation
+class OffsetPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

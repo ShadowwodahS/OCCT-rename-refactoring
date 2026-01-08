@@ -37,7 +37,7 @@
  *   user data, while not breaking algorithm execution
  * - Fail flags correspond to cases when algorithm failed to complete
  */
-class Message_ExecStatus
+class ExecutionStatus
 {
 private:
   //! Mask to separate bits indicating status type and index within the type
@@ -54,7 +54,7 @@ public:
   //!@{
 
   //! Create empty execution status
-  Message_ExecStatus()
+  ExecutionStatus()
       : myDone(Message_None),
         myWarn(Message_None),
         myAlarm(Message_None),
@@ -63,7 +63,7 @@ public:
   }
 
   //! Initialise the execution status
-  Message_ExecStatus(Message_Status theStatus)
+  ExecutionStatus(Message_Status theStatus)
       : myDone(Message_None),
         myWarn(Message_None),
         myAlarm(Message_None),
@@ -165,7 +165,7 @@ public:
   void Clear() { myDone = myWarn = myAlarm = myFail = Message_None; }
 
   //! Add statuses to me from theOther execution status
-  void Add(const Message_ExecStatus& theOther)
+  void Add(const ExecutionStatus& theOther)
   {
     myDone |= theOther.myDone;
     myWarn |= theOther.myWarn;
@@ -173,14 +173,14 @@ public:
     myFail |= theOther.myFail;
   }
 
-  const Message_ExecStatus& operator|=(const Message_ExecStatus& theOther)
+  const ExecutionStatus& operator|=(const ExecutionStatus& theOther)
   {
     Add(theOther);
     return *this;
   }
 
   //! Leave only the statuses common with theOther
-  void And(const Message_ExecStatus& theOther)
+  void And(const ExecutionStatus& theOther)
   {
     myDone &= theOther.myDone;
     myWarn &= theOther.myWarn;
@@ -188,7 +188,7 @@ public:
     myFail &= theOther.myFail;
   }
 
-  const Message_ExecStatus& operator&=(const Message_ExecStatus& theOther)
+  const ExecutionStatus& operator&=(const ExecutionStatus& theOther)
   {
     And(theOther);
     return *this;

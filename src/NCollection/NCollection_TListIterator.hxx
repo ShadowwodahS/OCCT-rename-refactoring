@@ -25,18 +25,18 @@
  * Remark:      TListIterator is internal class
  */
 template <class TheItemType>
-class NCollection_TListIterator : public NCollection_BaseList::Iterator
+class NCollection_TListIterator : public BaseList::Iterator
 {
 public:
   //! Empty constructor - for later Init
   NCollection_TListIterator(void)
-      : NCollection_BaseList::Iterator()
+      : BaseList::Iterator()
   {
   }
 
   //! Constructor with initialisation
-  NCollection_TListIterator(const NCollection_BaseList& theList)
-      : NCollection_BaseList::Iterator(theList)
+  NCollection_TListIterator(const BaseList& theList)
+      : BaseList::Iterator(theList)
   {
   }
 

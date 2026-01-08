@@ -18,21 +18,21 @@
 
 #include <TDataStd_Real.hxx>
 
-class StdLPersistent_Real : public StdObjMgt_Attribute<TDataStd_Real>
+class Real : public StdObjMgt_Attribute<TDataStd_Real>
 {
 public:
   //! Empty constructor.
-  StdLPersistent_Real()
+  Real()
       : myValue(0.0),
         myDimension(0)
   {
   }
 
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myValue >> myDimension; }
+  inline void Read(ReadData& theReadData) { theReadData >> myValue >> myDimension; }
 
   //! Write persistent data from a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData) const
+  inline void Write(WriteData& theWriteData) const
   {
     theWriteData << myValue << myDimension;
   }

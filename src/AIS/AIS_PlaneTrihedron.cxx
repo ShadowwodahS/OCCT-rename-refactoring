@@ -65,7 +65,7 @@ AIS_PlaneTrihedron::AIS_PlaneTrihedron(const Handle(GeomPlane)& aPlane)
   DA->LineAspect(Prs3d_DatumParts_YAxis)->SetColor(col);
   DA->SetDrawDatumAxes(Prs3d_DatumAxes_XYAxes);
   myDrawer->SetDatumAspect(DA); // odl - specific is created because it is modified
-  myShapes[0] = Position();
+  myShapes[0] = Position1();
   myShapes[1] = XAxis();
   myShapes[2] = YAxis();
 
@@ -109,7 +109,7 @@ Handle(AIS_Line) AIS_PlaneTrihedron::YAxis() const
 
 //=================================================================================================
 
-Handle(VisualPoint) AIS_PlaneTrihedron::Position() const
+Handle(VisualPoint) AIS_PlaneTrihedron::Position1() const
 {
   Point3d             aPnt   = myPlane->Pln().Location();
   Handle(Geom_Point) aPoint = new Geom_CartesianPoint(aPnt);
@@ -137,16 +137,16 @@ void AIS_PlaneTrihedron::Compute(const Handle(PrsMgr_PresentationManager)&,
   // drawing axis in X direction
   Point3d        first, last;
   Standard_Real value = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_XAxis);
-  Dir3d        xDir  = myPlane->Position().Ax2().XDirection();
+  Dir3d        xDir  = myPlane->Position1().Ax2().XDirection();
 
-  Point3d        orig = myPlane->Position().Ax2().Location();
+  Point3d        orig = myPlane->Position1().Ax2().Location();
   Standard_Real xo, yo, zo, x, y, z;
   orig.Coord(xo, yo, zo);
   xDir.Coord(x, y, z);
   first.SetCoord(xo, yo, zo);
   last.SetCoord(xo + x * value, yo + y * value, zo + z * value);
 
-  DsgPrs_XYZAxisPresentation::Add(thePrs,
+  XYZAxisPresentation::Add(thePrs,
                                   myDrawer->DatumAspect()->LineAspect(Prs3d_DatumParts_XAxis),
                                   myDrawer->ArrowAspect(),
                                   myDrawer->TextAspect(),
@@ -158,11 +158,11 @@ void AIS_PlaneTrihedron::Compute(const Handle(PrsMgr_PresentationManager)&,
 
   // drawing axis in Y direction
   value       = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_YAxis);
-  Dir3d yDir = myPlane->Position().Ax2().YDirection();
+  Dir3d yDir = myPlane->Position1().Ax2().YDirection();
 
   yDir.Coord(x, y, z);
   last.SetCoord(xo + x * value, yo + y * value, zo + z * value);
-  DsgPrs_XYZAxisPresentation::Add(thePrs,
+  XYZAxisPresentation::Add(thePrs,
                                   myDrawer->DatumAspect()->LineAspect(Prs3d_DatumParts_XAxis),
                                   myDrawer->ArrowAspect(),
                                   myDrawer->TextAspect(),
@@ -189,7 +189,7 @@ void AIS_PlaneTrihedron::ComputeSelection(const Handle(SelectionContainer)& aSel
   {
     case 0: { // triedre complet
       Prior = 5;
-      //      Frame3d theax = Frame3d(myPlane->Position().Ax2());
+      //      Frame3d theax = Frame3d(myPlane->Position1().Ax2());
       //      Point3d p1 = theax.Location();
 
       eown = new SelectMgr_EntityOwner(this, Prior);
@@ -243,7 +243,7 @@ void ExtremityPoints(TColgp_Array1OfPnt&         PP,
                      const Handle(StyleDrawer)& myDrawer)
 {
   //  Frame3d theax(myPlane->Ax2());
-  Frame3d theax(myPlane->Position().Ax2());
+  Frame3d theax(myPlane->Position1().Ax2());
   PP(1) = theax.Location();
 
   Standard_Real len = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_XAxis);

@@ -71,7 +71,7 @@ Standard_Boolean TFunction_DriverTable::AddDriver(const Standard_GUID&          
         TFunction_DataMapIteratorOfDataMapOfGUIDDriver itrt(t);
         for (; itrt.More(); itrt.Next())
         {
-          new_dt->ChangeValue(i).Bind(itrt.Key(), itrt.Value());
+          new_dt->ChangeValue(i).Bind(itrt.Key1(), itrt.Value());
         }
       } // for...
       myThreadDrivers = new_dt;
@@ -128,10 +128,10 @@ Standard_OStream& TFunction_DriverTable::Dump(Standard_OStream& anOS) const
   TFunction_DataMapIteratorOfDataMapOfGUIDDriver itr(myDrivers);
   for (; itr.More(); itr.Next())
   {
-    itr.Key().ShallowDump(anOS);
+    itr.Key1().ShallowDump(anOS);
     anOS << "\t";
     UtfString es;
-    TDF1::ProgIDFromGUID(itr.Key(), es);
+    TDF1::ProgIDFromGUID(itr.Key1(), es);
     anOS << es << "\n";
   }
   return anOS;

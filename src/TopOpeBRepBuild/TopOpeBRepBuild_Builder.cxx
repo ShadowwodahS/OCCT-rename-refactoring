@@ -192,7 +192,7 @@ void TopOpeBRepBuild_Builder::Clear()
   for (TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeListOfShapeOn1State it(mySplitOUT); it.More();
        it.Next())
   {
-    const TopoShape& e = it.Key();
+    const TopoShape& e = it.Key1();
     if (e.ShapeType() == TopAbs_EDGE)
     {
       Standard_Boolean isse = BDS.IsSectionEdge(TopoDS::Edge(e));
@@ -203,7 +203,7 @@ void TopOpeBRepBuild_Builder::Clear()
   for (TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeListOfShapeOn1State it(mySplitIN); it.More();
        it.Next())
   {
-    const TopoShape& e = it.Key();
+    const TopoShape& e = it.Key1();
     if (e.ShapeType() == TopAbs_EDGE)
     {
       Standard_Boolean isse = BDS.IsSectionEdge(TopoDS::Edge(e));
@@ -214,7 +214,7 @@ void TopOpeBRepBuild_Builder::Clear()
   for (TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeListOfShapeOn1State it(mySplitON); it.More();
        it.Next())
   {
-    const TopoShape& e = it.Key();
+    const TopoShape& e = it.Key1();
     if (e.ShapeType() == TopAbs_EDGE)
     {
       Standard_Boolean isse = BDS.IsSectionEdge(TopoDS::Edge(e));

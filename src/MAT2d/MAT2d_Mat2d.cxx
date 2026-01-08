@@ -1754,7 +1754,7 @@ void MAT2d_Mat2d::Next()
 
 //=================================================================================================
 
-Handle(MAT_Bisector) MAT2d_Mat2d::Bisector() const
+Handle(MAT_Bisector) MAT2d_Mat2d::Bisector1() const
 {
   return roots->Current();
 }

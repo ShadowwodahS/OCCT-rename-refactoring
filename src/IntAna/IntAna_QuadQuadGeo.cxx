@@ -265,7 +265,7 @@ Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2)
   // distance between them > Precision::Confusion()
   Point3d aPA1 = theCon1.Apex(), aPA2 = theCon2.Apex();
 
-  Point3d aP3 = aPA1.Translated(theCon1.Position().Direction());
+  Point3d aP3 = aPA1.Translated(theCon1.Position1().Direction());
 
   gce_MakePln aMkPln(aPA1, aPA2, aP3);
   if (!aMkPln.IsDone())
@@ -273,14 +273,14 @@ Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2)
 
   const gp_Pln& aPln = aMkPln.Value();
 
-  gp_Lin        anAx1(aPA1, theCon1.Position().Direction());
+  gp_Lin        anAx1(aPA1, theCon1.Position1().Direction());
   gp_Lin2d      anAx12d = ProjLib1::Project(aPln, anAx1);
   gp_Lin2d      Lines1[2];
   Standard_Real anAng1 = theCon1.SemiAngle();
   Lines1[0]            = anAx12d.Rotated(anAx12d.Location(), anAng1);
   Lines1[1]            = anAx12d.Rotated(anAx12d.Location(), -anAng1);
   //
-  gp_Lin        anAx2(aPA2, theCon2.Position().Direction());
+  gp_Lin        anAx2(aPA2, theCon2.Position1().Direction());
   gp_Lin2d      anAx22d = ProjLib1::Project(aPln, anAx2);
   gp_Lin2d      Lines2[2];
   Standard_Real anAng2 = theCon2.SemiAngle();
@@ -686,7 +686,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
       typeres = IntAna_Circle;
 
       dir1   = axec.Direction(); // axe Z
-      dir2   = Cl.Position().XDirection();
+      dir2   = Cl.Position1().XDirection();
       param1 = radius;
     }
     else
@@ -872,8 +872,8 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
         typeres = IntAna_Circle;
         nbint   = 1;
         pt1     = center;
-        dir1    = Co.Position().Direction();
-        dir2    = Co.Position().XDirection();
+        dir1    = Co.Position1().Direction();
+        dir2    = Co.Position1().XDirection();
         param1  = apex.Distance(center) * Abs(Tan(angl));
       }
       else if (cost < sina)
@@ -998,7 +998,7 @@ void QuadQuadGeoIntersection::Perform(const gp_Pln& P, const Sphere3& S)
     dir1 = P.Axis().Direction();
     if (P.Direct() == Standard_False)
       dir1.Reverse();
-    dir2   = P.Position().XDirection();
+    dir2   = P.Position1().XDirection();
     param1 = Sqrt(radius * radius - dist * dist);
   }
   param2bis = 0.0; //-- pour eviter param2bis not used ....
@@ -1075,7 +1075,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1&  Cyl1,
       Point3d P2t = Cyl2.Location();
       Point3d P2;
       //-- P2t is projected on the plane (P1,DirCylX,DirCylY)
-      Dir3d        DirCyl          = Cyl1.Position().Direction();
+      Dir3d        DirCyl          = Cyl1.Position1().Direction();
       Standard_Real ProjP2OnDirCyl1 = Vector3d(DirCyl).Dot(Vector3d(P1, P2t));
 
       // P2 is a projection the location of the 2nd cylinder on the base
@@ -1166,7 +1166,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1&  Cyl1,
           // two intersection points).
           // 2. Intercept the segment from P1 along direction,
           // determined in the preview paragraph and having R1 length
-          const Dir3d &aXDir = Cyl1.Position().XDirection(), &aYDir = Cyl1.Position().YDirection();
+          const Dir3d &aXDir = Cyl1.Position1().XDirection(), &aYDir = Cyl1.Position1().YDirection();
           const Vector3d  aR1Xdir = R1 * aXDir.XYZ(), aR1Ydir = R1 * aYDir.XYZ();
 
           // Source 2D-coordinates of the P1P2 vector normalized
@@ -1214,8 +1214,8 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1&  Cyl1,
       //-- and identical radius
       typeres        = IntAna_Ellipse;
       nbint          = 2;
-      Dir3d DirCyl1 = Cyl1.Position().Direction();
-      Dir3d DirCyl2 = Cyl2.Position().Direction();
+      Dir3d DirCyl1 = Cyl1.Position1().Direction();
+      Dir3d DirCyl2 = Cyl2.Position1().Direction();
       pt1 = pt2 = A1A2.PtIntersect();
 
       Standard_Real A = DirCyl1.Angle(DirCyl2);
@@ -1320,7 +1320,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const Cone1& Con, co
   {
     Point3d        Pt   = Con.Apex();
     Standard_Real dist = Cyl.Radius() / (Tan(Con.SemiAngle()));
-    Dir3d        dir  = Cyl.Position().Direction();
+    Dir3d        dir  = Cyl.Position1().Direction();
     pt1.SetCoord(Pt.X() + dist * dir.X(), Pt.Y() + dist * dir.Y(), Pt.Z() + dist * dir.Z());
     pt2.SetCoord(Pt.X() - dist * dir.X(), Pt.Y() - dist * dir.Y(), Pt.Z() - dist * dir.Z());
     dir1 = dir2 = dir;
@@ -1367,7 +1367,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const Sphere3& Sph, 
 {
   done           = Standard_True;
   Point3d      Pt = Sph.Location();
-  AxeOperator A1A2(Cyl.Axis(), Sph.Position().Axis());
+  AxeOperator A1A2(Cyl.Axis(), Sph.Position1().Axis());
   if ((A1A2.Intersect() && Pt.Distance(A1A2.PtIntersect()) == 0.0) || (A1A2.Same()))
   {
     if (Sph.Radius() < Cyl.Radius())
@@ -1377,7 +1377,7 @@ void QuadQuadGeoIntersection::Perform(const Cylinder1& Cyl, const Sphere3& Sph, 
     else
     {
       Standard_Real dist = Sqrt(Sph.Radius() * Sph.Radius() - Cyl.Radius() * Cyl.Radius());
-      Dir3d        dir  = Cyl.Position().Direction();
+      Dir3d        dir  = Cyl.Position1().Direction();
       dir1 = dir2 = dir;
       typeres     = IntAna_Circle;
       pt1.SetCoord(Pt.X() + dist * dir.X(), Pt.Y() + dist * dir.Y(), Pt.Z() + dist * dir.Z());
@@ -1477,7 +1477,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
     //-- two circles
     Standard_Real x;
     Point3d        P = Con1.Apex();
-    Dir3d        D = Con1.Position().Direction();
+    Dir3d        D = Con1.Position1().Direction();
     Standard_Real d = Vector3d(D).Dot(Vector3d(P, Con2.Apex()));
 
     if (Abs(tg1 - tg2) > myEPSILON_ANGLE_CONE)
@@ -1522,7 +1522,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
   {
 
     Standard_Real DistA1A2 = A1A2.Distance();
-    Dir3d        DA1      = Con1.Position().Direction();
+    Dir3d        DA1      = Con1.Position1().Direction();
     Vector3d        O1O2(Con1.Apex(), Con2.Apex());
     Dir3d        O1O2n(O1O2); // normalization of the vector before projection
     Standard_Real O1O2_DA1 = Vector3d(DA1).Dot(Vector3d(O1O2n));
@@ -1558,8 +1558,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres    = IntAna_Ellipse;
           gp_Elips E = INTER_QUAD_PLN.Ellipse(1);
           pt1        = E.Location();
-          dir1       = E.Position().Direction();
-          dir2       = E.Position().XDirection();
+          dir1       = E.Position1().Direction();
+          dir2       = E.Position1().XDirection();
           param1     = E.MajorRadius();
           param1bis  = E.MinorRadius();
           nbint      = 1;
@@ -1569,8 +1569,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres   = IntAna_Circle;
           gp_Circ C = INTER_QUAD_PLN.Circle(1);
           pt1       = C.Location();
-          dir1      = C.Position().XDirection();
-          dir2      = C.Position().YDirection();
+          dir1      = C.Position1().XDirection();
+          dir2      = C.Position1().YDirection();
           param1    = C.Radius();
           nbint     = 1;
           break;
@@ -1579,8 +1579,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres   = IntAna_Hyperbola;
           gp_Hypr H = INTER_QUAD_PLN.Hyperbola(1);
           pt1 = pt2 = H.Location();
-          dir1      = H.Position().Direction();
-          dir2      = H.Position().XDirection();
+          dir1      = H.Position1().Direction();
+          dir2      = H.Position1().XDirection();
           param1 = param2 = H.MajorRadius();
           param1bis = param2bis = H.MinorRadius();
           nbint                 = 2;
@@ -1590,7 +1590,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres  = IntAna_Line;
           gp_Lin H = INTER_QUAD_PLN.Line(1);
           pt1 = pt2 = H.Location();
-          dir1 = dir2 = H.Position().Direction();
+          dir1 = dir2 = H.Position1().Direction();
           param1 = param2 = 0.0;
           param1bis = param2bis = 0.0;
           nbint                 = 2;
@@ -1813,8 +1813,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
     }
     else
     {
-      Dir3d        D1      = aGen1.Position().Direction();
-      Dir3d        D2      = aGen2.Position().Direction();
+      Dir3d        D1      = aGen1.Position1().Direction();
+      Dir3d        D2      = aGen2.Position1().Direction();
       Point3d        O1      = aGen1.Location();
       Point3d        O2      = aGen2.Location();
       Standard_Real D1DotD2 = D1.Dot(D2);
@@ -1840,8 +1840,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres    = IntAna_Ellipse;
           gp_Elips E = INTER_QUAD_PLN.Ellipse(1);
           pt1        = E.Location();
-          dir1       = E.Position().Direction();
-          dir2       = E.Position().XDirection();
+          dir1       = E.Position1().Direction();
+          dir2       = E.Position1().XDirection();
           param1     = E.MajorRadius();
           param1bis  = E.MinorRadius();
           nbint      = 1;
@@ -1851,8 +1851,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres   = IntAna_Circle;
           gp_Circ C = INTER_QUAD_PLN.Circle(1);
           pt1       = C.Location();
-          dir1      = C.Position().XDirection();
-          dir2      = C.Position().YDirection();
+          dir1      = C.Position1().XDirection();
+          dir2      = C.Position1().YDirection();
           param1    = C.Radius();
           nbint     = 1;
           break;
@@ -1861,8 +1861,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres      = IntAna_Parabola;
           gp_Parab Prb = INTER_QUAD_PLN.Parabola(1);
           pt1          = Prb.Location();
-          dir1         = Prb.Position().Direction();
-          dir2         = Prb.Position().XDirection();
+          dir1         = Prb.Position1().Direction();
+          dir2         = Prb.Position1().XDirection();
           param1       = Prb.Focal();
           nbint        = 1;
           break;
@@ -1871,8 +1871,8 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
           typeres   = IntAna_Hyperbola;
           gp_Hypr H = INTER_QUAD_PLN.Hyperbola(1);
           pt1 = pt2 = H.Location();
-          dir1      = H.Position().Direction();
-          dir2      = H.Position().XDirection();
+          dir1      = H.Position1().Direction();
+          dir2      = H.Position1().XDirection();
           param1 = param2 = H.MajorRadius();
           param1bis = param2bis = H.MinorRadius();
           nbint                 = 2;
@@ -1925,7 +1925,7 @@ void QuadQuadGeoIntersection::Perform(const Sphere3& Sph, const Cone1& Con, cons
   //
   done = Standard_True;
   //
-  AxeOperator A1A2(Con.Axis(), Sph.Position().Axis());
+  AxeOperator A1A2(Con.Axis(), Sph.Position1().Axis());
   Point3d      Pt = Sph.Location();
   //
   if ((A1A2.Intersect() && (Pt.Distance(A1A2.PtIntersect()) == 0.0)) || A1A2.Same())
@@ -1939,7 +1939,7 @@ void QuadQuadGeoIntersection::Perform(const Sphere3& Sph, const Cone1& Con, cons
     }
     else
     {
-      ConDir = Con.Position().Direction();
+      ConDir = Con.Position1().Direction();
     }
 
     Standard_Real Rad = Sph.Radius();
@@ -2410,7 +2410,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con, const gp_Torus& Tor, con
   Dir3d aDN(Vector3d(aTorLoc, aPN));
   Axis3d anAxCLRot(aConApex, aDN);
   gp_Lin aConL = aLin.Rotated(anAxCLRot, anAngle);
-  Dir3d aDL   = aConL.Position().Direction();
+  Dir3d aDL   = aConL.Position1().Direction();
   Dir3d aXDir = Tor.XAxis().Direction();
   //
   typeres = IntAna_Empty;

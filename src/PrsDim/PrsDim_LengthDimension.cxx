@@ -346,7 +346,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoEdge& theF
   Point3d             aPoint11, aPoint12, aPoint21, aPoint22;
   Standard_Boolean   isFirstInfinite  = Standard_False;
   Standard_Boolean   isSecondInfinite = Standard_False;
-  if (!PrsDim::ComputeGeometry(theFirstEdge,
+  if (!PrsDim1::ComputeGeometry(theFirstEdge,
                                theSecondEdge,
                                aFirstCurve,
                                aSecondCurve,
@@ -375,13 +375,13 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoEdge& theF
     Point3d aPoint;
     if (!isFirstInfinite)
     {
-      if (PrsDim::Nearest(aSecondCurve, aPoint11, aPoint21, aPoint22, aPoint))
+      if (PrsDim1::Nearest(aSecondCurve, aPoint11, aPoint21, aPoint22, aPoint))
       {
         myFirstPoint  = aPoint11;
         mySecondPoint = aPoint;
         return IsValidPoints(myFirstPoint, mySecondPoint);
       }
-      else if (PrsDim::Nearest(aSecondCurve, aPoint12, aPoint21, aPoint22, aPoint))
+      else if (PrsDim1::Nearest(aSecondCurve, aPoint12, aPoint21, aPoint22, aPoint))
       {
         myFirstPoint  = aPoint12;
         mySecondPoint = aPoint;
@@ -391,13 +391,13 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoEdge& theF
 
     if (!isSecondInfinite)
     {
-      if (PrsDim::Nearest(aFirstCurve, aPoint21, aPoint11, aPoint12, aPoint))
+      if (PrsDim1::Nearest(aFirstCurve, aPoint21, aPoint11, aPoint12, aPoint))
       {
         myFirstPoint  = aPoint;
         mySecondPoint = aPoint21;
         return IsValidPoints(myFirstPoint, mySecondPoint);
       }
-      if (PrsDim::Nearest(aFirstCurve, aPoint22, aPoint11, aPoint12, aPoint))
+      if (PrsDim1::Nearest(aFirstCurve, aPoint22, aPoint11, aPoint12, aPoint))
       {
         myFirstPoint  = aPoint;
         mySecondPoint = aPoint22;
@@ -447,7 +447,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoEdge&   
 {
   Point3d             anEdgePoint1, anEdgePoint2;
   Handle(GeomCurve3d) aCurve;
-  if (!PrsDim::ComputeGeometry(theEdge, aCurve, anEdgePoint1, anEdgePoint2, isInfinite))
+  if (!PrsDim1::ComputeGeometry(theEdge, aCurve, anEdgePoint1, anEdgePoint2, isInfinite))
   {
     return Standard_False;
   }
@@ -461,7 +461,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoEdge&   
     // Get direction of edge to build plane automatically.
     theEdgeDir = aLin.Direction();
 
-    mySecondPoint = PrsDim::Nearest(aLin, myFirstPoint);
+    mySecondPoint = PrsDim1::Nearest(aLin, myFirstPoint);
     return IsValidPoints(myFirstPoint, mySecondPoint);
   }
 
@@ -564,7 +564,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
 
       TopoFace aFirstFace = TopoDS::Face(theFirstShape);
 
-      PrsDim::InitFaceLength(TopoDS::Face(theFirstShape),
+      PrsDim1::InitFaceLength(TopoDS::Face(theFirstShape),
                              aFirstPlane,
                              aFirstSurface,
                              aFirstSurfKind,
@@ -581,7 +581,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
 
         TopoFace aSecondFace = TopoDS::Face(theSecondShape);
 
-        PrsDim::InitFaceLength(aSecondFace,
+        PrsDim1::InitFaceLength(aSecondFace,
                                aSecondPlane,
                                aSecondSurface,
                                aSecondSurfKind,
@@ -607,7 +607,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
             myFirstPoint = BRepInspector::Pnt(TopoDS::Vertex(anExplorer.Current()));
           }
 
-          mySecondPoint = PrsDim::ProjectPointOnPlane(myFirstPoint, aSecondPlane);
+          mySecondPoint = PrsDim1::ProjectPointOnPlane(myFirstPoint, aSecondPlane);
 
           Standard_Real anU, aV;
           ElSLib1::Parameters(aSecondPlane, mySecondPoint, anU, aV);
@@ -617,13 +617,13 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
 
           if (aState == TopAbs_OUT || aState == TopAbs_UNKNOWN)
           {
-            mySecondPoint = PrsDim::Nearest(aSecondFace, myFirstPoint);
+            mySecondPoint = PrsDim1::Nearest(aSecondFace, myFirstPoint);
           }
 
           isSuccess = IsValidPoints(myFirstPoint, mySecondPoint);
           if (isSuccess)
           {
-            theComputedPlane   = ComputePlane(aFirstPlane.Position().XDirection());
+            theComputedPlane   = ComputePlane(aFirstPlane.Position1().XDirection());
             theIsPlaneComputed = Standard_True;
           }
         }

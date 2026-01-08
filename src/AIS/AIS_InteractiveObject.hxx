@@ -31,7 +31,7 @@ class ViewWindow;
 //! StyleDrawer.
 //!
 //! You can make use of classes of standard Interactive Objects for which all necessary methods have
-//! already been programmed, or you can implement your own classes of Interactive Objects. Key
+//! already been programmed, or you can implement your own classes of Interactive Objects. Key1
 //! interface methods to be implemented by every Interactive Object:
 //! * Presentable Object (PrsMgr_PresentableObject)
 //!   Consider defining an enumeration of supported Display Mode indexes for particular Interactive

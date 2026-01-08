@@ -382,7 +382,7 @@ void Font_FontMgr::GetAllAliases(TColStd_SequenceOfHAsciiString& theAliases) con
        anAliasIter.More();
        anAliasIter.Next())
   {
-    theAliases.Append(new TCollection_HAsciiString(anAliasIter.Key()));
+    theAliases.Append(new TCollection_HAsciiString(anAliasIter.Key1()));
   }
 }
 
@@ -722,7 +722,7 @@ void Font_FontMgr::InitFontDataBase()
   const OSD_Protection aProtectRead(OSD_R, OSD_R, OSD_R, OSD_R);
   if (aMapOfFontsDirs.IsEmpty())
   {
-    Message::SendAlarm("Font_FontMgr, fontconfig library returns an empty folder list");
+    Message1::SendAlarm("Font_FontMgr, fontconfig library returns an empty folder list");
 
     // read fonts directories from font service config file (obsolete)
     for (Standard_Integer anIter = 0; myFontServiceConf[anIter] != NULL; ++anIter)
@@ -992,7 +992,7 @@ Handle(Font_SystemFont) Font_FontMgr::FindFallbackFont(Font_UnicodeSubset theSub
         aRange = "Arabic";
         break;
     }
-    Message::SendFail(AsciiString1("Font_FontMgr, error: unable to find ") + aRange
+    Message1::SendFail(AsciiString1("Font_FontMgr, error: unable to find ") + aRange
                       + " fallback font!");
   }
   return aFont;
@@ -1066,7 +1066,7 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
     {
       if (isAliasUsed && myToTraceAliases)
       {
-        Message::SendTrace(AsciiString1("Font_FontMgr, using font alias '")
+        Message1::SendTrace(AsciiString1("Font_FontMgr, using font alias '")
                            + aFont->FontName()
                            + "'"
                              " instead of requested '"
@@ -1092,7 +1092,7 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
   {
     if (theDoFailMsg)
     {
-      Message::SendFail("Font_FontMgr, error: unable to find any font!");
+      Message1::SendFail("Font_FontMgr, error: unable to find any font!");
     }
     return Handle(Font_SystemFont)();
   }
@@ -1103,7 +1103,7 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
     AsciiString1 aDesc = AsciiString1() + "'" + theFontName + "'"
                                     + AsciiString1() + " ["
                                     + Font_FontMgr::FontAspectToString(theFontAspect) + "]";
-    Message::SendWarning(AsciiString1("Font_FontMgr, warning: unable to find font ")
+    Message1::SendWarning(AsciiString1("Font_FontMgr, warning: unable to find font ")
                          + aDesc + "; " + aFont->ToString() + " is used instead");
   }
   return aFont;

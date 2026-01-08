@@ -107,8 +107,8 @@ void Select3D_SensitiveWire::Swap(const Standard_Integer theIdx1, const Standard
 //            current selecting volume
 // =======================================================================
 Standard_Boolean Select3D_SensitiveWire::overlapsElement(
-  SelectBasics_PickResult&             thePickResult,
-  SelectBasics_SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean)
 {
@@ -120,11 +120,11 @@ Standard_Boolean Select3D_SensitiveWire::overlapsElement(
 //=================================================================================================
 
 Standard_Boolean Select3D_SensitiveWire::elementIsInside(
-  SelectBasics_SelectingVolumeManager& theMgr,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean)
 {
-  SelectBasics_PickResult aMatchResult;
+  PickResult aMatchResult;
   return myEntities.Value(myEntityIndexes.Value(theElemIdx))->Matches(theMgr, aMatchResult);
 }
 
@@ -133,7 +133,7 @@ Standard_Boolean Select3D_SensitiveWire::elementIsInside(
 // purpose  : Calculates distance from the 3d projection of used-picked
 //            screen point to center of the geometry
 // =======================================================================
-Standard_Real Select3D_SensitiveWire::distanceToCOG(SelectBasics_SelectingVolumeManager& theMgr)
+Standard_Real Select3D_SensitiveWire::distanceToCOG(SelectingVolumeManager& theMgr)
 {
   return theMgr.DistToGeometryCenter(myCenter);
 }

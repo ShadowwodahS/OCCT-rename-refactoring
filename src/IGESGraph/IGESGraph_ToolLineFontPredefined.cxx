@@ -40,13 +40,13 @@ void LineFontPredefinedTool::ReadOwnParams(
   Standard_Integer nbPropertyValues;
   Standard_Integer lineFontPatternCode;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   // clang-format off
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues); //szv#4:S4163:12Mar99 `st=` not needed
   if (nbPropertyValues != 1)
     PR.AddFail("No. of Property values : Value is not 1");
 
-  // Reading lineFontPatternCode(Integer)
+  // Reading lineFontPatternCode(Integer1)
   PR.ReadInteger(PR.Current(), "Line Font Pattern Code", lineFontPatternCode); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
 

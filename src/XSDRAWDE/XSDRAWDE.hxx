@@ -19,11 +19,11 @@
 
 #include <Draw_Interpretor.hxx>
 
-class XSDRAWDE
+class XSDRAWDE1
 {
   DEFINE_STANDARD_ALLOC
 public:
-  //! Loads all Draw1 commands of XSDRAWDE. Used for plugin.
+  //! Loads all Draw1 commands of XSDRAWDE1. Used for plugin.
   Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 

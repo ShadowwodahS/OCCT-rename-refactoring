@@ -59,7 +59,7 @@ public:
   //! 3 otherwise
   Standard_EXPORT Standard_Integer GeomCase() const;
 
-  //! returns the Geometry Entity, Null handle if GeomCase(me) .eq. 0
+  //! returns the Geometry1 Entity, Null handle if GeomCase(me) .eq. 0
   Standard_EXPORT Handle(IGESData_IGESEntity) Geom() const;
 
   //! returns Null handle if GeomCase(me) .ne. 1

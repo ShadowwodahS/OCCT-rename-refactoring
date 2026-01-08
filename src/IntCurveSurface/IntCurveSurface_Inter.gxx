@@ -1893,7 +1893,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
   if(aTypeOfBasSurf == GeomAbs_Plane) {
 
     gp_Pln aPln = aBasSurf->Plane1();
-    Vector3d aT = aPln.Position().XDirection()^aPln.Position().YDirection();
+    Vector3d aT = aPln.Position1().XDirection()^aPln.Position1().YDirection();
     aT *= anOffVal;
     aPln.Translate(aT);
     ConicQuadIntersection LinPlane(Line,aPln,TOLERANCE_ANGULAIRE);
@@ -1920,7 +1920,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
     Cylinder1 aCyl = aBasSurf->Cylinder();
 
     Standard_Real aR = aCyl.Radius();
-    Ax3 anA = aCyl.Position();
+    Ax3 anA = aCyl.Position1();
 
     if (anA.Direct()) 
       aR += anOffVal;
@@ -1975,7 +1975,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
     Cone1 aCon = aBasSurf->Cone();
     Standard_Real anAng = aCon.SemiAngle();
     Standard_Real aR = aCon.RefRadius() + anOffVal * Cos(anAng);
-    Ax3 anA = aCon.Position();
+    Ax3 anA = aCon.Position1();
     if ( aR >= 0.) {
 
       Vector3d aZ( anA.Direction());

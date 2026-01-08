@@ -344,7 +344,7 @@ Standard_Boolean StdPrs_BRepFont::buildFaces(const NCollection_Sequence<TopoWire
     if (aTmp > 0)
     {
       // not out wire
-      aMapOutInts.UnBind(anOutIter.Key());
+      aMapOutInts.UnBind(anOutIter.Key1());
     }
   }
 
@@ -363,7 +363,7 @@ Standard_Boolean StdPrs_BRepFont::buildFaces(const NCollection_Sequence<TopoWire
          itMOI.More();
          itMOI.Next())
     {
-      const TopoShape&    aKey    = itMOI.Key();
+      const TopoShape&    aKey    = itMOI.Key1();
       const Standard_Integer aNbOuts = aMapNbOuts.Find(aKey);
       if (aNbOuts > aMaxNbOuts)
       {
@@ -442,7 +442,7 @@ Standard_Boolean StdPrs_BRepFont::renderGlyph(const Standard_Utf32Char theChar,
   TopoCompound                   aFaceCompDraft;
 
   // Get orientation is useless since it doesn't retrieve any in-font information and just computes
-  // orientation. Because it fails in some cases - leave this to ShapeFix.
+  // orientation. Because it fails in some cases - leave this to ShapeFix1.
   // const FT_Orientation anOrient = FT_Outline_Get_Orientation (&anOutline);
   for (short aContour = 0, aStartIndex = 0; aContour < anOutline->n_contours; ++aContour)
   {

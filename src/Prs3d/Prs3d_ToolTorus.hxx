@@ -19,7 +19,7 @@
 #include <Prs3d_ToolQuadric.hxx>
 
 //! Standard presentation algorithm that outputs graphical primitives for torus surface.
-class Prs3d_ToolTorus : public Prs3d_ToolQuadric
+class Prs3d_ToolTorus : public ToolQuadric
 {
 public:
   //! Generate primitives for 3D quadric surface (complete torus).

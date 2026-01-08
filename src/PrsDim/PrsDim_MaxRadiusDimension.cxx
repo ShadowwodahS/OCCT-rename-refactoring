@@ -119,7 +119,7 @@ void PrsDim_MaxRadiusDimension::ComputeEllipse(const Handle(Prs3d_Presentation)&
 
     if (myIsSetBndBox)
       myPosition =
-        PrsDim::TranslatePointToBound(myPosition, Dir3d(Vector3d(Center, myPosition)), myBndBox);
+        PrsDim1::TranslatePointToBound(myPosition, Dir3d(Vector3d(Center, myPosition)), myBndBox);
     curPos = myPosition;
   }
   else //! AutomaticPosition
@@ -135,7 +135,7 @@ void PrsDim_MaxRadiusDimension::ComputeEllipse(const Handle(Prs3d_Presentation)&
   }
 
   // Presenatation
-  DsgPrs_EllipseRadiusPresentation::Add(aPresentation,
+  EllipseRadiusPresentation::Add(aPresentation,
                                         myDrawer,
                                         myVal,
                                         myText,
@@ -168,12 +168,12 @@ void PrsDim_MaxRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
   if (myAutomaticPosition)
   {
     myEndOfArrow =
-      PrsDim::NearestApex(myEllipse, myApexP, myApexN, myFirstPar, myLastPar, IsInDomain);
+      PrsDim1::NearestApex(myEllipse, myApexP, myApexN, myFirstPar, myLastPar, IsInDomain);
     myPosition          = Center;
     myAutomaticPosition = Standard_True;
     if (myIsSetBndBox)
       myPosition =
-        PrsDim::TranslatePointToBound(myPosition, Dir3d(Vector3d(Center, myPosition)), myBndBox);
+        PrsDim1::TranslatePointToBound(myPosition, Dir3d(Vector3d(Center, myPosition)), myBndBox);
     curPos = myPosition;
   }
   else //! AutomaticPosition
@@ -189,7 +189,7 @@ void PrsDim_MaxRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
     else
       myEndOfArrow = myApexN;
     par        = ElCLib1::Parameter(myEllipse, myEndOfArrow);
-    IsInDomain = PrsDim::InDomain(myFirstPar, myLastPar, par);
+    IsInDomain = PrsDim1::InDomain(myFirstPar, myLastPar, par);
     myPosition = curPos;
   }
 
@@ -197,14 +197,14 @@ void PrsDim_MaxRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
   Standard_Real parStart = 0.;
   if (!IsInDomain)
   {
-    if (PrsDim::DistanceFromApex(myEllipse, myEndOfArrow, myFirstPar)
-        < PrsDim::DistanceFromApex(myEllipse, myEndOfArrow, myLastPar))
+    if (PrsDim1::DistanceFromApex(myEllipse, myEndOfArrow, myFirstPar)
+        < PrsDim1::DistanceFromApex(myEllipse, myEndOfArrow, myLastPar))
       parStart = myFirstPar;
     else
       parStart = myLastPar;
   }
   if (!myIsOffset)
-    DsgPrs_EllipseRadiusPresentation::Add(aPresentation,
+    EllipseRadiusPresentation::Add(aPresentation,
                                           myDrawer,
                                           myVal,
                                           myText,
@@ -217,7 +217,7 @@ void PrsDim_MaxRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
                                           Standard_True,
                                           mySymbolPrs);
   else
-    DsgPrs_EllipseRadiusPresentation::Add(aPresentation,
+    EllipseRadiusPresentation::Add(aPresentation,
                                           myDrawer,
                                           myVal,
                                           myText,
@@ -267,18 +267,18 @@ void PrsDim_MaxRadiusDimension::ComputeSelection(const Handle(SelectionContainer
   {
 
     Standard_Real parEnd = ElCLib1::Parameter(myEllipse, myEndOfArrow);
-    if (!PrsDim::InDomain(myFirstPar, myLastPar, parEnd))
+    if (!PrsDim1::InDomain(myFirstPar, myLastPar, parEnd))
     {
       Standard_Real parStart, par;
-      if (PrsDim::DistanceFromApex(myEllipse, myEndOfArrow, myFirstPar)
-          < PrsDim::DistanceFromApex(myEllipse, myEndOfArrow, myLastPar))
+      if (PrsDim1::DistanceFromApex(myEllipse, myEndOfArrow, myFirstPar)
+          < PrsDim1::DistanceFromApex(myEllipse, myEndOfArrow, myLastPar))
         par = myFirstPar;
       else
         par = myLastPar;
       Vector3d Vapex(center, ElCLib1::Value(parEnd, myEllipse));
       Vector3d Vpnt(center, ElCLib1::Value(par, myEllipse));
       Dir3d dir(Vpnt ^ Vapex);
-      if (myEllipse.Position().Direction().IsOpposite(dir, Precision::Angular()))
+      if (myEllipse.Position1().Direction().IsOpposite(dir, Precision::Angular()))
       {
         parStart = parEnd;
         parEnd   = par;

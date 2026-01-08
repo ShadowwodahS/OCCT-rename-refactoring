@@ -24,7 +24,7 @@ class Adaptor3d_Curve;
 
 //! A framework to provide display of Bezier or BSpline curves
 //! (by drawing a broken line linking the poles of the curve).
-class StdPrs_PoleCurve : public Prs3d_Root
+class StdPrs_PoleCurve : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

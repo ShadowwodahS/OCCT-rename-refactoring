@@ -66,7 +66,7 @@ public:
 
   //! returns the Type of an Attribute, given its No. : it is read in the
   //! Definition.
-  //! (1 : Integer, 2 : Real, 3 : String, 4 : Entity, 6 : Logical)
+  //! (1 : Integer1, 2 : Real, 3 : String, 4 : Entity, 6 : Logical)
   Standard_EXPORT Standard_Integer DataType(const Standard_Integer Atnum) const;
 
   //! returns the Count of Value for an Attribute, given its No. :
@@ -76,8 +76,8 @@ public:
   Standard_EXPORT Handle(RefObject) AttributeList(const Standard_Integer Attribnum,
                                                            const Standard_Integer Rownum) const;
 
-  //! Returns Attribute Value <AtNum, Rownum, rank ValNum> as an Integer
-  //! Error if Indices out of Range, or no Value defined, or not an Integer
+  //! Returns Attribute Value <AtNum, Rownum, rank ValNum> as an Integer1
+  //! Error if Indices out of Range, or no Value defined, or not an Integer1
   Standard_EXPORT Standard_Integer AttributeAsInteger(const Standard_Integer AtNum,
                                                       const Standard_Integer Rownum,
                                                       const Standard_Integer ValNum) const;
@@ -88,7 +88,7 @@ public:
                                                 const Standard_Integer Rownum,
                                                 const Standard_Integer ValNum) const;
 
-  //! Returns Attribute Value <AtNum, Rownum, rank ValNum> as an Integer
+  //! Returns Attribute Value <AtNum, Rownum, rank ValNum> as an Integer1
   Standard_EXPORT Handle(TCollection_HAsciiString) AttributeAsString(
     const Standard_Integer AtNum,
     const Standard_Integer Rownum,

@@ -61,13 +61,13 @@ public:
   Standard_EXPORT static TopoShape CurrentShape(const Handle(ShapeAttribute)& NS,
                                                    const TDF_LabelMap&               Updated);
 
-  //! Returns the NamedShape of the last Modification of <NS>.
+  //! Returns the NamedShape1 of the last Modification of <NS>.
   //! This shape is identified by a label.
   Standard_EXPORT static Handle(ShapeAttribute) CurrentNamedShape(
     const Handle(ShapeAttribute)& NS,
     const TDF_LabelMap&               Updated);
 
-  //! Returns NamedShape the last Modification of <NS>.
+  //! Returns NamedShape1 the last Modification of <NS>.
   Standard_EXPORT static Handle(ShapeAttribute) CurrentNamedShape(
     const Handle(ShapeAttribute)& NS);
 
@@ -90,9 +90,9 @@ public:
   //! (const Handle(OCafTest_Line)& L1
   //! const Handle(OCafTest_Line)& L2)
   //! { Handle(ShapeAttribute)
-  //! NS1 = L1->NamedShape();
+  //! NS1 = L1->NamedShape1();
   //! Handle(ShapeAttribute)
-  //! NS2 = L2->NamedShape();
+  //! NS2 = L2->NamedShape1();
   //!
   //! return
   //! BRepTools1::Compare(NS1->Get(),NS2->Get());
@@ -109,7 +109,7 @@ public:
   //! When the user of the name is removed, for
   //! example, it is difficult to know whether the name
   //! should be destroyed.
-  Standard_EXPORT static Handle(ShapeAttribute) NamedShape(const TopoShape& aShape,
+  Standard_EXPORT static Handle(ShapeAttribute) NamedShape1(const TopoShape& aShape,
                                                                const DataLabel&    anAcces);
 
   //! Returns the entities stored in the named shape attribute NS.

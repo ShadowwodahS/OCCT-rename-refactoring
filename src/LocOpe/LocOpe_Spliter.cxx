@@ -115,17 +115,17 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdesc(myMap); itdesc.More();
          itdesc.Next())
     {
-      if (theSubs.IsCopied(itdesc.Key()))
+      if (theSubs.IsCopied(itdesc.Key1()))
       {
-        const ShapeList& lsub = theSubs.Copy(itdesc.Key());
+        const ShapeList& lsub = theSubs.Copy(itdesc.Key1());
 #ifdef OCCT_DEBUG
         if (lsub.Extent() != 1)
         {
           throw Standard_ConstructionError();
         }
 #endif
-        myMap(itdesc.Key()).Clear();
-        myMap(itdesc.Key()).Append(lsub.First());
+        myMap(itdesc.Key1()).Clear();
+        myMap(itdesc.Key1()).Append(lsub.First());
       }
     }
   }
@@ -205,7 +205,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdesc(myMap); itdesc.More();
        itdesc.Next())
   {
-    const TopoShape& sori = itdesc.Key();
+    const TopoShape& sori = itdesc.Key1();
     const TopoShape& scib = itdesc.Value().First();
     myMap(sori)              = theCFace.DescendantShapes(scib);
   }
@@ -247,7 +247,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   theSubs.Clear();
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape itee(EdgOnEdg); itee.More(); itee.Next())
   {
-    const TopoEdge& e1 = TopoDS::Edge(itee.Key());
+    const TopoEdge& e1 = TopoDS::Edge(itee.Key1());
     // on recherche dans les descendants de e2 l`edge qui correspont a e1
 
     TopoVertex vf1, vl1, vf2, vl2;
@@ -321,7 +321,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdesc(myMap); itdesc.More();
        itdesc.Next())
   {
-    ShapeList& ldesc = myMap(itdesc.Key());
+    ShapeList& ldesc = myMap(itdesc.Key1());
     ShapeList  newdesc;
     for (itl.Initialize(ldesc); itl.More(); itl.Next())
     {
@@ -341,7 +341,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
         newdesc.Append(itl.Value());
       }
     }
-    myMap(itdesc.Key()) = newdesc;
+    myMap(itdesc.Key1()) = newdesc;
   }
 
   if (theSubs.IsCopied(myRes))
@@ -426,7 +426,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
       const TopoEdge& edg = TopoDS::Edge(exp2.Current());
       for (itms.Initialize(mapE); itms.More(); itms.Next())
       {
-        if (itms.Key().IsSame(edg) && edg.Orientation() == itms.Key().Orientation())
+        if (itms.Key1().IsSame(edg) && edg.Orientation() == itms.Key1().Orientation())
         {
           break;
         }
@@ -453,7 +453,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     while (!full) {
       full = Standard_True;
       itms.Initialize(mapV);
-      const TopoFace& fac = TopoDS::Face(itms.Key());
+      const TopoFace& fac = TopoDS::Face(itms.Key1());
       for (exp.Init(fac,TopAbs_EDGE); exp.More(); exp.Next()) {
         if (!mapE.Contains(exp.Current())) {
       for (itl.Initialize(myLeft); itl.More(); itl.Next()) {
@@ -497,11 +497,11 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   while (Mapebord.Extent() != 0)
   {
     itms.Initialize(Mapebord);
-    TopoShape edg = itms.Key();
+    TopoShape edg = itms.Key1();
 
     for (itms.Initialize(mapV); itms.More(); itms.Next())
     {
-      const TopoShape& fac = itms.Key();
+      const TopoShape& fac = itms.Key1();
       for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
       {
         if (exp.Current().IsSame(edg))
@@ -516,7 +516,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     }
     if (itms.More())
     {
-      TopoShape fac = itms.Key();
+      TopoShape fac = itms.Key1();
       for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
       {
         if (!Mapebord.Add(exp.Current()))

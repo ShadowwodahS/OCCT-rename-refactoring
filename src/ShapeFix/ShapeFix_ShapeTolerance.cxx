@@ -28,11 +28,11 @@
 
 //=================================================================================================
 
-ShapeFix_ShapeTolerance::ShapeFix_ShapeTolerance() {}
+ShapeTolerance1::ShapeTolerance1() {}
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoShape&    shape,
+Standard_Boolean ShapeTolerance1::LimitTolerance(const TopoShape&    shape,
                                                          const Standard_Real    tmin,
                                                          const Standard_Real    tmax,
                                                          const TopAbs_ShapeEnum styp) const
@@ -121,7 +121,7 @@ Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoShape&    sha
 
 //=================================================================================================
 
-void ShapeFix_ShapeTolerance::SetTolerance(const TopoShape&    shape,
+void ShapeTolerance1::SetTolerance(const TopoShape&    shape,
                                            const Standard_Real    preci,
                                            const TopAbs_ShapeEnum styp) const
 {

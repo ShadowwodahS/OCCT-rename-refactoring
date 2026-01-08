@@ -481,7 +481,7 @@ Standard_Boolean STEPControl_Controller::Init()
   {
     Handle(STEPControl_Controller) STEPCTL = new STEPControl_Controller;
     STEPCTL->AutoRecord(); // avec les noms donnes a la construction
-    XSAlgo::Init();
+    XSAlgo1::Init();
     inic = Standard_True;
   }
   return Standard_True;

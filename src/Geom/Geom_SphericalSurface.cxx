@@ -71,7 +71,7 @@ Geom_SphericalSurface::Geom_SphericalSurface(const Sphere3& S)
     : radius(S.Radius())
 {
 
-  pos = S.Position();
+  pos = S.Position1();
 }
 
 //=================================================================================================
@@ -148,7 +148,7 @@ void Geom_SphericalSurface::SetSphere(const Sphere3& S)
 {
 
   radius = S.Radius();
-  pos    = S.Position();
+  pos    = S.Position1();
 }
 
 //=================================================================================================

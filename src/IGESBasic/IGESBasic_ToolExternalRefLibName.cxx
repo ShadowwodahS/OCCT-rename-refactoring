@@ -44,7 +44,7 @@ void ExternalRefLibNameTool::ReadOwnParams(
   PR.ReadText(PR.Current(), "Name of Library", tempLibName); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
   PR.ReadText(PR.Current(),
-              "External Reference Symbolic Name",
+              "External Reference1 Symbolic Name",
               tempExtRefEntitySymbName); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -106,7 +106,7 @@ void ExternalRefLibNameTool::OwnDump(const Handle(IGESBasic_ExternalRefLibName)&
     << "Name of Library : ";
   IGESData_DumpString(S, ent->LibraryName());
   S << "\n"
-    << "External Reference Symbolic Name : ";
+    << "External Reference1 Symbolic Name : ";
   IGESData_DumpString(S, ent->ReferenceName());
   S << std::endl;
 }

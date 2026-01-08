@@ -228,23 +228,23 @@ Standard_Boolean FEmTool_Assembly::Solve()
       TColStd_Array2OfInteger H1(1, NbGlobVar(), 1, NbGlobVar());
       H1.Init(1);
       Standard_Integer i, j, k, l, BlockBeg = 1, BlockEnd;
-      Standard_Boolean Block, Zero;
+      Standard_Boolean Block1, Zero;
       for (i = 2; i <= NbGlobVar(); i++)
       {
         BlockEnd = i - 1;
         if (!H->IsInProfile(i, BlockEnd))
         {
           // Maybe, begin of block
-          Block = Standard_True;
+          Block1 = Standard_True;
           for (j = i + 1; j <= NbGlobVar(); j++)
           {
             if (H->IsInProfile(j, BlockEnd))
             {
-              Block = Standard_False;
+              Block1 = Standard_False;
               break;
             }
           }
-          if (Block)
+          if (Block1)
           {
             for (j = i; j <= NbGlobVar(); j++)
             {

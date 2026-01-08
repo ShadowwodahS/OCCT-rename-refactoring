@@ -217,7 +217,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
                          Handle(GeomSurface) Surf)
 {
   // try to find the particular case
-  // if not found call BRepLib::BuildCurve3d
+  // if not found call BRepLib1::BuildCurve3d
 
   TopLoc_Location         Loc;
   constexpr Standard_Real Tol = Precision::Confusion();
@@ -246,7 +246,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           else
           {
             Sphere3 Sph  = S.Sphere();
-            Ax3    Axis = Sph.Position();
+            Ax3    Axis = Sph.Position1();
             gp_Circ   Ci   = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d    AxeRev(Axis.Location(), DRev);
@@ -261,7 +261,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           Cylinder1 Cyl  = S.Cylinder();
           gp_Pnt2d    P    = C.Line().Location();
-          Ax3      Axis = Cyl.Position();
+          Ax3      Axis = Cyl.Position1();
           gp_Circ     Ci   = ElSLib1::CylinderVIso(Axis, Cyl.Radius(), P.Y());
           Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d      AxeRev(Axis.Location(), DRev);
@@ -275,7 +275,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           Cone1  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          Ax3   Axis = Cone.Position();
+          Ax3   Axis = Cone.Position1();
           gp_Circ  Ci   = ElSLib1::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
@@ -289,7 +289,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
-          Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position1();
           gp_Circ  Ci   = ElSLib1::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
@@ -306,7 +306,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           Sphere3 Sph  = S.Sphere();
           gp_Pnt2d  P    = C.Line().Location();
-          Ax3    Axis = Sph.Position();
+          Ax3    Axis = Sph.Position1();
           // calculate iso 0.
           gp_Circ Ci = ElSLib1::SphereUIso(Axis, Sph.Radius(), 0.);
 
@@ -329,7 +329,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           Cylinder1 Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
-          gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
+          gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position1(), Cyl.Radius(), P.X());
           Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -342,7 +342,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           Cone1  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Lin   L = ElSLib1::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
+          gp_Lin   L = ElSLib1::ConeUIso(Cone.Position1(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
           Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -497,7 +497,7 @@ static TopoVertex FindVertex(const Point3d&              P,
   TopTools_MapIteratorOfMapOfShape it(Map);
   for (; it.More(); it.Next())
   {
-    const TopoEdge& E = TopoDS::Edge(it.Key());
+    const TopoEdge& E = TopoDS::Edge(it.Key1());
     if (!E.IsNull())
     {
       TopExp1::Vertices(E, VV[0], VV[1]);
@@ -909,7 +909,7 @@ void BiTgte_Blend::Perform(const Standard_Boolean BuildShape)
   // Try cutting to avoid tubes on free borders
   // that are not actually free.
   Handle(BRepBuilderAPI_Sewing) Sew = new BRepBuilderAPI_Sewing(myTol);
-  BRepLib::BuildCurves3d(myShape);
+  BRepLib1::BuildCurves3d(myShape);
   ShapeExplorer expf(myShape, TopAbs_FACE);
   for (; expf.More(); expf.Next())
     Sew->Add(expf.Current());
@@ -941,7 +941,7 @@ void BiTgte_Blend::Perform(const Standard_Boolean BuildShape)
   for (; expf.More(); expf.Next())
   {
     const TopoEdge& sec = TopoDS::Edge(expf.Current());
-    BRepLib::SameParameter(sec, BRepInspector::Tolerance(sec));
+    BRepLib1::SameParameter(sec, BRepInspector::Tolerance(sec));
   }
 
   TopExp1::MapShapesAndAncestors(SewedShape, TopAbs_EDGE, TopAbs_FACE, myAncestors);
@@ -1034,7 +1034,7 @@ void BiTgte_Blend::Perform(const Standard_Boolean BuildShape)
 
   // Finally construct curves 3d from edges to be transferred
   // since the partition is provided ( A Priori);
-  BRepLib::BuildCurves3d(myResult, Precision::Confusion());
+  BRepLib1::BuildCurves3d(myResult, Precision::Confusion());
 
 #ifdef OCCT_DEBUG
   ChFi3d_ResultChron(cl_total, t_total);
@@ -1552,7 +1552,7 @@ void BiTgte_Blend::ComputeCenters()
         myInitOffsetFace.Bind(AS, F1);
 
         Box2 Box1;
-        BRepBndLib::Add(F1, Box1);
+        BRepBndLib1::Add(F1, Box1);
         MapSBox.Bind(F1, Box1);
 
         // ---------------------------------------------
@@ -1642,7 +1642,7 @@ void BiTgte_Blend::ComputeCenters()
           myInitOffsetFace.Bind(E, F1);
 
           Box2 Box1;
-          BRepBndLib::Add(F1, Box1);
+          BRepBndLib1::Add(F1, Box1);
           MapSBox.Bind(F1, Box1);
 
           // ---------------------------------------------
@@ -1742,7 +1742,7 @@ void BiTgte_Blend::ComputeCenters()
   BRepOffset_DataMapIteratorOfDataMapOfShapeOffset It(myMapSF);
   for (; It.More(); It.Next())
   {
-    const TopoShape& CurS = It.Key();
+    const TopoShape& CurS = It.Key1();
     if (CurS.ShapeType() == TopAbs_FACE)
       continue;
 
@@ -2116,7 +2116,7 @@ void BiTgte_Blend::ComputeSurfaces()
         TopTools_MapIteratorOfMapOfShape it(MapOnV1f);
         for (; it.More(); it.Next())
         {
-          const TopoEdge& E = TopoDS::Edge(it.Key());
+          const TopoEdge& E = TopoDS::Edge(it.Key1());
           if (!E.IsNull())
           {
             TopExp1::Vertices(E, aVertex1, aVertex2);
@@ -2134,7 +2134,7 @@ void BiTgte_Blend::ComputeSurfaces()
         TopTools_MapIteratorOfMapOfShape it(MapOnV1l);
         for (; it.More(); it.Next())
         {
-          const TopoEdge& E = TopoDS::Edge(it.Key());
+          const TopoEdge& E = TopoDS::Edge(it.Key1());
           if (!E.IsNull())
           {
             TopExp1::Vertices(E, aVertex1, aVertex2);
@@ -2303,7 +2303,7 @@ void BiTgte_Blend::ComputeShape()
     Standard_Integer                                    NbEdges = 0;
     for (; itm.More(); itm.Next())
     {
-      const TopoEdge&          E    = TopoDS::Edge(itm.Key());
+      const TopoEdge&          E    = TopoDS::Edge(itm.Key1());
       const ShapeList& VonE = itm.Value();
       ShapeList        NewE;
 
@@ -2548,7 +2548,7 @@ void BiTgte_Blend::ComputeShape()
   // non-regarding the cause, there always remain greeb borders on this Shape, so it is sewn.
   Handle(BRepBuilderAPI_Sewing) Sew = new BRepBuilderAPI_Sewing(myTol);
 
-  BRepLib::BuildCurves3d(myResult);
+  BRepLib1::BuildCurves3d(myResult);
 
   exp.Init(myResult, TopAbs_FACE);
   for (; exp.More(); exp.Next())
@@ -2566,7 +2566,7 @@ void BiTgte_Blend::ComputeShape()
     for (; exp.More(); exp.Next())
     {
       const TopoEdge& sec = TopoDS::Edge(exp.Current());
-      BRepLib::SameParameter(sec, BRepInspector::Tolerance(sec));
+      BRepLib1::SameParameter(sec, BRepInspector::Tolerance(sec));
     }
     myResult = SewedShape;
   }
@@ -2623,7 +2623,7 @@ Standard_Boolean BiTgte_Blend::Intersect(const TopoShape&               Init,
     // -------------------------------------------------------
     // Tubes are not intersected with neighbor faces.
     // -------------------------------------------------------
-    const TopoShape& ItKey = It.Key();
+    const TopoShape& ItKey = It.Key1();
 
     if (Init.ShapeType() == TopAbs_EDGE)
     {

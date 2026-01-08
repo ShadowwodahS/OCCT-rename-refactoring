@@ -130,7 +130,7 @@ TopoShape TNaming1::MakeShape(const TopTools_MapOfShape& MS)
     TopTools_MapIteratorOfMapOfShape it(MS);
     if (MS.Extent() == 1)
     {
-      return it.Key();
+      return it.Key1();
     }
     else
     {
@@ -139,7 +139,7 @@ TopoShape TNaming1::MakeShape(const TopTools_MapOfShape& MS)
       B.MakeCompound(C);
       for (; it.More(); it.Next())
       {
-        B.Add(C, it.Key());
+        B.Add(C, it.Key1());
       }
       return C;
     }
@@ -161,7 +161,7 @@ void TNaming1::Substitute(const DataLabel&              LSource,
   TNaming_DataMapOfShapePtrRefShape& amap = US->Map();
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape It(M); It.More(); It.Next())
   {
-    SubstituteShape(It.Key(), It.Value(), amap);
+    SubstituteShape(It.Key1(), It.Value(), amap);
   }
 }
 
@@ -493,7 +493,7 @@ void TNaming1::Replicate(const TopoShape& SH, const Transform3d& T, const DataLa
     opeTrsf.Perform(SH, Standard_False);
   }
   const TopoShape& newSH = opeTrsf.Shape();
-  // BRepLib::UpdateTolerances(newSH, Standard_True);
+  // BRepLib1::UpdateTolerances(newSH, Standard_True);
 
   // principal shape
 
@@ -831,8 +831,8 @@ TopoShape TNaming1::FindUniqueContext(const TopoShape& Selection, const TopoShap
   TopTools_DataMapIteratorOfDataMapOfOrientedShapeShape it(aMap);
   for (; it.More(); it.Next())
   {
-    std::cout << "FindUniqueContext: Key - " << it.Key().ShapeType() << " "
-              << it.Key().TShape().get() << " OR = " << it.Key().Orientation() << "  Context - "
+    std::cout << "FindUniqueContext: Key1 - " << it.Key1().ShapeType() << " "
+              << it.Key1().TShape().get() << " OR = " << it.Key1().Orientation() << "  Context - "
               << it.Value().ShapeType() << "  " << it.Value().TShape().get()
               << " OR = " << it.Value().Orientation() << std::endl;
   }

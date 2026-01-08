@@ -74,7 +74,7 @@
 
 Standard_Boolean WireHealer::FixGaps3d()
 {
-  myStatusGaps3d = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusGaps3d = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   // if ( !IsReady() ) return Standard_False;
 
   Standard_Integer i, start = (myClosedMode ? 1 : 2);
@@ -99,7 +99,7 @@ Standard_Boolean WireHealer::FixGaps3d()
 
 Standard_Boolean WireHealer::FixGaps2d()
 {
-  myStatusGaps2d = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatusGaps2d = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   //  if ( !IsReady() ) return Standard_False;
 
   Standard_Integer i, start = (myClosedMode ? 1 : 2);
@@ -146,7 +146,7 @@ static Standard_Real AdjustOnPeriodic3d(const Handle(GeomCurve3d)& c,
 
 Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard_Boolean convert)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   //  if ( !IsReady() ) return Standard_False;
 
   //=============
@@ -172,7 +172,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
   Edge1 SAE;
   if (!SAE.Curve3d(E1, C1, cfirst1, clast1) || !SAE.Curve3d(E2, C2, cfirst2, clast2))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -685,8 +685,8 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
   {
 
     ShapeBuilder            B;
-    ShapeBuild_Edge         SBE;
-    ShapeFix_ShapeTolerance SFST;
+    Edge2         SBE;
+    ShapeTolerance1 SFST;
 
     // Update vertices
     TopoVertex nullV, newV1;
@@ -771,10 +771,10 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
       sbwd->Set(newE2, n2);
     }
 
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   }
   else if (convert)
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
   return (done1 || done2);
 }
@@ -805,7 +805,7 @@ static Standard_Real AdjustOnPeriodic2d(const Handle(GeomCurve2d)& pc,
 
 Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard_Boolean convert)
 {
-  myLastFixStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myLastFixStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   if (!IsReady())
     return Standard_False;
 
@@ -836,7 +836,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
   if (!SAE.PCurve(E1, face, PC1, cfirst1, clast1) || !SAE.PCurve(E2, face, PC2, cfirst2, clast2)
       || sbwd->IsSeam(n1) || sbwd->IsSeam(n2))
   {
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL1);
     return Standard_False;
   }
 
@@ -1698,8 +1698,8 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
   {
 
     ShapeBuilder            B;
-    ShapeBuild_Edge         SBE;
-    ShapeFix_ShapeTolerance SFST;
+    Edge2         SBE;
+    ShapeTolerance1 SFST;
 
     // Update vertices
     TopoVertex V1 = SAE.LastVertex(E1), V2 = SAE.FirstVertex(E2);
@@ -1784,10 +1784,10 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
       sbwd->Set(newE2, n2);
     }
 
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   }
   else if (convert)
-    myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
+    myLastFixStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_FAIL2);
 
   return (done1 || done2);
 }

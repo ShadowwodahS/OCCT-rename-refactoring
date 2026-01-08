@@ -26,7 +26,7 @@
 class Point3d;
 
 //! A framework to define display of shaded planes.
-class DsgPrs_ShadedPlanePresentation
+class ShadedPlanePresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

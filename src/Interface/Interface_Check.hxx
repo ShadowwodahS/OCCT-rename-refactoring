@@ -74,13 +74,13 @@ public:
   //! Records a new Fail from the definition of a Msg (Original+Value)
   Standard_EXPORT void AddFail(const Message_Msg& amsg);
 
-  //! Returns True if Check brings at least one Fail Message
+  //! Returns True if Check brings at least one Fail Message1
   Standard_EXPORT Standard_Boolean HasFailed() const;
 
   //! Returns count of recorded Fails
   Standard_EXPORT Standard_Integer NbFails() const;
 
-  //! Returns Fail Message as a String
+  //! Returns Fail Message1 as a String
   //! Final form by default, Original form if <final> is False
   Standard_EXPORT const Handle(TCollection_HAsciiString)& Fail(
     const Standard_Integer num,
@@ -115,7 +115,7 @@ public:
   //! Records a new Warning from the definition of a Msg (Original+Value)
   Standard_EXPORT void AddWarning(const Message_Msg& amsg);
 
-  //! Returns True if Check brings at least one Warning Message
+  //! Returns True if Check brings at least one Warning Message1
   Standard_EXPORT Standard_Boolean HasWarnings() const;
 
   //! Returns count of recorded Warning messages

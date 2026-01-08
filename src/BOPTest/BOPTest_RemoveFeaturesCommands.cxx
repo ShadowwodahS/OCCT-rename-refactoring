@@ -30,14 +30,14 @@ static Standard_Integer RemoveFeatures(DrawInterpreter&, Standard_Integer, const
 
 //=================================================================================================
 
-void BOPTest::RemoveFeaturesCommands(DrawInterpreter& theCommands)
+void BOPTest1::RemoveFeaturesCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* group = "BOPTest commands";
+  const char* group = "BOPTest1 commands";
   // Commands
   theCommands.Add("removefeatures",
                   "removefeatures result shape f1 f2 ... [-parallel]\n"
@@ -94,16 +94,16 @@ Standard_Integer RemoveFeatures(DrawInterpreter& theDI,
     aRF.AddFaceToRemove(aF);
   }
 
-  aRF.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aRF.SetToFillHistory(Objects1::IsHistoryNeeded());
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI, 1);
   // Perform the removal
   aRF.Build(aProgress->Start());
 
   // Check for the errors/warnings
-  BOPTest::ReportAlerts(aRF.GetReport());
+  BOPTest1::ReportAlerts(aRF.GetReport());
 
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aRF.History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aRF.History());
 
   if (aRF.HasErrors())
     return 0;

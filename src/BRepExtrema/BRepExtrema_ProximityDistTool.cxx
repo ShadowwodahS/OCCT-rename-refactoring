@@ -24,10 +24,10 @@
 #include <TopoDS.hxx>
 
 //=======================================================================
-// function : BRepExtrema_ProximityDistTool
+// function : ProximityDistTool
 // purpose  : Creates new unitialized tool
 //=======================================================================
-BRepExtrema_ProximityDistTool::BRepExtrema_ProximityDistTool()
+ProximityDistTool::ProximityDistTool()
     : myMinDistance(std::numeric_limits<Standard_Real>::max()),
       myProxDist(-1.),
       myPntStatus1(ProxPnt_Status_UNKNOWN),
@@ -38,15 +38,15 @@ BRepExtrema_ProximityDistTool::BRepExtrema_ProximityDistTool()
 }
 
 //=======================================================================
-// function : BRepExtrema_ProximityDistTool
+// function : ProximityDistTool
 // purpose  : Creates new tool for the given element sets
 //=======================================================================
-BRepExtrema_ProximityDistTool::BRepExtrema_ProximityDistTool(
-  const Handle(BRepExtrema_TriangleSet)&    theSet1,
+ProximityDistTool::ProximityDistTool(
+  const Handle(TriangleSet1)&    theSet1,
   const Standard_Integer                    theNbSamples1,
   const BVH_Array3d&                        theAddVertices1,
   const NCollection_Vector<ProxPnt_Status>& theAddStatus1,
-  const Handle(BRepExtrema_TriangleSet)&    theSet2,
+  const Handle(TriangleSet1)&    theSet2,
   const BRepExtrema_ShapeList&              theShapeList1,
   const BRepExtrema_ShapeList&              theShapeList2)
     : myMinDistance(std::numeric_limits<Standard_Real>::max()),
@@ -65,8 +65,8 @@ BRepExtrema_ProximityDistTool::BRepExtrema_ProximityDistTool(
 // function : LoadTriangleSets
 // purpose  : Loads the given element sets into the tool
 //=======================================================================
-void BRepExtrema_ProximityDistTool::LoadTriangleSets(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                                                     const Handle(BRepExtrema_TriangleSet)& theSet2)
+void ProximityDistTool::LoadTriangleSets(const Handle(TriangleSet1)& theSet1,
+                                                     const Handle(TriangleSet1)& theSet2)
 {
   mySet1 = theSet1;
   mySet2 = theSet2;
@@ -76,7 +76,7 @@ void BRepExtrema_ProximityDistTool::LoadTriangleSets(const Handle(BRepExtrema_Tr
 // function : LoadShapeLists
 // purpose  : Loads the given list of subshapes into the proximity tool
 //=======================================================================
-void BRepExtrema_ProximityDistTool::LoadShapeLists(const BRepExtrema_ShapeList& theShapeList1,
+void ProximityDistTool::LoadShapeLists(const BRepExtrema_ShapeList& theShapeList1,
                                                    const BRepExtrema_ShapeList& theShapeList2)
 {
   myShapeList1 = theShapeList1;
@@ -87,7 +87,7 @@ void BRepExtrema_ProximityDistTool::LoadShapeLists(const BRepExtrema_ShapeList& 
 // function : LoadAdditionalPointsFirstSet
 // purpose  : Loads given additional vertices and their statuses
 //=======================================================================
-void BRepExtrema_ProximityDistTool::LoadAdditionalPointsFirstSet(
+void ProximityDistTool::LoadAdditionalPointsFirstSet(
   const BVH_Array3d&                        theAddVertices1,
   const NCollection_Vector<ProxPnt_Status>& theAddStatus1)
 {
@@ -99,7 +99,7 @@ void BRepExtrema_ProximityDistTool::LoadAdditionalPointsFirstSet(
 // function : goThroughtSet1
 // purpose  : Goes through vertices from the 1st set
 //=======================================================================
-void BRepExtrema_ProximityDistTool::goThroughtSet1(const BVH_Array3d&     theVertices1,
+void ProximityDistTool::goThroughtSet1(const BVH_Array3d&     theVertices1,
                                                    const Standard_Boolean theIsAdditionalSet)
 {
   Standard_Integer aVtxSize = (Standard_Integer)theVertices1.size();
@@ -132,7 +132,7 @@ void BRepExtrema_ProximityDistTool::goThroughtSet1(const BVH_Array3d&     theVer
 // function : Perform
 // purpose  : Performs searching of the proximity distance
 //=======================================================================
-void BRepExtrema_ProximityDistTool::Perform()
+void ProximityDistTool::Perform()
 {
   SetBVHSet(mySet2.get());
   goThroughtSet1(mySet1->GetVertices(), Standard_False);
@@ -172,7 +172,7 @@ static Standard_Real pointBoxSquareMaxDistance(const BVH_Vec3d& thePoint,
 // function : Branch rejection
 // purpose  : Defines the rules for node rejection by bounding box
 //=======================================================================
-Standard_Boolean BRepExtrema_ProximityDistTool::RejectNode(const BVH_Vec3d& theCornerMin,
+Standard_Boolean ProximityDistTool::RejectNode(const BVH_Vec3d& theCornerMin,
                                                            const BVH_Vec3d& theCornerMax,
                                                            Standard_Real&   theMetric) const
 {
@@ -188,7 +188,7 @@ Standard_Boolean BRepExtrema_ProximityDistTool::RejectNode(const BVH_Vec3d& theC
 // function : Leaf acceptance
 // purpose  : Defines the rules for leaf acceptance
 //=======================================================================
-Standard_Boolean BRepExtrema_ProximityDistTool::Accept(const Standard_Integer theTrgIdx,
+Standard_Boolean ProximityDistTool::Accept(const Standard_Integer theTrgIdx,
                                                        const Standard_Real&)
 {
   BVH_Vec3d aTrgVert1;
@@ -209,7 +209,7 @@ Standard_Boolean BRepExtrema_ProximityDistTool::Accept(const Standard_Integer th
                                                                                &aNumberOfFirstNode,
                                                                                &aNumberOfLastNode);
 
-  PrjState      aPrjState(theTrgIdx, aBVH_PrjState, aNumberOfFirstNode, aNumberOfLastNode);
+  PrjState1      aPrjState(theTrgIdx, aBVH_PrjState, aNumberOfFirstNode, aNumberOfLastNode);
   BVH_Vec3d     aDirect     = myObject - aNearestPnt;
   Standard_Real aSqDistance = aDirect.Dot(aDirect);
 
@@ -265,7 +265,7 @@ Standard_Boolean BRepExtrema_ProximityDistTool::Accept(const Standard_Integer th
 // function : ComputeDistance
 // purpose  : Computes the distance between object and BVH tree
 //=======================================================================
-Standard_Real BRepExtrema_ProximityDistTool::ComputeDistance()
+Standard_Real ProximityDistTool::ComputeDistance()
 {
   myIsDone = this->Select() > 0;
 
@@ -288,7 +288,7 @@ Standard_Real BRepExtrema_ProximityDistTool::ComputeDistance()
 // function : IsNodeOnBorder
 // purpose  : Returns true if the node is on the boarder
 //=======================================================================
-Standard_Boolean BRepExtrema_ProximityDistTool::IsNodeOnBorder(
+Standard_Boolean ProximityDistTool::IsNodeOnBorder(
   const Standard_Integer            theNodeIdx,
   const Handle(MeshTriangulation)& theTr)
 {
@@ -328,7 +328,7 @@ Standard_Boolean BRepExtrema_ProximityDistTool::IsNodeOnBorder(
 // function : IsEdgeOnBorder
 // purpose  : Returns true if the edge is on the boarder
 //=======================================================================
-Standard_Boolean BRepExtrema_ProximityDistTool::IsEdgeOnBorder(
+Standard_Boolean ProximityDistTool::IsEdgeOnBorder(
   const Standard_Integer            theTrgIdx,
   const Standard_Integer            theFirstEdgeNodeIdx,
   const Standard_Integer            theSecondEdgeNodeIdx,
@@ -361,7 +361,7 @@ Standard_Boolean BRepExtrema_ProximityDistTool::IsEdgeOnBorder(
 // function : defineStatusProxPnt1
 // purpose  : Defines the status of proximity point from 1st BVH
 //=======================================================================
-void BRepExtrema_ProximityDistTool::defineStatusProxPnt1()
+void ProximityDistTool::defineStatusProxPnt1()
 {
   if (myIsProxVtx1FromAddSet)
   {
@@ -415,7 +415,7 @@ void BRepExtrema_ProximityDistTool::defineStatusProxPnt1()
 // function : defineStatusProxPnt2
 // purpose  : Defines the status of proximity point from 2nd BVH
 //=======================================================================
-void BRepExtrema_ProximityDistTool::defineStatusProxPnt2()
+void ProximityDistTool::defineStatusProxPnt2()
 {
   Standard_Integer aTrgIdx  = myProxPrjState.GetTrgIdx();
   Standard_Integer aFaceID2 = mySet2->GetFaceID(aTrgIdx);
@@ -525,7 +525,7 @@ void BRepExtrema_ProximityDistTool::defineStatusProxPnt2()
 // function : DefineStatusProxPnt
 // purpose  : Defines the status of proximity points
 //=======================================================================
-void BRepExtrema_ProximityDistTool::DefineStatusProxPnt()
+void ProximityDistTool::DefineStatusProxPnt()
 {
   // define the status of proximity point from 1st BVH
   defineStatusProxPnt1();

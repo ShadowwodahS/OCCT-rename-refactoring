@@ -32,12 +32,12 @@ class IGESSelect_SetGlobalParameter;
 DEFINE_STANDARD_HANDLE(IGESSelect_SetGlobalParameter, IGESSelect_ModelModifier)
 
 //! Sets a Global (Header) Parameter to a new value, directly given
-//! Controls the form of the parameter (Integer, Real, String
+//! Controls the form of the parameter (Integer1, Real, String
 //! with such or such form), but not the consistence of the new
 //! value regarding the rest of the file.
 //!
 //! The new value is given under the form of a HAsciiString, even
-//! for Integer or Real values. For String values, Hollerith forms
+//! for Integer1 or Real values. For String values, Hollerith forms
 //! are accepted but not mandatory
 //! Warning : a Null (not set) value is not accepted. For an empty string,
 //! give a Text Parameter which is empty

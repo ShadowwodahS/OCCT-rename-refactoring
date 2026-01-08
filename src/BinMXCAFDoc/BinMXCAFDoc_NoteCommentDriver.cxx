@@ -69,7 +69,7 @@ void BinMXCAFDoc_NoteCommentDriver::Paste(const Handle(TDF_Attribute)& theSource
 
   Handle(XCAFDoc_NoteComment) aNote = Handle(XCAFDoc_NoteComment)::DownCast(theSource);
   if (!aNote.IsNull())
-    theTarget << aNote->Comment();
+    theTarget << aNote->Comment1();
 }
 
 //=================================================================================================

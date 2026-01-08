@@ -829,7 +829,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
               itm.Initialize(mySlface);
               for (; itm.More(); itm.Next())
               {
-                const TopoFace&                 fac  = TopoDS::Face(itm.Key());
+                const TopoFace&                 fac  = TopoDS::Face(itm.Key1());
                 const ShapeList&        ledg = itm.Value();
                 TopTools_ListIteratorOfListOfShape itedg(ledg);
                 // Standard_Integer iiii = 0;
@@ -1165,8 +1165,8 @@ void BRepFeat_MakeRevolutionForm::Perform()
       {
         if (ex1.Current().IsSame(e1))
         {
-          myLFMap(iter.Key()).Clear();
-          myLFMap(iter.Key()).Append(ex2.Current());
+          myLFMap(iter.Key1()).Clear();
+          myLFMap(iter.Key1()).Append(ex2.Current());
           break; // break the cycle (e1 became a dead reference)
         }
         ex2.Next();
@@ -1183,8 +1183,8 @@ void BRepFeat_MakeRevolutionForm::Perform()
       {
         if (ex1.Current().IsSame(e1))
         {
-          mySlface(iter1.Key()).Clear();
-          mySlface(iter1.Key()).Append(ex2.Current());
+          mySlface(iter1.Key1()).Clear();
+          mySlface(iter1.Key1()).Append(ex2.Current());
           break; // break the cycle (e1 became a dead reference)
         }
         ex2.Next();
@@ -1268,7 +1268,7 @@ void BRepFeat_MakeRevolutionForm::Perform()
   it1.Initialize(myMap);
   for (; it1.More(); it1.Next())
   {
-    const TopoShape& orig = it1.Key();
+    const TopoShape& orig = it1.Key1();
     if (it1.Value().IsEmpty())
       continue;
     const TopoShape& sh = it1.Value().First();
@@ -1900,7 +1900,7 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
   {
     for (; itm.More(); itm.Next())
     {
-      const TopoFace&                 fac  = TopoDS::Face(itm.Key());
+      const TopoFace&                 fac  = TopoDS::Face(itm.Key1());
       const ShapeList&        ledg = itm.Value();
       TopTools_ListIteratorOfListOfShape it;
       for (it.Initialize(ledg); it.More(); it.Next())
@@ -1915,7 +1915,7 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
         TopTools_DataMapIteratorOfDataMapOfShapeListOfShape iterm(SlidingMap);
         for (; iterm.More(); iterm.Next())
         {
-          const TopoFace&          ff     = TopoDS::Face(iterm.Key());
+          const TopoFace&          ff     = TopoDS::Face(iterm.Key1());
           const ShapeList& lfaces = iterm.Value();
           if (lfaces.IsEmpty())
             continue;

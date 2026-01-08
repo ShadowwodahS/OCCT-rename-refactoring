@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // modif le 25/03/96 mjm
-// implement ShapeCustom::DirectModification for indirect surfaces (out of norm IGES)
+// implement ShapeCustom1::DirectModification for indirect surfaces (out of norm IGES)
 //: l4 abv 12 Jan 99: CTS22022-2: correct writing reversed shells
 //: n3 abv 8 Feb 99: PRO17820: BRepTools1::OuterWire() -> ShapeAnalysis1::OuterWire
 // szv#4 S4163
@@ -272,7 +272,7 @@ Handle(IGESData_IGESEntity) BRepToIGESBRep_Entity::TransferShape(
   }
   else
   {
-    //    theShape = ShapeCustom::DirectFaces(start);
+    //    theShape = ShapeCustom1::DirectFaces(start);
     if (start.ShapeType() == TopAbs_FACE)
     {
       TopoFace F = TopoDS::Face(start);

@@ -379,9 +379,9 @@ void MakeSplitEdge1(const TopoEdge&   aE,
 //=======================================================================
 // function: AddSplitPoint
 // purpose: Validates the point represented by the pave <thePave>
-//          for the Pave Block <thePBD>.
+//          for the Pave Block1 <thePBD>.
 //          In case the point passes the checks it is added as an
-//          Extra Pave to the Pave Block for further splitting of the latter.
+//          Extra Pave to the Pave Block1 for further splitting of the latter.
 //          Returns TRUE if the point is added, otherwise returns FALSE.
 //=======================================================================
 Standard_Boolean AddSplitPoint(const Handle(BOPDS_PaveBlock)& thePBD,
@@ -392,7 +392,7 @@ Standard_Boolean AddSplitPoint(const Handle(BOPDS_PaveBlock)& thePBD,
   thePBD->Range(aTD1, aTD2);
 
   Standard_Real aT = thePave.Parameter();
-  // Check that the parameter is inside the Pave Block
+  // Check that the parameter is inside the Pave Block1
   if (aT - aTD1 < theTol || aTD2 - aT < theTol)
     return Standard_False;
 
@@ -401,7 +401,7 @@ Standard_Boolean AddSplitPoint(const Handle(BOPDS_PaveBlock)& thePBD,
   if (thePBD->ContainsParameter(aT, theTol, anInd))
     return Standard_False;
 
-  // Add the point as an Extra pave to the Pave Block for further
+  // Add the point as an Extra pave to the Pave Block1 for further
   // splitting of the latter
   thePBD->AppendExtPave1(thePave);
   return Standard_True;

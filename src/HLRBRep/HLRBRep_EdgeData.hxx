@@ -133,7 +133,7 @@ public:
 
   HLRBRep_Curve& ChangeGeometry();
 
-  const HLRBRep_Curve& Geometry() const;
+  const HLRBRep_Curve& Geometry1() const;
 
   HLRBRep_Curve* Curve() { return &myGeometry; }
 

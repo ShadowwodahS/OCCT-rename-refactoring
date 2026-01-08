@@ -74,7 +74,7 @@ public:
   //! Dumps the Header, with the Header Protocol of StepData1.
   //! If the Header Protocol is not defined, for each Header Entity,
   //! prints its Type. Else sends the Header under the form of
-  //! HEADER Section of an Ascii Step File
+  //! HEADER Section of an Ascii1 Step File
   //! <level> is not used because Header is not so big
   Standard_EXPORT void DumpHeader(Standard_OStream&      S,
                                   const Standard_Integer level = 0) const Standard_OVERRIDE;

@@ -53,7 +53,7 @@ Standard_Real Draft1::Angle(const TopoFace& F, const Dir3d& D)
   S = Handle(GeomSurface)::DownCast(S->Transformed(Lo.Transformation()));
   if (TypeS == STANDARD_TYPE(GeomPlane))
   {
-    Ax3 ax3(Handle(GeomPlane)::DownCast(S)->Pln().Position());
+    Ax3 ax3(Handle(GeomPlane)::DownCast(S)->Pln().Position1());
     Vector3d normale(ax3.Direction());
     if (!ax3.Direct())
     {

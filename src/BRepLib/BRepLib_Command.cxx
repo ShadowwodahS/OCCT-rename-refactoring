@@ -19,23 +19,23 @@
 
 //=================================================================================================
 
-BRepLib_Command::BRepLib_Command()
+Command1::Command1()
     : myDone(Standard_False)
 {
 }
 
-BRepLib_Command::~BRepLib_Command() {}
+Command1::~Command1() {}
 
 //=================================================================================================
 
-Standard_Boolean BRepLib_Command::IsDone() const
+Standard_Boolean Command1::IsDone() const
 {
   return myDone;
 }
 
 //=================================================================================================
 
-void BRepLib_Command::Check() const
+void Command1::Check() const
 {
   if (!myDone)
     throw StdFail_NotDone("BRep_API: command not done");
@@ -43,14 +43,14 @@ void BRepLib_Command::Check() const
 
 //=================================================================================================
 
-void BRepLib_Command::Done()
+void Command1::Done()
 {
   myDone = Standard_True;
 }
 
 //=================================================================================================
 
-void BRepLib_Command::NotDone()
+void Command1::NotDone()
 {
   myDone = Standard_False;
 }

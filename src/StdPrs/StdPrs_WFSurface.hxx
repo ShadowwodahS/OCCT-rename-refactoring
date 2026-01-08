@@ -25,7 +25,7 @@
 //! by displaying a given number of U and/or V isoparametric
 //! curves. The isoparametric curves are drawn with respect
 //! to a given number of points.
-class StdPrs_WFSurface : public Prs3d_Root
+class StdPrs_WFSurface : public Root7
 {
 public:
   DEFINE_STANDARD_ALLOC

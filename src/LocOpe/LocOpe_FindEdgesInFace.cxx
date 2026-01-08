@@ -130,7 +130,7 @@ void LocOpe_FindEdgesInFace::Set(const TopoShape& Sh, const TopoFace& F)
       }
       else
       { // Ts == STANDARD_TYPE(Geom_CylindricalSurface)
-        if (cy.Axis().IsParallel(li.Position(), TolAng)
+        if (cy.Axis().IsParallel(li.Position1(), TolAng)
             && Abs(li.Distance(cy.Location()) - cy.Radius()) < Tol)
         {
           ToAdd = Standard_True;
@@ -142,7 +142,7 @@ void LocOpe_FindEdgesInFace::Set(const TopoShape& Sh, const TopoFace& F)
       gp_Circ ci = Handle(GeomCircle)::DownCast(C)->Circ();
       if (Ts == STANDARD_TYPE(GeomPlane))
       {
-        if (pl.Position().IsCoplanar(ci.Position(), Tol, TolAng))
+        if (pl.Position1().IsCoplanar(ci.Position1(), Tol, TolAng))
         {
           ToAdd = Standard_True;
         }

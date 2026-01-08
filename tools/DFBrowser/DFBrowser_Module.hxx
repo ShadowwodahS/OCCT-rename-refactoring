@@ -43,7 +43,7 @@ class QItemSelectionModel;
 //! - OCAF selection model
 //! - container of attribute panes into attribute name
 //! - acceptable attribute pane creators
-//! - external AIS interactive context
+//! - external AIS1 interactive context
 //! It has general attribute pane creator, if the application is XDE, it uses XDE attribute pane
 //! creator. It fills container of created attribute pane.
 class DFBrowser_Module : public QObject

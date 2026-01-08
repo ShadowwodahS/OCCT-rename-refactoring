@@ -28,7 +28,7 @@ static Standard_Boolean IsInternal(const TopoShell& aSx);
 
 //=================================================================================================
 
-TopoShell BRepClass3d::OuterShell(const TopoSolid& aSolid)
+TopoShell BRepClass3d1::OuterShell(const TopoSolid& aSolid)
 {
   Standard_Boolean            bFound;
   Standard_Real               aTol;

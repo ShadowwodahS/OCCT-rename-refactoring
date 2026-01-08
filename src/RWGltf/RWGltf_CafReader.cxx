@@ -188,7 +188,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
 
   if (!theStream.good())
   {
-    Message::SendFail(AsciiString1("File '") + theFile + "' is not found");
+    Message1::SendFail(AsciiString1("File '") + theFile + "' is not found");
     return false;
   }
 
@@ -208,7 +208,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
     {
       if (*aLen < 20)
       {
-        Message::SendFail(AsciiString1("File '") + theFile + "' has broken glTF format");
+        Message1::SendFail(AsciiString1("File '") + theFile + "' has broken glTF format");
         return false;
       }
 
@@ -224,7 +224,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
       aBinBodyLen    = int64_t(*aLen) - aBinBodyOffset;
       if (*aSceneFormat != 0)
       {
-        Message::SendFail(AsciiString1("File '") + theFile
+        Message1::SendFail(AsciiString1("File '") + theFile
                           + "' is written using unsupported Scene format");
         return false;
       }
@@ -233,7 +233,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
     {
       if (*aVer != 2)
       {
-        Message::SendWarning(AsciiString1("File '") + theFile
+        Message1::SendWarning(AsciiString1("File '") + theFile
                              + "' is written using unknown version " + int(*aVer));
       }
 
@@ -248,7 +248,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
         theStream.read(aChunkHeader2, sizeof(aChunkHeader2));
         if (!theStream.good())
         {
-          Message::SendFail(AsciiString1("File '") + theFile
+          Message1::SendFail(AsciiString1("File '") + theFile
                             + "' is written using unsupported format");
           return false;
         }
@@ -317,11 +317,11 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
   {
     if (aRes.Code() == rapidjson::kParseErrorDocumentEmpty)
     {
-      Message::SendFail(AsciiString1("File '") + theFile + "' is empty");
+      Message1::SendFail(AsciiString1("File '") + theFile + "' is empty");
       return false;
     }
     AsciiString1 anErrDesc(RWGltf_GltfJsonParser::FormatParseError(aRes.Code()));
-    Message::SendFail(AsciiString1("File '") + theFile
+    Message1::SendFail(AsciiString1("File '") + theFile
                       + "' defines invalid JSON document!\n" + anErrDesc + " [at offset "
                       + (int)aRes.Offset() + "].");
     return false;

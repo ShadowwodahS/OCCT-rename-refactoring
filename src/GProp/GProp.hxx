@@ -52,10 +52,10 @@ public:
   //! - Mass, i.e. the mass of the system,
   //! - G, the center of mass of the system.
   //! The "Huyghens Operator" is used to compute
-  //! Inertia/Q, the matrix of inertia of the system at
+  //! Inertia1/Q, the matrix of inertia of the system at
   //! the point Q using Huyghens' theorem :
-  //! Inertia/Q = Inertia/G + HOperator (Q, G, Mass)
-  //! where Inertia/G is the matrix of inertia of the
+  //! Inertia1/Q = Inertia1/G + HOperator (Q, G, Mass)
+  //! where Inertia1/G is the matrix of inertia of the
   //! system relative to its center of mass as returned by
   //! the function MatrixOfInertia on any GeometricProperties object.
   Standard_EXPORT static void HOperator(const Point3d&       G,

@@ -29,13 +29,13 @@ class ShapeBuild_ReShape;
 
 //! Tool for splitting and cutting edges; includes methods
 //! used in OverlappingTool and IntersectionTool
-class ShapeFix_SplitTool
+class SplitTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT ShapeFix_SplitTool();
+  Standard_EXPORT SplitTool();
 
   //! Split edge on two new edges using new vertex "vert"
   //! and "param" - parameter for splitting

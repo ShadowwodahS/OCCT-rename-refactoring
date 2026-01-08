@@ -34,7 +34,7 @@ typedef void (*NCollection_DelMapNode)(NCollection_ListNode*,
  *              Provides utilitites for managing the buckets.
  */
 
-class NCollection_BaseMap
+class BaseMap
 {
 public:
   //! Memory allocation
@@ -56,7 +56,7 @@ public:
     }
 
     //! Constructor
-    Iterator(const NCollection_BaseMap& theMap)
+    Iterator(const BaseMap& theMap)
         : myNbBuckets(theMap.myNbBuckets),
           myBuckets(theMap.myData1),
           myBucket(-1),
@@ -76,7 +76,7 @@ public:
 
   public:
     //! Initialize
-    void Initialize(const NCollection_BaseMap& theMap)
+    void Initialize(const BaseMap& theMap)
     {
       myNbBuckets = theMap.myNbBuckets;
       myBuckets   = theMap.myData1;
@@ -155,7 +155,7 @@ protected:
   // -------- PROTECTED METHODS -----------
 
   //! Constructor
-  NCollection_BaseMap(const Standard_Integer                   NbBuckets,
+  BaseMap(const Standard_Integer                   NbBuckets,
                       const Standard_Boolean                   single,
                       const Handle(NCollection_BaseAllocator)& theAllocator)
       : myAllocator(theAllocator.IsNull() ? NCollection_BaseAllocator::CommonBaseAllocator()
@@ -169,7 +169,7 @@ protected:
   }
 
   //! Move Constructor
-  NCollection_BaseMap(NCollection_BaseMap&& theOther) noexcept
+  BaseMap(BaseMap&& theOther) noexcept
       : myAllocator(theOther.myAllocator),
         myData1(theOther.myData1),
         myData2(theOther.myData2),
@@ -184,7 +184,7 @@ protected:
   }
 
   //! Destructor
-  virtual ~NCollection_BaseMap() {}
+  virtual ~BaseMap() {}
 
   //! BeginResize
   Standard_EXPORT Standard_Boolean BeginResize(const Standard_Integer  NbBuckets,
@@ -215,7 +215,7 @@ protected:
   Standard_EXPORT Standard_Integer NextPrimeForMap(const Standard_Integer N) const;
 
   //! Exchange content of two maps without data copying
-  void exchangeMapsData(NCollection_BaseMap& theOther)
+  void exchangeMapsData(BaseMap& theOther)
   {
     std::swap(myAllocator, theOther.myAllocator);
     std::swap(myData1, theOther.myData1);
@@ -225,13 +225,13 @@ protected:
   }
 
   //! Move operator
-  NCollection_BaseMap& operator=(NCollection_BaseMap&&) noexcept = delete;
+  BaseMap& operator=(BaseMap&&) noexcept = delete;
 
   //! Copy Constructor
-  NCollection_BaseMap(const NCollection_BaseMap&) = delete;
+  BaseMap(const BaseMap&) = delete;
 
   //! Assign operator
-  NCollection_BaseMap& operator=(const NCollection_BaseMap&) = delete;
+  BaseMap& operator=(const BaseMap&) = delete;
 
 protected:
   // --------- PROTECTED FIELDS -----------

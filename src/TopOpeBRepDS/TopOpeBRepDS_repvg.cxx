@@ -254,7 +254,7 @@ Standard_EXPORT void FDS_repvg(const TopOpeBRepDS_DataStructure& BDS,
   MDSdmiodmoiloi itm(mapITRASHA);
   for (; itm.More(); itm.Next())
   {
-    Standard_Integer                 isa  = itm.Key();
+    Standard_Integer                 isa  = itm.Key1();
     TopOpeBRepDS_ListOfInterference& loi  = mapITRASHA.ChangeFind(isa);
     Standard_Integer                 nloi = loi.Extent();
     if (nloi < 2)

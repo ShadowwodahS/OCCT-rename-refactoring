@@ -182,7 +182,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   Handle(GeomCurve3d) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(GeomCurve3d) extCurv;
-  if (!PrsDim::ComputeGeometry(E1,
+  if (!PrsDim1::ComputeGeometry(E1,
                                E2,
                                myExtShape,
                                geom1,
@@ -345,7 +345,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   else if (myExtShape == 2)
     mySymbolPrs = DsgPrs_AS_FIRSTAR_LASTPT;
 
-  DsgPrs_LengthPresentation::Add(aPresentation,
+  LengthPresentation::Add(aPresentation,
                                  myDrawer,
                                  aText,
                                  myFAttach,

@@ -27,7 +27,7 @@
 #include <Interface_ParamType.hxx>
 class Interface_ParamSet;
 class AsciiString1;
-class Interface_FileParameter;
+class FileParameter;
 class Interface_ParamList;
 
 class Interface_FileReaderData;
@@ -82,8 +82,8 @@ public:
                                 const Interface_ParamType atype,
                                 const Standard_Integer    nument = 0);
 
-  //! Same as above, but gets a AsciiString from TCollection
-  //! Remark that the content of the AsciiString is locally copied
+  //! Same as above, but gets a AsciiString2 from TCollection
+  //! Remark that the content of the AsciiString2 is locally copied
   //! (because its content is most often lost after using)
   Standard_EXPORT void AddParam(const Standard_Integer         num,
                                 const AsciiString1& aval,
@@ -93,13 +93,13 @@ public:
   //! Same as above, but gets a complete FileParameter
   //! Warning : Content of <FP> is NOT copied : its original address and space
   //! in memory are assumed to be managed elsewhere (see ParamSet)
-  Standard_EXPORT void AddParam(const Standard_Integer num, const Interface_FileParameter& FP);
+  Standard_EXPORT void AddParam(const Standard_Integer num, const FileParameter& FP);
 
   //! Sets a new value for a parameter of a record, given by :
   //! num : record number; nump : parameter number in the record
   Standard_EXPORT void SetParam(const Standard_Integer         num,
                                 const Standard_Integer         nump,
-                                const Interface_FileParameter& FP);
+                                const FileParameter& FP);
 
   //! Returns count of parameters attached to record "num"
   //! If <num> = 0, returns the total recorded count of parameters
@@ -111,11 +111,11 @@ public:
 
   //! Returns parameter "nump" of record "num", as a complete
   //! FileParameter
-  Standard_EXPORT const Interface_FileParameter& Param(const Standard_Integer num,
+  Standard_EXPORT const FileParameter& Param(const Standard_Integer num,
                                                        const Standard_Integer nump) const;
 
   //! Same as above, but in order to be modified on place
-  Standard_EXPORT Interface_FileParameter& ChangeParam(const Standard_Integer num,
+  Standard_EXPORT FileParameter& ChangeParam(const Standard_Integer num,
                                                        const Standard_Integer nump);
 
   //! Returns type of parameter "nump" of record "num"
@@ -202,7 +202,7 @@ protected:
 
   //! Returns a parameter given its absolute rank in the file
   //! in order to be consulted or modified in specilaized actions
-  Standard_EXPORT Interface_FileParameter& ChangeParameter(const Standard_Integer numpar);
+  Standard_EXPORT FileParameter& ChangeParameter(const Standard_Integer numpar);
 
   //! For a given absolute rank of parameter, determines the
   //! record to which its belongs, and the parameter number for it

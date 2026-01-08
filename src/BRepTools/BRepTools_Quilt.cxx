@@ -538,9 +538,9 @@ TopoShape ShapeQuilt::Shells() const
   TopTools_MapIteratorOfMapOfShape itother(MapOtherShape); // gka version for free edges
   for (; itother.More(); itother.Next())
   {
-    if (!EdgesFaces.Contains(itother.Key()) && myBounds.Contains(itother.Key()))
+    if (!EdgesFaces.Contains(itother.Key1()) && myBounds.Contains(itother.Key1()))
     {
-      TopoShape aSh = myBounds.FindFromKey(itother.Key());
+      TopoShape aSh = myBounds.FindFromKey(itother.Key1());
       B.Add(result, aSh);
     }
   }

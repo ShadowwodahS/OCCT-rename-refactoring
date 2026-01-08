@@ -44,10 +44,10 @@ public:
   Standard_EXPORT Standard_Real Parameter() const;
 
   //! Sets the position of the point on the curve.
-  Standard_EXPORT void SetPosition(const TopAbs_Orientation Position);
+  Standard_EXPORT void SetPosition(const TopAbs_Orientation Position1);
 
   //! Returns the position of the point on the curve.
-  Standard_EXPORT TopAbs_Orientation Position() const;
+  Standard_EXPORT TopAbs_Orientation Position1() const;
 
   //! Sets the transition state before the intersection.
   Standard_EXPORT void SetStateBefore(const TopAbs_State State);

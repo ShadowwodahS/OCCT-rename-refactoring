@@ -295,7 +295,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
   IMeshData::IteratorOfMapOfInteger aTriangleIt(aTriangles);
   for (; aTriangleIt.More(); aTriangleIt.Next())
   {
-    const Standard_Integer   aTriangleId      = aTriangleIt.Key();
+    const Standard_Integer   aTriangleId      = aTriangleIt.Key1();
     const Triangle3& aCurrentTriangle = aMeshStructure->GetElement(aTriangleId);
 
     if (aCurrentTriangle.Movability() == BRepMesh_Deleted)

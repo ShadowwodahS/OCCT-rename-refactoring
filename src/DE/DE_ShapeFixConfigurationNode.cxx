@@ -322,7 +322,7 @@ AsciiString1 DE_ShapeFixConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Defines the mode for applying ShapeFix::SameParameter after all fixes\n";
+  aResult += "!Defines the mode for applying ShapeFix1::SameParameter after all fixes\n";
   aResult += "!Default value: \"FixOrNot\"(-1). Available values: \"FixOrNot\"(-1), \"NotFix\"(0), "
              "\"Fix\"(1)\n";
   aResult += aScope + "same.parameter :\t " + (int)ShapeFixParameters.FixSameParameterMode + "\n";
@@ -659,7 +659,7 @@ AsciiString1 DE_ShapeFixConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Defines the mode for applying ShapeFix::FixVertexPosition before all fixes\n";
+  aResult += "!Defines the mode for applying ShapeFix1::FixVertexPosition before all fixes\n";
   aResult += "!Default value: \"NotFix\"(0). Available values: \"FixOrNot\"(-1), \"NotFix\"(0), "
              "\"Fix\"(1)\n";
   aResult += aScope + "vertex.position :\t " + (int)ShapeFixParameters.FixVertexPositionMode + "\n";

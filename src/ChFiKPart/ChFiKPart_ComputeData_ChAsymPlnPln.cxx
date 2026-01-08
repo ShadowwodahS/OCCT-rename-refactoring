@@ -67,14 +67,14 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // Creation of the plane which carry the chamfer
 
   // compute the normals to the planes Pl1 and Pl2
-  Ax3 Pos1 = Pl1.Position();
+  Ax3 Pos1 = Pl1.Position1();
   Dir3d D1   = Pos1.XDirection().Crossed(Pos1.YDirection());
   if (Or1 == TopAbs_REVERSED)
   {
     D1.Reverse();
   }
 
-  Ax3 Pos2 = Pl2.Position();
+  Ax3 Pos2 = Pl2.Position1();
   Dir3d D2   = Pos2.XDirection().Crossed(Pos2.YDirection());
   if (Or2 == TopAbs_REVERSED)
   {
@@ -161,7 +161,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   // Compute the orientation of the chamfer plane
-  Dir3d norplch = gpl->Pln().Position().XDirection().Crossed(gpl->Pln().Position().YDirection());
+  Dir3d norplch = gpl->Pln().Position1().XDirection().Crossed(gpl->Pln().Position1().YDirection());
 
   Dir3d           DirCh12(Vector3d(P1, P2));
   Standard_Boolean toreverse = (norplch.Dot(norface1) <= 0.);

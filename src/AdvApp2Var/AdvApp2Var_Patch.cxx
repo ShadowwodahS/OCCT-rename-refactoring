@@ -719,19 +719,19 @@ void AdvApp2Var_Patch::AddErrors(const Framework& Constraints)
     err4 = Max(emax2, emax4);
 
     //   calculate final errors on internal isos
-    if ((Constraints.IsoV(myU0, myU1, myV0)).Position() == 0)
+    if ((Constraints.IsoV(myU0, myU1, myV0)).Position1() == 0)
     {
       HERISO->ChangeValue(iesp, 1) += err1 * hmax[myOrdInU + 1];
     }
-    if ((Constraints.IsoV(myU0, myU1, myV1)).Position() == 0)
+    if ((Constraints.IsoV(myU0, myU1, myV1)).Position1() == 0)
     {
       HERISO->ChangeValue(iesp, 2) += err2 * hmax[myOrdInU + 1];
     }
-    if ((Constraints.IsoU(myU0, myV0, myV1)).Position() == 0)
+    if ((Constraints.IsoU(myU0, myV0, myV1)).Position1() == 0)
     {
       HERISO->ChangeValue(iesp, 3) += err3 * hmax[myOrdInV + 1];
     }
-    if ((Constraints.IsoU(myU1, myV0, myV1)).Position() == 0)
+    if ((Constraints.IsoU(myU1, myV0, myV1)).Position1() == 0)
     {
       HERISO->ChangeValue(iesp, 4) += err4 * hmax[myOrdInV + 1];
     }

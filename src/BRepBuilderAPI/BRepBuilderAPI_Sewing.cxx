@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // dcl          CCI60011 : Correction of degeneratedSection
-//              Improvement of SameParameter Edge to treat case of failure in BRepLib::SameParameter
+//              Improvement of SameParameter Edge to treat case of failure in BRepLib1::SameParameter
 // dcl          Thu Aug 20 09:24:49 1998
 //              Suppression of little faces.
 // dcl          Fri Aug  7 15:27:46 1998
@@ -308,7 +308,7 @@ void BRepBuilderAPI_Sewing::SameParameter(const TopoEdge& edge) const
   try
   {
 
-    BRepLib::SameParameter(edge);
+    BRepLib1::SameParameter(edge);
   }
   catch (ExceptionBase const& anException)
   {
@@ -1660,7 +1660,7 @@ Standard_Boolean BRepBuilderAPI_Sewing::FindCandidates(TopTools_SequenceOfShape&
       if (aMaxDist >= 0.0 && aMaxDist <= myTolerance && arrLen(i) > myMinTolerance)
       {
 
-        // Reference section is connected to section #i
+        // Reference1 section is connected to section #i
         Standard_Boolean isInserted = Standard_False;
         Standard_Boolean ori        = arrForward(i);
         for (Standard_Integer j = 1; (j <= seqCandidates.Length()) && !isInserted; j++)
@@ -2572,7 +2572,7 @@ void BRepBuilderAPI_Sewing::FaceAnalysis(const Message_ProgressRange& theProgres
   TopTools_IndexedDataMapOfShapeListOfShape::Iterator aMIter(GluedVertices);
   for (; aMIter.More(); aMIter.Next())
   {
-    const TopoVertex&               vnew = TopoDS::Vertex(aMIter.Key());
+    const TopoVertex&               vnew = TopoDS::Vertex(aMIter.Key1());
     Coords3d                             coord(0., 0., 0.);
     Standard_Integer                   nbPoints = 0;
     const ShapeList&        vlist    = aMIter.Value();
@@ -2697,7 +2697,7 @@ void BRepBuilderAPI_Sewing::FindFreeBoundaries()
   {
     ShapeList& listFaces = anIterEF.ChangeValue();
     Standard_Integer      nbFaces   = listFaces.Extent();
-    TopoShape          edge      = anIterEF.Key();
+    TopoShape          edge      = anIterEF.Key1();
     if (edge.Orientation() == TopAbs_INTERNAL)
       continue;
     Standard_Boolean isSeam = Standard_False;
@@ -2804,7 +2804,7 @@ static Standard_Boolean CreateNewNodes(
   for (; anIter.More(); anIter.Next())
   {
     // Retrieve a pair of nodes to merge
-    const TopoShape& oldnode1 = anIter.Key();
+    const TopoShape& oldnode1 = anIter.Key1();
     const TopoShape& oldnode2 = anIter.Value();
     // Second node should also be in the map
     if (!NodeNearestNode.Contains(oldnode2))
@@ -2868,7 +2868,7 @@ static Standard_Boolean CreateNewNodes(
   TopTools_IndexedDataMapOfShapeListOfShape::Iterator anIter1(NewNodeOldNodes);
   for (; anIter1.More(); anIter1.Next())
   {
-    const TopoVertex& newnode = TopoDS::Vertex(anIter1.Key());
+    const TopoVertex& newnode = TopoDS::Vertex(anIter1.Key1());
     // Calculate new node center point
     Coords3d               theCoordinates(0., 0., 0.);
     ShapeList lvert; // Accumulate node vertices
@@ -2992,7 +2992,7 @@ static Standard_Boolean GlueVertices(TopTools_IndexedDataMapOfShapeShape&       
   TopTools_IndexedDataMapOfShapeShape::Iterator anIter1(aVertexNode);
   for (; anIter1.More(); anIter1.Next())
   {
-    const TopoShape&  vertex = anIter1.Key();
+    const TopoShape&  vertex = anIter1.Key1();
     const TopoVertex& node   = TopoDS::Vertex(anIter1.Value());
     if (NodeVertices.Contains(node))
     {
@@ -3410,7 +3410,7 @@ void BRepBuilderAPI_Sewing::Merging(const Standard_Boolean /* firstTime */,
   for (; anIterB.More() && aPS.More(); anIterB.Next(), aPS.Next())
   {
 
-    const TopoShape& bound = anIterB.Key();
+    const TopoShape& bound = anIterB.Key1();
 
     // If bound was already merged - continue
     if (myMergedEdges.Contains(bound))
@@ -3717,7 +3717,7 @@ void BRepBuilderAPI_Sewing::Merging(const Standard_Boolean /* firstTime */,
       TopTools_IndexedDataMapOfShapeShape::Iterator anItm(MergedWithSections);
       for (; anItm.More(); anItm.Next())
       {
-        const TopoShape& edge = anItm.Key();
+        const TopoShape& edge = anItm.Key1();
         MapSplitEdges.Add(edge);
       }
       // Iterate on edges merged with bound
@@ -3725,7 +3725,7 @@ void BRepBuilderAPI_Sewing::Merging(const Standard_Boolean /* firstTime */,
       for (; anItm1.More(); anItm1.Next())
       {
         // Retrieve edge merged with bound
-        const TopoShape& edge = anItm1.Key();
+        const TopoShape& edge = anItm1.Key1();
         // Remove edge from the map
         if (MapSplitEdges.Contains(edge))
           MapSplitEdges.RemoveKey(edge);
@@ -3765,7 +3765,7 @@ void BRepBuilderAPI_Sewing::Merging(const Standard_Boolean /* firstTime */,
       TopTools_IndexedDataMapOfShapeShape::Iterator anItm(MergedWithSections);
       for (; anItm.More(); anItm.Next())
       {
-        const TopoShape& oldedge = anItm.Key();
+        const TopoShape& oldedge = anItm.Key1();
         TopoShape        newedge = SectionsReShape->Apply(anItm.Value());
         ReplaceEdge(myReShape->Apply(oldedge), newedge, myReShape);
         myMergedEdges.Add(oldedge);
@@ -3780,7 +3780,7 @@ void BRepBuilderAPI_Sewing::Merging(const Standard_Boolean /* firstTime */,
       TopTools_IndexedDataMapOfShapeShape::Iterator anItm(MergedWithBound);
       for (; anItm.More(); anItm.Next())
       {
-        const TopoShape& oldedge = anItm.Key();
+        const TopoShape& oldedge = anItm.Key1();
         const TopoShape& newedge = anItm.Value();
         ReplaceEdge(myReShape->Apply(oldedge), newedge, myReShape);
         myMergedEdges.Add(oldedge);
@@ -4010,7 +4010,7 @@ void BRepBuilderAPI_Sewing::Cutting(const Message_ProgressRange& theProgress)
   TopTools_IndexedDataMapOfShapeListOfShape::Iterator anIterB(myBoundFaces);
   for (; anIterB.More() && aPS.More(); anIterB.Next(), aPS.Next())
   {
-    const TopoEdge& bound = TopoDS::Edge(anIterB.Key());
+    const TopoEdge& bound = TopoDS::Edge(anIterB.Key1());
     // Do not cut floating edges
     if (!anIterB.Value().Extent())
       continue;
@@ -4406,7 +4406,7 @@ void BRepBuilderAPI_Sewing::EdgeProcessing(const Message_ProgressRange& theProgr
   TopTools_IndexedDataMapOfShapeListOfShape::Iterator anIterB(myBoundFaces);
   for (; anIterB.More() && aPS.More(); anIterB.Next(), aPS.Next())
   {
-    const TopoShape&         bound     = anIterB.Key();
+    const TopoShape&         bound     = anIterB.Key1();
     const ShapeList& listFaces = anIterB.Value();
     if (listFaces.Extent() == 1)
     {
@@ -4489,7 +4489,7 @@ void BRepBuilderAPI_Sewing::EdgeRegularity(const Message_ProgressRange& theProgr
     const ShapeList* aFaces = aMapEF.Seek(anEdge);
     // encode regularity if and only if edges is shared by two faces
     if (aFaces && aFaces->Extent() == 2)
-      BRepLib::EncodeRegularity(anEdge,
+      BRepLib1::EncodeRegularity(anEdge,
                                 TopoDS::Face(aFaces->First()),
                                 TopoDS::Face(aFaces->Last()));
   }
@@ -4737,7 +4737,7 @@ void BRepBuilderAPI_Sewing::CreateOutputInformations()
   TopTools_IndexedDataMapOfShapeListOfShape::Iterator anIter(edgeSections);
   for (; anIter.More(); anIter.Next())
   {
-    const TopoShape&         edge        = anIter.Key();
+    const TopoShape&         edge        = anIter.Key1();
     const ShapeList& listSection = anIter.Value();
     if (listSection.Extent() == 1)
     {
@@ -5041,7 +5041,7 @@ void BRepBuilderAPI_Sewing::CreateCuttingNodes(const TopTools_IndexedMapOfShape&
     if (cnode.IsNull())
       continue;
     // Obtain vertex node
-    const TopoShape& node = aMIt.Key();
+    const TopoShape& node = aMIt.Key1();
     if (myVertexNode.Contains(cnode))
     {
       // This is an end vertex
@@ -5287,13 +5287,13 @@ void BRepBuilderAPI_Sewing::SameParameterShape()
     try
     {
 
-      BRepLib::SameParameter(sec, BRepInspector::Tolerance(sec));
+      BRepLib1::SameParameter(sec, BRepInspector::Tolerance(sec));
     }
     catch (ExceptionBase const&)
     {
 #ifdef OCCT_DEBUG
       std::cout
-        << "Fail: BRepBuilderAPI_Sewing::SameParameterShape exception in BRepLib::SameParameter"
+        << "Fail: BRepBuilderAPI_Sewing::SameParameterShape exception in BRepLib1::SameParameter"
         << std::endl;
 #endif
       continue;

@@ -80,7 +80,7 @@ Standard_Integer StepSelect_WorkLibrary::ReadStream(
 Standard_Boolean StepSelect_WorkLibrary::WriteFile(IFSelect_ContextWrite& ctx) const
 {
   //  Preparation
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   DeclareAndCast(StepData_StepModel, stepmodel, ctx.Model());
   DeclareAndCast(StepData_Protocol, stepro, ctx.Protocol());
   if (stepmodel.IsNull() || stepro.IsNull())

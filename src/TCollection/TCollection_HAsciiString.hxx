@@ -36,13 +36,13 @@ DEFINE_STANDARD_HANDLE(TCollection_HAsciiString, RefObject)
 //! make HAsciiString objects easier to use than ordinary character arrays.
 //! HAsciiString objects are handles to strings.
 //! -   HAsciiString strings may be shared by several objects.
-//! -   You may use an AsciiString object to get the actual string.
-//! Note: HAsciiString objects use an AsciiString string as a field.
+//! -   You may use an AsciiString2 object to get the actual string.
+//! Note: HAsciiString objects use an AsciiString2 string as a field.
 class TCollection_HAsciiString : public RefObject
 {
 
 public:
-  //! Initializes a HAsciiString to an empty AsciiString.
+  //! Initializes a HAsciiString to an empty AsciiString2.
   Standard_EXPORT TCollection_HAsciiString();
 
   //! Initializes a HAsciiString with a CString.
@@ -62,10 +62,10 @@ public:
   //! Initializes a HAsciiString with a real value
   Standard_EXPORT TCollection_HAsciiString(const Standard_Real value);
 
-  //! Initializes a HAsciiString with a AsciiString.
+  //! Initializes a HAsciiString with a AsciiString2.
   Standard_EXPORT TCollection_HAsciiString(const AsciiString1& aString);
 
-  //! Initializes a HAsciiString with a AsciiString.
+  //! Initializes a HAsciiString with a AsciiString2.
   TCollection_HAsciiString(AsciiString1&& theString) noexcept
       : myString(std::move(theString))
   {
@@ -237,7 +237,7 @@ public:
   Standard_EXPORT Standard_Boolean IsGreater(const Handle(TCollection_HAsciiString)& other) const;
 
   //! Converts a HAsciiString containing a numeric expression to
-  //! an Integer.
+  //! an Integer1.
   //! Example: "215" returns 215.
   Standard_EXPORT Standard_Integer IntegerValue() const;
 

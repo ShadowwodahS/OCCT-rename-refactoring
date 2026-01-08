@@ -115,7 +115,7 @@ static Standard_Integer OCC426(DrawInterpreter& di, Standard_Integer argc, const
 
   // Give the mass calculation of the shape "aFuseUnif"
   GeometricProperties G;
-  BRepGProp::VolumeProperties(aFuseUnif, G);
+  BRepGProp1::VolumeProperties(aFuseUnif, G);
   di << " \n";
   di << "Mass: " << G.Mass() << "\n\n";
 
@@ -787,9 +787,9 @@ static Standard_Integer OCC825(DrawInterpreter& di, Standard_Integer argc, const
     di << "CUT 2 Created !\n\n";
 
     GeometricProperties G;
-    BRepGProp::VolumeProperties(cut1, G);
+    BRepGProp1::VolumeProperties(cut1, G);
     di << "CUT 1 Mass = " << G.Mass() << "\n\n";
-    BRepGProp::VolumeProperties(cut2, G);
+    BRepGProp1::VolumeProperties(cut2, G);
     di << "CUT 2 Mass = " << G.Mass() << "\n\n";
 
     di << "Trianglating Faces of CUT 1 .....\n";

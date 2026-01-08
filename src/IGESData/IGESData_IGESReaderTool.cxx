@@ -148,7 +148,7 @@ Standard_Boolean IGESData_IGESReaderTool::AnalyseRecord(const Standard_Integer  
     ach->SendFail(Msg27);
     return Standard_False;
   }
-  const Interface_FileParameter& FP = thelist->Value(n0par);
+  const FileParameter& FP = thelist->Value(n0par);
   if ((FP.ParamType() != Interface_ParamInteger) || (atoi(FP.CValue()) != ent->TypeNumber()))
   {
     // Sending of message : DE : Incorrect type

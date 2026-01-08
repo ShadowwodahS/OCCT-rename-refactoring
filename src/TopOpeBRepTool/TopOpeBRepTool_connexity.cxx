@@ -38,22 +38,22 @@ TopOpeBRepTool_connexity::TopOpeBRepTool_connexity()
 
 //=================================================================================================
 
-TopOpeBRepTool_connexity::TopOpeBRepTool_connexity(const TopoShape& Key)
-    : theKey(Key),
+TopOpeBRepTool_connexity::TopOpeBRepTool_connexity(const TopoShape& Key1)
+    : theKey(Key1),
       theItems(1, 5)
 {
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_connexity::SetKey(const TopoShape& Key)
+void TopOpeBRepTool_connexity::SetKey(const TopoShape& Key1)
 {
-  theKey = Key;
+  theKey = Key1;
 }
 
 //=================================================================================================
 
-const TopoShape& TopOpeBRepTool_connexity::Key() const
+const TopoShape& TopOpeBRepTool_connexity::Key1() const
 {
   return theKey;
 }

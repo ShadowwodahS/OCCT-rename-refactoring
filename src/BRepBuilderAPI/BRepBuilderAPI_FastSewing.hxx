@@ -133,7 +133,7 @@ protected:
       aBuilder.MakeVertex(myTopoVert, myPnt, theToler);
     }
 
-    //! Geometry point of this Vertex
+    //! Geometry1 point of this Vertex
     Point3d        myPnt;
     TopoVertex myTopoVert;
 
@@ -249,7 +249,7 @@ protected:
 
   //! This inspector will find a node nearest to the given point
   //! not far than on the given tolerance
-  class NodeInspector : public NCollection_CellFilter_InspectorXYZ
+  class NodeInspector : public CellInspectorXYZ
   {
   public:
     typedef Standard_Integer Target;

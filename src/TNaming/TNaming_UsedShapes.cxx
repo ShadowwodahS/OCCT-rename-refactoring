@@ -121,7 +121,7 @@ Standard_OStream& TNaming_UsedShapes::Dump(Standard_OStream& anOS) const
   TNaming_DataMapIteratorOfDataMapOfShapePtrRefShape itr(myMap);
   for (; itr.More(); itr.Next())
   {
-    if (itr.Key().IsNull())
+    if (itr.Key1().IsNull())
     {
       anOS << "Empty Shape at label =";
       itr.Value()->Label().EntryDump(anOS);
@@ -129,10 +129,10 @@ Standard_OStream& TNaming_UsedShapes::Dump(Standard_OStream& anOS) const
       continue;
     }
     anOS << "  ";
-    TopAbs1::Print(itr.Key().ShapeType(), anOS);
+    TopAbs1::Print(itr.Key1().ShapeType(), anOS);
     anOS << "  ";
     itr.Value()->Label().EntryDump(anOS);
-    anOS << " Key_TShape   = " << itr.Key().TShape()->This();
+    anOS << " Key_TShape   = " << itr.Key1().TShape()->This();
     anOS << " Value_TShape = " << itr.Value()->Shape().TShape()->This();
     anOS << std::endl;
   }

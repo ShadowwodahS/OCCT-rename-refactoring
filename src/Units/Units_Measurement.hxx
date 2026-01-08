@@ -51,7 +51,7 @@ public:
 
   //! Returns a Measurement object with the integer value of
   //! the measurement contained in <me>.
-  Standard_EXPORT Units_Measurement Integer() const;
+  Standard_EXPORT Units_Measurement Integer1() const;
 
   //! Returns a Measurement object with the fractional value
   //! of the measurement contained in <me>.

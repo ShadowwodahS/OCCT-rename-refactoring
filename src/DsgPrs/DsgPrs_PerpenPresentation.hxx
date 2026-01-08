@@ -27,7 +27,7 @@ class Point3d;
 
 //! A framework to define display of perpendicular
 //! constraints between shapes.
-class DsgPrs_PerpenPresentation
+class PerpenPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

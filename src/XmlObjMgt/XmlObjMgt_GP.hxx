@@ -23,7 +23,7 @@ class gp_Mat;
 class Coords3d;
 
 //! Translation of gp1 (simple geometry) objects
-class XmlObjMgt_GP
+class GPStorage
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -150,7 +150,7 @@ inline TopoShape ShapeFix_Face::Result() const
 
 inline Standard_Boolean ShapeFix_Face::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 //=======================================================================

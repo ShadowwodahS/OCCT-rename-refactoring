@@ -38,7 +38,7 @@ XmlDrivers_DocumentStorageDriver::XmlDrivers_DocumentStorageDriver(
 Handle(XmlMDF_ADriverTable) XmlDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return XmlDrivers::AttributeDrivers(theMessageDriver);
+  return XmlDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=======================================================================

@@ -24,7 +24,7 @@
 #include <IGESData_DefType.hxx>
 
 //! description of a directory component which can be either
-//! undefined (let Void), defined as a Reference to an entity,
+//! undefined (let Void), defined as a Reference1 to an entity,
 //! or as a Rank, integer value addressing a builtin table
 //! The entity reference is not included here, only reference
 //! status is kept (because entity type must be adapted)
@@ -36,19 +36,19 @@ public:
   //! creates a DefSwitch as Void
   Standard_EXPORT DefinitionSwitch();
 
-  //! sets DefSwitch to "Void" status (in file : Integer = 0)
+  //! sets DefSwitch to "Void" status (in file : Integer1 = 0)
   Standard_EXPORT void SetVoid();
 
-  //! sets DefSwitch to "Reference" Status (in file : Integer < 0)
+  //! sets DefSwitch to "Reference1" Status (in file : Integer1 < 0)
   Standard_EXPORT void SetReference();
 
-  //! sets DefSwitch to "Rank" with a Value (in file : Integer > 0)
+  //! sets DefSwitch to "Rank" with a Value (in file : Integer1 > 0)
   Standard_EXPORT void SetRank(const Standard_Integer val);
 
-  //! returns DefType status (Void,Reference,Rank)
+  //! returns DefType status (Void,Reference1,Rank)
   Standard_EXPORT IGESData_DefType DefType() const;
 
-  //! returns Value as Integer (sensefull for a Rank)
+  //! returns Value as Integer1 (sensefull for a Rank)
   Standard_EXPORT Standard_Integer Value() const;
 
 private:

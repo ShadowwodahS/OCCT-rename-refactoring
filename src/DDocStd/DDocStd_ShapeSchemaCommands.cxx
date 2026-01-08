@@ -184,7 +184,7 @@ static Standard_Integer DDocStd_fsdwrite(DrawInterpreter& theDI,
     aData->RootData()->AddRoot(aRoot);
   }
 
-  Storage_Error anError = StdStorage::Write(aFileDriver, aData);
+  Storage_Error anError = StdStorage1::Write(aFileDriver, aData);
   aFileDriver->Close();
   DDocStd_StorageErrorMessage(theDI, anError);
 
@@ -216,7 +216,7 @@ static Standard_Integer DDocStd_fsdread(DrawInterpreter& theDI,
   if (strcmp(theArgs[2], "restore_with_names") == 0)
     rflag = Standard_True;
   Handle(StdStorage_Data) aData;
-  Storage_Error           anError = StdStorage::Read(AsciiString1(theArgs[1]), aData);
+  Storage_Error           anError = StdStorage1::Read(AsciiString1(theArgs[1]), aData);
   if (anError != Storage_VSOk)
   {
     DDocStd_StorageErrorMessage(theDI, anError);
@@ -248,11 +248,11 @@ static Standard_Integer DDocStd_fsdread(DrawInterpreter& theDI,
             else
             {
               AsciiString1 aNam("name_");
-              aNam += aRoot->Reference();
+              aNam += aRoot->Reference1();
               DBRep1::Set(aNam.ToCString(), aShape);
             }
 #ifdef DEBUG_FSDREAD
-            Standard_Integer indx = aRoot->Reference();
+            Standard_Integer indx = aRoot->Reference1();
             theDI << "Ref indx = " << indx << " Name = " << aRoot->Name().ToCString() << "\n";
 #endif
           }

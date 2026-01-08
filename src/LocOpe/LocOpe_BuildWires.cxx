@@ -201,7 +201,7 @@ void WireBuilder::Perform(const ShapeList&        L,
     TopTools_MapIteratorOfMapOfShape itm;
     for (itm.Initialize(mapV); itm.More(); itm.Next())
     {
-      const TopoVertex& vtx = TopoDS::Vertex(itm.Key());
+      const TopoVertex& vtx = TopoDS::Vertex(itm.Key1());
       Bords.Add(vtx);
       Standard_Integer ind = theMapVE.FindIndex(vtx);
       itl.Initialize(theMapVE(ind));

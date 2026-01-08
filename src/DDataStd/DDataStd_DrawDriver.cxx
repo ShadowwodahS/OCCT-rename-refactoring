@@ -67,7 +67,7 @@ DDataStd_DrawDriver::DDataStd_DrawDriver() {}
 
 //=================================================================================================
 
-static TopoShape Geometry(const Handle(TDataXtd_Constraint)& A,
+static TopoShape Geometry1(const Handle(TDataXtd_Constraint)& A,
                              const Standard_Integer             i,
                              TopAbs_ShapeEnum                   T)
 {
@@ -175,9 +175,9 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
       }
       else
       {
-        TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+        TopoShape aLocalShape = Geometry1(A, 1, TopAbs_FACE);
         TopoFace  F1          = TopoDS::Face(aLocalShape);
-        // TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
+        // TopoFace F1 = TopoDS::Face(Geometry1(A,1,TopAbs_FACE));
         if (!F1.IsNull())
           D = new DrawDim_Radius(F1);
       }
@@ -234,12 +234,12 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
       }
       else
       {
-        TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+        TopoShape aLocalShape = Geometry1(A, 1, TopAbs_FACE);
         TopoFace  F1          = TopoDS::Face(aLocalShape);
-        aLocalShape              = Geometry(A, 2, TopAbs_FACE);
+        aLocalShape              = Geometry1(A, 2, TopAbs_FACE);
         TopoFace F2           = TopoDS::Face(aLocalShape);
-        //	TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
-        //	TopoFace F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
+        //	TopoFace F1 = TopoDS::Face(Geometry1(A,1,TopAbs_FACE));
+        //	TopoFace F2 = TopoDS::Face(Geometry1(A,2,TopAbs_FACE));
         if (!F1.IsNull() && !F2.IsNull())
           D = new DrawDim_Angle(F1, F2);
       }
@@ -273,24 +273,24 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
       break;
 
     case TDataXtd_MATE: {
-      TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+      TopoShape aLocalShape = Geometry1(A, 1, TopAbs_FACE);
       TopoFace  F1          = TopoDS::Face(aLocalShape);
-      aLocalShape              = Geometry(A, 2, TopAbs_FACE);
+      aLocalShape              = Geometry1(A, 2, TopAbs_FACE);
       TopoFace F2           = TopoDS::Face(aLocalShape);
-      //      TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
-      //      TopoFace F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
+      //      TopoFace F1 = TopoDS::Face(Geometry1(A,1,TopAbs_FACE));
+      //      TopoFace F2 = TopoDS::Face(Geometry1(A,2,TopAbs_FACE));
       if (!F1.IsNull() && !F2.IsNull())
         D = new DrawDim_Distance(F1, F2);
     }
     break;
 
     case TDataXtd_ALIGN_FACES: {
-      TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+      TopoShape aLocalShape = Geometry1(A, 1, TopAbs_FACE);
       TopoFace  F1          = TopoDS::Face(aLocalShape);
-      aLocalShape              = Geometry(A, 2, TopAbs_FACE);
+      aLocalShape              = Geometry1(A, 2, TopAbs_FACE);
       TopoFace F2           = TopoDS::Face(aLocalShape);
-      //      TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
-      //      TopoFace F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
+      //      TopoFace F1 = TopoDS::Face(Geometry1(A,1,TopAbs_FACE));
+      //      TopoFace F2 = TopoDS::Face(Geometry1(A,2,TopAbs_FACE));
       if (!F1.IsNull() && !F2.IsNull())
         D = new DrawDim_Distance(F1, F2);
     }

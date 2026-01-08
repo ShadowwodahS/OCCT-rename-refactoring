@@ -57,7 +57,7 @@ static Standard_Integer tricheck(DrawInterpreter&, Standard_Integer, const char*
 
 //=================================================================================================
 
-void MeshTest::PluginCommands(DrawInterpreter& theCommands)
+void MeshTest1::PluginCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -118,7 +118,7 @@ static Standard_Integer mpnames(DrawInterpreter&, Standard_Integer n, const char
   aIt.Initialize(aMN);
   for (; aIt.More(); aIt.Next())
   {
-    const AsciiString1& aName = aIt.Key();
+    const AsciiString1& aName = aIt.Key1();
     printf("  %s\n", aName.ToCString());
   }
   //
@@ -336,9 +336,9 @@ static Standard_Integer triarea(DrawInterpreter& di, int n, const char** a)
   // compute area by geometry
   GeometricProperties props;
   if (anEps <= 0.)
-    BRepGProp::SurfaceProperties(shape, props);
+    BRepGProp1::SurfaceProperties(shape, props);
   else
-    BRepGProp::SurfaceProperties(shape, props, anEps);
+    BRepGProp1::SurfaceProperties(shape, props, anEps);
   double aGeomArea = props.Mass();
 
   di << aTriArea << " " << aGeomArea << "\n";
@@ -610,7 +610,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
       NCollection_Map<BRepMesh_Edge>::Iterator aMapIt(aFreeEdgeMap);
       for (; aMapIt.More(); aMapIt.Next())
       {
-        const BRepMesh_Edge& aLink = aMapIt.Key();
+        const BRepMesh_Edge& aLink = aMapIt.Key1();
         di << "{" << aLink.FirstNode() << " " << aLink.LastNode() << "} ";
         pnts(1)                     = aT->Node(aLink.FirstNode()).Transformed(trsf);
         pnts(2)                     = aT->Node(aLink.LastNode()).Transformed(trsf);

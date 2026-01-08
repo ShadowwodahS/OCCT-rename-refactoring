@@ -37,184 +37,184 @@ void MeshVS_Drawer::Assign(const Handle(MeshVS_Drawer)& aDrawer)
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetInteger(const Standard_Integer Key, const Standard_Integer Value)
+void MeshVS_Drawer::SetInteger(const Standard_Integer Key1, const Standard_Integer Value)
 {
-  if (myIntegers.IsBound(Key))
-    myIntegers.ChangeFind(Key) = Value;
+  if (myIntegers.IsBound(Key1))
+    myIntegers.ChangeFind(Key1) = Value;
   else
-    myIntegers.Bind(Key, Value);
+    myIntegers.Bind(Key1, Value);
 }
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetDouble(const Standard_Integer Key, const Standard_Real Value)
+void MeshVS_Drawer::SetDouble(const Standard_Integer Key1, const Standard_Real Value)
 {
-  if (myDoubles.IsBound(Key))
-    myDoubles.ChangeFind(Key) = Value;
+  if (myDoubles.IsBound(Key1))
+    myDoubles.ChangeFind(Key1) = Value;
   else
-    myDoubles.Bind(Key, Value);
+    myDoubles.Bind(Key1, Value);
 }
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetBoolean(const Standard_Integer Key, const Standard_Boolean Value)
+void MeshVS_Drawer::SetBoolean(const Standard_Integer Key1, const Standard_Boolean Value)
 {
-  if (myBooleans.IsBound(Key))
-    myBooleans.ChangeFind(Key) = Value;
+  if (myBooleans.IsBound(Key1))
+    myBooleans.ChangeFind(Key1) = Value;
   else
-    myBooleans.Bind(Key, Value);
+    myBooleans.Bind(Key1, Value);
 }
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetColor(const Standard_Integer Key, const Quantity_Color& Value)
+void MeshVS_Drawer::SetColor(const Standard_Integer Key1, const Quantity_Color& Value)
 {
-  if (myColors.IsBound(Key))
-    myColors.ChangeFind(Key) = Value;
+  if (myColors.IsBound(Key1))
+    myColors.ChangeFind(Key1) = Value;
   else
-    myColors.Bind(Key, Value);
+    myColors.Bind(Key1, Value);
 }
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetMaterial(const Standard_Integer Key, const Graphic3d_MaterialAspect& Value)
+void MeshVS_Drawer::SetMaterial(const Standard_Integer Key1, const Graphic3d_MaterialAspect& Value)
 {
-  if (myMaterials.IsBound(Key))
-    myMaterials.ChangeFind(Key) = Value;
+  if (myMaterials.IsBound(Key1))
+    myMaterials.ChangeFind(Key1) = Value;
   else
-    myMaterials.Bind(Key, Value);
+    myMaterials.Bind(Key1, Value);
 }
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetAsciiString(const Standard_Integer Key, const AsciiString1& Value)
+void MeshVS_Drawer::SetAsciiString(const Standard_Integer Key1, const AsciiString1& Value)
 {
-  if (myAsciiString.IsBound(Key))
-    myAsciiString.ChangeFind(Key) = Value;
+  if (myAsciiString.IsBound(Key1))
+    myAsciiString.ChangeFind(Key1) = Value;
   else
-    myAsciiString.Bind(Key, Value);
+    myAsciiString.Bind(Key1, Value);
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetInteger(const Standard_Integer Key,
+Standard_Boolean MeshVS_Drawer::GetInteger(const Standard_Integer Key1,
                                            Standard_Integer&      Value) const
 {
-  Standard_Boolean aRes = myIntegers.IsBound(Key);
+  Standard_Boolean aRes = myIntegers.IsBound(Key1);
   if (aRes)
-    Value = myIntegers.Find(Key);
+    Value = myIntegers.Find(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetDouble(const Standard_Integer Key, Standard_Real& Value) const
+Standard_Boolean MeshVS_Drawer::GetDouble(const Standard_Integer Key1, Standard_Real& Value) const
 {
-  Standard_Boolean aRes = myDoubles.IsBound(Key);
+  Standard_Boolean aRes = myDoubles.IsBound(Key1);
   if (aRes)
-    Value = myDoubles.Find(Key);
+    Value = myDoubles.Find(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetBoolean(const Standard_Integer Key,
+Standard_Boolean MeshVS_Drawer::GetBoolean(const Standard_Integer Key1,
                                            Standard_Boolean&      Value) const
 {
-  Standard_Boolean aRes = myBooleans.IsBound(Key);
+  Standard_Boolean aRes = myBooleans.IsBound(Key1);
   if (aRes)
-    Value = myBooleans.Find(Key);
+    Value = myBooleans.Find(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetColor(const Standard_Integer Key, Quantity_Color& Value) const
+Standard_Boolean MeshVS_Drawer::GetColor(const Standard_Integer Key1, Quantity_Color& Value) const
 {
-  Standard_Boolean aRes = myColors.IsBound(Key);
+  Standard_Boolean aRes = myColors.IsBound(Key1);
   if (aRes)
-    Value = myColors.Find(Key);
+    Value = myColors.Find(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetMaterial(const Standard_Integer    Key,
+Standard_Boolean MeshVS_Drawer::GetMaterial(const Standard_Integer    Key1,
                                             Graphic3d_MaterialAspect& Value) const
 {
-  Standard_Boolean aRes = myMaterials.IsBound(Key);
+  Standard_Boolean aRes = myMaterials.IsBound(Key1);
   if (aRes)
-    Value = myMaterials.Find(Key);
+    Value = myMaterials.Find(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::GetAsciiString(const Standard_Integer   Key,
+Standard_Boolean MeshVS_Drawer::GetAsciiString(const Standard_Integer   Key1,
                                                AsciiString1& Value) const
 {
-  Standard_Boolean aRes = myAsciiString.IsBound(Key);
+  Standard_Boolean aRes = myAsciiString.IsBound(Key1);
   if (aRes)
-    Value = myAsciiString.Find(Key);
+    Value = myAsciiString.Find(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::RemoveInteger(const Standard_Integer Key)
+Standard_Boolean MeshVS_Drawer::RemoveInteger(const Standard_Integer Key1)
 {
-  Standard_Boolean aRes = myIntegers.IsBound(Key);
+  Standard_Boolean aRes = myIntegers.IsBound(Key1);
   if (aRes)
-    myIntegers.UnBind(Key);
+    myIntegers.UnBind(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::RemoveDouble(const Standard_Integer Key)
+Standard_Boolean MeshVS_Drawer::RemoveDouble(const Standard_Integer Key1)
 {
-  Standard_Boolean aRes = myDoubles.IsBound(Key);
+  Standard_Boolean aRes = myDoubles.IsBound(Key1);
   if (aRes)
-    myDoubles.UnBind(Key);
+    myDoubles.UnBind(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::RemoveBoolean(const Standard_Integer Key)
+Standard_Boolean MeshVS_Drawer::RemoveBoolean(const Standard_Integer Key1)
 {
-  Standard_Boolean aRes = myBooleans.IsBound(Key);
+  Standard_Boolean aRes = myBooleans.IsBound(Key1);
   if (aRes)
-    myBooleans.UnBind(Key);
+    myBooleans.UnBind(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::RemoveColor(const Standard_Integer Key)
+Standard_Boolean MeshVS_Drawer::RemoveColor(const Standard_Integer Key1)
 {
-  Standard_Boolean aRes = myColors.IsBound(Key);
+  Standard_Boolean aRes = myColors.IsBound(Key1);
   if (aRes)
-    myColors.UnBind(Key);
+    myColors.UnBind(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::RemoveMaterial(const Standard_Integer Key)
+Standard_Boolean MeshVS_Drawer::RemoveMaterial(const Standard_Integer Key1)
 {
-  Standard_Boolean aRes = myMaterials.IsBound(Key);
+  Standard_Boolean aRes = myMaterials.IsBound(Key1);
   if (aRes)
-    myMaterials.UnBind(Key);
+    myMaterials.UnBind(Key1);
   return aRes;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Drawer::RemoveAsciiString(const Standard_Integer Key)
+Standard_Boolean MeshVS_Drawer::RemoveAsciiString(const Standard_Integer Key1)
 {
-  Standard_Boolean aRes = myAsciiString.IsBound(Key);
+  Standard_Boolean aRes = myAsciiString.IsBound(Key1);
   if (aRes)
-    myAsciiString.UnBind(Key);
+    myAsciiString.UnBind(Key1);
   return aRes;
 }

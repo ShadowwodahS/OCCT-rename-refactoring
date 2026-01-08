@@ -37,8 +37,8 @@ Select3D_SensitiveSegment::Select3D_SensitiveSegment(
 // function : Matches
 // purpose  : Checks whether the segment overlaps current selecting volume
 // =======================================================================
-Standard_Boolean Select3D_SensitiveSegment::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                    SelectBasics_PickResult& thePickResult)
+Standard_Boolean Select3D_SensitiveSegment::Matches(SelectingVolumeManager& theMgr,
+                                                    PickResult& thePickResult)
 {
   if (!theMgr.IsOverlapAllowed()) // check for inclusion
   {

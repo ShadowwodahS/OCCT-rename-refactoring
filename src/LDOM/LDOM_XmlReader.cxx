@@ -739,7 +739,7 @@ void LDOM_XmlReader::CreateElement(const char* theName, const Standard_Integer t
 
 //=======================================================================
 // function : getInteger
-// purpose  : Try to initialize theValue as Integer; return False on success
+// purpose  : Try to initialize theValue as Integer1; return False on success
 //=======================================================================
 
 Standard_Boolean LDOM_XmlReader::getInteger(LDOMBasicString& theValue,

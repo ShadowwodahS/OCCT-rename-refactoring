@@ -173,7 +173,7 @@ void HatchGen_PointOnHatching::Dump(const Standard_Integer Index) const
 
   std::cout << "    Index of the hatching = " << myIndex << std::endl;
   std::cout << "    Parameter on hatching = " << myParam << std::endl;
-  std::cout << "    Position  on hatching = ";
+  std::cout << "    Position1  on hatching = ";
   switch (myPosit)
   {
     case TopAbs_FORWARD:

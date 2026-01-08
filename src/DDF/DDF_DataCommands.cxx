@@ -297,7 +297,7 @@ static Standard_Integer DDF_CheckAttrs(DrawInterpreter& di, Standard_Integer n, 
       const TDF_AttributeMap& attMap = ds1->Attributes(); // attMap
       for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
       {
-        const Handle(TDF_Attribute)& sAtt = attMItr.Key();
+        const Handle(TDF_Attribute)& sAtt = attMItr.Key1();
         //	std::cout<<"\t\tSource references attribute dynamic type =
         //"<<sAtt->DynamicType()<<std::endl;
         for (TDF_AttributeIterator itr2(TARGET); itr2.More(); itr2.Next())
@@ -308,7 +308,7 @@ static Standard_Integer DDF_CheckAttrs(DrawInterpreter& di, Standard_Integer n, 
           const TDF_AttributeMap& attMap2 = ds2->Attributes(); // attMap
           for (TDF_MapIteratorOfAttributeMap attMItr2(attMap2); attMItr2.More(); attMItr2.Next())
           {
-            const Handle(TDF_Attribute)& tAtt = attMItr2.Key();
+            const Handle(TDF_Attribute)& tAtt = attMItr2.Key1();
             //	    std::cout<<"\t\t\t\tTarget reference attribute dynamic type =
             //"<<tAtt->DynamicType()<<std::endl;
             if (tAtt->IsInstance(sAtt->DynamicType()))
@@ -371,7 +371,7 @@ static Standard_Integer DDF_CheckLabel(DrawInterpreter& di, Standard_Integer n, 
       const TDF_AttributeMap& attMap = ds1->Attributes(); // attMap
       for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
       {
-        const Handle(TDF_Attribute)& sAtt = attMItr.Key();
+        const Handle(TDF_Attribute)& sAtt = attMItr.Key1();
         AsciiString1      entry;
         Tool3::Entry(sAtt->Label(), entry);
         // std::cout<<"\t\tReferences attribute dynamic type = "<<sAtt->DynamicType()<<",\tLabel =

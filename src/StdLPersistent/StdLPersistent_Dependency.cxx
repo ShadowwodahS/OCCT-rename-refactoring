@@ -30,7 +30,7 @@ static void ImportName(const Handle(TDataStd_Relation)&  theAttribute,
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <class AttribClass>
-void StdLPersistent_Dependency::instance<AttribClass>::Import(
+void Dependency::instance<AttribClass>::Import(
   const Handle(AttribClass)& theAttribute) const
 {
   if (myName)
@@ -48,5 +48,5 @@ void StdLPersistent_Dependency::instance<AttribClass>::Import(
   }
 }
 
-template class StdLPersistent_Dependency::instance<TDataStd_Expression>;
-template class StdLPersistent_Dependency::instance<TDataStd_Relation>;
+template class Dependency::instance<TDataStd_Expression>;
+template class Dependency::instance<TDataStd_Relation>;

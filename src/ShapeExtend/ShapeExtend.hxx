@@ -39,12 +39,12 @@
 //! - class MsgRegistrator for attaching messages to the objects
 //! - tools for exploring the shapes
 //! -       tools for creating       new shapes.
-class ShapeExtend
+class ShapeExtend1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Inits using of ShapeExtend.
+  //! Inits using of ShapeExtend1.
   //! Currently, loads messages output by ShapeHealing algorithms.
   Standard_EXPORT static void Init();
 

@@ -78,7 +78,7 @@ ConicTool::ConicTool(const gp_Lin2d& Line)
       prm3(0.0)
 {
   Line.Coefficients(Line_a, Line_b, Line_c);
-  Axis = Ax22d(Line.Position(), Standard_True);
+  Axis = Ax22d(Line.Position1(), Standard_True);
   type = GeomAbs_Line;
 }
 

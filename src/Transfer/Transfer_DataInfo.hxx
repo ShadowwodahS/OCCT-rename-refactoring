@@ -27,7 +27,7 @@ class RefObject;
 //! Gives information on an object
 //! Used as template to instantiate Mapper and SimpleBinder
 //! This class is for Transient
-class Transfer_DataInfo
+class DataInfo1
 {
 public:
   DEFINE_STANDARD_ALLOC

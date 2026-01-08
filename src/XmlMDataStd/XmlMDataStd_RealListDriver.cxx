@@ -46,7 +46,7 @@ Handle(TDF_Attribute) XmlMDataStd_RealListDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_RealListDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_RealListDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&) const
 {
@@ -89,7 +89,7 @@ Standard_Boolean XmlMDataStd_RealListDriver::Paste(const XmlObjMgt_Persistent&  
   }
 
   // Check the type of LDOMString
-  const XmlObjMgt_DOMString& aString = XmlObjMgt::GetStringValue(anElement);
+  const XmlObjMgt_DOMString& aString = XmlObjMgt1::GetStringValue(anElement);
   if (aLastInd == 0)
     aFirstInd = 0;
   if (aString.Type() == LDOMBasicString::LDOM_Integer)
@@ -104,7 +104,7 @@ Standard_Boolean XmlMDataStd_RealListDriver::Paste(const XmlObjMgt_Persistent&  
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve array of real members"
-                                   " for RealList attribute from Integer \"")
+                                   " for RealList attribute from Integer1 \"")
         + aString + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
@@ -116,7 +116,7 @@ Standard_Boolean XmlMDataStd_RealListDriver::Paste(const XmlObjMgt_Persistent&  
     for (ind = aFirstInd; ind <= aLastInd; ind++)
     {
       Standard_Real aValue;
-      if (!XmlObjMgt::GetReal(aValueStr, aValue))
+      if (!XmlObjMgt1::GetReal(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve real member"
@@ -142,7 +142,7 @@ Standard_Boolean XmlMDataStd_RealListDriver::Paste(const XmlObjMgt_Persistent&  
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_RealListDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&) const
 {
   const Handle(TDataStd_RealList) aRealList = Handle(TDataStd_RealList)::DownCast(theSource);
@@ -164,7 +164,7 @@ void XmlMDataStd_RealListDriver::Paste(const Handle(TDF_Attribute)& theSource,
       iChar += Sprintf(&(str[iChar]), "%.17g ", realValue);
     }
   }
-  XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+  XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
 
   if (aRealList->ID() != TDataStd_RealList::GetID())
   {

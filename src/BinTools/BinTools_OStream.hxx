@@ -31,7 +31,7 @@ public:
   Standard_EXPORT BinaryOutputStream(Standard_OStream& theStream);
 
   //! Returns the current position of the stream
-  Standard_EXPORT const uint64_t& Position() { return myPosition; }
+  Standard_EXPORT const uint64_t& Position1() { return myPosition; }
 
   //! Writes the reference to the given position (an offset between the current and the given one).
   Standard_EXPORT void WriteReference(const uint64_t& thePosition);

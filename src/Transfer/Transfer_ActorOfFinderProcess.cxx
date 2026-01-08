@@ -104,7 +104,7 @@ void Transfer_ActorOfFinderProcess::SetShapeFixParameters(
 //=============================================================================
 
 void Transfer_ActorOfFinderProcess::SetShapeProcessFlags(
-  const ShapeProcess::OperationsFlags& theFlags)
+  const ShapeProcess1::OperationsFlags& theFlags)
 {
   myShapeProcFlags.first  = theFlags;
   myShapeProcFlags.second = true;

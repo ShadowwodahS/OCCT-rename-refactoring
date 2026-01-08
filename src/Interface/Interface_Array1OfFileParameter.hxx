@@ -20,6 +20,6 @@
 #include <Interface_FileParameter.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Interface_FileParameter> Interface_Array1OfFileParameter;
+typedef NCollection_Array1<FileParameter> Interface_Array1OfFileParameter;
 
 #endif

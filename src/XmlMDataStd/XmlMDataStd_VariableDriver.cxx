@@ -42,7 +42,7 @@ Handle(TDF_Attribute) XmlMDataStd_VariableDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataStd_VariableDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_VariableDriver::Paste(const PersistentStorage&  theSource,
                                                    const Handle(TDF_Attribute)& theTarget,
                                                    XmlObjMgt_RRelocationTable&) const
 {
@@ -59,7 +59,7 @@ Standard_Boolean XmlMDataStd_VariableDriver::Paste(const XmlObjMgt_Persistent&  
 //=================================================================================================
 
 void XmlMDataStd_VariableDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                       XmlObjMgt_Persistent&        theTarget,
+                                       PersistentStorage&        theTarget,
                                        XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_Variable) aV = Handle(TDataStd_Variable)::DownCast(theSource);

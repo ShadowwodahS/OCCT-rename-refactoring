@@ -421,7 +421,7 @@ Handle(Geom_BSplineSurface) ShapeAlgo_AlgoContainer::ConvertSurfaceToBSpline(
   const Standard_Real         VF,
   const Standard_Real         VL) const
 {
-  return ShapeConstruct::ConvertSurfaceToBSpline(surf,
+  return ShapeConstruct1::ConvertSurfaceToBSpline(surf,
                                                  UF,
                                                  UL,
                                                  VF,
@@ -647,7 +647,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(BSplineCurve3d)&          BS,
   Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS) const
 {
-  return ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
+  return ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
 }
 
 //=================================================================================================
@@ -656,7 +656,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(Geom2d_BSplineCurve)&          BS,
   Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS) const
 {
-  return ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
+  return ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
 }
 
 //=================================================================================================
@@ -697,7 +697,7 @@ Handle(BSplineCurve3d) ShapeAlgo_AlgoContainer::ConvertCurveToBSpline(
   const Standard_Integer    MaxSegments,
   const Standard_Integer    MaxDegree) const
 {
-  return ShapeConstruct::ConvertCurveToBSpline(C3D,
+  return ShapeConstruct1::ConvertCurveToBSpline(C3D,
                                                First,
                                                Last,
                                                Tol3d,

@@ -27,7 +27,7 @@ class ShapeBuild_ReShape;
 class TopoShape;
 
 //! This class provides a tool for applying sewing algorithm from
-//! BRepBuilderAPI: it takes a shape, calls sewing for each shell,
+//! BRepBuilderAPI1: it takes a shape, calls sewing for each shell,
 //! and then replaces sewed shells with use of ShapeBuild_ReShape
 class ShapeUpgrade_ShellSewing
 {
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT ShapeUpgrade_ShellSewing();
 
   //! Builds a new shape from a former one, by calling Sewing from
-  //! BRepBuilderAPI. Rebuilt solids are oriented to be "not infinite"
+  //! BRepBuilderAPI1. Rebuilt solids are oriented to be "not infinite"
   //!
   //! If <tol> is not given (i.e. value 0. by default), it is
   //! computed as the mean tolerance recorded in <shape>

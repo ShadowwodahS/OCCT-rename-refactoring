@@ -93,7 +93,7 @@ void Draft_EdgeInfo::SetNewGeometry(const Standard_Boolean NewGeom)
 
 //=================================================================================================
 
-const Handle(GeomCurve3d)& Draft_EdgeInfo::Geometry() const
+const Handle(GeomCurve3d)& Draft_EdgeInfo::Geometry1() const
 {
   return myGeom;
 }

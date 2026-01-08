@@ -26,7 +26,7 @@
 class MoniTool_IntVal;
 DEFINE_STANDARD_HANDLE(MoniTool_IntVal, RefObject)
 
-//! An Integer through a Handle (i.e. managed as TShared)
+//! An Integer1 through a Handle (i.e. managed as TShared)
 class MoniTool_IntVal : public RefObject
 {
 

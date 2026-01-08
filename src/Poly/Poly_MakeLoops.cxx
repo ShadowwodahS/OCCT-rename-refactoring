@@ -197,7 +197,7 @@ Standard_Integer LoopBuilder::Perform()
       // move hanging links to start indices to make the second pass
       TColStd_MapIteratorOfPackedMapOfInteger it(myHangIndices);
       for (; it.More(); it.Next())
-        myStartIndices.Add(it.Key());
+        myStartIndices.Add(it.Key1());
     }
   }
 #ifdef OCCT_DEBUG
@@ -484,7 +484,7 @@ void LoopBuilder::showBoundaryBreaks() const
   TColStd_MapIteratorOfPackedMapOfInteger it(aNodesMap);
   for (; it.More(); it.Next())
   {
-    Standard_Integer                     aNode  = it.Key();
+    Standard_Integer                     aNode  = it.Key1();
     Standard_Integer                     nb     = 0;
     const ListOfLink&                    aLinks = myHelper->GetAdjacentLinks(aNode);
     LoopBuilder::ListOfLink::Iterator itLinks(aLinks);
@@ -538,7 +538,7 @@ void LoopBuilder::GetHangingLinks(ListOfLink& theLinks) const
   TColStd_MapIteratorOfPackedMapOfInteger it(myHangIndices);
   for (; it.More(); it.Next())
   {
-    Standard_Integer aIndexS = it.Key();
+    Standard_Integer aIndexS = it.Key1();
     Link1             aLink   = myMapLink(Abs(aIndexS));
     if (aIndexS < 0)
       aLink.Reverse();

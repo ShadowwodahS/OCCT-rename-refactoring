@@ -388,7 +388,7 @@ void PrsDim_AngleDimension::DrawArc(const Handle(Prs3d_Presentation)& thePresent
   // init data arrays for graphical and selection primitives
   Handle(Graphic3d_ArrayOfPolylines) aPrimSegments = new Graphic3d_ArrayOfPolylines(aNbPoints);
 
-  SelectionGeometry::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
+  SelectionGeometry1::Curve& aSensitiveCurve = mySelectionGeom.NewCurve();
 
   // load data into arrays
   for (Standard_Integer aPntIt = 1; aPntIt <= aMakePnts.NbPoints(); ++aPntIt)
@@ -868,7 +868,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
   Standard_Boolean   isInfinite1, isInfinite2;
   Point3d             aFirstPoint1, aLastPoint1, aFirstPoint2, aLastPoint2;
   Handle(GeomCurve3d) aFirstCurve = aFirstLine, aSecondCurve = aSecondLine;
-  if (!PrsDim::ComputeGeometry(aFirstEdge,
+  if (!PrsDim1::ComputeGeometry(aFirstEdge,
                                aSecondEdge,
                                aFirstCurve,
                                aSecondCurve,
@@ -927,7 +927,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
     }
 
     anIntersectPoint = gp_Pnt2d(anInt2d.Point(1).Value());
-    myCenterPoint    = ElCLib1::To3d(theComputedPlane.Position().Ax2(), anIntersectPoint);
+    myCenterPoint    = ElCLib1::To3d(theComputedPlane.Position1().Ax2(), anIntersectPoint);
 
     if (isInfinite1 || isInfinite2)
     {
@@ -967,9 +967,9 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
   PrsDim_KindOfSurface aFirstSurfType, aSecondSurfType;
   Standard_Real        aFirstOffset, aSecondOffset;
 
-  PrsDim::GetPlaneFromFace(aFirstFace, aFirstPln, aFirstBasisSurf, aFirstSurfType, aFirstOffset);
+  PrsDim1::GetPlaneFromFace(aFirstFace, aFirstPln, aFirstBasisSurf, aFirstSurfType, aFirstOffset);
 
-  PrsDim::GetPlaneFromFace(aSecondFace,
+  PrsDim1::GetPlaneFromFace(aSecondFace,
                            aSecondPln,
                            aSecondBasisSurf,
                            aSecondSurfType,
@@ -980,7 +980,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
     // Planar faces angle
     Handle(GeomPlane) aFirstPlane  = Handle(GeomPlane)::DownCast(aFirstBasisSurf);
     Handle(GeomPlane) aSecondPlane = Handle(GeomPlane)::DownCast(aSecondBasisSurf);
-    return PrsDim::InitAngleBetweenPlanarFaces(aFirstFace,
+    return PrsDim1::InitAngleBetweenPlanarFaces(aFirstFace,
                                                aSecondFace,
                                                myCenterPoint,
                                                myFirstPoint,
@@ -990,7 +990,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
   else
   {
     // Curvilinear faces angle
-    return PrsDim::InitAngleBetweenCurvilinearFaces(aFirstFace,
+    return PrsDim1::InitAngleBetweenCurvilinearFaces(aFirstFace,
                                                     aSecondFace,
                                                     aFirstSurfType,
                                                     aSecondSurfType,
@@ -1016,9 +1016,9 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle(const Point3d& thePoin
   PrsDim_KindOfSurface aFirstSurfType, aSecondSurfType;
   Standard_Real        aFirstOffset, aSecondOffset;
 
-  PrsDim::GetPlaneFromFace(aFirstFace, aFirstPln, aFirstBasisSurf, aFirstSurfType, aFirstOffset);
+  PrsDim1::GetPlaneFromFace(aFirstFace, aFirstPln, aFirstBasisSurf, aFirstSurfType, aFirstOffset);
 
-  PrsDim::GetPlaneFromFace(aSecondFace,
+  PrsDim1::GetPlaneFromFace(aSecondFace,
                            aSecondPln,
                            aSecondBasisSurf,
                            aSecondSurfType,
@@ -1030,7 +1030,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle(const Point3d& thePoin
     // Planar faces angle
     Handle(GeomPlane) aFirstPlane  = Handle(GeomPlane)::DownCast(aFirstBasisSurf);
     Handle(GeomPlane) aSecondPlane = Handle(GeomPlane)::DownCast(aSecondBasisSurf);
-    return PrsDim::InitAngleBetweenPlanarFaces(aFirstFace,
+    return PrsDim1::InitAngleBetweenPlanarFaces(aFirstFace,
                                                aSecondFace,
                                                myCenterPoint,
                                                myFirstPoint,
@@ -1041,7 +1041,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle(const Point3d& thePoin
   else
   {
     // Curvilinear faces angle
-    return PrsDim::InitAngleBetweenCurvilinearFaces(aFirstFace,
+    return PrsDim1::InitAngleBetweenCurvilinearFaces(aFirstFace,
                                                     aSecondFace,
                                                     aFirstSurfType,
                                                     aSecondSurfType,
@@ -1082,7 +1082,7 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
 
   const Standard_Real aMaxV = aConeAdaptor.FirstVParameter();
   const Standard_Real aMinV = aConeAdaptor.LastVParameter();
-  PrsDim::GetPlaneFromFace(aConeShape, aPln, aSurf, aSurfType, anOffset);
+  PrsDim1::GetPlaneFromFace(aConeShape, aPln, aSurf, aSurfType, anOffset);
   if (aSurfType == PrsDim_KOS_Revolution)
   {
     // Surface of revolution
@@ -1341,8 +1341,8 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
   // Text on the extensions
   gp_Lin        aFirstLine      = gce_MakeLin(myCenterPoint, myFirstPoint);
   gp_Lin        aSecondLine     = gce_MakeLin(myCenterPoint, mySecondPoint);
-  Point3d        aFirstTextProj  = PrsDim::Nearest(aFirstLine, theTextPos);
-  Point3d        aSecondTextProj = PrsDim::Nearest(aSecondLine, theTextPos);
+  Point3d        aFirstTextProj  = PrsDim1::Nearest(aFirstLine, theTextPos);
+  Point3d        aSecondTextProj = PrsDim1::Nearest(aSecondLine, theTextPos);
   Standard_Real aFirstDist      = aFirstTextProj.Distance(theTextPos);
   Standard_Real aSecondDist     = aSecondTextProj.Distance(theTextPos);
 

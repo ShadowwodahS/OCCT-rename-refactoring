@@ -48,7 +48,7 @@ void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C,
                                      const Standard_Real         First,
                                      const Standard_Real         Last)
 {
-  //  if (ShapeUpgrade::Debug()) std::cout << "SplitCurve2d::Init"<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout << "SplitCurve2d::Init"<<std::endl;
   Handle(GeomCurve2d) CopyOfC = Handle(GeomCurve2d)::DownCast(C->Copy());
   myCurve                      = CopyOfC;
 
@@ -88,7 +88,7 @@ void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C,
   ShapeUpgrade_SplitCurve::Init(firstPar, lastPar);
 
   // first, we make a copy of C to prevent modification:
-  //  if (ShapeUpgrade::Debug()) std::cout << ". copy of the curve"<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout << ". copy of the curve"<<std::endl;
 
   myNbCurves = 1;
 }
@@ -97,12 +97,12 @@ void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C,
 
 void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
 {
-  //  if (ShapeUpgrade::Debug()) std::cout<<"ShapeUpgrade_SplitCurve2d::Build"<<std::endl;
+  //  if (ShapeUpgrade1::Debug()) std::cout<<"ShapeUpgrade_SplitCurve2d::Build"<<std::endl;
   Standard_Real First = mySplitValues->Value(1);
   Standard_Real Last  = mySplitValues->Value(mySplitValues->Length());
   // PrepareKnots();
   if (mySplitValues->Length() > 2)
-    myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
   if (myCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve) tmp      = Handle(Geom2d_TrimmedCurve)::DownCast(myCurve);
@@ -237,7 +237,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
             Handle(Geom2d_BSplineCurve)::DownCast(theNewCurve)->Segment1(Firstt, Lastt);
           else if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
             Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment1(Firstt, Lastt);
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
         }
         catch (ExceptionBase const& anException)
         {

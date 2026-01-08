@@ -92,7 +92,7 @@ Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) c
     return -1;
   }
 
-  // Naming
+  // Naming1
   LoadNamingDS(RESPOSITION(aFunction), aMakeBox);
 
   // restore location

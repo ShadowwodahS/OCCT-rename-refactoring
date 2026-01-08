@@ -21,8 +21,8 @@
 
 #include <TDF_Label.hxx>
 
-class StdObjMgt_ReadData;
-class StdObjMgt_WriteData;
+class ReadData;
+class WriteData;
 class AppDocument;
 class TDF_Attribute;
 class TDF_Data;
@@ -47,10 +47,10 @@ public:
   }
 
   //! Read persistent data from a file.
-  virtual void Read(StdObjMgt_ReadData& theReadData) = 0;
+  virtual void Read(ReadData& theReadData) = 0;
 
   //! Write persistent data to a file.
-  virtual void Write(StdObjMgt_WriteData& theWriteData) const = 0;
+  virtual void Write(WriteData& theWriteData) const = 0;
 
   typedef NCollection_Sequence<Handle(StdObjMgt_Persistent)> SequenceOfPersistent;
 
@@ -83,7 +83,7 @@ public:
   //! Get referenced ASCII string
   //! (to be overridden by ASCII string class;
   //! returns a null handle by default for other classes).
-  Standard_EXPORT virtual Handle(TCollection_HAsciiString) AsciiString() const;
+  Standard_EXPORT virtual Handle(TCollection_HAsciiString) AsciiString2() const;
 
   //! Get referenced extended string
   //! (to be overridden by extended string class;

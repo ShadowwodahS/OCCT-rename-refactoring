@@ -44,14 +44,14 @@ Message_Msg::Message_Msg(const Message_Msg& theMsg)
 Message_Msg::Message_Msg(const Standard_CString theMsgCode)
 {
   AsciiString1 aKey((char*)theMsgCode);
-  Set(Message_MsgFile::Msg(aKey));
+  Set(MessageFile::Msg(aKey));
 }
 
 //=================================================================================================
 
 Message_Msg::Message_Msg(const UtfString& theMsgCode)
 {
-  Set(Message_MsgFile::Msg(theMsgCode));
+  Set(MessageFile::Msg(theMsgCode));
 }
 
 //=================================================================================================

@@ -27,7 +27,7 @@ class Point3d;
 class Dir3d;
 
 //! A framework to define display of tangents.
-class DsgPrs_TangentPresentation
+class TangentPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

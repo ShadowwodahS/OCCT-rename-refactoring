@@ -410,7 +410,7 @@ void XmlWriter::WriteAttribute(Standard_OStream& theOStream, const LDOM_Node& th
 
   int aLength = 0;
 
-  // Integer attribute value
+  // Integer1 attribute value
   if (aValueStr.Type() == LDOMBasicString::LDOM_Integer)
   {
     Standard_Integer anIntValue;

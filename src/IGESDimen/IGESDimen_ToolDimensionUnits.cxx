@@ -52,7 +52,7 @@ void DimensionUnitsTool::ReadOwnParams(const Handle(IGESDimen_DimensionUnits)& e
   else
     tempNbProps = 6;
 
-  PR.ReadInteger(PR.Current(), "Secondary Dimension Position",
+  PR.ReadInteger(PR.Current(), "Secondary Dimension Position1",
 		 tempSecondDimenPos); //szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Units Indicator", tempUnitsIndic); //szv#4:S4163:12Mar99 `st=` not needed
   if (PR.DefinedElseSkip())
@@ -151,7 +151,7 @@ void DimensionUnitsTool::OwnCheck(const Handle(IGESDimen_DimensionUnits)& ent,
   if (ent->NbPropertyValues() != 6)
     ach->AddFail("Number of properties != 6");
   if (ent->SecondaryDimenPosition() < 0 || ent->SecondaryDimenPosition() > 4)
-    ach->AddFail("Secondary Dimension Position != 0-4");
+    ach->AddFail("Secondary Dimension Position1 != 0-4");
   if ((ent->CharacterSet() != 1) && ((ent->CharacterSet() < 1001) || (ent->CharacterSet() > 1003)))
     ach->AddFail("Character Set != 1,1001-1003");
   if ((ent->FractionFlag() != 0) && (ent->FractionFlag() != 1))
@@ -165,7 +165,7 @@ void DimensionUnitsTool::OwnDump(const Handle(IGESDimen_DimensionUnits)& ent,
 {
   S << "IGESDimen_DimensionUnits\n"
     << "Number of property values : " << ent->NbPropertyValues() << "\n"
-    << "Secondary Dimension Position : " << ent->SecondaryDimenPosition() << "\n"
+    << "Secondary Dimension Position1 : " << ent->SecondaryDimenPosition() << "\n"
     << "Units Indicator : " << ent->UnitsIndicator() << "\n"
     << "Character Set   : " << ent->CharacterSet() << "\n"
     << "Format String   : ";

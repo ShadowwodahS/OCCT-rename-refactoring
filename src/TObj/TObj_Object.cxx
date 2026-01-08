@@ -994,7 +994,7 @@ void TObj_Object::setArray(const Handle(TColStd_HArray1OfExtendedString)& theArr
 
 //=======================================================================
 // function : copyTagSources
-// purpose  : copy TagSource attributes on label and its sublabels
+// purpose  : copy TagSource1 attributes on label and its sublabels
 //=======================================================================
 
 static void copyTagSources(const DataLabel& theSourceLabel, const DataLabel& theTargetLabel)
@@ -1029,7 +1029,7 @@ Handle(TObj_Object) TObj_Object::Clone(const DataLabel&            theTargetLabe
     aRelocTable = new TDF_RelocationTable;
   Handle(TObj_Object) aNewObj;
   // take current model for restoring it after creating object.
-  const Handle(TObj_Model)& aCurrentModel = TObj_Assistant::GetCurrentModel();
+  const Handle(TObj_Model)& aCurrentModel = Assistant::GetCurrentModel();
 
   // take target model
   Handle(TObj_Model)  aTargetModel;
@@ -1039,9 +1039,9 @@ Handle(TObj_Object) TObj_Object::Clone(const DataLabel&            theTargetLabe
     aTargetModel = aModelAttr->Model();
 
   if (aCurrentModel != aTargetModel)
-    TObj_Assistant::SetCurrentModel(aTargetModel);
+    Assistant::SetCurrentModel(aTargetModel);
   // crete new object
-  aNewObj = TObj_Persistence::CreateNewObject(DynamicType()->Name(), theTargetLabel);
+  aNewObj = Persistence::CreateNewObject(DynamicType()->Name(), theTargetLabel);
 
   if (!aNewObj.IsNull())
   {
@@ -1062,7 +1062,7 @@ Handle(TObj_Object) TObj_Object::Clone(const DataLabel&            theTargetLabe
     DataLabel aTargetLabel = aNewObj->GetChildLabel();
     CopyChildren(aTargetLabel, aRelocTable);
 
-    // copy TagSource for the children
+    // copy TagSource1 for the children
     copyTagSources(GetChildLabel(), aTargetLabel);
 
     // copy the references
@@ -1072,7 +1072,7 @@ Handle(TObj_Object) TObj_Object::Clone(const DataLabel&            theTargetLabe
 
   // restore the model for persistence.
   if (aCurrentModel != aTargetModel)
-    TObj_Assistant::SetCurrentModel(aCurrentModel);
+    Assistant::SetCurrentModel(aCurrentModel);
 
   return aNewObj;
 }

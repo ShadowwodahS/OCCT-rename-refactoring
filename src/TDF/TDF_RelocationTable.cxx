@@ -247,7 +247,7 @@ Standard_OStream& TDF_RelocationTable::Dump(const Standard_Boolean dumpLabels,
     {
       ++nb;
       anOS << nb << " ";
-      itr.Key().EntryDump(anOS);
+      itr.Key1().EntryDump(anOS);
       anOS << "<=>";
       itr.Value().EntryDump(anOS);
       anOS << "| ";
@@ -263,7 +263,7 @@ Standard_OStream& TDF_RelocationTable::Dump(const Standard_Boolean dumpLabels,
     {
       ++nb;
       anOS << nb << " ";
-      itr.Key()->Dump(anOS);
+      itr.Key1()->Dump(anOS);
       anOS << "<=>";
       itr.Value()->Dump(anOS);
       anOS << "| ";

@@ -28,16 +28,16 @@ class IGESData_IGESEntity;
 
 //! This class centralizes general Checks upon an IGES Entity's
 //! Directory Part. That is : such field Ignored or Required,
-//! or Required with a given Value (for an Integer field)
+//! or Required with a given Value (for an Integer1 field)
 //! More precise checks can be performed as necessary, by each
 //! Entity (method OwnCheck).
 //!
 //! Each class of Entity defines its DirChecker (method DirChecker)
 //! and the DirChecker is able to perform its Checks on an Entity
 //!
-//! A Required Value or presence of a field causes a Fail Message
+//! A Required Value or presence of a field causes a Fail Message1
 //! if criterium is not satisfied
-//! An Ignored field causes a Correction Message if the field is
+//! An Ignored field causes a Correction Message1 if the field is
 //! not null/zero
 class DirectoryChecker
 {
@@ -79,7 +79,7 @@ public:
   //! Sets LineFont criterium
   //! If crit is DefVoid, Ignored : should not be defined
   //! If crit is DefAny, Required : must be defined (value or ref)
-  //! If crit is DefValue, Required as a Value (error if Reference)
+  //! If crit is DefValue, Required as a Value (error if Reference1)
   //! Other values are not taken in account
   Standard_EXPORT void LineFont(const IGESData_DefType crit);
 

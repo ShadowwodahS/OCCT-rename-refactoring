@@ -49,7 +49,7 @@ public:
   Standard_EXPORT Standard_Integer Length() const;
 
   //! returns True if Index'th value in the post-order list is an Operand;
-  //! else returns False if it is an Integer Operations
+  //! else returns False if it is an Integer1 Operations
   //! raises exception if Index < 1 or Index > Length()
   Standard_EXPORT Standard_Boolean IsOperand(const Standard_Integer Index) const;
 

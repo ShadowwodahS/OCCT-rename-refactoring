@@ -23,7 +23,7 @@
 
 #include <Standard_Boolean.hxx>
 
-//! Root class for all commands in BRepLib.
+//! Root class for all commands in BRepLib1.
 //!
 //! Provides :
 //!
@@ -32,12 +32,12 @@
 //! * Catching of exceptions (not implemented).
 //!
 //! * Logging (not implemented).
-class BRepLib_Command
+class Command1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT virtual ~BRepLib_Command();
+  Standard_EXPORT virtual ~Command1();
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
@@ -46,7 +46,7 @@ public:
 
 protected:
   //! Set done to False.
-  Standard_EXPORT BRepLib_Command();
+  Standard_EXPORT Command1();
 
   //! Set done to true.
   Standard_EXPORT void Done();

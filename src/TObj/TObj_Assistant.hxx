@@ -31,7 +31,7 @@ class TObj_Model;
 //! 2. Indexed map of TypeInfo to be used during save or load of object type
 //! 3. Handle to the current model - model that is loaded at the current moment
 
-class TObj_Assistant
+class Assistant
 {
 public:
   /**

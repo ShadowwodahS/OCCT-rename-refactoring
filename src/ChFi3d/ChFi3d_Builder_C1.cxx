@@ -1083,7 +1083,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
         continue;
       // Look if there is an intersection between pcurves
       Handle(Geom_TrimmedCurve) anOtherCur =
-        Handle(Geom_TrimmedCurve)::DownCast(DStr.Curve(anOtherIntrf->Geometry()).Curve());
+        Handle(Geom_TrimmedCurve)::DownCast(DStr.Curve(anOtherIntrf->Geometry1()).Curve());
       if (anOtherCur.IsNull())
         continue;
       Geom2dAdaptor_Curve anOtherPCurve(anOtherIntrf->PCurve(),

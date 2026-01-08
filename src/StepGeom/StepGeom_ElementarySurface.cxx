@@ -33,7 +33,7 @@ void StepGeom_ElementarySurface::SetPosition(const Handle(StepGeom_Axis2Placemen
   position = aPosition;
 }
 
-Handle(StepGeom_Axis2Placement3d) StepGeom_ElementarySurface::Position() const
+Handle(StepGeom_Axis2Placement3d) StepGeom_ElementarySurface::Position1() const
 {
   return position;
 }

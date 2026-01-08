@@ -30,7 +30,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Convert and write shape to STL format.
-  //! File is written in binary if aAsciiMode is False otherwise it is written in Ascii (by
+  //! File is written in binary if aAsciiMode is False otherwise it is written in Ascii1 (by
   //! default).
   Standard_EXPORT static Standard_Boolean Write(
     const TopoShape&    theShape,

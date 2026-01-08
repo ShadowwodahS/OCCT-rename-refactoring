@@ -38,10 +38,10 @@ public:
   //! command to set and get modeling attributes
   Standard_EXPORT static void AllCommands(DrawInterpreter& I);
 
-  //! to set and get NamedShape
+  //! to set and get NamedShape1
   Standard_EXPORT static void NamedShapeCommands(DrawInterpreter& I);
 
-  //! to set and get Integer, Real,  Reference, Geometry
+  //! to set and get Integer1, Real,  Reference1, Geometry1
   Standard_EXPORT static void BasicCommands(DrawInterpreter& I);
 
   //! to set and get Datum attributes

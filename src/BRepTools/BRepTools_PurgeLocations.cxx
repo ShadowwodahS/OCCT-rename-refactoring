@@ -96,7 +96,7 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoShape& theShape)
   TopTools_DataMapIteratorOfDataMapOfShapeShape anIter(myMapNewShapes);
   for (; anIter.More(); anIter.Next())
   {
-    const TopoShape& anOldS = anIter.Key();
+    const TopoShape& anOldS = anIter.Key1();
     const TopoShape& aNewS  = anIter.Value();
     myReShape->Replace(anOldS, aNewS);
   }

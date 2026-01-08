@@ -80,8 +80,8 @@ void Contap_Line::SetValue(const gp_Lin& L)
 void Contap_Line::SetValue(const gp_Circ& C)
 {
   pt   = C.Location();
-  dir1 = C.Position().Direction();
-  dir2 = C.Position().XDirection();
+  dir1 = C.Position1().Direction();
+  dir2 = C.Position1().XDirection();
   rad  = C.Radius();
   typL = Contap_Circle;
 }

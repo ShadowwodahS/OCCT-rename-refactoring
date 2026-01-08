@@ -188,7 +188,7 @@ void LocOpe_Gluer::Perform()
   TopTools_DataMapIteratorOfDataMapOfShapeShape itm(myMapEE);
   for (; itm.More(); itm.Next())
   {
-    theWOnS->Bind(TopoDS::Edge(itm.Key()), TopoDS::Edge(itm.Value()));
+    theWOnS->Bind(TopoDS::Edge(itm.Key1()), TopoDS::Edge(itm.Value()));
   }
 
   theWOnS->BindAll();
@@ -250,7 +250,7 @@ void LocOpe_Gluer::Perform()
           }
         }
       }
-      myDescF(itd.Key()) = newDesc;
+      myDescF(itd.Key1()) = newDesc;
     }
   }
 

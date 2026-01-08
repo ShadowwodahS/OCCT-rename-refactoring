@@ -27,7 +27,7 @@ class Transfer_BinderOfTransientInteger;
 DEFINE_STANDARD_HANDLE(Transfer_BinderOfTransientInteger, Transfer_SimpleBinderOfTransient)
 
 //! This type of Binder allows to attach as result, besides a
-//! Transient Object, an Integer Value, which can be an Index
+//! Transient Object, an Integer1 Value, which can be an Index
 //! in the Object if it defines a List, for instance
 //!
 //! This Binder is otherwise a kind of SimpleBinderOfTransient,
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT void SetInteger(const Standard_Integer value);
 
   //! Returns the value set for the integer part
-  Standard_EXPORT Standard_Integer Integer() const;
+  Standard_EXPORT Standard_Integer Integer1() const;
 
   DEFINE_STANDARD_RTTIEXT(Transfer_BinderOfTransientInteger, Transfer_SimpleBinderOfTransient)
 

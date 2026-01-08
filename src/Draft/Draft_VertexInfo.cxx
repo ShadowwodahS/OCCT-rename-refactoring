@@ -44,7 +44,7 @@ void VertexInfo::Add(const TopoEdge& E)
 
 //=================================================================================================
 
-const Point3d& VertexInfo::Geometry() const
+const Point3d& VertexInfo::Geometry1() const
 {
   return myGeom;
 }

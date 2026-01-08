@@ -29,7 +29,7 @@
 #include <BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox.hxx>
 #include <ApproxInt_SvSurfaces.hxx>
 class BRepAdaptor_Surface;
-class BRepApprox_SurfaceTool;
+class SurfaceTool4;
 class BRepApprox_ApproxLine;
 class BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox;
 class BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox;

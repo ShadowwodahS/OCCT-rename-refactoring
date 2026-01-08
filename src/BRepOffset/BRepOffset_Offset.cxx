@@ -187,7 +187,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
                            Standard_Real               Tol)
 {
   // try to find the particular case
-  // if not found call BRepLib::BuildCurve3d
+  // if not found call BRepLib1::BuildCurve3d
 
   Standard_Boolean IsComputed = Standard_False;
 
@@ -215,7 +215,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           else
           {
             Sphere3 Sph  = S.Sphere();
-            Ax3    Axis = Sph.Position();
+            Ax3    Axis = Sph.Position1();
             gp_Circ   Ci   = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d    AxeRev(Axis.Location(), DRev);
@@ -231,7 +231,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           Cylinder1 Cyl  = S.Cylinder();
           gp_Pnt2d    P    = C.Line().Location();
-          Ax3      Axis = Cyl.Position();
+          Ax3      Axis = Cyl.Position1();
           gp_Circ     Ci   = ElSLib1::CylinderVIso(Axis, Cyl.Radius(), P.Y());
           Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d      AxeRev(Axis.Location(), DRev);
@@ -246,7 +246,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           Cone1  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          Ax3   Axis = Cone.Position();
+          Ax3   Axis = Cone.Position1();
           gp_Circ  Ci   = ElSLib1::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
@@ -261,7 +261,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
-          Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position1();
           gp_Circ  Ci   = ElSLib1::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
@@ -279,7 +279,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           Sphere3 Sph  = S.Sphere();
           gp_Pnt2d  P    = C.Line().Location();
-          Ax3    Axis = Sph.Position();
+          Ax3    Axis = Sph.Position1();
           // calculate iso 0.
           gp_Circ Ci = ElSLib1::SphereUIso(Axis, Sph.Radius(), 0.);
 
@@ -303,7 +303,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           Cylinder1 Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
-          gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
+          gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position1(), Cyl.Radius(), P.X());
           Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -317,7 +317,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           Cone1  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Lin   L = ElSLib1::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
+          gp_Lin   L = ElSLib1::ConeUIso(Cone.Position1(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
           Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -331,7 +331,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
-          Ax3   Axis = Tore.Position();
+          Ax3   Axis = Tore.Position1();
           gp_Circ  Ci   = ElSLib1::TorusUIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.X());
           Ci.Rotate(Ci.Axis(), P.Y());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
@@ -352,7 +352,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
   }
   if (!IsComputed)
   {
-    // BRepLib::BuildCurves3d(Edge,Tol);
+    // BRepLib1::BuildCurves3d(Edge,Tol);
     // Les Courbes 3d des edges dans le cas general ne sont calcules que si
     //  necessaire
     // ie dans les tuyaux et les bouchons ..
@@ -481,7 +481,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
       myOffset *= -1;
     else if (VV1 > Vc && Co->SemiAngle() < 0)
       myOffset *= -1;
-    if (!Co->Position().Direct())
+    if (!Co->Position1().Direct())
       myOffset *= -1;
   }
 
@@ -1159,14 +1159,14 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
     myBuilder.Range(Edge1, U1, U2, Standard_True);
   }
   myBuilder.Range(Edge1, myFace, U1, U2);
-  BRepLib::SameRange(Edge1);
+  BRepLib1::SameRange(Edge1);
 
   // mise a sameparameter pour les KPart
   if (ErrorPipe == 0)
   {
     TheTol = Max(TheTol, Tol);
     myBuilder.SameParameter(Edge1, Standard_False);
-    BRepLib::SameParameter(Edge1, TheTol);
+    BRepLib1::SameParameter(Edge1, TheTol);
   }
 
   // Update de edge2. (Rem : has already a 3d curve)
@@ -1203,14 +1203,14 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
   if (!C2is3D && !C2Denerated)
     myBuilder.Range(Edge2, U1, U2, Standard_True);
   myBuilder.Range(Edge2, myFace, U1, U2);
-  BRepLib::SameRange(Edge2);
+  BRepLib1::SameRange(Edge2);
 
   // mise a sameparameter pour les KPart
   if (ErrorPipe == 0)
   {
     TheTol = Max(TheTol, Tol);
     myBuilder.SameParameter(Edge2, Standard_False);
-    BRepLib::SameParameter(Edge2, TheTol);
+    BRepLib1::SameParameter(Edge2, TheTol);
   }
 
   TopoEdge Edge3, Edge4;
@@ -1394,17 +1394,17 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
   // SameParameter ??
   if (!FirstEdge.IsNull() && !StartDegenerated)
   {
-    BRepLib::BuildCurve3d(Edge3, PathTol);
+    BRepLib1::BuildCurve3d(Edge3, PathTol);
     myBuilder.SameRange(Edge3, Standard_False);
     myBuilder.SameParameter(Edge3, Standard_False);
-    BRepLib::SameParameter(Edge3, Tol);
+    BRepLib1::SameParameter(Edge3, Tol);
   }
   if (!LastEdge.IsNull() && !EndDegenerated)
   {
-    BRepLib::BuildCurve3d(Edge4, PathTol);
+    BRepLib1::BuildCurve3d(Edge4, PathTol);
     myBuilder.SameRange(Edge4, Standard_False);
     myBuilder.SameParameter(Edge4, Standard_False);
-    BRepLib::SameParameter(Edge4, Tol);
+    BRepLib1::SameParameter(Edge4, Tol);
   }
 
   TopoWire W;
@@ -1483,7 +1483,7 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
   theWire = TopoDS::Wire(Fixer.Shape());
 
   GeometricProperties GlobalProps;
-  BRepGProp::LinearProperties(theWire, GlobalProps);
+  BRepGProp1::LinearProperties(theWire, GlobalProps);
   Point3d BaryCenter = GlobalProps.CentreOfMass();
   Vector3d Xdir(BaryCenter, Origin);
 
@@ -1537,7 +1537,7 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
     Handle(GeomCurve3d) C = BRepInspector::Curve(E, Loc, f, l);
     if (C.IsNull())
     {
-      BRepLib::BuildCurve3d(E, BRepInspector::Tolerance(E));
+      BRepLib1::BuildCurve3d(E, BRepInspector::Tolerance(E));
       C = BRepInspector::Curve(E, Loc, f, l);
     }
     C = new Geom_TrimmedCurve(C, f, l);

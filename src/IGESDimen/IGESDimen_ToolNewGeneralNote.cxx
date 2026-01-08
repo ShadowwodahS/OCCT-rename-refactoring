@@ -82,7 +82,7 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
   PR.ReadInteger(PR.Current(), "Justification Code", justifyCode);
   PR.ReadXYZ(PR.CurrentList(1, 3), "Area Location Point", areaLoc);
   PR.ReadReal(PR.Current(), "Area Rotation Angle", areaRotationAngle);
-  PR.ReadXYZ(PR.CurrentList(1, 3), "Base Line Position", baseLinePos);
+  PR.ReadXYZ(PR.CurrentList(1, 3), "Base Line Position1", baseLinePos);
   PR.ReadReal(PR.Current(), "NormalInterline Spacing", normalInterlineSpace);
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Text Strings", nbval);
@@ -190,7 +190,7 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
       Standard_Integer curnum = PR.CurrentNumber();
       if (PR.DefinedElseSkip())
       {
-        // Reading fontCode(Integer, must be positive)
+        // Reading fontCode(Integer1, must be positive)
         // clang-format off
 	    PR.ReadInteger(PR.Current(), "Character Set Interpretation Code",charSetCode); //szv#4:S4163:12Mar99 `st=` not needed
 	    // Reading charSetEnt
@@ -524,7 +524,7 @@ void NewGeneralNoteTool::OwnDump(const Handle(IGESDimen_NewGeneralNote)& ent,
     << "Text Area Location Point : ";
   IGESData_DumpXYZL(S, level, ent->AreaLocation(), ent->Location());
   S << "Rotation Angle of Text : " << ent->AreaRotationAngle() << "\n"
-    << "Base Line Position : ";
+    << "Base Line Position1 : ";
   IGESData_DumpXYZL(S, level, ent->BaseLinePosition(), ent->Location());
   S << "Normal Interline Spacing : " << ent->NormalInterlineSpace() << "\n"
     << "Number of Text Strings : " << nbval << "\n";

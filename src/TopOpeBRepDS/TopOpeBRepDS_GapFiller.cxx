@@ -66,7 +66,7 @@ void TopOpeBRepDS_GapFiller::Perform()
       const Handle(TopOpeBRepDS_Interference)& I = it.Value();
       if (I->GeometryType() == TopOpeBRepDS_POINT)
       {
-        if (View.Add(I->Geometry()))
+        if (View.Add(I->Geometry1()))
         {
           FindAssociatedPoints(I, ALI);
           myAsso->Associate(I, ALI);
@@ -366,7 +366,7 @@ void TopOpeBRepDS_GapFiller::FilterByIncidentDistance(const TopoFace&           
   Standard_Real                     DistMin = Precision::Infinite();
   Handle(TopOpeBRepDS_Interference) ISol;
 
-  const Point1& PI1 = myHDS->Point(I->Geometry());
+  const Point1& PI1 = myHDS->Point(I->Geometry1());
   const Point3d              GPI = PI1.Point();
 
   BRepAdaptor_Surface S(F, 0);
@@ -385,7 +385,7 @@ void TopOpeBRepDS_GapFiller::FilterByIncidentDistance(const TopoFace&           
       continue;
 
     Standard_Boolean          Ok2  = Normal(myGapTool, myHDS, CI, F, N2);
-    const Point1& P    = myHDS->Point((CI->Geometry()));
+    const Point1& P    = myHDS->Point((CI->Geometry1()));
     const Point3d              GP   = P.Point();
     Standard_Real             Dist = GP.Distance(GPI);
 
@@ -439,7 +439,7 @@ void TopOpeBRepDS_GapFiller::ReBuildGeom(const Handle(TopOpeBRepDS_Interference)
   // Construction du nouveau point
   for (it.Initialize(LI); it.More(); it.Next())
   {
-    Point1 PP = myHDS->Point(it.Value()->Geometry());
+    Point1 PP = myHDS->Point(it.Value()->Geometry1());
     TolMax                = Max(TolMax, PP.Tolerance());
     if (myGapTool->ParameterOnEdge(it.Value(), E, U))
     {
@@ -461,7 +461,7 @@ void TopOpeBRepDS_GapFiller::ReBuildGeom(const Handle(TopOpeBRepDS_Interference)
   Standard_Integer IP = myHDS->ChangeDS().AddPoint(P);
   for (it.Initialize(LI); it.More(); it.Next())
   {
-    View.Add(it.Value()->Geometry());
+    View.Add(it.Value()->Geometry1());
     myGapTool->SetParameterOnEdge(it.Value(), E, U);
     myGapTool->SetPoint(it.Value(), IP);
   }
@@ -483,7 +483,7 @@ void TopOpeBRepDS_GapFiller::BuildNewGeometries()
     for (TopOpeBRepDS_ListIteratorOfListOfInterference it(LI); it.More(); it.Next())
     {
       Handle(TopOpeBRepDS_Interference) I  = it.Value();
-      Standard_Integer                  IP = I->Geometry();
+      Standard_Integer                  IP = I->Geometry1();
       if (View.Add(IP) && IP <= NbPoints)
         ReBuildGeom(I, View);
     }

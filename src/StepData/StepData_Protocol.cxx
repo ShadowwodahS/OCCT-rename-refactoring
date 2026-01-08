@@ -175,7 +175,7 @@ Handle(StepData_ECDescr) StepData_Protocol::ECDescr(const TColStd_SequenceOfAsci
   Interface_DataMapIteratorOfDataMapOfTransientInteger iter(thedscnum);
   for (; iter.More(); iter.Next())
   {
-    cd = Handle(StepData_ECDescr)::DownCast(iter.Key());
+    cd = Handle(StepData_ECDescr)::DownCast(iter.Key1());
     if (cd.IsNull())
       continue;
     if (cd->NbMembers() != nb)

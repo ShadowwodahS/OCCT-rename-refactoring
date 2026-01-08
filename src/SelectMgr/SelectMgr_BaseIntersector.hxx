@@ -133,7 +133,7 @@ public:
   virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3&          theBoxMin,
                                        const SelectMgr_Vec3&          theBoxMax,
                                        const SelectMgr_ViewClipRange& theClipRange,
-                                       SelectBasics_PickResult&       thePickResult) const = 0;
+                                       PickResult&       thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by axis-aligned bounding box
   //! with minimum corner at point theMinPt and maximum at point theMaxPt
@@ -144,7 +144,7 @@ public:
   //! Intersection test between defined volume and given point
   virtual Standard_Boolean OverlapsPoint(const Point3d&                  thePnt,
                                          const SelectMgr_ViewClipRange& theClipRange,
-                                         SelectBasics_PickResult&       thePickResult) const = 0;
+                                         PickResult&       thePickResult) const = 0;
 
   //! Intersection test between defined volume and given point
   //! Does not perform depth calculation, so this method is defined as helper function for inclusion
@@ -158,13 +158,13 @@ public:
   virtual Standard_Boolean OverlapsPolygon(const TColgp_Array1OfPnt&      theArrayOfPnts,
                                            Select3D_TypeOfSensitivity     theSensType,
                                            const SelectMgr_ViewClipRange& theClipRange,
-                                           SelectBasics_PickResult&       thePickResult) const = 0;
+                                           PickResult&       thePickResult) const = 0;
 
   //! Checks if line segment overlaps selecting frustum
   virtual Standard_Boolean OverlapsSegment(const Point3d&                  thePnt1,
                                            const Point3d&                  thePnt2,
                                            const SelectMgr_ViewClipRange& theClipRange,
-                                           SelectBasics_PickResult&       thePickResult) const = 0;
+                                           PickResult&       thePickResult) const = 0;
 
   //! SAT intersection test between defined volume and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
@@ -174,7 +174,7 @@ public:
                                             const Point3d&                  thePnt3,
                                             Select3D_TypeOfSensitivity     theSensType,
                                             const SelectMgr_ViewClipRange& theClipRange,
-                                            SelectBasics_PickResult&       thePickResult) const = 0;
+                                            PickResult&       thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
@@ -189,7 +189,7 @@ public:
     const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const = 0;
+    PickResult&       thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -199,7 +199,7 @@ public:
                                             const Transform3d&                 theTrsf,
                                             const Standard_Boolean         theIsHollow,
                                             const SelectMgr_ViewClipRange& theClipRange,
-                                            SelectBasics_PickResult&       thePickResult) const = 0;
+                                            PickResult&       thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -218,7 +218,7 @@ public:
                                           const Transform3d&                 theTrsf,
                                           const Standard_Boolean         theIsFilled,
                                           const SelectMgr_ViewClipRange& theClipRange,
-                                          SelectBasics_PickResult&       thePickResult) const = 0;
+                                          PickResult&       thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.

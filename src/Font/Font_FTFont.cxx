@@ -116,7 +116,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
 
   if (!myFTLib->IsValid())
   {
-    Message::SendTrace("FreeType library is unavailable");
+    Message1::SendTrace("FreeType library is unavailable");
     Release();
     return false;
   }
@@ -131,7 +131,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
                            &myFTFace)
         != 0)
     {
-      Message::SendTrace(AsciiString1("Font '") + myFontPath
+      Message1::SendTrace(AsciiString1("Font '") + myFontPath
                          + "' failed to load from memory");
       Release();
       return false;
@@ -142,7 +142,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
     if (FT_New_Face(myFTLib->Instance(), myFontPath.ToCString(), (FT_Long)theFaceId, &myFTFace)
         != 0)
     {
-      // Message::SendTrace (AsciiString1("Font '") + myFontPath + "' failed to load from
+      // Message1::SendTrace (AsciiString1("Font '") + myFontPath + "' failed to load from
       // file");
       Release();
       return false;
@@ -151,7 +151,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
 
   if (FT_Select_Charmap(myFTFace, ft_encoding_unicode) != 0)
   {
-    Message::SendTrace(AsciiString1("Font '") + myFontPath
+    Message1::SendTrace(AsciiString1("Font '") + myFontPath
                        + "' doesn't contains Unicode charmap");
     Release();
     return false;
@@ -163,7 +163,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
                             theParams.Resolution)
            != 0)
   {
-    Message::SendTrace(AsciiString1("Font '") + myFontPath
+    Message1::SendTrace(AsciiString1("Font '") + myFontPath
                        + "' doesn't contains Unicode charmap of requested size");
     Release();
     return false;
@@ -308,7 +308,7 @@ bool Font_FTFont::findAndInitFallback(Font_UnicodeSubset theSubset)
       aRequestedFont->FontPathAny(myFontAspect, aParams.ToSynthesizeItalic, aFaceId);
     if (myFallbackFaces[theSubset]->Init(aPath, aParams, aFaceId))
     {
-      Message::SendTrace(AsciiString1("Font_FTFont, using fallback font '")
+      Message1::SendTrace(AsciiString1("Font_FTFont, using fallback font '")
                          + aRequestedFont->FontName() + "'" + " for symbols unsupported by '"
                          + myFTFace->family_name + "'");
     }

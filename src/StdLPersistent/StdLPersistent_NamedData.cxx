@@ -49,7 +49,7 @@ void StdLPersistent_NamedData::Import(const Handle(TDataStd_NamedData)& theAttri
   {
     TColStd_DataMapOfStringInteger aMap;
     for (Standard_Integer i = lower(0); i <= upper(0); i++)
-      aMap.Bind(myInts.Key(i), myInts.Value(i));
+      aMap.Bind(myInts.Key1(i), myInts.Value(i));
 
     theAttribute->ChangeIntegers(aMap);
   }
@@ -58,7 +58,7 @@ void StdLPersistent_NamedData::Import(const Handle(TDataStd_NamedData)& theAttri
   {
     TDataStd_DataMapOfStringReal aMap;
     for (Standard_Integer i = lower(1); i <= upper(1); i++)
-      aMap.Bind(myReals.Key(i), myReals.Value(i));
+      aMap.Bind(myReals.Key1(i), myReals.Value(i));
 
     theAttribute->ChangeReals(aMap);
   }
@@ -67,7 +67,7 @@ void StdLPersistent_NamedData::Import(const Handle(TDataStd_NamedData)& theAttri
   {
     TDataStd_DataMapOfStringString aMap;
     for (Standard_Integer i = lower(2); i <= upper(2); i++)
-      aMap.Bind(myStrings.Key(i), String(myStrings.Value(i)));
+      aMap.Bind(myStrings.Key1(i), String(myStrings.Value(i)));
 
     theAttribute->ChangeStrings(aMap);
   }
@@ -76,7 +76,7 @@ void StdLPersistent_NamedData::Import(const Handle(TDataStd_NamedData)& theAttri
   {
     TDataStd_DataMapOfStringByte aMap;
     for (Standard_Integer i = lower(3); i <= upper(3); i++)
-      aMap.Bind(myBytes.Key(i), myBytes.Value(i));
+      aMap.Bind(myBytes.Key1(i), myBytes.Value(i));
 
     theAttribute->ChangeBytes(aMap);
   }
@@ -85,7 +85,7 @@ void StdLPersistent_NamedData::Import(const Handle(TDataStd_NamedData)& theAttri
   {
     TDataStd_DataMapOfStringHArray1OfInteger aMap;
     for (Standard_Integer i = lower(4); i <= upper(4); i++)
-      aMap.Bind(myIntArrays.Key(i), Array<StdLPersistent_HArray1::Integer>(myIntArrays.Value(i)));
+      aMap.Bind(myIntArrays.Key1(i), Array<HArray1::Integer1>(myIntArrays.Value(i)));
 
     theAttribute->ChangeArraysOfIntegers(aMap);
   }
@@ -94,7 +94,7 @@ void StdLPersistent_NamedData::Import(const Handle(TDataStd_NamedData)& theAttri
   {
     TDataStd_DataMapOfStringHArray1OfReal aMap;
     for (Standard_Integer i = lower(5); i <= upper(5); i++)
-      aMap.Bind(myRealArrays.Key(i), Array<StdLPersistent_HArray1::Real>(myRealArrays.Value(i)));
+      aMap.Bind(myRealArrays.Key1(i), Array<HArray1::Real>(myRealArrays.Value(i)));
 
     theAttribute->ChangeArraysOfReals(aMap);
   }

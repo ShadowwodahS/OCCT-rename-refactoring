@@ -1273,7 +1273,7 @@ Standard_Boolean TOOL1::Getduv(const TopoFace&  f,
   if (!quad)
     return Standard_False;
   Box2 bndf;
-  BRepBndLib::AddClose(f, bndf);
+  BRepBndLib1::AddClose(f, bndf);
   Standard_Real f1, f2, f3, l1, l2, l3;
   bndf.Get(f1, f2, f3, l1, l2, l3);
   Vector3d d123(f1 - l1, f2 - l2, f3 - l3);
@@ -1723,7 +1723,7 @@ Standard_Boolean TOOL1::WireToFace(const TopoFace&                        Fref,
   for (; itm.More(); itm.Next())
   {
     TopoShape       FF = F.EmptyCopied();
-    const TopoWire& wi = TopoDS::Wire(itm.Key());
+    const TopoWire& wi = TopoDS::Wire(itm.Key1());
     BB.Add(FF, wi);
     TopTools_ListIteratorOfListOfShape itw(itm.Value());
     for (; itw.More(); itw.Next())

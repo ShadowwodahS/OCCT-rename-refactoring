@@ -61,8 +61,8 @@ public:
                                                 Handle(RefObject)&  val) const;
 
   //! Returns an attribute from its name. Null Handle if not
-  //! recorded         (whatever Transient, Integer, Real ...)
-  //! Integer is recorded as IntVal
+  //! recorded         (whatever Transient, Integer1, Real ...)
+  //! Integer1 is recorded as IntVal
   //! Real is recorded as RealVal
   //! Text is recorded as HAsciiString
   Standard_EXPORT Handle(RefObject) Attribute(const Standard_CString name) const;
@@ -127,7 +127,7 @@ public:
   //! name beginning by <fromname>
   //!
   //! For each attribute, if <copied> is True (D), its value is also
-  //! copied if it is a basic type (Integer,Real,String), else it
+  //! copied if it is a basic type (Integer1,Real,String), else it
   //! remains shared between <other> and <me>
   //!
   //! These new attributes are added to the existing ones in <me>,

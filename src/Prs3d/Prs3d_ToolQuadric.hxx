@@ -20,7 +20,7 @@
 #include <Poly_Triangulation.hxx>
 
 //! Base class to build 3D surfaces presentation of quadric surfaces.
-class Prs3d_ToolQuadric
+class ToolQuadric
 {
 public:
   DEFINE_STANDARD_ALLOC

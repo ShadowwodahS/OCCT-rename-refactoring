@@ -1706,14 +1706,14 @@ static void UpdateEdge(TopoEdge&                E,
   {
     // Test angle between "First Tangente"
     gp_Vec2d          V2d;
-    Vector3d            V3d, du, dv, dC3d;
+    Vector3d            V3d1, du, dv, dC3d;
     BRepAdaptor_Curve C3d(E);
 
     C3d.D1(First, POnS, dC3d);
     CL->D1(F2d, P2d, V2d);
     S->D1(P2d.X(), P2d.Y(), POnS, du, dv);
-    V3d.SetLinearForm(V2d.X(), du, V2d.Y(), dv);
-    reverse = (dC3d.Angle(V3d) > Tol);
+    V3d1.SetLinearForm(V2d.X(), du, V2d.Y(), dv);
+    reverse = (dC3d.Angle(V3d1) > Tol);
   }
   if (reverse)
   { // Return curve 2d
@@ -1928,7 +1928,7 @@ void BRepFill_Sweep::SetBounds(const TopoWire& First, const TopoWire& Last)
   {
     for (wexp.Init(FirstShape); wexp.More(); wexp.Next())
     {
-      if (!BRepLib::CheckSameRange(wexp.Current()))
+      if (!BRepLib1::CheckSameRange(wexp.Current()))
       {
         B.SameRange(wexp.Current(), Standard_False);
         B.SameParameter(wexp.Current(), Standard_False);
@@ -1943,7 +1943,7 @@ void BRepFill_Sweep::SetBounds(const TopoWire& First, const TopoWire& Last)
   {
     for (wexp.Init(LastShape); wexp.More(); wexp.Next())
     {
-      if (!BRepLib::CheckSameRange(wexp.Current()))
+      if (!BRepLib1::CheckSameRange(wexp.Current()))
       {
         B.SameRange(wexp.Current(), Standard_False);
         B.SameParameter(wexp.Current(), Standard_False);
@@ -2942,7 +2942,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
             && myFaces->Value(isec, IPath).ShapeType() == TopAbs_FACE)
           B.Add(Comp, myFaces->Value(isec, IPath));
       }
-    BRepLib::EncodeRegularity(Comp, myTolAngular);
+    BRepLib1::EncodeRegularity(Comp, myTolAngular);
   }
   else
   {
@@ -2993,7 +2993,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
           else
             FF = TopoDS::Face(myFaces->Value(isec, IPath));
           anEdge = TopoDS::Edge(myVEdges->Value(isec, IPath));
-          BRepLib::EncodeRegularity(anEdge,
+          BRepLib1::EncodeRegularity(anEdge,
                                     FF,
                                     TopoDS::Face(myFaces->Value(isec, IPath - 1)),
                                     myTolAngular);
@@ -3201,7 +3201,7 @@ void BRepFill_Sweep::Build(TopTools_MapOfShape&                   ReversedEdges,
     TopTools_DataMapIteratorOfDataMapOfShapeShape mapit(myVEdgesModified);
     for (; mapit.More(); mapit.Next())
     {
-      const TopoEdge& OldEdge = TopoDS::Edge(mapit.Key());
+      const TopoEdge& OldEdge = TopoDS::Edge(mapit.Key1());
       const TopoEdge& NewEdge = TopoDS::Edge(mapit.Value());
       Substitute(aSubstitute, OldEdge, NewEdge);
     }

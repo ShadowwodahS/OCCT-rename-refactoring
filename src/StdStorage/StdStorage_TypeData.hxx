@@ -96,7 +96,7 @@ private:
   Standard_EXPORT void SetErrorStatusExtension(const AsciiString1& anErrorExt);
 
   Standard_Integer             myTypeId;
-  StdObjMgt_MapOfInstantiators myMapOfPInst;
+  MapOfInstantiators myMapOfPInst;
   StdStorage_MapOfTypes        myPt;
   Storage_Error                myErrorStatus;
   AsciiString1      myErrorStatusExt;

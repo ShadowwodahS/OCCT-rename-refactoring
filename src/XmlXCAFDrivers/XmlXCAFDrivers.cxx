@@ -25,12 +25,12 @@
 static Standard_GUID XSStorageDriver("f78ff496-a779-11d5-aab4-0050044b1af1");
 static Standard_GUID XSRetrievalDriver("f78ff497-a779-11d5-aab4-0050044b1af1");
 
-const Handle(RefObject)& XmlXCAFDrivers::Factory(const Standard_GUID& aGUID)
+const Handle(RefObject)& XmlXCAFDrivers1::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == XSStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlXCAFDrivers : Storage Plugin" << std::endl;
+    std::cout << "XmlXCAFDrivers1 : Storage Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new XmlXCAFDrivers_DocumentStorageDriver(
       "Copyright: Open Cascade, 2001-2002"); // default copyright
@@ -39,18 +39,18 @@ const Handle(RefObject)& XmlXCAFDrivers::Factory(const Standard_GUID& aGUID)
   if (aGUID == XSRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlXCAFDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "XmlXCAFDrivers1 : Retrieval Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new XmlXCAFDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 
-  return XmlDrivers::Factory(aGUID);
+  return XmlDrivers1::Factory(aGUID);
 }
 
 //=================================================================================================
 
-void XmlXCAFDrivers::DefineFormat(const Handle(AppManager)& theApp)
+void XmlXCAFDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat(
     "XmlXCAF",
@@ -60,4 +60,4 @@ void XmlXCAFDrivers::DefineFormat(const Handle(AppManager)& theApp)
     new XmlXCAFDrivers_DocumentStorageDriver("Copyright: Open Cascade, 2001-2002"));
 }
 
-PLUGIN(XmlXCAFDrivers)
+PLUGIN(XmlXCAFDrivers1)

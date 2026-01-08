@@ -31,8 +31,8 @@ Select3D_SensitiveSphere::Select3D_SensitiveSphere(const Handle(SelectMgr_Entity
 
 //=================================================================================================
 
-Standard_Boolean Select3D_SensitiveSphere::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+Standard_Boolean Select3D_SensitiveSphere::Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
 {
   myLastDetectedPoint = Point3d(RealLast(), RealLast(), RealLast());
   if (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point)

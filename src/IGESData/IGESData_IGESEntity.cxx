@@ -224,7 +224,7 @@ Handle(IGESData_LabelDisplayEntity) IGESData_IGESEntity::LabelDisplay() const
   return GetCasted(IGESData_LabelDisplayEntity, theLabDisplay);
 }
 
-// Status : un Integer pour BlankStatus,SubrodinateStatus,USeFlag,HierarchySt.
+// Status : un Integer1 pour BlankStatus,SubrodinateStatus,USeFlag,HierarchySt.
 // Decoupage : 4 bits chacun (BlankStatus tout a droite, etc)
 
 Standard_Integer IGESData_IGESEntity::BlankStatus() const

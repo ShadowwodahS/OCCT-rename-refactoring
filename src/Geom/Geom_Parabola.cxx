@@ -53,7 +53,7 @@ Handle(Geom_Geometry) Geom_Parabola::Copy() const
 Geom_Parabola::Geom_Parabola(const gp_Parab& Prb)
     : focalLength(Prb.Focal())
 {
-  pos = Prb.Position();
+  pos = Prb.Position1();
 }
 
 //=================================================================================================
@@ -73,7 +73,7 @@ Geom_Parabola::Geom_Parabola(const Ax1& D, const Pnt& F)
 {
 
   gp_Parab Prb(D, F);
-  pos         = Prb.Position();
+  pos         = Prb.Position1();
   focalLength = Prb.Focal();
 }
 
@@ -149,7 +149,7 @@ void Geom_Parabola::SetParab(const gp_Parab& Prb)
 {
 
   focalLength = Prb.Focal();
-  pos         = Prb.Position();
+  pos         = Prb.Position1();
 }
 
 //=================================================================================================

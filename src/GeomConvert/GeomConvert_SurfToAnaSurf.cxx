@@ -318,8 +318,8 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
   // searching along axis
   const Dir3d aDir = thePos.Direction();
   gp_Pln       aPln(thePos.Location(), aDir);
-  Dir3d       aUDir = aPln.Position().XDirection();
-  Dir3d       aVDir = aPln.Position().YDirection();
+  Dir3d       aUDir = aPln.Position1().XDirection();
+  Dir3d       aVDir = aPln.Position1().YDirection();
   for (i = 1; i <= 3; ++i)
   {
     aDirMatrix(i, 1) = aUDir.Coord(i);
@@ -488,7 +488,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
 
   if (theLeastSquare)
   {
-    Ax3           aPos   = aCyl.Position();
+    Ax3           aPos   = aCyl.Position1();
     Standard_Real    anR    = aCyl.Radius();
     Standard_Real    aGap   = 0.;
     Standard_Boolean IsDone = GetCylByLS(aPoints, theToler, aPos, anR, aGap);

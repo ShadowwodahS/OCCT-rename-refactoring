@@ -33,7 +33,7 @@ class gp_Circ;
 //! A framework to display equal distances between shapes and a given plane.
 //! The distance is the length of a projection from the shape to the plane.
 //! These distances are used to compare two shapes by this vector alone.
-class DsgPrs_EqualDistancePresentation
+class EqualDistancePresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

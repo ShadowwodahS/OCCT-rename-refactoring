@@ -1823,7 +1823,7 @@ void BSplCLib1::GetPole(const Standard_Integer Index,
                        const Standard_Integer Depth,
                        const Standard_Integer Dimension,
                        Standard_Real&         LP,
-                       Standard_Integer&      Position,
+                       Standard_Integer&      Position1,
                        TColStd_Array1OfReal&  Pole)
 {
   Standard_Integer k;
@@ -1831,11 +1831,11 @@ void BSplCLib1::GetPole(const Standard_Integer Index,
 
   for (k = 0; k < Dimension; k++)
   {
-    Pole(Position) = pole[k];
-    Position++;
+    Pole(Position1) = pole[k];
+    Position1++;
   }
-  if (Position > Pole.Upper())
-    Position = Pole.Lower();
+  if (Position1 > Pole.Upper())
+    Position1 = Pole.Lower();
 }
 
 //=================================================================================================

@@ -54,16 +54,16 @@ Handle(AppManager) OpenApplication(const AsciiString1& theFileName,
   anApplication = new AppManager();
   // Initialize standard document formats at creation - they should
   // be available even if this DRAW plugin is not loaded by pload command
-  StdLDrivers::DefineFormat(anApplication);
+  StdLDrivers1::DefineFormat(anApplication);
   BinLDrivers1::DefineFormat(anApplication);
-  XmlLDrivers::DefineFormat(anApplication);
-  StdDrivers::DefineFormat(anApplication);
+  XmlLDrivers1::DefineFormat(anApplication);
+  StdDrivers1::DefineFormat(anApplication);
   BinDrivers1::DefineFormat(anApplication);
-  XmlDrivers::DefineFormat(anApplication);
+  XmlDrivers1::DefineFormat(anApplication);
 
   // Initialize XCAF formats
   BinXCAFDrivers1::DefineFormat(anApplication);
-  XmlXCAFDrivers::DefineFormat(anApplication);
+  XmlXCAFDrivers1::DefineFormat(anApplication);
 
   // Register driver in global table for displaying XDE documents
   // in 3d viewer using OCAF mechanics

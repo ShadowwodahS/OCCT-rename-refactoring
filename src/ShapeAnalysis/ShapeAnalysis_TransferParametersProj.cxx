@@ -263,7 +263,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
 
   ShapeBuilder     B;
   Standard_Boolean samerange = Standard_True;
-  ShapeBuild_Edge  sbe;
+  Edge2  sbe;
   sbe.CopyRanges(newEdge, myEdge);
   Point3d                  p1;
   Point3d                  p2;

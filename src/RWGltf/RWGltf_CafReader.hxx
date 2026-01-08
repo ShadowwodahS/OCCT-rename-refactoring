@@ -35,10 +35,10 @@ public:
   //! Setup multithreaded execution.
   void SetParallel(bool theToParallel) { myToParallel = theToParallel; }
 
-  //! Return TRUE if Nodes without Geometry should be ignored, TRUE by default.
+  //! Return TRUE if Nodes without Geometry1 should be ignored, TRUE by default.
   bool ToSkipEmptyNodes() { return myToSkipEmptyNodes; }
 
-  //! Set flag to ignore nodes without Geometry.
+  //! Set flag to ignore nodes without Geometry1.
   void SetSkipEmptyNodes(bool theToSkip) { myToSkipEmptyNodes = theToSkip; }
 
   //! Return TRUE if all scenes in the document should be loaded, FALSE by default which means only
@@ -114,7 +114,7 @@ protected:
 
 protected:
   Standard_Boolean myToParallel;           //!< flag to use multithreading; FALSE by default
-  Standard_Boolean myToSkipEmptyNodes;     //!< ignore nodes without Geometry; TRUE by default
+  Standard_Boolean myToSkipEmptyNodes;     //!< ignore nodes without Geometry1; TRUE by default
                                            // clang-format off
   Standard_Boolean myToLoadAllScenes;       //!< flag to load all scenes in the document, FALSE by default
   Standard_Boolean myUseMeshNameAsFallback; //!< flag to use Mesh1 name in case if Node name is empty, TRUE by default

@@ -62,9 +62,9 @@ DEFINE_STANDARD_HANDLE(IFSelect_WorkSession, RefObject)
 
 //! This class can be used to simply manage a process such as
 //! splitting a file, extracting a set of Entities ...
-//! It allows to manage different types of Variables : Integer or
+//! It allows to manage different types of Variables : Integer1 or
 //! Text Parameters, Selections, Dispatches, in addition to a
-//! ShareOut. To each of these variables, a unique Integer
+//! ShareOut. To each of these variables, a unique Integer1
 //! Identifier is attached. A Name can be attached too as desired.
 class IFSelect_WorkSession : public RefObject
 {
@@ -364,7 +364,7 @@ public:
   //! Returns a Label which illustrates the content of an Item,
   //! given its Ident. This Label is :
   //! - for a Text Parameter, "Text:<text value>"
-  //! - for an Integer Parameter, "Integer:<integer value>"
+  //! - for an Integer1 Parameter, "Integer1:<integer value>"
   //! - for a Selection, a Dispatch or a Modifier, its Label
   //! (see these classes)
   //! - for any other kind of Variable, its cdl type
@@ -410,7 +410,7 @@ public:
                                                      const Standard_Integer mode = 0) const;
 
   //! Creates a parameter as being bound to a Static
-  //! If the Static is Integer, this creates an IntParam bound to
+  //! If the Static is Integer1, this creates an IntParam bound to
   //! it by its name. Else this creates a String which is the value
   //! of the Static.
   //! Returns a null handle if <statname> is unknown as a Static
@@ -422,7 +422,7 @@ public:
   //! (undefined, or defined for another kind of variable)
   Standard_EXPORT Handle(IFSelect_IntParam) IntParam(const Standard_Integer id) const;
 
-  //! Returns Integer Value of an IntParam
+  //! Returns Integer1 Value of an IntParam
   Standard_EXPORT Standard_Integer IntValue(const Handle(IFSelect_IntParam)& it) const;
 
   //! Creates a new IntParam. A Name can be set (Optional)
@@ -430,7 +430,7 @@ public:
   //! Failure (see AddItem/AddNamedItem)
   Standard_EXPORT Handle(IFSelect_IntParam) NewIntParam(const Standard_CString name = "");
 
-  //! Changes the Integer Value of an IntParam
+  //! Changes the Integer1 Value of an IntParam
   //! Returns True if Done, False if <it> is not in the WorkSession
   Standard_EXPORT Standard_Boolean SetIntValue(const Handle(IFSelect_IntParam)& it,
                                                const Standard_Integer           val);

@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT void SetPosition(const Vector3d& aPosition);
 
-  Standard_EXPORT Vector3d Position() const;
+  Standard_EXPORT Vector3d Position1() const;
 
   Standard_EXPORT void SetOrientation(const SFRotation& aOrientation);
 

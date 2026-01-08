@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 150202: Changed prototype XmlObjMgt::SetStringValue()
+// AGV 150202: Changed prototype XmlObjMgt1::SetStringValue()
 
 #include <Message_Messenger.hxx>
 #include <NCollection_LocalArray.hxx>
@@ -53,7 +53,7 @@ Handle(TDF_Attribute) XmlMDataStd_RealArrayDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const PersistentStorage&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable& theRelocTable) const
 {
@@ -100,7 +100,7 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
   aRealArray->Init(aFirstInd, aLastInd);
 
   // Check the type of LDOMString
-  const XmlObjMgt_DOMString& aString = XmlObjMgt::GetStringValue(anElement);
+  const XmlObjMgt_DOMString& aString = XmlObjMgt1::GetStringValue(anElement);
   if (aString.Type() == LDOMBasicString::LDOM_Integer)
   {
     if (aFirstInd == aLastInd)
@@ -113,7 +113,7 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
     {
       UtfString aMessageString =
         UtfString("Cannot retrieve array of real members"
-                                   " for RealArray attribute from Integer \"")
+                                   " for RealArray attribute from Integer1 \"")
         + aString + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
@@ -125,7 +125,7 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
     Standard_CString aValueStr = Standard_CString(aString.GetString());
     for (ind = aFirstInd; ind <= aLastInd; ind++)
     {
-      if (!XmlObjMgt::GetReal(aValueStr, aValue))
+      if (!XmlObjMgt1::GetReal(aValueStr, aValue))
       {
         UtfString aMessageString =
           UtfString("Cannot retrieve real member"
@@ -170,7 +170,7 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_RealArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                        XmlObjMgt_Persistent&        theTarget,
+                                        PersistentStorage&        theTarget,
                                         XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_RealArray)           aRealArray = Handle(TDataStd_RealArray)::DownCast(theSource);
@@ -224,7 +224,7 @@ void XmlMDataStd_RealArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (realArray.Length())
   {
     str[iChar - 1] = '\0';
-    XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
   }
   if (aRealArray->ID() != TDataStd_RealArray::GetID())
   {

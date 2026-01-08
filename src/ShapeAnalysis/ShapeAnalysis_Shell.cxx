@@ -25,14 +25,14 @@
 
 //=================================================================================================
 
-ShapeAnalysis_Shell::ShapeAnalysis_Shell()
+Shell3::Shell3()
     : myConex(Standard_False)
 {
 }
 
 //=================================================================================================
 
-void ShapeAnalysis_Shell::Clear()
+void Shell3::Clear()
 {
   myShells.Clear();
   myBad.Clear();
@@ -42,7 +42,7 @@ void ShapeAnalysis_Shell::Clear()
 
 //=================================================================================================
 
-void ShapeAnalysis_Shell::LoadShells(const TopoShape& shape)
+void Shell3::LoadShells(const TopoShape& shape)
 {
   if (shape.IsNull())
     return;
@@ -122,7 +122,7 @@ static Standard_Boolean CheckEdges(const TopoShape&         shape,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoShape&    shape,
+Standard_Boolean Shell3::CheckOrientedShells(const TopoShape&    shape,
                                                           const Standard_Boolean alsofree,
                                                           const Standard_Boolean checkinternaledges)
 {
@@ -211,7 +211,7 @@ Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoShape&    sh
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::IsLoaded(const TopoShape& shape) const
+Standard_Boolean Shell3::IsLoaded(const TopoShape& shape) const
 {
   if (shape.IsNull())
     return Standard_False;
@@ -220,28 +220,28 @@ Standard_Boolean ShapeAnalysis_Shell::IsLoaded(const TopoShape& shape) const
 
 //=================================================================================================
 
-Standard_Integer ShapeAnalysis_Shell::NbLoaded() const
+Standard_Integer Shell3::NbLoaded() const
 {
   return myShells.Extent();
 }
 
 //=================================================================================================
 
-TopoShape ShapeAnalysis_Shell::Loaded(const Standard_Integer num) const
+TopoShape Shell3::Loaded(const Standard_Integer num) const
 {
   return myShells.FindKey(num);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::HasBadEdges() const
+Standard_Boolean Shell3::HasBadEdges() const
 {
   return (myBad.Extent() > 0);
 }
 
 //=================================================================================================
 
-TopoCompound ShapeAnalysis_Shell::BadEdges() const
+TopoCompound Shell3::BadEdges() const
 {
   TopoCompound C;
   ShapeBuilder    B;
@@ -254,14 +254,14 @@ TopoCompound ShapeAnalysis_Shell::BadEdges() const
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::HasFreeEdges() const
+Standard_Boolean Shell3::HasFreeEdges() const
 {
   return (myFree.Extent() > 0);
 }
 
 //=================================================================================================
 
-TopoCompound ShapeAnalysis_Shell::FreeEdges() const
+TopoCompound Shell3::FreeEdges() const
 {
   TopoCompound C;
   ShapeBuilder    B;
@@ -274,7 +274,7 @@ TopoCompound ShapeAnalysis_Shell::FreeEdges() const
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::HasConnectedEdges() const
+Standard_Boolean Shell3::HasConnectedEdges() const
 {
   return myConex;
 }

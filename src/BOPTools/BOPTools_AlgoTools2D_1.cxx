@@ -128,8 +128,8 @@ Standard_Integer AlgoTools2D::AttachExistingPCurve(const TopoEdge& theE2, // old
   aBB.UpdateEdge(aE1T, aC2DT, aF, aTol);
   try
   {
-    BRepLib::SameParameter(aE1T);
-    BRepLib::SameRange(aE1T);
+    BRepLib1::SameParameter(aE1T);
+    BRepLib1::SameRange(aE1T);
   }
   catch (ExceptionBase const&)
   {

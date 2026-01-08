@@ -188,7 +188,7 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoShape& Shape)
     Handle(Geom_ElementarySurface) els = Handle(Geom_ElementarySurface)::DownCast(surf);
     if (!els.IsNull())
     {
-      if (!els->Position().Direct())
+      if (!els->Position1().Direct())
       {
         myNbIndirectSurf++;
         if (myIndirectMode)

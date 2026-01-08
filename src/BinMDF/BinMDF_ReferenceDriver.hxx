@@ -28,7 +28,7 @@ class BinObjMgt_Persistent;
 class BinMDF_ReferenceDriver;
 DEFINE_STANDARD_HANDLE(BinMDF_ReferenceDriver, BinMDF_ADriver)
 
-//! Reference attribute Driver.
+//! Reference1 attribute Driver.
 class BinMDF_ReferenceDriver : public BinMDF_ADriver
 {
 

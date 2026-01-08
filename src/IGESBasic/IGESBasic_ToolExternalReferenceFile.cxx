@@ -50,7 +50,7 @@ void ExternalReferenceFileTool::ReadOwnParams(
     PR.AddFail("Number of list entries: Not Positive");
   if (!tempNames.IsNull())
     // clang-format off
-    PR.ReadTexts(PR.CurrentList(num), "External Reference Entity", tempNames); //szv#4:S4163:12Mar99 `st=` not needed
+    PR.ReadTexts(PR.CurrentList(num), "External Reference1 Entity", tempNames); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -114,7 +114,7 @@ void ExternalReferenceFileTool::OwnDump(
   const Standard_Integer level) const
 {
   S << "IGESBasic_ExternalReferenceFile\n"
-    << "External Reference Names : ";
+    << "External Reference1 Names : ";
   IGESData_DumpStrings(S, level, 1, ent->NbListEntries(), ent->Name);
   S << std::endl;
 }

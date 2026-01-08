@@ -15,24 +15,24 @@
 
 //=================================================================================================
 
-SelectBasics_SelectingVolumeManager::SelectBasics_SelectingVolumeManager()
+SelectingVolumeManager::SelectingVolumeManager()
 {
   //
 }
 
 //=================================================================================================
 
-SelectBasics_SelectingVolumeManager::~SelectBasics_SelectingVolumeManager()
+SelectingVolumeManager::~SelectingVolumeManager()
 {
   //
 }
 
 //=================================================================================================
 
-Standard_Boolean SelectBasics_SelectingVolumeManager::Overlaps(
+Standard_Boolean SelectingVolumeManager::Overlaps(
   const Handle(TColgp_HArray1OfPnt)& theArrayOfPts,
   Standard_Integer                   theSensType,
-  SelectBasics_PickResult&           thePickResult) const
+  PickResult&           thePickResult) const
 {
   return OverlapsPolygon(theArrayOfPts->Array1(), theSensType, thePickResult);
 }

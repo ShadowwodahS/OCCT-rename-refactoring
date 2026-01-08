@@ -40,7 +40,7 @@ static Standard_CString Message_Table_PrintMetricTypeEnum[13] = {"NONE",
 
 //=================================================================================================
 
-const Handle(Message_Messenger)& Message::DefaultMessenger()
+const Handle(Message_Messenger)& Message1::DefaultMessenger()
 {
   static Handle(Message_Messenger) aMessenger = new Message_Messenger;
   return aMessenger;
@@ -48,7 +48,7 @@ const Handle(Message_Messenger)& Message::DefaultMessenger()
 
 //=================================================================================================
 
-AsciiString1 Message::FillTime(const Standard_Integer hour,
+AsciiString1 Message1::FillTime(const Standard_Integer hour,
                                           const Standard_Integer minute,
                                           const Standard_Real    second)
 {
@@ -64,7 +64,7 @@ AsciiString1 Message::FillTime(const Standard_Integer hour,
 
 //=================================================================================================
 
-const Handle(Message_Report)& Message::DefaultReport(const Standard_Boolean theToCreate)
+const Handle(Message_Report)& Message1::DefaultReport(const Standard_Boolean theToCreate)
 {
   static Handle(Message_Report) MyReport;
   if (MyReport.IsNull() && theToCreate)
@@ -76,14 +76,14 @@ const Handle(Message_Report)& Message::DefaultReport(const Standard_Boolean theT
 
 //=================================================================================================
 
-Standard_CString Message::MetricToString(const Message_MetricType theType)
+Standard_CString Message1::MetricToString(const Message_MetricType theType)
 {
   return Message_Table_PrintMetricTypeEnum[theType];
 }
 
 //=================================================================================================
 
-Standard_Boolean Message::MetricFromString(const Standard_CString theString,
+Standard_Boolean Message1::MetricFromString(const Standard_CString theString,
                                            Message_MetricType&    theGravity)
 {
   AsciiString1 aName(theString);
@@ -102,7 +102,7 @@ Standard_Boolean Message::MetricFromString(const Standard_CString theString,
 
 //=================================================================================================
 
-Standard_Boolean Message::ToOSDMetric(const Message_MetricType theMetric,
+Standard_Boolean Message1::ToOSDMetric(const Message_MetricType theMetric,
                                       OSD_MemInfo::Counter&    theMemInfo)
 {
   switch (theMetric)
@@ -136,7 +136,7 @@ Standard_Boolean Message::ToOSDMetric(const Message_MetricType theMetric,
 
 //=================================================================================================
 
-Standard_Boolean Message::ToMessageMetric(const OSD_MemInfo::Counter theMemInfo,
+Standard_Boolean Message1::ToMessageMetric(const OSD_MemInfo::Counter theMemInfo,
                                           Message_MetricType&        theMetric)
 {
   switch (theMemInfo)

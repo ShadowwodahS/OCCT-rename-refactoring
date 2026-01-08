@@ -24,7 +24,7 @@ class TopoVertex;
 class Point3d;
 
 //! Provides low-level functions used for constructing vertices
-class ShapeBuild_Vertex
+class Vertex2
 {
 public:
   DEFINE_STANDARD_ALLOC

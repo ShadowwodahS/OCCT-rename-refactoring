@@ -215,7 +215,7 @@ Handle(GeomFill_Boundary) ChFi3d_mkbound(const Handle(Adaptor3d_Surface)& Fac,
                                          const Standard_Real              ta,
                                          const Standard_Boolean isfreeboundary = Standard_False);
 
-void ChFi3d_Coefficient(const Vector3d&  V3d,
+void ChFi3d_Coefficient(const Vector3d&  V3d1,
                         const Vector3d&  D1u,
                         const Vector3d&  D1v,
                         Standard_Real& DU,

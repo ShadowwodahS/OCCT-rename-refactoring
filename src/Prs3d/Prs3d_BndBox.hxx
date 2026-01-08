@@ -24,7 +24,7 @@
 #include <Prs3d_Root.hxx>
 
 //! Tool for computing bounding box presentation.
-class Prs3d_BndBox : public Prs3d_Root
+class Prs3d_BndBox : public Root7
 {
 public:
   //! Computes presentation of a bounding box.

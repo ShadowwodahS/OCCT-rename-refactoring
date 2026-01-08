@@ -25,7 +25,7 @@
 // ===============
 
 // ------------------------------------------------------------------
-// Abs : Returns the absolute value of an Integer
+// Abs : Returns the absolute value of an Integer1
 // ------------------------------------------------------------------
 constexpr Standard_Integer Abs(const Standard_Integer Value)
 {

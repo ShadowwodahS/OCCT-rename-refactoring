@@ -320,7 +320,7 @@ void Bisector_Bisec::Perform(const Handle(GeomCurve2d)& afirstcurve,
 
     if (oncurve)
     {
-      if (Bisector::IsConvex(afirstcurve, adirection)
+      if (Bisector1::IsConvex(afirstcurve, adirection)
           || IsMaxRC(afirstcurve, afirstcurve->LastParameter(), RC))
       {
         IsLine = Standard_True;
@@ -475,7 +475,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Point)& afirstpoint,
 
     if (oncurve)
     {
-      if (Bisector::IsConvex(asecondcurve, adirection)
+      if (Bisector1::IsConvex(asecondcurve, adirection)
           || IsMaxRC(asecondcurve, asecondcurve->FirstParameter(), RC))
       {
         IsLine = Standard_True;

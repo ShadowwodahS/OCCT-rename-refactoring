@@ -19,7 +19,7 @@ StepGeom_Axis2Placement           Ax2;
 Handle(StepGeom_Axis2Placement3d) Ax2Step;
 Standard_Real                     Rayon;
 
-GeomToStep_MakeAxis2Placement3d MkAxis2(C.Position(), theLocalFactors);
+GeomToStep_MakeAxis2Placement3d MkAxis2(C.Position1(), theLocalFactors);
 Ax2Step = MkAxis2.Value();
 Rayon   = C.Radius();
 Ax2.SetValue(Ax2Step);

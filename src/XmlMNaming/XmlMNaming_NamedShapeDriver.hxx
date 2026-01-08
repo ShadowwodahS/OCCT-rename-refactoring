@@ -27,7 +27,7 @@
 #include <XmlObjMgt_Element.hxx>
 class Message_Messenger;
 class TDF_Attribute;
-class XmlObjMgt_Persistent;
+class PersistentStorage;
 class LocationSet1;
 
 class XmlMNaming_NamedShapeDriver;
@@ -40,13 +40,13 @@ public:
 
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Standard_Boolean Paste(const XmlObjMgt_Persistent&  theSource,
+  Standard_EXPORT virtual Standard_Boolean Paste(const PersistentStorage&  theSource,
                                                  const Handle(TDF_Attribute)& theTarget,
                                                  XmlObjMgt_RRelocationTable&  theRelocTable) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)& theSource,
-                                     XmlObjMgt_Persistent&        theTarget,
+                                     PersistentStorage&        theTarget,
                                      XmlObjMgt_SRelocationTable&  theRelocTable) const
     Standard_OVERRIDE;
 

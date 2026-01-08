@@ -173,7 +173,7 @@ static Standard_Integer plate(DrawInterpreter& di, Standard_Integer n, const cha
     }
     B.UpdateVertex(TopExp1::FirstVertex(E), ErrG0);
     B.UpdateVertex(TopExp1::LastVertex(E), ErrG0);
-    BRepLib::BuildCurve3d(E);
+    BRepLib1::BuildCurve3d(E);
     char name[100];
     Sprintf(name, "Edge_%d", i);
     DBRep1::Set(name, E);
@@ -441,7 +441,7 @@ static Standard_Integer approxplate(DrawInterpreter& di, Standard_Integer n, con
     }
     B.UpdateVertex(TopExp1::FirstVertex(E), dmax);
     B.UpdateVertex(TopExp1::LastVertex(E), dmax);
-    BRepLib::BuildCurve3d(E);
+    BRepLib1::BuildCurve3d(E);
     MW.Add(E);
     if (MW.IsDone() == Standard_False)
     {
@@ -596,8 +596,8 @@ static Standard_Integer filling(DrawInterpreter& di, Standard_Integer n, const c
 #endif
 
   // History
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(ListForHistory, MakeFilling);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(ListForHistory, MakeFilling);
 
   return 0;
 }
@@ -698,7 +698,7 @@ static Standard_Integer fillingparam(DrawInterpreter& di, Standard_Integer n, co
   return 0;
 }
 
-void BRepTest::FillingCommands(DrawInterpreter& theCommands)
+void BRepTest1::FillingCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -706,7 +706,7 @@ void BRepTest::FillingCommands(DrawInterpreter& theCommands)
   done = Standard_True;
 
   DBRep1::BasicCommands(theCommands);
-  GeometryTest::SurfaceCommands(theCommands);
+  GeometryTest1::SurfaceCommands(theCommands);
 
   const char* g = "Surface filling topology commands";
   theCommands.Add("plate",

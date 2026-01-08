@@ -77,7 +77,7 @@ StepData_StepWriter::StepData_StepWriter(const Handle(StepData_StepModel)& amode
 
 //=================================================================================================
 
-Interface_FloatWriter& StepData_StepWriter::FloatWriter()
+InterfaceFloatWriter& StepData_StepWriter::FloatWriter()
 {
   return thefloatw;
 } // s y reporter
@@ -211,13 +211,13 @@ void StepData_StepWriter::SendModel(const Handle(StepData_Protocol)& protocol,
   Standard_Integer        nbfails = achglob->NbFails();
   if (nbfails > 0)
   {
-    Comment(Standard_True);
+    Comment1(Standard_True);
     SendComment("GLOBAL FAIL MESSAGES,  recorded at Read time :");
     for (Standard_Integer ifail = 1; ifail <= nbfails; ifail++)
     {
       SendComment(achglob->Fail(ifail));
     }
-    Comment(Standard_False);
+    Comment1(Standard_False);
     NewLine(Standard_False);
   }
 
@@ -353,7 +353,7 @@ void StepData_StepWriter::SendEntity(const Standard_Integer num, const StepData_
     }
     EndEntity(); // AVANT les Commentaires
     NewLine(Standard_False);
-    Comment(Standard_True);
+    Comment1(Standard_True);
     if (und.IsNull())
       SendComment("   ERRONEOUS ENTITY, DATA LOST");
     SendComment("On Entity above, Fail Messages recorded at Read time :");
@@ -363,7 +363,7 @@ void StepData_StepWriter::SendEntity(const Standard_Integer num, const StepData_
     {
       SendComment(ach->Fail(ifail));
     }
-    Comment(Standard_False);
+    Comment1(Standard_False);
     NewLine(Standard_False);
 
     //    Cas normal
@@ -467,7 +467,7 @@ void StepData_StepWriter::SendEndscope()
 
 //=================================================================================================
 
-void StepData_StepWriter::Comment(const Standard_Boolean mode)
+void StepData_StepWriter::Comment1(const Standard_Boolean mode)
 {
   if (mode && !thecomm)
     AddString(textcomm, 20);
@@ -481,7 +481,7 @@ void StepData_StepWriter::Comment(const Standard_Boolean mode)
 void StepData_StepWriter::SendComment(const Handle(TCollection_HAsciiString)& text)
 {
   if (!thecomm)
-    throw Interface_InterfaceMismatch("StepWriter : Comment");
+    throw Interface_InterfaceMismatch("StepWriter : Comment1");
   AddString(text->ToCString(), text->Length());
 }
 
@@ -490,7 +490,7 @@ void StepData_StepWriter::SendComment(const Handle(TCollection_HAsciiString)& te
 void StepData_StepWriter::SendComment(const Standard_CString text)
 {
   if (!thecomm)
-    throw Interface_InterfaceMismatch("StepWriter : Comment");
+    throw Interface_InterfaceMismatch("StepWriter : Comment1");
   AddString(text, (Standard_Integer)strlen(text));
 }
 
@@ -555,7 +555,7 @@ void StepData_StepWriter::SendField(const StepData_Field&          fild,
       SendUndef();
       break;
     case 1:
-      Send(fild.Integer());
+      Send(fild.Integer1());
       break;
     case 2:
       SendBoolean(fild.Boolean());
@@ -609,7 +609,7 @@ void StepData_StepWriter::SendField(const StepData_Field&          fild,
           SendUndef();
           break;
         case 1:
-          Send(fild.Integer(i));
+          Send(fild.Integer1(i));
           break;
         case 2:
           SendBoolean(fild.Boolean(i));
@@ -656,7 +656,7 @@ void StepData_StepWriter::SendField(const StepData_Field&          fild,
             SendUndef();
             break;
           case 1:
-            Send(fild.Integer(i, j));
+            Send(fild.Integer1(i, j));
             break;
           case 2:
             SendBoolean(fild.Boolean(i, j));
@@ -713,7 +713,7 @@ void StepData_StepWriter::SendSelect(const Handle(StepData_SelectMember)& sm,
       SendUndef();
       break;
     case 1:
-      Send(sm->Integer());
+      Send(sm->Integer1());
       break;
     case 2:
       SendBoolean(sm->Boolean());
@@ -954,12 +954,12 @@ void StepData_StepWriter::Send(const Handle(RefObject)& val)
   //  Undefined ?
   if (val.IsNull())
   {
-    //   throw Interface_InterfaceMismatch("StepWriter : Sending Null Reference");
-    thechecks.CCheck(thenum)->AddFail("Null Reference");
+    //   throw Interface_InterfaceMismatch("StepWriter : Sending Null Reference1");
+    thechecks.CCheck(thenum)->AddFail("Null Reference1");
     SendUndef();
-    Comment(Standard_True);
+    Comment1(Standard_True);
     SendComment(" NUL REF ");
-    Comment(Standard_False);
+    Comment1(Standard_False);
     return;
   }
   Standard_Integer num = themodel->Number(val);
@@ -985,10 +985,10 @@ void StepData_StepWriter::Send(const Handle(RefObject)& val)
     {
       thechecks.CCheck(thenum)->AddFail("UnknownReference");
       SendUndef();
-      Comment(Standard_True);
+      Comment1(Standard_True);
       SendComment(" UNKNOWN REF ");
-      Comment(Standard_False);
-      //      throw Interface_InterfaceMismatch("StepWriter : Sending Unknown Reference");
+      Comment1(Standard_False);
+      //      throw Interface_InterfaceMismatch("StepWriter : Sending Unknown Reference1");
     }
   }
   //  Cas normal : une bonne Entite, on envoie son Ident.

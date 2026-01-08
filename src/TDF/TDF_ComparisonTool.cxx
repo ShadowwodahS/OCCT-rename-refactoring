@@ -190,7 +190,7 @@ Standard_Boolean ComparisonTool::Unbound(const Handle(TDF_DataSet)&         aRef
       aRelocationTable->TargetLabelMap(theTLabMap);
     for (TDF_MapIteratorOfLabelMap refLabMItr(refLabs); refLabMItr.More(); refLabMItr.Next())
     {
-      const DataLabel& refLab = refLabMItr.Key();
+      const DataLabel& refLab = refLabMItr.Key1();
       if (!(theSource ? the2LabMap.IsBound(refLab) : theTLabMap.Contains(refLab)))
         diffLabs.Add(refLab);
     }
@@ -208,7 +208,7 @@ Standard_Boolean ComparisonTool::Unbound(const Handle(TDF_DataSet)&         aRef
       aRelocationTable->TargetAttributeMap(theTAttMap);
     for (TDF_MapIteratorOfAttributeMap refAttMItr(refAtts); refAttMItr.More(); refAttMItr.Next())
     {
-      const Handle(TDF_Attribute)& refAtt = refAttMItr.Key();
+      const Handle(TDF_Attribute)& refAtt = refAttMItr.Key1();
       if (aFilter.IsKept(refAtt))
       {
         if (!(theSource ? the2AttMap.IsBound(refAtt) : theTAttMap.Contains(refAtt)))
@@ -237,7 +237,7 @@ void ComparisonTool::Cut(const Handle(TDF_DataSet)& aDataSet)
   TDF_MapIteratorOfAttributeMap refAttMItr(refAtts);
   for (; refAttMItr.More(); refAttMItr.Next())
   {
-    const Handle(TDF_Attribute)& locAtt = refAttMItr.Key();
+    const Handle(TDF_Attribute)& locAtt = refAttMItr.Key1();
     locAtt->Label().ForgetAttribute(locAtt);
   }
 }
@@ -256,7 +256,7 @@ Standard_Boolean ComparisonTool::IsSelfContained(const DataLabel&           aLab
     const TDF_LabelMap& refLabs = aDataSet->Labels();
     for (TDF_MapIteratorOfLabelMap refLabMItr(refLabs); refLabMItr.More(); refLabMItr.Next())
     {
-      if (!refLabMItr.Key().IsDescendant(aLabel))
+      if (!refLabMItr.Key1().IsDescendant(aLabel))
         return Standard_False;
     }
   }

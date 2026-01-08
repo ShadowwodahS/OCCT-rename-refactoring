@@ -83,7 +83,7 @@ static Standard_Integer proj(DrawInterpreter& di, Standard_Integer n, const char
 {
   if (n < 5)
   {
-    Message::SendFail() << " Use proj curve/surf x y z [{extrema algo: g(grad)/t(tree)}|{u v}]";
+    Message1::SendFail() << " Use proj curve/surf x y z [{extrema algo: g(grad)/t(tree)}|{u v}]";
     return 1;
   }
 
@@ -746,7 +746,7 @@ static Standard_Integer totalextcc(DrawInterpreter& di, Standard_Integer n, cons
   return 0;
 }
 
-void GeometryTest::APICommands(DrawInterpreter& theCommands)
+void GeometryTest1::APICommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

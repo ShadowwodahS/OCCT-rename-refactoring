@@ -76,7 +76,7 @@ static int BUC60623(DrawInterpreter& di, Standard_Integer argc, const char** a)
 static Standard_Integer BUC60632(DrawInterpreter& di, Standard_Integer /*n*/, const char** a)
 {
 
-  Handle(VisualContext) myAIScontext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAIScontext = ViewerTest1::GetAISContext();
   if (myAIScontext.IsNull())
   {
     di << "use 'vinit' command before " << a[0] << "\n";
@@ -144,7 +144,7 @@ static Standard_Integer BUC60729(DrawInterpreter& /*di*/,
   Box2      aMainBox;
   TopoShape aShape = BoxMaker(1, 1, 1).Solid();
 
-  BRepBndLib::Add(aShape, aMainBox);
+  BRepBndLib1::Add(aShape, aMainBox);
 
   Standard_Integer siMaxNbrBox = 6;
   Bnd_BoundSortBox m_BoundSortBox;
@@ -159,7 +159,7 @@ static Standard_Integer BUC60729(DrawInterpreter& /*di*/,
   {
     const TopoShape& aFace = aExplorer.Current();
     Box2             aBox;
-    BRepBndLib::Add(aFace, aBox);
+    BRepBndLib1::Add(aFace, aBox);
     m_BoundSortBox.Add(aBox, i);
     //      __aSetOfBox->SetValue( i, aBox );
   }
@@ -207,7 +207,7 @@ static Standard_Integer BUC60727(DrawInterpreter& di,
 
 static Standard_Integer BUC60792(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -290,7 +290,7 @@ static Standard_Integer BUC60811(DrawInterpreter& di, Standard_Integer argc, con
     return 0;
   }
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -497,7 +497,7 @@ static int OCC10006(DrawInterpreter& di, Standard_Integer argc, const char** arg
 
 static Standard_Integer BUC60856(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -592,7 +592,7 @@ static Standard_Integer TestMem(DrawInterpreter& /*di*/,
 
 static Standard_Integer BUC60876_(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -839,7 +839,7 @@ static Standard_Integer BUC60874(DrawInterpreter& /*di*/,
                                  const char** argv)
 {
   TopoEdge e = TopoDS::Edge(DBRep1::Get(argv[1], TopAbs_EDGE));
-  ShapeBuild_Edge().BuildCurve3d(e);
+  Edge2().BuildCurve3d(e);
   DBRep1::Set("ED", e);
   return 0;
 }
@@ -1368,7 +1368,7 @@ static Standard_Integer BUC60951_(DrawInterpreter& di, Standard_Integer argc, co
     return 1;
   }
 
-  Handle(VisualContext) myContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myContext = ViewerTest1::GetAISContext();
 
   if (myContext.IsNull())
   {

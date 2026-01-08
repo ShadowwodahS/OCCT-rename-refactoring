@@ -58,7 +58,7 @@ void ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet,
   rootLst.Clear();
   TDF_MapIteratorOfLabelMap labMItr(labMap);
   for (; labMItr.More(); labMItr.Next())
-    rootLst.Append(labMItr.Key());
+    rootLst.Append(labMItr.Key1());
 
   // Iterates on roots.
   TDF_ListIteratorOfLabelList labLItr(rootLst);
@@ -141,7 +141,7 @@ void ClosureTool::LabelAttributes(const DataLabel&       aLabel,
           const TDF_AttributeMap& tmpAttMap = tmpDataSet->Attributes();
           for (attMItr.Initialize(tmpAttMap); attMItr.More(); attMItr.Next())
           {
-            const Handle(TDF_Attribute)& locAtt2 = attMItr.Key();
+            const Handle(TDF_Attribute)& locAtt2 = attMItr.Key1();
             BindLabel                            = Standard_False;
             if (!locAtt2.IsNull())
             {
@@ -166,7 +166,7 @@ void ClosureTool::LabelAttributes(const DataLabel&       aLabel,
           const TDF_LabelMap& tmpLabMap = tmpDataSet->Labels();
           for (labMItr.Initialize(tmpLabMap); labMItr.More(); labMItr.Next())
           {
-            const DataLabel& locLab1 = labMItr.Key();
+            const DataLabel& locLab1 = labMItr.Key1();
             if (aLabMap.Add(locLab1))
               ClosureTool::Closure(locLab1, aLabMap, anAttMap, aFilter, aMode);
           }

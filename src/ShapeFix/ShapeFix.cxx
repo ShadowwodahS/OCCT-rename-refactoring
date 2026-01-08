@@ -66,7 +66,7 @@
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix::SameParameter(const TopoShape&                            shape,
+Standard_Boolean ShapeFix1::SameParameter(const TopoShape&                            shape,
                                          const Standard_Boolean                         enforce,
                                          const Standard_Real                            preci,
                                          const Message_ProgressRange&                   theProgress,
@@ -257,14 +257,14 @@ Standard_Boolean ShapeFix::SameParameter(const TopoShape&                       
 
 //=================================================================================================
 
-void ShapeFix::EncodeRegularity(const TopoShape& shape, const Standard_Real tolang)
+void ShapeFix1::EncodeRegularity(const TopoShape& shape, const Standard_Real tolang)
 {
-  BRepLib::EncodeRegularity(shape, tolang);
+  BRepLib1::EncodeRegularity(shape, tolang);
 }
 
 //=================================================================================================
 
-TopoShape ShapeFix::RemoveSmallEdges(TopoShape&               Shape,
+TopoShape ShapeFix1::RemoveSmallEdges(TopoShape&               Shape,
                                         const Standard_Real         Tolerance,
                                         Handle(ShapeBuild_ReShape)& context)
 {
@@ -310,7 +310,7 @@ static TopoEdge ReplaceVertex(const TopoEdge&     theEdge,
     aV2 = aNewVertex;
     aV2.Orientation(TopAbs_REVERSED);
   }
-  ShapeBuild_Edge    aSbe;
+  Edge2    aSbe;
   TopoEdge        e1  = theEdge;
   TopAbs_Orientation Ori = e1.Orientation();
   e1.Orientation(TopAbs_FORWARD);
@@ -510,7 +510,7 @@ static Standard_Boolean getNearestEdges(ShapeList&     theLEdges,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix::FixVertexPosition(TopoShape&                     theshape,
+Standard_Boolean ShapeFix1::FixVertexPosition(TopoShape&                     theshape,
                                              const Standard_Real               theTolerance,
                                              const Handle(ShapeBuild_ReShape)& thecontext)
 {
@@ -707,7 +707,7 @@ Standard_Boolean ShapeFix::FixVertexPosition(TopoShape&                     thes
 
 //=================================================================================================
 
-Standard_Real ShapeFix::LeastEdgeSize(TopoShape& theShape)
+Standard_Real ShapeFix1::LeastEdgeSize(TopoShape& theShape)
 {
   Standard_Real aRes = RealLast();
   for (ShapeExplorer exp(theShape, TopAbs_EDGE); exp.More(); exp.Next())

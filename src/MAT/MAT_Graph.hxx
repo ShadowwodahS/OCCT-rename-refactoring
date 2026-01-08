@@ -34,7 +34,7 @@ class MAT_Graph;
 DEFINE_STANDARD_HANDLE(MAT_Graph, RefObject)
 
 //! The Class Graph permits the exploration of the
-//! Bisector Locus.
+//! Bisector1 Locus.
 class MAT_Graph : public RefObject
 {
 

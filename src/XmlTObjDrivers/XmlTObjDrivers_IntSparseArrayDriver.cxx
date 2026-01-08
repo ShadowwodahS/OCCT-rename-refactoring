@@ -51,7 +51,7 @@ Handle(TDF_Attribute) XmlTObjDrivers_IntSparseArrayDriver::NewEmpty() const
 //           into <theTarget>.
 //=======================================================================
 
-Standard_Boolean XmlTObjDrivers_IntSparseArrayDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlTObjDrivers_IntSparseArrayDriver::Paste(const PersistentStorage&  theSource,
                                                             const Handle(TDF_Attribute)& theTarget,
                                                             XmlObjMgt_RRelocationTable&) const
 {
@@ -87,7 +87,7 @@ Standard_Boolean XmlTObjDrivers_IntSparseArrayDriver::Paste(const XmlObjMgt_Pers
 //=======================================================================
 
 void XmlTObjDrivers_IntSparseArrayDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                                XmlObjMgt_Persistent&        theTarget,
+                                                PersistentStorage&        theTarget,
                                                 XmlObjMgt_SRelocationTable&) const
 {
   Handle(TObj_TIntSparseArray) aSource = Handle(TObj_TIntSparseArray)::DownCast(theSource);

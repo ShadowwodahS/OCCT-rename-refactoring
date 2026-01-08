@@ -96,7 +96,7 @@ void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
   TDF_DataMapIteratorOfAttributeDataMap attItr2(theAttMap);
   for (; attItr2.More(); attItr2.Next())
   {
-    const Handle(TDF_Attribute)& sAtt = attItr2.Key();
+    const Handle(TDF_Attribute)& sAtt = attItr2.Key1();
     if (!sAtt.IsNull())
     { // This condition looks superfluous; and below also.
       const Handle(TDF_Attribute)& tAtt = attItr2.Value();

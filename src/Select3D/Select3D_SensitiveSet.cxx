@@ -84,15 +84,15 @@ struct NodeInStack
 
 //=================================================================================================
 
-Standard_Boolean Select3D_SensitiveSet::processElements(SelectBasics_SelectingVolumeManager& theMgr,
+Standard_Boolean Select3D_SensitiveSet::processElements(SelectingVolumeManager& theMgr,
                                                         Standard_Integer theFirstElem,
                                                         Standard_Integer theLastElem,
                                                         Standard_Boolean theIsFullInside,
                                                         Standard_Boolean theToCheckAllInside,
-                                                        SelectBasics_PickResult& thePickResult,
+                                                        PickResult& thePickResult,
                                                         Standard_Integer&        theMatchesNb)
 {
-  SelectBasics_PickResult aPickResult;
+  PickResult aPickResult;
   for (Standard_Integer anIdx = theFirstElem; anIdx <= theLastElem; anIdx++)
   {
     if (!theMgr.IsOverlapAllowed()) // inclusion test
@@ -127,8 +127,8 @@ Standard_Boolean Select3D_SensitiveSet::processElements(SelectBasics_SelectingVo
 
 //=================================================================================================
 
-Standard_Boolean Select3D_SensitiveSet::matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                SelectBasics_PickResult&             thePickResult,
+Standard_Boolean Select3D_SensitiveSet::matches(SelectingVolumeManager& theMgr,
+                                                PickResult&             thePickResult,
                                                 Standard_Boolean theToCheckAllInside)
 {
   myDetectedIdx = -1;

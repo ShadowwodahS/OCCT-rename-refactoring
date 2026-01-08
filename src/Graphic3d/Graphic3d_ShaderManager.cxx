@@ -821,7 +821,7 @@ static AsciiString1 prepareGeomMainSrc(
   for (Standard_Integer aVertIter = 0; aVertIter < 3; ++aVertIter)
   {
     const AsciiString1 aVertIndex(aVertIter);
-    // pass variables from Vertex shader to Fragment shader through Geometry shader
+    // pass variables from Vertex shader to Fragment shader through Geometry1 shader
     for (Graphic3d_ShaderObject::ShaderVariableList::Iterator aVarListIter(theStageInOuts);
          aVarListIter.More();
          aVarListIter.Next())
@@ -1070,7 +1070,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
     }
     else
     {
-      Message::SendWarning("Warning: stipple lines in GLSL will be ignored");
+      Message1::SendWarning("Warning: stipple lines in GLSL will be ignored");
     }
   }
 
@@ -1519,12 +1519,12 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   bool        toUseTexColor      = false;
   if (isFlatNormal != theIsFlatNormal)
   {
-    Message::SendWarning(
+    Message1::SendWarning(
       "Warning: flat shading requires OpenGL ES 3.0+ or GL_OES_standard_derivatives extension");
   }
   else if (isFlatNormal && myToReverseDFdxSign)
   {
-    Message::SendWarning("Warning: applied workaround for GLSL flat shading normal computation "
+    Message1::SendWarning("Warning: applied workaround for GLSL flat shading normal computation "
                          "using dFdx/dFdy on Adreno");
   }
 
@@ -1592,7 +1592,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
         }
         else
         {
-          Message::SendWarning(
+          Message1::SendWarning(
             "Warning: ignoring Normal Map texture in GLSL due to hardware capabilities");
         }
       }
@@ -1979,7 +1979,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getPBREnvBakingProgram(
       }
       else
       {
-        Message::SendWarning("Warning: incomplete PBR lighting implementation due to missing "
+        Message1::SendWarning("Warning: incomplete PBR lighting implementation due to missing "
                              "OpenGL ES 3.0 or GL_EXT_shader_texture_lod support.");
       }
       break;

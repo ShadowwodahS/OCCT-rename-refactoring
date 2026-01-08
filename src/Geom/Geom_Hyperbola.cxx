@@ -56,7 +56,7 @@ Geom_Hyperbola::Geom_Hyperbola(const gp_Hypr& H)
       minorRadius(H.MinorRadius())
 {
 
-  pos = H.Position();
+  pos = H.Position1();
 }
 
 //=================================================================================================
@@ -124,7 +124,7 @@ void Geom_Hyperbola::SetHypr(const gp_Hypr& H)
 
   majorRadius = H.MajorRadius();
   minorRadius = H.MinorRadius();
-  pos         = H.Position();
+  pos         = H.Position1();
 }
 
 //=================================================================================================

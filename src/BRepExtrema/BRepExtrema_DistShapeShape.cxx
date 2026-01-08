@@ -60,7 +60,7 @@ static void BoxCalculation(const TopTools_IndexedMapOfShape& Map, Bnd_Array1OfBo
   for (Standard_Integer i = 1; i <= Map.Extent(); i++)
   {
     Box2 box;
-    BRepBndLib::Add(Map(i), box);
+    BRepBndLib1::Add(Map(i), box);
     SBox[i] = box;
   }
 }
@@ -341,7 +341,7 @@ struct DistanceFunctor
       const Box2&         aBox2   = LBox2->Value(aPair.Index2);
       const TopoShape&    aShape1 = Map1->FindKey(aPair.Index1);
       const TopoShape&    aShape2 = Map2->FindKey(aPair.Index2);
-      BRepExtrema_DistanceSS aDistTool(aShape1,
+      DistanceSS aDistTool(aShape1,
                                        aShape2,
                                        aBox1,
                                        aBox2,

@@ -173,7 +173,7 @@ QVariant TreeModel_ItemProperties::Data(const int theRow, const int theColumn, i
   if (theRole == Qt::DisplayRole || theRole == Qt::ToolTipRole)
   {
     if (theColumn == 0)
-      return RowValues().FindFromIndex(theRow + 1).Key;
+      return RowValues().FindFromIndex(theRow + 1).Key1;
     else if (theColumn == 1)
       return RowValues().FindFromIndex(theRow + 1).Value;
   }

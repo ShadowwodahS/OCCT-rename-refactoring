@@ -327,7 +327,7 @@ Standard_Real IntPatch_ALineToWLine::GetSectionRadius(const Point3d& thePnt3d) c
     {
       const Sphere3     aSphere = aQuad.Sphere();
       const Coords3d        aRVec   = thePnt3d.XYZ() - aSphere.Location().XYZ();
-      const Coords3d&       aDir    = aSphere.Position().Direction().XYZ();
+      const Coords3d&       aDir    = aSphere.Position1().Direction().XYZ();
       const Standard_Real aR      = aSphere.Radius();
       const Standard_Real aD      = aRVec.Dot(aDir);
       const Standard_Real aDelta  = aR * aR - aD * aD;

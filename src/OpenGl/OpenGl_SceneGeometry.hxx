@@ -77,7 +77,7 @@ struct RaytraceLight
 {
 
   BVH_Vec4f Emission; //!< Diffuse intensity (in terms of OpenGL)
-  BVH_Vec4f Position; //!< Position of light source (in terms of OpenGL)
+  BVH_Vec4f Position1; //!< Position1 of light source (in terms of OpenGL)
 
 public:
   //! Creates new light source.

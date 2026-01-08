@@ -430,7 +430,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         else
         {
           TopTools_MapIteratorOfMapOfShape mapit(NextEdgeCandidates);
-          anEdge = TopoDS::Edge(mapit.Key());
+          anEdge = TopoDS::Edge(mapit.Key1());
           myPaths(i).Append(anEdge);
           NextVertex = TopExp1::LastVertex(anEdge, Standard_True);
           NextVertices.Append(NextVertex);
@@ -627,7 +627,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
           Standard_Real        len_ne     = FirstPnt2d.Distance(LastPnt2d);
           TopoEdge          NewEdge =
             BRepLib_MakeEdge(theLine, theSurf, PrevVertex, CurVertex, 0., len_ne);
-          BRepLib::BuildCurve3d(NewEdge);
+          BRepLib1::BuildCurve3d(NewEdge);
           EdgeSeq(j - 1) = NewEdge;
           EFmap.Add(NewEdge, ListOneFace);
         }
@@ -665,7 +665,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
           Standard_Real        len_ne     = FirstPnt2d.Distance(LastPnt2d);
           TopoEdge          NewEdge =
             BRepLib_MakeEdge(theLine, theSurf, PrevVertex, CurVertex, 0., len_ne);
-          BRepLib::BuildCurve3d(NewEdge);
+          BRepLib1::BuildCurve3d(NewEdge);
           gp_Pnt2d            PrevFirstPnt2d = PCurve1->Value(FirstPar1);
           gp_Pnt2d            PrevLastPnt2d  = PCurve2->Value(FirstPar2);
           Handle(Geom2d_Line) Line1          = GCE2d_MakeLine(PrevFirstPnt2d, LastPnt2d);
@@ -673,11 +673,11 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
           Standard_Real       len_ne1        = PrevFirstPnt2d.Distance(LastPnt2d);
           TopoEdge         NewEdge1 =
             BRepLib_MakeEdge(Line1, theSurf, PrevPrevVer, CurVertex, 0., len_ne1);
-          BRepLib::BuildCurve3d(NewEdge1);
+          BRepLib1::BuildCurve3d(NewEdge1);
           Standard_Real len_ne2 = FirstPnt2d.Distance(PrevLastPnt2d);
           TopoEdge   NewEdge2 =
             BRepLib_MakeEdge(Line2, theSurf, PrevVertex, PrevCurVer, 0., len_ne2);
-          BRepLib::BuildCurve3d(NewEdge2);
+          BRepLib1::BuildCurve3d(NewEdge2);
           Standard_Boolean good_ne  = IsValidEdge(NewEdge, theFace);
           Standard_Boolean good_ne1 = IsValidEdge(NewEdge1, theFace);
 
@@ -791,9 +791,9 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
   {
     GeometricProperties Properties;
     if (SecFaces(i).ShapeType() == TopAbs_FACE)
-      BRepGProp::SurfaceProperties(SecFaces(i), Properties);
+      BRepGProp1::SurfaceProperties(SecFaces(i), Properties);
     else // wire
-      BRepGProp::LinearProperties(SecFaces(i), Properties);
+      BRepGProp1::LinearProperties(SecFaces(i), Properties);
 
     Centers(i) = Properties.CentreOfMass();
   }
@@ -967,7 +967,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         Point3d        theBary;
         Dir3d        xdir, ydir;
         Standard_Real xgap, ygap, zgap;
-        GeomLib1::Inertia(PntArray, theBary, xdir, ydir, xgap, ygap, zgap);
+        GeomLib1::Inertia1(PntArray, theBary, xdir, ydir, xgap, ygap, zgap);
         Vector3d theTangent(theBary.XYZ());
         theTangents(k - i + 1) = theTangent;
       }

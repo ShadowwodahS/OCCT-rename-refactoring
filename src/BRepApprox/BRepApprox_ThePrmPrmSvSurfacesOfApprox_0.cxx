@@ -27,7 +27,7 @@
 
 #define ThePSurface BRepAdaptor_Surface
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
-#define ThePSurfaceTool BRepApprox_SurfaceTool
+#define ThePSurfaceTool SurfaceTool4
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
 #define Handle_TheLine Handle(BRepApprox_ApproxLine)
 #define TheLine BRepApprox_ApproxLine

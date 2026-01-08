@@ -410,7 +410,7 @@ void BRepFeat_MakeDPrism::Perform(const TopoShape& Until)
     {
       bB.SameRange(ledg, Standard_False);
       bB.SameParameter(ledg, Standard_False);
-      BRepLib::SameParameter(ledg, BRepInspector::Tolerance(ledg));
+      BRepLib1::SameParameter(ledg, BRepInspector::Tolerance(ledg));
     }
   }
 }
@@ -1109,8 +1109,8 @@ void BRepFeat_MakeDPrism::BossEdges(const Standard_Integer signature)
       TopTools_MapIteratorOfMapOfShape itMap;
       for (itMap.Initialize(MapE); itMap.More(); itMap.Next())
       {
-        if (!BRepInspector::Degenerated(TopoDS::Edge(itMap.Key())))
-          myLatEdges.Append(itMap.Key());
+        if (!BRepInspector::Degenerated(TopoDS::Edge(itMap.Key1())))
+          myLatEdges.Append(itMap.Key1());
       }
     }
   }
@@ -1155,15 +1155,15 @@ static Standard_Real HeightMax(const TopoShape& theSbase,  // shape initial
                                const TopoShape& theSUntil) // shape until
 {
   Box2 Box1;
-  BRepBndLib::Add(theSbase, Box1);
-  BRepBndLib::Add(theSkface, Box1);
+  BRepBndLib1::Add(theSbase, Box1);
+  BRepBndLib1::Add(theSkface, Box1);
   if (!theSFrom.IsNull())
   {
-    BRepBndLib::Add(theSFrom, Box1);
+    BRepBndLib1::Add(theSFrom, Box1);
   }
   if (!theSUntil.IsNull())
   {
-    BRepBndLib::Add(theSUntil, Box1);
+    BRepBndLib1::Add(theSUntil, Box1);
   }
   Standard_Real c[6];
 
@@ -1293,7 +1293,7 @@ static Handle(GeomCurve3d) TestCurve(const TopoFace& Base)
     return toto;
   }
   gp_Pln            pp = P->Pln();
-  Dir3d            Normale(pp.Position().XDirection() ^ pp.Position().YDirection());
+  Dir3d            Normale(pp.Position1().XDirection() ^ pp.Position1().YDirection());
   Axis3d            theAx(bar, Normale);
   Handle(GeomLine) theLin = new GeomLine(theAx);
   return theLin;

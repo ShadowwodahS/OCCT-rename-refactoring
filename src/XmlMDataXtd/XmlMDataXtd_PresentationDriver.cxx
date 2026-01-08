@@ -53,7 +53,7 @@ Handle(TDF_Attribute) XmlMDataXtd_PresentationDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const PersistentStorage&  theSource,
                                                        const Handle(TDF_Attribute)& theTarget,
                                                        XmlObjMgt_RRelocationTable&) const
 {
@@ -86,7 +86,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!aDOMStr.GetInteger(anIValue))
     {
       aMessageString =
-        UtfString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Integer1 value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -107,7 +107,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!aDOMStr.GetInteger(anIValue))
     {
       aMessageString =
-        UtfString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Integer1 value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -124,7 +124,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
   aDOMStr = anElem.getAttribute(::TransparencyString());
   if (aDOMStr != NULL)
   {
-    if (!XmlObjMgt::GetReal(aDOMStr, aValue))
+    if (!XmlObjMgt1::GetReal(aDOMStr, aValue))
     {
       aMessageString =
         UtfString("Cannot retrieve Real value from \"") + aDOMStr + "\"";
@@ -142,7 +142,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
   aDOMStr = anElem.getAttribute(::WidthString());
   if (aDOMStr != NULL)
   {
-    if (!XmlObjMgt::GetReal(aDOMStr, aValue))
+    if (!XmlObjMgt1::GetReal(aDOMStr, aValue))
     {
       aMessageString =
         UtfString("Cannot retrieve Real value from \"") + aDOMStr + "\"";
@@ -163,7 +163,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!aDOMStr.GetInteger(anIValue))
     {
       aMessageString =
-        UtfString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Integer1 value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -182,7 +182,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataXtd_PresentationDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                           XmlObjMgt_Persistent&        theTarget,
+                                           PersistentStorage&        theTarget,
                                            XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataXtd_Presentation) aTPrs = Handle(TDataXtd_Presentation)::DownCast(theSource);

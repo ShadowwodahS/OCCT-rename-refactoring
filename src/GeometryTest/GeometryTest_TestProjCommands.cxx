@@ -391,7 +391,7 @@ static Standard_Integer xdistcs(DrawInterpreter& di, Standard_Integer n, const c
 
 //=================================================================================================
 
-void GeometryTest::TestProjCommands(DrawInterpreter& theCommands)
+void GeometryTest1::TestProjCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;

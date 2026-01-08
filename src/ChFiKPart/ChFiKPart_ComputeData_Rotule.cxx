@@ -56,7 +56,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   // calcul du tore.
   //---------------
-  Ax3 pos    = pl.Position();
+  Ax3 pos    = pl.Position1();
   Dir3d dpl    = pos.XDirection().Crossed(pos.YDirection());
   Dir3d dfpl   = dpl;
   Dir3d dplnat = dpl;
@@ -68,13 +68,13 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   {
     dfpl.Reverse();
   }
-  pos         = pl1.Position();
+  pos         = pl1.Position1();
   Dir3d dpl1 = pos.XDirection().Crossed(pos.YDirection());
   if (opl1 == TopAbs_REVERSED)
   {
     dpl1.Reverse();
   }
-  pos         = pl2.Position();
+  pos         = pl2.Position1();
   Dir3d dpl2 = pos.XDirection().Crossed(pos.YDirection());
   if (opl2 == TopAbs_REVERSED)
   {
@@ -130,9 +130,9 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   Standard_Real       u, v;
   ElSLib1::Parameters(pl, pcirc, u, v);
   gp_Pnt2d p2dcirc(u, v);
-  gp_Dir2d dx2d(dpl1.Dot(pl.Position().XDirection()), dpl1.Dot(pl.Position().YDirection()));
-  gp_Dir2d dy2d(ppos.YDirection().Dot(pl.Position().XDirection()),
-                ppos.YDirection().Dot(pl.Position().YDirection()));
+  gp_Dir2d dx2d(dpl1.Dot(pl.Position1().XDirection()), dpl1.Dot(pl.Position1().YDirection()));
+  gp_Dir2d dy2d(ppos.YDirection().Dot(pl.Position1().XDirection()),
+                ppos.YDirection().Dot(pl.Position1().YDirection()));
   Ax22d circ2dax(p2dcirc, dx2d, dy2d);
   Handle(Geom2d_Circle) GC2d = new Geom2d_Circle(circ2dax, r);
   gp_Pnt2d              p2dlin(0., M_PI / 2);

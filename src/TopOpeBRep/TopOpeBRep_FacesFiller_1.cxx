@@ -1243,7 +1243,7 @@ void TopOpeBRep_FacesFiller::AddShapesLine()
   {
     // xpu240399 : USA60298 : avoid creating curve
     //  MSV: take into account that geometry can be of type VERTEX
-    Standard_Integer  ipf = myDSCIL.First()->Geometry();
+    Standard_Integer  ipf = myDSCIL.First()->Geometry1();
     TopOpeBRepDS_Kind kpf = myDSCIL.First()->GeometryType();
     Point3d            ptf;
     Standard_Real     tol, tolf, toll;
@@ -1260,7 +1260,7 @@ void TopOpeBRep_FacesFiller::AddShapesLine()
       tolf             = BRepInspector::Tolerance(vf);
     }
 
-    Standard_Integer  ipl = myDSCIL.Last()->Geometry();
+    Standard_Integer  ipl = myDSCIL.Last()->Geometry1();
     TopOpeBRepDS_Kind kpl = myDSCIL.Last()->GeometryType();
     if (kpl == TopOpeBRepDS_POINT)
     {

@@ -74,7 +74,7 @@ void RWMesh_TriangulationReader::LoadingStatistic1::PrintStatistic(
                                                             LoadedTrianglesNb);
   if (!aStatisticInfo.IsEmpty())
   {
-    Message::SendWarning(aStatisticInfo);
+    Message1::SendWarning(aStatisticInfo);
   }
 }
 
@@ -148,7 +148,7 @@ bool RWMesh_TriangulationReader::finalizeLoading(
                        theSourceMesh->NbDeferredTriangles(),
                        theSourceMesh->DegeneratedTriNb(),
                        theDestMesh->NbTriangles());
-    Message::SendTrace(aStatisticInfo);
+    Message1::SendTrace(aStatisticInfo);
   }
   return true;
 }
@@ -162,7 +162,7 @@ bool RWMesh_TriangulationReader::setNbEdges(const Handle(MeshTriangulation)& the
   Handle(RWMesh_TriangulationSource) aMesh = Handle(RWMesh_TriangulationSource)::DownCast(theMesh);
   if (aMesh.IsNull())
   {
-    Message::SendWarning("Only triangulation loading is supported.");
+    Message1::SendWarning("Only triangulation loading is supported.");
     return false;
   }
   if (theNbTris >= 1)
@@ -182,7 +182,7 @@ Standard_Integer RWMesh_TriangulationReader::setEdge(const Handle(MeshTriangulat
   Handle(RWMesh_TriangulationSource) aMesh = Handle(RWMesh_TriangulationSource)::DownCast(theMesh);
   if (aMesh.IsNull())
   {
-    Message::SendWarning("Only triangulation loading is supported.");
+    Message1::SendWarning("Only triangulation loading is supported.");
     return 0;
   }
   if (theEdge < 1 || theEdge > theMesh->NbNodes())

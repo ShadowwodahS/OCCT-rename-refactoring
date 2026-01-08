@@ -227,7 +227,7 @@ bool Media_FormatContext::OpenInput(const AsciiString1& theInput)
   const int avErrCode = avformat_open_input(&myFormatCtx, theInput.ToCString(), NULL, NULL);
   if (avErrCode != 0)
   {
-    Message::SendFail(AsciiString1("FFmpeg: Couldn't open video file '") + theInput
+    Message1::SendFail(AsciiString1("FFmpeg: Couldn't open video file '") + theInput
                       + "'\nError: " + FormatAVErrorDescription(avErrCode));
     Close();
     return false;
@@ -236,7 +236,7 @@ bool Media_FormatContext::OpenInput(const AsciiString1& theInput)
   // retrieve stream information
   if (avformat_find_stream_info(myFormatCtx, NULL) < 0)
   {
-    Message::SendFail(AsciiString1("FFmpeg: Couldn't find stream information in '")
+    Message1::SendFail(AsciiString1("FFmpeg: Couldn't find stream information in '")
                       + theInput + "'");
     Close();
     return false;
@@ -273,7 +273,7 @@ bool Media_FormatContext::OpenInput(const AsciiString1& theInput)
 
   return true;
 #else
-  Message::SendFail("Error: FFmpeg library is unavailable");
+  Message1::SendFail("Error: FFmpeg library is unavailable");
   (void)theInput;
   return false;
 #endif
@@ -483,7 +483,7 @@ bool Media_FormatContext::SeekStream(unsigned int theStreamId,
     aStream.codecpar->codec_type == AVMEDIA_TYPE_VIDEO
       ? "Video"
       : (aStream.codecpar->codec_type == AVMEDIA_TYPE_AUDIO ? "Audio" : "");
-  Message::SendWarning(
+  Message1::SendWarning(
     AsciiString1("Error while seeking ") + aStreamType + " stream to " + theSeekPts
     + " sec (" + (theSeekPts + StreamUnitsToSeconds(aStream, aStream.start_time)) + " sec)");
   return false;
@@ -514,7 +514,7 @@ bool Media_FormatContext::Seek(double theSeekPts, bool theToSeekBack)
     myFormatCtx->filename;
   #endif
 
-  Message::SendWarning(AsciiString1("Disaster! Seeking to ") + theSeekPts + " ["
+  Message1::SendWarning(AsciiString1("Disaster! Seeking to ") + theSeekPts + " ["
                        + aFileName + "] has failed.");
   return false;
 #else

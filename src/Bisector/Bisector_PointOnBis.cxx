@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-Bisector_PointOnBis::Bisector_PointOnBis()
+PointOnBis::PointOnBis()
     : param1(0.0),
       param2(0.0),
       paramBis(0.0),
@@ -30,7 +30,7 @@ Bisector_PointOnBis::Bisector_PointOnBis()
 
 //=================================================================================================
 
-Bisector_PointOnBis::Bisector_PointOnBis(const Standard_Real Param1,
+PointOnBis::PointOnBis(const Standard_Real Param1,
                                          const Standard_Real Param2,
                                          const Standard_Real ParamBis,
                                          const Standard_Real Distance,
@@ -46,91 +46,91 @@ Bisector_PointOnBis::Bisector_PointOnBis(const Standard_Real Param1,
 
 //=================================================================================================
 
-void Bisector_PointOnBis::ParamOnC1(const Standard_Real Param)
+void PointOnBis::ParamOnC1(const Standard_Real Param)
 {
   param1 = Param;
 }
 
 //=================================================================================================
 
-void Bisector_PointOnBis::ParamOnC2(const Standard_Real Param)
+void PointOnBis::ParamOnC2(const Standard_Real Param)
 {
   param2 = Param;
 }
 
 //=================================================================================================
 
-void Bisector_PointOnBis::ParamOnBis(const Standard_Real Param)
+void PointOnBis::ParamOnBis(const Standard_Real Param)
 {
   paramBis = Param;
 }
 
 //=================================================================================================
 
-void Bisector_PointOnBis::Distance(const Standard_Real Distance)
+void PointOnBis::Distance(const Standard_Real Distance)
 {
   distance = Distance;
 }
 
 //=================================================================================================
 
-void Bisector_PointOnBis::Point(const gp_Pnt2d& P)
+void PointOnBis::Point(const gp_Pnt2d& P)
 {
   point = P;
 }
 
 //=================================================================================================
 
-void Bisector_PointOnBis::IsInfinite(const Standard_Boolean Infinite)
+void PointOnBis::IsInfinite(const Standard_Boolean Infinite)
 {
   infinite = Infinite;
 }
 
 //=================================================================================================
 
-Standard_Real Bisector_PointOnBis::ParamOnC1() const
+Standard_Real PointOnBis::ParamOnC1() const
 {
   return param1;
 }
 
 //=================================================================================================
 
-Standard_Real Bisector_PointOnBis::ParamOnC2() const
+Standard_Real PointOnBis::ParamOnC2() const
 {
   return param2;
 }
 
 //=================================================================================================
 
-Standard_Real Bisector_PointOnBis::ParamOnBis() const
+Standard_Real PointOnBis::ParamOnBis() const
 {
   return paramBis;
 }
 
 //=================================================================================================
 
-Standard_Real Bisector_PointOnBis::Distance() const
+Standard_Real PointOnBis::Distance() const
 {
   return distance;
 }
 
 //=================================================================================================
 
-gp_Pnt2d Bisector_PointOnBis::Point() const
+gp_Pnt2d PointOnBis::Point() const
 {
   return point;
 }
 
 //=================================================================================================
 
-Standard_Boolean Bisector_PointOnBis::IsInfinite() const
+Standard_Boolean PointOnBis::IsInfinite() const
 {
   return infinite;
 }
 
 //=================================================================================================
 
-void Bisector_PointOnBis::Dump() const
+void PointOnBis::Dump() const
 {
   std::cout << "Param1    :" << param1 << std::endl;
   std::cout << "Param2    :" << param2 << std::endl;

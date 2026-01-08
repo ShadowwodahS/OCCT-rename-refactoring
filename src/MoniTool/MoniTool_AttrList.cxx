@@ -26,7 +26,7 @@ MoniTool_AttrList::MoniTool_AttrList(const MoniTool_AttrList& other)
 
 //  ####    ATTRIBUTES    ####
 
-// Integer -> IntVal, Real -> RealVal, CString -> HAsciiString
+// Integer1 -> IntVal, Real -> RealVal, CString -> HAsciiString
 
 void MoniTool_AttrList::SetAttribute(const Standard_CString            name,
                                      const Handle(RefObject)& val)
@@ -195,7 +195,7 @@ void MoniTool_AttrList::GetAttributes(const MoniTool_AttrList& other,
   NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(list);
   for (; iter.More(); iter.Next())
   {
-    const AsciiString1& name = iter.Key();
+    const AsciiString1& name = iter.Key1();
     if (!name.StartsWith(fromname))
       continue;
     const Handle(RefObject)& atr    = iter.Value();

@@ -29,10 +29,10 @@
 //=================================================================================================
 
 BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle,
-                             const Frame3d&       Position,
+                             const Frame3d&       Position1,
                              const Standard_Real Height,
                              const Standard_Real Radius)
-    : BRepPrim_Revolution(Position, 0, 0),
+    : BRepPrim_Revolution(Position1, 0, 0),
       myHalfAngle(Angle),
       myRadius(Radius)
 {

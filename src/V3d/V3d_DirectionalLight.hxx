@@ -46,7 +46,7 @@ private:
   using Graphic3d_CLight::Concentration;
   using Graphic3d_CLight::ConstAttenuation;
   using Graphic3d_CLight::LinearAttenuation;
-  using Graphic3d_CLight::Position;
+  using Graphic3d_CLight::Position1;
   using Graphic3d_CLight::SetAngle;
   using Graphic3d_CLight::SetAttenuation;
   using Graphic3d_CLight::SetConcentration;

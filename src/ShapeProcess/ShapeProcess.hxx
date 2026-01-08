@@ -33,7 +33,7 @@ class ShapeProcess_Context;
 //! customization is implemented via user-editable resource
 //! file which defines sequence of operators to be executed
 //! and their parameters.
-class ShapeProcess
+class ShapeProcess1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -66,10 +66,10 @@ public:
 
   // Bitset of operations. It is used to specify which operations should be performed.
   // For example, to perform DirectFaces and SameParameter operations, use:
-  // ShapeProcess::OperationsFlags flags;
-  // flags.set(ShapeProcess::Operation::DirectFaces);
-  // flags.set(ShapeProcess::Operation::SameParameter);
-  // ShapeProcess::Perform(context, flags);
+  // ShapeProcess1::OperationsFlags flags;
+  // flags.set(ShapeProcess1::Operation::DirectFaces);
+  // flags.set(ShapeProcess1::Operation::SameParameter);
+  // ShapeProcess1::Perform(context, flags);
   using OperationsFlags = std::bitset<Operation::Last + 1>;
 
 public:

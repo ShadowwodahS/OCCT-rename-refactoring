@@ -46,7 +46,7 @@ public:
 
   ~StatistiquesBRepClass3d()
   {
-    printf("\n--- Statistiques BRepClass3d:\n");
+    printf("\n--- Statistiques BRepClass3d1:\n");
 
     printf("\nConstructeurVide    : %10lu", NbConstrVide);
     printf("\nConstructeur(Shape) : %10lu", NbConstrShape);

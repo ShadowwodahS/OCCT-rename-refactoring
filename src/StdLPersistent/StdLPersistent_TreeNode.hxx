@@ -19,14 +19,14 @@
 #include <TDataStd_TreeNode.hxx>
 #include <Standard_GUID.hxx>
 
-class StdLPersistent_TreeNode : public StdObjMgt_Attribute<TDataStd_TreeNode>::Static
+class TreeNode : public StdObjMgt_Attribute<TDataStd_TreeNode>::Static
 {
 public:
   //! Read persistent data from a file.
-  Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+  Standard_EXPORT virtual void Read(ReadData& theReadData);
 
   //! Write persistent data to a file.
-  Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+  Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
   //! Gets persistent child objects
   Standard_EXPORT virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const;
@@ -43,12 +43,12 @@ public:
 private:
   struct dynamic : public RefObject
   {
-    Handle(StdLPersistent_TreeNode) First;
+    Handle(TreeNode) First;
     Standard_GUID                   TreeID;
   };
 
   Handle(dynamic)                 myDynamicData;
-  Handle(StdLPersistent_TreeNode) myNext;
+  Handle(TreeNode) myNext;
 };
 
 #endif

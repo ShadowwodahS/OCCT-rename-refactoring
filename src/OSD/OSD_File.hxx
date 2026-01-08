@@ -106,7 +106,7 @@ public:
                             const Standard_Integer Nbyte,
                             Standard_Integer&      Readbyte);
 
-  //! Attempts to write theNbBytes bytes from the AsciiString to the file.
+  //! Attempts to write theNbBytes bytes from the AsciiString2 to the file.
   void Write(const AsciiString1& theBuffer, const Standard_Integer theNbBytes)
   {
     Write((Standard_Address)theBuffer.ToCString(), theNbBytes);

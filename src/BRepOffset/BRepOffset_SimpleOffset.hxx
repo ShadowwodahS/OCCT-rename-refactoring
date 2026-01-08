@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(BRepOffset_SimpleOffset, BRepTools_Modification)
 //! - Each surface is mapped to its geometric offset surface.
 //! - For each edge, pcurves are mapped to the same pcurves on offset surfaces.
 //! - For each edge, 3d curve is constructed by re-approximation of pcurve on the first offset face.
-//! - Position of each vertex in a result shell is computed as average point of all ends of edges
+//! - Position1 of each vertex in a result shell is computed as average point of all ends of edges
 //! shared by that vertex.
 //! - Tolerances are updated according to the resulting geometry.
 class BRepOffset_SimpleOffset : public BRepTools_Modification

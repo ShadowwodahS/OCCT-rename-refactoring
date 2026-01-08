@@ -55,7 +55,7 @@ void LineTorusIntersection::Perform(const gp_Lin& L, const gp_Torus& T)
   //-- Coefficients de la ligne dans le repere du cone
   //--
   Transform3d trsf;
-  trsf.SetTransformation(T.Position());
+  trsf.SetTransformation(T.Position1());
   NewPL.Transform(trsf);
   DL.Transform(trsf);
 

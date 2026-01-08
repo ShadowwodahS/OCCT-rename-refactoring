@@ -62,7 +62,7 @@ void ConicalSurfaceTool::ReadOwnParams(const Handle(IGESSolid_ConicalSurface)& e
   if (ent->FormNumber() == 1) // Parametrised surface
     PR.ReadEntity(IR,
                   PR.Current(),
-                  "Reference direction",
+                  "Reference1 direction",
                   STANDARD_TYPE(IGESGeom_Direction),
                   tempRefdir); // szv#4:S4163:12Mar99 `st=` not needed
 
@@ -160,7 +160,7 @@ void ConicalSurfaceTool::OwnDump(const Handle(IGESSolid_ConicalSurface)& ent,
     << "Semi-angle     : " << ent->SemiAngle() << "\n";
   if (ent->IsParametrised())
   {
-    S << "Surface is Parametrised  -  Reference direction :\n";
+    S << "Surface is Parametrised  -  Reference1 direction :\n";
     dumper.Dump(ent->ReferenceDir(), S, sublevel);
     S << std::endl;
   }

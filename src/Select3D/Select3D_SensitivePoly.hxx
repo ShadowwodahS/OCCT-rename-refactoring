@@ -64,8 +64,8 @@ public:
                                          const Standard_Integer               theNbPnts = 6);
 
   //! Checks whether the poly overlaps current selecting volume
-  Standard_EXPORT virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+  Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
     Standard_OVERRIDE;
 
   //! Returns the amount of segments in poly
@@ -127,20 +127,20 @@ public:
 protected:
   //! Checks whether the segment with index theIdx overlaps the current selecting volume
   Standard_EXPORT virtual Standard_Boolean overlapsElement(
-    SelectBasics_PickResult&             thePickResult,
-    SelectBasics_SelectingVolumeManager& theMgr,
+    PickResult&             thePickResult,
+    SelectingVolumeManager& theMgr,
     Standard_Integer                     theElemIdx,
     Standard_Boolean                     theIsFullInside) Standard_OVERRIDE;
 
   //! Checks whether the entity with index theIdx is inside the current selecting volume
   Standard_EXPORT virtual Standard_Boolean elementIsInside(
-    SelectBasics_SelectingVolumeManager& theMgr,
+    SelectingVolumeManager& theMgr,
     Standard_Integer                     theElemIdx,
     Standard_Boolean                     theIsFullInside) Standard_OVERRIDE;
 
   //! Calculates distance from the 3d projection of used-picked screen point
   //! to center of the geometry
-  Standard_EXPORT virtual Standard_Real distanceToCOG(SelectBasics_SelectingVolumeManager& theMgr)
+  Standard_EXPORT virtual Standard_Real distanceToCOG(SelectingVolumeManager& theMgr)
     Standard_OVERRIDE;
 
 protected:

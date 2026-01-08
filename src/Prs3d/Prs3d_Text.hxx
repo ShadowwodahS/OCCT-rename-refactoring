@@ -25,7 +25,7 @@ class UtfString;
 class Point3d;
 
 //! A framework to define the display of texts.
-class Prs3d_Text
+class Text
 {
 public:
   DEFINE_STANDARD_ALLOC

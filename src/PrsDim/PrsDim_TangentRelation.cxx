@@ -186,7 +186,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
   Point3d             ptat11, ptat12, ptat21, ptat22;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(GeomCurve3d) extCurv;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
                                copy1,
@@ -504,7 +504,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
   myPosition = pint3d;
   myLength   = Min(myLength, myArrowSize);
 
-  DsgPrs_TangentPresentation::Add(aPresentation, myDrawer, myAttach, myDir, myLength);
+  TangentPresentation::Add(aPresentation, myDrawer, myAttach, myDir, myLength);
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
     Point3d pf, pl;

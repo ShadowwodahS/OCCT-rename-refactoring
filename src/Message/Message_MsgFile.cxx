@@ -50,12 +50,12 @@ typedef enum
 } LoadingState;
 
 //=======================================================================
-// function : Message_MsgFile
+// function : MessageFile
 // purpose  : Load file from given directories
 //           theDirName may be represented as list: "/dirA/dirB /dirA/dirC"
 //=======================================================================
 
-Standard_Boolean Message_MsgFile::Load(const Standard_CString theDirName,
+Standard_Boolean MessageFile::Load(const Standard_CString theDirName,
                                        const Standard_CString theFileName)
 {
   if (!theDirName || !theFileName)
@@ -83,7 +83,7 @@ Standard_Boolean Message_MsgFile::Load(const Standard_CString theDirName,
 
 //=======================================================================
 // function : getString
-// purpose  : Takes a UtfString from Ascii or Unicode
+// purpose  : Takes a UtfString from Ascii1 or Unicode
 //           Strings are left-trimmed; those beginning with '!' are omitted
 // Called   : from loadFile()
 //=======================================================================
@@ -155,7 +155,7 @@ static inline Standard_Boolean getString(CharType*&                  thePtr,
 
 //=======================================================================
 // function : loadFile
-// purpose  : Static function, fills the DataMap of Messages from Ascii or Unicode
+// purpose  : Static function, fills the DataMap of Messages from Ascii1 or Unicode
 // Called   : from LoadFile()
 //=======================================================================
 
@@ -176,7 +176,7 @@ static inline Standard_Boolean loadFile(_Char* theBuffer)
     {
       case MsgFile_WaitingMoreMessage:
         if (isKeyword)
-          Message_MsgFile::AddMsg(aKeyword, aMessage); // terminate the previous one
+          MessageFile::AddMsg(aKeyword, aMessage); // terminate the previous one
         //      Pass from here to 'case MsgFile_WaitingKeyword'
         else
         {
@@ -215,7 +215,7 @@ static inline Standard_Boolean loadFile(_Char* theBuffer)
   }
   //    Process the last string still remaining in the buffer
   if (aState == MsgFile_WaitingMoreMessage)
-    Message_MsgFile::AddMsg(aKeyword, aMessage);
+    MessageFile::AddMsg(aKeyword, aMessage);
   return Standard_True;
 }
 
@@ -242,7 +242,7 @@ static Standard_Integer GetFileSize(FILE* theFile)
 // purpose  : Load the list of messages from a file
 //=======================================================================
 
-Standard_Boolean Message_MsgFile::LoadFile(const Standard_CString theFileName)
+Standard_Boolean MessageFile::LoadFile(const Standard_CString theFileName)
 {
   if (theFileName == NULL || *theFileName == '\0')
     return Standard_False;
@@ -303,7 +303,7 @@ Standard_Boolean Message_MsgFile::LoadFile(const Standard_CString theFileName)
 
 //=================================================================================================
 
-Standard_Boolean Message_MsgFile::LoadFromEnv(const Standard_CString theEnvName,
+Standard_Boolean MessageFile::LoadFromEnv(const Standard_CString theEnvName,
                                               const Standard_CString theFileName,
                                               const Standard_CString theLangExt)
 {
@@ -339,12 +339,12 @@ Standard_Boolean Message_MsgFile::LoadFromEnv(const Standard_CString theEnvName,
   }
   aFilePath.AssignCat(aLangExt);
 
-  return Message_MsgFile::LoadFile(aFilePath.ToCString());
+  return MessageFile::LoadFile(aFilePath.ToCString());
 }
 
 //=================================================================================================
 
-Standard_Boolean Message_MsgFile::LoadFromString(const Standard_CString theContent,
+Standard_Boolean MessageFile::LoadFromString(const Standard_CString theContent,
                                                  const Standard_Integer theLength)
 {
   Standard_Integer aStringSize = theLength >= 0 ? theLength : (Standard_Integer)strlen(theContent);
@@ -366,7 +366,7 @@ Standard_Boolean Message_MsgFile::LoadFromString(const Standard_CString theConte
 // purpose  : Add one message to the global table. Fails if the same keyword
 //           already exists in the table
 //=======================================================================
-Standard_Boolean Message_MsgFile::AddMsg(const AsciiString1&    theKeyword,
+Standard_Boolean MessageFile::AddMsg(const AsciiString1&    theKeyword,
                                          const UtfString& theMessage)
 {
   Message_DataMapOfExtendedString& aDataMap = ::msgsDataMap();
@@ -380,7 +380,7 @@ Standard_Boolean Message_MsgFile::AddMsg(const AsciiString1&    theKeyword,
 // function : getMsg
 // purpose  : retrieve the message previously defined for the given keyword
 //=======================================================================
-const UtfString& Message_MsgFile::Msg(const Standard_CString theKeyword)
+const UtfString& MessageFile::Msg(const Standard_CString theKeyword)
 {
   AsciiString1 aKey(theKeyword);
   return Msg(aKey);
@@ -388,7 +388,7 @@ const UtfString& Message_MsgFile::Msg(const Standard_CString theKeyword)
 
 //=================================================================================================
 
-Standard_Boolean Message_MsgFile::HasMsg(const AsciiString1& theKeyword)
+Standard_Boolean MessageFile::HasMsg(const AsciiString1& theKeyword)
 {
   Standard_Mutex::Sentry aSentry(Message_MsgFile_Mutex());
   return ::msgsDataMap().IsBound(theKeyword);
@@ -398,7 +398,7 @@ Standard_Boolean Message_MsgFile::HasMsg(const AsciiString1& theKeyword)
 // function : Msg
 // purpose  : retrieve the message previously defined for the given keyword
 //=======================================================================
-const UtfString& Message_MsgFile::Msg(const AsciiString1& theKeyword)
+const UtfString& MessageFile::Msg(const AsciiString1& theKeyword)
 {
   // find message in the map
   Message_DataMapOfExtendedString& aDataMap = ::msgsDataMap();

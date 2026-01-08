@@ -316,7 +316,7 @@ void BinTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
     // Type
     OS << (Standard_Byte)S.ShapeType();
 
-    // Geometry
+    // Geometry1
     WriteShape(S, OS);
 
     // Flags

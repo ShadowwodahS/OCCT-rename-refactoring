@@ -896,9 +896,9 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
       && myAdpLastSect->GetType() == GeomAbs_Line)
   {
     // try to generate a cylinder.
-    Axis3d A0 = myAdpPath->Line().Position();
-    Axis3d A1 = myAdpFirstSect->Line().Position();
-    Axis3d A2 = myAdpLastSect->Line().Position();
+    Axis3d A0 = myAdpPath->Line().Position1();
+    Axis3d A1 = myAdpFirstSect->Line().Position1();
+    Axis3d A2 = myAdpLastSect->Line().Position1();
     // direction must be the same.
     Dir3d D0 = A0.Direction();
     Dir3d D1 = A1.Direction();
@@ -960,9 +960,9 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     if (Abs(Alp0 - Alp1) > Precision::Angular() || Abs(Alp0 - Alp2) > Precision::Angular())
       return Ok;
 
-    Frame3d A0 = myAdpPath->Circle().Position();
-    Frame3d A1 = myAdpFirstSect->Circle().Position();
-    Frame3d A2 = myAdpLastSect->Circle().Position();
+    Frame3d A0 = myAdpPath->Circle().Position1();
+    Frame3d A1 = myAdpFirstSect->Circle().Position1();
+    Frame3d A2 = myAdpLastSect->Circle().Position1();
     Dir3d D0 = A0.Direction();
     Dir3d D1 = A1.Direction();
     Dir3d D2 = A2.Direction();

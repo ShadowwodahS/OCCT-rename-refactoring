@@ -26,14 +26,14 @@
 class Vector3d;
 class Point3d;
 
-//! A key for a command line option used for a ViewerTest_CmdParser work
+//! A key for a command line option used for a CommandParser work
 typedef std::size_t ViewerTest_CommandOptionKey;
 
 //! A set of keys for command-line options
 typedef std::set<ViewerTest_CommandOptionKey> ViewerTest_CommandOptionKeySet;
 
 //! Command parser.
-class ViewerTest_CmdParser
+class CommandParser
 {
 public:
   //! The key of the unnamed command option
@@ -44,7 +44,7 @@ public:
 
   //! Initializes help option.
   //! @param theDescription the description of the command
-  ViewerTest_CmdParser(const std::string& theDescription = std::string());
+  CommandParser(const std::string& theDescription = std::string());
 
   //! Sets description for command.
   void SetDescription(const std::string& theDescription) { myDescription = theDescription; }
@@ -226,7 +226,7 @@ private:
   typedef std::vector<OptionArguments> OptionArgumentsStorage;
 
   //! A full description of a command option
-  struct CommandOption
+  struct CommandOption1
   {
     std::string   Name;        //!< A command option name
     OptionAliases Aliases;     //!< A list of aliases to a command option name
@@ -234,7 +234,7 @@ private:
   };
 
   // A storage of command options descriptions
-  typedef std::vector<CommandOption> CommandOptionStorage;
+  typedef std::vector<CommandOption1> CommandOptionStorage;
 
   // A list of raw string arguments
   typedef std::vector<const char*> RawStringArguments;
@@ -243,7 +243,7 @@ private:
   std::string myDescription;
 
   //! Container which stores option objects.
-  std::vector<CommandOption> myOptionStorage;
+  std::vector<CommandOption1> myOptionStorage;
 
   //! Map from all possible option names to option access keys (that are indices in myOptionStorage)
   OptionMap myOptionMap;

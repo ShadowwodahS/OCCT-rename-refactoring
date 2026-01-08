@@ -56,10 +56,10 @@ ShapeUpgrade_FaceDivideArea::ShapeUpgrade_FaceDivideArea(const TopoFace& F)
 
 Standard_Boolean ShapeUpgrade_FaceDivideArea::Perform(const Standard_Real)
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   GeometricProperties aGprop;
 
-  BRepGProp::SurfaceProperties(myFace, aGprop, Precision());
+  BRepGProp1::SurfaceProperties(myFace, aGprop, Precision());
   Standard_Real anArea = aGprop.Mass();
 
   Standard_Integer anbParts = 0;

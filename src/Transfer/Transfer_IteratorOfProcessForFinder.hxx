@@ -26,7 +26,7 @@
 
 class Standard_NoSuchObject;
 class Transfer_Finder;
-class Transfer_FindHasher;
+class TransferFindHasher;
 class Transfer_ProcessForFinder;
 class Transfer_ActorOfProcessForFinder;
 class Transfer_Binder;

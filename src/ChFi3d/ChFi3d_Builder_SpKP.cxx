@@ -86,7 +86,7 @@ static void CompCommonPoint(ChFiDS_CommonPoint&            FilPoint,
                             const HatchGen_PointOnElement& PE,
                             const TopAbs_Orientation       Or)
 {
-  TopAbs_Orientation pos = PE.Position();
+  TopAbs_Orientation pos = PE.Position1();
   TopoVertex      V;
   if (pos == TopAbs_FORWARD)
   {
@@ -653,7 +653,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
       return;
     const TopoEdge& E = HE->Edge();
 
-    if (PE.Position() != TopAbs_INTERNAL)
+    if (PE.Position1() != TopAbs_INTERNAL)
     {
       TopAbs_Orientation O = CD->Interference(ons).Transition();
       if (isFirst)

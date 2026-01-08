@@ -252,7 +252,7 @@ void BRepOffset_SimpleOffset::FillEdgeData(
   // Compute max tolerance. Vertex tolerance usage is taken from existing offset computation
   // algorithm. This piece of code significantly influences resulting performance.
   Standard_Real aTol = BRepInspector::MaxTolerance(theEdge, TopAbs_VERTEX);
-  BRepLib::BuildCurves3d(aNewEdge, aTol);
+  BRepLib1::BuildCurves3d(aNewEdge, aTol);
 
   NewEdgeData aNED;
   aNED.myOffsetC = BRepInspector::Curve(aNewEdge, aNED.myL, aF, aL);

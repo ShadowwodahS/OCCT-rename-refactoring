@@ -146,7 +146,7 @@ void BRepCheck_Shell::Minimum()
 
     if (nbface == 0)
     {
-      BRepCheck::Add(lst, BRepCheck_EmptyShell);
+      BRepCheck1::Add(lst, BRepCheck_EmptyShell);
     }
     else if (nbface >= 2)
     {
@@ -157,7 +157,7 @@ void BRepCheck_Shell::Minimum()
 
       if (mapF.Extent() != nbface)
       {
-        BRepCheck::Add(lst, BRepCheck_NotConnected);
+        BRepCheck1::Add(lst, BRepCheck_NotConnected);
       }
     } // else if (nbface >= 2)
 
@@ -198,7 +198,7 @@ void BRepCheck_Shell::InContext(const TopoShape& S)
   }
   if (!exp.More())
   {
-    BRepCheck::Add(lst, BRepCheck_SubshapeNotInShape);
+    BRepCheck1::Add(lst, BRepCheck_SubshapeNotInShape);
     return;
   }
 
@@ -210,12 +210,12 @@ void BRepCheck_Shell::InContext(const TopoShape& S)
       BRepCheck_Status fst = Closed();
       if ((fst == BRepCheck_NotClosed && S.Closed()) || (fst != BRepCheck_NoError))
       {
-        BRepCheck::Add(lst, fst);
+        BRepCheck1::Add(lst, fst);
       }
       else if (!IsUnorientable())
       {
         fst = Orientation();
-        BRepCheck::Add(lst, fst);
+        BRepCheck1::Add(lst, fst);
       }
     }
     break;
@@ -256,7 +256,7 @@ BRepCheck_Status BRepCheck_Shell::Closed(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myCstat);
+      BRepCheck1::Add(aStatusList, myCstat);
     }
 
     return myCstat;
@@ -314,7 +314,7 @@ BRepCheck_Status BRepCheck_Shell::Closed(const Standard_Boolean Update)
 
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myCstat);
+          BRepCheck1::Add(aStatusList, myCstat);
         }
 
         return myCstat;
@@ -372,7 +372,7 @@ BRepCheck_Status BRepCheck_Shell::Closed(const Standard_Boolean Update)
     myCstat = BRepCheck_NotConnected;
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myCstat);
+      BRepCheck1::Add(aStatusList, myCstat);
     }
     return myCstat;
   }
@@ -395,7 +395,7 @@ BRepCheck_Status BRepCheck_Shell::Closed(const Standard_Boolean Update)
         myCstat = BRepCheck_InvalidMultiConnexity;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myCstat);
+          BRepCheck1::Add(aStatusList, myCstat);
         }
 
         return myCstat;
@@ -408,7 +408,7 @@ BRepCheck_Status BRepCheck_Shell::Closed(const Standard_Boolean Update)
         myCstat = BRepCheck_NotClosed;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myCstat);
+          BRepCheck1::Add(aStatusList, myCstat);
         }
 
         return myCstat;
@@ -418,7 +418,7 @@ BRepCheck_Status BRepCheck_Shell::Closed(const Standard_Boolean Update)
 
   if (Update)
   {
-    BRepCheck::Add(aStatusList, myCstat);
+    BRepCheck1::Add(aStatusList, myCstat);
   }
   return myCstat;
 }
@@ -438,7 +438,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myOstat);
+      BRepCheck1::Add(aStatusList, myOstat);
     }
     return myOstat;
   }
@@ -449,7 +449,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myOstat);
+      BRepCheck1::Add(aStatusList, myOstat);
     }
     return myOstat;
   }
@@ -469,7 +469,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
       myOstat = BRepCheck_RedundantFace;
       if (Update)
       {
-        BRepCheck::Add(aStatusList, myOstat);
+        BRepCheck1::Add(aStatusList, myOstat);
       }
       else
       {
@@ -485,7 +485,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
     std::cout << "La map shape Orientation :" << std::endl;
     for (; itt.More(); itt.Next())
     {
-      PrintShape(itt.Key());
+      PrintShape(itt.Key1());
     }
     std::cout << std::endl;
   }
@@ -518,7 +518,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
         myOstat = BRepCheck_SubshapeNotInShape;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myOstat);
+          BRepCheck1::Add(aStatusList, myOstat);
         }
         // quit because no workaround for the incoherence is possible
         return myOstat;
@@ -550,7 +550,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
             myOstat = BRepCheck_SubshapeNotInShape;
             if (Update)
             {
-              BRepCheck::Add(aStatusList, myOstat);
+              BRepCheck1::Add(aStatusList, myOstat);
             }
             // quit because no workaround for the incoherence is possible
             return myOstat;
@@ -593,7 +593,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
               myOstat = BRepCheck_BadOrientationOfSubshape;
               if (Update)
               {
-                BRepCheck::Add(aStatusList, myOstat);
+                BRepCheck1::Add(aStatusList, myOstat);
                 break;
               }
               return myOstat;
@@ -615,7 +615,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
           myOstat = BRepCheck_SubshapeNotInShape;
           if (Update)
           {
-            BRepCheck::Add(aStatusList, myOstat);
+            BRepCheck1::Add(aStatusList, myOstat);
           }
           // quit because no workaround for the incoherence is possible
           return myOstat;
@@ -660,7 +660,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
         myOstat = BRepCheck_BadOrientationOfSubshape;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, myOstat);
+          BRepCheck1::Add(aStatusList, myOstat);
           break;
         }
         return myOstat;
@@ -693,7 +693,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
             myOstat = BRepCheck_SubshapeNotInShape;
             if (Update)
             {
-              BRepCheck::Add(aStatusList, myOstat);
+              BRepCheck1::Add(aStatusList, myOstat);
             }
             // quit because no workaround for the incoherence is possible
             return myOstat;
@@ -742,7 +742,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
               myOstat = BRepCheck_SubshapeNotInShape;
               if (Update)
               {
-                BRepCheck::Add(aStatusList, myOstat);
+                BRepCheck1::Add(aStatusList, myOstat);
               }
               // quit because no workaround for the incoherence is possible
               return myOstat;
@@ -777,7 +777,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
                 myOstat = BRepCheck_UnorientableShape;
                 if (Update)
                 {
-                  BRepCheck::Add(aStatusList, myOstat);
+                  BRepCheck1::Add(aStatusList, myOstat);
                 }
                 // quit, otherwise there is a risk of taking too much time.
 #ifdef OCCT_DEBUG
@@ -817,7 +817,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
 
   if (Update)
   {
-    BRepCheck::Add(aStatusList, myOstat);
+    BRepCheck1::Add(aStatusList, myOstat);
   }
   return myOstat;
 }
@@ -827,7 +827,7 @@ BRepCheck_Status BRepCheck_Shell::Orientation(const Standard_Boolean Update)
 void BRepCheck_Shell::SetUnorientable()
 {
   Standard_Mutex::Sentry aLock(myMutex.get());
-  BRepCheck::Add(*myMap(myShape), BRepCheck_UnorientableShape);
+  BRepCheck1::Add(*myMap(myShape), BRepCheck_UnorientableShape);
 }
 
 //=================================================================================================
@@ -891,7 +891,7 @@ Standard_Integer BRepCheck_Shell::NbConnectedSet(ShapeList& theSets)
   BRB.MakeShell(CurShell);
   for (; itmsh.More(); itmsh.Next())
   {
-    const TopoShape& Ed = itmsh.Key();
+    const TopoShape& Ed = itmsh.Key1();
     if (!theUnOriEd.Contains(Ed))
     {
       for (lconx1.Initialize(parents.FindFromKey(Ed)); lconx1.More(); lconx1.Next())

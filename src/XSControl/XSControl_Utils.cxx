@@ -44,20 +44,20 @@ static AsciiString1    bufasc;
 static UtfString bufext;
 static const Standard_ExtString   voidext = {0};
 
-XSControl_Utils::XSControl_Utils() {}
+XSControlUtils::XSControlUtils() {}
 
 //  #########################################################
 //  #######           Fonctions  de   TRACE           #######
 
-void XSControl_Utils::TraceLine(const Standard_CString line) const
+void XSControlUtils::TraceLine(const Standard_CString line) const
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   sout << line << std::endl;
 }
 
-void XSControl_Utils::TraceLines(const Handle(RefObject)& lines) const
+void XSControlUtils::TraceLines(const Handle(RefObject)& lines) const
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   Standard_Integer                i, nb;
   DeclareAndCast(TColStd_HSequenceOfHAsciiString, linha, lines);
   if (!linha.IsNull())
@@ -104,7 +104,7 @@ void XSControl_Utils::TraceLines(const Handle(RefObject)& lines) const
 //  #########################################################
 //  #######   TRANSIENT : Quelques  acces  de  base   #######
 
-Standard_Boolean XSControl_Utils::IsKind(const Handle(RefObject)& item,
+Standard_Boolean XSControlUtils::IsKind(const Handle(RefObject)& item,
                                          const Handle(TypeInfo)&      what) const
 {
   if (item.IsNull())
@@ -114,7 +114,7 @@ Standard_Boolean XSControl_Utils::IsKind(const Handle(RefObject)& item,
   return item->IsKind(what);
 }
 
-Standard_CString XSControl_Utils::TypeName(const Handle(RefObject)& item,
+Standard_CString XSControlUtils::TypeName(const Handle(RefObject)& item,
                                            const Standard_Boolean            nopk) const
 {
   if (item.IsNull())
@@ -135,7 +135,7 @@ Standard_CString XSControl_Utils::TypeName(const Handle(RefObject)& item,
 
 //  #######       TRANSIENT : Fonctions de liste       #######
 
-Handle(RefObject) XSControl_Utils::TraValue(const Handle(RefObject)& seqval,
+Handle(RefObject) XSControlUtils::TraValue(const Handle(RefObject)& seqval,
                                                      const Standard_Integer            num) const
 {
   Handle(RefObject) val;
@@ -157,16 +157,16 @@ Handle(RefObject) XSControl_Utils::TraValue(const Handle(RefObject)& seqval,
       val = seqt->Value(num);
     return val;
   }
-  //  throw Standard_TypeMismatch("XSControl_Utils::SeqTraValue");
+  //  throw Standard_TypeMismatch("XSControlUtils::SeqTraValue");
   return val;
 }
 
-Handle(TColStd_HSequenceOfTransient) XSControl_Utils::NewSeqTra() const
+Handle(TColStd_HSequenceOfTransient) XSControlUtils::NewSeqTra() const
 {
   return new TColStd_HSequenceOfTransient();
 }
 
-void XSControl_Utils::AppendTra(const Handle(TColStd_HSequenceOfTransient)& seqval,
+void XSControlUtils::AppendTra(const Handle(TColStd_HSequenceOfTransient)& seqval,
                                 const Handle(RefObject)&           traval) const
 {
   seqval->Append(traval);
@@ -174,7 +174,7 @@ void XSControl_Utils::AppendTra(const Handle(TColStd_HSequenceOfTransient)& seqv
 
 //  #######           DATES           #######
 
-Standard_CString XSControl_Utils::DateString(const Standard_Integer yy,
+Standard_CString XSControlUtils::DateString(const Standard_Integer yy,
                                              const Standard_Integer mm,
                                              const Standard_Integer dd,
                                              const Standard_Integer hh,
@@ -182,13 +182,13 @@ Standard_CString XSControl_Utils::DateString(const Standard_Integer yy,
                                              const Standard_Integer ss) const
 {
   char ladate[50] = {};
-  Interface_MSG::TDate(ladate, yy, mm, dd, hh, mn, ss);
+  MessageSystem::TDate(ladate, yy, mm, dd, hh, mn, ss);
   bufasc.Clear();
   bufasc.AssignCat(ladate);
   return bufasc.ToCString();
 }
 
-void XSControl_Utils::DateValues(const Standard_CString text,
+void XSControlUtils::DateValues(const Standard_CString text,
                                  Standard_Integer&      yy,
                                  Standard_Integer&      mm,
                                  Standard_Integer&      dd,
@@ -196,13 +196,13 @@ void XSControl_Utils::DateValues(const Standard_CString text,
                                  Standard_Integer&      mn,
                                  Standard_Integer&      ss) const
 {
-  Interface_MSG::NDate(text, yy, mm, dd, hh, mn, ss);
+  MessageSystem::NDate(text, yy, mm, dd, hh, mn, ss);
 }
 
 //  ##########################################################
-//  #######           STRING : Ascii de base           #######
+//  #######           STRING : Ascii1 de base           #######
 
-Standard_CString XSControl_Utils::ToCString(const Handle(TCollection_HAsciiString)& strval) const
+Standard_CString XSControlUtils::ToCString(const Handle(TCollection_HAsciiString)& strval) const
 {
   // JR/Hp
   Standard_CString astr = (Standard_CString)(strval.IsNull() ? "" : strval->ToCString());
@@ -210,62 +210,62 @@ Standard_CString XSControl_Utils::ToCString(const Handle(TCollection_HAsciiStrin
   //         return (strval.IsNull() ? "" : strval->ToCString());
 }
 
-Standard_CString XSControl_Utils::ToCString(const AsciiString1& strval) const
+Standard_CString XSControlUtils::ToCString(const AsciiString1& strval) const
 {
   return strval.ToCString();
 }
 
-Handle(TCollection_HAsciiString) XSControl_Utils::ToHString(const Standard_CString strcon) const
+Handle(TCollection_HAsciiString) XSControlUtils::ToHString(const Standard_CString strcon) const
 {
   return new TCollection_HAsciiString(strcon);
 }
 
-AsciiString1 XSControl_Utils::ToAString(const Standard_CString strcon) const
+AsciiString1 XSControlUtils::ToAString(const Standard_CString strcon) const
 {
   return AsciiString1(strcon);
 }
 
-//  #######         STRING : Extended de base         #######
+//  #######         STRING : Extended1 de base         #######
 
-Standard_ExtString XSControl_Utils::ToEString(
+Standard_ExtString XSControlUtils::ToEString(
   const Handle(TCollection_HExtendedString)& strval) const
 {
   return (strval.IsNull() ? voidext : strval->ToExtString());
 }
 
-Standard_ExtString XSControl_Utils::ToEString(const UtfString& strval) const
+Standard_ExtString XSControlUtils::ToEString(const UtfString& strval) const
 {
   return strval.ToExtString();
 }
 
-Handle(TCollection_HExtendedString) XSControl_Utils::ToHString(
+Handle(TCollection_HExtendedString) XSControlUtils::ToHString(
   const Standard_ExtString strcon) const
 {
   return new TCollection_HExtendedString(strcon);
 }
 
-UtfString XSControl_Utils::ToXString(const Standard_ExtString strcon) const
+UtfString XSControlUtils::ToXString(const Standard_ExtString strcon) const
 {
   return UtfString(strcon);
 }
 
-//  #######        STRING : Ascii <-> Extended        #######
+//  #######        STRING : Ascii1 <-> Extended1        #######
 
-Standard_ExtString XSControl_Utils::AsciiToExtended(const Standard_CString str) const
+Standard_ExtString XSControlUtils::AsciiToExtended(const Standard_CString str) const
 {
   bufext.Clear();
   bufext = UtfString(str);
   return bufext.ToExtString();
 }
 
-Standard_Boolean XSControl_Utils::IsAscii(const Standard_ExtString str) const
+Standard_Boolean XSControlUtils::IsAscii(const Standard_ExtString str) const
 {
   bufext.Clear();
   bufext.AssignCat(str);
   return bufext.IsAscii();
 }
 
-Standard_CString XSControl_Utils::ExtendedToAscii(const Standard_ExtString str) const
+Standard_CString XSControlUtils::ExtendedToAscii(const Standard_ExtString str) const
 {
   bufext.Clear();
   bufext.AssignCat(str);
@@ -283,7 +283,7 @@ Standard_CString XSControl_Utils::ExtendedToAscii(const Standard_ExtString str) 
 
 //  #######              STRING : LISTES              #######
 
-Standard_CString XSControl_Utils::CStrValue(const Handle(RefObject)& list,
+Standard_CString XSControlUtils::CStrValue(const Handle(RefObject)& list,
                                             const Standard_Integer            num) const
 {
   DeclareAndCast(TColStd_HSequenceOfHAsciiString, linha, list);
@@ -337,7 +337,7 @@ Standard_CString XSControl_Utils::CStrValue(const Handle(RefObject)& list,
   return "";
 }
 
-Standard_ExtString XSControl_Utils::EStrValue(const Handle(RefObject)& list,
+Standard_ExtString XSControlUtils::EStrValue(const Handle(RefObject)& list,
                                               const Standard_Integer            num) const
 {
   DeclareAndCast(TColStd_HSequenceOfHAsciiString, linha, list);
@@ -365,23 +365,23 @@ Standard_ExtString XSControl_Utils::EStrValue(const Handle(RefObject)& list,
   return voidext;
 }
 
-Handle(TColStd_HSequenceOfHAsciiString) XSControl_Utils::NewSeqCStr() const
+Handle(TColStd_HSequenceOfHAsciiString) XSControlUtils::NewSeqCStr() const
 {
   return new TColStd_HSequenceOfHAsciiString();
 }
 
-void XSControl_Utils::AppendCStr(const Handle(TColStd_HSequenceOfHAsciiString)& seqval,
+void XSControlUtils::AppendCStr(const Handle(TColStd_HSequenceOfHAsciiString)& seqval,
                                  const Standard_CString                         strval) const
 {
   seqval->Append(new TCollection_HAsciiString(strval));
 }
 
-Handle(TColStd_HSequenceOfHExtendedString) XSControl_Utils::NewSeqEStr() const
+Handle(TColStd_HSequenceOfHExtendedString) XSControlUtils::NewSeqEStr() const
 {
   return new TColStd_HSequenceOfHExtendedString();
 }
 
-void XSControl_Utils::AppendEStr(const Handle(TColStd_HSequenceOfHExtendedString)& seqval,
+void XSControlUtils::AppendEStr(const Handle(TColStd_HSequenceOfHExtendedString)& seqval,
                                  const Standard_ExtString                          strval) const
 {
   seqval->Append(new TCollection_HExtendedString(strval));
@@ -390,7 +390,7 @@ void XSControl_Utils::AppendEStr(const Handle(TColStd_HSequenceOfHExtendedString
 //  ##########################################################
 //  #######           SHAPES : Acces de base           #######
 
-TopoShape XSControl_Utils::CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const
+TopoShape XSControlUtils::CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const
 {
   ShapeBuilder    B;
   TopoCompound C;
@@ -401,7 +401,7 @@ TopoShape XSControl_Utils::CompoundFromSeq(const Handle(TopTools_HSequenceOfShap
   return C;
 }
 
-TopAbs_ShapeEnum XSControl_Utils::ShapeType(const TopoShape&    shape,
+TopAbs_ShapeEnum XSControlUtils::ShapeType(const TopoShape&    shape,
                                             const Standard_Boolean compound) const
 {
   if (shape.IsNull())
@@ -435,7 +435,7 @@ TopAbs_ShapeEnum XSControl_Utils::ShapeType(const TopoShape&    shape,
   return res;
 }
 
-TopoShape XSControl_Utils::SortedCompound(const TopoShape&    shape,
+TopoShape XSControlUtils::SortedCompound(const TopoShape&    shape,
                                              const TopAbs_ShapeEnum type,
                                              const Standard_Boolean explore,
                                              const Standard_Boolean compound) const
@@ -551,7 +551,7 @@ TopoShape XSControl_Utils::SortedCompound(const TopoShape&    shape,
 
 //  #######               SHAPES : Liste               #######
 
-TopoShape XSControl_Utils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqval,
+TopoShape XSControlUtils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqval,
                                          const Standard_Integer                   num) const
 {
   TopoShape shape;
@@ -562,12 +562,12 @@ TopoShape XSControl_Utils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& s
   return shape;
 }
 
-Handle(TopTools_HSequenceOfShape) XSControl_Utils::NewSeqShape() const
+Handle(TopTools_HSequenceOfShape) XSControlUtils::NewSeqShape() const
 {
   return new TopTools_HSequenceOfShape();
 }
 
-void XSControl_Utils::AppendShape(const Handle(TopTools_HSequenceOfShape)& seqval,
+void XSControlUtils::AppendShape(const Handle(TopTools_HSequenceOfShape)& seqval,
                                   const TopoShape&                      shape) const
 {
   seqval->Append(shape);
@@ -575,7 +575,7 @@ void XSControl_Utils::AppendShape(const Handle(TopTools_HSequenceOfShape)& seqva
 
 //  #######            SHAPES <-> Transient            #######
 
-Handle(RefObject) XSControl_Utils::ShapeBinder(const TopoShape&    shape,
+Handle(RefObject) XSControlUtils::ShapeBinder(const TopoShape&    shape,
                                                         const Standard_Boolean hs) const
 {
   if (hs)
@@ -584,12 +584,12 @@ Handle(RefObject) XSControl_Utils::ShapeBinder(const TopoShape&    shape,
     return new TransferBRep_ShapeBinder(shape);
 }
 
-TopoShape XSControl_Utils::BinderShape(const Handle(RefObject)& tr) const
+TopoShape XSControlUtils::BinderShape(const Handle(RefObject)& tr) const
 {
   TopoShape sh;
   DeclareAndCast(Transfer_Binder, sb, tr);
   if (!sb.IsNull())
-    return TransferBRep::ShapeResult(sb);
+    return TransferBRep1::ShapeResult(sb);
   DeclareAndCast(TransferBRep_ShapeMapper, sm, tr);
   if (!sm.IsNull())
     return sm->Value();
@@ -602,7 +602,7 @@ TopoShape XSControl_Utils::BinderShape(const Handle(RefObject)& tr) const
 //  ##########################################################
 //  #######        LISTES : Fonctions Generales        #######
 
-Standard_Integer XSControl_Utils::SeqLength(const Handle(RefObject)& seqval) const
+Standard_Integer XSControlUtils::SeqLength(const Handle(RefObject)& seqval) const
 {
   if (seqval.IsNull())
     return 0;
@@ -628,11 +628,11 @@ Standard_Integer XSControl_Utils::SeqLength(const Handle(RefObject)& seqval) con
   DeclareAndCast(TColStd_HSequenceOfInteger, seqi, seqval);
   if (!seqi.IsNull())
     return seqi->Length();
-  //  throw Standard_TypeMismatch("XSControl_Utils::SeqLength");
+  //  throw Standard_TypeMismatch("XSControlUtils::SeqLength");
   return 0;
 }
 
-Handle(RefObject) XSControl_Utils::SeqToArr(const Handle(RefObject)& seqval,
+Handle(RefObject) XSControlUtils::SeqToArr(const Handle(RefObject)& seqval,
                                                      const Standard_Integer            first) const
 {
   Standard_Integer           i, lng;
@@ -659,10 +659,10 @@ Handle(RefObject) XSControl_Utils::SeqToArr(const Handle(RefObject)& seqval,
       arrt->SetValue(i - first + 1, seqt->Value(i));
     return arrt;
   }
-  throw Standard_TypeMismatch("XSControl_Utils::SeqToArr");
+  throw Standard_TypeMismatch("XSControlUtils::SeqToArr");
 }
 
-Handle(RefObject) XSControl_Utils::ArrToSeq(const Handle(RefObject)& arrval) const
+Handle(RefObject) XSControlUtils::ArrToSeq(const Handle(RefObject)& arrval) const
 {
   Standard_Integer           i, first, last;
   Handle(RefObject) val;
@@ -688,10 +688,10 @@ Handle(RefObject) XSControl_Utils::ArrToSeq(const Handle(RefObject)& arrval) con
       seqt->Append(arrt->Value(i));
     return seqt;
   }
-  throw Standard_TypeMismatch("XSControl_Utils::ArrToSeq");
+  throw Standard_TypeMismatch("XSControlUtils::ArrToSeq");
 }
 
-Standard_Integer XSControl_Utils::SeqIntValue(const Handle(TColStd_HSequenceOfInteger)& seqval,
+Standard_Integer XSControlUtils::SeqIntValue(const Handle(TColStd_HSequenceOfInteger)& seqval,
                                               const Standard_Integer                    num) const
 {
   if (seqval.IsNull())

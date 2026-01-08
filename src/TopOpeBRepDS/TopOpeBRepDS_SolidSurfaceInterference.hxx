@@ -37,7 +37,7 @@ public:
                                                         const TopOpeBRepDS_Kind        SupportType,
                                                         const Standard_Integer         Support,
                                                         const TopOpeBRepDS_Kind        GeometryType,
-                                                        const Standard_Integer         Geometry);
+                                                        const Standard_Integer         Geometry1);
 
   DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_SolidSurfaceInterference, TopOpeBRepDS_Interference)
 

@@ -35,9 +35,9 @@ void BOPAlgo_LoadMessages()
     return;
   BOPAlgo_InitMessages = true;
 
-  if (!Message_MsgFile::HasMsg("BOPAlgo_LOAD_CHECKER"))
+  if (!MessageFile::HasMsg("BOPAlgo_LOAD_CHECKER"))
   {
-    Message_MsgFile::LoadFromString(BOPAlgo_BOPAlgo_msg);
+    MessageFile::LoadFromString(BOPAlgo_BOPAlgo_msg);
   }
 }
 } // namespace

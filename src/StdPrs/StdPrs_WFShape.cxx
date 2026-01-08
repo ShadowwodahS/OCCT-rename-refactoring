@@ -183,8 +183,8 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
       }
     }
 
-    Prs3d::AddPrimitivesGroup(thePresentation, anIsoAspectU, aUPolylines);
-    Prs3d::AddPrimitivesGroup(thePresentation, anIsoAspectV, aVPolylines);
+    Prs3d1::AddPrimitivesGroup(thePresentation, anIsoAspectU, aUPolylines);
+    Prs3d1::AddPrimitivesGroup(thePresentation, anIsoAspectV, aVPolylines);
   }
 
   {
@@ -215,11 +215,11 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
              theDrawer->WireDraw() ? &aCommonPolylines : NULL,
              aFreePtr,
              anUnfreePtr);
-    Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->UnFreeBoundaryAspect(), anUnfree);
-    Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->FreeBoundaryAspect(), aFree);
+    Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->UnFreeBoundaryAspect(), anUnfree);
+    Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->FreeBoundaryAspect(), aFree);
   }
 
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->WireAspect(), aCommonPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->WireAspect(), aCommonPolylines);
 
   if (Handle(Graphic3d_ArrayOfPoints) aVertexArray =
         AddVertexes(theShape, theDrawer->VertexDrawMode()))
@@ -240,7 +240,7 @@ Handle(Graphic3d_ArrayOfPrimitives) StdPrs_WFShape::AddAllEdges(
     StdPrs_ToolTriangulatedShape::GetDeflection(theShape, theDrawer);
   Prs3d_NListOfSequenceOfPnt aPolylines;
   addEdges(theShape, theDrawer, aShapeDeflection, &aPolylines, &aPolylines, &aPolylines);
-  return Prs3d::PrimitivesFromPolylines(aPolylines);
+  return Prs3d1::PrimitivesFromPolylines(aPolylines);
 }
 
 //=================================================================================================
@@ -263,7 +263,7 @@ void StdPrs_WFShape::addEdges(const TopoShape&         theShape,
   for (TopTools_IndexedDataMapOfShapeListOfShape::Iterator anEdgeIter(anEdgeMap); anEdgeIter.More();
        anEdgeIter.Next())
   {
-    const TopoEdge&     anEdge        = TopoDS::Edge(anEdgeIter.Key());
+    const TopoEdge&     anEdge        = TopoDS::Edge(anEdgeIter.Key1());
     const Standard_Integer aNbNeighbours = anEdgeIter.Value().Extent();
     switch (aNbNeighbours)
     {
@@ -432,7 +432,7 @@ void StdPrs_WFShape::AddEdgesOnTriangulation(TColgp_SequenceOfPnt&  theSegments,
     }
     if (const Handle(MeshTriangulation)& aPolyTri = BRepInspector::Triangulation(aFace, aLocation))
     {
-      Prs3d::AddFreeEdges(theSegments, aPolyTri, aLocation);
+      Prs3d1::AddFreeEdges(theSegments, aPolyTri, aLocation);
     }
   }
 }

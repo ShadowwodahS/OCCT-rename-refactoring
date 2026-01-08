@@ -154,7 +154,7 @@ void AIS_TextLabel::UnsetOrientation3D()
 
 //=================================================================================================
 
-const Point3d& AIS_TextLabel::Position() const
+const Point3d& AIS_TextLabel::Position1() const
 {
   return myOrientation3D.Location();
 }
@@ -225,7 +225,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
   {
     case 0: {
       Handle(Prs3d_TextAspect) anAsp     = myDrawer->TextAspect();
-      Point3d                   aPosition = Position();
+      Point3d                   aPosition = Position1();
 
       const Standard_Boolean isTextZoomable = anAsp->Aspect()->GetTextZoomable();
       if (myHasOrientation3D)
@@ -265,7 +265,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
           aHasOwnAnchor = Standard_False; // always not using own anchor if flipping
         }
         Handle(Graphic3d_Text) aText =
-          Prs3d_Text::Draw1(thePrs->CurrentGroup(), anAsp, myText, anOrientation, aHasOwnAnchor);
+          Text::Draw1(thePrs->CurrentGroup(), anAsp, myText, anOrientation, aHasOwnAnchor);
         aText->SetTextFormatter(myFormatter);
         if (myHasFlipping && isInit)
         {
@@ -275,7 +275,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
       else
       {
         Handle(Graphic3d_Text) aText =
-          Prs3d_Text::Draw1(thePrs->CurrentGroup(), anAsp, myText, aPosition);
+          Text::Draw1(thePrs->CurrentGroup(), anAsp, myText, aPosition);
         aText->SetTextFormatter(myFormatter);
       }
 
@@ -308,7 +308,7 @@ void AIS_TextLabel::ComputeSelection(const Handle(SelectionContainer)& theSelect
     case 0: {
       Handle(SelectMgr_EntityOwner) anEntityOwner = new SelectMgr_EntityOwner(this, 10);
 
-      Point3d aPosition = Position();
+      Point3d aPosition = Position1();
       if (!TransformPersistence().IsNull() && TransformPersistence()->Mode() != Graphic3d_TMF_2d)
       {
         aPosition = gp1::Origin();

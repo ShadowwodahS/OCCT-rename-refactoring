@@ -39,7 +39,7 @@ void StepShape_Block::SetPosition(const Handle(StepGeom_Axis2Placement3d)& aPosi
   position = aPosition;
 }
 
-Handle(StepGeom_Axis2Placement3d) StepShape_Block::Position() const
+Handle(StepGeom_Axis2Placement3d) StepShape_Block::Position1() const
 {
   return position;
 }

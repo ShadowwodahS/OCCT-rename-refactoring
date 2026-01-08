@@ -176,7 +176,7 @@ void Intersection2::SetValues(const Intersection2& Other)
 //--
 //--
 //--
-//--  The Position of Intersection Point is set to Middle
+//--  The Position1 of Intersection Point is set to Middle
 //--  when the Parameters U et V are between FirstParam1, EndParam1
 //--  and FirstParam2, EndParam2
 //--
@@ -189,7 +189,7 @@ void Intersection2::Append(const Intersection2& Other,
 
   if (Other.done)
   {
-    //-- Verification of the Position of the IntersectionPoints
+    //-- Verification of the Position1 of the IntersectionPoints
     Standard_Integer n = Other.lpnt.Length();
     Standard_Integer i;
     for (i = 1; i <= n; i++)

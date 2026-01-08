@@ -99,7 +99,7 @@ void MoniTool_Timer::DumpTimers(Standard_OStream& ostr)
   Standard_Integer  i    = 0;
   for (; iter.More() && i < NbTimers; iter.Next())
   {
-    keys[i++] = iter.Key();
+    keys[i++] = iter.Key1();
   }
   for (i = 0; i < NbTimers; i++)
   {

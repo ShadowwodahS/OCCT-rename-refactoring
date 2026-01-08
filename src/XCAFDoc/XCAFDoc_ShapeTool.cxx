@@ -99,7 +99,7 @@ const Standard_GUID& XCAFDoc_ShapeTool::ID() const
 static void SetLabelNameByLink(const DataLabel L)
 {
   Handle(TDataStd_TreeNode) Node;
-  if (!L.FindAttribute(XCAFDoc::ShapeRefGUID(), Node) || !Node->HasFather())
+  if (!L.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node) || !Node->HasFather())
   {
 #ifdef OCCT_DEBUG
     std::cout << "Error: XCAFDoc_ShapeTool, SetLabelNameByLink(): NO NODE" << std::endl;
@@ -317,7 +317,7 @@ Standard_Boolean XCAFDoc_ShapeTool::GetShape(const DataLabel& L, TopoShape& S)
 
   // for instance, get referred shape
   Handle(TDataStd_TreeNode) Node;
-  if (L.FindAttribute(XCAFDoc::ShapeRefGUID(), Node) && Node->HasFather()
+  if (L.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node) && Node->HasFather()
       && L.FindAttribute(XCAFDoc_Location::GetID(), LocationAttribute))
   {
     if (!GetShape(Node->Father()->Label(), S))
@@ -427,8 +427,8 @@ void XCAFDoc_ShapeTool::MakeReference(const DataLabel&       L,
 
   // set reference
   Handle(TDataStd_TreeNode) refNode, mainNode;
-  mainNode = TDataStd_TreeNode::Set(refL, XCAFDoc::ShapeRefGUID());
-  refNode  = TDataStd_TreeNode::Set(L, XCAFDoc::ShapeRefGUID());
+  mainNode = TDataStd_TreeNode::Set(refL, XCAFDoc1::ShapeRefGUID());
+  refNode  = TDataStd_TreeNode::Set(L, XCAFDoc1::ShapeRefGUID());
   refNode->Remove(); // abv: fix against bug in TreeNode::Append()
   mainNode->Append(refNode);
 
@@ -510,9 +510,9 @@ DataLabel XCAFDoc_ShapeTool::addShape(const TopoShape& S, const Standard_Boolean
   // if shape is Compound and flag is set, create assembly
   if (makeAssembly && S.ShapeType() == TopAbs_COMPOUND)
   {
-    // mark assembly by assigning UAttribute
+    // mark assembly by assigning UAttribute1
     Handle(TDataStd_UAttribute) Uattr;
-    Uattr = TDataStd_UAttribute::Set(ShapeLabel, XCAFDoc::AssemblyGUID());
+    Uattr = TDataStd_UAttribute::Set(ShapeLabel, XCAFDoc1::AssemblyGUID());
     if (theAutoNaming)
       NameAttribute::Set(ShapeLabel, UtfString("ASSEMBLY"));
 
@@ -628,7 +628,7 @@ Standard_Boolean XCAFDoc_ShapeTool::RemoveShape(const DataLabel&       L,
 
   Handle(TDataStd_TreeNode) aNode;
   DataLabel                 aLabel;
-  if (removeCompletely && L.FindAttribute(XCAFDoc::ShapeRefGUID(), aNode) && aNode->HasFather()
+  if (removeCompletely && L.FindAttribute(XCAFDoc1::ShapeRefGUID(), aNode) && aNode->HasFather()
       && L.IsAttribute(XCAFDoc_Location::GetID()))
   {
     aLabel = aNode->Father()->Label();
@@ -751,7 +751,7 @@ Standard_Boolean XCAFDoc_ShapeTool::IsSimpleShape(const DataLabel& L)
 Standard_Boolean XCAFDoc_ShapeTool::IsReference(const DataLabel& L)
 {
   Handle(TDataStd_TreeNode) Node;
-  return L.FindAttribute(XCAFDoc::ShapeRefGUID(), Node) && Node->HasFather();
+  return L.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node) && Node->HasFather();
 }
 
 //=================================================================================================
@@ -759,7 +759,7 @@ Standard_Boolean XCAFDoc_ShapeTool::IsReference(const DataLabel& L)
 Standard_Boolean XCAFDoc_ShapeTool::IsAssembly(const DataLabel& L)
 {
   Handle(TDataStd_UAttribute) Uattr;
-  return L.FindAttribute(XCAFDoc::AssemblyGUID(), Uattr);
+  return L.FindAttribute(XCAFDoc1::AssemblyGUID(), Uattr);
 }
 
 //=================================================================================================
@@ -798,7 +798,7 @@ Standard_Boolean XCAFDoc_ShapeTool::IsSubShape(const DataLabel& L)
 Standard_Boolean XCAFDoc_ShapeTool::IsFree(const DataLabel& L)
 {
   Handle(TDataStd_TreeNode) Node;
-  if (!L.FindAttribute(XCAFDoc::ShapeRefGUID(), Node) || !Node->HasFirst())
+  if (!L.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node) || !Node->HasFirst())
     return Standard_True;
 
   return Standard_False;
@@ -816,7 +816,7 @@ Standard_Integer XCAFDoc_ShapeTool::GetUsers(const DataLabel&       L,
   Standard_Integer          NbUsers = 0;
   Handle(TDataStd_TreeNode) Node;
 
-  if (!L.FindAttribute(XCAFDoc::ShapeRefGUID(), Node))
+  if (!L.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node))
     return NbUsers;
 
   Node = Node->First();
@@ -898,7 +898,7 @@ Standard_Boolean XCAFDoc_ShapeTool::GetReferredShape(const DataLabel& L, DataLab
     return Standard_False;
 
   Handle(TDataStd_TreeNode) Node;
-  L.FindAttribute(XCAFDoc::ShapeRefGUID(), Node);
+  L.FindAttribute(XCAFDoc1::ShapeRefGUID(), Node);
   Label = Node->Father()->Label();
   return Standard_True;
 }
@@ -916,7 +916,7 @@ DataLabel XCAFDoc_ShapeTool::AddComponent(const DataLabel&       assembly,
   {
     // if it is simple shape, make it assembly
     if (IsSimpleShape(assembly))
-      TDataStd_UAttribute::Set(assembly, XCAFDoc::AssemblyGUID());
+      TDataStd_UAttribute::Set(assembly, XCAFDoc1::AssemblyGUID());
     else
       return L;
   }
@@ -1211,7 +1211,7 @@ static void DumpAssembly(Standard_OStream&      theDumpLog,
   if (XCAFDoc_ShapeTool::IsReference(L))
   {
     Handle(TDataStd_TreeNode) aRef;
-    L.FindAttribute(XCAFDoc::ShapeRefGUID(), aRef);
+    L.FindAttribute(XCAFDoc1::ShapeRefGUID(), aRef);
     Tool3::Entry(aRef->Father()->Label(), Entry);
     theDumpLog << " (refers to " << Entry << ")";
   }
@@ -1310,7 +1310,7 @@ void XCAFDoc_ShapeTool::DumpShape(Standard_OStream&      theDumpLog,
   if (XCAFDoc_ShapeTool::IsReference(L))
   {
     Handle(TDataStd_TreeNode) aRef;
-    L.FindAttribute(XCAFDoc::ShapeRefGUID(), aRef);
+    L.FindAttribute(XCAFDoc1::ShapeRefGUID(), aRef);
     Tool3::Entry(aRef->Father()->Label(), Entry);
     theDumpLog << " (refers to " << Entry << ")";
   }
@@ -1333,7 +1333,7 @@ void XCAFDoc_ShapeTool::DumpShape(Standard_OStream&      theDumpLog,
 Standard_Boolean XCAFDoc_ShapeTool::IsExternRef(const DataLabel& L)
 {
   Handle(TDataStd_UAttribute) Uattr;
-  return L.FindAttribute(XCAFDoc::ExternRefGUID(), Uattr);
+  return L.FindAttribute(XCAFDoc1::ExternRefGUID(), Uattr);
 }
 
 //=================================================================================================
@@ -1342,7 +1342,7 @@ void XCAFDoc_ShapeTool::SetExternRefs(const DataLabel&                      L,
                                       const TColStd_SequenceOfHAsciiString& SHAS) const
 {
   DataLabel ShapeLabel = L.NewChild();
-  TDataStd_UAttribute::Set(ShapeLabel, XCAFDoc::ExternRefGUID());
+  TDataStd_UAttribute::Set(ShapeLabel, XCAFDoc1::ExternRefGUID());
   for (Standard_Integer i = 1; i <= SHAS.Length(); i++)
   {
     DataLabel                               tmplbl = ShapeLabel.FindChild(i, Standard_True);
@@ -1360,7 +1360,7 @@ DataLabel XCAFDoc_ShapeTool::SetExternRefs(const TColStd_SequenceOfHAsciiString&
   TDF_TagSource aTag;
   // add a new label
   ShapeLabel = aTag.NewChild(Label());
-  TDataStd_UAttribute::Set(ShapeLabel, XCAFDoc::ExternRefGUID());
+  TDataStd_UAttribute::Set(ShapeLabel, XCAFDoc1::ExternRefGUID());
   for (Standard_Integer i = 1; i <= SHAS.Length(); i++)
   {
     DataLabel                               tmplbl = ShapeLabel.FindChild(i, Standard_True);
@@ -1397,7 +1397,7 @@ void XCAFDoc_ShapeTool::GetExternRefs(const DataLabel& L, TColStd_SequenceOfHAsc
 Standard_Boolean XCAFDoc_ShapeTool::GetSHUO(const DataLabel&           SHUOLabel,
                                             Handle(XCAFDoc_GraphNode)& aSHUOAttr)
 {
-  if (!SHUOLabel.FindAttribute(XCAFDoc::SHUORefGUID(), aSHUOAttr))
+  if (!SHUOLabel.FindAttribute(XCAFDoc1::SHUORefGUID(), aSHUOAttr))
     return Standard_False;
   return Standard_True;
 }
@@ -1441,7 +1441,7 @@ Standard_Boolean XCAFDoc_ShapeTool::SetSHUO(const TDF_LabelSequence&   labels,
     NameAttribute::Set(UpperSubL, UtfString(Entry));
   }
   Handle(XCAFDoc_GraphNode) aUpperSHUO;
-  aUpperSHUO = XCAFDoc_GraphNode::Set(UpperSubL, XCAFDoc::SHUORefGUID());
+  aUpperSHUO = XCAFDoc_GraphNode::Set(UpperSubL, XCAFDoc1::SHUORefGUID());
   // init out argument by main upper usage SHUO
   MainSHUOAttr = aUpperSHUO;
   // add other next_usage occurrences.
@@ -1455,7 +1455,7 @@ Standard_Boolean XCAFDoc_ShapeTool::SetSHUO(const TDF_LabelSequence&   labels,
       NameAttribute::Set(NextSubL, UtfString(EntrySub));
     }
     Handle(XCAFDoc_GraphNode) aNextSHUO;
-    aNextSHUO = XCAFDoc_GraphNode::Set(NextSubL, XCAFDoc::SHUORefGUID());
+    aNextSHUO = XCAFDoc_GraphNode::Set(NextSubL, XCAFDoc1::SHUORefGUID());
     // set references
     aUpperSHUO->SetChild(aNextSHUO);
     aNextSHUO->SetFather(aUpperSHUO);
@@ -1895,7 +1895,7 @@ Standard_Boolean XCAFDoc_ShapeTool::Expand(const DataLabel& theShapeL)
       makeSubShape(theShapeL, aPart, aChildShape, aChildShape.Location());
     }
     // set assembly attribute
-    TDataStd_UAttribute::Set(theShapeL, XCAFDoc::AssemblyGUID());
+    TDataStd_UAttribute::Set(theShapeL, XCAFDoc1::AssemblyGUID());
     return Standard_True;
   }
   return Standard_False;
@@ -2132,7 +2132,7 @@ void XCAFDoc_ShapeTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
   for (XCAFDoc_DataMapOfShapeLabel::Iterator aShapeLabelIt(myShapeLabels); aShapeLabelIt.More();
        aShapeLabelIt.Next())
   {
-    const TopoShape& aShape = aShapeLabelIt.Key();
+    const TopoShape& aShape = aShapeLabelIt.Key1();
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &aShape)
 
     AsciiString1 aShapeLabel;
@@ -2143,7 +2143,7 @@ void XCAFDoc_ShapeTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
   for (XCAFDoc_DataMapOfShapeLabel::Iterator aSubShapeIt(mySubShapes); aSubShapeIt.More();
        aSubShapeIt.Next())
   {
-    const TopoShape& aSubShape = aSubShapeIt.Key();
+    const TopoShape& aSubShape = aSubShapeIt.Key1();
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &aSubShape)
 
     AsciiString1 aSubShapeLabel;
@@ -2154,7 +2154,7 @@ void XCAFDoc_ShapeTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
   for (XCAFDoc_DataMapOfShapeLabel::Iterator aSimpleShapeIt(mySimpleShapes); aSimpleShapeIt.More();
        aSimpleShapeIt.Next())
   {
-    const TopoShape& aSimpleShape = aSimpleShapeIt.Key();
+    const TopoShape& aSimpleShape = aSimpleShapeIt.Key1();
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &aSimpleShape)
 
     AsciiString1 aSimpleShapeLabel;

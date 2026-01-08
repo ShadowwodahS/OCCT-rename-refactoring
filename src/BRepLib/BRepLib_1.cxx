@@ -150,7 +150,7 @@ static Standard_Boolean findNearestValidPoint(const Adaptor3d_Curve& theCurve,
 
 //=================================================================================================
 
-Standard_Boolean BRepLib::FindValidRange(const Adaptor3d_Curve& theCurve,
+Standard_Boolean BRepLib1::FindValidRange(const Adaptor3d_Curve& theCurve,
                                          const Standard_Real    theTolE,
                                          const Standard_Real    theParV1,
                                          const Point3d&          thePntV1,
@@ -222,7 +222,7 @@ Standard_Boolean BRepLib::FindValidRange(const Adaptor3d_Curve& theCurve,
 
 //=================================================================================================
 
-Standard_Boolean BRepLib::FindValidRange(const TopoEdge& theEdge,
+Standard_Boolean BRepLib1::FindValidRange(const TopoEdge& theEdge,
                                          Standard_Real&     theFirst,
                                          Standard_Real&     theLast)
 {
@@ -271,7 +271,7 @@ Standard_Boolean BRepLib::FindValidRange(const TopoEdge& theEdge,
 
 //=================================================================================================
 
-void BRepLib::BuildPCurveForEdgeOnPlane(const TopoEdge& aE, const TopoFace& aF)
+void BRepLib1::BuildPCurveForEdgeOnPlane(const TopoEdge& aE, const TopoFace& aF)
 {
   Standard_Boolean     bToUpdate;
   Standard_Real        aTolE;
@@ -288,7 +288,7 @@ void BRepLib::BuildPCurveForEdgeOnPlane(const TopoEdge& aE, const TopoFace& aF)
 
 //=================================================================================================
 
-void BRepLib::BuildPCurveForEdgeOnPlane(const TopoEdge&    aE,
+void BRepLib1::BuildPCurveForEdgeOnPlane(const TopoEdge&    aE,
                                         const TopoFace&    aF,
                                         Handle(GeomCurve2d)& aC2D,
                                         Standard_Boolean&     bToUpdate)

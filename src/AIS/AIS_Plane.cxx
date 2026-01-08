@@ -208,7 +208,7 @@ void AIS_Plane::Compute(const Handle(PrsMgr_PresentationManager)&,
       }
       else
       {
-        DsgPrs_XYZPlanePresentation::Add(thePrs, myDrawer, myCenter, myPmin, myPmax);
+        XYZPlanePresentation::Add(thePrs, myDrawer, myCenter, myPmin, myPmax);
       }
       break;
     }
@@ -238,7 +238,7 @@ void AIS_Plane::Compute(const Handle(PrsMgr_PresentationManager)&,
       }
       else
       {
-        DsgPrs_ShadedPlanePresentation::Add(thePrs, myDrawer, myCenter, myPmin, myPmax);
+        ShadedPlanePresentation::Add(thePrs, myDrawer, myCenter, myPmin, myPmax);
       }
       break;
     }

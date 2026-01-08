@@ -1168,7 +1168,7 @@ Handle(Geom2d_CartesianPoint) StepToGeom1::MakeCartesianPoint2d(
 Handle(GeomCircle) StepToGeom1::MakeCircle(const Handle(StepGeom_Circle)& SC,
                                            const ConversionFactors&        theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
   {
     Handle(Geom_Axis2Placement) A =
@@ -1189,7 +1189,7 @@ Handle(GeomCircle) StepToGeom1::MakeCircle(const Handle(StepGeom_Circle)& SC,
 Handle(Geom2d_Circle) StepToGeom1::MakeCircle2d(const Handle(StepGeom_Circle)& SC,
                                                const ConversionFactors&        theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
   {
     Handle(Geom2d_AxisPlacement) A1 =
@@ -1266,7 +1266,7 @@ Handle(Geom_ConicalSurface) StepToGeom1::MakeConicalSurface(
   const Handle(StepGeom_ConicalSurface)& SS,
   const ConversionFactors&                theLocalFactors)
 {
-  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
+  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position1(), theLocalFactors);
   if (!A.IsNull())
   {
     const Standard_Real R   = SS->Radius() * theLocalFactors.LengthFactor();
@@ -1403,7 +1403,7 @@ Handle(Geom_CylindricalSurface) StepToGeom1::MakeCylindricalSurface(
   const Handle(StepGeom_CylindricalSurface)& SS,
   const ConversionFactors&                    theLocalFactors)
 {
-  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
+  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position1(), theLocalFactors);
   if (!A.IsNull())
   {
     return new Geom_CylindricalSurface(A->Ax2(), SS->Radius() * theLocalFactors.LengthFactor());
@@ -1495,7 +1495,7 @@ Handle(Geom_ElementarySurface) StepToGeom1::MakeElementarySurface(
 Handle(Geom_Ellipse) StepToGeom1::MakeEllipse(const Handle(StepGeom_Ellipse)& SC,
                                              const ConversionFactors&         theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
   {
     Handle(Geom_Axis2Placement) A1 =
@@ -1529,7 +1529,7 @@ Handle(Geom_Ellipse) StepToGeom1::MakeEllipse(const Handle(StepGeom_Ellipse)& SC
 Handle(Geom2d_Ellipse) StepToGeom1::MakeEllipse2d(const Handle(StepGeom_Ellipse)& SC,
                                                  const ConversionFactors&         theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
   {
     Handle(Geom2d_AxisPlacement) A1 =
@@ -1562,7 +1562,7 @@ Handle(Geom2d_Ellipse) StepToGeom1::MakeEllipse2d(const Handle(StepGeom_Ellipse)
 Handle(Geom_Hyperbola) StepToGeom1::MakeHyperbola(const Handle(StepGeom_Hyperbola)& SC,
                                                  const ConversionFactors&           theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
   {
     Handle(Geom_Axis2Placement) A1 =
@@ -1585,7 +1585,7 @@ Handle(Geom_Hyperbola) StepToGeom1::MakeHyperbola(const Handle(StepGeom_Hyperbol
 Handle(Geom2d_Hyperbola) StepToGeom1::MakeHyperbola2d(const Handle(StepGeom_Hyperbola)& SC,
                                                      const ConversionFactors& theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
   {
     Handle(Geom2d_AxisPlacement) A1 =
@@ -1651,7 +1651,7 @@ Handle(Geom2d_Line) StepToGeom1::MakeLine2d(const Handle(StepGeom_Line)& SC,
 Handle(Geom_Parabola) StepToGeom1::MakeParabola(const Handle(StepGeom_Parabola)& SC,
                                                const ConversionFactors&          theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
   {
     Handle(Geom_Axis2Placement) A =
@@ -1672,7 +1672,7 @@ Handle(Geom_Parabola) StepToGeom1::MakeParabola(const Handle(StepGeom_Parabola)&
 Handle(Geom2d_Parabola) StepToGeom1::MakeParabola2d(const Handle(StepGeom_Parabola)& SC,
                                                    const ConversionFactors&          theLocalFactors)
 {
-  const StepGeom_Axis2Placement AxisSelect = SC->Position();
+  const StepGeom_Axis2Placement AxisSelect = SC->Position1();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
   {
     Handle(Geom2d_AxisPlacement) A1 =
@@ -1694,7 +1694,7 @@ Handle(Geom2d_Parabola) StepToGeom1::MakeParabola2d(const Handle(StepGeom_Parabo
 Handle(GeomPlane) StepToGeom1::MakePlane(const Handle(StepGeom_Plane)& SP,
                                          const ConversionFactors&       theLocalFactors)
 {
-  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SP->Position(), theLocalFactors);
+  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SP->Position1(), theLocalFactors);
   if (!A.IsNull())
   {
     return new GeomPlane(A->Ax2());
@@ -1835,7 +1835,7 @@ Handle(Geom_SphericalSurface) StepToGeom1::MakeSphericalSurface(
   const Handle(StepGeom_SphericalSurface)& SS,
   const ConversionFactors&                  theLocalFactors)
 {
-  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
+  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position1(), theLocalFactors);
   if (!A.IsNull())
   {
     return new Geom_SphericalSurface(A->Ax2(), SS->Radius() * theLocalFactors.LengthFactor());
@@ -1867,7 +1867,7 @@ Handle(GeomSurface) StepToGeom1::MakeSurface(const Handle(StepGeom_Surface)& SS,
     {
       const Handle(StepGeom_ElementarySurface) S1 =
         Handle(StepGeom_ElementarySurface)::DownCast(SS);
-      if (S1->Position().IsNull())
+      if (S1->Position1().IsNull())
         return Handle(GeomSurface)();
 
       return MakeElementarySurface(S1, theLocalFactors);
@@ -2042,7 +2042,7 @@ Handle(Geom_ToroidalSurface) StepToGeom1::MakeToroidalSurface(
   const Handle(StepGeom_ToroidalSurface)& SS,
   const ConversionFactors&                 theLocalFactors)
 {
-  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
+  Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position1(), theLocalFactors);
   if (!A.IsNull())
   {
     const Standard_Real LF = theLocalFactors.LengthFactor();
@@ -2317,7 +2317,7 @@ Handle(Geom_TrimmedCurve) StepToGeom1::MakeTrimmedCurve(const Handle(StepGeom_Tr
     // this restriction does not apply for trimming by POINTS
     if (!conic.IsNull() && MasterRep != 1)
     {
-      const StepGeom_Axis2Placement a2p = conic->Position();
+      const StepGeom_Axis2Placement a2p = conic->Position1();
       if (a2p.CaseNum(a2p.Value()) == 2)
       {
         if (!a2p.Axis2Placement3d()->HasRefDirection())

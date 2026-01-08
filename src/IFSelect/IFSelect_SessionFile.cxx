@@ -142,7 +142,7 @@ Standard_Boolean IFSelect_SessionFile::ReadFile(const Standard_CString filename)
 
 Standard_Boolean IFSelect_SessionFile::RecognizeFile(const Standard_CString headerline)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   SplitLine(headerline);
   if (theline.Length() != 4)
@@ -474,7 +474,7 @@ Standard_Boolean IFSelect_SessionFile::WriteOwn(const Handle(RefObject)& item)
 
 Standard_Integer IFSelect_SessionFile::ReadSession()
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   thedone = Standard_True;
   //  ...  Preparation Specifique
@@ -545,7 +545,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
       break; // liste suivante
     if (theline.Length() != 2)
     {
-      sout << "Lineno." << thenl << " : An Integer Parameter is badly defined" << std::endl;
+      sout << "Lineno." << thenl << " : An Integer1 Parameter is badly defined" << std::endl;
       continue;
     }
     Handle(IFSelect_IntParam) par = new IFSelect_IntParam;
@@ -852,7 +852,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
 
 Standard_Integer IFSelect_SessionFile::ReadEnd()
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
   if (theline.Length() != 2 || !theline.Value(1).IsEqual("!XSTEP")
       || !theline.Value(2).IsEqual("END"))
   {
@@ -910,7 +910,7 @@ void IFSelect_SessionFile::SplitLine(const Standard_CString line)
 
 Standard_Boolean IFSelect_SessionFile::ReadOwn(Handle(RefObject)& item)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   if (theline.Length() < 2)
     return Standard_False;
@@ -936,7 +936,7 @@ Standard_Boolean IFSelect_SessionFile::ReadOwn(Handle(RefObject)& item)
 void IFSelect_SessionFile::AddItem(const Handle(RefObject)& item,
                                    const Standard_Boolean            active)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   const AsciiString1& name = theline.Value(1);
   Standard_Integer               id   = 0;
@@ -995,7 +995,7 @@ void IFSelect_SessionFile::SendVoid()
 
 void IFSelect_SessionFile::SendItem(const Handle(RefObject)& par)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   char             laligne[100];
   Standard_Integer filenum = 0;
@@ -1087,7 +1087,7 @@ AsciiString1 IFSelect_SessionFile::TextValue(const Standard_Integer num) const
 
 Handle(RefObject) IFSelect_SessionFile::ItemValue(const Standard_Integer num) const
 {
-  Message_Messenger::StreamBuffer sout = Message::SendInfo();
+  Message_Messenger::StreamBuffer sout = Message1::SendInfo();
 
   Handle(RefObject) res;
   Standard_Integer           nm = num + thelastgen;

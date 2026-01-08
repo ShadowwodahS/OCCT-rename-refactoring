@@ -571,7 +571,7 @@ void GeomLib1::EvalMaxDistanceAlongParameter(const Adaptor3d_Curve&      ACurve,
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCurve2d)& Curve2d)
+Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position1, const Handle(GeomCurve2d)& Curve2d)
 {
   Handle(GeomCurve3d)    Curve3d;
   Handle(TypeInfo) KindOfCurve = Curve2d->DynamicType();
@@ -582,7 +582,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
     Standard_Real               U1       = Ct->FirstParameter();
     Standard_Real               U2       = Ct->LastParameter();
     Handle(GeomCurve2d)        CBasis2d = Ct->BasisCurve();
-    Handle(GeomCurve3d)          CC       = GeomLib1::To3d(Position, CBasis2d);
+    Handle(GeomCurve3d)          CC       = GeomLib1::To3d(Position1, CBasis2d);
     Curve3d                              = new Geom_TrimmedCurve(CC, U1, U2);
   }
   else if (KindOfCurve == STANDARD_TYPE(Geom2d_OffsetCurve))
@@ -590,8 +590,8 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
     Handle(Geom2d_OffsetCurve) Co       = Handle(Geom2d_OffsetCurve)::DownCast(Curve2d);
     Standard_Real              Offset   = Co->Offset();
     Handle(GeomCurve2d)       CBasis2d = Co->BasisCurve();
-    Handle(GeomCurve3d)         CC       = GeomLib1::To3d(Position, CBasis2d);
-    Curve3d                             = new Geom_OffsetCurve(CC, Offset, Position.Direction());
+    Handle(GeomCurve3d)         CC       = GeomLib1::To3d(Position1, CBasis2d);
+    Curve3d                             = new Geom_OffsetCurve(CC, Offset, Position1.Direction());
   }
   else if (KindOfCurve == STANDARD_TYPE(Geom2d_BezierCurve))
   {
@@ -602,7 +602,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
     TColgp_Array1OfPnt Poles3d(1, Nbpoles);
     for (Standard_Integer i = 1; i <= Nbpoles; i++)
     {
-      Poles3d(i) = ElCLib1::To3d(Position, Poles2d(i));
+      Poles3d(i) = ElCLib1::To3d(Position1, Poles2d(i));
     }
     Handle(BezierCurve3d) CBez3d;
     if (CBez2d->IsRational())
@@ -629,7 +629,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
     TColgp_Array1OfPnt Poles3d(1, Nbpoles);
     for (Standard_Integer i = 1; i <= Nbpoles; i++)
     {
-      Poles3d(i) = ElCLib1::To3d(Position, Poles2d(i));
+      Poles3d(i) = ElCLib1::To3d(Position1, Poles2d(i));
     }
     TColStd_Array1OfReal    TheKnots(1, Nbknots);
     TColStd_Array1OfInteger TheMults(1, Nbknots);
@@ -653,7 +653,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
   {
     Handle(Geom2d_Line) Line2d  = Handle(Geom2d_Line)::DownCast(Curve2d);
     gp_Lin2d            L2d     = Line2d->Lin2d();
-    gp_Lin              L3d     = ElCLib1::To3d(Position, L2d);
+    gp_Lin              L3d     = ElCLib1::To3d(Position1, L2d);
     Handle(GeomLine)   GeomL3d = new GeomLine(L3d);
     Curve3d                     = GeomL3d;
   }
@@ -661,7 +661,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
   {
     Handle(Geom2d_Circle) Circle2d = Handle(Geom2d_Circle)::DownCast(Curve2d);
     gp_Circ2d             C2d      = Circle2d->Circ2d();
-    gp_Circ               C3d      = ElCLib1::To3d(Position, C2d);
+    gp_Circ               C3d      = ElCLib1::To3d(Position1, C2d);
     Handle(GeomCircle)   GeomC3d  = new GeomCircle(C3d);
     Curve3d                        = GeomC3d;
   }
@@ -669,7 +669,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
   {
     Handle(Geom2d_Ellipse) Ellipse2d = Handle(Geom2d_Ellipse)::DownCast(Curve2d);
     gp_Elips2d             E2d       = Ellipse2d->Elips2d();
-    gp_Elips               E3d       = ElCLib1::To3d(Position, E2d);
+    gp_Elips               E3d       = ElCLib1::To3d(Position1, E2d);
     Handle(Geom_Ellipse)   GeomE3d   = new Geom_Ellipse(E3d);
     Curve3d                          = GeomE3d;
   }
@@ -677,7 +677,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
   {
     Handle(Geom2d_Parabola) Parabola2d = Handle(Geom2d_Parabola)::DownCast(Curve2d);
     gp_Parab2d              Prb2d      = Parabola2d->Parab2d();
-    gp_Parab                Prb3d      = ElCLib1::To3d(Position, Prb2d);
+    gp_Parab                Prb3d      = ElCLib1::To3d(Position1, Prb2d);
     Handle(Geom_Parabola)   GeomPrb3d  = new Geom_Parabola(Prb3d);
     Curve3d                            = GeomPrb3d;
   }
@@ -685,7 +685,7 @@ Handle(GeomCurve3d) GeomLib1::To3d(const Frame3d& Position, const Handle(GeomCur
   {
     Handle(Geom2d_Hyperbola) Hyperbola2d = Handle(Geom2d_Hyperbola)::DownCast(Curve2d);
     gp_Hypr2d                H2d         = Hyperbola2d->Hypr2d();
-    gp_Hypr                  H3d         = ElCLib1::To3d(Position, H2d);
+    gp_Hypr                  H3d         = ElCLib1::To3d(Position1, H2d);
     Handle(Geom_Hyperbola)   GeomH3d     = new Geom_Hyperbola(H3d);
     Curve3d                              = GeomH3d;
   }
@@ -1104,7 +1104,7 @@ void GeomLib1::BuildCurve3d(const Standard_Real       Tolerance,
     if (!P.IsNull())
     {
       // compute the 3d curve
-      Frame3d                     axes         = P->Position().Ax2();
+      Frame3d                     axes         = P->Position1().Ax2();
       const Geom2dAdaptor_Curve& geom2d_curve = *geom_adaptor_curve_ptr;
       NewCurvePtr                             = GeomLib1::To3d(axes, geom2d_curve.Curve());
       return;
@@ -1928,7 +1928,7 @@ void GeomLib1::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
 
 //=================================================================================================
 
-void GeomLib1::Inertia(const TColgp_Array1OfPnt& Points,
+void GeomLib1::Inertia1(const TColgp_Array1OfPnt& Points,
                       Point3d&                   Bary,
                       Dir3d&                   XDir,
                       Dir3d&                   YDir,
@@ -2055,7 +2055,7 @@ void GeomLib1::AxeOfInertia(const TColgp_Array1OfPnt& Points,
   Dir3d        OX, OY, OZ;
   Standard_Real gx, gy, gz;
 
-  GeomLib1::Inertia(Points, Bary, OX, OY, gx, gy, gz);
+  GeomLib1::Inertia1(Points, Bary, OX, OY, gx, gy, gz);
 
   if (gy * Points.Length() <= Tol)
   {

@@ -29,17 +29,17 @@ DEFINE_STANDARD_HANDLE(TopLoc_Datum3D, RefObject)
 
 //! Describes a coordinate transformation, i.e. a change
 //! to an elementary 3D coordinate system, or position in 3D space.
-//! A Datum3D is always described relative to the default datum.
+//! A Datum3D1 is always described relative to the default datum.
 //! The default datum is described relative to itself: its
 //! origin is (0,0,0), and its axes are (1,0,0) (0,1,0) (0,0,1).
 class TopLoc_Datum3D : public RefObject
 {
 
 public:
-  //! Constructs a default Datum3D.
+  //! Constructs a default Datum3D1.
   Standard_EXPORT TopLoc_Datum3D();
 
-  //! Constructs a Datum3D form a Trsf from gp1. An error is
+  //! Constructs a Datum3D1 form a Trsf from gp1. An error is
   //! raised if the Trsf is not a rigid transformation.
   Standard_EXPORT TopLoc_Datum3D(const Transform3d& T);
 
@@ -55,7 +55,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  //! Writes the contents of this Datum3D to the stream S.
+  //! Writes the contents of this Datum3D1 to the stream S.
   Standard_EXPORT void ShallowDump(Standard_OStream& S) const;
 
   DEFINE_STANDARD_RTTIEXT(TopLoc_Datum3D, RefObject)

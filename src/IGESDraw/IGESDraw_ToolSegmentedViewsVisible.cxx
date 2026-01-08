@@ -54,7 +54,7 @@ void SegmentedViewsVisibleTool::ReadOwnParams(
   Handle(IGESBasic_HArray1OfLineFontEntity) lineFontDefinitions;
   Handle(TColStd_HArray1OfInteger)          lineWeights;
 
-  // Reading nbval(Integer)
+  // Reading nbval(Integer1)
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "No. of View/segment blocks", nbval);
   if (st && nbval > 0)
   {

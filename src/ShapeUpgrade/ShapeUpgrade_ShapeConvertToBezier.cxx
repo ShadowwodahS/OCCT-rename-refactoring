@@ -123,7 +123,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
   {
     ShapeBuilder            B;
     Edge1      sae;
-    ShapeBuild_Edge         sbe;
+    Edge2         sbe;
     constexpr Standard_Real preci = Precision::PConfusion();
     for (ShapeExplorer exp(myResult, TopAbs_FACE); exp.More(); exp.Next())
     {

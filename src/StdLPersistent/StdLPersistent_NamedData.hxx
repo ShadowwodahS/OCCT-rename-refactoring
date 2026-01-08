@@ -29,16 +29,16 @@ class StdLPersistent_NamedData : public StdObjMgt_Attribute<TDataStd_NamedData>
   public:
     typedef typename HValuesArray::ValueType ValueType;
 
-    inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myKeys >> myValues; }
+    inline void Read(ReadData& theReadData) { theReadData >> myKeys >> myValues; }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myKeys << myValues;
     }
 
     inline operator bool() const { return !myKeys.IsNull(); }
 
-    const UtfString& Key(Standard_Integer theIndex) const
+    const UtfString& Key1(Standard_Integer theIndex) const
     {
       return myKeys->Array()->Value(theIndex)->ExtString()->String();
     }
@@ -49,13 +49,13 @@ class StdLPersistent_NamedData : public StdObjMgt_Attribute<TDataStd_NamedData>
     }
 
   private:
-    Handle(StdLPersistent_HArray1::Persistent) myKeys;
+    Handle(HArray1::Persistent) myKeys;
     Handle(HValuesArray)                       myValues;
   };
 
 public:
   //! Read persistent data from a file.
-  inline void Read(StdObjMgt_ReadData& theReadData)
+  inline void Read(ReadData& theReadData)
   {
     theReadData >> myDimensions;
     myInts.Read(theReadData);
@@ -67,7 +67,7 @@ public:
   }
 
   //! Write persistent data to a file.
-  inline void Write(StdObjMgt_WriteData& theWriteData) const
+  inline void Write(WriteData& theWriteData) const
   {
     theWriteData << myDimensions;
     myInts.Write(theWriteData);
@@ -92,13 +92,13 @@ private:
   inline Standard_Integer upper(Standard_Integer theIndex) const;
 
 private:
-  Handle(StdLPersistent_HArray2::Integer)      myDimensions;
-  pMapData<StdLPersistent_HArray1::Integer>    myInts;
-  pMapData<StdLPersistent_HArray1::Real>       myReals;
-  pMapData<StdLPersistent_HArray1::Persistent> myStrings;
-  pMapData<StdLPersistent_HArray1::Byte>       myBytes;
-  pMapData<StdLPersistent_HArray1::Persistent> myIntArrays;
-  pMapData<StdLPersistent_HArray1::Persistent> myRealArrays;
+  Handle(HArray2::Integer1)      myDimensions;
+  pMapData<HArray1::Integer1>    myInts;
+  pMapData<HArray1::Real>       myReals;
+  pMapData<HArray1::Persistent> myStrings;
+  pMapData<HArray1::Byte>       myBytes;
+  pMapData<HArray1::Persistent> myIntArrays;
+  pMapData<HArray1::Persistent> myRealArrays;
 };
 
 #endif

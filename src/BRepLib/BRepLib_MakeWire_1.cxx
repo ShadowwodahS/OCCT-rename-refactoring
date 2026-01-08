@@ -198,7 +198,7 @@ void BRepLib_MakeWire::CollectCoincidentVertices(
   {
     const TopoShape& aSh = anAllV(i);
     Box2             aBB;
-    BRepBndLib::Add(aSh, aBB);
+    BRepBndLib1::Add(aSh, aBB);
     aTreeFiller.Add(i, aBB);
   }
 
@@ -312,7 +312,7 @@ void BRepLib_MakeWire::CreateNewVertices(
       if (myVertices.Contains(aVV))
         aNewV = aVV;
     }
-    BRepLib::BoundingVertex(aValList, aNewC, aNewTol);
+    BRepLib1::BoundingVertex(aValList, aNewC, aNewTol);
 
     if (aNewV.IsNull())
     {

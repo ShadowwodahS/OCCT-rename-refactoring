@@ -169,7 +169,7 @@ void IntAttribute::Paste(const Handle(TDF_Attribute)& Into,
 
 Standard_OStream& IntAttribute::Dump(Standard_OStream& anOS) const
 {
-  anOS << "Integer:: " << this << " : ";
+  anOS << "Integer1:: " << this << " : ";
   anOS << myValue;
   Standard_Character sguid[Standard_GUID_SIZE_ALLOC];
   myID.ToCString(sguid);

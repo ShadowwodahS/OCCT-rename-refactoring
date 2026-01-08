@@ -80,7 +80,7 @@ private:
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void StdLPersistent_Data::Read(StdObjMgt_ReadData& theReadData)
+void StdLPersistent_Data::Read(ReadData& theReadData)
 {
   theReadData >> myVersion >> myLabels >> myAttributes;
 }
@@ -89,7 +89,7 @@ void StdLPersistent_Data::Read(StdObjMgt_ReadData& theReadData)
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void StdLPersistent_Data::Write(StdObjMgt_WriteData& theWriteData) const
+void StdLPersistent_Data::Write(WriteData& theWriteData) const
 {
   theWriteData << myVersion << myLabels << myAttributes;
 }

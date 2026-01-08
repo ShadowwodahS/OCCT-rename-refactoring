@@ -142,15 +142,15 @@ public:
 
   Standard_EXPORT static void AllCommands(DrawInterpreter& DI);
 
-  //! commands relatives to NamedShape
+  //! commands relatives to NamedShape1
   Standard_EXPORT static void BasicCommands(DrawInterpreter& DI);
 
   Standard_EXPORT static void ToolsCommands(DrawInterpreter& DI);
 
-  //! commands relatives to Naming
+  //! commands relatives to Naming1
   Standard_EXPORT static void SelectionCommands(DrawInterpreter& DI);
 
-  //! commands for  testing Naming
+  //! commands for  testing Naming1
   Standard_EXPORT static void ModelingCommands(DrawInterpreter& DI);
 };
 

@@ -53,7 +53,7 @@ public:
   {
   }
 
-  //    Integer => LDOMString
+  //    Integer1 => LDOMString
 
   //  Standard_EXPORT LDOMString (const Standard_Real aValue);
 

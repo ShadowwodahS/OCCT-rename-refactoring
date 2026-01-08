@@ -48,7 +48,7 @@ BRepMesh_Context::BRepMesh_Context(IMeshTools_MeshAlgoType theMeshType)
     {
       if (!aValue.IsEmpty())
       {
-        Message::SendWarning(AsciiString1("BRepMesh_Context, ignore unknown algorithm '")
+        Message1::SendWarning(AsciiString1("BRepMesh_Context, ignore unknown algorithm '")
                              + aValue + "' specified in CSF_MeshAlgo variable");
       }
       theMeshType = IMeshTools_MeshAlgoType_Watson;

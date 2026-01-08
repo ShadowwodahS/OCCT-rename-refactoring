@@ -325,7 +325,7 @@ IFSelect_ReturnStatus STEPCAFControl_Writer::Write(const Standard_CString theFil
     {
       aFileName = anExtFile->GetName()->String();
     }
-    Message::SendTrace() << "Writing external file: " << aFileName << "\n";
+    Message1::SendTrace() << "Writing external file: " << aFileName << "\n";
 
     const IFSelect_ReturnStatus anExtStatus = anExtFile->GetWS()->SendAll(aFileName.ToCString());
     anExtFile->SetWriteStatus(anExtStatus);
@@ -571,7 +571,7 @@ const XSAlgo_ShapeProcessor::ParameterMap& STEPCAFControl_Writer::GetShapeFixPar
 
 //=============================================================================
 
-void STEPCAFControl_Writer::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void STEPCAFControl_Writer::SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags)
 {
   myWriter.SetShapeProcessFlags(theFlags);
 }
@@ -806,7 +806,7 @@ Standard_Boolean STEPCAFControl_Writer::transfer(StepFileWriter&             the
 
         // Access the correspondent STEP Representation Item
         Handle(StepRepr_RepresentationItem) aRI;
-        Handle(TransferBRep_ShapeMapper)    aShMapper = TransferBRep::ShapeMapper(aFP, aSubS);
+        Handle(TransferBRep_ShapeMapper)    aShMapper = TransferBRep1::ShapeMapper(aFP, aSubS);
         if (!aFP->FindTypedTransient(aShMapper, STANDARD_TYPE(StepRepr_RepresentationItem), aRI))
           continue;
 
@@ -952,12 +952,12 @@ Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(ExchangeSes
     TopoShape aShape = myLabels.Find(aLab);
 
     Handle(StepShape_ShapeDefinitionRepresentation) aSDR;
-    Handle(TransferBRep_ShapeMapper)                mapper = TransferBRep::ShapeMapper(aFP, aShape);
+    Handle(TransferBRep_ShapeMapper)                mapper = TransferBRep1::ShapeMapper(aFP, aShape);
     if (!aFP->FindTypedTransient(mapper,
                                  STANDARD_TYPE(StepShape_ShapeDefinitionRepresentation),
                                  aSDR))
     {
-      Message::SendTrace() << "Warning: Cannot find SDR for "
+      Message1::SendTrace() << "Warning: Cannot find SDR for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
     }
@@ -969,7 +969,7 @@ Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(ExchangeSes
     Handle(StepRepr_PropertyDefinition) aPropDef = aRD.PropertyDefinition();
     if (aPropDef.IsNull())
     {
-      Message::SendTrace() << "Warning: STEPCAFControl_Writer::writeExternRefs "
+      Message1::SendTrace() << "Warning: STEPCAFControl_Writer::writeExternRefs "
                               "StepRepr_PropertyDefinition is null for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
@@ -978,7 +978,7 @@ Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(ExchangeSes
     Handle(StepBasic_ProductDefinition) aPD      = aCharDef.ProductDefinition();
     if (aPD.IsNull())
     {
-      Message::SendTrace() << "Warning: STEPCAFControl_Writer::writeExternRefs "
+      Message1::SendTrace() << "Warning: STEPCAFControl_Writer::writeExternRefs "
                               "StepBasic_ProductDefinition is null for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
@@ -1006,7 +1006,7 @@ static Standard_Integer FindEntities(const Handle(Transfer_FinderProcess)& theFP
   }
 
   // may be S was split during shape processing
-  Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep::ShapeMapper(theFP, theShape);
+  Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep1::ShapeMapper(theFP, theShape);
   Handle(Transfer_Binder)          aBinder = theFP->Find(aMapper);
   if (aBinder.IsNull())
     return 0;
@@ -1231,7 +1231,7 @@ static void MakeSTEPStyles(STEPConstruct_Styles&                        theStyle
       Standard_Integer            aNbEntities =
         FindEntities(theStyles.FinderProcess(), theShape, aLocation, aSeqRI);
       if (aNbEntities <= 0)
-        Message::SendTrace() << "Warning: Cannot find RI for "
+        Message1::SendTrace() << "Warning: Cannot find RI for "
                              << theShape.TShape()->DynamicType()->Name() << "\n";
       // Get overridden style gka 10.06.03
       if (theIsComponent && aNbEntities > 0)
@@ -1313,8 +1313,8 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(ExchangeSession
     // are not supported (it is not clear how to encode that in STEP)
     if (XCAFDoc_ShapeTool::IsAssembly(aLabel))
     {
-      Message::SendTrace() << "Warning: Cannot write color  for Assembly" << "\n";
-      Message::SendTrace() << "Info: Check for colors assigned to components in assembly" << "\n";
+      Message1::SendTrace() << "Warning: Cannot write color  for Assembly" << "\n";
+      Message1::SendTrace() << "Info: Check for colors assigned to components in assembly" << "\n";
       // PTV 22.01.2003 Write color for instances.
       TDF_LabelSequence compLabels;
       if (!aSTool->GetComponents(aLabel, compLabels))
@@ -1422,7 +1422,7 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(ExchangeSession
     {
       if (myMapCompMDGPR.IsBound(aTopSh))
       {
-        Message::SendTrace() << "Error: Current Top-Level shape have MDGPR already " << "\n";
+        Message1::SendTrace() << "Error: Current Top-Level shape have MDGPR already " << "\n";
       }
       Styles.CreateMDGPR(aContext, aMDGPR, aStepModel);
       if (!aMDGPR.IsNull())
@@ -1431,7 +1431,7 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(ExchangeSession
     else
     {
       // create SDR and add to model.
-      Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep::ShapeMapper(aFP, aShape);
+      Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep1::ShapeMapper(aFP, aShape);
       Handle(StepShape_ContextDependentShapeRepresentation) aCDSR;
       if (aFP->FindTypedTransient(aMapper,
                                   STANDARD_TYPE(StepShape_ContextDependentShapeRepresentation),
@@ -1530,7 +1530,7 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(ExchangeSession)
     Handle(StepShape_ContextDependentShapeRepresentation) aCDSR;
     Standard_Boolean                                      isComponent =
       XCAFDoc_ShapeTool::IsComponent(aLabel) || myPureRefLabels.IsBound(aLabel);
-    Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep::ShapeMapper(aFP, aShape);
+    Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep1::ShapeMapper(aFP, aShape);
     if (isComponent
         && aFP->FindTypedTransient(aMapper,
                                    STANDARD_TYPE(StepShape_ContextDependentShapeRepresentation),
@@ -1545,7 +1545,7 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(ExchangeSession)
       if (myPureRefLabels.Find(aLabel, anInternalAssembly))
       {
         Handle(TransferBRep_ShapeMapper) aMapperOfInternalShape =
-          TransferBRep::ShapeMapper(aFP, anInternalAssembly);
+          TransferBRep1::ShapeMapper(aFP, anInternalAssembly);
         aFP->FindTypedTransient(aMapperOfInternalShape,
                                 STANDARD_TYPE(StepShape_ShapeDefinitionRepresentation),
                                 aSDR);
@@ -1571,7 +1571,7 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(ExchangeSession)
     }
     else
     {
-      Message::SendTrace() << "Warning: Cannot find RI for "
+      Message1::SendTrace() << "Warning: Cannot find RI for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
     }
@@ -1726,7 +1726,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(ExchangeSession
       Standard_Integer aNb = FindEntities(aFP, anOneShape, aLoc, aSeqRI);
       if (aNb <= 0)
       {
-        Message::SendTrace() << "Warning: Cannot find RI for "
+        Message1::SendTrace() << "Warning: Cannot find RI for "
                              << anOneShape.TShape()->DynamicType()->Name() << "\n";
       }
     }
@@ -1739,10 +1739,10 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(ExchangeSession
     Handle(TCollection_HAsciiString) aDescr;
     Handle(TDataStd_UAttribute)      aUAttr;
     Standard_Boolean                 isLinv = Standard_False;
-    if (aLayerL.FindAttribute(XCAFDoc::InvisibleGUID(), aUAttr))
+    if (aLayerL.FindAttribute(XCAFDoc1::InvisibleGUID(), aUAttr))
     {
       aDescr = new TCollection_HAsciiString("invisible");
-      Message::SendTrace() << "\tLayer \"" << aHName->String().ToCString() << "\" is invisible"
+      Message1::SendTrace() << "\tLayer \"" << aHName->String().ToCString() << "\" is invisible"
                            << "\n";
       isLinv = Standard_True;
     }
@@ -1834,7 +1834,7 @@ static Standard_Boolean getProDefinitionOfNAUO(
   const Handle(XSControl_TransferWriter)&               aTW = theWS->TransferWriter();
   const Handle(Transfer_FinderProcess)&                 aFP = aTW->FinderProcess();
   Handle(StepShape_ContextDependentShapeRepresentation) aCDSR;
-  Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep::ShapeMapper(aFP, theShape);
+  Handle(TransferBRep_ShapeMapper) aMapper = TransferBRep1::ShapeMapper(aFP, theShape);
   if (!aFP->FindTypedTransient(aMapper,
                                STANDARD_TYPE(StepShape_ContextDependentShapeRepresentation),
                                aCDSR))
@@ -1932,7 +1932,7 @@ static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&              
   {
     // store SHUO recursive
     if (aNextUsageLabs.Length() > 1)
-      Message::SendTrace() << "Warning: store only one next_usage of current SHUO" << "\n";
+      Message1::SendTrace() << "Warning: store only one next_usage of current SHUO" << "\n";
     XCAFDoc_ShapeTool::GetSHUO(aNextUsageLabs.Value(1), aNuSHUO);
     Handle(StepRepr_SpecifiedHigherUsageOccurrence) aNUEntSHUO =
       new StepRepr_SpecifiedHigherUsageOccurrence;
@@ -1950,7 +1950,7 @@ static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&              
     if (!getProDefinitionOfNAUO(theWS, aUUSh, nullPD, UUNAUO, Standard_True)
         || !getProDefinitionOfNAUO(theWS, aNUSh, aRelatedPD, NUNAUO, Standard_False))
     {
-      Message::SendTrace() << "Warning: cannot get related or relating PD" << "\n";
+      Message1::SendTrace() << "Warning: cannot get related or relating PD" << "\n";
       return Standard_False;
     }
     aNUEntSHUO->Init(/*id*/ anEmptyString,
@@ -2019,7 +2019,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
   const Handle(XSControl_TransferWriter)& aTW = theWS->TransferWriter();
   const Handle(Transfer_FinderProcess)&   aFP = aTW->FinderProcess();
   Handle(StepData_StepModel)       aStepModel = Handle(StepData_StepModel)::DownCast(aFP->Model());
-  Handle(TransferBRep_ShapeMapper) aMapper    = TransferBRep::ShapeMapper(aFP, theShape);
+  Handle(TransferBRep_ShapeMapper) aMapper    = TransferBRep1::ShapeMapper(aFP, theShape);
   Handle(StepShape_ContextDependentShapeRepresentation) aCDSR;
   aFP->FindTypedTransient(aMapper,
                           STANDARD_TYPE(StepShape_ContextDependentShapeRepresentation),
@@ -2044,7 +2044,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
   TColStd_SequenceOfTransient aSeqRI;
   FindEntities(aFP, theShape, aLocation, aSeqRI);
   if (aSeqRI.Length() <= 0)
-    Message::SendTrace() << "Warning: Cannot find RI for "
+    Message1::SendTrace() << "Warning: Cannot find RI for "
                          << theShape.TShape()->DynamicType()->Name() << "\n";
   anItem = Handle(StepRepr_RepresentationItem)::DownCast(aSeqRI(1));
   // get overridden styled item
@@ -2060,7 +2060,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
   if (!aTopSh.IsNull() && !theMapCompMDGPR.IsBound(aTopSh))
   {
     // create MDGPR and record it in model
-    Message::SendTrace() << "Warning: " << __FILE__ << ": Create new MDGPR for SHUO instance"
+    Message1::SendTrace() << "Warning: " << __FILE__ << ": Create new MDGPR for SHUO instance"
                          << "\n";
     Handle(StepVisual_MechanicalDesignGeometricPresentationRepresentation) aMDGPR;
     aStyles.CreateMDGPR(aContext, aMDGPR, aStepModel);
@@ -2095,7 +2095,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
   else
   {
     theWS->Model()->AddWithRefs(aSTEPstyle); // add as root to the model, but it is not good
-    Message::SendTrace() << "Warning: " << __FILE__
+    Message1::SendTrace() << "Warning: " << __FILE__
                          << ": adds styled item of SHUO as root, cause cannot find MDGPR" << "\n";
   }
   // create invisibility item for the styled item
@@ -2169,7 +2169,7 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(ExchangeSession)
         XCAFPrs_Style aSHUOstyle;
         if (!getSHUOstyle(aSHUOlab, aSHUOstyle))
         {
-          Message::SendTrace() << "Warning: " << __FILE__
+          Message1::SendTrace() << "Warning: " << __FILE__
                                << ": do not store SHUO without any style to the STEP model" << "\n";
           continue;
         }
@@ -2182,11 +2182,11 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(ExchangeSession)
         writeSHUO(aSHUO, theWS, anEntOfSHUO, aNAUOShape, aRelatingPD, isDeepest);
         if (anEntOfSHUO.IsNull() || aNAUOShape.IsNull())
         {
-          Message::SendTrace() << "Warning: " << __FILE__ << ": Cannot store SHUO" << "\n";
+          Message1::SendTrace() << "Warning: " << __FILE__ << ": Cannot store SHUO" << "\n";
           continue;
         }
         // create new Product Definition Shape for TOP SHUO
-        Message::SendTrace() << "Info: " << __FILE__ << ": Create NEW PDS for current SHUO "
+        Message1::SendTrace() << "Info: " << __FILE__ << ": Create NEW PDS for current SHUO "
                              << "\n";
         Handle(StepRepr_ProductDefinitionShape) aPDS      = new StepRepr_ProductDefinitionShape;
         Handle(TCollection_HAsciiString)        aPDSname  = new TCollection_HAsciiString("SHUO");
@@ -2543,7 +2543,7 @@ Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
   FindEntities(aFP, theShape, aLoc, aSeqRI);
   if (aSeqRI.Length() <= 0)
   {
-    Message::SendTrace() << "Warning: Cannot find RI for "
+    Message1::SendTrace() << "Warning: Cannot find RI for "
                          << theShape.TShape()->DynamicType()->Name() << "\n";
     return NULL;
   }
@@ -2741,7 +2741,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
     FindEntities(aFP, aShape, aLoc, aSeqRI);
     if (aSeqRI.Length() <= 0)
     {
-      Message::SendTrace() << "Warning: Cannot find RI for "
+      Message1::SendTrace() << "Warning: Cannot find RI for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
     }
@@ -3774,7 +3774,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
     }
   }
 
-  // Datum Reference
+  // Datum Reference1
   isWithDatRef = !theDatumSystem.IsNull();
 
   // Collect all attributes
@@ -3919,7 +3919,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
     FindEntities(aFP, aShape, aLoc, aSeqRI);
     if (aSeqRI.IsEmpty())
     {
-      Message::SendTrace() << "Warning: Cannot find RI for "
+      Message1::SendTrace() << "Warning: Cannot find RI for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
     }
@@ -4022,7 +4022,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
     FindEntities(aFP, aShape, aLoc, seqRI);
     if (seqRI.IsEmpty())
     {
-      Message::SendTrace() << "Warning: Cannot find RI for "
+      Message1::SendTrace() << "Warning: Cannot find RI for "
                            << aShape.TShape()->DynamicType()->Name() << "\n";
       continue;
     }
@@ -4682,7 +4682,7 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(ExchangeSess
   {
     const DataLabel&          aShL = aTopLIter.Value();
     Handle(TDataStd_TreeNode) aNode;
-    if (!aShL.FindAttribute(XCAFDoc::MaterialRefGUID(), aNode) || !aNode->HasFather())
+    if (!aShL.FindAttribute(XCAFDoc1::MaterialRefGUID(), aNode) || !aNode->HasFather())
     {
       continue;
     }

@@ -17,7 +17,7 @@
 #include <Geom_Point.hxx>
 #include <StdPrs_ToolPoint.hxx>
 
-void StdPrs_ToolPoint::Coord(const Handle(Geom_Point)& aPoint,
+void ToolPoint1::Coord(const Handle(Geom_Point)& aPoint,
                              Standard_Real&            X,
                              Standard_Real&            Y,
                              Standard_Real&            Z)

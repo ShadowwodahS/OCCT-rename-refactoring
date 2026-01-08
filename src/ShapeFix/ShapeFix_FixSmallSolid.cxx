@@ -105,7 +105,7 @@ TopoShape ShapeFix_FixSmallSolid::Remove(const TopoShape&               theShape
     if (IsSmall(aSolid))
     {
       theContext->Remove(aSolid);
-      SendWarning(aSolid, Message_Msg("ShapeFix.FixSmallSolid.MSG0"));
+      SendWarning(aSolid, Message_Msg("ShapeFix1.FixSmallSolid.MSG0"));
     }
   }
 
@@ -119,7 +119,7 @@ TopoShape ShapeFix_FixSmallSolid::Remove(const TopoShape&               theShape
 static Standard_Real ShapeArea(const TopoShape& theShape)
 {
   GeometricProperties aProps;
-  BRepGProp::SurfaceProperties(theShape, aProps);
+  BRepGProp1::SurfaceProperties(theShape, aProps);
   return aProps.Mass();
 }
 
@@ -129,7 +129,7 @@ static Standard_Real ShapeArea(const TopoShape& theShape)
 static Standard_Real ShapeVolume(const TopoShape& theShape)
 {
   GeometricProperties aProps;
-  BRepGProp::VolumeProperties(theShape, aProps);
+  BRepGProp1::VolumeProperties(theShape, aProps);
   return aProps.Mass();
 }
 
@@ -330,7 +330,7 @@ static TopoShape MergeShells(const TopoShape&                 theBaseShell,
   TopTools_MapIteratorOfMapOfShape aNewFaceIter(aNewFreeFaces);
   for (; aNewFaceIter.More(); aNewFaceIter.Next())
   {
-    const TopoShape& aFace = aNewFaceIter.Key();
+    const TopoShape& aFace = aNewFaceIter.Key1();
     aBuilder.Add(aNewShell, aFace);
     theMapNewFreeFacesToShells.Bind(aFace, aNewShell);
   }
@@ -434,7 +434,7 @@ TopoShape ShapeFix_FixSmallSolid::Merge(const TopoShape&               theShape,
 
         // remove the small solid
         theContext->Remove(aSmallSolid);
-        SendWarning(aSmallSolid, Message_Msg("ShapeFix.FixSmallSolid.MSG1"));
+        SendWarning(aSmallSolid, Message_Msg("ShapeFix1.FixSmallSolid.MSG1"));
 
         aSmallSolids.Remove(aSmallIter);
       }
@@ -453,7 +453,7 @@ TopoShape ShapeFix_FixSmallSolid::Merge(const TopoShape&               theShape,
     {
       // get the current non-small solid's shell
       // and corresponding small solids' shells
-      const TopoShape&   aBaseShell          = aShellIter.Key();
+      const TopoShape&   aBaseShell          = aShellIter.Key1();
       ShapeList& aShellsToBeMerged   = (ShapeList&)aShellIter.Value();
       ShapeList* aShellsToBeAddedPtr = aShellsToAdd.ChangeSeek(aBaseShell);
 

@@ -518,7 +518,7 @@ Handle(TColStd_HSequenceOfAsciiString) Storage_Schema::InstalledCallBackList() c
 
   for (; it.More(); it.Next())
   {
-    result->Append(it.Key());
+    result->Append(it.Key1());
   }
 
   return result;

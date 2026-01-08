@@ -197,7 +197,7 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   NCollection_Sequence<Graphic3d_Vec3> aPnts;
   for (TColStd_MapIteratorOfPackedMapOfInteger it(anIDs); it.More(); it.Next())
   {
-    Standard_Integer aKey = it.Key();
+    Standard_Integer aKey = it.Key1();
     if (GetText(IsElement, aKey, aStr))
     {
       if (aSource->GetGeom(aKey, IsElement, aCoords, NbNodes, aType))

@@ -33,7 +33,7 @@ XmlMXCAFDoc_NoteDriver::XmlMXCAFDoc_NoteDriver(const Handle(Message_Messenger)& 
 
 //=================================================================================================
 
-Standard_Boolean XmlMXCAFDoc_NoteDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMXCAFDoc_NoteDriver::Paste(const PersistentStorage&  theSource,
                                                const Handle(TDF_Attribute)& theTarget,
                                                XmlObjMgt_RRelocationTable& /*theRelocTable*/) const
 {
@@ -56,7 +56,7 @@ Standard_Boolean XmlMXCAFDoc_NoteDriver::Paste(const XmlObjMgt_Persistent&  theS
 //=================================================================================================
 
 void XmlMXCAFDoc_NoteDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                   XmlObjMgt_Persistent&        theTarget,
+                                   PersistentStorage&        theTarget,
                                    XmlObjMgt_SRelocationTable& /*theRelocTable*/) const
 {
   Handle(XCAFDoc_Note) aNote = Handle(XCAFDoc_Note)::DownCast(theSource);

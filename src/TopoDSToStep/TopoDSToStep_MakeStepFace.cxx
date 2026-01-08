@@ -117,7 +117,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
   if (Handle(StepData_StepModel)::DownCast(FP->Model())->InternalParameters.WriteNonmanifold != 0)
   {
     Handle(StepShape_AdvancedFace)   anAF;
-    Handle(TransferBRep_ShapeMapper) aSTEPMapper = TransferBRep::ShapeMapper(FP, aFace);
+    Handle(TransferBRep_ShapeMapper) aSTEPMapper = TransferBRep1::ShapeMapper(FP, aFace);
     if (FP->FindTypedTransient(aSTEPMapper, STANDARD_TYPE(StepShape_AdvancedFace), anAF))
     {
       // Non-manifold topology detected
@@ -213,7 +213,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
         Standard_Real r = TS->MinorRadius();
         if (R < r) // if torus is degenerate or base surface is degenerate, make revolution instead
         {
-          Ax3 Ax3 = TS->Position();
+          Ax3 Ax3 = TS->Position1();
           Point3d pos = Ax3.Location();
           Dir3d dir = Ax3.Direction();
           Dir3d X   = Ax3.XDirection();
@@ -312,7 +312,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
     }
 
     // ----------------------------------------
-    // Translate the Edge 2D Geometry (pcurves)
+    // Translate the Edge 2D Geometry1 (pcurves)
     // ----------------------------------------
     if (!aTool.Faceted() && aTool.PCurveMode() != 0)
     {
@@ -329,7 +329,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
         Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(E, ForwardFace, cf, cl);
         if (BRepInspector::Degenerated(E) || C2d.IsNull())
         {
-          // The edge 2D Geometry degenerates in 3D
+          // The edge 2D Geometry1 degenerates in 3D
           // The edge 2D geometry is not mapped onto any Step entity
           // (ProStep agreement)
           continue;

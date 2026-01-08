@@ -82,7 +82,7 @@ public:
 
   Standard_EXPORT void SetReference(const Standard_Integer aRef);
 
-  Standard_EXPORT Standard_Integer Reference() const;
+  Standard_EXPORT Standard_Integer Reference1() const;
 
   Standard_EXPORT void SetType(const AsciiString1& aType);
 

@@ -266,7 +266,7 @@ static Standard_Integer chamfer(DrawInterpreter& di, Standard_Integer narg, cons
 
 //=================================================================================================
 
-void BRepTest::ChamferCommands(DrawInterpreter& theCommands)
+void BRepTest1::ChamferCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

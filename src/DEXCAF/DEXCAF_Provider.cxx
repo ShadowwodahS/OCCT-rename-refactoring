@@ -74,13 +74,13 @@ bool DEXCAF_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DEXCAF_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEXCAF_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEXCAF_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEXCAF_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEXCAF_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -91,12 +91,12 @@ bool DEXCAF_Provider::Read(const AsciiString1&  thePath,
   BinLDrivers1::DefineFormat(anApp);
   BinTObjDrivers1::DefineFormat(anApp);
   BinXCAFDrivers1::DefineFormat(anApp);
-  StdDrivers::DefineFormat(anApp);
-  StdLDrivers::DefineFormat(anApp);
-  XmlDrivers::DefineFormat(anApp);
-  XmlLDrivers::DefineFormat(anApp);
-  XmlTObjDrivers::DefineFormat(anApp);
-  XmlXCAFDrivers::DefineFormat(anApp);
+  StdDrivers1::DefineFormat(anApp);
+  StdLDrivers1::DefineFormat(anApp);
+  XmlDrivers1::DefineFormat(anApp);
+  XmlLDrivers1::DefineFormat(anApp);
+  XmlTObjDrivers1::DefineFormat(anApp);
+  XmlXCAFDrivers1::DefineFormat(anApp);
   Handle(PCDM_ReaderFilter) aFilter =
     new PCDM_ReaderFilter(aNode->InternalParameters.ReadAppendMode);
   for (TColStd_ListOfAsciiString::Iterator anIt(aNode->InternalParameters.ReadSkipValues);
@@ -120,7 +120,7 @@ bool DEXCAF_Provider::Read(const AsciiString1&  thePath,
 
   if (anApp->Open(thePath, aDocument, aFilter, theProgress) != PCDM_RS_OK)
   {
-    Message::SendFail() << "Error in the DEXCAF_Provider during reading the file : " << thePath
+    Message1::SendFail() << "Error in the DEXCAF_Provider during reading the file : " << thePath
                         << "\t: Cannot open XDE document";
     return false;
   }
@@ -140,7 +140,7 @@ bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
   Handle(DEXCAF_ConfigurationNode) aNode = Handle(DEXCAF_ConfigurationNode)::DownCast(GetNode());
   if (aNode->GlobalParameters.LengthUnit != 1.0)
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEXCAF_Provider during writing the file " << thePath
       << "\t: Target Units for writing were changed, but current format doesn't support scaling";
   }
@@ -152,7 +152,7 @@ bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
   }
   else if (!theDocument->IsSaved())
   {
-    Message::SendFail() << "Storage error in the DEXCAF_Provider during writing the file "
+    Message1::SendFail() << "Storage error in the DEXCAF_Provider during writing the file "
                         << thePath << "\t: Storage error : this document has never been saved";
     return false;
   }
@@ -166,35 +166,35 @@ bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
     case PCDM_SS_OK:
       return true;
     case PCDM_SS_DriverFailure:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error : driver failure";
       break;
     case PCDM_SS_WriteFailure:
-      Message::SendFail() << "Error in the DEXCAF_Provider during the writing the file : "
+      Message1::SendFail() << "Error in the DEXCAF_Provider during the writing the file : "
                           << thePath << "\t: Storage error : write failure";
       break;
     case PCDM_SS_Failure:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error : general failure";
       break;
     case PCDM_SS_Doc_IsNull:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error :: document is NULL";
       break;
     case PCDM_SS_No_Obj:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error : no object";
       break;
     case PCDM_SS_Info_Section_Error:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error : section error";
       break;
     case PCDM_SS_UserBreak:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error : user break";
       break;
     case PCDM_SS_UnrecognizedFormat:
-      Message::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
+      Message1::SendFail() << "Error in the DEXCAF_Provider during writing the file : " << thePath
                           << "\t: Storage error : unrecognized document storage format : "
                           << theDocument->StorageFormat();
       break;
@@ -232,7 +232,7 @@ bool DEXCAF_Provider::Read(const AsciiString1& thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEXCAF_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEXCAF_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEXCAF_Provider during reading the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
@@ -246,7 +246,7 @@ bool DEXCAF_Provider::Read(const AsciiString1& thePath,
   aSTool->GetFreeShapes(aLabels);
   if (aLabels.Length() <= 0)
   {
-    Message::SendFail() << "Error in the DEXCAF_Provider during reading the file : " << thePath
+    Message1::SendFail() << "Error in the DEXCAF_Provider during reading the file : " << thePath
                         << "\t: Document contain no shapes";
     return false;
   }

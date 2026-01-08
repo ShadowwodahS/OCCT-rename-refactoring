@@ -2126,9 +2126,9 @@ void CorrectSurfaceBoundaries(const TopoFace&  theFace,
           Standard_Real anAngularTolerance = Precision::Angular();
 
           correctU =
-            correctU || aLine->Position().Direction().IsParallel(aVDir, anAngularTolerance);
+            correctU || aLine->Position1().Direction().IsParallel(aVDir, anAngularTolerance);
           correctV =
-            correctV || aLine->Position().Direction().IsParallel(anUDir, anAngularTolerance);
+            correctV || aLine->Position1().Direction().IsParallel(anUDir, anAngularTolerance);
 
           gp_Pnt2d pp1 = aCurve->Value(f);
           aBox.Add(pp1);
@@ -2312,7 +2312,7 @@ Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const Sphere3& theSp
     aEps = 1.E-7;
     aRc2 = R1 * R1;
     //
-    const Ax3& aAx3Sph = theSph.Position();
+    const Ax3& aAx3Sph = theSph.Position1();
     const Point3d& aLocSph = aAx3Sph.Location();
     const Dir3d& aDirSph = aAx3Sph.Direction();
     //
@@ -2351,7 +2351,7 @@ Standard_Boolean ApproxWithPCurves(const Cylinder1& theCyl, const Sphere3& theSp
   Point3d        aP  = ElCLib1::Value(par, anCylAx);
   Vector3d        aV(aP, theSph.Location());
 
-  Standard_Real dd = aV.Dot(theSph.Position().XDirection());
+  Standard_Real dd = aV.Dot(theSph.Position1().XDirection());
 
   if (aDist < R1 && dd > 0.)
     return Standard_False;
@@ -2475,8 +2475,8 @@ void PerformPlanes(const Handle(GeomAdaptor_Surface)& theS1,
   Standard_Real anAngle, aDt;
   Dir3d        aD1, aD2;
   //
-  aD1     = aPln1.Position().Direction();
-  aD2     = aPln2.Position().Direction();
+  aD1     = aPln1.Position1().Direction();
+  aD2     = aPln2.Position1().Direction();
   anAngle = aD1.Angle(aD2);
   //
   aDt                    = Tools2::ComputeIntRange(TolF1, TolF2, anAngle);

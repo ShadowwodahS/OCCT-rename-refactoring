@@ -19,7 +19,7 @@
 #include <SelectMgr_TriangularFrustum.hxx>
 #include <TColgp_HArray1OfPnt2d.hxx>
 
-typedef NCollection_List<Handle(SelectMgr_TriangularFrustum)> SelectMgr_TriangFrustums;
+typedef NCollection_List<Handle(TriangularFrustum)> SelectMgr_TriangFrustums;
 
 //! This class is used to handle polyline selection. The main principle of polyline selection
 //! algorithm is to split the polygon defined by polyline onto triangles.
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3&          theMinPnt,
                                                        const SelectMgr_Vec3&          theMaxPnt,
                                                        const SelectMgr_ViewClipRange& theClipRange,
-                                                       SelectBasics_PickResult& thePickResult) const
+                                                       PickResult& thePickResult) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3& theMinPnt,
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
     const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Always returns FALSE (not applicable to this selector).
   virtual Standard_Boolean OverlapsPoint(const Point3d&) const Standard_OVERRIDE
@@ -97,13 +97,13 @@ public:
     const TColgp_Array1OfPnt&      theArrayOfPnts,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
     const Point3d&                  thePnt1,
     const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean OverlapsTriangle(
     const Point3d&                  thePnt1,
@@ -111,7 +111,7 @@ public:
     const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
 public:
   //! Calculates the point on a view ray that was detected during the run of selection algo by given
@@ -132,7 +132,7 @@ public:
     const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -143,7 +143,7 @@ public:
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -162,7 +162,7 @@ public:
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.

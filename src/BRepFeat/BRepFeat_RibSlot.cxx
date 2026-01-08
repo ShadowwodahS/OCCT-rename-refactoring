@@ -143,7 +143,7 @@ void BRepFeat_RibSlot::LFPerform()
     theGlue.Init(mySbase, myGShape);
     for (itm.Initialize(myGluedF); itm.More(); itm.Next())
     {
-      const TopoFace& glface = TopoDS::Face(itm.Key());
+      const TopoFace& glface = TopoDS::Face(itm.Key1());
       const TopoFace& fac    = TopoDS::Face(myGluedF(glface));
       for (exp.Init(myGShape, TopAbs_FACE); exp.More(); exp.Next())
       {
@@ -196,7 +196,7 @@ void BRepFeat_RibSlot::LFPerform()
       //
       Done();
       myShape = theGlue.ResultingShape();
-      BRepLib::SameParameter(myShape, 1.e-7, Standard_True);
+      BRepLib1::SameParameter(myShape, 1.e-7, Standard_True);
     }
     else
     {
@@ -354,7 +354,7 @@ void BRepFeat_RibSlot::UpdateDescendants(const LocOpe_Gluer& G)
 
   for (itdm.Initialize(myMap); itdm.More(); itdm.Next())
   {
-    const TopoShape& orig = itdm.Key();
+    const TopoShape& orig = itdm.Key1();
     TopTools_MapOfShape newdsc;
     for (it.Initialize(itdm.Value()); it.More(); it.Next())
     {
@@ -367,7 +367,7 @@ void BRepFeat_RibSlot::UpdateDescendants(const LocOpe_Gluer& G)
     myMap.ChangeFind(orig).Clear();
     for (itm.Initialize(newdsc); itm.More(); itm.Next())
     {
-      myMap.ChangeFind(orig).Append(itm.Key());
+      myMap.ChangeFind(orig).Append(itm.Key1());
     }
   }
 }
@@ -452,7 +452,7 @@ Point3d BRepFeat_RibSlot::CheckPoint(const TopoEdge& e,
   if (e.Orientation() == TopAbs_REVERSED)
     tgt.Reverse();
 
-  Vector3d D = -tgt.Crossed(Pln->Pln().Position().Direction()) / 10.;
+  Vector3d D = -tgt.Crossed(Pln->Pln().Position1().Direction()) / 10.;
   pp.Translate(D);
 
   return pp;
@@ -649,7 +649,7 @@ TopoFace BRepFeat_RibSlot::ChoiceOfFaces(ShapeList&     faces,
   TColGeom_SequenceOfCurve scur;
   Standard_Integer         Counter = 0;
 
-  Axis3d Axe(pp, Pln->Position().Direction());
+  Axis3d Axe(pp, Pln->Position1().Direction());
   for (Standard_Integer i = 1; i <= 8; i++)
   {
     Handle(GeomCurve3d) L = Handle(GeomCurve3d)::DownCast(l1->Rotated(Axe, i * M_PI / 9.));
@@ -700,10 +700,10 @@ Standard_Real BRepFeat_RibSlot::HeightMax(const TopoShape& theSbase,
     std::cout << "BRepFeat_RibSlot::HeightMax" << std::endl;
 #endif
   Box2 Box1;
-  BRepBndLib::Add(theSbase, Box1);
+  BRepBndLib1::Add(theSbase, Box1);
   if (!theSUntil.IsNull())
   {
-    BRepBndLib::Add(theSUntil, Box1);
+    BRepBndLib1::Add(theSUntil, Box1);
   }
   Standard_Real c[6], bnd;
   Box1.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
@@ -1436,8 +1436,8 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
   if (RevolRib)
   {
     Dir3d d1, d2;
-    d1 = ln1->Position().Direction();
-    d2 = ln2->Position().Direction();
+    d1 = ln1->Position1().Direction();
+    d2 = ln2->Position1().Direction();
     if (d1.IsOpposite(d2, myTol))
     {
       Standard_Real par1 = ElCLib1::Parameter(ln1->Lin(), myFirstPnt);
@@ -1795,8 +1795,8 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
   if (RevolRib)
   {
     Dir3d d1, d2;
-    d1 = firstln->Position().Direction();
-    d2 = lastln->Position().Direction();
+    d1 = firstln->Position1().Direction();
+    d2 = lastln->Position1().Direction();
     if (d1.IsOpposite(d2, myTol))
     {
       Standard_Real par1 = ElCLib1::Parameter(firstln->Lin(), myFirstPnt);
@@ -2564,7 +2564,7 @@ void BRepFeat_RibSlot::UpdateDescendants(const BRepAlgoAPI_BooleanOperation& aBO
 
   for (itdm.Initialize(myMap); itdm.More(); itdm.Next())
   {
-    const TopoShape& orig = itdm.Key();
+    const TopoShape& orig = itdm.Key1();
     if (SkipFace && orig.ShapeType() == TopAbs_FACE)
     {
       continue;
@@ -2605,10 +2605,10 @@ void BRepFeat_RibSlot::UpdateDescendants(const BRepAlgoAPI_BooleanOperation& aBO
       // check the belonging to the shape...
       for (exp.Init(S, TopAbs_FACE); exp.More(); exp.Next())
       {
-        if (exp.Current().IsSame(itm.Key()))
+        if (exp.Current().IsSame(itm.Key1()))
         {
-          //          const TopoShape& sh = itm.Key();
-          myMap.ChangeFind(orig).Append(itm.Key());
+          //          const TopoShape& sh = itm.Key1();
+          myMap.ChangeFind(orig).Append(itm.Key1());
           break;
         }
       }

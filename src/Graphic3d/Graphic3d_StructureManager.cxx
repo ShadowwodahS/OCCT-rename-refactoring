@@ -81,7 +81,7 @@ void Graphic3d_StructureManager::Erase()
 {
   for (Graphic3d_MapIteratorOfMapOfStructure anIt(myDisplayedStructure); anIt.More(); anIt.Next())
   {
-    anIt.Key()->Erase();
+    anIt.Key1()->Erase();
   }
 }
 
@@ -132,7 +132,7 @@ Handle(Graphic3d_Structure) Graphic3d_StructureManager::Identification(
 
   for (; it.More() && notfound; it.Next())
   {
-    const Handle(Graphic3d_Structure)& SG = it.Key();
+    const Handle(Graphic3d_Structure)& SG = it.Key1();
     if (SG->Identification() == AId)
     {
       notfound = Standard_False;
@@ -161,7 +161,7 @@ void Graphic3d_StructureManager::RecomputeStructures()
   for (Graphic3d_MapIteratorOfMapOfStructure anIter(myDisplayedStructure); anIter.More();
        anIter.Next())
   {
-    anIter.Key()->Network(anIter.Key().get(), Graphic3d_TOC_DESCENDANT, aStructNetwork);
+    anIter.Key1()->Network(anIter.Key1().get(), Graphic3d_TOC_DESCENDANT, aStructNetwork);
   }
 
   RecomputeStructures(aStructNetwork);
@@ -173,7 +173,7 @@ void Graphic3d_StructureManager::RecomputeStructures(
   for (NCollection_Map<Graphic3d_Structure*>::Iterator anIter(theStructures); anIter.More();
        anIter.Next())
   {
-    Graphic3d_Structure* aStruct = anIter.Key();
+    Graphic3d_Structure* aStruct = anIter.Key1();
     aStruct->Clear();
     aStruct->Compute();
   }
@@ -377,7 +377,7 @@ void Graphic3d_StructureManager::UnHighlight()
 {
   for (Graphic3d_MapIteratorOfMapOfStructure anIt(myHighlightedStructure); anIt.More(); anIt.Next())
   {
-    anIt.Key()->UnHighlight();
+    anIt.Key1()->UnHighlight();
   }
 }
 

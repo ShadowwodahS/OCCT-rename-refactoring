@@ -29,11 +29,11 @@ class TCollection_HAsciiString;
 class TCollection_HExtendedString;
 
 //! This class provides a tool for constructing the parametrized message
-//! basing on resources loaded by Message_MsgFile tool.
+//! basing on resources loaded by MessageFile tool.
 //!
-//! A Message is created from a keyword: this keyword identifies the
+//! A Message1 is created from a keyword: this keyword identifies the
 //! message in a message file that should be previously loaded by call
-//! to Message_MsgFile::LoadFile().
+//! to MessageFile::LoadFile().
 //!
 //! The text of the message can contain placeholders for the parameters
 //! which are to be filled by the proper values when the message
@@ -59,10 +59,10 @@ public:
   //! Copy constructor
   Standard_EXPORT Message_Msg(const Message_Msg& theMsg);
 
-  //! Create a message using a corresponding entry in Message_MsgFile
+  //! Create a message using a corresponding entry in MessageFile
   Standard_EXPORT Message_Msg(const Standard_CString theKey);
 
-  //! Create a message using a corresponding entry in Message_MsgFile
+  //! Create a message using a corresponding entry in MessageFile
   Standard_EXPORT Message_Msg(const UtfString& theKey);
 
   //! Set a message body text -- can be used as alternative to

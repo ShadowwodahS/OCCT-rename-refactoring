@@ -387,7 +387,7 @@ static Standard_Integer DDataStd_OpenNode(DrawInterpreter& di, Standard_Integer 
     Handle(DDataStd_TreeBrowser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
-    Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
+    Message1::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 

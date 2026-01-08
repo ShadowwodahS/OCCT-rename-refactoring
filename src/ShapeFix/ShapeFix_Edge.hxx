@@ -128,7 +128,7 @@ public:
   //! Returns: True if 3d curve was added, else False
   //! Status :
   //! OK   : 3d curve exists
-  //! FAIL1: BRepLib::BuildCurve3d() has failed
+  //! FAIL1: BRepLib1::BuildCurve3d() has failed
   //! DONE1: 3d curve was added
   Standard_EXPORT Standard_Boolean FixAddCurve3d(const TopoEdge& edge);
 
@@ -176,9 +176,9 @@ public:
   //! If flag SameParameter is not set, this method chooses the best
   //! variant (one that has minimal tolerance), either
   //! a. only after computing deviation (as above) or
-  //! b. after calling standard procedure BRepLib::SameParameter
+  //! b. after calling standard procedure BRepLib1::SameParameter
   //! and computing deviation (as above). If <tolerance> > 0, it is
-  //! used as parameter for BRepLib::SameParameter, otherwise,
+  //! used as parameter for BRepLib1::SameParameter, otherwise,
   //! tolerance of the edge is used.
   //!
   //! Use    : Is to be called after all pcurves and 3d curve of the edge are
@@ -187,13 +187,13 @@ public:
   //! Returns: True, if something done, else False
   //! Status : OK    - edge was initially SameParameter, nothing is done
   //! FAIL1 - computation of deviation of pcurves from 3d curve has failed
-  //! FAIL2 - BRepLib::SameParameter() has failed
+  //! FAIL2 - BRepLib1::SameParameter() has failed
   //! DONE1 - tolerance of the edge was increased
   //! DONE2 - flag SameParameter was set to True (only if
-  //! BRepLib::SameParameter() did not set it)
-  //! DONE3 - edge was modified by BRepLib::SameParameter() to SameParameter
+  //! BRepLib1::SameParameter() did not set it)
+  //! DONE3 - edge was modified by BRepLib1::SameParameter() to SameParameter
   //! DONE4 - not used anymore
-  //! DONE5 - if the edge resulting from BRepLib has been chosen, i.e. variant b. above
+  //! DONE5 - if the edge resulting from BRepLib1 has been chosen, i.e. variant b. above
   //! (only for edges with not set SameParameter)
   Standard_EXPORT Standard_Boolean FixSameParameter(const TopoEdge&  edge,
                                                     const Standard_Real tolerance = 0.0);
@@ -212,9 +212,9 @@ public:
   //! If flag SameParameter is not set, this method chooses the best
   //! variant (one that has minimal tolerance), either
   //! a. only after computing deviation (as above) or
-  //! b. after calling standard procedure BRepLib::SameParameter
+  //! b. after calling standard procedure BRepLib1::SameParameter
   //! and computing deviation (as above). If <tolerance> > 0, it is
-  //! used as parameter for BRepLib::SameParameter, otherwise,
+  //! used as parameter for BRepLib1::SameParameter, otherwise,
   //! tolerance of the edge is used.
   //!
   //! Use    : Is to be called after all pcurves and 3d curve of the edge are
@@ -223,13 +223,13 @@ public:
   //! Returns: True, if something done, else False
   //! Status : OK    - edge was initially SameParameter, nothing is done
   //! FAIL1 - computation of deviation of pcurves from 3d curve has failed
-  //! FAIL2 - BRepLib::SameParameter() has failed
+  //! FAIL2 - BRepLib1::SameParameter() has failed
   //! DONE1 - tolerance of the edge was increased
   //! DONE2 - flag SameParameter was set to True (only if
-  //! BRepLib::SameParameter() did not set it)
-  //! DONE3 - edge was modified by BRepLib::SameParameter() to SameParameter
+  //! BRepLib1::SameParameter() did not set it)
+  //! DONE3 - edge was modified by BRepLib1::SameParameter() to SameParameter
   //! DONE4 - not used anymore
-  //! DONE5 - if the edge resulting from BRepLib has been chosen, i.e. variant b. above
+  //! DONE5 - if the edge resulting from BRepLib1 has been chosen, i.e. variant b. above
   //! (only for edges with not set SameParameter)
   Standard_EXPORT Standard_Boolean FixSameParameter(const TopoEdge&  edge,
                                                     const TopoFace&  face,

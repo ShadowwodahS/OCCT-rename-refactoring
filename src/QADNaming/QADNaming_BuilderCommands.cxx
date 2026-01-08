@@ -94,7 +94,7 @@ void QADNaming1::BuilderCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "Naming builder commands";
+  const char* g = "Naming1 builder commands";
 
   theCommands.Add("BuildNamedShape",
                   "BuildNamedShape df entry evolution(P[RIMITIVE] G[ENERATED] M[ODIFY] D[ELETE] "

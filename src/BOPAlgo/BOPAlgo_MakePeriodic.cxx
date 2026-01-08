@@ -119,7 +119,7 @@ void BOPAlgo_MakePeriodic::Trim()
   // volume for trimming. If required, the volume will be modified
   // to the requested trimming size in requested directions.
   Box2 aBox;
-  BRepBndLib::Add(myInputShape, aBox);
+  BRepBndLib1::Add(myInputShape, aBox);
   // Enlarge box to avoid overlapping with the shape
   aBox.Enlarge(0.1 * sqrt(aBox.SquareExtent()));
 
@@ -550,7 +550,7 @@ void BOPAlgo_MakePeriodic::UpdateTwins(const BRepTools_History& theTranslationHi
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itDMap(myRepeatedTwins);
   for (; itDMap.More(); itDMap.Next())
   {
-    const TopoShape& aS = itDMap.Key();
+    const TopoShape& aS = itDMap.Key1();
     aMTwinsDone.Add(aS);
 
     const ShapeList& aLTwins = itDMap.Value();

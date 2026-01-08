@@ -27,7 +27,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Geometry, RefObject)
 
-typedef Geom_Geometry Geometry;
+typedef Geom_Geometry Geometry1;
 typedef Point3d        Pnt;
 typedef Vector3d        Vec;
 typedef Axis3d        Ax1;

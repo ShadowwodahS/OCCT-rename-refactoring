@@ -69,7 +69,7 @@ static Standard_Boolean findPluginFile(AsciiString1& thePluginName,
       }
       else
       {
-        Message::SendFail() << "Failed to load plugin: Neither " << aCSFVariable
+        Message1::SendFail() << "Failed to load plugin: Neither " << aCSFVariable
                             << ", nor CASROOT variables have been set";
         return Standard_False;
       }
@@ -81,7 +81,7 @@ static Standard_Boolean findPluginFile(AsciiString1& thePluginName,
   SystemFile                      aPluginFile(aPluginFileName);
   if (!aPluginFile.Exists())
   {
-    Message::SendFail() << "Failed to load plugin: File " << aPluginFileName << " not found";
+    Message1::SendFail() << "Failed to load plugin: File " << aPluginFileName << " not found";
     return Standard_False;
   }
 
@@ -95,7 +95,7 @@ static Standard_Boolean findPluginFile(AsciiString1& thePluginName,
 #endif
     if (aCSFVarEnv.Failed())
     {
-      Message::SendFail() << "Failed to load plugin: Failed to initialize " << aCSFVariable
+      Message1::SendFail() << "Failed to load plugin: Failed to initialize " << aCSFVariable
                           << " with " << thePluginDir;
       return Standard_False;
     }
@@ -149,7 +149,7 @@ static void resolveKeys(Draw_MapOfAsciiString& theMap, const Handle(Resource_Man
     }
     else
     {
-      Message::SendFail() << "Pload : Resource = " << aResource << " is not found";
+      Message1::SendFail() << "Pload : Resource = " << aResource << " is not found";
     }
 
     if (!aMap2.IsEmpty())
@@ -213,7 +213,7 @@ static Standard_Integer Pload(DrawInterpreter& theDI,
     AsciiString1 aValue;
     if (!aResMgr->Find(aResource, aValue))
     {
-      Message::SendWarning() << "Pload : Resource = " << aResource << " is not found";
+      Message1::SendWarning() << "Pload : Resource = " << aResource << " is not found";
       continue;
     }
 
@@ -253,7 +253,7 @@ static Standard_Integer dtryload(DrawInterpreter& di, Standard_Integer n, const 
 {
   if (n != 2)
   {
-    Message::SendFail() << "Error: specify path to library to be loaded";
+    Message1::SendFail() << "Error: specify path to library to be loaded";
     return 1;
   }
 

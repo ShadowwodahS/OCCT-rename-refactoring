@@ -48,14 +48,14 @@ Handle(TypeInfo) XmlMDataStd_GenericExtStringDriver::SourceType() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataStd_GenericExtStringDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_GenericExtStringDriver::Paste(const PersistentStorage&  theSource,
                                                            const Handle(TDF_Attribute)& theTarget,
                                                            XmlObjMgt_RRelocationTable&) const
 {
   if (!theTarget.IsNull())
   {
     UtfString aString;
-    if (XmlObjMgt::GetExtendedString(theSource, aString))
+    if (XmlObjMgt1::GetExtendedString(theSource, aString))
     {
       Handle(TDataStd_GenericExtString)::DownCast(theTarget)->Set(aString);
       const XmlObjMgt_Element& anElement = theSource;
@@ -76,13 +76,13 @@ Standard_Boolean XmlMDataStd_GenericExtStringDriver::Paste(const XmlObjMgt_Persi
 //=================================================================================================
 
 void XmlMDataStd_GenericExtStringDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                               XmlObjMgt_Persistent&        theTarget,
+                                               PersistentStorage&        theTarget,
                                                XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_GenericExtString) aStr = Handle(TDataStd_GenericExtString)::DownCast(theSource);
   if (aStr.IsNull())
     return;
-  XmlObjMgt::SetExtendedString(theTarget, aStr->Get());
+  XmlObjMgt1::SetExtendedString(theTarget, aStr->Get());
   // convert GUID
   Standard_Character  aGuidStr[Standard_GUID_SIZE_ALLOC];
   Standard_PCharacter pGuidStr = aGuidStr;

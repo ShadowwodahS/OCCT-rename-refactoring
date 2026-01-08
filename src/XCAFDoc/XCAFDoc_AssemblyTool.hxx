@@ -25,16 +25,16 @@ class AppDocument;
 class XCAFDoc_ShapeTool;
 
 //! Provides generic methods for traversing assembly tree and graph
-class XCAFDoc_AssemblyTool
+class AssemblyTool
 {
 public:
   //! \brief Generic method for traversing assembly tree.
   //! Performs in-depth traversing of the assembly tree and calls
   //! user defined function for each assembly tree node.
-  //! User function takes single argument of XCAFDoc_AssemblyItemId type
+  //! User function takes single argument of AssemblyItemId type
   //! and returns true/false to continue/break.
   //! ~~~~~{.cpp}
-  //! Standard_Boolean Print(const XCAFDoc_AssemblyItemId& theItem)
+  //! Standard_Boolean Print(const AssemblyItemId& theItem)
   //! {
   //!   std::cout << theItem.ToString() << std::endl;
   //!   return Standard_True;
@@ -43,7 +43,7 @@ public:
   //! \param[in]  theIterator - starting position in the assembly tree.
   //! \param[in]  theFunc     - user function called for each assembly tree node.
   template <typename Func>
-  static void Traverse(XCAFDoc_AssemblyIterator theIterator, Func theFunc)
+  static void Traverse(AssemblyIterator theIterator, Func theFunc)
   {
     for (; theIterator.More(); theIterator.Next())
     {

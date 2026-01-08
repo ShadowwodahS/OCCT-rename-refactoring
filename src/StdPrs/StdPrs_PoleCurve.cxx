@@ -66,7 +66,7 @@ void StdPrs_PoleCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Point3d Location;
     Vector3d Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
-    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
+    Arrow1::Draw1(aPresentation->CurrentGroup(),
                       Location,
                       Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),

@@ -92,7 +92,7 @@ public:
   Standard_EXPORT void ClearResult();
 
   //! Records a new File to be sent, as a couple
-  //! (Name as AsciiString, Content as InterfaceModel)
+  //! (Name as AsciiString2, Content as InterfaceModel)
   //! Returns True if Done, False if <filename> is already attached
   //! to another File
   Standard_EXPORT Standard_Boolean AddFile(const AsciiString1&          filename,

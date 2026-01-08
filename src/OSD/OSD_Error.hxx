@@ -42,7 +42,7 @@ public:
   //! No description is done for the programmer.
   Standard_EXPORT void SetValue(const Standard_Integer         Errcode,
                                 const Standard_Integer         From,
-                                const AsciiString1& Message);
+                                const AsciiString1& Message1);
 
   //! Returns an accurate error code.
   //! To test these values, you must include "OSD_ErrorList.hxx"

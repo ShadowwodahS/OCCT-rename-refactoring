@@ -62,7 +62,7 @@ public:
 
   //! Sets a new context for context type
   //! \param theType a type of context, will be selected in the tool bar combo box
-  //! \param theContext an AIS context
+  //! \param theContext an AIS1 context
   Standard_EXPORT void SetContext(View_ContextType                      theType,
                                   const Handle(VisualContext)& theContext);
 

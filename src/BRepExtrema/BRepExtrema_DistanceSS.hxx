@@ -28,7 +28,7 @@ class TopoFace;
 
 //! This class allows to compute minimum distance between two brep shapes
 //! (face edge vertex) and is used in DistShapeShape class.
-class BRepExtrema_DistanceSS
+class DistanceSS
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,7 +46,7 @@ public: //! @name Constructor from two shapes
   //!                     (default is MINMAX, applied only to point-face extrema)
   //! @param theExtAlgo - Specifies which extrema algorithm is to be used
   //!                     (default is Grad algo, applied only to point-face extrema)
-  BRepExtrema_DistanceSS(const TopoShape&   theS1,
+  DistanceSS(const TopoShape&   theS1,
                          const TopoShape&   theS2,
                          const Box2&        theBox1,
                          const Box2&        theBox2,

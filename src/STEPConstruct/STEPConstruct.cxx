@@ -35,7 +35,7 @@ Handle(StepRepr_RepresentationItem) STEPConstruct1::FindEntity(
   const TopoShape&                   Shape)
 {
   Handle(StepRepr_RepresentationItem) item;
-  Handle(TransferBRep_ShapeMapper)    mapper = TransferBRep::ShapeMapper(FinderProcess, Shape);
+  Handle(TransferBRep_ShapeMapper)    mapper = TransferBRep1::ShapeMapper(FinderProcess, Shape);
   FinderProcess->FindTypedTransient(mapper, STANDARD_TYPE(StepRepr_RepresentationItem), item);
 #ifdef OCCT_DEBUG
   if (item.IsNull())
@@ -56,14 +56,14 @@ Handle(StepRepr_RepresentationItem) STEPConstruct1::FindEntity(
 {
   Handle(StepRepr_RepresentationItem) item;
   Loc                                     = Shape.Location();
-  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FinderProcess, Shape);
+  Handle(TransferBRep_ShapeMapper) mapper = TransferBRep1::ShapeMapper(FinderProcess, Shape);
   if (!FinderProcess->FindTypedTransient(mapper, STANDARD_TYPE(StepRepr_RepresentationItem), item)
       && !Loc.IsIdentity())
   {
     Loc.Identity();
     TopoShape S = Shape;
     S.Location(Loc);
-    mapper = TransferBRep::ShapeMapper(FinderProcess, S);
+    mapper = TransferBRep1::ShapeMapper(FinderProcess, S);
     FinderProcess->FindTypedTransient(mapper, STANDARD_TYPE(StepRepr_RepresentationItem), item);
   }
 #ifdef OCCT_DEBUG
@@ -89,7 +89,7 @@ TopoShape STEPConstruct1::FindShape(const Handle(Transfer_TransientProcess)&   T
   Handle(Transfer_Binder) binder = TransientProcess->Find(item);
   if (!binder.IsNull() && binder->HasResult())
   {
-    S = TransferBRep::ShapeResult(TransientProcess, binder);
+    S = TransferBRep1::ShapeResult(TransientProcess, binder);
   }
   return S;
 }

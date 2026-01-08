@@ -29,7 +29,7 @@
 
 //=================================================================================================
 
-MAT2d_MiniPath::MAT2d_MiniPath()
+MiniPath::MiniPath()
     : theDirection(1.0),
       indStart(0)
 {
@@ -41,7 +41,7 @@ MAT2d_MiniPath::MAT2d_MiniPath()
 //           le chemin part de la ligne <IndStart>.
 //           <Sense> = True les lignes sont orientes dans le sens trigo.
 //============================================================================
-void MAT2d_MiniPath::Perform(const MAT2d_SequenceOfSequenceOfGeometry& Figure,
+void MiniPath::Perform(const MAT2d_SequenceOfSequenceOfGeometry& Figure,
                              const Standard_Integer                    IndStart,
                              const Standard_Boolean                    Sense)
 {
@@ -134,7 +134,7 @@ void MAT2d_MiniPath::Perform(const MAT2d_SequenceOfSequenceOfGeometry& Figure,
 //           - les connexions sont les branches.
 //
 //============================================================================
-void MAT2d_MiniPath::Append(const Handle(MAT2d_Connexion)& C)
+void MiniPath::Append(const Handle(MAT2d_Connexion)& C)
 {
   Handle(MAT2d_Connexion) CC;
 
@@ -181,14 +181,14 @@ void MAT2d_MiniPath::Append(const Handle(MAT2d_Connexion)& C)
 // function : Path
 // purpose  : Retour de la sequence de connexions definissant le chemin.
 //============================================================================
-const MAT2d_SequenceOfConnexion& MAT2d_MiniPath::Path() const
+const MAT2d_SequenceOfConnexion& MiniPath::Path() const
 {
   return thePath;
 }
 
 //=================================================================================================
 
-Standard_Boolean MAT2d_MiniPath::IsConnexionsFrom(const Standard_Integer i) const
+Standard_Boolean MiniPath::IsConnexionsFrom(const Standard_Integer i) const
 {
   return (theConnexions.IsBound(i));
 }
@@ -197,14 +197,14 @@ Standard_Boolean MAT2d_MiniPath::IsConnexionsFrom(const Standard_Integer i) cons
 // function : Connexions
 // purpose  : Retour de la sequence de connexions issue de la ligne <i>.
 //============================================================================
-MAT2d_SequenceOfConnexion& MAT2d_MiniPath::ConnexionsFrom(const Standard_Integer i)
+MAT2d_SequenceOfConnexion& MiniPath::ConnexionsFrom(const Standard_Integer i)
 {
   return theConnexions.ChangeFind(i);
 }
 
 //=================================================================================================
 
-Standard_Boolean MAT2d_MiniPath::IsRoot(const Standard_Integer ILine) const
+Standard_Boolean MiniPath::IsRoot(const Standard_Integer ILine) const
 {
   return (ILine == indStart);
 }
@@ -213,7 +213,7 @@ Standard_Boolean MAT2d_MiniPath::IsRoot(const Standard_Integer ILine) const
 // function : Father
 // purpose  : Retour de la premiere connexion qui arrive sur la ligne i
 //============================================================================
-Handle(MAT2d_Connexion) MAT2d_MiniPath::Father(const Standard_Integer ILine)
+Handle(MAT2d_Connexion) MiniPath::Father(const Standard_Integer ILine)
 {
   return theFather.ChangeFind(ILine);
 }
@@ -222,7 +222,7 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::Father(const Standard_Integer ILine)
 // function : RunOnConnexions
 // purpose  : Construction de <thePath> en parcourant <theConnexions>.
 //============================================================================
-void MAT2d_MiniPath::RunOnConnexions()
+void MiniPath::RunOnConnexions()
 {
   Standard_Integer                 i;
   Handle(MAT2d_Connexion)          C;
@@ -241,7 +241,7 @@ void MAT2d_MiniPath::RunOnConnexions()
 
 //=================================================================================================
 
-void MAT2d_MiniPath::ExploSons(MAT2d_SequenceOfConnexion&     CResult,
+void MiniPath::ExploSons(MAT2d_SequenceOfConnexion&     CResult,
                                const Handle(MAT2d_Connexion)& CRef)
 {
   Standard_Integer i;
@@ -286,7 +286,7 @@ void MAT2d_MiniPath::ExploSons(MAT2d_SequenceOfConnexion&     CResult,
 // purpose  : Calcul de la connexion realisant le minimum de distance entre les
 //           lignes d indice <IL1> et <IL2> dans <Figure>.
 //============================================================================
-Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
+Handle(MAT2d_Connexion) MiniPath::MinimumL1L2(
   const MAT2d_SequenceOfSequenceOfGeometry& Figure,
   const Standard_Integer                    IL1,
   const Standard_Integer                    IL2) const

@@ -239,7 +239,7 @@ void FaceFusionBuilder::PerformFace()
 
   for (itt1.Initialize(mapFacLFac); itt1.More(); itt1.Next())
   {
-    const TopoShape&         fac    = itt1.Key();
+    const TopoShape&         fac    = itt1.Key1();
     TopoFace                 facref = TopoDS::Face(fac);
     const ShapeList& LFac   = mapFacLFac.Find(fac);
 
@@ -278,7 +278,7 @@ void FaceFusionBuilder::PerformFace()
       ShapeList myFaceLIE, myFaceLEE, myFaceLME, myFaceLW;
       for (itt2.Initialize(mapWirLWir); itt2.More(); itt2.Next())
       {
-        const TopoShape&         wir   = itt2.Key();
+        const TopoShape&         wir   = itt2.Key1();
         const ShapeList& LWir1 = mapWirLWir.Find(wir);
 
         Standard_Integer n22 = LWir1.Extent();
@@ -319,7 +319,7 @@ void FaceFusionBuilder::PerformFace()
           ShapeList myWireLE;
           for (itt3.Initialize(mapEdgLEdg); itt3.More(); itt3.Next())
           {
-            const TopoShape&         edg         = itt3.Key();
+            const TopoShape&         edg         = itt3.Key1();
             const ShapeList& LEdg1       = mapEdgLEdg.Find(edg);
             Standard_Boolean            OriReversed = Standard_False;
             Standard_Boolean            OriForward  = Standard_False;
@@ -635,7 +635,7 @@ void FaceFusionBuilder::PerformEdge()
 
   for (itt1.Initialize(mapTampon); itt1.More(); itt1.Next())
   {
-    const TopoShape&         ver     = itt1.Key();
+    const TopoShape&         ver     = itt1.Key1();
     const ShapeList& LmapEdg = mapTampon.Find(ver);
     Standard_Integer            number  = LmapEdg.Extent();
     if (number == 2)
@@ -933,7 +933,7 @@ static void GroupShape(ShapeList&               mylist,
     TopTools_MapOfShape M;
     for (itt.Initialize(mapShLSh); itt.More(); itt.Next())
     {
-      const TopoShape& shap1 = itt.Key();
+      const TopoShape& shap1 = itt.Key1();
       if (M.Add(shap1))
       {
         const ShapeList& LmapSh = mapShLSh.Find(shap1);
@@ -966,7 +966,7 @@ static void GroupEdge(TopTools_DataMapOfShapeListOfShape& mymapVerLEdg,
   // construction du tableau   locmapShLSh  : shap1 - shap1 shap2 shap3
   for (itt.Initialize(mymapVerLEdg); itt.More(); itt.Next())
   {
-    const TopoShape&  ver1 = itt.Key();
+    const TopoShape&  ver1 = itt.Key1();
     ShapeList LmapEdg;
     LmapEdg = mymapVerLEdg.Find(ver1);
 
@@ -1036,7 +1036,7 @@ static void GroupEdge(TopTools_DataMapOfShapeListOfShape& mymapVerLEdg,
 
   for (itt.Initialize(mapEdgLEdg); itt.More(); itt.Next())
   {
-    const TopoShape& edg1 = itt.Key();
+    const TopoShape& edg1 = itt.Key1();
     if (M.Add(edg1))
     {
       const ShapeList& LmapEdg = mapEdgLEdg.Find(edg1);
@@ -1068,7 +1068,7 @@ static void MakeEdge(TopTools_DataMapOfShapeListOfShape& mymapEdgLEdg)
   // construction du tableau   locmapShLSh  : shap1 - shap1 shap2 shap3
   for (itt1.Initialize(mymapEdgLEdg); itt1.More(); itt1.Next())
   {
-    const TopoShape&  edg1 = itt1.Key();
+    const TopoShape&  edg1 = itt1.Key1();
     ShapeList LmapEdg;
     LmapEdg = mymapEdgLEdg.Find(edg1);
     TopTools_DataMapOfShapeInteger mapVerInt;
@@ -1096,7 +1096,7 @@ static void MakeEdge(TopTools_DataMapOfShapeListOfShape& mymapEdgLEdg)
     ShapeList myEdgeLV, myEdgeLMV;
     for (itt2.Initialize(mapVerInt); itt2.More(); itt2.Next())
     {
-      const TopoShape& ver = itt2.Key();
+      const TopoShape& ver = itt2.Key1();
       VertexExtrem            = mapVerInt.Find(ver);
       if (VertexExtrem == 1)
       {

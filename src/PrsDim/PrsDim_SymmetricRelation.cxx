@@ -89,7 +89,7 @@ void PrsDim_SymmetricRelation::Compute(const Handle(PrsMgr_PresentationManager)&
     Handle(GeomCurve3d) aCurve, extcurve;
     Point3d             p1, p2;
     Standard_Boolean   isinfinite, isonplane;
-    if (PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
+    if (PrsDim1::ComputeGeometry(TopoDS::Edge(myTool),
                                 aCurve,
                                 p1,
                                 p2,
@@ -126,7 +126,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
   Handle(GeomCurve3d) geom_axis, extcurve;
   Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myTool),
                                geom_axis,
                                p1,
                                p2,
@@ -226,7 +226,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       Point3d  ProjCenter1     = ElCLib1::Value(ElCLib1::Parameter(laxis, Center1), laxis);
       Vector3d  Vp(ProjCenter1, Center1);
       if (Vp.Magnitude() <= Precision::Confusion())
-        Vp = Vector3d(laxis.Direction()) ^ myPlane->Pln().Position().Direction();
+        Vp = Vector3d(laxis.Direction()) ^ myPlane->Pln().Position1().Direction();
       Standard_Real Dt, R, h;
       Dt = ProjCenter1.Distance(ProjOffsetPoint);
       R  = circ1.Radius();
@@ -369,7 +369,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   Handle(GeomCurve3d) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(GeomCurve3d) extCurv;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
                                geom1,
@@ -389,7 +389,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   Handle(GeomCurve3d) geom_axis, extcurve;
   Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myTool),
                                geom_axis,
                                p1,
                                p2,
@@ -544,7 +544,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   arr = la->ArrowAspect();
   arr->SetLength(myArrowSize);
   if (cu1.GetType() == GeomAbs_Line)
-    DsgPrs_SymmetricPresentation::Add(aprs,
+    SymmetricPresentation::Add(aprs,
                                       myDrawer,
                                       myFAttach,
                                       mySAttach,
@@ -553,7 +553,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
                                       myPosition);
 
   if (cu1.GetType() == GeomAbs_Circle)
-    DsgPrs_SymmetricPresentation::Add(aprs,
+    SymmetricPresentation::Add(aprs,
                                       myDrawer,
                                       myFAttach,
                                       mySAttach,
@@ -593,7 +593,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   Handle(GeomCurve3d) geom_axis, extcurve;
   Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
-  if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
+  if (!PrsDim1::ComputeGeometry(TopoDS::Edge(myTool),
                                geom_axis,
                                p1,
                                p2,
@@ -605,8 +605,8 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
 
   Standard_Boolean isOnPlane1, isOnPlane2;
 
-  PrsDim::ComputeGeometry(TopoDS::Vertex(myFShape), myFAttach, myPlane, isOnPlane1);
-  PrsDim::ComputeGeometry(TopoDS::Vertex(mySShape), mySAttach, myPlane, isOnPlane2);
+  PrsDim1::ComputeGeometry(TopoDS::Vertex(myFShape), myFAttach, myPlane, isOnPlane1);
+  PrsDim1::ComputeGeometry(TopoDS::Vertex(mySShape), mySAttach, myPlane, isOnPlane2);
 
   if (!myArrowSizeIsDefined)
     myArrowSize = myFAttach.Distance(mySAttach) / 50.;
@@ -643,7 +643,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   arr->SetLength(myArrowSize);
   arr = la->ArrowAspect();
   arr->SetLength(myArrowSize);
-  DsgPrs_SymmetricPresentation::Add(aprs, myDrawer, myFAttach, mySAttach, laxis, myPosition);
+  SymmetricPresentation::Add(aprs, myDrawer, myFAttach, mySAttach, laxis, myPosition);
   if (myExtShape == 1)
     ComputeProjVertexPresentation(aprs, TopoDS::Vertex(myFShape), myFAttach);
   else if (myExtShape == 2)

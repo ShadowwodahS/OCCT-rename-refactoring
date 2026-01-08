@@ -20,7 +20,7 @@
 class TopoShape;
 class StyleDrawer;
 
-class StdPrs_ToolTriangulatedShape : public BRepLib_ToolTriangulatedShape
+class StdPrs_ToolTriangulatedShape : public ToolTriangulatedShape
 {
 public:
   //! Similar to BRepTools1::Triangulation() but without extra checks.

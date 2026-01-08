@@ -29,12 +29,12 @@
 //!
 //! Classes prefixed with Shape* corresponds to the packages of
 //! Shape Healing.
-class SWDRAW
+class SWDRAW1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads commands defined in SWDRAW
+  //! Loads commands defined in SWDRAW1
   Standard_EXPORT static void Init(DrawInterpreter& theCommands);
 
   //! Returns the name of the DRAW group accumulating the

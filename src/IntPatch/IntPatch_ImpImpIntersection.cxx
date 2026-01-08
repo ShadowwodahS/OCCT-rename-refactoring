@@ -3841,7 +3841,7 @@ void AdjustToSeam(const Cone1& aQuad, gp_Circ& aCirc)
   Frame3d aAx2;
   //
   const Point3d& aPLoc = aCirc.Location();
-  const Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position1();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
 }
@@ -3853,7 +3853,7 @@ void AdjustToSeam(const Sphere3& aQuad, gp_Circ& aCirc, const Standard_Real aTol
   Frame3d aAx2;
   //
   const Axis3d& aAx1C = aCirc.Axis();
-  const Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position1();
   const Axis3d& aAx1Q = aAx3.Axis();
   //
   const Dir3d& aDirC = aAx1C.Direction();
@@ -3873,7 +3873,7 @@ void AdjustToSeam(const Cylinder1& aQuad, gp_Circ& aCirc)
   Frame3d aAx2;
   //
   const Point3d& aPLoc = aCirc.Location();
-  const Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position1();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
 }
@@ -3885,7 +3885,7 @@ void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc)
   Frame3d aAx2;
   //
   const Point3d& aPLoc = aCirc.Location();
-  const Ax3& aAx3  = aQuad.Position();
+  const Ax3& aAx3  = aQuad.Position1();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
 }
@@ -6488,7 +6488,7 @@ void WorkWithBoundaries::BoundaryEstimation(const Cylinder1& theCy1,
 #ifdef INTPATCH_IMPIMPINTERSECTION_DEBUG
   // The code in this block is created for test only.It is stupidly to create
   // OCCT-test for the method, which will be changed possibly never.
-  std::cout << "Reference values: aHDV1 = " << aHDV1 << "; aHDV2 = " << aHDV2 << std::endl;
+  std::cout << "Reference1 values: aHDV1 = " << aHDV1 << "; aHDV2 = " << aHDV2 << std::endl;
 #endif
 
   // V-parameters of intersection point of the axes (in case of skewed axes,

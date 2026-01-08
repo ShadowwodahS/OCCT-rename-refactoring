@@ -24,20 +24,20 @@
 #include <XmlObjMgt_Document.hxx>
 class TopoShape;
 
-//! The XmlMNaming_Shape1 is the Persistent view of a TopoShape.
+//! The Shape1 is the Persistent view of a TopoShape.
 //!
 //! a  Shape1 contains :
 //! - a reference to a TShape
 //! - a reference to Location
 //! - an Orientation.
-class XmlMNaming_Shape1
+class Shape1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT XmlMNaming_Shape1(XmlObjMgt_Document& Doc);
+  Standard_EXPORT Shape1(XmlObjMgt_Document& Doc);
 
-  Standard_EXPORT XmlMNaming_Shape1(const XmlObjMgt_Element& E);
+  Standard_EXPORT Shape1(const XmlObjMgt_Element& E);
 
   //! return myElement
   Standard_EXPORT const XmlObjMgt_Element& Element() const;

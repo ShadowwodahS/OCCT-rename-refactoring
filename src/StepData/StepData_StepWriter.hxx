@@ -74,7 +74,7 @@ public:
   //! Use this method to access FloatWriter in order to consult or
   //! change its options (MainFormat, FormatForRange,ZeroSuppress),
   //! because it is returned as the address of its field
-  Standard_EXPORT Interface_FloatWriter& FloatWriter();
+  Standard_EXPORT InterfaceFloatWriter& FloatWriter();
 
   //! Declares the Entity Number <numscope> to correspond to a Scope
   //! which contains the Entity Number <numin>. Several calls to the
@@ -138,9 +138,9 @@ public:
   //! sets an end of Scope  (on a separate line)
   Standard_EXPORT void SendEndscope();
 
-  //! sets a comment mark : if mode is True, begins Comment zone,
-  //! if mode is False, ends Comment zone (if one is begun)
-  Standard_EXPORT void Comment(const Standard_Boolean mode);
+  //! sets a comment mark : if mode is True, begins Comment1 zone,
+  //! if mode is False, ends Comment1 zone (if one is begun)
+  Standard_EXPORT void Comment1(const Standard_Boolean mode);
 
   //! sends a comment. Error if we are not inside a comment zone
   Standard_EXPORT void SendComment(const Handle(TCollection_HAsciiString)& text);
@@ -282,7 +282,7 @@ private:
 
   Handle(StepData_StepModel)              themodel;
   Handle(TColStd_HSequenceOfHAsciiString) thefile;
-  Interface_LineBuffer                    thecurr;
+  LineBuffer                    thecurr;
   Standard_Boolean                        thesect;
   Standard_Boolean                        thecomm;
   Standard_Boolean                        thefirst;
@@ -291,7 +291,7 @@ private:
   Standard_Boolean                        theindent;
   Standard_Integer                        theindval;
   Standard_Integer                        thetypmode;
-  Interface_FloatWriter                   thefloatw;
+  InterfaceFloatWriter                   thefloatw;
   Interface_CheckIterator                 thechecks;
   Standard_Integer                        thenum;
   Standard_Integer                        thelabmode;

@@ -19,11 +19,11 @@
 
 #include <Draw_Interpretor.hxx>
 
-class XSDRAWPLY
+class XSDRAWPLY1
 {
   DEFINE_STANDARD_ALLOC
 public:
-  //! Loads all Draw1 commands of XSDRAWPLY. Used for plugin.
+  //! Loads all Draw1 commands of XSDRAWPLY1. Used for plugin.
   Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 

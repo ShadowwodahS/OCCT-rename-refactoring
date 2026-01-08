@@ -41,7 +41,7 @@ Standard_Boolean TopOpeBRepDS_PointIterator::MatchInterference(
 
 Standard_Integer TopOpeBRepDS_PointIterator::Current() const
 {
-  return Value()->Geometry();
+  return Value()->Geometry1();
 }
 
 //=================================================================================================

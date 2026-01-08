@@ -45,12 +45,12 @@ void PlanarTool::ReadOwnParams(const Handle(IGESDraw_Planar)&         ent,
   Handle(IGESGeom_TransformationMatrix) transformationMatrix;
   Handle(IGESData_HArray1OfIGESEntity)  entities;
 
-  // Reading nbMatrices(Integer)
+  // Reading nbMatrices(Integer1)
   st = PR.ReadInteger(PR.Current(), "No. of Transformation matrices", nbMatrices);
   if (nbMatrices != 1)
     PR.AddFail("No. of Transformation matrices != 1");
 
-  // Reading nbval(Integer)
+  // Reading nbval(Integer1)
   st = PR.ReadInteger(PR.Current(), "No. of Entities in this plane", nbval);
   if (!st)
     nbval = 0; // szv#4:S4163:12Mar99 was bug: `nbval == 0`

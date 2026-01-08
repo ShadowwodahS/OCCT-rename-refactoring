@@ -106,8 +106,8 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
   sign1 = Side1;
   sign2 = Side2;
 
-  isConvex1 = Bisector::IsConvex(curve1, sign1);
-  isConvex2 = Bisector::IsConvex(curve2, sign2);
+  isConvex1 = Bisector1::IsConvex(curve1, sign1);
+  isConvex2 = Bisector1::IsConvex(curve2, sign2);
 
   Standard_Real           U, UC1, UC2, Dist, dU, USol;
   gp_Pnt2d                P;
@@ -146,7 +146,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
     // the parameter of the origin point gives a point
     // on the polygon.
     //----------------------------------------------------
-    myPolygon.Append(Bisector_PointOnBis(UC1, UC2, U, Dist, P));
+    myPolygon.Append(PointOnBis(UC1, UC2, U, Dist, P));
     startIntervals.Append(U);
     if (P.IsEqual(Origin, Precision::Confusion()))
     {
@@ -172,7 +172,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
         USol = SearchBound(U - dU, U);
         P    = ValueByInt(USol, UC1, UC2, Dist);
         startIntervals.Append(USol);
-        myPolygon.Append(Bisector_PointOnBis(UC1, UC2, USol, Dist, P));
+        myPolygon.Append(PointOnBis(UC1, UC2, USol, Dist, P));
         break;
       }
       U += dU;
@@ -204,7 +204,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
       if (Dist < Precision::Infinite())
       {
         if (P.Distance(prevPnt) > Precision::Confusion())
-          myPolygon.Append(Bisector_PointOnBis(UC1, UC2, U, Dist, P));
+          myPolygon.Append(PointOnBis(UC1, UC2, U, Dist, P));
       }
       else
       {
@@ -212,7 +212,7 @@ void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
         P    = ValueByInt(USol, UC1, UC2, Dist);
         endIntervals.SetValue(1, USol);
         if (P.Distance(prevPnt) > Precision::Confusion())
-          myPolygon.Append(Bisector_PointOnBis(UC1, UC2, USol, Dist, P));
+          myPolygon.Append(PointOnBis(UC1, UC2, USol, Dist, P));
         break;
       }
       U += dU;
@@ -402,7 +402,7 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
   // Construction of the new polygon from the initial one.
   // inversion of PointOnBis and Calculation of new parameters on the bissectrice.
   //-------------------------------------------------------------------------
-  Bisector_PolyBis Poly1;
+  PolyBis Poly1;
   if (sign1 == sign2)
   {
     //---------------------------------------------------------------
@@ -410,8 +410,8 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
     //---------------------------------------------------------------
     for (Standard_Integer i = myPolygon.Length(); i >= 1; i--)
     {
-      Bisector_PointOnBis P = myPolygon.Value(i);
-      Bisector_PointOnBis NewP(P.ParamOnC2(),
+      PointOnBis P = myPolygon.Value(i);
+      PointOnBis NewP(P.ParamOnC2(),
                                P.ParamOnC1(),
                                P.ParamOnC2(),
                                P.Distance(),
@@ -423,8 +423,8 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
   {
     for (Standard_Integer i = 1; i <= myPolygon.Length(); i++)
     {
-      Bisector_PointOnBis P = myPolygon.Value(i);
-      Bisector_PointOnBis NewP(P.ParamOnC2(),
+      PointOnBis P = myPolygon.Value(i);
+      PointOnBis NewP(P.ParamOnC2(),
                                P.ParamOnC1(),
                                P.ParamOnC2(),
                                P.Distance(),
@@ -1194,7 +1194,7 @@ gp_Pnt2d Bisector_BisecCC::Extension(const Standard_Real U,
                                      Standard_Real&      Dist,
                                      gp_Vec2d&           T) const
 {
-  Bisector_PointOnBis PRef;
+  PointOnBis PRef;
   gp_Pnt2d            P, P1, P2, PBis;
   gp_Vec2d            T1, Tang;
   Standard_Real       dU               = 0.;
@@ -1313,8 +1313,8 @@ static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
   //-------------------------------------------------------------------
   gp_Pnt2d         P1, P2, P, PSol;
   gp_Vec2d         Tan1, Tan2;
-  Standard_Boolean IsConvexA = Bisector::IsConvex(CA, SignA);
-  Standard_Boolean IsConvexB = Bisector::IsConvex(CB, SignB);
+  Standard_Boolean IsConvexA = Bisector1::IsConvex(CA, SignA);
+  Standard_Boolean IsConvexB = Bisector1::IsConvex(CB, SignB);
 
   CA->D1(UOnA, P1, Tan1);
   gp_Vec2d N1(Tan1.Y(), -Tan1.X());
@@ -1521,7 +1521,7 @@ static void Indent(const Standard_Integer Offset)
 
 //=================================================================================================
 
-const Bisector_PolyBis& Bisector_BisecCC::Polygon() const
+const PolyBis& Bisector_BisecCC::Polygon() const
 {
   return myPolygon;
 }
@@ -1596,7 +1596,7 @@ void Bisector_BisecCC::Sign(const Standard_Integer I, const Standard_Real S)
 
 //=================================================================================================
 
-void Bisector_BisecCC::Polygon(const Bisector_PolyBis& P)
+void Bisector_BisecCC::Polygon(const PolyBis& P)
 {
   myPolygon = P;
 }

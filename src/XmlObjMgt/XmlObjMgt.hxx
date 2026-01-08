@@ -31,7 +31,7 @@ class AsciiString1;
 //! This package defines services to manage the storage
 //! grain of data produced by applications and those classes
 //! to manage persistent extern reference.
-class XmlObjMgt
+class XmlObjMgt1
 {
 public:
   DEFINE_STANDARD_ALLOC

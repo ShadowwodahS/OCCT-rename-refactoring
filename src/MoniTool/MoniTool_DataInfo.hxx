@@ -27,7 +27,7 @@ class RefObject;
 //! Gives information on an object
 //! Used as template to instantiate Elem, etc
 //! This class is for Transient
-class MoniTool_DataInfo
+class DataInfoTool
 {
 public:
   DEFINE_STANDARD_ALLOC

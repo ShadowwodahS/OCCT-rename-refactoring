@@ -73,7 +73,7 @@ static Standard_Boolean FUN_keepEinterference
                             || ((shaa == TopAbs_EDGE) && (staa == TopAbs_ON)));
     res                               = res && k2;
 
-    const TopoShape& VG = DS.Shape(I->Geometry());
+    const TopoShape& VG = DS.Shape(I->Geometry1());
 
     /*   xpu : 20-01-98
     // EVI I  rejetee si son vertex-geometrie est un vertex de l'arete

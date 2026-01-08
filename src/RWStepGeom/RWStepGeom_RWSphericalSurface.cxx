@@ -64,7 +64,7 @@ void RWStepGeom_RWSphericalSurface::WriteStep(StepData_StepWriter&              
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : radius ---
 
@@ -75,5 +75,5 @@ void RWStepGeom_RWSphericalSurface::Share(const Handle(StepGeom_SphericalSurface
                                           Interface_EntityIterator&                iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

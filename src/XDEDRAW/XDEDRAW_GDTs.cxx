@@ -252,7 +252,7 @@ static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, con
           di << " )";
         }
         Handle(XCAFDoc_GraphNode) aNode;
-        if (aGDTs.Value(j).FindAttribute(XCAFDoc::DatumTolRefGUID(), aNode)
+        if (aGDTs.Value(j).FindAttribute(XCAFDoc1::DatumTolRefGUID(), aNode)
             && aNode->NbChildren() > 0)
         {
           for (Standard_Integer k = 1; k <= aNode->NbChildren(); k++)
@@ -1157,7 +1157,7 @@ static Standard_Integer getTypeOfTol(DrawInterpreter& di, Standard_Integer argc,
         di << "Perpendicularity";
         break;
       case 10:
-        di << "Position";
+        di << "Position1";
         break;
       case 11:
         di << "ProfileOfLine";
@@ -3480,7 +3480,7 @@ static Standard_Integer setGDTSemanticName(DrawInterpreter& di,
 
 //=================================================================================================
 
-void XDEDRAW_GDTs::InitCommands(DrawInterpreter& di)
+void GDTCommands::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)
@@ -3562,7 +3562,7 @@ void XDEDRAW_GDTs::InitCommands(DrawInterpreter& di)
          "\t  7 Flatness\n"
          "\t  8 Parallelism\n"
          "\t  9 Perpendicularity\n"
-         "\t 10 Position\n"
+         "\t 10 Position1\n"
          "\t 11 ProfileOfLine\n"
          "\t 12 ProfileOfSurface\n"
          "\t 13 Straightness\n"

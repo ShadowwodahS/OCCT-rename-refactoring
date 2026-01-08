@@ -60,7 +60,7 @@ ShapeFix_IntersectionTool::ShapeFix_IntersectionTool(const Handle(ShapeBuild_ReS
 //=======================================================================
 // function : GetPointOnEdge
 // purpose  : auxiliary
-//: h0 abv 29 May 98: PRO10105 1949: like in BRepCheck, point is to be taken
+//: h0 abv 29 May 98: PRO10105 1949: like in BRepCheck1, point is to be taken
 // from 3d curve (but only if edge is SameParameter)
 //=======================================================================
 static Point3d GetPointOnEdge(const TopoEdge&                   edge,
@@ -147,7 +147,7 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge(const TopoEdge&   edge,
     last  = a;
   }
 
-  ShapeBuild_Edge    sbe;
+  Edge2    sbe;
   TopAbs_Orientation orient = edge.Orientation();
   ShapeBuilder       B;
   TopoEdge        wE = edge;
@@ -457,7 +457,7 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
 {
   // union vertexes
   Standard_Boolean   res = Standard_False;
-  ShapeBuild_Edge    sbe;
+  Edge2    sbe;
   Edge1 sae;
   ShapeBuilder       B;
   TopoVertex      V;
@@ -1475,7 +1475,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
                 // SegE = sewd->Edge(numseg1); // get edge from segment
                 //  split edge2
                 //  replace vertices if it is necessary
-                ShapeBuild_Edge sbe;
+                Edge2 sbe;
                 akey1 = 0, akey2 = 0;
 
                 if (P01.Distance(PV12) < tolV1)
@@ -2081,7 +2081,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
                     SegE = sewd1->Edge(numseg1); // get edge from segment
                     // split edge2
                     // replace vertices if it is necessary
-                    ShapeBuild_Edge sbe;
+                    Edge2 sbe;
                     akey1 = 0, akey2 = 0;
                     if (P01.Distance(PV12) < tolV1)
                     {

@@ -204,10 +204,10 @@ void VUserDrawObj::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
 
 static Standard_Integer VUserDraw(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
-    Message::SendFail("Error: no active viewer");
+    Message1::SendFail("Error: no active viewer");
     return 1;
   }
 
@@ -215,21 +215,21 @@ static Standard_Integer VUserDraw(DrawInterpreter&, Standard_Integer argc, const
     Handle(OpenGl_GraphicDriver)::DownCast(aContext->CurrentViewer()->Driver());
   if (aDriver.IsNull())
   {
-    Message::SendFail("Error: Graphic driver not available.");
+    Message1::SendFail("Error: Graphic driver not available.");
     return 1;
   }
 
   if (argc > 2)
   {
-    Message::SendFail("Syntax error: wrong number of arguments");
+    Message1::SendFail("Syntax error: wrong number of arguments");
     return 1;
   }
 
   AsciiString1 aName(argv[1]);
-  ViewerTest::Display(aName, Handle(VisualEntity)());
+  ViewerTest1::Display(aName, Handle(VisualEntity)());
 
   Handle(VUserDrawObj) anIObj = new VUserDrawObj();
-  ViewerTest::Display(aName, anIObj);
+  ViewerTest1::Display(aName, anIObj);
 
   return 0;
 }
@@ -240,10 +240,10 @@ static Standard_Integer VGlShaders(DrawInterpreter& theDI,
                                    Standard_Integer  theArgNb,
                                    const char**      theArgVec)
 {
-  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
-    Message::SendFail("Error: no active viewer");
+    Message1::SendFail("Error: no active viewer");
     return 1;
   }
 
@@ -255,7 +255,7 @@ static Standard_Integer VGlShaders(DrawInterpreter& theDI,
   }
   if (aGlCtx.IsNull())
   {
-    Message::SendFail("Error: no OpenGl_Context");
+    Message1::SendFail("Error: no OpenGl_Context");
     return 1;
   }
 
@@ -276,7 +276,7 @@ static Standard_Integer VGlShaders(DrawInterpreter& theDI,
       Handle(OpenGl_ShaderProgram) aResProg;
       if (!aGlCtx->GetResource(aShaderName, aResProg))
       {
-        Message::SendFail() << "Syntax error: shader resource '" << aShaderName << "' is not found";
+        Message1::SendFail() << "Syntax error: shader resource '" << aShaderName << "' is not found";
         return 1;
       }
       if (aResProg->UpdateDebugDump(aGlCtx, "", false, anArg == "-dump"))
@@ -287,7 +287,7 @@ static Standard_Integer VGlShaders(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
@@ -339,7 +339,7 @@ static int VGlDebug(DrawInterpreter& theDI, Standard_Integer theArgNb, const cha
 {
   Handle(OpenGl_GraphicDriver) aDriver;
   Handle(OpenGl_Context)       aGlCtx;
-  Handle(ViewWindow)             aView = ViewerTest::CurrentView();
+  Handle(ViewWindow)             aView = ViewerTest1::CurrentView();
   if (!aView.IsNull())
   {
     aDriver = Handle(OpenGl_GraphicDriver)::DownCast(aView->Viewer()->Driver());
@@ -492,7 +492,7 @@ static int VGlDebug(DrawInterpreter& theDI, Standard_Integer theArgNb, const cha
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
@@ -512,12 +512,12 @@ static int VVbo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** 
   }
 
   // get the context
-  Handle(VisualContext) aContextAIS = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContextAIS = ViewerTest1::GetAISContext();
   if (aContextAIS.IsNull())
   {
     if (!toSet)
     {
-      Message::SendFail("Error: no active viewer");
+      Message1::SendFail("Error: no active viewer");
     }
     return 1;
   }
@@ -544,7 +544,7 @@ static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
 {
   OpenGl_Caps*                   aCaps = getDefaultCaps().get();
   Handle(OpenGl_GraphicDriver)   aDriver;
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (!aContext.IsNull())
   {
     aDriver = Handle(OpenGl_GraphicDriver)::DownCast(aContext->CurrentViewer()->Driver());
@@ -573,7 +573,7 @@ static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     return 0;
   }
 
-  ViewerTest_AutoUpdater anUpdateTool(aContext, ViewerTest::CurrentView());
+  ViewerTest_AutoUpdater anUpdateTool(aContext, ViewerTest1::CurrentView());
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
     Standard_CString        anArg = theArgVec[anArgIter];
@@ -687,7 +687,7 @@ static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
       }
       if (aVer[0] < -1 || aVer[1] < -1)
       {
-        Message::SendFail() << "Syntax error at '" << anArgCase << "'";
+        Message1::SendFail() << "Syntax error at '" << anArgCase << "'";
         return 1;
       }
       aCaps->contextMajorVersionUpper = aVer[0];
@@ -695,7 +695,7 @@ static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     }
     else
     {
-      Message::SendFail() << "Error: unknown argument '" << anArg << "'";
+      Message1::SendFail() << "Error: unknown argument '" << anArg << "'";
       return 1;
     }
   }

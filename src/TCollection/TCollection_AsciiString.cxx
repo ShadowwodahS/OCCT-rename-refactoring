@@ -33,7 +33,7 @@ static char THE_DEFAULT_CHAR_STRING[1] = {'\0'};
 }
 
 // ----------------------------------------------------------------------------
-// Create an empty AsciiString
+// Create an empty AsciiString2
 // ----------------------------------------------------------------------------
 AsciiString1::AsciiString1()
 {
@@ -88,7 +88,7 @@ AsciiString1::AsciiString1(const Standard_Character aChar)
 }
 
 // ----------------------------------------------------------------------------
-// Create an AsciiString from a filler
+// Create an AsciiString2 from a filler
 // ----------------------------------------------------------------------------
 AsciiString1::AsciiString1(const Standard_Integer   length,
                                                  const Standard_Character filler)
@@ -98,7 +98,7 @@ AsciiString1::AsciiString1(const Standard_Integer   length,
 }
 
 // ----------------------------------------------------------------------------
-// Create an AsciiString from an Integer
+// Create an AsciiString2 from an Integer1
 // ----------------------------------------------------------------------------
 AsciiString1::AsciiString1(const Standard_Integer aValue)
 {

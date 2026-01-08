@@ -405,9 +405,9 @@ void QuadQuadIntersection::Perform(const Cylinder1&    Cyl,
   //----------------------------------------------------------------------
   //-- Ecriture des Coefficients de la Quadrique dans le repere liee
   //-- au Cylindre
-  //--                 Cyl.Position() -> Ax2
+  //--                 Cyl.Position1() -> Ax2
   //----------------------------------------------------------------------
-  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, Q1, Cyl.Position());
+  Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, Q1, Cyl.Position1());
 
   //----------------------------------------------------------------------
   //-- Parametrage du Cylindre Cyl :
@@ -623,7 +623,7 @@ void QuadQuadIntersection::Perform(const Cylinder1&    Cyl,
             //--Standard_Real Theta = PolDIS(1);
             //--Standard_Real SecPar= -0.5 * MTFZ1.Value(Theta) / MTFZ2.Value(Theta);
             //--Thepoints[Nbpoints] =
-            // ElSLib1::CylinderValue(Theta,SecPar,Cyl.Position(),Cyl.Radius());
+            // ElSLib1::CylinderValue(Theta,SecPar,Cyl.Position1(),Cyl.Radius());
             //--Nbpoints++;
             NbCurves = 0;
           }
@@ -864,7 +864,7 @@ void QuadQuadIntersection::Perform(const Cone1&        Cone,
   //
   Quad.Coefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, Q1);
   //
-  Ax3 tAx3(Cone.Position());
+  Ax3 tAx3(Cone.Position1());
   tAx3.SetLocation(Cone.Apex());
   Quad.NewCoefficients(Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, Q1, tAx3);
   //

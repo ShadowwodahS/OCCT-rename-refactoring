@@ -79,11 +79,11 @@ static Standard_Integer QADNaming_CheckHasSame(DrawInterpreter& di,
   TopTools_MapIteratorOfMapOfShape itr2;
   for (; itr1.More(); itr1.Next())
   {
-    const TopoShape& s1 = itr1.Key();
+    const TopoShape& s1 = itr1.Key1();
 
     for (itr2.Initialize(M2); itr2.More(); itr2.Next())
     {
-      const TopoShape& s2 = itr2.Key();
+      const TopoShape& s2 = itr2.Key1();
       if (s1.IsSame(s2))
         di << "Shapes " << arg[1] << " and " << arg[2] << " have SAME subshapes\n";
     }
@@ -139,7 +139,7 @@ static Standard_Integer QADNaming_TCopyShape(DrawInterpreter& di,
     for (; itrn.More(); itrn.Next())
     {
       const AsciiString1& name   = itrn.Value();
-      const TopoShape             Result = TR.Copied(itrn.Key());
+      const TopoShape             Result = TR.Copied(itrn.Key1());
       DBRep1::Set(name.ToCString(), Result);
       di.AppendElement(name.ToCString());
     }
@@ -158,7 +158,7 @@ void QADNaming1::ToolsCommands(DrawInterpreter& theCommands)
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "Naming data commands";
+  const char* g = "Naming1 data commands";
 
   theCommands.Add("CopyShape",
                   "CopyShape (Shape1 [Shape2] ...)",

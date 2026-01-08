@@ -37,7 +37,7 @@ GeomToStep_MakeConicalSurface::GeomToStep_MakeConicalSurface(
   Handle(StepGeom_Axis2Placement3d) aPosition;
   Standard_Real                     aRadius, aSemiAngle;
 
-  GeomToStep_MakeAxis2Placement3d MkAxis(CS->Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement3d MkAxis(CS->Position1(), theLocalFactors);
   aPosition  = MkAxis.Value();
   aRadius    = CS->RefRadius();
   aSemiAngle = CS->SemiAngle();

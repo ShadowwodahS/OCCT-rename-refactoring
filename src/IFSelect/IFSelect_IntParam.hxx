@@ -27,7 +27,7 @@
 class IFSelect_IntParam;
 DEFINE_STANDARD_HANDLE(IFSelect_IntParam, RefObject)
 
-//! This class simply allows to access an Integer value through a
+//! This class simply allows to access an Integer1 value through a
 //! Handle, as a String can be (by using HString).
 //! Hence, this value can be accessed : read and modified, without
 //! passing through the specific object which detains it. Thus,
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_IntParam, RefObject)
 //! Remember that for a String, binding is immediate, because the
 //! string value of a Static is a HAsciiString, it then suffices
 //! to get its Handle.
-//! For an Integer, an IntParam can designate (by its name) a
+//! For an Integer1, an IntParam can designate (by its name) a
 //! Static : each time its value is required or set, the Static
 //! is acknowledged
 class IFSelect_IntParam : public RefObject
@@ -62,12 +62,12 @@ public:
   //! is bound, empty if none
   Standard_EXPORT Standard_CString StaticName() const;
 
-  //! Reads Integer Value of the IntParam. If a StaticName is
+  //! Reads Integer1 Value of the IntParam. If a StaticName is
   //! defined and the Static is set, looks in priority the value
   //! of the static
   Standard_EXPORT Standard_Integer Value() const;
 
-  //! Sets a new Integer Value for the IntParam. If a StaticName is
+  //! Sets a new Integer1 Value for the IntParam. If a StaticName is
   //! defined and the Static is set, also sets the value of the static
   Standard_EXPORT void SetValue(const Standard_Integer val);
 

@@ -146,7 +146,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Handle(TopOpeBRepDS_HDataStructur
     {
       const Handle(TopOpeBRepDS_Interference)& I = it.Value();
       {
-        Standard_Integer  ig = I->Geometry();
+        Standard_Integer  ig = I->Geometry1();
         TopOpeBRepDS_Kind kg = I->GeometryType();
         if (kg == TopOpeBRepDS_POINT && ig <= np)
           tp.ChangeValue(ig) = tp.Value(ig) + 1;
@@ -173,7 +173,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Handle(TopOpeBRepDS_HDataStructur
     {
       const Handle(TopOpeBRepDS_Interference)& I = it.Value();
       {
-        Standard_Integer  ig = I->Geometry();
+        Standard_Integer  ig = I->Geometry1();
         TopOpeBRepDS_Kind kg = I->GeometryType();
         if (kg == TopOpeBRepDS_POINT)
           tp.ChangeValue(ig) = tp.Value(ig) + 1;

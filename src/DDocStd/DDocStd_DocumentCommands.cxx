@@ -376,7 +376,7 @@ static Standard_Integer DDocStd_DumpDocument(DrawInterpreter& di,
         AsciiString1 string;
         for (; it.More(); it.Next())
         {
-          Tool3::Entry(it.Key(), string);
+          Tool3::Entry(it.Key1(), string);
           di << string.ToCString() << " ";
         }
         di << "\n";
@@ -434,7 +434,7 @@ static Standard_Integer DDocStd_Propagate(DrawInterpreter& di,
   //     }
   //     TFunction_Logbook mdf (Standard_True);
   //     for (TDF_MapIteratorOfLabelMap it (D->GetModified());it.More();it.Next()) {
-  //       mdf.SetTouched(it.Key());
+  //       mdf.SetTouched(it.Key1());
   //     }
   //     F->Execute(mdf);
   //     D->PurgeModified();

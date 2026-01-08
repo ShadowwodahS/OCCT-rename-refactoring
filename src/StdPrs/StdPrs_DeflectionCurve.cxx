@@ -224,7 +224,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
       Point3d p2 = aCurve.Value(U2);
       if (Abs(X - p2.X()) + Abs(Y - p2.Y()) + Abs(Z - p2.Z()) <= aDistance)
         return Standard_True;
-      return Prs3d::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist);
+      return Prs3d1::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist);
     }
     case GeomAbs_Circle: {
       const Standard_Real Radius = aCurve.Circle().Radius();
@@ -244,7 +244,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
 
             if (Index > 1)
             {
-              if (Prs3d::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist))
+              if (Prs3d1::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist))
                 return Standard_True;
             }
             p1 = p2;
@@ -266,7 +266,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
             return Standard_True;
           if (i > 1)
           {
-            if (Prs3d::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist))
+            if (Prs3d1::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist))
               return Standard_True;
           }
           p1 = p2;
@@ -308,7 +308,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
       Point3d Location;
       Vector3d Direction;
       aCurve.D1(V2, Location, Direction);
-      Prs3d_Arrow::Draw1(aGroup,
+      Arrow1::Draw1(aGroup,
                         Location,
                         Dir3d(Direction),
                         aDrawer->ArrowAspect()->Angle(),
@@ -355,7 +355,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
     Point3d Location;
     Vector3d Direction;
     aCurve.D1(V2, Location, Direction);
-    Prs3d_Arrow::Draw1(aGroup,
+    Arrow1::Draw1(aGroup,
                       Location,
                       Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),

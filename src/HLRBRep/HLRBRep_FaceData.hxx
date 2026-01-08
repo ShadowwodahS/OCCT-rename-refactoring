@@ -119,7 +119,7 @@ public:
 
   Handle(HLRAlgo_WiresBlock)& Wires();
 
-  HLRBRep_Surface& Geometry();
+  HLRBRep_Surface& Geometry1();
 
   Standard_ShortReal Tolerance() const;
 

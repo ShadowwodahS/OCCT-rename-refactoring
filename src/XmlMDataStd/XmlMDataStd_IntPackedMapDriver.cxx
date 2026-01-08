@@ -53,7 +53,7 @@ Handle(TDF_Attribute) XmlMDataStd_IntPackedMapDriver::NewEmpty() const
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
 Standard_Boolean XmlMDataStd_IntPackedMapDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -79,12 +79,12 @@ Standard_Boolean XmlMDataStd_IntPackedMapDriver::Paste(
     if (aSize)
     {
       Standard_CString aValueString =
-        Standard_CString(XmlObjMgt::GetStringValue(anElement).GetString());
+        Standard_CString(XmlObjMgt1::GetStringValue(anElement).GetString());
       //      Handle(TColStd_HPackedMapOfInteger) aHMap = new TColStd_HPackedMapOfInteger ();
       for (Standard_Integer i = 1; i <= aSize; i++)
       {
         Standard_Integer aValue;
-        if (!XmlObjMgt::GetInteger(aValueString, aValue))
+        if (!XmlObjMgt1::GetInteger(aValueString, aValue))
         {
           Ok = Standard_False;
           break;
@@ -140,7 +140,7 @@ Standard_Boolean XmlMDataStd_IntPackedMapDriver::Paste(
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_IntPackedMapDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                           XmlObjMgt_Persistent&        theTarget,
+                                           PersistentStorage&        theTarget,
                                            XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_IntPackedMap) aS = Handle(TDataStd_IntPackedMap)::DownCast(theSource);
@@ -164,11 +164,11 @@ void XmlMDataStd_IntPackedMapDriver::Paste(const Handle(TDF_Attribute)& theSourc
     TColStd_MapIteratorOfPackedMapOfInteger anIt(aS->GetMap());
     for (; anIt.More(); anIt.Next())
     {
-      const Standard_Integer intValue = anIt.Key();
+      const Standard_Integer intValue = anIt.Key1();
       iChar += Sprintf(&(str[iChar]), "%d ", intValue);
     }
 
     // No occurrence of '&', '<' and other irregular XML characters
-    XmlObjMgt::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
+    XmlObjMgt1::SetStringValue(theTarget, (Standard_Character*)str, Standard_True);
   }
 }

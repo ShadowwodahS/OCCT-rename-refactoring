@@ -23,7 +23,7 @@ class Poly_Polygon3D;
 class Poly_PolygonOnTriangulation;
 class MeshTriangulation;
 
-class ShapePersistent_Poly : private StdObjMgt_SharedObject
+class ShapePersistent_Poly : private SharedObject
 {
   class pPolygon2D : public RefObject
   {
@@ -35,9 +35,9 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myDeflection >> myNodes; }
+    inline void Read(ReadData& theReadData) { theReadData >> myDeflection >> myNodes; }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myDeflection << myNodes;
     }
@@ -58,12 +58,12 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     friend class ShapePersistent_Poly;
 
   public:
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myDeflection >> myNodes >> myParameters;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myDeflection << myNodes << myParameters;
     }
@@ -77,7 +77,7 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
   private:
     Standard_Real                        myDeflection;
     Handle(ShapePersistent_HArray1::Pnt) myNodes;
-    Handle(StdLPersistent_HArray1::Real) myParameters;
+    Handle(HArray1::Real) myParameters;
   };
 
   class pPolygonOnTriangulation : public RefObject
@@ -90,12 +90,12 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myDeflection >> myNodes >> myParameters;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myDeflection << myNodes << myParameters;
     }
@@ -108,8 +108,8 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
 
   private:
     Standard_Real                           myDeflection;
-    Handle(StdLPersistent_HArray1::Integer) myNodes;
-    Handle(StdLPersistent_HArray1::Real)    myParameters;
+    Handle(HArray1::Integer1) myNodes;
+    Handle(HArray1::Real)    myParameters;
   };
 
   class pTriangulation : public RefObject
@@ -122,12 +122,12 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myDeflection >> myNodes >> myUVNodes >> myTriangles;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myDeflection << myNodes << myUVNodes << myTriangles;
     }

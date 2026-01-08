@@ -54,12 +54,12 @@ Standard_Boolean Transfer_TransientMapper::Equates(const Handle(Transfer_Finder)
 
 Handle(TypeInfo) Transfer_TransientMapper::ValueType() const
 {
-  return Transfer_DataInfo::Type(theval);
+  return DataInfo1::Type(theval);
 }
 
 //=================================================================================================
 
 Standard_CString Transfer_TransientMapper::ValueTypeName() const
 {
-  return Transfer_DataInfo::TypeName(theval);
+  return DataInfo1::TypeName(theval);
 }

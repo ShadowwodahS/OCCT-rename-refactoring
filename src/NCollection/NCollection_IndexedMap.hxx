@@ -36,8 +36,8 @@
  *              discussion about the number of buckets.
  */
 
-template <class TheKeyType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
-class NCollection_IndexedMap : public NCollection_BaseMap
+template <class TheKeyType, class Hasher1 = DefaultHasher<TheKeyType>>
+class NCollection_IndexedMap : public BaseMap
 {
 public:
   //! STL-compliant typedef for key type
@@ -141,27 +141,27 @@ public:
 
   //! Empty constructor.
   NCollection_IndexedMap()
-      : NCollection_BaseMap(1, true, Handle(NCollection_BaseAllocator)())
+      : BaseMap(1, true, Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_IndexedMap(const Standard_Integer                   theNbBuckets,
                                   const Handle(NCollection_BaseAllocator)& theAllocator = 0L)
-      : NCollection_BaseMap(theNbBuckets, true, theAllocator)
+      : BaseMap(theNbBuckets, true, theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_IndexedMap(const NCollection_IndexedMap& theOther)
-      : NCollection_BaseMap(theOther.NbBuckets(), true, theOther.myAllocator)
+      : BaseMap(theOther.NbBuckets(), true, theOther.myAllocator)
   {
     *this = theOther;
   }
 
   //! Move constructor
   NCollection_IndexedMap(NCollection_IndexedMap&& theOther) noexcept
-      : NCollection_BaseMap(std::forward<NCollection_BaseMap>(theOther))
+      : BaseMap(std::forward<BaseMap>(theOther))
   {
   }
 

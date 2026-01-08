@@ -50,7 +50,7 @@ Standard_Integer Interface_ParamSet::Append(const Standard_CString    val,
   else if (lnval < 0)
   {
     //    ..  Gestion externe des caracteres  ..
-    Interface_FileParameter& FP = thelist->ChangeValue(thenbpar);
+    FileParameter& FP = thelist->ChangeValue(thenbpar);
     FP.Init(val, typ);
     if (nument != 0)
       FP.SetEntityNumber(nument);
@@ -74,7 +74,7 @@ Standard_Integer Interface_ParamSet::Append(const Standard_CString    val,
       char* pnewVal = &newval[0];
       for (i = 1; i < thenbpar; i++)
       {
-        Interface_FileParameter& OFP   = thelist->ChangeValue(i);
+        FileParameter& OFP   = thelist->ChangeValue(i);
         Interface_ParamType      otyp  = OFP.ParamType();
         char*                    oval  = (char*)OFP.CValue();
         Standard_Integer         delta = (Standard_Integer)(oval - poldVal);
@@ -95,7 +95,7 @@ Standard_Integer Interface_ParamSet::Append(const Standard_CString    val,
       theval[thelnval + i] = val[i];
     theval[thelnval + lnval] = '\0';
 
-    Interface_FileParameter& FP = thelist->ChangeValue(thenbpar);
+    FileParameter& FP = thelist->ChangeValue(thenbpar);
     FP.Init(&theval[thelnval], typ);
     if (nument != 0)
       FP.SetEntityNumber(nument);
@@ -104,7 +104,7 @@ Standard_Integer Interface_ParamSet::Append(const Standard_CString    val,
   return thenbpar;
 }
 
-Standard_Integer Interface_ParamSet::Append(const Interface_FileParameter& FP)
+Standard_Integer Interface_ParamSet::Append(const FileParameter& FP)
 {
   //  Ici, FP tout pret : pas de gestion memoire sur String (dommage)
 
@@ -123,7 +123,7 @@ Standard_Integer Interface_ParamSet::NbParams() const
   return thenbpar;
 }
 
-const Interface_FileParameter& Interface_ParamSet::Param(const Standard_Integer num) const
+const FileParameter& Interface_ParamSet::Param(const Standard_Integer num) const
 {
   if (num > themxpar)
     return thenext->Param(num - themxpar);
@@ -131,7 +131,7 @@ const Interface_FileParameter& Interface_ParamSet::Param(const Standard_Integer 
     return thelist->Value(num);
 }
 
-Interface_FileParameter& Interface_ParamSet::ChangeParam(const Standard_Integer num)
+FileParameter& Interface_ParamSet::ChangeParam(const Standard_Integer num)
 {
   if (num > themxpar)
     return thenext->ChangeParam(num - themxpar);
@@ -139,7 +139,7 @@ Interface_FileParameter& Interface_ParamSet::ChangeParam(const Standard_Integer 
     return thelist->ChangeValue(num);
 }
 
-void Interface_ParamSet::SetParam(const Standard_Integer num, const Interface_FileParameter& FP)
+void Interface_ParamSet::SetParam(const Standard_Integer num, const FileParameter& FP)
 {
   if (num > themxpar)
     thenext->SetParam(num - themxpar, FP);

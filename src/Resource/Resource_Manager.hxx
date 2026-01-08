@@ -78,7 +78,7 @@ public:
 
   //! Gets the value of an integer resource according to its
   //! instance and its type.
-  Standard_EXPORT virtual Standard_Integer Integer(const Standard_CString aResourceName) const;
+  Standard_EXPORT virtual Standard_Integer Integer1(const Standard_CString aResourceName) const;
 
   //! Gets the value of a real resource according to its instance
   //! and its type.

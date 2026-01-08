@@ -143,7 +143,7 @@ static Standard_Integer QADNaming_SolveSelection(DrawInterpreter& di,
         valid.Add(aValidLab);
     }
     Standard_Boolean done = SL.Solve(valid);
-    TopoShape     Res  = Tool11::CurrentShape(SL.NamedShape());
+    TopoShape     Res  = Tool11::CurrentShape(SL.NamedShape1());
     // TopoShape Res = Tool11::CurrentShape(NS);
     Sprintf(name, "%s_%s", "new", a[2]);
     Display(name, Res);
@@ -234,7 +234,7 @@ static Standard_Integer QADNaming_ArgsSelection(DrawInterpreter& di,
     SL.Arguments(args);
     for (TDF_MapIteratorOfAttributeMap it(args); it.More(); it.Next())
     {
-      Tool3::Entry(it.Key()->Label(), Entry);
+      Tool3::Entry(it.Key1()->Label(), Entry);
       di << Entry.ToCString() << " ";
     }
     di << "\n";
@@ -312,7 +312,7 @@ static Standard_Integer QADNaming_Attachment(DrawInterpreter& di,
     di << "\n";
     for (TNaming_MapIteratorOfMapOfNamedShape ita(attachment); ita.More(); ita.Next())
     {
-      Tool3::Entry(ita.Key()->Label(), Entry);
+      Tool3::Entry(ita.Key1()->Label(), Entry);
       di << Entry.ToCString() << " ";
     }
     di << "\n";
@@ -332,7 +332,7 @@ void QADNaming1::SelectionCommands(DrawInterpreter& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "Naming data commands";
+  const char* g = "Naming1 data commands";
 
   theCommands.Add("SelectShape",
                   "SelectShape DF entry shape [context]",

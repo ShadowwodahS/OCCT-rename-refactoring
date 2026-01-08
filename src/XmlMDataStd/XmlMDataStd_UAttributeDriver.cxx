@@ -40,7 +40,7 @@ Handle(TDF_Attribute) XmlMDataStd_UAttributeDriver::NewEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean XmlMDataStd_UAttributeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_UAttributeDriver::Paste(const PersistentStorage&  theSource,
                                                      const Handle(TDF_Attribute)& theTarget,
                                                      XmlObjMgt_RRelocationTable&) const
 {
@@ -59,7 +59,7 @@ Standard_Boolean XmlMDataStd_UAttributeDriver::Paste(const XmlObjMgt_Persistent&
 //=================================================================================================
 
 void XmlMDataStd_UAttributeDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                         XmlObjMgt_Persistent&        theTarget,
+                                         PersistentStorage&        theTarget,
                                          XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDataStd_UAttribute) aName = Handle(TDataStd_UAttribute)::DownCast(theSource);

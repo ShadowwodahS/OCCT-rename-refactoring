@@ -25,15 +25,15 @@ class ExchangeSession;
 class IFSelect_SessionPilot;
 class XSControl_Vars;
 
-//! This package provides complements to IFSelect & Co for
+//! This package provides complements to IFSelect1 & Co for
 //! control of a session
-class XSControl
+class XSControl1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the WorkSession of a SessionPilot, but casts it as
-  //! from XSControl : it then gives access to Control & Transfers
+  //! from XSControl1 : it then gives access to Control & Transfers
   Standard_EXPORT static Handle(ExchangeSession) Session(
     const Handle(IFSelect_SessionPilot)& pilot);
 

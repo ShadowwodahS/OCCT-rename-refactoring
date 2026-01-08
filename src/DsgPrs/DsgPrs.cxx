@@ -41,7 +41,7 @@
 #include <Prs3d_Presentation.hxx>
 #include <Quantity_Color.hxx>
 
-void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
+void DsgPrs1::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
                            const Handle(Prs3d_DimensionAspect)& LA,
                            const Point3d&                        pt1,
                            const Point3d&                        pt2,
@@ -63,18 +63,18 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
       break;
     }
     case DsgPrs_AS_FIRSTAR: {
-      Prs3d_Arrow::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Arrow1::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
       break;
     }
     case DsgPrs_AS_LASTAR: {
 
-      Prs3d_Arrow::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Arrow1::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
       break;
     }
 
     case DsgPrs_AS_BOTHAR: {
-      Prs3d_Arrow::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
-      Prs3d_Arrow::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Arrow1::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Arrow1::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
 
       break;
     }
@@ -110,8 +110,8 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
     }
 
     case DsgPrs_AS_FIRSTAR_LASTPT: {
-      // an Arrow
-      Prs3d_Arrow::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      // an Arrow2
+      Arrow1::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
       // a Round
       Handle(Graphic3d_ArrayOfPoints) anArrayOfPoints = new Graphic3d_ArrayOfPoints(1);
       anArrayOfPoints->AddVertex(pt2.X(), pt2.Y(), pt2.Z());
@@ -121,8 +121,8 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
     }
 
     case DsgPrs_AS_FIRSTPT_LASTAR: {
-      // an Arrow
-      Prs3d_Arrow::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      // an Arrow2
+      Arrow1::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
 
       // a Round
       if (drawFromCenter)
@@ -139,7 +139,7 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
 
 //=================================================================================================
 
-void DsgPrs::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrowLength,
+void DsgPrs1::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrowLength,
                                                   const Standard_Real SecondArrowLength,
                                                   const Point3d&       AttachmentPoint1,
                                                   const Point3d&       AttachmentPoint2,
@@ -171,7 +171,7 @@ void DsgPrs::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrow
 
 //=================================================================================================
 
-void DsgPrs::ComputeCurvilinearFacesLengthPresentation(const Standard_Real FirstArrowLength,
+void DsgPrs1::ComputeCurvilinearFacesLengthPresentation(const Standard_Real FirstArrowLength,
                                                        const Standard_Real SecondArrowLength,
                                                        const Handle(GeomSurface)& SecondSurf,
                                                        const Point3d&               AttachmentPoint1,
@@ -262,7 +262,7 @@ void DsgPrs::ComputeCurvilinearFacesLengthPresentation(const Standard_Real First
 
 //=================================================================================================
 
-void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
+void DsgPrs1::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
                                            const Standard_Real    Value,
                                            const Point3d&          CenterPoint,
                                            const Point3d&          AttachmentPoint1,
@@ -401,9 +401,9 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
   }
 }
 
-void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/,
+void DsgPrs1::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/,
                                              const Standard_Real    Value,
-                                             const Point3d&          Position,
+                                             const Point3d&          Position1,
                                              const Dir3d&          NormalDir,
                                              const Point3d&          FirstPoint,
                                              const Point3d&          SecondPoint,
@@ -437,8 +437,8 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
     Vector3d vec2(dir2);
     vec2 *= FilletCirc.Radius();
     Vector3d PosVec;
-    if (!Center.IsEqual(Position, Precision::Confusion()))
-      PosVec.SetXYZ(Vector3d(Center, Position).XYZ());
+    if (!Center.IsEqual(Position1, Precision::Confusion()))
+      PosVec.SetXYZ(Vector3d(Center, Position1).XYZ());
     else
       PosVec.SetXYZ((vec1.Added(vec2)).XYZ());
     Vector3d           NormalOfPlane = vec1 ^ vec2;
@@ -450,7 +450,7 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
     gp_Lin           L2(Center, dir2);
     if (Sign1 != Sign2)
     {
-      DrawPosition = Position; //***
+      DrawPosition = Position1; //***
       Dir3d        direction(PosVec);
       Standard_Real angle = dir1.Angle(direction);
       if ((dir1 ^ direction) * NormalDir < 0.0e0)
@@ -461,15 +461,15 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
     }
     else
     {
-      if (L1.Distance(Position) < L2.Distance(Position))
+      if (L1.Distance(Position1) < L2.Distance(Position1))
       {
         EndOfArrow   = FirstPoint; //***
-        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L1, Position), L1);
+        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L1, Position1), L1);
       }
       else
       {
         EndOfArrow   = SecondPoint; //***
-        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L2, Position), L2);
+        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L2, Position1), L2);
       }
     }
     if ((dir1 ^ dir2).IsOpposite(NormalDir, Precision::Angular()))
@@ -483,7 +483,7 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
   }
   else // Angle equal 0 or PI or R = 0
   {
-    DrawPosition = Position;
+    DrawPosition = Position1;
     EndOfArrow   = BasePnt;
   }
 
@@ -497,7 +497,7 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
 
 //=================================================================================================
 
-void DsgPrs::ComputeRadiusLine(const Point3d&          aCenter,
+void DsgPrs1::ComputeRadiusLine(const Point3d&          aCenter,
                                const Point3d&          anEndOfArrow,
                                const Point3d&          aPosition,
                                const Standard_Boolean drawFromCenter,
@@ -534,7 +534,7 @@ void DsgPrs::ComputeRadiusLine(const Point3d&          aCenter,
 
 //=================================================================================================
 
-Standard_Real DsgPrs::DistanceFromApex(const gp_Elips&     elips,
+Standard_Real DsgPrs1::DistanceFromApex(const gp_Elips&     elips,
                                        const Point3d&       Apex,
                                        const Standard_Real par)
 {

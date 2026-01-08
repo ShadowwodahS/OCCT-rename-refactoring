@@ -28,7 +28,7 @@ class XCAFDoc_ShapeTool;
 class XCAFDoc_ColorTool;
 class XCAFDoc_VisMaterialTool;
 
-//! Extended status bits.
+//! Extended1 status bits.
 enum RWMesh_CafReaderStatusEx
 {
   RWMesh_CafReaderStatusEx_NONE = 0, //!< empty status

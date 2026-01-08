@@ -15,7 +15,7 @@
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::Status(const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatus, status);
+  return ShapeExtend1::DecodeStatus(myStatus, status);
 }
 
 inline void ShapeAnalysis_CheckSmallFace::SetTolerance(const Standard_Real tol)
@@ -31,41 +31,41 @@ inline Standard_Real ShapeAnalysis_CheckSmallFace::Tolerance() const
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusSpot(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusSpot, status);
+  return ShapeExtend1::DecodeStatus(myStatusSpot, status);
 }
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusStrip(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusStrip, status);
+  return ShapeExtend1::DecodeStatus(myStatusStrip, status);
 }
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusPin(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusPin, status);
+  return ShapeExtend1::DecodeStatus(myStatusPin, status);
 }
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusTwisted(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusTwisted, status);
+  return ShapeExtend1::DecodeStatus(myStatusTwisted, status);
 }
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusPinFace(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusPinFace, status);
+  return ShapeExtend1::DecodeStatus(myStatusPinFace, status);
 }
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusPinEdges(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusPinEdges, status);
+  return ShapeExtend1::DecodeStatus(myStatusPinEdges, status);
 }
 
 inline Standard_Boolean ShapeAnalysis_CheckSmallFace::StatusSplitVert(
   const ShapeExtend_Status status) const
 {
-  return ShapeExtend::DecodeStatus(myStatusSplitVert, status);
+  return ShapeExtend1::DecodeStatus(myStatusSplitVert, status);
 }

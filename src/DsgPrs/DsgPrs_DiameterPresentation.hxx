@@ -29,7 +29,7 @@ class Point3d;
 class gp_Circ;
 
 //! A framework for displaying diameters in shapes.
-class DsgPrs_DiameterPresentation
+class DiameterPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

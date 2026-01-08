@@ -20,17 +20,17 @@
 
 #include <TDataStd_Relation.hxx>
 
-class StdLPersistent_Dependency
+class Dependency
 {
   template <class AttribClass>
   class instance : public StdObjMgt_Attribute<AttribClass>
   {
   public:
     //! Read persistent data from a file.
-    inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myName >> myVariables; }
+    inline void Read(ReadData& theReadData) { theReadData >> myName >> myVariables; }
 
     //! Write persistent data to a file.
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myName << myVariables;
     }
@@ -49,8 +49,8 @@ class StdLPersistent_Dependency
     void Import(const Handle(AttribClass)& theAttribute) const;
 
   private:
-    Handle(StdLPersistent_HString::Extended)   myName;
-    Handle(StdLPersistent_HArray1::Persistent) myVariables;
+    Handle(HString::Extended1)   myName;
+    Handle(HArray1::Persistent) myVariables;
   };
 
 public:
@@ -59,13 +59,13 @@ public:
 };
 
 template <>
-inline Standard_CString StdLPersistent_Dependency::instance<TDataStd_Expression>::PName() const
+inline Standard_CString Dependency::instance<TDataStd_Expression>::PName() const
 {
   return "PDataStd_Expression";
 }
 
 template <>
-inline Standard_CString StdLPersistent_Dependency::instance<TDataStd_Relation>::PName() const
+inline Standard_CString Dependency::instance<TDataStd_Relation>::PName() const
 {
   return "PDataStd_Relation";
 }

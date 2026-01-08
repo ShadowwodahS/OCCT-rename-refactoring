@@ -20,7 +20,7 @@
 #include <XmlObjMgt_Persistent.hxx>
 
 IMPLEMENT_STANDARD_RTTIEXT(XmlMXCAFDoc_NoteCommentDriver, XmlMXCAFDoc_NoteDriver)
-IMPLEMENT_DOMSTRING(Comment, "comment")
+IMPLEMENT_DOMSTRING(Comment1, "comment")
 
 //=================================================================================================
 
@@ -40,7 +40,7 @@ Handle(TDF_Attribute) XmlMXCAFDoc_NoteCommentDriver::NewEmpty() const
 //=================================================================================================
 
 Standard_Boolean XmlMXCAFDoc_NoteCommentDriver::Paste(
-  const XmlObjMgt_Persistent&  theSource,
+  const PersistentStorage&  theSource,
   const Handle(TDF_Attribute)& theTarget,
   XmlObjMgt_RRelocationTable&  theRelocTable) const
 {
@@ -48,7 +48,7 @@ Standard_Boolean XmlMXCAFDoc_NoteCommentDriver::Paste(
 
   const XmlObjMgt_Element& anElement = theSource;
 
-  XmlObjMgt_DOMString aComment = anElement.getAttribute(::Comment());
+  XmlObjMgt_DOMString aComment = anElement.getAttribute(::Comment1());
   if (aComment == NULL)
     return Standard_False;
 
@@ -64,7 +64,7 @@ Standard_Boolean XmlMXCAFDoc_NoteCommentDriver::Paste(
 //=================================================================================================
 
 void XmlMXCAFDoc_NoteCommentDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                          XmlObjMgt_Persistent&        theTarget,
+                                          PersistentStorage&        theTarget,
                                           XmlObjMgt_SRelocationTable&  theRelocTable) const
 {
   XmlMXCAFDoc_NoteDriver::Paste(theSource, theTarget, theRelocTable);
@@ -73,7 +73,7 @@ void XmlMXCAFDoc_NoteCommentDriver::Paste(const Handle(TDF_Attribute)& theSource
 
   XmlObjMgt_DOMString aComment(AsciiString1(aNote->TimeStamp()).ToCString());
 
-  theTarget.Element().setAttribute(::Comment(), aComment);
+  theTarget.Element().setAttribute(::Comment1(), aComment);
 }
 
 //=================================================================================================

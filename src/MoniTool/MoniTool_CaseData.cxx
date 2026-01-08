@@ -452,7 +452,7 @@ Standard_Boolean MoniTool_CaseData::Text(const Standard_Integer nd, Standard_CSt
   return Standard_True;
 }
 
-Standard_Boolean MoniTool_CaseData::Integer(const Standard_Integer nd, Standard_Integer& val) const
+Standard_Boolean MoniTool_CaseData::Integer1(const Standard_Integer nd, Standard_Integer& val) const
 {
   Handle(Geom2d_CartesianPoint) p = Handle(Geom2d_CartesianPoint)::DownCast(Data(nd));
   //  if (p.IsNull()) return Standard_False;

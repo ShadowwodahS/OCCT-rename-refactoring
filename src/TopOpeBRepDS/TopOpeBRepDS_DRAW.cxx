@@ -108,7 +108,7 @@ Standard_EXPORT void FUN_DrawMap(const TopTools_DataMapOfShapeListOfShape& Dataf
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itemap(DataforDegenEd);
   for (; itemap.More(); itemap.Next())
   {
-    TopoShape                       v = itemap.Key();
+    TopoShape                       v = itemap.Key1();
     TopTools_ListIteratorOfListOfShape itoflos(itemap.Value());
     if (!itoflos.More())
       continue;

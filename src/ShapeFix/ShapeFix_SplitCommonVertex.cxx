@@ -39,7 +39,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_SplitCommonVertex, ShapeFix_Root)
 
 ShapeFix_SplitCommonVertex::ShapeFix_SplitCommonVertex()
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   SetPrecision(Precision::Confusion());
 }
 
@@ -110,7 +110,7 @@ void ShapeFix_SplitCommonVertex::Perform()
                 B.MakeVertex(Vnew, P, tol);
                 MapVV.Bind(V2, Vnew);
               }
-              ShapeBuild_Edge    sbe;
+              Edge2    sbe;
               Edge1 sae;
               for (Standard_Integer ne2 = 1; ne2 <= sewd2->NbEdges(); ne2++)
               {

@@ -241,7 +241,7 @@ const XSAlgo_ShapeProcessor::ParameterMap& StepFileWriter::GetShapeFixParameters
 
 //=============================================================================
 
-void StepFileWriter::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void StepFileWriter::SetShapeProcessFlags(const ShapeProcess1::OperationsFlags& theFlags)
 {
   if (Handle(Transfer_ActorOfFinderProcess) anActor = GetActor())
   {
@@ -287,9 +287,9 @@ void StepFileWriter::InitializeMissingParameters()
   }
   if (GetShapeProcessFlags().second == false)
   {
-    ShapeProcess::OperationsFlags aFlags;
-    aFlags.set(ShapeProcess::Operation::SplitCommonVertex);
-    aFlags.set(ShapeProcess::Operation::DirectFaces);
+    ShapeProcess1::OperationsFlags aFlags;
+    aFlags.set(ShapeProcess1::Operation::SplitCommonVertex);
+    aFlags.set(ShapeProcess1::Operation::DirectFaces);
     SetShapeProcessFlags(aFlags);
   }
 }

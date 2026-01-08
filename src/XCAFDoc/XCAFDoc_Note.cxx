@@ -76,7 +76,7 @@ void XCAFDoc_Note::Set(const UtfString& theUserName,
 Standard_Boolean XCAFDoc_Note::IsOrphan() const
 {
   Handle(XCAFDoc_GraphNode) aFather;
-  return !Label().FindAttribute(XCAFDoc::NoteRefGUID(), aFather) || (aFather->NbChildren() == 0);
+  return !Label().FindAttribute(XCAFDoc1::NoteRefGUID(), aFather) || (aFather->NbChildren() == 0);
 }
 
 //=================================================================================================
@@ -101,7 +101,7 @@ Handle(XCAFNoteObjects_NoteObject) XCAFDoc_Note::GetObject() const
     gp_Pln aP;
     if (TDataXtd_Geometry::Plane1(aPln->Label(), aP))
     {
-      anObj->SetPlane(aP.Position().Ax2());
+      anObj->SetPlane(aP.Position1().Ax2());
     }
   }
 

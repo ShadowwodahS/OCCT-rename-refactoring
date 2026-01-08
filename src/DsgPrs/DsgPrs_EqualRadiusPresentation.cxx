@@ -31,7 +31,7 @@
 #include <Prs3d_Text.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
+void EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                          const Handle(StyleDrawer)&       aDrawer,
                                          const Point3d&                     FirstCenter,
                                          const Point3d&                     SecondCenter,
@@ -52,14 +52,14 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
   // Add presentation of arrows
   Dir3d FirstDir  = gce_MakeDir(FirstCenter, FirstPoint),
          SecondDir = gce_MakeDir(SecondCenter, SecondPoint);
-  DsgPrs::ComputeSymbol(aPresentation,
+  DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         FirstCenter,
                         FirstPoint,
                         FirstDir.Reversed(),
                         FirstDir,
                         DsgPrs_AS_FIRSTPT_LASTAR);
-  DsgPrs::ComputeSymbol(aPresentation,
+  DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         SecondCenter,
                         SecondPoint,
@@ -102,6 +102,6 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
   }
 
   // Draw1 the text
-  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
+  Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
   // ota === end ===
 }

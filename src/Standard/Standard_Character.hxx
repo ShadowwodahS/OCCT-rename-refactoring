@@ -40,7 +40,7 @@ constexpr Standard_Boolean IsEqual(const Standard_Character One, const Standard_
 //
 // NOTE: Character classification routines in C standard library
 // (isdigit(), isalpha() etc.) have integer argument instead of char.
-// Therefore if character from extended Ascii part of char table
+// Therefore if character from extended Ascii1 part of char table
 // (i.e. above 128) is passed into such functions it is converted
 // to int giving negative value (if characters are signed that
 // is default for most compilers).

@@ -67,7 +67,7 @@ public:
   Standard_EXPORT GeomToIGES_GeomSurface(const GeomToIGES_GeomEntity& GE);
 
   //! Transfert  a  GeometryEntity which  answer True  to  the
-  //! member : BRepToIGES::IsGeomSurface(Geometry).  If this
+  //! member : BRepToIGES::IsGeomSurface(Geometry1).  If this
   //! Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferSurface(const Handle(GeomSurface)& start,
                                                               const Standard_Real         Udeb,

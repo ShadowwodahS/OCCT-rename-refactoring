@@ -37,13 +37,13 @@ void PickTool::ReadOwnParams(const Handle(IGESGraph_Pick)& ent,
   Standard_Integer nbPropertyValues;
   Standard_Integer pickStatus;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues);
   if (nbPropertyValues != 1)
     PR.AddFail("No. of Property values : Value is not 1");
 
   if (PR.DefinedElseSkip())
-    // Reading pickStatus(Integer)
+    // Reading pickStatus(Integer1)
     PR.ReadInteger(PR.Current(), "Pick Flag", pickStatus);
   else
     pickStatus = 0; // Default Value

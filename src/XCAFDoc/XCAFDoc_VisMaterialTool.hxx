@@ -79,7 +79,7 @@ public:
   Standard_EXPORT void SetShapeMaterial(const DataLabel& theShapeLabel,
                                         const DataLabel& theMaterialLabel) const;
 
-  //! Removes a link with GUID XCAFDoc::VisMaterialRefGUID() from shape label to material.
+  //! Removes a link with GUID XCAFDoc1::VisMaterialRefGUID() from shape label to material.
   Standard_EXPORT void UnSetShapeMaterial(const DataLabel& theShapeLabel) const;
 
   //! Returns TRUE if label has a material assignment.
@@ -96,14 +96,14 @@ public:
   Standard_EXPORT static Handle(XCAFDoc_VisMaterial) GetShapeMaterial(
     const DataLabel& theShapeLabel);
 
-  //! Sets a link with GUID XCAFDoc::VisMaterialRefGUID() from shape label to material label.
+  //! Sets a link with GUID XCAFDoc1::VisMaterialRefGUID() from shape label to material label.
   //! @param[in] theShape  shape
   //! @param[in] theMaterialLabel  material label
   //! @return FALSE if cannot find a label for shape
   Standard_EXPORT Standard_Boolean SetShapeMaterial(const TopoShape& theShape,
                                                     const DataLabel&    theMaterialLabel);
 
-  //! Removes a link with GUID XCAFDoc::VisMaterialRefGUID() from shape label to material.
+  //! Removes a link with GUID XCAFDoc1::VisMaterialRefGUID() from shape label to material.
   //! @return TRUE if such link existed
   Standard_EXPORT Standard_Boolean UnSetShapeMaterial(const TopoShape& theShape);
 

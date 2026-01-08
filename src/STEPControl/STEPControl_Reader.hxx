@@ -138,7 +138,7 @@ protected:
 
   //! Returns default flags for shape processing.
   //! @return Default flags for shape processing.
-  Standard_EXPORT virtual ShapeProcess::OperationsFlags GetDefaultShapeProcessFlags() const
+  Standard_EXPORT virtual ShapeProcess1::OperationsFlags GetDefaultShapeProcessFlags() const
     Standard_OVERRIDE;
 
 private:

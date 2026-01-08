@@ -112,12 +112,12 @@ ShapeAnalysis_FreeBounds::ShapeAnalysis_FreeBounds(const TopoShape&    shape,
   for (ShapeExplorer aExpFace(shape, TopAbs_FACE); aExpFace.More(); aExpFace.Next())
     aB.Add(aTmpShell, aExpFace.Current());
 
-  ShapeAnalysis_Shell sas;
+  Shell3 sas;
   sas.CheckOrientedShells(aTmpShell, Standard_True, checkinternaledges);
 
   if (sas.HasFreeEdges())
   {
-    ShapeExtend_Explorer              see;
+    Explorer              see;
     Handle(TopTools_HSequenceOfShape) edges = see.SeqFromCompound(sas.FreeEdges(), Standard_False);
 
     Handle(TopTools_HSequenceOfShape) wires;
@@ -297,14 +297,14 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
             V = Vprev;
           else
           {
-            ShapeBuild_Vertex sbv;
+            Vertex2 sbv;
             V = sbv.CombineVertex(Vprev, Vfol);
           }
           vertices.Bind(Vprev, V);
           vertices.Bind(Vfol, V);
 
           // replace vertices to a new one
-          ShapeBuild_Edge sbe;
+          Edge2 sbe;
           if (saw->NbEdges() < 2)
             sewd->Set(sbe.CopyReplaceVertices(E2, V, V), n2);
           else
@@ -550,7 +550,7 @@ void ShapeAnalysis_FreeBounds::SplitWires()
   if (!mySplitClosed && !mySplitOpen)
     return; // nothing to do
 
-  ShapeExtend_Explorer              see;
+  Explorer              see;
   Handle(TopTools_HSequenceOfShape) closedwires, cw1, cw2, openwires, ow1, ow2;
   closedwires = see.SeqFromCompound(myWires, Standard_False);
   openwires   = see.SeqFromCompound(myEdges, Standard_False);

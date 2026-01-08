@@ -24,7 +24,7 @@ static Handle(XSAlgo_AlgoContainer) theContainer;
 
 //=================================================================================================
 
-void XSAlgo::Init()
+void XSAlgo1::Init()
 {
   static Standard_Boolean init = Standard_False;
   if (init)
@@ -36,7 +36,7 @@ void XSAlgo::Init()
   // init parameters
   ExchangeConfig::Standards();
 
-  // #74 rln 10.03.99 S4135: adding new parameter for handling use of BRepLib::SameParameter
+  // #74 rln 10.03.99 S4135: adding new parameter for handling use of BRepLib1::SameParameter
   ExchangeConfig::Init("XSTEP", "read.stdsameparameter.mode", 'e', "");
   ExchangeConfig::Init("XSTEP", "read.stdsameparameter.mode", '&', "ematch 0");
   ExchangeConfig::Init("XSTEP", "read.stdsameparameter.mode", '&', "eval Off");
@@ -60,19 +60,19 @@ void XSAlgo::Init()
   ExchangeConfig::SetCVal("xstep.cascade.unit", "MM");
 
   // init Standard Shape Processing operators
-  ShapeProcess_OperLibrary::Init();
+  OperLibrary::Init();
 }
 
 //=================================================================================================
 
-void XSAlgo::SetAlgoContainer(const Handle(XSAlgo_AlgoContainer)& aContainer)
+void XSAlgo1::SetAlgoContainer(const Handle(XSAlgo_AlgoContainer)& aContainer)
 {
   theContainer = aContainer;
 }
 
 //=================================================================================================
 
-Handle(XSAlgo_AlgoContainer) XSAlgo::AlgoContainer()
+Handle(XSAlgo_AlgoContainer) XSAlgo1::AlgoContainer()
 {
   return theContainer;
 }

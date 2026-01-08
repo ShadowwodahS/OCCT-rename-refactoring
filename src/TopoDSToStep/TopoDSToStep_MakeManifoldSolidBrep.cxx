@@ -115,7 +115,7 @@ TopoDSToStep_MakeManifoldSolidBrep::TopoDSToStep_MakeManifoldSolidBrep(
   const ConversionFactors&               theLocalFactors,
   const Message_ProgressRange&          theProgress)
 {
-  TopoShell aOuterShell = BRepClass3d::OuterShell(aSolid);
+  TopoShell aOuterShell = BRepClass3d1::OuterShell(aSolid);
   if (!aOuterShell.IsNull())
   {
     std::pair<Handle(StepShape_ManifoldSolidBrep), Handle(StepVisual_TessellatedItem)> aResult =

@@ -35,7 +35,7 @@ static Standard_Integer BUC60857(DrawInterpreter& di, Standard_Integer /*argc*/,
   double R1 = 8, R2 = 16;
   Point3d P0(0, 0, 0), P1(0, 0, 20), P2(0, 0, 45);
 
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     di << "Use vinit command before " << argv[0] << "\n";

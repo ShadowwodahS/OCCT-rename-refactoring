@@ -545,11 +545,11 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         Transform3d          Trsf;
         //
         gp_Circ Circle = myCurve->Circle();
-        Trsf.SetTransformation(SP.Position());
+        Trsf.SetTransformation(SP.Position1());
         Circle.Transform(Trsf);
         //
         R = SP.Radius();
-        gp_Pln Plane1(Ax3(Circle.Position()));
+        gp_Pln Plane1(Ax3(Circle.Position1()));
         Plane1.Coefficients(A, B, C, D);
         //
         if (Abs(C) < Tol)

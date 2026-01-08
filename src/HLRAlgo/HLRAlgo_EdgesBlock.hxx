@@ -82,7 +82,7 @@ public:
     }
   };
 
-  //! Create a Block of Edges for a wire.
+  //! Create a Block1 of Edges for a wire.
   Standard_EXPORT HLRAlgo_EdgesBlock(const Standard_Integer NbEdges);
 
   Standard_Integer NbEdges() const { return myEdges.Upper(); }

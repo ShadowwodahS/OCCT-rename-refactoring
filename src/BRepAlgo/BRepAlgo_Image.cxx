@@ -270,7 +270,7 @@ void ShapeImage::Filter(const TopoShape& S, const TopAbs_ShapeEnum T)
     TopTools_DataMapIteratorOfDataMapOfShapeShape mit(up);
     for (; mit.More(); mit.Next())
     {
-      const TopoShape& aS = mit.Key();
+      const TopoShape& aS = mit.Key1();
       if (aS.ShapeType() == T && !M.Contains(aS))
       {
         Remove(aS);

@@ -27,15 +27,15 @@
 
 DEFINE_HARRAY1(StdLPersistent_HArray1OfPersistent, NCollection_Array1<Handle(StdObjMgt_Persistent)>)
 
-class StdLPersistent_HArray1
+class HArray1
 {
   class base : public StdObjMgt_Persistent
   {
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Write persistent data to a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
   protected:
     virtual Standard_Integer lowerBound() const                                = 0;
@@ -43,8 +43,8 @@ class StdLPersistent_HArray1
     virtual void             createArray(const Standard_Integer theLowerBound,
                                          const Standard_Integer theUpperBound) = 0;
 
-    virtual void readValue(StdObjMgt_ReadData& theReadData, const Standard_Integer theIndex) = 0;
-    virtual void writeValue(StdObjMgt_WriteData&   theWriteData,
+    virtual void readValue(ReadData& theReadData, const Standard_Integer theIndex) = 0;
+    virtual void writeValue(WriteData&   theWriteData,
                             const Standard_Integer theIndex) const                           = 0;
   };
 
@@ -52,7 +52,7 @@ protected:
   template <class ArrayClass>
   class instance : public base
   {
-    friend class StdLPersistent_HArray1;
+    friend class HArray1;
 
   public:
     typedef Handle(ArrayClass)              ArrayHandle;
@@ -74,12 +74,12 @@ protected:
       myArray = new ArrayClass(theLowerBound, theUpperBound);
     }
 
-    virtual void readValue(StdObjMgt_ReadData& theReadData, const Standard_Integer theIndex)
+    virtual void readValue(ReadData& theReadData, const Standard_Integer theIndex)
     {
       theReadData >> myArray->ChangeValue(theIndex);
     }
 
-    virtual void writeValue(StdObjMgt_WriteData&   theWriteData,
+    virtual void writeValue(WriteData&   theWriteData,
                             const Standard_Integer theIndex) const
     {
       theWriteData << myArray->Value(theIndex);
@@ -94,7 +94,7 @@ protected:
 
     Standard_CString PNameT() const
     {
-      Standard_NotImplemented::Raise("StdLPersistent_HArray1::instance::PName - not implemented");
+      Standard_NotImplemented::Raise("HArray1::instance::PName - not implemented");
       return "";
     }
 
@@ -107,13 +107,13 @@ protected:
   template <class ArrayClass>
   class named_instance : public instance<ArrayClass>
   {
-    friend class StdLPersistent_HArray1;
+    friend class HArray1;
 
   public:
     virtual Standard_CString PName() const
     {
       Standard_NullValue_Raise_if(!myPName,
-                                  "StdLPersistent_HArray1::named_instance::PName - name not set");
+                                  "HArray1::named_instance::PName - name not set");
       return myPName;
     }
 
@@ -127,7 +127,7 @@ protected:
   };
 
 public:
-  typedef instance<TColStd_HArray1OfInteger>           Integer;
+  typedef instance<TColStd_HArray1OfInteger>           Integer1;
   typedef instance<TColStd_HArray1OfReal>              Real;
   typedef instance<TColStd_HArray1OfByte>              Byte;
   typedef instance<StdLPersistent_HArray1OfPersistent> Persistent;
@@ -156,36 +156,36 @@ public:
 };
 
 template <>
-inline Standard_CString StdLPersistent_HArray1::instance<TColStd_HArray1OfInteger>::PNameT() const
+inline Standard_CString HArray1::instance<TColStd_HArray1OfInteger>::PNameT() const
 {
   return "PColStd_HArray1OfInteger";
 }
 
 template <>
-inline Standard_CString StdLPersistent_HArray1::instance<TColStd_HArray1OfReal>::PNameT() const
+inline Standard_CString HArray1::instance<TColStd_HArray1OfReal>::PNameT() const
 {
   return "PColStd_HArray1OfReal";
 }
 
 template <>
-inline Standard_CString StdLPersistent_HArray1::instance<TColStd_HArray1OfByte>::PNameT() const
+inline Standard_CString HArray1::instance<TColStd_HArray1OfByte>::PNameT() const
 {
   return "PColStd_HArray1OfByte";
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Standard_Byte& theByte)
+inline ReadData& operator>>(ReadData& theReadData, Standard_Byte& theByte)
 {
   return theReadData >> reinterpret_cast<Standard_Character&>(theByte);
 }
 
-inline StdObjMgt_WriteData& operator>>(StdObjMgt_WriteData& theWriteData,
+inline WriteData& operator>>(WriteData& theWriteData,
                                        const Standard_Byte& theByte)
 {
   return theWriteData << reinterpret_cast<const Standard_Character&>(theByte);
 }
 
 template <>
-inline void StdLPersistent_HArray1::instance<StdLPersistent_HArray1OfPersistent>::PChildrenT(
+inline void HArray1::instance<StdLPersistent_HArray1OfPersistent>::PChildrenT(
   StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const
 {
   for (Standard_Integer i = myArray->Lower(); i <= myArray->Upper(); ++i)

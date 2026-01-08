@@ -292,7 +292,7 @@ bool OpenGl_PBREnvironment::initTextures(const Handle(OpenGl_Context)& theCtx)
         Graphic3d_Vec2i(9, 1),
         Graphic3d_TypeOfTexture_2D))
   {
-    Message::SendFail() << "OpenGl_PBREnvironment, DiffuseSH texture creation failed";
+    Message1::SendFail() << "OpenGl_PBREnvironment, DiffuseSH texture creation failed";
     return false;
   }
 
@@ -303,7 +303,7 @@ bool OpenGl_PBREnvironment::initTextures(const Handle(OpenGl_Context)& theCtx)
                                                            true,
                                                            false))
   {
-    Message::SendFail() << "OpenGl_PBREnvironment, Specular texture creation failed";
+    Message1::SendFail() << "OpenGl_PBREnvironment, Specular texture creation failed";
     return false;
   }
 
@@ -313,7 +313,7 @@ bool OpenGl_PBREnvironment::initTextures(const Handle(OpenGl_Context)& theCtx)
         Graphic3d_Vec2i(10, 4),
         Graphic3d_TypeOfTexture_2D))
   {
-    Message::SendFail() << "OpenGl_PBREnvironment, DiffuseFallback texture creation failed";
+    Message1::SendFail() << "OpenGl_PBREnvironment, DiffuseFallback texture creation failed";
     return false;
   }
 
@@ -452,7 +452,7 @@ bool OpenGl_PBREnvironment::processDiffIBLMap(const Handle(OpenGl_Context)& theC
           Graphic3d_TypeOfTexture_2D,
           &anImageF))
     {
-      Message::SendFail() << "OpenGl_PBREnvironment, DiffuseSH texture update failed";
+      Message1::SendFail() << "OpenGl_PBREnvironment, DiffuseSH texture update failed";
       return false;
     }
   }
@@ -592,7 +592,7 @@ bool OpenGl_PBREnvironment::checkFBOComplentess(const Handle(OpenGl_Context)& th
       0);
     if (theCtx->arbFBO->glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
-      Message::SendTrace() << "OpenGl_PBREnvironment, incomplete FBO for diffuse map";
+      Message1::SendTrace() << "OpenGl_PBREnvironment, incomplete FBO for diffuse map";
       return false;
     }
   }
@@ -613,7 +613,7 @@ bool OpenGl_PBREnvironment::checkFBOComplentess(const Handle(OpenGl_Context)& th
                                              aLevel);
       if (theCtx->arbFBO->glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
       {
-        Message::SendTrace() << "OpenGl_PBREnvironment, incomplete FBO for specular map "
+        Message1::SendTrace() << "OpenGl_PBREnvironment, incomplete FBO for specular map "
                              << aSideIter << " " << aLevel;
         return false;
       }
@@ -648,7 +648,7 @@ void OpenGl_PBREnvironment::bake(const Handle(OpenGl_Context)& theCtx,
   aDrawParams.IsTopDown     = theIsTopDown;
   if (processSpecIBLMap(theCtx, &aDrawParams) && processDiffIBLMap(theCtx, &aDrawParams))
   {
-    Message::SendTrace(AsciiString1() + "IBL "
+    Message1::SendTrace(AsciiString1() + "IBL "
                        + myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizeX() + "x"
                        + myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizeY() + " is baked in "
                        + aTimer.ElapsedTime() + " s");

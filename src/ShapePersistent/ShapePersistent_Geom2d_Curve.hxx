@@ -39,22 +39,22 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 
   typedef pBase pBounded;
 
-  class pBezier : public pBounded
+  class pBezier1 : public pBounded
   {
     friend class ShapePersistent_Geom2d_Curve;
 
   public:
-    pBezier()
+    pBezier1()
         : myRational(Standard_False)
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myRational >> myPoles >> myWeights;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myRational << myPoles << myWeights;
     }
@@ -72,7 +72,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
   private:
     Standard_Boolean                       myRational;
     Handle(ShapePersistent_HArray1::Pnt2d) myPoles;
-    Handle(StdLPersistent_HArray1::Real)   myWeights;
+    Handle(HArray1::Real)   myWeights;
   };
 
   class pBSpline : public pBounded
@@ -87,13 +87,13 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myRational >> myPeriodic >> mySpineDegree;
       theReadData >> myPoles >> myWeights >> myKnots >> myMultiplicities;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myRational << myPeriodic << mySpineDegree;
       theWriteData << myPoles << myWeights << myKnots << myMultiplicities;
@@ -116,28 +116,28 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
     Standard_Boolean                        myPeriodic;
     Standard_Integer                        mySpineDegree;
     Handle(ShapePersistent_HArray1::Pnt2d)  myPoles;
-    Handle(StdLPersistent_HArray1::Real)    myWeights;
-    Handle(StdLPersistent_HArray1::Real)    myKnots;
-    Handle(StdLPersistent_HArray1::Integer) myMultiplicities;
+    Handle(HArray1::Real)    myWeights;
+    Handle(HArray1::Real)    myKnots;
+    Handle(HArray1::Integer1) myMultiplicities;
   };
 
-  class pTrimmed : public pBounded
+  class pTrimmed1 : public pBounded
   {
     friend class ShapePersistent_Geom2d_Curve;
 
   public:
-    pTrimmed()
+    pTrimmed1()
         : myFirstU(0.0),
           myLastU(0.0)
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myBasisCurve >> myFirstU >> myLastU;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myBasisCurve << myFirstU << myLastU;
     }
@@ -157,22 +157,22 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
     Standard_Real myLastU;
   };
 
-  class pOffset : public pBase
+  class pOffset1 : public pBase
   {
     friend class ShapePersistent_Geom2d_Curve;
 
   public:
-    pOffset()
+    pOffset1()
         : myOffsetValue(0.0)
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData)
+    inline void Read(ReadData& theReadData)
     {
       theReadData >> myBasisCurve >> myOffsetValue;
     }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myBasisCurve << myOffsetValue;
     }
@@ -201,11 +201,11 @@ public:
   typedef instance<Conic, Geom2d_Parabola, gp_Parab2d> Parabola;
 
   typedef subBase_empty<Curve>       Bounded;
-  typedef Delayed<Bounded, pBezier>  Bezier;
+  typedef Delayed<Bounded, pBezier1>  Bezier;
   typedef Delayed<Bounded, pBSpline> BSpline;
-  typedef Delayed<Bounded, pTrimmed> Trimmed;
+  typedef Delayed<Bounded, pTrimmed1> Trimmed;
 
-  typedef Delayed<Curve, pOffset> Offset;
+  typedef Delayed<Curve, pOffset1> Offset;
 
 public:
   //! Create a persistent object for a line
@@ -246,7 +246,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 
 template <>
 void ShapePersistent_Geom2d_Curve::instance<ShapePersistent_Geom2d::Curve, Geom2d_Line, gp_Ax2d>::
-  Write(StdObjMgt_WriteData& theWriteData) const;
+  Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Conic
@@ -265,7 +265,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Circle, gp_Circ2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const;
+    WriteData& theWriteData) const;
 
 //=======================================================================
 // Ellipse
@@ -277,7 +277,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Ellipse, gp_Elips2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const;
+    WriteData& theWriteData) const;
 
 //=======================================================================
 // Hyperbola
@@ -289,7 +289,7 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Hyperbola, gp_Hypr2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const;
+    WriteData& theWriteData) const;
 
 //=======================================================================
 // Parabola
@@ -301,6 +301,6 @@ Standard_CString ShapePersistent_Geom2d_Curve::
 template <>
 void ShapePersistent_Geom2d_Curve::
   instance<ShapePersistent_Geom2d_Curve::Conic, Geom2d_Parabola, gp_Parab2d>::Write(
-    StdObjMgt_WriteData& theWriteData) const;
+    WriteData& theWriteData) const;
 
 #endif

@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-void BRepTest::AllCommands(DrawInterpreter& theCommands)
+void BRepTest1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -27,26 +27,26 @@ void BRepTest::AllCommands(DrawInterpreter& theCommands)
   done = Standard_True;
 
   DBRep1::BasicCommands(theCommands);
-  BRepTest::BasicCommands(theCommands);
-  BRepTest::CurveCommands(theCommands);
-  BRepTest::Fillet2DCommands(theCommands);
-  BRepTest::SurfaceCommands(theCommands);
-  BRepTest::FillingCommands(theCommands);
-  BRepTest::PrimitiveCommands(theCommands);
-  BRepTest::SweepCommands(theCommands);
-  BRepTest::TopologyCommands(theCommands);
-  BRepTest::FilletCommands(theCommands);
-  BRepTest::ChamferCommands(theCommands);
-  BRepTest::GPropCommands(theCommands);
-  BRepTest::MatCommands(theCommands);
-  BRepTest::DraftAngleCommands(theCommands);
-  BRepTest::FeatureCommands(theCommands);
-  BRepTest::OtherCommands(theCommands);
-  BRepTest::ExtremaCommands(theCommands);
-  BRepTest::CheckCommands(theCommands);
-  //  BRepTest::PlacementCommands(theCommands) ;
-  BRepTest::ProjectionCommands(theCommands);
-  BRepTest::HistoryCommands(theCommands);
+  BRepTest1::BasicCommands(theCommands);
+  BRepTest1::CurveCommands(theCommands);
+  BRepTest1::Fillet2DCommands(theCommands);
+  BRepTest1::SurfaceCommands(theCommands);
+  BRepTest1::FillingCommands(theCommands);
+  BRepTest1::PrimitiveCommands(theCommands);
+  BRepTest1::SweepCommands(theCommands);
+  BRepTest1::TopologyCommands(theCommands);
+  BRepTest1::FilletCommands(theCommands);
+  BRepTest1::ChamferCommands(theCommands);
+  BRepTest1::GPropCommands(theCommands);
+  BRepTest1::MatCommands(theCommands);
+  BRepTest1::DraftAngleCommands(theCommands);
+  BRepTest1::FeatureCommands(theCommands);
+  BRepTest1::OtherCommands(theCommands);
+  BRepTest1::ExtremaCommands(theCommands);
+  BRepTest1::CheckCommands(theCommands);
+  //  BRepTest1::PlacementCommands(theCommands) ;
+  BRepTest1::ProjectionCommands(theCommands);
+  BRepTest1::HistoryCommands(theCommands);
 
   // define the TCL variable Draw_TOPOLOGY
   const char* com = "set Draw_TOPOLOGY 1";

@@ -40,7 +40,7 @@
 namespace
 {
 
-//! Custom AIS object from dox/samples/ais_object.md tutorial.
+//! Custom AIS1 object from dox/samples/ais_object.md tutorial.
 //! Make sure to update tutorial after modifications in this code!
 class MyAisObject : public VisualEntity
 {
@@ -154,12 +154,12 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
   else if (theMode == MyDispMode_Highlight)
   {
     Box2 aBox;
-    BRepBndLib::Add(aShape, aBox);
+    BRepBndLib1::Add(aShape, aBox);
     Prs3d_BndBox::Add(thePrs, aBox, myDrawer);
   }
 }
 
-//! Custom AIS owner.
+//! Custom AIS1 owner.
 class MyAisOwner : public SelectMgr_EntityOwner
 {
   DEFINE_STANDARD_RTTI_INLINE(MyAisOwner, SelectMgr_EntityOwner)
@@ -229,7 +229,7 @@ void MyAisOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& theP
     Transform3d aTrsfInv(mySelectable->InversedTransformation().Trsf());
     Dir3d  aNorm(aPickPnt.Normal.x(), aPickPnt.Normal.y(), aPickPnt.Normal.z());
     Handle(Graphic3d_ArrayOfTriangles) aTris =
-      Prs3d_Arrow::DrawShaded(Axis3d(aPickPnt.Point, aNorm).Transformed(aTrsfInv),
+      Arrow1::DrawShaded(Axis3d(aPickPnt.Point, aNorm).Transformed(aTrsfInv),
                               1.0,
                               15.0,
                               3.0,
@@ -314,7 +314,7 @@ void MyAisObject::ComputeSelection(const Handle(SelectionContainer)& theSel,
   const double aRadius = 100.0, aHeight = 100.0;
   TopoShape aShape = CylinderMaker(aRadius, aHeight);
   Box2      aBox;
-  BRepBndLib::Add(aShape, aBox);
+  BRepBndLib1::Add(aShape, aBox);
   Handle(MyAisOwner) anOwner = new MyAisOwner(this);
   anOwner->SetAnimation(myAnim);
 
@@ -342,7 +342,7 @@ static Standard_Integer QATutorialAisObject(DrawInterpreter& theDi,
     theDi << "Syntax error: wrong number of arguments";
     return 1;
   }
-  if (ViewerTest::GetAISContext().IsNull())
+  if (ViewerTest1::GetAISContext().IsNull())
   {
     theDi << "Syntax error: no active viewer";
     return 1;
@@ -351,8 +351,8 @@ static Standard_Integer QATutorialAisObject(DrawInterpreter& theDi,
   const AsciiString1 aPrsName(theArgVec[1]);
 
   Handle(MyAisObject) aPrs = new MyAisObject();
-  aPrs->SetAnimation(ViewerTest::CurrentEventManager()->ObjectsAnimation());
-  ViewerTest::Display(aPrsName, aPrs);
+  aPrs->SetAnimation(ViewerTest1::CurrentEventManager()->ObjectsAnimation());
+  ViewerTest1::Display(aPrsName, aPrs);
   return 0;
 }
 

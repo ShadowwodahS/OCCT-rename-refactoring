@@ -301,7 +301,7 @@ Box2 MeshVS_DataSource::GetBoundingBox() const
     TColStd_MapIteratorOfPackedMapOfInteger anIter(aNodes);
     for (; anIter.More(); anIter.Next())
     {
-      Standard_Integer aKey = anIter.Key();
+      Standard_Integer aKey = anIter.Key1();
       if (!GetGeom(aKey, Standard_False, aCoords, nbNodes, aType))
         continue;
       aBox.Add(Point3d(aCoordsBuf[0], aCoordsBuf[1], aCoordsBuf[2]));

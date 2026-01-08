@@ -829,7 +829,7 @@ void BRepOffset_MakeOffset::SetFacesWithOffset()
   TopTools_DataMapIteratorOfDataMapOfShapeShape anItmap(myFacePlanfaceMap);
   for (; anItmap.More(); anItmap.Next())
   {
-    TopoFace aFace     = TopoDS::Face(anItmap.Key());
+    TopoFace aFace     = TopoDS::Face(anItmap.Key1());
     TopoFace aPlanface = TopoDS::Face(anItmap.Value());
     if (myFaceOffset.IsBound(aFace))
     {
@@ -1047,7 +1047,7 @@ void BRepOffset_MakeOffset::MakeOffsetShape(const Message_ProgressRange& theRang
       TopoShape aDummy;
       UpdateTolerance(myOffsetShape, myFaces, aDummy);
     }
-    BRepLib::UpdateTolerances(myOffsetShape);
+    BRepLib1::UpdateTolerances(myOffsetShape);
   }
 
   CorrectConicalFaces();
@@ -1207,7 +1207,7 @@ void BRepOffset_MakeOffset::MakeOffsetFaces(BRepOffset_DataMapOfShapeOffset& the
   //
   Standard_Boolean OffsetOutside = (myOffset > 0.);
   //
-  BRepLib::SortFaces(myFaceComp, aLF);
+  BRepLib1::SortFaces(myFaceComp, aLF);
   //
   Message_ProgressScope aPS(theRange, "Making offset faces", aLF.Size());
   aItLF.Initialize(aLF);
@@ -1333,7 +1333,7 @@ void BRepOffset_MakeOffset::BuildOffsetByInter(const Message_ProgressRange& theR
     return;
   }
   //--------------------------------------------------------------------
-  // MES   : Map of OffsetShape -> Extended Shapes.
+  // MES   : Map of OffsetShape -> Extended1 Shapes.
   // Build : Map of Initial SS  -> OffsetShape build by Inter.
   //                               can be an edge or a compound of edges
   //---------------------------------------------------------------------
@@ -2082,7 +2082,7 @@ void BRepOffset_MakeOffset::BuildOffsetByArc(const Message_ProgressRange& theRan
 
   //------------------------------------------------------------
   // Extension of parallel faces to the context.
-  // Extended faces are ordered in DS and removed from MapSF.
+  // Extended1 faces are ordered in DS and removed from MapSF.
   //------------------------------------------------------------
   if (!myFaces.IsEmpty())
     ToContext(MapSF);
@@ -2102,7 +2102,7 @@ void BRepOffset_MakeOffset::BuildOffsetByArc(const Message_ProgressRange& theRan
       myError = BRepOffset_UserBreak;
       return;
     }
-    const TopoShape&      SI = It.Key();
+    const TopoShape&      SI = It.Key1();
     const BRepOffset_Offset& SF = It.Value();
     if (SF.Status() == BRepOffset_Reversed || SF.Status() == BRepOffset_Degenerated)
     {
@@ -2313,7 +2313,7 @@ void BRepOffset_MakeOffset::ToContext(BRepOffset_DataMapOfShapeOffset& MapSF)
   TopTools_DataMapIteratorOfDataMapOfShapeShape itc;
   for (itc.Initialize(Created); itc.More(); itc.Next())
   {
-    OE = itc.Key();
+    OE = itc.Key1();
     NE = itc.Value();
     if (myInitOffsetEdge.IsImage(OE))
     {
@@ -2344,7 +2344,7 @@ void BRepOffset_MakeOffset::UpdateFaceOffset()
 
   for (; it.More(); it.Next())
   {
-    const TopoFace& F         = TopoDS::Face(it.Key());
+    const TopoFace& F         = TopoDS::Face(it.Key1());
     Standard_Real      CurOffset = CopiedMap(F);
     if (!M.Add(F))
       continue;
@@ -2452,7 +2452,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
     Handle(Geom_SphericalSurface) aSphSurf;
     TopoWire                   SphereWire;
     BB.MakeWire(SphereWire);
-    TopoVertex                      anApex = TopoDS::Vertex(Cone.Key());
+    TopoVertex                      anApex = TopoDS::Vertex(Cone.Key1());
     const ShapeList&        Faces  = Cone.Value(); // FacesOfCone(anApex);
     TopTools_ListIteratorOfListOfShape itFaces(Faces);
     Standard_Boolean                   isFirstFace = Standard_True;
@@ -2538,7 +2538,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       Handle(Geom2d_TrimmedCurve) theTrimLin2d = new Geom2d_TrimmedCurve(theLin2d, Uf, Ul);
       BB.UpdateEdge(CurEdge, theTrimLin2d, aSphSurf, L, Precision::Confusion());
       BB.Range(CurEdge, aSphSurf, L, Uf, Ul);
-      BRepLib::SameParameter(CurEdge);
+      BRepLib1::SameParameter(CurEdge);
       BB.Add(SphereWire, CurEdge);
       // Modifying correspondent edges in aFace: substitute vertices common with CurEdge
       BRepAdaptor_Curve2d BAc2d(CurEdge, aFace);
@@ -3247,7 +3247,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         BB.Add(theWire, E4);
       }
 
-      BRepLib::BuildCurves3d(theWire, myTol);
+      BRepLib1::BuildCurves3d(theWire, myTol);
       theWire.Closed(Standard_True);
       TopoFace          NewFace;
       Handle(GeomSurface) theSurf;
@@ -3328,7 +3328,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           {
             Cone1 theCone =
               gce_MakeCone(aCirc.Location(), aCircOE.Location(), aCirc.Radius(), aCircOE.Radius());
-            Ax3 theAx3(aCirc.Position());
+            Ax3 theAx3(aCirc.Position1());
             if (CircAxisDir * theCone.Axis().Direction() < 0.)
             {
               theAx3.ZReverse();
@@ -3523,7 +3523,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
       {
         // For planar faces these operations are useless,
         // because there are no curves on surface
-        BRepLib::SameParameter(NewFace);
+        BRepLib1::SameParameter(NewFace);
         BRepTools1::Update(NewFace);
       }
       // Check orientation
@@ -3566,7 +3566,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         BB.Add(arcWire, EA1);
         BB.Add(arcWire, anArc);
         BB.Add(arcWire, EA2);
-        BRepLib::BuildCurves3d(arcWire, myTol);
+        BRepLib1::BuildCurves3d(arcWire, myTol);
         arcWire.Closed(Standard_True);
         TopoFace arcFace = BRepLib_MakeFace(arcWire, Standard_True);
         BRepTools1::Update(arcFace);
@@ -3884,7 +3884,7 @@ void BRepOffset_MakeOffset::EncodeRegularity()
   for (; exp.More(); exp.Next())
   {
     TopoEdge OE = TopoDS::Edge(exp.Current());
-    BRepLib::BuildCurve3d(OE, myTol);
+    BRepLib1::BuildCurve3d(OE, myTol);
     TopoEdge ROE = OE;
 
     if (!MS.Add(OE))
@@ -4206,7 +4206,7 @@ void CorrectSolid(TopoSolid& theSol, ShapeList& theSolList)
   {
     const TopoShape& aSh = anIt.Value();
     GeometricProperties        aVProps;
-    BRepGProp::VolumeProperties(aSh, aVProps, Standard_True);
+    BRepGProp1::VolumeProperties(aSh, aVProps, Standard_True);
     if (Abs(aVProps.Mass()) > aVolMax)
     {
       anOuterVol   = aVProps.Mass();
@@ -4356,7 +4356,7 @@ Standard_Boolean BRepOffset_MakeOffset::CheckInputData(const Message_ProgressRan
       }
     }
 
-    // Geometry grid check.
+    // Geometry1 grid check.
     for (Standard_Integer i = 0; i <= aPntPerDim; i++)
     {
       Standard_Real aUParam = aUmin + (aUmax - aUmin) * i / aPntPerDim;
@@ -4873,7 +4873,7 @@ Standard_Boolean TrimEdge(TopoEdge&                  NE,
       NE.Orientation(Or);
       AsDes->Add(NE, V1.Oriented(TopAbs_FORWARD));
       AsDes->Add(NE, V2.Oriented(TopAbs_REVERSED));
-      BRepLib::SameParameter(NE, aSameParTol, Standard_True);
+      BRepLib1::SameParameter(NE, aSameParTol, Standard_True);
       //
       bTrim = Standard_True;
     }
@@ -5352,11 +5352,11 @@ Standard_Boolean BRepOffset_MakeOffset::IsPlanar()
         Vector3d aD1, aD2;
         aBAS.D1(um, vm, aP, aD1, aD2);
         Vector3d aNorm    = aD1.Crossed(aD2);
-        Dir3d aPlnNorm = aPln.Position().Direction();
+        Dir3d aPlnNorm = aPln.Position1().Direction();
         if (aNorm.Dot(aPlnNorm) < 0.)
         {
           aPlnNorm.Reverse();
-          Axis3d anAx(aPln.Position().Location(), aPlnNorm);
+          Axis3d anAx(aPln.Position1().Location(), aPlnNorm);
           aPln.SetAxis(anAx);
         }
         Handle(GeomPlane) aPlane = new GeomPlane(aPln);

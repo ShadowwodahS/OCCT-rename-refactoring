@@ -23,21 +23,21 @@ class AppDocument;
 class XCAFDoc_ShapeTool;
 
 //! Iterator in depth along the assembly tree.
-class XCAFDoc_AssemblyIterator
+class AssemblyIterator
 {
 public:
   //! Constructs iterator starting from assembly roots.
   //! \param[in]       theDoc   - document to iterate.
   //! \param [in, opt] theLevel - max level of hierarchy to reach (INT_MAX is for no limit).
-  Standard_EXPORT XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
+  Standard_EXPORT AssemblyIterator(const Handle(AppDocument)& theDoc,
                                            const Standard_Integer          theLevel = INT_MAX);
 
   //! Constructs iterator starting from the specified position in the assembly tree.
   //! \param[in]       theDoc   - document to iterate.
   //! \param[in]       theRoot  - assembly item to start iterating from.
   //! \param [in, opt] theLevel - max level of hierarchy to reach (INT_MAX is for no limit).
-  Standard_EXPORT XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
-                                           const XCAFDoc_AssemblyItemId&   theRoot,
+  Standard_EXPORT AssemblyIterator(const Handle(AppDocument)& theDoc,
+                                           const AssemblyItemId&   theRoot,
                                            const Standard_Integer          theLevel = INT_MAX);
 
   //! \return true if there is still something to iterate, false -- otherwise.
@@ -47,13 +47,13 @@ public:
   Standard_EXPORT void Next();
 
   //! \return current item.
-  Standard_EXPORT XCAFDoc_AssemblyItemId Current() const;
+  Standard_EXPORT AssemblyItemId Current() const;
 
 private:
   struct AuxAssemblyItem
   {
     DataLabel              myLabel;
-    XCAFDoc_AssemblyItemId myItem;
+    AssemblyItemId myItem;
   };
 
   void createItem(const DataLabel&                 theLabel,

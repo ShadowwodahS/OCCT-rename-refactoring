@@ -58,12 +58,12 @@ void RWStepGeom_RWElementarySurface::WriteStep(StepData_StepWriter&             
 
   // --- own field : position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 }
 
 void RWStepGeom_RWElementarySurface::Share(const Handle(StepGeom_ElementarySurface)& ent,
                                            Interface_EntityIterator&                 iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

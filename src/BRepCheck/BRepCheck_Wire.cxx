@@ -155,7 +155,7 @@ void BRepCheck_Wire::Minimum()
     // wire must have at least one edge
     if (nbedge == 0)
     {
-      BRepCheck::Add(lst, BRepCheck_EmptyWire);
+      BRepCheck1::Add(lst, BRepCheck_EmptyWire);
     }
     // check if all edges are connected through vertices
     else if (nbedge >= 2)
@@ -167,7 +167,7 @@ void BRepCheck_Wire::Minimum()
       {
         if (!mapE.Contains(exp.Current()))
         {
-          BRepCheck::Add(lst, BRepCheck_NotConnected);
+          BRepCheck1::Add(lst, BRepCheck_NotConnected);
           break;
         }
       }
@@ -209,7 +209,7 @@ void BRepCheck_Wire::InContext(const TopoShape& S)
   }
   if (!exp.More())
   {
-    BRepCheck::Add(lst, BRepCheck_SubshapeNotInShape);
+    BRepCheck1::Add(lst, BRepCheck_SubshapeNotInShape);
     return;
   }
 
@@ -247,7 +247,7 @@ void BRepCheck_Wire::InContext(const TopoShape& S)
 
   if (st != BRepCheck_NoError)
   {
-    BRepCheck::Add(lst, st);
+    BRepCheck1::Add(lst, st);
   }
 
   if (lst.IsEmpty())
@@ -282,7 +282,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myCstat);
+      BRepCheck1::Add(aStatusList, myCstat);
     }
     return myCstat;
   }
@@ -352,7 +352,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
     myCstat = BRepCheck_NotConnected;
     if (Update)
     {
-      BRepCheck::Add(aStatusList, myCstat);
+      BRepCheck1::Add(aStatusList, myCstat);
     }
     return myCstat;
   }
@@ -379,7 +379,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
       myCstat = BRepCheck_RedundantEdge;
       if (Update)
       {
-        BRepCheck::Add(aStatusList, myCstat);
+        BRepCheck1::Add(aStatusList, myCstat);
       }
       return myCstat;
     }
@@ -392,7 +392,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
       myCstat = BRepCheck_NotClosed;
       if (Update)
       {
-        BRepCheck::Add(aStatusList, myCstat);
+        BRepCheck1::Add(aStatusList, myCstat);
       }
       return myCstat;
     }
@@ -400,7 +400,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
 
   if (Update)
   {
-    BRepCheck::Add(aStatusList, myCstat);
+    BRepCheck1::Add(aStatusList, myCstat);
   }
   return myCstat;
 }
@@ -422,7 +422,7 @@ Standard_Boolean IsDistanceIn3DTolerance(const Point3d&       thePnt_f,
 #ifdef OCCT_DEBUG
   std::cout << std::endl;
   std::cout << "--------Function IsDistanceIn3DTolerance(...)----------" << std::endl;
-  std::cout << "--- BRepCheck Wire: Closed3d -> Error" << std::endl;
+  std::cout << "--- BRepCheck1 Wire: Closed3d -> Error" << std::endl;
   std::cout << "--- Dist (" << Dist << ") > Tol3d (" << aTol3d << ")" << std::endl;
   std::cout << "Pnt1(" << thePnt_f.X() << "; " << thePnt_f.Y() << "; " << thePnt_f.Z() << ")"
             << std::endl;
@@ -460,7 +460,7 @@ static Standard_Boolean IsDistanceIn2DTolerance(
   {
     std::cout << std::endl;
     std::cout << "--------Function IsDistanceIn2DTolerance(...)----------" << std::endl;
-    std::cout << "--- BRepCheck Wire: Not closed in 2D" << std::endl;
+    std::cout << "--- BRepCheck1 Wire: Not closed in 2D" << std::endl;
     std::cout << "*****************************************************" << std::endl;
     std::cout << "*dumin = " << dumin << "; dumax = " << dumax << std::endl;
     std::cout << "* dvmin = " << dvmin << "; dvmax = " << dvmax << std::endl;
@@ -521,7 +521,7 @@ static Standard_Boolean IsDistanceIn2DTolerance(
   {
     std::cout << std::endl;
     std::cout << "--------Function IsDistanceIn2DTolerance(...)----------" << std::endl;
-    std::cout << "--- BRepCheck Wire: Not closed in 2d" << std::endl;
+    std::cout << "--- BRepCheck1 Wire: Not closed in 2d" << std::endl;
     std::cout << "*****************************************************" << std::endl;
     std::cout << "* Dist = " << Dist << " > Tol2d = " << aTol2d << std::endl;
     std::cout << "*****************************************************" << std::endl;
@@ -553,7 +553,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, aClosedStat);
+      BRepCheck1::Add(aStatusList, aClosedStat);
     }
     return aClosedStat;
   }
@@ -565,7 +565,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
   // if (!aFaceSurface.IsUPeriodic() && !aFaceSurface.IsVPeriodic())
   // {
   //   if (Update)
-  //     BRepCheck::Add(myMap(myShape),aClosedStat);
+  //     BRepCheck1::Add(myMap(myShape),aClosedStat);
   //   return aClosedStat;
   // }
   // 20/03/02 akm ^^^
@@ -583,7 +583,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, aClosedStat);
+      BRepCheck1::Add(aStatusList, aClosedStat);
     }
     return aClosedStat;
   }
@@ -607,7 +607,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
     aClosedStat = BRepCheck_NotClosed;
     if (Update)
     {
-      BRepCheck::Add(aStatusList, aClosedStat);
+      BRepCheck1::Add(aStatusList, aClosedStat);
     }
     return aClosedStat;
   }
@@ -638,7 +638,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, aClosedStat);
+      BRepCheck1::Add(aStatusList, aClosedStat);
     }
     return aClosedStat;
   }
@@ -648,7 +648,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
 
     if (Update)
     {
-      BRepCheck::Add(aStatusList, aClosedStat);
+      BRepCheck1::Add(aStatusList, aClosedStat);
     }
     return aClosedStat;
   }
@@ -681,7 +681,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
     aClosedStat = BRepCheck_NotClosed;
     if (Update)
     {
-      BRepCheck::Add(aStatusList, aClosedStat);
+      BRepCheck1::Add(aStatusList, aClosedStat);
     }
     return aClosedStat;
   }
@@ -707,7 +707,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standar
 
   if (Update)
   {
-    BRepCheck::Add(aStatusList, aClosedStat);
+    BRepCheck1::Add(aStatusList, aClosedStat);
   }
   return aClosedStat;
 }
@@ -728,7 +728,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, theOstat);
+      BRepCheck1::Add(aStatusList, theOstat);
     }
     return theOstat;
   }
@@ -878,7 +878,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
           {
             if (Update)
             {
-              BRepCheck::Add(aStatusList, theOstat);
+              BRepCheck1::Add(aStatusList, theOstat);
             }
             return theOstat; // leave
           }
@@ -895,7 +895,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
           theOstat = BRepCheck_BadOrientationOfSubshape;
           if (Update)
           {
-            BRepCheck::Add(aStatusList, theOstat);
+            BRepCheck1::Add(aStatusList, theOstat);
           }
           return theOstat;
         }
@@ -923,7 +923,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
         //         {
         //           theOstat = BRepCheck_BadOrientationOfSubshape;
         //           if (Update)
-        //             BRepCheck::Add(myMap(myShape),theOstat);
+        //             BRepCheck1::Add(myMap(myShape),theOstat);
         //           return theOstat;
         //         }
         //      20/03/02 akm ^^^
@@ -934,7 +934,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
         theOstat = BRepCheck_BadOrientationOfSubshape;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, theOstat);
+          BRepCheck1::Add(aStatusList, theOstat);
         }
         return theOstat;
       }
@@ -980,7 +980,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
         theOstat = BRepCheck_NotClosed;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, theOstat);
+          BRepCheck1::Add(aStatusList, theOstat);
         }
         return theOstat;
       }
@@ -1033,7 +1033,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
           theOstat = BRepCheck_NotClosed;
           if (Update)
           {
-            BRepCheck::Add(aStatusList, theOstat);
+            BRepCheck1::Add(aStatusList, theOstat);
           }
           return theOstat;
         }
@@ -1045,7 +1045,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_B
   }
   if (Update)
   {
-    BRepCheck::Add(aStatusList, theOstat);
+    BRepCheck1::Add(aStatusList, theOstat);
   }
   return theOstat;
 }
@@ -1094,7 +1094,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
   {
     if (Update)
     {
-      BRepCheck::Add(aStatusList, BRepCheck_EmptyWire);
+      BRepCheck1::Add(aStatusList, BRepCheck_EmptyWire);
     }
     return (BRepCheck_EmptyWire);
   }
@@ -1114,7 +1114,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
         retE1 = E1;
         if (Update)
         {
-          BRepCheck::Add(aStatusList, BRepCheck_SelfIntersectingWire);
+          BRepCheck1::Add(aStatusList, BRepCheck_SelfIntersectingWire);
         }
         delete[] tabDom;
         return (BRepCheck_SelfIntersectingWire);
@@ -1202,7 +1202,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
             retE1 = E1;
             if (Update)
             {
-              BRepCheck::Add(aStatusList, BRepCheck_SelfIntersectingWire);
+              BRepCheck1::Add(aStatusList, BRepCheck_SelfIntersectingWire);
             }
             delete[] tabDom;
 #ifdef OCCT_DEBUG
@@ -1389,7 +1389,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
 #ifdef OCCT_DEBUG
               std::cout << "\n------------------------------------------------------\n"
                         << std::endl;
-              std::cout << "\n--- BRepCheck Wire: AutoIntersection Phase1 -> Erreur \n"
+              std::cout << "\n--- BRepCheck1 Wire: AutoIntersection Phase1 -> Erreur \n"
                         << std::endl;
 
 #endif
@@ -1512,7 +1512,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
 #ifdef OCCT_DEBUG
                 if (localok)
                 {
-                  printf("--- BRepCheck Wire: AutoIntersection Phase2 -> Bon \n");
+                  printf("--- BRepCheck1 Wire: AutoIntersection Phase2 -> Bon \n");
                   printf("--- distance Point Vertex : %10.7g (tol %10.7g)\n",
                          distauvtxleplusproche,
                          tolvtt);
@@ -1522,7 +1522,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
                 }
                 else
                 {
-                  printf("--- BRepCheck Wire: AutoIntersection Phase2 -> Erreur \n");
+                  printf("--- BRepCheck1 Wire: AutoIntersection Phase2 -> Erreur \n");
                   printf("--- distance Point Vertex : %10.7g (tol %10.7g)\n",
                          distauvtxleplusproche,
                          tolvtt);
@@ -1540,7 +1540,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
               retE2 = E2;
               if (Update)
               {
-                BRepCheck::Add(aStatusList, BRepCheck_SelfIntersectingWire);
+                BRepCheck1::Add(aStatusList, BRepCheck_SelfIntersectingWire);
               }
 #ifdef OCCT_DEBUG
               static Standard_Integer numpoint1 = 0;
@@ -1690,7 +1690,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
               retE2 = E2;
               if (Update)
               {
-                BRepCheck::Add(aStatusList, BRepCheck_SelfIntersectingWire);
+                BRepCheck1::Add(aStatusList, BRepCheck_SelfIntersectingWire);
               }
 #ifdef OCCT_DEBUG
               static Standard_Integer numpoint1 = 0;
@@ -1710,7 +1710,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
   delete[] tabDom;
   if (Update)
   {
-    BRepCheck::Add(aStatusList, BRepCheck_NoError);
+    BRepCheck1::Add(aStatusList, BRepCheck_NoError);
   }
   //
   return (BRepCheck_NoError);
@@ -1720,7 +1720,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
 
 void BRepCheck_Wire::SetStatus(const BRepCheck_Status theStatus)
 {
-  BRepCheck::Add(*myMap(myShape), theStatus);
+  BRepCheck1::Add(*myMap(myShape), theStatus);
 }
 
 //=================================================================================================
@@ -1799,12 +1799,12 @@ static TopAbs_Orientation GetOrientation(const TopTools_MapOfShape& mapE, const 
   TopTools_MapIteratorOfMapOfShape itm(mapE);
   for (; itm.More(); itm.Next())
   {
-    if (itm.Key().IsSame(edg))
+    if (itm.Key1().IsSame(edg))
     {
       break;
     }
   }
-  return itm.Key().Orientation();
+  return itm.Key1().Orientation();
 }
 
 //=======================================================================

@@ -503,7 +503,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
       }
       Handle(Graphic3d_Group) aLabelGroup = thePrs->NewGroup();
       const Point3d            aPoint      = anOrigin.XYZ() + aDir.XYZ() * anAxisLength;
-      Prs3d_Text::Draw1(aLabelGroup, anAspect->TextAspect(aPart), aLabel, aPoint);
+      Text::Draw1(aLabelGroup, anAspect->TextAspect(aPart), aLabel, aPoint);
     }
   }
 
@@ -791,7 +791,7 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
       const Prs3d_DatumParts anArrowPart = Prs3d_DatumAspect::ArrowPartForAxis(aPart);
       if (theAspect->DrawDatumPart(anArrowPart))
       {
-        myPrimitives[anArrowPart] = Prs3d_Arrow::DrawSegments(
+        myPrimitives[anArrowPart] = Arrow1::DrawSegments(
           anAxisPoints.Find(aPart),
           anAxisDirs.Find(aPart),
           theAspect->ArrowAspect()->Angle(),
@@ -840,7 +840,7 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
         if (theAspect->DrawDatumPart(aPart))
         {
           // draw cylinder
-          myPrimitives[aPart] = Prs3d_Arrow::DrawShaded(
+          myPrimitives[aPart] = Arrow1::DrawShaded(
             anAxis,
             anAxisLength * aTubeRadiusPercent,
             aDrawArrow ? (anAxisLength - anAxisLength * aConeLengthPercent) : anAxisLength,
@@ -852,7 +852,7 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
         // draw arrow
         if (aDrawArrow)
         {
-          myPrimitives[anArrowPart] = Prs3d_Arrow::DrawShaded(anAxis,
+          myPrimitives[anArrowPart] = Arrow1::DrawShaded(anAxis,
                                                               0.0,
                                                               anAxisLength,
                                                               anAxisLength * aConeRadiusPercent,

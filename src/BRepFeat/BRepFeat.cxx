@@ -515,7 +515,7 @@ Standard_Boolean BRepFeat1::IsInside(const TopoFace& F1, const TopoFace& F2)
 void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
 {
   Box2 B;
-  BRepBndLib::Add(Sbase, B);
+  BRepBndLib1::Add(Sbase, B);
   Standard_Real x[2], y[2], z[2];
   B.Get(x[0], y[0], z[0], x[1], y[1], z[1]);
   Standard_Real diam = 10. * Sqrt(B.SquareExtent());

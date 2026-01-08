@@ -22,7 +22,7 @@
 #include <math_DirectPolynomialRoots.hxx>
 #include <StdFail_InfiniteSolutions.hxx>
 
-// Reference pour solution equation 3ieme degre et 2ieme degre :
+// Reference1 pour solution equation 3ieme degre et 2ieme degre :
 //     ALGORITHMES NUMERIQUES ANALYSE ET MISE EN OEUVRE, tome 2
 //          (equations et systemes non lineaires)
 // J. VIGNES editions TECHNIP.

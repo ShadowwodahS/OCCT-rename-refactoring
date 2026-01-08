@@ -37,11 +37,11 @@ inline Standard_Boolean TopClass_FaceClassifier::NoWires() const
 }
 
 //=======================================================================
-// function : Position
+// function : Position1
 // purpose  :
 //=======================================================================
 
-inline IntRes2d_Position TopClass_FaceClassifier::Position() const
+inline IntRes2d_Position TopClass_FaceClassifier::Position1() const
 {
   return myPosition;
 }

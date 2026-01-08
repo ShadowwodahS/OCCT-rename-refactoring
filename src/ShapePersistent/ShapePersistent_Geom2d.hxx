@@ -28,7 +28,7 @@ class ShapePersistent_Geom2d : public ShapePersistent_Geom
   typedef geometryBase<Geom2d_Geometry> basic;
 
 public:
-  typedef ShapePersistent_Geom::Geometry Geometry;
+  typedef ShapePersistent_Geom::Geometry1 Geometry1;
 
   typedef subBase_empty<basic>                             Point;
   typedef instance<Point, Geom2d_CartesianPoint, gp_Pnt2d> CartesianPoint;
@@ -51,7 +51,7 @@ public:
 };
 
 //=======================================================================
-// Geometry
+// Geometry1
 //=======================================================================
 template <>
 inline Standard_CString ShapePersistent_Geom::geometryBase<Geom2d_Geometry>::PName() const
@@ -82,7 +82,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Point,
                                            Geom2d_CartesianPoint,
-                                           gp_Pnt2d>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           gp_Pnt2d>::Write(WriteData& theWriteData) const
 {
   Handle(Geom2d_CartesianPoint) aMyGeom = Handle(Geom2d_CartesianPoint)::DownCast(myTransient);
   theWriteData << aMyGeom->Pnt2d();
@@ -97,7 +97,7 @@ Standard_CString ShapePersistent_Geom::
 
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Direction, Geom2d_Direction, gp_Dir2d>::
-  Write(StdObjMgt_WriteData& theWriteData) const;
+  Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // VectorWithMagnitude
@@ -110,7 +110,7 @@ Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWi
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
                                     Geom2d_VectorWithMagnitude,
-                                    gp_Vec2d>::Write(StdObjMgt_WriteData& theWriteData) const;
+                                    gp_Vec2d>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // AxisPlacement
@@ -122,7 +122,7 @@ Standard_CString ShapePersistent_Geom::
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::AxisPlacement,
                                     Geom2d_AxisPlacement,
-                                    gp_Ax2d>::Write(StdObjMgt_WriteData& theWriteData) const;
+                                    gp_Ax2d>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Transformation
@@ -139,7 +139,7 @@ void ShapePersistent_Geom::
 template <>
 void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Transformation,
                                     Geom2d_Transformation,
-                                    Transform2d>::Write(StdObjMgt_WriteData& theWriteData) const;
+                                    Transform2d>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Curve

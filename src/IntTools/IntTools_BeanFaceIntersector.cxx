@@ -889,8 +889,8 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   Standard_Real anAngle, aDt;
   Dir3d        aDL, aDP;
   //
-  aDL     = L.Position().Direction();
-  aDP     = P.Position().Direction();
+  aDL     = L.Position1().Direction();
+  aDP     = P.Position1().Direction();
   anAngle = Abs(M_PI_2 - aDL.Angle(aDP));
   //
   aDt = Tools2::ComputeIntRange(myBeanTolerance, myFaceTolerance, anAngle);

@@ -16,7 +16,7 @@
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TCollection_HExtendedString.hxx>
 
-struct StdLPersistent_Collection::noConversion
+struct Collection::noConversion
 {
   noConversion(const Handle(TDF_Data)&) {}
 
@@ -27,7 +27,7 @@ struct StdLPersistent_Collection::noConversion
   }
 };
 
-struct StdLPersistent_Collection::byteConverter
+struct Collection::byteConverter
 {
   byteConverter(const Handle(TDF_Data)&) {}
 
@@ -37,14 +37,14 @@ struct StdLPersistent_Collection::byteConverter
   }
 };
 
-struct StdLPersistent_Collection::boolConverter
+struct Collection::boolConverter
 {
   boolConverter(const Handle(TDF_Data)&) {}
 
   Standard_Boolean operator()(Standard_Integer theValue) const { return theValue != 0; }
 };
 
-struct StdLPersistent_Collection::stringConverter
+struct Collection::stringConverter
 {
   stringConverter(const Handle(TDF_Data)&) {}
 
@@ -59,7 +59,7 @@ struct StdLPersistent_Collection::stringConverter
   }
 };
 
-struct StdLPersistent_Collection::referenceConverter
+struct Collection::referenceConverter
 {
   referenceConverter(const Handle(TDF_Data)& theDF)
       : myDF(theDF)
@@ -77,7 +77,7 @@ private:
 
 template <class Base>
 template <class ArrayHandle, class Converter>
-void StdLPersistent_Collection::booleanArrayBase<Base>::import(const ArrayHandle& theArray,
+void Collection::booleanArrayBase<Base>::import(const ArrayHandle& theArray,
                                                                Converter theConverter) const
 {
   Handle(TColStd_HArray1OfByte) aByteArray =
@@ -92,7 +92,7 @@ void StdLPersistent_Collection::booleanArrayBase<Base>::import(const ArrayHandle
 
 template <class Base>
 template <class ArrayHandle, class Converter>
-void StdLPersistent_Collection::directArrayBase<Base>::import(const ArrayHandle& theArray,
+void Collection::directArrayBase<Base>::import(const ArrayHandle& theArray,
                                                               Converter) const
 {
   this->myTransient->ChangeArray(theArray);
@@ -100,7 +100,7 @@ void StdLPersistent_Collection::directArrayBase<Base>::import(const ArrayHandle&
 
 template <class Base>
 template <class ArrayHandle, class Converter>
-void StdLPersistent_Collection::arrayBase<Base>::import(const ArrayHandle& theArray,
+void Collection::arrayBase<Base>::import(const ArrayHandle& theArray,
                                                         Converter          theConverter) const
 {
   this->myTransient->Init(theArray->Lower(), theArray->Upper());
@@ -110,7 +110,7 @@ void StdLPersistent_Collection::arrayBase<Base>::import(const ArrayHandle& theAr
 
 template <class Base>
 template <class ArrayHandle, class Converter>
-void StdLPersistent_Collection::listBase<Base>::import(const ArrayHandle& theArray,
+void Collection::listBase<Base>::import(const ArrayHandle& theArray,
                                                        Converter          theConverter) const
 {
   for (Standard_Integer i = theArray->Lower(); i <= theArray->Upper(); i++)
@@ -119,7 +119,7 @@ void StdLPersistent_Collection::listBase<Base>::import(const ArrayHandle& theArr
 
 template <class Base>
 template <class ArrayHandle, class Converter>
-void StdLPersistent_Collection::mapBase<Base>::import(const ArrayHandle& theArray,
+void Collection::mapBase<Base>::import(const ArrayHandle& theArray,
                                                       Converter          theConverter) const
 {
   Handle(TColStd_HPackedMapOfInteger) anHMap = new TColStd_HPackedMapOfInteger;
@@ -133,7 +133,7 @@ void StdLPersistent_Collection::mapBase<Base>::import(const ArrayHandle& theArra
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <template <class> class BaseT, class HArrayClass, class AttribClass, class Converter>
-void StdLPersistent_Collection::instance<BaseT, HArrayClass, AttribClass, Converter>::
+void Collection::instance<BaseT, HArrayClass, AttribClass, Converter>::
   ImportAttribute()
 {
   Handle(HArrayClass) anHArray = Handle(HArrayClass)::DownCast(this->myData);
@@ -151,7 +151,7 @@ void StdLPersistent_Collection::instance<BaseT, HArrayClass, AttribClass, Conver
 // purpose  : Read persistent data from a file
 //=======================================================================
 template <class Instance>
-void StdLPersistent_Collection::instance_1<Instance>::Read(StdObjMgt_ReadData& theReadData)
+void Collection::instance_1<Instance>::Read(ReadData& theReadData)
 {
   Instance::Read(theReadData);
   theReadData >> myDelta;
@@ -162,78 +162,78 @@ void StdLPersistent_Collection::instance_1<Instance>::Read(StdObjMgt_ReadData& t
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
 template <class Instance>
-void StdLPersistent_Collection::instance_1<Instance>::ImportAttribute()
+void Collection::instance_1<Instance>::ImportAttribute()
 {
   Instance::ImportAttribute();
   this->myTransient->SetDelta(myDelta);
 }
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::booleanArrayBase,
-                                                   StdLPersistent_Collection::integer,
+template class Collection::instance<Collection::booleanArrayBase,
+                                                   Collection::integer,
                                                    TDataStd_BooleanArray,
-                                                   StdLPersistent_Collection::byteConverter>;
+                                                   Collection::byteConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::directArrayBase,
-                                                   StdLPersistent_Collection::integer,
+template class Collection::instance<Collection::directArrayBase,
+                                                   Collection::integer,
                                                    TDataStd_IntegerArray,
-                                                   StdLPersistent_Collection::noConversion>;
+                                                   Collection::noConversion>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::directArrayBase,
-                                                   StdLPersistent_Collection::real,
+template class Collection::instance<Collection::directArrayBase,
+                                                   Collection::real,
                                                    TDataStd_RealArray,
-                                                   StdLPersistent_Collection::noConversion>;
+                                                   Collection::noConversion>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::arrayBase,
-                                                   StdLPersistent_Collection::integer,
+template class Collection::instance<Collection::arrayBase,
+                                                   Collection::integer,
                                                    TDataStd_ByteArray,
-                                                   StdLPersistent_Collection::byteConverter>;
+                                                   Collection::byteConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::arrayBase,
-                                                   StdLPersistent_Collection::persistent,
+template class Collection::instance<Collection::arrayBase,
+                                                   Collection::persistent,
                                                    TDataStd_ExtStringArray,
-                                                   StdLPersistent_Collection::stringConverter>;
+                                                   Collection::stringConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::arrayBase,
-                                                   StdLPersistent_Collection::persistent,
+template class Collection::instance<Collection::arrayBase,
+                                                   Collection::persistent,
                                                    TDataStd_ReferenceArray,
-                                                   StdLPersistent_Collection::referenceConverter>;
+                                                   Collection::referenceConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::listBase,
-                                                   StdLPersistent_Collection::integer,
+template class Collection::instance<Collection::listBase,
+                                                   Collection::integer,
                                                    TDataStd_IntegerList,
-                                                   StdLPersistent_Collection::noConversion>;
+                                                   Collection::noConversion>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::listBase,
-                                                   StdLPersistent_Collection::real,
+template class Collection::instance<Collection::listBase,
+                                                   Collection::real,
                                                    TDataStd_RealList,
-                                                   StdLPersistent_Collection::noConversion>;
+                                                   Collection::noConversion>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::listBase,
-                                                   StdLPersistent_Collection::integer,
+template class Collection::instance<Collection::listBase,
+                                                   Collection::integer,
                                                    TDataStd_BooleanList,
-                                                   StdLPersistent_Collection::boolConverter>;
+                                                   Collection::boolConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::listBase,
-                                                   StdLPersistent_Collection::persistent,
+template class Collection::instance<Collection::listBase,
+                                                   Collection::persistent,
                                                    TDataStd_ExtStringList,
-                                                   StdLPersistent_Collection::stringConverter>;
+                                                   Collection::stringConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::listBase,
-                                                   StdLPersistent_Collection::persistent,
+template class Collection::instance<Collection::listBase,
+                                                   Collection::persistent,
                                                    TDataStd_ReferenceList,
-                                                   StdLPersistent_Collection::referenceConverter>;
+                                                   Collection::referenceConverter>;
 
-template class StdLPersistent_Collection::instance<StdLPersistent_Collection::mapBase,
-                                                   StdLPersistent_Collection::integer,
+template class Collection::instance<Collection::mapBase,
+                                                   Collection::integer,
                                                    TDataStd_IntPackedMap,
-                                                   StdLPersistent_Collection::noConversion>;
+                                                   Collection::noConversion>;
 
-template class StdLPersistent_Collection::instance_1<StdLPersistent_Collection::IntegerArray>;
+template class Collection::instance_1<Collection::IntegerArray>;
 
-template class StdLPersistent_Collection::instance_1<StdLPersistent_Collection::RealArray>;
+template class Collection::instance_1<Collection::RealArray>;
 
-template class StdLPersistent_Collection::instance_1<StdLPersistent_Collection::ByteArray>;
+template class Collection::instance_1<Collection::ByteArray>;
 
-template class StdLPersistent_Collection::instance_1<StdLPersistent_Collection::ExtStringArray>;
+template class Collection::instance_1<Collection::ExtStringArray>;
 
-template class StdLPersistent_Collection::instance_1<StdLPersistent_Collection::IntPackedMap>;
+template class Collection::instance_1<Collection::IntPackedMap>;

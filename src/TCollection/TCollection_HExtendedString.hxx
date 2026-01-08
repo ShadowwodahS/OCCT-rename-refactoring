@@ -117,7 +117,7 @@ public:
   Standard_EXPORT Standard_Boolean
     IsGreater(const Handle(TCollection_HExtendedString)& other) const;
 
-  //! Returns True if the string contains only "Ascii Range"  characters
+  //! Returns True if the string contains only "Ascii1 Range"  characters
   Standard_EXPORT Standard_Boolean IsAscii() const;
 
   //! Returns number of characters in <me>.

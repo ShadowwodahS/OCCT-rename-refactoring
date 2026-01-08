@@ -61,7 +61,7 @@ class IGESData_IGESModel;
 //! Gets correspondence between an IGES entity and a result shape obtained therefrom.
 //! reader.TransientProcess();
 //! TopoShape shape =
-//! TransferBRep::ShapeResult(reader.TransientProcess(),ent);
+//! TransferBRep1::ShapeResult(reader.TransientProcess(),ent);
 class IgesFileReader : public XSControl_Reader
 {
 public:
@@ -101,7 +101,7 @@ protected:
 
   //! Returns default flags for shape processing.
   //! @return Default flags for shape processing.
-  Standard_EXPORT virtual ShapeProcess::OperationsFlags GetDefaultShapeProcessFlags() const
+  Standard_EXPORT virtual ShapeProcess1::OperationsFlags GetDefaultShapeProcessFlags() const
     Standard_OVERRIDE;
 
 private:

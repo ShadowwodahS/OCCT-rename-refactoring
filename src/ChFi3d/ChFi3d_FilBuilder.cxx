@@ -499,8 +499,8 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       Cylinder1         Cy   = AS.Cylinder();
       CircularSection& sec1 = sec->ChangeValue(1);
       CircularSection& sec2 = sec->ChangeValue(2);
-      sec1.Set(ElSLib1::CylinderVIso(Cy.Position(), Cy.Radius(), v1), u1, u2);
-      sec2.Set(ElSLib1::CylinderVIso(Cy.Position(), Cy.Radius(), v2), u1, u2);
+      sec1.Set(ElSLib1::CylinderVIso(Cy.Position1(), Cy.Radius(), v1), u1, u2);
+      sec2.Set(ElSLib1::CylinderVIso(Cy.Position1(), Cy.Radius(), v2), u1, u2);
     }
     break;
     case GeomAbs_Torus: {
@@ -519,7 +519,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       {
         CircularSection& isec = sec->ChangeValue(i);
         Standard_Real       u    = u1 + (i - 1) * (u2 - u1) / (n - 1);
-        isec.Set(ElSLib1::TorusUIso(To.Position(), majr, minr, u), v1, v2);
+        isec.Set(ElSLib1::TorusUIso(To.Position1(), majr, minr, u), v1, v2);
       }
     }
     break;
@@ -539,7 +539,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       {
         CircularSection& isec = sec->ChangeValue(i);
         Standard_Real       u    = u1 + (i - 1) * (u2 - u1) / (n - 1);
-        isec.Set(ElSLib1::SphereUIso(Sp.Position(), rad, u), v1, v2);
+        isec.Set(ElSLib1::SphereUIso(Sp.Position1(), rad, u), v1, v2);
       }
     }
     break;
@@ -1004,7 +1004,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                                   const Handle(BRepAdaptor_Surface)& HSref2,
                                   const Handle(BRepAdaptor_Curve2d)& PCref2,
                                   Standard_Boolean&                  Decroch2,
-                                  const Standard_Real /*Arrow*/,
+                                  const Standard_Real /*Arrow2*/,
                                   const Standard_Real    TolGuide,
                                   Standard_Real&         First,
                                   Standard_Real&         Last,

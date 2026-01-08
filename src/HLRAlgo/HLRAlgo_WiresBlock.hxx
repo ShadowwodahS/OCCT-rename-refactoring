@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(HLRAlgo_WiresBlock, RefObject)
 class HLRAlgo_WiresBlock : public RefObject
 {
 public:
-  //! Create a Block of Blocks.
+  //! Create a Block1 of Blocks.
   HLRAlgo_WiresBlock(const Standard_Integer NbWires)
       : myWires(1, NbWires)
   {

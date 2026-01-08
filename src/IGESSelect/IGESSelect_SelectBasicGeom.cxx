@@ -227,7 +227,7 @@ AsciiString1 IGESSelect_SelectBasicGeom::ExploreLabel() const
   else if (thegeom < 0)
     return AsciiString1("Surfaces");
   else
-    return AsciiString1("Basic Geometry");
+    return AsciiString1("Basic Geometry1");
 }
 
 Standard_Boolean IGESSelect_SelectBasicGeom::SubCurves(const Handle(IGESData_IGESEntity)& ent,

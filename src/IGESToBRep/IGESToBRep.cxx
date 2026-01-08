@@ -70,7 +70,7 @@ void IGESToBRep1::Init()
   if (init)
     return;
   init = Standard_True;
-  XSAlgo::Init();
+  XSAlgo1::Init();
   theContainer = new IGESToBRep_AlgoContainer;
 }
 

@@ -85,7 +85,7 @@ void StepData_StepReaderTool::Prepare(const Standard_Boolean optim)
     }
     catch (ExceptionBase const& anException)
     {
-      Message_Messenger::StreamBuffer sout = Message::SendInfo();
+      Message_Messenger::StreamBuffer sout = Message1::SendInfo();
       sout << " Exception Raised during Preparation :\n";
       sout << anException.GetMessageString();
       sout << "\n Now, trying to continue, but with presomption of failure\n";
@@ -141,7 +141,7 @@ void StepData_StepReaderTool::PrepareHeader(const Handle(StepData_FileRecognizer
 
 void StepData_StepReaderTool::BeginRead(const Handle(Interface_InterfaceModel)& amodel)
 {
-  Message_Messenger::StreamBuffer sout = Message::SendTrace();
+  Message_Messenger::StreamBuffer sout = Message1::SendTrace();
   DeclareAndCast(StepData_StepModel, model, amodel);
   DeclareAndCast(StepData_StepReaderData, stepdat, Data());
 

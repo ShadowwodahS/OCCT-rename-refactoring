@@ -120,29 +120,29 @@ public:
   //! Behavior settings to be applied when performing transformation:
   //! - FollowTranslation - whether the manipulator will be moved together with an object.
   //! - FollowRotation - whether the manipulator will be rotated together with an object.
-  struct OptionsForAttach
+  struct OptionsForAttach1
   {
 
-    OptionsForAttach()
+    OptionsForAttach1()
         : AdjustPosition(Standard_True),
           AdjustSize(Standard_False),
           EnableModes(Standard_True)
     {
     }
 
-    OptionsForAttach& SetAdjustPosition(const Standard_Boolean theApply)
+    OptionsForAttach1& SetAdjustPosition(const Standard_Boolean theApply)
     {
       AdjustPosition = theApply;
       return *this;
     }
 
-    OptionsForAttach& SetAdjustSize(const Standard_Boolean theApply)
+    OptionsForAttach1& SetAdjustSize(const Standard_Boolean theApply)
     {
       AdjustSize = theApply;
       return *this;
     }
 
-    OptionsForAttach& SetEnableModes(const Standard_Boolean theApply)
+    OptionsForAttach1& SetEnableModes(const Standard_Boolean theApply)
     {
       EnableModes = theApply;
       return *this;
@@ -157,14 +157,14 @@ public:
   //! It is placed in the center of object bounding box, and its size is adjusted to the object
   //! bounding box.
   Standard_EXPORT void Attach(const Handle(VisualEntity)& theObject,
-                              const OptionsForAttach&              theOptions = OptionsForAttach());
+                              const OptionsForAttach1&              theOptions = OptionsForAttach1());
 
   //! Attaches himself to the input interactive object group and become displayed in the same
   //! context. It become attached to the first object, baut manage manipulation of the whole group.
   //! It is placed in the center of object bounding box, and its size is adjusted to the object
   //! bounding box.
   Standard_EXPORT void Attach(const Handle(AIS_ManipulatorObjectSequence)& theObject,
-                              const OptionsForAttach& theOptions = OptionsForAttach());
+                              const OptionsForAttach1& theOptions = OptionsForAttach1());
 
   //! Enable manipualtion mode.
   //! @warning It activates selection mode in the current context.
@@ -329,7 +329,7 @@ public: //! @name Setters for parameters
   Standard_Integer ActiveAxisIndex() const { return myCurrentIndex; }
 
   //! @return poition of manipulator interactive object.
-  const Frame3d& Position() const { return myPosition; }
+  const Frame3d& Position1() const { return myPosition; }
 
   //! Sets position of the manipulator object.
   Standard_EXPORT void SetPosition(const Frame3d& thePosition);
@@ -346,29 +346,29 @@ public:
   //! Behavior settings to be applied when performing transformation:
   //! - FollowTranslation - whether the manipulator will be moved together with an object.
   //! - FollowRotation - whether the manipulator will be rotated together with an object.
-  struct BehaviorOnTransform
+  struct BehaviorOnTransform1
   {
 
-    BehaviorOnTransform()
+    BehaviorOnTransform1()
         : FollowTranslation(Standard_True),
           FollowRotation(Standard_True),
           FollowDragging(Standard_True)
     {
     }
 
-    BehaviorOnTransform& SetFollowTranslation(const Standard_Boolean theApply)
+    BehaviorOnTransform1& SetFollowTranslation(const Standard_Boolean theApply)
     {
       FollowTranslation = theApply;
       return *this;
     }
 
-    BehaviorOnTransform& SetFollowRotation(const Standard_Boolean theApply)
+    BehaviorOnTransform1& SetFollowRotation(const Standard_Boolean theApply)
     {
       FollowRotation = theApply;
       return *this;
     }
 
-    BehaviorOnTransform& SetFollowDragging(const Standard_Boolean theApply)
+    BehaviorOnTransform1& SetFollowDragging(const Standard_Boolean theApply)
     {
       FollowDragging = theApply;
       return *this;
@@ -381,16 +381,16 @@ public:
 
   //! Sets behavior settings for transformation action carried on the manipulator,
   //! whether it translates, rotates together with the transformed object or not.
-  void SetTransformBehavior(const BehaviorOnTransform& theSettings)
+  void SetTransformBehavior(const BehaviorOnTransform1& theSettings)
   {
     myBehaviorOnTransform = theSettings;
   }
 
   //! @return behavior settings for transformation action of the manipulator.
-  BehaviorOnTransform& ChangeTransformBehavior() { return myBehaviorOnTransform; }
+  BehaviorOnTransform1& ChangeTransformBehavior() { return myBehaviorOnTransform; }
 
   //! @return behavior settings for transformation action of the manipulator.
-  const BehaviorOnTransform& TransformBehavior() const { return myBehaviorOnTransform; }
+  const BehaviorOnTransform1& TransformBehavior() const { return myBehaviorOnTransform; }
 
 public: //! @name Presentation computation
   //! Fills presentation.
@@ -589,7 +589,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     void SetPosition(const Axis3d& thePosition) { myPosition = thePosition; }
 
-    const Axis3d& Position() const { return myPosition; }
+    const Axis3d& Position1() const { return myPosition; }
 
     void SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
     {
@@ -735,7 +735,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
   protected:
     Axis3d         myReferenceAxis; //!< Returns reference axis assignment.
-    Axis3d         myPosition;      //!< Position of the axis including local transformation.
+    Axis3d         myPosition;      //!< Position1 of the axis including local transformation.
     Quantity_Color myColor;
 
     Standard_Boolean   myHasTranslation;
@@ -779,7 +779,7 @@ protected:
   Axis   myAxes[3]; //!< Tree axes of the manipulator.
   Sphere myCenter;  //!< Visual part displaying the center sphere of the manipulator.
                     // clang-format off
-  Frame3d myPosition; //!< Position of the manipulator object. it displays its location and position of its axes.
+  Frame3d myPosition; //!< Position1 of the manipulator object. it displays its location and position of its axes.
 
   Disk                    myCircle; //!< Outer circle
   Handle(Graphic3d_Group) myCircleGroup;
@@ -793,7 +793,7 @@ protected:
 
   Standard_Boolean myIsActivationOnDetection; //!< Manual activation of modes (not on parts selection).
   Standard_Boolean myIsZoomPersistentMode; //!< Zoom persistence mode activation.
-  BehaviorOnTransform myBehaviorOnTransform; //!< Behavior settings applied on manipulator when transforming an object.
+  BehaviorOnTransform1 myBehaviorOnTransform; //!< Behavior settings applied on manipulator when transforming an object.
 
 protected: //! @name Fields for interactive transformation. Fields only for internal needs. They do not have public interface.
 

@@ -21,7 +21,7 @@
 
 DEFINE_HARRAY1(StdPersistent_HArray1OfShape1, NCollection_Array1<StdObject_Shape>)
 
-class StdPersistent_HArray1 : private StdLPersistent_HArray1
+class StdPersistent_HArray1 : private HArray1
 {
 public:
   typedef instance<StdPersistent_HArray1OfShape1> Shape1;

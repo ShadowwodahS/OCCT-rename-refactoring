@@ -43,7 +43,7 @@ void IGESDimen_LeaderArrow::Init(const Standard_Real               height,
   theArrowHead       = position;
   theSegmentTails    = segments;
   InitTypeAndForm(214, FormNumber());
-  // FormNumber precises the Type of the Arrow (1-12)
+  // FormNumber precises the Type of the Arrow2 (1-12)
 }
 
 void IGESDimen_LeaderArrow::SetFormNumber(const Standard_Integer form)

@@ -20,18 +20,18 @@
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
 
-void GeomliteTest::AllCommands(DrawInterpreter& theCommands)
+void GeomliteTest1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  GeomliteTest::CurveCommands(theCommands);
-  GeomliteTest::SurfaceCommands(theCommands);
-  GeomliteTest::ApproxCommands(theCommands);
-  GeomliteTest::API2dCommands(theCommands);
-  GeomliteTest::ModificationCommands(theCommands);
+  GeomliteTest1::CurveCommands(theCommands);
+  GeomliteTest1::SurfaceCommands(theCommands);
+  GeomliteTest1::ApproxCommands(theCommands);
+  GeomliteTest1::API2dCommands(theCommands);
+  GeomliteTest1::ModificationCommands(theCommands);
 
   // define the TCL variable Draw_GEOMETRY
   // char* com = "set Draw_GEOMETRY 1";

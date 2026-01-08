@@ -41,10 +41,10 @@ void ExternalRefFileNameTool::ReadOwnParams(
   Handle(TCollection_HAsciiString) tempExtRefFileIdentifier;
   Handle(TCollection_HAsciiString) tempExtRefEntitySymbName;
   PR.ReadText(PR.Current(),
-              "External Reference File Identifier",
+              "External Reference1 File Identifier",
               tempExtRefFileIdentifier); // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadText(PR.Current(),
-              "External Reference Symbolic Name",
+              "External Reference1 Symbolic Name",
               tempExtRefEntitySymbName); // szv#4:S4163:12Mar99 `st=` not needed
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -104,10 +104,10 @@ void ExternalRefFileNameTool::OwnDump(const Handle(IGESBasic_ExternalRefFileName
                                                 const Standard_Integer /* level */) const
 {
   S << "IGESBasic_ExternalRefFileName\n"
-    << "External Reference File Identifier : ";
+    << "External Reference1 File Identifier : ";
   IGESData_DumpString(S, ent->FileId());
   S << "\n"
-    << "External Reference Symbolic Name : ";
+    << "External Reference1 Symbolic Name : ";
   IGESData_DumpString(S, ent->ReferenceName());
   S << std::endl;
 }

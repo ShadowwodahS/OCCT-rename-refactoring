@@ -36,7 +36,7 @@ class TopoShape;
 class TopoVertex;
 
 //! Auxiliary methods for computing dimensions.
-class PrsDim
+class PrsDim1
 {
 public:
   DEFINE_STANDARD_ALLOC

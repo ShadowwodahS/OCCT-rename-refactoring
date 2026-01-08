@@ -127,16 +127,16 @@ static Standard_Integer CompareConfiguration(DrawInterpreter& theDI,
   for (DE_ResourceMap::Iterator anOrigIt(aResourceMapFirst); anOrigIt.More(); anOrigIt.Next())
   {
     const AsciiString1& anOrigValue = anOrigIt.Value();
-    const AsciiString1& anOrigKey   = anOrigIt.Key();
+    const AsciiString1& anOrigKey   = anOrigIt.Key1();
     AsciiString1        aCompValue;
     if (!aResourceMapSecond.Find(anOrigKey, aCompValue))
     {
-      Message::SendWarning() << "Second configuration don't have the next scope : " << anOrigKey;
+      Message1::SendWarning() << "Second configuration don't have the next scope : " << anOrigKey;
       anDiffers++;
     }
     if (!aCompValue.IsEqual(anOrigValue))
     {
-      Message::SendWarning() << "Configurations have differs value with the next scope :"
+      Message1::SendWarning() << "Configurations have differs value with the next scope :"
                              << anOrigKey << " First value : " << anOrigValue
                              << " Second value : " << aCompValue;
       anDiffers++;
@@ -244,7 +244,7 @@ static Standard_Integer ReadFile(DrawInterpreter& theDI,
   }
 
   Handle(DE_Wrapper)            aConf = DE_Wrapper::GlobalWrapper()->Copy();
-  Handle(ExchangeSession) aWS   = XSDRAW::Session();
+  Handle(ExchangeSession) aWS   = XSDRAW1::Session();
   Standard_Boolean              aStat = Standard_True;
   if (!aConfString.IsEmpty())
   {
@@ -263,7 +263,7 @@ static Standard_Integer ReadFile(DrawInterpreter& theDI,
   {
     return 1;
   }
-  XSDRAW::CollectActiveWorkSessions(aFilePath);
+  XSDRAW1::CollectActiveWorkSessions(aFilePath);
   return 0;
 }
 
@@ -322,7 +322,7 @@ static Standard_Integer WriteFile(DrawInterpreter& theDI,
     return 1;
   }
   Handle(DE_Wrapper)            aConf = DE_Wrapper::GlobalWrapper()->Copy();
-  Handle(ExchangeSession) aWS   = XSDRAW::Session();
+  Handle(ExchangeSession) aWS   = XSDRAW1::Session();
   Standard_Boolean              aStat = Standard_True;
   if (!aConfString.IsEmpty())
   {
@@ -349,13 +349,13 @@ static Standard_Integer WriteFile(DrawInterpreter& theDI,
   {
     return 1;
   }
-  XSDRAW::CollectActiveWorkSessions(aFilePath);
+  XSDRAW1::CollectActiveWorkSessions(aFilePath);
   return 0;
 }
 
 //=================================================================================================
 
-void XSDRAWDE::Factory(DrawInterpreter& theDI)
+void XSDRAWDE1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)
@@ -426,8 +426,8 @@ void XSDRAWDE::Factory(DrawInterpreter& theDI)
             WriteFile,
             aGroup);
 
-  // Load XSDRAW session for pilot activation
-  XSDRAW::LoadDraw(theDI);
+  // Load XSDRAW1 session for pilot activation
+  XSDRAW1::LoadDraw(theDI);
 
   // Workaround to force load TKDECascade lib
   DEBREP_ConfigurationNode aTmpObj;
@@ -435,4 +435,4 @@ void XSDRAWDE::Factory(DrawInterpreter& theDI)
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(XSDRAWDE)
+DPLUGIN(XSDRAWDE1)

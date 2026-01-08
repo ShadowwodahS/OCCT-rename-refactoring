@@ -81,7 +81,7 @@ Geom_ConicalSurface::Geom_ConicalSurface(const Cone1& C)
     : radius(C.RefRadius()),
       semiAngle(C.SemiAngle())
 {
-  pos = C.Position();
+  pos = C.Position1();
 }
 
 //=================================================================================================
@@ -163,7 +163,7 @@ void Geom_ConicalSurface::SetCone(const Cone1& C)
 
   radius    = C.RefRadius();
   semiAngle = C.SemiAngle();
-  pos       = C.Position();
+  pos       = C.Position1();
 }
 
 //=================================================================================================
@@ -193,9 +193,9 @@ void Geom_ConicalSurface::SetSemiAngle(const Standard_Real Ang)
 Pnt Geom_ConicalSurface::Apex() const
 {
 
-  XYZ Coord = Position().Direction().XYZ();
+  XYZ Coord = Position1().Direction().XYZ();
   Coord.Multiply(-radius / Tan(semiAngle));
-  Coord.Add(Position().Location().XYZ());
+  Coord.Add(Position1().Location().XYZ());
   return Pnt(Coord);
 }
 

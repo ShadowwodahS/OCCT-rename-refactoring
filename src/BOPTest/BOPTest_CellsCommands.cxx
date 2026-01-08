@@ -37,14 +37,14 @@ static Standard_Integer bcmakecontainers(DrawInterpreter&, Standard_Integer, con
 
 //=================================================================================================
 
-void BOPTest::CellsCommands(DrawInterpreter& theCommands)
+void BOPTest1::CellsCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
 
   theCommands.Add("bcbuild", "Cells builder. Use: bcbuild r", __FILE__, bcbuild, g);
@@ -90,7 +90,7 @@ Standard_Integer bcbuild(DrawInterpreter& di, Standard_Integer n, const char** a
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -99,12 +99,12 @@ Standard_Integer bcbuild(DrawInterpreter& di, Standard_Integer n, const char** a
   //
   TopTools_ListIteratorOfListOfShape aIt;
   //
-  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = Objects::PaveFiller();
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   aCBuilder.Clear();
   //
-  ShapeList& aLSObj = BOPTest_Objects::Shapes();
+  ShapeList& aLSObj = Objects::Shapes();
   aIt.Initialize(aLSObj);
   for (; aIt.More(); aIt.Next())
   {
@@ -112,7 +112,7 @@ Standard_Integer bcbuild(DrawInterpreter& di, Standard_Integer n, const char** a
     aCBuilder.AddArgument(aS);
   }
   //
-  ShapeList& aLSTool = BOPTest_Objects::Tools();
+  ShapeList& aLSTool = Objects::Tools();
   aIt.Initialize(aLSTool);
   for (; aIt.More(); aIt.Next())
   {
@@ -121,32 +121,32 @@ Standard_Integer bcbuild(DrawInterpreter& di, Standard_Integer n, const char** a
   }
   //
   // set the options to the algorithm
-  Standard_Boolean bRunParallel    = BOPTest_Objects::RunParallel();
-  Standard_Real    aTol            = BOPTest_Objects::FuzzyValue();
-  Standard_Boolean bNonDestructive = BOPTest_Objects::NonDestructive();
-  BOPAlgo_GlueEnum aGlue           = BOPTest_Objects::Glue();
+  Standard_Boolean bRunParallel    = Objects::RunParallel();
+  Standard_Real    aTol            = Objects::FuzzyValue();
+  Standard_Boolean bNonDestructive = Objects::NonDestructive();
+  BOPAlgo_GlueEnum aGlue           = Objects::Glue();
   //
   aCBuilder.SetRunParallel(bRunParallel);
   aCBuilder.SetFuzzyValue(aTol);
   aCBuilder.SetNonDestructive(bNonDestructive);
   aCBuilder.SetGlue(aGlue);
-  aCBuilder.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aCBuilder.SetUseOBB(BOPTest_Objects::UseOBB());
-  aCBuilder.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aCBuilder.SetCheckInverted(Objects::CheckInverted());
+  aCBuilder.SetUseOBB(Objects::UseOBB());
+  aCBuilder.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aCBuilder.PerformWithFiller(aPF, aProgress->Start());
-  BOPTest::ReportAlerts(aCBuilder.GetReport());
+  BOPTest1::ReportAlerts(aCBuilder.GetReport());
   // Store the history of the Cells Builder into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
   if (aCBuilder.HasErrors())
   {
     return 0;
   }
   //
-  BOPTest_Objects::SetBuilder(&aCBuilder);
+  Objects::SetBuilder(&aCBuilder);
   //
   const TopoShape& aR = aCBuilder.GetAllParts();
   if (aR.IsNull())
@@ -185,17 +185,17 @@ Standard_Integer bcaddall(DrawInterpreter& di, Standard_Integer n, const char** 
     }
   }
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   //
   aCBuilder.ClearWarnings();
   aCBuilder.AddAllToResult(iMaterial, bUpdate);
-  BOPTest::ReportAlerts(aCBuilder.GetReport());
+  BOPTest1::ReportAlerts(aCBuilder.GetReport());
   //
   const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
   DBRep1::Set(a[1], aR);
   return 0;
@@ -211,13 +211,13 @@ Standard_Integer bcremoveall(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   }
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   //
   aCBuilder.RemoveAllFromResult();
 
   // Update the history of the Cells Builder
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
   return 0;
 }
@@ -278,17 +278,17 @@ Standard_Integer bcadd(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   //
   aCBuilder.ClearWarnings();
   aCBuilder.AddToResult(aLSToTake, aLSToAvoid, iMaterial, bUpdate);
-  BOPTest::ReportAlerts(aCBuilder.GetReport());
+  BOPTest1::ReportAlerts(aCBuilder.GetReport());
   //
   const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
   DBRep1::Set(a[1], aR);
   return 0;
@@ -333,14 +333,14 @@ Standard_Integer bcremove(DrawInterpreter& di, Standard_Integer n, const char** 
     return 1;
   }
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   aCBuilder.RemoveFromResult(aLSToTake, aLSToAvoid);
   //
   const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
   DBRep1::Set(a[1], aR);
   return 0;
@@ -356,17 +356,17 @@ Standard_Integer bcremoveint(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   }
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   //
   aCBuilder.ClearWarnings();
   aCBuilder.RemoveInternalBoundaries();
-  BOPTest::ReportAlerts(aCBuilder.GetReport());
+  BOPTest1::ReportAlerts(aCBuilder.GetReport());
   //
   const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
   DBRep1::Set(a[1], aR);
   return 0;
@@ -382,7 +382,7 @@ Standard_Integer bcmakecontainers(DrawInterpreter& di, Standard_Integer n, const
     return 1;
   }
   //
-  BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
+  BOPAlgo_CellsBuilder& aCBuilder = Objects::CellsBuilder();
   aCBuilder.MakeContainers();
   //
   const TopoShape& aR = aCBuilder.Shape();

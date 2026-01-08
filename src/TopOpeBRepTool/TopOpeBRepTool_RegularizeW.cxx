@@ -386,7 +386,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoFace& F,
   // * noldW == 1 :
   // --------------
   if (oneoldW) {
-    const TopoWire& oldwi = TopoDS::Wire(ite.Key());
+    const TopoWire& oldwi = TopoDS::Wire(ite.Key1());
     const ShapeList& low = ite.Value();
     Standard_Integer nw = low.Extent();
     if (nw == 0) {mapWlow.Bind(oldwi,emptylos); return Standard_True;}
@@ -406,7 +406,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoFace& F,
       TopTools_Array1OfShape wi(1,2);
 
       TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itmap(complWoldw);
-      wi(1) = itmap.Key();
+      wi(1) = itmap.Key1();
       if (ncompl == 1) {
     mapWlow.Bind(wi(1),itmap.Value());
     break;
@@ -417,7 +417,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoFace& F,
       Standard_Integer sma,gre; // dummy if !oneINother
 
       for (; itmap.More(); itmap.Next()) {
-    wi(2) = itmap.Key();
+    wi(2) = itmap.Key1();
     if (wi(1).IsSame(wi(2))) continue;
     FUN_tool_mkBnd2d(wi(2), F, Bnd2d(2));
 
@@ -461,7 +461,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoFace& F,
   // * noldW > 1 :
   // -------------
   for (; ite.More(); ite.Next()){
-    const TopoWire& oldwi = TopoDS::Wire(ite.Key());
+    const TopoWire& oldwi = TopoDS::Wire(ite.Key1());
     const ShapeList& low = ite.Value();
     TopTools_ListIteratorOfListOfShape itlow(low);
     if (low.IsEmpty()) mapWlow.Bind(oldwi, emptylos);
@@ -607,7 +607,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_MakeFaces(const TopoFace& theFace,
 
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mapWlow);
   for (; itm.More(); itm.Next()) {
-    const TopoWire& wi = TopoDS::Wire(itm.Key());
+    const TopoWire& wi = TopoDS::Wire(itm.Key1());
     TopoShape FF = F.EmptyCopied(); BB.Add(FF,wi);
 //    BB.MakeFace(FF); // put a TShape
 
@@ -672,7 +672,7 @@ Standard_EXPORT Standard_Boolean
   ShapeList lOws;
   for (; itm.More(); itm.Next())
   {
-    const TopoShape& owi = itm.Key();
+    const TopoShape& owi = itm.Key1();
     lOws.Append(owi);
     const ShapeList& low = itm.Value();
     ShapeList        lwresu;

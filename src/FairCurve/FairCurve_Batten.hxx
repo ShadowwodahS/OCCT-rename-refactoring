@@ -166,7 +166,7 @@ public:
                                                    const Standard_Real     Tolerance    = 1.0e-3);
 
   //! Computes the real number value for length Sliding of
-  //! Reference for new constraints. If you want to give a
+  //! Reference1 for new constraints. If you want to give a
   //! specific length to a batten curve, use the following
   //! syntax: b.SetSlidingFactor(L /
   //! b.SlidingOfReference()) where b is the

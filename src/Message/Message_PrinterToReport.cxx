@@ -33,7 +33,7 @@ const Handle(Message_Report)& Message_PrinterToReport::Report() const
     return myReport;
   }
 
-  return Message::DefaultReport(Standard_True);
+  return Message1::DefaultReport(Standard_True);
 }
 
 //=================================================================================================

@@ -23,7 +23,7 @@ StdObject_Location StdObject_Location::Translate(const TopLoc_Location&         
 {
   StdObject_Location aLoc;
   if (!theLoc.IsIdentity())
-    aLoc.myData = StdPersistent_TopLoc::Translate(theLoc, theMap);
+    aLoc.myData = TopLoc::Translate(theLoc, theMap);
   return aLoc;
 }
 
@@ -42,7 +42,7 @@ void StdObject_Location::PChildren(StdObjMgt_Persistent::SequenceOfPersistent& t
 //=======================================================================
 TopLoc_Location StdObject_Location::Import() const
 {
-  Handle(StdPersistent_TopLoc::ItemLocation) anItemLocation =
-    Handle(StdPersistent_TopLoc::ItemLocation)::DownCast(myData);
+  Handle(TopLoc::ItemLocation) anItemLocation =
+    Handle(TopLoc::ItemLocation)::DownCast(myData);
   return anItemLocation ? anItemLocation->Import() : TopLoc_Location();
 }

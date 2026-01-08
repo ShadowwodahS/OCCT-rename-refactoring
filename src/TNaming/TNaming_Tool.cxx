@@ -379,7 +379,7 @@ Handle(ShapeAttribute) Tool11::CurrentNamedShape(const Handle(ShapeAttribute)& A
     Handle(ShapeAttribute) NS;
     return NS;
   }
-  return NamedShape(CS, Att->Label());
+  return NamedShape1(CS, Att->Label());
 }
 
 //=================================================================================================
@@ -393,7 +393,7 @@ Handle(ShapeAttribute) Tool11::CurrentNamedShape(const Handle(ShapeAttribute)& A
     Handle(ShapeAttribute) NS;
     return NS;
   }
-  return NamedShape(CS, Att->Label());
+  return NamedShape1(CS, Att->Label());
 }
 
 //=================================================================================================
@@ -406,7 +406,7 @@ static void FindModifUntil(NewShapeIterator&         it,
   {
     if (!it.Shape().IsNull())
     {
-      if (it.NamedShape() == Context)
+      if (it.NamedShape1() == Context)
       {
         MS.Add(it.Shape());
       }
@@ -431,7 +431,7 @@ TopoShape Tool11::GeneratedShape(const TopoShape&               S,
 
   for (NewShapeIterator it(S, US); it.More(); it.Next())
   {
-    if (!it.Shape().IsNull() && it.NamedShape() == Generation)
+    if (!it.Shape().IsNull() && it.NamedShape1() == Generation)
     {
       MS.Add(it.Shape());
     }
@@ -517,7 +517,7 @@ static void Back(const Handle(ShapeAttribute)& NS, TNaming_MapOfNamedShape& MNS)
       const TopoShape& OS = Oldit.Shape();
       if (!OS.IsNull())
       {
-        Handle(ShapeAttribute) NOS = Tool11::NamedShape(OS, NS->Label());
+        Handle(ShapeAttribute) NOS = Tool11::NamedShape1(OS, NS->Label());
         // Continue de remonter
         if (!NOS.IsNull())
         {
@@ -547,7 +547,7 @@ void Tool11::Collect(const Handle(ShapeAttribute)& NS,
       if (!OnlyModif || NewIt.IsModification())
       {
         // Continue la descente
-        Collect(NewIt.NamedShape(), MNS, OnlyModif);
+        Collect(NewIt.NamedShape1(), MNS, OnlyModif);
       }
     }
   }
@@ -560,7 +560,7 @@ void Tool11::Collect(const Handle(ShapeAttribute)& NS,
 
 void TNamingTool_DumpLabel(const TopoShape& S, const DataLabel& Acces)
 {
-  Handle(ShapeAttribute) NS = Tool11::NamedShape(S, Acces);
+  Handle(ShapeAttribute) NS = Tool11::NamedShape1(S, Acces);
   NS->Label().EntryDump(std::cout);
   std::cout << std::endl;
 }
@@ -593,7 +593,7 @@ void Tool11::FindShape(const TDF_LabelMap& Valid,
   if (!Arg->FindAttribute(TNaming_Naming::GetID(), aNaming))
   {
 #ifdef OCCT_DEBUG
-//    std::cout<<"Tool11::FindShape(): Naming attribute hasn't been found attached at the
+//    std::cout<<"Tool11::FindShape(): Naming1 attribute hasn't been found attached at the
 //    Argument label"<<std::endl;
 #endif
     return;
@@ -621,19 +621,19 @@ void Tool11::FindShape(const TDF_LabelMap& Valid,
   }
   for (TDF_MapIteratorOfAttributeMap itr(outRefs); itr.More(); itr.Next())
   {
-    if (itr.Key()->DynamicType() == STANDARD_TYPE(ShapeAttribute))
+    if (itr.Key1()->DynamicType() == STANDARD_TYPE(ShapeAttribute))
     {
 #ifdef OCCT_DEBUG
 //      Standard_Integer nbExtArgs = extArgs.Extent();
 #endif
-      Handle(ShapeAttribute)        anExtArg(Handle(ShapeAttribute)::DownCast(itr.Key()));
+      Handle(ShapeAttribute)        anExtArg(Handle(ShapeAttribute)::DownCast(itr.Key1()));
       const Handle(ShapeAttribute)& aCurrentExtArg = Tool11::CurrentNamedShape(anExtArg);
       if (!aCurrentExtArg.IsNull() && !aCurrentExtArg->IsEmpty())
         extArgs.Append(aCurrentExtArg);
 #ifdef OCCT_DEBUG
 //      if (extArgs.Extent() - 1 == nbExtArgs) {
 //	std::cout<<"Tool11::FindShape(): An external reference has been found at ";
-//	itr.Key()->Label().EntryDump(std::cout); std::cout<<std::endl;
+//	itr.Key1()->Label().EntryDump(std::cout); std::cout<<std::endl;
 //      }
 #endif
     }
@@ -683,7 +683,7 @@ void Tool11::FindShape(const TDF_LabelMap& Valid,
       {
         for (TopTools_MapIteratorOfMapOfShape itr1(subShapes); itr1.More(); itr1.Next())
         {
-          if (itrR.Key().IsSame(itr1.Key()))
+          if (itrR.Key1().IsSame(itr1.Key1()))
           {
             DoesCoincide++; // std::cout<<".";
             break;

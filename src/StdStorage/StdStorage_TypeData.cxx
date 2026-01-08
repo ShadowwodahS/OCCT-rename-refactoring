@@ -24,7 +24,7 @@ StdStorage_TypeData::StdStorage_TypeData()
     : myTypeId(0),
       myErrorStatus(Storage_VSOk)
 {
-  StdDrivers::BindTypes(myMapOfPInst);
+  StdDrivers1::BindTypes(myMapOfPInst);
 }
 
 Standard_Boolean StdStorage_TypeData::Read(const Handle(Storage_BaseDriver)& theDriver)

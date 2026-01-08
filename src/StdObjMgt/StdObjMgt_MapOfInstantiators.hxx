@@ -18,7 +18,7 @@
 #include <NCollection_DataMap.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class StdObjMgt_MapOfInstantiators
+class MapOfInstantiators
     : public NCollection_DataMap<AsciiString1, StdObjMgt_Persistent::Instantiator>
 {
 public:

@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(SelectMgr_Filter, RefObject)
 //! defined in Open CASCADE.
 //! You can create your own filters by defining new filter
 //! classes inheriting this framework. You use these
-//! filters by loading them into an AIS interactive context.
+//! filters by loading them into an AIS1 interactive context.
 class SelectMgr_Filter : public RefObject
 {
 
@@ -45,22 +45,22 @@ public:
   //! direct or user. A direct owner is the corresponding
   //! construction element, whereas a user is the
   //! compound shape of which the entity forms a part.
-  //! When an object is detected by the mouse - in AIS,
+  //! When an object is detected by the mouse - in AIS1,
   //! this is done through a context selector - its owner
   //! is passed to the filter as an argument.
   //! If the object returns Standard_True, it is kept; if
   //! not, it is rejected.
   //! If you are creating a filter class inheriting this
   //! framework, and the daughter class is to be used in
-  //! an AIS local context, you will need to implement the
+  //! an AIS1 local context, you will need to implement the
   //! virtual function ActsOn.
   Standard_EXPORT virtual Standard_Boolean IsOk(
     const Handle(SelectMgr_EntityOwner)& anObj) const = 0;
 
-  //! Returns true in an AIS local context, if this filter
+  //! Returns true in an AIS1 local context, if this filter
   //! operates on a type of subshape defined in a filter
   //! class inheriting this framework.
-  //! This function completes IsOk in an AIS local context.
+  //! This function completes IsOk in an AIS1 local context.
   Standard_EXPORT virtual Standard_Boolean ActsOn(const TopAbs_ShapeEnum aStandardMode) const;
 
   DEFINE_STANDARD_RTTIEXT(SelectMgr_Filter, RefObject)

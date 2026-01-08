@@ -30,7 +30,7 @@ class ViewWindow;
 //! This package contains the set of commands and services
 //! of the 3D Viewer. It provides a set of high level commands
 //! to control the views and viewing modes.
-class V3d
+class V3d1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -370,7 +370,7 @@ void FUN_reduceEDGEgeometry(TopOpeBRepDS_ListOfInterference&                    
     TopOpeBRepDS_ListOfInterference& LIEG = mosd.ChangeFromKey(EG).ChangeInterferences();
     Standard_Integer                 nExt = LIEG.Extent();
     // LIEG = toutes les interferences dont le Support() est une
-    // face possedant une interference dont la Geometry() est EG.
+    // face possedant une interference dont la Geometry1() est EG.
     if (nExt == 0)
     {
       continue;

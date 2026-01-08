@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT void Add(const TopoEdge& E);
 
-  Standard_EXPORT const Point3d& Geometry() const;
+  Standard_EXPORT const Point3d& Geometry1() const;
 
   Standard_EXPORT Standard_Real Parameter(const TopoEdge& E);
 

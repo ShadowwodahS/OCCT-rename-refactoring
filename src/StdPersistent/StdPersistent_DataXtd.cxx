@@ -17,7 +17,7 @@
 // function : ImportAttribute
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
-void StdPersistent_DataXtd::Geometry::ImportAttribute()
+void DataXtd::Geometry1::ImportAttribute()
 {
   myTransient->SetType(static_cast<TDataXtd_GeometryEnum>(myData));
 }
@@ -26,7 +26,7 @@ void StdPersistent_DataXtd::Geometry::ImportAttribute()
 // function : ImportAttribute
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
-void StdPersistent_DataXtd::Position::ImportAttribute()
+void DataXtd::Position1::ImportAttribute()
 {
   myTransient->SetPosition(myData);
 }

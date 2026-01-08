@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 class GeomPlane;
 
-//! The  BRepBuilderAPI  package   provides  an   Application
+//! The  BRepBuilderAPI1  package   provides  an   Application
 //! Programming Interface  for the BRep  topology data
 //! structure.
 //!
@@ -73,16 +73,16 @@ class GeomPlane;
 //!
 //! For tolerances  a default precision is  used which
 //! can    be   changed    by    the   packahe  method
-//! BRepBuilderAPI::Precision.
+//! BRepBuilderAPI1::Precision.
 //!
-//! For error handling the BRepBuilderAPI commands raise only
+//! For error handling the BRepBuilderAPI1 commands raise only
 //! the NotDone error. When Done is false on a command
 //! the error description can be asked to the command.
 //!
 //! In theory the commands can be called with any
 //! arguments, argument checking is performed by the
 //! command.
-class BRepBuilderAPI
+class BRepBuilderAPI1
 {
 public:
   DEFINE_STANDARD_ALLOC

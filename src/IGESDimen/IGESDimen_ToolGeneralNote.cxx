@@ -114,7 +114,7 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
       Standard_Integer curnum = PR.CurrentNumber();
       if (PR.DefinedElseSkip())
       {
-        // Reading fontCode(Integer, must be positive)
+        // Reading fontCode(Integer1, must be positive)
         // clang-format off
 	      PR.ReadInteger (PR.Current(), "Font Code", fontCode); //szv#4:S4163:12Mar99 `st=` not needed
 	      // Reading fontEnt(TextFontDef) ?

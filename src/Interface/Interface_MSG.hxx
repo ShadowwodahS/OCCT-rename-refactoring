@@ -43,7 +43,7 @@
 //! It is made of couples of lines, the first one begins by '@'
 //! the following is the key, the second one is the message
 //! Lines which are empty or which begin by '@@' are skipped
-class Interface_MSG
+class MessageSystem
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,26 +52,26 @@ public:
   //! with operator () attached to Value
   //! Then, to have a translated message, write in C++ :
   //!
-  //! Interface_MSG("...mykey...")  which returns a CString
+  //! MessageSystem("...mykey...")  which returns a CString
   //! See also some help which follow
-  Standard_EXPORT Interface_MSG(const Standard_CString key);
+  Standard_EXPORT MessageSystem(const Standard_CString key);
 
   //! Translates a message which contains one integer variable
   //! It is just a help which avoid the following :
-  //! char mess[100];  sprintf(mess,Interface_MSG("code"),ival);
+  //! char mess[100];  sprintf(mess,MessageSystem("code"),ival);
   //! then  AddFail(mess);
-  //! replaced by  AddFail (Interface_MSG("code",ival));
+  //! replaced by  AddFail (MessageSystem("code",ival));
   //!
   //! The basic message is intended to be in  C-sprintf  format,
   //! with one %d form in it
-  Standard_EXPORT Interface_MSG(const Standard_CString key, const Standard_Integer i1);
+  Standard_EXPORT MessageSystem(const Standard_CString key, const Standard_Integer i1);
 
   //! Translates a message which contains two integer variables
   //! As for one integer, it is just a writing help
   //!
   //! The basic message is intended to be in  C-sprintf  format
   //! with two %d forms in it
-  Standard_EXPORT Interface_MSG(const Standard_CString key,
+  Standard_EXPORT MessageSystem(const Standard_CString key,
                                 const Standard_Integer i1,
                                 const Standard_Integer i2);
 
@@ -82,7 +82,7 @@ public:
   //!
   //! The basic message is intended to be in  C-sprintf  format
   //! with one %f form (or equivalent : %e etc) in it
-  Standard_EXPORT Interface_MSG(const Standard_CString key,
+  Standard_EXPORT MessageSystem(const Standard_CString key,
                                 const Standard_Real    r1,
                                 const Standard_Integer intervals = -1);
 
@@ -91,7 +91,7 @@ public:
   //!
   //! The basic message is intended to be in  C-sprintf  format
   //! with one %s form in it
-  Standard_EXPORT Interface_MSG(const Standard_CString key, const Standard_CString str);
+  Standard_EXPORT MessageSystem(const Standard_CString key, const Standard_CString str);
 
   //! Translates a message which contains one integer and one
   //! string variables
@@ -100,14 +100,14 @@ public:
   //!
   //! The basic message is intended to be in  C-sprintf  format
   //! with one %d then one %s forms in it
-  Standard_EXPORT Interface_MSG(const Standard_CString key,
+  Standard_EXPORT MessageSystem(const Standard_CString key,
                                 const Standard_Integer ival,
                                 const Standard_CString str);
 
   //! Optimised destructor (applies for additional forms of Create)
   Standard_EXPORT void Destroy();
 
-  ~Interface_MSG() { Destroy(); }
+  ~MessageSystem() { Destroy(); }
 
   //! Returns the translated message, in a functional form with
   //! operator ()

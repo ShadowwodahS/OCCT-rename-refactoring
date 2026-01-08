@@ -83,7 +83,7 @@ public:
   void SetTypeOfAxis(const AIS_TypeOfAxis theTypeAxis) { myTypeOfAxis = theTypeAxis; }
 
   //! Returns a signature of 2 for axis datums. When you
-  //! activate mode 2 by a signature, you pick AIS objects
+  //! activate mode 2 by a signature, you pick AIS1 objects
   //! of type VisualAxis.
   Standard_Boolean IsXYZAxis() const { return myIsXYZAxis; }
 

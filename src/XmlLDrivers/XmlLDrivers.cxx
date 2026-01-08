@@ -35,12 +35,12 @@ static Standard_GUID XmlLRetrievalDriver("13a56822-8269-11d5-aab2-0050044b1af1")
 // function : Factory
 // purpose  : PLUGIN FACTORY
 //=======================================================================
-const Handle(RefObject)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
+const Handle(RefObject)& XmlLDrivers1::Factory(const Standard_GUID& theGUID)
 {
   if (theGUID == XmlLStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlLDrivers : Storage Plugin" << std::endl;
+    std::cout << "XmlLDrivers1 : Storage Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new XmlLDrivers_DocumentStorageDriver(
       "Copyright: Open Cascade, 2001-2002"); // default copyright
@@ -50,13 +50,13 @@ const Handle(RefObject)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
   if (theGUID == XmlLRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "XmlLDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "XmlLDrivers1 : Retrieval Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new XmlLDrivers_DocumentRetrievalDriver();
     return model_rd;
   }
 
-  throw ExceptionBase("XmlLDrivers : unknown GUID");
+  throw ExceptionBase("XmlLDrivers1 : unknown GUID");
 }
 
 #define SLENGTH 80
@@ -65,7 +65,7 @@ const Handle(RefObject)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
 // function : CreationDate
 // purpose  : mm/dd/yy
 //=======================================================================
-AsciiString1 XmlLDrivers::CreationDate()
+AsciiString1 XmlLDrivers1::CreationDate()
 {
   Standard_Character nowstr[SLENGTH];
   time_t             nowbin;
@@ -92,7 +92,7 @@ AsciiString1 XmlLDrivers::CreationDate()
 
 //=================================================================================================
 
-void XmlLDrivers::DefineFormat(const Handle(AppManager)& theApp)
+void XmlLDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("XmlLOcaf",
                        "Xml Lite OCAF Document",
@@ -103,18 +103,18 @@ void XmlLDrivers::DefineFormat(const Handle(AppManager)& theApp)
 
 //=================================================================================================
 
-Handle(XmlMDF_ADriverTable) XmlLDrivers::AttributeDrivers(
+Handle(XmlMDF_ADriverTable) XmlLDrivers1::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
   Handle(XmlMDF_ADriverTable) aTable = new XmlMDF_ADriverTable();
   //
-  XmlMDF ::AddDrivers(aTable, theMessageDriver);
-  XmlMDataStd ::AddDrivers(aTable, theMessageDriver);
-  XmlMFunction ::AddDrivers(aTable, theMessageDriver);
-  XmlMDocStd ::AddDrivers(aTable, theMessageDriver);
+  XmlMDF1 ::AddDrivers(aTable, theMessageDriver);
+  XmlMDataStd1 ::AddDrivers(aTable, theMessageDriver);
+  XmlMFunction1 ::AddDrivers(aTable, theMessageDriver);
+  XmlMDocStd1 ::AddDrivers(aTable, theMessageDriver);
   //
   return aTable;
 }
 
 // Declare entry point PLUGINFACTORY
-PLUGIN(XmlLDrivers)
+PLUGIN(XmlLDrivers1)

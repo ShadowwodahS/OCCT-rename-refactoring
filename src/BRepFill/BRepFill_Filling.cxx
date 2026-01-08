@@ -121,7 +121,7 @@ static TopoWire WireFromList(ShapeList& Edges)
     }
     if (!itl.More())
     {
-      Message::SendWarning() << "Warning: WireFromList: can't find the next edge. The wire is not "
+      Message1::SendWarning() << "Warning: WireFromList: can't find the next edge. The wire is not "
                                 "complete, some edges are lost.";
       break;
     }
@@ -739,8 +739,8 @@ void BRepFill_Filling::Build()
     BB.Add(NewEdge, NewV2);
     TopLoc_Location Loc;
     BB.UpdateEdge(NewEdge, aCurveOnPlate, Surface, Loc, dmax);
-    // BRepLib::SameRange(NewEdge);
-    BRepLib::SameParameter(NewEdge, dmax, Standard_True);
+    // BRepLib1::SameRange(NewEdge);
+    BRepLib1::SameParameter(NewEdge, dmax, Standard_True);
     FinalEdges.Append(NewEdge);
     myOldNewMap.Bind(InitEdge.Oriented(TopAbs_FORWARD), NewEdge.Oriented(TopAbs_FORWARD));
   }

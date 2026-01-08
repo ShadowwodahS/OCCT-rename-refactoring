@@ -21,7 +21,7 @@ class TopoFace;
 class MeshTriangulation;
 
 //! Provides methods for calculating normals to MeshTriangulation of TopoFace.
-class BRepLib_ToolTriangulatedShape
+class ToolTriangulatedShape
 {
 public:
   //! Computes nodal normals for MeshTriangulation structure using UV coordinates and surface.

@@ -93,7 +93,7 @@ void IGESData_IGESModel::DumpHeader(Standard_OStream& S, const Standard_Integer)
   if (!str.IsNull())
     S << "[ 6]  Interface Version     : " << str->ToCString() << std::endl;
   S << std::endl;
-  S << "[ 7]  Integer Bits          : " << theheader.IntegerBits()
+  S << "[ 7]  Integer1 Bits          : " << theheader.IntegerBits()
     << "          Features for Reals : " << std::endl;
   S << "[ 8]  Single Max.Power(10)  : " << theheader.MaxPower10Single();
   S << "         [ 9]  Digits   : " << theheader.MaxDigitsSingle() << "\n";

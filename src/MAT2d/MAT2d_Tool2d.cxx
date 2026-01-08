@@ -564,28 +564,28 @@ Standard_Boolean MAT2d_Tool2d::TrimBisector(const Handle(MAT_Bisector)& abisecto
                                             const Standard_Integer      apoint)
 {
   Standard_Real               Param;
-  Handle(Geom2d_TrimmedCurve) Bisector = ChangeGeomBis(abisector->BisectorNumber()).ChangeValue();
+  Handle(Geom2d_TrimmedCurve) Bisector1 = ChangeGeomBis(abisector->BisectorNumber()).ChangeValue();
 
-  Handle(Bisector_Curve) Bis = Handle(Bisector_Curve)::DownCast(Bisector->BasisCurve());
+  Handle(Bisector_Curve) Bis = Handle(Bisector_Curve)::DownCast(Bisector1->BasisCurve());
 
-  //  Param = ParameterOnCurve(Bisector,theGeomPnts.Value(apoint));
+  //  Param = ParameterOnCurve(Bisector1,theGeomPnts.Value(apoint));
   Param = Bis->Parameter(GeomPnt(apoint));
 
-  if (Bisector->BasisCurve()->IsPeriodic())
+  if (Bisector1->BasisCurve()->IsPeriodic())
   {
-    if (Bisector->FirstParameter() > Param)
+    if (Bisector1->FirstParameter() > Param)
       Param = Param + 2 * M_PI;
   }
-  if (Bisector->FirstParameter() >= Param)
+  if (Bisector1->FirstParameter() >= Param)
     return Standard_False;
-  if (Bisector->LastParameter() < Param)
+  if (Bisector1->LastParameter() < Param)
     return Standard_False;
-  Bisector->SetTrim(Bisector->FirstParameter(), Param);
+  Bisector1->SetTrim(Bisector1->FirstParameter(), Param);
 
 #ifdef OCCT_DEBUG
   Standard_Boolean Affich = Standard_False;
   if (Affich)
-    MAT2d_DrawCurve(Bisector, 2);
+    MAT2d_DrawCurve(Bisector1, 2);
 #endif
 
   return Standard_True;
@@ -864,13 +864,13 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
     std::cout << std::endl;
     std::cout << "INTERSECTION de " << BisectorOne->BisectorNumber() << " et de "
               << BisectorTwo->BisectorNumber() << std::endl;
-    std::cout << "  Bisector 1 : " << std::endl;
+    std::cout << "  Bisector1 1 : " << std::endl;
     //    (Bisector1->BasisCurve())->Dump(-1,1);
     std::cout << std::endl;
     Debug(Domain1.FirstParameter());
     Debug(Domain1.LastParameter());
     std::cout << "-----------------" << std::endl;
-    std::cout << "  Bisector 2 : " << std::endl;
+    std::cout << "  Bisector1 2 : " << std::endl;
     //    (Bisector2->BasisCurve())->Dump(-1,1);
     std::cout << std::endl;
     Debug(Domain2.FirstParameter());
@@ -1301,16 +1301,16 @@ static void SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1)
   Geom2dInt_GInter            Intersect;
   Standard_Real               Distance;
   Standard_Real               Tolerance = MAT2d_TOLCONF;
-  Handle(Geom2d_TrimmedCurve) Bisector  = Bis.ChangeValue();
+  Handle(Geom2d_TrimmedCurve) Bisector1  = Bis.ChangeValue();
 
-  Domain2 Domain1 = Domain(Bisector, Tolerance);
-  Standard_Real   UB1     = Bisector->FirstParameter();
-  Standard_Real   UB2     = Bisector->LastParameter();
+  Domain2 Domain1 = Domain(Bisector1, Tolerance);
+  Standard_Real   UB1     = Bisector1->FirstParameter();
+  Standard_Real   UB2     = Bisector1->LastParameter();
 
-  gp_Pnt2d      FirstPointBisector = Bisector->Value(UB1);
+  gp_Pnt2d      FirstPointBisector = Bisector1->Value(UB1);
   Standard_Real UTrim              = Precision::Infinite();
 
-  Geom2dAdaptor_Curve AdapBisector(Bisector);
+  Geom2dAdaptor_Curve AdapBisector(Bisector1);
   Geom2dAdaptor_Curve AdapLine1(Line1);
   Intersect.Perform(AdapBisector, Domain1, AdapLine1, Tolerance, Tolerance);
 
@@ -1331,7 +1331,7 @@ static void SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1)
   // parametre.
   // ------------------------------------------------------------------------
   if (UTrim < UB2 && UTrim > UB1)
-    Bisector->SetTrim(UB1, UTrim);
+    Bisector1->SetTrim(UB1, UTrim);
 }
 
 //=================================================================================================

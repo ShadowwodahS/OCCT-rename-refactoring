@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&                theFace,
+void ToolTriangulatedShape::ComputeNormals(const TopoFace&                theFace,
                                                    const Handle(MeshTriangulation)& theTris,
                                                    Poly_Connect&                     thePolyConnect)
 {

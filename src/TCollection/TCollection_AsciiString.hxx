@@ -40,8 +40,8 @@ class UtfString;
 //! class can be used for iterating through Unicode string (UTF-32 code unit will be returned for
 //! each position).
 //!
-//! Class provides editing operations with built-in memory management to make AsciiString objects
-//! easier to use than ordinary character arrays. AsciiString objects follow value semantics; in
+//! Class provides editing operations with built-in memory management to make AsciiString2 objects
+//! easier to use than ordinary character arrays. AsciiString2 objects follow value semantics; in
 //! other words, they are the actual strings, not handles to strings, and are copied through
 //! assignment. You may use HAsciiString objects to get handles to strings.
 class AsciiString1
@@ -49,47 +49,47 @@ class AsciiString1
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Initializes a AsciiString to an empty AsciiString.
+  //! Initializes a AsciiString2 to an empty AsciiString2.
   Standard_EXPORT AsciiString1();
 
-  //! Initializes a AsciiString with a CString.
+  //! Initializes a AsciiString2 with a CString.
   Standard_EXPORT AsciiString1(const Standard_CString message);
 
-  //! Initializes a AsciiString with a CString.
+  //! Initializes a AsciiString2 with a CString.
   Standard_EXPORT AsciiString1(const Standard_CString message,
                                           const Standard_Integer aLen);
 
-  //! Initializes a AsciiString with a single character.
+  //! Initializes a AsciiString2 with a single character.
   Standard_EXPORT AsciiString1(const Standard_Character aChar);
 
-  //! Initializes an AsciiString with <length> space allocated.
+  //! Initializes an AsciiString2 with <length> space allocated.
   //! and filled with <filler>. This is useful for buffers.
   Standard_EXPORT AsciiString1(const Standard_Integer   length,
                                           const Standard_Character filler);
 
-  //! Initializes an AsciiString with an integer value
+  //! Initializes an AsciiString2 with an integer value
   Standard_EXPORT AsciiString1(const Standard_Integer value);
 
-  //! Initializes an AsciiString with a real value
+  //! Initializes an AsciiString2 with a real value
   Standard_EXPORT AsciiString1(const Standard_Real value);
 
-  //! Initializes a AsciiString with another AsciiString.
+  //! Initializes a AsciiString2 with another AsciiString2.
   Standard_EXPORT AsciiString1(const AsciiString1& astring);
 
   //! Move constructor
   Standard_EXPORT AsciiString1(AsciiString1&& theOther) Standard_Noexcept;
 
-  //! Initializes a AsciiString with copy of another AsciiString
+  //! Initializes a AsciiString2 with copy of another AsciiString2
   //! concatenated with the message character.
   Standard_EXPORT AsciiString1(const AsciiString1& astring,
                                           const Standard_Character       message);
 
-  //! Initializes a AsciiString with copy of another AsciiString
+  //! Initializes a AsciiString2 with copy of another AsciiString2
   //! concatenated with the message string.
   Standard_EXPORT AsciiString1(const AsciiString1& astring,
                                           const Standard_CString         message);
 
-  //! Initializes a AsciiString with copy of another AsciiString
+  //! Initializes a AsciiString2 with copy of another AsciiString2
   //! concatenated with the message string.
   Standard_EXPORT AsciiString1(const AsciiString1& astring,
                                           const AsciiString1& message);
@@ -128,7 +128,7 @@ public:
   //! Appends <other>  to me. This is an unary operator.
   //! ex: aString += "Dummy"
   //! To catenate more than one CString, you must put a
-  //! AsciiString before.
+  //! AsciiString2 before.
   //! Example: aString += "Hello " + "Dolly"  IS NOT VALID !
   //! But astring += anotherString + "Hello " + "Dolly" is valid.
   Standard_EXPORT void AssignCat(const Standard_CString other);
@@ -226,7 +226,7 @@ public:
   Standard_EXPORT void Center(const Standard_Integer Width, const Standard_Character Filler);
 
   //! Substitutes all the characters equal to aChar by NewChar
-  //! in the AsciiString <me>.
+  //! in the AsciiString2 <me>.
   //! The substitution can be case sensitive.
   //! If you don't use default case sensitive, no matter whether aChar
   //! is uppercase or not.
@@ -237,7 +237,7 @@ public:
                                  const Standard_Boolean   CaseSensitive = Standard_True);
 
   //! Removes all characters contained in <me>.
-  //! This produces an empty AsciiString.
+  //! This produces an empty AsciiString2.
   Standard_EXPORT void Clear();
 
   //! Copy <fromwhere> to <me>.
@@ -272,7 +272,7 @@ public:
   //! Exchange the data of two strings (without reallocating memory).
   Standard_EXPORT void Swap(AsciiString1& theOther);
 
-  //! Frees memory allocated by AsciiString.
+  //! Frees memory allocated by AsciiString2.
   Standard_EXPORT ~AsciiString1();
 
   //! Returns the index of the first character of <me> that is
@@ -323,7 +323,7 @@ public:
   //! aString.Insert(2,"nce");  gives "Once more"
   Standard_EXPORT void Insert(const Standard_Integer where, const Standard_CString what);
 
-  //! Inserts a AsciiString at position <where>.
+  //! Inserts a AsciiString2 at position <where>.
   Standard_EXPORT void Insert(const Standard_Integer where, const AsciiString1& what);
 
   //! Pushing a string after a specific index in the string <me>.
@@ -413,16 +413,16 @@ public:
   //! Determines whether the end of this string instance matches the specified string.
   Standard_EXPORT Standard_Boolean EndsWith(const AsciiString1& theEndString) const;
 
-  //! Converts a AsciiString containing a numeric expression to
-  //! an Integer.
+  //! Converts a AsciiString2 containing a numeric expression to
+  //! an Integer1.
   //! Example: "215" returns 215.
   Standard_EXPORT Standard_Integer IntegerValue() const;
 
-  //! Returns True if the AsciiString contains an integer value.
+  //! Returns True if the AsciiString2 contains an integer value.
   //! Note: an integer value is considered to be a real value as well.
   Standard_EXPORT Standard_Boolean IsIntegerValue() const;
 
-  //! Returns True if the AsciiString starts with some characters that can be interpreted as integer
+  //! Returns True if the AsciiString2 starts with some characters that can be interpreted as integer
   //! or real value.
   //! @param[in] theToCheckFull  when TRUE, checks if entire string defines a real value;
   //!                            otherwise checks if string starts with a real value
@@ -430,7 +430,7 @@ public:
   Standard_EXPORT Standard_Boolean
     IsRealValue(Standard_Boolean theToCheckFull = Standard_False) const;
 
-  //! Returns True if the AsciiString contains only ASCII characters
+  //! Returns True if the AsciiString2 contains only ASCII characters
   //! between ' ' and '~'.
   //! This means no control character and no extended ASCII code.
   Standard_EXPORT Standard_Boolean IsAscii() const;
@@ -523,7 +523,7 @@ public:
   friend Standard_EXPORT Standard_IStream& operator>>(Standard_IStream&        astream,
                                                       AsciiString1& astring);
 
-  //! Converts an AsciiString containing a numeric expression.
+  //! Converts an AsciiString2 containing a numeric expression.
   //! to a Real.
   //! Example: ex: "215" returns 215.0.
   //! ex: "3.14159267" returns 3.14159267.
@@ -571,12 +571,12 @@ public:
   //! aString.Search("le") returns 5
   Standard_EXPORT Standard_Integer Search(const Standard_CString what) const;
 
-  //! Searches an AsciiString in <me> from the beginning
+  //! Searches an AsciiString2 in <me> from the beginning
   //! and returns position of first item <what> matching.
   //! It returns -1 if not found.
   Standard_EXPORT Standard_Integer Search(const AsciiString1& what) const;
 
-  //! Searches a CString in a AsciiString from the end
+  //! Searches a CString in a AsciiString2 from the end
   //! and returns position of first item <what> matching.
   //! It returns -1 if not found.
   //! Example:
@@ -584,12 +584,12 @@ public:
   //! aString.SearchFromEnd("le") returns 12
   Standard_EXPORT Standard_Integer SearchFromEnd(const Standard_CString what) const;
 
-  //! Searches a AsciiString in another AsciiString from the end
+  //! Searches a AsciiString2 in another AsciiString2 from the end
   //! and returns position of first item <what> matching.
   //! It returns -1 if not found.
   Standard_EXPORT Standard_Integer SearchFromEnd(const AsciiString1& what) const;
 
-  //! Replaces one character in the AsciiString at position <where>.
+  //! Replaces one character in the AsciiString2 at position <where>.
   //! If <where> is less than zero or greater than the length of <me>
   //! an exception is raised.
   //! Example:
@@ -605,10 +605,10 @@ public:
   //! aString.SetValue(4,"1234567") gives <me> = "abc1234567"
   Standard_EXPORT void SetValue(const Standard_Integer where, const Standard_CString what);
 
-  //! Replaces a part of <me> by another AsciiString.
+  //! Replaces a part of <me> by another AsciiString2.
   Standard_EXPORT void SetValue(const Standard_Integer where, const AsciiString1& what);
 
-  //! Splits a AsciiString into two sub-strings.
+  //! Splits a AsciiString2 into two sub-strings.
   //! Example:
   //! aString contains "abcdefg"
   //! aString.Split(3) gives <me> = "abc" and returns "defg"
@@ -628,7 +628,7 @@ public:
   AsciiString1 SubString(const Standard_Integer FromIndex,
                                     const Standard_Integer ToIndex) const;
 
-  //! Returns pointer to AsciiString (char *).
+  //! Returns pointer to AsciiString2 (char *).
   //! This is useful for some casual manipulations.
   //! Warning: Because this "char *" is 'const', you can't modify its contents.
   Standard_CString ToCString() const;
@@ -637,7 +637,7 @@ public:
   //! By default, the <separators> is set to space and tabulation.
   //! By default, the token extracted is the first one (whichone = 1).
   //! <separators> contains all separators you need.
-  //! If no token indexed by <whichone> is found, it returns empty AsciiString.
+  //! If no token indexed by <whichone> is found, it returns empty AsciiString2.
   //! Example:
   //! aString contains "This is a     message"
   //! aString.Token()  returns "This"
@@ -676,12 +676,12 @@ public:
   size_t HashCode() const;
 
   //! Returns True  when the two  strings are the same.
-  //! (Just for HashCode for AsciiString)
+  //! (Just for HashCode for AsciiString2)
   static Standard_Boolean IsEqual(const AsciiString1& string1,
                                   const AsciiString1& string2);
 
   //! Returns True  when the two  strings are the same.
-  //! (Just for HashCode for AsciiString)
+  //! (Just for HashCode for AsciiString2)
   static Standard_Boolean IsEqual(const AsciiString1& string1,
                                   const Standard_CString         string2);
 

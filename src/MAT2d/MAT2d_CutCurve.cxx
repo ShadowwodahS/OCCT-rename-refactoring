@@ -25,18 +25,18 @@
 
 //=================================================================================================
 
-MAT2d_CutCurve::MAT2d_CutCurve() {}
+MAT2dCutCurve::MAT2dCutCurve() {}
 
 //=================================================================================================
 
-MAT2d_CutCurve::MAT2d_CutCurve(const Handle(GeomCurve2d)& C)
+MAT2dCutCurve::MAT2dCutCurve(const Handle(GeomCurve2d)& C)
 {
   Perform(C);
 }
 
 //=================================================================================================
 
-void MAT2d_CutCurve::Perform(const Handle(GeomCurve2d)& C)
+void MAT2dCutCurve::Perform(const Handle(GeomCurve2d)& C)
 {
   theCurves.Clear();
 
@@ -84,14 +84,14 @@ void MAT2d_CutCurve::Perform(const Handle(GeomCurve2d)& C)
 
 //=================================================================================================
 
-Standard_Boolean MAT2d_CutCurve::UnModified() const
+Standard_Boolean MAT2dCutCurve::UnModified() const
 {
   return theCurves.IsEmpty();
 }
 
 //=================================================================================================
 
-Standard_Integer MAT2d_CutCurve::NbCurves() const
+Standard_Integer MAT2dCutCurve::NbCurves() const
 {
   if (UnModified())
   {
@@ -102,7 +102,7 @@ Standard_Integer MAT2d_CutCurve::NbCurves() const
 
 //=================================================================================================
 
-Handle(Geom2d_TrimmedCurve) MAT2d_CutCurve::Value(const Standard_Integer Index) const
+Handle(Geom2d_TrimmedCurve) MAT2dCutCurve::Value(const Standard_Integer Index) const
 {
   if (UnModified())
   {

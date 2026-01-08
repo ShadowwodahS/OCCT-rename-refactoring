@@ -71,7 +71,7 @@ void RWStepGeom_RWToroidalSurface::WriteStep(StepData_StepWriter&               
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : majorRadius ---
 
@@ -86,7 +86,7 @@ void RWStepGeom_RWToroidalSurface::Share(const Handle(StepGeom_ToroidalSurface)&
                                          Interface_EntityIterator&               iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }
 
 void RWStepGeom_RWToroidalSurface::Check(const Handle(StepGeom_ToroidalSurface)& ent,

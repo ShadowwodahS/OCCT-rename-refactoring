@@ -162,7 +162,7 @@ Standard_Boolean IFSelect_TransformStandard::ApplyModifiers(
   Interface_CheckIterator&          checks,
   Handle(Interface_InterfaceModel)& newmod) const
 {
-  Message_Messenger::StreamBuffer         sout     = Message::SendInfo();
+  Message_Messenger::StreamBuffer         sout     = Message1::SendInfo();
   Standard_Boolean                        res      = Standard_True;
   Standard_Boolean                        chg      = Standard_False;
   Standard_Integer                        nb       = NbModifiers();

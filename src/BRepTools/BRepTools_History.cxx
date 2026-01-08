@@ -239,7 +239,7 @@ void BRepTools_History::Merge(const BRepTools_History& theHistory23)
         add(aL12, aAdditions[aI]);
         if (aI != 0 && !aAdditions[0].IsEmpty())
         {
-          const TopoShape&   aS1    = aMIt1.Key();
+          const TopoShape&   aS1    = aMIt1.Key1();
           ShapeList* aGAndM = aS1ToGAndM[0]->ChangeSeek(aS1);
           if (aGAndM == NULL)
           {
@@ -259,7 +259,7 @@ void BRepTools_History::Merge(const BRepTools_History& theHistory23)
       for (TopTools_DataMapOfShapeListOfShape::Iterator aMIt2(*aS2ToGAndM[aI]); aMIt2.More();
            aMIt2.Next())
       {
-        const TopoShape& aS2 = aMIt2.Key();
+        const TopoShape& aS2 = aMIt2.Key1();
         if (!aMAndGPropagated.Contains(aS2))
         {
           if (!aS1ToGAndM[aI]->IsBound(aS2))
@@ -280,7 +280,7 @@ void BRepTools_History::Merge(const BRepTools_History& theHistory23)
   {
     for (TopTools_DataMapOfShapeListOfShape::Iterator aMIt1(*aS1ToGAndM[aI]); aMIt1.More();)
     {
-      const TopoShape&         aS1  = aMIt1.Key();
+      const TopoShape&         aS1  = aMIt1.Key1();
       const ShapeList& aL12 = aMIt1.Value();
       aMIt1.Next();
       if (aL12.IsEmpty())

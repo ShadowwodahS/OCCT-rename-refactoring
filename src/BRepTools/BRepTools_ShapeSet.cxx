@@ -249,7 +249,7 @@ void BRepTools_ShapeSet::WriteGeometry(Standard_OStream&            OS,
                                        const Message_ProgressRange& theProgress)
 {
   // Make nested progress scope for processing geometry
-  Message_ProgressScope aPS(theProgress, "Geometry", 100);
+  Message_ProgressScope aPS(theProgress, "Geometry1", 100);
 
   myCurves2d.Write(OS, aPS.Next(20));
   if (aPS.UserBreak())
@@ -280,7 +280,7 @@ void BRepTools_ShapeSet::ReadGeometry(Standard_IStream&            IS,
                                       const Message_ProgressRange& theProgress)
 {
   // Make nested progress scope for processing geometry
-  Message_ProgressScope aPS(theProgress, "Geometry", 100);
+  Message_ProgressScope aPS(theProgress, "Geometry1", 100);
 
   myCurves2d.Read(IS, aPS.Next(20));
   if (aPS.UserBreak())

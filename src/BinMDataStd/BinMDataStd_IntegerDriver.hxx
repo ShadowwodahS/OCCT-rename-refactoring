@@ -28,7 +28,7 @@ class BinObjMgt_Persistent;
 class BinMDataStd_IntegerDriver;
 DEFINE_STANDARD_HANDLE(BinMDataStd_IntegerDriver, BinMDF_ADriver)
 
-//! Integer attribute Driver.
+//! Integer1 attribute Driver.
 class BinMDataStd_IntegerDriver : public BinMDF_ADriver
 {
 

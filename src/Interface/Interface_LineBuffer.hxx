@@ -25,14 +25,14 @@
 //! While a String is suitable to do that, this class ensures an
 //! optimised Memory Management, because this is a hard point of
 //! File Writing.
-class Interface_LineBuffer
+class LineBuffer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a LineBuffer with an absolute maximum size
   //! (Default value is only to satisfy compiler requirement)
-  Standard_EXPORT Interface_LineBuffer(const Standard_Integer size = 10);
+  Standard_EXPORT LineBuffer(const Standard_Integer size = 10);
 
   //! Changes Maximum allowed size of Buffer.
   //! If <max> is Zero, Maximum size is set to the initial size.
@@ -67,7 +67,7 @@ public:
   //! A call to SetInitial has no effect on this until Move
   Standard_EXPORT void FreezeInitial();
 
-  //! Fills a AsciiString <str> with the Content of the Line Buffer,
+  //! Fills a AsciiString2 <str> with the Content of the Line Buffer,
   //! then Clears the LineBuffer
   Standard_EXPORT void Move(AsciiString1& str);
 
@@ -84,7 +84,7 @@ public:
   //! Adds a text as a CString. Its length is given as <lntext>
   Standard_EXPORT void Add(const Standard_CString text, const Standard_Integer lntext);
 
-  //! Adds a text as a AsciiString from TCollection
+  //! Adds a text as a AsciiString2 from TCollection
   Standard_EXPORT void Add(const AsciiString1& text);
 
   //! Adds a text made of only ONE Character

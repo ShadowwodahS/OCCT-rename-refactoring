@@ -49,14 +49,14 @@ static BOPAlgo_MakeConnected& getMakeConnectedTool()
 
 //=================================================================================================
 
-void BOPTest::MkConnectedCommands(DrawInterpreter& theCommands)
+void BOPTest1::MkConnectedCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* group = "BOPTest commands";
+  const char* group = "BOPTest1 commands";
   // Commands
   theCommands.Add("makeconnected",
                   "makeconnected result shape1 shape2 ...\n"
@@ -138,15 +138,15 @@ Standard_Integer MakeConnected(DrawInterpreter& theDI,
     getMakeConnectedTool().AddArgument(aS);
   }
 
-  getMakeConnectedTool().SetRunParallel(BOPTest_Objects::RunParallel());
+  getMakeConnectedTool().SetRunParallel(Objects::RunParallel());
 
   getMakeConnectedTool().Perform();
 
   // Print Error/Warning messages
-  BOPTest::ReportAlerts(getMakeConnectedTool().GetReport());
+  BOPTest1::ReportAlerts(getMakeConnectedTool().GetReport());
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getMakeConnectedTool().History());
+  Objects1::SetHistory(getMakeConnectedTool().History());
 
   if (getMakeConnectedTool().HasErrors())
     return 0;
@@ -232,10 +232,10 @@ Standard_Integer MakePeriodic(DrawInterpreter& theDI,
   getMakeConnectedTool().MakePeriodic(aParams);
 
   // Print Error/Warning messages
-  BOPTest::ReportAlerts(getMakeConnectedTool().GetReport());
+  BOPTest1::ReportAlerts(getMakeConnectedTool().GetReport());
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getMakeConnectedTool().History());
+  Objects1::SetHistory(getMakeConnectedTool().History());
 
   if (getMakeConnectedTool().HasErrors())
     return 0;
@@ -297,10 +297,10 @@ Standard_Integer RepeatShape(DrawInterpreter& theDI,
   }
 
   // Print Error/Warning messages
-  BOPTest::ReportAlerts(getMakeConnectedTool().GetReport());
+  BOPTest1::ReportAlerts(getMakeConnectedTool().GetReport());
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getMakeConnectedTool().History());
+  Objects1::SetHistory(getMakeConnectedTool().History());
 
   if (getMakeConnectedTool().HasErrors())
     return 0;
@@ -411,7 +411,7 @@ Standard_Integer ClearRepetitions(DrawInterpreter&, Standard_Integer theArgc, co
   getMakeConnectedTool().ClearRepetitions();
 
   // Set the history of the operation in session
-  BRepTest_Objects::SetHistory(getMakeConnectedTool().History());
+  Objects1::SetHistory(getMakeConnectedTool().History());
 
   if (theArgc > 1)
   {

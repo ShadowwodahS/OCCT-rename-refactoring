@@ -100,7 +100,7 @@ bool RWPly_PlyWriterContext::Open(const AsciiString1&       theName,
   if (myStream.get() == NULL || !myStream->good())
   {
     myStream.reset();
-    Message::SendFail() << "Error: file cannot be created\n" << theName;
+    Message1::SendFail() << "Error: file cannot be created\n" << theName;
     return false;
   }
   return true;
@@ -119,18 +119,18 @@ bool RWPly_PlyWriterContext::Close(bool theIsAborted)
   bool aResult = myStream->good();
   if (!aResult)
   {
-    Message::SendFail() << "Error: file cannot be written\n" << myName;
+    Message1::SendFail() << "Error: file cannot be written\n" << myName;
   }
   else if (!theIsAborted)
   {
     if (myNbVerts != myNbHeaderVerts)
     {
-      Message::SendFail() << "Error: written less number of vertices (" << myNbVerts
+      Message1::SendFail() << "Error: written less number of vertices (" << myNbVerts
                           << ") than specified in PLY header (" << myNbHeaderVerts << ")";
     }
     else if (myNbElems != myNbHeaderElems)
     {
-      Message::SendFail() << "Error: written less number of elements (" << myNbElems
+      Message1::SendFail() << "Error: written less number of elements (" << myNbElems
                           << ") than specified in PLY header (" << myNbHeaderElems << ")";
     }
   }
@@ -159,7 +159,7 @@ bool RWPly_PlyWriterContext::WriteHeader(const Standard_Integer                 
        aKeyValueIter.Next())
   {
     NCollection_IndexedMap<AsciiString1> aKeyLines, aValLines;
-    splitLines(aKeyValueIter.Key(), aKeyLines);
+    splitLines(aKeyValueIter.Key1(), aKeyLines);
     splitLines(aKeyValueIter.Value(), aValLines);
     for (Standard_Integer aLineIter = 1; aLineIter <= aKeyLines.Extent(); ++aLineIter)
     {

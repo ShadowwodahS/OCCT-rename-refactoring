@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT DataLabel Label() const;
 
-  Standard_EXPORT Handle(ShapeAttribute) NamedShape() const;
+  Standard_EXPORT Handle(ShapeAttribute) NamedShape1() const;
 
   Standard_EXPORT const TopoShape& Shape() const;
 

@@ -49,8 +49,8 @@ void IGESData_IGESDumper::PrintDNum(const Handle(IGESData_IGESEntity)& ent,
     // throw Interface_InterfaceError("IGESDumper : PrintDNum");
     else
     {
-      S << Interface_MSG::Blanks(num, 9) << num << ":D" << 2 * num - 1
-        << Interface_MSG::Blanks(2 * num - 1, 9);
+      S << MessageSystem::Blanks(num, 9) << num << ":D" << 2 * num - 1
+        << MessageSystem::Blanks(2 * num - 1, 9);
     }
   }
   else
@@ -69,7 +69,7 @@ void IGESData_IGESDumper::PrintShort(const Handle(IGESData_IGESEntity)& ent,
     if (num > 0)
       S << num << ":D" << 2 * num - 1;
     S << "  Type:" << ent->TypeNumber() << "  Form:" << ent->FormNumber()
-      << Interface_MSG::Blanks(ent->FormNumber(), 3)
+      << MessageSystem::Blanks(ent->FormNumber(), 3)
       << " Class:" << Interface_InterfaceModel::ClassName(ent->DynamicType()->Name());
   }
 }

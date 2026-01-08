@@ -76,7 +76,7 @@ void DFBrowserPane_TNamingUsedShapes::GetValues(const Handle(TDF_Attribute)& the
   for (TNaming_DataMapIteratorOfDataMapOfShapePtrRefShape aRefIt(aMap); aRefIt.More();
        aRefIt.Next())
   {
-    TopoShape        aShape       = aRefIt.Key();
+    TopoShape        aShape       = aRefIt.Key1();
     TNaming_PtrRefShape aPtrRefShape = aRefIt.Value();
 
     if (!aShape.IsNull())
@@ -141,7 +141,7 @@ void DFBrowserPane_TNamingUsedShapes::GetAttributeReferences(
       continue;
 
     if (aSelectedEntries.contains(DFBrowserPane_Tools::GetEntry(aPtrRefShape->Label()).ToCString()))
-      theRefAttributes.Append(aPtrRefShape->NamedShape());
+      theRefAttributes.Append(aPtrRefShape->NamedShape1());
   }
 }
 

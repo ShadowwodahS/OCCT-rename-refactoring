@@ -84,7 +84,7 @@ public:
   //! Changes the "Location" and a the "Direction" of <me>.
   Standard_EXPORT void SetPosition(const gp_Ax2d& A);
 
-  Standard_EXPORT const gp_Ax2d& Position() const;
+  Standard_EXPORT const gp_Ax2d& Position1() const;
 
   //! Returns non persistent line from gp1 with the same geometric
   //! properties as <me>

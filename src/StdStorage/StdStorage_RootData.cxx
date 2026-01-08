@@ -101,7 +101,7 @@ Standard_Boolean StdStorage_RootData::Write(const Handle(Storage_BaseDriver)& th
     try
     {
       OCC_CATCH_SIGNALS
-      theDriver->WriteRoot(aRoot->Name(), aRoot->Reference(), aRoot->Type());
+      theDriver->WriteRoot(aRoot->Name(), aRoot->Reference1(), aRoot->Type());
     }
     catch (Storage_StreamTypeMismatchError const&)
     {

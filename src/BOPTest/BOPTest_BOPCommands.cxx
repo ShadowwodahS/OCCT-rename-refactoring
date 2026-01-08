@@ -72,14 +72,14 @@ static Standard_Integer mkvolume(DrawInterpreter&, Standard_Integer, const char*
 
 //=================================================================================================
 
-void BOPTest::BOPCommands(DrawInterpreter& theCommands)
+void BOPTest1::BOPCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
 
   theCommands.Add("bop", "use bop s1 s2", __FILE__, bop, g);
@@ -139,10 +139,10 @@ Standard_Integer bop(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 0;
   }
   //
-  aTol                                     = BOPTest_Objects::FuzzyValue();
-  bRunParallel                             = BOPTest_Objects::RunParallel();
-  bNonDestructive                          = BOPTest_Objects::NonDestructive();
-  BOPAlgo_GlueEnum               aGlue     = BOPTest_Objects::Glue();
+  aTol                                     = Objects::FuzzyValue();
+  bRunParallel                             = Objects::RunParallel();
+  bNonDestructive                          = Objects::NonDestructive();
+  BOPAlgo_GlueEnum               aGlue     = Objects::Glue();
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   //
   aLC.Append(aS1);
@@ -161,10 +161,10 @@ Standard_Integer bop(DrawInterpreter& di, Standard_Integer n, const char** a)
   pPF->SetRunParallel(bRunParallel);
   pPF->SetNonDestructive(bNonDestructive);
   pPF->SetGlue(aGlue);
-  pPF->SetUseOBB(BOPTest_Objects::UseOBB());
+  pPF->SetUseOBB(Objects::UseOBB());
   //
   pPF->Perform(aProgress->Start());
-  BOPTest::ReportAlerts(pPF->GetReport());
+  BOPTest1::ReportAlerts(pPF->GetReport());
   //
   return 0;
 }
@@ -234,7 +234,7 @@ Standard_Integer bopsmt(DrawInterpreter&       di,
     return 0;
   }
   //
-  bRunParallel                             = BOPTest_Objects::RunParallel();
+  bRunParallel                             = Objects::RunParallel();
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   //
   const TopoShape& aS1 = aLC.First();
@@ -244,15 +244,15 @@ Standard_Integer bopsmt(DrawInterpreter&       di,
   aBOP.AddTool(aS2);
   aBOP.SetOperation(aOp);
   aBOP.SetRunParallel(bRunParallel);
-  aBOP.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aBOP.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aBOP.SetCheckInverted(Objects::CheckInverted());
+  aBOP.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   aBOP.PerformWithFiller(*pPF, aProgress->Start());
-  BOPTest::ReportAlerts(aBOP.GetReport());
+  BOPTest1::ReportAlerts(aBOP.GetReport());
 
   // Store the history of Boolean operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aBOP.History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aBOP.History());
 
   if (aBOP.HasErrors())
   {
@@ -304,7 +304,7 @@ Standard_Integer bopsection(DrawInterpreter& di, Standard_Integer n, const char*
     return 0;
   }
   //
-  bRunParallel = BOPTest_Objects::RunParallel();
+  bRunParallel = Objects::RunParallel();
   //
   const TopoShape& aS1 = aLC.First();
   const TopoShape& aS2 = aLC.Last();
@@ -312,16 +312,16 @@ Standard_Integer bopsection(DrawInterpreter& di, Standard_Integer n, const char*
   aBOP.AddArgument(aS1);
   aBOP.AddArgument(aS2);
   aBOP.SetRunParallel(bRunParallel);
-  aBOP.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aBOP.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aBOP.SetCheckInverted(Objects::CheckInverted());
+  aBOP.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aBOP.PerformWithFiller(*pPF, aProgress->Start());
-  BOPTest::ReportAlerts(aBOP.GetReport());
+  BOPTest1::ReportAlerts(aBOP.GetReport());
 
   // Store the history of Section operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aBOP.History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aBOP.History());
 
   if (aBOP.HasErrors())
   {
@@ -393,10 +393,10 @@ Standard_Integer bsection(DrawInterpreter& di, Standard_Integer n, const char** 
   bApp                   = Standard_True;
   bPC1                   = Standard_True;
   bPC2                   = Standard_True;
-  aTol                   = BOPTest_Objects::FuzzyValue();
-  bRunParallel           = BOPTest_Objects::RunParallel();
-  bNonDestructive        = BOPTest_Objects::NonDestructive();
-  BOPAlgo_GlueEnum aGlue = BOPTest_Objects::Glue();
+  aTol                   = Objects::FuzzyValue();
+  bRunParallel           = Objects::RunParallel();
+  bNonDestructive        = Objects::NonDestructive();
+  BOPAlgo_GlueEnum aGlue = Objects::Glue();
   //
   for (Standard_Integer i = 4; i < n; ++i)
   {
@@ -430,12 +430,12 @@ Standard_Integer bsection(DrawInterpreter& di, Standard_Integer n, const char** 
   aSec.SetRunParallel(bRunParallel);
   aSec.SetNonDestructive(bNonDestructive);
   aSec.SetGlue(aGlue);
-  aSec.SetUseOBB(BOPTest_Objects::UseOBB());
+  aSec.SetUseOBB(Objects::UseOBB());
   //
   aSec.Build(aProgress->Start());
   // Store the history of Section operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aSec.History());
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aSec.History());
 
   //
   if (aSec.HasWarnings())
@@ -497,21 +497,21 @@ Standard_Integer bsmt(DrawInterpreter&       di,
   aBOP.AddTool(aS2);
   aBOP.SetOperation(aOp);
   // set options
-  aBOP.SetGlue(BOPTest_Objects::Glue());
-  aBOP.SetFuzzyValue(BOPTest_Objects::FuzzyValue());
-  aBOP.SetNonDestructive(BOPTest_Objects::NonDestructive());
-  aBOP.SetRunParallel(BOPTest_Objects::RunParallel());
-  aBOP.SetUseOBB(BOPTest_Objects::UseOBB());
-  aBOP.SetCheckInverted(BOPTest_Objects::CheckInverted());
-  aBOP.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aBOP.SetGlue(Objects::Glue());
+  aBOP.SetFuzzyValue(Objects::FuzzyValue());
+  aBOP.SetNonDestructive(Objects::NonDestructive());
+  aBOP.SetRunParallel(Objects::RunParallel());
+  aBOP.SetUseOBB(Objects::UseOBB());
+  aBOP.SetCheckInverted(Objects::CheckInverted());
+  aBOP.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aBOP.Perform(aProgress->Start());
-  BOPTest::ReportAlerts(aBOP.GetReport());
+  BOPTest1::ReportAlerts(aBOP.GetReport());
 
   // Store the history of Boolean operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aBOP.PDS()->Arguments(), aBOP);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aBOP.PDS()->Arguments(), aBOP);
 
   if (aBOP.HasErrors())
   {
@@ -622,9 +622,9 @@ Standard_Integer bopcurves(DrawInterpreter& di, Standard_Integer n, const char**
   //
   aFF.SetParameters(aToApproxC3d, aToApproxC2dOnS1, aToApproxC2dOnS2, anAppTol);
   aFF.SetList(aListOfPnts);
-  aFF.SetFuzzyValue(BOPTest_Objects::FuzzyValue());
+  aFF.SetFuzzyValue(Objects::FuzzyValue());
   //
-  aFF.Perform(aF1, aF2, BOPTest_Objects::RunParallel());
+  aFF.Perform(aF1, aF2, Objects::RunParallel());
   //
   anIsDone = aFF.IsDone();
   if (!anIsDone)
@@ -780,10 +780,10 @@ Standard_Integer mkvolume(DrawInterpreter& di, Standard_Integer n, const char** 
   TopoShape         aS;
   ShapeList aLS;
   //
-  aTol                   = BOPTest_Objects::FuzzyValue();
-  bRunParallel           = BOPTest_Objects::RunParallel();
-  bNonDestructive        = BOPTest_Objects::NonDestructive();
-  BOPAlgo_GlueEnum aGlue = BOPTest_Objects::Glue();
+  aTol                   = Objects::FuzzyValue();
+  bRunParallel           = Objects::RunParallel();
+  bNonDestructive        = Objects::NonDestructive();
+  BOPAlgo_GlueEnum aGlue = Objects::Glue();
   //
   bToIntersect   = Standard_True;
   bCompounds     = Standard_False;
@@ -850,16 +850,16 @@ Standard_Integer mkvolume(DrawInterpreter& di, Standard_Integer n, const char** 
   aMV.SetNonDestructive(bNonDestructive);
   aMV.SetAvoidInternalShapes(bAvoidInternal);
   aMV.SetGlue(aGlue);
-  aMV.SetUseOBB(BOPTest_Objects::UseOBB());
-  aMV.SetToFillHistory(BRepTest_Objects::IsHistoryNeeded());
+  aMV.SetUseOBB(Objects::UseOBB());
+  aMV.SetToFillHistory(Objects1::IsHistoryNeeded());
   //
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   aMV.Perform(aProgress->Start());
-  BOPTest::ReportAlerts(aMV.GetReport());
+  BOPTest1::ReportAlerts(aMV.GetReport());
 
   // Store the history of Volume Maker into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
-    BRepTest_Objects::SetHistory(aLS, aMV);
+  if (Objects1::IsHistoryNeeded())
+    Objects1::SetHistory(aLS, aMV);
 
   if (aMV.HasErrors())
   {

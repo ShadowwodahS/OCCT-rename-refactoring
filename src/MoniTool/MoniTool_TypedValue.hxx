@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(MoniTool_TypedValue, RefObject)
 
 //! This class allows to dynamically manage .. typed values, i.e.
 //! values which have an alphanumeric expression, but with
-//! controls. Such as "must be an Integer" or "Enumerative Text"
+//! controls. Such as "must be an Integer1" or "Enumerative Text"
 //! etc
 //!
 //! Hence, a TypedValue brings a specification (type + constraints
@@ -53,7 +53,7 @@ public:
   //! Creates a TypedValue, with a name
   //!
   //! type gives the type of the parameter, default is free text
-  //! Also available : Integer, Real, Enum, Entity (i.e. Object)
+  //! Also available : Integer1, Real, Enum, Entity (i.e. Object)
   //! More precise specifications, titles, can be given to the
   //! TypedValue once created
   //!
@@ -121,13 +121,13 @@ public:
   //! Returns the maximum length, 0 if not set
   Standard_EXPORT Standard_Integer MaxLength() const;
 
-  //! Sets an Integer limit (included) to <val>, the upper limit
+  //! Sets an Integer1 limit (included) to <val>, the upper limit
   //! if <max> is True, the lower limit if <max> is False
   Standard_EXPORT void SetIntegerLimit(const Standard_Boolean max, const Standard_Integer val);
 
-  //! Gives an Integer Limit (upper if <max> True, lower if <max>
+  //! Gives an Integer1 Limit (upper if <max> True, lower if <max>
   //! False). Returns True if this limit is defined, False else
-  //! (in that case, gives the natural limit for Integer)
+  //! (in that case, gives the natural limit for Integer1)
   Standard_EXPORT Standard_Boolean IntegerLimit(const Standard_Boolean max,
                                                 Standard_Integer&      val) const;
 
@@ -151,7 +151,7 @@ public:
   //! For an enumeration, precises the starting value (default 0)
   //! and the match condition : if True (D), the string value must
   //! match the definition, else it may take another value : in that
-  //! case, the Integer Value will be  Start - 1.
+  //! case, the Integer1 Value will be  Start - 1.
   //! (empty value remains allowed)
   Standard_EXPORT void StartEnum(const Standard_Integer start = 0,
                                  const Standard_Boolean match = Standard_True);
@@ -265,13 +265,13 @@ public:
     const Handle(TCollection_HAsciiString)& hval);
 
   //! Returns the value as integer, i.e. :
-  //! For type = Integer, the integer itself; 0 if not set
+  //! For type = Integer1, the integer itself; 0 if not set
   //! For type = Enum, the designated rank (see Enum definition)
   //! StartEnum - 1 if not set or not in the definition
   //! Else, returns 0
   Standard_EXPORT Standard_Integer IntegerValue() const;
 
-  //! Changes the value as an integer, only for Integer or Enum
+  //! Changes the value as an integer, only for Integer1 or Enum
   Standard_EXPORT virtual Standard_Boolean SetIntegerValue(const Standard_Integer ival);
 
   //! Returns the value as real,  for a Real type TypedValue

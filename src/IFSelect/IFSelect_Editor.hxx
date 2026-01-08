@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_Editor, RefObject)
 //! an entity or on the model (e.g. on its header)
 //!
 //! Each Value is controlled by a TypedValue, with a number (it is
-//! an Integer) and a name under two forms (complete and short)
+//! an Integer1) and a name under two forms (complete and short)
 //! and an edit mode
 class IFSelect_Editor : public RefObject
 {

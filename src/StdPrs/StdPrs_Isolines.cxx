@@ -51,7 +51,7 @@ const gp_Lin2d isoV(const Standard_Real theV)
   return gp_Lin2d(gp_Pnt2d(0.0, theV), gp1::DX2d());
 }
 
-typedef NCollection_Shared<NCollection_Vector<StdPrs_Isolines::SegOnIso>> VecOfSegments;
+typedef NCollection_Shared<NCollection_Vector<StdPrs_Isolines::SegOnIso1>> VecOfSegments;
 typedef NCollection_Sequence<Handle(VecOfSegments)>                       SeqOfVecOfSegments;
 
 //! Pack isoline segments into polylines.
@@ -147,8 +147,8 @@ void StdPrs_Isolines::AddOnTriangulation(const Handle(Prs3d_Presentation)& thePr
 {
   Prs3d_NListOfSequenceOfPnt aUPolylines, aVPolylines;
   AddOnTriangulation(theFace, theDrawer, aUPolylines, aVPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
 }
 
 //=================================================================================================
@@ -249,8 +249,8 @@ void StdPrs_Isolines::AddOnTriangulation(const Handle(Prs3d_Presentation)& thePr
                      theVIsoParams,
                      aUPolylines,
                      aVPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
 }
 
 //=================================================================================================
@@ -298,7 +298,7 @@ void StdPrs_Isolines::addOnTriangulation(const Handle(MeshTriangulation)& theTri
                                        theTriangulation->UVNode(aNodeIdxs[2])};
 
         // Find intersections with triangle in uv space and its projection on triangulation.
-        SegOnIso aSegment;
+        SegOnIso1 aSegment;
         if (!findSegmentOnTriangulation(theSurface,
                                         isUIso,
                                         anIsolineUV,
@@ -338,8 +338,8 @@ void StdPrs_Isolines::AddOnSurface(const Handle(Prs3d_Presentation)& thePresenta
 {
   Prs3d_NListOfSequenceOfPnt aUPolylines, aVPolylines;
   AddOnSurface(theFace, theDrawer, theDeflection, aUPolylines, aVPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
 }
 
 //=================================================================================================
@@ -398,8 +398,8 @@ void StdPrs_Isolines::AddOnSurface(const Handle(Prs3d_Presentation)&  thePresent
                theVIsoParams,
                aUPolylines,
                aVPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
-  Prs3d::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->UIsoAspect(), aUPolylines);
+  Prs3d1::AddPrimitivesGroup(thePresentation, theDrawer->VIsoAspect(), aVPolylines);
 }
 
 //=================================================================================================
@@ -712,7 +712,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSu
                                                              const gp_Lin2d&             theIsoline,
                                                              const Point3d*   theNodesXYZ,
                                                              const gp_Pnt2d* theNodesUV,
-                                                             SegOnIso&       theSegment)
+                                                             SegOnIso1&       theSegment)
 {
   Standard_Integer aNPoints = 0;
 

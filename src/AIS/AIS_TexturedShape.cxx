@@ -66,7 +66,7 @@ void AIS_TexturedShape::SetTextureFileName(const AsciiString1& theTextureFileNam
     }
     else
     {
-      Message::SendFail(AsciiString1("Error: texture with ID ") + theTextureFileName
+      Message1::SendFail(AsciiString1("Error: texture with ID ") + theTextureFileName
                         + " is undefined. Texture 0 will be used instead.");
       myPredefTexture = Graphic3d_NameOfTexture2D(0);
     }
@@ -258,7 +258,7 @@ void AIS_TexturedShape::updateAttributes(const Handle(Prs3d_Presentation)& thePr
     }
     else
     {
-      Message::SendFail(AsciiString1("Error: texture can not be loaded ")
+      Message1::SendFail(AsciiString1("Error: texture can not be loaded ")
                         + aTextureDesc);
     }
   }

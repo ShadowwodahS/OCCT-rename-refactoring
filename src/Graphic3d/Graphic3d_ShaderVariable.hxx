@@ -110,16 +110,16 @@ struct Graphic3d_UniformValue : public ValueInterface
   T Value;
 };
 
-//! Integer uniform value.
+//! Integer1 uniform value.
 typedef Graphic3d_UniformValue<Standard_Integer> Graphic3d_UniformInt;
 
-//! Integer uniform 2D vector.
+//! Integer1 uniform 2D vector.
 typedef Graphic3d_UniformValue<Graphic3d_Vec2i> Graphic3d_UniformVec2i;
 
-//! Integer uniform 3D vector.
+//! Integer1 uniform 3D vector.
 typedef Graphic3d_UniformValue<Graphic3d_Vec3i> Graphic3d_UniformVec3i;
 
-//! Integer uniform 4D vector.
+//! Integer1 uniform 4D vector.
 typedef Graphic3d_UniformValue<Graphic3d_Vec4i> Graphic3d_UniformVec4i;
 
 //! Floating-point uniform value.

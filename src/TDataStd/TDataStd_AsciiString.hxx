@@ -29,7 +29,7 @@ class TDF_RelocationTable;
 class TDataStd_AsciiString;
 DEFINE_STANDARD_HANDLE(TDataStd_AsciiString, TDF_Attribute)
 
-//! Used to define an AsciiString attribute containing a AsciiString1
+//! Used to define an AsciiString2 attribute containing a AsciiString1
 class TDataStd_AsciiString : public TDF_Attribute
 {
 
@@ -39,14 +39,14 @@ public:
   //! Returns the GUID of the attribute.
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! Finds, or creates an AsciiString attribute and sets the string.
-  //! the AsciiString attribute is returned.
-  //! AsciiString methods
+  //! Finds, or creates an AsciiString2 attribute and sets the string.
+  //! the AsciiString2 attribute is returned.
+  //! AsciiString2 methods
   //! ===================
   Standard_EXPORT static Handle(TDataStd_AsciiString) Set(const DataLabel&               label,
                                                           const AsciiString1& string);
 
-  //! Finds, or creates, an AsciiString attribute with explicit user defined <guid> and sets
+  //! Finds, or creates, an AsciiString2 attribute with explicit user defined <guid> and sets
   //! <string>. The Name attribute  is  returned.
   Standard_EXPORT static Handle(TDataStd_AsciiString) Set(const DataLabel&               label,
                                                           const Standard_GUID&           guid,

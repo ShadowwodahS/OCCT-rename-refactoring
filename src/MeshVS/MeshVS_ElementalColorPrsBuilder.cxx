@@ -102,7 +102,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
   for (MeshVS_DataMapIteratorOfDataMapOfIntegerTwoColors anIter(*anElemTwoColorsMap); anIter.More();
        anIter.Next())
   {
-    Standard_Integer aKey   = anIter.Key();
+    Standard_Integer aKey   = anIter.Key1();
     TwoColors aValue = anIter.Value();
     Quantity_Color   aCol1, aCol2;
     ExtractColors(aValue, aCol1, aCol2);
@@ -121,13 +121,13 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
   for (MeshVS_DataMapIteratorOfDataMapOfIntegerColor anIterM(*anElemColorMap); anIterM.More();
        anIterM.Next())
   {
-    Standard_Integer aMKey = anIterM.Key();
+    Standard_Integer aMKey = anIterM.Key1();
     // The ID of current element
     Standard_Boolean IsExist = Standard_False;
     for (MeshVS_DataMapIteratorOfDataMapOfColorMapOfInteger anIterC(aColorsOfElements);
          anIterC.More() && !IsExist;
          anIterC.Next())
-      if (anIterC.Key() == anIterM.Value())
+      if (anIterC.Key1() == anIterM.Value())
       {
         TColStd_MapOfInteger& aChangeValue = (TColStd_MapOfInteger&)anIterC.Value();
         aChangeValue.Add(aMKey);
@@ -147,13 +147,13 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
        anIterM2.More();
        anIterM2.Next())
   {
-    Standard_Integer aMKey = anIterM2.Key();
+    Standard_Integer aMKey = anIterM2.Key1();
     // The ID of current element
     Standard_Boolean IsExist = Standard_False;
     for (MeshVS_DataMapIteratorOfDataMapOfTwoColorsMapOfInteger anIterC2(aTwoColorsOfElements);
          anIterC2.More() && !IsExist;
          anIterC2.Next())
-      if (anIterC2.Key() == anIterM2.Value())
+      if (anIterC2.Key1() == anIterM2.Value())
       {
         TColStd_MapOfInteger& aChangeValue = (TColStd_MapOfInteger&)anIterC2.Value();
         aChangeValue.Add(aMKey);
@@ -201,7 +201,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
   TColStd_MapIteratorOfPackedMapOfInteger   it(anIDs);
   for (; it.More(); it.Next())
   {
-    Standard_Integer aKey = it.Key();
+    Standard_Integer aKey = it.Key1();
     if (aSource->Get3DGeom(aKey, NbNodes, aTopo))
       MeshVS_MeshPrsBuilder::HowManyPrimitives(aTopo,
                                                Standard_True,
@@ -292,15 +292,15 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     {
       Standard_Integer aNbNodes = 0;
 
-      if (!aColIter.Value().Contains(it.Key()))
+      if (!aColIter.Value().Contains(it.Key1()))
         continue;
 
-      if (!aSource->GetGeom(it.Key(), Standard_True, aCoords, aNbNodes, aType))
+      if (!aSource->GetGeom(it.Key1(), Standard_True, aCoords, aNbNodes, aType))
         continue;
 
       if (aType == MeshVS_ET_Volume)
       {
-        if (aSource->Get3DGeom(it.Key(), aNbNodes, aTopo))
+        if (aSource->Get3DGeom(it.Key1(), aNbNodes, aTopo))
         {
           for (Standard_Integer aFaceIdx = aTopo->Lower(); aFaceIdx <= aTopo->Upper(); ++aFaceIdx)
           {
@@ -348,10 +348,10 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
       new Graphic3d_ArrayOfSegments(aNbLinkPrimitives * 2);
     Standard_Boolean IsPolyL = Standard_False;
 
-    // OCC20644 NOTE: aColIter.Key() color is then scaled by TelUpdateMaterial() in OpenGl_attri.c
+    // OCC20644 NOTE: aColIter.Key1() color is then scaled by TelUpdateMaterial() in OpenGl_attri.c
     // using the material reflection coefficients. This affects the visual result.
     Handle(Graphic3d_AspectFillArea3d) aFillAspect = new Graphic3d_AspectFillArea3d(Aspect_IS_SOLID,
-                                                                                    aColIter.Key(),
+                                                                                    aColIter.Key1(),
                                                                                     anEdgeColor,
                                                                                     anEdgeType,
                                                                                     anEdgeWidth,
@@ -359,15 +359,15 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
                                                                                     aMaterial[1]);
 
     Handle(Graphic3d_AspectLine3d) aLinkAspect =
-      new Graphic3d_AspectLine3d(aColIter.Key(), aLineType, aLineWidth);
+      new Graphic3d_AspectLine3d(aColIter.Key1(), aLineType, aLineWidth);
 
     aFillAspect->SetDistinguishOff();
-    aFillAspect->SetInteriorColor(aColIter.Key());
+    aFillAspect->SetInteriorColor(aColIter.Key1());
     aFillAspect->SetEdgeOff();
 
     for (it.Reset(); it.More(); it.Next())
     {
-      Standard_Integer aKey = it.Key();
+      Standard_Integer aKey = it.Key1();
 
       if (aColIter.Value().Contains(aKey))
       {
@@ -569,10 +569,10 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     {
       Standard_Integer aNbNodes = 0;
 
-      if (!aColIter2.Value().Contains(it.Key()))
+      if (!aColIter2.Value().Contains(it.Key1()))
         continue;
 
-      if (!aSource->GetGeom(it.Key(), Standard_True, aCoords, aNbNodes, aType))
+      if (!aSource->GetGeom(it.Key1(), Standard_True, aCoords, aNbNodes, aType))
         continue;
 
       if (aType == MeshVS_ET_Face && aNbNodes > 0)
@@ -592,7 +592,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     Handle(Graphic3d_ArrayOfSegments) anEdgeSegments =
       new Graphic3d_ArrayOfSegments(aNbEdgePrimitives * 2);
 
-    TwoColors aTC = aColIter2.Key();
+    TwoColors aTC = aColIter2.Key1();
     Quantity_Color   aMyIntColor, aMyBackColor;
     ExtractColors(aTC, aMyIntColor, aMyBackColor);
 
@@ -616,7 +616,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
 
     for (it.Reset(); it.More(); it.Next())
     {
-      Standard_Integer aKey = it.Key();
+      Standard_Integer aKey = it.Key1();
       if (aColIter2.Value().Contains(aKey))
       {
         if (!aSource->GetGeom(aKey, Standard_True, aCoords, NbNodes, aType))

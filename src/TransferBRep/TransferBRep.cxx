@@ -64,7 +64,7 @@ static void ShapeAppend(const Handle(Transfer_Binder)&           binder,
     ShapeAppend(nextr, shapes);
 }
 
-TopoShape TransferBRep::ShapeResult(const Handle(Transfer_Binder)& binder)
+TopoShape TransferBRep1::ShapeResult(const Handle(Transfer_Binder)& binder)
 {
   TopoShape            shape;
   Handle(Transfer_Binder) bnd = binder;
@@ -85,7 +85,7 @@ TopoShape TransferBRep::ShapeResult(const Handle(Transfer_Binder)& binder)
   return shape;
 }
 
-TopoShape TransferBRep::ShapeResult(const Handle(Transfer_TransientProcess)& TP,
+TopoShape TransferBRep1::ShapeResult(const Handle(Transfer_TransientProcess)& TP,
                                        const Handle(RefObject)&        ent)
 {
   TopoShape            shape;
@@ -93,14 +93,14 @@ TopoShape TransferBRep::ShapeResult(const Handle(Transfer_TransientProcess)& TP,
   if (binder.IsNull())
     binder = GetCasted(Transfer_Binder, ent);
   if (!binder.IsNull())
-    return TransferBRep::ShapeResult(binder);
+    return TransferBRep1::ShapeResult(binder);
   DeclareAndCast(TopoDS_HShape, hsp, ent);
   if (!hsp.IsNull())
     return hsp->Shape();
   return shape;
 }
 
-void TransferBRep::SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
+void TransferBRep1::SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
                                   const Handle(RefObject)&        ent,
                                   const TopoShape&                      result)
 {
@@ -109,7 +109,7 @@ void TransferBRep::SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
   TP->Bind(ent, new TransferBRep_ShapeBinder(result));
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep::Shapes(const Handle(Transfer_TransientProcess)& TP,
+Handle(TopTools_HSequenceOfShape) TransferBRep1::Shapes(const Handle(Transfer_TransientProcess)& TP,
                                                        const Standard_Boolean roots)
 {
   Handle(TopTools_HSequenceOfShape) shapes;
@@ -127,7 +127,7 @@ Handle(TopTools_HSequenceOfShape) TransferBRep::Shapes(const Handle(Transfer_Tra
   return shapes;
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep::Shapes(
+Handle(TopTools_HSequenceOfShape) TransferBRep1::Shapes(
   const Handle(Transfer_TransientProcess)&    TP,
   const Handle(TColStd_HSequenceOfTransient)& list)
 {
@@ -146,7 +146,7 @@ Handle(TopTools_HSequenceOfShape) TransferBRep::Shapes(
   return shapes;
 }
 
-TopAbs_Orientation TransferBRep::ShapeState(const Handle(Transfer_FinderProcess)& FP,
+TopAbs_Orientation TransferBRep1::ShapeState(const Handle(Transfer_FinderProcess)& FP,
                                             const TopoShape&                   shape)
 {
   if (FP.IsNull() || shape.IsNull())
@@ -165,7 +165,7 @@ TopAbs_Orientation TransferBRep::ShapeState(const Handle(Transfer_FinderProcess)
   return TopAbs_FORWARD;
 }
 
-Handle(Transfer_Binder) TransferBRep::ResultFromShape(const Handle(Transfer_FinderProcess)& FP,
+Handle(Transfer_Binder) TransferBRep1::ResultFromShape(const Handle(Transfer_FinderProcess)& FP,
                                                       const TopoShape&                   shape)
 {
   Handle(Transfer_Binder) res;
@@ -175,7 +175,7 @@ Handle(Transfer_Binder) TransferBRep::ResultFromShape(const Handle(Transfer_Find
   return FP->Find(sm);
 }
 
-Handle(RefObject) TransferBRep::TransientFromShape(
+Handle(RefObject) TransferBRep1::TransientFromShape(
   const Handle(Transfer_FinderProcess)& FP,
   const TopoShape&                   shape)
 {
@@ -186,7 +186,7 @@ Handle(RefObject) TransferBRep::TransientFromShape(
   return FP->FindTransient(sm);
 }
 
-void TransferBRep::SetTransientFromShape(const Handle(Transfer_FinderProcess)& FP,
+void TransferBRep1::SetTransientFromShape(const Handle(Transfer_FinderProcess)& FP,
                                          const TopoShape&                   shape,
                                          const Handle(RefObject)&     result)
 {
@@ -196,7 +196,7 @@ void TransferBRep::SetTransientFromShape(const Handle(Transfer_FinderProcess)& F
   FP->BindTransient(sm, result);
 }
 
-Handle(TransferBRep_ShapeMapper) TransferBRep::ShapeMapper(const Handle(Transfer_FinderProcess)& FP,
+Handle(TransferBRep_ShapeMapper) TransferBRep1::ShapeMapper(const Handle(Transfer_FinderProcess)& FP,
                                                            const TopoShape& shape)
 {
   Handle(TransferBRep_ShapeMapper) mapper = new TransferBRep_ShapeMapper(shape);
@@ -244,7 +244,7 @@ static void FillInfo(const Handle(Transfer_Binder)&                 Binder,
 
 //=================================================================================================
 
-void TransferBRep::TransferResultInfo(const Handle(Transfer_TransientProcess)&    TP,
+void TransferBRep1::TransferResultInfo(const Handle(Transfer_TransientProcess)&    TP,
                                       const Handle(TColStd_HSequenceOfTransient)& EntityTypes,
                                       Handle(TransferBRep_HSequenceOfTransferResultInfo)& InfoSeq)
 {
@@ -285,7 +285,7 @@ void TransferBRep::TransferResultInfo(const Handle(Transfer_TransientProcess)&  
 
 //=================================================================================================
 
-void TransferBRep::TransferResultInfo(const Handle(Transfer_FinderProcess)&     FP,
+void TransferBRep1::TransferResultInfo(const Handle(Transfer_FinderProcess)&     FP,
                                       const Handle(TColStd_HSequenceOfInteger)& ShapeTypes,
                                       Handle(TransferBRep_HSequenceOfTransferResultInfo)& InfoSeq)
 {
@@ -335,7 +335,7 @@ void TransferBRep::TransferResultInfo(const Handle(Transfer_FinderProcess)&     
 // # # # # # #    Enchainement General du CHECK LOURD    # # # # # #
 
 /*
-Interface_CheckIterator TransferBRep::BRepCheck
+Interface_CheckIterator TransferBRep1::BRepCheck1
   (const TopoShape& shape, const Standard_Integer lev)
 {
   Interface_CheckIterator result;
@@ -347,7 +347,7 @@ Interface_CheckIterator TransferBRep::BRepCheck
 
 //  ###  conversion resultat -> starting
 
-Interface_CheckIterator TransferBRep::ResultCheckList(const Interface_CheckIterator&          chl,
+Interface_CheckIterator TransferBRep1::ResultCheckList(const Interface_CheckIterator&          chl,
                                                       const Handle(Transfer_FinderProcess)&   FP,
                                                       const Handle(Interface_InterfaceModel)& model)
 {
@@ -375,7 +375,7 @@ Interface_CheckIterator TransferBRep::ResultCheckList(const Interface_CheckItera
   return nchl;
 }
 
-Handle(TColStd_HSequenceOfTransient) TransferBRep::Checked(const Interface_CheckIterator& chl,
+Handle(TColStd_HSequenceOfTransient) TransferBRep1::Checked(const Interface_CheckIterator& chl,
                                                            const Standard_Boolean alsoshapes)
 {
   Handle(TColStd_HSequenceOfTransient) ls = new TColStd_HSequenceOfTransient();
@@ -399,7 +399,7 @@ Handle(TColStd_HSequenceOfTransient) TransferBRep::Checked(const Interface_Check
   return ls;
 }
 
-Handle(TopTools_HSequenceOfShape) TransferBRep::CheckedShapes(const Interface_CheckIterator& chl)
+Handle(TopTools_HSequenceOfShape) TransferBRep1::CheckedShapes(const Interface_CheckIterator& chl)
 {
   Handle(TopTools_HSequenceOfShape) ls = new TopTools_HSequenceOfShape();
   for (chl.Start(); chl.More(); chl.Next())
@@ -423,7 +423,7 @@ Handle(TopTools_HSequenceOfShape) TransferBRep::CheckedShapes(const Interface_Ch
   return ls;
 }
 
-Interface_CheckIterator TransferBRep::CheckObject(const Interface_CheckIterator&    chl,
+Interface_CheckIterator TransferBRep1::CheckObject(const Interface_CheckIterator&    chl,
                                                   const Handle(RefObject)& obj)
 {
   TopoShape S;
@@ -480,7 +480,7 @@ Interface_CheckIterator TransferBRep::CheckObject(const Interface_CheckIterator&
 
 //=================================================================================================
 
-void TransferBRep::PrintResultInfo(const Handle(LogPrinter)&                 Printer,
+void TransferBRep1::PrintResultInfo(const Handle(LogPrinter)&                 Printer,
                                    const Message_Msg&                             Header,
                                    const Handle(TransferBRep_TransferResultInfo)& ResultInfo,
                                    const Standard_Boolean                         printEmpty)

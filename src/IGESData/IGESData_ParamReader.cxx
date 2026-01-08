@@ -329,7 +329,7 @@ Standard_Boolean IGESData_ParamReader::ReadInteger(const ParameterCursor& PC,
 {
   if (!PrepareRead(PC, Standard_False))
     return Standard_False;
-  const Interface_FileParameter& FP = theparams->Value(theindex + thebase);
+  const FileParameter& FP = theparams->Value(theindex + thebase);
   if (FP.ParamType() != Interface_ParamInteger)
   {
     if (FP.ParamType() == Interface_ParamVoid)
@@ -351,7 +351,7 @@ Standard_Boolean IGESData_ParamReader::ReadInteger(const ParameterCursor& PC,
 {
   if (!PrepareRead(PC, mess, Standard_False))
     return Standard_False;
-  const Interface_FileParameter& FP = theparams->Value(theindex + thebase);
+  const FileParameter& FP = theparams->Value(theindex + thebase);
   if (FP.ParamType() != Interface_ParamInteger)
   {
     if (FP.ParamType() == Interface_ParamVoid)
@@ -359,7 +359,7 @@ Standard_Boolean IGESData_ParamReader::ReadInteger(const ParameterCursor& PC,
       val = 0;
       return Standard_True;
     } // DEFAULT
-    AddFail(mess, " : not given as an Integer", "");
+    AddFail(mess, " : not given as an Integer1", "");
     return Standard_False;
   }
   val = atoi(FP.CValue());
@@ -377,7 +377,7 @@ Standard_Boolean IGESData_ParamReader::ReadBoolean(const ParameterCursor& PC,
 {
   if (!PrepareRead(PC, Standard_False))
     return Standard_False;
-  const Interface_FileParameter& FP = theparams->Value(theindex + thebase);
+  const FileParameter& FP = theparams->Value(theindex + thebase);
   if (FP.ParamType() != Interface_ParamInteger)
   {
     if (FP.ParamType() == Interface_ParamVoid)
@@ -418,7 +418,7 @@ Standard_Boolean IGESData_ParamReader::ReadBoolean(const ParameterCursor& PC,
 {
   if (!PrepareRead(PC, mess, Standard_False))
     return Standard_False;
-  const Interface_FileParameter& FP = theparams->Value(theindex + thebase);
+  const FileParameter& FP = theparams->Value(theindex + thebase);
   if (FP.ParamType() != Interface_ParamInteger)
   {
     if (FP.ParamType() == Interface_ParamVoid)
@@ -426,7 +426,7 @@ Standard_Boolean IGESData_ParamReader::ReadBoolean(const ParameterCursor& PC,
       val = Standard_False;
       return Standard_True;
     } // DEFAULT
-    AddFail(mess, " : not an Integer (for Boolean)", "");
+    AddFail(mess, " : not an Integer1 (for Boolean)", "");
     return Standard_False;
   }
 
@@ -551,7 +551,7 @@ Standard_Boolean IGESData_ParamReader::ReadText(const ParameterCursor&       the
   {
     return Standard_False;
   }
-  const Interface_FileParameter& aFP = theparams->Value(theindex + thebase);
+  const FileParameter& aFP = theparams->Value(theindex + thebase);
   if (aFP.ParamType() != Interface_ParamText)
   {
     theVal = new TCollection_HAsciiString("");
@@ -602,7 +602,7 @@ Standard_Boolean IGESData_ParamReader::ReadText(const ParameterCursor&       PC,
 {
   if (!PrepareRead(PC, mess, Standard_False))
     return Standard_False;
-  const Interface_FileParameter& FP = theparams->Value(theindex + thebase);
+  const FileParameter& FP = theparams->Value(theindex + thebase);
   if (FP.ParamType() != Interface_ParamText)
   {
     if (FP.ParamType() == Interface_ParamVoid)
@@ -709,7 +709,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESRead
     val.Nullify();
     if (!canbenul)
     {
-      AddFail(mess, " : Null Reference", "");
+      AddFail(mess, " : Null Reference1", "");
       thelast = Standard_True;
     }
     return canbenul;
@@ -808,7 +808,7 @@ Standard_Boolean IGESData_ParamReader::ReadInts(const ParameterCursor&       PC,
 
   for (Standard_Integer i = FirstRead(); i > 0; i = NextRead())
   {
-    const Interface_FileParameter& FP = theparams->Value(i + thebase);
+    const FileParameter& FP = theparams->Value(i + thebase);
     if (FP.ParamType() == Interface_ParamInteger)
     {
       val->SetValue(ind, atoi(FP.CValue()));
@@ -844,7 +844,7 @@ Standard_Boolean IGESData_ParamReader::ReadInts(const ParameterCursor&       PC,
 
   for (Standard_Integer i = FirstRead(); i > 0; i = NextRead())
   {
-    const Interface_FileParameter& FP = theparams->Value(i + thebase);
+    const FileParameter& FP = theparams->Value(i + thebase);
     if (FP.ParamType() == Interface_ParamInteger)
     {
       val->SetValue(ind, atoi(FP.CValue()));
@@ -858,8 +858,8 @@ Standard_Boolean IGESData_ParamReader::ReadInts(const ParameterCursor&       PC,
     else
     {
       char ssem[100];
-      sprintf(ssem, " : not an Integer, rank %d", i);
-      AddFail(mess, ssem, " : not an Integer, rank %d");
+      sprintf(ssem, " : not an Integer1, rank %d", i);
+      AddFail(mess, ssem, " : not an Integer1, rank %d");
       return Standard_False;
     }
   }
@@ -936,7 +936,7 @@ Standard_Boolean IGESData_ParamReader::ReadTexts(const ParameterCursor&         
 
   for (Standard_Integer i = FirstRead(); i > 0; i = NextRead())
   {
-    const Interface_FileParameter& FP = theparams->Value(i + thebase);
+    const FileParameter& FP = theparams->Value(i + thebase);
     if (FP.ParamType() != Interface_ParamText)
     {
       if (FP.ParamType() == Interface_ParamVoid)
@@ -986,7 +986,7 @@ Standard_Boolean IGESData_ParamReader::ReadTexts(const ParameterCursor&         
 
   for (Standard_Integer i = FirstRead(); i > 0; i = NextRead())
   {
-    const Interface_FileParameter& FP = theparams->Value(i + thebase);
+    const FileParameter& FP = theparams->Value(i + thebase);
     if (FP.ParamType() != Interface_ParamText)
     {
       if (FP.ParamType() == Interface_ParamVoid)
@@ -1236,7 +1236,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntList(const Handle(IGESData_IGESRea
 
 Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num, Standard_Real& val)
 {
-  const Interface_FileParameter& FP = theparams->Value(num + thebase);
+  const FileParameter& FP = theparams->Value(num + thebase);
   if (FP.ParamType() == Interface_ParamInteger)
   {
     if (!pbrealint)
@@ -1247,8 +1247,8 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num, S
       {
         //   char ssem[100];
         pbrealint = num;
-        //   sprintf(ssem,": Integer converted to Real, 1st rank=%d",num);
-        //   AddWarning (mess,ssem,"At least one Integer converted to Real, 1st rank=%d");
+        //   sprintf(ssem,": Integer1 converted to Real, 1st rank=%d",num);
+        //   AddWarning (mess,ssem,"At least one Integer1 converted to Real, 1st rank=%d");
       }
     }
     Standard_Integer ival = atoi(FP.CValue());
@@ -1314,7 +1314,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num,
                                                    const Standard_CString mess,
                                                    Standard_Real&         val)
 {
-  const Interface_FileParameter& FP = theparams->Value(num + thebase);
+  const FileParameter& FP = theparams->Value(num + thebase);
   if (FP.ParamType() == Interface_ParamInteger)
   {
     if (!pbrealint)
@@ -1325,8 +1325,8 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num,
       {
         char ssem[100];
         pbrealint = num;
-        sprintf(ssem, ": Integer converted to Real, 1st rank=%d", num);
-        AddWarning(mess, ssem, "At least one Integer converted to Real, 1st rank=%d");
+        sprintf(ssem, ": Integer1 converted to Real, 1st rank=%d", num);
+        AddWarning(mess, ssem, "At least one Integer1 converted to Real, 1st rank=%d");
       }
     }
     Standard_Integer ival = atoi(FP.CValue());
@@ -1390,7 +1390,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num,
 Standard_Boolean IGESData_ParamReader::ReadingEntityNumber(const Standard_Integer num,
                                                            Standard_Integer&      val)
 {
-  const Interface_FileParameter& FP = theparams->Value(num + thebase);
+  const FileParameter& FP = theparams->Value(num + thebase);
   val                               = ParamNumber(num);
   if (val == 0)
   {
@@ -1415,7 +1415,7 @@ Standard_Boolean IGESData_ParamReader::ReadingEntityNumber(const Standard_Intege
                                                            const Standard_CString mess,
                                                            Standard_Integer&      val)
 {
-  const Interface_FileParameter& FP = theparams->Value(num + thebase);
+  const FileParameter& FP = theparams->Value(num + thebase);
   val                               = ParamNumber(num);
   if (val == 0)
   {

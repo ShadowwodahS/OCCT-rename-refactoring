@@ -40,7 +40,7 @@ static Standard_Integer sortcompound(DrawInterpreter& di, Standard_Integer argc,
 
   if (argc < 4)
   {
-    ShapeExtend_Explorer sbx;
+    Explorer sbx;
     for (int i = 0; i < 2; i++)
     {
       Standard_Boolean viaCompound = (i != 0);
@@ -131,7 +131,7 @@ static Standard_Integer sortcompound(DrawInterpreter& di, Standard_Integer argc,
       default:
         break;
     }
-    ShapeExtend_Explorer sbx;
+    Explorer sbx;
     Shape = sbx.SortedCompound(Shape, tse, modexp, modcom);
     if (Shape.IsNull())
     {
@@ -145,7 +145,7 @@ static Standard_Integer sortcompound(DrawInterpreter& di, Standard_Integer argc,
 
 //=================================================================================================
 
-void SWDRAW_ShapeExtend::InitCommands(DrawInterpreter& theCommands)
+void ShapeExtend2::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)
@@ -154,7 +154,7 @@ void SWDRAW_ShapeExtend::InitCommands(DrawInterpreter& theCommands)
   }
   initactor = 1;
 
-  Standard_CString g = SWDRAW::GroupName();
+  Standard_CString g = SWDRAW1::GroupName();
   theCommands.Add("sortcompound",
                   "shape_entree shape_result type=v-e-w-f-s-so [mode=n-e-c-x]",
                   __FILE__,

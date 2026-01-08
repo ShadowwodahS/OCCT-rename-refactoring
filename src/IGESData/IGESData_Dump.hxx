@@ -73,12 +73,12 @@
 //        Level > 5, in some cases, items are displayed with more details
 //        (Entities with Type/Form, XY/XYZ with Transformed equivalents)
 
-//  IGESData_DumpListVal(S,Lower,Upper,Item)   Item can be Real,Integer,
+//  IGESData_DumpListVal(S,Lower,Upper,Item)   Item can be Real,Integer1,
 //                more generally, any type having operator << to Handle(Message_Messenger)
 //  IGESData_DumpListXY(S,Lower,Upper,Item)    Item : XY without Transformation
 //  IGESData_DumpListXYZ(S,Lower,Upper,Item)   Item : XYZ without Transf
 
-//  IGESData_DumpVals(S,Level,Lower,Upper,Item)             Item : Real,Integer
+//  IGESData_DumpVals(S,Level,Lower,Upper,Item)             Item : Real,Integer1
 //  IGESData_DumpListXYL(S,Level,Lower,Upper,Item,Trsf)     Item : XY
 //  IGESData_DumpListXYLZ(S,Level,Lower,Upper,Item,Trsf,Z)  Item : XY. Z is a
 //                Common Displacement
@@ -93,7 +93,7 @@
 
 //  IGESData_DumpRectVals(S,Level,LowerRow,UpperRow,LowerCol,UpperCol,Item)
 //           LowerRow,LowerCol,UpperRow,UpperCol : effective values
-//           Item : Real,Integer
+//           Item : Real,Integer1
 
 //  ---------------------------------------------------------------
 
@@ -315,7 +315,7 @@
       S << " :";                                                                                   \
       for (Standard_Integer iopa = lo; iopa <= up; iopa++)                                         \
       {                                                                                            \
-        S << "\n[" << Interface_MSG::Blanks(iopa, 3) << iopa << "]:\"" << item(iopa)->String()     \
+        S << "\n[" << MessageSystem::Blanks(iopa, 3) << iopa << "]:\"" << item(iopa)->String()     \
           << '"';                                                                                  \
       }                                                                                            \
       S << "\n";                                                                                   \
@@ -344,7 +344,7 @@
         }                                                                                          \
         else                                                                                       \
         {                                                                                          \
-          S << "\n[" << Interface_MSG::Blanks(iopa, 3) << iopa << "]:";                            \
+          S << "\n[" << MessageSystem::Blanks(iopa, 3) << iopa << "]:";                            \
           dumper.PrintShort(item(iopa), S);                                                        \
         }                                                                                          \
       }                                                                                            \

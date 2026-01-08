@@ -258,7 +258,7 @@ public:
     const Standard_Integer     theLength) const;
 
   //! Tells the current position for get/put
-  Standard_Integer Position() const;
+  Standard_Integer Position1() const;
 
   //! Sets the current position for get/put.
   //! Resets an error state depending on the validity of thePos.

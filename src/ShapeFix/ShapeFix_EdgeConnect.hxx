@@ -25,16 +25,16 @@
 class TopoEdge;
 class TopoShape;
 
-//! Rebuilds edges to connect with new vertices, was moved from ShapeBuild.
+//! Rebuilds edges to connect with new vertices, was moved from ShapeBuild1.
 //! Makes vertices to be shared to connect edges,
 //! updates positions and tolerances for shared vertices.
 //! Accepts edges bounded by two vertices each.
-class ShapeFix_EdgeConnect
+class EdgeConnect
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ShapeFix_EdgeConnect();
+  Standard_EXPORT EdgeConnect();
 
   //! Adds information on connectivity between start vertex
   //! of second edge and end vertex of first edge,

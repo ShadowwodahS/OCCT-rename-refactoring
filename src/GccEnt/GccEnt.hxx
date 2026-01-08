@@ -51,7 +51,7 @@ class GccEnt1
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Prints the name of Position type as a String on the Stream.
+  //! Prints the name of Position1 type as a String on the Stream.
   static Standard_OStream& Print(const GccEnt_Position thePosition, Standard_OStream& theStream)
   {
     return (theStream << PositionToString(thePosition));

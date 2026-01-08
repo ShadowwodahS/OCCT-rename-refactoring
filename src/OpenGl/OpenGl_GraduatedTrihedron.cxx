@@ -409,7 +409,7 @@ void OpenGl_GraduatedTrihedron::renderAxis(const Handle(OpenGl_Workspace)& theWo
     aTransMode.Compute(aContext->Camera(), aProjection, aWorldView, aWidth, aHeight));
   aContext->ApplyModelViewMatrix();
 
-  anAxis.Arrow.Render(theWorkspace);
+  anAxis.Arrow2.Render(theWorkspace);
 
   // Get current Model-View and Projection states
   OpenGl_Mat4 aModelMat;
@@ -720,7 +720,7 @@ OpenGl_GraduatedTrihedron::Axis::Axis(const GraduatedTrihedron::AxisAspect& theA
     : Direction(theDirection),
       Tickmark(NULL),
       Line(NULL),
-      Arrow(NULL)
+      Arrow2(NULL)
 {
   Handle(Graphic3d_Text) aText = new Graphic3d_Text(THE_LABEL_HEIGHT);
   aText->SetText((Standard_Utf16Char*)theAspect.Name().ToExtString());
@@ -762,11 +762,11 @@ OpenGl_GraduatedTrihedron::Axis& OpenGl_GraduatedTrihedron::Axis::operator=(cons
                        theOther.Tickmark.Indices(),
                        theOther.Tickmark.Attributes(),
                        theOther.Tickmark.Bounds());
-  Arrow.InitBuffers(NULL,
+  Arrow2.InitBuffers(NULL,
                     Graphic3d_TOPA_POLYLINES,
-                    theOther.Arrow.Indices(),
-                    theOther.Arrow.Attributes(),
-                    theOther.Arrow.Bounds());
+                    theOther.Arrow2.Indices(),
+                    theOther.Arrow2.Attributes(),
+                    theOther.Arrow2.Bounds());
   return *this;
 }
 
@@ -801,7 +801,7 @@ void OpenGl_GraduatedTrihedron::Axis::InitArrow(const Handle(OpenGl_Context)& th
   anArray->AddVertex(aPoint3);
   anArray->AddVertex(aPoint1);
 
-  Arrow.InitBuffers(theContext,
+  Arrow2.InitBuffers(theContext,
                     Graphic3d_TOPA_POLYLINES,
                     anArray->Indices(),
                     anArray->Attributes(),
@@ -848,7 +848,7 @@ void OpenGl_GraduatedTrihedron::Axis::Release(OpenGl_Context* theCtx)
   Label.Release(theCtx);
   Tickmark.Release(theCtx);
   Line.Release(theCtx);
-  Arrow.Release(theCtx);
+  Arrow2.Release(theCtx);
 }
 
 //=================================================================================================

@@ -20,16 +20,16 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TCollection_HExtendedString.hxx>
 
-class StdLPersistent_HString
+class HString
 {
   template <class StringClass, typename CharType>
   class instance : public StdObjMgt_Persistent
   {
   public:
     //! Read persistent data from a file.
-    Standard_EXPORT virtual void Read(StdObjMgt_ReadData& theReadData);
+    Standard_EXPORT virtual void Read(ReadData& theReadData);
     //! Write persistent data to a file.
-    Standard_EXPORT virtual void Write(StdObjMgt_WriteData& theWriteData) const;
+    Standard_EXPORT virtual void Write(WriteData& theWriteData) const;
 
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const {}
 
@@ -44,16 +44,16 @@ class StdLPersistent_HString
   };
 
 public:
-  class Ascii : public instance<TCollection_HAsciiString, Standard_Character>
+  class Ascii1 : public instance<TCollection_HAsciiString, Standard_Character>
   {
   public:
     //! Get referenced ASCII string.
-    Standard_EXPORT virtual Handle(TCollection_HAsciiString) AsciiString() const;
+    Standard_EXPORT virtual Handle(TCollection_HAsciiString) AsciiString2() const;
 
     inline Standard_CString PName() const { return "PCollection_HAsciiString"; }
   };
 
-  class Extended : public instance<TCollection_HExtendedString, Standard_ExtCharacter>
+  class Extended1 : public instance<TCollection_HExtendedString, Standard_ExtCharacter>
   {
   public:
     //! Get referenced extended string.

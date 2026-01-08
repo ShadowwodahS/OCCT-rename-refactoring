@@ -28,7 +28,7 @@ class GeomCurve2d;
 class Bisector_BisecCC;
 class Geom2d_Line;
 
-//! Intersection between two <Bisec> from Bisector.
+//! Intersection between two <Bisec> from Bisector1.
 class Bisector_Inter : public Intersection2
 {
 public:

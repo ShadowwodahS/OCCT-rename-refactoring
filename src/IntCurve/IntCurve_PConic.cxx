@@ -72,7 +72,7 @@ ParametricConic::ParametricConic(const gp_Parab2d& P)
 }
 
 ParametricConic::ParametricConic(const gp_Lin2d& L)
-    : axe(Ax22d(L.Position())),
+    : axe(Ax22d(L.Position1())),
       prm1(0.0),
       prm2(0.0),
       TheEpsX(0.00000001),

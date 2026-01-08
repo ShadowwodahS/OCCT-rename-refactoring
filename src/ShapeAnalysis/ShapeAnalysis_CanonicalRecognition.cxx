@@ -240,7 +240,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsElementarySurf(
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsPlane(const Standard_Real theTol,
                                                              gp_Pln&             thePln)
 {
-  Ax3               aPos = thePln.Position();
+  Ax3               aPos = thePln.Position1();
   TColStd_Array1OfReal aParams(1, 1);
   //
   GeomAbs_SurfaceType aTarget = GeomAbs_Plane;
@@ -272,7 +272,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsPlane(const Standard_Real
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCylinder(const Standard_Real theTol,
                                                                 Cylinder1&        theCyl)
 {
-  Ax3               aPos = theCyl.Position();
+  Ax3               aPos = theCyl.Position1();
   TColStd_Array1OfReal aParams(1, 1);
   aParams(1) = theCyl.Radius();
   //
@@ -320,7 +320,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCylinder(const Standard_R
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCone(const Standard_Real theTol,
                                                             Cone1&            theCone)
 {
-  Ax3               aPos = theCone.Position();
+  Ax3               aPos = theCone.Position1();
   TColStd_Array1OfReal aParams(1, 2);
   aParams(1) = theCone.SemiAngle();
   aParams(2) = theCone.RefRadius();
@@ -371,7 +371,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCone(const Standard_Real 
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsSphere(const Standard_Real theTol,
                                                               Sphere3&          theSphere)
 {
-  Ax3               aPos = theSphere.Position();
+  Ax3               aPos = theSphere.Position1();
   TColStd_Array1OfReal aParams(1, 1);
   aParams(1) = theSphere.Radius();
   //
@@ -890,8 +890,8 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
     // searching along axis
     const Dir3d aDir = thePos.Direction();
     gp_Pln       aPln(thePos.Location(), aDir);
-    Dir3d       aUDir = aPln.Position().XDirection();
-    Dir3d       aVDir = aPln.Position().YDirection();
+    Dir3d       aUDir = aPln.Position1().XDirection();
+    Dir3d       aVDir = aPln.Position1().YDirection();
     for (i = 1; i <= 3; ++i)
     {
       aDirMatrix(i, 1) = aUDir.Coord(i);
@@ -1019,18 +1019,18 @@ Standard_Boolean SetConicParameters(const GeomAbs_CurveType   theTarget,
   if (theTarget == GeomAbs_Line)
   {
     gp_Lin aLin = aGAC.Line();
-    thePos.SetAxis(aLin.Position());
+    thePos.SetAxis(aLin.Position1());
   }
   else if (theTarget == GeomAbs_Circle)
   {
     gp_Circ aCirc = aGAC.Circle();
-    thePos        = aCirc.Position();
+    thePos        = aCirc.Position1();
     theParams(1)  = aCirc.Radius();
   }
   else if (theTarget == GeomAbs_Ellipse)
   {
     gp_Elips anElips = aGAC.Ellipse();
-    thePos           = anElips.Position();
+    thePos           = anElips.Position1();
     theParams(1)     = anElips.MajorRadius();
     theParams(2)     = anElips.MinorRadius();
   }
@@ -1093,25 +1093,25 @@ Standard_Boolean SetSurfParams(const GeomAbs_SurfaceType   theTarget,
   if (theTarget == GeomAbs_Plane)
   {
     gp_Pln aPln = aGAS.Plane1();
-    thePos      = aPln.Position();
+    thePos      = aPln.Position1();
   }
   else if (theTarget == GeomAbs_Cylinder)
   {
     Cylinder1 aCyl = aGAS.Cylinder();
-    thePos           = aCyl.Position();
+    thePos           = aCyl.Position1();
     theParams(1)     = aCyl.Radius();
   }
   else if (theTarget == GeomAbs_Cone)
   {
     Cone1 aCon = aGAS.Cone();
-    thePos       = aCon.Position();
+    thePos       = aCon.Position1();
     theParams(1) = aCon.SemiAngle();
     theParams(2) = aCon.RefRadius();
   }
   else if (theTarget == GeomAbs_Sphere)
   {
     Sphere3 aSph = aGAS.Sphere();
-    thePos         = aSph.Position();
+    thePos         = aSph.Position1();
     theParams(1)   = aSph.Radius();
   }
   else

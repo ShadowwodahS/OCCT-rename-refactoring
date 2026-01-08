@@ -65,13 +65,13 @@ static void DisplayText(const DataLabel&                  aLabel,
       // find the position to display as middle of the bounding box
       aShape.Move(aLocation);
       Box2 aBox;
-      BRepBndLib::Add(aShape, aBox);
+      BRepBndLib1::Add(aShape, aBox);
       if (!aBox.IsVoid())
       {
         Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
         aBox.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
         Point3d aPnt(0.5 * (aXmin + aXmax), 0.5 * (aYmin + aYmax), 0.5 * (aZmin + aZmax));
-        Prs3d_Text::Draw1(aPrs->CurrentGroup(), anAspect, aName->Get(), aPnt);
+        Text::Draw1(aPrs->CurrentGroup(), anAspect, aName->Get(), aPnt);
       }
     }
   }
@@ -130,7 +130,7 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
   // Collecting information on colored subshapes
   TopLoc_Location                    aLoc;
   XCAFPrs_IndexedDataMapOfShapeStyle aSettings;
-  XCAFPrs::CollectStyleSettings(myLabel, aLoc, aSettings);
+  XCAFPrs1::CollectStyleSettings(myLabel, aLoc, aSettings);
 
   // Getting default colors
   XCAFPrs_Style aDefStyle;
@@ -150,12 +150,12 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
     TopoCompound aComp;
     if (aStyleGroups.FindFromKey(aStyledShapeIter.Value(), aComp))
     {
-      aBuilder.Add(aComp, aStyledShapeIter.Key());
+      aBuilder.Add(aComp, aStyledShapeIter.Key1());
       continue;
     }
 
     aBuilder.MakeCompound(aComp);
-    aBuilder.Add(aComp, aStyledShapeIter.Key());
+    aBuilder.Add(aComp, aStyledShapeIter.Key1());
     TopoCompound* aMapShape = aStyleGroups.ChangeSeek(aStyledShapeIter.Value());
     if (aMapShape == NULL)
       aStyleGroups.Add(aStyledShapeIter.Value(), aComp);
@@ -181,7 +181,7 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
 
     Handle(AIS_ColoredDrawer) aDrawer = new AIS_ColoredDrawer(myDrawer);
     myShapeColors.Bind(aShapeCur, aDrawer);
-    const XCAFPrs_Style& aStyle = aStyleGroupIter.Key();
+    const XCAFPrs_Style& aStyle = aStyleGroupIter.Key1();
     aDrawer->SetHidden(!aStyle.IsVisible());
     if (!aStyle.Material().IsNull() && !aStyle.Material()->IsEmpty())
     {
@@ -237,7 +237,7 @@ void XCAFPrs_AISObject::Compute(const Handle(PrsMgr_PresentationManager)& thePre
 
   AIS_ColoredShape::Compute(thePresentationManager, thePrs, theMode);
 
-  if (XCAFPrs::GetViewNameMode())
+  if (XCAFPrs1::GetViewNameMode())
   {
     // Displaying Name attributes
     thePrs->SetDisplayPriority(Graphic3d_DisplayPriority_Topmost);

@@ -27,7 +27,7 @@ class OrientedBox;
 //! This package provides the bounding boxes for curves
 //! and surfaces from BRepAdaptor.
 //! Functions to add a topological shape to a bounding box
-class BRepBndLib
+class BRepBndLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

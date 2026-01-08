@@ -26,7 +26,7 @@
 class Point3d;
 
 //! A framework for displaying the planes of an XYZ trihedron.
-class DsgPrs_XYZPlanePresentation
+class XYZPlanePresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

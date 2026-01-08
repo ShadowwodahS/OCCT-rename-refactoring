@@ -19,11 +19,11 @@
 
 #include <Draw_Interpretor.hxx>
 
-class XSDRAWGLTF
+class XSDRAWGLTF1
 {
   DEFINE_STANDARD_ALLOC
 public:
-  //! Loads all Draw1 commands of XSDRAWGLTF. Used for plugin.
+  //! Loads all Draw1 commands of XSDRAWGLTF1. Used for plugin.
   Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 

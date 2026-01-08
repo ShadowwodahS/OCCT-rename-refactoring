@@ -36,7 +36,7 @@
 struct InputBuffer;
 
 /**
- * Block of comments describing class VrmlData_Scene
+ * Block1 of comments describing class VrmlData_Scene
  */
 
 class VrmlData_Scene

@@ -204,7 +204,7 @@ Box2& IntTools_Context::BndBox(const TopoShape& aS)
     new (pBox) Box2();
     //
     Box2& aBox = *pBox;
-    BRepBndLib::Add(aS, aBox);
+    BRepBndLib1::Add(aS, aBox);
     //
     myBndBoxDataMap.Bind(aS, pBox);
   }
@@ -406,7 +406,7 @@ OrientedBox& IntTools_Context::OBB(const TopoShape& aS, const Standard_Real theG
     new (pBox) OrientedBox();
     //
     OrientedBox& aBox = *pBox;
-    BRepBndLib::AddOBB(aS, aBox);
+    BRepBndLib1::AddOBB(aS, aBox);
     aBox.Enlarge(theGap);
     //
     myOBBMap.Bind(aS, pBox);

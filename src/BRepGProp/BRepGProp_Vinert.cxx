@@ -175,7 +175,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
                                         const Standard_Real theEps)
 {
   const Standard_Real aCoeff[] = {0.0, 0.0, 0.0};
-  BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1     aGauss(Gauss1::Vinert);
 
   return myEpsilon =
            aGauss
@@ -187,7 +187,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
 void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface)
 {
   const Standard_Real aCoeff[] = {0.0, 0.0, 0.0};
-  BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1     aGauss(Gauss1::Vinert);
 
   myEpsilon = 1.0;
   aGauss.Compute(theSurface, loc, aCoeff, Standard_True, dim, g, inertia);
@@ -198,7 +198,7 @@ void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface)
 void BRepGProp_Vinert::Perform(BRepGProp_Face& theSurface, BRepGProp_Domain& theDomain)
 {
   const Standard_Real aCoeff[] = {0.0, 0.0, 0.0};
-  BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1     aGauss(Gauss1::Vinert);
 
   myEpsilon = 1.0;
   aGauss.Compute(theSurface, theDomain, loc, aCoeff, Standard_True, dim, g, inertia);
@@ -225,7 +225,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
                                   theOrigin.Y() - loc.Y(),
                                   theOrigin.Z() - loc.Z()};
 
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1 aGauss(Gauss1::Vinert);
 
   return myEpsilon =
            aGauss
@@ -236,7 +236,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
 
 void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface, const Point3d& theOrigin)
 {
-  BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1     aGauss(Gauss1::Vinert);
   const Standard_Real aCoeff[] = {theOrigin.X() - loc.X(),
                                   theOrigin.Y() - loc.Y(),
                                   theOrigin.Z() - loc.Z()};
@@ -251,7 +251,7 @@ void BRepGProp_Vinert::Perform(BRepGProp_Face&   theSurface,
                                BRepGProp_Domain& theDomain,
                                const Point3d&     theOrigin)
 {
-  BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1     aGauss(Gauss1::Vinert);
   const Standard_Real aCoeff[] = {theOrigin.X() - loc.X(),
                                   theOrigin.Y() - loc.Y(),
                                   theOrigin.Z() - loc.Z()};
@@ -281,7 +281,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
   thePlane.Coefficients(aCoeff[0], aCoeff[1], aCoeff[2], aCoeff[3]);
   aCoeff[3] = aCoeff[3] - aCoeff[0] * loc.X() - aCoeff[1] * loc.Y() - aCoeff[2] * loc.Z();
 
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1 aGauss(Gauss1::Vinert);
 
   return myEpsilon =
            aGauss
@@ -292,7 +292,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
 
 void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface, const gp_Pln& thePlane)
 {
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1 aGauss(Gauss1::Vinert);
   Standard_Real   aCoeff[4];
 
   thePlane.Coefficients(aCoeff[0], aCoeff[1], aCoeff[2], aCoeff[3]);
@@ -309,7 +309,7 @@ void BRepGProp_Vinert::Perform(BRepGProp_Face&   theSurface,
                                BRepGProp_Domain& theDomain,
                                const gp_Pln&     thePlane)
 {
-  BRepGProp_Gauss aGauss(BRepGProp_Gauss::Vinert);
+  Gauss1 aGauss(Gauss1::Vinert);
   Standard_Real   aCoeff[4];
 
   thePlane.Coefficients(aCoeff[0], aCoeff[1], aCoeff[2], aCoeff[3]);

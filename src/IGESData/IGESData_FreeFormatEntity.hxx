@@ -110,7 +110,7 @@ public:
                                  const Standard_Boolean             negative = Standard_False);
 
   //! Adds a set of Entities, given as a HArray1OfIGESEntity
-  //! Causes creation of : an Integer Parameter which gives count
+  //! Causes creation of : an Integer1 Parameter which gives count
   //! of Entities, then the list of Entities of the Array
   //! Error if an Entity is not an IGESEntity
   //! All these Entities will be interpreted as "Positive Pointers"

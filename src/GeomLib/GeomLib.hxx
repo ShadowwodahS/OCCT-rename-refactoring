@@ -52,8 +52,8 @@ public:
   //! Computes     the  curve  3d    from  package  Geom
   //! corresponding to curve 2d  from package Geom2d, on
   //! the plan defined with the local coordinate system
-  //! Position.
-  Standard_EXPORT static Handle(GeomCurve3d) To3d(const Frame3d&               Position,
+  //! Position1.
+  Standard_EXPORT static Handle(GeomCurve3d) To3d(const Frame3d&               Position1,
                                                  const Handle(GeomCurve2d)& Curve2d);
 
   //! Computes the    curve    3d  from   package   Geom
@@ -155,7 +155,7 @@ public:
 
   //! Compute principale axes  of  inertia, and dispersion
   //! value  of some  points.
-  Standard_EXPORT static void Inertia(const TColgp_Array1OfPnt& Points,
+  Standard_EXPORT static void Inertia1(const TColgp_Array1OfPnt& Points,
                                       Point3d&                   Bary,
                                       Dir3d&                   XDir,
                                       Dir3d&                   YDir,

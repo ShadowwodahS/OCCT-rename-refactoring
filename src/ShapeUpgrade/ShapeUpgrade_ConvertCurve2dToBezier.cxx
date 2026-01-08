@@ -67,7 +67,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
     // static function`s code getted from ShapeConvert
     Standard_Real       tmpF, tmpL, aDeviation;
     Handle(Geom2d_Line) aTmpLine2d =
-      ShapeCustom_Curve2d::ConvertToLine2d(myCurve,
+      ShapeCustomCurve2d::ConvertToLine2d(myCurve,
                                            First,
                                            Last,
                                            Precision::Approximation(),
@@ -81,7 +81,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
       mySplitParams->Append(First);
       mySplitParams->Append(Last);
       myNbCurves = mySplitValues->Length() - 1;
-      myStatus   = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+      myStatus   = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       return;
     }
   }
@@ -113,14 +113,14 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
     if (First < precision && Last > 1 - precision)
     {
       mySegments->Append(bezier);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
     }
     else
     {
       Handle(Geom2d_BezierCurve) besNew = Handle(Geom2d_BezierCurve)::DownCast(bezier->Copy());
       besNew->Segment1(First, Last);
       mySegments->Append(besNew);
-      myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+      myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     }
     return;
   }
@@ -132,7 +132,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
     mySplitParams->Append(First);
     mySplitParams->Append(Last);
     myNbCurves = mySplitValues->Length() - 1;
-    myStatus   = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+    myStatus   = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
     return;
   }
   else
@@ -185,7 +185,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
     }
 
     // PTV 20.12.2001 Try to simplify BSpline Curve
-    ShapeCustom_Curve2d::SimplifyBSpline2d(aBSpline2d, Precision::Approximation());
+    ShapeCustomCurve2d::SimplifyBSpline2d(aBSpline2d, Precision::Approximation());
 
     Geom2dConvert_BSplineCurveToBezierCurve tool(aBSpline2d, First, Last, precision);
     Standard_Integer                        nbArcs = tool.NbArcs();
@@ -209,7 +209,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
           newLast  = nextKnot;
           Standard_Real       tmpF, tmpL, aDeviation;
           Handle(Geom2d_Line) aTmpLine2d =
-            ShapeCustom_Curve2d::ConvertToLine2d(aCrv2d,
+            ShapeCustomCurve2d::ConvertToLine2d(aCrv2d,
                                                  newFirst,
                                                  newLast,
                                                  Precision::Approximation(),
@@ -246,7 +246,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
     }
     myNbCurves = mySplitValues->Length() - 1;
   }
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
 }
 
 //=================================================================================================

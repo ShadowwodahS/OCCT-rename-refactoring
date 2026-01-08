@@ -26,7 +26,7 @@
 class BRepApprox_TheMultiLineOfApprox;
 class SurfaceSurfaces;
 
-class BRepApprox_TheMultiLineToolOfApprox
+class TheMultiLineToolOfApprox
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -128,7 +128,7 @@ private:
 #define TheMultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>
 #define TheMultiMPoint SurfaceSurfaces
 #define TheMultiMPoint_hxx <ApproxInt_SvSurfaces.hxx>
-#define ApproxInt_MultiLineTool BRepApprox_TheMultiLineToolOfApprox
+#define ApproxInt_MultiLineTool TheMultiLineToolOfApprox
 #define ApproxInt_MultiLineTool_hxx <BRepApprox_TheMultiLineToolOfApprox.hxx>
 
 #include <ApproxInt_MultiLineTool.lxx>

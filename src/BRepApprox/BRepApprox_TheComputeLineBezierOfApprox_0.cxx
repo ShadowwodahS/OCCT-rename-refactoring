@@ -28,7 +28,7 @@
 
 #define MultiLine BRepApprox_TheMultiLineOfApprox
 #define MultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>
-#define LineTool BRepApprox_TheMultiLineToolOfApprox
+#define LineTool TheMultiLineToolOfApprox
 #define LineTool_hxx <BRepApprox_TheMultiLineToolOfApprox.hxx>
 #define Approx_MyGradient BRepApprox_MyGradientOfTheComputeLineBezierOfApprox
 #define Approx_MyGradient_hxx <BRepApprox_MyGradientOfTheComputeLineBezierOfApprox.hxx>
@@ -37,7 +37,7 @@
 #define Approx_ParLeastSquareOfMyGradient_hxx                                                      \
   <BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox.hxx>
 #define Approx_ResConstraintOfMyGradient                                                           \
-  BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox
+  ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox
 #define Approx_ResConstraintOfMyGradient_hxx                                                       \
   <BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox.hxx>
 #define Approx_ParFunctionOfMyGradient                                                             \
@@ -53,7 +53,7 @@
 #define Approx_ParLeastSquareOfMyGradient_hxx                                                      \
   <BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox.hxx>
 #define Approx_ResConstraintOfMyGradient                                                           \
-  BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox
+  ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox
 #define Approx_ResConstraintOfMyGradient_hxx                                                       \
   <BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox.hxx>
 #define Approx_ParFunctionOfMyGradient                                                             \

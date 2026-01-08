@@ -26,7 +26,7 @@ class Express_Reference : public Express_Item
 {
 
 public:
-  //! Create Reference item and initialize it
+  //! Create Reference1 item and initialize it
   Standard_EXPORT Express_Reference(const Standard_CString                         theName,
                                     const Handle(TColStd_HSequenceOfHAsciiString)& theTypes);
 

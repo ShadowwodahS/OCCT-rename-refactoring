@@ -247,9 +247,9 @@ BRepLib_MakeFace::BRepLib_MakeFace(const TopoWire& W, const Standard_Boolean Onl
 
   Add(aW);
   //
-  BRepLib::UpdateTolerances(myShape);
+  BRepLib1::UpdateTolerances(myShape);
   //
-  BRepLib::SameParameter(myShape, tol, Standard_True);
+  BRepLib1::SameParameter(myShape, tol, Standard_True);
   //
   if (BRepInspector::IsClosed(aW))
     CheckInside();
@@ -779,7 +779,7 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
     // Les Isos sont Approximees a Precision::Approximation()
     // et on code Precision::Confusion() dans l'arete.
     // ==> Un petit passage dans SamePrameter pour regler les tolerances.
-    BRepLib::SameParameter(F, Precision::Confusion(), Standard_True);
+    BRepLib1::SameParameter(F, Precision::Confusion(), Standard_True);
   }
 
   Done();

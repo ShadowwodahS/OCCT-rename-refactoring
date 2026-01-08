@@ -34,27 +34,27 @@ extern ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 static int VImmediateFront(DrawInterpreter&, Standard_Integer theArgNb, const char** theArgVec)
 {
   // get the context
-  Handle(VisualContext) aContextAIS = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContextAIS = ViewerTest1::GetAISContext();
   if (aContextAIS.IsNull())
   {
-    Message::SendFail("Error: no active viewer");
+    Message1::SendFail("Error: no active viewer");
     return 1;
   }
 
   Handle(Graphic3d_GraphicDriver) aDriver = aContextAIS->CurrentViewer()->Driver();
   if (aDriver.IsNull())
   {
-    Message::SendFail("Error: graphic driver not available.");
+    Message1::SendFail("Error: graphic driver not available.");
     return 1;
   }
 
   if (theArgNb < 2)
   {
-    Message::SendFail("Syntax error: wrong number of arguments.");
+    Message1::SendFail("Syntax error: wrong number of arguments.");
     return 1;
   }
 
-  ViewerTest::CurrentView()->View()->SetImmediateModeDrawToFront(atoi(theArgVec[1]) != 0);
+  ViewerTest1::CurrentView()->View()->SetImmediateModeDrawToFront(atoi(theArgVec[1]) != 0);
 
   return 0;
 }
@@ -65,7 +65,7 @@ inline AsciiString1 searchInfo(const TColStd_IndexedDataMapOfStringString& theDi
 {
   for (TColStd_IndexedDataMapOfStringString::Iterator anIter(theDict); anIter.More(); anIter.Next())
   {
-    if (AsciiString1::IsSameString(anIter.Key(), theKey, Standard_False))
+    if (AsciiString1::IsSameString(anIter.Key1(), theKey, Standard_False))
     {
       return anIter.Value();
     }
@@ -78,10 +78,10 @@ inline AsciiString1 searchInfo(const TColStd_IndexedDataMapOfStringString& theDi
 static int VGlInfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   // get the active view
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
   if (aView.IsNull())
   {
-    Message::SendFail("No active viewer");
+    Message1::SendFail("No active viewer");
     return 1;
   }
 
@@ -141,7 +141,7 @@ static int VGlInfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown key '" << aName << "'";
+      Message1::SendFail() << "Syntax error: unknown key '" << aName << "'";
       return 1;
     }
   }
@@ -157,14 +157,14 @@ static int VGlInfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char
       {
         aText += "\n";
       }
-      if ((aValueIter.Key().Length() + aValueIter.Value().Length() + 4) <= aLineWidth)
+      if ((aValueIter.Key1().Length() + aValueIter.Value().Length() + 4) <= aLineWidth)
       {
-        aText += AsciiString1("  ") + aValueIter.Key() + ": " + aValueIter.Value();
+        aText += AsciiString1("  ") + aValueIter.Key1() + ": " + aValueIter.Value();
         continue;
       }
 
       // split into lines
-      aText += AsciiString1("  ") + aValueIter.Key() + ":";
+      aText += AsciiString1("  ") + aValueIter.Key1() + ":";
       AsciiString1 aSubList;
       for (Standard_Integer aTokenIter = 1;; ++aTokenIter)
       {
@@ -261,15 +261,15 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
                                     Standard_Integer theArgNb,
                                     const char**     theArgVec)
 {
-  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
-    Message::SendFail("Error: no active viewer");
+    Message1::SendFail("Error: no active viewer");
     return 1;
   }
   else if (theArgNb < 2)
   {
-    Message::SendFail("Syntax error: lack of arguments");
+    Message1::SendFail("Syntax error: lack of arguments");
     return 1;
   }
 
@@ -299,7 +299,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       const AsciiString1& aShadersRoot = Graphic3d_ShaderProgram::ShadersFolder();
       if (aShadersRoot.IsEmpty())
       {
-        Message::SendFail(
+        Message1::SendFail(
           "Error: both environment variables CSF_ShadersDirectory and CASROOT are undefined!\n"
           "At least one should be defined to load Phong program.");
         return 1;
@@ -309,12 +309,12 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       const AsciiString1 aSrcFrag = aShadersRoot + "/PhongShading.fs";
       if (!aSrcVert.IsEmpty() && !SystemFile(aSrcVert).Exists())
       {
-        Message::SendFail("Error: PhongShading.vs is not found");
+        Message1::SendFail("Error: PhongShading.vs is not found");
         return 1;
       }
       if (!aSrcFrag.IsEmpty() && !SystemFile(aSrcFrag).Exists())
       {
-        Message::SendFail("Error: PhongShading.fs is not found");
+        Message1::SendFail("Error: PhongShading.fs is not found");
         return 1;
       }
 
@@ -354,7 +354,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       }
       else
       {
-        Message::SendFail() << "Syntax error at '" << aPrimTypeStr << "'";
+        Message1::SendFail() << "Syntax error at '" << aPrimTypeStr << "'";
         return 1;
       }
     }
@@ -381,7 +381,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       Handle(VisualEntity) anIO = GetMapOfAIS().Find2(theArgVec[anArgIter]);
       if (anIO.IsNull())
       {
-        Message::SendFail() << "Syntax error: " << theArgVec[anArgIter] << " is not an AIS object";
+        Message1::SendFail() << "Syntax error: " << theArgVec[anArgIter] << " is not an AIS1 object";
         return 1;
       }
       aPrsList.Append(anIO);
@@ -421,7 +421,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       }
       if (aShaderType == Graphic3d_TypeOfShaderObject(-1))
       {
-        Message::SendFail() << "Error: non-existing or invalid shader source";
+        Message1::SendFail() << "Error: non-existing or invalid shader source";
         return 1;
       }
 
@@ -429,13 +429,13 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
     }
     else
     {
-      Message::SendFail() << "Syntax error at '" << anArg << "'";
+      Message1::SendFail() << "Syntax error at '" << anArg << "'";
       return 1;
     }
   }
 
   if (!aProgram.IsNull()
-      && ViewerTest::CurrentView()->RenderingParams().TransparencyMethod == Graphic3d_RTM_BLEND_OIT)
+      && ViewerTest1::CurrentView()->RenderingParams().TransparencyMethod == Graphic3d_RTM_BLEND_OIT)
   {
     aProgram->SetNbFragmentOutputs(2);
     aProgram->SetOitOutput(Graphic3d_RTM_BLEND_OIT);
@@ -560,7 +560,7 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error: unknown argument '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
@@ -613,7 +613,7 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
     aMatFile = aFileSystem->OpenOStream(aMatFilePath, std::ios::out | std::ios::binary);
     if (aMatFile.get() == NULL)
     {
-      Message::SendFail("Error: unable creating material file");
+      Message1::SendFail("Error: unable creating material file");
       return 0;
     }
     if (!aDumpFile.EndsWith(".mtl"))
@@ -621,7 +621,7 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
       anObjFile = aFileSystem->OpenOStream(anObjFilePath, std::ios::out | std::ios::binary);
       if (anObjFile.get() == NULL)
       {
-        Message::SendFail("Error: unable creating OBJ file");
+        Message1::SendFail("Error: unable creating OBJ file");
         return 0;
       }
 
@@ -635,7 +635,7 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
     aHtmlFile = aFileSystem->OpenOStream(aDumpFile, std::ios::out | std::ios::binary);
     if (aHtmlFile.get() == NULL)
     {
-      Message::SendFail("Error: unable creating HTML file");
+      Message1::SendFail("Error: unable creating HTML file");
       return 0;
     }
     *aHtmlFile
@@ -696,7 +696,7 @@ static Standard_Integer VListMaterials(DrawInterpreter& theDI,
   }
   else if (!aDumpFile.IsEmpty())
   {
-    Message::SendFail("Syntax error: unknown output file format");
+    Message1::SendFail("Syntax error: unknown output file format");
     return 1;
   }
 
@@ -850,7 +850,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument '" << theArgVec[anArgIter] << "'";
+      Message1::SendFail() << "Syntax error: unknown argument '" << theArgVec[anArgIter] << "'";
       return 1;
     }
   }
@@ -884,7 +884,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
   }
   else if (!aDumpFile.IsEmpty())
   {
-    Message::SendFail("Syntax error: unknown output file format");
+    Message1::SendFail("Syntax error: unknown output file format");
     return 1;
   }
 
@@ -897,7 +897,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
           AsciiString1(Quantity_Color::StringName(aColIter.Value())).Length());
   }
 
-  V3d_ImageDumpOptions anImgParams;
+  ImageDumpOptions anImgParams;
   anImgParams.Width          = 60;
   anImgParams.Height         = 30;
   anImgParams.BufferType     = Graphic3d_BT_RGB;
@@ -909,8 +909,8 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
     ViewerTest_VinitParams aParams;
     aParams.Size.SetValues((float)anImgParams.Width, (float)anImgParams.Height);
     aParams.ViewName = "TmpDriver/TmpViewer/TmpView";
-    ViewerTest::ViewerInit(aParams);
-    aView = ViewerTest::CurrentView();
+    ViewerTest1::ViewerInit(aParams);
+    aView = ViewerTest1::CurrentView();
     aView->SetImmediateUpdate(false);
     aView->SetBgGradientStyle(Aspect_GradientFillMethod_None, false);
   }
@@ -920,7 +920,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
     aHtmlFile = aFileSystem->OpenOStream(aDumpFile, std::ios::out | std::ios::binary);
     if (aHtmlFile.get() == NULL)
     {
-      Message::SendFail("Error: unable creating HTML file");
+      Message1::SendFail("Error: unable creating HTML file");
       return 0;
     }
     *aHtmlFile << "<html>\n"
@@ -982,7 +982,7 @@ static Standard_Integer VListColors(DrawInterpreter& theDI,
 
   if (!aView.IsNull())
   {
-    ViewerTest::RemoveView(aView);
+    ViewerTest1::RemoveView(aView);
   }
 
   if (aHtmlFile.get() != NULL)
@@ -1026,7 +1026,7 @@ static Standard_Integer VGenEnvLUT(DrawInterpreter&,
     {
       if (anArgIter + 1 >= theArgNb)
       {
-        Message::SendFail("Syntax error: size of PBR environment look up table is undefined");
+        Message1::SendFail("Syntax error: size of PBR environment look up table is undefined");
         return 1;
       }
 
@@ -1034,7 +1034,7 @@ static Standard_Integer VGenEnvLUT(DrawInterpreter&,
 
       if (aTableSize < 16)
       {
-        Message::SendFail(
+        Message1::SendFail(
           "Error: size of PBR environment look up table must be greater or equal 16");
         return 1;
       }
@@ -1043,7 +1043,7 @@ static Standard_Integer VGenEnvLUT(DrawInterpreter&,
     {
       if (anArgIter + 1 >= theArgNb)
       {
-        Message::SendFail(
+        Message1::SendFail(
           "Syntax error: number of samples to generate PBR environment look up table is undefined");
         return 1;
       }
@@ -1052,14 +1052,14 @@ static Standard_Integer VGenEnvLUT(DrawInterpreter&,
 
       if (aNbSamples < 1)
       {
-        Message::SendFail("Syntax error: number of samples to generate PBR environment look up "
+        Message1::SendFail("Syntax error: number of samples to generate PBR environment look up "
                           "table must be greater than 1");
         return 1;
       }
     }
     else
     {
-      Message::SendFail() << "Syntax error: unknown argument " << anArg;
+      Message1::SendFail() << "Syntax error: unknown argument " << anArg;
       return 1;
     }
   }
@@ -1080,7 +1080,7 @@ static Standard_Integer VGenEnvLUT(DrawInterpreter&,
 
   if (aFile.get() == NULL || !aFile->good())
   {
-    Message::SendFail() << "Error: unable to write to " << aFilePath;
+    Message1::SendFail() << "Error: unable to write to " << aFilePath;
     return 1;
   }
 
@@ -1144,9 +1144,9 @@ static Standard_Integer VGenEnvLUT(DrawInterpreter&,
 
 //=================================================================================================
 
-void ViewerTest::OpenGlCommands(DrawInterpreter& theCommands)
+void ViewerTest1::OpenGlCommands(DrawInterpreter& theCommands)
 {
-  const char* aGroup    = "AIS Viewer";
+  const char* aGroup    = "AIS1 Viewer";
   const char* aFileName = __FILE__;
   auto        addCmd =
     [&](const char* theName, DrawInterpreter::CommandFunction theFunc, const char* theHelp) {

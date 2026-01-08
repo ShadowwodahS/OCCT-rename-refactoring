@@ -80,10 +80,10 @@ public:
 public:
   //!@name Access to data
 
-  //! Returns the GUID of the driver managing display of associated AIS object
+  //! Returns the GUID of the driver managing display of associated AIS1 object
   Standard_EXPORT Standard_GUID GetDriverGUID() const;
 
-  //! Sets the GUID of the driver managing display of associated AIS object
+  //! Sets the GUID of the driver managing display of associated AIS1 object
   Standard_EXPORT void SetDriverGUID(const Standard_GUID& theGUID);
 
   Standard_EXPORT Standard_Boolean IsDisplayed() const;

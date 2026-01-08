@@ -34,7 +34,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_SelectFlag, IFSelect_SelectExtract)
 //! The Flag is designated by its Name. Flag Names are defined
 //! by Work Session and, as necessary, other functional objects
 //!
-//! WorkSession from IFSelect defines flag "Incorrect"
+//! WorkSession from IFSelect1 defines flag "Incorrect"
 //! Objects which control application running define some others
 class IFSelect_SelectFlag : public IFSelect_SelectExtract
 {

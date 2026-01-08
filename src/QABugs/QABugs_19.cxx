@@ -1355,7 +1355,7 @@ static Standard_Integer OCC24086(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -1798,7 +1798,7 @@ static Standard_Integer OCC23951(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  const Handle(Message_Messenger)& aMsgMgr = Message::DefaultMessenger();
+  const Handle(Message_Messenger)& aMsgMgr = Message1::DefaultMessenger();
   Message_SequenceOfPrinters       aPrinters;
   aPrinters.Append(aMsgMgr->ChangePrinters());
   aMsgMgr->AddPrinter(new Draw_Printer(di));
@@ -1849,7 +1849,7 @@ static Standard_Integer OCC23950(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  const Handle(Message_Messenger)& aMsgMgr = Message::DefaultMessenger();
+  const Handle(Message_Messenger)& aMsgMgr = Message1::DefaultMessenger();
   Message_SequenceOfPrinters       aPrinters;
   aPrinters.Append(aMsgMgr->ChangePrinters());
   aMsgMgr->AddPrinter(new Draw_Printer(di));
@@ -2470,7 +2470,7 @@ static Standard_Integer OCC24606(DrawInterpreter& theDI,
     return 1;
   }
 
-  Handle(ViewWindow) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest1::CurrentView();
   if (aView.IsNull())
   {
     std::cerr << "Errro: no active view, please call 'vinit'.\n";
@@ -2592,7 +2592,7 @@ static Standard_Integer OCC25340(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgNb*/,
                                  const char** /*theArgVec*/)
 {
-  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cerr << "Error: No opened viewer!\n";
@@ -3008,7 +3008,7 @@ static Standard_Integer OCC25413(DrawInterpreter& di, Standard_Integer narg, con
   Inter.Load(aShape, Precision::Confusion());
 
   Box2 aBndBox;
-  BRepBndLib::Add(aShape, aBndBox);
+  BRepBndLib1::Add(aShape, aBndBox);
 
   Dir3d        aDir(0., 1., 0.);
   const int     N     = 250;
@@ -3302,7 +3302,7 @@ static Standard_Integer OCC25547(DrawInterpreter& theDI,
 static Standard_Integer OCC26139(DrawInterpreter& theDI, Standard_Integer argc, const char** argv)
 {
 
-  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     theDI << "Use 'vinit' command before " << argv[0] << "\n";
@@ -3518,7 +3518,7 @@ static Standard_Integer OCC24881(DrawInterpreter& di, Standard_Integer narg, con
   TColStd_DataMapIteratorOfDataMapOfIntegerInteger aStatusItr(aStatusNbDMap);
   for (; aStatusItr.More(); aStatusItr.Next())
   {
-    switch ((ShapeExtend_Status)aStatusItr.Key())
+    switch ((ShapeExtend_Status)aStatusItr.Key1())
     {
       // treat 3d status
       case ShapeExtend_FAIL1:
@@ -3529,7 +3529,7 @@ static Standard_Integer OCC24881(DrawInterpreter& di, Standard_Integer narg, con
         break;
       default:
         // treat 2d status
-        switch ((ShapeExtend_Status)(aStatusItr.Key() - ShapeExtend_FAIL))
+        switch ((ShapeExtend_Status)(aStatusItr.Key1() - ShapeExtend_FAIL))
         {
           case ShapeExtend_FAIL1:
             di << "Fix_FillGaps_2dNoPCurveFail, nb failed = ";
@@ -3561,7 +3561,7 @@ static Standard_Integer OCC26284(DrawInterpreter& theDI,
     return 1;
   }
 
-  Handle(VisualContext) anAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) anAISContext = ViewerTest1::GetAISContext();
   if (anAISContext.IsNull())
   {
     std::cerr << "Error: no active view. Please call vinit.\n";
@@ -4238,7 +4238,7 @@ static Standard_Integer OCC26195(DrawInterpreter& theDI,
     return 1;
   }
 
-  if (ViewerTest::GetAISContext().IsNull())
+  if (ViewerTest1::GetAISContext().IsNull())
   {
     std::cerr << "Error: No opened context!\n";
     return 1;
@@ -4267,10 +4267,10 @@ static Standard_Integer OCC26195(DrawInterpreter& theDI,
   {
     aMgr->InitPointSelectingVolume(aPxPnt1);
   }
-  aMgr->SetCamera(ViewerTest::CurrentView()->Camera());
-  aMgr->SetPixelTolerance(ViewerTest::GetAISContext()->PixelTolerance());
+  aMgr->SetCamera(ViewerTest1::CurrentView()->Camera());
+  aMgr->SetPixelTolerance(ViewerTest1::GetAISContext()->PixelTolerance());
   Standard_Integer aWidth, aHeight;
-  ViewerTest::CurrentView()->View()->Window()->Size(aWidth, aHeight);
+  ViewerTest1::CurrentView()->View()->Window()->Size(aWidth, aHeight);
   aMgr->SetWindowSize(aWidth, aHeight);
   aMgr->BuildSelectingVolume();
 
@@ -4312,7 +4312,7 @@ static Standard_Integer OCC26195(DrawInterpreter& theDI,
 
   Handle(VisualEntity) aCmp = new VisualShape(aComp);
   aCmp->SetColor(Quantity_NOC_GREEN);
-  ViewerTest::Display("c", aCmp, Standard_True, Standard_True);
+  ViewerTest1::Display("c", aCmp, Standard_True, Standard_True);
 
   Point3d aNearPnt = aMgr->GetNearPickedPnt();
   Point3d aFarPnt  = aMgr->GetFarPickedPnt();
@@ -4328,7 +4328,7 @@ static Standard_Integer OCC26195(DrawInterpreter& theDI,
   Handle(Geom_CartesianPoint) aPnt2 = new Geom_CartesianPoint(aFarPnt);
 
   Handle(AIS_Line) aLine = new AIS_Line(aPnt1, aPnt2);
-  ViewerTest::Display("l", aLine, Standard_True, Standard_True);
+  ViewerTest1::Display("l", aLine, Standard_True, Standard_True);
 
   if (toPrint)
   {
@@ -4345,7 +4345,7 @@ static Standard_Integer OCC26462(DrawInterpreter& theDI,
                                  Standard_Integer /*theArgNb*/,
                                  const char** /*theArgVec*/)
 {
-  if (ViewerTest::GetAISContext().IsNull())
+  if (ViewerTest1::GetAISContext().IsNull())
   {
     std::cerr << "Error: No opened context!\n";
     return 1;
@@ -4356,16 +4356,16 @@ static Standard_Integer OCC26462(DrawInterpreter& theDI,
   Handle(VisualEntity) aBox1 = new VisualShape(aBuilder1.Shape());
   Handle(VisualEntity) aBox2 = new VisualShape(aBuilder2.Shape());
 
-  const Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext) aCtx = ViewerTest1::GetAISContext();
   aCtx->Display(aBox1, 0, 2, Standard_False);
   aCtx->Display(aBox2, 0, 2, Standard_False);
-  ViewerTest::CurrentView()->FitAll();
+  ViewerTest1::CurrentView()->FitAll();
   aCtx->SetWidth(aBox1, 3, Standard_False);
   aCtx->SetWidth(aBox2, 3, Standard_False);
 
-  aCtx->MoveTo(305, 322, ViewerTest::CurrentView(), Standard_False);
+  aCtx->MoveTo(305, 322, ViewerTest1::CurrentView(), Standard_False);
   aCtx->SelectDetected(AIS_SelectionScheme_XOR);
-  aCtx->MoveTo(103, 322, ViewerTest::CurrentView(), Standard_False);
+  aCtx->MoveTo(103, 322, ViewerTest1::CurrentView(), Standard_False);
   aCtx->SelectDetected(AIS_SelectionScheme_XOR);
   if (aCtx->NbSelected() != 0)
   {
@@ -4375,14 +4375,14 @@ static Standard_Integer OCC26462(DrawInterpreter& theDI,
 
   aCtx->SetSelectionSensitivity(aBox1, 2, 5);
 
-  aCtx->MoveTo(305, 322, ViewerTest::CurrentView(), Standard_False);
+  aCtx->MoveTo(305, 322, ViewerTest1::CurrentView(), Standard_False);
   aCtx->SelectDetected(AIS_SelectionScheme_XOR);
   if (aCtx->NbSelected() != 1)
   {
     theDI << "ERROR: b1 was not selected\n";
     return 1;
   }
-  aCtx->MoveTo(103, 322, ViewerTest::CurrentView(), Standard_False);
+  aCtx->MoveTo(103, 322, ViewerTest1::CurrentView(), Standard_False);
   aCtx->SelectDetected(AIS_SelectionScheme_XOR);
   if (aCtx->NbSelected() != 1)
   {
@@ -5022,13 +5022,13 @@ static Standard_Integer OCC27048(DrawInterpreter& theDI,
 
 //========================================================================
 // function : OCC27318
-// purpose  : Creates a box that is not listed in map of AIS objects of ViewerTest
+// purpose  : Creates a box that is not listed in map of AIS1 objects of ViewerTest1
 //========================================================================
 static Standard_Integer OCC27318(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgc*/,
                                  const char** theArgv)
 {
-  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cout << "No interactive context. Use 'vinit' command before " << theArgv[0] << "\n";
@@ -5057,7 +5057,7 @@ static Standard_Integer OCC27523(DrawInterpreter& theDI,
     return 1;
   }
 
-  Handle(VisualContext) anAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) anAISContext = ViewerTest1::GetAISContext();
   if (anAISContext.IsNull())
   {
     std::cerr << "Error: no active view. Please call vinit.\n";
@@ -5155,7 +5155,7 @@ public:
     // create separate group for text elements
     Handle(Graphic3d_Group)    aTextGroup = thePresentation->NewGroup();
     UtfString aString("YOU SHOULD SEE THIS TEXT", Standard_True);
-    Prs3d_Text::Draw1(aTextGroup, myDrawer->TextAspect(), aString, Frame3d(gp1::Origin(), gp1::DZ()));
+    Text::Draw1(aTextGroup, myDrawer->TextAspect(), aString, Frame3d(gp1::Origin(), gp1::DZ()));
   }
 
   virtual void ComputeSelection(const Handle(SelectionContainer)& /*theSelection*/,
@@ -5168,7 +5168,7 @@ static Standard_Integer OCC27700(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgNb*/,
                                  const char** /*theArgVec*/)
 {
-  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (aContext.IsNull())
   {
     std::cout << "Error: no view available, call 'vinit' before!" << std::endl;
@@ -5187,7 +5187,7 @@ static Standard_Integer OCC27757(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgc*/,
                                  const char** theArgv)
 {
-  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cout << "No interactive context. Use 'vinit' command before " << theArgv[0] << "\n";
@@ -5217,7 +5217,7 @@ static Standard_Integer OCC27818(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgc*/,
                                  const char** theArgv)
 {
-  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cout << "No interactive context. Use 'vinit' command before " << theArgv[0] << "\n";
@@ -5269,7 +5269,7 @@ static Standard_Integer OCC27893(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgc*/,
                                  const char** theArgv)
 {
-  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cout << "No interactive context. Use 'vinit' command before " << theArgv[0] << "\n";
@@ -5293,7 +5293,7 @@ static Standard_Integer OCC28310(DrawInterpreter& /*theDI*/,
                                  Standard_Integer /*theArgc*/,
                                  const char** theArgv)
 {
-  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cout << "No interactive context. Use 'vinit' command before " << theArgv[0] << "\n";
@@ -5303,8 +5303,8 @@ static Standard_Integer OCC28310(DrawInterpreter& /*theDI*/,
   TopoShape                  aBox    = BoxMaker(10.0, 10.0, 10.0).Shape();
   Handle(VisualEntity) aBoxObj = new VisualShape(aBox);
   aCtx->Display(aBoxObj, AIS_Shaded, 0, Standard_False);
-  ViewerTest::CurrentView()->FitAll();
-  aCtx->MoveTo(200, 200, ViewerTest::CurrentView(), Standard_True);
+  ViewerTest1::CurrentView()->FitAll();
+  aCtx->MoveTo(200, 200, ViewerTest1::CurrentView(), Standard_True);
   aCtx->SelectDetected();
   aCtx->UpdateCurrentViewer();
 
@@ -5328,7 +5328,7 @@ static Standard_Integer OCC29412(DrawInterpreter& /*theDI*/,
                                  Standard_Integer theArgNb,
                                  const char**     theArgVec)
 {
-  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest1::GetAISContext();
   if (aCtx.IsNull())
   {
     std::cout << "Error: no active view.\n";
@@ -5357,7 +5357,7 @@ static Standard_Integer OCC29412(DrawInterpreter& /*theDI*/,
     }
 
     aCtx->CurrentViewer()->Update();
-    ViewerTest::CurrentView()->FitAll();
+    ViewerTest1::CurrentView()->FitAll();
     aCtx->Remove(feature, true);
 
     const int aProgress = (m_loopIndex * 100) / aNbIters;
@@ -5524,7 +5524,7 @@ void QABugs1::Commands_19(DrawInterpreter& theCommands)
                   OCC29935,
                   group);
   theCommands.Add("OCC24606",
-                  "OCC24606 : Tests ::FitAll for V3d view ('vfit' is for NIS view)",
+                  "OCC24606 : Tests ::FitAll for V3d1 view ('vfit' is for NIS view)",
                   __FILE__,
                   OCC24606,
                   group);
@@ -5598,7 +5598,7 @@ void QABugs1::Commands_19(DrawInterpreter& theCommands)
                   group);
 
   theCommands.Add("OCC27318",
-                  "OCC27318: Creates a box that is not listed in map of AIS objects of ViewerTest",
+                  "OCC27318: Creates a box that is not listed in map of AIS1 objects of ViewerTest1",
                   __FILE__,
                   OCC27318,
                   group);

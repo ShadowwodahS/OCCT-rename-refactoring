@@ -89,7 +89,7 @@ Standard_Boolean ShapeFix_FreeBounds::Perform()
 
   if (myCloseToler > mySewToler)
   {
-    ShapeExtend_Explorer              see;
+    Explorer              see;
     Handle(TopTools_HSequenceOfShape) newwires, open = see.SeqFromCompound(myEdges, Standard_False);
     TopTools_DataMapOfShapeShape      vertices;
     ShapeAnalysis_FreeBounds::ConnectWiresToWires(open, myCloseToler, myShared, newwires, vertices);

@@ -513,7 +513,7 @@ void IFSelect_EditForm::PrintValues(Standard_OStream&      S,
 {
   Standard_Integer iv, nbv = NbValues(Standard_True);
   S << "****************************************************" << std::endl;
-  S << "*****  " << Label() << Interface_MSG::Blanks(Label(), 40) << "*****" << std::endl;
+  S << "*****  " << Label() << MessageSystem::Blanks(Label(), 40) << "*****" << std::endl;
   S << "*****                                          *****" << std::endl;
   if (!theloaded)
     S << "*****         Values are NOT loaded            *****" << std::endl;
@@ -570,7 +570,7 @@ void IFSelect_EditForm::PrintValues(Standard_OStream&      S,
         S << "* ";
       else
         S << "  ";
-      S << Interface_MSG::Blanks(iv, 3) << iv << " " << name << Interface_MSG::Blanks(name, maxnam)
+      S << MessageSystem::Blanks(iv, 3) << iv << " " << name << MessageSystem::Blanks(name, maxnam)
         << "  ";
 
       if (theeditor->IsList(jv))
@@ -601,22 +601,22 @@ void IFSelect_EditForm::PrintValues(Standard_OStream&      S,
       if (theeditor->IsList(jv))
       {
         Handle(TColStd_HSequenceOfHAsciiString) list = OriginalList(jv);
-        S << Interface_MSG::Blanks(iv, 3) << iv << " " << name
-          << Interface_MSG::Blanks(name, maxnam) << " ORIG:";
+        S << MessageSystem::Blanks(iv, 3) << iv << " " << name
+          << MessageSystem::Blanks(name, maxnam) << " ORIG:";
         PrintList(list, S, alsolist);
 
         list = EditedList(jv);
-        S << Interface_MSG::Blanks("", maxnam + 5) << "MOD :";
+        S << MessageSystem::Blanks("", maxnam + 5) << "MOD :";
         PrintList(list, S, alsolist);
 
         continue;
       }
 
       Handle(TCollection_HAsciiString) str = OriginalValue(jv);
-      S << Interface_MSG::Blanks(iv, 3) << iv << " " << name << Interface_MSG::Blanks(name, maxnam)
+      S << MessageSystem::Blanks(iv, 3) << iv << " " << name << MessageSystem::Blanks(name, maxnam)
         << " ORIG:" << (str.IsNull() ? "(NULL)" : str->ToCString()) << std::endl;
       str = EditedValue(jv);
-      S << Interface_MSG::Blanks("", maxnam + 4)
+      S << MessageSystem::Blanks("", maxnam + 4)
         << " MOD :" << (str.IsNull() ? "(NULL)" : str->ToCString()) << std::endl;
     }
   }

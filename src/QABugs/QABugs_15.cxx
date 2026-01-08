@@ -27,7 +27,7 @@ Handle(QABugs_PresentableObject) theObject2 = NULL;
 
 static Standard_Integer BUC60720(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest1::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";

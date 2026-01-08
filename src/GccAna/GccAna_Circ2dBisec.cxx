@@ -41,11 +41,11 @@ Circle2dBisector::Circle2dBisector(const gp_Circ2d& Circ1, const gp_Circ2d& Circ
   //  Initialization of fields :                                            +
   //            - circle1  (Circle : first argument)                        +
   //            - circle2  (Line   : second argument)                       +
-  //            - intersection (Integer showing the smallest position of    +
+  //            - intersection (Integer1 showing the smallest position of    +
   //                            two circles correspondingly to each other)  +
   //            - sameradius   (Boolean showing if the two circles have     +
   //                            the same radius or not)                     +
-  //            - NbrSol   (Integer showing the number of solutions)        +
+  //            - NbrSol   (Integer1 showing the number of solutions)        +
   //            - WellDone (Boolean showing success or failure of the algo) +
   //=========================================================================
 

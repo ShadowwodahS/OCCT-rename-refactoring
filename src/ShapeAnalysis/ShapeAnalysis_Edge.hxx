@@ -206,7 +206,7 @@ public:
   //! Checks the edge to be SameParameter.
   //! Calculates the maximal deviation between 3d curve and each
   //! pcurve of the edge on <NbControl> equidistant points (the same
-  //! algorithm as in BRepCheck; default value is 23 as in BRepCheck).
+  //! algorithm as in BRepCheck1; default value is 23 as in BRepCheck1).
   //! This deviation is returned in <maxdev> parameter.
   //! If deviation is greater than tolerance of the edge (i.e.
   //! incorrect flag) returns False, else returns True.
@@ -217,7 +217,7 @@ public:
   //! Checks the edge to be SameParameter.
   //! Calculates the maximal deviation between 3d curve and each
   //! pcurve of the edge on <NbControl> equidistant points (the same
-  //! algorithm as in BRepCheck; default value is 23 as in BRepCheck).
+  //! algorithm as in BRepCheck1; default value is 23 as in BRepCheck1).
   //! This deviation is returned in <maxdev> parameter.
   //! If deviation is greater than tolerance of the edge (i.e.
   //! incorrect flag) returns False, else returns True.

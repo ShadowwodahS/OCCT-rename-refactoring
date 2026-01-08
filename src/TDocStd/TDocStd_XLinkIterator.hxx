@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 class AppDocument;
 
-//! Iterates on Reference attributes.
+//! Iterates on Reference1 attributes.
 //! This is an iterator giving all the external references
 //! of a Document.
 class XLinkIterator
@@ -35,7 +35,7 @@ public:
   //! Returns an empty iterator;
   Standard_EXPORT XLinkIterator();
 
-  //! Creates an iterator on Reference of <D>.
+  //! Creates an iterator on Reference1 of <D>.
   Standard_EXPORT XLinkIterator(const Handle(AppDocument)& D);
 
   //! Restarts an iteration with <D>.

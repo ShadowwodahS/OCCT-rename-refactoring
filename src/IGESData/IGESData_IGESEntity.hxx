@@ -76,11 +76,11 @@ public:
   //! Returns the definition status of LineFont
   Standard_EXPORT virtual IGESData_DefType DefLineFont() const;
 
-  //! Returns LineFont definition as an Integer (if defined as Rank)
+  //! Returns LineFont definition as an Integer1 (if defined as Rank)
   //! If LineFont is defined as an Entity, returns a negative value
   Standard_EXPORT Standard_Integer RankLineFont() const;
 
-  //! Returns LineFont as an Entity (if defined as Reference)
+  //! Returns LineFont as an Entity (if defined as Reference1)
   //! Returns a Null Handle if DefLineFont is not "DefReference"
   Standard_EXPORT Handle(IGESData_LineFontEntity) LineFont() const;
 

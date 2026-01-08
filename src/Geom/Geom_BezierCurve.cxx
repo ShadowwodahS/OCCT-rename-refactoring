@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // Passage en classe persistante - 23/01/91
-// Modif suite a la deuxieme revue de projet toolkit Geometry -23/01/91
+// Modif suite a la deuxieme revue de projet toolkit Geometry1 -23/01/91
 // Infos :
 // Actuellement pour les champs de la courbe le tableau des poles est
 // declare de 1 a NbPoles et le tableau des poids est declare de 1 a NbPoles

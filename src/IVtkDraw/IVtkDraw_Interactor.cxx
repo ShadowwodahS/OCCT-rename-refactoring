@@ -235,7 +235,7 @@ void IVtkDraw_Interactor::MoveTo(Standard_Integer theX, Standard_Integer theY)
       }
 
       IVtk_IdType               aShapeID = anOccShape->GetId();
-      Handle(Message_Messenger) anOutput = Message::DefaultMessenger();
+      Handle(Message_Messenger) anOutput = Message1::DefaultMessenger();
       if (!myPipelines->IsBound(aShapeID))
       {
         anOutput->SendWarning()
@@ -299,7 +299,7 @@ void IVtkDraw_Interactor::OnSelection()
       }
 
       IVtk_IdType               aShapeID = anOccShape->GetId();
-      Handle(Message_Messenger) anOutput = Message::DefaultMessenger();
+      Handle(Message_Messenger) anOutput = Message1::DefaultMessenger();
       if (!myPipelines->IsBound(aShapeID))
       {
         anOutput->SendWarning() << "Warning: there is no VTK pipeline registered for picked shape"

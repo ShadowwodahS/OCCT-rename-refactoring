@@ -987,7 +987,7 @@ Standard_Integer BndLib_Box2dCurve::Compute(const Handle(Geom2d_Conic)& aConic2D
   //
   iRet = 0;
   //
-  const Ax22d& aPos  = aConic2D->Position();
+  const Ax22d& aPos  = aConic2D->Position1();
   const Coords2d&    aXDir = aPos.XDirection().XY();
   const Coords2d&    aYDir = aPos.YDirection().XY();
   //

@@ -70,7 +70,7 @@ void RWStepGeom_RWEllipse::WriteStep(StepData_StepWriter&            SW,
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position().Value());
+  SW.Send(ent->Position1().Value());
 
   // --- own field : semiAxis1 ---
 
@@ -85,7 +85,7 @@ void RWStepGeom_RWEllipse::Share(const Handle(StepGeom_Ellipse)& ent,
                                  Interface_EntityIterator&       iter) const
 {
 
-  iter.GetOneItem(ent->Position().Value());
+  iter.GetOneItem(ent->Position1().Value());
 }
 
 void RWStepGeom_RWEllipse::Check(const Handle(StepGeom_Ellipse)& ent,

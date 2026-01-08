@@ -16,7 +16,7 @@
 // =======================================================================
 // function : Encode
 // =======================================================================
-Standard_Size FSD_Base64::Encode(char*                theEncodedStr,
+Standard_Size Base64::Encode(char*                theEncodedStr,
                                  const Standard_Size  theStrLen,
                                  const Standard_Byte* theData,
                                  const Standard_Size  theDataLen)
@@ -76,7 +76,7 @@ Standard_Size FSD_Base64::Encode(char*                theEncodedStr,
 // =======================================================================
 // function : Encode
 // =======================================================================
-AsciiString1 FSD_Base64::Encode(const Standard_Byte* theData,
+AsciiString1 Base64::Encode(const Standard_Byte* theData,
                                            const Standard_Size  theDataLen)
 {
   Standard_Size           aStrLen = Encode(NULL, 0, theData, theDataLen);
@@ -88,7 +88,7 @@ AsciiString1 FSD_Base64::Encode(const Standard_Byte* theData,
 // =======================================================================
 // function : Decode
 // =======================================================================
-Standard_Size FSD_Base64::Decode(Standard_Byte*      theDecodedData,
+Standard_Size Base64::Decode(Standard_Byte*      theDecodedData,
                                  const Standard_Size theDataLen,
                                  Standard_CString    theEncodedStr,
                                  const Standard_Size theStrLen)
@@ -155,7 +155,7 @@ Standard_Size FSD_Base64::Decode(Standard_Byte*      theDecodedData,
 // =======================================================================
 // function : Decode
 // =======================================================================
-Handle(NCollection_Buffer) FSD_Base64::Decode(Standard_CString    theEncodedStr,
+Handle(NCollection_Buffer) Base64::Decode(Standard_CString    theEncodedStr,
                                               const Standard_Size theStrLen)
 {
   const Standard_Size        aDataSize = Decode(NULL, 0, theEncodedStr, theStrLen);

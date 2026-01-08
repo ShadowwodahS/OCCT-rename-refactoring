@@ -50,12 +50,12 @@ enum
 //=======================================================================
 // PointRepresentation
 //=======================================================================
-void ShapePersistent_BRep::PointRepresentation::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PointRepresentation::Read(ReadData& theReadData)
 {
   theReadData >> myLocation >> myParameter >> myNext;
 }
 
-void ShapePersistent_BRep::PointRepresentation::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PointRepresentation::Write(WriteData& theWriteData) const
 {
   theWriteData << myLocation << myParameter << myNext;
 }
@@ -84,13 +84,13 @@ Handle(BRep_PointRepresentation) ShapePersistent_BRep::PointRepresentation::impo
 //=======================================================================
 // PointOnCurve
 //=======================================================================
-void ShapePersistent_BRep::PointOnCurve::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PointOnCurve::Read(ReadData& theReadData)
 {
   PointRepresentation::Read(theReadData);
   theReadData >> myCurve;
 }
 
-void ShapePersistent_BRep::PointOnCurve::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PointOnCurve::Write(WriteData& theWriteData) const
 {
   PointRepresentation::Write(theWriteData);
   theWriteData << myCurve;
@@ -115,13 +115,13 @@ Handle(BRep_PointRepresentation) ShapePersistent_BRep::PointOnCurve::import() co
 //=======================================================================
 // PointsOnSurface
 //=======================================================================
-void ShapePersistent_BRep::PointsOnSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PointsOnSurface::Read(ReadData& theReadData)
 {
   PointRepresentation::Read(theReadData);
   theReadData >> mySurface;
 }
 
-void ShapePersistent_BRep::PointsOnSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PointsOnSurface::Write(WriteData& theWriteData) const
 {
   PointRepresentation::Write(theWriteData);
   theWriteData << mySurface;
@@ -137,13 +137,13 @@ void ShapePersistent_BRep::PointsOnSurface::PChildren(
 //=======================================================================
 // PointOnCurveOnSurface
 //=======================================================================
-void ShapePersistent_BRep::PointOnCurveOnSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PointOnCurveOnSurface::Read(ReadData& theReadData)
 {
   PointsOnSurface::Read(theReadData);
   theReadData >> myPCurve;
 }
 
-void ShapePersistent_BRep::PointOnCurveOnSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PointOnCurveOnSurface::Write(WriteData& theWriteData) const
 {
   PointsOnSurface::Write(theWriteData);
   theWriteData << myPCurve;
@@ -172,13 +172,13 @@ Handle(BRep_PointRepresentation) ShapePersistent_BRep::PointOnCurveOnSurface::im
 //=======================================================================
 // PointOnSurface
 //=======================================================================
-void ShapePersistent_BRep::PointOnSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PointOnSurface::Read(ReadData& theReadData)
 {
   PointsOnSurface::Read(theReadData);
   theReadData >> myParameter2;
 }
 
-void ShapePersistent_BRep::PointOnSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PointOnSurface::Write(WriteData& theWriteData) const
 {
   PointsOnSurface::Write(theWriteData);
   theWriteData << myParameter2;
@@ -196,12 +196,12 @@ Handle(BRep_PointRepresentation) ShapePersistent_BRep::PointOnSurface::import() 
 //=======================================================================
 // CurveRepresentation
 //=======================================================================
-void ShapePersistent_BRep::CurveRepresentation::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::CurveRepresentation::Read(ReadData& theReadData)
 {
   theReadData >> myLocation >> myNext;
 }
 
-void ShapePersistent_BRep::CurveRepresentation::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::CurveRepresentation::Write(WriteData& theWriteData) const
 {
   theWriteData << myLocation << myNext;
 }
@@ -230,13 +230,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::CurveRepresentation::impo
 //=======================================================================
 // GCurve
 //=======================================================================
-void ShapePersistent_BRep::GCurve::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::GCurve::Read(ReadData& theReadData)
 {
   CurveRepresentation::Read(theReadData);
   theReadData >> myFirst >> myLast;
 }
 
-void ShapePersistent_BRep::GCurve::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::GCurve::Write(WriteData& theWriteData) const
 {
   CurveRepresentation::Write(theWriteData);
   theWriteData << myFirst << myLast;
@@ -245,13 +245,13 @@ void ShapePersistent_BRep::GCurve::Write(StdObjMgt_WriteData& theWriteData) cons
 //=======================================================================
 // Curve3D
 //=======================================================================
-void ShapePersistent_BRep::Curve3D::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::Curve3D::Read(ReadData& theReadData)
 {
   GCurve::Read(theReadData);
   theReadData >> myCurve3D;
 }
 
-void ShapePersistent_BRep::Curve3D::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::Curve3D::Write(WriteData& theWriteData) const
 {
   GCurve::Write(theWriteData);
   theWriteData << myCurve3D;
@@ -279,13 +279,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::Curve3D::import() const
 //=======================================================================
 // CurveOnSurface
 //=======================================================================
-void ShapePersistent_BRep::CurveOnSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::CurveOnSurface::Read(ReadData& theReadData)
 {
   GCurve::Read(theReadData);
   theReadData >> myPCurve >> mySurface >> myUV1 >> myUV2;
 }
 
-void ShapePersistent_BRep::CurveOnSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::CurveOnSurface::Write(WriteData& theWriteData) const
 {
   GCurve::Write(theWriteData);
   theWriteData << myPCurve << mySurface << myUV1 << myUV2;
@@ -321,13 +321,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::CurveOnSurface::import() 
 //=======================================================================
 // CurveOnClosedSurface
 //=======================================================================
-void ShapePersistent_BRep::CurveOnClosedSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::CurveOnClosedSurface::Read(ReadData& theReadData)
 {
   CurveOnSurface::Read(theReadData);
   theReadData >> myPCurve2 >> myContinuity >> myUV21 >> myUV22;
 }
 
-void ShapePersistent_BRep::CurveOnClosedSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::CurveOnClosedSurface::Write(WriteData& theWriteData) const
 {
   CurveOnSurface::Write(theWriteData);
   theWriteData << myPCurve2 << myContinuity << myUV21 << myUV22;
@@ -369,13 +369,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::CurveOnClosedSurface::imp
 //=======================================================================
 // Polygon3D
 //=======================================================================
-void ShapePersistent_BRep::Polygon3D::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::Polygon3D::Read(ReadData& theReadData)
 {
   CurveRepresentation::Read(theReadData);
   theReadData >> myPolygon3D;
 }
 
-void ShapePersistent_BRep::Polygon3D::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::Polygon3D::Write(WriteData& theWriteData) const
 {
   CurveRepresentation::Write(theWriteData);
   theWriteData << myPolygon3D;
@@ -400,13 +400,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::Polygon3D::import() const
 //=======================================================================
 // PolygonOnTriangulation
 //=======================================================================
-void ShapePersistent_BRep::PolygonOnTriangulation::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PolygonOnTriangulation::Read(ReadData& theReadData)
 {
   CurveRepresentation::Read(theReadData);
   theReadData >> myPolygon >> myTriangulation;
 }
 
-void ShapePersistent_BRep::PolygonOnTriangulation::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PolygonOnTriangulation::Write(WriteData& theWriteData) const
 {
   CurveRepresentation::Write(theWriteData);
   theWriteData << myPolygon << myTriangulation;
@@ -436,14 +436,14 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::PolygonOnTriangulation::i
 //=======================================================================
 // PolygonOnClosedTriangulation
 //=======================================================================
-void ShapePersistent_BRep::PolygonOnClosedTriangulation::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PolygonOnClosedTriangulation::Read(ReadData& theReadData)
 {
   PolygonOnTriangulation::Read(theReadData);
   theReadData >> myPolygon2;
 }
 
 void ShapePersistent_BRep::PolygonOnClosedTriangulation::Write(
-  StdObjMgt_WriteData& theWriteData) const
+  WriteData& theWriteData) const
 {
   PolygonOnTriangulation::Write(theWriteData);
   theWriteData << myPolygon2;
@@ -479,13 +479,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::PolygonOnClosedTriangulat
 //=======================================================================
 // PolygonOnSurface
 //=======================================================================
-void ShapePersistent_BRep::PolygonOnSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PolygonOnSurface::Read(ReadData& theReadData)
 {
   CurveRepresentation::Read(theReadData);
   theReadData >> myPolygon2D >> mySurface;
 }
 
-void ShapePersistent_BRep::PolygonOnSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PolygonOnSurface::Write(WriteData& theWriteData) const
 {
   CurveRepresentation::Write(theWriteData);
   theWriteData << myPolygon2D << mySurface;
@@ -515,13 +515,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::PolygonOnSurface::import(
 //=======================================================================
 // PolygonOnClosedSurface
 //=======================================================================
-void ShapePersistent_BRep::PolygonOnClosedSurface::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::PolygonOnClosedSurface::Read(ReadData& theReadData)
 {
   PolygonOnSurface::Read(theReadData);
   theReadData >> myPolygon2;
 }
 
-void ShapePersistent_BRep::PolygonOnClosedSurface::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::PolygonOnClosedSurface::Write(WriteData& theWriteData) const
 {
   PolygonOnSurface::Write(theWriteData);
   theWriteData << myPolygon2;
@@ -554,13 +554,13 @@ Handle(BRep_CurveRepresentation) ShapePersistent_BRep::PolygonOnClosedSurface::i
 //=======================================================================
 // CurveOn2Surfaces
 //=======================================================================
-void ShapePersistent_BRep::CurveOn2Surfaces::Read(StdObjMgt_ReadData& theReadData)
+void ShapePersistent_BRep::CurveOn2Surfaces::Read(ReadData& theReadData)
 {
   CurveRepresentation::Read(theReadData);
   theReadData >> mySurface >> mySurface2 >> myLocation2 >> myContinuity;
 }
 
-void ShapePersistent_BRep::CurveOn2Surfaces::Write(StdObjMgt_WriteData& theWriteData) const
+void ShapePersistent_BRep::CurveOn2Surfaces::Write(WriteData& theWriteData) const
 {
   CurveRepresentation::Write(theWriteData);
   theWriteData << mySurface << mySurface2 << myLocation2 << myContinuity;

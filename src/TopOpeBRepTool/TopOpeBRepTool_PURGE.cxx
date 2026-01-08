@@ -144,7 +144,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClosedW(const TopoWire& W)
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itvFine(mapvFine);
   for (; itvFine.More(); itvFine.Next())
   {
-    const TopoShape& vFine = itvFine.Key();
+    const TopoShape& vFine = itvFine.Key1();
     Standard_Boolean    vIine = mapvIine.IsBound(vFine);
     if (vIine)
     {
@@ -164,7 +164,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClosedW(const TopoWire& W)
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itvRine(mapvRine);
   for (; itvRine.More(); itvRine.Next())
   {
-    const TopoShape& vRine = itvRine.Key();
+    const TopoShape& vRine = itvRine.Key1();
     Standard_Boolean    vok   = mapvok.Contains(vRine);
     if (vok)
       continue;
@@ -191,7 +191,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClosedW(const TopoWire& W)
 
     for (; itvonlyFRine.More(); itvonlyFRine.Next())
     {
-      const TopoShape&  vtocheck = itvonlyFRine.Key();
+      const TopoShape&  vtocheck = itvonlyFRine.Key1();
       ShapeList edsvFRine;
       if (vFine)
         edsvFRine = mapvFine.Find(vtocheck);

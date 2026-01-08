@@ -42,17 +42,17 @@ Handle(TDF_Attribute) XmlMDataStd_IntegerDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDataStd_IntegerDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDataStd_IntegerDriver::Paste(const PersistentStorage&  theSource,
                                                   const Handle(TDF_Attribute)& theTarget,
                                                   XmlObjMgt_RRelocationTable&) const
 {
   Standard_Integer    aValue;
-  XmlObjMgt_DOMString anIntStr = XmlObjMgt::GetStringValue(theSource);
+  XmlObjMgt_DOMString anIntStr = XmlObjMgt1::GetStringValue(theSource);
 
   if (anIntStr.GetInteger(aValue) == Standard_False)
   {
     UtfString aMessageString =
-      UtfString("Cannot retrieve Integer attribute from \"") + anIntStr + "\"";
+      UtfString("Cannot retrieve Integer1 attribute from \"") + anIntStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Warning);
     aValue = 0;
   }
@@ -77,11 +77,11 @@ Standard_Boolean XmlMDataStd_IntegerDriver::Paste(const XmlObjMgt_Persistent&  t
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDataStd_IntegerDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                      XmlObjMgt_Persistent&        theTarget,
+                                      PersistentStorage&        theTarget,
                                       XmlObjMgt_SRelocationTable&) const
 {
   Handle(IntAttribute) anInt = Handle(IntAttribute)::DownCast(theSource);
-  XmlObjMgt::SetStringValue(theTarget, anInt->Get());
+  XmlObjMgt1::SetStringValue(theTarget, anInt->Get());
   if (anInt->ID() != IntAttribute::GetID())
   {
     // convert GUID

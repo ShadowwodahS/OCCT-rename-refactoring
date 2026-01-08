@@ -125,7 +125,7 @@ static void DumpMap (const TopTools_DataMapOfShapeShape &map)
   std::cout << "----" << std::endl;
   std::cout << "Map:" << std::endl;
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape It (map); It.More(); It.Next()) {
-    TopoShape S0 = It.Key(), S = It.Value();
+    TopoShape S0 = It.Key1(), S = It.Value();
     std::cout << S0.TShape()->DynamicType()->Name() << "\t" << *(void**)&S0.TShape() <<
       "     \t->    " << S.TShape()->DynamicType()->Name() << "\t" << *(void**)&S.TShape() <<
 std::endl;
@@ -413,7 +413,7 @@ void ShapeProcess_ShapeContext::PrintStatistics() const
   Standard_Integer SS = 0, SN = 0, FF = 0, FS = 0, FN = 0;
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape It(myMap); It.More(); It.Next())
   {
-    TopoShape keyshape = It.Key(), valueshape = It.Value();
+    TopoShape keyshape = It.Key1(), valueshape = It.Value();
     if (keyshape.ShapeType() == TopAbs_SHELL)
       if (valueshape.IsNull())
         SN++;

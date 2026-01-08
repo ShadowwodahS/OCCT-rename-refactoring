@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-Standard_Boolean BRepExtrema_Poly::Distance(const TopoShape& S1,
+Standard_Boolean Poly2::Distance(const TopoShape& S1,
                                             const TopoShape& S2,
                                             Point3d&             P1,
                                             Point3d&             P2,

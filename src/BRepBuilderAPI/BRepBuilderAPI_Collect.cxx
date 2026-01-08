@@ -40,7 +40,7 @@ static void BuildBack(const TopTools_DataMapOfShapeListOfShape& M1,
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(M1);
   for (; it.More(); it.Next())
   {
-    const TopoShape&                KS = it.Key();
+    const TopoShape&                KS = it.Key1();
     TopTools_ListIteratorOfListOfShape itl(it.Value());
     for (; itl.More(); itl.Next())
     {
@@ -100,7 +100,7 @@ static void StoreImage(TopTools_DataMapOfShapeListOfShape& MG,
         MG.Bind(S, empty);
       }
       // Dans tous les cas on copie la liste pour eviter les pb de
-      // const& dans BRepBuilderAPI.
+      // const& dans BRepBuilderAPI1.
       TopTools_ListIteratorOfListOfShape it;
       for (it.Initialize(LI); it.More(); it.Next())
       {
@@ -174,7 +174,7 @@ static void DEBControl(const TopTools_DataMapOfShapeListOfShape& MG)
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(MG);
   for (; it.More(); it.Next())
   {
-    const TopoShape& OS = it.Key();
+    const TopoShape& OS = it.Key1();
     sprintf(name, "SK_%d", ++IK);
   #ifdef DRAW
     DBRep1::Set(name, OS);
@@ -286,7 +286,7 @@ static void FilterByShape(TopTools_DataMapOfShapeListOfShape& MG, const TopoShap
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(MG);
   for (; it.More(); it.Next())
   {
-    const TopoShape&                OS  = it.Key();
+    const TopoShape&                OS  = it.Key1();
     ShapeList&              LNS = MG.ChangeFind(OS);
     TopTools_ListIteratorOfListOfShape itl(LNS);
     while (itl.More())

@@ -58,7 +58,7 @@ public:
   //! an immediate type
   Standard_EXPORT void SetMemberName(const Standard_CString memname);
 
-  //! Sets <me> for an Integer value
+  //! Sets <me> for an Integer1 value
   Standard_EXPORT void SetInteger();
 
   //! Sets <me> for a Real value
@@ -126,7 +126,7 @@ public:
   //! While IsType applies on <me> and all Select Members
   Standard_EXPORT Handle(StepData_PDescr) Member(const Standard_CString name) const;
 
-  //! Tells if <me> is for an Integer
+  //! Tells if <me> is for an Integer1
   Standard_EXPORT Standard_Boolean IsInteger() const;
 
   //! Tells if <me> is for a Real value

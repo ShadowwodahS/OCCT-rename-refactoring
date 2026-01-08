@@ -27,7 +27,7 @@ class Dir3d;
 
 //! Provides class methods to draw an arrow at a given location, along a given direction and using a
 //! given angle.
-class Prs3d_Arrow
+class Arrow1
 {
 public:
   DEFINE_STANDARD_ALLOC

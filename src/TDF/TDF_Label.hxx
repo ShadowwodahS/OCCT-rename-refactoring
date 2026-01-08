@@ -218,7 +218,7 @@ public:
                                       const Standard_Boolean create = Standard_True) const;
 
   //! Create  a new child   label of me  using autoamtic
-  //! delivery tags provided by TagSource.
+  //! delivery tags provided by TagSource1.
   DataLabel NewChild() const;
 
   //! Returns the current transaction index.

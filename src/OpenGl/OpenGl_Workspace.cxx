@@ -155,7 +155,7 @@ Standard_Boolean OpenGl_Workspace::Activate()
   {
     if (myGlContext->caps->ffpEnable)
     {
-      Message::SendWarning(myGlContext->GraphicsLibrary() != Aspect_GraphicsLibrary_OpenGLES
+      Message1::SendWarning(myGlContext->GraphicsLibrary() != Aspect_GraphicsLibrary_OpenGLES
                              ? "Warning: FFP is unsupported by OpenGL ES"
                              : "Warning: FFP is unsupported by OpenGL Core Profile");
       myGlContext->caps->ffpEnable = false;
@@ -164,7 +164,7 @@ Standard_Boolean OpenGl_Workspace::Activate()
 
   if (myGlContext->caps->useZeroToOneDepth && !myGlContext->arbClipControl)
   {
-    Message::SendWarning(
+    Message1::SendWarning(
       "Warning: glClipControl() requires OpenGL 4.5 or GL_ARB_clip_control extension");
     myGlContext->caps->useZeroToOneDepth = false;
   }

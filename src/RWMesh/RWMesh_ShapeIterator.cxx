@@ -73,7 +73,7 @@ void RWMesh_ShapeIterator::dispatchStyles(const DataLabel&       theLabel,
 {
   TopLoc_Location                    aDummyLoc;
   XCAFPrs_IndexedDataMapOfShapeStyle aStyles;
-  XCAFPrs::CollectStyleSettings(theLabel, aDummyLoc, aStyles);
+  XCAFPrs1::CollectStyleSettings(theLabel, aDummyLoc, aStyles);
 
   Standard_Integer aNbTypes[TopAbs_SHAPE] = {};
   for (Standard_Integer aTypeIter = myShapeType; aTypeIter >= TopAbs_COMPOUND; --aTypeIter)
@@ -86,7 +86,7 @@ void RWMesh_ShapeIterator::dispatchStyles(const DataLabel&       theLabel,
     for (XCAFPrs_IndexedDataMapOfShapeStyle::Iterator aStyleIter(aStyles); aStyleIter.More();
          aStyleIter.Next())
     {
-      const TopoShape&    aKeyShape     = aStyleIter.Key();
+      const TopoShape&    aKeyShape     = aStyleIter.Key1();
       const TopAbs_ShapeEnum aKeyShapeType = aKeyShape.ShapeType();
       if (aTypeIter == myShapeType)
       {

@@ -91,7 +91,7 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayer(const DataLabel&            lab,
   if (lab.Father() != Label())
     return Standard_False;
   //   Handle(XCAFDoc_GraphNode) aGN;
-  //   if (! lab.FindAttribute (XCAFDoc::LayerRefGUID(), aGN))
+  //   if (! lab.FindAttribute (XCAFDoc1::LayerRefGUID(), aGN))
   //     return Standard_False;
   Handle(NameAttribute) aName;
   Standard_Boolean      status = Standard_False;
@@ -195,16 +195,16 @@ void XCAFDoc_LayerTool::SetLayer(const DataLabel&       L,
     UnSetLayers(L);
   Handle(XCAFDoc_GraphNode) FGNode;
   Handle(XCAFDoc_GraphNode) ChGNode;
-  if (!LayerL.FindAttribute(XCAFDoc::LayerRefGUID(), FGNode))
+  if (!LayerL.FindAttribute(XCAFDoc1::LayerRefGUID(), FGNode))
   {
     FGNode = XCAFDoc_GraphNode::Set(LayerL);
   }
-  if (!L.FindAttribute(XCAFDoc::LayerRefGUID(), ChGNode))
+  if (!L.FindAttribute(XCAFDoc1::LayerRefGUID(), ChGNode))
   {
     ChGNode = XCAFDoc_GraphNode::Set(L);
   }
-  FGNode->SetGraphID(XCAFDoc::LayerRefGUID());
-  ChGNode->SetGraphID(XCAFDoc::LayerRefGUID());
+  FGNode->SetGraphID(XCAFDoc1::LayerRefGUID());
+  ChGNode->SetGraphID(XCAFDoc1::LayerRefGUID());
   FGNode->SetChild(ChGNode);
   ChGNode->SetFather(FGNode);
 }
@@ -224,7 +224,7 @@ void XCAFDoc_LayerTool::SetLayer(const DataLabel&                  L,
 void XCAFDoc_LayerTool::UnSetLayers(const DataLabel& L) const
 {
   Handle(XCAFDoc_GraphNode) ChGNode, FGNode;
-  if (L.FindAttribute(XCAFDoc::LayerRefGUID(), ChGNode))
+  if (L.FindAttribute(XCAFDoc1::LayerRefGUID(), ChGNode))
   {
     while (ChGNode->NbFathers() != 0)
     {
@@ -232,7 +232,7 @@ void XCAFDoc_LayerTool::UnSetLayers(const DataLabel& L) const
       FGNode->UnSetChild(ChGNode);
       //       ChGNode->GetFather(1)->UnSetChild(ChGNode);
     }
-    L.ForgetAttribute(XCAFDoc::LayerRefGUID());
+    L.ForgetAttribute(XCAFDoc1::LayerRefGUID());
   }
 }
 
@@ -253,9 +253,9 @@ Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const DataLabel& L,
                                                   const DataLabel& aLayerL) const
 {
   Handle(XCAFDoc_GraphNode) FGNode, ChGNode;
-  if (!L.FindAttribute(XCAFDoc::LayerRefGUID(), ChGNode))
+  if (!L.FindAttribute(XCAFDoc1::LayerRefGUID(), ChGNode))
     return Standard_False;
-  if (!aLayerL.FindAttribute(XCAFDoc::LayerRefGUID(), FGNode))
+  if (!aLayerL.FindAttribute(XCAFDoc1::LayerRefGUID(), FGNode))
     return Standard_False;
   ChGNode->UnSetFather(FGNode);
   return Standard_True;
@@ -269,7 +269,7 @@ Standard_Boolean XCAFDoc_LayerTool::IsSet(const DataLabel&                  L,
   Handle(XCAFDoc_GraphNode) Node;
   Handle(NameAttribute)     aName;
   DataLabel                 lab;
-  if (L.FindAttribute(XCAFDoc::LayerRefGUID(), Node) && (Node->NbFathers() != 0))
+  if (L.FindAttribute(XCAFDoc1::LayerRefGUID(), Node) && (Node->NbFathers() != 0))
   {
     Standard_Integer i = 1;
     for (; i <= Node->NbFathers(); i++)
@@ -289,7 +289,7 @@ Standard_Boolean XCAFDoc_LayerTool::IsSet(const DataLabel& L, const DataLabel& a
   Handle(XCAFDoc_GraphNode) Node;
   Handle(NameAttribute)     aName;
   DataLabel                 lab;
-  if (L.FindAttribute(XCAFDoc::LayerRefGUID(), Node) && (Node->NbFathers() != 0))
+  if (L.FindAttribute(XCAFDoc1::LayerRefGUID(), Node) && (Node->NbFathers() != 0))
   {
     Standard_Integer i = 1;
     for (; i <= Node->NbFathers(); i++)
@@ -317,7 +317,7 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayers(const DataLabel& L, TDF_LabelSeque
 {
   aLayerLS.Clear();
   Handle(XCAFDoc_GraphNode) aGNode;
-  if (L.FindAttribute(XCAFDoc::LayerRefGUID(), aGNode))
+  if (L.FindAttribute(XCAFDoc1::LayerRefGUID(), aGNode))
   {
     for (Standard_Integer i = 1; i <= aGNode->NbFathers(); i++)
     {
@@ -354,7 +354,7 @@ void XCAFDoc_LayerTool::GetShapesOfLayer(const DataLabel& theLayerL, TDF_LabelSe
 {
   theShLabels.Clear();
   Handle(XCAFDoc_GraphNode) aGNode;
-  if (theLayerL.FindAttribute(XCAFDoc::LayerRefGUID(), aGNode))
+  if (theLayerL.FindAttribute(XCAFDoc1::LayerRefGUID(), aGNode))
   {
     for (Standard_Integer aChildInd = 1; aChildInd <= aGNode->NbChildren(); aChildInd++)
     {
@@ -368,7 +368,7 @@ void XCAFDoc_LayerTool::GetShapesOfLayer(const DataLabel& theLayerL, TDF_LabelSe
 Standard_Boolean XCAFDoc_LayerTool::IsVisible(const DataLabel& layerL) const
 {
   Handle(TDataStd_UAttribute) aUAttr;
-  return (!layerL.FindAttribute(XCAFDoc::InvisibleGUID(), aUAttr));
+  return (!layerL.FindAttribute(XCAFDoc1::InvisibleGUID(), aUAttr));
 }
 
 //=================================================================================================
@@ -379,13 +379,13 @@ void XCAFDoc_LayerTool::SetVisibility(const DataLabel&       layerL,
   Handle(TDataStd_UAttribute) aUAttr;
   if (!isvisible)
   {
-    if (!layerL.FindAttribute(XCAFDoc::InvisibleGUID(), aUAttr))
+    if (!layerL.FindAttribute(XCAFDoc1::InvisibleGUID(), aUAttr))
     {
-      TDataStd_UAttribute::Set(layerL, XCAFDoc::InvisibleGUID());
+      TDataStd_UAttribute::Set(layerL, XCAFDoc1::InvisibleGUID());
     }
   }
   else
-    layerL.ForgetAttribute(XCAFDoc::InvisibleGUID());
+    layerL.ForgetAttribute(XCAFDoc1::InvisibleGUID());
 }
 
 //=================================================================================================

@@ -438,8 +438,8 @@ static void EdgeInter(const TopoFace&                         F,
   TopoVertex CV;
   if (!TopExp1::CommonVertex(E1, E2, CV))
   {
-    BRepLib::BuildCurve3d(E1);
-    BRepLib::BuildCurve3d(E2);
+    BRepLib1::BuildCurve3d(E1);
+    BRepLib1::BuildCurve3d(E2);
 
     Standard_Real TolSum = BRepInspector::Tolerance(E1) + BRepInspector::Tolerance(E2);
     TolSum               = Max(TolSum, 1.e-5);
@@ -720,8 +720,8 @@ static void RefEdgeInter(const TopoFace&                         F,
   ShapeList LV2;
   ShapeBuilder         B;
 
-  BRepLib::BuildCurve3d(E1);
-  BRepLib::BuildCurve3d(E2);
+  BRepLib1::BuildCurve3d(E1);
+  BRepLib1::BuildCurve3d(E2);
 
   TColgp_SequenceOfPnt   ResPoints;
   TColStd_SequenceOfReal ResParamsOnE1, ResParamsOnE2;
@@ -1135,7 +1135,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
                                                 TopoEdge&        NE,
                                                 const Standard_Real theOffset)
 {
-  // BRepLib::BuildCurve3d(E);
+  // BRepLib1::BuildCurve3d(E);
 
   TopoShape     aLocalShape = E.EmptyCopied();
   Standard_Real    anEf;
@@ -1150,7 +1150,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
   // Enough for analytic edges, for general case reconstruct the
   // geometry of the edge recalculating the intersection of surfaces.
 
-  // BRepLib::BuildCurve3d(E);
+  // BRepLib1::BuildCurve3d(E);
 
   Standard_Integer     NbPCurves    = 0;
   Standard_Real        FirstParOnPC = RealFirst(), LastParOnPC = RealLast();
@@ -1373,7 +1373,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       }
       BB.Range(NE, f, l);
       if (!Precision::IsInfinite(f) && !Precision::IsInfinite(l))
-        BRepLib::SameParameter(NE, Precision::Confusion(), Standard_True);
+        BRepLib1::SameParameter(NE, Precision::Confusion(), Standard_True);
     }
     else if (!BRepInspector::Degenerated(E)) // no 3d curve
     {
@@ -1430,7 +1430,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       // BB.Range( NE, FirstParOnPC, LastParOnPC );
       Standard_Boolean ProjectionSuccess = Standard_True;
       if (NbPCurves > 1)
-        // BRepLib::SameParameter( NE, Precision::Confusion(), Standard_True );
+        // BRepLib1::SameParameter( NE, Precision::Confusion(), Standard_True );
         for (itr.Initialize((Handle(BRep_TEdge)::DownCast(NE.TShape()))->ChangeCurves());
              itr.More();
              itr.Next())
@@ -1468,7 +1468,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
                       || Abs(Origin.Y() - V1) <= Precision::Confusion()
                       || Abs(Origin.Y() - V2) <= Precision::Confusion())
                   {
-                    BRepLib::SameParameter(NE, Precision::Confusion(), Standard_True);
+                    BRepLib1::SameParameter(NE, Precision::Confusion(), Standard_True);
                     break;
                   }
                 }
@@ -1494,7 +1494,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
       else
       {
         BB.Range(NE, FirstParOnPC, LastParOnPC, Standard_True);
-        BRepLib::SameParameter(NE, Precision::Confusion(), Standard_True);
+        BRepLib1::SameParameter(NE, Precision::Confusion(), Standard_True);
       }
     }
   }

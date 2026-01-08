@@ -110,7 +110,7 @@ Standard_Boolean TDataXtd_Geometry::Axis(const Handle(ShapeAttribute)& NS, Axis3
   gp_Lin lin;
   if (Line(NS, lin))
   {
-    G = lin.Position();
+    G = lin.Position1();
     return Standard_True;
   }
   return Standard_False;
@@ -458,7 +458,7 @@ void TDataXtd_Geometry::Paste(const Handle(TDF_Attribute)& Into,
 
 Standard_OStream& TDataXtd_Geometry::Dump(Standard_OStream& anOS) const
 {
-  anOS << "Geometry ";
+  anOS << "Geometry1 ";
   TDataXtd1::Print(GetType(), anOS);
   return anOS;
 }

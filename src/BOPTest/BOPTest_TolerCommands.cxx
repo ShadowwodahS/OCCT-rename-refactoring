@@ -61,7 +61,7 @@ static Standard_Integer bopaddpcs(DrawInterpreter&, Standard_Integer, const char
 
 //=================================================================================================
 
-void BOPTest::TolerCommands(DrawInterpreter& theCommands)
+void BOPTest1::TolerCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -69,7 +69,7 @@ void BOPTest::TolerCommands(DrawInterpreter& theCommands)
 
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   //
   theCommands.Add("breducetolerance", "use breducetolerance Shape", __FILE__, breducetolerance, g);
   theCommands.Add("btolx", "use btolx Shape [minTol=1.e-7]", __FILE__, btolx, g);
@@ -109,7 +109,7 @@ Standard_Integer btolx(DrawInterpreter& di, Standard_Integer n, const char** a)
   // Vertex Tolerances
   ReduceVertexTolerance(aS);
   //
-  BRepLib::SameParameter(aS, 1.e-7, Standard_True);
+  BRepLib1::SameParameter(aS, 1.e-7, Standard_True);
   //
   DBRep1::Set(a[1], aS);
   return 0;

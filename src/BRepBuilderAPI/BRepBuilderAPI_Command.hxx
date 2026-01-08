@@ -23,7 +23,7 @@
 
 #include <Standard_Boolean.hxx>
 
-//! Root class for all commands in BRepBuilderAPI.
+//! Root class for all commands in BRepBuilderAPI1.
 //!
 //! Provides :
 //!
@@ -32,12 +32,12 @@
 //! * Catching of exceptions (not implemented).
 //!
 //! * Logging (not implemented).
-class BRepBuilderAPI_Command
+class Command
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT virtual ~BRepBuilderAPI_Command();
+  Standard_EXPORT virtual ~Command();
 
   Standard_EXPORT virtual Standard_Boolean IsDone() const;
 
@@ -46,7 +46,7 @@ public:
 
 protected:
   //! Set done to False.
-  Standard_EXPORT BRepBuilderAPI_Command();
+  Standard_EXPORT Command();
 
   //! Set done to true.
   Standard_EXPORT void Done();

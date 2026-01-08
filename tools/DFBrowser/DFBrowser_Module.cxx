@@ -188,7 +188,7 @@ QVariant DFBrowser_Module::GetAttributeInfo(Handle(TDF_Attribute) theAttribute,
   AsciiString1 anInfo;
   if (theRole == DFBrowser_ItemRole_AdditionalInfo)
   {
-    anInfo = XCAFDoc::AttributeInfo(theAttribute);
+    anInfo = XCAFDoc1::AttributeInfo(theAttribute);
   }
   QVariant aValue;
   if (!anInfo.IsEmpty())

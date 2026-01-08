@@ -765,8 +765,8 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
   {
 
     HLRBRep_FaceData& fd = myFData.ChangeValue(face);
-    HLRBRep_Surface&  FS = fd.Geometry();
-    iFaceGeom            = &(fd.Geometry());
+    HLRBRep_Surface&  FS = fd.Geometry1();
+    iFaceGeom            = &(fd.Geometry1());
     mySLProps.SetSurface(iFaceGeom);
     FS.Projector(&myProj);
     iFaceType = FS.GetType();
@@ -838,7 +838,7 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
         if (!myFEDouble && (myFEOri == TopAbs_FORWARD || myFEOri == TopAbs_REVERSED))
         {
           myFEGeom                = &(EDataFE1.ChangeGeometry());
-          const HLRBRep_Curve& EC = EDataFE1.Geometry();
+          const HLRBRep_Curve& EC = EDataFE1.Geometry1();
           p                       = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
           if (EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
           {
@@ -987,7 +987,7 @@ void HLRBRep_Data::InitEdge(const Standard_Integer FI, BRepTopAdaptor_MapOfShape
 
   iFace       = FI;
   iFaceData   = &myFData(iFace);
-  iFaceGeom   = &iFaceData->Geometry();
+  iFaceGeom   = &iFaceData->Geometry1();
   iFaceBack   = iFaceData->Back();
   iFaceSimp   = iFaceData->Simple();
   iFaceMinMax = &iFaceData->Wires()->MinMax();
@@ -1589,7 +1589,7 @@ Standard_Integer HLRBRep_Data::HidingStartLevel(const Standard_Integer          
 {
   Standard_Boolean                       Loop;
   HLRAlgo_ListIteratorOfInterferenceList It;
-  const HLRBRep_Curve&                   EC     = ED.Geometry();
+  const HLRBRep_Curve&                   EC     = ED.Geometry1();
   Standard_Real                          sta    = EC.Parameter3d(EC.FirstParameter());
   Standard_Real                          end    = EC.Parameter3d(EC.LastParameter());
   Standard_Real                          tolpar = (end - sta) * 0.01;
@@ -1692,7 +1692,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
       {
         Standard_Real p, pu, pv, r;
         myFEGeom                  = &(ed1.ChangeGeometry());
-        const HLRBRep_Curve& EC   = ed1.Geometry();
+        const HLRBRep_Curve& EC   = ed1.Geometry1();
         Standard_Integer     vsta = ed1.VSta();
         Standard_Integer     vend = ed1.VEnd();
         if (vsta == 0 && vend == 0)
@@ -1803,7 +1803,7 @@ void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
       {
         ed1.Used(Standard_True);
         myFEGeom                = &(ed1.ChangeGeometry());
-        const HLRBRep_Curve& EC = ed1.Geometry();
+        const HLRBRep_Curve& EC = ed1.Geometry1();
         p                       = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
         if (EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
         {
@@ -1908,7 +1908,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
   Level              = 0;
   TopAbs_State state = TopAbs_OUT;
   //  Standard_Boolean rej = Standard_False;
-  const HLRBRep_Curve& EC = ED.Geometry();
+  const HLRBRep_Curve& EC = ED.Geometry1();
   Standard_Real        sta, xsta, ysta, zsta, end, xend, yend, zend;
   Standard_Real        tol = (Standard_Real)(ED.Tolerance());
 
@@ -2173,7 +2173,7 @@ TopAbs_State HLRBRep_Data::SimplClassify(const Standard_Integer /*E*/,
   Standard_Integer i;
   TopAbs_State     state = TopAbs_IN;
   //  Standard_Boolean rej = Standard_False;
-  const HLRBRep_Curve& EC = ED.Geometry();
+  const HLRBRep_Curve& EC = ED.Geometry1();
   Standard_Real        sta, xsta, ysta, zsta, dp;
   Standard_Real        tol = (Standard_Real)(ED.Tolerance());
 

@@ -328,9 +328,9 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
   Point3d Tcurpos       = curpos.Transformed(aTrsf);
 
   if (myIsSetBndBox)
-    Tcurpos = PrsDim::TranslatePointToBound(Tcurpos, myDirAttach, myBndBox);
+    Tcurpos = PrsDim1::TranslatePointToBound(Tcurpos, myDirAttach, myBndBox);
 
-  DsgPrs_OffsetPresentation::AddAxes(aprs,
+  OffsetPresentation::AddAxes(aprs,
                                      myDrawer,
                                      myText,
                                      myTFAttach,
@@ -386,7 +386,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
     }
 
     curpos    = myPosition;
-    myFAttach = PrsDim::Nearest(myFShape, curpos);
+    myFAttach = PrsDim1::Nearest(myFShape, curpos);
     if (myFAttach.Distance(curpos) <= Precision::Confusion())
     {
       Frame3d ax2(myFAttach, norm1);
@@ -410,7 +410,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
     }
   }
   // en attendant mieux
-  mySAttach = PrsDim::Nearest(mySShape, curpos);
+  mySAttach = PrsDim1::Nearest(mySShape, curpos);
   Ax3 anax3(myax2);
   gp_Pln apln(anax3);
 
@@ -447,11 +447,11 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
     if (myIsSetBndBox)
       {
         BRepAdaptor_Surface surf1(TopoDS::Face(myFShape));
-        Tcurpos = PrsDim::TranslatePointToBound( Tcurpos, surf1.Plane1().XAxis().Direction(),
+        Tcurpos = PrsDim1::TranslatePointToBound( Tcurpos, surf1.Plane1().XAxis().Direction(),
     myBndBox );
       }
   */
-  DsgPrs_OffsetPresentation::Add(aprs,
+  OffsetPresentation::Add(aprs,
                                  myDrawer,
                                  myText,
                                  myTFAttach,

@@ -957,7 +957,7 @@ Standard_Boolean ToFuse(const TopoFace& F1, const TopoFace& F2)
     gp_Pln pl1(Handle(GeomPlane)::DownCast(S1)->Pln());
     gp_Pln pl2(Handle(GeomPlane)::DownCast(S2)->Pln());
 
-    if (pl1.Position().IsCoplanar(pl2.Position(), tollin, tolang))
+    if (pl1.Position1().IsCoplanar(pl2.Position1(), tollin, tolang))
     {
       ValRet = Standard_True;
     }

@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-void XmlMFunction::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
+void XmlMFunction1::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
                               const Handle(Message_Messenger)&   aMessageDriver)
 {
   aDriverTable->AddDriver(new XmlMFunction_FunctionDriver(aMessageDriver));

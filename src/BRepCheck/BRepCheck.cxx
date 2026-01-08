@@ -30,7 +30,7 @@
 
 //=================================================================================================
 
-void BRepCheck::Add(BRepCheck_ListOfStatus& lst, const BRepCheck_Status stat)
+void BRepCheck1::Add(BRepCheck_ListOfStatus& lst, const BRepCheck_Status stat)
 {
   BRepCheck_ListIteratorOfListOfStatus it(lst);
   while (it.More())
@@ -53,7 +53,7 @@ void BRepCheck::Add(BRepCheck_ListOfStatus& lst, const BRepCheck_Status stat)
 
 //=================================================================================================
 
-Standard_Boolean BRepCheck::SelfIntersection(const TopoWire& W,
+Standard_Boolean BRepCheck1::SelfIntersection(const TopoWire& W,
                                              const TopoFace& myFace,
                                              TopoEdge&       RetE1,
                                              TopoEdge&       RetE2)
@@ -65,7 +65,7 @@ Standard_Boolean BRepCheck::SelfIntersection(const TopoWire& W,
 
 //=================================================================================================
 
-Standard_Real BRepCheck::PrecCurve(const Adaptor3d_Curve& aAC3D)
+Standard_Real BRepCheck1::PrecCurve(const Adaptor3d_Curve& aAC3D)
 {
   Standard_Real aXEmax = RealEpsilon();
   //
@@ -98,7 +98,7 @@ Standard_Real BRepCheck::PrecCurve(const Adaptor3d_Curve& aAC3D)
 
 //=================================================================================================
 
-Standard_Real BRepCheck::PrecSurface(const Handle(Adaptor3d_Surface)& aAHSurf)
+Standard_Real BRepCheck1::PrecSurface(const Handle(Adaptor3d_Surface)& aAHSurf)
 {
   Standard_Real aXEmax = RealEpsilon();
   //
@@ -129,7 +129,7 @@ Standard_Real BRepCheck::PrecSurface(const Handle(Adaptor3d_Surface)& aAHSurf)
 
 //=================================================================================================
 
-void BRepCheck::Print(const BRepCheck_Status stat, Standard_OStream& OS)
+void BRepCheck1::Print(const BRepCheck_Status stat, Standard_OStream& OS)
 {
 
   switch (stat)

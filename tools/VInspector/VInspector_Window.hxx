@@ -103,7 +103,7 @@ private:
   //! \param theParameters a parameters container
   bool Init(const NCollection_List<Handle(RefObject)>& theParameters);
 
-  //! Read BREP file, creates AIS presentation for the shape and visualize it in the current context
+  //! Read BREP file, creates AIS1 presentation for the shape and visualize it in the current context
   //! \param theFileName a name of BREP file
   bool OpenFile(const AsciiString1& theFileName);
 
@@ -130,10 +130,10 @@ private slots:
   //! Exports the first selected shape into ShapeViewer plugin.
   void onExportToShapeView();
 
-  //! Appends lights into the active V3d view
+  //! Appends lights into the active V3d1 view
   void onAddLight();
 
-  //! Removes selected light from the active V3d view
+  //! Removes selected light from the active V3d1 view
   void onRemoveLight();
 
   //! Switch On/Off for selected light
@@ -180,7 +180,7 @@ private:
   //! \return a context of created view.
   Handle(VisualContext) createView();
 
-  //! Creates a new default light into V3d viewer
+  //! Creates a new default light into V3d1 viewer
   //! \param theSourceLight type of light source
   //! \param theViewer viewer to add the created light
   void addLight(const Graphic3d_TypeOfLightSource& theSourceLight,
@@ -197,7 +197,7 @@ private:
   ViewControl_PropertyView*
     myPropertyView; //!< property control to display model item values if exist
 
-  QTreeView* myTreeView; //!< tree view of AIS content
+  QTreeView* myTreeView; //!< tree view of AIS1 content
 
   ViewControl_MessageDialog*
     myExportToShapeViewDialog; //!< dialog about exporting TopoShape to ShapeView plugin

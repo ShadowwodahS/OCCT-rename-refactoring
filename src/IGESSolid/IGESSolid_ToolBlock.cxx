@@ -45,7 +45,7 @@ void BlockTool::ReadOwnParams(const Handle(IGESSolid_Block)& ent,
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   // clang-format off
-  PR.ReadXYZ(PR.CurrentList(1, 3), "Size of Block", tempSize); //szv#4:S4163:12Mar99 `st=` not needed
+  PR.ReadXYZ(PR.CurrentList(1, 3), "Size of Block1", tempSize); //szv#4:S4163:12Mar99 `st=` not needed
   // clang-format on
 
   if (PR.DefinedElseSkip())

@@ -43,7 +43,7 @@ enum TDocStd_FormatVersion
                                    //!< [#0019986, #0019403]
 
   TDocStd_FormatVersion_VERSION_4, //!< OCCT 6.3.1
-                                   //!< * XML: Naming mechanism improvement [#0021004]
+                                   //!< * XML: Naming1 mechanism improvement [#0021004]
                                    //!< * BIN: entry, ContextLabel for tree [#0021004]
 
   TDocStd_FormatVersion_VERSION_5, //!< OCCT 6.3.1

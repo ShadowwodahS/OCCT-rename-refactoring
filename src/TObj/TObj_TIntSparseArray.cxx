@@ -156,7 +156,7 @@ void TObj_TIntSparseArray::Clear()
       TObj_TIntSparseArray_VecOfData::Iterator anIt(myVector);
       for (; anIt.More(); anIt.Next())
       {
-        Standard_Size    anId = anIt.Key();
+        Standard_Size    anId = anIt.Key1();
         Standard_Integer aVal = anIt.Value();
         backupValue(anId, aVal, AbsentValue);
       }
@@ -223,7 +223,7 @@ void TObj_TIntSparseArray::Restore(const Handle(TDF_Attribute)& theDelta)
     TObj_TIntSparseArray_MapOfData::Iterator anIt(aDelta->myOldMap);
     for (; anIt.More(); anIt.Next())
     {
-      Standard_Size    anId  = anIt.Key();
+      Standard_Size    anId  = anIt.Key1();
       Standard_Integer anOld = anIt.Value();
       if (anOld == AbsentValue)
         UnsetValue(anId);

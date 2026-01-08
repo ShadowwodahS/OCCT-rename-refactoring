@@ -42,7 +42,7 @@ Standard_Boolean TopOpeBRepDS_CurveIterator::MatchInterference(
 Standard_Integer TopOpeBRepDS_CurveIterator::Current() const
 {
   Handle(TopOpeBRepDS_Interference) I = Value();
-  Standard_Integer                  G = I->Geometry();
+  Standard_Integer                  G = I->Geometry1();
   return G;
 }
 

@@ -21,7 +21,7 @@
 #include <BinLDrivers_DocumentStorageDriver.hxx>
 #include <BinMDF_ADriverTable.hxx>
 
-//  Block of comments describing class BinTObjDrivers_DocumentStorageDriver
+//  Block1 of comments describing class BinTObjDrivers_DocumentStorageDriver
 //
 
 class BinTObjDrivers_DocumentStorageDriver : public BinLDrivers_DocumentStorageDriver

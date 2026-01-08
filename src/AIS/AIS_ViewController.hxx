@@ -61,13 +61,13 @@ public:
   Standard_EXPORT virtual ~AIS_ViewController();
 
   //! Return input buffer.
-  const AIS_ViewInputBuffer& InputBuffer(AIS_ViewInputBufferType theType) const
+  const ViewInputBuffer& InputBuffer(AIS_ViewInputBufferType theType) const
   {
     return theType == AIS_ViewInputBufferType_UI ? myUI : myGL;
   }
 
   //! Return input buffer.
-  AIS_ViewInputBuffer& ChangeInputBuffer(AIS_ViewInputBufferType theType)
+  ViewInputBuffer& ChangeInputBuffer(AIS_ViewInputBufferType theType)
   {
     return theType == AIS_ViewInputBufferType_UI ? myUI : myGL;
   }
@@ -281,7 +281,7 @@ public: //! @name keyboard input
                                            double      thePressure) Standard_OVERRIDE;
 
   //! Fetch active navigation actions.
-  Standard_EXPORT AIS_WalkDelta FetchNavigationKeys(Standard_Real theCrouchRatio,
+  Standard_EXPORT WalkDelta FetchNavigationKeys(Standard_Real theCrouchRatio,
                                                     Standard_Real theRunRatio);
 
 public: //! @name mouse input
@@ -561,7 +561,7 @@ public:
 
   //! Perform navigation (Aspect_VKey_NavForward and similar keys).
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual AIS_WalkDelta handleNavigationKeys(
+  Standard_EXPORT virtual WalkDelta handleNavigationKeys(
     const Handle(VisualContext)& theCtx,
     const Handle(ViewWindow)&               theView);
 
@@ -569,7 +569,7 @@ public:
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void handleCameraActions(const Handle(VisualContext)& theCtx,
                                                    const Handle(ViewWindow)&               theView,
-                                                   const AIS_WalkDelta&                  theWalk);
+                                                   const WalkDelta&                  theWalk);
 
   //! Perform moveto/selection/dragging.
   //! This method is expected to be called from rendering thread.
@@ -646,7 +646,7 @@ public:
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void handleXRInput(const Handle(VisualContext)& theCtx,
                                              const Handle(ViewWindow)&               theView,
-                                             const AIS_WalkDelta&                  theWalk);
+                                             const WalkDelta&                  theWalk);
 
   //! Handle trackpad view turn action.
   Standard_EXPORT virtual void handleXRTurnPad(const Handle(VisualContext)& theCtx,
@@ -716,8 +716,8 @@ protected:
                                                  const Graphic3d_Vec2i&                thePnt);
 
 protected:
-  AIS_ViewInputBuffer myUI; //!< buffer for UI thread
-  AIS_ViewInputBuffer myGL; //!< buffer for rendering thread
+  ViewInputBuffer myUI; //!< buffer for UI thread
+  ViewInputBuffer myGL; //!< buffer for rendering thread
 
   // clang-format off
   Standard_Real       myLastEventsTime;           //!< last fetched events timer value for computing delta/progress

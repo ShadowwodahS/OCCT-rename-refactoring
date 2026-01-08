@@ -20,7 +20,7 @@
 
 #include <TopoDS_TShape.hxx>
 
-class StdPersistent_TopoDS : protected StdObjMgt_SharedObject
+class StdPersistent_TopoDS : protected SharedObject
 {
 protected:
   class pTShape : public RefObject
@@ -35,9 +35,9 @@ protected:
     {
     }
 
-    inline void Read(StdObjMgt_ReadData& theReadData) { theReadData >> myShapes >> myFlags; }
+    inline void Read(ReadData& theReadData) { theReadData >> myShapes >> myFlags; }
 
-    inline void Write(StdObjMgt_WriteData& theWriteData) const
+    inline void Write(WriteData& theWriteData) const
     {
       theWriteData << myShapes << myFlags;
     }

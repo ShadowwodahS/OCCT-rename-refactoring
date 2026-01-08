@@ -38,7 +38,7 @@ class Interface_InterfaceModel;
 //! a dozen of categories, twenty is a reasonable maximum.
 //!
 //! Basically, the system provides the following categories :
-//! Shape (Geometry, BRep, CSG, Features, etc...)
+//! Shape (Geometry1, BRep, CSG, Features, etc...)
 //! Drawing (Drawing, Views, Annotations, Pictures, Sketches ...)
 //! Structure (Component & Part, Groups & Patterns ...)
 //! Description (Meta-Data : Relations, Properties, Product ...)

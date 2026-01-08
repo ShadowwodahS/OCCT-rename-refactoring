@@ -95,7 +95,7 @@ static Handle(Geom2d_BSplineCurve) BSplineCurveBuilder(
   }
   TheCurve = new BSplineCurve(Poles, Weights, Knots, Mults, Convert.Degree(), Convert.IsPeriodic());
 
-  Ax22d Axis = TheConic->Position();
+  Ax22d Axis = TheConic->Position1();
   if ((Axis.XDirection() ^ Axis.YDirection()) < 0.)
   {
     // Then the axis is left-handed, apply a symmetry to the curve.

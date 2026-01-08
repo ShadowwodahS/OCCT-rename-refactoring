@@ -833,7 +833,7 @@ static Standard_Integer SPLS(DrawInterpreter&, Standard_Integer narg, const char
 
   if (narg < 3)
   {
-    Message::SendFail()
+    Message1::SendFail()
       << "Invalid number of arguments. Should be : splitshape result shape [splitedges] "
          "[face wire/edge/compound [wire/edge/compound ...] "
          "[face wire/edge/compound [wire/edge/compound...] ...] "
@@ -843,7 +843,7 @@ static Standard_Integer SPLS(DrawInterpreter&, Standard_Integer narg, const char
   TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
   {
-    Message::SendFail() << "Invalid input shape " << a[2];
+    Message1::SendFail() << "Invalid input shape " << a[2];
     return 1;
   }
   BRepFeat_SplitShape Spls(S);
@@ -873,7 +873,7 @@ static Standard_Integer SPLS(DrawInterpreter&, Standard_Integer narg, const char
     TopoShape aSh = DBRep1::Get(a[i]);
     if (aSh.IsNull())
     {
-      Message::SendFail() << "Invalid input shape " << a[i];
+      Message1::SendFail() << "Invalid input shape " << a[i];
       return 1;
     }
 
@@ -965,7 +965,7 @@ static Standard_Integer SPLS(DrawInterpreter&, Standard_Integer narg, const char
         TopoShape aSh = DBRep1::Get(a[i]);
         if (aSh.IsNull())
         {
-          Message::SendFail() << "Invalid input shape " << a[i];
+          Message1::SendFail() << "Invalid input shape " << a[i];
           return 1;
         }
         ShapeExplorer aExpE(aSh, TopAbs_EDGE, TopAbs_FACE);
@@ -974,7 +974,7 @@ static Standard_Integer SPLS(DrawInterpreter&, Standard_Integer narg, const char
       }
       else
       {
-        Message::SendFail()
+        Message1::SendFail()
           << "Invalid input arguments. Should be : splitshape result shape [splitedges] "
              "[face wire/edge/compound [wire/edge/compound ...] "
              "[face wire/edge/compound [wire/edge/compound...] ...] "
@@ -1004,7 +1004,7 @@ static Standard_Integer SPLS(DrawInterpreter&, Standard_Integer narg, const char
     //    Ew = TopoDS::Edge(DBRep1::Get(a[i+1],TopAbs_EDGE));
     if (Ew.IsNull())
     {
-      Message::SendFail() << "Invalid input shape " << a[i + 1];
+      Message1::SendFail() << "Invalid input shape " << a[i + 1];
       return 1;
     }
     Spls.Add(TopoDS::Edge(Ew), TopoDS::Edge(Es));
@@ -1353,11 +1353,11 @@ Standard_Integer offsetperform(DrawInterpreter& theCommands,
   }
 
   // Store the history of Boolean operation into the session
-  if (BRepTest_Objects::IsHistoryNeeded())
+  if (Objects1::IsHistoryNeeded())
   {
     ShapeList aLA;
     aLA.Append(TheOffset.InitShape());
-    BRepTest_Objects::SetHistory<BRepOffset_MakeOffset>(aLA, TheOffset);
+    Objects1::SetHistory<BRepOffset_MakeOffset>(aLA, TheOffset);
   }
 
   return 0;
@@ -2384,13 +2384,13 @@ static Standard_Integer PERF(DrawInterpreter& theCommands, Standard_Integer narg
       DBRep1::Set(a[2], getPrism());
       dout.Flush();
       // History
-      if (BRepTest_Objects::IsHistoryNeeded())
+      if (Objects1::IsHistoryNeeded())
       {
         anArgs.Clear();
         anArgs.Append(theSbase);
         anArgs.Append(thePbase);
         anArgs.Append(theSkface);
-        BRepTest_Objects::SetHistory(anArgs, getPrism());
+        Objects1::SetHistory(anArgs, getPrism());
       }
       return 0;
     case 2:
@@ -2404,13 +2404,13 @@ static Standard_Integer PERF(DrawInterpreter& theCommands, Standard_Integer narg
         return 1;
       }
       // History
-      if (BRepTest_Objects::IsHistoryNeeded())
+      if (Objects1::IsHistoryNeeded())
       {
         anArgs.Clear();
         anArgs.Append(theSbase);
         anArgs.Append(thePbase);
         anArgs.Append(theSkface);
-        BRepTest_Objects::SetHistory(anArgs, getRevol());
+        Objects1::SetHistory(anArgs, getRevol());
       }
       DBRep1::Set(a[2], getRevol());
       dout.Flush();
@@ -2426,13 +2426,13 @@ static Standard_Integer PERF(DrawInterpreter& theCommands, Standard_Integer narg
         return 1;
       }
       // History
-      if (BRepTest_Objects::IsHistoryNeeded())
+      if (Objects1::IsHistoryNeeded())
       {
         anArgs.Clear();
         anArgs.Append(theSbase);
         anArgs.Append(thePbase);
         anArgs.Append(theSkface);
-        BRepTest_Objects::SetHistory(anArgs, getPipe());
+        Objects1::SetHistory(anArgs, getPipe());
       }
       DBRep1::Set(a[2], getPipe());
       dout.Flush();
@@ -2448,13 +2448,13 @@ static Standard_Integer PERF(DrawInterpreter& theCommands, Standard_Integer narg
         return 1;
       }
       // History
-      if (BRepTest_Objects::IsHistoryNeeded())
+      if (Objects1::IsHistoryNeeded())
       {
         anArgs.Clear();
         anArgs.Append(theSbase);
         anArgs.Append(thePbase);
         anArgs.Append(theSkface);
-        BRepTest_Objects::SetHistory(anArgs, getDPrism());
+        Objects1::SetHistory(anArgs, getDPrism());
       }
       DBRep1::Set(a[2], getDPrism());
       dout.Flush();
@@ -2674,11 +2674,11 @@ static Standard_Integer BOSS(DrawInterpreter& theCommands, Standard_Integer narg
     dout.Flush();
 
     // Save history for fillet
-    if (BRepTest_Objects::IsHistoryNeeded())
+    if (Objects1::IsHistoryNeeded())
     {
       ShapeList anArg;
       anArg.Append(V);
-      BRepTest_Objects::SetHistory(anArg, *Rakk);
+      Objects1::SetHistory(anArg, *Rakk);
     }
 
     return 0;
@@ -2737,7 +2737,7 @@ static Standard_Integer ComputeSimpleOffset(DrawInterpreter& theCommands,
 
 //=================================================================================================
 
-void BRepTest::FeatureCommands(DrawInterpreter& theCommands)
+void BRepTest1::FeatureCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

@@ -83,7 +83,7 @@ void RWStepShape_RWRightAngularWedge::WriteStep(
 
   // --- own field : position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 
   // --- own field : x ---
 
@@ -106,5 +106,5 @@ void RWStepShape_RWRightAngularWedge::Share(const Handle(StepShape_RightAngularW
                                             Interface_EntityIterator&                  iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

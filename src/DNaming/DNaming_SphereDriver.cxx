@@ -124,7 +124,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
     return -1;
   }
 
-  // Naming
+  // Naming1
   LoadNamingDS(RESPOSITION(aFunction), aMakeSphere);
   // restore location
   if (!aLocation.IsIdentity())

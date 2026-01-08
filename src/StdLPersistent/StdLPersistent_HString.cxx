@@ -22,9 +22,9 @@
 // purpose  : Read persistent data from a file
 //=======================================================================
 template <class StringClass, typename CharType>
-void StdLPersistent_HString::instance<StringClass, CharType>::Read(StdObjMgt_ReadData& theReadData)
+void HString::instance<StringClass, CharType>::Read(ReadData& theReadData)
 {
-  StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
+  ReadData::ObjectSentry aSentry(theReadData);
 
   Standard_Integer aSize;
   theReadData >> aSize;
@@ -43,10 +43,10 @@ void StdLPersistent_HString::instance<StringClass, CharType>::Read(StdObjMgt_Rea
 // purpose  : Write persistent data to a file
 //=======================================================================
 template <class StringClass, typename CharType>
-void StdLPersistent_HString::instance<StringClass, CharType>::Write(
-  StdObjMgt_WriteData& theWriteData) const
+void HString::instance<StringClass, CharType>::Write(
+  WriteData& theWriteData) const
 {
-  StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
+  WriteData::ObjectSentry aSentry(theWriteData);
 
   Standard_Integer aSize = myValue->Length();
   theWriteData << aSize;
@@ -63,7 +63,7 @@ void StdLPersistent_HString::instance<StringClass, CharType>::Write(
 // purpose  : Get/create a label defined by referenced string
 //=======================================================================
 template <class StringClass, typename CharType>
-DataLabel StdLPersistent_HString::instance<StringClass, CharType>::Label(
+DataLabel HString::instance<StringClass, CharType>::Label(
   const Handle(TDF_Data)& theDF) const
 {
   DataLabel aLabel;
@@ -75,10 +75,10 @@ DataLabel StdLPersistent_HString::instance<StringClass, CharType>::Label(
 }
 
 //=======================================================================
-// function : AsciiString
+// function : AsciiString2
 // purpose  : Get referenced ASCII string
 //=======================================================================
-Handle(TCollection_HAsciiString) StdLPersistent_HString::Ascii::AsciiString() const
+Handle(TCollection_HAsciiString) HString::Ascii1::AsciiString2() const
 {
   return myValue;
 }
@@ -87,11 +87,11 @@ Handle(TCollection_HAsciiString) StdLPersistent_HString::Ascii::AsciiString() co
 // function : ExtString
 // purpose  : Get referenced extended string
 //=======================================================================
-Handle(TCollection_HExtendedString) StdLPersistent_HString::Extended::ExtString() const
+Handle(TCollection_HExtendedString) HString::Extended1::ExtString() const
 {
   return myValue;
 }
 
-template class StdLPersistent_HString::instance<TCollection_HAsciiString, Standard_Character>;
+template class HString::instance<TCollection_HAsciiString, Standard_Character>;
 
-template class StdLPersistent_HString::instance<TCollection_HExtendedString, Standard_ExtCharacter>;
+template class HString::instance<TCollection_HExtendedString, Standard_ExtCharacter>;

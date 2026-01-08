@@ -24,7 +24,7 @@
 class TopoShell;
 class TopoSolid;
 
-class BRepClass3d
+class BRepClass3d1
 {
 public:
   DEFINE_STANDARD_ALLOC

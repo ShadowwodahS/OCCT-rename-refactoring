@@ -41,7 +41,7 @@ public:
 
   Standard_EXPORT void SetPosition(const Handle(StepGeom_Axis1Placement)& aPosition);
 
-  Standard_EXPORT Handle(StepGeom_Axis1Placement) Position() const;
+  Standard_EXPORT Handle(StepGeom_Axis1Placement) Position1() const;
 
   Standard_EXPORT void SetHeight(const Standard_Real aHeight);
 

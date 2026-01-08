@@ -36,7 +36,7 @@ class XCAFDoc_ShapeMapTool : public TDF_Attribute
 public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  //! Create (if not exist) ShapeTool from XCAFDoc on <L>.
+  //! Create (if not exist) ShapeTool from XCAFDoc1 on <L>.
   Standard_EXPORT static Handle(XCAFDoc_ShapeMapTool) Set(const DataLabel& L);
 
   //! Creates an empty tool

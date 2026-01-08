@@ -112,7 +112,7 @@ public:
                                     double&     thePressure);
 
 private:
-  //! Key state.
+  //! Key1 state.
   enum KeyStatus
   {
     KeyStatus_Free,     //!< free status

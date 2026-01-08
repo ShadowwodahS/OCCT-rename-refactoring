@@ -222,7 +222,7 @@ void MeshVS_Mesh::scanFacesForSharedNodes(const TColStd_PackedMapOfInteger& theA
   for (TColStd_MapIteratorOfPackedMapOfInteger aFaceIter(theAllElements); aFaceIter.More();
        aFaceIter.Next())
   {
-    const Standard_Integer aFaceIdx = aFaceIter.Key();
+    const Standard_Integer aFaceIdx = aFaceIter.Key1();
 
     if (IsSelectableElem(aFaceIdx) && myDataSource->GetGeomType(aFaceIdx, Standard_True, aType)
         && aType == MeshVS_ET_Face)
@@ -321,7 +321,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
         for (TColStd_MapIteratorOfPackedMapOfInteger anIter(anAllNodesMap); anIter.More();
              anIter.Next())
         {
-          const Standard_Integer aKey     = anIter.Key();
+          const Standard_Integer aKey     = anIter.Key1();
           Standard_Integer       aNbNodes = 0;
           MeshVS_EntityType      aType    = MeshVS_ET_NONE;
           if (!myDataSource->GetGeom(aKey, Standard_False, aPntArrayAsCoordArray, aNbNodes, aType))
@@ -384,7 +384,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
                  anElemIter.More();
                  anElemIter.Next())
             {
-              const Standard_Integer anElemIdx = anElemIter.Key();
+              const Standard_Integer anElemIdx = anElemIter.Key1();
               if (IsSelectableElem(anElemIdx)
                   && myDataSource->GetGeomType(anElemIdx, Standard_True, aType)
                   && aType == MeshVS_ET_Link)
@@ -432,7 +432,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
                  aNodesIter.More();
                  aNodesIter.Next())
             {
-              const Standard_Integer aNodeIdx = aNodesIter.Key();
+              const Standard_Integer aNodeIdx = aNodesIter.Key1();
               if (IsSelectableNode(aNodeIdx)
                   && myDataSource
                        ->GetGeom(aNodeIdx, Standard_False, aPntArrayAsCoordArray, aNbNodes, aType)
@@ -458,7 +458,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
         for (TColStd_MapIteratorOfPackedMapOfInteger anIter(anAllGroupsMap); anIter.More();
              anIter.Next())
         {
-          const Standard_Integer     aKeyGroup  = anIter.Key();
+          const Standard_Integer     aKeyGroup  = anIter.Key1();
           MeshVS_EntityType          aGroupType = MeshVS_ET_NONE;
           TColStd_PackedMapOfInteger aGroupMap;
           if (!myDataSource->GetGroup(aKeyGroup, aGroupType, aGroupMap))
@@ -499,7 +499,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
           for (TColStd_MapIteratorOfPackedMapOfInteger anIterMG(aGroupMap); anIterMG.More();
                anIterMG.Next())
           {
-            Standard_Integer aKey = anIterMG.Key();
+            Standard_Integer aKey = anIterMG.Key1();
             if (aGroupType == MeshVS_ET_Node)
             {
               if (myDataSource
@@ -594,7 +594,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
         for (TColStd_MapIteratorOfPackedMapOfInteger anIterMV(anAllElementsMap); anIterMV.More();
              anIterMV.Next())
         {
-          Standard_Integer aKey = anIterMV.Key();
+          Standard_Integer aKey = anIterMV.Key1();
           if (myDataSource->GetGeomType(aKey, Standard_True, aType) && theMode == aType)
           {
             myDataSource->GetGeom(aKey, Standard_True, aPntArrayAsCoordArray, aNbNodes, aType);
@@ -840,10 +840,10 @@ void AddToMap(MeshVS_DataMapOfIntegerOwner& Result, const MeshVS_DataMapOfIntege
 {
   MeshVS_DataMapIteratorOfDataMapOfIntegerOwner anIt(Addition);
   for (; anIt.More(); anIt.Next())
-    if (Result.IsBound(anIt.Key()))
-      Result.ChangeFind(anIt.Key()) = anIt.Value();
+    if (Result.IsBound(anIt.Key1()))
+      Result.ChangeFind(anIt.Key1()) = anIt.Value();
     else
-      Result.Bind(anIt.Key(), anIt.Value());
+      Result.Bind(anIt.Key1(), anIt.Value());
 }
 
 //=================================================================================================
@@ -969,14 +969,14 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
           if (aGroupType == MeshVS_ET_Node)
           {
             for (TColStd_MapIteratorOfPackedMapOfInteger anIt(aGroupMap); anIt.More(); anIt.Next())
-              if (IsSelectableNode /*!IsHiddenNode*/ (anIt.Key()))
-                aSelNodes.Add(anIt.Key());
+              if (IsSelectableNode /*!IsHiddenNode*/ (anIt.Key1()))
+                aSelNodes.Add(anIt.Key1());
           }
           else
           {
             for (TColStd_MapIteratorOfPackedMapOfInteger anIt(aGroupMap); anIt.More(); anIt.Next())
-              if (IsSelectableElem /*!IsHiddenElem*/ (anIt.Key()))
-                aSelElements.Add(anIt.Key());
+              if (IsSelectableElem /*!IsHiddenElem*/ (anIt.Key1()))
+                aSelElements.Add(anIt.Key1());
           }
         }
       }
@@ -1006,13 +1006,13 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
     {
       TColStd_MapIteratorOfPackedMapOfInteger anIt(GetDataSource()->GetAllNodes());
       for (; anIt.More(); anIt.Next())
-        if (!IsHiddenNode(anIt.Key()))
-          aSelNodes.Add(anIt.Key());
+        if (!IsHiddenNode(anIt.Key1()))
+          aSelNodes.Add(anIt.Key1());
 
       anIt = TColStd_MapIteratorOfPackedMapOfInteger(GetDataSource()->GetAllElements());
       for (; anIt.More(); anIt.Next())
-        if (!IsHiddenElem(anIt.Key()))
-          aSelElements.Add(anIt.Key());
+        if (!IsHiddenElem(anIt.Key1()))
+          aSelElements.Add(anIt.Key1());
 
       break;
     }
@@ -1312,7 +1312,7 @@ void MeshVS_Mesh::UpdateSelectableNodes()
   TColStd_MapIteratorOfPackedMapOfInteger anIter(aSource->GetAllElements());
   for (; anIter.More(); anIter.Next())
   {
-    Standard_Integer aKey = anIter.Key();
+    Standard_Integer aKey = anIter.Key1();
     if (IsHiddenElem(aKey))
       continue;
 

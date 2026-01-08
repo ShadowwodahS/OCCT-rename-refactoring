@@ -78,8 +78,8 @@ Handle(Select3D_SensitiveEntity) Select3D_SensitiveBox::GetConnected()
 // function : Matches
 // purpose  : Checks whether the box overlaps current selecting volume
 //=======================================================================
-Standard_Boolean Select3D_SensitiveBox::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                SelectBasics_PickResult&             thePickResult)
+Standard_Boolean Select3D_SensitiveBox::Matches(SelectingVolumeManager& theMgr,
+                                                PickResult&             thePickResult)
 {
   if (!theMgr.IsOverlapAllowed()) // check for inclusion
   {

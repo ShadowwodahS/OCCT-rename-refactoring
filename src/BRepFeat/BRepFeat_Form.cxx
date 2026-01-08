@@ -451,7 +451,7 @@ void BRepFeat_Form::GlobalPerform()
           theGlue.Init(mySbase, theGShape);
           for (itm.Initialize(myGluedF); itm.More(); itm.Next())
           {
-            const TopoFace&   gl = TopoDS::Face(itm.Key());
+            const TopoFace&   gl = TopoDS::Face(itm.Key1());
             ShapeList ldsc;
             if (trP.IsDeleted(gl))
             {
@@ -492,7 +492,7 @@ void BRepFeat_Form::GlobalPerform()
       theGlue.Init(mySbase, myGShape);
       for (itm.Initialize(myGluedF); itm.More(); itm.Next())
       {
-        const TopoFace& glface = TopoDS::Face(itm.Key());
+        const TopoFace& glface = TopoDS::Face(itm.Key1());
         const TopoFace& fac    = TopoDS::Face(myGluedF(glface));
         for (exp.Init(myGShape, TopAbs_FACE); exp.More(); exp.Next())
         {
@@ -1285,7 +1285,7 @@ void BRepFeat_Form::UpdateDescendants(const LocOpe_Gluer& G)
 
   for (itdm.Initialize(myMap); itdm.More(); itdm.Next())
   {
-    const TopoShape& orig = itdm.Key();
+    const TopoShape& orig = itdm.Key1();
     TopTools_MapOfShape newdsc;
     for (it.Initialize(itdm.Value()); it.More(); it.Next())
     {
@@ -1298,7 +1298,7 @@ void BRepFeat_Form::UpdateDescendants(const LocOpe_Gluer& G)
     myMap.ChangeFind(orig).Clear();
     for (itm.Initialize(newdsc); itm.More(); itm.Next())
     {
-      myMap.ChangeFind(orig).Append(itm.Key());
+      myMap.ChangeFind(orig).Append(itm.Key1());
     }
   }
 }
@@ -1481,7 +1481,7 @@ void BRepFeat_Form::UpdateDescendants(const BRepAlgoAPI_BooleanOperation& aBOP,
 
   for (itdm.Initialize(myMap); itdm.More(); itdm.Next())
   {
-    const TopoShape& orig = itdm.Key();
+    const TopoShape& orig = itdm.Key1();
     if (SkipFace && orig.ShapeType() == TopAbs_FACE)
     {
       continue;
@@ -1525,10 +1525,10 @@ void BRepFeat_Form::UpdateDescendants(const BRepAlgoAPI_BooleanOperation& aBOP,
       // check the appartenance to the shape...
       for (exp.Init(S, TopAbs_FACE); exp.More(); exp.Next())
       {
-        if (exp.Current().IsSame(itm.Key()))
+        if (exp.Current().IsSame(itm.Key1()))
         {
-          //          const TopoShape& sh = itm.Key();
-          myMap.ChangeFind(orig).Append(itm.Key());
+          //          const TopoShape& sh = itm.Key1();
+          myMap.ChangeFind(orig).Append(itm.Key1());
           break;
         }
       }

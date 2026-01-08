@@ -31,7 +31,7 @@
 //! of the range of the first element. Then, a C++ for
 //! loop must be written like this
 //! for (i = A->Lower(); i <= A->Upper(); i++)
-class XmlObjMgt_Array1
+class Array1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,13 +39,13 @@ public:
   //! Create an array of lower bound <Low> and
   //! upper bound <Up>. Range error is raised
   //! when <Up> is less than <Low>.
-  Standard_EXPORT XmlObjMgt_Array1(const Standard_Integer Low, const Standard_Integer Up);
+  Standard_EXPORT Array1(const Standard_Integer Low, const Standard_Integer Up);
 
   //! for restoration from DOM_Element which is child of
   //! theParent:
   //! <theParent ...>
   //! <theName ...>
-  Standard_EXPORT XmlObjMgt_Array1(const XmlObjMgt_Element&   theParent,
+  Standard_EXPORT Array1(const XmlObjMgt_Element&   theParent,
                                    const XmlObjMgt_DOMString& theName);
 
   //! Create DOM_Element representing the array, under 'theParent'

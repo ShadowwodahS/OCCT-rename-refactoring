@@ -22,7 +22,7 @@
 // purpose  : Deletes all nodes from the list
 //=======================================================================
 
-void NCollection_BaseList::PClear(NCollection_DelListNode fDel)
+void BaseList::PClear(NCollection_DelListNode fDel)
 {
   NCollection_ListNode* pCur  = myFirst;
   NCollection_ListNode* pNext = NULL;
@@ -41,7 +41,7 @@ void NCollection_BaseList::PClear(NCollection_DelListNode fDel)
 // purpose  : Appends one item at the end
 //=======================================================================
 
-void NCollection_BaseList::PAppend(NCollection_ListNode* theNode)
+void BaseList::PAppend(NCollection_ListNode* theNode)
 {
   if (myLength)
     myLast->Next() = theNode;
@@ -57,7 +57,7 @@ void NCollection_BaseList::PAppend(NCollection_ListNode* theNode)
 // purpose  : Appends another list at the end
 //=======================================================================
 
-void NCollection_BaseList::PAppend(NCollection_BaseList& theOther)
+void BaseList::PAppend(BaseList& theOther)
 {
   if (this == &theOther || theOther.IsEmpty())
     return;
@@ -78,7 +78,7 @@ void NCollection_BaseList::PAppend(NCollection_BaseList& theOther)
 // purpose  : Prepends one item at the beginning
 //=======================================================================
 
-void NCollection_BaseList::PPrepend(NCollection_ListNode* theNode)
+void BaseList::PPrepend(NCollection_ListNode* theNode)
 {
   theNode->Next() = myFirst;
   myFirst         = theNode;
@@ -89,7 +89,7 @@ void NCollection_BaseList::PPrepend(NCollection_ListNode* theNode)
 
 //=================================================================================================
 
-void NCollection_BaseList::PPrepend(NCollection_BaseList& theOther)
+void BaseList::PPrepend(BaseList& theOther)
 {
   if (this == &theOther || theOther.IsEmpty())
     return;
@@ -107,9 +107,9 @@ void NCollection_BaseList::PPrepend(NCollection_BaseList& theOther)
 
 //=================================================================================================
 
-void NCollection_BaseList::PRemoveFirst(NCollection_DelListNode fDel)
+void BaseList::PRemoveFirst(NCollection_DelListNode fDel)
 {
-  Standard_NoSuchObject_Raise_if(IsEmpty(), "NCollection_BaseList::PRemoveFirst");
+  Standard_NoSuchObject_Raise_if(IsEmpty(), "BaseList::PRemoveFirst");
   NCollection_ListNode* pItem = myFirst;
   myFirst                     = pItem->Next();
   fDel(pItem, myAllocator);
@@ -120,9 +120,9 @@ void NCollection_BaseList::PRemoveFirst(NCollection_DelListNode fDel)
 
 //=================================================================================================
 
-void NCollection_BaseList::PRemove(Iterator& theIter, NCollection_DelListNode fDel)
+void BaseList::PRemove(Iterator& theIter, NCollection_DelListNode fDel)
 {
-  Standard_NoSuchObject_Raise_if(!theIter.More(), "NCollection_BaseList::PRemove");
+  Standard_NoSuchObject_Raise_if(!theIter.More(), "BaseList::PRemove");
   if (theIter.myPrevious == NULL)
   {
     PRemoveFirst(fDel);
@@ -142,9 +142,9 @@ void NCollection_BaseList::PRemove(Iterator& theIter, NCollection_DelListNode fD
 
 //=================================================================================================
 
-void NCollection_BaseList::PInsertBefore(NCollection_ListNode* theNode, Iterator& theIter)
+void BaseList::PInsertBefore(NCollection_ListNode* theNode, Iterator& theIter)
 {
-  Standard_NoSuchObject_Raise_if(!theIter.More(), "NCollection_BaseList::PInsertBefore");
+  Standard_NoSuchObject_Raise_if(!theIter.More(), "BaseList::PInsertBefore");
   if (theIter.myPrevious == NULL)
   {
     PPrepend(theNode);
@@ -161,9 +161,9 @@ void NCollection_BaseList::PInsertBefore(NCollection_ListNode* theNode, Iterator
 
 //=================================================================================================
 
-void NCollection_BaseList::PInsertBefore(NCollection_BaseList& theOther, Iterator& theIter)
+void BaseList::PInsertBefore(BaseList& theOther, Iterator& theIter)
 {
-  Standard_NoSuchObject_Raise_if(!theIter.More(), "NCollection_BaseList::PInsertBefore");
+  Standard_NoSuchObject_Raise_if(!theIter.More(), "BaseList::PInsertBefore");
   if (theIter.myPrevious == NULL)
   {
     theIter.myPrevious = theOther.myLast;
@@ -182,9 +182,9 @@ void NCollection_BaseList::PInsertBefore(NCollection_BaseList& theOther, Iterato
 
 //=================================================================================================
 
-void NCollection_BaseList::PInsertAfter(NCollection_ListNode* theNode, Iterator& theIter)
+void BaseList::PInsertAfter(NCollection_ListNode* theNode, Iterator& theIter)
 {
-  Standard_NoSuchObject_Raise_if(!theIter.More(), "NCollection_BaseList::PInsertAfter");
+  Standard_NoSuchObject_Raise_if(!theIter.More(), "BaseList::PInsertAfter");
   if (theIter.myCurrent == myLast)
   {
     PAppend(theNode);
@@ -199,9 +199,9 @@ void NCollection_BaseList::PInsertAfter(NCollection_ListNode* theNode, Iterator&
 
 //=================================================================================================
 
-void NCollection_BaseList::PInsertAfter(NCollection_BaseList& theOther, Iterator& theIter)
+void BaseList::PInsertAfter(BaseList& theOther, Iterator& theIter)
 {
-  Standard_NoSuchObject_Raise_if(!theIter.More(), "NCollection_BaseList::PInsertAfter");
+  Standard_NoSuchObject_Raise_if(!theIter.More(), "BaseList::PInsertAfter");
   if (theIter.myCurrent == myLast)
   {
     PAppend(theOther);
@@ -221,7 +221,7 @@ void NCollection_BaseList::PInsertAfter(NCollection_BaseList& theOther, Iterator
 // purpose  : reverse the list
 //=======================================================================
 
-void NCollection_BaseList::PReverse()
+void BaseList::PReverse()
 {
   if (myLength > 1)
   {

@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// modified : pmn 11/04/97 : mis dans GeomliteTest
+// modified : pmn 11/04/97 : mis dans GeomliteTest1
 
 #include <GeomliteTest.hxx>
 #include <Geom2d_BSplineCurve.hxx>
@@ -690,7 +690,7 @@ static Standard_Integer deviation(DrawInterpreter& theDI,
   return 0;
 }
 
-void GeomliteTest::API2dCommands(DrawInterpreter& theCommands)
+void GeomliteTest1::API2dCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

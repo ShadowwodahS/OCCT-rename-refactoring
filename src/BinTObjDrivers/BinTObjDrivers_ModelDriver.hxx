@@ -37,7 +37,7 @@ public:
   // Translate the contents of <aSource> and put it
   // into <aTarget>, using the relocation table
   // <aRelocTable> to keep the sharings.
-  // Set CurrentModel of TObj_Persistence into Target TObj_TModel
+  // Set CurrentModel of Persistence into Target TObj_TModel
   // if its GUID and GUID stored in Source are same
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)& Source,

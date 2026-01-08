@@ -67,7 +67,7 @@ Handle(Adaptor2d_Curve2d) Adaptor2d_Line2d::ShallowCopy() const
 
 void Adaptor2d_Line2d::Load(const gp_Lin2d& L)
 {
-  myAx2d   = L.Position();
+  myAx2d   = L.Position1();
   myUfirst = -Precision::Infinite();
   myUlast  = Precision::Infinite();
 }
@@ -76,7 +76,7 @@ void Adaptor2d_Line2d::Load(const gp_Lin2d& L)
 
 void Adaptor2d_Line2d::Load(const gp_Lin2d& L, const Standard_Real Fi, const Standard_Real La)
 {
-  myAx2d   = L.Position();
+  myAx2d   = L.Position1();
   myUfirst = Fi;
   myUlast  = La;
 }

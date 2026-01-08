@@ -247,7 +247,7 @@ void AIS_Animation::Stop()
 
 Standard_Boolean AIS_Animation::Update(const Standard_Real thePts)
 {
-  AIS_AnimationProgress aPosition;
+  AnimationProgress aPosition;
   aPosition.Pts             = thePts;
   aPosition.LocalPts        = thePts - myPtsStart;
   aPosition.LocalNormalized = HasOwnDuration() ? (aPosition.LocalPts / myOwnDuration) : 0.0;
@@ -259,7 +259,7 @@ Standard_Boolean AIS_Animation::Update(const Standard_Real thePts)
 
 //=================================================================================================
 
-void AIS_Animation::updateWithChildren(const AIS_AnimationProgress& thePosition)
+void AIS_Animation::updateWithChildren(const AnimationProgress& thePosition)
 {
   if (thePosition.LocalPts < 0.0 || IsStopped())
   {
@@ -270,7 +270,7 @@ void AIS_Animation::updateWithChildren(const AIS_AnimationProgress& thePosition)
        anIter.Next())
   {
     const Handle(AIS_Animation)& anAnim    = anIter.Value();
-    AIS_AnimationProgress        aPosition = thePosition;
+    AnimationProgress        aPosition = thePosition;
     aPosition.LocalPts                     = aPosition.LocalPts - anAnim->StartPts();
     aPosition.LocalNormalized =
       anAnim->HasOwnDuration() ? (aPosition.LocalPts / anAnim->OwnDuration()) : 0.0;

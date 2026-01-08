@@ -103,8 +103,8 @@ Standard_Boolean TObj_Model::Load(const UtfString& theFile)
 
   // Current model
   const Handle(TObj_Model) me = this;
-  TObj_Assistant::SetCurrentModel(me);
-  TObj_Assistant::ClearTypeMap();
+  Assistant::SetCurrentModel(me);
+  Assistant::ClearTypeMap();
 
   Standard_Boolean isFileEmpty = checkDocumentEmpty(theFile);
   if (isFileEmpty)
@@ -191,8 +191,8 @@ Standard_Boolean TObj_Model::Load(const UtfString& theFile)
       aStatus = Standard_False;
     }
   }
-  TObj_Assistant::UnSetCurrentModel();
-  TObj_Assistant::ClearTypeMap();
+  Assistant::UnSetCurrentModel();
+  Assistant::ClearTypeMap();
   return aStatus;
 }
 
@@ -210,8 +210,8 @@ Standard_Boolean TObj_Model::Load(Standard_IStream& theIStream)
 
   // Current model
   const Handle(TObj_Model) me = this;
-  TObj_Assistant::SetCurrentModel(me);
-  TObj_Assistant::ClearTypeMap();
+  Assistant::SetCurrentModel(me);
+  Assistant::ClearTypeMap();
 
   // Retrieve AppDocument from the stream.
   Messenger()->Send(Message_Msg("TObj_M_LoadDocument"), Message_Info);
@@ -288,8 +288,8 @@ Standard_Boolean TObj_Model::Load(Standard_IStream& theIStream)
     }
   }
 
-  TObj_Assistant::UnSetCurrentModel();
-  TObj_Assistant::ClearTypeMap();
+  Assistant::UnSetCurrentModel();
+  Assistant::ClearTypeMap();
   return aStatus;
 }
 
@@ -335,7 +335,7 @@ Standard_Boolean TObj_Model::Save()
 
 Standard_Boolean TObj_Model::SaveAs(const UtfString& theFile)
 {
-  TObj_Assistant::ClearTypeMap();
+  Assistant::ClearTypeMap();
   // OCAF document
   Handle(AppDocument) aDoc = AppDocument::Get(GetLabel());
   if (aDoc.IsNull())
@@ -374,7 +374,7 @@ Standard_Boolean TObj_Model::SaveAs(const UtfString& theFile)
   // call Application->SaveAs()
   Standard_Boolean aStatus = anApplication->SaveDocument(aDoc, theFile);
 
-  TObj_Assistant::ClearTypeMap();
+  Assistant::ClearTypeMap();
   return aStatus;
 }
 
@@ -385,7 +385,7 @@ Standard_Boolean TObj_Model::SaveAs(const UtfString& theFile)
 
 Standard_Boolean TObj_Model::SaveAs(Standard_OStream& theOStream)
 {
-  TObj_Assistant::ClearTypeMap();
+  Assistant::ClearTypeMap();
   // OCAF document
   Handle(AppDocument) aDoc = AppDocument::Get(GetLabel());
   if (aDoc.IsNull())
@@ -408,7 +408,7 @@ Standard_Boolean TObj_Model::SaveAs(Standard_OStream& theOStream)
 
   // call Application->SaveAs()
   Standard_Boolean aStatus = GetApplication()->SaveDocument(aDoc, theOStream);
-  TObj_Assistant::ClearTypeMap();
+  Assistant::ClearTypeMap();
   return aStatus;
 }
 

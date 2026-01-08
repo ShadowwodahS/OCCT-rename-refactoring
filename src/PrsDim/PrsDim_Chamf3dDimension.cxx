@@ -109,7 +109,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     curpos = myPntAttach.Translated(transVec);
 
     if (myIsSetBndBox)
-      curpos = PrsDim::TranslatePointToBound(curpos, myDir, myBndBox);
+      curpos = PrsDim1::TranslatePointToBound(curpos, myDir, myBndBox);
 
     myPosition = curpos;
   }
@@ -150,7 +150,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   arr->SetLength(myArrowSize);
 
   // Calcul de la presentation
-  DsgPrs_Chamf2dPresentation::Add(aPresentation,
+  Chamf2dPresentation::Add(aPresentation,
                                   myDrawer,
                                   myPntAttach,
                                   curpos,

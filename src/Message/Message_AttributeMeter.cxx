@@ -109,7 +109,7 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
     return;
   }
 
-  Handle(Message_Report)                            aReport = Message::DefaultReport(Standard_True);
+  Handle(Message_Report)                            aReport = Message1::DefaultReport(Standard_True);
   const NCollection_IndexedMap<Message_MetricType>& anActiveMetrics = aReport->ActiveMetrics();
 
   // time metrics
@@ -197,7 +197,7 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
        anIterator.Next())
   {
     OSD_MemInfo::Counter anInfoCounter;
-    if (!Message::ToOSDMetric(anIterator.Value(), anInfoCounter))
+    if (!Message1::ToOSDMetric(anIterator.Value(), anInfoCounter))
     {
       continue;
     }
@@ -216,7 +216,7 @@ void Message_AttributeMeter::SetAlertMetrics(const Handle(Message_AlertExtended)
        anIterator.More();
        anIterator.Next())
   {
-    if (!Message::ToMessageMetric(anIterator.Value(), aMetricType))
+    if (!Message1::ToMessageMetric(anIterator.Value(), aMetricType))
     {
       continue;
     }
@@ -247,7 +247,7 @@ void Message_AttributeMeter::DumpJson(Standard_OStream& theOStream, Standard_Int
        anIterator.Next())
   {
     OCCT_DUMP_VECTOR_CLASS(theOStream,
-                           Message::MetricToString(anIterator.Key()),
+                           Message1::MetricToString(anIterator.Key1()),
                            2,
                            anIterator.Value().first,
                            anIterator.Value().second)

@@ -20,19 +20,19 @@
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void ShapePersistent_Geom::Geometry::Read(StdObjMgt_ReadData&) {}
+void ShapePersistent_Geom::Geometry1::Read(ReadData&) {}
 
 //=======================================================================
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void ShapePersistent_Geom::Geometry::Write(StdObjMgt_WriteData&) const {}
+void ShapePersistent_Geom::Geometry1::Write(WriteData&) const {}
 
 //=======================================================================
 // function : PChildren
 // purpose  : Gets persistent objects
 //=======================================================================
-void ShapePersistent_Geom::Geometry::PChildren(SequenceOfPersistent&) const {}
+void ShapePersistent_Geom::Geometry1::PChildren(SequenceOfPersistent&) const {}
 
 //=======================================================================
 // function : Translate

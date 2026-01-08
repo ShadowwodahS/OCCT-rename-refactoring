@@ -132,7 +132,7 @@ void VisualShape::Compute(const Handle(PrsMgr_PresentationManager)&,
       }
       catch (ExceptionBase const& anException)
       {
-        Message::SendFail(
+        Message1::SendFail(
           AsciiString1(
             "Error: VisualShape::Compute() wireframe presentation builder has failed (")
           + anException.GetMessageString() + ")");
@@ -168,7 +168,7 @@ void VisualShape::Compute(const Handle(PrsMgr_PresentationManager)&,
           }
           catch (ExceptionBase const& anException)
           {
-            Message::SendFail(
+            Message1::SendFail(
               AsciiString1(
                 "Error: VisualShape::Compute() shaded presentation builder has failed (")
               + anException.GetMessageString() + ")");
@@ -272,7 +272,7 @@ void VisualShape::computeHlrPresentation(const Handle(CameraOn3d)&   theProjecto
     }
     catch (ExceptionBase const& anException)
     {
-      Message::SendFail(
+      Message1::SendFail(
         AsciiString1("Error: VisualShape::Compute() HLR Algorithm has failed (")
         + anException.GetMessageString() + ")");
       StdPrs_WFShape::Add(thePrs, theShape, theDrawer);
@@ -304,7 +304,7 @@ void VisualShape::ComputeSelection(const Handle(SelectionContainer)& aSelection,
   try
   {
     OCC_CATCH_SIGNALS
-    StdSelect_BRepSelectionTool::Load(aSelection,
+    BRepSelectionTool::Load(aSelection,
                                       this,
                                       shape,
                                       TypOfSel,
@@ -314,7 +314,7 @@ void VisualShape::ComputeSelection(const Handle(SelectionContainer)& aSelection,
   }
   catch (ExceptionBase const& anException)
   {
-    Message::SendFail(AsciiString1("Error: VisualShape::ComputeSelection(") + aMode
+    Message1::SendFail(AsciiString1("Error: VisualShape::ComputeSelection(") + aMode
                       + ") has failed (" + anException.GetMessageString() + ")");
     if (aMode == 0)
     {
@@ -327,7 +327,7 @@ void VisualShape::ComputeSelection(const Handle(SelectionContainer)& aSelection,
   }
 
   // insert the drawer in the BrepOwners for hilight...
-  StdSelect::SetDrawerForBRepOwner(aSelection, myDrawer);
+  StdSelect1::SetDrawerForBRepOwner(aSelection, myDrawer);
 }
 
 void VisualShape::Color(Quantity_Color& theColor) const
@@ -426,36 +426,36 @@ void VisualShape::UnsetColor()
     Quantity_Color aColor = Quantity_NOC_YELLOW;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, aColor);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, aColor);
     }
     myDrawer->LineAspect()->SetColor(aColor);
     aColor = Quantity_NOC_RED;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Wire, aColor);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Wire, aColor);
     }
     myDrawer->WireAspect()->SetColor(aColor);
     aColor = Quantity_NOC_GREEN;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Free, aColor);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Free, aColor);
     }
     myDrawer->FreeBoundaryAspect()->SetColor(aColor);
     aColor = Quantity_NOC_YELLOW;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_UnFree, aColor);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_UnFree, aColor);
     }
     myDrawer->UnFreeBoundaryAspect()->SetColor(aColor);
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Seen, aColor);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Seen, aColor);
     }
     myDrawer->SeenLineAspect()->SetColor(aColor);
     aColor = Quantity_NOC_BLACK;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_FaceBoundary, aColor);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_FaceBoundary, aColor);
     }
     myDrawer->FaceBoundaryAspect()->SetColor(aColor);
   }
@@ -576,17 +576,17 @@ void VisualShape::UnsetWidth()
   else
   {
     myDrawer->LineAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line) : 1.);
+      myDrawer->HasLink() ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line) : 1.);
     myDrawer->WireAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Wire) : 1.);
+      myDrawer->HasLink() ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Wire) : 1.);
     myDrawer->FreeBoundaryAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Free) : 1.);
+      myDrawer->HasLink() ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Free) : 1.);
     myDrawer->UnFreeBoundaryAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_UnFree) : 1.);
+      myDrawer->HasLink() ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_UnFree) : 1.);
     myDrawer->SeenLineAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Seen) : 1.);
+      myDrawer->HasLink() ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Seen) : 1.);
     myDrawer->FaceBoundaryAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_FaceBoundary)
+      myDrawer->HasLink() ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_FaceBoundary)
                           : 1.);
     SynchronizeAspects();
   }
@@ -735,7 +735,7 @@ const Box2& VisualShape::BoundingBox()
 
   if (myCompBB)
   {
-    BRepBndLib::Add(myshape, myBB, false);
+    BRepBndLib1::Add(myshape, myBB, false);
     myCompBB = Standard_False;
   }
   return myBB;

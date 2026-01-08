@@ -29,7 +29,7 @@ Transition3::Transition3()
 std::ostream& operator<<(std::ostream& os, Transition3& Trans)
 {
 
-  os << "   Position : ";
+  os << "   Position1 : ";
   if (Trans.PositionOnCurve() == IntRes2d_Head)
   {
     os << "Debut\n";
@@ -61,7 +61,7 @@ std::ostream& operator<<(std::ostream& os, Transition3& Trans)
     else
     {
       os << "Touch\n";
-      os << "     Position par rapport a l'autre courbe : ";
+      os << "     Position1 par rapport a l'autre courbe : ";
       if (Trans.Situation() == IntRes2d_Inside)
       {
         os << "Interieure\n";
@@ -74,7 +74,7 @@ std::ostream& operator<<(std::ostream& os, Transition3& Trans)
       {
         os << "Indeterminee\n";
       }
-      os << "   Position matiere : ";
+      os << "   Position1 matiere : ";
       if (Trans.IsOpposite())
       {
         os << "Opposee\n";

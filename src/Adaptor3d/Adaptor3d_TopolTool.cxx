@@ -1616,7 +1616,7 @@ void Adaptor3d_TopolTool::GetConeApexParam(const Cone1& theC,
                                            Standard_Real& theU,
                                            Standard_Real& theV)
 {
-  const Ax3& Pos    = theC.Position();
+  const Ax3& Pos    = theC.Position1();
   Standard_Real Radius = theC.RefRadius();
   Standard_Real SAngle = theC.SemiAngle();
   const Point3d& P      = theC.Apex();

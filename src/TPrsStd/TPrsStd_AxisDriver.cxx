@@ -57,7 +57,7 @@ Standard_Boolean TPrsStd_AxisDriver::Update(const DataLabel&               aLabe
   {
     Handle(GeomLine) apt = new GeomLine(lin);
 
-    //  Update de l'AIS
+    //  Update de l'AIS1
     if (anAISObject.IsNull())
       aistrihed = new VisualAxis(apt);
     else

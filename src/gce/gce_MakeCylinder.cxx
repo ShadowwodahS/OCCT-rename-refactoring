@@ -82,7 +82,7 @@ gce_MakeCylinder::gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radiu
 
 gce_MakeCylinder::gce_MakeCylinder(const gp_Circ& Circ)
 {
-  TheCylinder = Cylinder1(Circ.Position(), Circ.Radius());
+  TheCylinder = Cylinder1(Circ.Position1(), Circ.Radius());
   TheError    = gce_Done;
 }
 

@@ -76,7 +76,7 @@ TopoFace OffsetMaker::ConvertFace(const TopoFace&  theFace,
       TopAbs_Orientation anOrOfWire = aWire.Orientation();
       aWire.Orientation(TopAbs_FORWARD);
       aWire = BRepAlgo1::ConvertWire(aWire, theAngleTolerance, aFace);
-      BRepLib::BuildCurves3d(aWire);
+      BRepLib1::BuildCurves3d(aWire);
       aWire.Orientation(anOrOfWire);
     }
     aBB.Add(aNewFace, aWire);
@@ -364,7 +364,7 @@ void OffsetMaker::Perform(const Standard_Real Offset, const Standard_Real Alt)
           if (NeedsConvertion(aWire))
           {
             TopoWire aNewWire = BRepAlgo1::ConvertWire(aWire, aTol, aFace);
-            BRepLib::BuildCurves3d(aNewWire);
+            BRepLib1::BuildCurves3d(aNewWire);
             aNewWire.Orientation(aWire.Orientation());
             anItl.ChangeValue() = aNewWire;
           }
@@ -373,7 +373,7 @@ void OffsetMaker::Perform(const Standard_Real Offset, const Standard_Real Alt)
       else
       {
         myFace = ConvertFace(myFace, aTol);
-        BRepLib::BuildCurves3d(myFace);
+        BRepLib1::BuildCurves3d(myFace);
         myWires.Clear();
         TopoDS_Iterator anIter(myFace);
         for (; anIter.More(); anIter.Next())

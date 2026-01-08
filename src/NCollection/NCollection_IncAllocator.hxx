@@ -95,14 +95,14 @@ private:
 public:
   //! Forward list to keep multi-time allocated pointers.
   //! On Reset operation objects will be reused.
-  struct IBlock
+  struct IBlock1
   {
-    IBlock(void* thePointer, const size_t theSize);
+    IBlock1(void* thePointer, const size_t theSize);
 
     char*   CurPointer;
     size_t  AvailableSize;
-    IBlock* NextBlock        = nullptr; //! Pointer to next sorted block
-    IBlock* NextOrderedBlock = nullptr; //! Pointer to next ordered block
+    IBlock1* NextBlock        = nullptr; //! Pointer to next sorted block
+    IBlock1* NextOrderedBlock = nullptr; //! Pointer to next ordered block
   };
 
   //! Description ability to next growing size each 5-th new block
@@ -120,7 +120,7 @@ protected:
   void increaseBlockSize();
 
   //! Resets available size and CurPointer field
-  void resetBlock(IBlock* theBlock) const;
+  void resetBlock(IBlock1* theBlock) const;
 
   //! Flush all previously allocated data. All pointers returned by
   //! Allocate() become invalid -- be very careful with this
@@ -132,12 +132,12 @@ public:
   static constexpr size_t THE_MINIMUM_BLOCK_SIZE = 1024 * 2;
 
 private:
-  unsigned int    myBlockSize;                //!< Block size to incremental allocations
+  unsigned int    myBlockSize;                //!< Block1 size to incremental allocations
   unsigned int    myBlockCount     = 0;       //!< Count of created blocks
   Standard_Mutex* myMutex          = nullptr; //!< Thread-safety mutex
-  IBlock*         myAllocationHeap = nullptr; //!< Sorted list for allocations
-  IBlock*         myUsedHeap       = nullptr; //!< Sorted list for store empty blocks
-  IBlock*         myOrderedBlocks  = nullptr; //!< Ordered list for store growing size blocks
+  IBlock1*         myAllocationHeap = nullptr; //!< Sorted list for allocations
+  IBlock1*         myUsedHeap       = nullptr; //!< Sorted list for store empty blocks
+  IBlock1*         myOrderedBlocks  = nullptr; //!< Ordered list for store growing size blocks
 
 public:
   // Declaration of CASCADE RTTI

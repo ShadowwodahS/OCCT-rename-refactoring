@@ -45,7 +45,7 @@ public:
   Standard_EXPORT static TopoShell Shell(const TopoWire& Wire1, const TopoWire& Wire2);
 
   //! Computes  <AxeProf>  as Follow. <Location> is
-  //! the Position of the nearest vertex V  of <Profile>
+  //! the Position1 of the nearest vertex V  of <Profile>
   //! to <Spine>.<XDirection> is confused with the tangent
   //! to <Spine> at the projected point of V on the Spine.
   //! <Direction> is normal to <Spine>.

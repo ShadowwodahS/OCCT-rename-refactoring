@@ -129,7 +129,7 @@ public:
 
   //! Returns Messenger used for outputting messages.
   //! The returned object is guaranteed to be non-null;
-  //! default is Message::Messenger().
+  //! default is Message1::Messenger().
   Standard_EXPORT Handle(Message_Messenger) Messenger() const;
 
   //! Sets trace level used for outputting messages:
@@ -166,7 +166,7 @@ public:
                                 const Standard_CString            mess,
                                 const Standard_CString            orig = "");
 
-  //! Adds an Error Message to a starting entity from the definition
+  //! Adds an Error Message1 to a starting entity from the definition
   //! of a Msg (Original+Value)
   Standard_EXPORT void AddFail(const Handle(RefObject)& start, const Message_Msg& amsg);
 
@@ -176,7 +176,7 @@ public:
                                   const Standard_CString            mess,
                                   const Standard_CString            orig = "");
 
-  //! Adds a Warning Message to a starting entity from the definition
+  //! Adds a Warning Message1 to a starting entity from the definition
   //! of a Msg (Original+Value)
   Standard_EXPORT void AddWarning(const Handle(RefObject)& start, const Message_Msg& amsg);
 
@@ -205,7 +205,7 @@ public:
   //! Else, returns the effective type (ParamInteger, ParamReal,
   //! ParamIdent, or ParamText)
   //! Returns the list of recorded Attribute Names, as a Dictionary
-  //! of Integer : each value gives the count of items which bring
+  //! of Integer1 : each value gives the count of items which bring
   //! this attribute name
   //! By default, considers all the attribute names
   //! If <rootname> is given, considers only the attribute names

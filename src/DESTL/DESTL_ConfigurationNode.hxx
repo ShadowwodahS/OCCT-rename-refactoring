@@ -90,7 +90,7 @@ public:
     bool   ReadBRep       = false; //!< Setting up Boundary Representation flag
 
     // Write
-    bool WriteAscii = true; //!< Setting up writing mode (Ascii or Binary)
+    bool WriteAscii = true; //!< Setting up writing mode (Ascii1 or Binary)
 
   } InternalParameters;
 };

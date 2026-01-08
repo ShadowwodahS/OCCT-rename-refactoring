@@ -21,7 +21,7 @@
 #include <XmlLDrivers_DocumentStorageDriver.hxx>
 #include <XmlMDF_ADriverTable.hxx>
 
-//  Block of comments describing class XmlTObjDrivers_DocumentStorageDriver
+//  Block1 of comments describing class XmlTObjDrivers_DocumentStorageDriver
 //
 
 class XmlTObjDrivers_DocumentStorageDriver : public XmlLDrivers_DocumentStorageDriver

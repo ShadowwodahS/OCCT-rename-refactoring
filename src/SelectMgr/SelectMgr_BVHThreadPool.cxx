@@ -140,17 +140,17 @@ void SelectMgr_BVHThreadPool::BVHThread::performThread()
       {
         AsciiString1 aMsg = AsciiString1(aFailure.DynamicType()->Name())
                                        + ": " + aFailure.GetMessageString();
-        Message::DefaultMessenger()->SendFail(aMsg);
+        Message1::DefaultMessenger()->SendFail(aMsg);
       }
       catch (std::exception& anStdException)
       {
         AsciiString1 aMsg =
           AsciiString1(typeid(anStdException).name()) + ": " + anStdException.what();
-        Message::DefaultMessenger()->SendFail(aMsg);
+        Message1::DefaultMessenger()->SendFail(aMsg);
       }
       catch (...)
       {
-        Message::DefaultMessenger()->SendFail("Error: Unknown exception");
+        Message1::DefaultMessenger()->SendFail("Error: Unknown exception");
       }
     }
   }

@@ -57,12 +57,12 @@ void RWStepGeom_RWPlane::WriteStep(StepData_StepWriter& SW, const Handle(StepGeo
 
   // --- inherited field position ---
 
-  SW.Send(ent->Position());
+  SW.Send(ent->Position1());
 }
 
 void RWStepGeom_RWPlane::Share(const Handle(StepGeom_Plane)& ent,
                                Interface_EntityIterator&     iter) const
 {
 
-  iter.GetOneItem(ent->Position());
+  iter.GetOneItem(ent->Position1());
 }

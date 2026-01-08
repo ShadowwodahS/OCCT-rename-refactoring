@@ -32,9 +32,9 @@ class StepData_SelectMember;
 //! A field can have : no value (or derived), a single value of
 //! any kind, a list of value : single or double list
 //!
-//! When a field is set, this defines its new kind (Integer etc..)
+//! When a field is set, this defines its new kind (Integer1 etc..)
 //! A single value is immediately set. A list of value is, firstly
-//! declared as for a kind (Integer String etc), then declared as
+//! declared as for a kind (Integer1 String etc), then declared as
 //! a list with its initial size, after this its items are set
 //! Also it can be set in once if the HArray is ready
 class StepData_Field
@@ -68,11 +68,11 @@ public:
   //! Codes a Field as derived (no proper value)
   Standard_EXPORT void SetDerived();
 
-  //! Directly sets the Integer value, if its Kind matches
-  //! Integer, Boolean, Logical, or Enum (does not change Kind)
+  //! Directly sets the Integer1 value, if its Kind matches
+  //! Integer1, Boolean, Logical, or Enum (does not change Kind)
   Standard_EXPORT void SetInt(const Standard_Integer val);
 
-  //! Sets an Integer value (before SetList* declares it as Integer)
+  //! Sets an Integer1 value (before SetList* declares it as Integer1)
   Standard_EXPORT void SetInteger(const Standard_Integer val = 0);
 
   //! Sets a Boolean value (or predeclares a list as boolean)
@@ -94,7 +94,7 @@ public:
   //! <val> negative means unknown (known values begin at 0)
   Standard_EXPORT void SetEnum(const Standard_Integer val = -1, const Standard_CString text = "");
 
-  //! Sets a SelectMember (for Integer,Boolean,Enum,Real,Logical)
+  //! Sets a SelectMember (for Integer1,Boolean,Enum,Real,Logical)
   //! Hence, the value of the field is accessed through this member
   Standard_EXPORT void SetSelectMember(const Handle(StepData_SelectMember)& val);
 
@@ -126,12 +126,12 @@ public:
   //! (ignored if list not defined as String,Entity or Any)
   Standard_EXPORT void ClearItem(const Standard_Integer num);
 
-  //! Internal access to an Integer Value for a list, plus its kind
+  //! Internal access to an Integer1 Value for a list, plus its kind
   Standard_EXPORT void SetInt(const Standard_Integer num,
                               const Standard_Integer val,
                               const Standard_Integer kind);
 
-  //! Sets an Integer Value for a list (rank num)
+  //! Sets an Integer1 Value for a list (rank num)
   //! (recognizes a SelectMember)
   Standard_EXPORT void SetInteger(const Standard_Integer num, const Standard_Integer val);
 
@@ -139,7 +139,7 @@ public:
 
   Standard_EXPORT void SetLogical(const Standard_Integer num, const StepData_Logical val);
 
-  //! Sets an Enum Value (Integer counterpart), also its text
+  //! Sets an Enum Value (Integer1 counterpart), also its text
   //! expression if known (if list has been set as "any")
   Standard_EXPORT void SetEnum(const Standard_Integer num,
                                const Standard_Integer val,
@@ -173,7 +173,7 @@ public:
 
   Standard_EXPORT Standard_Integer Int() const;
 
-  Standard_EXPORT Standard_Integer Integer(const Standard_Integer n1 = 1,
+  Standard_EXPORT Standard_Integer Integer1(const Standard_Integer n1 = 1,
                                            const Standard_Integer n2 = 1) const;
 
   Standard_EXPORT Standard_Boolean Boolean(const Standard_Integer n1 = 1,

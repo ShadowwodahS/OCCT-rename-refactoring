@@ -33,7 +33,7 @@ enum AIS_WalkRotation
 };
 
 //! Walking value.
-struct AIS_WalkPart
+struct WalkPart
 {
   Standard_Real Value;    //!< value
   Standard_Real Pressure; //!< key pressure
@@ -43,7 +43,7 @@ struct AIS_WalkPart
   bool IsEmpty() const { return Abs(Value) <= RealSmall(); }
 
   //! Empty constructor.
-  AIS_WalkPart()
+  WalkPart()
       : Value(0.0),
         Pressure(1.0),
         Duration(0.0)
@@ -52,10 +52,10 @@ struct AIS_WalkPart
 };
 
 //! Walking values.
-struct AIS_WalkDelta
+struct WalkDelta
 {
   //! Empty constructor.
-  AIS_WalkDelta()
+  WalkDelta()
       : myIsDefined(false),
         myIsJumping(false),
         myIsCrouching(false),
@@ -64,19 +64,19 @@ struct AIS_WalkDelta
   }
 
   //! Return translation component.
-  const AIS_WalkPart& operator[](AIS_WalkTranslation thePart) const
+  const WalkPart& operator[](AIS_WalkTranslation thePart) const
   {
     return myTranslation[thePart];
   }
 
   //! Return translation component.
-  AIS_WalkPart& operator[](AIS_WalkTranslation thePart) { return myTranslation[thePart]; }
+  WalkPart& operator[](AIS_WalkTranslation thePart) { return myTranslation[thePart]; }
 
   //! Return rotation component.
-  const AIS_WalkPart& operator[](AIS_WalkRotation thePart) const { return myRotation[thePart]; }
+  const WalkPart& operator[](AIS_WalkRotation thePart) const { return myRotation[thePart]; }
 
   //! Return rotation component.
-  AIS_WalkPart& operator[](AIS_WalkRotation thePart) { return myRotation[thePart]; }
+  WalkPart& operator[](AIS_WalkRotation thePart) { return myRotation[thePart]; }
 
   //! Return jumping state.
   bool IsJumping() const { return myIsJumping; }
@@ -122,8 +122,8 @@ struct AIS_WalkDelta
   }
 
 private:
-  AIS_WalkPart myTranslation[3];
-  AIS_WalkPart myRotation[3];
+  WalkPart myTranslation[3];
+  WalkPart myRotation[3];
   bool         myIsDefined;
   bool         myIsJumping;
   bool         myIsCrouching;

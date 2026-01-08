@@ -42,13 +42,13 @@ public:
   BRepExtrema_OverlapTool();
 
   //! Creates new overlap tool for the given element sets.
-  BRepExtrema_OverlapTool(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                          const Handle(BRepExtrema_TriangleSet)& theSet2);
+  BRepExtrema_OverlapTool(const Handle(TriangleSet1)& theSet1,
+                          const Handle(TriangleSet1)& theSet2);
 
 public:
   //! Loads the given element sets into the overlap tool.
-  void LoadTriangleSets(const Handle(BRepExtrema_TriangleSet)& theSet1,
-                        const Handle(BRepExtrema_TriangleSet)& theSet2);
+  void LoadTriangleSets(const Handle(TriangleSet1)& theSet1,
+                        const Handle(TriangleSet1)& theSet2);
 
   //! Performs searching of overlapped mesh elements.
   void Perform(const Standard_Real theTolerance = 0.0);
@@ -80,7 +80,7 @@ public:
 #endif
 
   //! Sets filtering tool for preliminary checking pairs of mesh elements.
-  void SetElementFilter(BRepExtrema_ElementFilter* theFilter) { myFilter = theFilter; }
+  void SetElementFilter(ElementFilter* theFilter) { myFilter = theFilter; }
 
 public: //! @name Reject/Accept implementations
   //! Defines the rules for node rejection by bounding box
@@ -106,12 +106,12 @@ protected:
 
 private:
   //! Set of all mesh elements (triangles) of the 1st shape.
-  Handle(BRepExtrema_TriangleSet) mySet1;
+  Handle(TriangleSet1) mySet1;
   //! Set of all mesh elements (triangles) of the 2nd shape.
-  Handle(BRepExtrema_TriangleSet) mySet2;
+  Handle(TriangleSet1) mySet2;
 
   //! Filter for preliminary checking pairs of mesh elements.
-  BRepExtrema_ElementFilter* myFilter;
+  ElementFilter* myFilter;
 
   //! Resulted set of overlapped sub-shapes of 1st shape (only faces).
   BRepExtrema_MapOfIntegerPackedMapOfInteger myOverlapSubShapes1;

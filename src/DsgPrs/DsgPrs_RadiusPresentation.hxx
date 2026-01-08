@@ -29,7 +29,7 @@ class Point3d;
 class gp_Circ;
 
 //! A framework to define display of radii.
-class DsgPrs_RadiusPresentation
+class RadiusPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

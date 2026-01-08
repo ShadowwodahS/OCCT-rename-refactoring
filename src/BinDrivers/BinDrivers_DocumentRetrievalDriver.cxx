@@ -83,7 +83,7 @@ void BinDrivers_DocumentRetrievalDriver::CheckShapeSection(
 
 void BinDrivers_DocumentRetrievalDriver::Clear()
 {
-  // Clear NamedShape driver
+  // Clear NamedShape1 driver
   Handle(BinMDF_ADriver) aDriver;
   if (myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver))
   {

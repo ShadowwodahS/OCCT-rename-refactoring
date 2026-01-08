@@ -106,7 +106,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
   myFile = OSD_OpenFile(myPath.ToCString(), "rb");
   if (myFile == NULL)
   {
-    Message::Send(AsciiString1("OBJ material file '") + myPath + "' is not found!",
+    Message1::Send(AsciiString1("OBJ material file '") + myPath + "' is not found!",
                   Message_Warning);
     return Standard_False;
   }
@@ -155,7 +155,7 @@ bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
       aMat     = RWObj_Material();
       if (!RWObj_Tools::ReadName(aPos, aMatName))
       {
-        Message::SendWarning(AsciiString1("Empty OBJ material at line ") + myNbLines
+        Message1::SendWarning(AsciiString1("Empty OBJ material at line ") + myNbLines
                              + " in file " + myPath);
       }
     }
@@ -299,7 +299,7 @@ void RWObj_MtlReader::processTexturePath(AsciiString1&       theTexturePath,
 {
   if (SystemPath::IsAbsolutePath(theTexturePath.ToCString()))
   {
-    Message::SendWarning(
+    Message1::SendWarning(
       AsciiString1("OBJ file specifies absolute path to the texture image file which "
                               "may be inaccessible on another device\n")
       + theTexturePath);
@@ -325,7 +325,7 @@ bool RWObj_MtlReader::validateScalar(const Standard_Real theValue)
 {
   if (theValue < 0.0 || theValue > 1.0)
   {
-    Message::SendWarning(AsciiString1("Invalid scalar in OBJ material at line ")
+    Message1::SendWarning(AsciiString1("Invalid scalar in OBJ material at line ")
                          + myNbLines + " in file " + myPath);
     return false;
   }
@@ -339,7 +339,7 @@ bool RWObj_MtlReader::validateColor(const Graphic3d_Vec3& theVec)
   if (theVec.r() < 0.0f || theVec.r() > 1.0f || theVec.g() < 0.0f || theVec.g() > 1.0f
       || theVec.b() < 0.0f || theVec.b() > 1.0f)
   {
-    Message::SendWarning(AsciiString1("Invalid color in OBJ material at line ")
+    Message1::SendWarning(AsciiString1("Invalid color in OBJ material at line ")
                          + myNbLines + " in file " + myPath);
     return false;
   }

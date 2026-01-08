@@ -35,8 +35,8 @@ Standard_Integer MeshVS_DummySensitiveEntity::NbSubElements() const
 //=================================================================================================
 
 Standard_Boolean MeshVS_DummySensitiveEntity::Matches(
-  SelectBasics_SelectingVolumeManager& /*theMgr*/,
-  SelectBasics_PickResult& /*thePickResult*/)
+  SelectingVolumeManager& /*theMgr*/,
+  PickResult& /*thePickResult*/)
 {
   return Standard_False;
 }

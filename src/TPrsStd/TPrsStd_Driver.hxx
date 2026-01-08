@@ -27,7 +27,7 @@ class VisualEntity;
 class TPrsStd_Driver;
 DEFINE_STANDARD_HANDLE(TPrsStd_Driver, RefObject)
 
-//! Driver for AIS
+//! Driver for AIS1
 //! ==============
 //! An abstract class, which - in classes inheriting
 //! from it - allows you to update an

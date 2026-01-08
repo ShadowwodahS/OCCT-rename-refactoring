@@ -475,7 +475,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
           && theCaps->buffersDeepColor)
       {
         /// TODO
-        Message::SendFail() << "Error: unable to find RGB10_A2 window buffer format!";
+        Message1::SendFail() << "Error: unable to find RGB10_A2 window buffer format!";
       }
     }
 

@@ -32,7 +32,7 @@
 //    then fill each value of <arr> with the homologous from <seq>
 
 //  SeqToArrayFrom(seq,arr,TColStd_HArray1OfReal,lowind)  will :
-//    consider <lowind> as an Integer (variable or constant) which defines
+//    consider <lowind> as an Integer1 (variable or constant) which defines
 //    the desired lower index if different from one
 //    do the same thing as SeqToArray if <lowind> equates 1
 //    else fixes lower index of <arr> as <lowind>

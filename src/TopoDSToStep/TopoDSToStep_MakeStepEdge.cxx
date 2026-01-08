@@ -93,7 +93,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
   if (isNMMode)
   {
     Handle(StepShape_EdgeCurve)      anEC;
-    Handle(TransferBRep_ShapeMapper) aSTEPMapper = TransferBRep::ShapeMapper(FP, aEdge);
+    Handle(TransferBRep_ShapeMapper) aSTEPMapper = TransferBRep1::ShapeMapper(FP, aEdge);
     if (FP->FindTypedTransient(aSTEPMapper, STANDARD_TYPE(StepShape_EdgeCurve), anEC))
     {
       // Non-manifold topology detected

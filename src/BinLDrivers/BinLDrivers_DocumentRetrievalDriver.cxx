@@ -298,7 +298,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
         return;
       }
 
-      // retrieve ShapeSection Position
+      // retrieve ShapeSection Position1
       Standard_Integer aShapeSectionPos; // go to ShapeSection
       theIStream.read((char*)&aShapeSectionPos, sizeof(Standard_Integer));
 
@@ -631,7 +631,7 @@ void BinLDrivers_DocumentRetrievalDriver::ReadShapeSection(
   if (isMess && theSection.Length())
   {
     const UtfString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
-    myMsgDriver->Send(aMethStr + "warning: Geometry is not supported by Lite schema. ",
+    myMsgDriver->Send(aMethStr + "warning: Geometry1 is not supported by Lite schema. ",
                       Message_Warning);
   }
 }
@@ -650,7 +650,7 @@ void BinLDrivers_DocumentRetrievalDriver::CheckShapeSection(const Storage_Positi
     if (ShapeSectionPos != endPos)
     {
       const UtfString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
-      myMsgDriver->Send(aMethStr + "warning: Geometry is not supported by Lite schema. ",
+      myMsgDriver->Send(aMethStr + "warning: Geometry1 is not supported by Lite schema. ",
                         Message_Warning);
     }
   }

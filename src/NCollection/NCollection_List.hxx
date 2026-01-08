@@ -27,7 +27,7 @@
  *               Inherits BaseList, adding the data item to each node.
  */
 template <class TheItemType>
-class NCollection_List : public NCollection_BaseList
+class NCollection_List : public BaseList
 {
 public:
   //! STL-compliant typedef for value type
@@ -61,26 +61,26 @@ public:
 
   //! Empty constructor.
   NCollection_List()
-      : NCollection_BaseList(Handle(NCollection_BaseAllocator)())
+      : BaseList(Handle(NCollection_BaseAllocator)())
   {
   }
 
   //! Constructor
   explicit NCollection_List(const Handle(NCollection_BaseAllocator)& theAllocator)
-      : NCollection_BaseList(theAllocator)
+      : BaseList(theAllocator)
   {
   }
 
   //! Copy constructor
   NCollection_List(const NCollection_List& theOther)
-      : NCollection_BaseList(theOther.myAllocator)
+      : BaseList(theOther.myAllocator)
   {
     appendList(theOther.PFirst());
   }
 
   //! Move constructor
   NCollection_List(NCollection_List&& theOther) noexcept
-      : NCollection_BaseList(theOther.myAllocator)
+      : BaseList(theOther.myAllocator)
   {
     this->operator=(std::forward<NCollection_List>(theOther));
   }

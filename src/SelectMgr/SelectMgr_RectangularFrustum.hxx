@@ -29,14 +29,14 @@
 //!                      These 2 projected rectangles define parallel bases of selecting frustum.
 //! Overlap detection tests are implemented according to the terms of separating axis
 //! theorem (SAT).
-class SelectMgr_RectangularFrustum : public SelectMgr_Frustum<4>
+class RectangularFrustum : public SelectMgr_Frustum<4>
 {
 public:
   //! Auxiliary structure to define selection primitive (point or box)
   //! In case of point selection min and max points are identical.
-  struct SelectionRectangle
+  struct SelectionRectangle1
   {
-    SelectionRectangle()
+    SelectionRectangle1()
         : myMinPnt(gp_Pnt2d(RealLast(), RealLast())),
           myMaxPnt(gp_Pnt2d(RealLast(), RealLast()))
     {
@@ -64,7 +64,7 @@ public:
   };
 
   //! Creates rectangular selecting frustum.
-  Standard_EXPORT SelectMgr_RectangularFrustum();
+  Standard_EXPORT RectangularFrustum();
 
   //! Initializes volume according to the point and given pixel tolerance
   Standard_EXPORT void Init(const gp_Pnt2d& thePoint);
@@ -121,7 +121,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsBox(const SelectMgr_Vec3&          theBoxMin,
                                                        const SelectMgr_Vec3&          theBoxMax,
                                                        const SelectMgr_ViewClipRange& theClipRange,
-                                                       SelectBasics_PickResult& thePickResult) const
+                                                       PickResult& thePickResult) const
     Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by axis-aligned bounding box
@@ -135,7 +135,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
     const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const
@@ -148,14 +148,14 @@ public:
     const TColgp_Array1OfPnt&      theArrayOfPnts,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Checks if line segment overlaps selecting frustum
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
     const Point3d&                  thePnt1,
     const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! SAT intersection test between defined volume and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
@@ -166,14 +166,14 @@ public:
     const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
     const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
@@ -190,7 +190,7 @@ public:
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
@@ -211,7 +211,7 @@ public:
     const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
-    SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
+    PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by circle with radius theRadius,
   //! boolean theIsFilled and transformation to apply theTrsf.
@@ -265,14 +265,14 @@ public:
 protected:
   Standard_EXPORT void segmentSegmentDistance(const Point3d&            theSegPnt1,
                                               const Point3d&            theSegPnt2,
-                                              SelectBasics_PickResult& thePickResult) const;
+                                              PickResult& thePickResult) const;
 
   Standard_EXPORT bool segmentPlaneIntersection(const Vector3d&            thePlane,
                                                 const Point3d&            thePntOnPlane,
-                                                SelectBasics_PickResult& thePickResult) const;
+                                                PickResult& thePickResult) const;
 
 private:
-  void cacheVertexProjections(SelectMgr_RectangularFrustum* theFrustum) const;
+  void cacheVertexProjections(RectangularFrustum* theFrustum) const;
 
 private:
   enum
@@ -289,7 +289,7 @@ private:
 
 private:
   // clang-format off
-  SelectionRectangle      mySelRectangle;              //!< parameters for selection by point or box (it is used to build frustum)
+  SelectionRectangle1      mySelRectangle;              //!< parameters for selection by point or box (it is used to build frustum)
   Point3d                  myNearPickedPnt;             //!< 3d projection of user-picked selection point onto near view plane
   Point3d                  myFarPickedPnt;              //!< 3d projection of user-picked selection point onto far view plane
   Dir3d                  myViewRayDir;                //!< view ray direction

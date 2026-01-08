@@ -245,7 +245,7 @@ Standard_Integer ShapeFix_WireVertex::Fix()
     Standard_Real ufol = UJ->Value(j);
 
     if (stat > 2)
-      B.UpdateVertex(V1, Point3d(myAnalyzer.Position(i)), Prec);
+      B.UpdateVertex(V1, Point3d(myAnalyzer.Position1(i)), Prec);
 
     //    ce qui suit : seulement si vertex a reprendre
     if (stat > 0)

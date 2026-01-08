@@ -111,7 +111,7 @@ RWGltf_TriangulationReader::RWGltf_TriangulationReader()
 
 void RWGltf_TriangulationReader::reportError(const AsciiString1& theText) const
 {
-  Message::SendFail(AsciiString1("File '") + myFileName + "' defines invalid glTF!\n"
+  Message1::SendFail(AsciiString1("File '") + myFileName + "' defines invalid glTF!\n"
                     + theText);
 }
 
@@ -333,7 +333,7 @@ bool RWGltf_TriangulationReader::readDracoBuffer(
         if (aWrapCompType != RWGltf_GltfAccessorCompType_Float32
             || aWrapLayout != RWGltf_GltfAccessorLayout_Vec3)
         {
-          Message::SendTrace(AsciiString1()
+          Message1::SendTrace(AsciiString1()
                              + "Vertex normals in unsupported format have been skipped while "
                                "reading glTF triangulation '"
                              + aName + "'");
@@ -371,7 +371,7 @@ bool RWGltf_TriangulationReader::readDracoBuffer(
         if (aWrapCompType != RWGltf_GltfAccessorCompType_Float32
             || aWrapLayout != RWGltf_GltfAccessorLayout_Vec2)
         {
-          Message::SendTrace(AsciiString1()
+          Message1::SendTrace(AsciiString1()
                              + "Vertex UV coordinates in unsupported format have been skipped "
                                "while reading glTF triangulation '"
                              + aName + "'");
@@ -431,14 +431,14 @@ bool RWGltf_TriangulationReader::readDracoBuffer(
   {
     if (aNbDegenerate == aNbTris)
     {
-      Message::SendWarning(AsciiString1("Buffer '") + aName
+      Message1::SendWarning(AsciiString1("Buffer '") + aName
                            + "' has been skipped (all elements are degenerative in)");
       return false;
     }
     theSourceGltfMesh->ChangeDegeneratedTriNb() += aNbDegenerate;
     if (myLoadingStatistic == NULL && myToPrintDebugMessages)
     {
-      Message::SendTrace(
+      Message1::SendTrace(
         AsciiString1() + aNbDegenerate
         + " degenerate triangles have been skipped while reading glTF triangulation '" + aName
         + "'");
@@ -480,7 +480,7 @@ bool RWGltf_TriangulationReader::load(const Handle(RWMesh_TriangulationSource)& 
     const AsciiString1&  aName = aSourceGltfMesh->Id();
     if (!aData.StreamData.IsNull())
     {
-      Message::SendWarning(
+      Message1::SendWarning(
         AsciiString1("Buffer '") + aName
         + "' contains stream data that cannot be loaded during deferred data loading.");
       continue;
@@ -568,7 +568,7 @@ bool RWGltf_TriangulationReader::readBuffer(
   if (aPrimMode != RWGltf_GltfPrimitiveMode_Triangles && aPrimMode != RWGltf_GltfPrimitiveMode_Lines
       && aPrimMode != RWGltf_GltfPrimitiveMode_Points)
   {
-    Message::SendWarning(AsciiString1("Buffer '") + aName
+    Message1::SendWarning(AsciiString1("Buffer '") + aName
                          + "' skipped unsupported primitive array");
     return true;
   }
@@ -647,14 +647,14 @@ bool RWGltf_TriangulationReader::readBuffer(
         {
           if (aNbDegenerate == aCounter)
           {
-            Message::SendWarning(AsciiString1("Buffer '") + aName
+            Message1::SendWarning(AsciiString1("Buffer '") + aName
                                  + "' has been skipped (all elements are degenerative in)");
             return false;
           }
           theSourceMesh->ChangeDegeneratedTriNb() += aNbDegenerate;
           if ((myLoadingStatistic == NULL) && myToPrintDebugMessages)
           {
-            Message::SendTrace(
+            Message1::SendTrace(
               AsciiString1() + aNbDegenerate
               + " degenerate triangles have been skipped while reading glTF triangulation '" + aName
               + "'");
@@ -719,14 +719,14 @@ bool RWGltf_TriangulationReader::readBuffer(
         {
           if (aNbDegenerate == aNbTris)
           {
-            Message::SendWarning(AsciiString1("Buffer '") + aName
+            Message1::SendWarning(AsciiString1("Buffer '") + aName
                                  + "' has been skipped (all elements are degenerative in)");
             return false;
           }
           theSourceMesh->ChangeDegeneratedTriNb() += aNbDegenerate;
           if (myLoadingStatistic == NULL && myToPrintDebugMessages)
           {
-            Message::SendTrace(
+            Message1::SendTrace(
               AsciiString1() + aNbDegenerate
               + " degenerate triangles have been skipped while reading glTF triangulation '" + aName
               + "'");
@@ -791,14 +791,14 @@ bool RWGltf_TriangulationReader::readBuffer(
         {
           if (aNbDegenerate == aNbTris)
           {
-            Message::SendWarning(AsciiString1("Buffer '") + aName
+            Message1::SendWarning(AsciiString1("Buffer '") + aName
                                  + "' has been skipped (all elements are degenerative in)");
             return false;
           }
           theSourceMesh->ChangeDegeneratedTriNb() += aNbDegenerate;
           if (myLoadingStatistic == NULL && myToPrintDebugMessages)
           {
-            Message::SendTrace(
+            Message1::SendTrace(
               AsciiString1() + aNbDegenerate
               + " degenerate triangles have been skipped while reading glTF triangulation '" + aName
               + "'");

@@ -1258,10 +1258,10 @@ void AIS_ViewController::KeyFromAxis(Aspect_VKey theNegative,
 
 //=================================================================================================
 
-AIS_WalkDelta AIS_ViewController::FetchNavigationKeys(Standard_Real theCrouchRatio,
+WalkDelta AIS_ViewController::FetchNavigationKeys(Standard_Real theCrouchRatio,
                                                       Standard_Real theRunRatio)
 {
-  AIS_WalkDelta aWalk;
+  WalkDelta aWalk;
 
   // navigation keys
   double aPrevEventTime = 0.0, aNewEventTime = 0.0;
@@ -1971,7 +1971,7 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(VisualContext)& 
 
   struct ViewKeyAction
   {
-    Aspect_VKey           Key;
+    Aspect_VKey           Key1;
     V3d_TypeOfOrientation Orientation;
   };
 
@@ -1994,12 +1994,12 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(VisualContext)& 
     for (size_t aKeyIter = 0; aKeyIter < aNbKeys; ++aKeyIter)
     {
       const ViewKeyAction& aKeyAction = THE_VIEW_KEYS[aKeyIter];
-      if (!myKeys.IsKeyDown(aKeyAction.Key))
+      if (!myKeys.IsKeyDown(aKeyAction.Key1))
       {
         continue;
       }
 
-      myKeys.KeyUp(aKeyAction.Key, anEventTime);
+      myKeys.KeyUp(aKeyAction.Key1, anEventTime);
       if (aCameraBack.IsNull())
       {
         aCameraBack = theView->Camera();
@@ -2010,17 +2010,17 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(VisualContext)& 
         theView->SetProj(aKeyAction.Orientation);
         FitAllAuto(theCtx, theView);
       }
-      else if (aKeyAction.Key == Aspect_VKey_ViewRoll90CW)
+      else if (aKeyAction.Key1 == Aspect_VKey_ViewRoll90CW)
       {
         const double aTwist = theView->Twist() + M_PI / 2.0;
         theView->SetTwist(aTwist);
       }
-      else if (aKeyAction.Key == Aspect_VKey_ViewRoll90CCW)
+      else if (aKeyAction.Key1 == Aspect_VKey_ViewRoll90CCW)
       {
         const double aTwist = theView->Twist() - M_PI / 2.0;
         theView->SetTwist(aTwist);
       }
-      else if (aKeyAction.Key == Aspect_VKey_ViewFitAll)
+      else if (aKeyAction.Key1 == Aspect_VKey_ViewFitAll)
       {
         FitAllAuto(theCtx, theView);
       }
@@ -2049,7 +2049,7 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(VisualContext)& 
 
 //=================================================================================================
 
-AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContext)&,
+WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContext)&,
                                                        const Handle(ViewWindow)& theView)
 {
   // navigation keys
@@ -2061,7 +2061,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
 
   const double  aRotSpeed      = 0.5;
   const double  aWalkSpeedCoef = WalkSpeedRelative();
-  AIS_WalkDelta aWalk          = FetchNavigationKeys(aCrouchRatio, aRunRatio);
+  WalkDelta aWalk          = FetchNavigationKeys(aCrouchRatio, aRunRatio);
   if (aWalk.IsJumping())
   {
     // ask more frames
@@ -2182,7 +2182,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
 
 void AIS_ViewController::handleCameraActions(const Handle(VisualContext)& theCtx,
                                              const Handle(ViewWindow)&               theView,
-                                             const AIS_WalkDelta&                  theWalk)
+                                             const WalkDelta&                  theWalk)
 {
   // apply view actions
   if (myGL.Orientation.ToSetViewOrient)
@@ -2396,7 +2396,7 @@ void AIS_ViewController::handleCameraActions(const Handle(VisualContext)& theCtx
 
 void AIS_ViewController::handleXRInput(const Handle(VisualContext)& theCtx,
                                        const Handle(ViewWindow)&               theView,
-                                       const AIS_WalkDelta&)
+                                       const WalkDelta&)
 {
   theView->View()->ProcessXRInput();
   if (!theView->View()->IsActiveXR())
@@ -2895,7 +2895,7 @@ void AIS_ViewController::handleSelectionPoly(const Handle(VisualContext)& theCtx
       }
       catch (const ExceptionBase& theEx)
       {
-        Message::SendWarning(
+        Message1::SendWarning(
           AsciiString1("Internal error while displaying rubber-band: ")
           + theEx.DynamicType()->Name() + ", " + theEx.GetMessageString());
         myRubberBand->ClearPoints();
@@ -3433,7 +3433,7 @@ void AIS_ViewController::HandleViewEvents(const Handle(VisualContext)& theCtx,
   }
 
   handleViewOrientationKeys(theCtx, theView);
-  const AIS_WalkDelta aWalk = handleNavigationKeys(theCtx, theView);
+  const WalkDelta aWalk = handleNavigationKeys(theCtx, theView);
   handleXRInput(theCtx, theView, aWalk);
   if (theView->View()->IsActiveXR())
   {

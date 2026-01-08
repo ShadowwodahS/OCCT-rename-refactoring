@@ -45,7 +45,7 @@ public:
   Standard_EXPORT IGESGeom_Flash();
 
   //! This method is used to set the fields of the class Flash
-  //! - aPoint     : Reference of flash
+  //! - aPoint     : Reference1 of flash
   //! - aDim       : First flash sizing parameter
   //! - anotherDim : Second flash sizing parameter
   //! - aRotation  : Rotation of flash about reference point
@@ -58,7 +58,7 @@ public:
                             const Handle(IGESData_IGESEntity)& aReference);
 
   //! Changes FormNumber (indicates the Nature of the Flash :
-  //! 0 Unspecified, then given by Reference, 1->4 various
+  //! 0 Unspecified, then given by Reference1, 1->4 various
   //! Specialisations (Circle,Rectangle, etc...) )
   //! Error if not in range [0-4]
   Standard_EXPORT void SetFormNumber(const Standard_Integer form);

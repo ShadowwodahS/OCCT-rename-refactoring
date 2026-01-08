@@ -52,7 +52,7 @@
 // purpose  : Applies BRepTools_Modification to a shape,
 //           taking into account sharing of components of compounds
 //=======================================================================
-TopoShape ShapeProcess_OperLibrary::ApplyModifier(
+TopoShape OperLibrary::ApplyModifier(
   const TopoShape&                       S,
   const Handle(ShapeProcess_ShapeContext)&  context,
   const Handle(BRepTools_Modification)&     M,
@@ -122,7 +122,7 @@ static Standard_Boolean directfaces(const Handle(ShapeProcess_Context)& context,
   DM->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
   TopoShape                 res =
-    ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, DM, map, msg, Standard_True);
+    OperLibrary::ApplyModifier(ctx->Result(), ctx, DM, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
   return Standard_True;
@@ -142,7 +142,7 @@ static Standard_Boolean sameparam(const Handle(ShapeProcess_Context)& context,
   if (!ctx->Messages().IsNull())
     msg = new ShapeExtend_MsgRegistrator;
 
-  ShapeFix::SameParameter(ctx->Result(),
+  ShapeFix1::SameParameter(ctx->Result(),
                           ctx->BooleanVal("Force", Standard_False),
                           ctx->RealVal("Tolerance3d", Precision::Confusion() /* -1 */),
                           Message_ProgressRange(),
@@ -172,16 +172,16 @@ static Standard_Boolean settol(const Handle(ShapeProcess_Context)& context,
     Standard_Real rat = ctx->RealVal("Ratio", 1.);
     if (rat >= 1)
     {
-      ShapeFix_ShapeTolerance SFST;
+      ShapeTolerance1 SFST;
       SFST.LimitTolerance(ctx->Result(), val / rat, val * rat);
     }
   }
 
-  BRepLib::UpdateTolerances(ctx->Result(), Standard_True);
+  BRepLib1::UpdateTolerances(ctx->Result(), Standard_True);
 
   Standard_Real reg;
   if (ctx->GetReal("Regularity", reg))
-    BRepLib::EncodeRegularity(ctx->Result(), reg);
+    BRepLib1::EncodeRegularity(ctx->Result(), reg);
 
   // WARNING: no update of context yet!
   return Standard_True;
@@ -283,7 +283,7 @@ static Standard_Boolean bsplinerestriction(const Handle(ShapeProcess_Context)& c
   LD->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
   TopoShape                 res =
-    ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, LD, map, msg, Standard_True);
+    OperLibrary::ApplyModifier(ctx->Result(), ctx, LD, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
   return Standard_True;
@@ -307,7 +307,7 @@ static Standard_Boolean torevol(const Handle(ShapeProcess_Context)& context,
   CR->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
   TopoShape                 res =
-    ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, CR, map, msg, Standard_True);
+    OperLibrary::ApplyModifier(ctx->Result(), ctx, CR, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
   return Standard_True;
@@ -331,7 +331,7 @@ static Standard_Boolean swepttoelem(const Handle(ShapeProcess_Context)& context,
   SE->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
   TopoShape                 res =
-    ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, SE, map, msg, Standard_True);
+    OperLibrary::ApplyModifier(ctx->Result(), ctx, SE, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
   return Standard_True;
@@ -432,7 +432,7 @@ static Standard_Boolean converttobspline(const Handle(ShapeProcess_Context)& con
 
   TopTools_DataMapOfShapeShape map;
   TopoShape                 res =
-    ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, CBspl, map, msg, Standard_True);
+    OperLibrary::ApplyModifier(ctx->Result(), ctx, CBspl, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
   return Standard_True;
@@ -659,7 +659,7 @@ static Standard_Boolean dropsmalledges (const Handle(ShapeProcess_Context)& cont
   Handle(MoniFrame_TypedValue) ptol3d   = aproc->StackParam("Tolerance3d",Standard_True);
   if (ptol3d->IsSetValue()) aTol3d = ptol3d->RealValue();
   Handle(ShapeBuild_ReShape) context;
-  TopoShape result = ShapeFix::RemoveSmallEdges(Shape,aTol3d,context);
+  TopoShape result = ShapeFix1::RemoveSmallEdges(Shape,aTol3d,context);
   if (result == Shape) astep->AddTouched (aproc->Infos(),MoniShape::Element(Shape));
   else
     MoniShapeSW::UpdateFromReShape (aproc->Infos(), astep, Shape, context, TopAbs_FACE);
@@ -887,33 +887,33 @@ static Standard_Boolean splitcommonvertex(const Handle(ShapeProcess_Context)& co
 // purpose  : Register standard operators
 //=======================================================================
 
-void ShapeProcess_OperLibrary::Init()
+void OperLibrary::Init()
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  ShapeExtend::Init();
+  ShapeExtend1::Init();
 
-  ShapeProcess::RegisterOperator("DirectFaces", new ShapeProcess_UOperator(directfaces));
-  ShapeProcess::RegisterOperator("SameParameter", new ShapeProcess_UOperator(sameparam));
-  ShapeProcess::RegisterOperator("SetTolerance", new ShapeProcess_UOperator(settol));
-  ShapeProcess::RegisterOperator("SplitAngle", new ShapeProcess_UOperator(splitangle));
-  ShapeProcess::RegisterOperator("BSplineRestriction",
+  ShapeProcess1::RegisterOperator("DirectFaces", new ShapeProcess_UOperator(directfaces));
+  ShapeProcess1::RegisterOperator("SameParameter", new ShapeProcess_UOperator(sameparam));
+  ShapeProcess1::RegisterOperator("SetTolerance", new ShapeProcess_UOperator(settol));
+  ShapeProcess1::RegisterOperator("SplitAngle", new ShapeProcess_UOperator(splitangle));
+  ShapeProcess1::RegisterOperator("BSplineRestriction",
                                  new ShapeProcess_UOperator(bsplinerestriction));
-  ShapeProcess::RegisterOperator("ElementaryToRevolution", new ShapeProcess_UOperator(torevol));
-  ShapeProcess::RegisterOperator("SweptToElementary", new ShapeProcess_UOperator(swepttoelem));
-  ShapeProcess::RegisterOperator("SurfaceToBSpline", new ShapeProcess_UOperator(converttobspline));
-  ShapeProcess::RegisterOperator("ToBezier", new ShapeProcess_UOperator(shapetobezier));
-  ShapeProcess::RegisterOperator("SplitContinuity", new ShapeProcess_UOperator(splitcontinuity));
-  ShapeProcess::RegisterOperator("SplitClosedFaces", new ShapeProcess_UOperator(splitclosedfaces));
-  ShapeProcess::RegisterOperator("FixWireGaps", new ShapeProcess_UOperator(fixwgaps));
-  ShapeProcess::RegisterOperator("FixFaceSize", new ShapeProcess_UOperator(fixfacesize));
-  ShapeProcess::RegisterOperator("DropSmallSolids", new ShapeProcess_UOperator(dropsmallsolids));
-  ShapeProcess::RegisterOperator("DropSmallEdges", new ShapeProcess_UOperator(mergesmalledges));
-  ShapeProcess::RegisterOperator("FixShape", new ShapeProcess_UOperator(fixshape));
-  ShapeProcess::RegisterOperator("SplitClosedEdges", new ShapeProcess_UOperator(spltclosededges));
-  ShapeProcess::RegisterOperator("SplitCommonVertex",
+  ShapeProcess1::RegisterOperator("ElementaryToRevolution", new ShapeProcess_UOperator(torevol));
+  ShapeProcess1::RegisterOperator("SweptToElementary", new ShapeProcess_UOperator(swepttoelem));
+  ShapeProcess1::RegisterOperator("SurfaceToBSpline", new ShapeProcess_UOperator(converttobspline));
+  ShapeProcess1::RegisterOperator("ToBezier", new ShapeProcess_UOperator(shapetobezier));
+  ShapeProcess1::RegisterOperator("SplitContinuity", new ShapeProcess_UOperator(splitcontinuity));
+  ShapeProcess1::RegisterOperator("SplitClosedFaces", new ShapeProcess_UOperator(splitclosedfaces));
+  ShapeProcess1::RegisterOperator("FixWireGaps", new ShapeProcess_UOperator(fixwgaps));
+  ShapeProcess1::RegisterOperator("FixFaceSize", new ShapeProcess_UOperator(fixfacesize));
+  ShapeProcess1::RegisterOperator("DropSmallSolids", new ShapeProcess_UOperator(dropsmallsolids));
+  ShapeProcess1::RegisterOperator("DropSmallEdges", new ShapeProcess_UOperator(mergesmalledges));
+  ShapeProcess1::RegisterOperator("FixShape", new ShapeProcess_UOperator(fixshape));
+  ShapeProcess1::RegisterOperator("SplitClosedEdges", new ShapeProcess_UOperator(spltclosededges));
+  ShapeProcess1::RegisterOperator("SplitCommonVertex",
                                  new ShapeProcess_UOperator(splitcommonvertex));
 }

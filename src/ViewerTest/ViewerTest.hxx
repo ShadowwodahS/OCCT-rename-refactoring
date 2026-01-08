@@ -58,12 +58,12 @@ struct ViewerTest_VinitParams
   }
 };
 
-class ViewerTest
+class ViewerTest1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads all Draw1 commands of  V2d & V3d. Used for plugin.
+  //! Loads all Draw1 commands of  V2d & V3d1. Used for plugin.
   Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 
   //! Creates view with default or custom name and adds this name in map to manage multiple views.
@@ -121,7 +121,7 @@ public:
   Standard_EXPORT static void RemoveView(const Handle(ViewWindow)& theView,
                                          const Standard_Boolean theToRemoveContext = Standard_True);
 
-  //! Display AIS object in active Viewer and register it in the map of Interactive Objects with
+  //! Display AIS1 object in active Viewer and register it in the map of Interactive Objects with
   //! specified name.
   //! @param theName            key to be associated to displayed interactive object
   //! @param theObject          object to display
@@ -134,7 +134,7 @@ public:
     const Standard_Boolean               theToUpdate        = Standard_True,
     const Standard_Boolean               theReplaceIfExists = Standard_True);
 
-  //! waits until a shape of type <aType> is picked in the AIS Viewer and returns it.
+  //! waits until a shape of type <aType> is picked in the AIS1 Viewer and returns it.
   //! if <aType> == TopAbs_Shape, any shape can be picked...
   //! MaxPick  is the Max number before exiting, if no pick is successful
   Standard_EXPORT static TopoShape PickShape(const TopAbs_ShapeEnum aType,
@@ -287,7 +287,7 @@ private:
                                                       Graphic3d_ZLayerId& theLayer);
 
   //! Returns a window class that implements standard behavior of
-  //! all windows of the ViewerTest. This includes usual Open CASCADE
+  //! all windows of the ViewerTest1. This includes usual Open CASCADE
   //! view conventions for mouse buttons (e.g. Ctrl+MB1 for zoom,
   //! Ctrl+MB2 for pan, etc) and keyboard shortcuts.
   //! This method is relevant for MS Windows only and respectively

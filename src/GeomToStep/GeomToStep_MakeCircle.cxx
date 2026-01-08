@@ -66,7 +66,7 @@ GeomToStep_MakeCircle::GeomToStep_MakeCircle(const Handle(Geom2d_Circle)& Cer,
   Handle(StepGeom_Axis2Placement2d) Ax2Step;
   Standard_Real                     Rayon;
 
-  GeomToStep_MakeAxis2Placement2d MkAxis2(C2d.Position(), theLocalFactors);
+  GeomToStep_MakeAxis2Placement2d MkAxis2(C2d.Position1(), theLocalFactors);
   Ax2Step = MkAxis2.Value();
   Rayon   = C2d.Radius();
   Ax2.SetValue(Ax2Step);

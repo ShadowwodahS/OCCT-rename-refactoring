@@ -428,7 +428,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
 
         Point3d        Pf      = myCurve->Value(f);
         Point3d        Pl      = myCurve->Value(l);
-        Point3d        aLoc    = aSph.Position().Location();
+        Point3d        aLoc    = aSph.Position1().Location();
         Standard_Real maxdist = Max(Pf.Distance(aLoc), Pl.Distance(aLoc));
         TolConf               = Max(anR * minang, Abs(anR - maxdist));
 
@@ -835,7 +835,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
           if (aMapIter.Value() > aMaxPoints)
           {
             aMaxPoints = aMapIter.Value();
-            aMaxIdx    = aMapIter.Key();
+            aMaxIdx    = aMapIter.Key1();
           }
         }
         if (aMaxIdx != 0)

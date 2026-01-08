@@ -144,7 +144,7 @@ void PlaneSurfaceTool::ReadOwnParams(const Handle(IGESSolid_PlaneSurface)&  ent,
     }
   }
   /*
-      st = PR.ReadEntity(IR, PR.Current(), "Reference direction",
+      st = PR.ReadEntity(IR, PR.Current(), "Reference1 direction",
                  STANDARD_TYPE(IGESGeom_Direction), tempRefdir);
   */
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
@@ -249,7 +249,7 @@ void PlaneSurfaceTool::OwnDump(const Handle(IGESSolid_PlaneSurface)& ent,
   S << "\n";
   if (ent->IsParametrised())
   {
-    S << "Surface is Parametrised  -  Reference direction : ";
+    S << "Surface is Parametrised  -  Reference1 direction : ";
     dumper.Dump(ent->ReferenceDir(), S, sublevel);
     S << std::endl;
   }

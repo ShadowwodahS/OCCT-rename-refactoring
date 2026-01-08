@@ -29,7 +29,7 @@ class gp_Lin;
 class gp_Circ;
 
 //! A framework to define display of symmetry between shapes.
-class DsgPrs_SymmetricPresentation
+class SymmetricPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

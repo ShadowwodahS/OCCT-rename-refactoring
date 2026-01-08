@@ -116,7 +116,7 @@ public:
   //! continue (as if ErrorHandle had been set)
   Standard_EXPORT void AddFail(const Standard_CString mess, const Standard_CString orig = "");
 
-  //! Used to attach a Warning Message to an individual Transfer
+  //! Used to attach a Warning Message1 to an individual Transfer
   //! It has no effect on the Status
   Standard_EXPORT void AddWarning(const Standard_CString mess, const Standard_CString orig = "");
 

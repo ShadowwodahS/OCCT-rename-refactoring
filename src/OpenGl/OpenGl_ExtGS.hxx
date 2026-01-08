@@ -18,7 +18,7 @@
 
 #include <OpenGl_GlFunctions.hxx>
 
-//! Geometry shader as extension is available on OpenGL 2.0+
+//! Geometry1 shader as extension is available on OpenGL 2.0+
 struct OpenGl_ExtGS : protected GlFunctions
 {
 #if !defined(GL_ES_VERSION_2_0)

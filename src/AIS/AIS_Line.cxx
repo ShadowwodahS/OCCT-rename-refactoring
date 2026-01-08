@@ -120,7 +120,7 @@ void AIS_Line::SetColor(const Quantity_Color& aCol)
 
   Standard_Real WW = HasWidth() ? myOwnWidth
                      : myDrawer->HasLink()
-                       ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
+                       ? GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
                        : 1.;
 
   if (!myDrawer->HasOwnLineAspect())
@@ -150,7 +150,7 @@ void AIS_Line::UnsetColor()
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
     myDrawer->LineAspect()->SetColor(CC);
     myDrawer->SetColor(CC);
     SynchronizeAspects();
@@ -169,7 +169,7 @@ void AIS_Line::SetWidth(const Standard_Real aValue)
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
-      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
+      GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
     replaceWithNewLineAspect(new Prs3d_LineAspect(CC, Aspect_TOL_SOLID, aValue));
   }
   else
@@ -191,7 +191,7 @@ void AIS_Line::UnsetWidth()
   {
     Standard_ShortReal WW =
       myDrawer->HasLink()
-        ? (Standard_ShortReal)AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
+        ? (Standard_ShortReal)GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
         : 1.0f;
     myDrawer->LineAspect()->SetWidth(WW);
     myOwnWidth = WW;
@@ -234,8 +234,8 @@ void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectionContainer)& aS
     Point3d P1,P2;
     FindLimits(curv,myDrawer->MaximalParameterValue(),P1,P2);
   */
-  const Dir3d& thedir  = myComponent->Position().Direction();
-  const Point3d& loc     = myComponent->Position().Location();
+  const Dir3d& thedir  = myComponent->Position1().Direction();
+  const Point3d& loc     = myComponent->Position1().Location();
   const Coords3d& dir_xyz = thedir.XYZ();
   const Coords3d& loc_xyz = loc.XYZ();
   // POP  Standard_Real aLength = UnitsAPI::CurrentToLS (250000. ,"LENGTH");

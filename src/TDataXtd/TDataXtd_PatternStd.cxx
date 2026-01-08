@@ -278,7 +278,7 @@ void TDataXtd_PatternStd::ComputeTrsfs(TDataXtd_Array1OfTrsf& Trsfs) const
   {
     gp_Pln pln;
     TDataXtd_Geometry::Plane1(myMirror, pln);
-    trsf.SetMirror(pln.Position().Ax2());
+    trsf.SetMirror(pln.Position1().Ax2());
     Trsfs(++nb) = trsf;
   }
 }

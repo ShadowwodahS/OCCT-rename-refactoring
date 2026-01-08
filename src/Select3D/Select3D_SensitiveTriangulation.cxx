@@ -246,8 +246,8 @@ Select3D_BndBox3d Select3D_SensitiveTriangulation::Box1(const Standard_Integer t
 //=================================================================================================
 
 Standard_Boolean Select3D_SensitiveTriangulation::Matches(
-  SelectBasics_SelectingVolumeManager& theMgr,
-  SelectBasics_PickResult&             thePickResult)
+  SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult)
 {
   if (myTriangul->HasGeometry())
   {
@@ -343,8 +343,8 @@ bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Triangle2& theTriangl
 //            current selecting volume
 //=======================================================================
 Standard_Boolean Select3D_SensitiveTriangulation::overlapsElement(
-  SelectBasics_PickResult&             thePickResult,
-  SelectBasics_SelectingVolumeManager& theMgr,
+  PickResult&             thePickResult,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
@@ -379,7 +379,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::overlapsElement(
 //=================================================================================================
 
 Standard_Boolean Select3D_SensitiveTriangulation::elementIsInside(
-  SelectBasics_SelectingVolumeManager& theMgr,
+  SelectingVolumeManager& theMgr,
   Standard_Integer                     theElemIdx,
   Standard_Boolean                     theIsFullInside)
 {
@@ -395,7 +395,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::elementIsInside(
     const Point3d aSegmPnt2 = myTriangul->Node(myFreeEdges->Value(aPrimitiveIdx * 2 + 2));
     if (theMgr.GetActiveSelectionType() == SelectMgr_SelectionType_Polyline)
     {
-      SelectBasics_PickResult aDummy;
+      PickResult aDummy;
       return theMgr.OverlapsSegment(aSegmPnt1, aSegmPnt2, aDummy);
     }
     return theMgr.OverlapsPoint(aSegmPnt1) && theMgr.OverlapsPoint(aSegmPnt2);
@@ -410,7 +410,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::elementIsInside(
     const Point3d aPnt3 = myTriangul->Node(aNode3);
     if (theMgr.GetActiveSelectionType() == SelectMgr_SelectionType_Polyline)
     {
-      SelectBasics_PickResult aDummy;
+      PickResult aDummy;
       return theMgr.OverlapsTriangle(aPnt1, aPnt2, aPnt3, mySensType, aDummy);
     }
     return theMgr.OverlapsPoint(aPnt1) && theMgr.OverlapsPoint(aPnt2)
@@ -424,7 +424,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::elementIsInside(
 //            screen point to center of the geometry
 //=======================================================================
 Standard_Real Select3D_SensitiveTriangulation::distanceToCOG(
-  SelectBasics_SelectingVolumeManager& theMgr)
+  SelectingVolumeManager& theMgr)
 {
   return theMgr.DistToGeometryCenter(myCDG3D);
 }

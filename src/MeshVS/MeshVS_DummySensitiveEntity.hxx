@@ -30,8 +30,8 @@ class MeshVS_DummySensitiveEntity : public Select3D_SensitiveEntity
 public:
   Standard_EXPORT MeshVS_DummySensitiveEntity(const Handle(SelectMgr_EntityOwner)& theOwnerId);
 
-  Standard_EXPORT virtual Standard_Boolean Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                   SelectBasics_PickResult& thePickResult)
+  Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,
+                                                   PickResult& thePickResult)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Integer NbSubElements() const Standard_OVERRIDE;

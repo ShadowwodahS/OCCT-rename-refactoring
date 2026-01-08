@@ -328,7 +328,7 @@ static Standard_Boolean SplitWire(const TopoFace&        face,
 
 Standard_Boolean ShapeFix_Face::Perform()
 {
-  myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
+  myStatus = ShapeExtend1::EncodeStatus(ShapeExtend_OK);
   myFixWire->SetContext(Context());
   Handle(WireHealer) theAdvFixWire = myFixWire;
   if (theAdvFixWire.IsNull())
@@ -394,7 +394,7 @@ Standard_Boolean ShapeFix_Face::Perform()
     // skl 29.03.2010 (OCC21623)
     if (myAutoCorrectPrecisionMode)
     {
-      Standard_Real size     = ShapeFix::LeastEdgeSize(S);
+      Standard_Real size     = ShapeFix1::LeastEdgeSize(S);
       Standard_Real newpreci = Min(aSavPreci, size / 2.);
       newpreci               = newpreci * 1.00001;
       if (aSavPreci > newpreci && newpreci > Precision::Confusion())
@@ -421,7 +421,7 @@ Standard_Boolean ShapeFix_Face::Perform()
         else
         {
           fixed = Standard_True;
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
         }
         continue;
       }
@@ -443,7 +443,7 @@ Standard_Boolean ShapeFix_Face::Perform()
             Context()->Replace(wire, w);
           if (theAdvFixWire->NbEdges() == 0)
           {
-            myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+            myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
             continue;
           }
         }
@@ -454,7 +454,7 @@ Standard_Boolean ShapeFix_Face::Perform()
       }
       B.Add(tmpFace, wire);
       //      if ( theAdvFixWire->Status ( ShapeExtend_FAIL ) )
-      //	myStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_FAIL1 );
+      //	myStatus |= ShapeExtend1::EncodeStatus ( ShapeExtend_FAIL1 );
     }
 
     theAdvFixWire->FixLackingMode() = usFixLackingMode;
@@ -476,7 +476,7 @@ Standard_Boolean ShapeFix_Face::Perform()
       myFace = tmpFace;
       if (!theAdvFixWire->StatusReorder(ShapeExtend_DONE5))
       {
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       }
     }
   }
@@ -493,7 +493,7 @@ Standard_Boolean ShapeFix_Face::Perform()
   {
     if (FixMissingSeam())
     {
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE3);
     }
   }
 
@@ -543,7 +543,7 @@ Standard_Boolean ShapeFix_Face::Perform()
           else
           {
             fixed = Standard_True;
-            myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+            myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
           }
           continue;
         }
@@ -576,7 +576,7 @@ Standard_Boolean ShapeFix_Face::Perform()
             // clang-format off
             SendWarning ( wire, Message_Msg ( "FixAdvFace.FixLoopWire.MSG0" ) );// Wire was split on several wires
           // clang-format on
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE7);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE7);
           fixed              = Standard_True;
           Standard_Integer k = 1;
           for (; k <= aLoopWires.Length(); k++)
@@ -601,7 +601,7 @@ Standard_Boolean ShapeFix_Face::Perform()
         if (!Context().IsNull())
           Context()->Replace(S, tmpFace);
         myFace = tmpFace;
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
       }
     }
 
@@ -640,19 +640,19 @@ Standard_Boolean ShapeFix_Face::Perform()
           B.Add(tmpFace, aWires.Value(iw));
         if (!Context().IsNull())
           Context()->Replace(S, tmpFace);
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE8);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE8);
         myFace = tmpFace;
       }
     }
 
     // fix intersecting wires
     if (FixWiresTwoCoincEdges())
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE7);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE7);
     if (NeedFix(myFixIntersectingWiresMode))
     {
       if (FixIntersectingWires())
       {
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE6);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE6);
       }
     }
 
@@ -662,7 +662,7 @@ Standard_Boolean ShapeFix_Face::Perform()
     if (NeedFix(myFixOrientationMode))
     {
       if (FixOrientation(MapWires))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE2);
     }
 
     BRepTools1::Update(myFace);
@@ -672,14 +672,14 @@ Standard_Boolean ShapeFix_Face::Perform()
     if (FixAddNaturalBound())
     {
       NeedSplit = Standard_False;
-      myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE5);
+      myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE5);
     }
 
     // split face
     if (NeedFix(myFixSplitFaceMode) && NeedSplit && MapWires.Extent() > 1)
     {
       if (FixSplitFace(MapWires))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE8);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE8);
     }
   }
 
@@ -698,7 +698,7 @@ Standard_Boolean ShapeFix_Face::Perform()
     {
       const Standard_Boolean isRemoveFace = NeedFix(myRemoveSmallAreaFaceMode, Standard_False);
       if (FixSmallAreaWire(isRemoveFace))
-        myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE4);
+        myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE4);
     }
   }
 
@@ -744,7 +744,7 @@ static void Shift2dWire(const TopoWire&                   w,
   Transform2d tr2d;
   tr2d.SetTranslation(vec.XY());
   Edge1 sae;
-  ShapeBuild_Edge    sbe;
+  Edge2    sbe;
   ShapeBuilder       B;
   for (TopoDS_Iterator ei(w, Standard_False); ei.More(); ei.Next())
   {
@@ -2393,7 +2393,7 @@ Standard_Boolean ShapeFix_Face::FixLoopWire(TopTools_SequenceOfShape& aResWires)
           asfw->FixReorder();
           aResWires.Append(asfw->Wire());
           aSeqWires.Remove(j--);
-          myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE7);
+          myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE7);
           break;
         }
       }
@@ -2429,7 +2429,7 @@ Standard_Boolean ShapeFix_Face::FixLoopWire(TopTools_SequenceOfShape& aResWires)
             aWire = asfw->Wire();
             TopExp1::Vertices(aWire, aV1, aV2);
             aSeqWires.Remove(j--);
-            myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE7);
+            myStatus |= ShapeExtend1::EncodeStatus(ShapeExtend_DONE7);
           }
         }
         aResWires.Append(aWire);
@@ -2475,7 +2475,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
 {
   TopoEdge        edge = sewd->Edge(num);
   TopoEdge        newE1, newE2;
-  ShapeFix_SplitTool aTool;
+  SplitTool aTool;
   if (aTool.SplitEdge(edge, param, vert, myFace, newE1, newE2, preci, 0.01 * preci))
   {
     // change context
@@ -2561,7 +2561,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
 {
   TopoEdge        edge = sewd->Edge(num);
   TopoEdge        newE1, newE2;
-  ShapeFix_SplitTool aTool;
+  SplitTool aTool;
   if (aTool.SplitEdge(edge, param1, param2, vert, myFace, newE1, newE2, preci, 0.01 * preci))
   {
     // change context

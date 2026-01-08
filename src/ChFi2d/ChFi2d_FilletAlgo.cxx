@@ -511,7 +511,7 @@ int ChFi2d_FilletAlgo::NbResults(const Point3d& thePoint)
 {
   Standard_Real aX, aY;
   gp_Pnt2d      aTargetPoint2d;
-  ElSLib1::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
+  ElSLib1::PlaneParameters(myPlane->Pln().Position1(), thePoint, aX, aY);
   aTargetPoint2d.SetCoord(aX, aY);
 
   // iterate through all possible solutions.
@@ -540,7 +540,7 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   TopoEdge   aResult;
   gp_Pnt2d      aTargetPoint2d;
   Standard_Real aX, aY;
-  ElSLib1::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
+  ElSLib1::PlaneParameters(myPlane->Pln().Position1(), thePoint, aX, aY);
   aTargetPoint2d.SetCoord(aX, aY);
 
   // choose the nearest circle
@@ -587,14 +587,14 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   // create circle edge
   Point3d              aCenter = ElSLib1::PlaneValue(aNearest->getCenter().X(),
                                       aNearest->getCenter().Y(),
-                                      myPlane->Pln().Position());
+                                      myPlane->Pln().Position1());
   Handle(GeomCircle) aCircle =
     new GeomCircle(Frame3d(aCenter, myPlane->Pln().Axis().Direction()), myRadius);
   gp_Pnt2d aPoint2d1, aPoint2d2;
   myCurve1->D0(aNearest->getParam(), aPoint2d1);
   myCurve2->D0(aNearest->getParam2(), aPoint2d2);
-  Point3d aPoint1 = ElSLib1::PlaneValue(aPoint2d1.X(), aPoint2d1.Y(), myPlane->Pln().Position());
-  Point3d aPoint2 = ElSLib1::PlaneValue(aPoint2d2.X(), aPoint2d2.Y(), myPlane->Pln().Position());
+  Point3d aPoint1 = ElSLib1::PlaneValue(aPoint2d1.X(), aPoint2d1.Y(), myPlane->Pln().Position1());
+  Point3d aPoint2 = ElSLib1::PlaneValue(aPoint2d2.X(), aPoint2d2.Y(), myPlane->Pln().Position1());
 
   GeomAPI_ProjectPointOnCurve aProj(thePoint, aCircle);
   Standard_Real               aTargetParam   = aProj.LowerDistanceParameter();

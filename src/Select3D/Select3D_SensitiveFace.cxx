@@ -88,8 +88,8 @@ void Select3D_SensitiveFace::BVH()
 // function : Matches
 // purpose  : Checks whether the face overlaps current selecting volume
 //=======================================================================
-Standard_Boolean Select3D_SensitiveFace::Matches(SelectBasics_SelectingVolumeManager& theMgr,
-                                                 SelectBasics_PickResult&             thePickResult)
+Standard_Boolean Select3D_SensitiveFace::Matches(SelectingVolumeManager& theMgr,
+                                                 PickResult&             thePickResult)
 {
   return myFacePoints->Matches(theMgr, thePickResult);
 }

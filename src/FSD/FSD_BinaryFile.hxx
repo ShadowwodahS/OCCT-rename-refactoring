@@ -319,7 +319,7 @@ public:
   Standard_EXPORT static uint64_t InverseUint64(const uint64_t theValue);
 
   Standard_EXPORT static void ReadHeader(Standard_IStream& theIStream,
-                                         FSD_FileHeader&   theFileHeader);
+                                         FileHeader&   theFileHeader);
 
   Standard_EXPORT static void ReadHeaderData(Standard_IStream&                 theIStream,
                                              const Handle(Storage_HeaderData)& theHeaderData);
@@ -332,7 +332,7 @@ public:
 
   Standard_EXPORT static Standard_Integer WriteHeader(
     Standard_OStream&      theOStream,
-    const FSD_FileHeader&  theHeader,
+    const FileHeader&  theHeader,
     const Standard_Boolean theOnlyCount = Standard_False);
 
   Standard_EXPORT static Standard_CString MagicNumber();
@@ -372,7 +372,7 @@ private:
 
 private:
   FSD_BStream    myStream;
-  FSD_FileHeader myHeader{};
+  FileHeader myHeader{};
 };
 
 #endif // _FSD_BinaryFile_HeaderFile

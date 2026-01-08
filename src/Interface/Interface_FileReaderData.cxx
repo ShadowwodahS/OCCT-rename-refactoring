@@ -89,14 +89,14 @@ void Interface_FileReaderData::AddParam(const Standard_Integer /*num*/,
 }
 
 void Interface_FileReaderData::AddParam(const Standard_Integer /*num*/,
-                                        const Interface_FileParameter& FP)
+                                        const FileParameter& FP)
 {
   theparams->Append(FP);
 }
 
 void Interface_FileReaderData::SetParam(const Standard_Integer         num,
                                         const Standard_Integer         nump,
-                                        const Interface_FileParameter& FP)
+                                        const FileParameter& FP)
 {
   theparams->SetParam(thenumpar(num - 1) + nump, FP);
 }
@@ -121,7 +121,7 @@ Handle(Interface_ParamList) Interface_FileReaderData::Params(const Standard_Inte
     return theparams->Params(thenumpar(num - 1) + 1, (thenumpar(num) - thenumpar(num - 1)));
 }
 
-const Interface_FileParameter& Interface_FileReaderData::Param(const Standard_Integer num,
+const FileParameter& Interface_FileReaderData::Param(const Standard_Integer num,
                                                                const Standard_Integer nump) const
 {
   if (thefic != thenum0)
@@ -134,7 +134,7 @@ const Interface_FileParameter& Interface_FileReaderData::Param(const Standard_In
   return theparams->Param(thenp0 + nump);
 }
 
-Interface_FileParameter& Interface_FileReaderData::ChangeParam(const Standard_Integer num,
+FileParameter& Interface_FileReaderData::ChangeParam(const Standard_Integer num,
                                                                const Standard_Integer nump)
 {
   if (thefic != thenum0)
@@ -178,7 +178,7 @@ const Handle(RefObject)& Interface_FileReaderData::ParamEntity(
   return BoundEntity(Param(num, nump).EntityNumber());
 }
 
-Interface_FileParameter& Interface_FileReaderData::ChangeParameter(const Standard_Integer numpar)
+FileParameter& Interface_FileReaderData::ChangeParameter(const Standard_Integer numpar)
 {
   return theparams->ChangeParam(numpar);
 }

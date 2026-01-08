@@ -57,7 +57,7 @@ public:
   //! Sets default size that is used in sizeHint when the widget is firstly show
   Standard_EXPORT void SetPredefinedSize(int theDefaultWidth, int theDefaultHeight);
 
-  //! Creates V3d view and set Qt control for it
+  //! Creates V3d1 view and set Qt control for it
   Standard_EXPORT void Init();
 
   //! Returns an action for the given action type
@@ -152,7 +152,7 @@ signals:
 
 public slots:
 
-  //! Fits all the V3d view and redraw view
+  //! Fits all the V3d1 view and redraw view
   void OnFitAll() { myViewer->GetView()->FitAll(); }
 
   //! Updates states of widget actions
@@ -161,11 +161,11 @@ public slots:
   Standard_EXPORT void onCheckedStateChanged(bool isOn);
 
 protected:
-  //! Avoids Qt standard execution of this method, redraw V3d view
+  //! Avoids Qt standard execution of this method, redraw V3d1 view
   //! \param an event
   virtual void paintEvent(QPaintEvent* theEvent) Standard_OVERRIDE;
 
-  //! Avoids Qt standard execution of this method, do mustBeResized for V3d view, Init view if it is
+  //! Avoids Qt standard execution of this method, do mustBeResized for V3d1 view, Init view if it is
   //! the first call \param an event
   virtual void resizeEvent(QResizeEvent* theEvent) Standard_OVERRIDE;
 
@@ -218,7 +218,7 @@ private:
   static Aspect_VKeyMouse keyMouse(const int theButtonId);
 
 private:
-  View_Viewer*        myViewer;     //!< connector to context, V3d viewer and V3d View
+  View_Viewer*        myViewer;     //!< connector to context, V3d1 viewer and V3d1 View
   AIS_ViewController* myController; //!< controller to process view actions
 
   QToolButton*

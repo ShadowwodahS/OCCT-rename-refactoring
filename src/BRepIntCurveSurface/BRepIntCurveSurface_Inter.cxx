@@ -137,7 +137,7 @@ void BRepIntCurveSurface_Inter::Find()
     Box2& aFaceBox = myFaceBoxes->ChangeValue(i);
     if (aFaceBox.IsVoid())
     {
-      BRepBndLib::Add(aCurface, aFaceBox);
+      BRepBndLib1::Add(aCurface, aFaceBox);
       aFaceBox.SetGap(myTolerance); // Precision::Confusion());
     }
     Standard_Boolean isOut =

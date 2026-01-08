@@ -29,7 +29,7 @@ class BinObjMgt_Persistent;
 class BinMDataStd_IntegerArrayDriver;
 DEFINE_STANDARD_HANDLE(BinMDataStd_IntegerArrayDriver, BinMDF_ADriver)
 
-//! Array of Integer attribute Driver.
+//! Array of Integer1 attribute Driver.
 class BinMDataStd_IntegerArrayDriver : public BinMDF_ADriver
 {
 

@@ -187,7 +187,7 @@ Standard_Boolean FaceEdgeFiller::ScanInterfList(
 {
   for (; IT.More(); IT.Next())
   {
-    Standard_Integer          DSPG     = IT.Value()->Geometry();
+    Standard_Integer          DSPG     = IT.Value()->Geometry1();
     const Point1& otherDSP = BDS.Point(DSPG);
     if (PointGeometryTool::IsEqual(DSP, otherDSP))
       return Standard_True;
@@ -206,7 +206,7 @@ Standard_Boolean FaceEdgeFiller::GetGeometry(
   Point1 DSP   = PointGeometryTool::MakePoint(FEINT);
   Standard_Boolean   found = ScanInterfList(IT, DSP, BDS);
   if (found)
-    G = IT.Value()->Geometry();
+    G = IT.Value()->Geometry1();
   return found;
 }
 
@@ -220,7 +220,7 @@ Standard_Boolean FaceEdgeFiller::GetGeometry(const TopOpeBRepDS_ListOfInterferen
   TopOpeBRepDS_ListIteratorOfListOfInterference itI(L);
   Standard_Boolean                              Ifound = ScanInterfList(itI, DSP, BDS);
   if (Ifound)
-    G = itI.Value()->Geometry();
+    G = itI.Value()->Geometry1();
   else
     G = BDS.AddPoint(DSP);
   return Ifound; // interference found or not
@@ -228,7 +228,7 @@ Standard_Boolean FaceEdgeFiller::GetGeometry(const TopOpeBRepDS_ListOfInterferen
 
 //-----------------------------------------------------------------------
 // StoreInterference : Append an interference I to a list of interference LI
-//                   : Append I to the interf. list connected to I Geometry()
+//                   : Append I to the interf. list connected to I Geometry1()
 //-----------------------------------------------------------------------
 //=================================================================================================
 
@@ -239,9 +239,9 @@ void FaceEdgeFiller::StoreInterference(const Handle(TopOpeBRepDS_Interference)& 
   // append I to list LI
   LI.Append(I);
 
-  Standard_Integer G = I->Geometry();
+  Standard_Integer G = I->Geometry1();
 
-  // append I to list of interference connected to G = I->Geometry()
+  // append I to list of interference connected to G = I->Geometry1()
   switch (I->GeometryType())
   {
 

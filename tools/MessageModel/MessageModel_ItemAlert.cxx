@@ -96,7 +96,7 @@ QVariant MessageModel_ItemAlert::initValue(const int theRole) const
     {
       AsciiString1 aMessageKey = anAlert->GetMessageKey();
       if (aMessageKey.IsEmpty() && !Properties().IsNull())
-        aMessageKey = Properties()->Key();
+        aMessageKey = Properties()->Key1();
       return aMessageKey.ToCString();
     }
     else

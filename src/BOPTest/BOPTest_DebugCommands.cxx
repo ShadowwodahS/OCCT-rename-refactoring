@@ -92,14 +92,14 @@ static Standard_Integer bopbsolid(DrawInterpreter&, Standard_Integer, const char
 
 //=================================================================================================
 
-void BOPTest::DebugCommands(DrawInterpreter& theCommands)
+void BOPTest1::DebugCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
   // Chapter's name
-  const char* g = "BOPTest commands";
+  const char* g = "BOPTest1 commands";
   // Commands
   theCommands.Add("bopds",
                   "Shows the shapes from DS. Use: bopds [v/e/w/f/sh/s/cs/c]",
@@ -197,7 +197,7 @@ Standard_Integer bopds(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -259,7 +259,7 @@ Standard_Integer bopiterator(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -274,7 +274,7 @@ Standard_Integer bopiterator(DrawInterpreter& di, Standard_Integer n, const char
 
   BOPDS_DS& aDS = *pDS;
   aIt.SetDS(&aDS);
-  aIt.Prepare(aCtx, BOPTest_Objects::UseOBB(), BOPTest_Objects::FuzzyValue());
+  aIt.Prepare(aCtx, Objects::UseOBB(), Objects::FuzzyValue());
   //
   if (n == 1)
   {
@@ -333,7 +333,7 @@ Standard_Integer bopinterf(DrawInterpreter& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -413,7 +413,7 @@ Standard_Integer bopwho(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -545,7 +545,7 @@ Standard_Integer bopnews(DrawInterpreter& di, Standard_Integer n, const char** a
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -612,7 +612,7 @@ Standard_Integer bopindex(DrawInterpreter& di, Standard_Integer n, const char** 
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -650,7 +650,7 @@ Standard_Integer bopsd(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 0;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -696,7 +696,7 @@ Standard_Integer bopsc(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -840,7 +840,7 @@ Standard_Integer boppb(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -899,7 +899,7 @@ Standard_Integer bopcb(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -966,7 +966,7 @@ Standard_Integer bopsp(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -1063,7 +1063,7 @@ Standard_Integer bopfinfo(DrawInterpreter&      di,
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -1165,7 +1165,7 @@ Standard_Integer bopfav(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -1225,7 +1225,7 @@ Standard_Integer bopimage(DrawInterpreter& di, Standard_Integer n, const char** 
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -1239,7 +1239,7 @@ Standard_Integer bopimage(DrawInterpreter& di, Standard_Integer n, const char** 
     return 1;
   }
   //
-  BOPAlgo_Builder&                          aBuilder = BOPTest_Objects::Builder();
+  BOPAlgo_Builder&                          aBuilder = Objects::Builder();
   const TopTools_DataMapOfShapeListOfShape& anImages = aBuilder.Images();
   if (!anImages.IsBound(aS))
   {
@@ -1280,7 +1280,7 @@ Standard_Integer boporigin(DrawInterpreter& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -1294,7 +1294,7 @@ Standard_Integer boporigin(DrawInterpreter& di, Standard_Integer n, const char**
     return 0;
   }
   //
-  BOPAlgo_Builder&                          aBuilder = BOPTest_Objects::Builder();
+  BOPAlgo_Builder&                          aBuilder = Objects::Builder();
   const TopTools_DataMapOfShapeListOfShape& aDMI     = aBuilder.Origins();
   if (!aDMI.IsBound(aS))
   {
@@ -1340,7 +1340,7 @@ Standard_Integer bopfsd(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPDS_PDS pDS = BOPTest_Objects::PDS();
+  BOPDS_PDS pDS = Objects::PDS();
   if (!pDS)
   {
     di << " prepare PaveFiller first\n";
@@ -1354,7 +1354,7 @@ Standard_Integer bopfsd(DrawInterpreter& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  BOPAlgo_Builder&                    aBuilder = BOPTest_Objects::Builder();
+  BOPAlgo_Builder&                    aBuilder = Objects::Builder();
   const TopTools_DataMapOfShapeShape& aDMSD    = aBuilder.ShapesSD();
   if (!aDMSD.IsBound(aS))
   {
@@ -1373,7 +1373,7 @@ Standard_Integer bopfsd(DrawInterpreter& di, Standard_Integer n, const char** a)
   aItSD.Initialize(aDMSD);
   for (i = 0; aItSD.More(); aItSD.Next())
   {
-    const TopoShape& aSK = aItSD.Key();
+    const TopoShape& aSK = aItSD.Key1();
     const TopoShape& aSV = aItSD.Value();
     if (aSK.IsEqual(aS))
     {
@@ -1452,7 +1452,7 @@ Standard_Integer bopbface(DrawInterpreter& di, Standard_Integer n, const char** 
   aBF.SetFace(aF);
   aBF.SetShapes(aLE);
   aBF.Perform();
-  BOPTest::ReportAlerts(aBF.GetReport());
+  BOPTest1::ReportAlerts(aBF.GetReport());
   if (aBF.HasErrors())
   {
     return 0;
@@ -1516,7 +1516,7 @@ Standard_Integer bopbsolid(DrawInterpreter& di, Standard_Integer n, const char**
   BOPAlgo_BuilderSolid aBS;
   aBS.SetShapes(aLF);
   aBS.Perform();
-  BOPTest::ReportAlerts(aBS.GetReport());
+  BOPTest1::ReportAlerts(aBS.GetReport());
   if (aBS.HasErrors())
   {
     return 0;

@@ -74,12 +74,12 @@ void GenericDataTool::ReadOwnParams(const Handle(IGESDefs_GenericData)&    ent,
         case 0: // No value
           PR.SetCurrentNumber(PR.CurrentNumber() + 1);
           break;
-        case 1: // Integer
+        case 1: // Integer1
         {
           Handle(TColStd_HArray1OfInteger) tempObj;
-          // st = PR.ReadInts(PR.CurrentList(1), "Integer value", tempObj); //szv#4:S4163:12Mar99
+          // st = PR.ReadInts(PR.CurrentList(1), "Integer1 value", tempObj); //szv#4:S4163:12Mar99
           // moved in if
-          if (PR.ReadInts(PR.CurrentList(1), "Integer value", tempObj))
+          if (PR.ReadInts(PR.CurrentList(1), "Integer1 value", tempObj))
             tempValues->SetValue(i, tempObj);
         }
         break;
@@ -200,7 +200,7 @@ void GenericDataTool::OwnCopy(const Handle(IGESDefs_GenericData)& another,
     {
       case 0: // No value
         break;
-      case 1: // Integer
+      case 1: // Integer1
       {
         Handle(TColStd_HArray1OfInteger) tempObj = new TColStd_HArray1OfInteger(1, 1);
         tempObj->SetValue(1, another->ValueAsInteger(i));
@@ -294,7 +294,7 @@ void GenericDataTool::OwnDump(const Handle(IGESDefs_GenericData)& ent,
             S << "  (Void)";
             break;
           case 1:
-            S << "  Integer, Value : " << ent->ValueAsInteger(i);
+            S << "  Integer1, Value : " << ent->ValueAsInteger(i);
             break;
           case 2:
             S << "  Real   , Value : " << ent->ValueAsReal(i);

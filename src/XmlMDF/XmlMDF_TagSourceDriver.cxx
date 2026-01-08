@@ -13,7 +13,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// AGV 150202: Changed prototype XmlObjMgt::SetStringValue()
+// AGV 150202: Changed prototype XmlObjMgt1::SetStringValue()
 
 #include <Message_Messenger.hxx>
 #include <Standard_Type.hxx>
@@ -42,17 +42,17 @@ Handle(TDF_Attribute) XmlMDF_TagSourceDriver::NewEmpty() const
 // function : Paste
 // purpose  : persistent -> transient (retrieve)
 //=======================================================================
-Standard_Boolean XmlMDF_TagSourceDriver::Paste(const XmlObjMgt_Persistent&  theSource,
+Standard_Boolean XmlMDF_TagSourceDriver::Paste(const PersistentStorage&  theSource,
                                                const Handle(TDF_Attribute)& theTarget,
                                                XmlObjMgt_RRelocationTable&) const
 {
   Standard_Integer    aTag;
-  XmlObjMgt_DOMString aTagStr = XmlObjMgt::GetStringValue(theSource.Element());
+  XmlObjMgt_DOMString aTagStr = XmlObjMgt1::GetStringValue(theSource.Element());
 
   if (aTagStr.GetInteger(aTag) == Standard_False)
   {
     UtfString aMessageString =
-      UtfString("Cannot retrieve TagSource attribute from \"") + aTagStr + "\"";
+      UtfString("Cannot retrieve TagSource1 attribute from \"") + aTagStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -60,7 +60,7 @@ Standard_Boolean XmlMDF_TagSourceDriver::Paste(const XmlObjMgt_Persistent&  theS
   if (aTag < 0)
   {
     UtfString aMessageString =
-      UtfString("Invalid value of TagSource retrieved: ") + aTag;
+      UtfString("Invalid value of TagSource1 retrieved: ") + aTag;
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -76,10 +76,10 @@ Standard_Boolean XmlMDF_TagSourceDriver::Paste(const XmlObjMgt_Persistent&  theS
 // purpose  : transient -> persistent (store)
 //=======================================================================
 void XmlMDF_TagSourceDriver::Paste(const Handle(TDF_Attribute)& theSource,
-                                   XmlObjMgt_Persistent&        theTarget,
+                                   PersistentStorage&        theTarget,
                                    XmlObjMgt_SRelocationTable&) const
 {
   Handle(TDF_TagSource) aTag = Handle(TDF_TagSource)::DownCast(theSource);
   // No occurrence of '&', '<' and other irregular XML characters
-  XmlObjMgt::SetStringValue(theTarget.Element(), aTag->Get(), Standard_True);
+  XmlObjMgt1::SetStringValue(theTarget.Element(), aTag->Get(), Standard_True);
 }

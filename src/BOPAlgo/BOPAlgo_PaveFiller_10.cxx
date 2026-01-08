@@ -82,7 +82,7 @@ void BooleanPaveFiller::UpdateEdgeTolerance(const Standard_Integer nE, const Sta
   const TopoEdge& aE = *(TopoEdge*)&myDS->Shape(nE);
   ShapeBuilder().UpdateEdge(aE, theTol);
   Box2& aBoxE = aSIE.ChangeBox();
-  BRepBndLib::Add(aE, aBoxE);
+  BRepBndLib1::Add(aE, aBoxE);
   aBoxE.SetGap(aBoxE.GetGap() + Precision::Confusion());
 
   // Update vertices
@@ -114,7 +114,7 @@ Standard_Integer BooleanPaveFiller::UpdateVertex(const Standard_Integer nV,
       aBB.UpdateVertex(aVSD, aTolNew);
       BOPDS_ShapeInfo& aSIV  = myDS->ChangeShapeInfo(nVNew);
       Box2&         aBoxV = aSIV.ChangeBox();
-      BRepBndLib::Add(aVSD, aBoxV);
+      BRepBndLib1::Add(aVSD, aBoxV);
       aBoxV.SetGap(aBoxV.GetGap() + Precision::Confusion());
       myIncreasedSS.Add(nV);
     }
@@ -139,7 +139,7 @@ Standard_Integer BooleanPaveFiller::UpdateVertex(const Standard_Integer nV,
   // bounding box for the new vertex
   BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nVNew);
   Box2&         aBoxDS = aSIDS.ChangeBox();
-  BRepBndLib::Add(aVNew, aBoxDS);
+  BRepBndLib1::Add(aVNew, aBoxDS);
   aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
   //
   // add vertex to SD map

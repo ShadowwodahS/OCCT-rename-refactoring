@@ -119,7 +119,7 @@ void BooleanPaveFiller::PerformVV(const Message_ProgressRange& theRange)
     {
       return;
     }
-    n1 = aItDMII.Key();
+    n1 = aItDMII.Key1();
     myDS->InitPaveBlocksForVertex(n1);
   }
   //

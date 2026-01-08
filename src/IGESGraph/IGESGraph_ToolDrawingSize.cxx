@@ -40,7 +40,7 @@ void DrawingSizeTool::ReadOwnParams(const Handle(IGESGraph_DrawingSize)& ent,
   Standard_Real    xSize;
   Standard_Real    ySize;
 
-  // Reading nbPropertyValues(Integer)
+  // Reading nbPropertyValues(Integer1)
   // clang-format off
   PR.ReadInteger(PR.Current(), "No. of property values", nbPropertyValues); //szv#4:S4163:12Mar99 `st=` not needed
   if (nbPropertyValues != 2)

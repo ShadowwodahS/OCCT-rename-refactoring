@@ -26,7 +26,7 @@ class Point3d;
 class Dir3d;
 
 //! A framework to define display of relations of parallelism between shapes.
-class DsgPrs_ParalPresentation
+class ParalPresentation
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -55,7 +55,7 @@ RaytraceMaterial::RaytraceMaterial()
 RaytraceLight::RaytraceLight(const BVH_Vec4f& theEmission,
                                            const BVH_Vec4f& thePosition)
     : Emission(theEmission),
-      Position(thePosition)
+      Position1(thePosition)
 {
   //
 }

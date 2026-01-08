@@ -25,12 +25,12 @@ class TopoFace;
 class TopoShell;
 
 //! Rebuilds connectivity between faces in shell
-class ShapeFix_FaceConnect
+class FaceConnect
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ShapeFix_FaceConnect();
+  Standard_EXPORT FaceConnect();
 
   Standard_EXPORT Standard_Boolean Add(const TopoFace& aFirst, const TopoFace& aSecond);
 

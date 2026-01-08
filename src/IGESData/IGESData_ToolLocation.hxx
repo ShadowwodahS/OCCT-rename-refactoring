@@ -69,7 +69,7 @@ public:
   //! (default by constructor is 1.E-05)
   Standard_EXPORT void SetPrecision(const Standard_Real prec);
 
-  //! Sets the "Reference" information for <child> as being <parent>
+  //! Sets the "Reference1" information for <child> as being <parent>
   //! Sets an Error Status if already set (see method IsAmbiguous)
   Standard_EXPORT void SetReference(const Handle(IGESData_IGESEntity)& parent,
                                     const Handle(IGESData_IGESEntity)& child);
@@ -108,7 +108,7 @@ public:
   Standard_EXPORT Standard_Boolean IsAmbiguous(const Handle(IGESData_IGESEntity)& ent) const;
 
   //! Returns True if <ent> is dependent from one and only one other
-  //! Entity, either by Reference or by Associativity
+  //! Entity, either by Reference1 or by Associativity
   Standard_EXPORT Standard_Boolean HasParent(const Handle(IGESData_IGESEntity)& ent) const;
 
   //! Returns the unique Parent recorded for <ent>.
@@ -117,7 +117,7 @@ public:
 
   //! Returns True if the Parent, if there is one, is defined by
   //! a SingleParentEntity Associativity
-  //! Else, if HasParent is True, it is by Reference
+  //! Else, if HasParent is True, it is by Reference1
   Standard_EXPORT Standard_Boolean
     HasParentByAssociativity(const Handle(IGESData_IGESEntity)& ent) const;
 

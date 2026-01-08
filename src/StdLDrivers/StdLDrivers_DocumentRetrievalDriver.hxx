@@ -17,7 +17,7 @@
 #include <PCDM_RetrievalDriver.hxx>
 #include <Storage_Error.hxx>
 
-class StdObjMgt_MapOfInstantiators;
+class MapOfInstantiators;
 class StdObjMgt_Persistent;
 
 //! retrieval driver of a Part document
@@ -45,7 +45,7 @@ public:
 
 protected:
   //! Register types.
-  Standard_EXPORT virtual void bindTypes(StdObjMgt_MapOfInstantiators& theMap);
+  Standard_EXPORT virtual void bindTypes(MapOfInstantiators& theMap);
 
 private:
   //! Read persistent document from a file.

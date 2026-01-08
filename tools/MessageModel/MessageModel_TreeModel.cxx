@@ -58,12 +58,12 @@ void MessageModel_TreeModel::InitColumns()
   {
     Message_MetricType   aMetricType = (Message_MetricType)aMetricId;
     OSD_MemInfo::Counter aMemInfo;
-    bool                 isMemInfo = Message::ToOSDMetric(aMetricType, aMemInfo);
+    bool                 isMemInfo = Message1::ToOSDMetric(aMetricType, aMemInfo);
 
     setHeaderItem(
       aNextIndex++,
       TreeModel_HeaderSection(
-        QString("%1 [%2]").arg(Message::MetricToString(aMetricType)).arg(isMemInfo ? "Mb" : "s"),
+        QString("%1 [%2]").arg(Message1::MetricToString(aMetricType)).arg(isMemInfo ? "Mb" : "s"),
         COLUMN_REAL_VALUE_WIDTH));
     setHeaderItem(aNextIndex++,
                   TreeModel_HeaderSection(isMemInfo ? "Delta" : "%", COLUMN_PERCENT_VALUE_WIDTH));

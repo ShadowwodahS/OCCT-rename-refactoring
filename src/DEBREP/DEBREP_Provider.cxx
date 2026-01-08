@@ -66,7 +66,7 @@ bool DEBREP_Provider::Read(const AsciiString1&  thePath,
 {
   if (theDocument.IsNull())
   {
-    Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
+    Message1::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                         << "\t: theDocument shouldn't be null";
     return false;
   }
@@ -92,7 +92,7 @@ bool DEBREP_Provider::Write(const AsciiString1&  thePath,
   aSTool->GetFreeShapes(aLabels);
   if (aLabels.Length() <= 0)
   {
-    Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                         << "\t: Document contain no shapes";
     return false;
   }
@@ -100,7 +100,7 @@ bool DEBREP_Provider::Write(const AsciiString1&  thePath,
   Handle(DEBREP_ConfigurationNode) aNode = Handle(DEBREP_ConfigurationNode)::DownCast(GetNode());
   if (aNode->GlobalParameters.LengthUnit != 1.0)
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEBREP_Provider during writing the file " << thePath
       << "\t: Target Units for writing were changed, but current format doesn't support scaling";
   }
@@ -160,7 +160,7 @@ bool DEBREP_Provider::Read(const AsciiString1& thePath,
       aFileSystem->OpenIStream(thePath, std::ios::in | std::ios::binary);
     if (aFile.get() == NULL)
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                           << "\t: Cannot read the file";
       return false;
     }
@@ -169,7 +169,7 @@ bool DEBREP_Provider::Read(const AsciiString1& thePath,
     aFile->read(aStringBuf, 255);
     if (aFile->fail())
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                           << "\t: Cannot read the file";
       return false;
     }
@@ -180,7 +180,7 @@ bool DEBREP_Provider::Read(const AsciiString1& thePath,
   {
     if (!BinTools1::Read(theShape, thePath.ToCString(), theProgress))
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                           << "\t: Cannot read from the file";
       return false;
     }
@@ -189,7 +189,7 @@ bool DEBREP_Provider::Read(const AsciiString1& thePath,
   {
     if (!BRepTools1::Read(theShape, thePath.ToCString(), ShapeBuilder(), theProgress))
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                           << "\t: Cannot read from the file";
       return false;
     }
@@ -206,14 +206,14 @@ bool DEBREP_Provider::Write(const AsciiString1& thePath,
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEBREP_ConfigurationNode)))
   {
-    Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+    Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
   Handle(DEBREP_ConfigurationNode) aNode = Handle(DEBREP_ConfigurationNode)::DownCast(GetNode());
   if (aNode->GlobalParameters.LengthUnit != 1.0)
   {
-    Message::SendWarning()
+    Message1::SendWarning()
       << "Warning in the DEBREP_Provider during writing the file " << thePath
       << "\t: Target Units for writing were changed, but current format doesn't support scaling";
   }
@@ -224,14 +224,14 @@ bool DEBREP_Provider::Write(const AsciiString1& thePath,
         || aNode->InternalParameters.WriteVersionBin
              < static_cast<BinTools_FormatVersion>(BinTools_FormatVersion_LOWER))
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                           << "\t: Unknown format version";
       return false;
     }
     if (aNode->InternalParameters.WriteNormals
         && aNode->InternalParameters.WriteVersionBin < BinTools_FormatVersion_VERSION_4)
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                           << "\t: Vertex normals require binary format version 4 or later";
       return false;
     }
@@ -243,7 +243,7 @@ bool DEBREP_Provider::Write(const AsciiString1& thePath,
                          aNode->InternalParameters.WriteVersionBin,
                          theProgress))
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                           << "\t: Cannot write the file";
       return false;
     }
@@ -255,14 +255,14 @@ bool DEBREP_Provider::Write(const AsciiString1& thePath,
         || aNode->InternalParameters.WriteVersionAscii
              < static_cast<TopTools_FormatVersion>(TopTools_FormatVersion_LOWER))
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                           << "\t: Unknown format version";
       return false;
     }
     if (aNode->InternalParameters.WriteNormals
         && aNode->InternalParameters.WriteVersionAscii < TopTools_FormatVersion_VERSION_3)
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                           << "\t: Error: vertex normals require ascii format version 3 or later";
       return false;
     }
@@ -273,7 +273,7 @@ bool DEBREP_Provider::Write(const AsciiString1& thePath,
                           aNode->InternalParameters.WriteVersionAscii,
                           theProgress))
     {
-      Message::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
+      Message1::SendFail() << "Error in the DEBREP_Provider during writing the file " << thePath
                           << "\t: Cannot write the file";
       return false;
     }
