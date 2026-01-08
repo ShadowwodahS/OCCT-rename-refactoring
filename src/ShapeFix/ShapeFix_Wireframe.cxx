@@ -256,7 +256,7 @@ static Standard_Boolean JoinEdges(const TopoEdge&          E1,
                                   const ShapeList& faces)
 {
   Standard_Boolean     ReplaceFirst = Standard_True;
-  ShapeAnalysis_Edge   sae;
+  Edge1   sae;
   Handle(GeomCurve3d)   c3d1, c3d2;
   Handle(GeomCurve2d) c2d1, c2d2; // TopTools1
   TopoEdge          newedge, newedge1;
@@ -637,7 +637,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
 
     Handle(WireHealer) SFW = new WireHealer;
     SFW->SetContext(Context());
-    ShapeAnalysis_Edge SAE;
+    Edge1 SAE;
     TopoEdge        edge1, edge2, edge3;
     // Iterate on map of faces with small edges
     ShapeExplorer anExpf2(myShape, TopAbs_FACE);
@@ -1079,7 +1079,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                 {
                   // gka protection against removing circles
                   TopoEdge        ed = (take_next ? edge1 : edge2);
-                  ShapeAnalysis_Edge sae;
+                  Edge1 sae;
                   Handle(GeomCurve3d) c3d;
                   Standard_Real      f1, l1;
                   if (sae.Curve3d(ed, c3d, f1, l1, Standard_False))
@@ -1558,7 +1558,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
           {
             // gka protection against removing circles
             TopoEdge        ed = (take_next ? edge1 : edge2);
-            ShapeAnalysis_Edge sae;
+            Edge1 sae;
             Handle(GeomCurve3d) c3d;
             Standard_Real      f1, l1;
             if (sae.Curve3d(ed, c3d, f1, l1, Standard_False))

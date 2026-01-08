@@ -370,7 +370,7 @@ bool Wasm_Window::ProcessWheelEvent(Aspect_WindowInputListener& theListener,
   }
   aDelta /= 15.0;
 
-  if (theListener.UpdateMouseScroll(Aspect_ScrollDelta(aNewPos2i, -aDelta)))
+  if (theListener.UpdateMouseScroll(ScrollDelta(aNewPos2i, -aDelta)))
   {
     theListener.ProcessInput();
   }

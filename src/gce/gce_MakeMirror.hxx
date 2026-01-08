@@ -51,11 +51,11 @@ public:
   //! <Point> and <Direc>.
   Standard_EXPORT MirrorBuilder(const Point3d& Point, const Dir3d& Direc);
 
-  //! Makes a symmetry transformation of plane <Plane>.
-  Standard_EXPORT MirrorBuilder(const gp_Pln& Plane);
+  //! Makes a symmetry transformation of plane <Plane1>.
+  Standard_EXPORT MirrorBuilder(const gp_Pln& Plane1);
 
-  //! Makes a symmetry transformation of plane <Plane>.
-  Standard_EXPORT MirrorBuilder(const Frame3d& Plane);
+  //! Makes a symmetry transformation of plane <Plane1>.
+  Standard_EXPORT MirrorBuilder(const Frame3d& Plane1);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const Transform3d& Value() const;

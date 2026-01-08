@@ -19,7 +19,7 @@
 #include <Standard.hxx>
 
 //! POD structure for packed RGB color value (3 bytes)
-struct Image_ColorRGB
+struct ColorRGB
 {
 
   //! Component type.
@@ -52,7 +52,7 @@ public:
 };
 
 //! POD structure for packed RGB color value (4 bytes with extra byte for alignment)
-struct Image_ColorRGB32
+struct ColorRGB32
 {
 
   //! Component type.
@@ -90,7 +90,7 @@ public:
 };
 
 //! POD structure for packed RGBA color value (4 bytes)
-struct Image_ColorRGBA
+struct ColorRGBA
 {
 
   //! Component type.
@@ -128,7 +128,7 @@ public:
 };
 
 //! POD structure for packed BGR color value (3 bytes)
-struct Image_ColorBGR
+struct ColorBGR
 {
 
   //! Component type.
@@ -160,7 +160,7 @@ public:
 };
 
 //! POD structure for packed BGR color value (4 bytes with extra byte for alignment)
-struct Image_ColorBGR32
+struct ColorBGR32
 {
 
   //! Component type.
@@ -198,7 +198,7 @@ public:
 };
 
 //! POD structure for packed BGRA color value (4 bytes)
-struct Image_ColorBGRA
+struct ColorBGRA
 {
 
   //! Component type.
@@ -236,7 +236,7 @@ public:
 };
 
 //! POD structure for packed float RG color value (2 floats)
-struct Image_ColorRGF
+struct ColorRGF
 {
   //! Component type.
   typedef Standard_ShortReal ComponentType_t;
@@ -261,7 +261,7 @@ public:
 };
 
 //! POD structure for packed float RGB color value (3 floats)
-struct Image_ColorRGBF
+struct ColorRGBF
 {
 
   //! Component type.
@@ -293,7 +293,7 @@ public:
 };
 
 //! POD structure for packed BGR float color value (3 floats)
-struct Image_ColorBGRF
+struct ColorBGRF
 {
 
   //! Component type.
@@ -325,7 +325,7 @@ public:
 };
 
 //! POD structure for packed RGBA color value (4 floats)
-struct Image_ColorRGBAF
+struct ColorRGBAF
 {
 
   //! Component type.
@@ -363,7 +363,7 @@ public:
 };
 
 //! POD structure for packed float BGRA color value (4 floats)
-struct Image_ColorBGRAF
+struct ColorBGRAF
 {
 
   //! Component type.

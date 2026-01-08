@@ -24,7 +24,7 @@ inline GeomAbs_SurfaceType Quadric1::TypeQuadric() const
   return typ;
 }
 
-inline gp_Pln Quadric1::Plane() const
+inline gp_Pln Quadric1::Plane1() const
 {
 
   return gp_Pln(ax3);

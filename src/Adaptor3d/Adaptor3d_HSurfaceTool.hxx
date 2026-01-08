@@ -228,7 +228,7 @@ public:
     return theSurf->GetType();
   }
 
-  static gp_Pln Plane(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Plane(); }
+  static gp_Pln Plane1(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Plane1(); }
 
   static Cylinder1 Cylinder(const Handle(Adaptor3d_Surface)& theSurf)
   {

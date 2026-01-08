@@ -25,7 +25,7 @@
 class Coords2d;
 class gp_Pln;
 
-//! constraint a point to belong to a Plane
+//! constraint a point to belong to a Plane1
 class Plate_PlaneConstraint
 {
 public:

@@ -1392,21 +1392,21 @@ gp_Circ Adaptor3d_CurveOnSurface::Circle() const
 
 gp_Elips Adaptor3d_CurveOnSurface::Ellipse() const
 {
-  return to3d(mySurface->Plane(), myCurve->Ellipse());
+  return to3d(mySurface->Plane1(), myCurve->Ellipse());
 }
 
 //=================================================================================================
 
 gp_Hypr Adaptor3d_CurveOnSurface::Hyperbola() const
 {
-  return to3d(mySurface->Plane(), myCurve->Hyperbola());
+  return to3d(mySurface->Plane1(), myCurve->Hyperbola());
 }
 
 //=================================================================================================
 
 gp_Parab Adaptor3d_CurveOnSurface::Parabola() const
 {
-  return to3d(mySurface->Plane(), myCurve->Parabola());
+  return to3d(mySurface->Plane1(), myCurve->Parabola());
 }
 
 Standard_Integer Adaptor3d_CurveOnSurface::Degree() const
@@ -1455,12 +1455,12 @@ Handle(BezierCurve3d) Adaptor3d_CurveOnSurface::Bezier() const
   Handle(Geom2d_BezierCurve) Bez2d   = myCurve->Bezier();
   Standard_Integer           NbPoles = Bez2d->NbPoles();
 
-  const gp_Pln& Plane = mySurface->Plane();
+  const gp_Pln& Plane1 = mySurface->Plane1();
 
   TColgp_Array1OfPnt Poles(1, NbPoles);
   for (Standard_Integer i = 1; i <= NbPoles; i++)
   {
-    Poles(i) = to3d(Plane, Bez2d->Pole(i));
+    Poles(i) = to3d(Plane1, Bez2d->Pole(i));
   }
   Handle(BezierCurve3d) Bez;
 
@@ -1487,12 +1487,12 @@ Handle(BSplineCurve3d) Adaptor3d_CurveOnSurface::BSpline() const
   Handle(Geom2d_BSplineCurve) Bsp2d   = myCurve->BSpline();
   Standard_Integer            NbPoles = Bsp2d->NbPoles();
 
-  const gp_Pln& Plane = mySurface->Plane();
+  const gp_Pln& Plane1 = mySurface->Plane1();
 
   TColgp_Array1OfPnt Poles(1, NbPoles);
   for (Standard_Integer i = 1; i <= NbPoles; i++)
   {
-    Poles(i) = to3d(Plane, Bsp2d->Pole(i));
+    Poles(i) = to3d(Plane1, Bsp2d->Pole(i));
   }
 
   TColStd_Array1OfReal    Knots(1, Bsp2d->NbKnots());
@@ -1555,7 +1555,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
   {
     myType = CTy;
     if (myType == GeomAbs_Circle)
-      myCirc = to3d(mySurface->Plane(), myCurve->Circle());
+      myCirc = to3d(mySurface->Plane1(), myCurve->Circle());
     else if (myType == GeomAbs_Line)
     {
       Point3d   P;

@@ -17,7 +17,7 @@
 #include <NCollection_Vec3.hxx>
 
 //! Analog input XR action data.
-struct Aspect_XRAnalogActionData
+struct XRAnalogActionData
 {
   uint64_t ActiveOrigin; //!< The origin that caused this action's current state
                          // clang-format off
@@ -31,7 +31,7 @@ struct Aspect_XRAnalogActionData
   bool IsChanged() { return !DeltaXYZ.IsEqual(NCollection_Vec3<float>(0.0f, 0.0f, 0.0f)); }
 
   //! Empty constructor.
-  Aspect_XRAnalogActionData()
+  XRAnalogActionData()
       : ActiveOrigin(0),
         UpdateTime(0.0f),
         IsActive(false)

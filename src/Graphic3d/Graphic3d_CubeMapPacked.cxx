@@ -59,7 +59,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapPacked::CompressedValue(
   {
     const unsigned int             aTileIndex = myOrder[myCurrentSide];
     Handle(Image_CompressedPixMap) anImage =
-      Image_DDSParser::Load(theSupported, aFilePath, (Standard_Integer)aTileIndex);
+      DDSParser::Load(theSupported, aFilePath, (Standard_Integer)aTileIndex);
     if (!anImage.IsNull() && anImage->NbFaces() == 6 && anImage->SizeX() == anImage->SizeY())
     {
       myIsTopDown = anImage->IsTopDown();
@@ -94,7 +94,7 @@ Handle(Image_PixMap) Graphic3d_CubeMapPacked::Value(
 
       myIsTopDown = myPixMap->IsTopDown();
 
-      Graphic3d_CubeMapOrder anOrder = myOrder;
+      CubeMapOrder anOrder = myOrder;
 
       if (!myIsTopDown)
       {

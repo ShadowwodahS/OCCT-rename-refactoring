@@ -1092,7 +1092,7 @@ Standard_Boolean SetSurfParams(const GeomAbs_SurfaceType   theTarget,
 
   if (theTarget == GeomAbs_Plane)
   {
-    gp_Pln aPln = aGAS.Plane();
+    gp_Pln aPln = aGAS.Plane1();
     thePos      = aPln.Position();
   }
   else if (theTarget == GeomAbs_Cylinder)

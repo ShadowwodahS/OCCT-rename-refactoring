@@ -101,7 +101,7 @@ static void GetQuadric(const Handle(GeomAdaptor_Surface)& HS1, Quadric1& quad1)
   switch (HS1->GetType())
   {
     case GeomAbs_Plane:
-      quad1.SetValue(HS1->Plane());
+      quad1.SetValue(HS1->Plane1());
       break;
     case GeomAbs_Cylinder:
       quad1.SetValue(HS1->Cylinder());
@@ -780,7 +780,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
                 TColgp_Array1OfPnt   tpoles(1, nbpoles);
 
                 mbspc.Curve(1, tpoles2d);
-                const gp_Pln& Pln = myHS1->Plane();
+                const gp_Pln& Pln = myHS1->Plane1();
                 //
                 Standard_Integer ik;
                 for (ik = 1; ik <= nbpoles; ik++)
@@ -846,7 +846,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
                 TColgp_Array1OfPnt2d tpoles2d(1, nbpoles);
                 TColgp_Array1OfPnt   tpoles(1, nbpoles);
                 mbspc.Curve((myApprox1 == Standard_True) ? 2 : 1, tpoles2d);
-                const gp_Pln& Pln = myHS2->Plane();
+                const gp_Pln& Pln = myHS2->Plane1();
                 //
                 Standard_Integer ik;
                 for (ik = 1; ik <= nbpoles; ik++)

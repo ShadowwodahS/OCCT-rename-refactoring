@@ -506,7 +506,7 @@ Standard_Boolean ChFi3d_KParticular(const Handle(ChFiDS_Spine)& Spine,
   }
   else if (aST2 == GeomAbs_Cylinder)
   {
-    const Dir3d aD1 = aS1.Plane().Axis().Direction();
+    const Dir3d aD1 = aS1.Plane1().Axis().Direction();
     const Dir3d aD2 = aS2.Cylinder().Axis().Direction();
     //
     if (aCT == GeomAbs_Line && aD1.IsNormal(aD2, aPA))
@@ -520,7 +520,7 @@ Standard_Boolean ChFi3d_KParticular(const Handle(ChFiDS_Spine)& Spine,
   }
   else if (aST2 == GeomAbs_Cone)
   {
-    const Dir3d aD1 = aS1.Plane().Axis().Direction();
+    const Dir3d aD1 = aS1.Plane1().Axis().Direction();
     const Dir3d aD2 = aS2.Cone().Axis().Direction();
     if (aCT == GeomAbs_Circle && aD1.IsParallel(aD2, aPA))
     {
@@ -3483,12 +3483,12 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
     Cylinder1 cyl;
     if (S1->GetType() == GeomAbs_Plane)
     {
-      pl  = S1->Plane();
+      pl  = S1->Plane1();
       cyl = S2->Cylinder();
     }
     else
     {
-      pl  = S2->Plane();
+      pl  = S2->Plane1();
       cyl = S1->Cylinder();
     }
     QuadQuadGeoIntersection ImpKK(pl, cyl, Precision::Angular(), tol3d);
@@ -3589,7 +3589,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
   }
   else if (S1->GetType() == GeomAbs_Plane && S2->GetType() == GeomAbs_Plane)
   {
-    QuadQuadGeoIntersection LInt(S1->Plane(), S2->Plane(), Precision::Angular(), tol3d);
+    QuadQuadGeoIntersection LInt(S1->Plane1(), S2->Plane1(), Precision::Angular(), tol3d);
     if (LInt.IsDone())
     {
       gp_Lin L = LInt.Line(1);
@@ -4359,7 +4359,7 @@ void ChFi3d_Parameters(const Handle(GeomSurface)& S,
   switch (gas.GetType())
   {
     case GeomAbs_Plane:
-      ElSLib1::Parameters(gas.Plane(), p3d, u, v);
+      ElSLib1::Parameters(gas.Plane1(), p3d, u, v);
       break;
     case GeomAbs_Cylinder:
       ElSLib1::Parameters(gas.Cylinder(), p3d, u, v);

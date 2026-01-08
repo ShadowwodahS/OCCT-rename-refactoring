@@ -108,7 +108,7 @@ public:
   //! @endcode
   //! This method does not change <U> and <V>
   //!
-  //! It  can be redefined.  For  example on  the Plane,
+  //! It  can be redefined.  For  example on  the Plane1,
   //! Cylinder, Cone, Revolved and Extruded surfaces.
   Standard_EXPORT virtual void TransformParameters(Standard_Real& U,
                                                    Standard_Real& V,
@@ -130,7 +130,7 @@ public:
   //! @endcode
   //! This method returns an identity transformation
   //!
-  //! It  can be redefined.  For  example on  the Plane,
+  //! It  can be redefined.  For  example on  the Plane1,
   //! Cylinder, Cone, Revolved and Extruded surfaces.
   Standard_EXPORT virtual GeneralTransform2d ParametricTransformation(const Transform3d& T) const;
 

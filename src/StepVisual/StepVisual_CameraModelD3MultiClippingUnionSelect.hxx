@@ -35,13 +35,13 @@ public:
   Standard_EXPORT StepVisual_CameraModelD3MultiClippingUnionSelect();
 
   //! Recognizes a IdAttributeSelect Kind Entity that is :
-  //! 1 -> Plane
+  //! 1 -> Plane1
   //! 2 -> CameraModelD3MultiClippingIntersection
   //! 0 else
   Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
-  //! returns Value as a Plane (Null if another type)
-  Standard_EXPORT Handle(StepGeom_Plane) Plane() const;
+  //! returns Value as a Plane1 (Null if another type)
+  Standard_EXPORT Handle(StepGeom_Plane) Plane1() const;
 
   //! returns Value as a CameraModelD3MultiClippingIntersection (Null if another type)
   Standard_EXPORT Handle(StepVisual_CameraModelD3MultiClippingIntersection)

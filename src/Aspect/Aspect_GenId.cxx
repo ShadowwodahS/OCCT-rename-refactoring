@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Aspect_GenId::Aspect_GenId()
+GenId::GenId()
     : myFreeCount(INT_MAX / 2 + 1),
       myLength(INT_MAX / 2 + 1),
       myLowerBound(0),
@@ -32,7 +32,7 @@ Aspect_GenId::Aspect_GenId()
 
 //=================================================================================================
 
-Aspect_GenId::Aspect_GenId(const Standard_Integer theLow, const Standard_Integer theUpper)
+GenId::GenId(const Standard_Integer theLow, const Standard_Integer theUpper)
     : myFreeCount(theUpper - theLow + 1),
       myLength(theUpper - theLow + 1),
       myLowerBound(theLow),
@@ -46,7 +46,7 @@ Aspect_GenId::Aspect_GenId(const Standard_Integer theLow, const Standard_Integer
 
 //=================================================================================================
 
-void Aspect_GenId::Free()
+void GenId::Free()
 {
   myFreeCount = myLength;
   myFreeIds.Clear();
@@ -54,7 +54,7 @@ void Aspect_GenId::Free()
 
 //=================================================================================================
 
-void Aspect_GenId::Free(const Standard_Integer theId)
+void GenId::Free(const Standard_Integer theId)
 {
   if (theId >= myLowerBound && theId <= myUpperBound)
   {
@@ -72,19 +72,19 @@ void Aspect_GenId::Free(const Standard_Integer theId)
 
 //=================================================================================================
 
-Standard_Integer Aspect_GenId::Next()
+Standard_Integer GenId::Next()
 {
   Standard_Integer aNewId = 0;
   if (!Next(aNewId))
   {
-    throw Aspect_IdentDefinitionError("Aspect_GenId::Next(), Error: Available == 0");
+    throw Aspect_IdentDefinitionError("GenId::Next(), Error: Available == 0");
   }
   return aNewId;
 }
 
 //=================================================================================================
 
-Standard_Boolean Aspect_GenId::Next(Standard_Integer& theId)
+Standard_Boolean GenId::Next(Standard_Integer& theId)
 {
   if (!myFreeIds.IsEmpty())
   {
@@ -104,7 +104,7 @@ Standard_Boolean Aspect_GenId::Next(Standard_Integer& theId)
 
 //=================================================================================================
 
-void Aspect_GenId::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void GenId::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myFreeCount)
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myLength)

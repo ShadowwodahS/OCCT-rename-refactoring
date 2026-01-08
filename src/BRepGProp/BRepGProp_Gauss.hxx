@@ -61,7 +61,7 @@ public: //! @name public API
   //! - Vinert is 3D closed region of space delimited with:
   //! -- Surface;
   //! -- Point and Surface;
-  //! -- Plane and Surface.
+  //! -- Plane1 and Surface.
   //! - Sinert is face in 3D space.
   typedef enum
   {

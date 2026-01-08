@@ -43,7 +43,7 @@ class AIS_ViewInputBuffer
 public:
   bool IsNewGesture; //!< transition from one action to another
 
-  NCollection_Sequence<Aspect_ScrollDelta> ZoomActions; //!< the queue with zoom actions
+  NCollection_Sequence<ScrollDelta> ZoomActions; //!< the queue with zoom actions
 
   struct _orientation
   {

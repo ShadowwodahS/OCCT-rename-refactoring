@@ -59,15 +59,15 @@
 //!    UINT aDevInfoSize = sizeof(RID_DEVICE_INFO);
 //!    if (::GetRawInputDeviceInfoW (aRawInput->header.hDevice, RIDI_DEVICEINFO, &aDevInfo,
 //!    &aDevInfoSize) != sizeof(RID_DEVICE_INFO)
-//!     || (aDevInfo.hid.dwVendorId != WNT_HIDSpaceMouse::VENDOR_ID_LOGITECH
-//!      && aDevInfo.hid.dwVendorId != WNT_HIDSpaceMouse::VENDOR_ID_3DCONNEXION))
+//!     || (aDevInfo.hid.dwVendorId != HIDSpaceMouse::VENDOR_ID_LOGITECH
+//!      && aDevInfo.hid.dwVendorId != HIDSpaceMouse::VENDOR_ID_3DCONNEXION))
 //!    {
 //!      break;
 //!    }
 //!
 //!    Aspect_VKeySet& aKeys = theViewCtrl.ChangeKeys();
 //!    const double aTimeStamp = theViewCtrl.EventTime();
-//!    WNT_HIDSpaceMouse aSpaceData (aDevInfo.hid.dwProductId, aRawInput->data.hid.bRawData,
+//!    HIDSpaceMouse aSpaceData (aDevInfo.hid.dwProductId, aRawInput->data.hid.bRawData,
 //!    aRawInput->data.hid.dwSizeHid); if (aSpaceData.IsTranslation())
 //!    {
 //!      // process translation input
@@ -83,7 +83,7 @@
 //!    break;
 //!  }
 //! @endcode
-class WNT_HIDSpaceMouse
+class HIDSpaceMouse
 {
 public:
   //! Vendor HID identifier.
@@ -98,7 +98,7 @@ public:
 
 public:
   //! Main constructor.
-  Standard_EXPORT WNT_HIDSpaceMouse(unsigned long        theProductId,
+  Standard_EXPORT HIDSpaceMouse(unsigned long        theProductId,
                                     const Standard_Byte* theData,
                                     Standard_Size        theSize);
 
@@ -143,7 +143,7 @@ public:
   bool IsKeyState() const { return myData[0] == SpaceRawInput_KeyState; }
 
   //! Return new keystate.
-  uint32_t KeyState() const { return *reinterpret_cast<const uint32_t*>(myData + 1); }
+  uint32_t KeyState1() const { return *reinterpret_cast<const uint32_t*>(myData + 1); }
 
   //! Convert key state bit into virtual key.
   Standard_EXPORT Aspect_VKey HidToSpaceKey(unsigned short theKeyBit) const;

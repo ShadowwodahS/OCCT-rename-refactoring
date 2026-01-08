@@ -63,7 +63,7 @@ static AsciiString1 loadingStatistic(const AsciiString1& thePrefix,
 
 //=================================================================================================
 
-void RWMesh_TriangulationReader::LoadingStatistic::PrintStatistic(
+void RWMesh_TriangulationReader::LoadingStatistic1::PrintStatistic(
   const AsciiString1& thePrefix) const
 {
   AsciiString1 aStatisticInfo = loadingStatistic(thePrefix,

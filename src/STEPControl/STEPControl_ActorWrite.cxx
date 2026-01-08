@@ -508,7 +508,7 @@ Standard_Boolean STEPControl_ActorWrite::Recognize(const Handle(Transfer_Finder)
     return Standard_False;
   //  pour wireframe ?
 
-  //  Faceted : il est OBLIGATOIRE d avoir des surfaces support Plane et des
+  //  Faceted : il est OBLIGATOIRE d avoir des surfaces support Plane1 et des
   //   courbes 3D Line (pcurves ignorees)
 
   if (mymode == STEPControl_FacetedBrep || mymode == STEPControl_FacetedBrepAndBrepWithVoids)
@@ -622,7 +622,7 @@ static Standard_Real UsedTolerance(Handle(StepData_StepModel)& theStepModel,
     Tol = theStepModel->InternalParameters.WritePrecisionVal;
   if (Tol <= 0)
   {
-    ShapeAnalysis_ShapeTolerance stu;
+    ShapeTolerance stu;
     Tol = stu.Tolerance(theShape, tolmod);
     //  Par defaut, on prend une tolerance moyenne, on elimine les aberrations
     Tol = Interface_MSG::Intervalled(Tol * 1.5); // arrondi a 1 2 5 ...

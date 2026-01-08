@@ -111,7 +111,7 @@ void ShapeFix_SplitCommonVertex::Perform()
                 MapVV.Bind(V2, Vnew);
               }
               ShapeBuild_Edge    sbe;
-              ShapeAnalysis_Edge sae;
+              Edge1 sae;
               for (Standard_Integer ne2 = 1; ne2 <= sewd2->NbEdges(); ne2++)
               {
                 TopoEdge      E       = sewd2->Edge(ne2);

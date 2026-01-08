@@ -315,7 +315,7 @@ static Aspect_VKeyFlags getMouseKeyFlags (NSEvent* theEvent)
     return;
   }
 
-  ViewerTest::CurrentEventManager()->UpdateMouseScroll (Aspect_ScrollDelta (aPos, aDelta, aFlags));
+  ViewerTest::CurrentEventManager()->UpdateMouseScroll (ScrollDelta (aPos, aDelta, aFlags));
   ViewerTest::CurrentEventManager()->FlushViewEvents (ViewerTest::GetAISContext(), ViewerTest::CurrentView(), true);
 }
 

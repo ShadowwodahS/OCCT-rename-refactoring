@@ -958,7 +958,7 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
     GeomAbs_SurfaceType aTypeaFace = aSurfaFace.GetType();
     if (aTypeaFace == GeomAbs_Plane)
     {
-      aPlnaFace1  = aSurfaFace.Plane();
+      aPlnaFace1  = aSurfaFace.Plane1();
       anax1aFace1 = aPlnaFace1.Axis(); // Normale au plan
     }
     else if (aTypeaFace == GeomAbs_Cylinder)
@@ -1012,7 +1012,7 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
     aTypeaFace = aSurfaFace.GetType();
     if (aTypeaFace == GeomAbs_Plane)
     {
-      aPlnaFace2  = aSurfaFace.Plane();
+      aPlnaFace2  = aSurfaFace.Plane1();
       anax1aFace2 = aPlnaFace2.Axis(); // Normale au plan
     }
     else if (aTypeaFace == GeomAbs_Cylinder)
@@ -2383,7 +2383,7 @@ void TPrsStd_ConstraintTools::GetGeom(const Handle(TDataXtd_Constraint)& aConst,
       return;
   }
 
-  if (TDataXtd_Geometry::Plane(label, aplane))
+  if (TDataXtd_Geometry::Plane1(label, aplane))
     aGeom = new GeomPlane(aplane);
   else if (TDataXtd_Geometry::Line(label, anaxis))
     aGeom = new GeomLine(anaxis);

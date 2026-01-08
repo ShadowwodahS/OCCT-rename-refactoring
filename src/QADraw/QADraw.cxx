@@ -149,7 +149,7 @@ static Standard_Integer QATestExtremaSS(DrawInterpreter& theInterpretor,
 
 //=================================================================================================
 
-void QADraw::CommonCommands(DrawInterpreter& theCommands)
+void QADraw1::CommonCommands(DrawInterpreter& theCommands)
 {
   const char* group = "QA_Commands";
 
@@ -165,18 +165,18 @@ void QADraw::CommonCommands(DrawInterpreter& theCommands)
 }
 
 //==============================================================================
-// QADraw::Factory
+// QADraw1::Factory
 //==============================================================================
-void QADraw::Factory(DrawInterpreter& theCommands)
+void QADraw1::Factory(DrawInterpreter& theCommands)
 {
   // definition of QA Command
-  QADraw::CommonCommands(theCommands);
-  QADraw::TutorialCommands(theCommands);
+  QADraw1::CommonCommands(theCommands);
+  QADraw1::TutorialCommands(theCommands);
 
-  QABugs::Commands(theCommands);
-  QADNaming::AllCommands(theCommands);
-  QANCollection::Commands(theCommands);
+  QABugs1::Commands(theCommands);
+  QADNaming1::AllCommands(theCommands);
+  QANCollection1::Commands(theCommands);
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(QADraw)
+DPLUGIN(QADraw1)

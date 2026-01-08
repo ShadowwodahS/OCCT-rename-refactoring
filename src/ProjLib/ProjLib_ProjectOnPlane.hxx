@@ -52,7 +52,7 @@ public:
   //! Empty constructor.
   Standard_EXPORT ProjLib_ProjectOnPlane();
 
-  //! The projection will be normal to the Plane defined
+  //! The projection will be normal to the Plane1 defined
   //! by the Ax3 <Pl>.
   Standard_EXPORT ProjLib_ProjectOnPlane(const Ax3& Pl);
 

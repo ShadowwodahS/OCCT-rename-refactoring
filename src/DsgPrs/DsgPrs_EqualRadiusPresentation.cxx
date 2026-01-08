@@ -37,7 +37,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
                                          const Point3d&                     SecondCenter,
                                          const Point3d&                     FirstPoint,
                                          const Point3d&                     SecondPoint,
-                                         const Handle(GeomPlane)&         Plane)
+                                         const Handle(GeomPlane)&         Plane1)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -80,7 +80,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
     if (SmallDist <= Precision::Confusion())
       SmallDist = Dist;
     Dir3d LineDir = gce_MakeDir(FirstCenter, SecondCenter);
-    Dir3d OrtDir  = Plane->Pln().Axis().Direction() ^ LineDir;
+    Dir3d OrtDir  = Plane1->Pln().Axis().Direction() ^ LineDir;
 
     Vector3d OrtVec = Vector3d(OrtDir) * SmallDist;
 

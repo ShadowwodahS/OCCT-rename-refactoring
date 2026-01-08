@@ -700,7 +700,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
     if (CompC3D && CompPC1 && BAS1.GetType() == GeomAbs_Plane)
     {
       C3Dnew = ::MakeCurve3DfromWLineApprox(Approx, 1);
-      PC1new = ::MakeCurve2DfromWLineApproxAndPlane(Approx, BAS1.Plane());
+      PC1new = ::MakeCurve2DfromWLineApproxAndPlane(Approx, BAS1.Plane1());
       if (CompPC2)
         PC2new = ::MakeCurve2DfromWLineApprox(Approx, 2);
     }
@@ -709,7 +709,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
       C3Dnew = ::MakeCurve3DfromWLineApprox(Approx, 1);
       if (CompPC1)
         PC1new = ::MakeCurve2DfromWLineApprox(Approx, 2);
-      PC2new = ::MakeCurve2DfromWLineApproxAndPlane(Approx, BAS2.Plane());
+      PC2new = ::MakeCurve2DfromWLineApproxAndPlane(Approx, BAS2.Plane1());
     }
     else
     {

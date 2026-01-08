@@ -652,7 +652,7 @@ Standard_Boolean Draft_Modification::Propagate()
               {
 
                 case GeomAbs_Plane: {
-                  S2 = new GeomPlane(SLE.Plane());
+                  S2 = new GeomPlane(SLE.Plane1());
                 }
                 break;
                 case GeomAbs_Cylinder: {

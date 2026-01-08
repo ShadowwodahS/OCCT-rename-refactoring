@@ -26,7 +26,7 @@
 class TopoShape;
 class Vector3d;
 class Dir3d;
-class Sweep_NumShape;
+class SweepNumShape;
 class TopLoc_Location;
 
 //! Provides natural constructors to build BRepSweep
@@ -93,10 +93,10 @@ public:
 protected:
 private:
   //! used to build the NumShape of a limited prism.
-  Standard_EXPORT Sweep_NumShape NumShape() const;
+  Standard_EXPORT SweepNumShape NumShape() const;
 
   //! used to build the NumShape of an infinite prism.
-  Standard_EXPORT Sweep_NumShape NumShape(const Standard_Boolean Inf) const;
+  Standard_EXPORT SweepNumShape NumShape(const Standard_Boolean Inf) const;
 
   //! used to build the Location.
   Standard_EXPORT TopLoc_Location Location(const Vector3d& V) const;

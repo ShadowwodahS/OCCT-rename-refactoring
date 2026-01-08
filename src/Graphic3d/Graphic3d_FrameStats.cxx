@@ -269,7 +269,7 @@ AsciiString1 Graphic3d_FrameStats::FormatStats(
   // clang-format off
   const Standard_Boolean isCompact = theFlags == Graphic3d_RenderingParams::PerfCounters_FrameRate; // only FPS is displayed
   // clang-format on
-  const Graphic3d_FrameStatsData& aStats = LastDataFrame();
+  const FrameStatsData& aStats = LastDataFrame();
   if (myIsLongLineFormat && (theFlags & Graphic3d_RenderingParams::PerfCounters_FrameRate) != 0
       && (theFlags & Graphic3d_RenderingParams::PerfCounters_CPU) != 0)
   {
@@ -557,7 +557,7 @@ AsciiString1 Graphic3d_FrameStats::FormatStats(
 void Graphic3d_FrameStats::FormatStats(TColStd_IndexedDataMapOfStringString&   theDict,
                                        Graphic3d_RenderingParams::PerfCounters theFlags) const
 {
-  const Graphic3d_FrameStatsData& aStats = LastDataFrame();
+  const FrameStatsData& aStats = LastDataFrame();
   if ((theFlags & Graphic3d_RenderingParams::PerfCounters_FrameRate) != 0)
   {
     addInfo(theDict, "FPS", aStats.FrameRate());
@@ -686,7 +686,7 @@ void Graphic3d_FrameStats::FrameStart(const Handle(Graphic3d_CView)& theView,
   if (myCounters.Size() != aNbFrames)
   {
     myCounters.Resize(0, aNbFrames - 1, false);
-    myCounters.Init(Graphic3d_FrameStatsData());
+    myCounters.Init(FrameStatsData());
     myLastFrameIndex = myCounters.Upper();
   }
 
@@ -729,7 +729,7 @@ void Graphic3d_FrameStats::FrameEnd(const Handle(Graphic3d_CView)& theView, bool
     return;
   }
 
-  const Graphic3d_FrameStatsData& aPrevFrame = myCounters.Value(myLastFrameIndex);
+  const FrameStatsData& aPrevFrame = myCounters.Value(myLastFrameIndex);
   if (aTime > gp1::Resolution())
   {
     // update FPS

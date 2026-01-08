@@ -311,7 +311,7 @@ static Standard_Boolean Normal(const Handle(TopOpeBRepDS_GapTool)&        A,
   BRepAdaptor_Surface S(F);
   if (S.GetType() == GeomAbs_Plane)
   {
-    D = S.Plane().Axis().Direction();
+    D = S.Plane1().Axis().Direction();
     return 1;
   }
 

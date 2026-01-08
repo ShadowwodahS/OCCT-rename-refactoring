@@ -18,8 +18,8 @@
 #include <TDF_Label.hxx>
 #include <RWMesh_NameFormat.hxx>
 
-//! Auxiliary tools for RWMesh package.
-class RWMesh
+//! Auxiliary tools for RWMesh1 package.
+class RWMesh1
 {
 public:
   //! Read name attribute from label.

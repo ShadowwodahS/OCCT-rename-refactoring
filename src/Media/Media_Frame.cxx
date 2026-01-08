@@ -206,7 +206,7 @@ int Media_Frame::Format() const
 
 //=================================================================================================
 
-uint8_t* Media_Frame::Plane(int thePlaneId) const
+uint8_t* Media_Frame::Plane1(int thePlaneId) const
 {
 #ifdef HAVE_FFMPEG
   return myFrame->data[thePlaneId];

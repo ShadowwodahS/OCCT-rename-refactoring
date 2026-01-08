@@ -113,7 +113,7 @@ TopoShape ShapeUpgrade_ShellSewing::ApplySewing(const TopoShape& shape,
   Standard_Real t = tol;
   if (t <= 0.)
   {
-    ShapeAnalysis_ShapeTolerance stu;
+    ShapeTolerance stu;
     t = stu.Tolerance(shape, 0); // tolerance moyenne
   }
 

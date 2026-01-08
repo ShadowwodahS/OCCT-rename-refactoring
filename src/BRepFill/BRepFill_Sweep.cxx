@@ -662,7 +662,7 @@ static void BuildFace(const Handle(GeomSurface)&   S,
   // Construction of the face.
   if (IsPlan)
   { // Suspend representation 2d
-    // and construct face Plane
+    // and construct face Plane1
 
     // BRepLib_MakeFace MkF(IsP.Plan(), WW);
     Point3d        aPnt;

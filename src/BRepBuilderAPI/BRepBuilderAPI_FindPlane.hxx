@@ -45,7 +45,7 @@ public:
   //! -   Tol, where the default value is negative, or
   //! -   the largest of the tolerance values assigned to the individual edges of S.
   //! Use the function Found to verify that a plane is built.
-  //! The resulting plane is then retrieved using the function Plane.
+  //! The resulting plane is then retrieved using the function Plane1.
   Standard_EXPORT BRepBuilderAPI_FindPlane(const TopoShape& S, const Standard_Real Tol = -1);
 
   //! Constructs the plane containing the edges of the shape S.
@@ -55,18 +55,18 @@ public:
   //! -   Tol, where the default value is negative, or
   //! -   the largest of the tolerance values assigned to the individual edges of S.
   //! Use the function Found to verify that a plane is built.
-  //! The resulting plane is then retrieved using the function Plane.
+  //! The resulting plane is then retrieved using the function Plane1.
   Standard_EXPORT void Init(const TopoShape& S, const Standard_Real Tol = -1);
 
   //! Returns true if a plane containing the edges of the
-  //! shape is found and built. Use the function Plane to consult the result.
+  //! shape is found and built. Use the function Plane1 to consult the result.
   Standard_EXPORT Standard_Boolean Found() const;
 
   //! Returns the plane containing the edges of the shape.
   //! Warning
   //! Use the function Found to verify that the plane is built. If
-  //! a plane is not found, Plane returns a null handle.
-  Standard_EXPORT Handle(GeomPlane) Plane() const;
+  //! a plane is not found, Plane1 returns a null handle.
+  Standard_EXPORT Handle(GeomPlane) Plane1() const;
 
 protected:
 private:

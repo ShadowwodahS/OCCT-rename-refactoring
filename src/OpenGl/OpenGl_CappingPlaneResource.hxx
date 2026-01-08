@@ -57,7 +57,7 @@ public:
   virtual Standard_Size EstimatedDataSize() const Standard_OVERRIDE { return 0; }
 
   //! Return parent clipping plane structure.
-  const Handle(Graphic3d_ClipPlane)& Plane() const { return myPlaneRoot; }
+  const Handle(Graphic3d_ClipPlane)& Plane1() const { return myPlaneRoot; }
 
   //! @return aspect face for rendering capping surface.
   inline const OpenGl_Aspects* AspectFace() const { return myAspect; }

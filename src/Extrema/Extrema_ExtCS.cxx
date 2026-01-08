@@ -141,7 +141,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
           myExtElCS.Perform(C.Line(), myS->Cylinder());
           break;
         case GeomAbs_Plane:
-          myExtElCS.Perform(C.Line(), myS->Plane());
+          myExtElCS.Perform(C.Line(), myS->Plane1());
           if (myExtElCS.IsParallel())
             break;
           Standard_FALLTHROUGH
@@ -267,7 +267,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
       }
       else if (myStype == GeomAbs_Plane)
       {
-        myExtElCS.Perform(C.Circle(), myS->Plane());
+        myExtElCS.Perform(C.Circle(), myS->Plane1());
         break;
       }
       else if (myStype == GeomAbs_Sphere)
@@ -281,7 +281,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
       if (myCtype == GeomAbs_Hyperbola && myStype == GeomAbs_Plane)
       {
         //  Modified by skv - Thu Jul  7 12:29:34 2005 OCC9134 End
-        myExtElCS.Perform(C.Hyperbola(), myS->Plane());
+        myExtElCS.Perform(C.Hyperbola(), myS->Plane1());
         break;
       }
     }
@@ -332,8 +332,8 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
             switch (myStype)
             {
               case GeomAbs_Plane: {
-                ElSLib1::Parameters(myS->Plane(), aPOnC[i], U[i], V[i]);
-                aPOnS[i] = ElSLib1::Value(U[i], V[i], myS->Plane());
+                ElSLib1::Parameters(myS->Plane1(), aPOnC[i], U[i], V[i]);
+                aPOnS[i] = ElSLib1::Value(U[i], V[i], myS->Plane1());
                 break;
               }
               case GeomAbs_Sphere: {

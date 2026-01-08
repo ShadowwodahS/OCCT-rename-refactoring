@@ -637,7 +637,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
     // std::cout << "  Instruction Parameters         Action\n";
     // std::cout << "  O           X Y Z              Set the origin of the plane\n";
     // std::cout << "  P           DX DY DZ UX UY UZ  Set the normal and X of the plane\n";
-    // std::cout << "  S           Face               Set the Plane (Face must be a Face)\n";
+    // std::cout << "  S           Face               Set the Plane1 (Face must be a Face)\n";
     // std::cout << "  F           X Y                Set the first point\n";
     // std::cout << "  X           DX                 Translate point along X\n";
     // std::cout << "  Y           DY                 Translate point along Y\n";
@@ -666,7 +666,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
     di << "  Instruction Parameters         Action\n";
     di << "  O           X Y Z              Set the origin of the plane\n";
     di << "  P           DX DY DZ UX UY UZ  Set the normal and X of the plane\n";
-    di << "  S           Face               Set the Plane (Face must be a Face)\n";
+    di << "  S           Face               Set the Plane1 (Face must be a Face)\n";
     di << "  F           X Y                Set the first point\n";
     di << "  X           DX                 Translate point along X\n";
     di << "  Y           DY                 Translate point along Y\n";
@@ -780,13 +780,13 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
             return 1;
           }
           Surface                  = BRepInspector::Surface(Face, TheLocation);
-          Handle(GeomPlane) Plane = Handle(GeomPlane)::DownCast(Surface);
-          if (Plane.IsNull())
+          Handle(GeomPlane) Plane1 = Handle(GeomPlane)::DownCast(Surface);
+          if (Plane1.IsNull())
           {
             isplanar = Standard_False;
           }
           else
-            P = Plane->Pln();
+            P = Plane1->Pln();
         }
         stayfirst = Standard_True;
         break;
@@ -1137,13 +1137,13 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
               return 1;
             }
             Surface                  = BRepInspector::Surface(Face, TheLocation);
-            Handle(GeomPlane) Plane = Handle(GeomPlane)::DownCast(Surface);
-            if (Plane.IsNull())
+            Handle(GeomPlane) Plane1 = Handle(GeomPlane)::DownCast(Surface);
+            if (Plane1.IsNull())
             {
               isplanar = Standard_False;
             }
             else
-              P = Plane->Pln();
+              P = Plane1->Pln();
           }
           i += 1;
           break;

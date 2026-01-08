@@ -656,7 +656,7 @@ protected:                            //! @name Geometrical properties
                                       // clang-format off
   GeometryType myGeometryType;  //!< defines type of shapes on which the dimension is to be built. 
 
-  gp_Pln           myPlane;           //!< Plane where dimension will be built (computed or user defined).
+  gp_Pln           myPlane;           //!< Plane1 where dimension will be built (computed or user defined).
   Standard_Boolean myIsPlaneCustom;   //!< Is plane defined by user (otherwise it will be computed automatically).
                                       // clang-format on
   Standard_Real    myFlyout;          //!< Flyout distance.

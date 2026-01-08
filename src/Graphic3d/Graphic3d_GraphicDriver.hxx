@@ -158,7 +158,7 @@ protected:
 
 protected:
   Handle(Aspect_DisplayConnection)                                 myDisplayConnection;
-  Aspect_GenId                                                     myStructGenId;
+  GenId                                                     myStructGenId;
   NCollection_List<Handle(Graphic3d_Layer)>                        myLayers;
   NCollection_DataMap<Graphic3d_ZLayerId, Handle(Graphic3d_Layer)> myLayerIds;
 };

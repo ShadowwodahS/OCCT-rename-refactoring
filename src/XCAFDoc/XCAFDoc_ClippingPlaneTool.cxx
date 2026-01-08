@@ -64,7 +64,7 @@ Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(const DataLabel&   
   if (!theLabel.FindAttribute(TDataXtd_Plane::GetID(), aPlaneAttribute))
     return Standard_False;
 
-  TDataXtd_Geometry::Plane(aPlaneAttribute->Label(), thePlane);
+  TDataXtd_Geometry::Plane1(aPlaneAttribute->Label(), thePlane);
   Handle(NameAttribute) aNameAttribute;
   if (theLabel.FindAttribute(NameAttribute::GetID(), aNameAttribute))
     theName = aNameAttribute->Get();

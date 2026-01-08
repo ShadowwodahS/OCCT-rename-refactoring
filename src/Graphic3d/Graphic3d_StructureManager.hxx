@@ -185,7 +185,7 @@ protected:
   Standard_EXPORT Standard_Integer NumberOfDisplayedStructures() const;
 
 protected:
-  Aspect_GenId                    myViewGenId;
+  GenId                    myViewGenId;
   Graphic3d_MapOfStructure        myDisplayedStructure;
   Graphic3d_MapOfStructure        myHighlightedStructure;
   Graphic3d_MapOfObject           myRegisteredObjects;

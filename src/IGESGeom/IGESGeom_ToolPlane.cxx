@@ -69,10 +69,10 @@ void PlaneTool::ReadOwnParams(const Handle(IGESGeom_Plane)&          ent,
     PR.SendFail(Msg135);
   }
   /*
-    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane", A);
-    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane", B);
-    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane", C);
-    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane", D);
+    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane1", A);
+    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane1", B);
+    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane1", C);
+    st = PR.ReadReal(PR.Current(), "Coefficient Of Plane1", D);
   */
   if (PR.IsParamDefined(PR.CurrentNumber()))
   {
@@ -220,7 +220,7 @@ void PlaneTool::OwnCheck(const Handle(IGESGeom_Plane)& ent,
   }
   // These messages are transferred in the translation procedure
   //  if ( (A*A + B*B + C*C) < eps)    //  pas nul !
-  //    ach.SendFail("Incorrect Coefficients for the Plane");
+  //    ach.SendFail("Incorrect Coefficients for the Plane1");
   if (!ent->HasBoundingCurve())
     return;
   //  Symbol : verifie si Size defini > 0 (sinon, n a pas de signification)
@@ -229,9 +229,9 @@ void PlaneTool::OwnCheck(const Handle(IGESGeom_Plane)& ent,
         C * ent->SymbolAttach().Z() - D;
     if ( ec > eps || ec < -eps) {
       char mess[80];
-      Sprintf(mess,"Symbol Attach not in the Plane, gap/equation over %f",
+      Sprintf(mess,"Symbol Attach not in the Plane1, gap/equation over %f",
           Interface_MSG::Intervalled(ec));
-      ach.SendWarning(mess,"Symbol Attach not in the Plane");
+      ach.SendWarning(mess,"Symbol Attach not in the Plane1");
 
     }
   */
@@ -248,10 +248,10 @@ void PlaneTool::OwnDump(const Handle(IGESGeom_Plane)& ent,
   Standard_Real A, B, C, D;
   ent->Equation(A, B, C, D);
 
-  S << "Plane Coefficient A : " << A << "\n"
-    << "Plane Coefficient B : " << B << "\n"
-    << "Plane Coefficient C : " << C << "\n"
-    << "Plane Coefficient D : " << D << "\n"
+  S << "Plane1 Coefficient A : " << A << "\n"
+    << "Plane1 Coefficient B : " << B << "\n"
+    << "Plane1 Coefficient C : " << C << "\n"
+    << "Plane1 Coefficient D : " << D << "\n"
     << "The Bounding Curve  : ";
   dumper.Dump(ent->BoundingCurve(), S, (level <= 4) ? 0 : 1);
   S << "\n"

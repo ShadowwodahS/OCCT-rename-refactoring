@@ -5264,9 +5264,9 @@ static Standard_Integer OCC26441(DrawInterpreter& theDi,
   return 0;
 }
 
-void QABugs::Commands_20(DrawInterpreter& theCommands)
+void QABugs1::Commands_20(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC26675_1", "OCC26675_1 result", __FILE__, SurfaceGenOCC26675_1, group);
   theCommands.Add("OCC24836", "OCC24836", __FILE__, OCC24836, group);

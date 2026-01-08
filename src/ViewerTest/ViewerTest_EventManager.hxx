@@ -76,7 +76,7 @@ public:
   }
 
   //! Update mouse scroll event.
-  Standard_EXPORT virtual bool UpdateMouseScroll(const Aspect_ScrollDelta& theDelta)
+  Standard_EXPORT virtual bool UpdateMouseScroll(const ScrollDelta& theDelta)
     Standard_OVERRIDE;
 
   //! Handle mouse button click event.

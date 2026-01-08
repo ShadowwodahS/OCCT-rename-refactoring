@@ -25,7 +25,7 @@
 #include <Standard_Boolean.hxx>
 class TopoShape;
 class Axis3d;
-class Sweep_NumShape;
+class SweepNumShape;
 class TopLoc_Location;
 
 //! Provides natural constructors to build BRepSweep
@@ -82,7 +82,7 @@ public:
 
 private:
   //! builds the NumShape.
-  Standard_EXPORT Sweep_NumShape NumShape(const Standard_Real D) const;
+  Standard_EXPORT SweepNumShape NumShape(const Standard_Real D) const;
 
   //! Builds the Location
   Standard_EXPORT TopLoc_Location Location(const Axis3d& Ax, const Standard_Real D) const;

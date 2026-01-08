@@ -32,7 +32,7 @@ class ShapeBuild_ReShape;
 
 //! This package provides algorithms for fixing
 //! problematic (violating Open CASCADE requirements) shapes.
-//! Tools from package ShapeAnalysis are used for detecting the problems. The
+//! Tools from package ShapeAnalysis1 are used for detecting the problems. The
 //! detecting and fixing is done taking in account various
 //! criteria implemented in BRepCheck package.
 //! Each class of package ShapeFix deals with one

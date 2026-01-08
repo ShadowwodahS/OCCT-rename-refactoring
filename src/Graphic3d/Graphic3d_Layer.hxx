@@ -32,7 +32,7 @@ typedef NCollection_IndexedMap<const Graphic3d_CStructure*> Graphic3d_IndexedMap
 typedef std::array<Graphic3d_IndexedMapOfStructure, Graphic3d_DisplayPriority_NB>
   Graphic3d_ArrayOfIndexedMapOfStructure;
 
-class Graphic3d_CullingTool;
+class CullingTool;
 
 //! Presentations list sorted within priorities.
 class Graphic3d_Layer : public RefObject
@@ -137,7 +137,7 @@ public:
   //! Traverses through BVH tree to determine which structures are in view volume.
   Standard_EXPORT void UpdateCulling(
     Standard_Integer                                theViewId,
-    const Graphic3d_CullingTool&                    theSelector,
+    const CullingTool&                    theSelector,
     const Graphic3d_RenderingParams::FrustumCulling theFrustumCullingState);
 
   //! Returns TRUE if layer is empty or has been discarded entirely by culling test.
@@ -151,7 +151,7 @@ public:
 
 public:
   //! Returns set of Graphic3d_CStructures structures for building BVH tree.
-  const Graphic3d_BvhCStructureSet& CullableStructuresBVH() const { return myBVHPrimitives; }
+  const BvhCStructureSet& CullableStructuresBVH() const { return myBVHPrimitives; }
 
   //! Returns set of transform persistent Graphic3d_CStructures for building BVH tree.
   const Graphic3d_BvhCStructureSetTrsfPers& CullableTrsfPersStructuresBVH() const
@@ -189,7 +189,7 @@ private:
   Graphic3d_ZLayerId myLayerId;
 
   //! Set of Graphic3d_CStructures structures for building BVH tree.
-  mutable Graphic3d_BvhCStructureSet myBVHPrimitives;
+  mutable BvhCStructureSet myBVHPrimitives;
 
   //! Set of transform persistent Graphic3d_CStructures for building BVH tree.
   mutable Graphic3d_BvhCStructureSetTrsfPers myBVHPrimitivesTrsfPers;

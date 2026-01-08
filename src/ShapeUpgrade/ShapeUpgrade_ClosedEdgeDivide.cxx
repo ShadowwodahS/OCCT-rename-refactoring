@@ -42,7 +42,7 @@ ShapeUpgrade_ClosedEdgeDivide::ShapeUpgrade_ClosedEdgeDivide()
 Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoEdge& anEdge)
 {
   Clear();
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   TopoVertex      V1 = sae.FirstVertex(anEdge);
   TopoVertex      V2 = sae.LastVertex(anEdge);
   if (V1.IsSame(V2) && !BRepInspector::Degenerated(anEdge))

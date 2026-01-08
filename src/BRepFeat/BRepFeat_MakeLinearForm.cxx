@@ -78,7 +78,7 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
 
 void BRepFeat_MakeLinearForm::Init(const TopoShape&       Sbase,
                                    const TopoWire&        W,
-                                   const Handle(GeomPlane)& Plane,
+                                   const Handle(GeomPlane)& Plane1,
                                    const Vector3d&             Direc,
                                    const Vector3d&             Direc1,
                                    const Standard_Integer    Mode,
@@ -116,7 +116,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoShape&       Sbase,
   //  myWire = TopoDS::Wire(W.Oriented(TopAbs_FORWARD));
   myDir  = Direc;
   myDir1 = Direc1;
-  myPln  = Plane;
+  myPln  = Plane1;
 
   if (Mode == 0)
     myFuse = Standard_False;

@@ -301,7 +301,7 @@ Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfSh
                                              const TopoFace&                       theFace,
                                              TopoEdge&                             theEdge)
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   ShapeBuilder       B;
 
   try

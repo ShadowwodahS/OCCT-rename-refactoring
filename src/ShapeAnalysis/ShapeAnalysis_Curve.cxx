@@ -89,7 +89,7 @@ static void ProjectOnSegments(const Adaptor3d_Curve& AC,
   if (aHasChanged)
     distmin = Sqrt(distmin2);
 #ifdef OCCT_DEBUG
-  std::cout << "ShapeAnalysis_Geom:Project, param=" << param << " -> distmin=" << distmin
+  std::cout << "Geom:Project, param=" << param << " -> distmin=" << distmin
             << std::endl;
 #endif
 
@@ -99,7 +99,7 @@ static void ProjectOnSegments(const Adaptor3d_Curve& AC,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::Project(const Handle(GeomCurve3d)& C3D,
+Standard_Real Curve2::Project(const Handle(GeomCurve3d)& C3D,
                                            const Point3d&             P3D,
                                            const Standard_Real       preci,
                                            Point3d&                   proj,
@@ -116,7 +116,7 @@ Standard_Real ShapeAnalysis_Curve::Project(const Handle(GeomCurve3d)& C3D,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::Project(const Handle(GeomCurve3d)& C3D,
+Standard_Real Curve2::Project(const Handle(GeomCurve3d)& C3D,
                                            const Point3d&             P3D,
                                            const Standard_Real       preci,
                                            Point3d&                   proj,
@@ -174,7 +174,7 @@ Standard_Real ShapeAnalysis_Curve::Project(const Handle(GeomCurve3d)& C3D,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::Project(const Adaptor3d_Curve& C3D,
+Standard_Real Curve2::Project(const Adaptor3d_Curve& C3D,
                                            const Point3d&          P3D,
                                            const Standard_Real    preci,
                                            Point3d&                proj,
@@ -230,7 +230,7 @@ Standard_Real ShapeAnalysis_Curve::Project(const Adaptor3d_Curve& C3D,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
+Standard_Real Curve2::ProjectAct(const Adaptor3d_Curve& C3D,
                                               const Point3d&          P3D,
                                               const Standard_Real    preci,
                                               Point3d&                proj,
@@ -272,7 +272,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
   {
 #ifdef OCCT_DEBUG
     //: s5
-    std::cout << "\nWarning: ShapeAnalysis_Curve::ProjectAct(): Exception in Extrema_ExtPC: ";
+    std::cout << "\nWarning: Curve2::ProjectAct(): Exception in Extrema_ExtPC: ";
     anException.Print(std::cout);
     std::cout << std::endl;
 #endif
@@ -402,7 +402,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
 
   //  p = PPOC.LowerDistanceParameter();  cf try
   if (closed && (param < uMin || param > uMax))
-    param += ShapeAnalysis::AdjustByPeriod(param, 0.5 * (uMin + uMax), valclosed);
+    param += ShapeAnalysis1::AdjustByPeriod(param, 0.5 * (uMin + uMax), valclosed);
 
   if (IsHaveOldSol)
   {
@@ -424,7 +424,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
 // purpose  : Newton algo for projecting point on curve (S4030)
 //=======================================================================
 
-Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real       paramPrev,
+Standard_Real Curve2::NextProject(const Standard_Real       paramPrev,
                                                const Handle(GeomCurve3d)& C3D,
                                                const Point3d&             P3D,
                                                const Standard_Real       preci,
@@ -481,7 +481,7 @@ Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real       paramPr
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real    paramPrev,
+Standard_Real Curve2::NextProject(const Standard_Real    paramPrev,
                                                const Adaptor3d_Curve& C3D,
                                                const Point3d&          P3D,
                                                const Standard_Real    preci,
@@ -506,7 +506,7 @@ Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real    paramPrev,
 // purpose  : Copied from StepToTopoDS_GeometricTuul::UpdateParam3d (Aug 2001)
 //=======================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(GeomCurve3d)& theCurve,
+Standard_Boolean Curve2::ValidateRange(const Handle(GeomCurve3d)& theCurve,
                                                     Standard_Real&            First,
                                                     Standard_Real&            Last,
                                                     const Standard_Real       preci) const
@@ -551,7 +551,7 @@ Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(GeomCurve3d)& t
   }
 
   // 15.11.2002 PTV OCC966
-  if (ShapeAnalysis_Curve::IsPeriodic(theCurve))
+  if (Curve2::IsPeriodic(theCurve))
   {
     // clang-format off
     ElCLib1::AdjustPeriodic(cf,cl,Precision::PConfusion(),First,Last); //:a7 abv 11 Feb 98: preci -> PConfusion()
@@ -720,7 +720,7 @@ static Standard_Integer SearchForExtremum(const Handle(GeomCurve2d)& C2d,
   return Standard_True;
 }
 
-void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
+void Curve2::FillBndBox(const Handle(GeomCurve2d)& C2d,
                                      const Standard_Real         First,
                                      const Standard_Real         Last,
                                      const Standard_Integer      NPoints,
@@ -780,7 +780,7 @@ void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
 
 //=================================================================================================
 
-Standard_Integer ShapeAnalysis_Curve::SelectForwardSeam(const Handle(GeomCurve2d)& C1,
+Standard_Integer Curve2::SelectForwardSeam(const Handle(GeomCurve2d)& C1,
                                                         const Handle(GeomCurve2d)& C2) const
 {
   //  SelectForward est destine a devenir un outil distinct
@@ -995,7 +995,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve
 // purpose  : Detects if points lie in some plane and returns normal
 //=======================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
+Standard_Boolean Curve2::IsPlanar(const TColgp_Array1OfPnt& pnts,
                                                Coords3d&                   Normal,
                                                const Standard_Real       preci)
 {
@@ -1063,7 +1063,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(GeomCurve3d)& curve,
+Standard_Boolean Curve2::IsPlanar(const Handle(GeomCurve3d)& curve,
                                                Coords3d&                   Normal,
                                                const Standard_Real       preci)
 {
@@ -1148,7 +1148,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(GeomCurve3d)& curve,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve3d)& curve,
+Standard_Boolean Curve2::GetSamplePoints(const Handle(GeomCurve3d)& curve,
                                                       const Standard_Real       first,
                                                       const Standard_Real       last,
                                                       TColgp_SequenceOfPnt&     seq)
@@ -1198,7 +1198,7 @@ Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve3d)&
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve2d)& curve,
+Standard_Boolean Curve2::GetSamplePoints(const Handle(GeomCurve2d)& curve,
                                                       const Standard_Real         first,
                                                       const Standard_Real         last,
                                                       TColgp_SequenceOfPnt2d&     seq)
@@ -1301,7 +1301,7 @@ Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve2d)&
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsClosed(const Handle(GeomCurve3d)& theCurve,
+Standard_Boolean Curve2::IsClosed(const Handle(GeomCurve3d)& theCurve,
                                                const Standard_Real       preci)
 {
   if (theCurve->IsClosed())
@@ -1324,7 +1324,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsClosed(const Handle(GeomCurve3d)& theCur
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(GeomCurve3d)& theCurve)
+Standard_Boolean Curve2::IsPeriodic(const Handle(GeomCurve3d)& theCurve)
 {
   // 15.11.2002 PTV OCC966
   // remove regressions in DE tests (diva, divb, divc, toe3) in KAS:dev
@@ -1341,7 +1341,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(GeomCurve3d)& theC
   return aTmpCurve->IsPeriodic();
 }
 
-Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(GeomCurve2d)& theCurve)
+Standard_Boolean Curve2::IsPeriodic(const Handle(GeomCurve2d)& theCurve)
 {
   // 15.11.2002 PTV OCC966
   // remove regressions in DE tests (diva, divb, divc, toe3) in KAS:dev

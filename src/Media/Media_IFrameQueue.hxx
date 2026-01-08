@@ -18,7 +18,7 @@
 #include <Media_Frame.hxx>
 
 //! Interface defining frame queuing.
-class Media_IFrameQueue
+class IFrameQueue
 {
 public:
   //! Lock the frame, e.g. take ownership on a single (not currently displayed) frame from the queue

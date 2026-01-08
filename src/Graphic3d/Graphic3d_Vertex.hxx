@@ -23,16 +23,16 @@
 #include <Standard_OStream.hxx>
 
 //! This class represents a graphical 3D point.
-class Graphic3d_Vertex
+class Vertex1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a point with 0.0, 0.0, 0.0 coordinates.
-  Graphic3d_Vertex() { SetCoord(0.0f, 0.0f, 0.0f); }
+  Vertex1() { SetCoord(0.0f, 0.0f, 0.0f); }
 
   //! Creates a point with theX, theY and theZ coordinates.
-  Graphic3d_Vertex(const Standard_ShortReal theX,
+  Vertex1(const Standard_ShortReal theX,
                    const Standard_ShortReal theY,
                    const Standard_ShortReal theZ)
   {
@@ -40,7 +40,7 @@ public:
   }
 
   //! Creates a point with theX, theY and theZ coordinates.
-  Graphic3d_Vertex(const Standard_Real theX, const Standard_Real theY, const Standard_Real theZ)
+  Vertex1(const Standard_Real theX, const Standard_Real theY, const Standard_Real theZ)
   {
     SetCoord(theX, theY, theZ);
   }
@@ -89,7 +89,7 @@ public:
   Standard_ShortReal Z() const { return xyz[2]; }
 
   //! Returns the distance between two points.
-  Standard_EXPORT Standard_ShortReal Distance(const Graphic3d_Vertex& theOther) const;
+  Standard_EXPORT Standard_ShortReal Distance(const Vertex1& theOther) const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;

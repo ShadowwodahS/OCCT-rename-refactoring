@@ -997,7 +997,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferBSplineSurface(
   if (isUPeriodic || isVPeriodic)
   {
     Handle(Geom_BSplineSurface) periodicSurf =
-      Handle(Geom_BSplineSurface)::DownCast(ShapeAlgo::AlgoContainer()->ConvertToPeriodic(res));
+      Handle(Geom_BSplineSurface)::DownCast(ShapeAlgo1::AlgoContainer()->ConvertToPeriodic(res));
     if (!periodicSurf.IsNull())
     { //: p6 abv 26 Feb 99: && periodicSurf != res ) {
       // #75 rln 11.03.99: using message mechanism

@@ -33,7 +33,7 @@ void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(HSurfaceTool::Plane(S));
+      gp_Pln pl(HSurfaceTool::Plane1(S));
       Norm = pl.Axis().Direction();
       P    = ElSLib1::Value(U, V, pl);
       if (!pl.Direct())
@@ -141,7 +141,7 @@ void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(HSurfaceTool::Plane(S));
+      gp_Pln pl(HSurfaceTool::Plane1(S));
       Norm = pl.Axis().Direction();
       ElSLib1::D1(U, V, pl, P, d1u, d1v);
       if (!pl.Direct())
@@ -246,7 +246,7 @@ void SurfaceProperties::NormAndDn(const Handle(Adaptor3d_Surface)& S,
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(HSurfaceTool::Plane(S));
+      gp_Pln pl(HSurfaceTool::Plane1(S));
       P    = ElSLib1::Value(U, V, pl);
       Norm = pl.Axis().Direction();
       if (!pl.Direct())

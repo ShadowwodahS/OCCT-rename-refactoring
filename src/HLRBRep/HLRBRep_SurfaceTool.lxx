@@ -201,9 +201,9 @@ inline GeomAbs_SurfaceType SurfaceTool3::GetType(const Standard_Address S)
   return ((BRepAdaptor_Surface*)S)->GetType();
 }
 
-inline gp_Pln SurfaceTool3::Plane(const Standard_Address S)
+inline gp_Pln SurfaceTool3::Plane1(const Standard_Address S)
 {
-  return ((BRepAdaptor_Surface*)S)->Plane();
+  return ((BRepAdaptor_Surface*)S)->Plane1();
 }
 
 inline Cylinder1 SurfaceTool3::Cylinder(const Standard_Address S)

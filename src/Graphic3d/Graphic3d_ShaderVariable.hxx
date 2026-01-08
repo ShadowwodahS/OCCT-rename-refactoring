@@ -21,10 +21,10 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Interface for generic variable value.
-struct Graphic3d_ValueInterface
+struct ValueInterface
 {
   //! Releases memory resources of variable value.
-  Standard_EXPORT virtual ~Graphic3d_ValueInterface();
+  Standard_EXPORT virtual ~ValueInterface();
 
   //! Returns unique identifier of value type.
   virtual Standard_Size TypeID() const = 0;
@@ -40,62 +40,62 @@ struct Graphic3d_ValueInterface
 
 //! Generates unique type identifier for variable value.
 template <class T>
-struct Graphic3d_UniformValueTypeID
+struct UniformValueTypeID
 {
   /* Not implemented */
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Standard_Integer>
+struct UniformValueTypeID<Standard_Integer>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Standard_ShortReal>
+struct UniformValueTypeID<Standard_ShortReal>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Graphic3d_Vec2>
+struct UniformValueTypeID<Graphic3d_Vec2>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Graphic3d_Vec3>
+struct UniformValueTypeID<Graphic3d_Vec3>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Graphic3d_Vec4>
+struct UniformValueTypeID<Graphic3d_Vec4>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Graphic3d_Vec2i>
+struct UniformValueTypeID<Graphic3d_Vec2i>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Graphic3d_Vec3i>
+struct UniformValueTypeID<Graphic3d_Vec3i>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 template <>
-struct Graphic3d_UniformValueTypeID<Graphic3d_Vec4i>
+struct UniformValueTypeID<Graphic3d_Vec4i>
 {
   static const Standard_Size ID = __LINE__;
 };
 
 //! Describes specific value of custom uniform variable.
 template <class T>
-struct Graphic3d_UniformValue : public Graphic3d_ValueInterface
+struct Graphic3d_UniformValue : public ValueInterface
 {
   //! Creates new variable value.
   Graphic3d_UniformValue(const T& theValue)
@@ -148,7 +148,7 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! Returns interface of shader variable value.
-  Standard_EXPORT Graphic3d_ValueInterface* Value();
+  Standard_EXPORT ValueInterface* Value();
 
   //! Creates new initialized shader variable.
   template <class T>
@@ -167,7 +167,7 @@ protected:
   AsciiString1 myName;
 
   //! The generic value of shader variable.
-  Graphic3d_ValueInterface* myValue;
+  ValueInterface* myValue;
 };
 
 DEFINE_STANDARD_HANDLE(Graphic3d_ShaderVariable, RefObject)

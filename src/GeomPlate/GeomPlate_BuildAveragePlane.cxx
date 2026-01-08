@@ -246,11 +246,11 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 
 //=================================================================================================
 
-Handle(GeomPlane) GeomPlate_BuildAveragePlane::Plane() const
+Handle(GeomPlane) GeomPlate_BuildAveragePlane::Plane1() const
 {
   Standard_NoSuchObject_Raise_if(
     IsLine(),
-    "Cannot use the function 'GeomPlate_BuildAveragePlane::Plane()', the Object is a 'GeomLine'");
+    "Cannot use the function 'GeomPlate_BuildAveragePlane::Plane1()', the Object is a 'GeomLine'");
   return myPlane;
 }
 

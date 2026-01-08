@@ -480,7 +480,7 @@ Dir3d BRepFeat_RibSlot::Normal(const TopoFace& F, const Point3d& P)
   {
 
     case GeomAbs_Plane:
-      ElSLib1::Parameters(AS.Plane(), P, U, V);
+      ElSLib1::Parameters(AS.Plane1(), P, U, V);
       break;
 
     case GeomAbs_Cylinder:

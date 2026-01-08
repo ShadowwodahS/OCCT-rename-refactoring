@@ -22,7 +22,7 @@
 
 class ShapeAlgo_AlgoContainer;
 
-class ShapeAlgo
+class ShapeAlgo1
 {
 public:
   DEFINE_STANDARD_ALLOC

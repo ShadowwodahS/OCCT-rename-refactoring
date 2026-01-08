@@ -186,7 +186,7 @@ public:
     const Standard_Boolean      theToRunParallel = Standard_False);
 
   //! Computes the correct Intersection range for
-  //! Line/Line, Line/Plane and Plane/Plane intersections
+  //! Line/Line, Line/Plane1 and Plane1/Plane1 intersections
   Standard_EXPORT static Standard_Real ComputeIntRange(const Standard_Real theTol1,
                                                        const Standard_Real theTol2,
                                                        const Standard_Real theAngle);

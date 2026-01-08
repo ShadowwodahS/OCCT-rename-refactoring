@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Graphic3d_CullingTool::Graphic3d_CullingTool()
+CullingTool::CullingTool()
     : myClipVerts(0, CameraOn3d::FrustumVerticesNB),
       myIsProjectionParallel(Standard_True),
       myCamScale(1.0),
@@ -32,7 +32,7 @@ Graphic3d_CullingTool::Graphic3d_CullingTool()
 
 //=================================================================================================
 
-void Graphic3d_CullingTool::SetViewVolume(const Handle(CameraOn3d)& theCamera,
+void CullingTool::SetViewVolume(const Handle(CameraOn3d)& theCamera,
                                           const Graphic3d_Mat4d&          theModelWorld)
 {
   const bool hasModelTrsf = !theModelWorld.IsIdentity();
@@ -100,7 +100,7 @@ void Graphic3d_CullingTool::SetViewVolume(const Handle(CameraOn3d)& theCamera,
 
 //=================================================================================================
 
-void Graphic3d_CullingTool::SetViewportSize(Standard_Integer theViewportWidth,
+void CullingTool::SetViewportSize(Standard_Integer theViewportWidth,
                                             Standard_Integer theViewportHeight,
                                             Standard_Real    theResolutionRatio)
 {
@@ -111,7 +111,7 @@ void Graphic3d_CullingTool::SetViewportSize(Standard_Integer theViewportWidth,
 
 //=================================================================================================
 
-Standard_Real Graphic3d_CullingTool::SignedPlanePointDistance(const Graphic3d_Vec4d& theNormal,
+Standard_Real CullingTool::SignedPlanePointDistance(const Graphic3d_Vec4d& theNormal,
                                                               const Graphic3d_Vec4d& thePnt)
 {
   const Standard_Real aNormLength = std::sqrt(
@@ -130,7 +130,7 @@ Standard_Real Graphic3d_CullingTool::SignedPlanePointDistance(const Graphic3d_Ve
 
 //=================================================================================================
 
-void Graphic3d_CullingTool::SetCullingDistance(CullingContext& theCtx,
+void CullingTool::SetCullingDistance(CullingContext1& theCtx,
                                                Standard_Real   theDistance) const
 {
   theCtx.DistCull = -1.0;
@@ -142,7 +142,7 @@ void Graphic3d_CullingTool::SetCullingDistance(CullingContext& theCtx,
 
 //=================================================================================================
 
-void Graphic3d_CullingTool::SetCullingSize(CullingContext& theCtx, Standard_Real theSize) const
+void CullingTool::SetCullingSize(CullingContext1& theCtx, Standard_Real theSize) const
 {
   theCtx.SizeCull2 = -1.0;
   if (theSize > 0.0 && !Precision::IsInfinite(theSize))
@@ -155,7 +155,7 @@ void Graphic3d_CullingTool::SetCullingSize(CullingContext& theCtx, Standard_Real
 
 //=================================================================================================
 
-void Graphic3d_CullingTool::CacheClipPtsProjections()
+void CullingTool::CacheClipPtsProjections()
 {
   // project frustum onto its own normals
   const Standard_Integer anIncFactor = myIsProjectionParallel ? 2 : 1;

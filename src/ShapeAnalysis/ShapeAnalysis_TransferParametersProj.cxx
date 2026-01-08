@@ -86,7 +86,7 @@ void ShapeAnalysis_TransferParametersProj::Init(const TopoEdge& E, const TopoFac
     return;
 
   Standard_Real      f2d, l2d;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   if (sae.PCurve(E, F, myCurve2d, f2d, l2d, Standard_False))
   {
 
@@ -171,7 +171,7 @@ Standard_Real ShapeAnalysis_TransferParametersProj::PreformSegment(const Standar
 
   Standard_Real linDev, projDev;
 
-  ShapeAnalysis_Curve sac;
+  Curve2 sac;
   Point3d              pproj;
   Standard_Real       ppar;
   if (To2d)
@@ -329,7 +329,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
   const Standard_Boolean          useLinearFirst = (alpha < preci);
   const Standard_Boolean          useLinearLast  = (1 - beta < preci);
   TopLoc_Location                 EdgeLoc        = myEdge.Location();
-  ShapeAnalysis_Curve             sac;
+  Curve2             sac;
   Point3d                          pproj;
   Standard_Real                   ppar1, ppar2;
   BRep_ListOfCurveRepresentation& tolist =
@@ -412,7 +412,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           new
       Handle(Geom2dAdaptor_Curve) AC2d = new Geom2dAdaptor_Curve(toGC->PCurve(), first, last);
       Handle(GeomAdaptor_Surface) AdS  = new GeomAdaptor_Surface(toGC->Surface());
       Adaptor3d_CurveOnSurface    Ad1(AC2d, AdS);
-      ShapeAnalysis_Curve         sac1;
+      Curve2         sac1;
 
       // Point3d p1 = Ad1.Value(prevPar);
       // Point3d p2 = Ad1.Value(currPar);
@@ -588,7 +588,7 @@ TopoVertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoVertex& 
       || (fabs(f1 - f2) > Precision::PConfusion() || fabs(l1 - l2) > Precision::PConfusion()))
   {
     Point3d              projP;
-    ShapeAnalysis_Curve sae;
+    Curve2 sae;
     Standard_Real       adist = sae.Project(C2, apv, Precision::Confusion(), projP, apar);
     if (aTol < adist)
       aTol = adist;

@@ -335,7 +335,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoEdge&  
   //   we check the distance
   Standard_Integer nbint = 10;
 
-  ShapeAnalysis_Curve SAC;
+  Curve2 SAC;
   Standard_Real       cf1, cl1, cf2, cl2, u;
   dmax = 0;
   Handle(GeomCurve3d) C1, C2;
@@ -634,7 +634,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
   nbp = 0; // now, counting splitting vertices
 
   //  Check edges : are vertices (other than extremities) confused with it ?
-  ShapeAnalysis_Curve SAC;
+  Curve2 SAC;
   for (Standard_Integer iv = 1; iv <= nbv; iv++)
   {
     TopoVertex        V = TopoDS::Vertex(vtx.Value(iv));
@@ -1119,7 +1119,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoEdge&  th
   Standard_Real       f = C3->FirstParameter();
   Standard_Real       l = C3->LastParameter();
   Point3d              result;
-  ShapeAnalysis_Curve SAC;
+  Curve2 SAC;
   Standard_Real       dist = SAC.Project(GAC, proj, tol, result, param);
   // pdn check if parameter of projection is in the domain of the edge.
   if (param < f || param > l)

@@ -31,7 +31,7 @@ public:
   virtual Standard_Boolean IsMutable() const Standard_OVERRIDE { return Standard_True; }
 
   //! Return invalidated range.
-  virtual Graphic3d_BufferRange InvalidatedRange() const Standard_OVERRIDE
+  virtual BufferRange InvalidatedRange() const Standard_OVERRIDE
   {
     return myInvalidatedRange;
   }
@@ -42,7 +42,7 @@ public:
   //! Invalidate the entire buffer data.
   virtual void Invalidate() Standard_OVERRIDE
   {
-    invalidate(Graphic3d_BufferRange(0, (Standard_Integer)mySize));
+    invalidate(BufferRange(0, (Standard_Integer)mySize));
   }
 
   //! Invalidate the given indexes (starting from 0)
@@ -51,14 +51,14 @@ public:
     Standard_OutOfRange_Raise_if(theIndexLower > theIndexUpper,
                                  "Graphic3d_MutableIndexBuffer::Invalidate()");
     invalidate(
-      Graphic3d_BufferRange(Stride * theIndexLower, Stride * (theIndexUpper - theIndexLower + 1)));
+      BufferRange(Stride * theIndexLower, Stride * (theIndexUpper - theIndexLower + 1)));
   }
 
   //! Invalidate specified sub-range of data (as byte offsets).
-  void invalidate(const Graphic3d_BufferRange& theRange) { myInvalidatedRange.Unite(theRange); }
+  void invalidate(const BufferRange& theRange) { myInvalidatedRange.Unite(theRange); }
 
 protected:
-  Graphic3d_BufferRange myInvalidatedRange; //!< invalidated buffer data range (as byte offsets)
+  BufferRange myInvalidatedRange; //!< invalidated buffer data range (as byte offsets)
 };
 
 #endif // _Graphic3d_MutableIndexBuffer_HeaderFile

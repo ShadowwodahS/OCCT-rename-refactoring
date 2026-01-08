@@ -265,7 +265,7 @@ void ShapeUpgrade_WireDivide::Perform()
   //  if (ShapeUpgrade::Debug()) std::cout << "ShapeUpgrade_WireDivide::Perform" << std::endl;
 
   ShapeBuilder       B;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
 
   TopoWire newWire;
   B.MakeWire(newWire);
@@ -448,7 +448,7 @@ void ShapeUpgrade_WireDivide::Perform()
       TopTools_SequenceOfShape aSeqNMVertices;
       TColStd_SequenceOfReal   aSeqParNM;
       TopoDS_Iterator          aItv(E, Standard_False);
-      ShapeAnalysis_Curve      sac;
+      Curve2      sac;
       for (; aItv.More(); aItv.Next())
       {
         if (aItv.Value().Orientation() == TopAbs_INTERNAL

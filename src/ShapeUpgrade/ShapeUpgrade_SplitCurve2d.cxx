@@ -59,7 +59,7 @@ void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C,
   if (aCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
     aCurve = Handle(Geom2d_TrimmedCurve)::DownCast(aCurve)->BasisCurve();
   // 15.11.2002 PTV OCC966
-  if (!ShapeAnalysis_Curve::IsPeriodic(C))
+  if (!Curve2::IsPeriodic(C))
   {
     Standard_Real fP = aCurve->FirstParameter();
     Standard_Real lP = aCurve->LastParameter();

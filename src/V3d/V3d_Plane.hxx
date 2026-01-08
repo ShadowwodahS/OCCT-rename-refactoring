@@ -62,7 +62,7 @@ public:
   Standard_EXPORT void Erase();
 
   //! Returns the parameters of the plane.
-  Standard_EXPORT void Plane(Standard_Real& theA,
+  Standard_EXPORT void Plane1(Standard_Real& theA,
                              Standard_Real& theB,
                              Standard_Real& theC,
                              Standard_Real& theD) const;

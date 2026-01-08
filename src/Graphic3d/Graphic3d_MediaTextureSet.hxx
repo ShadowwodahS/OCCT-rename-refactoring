@@ -23,7 +23,7 @@ class Graphic3d_ShaderProgram;
 class Media_PlayerContext;
 
 //! Texture adapter for Media_Frame.
-class Graphic3d_MediaTextureSet : public Graphic3d_TextureSet, public Media_IFrameQueue
+class Graphic3d_MediaTextureSet : public Graphic3d_TextureSet, public IFrameQueue
 {
   DEFINE_STANDARD_RTTIEXT(Graphic3d_MediaTextureSet, Graphic3d_TextureSet)
 public:
@@ -80,7 +80,7 @@ public:
   //! Return playback progress in seconds.
   double Progress() const { return myProgress; }
 
-  //! @name Media_IFrameQueue interface
+  //! @name IFrameQueue interface
 private:
   //! Lock the frame for decoding into.
   Standard_EXPORT virtual Handle(Media_Frame) LockFrame() Standard_OVERRIDE;

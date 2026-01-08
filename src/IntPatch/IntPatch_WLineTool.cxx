@@ -693,7 +693,7 @@ static Standard_Boolean IsIntersectionPoint(const Point3d&                    th
   switch (theS1->GetType())
   {
     case GeomAbs_Plane:
-      ElSLib1::Parameters(theS1->Plane(), thePmid, aU1, aV1);
+      ElSLib1::Parameters(theS1->Plane1(), thePmid, aU1, aV1);
       break;
 
     case GeomAbs_Cylinder:
@@ -719,7 +719,7 @@ static Standard_Boolean IsIntersectionPoint(const Point3d&                    th
   switch (theS2->GetType())
   {
     case GeomAbs_Plane:
-      ElSLib1::Parameters(theS2->Plane(), thePmid, aU2, aV2);
+      ElSLib1::Parameters(theS2->Plane1(), thePmid, aU2, aV2);
       break;
 
     case GeomAbs_Cylinder:

@@ -28,12 +28,12 @@ class Graphic3d_CView;
 //! Defines the class of a graduated trihedron.
 //! It contains main style parameters for implementation of graduated trihedron
 //! @sa OpenGl_GraduatedTrihedron
-class Graphic3d_GraduatedTrihedron
+class GraduatedTrihedron
 {
 
 public:
   //! Class that stores style for one graduated trihedron axis such as colors, lengths and
-  //! customization flags. It is used in Graphic3d_GraduatedTrihedron.
+  //! customization flags. It is used in GraduatedTrihedron.
   class AxisAspect
   {
   public:
@@ -126,7 +126,7 @@ public:
 public:
   //! Default constructor
   //! Constructs the default graduated trihedron with grid, X, Y, Z axes, and tickmarks
-  Graphic3d_GraduatedTrihedron(const AsciiString1& theNamesFont    = "Arial",
+  GraduatedTrihedron(const AsciiString1& theNamesFont    = "Arial",
                                const Font_FontAspect&         theNamesStyle   = Font_FA_Bold,
                                const Standard_Integer         theNamesSize    = 12,
                                const AsciiString1& theValuesFont   = "Arial",
@@ -165,7 +165,7 @@ public:
   {
     Standard_OutOfRange_Raise_if(
       theIndex < 0 || theIndex > 2,
-      "Graphic3d_GraduatedTrihedron::ChangeAxisAspect: theIndex is out of bounds [0,2].");
+      "GraduatedTrihedron::ChangeAxisAspect: theIndex is out of bounds [0,2].");
     return myAxes(theIndex);
   }
 
@@ -179,7 +179,7 @@ public:
   {
     Standard_OutOfRange_Raise_if(
       theIndex < 0 || theIndex > 2,
-      "Graphic3d_GraduatedTrihedron::AxisAspect: theIndex is out of bounds [0,2].");
+      "GraduatedTrihedron::AxisAspect: theIndex is out of bounds [0,2].");
     return myAxes(theIndex);
   }
 

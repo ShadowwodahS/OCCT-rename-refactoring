@@ -237,19 +237,19 @@ Standard_Boolean TDataXtd_Geometry::Ellipse(const Handle(ShapeAttribute)& NS, gp
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Plane(const DataLabel& L, gp_Pln& G)
+Standard_Boolean TDataXtd_Geometry::Plane1(const DataLabel& L, gp_Pln& G)
 {
   Handle(ShapeAttribute) NS;
   if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
-    return Plane(NS, G);
+    return Plane1(NS, G);
   }
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Plane(const Handle(ShapeAttribute)& NS, gp_Pln& G)
+Standard_Boolean TDataXtd_Geometry::Plane1(const Handle(ShapeAttribute)& NS, gp_Pln& G)
 {
   const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())

@@ -134,7 +134,7 @@ static void SetThePCurve(const ShapeBuilder&         B,
 //=================================================================================================
 
 BRepSweep_Rotation::BRepSweep_Rotation(const TopoShape&    S,
-                                       const Sweep_NumShape&  N,
+                                       const SweepNumShape&  N,
                                        const TopLoc_Location& L,
                                        const Axis3d&          A,
                                        const Standard_Real    D,
@@ -151,7 +151,7 @@ BRepSweep_Rotation::BRepSweep_Rotation(const TopoShape&    S,
 //=================================================================================================
 
 TopoShape BRepSweep_Rotation::MakeEmptyVertex(const TopoShape&   aGenV,
-                                                 const Sweep_NumShape& aDirV)
+                                                 const SweepNumShape& aDirV)
 {
   // call only in construction mode with copy.
   Standard_ConstructionError_Raise_if(!myCopy, "BRepSweep_Rotation::MakeEmptyVertex");
@@ -174,7 +174,7 @@ TopoShape BRepSweep_Rotation::MakeEmptyVertex(const TopoShape&   aGenV,
 //=================================================================================================
 
 TopoShape BRepSweep_Rotation::MakeEmptyDirectingEdge(const TopoShape& aGenV,
-                                                        const Sweep_NumShape&)
+                                                        const SweepNumShape&)
 {
   TopoEdge E;
   Point3d      P = BRepInspector::Pnt(TopoDS::Vertex(aGenV));
@@ -206,7 +206,7 @@ TopoShape BRepSweep_Rotation::MakeEmptyDirectingEdge(const TopoShape& aGenV,
 //=================================================================================================
 
 TopoShape BRepSweep_Rotation::MakeEmptyGeneratingEdge(const TopoShape&   aGenE,
-                                                         const Sweep_NumShape& aDirV)
+                                                         const SweepNumShape& aDirV)
 {
   // call in case of construction with copy, or only when meridian touches myaxe.
   TopoEdge E;
@@ -244,7 +244,7 @@ void BRepSweep_Rotation::SetParameters(const TopoShape& aNewFace,
                                        TopoShape&       aNewVertex,
                                        const TopoShape& aGenF,
                                        const TopoShape& aGenV,
-                                       const Sweep_NumShape&)
+                                       const SweepNumShape&)
 {
   // Glue the parameter of vertices directly included in cap faces.
   gp_Pnt2d pnt2d = BRepInspector::Parameters(TopoDS::Vertex(aGenV), TopoDS::Face(aGenF));
@@ -260,8 +260,8 @@ void BRepSweep_Rotation::SetParameters(const TopoShape& aNewFace,
 void BRepSweep_Rotation::SetDirectingParameter(const TopoShape& aNewEdge,
                                                TopoShape&       aNewVertex,
                                                const TopoShape&,
-                                               const Sweep_NumShape&,
-                                               const Sweep_NumShape& aDirV)
+                                               const SweepNumShape&,
+                                               const SweepNumShape& aDirV)
 {
   Standard_Real      param = 0;
   TopAbs_Orientation ori   = TopAbs_FORWARD;
@@ -281,7 +281,7 @@ void BRepSweep_Rotation::SetGeneratingParameter(const TopoShape& aNewEdge,
                                                 TopoShape&       aNewVertex,
                                                 const TopoShape& aGenE,
                                                 const TopoShape& aGenV,
-                                                const Sweep_NumShape&)
+                                                const SweepNumShape&)
 {
   TopoVertex vbid = TopoDS::Vertex(aNewVertex);
   vbid.Orientation(aGenV.Orientation());
@@ -294,7 +294,7 @@ void BRepSweep_Rotation::SetGeneratingParameter(const TopoShape& aNewEdge,
 //=================================================================================================
 
 TopoShape BRepSweep_Rotation::MakeEmptyFace(const TopoShape&   aGenS,
-                                               const Sweep_NumShape& aDirS)
+                                               const SweepNumShape& aDirS)
 {
   Standard_Real        toler;
   TopoFace          F;
@@ -318,7 +318,7 @@ TopoShape BRepSweep_Rotation::MakeEmptyFace(const TopoShape&   aGenS,
     switch (AS.GetType())
     {
       case GeomAbs_Plane: {
-        Handle(GeomPlane) Pl = new GeomPlane(AS.Plane());
+        Handle(GeomPlane) Pl = new GeomPlane(AS.Plane1());
         S                     = Pl;
       }
       break;
@@ -370,7 +370,7 @@ void BRepSweep_Rotation::SetPCurve(const TopoShape& aNewFace,
                                    TopoShape&       aNewEdge,
                                    const TopoShape& aGenF,
                                    const TopoShape& aGenE,
-                                   const Sweep_NumShape&,
+                                   const SweepNumShape&,
                                    const TopAbs_Orientation orien)
 {
   // Set on edges of cap faces the same pcurves as
@@ -388,8 +388,8 @@ void BRepSweep_Rotation::SetPCurve(const TopoShape& aNewFace,
 void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
                                              TopoShape&       aNewEdge,
                                              const TopoShape&,
-                                             const Sweep_NumShape&,
-                                             const Sweep_NumShape&    aDirV,
+                                             const SweepNumShape&,
+                                             const SweepNumShape&    aDirV,
                                              const TopAbs_Orientation orien)
 {
   TopLoc_Location     Loc;
@@ -402,7 +402,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
   gp_Lin2d            L;
   if (AS.GetType() == GeomAbs_Plane)
   {
-    gp_Pln             pln = AS.Plane();
+    gp_Pln             pln = AS.Plane1();
     Ax3             ax3 = pln.Position();
     Handle(GeomCurve3d) aC  = BRepInspector::Curve(TopoDS::Edge(aNewEdge), Loc, First, Last);
     Handle(GeomLine)  GL  = Handle(GeomLine)::DownCast(aC);
@@ -495,7 +495,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
                                             TopoShape&       aNewEdge,
                                             const TopoShape& aGenE,
                                             const TopoShape& aGenV,
-                                            const Sweep_NumShape&,
+                                            const SweepNumShape&,
                                             const TopAbs_Orientation orien)
 {
   TopLoc_Location      Loc;
@@ -510,7 +510,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
   {
 
     case GeomAbs_Plane: {
-      gp_Pln        pln = AS.Plane();
+      gp_Pln        pln = AS.Plane1();
       Ax3        ax3 = pln.Position();
       Point3d        p1  = pln.Location();
       Standard_Real R   = p1.Distance(p2);
@@ -606,7 +606,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
 // modified by NIZNHY-PKV Tue Jun 14 08:33:55 2011f
 //=================================================================================================
 
-TopAbs_Orientation BRepSweep_Rotation::DirectSolid(const TopoShape& aGenS, const Sweep_NumShape&)
+TopAbs_Orientation BRepSweep_Rotation::DirectSolid(const TopoShape& aGenS, const SweepNumShape&)
 { // compare the face normal and the direction
   Standard_Real       aU1, aU2, aV1, aV2, aUx, aVx, aX, aMV2, aTol2, aTx;
   TopAbs_Orientation  aOr;
@@ -653,7 +653,7 @@ TopAbs_Orientation BRepSweep_Rotation::DirectSolid(const TopoShape& aGenS, const
 
 TopAbs_Orientation
   BRepSweep_Rotation::DirectSolid (const TopoShape& aGenS,
-                   const Sweep_NumShape&)
+                   const SweepNumShape&)
 {
   // compare the face normal and the direction
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
@@ -678,7 +678,7 @@ Standard_Boolean BRepSweep_Rotation::GGDShapeIsToAdd(const TopoShape&   aNewShap
                                                      const TopoShape&   aNewSubShape,
                                                      const TopoShape&   aGenS,
                                                      const TopoShape&   aSubGenS,
-                                                     const Sweep_NumShape& aDirS) const
+                                                     const SweepNumShape& aDirS) const
 {
   Standard_Boolean aRes = Standard_True;
   if (aNewShape.ShapeType() == TopAbs_FACE && aNewSubShape.ShapeType() == TopAbs_EDGE
@@ -707,8 +707,8 @@ Standard_Boolean BRepSweep_Rotation::GGDShapeIsToAdd(const TopoShape&   aNewShap
 Standard_Boolean BRepSweep_Rotation::GDDShapeIsToAdd(const TopoShape&   aNewShape,
                                                      const TopoShape&   aNewSubShape,
                                                      const TopoShape&   aGenS,
-                                                     const Sweep_NumShape& aDirS,
-                                                     const Sweep_NumShape& aSubDirS) const
+                                                     const SweepNumShape& aDirS,
+                                                     const SweepNumShape& aSubDirS) const
 {
   if (aNewShape.ShapeType() == TopAbs_SOLID && aNewSubShape.ShapeType() == TopAbs_FACE
       && aGenS.ShapeType() == TopAbs_FACE && aDirS.Type() == TopAbs_EDGE
@@ -743,7 +743,7 @@ Standard_Boolean BRepSweep_Rotation::SeparatedWires(const TopoShape&   aNewShape
                                                     const TopoShape&   aNewSubShape,
                                                     const TopoShape&   aGenS,
                                                     const TopoShape&   aSubGenS,
-                                                    const Sweep_NumShape& aDirS) const
+                                                    const SweepNumShape& aDirS) const
 {
   if (aNewShape.ShapeType() == TopAbs_FACE && aNewSubShape.ShapeType() == TopAbs_EDGE
       && aGenS.ShapeType() == TopAbs_EDGE && aSubGenS.ShapeType() == TopAbs_VERTEX
@@ -778,7 +778,7 @@ TopoShape BRepSweep_Rotation::SplitShell(const TopoShape& aNewShape) const
 //=================================================================================================
 
 Standard_Boolean BRepSweep_Rotation::HasShape(const TopoShape&   aGenS,
-                                              const Sweep_NumShape& aDirS) const
+                                              const SweepNumShape& aDirS) const
 {
   if (aDirS.Type() == TopAbs_EDGE && aGenS.ShapeType() == TopAbs_EDGE)
   {

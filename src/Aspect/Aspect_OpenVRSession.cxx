@@ -150,10 +150,10 @@ static Transform3d mat34vr2OccTrsf(const vr::HmdMatrix34_t& theMat4)
 }
 
 //! Convert OpenVR tracked pose.
-static Aspect_TrackedDevicePose poseVr2Occ(const vr::TrackedDevicePose_t& theVrPose,
+static TrackedDevicePose poseVr2Occ(const vr::TrackedDevicePose_t& theVrPose,
                                            const Standard_Real            theUnitFactor)
 {
-  Aspect_TrackedDevicePose aPose;
+  TrackedDevicePose aPose;
   aPose.Velocity.SetCoord(theVrPose.vVelocity.v[0],
                           theVrPose.vVelocity.v[1],
                           theVrPose.vVelocity.v[2]);
@@ -956,7 +956,7 @@ bool Aspect_OpenVRSession::WaitPoses()
 
 //=================================================================================================
 
-Aspect_XRDigitalActionData Aspect_OpenVRSession::GetDigitalActionData(
+XRDigitalActionData Aspect_OpenVRSession::GetDigitalActionData(
   const Handle(Aspect_XRAction)& theAction) const
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_InputDigital)
@@ -965,7 +965,7 @@ Aspect_XRDigitalActionData Aspect_OpenVRSession::GetDigitalActionData(
       "Aspect_OpenVRSession::GetDigitalActionData() called for wrong action");
   }
 
-  Aspect_XRDigitalActionData anActionData;
+  XRDigitalActionData anActionData;
 #ifdef HAVE_OPENVR
   if (myContext->System != NULL && theAction->RawHandle() != 0)
   {
@@ -994,7 +994,7 @@ Aspect_XRDigitalActionData Aspect_OpenVRSession::GetDigitalActionData(
 
 //=================================================================================================
 
-Aspect_XRAnalogActionData Aspect_OpenVRSession::GetAnalogActionData(
+XRAnalogActionData Aspect_OpenVRSession::GetAnalogActionData(
   const Handle(Aspect_XRAction)& theAction) const
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_InputAnalog)
@@ -1003,7 +1003,7 @@ Aspect_XRAnalogActionData Aspect_OpenVRSession::GetAnalogActionData(
       "Aspect_OpenVRSession::GetAnalogActionData() called for wrong action");
   }
 
-  Aspect_XRAnalogActionData anActionData;
+  XRAnalogActionData anActionData;
 #ifdef HAVE_OPENVR
   if (myContext->System != NULL && theAction->RawHandle() != 0)
   {
@@ -1079,7 +1079,7 @@ Aspect_XRPoseActionData Aspect_OpenVRSession::GetPoseActionDataForNextFrame(
 //=================================================================================================
 
 void Aspect_OpenVRSession::triggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
-                                                        const Aspect_XRHapticActionData& theParams)
+                                                        const XRHapticActionData& theParams)
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_OutputHaptic)
   {
@@ -1090,7 +1090,7 @@ void Aspect_OpenVRSession::triggerHapticVibrationAction(const Handle(Aspect_XRAc
 #ifdef HAVE_OPENVR
   if (myContext->System != NULL && theAction->RawHandle() != 0)
   {
-    Aspect_XRHapticActionData aParams = theParams;
+    XRHapticActionData aParams = theParams;
     if (!theParams.IsValid())
     {
       // preset for aborting

@@ -51,11 +51,11 @@ public:
   //! <Point> and <Direc>.
   Standard_EXPORT GC_MakeMirror(const Point3d& Point, const Dir3d& Direc);
 
-  //! Make a symmetry transformation of plane <Plane>.
-  Standard_EXPORT GC_MakeMirror(const gp_Pln& Plane);
+  //! Make a symmetry transformation of plane <Plane1>.
+  Standard_EXPORT GC_MakeMirror(const gp_Pln& Plane1);
 
-  //! Make a symmetry transformation of plane <Plane>.
-  Standard_EXPORT GC_MakeMirror(const Frame3d& Plane);
+  //! Make a symmetry transformation of plane <Plane1>.
+  Standard_EXPORT GC_MakeMirror(const Frame3d& Plane1);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const Handle(Geom_Transformation)& Value() const;

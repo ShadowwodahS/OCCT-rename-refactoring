@@ -173,7 +173,7 @@ void IGESData1::Init()
   // ika added parameter for writing planes mode 2.11.2012
   ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", 'e', "");
   ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "ematch 0");
-  ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "eval Plane");
+  ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "eval Plane1");
   ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "eval BSpline");
   ExchangeConfig::SetIVal("write.iges.plane.mode", 0);
 

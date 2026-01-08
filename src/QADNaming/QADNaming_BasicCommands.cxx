@@ -147,7 +147,7 @@ static Standard_Integer Getentry(DrawInterpreter& di, Standard_Integer n, const 
     return 0;
   }
   Standard_Integer        aStatus = 0;
-  AsciiString1 Name    = QADNaming::GetEntry(S, ND, aStatus);
+  AsciiString1 Name    = QADNaming1::GetEntry(S, ND, aStatus);
   if (aStatus == 0)
   {
     di << "E_NoName";
@@ -210,7 +210,7 @@ static Standard_Integer Currentshape(DrawInterpreter&, Standard_Integer n, const
     return 1;
 
   Standard_CString LabelName = a[2];
-  TopoShape     S         = QADNaming::CurrentShape(LabelName, ND);
+  TopoShape     S         = QADNaming1::CurrentShape(LabelName, ND);
   if (!S.IsNull())
   {
     if (n == 4)
@@ -445,7 +445,7 @@ static Standard_Integer Getcreationentry(DrawInterpreter& di, Standard_Integer n
     return 0;
   }
   Standard_Integer        aStatus = 0;
-  AsciiString1 Name    = QADNaming::GetEntry(S, ND, aStatus);
+  AsciiString1 Name    = QADNaming1::GetEntry(S, ND, aStatus);
   if (aStatus == 0)
   {
     di << "E_NoName";
@@ -463,7 +463,7 @@ static Standard_Integer Getcreationentry(DrawInterpreter& di, Standard_Integer n
 
 //=================================================================================================
 
-void QADNaming::BasicCommands(DrawInterpreter& theCommands)
+void QADNaming1::BasicCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

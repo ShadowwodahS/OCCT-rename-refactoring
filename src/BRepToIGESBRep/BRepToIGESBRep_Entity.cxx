@@ -17,7 +17,7 @@
 // modif le 25/03/96 mjm
 // implement ShapeCustom::DirectModification for indirect surfaces (out of norm IGES)
 //: l4 abv 12 Jan 99: CTS22022-2: correct writing reversed shells
-//: n3 abv 8 Feb 99: PRO17820: BRepTools1::OuterWire() -> ShapeAnalysis::OuterWire
+//: n3 abv 8 Feb 99: PRO17820: BRepTools1::OuterWire() -> ShapeAnalysis1::OuterWire
 // szv#4 S4163
 // S4181 pdn 20.04.99 implementing of writing IGES elementary surfaces.
 //       abv 31.01.00 inheriting from BRepToIGES_BREntity to remove code duplication
@@ -542,7 +542,7 @@ Handle(IGESSolid_Face) BRepToIGESBRep_Entity ::TransferFace(const TopoFace& star
 
   // outer wire
   //: n3  TopoWire Outer = BRepTools1::OuterWire(myface);
-  TopoWire            Outer         = ShapeAlgo::AlgoContainer()->OuterWire(myface); //: n3
+  TopoWire            Outer         = ShapeAlgo1::AlgoContainer()->OuterWire(myface); //: n3
   Handle(IGESSolid_Loop) OuterLoop     = new IGESSolid_Loop;
   Standard_Boolean       OuterLoopFlag = Standard_False;
   if (!Outer.IsNull())

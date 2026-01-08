@@ -46,7 +46,7 @@ Handle(GeomCurve3d) ShapeCustom_Curve::ConvertToPeriodic(const Standard_Boolean 
     return newCurve;
 
   // PTV 13.02.02: check if curve closed with tolerance
-  Standard_Boolean closed = ShapeAnalysis_Curve::IsClosed(myCurve, preci);
+  Standard_Boolean closed = Curve2::IsClosed(myCurve, preci);
 
   if (!closed)
     return newCurve;

@@ -40,7 +40,7 @@ public:
   typedef _void::Instance<TDataXtd_Shape>     Shape;
   typedef _void::Instance<TDataXtd_Point>     Point;
   typedef _void::Instance<TDataXtd_Axis>      Axis;
-  typedef _void::Instance<TDataXtd_Plane>     Plane;
+  typedef _void::Instance<TDataXtd_Plane>     Plane1;
   typedef _void::Instance<TDataXtd_Placement> Placement;
 
   class Geometry : public StdObjMgt_Attribute<TDataXtd_Geometry>::SingleInt

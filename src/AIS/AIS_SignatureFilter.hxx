@@ -54,7 +54,7 @@ DEFINE_STANDARD_HANDLE(AIS_SignatureFilter, AIS_TypeFilter)
 //! -   signature 4 - PlaneTrihedron
 //! -   signature 5 - Line
 //! -   signature 6 - Circle
-//! -   signature 7 - Plane
+//! -   signature 7 - Plane1
 class AIS_SignatureFilter : public AIS_TypeFilter
 {
 

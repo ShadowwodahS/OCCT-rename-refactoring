@@ -86,11 +86,11 @@ public:
     Aspect_XRTrackedDeviceRole theDevice) const Standard_OVERRIDE;
 
   //! Fetch data for digital input action (like button).
-  Standard_EXPORT virtual Aspect_XRDigitalActionData GetDigitalActionData(
+  Standard_EXPORT virtual XRDigitalActionData GetDigitalActionData(
     const Handle(Aspect_XRAction)& theAction) const Standard_OVERRIDE;
 
   //! Fetch data for analog input action (like axis).
-  Standard_EXPORT virtual Aspect_XRAnalogActionData GetAnalogActionData(
+  Standard_EXPORT virtual XRAnalogActionData GetAnalogActionData(
     const Handle(Aspect_XRAction)& theAction) const Standard_OVERRIDE;
 
   //! Fetch data for pose input action (like fingertip position).
@@ -127,7 +127,7 @@ protected:
   //! Trigger vibration.
   Standard_EXPORT virtual void triggerHapticVibrationAction(
     const Handle(Aspect_XRAction)&   theAction,
-    const Aspect_XRHapticActionData& theParams) Standard_OVERRIDE;
+    const XRHapticActionData& theParams) Standard_OVERRIDE;
 
   //! Return model for displaying device.
   Standard_EXPORT virtual Handle(Graphic3d_ArrayOfTriangles) loadRenderModel(

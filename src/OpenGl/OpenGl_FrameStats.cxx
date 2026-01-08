@@ -48,7 +48,7 @@ OpenGl_FrameStats::~OpenGl_FrameStats()
 
 bool OpenGl_FrameStats::IsFrameUpdated(Handle(OpenGl_FrameStats)& thePrev) const
 {
-  const Graphic3d_FrameStatsData& aFrame = LastDataFrame();
+  const FrameStatsData& aFrame = LastDataFrame();
   if (thePrev.IsNull())
   {
     thePrev = new OpenGl_FrameStats();

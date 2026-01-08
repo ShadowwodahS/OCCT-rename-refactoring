@@ -69,7 +69,7 @@ public:
   Standard_EXPORT Handle(GeomSurface) TransferBasicSurface(
     const Handle(IGESData_IGESEntity)& start);
 
-  //! Returns Plane from Geom if the transfer has succeeded.
+  //! Returns Plane1 from Geom if the transfer has succeeded.
   Standard_EXPORT Handle(GeomPlane) TransferPlaneSurface(
     const Handle(IGESSolid_PlaneSurface)& start);
 

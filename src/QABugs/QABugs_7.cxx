@@ -316,9 +316,9 @@ static Standard_Integer OCC862(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_7(DrawInterpreter& theCommands)
+void QABugs1::Commands_7(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC862", "OCC862 curve1 curve2", __FILE__, OCC862, group);
   return;

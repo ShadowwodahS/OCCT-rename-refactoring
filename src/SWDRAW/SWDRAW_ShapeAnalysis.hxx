@@ -22,17 +22,17 @@
 
 #include <Draw_Interpretor.hxx>
 
-//! Contains commands to activate package ShapeAnalysis
+//! Contains commands to activate package ShapeAnalysis1
 //! List of DRAW commands and corresponding functionalities:
-//! tolerance - ShapeAnalysis_ShapeTolerance
-//! projcurve - ShapeAnalysis_Curve
+//! tolerance - ShapeTolerance
+//! projcurve - Curve2
 //! projface  - ShapeAnalysis_Surface
 class SWDRAW_ShapeAnalysis
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads commands defined in ShapeAnalysis
+  //! Loads commands defined in ShapeAnalysis1
   Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:

@@ -64,7 +64,7 @@ public:
   //! -   adding matter with Boolean fusion using the setting 1 in case of the rib.
   BRepFeat_MakeRevolutionForm(const TopoShape&       Sbase,
                               const TopoWire&        W,
-                              const Handle(GeomPlane)& Plane,
+                              const Handle(GeomPlane)& Plane1,
                               const Axis3d&             Axis,
                               const Standard_Real       Height1,
                               const Standard_Real       Height2,
@@ -81,7 +81,7 @@ public:
   //! -   adding matter with Boolean fusion using the setting 1 in case of the rib.
   Standard_EXPORT void Init(const TopoShape&       Sbase,
                             const TopoWire&        W,
-                            const Handle(GeomPlane)& Plane,
+                            const Handle(GeomPlane)& Plane1,
                             const Axis3d&             Axis,
                             const Standard_Real       Height1,
                             const Standard_Real       Height2,

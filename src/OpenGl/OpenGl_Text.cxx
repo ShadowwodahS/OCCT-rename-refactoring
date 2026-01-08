@@ -576,7 +576,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont(const Handle(OpenGl_Context)&  theCtx,
     Font_FontAspect   anAspect = theAspect.Aspect()->TextFontAspect() != Font_FA_Undefined
                                    ? theAspect.Aspect()->TextFontAspect()
                                    : Font_FA_Regular;
-    Font_FTFontParams aParams;
+    FTFontParams aParams;
     aParams.PointSize   = theHeight;
     aParams.Resolution  = theResolution;
     aParams.FontHinting = theFontHinting;

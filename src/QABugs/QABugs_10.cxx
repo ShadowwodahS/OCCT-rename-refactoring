@@ -1122,9 +1122,9 @@ static Standard_Integer OCC828(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_10(DrawInterpreter& theCommands)
+void QABugs1::Commands_10(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC426",
                   "OCC426 shape1 shape2 shape3 shape4 shape5 shape6 shape7",

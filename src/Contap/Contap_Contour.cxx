@@ -2167,7 +2167,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(HSurfaceTool::Plane(Surf));
+      gp_Pln pl(HSurfaceTool::Plane1(Surf));
       switch (TypeFunc)
       {
         case Contap_ContourStd: {

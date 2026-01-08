@@ -358,7 +358,7 @@ static Standard_Integer QATutorialAisObject(DrawInterpreter& theDi,
 
 //=================================================================================================
 
-void QADraw::TutorialCommands(DrawInterpreter& theCommands)
+void QADraw1::TutorialCommands(DrawInterpreter& theCommands)
 {
   const char* aGroup = "QA_Commands";
 

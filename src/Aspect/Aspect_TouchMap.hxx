@@ -18,6 +18,6 @@
 
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<Standard_Size, Aspect_Touch> Aspect_TouchMap;
+typedef NCollection_IndexedDataMap<Standard_Size, Touch> Aspect_TouchMap;
 
 #endif // _Aspect_TouchMap_HeaderFile

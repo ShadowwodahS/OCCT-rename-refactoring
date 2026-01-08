@@ -728,7 +728,7 @@ Standard_Integer Tools2::SegPln(const gp_Lin&       theLin,
   //
   if (aDist1 * aDist2 > 0.)
   {
-    iRet = 2; // segment lays on one side to the Plane
+    iRet = 2; // segment lays on one side to the Plane1
     return iRet;
   }
   //

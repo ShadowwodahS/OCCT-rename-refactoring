@@ -135,7 +135,7 @@ Standard_Boolean IgesFileWriter::AddShape(const TopoShape&          theShape,
     newtol = ExchangeConfig::RVal("write.precision.val");
   else
   {
-    ShapeAnalysis_ShapeTolerance stu;
+    ShapeTolerance stu;
     Standard_Real                Tolv = stu.Tolerance(Shape, tolmod, TopAbs_VERTEX);
     Standard_Real                Tole = stu.Tolerance(Shape, tolmod, TopAbs_EDGE);
 

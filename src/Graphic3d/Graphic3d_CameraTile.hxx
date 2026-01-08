@@ -20,7 +20,7 @@
 #include <Standard_TypeDef.hxx>
 
 //! Class defines the area (Tile) inside a view.
-class Graphic3d_CameraTile
+class CameraTile
 {
 public:
   Graphic3d_Vec2i TotalSize; //!< total size of the View area, in pixels
@@ -34,7 +34,7 @@ public:
   //! Default constructor.
   //! Initializes the empty Tile of zero size and lower-left offset orientation.
   //! Such Tile is considered uninitialized (invalid).
-  Graphic3d_CameraTile()
+  CameraTile()
       : IsTopDown(false)
   {
   }
@@ -52,9 +52,9 @@ public:
   }
 
   //! Return the copy cropped by total size
-  Graphic3d_CameraTile Cropped() const
+  CameraTile Cropped() const
   {
-    Graphic3d_CameraTile aTile = *this;
+    CameraTile aTile = *this;
     if (!IsValid())
     {
       return aTile;
@@ -71,7 +71,7 @@ public:
   }
 
   //! Equality check.
-  bool operator==(const Graphic3d_CameraTile& theOther) const
+  bool operator==(const CameraTile& theOther) const
   {
     const Graphic3d_Vec2i anOffset1 = OffsetLowerLeft();
     const Graphic3d_Vec2i anOffset2 = theOther.OffsetLowerLeft();

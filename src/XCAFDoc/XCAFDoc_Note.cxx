@@ -99,7 +99,7 @@ Handle(XCAFNoteObjects_NoteObject) XCAFDoc_Note::GetObject() const
   if (Label().FindChild(ChildLab_Plane).FindAttribute(TDataXtd_Plane::GetID(), aPln))
   {
     gp_Pln aP;
-    if (TDataXtd_Geometry::Plane(aPln->Label(), aP))
+    if (TDataXtd_Geometry::Plane1(aPln->Label(), aP))
     {
       anObj->SetPlane(aP.Position().Ax2());
     }

@@ -27,13 +27,13 @@
 
 //! Gives    a  simple  indexed   representation  of a
 //! Directing Edge topology.
-class Sweep_NumShape
+class SweepNumShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a dummy indexed edge.
-  Standard_EXPORT Sweep_NumShape();
+  Standard_EXPORT SweepNumShape();
 
   //! Creates a new simple indexed edge.
   //!
@@ -46,7 +46,7 @@ public:
   //! For a Vertex : Index is the index of the vertex in
   //! the edge (1 or 2),  Type  is TopAbsVERTEX, all the
   //! other fields have no meanning.
-  Standard_EXPORT Sweep_NumShape(const Standard_Integer Index,
+  Standard_EXPORT SweepNumShape(const Standard_Integer Index,
                                  const TopAbs_ShapeEnum Type,
                                  const Standard_Boolean Closed = Standard_False,
                                  const Standard_Boolean BegInf = Standard_False,

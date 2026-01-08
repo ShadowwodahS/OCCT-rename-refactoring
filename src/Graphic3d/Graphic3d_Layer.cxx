@@ -522,7 +522,7 @@ struct NodeInStack
 
 void Graphic3d_Layer::UpdateCulling(
   Standard_Integer                                theViewId,
-  const Graphic3d_CullingTool&                    theSelector,
+  const CullingTool&                    theSelector,
   const Graphic3d_RenderingParams::FrustumCulling theFrustumCullingState)
 {
   updateBVH();
@@ -559,7 +559,7 @@ void Graphic3d_Layer::UpdateCulling(
   }
 
   myNbStructuresNotCulled = myAlwaysRenderedMap.Extent();
-  Graphic3d_CullingTool::CullingContext aCullCtx;
+  CullingTool::CullingContext1 aCullCtx;
   theSelector.SetCullingDistance(aCullCtx, myLayerSettings.CullingDistance());
   theSelector.SetCullingSize(aCullCtx, myLayerSettings.CullingSize());
   for (Standard_Integer aBVHTreeIdx = 0; aBVHTreeIdx < 2; ++aBVHTreeIdx)

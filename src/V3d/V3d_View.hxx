@@ -224,12 +224,12 @@ public:
                                             Standard_Boolean theToUpdate       = Standard_False);
 
   //! Returns skydome aspect;
-  const Aspect_SkydomeBackground& BackgroundSkydome() const { return myView->BackgroundSkydome(); }
+  const SkydomeBackground& BackgroundSkydome() const { return myView->BackgroundSkydome(); }
 
   //! Sets skydome aspect
   //! @param theAspect cubemap generation parameters
   //! @param theToUpdatePBREnv defines whether IBL maps will be generated or not
-  Standard_EXPORT void SetBackgroundSkydome(const Aspect_SkydomeBackground& theAspect,
+  Standard_EXPORT void SetBackgroundSkydome(const SkydomeBackground& theAspect,
                                             Standard_Boolean theToUpdatePBREnv = Standard_True);
 
   //! Returns TRUE if IBL (Image Based Lighting) from background cubemap is enabled.
@@ -327,11 +327,11 @@ public:
   Standard_EXPORT void TriedronErase();
 
   //! Returns data of a graduated trihedron.
-  Standard_EXPORT const Graphic3d_GraduatedTrihedron& GetGraduatedTrihedron() const;
+  Standard_EXPORT const GraduatedTrihedron& GetGraduatedTrihedron() const;
 
   //! Displays a graduated trihedron.
   Standard_EXPORT void GraduatedTrihedronDisplay(
-    const Graphic3d_GraduatedTrihedron& theTrihedronData);
+    const GraduatedTrihedron& theTrihedronData);
 
   //! Erases a graduated trihedron from the view.
   Standard_EXPORT void GraduatedTrihedronErase();
@@ -546,10 +546,10 @@ public:
   Standard_EXPORT void SetSize(const Standard_Real theSize);
 
   //! Defines the Depth size of the view
-  //! Front Plane will be set to Size/2.
-  //! Back  Plane will be set to -Size/2.
-  //! Any Object located Above the Front Plane or
-  //! behind the Back Plane will be Clipped .
+  //! Front Plane1 will be set to Size/2.
+  //! Back  Plane1 will be set to -Size/2.
+  //! Any Object located Above the Front Plane1 or
+  //! behind the Back Plane1 will be Clipped .
   //! NOTE than the XY Size of the View is NOT modified .
   Standard_EXPORT void SetZSize(const Standard_Real SetZSize);
 
@@ -696,7 +696,7 @@ public:
   //! if( myViewer->Grid()->IsActive() ) {
   //! 2.3) Display the grid echo and gets the grid point
   //! myView->ConvertToGrid(x,y,X,Y,Z);
-  //! myView->Viewer()->ShowGridEcho (myView, Graphic3d_Vertex (X,Y,Z));
+  //! myView->Viewer()->ShowGridEcho (myView, Vertex1 (X,Y,Z));
   //! myView->RedrawImmediate();
   //! 2.4) Else this is the standard case
   //! } else myView->Convert(x,y,X,Y,Z);
@@ -906,12 +906,12 @@ public:
   //! with an angle computed from the last and new mouse position <X,Y>.
   Standard_EXPORT void Rotation(const Standard_Integer X, const Standard_Integer Y);
 
-  //! Change View Plane Distance for Perspective Views
+  //! Change View Plane1 Distance for Perspective Views
   //! Warning! raises TypeMismatch from Standard if the view
   //! is not a perspective view.
   Standard_EXPORT void SetFocale(const Standard_Real Focale);
 
-  //! Returns the View Plane Distance for Perspective Views
+  //! Returns the View Plane1 Distance for Perspective Views
   Standard_EXPORT Standard_Real Focale() const;
 
   //! Returns the associated Graphic3d view.
@@ -1176,7 +1176,7 @@ private:
                                                      Vector3d&       theZaxe);
 
   //! Transforms the Vertex V according to the matrice Matrix .
-  Standard_EXPORT static Coords3d TrsPoint(const Graphic3d_Vertex&     V,
+  Standard_EXPORT static Coords3d TrsPoint(const Vertex1&     V,
                                          const TColStd_Array2OfReal& Matrix);
 
   //! Returns the objects number and the projection window
@@ -1198,7 +1198,7 @@ private:
   Standard_EXPORT void Init();
 
   //! Returns a new vertex when the grid is activated.
-  Standard_EXPORT Graphic3d_Vertex Compute(const Graphic3d_Vertex& AVertex) const;
+  Standard_EXPORT Vertex1 Compute(const Vertex1& AVertex) const;
 
 protected:
   Standard_Real            myOldMouseX;
@@ -1243,7 +1243,7 @@ private:
   Vector3d                      myYscreenAxis;
   Vector3d                      myZscreenAxis;
   Dir3d                      myViewAxis;
-  Graphic3d_Vertex            myGravityReferencePoint;
+  Vertex1            myGravityReferencePoint;
   Standard_Boolean            myAutoZFitIsOn;
   Standard_Real               myAutoZFitScaleFactor;
 };

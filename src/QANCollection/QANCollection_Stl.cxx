@@ -1366,9 +1366,9 @@ static Standard_Integer QANTestNCollectionIndexedDataMap(DrawInterpreter& di,
 
 //=================================================================================================
 
-void QANCollection::CommandsStl(DrawInterpreter& theCommands)
+void QANCollection1::CommandsStl(DrawInterpreter& theCommands)
 {
-  const char* aGroup = "QANCollection";
+  const char* aGroup = "QANCollection1";
 
   theCommands.Add("QANArray1StlIterator",
                   "QANArray1StlIterator",

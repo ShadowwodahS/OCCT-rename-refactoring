@@ -218,7 +218,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   TopExp1::Vertices(myEdge, V1, V2);
   Point3d Pt1, Pt2;
   // pdn 28.12.98: r_39-db.stp #605: use ends of 3d curve instead of vertices
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   Standard_Real      a, b;
   Handle(GeomCurve3d) C3d;
   if (sae.Curve3d(myEdge, C3d, a, b, Standard_False))
@@ -411,7 +411,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   Standard_Real Usup = COnS.LastParameter();
 
   Standard_Real       w1 = 0., w2 = 0.;
-  ShapeAnalysis_Curve sac;
+  Curve2 sac;
   Point3d              pnt;
   Standard_Real       dist = sac.Project(COnS, Pt1, preci, pnt, w1, Standard_False);
   // if distance is infinite then projection is not performed
@@ -466,9 +466,9 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
     Standard_Real uf, ul, vf, vl;
     theSurface->Bounds(uf, ul, vf, vl);
     Standard_Real period = (parU ? ul - uf : vl - vf);
-    w1 += ShapeAnalysis::AdjustToPeriod(w1, 0, period);
+    w1 += ShapeAnalysis1::AdjustToPeriod(w1, 0, period);
     myFirstParam = w1;
-    w2 += ShapeAnalysis::AdjustToPeriod(w2, 0, period);
+    w2 += ShapeAnalysis1::AdjustToPeriod(w2, 0, period);
     myLastParam = w2;
     Handle(GeomCurve3d) C3d1;
     if (!sae.Curve3d(myEdge, C3d1, cf, cl, Standard_False))
@@ -479,7 +479,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
     Point3d        mid = C3d1->Value((cf + cl) / 2);
     Standard_Real wmid;
     sac.Project(COnS, mid, preci, pnt, wmid, Standard_False);
-    wmid += ShapeAnalysis::AdjustToPeriod(wmid, 0, period);
+    wmid += ShapeAnalysis1::AdjustToPeriod(wmid, 0, period);
     if (w1 >= w2)
     {
       if (w2 > wmid)
@@ -605,7 +605,7 @@ void ShapeFix_EdgeProjAux::UpdateParam2d(const Handle(GeomCurve2d)& theCurve2d)
   constexpr Standard_Real preci2d = Precision::PConfusion(); //: S4136: Parametric(preci, 0.01);
 
   // 15.11.2002 PTV OCC966
-  if (ShapeAnalysis_Curve::IsPeriodic(theCurve2d))
+  if (Curve2::IsPeriodic(theCurve2d))
   {
     ElCLib1::AdjustPeriodic(cf, cl, preci2d, myFirstParam, myLastParam);
   }

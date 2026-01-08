@@ -1519,7 +1519,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
         u2 += du;
         v1 -= dv;
         v2 += dv;
-        mySurfInit = new Geom_RectangularTrimmedSurface(BAP.Plane(), u1, u2, v1, v2);
+        mySurfInit = new Geom_RectangularTrimmedSurface(BAP.Plane1(), u1, u2, v1, v2);
       }
     } // if (isHalfSpace)
     if (!isHalfSpace)
@@ -1612,7 +1612,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     u2 += du;
     v1 -= dv;
     v2 += dv;
-    mySurfInit = new Geom_RectangularTrimmedSurface(BAP.Plane(), u1, u2, v1, v2);
+    mySurfInit = new Geom_RectangularTrimmedSurface(BAP.Plane1(), u1, u2, v1, v2);
   } // if (nopt != 3)
 
   // Comparing metrics of curves and projected curves

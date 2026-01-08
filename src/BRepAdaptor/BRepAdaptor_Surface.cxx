@@ -247,9 +247,9 @@ Vector3d BRepAdaptor_Surface::DN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Pln BRepAdaptor_Surface::Plane() const
+gp_Pln BRepAdaptor_Surface::Plane1() const
 {
-  return mySurf.Plane().Transformed(myTrsf);
+  return mySurf.Plane1().Transformed(myTrsf);
 }
 
 //=================================================================================================

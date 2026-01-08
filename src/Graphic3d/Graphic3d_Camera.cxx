@@ -509,7 +509,7 @@ void CameraOn3d::SetIOD(const IODType theType, const Standard_Real theIOD)
 
 //=================================================================================================
 
-void CameraOn3d::SetTile(const Graphic3d_CameraTile& theTile)
+void CameraOn3d::SetTile(const CameraTile& theTile)
 {
   if (myTile == theTile)
   {

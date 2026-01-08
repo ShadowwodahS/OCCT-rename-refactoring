@@ -51,14 +51,14 @@
 
 //=================================================================================================
 
-ShapeAnalysis_Edge::ShapeAnalysis_Edge()
+Edge1::Edge1()
 {
   myStatus = 0; // ShapeExtend::EncodeStatus (ShapeExtend_OK);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoEdge& edge,
+Standard_Boolean Edge1::BoundUV(const TopoEdge& edge,
                                              const TopoFace& face,
                                              gp_Pnt2d&          first,
                                              gp_Pnt2d&          last) const
@@ -70,7 +70,7 @@ Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoEdge& edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoEdge&          edge,
+Standard_Boolean Edge1::BoundUV(const TopoEdge&          edge,
                                              const Handle(GeomSurface)& surface,
                                              const TopLoc_Location&      location,
                                              gp_Pnt2d&                   first,
@@ -87,7 +87,7 @@ Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoEdge&          edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::HasCurve3d(const TopoEdge& edge) const
+Standard_Boolean Edge1::HasCurve3d(const TopoEdge& edge) const
 {
   Standard_Real      cf, cl;
   Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, cf, cl);
@@ -96,7 +96,7 @@ Standard_Boolean ShapeAnalysis_Edge::HasCurve3d(const TopoEdge& edge) const
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::Curve3d(const TopoEdge&     edge,
+Standard_Boolean Edge1::Curve3d(const TopoEdge&     edge,
                                              Handle(GeomCurve3d)&    C3d,
                                              Standard_Real&         cf,
                                              Standard_Real&         cl,
@@ -124,7 +124,7 @@ Standard_Boolean ShapeAnalysis_Edge::Curve3d(const TopoEdge&     edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::IsClosed3d(const TopoEdge& edge) const
+Standard_Boolean Edge1::IsClosed3d(const TopoEdge& edge) const
 {
   Standard_Real      cf, cl;
   Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, cf, cl);
@@ -137,7 +137,7 @@ Standard_Boolean ShapeAnalysis_Edge::IsClosed3d(const TopoEdge& edge) const
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoEdge& edge,
+Standard_Boolean Edge1::HasPCurve(const TopoEdge& edge,
                                                const TopoFace& face) const
 {
   TopLoc_Location             L;
@@ -147,7 +147,7 @@ Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoEdge& edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoEdge&          edge,
+Standard_Boolean Edge1::HasPCurve(const TopoEdge&          edge,
                                                const Handle(GeomSurface)& surface,
                                                const TopLoc_Location&      location) const
 {
@@ -163,7 +163,7 @@ Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoEdge&          edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoEdge&     edge,
+Standard_Boolean Edge1::PCurve(const TopoEdge&     edge,
                                             const TopoFace&     face,
                                             Handle(GeomCurve2d)&  C2d,
                                             Standard_Real&         cf,
@@ -184,7 +184,7 @@ Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoEdge&     edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoEdge&          edge,
+Standard_Boolean Edge1::PCurve(const TopoEdge&          edge,
                                             const Handle(GeomSurface)& surface,
                                             const TopLoc_Location&      location,
                                             Handle(GeomCurve2d)&       C2d,
@@ -204,14 +204,14 @@ Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoEdge&          edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoEdge& edge, const TopoFace& face) const
+Standard_Boolean Edge1::IsSeam(const TopoEdge& edge, const TopoFace& face) const
 {
   return BRepInspector::IsClosed(edge, face);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoEdge&          edge,
+Standard_Boolean Edge1::IsSeam(const TopoEdge&          edge,
                                             const Handle(GeomSurface)& surface,
                                             const TopLoc_Location&      location) const
 {
@@ -220,7 +220,7 @@ Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoEdge&          edge,
 
 //=================================================================================================
 
-TopoVertex ShapeAnalysis_Edge::FirstVertex(const TopoEdge& edge) const
+TopoVertex Edge1::FirstVertex(const TopoEdge& edge) const
 {
   TopoVertex V;
   if (edge.Orientation() == TopAbs_REVERSED)
@@ -237,7 +237,7 @@ TopoVertex ShapeAnalysis_Edge::FirstVertex(const TopoEdge& edge) const
 
 //=================================================================================================
 
-TopoVertex ShapeAnalysis_Edge::LastVertex(const TopoEdge& edge) const
+TopoVertex Edge1::LastVertex(const TopoEdge& edge) const
 {
   TopoVertex V;
   if (edge.Orientation() == TopAbs_REVERSED)
@@ -254,14 +254,14 @@ TopoVertex ShapeAnalysis_Edge::LastVertex(const TopoEdge& edge) const
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::Status(const ShapeExtend_Status Status) const
+Standard_Boolean Edge1::Status(const ShapeExtend_Status Status) const
 {
   return ShapeExtend::DecodeStatus(myStatus, Status);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
+Standard_Boolean Edge1::GetEndTangent2d(
   const TopoEdge&     edge,
   const TopoFace&     face,
   const Standard_Boolean atend1, /* skl : change "atend" to "atend1" */
@@ -276,7 +276,7 @@ Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
+Standard_Boolean Edge1::GetEndTangent2d(
   const TopoEdge&          edge,
   const Handle(GeomSurface)& S,
   const TopLoc_Location&      L,
@@ -360,7 +360,7 @@ Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoEdge& edge,
+Standard_Boolean Edge1::CheckCurve3dWithPCurve(const TopoEdge& edge,
                                                             const TopoFace& face)
 {
   TopLoc_Location             L;
@@ -370,7 +370,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoEdge& edge
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoEdge&          edge,
+Standard_Boolean Edge1::CheckCurve3dWithPCurve(const TopoEdge&          edge,
                                                             const Handle(GeomSurface)& surface,
                                                             const TopLoc_Location&      location)
 {
@@ -416,7 +416,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoEdge&     
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckPoints(const Point3d&       P1A,
+Standard_Boolean Edge1::CheckPoints(const Point3d&       P1A,
                                                  const Point3d&       P1B,
                                                  const Point3d&       P2A,
                                                  const Point3d&       P2B,
@@ -433,7 +433,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckPoints(const Point3d&       P1A,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoEdge&     edge,
+Standard_Boolean Edge1::CheckVerticesWithCurve3d(const TopoEdge&     edge,
                                                               const Standard_Real    preci,
                                                               const Standard_Integer vtx)
 {
@@ -476,7 +476,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoEdge&   
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoEdge&     edge,
+Standard_Boolean Edge1::CheckVerticesWithPCurve(const TopoEdge&     edge,
                                                              const TopoFace&     face,
                                                              const Standard_Real    preci,
                                                              const Standard_Integer vtx)
@@ -490,7 +490,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoEdge&    
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoEdge&          edge,
+Standard_Boolean Edge1::CheckVerticesWithPCurve(const TopoEdge&          edge,
                                                              const Handle(GeomSurface)& surf,
                                                              const TopLoc_Location&      loc,
                                                              const Standard_Real         preci,
@@ -547,7 +547,7 @@ static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
 {
   Standard_Integer Status = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   TopoVertex      V1 = sae.FirstVertex(edge);
   TopoVertex      V2 = sae.LastVertex(edge);
   if (V1.IsNull() || V2.IsNull())
@@ -631,7 +631,7 @@ static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoEdge& edge,
+Standard_Boolean Edge1::CheckVertexTolerance(const TopoEdge& edge,
                                                           const TopoFace& face,
                                                           Standard_Real&     toler1,
                                                           Standard_Real&     toler2)
@@ -642,7 +642,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoEdge& edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoEdge& edge,
+Standard_Boolean Edge1::CheckVertexTolerance(const TopoEdge& edge,
                                                           Standard_Real&     toler1,
                                                           Standard_Real&     toler2)
 {
@@ -653,7 +653,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoEdge& edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoEdge&     edge,
+Standard_Boolean Edge1::CheckSameParameter(const TopoEdge&     edge,
                                                         Standard_Real&         maxdev,
                                                         const Standard_Integer NbControl)
 {
@@ -663,7 +663,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoEdge&     edge
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoEdge&     edge,
+Standard_Boolean Edge1::CheckSameParameter(const TopoEdge&     edge,
                                                         const TopoFace&     face,
                                                         Standard_Real&         maxdev,
                                                         const Standard_Integer NbControl)
@@ -837,7 +837,7 @@ static Standard_Boolean IsOverlapPartEdges(const TopoEdge&   theFirstEdge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoEdge&  theEdge1,
+Standard_Boolean Edge1::CheckOverlapping(const TopoEdge&  theEdge1,
                                                       const TopoEdge&  theEdge2,
                                                       Standard_Real&      theTolOverlap,
                                                       const Standard_Real theDomainDist)
@@ -926,7 +926,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoEdge&  theEdge1,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckPCurveRange(const Standard_Real         theFirst,
+Standard_Boolean Edge1::CheckPCurveRange(const Standard_Real         theFirst,
                                                       const Standard_Real         theLast,
                                                       const Handle(GeomCurve2d)& thePC)
 {

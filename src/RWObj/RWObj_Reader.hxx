@@ -236,7 +236,7 @@ private:
   Coords3d polygonCenter(const NCollection_Array1<Standard_Integer>& theIndices);
 
   //! Compute the normal to planar polygon.
-  //! The logic is similar to ShapeAnalysis_Curve::IsPlanar().
+  //! The logic is similar to Curve2::IsPlanar().
   //! @param theIndices polygon indices
   //! @return polygon normal
   Coords3d polygonNormal(const NCollection_Array1<Standard_Integer>& theIndices);

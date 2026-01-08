@@ -218,7 +218,7 @@ static Standard_Integer DDataStd_GetPlane(DrawInterpreter&, Standard_Integer nb,
   if (!DDF1::Find(DF, arg[2], TDataXtd_Plane::GetID(), A))
     return 1;
   gp_Pln p;
-  if (TDataXtd_Geometry::Plane(A->Label(), p))
+  if (TDataXtd_Geometry::Plane1(A->Label(), p))
   {
     Handle(GeomPlane) P = new GeomPlane(p);
     if (nb == 4)

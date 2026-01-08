@@ -199,21 +199,21 @@ inline void HLRBRep_FaceData::WithOutL(const Standard_Boolean B)
 }
 
 //=======================================================================
-// function : Plane
+// function : Plane1
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean HLRBRep_FaceData::Plane() const
+inline Standard_Boolean HLRBRep_FaceData::Plane1() const
 {
   return (myFlags & (Standard_Integer)FMaskPlane) != 0;
 }
 
 //=======================================================================
-// function : Plane
+// function : Plane1
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_FaceData::Plane(const Standard_Boolean B)
+inline void HLRBRep_FaceData::Plane1(const Standard_Boolean B)
 {
   if (B)
     myFlags |= (Standard_Integer)FMaskPlane;

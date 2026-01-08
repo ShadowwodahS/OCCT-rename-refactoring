@@ -251,7 +251,7 @@ void ApproxInt_Approx::Perform(const ThePSurface&      Surf1,
     switch (typeS1)
     {
       case GeomAbs_Plane:
-        Quad.SetValue(ThePSurfaceTool::Plane(Surf1));
+        Quad.SetValue(ThePSurfaceTool::Plane1(Surf1));
         break;
 
       case GeomAbs_Cylinder:
@@ -271,7 +271,7 @@ void ApproxInt_Approx::Perform(const ThePSurface&      Surf1,
         switch (typeS2)
         {
           case GeomAbs_Plane:
-            Quad.SetValue(ThePSurfaceTool::Plane(Surf2));
+            Quad.SetValue(ThePSurfaceTool::Plane1(Surf2));
             break;
 
           case GeomAbs_Cylinder:

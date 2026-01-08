@@ -43,7 +43,7 @@ class TopoVertex;
 //! checking small faces,
 //! analyzing shape tolerances,
 //! analyzing of free bounds of the shape.
-class ShapeAnalysis
+class ShapeAnalysis1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -82,10 +82,10 @@ public:
   //! Finds the start and end vertices of the shape
   //! Shape can be of the following type:
   //! vertex: V1 and V2 are the same and equal to <shape>,
-  //! edge  : V1 is start and V2 is end vertex (see ShapeAnalysis_Edge
+  //! edge  : V1 is start and V2 is end vertex (see Edge1
   //! methods FirstVertex and LastVertex),
   //! wire  : V1 is start vertex of the first edge, V2 is end vertex
-  //! of the last edge (also see ShapeAnalysis_Edge).
+  //! of the last edge (also see Edge1).
   //! If wire contains no edges V1 and V2 are nullified
   //! If none of the above V1 and V2 are nullified
   Standard_EXPORT static void FindBounds(const TopoShape& shape,

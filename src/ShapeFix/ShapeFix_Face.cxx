@@ -244,7 +244,7 @@ static Standard_Boolean SplitWire(const TopoFace&        face,
   TColStd_MapOfInteger         UsedEdges;
   Handle(ShapeExtend_WireData) sewd = new ShapeExtend_WireData(wire);
   Standard_Integer             i, j, k;
-  ShapeAnalysis_Edge           sae;
+  Edge1           sae;
   for (i = 1; i <= sewd->NbEdges(); i++)
   {
     if (UsedEdges.Contains(i))
@@ -743,7 +743,7 @@ static void Shift2dWire(const TopoWire&                   w,
 {
   Transform2d tr2d;
   tr2d.SetTranslation(vec.XY());
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   ShapeBuild_Edge    sbe;
   ShapeBuilder       B;
   for (TopoDS_Iterator ei(w, Standard_False); ei.More(); ei.Next())
@@ -777,7 +777,7 @@ static Standard_Boolean CutInterval(TColgp_SequenceOfPnt2d& intervals,
     {
       gp_Pnt2d interval = intervals(i);
       // ACIS907, OCC921 a054a.sat (face 124)
-      Standard_Real shift = ShapeAnalysis::AdjustByPeriod((j ? toAddI.X() : toAddI.Y()),
+      Standard_Real shift = ShapeAnalysis1::AdjustByPeriod((j ? toAddI.X() : toAddI.Y()),
                                                           0.5 * (interval.X() + interval.Y()),
                                                           period);
       gp_Pnt2d      toAdd(toAddI.X() + shift, toAddI.Y() + shift);
@@ -905,7 +905,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
     TopoFace  aWireFace = TopoDS::Face(myFace.EmptyCopied());
     ShapeBuilder aB;
     aB.Add(aWireFace, aw);
-    ShapeAnalysis::GetFaceUVBounds(aWireFace, Umin, Umax, Vmin, Vmax);
+    ShapeAnalysis1::GetFaceUVBounds(aWireFace, Umin, Umax, Vmin, Vmax);
 
     // PTV 01.11.2002 ACIS907, OCC921 end
     if (mySurf->IsUClosed())
@@ -929,9 +929,9 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
     TopoWire wire = TopoDS::Wire(ws.Value(i));
     gp_Pnt2d    sh(0., 0.);
     if (mySurf->IsUClosed())
-      sh.SetX(ShapeAnalysis::AdjustByPeriod(centers(i).X(), center.X(), SUL - SUF));
+      sh.SetX(ShapeAnalysis1::AdjustByPeriod(centers(i).X(), center.X(), SUL - SUF));
     if (mySurf->IsVClosed())
-      sh.SetY(ShapeAnalysis::AdjustByPeriod(centers(i).Y(), center.Y(), SVL - SVF));
+      sh.SetY(ShapeAnalysis1::AdjustByPeriod(centers(i).Y(), center.Y(), SVL - SVF));
     Shift2dWire(wire, myFace, sh.XY(), mySurf);
   }
 
@@ -994,7 +994,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
         if (!BRepInspector::Degenerated(sbwd->Edge(j)))
           continue;
         // find corresponding place in boundary
-        ShapeAnalysis_Edge sae;
+        Edge1 sae;
         TopoVertex      V = sae.FirstVertex(sbwd->Edge(j));
         Standard_Integer   k;
         for (k = 1; k <= bnd->NbEdges(); k++)
@@ -1074,7 +1074,7 @@ Standard_Boolean ShapeFix_Face::isNeedAddNaturalBound(
     return Standard_False;
   }
   // if face has an OUTER bound
-  if (ShapeAnalysis::IsOuterBound(myFace))
+  if (ShapeAnalysis1::IsOuterBound(myFace))
   {
     return Standard_False;
   }
@@ -1140,7 +1140,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         length = 0;
         Standard_Real      First, Last;
         Handle(GeomCurve3d) c3d;
-        ShapeAnalysis_Edge sae;
+        Edge1 sae;
         if (sae.Curve3d(anEdge, c3d, First, Last))
         {
           Point3d pntIni = c3d->Value(First);
@@ -1192,7 +1192,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
     af.Orientation(TopAbs_FORWARD);
     B.Add(af, ws.Value(1));
 
-    if (!isAddNaturalBounds && !ShapeAnalysis::IsOuterBound(af))
+    if (!isAddNaturalBounds && !ShapeAnalysis1::IsOuterBound(af))
     {
       Handle(ShapeExtend_WireData) sbdw = new ShapeExtend_WireData(TopoDS::Wire(ws.Value(1)));
       sbdw->Reverse(myFace);
@@ -1280,9 +1280,9 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
       {
         Standard_Real xShift = 0, yShift = 0;
         if (mySurf->IsUClosed())
-          xShift = ShapeAnalysis::AdjustByPeriod(0.5 * (aXMin + aXMax), uMiddle, uRange);
+          xShift = ShapeAnalysis1::AdjustByPeriod(0.5 * (aXMin + aXMax), uMiddle, uRange);
         if (mySurf->IsVClosed())
-          yShift = ShapeAnalysis::AdjustByPeriod(0.5 * (aYMin + aYMax), vMiddle, vRange);
+          yShift = ShapeAnalysis1::AdjustByPeriod(0.5 * (aYMin + aYMax), vMiddle, vRange);
         aBox.Update(aXMin + xShift, aYMin + yShift, aXMax + xShift, aYMax + yShift);
       }
       aWireBoxes.ChangeValue(i) = aBox;
@@ -1575,7 +1575,7 @@ static Standard_Boolean CheckWire(const TopoWire&  wire,
   Coords2d vec;
   vec.SetX(0);
   vec.SetY(0);
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
 
   isuopen = isvopen = 0;
   isDeg             = Standard_True;
@@ -1878,10 +1878,10 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   Standard_Real    m1[2][2], m2[2][2];
   S = myFace.EmptyCopied();
   B.Add(S, w1);
-  ShapeAnalysis::GetFaceUVBounds(TopoDS::Face(S), m1[0][0], m1[0][1], m1[1][0], m1[1][1]);
+  ShapeAnalysis1::GetFaceUVBounds(TopoDS::Face(S), m1[0][0], m1[0][1], m1[1][0], m1[1][1]);
   S = myFace.EmptyCopied();
   B.Add(S, w2);
-  ShapeAnalysis::GetFaceUVBounds(TopoDS::Face(S), m2[0][0], m2[0][1], m2[1][0], m2[1][1]);
+  ShapeAnalysis1::GetFaceUVBounds(TopoDS::Face(S), m2[0][0], m2[0][1], m2[1][0], m2[1][1]);
 
   // For the case when surface is closed only in one direction it is necessary to check
   // validity of orientation of the open wires in parametric space.
@@ -1930,7 +1930,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       TopoShape curface = tmpF.EmptyCopied();
       B.Add(curface, wire);
       curface.Orientation(myFace.Orientation());
-      if (ShapeAnalysis::IsOuterBound(TopoDS::Face(curface)))
+      if (ShapeAnalysis1::IsOuterBound(TopoDS::Face(curface)))
         wire.Reverse();
     }
     B.Add(tmpF, wire);
@@ -1943,7 +1943,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   // tr9_r0501-ug.stp #187640
   if (uclosed && vclosed && !anIsDegeneratedTor)
   {
-    Standard_Real shiftw2 = ShapeAnalysis::AdjustByPeriod(
+    Standard_Real shiftw2 = ShapeAnalysis1::AdjustByPeriod(
       0.5 * (m2[coord][0] + m2[coord][1]),
       0.5 * (m1[coord][0] + m1[coord][1] + isneg * (period + ::Precision::PConfusion())),
       period);
@@ -1964,8 +1964,8 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       {
         S = tmpF.EmptyCopied();
         B.Add(S, w);
-        ShapeAnalysis::GetFaceUVBounds(TopoDS::Face(S), m2[0][0], m2[0][1], m2[1][0], m2[1][1]);
-        shift = ShapeAnalysis::AdjustByPeriod(0.5 * (m2[coord][0] + m2[coord][1]),
+        ShapeAnalysis1::GetFaceUVBounds(TopoDS::Face(S), m2[0][0], m2[0][1], m2[1][0], m2[1][1]);
+        shift = ShapeAnalysis1::AdjustByPeriod(0.5 * (m2[coord][0] + m2[coord][1]),
                                               0.5 * (m1[coord][0] + m1[coord][1]),
                                               period);
       }
@@ -1973,7 +1973,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       {
         gp_Vec2d V(0., 0.);
         V.SetCoord(coord + 1, shift);
-        ShapeAnalysis_Edge sae;
+        Edge1 sae;
         for (TopoDS_Iterator iw(w); iw.More(); iw.Next())
         {
           TopoEdge          E = TopoDS::Edge(iw.Value());
@@ -1999,7 +1999,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
 
   // find the best place by u and v to insert a seam
   // (so as to minimize splitting edges as possible)
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   Standard_Integer   foundU = 0, foundV = 0;
   Standard_Integer   nb1 = wd1->NbEdges();
   Standard_Integer   nb2 = wd2->NbEdges();
@@ -2015,7 +2015,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
     Standard_Boolean skipU = !uclosed;
     if (uclosed && ismodeu)
     {
-      pos1.SetX(pos1.X() + ShapeAnalysis::AdjustByPeriod(pos1.X(), SUF, URange));
+      pos1.SetX(pos1.X() + ShapeAnalysis1::AdjustByPeriod(pos1.X(), SUF, URange));
       if (foundU == 2 && Abs(pos1.X()) > Abs(uf))
         skipU = Standard_True;
       else if (!foundU || (foundU == 1 && Abs(pos1.X()) < Abs(uf)))
@@ -2027,7 +2027,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
     Standard_Boolean skipV = !vclosed;
     if (vclosed && !ismodeu)
     {
-      pos1.SetY(pos1.Y() + ShapeAnalysis::AdjustByPeriod(pos1.Y(), SVF, VRange));
+      pos1.SetY(pos1.Y() + ShapeAnalysis1::AdjustByPeriod(pos1.Y(), SVF, VRange));
       if (foundV == 2 && Abs(pos1.Y()) > Abs(vf))
         skipV = Standard_True;
       else if (!foundV || (foundV == 1 && Abs(pos1.Y()) < Abs(vf)))
@@ -2052,7 +2052,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       gp_Pnt2d pos2 = c2d->Value(f).XY();
       if (uclosed && ismodeu)
       {
-        pos2.SetX(pos2.X() + ShapeAnalysis::AdjustByPeriod(pos2.X(), pos1.X(), URange));
+        pos2.SetX(pos2.X() + ShapeAnalysis1::AdjustByPeriod(pos2.X(), pos1.X(), URange));
         if (Abs(pos2.X() - pos1.X()) < ::Precision::PConfusion()
             && (foundU != 2 || Abs(pos1.X()) < Abs(uf)))
         {
@@ -2062,7 +2062,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
       }
       if (vclosed && !ismodeu)
       {
-        pos2.SetY(pos2.Y() + ShapeAnalysis::AdjustByPeriod(pos2.Y(), pos1.Y(), VRange));
+        pos2.SetY(pos2.Y() + ShapeAnalysis1::AdjustByPeriod(pos2.Y(), pos1.Y(), VRange));
         if (Abs(pos2.Y() - pos1.Y()) < ::Precision::PConfusion()
             && (foundV != 2 || Abs(pos1.Y()) < Abs(vf)))
         {
@@ -2075,9 +2075,9 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
 
   // pdn fixing RTS on offsets
   if (uf < SUF || uf > SUL)
-    uf += ShapeAnalysis::AdjustToPeriod(uf, SUF, SUF + URange);
+    uf += ShapeAnalysis1::AdjustToPeriod(uf, SUF, SUF + URange);
   if (vf < SVF || vf > SVL)
-    vf += ShapeAnalysis::AdjustToPeriod(vf, SVF, SVF + VRange);
+    vf += ShapeAnalysis1::AdjustToPeriod(vf, SVF, SVF + VRange);
 
   // Create fictive grid and call ComposeShell to insert a seam
   Handle(Geom_RectangularTrimmedSurface) RTS =
@@ -2294,7 +2294,7 @@ static Standard_Boolean isClosed2D(const TopoFace& aFace, const TopoWire& aWire)
   {
     TopoEdge edge1 = asaw->WireData()->Edge(i);
     // checking that wire is closed in 2D space with tolerance of vertex.
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     TopoVertex      v1 = sae.FirstVertex(edge1);
     asaw->SetPrecision(BRepInspector::Tolerance(v1));
     asaw->CheckGap2d(i);
@@ -2511,7 +2511,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
     const Handle(GeomSurface)& S = BRepInspector::Surface(myFace, L);
     Handle(GeomCurve2d)        c2d;
     Standard_Real               cf, cl;
-    ShapeAnalysis_Edge          sae;
+    Edge1          sae;
     if (sae.PCurve(newE1, S, L, c2d, cf, cl, Standard_False))
     {
       Bnd_Box2d           box;
@@ -2588,7 +2588,7 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
     const Handle(GeomSurface)& S = BRepInspector::Surface(myFace, L);
     Handle(GeomCurve2d)        c2d;
     Standard_Real               cf, cl;
-    ShapeAnalysis_Edge          sae;
+    Edge1          sae;
     if (sae.PCurve(newE1, S, L, c2d, cf, cl, Standard_False))
     {
       Bnd_Box2d           box;
@@ -2735,7 +2735,7 @@ Standard_Boolean ShapeFix_Face::FixSplitFace(const TopTools_DataMapOfShapeListOf
       TopoEdge        E1 = sewd->Edge(1);
       TopoEdge        E2 = sewd->Edge(NbEdges);
       TopoVertex      V1, V2;
-      ShapeAnalysis_Edge sae;
+      Edge1 sae;
       V1 = sae.FirstVertex(E1);
       V2 = sae.LastVertex(E2);
       if (!V1.IsSame(V2))
@@ -2818,7 +2818,7 @@ static Standard_Boolean IsPeriodicConicalLoop(const Handle(Geom_ConicalSurface)&
   if (theSurf.IsNull())
     return Standard_False;
 
-  ShapeAnalysis_Edge aSAE;
+  Edge1 aSAE;
   TopLoc_Location    aLoc;
 
   Standard_Real aCumulDeltaU = 0.0, aCumulDeltaUAbs = 0.0;

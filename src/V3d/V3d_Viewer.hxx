@@ -445,7 +445,7 @@ public: //! @name grid management
 
   //! Display grid echo at requested point in the view.
   Standard_EXPORT void ShowGridEcho(const Handle(ViewWindow)& theView,
-                                    const Graphic3d_Vertex& thePoint);
+                                    const Vertex1& thePoint);
 
   //! Temporarily hide grid echo.
   Standard_EXPORT void HideGridEcho(const Handle(ViewWindow)& theView);
@@ -561,7 +561,7 @@ private:
   Handle(Graphic3d_GraphicDriver)    myDriver;
   Handle(Graphic3d_StructureManager) myStructureManager;
   TColStd_MapOfInteger               myLayerIds;
-  Aspect_GenId                       myZLayerGenId;
+  GenId                       myZLayerGenId;
 
   V3d_ListOfView  myDefinedViews;
   V3d_ListOfView  myActiveViews;
@@ -596,7 +596,7 @@ private:
   Handle(Graphic3d_Structure)      myGridEchoStructure;
   Handle(Graphic3d_Group)          myGridEchoGroup;
   Handle(Graphic3d_AspectMarker3d) myGridEchoAspect;
-  Graphic3d_Vertex                 myGridEchoLastVert;
+  Vertex1                 myGridEchoLastVert;
 };
 
 DEFINE_STANDARD_HANDLE(ViewManager, RefObject)

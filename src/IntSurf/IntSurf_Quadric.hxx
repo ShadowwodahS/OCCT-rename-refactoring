@@ -72,7 +72,7 @@ public:
 
   GeomAbs_SurfaceType TypeQuadric() const;
 
-  gp_Pln Plane() const;
+  gp_Pln Plane1() const;
 
   Sphere3 Sphere() const;
 

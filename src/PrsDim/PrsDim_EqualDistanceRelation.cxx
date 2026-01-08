@@ -353,7 +353,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
   const Standard_Real               ArrowSize,
   const TopoEdge&                FirstEdge,
   const TopoEdge&                SecondEdge,
-  const Handle(GeomPlane)&         Plane,
+  const Handle(GeomPlane)&         Plane1,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
   const Box2&                    BndBox,
@@ -385,7 +385,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
                                extCurv,
                                isInfinite1,
                                isInPlane1,
-                               Plane))
+                               Plane1))
     return;
   if (!PrsDim::ComputeGeometry(SecondEdge,
                                geom2,
@@ -394,7 +394,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
                                extCurv,
                                isInfinite2,
                                isInPlane2,
-                               Plane))
+                               Plane1))
     return;
 
   aPresentation->SetInfiniteState(isInfinite1 || isInfinite2);
@@ -453,7 +453,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
     }
     else
     { // project point on the plane
-      Position = PrsDim::ProjectPointOnPlane(Position, Plane->Pln());
+      Position = PrsDim::ProjectPointOnPlane(Position, Plane1->Pln());
     }
 
     // find attach points
@@ -529,7 +529,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
     if (AutomaticPos)
     {
       Standard_Real par1 = 0, par2 = 0;
-      gp_Pln        aPln = Plane->Pln();
+      gp_Pln        aPln = Plane1->Pln();
       // Project ptat12 and ptat22 on constraint plane
       Point3d PrPnt12 = PrsDim::ProjectPointOnPlane(ptat12, aPln);
       Point3d PrPnt22 = PrsDim::ProjectPointOnPlane(ptat22, aPln);
@@ -619,7 +619,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
   const Standard_Real               ArrowSize,
   const TopoVertex&              FirstVertex,
   const TopoVertex&              SecondVertex,
-  const Handle(GeomPlane)&         Plane,
+  const Handle(GeomPlane)&         Plane1,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
   const Box2&                    BndBox,
@@ -633,22 +633,22 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
 {
   Standard_Boolean isOnPlane1, isOnPlane2;
   Dir3d           DirAttach;
-  PrsDim::ComputeGeometry(FirstVertex, FirstAttach, Plane, isOnPlane1);
-  PrsDim::ComputeGeometry(SecondVertex, SecondAttach, Plane, isOnPlane2);
+  PrsDim::ComputeGeometry(FirstVertex, FirstAttach, Plane1, isOnPlane1);
+  PrsDim::ComputeGeometry(SecondVertex, SecondAttach, Plane1, isOnPlane2);
 
   constexpr Standard_Real confusion(Precision::Confusion());
   Standard_Boolean        samePoint(FirstAttach.IsEqual(SecondAttach, confusion));
 
   if (TypeDist == PrsDim_TypeOfDist_Vertical)
-    DirAttach = Plane->Pln().XAxis().Direction();
+    DirAttach = Plane1->Pln().XAxis().Direction();
   else if (TypeDist == PrsDim_TypeOfDist_Horizontal)
-    DirAttach = Plane->Pln().YAxis().Direction();
+    DirAttach = Plane1->Pln().YAxis().Direction();
   else
   {
     if (!samePoint)
     {
       DirAttach.SetXYZ(SecondAttach.XYZ() - FirstAttach.XYZ());
-      DirAttach.Rotate(Plane->Pln().Axis(), M_PI / 2.);
+      DirAttach.Rotate(Plane1->Pln().Axis(), M_PI / 2.);
     }
   }
 
@@ -666,17 +666,17 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
     }
     else
     {
-      Dir3d aDir = Plane->Pln().Axis().Direction();
+      Dir3d aDir = Plane1->Pln().Axis().Direction();
       Vector3d aVec(aDir.XYZ() * 10 * ArrowSize);
       // Position = Point3d(FirstAttach.XYZ()+Coords3d(1.,1.,1.)); // not correct
       Position = FirstAttach.Translated(aVec);
-      Position = PrsDim::ProjectPointOnPlane(Position, Plane->Pln()); // not needed really
+      Position = PrsDim::ProjectPointOnPlane(Position, Plane1->Pln()); // not needed really
       DirAttach.SetXYZ(Position.XYZ() - FirstAttach.XYZ());
     }
   }
   else
   {
-    Position = PrsDim::ProjectPointOnPlane(Position, Plane->Pln());
+    Position = PrsDim::ProjectPointOnPlane(Position, Plane1->Pln());
   }
 
   Handle(Prs3d_DimensionAspect) la  = aDrawer->DimensionAspect();
@@ -713,7 +713,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
   const Standard_Real               ArrowSize,
   const TopoShape&               FirstShape,
   const TopoShape&               SecondShape,
-  const Handle(GeomPlane)&         Plane,
+  const Handle(GeomPlane)&         Plane1,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
   const Box2&                    BndBox,
@@ -754,10 +754,10 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
                                extCurv,
                                isInfinite,
                                isOnPlanEdge,
-                               Plane))
+                               Plane1))
     return;
   aPresentation->SetInfiniteState(isInfinite);
-  PrsDim::ComputeGeometry(thevertex, FirstAttach, Plane, isOnPlanVertex);
+  PrsDim::ComputeGeometry(thevertex, FirstAttach, Plane1, isOnPlanVertex);
 
   if (aCurve->IsInstance(STANDARD_TYPE(GeomLine)))
   {
@@ -787,7 +787,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
     }
     else
     { // project point on the plane
-      Position = PrsDim::ProjectPointOnPlane(Position, Plane->Pln());
+      Position = PrsDim::ProjectPointOnPlane(Position, Plane1->Pln());
     }
 
     if (!isInfinite)

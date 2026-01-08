@@ -183,12 +183,12 @@ gce_MakeCirc::gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius)
 }
 
 //=========================================================================
-//   Creation d un gp_Circ par son centre <Center>, son plan <Plane> et   +
+//   Creation d un gp_Circ par son centre <Center>, son plan <Plane1> et   +
 //   son rayon <Radius>.                                                  +
 //=========================================================================
-gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Pln& Plane, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Pln& Plane1, const Standard_Real Radius)
 {
-  gce_MakeCirc C = gce_MakeCirc(Center, Plane.Position().Direction(), Radius);
+  gce_MakeCirc C = gce_MakeCirc(Center, Plane1.Position().Direction(), Radius);
   TheCirc        = C.Value();
   TheError       = C.Status();
 }

@@ -22,7 +22,7 @@
 
 #include <Draw_Interpretor.hxx>
 
-class QANCollection
+class QANCollection1
 {
 public:
   DEFINE_STANDARD_ALLOC

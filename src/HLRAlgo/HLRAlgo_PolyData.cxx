@@ -177,7 +177,7 @@ void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
         }
         if (NotConnex)
         {
-          PolyHidingData::PlaneT1& aPlane = PH->Plane();
+          PolyHidingData::PlaneT1& aPlane = PH->Plane1();
           d1                                     = aPlane.Normal * thePoints.PntP1 - aPlane.D;
           d2                                     = aPlane.Normal * thePoints.PntP2 - aPlane.D;
           if (d1 > theTriangle.Tolerance)

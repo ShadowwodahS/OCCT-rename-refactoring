@@ -129,7 +129,7 @@ static Standard_Real AdjustOnPeriodic3d(const Handle(GeomCurve3d)& c,
                                         const Standard_Real       param)
 {
   // 15.11.2002 PTV OCC966
-  if (ShapeAnalysis_Curve::IsPeriodic(c))
+  if (Curve2::IsPeriodic(c))
   {
     Standard_Real T     = c->Period();
     Standard_Real shift = -IntegerPart(first / T) * T;
@@ -169,7 +169,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
   // Retrieve curves on edges
   Standard_Real      cfirst1, clast1, cfirst2, clast2;
   Handle(GeomCurve3d) C1, C2;
-  ShapeAnalysis_Edge SAE;
+  Edge1 SAE;
   if (!SAE.Curve3d(E1, C1, cfirst1, clast1) || !SAE.Curve3d(E2, C2, cfirst2, clast2))
   {
     myLastFixStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
@@ -347,7 +347,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
         {
           OCC_CATCH_SIGNALS
           // 15.11.2002 PTV OCC966
-          if (!ShapeAnalysis_Curve::IsPeriodic(c))
+          if (!Curve2::IsPeriodic(c))
             tc = new Geom_TrimmedCurve(c,
                                        Max(first, c->FirstParameter()),
                                        Min(last, c->LastParameter()));
@@ -788,7 +788,7 @@ static Standard_Real AdjustOnPeriodic2d(const Handle(GeomCurve2d)& pc,
                                         const Standard_Real         param)
 {
   // 15.11.2002 PTV OCC966
-  if (ShapeAnalysis_Curve::IsPeriodic(pc))
+  if (Curve2::IsPeriodic(pc))
   {
     Standard_Real T     = pc->Period();
     Standard_Real shift = -IntegerPart(first / T) * T;
@@ -832,7 +832,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
   // Retrieve pcurves on edges
   Standard_Real        cfirst1, clast1, cfirst2, clast2;
   Handle(GeomCurve2d) PC1, PC2;
-  ShapeAnalysis_Edge   SAE;
+  Edge1   SAE;
   if (!SAE.PCurve(E1, face, PC1, cfirst1, clast1) || !SAE.PCurve(E2, face, PC2, cfirst2, clast2)
       || sbwd->IsSeam(n1) || sbwd->IsSeam(n2))
   {
@@ -998,7 +998,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           OCC_CATCH_SIGNALS
           Handle(GeomCurve2d) c;
           // 15.11.2002 PTV OCC966
-          if (!ShapeAnalysis_Curve::IsPeriodic(pc))
+          if (!Curve2::IsPeriodic(pc))
             c = new Geom2d_TrimmedCurve(pc,
                                         Max(first, pc->FirstParameter()),
                                         Min(last, pc->LastParameter()));

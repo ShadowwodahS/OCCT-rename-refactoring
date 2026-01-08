@@ -612,7 +612,7 @@ static Standard_Integer DT_PlaneDividedFace (DrawInterpreter& di,
 
 //=======================================================================
 //function : DT_PlaneGridShell
-//purpose  : Create a Plane Grid Shell from U and V knots
+//purpose  : Create a Plane1 Grid Shell from U and V knots
 //
 //
 //=======================================================================

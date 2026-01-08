@@ -666,7 +666,7 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       u1                       = Max(p1f.X(), p2f.X());
       u2                       = Min(p1l.X(), p2l.X());
       sec                      = new ChFiDS_SecHArray1(1, 2);
-      gp_Pln              Pl   = AS.Plane();
+      gp_Pln              Pl   = AS.Plane1();
       CircularSection& sec1 = sec->ChangeValue(1);
       CircularSection& sec2 = sec->ChangeValue(2);
       sec1.Set(ElSLib1::PlaneUIso(Pl.Position(), u1), v1, v2);

@@ -34,7 +34,7 @@ enum Graphic3d_ClipState
   Graphic3d_ClipState_On,  //!< on (not clipped / partially clipped) - should NOT be discarded
 };
 
-//! Container for properties describing either a Clipping halfspace (single Clipping Plane),
+//! Container for properties describing either a Clipping halfspace (single Clipping Plane1),
 //! or a chain of Clipping Planes defining logical AND (conjunction) operation.
 //! The plane equation is specified in "world" coordinate system.
 class Graphic3d_ClipPlane : public RefObject
@@ -121,7 +121,7 @@ public:
 
 public:
   //! Return TRUE if this item defines a conjunction (logical AND) between a set of Planes.
-  //! Graphic3d_ClipPlane item defines either a Clipping halfspace (single Clipping Plane)
+  //! Graphic3d_ClipPlane item defines either a Clipping halfspace (single Clipping Plane1)
   //! or a Clipping volume defined by a logical AND (conjunction) operation between a set of Planes
   //! defined as a Chain (so that the volume cuts a space only in case if check fails for ALL Planes
   //! in the Chain).

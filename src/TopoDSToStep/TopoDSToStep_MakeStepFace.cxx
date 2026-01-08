@@ -219,14 +219,14 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
           Dir3d X   = Ax3.XDirection();
           // create basis curve
           Standard_Real UF, VF, UL, VL;
-          ShapeAlgo::AlgoContainer()->GetFaceUVBounds(aFace, UF, UL, VF, VL);
+          ShapeAlgo1::AlgoContainer()->GetFaceUVBounds(aFace, UF, UL, VF, VL);
           Frame3d             Ax2(pos.XYZ() + X.XYZ() * TS->MajorRadius(), X ^ dir, X);
           Handle(GeomCurve3d) BasisCurve = new GeomCircle(Ax2, TS->MinorRadius());
           // convert basis curve to bspline in order to avoid self-intersecting
           // surface of revolution (necessary e.g. for CATIA)
           if (VL - VF - 2 * M_PI < -Precision::PConfusion())
             BasisCurve =
-              ShapeAlgo::AlgoContainer()->ConvertCurveToBSpline(BasisCurve,
+              ShapeAlgo1::AlgoContainer()->ConvertCurveToBSpline(BasisCurve,
                                                                 VF,
                                                                 VL,
                                                                 Precision::Approximation(),

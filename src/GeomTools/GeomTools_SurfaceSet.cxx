@@ -128,7 +128,7 @@ static void Print(const Handle(GeomPlane)& S, Standard_OStream& OS, const Standa
   if (compact)
     OS << PLANE << " ";
   else
-    OS << "Plane";
+    OS << "Plane1";
 
   gp_Pln P = S->Pln();
   if (!compact)

@@ -4149,7 +4149,7 @@ void UpdateTolerance(TopoShape&                     S,
         // so EdgeCorrector does not include it in tolerance calculation
         Standard_Real      aFirst, aLast;
         Handle(GeomCurve3d) aCrv     = BRepInspector::Curve(E, aFirst, aLast);
-        Standard_Real      aMaxDist = ComputeMaxDist(aBAS.Plane(), aCrv, aFirst, aLast);
+        Standard_Real      aMaxDist = ComputeMaxDist(aBAS.Plane1(), aCrv, aFirst, aLast);
         if (aMaxDist > aCurrTol)
         {
           B.UpdateEdge(E, aMaxDist);

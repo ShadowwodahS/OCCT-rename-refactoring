@@ -43,7 +43,7 @@ Standard_Boolean TPrsStd_PlaneDriver::Update(const DataLabel&               aLab
   }
 
   gp_Pln pln;
-  if (!TDataXtd_Geometry::Plane(aLabel, pln))
+  if (!TDataXtd_Geometry::Plane1(aLabel, pln))
   {
     return Standard_False;
   }

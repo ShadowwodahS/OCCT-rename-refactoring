@@ -39,7 +39,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds the points Point1, Point2, Point3 Point4, and the
-  //! plane Plane to the presentation object aPresentation.
+  //! plane Plane1 to the presentation object aPresentation.
   //! The display attributes of these elements is defined by the attribute manager aDrawer.
   //! The distance is the length of a projection from the shape to the plane.
   //! These distances are used to compare two shapes by this vector alone.
@@ -49,7 +49,7 @@ public:
                                   const Point3d&                     Point2,
                                   const Point3d&                     Point3,
                                   const Point3d&                     Point4,
-                                  const Handle(GeomPlane)&         Plane);
+                                  const Handle(GeomPlane)&         Plane1);
 
   //! is used for presentation of interval between
   //! two lines or two points or between a line and a point.

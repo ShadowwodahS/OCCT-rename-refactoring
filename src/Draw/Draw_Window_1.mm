@@ -173,7 +173,7 @@ DrawWindow::~DrawWindow()
 void DrawWindow::init (const NCollection_Vec2<int>& theXY,
                         const NCollection_Vec2<int>& theSize)
 {
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 
   // converting left-bottom coordinate to left-top coordinate
   Standard_Integer anYTop = getScreenBottom() - theXY.y() - theSize.y();
@@ -412,7 +412,7 @@ void DrawWindow::Flush()
 void DrawWindow::DrawString (Standard_Integer theXLeft, Standard_Integer theYTop,
                               const char* theText)
 {
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 
   NSString* aTextNs = [[[NSString alloc] initWithUTF8String: theText] autorelease];
   NSColor*  aColor  = [NSColor colorWithDeviceRed: Draw_RGBColorsArray[myCurrentColor][0]
@@ -438,7 +438,7 @@ void DrawWindow::DrawString (Standard_Integer theXLeft, Standard_Integer theYTop
 void DrawWindow::DrawSegments (const Draw_XSegment* theSegments,
                                 Standard_Integer theNumberOfElements)
 {
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 
   NSBezierPath* aPath = [[[NSBezierPath alloc] init] autorelease];
 
@@ -521,7 +521,7 @@ void DrawWindow::SetMode (Standard_Integer theMode)
 //=======================================================================
 Standard_Boolean DrawWindow::Save (Standard_CString theFileName) const
 {
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 
   NSString* aFileName = [[[NSString alloc] initWithUTF8String: theFileName] autorelease];
   NSString* aFileExtension = [[aFileName pathExtension] lowercaseString];
@@ -563,7 +563,7 @@ void DrawWindow::GetNextEvent (Standard_Boolean  theWait,
                                 Standard_Integer& theY,
                                 Standard_Integer& theButton)
 {
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 
   unsigned int anEventMatchMask = NSEventMaskLeftMouseDown | NSEventMaskRightMouseDown;
 

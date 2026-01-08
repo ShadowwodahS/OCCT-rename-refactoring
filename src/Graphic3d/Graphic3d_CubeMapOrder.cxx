@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder::Graphic3d_CubeMapOrder()
+CubeMapOrder::CubeMapOrder()
     : myConvolution(0),
       myHasOverflows(false)
 {
@@ -28,7 +28,7 @@ Graphic3d_CubeMapOrder::Graphic3d_CubeMapOrder()
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder::Graphic3d_CubeMapOrder(unsigned char thePosXLocation,
+CubeMapOrder::CubeMapOrder(unsigned char thePosXLocation,
                                                unsigned char theNegXLocation,
                                                unsigned char thePosYLocation,
                                                unsigned char theNegYLocation,
@@ -47,7 +47,7 @@ Graphic3d_CubeMapOrder::Graphic3d_CubeMapOrder(unsigned char thePosXLocation,
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder::Graphic3d_CubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOrder)
+CubeMapOrder::CubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOrder)
     : myConvolution(theOrder.Order.myConvolution),
       myHasOverflows(theOrder.Order.myHasOverflows)
 {
@@ -55,7 +55,7 @@ Graphic3d_CubeMapOrder::Graphic3d_CubeMapOrder(const Graphic3d_ValidatedCubeMapO
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Set(const Graphic3d_CubeMapOrder& theOrder)
+CubeMapOrder& CubeMapOrder::Set(const CubeMapOrder& theOrder)
 {
   myConvolution  = theOrder.myConvolution;
   myHasOverflows = theOrder.myHasOverflows;
@@ -66,12 +66,12 @@ Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Set(const Graphic3d_CubeMapOrder
 // function : operator=
 // purpose  :
 // =======================================================================
-Graphic3d_ValidatedCubeMapOrder Graphic3d_CubeMapOrder::Validated() const
+Graphic3d_ValidatedCubeMapOrder CubeMapOrder::Validated() const
 {
   if (!IsValid())
   {
     throw ExceptionBase(
-      "Try of Graphic3d_ValidatedCubeMapOrder creation using invalid Graphic3d_CubeMapOrder");
+      "Try of Graphic3d_ValidatedCubeMapOrder creation using invalid CubeMapOrder");
   }
 
   return *this;
@@ -79,7 +79,7 @@ Graphic3d_ValidatedCubeMapOrder Graphic3d_CubeMapOrder::Validated() const
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Set(Graphic3d_CubeMapSide theCubeMapSide,
+CubeMapOrder& CubeMapOrder::Set(Graphic3d_CubeMapSide theCubeMapSide,
                                                     unsigned char         theValue)
 {
   if (theValue > 5)
@@ -93,7 +93,7 @@ Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Set(Graphic3d_CubeMapSide theCub
 
 //=================================================================================================
 
-unsigned char Graphic3d_CubeMapOrder::Get(Graphic3d_CubeMapSide theCubeMapSide) const
+unsigned char CubeMapOrder::Get(Graphic3d_CubeMapSide theCubeMapSide) const
 {
   return get(static_cast<unsigned char>(theCubeMapSide));
 }
@@ -102,14 +102,14 @@ unsigned char Graphic3d_CubeMapOrder::Get(Graphic3d_CubeMapSide theCubeMapSide) 
 // function : operator[]
 // purpose  :
 // =======================================================================
-unsigned char Graphic3d_CubeMapOrder::operator[](Graphic3d_CubeMapSide theCubeMapSide) const
+unsigned char CubeMapOrder::operator[](Graphic3d_CubeMapSide theCubeMapSide) const
 {
   return Get(theCubeMapSide);
 }
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::SetDefault()
+CubeMapOrder& CubeMapOrder::SetDefault()
 {
   for (unsigned char i = 0; i < 6; ++i)
   {
@@ -120,7 +120,7 @@ Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::SetDefault()
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Permute(
+CubeMapOrder& CubeMapOrder::Permute(
   const Graphic3d_ValidatedCubeMapOrder& thePermutation)
 {
   for (unsigned char i = 0; i < 6; ++i)
@@ -133,17 +133,17 @@ Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Permute(
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder Graphic3d_CubeMapOrder::Permuted(
+CubeMapOrder CubeMapOrder::Permuted(
   const Graphic3d_ValidatedCubeMapOrder& thePermutation) const
 {
-  Graphic3d_CubeMapOrder anOrder = *this;
+  CubeMapOrder anOrder = *this;
   anOrder.Permute(thePermutation);
   return anOrder;
 }
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Swap(Graphic3d_CubeMapSide theFirstSide,
+CubeMapOrder& CubeMapOrder::Swap(Graphic3d_CubeMapSide theFirstSide,
                                                      Graphic3d_CubeMapSide theSecondSide)
 {
   unsigned char aTmp = Get(theFirstSide);
@@ -154,17 +154,17 @@ Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Swap(Graphic3d_CubeMapSide theFi
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder Graphic3d_CubeMapOrder::Swapped(Graphic3d_CubeMapSide theFirstSide,
+CubeMapOrder CubeMapOrder::Swapped(Graphic3d_CubeMapSide theFirstSide,
                                                        Graphic3d_CubeMapSide theSecondSide) const
 {
-  Graphic3d_CubeMapOrder anOrder = *this;
+  CubeMapOrder anOrder = *this;
   anOrder.Swap(theFirstSide, theSecondSide);
   return anOrder;
 }
 
 //=================================================================================================
 
-Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Clear()
+CubeMapOrder& CubeMapOrder::Clear()
 {
   myConvolution  = 0;
   myHasOverflows = false;
@@ -173,14 +173,14 @@ Graphic3d_CubeMapOrder& Graphic3d_CubeMapOrder::Clear()
 
 //=================================================================================================
 
-bool Graphic3d_CubeMapOrder::IsEmpty() const
+bool CubeMapOrder::IsEmpty() const
 {
   return myConvolution == 0;
 }
 
 //=================================================================================================
 
-bool Graphic3d_CubeMapOrder::HasRepetitions() const
+bool CubeMapOrder::HasRepetitions() const
 {
   std::bitset<6> aBitSet;
   for (unsigned char i = 0; i < 6; ++i)
@@ -197,28 +197,28 @@ bool Graphic3d_CubeMapOrder::HasRepetitions() const
 
 //=================================================================================================
 
-bool Graphic3d_CubeMapOrder::HasOverflows() const
+bool CubeMapOrder::HasOverflows() const
 {
   return myHasOverflows;
 }
 
 //=================================================================================================
 
-bool Graphic3d_CubeMapOrder::IsValid() const
+bool CubeMapOrder::IsValid() const
 {
   return !HasRepetitions() && !HasOverflows();
 }
 
 //=================================================================================================
 
-unsigned char Graphic3d_CubeMapOrder::get(unsigned char theCubeMapSide) const
+unsigned char CubeMapOrder::get(unsigned char theCubeMapSide) const
 {
   return (myConvolution / (1 << (theCubeMapSide * 3))) % (1 << 3);
 }
 
 //=================================================================================================
 
-void Graphic3d_CubeMapOrder::set(unsigned char theCubeMapSide, unsigned char theValue)
+void CubeMapOrder::set(unsigned char theCubeMapSide, unsigned char theValue)
 {
   unsigned int aValuePlace = 1 << (theCubeMapSide * 3);
   myConvolution -= aValuePlace * get(theCubeMapSide);
@@ -227,16 +227,16 @@ void Graphic3d_CubeMapOrder::set(unsigned char theCubeMapSide, unsigned char the
 
 //=================================================================================================
 
-void Graphic3d_CubeMapOrder::set(Graphic3d_CubeMapSide theCubeMapSide, unsigned char theValue)
+void CubeMapOrder::set(Graphic3d_CubeMapSide theCubeMapSide, unsigned char theValue)
 {
   set(static_cast<unsigned char>(theCubeMapSide), theValue);
 }
 
 //=================================================================================================
 
-const Graphic3d_ValidatedCubeMapOrder& Graphic3d_CubeMapOrder::Default()
+const Graphic3d_ValidatedCubeMapOrder& CubeMapOrder::Default()
 {
   static const Graphic3d_ValidatedCubeMapOrder aCubeMapOrder =
-    Graphic3d_CubeMapOrder().SetDefault().Validated();
+    CubeMapOrder().SetDefault().Validated();
   return aCubeMapOrder;
 }

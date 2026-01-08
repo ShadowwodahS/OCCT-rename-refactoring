@@ -72,7 +72,7 @@ Standard_Boolean IntTools_EdgeFace::IsCoincident()
 
   Standard_Integer aNbSeg = 23;
   if (myC.GetType() == GeomAbs_Line && myS.GetType() == GeomAbs_Plane)
-    aNbSeg = 2; // Check only three points for Line/Plane intersection
+    aNbSeg = 2; // Check only three points for Line/Plane1 intersection
 
   const Standard_Real    aTresh     = 0.5;
   const Standard_Integer aTreshIdxF = RealToInt((aNbSeg + 1) * 0.25),
@@ -625,7 +625,7 @@ void IntTools_EdgeFace::Perform()
       }
     }
 
-    // Circle\Plane's Common Parts treatment
+    // Circle\Plane1's Common Parts treatment
 
     if (aCType == GeomAbs_Circle && aSType == GeomAbs_Plane)
     {
@@ -782,7 +782,7 @@ Standard_Boolean IsCoplanar(const BRepAdaptor_Curve& aCurve, const BRepAdaptor_S
     const Axis3d& anAx1   = aCirc.Axis();
     const Dir3d& aDirAx1 = anAx1.Direction();
 
-    gp_Pln        aPln    = aSurface.Plane();
+    gp_Pln        aPln    = aSurface.Plane1();
     const Axis3d& anAx    = aPln.Axis();
     const Dir3d& aDirPln = anAx.Direction();
 
@@ -810,7 +810,7 @@ Standard_Boolean IsRadius(const BRepAdaptor_Curve&   aCurve,
     gp_Circ       aCirc   = aCurve.Circle();
     const Point3d  aCenter = aCirc.Location();
     Standard_Real aR      = aCirc.Radius();
-    gp_Pln        aPln    = aSurface.Plane();
+    gp_Pln        aPln    = aSurface.Plane1();
     Standard_Real aD      = aPln.Distance(aCenter);
     if (fabs(aD - aR) < aCriteria)
     {

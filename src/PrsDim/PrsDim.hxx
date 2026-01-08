@@ -122,7 +122,7 @@ public:
                                                           Standard_Boolean&   theIsinfinite2);
 
   //! Used  by  2d Relation  only Computes  the  3d geometry
-  //! of<anEdge1> and <anEdge2> in the current Plane and the
+  //! of<anEdge1> and <anEdge2> in the current Plane1 and the
   //! extremities if any.   Return in ExtCurve  the 3d curve
   //! (not projected  in the  plane)  of the  first edge  if
   //! <indexExt> =1 or of the 2nd edge if <indexExt> = 2. If
@@ -160,13 +160,13 @@ public:
                                                           const Handle(GeomPlane)& aPlane,
                                                           Standard_Boolean&         isOnPlane);
 
-  //! Tries to get Plane from Face.  Returns Surface of Face
-  //! in aSurf.  Returns Standard_True  and Plane of Face in
+  //! Tries to get Plane1 from Face.  Returns Surface of Face
+  //! in aSurf.  Returns Standard_True  and Plane1 of Face in
   //! aPlane in following  cases:
-  //! Face is Plane, Offset of Plane,
+  //! Face is Plane1, Offset of Plane1,
   //! Extrusion of Line  and Offset of  Extrusion of Line
   //! Returns pure type of Surface which can be:
-  //! Plane, Cylinder, Cone, Sphere, Torus,
+  //! Plane1, Cylinder, Cone, Sphere, Torus,
   //! SurfaceOfRevolution, SurfaceOfExtrusion
   Standard_EXPORT static Standard_Boolean GetPlaneFromFace(const TopoFace&    aFace,
                                                            gp_Pln&               aPlane,

@@ -188,14 +188,14 @@ public:
   //! of curves to the vertices, etc.).
   //! The order of the checks :
   //! Call ShapeAnalysis_Wire to check:
-  //! ShapeAnalysis_Edge::CheckCurve3dWithPCurve  (1),
-  //! ShapeAnalysis_Edge::CheckVertcesWithPCurve  (2),
-  //! ShapeAnalysis_Edge::CheckVertcesWithCurve3d (3),
+  //! Edge1::CheckCurve3dWithPCurve  (1),
+  //! Edge1::CheckVertcesWithPCurve  (2),
+  //! Edge1::CheckVertcesWithCurve3d (3),
   //! CheckSeam                                   (4)
   //! Additional:
   //! CheckGap3d                                  (5),
   //! CheckGap2d                                  (6),
-  //! ShapeAnalysis_Edge::CheckSameParameter      (7)
+  //! Edge1::CheckSameParameter      (7)
   //! Returns: True if at least one check returned True
   //! Remark:  The numbers in brackets show with what DONEi or FAILi
   //! the status can be queried
@@ -449,7 +449,7 @@ public:
                                                 const Standard_Real    Tolerance = 0.0);
 
   //! Checks if wire defines an outer bound on the face
-  //! Uses ShapeAnalysis::IsOuterBound for analysis
+  //! Uses ShapeAnalysis1::IsOuterBound for analysis
   //! If <APIMake> is True uses BRepAPI_MakeWire to build the
   //! wire, if False (to be used only when edges share common
   //! vertices) uses ShapeBuilder to build the wire

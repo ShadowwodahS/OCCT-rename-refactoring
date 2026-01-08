@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(IGESSelect_SelectBasicGeom, IFSelect_SelectExplore)
 //! - for a Group, considers its Elements
 //! - for a Trimmed or Bounded Surface or a Face (BREP),
 //! considers the 3D curves of each of its loops
-//! - for a Plane (108), considers its Bounding Curve
+//! - for a Plane1 (108), considers its Bounding Curve
 //! - for a Curve itself, takes it
 //!
 //! Also, FREE surfaces are taken, because curve 3d is known for

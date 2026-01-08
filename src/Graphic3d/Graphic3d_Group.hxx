@@ -189,7 +189,7 @@ public:
 public:
   Standard_DEPRECATED(
     "Deprecated method Marker(), pass Graphic3d_ArrayOfPoints to AddPrimitiveArray() instead")
-  Standard_EXPORT void Marker(const Graphic3d_Vertex& thePoint,
+  Standard_EXPORT void Marker(const Vertex1& thePoint,
                               const Standard_Boolean  theToEvalMinMax = Standard_True);
 
   //! Creates the string <AText> at position <APoint>.
@@ -205,7 +205,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method Text() with obsolete arguments, use AddText() instead of it")
   Standard_EXPORT virtual void Text(const Standard_CString                  AText,
-                                    const Graphic3d_Vertex&                 APoint,
+                                    const Vertex1&                 APoint,
                                     const Standard_Real                     AHeight,
                                     const Standard_Real                     AAngle,
                                     const Graphic3d_TextPath                ATp,
@@ -229,7 +229,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method Text() with obsolete arguments, use AddText() instead of it")
   Standard_EXPORT void Text(const Standard_CString  AText,
-                            const Graphic3d_Vertex& APoint,
+                            const Vertex1& APoint,
                             const Standard_Real     AHeight,
                             const Standard_Boolean  EvalMinMax = Standard_True);
 
@@ -246,7 +246,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method Text() with obsolete arguments, use AddText() instead of it")
   Standard_EXPORT void Text(const UtfString&       AText,
-                            const Graphic3d_Vertex&                 APoint,
+                            const Vertex1&                 APoint,
                             const Standard_Real                     AHeight,
                             const Standard_Real                     AAngle,
                             const Graphic3d_TextPath                ATp,
@@ -270,7 +270,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method Text() with obsolete arguments, use AddText() instead of it")
   Standard_EXPORT void Text(const UtfString& AText,
-                            const Graphic3d_Vertex&           APoint,
+                            const Vertex1&           APoint,
                             const Standard_Real               AHeight,
                             const Standard_Boolean            EvalMinMax = Standard_True);
 

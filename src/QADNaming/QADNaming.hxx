@@ -30,7 +30,7 @@ class TDF_Data;
 class AsciiString1;
 class DataLabel;
 
-class QADNaming
+class QADNaming1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -15,7 +15,7 @@
 
 //=================================================================================================
 
-Graphic3d_FrameStatsData::Graphic3d_FrameStatsData()
+FrameStatsData::FrameStatsData()
     : myFps(-1.0),
       myFpsCpu(-1.0),
       myFpsImmediate(-1.0),
@@ -30,7 +30,7 @@ Graphic3d_FrameStatsData::Graphic3d_FrameStatsData()
 
 //=================================================================================================
 
-Graphic3d_FrameStatsData::Graphic3d_FrameStatsData(const Graphic3d_FrameStatsData& theOther)
+FrameStatsData::FrameStatsData(const FrameStatsData& theOther)
     : myCounters(theOther.myCounters),
       myTimers(theOther.myTimers),
       myTimersMin(theOther.myTimersMin),
@@ -44,7 +44,7 @@ Graphic3d_FrameStatsData::Graphic3d_FrameStatsData(const Graphic3d_FrameStatsDat
 
 //=================================================================================================
 
-Graphic3d_FrameStatsData::Graphic3d_FrameStatsData(Graphic3d_FrameStatsData&& theOther) noexcept
+FrameStatsData::FrameStatsData(FrameStatsData&& theOther) noexcept
     : myCounters(std::move(theOther.myCounters)),
       myTimers(std::move(theOther.myTimers)),
       myTimersMin(std::move(theOther.myTimersMin)),
@@ -60,8 +60,8 @@ Graphic3d_FrameStatsData::Graphic3d_FrameStatsData(Graphic3d_FrameStatsData&& th
 // function : operator=
 // purpose  :
 // =======================================================================
-Graphic3d_FrameStatsData& Graphic3d_FrameStatsData::operator=(
-  const Graphic3d_FrameStatsData& theOther)
+FrameStatsData& FrameStatsData::operator=(
+  const FrameStatsData& theOther)
 {
   if (&theOther == this)
   {
@@ -82,8 +82,8 @@ Graphic3d_FrameStatsData& Graphic3d_FrameStatsData::operator=(
 // function : operator=
 // purpose  :
 // =======================================================================
-Graphic3d_FrameStatsData& Graphic3d_FrameStatsData::operator=(
-  Graphic3d_FrameStatsData&& theOther) noexcept
+FrameStatsData& FrameStatsData::operator=(
+  FrameStatsData&& theOther) noexcept
 {
   if (&theOther == this)
   {
@@ -102,7 +102,7 @@ Graphic3d_FrameStatsData& Graphic3d_FrameStatsData::operator=(
 
 //=================================================================================================
 
-void Graphic3d_FrameStatsData::Reset()
+void FrameStatsData::Reset()
 {
   myFps             = -1.0;
   myFpsCpu          = -1.0;
@@ -116,7 +116,7 @@ void Graphic3d_FrameStatsData::Reset()
 
 //=================================================================================================
 
-void Graphic3d_FrameStatsData::FillMax(const Graphic3d_FrameStatsData& theOther)
+void FrameStatsData::FillMax(const FrameStatsData& theOther)
 {
   myFps             = Max(myFps, theOther.myFps);
   myFpsCpu          = Max(myFpsCpu, theOther.myFpsCpu);
@@ -170,7 +170,7 @@ void Graphic3d_FrameStatsDataTmp::FlushTimers(Standard_Size theNbFrames, bool th
 
 void Graphic3d_FrameStatsDataTmp::Reset()
 {
-  Graphic3d_FrameStatsData::Reset();
+  FrameStatsData::Reset();
   myTimersPrev.assign(myTimersPrev.size(), 0.0);
   for (size_t aTimerIter = 0; aTimerIter < myOsdTimers.size(); ++aTimerIter)
   {

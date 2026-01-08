@@ -236,7 +236,7 @@ Handle(GeomCurve3d) GeomProjLib1::Project(const Handle(GeomCurve3d)& C, const Ha
 
   if (AS.GetType() == GeomAbs_Plane)
   {
-    ProjLib_ProjectOnPlane    Proj(AS.Plane().Position());
+    ProjLib_ProjectOnPlane    Proj(AS.Plane1().Position());
     Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(AC);
     Proj.Load(HC, Precision::PApproximation());
 
@@ -311,14 +311,14 @@ Handle(GeomCurve3d) GeomProjLib1::Project(const Handle(GeomCurve3d)& C, const Ha
 //=================================================================================================
 
 Handle(GeomCurve3d) GeomProjLib1::ProjectOnPlane(const Handle(GeomCurve3d)& Curve,
-                                               const Handle(GeomPlane)& Plane,
+                                               const Handle(GeomPlane)& Plane1,
                                                const Dir3d&             Dir,
                                                const Standard_Boolean    KeepParametrization)
 {
   GeomAdaptor_Curve         AC(Curve);
   Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(AC);
 
-  ProjLib_ProjectOnPlane Proj(Plane->Position(), Dir);
+  ProjLib_ProjectOnPlane Proj(Plane1->Position(), Dir);
   Proj.Load(HC, Precision::Approximation(), KeepParametrization);
 
   Handle(GeomCurve3d) GC;

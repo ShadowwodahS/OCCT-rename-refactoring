@@ -212,7 +212,7 @@ static Handle(GeomPlane) findPlane(const TopoShape& S)
   Handle(GeomPlane)       plane;
   BRepBuilderAPI_FindPlane planeFinder(S);
   if (planeFinder.Found())
-    plane = planeFinder.Plane();
+    plane = planeFinder.Plane1();
   return plane;
 }
 

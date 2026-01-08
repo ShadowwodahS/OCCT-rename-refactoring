@@ -140,9 +140,9 @@ static Standard_Integer OCC24303(DrawInterpreter& di, Standard_Integer n, const 
   return 0;
 }
 
-void QABugs::Commands_9(DrawInterpreter& theCommands)
+void QABugs1::Commands_9(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("BUC60857", "BUC60857", __FILE__, BUC60857, group);
   theCommands.Add("OCC24303", "OCC24303 SolID ", __FILE__, OCC24303, group);

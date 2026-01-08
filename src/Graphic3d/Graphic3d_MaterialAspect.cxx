@@ -136,7 +136,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       BSDF.Kd          = Graphic3d_Vec3(0.0f);
       BSDF.Ks          = Graphic3d_Vec4(0.5f, 0.5f, 0.5f, 0.f);
       BSDF.Le          = static_cast<Graphic3d_Vec3>(Colors[Graphic3d_TOR_DIFFUSE]);
-      BSDF.FresnelBase = Graphic3d_Fresnel::CreateDielectric(1.5f);
+      BSDF.FresnelBase = Fresnel::CreateDielectric(1.5f);
       break;
     case Graphic3d_NameOfMaterial_Metalized:
       MaterialType = Graphic3d_MATERIAL_ASPECT;
@@ -148,7 +148,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
 
       BSDF = Graphic3d_BSDF::CreateMetallic(Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-                                            Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.2f)),
+                                            Fresnel::CreateSchlick(Graphic3d_Vec3(0.2f)),
                                             0.045f);
       break;
     case Graphic3d_NameOfMaterial_Brass:
@@ -156,7 +156,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.58f, 0.42f, 0.20f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(0.58f, 0.42f, 0.20f)),
         0.045f);
 
       Shininess = 0.65f;
@@ -172,7 +172,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.65f, 0.35f, 0.15f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(0.65f, 0.35f, 0.15f)),
         0.045f);
 
       Shininess = 0.65f;
@@ -188,7 +188,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.955008f, 0.637427f, 0.538163f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(0.955008f, 0.637427f, 0.538163f)),
         0.045f);
 
       Shininess = 0.65f;
@@ -204,7 +204,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(1.000000f, 0.765557f, 0.336057f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(1.000000f, 0.765557f, 0.336057f)),
         0.045f);
 
       Shininess = 0.80f;
@@ -219,7 +219,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
 
       BSDF = Graphic3d_BSDF::CreateMetallic(Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-                                            Graphic3d_Fresnel::CreateConductor(1.8800f, 3.4900f),
+                                            Fresnel::CreateConductor(1.8800f, 3.4900f),
                                             0.045f);
 
       Shininess = 0.50f;
@@ -247,7 +247,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.971519f, 0.959915f, 0.915324f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(0.971519f, 0.959915f, 0.915324f)),
         0.045f);
 
       Shininess = 0.75f;
@@ -263,7 +263,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateConductor(Graphic3d_Vec3(2.90f, 2.80f, 2.53f),
+        Fresnel::CreateConductor(Graphic3d_Vec3(2.90f, 2.80f, 2.53f),
                                            Graphic3d_Vec3(3.08f, 2.90f, 2.74f)),
         0.045f);
 
@@ -299,7 +299,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.549585f, 0.556114f, 0.554256f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(0.549585f, 0.556114f, 0.554256f)),
         0.045f);
 
       Shininess = 0.90f;
@@ -315,7 +315,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF = Graphic3d_BSDF::CreateMetallic(
         Graphic3d_Vec3(0.985f, 0.985f, 0.985f),
-        Graphic3d_Fresnel::CreateSchlick(Graphic3d_Vec3(0.913183f, 0.921494f, 0.924524f)),
+        Fresnel::CreateSchlick(Graphic3d_Vec3(0.913183f, 0.921494f, 0.924524f)),
         0.045f);
 
       Shininess = 0.75f;
@@ -338,7 +338,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       BSDF.Kd          = Graphic3d_Vec3(0.0f);
       BSDF.Ks          = Graphic3d_Vec4(0.5f, 0.5f, 0.5f, 0.f);
       BSDF.Le          = Graphic3d_Vec3(0.0f, 1.0f, 0.46f);
-      BSDF.FresnelBase = Graphic3d_Fresnel::CreateDielectric(1.5f);
+      BSDF.FresnelBase = Fresnel::CreateDielectric(1.5f);
       break;
     case Graphic3d_NameOfMaterial_Obsidian:
       MaterialType = Graphic3d_MATERIAL_PHYSIC;
@@ -365,7 +365,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
       Colors[Graphic3d_TOR_SPECULAR] = Quantity_Color(Graphic3d_Vec3(0.316f, 0.316f, 0.316f));
       Colors[Graphic3d_TOR_EMISSION] = Quantity_Color(Graphic3d_Vec3(0.0f));
 
-      BSDF.FresnelBase = Graphic3d_Fresnel::CreateDielectric(1.5f);
+      BSDF.FresnelBase = Fresnel::CreateDielectric(1.5f);
       BSDF.Kd          = Graphic3d_Vec3(0.208658f, 0.415686f, 0.218401f);
       BSDF.Ks          = Graphic3d_Vec4(0.611765f, 0.611765f, 0.611765f, 0.06f);
       break;
@@ -441,7 +441,7 @@ RawMaterial::RawMaterial(Graphic3d_NameOfMaterial theName, const char* theString
 
       BSDF.Kd          = Graphic3d_Vec3(0.1f);
       BSDF.Kt          = Graphic3d_Vec3(0.9f);
-      BSDF.FresnelBase = Graphic3d_Fresnel::CreateConstant(0.0f);
+      BSDF.FresnelBase = Fresnel::CreateConstant(0.0f);
       TransparencyCoef = 0.80f;
 
       Shininess                      = 0.90f;

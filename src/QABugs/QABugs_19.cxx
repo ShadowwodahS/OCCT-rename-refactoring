@@ -632,14 +632,14 @@ static int test_offset(DrawInterpreter& di, Standard_Integer argc, const char** 
 
   Axis3d               RotoAx(gp1::Origin(), gp1::DZ());
   Ax22d             Ax2(gp1::Origin2d(), gp1::DY2d(), gp1::DX2d());
-  Handle(GeomSurface) Plane = new GeomPlane(gp1::YOZ());
+  Handle(GeomSurface) Plane1 = new GeomPlane(gp1::YOZ());
 
   di << "<<<< Preparing sample surface of revolution based on trimmed curve >>>>\n";
   di << "-----------------------------------------------------------------------\n";
 
   Handle(Geom2d_Circle)       C2d1        = new Geom2d_Circle(Ax2, 1.0);
   Handle(Geom2d_TrimmedCurve) C2d1Trimmed = new Geom2d_TrimmedCurve(C2d1, 0.0, M_PI / 2.0);
-  TopoEdge                 E1          = EdgeMaker(C2d1Trimmed, Plane);
+  TopoEdge                 E1          = EdgeMaker(C2d1Trimmed, Plane1);
 
   DBRep1::Set("e1", E1);
 
@@ -654,7 +654,7 @@ static int test_offset(DrawInterpreter& di, Standard_Integer argc, const char** 
   di << "-----------------------------------------------------------------------\n";
 
   Handle(Geom2d_OffsetCurve) C2d2Offset = new Geom2d_OffsetCurve(C2d1Trimmed, -0.5);
-  TopoEdge                E2         = EdgeMaker(C2d2Offset, Plane);
+  TopoEdge                E2         = EdgeMaker(C2d2Offset, Plane1);
 
   DBRep1::Set("e2", E2);
 
@@ -5441,9 +5441,9 @@ static Standard_Integer OCC30492(DrawInterpreter& /*theDI*/,
 
 //=================================================================================================
 
-void QABugs::Commands_19(DrawInterpreter& theCommands)
+void QABugs1::Commands_19(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   Handle(QABugs_HandleClass) aClassPtr = new QABugs_HandleClass();
   theCommands.Add("OCC24202_1",

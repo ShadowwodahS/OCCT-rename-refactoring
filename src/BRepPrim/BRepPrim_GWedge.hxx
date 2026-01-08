@@ -171,7 +171,7 @@ public:
 
   //! Returns the plane of the Face of <me> located in
   //! <d1> direction.
-  Standard_EXPORT gp_Pln Plane(const BRepPrim_Direction d1);
+  Standard_EXPORT gp_Pln Plane1(const BRepPrim_Direction d1);
 
   //! Returns True if <me> has a Wire in <d1> direction.
   Standard_EXPORT Standard_Boolean HasWire(const BRepPrim_Direction d1) const;

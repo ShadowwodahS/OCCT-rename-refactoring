@@ -15,7 +15,7 @@
 #define _Aspect_XRHapticActionData_HeaderFile
 
 //! Haptic output XR action data.
-struct Aspect_XRHapticActionData
+struct XRHapticActionData
 {
   float Delay;     //!< delay in seconds before start
   float Duration;  //!< duration in seconds
@@ -29,7 +29,7 @@ struct Aspect_XRHapticActionData
   }
 
   //! Empty constructor.
-  Aspect_XRHapticActionData()
+  XRHapticActionData()
       : Delay(0.0f),
         Duration(0.0f),
         Frequency(0.0f),

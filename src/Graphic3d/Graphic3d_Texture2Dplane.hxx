@@ -95,7 +95,7 @@ public:
 
   //! Returns the current texture plane name or NOTP_UNKNOWN
   //! when the plane is user defined.
-  Standard_EXPORT Graphic3d_NameOfTexturePlane Plane() const;
+  Standard_EXPORT Graphic3d_NameOfTexturePlane Plane1() const;
 
   //! Returns the current texture plane S equation
   Standard_EXPORT void PlaneS(Standard_ShortReal& A,

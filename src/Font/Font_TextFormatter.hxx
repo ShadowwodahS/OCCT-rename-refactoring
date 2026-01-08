@@ -180,7 +180,7 @@ public:
   //! Returns symbol bounding box
   //! @param bounding box.
   Standard_EXPORT Standard_Boolean GlyphBoundingBox(const Standard_Integer theIndex,
-                                                    Font_Rect&             theBndBox) const;
+                                                    Rect&             theBndBox) const;
 
   //! Returns the line height
   //! @param theIndex a line index, obtained by LineIndex()
@@ -244,7 +244,7 @@ public:
   Standard_ShortReal MaximumSymbolWidth() const { return myMaxSymbolWidth; }
 
   //! @param bounding box.
-  inline void BndBox(Font_Rect& theBndBox) const
+  inline void BndBox(Rect& theBndBox) const
   {
     theBndBox.Left = 0.0f;
     switch (myAlignX)

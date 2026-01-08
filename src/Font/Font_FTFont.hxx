@@ -34,7 +34,7 @@ typedef struct FT_Outline_  FT_Outline;
 class Font_FTLibrary;
 
 //! Font initialization parameters.
-struct Font_FTFontParams
+struct FTFontParams
 {
   unsigned int PointSize;  //!< face size in points (1/72 inch)
                            // clang-format off
@@ -47,7 +47,7 @@ struct Font_FTFontParams
   bool IsSingleStrokeFont; //!< single-stroke (one-line) font, FALSE by default
 
   //! Empty constructor.
-  Font_FTFontParams()
+  FTFontParams()
       : PointSize(0),
         Resolution(72u),
         FontHinting(Font_Hinting_Off),
@@ -57,7 +57,7 @@ struct Font_FTFontParams
   }
 
   //! Constructor.
-  Font_FTFontParams(unsigned int thePointSize, unsigned int theResolution)
+  FTFontParams(unsigned int thePointSize, unsigned int theResolution)
       : PointSize(thePointSize),
         Resolution(theResolution),
         FontHinting(Font_Hinting_Off),
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT static Handle(Font_FTFont) FindAndCreate(
     const AsciiString1& theFontName,
     const Font_FontAspect          theFontAspect,
-    const Font_FTFontParams&       theParams,
+    const FTFontParams&       theParams,
     const Font_StrictLevel         theStrictLevel = Font_StrictLevel_Any);
 
   //! Return TRUE if specified character is within subset of modern CJK characters.
@@ -167,7 +167,7 @@ public:
   //! @param theFaceId   face id within the file (0 by default)
   //! @return true on success
   bool Init(const AsciiString1& theFontPath,
-            const Font_FTFontParams&       theParams,
+            const FTFontParams&       theParams,
             const Standard_Integer         theFaceId = 0)
   {
     return Init(Handle(NCollection_Buffer)(), theFontPath, theParams, theFaceId);
@@ -182,7 +182,7 @@ public:
   //! @return true on success
   Standard_EXPORT bool Init(const Handle(NCollection_Buffer)& theData,
                             const AsciiString1&    theFileName,
-                            const Font_FTFontParams&          theParams,
+                            const FTFontParams&          theParams,
                             const Standard_Integer            theFaceId = 0);
 
   //! Find (using Font_FontMgr) and initialize the font from the given name.
@@ -193,7 +193,7 @@ public:
   //! @return true on success
   Standard_EXPORT bool FindAndInit(const AsciiString1& theFontName,
                                    Font_FontAspect                theFontAspect,
-                                   const Font_FTFontParams&       theParams,
+                                   const FTFontParams&       theParams,
                                    Font_StrictLevel theStrictLevel = Font_StrictLevel_Any);
 
   //! Return flag to use fallback fonts in case if used font does not include symbols from specific
@@ -283,13 +283,13 @@ public:
   Standard_EXPORT Standard_Integer GlyphsNumber(bool theToIncludeFallback = false) const;
 
   //! Retrieve glyph bitmap rectangle
-  Standard_EXPORT void GlyphRect(Font_Rect& theRect) const;
+  Standard_EXPORT void GlyphRect(Rect& theRect) const;
 
   //! Computes bounding box of the given text using plain-text formatter (Font_TextFormatter).
   //! Note that bounding box takes into account the text alignment options.
   //! Its corners are relative to the text alignment anchor point, their coordinates can be
   //! negative.
-  Standard_EXPORT Font_Rect BoundingBox(const NCollection_String&               theString,
+  Standard_EXPORT Rect BoundingBox(const NCollection_String&               theString,
                                         const Graphic3d_HorizontalTextAlignment theAlignX,
                                         const Graphic3d_VerticalTextAlignment   theAlignY);
 
@@ -306,14 +306,14 @@ public:
   //! @param thePointSize  the face size in points (1/72 inch)
   //! @param theResolution the resolution of the target device in dpi
   //! @return true on success
-  Standard_DEPRECATED("Deprecated method, Font_FTFontParams should be used for passing "
+  Standard_DEPRECATED("Deprecated method, FTFontParams should be used for passing "
                       "parameters")
 
   bool Init(const NCollection_String& theFontPath,
             unsigned int              thePointSize,
             unsigned int              theResolution)
   {
-    Font_FTFontParams aParams;
+    FTFontParams aParams;
     aParams.PointSize  = thePointSize;
     aParams.Resolution = theResolution;
     return Init(theFontPath.ToCString(), aParams, 0);
@@ -325,7 +325,7 @@ public:
   //! @param thePointSize  the face size in points (1/72 inch)
   //! @param theResolution the resolution of the target device in dpi
   //! @return true on success
-  Standard_DEPRECATED("Deprecated method, Font_FTFontParams should be used for passing "
+  Standard_DEPRECATED("Deprecated method, FTFontParams should be used for passing "
                       "parameters")
 
   bool Init(const NCollection_String& theFontName,
@@ -333,7 +333,7 @@ public:
             unsigned int              thePointSize,
             unsigned int              theResolution)
   {
-    Font_FTFontParams aParams;
+    FTFontParams aParams;
     aParams.PointSize  = thePointSize;
     aParams.Resolution = theResolution;
     return FindAndInit(theFontName.ToCString(), theFontAspect, aParams);
@@ -386,7 +386,7 @@ protected:
   FT_Face                    myFTFace;                               //!< FT face object
   FT_Face                    myActiveFTFace; //!< active FT face object (the main of fallback)
   AsciiString1    myFontPath;     //!< font path
-  Font_FTFontParams          myFontParams;   //!< font initialization parameters
+  FTFontParams          myFontParams;   //!< font initialization parameters
   Font_FontAspect            myFontAspect;   //!< font initialization aspect
   float                      myWidthScaling; //!< scale glyphs along X-axis
   int32_t                    myLoadFlags;    //!< default load flags

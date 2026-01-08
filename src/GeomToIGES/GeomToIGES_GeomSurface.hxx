@@ -46,7 +46,7 @@ class Geom_OffsetSurface;
 //! * BezierSurface
 //! * RectangularTrimmedSurface
 //! . ElementarySurface
-//! * Plane
+//! * Plane1
 //! * CylindricalSurface
 //! * ConicalSurface
 //! * SphericalSurface

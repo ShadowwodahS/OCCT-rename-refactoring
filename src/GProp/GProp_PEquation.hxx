@@ -49,13 +49,13 @@ public:
   //! -   the minimal box which contains all the points. Use :
   //! -   the functions IsPoint, IsLinear, IsPlanar
   //! and IsSpace to find the result of the analysis, and
-  //! -   the function Point, Line, Plane or Box1 to
+  //! -   the function Point, Line, Plane1 or Box1 to
   //! access the computed result.
   Standard_EXPORT PrincipalEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol);
 
   //! Returns true if, according to the given
   //! tolerance, the points analyzed by this framework are  coplanar.
-  //! Use the function  Plane  to access the computed result.
+  //! Use the function  Plane1  to access the computed result.
   Standard_EXPORT Standard_Boolean IsPlanar() const;
 
   //! Returns true if, according to the given
@@ -85,7 +85,7 @@ public:
   //! -   coincident, or
   //! -   collinear, or
   //! -   not coplanar.
-  Standard_EXPORT gp_Pln Plane() const;
+  Standard_EXPORT gp_Pln Plane1() const;
 
   //! Returns the mean line passing near all the
   //! points analyzed by this framework if, according

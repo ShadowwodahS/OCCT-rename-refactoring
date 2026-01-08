@@ -317,7 +317,7 @@ public:
 
   //! Return invalidated range; EMPTY by default.
   //! Requires sub-classing for creating a mutable buffer (advanced usage).
-  virtual Graphic3d_BufferRange InvalidatedRange() const { return Graphic3d_BufferRange(); }
+  virtual BufferRange InvalidatedRange() const { return BufferRange(); }
 
   //! Reset invalidated range.
   //! Requires sub-classing for creating a mutable buffer (advanced usage).

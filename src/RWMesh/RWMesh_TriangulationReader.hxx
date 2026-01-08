@@ -26,9 +26,9 @@ class RWMesh_TriangulationReader : public RefObject
 {
   DEFINE_STANDARD_RTTIEXT(RWMesh_TriangulationReader, RefObject)
 public:
-  struct LoadingStatistic
+  struct LoadingStatistic1
   {
-    LoadingStatistic()
+    LoadingStatistic1()
         : ExpectedNodesNb(0),
           LoadedNodesNb(0),
           ExpectedTrianglesNb(0),
@@ -114,7 +114,7 @@ public:
     }
     else
     {
-      myLoadingStatistic = new LoadingStatistic();
+      myLoadingStatistic = new LoadingStatistic1();
     }
   }
 
@@ -307,7 +307,7 @@ protected:
   // clang-format off
   AsciiString1          myFileName;             //!< file name to use during message printing
   mutable Standard_Mutex           myMutex;                //!< internal mutex to collect nodes/triangles statistic
-  mutable LoadingStatistic*        myLoadingStatistic;     //!< statistic of loaded triangulation
+  mutable LoadingStatistic1*        myLoadingStatistic;     //!< statistic of loaded triangulation
   Standard_Boolean                 myIsDoublePrecision;    //!< flag to fill in triangulation using single or double precision
   Standard_Boolean                 myToSkipDegenerateTris; //!< flag to skip degenerate triangles during loading, FALSE by default
   Standard_Boolean                 myToPrintDebugMessages; //!< flag to print additional debug information

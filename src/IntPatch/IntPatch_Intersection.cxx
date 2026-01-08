@@ -1042,7 +1042,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
       switch (aGeomSurf->GetType())
       {
         case GeomAbs_Plane: {
-          aGeomAx = aGeomSurf->Plane().Axis();
+          aGeomAx = aGeomSurf->Plane1().Axis();
           if (aCTType == GeomAbs_Cone)
           {
             bGeomGeom = 1;
@@ -1059,7 +1059,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           {
             if (aCTAx.IsParallel(aGeomAx, Precision::Angular())
                 || (aCTAx.IsNormal(aGeomAx, Precision::Angular())
-                    && (aGeomSurf->Plane().Distance(aCTAx.Location()) < Precision::Confusion())))
+                    && (aGeomSurf->Plane1().Distance(aCTAx.Location()) < Precision::Confusion())))
             {
               bGeomGeom = 1;
             }
@@ -1337,7 +1337,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
       switch (aGeomSurf->GetType())
       {
         case GeomAbs_Plane: {
-          aGeomAx = aGeomSurf->Plane().Axis();
+          aGeomAx = aGeomSurf->Plane1().Axis();
           if (aCTType == GeomAbs_Cone)
           {
             bGeomGeom = 1;
@@ -1354,7 +1354,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           {
             if (aCTAx.IsParallel(aGeomAx, Precision::Angular())
                 || (aCTAx.IsNormal(aGeomAx, Precision::Angular())
-                    && (aGeomSurf->Plane().Distance(aCTAx.Location()) < Precision::Confusion())))
+                    && (aGeomSurf->Plane1().Distance(aCTAx.Location()) < Precision::Confusion())))
             {
               bGeomGeom = 1;
             }

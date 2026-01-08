@@ -72,7 +72,7 @@ Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surfac
     }
   }
   //
-  // Plane of the triangle
+  // Plane1 of the triangle
   Point3 NormaleTri;
   NormaleTri.Cross(P2 - P1, P3 - P1);
   Standard_Real SqNorm = NormaleTri.SquareModulus();

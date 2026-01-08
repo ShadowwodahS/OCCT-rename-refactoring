@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Graphic3d_Vec4 Graphic3d_Fresnel::Serialize() const
+Graphic3d_Vec4 Fresnel::Serialize() const
 {
   Graphic3d_Vec4 aData = Graphic3d_Vec4(myFresnelData, 0.f);
 
@@ -42,20 +42,20 @@ inline float fresnelNormal(float theN, float theK)
 
 //=================================================================================================
 
-Graphic3d_Fresnel Graphic3d_Fresnel::CreateConductor(const Graphic3d_Vec3& theRefractionIndex,
+Fresnel Fresnel::CreateConductor(const Graphic3d_Vec3& theRefractionIndex,
                                                      const Graphic3d_Vec3& theAbsorptionIndex)
 {
   const Graphic3d_Vec3 aFresnel(fresnelNormal(theRefractionIndex.x(), theAbsorptionIndex.x()),
                                 fresnelNormal(theRefractionIndex.y(), theAbsorptionIndex.y()),
                                 fresnelNormal(theRefractionIndex.z(), theAbsorptionIndex.z()));
 
-  return Graphic3d_Fresnel(Graphic3d_FM_SCHLICK, aFresnel);
+  return Fresnel(Graphic3d_FM_SCHLICK, aFresnel);
 }
 
 //=================================================================================================
 
-void Graphic3d_Fresnel::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, Graphic3d_Fresnel)
+void Fresnel::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const {
+  OCCT_DUMP_CLASS_BEGIN(theOStream, Fresnel)
 
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myFresnelType)
       OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myFresnelData)}
@@ -65,8 +65,8 @@ void Graphic3d_Fresnel::DumpJson(Standard_OStream& theOStream, Standard_Integer 
 Graphic3d_BSDF::Graphic3d_BSDF()
     : Ks(Graphic3d_Vec3(0.f), 1.f)
 {
-  FresnelCoat = Graphic3d_Fresnel::CreateConstant(0.f);
-  FresnelBase = Graphic3d_Fresnel::CreateConstant(1.f);
+  FresnelCoat = Fresnel::CreateConstant(0.f);
+  FresnelBase = Fresnel::CreateConstant(1.f);
 }
 
 // =======================================================================
@@ -116,7 +116,7 @@ Graphic3d_BSDF Graphic3d_BSDF::CreateDiffuse(const Graphic3d_Vec3& theWeight)
 //=================================================================================================
 
 Graphic3d_BSDF Graphic3d_BSDF::CreateMetallic(const Graphic3d_Vec3&    theWeight,
-                                              const Graphic3d_Fresnel& theFresnel,
+                                              const Fresnel& theFresnel,
                                               const float              theRoughness)
 {
   Graphic3d_BSDF aBSDF;
@@ -140,7 +140,7 @@ Graphic3d_BSDF Graphic3d_BSDF::CreateTransparent(const Graphic3d_Vec3& theWeight
 
   // Create Fresnel parameters for the coat layer;
   // set it to 0 value to simulate ideal refractor
-  aBSDF.FresnelCoat = Graphic3d_Fresnel::CreateConstant(0.f);
+  aBSDF.FresnelCoat = Fresnel::CreateConstant(0.f);
 
   aBSDF.Kt = theWeight;
 
@@ -164,7 +164,7 @@ Graphic3d_BSDF Graphic3d_BSDF::CreateGlass(const Graphic3d_Vec3& theWeight,
   Graphic3d_BSDF aBSDF;
 
   // Create Fresnel parameters for the coat layer
-  aBSDF.FresnelCoat = Graphic3d_Fresnel::CreateDielectric(theRefractionIndex);
+  aBSDF.FresnelCoat = Fresnel::CreateDielectric(theRefractionIndex);
 
   aBSDF.Kt = theWeight;
 
@@ -188,7 +188,7 @@ Graphic3d_BSDF Graphic3d_BSDF::CreateMetallicRoughness(const Graphic3d_PBRMateri
   aBsdf.Le = thePbr.Emission();
   if (thePbr.IOR() > 1.0f && thePbr.Alpha() < 1.0f && thePbr.Metallic() <= ShortRealEpsilon())
   {
-    aBsdf.FresnelCoat = Graphic3d_Fresnel::CreateDielectric(thePbr.IOR());
+    aBsdf.FresnelCoat = Fresnel::CreateDielectric(thePbr.IOR());
     aBsdf.Kt          = Graphic3d_Vec3(1.0f);
     aBsdf.Kc.r()      = aBsdf.Kt.r();
     aBsdf.Kc.g()      = aBsdf.Kt.g();
@@ -197,7 +197,7 @@ Graphic3d_BSDF Graphic3d_BSDF::CreateMetallicRoughness(const Graphic3d_PBRMateri
   }
   else
   {
-    aBsdf.FresnelBase = Graphic3d_Fresnel::CreateSchlick(aDiff * thePbr.Metallic());
+    aBsdf.FresnelBase = Fresnel::CreateSchlick(aDiff * thePbr.Metallic());
     aBsdf.Ks.SetValues(Graphic3d_Vec3(thePbr.Alpha()), aRougness2);
     aBsdf.Kt = Graphic3d_Vec3(1.0f - thePbr.Alpha());
     aBsdf.Kd = aDiff * (1.0f - thePbr.Metallic());

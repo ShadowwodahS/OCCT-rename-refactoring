@@ -35,7 +35,7 @@ void StdPrs_Plane::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Handle(Graphic3d_Group) TheGroup = aPresentation->CurrentGroup();
   if (aPlane.GetType() != GeomAbs_Plane)
     return;
-  Handle(GeomPlane) thegeom = new GeomPlane(aPlane.Plane());
+  Handle(GeomPlane) thegeom = new GeomPlane(aPlane.Plane1());
 
   Handle(Prs3d_PlaneAspect) theaspect = aDrawer->PlaneAspect();
 
@@ -139,7 +139,7 @@ Standard_Boolean StdPrs_Plane::Match(const Standard_Real      X,
 {
   if (aPlane.GetType() == GeomAbs_Plane)
   {
-    gp_Pln theplane = aPlane.Plane();
+    gp_Pln theplane = aPlane.Plane1();
     Point3d thepoint(X, Y, Z);
 
     return (Abs(theplane.Distance(thepoint)) <= aDistance);

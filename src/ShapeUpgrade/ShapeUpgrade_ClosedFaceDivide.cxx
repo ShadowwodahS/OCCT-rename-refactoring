@@ -72,7 +72,7 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   TopoFace face = TopoDS::Face(myResult);
 
   Standard_Real Uf, Ul, Vf, Vl;
-  ShapeAnalysis::GetFaceUVBounds(myFace, Uf, Ul, Vf, Vl);
+  ShapeAnalysis1::GetFaceUVBounds(myFace, Uf, Ul, Vf, Vl);
   // 01.10.99 pdn Porting on DEC
   if (::Precision::IsInfinite(Uf) || ::Precision::IsInfinite(Ul) || ::Precision::IsInfinite(Vf)
       || ::Precision::IsInfinite(Vl))
@@ -97,7 +97,7 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
       {
         doSplit                   = Standard_True;
         TopoEdge          edge = sewd->Edge(i);
-        ShapeAnalysis_Edge   sae;
+        Edge1   sae;
         Handle(GeomCurve2d) c1, c2;
         Standard_Real        f1, f2, l1, l2;
         if (!sae.PCurve(edge, face, c1, f1, l1, Standard_False))
@@ -109,7 +109,7 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
         if (c2 == c1)
           continue;
         // splitting
-        ShapeAnalysis_Curve sac;
+        Curve2 sac;
         Bnd_Box2d           B1, B2;
         sac.FillBndBox(c1, f1, l1, 20, Standard_True, B1);
         sac.FillBndBox(c2, f2, l2, 20, Standard_True, B2);

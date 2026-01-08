@@ -41,7 +41,7 @@ class AIS_RubberBand;
 class AIS_XRTrackedDevice;
 class SelectMgr_EntityOwner;
 class ViewWindow;
-class WNT_HIDSpaceMouse;
+class HIDSpaceMouse;
 
 //! Auxiliary structure for handling viewer events between GUI and Rendering threads.
 //!
@@ -339,7 +339,7 @@ public: //! @name mouse input
   //! This method is expected to be called from UI thread.
   //! @param theDelta mouse cursor position to zoom at and zoom delta
   //! @return TRUE if new zoom event has been created or FALSE if existing one has been updated
-  Standard_EXPORT virtual bool UpdateZoom(const Aspect_ScrollDelta& theDelta);
+  Standard_EXPORT virtual bool UpdateZoom(const ScrollDelta& theDelta);
 
   //! Update Z rotation event.
   //! @param theAngle rotation angle, in radians.
@@ -350,7 +350,7 @@ public: //! @name mouse input
   //! This method is expected to be called from UI thread.
   //! @param theDelta mouse cursor position and delta
   //! @return TRUE if new event has been created or FALSE if existing one has been updated
-  Standard_EXPORT virtual bool UpdateMouseScroll(const Aspect_ScrollDelta& theDelta)
+  Standard_EXPORT virtual bool UpdateMouseScroll(const ScrollDelta& theDelta)
     Standard_OVERRIDE;
 
   //! Handle mouse button press/release event.
@@ -439,7 +439,7 @@ public: //! @name multi-touch input
 
 public: //! @name 3d mouse input
   //! Process 3d mouse input event (redirects to translation, rotation and keys).
-  Standard_EXPORT virtual bool Update3dMouse(const WNT_HIDSpaceMouse& theEvent) Standard_OVERRIDE;
+  Standard_EXPORT virtual bool Update3dMouse(const HIDSpaceMouse& theEvent) Standard_OVERRIDE;
 
 public: //! @name resize events
   //! Handle expose event (window content has been invalidation and should be redrawn).
@@ -606,13 +606,13 @@ public:
   //! Handle zoom event myGL.ZoomActions.
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void handleZoom(const Handle(ViewWindow)&   theView,
-                                          const Aspect_ScrollDelta& theParams,
+                                          const ScrollDelta& theParams,
                                           const Point3d*             thePnt);
 
   //! Handle ZScroll event myGL.ZoomActions.
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void handleZFocusScroll(const Handle(ViewWindow)&   theView,
-                                                  const Aspect_ScrollDelta& theParams);
+                                                  const ScrollDelta& theParams);
 
   //! Handle orbital rotation events myGL.OrbitRotation.
   //! @param theView view to modify
@@ -765,9 +765,9 @@ protected: //! @name XR input variables
   Quantity_Color             myXRLaserPickColor;     //!< color of picking  laser
   Aspect_XRTrackedDeviceRole myXRLastTeleportHand;   //!< active hand for teleport
   Aspect_XRTrackedDeviceRole myXRLastPickingHand;    //!< active hand for picking objects
-  Aspect_XRHapticActionData  myXRTeleportHaptic;     //!< vibration on picking teleport destination
-  Aspect_XRHapticActionData  myXRPickingHaptic;      //!< vibration on dynamic highlighting
-  Aspect_XRHapticActionData  myXRSelectHaptic;       //!< vibration on selection
+  XRHapticActionData  myXRTeleportHaptic;     //!< vibration on picking teleport destination
+  XRHapticActionData  myXRPickingHaptic;      //!< vibration on dynamic highlighting
+  XRHapticActionData  myXRSelectHaptic;       //!< vibration on selection
   Standard_Real              myXRLastPickDepthLeft;  //!< last picking depth for left  hand
   Standard_Real              myXRLastPickDepthRight; //!< last picking depth for right hand
   Standard_Real              myXRTurnAngle;          //!< discrete turn angle for XR trackpad
@@ -805,7 +805,7 @@ protected: //! @name multi-touch input variables
   Standard_ShortReal  myTouchZoomRatio;           //!< distance ratio for mapping two-touch zoom (pitch) gesture from pixels to zoom; 0.13 by default
   Standard_ShortReal  myTouchDraggingThresholdPx; //!< distance for starting one-touch dragging gesture in pixels;  6 by default
 
-  Aspect_Touch        myTouchClick;               //!< single touch position for handling clicks
+  Touch        myTouchClick;               //!< single touch position for handling clicks
   OSD_Timer           myTouchDoubleTapTimer;      //!< timer for handling double tap
 
   Graphic3d_Vec2d     myStartPanCoord;            //!< touch coordinates at the moment of starting panning  gesture

@@ -314,27 +314,27 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
       return Quantity_ColorRGBA(NCollection_Vec4<float>(1.0f, 1.0f, 1.0f, aPixel));
     }
     case Image_Format_RGF: {
-      const Image_ColorRGF& aPixel = *reinterpret_cast<const Image_ColorRGF*>(theRawValue);
+      const ColorRGF& aPixel = *reinterpret_cast<const ColorRGF*>(theRawValue);
       return Quantity_ColorRGBA(NCollection_Vec4<float>(aPixel.r(), aPixel.g(), 0.0f, 1.0f));
     }
     case Image_Format_RGBAF: {
-      const Image_ColorRGBAF& aPixel = *reinterpret_cast<const Image_ColorRGBAF*>(theRawValue);
+      const ColorRGBAF& aPixel = *reinterpret_cast<const ColorRGBAF*>(theRawValue);
       return Quantity_ColorRGBA(
         NCollection_Vec4<float>(aPixel.r(), aPixel.g(), aPixel.b(), aPixel.a()));
     }
     case Image_Format_BGRAF: {
-      const Image_ColorBGRAF& aPixel = *reinterpret_cast<const Image_ColorBGRAF*>(theRawValue);
+      const ColorBGRAF& aPixel = *reinterpret_cast<const ColorBGRAF*>(theRawValue);
       return Quantity_ColorRGBA(
         NCollection_Vec4<float>(aPixel.r(), aPixel.g(), aPixel.b(), aPixel.a()));
     }
     case Image_Format_RGBF: {
-      const Image_ColorRGBF& aPixel = *reinterpret_cast<const Image_ColorRGBF*>(theRawValue);
+      const ColorRGBF& aPixel = *reinterpret_cast<const ColorRGBF*>(theRawValue);
       // clang-format off
       return Quantity_ColorRGBA (NCollection_Vec4<float> (aPixel.r(), aPixel.g(), aPixel.b(), 1.0f)); // opaque
     }
     case Image_Format_BGRF:
     {
-      const Image_ColorBGRF& aPixel = *reinterpret_cast<const Image_ColorBGRF*> (theRawValue);
+      const ColorBGRF& aPixel = *reinterpret_cast<const ColorBGRF*> (theRawValue);
       return Quantity_ColorRGBA (NCollection_Vec4<float> (aPixel.r(), aPixel.g(), aPixel.b(), 1.0f)); // opaque
       // clang-format on
     }
@@ -360,7 +360,7 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
                                                         ConvertFromHalfFloat(aPixel.a())));
     }
     case Image_Format_RGBA: {
-      const Image_ColorRGBA& aPixel = *reinterpret_cast<const Image_ColorRGBA*>(theRawValue);
+      const ColorRGBA& aPixel = *reinterpret_cast<const ColorRGBA*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
                    Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
@@ -373,7 +373,7 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
                                     float(aPixel.a()) / 255.0f);
     }
     case Image_Format_BGRA: {
-      const Image_ColorBGRA& aPixel = *reinterpret_cast<const Image_ColorBGRA*>(theRawValue);
+      const ColorBGRA& aPixel = *reinterpret_cast<const ColorBGRA*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
                    Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
@@ -386,7 +386,7 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
                                     float(aPixel.a()) / 255.0f);
     }
     case Image_Format_RGB32: {
-      const Image_ColorRGB32& aPixel = *reinterpret_cast<const Image_ColorRGB32*>(theRawValue);
+      const ColorRGB32& aPixel = *reinterpret_cast<const ColorRGB32*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
                    Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
@@ -399,7 +399,7 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
                                     1.0f);
     }
     case Image_Format_BGR32: {
-      const Image_ColorBGR32& aPixel = *reinterpret_cast<const Image_ColorBGR32*>(theRawValue);
+      const ColorBGR32& aPixel = *reinterpret_cast<const ColorBGR32*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
                    Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
@@ -412,7 +412,7 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
                                     1.0f);
     }
     case Image_Format_RGB: {
-      const Image_ColorRGB& aPixel = *reinterpret_cast<const Image_ColorRGB*>(theRawValue);
+      const ColorRGB& aPixel = *reinterpret_cast<const ColorRGB*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
                    Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
@@ -425,7 +425,7 @@ Quantity_ColorRGBA Image_PixMap::ColorFromRawPixel(const Standard_Byte*   theRaw
                                     1.0f);
     }
     case Image_Format_BGR: {
-      const Image_ColorBGR& aPixel = *reinterpret_cast<const Image_ColorBGR*>(theRawValue);
+      const ColorBGR& aPixel = *reinterpret_cast<const ColorBGR*>(theRawValue);
       return theToLinearize
                ? Quantity_ColorRGBA(
                    Quantity_Color::Convert_sRGB_To_LinearRGB(float(aPixel.r()) / 255.0f),
@@ -479,13 +479,13 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_RGF: {
-      Image_ColorRGF& aPixel = *reinterpret_cast<Image_ColorRGF*>(theRawValue);
+      ColorRGF& aPixel = *reinterpret_cast<ColorRGF*>(theRawValue);
       aPixel.r()             = aColor.r();
       aPixel.g()             = aColor.g();
       return;
     }
     case Image_Format_RGBAF: {
-      Image_ColorRGBAF& aPixel = *reinterpret_cast<Image_ColorRGBAF*>(theRawValue);
+      ColorRGBAF& aPixel = *reinterpret_cast<ColorRGBAF*>(theRawValue);
       aPixel.r()               = aColor.r();
       aPixel.g()               = aColor.g();
       aPixel.b()               = aColor.b();
@@ -493,7 +493,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_BGRAF: {
-      Image_ColorBGRAF& aPixel = *reinterpret_cast<Image_ColorBGRAF*>(theRawValue);
+      ColorBGRAF& aPixel = *reinterpret_cast<ColorBGRAF*>(theRawValue);
       aPixel.r()               = aColor.r();
       aPixel.g()               = aColor.g();
       aPixel.b()               = aColor.b();
@@ -501,14 +501,14 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_RGBF: {
-      Image_ColorRGBF& aPixel = *reinterpret_cast<Image_ColorRGBF*>(theRawValue);
+      ColorRGBF& aPixel = *reinterpret_cast<ColorRGBF*>(theRawValue);
       aPixel.r()              = aColor.r();
       aPixel.g()              = aColor.g();
       aPixel.b()              = aColor.b();
       return;
     }
     case Image_Format_BGRF: {
-      Image_ColorBGRF& aPixel = *reinterpret_cast<Image_ColorBGRF*>(theRawValue);
+      ColorBGRF& aPixel = *reinterpret_cast<ColorBGRF*>(theRawValue);
       aPixel.r()              = aColor.r();
       aPixel.g()              = aColor.g();
       aPixel.b()              = aColor.b();
@@ -536,7 +536,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_RGBA: {
-      Image_ColorRGBA& aPixel = *reinterpret_cast<Image_ColorRGBA*>(theRawValue);
+      ColorRGBA& aPixel = *reinterpret_cast<ColorRGBA*>(theRawValue);
       if (theToDeLinearize)
       {
         aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
@@ -553,7 +553,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_BGRA: {
-      Image_ColorBGRA& aPixel = *reinterpret_cast<Image_ColorBGRA*>(theRawValue);
+      ColorBGRA& aPixel = *reinterpret_cast<ColorBGRA*>(theRawValue);
       if (theToDeLinearize)
       {
         aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
@@ -570,7 +570,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_RGB32: {
-      Image_ColorRGB32& aPixel = *reinterpret_cast<Image_ColorRGB32*>(theRawValue);
+      ColorRGB32& aPixel = *reinterpret_cast<ColorRGB32*>(theRawValue);
       if (theToDeLinearize)
       {
         aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
@@ -587,7 +587,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_BGR32: {
-      Image_ColorBGR32& aPixel = *reinterpret_cast<Image_ColorBGR32*>(theRawValue);
+      ColorBGR32& aPixel = *reinterpret_cast<ColorBGR32*>(theRawValue);
       if (theToDeLinearize)
       {
         aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
@@ -604,7 +604,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_RGB: {
-      Image_ColorRGB& aPixel = *reinterpret_cast<Image_ColorRGB*>(theRawValue);
+      ColorRGB& aPixel = *reinterpret_cast<ColorRGB*>(theRawValue);
       if (theToDeLinearize)
       {
         aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
@@ -620,7 +620,7 @@ void Image_PixMap::ColorToRawPixel(Standard_Byte*            theRawValue,
       return;
     }
     case Image_Format_BGR: {
-      Image_ColorBGR& aPixel = *reinterpret_cast<Image_ColorBGR*>(theRawValue);
+      ColorBGR& aPixel = *reinterpret_cast<ColorBGR*>(theRawValue);
       if (theToDeLinearize)
       {
         aPixel.r() = Standard_Byte(Quantity_Color::Convert_LinearRGB_To_sRGB(aColor.r()) * 255.0f);
@@ -671,8 +671,8 @@ bool Image_PixMap::SwapRgbaBgra(Image_PixMap& theImage)
         {
           for (Standard_Size aCol = 0; aCol < theImage.SizeX(); ++aCol)
           {
-            Image_ColorRGBA& aPixel = theImage.ChangeValueXYZ<Image_ColorRGBA>(aCol, aRow, aSlice);
-            Image_ColorBGRA  aPixelCopy = theImage.ValueXYZ<Image_ColorBGRA>(aCol, aRow, aSlice);
+            ColorRGBA& aPixel = theImage.ChangeValueXYZ<ColorRGBA>(aCol, aRow, aSlice);
+            ColorBGRA  aPixelCopy = theImage.ValueXYZ<ColorBGRA>(aCol, aRow, aSlice);
             aPixel.r()                  = aPixelCopy.r();
             aPixel.g()                  = aPixelCopy.g();
             aPixel.b()                  = aPixelCopy.b();
@@ -693,8 +693,8 @@ bool Image_PixMap::SwapRgbaBgra(Image_PixMap& theImage)
         {
           for (Standard_Size aCol = 0; aCol < theImage.SizeX(); ++aCol)
           {
-            Image_ColorRGB& aPixel = theImage.ChangeValueXYZ<Image_ColorRGB>(aCol, aRow, aSlice);
-            Image_ColorBGR  aPixelCopy = theImage.ValueXYZ<Image_ColorBGR>(aCol, aRow, aSlice);
+            ColorRGB& aPixel = theImage.ChangeValueXYZ<ColorRGB>(aCol, aRow, aSlice);
+            ColorBGR  aPixelCopy = theImage.ValueXYZ<ColorBGR>(aCol, aRow, aSlice);
             aPixel.r()                 = aPixelCopy.r();
             aPixel.g()                 = aPixelCopy.g();
             aPixel.b()                 = aPixelCopy.b();
@@ -713,8 +713,8 @@ bool Image_PixMap::SwapRgbaBgra(Image_PixMap& theImage)
         {
           for (Standard_Size aCol = 0; aCol < theImage.SizeX(); ++aCol)
           {
-            Image_ColorRGBF& aPixel = theImage.ChangeValueXYZ<Image_ColorRGBF>(aCol, aRow, aSlice);
-            Image_ColorBGRF  aPixelCopy = theImage.ValueXYZ<Image_ColorBGRF>(aCol, aRow, aSlice);
+            ColorRGBF& aPixel = theImage.ChangeValueXYZ<ColorRGBF>(aCol, aRow, aSlice);
+            ColorBGRF  aPixelCopy = theImage.ValueXYZ<ColorBGRF>(aCol, aRow, aSlice);
             aPixel.r()                  = aPixelCopy.r();
             aPixel.g()                  = aPixelCopy.g();
             aPixel.b()                  = aPixelCopy.b();

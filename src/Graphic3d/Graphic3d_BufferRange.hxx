@@ -18,20 +18,20 @@
 #include <Standard_Integer.hxx>
 
 //! Range of values defined as Start + Length pair.
-struct Graphic3d_BufferRange
+struct BufferRange
 {
   Standard_Integer Start;  //!< first element within the range
   Standard_Integer Length; //!< number of elements within the range
 
   //! Empty constructor.
-  Graphic3d_BufferRange()
+  BufferRange()
       : Start(0),
         Length(0)
   {
   }
 
   //! Constructor.
-  Graphic3d_BufferRange(Standard_Integer theStart, Standard_Integer theLength)
+  BufferRange(Standard_Integer theStart, Standard_Integer theLength)
       : Start(theStart),
         Length(theLength)
   {
@@ -51,7 +51,7 @@ struct Graphic3d_BufferRange
   }
 
   //! Add another range to this one.
-  void Unite(const Graphic3d_BufferRange& theRange)
+  void Unite(const BufferRange& theRange)
   {
     if (IsEmpty())
     {

@@ -86,7 +86,7 @@ TopAbs_Orientation ShapeFix_WireSegment::Orientation() const
 
 TopoVertex ShapeFix_WireSegment::FirstVertex() const
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   return sae.FirstVertex(myWire->Edge(1));
 }
 
@@ -94,7 +94,7 @@ TopoVertex ShapeFix_WireSegment::FirstVertex() const
 
 TopoVertex ShapeFix_WireSegment::LastVertex() const
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   return sae.LastVertex(myWire->Edge(myWire->NbEdges()));
 }
 

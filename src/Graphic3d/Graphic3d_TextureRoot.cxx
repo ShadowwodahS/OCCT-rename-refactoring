@@ -152,7 +152,7 @@ Handle(Image_CompressedPixMap) Graphic3d_TextureRoot::GetCompressedImage(
     return Handle(Image_CompressedPixMap)();
   }
 
-  if (Handle(Image_CompressedPixMap) anImage = Image_DDSParser::Load(theSupported, aFilePath, 0))
+  if (Handle(Image_CompressedPixMap) anImage = DDSParser::Load(theSupported, aFilePath, 0))
   {
     myIsTopDown = anImage->IsTopDown();
     return anImage;

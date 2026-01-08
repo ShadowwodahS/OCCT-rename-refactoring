@@ -225,7 +225,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
     myIsAnArc = Standard_False;
 
   BRepAdaptor_Surface surfAlgo(TopoDS::Face(myFShape));
-  myPlane = new GeomPlane(surfAlgo.Plane());
+  myPlane = new GeomPlane(surfAlgo.Plane1());
 }
 
 //=================================================================================================

@@ -31,11 +31,11 @@ enum Graphic3d_FresnelModel
 };
 
 //! Describes Fresnel reflectance parameters.
-class Graphic3d_Fresnel
+class Fresnel
 {
 public:
   //! Creates uninitialized Fresnel factor.
-  Graphic3d_Fresnel()
+  Fresnel()
       : myFresnelType(Graphic3d_FM_CONSTANT)
   {
     // ideal specular reflector
@@ -43,33 +43,33 @@ public:
   }
 
   //! Creates Schlick's approximation of Fresnel factor.
-  static Graphic3d_Fresnel CreateSchlick(const Graphic3d_Vec3& theSpecularColor)
+  static Fresnel CreateSchlick(const Graphic3d_Vec3& theSpecularColor)
   {
-    return Graphic3d_Fresnel(Graphic3d_FM_SCHLICK, theSpecularColor);
+    return Fresnel(Graphic3d_FM_SCHLICK, theSpecularColor);
   }
 
   //! Creates Fresnel factor for constant reflection.
-  static Graphic3d_Fresnel CreateConstant(const Standard_ShortReal theReflection)
+  static Fresnel CreateConstant(const Standard_ShortReal theReflection)
   {
-    return Graphic3d_Fresnel(Graphic3d_FM_CONSTANT, Graphic3d_Vec3(0.f, 1.f, theReflection));
+    return Fresnel(Graphic3d_FM_CONSTANT, Graphic3d_Vec3(0.f, 1.f, theReflection));
   }
 
   //! Creates Fresnel factor for physical-based dielectric model.
-  static Graphic3d_Fresnel CreateDielectric(Standard_ShortReal theRefractionIndex)
+  static Fresnel CreateDielectric(Standard_ShortReal theRefractionIndex)
   {
-    return Graphic3d_Fresnel(Graphic3d_FM_DIELECTRIC, Graphic3d_Vec3(0.f, theRefractionIndex, 0.f));
+    return Fresnel(Graphic3d_FM_DIELECTRIC, Graphic3d_Vec3(0.f, theRefractionIndex, 0.f));
   }
 
   //! Creates Fresnel factor for physical-based conductor model.
-  static Graphic3d_Fresnel CreateConductor(Standard_ShortReal theRefractionIndex,
+  static Fresnel CreateConductor(Standard_ShortReal theRefractionIndex,
                                            Standard_ShortReal theAbsorptionIndex)
   {
-    return Graphic3d_Fresnel(Graphic3d_FM_CONDUCTOR,
+    return Fresnel(Graphic3d_FM_CONDUCTOR,
                              Graphic3d_Vec3(0.f, theRefractionIndex, theAbsorptionIndex));
   }
 
   //! Creates Fresnel factor for physical-based conductor model (spectral version).
-  Standard_EXPORT static Graphic3d_Fresnel CreateConductor(
+  Standard_EXPORT static Fresnel CreateConductor(
     const Graphic3d_Vec3& theRefractionIndex,
     const Graphic3d_Vec3& theAbsorptionIndex);
 
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT Graphic3d_Vec4 Serialize() const;
 
   //! Performs comparison of two objects describing Fresnel factor.
-  bool operator==(const Graphic3d_Fresnel& theOther) const
+  bool operator==(const Fresnel& theOther) const
   {
     return myFresnelType == theOther.myFresnelType && myFresnelData == theOther.myFresnelData;
   }
@@ -91,7 +91,7 @@ public:
 
 protected:
   //! Creates new Fresnel reflectance factor.
-  Graphic3d_Fresnel(Graphic3d_FresnelModel theType, const Graphic3d_Vec3& theData)
+  Fresnel(Graphic3d_FresnelModel theType, const Graphic3d_Vec3& theData)
       : myFresnelType(theType),
         myFresnelData(theData)
   {
@@ -138,10 +138,10 @@ public:
   Graphic3d_Vec4 Absorption;
 
   //! Parameters of Fresnel reflectance of coat layer.
-  Graphic3d_Fresnel FresnelCoat;
+  Fresnel FresnelCoat;
 
   //! Parameters of Fresnel reflectance of base layer.
-  Graphic3d_Fresnel FresnelBase;
+  Fresnel FresnelBase;
 
 public:
   //! Creates BSDF describing diffuse (Lambertian) surface.
@@ -149,7 +149,7 @@ public:
 
   //! Creates BSDF describing polished metallic-like surface.
   static Standard_EXPORT Graphic3d_BSDF CreateMetallic(const Graphic3d_Vec3&    theWeight,
-                                                       const Graphic3d_Fresnel& theFresnel,
+                                                       const Fresnel& theFresnel,
                                                        const Standard_ShortReal theRoughness);
 
   //! Creates BSDF describing transparent object.

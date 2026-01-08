@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-ShapeAnalysis_ShapeTolerance::ShapeAnalysis_ShapeTolerance()
+ShapeTolerance::ShapeTolerance()
     : myNbTol(0)
 {
 }
@@ -63,7 +63,7 @@ static void AddTol(const Standard_Real tol,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_ShapeTolerance::Tolerance(const TopoShape&    shape,
+Standard_Real ShapeTolerance::Tolerance(const TopoShape&    shape,
                                                       const Standard_Integer mode,
                                                       const TopAbs_ShapeEnum type)
 {
@@ -74,7 +74,7 @@ Standard_Real ShapeAnalysis_ShapeTolerance::Tolerance(const TopoShape&    shape,
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::OverTolerance(
+Handle(TopTools_HSequenceOfShape) ShapeTolerance::OverTolerance(
   const TopoShape&    shape,
   const Standard_Real    value,
   const TopAbs_ShapeEnum type) const
@@ -87,7 +87,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::OverTolerance(
 
 //=================================================================================================
 
-Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
+Handle(TopTools_HSequenceOfShape) ShapeTolerance::InTolerance(
   const TopoShape&    shape,
   const Standard_Real    valmin,
   const Standard_Real    valmax,
@@ -201,7 +201,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
 
 //=================================================================================================
 
-void ShapeAnalysis_ShapeTolerance::InitTolerance()
+void ShapeTolerance::InitTolerance()
 {
   myNbTol   = 0;
   myTols[1] = 0;
@@ -209,7 +209,7 @@ void ShapeAnalysis_ShapeTolerance::InitTolerance()
 
 //=================================================================================================
 
-void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoShape&    shape,
+void ShapeTolerance::AddTolerance(const TopoShape&    shape,
                                                 const TopAbs_ShapeEnum type)
 {
   Standard_Integer nbt = 0;
@@ -269,7 +269,7 @@ void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoShape&    shape,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_ShapeTolerance::GlobalTolerance(const Standard_Integer mode) const
+Standard_Real ShapeTolerance::GlobalTolerance(const Standard_Integer mode) const
 {
   // szv#4:S4163:12Mar99 optimized
   Standard_Real result = 0.;

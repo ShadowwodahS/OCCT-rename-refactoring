@@ -131,7 +131,7 @@ static void CheckPCurves(TopoWire&           aWire,
     //                           w2 > LastParameter  => w2 = LastParameter
 
     Handle(GeomCurve2d) thePC;
-    ShapeAnalysis_Edge   sae;
+    Edge1   sae;
     if (!sae.PCurve(myEdge, aFace, thePC, w1, w2, Standard_False))
     {
       continue;
@@ -657,7 +657,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
 
           Standard_Boolean ForwardEdge = (CumulO == TopAbs_FORWARD);
 
-          Standard_Integer forwardPC = ShapeAnalysis_Curve().SelectForwardSeam(C2d1, C2d2);
+          Standard_Integer forwardPC = Curve2().SelectForwardSeam(C2d1, C2d2);
           if (forwardPC == 0)
           {
             TP->AddFail(EC, " Seam curve not mapped");
@@ -775,7 +775,7 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
     {
       TopoEdge                  edge = TopoDS::Edge(EdgeIt.Value());
       Handle(ShapeFix_EdgeProjAux) myEdgePro =
-        ShapeAlgo::AlgoContainer()->ToolContainer()->EdgeProjAux();
+        ShapeAlgo1::AlgoContainer()->ToolContainer()->EdgeProjAux();
       myEdgePro->Init(Face, edge);
       myEdgePro->Compute(preci);
       if (myEdgePro->IsFirstDone() && myEdgePro->IsLastDone())

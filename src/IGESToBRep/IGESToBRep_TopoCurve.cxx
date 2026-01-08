@@ -274,7 +274,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCompositeCurveGeneral(
         nextsewd->Add(shape);
         Standard_Real    distmin;
         Standard_Boolean revsewd, revnextsewd;
-        Standard_Boolean isConnected = ShapeAlgo::AlgoContainer()->ConnectNextWire(saw,
+        Standard_Boolean isConnected = ShapeAlgo1::AlgoContainer()->ConnectNextWire(saw,
                                                                                    nextsewd,
                                                                                    maxtol,
                                                                                    distmin,
@@ -325,7 +325,7 @@ TopoShape IGESToBRep_TopoCurve::TransferCompositeCurveGeneral(
   sfw->Load(sewd);
   sfw->ClosedWireMode() = Standard_False; // closing of face boundaries will be later
   sfw->FixConnected(maxtol);
-  sfw->FixConnected(1, precision); // 10.12.98 CTS18953 entity 14 (Plane+CompositeCurve)
+  sfw->FixConnected(1, precision); // 10.12.98 CTS18953 entity 14 (Plane1+CompositeCurve)
   res = sewd->Wire();
 
   SetShapeResult(start, res);
@@ -987,7 +987,7 @@ TopoShape IGESToBRep_TopoCurve::TransferTopoBasicCurve(const Handle(IGESData_IGE
       Handle(BSplineCurve3d) BSplineC = Handle(BSplineCurve3d)::DownCast(mycurve);
 
       Handle(TColGeom_HSequenceOfBoundedCurve) seqBS;
-      ShapeAlgo::AlgoContainer()->C0BSplineToSequenceOfC1BSplineCurve(BSplineC, seqBS);
+      ShapeAlgo1::AlgoContainer()->C0BSplineToSequenceOfC1BSplineCurve(BSplineC, seqBS);
       Standard_Integer NbC0 = seqBS->Length();
       for (Standard_Integer i = 1; i <= NbC0; i++)
       {
@@ -1033,7 +1033,7 @@ TopoShape IGESToBRep_TopoCurve::TransferTopoBasicCurve(const Handle(IGESData_IGE
 
   // S4054 PRO11414-1.igs entities 56, 80 (self-intersection is hidden only when
   // tolerance of vertices is resolution of IGES file)
-  //  ShapeAnalysis::FindBounds (myshape, V1, V2);
+  //  ShapeAnalysis1::FindBounds (myshape, V1, V2);
   //  ShapeBuilder B;
   //  B.UpdateVertex (V1, epsgeom);
   //  B.UpdateVertex (V2, epsgeom);
@@ -1189,7 +1189,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
       Handle(Geom2d_BSplineCurve) BSplineC2d = Handle(Geom2d_BSplineCurve)::DownCast(mycurve2d);
 
       Handle(TColGeom2d_HSequenceOfBoundedCurve) seqBS;
-      ShapeAlgo::AlgoContainer()->C0BSplineToSequenceOfC1BSplineCurve(BSplineC2d, seqBS);
+      ShapeAlgo1::AlgoContainer()->C0BSplineToSequenceOfC1BSplineCurve(BSplineC2d, seqBS);
       Standard_Integer NbC0 = seqBS->Length();
       for (Standard_Integer i = 1; i <= NbC0; i++)
       {
@@ -1238,7 +1238,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
   myshape = sewd->Wire();
 
   //  TopoVertex V1,V2;
-  //  ShapeAnalysis::FindBounds (myshape, V1, V2);
+  //  ShapeAnalysis1::FindBounds (myshape, V1, V2);
   //  B.UpdateVertex (V1, epsgeom);
   //  B.UpdateVertex (V2, epsgeom);
 
@@ -1432,7 +1432,7 @@ TopoShape IGESToBRep_TopoCurve::TransferBoundaryOnFace(TopoFace&                
 void IGESToBRep_TopoCurve::ApproxBSplineCurve(const Handle(BSplineCurve3d)& start)
 
 {
-  ShapeAlgo::AlgoContainer()->ApproxBSplineCurve(start, TheCurves);
+  ShapeAlgo1::AlgoContainer()->ApproxBSplineCurve(start, TheCurves);
 }
 
 //=======================================================================
@@ -1461,7 +1461,7 @@ Handle(GeomCurve3d) IGESToBRep_TopoCurve::Curve(const Standard_Integer num) cons
 void IGESToBRep_TopoCurve::Approx2dBSplineCurve(const Handle(Geom2d_BSplineCurve)& start)
 
 {
-  ShapeAlgo::AlgoContainer()->ApproxBSplineCurve(start, TheCurves2d);
+  ShapeAlgo1::AlgoContainer()->ApproxBSplineCurve(start, TheCurves2d);
 }
 
 //=======================================================================

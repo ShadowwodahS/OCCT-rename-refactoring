@@ -1172,9 +1172,9 @@ static Standard_Integer QANColCheckSparseArray(DrawInterpreter& di,
   return 0;
 }
 
-void QANCollection::CommandsPerf(DrawInterpreter& theCommands)
+void QANCollection1::CommandsPerf(DrawInterpreter& theCommands)
 {
-  const char* group = "QANCollection";
+  const char* group = "QANCollection1";
 
   // from agvCollTest/src/CollectionEXE/PerfTestEXE.cxx
   theCommands.Add("QANColPerfArray1",

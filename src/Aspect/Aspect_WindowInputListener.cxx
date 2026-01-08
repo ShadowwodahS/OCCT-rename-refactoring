@@ -73,7 +73,7 @@ void Aspect_WindowInputListener::AddTouchPoint(Standard_Size          theId,
     RemoveTouchPoint((Standard_Size)-1);
   }
 
-  myTouchPoints.Add(theId, Aspect_Touch(thePnt, false));
+  myTouchPoints.Add(theId, Touch(thePnt, false));
 }
 
 //=================================================================================================
@@ -99,7 +99,7 @@ bool Aspect_WindowInputListener::RemoveTouchPoint(Standard_Size    theId,
   if (myTouchPoints.Extent() == 1)
   {
     // avoid incorrect transition from pinch to one finger
-    Aspect_Touch& aFirstTouch = myTouchPoints.ChangeFromIndex(1);
+    Touch& aFirstTouch = myTouchPoints.ChangeFromIndex(1);
     aFirstTouch.To            = aFirstTouch.From;
   }
   return true;
@@ -110,7 +110,7 @@ bool Aspect_WindowInputListener::RemoveTouchPoint(Standard_Size    theId,
 void Aspect_WindowInputListener::UpdateTouchPoint(Standard_Size          theId,
                                                   const Graphic3d_Vec2d& thePnt)
 {
-  if (Aspect_Touch* aTouch = myTouchPoints.ChangeSeek(theId))
+  if (Touch* aTouch = myTouchPoints.ChangeSeek(theId))
   {
     aTouch->To = thePnt;
   }
@@ -122,7 +122,7 @@ void Aspect_WindowInputListener::UpdateTouchPoint(Standard_Size          theId,
 
 //=================================================================================================
 
-bool Aspect_WindowInputListener::update3dMouseTranslation(const WNT_HIDSpaceMouse& theEvent)
+bool Aspect_WindowInputListener::update3dMouseTranslation(const HIDSpaceMouse& theEvent)
 {
   if (!theEvent.IsTranslation())
   {
@@ -141,7 +141,7 @@ bool Aspect_WindowInputListener::update3dMouseTranslation(const WNT_HIDSpaceMous
 
 //=================================================================================================
 
-bool Aspect_WindowInputListener::update3dMouseRotation(const WNT_HIDSpaceMouse& theEvent)
+bool Aspect_WindowInputListener::update3dMouseRotation(const HIDSpaceMouse& theEvent)
 {
   if (!theEvent.IsRotation())
   {
@@ -181,13 +181,13 @@ bool Aspect_WindowInputListener::update3dMouseRotation(const WNT_HIDSpaceMouse& 
 
 //=================================================================================================
 
-bool Aspect_WindowInputListener::update3dMouseKeys(const WNT_HIDSpaceMouse& theEvent)
+bool Aspect_WindowInputListener::update3dMouseKeys(const HIDSpaceMouse& theEvent)
 {
   bool         toUpdate   = false;
   const double aTimeStamp = EventTime();
   if (theEvent.IsKeyState())
   {
-    const uint32_t aKeyState = theEvent.KeyState();
+    const uint32_t aKeyState = theEvent.KeyState1();
     for (unsigned short aKeyBit = 0; aKeyBit < 32; ++aKeyBit)
     {
       const bool isPressed  = (aKeyState & (1 << aKeyBit)) != 0;

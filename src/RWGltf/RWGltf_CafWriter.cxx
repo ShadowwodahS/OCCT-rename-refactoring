@@ -273,7 +273,7 @@ AsciiString1 RWGltf_CafWriter::formatName(RWMesh_NameFormat theFormat,
                                                      const DataLabel&  theLabel,
                                                      const DataLabel&  theRefLabel) const
 {
-  return RWMesh::FormatName(theFormat, theLabel, theRefLabel);
+  return RWMesh1::FormatName(theFormat, theLabel, theRefLabel);
 }
 
 //=================================================================================================

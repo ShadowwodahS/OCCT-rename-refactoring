@@ -32,7 +32,7 @@ class BRepCheck_Result;
 //! criteria. These criteria are checked by the function IsValid.
 //! Once you have determined whether a shape is valid or not, you can
 //! diagnose its specific anomalies and correct them using the services of
-//! the ShapeAnalysis, ShapeUpgrade, and ShapeFix packages.
+//! the ShapeAnalysis1, ShapeUpgrade, and ShapeFix packages.
 class BRepCheck_Analyzer
 {
 public:

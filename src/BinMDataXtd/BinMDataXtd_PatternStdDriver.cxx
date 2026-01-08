@@ -193,8 +193,8 @@ void BinMDataXtd_PatternStdDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Standard_Integer aNb;
   if (signature == 5) // mirror
   {
-    Handle(ShapeAttribute) Plane = aP->Mirror();
-    aNb                              = theRelocTable.Add(Plane);
+    Handle(ShapeAttribute) Plane1 = aP->Mirror();
+    aNb                              = theRelocTable.Add(Plane1);
     theTarget << aNb;
   }
   else

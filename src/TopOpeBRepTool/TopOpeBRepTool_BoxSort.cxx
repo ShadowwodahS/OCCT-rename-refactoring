@@ -231,7 +231,7 @@ const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoShape& S)
       GeomAbs_SurfaceType  suty = GAS.GetType();
       isPlane                   = (suty == GeomAbs_Plane);
       if (isPlane)
-        P = GAS.Plane();
+        P = GAS.Plane1();
       else
       {
         myLastCompareShapeBox = myHBT->Box1(F);

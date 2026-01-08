@@ -22,7 +22,7 @@
 #include <vector>
 
 //! Data frame definition.
-class Graphic3d_FrameStatsData
+class FrameStatsData
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -69,25 +69,25 @@ public:
   }
 
   //! Empty constructor.
-  Standard_EXPORT Graphic3d_FrameStatsData();
+  Standard_EXPORT FrameStatsData();
 
   //! Copy constructor.
-  Standard_EXPORT Graphic3d_FrameStatsData(const Graphic3d_FrameStatsData& theOther);
+  Standard_EXPORT FrameStatsData(const FrameStatsData& theOther);
 
   //! Move constructor.
-  Standard_EXPORT Graphic3d_FrameStatsData(Graphic3d_FrameStatsData&& theOther) noexcept;
+  Standard_EXPORT FrameStatsData(FrameStatsData&& theOther) noexcept;
 
   //! Assignment operator.
-  Standard_EXPORT Graphic3d_FrameStatsData& operator=(const Graphic3d_FrameStatsData& theOther);
+  Standard_EXPORT FrameStatsData& operator=(const FrameStatsData& theOther);
 
   //! Assignment with move operator.
-  Standard_EXPORT Graphic3d_FrameStatsData& operator=(Graphic3d_FrameStatsData&& theOther) noexcept;
+  Standard_EXPORT FrameStatsData& operator=(FrameStatsData&& theOther) noexcept;
 
   //! Reset data.
   Standard_EXPORT void Reset();
 
   //! Fill with maximum values.
-  Standard_EXPORT void FillMax(const Graphic3d_FrameStatsData& theOther);
+  Standard_EXPORT void FillMax(const FrameStatsData& theOther);
 
 protected:
   std::vector<Standard_Size> myCounters;     //!< counters
@@ -101,7 +101,7 @@ protected:
 };
 
 //! Temporary data frame definition.
-class Graphic3d_FrameStatsDataTmp : public Graphic3d_FrameStatsData
+class Graphic3d_FrameStatsDataTmp : public FrameStatsData
 {
 public:
   //! Empty constructor.
@@ -114,9 +114,9 @@ public:
   Standard_EXPORT void Reset();
 
   //! Assignment operator (skip copying irrelevant properties).
-  void operator=(const Graphic3d_FrameStatsData& theOther)
+  void operator=(const FrameStatsData& theOther)
   {
-    Graphic3d_FrameStatsData::operator=(theOther);
+    FrameStatsData::operator=(theOther);
   }
 
   //! Returns FPS (frames per seconds, elapsed time).

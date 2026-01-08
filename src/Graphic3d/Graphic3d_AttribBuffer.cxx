@@ -69,7 +69,7 @@ void Graphic3d_AttribBuffer::SetInterleaved(Standard_Boolean theIsInterleaved)
 
 //=================================================================================================
 
-void Graphic3d_AttribBuffer::invalidate(const Graphic3d_BufferRange& theRange)
+void Graphic3d_AttribBuffer::invalidate(const BufferRange& theRange)
 {
   if (mySize > (Standard_Size)IntegerLast())
   {
@@ -90,7 +90,7 @@ void Graphic3d_AttribBuffer::Invalidate()
                               "exceeding 32-bit address space");
   }
 
-  invalidate(Graphic3d_BufferRange(0, (Standard_Integer)mySize));
+  invalidate(BufferRange(0, (Standard_Integer)mySize));
 }
 
 //=================================================================================================
@@ -105,7 +105,7 @@ void Graphic3d_AttribBuffer::Invalidate(Standard_Integer theAttributeIndex)
     return;
   }
 
-  Graphic3d_BufferRange  aRange;
+  BufferRange  aRange;
   const Standard_Integer aNbMaxVerts = NbMaxElements();
   for (Standard_Integer anAttribIter = 0; anAttribIter < NbAttributes; ++anAttribIter)
   {
@@ -138,7 +138,7 @@ void Graphic3d_AttribBuffer::Invalidate(Standard_Integer theAttributeIndex,
     return;
   }
 
-  Graphic3d_BufferRange  aRange;
+  BufferRange  aRange;
   const Standard_Integer aNbMaxVerts = NbMaxElements();
   for (Standard_Integer anAttribIter = 0; anAttribIter < NbAttributes; ++anAttribIter)
   {
@@ -166,7 +166,7 @@ void Graphic3d_AttribBuffer::Invalidate(Standard_Integer theVertexLower,
                                "Graphic3d_AttribBuffer::Invalidate()");
   if (myIsInterleaved)
   {
-    invalidate(Graphic3d_BufferRange(Stride * theVertexLower,
+    invalidate(BufferRange(Stride * theVertexLower,
                                      Stride * (theVertexUpper - theVertexLower + 1)));
     return;
   }

@@ -26,7 +26,7 @@
 class Adaptor3d_TopolTool;
 
 //! Implementation of the intersection between a natural
-//! quadric patch : Plane, Cone, Cylinder or Sphere and
+//! quadric patch : Plane1, Cone, Cylinder or Sphere and
 //! a bi-parametrised surface.
 class IntPatch_ImpPrmIntersection
 {

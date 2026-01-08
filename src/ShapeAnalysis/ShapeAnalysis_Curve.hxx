@@ -34,7 +34,7 @@ class Coords3d;
 
 //! Analyzing tool for 2d or 3d curve.
 //! Computes parameters of projected point onto a curve.
-class ShapeAnalysis_Curve
+class Curve2
 {
 public:
   DEFINE_STANDARD_ALLOC

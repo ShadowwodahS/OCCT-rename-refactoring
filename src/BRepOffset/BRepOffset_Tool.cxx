@@ -634,7 +634,7 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
   switch (AS.GetType())
   {
     case GeomAbs_Plane: {
-      Ax3 Ax = AS.Plane().Position();
+      Ax3 Ax = AS.Plane1().Position();
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
@@ -4280,13 +4280,13 @@ Standard_Boolean Tool5::CheckPlanesNormals(const TopoFace&  theFace1,
     return Standard_False;
   }
   //
-  Dir3d aDN1 = aBAS1.Plane().Position().Direction();
+  Dir3d aDN1 = aBAS1.Plane1().Position().Direction();
   if (theFace1.Orientation() == TopAbs_REVERSED)
   {
     aDN1.Reverse();
   }
   //
-  Dir3d aDN2 = aBAS2.Plane().Position().Direction();
+  Dir3d aDN2 = aBAS2.Plane1().Position().Direction();
   if (theFace2.Orientation() == TopAbs_REVERSED)
   {
     aDN2.Reverse();
@@ -4322,7 +4322,7 @@ void PerformPlanes(const TopoFace&    theFace1,
     return;
   }
   //
-  // In Plane/Plane intersection only one curve is always produced.
+  // In Plane1/Plane1 intersection only one curve is always produced.
   // Make the edge from this section curve.
   TopoEdge aE;
   {

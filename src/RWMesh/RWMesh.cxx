@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-AsciiString1 RWMesh::ReadNameAttribute(const DataLabel& theLabel)
+AsciiString1 RWMesh1::ReadNameAttribute(const DataLabel& theLabel)
 {
   Handle(NameAttribute) aNodeName;
   return theLabel.FindAttribute(NameAttribute::GetID(), aNodeName)
@@ -28,7 +28,7 @@ AsciiString1 RWMesh::ReadNameAttribute(const DataLabel& theLabel)
 
 //=================================================================================================
 
-AsciiString1 RWMesh::FormatName(RWMesh_NameFormat theFormat,
+AsciiString1 RWMesh1::FormatName(RWMesh_NameFormat theFormat,
                                            const DataLabel&  theLabel,
                                            const DataLabel&  theRefLabel)
 {

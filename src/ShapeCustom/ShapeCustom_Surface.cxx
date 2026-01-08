@@ -137,7 +137,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     Pnts.SetValue(3, mySurf->Value(U1, V2));
     Pnts.SetValue(4, mySurf->Value(U2, V2));
     gp_Pln           aPln; // Standard_Real Dmax;
-    Standard_Integer It = ShapeAnalysis_Geom::NearestPlane(Pnts, aPln, myGap /*Dmax*/);
+    Standard_Integer It = Geom::NearestPlane(Pnts, aPln, myGap /*Dmax*/);
 
     //  ICI, on fabrique le plan, et zou
     if (It == 0 || myGap /*Dmax*/ > tol)
@@ -146,7 +146,7 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
     //    IL RESTE a verifier l orientation ...
     //    On regarde sur chaque surface les vecteurs P(U0->U1),P(V0->V1)
     //    On prend la normale : les deux normales doivent etre dans le meme sens
-    //    Sinon, inverser la normale (pas le Pln entier !) et refaire la Plane
+    //    Sinon, inverser la normale (pas le Pln entier !) et refaire la Plane1
     newSurf = new GeomPlane(aPln);
     Vector3d uold(Pnts(1), Pnts(2));
     Vector3d vold(Pnts(1), Pnts(3));

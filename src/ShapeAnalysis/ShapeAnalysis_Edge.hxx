@@ -45,13 +45,13 @@ class Point3d;
 //! vertices).
 //! Provides methods for analyzing geometry and topology consistency
 //! (3d and pcurve(s) consistency, their adjacency to the vertices).
-class ShapeAnalysis_Edge
+class Edge1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor; initialises Status to OK
-  Standard_EXPORT ShapeAnalysis_Edge();
+  Standard_EXPORT Edge1();
 
   //! Tells if the edge has a 3d curve
   Standard_EXPORT Standard_Boolean HasCurve3d(const TopoEdge& edge) const;

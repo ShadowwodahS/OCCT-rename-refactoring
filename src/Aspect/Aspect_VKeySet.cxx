@@ -30,7 +30,7 @@ void Aspect_VKeySet::Reset()
 {
   Standard_Mutex::Sentry aLock(myLock);
   myModifiers = 0;
-  for (NCollection_Array1<KeyState>::Iterator aKeyIter(myKeys); aKeyIter.More(); aKeyIter.Next())
+  for (NCollection_Array1<KeyState1>::Iterator aKeyIter(myKeys); aKeyIter.More(); aKeyIter.Next())
   {
     aKeyIter.ChangeValue().Reset();
   }

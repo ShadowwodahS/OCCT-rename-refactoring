@@ -162,7 +162,7 @@ bool ViewerTest_EventManager::UpdateMouseClick(const Graphic3d_Vec2i& thePoint,
 
 //=================================================================================================
 
-bool ViewerTest_EventManager::UpdateMouseScroll(const Aspect_ScrollDelta& theDelta)
+bool ViewerTest_EventManager::UpdateMouseScroll(const ScrollDelta& theDelta)
 {
   if (!myView.IsNull() && (myView->IsSubview() || !myView->Subviews().IsEmpty()))
   {

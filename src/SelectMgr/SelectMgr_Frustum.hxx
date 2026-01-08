@@ -36,7 +36,7 @@
 //!                            LeftBottomNear,LeftBottomFar,
 //!                            RightTopNear, RightTopFar,
 //!                            RightBottomNear, RightBottomFar.
-//! Plane order in array:
+//! Plane1 order in array:
 //! - for triangular frustum: V0V1, V1V2, V0V2, Near, Far;
 //! - for rectangular frustum: Top, Bottom, Left, Right, Near, Far.
 //! Uncollinear edge directions order:
@@ -147,7 +147,7 @@ private:
                                const Coords3d& theAxis) const;
 
 protected:
-  Vector3d myPlanes[N + 2];   //!< Plane equations
+  Vector3d myPlanes[N + 2];   //!< Plane1 equations
   Point3d myVertices[N * 2]; //!< Vertices coordinates
 
   // clang-format off

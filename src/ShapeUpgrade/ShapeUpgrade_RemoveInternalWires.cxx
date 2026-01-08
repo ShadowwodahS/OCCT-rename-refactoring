@@ -130,7 +130,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallWire(const TopoShape& theFace,
                                                        const TopoShape& theWire)
 {
   TopoFace     aF     = TopoDS::Face(theFace);
-  TopoWire     anOutW = ShapeAnalysis::OuterWire(aF);
+  TopoWire     anOutW = ShapeAnalysis1::OuterWire(aF);
   TopoDS_Iterator aIt(aF);
   for (; aIt.More(); aIt.Next())
   {
@@ -140,7 +140,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallWire(const TopoShape& theFace,
     TopoWire aW = TopoDS::Wire(aIt.Value());
     if (!theWire.IsNull() && !theWire.IsSame(aW))
       continue;
-    Standard_Real anArea = ShapeAnalysis::ContourArea(aW);
+    Standard_Real anArea = ShapeAnalysis1::ContourArea(aW);
     if (anArea < myMinArea - Precision::Confusion())
     {
       Context()->Remove(aW);
@@ -205,7 +205,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallFaces()
 
         if (!isFind)
         {
-          TopoWire      aWout   = ShapeAnalysis::OuterWire(TopoDS::Face(aF));
+          TopoWire      aWout   = ShapeAnalysis1::OuterWire(TopoDS::Face(aF));
           Standard_Boolean isOuter = Standard_False;
           TopoDS_Iterator  aIter(aWout, Standard_False);
           for (; aIter.More() && !isOuter; aIter.Next())
@@ -225,7 +225,7 @@ void ShapeUpgrade_RemoveInternalWires::removeSmallFaces()
     for (; k <= aFaceCandidates.Extent(); k++)
     {
       TopoShape                 aF     = aFaceCandidates.FindKey(k);
-      TopoWire                  anOutW = ShapeAnalysis::OuterWire(TopoDS::Face(aF));
+      TopoWire                  anOutW = ShapeAnalysis1::OuterWire(TopoDS::Face(aF));
       Handle(ShapeExtend_WireData) asewd  = new ShapeExtend_WireData(anOutW);
       Standard_Integer             n = 1, nbE = asewd->NbEdges();
       Standard_Integer             nbNotRemoved = 0;

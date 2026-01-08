@@ -26,7 +26,7 @@
 #include <Standard_Boolean.hxx>
 #include <TopAbs_Orientation.hxx>
 class TopoShape;
-class Sweep_NumShape;
+class SweepNumShape;
 class TopLoc_Location;
 
 //! Provides   an  algorithm   to   build  object   by
@@ -39,7 +39,7 @@ public:
   //! Creates a topology  by rotating <S>  around A with the
   //! angle D.
   Standard_EXPORT BRepSweep_Rotation(const TopoShape&    S,
-                                     const Sweep_NumShape&  N,
+                                     const SweepNumShape&  N,
                                      const TopLoc_Location& L,
                                      const Axis3d&          A,
                                      const Standard_Real    D,
@@ -48,18 +48,18 @@ public:
   //! Builds the vertex addressed by [aGenV,aDirV], with its
   //! geometric part, but without subcomponents.
   Standard_EXPORT TopoShape MakeEmptyVertex(const TopoShape&   aGenV,
-                                               const Sweep_NumShape& aDirV) Standard_OVERRIDE;
+                                               const SweepNumShape& aDirV) Standard_OVERRIDE;
 
   //! Builds the edge addressed by [aGenV,aDirE], with its
   //! geometric part, but without subcomponents.
   Standard_EXPORT TopoShape MakeEmptyDirectingEdge(const TopoShape&   aGenV,
-                                                      const Sweep_NumShape& aDirE)
+                                                      const SweepNumShape& aDirE)
     Standard_OVERRIDE;
 
   //! Builds the edge addressed by [aGenE,aDirV], with its
   //! geometric part, but without subcomponents.
   Standard_EXPORT TopoShape MakeEmptyGeneratingEdge(const TopoShape&   aGenE,
-                                                       const Sweep_NumShape& aDirV)
+                                                       const SweepNumShape& aDirV)
     Standard_OVERRIDE;
 
   //! Sets the  parameters of the new  vertex  on the new
@@ -69,7 +69,7 @@ public:
                                      TopoShape&         aNewVertex,
                                      const TopoShape&   aGenF,
                                      const TopoShape&   aGenV,
-                                     const Sweep_NumShape& aDirV) Standard_OVERRIDE;
+                                     const SweepNumShape& aDirV) Standard_OVERRIDE;
 
   //! Sets the  parameter of the new  vertex  on the new
   //! edge. The new edge and  new vertex where generated
@@ -77,8 +77,8 @@ public:
   Standard_EXPORT void SetDirectingParameter(const TopoShape&   aNewEdge,
                                              TopoShape&         aNewVertex,
                                              const TopoShape&   aGenV,
-                                             const Sweep_NumShape& aDirE,
-                                             const Sweep_NumShape& aDirV) Standard_OVERRIDE;
+                                             const SweepNumShape& aDirE,
+                                             const SweepNumShape& aDirV) Standard_OVERRIDE;
 
   //! Sets the  parameter of the new  vertex  on the new
   //! edge. The new edge and  new vertex where generated
@@ -87,7 +87,7 @@ public:
                                               TopoShape&         aNewVertex,
                                               const TopoShape&   aGenE,
                                               const TopoShape&   aGenV,
-                                              const Sweep_NumShape& aDirV) Standard_OVERRIDE;
+                                              const SweepNumShape& aDirV) Standard_OVERRIDE;
 
   //! Builds the face  addressed by [aGenS,aDirS],  with
   //! its geometric part, but without subcomponents. The
@@ -95,7 +95,7 @@ public:
   //! a  directing vertex" or  "a generating  edge and a
   //! directing edge".
   Standard_EXPORT TopoShape MakeEmptyFace(const TopoShape&   aGenS,
-                                             const Sweep_NumShape& aDirS) Standard_OVERRIDE;
+                                             const SweepNumShape& aDirS) Standard_OVERRIDE;
 
   //! Sets the PCurve for a new edge on a new face. The
   //! new edge and  the  new face were generated  using
@@ -104,7 +104,7 @@ public:
                                  TopoShape&            aNewEdge,
                                  const TopoShape&      aGenF,
                                  const TopoShape&      aGenE,
-                                 const Sweep_NumShape&    aDirV,
+                                 const SweepNumShape&    aDirV,
                                  const TopAbs_Orientation orien) Standard_OVERRIDE;
 
   //! Sets the PCurve for a new edge on a new face. The
@@ -113,8 +113,8 @@ public:
   Standard_EXPORT void SetGeneratingPCurve(const TopoShape&      aNewFace,
                                            TopoShape&            aNewEdge,
                                            const TopoShape&      aGenE,
-                                           const Sweep_NumShape&    aDirE,
-                                           const Sweep_NumShape&    aDirV,
+                                           const SweepNumShape&    aDirE,
+                                           const SweepNumShape&    aDirV,
                                            const TopAbs_Orientation orien) Standard_OVERRIDE;
 
   //! Sets the PCurve for a new edge on a new face. The
@@ -124,7 +124,7 @@ public:
                                           TopoShape&            aNewEdge,
                                           const TopoShape&      aGenE,
                                           const TopoShape&      aGenV,
-                                          const Sweep_NumShape&    aDirE,
+                                          const SweepNumShape&    aDirE,
                                           const TopAbs_Orientation orien) Standard_OVERRIDE;
 
   //! Returns the Orientation of the  shell in the solid
@@ -132,7 +132,7 @@ public:
   //! It is  REVERSED  if the surface is  swept  in  the
   //! direction of the normal.
   Standard_EXPORT TopAbs_Orientation DirectSolid(const TopoShape&   aGenS,
-                                                 const Sweep_NumShape& aDirS) Standard_OVERRIDE;
+                                                 const SweepNumShape& aDirS) Standard_OVERRIDE;
 
   //! Returns   true   if  aNewSubShape    (addressed by
   //! aSubGenS  and aDirS)  must  be added  in aNewShape
@@ -142,7 +142,7 @@ public:
                     const TopoShape&   aNewSubShape,
                     const TopoShape&   aGenS,
                     const TopoShape&   aSubGenS,
-                    const Sweep_NumShape& aDirS) const Standard_OVERRIDE;
+                    const SweepNumShape& aDirS) const Standard_OVERRIDE;
 
   //! Returns   true   if  aNewSubShape    (addressed by
   //! aGenS  and aSubDirS)  must  be added  in aNewShape
@@ -151,8 +151,8 @@ public:
     GDDShapeIsToAdd(const TopoShape&   aNewShape,
                     const TopoShape&   aNewSubShape,
                     const TopoShape&   aGenS,
-                    const Sweep_NumShape& aDirS,
-                    const Sweep_NumShape& aSubDirS) const Standard_OVERRIDE;
+                    const SweepNumShape& aDirS,
+                    const SweepNumShape& aSubDirS) const Standard_OVERRIDE;
 
   //! In   some  particular  cases  the  topology  of  a
   //! generated  face  must  be  composed of independent
@@ -164,7 +164,7 @@ public:
                    const TopoShape&   aNewSubShape,
                    const TopoShape&   aGenS,
                    const TopoShape&   aSubGenS,
-                   const Sweep_NumShape& aDirS) const Standard_OVERRIDE;
+                   const SweepNumShape& aDirS) const Standard_OVERRIDE;
 
   //! In  some  particular  cases  the   topology  of  a
   //! generated  Shell must be  composed  of  independent
@@ -178,7 +178,7 @@ public:
   //! can  be    geometrically   inexsistant,  then this
   //! function returns false.
   Standard_EXPORT Standard_Boolean HasShape(const TopoShape&   aGenS,
-                                            const Sweep_NumShape& aDirS) const Standard_OVERRIDE;
+                                            const SweepNumShape& aDirS) const Standard_OVERRIDE;
 
   //! Returns true when   the geometry of  aGenS  is not
   //! modified  by the rotation.

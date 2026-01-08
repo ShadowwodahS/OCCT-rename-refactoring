@@ -26,20 +26,20 @@
 #ifndef HAVE_OBJC_ARC
 
 // =======================================================================
-// function : Cocoa_LocalPool
+// function : LocalPool
 // purpose  :
 // =======================================================================
-Cocoa_LocalPool::Cocoa_LocalPool()
+LocalPool::LocalPool()
 : myPoolObj ([[NSAutoreleasePool alloc] init])
 {
   //
 }
 
 // =======================================================================
-// function : ~Cocoa_LocalPool
+// function : ~LocalPool
 // purpose  :
 // =======================================================================
-Cocoa_LocalPool::~Cocoa_LocalPool()
+LocalPool::~LocalPool()
 {
   //[myPoolObj drain];
   [myPoolObj release];

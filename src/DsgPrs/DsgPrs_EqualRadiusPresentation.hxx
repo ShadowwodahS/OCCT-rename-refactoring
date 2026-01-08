@@ -34,7 +34,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds the points FirstCenter, SecondCenter,
-  //! FirstPoint, SecondPoint, and the plane Plane to the
+  //! FirstPoint, SecondPoint, and the plane Plane1 to the
   //! presentation object aPresentation.
   //! The display attributes of these elements is defined by
   //! the attribute manager aDrawer.
@@ -47,7 +47,7 @@ public:
                                   const Point3d&                     SecondCenter,
                                   const Point3d&                     FirstPoint,
                                   const Point3d&                     SecondPoint,
-                                  const Handle(GeomPlane)&         Plane);
+                                  const Handle(GeomPlane)&         Plane1);
 
 protected:
 private:

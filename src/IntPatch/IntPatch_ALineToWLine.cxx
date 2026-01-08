@@ -156,7 +156,7 @@ IntPatch_ALineToWLine::IntPatch_ALineToWLine(const Handle(Adaptor3d_Surface)& th
   switch (aTyps1)
   {
     case GeomAbs_Plane:
-      myQuad1.SetValue(theS1->Plane());
+      myQuad1.SetValue(theS1->Plane1());
       break;
 
     case GeomAbs_Cylinder:
@@ -182,7 +182,7 @@ IntPatch_ALineToWLine::IntPatch_ALineToWLine(const Handle(Adaptor3d_Surface)& th
   switch (aTyps2)
   {
     case GeomAbs_Plane:
-      myQuad2.SetValue(theS2->Plane());
+      myQuad2.SetValue(theS2->Plane1());
       break;
     case GeomAbs_Cylinder:
       myQuad2.SetValue(theS2->Cylinder());

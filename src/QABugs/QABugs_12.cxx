@@ -126,9 +126,9 @@ static Standard_Integer OCC895(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_12(DrawInterpreter& theCommands)
+void QABugs1::Commands_12(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC895", "OCC895 result [angle [reverse [order]]]", __FILE__, OCC895, group);
 

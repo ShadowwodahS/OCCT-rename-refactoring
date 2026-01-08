@@ -29,7 +29,7 @@ class StepGeom_Plane : public StepGeom_ElementarySurface
 {
 
 public:
-  //! Returns a Plane
+  //! Returns a Plane1
   Standard_EXPORT StepGeom_Plane();
 
   DEFINE_STANDARD_RTTIEXT(StepGeom_Plane, StepGeom_ElementarySurface)

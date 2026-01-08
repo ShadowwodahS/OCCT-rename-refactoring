@@ -47,8 +47,8 @@
 // pour tester
 //=======================================================================
 // function : MakeChamfer
-// purpose  : Compute the chamfer in the particular case Plane/Cylinder
-//            or Cylinder/Plane
+// purpose  : Compute the chamfer in the particular case Plane1/Cylinder
+//            or Cylinder/Plane1
 //            Compute the SurfData <Data> of the chamfer build on the <Spine>
 //            between the plane <Pln> and the cylinder <Cyl>, with the
 //            distances <Dis1> on <Pln> and <Dis2> on <Cyl>.

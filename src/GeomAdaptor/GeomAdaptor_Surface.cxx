@@ -1169,10 +1169,10 @@ Standard_Real GeomAdaptor_Surface::VResolution(const Standard_Real R3d) const
 
 //=================================================================================================
 
-gp_Pln GeomAdaptor_Surface::Plane() const
+gp_Pln GeomAdaptor_Surface::Plane1() const
 {
   if (mySurfaceType != GeomAbs_Plane)
-    throw Standard_NoSuchObject("GeomAdaptor_Surface::Plane");
+    throw Standard_NoSuchObject("GeomAdaptor_Surface::Plane1");
   return Handle(GeomPlane)::DownCast(mySurface)->Pln();
 }
 

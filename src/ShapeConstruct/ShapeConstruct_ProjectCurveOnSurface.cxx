@@ -481,29 +481,29 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ProjectAnalytic(
 {
   Handle(GeomCurve2d) result;
 
-  //: k1 abv 16 Dec 98: limit analytic cases by Plane surfaces only
+  //: k1 abv 16 Dec 98: limit analytic cases by Plane1 surfaces only
   // This is necessary for K4L since it fails on other surfaces
   // when general method GeomProjLib1::Curve2d() is used
   // Projection is done as in BRepInspector and BRepCheck_Edge
   Handle(GeomSurface) surf  = mySurf->Surface();
-  Handle(GeomPlane)   Plane = Handle(GeomPlane)::DownCast(surf);
-  if (Plane.IsNull())
+  Handle(GeomPlane)   Plane1 = Handle(GeomPlane)::DownCast(surf);
+  if (Plane1.IsNull())
   {
     Handle(Geom_RectangularTrimmedSurface) RTS =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(surf);
     if (!RTS.IsNull())
-      Plane = Handle(GeomPlane)::DownCast(RTS->BasisSurface());
+      Plane1 = Handle(GeomPlane)::DownCast(RTS->BasisSurface());
     else
     {
       Handle(Geom_OffsetSurface) OS = Handle(Geom_OffsetSurface)::DownCast(surf);
       if (!OS.IsNull())
-        Plane = Handle(GeomPlane)::DownCast(OS->BasisSurface());
+        Plane1 = Handle(GeomPlane)::DownCast(OS->BasisSurface());
     }
   }
-  if (!Plane.IsNull())
+  if (!Plane1.IsNull())
   {
     Handle(GeomCurve3d) ProjOnPlane =
-      GeomProjLib1::ProjectOnPlane(c3d, Plane, Plane->Position().Direction(), Standard_True);
+      GeomProjLib1::ProjectOnPlane(c3d, Plane1, Plane1->Position().Direction(), Standard_True);
     Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(ProjOnPlane);
     ProjLib_ProjectedCurve    Proj(mySurf->Adaptor3d(), HC);
 
@@ -567,7 +567,7 @@ static Standard_Boolean fixPeriodictyTroubles(
   for (Standard_Integer i = 0; i < 4; i++)
   {
     Standard_Real aParam = thePnt[i].Coord(theIdx);
-    Standard_Real aShift = ShapeAnalysis::AdjustToPeriod(aParam, aMinParam, aMaxParam);
+    Standard_Real aShift = ShapeAnalysis1::AdjustToPeriod(aParam, aMinParam, aMaxParam);
     aParam += aShift;
     // Walk over period coord -> not walking on another isoline in parameter space.
     if (isIsoLine)
@@ -949,7 +949,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         Cl = +1000;
       // pdn S4030 optimizing and fix isopar case on PRO41323
       tdeb = pout(2);
-      //    dist = ShapeAnalysis_Curve().Project (cIso,points(2),myPreci,pt,tdeb,Cf,Cl);
+      //    dist = Curve2().Project (cIso,points(2),myPreci,pt,tdeb,Cf,Cl);
       //  Chacun des par1 ou par2 est-il sur un bord. Attention first/last : recaler
       if (isoclosed && (isoPar1 == parf || isoPar1 == parl))
       {
@@ -966,7 +966,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
       {
         // pdn S4030 optimizing and fix isopar case on PRO41323
         tfin = pout(nbrPnt - 1);
-        // dist =  ShapeAnalysis_Curve().Project (cIso,points(nbrPnt-1),myPreci,pt,tfin,Cf,Cl);
+        // dist =  Curve2().Project (cIso,points(nbrPnt-1),myPreci,pt,tfin,Cf,Cl);
         if (Abs(tfin - parf) < Abs(tfin - parl))
           isoPar2 = parf;
         else
@@ -1058,7 +1058,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         else
         {
           tPar = pout(aPntIndex);
-          //: S4030  ShapeAnalysis_Curve().Project (cIso,p3d,myPreci,pt,tPar,Cf,Cl);
+          //: S4030  Curve2().Project (cIso,p3d,myPreci,pt,tPar,Cf,Cl);
           //: //szv#4:S4163:12Mar99 `dist=` not needed
         }
       }
@@ -1273,7 +1273,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         aMinParam += Up;
         aMaxParam += Up;
       }
-      Standard_Real aShift = ShapeAnalysis::AdjustToPeriod(firstX, aMinParam, aMaxParam);
+      Standard_Real aShift = ShapeAnalysis1::AdjustToPeriod(firstX, aMinParam, aMaxParam);
       firstX += aShift;
       pnt2d(1).SetX(firstX);
     }
@@ -1365,7 +1365,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
         aMinParam += Vp;
         aMaxParam += Vp;
       }
-      Standard_Real aShift = ShapeAnalysis::AdjustToPeriod(firstY, aMinParam, aMaxParam);
+      Standard_Real aShift = ShapeAnalysis1::AdjustToPeriod(firstY, aMinParam, aMaxParam);
       firstY += aShift;
       pnt2d(1).SetY(firstY);
     }
@@ -2359,7 +2359,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
         if (Precision::IsInfinite(Cl))
           Cl = +1000;
 
-        ShapeAnalysis_Curve sac;
+        Curve2 sac;
         Standard_Real       dist = sac.Project(cI, points(k), prec, pt, t, Cf, Cl);
         currd2[i]                = dist * dist;
         if ((dist <= prec) && (t >= Cf) && (t <= Cl))
@@ -2460,7 +2460,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
         if (Precision::IsInfinite(Cl))
           Cl = +1000;
 
-        ShapeAnalysis_Curve sac;
+        Curve2 sac;
         for (Standard_Integer i = 2; i < nbrPnt && isoByDistance; i++)
         {
           Standard_Real dist = sac.NextProject(

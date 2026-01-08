@@ -489,14 +489,14 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
     if (S->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
       S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
 
-    Handle(GeomPlane) Plane = Handle(GeomPlane)::DownCast(S);
+    Handle(GeomPlane) Plane1 = Handle(GeomPlane)::DownCast(S);
     // eval the 3d curve corresponding to the bissectrice.
     gp_Pnt2d          P    = myBis.Line().Location();
     gp_Dir2d          D    = myBis.Line().Direction();
     Handle(GeomLine) Line = new GeomLine(Point3d(P.X(), P.Y(), 0.), Dir3d(D.X(), D.Y(), 0.));
     Handle(Geom_TrimmedCurve) TLine =
       new Geom_TrimmedCurve(Line, myBis.FirstParameter(), myBis.LastParameter());
-    Curve = GeomProjLib1::ProjectOnPlane(TLine, Plane, gp1::DZ(), Standard_False);
+    Curve = GeomProjLib1::ProjectOnPlane(TLine, Plane1, gp1::DZ(), Standard_False);
 
 #ifdef DRAW
     if (AffichCurve)
@@ -507,13 +507,13 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
       sprintf(name, "C3_%d", NbProj);
       DrawTrSurf1::Set(name, Curve);
       sprintf(name, "SS_%d", NbProj);
-      DrawTrSurf1::Set(name, Plane);
+      DrawTrSurf1::Set(name, Plane1);
       NbProj++;
     }
 #endif
 
     // eval PCurve1
-    PCurve1 = GeomProjLib1::Curve2d(Curve, Plane);
+    PCurve1 = GeomProjLib1::Curve2d(Curve, Plane1);
 
     // eval PCurve2
     S = BRepInspector::Surface(myFace2, L);
@@ -521,8 +521,8 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
       S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
     if (S->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
       S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
-    Plane   = Handle(GeomPlane)::DownCast(S);
-    PCurve2 = GeomProjLib1::Curve2d(Curve, Plane);
+    Plane1   = Handle(GeomPlane)::DownCast(S);
+    PCurve2 = GeomProjLib1::Curve2d(Curve, Plane1);
   }
 }
 

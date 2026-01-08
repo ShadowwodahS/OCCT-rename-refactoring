@@ -299,7 +299,7 @@ UtfString PrsDim_Dimension::GetValueString(Standard_Real& theWidth) const
   else
   {
     // Text width for 1:1 scale 2D case
-    Font_FTFontParams                aFontParams;
+    FTFontParams                aFontParams;
     const Graphic3d_RenderingParams& aRendParams =
       GetContext()->CurrentViewer()->DefaultRenderingParams();
     aFontParams.PointSize   = (unsigned int)aTextAspect->Height();

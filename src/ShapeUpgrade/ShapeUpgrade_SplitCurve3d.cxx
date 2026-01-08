@@ -58,7 +58,7 @@ void ShapeUpgrade_SplitCurve3d::Init(const Handle(GeomCurve3d)& C,
   if (aCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
     aCurve = Handle(Geom_TrimmedCurve)::DownCast(aCurve)->BasisCurve();
   // 15.11.2002 PTV OCC966
-  if (!ShapeAnalysis_Curve::IsPeriodic(C))
+  if (!Curve2::IsPeriodic(C))
   {
     Standard_Real fP = aCurve->FirstParameter();
     Standard_Real lP = aCurve->LastParameter();
@@ -147,7 +147,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment1)
 
   // pdn fix on BuildCurve 3d
   //  15.11.2002 PTV OCC966
-  if (!ShapeAnalysis_Curve::IsPeriodic(myCurve))
+  if (!Curve2::IsPeriodic(myCurve))
   {
     // pdn exceptons only on non periodic curves
     constexpr Standard_Real precision = Precision::PConfusion();

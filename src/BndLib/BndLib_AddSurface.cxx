@@ -263,7 +263,7 @@ void AddSurface::Add(const Adaptor3d_Surface& S,
     switch (Type)
     {
       case GeomAbs_Plane: {
-        TreatInfinitePlane(S.Plane(), UMin, UMax, VMin, VMax, Tol, B);
+        TreatInfinitePlane(S.Plane1(), UMin, UMax, VMin, VMax, Tol, B);
         return;
       }
       default: {
@@ -280,7 +280,7 @@ void AddSurface::Add(const Adaptor3d_Surface& S,
   {
 
     case GeomAbs_Plane: {
-      gp_Pln Plan = S.Plane();
+      gp_Pln Plan = S.Plane1();
       B.Add(ElSLib1::Value(UMin, VMin, Plan));
       B.Add(ElSLib1::Value(UMin, VMax, Plan));
       B.Add(ElSLib1::Value(UMax, VMin, Plan));
@@ -493,7 +493,7 @@ void AddSurface::AddOptimal(const Adaptor3d_Surface& S,
     switch (Type)
     {
       case GeomAbs_Plane: {
-        TreatInfinitePlane(S.Plane(), UMin, UMax, VMin, VMax, Tol, B);
+        TreatInfinitePlane(S.Plane1(), UMin, UMax, VMin, VMax, Tol, B);
         return;
       }
       default: {
@@ -507,7 +507,7 @@ void AddSurface::AddOptimal(const Adaptor3d_Surface& S,
   {
 
     case GeomAbs_Plane: {
-      gp_Pln Plan = S.Plane();
+      gp_Pln Plan = S.Plane1();
       B.Add(ElSLib1::Value(UMin, VMin, Plan));
       B.Add(ElSLib1::Value(UMin, VMax, Plan));
       B.Add(ElSLib1::Value(UMax, VMin, Plan));

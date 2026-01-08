@@ -745,7 +745,7 @@ void HLRBRep_InternalAlgo::HideSelected(const Standard_Integer I, const Standard
     for (f = 1; f <= nf; f++)
     {
       HLRBRep_FaceData& fd = aFDataArray.ChangeValue(f);
-      if (fd.Plane())
+      if (fd.Plane1())
         Val(f) = 10;
       else if (fd.Cylinder())
         Val(f) = 9;

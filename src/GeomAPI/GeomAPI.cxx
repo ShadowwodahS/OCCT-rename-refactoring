@@ -37,8 +37,8 @@ Handle(GeomCurve2d) GeomAPI1::To2d(const Handle(GeomCurve3d)& C, const gp_Pln& P
 {
   Handle(GeomCurve2d)        result;
   Handle(GeomAdaptor_Curve)   HC    = new GeomAdaptor_Curve(C);
-  Handle(GeomPlane)          Plane = new GeomPlane(P);
-  Handle(GeomAdaptor_Surface) HS    = new GeomAdaptor_Surface(Plane);
+  Handle(GeomPlane)          Plane1 = new GeomPlane(P);
+  Handle(GeomAdaptor_Surface) HS    = new GeomAdaptor_Surface(Plane1);
 
   ProjLib_ProjectedCurve Proj(HS, HC);
 

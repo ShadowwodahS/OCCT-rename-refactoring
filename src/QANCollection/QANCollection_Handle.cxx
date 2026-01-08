@@ -638,9 +638,9 @@ static Standard_Integer QAHandleKind(DrawInterpreter& /*theDI*/,
   return 0;
 }
 
-void QANCollection::CommandsHandle(DrawInterpreter& theCommands)
+void QANCollection1::CommandsHandle(DrawInterpreter& theCommands)
 {
-  const char* THE_GROUP = "QANCollection";
+  const char* THE_GROUP = "QANCollection1";
   theCommands.Add("QAHandleBool",
                   "Test handle boolean operator",
                   __FILE__,

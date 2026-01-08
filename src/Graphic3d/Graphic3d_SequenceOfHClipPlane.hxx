@@ -19,7 +19,7 @@
 #include <Graphic3d_ClipPlane.hxx>
 
 //! Class defines a Clipping Volume as a logical OR (disjunction) operation between
-//! Graphic3d_ClipPlane in sequence. Each Graphic3d_ClipPlane represents either a single Plane
+//! Graphic3d_ClipPlane in sequence. Each Graphic3d_ClipPlane represents either a single Plane1
 //! clipping a halfspace (direction is specified by normal), or a sub-chain of planes defining a
 //! logical AND (conjunction) operation. Therefore, this collection allows defining a Clipping
 //! Volume through the limited set of Boolean operations between clipping Planes.

@@ -22,7 +22,7 @@
 
 #include <Draw_Interpretor.hxx>
 
-class QABugs
+class QABugs1
 {
 public:
   DEFINE_STANDARD_ALLOC

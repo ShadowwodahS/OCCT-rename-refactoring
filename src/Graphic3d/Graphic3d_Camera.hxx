@@ -449,13 +449,13 @@ public:
   IODType GetIODType() const { return myIODType; }
 
   //! Get current tile.
-  const Graphic3d_CameraTile& Tile() const { return myTile; }
+  const CameraTile& Tile() const { return myTile; }
 
   //! Sets the Tile defining the drawing sub-area within View.
   //! Note that tile defining a region outside the view boundaries is also valid - use method
-  //! Graphic3d_CameraTile::Cropped() to assign a cropped copy.
+  //! CameraTile::Cropped() to assign a cropped copy.
   //! @param theTile tile definition
-  Standard_EXPORT void SetTile(const Graphic3d_CameraTile& theTile);
+  Standard_EXPORT void SetTile(const CameraTile& theTile);
 
   //! Sets camera parameters to make current orientation matrix identity one.
   Standard_EXPORT void SetIdentityOrientation();
@@ -801,7 +801,7 @@ private:
   Standard_Real myIOD;     //!< Intraocular distance value.
   IODType       myIODType; //!< Intraocular distance definition type.
 
-  Graphic3d_CameraTile myTile; //!< Tile defining sub-area for drawing
+  CameraTile myTile; //!< Tile defining sub-area for drawing
 
   Graphic3d_Mat4d                   myCustomProjMatM;
   Graphic3d_Mat4d                   myCustomProjMatL;

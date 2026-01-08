@@ -91,7 +91,7 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge(const TopoEdge&   edge,
                                                       const Standard_Real  preci) const
 {
   Standard_Real      a, b;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
 
   TopoVertex V1 = sae.FirstVertex(edge);
   TopoVertex V2 = sae.LastVertex(edge);
@@ -197,7 +197,7 @@ Standard_Boolean ShapeFix_IntersectionTool::CutEdge(const TopoEdge&  edge,
   // case pcurve is trimm of line
   if (!BRepInspector::SameParameter(edge))
   {
-    ShapeAnalysis_Edge   sae;
+    Edge1   sae;
     Handle(GeomCurve2d) Crv;
     Standard_Real        fp, lp;
     if (sae.PCurve(edge, face, Crv, fp, lp, Standard_False))
@@ -289,7 +289,7 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge1(const Handle(ShapeExtend_
   const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   Handle(GeomCurve2d)        c2d;
   Standard_Real               cf, cl;
-  ShapeAnalysis_Edge          sae;
+  Edge1          sae;
   if (sae.PCurve(newE1, S, L, c2d, cf, cl, Standard_False))
   {
     Bnd_Box2d           box;
@@ -351,7 +351,7 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge2(const Handle(ShapeExtend_
   Standard_Boolean     IsCutLine;
   Handle(GeomCurve2d) Crv1, Crv2;
   Standard_Real        fp1, lp1, fp2, lp2;
-  ShapeAnalysis_Edge   sae;
+  Edge1   sae;
   if (sae.PCurve(newE1, face, Crv1, fp1, lp1, Standard_False))
   {
     if (sae.PCurve(newE2, face, Crv2, fp2, lp2, Standard_False))
@@ -458,7 +458,7 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
   // union vertexes
   Standard_Boolean   res = Standard_False;
   ShapeBuild_Edge    sbe;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   ShapeBuilder       B;
   TopoVertex      V;
   TopoVertex      V1F  = sae.FirstVertex(edge1);
@@ -782,7 +782,7 @@ static Bnd_Box2d CreateBoxes2d(const Handle(ShapeExtend_WireData)& sewd,
   const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   Handle(GeomCurve2d)        c2d;
   Standard_Real               cf, cl;
-  ShapeAnalysis_Edge          sae;
+  Edge1          sae;
   for (Standard_Integer i = 1; i <= sewd->NbEdges(); i++)
   {
     TopoEdge E = sewd->Edge(i);
@@ -858,7 +858,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FindVertAndSplitEdge(
   const Standard_Boolean              aTmpKey) const
 {
   // find needed vertex from edge2 and split edge1 using it
-  ShapeAnalysis_Edge            sae;
+  Edge1            sae;
   Handle(ShapeAnalysis_Surface) sas = new ShapeAnalysis_Surface(BRepInspector::Surface(face));
   Point3d                        pi1 = GetPointOnEdge(edge1, sas, Crv1, param1);
   ShapeBuilder                  B;
@@ -915,7 +915,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
   if (myContext.IsNull() || face.IsNull())
     return Standard_False;
 
-  // Standard_Real area2d = ShapeAnalysis::TotCross2D(sewd,face);
+  // Standard_Real area2d = ShapeAnalysis1::TotCross2D(sewd,face);
   // if(area2d<Precision::PConfusion()*Precision::PConfusion()) return Standard_False; //gka
   // 06.09.04 BUG 6555
 
@@ -927,7 +927,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
     MaxTolVert         = Max(MaxTolVert, tolV);
   }
   MaxTolVert = Min(MaxTolVert, myMaxTol);
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
 
   // step 1 : intersection of adjacent edges
 
@@ -1669,7 +1669,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
     MaxTolVert         = Max(MaxTolVert, tolV);
   }
   Standard_Boolean              isDone = Standard_False; // gka 06.09.04
-  ShapeAnalysis_Edge            sae;
+  Edge1            sae;
   Handle(ShapeAnalysis_Surface) sas = new ShapeAnalysis_Surface(BRepInspector::Surface(face));
 
   // precompute edge boxes for all wires

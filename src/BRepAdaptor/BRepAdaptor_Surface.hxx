@@ -233,13 +233,13 @@ public:
     return mySurf.VResolution(theR3d);
   }
 
-  //! Returns the type of the surface : Plane, Cylinder,
+  //! Returns the type of the surface : Plane1, Cylinder,
   //! Cone,      Sphere,        Torus,    BezierSurface,
   //! BSplineSurface,               SurfaceOfRevolution,
   //! SurfaceOfExtrusion, OtherSurface
   virtual GeomAbs_SurfaceType GetType() const Standard_OVERRIDE { return mySurf.GetType(); }
 
-  Standard_EXPORT gp_Pln Plane() const Standard_OVERRIDE;
+  Standard_EXPORT gp_Pln Plane1() const Standard_OVERRIDE;
 
   Standard_EXPORT Cylinder1 Cylinder() const Standard_OVERRIDE;
 

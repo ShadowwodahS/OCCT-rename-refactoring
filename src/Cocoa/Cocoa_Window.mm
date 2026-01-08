@@ -43,7 +43,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Cocoa_Window,Aspect_Window)
 
 static Standard_Integer getScreenBottom()
 {
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
   NSArray* aScreens = [NSScreen screens];
   if (aScreens == NULL || [aScreens count] == 0)
   {
@@ -126,7 +126,7 @@ Cocoa_Window::Cocoa_Window (const Standard_CString theTitle,
   myYTop    = getScreenBottom() - myYBottom;
   myYBottom = myYTop + thePxHeight;
 
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
   NSUInteger aWinStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
   NSRect aRectNs = NSMakeRect (float(myXLeft), float(myYTop), float(thePxWidth), float(thePxHeight));
   myHWindow = [[NSWindow alloc] initWithContentRect: aRectNs
@@ -183,7 +183,7 @@ Cocoa_Window::Cocoa_Window (NSView* theViewNS)
 Cocoa_Window::~Cocoa_Window()
 {
 #if !defined(HAVE_OBJC_ARC)
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 #endif
 #if !(defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
   if (myHWindow != NULL)

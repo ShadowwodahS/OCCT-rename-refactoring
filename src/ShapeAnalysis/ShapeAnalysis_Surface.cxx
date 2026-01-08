@@ -1173,33 +1173,33 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const Point3d& P3D, const Standard_Rea
       {
 
         case GeomAbs_Plane: {
-          gp_Pln Plane = SurfAdapt.Plane();
-          ElSLib1::Parameters(Plane, P3D, S, T);
+          gp_Pln Plane1 = SurfAdapt.Plane1();
+          ElSLib1::Parameters(Plane1, P3D, S, T);
           break;
         }
         case GeomAbs_Cylinder: {
           Cylinder1 Cylinder = SurfAdapt.Cylinder();
           ElSLib1::Parameters(Cylinder, P3D, S, T);
-          S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
+          S += ShapeAnalysis1::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Cone: {
           Cone1 Cone = SurfAdapt.Cone();
           ElSLib1::Parameters(Cone, P3D, S, T);
-          S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
+          S += ShapeAnalysis1::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Sphere: {
           Sphere3 Sphere = SurfAdapt.Sphere();
           ElSLib1::Parameters(Sphere, P3D, S, T);
-          S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
+          S += ShapeAnalysis1::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Torus: {
           gp_Torus Torus = SurfAdapt.Torus();
           ElSLib1::Parameters(Torus, P3D, S, T);
-          S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
-          T += ShapeAnalysis::AdjustByPeriod(T, 0.5 * (vf + vl), 2 * M_PI);
+          S += ShapeAnalysis1::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
+          T += ShapeAnalysis1::AdjustByPeriod(T, 0.5 * (vf + vl), 2 * M_PI);
           break;
         }
         case GeomAbs_BezierSurface:
@@ -1517,7 +1517,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
 
           RestrictBounds(Cf, Cl);
           dist =
-            ShapeAnalysis_Curve().Project(iso, P3d, preci, pntres, other, Cf, Cl, Standard_False);
+            Curve2().Project(iso, P3d, preci, pntres, other, Cf, Cl, Standard_False);
           if (dist < theMin)
           {
             theMin = dist;
@@ -1576,7 +1576,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
         }
         if (anIsoBox && anIsoBox->Distance(aPBox) > theMin)
           continue;
-        dist = ShapeAnalysis_Curve().Project(*anAdaptor, P3d, preci, pntres, other);
+        dist = Curve2().Project(*anAdaptor, P3d, preci, pntres, other);
         if (dist < theMin)
         {
           theMin = dist;
@@ -1611,7 +1611,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
           Cl = iso->LastParameter();
           RestrictBounds(Cf, Cl);
           dist =
-            ShapeAnalysis_Curve().Project(iso, P3d, preci, pntres, other, Cf, Cl, Standard_False);
+            Curve2().Project(iso, P3d, preci, pntres, other, Cf, Cl, Standard_False);
           if (dist < theMin)
           {
             theMin = dist;
@@ -1638,7 +1638,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
           Cl = iso->LastParameter();
           RestrictBounds(Cf, Cl);
           dist =
-            ShapeAnalysis_Curve().Project(iso, P3d, preci, pntres, other, Cf, Cl, Standard_False);
+            Curve2().Project(iso, P3d, preci, pntres, other, Cf, Cl, Standard_False);
           if (dist < theMin)
           {
             theMin = dist;
@@ -1672,7 +1672,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
         Cf = anIsoCurve.FirstParameter();
         Cl = anIsoCurve.LastParameter();
         RestrictBounds(Cf, Cl);
-        dist = ShapeAnalysis_Curve().Project(anIsoCurve, P3d, preci, pntres, other);
+        dist = Curve2().Project(anIsoCurve, P3d, preci, pntres, other);
         if (dist < theMin)
         {
           theMin = dist;
@@ -1695,7 +1695,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
         Cf = anIsoCurve.FirstParameter();
         Cl = anIsoCurve.LastParameter();
         RestrictBounds(Cf, Cl);
-        dist = ShapeAnalysis_Curve().ProjectAct(anIsoCurve, P3d, preci, pntres, other);
+        dist = Curve2().ProjectAct(anIsoCurve, P3d, preci, pntres, other);
         if (dist < theMin)
         {
           theMin = dist;
@@ -1717,7 +1717,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
   {
 #ifdef OCCT_DEBUG
     //: s5
-    std::cout << "\nWarning: ShapeAnalysis_Curve::UVFromIso(): Exception: ";
+    std::cout << "\nWarning: Curve2::UVFromIso(): Exception: ";
     anException.Print(std::cout);
     std::cout << std::endl;
 #endif

@@ -809,9 +809,9 @@ static Standard_Integer QABVH_DistanceField(DrawInterpreter& theDI,
 
 //=================================================================================================
 
-void QABugs::Commands_BVH(DrawInterpreter& theCommands)
+void QABugs1::Commands_BVH(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("QABVH_ShapeSelect",
                   "Tests the work of BHV_BoxSet algorithm on the simple example of selection of "

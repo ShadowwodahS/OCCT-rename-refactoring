@@ -89,9 +89,9 @@ public:
 
   void WithOutL(const Standard_Boolean B);
 
-  Standard_Boolean Plane() const;
+  Standard_Boolean Plane1() const;
 
-  void Plane(const Standard_Boolean B);
+  void Plane1(const Standard_Boolean B);
 
   Standard_Boolean Cylinder() const;
 

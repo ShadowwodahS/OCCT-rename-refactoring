@@ -25,7 +25,7 @@ static Standard_Integer BuildNamedShape(DrawInterpreter& di, Standard_Integer nb
   if (nb >= 4)
   {
     DataLabel aLabel;
-    if (!QADNaming::Entry(arg, aLabel))
+    if (!QADNaming1::Entry(arg, aLabel))
       return 1;
     char             anEvolution = arg[3][0];
     Standard_Integer a, anInc = (anEvolution == 'P' || anEvolution == 'D') ? 1 : 2;
@@ -87,7 +87,7 @@ static Standard_Integer BuildNamedShape(DrawInterpreter& di, Standard_Integer nb
   return 0;
 }
 
-void QADNaming::BuilderCommands(DrawInterpreter& theCommands)
+void QADNaming1::BuilderCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

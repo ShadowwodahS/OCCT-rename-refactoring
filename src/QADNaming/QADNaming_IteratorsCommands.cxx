@@ -56,7 +56,7 @@ static Standard_Integer GetNewShapes(DrawInterpreter& di, Standard_Integer nb, c
   if (nb == 3 || nb == 4)
   {
     DataLabel aLabel;
-    if (!QADNaming::Entry(arg, aLabel))
+    if (!QADNaming1::Entry(arg, aLabel))
       return 1;
     Handle(ShapeAttribute) aNS;
     if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
@@ -93,7 +93,7 @@ static Standard_Integer GetOldShapes(DrawInterpreter& di, Standard_Integer nb, c
   if (nb == 3 || nb == 4)
   {
     DataLabel aLabel;
-    if (!QADNaming::Entry(arg, aLabel))
+    if (!QADNaming1::Entry(arg, aLabel))
       return 1;
     Handle(ShapeAttribute) aNS;
     if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
@@ -158,7 +158,7 @@ static Standard_Integer GetAllNewShapes(DrawInterpreter& di, Standard_Integer nb
     if (arg[2][0] == '0')
     { // label
       DataLabel aLabel;
-      if (!QADNaming::Entry(arg, aLabel))
+      if (!QADNaming1::Entry(arg, aLabel))
         return 1;
       Handle(ShapeAttribute) aNS;
       if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
@@ -240,7 +240,7 @@ static Standard_Integer GetAllOldShapes(DrawInterpreter& di, Standard_Integer nb
     if (arg[2][0] == '0')
     { // label
       DataLabel aLabel;
-      if (!QADNaming::Entry(arg, aLabel))
+      if (!QADNaming1::Entry(arg, aLabel))
         return 1;
       Handle(ShapeAttribute) aNS;
       if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
@@ -322,7 +322,7 @@ static Standard_Integer GetSameShapes(DrawInterpreter& di, Standard_Integer nb, 
   return 0;
 }
 
-void QADNaming::IteratorsCommands(DrawInterpreter& theCommands)
+void QADNaming1::IteratorsCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

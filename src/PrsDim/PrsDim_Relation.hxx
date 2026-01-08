@@ -92,7 +92,7 @@ public:
   void UnsetBndBox() { myIsSetBndBox = Standard_False; }
 
   //! Returns the plane.
-  const Handle(GeomPlane)& Plane() const { return myPlane; }
+  const Handle(GeomPlane)& Plane1() const { return myPlane; }
 
   //! Allows you to set the plane thePlane. This is used to
   //! define relations and dimensions in several daughter classes.

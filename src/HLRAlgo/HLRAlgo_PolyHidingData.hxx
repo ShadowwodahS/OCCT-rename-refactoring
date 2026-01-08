@@ -63,7 +63,7 @@ public:
 
   TriangleIndices1& Indices() { return myIndices; }
 
-  PlaneT1& Plane() { return myPlane; }
+  PlaneT1& Plane1() { return myPlane; }
 
 private:
   TriangleIndices1 myIndices;

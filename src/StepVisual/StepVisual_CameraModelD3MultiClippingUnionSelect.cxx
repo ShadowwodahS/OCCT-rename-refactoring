@@ -38,7 +38,7 @@ Standard_Integer StepVisual_CameraModelD3MultiClippingUnionSelect::CaseNum(
   return 0;
 }
 
-Handle(StepGeom_Plane) StepVisual_CameraModelD3MultiClippingUnionSelect::Plane() const
+Handle(StepGeom_Plane) StepVisual_CameraModelD3MultiClippingUnionSelect::Plane1() const
 {
   return GetCasted(StepGeom_Plane, Value());
 }

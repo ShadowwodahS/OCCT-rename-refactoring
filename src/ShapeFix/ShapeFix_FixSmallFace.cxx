@@ -632,7 +632,7 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
 
     {
       // If one vertex presents do splitting by two faces
-      ShapeAnalysis_Curve SAC;
+      Curve2 SAC;
       for (ShapeExplorer ite(F, TopAbs_EDGE); ite.More(); ite.Next())
       {
         E = TopoDS::Edge(ite.Current());

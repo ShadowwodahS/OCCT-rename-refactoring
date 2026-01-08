@@ -201,9 +201,9 @@ inline GeomAbs_SurfaceType BRepApprox_SurfaceTool::GetType(const BRepAdaptor_Sur
   return S.GetType();
 }
 
-inline gp_Pln BRepApprox_SurfaceTool::Plane(const BRepAdaptor_Surface& S)
+inline gp_Pln BRepApprox_SurfaceTool::Plane1(const BRepAdaptor_Surface& S)
 {
-  return S.Plane();
+  return S.Plane1();
 }
 
 inline Cylinder1 BRepApprox_SurfaceTool::Cylinder(const BRepAdaptor_Surface& S)

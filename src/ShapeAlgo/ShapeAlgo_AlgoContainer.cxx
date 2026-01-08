@@ -663,7 +663,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
 
 TopoWire ShapeAlgo_AlgoContainer::OuterWire(const TopoFace& face) const
 {
-  return ShapeAnalysis::OuterWire(face);
+  return ShapeAnalysis1::OuterWire(face);
 }
 
 //=================================================================================================
@@ -683,7 +683,7 @@ void ShapeAlgo_AlgoContainer::GetFaceUVBounds(const TopoFace& F,
                                               Standard_Real&     Vmin,
                                               Standard_Real&     Vmax) const
 {
-  ShapeAnalysis::GetFaceUVBounds(F, Umin, Umax, Vmin, Vmax);
+  ShapeAnalysis1::GetFaceUVBounds(F, Umin, Umax, Vmin, Vmax);
 }
 
 //=================================================================================================

@@ -387,7 +387,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
   switch (SType)
   {
     case GeomAbs_Plane: {
-      ProjLib_Plane P(mySurface->Plane());
+      ProjLib_Plane P(mySurface->Plane1());
       Project(P, myCurve);
       myResult = P;
     }

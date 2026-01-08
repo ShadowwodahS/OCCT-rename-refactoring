@@ -203,7 +203,7 @@ void Graphic3d_Texture2Dplane::Rotation(Standard_ShortReal& theVal) const
 
 //=================================================================================================
 
-Graphic3d_NameOfTexturePlane Graphic3d_Texture2Dplane::Plane() const
+Graphic3d_NameOfTexturePlane Graphic3d_Texture2Dplane::Plane1() const
 {
   return myPlaneName;
 }

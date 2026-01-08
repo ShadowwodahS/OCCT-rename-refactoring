@@ -121,9 +121,9 @@ private:
   };
 
   //! Structure defining key state.
-  struct KeyState
+  struct KeyState1
   {
-    KeyState()
+    KeyState1()
         : TimeDown(0.0),
           TimeUp(0.0),
           Pressure(1.0),
@@ -146,7 +146,7 @@ private:
   };
 
 private:
-  NCollection_Array1<KeyState> myKeys;      //!< keys state
+  NCollection_Array1<KeyState1> myKeys;      //!< keys state
   mutable Standard_Mutex       myLock;      //!< mutex for thread-safe updates
   Aspect_VKeyFlags             myModifiers; //!< active modifiers
 };

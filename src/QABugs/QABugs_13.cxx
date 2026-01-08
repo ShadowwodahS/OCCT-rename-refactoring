@@ -989,9 +989,9 @@ static Standard_Integer OCC817(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_13(DrawInterpreter& theCommands)
+void QABugs1::Commands_13(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC332",
                   "OCC332 [wall_thickness [dia1 [dia2 [length [major_radius]]]]]",

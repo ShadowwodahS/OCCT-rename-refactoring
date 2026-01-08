@@ -97,11 +97,11 @@ public:
   Standard_EXPORT static Standard_Boolean Ellipse(const Handle(ShapeAttribute)& S, gp_Elips& G);
 
   //! Returns the plane attribute defined by the label L and the plane G.
-  Standard_EXPORT static Standard_Boolean Plane(const DataLabel& L, gp_Pln& G);
+  Standard_EXPORT static Standard_Boolean Plane1(const DataLabel& L, gp_Pln& G);
 
   //! Returns the plane attribute defined by the
   //! topological attribute S and the plane G.
-  Standard_EXPORT static Standard_Boolean Plane(const Handle(ShapeAttribute)& S, gp_Pln& G);
+  Standard_EXPORT static Standard_Boolean Plane1(const Handle(ShapeAttribute)& S, gp_Pln& G);
 
   //! Returns the cylinder attribute defined by the label L and the cylinder G.
   Standard_EXPORT static Standard_Boolean Cylinder(const DataLabel& L, Cylinder1& G);

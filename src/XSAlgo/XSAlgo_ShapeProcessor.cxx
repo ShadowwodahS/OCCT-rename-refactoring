@@ -318,7 +318,7 @@ TopoEdge XSAlgo_ShapeProcessor::MakeEdgeOnCurve(const TopoEdge& aSourceEdge)
   Handle(GeomCurve3d) aSourceGeomCurve;
   Standard_Real      aStartParam;
   Standard_Real      anEndParam;
-  ShapeAnalysis_Edge anEdgeAnalyzer;
+  Edge1 anEdgeAnalyzer;
   if (!anEdgeAnalyzer
          .Curve3d(aSourceEdge, aSourceGeomCurve, aStartParam, anEndParam, Standard_False))
   {
@@ -344,7 +344,7 @@ Standard_Boolean XSAlgo_ShapeProcessor::CheckPCurve(const TopoEdge&     theEdge,
                                                     const Standard_Real    thePrecision,
                                                     const Standard_Boolean theIsSeam)
 {
-  ShapeAnalysis_Edge anEdgeAnalyzer;
+  Edge1 anEdgeAnalyzer;
 
   // Retrieve pcurve and its parameters.
   Standard_Real        aCurve2DParam1;

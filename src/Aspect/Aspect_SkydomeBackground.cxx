@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-Aspect_SkydomeBackground::Aspect_SkydomeBackground()
+SkydomeBackground::SkydomeBackground()
     : mySunDirection(0.0f, 1.0f, 0.0f),
       myCloudiness(0.2f),
       myTime(0.0f),
@@ -31,7 +31,7 @@ Aspect_SkydomeBackground::Aspect_SkydomeBackground()
 
 //=================================================================================================
 
-Aspect_SkydomeBackground::Aspect_SkydomeBackground(const Dir3d&      theSunDirection,
+SkydomeBackground::SkydomeBackground(const Dir3d&      theSunDirection,
                                                    Standard_ShortReal theCloudiness,
                                                    Standard_ShortReal theTime,
                                                    Standard_ShortReal theFogginess,
@@ -44,53 +44,53 @@ Aspect_SkydomeBackground::Aspect_SkydomeBackground(const Dir3d&      theSunDirec
 {
   Standard_RangeError_Raise_if(
     theFogginess < 0,
-    "Aspect_SkydomeBackground::Aspect_SkydomeBackground() theFoggines must be >= 0");
+    "SkydomeBackground::SkydomeBackground() theFoggines must be >= 0");
   Standard_RangeError_Raise_if(
     theCloudiness < 0,
-    "Aspect_SkydomeBackground::Aspect_SkydomeBackground() theCloudiness must be >= 0");
+    "SkydomeBackground::SkydomeBackground() theCloudiness must be >= 0");
   Standard_RangeError_Raise_if(
     theSize <= 0,
-    "Aspect_SkydomeBackground::Aspect_SkydomeBackground() theSize must be > 0");
+    "SkydomeBackground::SkydomeBackground() theSize must be > 0");
 }
 
 //=================================================================================================
 
-Aspect_SkydomeBackground::~Aspect_SkydomeBackground()
+SkydomeBackground::~SkydomeBackground()
 {
   //
 }
 
 //=================================================================================================
 
-void Aspect_SkydomeBackground::SetCloudiness(Standard_ShortReal theCloudiness)
+void SkydomeBackground::SetCloudiness(Standard_ShortReal theCloudiness)
 {
   Standard_RangeError_Raise_if(
     theCloudiness < 0,
-    "Aspect_SkydomeBackground::SetCloudiness() theCloudiness must be >= 0");
+    "SkydomeBackground::SetCloudiness() theCloudiness must be >= 0");
   myCloudiness = theCloudiness;
 }
 
 //=================================================================================================
 
-void Aspect_SkydomeBackground::SetFogginess(Standard_ShortReal theFogginess)
+void SkydomeBackground::SetFogginess(Standard_ShortReal theFogginess)
 {
   Standard_RangeError_Raise_if(theFogginess < 0,
-                               "Aspect_SkydomeBackground::SetFogginess() theFoggines must be >= 0");
+                               "SkydomeBackground::SetFogginess() theFoggines must be >= 0");
   myFogginess = theFogginess;
 }
 
 //=================================================================================================
 
-void Aspect_SkydomeBackground::SetSize(Standard_Integer theSize)
+void SkydomeBackground::SetSize(Standard_Integer theSize)
 {
   Standard_RangeError_Raise_if(theSize <= 0,
-                               "Aspect_SkydomeBackground::SetSize() theSize must be > 0");
+                               "SkydomeBackground::SetSize() theSize must be > 0");
   mySize = theSize;
 }
 
 //=================================================================================================
 
-void Aspect_SkydomeBackground::DumpJson(Standard_OStream& theOStream,
+void SkydomeBackground::DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth) const
 {
   OCCT_DUMP_CLASS_BEGIN(theOStream, Aspect_GradientBackground)

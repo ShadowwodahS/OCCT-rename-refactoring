@@ -138,7 +138,7 @@ static Standard_Boolean PerformPlan(const TopoWire&  W,
     BRepBuilderAPI_FindPlane Searcher(W, presPln);
     if (Searcher.Found())
     {
-      theFace = FaceMaker(Searcher.Plane(), W);
+      theFace = FaceMaker(Searcher.Plane1(), W);
       Ok      = Standard_True;
     }
     else // try to find another surface

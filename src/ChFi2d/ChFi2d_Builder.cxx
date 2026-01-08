@@ -443,7 +443,7 @@ TopoVertex ChFi2d_Builder::RemoveFillet(const TopoEdge& Fillet)
     Ex.Next();
   } // while ...
   BRepAdaptor_Surface Adaptor3dSurface(refFace);
-  BRepLib_MakeFace    mFace(Adaptor3dSurface.Plane(), newWire);
+  BRepLib_MakeFace    mFace(Adaptor3dSurface.Plane1(), newWire);
   newFace.Nullify();
   newFace = mFace;
 
@@ -542,7 +542,7 @@ void ChFi2d_Builder::BuildNewWire(const TopoEdge& OldE1,
 
   newWire.Closed(aClosedStatus);
   BRepAdaptor_Surface Adaptor3dSurface(refFace);
-  BRepLib_MakeFace    mFace(Adaptor3dSurface.Plane(), newWire);
+  BRepLib_MakeFace    mFace(Adaptor3dSurface.Plane1(), newWire);
   newFace = mFace;
 
 } // BuildNewWire
@@ -976,7 +976,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
 
     ShapeBuilder        B;
     BRepAdaptor_Surface Adaptor3dSurface(refFace);
-    Handle(GeomPlane)  refSurf = new GeomPlane(Adaptor3dSurface.Plane());
+    Handle(GeomPlane)  refSurf = new GeomPlane(Adaptor3dSurface.Plane1());
     Fillet.Tangency1(numsol, U1, U2, Ptg1);
     Fillet.Tangency2(numsol, Vv1, Vv2, Ptg2);
 

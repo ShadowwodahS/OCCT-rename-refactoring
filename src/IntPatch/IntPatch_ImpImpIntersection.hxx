@@ -25,7 +25,7 @@
 class Adaptor3d_TopolTool;
 
 //! Implementation of the intersection between two
-//! quadric patches : Plane, Cone, Cylinder or Sphere.
+//! quadric patches : Plane1, Cone, Cylinder or Sphere.
 class IntPatch_ImpImpIntersection
 {
 public:

@@ -384,7 +384,7 @@ Standard_Boolean BRepPrim_GWedge::HasFace(const BRepPrim_Direction d1) const
 
 //=================================================================================================
 
-gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
+gp_Pln BRepPrim_GWedge::Plane1(const BRepPrim_Direction d1)
 {
 
   Standard_Integer i = BRepPrim_Wedge_NumDir1(d1);
@@ -485,7 +485,7 @@ const TopoFace& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
 
   if (!FacesBuilt[i])
   {
-    gp_Pln P = Plane(d1);
+    gp_Pln P = Plane1(d1);
     myBuilder.MakeFace(myFaces[i], P);
     if (HasWire(d1))
       myBuilder.AddFaceWire(myFaces[i], Wire(d1));

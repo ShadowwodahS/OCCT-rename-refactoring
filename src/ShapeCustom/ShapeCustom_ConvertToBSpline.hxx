@@ -55,7 +55,7 @@ public:
   //! Sets mode for conversion of Offset surfaces.
   Standard_EXPORT void SetOffsetMode(const Standard_Boolean offsetMode);
 
-  //! Sets mode for conversion of Plane surfaces.
+  //! Sets mode for conversion of Plane1 surfaces.
   Standard_EXPORT void SetPlaneMode(const Standard_Boolean planeMode);
 
   //! Returns Standard_True if the face <F> has  been

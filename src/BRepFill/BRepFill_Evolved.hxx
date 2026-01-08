@@ -141,7 +141,7 @@ private:
                                  const TopLoc_Location&              InitLP);
 
   //! Prepare the profil as follow
-  //! - Project the profile in the yOz Plane
+  //! - Project the profile in the yOz Plane1
   //! - Cut the profile at the extrema of distance from the
   //! Profile to the Oz Axis.
   //! - building the new wires with the cutting edges.

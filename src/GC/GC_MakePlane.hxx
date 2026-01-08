@@ -30,11 +30,11 @@ class Dir3d;
 class Axis3d;
 
 //! This class implements the following algorithms used
-//! to create a Plane from gp1.
-//! * Create a Plane parallel to another and passing
+//! to create a Plane1 from gp1.
+//! * Create a Plane1 parallel to another and passing
 //! through a point.
-//! * Create a Plane passing through 3 points.
-//! * Create a Plane by its normal
+//! * Create a Plane1 passing through 3 points.
+//! * Create a Plane1 by its normal
 //! A MakePlane object provides a framework for:
 //! -   defining the construction of the plane,
 //! -   implementing the construction algorithm, and
@@ -61,11 +61,11 @@ public:
                                const Standard_Real C,
                                const Standard_Real D);
 
-  //! Make a Plane from Geom <ThePlane> parallel to another
+  //! Make a Plane1 from Geom <ThePlane> parallel to another
   //! Pln <Pln> and passing through a Pnt <Point>.
   Standard_EXPORT GC_MakePlane(const gp_Pln& Pln, const Point3d& Point);
 
-  //! Make a Plane from Geom <ThePlane> parallel to another
+  //! Make a Plane1 from Geom <ThePlane> parallel to another
   //! Pln <Pln> at the distance <Dist> which can be greater
   //! or lower than zero.
   //! In the first case the result is at the distance
@@ -74,12 +74,12 @@ public:
   //! Otherwise it is in the opposite direction.
   Standard_EXPORT GC_MakePlane(const gp_Pln& Pln, const Standard_Real Dist);
 
-  //! Make a Plane from Geom <ThePlane> passing through 3
+  //! Make a Plane1 from Geom <ThePlane> passing through 3
   //! Pnt <P1>,<P2>,<P3>.
   //! It returns false if <P1> <P2> <P3> are confused.
   Standard_EXPORT GC_MakePlane(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
-  //! Make a Plane  passing through the location of <Axis>and
+  //! Make a Plane1  passing through the location of <Axis>and
   //! normal to the Direction of <Axis>.
   Standard_EXPORT GC_MakePlane(const Axis3d& Axis);
 

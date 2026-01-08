@@ -55,7 +55,7 @@ static void ContourProperties(const TopoWire& wire,
 
     Standard_Real      First, Last;
     Handle(GeomCurve3d) c3d;
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     if (!sae.Curve3d(Edge, c3d, First, Last))
       continue;
 
@@ -325,7 +325,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::CheckNotches(const TopoWire
 
   Standard_Real      First1, Last1, First2, Last2;
   Handle(GeomCurve3d) c3d1, c3d2;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   // szv#4:S4163:12Mar99 optimized
   if (!sae.Curve3d(E1, c3d1, First1, Last1) || !sae.Curve3d(E2, c3d2, First2, Last2))
     return Standard_False;

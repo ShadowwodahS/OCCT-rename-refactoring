@@ -45,7 +45,7 @@
 // static Standard_Integer numpb = 0;
 //=================================================================================================
 
-Standard_Real ShapeAnalysis::AdjustByPeriod(const Standard_Real Val,
+Standard_Real ShapeAnalysis1::AdjustByPeriod(const Standard_Real Val,
                                             const Standard_Real ToVal,
                                             const Standard_Real Period)
 {
@@ -61,7 +61,7 @@ Standard_Real ShapeAnalysis::AdjustByPeriod(const Standard_Real Val,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis::AdjustToPeriod(const Standard_Real Val,
+Standard_Real ShapeAnalysis1::AdjustToPeriod(const Standard_Real Val,
                                             const Standard_Real ValMin,
                                             const Standard_Real ValMax)
 {
@@ -70,11 +70,11 @@ Standard_Real ShapeAnalysis::AdjustToPeriod(const Standard_Real Val,
 
 //=================================================================================================
 
-void ShapeAnalysis::FindBounds(const TopoShape& shape, TopoVertex& V1, TopoVertex& V2)
+void ShapeAnalysis1::FindBounds(const TopoShape& shape, TopoVertex& V1, TopoVertex& V2)
 {
   V1.Nullify();
   V2.Nullify();
-  ShapeAnalysis_Edge EA;
+  Edge1 EA;
   if (shape.ShapeType() == TopAbs_WIRE)
   {
     TopoWire W = TopoDS::Wire(shape);
@@ -109,7 +109,7 @@ static inline void ReverseSeq(HSequence& Seq)
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis::TotCross2D(const Handle(ShapeExtend_WireData)& sewd,
+Standard_Real ShapeAnalysis1::TotCross2D(const Handle(ShapeExtend_WireData)& sewd,
                                         const TopoFace&                  aFace)
 {
   Standard_Integer i, nbc = 0;
@@ -124,7 +124,7 @@ Standard_Real ShapeAnalysis::TotCross2D(const Handle(ShapeExtend_WireData)& sewd
     {
       nbc++;
       TColgp_SequenceOfPnt2d SeqPnt;
-      ShapeAnalysis_Curve::GetSamplePoints(c2d, f2d, l2d, SeqPnt);
+      Curve2::GetSamplePoints(c2d, f2d, l2d, SeqPnt);
       if (edge.Orientation() == 1)
         ReverseSeq(SeqPnt);
       if (nbc == 1)
@@ -147,7 +147,7 @@ Standard_Real ShapeAnalysis::TotCross2D(const Handle(ShapeExtend_WireData)& sewd
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis::ContourArea(const TopoWire& theWire)
+Standard_Real ShapeAnalysis1::ContourArea(const TopoWire& theWire)
 // const Handle(ShapeExtend_WireData)& sewd)
 
 {
@@ -166,7 +166,7 @@ Standard_Real ShapeAnalysis::ContourArea(const TopoWire& theWire)
     {
 
       TColgp_SequenceOfPnt aSeqPnt;
-      if (!ShapeAnalysis_Curve::GetSamplePoints(c3d, first, last, aSeqPnt))
+      if (!Curve2::GetSamplePoints(c3d, first, last, aSeqPnt))
         continue;
       nbc++;
       if (edge.Orientation() == TopAbs_REVERSED)
@@ -192,7 +192,7 @@ Standard_Real ShapeAnalysis::ContourArea(const TopoWire& theWire)
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis::IsOuterBound(const TopoFace& face)
+Standard_Boolean ShapeAnalysis1::IsOuterBound(const TopoFace& face)
 {
   TopoFace F = face;
   TopoWire W;
@@ -227,7 +227,7 @@ Standard_Boolean ShapeAnalysis::IsOuterBound(const TopoFace& face)
 //           If there is no one - returns the last wire of the face.
 //=======================================================================
 
-TopoWire ShapeAnalysis::OuterWire(const TopoFace& theFace)
+TopoWire ShapeAnalysis1::OuterWire(const TopoFace& theFace)
 {
   TopoFace aF = theFace;
   aF.Orientation(TopAbs_FORWARD);
@@ -244,7 +244,7 @@ TopoWire ShapeAnalysis::OuterWire(const TopoFace& theFace)
 
     // Check if the wire has positive area
     Handle(ShapeExtend_WireData) aSEWD    = new ShapeExtend_WireData(aWire);
-    Standard_Real                anArea2d = ShapeAnalysis::TotCross2D(aSEWD, aF);
+    Standard_Real                anArea2d = ShapeAnalysis1::TotCross2D(aSEWD, aF);
     if (anArea2d >= 0.)
       return aWire;
   }
@@ -253,7 +253,7 @@ TopoWire ShapeAnalysis::OuterWire(const TopoFace& theFace)
 
 //=================================================================================================
 
-void ShapeAnalysis::GetFaceUVBounds(const TopoFace& F,
+void ShapeAnalysis1::GetFaceUVBounds(const TopoFace& F,
                                     Standard_Real&     UMin,
                                     Standard_Real&     UMax,
                                     Standard_Real&     VMin,
@@ -270,8 +270,8 @@ void ShapeAnalysis::GetFaceUVBounds(const TopoFace& F,
   }
 
   Bnd_Box2d           B;
-  ShapeAnalysis_Edge  sae;
-  ShapeAnalysis_Curve sac;
+  Edge1  sae;
+  Curve2 sac;
   for (; ex.More(); ex.Next())
   {
     TopoEdge          edge = TopoDS::Edge(ex.Current());

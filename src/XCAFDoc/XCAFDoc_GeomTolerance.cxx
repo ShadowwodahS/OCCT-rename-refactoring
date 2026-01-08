@@ -409,7 +409,7 @@ Handle(XCAFDimTolObjects_GeomToleranceObject) XCAFDoc_GeomTolerance::GetObject()
         .FindAttribute(TDataXtd_Plane::GetID(), anAffectedPlaneAttr))
   {
     gp_Pln aPlane;
-    TDataXtd_Geometry::Plane(anAffectedPlaneAttr->Label(), aPlane);
+    TDataXtd_Geometry::Plane1(anAffectedPlaneAttr->Label(), aPlane);
     Handle(IntAttribute) aTypeAttr;
     Label().FindChild(ChildLab_AffectedPlane).FindAttribute(IntAttribute::GetID(), aTypeAttr);
     anObj->SetAffectedPlane(aPlane, (XCAFDimTolObjects_ToleranceZoneAffectedPlane)aTypeAttr->Get());

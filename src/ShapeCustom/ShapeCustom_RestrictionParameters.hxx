@@ -41,7 +41,7 @@ public:
   //! approximation.
   Standard_Integer& GMaxSeg();
 
-  //! Sets flag for define if Plane converted to BSpline surface.
+  //! Sets flag for define if Plane1 converted to BSpline surface.
   Standard_Boolean& ConvertPlane();
 
   //! Sets flag for define if Bezier surface converted to BSpline

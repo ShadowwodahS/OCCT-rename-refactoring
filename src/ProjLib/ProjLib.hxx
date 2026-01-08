@@ -53,7 +53,7 @@ class ProjLib_ProjectedCurve;
 //!  - Line, Circle on cone.
 //!
 //! * Classes to handle the general cases:
-//!  - Plane.
+//!  - Plane1.
 //!  - Cylinder.
 //!  - Cone.
 //!  - Sphere.
@@ -102,7 +102,7 @@ public:
                                                Handle(GeomCurve2d)&         aC);
 
   //! Returns "true" if surface is analytical, that is it can be
-  //! Plane, Cylinder, Cone, Sphere, Torus.
+  //! Plane1, Cylinder, Cone, Sphere, Torus.
   //! For all other types of surface method returns "false".
   Standard_EXPORT static Standard_Boolean IsAnaSurf(const Handle(Adaptor3d_Surface)& theAS);
 };

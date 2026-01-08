@@ -106,7 +106,7 @@ TopoDSToStep_FacetedError FacetedTool::CheckTopoDSShape(const TopoShape& aShape)
     }
     else
     {
-      // the surface is neither a Plane nor a flat BSpline or Beziersurface
+      // the surface is neither a Plane1 nor a flat BSpline or Beziersurface
       return TopoDSToStep_SurfaceNotPlane;
     }
 

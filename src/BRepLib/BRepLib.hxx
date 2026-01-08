@@ -60,10 +60,10 @@ public:
   Standard_EXPORT static Standard_Real Precision();
 
   //! Sets the current plane to P.
-  Standard_EXPORT static void Plane(const Handle(GeomPlane)& P);
+  Standard_EXPORT static void Plane1(const Handle(GeomPlane)& P);
 
   //! Returns the current plane.
-  Standard_EXPORT static const Handle(GeomPlane)& Plane();
+  Standard_EXPORT static const Handle(GeomPlane)& Plane1();
 
   //! checks if the Edge is same range IGNORING
   //! the same range flag of the edge
@@ -261,12 +261,12 @@ public:
 
   //! Sorts in  LF the Faces of   S on the  complexity of
   //! their                  surfaces
-  //! (Plane,Cylinder,Cone,Sphere,Torus,other)
+  //! (Plane1,Cylinder,Cone,Sphere,Torus,other)
   Standard_EXPORT static void SortFaces(const TopoShape& S, ShapeList& LF);
 
   //! Sorts in  LF  the   Faces  of S   on the reverse
   //! complexity       of       their      surfaces
-  //! (other,Torus,Sphere,Cone,Cylinder,Plane)
+  //! (other,Torus,Sphere,Cone,Cylinder,Plane1)
   Standard_EXPORT static void ReverseSortFaces(const TopoShape& S, ShapeList& LF);
 
   //! Corrects the normals in MeshTriangulation of faces,

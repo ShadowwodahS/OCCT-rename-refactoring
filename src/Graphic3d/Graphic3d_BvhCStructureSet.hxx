@@ -23,15 +23,15 @@
 class Graphic3d_CStructure;
 
 //! Set of OpenGl_Structures for building BVH tree.
-class Graphic3d_BvhCStructureSet : public BVH_PrimitiveSet3d
+class BvhCStructureSet : public BVH_PrimitiveSet3d
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_BvhCStructureSet, BVH_PrimitiveSet3d)
+  DEFINE_STANDARD_RTTIEXT(BvhCStructureSet, BVH_PrimitiveSet3d)
 protected:
   using BVH_PrimitiveSet3d::Box1;
 
 public:
   //! Creates an empty primitive set for BVH clipping.
-  Standard_EXPORT Graphic3d_BvhCStructureSet();
+  Standard_EXPORT BvhCStructureSet();
 
   //! Returns total number of structures.
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;

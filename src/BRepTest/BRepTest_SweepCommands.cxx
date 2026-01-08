@@ -949,7 +949,7 @@ static Standard_Integer buildsweep(DrawInterpreter& di, Standard_Integer n, cons
     BRepBuilderAPI_PipeError Stat = Sweep->GetStatus();
     if (Stat == BRepBuilderAPI_PlaneNotIntersectGuide)
     {
-      di << "Buildsweep : One Plane not intersect the guide\n";
+      di << "Buildsweep : One Plane1 not intersect the guide\n";
     }
     if (Stat == BRepBuilderAPI_ImpossibleContact)
     {

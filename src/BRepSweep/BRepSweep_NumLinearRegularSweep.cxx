@@ -33,7 +33,7 @@
 //=======================================================================
 BRepSweep_NumLinearRegularSweep::BRepSweep_NumLinearRegularSweep(const BRepSweep_Builder& aBuilder,
                                                                  const TopoShape&      aGenShape,
-                                                                 const Sweep_NumShape&    aDirShape)
+                                                                 const SweepNumShape&    aDirShape)
     :
 
       myBuilder(aBuilder),
@@ -97,7 +97,7 @@ TopoShape BRepSweep_NumLinearRegularSweep::Shape(const TopoShape& aGenS)
 //=======================================================================
 
 TopoShape BRepSweep_NumLinearRegularSweep::Shape(const TopoShape&   aGenS,
-                                                    const Sweep_NumShape& aDirS)
+                                                    const SweepNumShape& aDirS)
 {
   Standard_Integer iGenS = myGenShapeTool.Index(aGenS);
   Standard_Integer iDirS = myDirShapeTool.Index(aDirS);
@@ -105,7 +105,7 @@ TopoShape BRepSweep_NumLinearRegularSweep::Shape(const TopoShape&   aGenS,
   {
     TopoShape           newShape;
     TopoShape           bGenS, cGenS, subGenS, subsubGenS;
-    Sweep_NumShape         bDirS, subDirS;
+    SweepNumShape         bDirS, subDirS;
     BRepSweep_Iterator     It;
     Sweep_NumShapeIterator Kt;
     BRepSweep_Iterator     Lt;

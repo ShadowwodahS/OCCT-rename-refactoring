@@ -978,7 +978,7 @@ static Standard_Integer getDatumModif(DrawInterpreter& di,
           di << "PitchDiameter";
           break;
         case 19:
-          di << "Plane";
+          di << "Plane1";
           break;
         case 20:
           di << "Point";
@@ -3331,7 +3331,7 @@ static Standard_Integer getGDTAffectedPlane(DrawInterpreter& di,
 {
   if (argc != 4)
   {
-    di << "Use: XGetGDTAffectedPlane Doc GDT_Label Plane\n";
+    di << "Use: XGetGDTAffectedPlane Doc GDT_Label Plane1\n";
     return 1;
   }
   Handle(AppDocument) Doc;
@@ -3527,7 +3527,7 @@ void XDEDRAW_GDTs::InitCommands(DrawInterpreter& di)
          "\n 16 MinorDiameter"
          "\n 17 Orientation"
          "\n 18 PitchDiameter"
-         "\n 19 Plane"
+         "\n 19 Plane1"
          "\n 20 Point"
          "\n 21 Translation",
          __FILE__,
@@ -3907,15 +3907,15 @@ void XDEDRAW_GDTs::InitCommands(DrawInterpreter& di)
          getGDTPresentation,
          g);
   di.Add("XSetGDTAffectedPlane",
-         "XSetGDTAffectedPlane Doc GDT_Label Plane type[1 - intersection/ 2 - orientation]"
+         "XSetGDTAffectedPlane Doc GDT_Label Plane1 type[1 - intersection/ 2 - orientation]"
          "Set affectedP plane for geometric tolerance",
          __FILE__,
          addGDTAffectedPlane,
          g);
 
   di.Add("XGetGDTAffectedPlane",
-         "XGetGDTAffectedPlane Doc GDT_Label Plane"
-         "Returns affected plane into Plane",
+         "XGetGDTAffectedPlane Doc GDT_Label Plane1"
+         "Returns affected plane into Plane1",
          __FILE__,
          getGDTAffectedPlane,
          g);

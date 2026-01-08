@@ -93,9 +93,9 @@ TopoShape BRepSweep_Revol::LastShape(const TopoShape& aGenS)
 
 //=================================================================================================
 
-Sweep_NumShape BRepSweep_Revol::NumShape(const Standard_Real D) const
+SweepNumShape BRepSweep_Revol::NumShape(const Standard_Real D) const
 {
-  Sweep_NumShape N;
+  SweepNumShape N;
   if (Abs(Angle(D) - 2 * M_PI) <= Precision::Angular())
   {
     N.Init(2, TopAbs_EDGE, Standard_True, Standard_False, Standard_False);

@@ -254,7 +254,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
       Umin = U0;
     if (Abs(Umax - U1) < Precision::PConfusion())
       Umax = U1;
-    uShift = ShapeAnalysis::AdjustToPeriod(Umin, U0, U1);
+    uShift = ShapeAnalysis1::AdjustToPeriod(Umin, U0, U1);
     Umin += uShift;
     Umax += uShift;
     if (Umax - Umin > U1 - U0)
@@ -273,7 +273,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
       Vmin = V0;
     if (Abs(Vmax - V1) < Precision::PConfusion())
       Vmax = V1;
-    vShift = ShapeAnalysis::AdjustToPeriod(Vmin, V0, V1);
+    vShift = ShapeAnalysis1::AdjustToPeriod(Vmin, V0, V1);
     Vmin += vShift;
     Vmax += vShift;
     if (Vmax - Vmin > V1 - V0)
@@ -287,7 +287,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     if (mysurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface)))
     {
       Standard_Real uMaxShift = 0;
-      uMaxShift               = ShapeAnalysis::AdjustToPeriod(Ufin, U0, U1);
+      uMaxShift               = ShapeAnalysis1::AdjustToPeriod(Ufin, U0, U1);
       if (Abs(uShift - uMaxShift) > Precision::PConfusion())
       {
         Handle(Geom_BSplineSurface) aBspl =
@@ -307,7 +307,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     if (mysurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface)))
     {
       Standard_Real vMaxShift = 0;
-      vMaxShift               = ShapeAnalysis::AdjustToPeriod(Vfin, V0, V1);
+      vMaxShift               = ShapeAnalysis1::AdjustToPeriod(Vfin, V0, V1);
       if (Abs(vShift - vMaxShift) > Precision::PConfusion())
       {
         Handle(Geom_BSplineSurface) aBspl =
@@ -512,11 +512,11 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   }
   if (start->IsKind(STANDARD_TYPE(GeomPlane)))
   {
-    DeclareAndCast(GeomPlane, Plane, start);
+    DeclareAndCast(GeomPlane, Plane1, start);
     if (myBRepMode)
-      res = TransferPlaneSurface(Plane, Udeb, Ufin, Vdeb, Vfin);
+      res = TransferPlaneSurface(Plane1, Udeb, Ufin, Vdeb, Vfin);
     else
-      res = TransferSurface(Plane, Udeb, Ufin, Vdeb, Vfin);
+      res = TransferSurface(Plane1, Udeb, Ufin, Vdeb, Vfin);
   }
   else if (start->IsKind(STANDARD_TYPE(Geom_CylindricalSurface)))
   {
@@ -555,7 +555,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 }
 
 //=============================================================================
-// Transfer des Entites Plane de Geom vers IGES
+// Transfer des Entites Plane1 de Geom vers IGES
 // TransferSurface
 //=============================================================================
 
@@ -1170,7 +1170,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 }
 
 //=============================================================================
-// Transfer des Entites Plane de Geom vers IGESSolid1
+// Transfer des Entites Plane1 de Geom vers IGESSolid1
 // TransferPlaneSurface
 //=============================================================================
 

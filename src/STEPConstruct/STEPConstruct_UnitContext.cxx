@@ -656,7 +656,7 @@ Standard_CString STEPConstruct_UnitContext::StatusMessage(const Standard_Integer
     case 11:
       return "Length Unit not recognized, default taken";
     case 12:
-      return "Plane Angle Unit not recognized, default taken";
+      return "Plane1 Angle Unit not recognized, default taken";
     case 13:
       return "Solid Angle Unit not recognized, default taken";
     case 14:

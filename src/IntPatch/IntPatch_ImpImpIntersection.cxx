@@ -2548,7 +2548,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
   //
   switch (iTT)
   {
-    case 11: { // Plane/Plane
+    case 11: { // Plane1/Plane1
       if (!IntPP(quad1, quad2, Tolang, TolTang, SameSurf, slin))
       {
         return;
@@ -2557,7 +2557,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     }
     //
     case 12:
-    case 21: { // Plane/Cylinder
+    case 21: { // Plane1/Cylinder
       Standard_Real VMin, VMax, H;
       //
       const Handle(Adaptor3d_Surface)& aSCyl = bReverse ? S1 : S2;
@@ -2576,7 +2576,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     }
     //
     case 13:
-    case 31: { // Plane/Cone
+    case 31: { // Plane1/Cone
       if (!IntPCo(quad1, quad2, Tolang, TolTang, bReverse, empt, multpoint, slin, spnt))
       {
         return;
@@ -2586,7 +2586,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     }
     //
     case 14:
-    case 41: { // Plane/Sphere
+    case 41: { // Plane1/Sphere
       if (!IntPSp(quad1, quad2, Tolang, TolTang, bReverse, empt, slin, spnt))
       {
         return;
@@ -2596,7 +2596,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     }
     //
     case 15:
-    case 51: { // Plane/Torus
+    case 51: { // Plane1/Torus
       if (!IntPTo(quad1, quad2, TolTang, bReverse, empt, slin))
       {
         return;
@@ -2851,7 +2851,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       switch (typs1)
       {
         case GeomAbs_Plane: {
-          Ptreference = (S1->Plane()).Location();
+          Ptreference = (S1->Plane1()).Location();
         }
         break;
         case GeomAbs_Cylinder: {
@@ -3040,7 +3040,7 @@ Standard_Integer SetQuad(const Handle(Adaptor3d_Surface)& theS,
   switch (theTS)
   {
     case GeomAbs_Plane:
-      theQuad.SetValue(theS->Plane());
+      theQuad.SetValue(theS->Plane1());
       iRet = 1;
       break;
     case GeomAbs_Cylinder:
@@ -3089,8 +3089,8 @@ Standard_Boolean IntPP(const Quadric1&   Quad1,
 {
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
-  gp_Pln            pl1(Quad1.Plane());
-  gp_Pln            pl2(Quad2.Plane());
+  gp_Pln            pl1(Quad1.Plane1());
+  gp_Pln            pl2(Quad2.Plane1());
 
   QuadQuadGeoIntersection inter(pl1, pl2, Tolang, TolTang);
   if (!inter.IsDone())
@@ -3149,12 +3149,12 @@ Standard_Boolean IntPCy(const Quadric1&   Quad1,
   QuadQuadGeoIntersection inter;
   if (!Reversed)
   {
-    Pl = Quad1.Plane();
+    Pl = Quad1.Plane1();
     Cy = Quad2.Cylinder();
   }
   else
   {
-    Pl = Quad2.Plane();
+    Pl = Quad2.Plane1();
     Cy = Quad1.Cylinder();
   }
   inter.Perform(Pl, Cy, Tolang, TolTang, H);
@@ -3346,12 +3346,12 @@ Standard_Boolean IntPSp(const Quadric1& Quad1,
   QuadQuadGeoIntersection inter;
   if (!Reversed)
   {
-    Pl = Quad1.Plane();
+    Pl = Quad1.Plane1();
     Sp = Quad2.Sphere();
   }
   else
   {
-    Pl = Quad2.Plane();
+    Pl = Quad2.Plane1();
     Sp = Quad1.Sphere();
   }
   inter.Perform(Pl, Sp);
@@ -3441,13 +3441,13 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
   QuadQuadGeoIntersection inter;
   if (!Reversed)
   {
-    Pl   = Quad1.Plane();
+    Pl   = Quad1.Plane1();
     Co   = Quad2.Cone();
     apex = Co.Apex();
   }
   else
   {
-    Pl   = Quad2.Plane();
+    Pl   = Quad2.Plane1();
     Co   = Quad1.Cone();
     apex = Co.Apex();
   }
@@ -3770,7 +3770,7 @@ Standard_Boolean IntPTo(const Quadric1&   theQuad1,
                         Standard_Boolean&        bEmpty,
                         IntPatch_SequenceOfLine& theSeqLin)
 {
-  const gp_Pln   aPln   = bReversed ? theQuad2.Plane() : theQuad1.Plane();
+  const gp_Pln   aPln   = bReversed ? theQuad2.Plane1() : theQuad1.Plane1();
   const gp_Torus aTorus = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
   QuadQuadGeoIntersection inter(aPln, aTorus, theTolTang);

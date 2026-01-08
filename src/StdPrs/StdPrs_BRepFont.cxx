@@ -55,7 +55,7 @@ namespace
 // pre-defined font rendering options
 static const unsigned int      THE_FONT_SIZE      = 72;
 static const unsigned int      THE_RESOLUTION_DPI = 4800;
-static const Font_FTFontParams THE_FONT_PARAMS(THE_FONT_SIZE, THE_RESOLUTION_DPI);
+static const FTFontParams THE_FONT_PARAMS(THE_FONT_SIZE, THE_RESOLUTION_DPI);
 
 // compute scaling factor for specified font size
 inline Standard_Real getScale(const Standard_Real theSize)

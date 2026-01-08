@@ -143,7 +143,7 @@ void CircularArcTool::OwnDump(const Handle(IGESGeom_CircularArc)& ent,
                                        const Standard_Integer level) const
 {
   S << "CircularArc from IGESGeom1]\n"
-    << "Z-Plane Displacement : " << ent->ZPlane() << "\n"
+    << "Z-Plane1 Displacement : " << ent->ZPlane() << "\n"
     << "Center      : ";
   IGESData_DumpXYLZ(S, level, ent->Center(), ent->Location(), ent->ZPlane());
   S << "\n"

@@ -91,7 +91,7 @@ static Standard_Integer tolerance(DrawInterpreter& di, Standard_Integer argc, co
     return 1 /* Error */;
   }
 
-  ShapeAnalysis_ShapeTolerance sat;
+  ShapeTolerance sat;
   if (argc == 2)
   {
     sat.InitTolerance();
@@ -345,7 +345,7 @@ static Standard_Integer projcurve(DrawInterpreter& di, Standard_Integer argc, co
   Point3d        res;
   Standard_Real param, dist;
 
-  dist = ShapeAnalysis_Curve().Project(C, P3D, BRepBuilderAPI::Precision(), res, param, cf, cl);
+  dist = Curve2().Project(C, P3D, BRepBuilderAPI::Precision(), res, param, cf, cl);
   res.Coord(X, Y, Z);
   di << "Result : " << X << "  " << Y << "  " << Z << "\nParam = " << param << "  Gap = " << dist
      << "\n";
@@ -396,7 +396,7 @@ static Standard_Integer projpcurve(DrawInterpreter& di, Standard_Integer argc, c
 
   Point3d              aPnt;
   Standard_Real       aParam;
-  ShapeAnalysis_Curve aTool;
+  Curve2 aTool;
   Standard_Real       aDist = RealLast();
   if (IsStartPoint)
   {
@@ -645,10 +645,10 @@ static Standard_Integer anaface(DrawInterpreter& di, Standard_Integer argc, cons
         di << "Classifier UMax-VMax : Out\n";
     }
   }
-  if (ShapeAnalysis::IsOuterBound(Face))
-    di << "ShapeAnalysis: Outer Bound\n";
+  if (ShapeAnalysis1::IsOuterBound(Face))
+    di << "ShapeAnalysis1: Outer Bound\n";
   else
-    di << "ShapeAnalysis: Not Outer Bound\n";
+    di << "ShapeAnalysis1: Not Outer Bound\n";
   di << " Total " << nbw << " Wire(s)\n";
   return 0;
 }
@@ -876,7 +876,7 @@ static Standard_Integer XSHAPE_comptoledge(DrawInterpreter& di,
   Standard_Integer   num = 0;
   Standard_Real      max = 0, min = 0, ave = 0.;
   Standard_Real      relmax = 0, relmin = 0, relave = 0.;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   TopoEdge        edmax, edmaxrel;
   for (ShapeExplorer exp(shape, TopAbs_EDGE); exp.More(); exp.Next())
   {
@@ -1149,7 +1149,7 @@ static Standard_Integer getareacontour(DrawInterpreter& di, Standard_Integer n, 
     return 1;
   }
   // Handle(ShapeExtend_WireData) asewd = new ShapeExtend_WireData(TopoDS::Wire(shape));
-  Standard_Real anArea = ShapeAnalysis::ContourArea(TopoDS::Wire(shape));
+  Standard_Real anArea = ShapeAnalysis1::ContourArea(TopoDS::Wire(shape));
   di << "Area = " << anArea << "\n";
   return 0;
 }
@@ -1240,7 +1240,7 @@ static Standard_Integer checkedge(DrawInterpreter& di, Standard_Integer argc, co
   }
 
   // Analysis of the edge.
-  ShapeAnalysis_Edge analyser;
+  Edge1 analyser;
   Standard_Boolean   isOk(Standard_True);
 
   // Curve 3D.
@@ -1357,7 +1357,7 @@ static Standard_Integer getanasurf(DrawInterpreter& di, Standard_Integer n, cons
     case GeomAbs_Plane: {
       gp_Pln aPln;
       if (aSampleSurf.GetType() == GeomAbs_Plane)
-        aPln = aSampleSurf.Plane();
+        aPln = aSampleSurf.Plane1();
       if (aCanonRec.IsPlane(tol, aPln))
         aRes = new GeomPlane(aPln);
       break;

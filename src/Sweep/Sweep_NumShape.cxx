@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Sweep_NumShape::Sweep_NumShape()
+SweepNumShape::SweepNumShape()
     : myType(TopAbs_SHAPE),
       myIndex(0),
       myClosed(Standard_False),
@@ -30,7 +30,7 @@ Sweep_NumShape::Sweep_NumShape()
 
 //=================================================================================================
 
-Sweep_NumShape::Sweep_NumShape(const Standard_Integer Index,
+SweepNumShape::SweepNumShape(const Standard_Integer Index,
                                const TopAbs_ShapeEnum Type,
                                const Standard_Boolean Closed,
                                const Standard_Boolean BegInf,
@@ -45,7 +45,7 @@ Sweep_NumShape::Sweep_NumShape(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Sweep_NumShape::Init(const Standard_Integer Index,
+void SweepNumShape::Init(const Standard_Integer Index,
                           const TopAbs_ShapeEnum Type,
                           const Standard_Boolean Closed,
                           const Standard_Boolean BegInf,
@@ -60,7 +60,7 @@ void Sweep_NumShape::Init(const Standard_Integer Index,
 
 //=================================================================================================
 
-TopAbs_Orientation Sweep_NumShape::Orientation() const
+TopAbs_Orientation SweepNumShape::Orientation() const
 {
   if (myType == TopAbs_EDGE)
   {

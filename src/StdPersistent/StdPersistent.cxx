@@ -49,7 +49,7 @@ void StdPersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
   theMap.Bind<StdPersistent_DataXtd::Shape>("PDataXtd_Shape");
   theMap.Bind<StdPersistent_DataXtd::Point>("PDataXtd_Point");
   theMap.Bind<StdPersistent_DataXtd::Axis>("PDataXtd_Axis");
-  theMap.Bind<StdPersistent_DataXtd::Plane>("PDataXtd_Plane");
+  theMap.Bind<StdPersistent_DataXtd::Plane1>("PDataXtd_Plane");
   theMap.Bind<StdPersistent_DataXtd::Placement>("PDataXtd_Placement");
   theMap.Bind<StdPersistent_DataXtd::Geometry>("PDataXtd_Geometry");
   theMap.Bind<StdPersistent_DataXtd::Position>("PDataXtd_Position");

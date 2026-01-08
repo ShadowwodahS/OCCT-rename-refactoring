@@ -289,7 +289,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
 public:
   typedef subBase_gp<Surface, Ax3>                                Elementary;
-  typedef instance<Elementary, GeomPlane, Ax3>                   Plane;
+  typedef instance<Elementary, GeomPlane, Ax3>                   Plane1;
   typedef instance<Elementary, Geom_ConicalSurface, Cone1>         Conical;
   typedef instance<Elementary, Geom_CylindricalSurface, Cylinder1> Cylindrical;
   typedef instance<Elementary, Geom_SphericalSurface, Sphere3>     Spherical;
@@ -352,7 +352,7 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface,
   const;
 
 //=======================================================================
-// Plane
+// Plane1
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<

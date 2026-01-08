@@ -47,7 +47,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Media_PlayerContext, RefObject)
 
 //=================================================================================================
 
-Media_PlayerContext::Media_PlayerContext(Media_IFrameQueue* theFrameQueue)
+Media_PlayerContext::Media_PlayerContext(IFrameQueue* theFrameQueue)
     : myFrameQueue(theFrameQueue),
       myThread(doThreadWrapper),
       myWakeEvent(false),

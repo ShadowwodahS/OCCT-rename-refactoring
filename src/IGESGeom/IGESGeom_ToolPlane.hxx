@@ -33,7 +33,7 @@ class Interface_Check;
 class Interface_CopyTool;
 class IGESData_IGESDumper;
 
-//! Tool to work on a Plane. Called by various Modules
+//! Tool to work on a Plane1. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
 class PlaneTool
 {
@@ -53,7 +53,7 @@ public:
   Standard_EXPORT void WriteOwnParams(const Handle(IGESGeom_Plane)& ent,
                                       IGESData_IGESWriter&          IW) const;
 
-  //! Lists the Entities shared by a Plane <ent>, from
+  //! Lists the Entities shared by a Plane1 <ent>, from
   //! its specific (own) parameters
   Standard_EXPORT void OwnShared(const Handle(IGESGeom_Plane)& ent,
                                  Interface_EntityIterator&     iter) const;

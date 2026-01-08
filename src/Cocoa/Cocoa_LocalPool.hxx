@@ -33,12 +33,12 @@ struct NSAutoreleasePool;
   #endif
 
 //! Auxiliary class to create local pool.
-class Cocoa_LocalPool
+class LocalPool
 {
 
 public:
-  Cocoa_LocalPool();
-  ~Cocoa_LocalPool();
+  LocalPool();
+  ~LocalPool();
 
 private:
   NSAutoreleasePool* myPoolObj;

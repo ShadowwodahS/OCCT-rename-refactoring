@@ -49,13 +49,13 @@ void ShapeAnalysis_TransferParameters::Init(const TopoEdge& E, const TopoFace& F
   Standard_Real   l, f, l2d = 0.0, f2d = 0.0;
   TopLoc_Location L;
   myEdge = E;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   Handle(GeomCurve3d) curve3d; // = BRepInspector::Curve (E,f,l);
   sae.Curve3d(E, curve3d, f, l, Standard_False);
   myFirst = f;
   myLast  = l;
   Handle(GeomCurve2d) curve2d; // = BRepInspector::CurveOnSurface (E, F, f2d,l2d);
-  // ShapeAnalysis_Edge sae;
+  // Edge1 sae;
   if (!F.IsNull())
   { // process free edges
     sae.PCurve(E, F, curve2d, f2d, l2d, Standard_False);

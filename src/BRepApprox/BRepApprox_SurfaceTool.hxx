@@ -133,7 +133,7 @@ public:
 
   static GeomAbs_SurfaceType GetType(const BRepAdaptor_Surface& S);
 
-  static gp_Pln Plane(const BRepAdaptor_Surface& S);
+  static gp_Pln Plane1(const BRepAdaptor_Surface& S);
 
   static Cylinder1 Cylinder(const BRepAdaptor_Surface& S);
 

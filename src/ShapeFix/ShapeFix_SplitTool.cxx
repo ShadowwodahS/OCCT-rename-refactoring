@@ -53,7 +53,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
                                                const Standard_Real  tol2d) const
 {
   Standard_Real        a, b;
-  ShapeAnalysis_Edge   sae;
+  Edge1   sae;
   Handle(GeomCurve2d) c2d;
   sae.PCurve(edge, face, c2d, a, b, Standard_True);
   if (Abs(a - param) < tol2d || Abs(b - param) < tol2d)
@@ -155,7 +155,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
     Standard_Boolean     IsCutLine;
     Handle(GeomCurve2d) Crv1, Crv2;
     Standard_Real        fp1, lp1, fp2, lp2;
-    ShapeAnalysis_Edge   sae;
+    Edge1   sae;
     if (sae.PCurve(newE1, face, Crv1, fp1, lp1, Standard_False))
     {
       if (sae.PCurve(newE2, face, Crv2, fp2, lp2, Standard_False))
@@ -213,7 +213,7 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoEdge&  edge,
   // case pcurve is trimm of line
   if (!BRepInspector::SameParameter(edge))
   {
-    ShapeAnalysis_Edge   sae;
+    Edge1   sae;
     Handle(GeomCurve2d) Crv;
     Standard_Real        fp, lp;
     if (sae.PCurve(edge, face, Crv, fp, lp, Standard_False))
@@ -254,7 +254,7 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoEdge&  edge,
     return Standard_False;
 
   Handle(GeomCurve3d)  c = BRepInspector::Curve(edge, a, b);
-  ShapeAnalysis_Curve sac;
+  Curve2 sac;
   a                = Min(pend, cut);
   b                = Max(pend, cut);
   Standard_Real na = a, nb = b;
@@ -264,7 +264,7 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoEdge&  edge,
       && sac.ValidateRange(c, na, nb, Precision::PConfusion()) && (na != a || nb != b))
   {
     B.Range(edge, na, nb, Standard_True);
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     if (sae.HasPCurve(edge, face))
     {
       B.SameRange(edge, Standard_False);
@@ -301,7 +301,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&                ed
   SeqE.Clear();
   ShapeBuilder         B;
   Standard_Real        a, b;
-  ShapeAnalysis_Edge   sae;
+  Edge1   sae;
   Handle(GeomCurve2d) c2d;
   sae.PCurve(edge, face, c2d, a, b, Standard_True);
   TopoVertex VF    = sae.FirstVertex(edge);

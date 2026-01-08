@@ -99,7 +99,7 @@ Handle(GeomSurface) GeomAdaptor1::MakeSurface(const Adaptor3d_Surface& HS,
   switch (HS.GetType())
   {
     case GeomAbs_Plane:
-      S = new GeomPlane(HS.Plane());
+      S = new GeomPlane(HS.Plane1());
       break;
 
     case GeomAbs_Cylinder:

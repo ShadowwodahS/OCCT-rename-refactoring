@@ -2676,7 +2676,7 @@ void STEPCAFControl_Writer::writePresentation(const Handle(ExchangeSession)& the
   Handle(StepVisual_HArray1OfPresentationStyleAssignment) aPrsStyles =
     new StepVisual_HArray1OfPresentationStyleAssignment(1, 1);
   aPrsStyles->SetValue(1, aPrsStyle);
-  // Plane
+  // Plane1
   Handle(StepGeom_Plane)                   aPlane = new StepGeom_Plane();
   GeomToStep_MakeAxis2Placement3d          anAxisMaker(theAnnotationPlane, theLocalFactors);
   const Handle(StepGeom_Axis2Placement3d)& anAxis = anAxisMaker.Value();

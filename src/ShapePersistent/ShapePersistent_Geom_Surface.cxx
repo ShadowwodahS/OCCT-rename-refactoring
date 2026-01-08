@@ -120,7 +120,7 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface,
 }
 
 //=======================================================================
-// Plane
+// Plane1
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::instance<
@@ -152,7 +152,7 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom_Surface::Translate(
       aPS = Handle(ShapePersistent_Geom::Surface)::DownCast(theMap.Find(theSurf));
     else
     {
-      Handle(Plane) aPP = new Plane;
+      Handle(Plane1) aPP = new Plane1;
       aPP->myTransient  = theSurf;
       aPS               = aPP;
     }

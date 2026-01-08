@@ -276,7 +276,7 @@ void ConicArcTool::OwnDump(const Handle(IGESGeom_ConicArc)& ent,
     << "Conic Coefficient D : " << D << "\n"
     << "Conic Coefficient E : " << E << "\n"
     << "Conic Coefficient F : " << F << "\n"
-    << "Z-Plane shift : " << ent->ZPlane() << "\n"
+    << "Z-Plane1 shift : " << ent->ZPlane() << "\n"
     << "Start Point : ";
   IGESData_DumpXYLZ(S, level, ent->StartPoint(), ent->Location(), ent->ZPlane());
   S << "\n"

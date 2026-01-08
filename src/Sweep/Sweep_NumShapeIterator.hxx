@@ -35,7 +35,7 @@ public:
   Standard_EXPORT Sweep_NumShapeIterator();
 
   //! Reset the NumShapeIterator on sub-shapes of <aShape>.
-  Standard_EXPORT void Init(const Sweep_NumShape& aShape);
+  Standard_EXPORT void Init(const SweepNumShape& aShape);
 
   //! Returns True if there is a current sub-shape.
   Standard_Boolean More() const;
@@ -44,15 +44,15 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current sub-shape.
-  const Sweep_NumShape& Value() const;
+  const SweepNumShape& Value() const;
 
   //! Returns the orientation of the current sub-shape.
   TopAbs_Orientation Orientation() const;
 
 protected:
 private:
-  Sweep_NumShape     myNumShape;
-  Sweep_NumShape     myCurrentNumShape;
+  SweepNumShape     myNumShape;
+  SweepNumShape     myCurrentNumShape;
   Standard_Integer   myCurrentRange;
   Standard_Boolean   myMore;
   TopAbs_Orientation myCurrentOrientation;

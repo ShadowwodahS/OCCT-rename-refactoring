@@ -107,7 +107,7 @@ private:
   // Cuts intersecting edges of a contour.
   Standard_Boolean Cut(const gp_Pln& plane, TopoEdge& e1, TopoEdge& e2);
 
-  // Plane.
+  // Plane1.
   gp_Pln plane;
 
   // Left neighbour.

@@ -562,7 +562,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
   // pdn to force bsplsurf to be periodic
   if (!Handle(StepGeom_BSplineSurface)::DownCast(aStepGeomSurface).IsNull())
   {
-    Handle(GeomSurface) periodicSurf = ShapeAlgo::AlgoContainer()->ConvertToPeriodic(aGeomSurface);
+    Handle(GeomSurface) periodicSurf = ShapeAlgo1::AlgoContainer()->ConvertToPeriodic(aGeomSurface);
     if (!periodicSurf.IsNull())
     {
       aMessageHandler->AddWarning(aStepGeomSurface, "Surface forced to be periodic");

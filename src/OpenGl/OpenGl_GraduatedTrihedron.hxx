@@ -24,9 +24,9 @@
 #include <OpenGl_Text.hxx>
 
 //! This class allows to render Graduated Trihedron, i.e. trihedron with grid.
-//! it is based on Graphic3d_GraduatedTrihedron parameters and support its customization
+//! it is based on GraduatedTrihedron parameters and support its customization
 //! on construction level only.
-//! @sa Graphic3d_GraduatedTrihedron
+//! @sa GraduatedTrihedron
 class OpenGl_GraduatedTrihedron : public OpenGl_Element
 {
 public:
@@ -47,11 +47,11 @@ public:
   Standard_EXPORT virtual void Release(OpenGl_Context* theCtx) Standard_OVERRIDE;
 
   //! Setup configuration.
-  Standard_EXPORT void SetValues(const Graphic3d_GraduatedTrihedron& theData);
+  Standard_EXPORT void SetValues(const GraduatedTrihedron& theData);
 
   //! Sets up-to-date values of scene bounding box.
   //! Can be used in callback mechanism to get up-to-date values.
-  //! @sa Graphic3d_GraduatedTrihedron::CubicAxesCallback
+  //! @sa GraduatedTrihedron::CubicAxesCallback
   Standard_EXPORT void SetMinMax(const OpenGl_Vec3& theMin, const OpenGl_Vec3& theMax);
 
   //! Dumps the content of me into the stream
@@ -72,8 +72,8 @@ private:
     mutable OpenGl_PrimitiveArray Arrow;
 
   public:
-    Axis(const Graphic3d_GraduatedTrihedron::AxisAspect& theAspect =
-           Graphic3d_GraduatedTrihedron::AxisAspect(),
+    Axis(const GraduatedTrihedron::AxisAspect& theAspect =
+           GraduatedTrihedron::AxisAspect(),
          const OpenGl_Vec3& theDirection = OpenGl_Vec3(1.0f, 0.0f, 0.0f));
 
     ~Axis();
@@ -201,7 +201,7 @@ protected: //! @name Scene bounding box values
 
 protected:
   mutable Axis                         myAxes[3]; //!< Axes for trihedron
-  mutable Graphic3d_GraduatedTrihedron myData;
+  mutable GraduatedTrihedron myData;
   mutable OpenGl_Aspects               myGridLineAspect; //!< Color grid properties
 
 protected: //! @name Labels properties

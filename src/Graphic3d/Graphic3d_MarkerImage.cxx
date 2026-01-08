@@ -489,7 +489,7 @@ Handle(Graphic3d_MarkerImage) Graphic3d_MarkerImage::StandardMarker(
       anImageA->InitZero(Image_Format_Alpha, aSize, aSize);
 
       // we draw a set of circles
-      Image_ColorRGBA aColor32;
+      ColorRGBA aColor32;
       aColor32.a() = 255;
       Standard_Real            aHLS[3];
       const Standard_ShortReal aDelta = 0.1f;
@@ -514,7 +514,7 @@ Handle(Graphic3d_MarkerImage) Graphic3d_MarkerImage::StandardMarker(
           {
             if (aRowData[aCol] != 0)
             {
-              anImage->ChangeValue<Image_ColorRGBA>(aDiffX + aRow, aDiffY + aCol) = aColor32;
+              anImage->ChangeValue<ColorRGBA>(aDiffX + aRow, aDiffY + aCol) = aColor32;
               anImageA->ChangeValue<Standard_Byte>(aDiffX + aRow, aDiffY + aCol)  = 255;
             }
           }

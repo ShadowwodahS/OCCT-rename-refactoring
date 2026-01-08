@@ -23,7 +23,7 @@
 #include <Draw_Interpretor.hxx>
 
 //! Draw1 Harness plugin defining non-general commands specific to test cases.
-class QADraw
+class QADraw1
 {
 public:
   DEFINE_STANDARD_ALLOC

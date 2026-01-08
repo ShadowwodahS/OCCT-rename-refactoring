@@ -43,7 +43,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
                                            const Point3d&                     Point2,
                                            const Point3d&                     Point3,
                                            const Point3d&                     Point4,
-                                           const Handle(GeomPlane)&         Plane)
+                                           const Handle(GeomPlane)&         Plane1)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -74,7 +74,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
     if (SmallDist <= Precision::Confusion())
       SmallDist = Dist;
     LineDir = gce_MakeDir(Middle12, Middle34);
-    OrtDir  = Plane->Pln().Axis().Direction() ^ LineDir;
+    OrtDir  = Plane1->Pln().Axis().Direction() ^ LineDir;
     LineVec = Vector3d(LineDir) * SmallDist;
     OrtVec  = Vector3d(OrtDir) * SmallDist;
 
@@ -87,9 +87,9 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
     if (Vec1.SquareMagnitude() > Precision::Confusion() * Precision::Confusion())
     {
       Standard_Real Angle  = Vector3d(Middle, Point1).Angle(Vector3d(Middle, Point3));
-      Point3d        MidPnt = Point1.Rotated(Plane->Pln().Axis(), Angle * 0.5);
+      Point3d        MidPnt = Point1.Rotated(Plane1->Pln().Axis(), Angle * 0.5);
       OrtDir               = gce_MakeDir(Middle, MidPnt);
-      LineDir              = OrtDir ^ Plane->Pln().Axis().Direction();
+      LineDir              = OrtDir ^ Plane1->Pln().Axis().Direction();
 
       Standard_Real Distance = Point1.Distance(Point2);
       SmallDist              = Distance * 0.05; // 1/20.0
@@ -102,8 +102,8 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
     else
     {
       SmallDist = 5.0;
-      OrtVec    = Vector3d(Plane->Pln().XAxis().Direction()) * SmallDist;
-      LineVec   = Vector3d(Plane->Pln().YAxis().Direction()) * SmallDist;
+      OrtVec    = Vector3d(Plane1->Pln().XAxis().Direction()) * SmallDist;
+      LineVec   = Vector3d(Plane1->Pln().YAxis().Direction()) * SmallDist;
     }
     aTextPos = Middle.Translated(OrtVec);
   }

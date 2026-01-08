@@ -307,10 +307,10 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfLinearExtrusion::GetType() const
 
 //=================================================================================================
 
-gp_Pln GeomAdaptor_SurfaceOfLinearExtrusion::Plane() const
+gp_Pln GeomAdaptor_SurfaceOfLinearExtrusion::Plane1() const
 {
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Plane,
-                                 "GeomAdaptor_SurfaceOfLinearExtrusion::Plane");
+                                 "GeomAdaptor_SurfaceOfLinearExtrusion::Plane1");
 
   Point3d        P;
   Vector3d        D1u, newZ;

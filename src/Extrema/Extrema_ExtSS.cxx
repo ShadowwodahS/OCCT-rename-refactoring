@@ -124,7 +124,7 @@ void Extrema_ExtSS::Perform(const Adaptor3d_Surface& S1,
       switch (myStype)
       {
         case GeomAbs_Plane: {
-          myExtElSS.Perform(S1.Plane(), myS2->Plane());
+          myExtElSS.Perform(S1.Plane1(), myS2->Plane1());
         }
         break;
         default: {

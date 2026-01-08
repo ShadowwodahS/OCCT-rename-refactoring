@@ -426,7 +426,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
   Point3d pnt1 = pv1, pnt2 = pv2;
   if (V1.IsSame(V2))
     GetCartesianPoints(EC, pnt1, pnt2, theLocalFactors);
-  ShapeAnalysis_Curve sac;
+  Curve2 sac;
   temp1 = sac.Project(C1, pnt1, preci, pproj, U1, Standard_False);
   temp2 = sac.Project(C1, pnt2, preci, pproj, U2, Standard_False);
 

@@ -18,8 +18,8 @@
 #include <Aspect_TouchMap.hxx>
 #include <Graphic3d_Vec.hxx>
 
-struct Aspect_ScrollDelta;
-class WNT_HIDSpaceMouse;
+struct ScrollDelta;
+class HIDSpaceMouse;
 
 //! Defines a listener for window input events.
 class Aspect_WindowInputListener
@@ -81,7 +81,7 @@ public: //! @name mouse input
   //! This method is expected to be called from UI thread.
   //! @param theDelta mouse cursor position and delta
   //! @return TRUE if new event has been created or FALSE if existing one has been updated
-  virtual bool UpdateMouseScroll(const Aspect_ScrollDelta& theDelta) = 0;
+  virtual bool UpdateMouseScroll(const ScrollDelta& theDelta) = 0;
 
   //! Handle mouse button press/release event.
   //! This method is expected to be called from UI thread.
@@ -217,16 +217,16 @@ public: //! @name 3d mouse input
   NCollection_Vec3<bool>& Change3dMouseToReverse() { return my3dMouseToReverse; }
 
   //! Process 3d mouse input event (redirects to translation, rotation and keys).
-  virtual bool Update3dMouse(const WNT_HIDSpaceMouse& theEvent) = 0;
+  virtual bool Update3dMouse(const HIDSpaceMouse& theEvent) = 0;
 
   //! Process 3d mouse input translation event.
-  Standard_EXPORT virtual bool update3dMouseTranslation(const WNT_HIDSpaceMouse& theEvent);
+  Standard_EXPORT virtual bool update3dMouseTranslation(const HIDSpaceMouse& theEvent);
 
   //! Process 3d mouse input rotation event.
-  Standard_EXPORT virtual bool update3dMouseRotation(const WNT_HIDSpaceMouse& theEvent);
+  Standard_EXPORT virtual bool update3dMouseRotation(const HIDSpaceMouse& theEvent);
 
   //! Process 3d mouse input keys event.
-  Standard_EXPORT virtual bool update3dMouseKeys(const WNT_HIDSpaceMouse& theEvent);
+  Standard_EXPORT virtual bool update3dMouseKeys(const HIDSpaceMouse& theEvent);
 
 protected:
   //! Empty constructor.

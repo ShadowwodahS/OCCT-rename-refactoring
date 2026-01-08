@@ -169,7 +169,7 @@ static TopAbs_Orientation Relative(const TopoWire&   W1,
 static void CutEdge(const TopoEdge& E, const TopoFace& F, ShapeList& Cuts);
 
 static void CutEdgeProf(const TopoEdge&            E,
-                        const Handle(GeomPlane)&     Plane,
+                        const Handle(GeomPlane)&     Plane1,
                         const Handle(Geom2d_Line)&    Line,
                         ShapeList&         Cuts,
                         TopTools_DataMapOfShapeShape& MapVerRefMoved);
@@ -1592,8 +1592,8 @@ void BRepFill_Evolved::PrepareProfile(ShapeList&         WorkProf,
   // Supposedly the profile is located so that the only transformation
   // to be carried out is a projection on plane yOz.
 
-  // initialise the projection Plane and the Line to evaluate the extrema.
-  Handle(GeomPlane)  Plane = new GeomPlane(Ax3(gp1::YOZ()));
+  // initialise the projection Plane1 and the Line to evaluate the extrema.
+  Handle(GeomPlane)  Plane1 = new GeomPlane(Ax3(gp1::YOZ()));
   Handle(Geom2d_Line) Line  = new Geom2d_Line(gp1::OY2d());
 
   // Map initial vertex -> projected vertex.
@@ -1615,7 +1615,7 @@ void BRepFill_Evolved::PrepareProfile(ShapeList&         WorkProf,
     const TopoEdge&   E       = TopoDS::Edge(Exp.Current());
 
     // Cut of the edge.
-    CutEdgeProf(E, Plane, Line, Cuts, MapVerRefMoved);
+    CutEdgeProf(E, Plane1, Line, Cuts, MapVerRefMoved);
 
     EdgeVertices(E, VRef1, VRef2);
 
@@ -3129,7 +3129,7 @@ void SimpleExpression(const Bisector_Bisec& B, Handle(GeomCurve2d)& Bis)
 //=======================================================================
 
 void CutEdgeProf(const TopoEdge&            E,
-                 const Handle(GeomPlane)&     Plane,
+                 const Handle(GeomPlane)&     Plane1,
                  const Handle(Geom2d_Line)&    Line,
                  ShapeList&         Cuts,
                  TopTools_DataMapOfShapeShape& MapVerRefMoved)
@@ -3148,9 +3148,9 @@ void CutEdgeProf(const TopoEdge&            E,
   CT->Transform(L.Transformation());
 
   // project it in the plane and return the associated PCurve
-  Dir3d Normal = Plane->Pln().Axis().Direction();
-  C             = GeomProjLib1::ProjectOnPlane(CT, Plane, Normal, Standard_False);
-  C2d           = GeomProjLib1::Curve2d(C, Plane);
+  Dir3d Normal = Plane1->Pln().Axis().Direction();
+  C             = GeomProjLib1::ProjectOnPlane(CT, Plane1, Normal, Standard_False);
+  C2d           = GeomProjLib1::Curve2d(C, Plane1);
 
   // Calculate the extrema with the straight line
   TColStd_SequenceOfReal Seq;

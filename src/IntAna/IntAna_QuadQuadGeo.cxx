@@ -1827,7 +1827,7 @@ void QuadQuadGeoIntersection::Perform(const Cone1& Con1, const Cone1& Con2, cons
       aD1 = Dir3d(Vector3d(aPGint, myPChar));
       aN  = aD1.Crossed(aD2);
     }
-    // Plane that must contain intersection curves
+    // Plane1 that must contain intersection curves
     gp_Pln anIntPln(myPChar, aN);
 
     QuadQuadGeoIntersection INTER_QUAD_PLN(anIntPln, Con1, Tol, Tol);
@@ -2142,7 +2142,7 @@ void QuadQuadGeoIntersection::Perform(const Sphere3&    Sph1,
 
 //=======================================================================
 // function : QuadQuadGeoIntersection
-// purpose  : Plane - Torus
+// purpose  : Plane1 - Torus
 //=======================================================================
 QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       Pln,
                                        const gp_Torus&     Tor,

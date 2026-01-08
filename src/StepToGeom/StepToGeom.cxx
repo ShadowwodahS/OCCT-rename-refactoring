@@ -1688,7 +1688,7 @@ Handle(Geom2d_Parabola) StepToGeom1::MakeParabola2d(const Handle(StepGeom_Parabo
 }
 
 //=============================================================================
-// Creation d' un Plane de Geom a partir d' un plane de Step
+// Creation d' un Plane1 de Geom a partir d' un plane de Step
 //=============================================================================
 
 Handle(GeomPlane) StepToGeom1::MakePlane(const Handle(StepGeom_Plane)& SP,
@@ -1891,7 +1891,7 @@ Handle(GeomSurface) StepToGeom1::MakeSurface(const Handle(StepGeom_Surface)& SS,
           if (aBFace.IsDone())
           {
             const TopoShape aResult =
-              ShapeAlgo::AlgoContainer()->C0ShapeToC1Shape(aBFace.Face(), Abs(anOffset));
+              ShapeAlgo1::AlgoContainer()->C0ShapeToC1Shape(aBFace.Face(), Abs(anOffset));
             if (aResult.ShapeType() == TopAbs_FACE)
             {
               aBasisSurface = BRepInspector::Surface(TopoDS::Face(aResult));
@@ -2170,7 +2170,7 @@ static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&             
       Point3d thegpPnt = theGeomPnt->Pnt();
 
       //: S4136: use advanced algorithm
-      ShapeAnalysis_Curve sac;
+      Curve2 sac;
       Point3d              p;
       sac.Project(aGeomCurve, thegpPnt, Precision::Confusion(), p, aParam);
       /* //:S4136
@@ -2224,7 +2224,7 @@ static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&             
         StepToGeom1::MakeCartesianPoint(aPoint, theLocalFactors);
       Point3d thegpPnt = theGeomPnt->Pnt();
       // Project Point On Curve
-      ShapeAnalysis_Curve sac;
+      Curve2 sac;
       Point3d              p;
       sac.Project(aGeomCurve, thegpPnt, Precision::Confusion(), p, aParam);
       /*

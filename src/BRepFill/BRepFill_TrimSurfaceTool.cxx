@@ -184,7 +184,7 @@ static void EvalParameters(const TopoEdge&          Edge,
   Standard_Real   f, l;
 
   Handle(Geom_TrimmedCurve) CT;
-  Handle(GeomPlane)        Plane = new GeomPlane(0, 0, 1, 0);
+  Handle(GeomPlane)        Plane1 = new GeomPlane(0, 0, 1, 0);
 
   Geom2dInt_GInter Intersector;
 
@@ -203,7 +203,7 @@ static void EvalParameters(const TopoEdge&          Edge,
     CT                   = new Geom_TrimmedCurve(C, f, l);
     CT->Transform(L.Transformation());
     // projection of 3d curves in the plane xOy
-    Handle(GeomCurve2d) C2d = GeomProjLib1::Curve2d(CT, Plane);
+    Handle(GeomCurve2d) C2d = GeomProjLib1::Curve2d(CT, Plane1);
 
     Geom2dAdaptor_Curve AC(C2d);
     Geom2dAdaptor_Curve ABis(Bis);
@@ -464,8 +464,8 @@ Standard_Real BRepFill_TrimSurfaceTool::ProjOn(const gp_Pnt2d& Point, const Topo
   CT->Transform(L.Transformation());
 
   // projection of curves 3d in the plane xOy
-  Handle(GeomPlane)   Plane = new GeomPlane(0, 0, 1, 0);
-  Handle(GeomCurve2d) C2d   = GeomProjLib1::Curve2d(CT, Plane);
+  Handle(GeomPlane)   Plane1 = new GeomPlane(0, 0, 1, 0);
+  Handle(GeomCurve2d) C2d   = GeomProjLib1::Curve2d(CT, Plane1);
 
   // evaluate the projection of the point on the curve.
   Geom2dAPI_ProjectPointOnCurve Projector(Point, C2d);

@@ -109,7 +109,7 @@ public:
 
   //! Returns last data frame, cached between stats updates.
   //! Should NOT be called between ::FrameStart() and ::FrameEnd() calls.
-  const Graphic3d_FrameStatsData& LastDataFrame() const
+  const FrameStatsData& LastDataFrame() const
   {
     return myCounters.Value(myLastFrameIndex);
   }
@@ -118,10 +118,10 @@ public:
   Standard_Integer LastDataFrameIndex() const { return myLastFrameIndex; }
 
   //! Returns data frames.
-  const NCollection_Array1<Graphic3d_FrameStatsData>& DataFrames() const { return myCounters; }
+  const NCollection_Array1<FrameStatsData>& DataFrames() const { return myCounters; }
 
   //! Returns data frames.
-  NCollection_Array1<Graphic3d_FrameStatsData>& ChangeDataFrames() { return myCounters; }
+  NCollection_Array1<FrameStatsData>& ChangeDataFrames() { return myCounters; }
 
 public:
   //! Returns value of specified counter for modification, should be called between ::FrameStart()
@@ -154,9 +154,9 @@ protected:
   Standard_Real myUpdateInterval; //!< interval to update meters
   // clang-format off
   Standard_Size    myFpsFrameCount;           //!< FPS counter (within short measurement time slice)
-  NCollection_Array1<Graphic3d_FrameStatsData> myCounters; //!< data frames history
+  NCollection_Array1<FrameStatsData> myCounters; //!< data frames history
   Graphic3d_FrameStatsDataTmp myCountersTmp;  //!< data frame values filled to be filled between FrameStart() and FrameEnd() calls
-  Graphic3d_FrameStatsData    myCountersMax;  //!< data frame values with absolute maximum values in the history
+  FrameStatsData    myCountersMax;  //!< data frame values with absolute maximum values in the history
   Standard_Integer myLastFrameIndex;          //!< last data frame index
   Standard_Boolean myIsLongLineFormat;        //!< prefer longer lines over greater number of lines
   // clang-format on

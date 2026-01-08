@@ -21,7 +21,7 @@ static Handle(ShapeAlgo_AlgoContainer) theContainer;
 
 //=================================================================================================
 
-void ShapeAlgo::Init()
+void ShapeAlgo1::Init()
 {
   static Standard_Boolean init = Standard_False;
   if (init)
@@ -35,14 +35,14 @@ void ShapeAlgo::Init()
 
 //=================================================================================================
 
-void ShapeAlgo::SetAlgoContainer(const Handle(ShapeAlgo_AlgoContainer)& aContainer)
+void ShapeAlgo1::SetAlgoContainer(const Handle(ShapeAlgo_AlgoContainer)& aContainer)
 {
   theContainer = aContainer;
 }
 
 //=================================================================================================
 
-Handle(ShapeAlgo_AlgoContainer) ShapeAlgo::AlgoContainer()
+Handle(ShapeAlgo_AlgoContainer) ShapeAlgo1::AlgoContainer()
 {
   return theContainer;
 }

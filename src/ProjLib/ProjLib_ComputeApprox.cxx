@@ -80,8 +80,8 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
   {
 
     case GeomAbs_Plane: {
-      gp_Pln Plane = mySurface->Plane();
-      ElSLib1::Parameters(Plane, P3d, S, T);
+      gp_Pln Plane1 = mySurface->Plane1();
+      ElSLib1::Parameters(Plane1, P3d, S, T);
       break;
     }
     case GeomAbs_Cylinder: {
@@ -549,8 +549,8 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         Circle.Transform(Trsf);
         //
         R = SP.Radius();
-        gp_Pln Plane(Ax3(Circle.Position()));
-        Plane.Coefficients(A, B, C, D);
+        gp_Pln Plane1(Ax3(Circle.Position()));
+        Plane1.Coefficients(A, B, C, D);
         //
         if (Abs(C) < Tol)
         {
@@ -1125,11 +1125,11 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     if (BS->IsRational())
       BS->Weights(Weights);
     BS->Poles(P3d);
-    gp_Pln        Plane = S->Plane();
+    gp_Pln        Plane1 = S->Plane1();
     Standard_Real U, V;
     for (Standard_Integer i = 1; i <= NbPoles; i++)
     {
-      ElSLib1::Parameters(Plane, P3d(i), U, V);
+      ElSLib1::Parameters(Plane1, P3d(i), U, V);
       Poles.SetValue(i, gp_Pnt2d(U, V));
     }
     NbKnots = BS->NbKnots();
@@ -1165,11 +1165,11 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
 
     // project the 3D-Poles on the plane
 
-    gp_Pln        Plane = S->Plane();
+    gp_Pln        Plane1 = S->Plane1();
     Standard_Real U, V;
     for (Standard_Integer i = 1; i <= NbPoles; i++)
     {
-      ElSLib1::Parameters(Plane, P3d(i), U, V);
+      ElSLib1::Parameters(Plane1, P3d(i), U, V);
       Poles.SetValue(i, gp_Pnt2d(U, V));
     }
     if (BezierCurvePtr->IsRational())
@@ -1349,8 +1349,8 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     switch (SType)
     {
       case GeomAbs_Plane: {
-        gp_Pln Plane = S->Plane();
-        ElSLib1::Parameters(Plane, P3d, u, v);
+        gp_Pln Plane1 = S->Plane1();
+        ElSLib1::Parameters(Plane1, P3d, u, v);
         break;
       }
       case GeomAbs_Cylinder: {

@@ -199,7 +199,7 @@ void ShapePersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
 
   theMap.Bind<ShapePersistent_Geom_Surface::Elementary>("PGeom_ElementarySurface");
 
-  theMap.Bind<ShapePersistent_Geom_Surface::Plane>("PGeom_Plane");
+  theMap.Bind<ShapePersistent_Geom_Surface::Plane1>("PGeom_Plane");
 
   theMap.Bind<ShapePersistent_Geom_Surface::Conical>("PGeom_ConicalSurface");
 

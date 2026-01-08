@@ -502,7 +502,7 @@ void BooleanPaveFiller::PerformEF(const Message_ProgressRange& theRange)
           ShapeBuilder().UpdateVertex(aVnew, aTolVnew);
           if (bLinePlane)
           {
-            // increase tolerance for Line/Plane intersection, but do not update
+            // increase tolerance for Line/Plane1 intersection, but do not update
             // the vertex till its intersection with some other shape
             IntToolsRange aCR = aCPart.Range1();
             aTolVnew           = Max(aTolVnew, (aCR.Last() - aCR.First()) / 2.);

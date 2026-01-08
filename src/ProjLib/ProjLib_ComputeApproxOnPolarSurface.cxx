@@ -983,9 +983,9 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
     {
         //    case GeomAbs_Plane:
         //      {
-        //	gp_Pln Plane = Surf->Plane();
+        //	gp_Pln Plane1 = Surf->Plane1();
         //	for ( i = 1 ; i <= NbOfPnts ; i++) {
-        //	  ElSLib1::Parameters( Plane, Pts(i), S, T);
+        //	  ElSLib1::Parameters( Plane1, Pts(i), S, T);
         //	  Pts2d(i).SetCoord(S,T);
         //	}
         //	myProjIsDone = Standard_True;
@@ -1681,7 +1681,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
   if (TheTypeS == GeomAbs_Plane)
   {
     Standard_Real S, T;
-    gp_Pln        Plane = Surf->Plane();
+    gp_Pln        Plane1 = Surf->Plane1();
     if (TheTypeC == GeomAbs_BSplineCurve)
     {
       myTolReached                  = Precision::Confusion();
@@ -1689,7 +1689,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       TColgp_Array1OfPnt2d      Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
       {
-        ElSLib1::Parameters(Plane, BSC->Pole(i), S, T);
+        ElSLib1::Parameters(Plane1, BSC->Pole(i), S, T);
         Poles2d(i).SetCoord(S, T);
       }
       TColStd_Array1OfReal Knots(1, BSC->NbKnots());
@@ -1716,7 +1716,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       TColgp_Array1OfPnt2d     Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
       {
-        ElSLib1::Parameters(Plane, BC->Pole(i), S, T);
+        ElSLib1::Parameters(Plane1, BC->Pole(i), S, T);
         Poles2d(i).SetCoord(S, T);
       }
       TColStd_Array1OfReal Knots(1, 2);

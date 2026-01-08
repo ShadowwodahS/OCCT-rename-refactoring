@@ -576,7 +576,7 @@ TopoShell ShapeFix_FaceConnect::Build(const TopoShell& shell,
 
         Handle(WireHealer)        SFW = new WireHealer;
         Handle(ShapeFix_Face)        SFF = new ShapeFix_Face;
-        ShapeAnalysis_Edge           SAE;
+        Edge1           SAE;
         Standard_Real                f, l;
         Handle(GeomCurve2d)         c2d;
         Handle(ShapeExtend_WireData) sewd;

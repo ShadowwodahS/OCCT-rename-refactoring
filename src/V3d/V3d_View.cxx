@@ -612,7 +612,7 @@ void ViewWindow::SetBackgroundCubeMap(const Handle(Graphic3d_CubeMap)& theCubeMa
 
 //=================================================================================================
 
-void ViewWindow::SetBackgroundSkydome(const Aspect_SkydomeBackground& theAspect,
+void ViewWindow::SetBackgroundSkydome(const SkydomeBackground& theAspect,
                                     Standard_Boolean                theToUpdatePBREnv)
 {
   myView->SetBackgroundSkydome(theAspect, theToUpdatePBREnv);
@@ -819,7 +819,7 @@ void ViewWindow::Rotate(const Standard_Real    ax,
     myCamStartOpCenter = aCamera->Center();
   }
 
-  const Graphic3d_Vertex& aVref = myGravityReferencePoint;
+  const Vertex1& aVref = myGravityReferencePoint;
 
   aCamera->SetUp(myCamStartOpUp);
   aCamera->SetEyeAndCenter(myCamStartOpEye, myCamStartOpCenter);
@@ -906,7 +906,7 @@ void ViewWindow::Rotate(const V3d_TypeOfAxe    theAxe,
     }
   }
 
-  const Graphic3d_Vertex& aVref = myGravityReferencePoint;
+  const Vertex1& aVref = myGravityReferencePoint;
 
   aCamera->SetUp(myCamStartOpUp);
   aCamera->SetEyeAndCenter(myCamStartOpEye, myCamStartOpCenter);
@@ -1689,11 +1689,11 @@ void ViewWindow::ConvertToGrid(const Standard_Integer theXp,
   Graphic3d_Vec3d anXYZ;
   Convert(theXp, theYp, anXYZ.x(), anXYZ.y(), anXYZ.z());
 
-  Graphic3d_Vertex aVrp;
+  Vertex1 aVrp;
   aVrp.SetCoord(anXYZ.x(), anXYZ.y(), anXYZ.z());
   if (MyViewer->IsGridActive())
   {
-    Graphic3d_Vertex aNewVrp = Compute(aVrp);
+    Vertex1 aNewVrp = Compute(aVrp);
     aNewVrp.Coord(theXg, theYg, theZg);
   }
   else
@@ -1713,8 +1713,8 @@ void ViewWindow::ConvertToGrid(const Standard_Real theX,
 {
   if (MyViewer->IsGridActive())
   {
-    Graphic3d_Vertex aVrp(theX, theY, theZ);
-    Graphic3d_Vertex aNewVrp = Compute(aVrp);
+    Vertex1 aVrp(theX, theY, theZ);
+    Vertex1 aNewVrp = Compute(aVrp);
     aNewVrp.Coord(theXg, theYg, theZg);
   }
   else
@@ -2367,7 +2367,7 @@ Standard_Boolean ViewWindow::screenAxis(const Dir3d& theVpn,
 
 //=================================================================================================
 
-Coords3d ViewWindow::TrsPoint(const Graphic3d_Vertex& thePnt, const TColStd_Array2OfReal& theMat)
+Coords3d ViewWindow::TrsPoint(const Vertex1& thePnt, const TColStd_Array2OfReal& theMat)
 {
   // CAL. S3892
   const Standard_Integer lr = theMat.LowerRow();
@@ -2884,11 +2884,11 @@ Standard_Boolean ViewWindow::ToPixMap(Image_PixMap& theImage, const V3d_ImageDum
       anOffset.x() = 0;
       for (; anOffset.x() < aTargetSize.x(); anOffset.x() += aFBOVPSize.x())
       {
-        Graphic3d_CameraTile aTileUncropped;
+        CameraTile aTileUncropped;
         aTileUncropped.Offset            = anOffset;
         aTileUncropped.TotalSize         = aTargetSize;
         aTileUncropped.TileSize          = aFBOVPSize;
-        const Graphic3d_CameraTile aTile = aTileUncropped.Cropped();
+        const CameraTile aTile = aTileUncropped.Cropped();
         if (aTile.TileSize.x() < 1 || aTile.TileSize.y() < 1)
         {
           continue;
@@ -3472,7 +3472,7 @@ void toCartesianCoords(const Standard_Real theR,
 
 //=================================================================================================
 
-Graphic3d_Vertex ViewWindow::Compute(const Graphic3d_Vertex& theVertex) const
+Vertex1 ViewWindow::Compute(const Vertex1& theVertex) const
 {
   const Handle(CameraOn3d)& aCamera = Camera();
   Dir3d                          VPN     = aCamera->Direction().Reversed(); // RefPlane
@@ -3489,14 +3489,14 @@ Graphic3d_Vertex ViewWindow::Compute(const Graphic3d_Vertex& theVertex) const
     return theVertex;
   }
 
-  const Coords3d aPnt0 = ViewWindow::TrsPoint(Graphic3d_Vertex(0.0, 0.0, 0.0), MyTrsf);
+  const Coords3d aPnt0 = ViewWindow::TrsPoint(Vertex1(0.0, 0.0, 0.0), MyTrsf);
 
   // get grid axes in world space
-  const Coords3d aPnt1 = ViewWindow::TrsPoint(Graphic3d_Vertex(1.0, 0.0, 0.0), MyTrsf);
+  const Coords3d aPnt1 = ViewWindow::TrsPoint(Vertex1(1.0, 0.0, 0.0), MyTrsf);
   Vector3d       aGridX(aPnt0, aPnt1);
   aGridX.Normalize();
 
-  const Coords3d aPnt2 = ViewWindow::TrsPoint(Graphic3d_Vertex(0.0, 1.0, 0.0), MyTrsf);
+  const Coords3d aPnt2 = ViewWindow::TrsPoint(Vertex1(0.0, 1.0, 0.0), MyTrsf);
   Vector3d       aGridY(aPnt0, aPnt2);
   aGridY.Normalize();
 
@@ -3521,7 +3521,7 @@ Graphic3d_Vertex ViewWindow::Compute(const Graphic3d_Vertex& theVertex) const
     // clamp point to grid
     const Vector3d aResult = aGridX * anXSteps * aRectGrid->XStep()
                            + aGridY * anYSteps * aRectGrid->YStep() + Vector3d(aPnt0);
-    return Graphic3d_Vertex(aResult.X(), aResult.Y(), aResult.Z());
+    return Vertex1(aResult.X(), aResult.Y(), aResult.Z());
   }
   else if (Handle(Aspect_CircularGrid) aCircleGrid = Handle(Aspect_CircularGrid)::DownCast(MyGrid))
   {
@@ -3540,9 +3540,9 @@ Graphic3d_Vertex ViewWindow::Compute(const Graphic3d_Vertex& theVertex) const
     toCartesianCoords(anRSteps * aCircleGrid->RadiusStep(), aPhiSteps * anAlpha, aLocalX, aLocalY);
 
     const Vector3d aResult = aGridX * aLocalX + aGridY * aLocalY + Vector3d(aPnt0);
-    return Graphic3d_Vertex(aResult.X(), aResult.Y(), aResult.Z());
+    return Vertex1(aResult.X(), aResult.Y(), aResult.Z());
   }
-  return Graphic3d_Vertex(0.0, 0.0, 0.0);
+  return Vertex1(0.0, 0.0, 0.0);
 }
 
 //=================================================================================================
@@ -3589,14 +3589,14 @@ void ViewWindow::TriedronErase()
 
 //=================================================================================================
 
-const Graphic3d_GraduatedTrihedron& ViewWindow::GetGraduatedTrihedron() const
+const GraduatedTrihedron& ViewWindow::GetGraduatedTrihedron() const
 {
   return myView->GetGraduatedTrihedron();
 }
 
 //=================================================================================================
 
-void ViewWindow::GraduatedTrihedronDisplay(const Graphic3d_GraduatedTrihedron& theTrihedronData)
+void ViewWindow::GraduatedTrihedronDisplay(const GraduatedTrihedron& theTrihedronData)
 {
   myView->GraduatedTrihedronDisplay(theTrihedronData);
 }

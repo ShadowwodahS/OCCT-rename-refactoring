@@ -111,10 +111,10 @@ void PrsDim_OffsetDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   else
   {
     // myDirAttach : oriente de myFShape vers mySShape
-    gp_Pln aPln = surf1.Plane();
+    gp_Pln aPln = surf1.Plane1();
     Point3d aPnt = aPln.Location();
 
-    gp_Pln bPln = surf2.Plane();
+    gp_Pln bPln = surf2.Plane1();
 
     Standard_Real uPnt, vPnt;
     ElSLib1::Parameters(bPln, aPnt, uPnt, vPnt);
@@ -447,7 +447,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
     if (myIsSetBndBox)
       {
         BRepAdaptor_Surface surf1(TopoDS::Face(myFShape));
-        Tcurpos = PrsDim::TranslatePointToBound( Tcurpos, surf1.Plane().XAxis().Direction(),
+        Tcurpos = PrsDim::TranslatePointToBound( Tcurpos, surf1.Plane1().XAxis().Direction(),
     myBndBox );
       }
   */

@@ -74,7 +74,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
   Handle(StepGeom_BSplineSurface) sgbss = Handle(StepGeom_BSplineSurface)::DownCast(S);
   if (!sgbss.IsNull())
   {
-    Handle(GeomSurface) periodicSurf = ShapeAlgo::AlgoContainer()->ConvertToPeriodic(Surf);
+    Handle(GeomSurface) periodicSurf = ShapeAlgo1::AlgoContainer()->ConvertToPeriodic(Surf);
     if (!periodicSurf.IsNull())
     {
       TP->AddWarning(S, "Surface forced to be periodic");

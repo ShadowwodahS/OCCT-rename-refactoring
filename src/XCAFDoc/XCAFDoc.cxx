@@ -573,7 +573,7 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
     }
     else if (theAtt->ID() == XCAFDoc::ViewRefPlaneGUID())
     {
-      type = "View Clipping Plane Link1";
+      type = "View Clipping Plane1 Link1";
     }
     else
       return AsciiString1();

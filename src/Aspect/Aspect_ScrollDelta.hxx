@@ -18,7 +18,7 @@
 #include <NCollection_Vec2.hxx>
 
 //! Parameters for mouse scroll action.
-struct Aspect_ScrollDelta
+struct ScrollDelta
 {
 
   NCollection_Vec2<int> Point; //!< scale position
@@ -32,7 +32,7 @@ struct Aspect_ScrollDelta
   void ResetPoint() { Point.SetValues(-1, -1); }
 
   //! Empty constructor.
-  Aspect_ScrollDelta()
+  ScrollDelta()
       : Point(-1, -1),
         Delta(0.0),
         Flags(Aspect_VKeyFlags_NONE)
@@ -40,7 +40,7 @@ struct Aspect_ScrollDelta
   }
 
   //! Constructor.
-  Aspect_ScrollDelta(const NCollection_Vec2<int>& thePnt,
+  ScrollDelta(const NCollection_Vec2<int>& thePnt,
                      Standard_Real                theValue,
                      Aspect_VKeyFlags             theFlags = Aspect_VKeyFlags_NONE)
       : Point(thePnt),
@@ -50,7 +50,7 @@ struct Aspect_ScrollDelta
   }
 
   //! Constructor with undefined point.
-  Aspect_ScrollDelta(Standard_Real theValue, Aspect_VKeyFlags theFlags = Aspect_VKeyFlags_NONE)
+  ScrollDelta(Standard_Real theValue, Aspect_VKeyFlags theFlags = Aspect_VKeyFlags_NONE)
       : Point(-1, -1),
         Delta(theValue),
         Flags(theFlags)

@@ -35,8 +35,8 @@ public:
   //! Simple structure stores tile rectangle.
   struct Tile
   {
-    Font_Rect uv;      //!< UV coordinates in texture
-    Font_Rect px;      //!< pixel displacement coordinates
+    Rect uv;      //!< UV coordinates in texture
+    Rect px;      //!< pixel displacement coordinates
     GLuint    texture; //!< GL texture ID
   };
 

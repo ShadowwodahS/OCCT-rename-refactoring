@@ -65,7 +65,7 @@ Graphic3d_CView::~Graphic3d_CView()
 
 //=================================================================================================
 
-void Graphic3d_CView::SetBackgroundSkydome(const Aspect_SkydomeBackground& theAspect,
+void Graphic3d_CView::SetBackgroundSkydome(const SkydomeBackground& theAspect,
                                            Standard_Boolean                theToUpdatePBREnv)
 {
   myToUpdateSkydome   = true;

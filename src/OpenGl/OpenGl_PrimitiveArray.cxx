@@ -410,7 +410,7 @@ void OpenGl_PrimitiveArray::updateVBO(const Handle(OpenGl_Context)& theCtx) cons
 {
   if (!myAttribs.IsNull())
   {
-    Graphic3d_BufferRange aRange = myAttribs->InvalidatedRange();
+    BufferRange aRange = myAttribs->InvalidatedRange();
     if (!aRange.IsEmpty() && myVboAttribs->IsValid() && !myVboAttribs->IsVirtual())
     {
       myVboAttribs->Bind(theCtx);
@@ -428,7 +428,7 @@ void OpenGl_PrimitiveArray::updateVBO(const Handle(OpenGl_Context)& theCtx) cons
   }
   if (!myIndices.IsNull())
   {
-    Graphic3d_BufferRange aRange = myIndices->InvalidatedRange();
+    BufferRange aRange = myIndices->InvalidatedRange();
     if (!aRange.IsEmpty() && myVboIndices->IsValid() && !myVboIndices->IsVirtual())
     {
       myVboIndices->Bind(theCtx);

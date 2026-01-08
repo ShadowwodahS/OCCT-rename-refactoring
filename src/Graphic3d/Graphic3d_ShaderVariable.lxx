@@ -18,7 +18,7 @@
 // purpose  : Returns variable value casted to specified type
 // =======================================================================
 template <class T>
-inline T& Graphic3d_ValueInterface::As()
+inline T& ValueInterface::As()
 {
   Graphic3d_UniformValue<T>* aPtr = dynamic_cast<Graphic3d_UniformValue<T>*>(this);
   return aPtr->Value;
@@ -29,7 +29,7 @@ inline T& Graphic3d_ValueInterface::As()
 // purpose  : Returns variable value casted to specified type
 // =======================================================================
 template <class T>
-inline const T& Graphic3d_ValueInterface::As() const
+inline const T& ValueInterface::As() const
 {
   const Graphic3d_UniformValue<T>* aPtr = dynamic_cast<const Graphic3d_UniformValue<T>*>(this);
   return aPtr->Value;
@@ -42,7 +42,7 @@ inline const T& Graphic3d_ValueInterface::As() const
 template <class T>
 inline Standard_Size Graphic3d_UniformValue<T>::TypeID() const
 {
-  return Graphic3d_UniformValueTypeID<T>::ID;
+  return UniformValueTypeID<T>::ID;
 }
 
 // =======================================================================

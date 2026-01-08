@@ -306,7 +306,7 @@ static Standard_Integer OCC218bug(DrawInterpreter& di, Standard_Integer argc, co
   {
     TopoFace FaceB = TopoDS::Face(S);
 
-    // Construction du Plane
+    // Construction du Plane1
     // recuperation des edges des faces.
     ShapeExplorer FaceExpB(FaceB, TopAbs_EDGE);
 
@@ -753,9 +753,9 @@ static Standard_Integer OCC904(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_16(DrawInterpreter& theCommands)
+void QABugs1::Commands_16(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("BUC60848", "BUC60848 shape", __FILE__, BUC60848, group);
   theCommands.Add("BUC60828", "BUC60828", __FILE__, BUC60828, group);

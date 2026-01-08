@@ -213,7 +213,7 @@ Standard_Boolean BRepBuilderAPI_FindPlane::Found() const
 
 //=================================================================================================
 
-Handle(GeomPlane) BRepBuilderAPI_FindPlane::Plane() const
+Handle(GeomPlane) BRepBuilderAPI_FindPlane::Plane1() const
 {
   return myPlane;
 }

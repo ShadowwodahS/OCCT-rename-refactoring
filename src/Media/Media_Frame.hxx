@@ -67,7 +67,7 @@ public:
   Standard_EXPORT bool IsFullRangeYUV() const;
 
   //! Access data plane for specified Id.
-  Standard_EXPORT uint8_t* Plane(int thePlaneId) const;
+  Standard_EXPORT uint8_t* Plane1(int thePlaneId) const;
 
   //! @return linesize in bytes for specified data plane
   Standard_EXPORT int LineSize(int thePlaneId) const;

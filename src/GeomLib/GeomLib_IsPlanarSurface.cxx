@@ -146,7 +146,7 @@ PlanarSurfaceChecker::PlanarSurfaceChecker(const Handle(GeomSurface)& S,
   {
     case GeomAbs_Plane: {
       IsPlan = Standard_True;
-      myPlan = AS.Plane();
+      myPlan = AS.Plane1();
       break;
     }
     case GeomAbs_Cylinder:

@@ -148,7 +148,7 @@ static SpaceVKey hidToSpaceKey(unsigned long theProductId, unsigned short theKey
 
 //=================================================================================================
 
-WNT_HIDSpaceMouse::WNT_HIDSpaceMouse(unsigned long        theProductId,
+HIDSpaceMouse::HIDSpaceMouse(unsigned long        theProductId,
                                      const Standard_Byte* theData,
                                      Standard_Size        theSize)
     : myData(theData),
@@ -161,7 +161,7 @@ WNT_HIDSpaceMouse::WNT_HIDSpaceMouse(unsigned long        theProductId,
 
 //=================================================================================================
 
-bool WNT_HIDSpaceMouse::IsKnownProduct(unsigned long theProductId)
+bool HIDSpaceMouse::IsKnownProduct(unsigned long theProductId)
 {
   switch (theProductId)
   {
@@ -184,7 +184,7 @@ bool WNT_HIDSpaceMouse::IsKnownProduct(unsigned long theProductId)
 
 //=================================================================================================
 
-Graphic3d_Vec3d WNT_HIDSpaceMouse::Translation(bool& theIsIdle, bool theIsQuadric) const
+Graphic3d_Vec3d HIDSpaceMouse::Translation(bool& theIsIdle, bool theIsQuadric) const
 {
   theIsIdle = true;
   return myData[0] == SpaceRawInput_Translation && (mySize == 7 || mySize == 13)
@@ -194,7 +194,7 @@ Graphic3d_Vec3d WNT_HIDSpaceMouse::Translation(bool& theIsIdle, bool theIsQuadri
 
 //=================================================================================================
 
-Graphic3d_Vec3d WNT_HIDSpaceMouse::Rotation(bool& theIsIdle, bool theIsQuadric) const
+Graphic3d_Vec3d HIDSpaceMouse::Rotation(bool& theIsIdle, bool theIsQuadric) const
 {
   theIsIdle = true;
   if (myData[0] == SpaceRawInput_Rotation && mySize == 7)
@@ -210,7 +210,7 @@ Graphic3d_Vec3d WNT_HIDSpaceMouse::Rotation(bool& theIsIdle, bool theIsQuadric) 
 
 //=================================================================================================
 
-Graphic3d_Vec3d WNT_HIDSpaceMouse::fromRawVec3(bool&                theIsIdle,
+Graphic3d_Vec3d HIDSpaceMouse::fromRawVec3(bool&                theIsIdle,
                                                const Standard_Byte* theData,
                                                bool                 theIsTrans,
                                                bool                 theIsQuadric) const
@@ -276,7 +276,7 @@ Graphic3d_Vec3d WNT_HIDSpaceMouse::fromRawVec3(bool&                theIsIdle,
 
 //=================================================================================================
 
-Aspect_VKey WNT_HIDSpaceMouse::HidToSpaceKey(unsigned short theKeyBit) const
+Aspect_VKey HIDSpaceMouse::HidToSpaceKey(unsigned short theKeyBit) const
 {
   const SpaceVKey aKey = hidToSpaceKey(myProductId, theKeyBit);
   switch (aKey)

@@ -219,7 +219,7 @@ private:
   Standard_EXPORT Font_FontMgr();
 
 private:
-  struct FontHasher
+  struct FontHasher1
   {
     size_t operator()(const Handle(Font_SystemFont)& theFont) const noexcept
     {
@@ -234,7 +234,7 @@ private:
   };
 
   //! Map storing registered fonts.
-  class Font_FontMap : public NCollection_IndexedMap<Handle(Font_SystemFont), FontHasher>
+  class Font_FontMap : public NCollection_IndexedMap<Handle(Font_SystemFont), FontHasher1>
   {
   public:
     //! Empty constructor.

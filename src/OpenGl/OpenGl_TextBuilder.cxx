@@ -55,7 +55,7 @@ void TextBuilder::createGlyphs(
   theVertsPerTexture.Clear();
   theTCrdsPerTexture.Clear();
 
-  OpenGl_Font::Tile aTile = {Font_Rect(), Font_Rect(), 0u};
+  OpenGl_Font::Tile aTile = {Rect(), Rect(), 0u};
   for (Font_TextFormatter::Iterator aFormatterIt(
          *theFormatter,
          Font_TextFormatter::IterationFilter_ExcludeInvisible);
@@ -69,7 +69,7 @@ void TextBuilder::createGlyphs(
     aTile.px.Left += aBottomLeft.x();
     aTile.px.Bottom += aBottomLeft.y();
     aTile.px.Top += aBottomLeft.y();
-    const Font_Rect& aRectUV  = aTile.uv;
+    const Rect& aRectUV  = aTile.uv;
     const GLuint     aTexture = aTile.texture;
 
     Standard_Integer aListId = 0;

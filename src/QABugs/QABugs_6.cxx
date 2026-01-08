@@ -122,9 +122,9 @@ static Standard_Integer OCC281bug(DrawInterpreter& di, Standard_Integer argc, co
   return 0;
 }
 
-void QABugs::Commands_6(DrawInterpreter& theCommands)
+void QABugs1::Commands_6(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC281", "OCC281 x y TypeOfMarker(0-12)", __FILE__, OCC281bug, group);
 

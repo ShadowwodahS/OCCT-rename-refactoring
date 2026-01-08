@@ -1028,12 +1028,12 @@ inline Standard_Size getAligned(const Standard_Size theNumber, const Standard_Si
 
 template <typename T>
 inline void convertRowFromRgba(T*                     theRgbRow,
-                               const Image_ColorRGBA* theRgbaRow,
+                               const ColorRGBA* theRgbaRow,
                                const Standard_Size    theWidth)
 {
   for (Standard_Size aCol = 0; aCol < theWidth; ++aCol)
   {
-    const Image_ColorRGBA& anRgba = theRgbaRow[aCol];
+    const ColorRGBA& anRgba = theRgbaRow[aCol];
     T&                     anRgb  = theRgbRow[aCol];
     anRgb.r()                     = anRgba.r();
     anRgb.g()                     = anRgba.g();
@@ -1266,16 +1266,16 @@ Standard_Boolean OpenGl_FrameBuffer::BufferDump(const Handle(OpenGl_Context)&   
                                         aFormat,
                                         aType,
                                         aRowBuffer.ChangeData());
-      const Image_ColorRGBA* aRowDataRgba = (const Image_ColorRGBA*)aRowBuffer.Data();
+      const ColorRGBA* aRowDataRgba = (const ColorRGBA*)aRowBuffer.Data();
       if (theImage.Format() == Image_Format_BGR)
       {
-        convertRowFromRgba((Image_ColorBGR*)theImage.ChangeRow(aRow),
+        convertRowFromRgba((ColorBGR*)theImage.ChangeRow(aRow),
                            aRowDataRgba,
                            theImage.SizeX());
       }
       else
       {
-        convertRowFromRgba((Image_ColorRGB*)theImage.ChangeRow(aRow),
+        convertRowFromRgba((ColorRGB*)theImage.ChangeRow(aRow),
                            aRowDataRgba,
                            theImage.SizeX());
       }

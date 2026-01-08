@@ -101,7 +101,7 @@ Standard_Integer ShapeFix_WireVertex::FixSame()
     TopoEdge E1 = sbwd->Edge(i);
     TopoEdge E2 = sbwd->Edge(j);
 
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     TopoVertex      V1 = sae.LastVertex(E1);
     TopoVertex      V2 = sae.FirstVertex(E2);
     if (V1 == V2)
@@ -174,7 +174,7 @@ Standard_Integer ShapeFix_WireVertex::Fix()
     Standard_Integer j    = (i == nb ? 1 : i + 1);
     Standard_Integer stat = myAnalyzer.Status(i);
 
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     TopoVertex      V1 = sae.LastVertex(sbwd->Edge(i));
     TopoVertex      V2 = sae.FirstVertex(sbwd->Edge(j));
     VI->SetValue(i, V1);

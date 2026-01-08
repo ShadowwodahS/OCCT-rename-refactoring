@@ -21,7 +21,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(Image_CompressedPixMap, RefObject)
 
 //! DDS Pixel Format structure.
-struct Image_DDSParser::DDSPixelFormat
+struct DDSParser::DDSPixelFormat
 {
   uint32_t Size;
   uint32_t Flags;
@@ -34,7 +34,7 @@ struct Image_DDSParser::DDSPixelFormat
 };
 
 //! DDS File header structure.
-struct Image_DDSParser::DDSFileHeader
+struct DDSParser::DDSFileHeader
 {
   //! Caps2 flag indicating complete (6 faces) cubemap.
   enum
@@ -66,7 +66,7 @@ struct Image_DDSParser::DDSFileHeader
 
 //=================================================================================================
 
-Handle(Image_CompressedPixMap) Image_DDSParser::Load(
+Handle(Image_CompressedPixMap) DDSParser::Load(
   const Handle(Image_SupportedFormats)& theSupported,
   const AsciiString1&        theFile,
   const Standard_Integer                theFaceIndex,
@@ -135,7 +135,7 @@ Handle(Image_CompressedPixMap) Image_DDSParser::Load(
 
 //=================================================================================================
 
-Handle(Image_CompressedPixMap) Image_DDSParser::Load(
+Handle(Image_CompressedPixMap) DDSParser::Load(
   const Handle(Image_SupportedFormats)& theSupported,
   const Handle(NCollection_Buffer)&     theBuffer,
   const Standard_Integer                theFaceIndex)
@@ -185,7 +185,7 @@ Handle(Image_CompressedPixMap) Image_DDSParser::Load(
 
 //=================================================================================================
 
-Handle(Image_CompressedPixMap) Image_DDSParser::parseHeader(const DDSFileHeader& theHeader)
+Handle(Image_CompressedPixMap) DDSParser::parseHeader(const DDSFileHeader& theHeader)
 {
   if (theHeader.Size != 124 || theHeader.Width == 0 || theHeader.Height == 0
       || theHeader.PixelFormatDef.Size != 32)

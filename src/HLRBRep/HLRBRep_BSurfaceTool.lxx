@@ -327,13 +327,13 @@ inline GeomAbs_SurfaceType BSurfaceTool::GetType(const BRepAdaptor_Surface& S)
 }
 
 //=======================================================================
-// function : Plane
+// function : Plane1
 // purpose  :
 //=======================================================================
 
-inline gp_Pln BSurfaceTool::Plane(const BRepAdaptor_Surface& S)
+inline gp_Pln BSurfaceTool::Plane1(const BRepAdaptor_Surface& S)
 {
-  return S.Plane();
+  return S.Plane1();
 }
 
 //=======================================================================

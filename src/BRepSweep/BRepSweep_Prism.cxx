@@ -99,16 +99,16 @@ Vector3d BRepSweep_Prism::Vec() const
 
 //=================================================================================================
 
-Sweep_NumShape BRepSweep_Prism::NumShape() const
+SweepNumShape BRepSweep_Prism::NumShape() const
 {
-  return Sweep_NumShape(2, TopAbs_EDGE);
+  return SweepNumShape(2, TopAbs_EDGE);
 }
 
 //=================================================================================================
 
-Sweep_NumShape BRepSweep_Prism::NumShape(const Standard_Boolean Inf) const
+SweepNumShape BRepSweep_Prism::NumShape(const Standard_Boolean Inf) const
 {
-  Sweep_NumShape N;
+  SweepNumShape N;
   if (Inf)
   {
     N.Init(0, TopAbs_EDGE, Standard_False, Standard_True, Standard_True);

@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(TDataXtd_Constraint, TDF_Attribute)
 //! -   Geometries to identify the geometries
 //! underlying the topological attributes which
 //! define the constraint (up to 4)
-//! -   Plane for 2D constraints.
+//! -   Plane1 for 2D constraints.
 class TDataXtd_Constraint : public TDF_Attribute
 {
 

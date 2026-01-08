@@ -304,7 +304,7 @@ Standard_Boolean BRepMesh_ShapeTool::Range(const TopoEdge&     theEdge,
                                            const Standard_Boolean isConsiderOrientation)
 {
 
-  ShapeAnalysis_Edge aEdge;
+  Edge1 aEdge;
   return aEdge
     .PCurve(theEdge, theFace, thePCurve, theFirstParam, theLastParam, isConsiderOrientation);
 }
@@ -318,6 +318,6 @@ Standard_Boolean BRepMesh_ShapeTool::Range(const TopoEdge&     theEdge,
                                            const Standard_Boolean isConsiderOrientation)
 {
 
-  ShapeAnalysis_Edge aEdge;
+  Edge1 aEdge;
   return aEdge.Curve3d(theEdge, theCurve, theFirstParam, theLastParam, isConsiderOrientation);
 }

@@ -920,7 +920,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ConicQuadIntersection LinPlane(Line,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
+      ConicQuadIntersection LinPlane(Line,TheSurfaceTool::Plane1(surface),TOLERANCE_ANGULAIRE);
       AppendIntAna(curve,surface,LinPlane);
       break;
     }
@@ -1050,7 +1050,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Circ&        Circle,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ConicQuadIntersection CircPlane(Circle,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
+      ConicQuadIntersection CircPlane(Circle,TheSurfaceTool::Plane1(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
       AppendIntAna(curve,surface,CircPlane);
       break;
     }
@@ -1095,7 +1095,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Elips&       Ellipse,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ConicQuadIntersection EllipsePlane(Ellipse,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
+      ConicQuadIntersection EllipsePlane(Ellipse,TheSurfaceTool::Plane1(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
       AppendIntAna(curve,surface,EllipsePlane);
       break;
     }
@@ -1140,7 +1140,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Parab&       Parab,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ConicQuadIntersection ParabPlane(Parab,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
+      ConicQuadIntersection ParabPlane(Parab,TheSurfaceTool::Plane1(surface),TOLERANCE_ANGULAIRE);
       AppendIntAna(curve,surface,ParabPlane);
       break;
     }
@@ -1199,7 +1199,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Hypr&        Hypr,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ConicQuadIntersection HyprPlane(Hypr,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
+      ConicQuadIntersection HyprPlane(Hypr,TheSurfaceTool::Plane1(surface),TOLERANCE_ANGULAIRE);
       AppendIntAna(curve,surface,HyprPlane);
       break;
     }
@@ -1471,7 +1471,7 @@ void IntCurveSurface_ComputeParamsOnQuadric(const TheSurface& surface,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ElSLib1::Parameters(TheSurfaceTool::Plane(surface),P,u,v);
+      ElSLib1::Parameters(TheSurfaceTool::Plane1(surface),P,u,v);
 	break;
       }
   case GeomAbs_Cylinder:
@@ -1892,7 +1892,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
   //  case for plane, cylinder and cone - make equivalent surface;
   if(aTypeOfBasSurf == GeomAbs_Plane) {
 
-    gp_Pln aPln = aBasSurf->Plane();
+    gp_Pln aPln = aBasSurf->Plane1();
     Vector3d aT = aPln.Position().XDirection()^aPln.Position().YDirection();
     aT *= anOffVal;
     aPln.Translate(aT);

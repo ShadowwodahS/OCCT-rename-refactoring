@@ -149,7 +149,7 @@ public:
 
   //! Fixes edge if pcurve is directed opposite to 3d curve
   //! Check is done by call to the function
-  //! ShapeAnalysis_Edge::CheckCurve3dWithPCurve()
+  //! Edge1::CheckCurve3dWithPCurve()
   //! Warning: For seam edge this method will check and fix the pcurve in only
   //! one direction. Hence, it should be called twice for seam edge:
   //! once with edge orientation FORWARD and once with REVERSED.
@@ -167,7 +167,7 @@ public:
   //! First, it makes edge same range if SameRange flag is not set.
   //!
   //! If flag SameParameter is set, this method calls the
-  //! function ShapeAnalysis_Edge::CheckSameParameter() that
+  //! function Edge1::CheckSameParameter() that
   //! calculates the maximal deviation of pcurves of the edge from
   //! its 3d curve. If deviation > tolerance, the tolerance of edge
   //! is increased to a value of deviation. If deviation < tolerance
@@ -203,7 +203,7 @@ public:
   //! First, it makes edge same range if SameRange flag is not set.
   //!
   //! If flag SameParameter is set, this method calls the
-  //! function ShapeAnalysis_Edge::CheckSameParameter() that
+  //! function Edge1::CheckSameParameter() that
   //! calculates the maximal deviation of pcurves of the edge from
   //! its 3d curve. If deviation > tolerance, the tolerance of edge
   //! is increased to a value of deviation. If deviation < tolerance

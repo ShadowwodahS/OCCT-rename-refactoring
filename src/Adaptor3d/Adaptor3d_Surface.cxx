@@ -284,9 +284,9 @@ GeomAbs_SurfaceType Adaptor3d_Surface::GetType() const
 
 //=================================================================================================
 
-gp_Pln Adaptor3d_Surface::Plane() const
+gp_Pln Adaptor3d_Surface::Plane1() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Plane");
+  throw Standard_NotImplemented("Adaptor3d_Surface::Plane1");
 }
 
 //=================================================================================================

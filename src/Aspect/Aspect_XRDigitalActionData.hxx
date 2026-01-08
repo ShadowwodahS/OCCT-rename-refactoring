@@ -17,7 +17,7 @@
 #include <Standard_TypeDef.hxx>
 
 //! Digital input XR action data.
-struct Aspect_XRDigitalActionData
+struct XRDigitalActionData
 {
   uint64_t ActiveOrigin; //!< The origin that caused this action's current state
                          // clang-format off
@@ -28,7 +28,7 @@ struct Aspect_XRDigitalActionData
                          // clang-format on
 
   //! Empty constructor.
-  Aspect_XRDigitalActionData()
+  XRDigitalActionData()
       : ActiveOrigin(0),
         UpdateTime(0.0f),
         IsActive(false),

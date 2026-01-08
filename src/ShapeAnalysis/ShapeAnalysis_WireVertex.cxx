@@ -94,7 +94,7 @@ void ShapeAnalysis_WireVertex::Analyze()
   Handle(GeomCurve3d) c1, c2;
   Standard_Real      cf, cl, upre, ufol;
   Standard_Integer   i, j, nb = myStat->Length(), stat;
-  ShapeAnalysis_Edge EA;
+  Edge1 EA;
   for (i = 1; i <= nb; i++)
   {
     stat = -1; // au depart
@@ -141,9 +141,9 @@ void ShapeAnalysis_WireVertex::Analyze()
     Point3d        PJ1, PJ2;
     Standard_Real U1, U2;
     Standard_Real dj1 =
-      ShapeAnalysis_Curve().Project(c1, P2, myPreci, PJ1, U1, (cf + upre) / 2, upre);
+      Curve2().Project(c1, P2, myPreci, PJ1, U1, (cf + upre) / 2, upre);
     Standard_Real dj2 =
-      ShapeAnalysis_Curve().Project(c2, P1, myPreci, PJ2, U2, ufol, (ufol + cl) / 2);
+      Curve2().Project(c2, P1, myPreci, PJ2, U2, ufol, (ufol + cl) / 2);
     if (dj1 <= myPreci)
     {
       SetStart(i, PJ1.XYZ(), U1);

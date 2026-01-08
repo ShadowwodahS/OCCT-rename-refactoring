@@ -152,13 +152,13 @@ public:
             const Standard_Integer Nu,
             const Standard_Integer Nv) const;
 
-  //! Returns the type of the surface : Plane, Cylinder,
+  //! Returns the type of the surface : Plane1, Cylinder,
   //! Cone,      Sphere,        Torus,    BezierSurface,
   //! BSplineSurface,               SurfaceOfRevolution,
   //! SurfaceOfExtrusion, OtherSurface
   GeomAbs_SurfaceType GetType() const;
 
-  Standard_EXPORT gp_Pln Plane() const;
+  Standard_EXPORT gp_Pln Plane1() const;
 
   Cylinder1 Cylinder() const;
 

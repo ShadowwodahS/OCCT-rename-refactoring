@@ -1584,7 +1584,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
         BRepAdaptor_Surface aSurface(aFace, Standard_False);
         if (aSurface.GetType() == GeomAbs_Plane)
         {
-          gp_Pln             aPlane     = aSurface.Plane();
+          gp_Pln             aPlane     = aSurface.Plane1();
           Handle(GeomPlane) aGeomPlane = new GeomPlane(aPlane);
           Handle(AIS_Plane)  anAISPlane = new AIS_Plane(aGeomPlane);
           GetMapOfAIS().Bind(anAISPlane, aName);
@@ -1592,7 +1592,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
         }
         else
         {
-          Message::SendFail("Error: surface is not Plane");
+          Message::SendFail("Error: surface is not Plane1");
           return 1;
         }
       }
@@ -1634,7 +1634,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
       BRepAdaptor_Surface aSurface(aFace, Standard_False);
       if (aSurface.GetType() == GeomAbs_Plane)
       {
-        gp_Pln aPlane = aSurface.Plane();
+        gp_Pln aPlane = aSurface.Plane1();
         // Construct a plane parallel to aGeomPlane through A
         aPlane.SetLocation(A);
         Handle(GeomPlane) aGeomPlane = new GeomPlane(aPlane);
@@ -1702,7 +1702,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
       BRepAdaptor_Surface aSurface(aFace, Standard_False);
       if (aSurface.GetType() == GeomAbs_Plane)
       {
-        gp_Pln aPlane = aSurface.Plane();
+        gp_Pln aPlane = aSurface.Plane1();
         // It rotates a half turn round the axis of rotation
         aPlane.Rotate(aRotAxis, M_PI / 2);
 
@@ -1715,7 +1715,7 @@ static Standard_Integer VPlaneBuilder(DrawInterpreter& /*di*/,
       }
       else
       {
-        Message::SendFail("Error: surface is not Plane");
+        Message::SendFail("Error: surface is not Plane1");
         return 1;
       }
     }
@@ -2338,7 +2338,7 @@ static int VCircleBuilder(DrawInterpreter& /*di*/, Standard_Integer argc, const 
       // Recover the normal to the plane. tag
       TopoFace         aFace = TopoDS::Face(aShapeA);
       BRepAdaptor_Surface aSurface(aFace, Standard_False);
-      gp_Pln              aPlane     = aSurface.Plane();
+      gp_Pln              aPlane     = aSurface.Plane1();
       Handle(GeomPlane)  aGeomPlane = new GeomPlane(aPlane);
       gp_Pln              aGpPlane   = aGeomPlane->Pln();
       Axis3d              aGpAxe     = aGpPlane.Axis();

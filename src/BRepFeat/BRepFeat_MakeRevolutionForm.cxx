@@ -95,7 +95,7 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
 
 void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
                                        const TopoWire&        W,
-                                       const Handle(GeomPlane)& Plane,
+                                       const Handle(GeomPlane)& Plane1,
                                        const Axis3d&             Axis,
                                        const Standard_Real       H1,
                                        const Standard_Real       H2,
@@ -134,7 +134,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
     LineLast  = RealLast();
   }
 
-  Handle(GeomCurve2d) ln2d = GeomAPI1::To2d(Line, Plane->Pln());
+  Handle(GeomCurve2d) ln2d = GeomAPI1::To2d(Line, Plane1->Pln());
 
   ShapeExplorer exx;
   Standard_Real   Rad = RealLast();
@@ -145,7 +145,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
     const TopoEdge&          e = TopoDS::Edge(exx.Current());
     Standard_Real               f, l;
     Handle(GeomCurve3d)          c   = BRepInspector::Curve(e, f, l);
-    Handle(GeomCurve2d)        c2d = GeomAPI1::To2d(c, Plane->Pln());
+    Handle(GeomCurve2d)        c2d = GeomAPI1::To2d(c, Plane1->Pln());
     Geom2dAPI_ExtremaCurveCurve extr(ln2d, c2d, LineFirst, LineLast, f, l);
     Standard_Real               L = RealLast();
     if (extr.NbExtrema() >= 1)
@@ -227,7 +227,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
   TopoShape aLocalShapeW = W.Oriented(TopAbs_FORWARD);
   myWire                    = TopoDS::Wire(aLocalShapeW);
   //  myWire = TopoDS::Wire(W.Oriented(TopAbs_FORWARD));
-  myPln     = Plane;
+  myPln     = Plane1;
   myHeight1 = H1;
   myHeight2 = H2;
 
@@ -910,7 +910,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
       //      }
       //      else ln = lln;
 
-      Handle(GeomCurve2d)      l2d = GeomAPI1::To2d(ln, Plane->Pln());
+      Handle(GeomCurve2d)      l2d = GeomAPI1::To2d(ln, Plane1->Pln());
       Geom2dAPI_InterCurveCurve intcc(l2d, ln2d, Precision::Confusion());
       TopoVertex             VV;
       VV.Nullify();

@@ -803,7 +803,7 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
     else
       fd.Simple(Standard_False);
 
-    fd.Plane(iFaceType == GeomAbs_Plane);
+    fd.Plane1(iFaceType == GeomAbs_Plane);
     fd.Cylinder(iFaceType == GeomAbs_Cylinder);
     fd.Cone(iFaceType == GeomAbs_Cone);
     fd.Sphere(iFaceType == GeomAbs_Sphere);

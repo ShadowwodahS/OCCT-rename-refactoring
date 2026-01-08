@@ -55,7 +55,7 @@ public:
   //! Main constructor.
   //! Note that Frame Queue is stored as pointer,
   //! and it is expected that this context is stored as a class field of Frame Queue.
-  Standard_EXPORT Media_PlayerContext(Media_IFrameQueue* theFrameQueue);
+  Standard_EXPORT Media_PlayerContext(IFrameQueue* theFrameQueue);
 
   //! Destructor.
   Standard_EXPORT virtual ~Media_PlayerContext();
@@ -128,7 +128,7 @@ private:
   }
 
 private:
-  Media_IFrameQueue* myFrameQueue; //!< frame queue
+  IFrameQueue* myFrameQueue; //!< frame queue
   OSD_Thread         myThread;     //!< working thread
   Standard_Mutex     myMutex;      //!< mutex for events
                                    // clang-format off

@@ -52,7 +52,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
                                                            Standard_Real&        Last)
 {
 
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   Handle(GeomCurve3d) c3d;
   Standard_Real      f, l;
   if (sae.Curve3d(myEdge, c3d, f, l, Standard_False))

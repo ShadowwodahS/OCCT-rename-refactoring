@@ -736,7 +736,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
   {
     /*if(aSurf->IsUPeriodic() ) {
     Standard_Real aDelta = (UL > UF ? UL - UF : UF - UL );
-    u1 = (aDelta > 2.*M_PI ? 0. : UF + ShapeAnalysis::AdjustByPeriod(UF,0.5*(UL+UF),2*M_PI));
+    u1 = (aDelta > 2.*M_PI ? 0. : UF + ShapeAnalysis1::AdjustByPeriod(UF,0.5*(UL+UF),2*M_PI));
     u2 = (aDelta > 2.*M_PI ? 2.*M_PI : u1 + aDelta);
     }*/
     Standard_Boolean isTrim = Standard_False;
@@ -749,7 +749,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
     /*if(aSurf->IsVPeriodic()) {
 
     Standard_Real aDelta = (VL > VF ? VL - VF : VF - VL );
-    v1 = (aDelta > 2.*M_PI ? 0. : VF + ShapeAnalysis::AdjustByPeriod(VF,0.5*(UL+UF),2*M_PI));
+    v1 = (aDelta > 2.*M_PI ? 0. : VF + ShapeAnalysis1::AdjustByPeriod(VF,0.5*(UL+UF),2*M_PI));
     v2 = (aDelta > 2.*M_PI ? 2.* M_PI : v1 + aDelta);
     }*/
     if (!aSurf->IsVPeriodic())
@@ -1178,7 +1178,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     Handle(GeomCurve3d) aCurve1;
     Standard_Real      pf = aCurve->FirstParameter(), pl = aCurve->LastParameter();
     // 15.11.2002 PTV OCC966
-    if (ShapeAnalysis_Curve::IsPeriodic(aCurve) && (First != Last))
+    if (Curve2::IsPeriodic(aCurve) && (First != Last))
       aCurve1 = new Geom_TrimmedCurve(aCurve, First, Last);
     else if (pf < (First - Precision::PConfusion()) || pl > (Last + Precision::PConfusion()))
     {
@@ -1553,7 +1553,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
     Handle(GeomCurve2d) aCurve1;
     Standard_Real        pf = aCurve->FirstParameter(), pl = aCurve->LastParameter();
     // 15.11.2002 PTV OCC966
-    if (ShapeAnalysis_Curve::IsPeriodic(aCurve) && (First != Last))
+    if (Curve2::IsPeriodic(aCurve) && (First != Last))
       aCurve1 = new Geom2d_TrimmedCurve(aCurve, First, Last);
     else if (aCurve->FirstParameter() < (First - Precision::PConfusion())
              || aCurve->LastParameter() > (Last + Precision::PConfusion()))

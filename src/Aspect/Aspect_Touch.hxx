@@ -17,7 +17,7 @@
 #include <NCollection_Vec2.hxx>
 
 //! Structure holding touch position - original and current location.
-class Aspect_Touch
+class Touch
 {
 public:
   NCollection_Vec2<Standard_Real> From; //!< original touch position
@@ -30,7 +30,7 @@ public:
   NCollection_Vec2<Standard_Real> Delta() const { return To - From; }
 
   //! Empty constructor
-  Aspect_Touch()
+  Touch()
       : From(0.0, 0.0),
         To(0.0, 0.0),
         IsPreciseDevice(false)
@@ -38,7 +38,7 @@ public:
   }
 
   //! Constructor with initialization.
-  Aspect_Touch(const NCollection_Vec2<Standard_Real>& thePnt, Standard_Boolean theIsPreciseDevice)
+  Touch(const NCollection_Vec2<Standard_Real>& thePnt, Standard_Boolean theIsPreciseDevice)
       : From(thePnt),
         To(thePnt),
         IsPreciseDevice(theIsPreciseDevice)
@@ -46,7 +46,7 @@ public:
   }
 
   //! Constructor with initialization.
-  Aspect_Touch(Standard_Real theX, Standard_Real theY, Standard_Boolean theIsPreciseDevice)
+  Touch(Standard_Real theX, Standard_Real theY, Standard_Boolean theIsPreciseDevice)
       : From(theX, theY),
         To(theX, theY),
         IsPreciseDevice(theIsPreciseDevice)

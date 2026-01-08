@@ -311,7 +311,7 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(GeomCurve3d)& curv,
 
   else
   {
-    //    gp_Pln pln(Component()->WorkingPlane()->Plane()->GetValue()->Pln());
+    //    gp_Pln pln(Component()->WorkingPlane()->Plane1()->GetValue()->Pln());
     gp_Pln pln(myPlane->Pln());
     Dir3d NormPln = pln.Axis().Direction();
     Vector3d vec(firstp, lastp);

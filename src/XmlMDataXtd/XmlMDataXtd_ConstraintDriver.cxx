@@ -162,7 +162,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
     if (!aDOMStr.GetInteger(aNb))
     {
       aMsgString = UtfString(
-                     "XmlMDataXtd_ConstraintDriver: Cannot retrieve reference on Plane from \"")
+                     "XmlMDataXtd_ConstraintDriver: Cannot retrieve reference on Plane1 from \"")
                    + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
       return Standard_False;

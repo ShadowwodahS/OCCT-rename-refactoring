@@ -20,31 +20,31 @@
 
 class Graphic3d_ValidatedCubeMapOrder;
 
-//! Graphic3d_CubeMapOrder maps sides of cubemap on tiles in packed cubemap image
+//! CubeMapOrder maps sides of cubemap on tiles in packed cubemap image
 //! to support different tiles order in such images.
 //! Also it can be considered as permutation of numbers from 0 to 5.
 //! It stores permutation in one integer as convolution.
-class Graphic3d_CubeMapOrder
+class CubeMapOrder
 {
 
 public:
   //! Default constructor.
   //! Creates empty order with zero convolution.
-  Standard_EXPORT Graphic3d_CubeMapOrder();
+  Standard_EXPORT CubeMapOrder();
 
   //! Initializes order with values.
-  Standard_EXPORT Graphic3d_CubeMapOrder(unsigned char thePosXLocation,
+  Standard_EXPORT CubeMapOrder(unsigned char thePosXLocation,
                                          unsigned char theNegXLocation,
                                          unsigned char thePosYLocation,
                                          unsigned char theNegYLocation,
                                          unsigned char thePosZLocation,
                                          unsigned char theNegZLocation);
 
-  //! Creates Graphic3d_CubeMapOrder using Graphic3d_ValidatedCubeMapOrder.
-  Standard_EXPORT Graphic3d_CubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOrder);
+  //! Creates CubeMapOrder using Graphic3d_ValidatedCubeMapOrder.
+  Standard_EXPORT CubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOrder);
 
   //! Alias of 'operator='.
-  Standard_EXPORT Graphic3d_CubeMapOrder& Set(const Graphic3d_CubeMapOrder& theOrder);
+  Standard_EXPORT CubeMapOrder& Set(const CubeMapOrder& theOrder);
 
   //! Checks whether order is valid and returns object containing it.
   //! If order is invalid then exception will be thrown.
@@ -53,25 +53,25 @@ public:
 
 public:
   //! Sets number of tile in packed cubemap image according passed cubemap side.
-  Standard_EXPORT Graphic3d_CubeMapOrder& Set(Graphic3d_CubeMapSide theCubeMapSide,
+  Standard_EXPORT CubeMapOrder& Set(Graphic3d_CubeMapSide theCubeMapSide,
                                               unsigned char         theValue);
 
   //! Sets default order (just from 0 to 5)
-  Standard_EXPORT Graphic3d_CubeMapOrder& SetDefault();
+  Standard_EXPORT CubeMapOrder& SetDefault();
 
   //! Applies another cubemap order as permutation for the current one.
-  Standard_EXPORT Graphic3d_CubeMapOrder& Permute(const Graphic3d_ValidatedCubeMapOrder& anOrder);
+  Standard_EXPORT CubeMapOrder& Permute(const Graphic3d_ValidatedCubeMapOrder& anOrder);
 
   //! Returns permuted by other cubemap order copy of current one.
-  Standard_EXPORT Graphic3d_CubeMapOrder
+  Standard_EXPORT CubeMapOrder
     Permuted(const Graphic3d_ValidatedCubeMapOrder& anOrder) const;
 
   //! Swaps values of two cubemap sides.
-  Standard_EXPORT Graphic3d_CubeMapOrder& Swap(Graphic3d_CubeMapSide theFirstSide,
+  Standard_EXPORT CubeMapOrder& Swap(Graphic3d_CubeMapSide theFirstSide,
                                                Graphic3d_CubeMapSide theSecondSide);
 
   //! Returns copy of current order with swapped values of two cubemap sides.
-  Standard_EXPORT Graphic3d_CubeMapOrder Swapped(Graphic3d_CubeMapSide theFirstSide,
+  Standard_EXPORT CubeMapOrder Swapped(Graphic3d_CubeMapSide theFirstSide,
                                                  Graphic3d_CubeMapSide theSecondSide) const;
 
   //! Returns value of passed cubemap side.
@@ -81,7 +81,7 @@ public:
   Standard_EXPORT unsigned char operator[](Graphic3d_CubeMapSide theCubeMapSide) const;
 
   //! Makes order empty.
-  Standard_EXPORT Graphic3d_CubeMapOrder& Clear();
+  Standard_EXPORT CubeMapOrder& Clear();
 
   //! Checks whether order is empty.
   Standard_EXPORT bool IsEmpty() const;
@@ -120,17 +120,17 @@ private:
 
 //! Graphic3d_ValidatedCubeMapOrder contains completely valid order object.
 //! The only way to create this class except copy constructor is 'Validated' method of
-//! Graphic3d_CubeMapOrder. This class can initialize Graphic3d_CubeMapOrder. It is supposed to be
+//! CubeMapOrder. This class can initialize CubeMapOrder. It is supposed to be
 //! used in case of necessity of completely valid order (in function argument as example). It helps
 //! to automate order's valid checks.
 class Graphic3d_ValidatedCubeMapOrder
 {
 
 public:
-  friend class Graphic3d_CubeMapOrder;
+  friend class CubeMapOrder;
 
   //! Allows skip access to 'Order' field and work directly.
-  const Graphic3d_CubeMapOrder* operator->() const { return &Order; }
+  const CubeMapOrder* operator->() const { return &Order; }
 
   //! Copy constructor.
   Graphic3d_ValidatedCubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOther)
@@ -139,12 +139,12 @@ public:
   }
 
 public:
-  const Graphic3d_CubeMapOrder Order; //!< Completely valid order
+  const CubeMapOrder Order; //!< Completely valid order
 
 private:
-  //! Only Graphic3d_CubeMapOrder can generate Graphic3d_ValidatedCubeMapOrder in 'Validated'
+  //! Only CubeMapOrder can generate Graphic3d_ValidatedCubeMapOrder in 'Validated'
   //! method.
-  Graphic3d_ValidatedCubeMapOrder(const Graphic3d_CubeMapOrder theOrder)
+  Graphic3d_ValidatedCubeMapOrder(const CubeMapOrder theOrder)
       : Order(theOrder)
   {
   }

@@ -167,7 +167,7 @@ void Extrema_GlobOptFuncCQuadric::LoadQuad(const Adaptor3d_Surface* S,
   switch (mySType)
   {
     case GeomAbs_Plane:
-      myPln = myS->Plane();
+      myPln = myS->Plane1();
       break;
     case GeomAbs_Cylinder:
       myCylinder = myS->Cylinder();

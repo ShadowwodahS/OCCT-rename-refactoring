@@ -46,7 +46,7 @@ OpenGl_GraduatedTrihedron::OpenGl_GraduatedTrihedron()
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::SetValues(const Graphic3d_GraduatedTrihedron& theData)
+void OpenGl_GraduatedTrihedron::SetValues(const GraduatedTrihedron& theData)
 {
   myData          = theData;
   myIsInitialized = Standard_False;
@@ -335,7 +335,7 @@ void OpenGl_GraduatedTrihedron::renderGridPlane(const Handle(OpenGl_Workspace)& 
                                                 const GridAxes1&                 theGridAxes,
                                                 OpenGl_Mat4&                    theMat) const
 {
-  const Graphic3d_GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
+  const GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
   if (aCurAspect.TickmarksNumber() <= 0)
   {
     return;
@@ -467,7 +467,7 @@ void OpenGl_GraduatedTrihedron::renderTickmarkLabels(const Handle(OpenGl_Workspa
                                                      const GridAxes1&                 theGridAxes,
                                                      const Standard_ShortReal        theDpix) const
 {
-  const Graphic3d_GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
+  const GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
   if (!aCurAspect.ToDrawName() && !aCurAspect.ToDrawValues())
   {
     return;
@@ -715,7 +715,7 @@ void OpenGl_GraduatedTrihedron::SetMinMax(const OpenGl_Vec3& theMin, const OpenG
 // method  : OpenGl_GraduatedTrihedron::Axis constructor
 // purpose :
 // =======================================================================
-OpenGl_GraduatedTrihedron::Axis::Axis(const Graphic3d_GraduatedTrihedron::AxisAspect& theAspect,
+OpenGl_GraduatedTrihedron::Axis::Axis(const GraduatedTrihedron::AxisAspect& theAspect,
                                       const OpenGl_Vec3&                              theDirection)
     : Direction(theDirection),
       Tickmark(NULL),

@@ -34,7 +34,7 @@
 
 BRepSweep_Trsf::BRepSweep_Trsf(const ShapeBuilder&    aBuilder,
                                const TopoShape&    aGenShape,
-                               const Sweep_NumShape&  aDirWire,
+                               const SweepNumShape&  aDirWire,
                                const TopLoc_Location& aLocation,
                                const Standard_Boolean aCopy)
     : BRepSweep_NumLinearRegularSweep(aBuilder, aGenShape, aDirWire),
@@ -55,7 +55,7 @@ void BRepSweep_Trsf::Init()
   }
 }
 
-Standard_Boolean BRepSweep_Trsf::Process(const TopoShape& aGenS, const Sweep_NumShape& aDirV)
+Standard_Boolean BRepSweep_Trsf::Process(const TopoShape& aGenS, const SweepNumShape& aDirV)
 {
   Standard_Boolean dotrsf = (aDirV.Index() == 2 && !myDirWire.Closed());
   Standard_Integer iD     = myDirShapeTool.Index(aDirV);
@@ -89,7 +89,7 @@ Standard_Boolean BRepSweep_Trsf::Process(const TopoShape& aGenS, const Sweep_Num
 
 //=================================================================================================
 
-void BRepSweep_Trsf::SetContinuity(const TopoShape& aGenS, const Sweep_NumShape& aDirS)
+void BRepSweep_Trsf::SetContinuity(const TopoShape& aGenS, const SweepNumShape& aDirS)
 {
   constexpr Standard_Real tl = Precision::Confusion();
   // angular etant un peu severe pour les contours sketches.
@@ -124,7 +124,7 @@ void BRepSweep_Trsf::SetContinuity(const TopoShape& aGenS, const Sweep_NumShape&
       }
       if (aDirS.Closed())
       {
-        Sweep_NumShape dirv = myDirShapeTool.Shape(2);
+        SweepNumShape dirv = myDirShapeTool.Shape(2);
         if (GDDShapeIsToAdd(Shape(aGenS, aDirS), Shape(aGenS, dirv), aGenS, aDirS, dirv))
         {
           TopLoc_Location Lo;

@@ -165,7 +165,7 @@ static void Parameters(const Handle(Adaptor3d_Surface)& myHS1,
   switch (typs)
   {
     case GeomAbs_Plane:
-      quad1.SetValue(myHS1->Plane());
+      quad1.SetValue(myHS1->Plane1());
       break;
     case GeomAbs_Cylinder:
       quad1.SetValue(myHS1->Cylinder());
@@ -187,7 +187,7 @@ static void Parameters(const Handle(Adaptor3d_Surface)& myHS1,
   switch (typs)
   {
     case GeomAbs_Plane:
-      quad2.SetValue(myHS2->Plane());
+      quad2.SetValue(myHS2->Plane1());
       break;
     case GeomAbs_Cylinder:
       quad2.SetValue(myHS2->Cylinder());

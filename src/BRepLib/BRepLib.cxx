@@ -126,14 +126,14 @@ Standard_Real BRepLib::Precision()
 
 //=================================================================================================
 
-void BRepLib::Plane(const Handle(GeomPlane)& P)
+void BRepLib::Plane1(const Handle(GeomPlane)& P)
 {
   thePlane = P;
 }
 
 //=================================================================================================
 
-const Handle(GeomPlane)& BRepLib::Plane()
+const Handle(GeomPlane)& BRepLib::Plane1()
 {
   if (thePlane.IsNull())
     thePlane = new GeomPlane(gp1::XOY());
@@ -741,7 +741,7 @@ static void GetEdgeTol(const TopoEdge& theEdge,
   ProjLib_ProjectedCurve Proj(HS, HC);
   Handle(GeomCurve2d)   pc = Geom2dAdaptor1::MakeCurve(Proj);
 
-  gp_Pln           pln     = GAS.Plane();
+  gp_Pln           pln     = GAS.Plane1();
   Standard_Real    d2      = 0.;
   Standard_Integer nn      = 23;
   Standard_Real    unsurnn = 1. / nn;

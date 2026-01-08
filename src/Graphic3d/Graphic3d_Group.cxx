@@ -265,7 +265,7 @@ void Graphic3d_Group::AddPrimitiveArray(const Graphic3d_TypeOfPrimitiveArray the
 
 //=================================================================================================
 
-void Graphic3d_Group::Marker(const Graphic3d_Vertex& thePoint,
+void Graphic3d_Group::Marker(const Vertex1& thePoint,
                              const Standard_Boolean  theToEvalMinMax)
 {
   Handle(Graphic3d_ArrayOfPoints) aPoints = new Graphic3d_ArrayOfPoints(1);
@@ -276,7 +276,7 @@ void Graphic3d_Group::Marker(const Graphic3d_Vertex& thePoint,
 //=================================================================================================
 
 void Graphic3d_Group::Text(const Standard_CString  theText,
-                           const Graphic3d_Vertex& thePoint,
+                           const Vertex1& thePoint,
                            const Standard_Real     theHeight,
                            const Standard_Real /*theAngle*/,
                            const Graphic3d_TextPath /*theTp*/,
@@ -295,7 +295,7 @@ void Graphic3d_Group::Text(const Standard_CString  theText,
 //=================================================================================================
 
 void Graphic3d_Group::Text(const Standard_CString  theText,
-                           const Graphic3d_Vertex& thePoint,
+                           const Vertex1& thePoint,
                            const Standard_Real     theHeight,
                            const Standard_Boolean  theToEvalMinMax)
 {
@@ -308,7 +308,7 @@ void Graphic3d_Group::Text(const Standard_CString  theText,
 //=================================================================================================
 
 void Graphic3d_Group::Text(const UtfString& theText,
-                           const Graphic3d_Vertex&           thePoint,
+                           const Vertex1&           thePoint,
                            const Standard_Real               theHeight,
                            const Standard_Real /*theAngle*/,
                            const Graphic3d_TextPath /*theTp*/,
@@ -369,7 +369,7 @@ void Graphic3d_Group::Text(const Standard_CString theText,
 //=================================================================================================
 
 void Graphic3d_Group::Text(const UtfString& theText,
-                           const Graphic3d_Vertex&           thePoint,
+                           const Vertex1&           thePoint,
                            const Standard_Real               theHeight,
                            const Standard_Boolean            theToEvalMinMax)
 {

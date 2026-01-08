@@ -59,7 +59,7 @@ public:
   //! - PlaneTrihedron signature 4
   //! - Line           signature 5
   //! - Circle         signature 6
-  //! - Plane          signature 7.
+  //! - Plane1          signature 7.
   virtual Standard_Integer Signature() const { return -1; }
 
   //! Updates the active presentation; if <AllModes> = Standard_True

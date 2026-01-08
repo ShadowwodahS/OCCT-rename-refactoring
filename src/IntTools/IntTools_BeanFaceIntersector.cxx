@@ -300,7 +300,7 @@ void IntTools_BeanFaceIntersector::Perform()
     myContext = new IntTools_Context;
   }
 
-  // Fast computation of Line/Plane case
+  // Fast computation of Line/Plane1 case
   if (myCurve.GetType() == GeomAbs_Line && mySurface.GetType() == GeomAbs_Plane)
   {
     ComputeLinePlane();
@@ -705,10 +705,10 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
 
   GeomAbs_SurfaceType aST = mySurface.GetType();
 
-  // Plane - Circle/Ellipse/Hyperbola/Parabola
+  // Plane1 - Circle/Ellipse/Hyperbola/Parabola
   if (aST == GeomAbs_Plane)
   {
-    gp_Pln surfPlane = mySurface.Plane();
+    gp_Pln surfPlane = mySurface.Plane1();
 
     Dir3d aDir;
     Point3d aPLoc;
@@ -813,7 +813,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
 void IntTools_BeanFaceIntersector::ComputeLinePlane()
 {
   Standard_Real Tolang = 1.e-9;
-  gp_Pln        P      = mySurface.Plane();
+  gp_Pln        P      = mySurface.Plane1();
   gp_Lin        L      = myCurve.Line();
 
   myIsDone = Standard_True;

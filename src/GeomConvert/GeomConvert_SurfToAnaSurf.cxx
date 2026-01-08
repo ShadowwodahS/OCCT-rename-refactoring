@@ -627,7 +627,7 @@ Standard_Real GeomConvert_SurfToAnaSurf::ComputeGap(const Handle(GeomSurface)& t
   switch (aSType)
   {
     case GeomAbs_Plane:
-      aPln = aGAS.Plane();
+      aPln = aGAS.Plane1();
       break;
     case GeomAbs_Cylinder:
       aCyl = aGAS.Cylinder();
@@ -782,7 +782,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::ConvertToAnalytical(
   {
     case GeomAbs_Plane: {
       myGap = 0.;
-      return new GeomPlane(aGAS.Plane());
+      return new GeomPlane(aGAS.Plane1());
     }
     case GeomAbs_Cylinder: {
       myGap = 0.;
@@ -1123,7 +1123,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::IsSame(const Handle(GeomSurface)& S1
   QuadQuadGeoIntersection interii;
   if (aST1 == GeomAbs_Plane)
   {
-    interii.Perform(anAdaptor1->Plane(), anAdaptor2->Plane(), tol, tol);
+    interii.Perform(anAdaptor1->Plane1(), anAdaptor2->Plane1(), tol, tol);
   }
   else if (aST1 == GeomAbs_Cylinder)
   {

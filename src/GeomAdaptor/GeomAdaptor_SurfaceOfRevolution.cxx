@@ -441,10 +441,10 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
 
 //=================================================================================================
 
-gp_Pln GeomAdaptor_SurfaceOfRevolution::Plane() const
+gp_Pln GeomAdaptor_SurfaceOfRevolution::Plane1() const
 {
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Plane,
-                                 "GeomAdaptor_SurfaceOfRevolution:Plane");
+                                 "GeomAdaptor_SurfaceOfRevolution:Plane1");
 
   Ax3        Axe       = myAxeRev;
   Point3d        aPonCurve = Value(0., 0.);

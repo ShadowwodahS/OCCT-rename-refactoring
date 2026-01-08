@@ -29,7 +29,7 @@ class Dir3d;
 class Axis3d;
 
 //! This class implements the following algorithms used
-//! to create a Plane from gp1.
+//! to create a Plane1 from gp1.
 //! * Create a Pln parallel to another and passing
 //! through a point.
 //! * Create a Pln passing through 3 points.

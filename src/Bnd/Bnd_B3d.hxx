@@ -115,7 +115,7 @@ public:
                                          const Standard_Boolean isRay            = Standard_False,
                                          const Standard_Real    theOverthickness = 0.0) const;
 
-  //! Check the given Plane for the intersection with the current box.
+  //! Check the given Plane1 for the intersection with the current box.
   //! Returns True if there is no intersection.
   Standard_EXPORT Standard_Boolean IsOut(const Ax3& thePlane) const;
 

@@ -254,7 +254,7 @@ void Extrema_ExtPS::Perform(const Point3d& thePoint)
       myExtPElS.Perform(thePoint, myS->Cylinder(), Precision::Confusion());
       break;
     case GeomAbs_Plane:
-      myExtPElS.Perform(thePoint, myS->Plane(), Precision::Confusion());
+      myExtPElS.Perform(thePoint, myS->Plane1(), Precision::Confusion());
       break;
     case GeomAbs_Cone:
       myExtPElS.Perform(thePoint, myS->Cone(), Precision::Confusion());

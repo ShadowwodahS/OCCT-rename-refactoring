@@ -49,7 +49,7 @@
 //=======================================================================
 static Point3d Point(const gp_Pnt2d& P)
 {
-  return BRepLib::Plane()->Value(P.X(), P.Y());
+  return BRepLib::Plane1()->Value(P.X(), P.Y());
 }
 
 //=======================================================================
@@ -61,7 +61,7 @@ static gp_Pnt2d Project(const TopoVertex& Ve)
 {
   Point3d        P = BRepInspector::Pnt(Ve);
   Standard_Real U, V;
-  ElSLib1::Parameters(BRepLib::Plane()->Pln(), P, U, V);
+  ElSLib1::Parameters(BRepLib::Plane1()->Pln(), P, U, V);
   return gp_Pnt2d(U, V);
 }
 
@@ -623,7 +623,7 @@ void BRepLib_MakeEdge2d::Init(const Handle(GeomCurve2d)& CC,
 
   TopoEdge& E = TopoDS::Edge(myShape);
   B.MakeEdge(E);
-  B.UpdateEdge(E, C, BRepLib::Plane(), TopLoc_Location(), preci);
+  B.UpdateEdge(E, C, BRepLib::Plane1(), TopLoc_Location(), preci);
   if (!V1.IsNull())
   {
     B.Add(E, V1);

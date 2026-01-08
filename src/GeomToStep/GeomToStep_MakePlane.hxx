@@ -27,8 +27,8 @@ class gp_Pln;
 class GeomPlane;
 
 //! This class implements the mapping between classes
-//! Plane from Geom and Pln from gp1, and the class
-//! Plane from StepGeom which describes a plane from
+//! Plane1 from Geom and Pln from gp1, and the class
+//! Plane1 from StepGeom which describes a plane from
 //! Prostep.
 class GeomToStep_MakePlane : public Root1
 {

@@ -30,7 +30,7 @@ public:
   //! cubemap sides
   Standard_EXPORT Graphic3d_CubeMapPacked(
     const AsciiString1&         theFileName,
-    const Graphic3d_ValidatedCubeMapOrder& theOrder = Graphic3d_CubeMapOrder::Default());
+    const Graphic3d_ValidatedCubeMapOrder& theOrder = CubeMapOrder::Default());
 
   //! Initialization to set cubemap directly by PixMap.
   //! @thePixMap - origin PixMap
@@ -38,7 +38,7 @@ public:
   //! cubemap sides
   Standard_EXPORT Graphic3d_CubeMapPacked(
     const Handle(Image_PixMap)&            theImage,
-    const Graphic3d_ValidatedCubeMapOrder& theOrder = Graphic3d_CubeMapOrder::Default());
+    const Graphic3d_ValidatedCubeMapOrder& theOrder = CubeMapOrder::Default());
 
   //! Returns current cubemap side as compressed PixMap.
   Standard_EXPORT virtual Handle(Image_CompressedPixMap) CompressedValue(
@@ -68,7 +68,7 @@ private:
                     const AsciiString1&        theFilePath);
 
 protected:
-  Graphic3d_CubeMapOrder myOrder;       //!< order mapping tile grit to cubemap sides
+  CubeMapOrder myOrder;       //!< order mapping tile grit to cubemap sides
   unsigned int           myTileNumberX; //!< width of tile grid
 };
 

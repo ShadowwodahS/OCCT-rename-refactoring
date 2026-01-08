@@ -33,7 +33,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(GeomPlane, Geom_ElementarySurface)
 
-typedef GeomPlane Plane;
+typedef GeomPlane Plane1;
 typedef Axis3d     Ax1;
 typedef Frame3d     Ax2;
 typedef Ax3     Ax3;
@@ -50,7 +50,7 @@ typedef Coords3d     XYZ;
 Handle(Geom_Geometry) GeomPlane::Copy() const
 {
 
-  Handle(GeomPlane) Pl = new Plane(pos);
+  Handle(GeomPlane) Pl = new Plane1(pos);
   return Pl;
 }
 

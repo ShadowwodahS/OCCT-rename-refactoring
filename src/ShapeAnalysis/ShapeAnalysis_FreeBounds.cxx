@@ -207,7 +207,7 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
     TopoWire   trW = TopoDS::Wire(arrwires->Value(inbW));
     Box2       aBox;
     TopoVertex trV1, trV2;
-    ShapeAnalysis::FindBounds(trW, trV1, trV2);
+    ShapeAnalysis1::FindBounds(trW, trV1, trV2);
     Point3d trP1 = BRepInspector::Pnt(trV1);
     Point3d trP2 = BRepInspector::Pnt(trV2);
     aBox.Set(trP1);
@@ -219,7 +219,7 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
   aTreeFiller.Fill();
   Standard_Integer nsel;
 
-  ShapeAnalysis_Edge sae; // szv#4:S4163:12Mar99 moved
+  Edge1 sae; // szv#4:S4163:12Mar99 moved
   Standard_Boolean   done = Standard_False;
 
   while (!done)
@@ -393,7 +393,7 @@ static void SplitWire(const TopoWire&                 wire,
   Standard_Real tolerance = Max(toler, Precision::Confusion());
 
   ShapeBuilder       B;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
 
   Handle(ShapeExtend_WireData) sewd    = new ShapeExtend_WireData(wire);
   Standard_Integer             nbedges = sewd->NbEdges();

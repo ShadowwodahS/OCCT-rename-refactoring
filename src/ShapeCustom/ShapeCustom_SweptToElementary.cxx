@@ -109,7 +109,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoFace&    F,
     {
       // skl 18.12.2003 - plane not used, problems in PRO14665.igs
       // case GeomAbs_Plane : {
-      //  Handle(GeomPlane) Pl = new GeomPlane(AS.Plane());
+      //  Handle(GeomPlane) Pl = new GeomPlane(AS.Plane1());
       //  S = Pl;
       //} break;
       case GeomAbs_Cylinder: {
@@ -150,7 +150,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoFace&    F,
     {
       // skl 18.12.2003 - plane not used, problems in ims013.igs
       // case GeomAbs_Plane : {
-      //  Handle(GeomPlane) Pl = new GeomPlane(AS.Plane());
+      //  Handle(GeomPlane) Pl = new GeomPlane(AS.Plane1());
       //  S = Pl;
       //} break;
       case GeomAbs_Cylinder: {

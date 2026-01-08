@@ -73,18 +73,18 @@ public:
   //! Builds the vertex addressed by [aGenV,aDirV], with its
   //! geometric part, but without subcomponents.
   Standard_EXPORT virtual TopoShape MakeEmptyVertex(const TopoShape&   aGenV,
-                                                       const Sweep_NumShape& aDirV) = 0;
+                                                       const SweepNumShape& aDirV) = 0;
   Standard_EXPORT virtual ~BRepSweep_NumLinearRegularSweep();
 
   //! Builds the edge addressed by [aGenV,aDirE], with its
   //! geometric part, but without subcomponents.
   Standard_EXPORT virtual TopoShape MakeEmptyDirectingEdge(const TopoShape&   aGenV,
-                                                              const Sweep_NumShape& aDirE) = 0;
+                                                              const SweepNumShape& aDirE) = 0;
 
   //! Builds the edge addressed by [aGenE,aDirV], with its
   //! geometric part, but without subcomponents.
   Standard_EXPORT virtual TopoShape MakeEmptyGeneratingEdge(const TopoShape&   aGenE,
-                                                               const Sweep_NumShape& aDirV) = 0;
+                                                               const SweepNumShape& aDirV) = 0;
 
   //! Sets the  parameters of the new  vertex  on the new
   //! face. The new face and  new vertex where generated
@@ -93,7 +93,7 @@ public:
                                              TopoShape&         aNewVertex,
                                              const TopoShape&   aGenF,
                                              const TopoShape&   aGenV,
-                                             const Sweep_NumShape& aDirV) = 0;
+                                             const SweepNumShape& aDirV) = 0;
 
   //! Sets the  parameter of the new  vertex  on the new
   //! edge. The new edge and  new vertex where generated
@@ -101,8 +101,8 @@ public:
   Standard_EXPORT virtual void SetDirectingParameter(const TopoShape&   aNewEdge,
                                                      TopoShape&         aNewVertex,
                                                      const TopoShape&   aGenV,
-                                                     const Sweep_NumShape& aDirE,
-                                                     const Sweep_NumShape& aDirV) = 0;
+                                                     const SweepNumShape& aDirE,
+                                                     const SweepNumShape& aDirV) = 0;
 
   //! Sets the  parameter of the new  vertex  on the new
   //! edge. The new edge and  new vertex where generated
@@ -111,7 +111,7 @@ public:
                                                       TopoShape&         aNewVertex,
                                                       const TopoShape&   aGenE,
                                                       const TopoShape&   aGenV,
-                                                      const Sweep_NumShape& aDirV) = 0;
+                                                      const SweepNumShape& aDirV) = 0;
 
   //! Builds the face  addressed by  [aGenS,aDirS], with
   //! its geometric part, but without subcomponents. The
@@ -119,7 +119,7 @@ public:
   //! a directing vertex"   or "a generating  edge and a
   //! directing  edge".
   Standard_EXPORT virtual TopoShape MakeEmptyFace(const TopoShape&   aGenS,
-                                                     const Sweep_NumShape& aDirS) = 0;
+                                                     const SweepNumShape& aDirS) = 0;
 
   //! Sets the PCurve for a new edge on a new face. The
   //! new edge and  the  new face were generated  using
@@ -128,7 +128,7 @@ public:
                                          TopoShape&            aNewEdge,
                                          const TopoShape&      aGenF,
                                          const TopoShape&      aGenE,
-                                         const Sweep_NumShape&    aDirV,
+                                         const SweepNumShape&    aDirV,
                                          const TopAbs_Orientation orien) = 0;
 
   //! Sets the PCurve for a new edge on a new face. The
@@ -137,8 +137,8 @@ public:
   Standard_EXPORT virtual void SetGeneratingPCurve(const TopoShape&      aNewFace,
                                                    TopoShape&            aNewEdge,
                                                    const TopoShape&      aGenE,
-                                                   const Sweep_NumShape&    aDirE,
-                                                   const Sweep_NumShape&    aDirV,
+                                                   const SweepNumShape&    aDirE,
+                                                   const SweepNumShape&    aDirV,
                                                    const TopAbs_Orientation orien) = 0;
 
   //! Sets the PCurve for a new edge on a new face. The
@@ -148,7 +148,7 @@ public:
                                                   TopoShape&            aNewEdge,
                                                   const TopoShape&      aGenE,
                                                   const TopoShape&      aGenV,
-                                                  const Sweep_NumShape&    aDirE,
+                                                  const SweepNumShape&    aDirE,
                                                   const TopAbs_Orientation orien) = 0;
 
   //! Returns the Orientation of the  shell in the solid
@@ -156,7 +156,7 @@ public:
   //! It is  REVERSED  if the surface is  swept  in  the
   //! direction of the normal.
   Standard_EXPORT virtual TopAbs_Orientation DirectSolid(const TopoShape&   aGenS,
-                                                         const Sweep_NumShape& aDirS) = 0;
+                                                         const SweepNumShape& aDirS) = 0;
 
   //! Returns   true   if  aNewSubShape    (addressed by
   //! aSubGenS  and aDirS)  must  be added  in aNewShape
@@ -165,7 +165,7 @@ public:
                                                            const TopoShape&   aNewSubShape,
                                                            const TopoShape&   aGenS,
                                                            const TopoShape&   aSubGenS,
-                                                           const Sweep_NumShape& aDirS) const = 0;
+                                                           const SweepNumShape& aDirS) const = 0;
 
   //! Returns   true   if  aNewSubShape    (addressed by
   //! aGenS  and aSubDirS)  must  be added  in aNewShape
@@ -174,8 +174,8 @@ public:
     const TopoShape&   aNewShape,
     const TopoShape&   aNewSubShape,
     const TopoShape&   aGenS,
-    const Sweep_NumShape& aDirS,
-    const Sweep_NumShape& aSubDirS) const = 0;
+    const SweepNumShape& aDirS,
+    const SweepNumShape& aSubDirS) const = 0;
 
   //! In  some  particular  cases  the   topology  of  a
   //! generated  face must be  composed  of  independent
@@ -185,7 +185,7 @@ public:
                                                           const TopoShape&   aNewSubShape,
                                                           const TopoShape&   aGenS,
                                                           const TopoShape&   aSubGenS,
-                                                          const Sweep_NumShape& aDirS) const = 0;
+                                                          const SweepNumShape& aDirS) const = 0;
 
   //! In  some  particular  cases  the   topology  of  a
   //! generated  Shell must be  composed  of  independent
@@ -197,21 +197,21 @@ public:
   //! between two edges of the  generating wire  aGenS on
   //! the generated edge and faces.
   Standard_EXPORT virtual void SetContinuity(const TopoShape&   aGenS,
-                                             const Sweep_NumShape& aDirS) = 0;
+                                             const SweepNumShape& aDirS) = 0;
 
   //! Returns true   if aDirS   and aGenS  addresses   a
   //! resulting Shape. In some  specific cases the shape
   //! can  be    geometrically   inexsistant,  then this
   //! function returns false.
   Standard_EXPORT virtual Standard_Boolean HasShape(const TopoShape&   aGenS,
-                                                    const Sweep_NumShape& aDirS) const = 0;
+                                                    const SweepNumShape& aDirS) const = 0;
 
   //! Returns true if aGenS cannot be transformed.
   Standard_EXPORT virtual Standard_Boolean IsInvariant(const TopoShape& aGenS) const = 0;
 
   //! Returns the resulting  Shape indexed by aDirS  and
   //! aGenS.
-  Standard_EXPORT TopoShape Shape(const TopoShape& aGenS, const Sweep_NumShape& aDirS);
+  Standard_EXPORT TopoShape Shape(const TopoShape& aGenS, const SweepNumShape& aDirS);
 
   //! Returns  the resulting Shape  indexed by myDirWire
   //! and aGenS.
@@ -252,11 +252,11 @@ protected:
   //! basic topological services.
   Standard_EXPORT BRepSweep_NumLinearRegularSweep(const BRepSweep_Builder& aBuilder,
                                                   const TopoShape&      aGenShape,
-                                                  const Sweep_NumShape&    aDirWire);
+                                                  const SweepNumShape&    aDirWire);
 
   BRepSweep_Builder       myBuilder;
   TopoShape            myGenShape;
-  Sweep_NumShape          myDirWire;
+  SweepNumShape          myDirWire;
   Tool6          myGenShapeTool;
   Sweep_NumShapeTool      myDirShapeTool;
   TopTools_Array2OfShape  myShapes;

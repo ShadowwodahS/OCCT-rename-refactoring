@@ -103,6 +103,6 @@ const Standard_GUID& TDataXtd_Plane::ID() const
 
 Standard_OStream& TDataXtd_Plane::Dump(Standard_OStream& anOS) const
 {
-  anOS << "Plane";
+  anOS << "Plane1";
   return anOS;
 }

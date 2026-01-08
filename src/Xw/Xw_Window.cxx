@@ -697,7 +697,7 @@ bool Xw_Window::ProcessMessage(Aspect_WindowInputListener& theListener,
         }
 
         const double aDeltaF = (theMsg.xbutton.button == Button4 ? 1.0 : -1.0);
-        theListener.UpdateMouseScroll(Aspect_ScrollDelta(aPos, aDeltaF, aFlags));
+        theListener.UpdateMouseScroll(ScrollDelta(aPos, aDeltaF, aFlags));
       }
       else if (theMsg.type == ButtonPress)
       {

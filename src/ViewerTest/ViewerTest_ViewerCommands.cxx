@@ -2773,10 +2773,10 @@ static int VBackground(DrawInterpreter& theDI, Standard_Integer theNbArgs, const
   bool                    hasImageMode = false;
 
   bool                     isSkydomeBg = false;
-  Aspect_SkydomeBackground aSkydomeAspect;
+  SkydomeBackground aSkydomeAspect;
 
   NCollection_Sequence<AsciiString1> aCubeMapSeq;
-  Graphic3d_CubeMapOrder                        aCubeOrder      = Graphic3d_CubeMapOrder::Default();
+  CubeMapOrder                        aCubeOrder      = CubeMapOrder::Default();
   bool                                          isCubeZInverted = false;
   bool                                          isSRgb          = true;
 
@@ -4165,7 +4165,7 @@ static int VGraduatedTrihedron(DrawInterpreter& /*theDi*/,
 
   Standard_Boolean             toDisplay = Standard_True;
   Quantity_Color               aColor;
-  Graphic3d_GraduatedTrihedron aTrihedronData;
+  GraduatedTrihedron aTrihedronData;
   // Process parameters
   Handle(TColStd_HSequenceOfAsciiString) aValues;
   if (aMapOfArgs.Find("off", aValues))
@@ -4383,7 +4383,7 @@ static int VTile(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     return 1;
   }
 
-  Graphic3d_CameraTile aTile = aView->Camera()->Tile();
+  CameraTile aTile = aView->Camera()->Tile();
   if (theArgNb < 2)
   {
     theDI << "Total size: " << aTile.TotalSize.x() << " " << aTile.TotalSize.y() << "\n"
@@ -4441,7 +4441,7 @@ static int VTile(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     }
     else if (anArg == "-unset")
     {
-      aView->Camera()->SetTile(Graphic3d_CameraTile());
+      aView->Camera()->SetTile(CameraTile());
       aView->Redraw();
       return 0;
     }

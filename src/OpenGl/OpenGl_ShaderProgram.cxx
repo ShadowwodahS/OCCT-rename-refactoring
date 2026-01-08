@@ -121,17 +121,17 @@ VariableSetterSelector::VariableSetterSelector()
 {
   // Note: Add new variable setters here
   mySetterList = OpenGl_HashMapInitializer::CreateListOf<size_t, SetterInterface*>(
-    Graphic3d_UniformValueTypeID<int>::ID,
-    new OpenGl_VariableSetter<int>())(Graphic3d_UniformValueTypeID<float>::ID,
+    UniformValueTypeID<int>::ID,
+    new OpenGl_VariableSetter<int>())(UniformValueTypeID<float>::ID,
                                       new OpenGl_VariableSetter<float>())(
-    Graphic3d_UniformValueTypeID<OpenGl_Vec2>::ID,
-    new OpenGl_VariableSetter<OpenGl_Vec2>())(Graphic3d_UniformValueTypeID<OpenGl_Vec3>::ID,
+    UniformValueTypeID<OpenGl_Vec2>::ID,
+    new OpenGl_VariableSetter<OpenGl_Vec2>())(UniformValueTypeID<OpenGl_Vec3>::ID,
                                               new OpenGl_VariableSetter<OpenGl_Vec3>())(
-    Graphic3d_UniformValueTypeID<OpenGl_Vec4>::ID,
-    new OpenGl_VariableSetter<OpenGl_Vec4>())(Graphic3d_UniformValueTypeID<OpenGl_Vec2i>::ID,
+    UniformValueTypeID<OpenGl_Vec4>::ID,
+    new OpenGl_VariableSetter<OpenGl_Vec4>())(UniformValueTypeID<OpenGl_Vec2i>::ID,
                                               new OpenGl_VariableSetter<OpenGl_Vec2i>())(
-    Graphic3d_UniformValueTypeID<OpenGl_Vec3i>::ID,
-    new OpenGl_VariableSetter<OpenGl_Vec3i>())(Graphic3d_UniformValueTypeID<OpenGl_Vec4i>::ID,
+    UniformValueTypeID<OpenGl_Vec3i>::ID,
+    new OpenGl_VariableSetter<OpenGl_Vec3i>())(UniformValueTypeID<OpenGl_Vec4i>::ID,
                                                new OpenGl_VariableSetter<OpenGl_Vec4i>());
 }
 

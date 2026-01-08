@@ -541,7 +541,7 @@ public:
 
 private:
   //! 3D anchor point for zoom/rotate transformation persistence.
-  struct PersParams3d
+  struct PersParams3d1
   {
     Standard_Real PntX;
     Standard_Real PntY;
@@ -553,7 +553,7 @@ private:
   };
 
   //! 2d/trihedron transformation persistence parameters.
-  struct PersParams2d
+  struct PersParams2d1
   {
     Standard_Integer              OffsetX;
     Standard_Integer              OffsetY;
@@ -568,8 +568,8 @@ private:
   Graphic3d_TransModeFlags myMode; //!< Transformation persistence mode flags
 
   union {
-    PersParams3d Params3d;
-    PersParams2d Params2d;
+    PersParams3d1 Params3d;
+    PersParams2d1 Params2d;
   } myParams;
 };
 

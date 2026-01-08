@@ -138,9 +138,9 @@ static Standard_Integer OCC527(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_2(DrawInterpreter& theCommands)
+void QABugs1::Commands_2(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC527", "OCC527 shape", __FILE__, OCC527, group);
   return;

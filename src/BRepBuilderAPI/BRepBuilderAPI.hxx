@@ -88,10 +88,10 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Sets    the current plane.
-  Standard_EXPORT static void Plane(const Handle(GeomPlane)& P);
+  Standard_EXPORT static void Plane1(const Handle(GeomPlane)& P);
 
   //! Returns the current plane.
-  Standard_EXPORT static const Handle(GeomPlane)& Plane();
+  Standard_EXPORT static const Handle(GeomPlane)& Plane1();
 
   //! Sets the default precision.  The current Precision
   //! is returned.

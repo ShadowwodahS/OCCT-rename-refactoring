@@ -93,7 +93,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
     return Handle(Image_CompressedPixMap)();
   }
 
-  const Graphic3d_CubeMapOrder anOrder = Graphic3d_CubeMapOrder::Default();
+  const CubeMapOrder anOrder = CubeMapOrder::Default();
   AsciiString1      aFilePath;
   myPaths[anOrder[myCurrentSide]].SystemName(aFilePath);
   if (aFilePath.IsEmpty())
@@ -101,7 +101,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
     return Handle(Image_CompressedPixMap)();
   }
 
-  Handle(Image_CompressedPixMap) anImage = Image_DDSParser::Load(theSupported, aFilePath, 0);
+  Handle(Image_CompressedPixMap) anImage = DDSParser::Load(theSupported, aFilePath, 0);
   if (anImage.IsNull() || anImage->SizeX() != anImage->SizeY())
   {
     return Handle(Image_CompressedPixMap)();
@@ -130,7 +130,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
 Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
   const Handle(Image_SupportedFormats)& theSupported)
 {
-  Graphic3d_CubeMapOrder anOrder = Graphic3d_CubeMapOrder::Default();
+  CubeMapOrder anOrder = CubeMapOrder::Default();
   if (!myIsTopDown)
   {
     anOrder.Swap(Graphic3d_CMS_POS_Y, Graphic3d_CMS_NEG_Y);

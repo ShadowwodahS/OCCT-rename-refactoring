@@ -245,13 +245,13 @@ public:
   //! to the real space resolution <R3d>.
   Standard_EXPORT Standard_Real VResolution(const Standard_Real R3d) const Standard_OVERRIDE;
 
-  //! Returns the type of the surface : Plane, Cylinder,
+  //! Returns the type of the surface : Plane1, Cylinder,
   //! Cone,      Sphere,        Torus,    BezierSurface,
   //! BSplineSurface,               SurfaceOfRevolution,
   //! SurfaceOfExtrusion, OtherSurface
   virtual GeomAbs_SurfaceType GetType() const Standard_OVERRIDE { return mySurfaceType; }
 
-  Standard_EXPORT gp_Pln Plane() const Standard_OVERRIDE;
+  Standard_EXPORT gp_Pln Plane1() const Standard_OVERRIDE;
 
   Standard_EXPORT Cylinder1 Cylinder() const Standard_OVERRIDE;
 

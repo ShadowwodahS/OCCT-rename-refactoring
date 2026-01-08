@@ -1200,14 +1200,14 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
      << aView->GetObject()->WindowVerticalSize() << "\n";
 
   if (aView->GetObject()->HasFrontPlaneClipping())
-    di << "Front Plane Distance: " << aView->GetObject()->FrontPlaneDistance() << "\n";
+    di << "Front Plane1 Distance: " << aView->GetObject()->FrontPlaneDistance() << "\n";
   else
-    di << "No Front Plane\n";
+    di << "No Front Plane1\n";
 
   if (aView->GetObject()->HasFrontPlaneClipping())
     di << "Front Back Distance: " << aView->GetObject()->BackPlaneDistance() << "\n";
   else
-    di << "No Back Plane\n";
+    di << "No Back Plane1\n";
 
   di << "View VolumeSized Clipping: " << aView->GetObject()->HasViewVolumeSidesClipping() << "\n";
 

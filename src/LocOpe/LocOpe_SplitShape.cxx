@@ -1298,7 +1298,7 @@ static void updateToleraces(const TopoFace&                        theFace,
       continue;
 
     TopTools_ListIteratorOfListOfShape itrE(lEdges);
-    ShapeAnalysis_Edge                 aSae;
+    Edge1                 aSae;
 
     for (; itrE.More(); itrE.Next())
     {

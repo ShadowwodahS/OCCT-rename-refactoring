@@ -27,7 +27,7 @@ class gp_Pln;
 class Transform3d;
 
 //! Analyzing tool aimed to work on primitive geometrical objects
-class ShapeAnalysis_Geom
+class Geom
 {
 public:
   DEFINE_STANDARD_ALLOC

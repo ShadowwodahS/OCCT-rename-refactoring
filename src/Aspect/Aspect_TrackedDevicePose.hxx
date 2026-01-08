@@ -18,7 +18,7 @@
 #include <NCollection_Array1.hxx>
 
 //! Describes a single pose for a tracked object (for XR).
-struct Aspect_TrackedDevicePose
+struct TrackedDevicePose
 {
   Transform3d Orientation;       //!< device to absolute transformation
   Vector3d  Velocity;          //!< velocity in tracker space in m/s
@@ -27,7 +27,7 @@ struct Aspect_TrackedDevicePose
   bool    IsConnectedDevice; //!< indicates connected state
 
   //! Empty constructor.
-  Aspect_TrackedDevicePose()
+  TrackedDevicePose()
       : IsValidPose(false),
         IsConnectedDevice(false)
   {
@@ -35,6 +35,6 @@ struct Aspect_TrackedDevicePose
 };
 
 //! Array of tracked poses.
-typedef NCollection_Array1<Aspect_TrackedDevicePose> Aspect_TrackedDevicePoseArray;
+typedef NCollection_Array1<TrackedDevicePose> Aspect_TrackedDevicePoseArray;
 
 #endif // _Aspect_TrackedDevicePose_HeaderFile

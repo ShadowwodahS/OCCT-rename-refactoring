@@ -23,7 +23,7 @@
 #include <Standard_Handle.hxx>
 
 //! This class allows the definition of a window skydome background.
-class Aspect_SkydomeBackground
+class SkydomeBackground
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -31,7 +31,7 @@ public:
   //! Creates a window skydome background.
   //! By default skydome is initialized with sun at its zenith (0.0, 1.0, 0.0),
   //! average clody (0.2), zero time parameter, zero fogginess, 512x512 texture size.
-  Standard_EXPORT Aspect_SkydomeBackground();
+  Standard_EXPORT SkydomeBackground();
 
   //! Creates a window skydome background with given parameters.
   //! @param[in] theSunDirection direction to the sun (moon). Sun direction with negative Y
@@ -42,14 +42,14 @@ public:
   //! appearance.
   //! @param[in] theFogginess    fog intensity, 0.0 means no fog and 1.0 - high fogginess
   //! @param[in] theSize         size of cubemap side in pixels.
-  Standard_EXPORT Aspect_SkydomeBackground(const Dir3d&      theSunDirection,
+  Standard_EXPORT SkydomeBackground(const Dir3d&      theSunDirection,
                                            Standard_ShortReal theCloudiness,
                                            Standard_ShortReal theTime,
                                            Standard_ShortReal theFogginess,
                                            Standard_Integer   theSize);
 
   //! Destructor.
-  Standard_EXPORT ~Aspect_SkydomeBackground();
+  Standard_EXPORT ~SkydomeBackground();
 
   //! Get sun direction. By default this value is (0, 1, 0)
   //! Sun direction with negative Y component represents moon with (-X, -Y, -Z) direction.

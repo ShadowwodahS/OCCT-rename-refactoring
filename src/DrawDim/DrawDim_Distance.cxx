@@ -86,7 +86,7 @@ void DrawDim_Distance::DrawOn(DrawDisplay& dis) const
   if (surf1.GetType() != GeomAbs_Plane)
     return;
 
-  Axis3d anAx1 = surf1.Plane().Axis();
+  Axis3d anAx1 = surf1.Plane1().Axis();
   Vector3d V     = anAx1.Direction();
 
   // output

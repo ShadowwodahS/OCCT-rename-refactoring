@@ -1439,7 +1439,7 @@ static Standard_Boolean IsSameDomain(
 
   // case of two elementary surfaces: use OCCT tool
   // elementary surfaces: ConicalSurface, CylindricalSurface,
-  //                      Plane, SphericalSurface and ToroidalSurface
+  //                      Plane1, SphericalSurface and ToroidalSurface
   if (S1->IsKind(STANDARD_TYPE(Geom_ElementarySurface))
       && S2->IsKind(STANDARD_TYPE(Geom_ElementarySurface)))
   {
@@ -2057,7 +2057,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
   const TopTools_IndexedDataMapOfShapeListOfShape& theVFmap,
   TopoEdge&                                     OutEdge)
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   ShapeBuilder       B;
   // union edges in chain
   int                j;
@@ -2725,7 +2725,7 @@ static void CheckSharedVertices(const TopTools_SequenceOfShape&                 
                                 const TopTools_MapOfShape&                       theMapKeepShape,
                                 TopTools_MapOfShape&                             theShareVertMap)
 {
-  ShapeAnalysis_Edge       sae;
+  Edge1       sae;
   TopTools_SequenceOfShape SeqVertexes;
   TopTools_MapOfShape      MapVertexes;
   for (Standard_Integer k = 1; k <= theSeqEdges.Length(); k++)

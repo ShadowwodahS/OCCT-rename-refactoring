@@ -49,7 +49,7 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
     thePts(i) = pts(i);
 
   Coords3d Norm(0, 0, 0);
-  if (ShapeAnalysis_Curve::IsPlanar(thePts, Norm, prec))
+  if (Curve2::IsPlanar(thePts, Norm, prec))
   {
 
     // Make polygonal wire from points
@@ -173,7 +173,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoWire& wire)
   {
 
     // Fill array of end points
-    ShapeAnalysis_Edge          sae;
+    Edge1          sae;
     Handle(TColgp_HArray1OfPnt) theAPnt = new TColgp_HArray1OfPnt(1, NbEdges);
     for (Standard_Integer i = 1; i <= NbEdges; i++)
       theAPnt->SetValue(i, BRepInspector::Pnt(sae.FirstVertex(TopoDS::Edge(theEdges->Value(i)))));
@@ -182,7 +182,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoWire& wire)
 
     // Check planarity on array of points
     Coords3d Norm(0, 0, 0);
-    if (ShapeAnalysis_Curve::IsPlanar(theAPnt->Array1(), Norm, myPrecision))
+    if (Curve2::IsPlanar(theAPnt->Array1(), Norm, myPrecision))
       AddFacet(wire);
     else
     {
@@ -396,7 +396,7 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoWire& wire)
     return;
 
   // Fill sequence of points
-  ShapeAnalysis_Edge   sae;
+  Edge1   sae;
   TColgp_SequenceOfPnt pts;
   for (TopoDS_Iterator ite(wire); ite.More(); ite.Next())
     pts.Append(BRepInspector::Pnt(sae.FirstVertex(TopoDS::Edge(ite.Value()))));

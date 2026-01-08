@@ -78,7 +78,7 @@ void CopiousDataTool::ReadOwnParams(const Handle(IGESGeom_CopiousData)& ent,
       Message_Msg Msg87("XSTEP_87");
       PR.SendFail(Msg87);
     }
-    // if (aDataType == 1)  st = PR.ReadReal(PR.Current(), "Z Plane", aZPlane);
+    // if (aDataType == 1)  st = PR.ReadReal(PR.Current(), "Z Plane1", aZPlane);
   }
 
   if (data)

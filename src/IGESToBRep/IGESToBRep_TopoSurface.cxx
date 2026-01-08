@@ -573,7 +573,7 @@ TopoShape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_Rul
     {
       // AddWarning (st,"Compute by parametric constant ratio");
     }
-    if (!ShapeAlgo::AlgoContainer()
+    if (!ShapeAlgo1::AlgoContainer()
            ->HomoWires(wire1, wire2, newWire1, newWire2, st->IsRuledByParameter()))
     {
       Message_Msg msg1255("IGES_1255"); // "Ruled Surface Construction Error");
@@ -901,7 +901,7 @@ TopoShape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
   // modified by rln on 03/12/97
   // TopoVertex firstVertex = TopExp1::FirstVertex(firstEdge);
   TopoVertex firstVertex, lastVertex;
-  ShapeAnalysis::FindBounds(directrix, firstVertex, lastVertex);
+  ShapeAnalysis1::FindBounds(directrix, firstVertex, lastVertex);
   Point3d pt1 = BRepInspector::Pnt(firstVertex);
   Point3d pt2 = st->EndPoint();
   pt2.Scale(Point3d(0, 0, 0), GetUnitFactor());
@@ -1098,7 +1098,7 @@ TopoShape IGESToBRep_TopoSurface::TransferOffsetSurface(const Handle(IGESGeom_Of
     if (geomSupport->Continuity() == GeomAbs_C0)
     {
       res =
-        ShapeAlgo::AlgoContainer()->C0ShapeToC1Shape(face, Abs(st->Distance()) * GetUnitFactor());
+        ShapeAlgo1::AlgoContainer()->C0ShapeToC1Shape(face, Abs(st->Distance()) * GetUnitFactor());
       if (res.ShapeType() != TopAbs_FACE)
       {
         Message_Msg msg1266("IGES_1266");
@@ -1137,7 +1137,7 @@ TopoShape IGESToBRep_TopoSurface::TransferOffsetSurface(const Handle(IGESGeom_Of
       Handle(Geom_RectangularTrimmedSurface) TS =
         new Geom_RectangularTrimmedSurface(geomSupport, umin, umax, vmin, vmax);
       Handle(Geom_BSplineSurface) BS =
-        ShapeAlgo::AlgoContainer()->ConvertSurfaceToBSpline(TS, umin, umax, vmin, vmax);
+        ShapeAlgo1::AlgoContainer()->ConvertSurfaceToBSpline(TS, umin, umax, vmin, vmax);
       if (BS.IsNull() || BS->Continuity() == GeomAbs_C0)
       {
         Message_Msg msg1265("IGES_1265");
@@ -1527,7 +1527,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPerforate(const Handle(IGESBasic_Singl
     {
       Message_Msg msg1285("IGES_1285");
       msg1285.Arg(i);
-      // A child is not a Plane, skipped, n0 %d
+      // A child is not a Plane1, skipped, n0 %d
       SendWarning(st, msg1285);
       continue;
     }
@@ -1600,7 +1600,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane
   ShapeBuilder B;
   if (first)
   {
-    B.MakeFace(plane); // Just to create a empty Plane with a Tshape.
+    B.MakeFace(plane); // Just to create a empty Plane1 with a Tshape.
     Handle(GeomPlane) geomPln = new GeomPlane(pln);
     geomPln->Scale(Point3d(0, 0, 0), GetUnitFactor());
     //   ATTENTION, ici on CALCULE la trsf, on ne l`applique pas ...
@@ -1696,7 +1696,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane
           BRepLib_MakeFace MF(pln, wire, Standard_False);
           if (!MF.IsDone())
           {
-            // AddFail(st, "Plane Construction Error.");
+            // AddFail(st, "Plane1 Construction Error.");
             return res;
           }
 
@@ -1729,7 +1729,7 @@ TopoShape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane
         msg1156.Arg(typeName);
         msg1156.Arg(label);
         SendWarning(st, msg1156);
-        // Plane Cannot Be Trimmed.
+        // Plane1 Cannot Be Trimmed.
       }
   }
 
@@ -1901,9 +1901,9 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
           ElCLib1::Parameter(gp_Circ2d(gp_Ax2d(circ->Center(), gp_Dir2d(1, 0)), circ->Radius()),
                             startpoint);
         if (Surf->IsKind(STANDARD_TYPE(Geom_SphericalSurface)))
-          paramv += ShapeAnalysis::AdjustToPeriod(paramv, -M_PI, M_PI);
+          paramv += ShapeAnalysis1::AdjustToPeriod(paramv, -M_PI, M_PI);
         else if (Surf->IsKind(STANDARD_TYPE(Geom_ToroidalSurface)))
-          paramv += ShapeAnalysis::AdjustToPeriod(paramv, 0, M_PI * 2);
+          paramv += ShapeAnalysis1::AdjustToPeriod(paramv, 0, M_PI * 2);
       }
     }
     else if (st->IsKind(STANDARD_TYPE(IGESGeom_TabulatedCylinder)))
@@ -1917,7 +1917,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
         paramu -=
           ElCLib1::Parameter(gp_Circ2d(gp_Ax2d(circ->Center(), gp_Dir2d(1, 0)), circ->Radius()),
                             startpoint);
-        paramu += ShapeAnalysis::AdjustToPeriod(paramu, 0, M_PI * 2);
+        paramu += ShapeAnalysis1::AdjustToPeriod(paramu, 0, M_PI * 2);
       }
     }
   }

@@ -762,7 +762,7 @@ void ViewManager::SetGridEcho(const Handle(Graphic3d_AspectMarker3d)& theMarker)
 
 //=================================================================================================
 
-void ViewManager::ShowGridEcho(const Handle(ViewWindow)& theView, const Graphic3d_Vertex& theVertex)
+void ViewManager::ShowGridEcho(const Handle(ViewWindow)& theView, const Vertex1& theVertex)
 {
   if (!myGridEcho)
   {

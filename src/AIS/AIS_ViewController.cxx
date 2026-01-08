@@ -242,7 +242,7 @@ void AIS_ViewController::FlushViewEvents(const Handle(VisualContext)& theCtx,
     {
       aPntIter -= aDelta;
     }
-    for (Aspect_ScrollDelta& aZoomIter : myGL.ZoomActions)
+    for (ScrollDelta& aZoomIter : myGL.ZoomActions)
     {
       aZoomIter.Point -= aDelta;
     }
@@ -397,7 +397,7 @@ void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
   }
   if (aTouchNb == 1) // touch
   {
-    Aspect_Touch& aTouch = myTouchPoints.ChangeFromIndex(1);
+    Touch& aTouch = myTouchPoints.ChangeFromIndex(1);
     if (myUpdateStartPointRot)
     {
       // skip rotation if have active dragged object
@@ -445,8 +445,8 @@ void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
   }
   else if (aTouchNb == 2) // pinch
   {
-    Aspect_Touch&         aFirstTouch = myTouchPoints.ChangeFromIndex(1);
-    Aspect_Touch&         aLastTouch  = myTouchPoints.ChangeFromIndex(2);
+    Touch&         aFirstTouch = myTouchPoints.ChangeFromIndex(1);
+    Touch&         aLastTouch  = myTouchPoints.ChangeFromIndex(2);
     const Graphic3d_Vec2d aFrom[2]    = {aFirstTouch.From, aLastTouch.From};
     const Graphic3d_Vec2d aTo[2]      = {aFirstTouch.To, aLastTouch.To};
 
@@ -499,7 +499,7 @@ void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
     {
       // zoom
       aDeltaSize *= Standard_Real(myTouchZoomRatio);
-      Aspect_ScrollDelta aParams(Graphic3d_Vec2i(aPinchCenterStart), aDeltaSize);
+      ScrollDelta aParams(Graphic3d_Vec2i(aPinchCenterStart), aDeltaSize);
       myGL.ZoomActions.Append(aParams);
       anIsClearDev = true;
     }
@@ -615,7 +615,7 @@ void AIS_ViewController::UpdatePolySelection(const Graphic3d_Vec2i& thePnt, bool
 
 //=================================================================================================
 
-bool AIS_ViewController::UpdateZoom(const Aspect_ScrollDelta& theDelta)
+bool AIS_ViewController::UpdateZoom(const ScrollDelta& theDelta)
 {
   if (!myUI.ZoomActions.IsEmpty())
   {
@@ -650,9 +650,9 @@ bool AIS_ViewController::UpdateZRotation(double theAngle)
 
 //=================================================================================================
 
-bool AIS_ViewController::UpdateMouseScroll(const Aspect_ScrollDelta& theDelta)
+bool AIS_ViewController::UpdateMouseScroll(const ScrollDelta& theDelta)
 {
-  Aspect_ScrollDelta aDelta = theDelta;
+  ScrollDelta aDelta = theDelta;
   aDelta.Delta *= myScrollZoomRatio;
   return UpdateZoom(aDelta);
 }
@@ -1013,7 +1013,7 @@ bool AIS_ViewController::UpdateMousePosition(const Graphic3d_Vec2i& thePoint,
         myMouseActiveGesture == AIS_MouseGesture_Zoom ? aDelta.x() : aDelta.y();
       if (Abs(aScrollDelta) > aZoomTol)
       {
-        if (UpdateZoom(Aspect_ScrollDelta(aScrollDelta)))
+        if (UpdateZoom(ScrollDelta(aScrollDelta)))
         {
           toUpdateView = true;
         }
@@ -1144,7 +1144,7 @@ bool AIS_ViewController::RemoveTouchPoint(Standard_Size theId, Standard_Boolean 
   if (myTouchPoints.Extent() == 1)
   {
     // avoid incorrect transition from pinch to one finger
-    Aspect_Touch& aFirstTouch = myTouchPoints.ChangeFromIndex(1);
+    Touch& aFirstTouch = myTouchPoints.ChangeFromIndex(1);
     aFirstTouch.To            = aFirstTouch.From;
 
     myStartRotCoord       = aFirstTouch.To;
@@ -1210,7 +1210,7 @@ void AIS_ViewController::UpdateTouchPoint(Standard_Size theId, const Graphic3d_V
 
 //=================================================================================================
 
-bool AIS_ViewController::Update3dMouse(const WNT_HIDSpaceMouse& theEvent)
+bool AIS_ViewController::Update3dMouse(const HIDSpaceMouse& theEvent)
 {
   bool toUpdate = false;
   toUpdate      = update3dMouseTranslation(theEvent) || toUpdate;
@@ -1481,7 +1481,7 @@ void AIS_ViewController::handleZRotate(const Handle(ViewWindow)& theView)
 //=================================================================================================
 
 void AIS_ViewController::handleZoom(const Handle(ViewWindow)&   theView,
-                                    const Aspect_ScrollDelta& theParams,
+                                    const ScrollDelta& theParams,
                                     const Point3d*             thePnt)
 {
   if (!myToAllowZooming)
@@ -1586,7 +1586,7 @@ void AIS_ViewController::handleZoom(const Handle(ViewWindow)&   theView,
 //=================================================================================================
 
 void AIS_ViewController::handleZFocusScroll(const Handle(ViewWindow)&   theView,
-                                            const Aspect_ScrollDelta& theParams)
+                                            const ScrollDelta& theParams)
 {
   if (!myToAllowZFocus || !theView->Camera()->IsStereo())
   {
@@ -2135,7 +2135,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
         {
           const double aZoomDelta = aWalk[AIS_WalkTranslation_Forward].Value
                                     * aWalk[AIS_WalkTranslation_Forward].Pressure * aWalkSpeedCoef;
-          handleZoom(theView, Aspect_ScrollDelta(aZoomDelta * 100.0), NULL);
+          handleZoom(theView, ScrollDelta(aZoomDelta * 100.0), NULL);
         }
       }
 
@@ -2350,11 +2350,11 @@ void AIS_ViewController::handleCameraActions(const Handle(VisualContext)& theCtx
 
   if (!myGL.ZoomActions.IsEmpty())
   {
-    for (NCollection_Sequence<Aspect_ScrollDelta>::Iterator aZoomIter(myGL.ZoomActions);
+    for (NCollection_Sequence<ScrollDelta>::Iterator aZoomIter(myGL.ZoomActions);
          aZoomIter.More();
          aZoomIter.Next())
     {
-      Aspect_ScrollDelta aZoomParams = aZoomIter.Value();
+      ScrollDelta aZoomParams = aZoomIter.Value();
       if (myToAllowZFocus && (aZoomParams.Flags & Aspect_VKeyFlags_CTRL) != 0
           && theView->Camera()->IsStereo())
       {
@@ -2433,9 +2433,9 @@ void AIS_ViewController::handleXRTurnPad(const Handle(VisualContext)&,
       continue;
     }
 
-    const Aspect_XRDigitalActionData aPadClick =
+    const XRDigitalActionData aPadClick =
       theView->View()->XRSession()->GetDigitalActionData(aPadClickAct);
-    const Aspect_XRAnalogActionData aPadPos =
+    const XRAnalogActionData aPadPos =
       theView->View()->XRSession()->GetAnalogActionData(aPadPosAct);
     if (aPadClick.IsActive && aPadClick.IsPressed && aPadClick.IsChanged && aPadPos.IsActive
         && Abs(aPadPos.VecXYZ.y()) < 0.5f && Abs(aPadPos.VecXYZ.x()) > 0.7f)
@@ -2482,16 +2482,16 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
       continue;
     }
 
-    const Aspect_XRDigitalActionData aPadClick =
+    const XRDigitalActionData aPadClick =
       theView->View()->XRSession()->GetDigitalActionData(aPadClickAct);
-    const Aspect_XRAnalogActionData aPadPos =
+    const XRAnalogActionData aPadPos =
       theView->View()->XRSession()->GetAnalogActionData(aPadPosAct);
     const bool isPressed = aPadClick.IsPressed;
     const bool isClicked = !aPadClick.IsPressed && aPadClick.IsChanged;
     if (aPadClick.IsActive && (isPressed || isClicked) && aPadPos.IsActive
         && aPadPos.VecXYZ.y() > 0.6f && Abs(aPadPos.VecXYZ.x()) < 0.5f)
     {
-      const Aspect_TrackedDevicePose& aPose =
+      const TrackedDevicePose& aPose =
         theView->View()->XRSession()->TrackedPoses()[aDeviceId];
       if (!aPose.IsValidPose)
       {
@@ -2610,9 +2610,9 @@ void AIS_ViewController::handleXRPicking(const Handle(VisualContext)& theCtx,
       continue;
     }
 
-    const Aspect_XRDigitalActionData aTrigClick =
+    const XRDigitalActionData aTrigClick =
       theView->View()->XRSession()->GetDigitalActionData(aTrigClickAct);
-    const Aspect_XRAnalogActionData aTrigPos =
+    const XRAnalogActionData aTrigPos =
       theView->View()->XRSession()->GetAnalogActionData(aTrigPullAct);
     if (aTrigPos.IsActive && Abs(aTrigPos.VecXYZ.x()) > 0.1f)
     {
@@ -2795,7 +2795,7 @@ void AIS_ViewController::contextLazyMoveTo(const Handle(VisualContext)& theCtx,
     {
       Graphic3d_Vec3d aPnt3d;
       theView->ConvertToGrid(thePnt.x(), thePnt.y(), aPnt3d[0], aPnt3d[1], aPnt3d[2]);
-      theView->Viewer()->ShowGridEcho(theView, Graphic3d_Vertex(aPnt3d[0], aPnt3d[1], aPnt3d[2]));
+      theView->Viewer()->ShowGridEcho(theView, Vertex1(aPnt3d[0], aPnt3d[1], aPnt3d[2]));
       theView->InvalidateImmediate();
     }
     else
@@ -3207,7 +3207,7 @@ void AIS_ViewController::handleXRHighlight(const Handle(VisualContext)& theCtx,
     return;
   }
 
-  const Aspect_TrackedDevicePose& aPose = theView->View()->XRSession()->TrackedPoses()[aDeviceId];
+  const TrackedDevicePose& aPose = theView->View()->XRSession()->TrackedPoses()[aDeviceId];
   if (!aPose.IsValidPose)
   {
     return;
@@ -3283,7 +3283,7 @@ void AIS_ViewController::handleXRPresentations(const Handle(VisualContext)& theC
        aDeviceIter <= theView->View()->XRSession()->TrackedPoses().Upper();
        ++aDeviceIter)
   {
-    const Aspect_TrackedDevicePose& aPose =
+    const TrackedDevicePose& aPose =
       theView->View()->XRSession()->TrackedPoses()[aDeviceIter];
     Handle(AIS_XRTrackedDevice)& aPosePrs = myXRPrsDevices[aDeviceIter];
     if (!aPose.IsValidPose)

@@ -66,20 +66,20 @@ GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const Dir3d& Direc)
 //   un Ax2 (Normale au plan et axe x du plan).                           +
 //=========================================================================
 
-GC_MakeMirror::GC_MakeMirror(const Frame3d& Plane)
+GC_MakeMirror::GC_MakeMirror(const Frame3d& Plane1)
 {
   TheMirror = new Geom_Transformation();
-  TheMirror->SetMirror(Plane);
+  TheMirror->SetMirror(Plane1);
 }
 
 //=========================================================================
-//   Creation d une symetrie 3d de gp1 par rapport a un plan Plane.        +
+//   Creation d une symetrie 3d de gp1 par rapport a un plan Plane1.        +
 //=========================================================================
 
-GC_MakeMirror::GC_MakeMirror(const gp_Pln& Plane)
+GC_MakeMirror::GC_MakeMirror(const gp_Pln& Plane1)
 {
   TheMirror = new Geom_Transformation();
-  TheMirror->SetMirror(Plane.Position().Ax2());
+  TheMirror->SetMirror(Plane1.Position().Ax2());
 }
 
 const Handle(Geom_Transformation)& GC_MakeMirror::Value() const

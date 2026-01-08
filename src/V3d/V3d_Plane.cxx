@@ -96,7 +96,7 @@ void V3d_Plane::Erase()
 
 //=================================================================================================
 
-void V3d_Plane::Plane(Standard_Real& theA,
+void V3d_Plane::Plane1(Standard_Real& theA,
                       Standard_Real& theB,
                       Standard_Real& theC,
                       Standard_Real& theD) const

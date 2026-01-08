@@ -55,11 +55,11 @@ void PerspectiveViewTool::ReadOwnParams(const Handle(IGESDraw_PerspectiveView)& 
   // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "View Number", tempViewNumber);
   PR.ReadReal(PR.Current(), "Scale Number", tempScaleFactor);
-  PR.ReadXYZ(PR.CurrentList(1, 3), "View Plane Normal Vector", tempViewNormalVector);
+  PR.ReadXYZ(PR.CurrentList(1, 3), "View Plane1 Normal Vector", tempViewNormalVector);
   PR.ReadXYZ(PR.CurrentList(1, 3), "View Reference Point", tempViewReferencePoint);
   PR.ReadXYZ(PR.CurrentList(1, 3), "Center Of Projection", tempCenterOfProjection);
   PR.ReadXYZ(PR.CurrentList(1, 3), "View Up Vector", tempViewUpVector);
-  PR.ReadReal(PR.Current(), "View Plane Distance", tempViewPlaneDistance);
+  PR.ReadReal(PR.Current(), "View Plane1 Distance", tempViewPlaneDistance);
 
   // st = PR.ReadReal(PR.Current(), "Left Side Of Clipping Window", tempLeft); //szv#4:S4163:12Mar99
   // moved in if
@@ -83,8 +83,8 @@ void PerspectiveViewTool::ReadOwnParams(const Handle(IGESDraw_PerspectiveView)& 
 
   // szv#4:S4163:12Mar99 `st=` not needed
   PR.ReadInteger(PR.Current(), "Depth Clipping Indicator", tempDepthClip);
-  PR.ReadReal(PR.Current(), "Back Plane Distance", tempBackPlaneDistance);
-  PR.ReadReal(PR.Current(), "Front Plane Distance", tempFrontPlaneDistance);
+  PR.ReadReal(PR.Current(), "Back Plane1 Distance", tempBackPlaneDistance);
+  PR.ReadReal(PR.Current(), "Front Plane1 Distance", tempFrontPlaneDistance);
 
   DirChecker(ent).CheckTypeAndForm(PR.CCheck(), ent);
   ent->Init(tempViewNumber,
@@ -187,7 +187,7 @@ void PerspectiveViewTool::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
   S << "IGESDraw_PerspectiveView\n"
     << "View Number  : " << ent->ViewNumber() << "  "
     << "Scale Factor : " << ent->ScaleFactor() << "\n"
-    << "View Plane Normal Vector : ";
+    << "View Plane1 Normal Vector : ";
   IGESData_DumpXYZL(S, level, ent->ViewNormalVector(), ent->Location());
   S << "\nView Reference Point     : ";
   IGESData_DumpXYZL(S, level, ent->ViewReferencePoint(), ent->Location());
@@ -195,7 +195,7 @@ void PerspectiveViewTool::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
   IGESData_DumpXYZL(S, level, ent->CenterOfProjection(), ent->Location());
   S << "\nView Up Vector           : ";
   IGESData_DumpXYZL(S, level, ent->ViewUpVector(), ent->Location());
-  S << "\nView Plane Distance      : " << ent->ViewPlaneDistance() << "\n"
+  S << "\nView Plane1 Distance      : " << ent->ViewPlaneDistance() << "\n"
     << "Left   Side Of Clipping Window : " << ent->TopLeft().X() << "\n"
     << "Right  Side Of Clipping Window : " << ent->BottomRight().X() << "\n"
     << "Bottom Side Of Clipping Window : " << ent->BottomRight().Y() << "\n"
@@ -207,10 +207,10 @@ void PerspectiveViewTool::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
       S << " (No Depth Clipping)\n";
       break;
     case 1:
-      S << " (Back Clipping Plane ON)\n";
+      S << " (Back Clipping Plane1 ON)\n";
       break;
     case 2:
-      S << " (Front Clipping Plane ON)\n";
+      S << " (Front Clipping Plane1 ON)\n";
       break;
     case 3:
       S << " (Front and Back Clipping Planes ON)\n";
@@ -219,7 +219,7 @@ void PerspectiveViewTool::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
       S << " (Invalid Value)\n";
       break;
   }
-  S << "Back Plane Distance  : " << ent->BackPlaneDistance() << "  "
-    << "Front Plane Distance : " << ent->FrontPlaneDistance() << "\n"
+  S << "Back Plane1 Distance  : " << ent->BackPlaneDistance() << "  "
+    << "Front Plane1 Distance : " << ent->FrontPlaneDistance() << "\n"
     << std::endl;
 }

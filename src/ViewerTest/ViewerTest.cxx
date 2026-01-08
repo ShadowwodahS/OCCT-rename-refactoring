@@ -419,7 +419,7 @@ static const char** GetTypeNames()
                                     "PlaneTrihedron",
                                     "Line",
                                     "Circle",
-                                    "Plane",
+                                    "Plane1",
                                     "Shape",
                                     "ConnectedShape",
                                     "MultiConn.Shape",
@@ -6443,7 +6443,7 @@ static int VBsdf(DrawInterpreter& theDI, Standard_Integer theArgsNb, const char*
         aRGB.b() = std::min(std::max(aRGB.b(), 0.f), 1.f);
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
-          Graphic3d_Fresnel::CreateSchlick(aRGB);
+          Fresnel::CreateSchlick(aRGB);
       }
       else
       {
@@ -6461,7 +6461,7 @@ static int VBsdf(DrawInterpreter& theDI, Standard_Integer theArgsNb, const char*
         const float aK = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 2).c_str()));
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
-          Graphic3d_Fresnel::CreateConductor(aN, aK);
+          Fresnel::CreateConductor(aN, aK);
       }
       else
       {
@@ -6478,14 +6478,14 @@ static int VBsdf(DrawInterpreter& theDI, Standard_Integer theArgsNb, const char*
         const float aR = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 1).c_str()));
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
-          Graphic3d_Fresnel::CreateConstant(aR);
+          Fresnel::CreateConstant(aR);
       }
       else if (aFresnelType == "dielectric")
       {
         const float aN = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 1).c_str()));
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
-          Graphic3d_Fresnel::CreateDielectric(aN);
+          Fresnel::CreateDielectric(aN);
       }
       else
       {
@@ -6664,7 +6664,7 @@ veraseall : Erases all objects displayed in the viewer.
 verasetype <Type>
 Erase all the displayed objects of one given kind (see vtypes).
 The following types are possible:
-  Point, Axis, Trihedron, PlaneTrihedron, Line, Circle, Plane, Shape,
+  Point, Axis, Trihedron, PlaneTrihedron, Line, Circle, Plane1, Shape,
   ConnectedShape, MultiConn.Shape, ConnectedInter., MultiConn., Constraint and Dimension.
 )" /* [verasetype] */);
 
@@ -6680,7 +6680,7 @@ Already displayed box might be hidden by -hide option.
 vdisplaytype <Type> <Signature>
 Display all the objects of one given kind (see vtypes) which are stored the interactive context.
 The following types are possible:
-  Point, Axis, Trihedron, PlaneTrihedron, Line, Circle, Plane, Shape,
+  Point, Axis, Trihedron, PlaneTrihedron, Line, Circle, Plane1, Shape,
   ConnectedShape, MultiConn.Shape, ConnectedInter., MultiConn., Constraint and Dimension.
 )" /* [vdisplaytype] */);
 

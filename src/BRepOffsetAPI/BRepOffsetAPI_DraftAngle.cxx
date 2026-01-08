@@ -93,7 +93,7 @@ void BRepOffsetAPI_DraftAngle::Init(const TopoShape& S)
 void BRepOffsetAPI_DraftAngle::Add(const TopoFace&     F,
                                    const Dir3d&          D,
                                    const Standard_Real    Angle,
-                                   const gp_Pln&          Plane,
+                                   const gp_Pln&          Plane1,
                                    const Standard_Boolean Flag)
 {
   // POP-DPF : protection
@@ -101,7 +101,7 @@ void BRepOffsetAPI_DraftAngle::Add(const TopoFace&     F,
     return;
   Standard_NullObject_Raise_if(myInitialShape.IsNull(),
                                "BRepOffsetAPI_DraftAngle::Add() - initial shape is not set");
-  Handle(Draft_Modification)::DownCast(myModification)->Add(F, D, Angle, Plane, Flag);
+  Handle(Draft_Modification)::DownCast(myModification)->Add(F, D, Angle, Plane1, Flag);
 }
 
 //=================================================================================================

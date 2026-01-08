@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-void QADNaming::GetShape(const Standard_CString  LabelName,
+void QADNaming1::GetShape(const Standard_CString  LabelName,
                          const Handle(TDF_Data)& DF,
                          ShapeList&   L)
 {
@@ -66,7 +66,7 @@ void QADNaming_BuildMap(TDF_LabelMap& Updated, const DataLabel& Lab)
 
 //=================================================================================================
 
-TopoShape QADNaming::CurrentShape(const Standard_CString LabelName, const Handle(TDF_Data)& DF)
+TopoShape QADNaming1::CurrentShape(const Standard_CString LabelName, const Handle(TDF_Data)& DF)
 {
   TopoShape     S;
   DataLabel        Label;
@@ -90,7 +90,7 @@ TopoShape QADNaming::CurrentShape(const Standard_CString LabelName, const Handle
 
 //=================================================================================================
 
-AsciiString1 QADNaming::GetEntry(const TopoShape&     Shape,
+AsciiString1 QADNaming1::GetEntry(const TopoShape&     Shape,
                                             const Handle(TDF_Data)& DF,
                                             Standard_Integer&       theStatus)
 {
@@ -119,7 +119,7 @@ AsciiString1 QADNaming::GetEntry(const TopoShape&     Shape,
 
 //=================================================================================================
 
-Standard_Boolean QADNaming::Entry(const Standard_Address theArguments, DataLabel& theLabel)
+Standard_Boolean QADNaming1::Entry(const Standard_Address theArguments, DataLabel& theLabel)
 {
   const char**     arg = (const char**)theArguments;
   Handle(TDF_Data) DF;
@@ -193,18 +193,18 @@ static Standard_Integer QADNaming_CenterOfShape(DrawInterpreter& di,
 
 //=================================================================================================
 
-void QADNaming::AllCommands(DrawInterpreter& theCommands)
+void QADNaming1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  QADNaming::BasicCommands(theCommands);
-  QADNaming::BuilderCommands(theCommands);
-  QADNaming::IteratorsCommands(theCommands);
-  QADNaming::ToolsCommands(theCommands);
-  QADNaming::SelectionCommands(theCommands);
+  QADNaming1::BasicCommands(theCommands);
+  QADNaming1::BuilderCommands(theCommands);
+  QADNaming1::IteratorsCommands(theCommands);
+  QADNaming1::ToolsCommands(theCommands);
+  QADNaming1::SelectionCommands(theCommands);
 
   // auxiliary command IsSameShapes
   theCommands.Add("IsSameShapes",

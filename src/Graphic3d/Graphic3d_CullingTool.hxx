@@ -20,20 +20,20 @@
 #include <Graphic3d_Vec4.hxx>
 #include <Graphic3d_WorldViewProjState.hxx>
 
-//! Graphic3d_CullingTool class provides a possibility to store parameters of view volume,
+//! CullingTool class provides a possibility to store parameters of view volume,
 //! such as its vertices and equations, and contains methods detecting if given AABB overlaps view
 //! volume.
-class Graphic3d_CullingTool
+class CullingTool
 {
 public:
   //! Auxiliary structure holding non-persistent culling options.
-  struct CullingContext
+  struct CullingContext1
   {
     Standard_Real DistCull;  //!< culling distance
     Standard_Real SizeCull2; //!< squared culling size
 
     //! Empty constructor.
-    CullingContext()
+    CullingContext1()
         : DistCull(-1.0),
           SizeCull2(-1.0)
     {
@@ -41,17 +41,17 @@ public:
   };
 
   //! Auxiliary structure representing 3D plane.
-  struct Plane
+  struct Plane1
   {
     //! Creates default plane.
-    Plane()
+    Plane1()
         : Origin(0.0, 0.0, 0.0),
           Normal(0.0, 0.0, 1.0)
     {
     }
 
     //! Creates plane with specific parameters.
-    Plane(const Graphic3d_Vec3d& theOrigin, const Graphic3d_Vec3d& theNormal)
+    Plane1(const Graphic3d_Vec3d& theOrigin, const Graphic3d_Vec3d& theNormal)
         : Origin(theOrigin),
           Normal(theNormal)
     {
@@ -63,7 +63,7 @@ public:
 
 public:
   //! Creates an empty selector object with parallel projection type by default.
-  Standard_EXPORT Graphic3d_CullingTool();
+  Standard_EXPORT CullingTool();
 
   //! Retrieves view volume's planes equations and its vertices from projection and world-view
   //! matrices.
@@ -78,10 +78,10 @@ public:
                                        Standard_Real    theResolutionRatio);
 
   //! Setup distance culling.
-  Standard_EXPORT void SetCullingDistance(CullingContext& theCtx, Standard_Real theDistance) const;
+  Standard_EXPORT void SetCullingDistance(CullingContext1& theCtx, Standard_Real theDistance) const;
 
   //! Setup size culling.
-  Standard_EXPORT void SetCullingSize(CullingContext& theCtx, Standard_Real theSize) const;
+  Standard_EXPORT void SetCullingSize(CullingContext1& theCtx, Standard_Real theSize) const;
 
   //! Caches view volume's vertices projections along its normals and AABBs dimensions.
   //! Must be called at the beginning of each BVH tree traverse loop.
@@ -95,7 +95,7 @@ public:
   //! to TRUE
   //! @return TRUE if AABB is completely outside of view frustum or culled by size/distance;
   //!         FALSE in case of partial or complete overlap (use theIsInside to distinguish)
-  bool IsCulled(const CullingContext&  theCtx,
+  bool IsCulled(const CullingContext1&  theCtx,
                 const Graphic3d_Vec3d& theMinPnt,
                 const Graphic3d_Vec3d& theMaxPnt,
                 Standard_Boolean*      theIsInside = NULL) const
@@ -213,7 +213,7 @@ public:
   //! to TRUE
   //! @return TRUE if AABB is completely behind culling distance;
   //!         FALSE in case of partial or complete overlap (use theIsInside to distinguish)
-  bool IsTooDistant(const CullingContext&  theCtx,
+  bool IsTooDistant(const CullingContext1&  theCtx,
                     const Graphic3d_Vec3d& theMinPnt,
                     const Graphic3d_Vec3d& theMaxPnt,
                     Standard_Boolean*      theIsInside = NULL) const
@@ -241,7 +241,7 @@ public:
   }
 
   //! Returns TRUE if given AABB should be discarded by size culling criterion.
-  bool IsTooSmall(const CullingContext&  theCtx,
+  bool IsTooSmall(const CullingContext1&  theCtx,
                   const Graphic3d_Vec3d& theMinPnt,
                   const Graphic3d_Vec3d& theMaxPnt) const
   {
@@ -277,7 +277,7 @@ protected:
   };
 
 protected:
-  Plane                               myClipPlanes[PlanesNB]; //!< Planes
+  Plane1                               myClipPlanes[PlanesNB]; //!< Planes
   NCollection_Array1<Graphic3d_Vec3d> myClipVerts;            //!< Vertices
 
   Handle(CameraOn3d) myCamera; //!< camera definition

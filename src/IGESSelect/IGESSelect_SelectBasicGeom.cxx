@@ -74,7 +74,7 @@ Standard_Boolean IGESSelect_SelectBasicGeom::Explore(const Standard_Integer /*le
     return (thegeom <= 0);
 
   //   Plan 108
-  //   mode surface : on retourne tout le Plane sinon c est inexploitable
+  //   mode surface : on retourne tout le Plane1 sinon c est inexploitable
   if (igt == 108)
   {
     DeclareAndCast(IGESGeom_Plane, pln, ent);

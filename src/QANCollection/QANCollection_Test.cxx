@@ -1415,9 +1415,9 @@ static Standard_Integer QAOsdPathPart(DrawInterpreter& theDI,
   }
 }
 
-void QANCollection::CommandsTest(DrawInterpreter& theCommands)
+void QANCollection1::CommandsTest(DrawInterpreter& theCommands)
 {
-  const char* group = "QANCollection";
+  const char* group = "QANCollection1";
 
   theCommands.Add("QANColTestArray1",
                   "QANColTestArray1 Lower Upper",

@@ -81,7 +81,7 @@ void Font_FTFont::Release()
 
 bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
                        const AsciiString1&    theFileName,
-                       const Font_FTFontParams&          theParams,
+                       const FTFontParams&          theParams,
                        const Standard_Integer            theFaceId)
 {
   Release();
@@ -196,12 +196,12 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
 
 Handle(Font_FTFont) Font_FTFont::FindAndCreate(const AsciiString1& theFontName,
                                                const Font_FontAspect          theFontAspect,
-                                               const Font_FTFontParams&       theParams,
+                                               const FTFontParams&       theParams,
                                                const Font_StrictLevel         theStrictLevel)
 {
   Handle(Font_FontMgr) aFontMgr    = Font_FontMgr::GetInstance();
   Font_FontAspect      aFontAspect = theFontAspect;
-  Font_FTFontParams    aParams     = theParams;
+  FTFontParams    aParams     = theParams;
   if (Handle(Font_SystemFont) aRequestedFont =
         aFontMgr->FindFont(theFontName, theStrictLevel, aFontAspect))
   {
@@ -251,10 +251,10 @@ Handle(Font_FTFont) Font_FTFont::FindAndCreate(const AsciiString1& theFontName,
 
 bool Font_FTFont::FindAndInit(const AsciiString1& theFontName,
                               Font_FontAspect                theFontAspect,
-                              const Font_FTFontParams&       theParams,
+                              const FTFontParams&       theParams,
                               Font_StrictLevel               theStrictLevel)
 {
-  Font_FTFontParams aParams     = theParams;
+  FTFontParams aParams     = theParams;
   myFontAspect                  = theFontAspect;
   Handle(Font_FontMgr) aFontMgr = Font_FontMgr::GetInstance();
   if (Handle(Font_SystemFont) aRequestedFont =
@@ -300,7 +300,7 @@ bool Font_FTFont::findAndInitFallback(Font_UnicodeSubset theSubset)
   Handle(Font_FontMgr) aFontMgr = Font_FontMgr::GetInstance();
   if (Handle(Font_SystemFont) aRequestedFont = aFontMgr->FindFallbackFont(theSubset, myFontAspect))
   {
-    Font_FTFontParams aParams  = myFontParams;
+    FTFontParams aParams  = myFontParams;
     aParams.IsSingleStrokeFont = aRequestedFont->IsSingleStrokeFont();
 
     Standard_Integer               aFaceId = 0;
@@ -658,7 +658,7 @@ Standard_Integer Font_FTFont::GlyphsNumber(bool theToIncludeFallback) const
 
 //=================================================================================================
 
-void Font_FTFont::GlyphRect(Font_Rect& theRect) const
+void Font_FTFont::GlyphRect(Rect& theRect) const
 {
 #ifdef HAVE_FREETYPE
   const FT_Bitmap& aBitmap = myActiveFTFace->glyph->bitmap;
@@ -673,7 +673,7 @@ void Font_FTFont::GlyphRect(Font_Rect& theRect) const
 
 //=================================================================================================
 
-Font_Rect Font_FTFont::BoundingBox(const NCollection_String&               theString,
+Rect Font_FTFont::BoundingBox(const NCollection_String&               theString,
                                    const Graphic3d_HorizontalTextAlignment theAlignX,
                                    const Graphic3d_VerticalTextAlignment   theAlignY)
 {
@@ -684,7 +684,7 @@ Font_Rect Font_FTFont::BoundingBox(const NCollection_String&               theSt
   aFormatter.Append(theString, *this);
   aFormatter.Format();
 
-  Font_Rect aBndBox;
+  Rect aBndBox;
   aFormatter.BndBox(aBndBox);
   return aBndBox;
 }

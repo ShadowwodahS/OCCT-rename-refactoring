@@ -35,7 +35,7 @@ IntCurveSurface_QuadricCurveExactInter::IntCurveSurface_QuadricCurveExactInter(c
   GeomAbs_SurfaceType QuadricType = TheSurfaceTool::GetType(S);
   Quadric1 Quadric;
   switch(QuadricType) { 
-  case GeomAbs_Plane:     { Quadric.SetValue(TheSurfaceTool::Plane(S));     break; }  
+  case GeomAbs_Plane:     { Quadric.SetValue(TheSurfaceTool::Plane1(S));     break; }  
   case GeomAbs_Cylinder:  { Quadric.SetValue(TheSurfaceTool::Cylinder(S));  break; }  
   case GeomAbs_Cone:      { Quadric.SetValue(TheSurfaceTool::Cone(S));      break; }  
   case GeomAbs_Sphere:    { Quadric.SetValue(TheSurfaceTool::Sphere(S));    break; }  

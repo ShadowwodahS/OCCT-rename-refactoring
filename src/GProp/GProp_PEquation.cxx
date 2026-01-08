@@ -153,7 +153,7 @@ Standard_Boolean PrincipalEquation::IsSpace() const
     return Standard_False;
 }
 
-gp_Pln PrincipalEquation::Plane() const
+gp_Pln PrincipalEquation::Plane1() const
 {
   if (!IsPlanar())
     throw Standard_NoSuchObject();

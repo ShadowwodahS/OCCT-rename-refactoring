@@ -151,7 +151,7 @@ static Standard_Integer QADNaming_TCopyShape(DrawInterpreter& di,
 
 //=================================================================================================
 
-void QADNaming::ToolsCommands(DrawInterpreter& theCommands)
+void QADNaming1::ToolsCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

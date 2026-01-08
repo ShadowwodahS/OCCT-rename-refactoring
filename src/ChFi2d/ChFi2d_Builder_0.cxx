@@ -452,7 +452,7 @@ TopoVertex ChFi2d_Builder::RemoveChamfer(const TopoEdge& Chamfer)
   } // while ...
 
   BRepAdaptor_Surface Adaptor3dSurface(refFace);
-  BRepLib_MakeFace    mFace(Adaptor3dSurface.Plane(), newWire);
+  BRepLib_MakeFace    mFace(Adaptor3dSurface.Plane1(), newWire);
   newFace.Nullify();
   newFace = mFace;
 
@@ -722,7 +722,7 @@ Point3d ComputePoint(const TopoFace&       F,
                     Standard_Real&           Param)
 {
   BRepAdaptor_Surface  Adaptor3dSurface(F);
-  Handle(GeomPlane)   refSurf = new GeomPlane(Adaptor3dSurface.Plane());
+  Handle(GeomPlane)   refSurf = new GeomPlane(Adaptor3dSurface.Plane1());
   Handle(GeomCurve2d) lin2d   = GeomAPI1::To2d(L, refSurf->Pln());
   Handle(GeomCurve2d) c2d;
   Standard_Real        first, last;

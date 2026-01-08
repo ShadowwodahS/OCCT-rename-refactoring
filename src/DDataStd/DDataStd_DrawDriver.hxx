@@ -34,7 +34,7 @@ DEFINE_STANDARD_HANDLE(DDataStd_DrawDriver, RefObject)
 //! Priority rule to display standard attributes is :
 //! * 1 Constraint
 //! * 2 Object
-//! * 3 Datum      (Point,Axis,Plane)
+//! * 3 Datum      (Point,Axis,Plane1)
 //! * 4 Geometry
 //! * 5 NamedShape
 class DDataStd_DrawDriver : public RefObject

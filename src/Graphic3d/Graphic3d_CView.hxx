@@ -432,10 +432,10 @@ public:
   void SetBackgroundType(Graphic3d_TypeOfBackground theType) { myBackgroundType = theType; }
 
   //! Returns skydome aspect;
-  const Aspect_SkydomeBackground& BackgroundSkydome() const { return mySkydomeAspect; }
+  const SkydomeBackground& BackgroundSkydome() const { return mySkydomeAspect; }
 
   //! Sets skydome aspect
-  Standard_EXPORT void SetBackgroundSkydome(const Aspect_SkydomeBackground& theAspect,
+  Standard_EXPORT void SetBackgroundSkydome(const SkydomeBackground& theAspect,
                                             Standard_Boolean theToUpdatePBREnv = Standard_True);
 
   //! Enables or disables IBL (Image Based Lighting) from background cubemap.
@@ -566,10 +566,10 @@ public:
 
 public: //! @name obsolete Graduated Trihedron functionality
   //! Returns data of a graduated trihedron
-  virtual const Graphic3d_GraduatedTrihedron& GetGraduatedTrihedron() { return myGTrihedronData; }
+  virtual const GraduatedTrihedron& GetGraduatedTrihedron() { return myGTrihedronData; }
 
   //! Displays Graduated Trihedron.
-  virtual void GraduatedTrihedronDisplay(const Graphic3d_GraduatedTrihedron& theTrihedronData)
+  virtual void GraduatedTrihedronDisplay(const GraduatedTrihedron& theTrihedronData)
   {
     (void)theTrihedronData;
   }
@@ -710,9 +710,9 @@ protected:
   Handle(Graphic3d_CubeMap)    myCubeMapBackground; //!< Cubemap displayed at background
   Handle(Graphic3d_CubeMap)    myCubeMapIBL;        //!< Cubemap used for environment lighting
   Handle(Graphic3d_TextureEnv) myTextureEnvData;
-  Graphic3d_GraduatedTrihedron myGTrihedronData;
+  GraduatedTrihedron myGTrihedronData;
   Graphic3d_TypeOfBackground   myBackgroundType; //!< Current type of background
-  Aspect_SkydomeBackground     mySkydomeAspect;
+  SkydomeBackground     mySkydomeAspect;
   Standard_Boolean             myToUpdateSkydome;
 
   Handle(Aspect_XRSession) myXRSession;

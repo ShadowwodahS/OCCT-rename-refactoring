@@ -160,7 +160,7 @@ protected:
   mutable NCollection_Vector<Handle(OpenGl_VertexBuffer)> myTCrdsVbo;   //!< VBOs of texture coordinates
   mutable Handle(OpenGl_VertexBuffer)                     myBndVertsVbo;//!< VBOs of vertices for bounding box
                                                                       // clang-format on
-  mutable Font_Rect myBndBox;
+  mutable Rect myBndBox;
 
 protected:
   mutable OpenGl_Mat4d myProjMatrix;

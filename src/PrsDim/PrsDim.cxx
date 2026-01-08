@@ -740,7 +740,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoVertex&      aVertex,
 //=======================================================================
 // function : GetPlaneFromFace
 // purpose  :
-//           Returns type of surface which can be Plane or OtherSurface
+//           Returns type of surface which can be Plane1 or OtherSurface
 //=======================================================================
 Standard_Boolean PrsDim::GetPlaneFromFace(const TopoFace&    aFace,
                                           gp_Pln&               aPlane,
@@ -770,7 +770,7 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoFace&    aFace,
 
   if (surf2->GetType() == GeomAbs_Plane)
   {
-    aPlane    = surf2->Plane();
+    aPlane    = surf2->Plane1();
     aSurfType = PrsDim_KOS_Plane;
     Result    = Standard_True;
   }

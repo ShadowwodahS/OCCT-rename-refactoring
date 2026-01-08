@@ -36,22 +36,22 @@ public:
   //! Create a new NumShapeTool with <aShape>.  The Tool
   //! must prepare an indexation  for  all the subshapes
   //! of this shape.
-  Standard_EXPORT Sweep_NumShapeTool(const Sweep_NumShape& aShape);
+  Standard_EXPORT Sweep_NumShapeTool(const SweepNumShape& aShape);
 
   //! Returns the number of subshapes in the shape.
   Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Returns the index of <aShape>.
-  Standard_EXPORT Standard_Integer Index(const Sweep_NumShape& aShape) const;
+  Standard_EXPORT Standard_Integer Index(const SweepNumShape& aShape) const;
 
   //! Returns the Shape at index anIndex
-  Standard_EXPORT Sweep_NumShape Shape(const Standard_Integer anIndex) const;
+  Standard_EXPORT SweepNumShape Shape(const Standard_Integer anIndex) const;
 
   //! Returns the type of <aShape>.
-  Standard_EXPORT TopAbs_ShapeEnum Type(const Sweep_NumShape& aShape) const;
+  Standard_EXPORT TopAbs_ShapeEnum Type(const SweepNumShape& aShape) const;
 
   //! Returns the orientation of <aShape>.
-  Standard_EXPORT TopAbs_Orientation Orientation(const Sweep_NumShape& aShape) const;
+  Standard_EXPORT TopAbs_Orientation Orientation(const SweepNumShape& aShape) const;
 
   //! Returns true if there is a First Vertex in the Shape.
   Standard_EXPORT Standard_Boolean HasFirstVertex() const;
@@ -60,14 +60,14 @@ public:
   Standard_EXPORT Standard_Boolean HasLastVertex() const;
 
   //! Returns the first vertex.
-  Standard_EXPORT Sweep_NumShape FirstVertex() const;
+  Standard_EXPORT SweepNumShape FirstVertex() const;
 
   //! Returns the last vertex.
-  Standard_EXPORT Sweep_NumShape LastVertex() const;
+  Standard_EXPORT SweepNumShape LastVertex() const;
 
 protected:
 private:
-  Sweep_NumShape myNumShape;
+  SweepNumShape myNumShape;
 };
 
 #endif // _Sweep_NumShapeTool_HeaderFile

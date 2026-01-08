@@ -89,7 +89,7 @@ Standard_Boolean ShapeFix_Edge::FixRemovePCurve(const TopoEdge&          edge,
                                                 const TopLoc_Location&      location)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  ShapeAnalysis_Edge EA;
+  Edge1 EA;
   Standard_Boolean   result = EA.CheckVerticesWithPCurve(edge, surface, location);
   if (result)
     ShapeBuild_Edge().RemovePCurve(edge, surface, location);
@@ -101,7 +101,7 @@ Standard_Boolean ShapeFix_Edge::FixRemovePCurve(const TopoEdge&          edge,
 Standard_Boolean ShapeFix_Edge::FixRemoveCurve3d(const TopoEdge& edge)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  ShapeAnalysis_Edge EA;
+  Edge1 EA;
   Standard_Boolean   result = EA.CheckVerticesWithCurve3d(edge);
   if (result)
     ShapeBuild_Edge().RemoveCurve3d(edge);
@@ -368,7 +368,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
             oldFirst = geometric_representation_ptr->First();
             oldLast  = geometric_representation_ptr->Last();
             // 15.11.2002 PTV OCC966
-            if (ShapeAnalysis_Curve::IsPeriodic(Curve2dPtr))
+            if (Curve2::IsPeriodic(Curve2dPtr))
             {
               Handle(Geom2d_TrimmedCurve) tc =
                 new Geom2d_TrimmedCurve(Curve2dPtr, oldFirst, oldLast);
@@ -452,13 +452,13 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
                                              const Handle(ShapeAnalysis_Surface)& sas,
                                              const Standard_Real                  prec)
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
   if ((!isSeam && sae.HasPCurve(edge, surf, location))
       || (isSeam && sae.IsSeam(edge, surf, location)))
     return Standard_False;
 
-  // PCurve on Plane not computed
+  // PCurve on Plane1 not computed
   if (surf->IsKind(STANDARD_TYPE(GeomPlane)))
     return Standard_False;
 
@@ -586,7 +586,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoEdge&                   e
 Standard_Boolean ShapeFix_Edge::FixAddCurve3d(const TopoEdge& edge)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  ShapeAnalysis_Edge EA;
+  Edge1 EA;
   if (BRepInspector::Degenerated(edge) || EA.HasCurve3d(edge))
     return Standard_False;
   if (!BRepInspector::SameRange(edge))
@@ -607,7 +607,7 @@ Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge, const T
 {
   myStatus                      = ShapeExtend::EncodeStatus(ShapeExtend_OK);
   TopoEdge        anEdgeCopy = edge;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   if (!Context().IsNull())
   {
     anEdgeCopy = TopoDS::Edge(Context()->Apply(edge));
@@ -642,7 +642,7 @@ Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoEdge& edge)
 {
   myStatus                      = ShapeExtend::EncodeStatus(ShapeExtend_OK);
   TopoEdge        anEdgeCopy = edge;
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   if (!Context().IsNull())
   {
     anEdgeCopy = TopoDS::Edge(Context()->Apply(edge));
@@ -687,7 +687,7 @@ Standard_Boolean ShapeFix_Edge::FixReversed2d(const TopoEdge&          edge,
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
-  ShapeAnalysis_Edge EA;
+  Edge1 EA;
   EA.CheckCurve3dWithPCurve(edge, surface, location);
   if (EA.Status(ShapeExtend_FAIL1))
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
@@ -746,7 +746,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoEdge&  edge,
   }
 
   ShapeFix_ShapeTolerance SFST;
-  ShapeAnalysis_Edge      sae;
+  Edge1      sae;
   ShapeBuilder            B;
 
   TopoEdge   copyedge;

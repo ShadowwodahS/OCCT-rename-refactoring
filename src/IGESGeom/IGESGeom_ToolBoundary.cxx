@@ -384,7 +384,7 @@ void BoundaryTool::OwnCheck(const Handle(IGESGeom_Boundary)& ent,
   }
 
   // il faudrait aussi tester que, pour BoundaryType = 1, la Surface est bien
-  //  Parametrique ... (au moins un cas ne passe pas : c est Plane 108)
+  //  Parametrique ... (au moins un cas ne passe pas : c est Plane1 108)
   if (ent->BoundaryType() == 1)
   {
     if (ent->Surface()->TypeNumber() == 108)

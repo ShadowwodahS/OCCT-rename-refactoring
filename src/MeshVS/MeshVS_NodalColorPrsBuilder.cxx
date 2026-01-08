@@ -813,7 +813,7 @@ Handle(Graphic3d_Texture2D) MeshVS_NodalColorPrsBuilder::CreateTexture() const
   for (Standard_Size aCol = 0; aCol < Standard_Size(aColorsNb); ++aCol)
   {
     const Quantity_Color& aSrcColor = myTextureColorMap.Value(Standard_Integer(aCol) + 1);
-    Image_ColorRGBA&      aColor    = anImage->ChangeValue<Image_ColorRGBA>(0, aCol);
+    ColorRGBA&      aColor    = anImage->ChangeValue<ColorRGBA>(0, aCol);
     aColor.r()                      = Standard_Byte(255.0 * aSrcColor.Red());
     aColor.g()                      = Standard_Byte(255.0 * aSrcColor.Green());
     aColor.b()                      = Standard_Byte(255.0 * aSrcColor.Blue());
@@ -822,7 +822,7 @@ Handle(Graphic3d_Texture2D) MeshVS_NodalColorPrsBuilder::CreateTexture() const
 
   // fill padding bytes
   const Quantity_Color& aLastColorSrc = myTextureColorMap.Last();
-  const Image_ColorRGBA aLastColor    = {{Standard_Byte(255.0 * aLastColorSrc.Red()),
+  const ColorRGBA aLastColor    = {{Standard_Byte(255.0 * aLastColorSrc.Red()),
                                           Standard_Byte(255.0 * aLastColorSrc.Green()),
                                           Standard_Byte(255.0 * aLastColorSrc.Blue()),
                                           0xFF}};
@@ -830,16 +830,16 @@ Handle(Graphic3d_Texture2D) MeshVS_NodalColorPrsBuilder::CreateTexture() const
   // fill second row
   for (Standard_Size aCol = (Standard_Size)aColorsNb; aCol < anImage->SizeX(); ++aCol)
   {
-    anImage->ChangeValue<Image_ColorRGBA>(0, aCol) = aLastColor;
+    anImage->ChangeValue<ColorRGBA>(0, aCol) = aLastColor;
   }
 
-  const Image_ColorRGBA anInvalidColor = {{Standard_Byte(255.0 * myInvalidColor.Red()),
+  const ColorRGBA anInvalidColor = {{Standard_Byte(255.0 * myInvalidColor.Red()),
                                            Standard_Byte(255.0 * myInvalidColor.Green()),
                                            Standard_Byte(255.0 * myInvalidColor.Blue()),
                                            0xFF}};
   for (Standard_Size aCol = 0; aCol < anImage->SizeX(); ++aCol)
   {
-    anImage->ChangeValue<Image_ColorRGBA>(1, aCol) = anInvalidColor;
+    anImage->ChangeValue<ColorRGBA>(1, aCol) = anInvalidColor;
   }
 
   // create texture

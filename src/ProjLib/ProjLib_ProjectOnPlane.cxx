@@ -463,7 +463,7 @@ ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const Ax3& Pl, const Dir3d& D)
 {
   //  if ( Abs(D * Pl.Direction()) < Precision::Confusion()) {
   //    throw Standard_ConstructionError
-  //      ("ProjLib_ProjectOnPlane:  The Direction and the Plane are parallel");
+  //      ("ProjLib_ProjectOnPlane:  The Direction and the Plane1 are parallel");
   //  }
 }
 

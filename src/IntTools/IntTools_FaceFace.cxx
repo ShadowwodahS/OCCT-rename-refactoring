@@ -266,11 +266,11 @@ static Standard_Boolean isTreatAnalityc(const BRepAdaptor_Surface& theBAS1,
   Cylinder1 aS2;
   if (aType1 == GeomAbs_Plane)
   {
-    aS1 = theBAS1.Plane();
+    aS1 = theBAS1.Plane1();
   }
   else if (aType2 == GeomAbs_Plane)
   {
-    aS1 = theBAS2.Plane();
+    aS1 = theBAS2.Plane1();
   }
   else
   {
@@ -676,7 +676,7 @@ void IntTools_FaceFace::ComputeTolReached3d(const Standard_Boolean theToRunParal
     //
     // Set the tangential tolerance for the curve.
     // Note, that, currently, computation of the tangential tolerance is
-    // implemented for the Plane/Plane case only.
+    // implemented for the Plane1/Plane1 case only.
     // Thus, set the tangential tolerance equal to maximal tolerance of faces.
     if (aIC.TangentialTolerance() < aTolFMax)
     {
@@ -1423,7 +1423,7 @@ reapprox:;
                 TColgp_Array1OfPnt   tpoles(1, nbpoles);
 
                 mbspc.Curve(1, tpoles2d);
-                const gp_Pln& Pln = myHS1->Plane();
+                const gp_Pln& Pln = myHS1->Plane1();
                 //
                 Standard_Integer ik;
                 for (ik = 1; ik <= nbpoles; ik++)
@@ -1506,7 +1506,7 @@ reapprox:;
                 TColgp_Array1OfPnt2d tpoles2d(1, nbpoles);
                 TColgp_Array1OfPnt   tpoles(1, nbpoles);
                 mbspc.Curve((myApprox1 == Standard_True) ? 2 : 1, tpoles2d);
-                const gp_Pln& Pln = myHS2->Plane();
+                const gp_Pln& Pln = myHS2->Plane1();
                 //
                 Standard_Integer ik;
                 for (ik = 1; ik <= nbpoles; ik++)
@@ -1836,7 +1836,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& HS1,
   switch (typs)
   {
     case GeomAbs_Plane:
-      quad1.SetValue(HS1->Plane());
+      quad1.SetValue(HS1->Plane1());
       break;
     case GeomAbs_Cylinder:
       quad1.SetValue(HS1->Cylinder());
@@ -1858,7 +1858,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& HS1,
   switch (typs)
   {
     case GeomAbs_Plane:
-      quad2.SetValue(HS2->Plane());
+      quad2.SetValue(HS2->Plane1());
       break;
     case GeomAbs_Cylinder:
       quad2.SetValue(HS2->Cylinder());
@@ -1940,7 +1940,7 @@ void IntTools_FaceFace::PrepareLines3D(const Standard_Boolean bToSplit)
     }
   }
   //
-  // 2. Plane\Cone intersection when we had 4 curves
+  // 2. Plane1\Cone intersection when we had 4 curves
   aType1    = myHS1->GetType();
   aType2    = myHS2->GetType();
   aNbCurves = aNewCvs.Length();
@@ -2375,8 +2375,8 @@ void PerformPlanes(const Handle(GeomAdaptor_Surface)& theS1,
                    Standard_Boolean&                  theTangentFaces)
 {
 
-  gp_Pln aPln1 = theS1->Plane();
-  gp_Pln aPln2 = theS2->Plane();
+  gp_Pln aPln1 = theS1->Plane1();
+  gp_Pln aPln2 = theS2->Plane1();
 
   QuadQuadGeoIntersection aPlnInter(aPln1, aPln2, TolAng, TolTang);
 

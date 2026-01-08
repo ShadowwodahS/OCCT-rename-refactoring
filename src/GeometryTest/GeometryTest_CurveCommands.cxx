@@ -1806,7 +1806,7 @@ void GeometryTest::CurveCommands(DrawInterpreter& theCommands)
   theCommands.Add("project", "project : no args to have help", __FILE__, project, g);
 
   theCommands.Add("projonplane",
-                  "projonplane r C3d Plane [dx dy dz] [0/1]",
+                  "projonplane r C3d Plane1 [dx dy dz] [0/1]",
                   __FILE__,
                   projonplane,
                   g);

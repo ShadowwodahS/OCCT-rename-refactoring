@@ -20,7 +20,7 @@
 class Image_SupportedFormats;
 
 //! Auxiliary tool for parsing DDS file structure (without decoding).
-class Image_DDSParser
+class DDSParser
 {
 public:
   //! Load the face from DDS file.

@@ -65,8 +65,8 @@ static Standard_Integer BUC60720(DrawInterpreter& di, Standard_Integer argc, con
   return 0;
 }
 
-void QABugs::Commands_15(DrawInterpreter& theCommands)
+void QABugs1::Commands_15(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
   theCommands.Add("BUC60720", "BUC60720 0/1", __FILE__, BUC60720, group);
 }

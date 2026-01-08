@@ -524,7 +524,7 @@ void LayerList1::UpdateCulling(const Handle(OpenGl_Workspace)& theWorkspace,
   aTimer.Start();
 
   const Standard_Integer       aViewId   = theWorkspace->View()->Identification();
-  const Graphic3d_CullingTool& aSelector = theWorkspace->View()->BVHTreeSelector();
+  const CullingTool& aSelector = theWorkspace->View()->BVHTreeSelector();
   for (NCollection_List<Handle(Graphic3d_Layer)>::Iterator aLayerIter(myLayers); aLayerIter.More();
        aLayerIter.Next())
   {

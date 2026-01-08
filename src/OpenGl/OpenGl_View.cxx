@@ -469,7 +469,7 @@ static void SetMinMaxValuesCallback(Graphic3d_CView* theView)
 
 //=================================================================================================
 
-void OpenGl_View::GraduatedTrihedronDisplay(const Graphic3d_GraduatedTrihedron& theTrihedronData)
+void OpenGl_View::GraduatedTrihedronDisplay(const GraduatedTrihedron& theTrihedronData)
 {
   myGTrihedronData = theTrihedronData;
   myGTrihedronData.SetCubicAxesCallback(SetMinMaxValuesCallback);
@@ -1448,8 +1448,8 @@ bool OpenGl_View::prepareFrameBuffers(CameraOn3d::Projection& theProj)
             {
               for (Standard_Size aColIter = 0; aColIter < aPixMapRG.SizeX(); ++aColIter)
               {
-                const Image_ColorRGF& aPixelRG =
-                  aPixMapRG.Value<Image_ColorRGF>(aRowIter, aColIter);
+                const ColorRGF& aPixelRG =
+                  aPixMapRG.Value<ColorRGF>(aRowIter, aColIter);
                 if (toConvertHalfFloat)
                 {
                   NCollection_Vec2<uint16_t>& aPixelRGBA =
@@ -1459,8 +1459,8 @@ bool OpenGl_View::prepareFrameBuffers(CameraOn3d::Projection& theProj)
                 }
                 else
                 {
-                  Image_ColorRGBAF& aPixelRGBA =
-                    aPixMap->ChangeValue<Image_ColorRGBAF>(aRowIter, aColIter);
+                  ColorRGBAF& aPixelRGBA =
+                    aPixMap->ChangeValue<ColorRGBAF>(aRowIter, aColIter);
                   aPixelRGBA.r() = aPixelRG.r();
                   aPixelRGBA.g() = aPixelRG.g();
                 }

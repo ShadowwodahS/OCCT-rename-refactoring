@@ -55,8 +55,8 @@ public:
   Standard_EXPORT GeomPlate_BuildAveragePlane(const TColgp_SequenceOfVec&        Normals,
                                               const Handle(TColgp_HArray1OfPnt)& Pts);
 
-  //! Return the average Plane.
-  Standard_EXPORT Handle(GeomPlane) Plane() const;
+  //! Return the average Plane1.
+  Standard_EXPORT Handle(GeomPlane) Plane1() const;
 
   //! Return a Line when 2 eigenvalues are null.
   Standard_EXPORT Handle(GeomLine) Line() const;

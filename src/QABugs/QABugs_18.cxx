@@ -257,9 +257,9 @@ static Standard_Integer OCC367(DrawInterpreter& di, Standard_Integer argc, const
   return 0;
 }
 
-void QABugs::Commands_18(DrawInterpreter& theCommands)
+void QABugs1::Commands_18(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC267", "OCC267 DOC path", __FILE__, OCC267, group);
   theCommands.Add("OCC181", "OCC181 FileName path1 path2 verbose=0/1", __FILE__, OCC181, group);

@@ -211,7 +211,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
       Point3d              aP1 = BRepInspector::Pnt(Vfirst);
       Point3d              aP2 = BRepInspector::Pnt(Vlast);
       Point3d              pproj;
-      ShapeAnalysis_Curve sac;
+      Curve2 sac;
       sac.Project(C, aP1, Tolerance(), pproj, U1, Standard_False);
       sac.Project(C, aP2, Tolerance(), pproj, U2, Standard_False);
       Standard_Real dU = U2 - U1;

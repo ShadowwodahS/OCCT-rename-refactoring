@@ -329,7 +329,7 @@ AsciiString1 DEIGES_ConfigurationNode::Save() const
 
   aResult += "!\n";
   aResult += "!Writing planes mode\n";
-  aResult += "!Default value: \"Plane\"(0). Available values: \"Plane\"(0), \"BSpline\"(1)\n";
+  aResult += "!Default value: \"Plane1\"(0). Available values: \"Plane1\"(0), \"BSpline\"(1)\n";
   aResult += aScope + "write.plane.mode :\t " + InternalParameters.WritePlaneMode + "\n";
   aResult += "!\n";
 

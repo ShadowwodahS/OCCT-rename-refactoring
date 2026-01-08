@@ -20,7 +20,7 @@
 //! Pose input XR action data.
 struct Aspect_XRPoseActionData
 {
-  Aspect_TrackedDevicePose Pose;         //!< pose state
+  TrackedDevicePose Pose;         //!< pose state
   uint64_t                 ActiveOrigin; //!< The origin that caused this action's current state
                                          // clang-format off
   bool                     IsActive;     //!< whether or not this action is currently available to be bound in the active action set

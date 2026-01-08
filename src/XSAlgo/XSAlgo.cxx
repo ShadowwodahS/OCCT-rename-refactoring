@@ -30,7 +30,7 @@ void XSAlgo::Init()
   if (init)
     return;
   init = Standard_True;
-  ShapeAlgo::Init();
+  ShapeAlgo1::Init();
   theContainer = new XSAlgo_AlgoContainer;
 
   // init parameters

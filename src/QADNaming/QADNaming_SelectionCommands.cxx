@@ -128,7 +128,7 @@ static Standard_Integer QADNaming_SolveSelection(DrawInterpreter& di,
   if (n >= 3)
   {
     DataLabel aLabel;
-    if (!QADNaming::Entry(a, aLabel))
+    if (!QADNaming1::Entry(a, aLabel))
       return 1;
     char             name[100];
     TNaming_Selector SL(aLabel);
@@ -324,7 +324,7 @@ static Standard_Integer QADNaming_Attachment(DrawInterpreter& di,
 
 //=================================================================================================
 
-void QADNaming::SelectionCommands(DrawInterpreter& theCommands)
+void QADNaming1::SelectionCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

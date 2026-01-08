@@ -32,8 +32,8 @@
 
 //=======================================================================
 // function : MakeChamfer
-// purpose  : Compute the chamfer in the particular case Plane/Cone or
-//           Cylinder/Plane
+// purpose  : Compute the chamfer in the particular case Plane1/Cone or
+//           Cylinder/Plane1
 //           Compute the SurfData <Data> of the chamfer build on the <Spine>
 //           between the plane <Pln> and the cone <Con>, with the
 //           distances <Dis1> on <Pln> and <Dis2> on <Con>.

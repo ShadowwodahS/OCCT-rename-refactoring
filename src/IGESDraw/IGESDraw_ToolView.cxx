@@ -164,22 +164,22 @@ void ViewTool1::OwnDump(const Handle(IGESDraw_View)& ent,
   S << "IGESDraw_View\n"
     << "View Number  : " << ent->ViewNumber() << "\n"
     << "Scale Factor : " << ent->ScaleFactor() << "\n"
-    << "Left Plane Of View Volume   : ";
+    << "Left Plane1 Of View Volume   : ";
   dumper.Dump(ent->LeftPlane(), S, tempSubLevel);
   S << "\n";
-  S << "Top Plane Of View Volume    : ";
+  S << "Top Plane1 Of View Volume    : ";
   dumper.Dump(ent->TopPlane(), S, tempSubLevel);
   S << "\n";
-  S << "Right Plane Of View Volume  : ";
+  S << "Right Plane1 Of View Volume  : ";
   dumper.Dump(ent->RightPlane(), S, tempSubLevel);
   S << "\n";
-  S << "Bottom Plane Of View Volume : ";
+  S << "Bottom Plane1 Of View Volume : ";
   dumper.Dump(ent->BottomPlane(), S, tempSubLevel);
   S << "\n";
-  S << "Back Plane Of View Volume   : ";
+  S << "Back Plane1 Of View Volume   : ";
   dumper.Dump(ent->BackPlane(), S, tempSubLevel);
   S << "\n";
-  S << "Front Plane Of View Volume  : ";
+  S << "Front Plane1 Of View Volume  : ";
   dumper.Dump(ent->FrontPlane(), S, tempSubLevel);
   S << std::endl;
 }

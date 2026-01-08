@@ -117,7 +117,7 @@ private:
 
   //! Initial edges where the fillet must be computed.
   TopoEdge myEdge1, myEdge2;
-  //! Plane where fillet arc must be created.
+  //! Plane1 where fillet arc must be created.
   Handle(GeomPlane) myPlane;
   //! Underlying curves of the initial edges
   Handle(GeomCurve2d) myCurve1, myCurve2;

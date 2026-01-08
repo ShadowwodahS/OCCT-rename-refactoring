@@ -158,9 +158,9 @@ static Standard_Integer OCC1651(DrawInterpreter& di, Standard_Integer argc, cons
   return 0;
 }
 
-void QABugs::Commands_8(DrawInterpreter& theCommands)
+void QABugs1::Commands_8(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC162", "OCC162 name", __FILE__, OCC162, group);
   theCommands.Add("OCC172", "OCC172", __FILE__, OCC172, group);

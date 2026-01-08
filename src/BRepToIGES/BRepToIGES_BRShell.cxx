@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-//: n3 abv 8 Feb 99: PRO17820: BRepTools1::OuterWire() -> ShapeAnalysis::OuterWire
+//: n3 abv 8 Feb 99: PRO17820: BRepTools1::OuterWire() -> ShapeAnalysis1::OuterWire
 // szv#4 S4163
 
 #include <BRep_Builder.hxx>
@@ -141,7 +141,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoFace& st
     // set specifics flags of a Face
     B.NaturalRestriction(aFace, BRepInspector::NaturalRestriction(start));
     // add wires
-    TopoWire     anOuter = TopoDS::Wire(ShapeAlgo::AlgoContainer()->OuterWire(start));
+    TopoWire     anOuter = TopoDS::Wire(ShapeAlgo1::AlgoContainer()->OuterWire(start));
     ShapeExplorer ex;
     for (ex.Init(start, TopAbs_WIRE); ex.More(); ex.Next())
     {
@@ -265,7 +265,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoFace& st
 
   // outer wire
   //: n3  TopoWire Outer = BRepTools1::OuterWire(myface);
-  TopoWire                     Outer  = ShapeAlgo::AlgoContainer()->OuterWire(aFace); //: n3
+  TopoWire                     Outer  = ShapeAlgo1::AlgoContainer()->OuterWire(aFace); //: n3
   Handle(IGESGeom_CurveOnSurface) IOuter = new IGESGeom_CurveOnSurface;
   if (!Outer.IsNull())
   {

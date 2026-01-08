@@ -28,10 +28,10 @@ template struct Graphic3d_UniformValue<Graphic3d_Vec3i>;
 template struct Graphic3d_UniformValue<Graphic3d_Vec4i>;
 
 // =======================================================================
-// function : ~Graphic3d_ValueInterface
+// function : ~ValueInterface
 // purpose  : Releases memory resources of variable value
 // =======================================================================
-Graphic3d_ValueInterface::~Graphic3d_ValueInterface()
+ValueInterface::~ValueInterface()
 {
   //
 }
@@ -78,7 +78,7 @@ const AsciiString1& Graphic3d_ShaderVariable::Name() const
 // function : Value
 // purpose  : Returns interface of shader variable value
 // =======================================================================
-Graphic3d_ValueInterface* Graphic3d_ShaderVariable::Value()
+ValueInterface* Graphic3d_ShaderVariable::Value()
 {
   return myValue;
 }

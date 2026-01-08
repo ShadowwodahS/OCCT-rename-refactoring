@@ -25,18 +25,18 @@
 #include <Standard_Boolean.hxx>
 
 //! This class permits the creation and control of integer identifiers.
-class Aspect_GenId
+class GenId
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an available set of identifiers with the lower bound 0 and the upper bound INT_MAX
   //! / 2.
-  Standard_EXPORT Aspect_GenId();
+  Standard_EXPORT GenId();
 
   //! Creates an available set of identifiers with specified range.
   //! Raises IdentDefinitionError if theUpper is less than theLow.
-  Standard_EXPORT Aspect_GenId(const Standard_Integer theLow, const Standard_Integer theUpper);
+  Standard_EXPORT GenId(const Standard_Integer theLow, const Standard_Integer theUpper);
 
   //! Free all identifiers - make the whole range available again.
   Standard_EXPORT void Free();

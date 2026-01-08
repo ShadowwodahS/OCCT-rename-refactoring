@@ -16,11 +16,11 @@
 #include <QANCollection.hxx>
 #include <Draw_Interpretor.hxx>
 
-void QANCollection::Commands(DrawInterpreter& theCommands)
+void QANCollection1::Commands(DrawInterpreter& theCommands)
 {
-  QANCollection::CommandsTest(theCommands);
-  QANCollection::CommandsPerf(theCommands);
-  QANCollection::CommandsAlloc(theCommands);
-  QANCollection::CommandsHandle(theCommands);
-  QANCollection::CommandsStl(theCommands);
+  QANCollection1::CommandsTest(theCommands);
+  QANCollection1::CommandsPerf(theCommands);
+  QANCollection1::CommandsAlloc(theCommands);
+  QANCollection1::CommandsHandle(theCommands);
+  QANCollection1::CommandsStl(theCommands);
 }

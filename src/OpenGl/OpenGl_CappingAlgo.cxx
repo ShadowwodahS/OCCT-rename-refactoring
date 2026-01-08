@@ -97,7 +97,7 @@ static void renderCappingForStructure(StencilTestSentry&                        
     & ~(Standard_Integer)(OpenGl_RenderFilter_OpaqueOnly | OpenGl_RenderFilter_TransparentOnly);
 
   const Handle(OpenGl_Context)&      aContext     = theWorkspace->GetGlContext();
-  const Handle(Graphic3d_ClipPlane)& aRenderPlane = thePlane->Plane();
+  const Handle(Graphic3d_ClipPlane)& aRenderPlane = thePlane->Plane1();
   for (OpenGl_Structure::GroupIterator aGroupIter(theStructure.Groups()); aGroupIter.More();
        aGroupIter.Next())
   {

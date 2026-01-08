@@ -73,7 +73,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_direct(const TopoFace& F, Standard_Boo
   Standard_Boolean    torus = (ST == GeomAbs_Torus);
   if (plane)
   {
-    const gp_Pln& plpl = BS.Plane();
+    const gp_Pln& plpl = BS.Plane1();
     direct             = plpl.Direct();
   }
   if (cyl)

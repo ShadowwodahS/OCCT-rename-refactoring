@@ -132,7 +132,7 @@ void OpenGl_Window::Init (const Handle(OpenGl_GraphicDriver)& theDriver,
   }
 #else
 
-  Cocoa_LocalPool aLocalPool;
+  LocalPool aLocalPool;
 
   // all GL context within one OpenGl_GraphicDriver should be shared!
   NSOpenGLContext* aGLCtxShare = theShareCtx.IsNull() ? NULL : theShareCtx->myGContext;

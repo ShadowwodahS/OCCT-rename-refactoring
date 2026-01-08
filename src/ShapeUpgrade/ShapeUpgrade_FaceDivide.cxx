@@ -111,7 +111,7 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
 
   Standard_Real Uf, Ul, Vf, Vl;
   //  BRepTools1::UVBounds(myFace,Uf,Ul,Vf,Vl);
-  ShapeAnalysis::GetFaceUVBounds(face, Uf, Ul, Vf, Vl);
+  ShapeAnalysis1::GetFaceUVBounds(face, Uf, Ul, Vf, Vl);
   if (Precision::IsInfinite(Uf) || Precision::IsInfinite(Ul) || Precision::IsInfinite(Vf)
       || Precision::IsInfinite(Vl))
     return Standard_False;

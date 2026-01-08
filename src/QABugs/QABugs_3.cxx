@@ -1411,9 +1411,9 @@ static Standard_Integer BUC60951_(DrawInterpreter& di, Standard_Integer argc, co
   return 0;
 }
 
-void QABugs::Commands_3(DrawInterpreter& theCommands)
+void QABugs1::Commands_3(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("BUC60623", "BUC60623 result Shape1 Shape2", __FILE__, BUC60623, group);
   theCommands.Add("BUC60632", "BUC60632 mode length", __FILE__, BUC60632, group);

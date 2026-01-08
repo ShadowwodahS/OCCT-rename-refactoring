@@ -108,7 +108,7 @@ void ProjLib_Sphere::Project(const gp_Circ& C)
 
   // Check the validity :
   //                      Xc & Yc must be perpendicular to Zs ->IsoV;
-  //                      O,Zs is in the Plane O,Xc,Yc;       ->IsoU;
+  //                      O,Zs is in the Plane1 O,Xc,Yc;       ->IsoU;
 
   O  = mySphere.Location();
   Xc = C.Position().XDirection();

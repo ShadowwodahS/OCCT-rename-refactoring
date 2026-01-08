@@ -112,7 +112,7 @@ Standard_Boolean HLRBRep_Surface::SideRowsOfPoles(const Standard_Real    tol,
   if (result)
     return result;
 
-  // Are the Poles in a Side Plane ?
+  // Are the Poles in a Side Plane1 ?
   TColgp_Array1OfPnt p(1, nbuPoles * nbvPoles);
   Standard_Integer   i = 0;
 
@@ -128,7 +128,7 @@ Standard_Boolean HLRBRep_Surface::SideRowsOfPoles(const Standard_Real    tol,
 
   PrincipalEquation Pl(p, (Standard_Real)tol);
   if (Pl.IsPlanar())
-    result = Abs(Pl.Plane().Axis().Direction().Z()) < 0.0001;
+    result = Abs(Pl.Plane1().Axis().Direction().Z()) < 0.0001;
 
   return result;
 }
@@ -143,7 +143,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
 
   if (myType == GeomAbs_Plane)
   {
-    gp_Pln Pl = Plane();
+    gp_Pln Pl = Plane1();
     Axis3d A  = Pl.Axis();
     Pt        = A.Location();
     D         = A.Direction();
@@ -213,7 +213,7 @@ Standard_Boolean HLRBRep_Surface::IsAbove(const Standard_Boolean back,
   Standard_Boolean planar = (myType == GeomAbs_Plane);
   if (planar)
   {
-    gp_Pln        Pl = Plane();
+    gp_Pln        Pl = Plane1();
     Standard_Real a, b, c, d;
     Pl.Coefficients(a, b, c, d);
     Standard_Real u, u1, u2, dd, x, y, z;
@@ -269,7 +269,7 @@ Point3d HLRBRep_Surface::Value(const Standard_Real U, const Standard_Real V) con
 
 //=================================================================================================
 
-gp_Pln HLRBRep_Surface::Plane() const
+gp_Pln HLRBRep_Surface::Plane1() const
 {
   GeomAbs_SurfaceType typ = BSurfaceTool::GetType(mySurf);
   switch (typ)
@@ -283,6 +283,6 @@ gp_Pln HLRBRep_Surface::Plane() const
     }
 
     default:
-      return BSurfaceTool::Plane(mySurf);
+      return BSurfaceTool::Plane1(mySurf);
   }
 }

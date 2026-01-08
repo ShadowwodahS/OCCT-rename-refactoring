@@ -96,7 +96,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   myPntAttach = apos;
 
   myDir = d1u ^ d1v;
-  //  myDir = surfAlgo.Plane().Axis().Direction();
+  //  myDir = surfAlgo.Plane1().Axis().Direction();
 
   //--------------------------------------------
   // Calcul du point de positionnement du texte

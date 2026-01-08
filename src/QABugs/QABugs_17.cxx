@@ -1428,9 +1428,9 @@ static Standard_Integer OCC1642(DrawInterpreter& di, Standard_Integer argc, cons
   return 0;
 }
 
-void QABugs::Commands_17(DrawInterpreter& theCommands)
+void QABugs1::Commands_17(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("BUC60842", "BUC60842", __FILE__, BUC60842, group);
   theCommands.Add("BUC60843",

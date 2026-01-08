@@ -52,7 +52,7 @@ public:
   Standard_EXPORT void SetInterleaved(Standard_Boolean theIsInterleaved);
 
   //! Return invalidated range.
-  virtual Graphic3d_BufferRange InvalidatedRange() const Standard_OVERRIDE
+  virtual BufferRange InvalidatedRange() const Standard_OVERRIDE
   {
     return myInvalidatedRange;
   }
@@ -75,10 +75,10 @@ public:
   Standard_EXPORT void Invalidate(Standard_Integer theVertexLower, Standard_Integer theVertexUpper);
 
   //! Invalidate specified sub-range of data (as byte offsets).
-  Standard_EXPORT void invalidate(const Graphic3d_BufferRange& theRange);
+  Standard_EXPORT void invalidate(const BufferRange& theRange);
 
 protected:
-  Graphic3d_BufferRange myInvalidatedRange; //!< invalidated buffer data range (as byte offsets)
+  BufferRange myInvalidatedRange; //!< invalidated buffer data range (as byte offsets)
                                             // clang-format off
   Standard_Boolean      myIsInterleaved;    //!< flag indicating the vertex attributes being interleaved
                                             // clang-format on

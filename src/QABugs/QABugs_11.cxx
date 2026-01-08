@@ -238,7 +238,7 @@ static int BUC60610(DrawInterpreter& di, Standard_Integer argc, const char** arg
 //====================================================
 //
 // Following code is inserted from
-// /dn03/KAS/dev/QAopt/src/QADraw/QADraw_TOPOLOGY.cxx
+// /dn03/KAS/dev/QAopt/src/QADraw1/QADraw_TOPOLOGY.cxx
 // ( 75455 Apr 16 18:59)
 //
 //====================================================
@@ -5213,13 +5213,13 @@ Standard_Integer OCC25748(DrawInterpreter& di, Standard_Integer argc, const char
   return 0;
 }
 
-void QABugs::Commands_11(DrawInterpreter& theCommands)
+void QABugs1::Commands_11(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("OCC128", "OCC128", __FILE__, OCC128, group);
 
-  // Remove as bad version of QAAddOrRemoveSelected from QADraw
+  // Remove as bad version of QAAddOrRemoveSelected from QADraw1
   // theCommands.Add("OCC129", "OCC129 shape islocal", __FILE__, OCC129, group);
 
   theCommands.Add("OCC136", "OCC136", __FILE__, OCC136, group);

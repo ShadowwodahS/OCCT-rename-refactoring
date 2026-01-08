@@ -61,7 +61,7 @@ void BRepMesh_ShapeVisitor::Visit(const TopoFace& theFace)
   const IMeshData::IFaceHandle& aDFace = myModel->AddFace(theFace);
 
   // Outer wire should always be the first in the model.
-  TopoWire aOuterWire = ShapeAnalysis::OuterWire(theFace);
+  TopoWire aOuterWire = ShapeAnalysis1::OuterWire(theFace);
   if (!addWire(aOuterWire, aDFace))
   {
     aDFace->SetStatus(IMeshData_Failure);

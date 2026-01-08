@@ -180,12 +180,12 @@ public:
 
   //! Fetch data for digital input action (like button).
   //! @param[in] theAction  action of Aspect_XRActionType_InputDigital type
-  virtual Aspect_XRDigitalActionData GetDigitalActionData(
+  virtual XRDigitalActionData GetDigitalActionData(
     const Handle(Aspect_XRAction)& theAction) const = 0;
 
   //! Fetch data for digital input action (like axis).
   //! @param[in] theAction  action of Aspect_XRActionType_InputAnalog type
-  virtual Aspect_XRAnalogActionData GetAnalogActionData(
+  virtual XRAnalogActionData GetAnalogActionData(
     const Handle(Aspect_XRAction)& theAction) const = 0;
 
   //! Fetch data for pose input action (like fingertip position).
@@ -196,7 +196,7 @@ public:
 
   //! Trigger vibration.
   Standard_EXPORT void TriggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
-                                                    const Aspect_XRHapticActionData& theParams);
+                                                    const XRHapticActionData& theParams);
 
   //! Abort vibration.
   Standard_EXPORT void AbortHapticVibrationAction(const Handle(Aspect_XRAction)& theAction);
@@ -243,7 +243,7 @@ protected:
 
   //! Trigger vibration.
   virtual void triggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
-                                            const Aspect_XRHapticActionData& theParams) = 0;
+                                            const XRHapticActionData& theParams) = 0;
 
 protected:
   NCollection_Array1<Handle(Aspect_XRAction)>

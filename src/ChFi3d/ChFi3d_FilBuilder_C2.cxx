@@ -105,9 +105,9 @@ static Standard_Boolean ToricRotule(const BRepAdaptor_Surface&   fac,
   if ((fac.GetType() != GeomAbs_Plane) || (s1.GetType() != GeomAbs_Plane)
       || (s2.GetType() != GeomAbs_Plane))
     return Standard_False;
-  Dir3d df  = fac.Plane().Position().Direction();
-  Dir3d ds1 = s1.Plane().Position().Direction();
-  Dir3d ds2 = s2.Plane().Position().Direction();
+  Dir3d df  = fac.Plane1().Position().Direction();
+  Dir3d ds1 = s1.Plane1().Position().Direction();
+  Dir3d ds2 = s2.Plane1().Position().Direction();
   if (Abs(df.Dot(ds1)) >= tolesp || Abs(df.Dot(ds2)) >= tolesp)
     return Standard_False;
   Standard_Real r1 = sp1->Radius();

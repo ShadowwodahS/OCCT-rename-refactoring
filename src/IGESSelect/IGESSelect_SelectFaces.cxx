@@ -51,7 +51,7 @@ Standard_Boolean IGESSelect_SelectFaces::Explore(const Standard_Integer /*level*
   if (igt == 114 || igt == 118 || igt == 120 || igt == 122 || igt == 128 || igt == 140)
     return Standard_True;
 
-  //   Cas du Plane
+  //   Cas du Plane1
   if (igt == 108)
   {
     DeclareAndCast(IGESGeom_Plane, pln, ent);

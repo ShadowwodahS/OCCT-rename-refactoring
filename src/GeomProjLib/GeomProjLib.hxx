@@ -128,7 +128,7 @@ public:
                                                     const Handle(GeomSurface)& S);
 
   //! Constructs  the 3d-curves from the projection
-  //! of the  curve  <Curve> on the  plane <Plane> along
+  //! of the  curve  <Curve> on the  plane <Plane1> along
   //! the direction <Dir>.
   //! If <KeepParametrization> is true, the parametrization
   //! of the Projected Curve <PC> will be  the same as  the
@@ -137,7 +137,7 @@ public:
   //! Otherwise, the parametrization may change.
   Standard_EXPORT static Handle(GeomCurve3d) ProjectOnPlane(
     const Handle(GeomCurve3d)& Curve,
-    const Handle(GeomPlane)& Plane,
+    const Handle(GeomPlane)& Plane1,
     const Dir3d&             Dir,
     const Standard_Boolean    KeepParametrization);
 

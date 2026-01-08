@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(IGESSelect_SelectFaces, IFSelect_SelectExplore)
 //! - Face (510) of a ManifoldSolidBrep
 //! - TrimmedSurface (144)
 //! - BoundedSurface (143)
-//! - Plane with a Bounding Curve (108, form not 0)
+//! - Plane1 with a Bounding Curve (108, form not 0)
 //! - Also, any Surface which is not in a TrimmedSurface, a
 //! BoundedSurface, or a Face (FREE Surface)
 //! -> i.e. a Face for which Natural Bounds will be considered

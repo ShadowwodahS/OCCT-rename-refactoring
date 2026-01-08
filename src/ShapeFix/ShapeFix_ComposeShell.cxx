@@ -434,7 +434,7 @@ static Standard_Integer GetPatchIndex(const Standard_Real                  Param
   Standard_Real    period = Params->Value(NP) - Params->Value(1);
   Standard_Real    shift  = 0;
   if (isClosed)
-    shift = ShapeAnalysis::AdjustToPeriod(Param, Params->Value(1), Params->Value(NP));
+    shift = ShapeAnalysis1::AdjustToPeriod(Param, Params->Value(1), Params->Value(NP));
   Standard_Real p = Param + shift;
 
   // locate patch: the same algo as in SE_CS::LocateParameter()
@@ -487,7 +487,7 @@ void ShapeFix_ComposeShell::LoadWires(ShapeFix_SequenceOfWireSegment& seqw) cons
     // determine orientation of the wire
     //    TopoFace face = TopoDS::Face ( myFace.EmptyCopied() );
     //    B.Add ( face, wire );
-    //    Standard_Boolean isOuter = ShapeAnalysis::IsOuterBound ( face );
+    //    Standard_Boolean isOuter = ShapeAnalysis1::IsOuterBound ( face );
 
     if (isNonManifold)
     {
@@ -542,7 +542,7 @@ void ShapeFix_ComposeShell::LoadWires(ShapeFix_SequenceOfWireSegment& seqw) cons
         {
           // For torus-like shapes, first reorder in 2d since reorder is indifferent in 3d
           ShapeAnalysis_WireOrder sawo(Standard_False, 0);
-          ShapeAnalysis_Edge      sae;
+          Edge1      sae;
           for (Standard_Integer i = 1; i <= nbMEdges; i++)
           {
             Standard_Real        f, l;
@@ -569,12 +569,12 @@ void ShapeFix_ComposeShell::LoadWires(ShapeFix_SequenceOfWireSegment& seqw) cons
           TopoShape dummy = myFace.EmptyCopied();
           TopoFace  face  = TopoDS::Face(dummy);
           B.Add(face, wire);
-          Standard_Boolean isOuter = ShapeAnalysis::IsOuterBound(face);
+          Standard_Boolean isOuter = ShapeAnalysis1::IsOuterBound(face);
           TopoWire      w       = sbwdM->Wire();
           dummy                    = myFace.EmptyCopied();
           face                     = TopoDS::Face(dummy);
           B.Add(face, w);
-          Standard_Boolean isOuterAfter = ShapeAnalysis::IsOuterBound(face);
+          Standard_Boolean isOuterAfter = ShapeAnalysis1::IsOuterBound(face);
           if (isOuter != isOuterAfter)
             sbwdM->Reverse(face);
         }
@@ -603,7 +603,7 @@ Standard_Integer ShapeFix_ComposeShell::ComputeCode(const Handle(ShapeExtend_Wir
 {
   Standard_Integer code = IOR_UNDEF;
 
-  ShapeAnalysis_Edge     sae;
+  Edge1     sae;
   const Standard_Integer NPOINTS = 5; // number of points for measuring deviation
 
   // track special closed case: segment starts at end of edge and ends at its beginning
@@ -659,17 +659,17 @@ Standard_Integer ShapeFix_ComposeShell::ComputeCode(const Handle(ShapeExtend_Wir
         if (myUClosed && Abs(line.Direction().X()) < ::Precision::PConfusion())
         {
           if (begin)
-            shift = ShapeAnalysis::AdjustByPeriod(p2d.X(), line.Location().X(), myUPeriod);
+            shift = ShapeAnalysis1::AdjustByPeriod(p2d.X(), line.Location().X(), myUPeriod);
           else if (!j)
-            shift = ShapeAnalysis::AdjustByPeriod(p2d.X() - p2d0.X(), 0., myUPeriod);
+            shift = ShapeAnalysis1::AdjustByPeriod(p2d.X() - p2d0.X(), 0., myUPeriod);
           p2d.SetX(p2d.X() + shift);
         }
         if (myVClosed && Abs(line.Direction().Y()) < ::Precision::PConfusion())
         {
           if (begin)
-            shift = ShapeAnalysis::AdjustByPeriod(p2d.Y(), line.Location().Y(), myVPeriod);
+            shift = ShapeAnalysis1::AdjustByPeriod(p2d.Y(), line.Location().Y(), myVPeriod);
           else if (!j)
-            shift = ShapeAnalysis::AdjustByPeriod(p2d.Y() - p2d0.Y(), 0., myVPeriod);
+            shift = ShapeAnalysis1::AdjustByPeriod(p2d.Y() - p2d0.Y(), 0., myVPeriod);
           p2d.SetY(p2d.Y() + shift);
         }
         begin = Standard_False;
@@ -856,7 +856,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
   ShapeFix_WireSegment          result;
   Handle(ShapeAnalysis_Surface) aSurfTool = new ShapeAnalysis_Surface(BRepInspector::Surface(myFace));
   Standard_Integer              nbSplits  = indexes.Length();
-  ShapeAnalysis_Edge            sae;
+  Edge1            sae;
   Standard_Integer              start        = 1;
   TopAbs_Orientation            anWireOrient = wire.Orientation();
   Transform3d                       T;
@@ -954,7 +954,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
         Point3d        aPproj;
         if (!c3d.IsNull())
         {
-          ShapeAnalysis_Curve asae;
+          Curve2 asae;
           adist2 = asae.Project(c3d, apV, Precision::Confusion(), aPproj, apar);
           adist2 *= adist2;
         }
@@ -1019,7 +1019,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
             || currPar < (Min(firstPar, lastPar) - Precision::PConfusion()))
         {
           Standard_Real aShift =
-            ShapeAnalysis::AdjustByPeriod(currPar, (firstPar + lastPar) * 0.5, aPeriod);
+            ShapeAnalysis1::AdjustByPeriod(currPar, (firstPar + lastPar) * 0.5, aPeriod);
           currPar += aShift;
         }
       }
@@ -1305,7 +1305,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
                                                     TColStd_SequenceOfInteger& SplitLineCode,
                                                     TopTools_SequenceOfShape&  SplitLineVertex)
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   // prepare data on cutting line
   Handle(Geom2d_Line) jC2d = new Geom2d_Line(line);
   Geom2dAdaptor_Curve jGAC(jC2d);
@@ -1382,7 +1382,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
     if (myClosedMode)
     {
       // get bounding box of pcurve
-      ShapeAnalysis_Curve    sac;
+      Curve2    sac;
       Bnd_Box2d              box;
       const Standard_Integer aNbPoints = 41;
       sac.FillBndBox(c2d, f, l, aNbPoints, Standard_True, box);
@@ -1393,7 +1393,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
       if (closedDir < 0)
       {
         Standard_Real x     = line.Location().X();
-        Standard_Real shift = ShapeAnalysis::AdjustToPeriod(umin, x - myUPeriod, x);
+        Standard_Real shift = ShapeAnalysis1::AdjustToPeriod(umin, x - myUPeriod, x);
         if (shift != 0.)
         {
           c2d = Handle(GeomCurve2d)::DownCast(c2d->Copy());
@@ -1405,15 +1405,15 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
         Standard_Real dUmax = umax + shift - x;
         shiftNext.SetX(dUmax > 0 ? -myUPeriod : myUPeriod);
         nbIter = (Standard_Integer)(1 + Abs(dUmax) / myUPeriod);
-        shift  = ShapeAnalysis::AdjustByPeriod(posf.X(), x, myUPeriod);
+        shift  = ShapeAnalysis1::AdjustByPeriod(posf.X(), x, myUPeriod);
         posf.SetX(posf.X() + shift);
-        shift = ShapeAnalysis::AdjustByPeriod(posl.X(), x, myUPeriod);
+        shift = ShapeAnalysis1::AdjustByPeriod(posl.X(), x, myUPeriod);
         posl.SetX(posl.X() + shift);
       }
       else if (closedDir > 0)
       {
         Standard_Real y     = line.Location().Y();
-        Standard_Real shift = ShapeAnalysis::AdjustToPeriod(vmin, y - myVPeriod, y);
+        Standard_Real shift = ShapeAnalysis1::AdjustToPeriod(vmin, y - myVPeriod, y);
         if (shift != 0.)
         {
           c2d = Handle(GeomCurve2d)::DownCast(c2d->Copy());
@@ -1425,9 +1425,9 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
         Standard_Real dVmax = vmax + shift - y;
         shiftNext.SetY(dVmax > 0 ? -myVPeriod : myVPeriod);
         nbIter = (Standard_Integer)(1 + Abs(dVmax) / myVPeriod);
-        shift  = ShapeAnalysis::AdjustByPeriod(posf.Y(), y, myVPeriod);
+        shift  = ShapeAnalysis1::AdjustByPeriod(posf.Y(), y, myVPeriod);
         posf.SetY(posf.Y() + shift);
-        shift = ShapeAnalysis::AdjustByPeriod(posl.Y(), y, myVPeriod);
+        shift = ShapeAnalysis1::AdjustByPeriod(posl.Y(), y, myVPeriod);
         posl.SetY(posl.Y() + shift);
       }
     }
@@ -1878,7 +1878,7 @@ void ShapeFix_ComposeShell::SplitByLine(ShapeFix_SequenceOfWireSegment& wires,
     if (!isCutByU)
     {
       Standard_Real shiftU =
-        (myClosedMode && myUClosed ? ShapeAnalysis::AdjustToPeriod(SplitLinePar(i - 1) - TOLINT,
+        (myClosedMode && myUClosed ? ShapeAnalysis1::AdjustToPeriod(SplitLinePar(i - 1) - TOLINT,
                                                                    myGrid->UJointValue(1),
                                                                    myGrid->UJointValue(2))
                                    : 0.);
@@ -1894,7 +1894,7 @@ void ShapeFix_ComposeShell::SplitByLine(ShapeFix_SequenceOfWireSegment& wires,
     else
     {
       Standard_Real shiftV =
-        (myClosedMode && myVClosed ? ShapeAnalysis::AdjustToPeriod(SplitLinePar(i - 1) - TOLINT,
+        (myClosedMode && myVClosed ? ShapeAnalysis1::AdjustToPeriod(SplitLinePar(i - 1) - TOLINT,
                                                                    myGrid->VJointValue(1),
                                                                    myGrid->VJointValue(2))
                                    : 0.);
@@ -1956,17 +1956,17 @@ void ShapeFix_ComposeShell::SplitByGrid(ShapeFix_SequenceOfWireSegment& seqw)
       atmpF.Orientation(TopAbs_FORWARD);
       aB.Add(atmpF, wire.WireData()->Wire());
       Standard_Real Uf1, Ul1, Vf1, Vl1;
-      ShapeAnalysis::GetFaceUVBounds(TopoDS::Face(atmpF), Uf1, Ul1, Vf1, Vl1);
+      ShapeAnalysis1::GetFaceUVBounds(TopoDS::Face(atmpF), Uf1, Ul1, Vf1, Vl1);
 
       // for closed mode it is necessary to move wire segment in the interval defined by first and
       // last grid UV values
       Standard_Real shiftU =
-        (myClosedMode && myUClosed ? ShapeAnalysis::AdjustToPeriod(Ul1 - pprec,
+        (myClosedMode && myUClosed ? ShapeAnalysis1::AdjustToPeriod(Ul1 - pprec,
                                                                    myGrid->UJointValue(1),
                                                                    myGrid->UJointValue(2))
                                    : 0.);
       Standard_Real shiftV =
-        (myClosedMode && myVClosed ? ShapeAnalysis::AdjustToPeriod(Vl1 - pprec,
+        (myClosedMode && myVClosed ? ShapeAnalysis1::AdjustToPeriod(Vl1 - pprec,
                                                                    myGrid->VJointValue(1),
                                                                    myGrid->VJointValue(2))
                                    : 0.);
@@ -2036,7 +2036,7 @@ void ShapeFix_ComposeShell::SplitByGrid(ShapeFix_SequenceOfWireSegment& seqw)
     {
       Standard_Real period = Umax - Umin;
       Standard_Real X      = pos.X();
-      Standard_Real sh     = ShapeAnalysis::AdjustToPeriod(X, Uf, Uf + period);
+      Standard_Real sh     = ShapeAnalysis1::AdjustToPeriod(X, Uf, Uf + period);
       for (; X + sh <= Ul + pprec; sh += period)
       {
         gp_Lin2d         ln = line.Translated(gp_Vec2d(sh, 0));
@@ -2058,7 +2058,7 @@ void ShapeFix_ComposeShell::SplitByGrid(ShapeFix_SequenceOfWireSegment& seqw)
     {
       Standard_Real period = Vmax - Vmin;
       Standard_Real Y      = pos.Y();
-      Standard_Real sh     = ShapeAnalysis::AdjustToPeriod(Y, Vf, Vf + period);
+      Standard_Real sh     = ShapeAnalysis1::AdjustToPeriod(Y, Vf, Vf + period);
       for (; Y + sh <= Vl + pprec; sh += period)
       {
         gp_Lin2d         ln = line.Translated(gp_Vec2d(0, sh));
@@ -2078,7 +2078,7 @@ void ShapeFix_ComposeShell::BreakWires(ShapeFix_SequenceOfWireSegment& seqw)
 {
   // split all the wires by vertices
   TopTools_MapOfShape splitVertices;
-  ShapeAnalysis_Edge  sae;
+  Edge1  sae;
 
   // first collect splitting vertices
   Standard_Integer i; // svv #1
@@ -2195,7 +2195,7 @@ static Standard_Integer IsShortSegment(const ShapeFix_WireSegment& seg,
   Standard_Real tol2 = tol * tol;
 
   Standard_Integer                    code = 1;
-  ShapeAnalysis_Edge                  sae;
+  Edge1                  sae;
   const Handle(ShapeExtend_WireData)& sbwd = seg.WireData();
   for (Standard_Integer i = 1; i <= sbwd->NbEdges(); i++)
   {
@@ -2280,7 +2280,7 @@ static Standard_Boolean IsSamePatch(const ShapeFix_WireSegment& wire,
 void ShapeFix_ComposeShell::CollectWires(ShapeFix_SequenceOfWireSegment& wires,
                                          ShapeFix_SequenceOfWireSegment& seqw)
 {
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   Standard_Integer   i; // svv #1
   // Collect information on short closed segments
   TColStd_Array1OfInteger shorts(1, seqw.Length());
@@ -2427,12 +2427,12 @@ void ShapeFix_ComposeShell::CollectWires(ShapeFix_SequenceOfWireSegment& wires,
         {
           if (myUClosed)
           {
-            shiftu = ShapeAnalysis::AdjustByPeriod(lPnt.X(), endPnt.X(), myUPeriod);
+            shiftu = ShapeAnalysis1::AdjustByPeriod(lPnt.X(), endPnt.X(), myUPeriod);
             lPnt.SetX(lPnt.X() + shiftu);
           }
           if (myVClosed)
           {
-            shiftv = ShapeAnalysis::AdjustByPeriod(lPnt.Y(), endPnt.Y(), myVPeriod);
+            shiftv = ShapeAnalysis1::AdjustByPeriod(lPnt.Y(), endPnt.Y(), myVPeriod);
             lPnt.SetY(lPnt.Y() + shiftv);
           }
         }
@@ -2664,8 +2664,8 @@ static gp_Pnt2d GetMiddlePoint(const ShapeFix_WireSegment& wire, const TopoFace&
     return aSurfTool->ValueOfUV(aP3D, Precision::Confusion());
   }
   Bnd_Box2d                           box;
-  ShapeAnalysis_Edge                  sae;
-  ShapeAnalysis_Curve                 sac;
+  Edge1                  sae;
+  Curve2                 sac;
   const Handle(ShapeExtend_WireData)& wd = wire.WireData();
   for (Standard_Integer i = 1; i <= wd->NbEdges(); i++)
   {
@@ -3033,7 +3033,7 @@ void ShapeFix_ComposeShell::DispatchWires(TopTools_SequenceOfShape&       faces,
   // and build 3d curve if necessary
   ShapeBuild_ReShape    rs;
   ShapeBuild_Edge       sbe;
-  ShapeAnalysis_Edge    sae;
+  Edge1    sae;
   Handle(ShapeFix_Edge) sfe = new ShapeFix_Edge;
 
   Standard_Real U1, U2, V1, V2;
@@ -3044,12 +3044,12 @@ void ShapeFix_ComposeShell::DispatchWires(TopTools_SequenceOfShape&       faces,
     Standard_Real ush = 0., vsh = 0.;
     if (myUClosed)
     {
-      ush = ShapeAnalysis::AdjustToPeriod(pnt.X(), U1, U2);
+      ush = ShapeAnalysis1::AdjustToPeriod(pnt.X(), U1, U2);
       pnt.SetX(pnt.X() + ush);
     }
     if (myVClosed)
     {
-      vsh = ShapeAnalysis::AdjustToPeriod(pnt.Y(), V1, V2);
+      vsh = ShapeAnalysis1::AdjustToPeriod(pnt.Y(), V1, V2);
       pnt.SetY(pnt.Y() + vsh);
     }
     mPnts(i)              = pnt;

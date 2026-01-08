@@ -130,7 +130,7 @@ void BRepProj_Projection::BuildSection(const TopoShape& theShape, const TopoShap
   if (anEdges->Length() <= 0)
     return;
 
-  // connect edges to wires using ShapeAnalysis functionality
+  // connect edges to wires using ShapeAnalysis1 functionality
   ShapeAnalysis_FreeBounds::ConnectEdgesToWires(anEdges,
                                                 Precision::Confusion(),
                                                 Standard_True,

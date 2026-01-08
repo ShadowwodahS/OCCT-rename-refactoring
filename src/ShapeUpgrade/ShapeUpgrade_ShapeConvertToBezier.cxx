@@ -122,7 +122,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
   if (myLevel == 1)
   {
     ShapeBuilder            B;
-    ShapeAnalysis_Edge      sae;
+    Edge1      sae;
     ShapeBuild_Edge         sbe;
     constexpr Standard_Real preci = Precision::PConfusion();
     for (ShapeExplorer exp(myResult, TopAbs_FACE); exp.More(); exp.Next())

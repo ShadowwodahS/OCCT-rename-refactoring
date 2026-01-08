@@ -289,7 +289,7 @@ static Standard_Boolean KPartCircle(const TopoFace&                             
     if (fabs(Alt) > gp1::Resolution())
     {
       BRepAdaptor_Surface S(mySpine, 0);
-      Axis3d              Nor = S.Plane().Axis();
+      Axis3d              Nor = S.Plane1().Axis();
       Transform3d             T;
       Vector3d              Trans(Nor.Direction());
       Trans = Alt * Trans;

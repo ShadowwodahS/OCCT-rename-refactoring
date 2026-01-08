@@ -78,15 +78,15 @@ public:
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp1 <TheCirc> with its center
-  //! <Center> and the normal of its plane <Plane> and
+  //! <Center> and the normal of its plane <Plane1> and
   //! its radius <Radius>.
   Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
-                               const gp_Pln&       Plane,
+                               const gp_Pln&       Plane1,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and a point <Ptaxis> giving the normal
-  //! of its plane <Plane> and its radius <Radius>.
+  //! of its plane <Plane1> and its radius <Radius>.
   Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
                                const Point3d&       Ptaxis,
                                const Standard_Real Radius);

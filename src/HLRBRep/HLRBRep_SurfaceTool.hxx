@@ -129,7 +129,7 @@ public:
 
   static GeomAbs_SurfaceType GetType(const Standard_Address S);
 
-  static gp_Pln Plane(const Standard_Address S);
+  static gp_Pln Plane1(const Standard_Address S);
 
   static Cylinder1 Cylinder(const Standard_Address S);
 

@@ -54,7 +54,7 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
 
   TopoWire   W = TopoDS::Wire(mySeq->Value(theObj));
   TopoVertex V1, V2;
-  ShapeAnalysis::FindBounds(W, V1, V2);
+  ShapeAnalysis1::FindBounds(W, V1, V2);
   if (myShared)
   {
     if (myLVertex.IsSame(V1))

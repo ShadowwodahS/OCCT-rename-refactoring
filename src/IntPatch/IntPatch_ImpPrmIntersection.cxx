@@ -640,7 +640,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
   switch (typeS1)
   {
     case GeomAbs_Plane:
-      Quad.SetValue(Surf1->Plane());
+      Quad.SetValue(Surf1->Plane1());
       break;
 
     case GeomAbs_Cylinder:
@@ -660,7 +660,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
       switch (typeS2)
       {
         case GeomAbs_Plane:
-          Quad.SetValue(Surf2->Plane());
+          Quad.SetValue(Surf2->Plane1());
           break;
 
         case GeomAbs_Cylinder:

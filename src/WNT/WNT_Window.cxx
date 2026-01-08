@@ -898,7 +898,7 @@ bool WNT_Window::ProcessMessage(Aspect_WindowInputListener& theListener, MSG& th
         return false;
       }
 
-      theListener.UpdateMouseScroll(Aspect_ScrollDelta(aPos, aDeltaF, aFlags));
+      theListener.UpdateMouseScroll(ScrollDelta(aPos, aDeltaF, aFlags));
       theListener.ProcessInput();
       return true;
     }
@@ -961,13 +961,13 @@ bool WNT_Window::ProcessMessage(Aspect_WindowInputListener& theListener, MSG& th
                                    &aDevInfo,
                                    &aDevInfoSize)
             != sizeof(RID_DEVICE_INFO)
-          || (aDevInfo.hid.dwVendorId != WNT_HIDSpaceMouse::VENDOR_ID_LOGITECH
-              && aDevInfo.hid.dwVendorId != WNT_HIDSpaceMouse::VENDOR_ID_3DCONNEXION))
+          || (aDevInfo.hid.dwVendorId != HIDSpaceMouse::VENDOR_ID_LOGITECH
+              && aDevInfo.hid.dwVendorId != HIDSpaceMouse::VENDOR_ID_3DCONNEXION))
       {
         return true;
       }
 
-      WNT_HIDSpaceMouse aSpaceData(aDevInfo.hid.dwProductId,
+      HIDSpaceMouse aSpaceData(aDevInfo.hid.dwProductId,
                                    aRawInput->data.hid.bRawData,
                                    aRawInput->data.hid.dwSizeHid);
       if (theListener.Update3dMouse(aSpaceData))

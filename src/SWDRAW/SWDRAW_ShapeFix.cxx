@@ -326,7 +326,7 @@ static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const
   //  Statistiques
   if (oq)
   {
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     Standard_Integer   nb = sbwd->NbEdges();
     di << "NbEdges : " << nb << "\n";
     for (i = 1; i <= nb; i++)
@@ -893,7 +893,7 @@ static Standard_Integer checkoverlapedges(DrawInterpreter& di, Standard_Integer 
   if (k < n)
     aDistDomain = Draw1::Atof(a[k++]);
 
-  ShapeAnalysis_Edge sae;
+  Edge1 sae;
   if (sae.CheckOverlapping(e1, e2, aTol, aDistDomain))
   {
     if (aDistDomain == 0.0)

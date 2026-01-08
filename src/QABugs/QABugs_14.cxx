@@ -659,7 +659,7 @@ static Standard_Integer BUC60924(DrawInterpreter& di, Standard_Integer argc, con
   Coords3d aVec(Draw1::Atof(argv[2]), Draw1::Atof(argv[3]), Draw1::Atof(argv[4]));
 
   Standard_Boolean isPlanar = Standard_False;
-  isPlanar                  = ShapeAnalysis_Curve::IsPlanar(aCurve, aVec, 1e-7);
+  isPlanar                  = Curve2::IsPlanar(aCurve, aVec, 1e-7);
 
   if (isPlanar)
     di << "The curve is planar !\n";
@@ -1206,9 +1206,9 @@ static Standard_Integer OCC16485(DrawInterpreter& di, Standard_Integer argc, con
 // Resulting dimensions: Xmin = -0.001 , Xmax = 1000.001 , Tolerance = 0.001
 // TEST OK
 
-void QABugs::Commands_14(DrawInterpreter& theCommands)
+void QABugs1::Commands_14(DrawInterpreter& theCommands)
 {
-  const char* group = "QABugs";
+  const char* group = "QABugs1";
 
   theCommands.Add("BUC60897", "BUC60897", __FILE__, BUC60897, group);
   theCommands.Add("BUC60889",

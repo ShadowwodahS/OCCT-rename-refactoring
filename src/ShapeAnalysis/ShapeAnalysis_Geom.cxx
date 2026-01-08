@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts,
+Standard_Boolean Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts,
                                                   gp_Pln&                   aPln,
                                                   Standard_Real&            Dmax)
 {
@@ -123,7 +123,7 @@ Standard_Boolean ShapeAnalysis_Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2OfReal)& coefs,
+Standard_Boolean Geom::PositionTrsf(const Handle(TColStd_HArray2OfReal)& coefs,
                                                   Transform3d&                             trsf,
                                                   const Standard_Real                  unit,
                                                   const Standard_Real                  prec)

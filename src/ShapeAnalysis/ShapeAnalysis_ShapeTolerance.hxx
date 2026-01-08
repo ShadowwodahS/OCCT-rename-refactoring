@@ -29,13 +29,13 @@ class TopoShape;
 //! Tool for computing shape tolerances (minimal, maximal, average),
 //! finding shape with tolerance matching given criteria,
 //! setting or limitating tolerances.
-class ShapeAnalysis_ShapeTolerance
+class ShapeTolerance
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT ShapeAnalysis_ShapeTolerance();
+  Standard_EXPORT ShapeTolerance();
 
   //! Determines a tolerance from the ones stored in a shape
   //! Remark : calls InitTolerance and AddTolerance,

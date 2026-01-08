@@ -837,7 +837,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
   switch (myHS1->GetType())
   {
     case GeomAbs_Plane:
-      quad1.SetValue(myHS1->Plane());
+      quad1.SetValue(myHS1->Plane1());
       break;
     case GeomAbs_Cylinder:
       quad1.SetValue(myHS1->Cylinder());

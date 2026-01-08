@@ -19,7 +19,7 @@
 #include <Standard_Dump.hxx>
 
 //! Auxiliary POD structure - 2D rectangle definition.
-struct Font_Rect
+struct Rect
 {
 
   float Left;   //!< left   position
@@ -71,7 +71,7 @@ struct Font_Rect
   //! Dumps the content of me into the stream
   void DumpJson(Standard_OStream& theOStream, Standard_Integer) const
   {
-    OCCT_DUMP_CLASS_BEGIN(theOStream, Font_Rect)
+    OCCT_DUMP_CLASS_BEGIN(theOStream, Rect)
 
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, Left)
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, Right)

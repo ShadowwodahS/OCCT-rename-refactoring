@@ -41,7 +41,7 @@ GeomToStep_MakePlane::GeomToStep_MakePlane(const gp_Pln& P, const ConversionFact
 }
 
 //=============================================================================
-// Creation d' un plane de prostep a partir d' un Plane de Geom
+// Creation d' un plane de prostep a partir d' un Plane1 de Geom
 //=============================================================================
 
 GeomToStep_MakePlane::GeomToStep_MakePlane(const Handle(GeomPlane)& Gpln,

@@ -91,7 +91,7 @@ TopoShape XSAlgo_AlgoContainer::ProcessShape(const TopoShape&          theShape,
       {
         OCC_CATCH_SIGNALS
         Handle(ShapeExtend_MsgRegistrator) aMsg = new ShapeExtend_MsgRegistrator;
-        Handle(ShapeFix_Shape) aSfs = ShapeAlgo::AlgoContainer()->ToolContainer()->FixShape();
+        Handle(ShapeFix_Shape) aSfs = ShapeAlgo1::AlgoContainer()->ToolContainer()->FixShape();
         aSfs->Init(theShape);
         aSfs->SetMsgRegistrator(aMsg);
         aSfs->SetPrecision(thePrec);

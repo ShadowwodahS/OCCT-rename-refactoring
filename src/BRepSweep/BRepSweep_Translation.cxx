@@ -76,7 +76,7 @@ static void SetThePCurve(const ShapeBuilder&         B,
 //=================================================================================================
 
 BRepSweep_Translation::BRepSweep_Translation(const TopoShape&    S,
-                                             const Sweep_NumShape&  N,
+                                             const SweepNumShape&  N,
                                              const TopLoc_Location& L,
                                              const Vector3d&          V,
                                              const Standard_Boolean C,
@@ -94,7 +94,7 @@ BRepSweep_Translation::BRepSweep_Translation(const TopoShape&    S,
 //=================================================================================================
 
 TopoShape BRepSweep_Translation::MakeEmptyVertex(const TopoShape&   aGenV,
-                                                    const Sweep_NumShape& aDirV)
+                                                    const SweepNumShape& aDirV)
 {
   // Only called when the option of construction is with copy.
   Standard_ConstructionError_Raise_if(!myCopy, "BRepSweep_Translation::MakeEmptyVertex");
@@ -112,7 +112,7 @@ TopoShape BRepSweep_Translation::MakeEmptyVertex(const TopoShape&   aGenV,
 //=================================================================================================
 
 TopoShape BRepSweep_Translation::MakeEmptyDirectingEdge(const TopoShape& aGenV,
-                                                           const Sweep_NumShape&)
+                                                           const SweepNumShape&)
 {
   Point3d            P = BRepInspector::Pnt(TopoDS::Vertex(aGenV));
   gp_Lin            L(P, myVec);
@@ -125,7 +125,7 @@ TopoShape BRepSweep_Translation::MakeEmptyDirectingEdge(const TopoShape& aGenV,
 //=================================================================================================
 
 TopoShape BRepSweep_Translation::MakeEmptyGeneratingEdge(const TopoShape&   aGenE,
-                                                            const Sweep_NumShape& aDirV)
+                                                            const SweepNumShape& aDirV)
 {
   // Call only in case of construction with copy.
   Standard_ConstructionError_Raise_if(!myCopy, "BRepSweep_Translation::MakeEmptyVertex");
@@ -159,7 +159,7 @@ void BRepSweep_Translation::SetParameters(const TopoShape& aNewFace,
                                           TopoShape&       aNewVertex,
                                           const TopoShape& aGenF,
                                           const TopoShape& aGenV,
-                                          const Sweep_NumShape&)
+                                          const SweepNumShape&)
 {
   // Glue the parameter of vertices directly included in cap faces.
   gp_Pnt2d pnt2d = BRepInspector::Parameters(TopoDS::Vertex(aGenV), TopoDS::Face(aGenF));
@@ -175,8 +175,8 @@ void BRepSweep_Translation::SetParameters(const TopoShape& aNewFace,
 void BRepSweep_Translation::SetDirectingParameter(const TopoShape& aNewEdge,
                                                   TopoShape&       aNewVertex,
                                                   const TopoShape&,
-                                                  const Sweep_NumShape&,
-                                                  const Sweep_NumShape& aDirV)
+                                                  const SweepNumShape&,
+                                                  const SweepNumShape& aDirV)
 {
   Standard_Real param = 0;
   if (aDirV.Index() == 2)
@@ -193,7 +193,7 @@ void BRepSweep_Translation::SetGeneratingParameter(const TopoShape& aNewEdge,
                                                    TopoShape&       aNewVertex,
                                                    const TopoShape& aGenE,
                                                    const TopoShape& aGenV,
-                                                   const Sweep_NumShape&)
+                                                   const SweepNumShape&)
 {
   TopoVertex vbid = TopoDS::Vertex(aNewVertex);
   vbid.Orientation(aGenV.Orientation());
@@ -206,7 +206,7 @@ void BRepSweep_Translation::SetGeneratingParameter(const TopoShape& aNewEdge,
 //=================================================================================================
 
 TopoShape BRepSweep_Translation::MakeEmptyFace(const TopoShape&   aGenS,
-                                                  const Sweep_NumShape& aDirS)
+                                                  const SweepNumShape& aDirS)
 {
   Standard_Real        toler;
   TopoFace          F;
@@ -232,7 +232,7 @@ TopoShape BRepSweep_Translation::MakeEmptyFace(const TopoShape&   aGenS,
       {
 
         case GeomAbs_Plane:
-          S = new GeomPlane(AS.Plane());
+          S = new GeomPlane(AS.Plane1());
           break;
         case GeomAbs_Cylinder:
           S = new Geom_CylindricalSurface(AS.Cylinder());
@@ -268,7 +268,7 @@ void BRepSweep_Translation::SetPCurve(const TopoShape& aNewFace,
                                       TopoShape&       aNewEdge,
                                       const TopoShape& aGenF,
                                       const TopoShape& aGenE,
-                                      const Sweep_NumShape&,
+                                      const SweepNumShape&,
                                       const TopAbs_Orientation)
 {
   // Set on edges of cap faces the same pcurves as
@@ -303,8 +303,8 @@ void BRepSweep_Translation::SetPCurve(const TopoShape& aNewFace,
 void BRepSweep_Translation::SetGeneratingPCurve(const TopoShape& aNewFace,
                                                 TopoShape&       aNewEdge,
                                                 const TopoShape&,
-                                                const Sweep_NumShape&,
-                                                const Sweep_NumShape&    aDirV,
+                                                const SweepNumShape&,
+                                                const SweepNumShape&    aDirV,
                                                 const TopAbs_Orientation orien)
 {
   TopLoc_Location     Loc;
@@ -317,7 +317,7 @@ void BRepSweep_Translation::SetGeneratingPCurve(const TopoShape& aNewFace,
   if (AS.GetType() == GeomAbs_Plane)
   {
     /* nothing is done JAG
-        gp_Pln pln = AS.Plane();
+        gp_Pln pln = AS.Plane1();
         Ax3 ax3 = pln.Position();
 
     // JYL : the following produces bugs on an edge constructed from a trimmed 3D curve :
@@ -363,7 +363,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoShape& aNewFace,
                                                TopoShape&       aNewEdge,
                                                const TopoShape& aGenE,
                                                const TopoShape& aGenV,
-                                               const Sweep_NumShape&,
+                                               const SweepNumShape&,
                                                const TopAbs_Orientation orien)
 {
   TopLoc_Location     Loc;
@@ -377,7 +377,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoShape& aNewFace,
       }
       else{
 
-        gp_Pln pln = AS.Plane();
+        gp_Pln pln = AS.Plane1();
         Ax3 ax3 = pln.Position();
         Point3d pv = BRepInspector::Pnt(TopoDS::Vertex(aGenV));
         Dir3d dir(myVec);
@@ -398,7 +398,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoShape& aNewFace,
 //=================================================================================================
 
 TopAbs_Orientation BRepSweep_Translation::DirectSolid(const TopoShape& aGenS,
-                                                      const Sweep_NumShape&)
+                                                      const SweepNumShape&)
 {
   // compare the face normal and the direction
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
@@ -421,7 +421,7 @@ Standard_Boolean BRepSweep_Translation::GGDShapeIsToAdd(const TopoShape&,
                                                         const TopoShape&,
                                                         const TopoShape&,
                                                         const TopoShape&,
-                                                        const Sweep_NumShape&) const
+                                                        const SweepNumShape&) const
 {
   return Standard_True;
 }
@@ -431,8 +431,8 @@ Standard_Boolean BRepSweep_Translation::GGDShapeIsToAdd(const TopoShape&,
 Standard_Boolean BRepSweep_Translation::GDDShapeIsToAdd(const TopoShape&,
                                                         const TopoShape&,
                                                         const TopoShape&,
-                                                        const Sweep_NumShape&,
-                                                        const Sweep_NumShape&) const
+                                                        const SweepNumShape&,
+                                                        const SweepNumShape&) const
 {
   return Standard_True;
 }
@@ -443,7 +443,7 @@ Standard_Boolean BRepSweep_Translation::SeparatedWires(const TopoShape&,
                                                        const TopoShape&,
                                                        const TopoShape&,
                                                        const TopoShape&,
-                                                       const Sweep_NumShape&) const
+                                                       const SweepNumShape&) const
 {
   return Standard_False;
 }
@@ -451,7 +451,7 @@ Standard_Boolean BRepSweep_Translation::SeparatedWires(const TopoShape&,
 //=================================================================================================
 
 Standard_Boolean BRepSweep_Translation::HasShape(const TopoShape&   aGenS,
-                                                 const Sweep_NumShape& aDirS) const
+                                                 const SweepNumShape& aDirS) const
 {
   if (myDirShapeTool.Type(aDirS) == TopAbs_EDGE)
   {

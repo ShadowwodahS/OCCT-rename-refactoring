@@ -38,13 +38,13 @@ Aspect_XRSession::Aspect_XRSession()
 
 void Aspect_XRSession::AbortHapticVibrationAction(const Handle(Aspect_XRAction)& theAction)
 {
-  triggerHapticVibrationAction(theAction, Aspect_XRHapticActionData());
+  triggerHapticVibrationAction(theAction, XRHapticActionData());
 }
 
 //=================================================================================================
 
 void Aspect_XRSession::TriggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
-                                                    const Aspect_XRHapticActionData& theParams)
+                                                    const XRHapticActionData& theParams)
 {
   if (!theParams.IsValid())
   {

@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer Sweep_NumShape::Index() const
+inline Standard_Integer SweepNumShape::Index() const
 {
   return myIndex;
 }
@@ -29,7 +29,7 @@ inline Standard_Integer Sweep_NumShape::Index() const
 // purpose  :
 //=======================================================================
 
-inline TopAbs_ShapeEnum Sweep_NumShape::Type() const
+inline TopAbs_ShapeEnum SweepNumShape::Type() const
 {
   return myType;
 }
@@ -39,7 +39,7 @@ inline TopAbs_ShapeEnum Sweep_NumShape::Type() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean Sweep_NumShape::Closed() const
+inline Standard_Boolean SweepNumShape::Closed() const
 {
   return myClosed;
 }
@@ -49,7 +49,7 @@ inline Standard_Boolean Sweep_NumShape::Closed() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean Sweep_NumShape::BegInfinite() const
+inline Standard_Boolean SweepNumShape::BegInfinite() const
 {
   return myBegInf;
 }
@@ -59,7 +59,7 @@ inline Standard_Boolean Sweep_NumShape::BegInfinite() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean Sweep_NumShape::EndInfinite() const
+inline Standard_Boolean SweepNumShape::EndInfinite() const
 {
   return myEndInf;
 }

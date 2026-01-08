@@ -17,7 +17,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TransformPers, RefObject)
 
 //=================================================================================================
 
-void Graphic3d_TransformPers::PersParams3d::DumpJson(Standard_OStream& theOStream,
+void Graphic3d_TransformPers::PersParams3d1::DumpJson(Standard_OStream& theOStream,
                                                      Standard_Integer  theDepth) const
 {
   Point3d anAttachPoint(PntX, PntY, PntZ);
@@ -26,7 +26,7 @@ void Graphic3d_TransformPers::PersParams3d::DumpJson(Standard_OStream& theOStrea
 
 //=================================================================================================
 
-void Graphic3d_TransformPers::PersParams2d::DumpJson(Standard_OStream& theOStream,
+void Graphic3d_TransformPers::PersParams2d1::DumpJson(Standard_OStream& theOStream,
                                                      Standard_Integer) const
 {
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, OffsetX)

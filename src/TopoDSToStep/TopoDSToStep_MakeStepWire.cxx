@@ -223,7 +223,7 @@ void TopoDSToStep_MakeStepWire::Init(const TopoWire&                    aWire,
         if (ie > nb)
         {
           // make vertex_loop
-          ShapeAnalysis_Edge               sae;
+          Edge1               sae;
           TopoVertex                    V = sae.FirstVertex(anExtWire2->Edge(1));
           TopoDSToStep_MakeStepVertex      mkV(V, aTool, FP, theLocalFactors);
           Handle(StepShape_VertexLoop)     vloop = new StepShape_VertexLoop;

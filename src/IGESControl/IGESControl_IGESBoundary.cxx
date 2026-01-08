@@ -132,7 +132,7 @@ static Standard_Boolean Connect(const Handle(ShapeAnalysis_Wire)&   theSAW,
     sfw->ClosedWireMode() = Standard_False; // internal connections are enough
     sfw->FixConnected();
   }
-  return ShapeAlgo::AlgoContainer()
+  return ShapeAlgo1::AlgoContainer()
     ->ConnectNextWire(theSAW, theNextWD, theMaxTol, theDistMin, theReverseWD, theReverseNextWD);
 }
 
@@ -283,7 +283,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
       }
       Standard_Boolean bad3d = TC.BadCase(); //: 27
       okCurve3d              = okCurve3d
-                  && ShapeAlgo::AlgoContainer()
+                  && ShapeAlgo1::AlgoContainer()
                        ->ConnectNextWire(saw3d, Lsewd3d, maxtol, distmin, revsewd, revnextsewd);
 
       Handle(ShapeExtend_WireData) Lsewd2d = new ShapeExtend_WireData;
@@ -302,7 +302,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
           ReverseCurves2d(Lsewd2d, myface);
         }
         okCurve2d = okCurve2d
-                    && ShapeAlgo::AlgoContainer()
+                    && ShapeAlgo1::AlgoContainer()
                          ->ConnectNextWire(saw2d, Lsewd2d, maxtol, distmin, revsewd, revnextsewd);
       }
       else
@@ -392,7 +392,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
         }
       }
       okCurve = okCurve
-                && ShapeAlgo::AlgoContainer()
+                && ShapeAlgo1::AlgoContainer()
                      ->ConnectNextWire(saw, Lsewd, maxtol, distmin, revsewd, revnextsewd);
       if (!okCurve)
       {
@@ -438,7 +438,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
         Handle(WireHealer) sfw2 = new WireHealer(Gsewd2d->Wire(), myface, precision);
         sfw2->Perform();
         TopoWire                  w2 = sfw2->Wire();
-        ShapeAnalysis_ShapeTolerance ST;
+        ShapeTolerance ST;
         double                       tol3 = ST.Tolerance(w3, 1);
         double                       tol2 = ST.Tolerance(w2, 1);
         Gsewd3d                           = new ShapeExtend_WireData;

@@ -81,11 +81,11 @@ Handle(Image_CompressedPixMap) Image_Texture::ReadCompressedImage(
 
   if (!myBuffer.IsNull())
   {
-    return Image_DDSParser::Load(theSupported, myBuffer, 0);
+    return DDSParser::Load(theSupported, myBuffer, 0);
   }
   else if (myOffset >= 0)
   {
-    return Image_DDSParser::Load(theSupported, myImagePath, 0, myOffset);
+    return DDSParser::Load(theSupported, myImagePath, 0, myOffset);
   }
 
   AsciiString1 aFilePathLower = myImagePath;
@@ -95,7 +95,7 @@ Handle(Image_CompressedPixMap) Image_Texture::ReadCompressedImage(
     // do not waste time on file system access in case of wrong file extension
     return Handle(Image_CompressedPixMap)();
   }
-  return Image_DDSParser::Load(theSupported, myImagePath, 0);
+  return DDSParser::Load(theSupported, myImagePath, 0);
 }
 
 //=================================================================================================

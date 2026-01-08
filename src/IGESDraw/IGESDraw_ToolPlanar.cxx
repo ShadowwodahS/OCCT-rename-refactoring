@@ -74,7 +74,7 @@ void PlanarTool::ReadOwnParams(const Handle(IGESDraw_Planar)&         ent,
         Handle(IGESData_IGESEntity) tempEntity;
         for (Standard_Integer i = 1; i <= nbval; i++)
       {
-            st = PR.ReadEntity(IR, PR.Current(), "Plane entity", tempEntity);
+            st = PR.ReadEntity(IR, PR.Current(), "Plane1 entity", tempEntity);
         if (st) entities->SetValue(i, tempEntity);
       }
       }

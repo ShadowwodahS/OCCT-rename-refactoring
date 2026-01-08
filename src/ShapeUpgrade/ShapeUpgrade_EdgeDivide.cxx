@@ -67,7 +67,7 @@ Standard_Boolean ShapeUpgrade_EdgeDivide::Compute(const TopoEdge& anEdge)
   Handle(GeomCurve2d) pcurve1;
   if (!myFace.IsNull())
   { // process free edges
-    ShapeAnalysis_Edge sae;
+    Edge1 sae;
     sae.PCurve(anEdge, myFace, pcurve1, f2d, l2d, Standard_False);
   }
   myHasCurve2d = !pcurve1.IsNull();

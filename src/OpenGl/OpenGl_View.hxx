@@ -319,7 +319,7 @@ public:
 
   //! Returns selector for BVH tree, providing a possibility to store information
   //! about current view volume and to detect which objects are overlapping it.
-  const Graphic3d_CullingTool& BVHTreeSelector() const { return myBVHSelector; }
+  const CullingTool& BVHTreeSelector() const { return myBVHSelector; }
 
   //! Returns true if there are immediate structures to display
   bool HasImmediateStructures() const { return myZLayers.NbImmediateStructures() != 0; }
@@ -327,7 +327,7 @@ public:
 public: //! @name obsolete Graduated Trihedron functionality
   //! Displays Graduated Trihedron.
   Standard_EXPORT virtual void GraduatedTrihedronDisplay(
-    const Graphic3d_GraduatedTrihedron& theTrihedronData) Standard_OVERRIDE;
+    const GraduatedTrihedron& theTrihedronData) Standard_OVERRIDE;
 
   //! Erases Graduated Trihedron.
   Standard_EXPORT virtual void GraduatedTrihedronErase() Standard_OVERRIDE;
@@ -492,7 +492,7 @@ protected:
   Coords3d                                 myLocalOrigin;
   Handle(OpenGl_FrameBuffer)             myFBO;
   Standard_Boolean                       myToShowGradTrihedron;
-  Graphic3d_GraduatedTrihedron           myGTrihedronData;
+  GraduatedTrihedron           myGTrihedronData;
 
   Handle(Graphic3d_LightSet) myNoShadingLight;
   Handle(Graphic3d_LightSet) myLights;
@@ -512,7 +512,7 @@ protected:
   StateInfo myLastLightSourceState;
 
   //! Is needed for selection of overlapping objects and storage of the current view volume
-  Graphic3d_CullingTool myBVHSelector;
+  CullingTool myBVHSelector;
 
   OpenGl_GraduatedTrihedron myGraduatedTrihedron;
   OpenGl_FrameStatsPrs      myFrameStatsPrs;

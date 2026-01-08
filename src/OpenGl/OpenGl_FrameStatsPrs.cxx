@@ -158,7 +158,7 @@ void OpenGl_FrameStatsPrs::updateChart(const Handle(OpenGl_Workspace)& theWorksp
          aFrameIter <= aStats->DataFrames().Upper();
          ++aFrameIter)
     {
-      const Graphic3d_FrameStatsData& aFrame = aStats->DataFrames().Value(aFrameIter);
+      const FrameStatsData& aFrame = aStats->DataFrames().Value(aFrameIter);
       aMaxDuration = Max(aMaxDuration, aFrame.TimerValue(Graphic3d_FrameStatsTimer_ElapsedFrame));
     }
     aMaxDuration = Ceiling(aMaxDuration * 1000.0 * 0.1) * 0.001 * 10.0; // round number
@@ -245,7 +245,7 @@ void OpenGl_FrameStatsPrs::updateChart(const Handle(OpenGl_Workspace)& theWorksp
       aFrameIndex -= aNbBins;
     }
 
-    const Graphic3d_FrameStatsData& aFrame       = aStats->DataFrames().Value(aFrameIndex);
+    const FrameStatsData& aFrame       = aStats->DataFrames().Value(aFrameIndex);
     Standard_Real                   aTimeElapsed = 0.0;
     Standard_Real                   aCurrY       = 0.0;
     for (Standard_Integer aTimerIter = 0; aTimerIter < aNbTimers; ++aTimerIter)
