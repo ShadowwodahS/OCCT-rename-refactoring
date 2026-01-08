@@ -57,8 +57,13 @@ def count_csv_rows(filepath):
         return sum(1 for row in reader)
 
 def run_command(cmd, desc, stop_on_error=False):
+    """
+    返回: (success: bool, captured_line: str, error_type: str)
+    error_type: "COMPILER" | "LINKER" | "FATAL" | "NONE"
+    """
     print(f"  [执行] {desc}...", end="", flush=True)
     start_time = time.time()
+    
     cmd_str = list(map(str, cmd))
     process = None
     captured_error_line = None
@@ -159,7 +164,6 @@ def log_good_range(start, end):
         except: pass
 
 def get_csv_range_map(start, end):
-    """返回 {NewName: RowNum}"""
     name_to_row = {}
     try:
         with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
@@ -172,25 +176,50 @@ def get_csv_range_map(start, end):
     except: pass
     return name_to_row
 
-def try_smart_detection_full_line(error_line, start, end):
+def extract_word_at_index(text, index):
+    """从指定列号提取完整的单词 (向左向右扩展)"""
+    if index >= len(text): index = len(text) - 1
+    if index < 0: return ""
+    
+    # 如果当前位置不是单词字符，尝试向左找最近的单词结尾
+    if not re.match(r'\w', text[index]):
+        while index > 0 and not re.match(r'\w', text[index]):
+            index -= 1
+    
+    if not re.match(r'\w', text[index]):
+        return "" # 还是找不到
+
+    # 向左扩展
+    start = index
+    while start > 0 and re.match(r'\w', text[start-1]):
+        start -= 1
+    
+    # 向右扩展
+    end = index
+    while end < len(text)-1 and re.match(r'\w', text[end+1]):
+        end += 1
+        
+    return text[start : end+1]
+
+def get_smart_suspects(error_line, start, end):
     """
-    智能定位 v2.0: 扫描报错行的所有单词，返回所有嫌疑人列表
+    智能定位 v3.0: 
+    1. 尝试精确提取列号对应的单词 (Tier 1)
+    2. 如果失败，尝试提取整行所有单词 (Tier 2)
     返回: [(row_num, token_name), ...]
     """
     if not error_line: return []
     
-    # 1. 提取文件路径和行号
     pattern = r"(?:^\d+>)?\s*(.*)\((\d+),(\d+)\)\s*:\s*error"
     match = re.search(pattern, error_line)
-    
     if not match: return []
 
     file_path = match.group(1).strip()
     line_num = int(match.group(2))
+    col_num = int(match.group(3))
     
     if not os.path.exists(file_path): return []
 
-    # 2. 读取整行内容
     line_content = ""
     try:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
@@ -201,110 +230,109 @@ def try_smart_detection_full_line(error_line, start, end):
 
     if not line_content: return []
 
-    # 3. 提取行内所有单词
-    # \w+ 匹配所有字母数字下划线组合
-    tokens_in_line = set(re.findall(r"\w+", line_content))
-    
-    if not tokens_in_line: return []
-
-    # 4. 与 CSV 当前块取交集
     chunk_map = get_csv_range_map(start, end)
     suspects = []
+
+    # --- Tier 1: 精确打击 ---
+    # col_num 是 1-based，转为 0-based
+    token_tier1 = extract_word_at_index(line_content, col_num - 1)
+    if token_tier1 and token_tier1 in chunk_map:
+        print(f"  [智能分析] 🎯 精确命中位置 {col_num}: '{token_tier1}'")
+        return [(chunk_map[token_tier1], token_tier1)]
+
+    # --- Tier 2: 全行扫描 (Fallback) ---
+    print(f"  [智能分析] 精确位置未命中 (提取词: '{token_tier1}')，转为全行扫描...")
+    tokens_in_line = set(re.findall(r"\w+", line_content))
     
     for token in tokens_in_line:
         if token in chunk_map:
             suspects.append((chunk_map[token], token))
     
-    # 按行号排序，或者按单词长度排序均可，这里按行号
     suspects.sort(key=lambda x: x[0])
-    
     if suspects:
-        print(f"  [智能分析] 在报错行发现 {len(suspects)} 个可疑词: {[s[1] for s in suspects]}")
+        print(f"  [智能分析] 在行内发现 {len(suspects)} 个嫌疑词: {[s[1] for s in suspects]}")
     
     return suspects
 
-def check_range(start, end):
+def check_range(start, end, last_build_success=True):
+    """
+    递归分治检查
+    :param last_build_success: 上一次编译是否成功 (用于判断是否需要 Clean)
+    """
     if start > end: return
 
     print(f"\n--- 正在检查范围: {start} 到 {end} (共 {end - start + 1} 行) ---")
     
-    # 1. 替换
     if not apply_refactoring_to_all(start, end):
         reset_all_targets()
         return
 
-    # 2. 编译
     success, error_line, error_type = run_command(CMD_BUILD, "编译检查", stop_on_error=True)
 
-    # 3. 智能清理策略
+    # === 策略修正: 仅当环境可能脏了(上次失败)且遇到Linker错误时，才Clean ===
     if not success and error_type in ["LINKER", "FATAL"]:
-        print(f"  [策略] 遇到 {error_type}，清理并重试...")
-        run_clean()
-        success, error_line, error_type = run_command(CMD_BUILD, "重试编译", stop_on_error=True)
+        if not last_build_success:
+            print(f"  [策略] 遇到 {error_type} 且处于重试阶段 -> 清理并重试...")
+            run_clean()
+            success, error_line, error_type = run_command(CMD_BUILD, "重试编译", stop_on_error=True)
+        else:
+            print(f"  [策略] 遇到 {error_type} 但上次编译成功 -> 判定为真实代码错误 (Skip Clean)")
 
     reset_all_targets()
 
-    # 4. 成功分支
     if success:
         log_good_range(start, end)
         return
 
-    # === 失败分支 ===
-    
+    # === 失败处理 ===
     if start == end:
         log_bad_row(start, f"({error_type} 定位)")
         return
 
-    # A. 全行扫描智能定位
-    suspects = try_smart_detection_full_line(error_line, start, end)
+    # 智能定位 (Tier 1 & Tier 2)
+    suspects = get_smart_suspects(error_line, start, end)
     
-    # 遍历所有嫌疑人
     found_culprit = False
     
     for suspect_row, token_name in suspects:
         print(f"  [验证] 正在验证嫌疑人: {token_name} (Row {suspect_row})...")
         
-        # 验证单行
         if not apply_refactoring_to_all(suspect_row, suspect_row):
             reset_all_targets()
-            continue # 脚本执行错，跳过
+            continue
             
         v_success, _, v_type = run_command(CMD_BUILD, "验证单行", stop_on_error=True)
         
+        # 验证时的 Clean 策略：如果是 Linker 错误，为了防误判，这里可以保守一点做一次 Clean
         if not v_success and v_type in ["LINKER", "FATAL"]:
-            run_clean()
-            v_success, _, _ = run_command(CMD_BUILD, "验证单行(Retry)", stop_on_error=True)
+             run_clean()
+             v_success, _, _ = run_command(CMD_BUILD, "验证单行(Retry)", stop_on_error=True)
             
         reset_all_targets()
 
         if not v_success:
-            # 抓到了！
-            log_bad_row(suspect_row, f"(全行扫描锁定: {token_name})")
+            log_bad_row(suspect_row, f"(智能锁定: {token_name})")
             
-            # 分裂递归：跳过这个坏人
-            # 只要找到一个，我们就拆分递归，因为可能有多个错误交织
-            # 策略：拆分为 [start, bad-1] 和 [bad+1, end]
-            # 注意：一旦递归，当前的 check_range 就任务完成了
-            if suspect_row > start: check_range(start, suspect_row - 1)
-            if suspect_row < end: check_range(suspect_row + 1, end)
+            # 分裂递归 (传递 last_build_success=False)
+            if suspect_row > start: check_range(start, suspect_row - 1, last_build_success=False)
+            if suspect_row < end: check_range(suspect_row + 1, end, last_build_success=False)
             
             found_culprit = True
-            break # 退出嫌疑人循环，因为已经进入了下一层递归
+            break 
         else:
             print(f"  [验证] {token_name} 单独编译通过，排除嫌疑。")
 
     if found_culprit:
-        return # 已由内部递归接管
+        return
 
-    # B. 如果所有嫌疑人都无罪释放（或者没找到嫌疑人）-> 回退二分法
-    print("  [智能分析] 未能锁定具体行，回退到二分查找。")
+    # 回退二分法 (传递 last_build_success=False)
     mid = (start + end) // 2
-    check_range(start, mid)
-    check_range(mid + 1, end)
+    check_range(start, mid, last_build_success=False)
+    check_range(mid + 1, end, last_build_success=False)
 
 def main():
     disable_quick_edit()
-    parser = argparse.ArgumentParser(description="OCCT 智能重命名排查工具 (全行扫描版)")
+    parser = argparse.ArgumentParser(description="OCCT 智能重命名排查工具 (精确逻辑版)")
     parser.add_argument("--start_row", type=int, default=1)
     args = parser.parse_args()
 
@@ -327,12 +355,12 @@ def main():
     while current <= total_rows:
         end = current + CHUNK_SIZE - 1
         if end > total_rows: end = total_rows
-        check_range(current, end)
+        # 初始调用，默认上一块是成功的(True)，因为我们总是从干净状态开始
+        check_range(current, end, last_build_success=True)
         current = end + 1
 
     print("\n" + "="*60)
     print(f"失败行: {os.path.abspath(BAD_ROWS_LOG)}")
-    print(f"成功块: {os.path.abspath(GOOD_ROWS_LOG)}")
     print("="*60)
 
 if __name__ == "__main__":
