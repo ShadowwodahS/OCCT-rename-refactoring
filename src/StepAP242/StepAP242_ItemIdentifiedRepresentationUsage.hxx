@@ -43,7 +43,7 @@ public:
     const Handle(TCollection_HAsciiString)&                      theDescription,
     const StepAP242_ItemIdentifiedRepresentationUsageDefinition& theDefinition,
     const Handle(StepRepr_Representation)&                       theUsedRepresentation,
-    const Handle(StepRepr_HArray1OfRepresentationItem)&          theIdentifiedItem);
+    const Handle(HArray1OfReprItem)&          theIdentifiedItem);
 
   //! Set field Name
   inline void SetName(const Handle(TCollection_HAsciiString)& theName) { name = theName; }
@@ -83,7 +83,7 @@ public:
   inline Handle(StepRepr_Representation) UsedRepresentation() const { return usedRepresentation; }
 
   //! Returns field IdentifiedItem
-  inline Handle(StepRepr_HArray1OfRepresentationItem) IdentifiedItem() const
+  inline Handle(HArray1OfReprItem) IdentifiedItem() const
   {
     return identifiedItem;
   }
@@ -96,7 +96,7 @@ public:
 
   //! Set field IdentifiedItem
   inline void SetIdentifiedItem(
-    const Handle(StepRepr_HArray1OfRepresentationItem)& theIdentifiedItem)
+    const Handle(HArray1OfReprItem)& theIdentifiedItem)
   {
     identifiedItem = theIdentifiedItem;
   }
@@ -121,6 +121,6 @@ private:
   Handle(TCollection_HAsciiString)                      description;
   StepAP242_ItemIdentifiedRepresentationUsageDefinition definition;
   Handle(StepRepr_Representation)                       usedRepresentation;
-  Handle(StepRepr_HArray1OfRepresentationItem)          identifiedItem;
+  Handle(HArray1OfReprItem)          identifiedItem;
 };
 #endif // _StepAP242_ItemIdentifiedRepresentationUsage_HeaderFile

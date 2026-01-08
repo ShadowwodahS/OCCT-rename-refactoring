@@ -17,14 +17,14 @@
 StepData_FieldListD::StepData_FieldListD(const Standard_Integer nb)
 {
   if (nb > 0)
-    thefields = new StepData_HArray1OfField(1, nb);
+    thefields = new HArray1OfField(1, nb);
 }
 
 void StepData_FieldListD::SetNb(const Standard_Integer nb)
 {
   thefields.Nullify();
   if (nb > 0)
-    thefields = new StepData_HArray1OfField(1, nb);
+    thefields = new HArray1OfField(1, nb);
 }
 
 Standard_Integer StepData_FieldListD::NbFields() const

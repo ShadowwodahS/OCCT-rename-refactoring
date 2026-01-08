@@ -32,7 +32,7 @@ void StepDimTol_GeometricToleranceWithModifiers::Init(
   const Handle(TCollection_HAsciiString)&                       theDescription,
   const Handle(StepBasic_MeasureWithUnit)&                      theMagnitude,
   const StepDimTol_GeometricToleranceTarget&                    theTolerancedShapeAspect,
-  const Handle(StepDimTol_HArray1OfGeometricToleranceModifier)& theModifiers)
+  const Handle(HArray1OfGeoTolModifier)& theModifiers)
 {
   StepDimTol_GeometricTolerance::Init(theName,
                                       theDescription,

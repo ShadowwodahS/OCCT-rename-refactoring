@@ -20,6 +20,6 @@
 #include <StepGeom_Array1OfSurfaceBoundary.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepGeom_HArray1OfSurfaceBoundary, StepGeom_Array1OfSurfaceBoundary)
+DEFINE_HARRAY1(HArray1OfSurfaceBoundary, StepGeom_Array1OfSurfaceBoundary)
 
 #endif

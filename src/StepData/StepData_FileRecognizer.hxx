@@ -25,10 +25,10 @@ class RefObject;
 class Standard_NoSuchObject;
 class AsciiString1;
 
-class StepData_FileRecognizer;
-DEFINE_STANDARD_HANDLE(StepData_FileRecognizer, RefObject)
+class FileRecognizer;
+DEFINE_STANDARD_HANDLE(FileRecognizer, RefObject)
 
-class StepData_FileRecognizer : public RefObject
+class FileRecognizer : public RefObject
 {
 
 public:
@@ -48,13 +48,13 @@ public:
   //! Hence, when Eval has failed to recognize, Evaluate will call
   //! Evaluate from the first added Recognizer if there is one,
   //! and to the second if there is still no result, and so on
-  Standard_EXPORT void Add(const Handle(StepData_FileRecognizer)& reco);
+  Standard_EXPORT void Add(const Handle(FileRecognizer)& reco);
 
-  DEFINE_STANDARD_RTTI_INLINE(StepData_FileRecognizer, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(FileRecognizer, RefObject)
 
 protected:
   //! Assumes that no result has yet been recognized
-  Standard_EXPORT StepData_FileRecognizer();
+  Standard_EXPORT FileRecognizer();
 
   //! Records the result of the recognition. Called by specific
   //! method Eval to record a result : after calling it, Eval has
@@ -73,7 +73,7 @@ protected:
 private:
   Handle(RefObject)      theres;
   Standard_Boolean                hasnext;
-  Handle(StepData_FileRecognizer) thenext;
+  Handle(FileRecognizer) thenext;
 };
 
 #endif // _StepData_FileRecognizer_HeaderFile

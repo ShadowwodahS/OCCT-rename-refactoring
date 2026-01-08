@@ -26,7 +26,7 @@
 class RefObject;
 
 //! Representation of STEP SELECT type SymmetricTensor42d
-class StepFEA_SymmetricTensor42d : public StepData_SelectType
+class StepFEA_SymmetricTensor42d : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

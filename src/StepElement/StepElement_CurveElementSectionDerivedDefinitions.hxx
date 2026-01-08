@@ -43,13 +43,13 @@ public:
     const Handle(TCollection_HAsciiString)& aCurveElementSectionDefinition_Description,
     const Standard_Real                     aCurveElementSectionDefinition_SectionAngle,
     const Standard_Real                     aCrossSectionalArea,
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aShearArea,
+    const Handle(HArray1OfMeasureOrUnspecified)& aShearArea,
     const Handle(TColStd_HArray1OfReal)&                          aSecondMomentOfArea,
     const Standard_Real                                           aTorsionalConstant,
     const StepElement_MeasureOrUnspecifiedValue&                  aWarpingConstant,
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfCentroid,
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfShearCentre,
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfNonStructuralMass,
+    const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfCentroid,
+    const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfShearCentre,
+    const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfNonStructuralMass,
     const StepElement_MeasureOrUnspecifiedValue&                  aNonStructuralMass,
     const StepElement_MeasureOrUnspecifiedValue&                  aPolarMoment);
 
@@ -60,11 +60,11 @@ public:
   Standard_EXPORT void SetCrossSectionalArea(const Standard_Real CrossSectionalArea);
 
   //! Returns field ShearArea
-  Standard_EXPORT Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) ShearArea() const;
+  Standard_EXPORT Handle(HArray1OfMeasureOrUnspecified) ShearArea() const;
 
   //! Set field ShearArea
   Standard_EXPORT void SetShearArea(
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& ShearArea);
+    const Handle(HArray1OfMeasureOrUnspecified)& ShearArea);
 
   //! Returns field SecondMomentOfArea
   Standard_EXPORT Handle(TColStd_HArray1OfReal) SecondMomentOfArea() const;
@@ -87,27 +87,27 @@ public:
     const StepElement_MeasureOrUnspecifiedValue& WarpingConstant);
 
   //! Returns field LocationOfCentroid
-  Standard_EXPORT Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) LocationOfCentroid() const;
+  Standard_EXPORT Handle(HArray1OfMeasureOrUnspecified) LocationOfCentroid() const;
 
   //! Set field LocationOfCentroid
   Standard_EXPORT void SetLocationOfCentroid(
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& LocationOfCentroid);
+    const Handle(HArray1OfMeasureOrUnspecified)& LocationOfCentroid);
 
   //! Returns field LocationOfShearCentre
-  Standard_EXPORT Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) LocationOfShearCentre()
+  Standard_EXPORT Handle(HArray1OfMeasureOrUnspecified) LocationOfShearCentre()
     const;
 
   //! Set field LocationOfShearCentre
   Standard_EXPORT void SetLocationOfShearCentre(
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& LocationOfShearCentre);
+    const Handle(HArray1OfMeasureOrUnspecified)& LocationOfShearCentre);
 
   //! Returns field LocationOfNonStructuralMass
-  Standard_EXPORT Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
+  Standard_EXPORT Handle(HArray1OfMeasureOrUnspecified)
     LocationOfNonStructuralMass() const;
 
   //! Set field LocationOfNonStructuralMass
   Standard_EXPORT void SetLocationOfNonStructuralMass(
-    const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& LocationOfNonStructuralMass);
+    const Handle(HArray1OfMeasureOrUnspecified)& LocationOfNonStructuralMass);
 
   //! Returns field NonStructuralMass
   Standard_EXPORT StepElement_MeasureOrUnspecifiedValue NonStructuralMass() const;
@@ -128,13 +128,13 @@ public:
 protected:
 private:
   Standard_Real                                          theCrossSectionalArea;
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) theShearArea;
+  Handle(HArray1OfMeasureOrUnspecified) theShearArea;
   Handle(TColStd_HArray1OfReal)                          theSecondMomentOfArea;
   Standard_Real                                          theTorsionalConstant;
   StepElement_MeasureOrUnspecifiedValue                  theWarpingConstant;
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) theLocationOfCentroid;
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) theLocationOfShearCentre;
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) theLocationOfNonStructuralMass;
+  Handle(HArray1OfMeasureOrUnspecified) theLocationOfCentroid;
+  Handle(HArray1OfMeasureOrUnspecified) theLocationOfShearCentre;
+  Handle(HArray1OfMeasureOrUnspecified) theLocationOfNonStructuralMass;
   StepElement_MeasureOrUnspecifiedValue                  theNonStructuralMass;
   StepElement_MeasureOrUnspecifiedValue                  thePolarMoment;
 };

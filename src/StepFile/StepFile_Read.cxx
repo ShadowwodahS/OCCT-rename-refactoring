@@ -65,8 +65,8 @@ static Standard_Integer StepFile_Read(const char*                            the
                                       std::istream*                          theIStream,
                                       const Handle(StepData_StepModel)&      theStepModel,
                                       const Handle(StepData_Protocol)&       theProtocol,
-                                      const Handle(StepData_FileRecognizer)& theRecogHeader,
-                                      const Handle(StepData_FileRecognizer)& theRecogData)
+                                      const Handle(FileRecognizer)& theRecogHeader,
+                                      const Handle(FileRecognizer)& theRecogData)
 {
   // if stream is not provided, open file stream here
   std::istream*                 aStreamPtr = theIStream;
@@ -209,6 +209,6 @@ Standard_Integer StepFile_Read(const char*                       theName,
                                const Handle(StepData_StepModel)& theStepModel,
                                const Handle(StepData_Protocol)&  theProtocol)
 {
-  Handle(StepData_FileRecognizer) aNulRecog;
+  Handle(FileRecognizer) aNulRecog;
   return StepFile_Read(theName, theIStream, theStepModel, theProtocol, aNulRecog, aNulRecog);
 }

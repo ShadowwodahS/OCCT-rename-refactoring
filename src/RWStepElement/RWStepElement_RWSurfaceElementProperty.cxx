@@ -46,9 +46,9 @@ void RWStepElement_RWSurfaceElementProperty::ReadStep(
   Handle(TCollection_HAsciiString) aDescription;
   data->ReadString(num, 2, "description", ach, aDescription);
 
-  Handle(StepElement_SurfaceSectionField) aSection;
+  Handle(SurfaceSectionField) aSection;
   data
-    ->ReadEntity(num, 3, "section", ach, STANDARD_TYPE(StepElement_SurfaceSectionField), aSection);
+    ->ReadEntity(num, 3, "section", ach, STANDARD_TYPE(SurfaceSectionField), aSection);
 
   // Initialize entity
   ent->Init(aPropertyId, aDescription, aSection);

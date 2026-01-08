@@ -24,12 +24,12 @@ Standard_Integer StepVisual_MarkerSelect::CaseNum(const Handle(RefObject)& /*ent
   return 0;
 }
 
-Handle(StepData_SelectMember) StepVisual_MarkerSelect::NewMember() const
+Handle(SelectMember) StepVisual_MarkerSelect::NewMember() const
 {
   return new StepVisual_MarkerMember;
 }
 
-Standard_Integer StepVisual_MarkerSelect::CaseMem(const Handle(StepData_SelectMember)& ent) const
+Standard_Integer StepVisual_MarkerSelect::CaseMem(const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;

@@ -31,7 +31,7 @@ class StepShape_Torus;
 class StepShape_RightCircularCone;
 class StepShape_RightCircularCylinder;
 
-class StepShape_CsgPrimitive : public StepData_SelectType
+class StepShape_CsgPrimitive : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

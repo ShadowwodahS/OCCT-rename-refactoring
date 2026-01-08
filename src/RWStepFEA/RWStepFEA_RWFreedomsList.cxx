@@ -40,12 +40,12 @@ void RWStepFEA_RWFreedomsList::ReadStep(const Handle(StepData_StepReaderData)& d
 
   // Own fields of FreedomsList
 
-  Handle(StepFEA_HArray1OfDegreeOfFreedom) aFreedoms;
+  Handle(HArray1OfDOF) aFreedoms;
   Standard_Integer                         sub1 = 0;
   if (data->ReadSubList(num, 1, "freedoms", ach, sub1))
   {
     Standard_Integer nb0  = data->NbParams(sub1);
-    aFreedoms             = new StepFEA_HArray1OfDegreeOfFreedom(1, nb0);
+    aFreedoms             = new HArray1OfDOF(1, nb0);
     Standard_Integer num2 = sub1;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

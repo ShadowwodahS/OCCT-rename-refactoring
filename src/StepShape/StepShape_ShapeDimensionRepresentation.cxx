@@ -27,7 +27,7 @@ StepShape_ShapeDimensionRepresentation::StepShape_ShapeDimensionRepresentation()
 
 void StepShape_ShapeDimensionRepresentation::Init(
   const Handle(TCollection_HAsciiString)&             theName,
-  const Handle(StepRepr_HArray1OfRepresentationItem)& theItems,
+  const Handle(HArray1OfReprItem)& theItems,
   const Handle(StepRepr_RepresentationContext)&       theContextOfItems)
 {
   StepRepr_Representation::Init(theName, theItems, theContextOfItems);

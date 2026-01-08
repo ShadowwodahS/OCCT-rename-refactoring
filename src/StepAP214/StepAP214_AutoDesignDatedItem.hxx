@@ -28,7 +28,7 @@ class StepBasic_ApprovalPersonOrganization;
 class StepAP214_AutoDesignDateAndPersonAssignment;
 class StepBasic_ProductDefinitionEffectivity;
 
-class StepAP214_AutoDesignDatedItem : public StepData_SelectType
+class StepAP214_AutoDesignDatedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

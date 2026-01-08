@@ -26,7 +26,7 @@ class RefObject;
 class StepVisual_DraughtingCallout;
 class StepVisual_StyledItem;
 
-class StepVisual_AnnotationPlaneElement : public StepData_SelectType
+class StepVisual_AnnotationPlaneElement : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

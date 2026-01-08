@@ -45,13 +45,13 @@ void RWStepRepr_RWConstructiveGeometryRepresentation::ReadStep(
   data->ReadString(num, 1, "name", ach, aName);
 
   // Inherited field : items
-  Handle(StepRepr_HArray1OfRepresentationItem) aItems;
+  Handle(HArray1OfReprItem) aItems;
   Handle(StepRepr_RepresentationItem)          anEnt;
   Standard_Integer                             nsub;
   if (data->ReadSubList(num, 2, "items", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    aItems              = new StepRepr_HArray1OfRepresentationItem(1, nb);
+    aItems              = new HArray1OfReprItem(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (data->ReadEntity(nsub,

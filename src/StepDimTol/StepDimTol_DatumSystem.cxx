@@ -30,7 +30,7 @@ void StepDimTol_DatumSystem::Init(
   const Handle(TCollection_HAsciiString)&                      theDescription,
   const Handle(StepRepr_ProductDefinitionShape)&               theOfShape,
   const StepData_Logical                                       theProductDefinitional,
-  const Handle(StepDimTol_HArray1OfDatumReferenceCompartment)& theConstituents)
+  const Handle(HArray1OfDatumRefCompartment)& theConstituents)
 {
   StepRepr_ShapeAspect::Init(theName, theDescription, theOfShape, theProductDefinitional);
   myConstituents = theConstituents;

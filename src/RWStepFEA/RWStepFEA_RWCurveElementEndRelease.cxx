@@ -43,12 +43,12 @@ void RWStepFEA_RWCurveElementEndRelease::ReadStep(
   StepFEA_CurveElementEndCoordinateSystem aCoordinateSystem;
   data->ReadEntity(num, 1, "coordinate_system", ach, aCoordinateSystem);
 
-  Handle(StepElement_HArray1OfCurveElementEndReleasePacket) aReleases;
+  Handle(HArray1OfCurveEndRelease1) aReleases;
   Standard_Integer                                          sub2 = 0;
   if (data->ReadSubList(num, 2, "releases", ach, sub2))
   {
     Standard_Integer nb0  = data->NbParams(sub2);
-    aReleases             = new StepElement_HArray1OfCurveElementEndReleasePacket(1, nb0);
+    aReleases             = new HArray1OfCurveEndRelease1(1, nb0);
     Standard_Integer num2 = sub2;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

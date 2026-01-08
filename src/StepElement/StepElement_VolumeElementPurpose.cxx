@@ -36,7 +36,7 @@ Standard_Integer StepElement_VolumeElementPurpose::CaseNum(
 //=================================================================================================
 
 Standard_Integer StepElement_VolumeElementPurpose::CaseMem(
-  const Handle(StepData_SelectMember)& ent) const
+  const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -50,7 +50,7 @@ Standard_Integer StepElement_VolumeElementPurpose::CaseMem(
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepElement_VolumeElementPurpose::NewMember() const
+Handle(SelectMember) StepElement_VolumeElementPurpose::NewMember() const
 {
   return new StepElement_VolumeElementPurposeMember;
 }

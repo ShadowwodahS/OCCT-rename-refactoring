@@ -27,7 +27,7 @@ class RefObject;
 class StepRepr_SuppliedPartRelationship;
 
 //! Representation of STEP SELECT type CertifiedItem
-class StepAP203_CertifiedItem : public StepData_SelectType
+class StepAP203_CertifiedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

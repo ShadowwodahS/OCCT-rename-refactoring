@@ -315,7 +315,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
   if (aTool.PCurveMode() != 0)
   {
 
-    Handle(StepGeom_HArray1OfPcurveOrSurface) aGeom = new StepGeom_HArray1OfPcurveOrSurface(1, 2);
+    Handle(HArray1OfPCurveOrSurface) aGeom = new HArray1OfPCurveOrSurface(1, 2);
     Handle(TCollection_HAsciiString)          aName = new TCollection_HAsciiString("");
 
     if (!isSeam)

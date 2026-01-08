@@ -29,7 +29,7 @@ StepElement_ElementMaterial::StepElement_ElementMaterial() {}
 void StepElement_ElementMaterial::Init(
   const Handle(TCollection_HAsciiString)&                         aMaterialId,
   const Handle(TCollection_HAsciiString)&                         aDescription,
-  const Handle(StepRepr_HArray1OfMaterialPropertyRepresentation)& aProperties)
+  const Handle(HArray1OfMaterialPropRepr)& aProperties)
 {
 
   theMaterialId = aMaterialId;
@@ -70,7 +70,7 @@ void StepElement_ElementMaterial::SetDescription(
 
 //=================================================================================================
 
-Handle(StepRepr_HArray1OfMaterialPropertyRepresentation) StepElement_ElementMaterial::Properties()
+Handle(HArray1OfMaterialPropRepr) StepElement_ElementMaterial::Properties()
   const
 {
   return theProperties;
@@ -79,7 +79,7 @@ Handle(StepRepr_HArray1OfMaterialPropertyRepresentation) StepElement_ElementMate
 //=================================================================================================
 
 void StepElement_ElementMaterial::SetProperties(
-  const Handle(StepRepr_HArray1OfMaterialPropertyRepresentation)& aProperties)
+  const Handle(HArray1OfMaterialPropRepr)& aProperties)
 {
   theProperties = aProperties;
 }

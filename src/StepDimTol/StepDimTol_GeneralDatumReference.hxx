@@ -41,7 +41,7 @@ public:
                             const StepData_Logical                         theProductDefinitional,
                             const StepDimTol_DatumOrCommonDatum&           theBase,
                             const Standard_Boolean                         theHasModifiers,
-                            const Handle(StepDimTol_HArray1OfDatumReferenceModifier)& theModifiers);
+                            const Handle(HArray1OfDatumRefModifier)& theModifiers);
 
   //! Returns field Base
   inline StepDimTol_DatumOrCommonDatum Base() { return myBase; }
@@ -56,10 +56,10 @@ public:
   }
 
   //! Returns field Modifiers
-  inline Handle(StepDimTol_HArray1OfDatumReferenceModifier) Modifiers() { return myModifiers; }
+  inline Handle(HArray1OfDatumRefModifier) Modifiers() { return myModifiers; }
 
   //! Set field Modifiers
-  inline void SetModifiers(const Handle(StepDimTol_HArray1OfDatumReferenceModifier)& theModifiers)
+  inline void SetModifiers(const Handle(HArray1OfDatumRefModifier)& theModifiers)
   {
     myModifiers = theModifiers;
   }
@@ -87,6 +87,6 @@ public:
 
 private:
   StepDimTol_DatumOrCommonDatum                      myBase;
-  Handle(StepDimTol_HArray1OfDatumReferenceModifier) myModifiers;
+  Handle(HArray1OfDatumRefModifier) myModifiers;
 };
 #endif // _StepDimTol_GeneralDatumReference_HeaderFile

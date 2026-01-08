@@ -36,19 +36,19 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aRepresentationItem_Name,
-                            const Handle(StepFEA_HArray1OfNodeRepresentation)& aNodes);
+                            const Handle(HArray1OfNodeRepr)& aNodes);
 
   //! Returns field Nodes
-  Standard_EXPORT Handle(StepFEA_HArray1OfNodeRepresentation) Nodes() const;
+  Standard_EXPORT Handle(HArray1OfNodeRepr) Nodes() const;
 
   //! Set field Nodes
-  Standard_EXPORT void SetNodes(const Handle(StepFEA_HArray1OfNodeRepresentation)& Nodes);
+  Standard_EXPORT void SetNodes(const Handle(HArray1OfNodeRepr)& Nodes);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_NodeSet, StepGeom_GeometricRepresentationItem)
 
 protected:
 private:
-  Handle(StepFEA_HArray1OfNodeRepresentation) theNodes;
+  Handle(HArray1OfNodeRepr) theNodes;
 };
 
 #endif // _StepFEA_NodeSet_HeaderFile

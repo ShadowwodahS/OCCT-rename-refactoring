@@ -21,7 +21,7 @@ StepGeom_BSplineCurve::StepGeom_BSplineCurve() {}
 
 void StepGeom_BSplineCurve::Init(const Handle(TCollection_HAsciiString)&         aName,
                                  const Standard_Integer                          aDegree,
-                                 const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList,
+                                 const Handle(HArray1OfCartesianPoint)& aControlPointsList,
                                  const StepGeom_BSplineCurveForm                 aCurveForm,
                                  const StepData_Logical                          aClosedCurve,
                                  const StepData_Logical                          aSelfIntersect)
@@ -47,12 +47,12 @@ Standard_Integer StepGeom_BSplineCurve::Degree() const
 }
 
 void StepGeom_BSplineCurve::SetControlPointsList(
-  const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList)
+  const Handle(HArray1OfCartesianPoint)& aControlPointsList)
 {
   controlPointsList = aControlPointsList;
 }
 
-Handle(StepGeom_HArray1OfCartesianPoint) StepGeom_BSplineCurve::ControlPointsList() const
+Handle(HArray1OfCartesianPoint) StepGeom_BSplineCurve::ControlPointsList() const
 {
   return controlPointsList;
 }

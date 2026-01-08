@@ -395,8 +395,8 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
           // --------------------
           Handle(StepGeom_Pcurve)                     Pc  = new StepGeom_Pcurve;
           Handle(StepRepr_DefinitionalRepresentation) DRI = new StepRepr_DefinitionalRepresentation;
-          Handle(StepRepr_HArray1OfRepresentationItem) aItems =
-            new StepRepr_HArray1OfRepresentationItem(1, 1);
+          Handle(HArray1OfReprItem) aItems =
+            new HArray1OfReprItem(1, 1);
           aItems->SetValue(1, MkCurve.Value());
           Handle(StepGeom_GeometricRepresentationContextAndParametricRepresentationContext)
             aContext =
@@ -412,9 +412,9 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
           DRI->Init(aName, aItems, aContext);
           Pc->Init(aName, Spms, DRI);
           Handle(StepGeom_SurfaceCurve) C1pms = Handle(StepGeom_SurfaceCurve)::DownCast(Cpms);
-          Handle(StepGeom_HArray1OfPcurveOrSurface) aGeom = C1pms->AssociatedGeometry();
+          Handle(HArray1OfPCurveOrSurface) aGeom = C1pms->AssociatedGeometry();
           if (aGeom.IsNull())
-            aGeom = new StepGeom_HArray1OfPcurveOrSurface(1, 2);
+            aGeom = new HArray1OfPCurveOrSurface(1, 2);
           StepGeom_PcurveOrSurface PcOrSur;
           PcOrSur.SetValue(Pc);
           if ((aGeom->Value(1)).IsNull())

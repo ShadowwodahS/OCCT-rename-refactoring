@@ -43,17 +43,17 @@ public:
     const Handle(TCollection_HAsciiString)&                       theDescription,
     const Handle(StepBasic_MeasureWithUnit)&                      theMagnitude,
     const StepDimTol_GeometricToleranceTarget&                    theTolerancedShapeAspect,
-    const Handle(StepDimTol_HArray1OfGeometricToleranceModifier)& theModifiers);
+    const Handle(HArray1OfGeoTolModifier)& theModifiers);
 
   //! Returns field Modifiers
-  inline Handle(StepDimTol_HArray1OfGeometricToleranceModifier) Modifiers() const
+  inline Handle(HArray1OfGeoTolModifier) Modifiers() const
   {
     return myModifiers;
   }
 
   //! Set field Modifiers
   inline void SetModifiers(
-    const Handle(StepDimTol_HArray1OfGeometricToleranceModifier)& theModifiers)
+    const Handle(HArray1OfGeoTolModifier)& theModifiers)
   {
     myModifiers = theModifiers;
   }
@@ -79,6 +79,6 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithModifiers, StepDimTol_GeometricTolerance)
 
 private:
-  Handle(StepDimTol_HArray1OfGeometricToleranceModifier) myModifiers;
+  Handle(HArray1OfGeoTolModifier) myModifiers;
 };
 #endif // _StepDimTol_GeometricToleranceWithModifiers_HeaderFile

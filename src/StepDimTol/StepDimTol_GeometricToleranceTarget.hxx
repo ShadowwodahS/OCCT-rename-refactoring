@@ -29,7 +29,7 @@ class StepShape_DimensionalSize;
 class StepRepr_ProductDefinitionShape;
 class StepRepr_ShapeAspect;
 
-class StepDimTol_GeometricToleranceTarget : public StepData_SelectType
+class StepDimTol_GeometricToleranceTarget : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

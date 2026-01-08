@@ -35,7 +35,7 @@ public:
   //! Returns a CharacterizedRepresentation
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&             theName,
                             const Handle(TCollection_HAsciiString)&             theDescription,
-                            const Handle(StepRepr_HArray1OfRepresentationItem)& theItems,
+                            const Handle(HArray1OfReprItem)& theItems,
                             const Handle(StepRepr_RepresentationContext)&       theContextOfItems);
 
   void SetDescription(const Handle(TCollection_HAsciiString)& theDescription)

@@ -28,7 +28,7 @@ class StepVisual_DraughtingModel;
 class StepVisual_PresentationRepresentation;
 class StepVisual_PresentationSet;
 
-class StepVisual_InvisibilityContext : public StepData_SelectType
+class StepVisual_InvisibilityContext : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

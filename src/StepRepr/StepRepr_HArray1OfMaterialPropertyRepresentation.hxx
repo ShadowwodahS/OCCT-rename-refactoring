@@ -20,7 +20,7 @@
 #include <StepRepr_Array1OfMaterialPropertyRepresentation.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepRepr_HArray1OfMaterialPropertyRepresentation,
+DEFINE_HARRAY1(HArray1OfMaterialPropRepr,
                StepRepr_Array1OfMaterialPropertyRepresentation)
 
 #endif

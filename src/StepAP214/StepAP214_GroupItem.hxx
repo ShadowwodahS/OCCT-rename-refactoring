@@ -39,7 +39,7 @@ class StepRepr_ShapeRepresentationRelationship;
 class StepVisual_StyledItem;
 class StepShape_TopologicalRepresentationItem;
 
-class StepAP214_GroupItem : public StepData_SelectType
+class StepAP214_GroupItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

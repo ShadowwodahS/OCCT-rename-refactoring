@@ -17,6 +17,6 @@
 #include <StepElement_Array1OfSurfaceSection.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepElement_HArray1OfSurfaceSection, StepElement_Array1OfSurfaceSection)
+DEFINE_HARRAY1(HArray1OfSurfaceSection, StepElement_Array1OfSurfaceSection)
 
 #endif

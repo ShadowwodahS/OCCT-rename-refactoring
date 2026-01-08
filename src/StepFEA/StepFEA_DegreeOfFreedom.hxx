@@ -24,11 +24,11 @@
 #include <Standard_Integer.hxx>
 #include <StepFEA_EnumeratedDegreeOfFreedom.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 class TCollection_HAsciiString;
 
 //! Representation of STEP SELECT type DegreeOfFreedom
-class StepFEA_DegreeOfFreedom : public StepData_SelectType
+class StepFEA_DegreeOfFreedom : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,11 +45,11 @@ public:
   //! 1 -> EnumeratedCurveElementFreedom
   //! 2 -> ApplicationDefinedDegreeOfFreedom
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& ent) const
     Standard_OVERRIDE;
 
   //! Returns a new select member the type CurveElementFreedomMember
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Returns Value as EnumeratedDegreeOfFreedom (or Null if another type)
   Standard_EXPORT void SetEnumeratedDegreeOfFreedom(const StepFEA_EnumeratedDegreeOfFreedom aVal);

@@ -28,7 +28,7 @@ class StepBasic_ProductDefinitionFormation;
 class StepRepr_AssemblyComponentUsage;
 
 //! Representation of STEP SELECT type ClassifiedItem
-class StepAP203_ClassifiedItem : public StepData_SelectType
+class StepAP203_ClassifiedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

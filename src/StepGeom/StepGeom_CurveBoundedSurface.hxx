@@ -39,7 +39,7 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aRepresentationItem_Name,
                             const Handle(StepGeom_Surface)&         aBasisSurface,
-                            const Handle(StepGeom_HArray1OfSurfaceBoundary)& aBoundaries,
+                            const Handle(HArray1OfSurfaceBoundary)& aBoundaries,
                             const Standard_Boolean                           aImplicitOuter);
 
   //! Returns field BasisSurface
@@ -49,10 +49,10 @@ public:
   Standard_EXPORT void SetBasisSurface(const Handle(StepGeom_Surface)& BasisSurface);
 
   //! Returns field Boundaries
-  Standard_EXPORT Handle(StepGeom_HArray1OfSurfaceBoundary) Boundaries() const;
+  Standard_EXPORT Handle(HArray1OfSurfaceBoundary) Boundaries() const;
 
   //! Set field Boundaries
-  Standard_EXPORT void SetBoundaries(const Handle(StepGeom_HArray1OfSurfaceBoundary)& Boundaries);
+  Standard_EXPORT void SetBoundaries(const Handle(HArray1OfSurfaceBoundary)& Boundaries);
 
   //! Returns field ImplicitOuter
   Standard_EXPORT Standard_Boolean ImplicitOuter() const;
@@ -65,7 +65,7 @@ public:
 protected:
 private:
   Handle(StepGeom_Surface)                  theBasisSurface;
-  Handle(StepGeom_HArray1OfSurfaceBoundary) theBoundaries;
+  Handle(HArray1OfSurfaceBoundary) theBoundaries;
   Standard_Boolean                          theImplicitOuter;
 };
 

@@ -36,7 +36,7 @@ Standard_Integer StepElement_CurveElementPurpose::CaseNum(
 //=================================================================================================
 
 Standard_Integer StepElement_CurveElementPurpose::CaseMem(
-  const Handle(StepData_SelectMember)& ent) const
+  const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -50,7 +50,7 @@ Standard_Integer StepElement_CurveElementPurpose::CaseMem(
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepElement_CurveElementPurpose::NewMember() const
+Handle(SelectMember) StepElement_CurveElementPurpose::NewMember() const
 {
   return new StepElement_CurveElementPurposeMember;
 }

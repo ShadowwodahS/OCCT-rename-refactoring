@@ -27,7 +27,7 @@ class RefObject;
 class StepGeom_Axis2Placement2d;
 class StepGeom_Axis2Placement3d;
 
-class StepGeom_Axis2Placement : public StepData_SelectType
+class StepGeom_Axis2Placement : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

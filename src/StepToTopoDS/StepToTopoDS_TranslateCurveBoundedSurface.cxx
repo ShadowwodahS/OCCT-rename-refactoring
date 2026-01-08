@@ -99,7 +99,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
   }
 
   // translate boundaries
-  Handle(StepGeom_HArray1OfSurfaceBoundary) bnd = CBS->Boundaries();
+  Handle(HArray1OfSurfaceBoundary) bnd = CBS->Boundaries();
   Standard_Integer                          nb  = bnd->Length();
   for (Standard_Integer i = 1; i <= nb; i++)
   {

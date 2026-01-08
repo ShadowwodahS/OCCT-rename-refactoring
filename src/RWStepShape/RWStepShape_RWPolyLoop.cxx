@@ -39,13 +39,13 @@ void RWStepShape_RWPolyLoop::ReadStep(const Handle(StepData_StepReaderData)& dat
 
   // --- own field : polygon ---
 
-  Handle(StepGeom_HArray1OfCartesianPoint) aPolygon;
+  Handle(HArray1OfCartesianPoint) aPolygon;
   Handle(StepGeom_CartesianPoint)          anent2;
   Standard_Integer                         nsub2;
   if (data->ReadSubList(num, 2, "polygon", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aPolygon             = new StepGeom_HArray1OfCartesianPoint(1, nb2);
+    aPolygon             = new HArray1OfCartesianPoint(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

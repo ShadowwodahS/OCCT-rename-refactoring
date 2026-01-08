@@ -38,16 +38,16 @@ public:
   Standard_EXPORT StepRepr_Representation();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&             aName,
-                            const Handle(StepRepr_HArray1OfRepresentationItem)& aItems,
+                            const Handle(HArray1OfReprItem)& aItems,
                             const Handle(StepRepr_RepresentationContext)&       aContextOfItems);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
-  Standard_EXPORT void SetItems(const Handle(StepRepr_HArray1OfRepresentationItem)& aItems);
+  Standard_EXPORT void SetItems(const Handle(HArray1OfReprItem)& aItems);
 
-  Standard_EXPORT Handle(StepRepr_HArray1OfRepresentationItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfReprItem) Items() const;
 
   Standard_EXPORT Handle(StepRepr_RepresentationItem) ItemsValue(const Standard_Integer num) const;
 
@@ -63,7 +63,7 @@ public:
 protected:
 private:
   Handle(TCollection_HAsciiString)             name;
-  Handle(StepRepr_HArray1OfRepresentationItem) items;
+  Handle(HArray1OfReprItem) items;
   Handle(StepRepr_RepresentationContext)       contextOfItems;
 };
 

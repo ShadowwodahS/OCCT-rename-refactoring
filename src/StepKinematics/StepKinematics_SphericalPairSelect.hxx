@@ -28,7 +28,7 @@ class StepKinematics_SphericalPair;
 class StepKinematics_SphericalPairWithPin;
 
 //! Representation of STEP SELECT type SphericalPairSelect
-class StepKinematics_SphericalPairSelect : public StepData_SelectType
+class StepKinematics_SphericalPairSelect : public SelectType
 {
 
 public:

@@ -52,12 +52,12 @@ void RWStepFEA_RWCurve3dElementProperty::ReadStep(
   Handle(TCollection_HAsciiString) aDescription;
   data->ReadString(num, 2, "description", ach, aDescription);
 
-  Handle(StepFEA_HArray1OfCurveElementInterval) aIntervalDefinitions;
+  Handle(HArray1OfCurveInterval) aIntervalDefinitions;
   Standard_Integer                              sub3 = 0;
   if (data->ReadSubList(num, 3, "interval_definitions", ach, sub3))
   {
     Standard_Integer nb0  = data->NbParams(sub3);
-    aIntervalDefinitions  = new StepFEA_HArray1OfCurveElementInterval(1, nb0);
+    aIntervalDefinitions  = new HArray1OfCurveInterval(1, nb0);
     Standard_Integer num2 = sub3;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -72,12 +72,12 @@ void RWStepFEA_RWCurve3dElementProperty::ReadStep(
     }
   }
 
-  Handle(StepFEA_HArray1OfCurveElementEndOffset) aEndOffsets;
+  Handle(HArray1OfCurveEndOffset) aEndOffsets;
   Standard_Integer                               sub4 = 0;
   if (data->ReadSubList(num, 4, "end_offsets", ach, sub4))
   {
     Standard_Integer nb0  = data->NbParams(sub4);
-    aEndOffsets           = new StepFEA_HArray1OfCurveElementEndOffset(1, nb0);
+    aEndOffsets           = new HArray1OfCurveEndOffset(1, nb0);
     Standard_Integer num2 = sub4;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -92,12 +92,12 @@ void RWStepFEA_RWCurve3dElementProperty::ReadStep(
     }
   }
 
-  Handle(StepFEA_HArray1OfCurveElementEndRelease) aEndReleases;
+  Handle(HArray1OfCurveEndRelease2) aEndReleases;
   Standard_Integer                                sub5 = 0;
   if (data->ReadSubList(num, 5, "end_releases", ach, sub5))
   {
     Standard_Integer nb0  = data->NbParams(sub5);
-    aEndReleases          = new StepFEA_HArray1OfCurveElementEndRelease(1, nb0);
+    aEndReleases          = new HArray1OfCurveEndRelease2(1, nb0);
     Standard_Integer num2 = sub5;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

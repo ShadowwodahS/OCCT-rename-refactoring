@@ -30,7 +30,7 @@ StepFEA_ElementGroup::StepFEA_ElementGroup() {}
 void StepFEA_ElementGroup::Init(const Handle(TCollection_HAsciiString)& aGroup_Name,
                                 const Handle(TCollection_HAsciiString)& aGroup_Description,
                                 const Handle(StepFEA_FeaModel)&         aFeaGroup_ModelRef,
-                                const Handle(StepFEA_HArray1OfElementRepresentation)& aElements)
+                                const Handle(HArray1OfElementRepr)& aElements)
 {
   StepFEA_FeaGroup::Init(aGroup_Name, aGroup_Description, aFeaGroup_ModelRef);
 
@@ -39,7 +39,7 @@ void StepFEA_ElementGroup::Init(const Handle(TCollection_HAsciiString)& aGroup_N
 
 //=================================================================================================
 
-Handle(StepFEA_HArray1OfElementRepresentation) StepFEA_ElementGroup::Elements() const
+Handle(HArray1OfElementRepr) StepFEA_ElementGroup::Elements() const
 {
   return theElements;
 }
@@ -47,7 +47,7 @@ Handle(StepFEA_HArray1OfElementRepresentation) StepFEA_ElementGroup::Elements() 
 //=================================================================================================
 
 void StepFEA_ElementGroup::SetElements(
-  const Handle(StepFEA_HArray1OfElementRepresentation)& aElements)
+  const Handle(HArray1OfElementRepr)& aElements)
 {
   theElements = aElements;
 }

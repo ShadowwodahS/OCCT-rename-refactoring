@@ -48,18 +48,18 @@ public:
     const Handle(TCollection_HAsciiString)&                theDescription,
     const Handle(StepRepr_ProductDefinitionShape)&         theOfShape,
     const StepData_Logical                                 theProductDefinitional,
-    const Handle(StepDimTol_HArray1OfToleranceZoneTarget)& theDefiningTolerance,
+    const Handle(HArray1OfToleranceZoneTarget)& theDefiningTolerance,
     const Handle(StepDimTol_ToleranceZoneForm)&            theForm);
 
   //! Returns field DefiningTolerance
-  inline Handle(StepDimTol_HArray1OfToleranceZoneTarget) DefiningTolerance() const
+  inline Handle(HArray1OfToleranceZoneTarget) DefiningTolerance() const
   {
     return myDefiningTolerance;
   }
 
   //! Set field DefiningTolerance
   inline void SetDefiningTolerance(
-    const Handle(StepDimTol_HArray1OfToleranceZoneTarget)& theDefiningTolerance)
+    const Handle(HArray1OfToleranceZoneTarget)& theDefiningTolerance)
   {
     myDefiningTolerance = theDefiningTolerance;
   }
@@ -92,7 +92,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZone, StepRepr_ShapeAspect)
 
 private:
-  Handle(StepDimTol_HArray1OfToleranceZoneTarget) myDefiningTolerance;
+  Handle(HArray1OfToleranceZoneTarget) myDefiningTolerance;
   Handle(StepDimTol_ToleranceZoneForm)            myForm;
 };
 #endif // _StepDimTol_ToleranceZone_HeaderFile

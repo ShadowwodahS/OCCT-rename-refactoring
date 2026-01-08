@@ -21,18 +21,18 @@
 
 #include <Standard_Transient.hxx>
 
-class StepElement_SurfaceSectionField;
-DEFINE_STANDARD_HANDLE(StepElement_SurfaceSectionField, RefObject)
+class SurfaceSectionField;
+DEFINE_STANDARD_HANDLE(SurfaceSectionField, RefObject)
 
 //! Representation of STEP entity SurfaceSectionField
-class StepElement_SurfaceSectionField : public RefObject
+class SurfaceSectionField : public RefObject
 {
 
 public:
   //! Empty constructor
-  Standard_EXPORT StepElement_SurfaceSectionField();
+  Standard_EXPORT SurfaceSectionField();
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceSectionField, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SurfaceSectionField, RefObject)
 
 protected:
 private:

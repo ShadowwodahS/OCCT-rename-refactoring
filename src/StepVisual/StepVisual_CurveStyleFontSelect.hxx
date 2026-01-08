@@ -28,7 +28,7 @@ class StepVisual_CurveStyleFont;
 class StepVisual_PreDefinedCurveFont;
 class StepVisual_ExternallyDefinedCurveFont;
 
-class StepVisual_CurveStyleFontSelect : public StepData_SelectType
+class StepVisual_CurveStyleFontSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

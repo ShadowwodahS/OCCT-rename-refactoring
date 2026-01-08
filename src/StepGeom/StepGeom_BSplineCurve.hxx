@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&         aName,
                             const Standard_Integer                          aDegree,
-                            const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList,
+                            const Handle(HArray1OfCartesianPoint)& aControlPointsList,
                             const StepGeom_BSplineCurveForm                 aCurveForm,
                             const StepData_Logical                          aClosedCurve,
                             const StepData_Logical                          aSelfIntersect);
@@ -50,9 +50,9 @@ public:
   Standard_EXPORT Standard_Integer Degree() const;
 
   Standard_EXPORT void SetControlPointsList(
-    const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList);
+    const Handle(HArray1OfCartesianPoint)& aControlPointsList);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfCartesianPoint) ControlPointsList() const;
+  Standard_EXPORT Handle(HArray1OfCartesianPoint) ControlPointsList() const;
 
   Standard_EXPORT Handle(StepGeom_CartesianPoint) ControlPointsListValue(
     const Standard_Integer num) const;
@@ -76,7 +76,7 @@ public:
 protected:
 private:
   Standard_Integer                         degree;
-  Handle(StepGeom_HArray1OfCartesianPoint) controlPointsList;
+  Handle(HArray1OfCartesianPoint) controlPointsList;
   StepGeom_BSplineCurveForm                curveForm;
   StepData_Logical                         closedCurve;
   StepData_Logical                         selfIntersect;

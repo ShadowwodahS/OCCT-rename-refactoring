@@ -43,7 +43,7 @@ void RWStepVisual_RWDraughtingModel::ReadStep(const Handle(StepData_StepReaderDa
   Handle(TCollection_HAsciiString) aRepresentation_Name;
   data->ReadString(num, 1, "representation.name", ach, aRepresentation_Name);
 
-  Handle(StepRepr_HArray1OfRepresentationItem) aRepresentation_Items;
+  Handle(HArray1OfReprItem) aRepresentation_Items;
   Standard_Integer                             sub2 = 0;
   if (data->ReadSubList(num, 2, "representation.items", ach, sub2))
   {
@@ -51,7 +51,7 @@ void RWStepVisual_RWDraughtingModel::ReadStep(const Handle(StepData_StepReaderDa
     Standard_Integer nb0  = data->NbParams(num2);
     if (nb0 > 0)
     {
-      aRepresentation_Items = new StepRepr_HArray1OfRepresentationItem(1, nb0);
+      aRepresentation_Items = new HArray1OfReprItem(1, nb0);
       for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
       {
         Handle(StepRepr_RepresentationItem) anIt0;

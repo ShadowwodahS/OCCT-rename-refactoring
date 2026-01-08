@@ -39,21 +39,21 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&             aRepresentation_Name,
-    const Handle(StepRepr_HArray1OfRepresentationItem)& aRepresentation_Items,
+    const Handle(HArray1OfReprItem)& aRepresentation_Items,
     const Handle(StepRepr_RepresentationContext)&       aRepresentation_ContextOfItems,
-    const Handle(StepFEA_HArray1OfNodeRepresentation)&  aNodeList);
+    const Handle(HArray1OfNodeRepr)&  aNodeList);
 
   //! Returns field NodeList
-  Standard_EXPORT Handle(StepFEA_HArray1OfNodeRepresentation) NodeList() const;
+  Standard_EXPORT Handle(HArray1OfNodeRepr) NodeList() const;
 
   //! Set field NodeList
-  Standard_EXPORT void SetNodeList(const Handle(StepFEA_HArray1OfNodeRepresentation)& NodeList);
+  Standard_EXPORT void SetNodeList(const Handle(HArray1OfNodeRepr)& NodeList);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_ElementRepresentation, StepRepr_Representation)
 
 protected:
 private:
-  Handle(StepFEA_HArray1OfNodeRepresentation) theNodeList;
+  Handle(HArray1OfNodeRepr) theNodeList;
 };
 
 #endif // _StepFEA_ElementRepresentation_HeaderFile

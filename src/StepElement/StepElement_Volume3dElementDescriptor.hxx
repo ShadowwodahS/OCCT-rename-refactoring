@@ -38,15 +38,15 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const StepElement_ElementOrder aElementDescriptor_TopologyOrder,
                             const Handle(TCollection_HAsciiString)& aElementDescriptor_Description,
-                            const Handle(StepElement_HArray1OfVolumeElementPurposeMember)& aPurpose,
+                            const Handle(HArray1OfVolumePurposeMember)& aPurpose,
                             const StepElement_Volume3dElementShape                         aShape);
 
   //! Returns field Purpose
-  Standard_EXPORT Handle(StepElement_HArray1OfVolumeElementPurposeMember) Purpose() const;
+  Standard_EXPORT Handle(HArray1OfVolumePurposeMember) Purpose() const;
 
   //! Set field Purpose
   Standard_EXPORT void SetPurpose(
-    const Handle(StepElement_HArray1OfVolumeElementPurposeMember)& Purpose);
+    const Handle(HArray1OfVolumePurposeMember)& Purpose);
 
   //! Returns field Shape
   Standard_EXPORT StepElement_Volume3dElementShape Shape() const;
@@ -58,7 +58,7 @@ public:
 
 protected:
 private:
-  Handle(StepElement_HArray1OfVolumeElementPurposeMember) thePurpose;
+  Handle(HArray1OfVolumePurposeMember) thePurpose;
   StepElement_Volume3dElementShape                        theShape;
 };
 

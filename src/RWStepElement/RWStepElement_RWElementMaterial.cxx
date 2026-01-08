@@ -47,12 +47,12 @@ void RWStepElement_RWElementMaterial::ReadStep(const Handle(StepData_StepReaderD
   Handle(TCollection_HAsciiString) aDescription;
   data->ReadString(num, 2, "description", ach, aDescription);
 
-  Handle(StepRepr_HArray1OfMaterialPropertyRepresentation) aProperties;
+  Handle(HArray1OfMaterialPropRepr) aProperties;
   Standard_Integer                                         sub3 = 0;
   if (data->ReadSubList(num, 3, "properties", ach, sub3))
   {
     Standard_Integer nb0  = data->NbParams(sub3);
-    aProperties           = new StepRepr_HArray1OfMaterialPropertyRepresentation(1, nb0);
+    aProperties           = new HArray1OfMaterialPropRepr(1, nb0);
     Standard_Integer num2 = sub3;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

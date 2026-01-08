@@ -36,7 +36,7 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(
     const StepFEA_CurveElementEndCoordinateSystem&                   aCoordinateSystem,
-    const Handle(StepElement_HArray1OfCurveElementEndReleasePacket)& aReleases);
+    const Handle(HArray1OfCurveEndRelease1)& aReleases);
 
   //! Returns field CoordinateSystem
   Standard_EXPORT StepFEA_CurveElementEndCoordinateSystem CoordinateSystem() const;
@@ -46,18 +46,18 @@ public:
     const StepFEA_CurveElementEndCoordinateSystem& CoordinateSystem);
 
   //! Returns field Releases
-  Standard_EXPORT Handle(StepElement_HArray1OfCurveElementEndReleasePacket) Releases() const;
+  Standard_EXPORT Handle(HArray1OfCurveEndRelease1) Releases() const;
 
   //! Set field Releases
   Standard_EXPORT void SetReleases(
-    const Handle(StepElement_HArray1OfCurveElementEndReleasePacket)& Releases);
+    const Handle(HArray1OfCurveEndRelease1)& Releases);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementEndRelease, RefObject)
 
 protected:
 private:
   StepFEA_CurveElementEndCoordinateSystem                   theCoordinateSystem;
-  Handle(StepElement_HArray1OfCurveElementEndReleasePacket) theReleases;
+  Handle(HArray1OfCurveEndRelease1) theReleases;
 };
 
 #endif // _StepFEA_CurveElementEndRelease_HeaderFile

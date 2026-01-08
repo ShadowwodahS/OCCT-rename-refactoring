@@ -27,7 +27,7 @@ class StepDimTol_GeometricTolerance;
 class StepShape_PlusMinusTolerance;
 
 //! Representation of STEP SELECT type ShapeToleranceSelect
-class StepDimTol_ShapeToleranceSelect : public StepData_SelectType
+class StepDimTol_ShapeToleranceSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

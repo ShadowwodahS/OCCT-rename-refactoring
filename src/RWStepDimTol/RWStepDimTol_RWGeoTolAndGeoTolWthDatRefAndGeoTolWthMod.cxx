@@ -55,12 +55,12 @@ void RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMod::ReadStep(
 
   data->NamedForComplex("GEOMETRIC_TOLERANCE_WITH_DATUM_REFERENCE", "GTWDR", num0, num, ach);
   // Own fields of GeometricToleranceWithDatumReference
-  Handle(StepDimTol_HArray1OfDatumSystemOrReference) aDatumSystem;
+  Handle(HArray1OfDatumSystemOrRef) aDatumSystem;
   Standard_Integer                                   sub5 = 0;
   if (data->ReadSubList(num, 1, "datum_system", ach, sub5))
   {
     Standard_Integer nb0  = data->NbParams(sub5);
-    aDatumSystem          = new StepDimTol_HArray1OfDatumSystemOrReference(1, nb0);
+    aDatumSystem          = new HArray1OfDatumSystemOrRef(1, nb0);
     Standard_Integer num2 = sub5;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -76,12 +76,12 @@ void RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMod::ReadStep(
 
   data->NamedForComplex("GEOMETRIC_TOLERANCE_WITH_MODIFIERS", num0, num, ach);
   // Own fields of ModifiedGeometricTolerance
-  Handle(StepDimTol_HArray1OfGeometricToleranceModifier) aModifiers;
+  Handle(HArray1OfGeoTolModifier) aModifiers;
   Standard_Integer                                       sub = 0;
   if (data->ReadSubList(num, 1, "modifiers", ach, sub))
   {
     Standard_Integer nb0  = data->NbParams(sub);
-    aModifiers            = new StepDimTol_HArray1OfGeometricToleranceModifier(1, nb0);
+    aModifiers            = new HArray1OfGeoTolModifier(1, nb0);
     Standard_Integer num2 = sub;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

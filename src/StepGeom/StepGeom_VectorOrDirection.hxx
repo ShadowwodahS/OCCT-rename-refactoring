@@ -27,7 +27,7 @@ class RefObject;
 class StepGeom_Vector;
 class StepGeom_Direction;
 
-class StepGeom_VectorOrDirection : public StepData_SelectType
+class StepGeom_VectorOrDirection : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

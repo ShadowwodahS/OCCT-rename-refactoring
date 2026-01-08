@@ -46,13 +46,13 @@ void RWStepVisual_RWCharacterizedObjAndRepresentationAndDraughtingModel::ReadSte
   data->ReadString(num, 1, "name", ach, aName);
 
   // items
-  Handle(StepRepr_HArray1OfRepresentationItem) anItems;
+  Handle(HArray1OfReprItem) anItems;
   Handle(StepRepr_RepresentationItem)          anItem;
   Standard_Integer                             nsub;
   if (data->ReadSubList(num, 2, "items", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    anItems             = new StepRepr_HArray1OfRepresentationItem(1, nb);
+    anItems             = new HArray1OfReprItem(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (data->ReadEntity(nsub,

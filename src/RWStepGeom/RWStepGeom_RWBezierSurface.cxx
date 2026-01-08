@@ -67,14 +67,14 @@ void RWStepGeom_RWBezierSurface::ReadStep(const Handle(StepData_StepReaderData)&
 
   // --- inherited field : controlPointsList ---
 
-  Handle(StepGeom_HArray2OfCartesianPoint) aControlPointsList;
+  Handle(HArray2OfCartesianPoint) aControlPointsList;
   Handle(StepGeom_CartesianPoint)          anent4;
   Standard_Integer                         nsub4;
   if (data->ReadSubList(num, 4, "control_points_list", ach, nsub4))
   {
     Standard_Integer nbi4 = data->NbParams(nsub4);
     Standard_Integer nbj4 = data->NbParams(data->ParamNumber(nsub4, 1));
-    aControlPointsList    = new StepGeom_HArray2OfCartesianPoint(1, nbi4, 1, nbj4);
+    aControlPointsList    = new HArray2OfCartesianPoint(1, nbi4, 1, nbj4);
     for (Standard_Integer i4 = 1; i4 <= nbi4; i4++)
     {
       Standard_Integer nsi4;

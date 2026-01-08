@@ -27,12 +27,12 @@
 #include <Standard_Real.hxx>
 
 class StepData_SelectNamed;
-DEFINE_STANDARD_HANDLE(StepData_SelectNamed, StepData_SelectMember)
+DEFINE_STANDARD_HANDLE(StepData_SelectNamed, SelectMember)
 
 //! This select member can be of any kind, and be named
 //! But its takes more memory than some specialised ones
 //! This class allows one name for the instance
-class StepData_SelectNamed : public StepData_SelectMember
+class StepData_SelectNamed : public SelectMember
 {
 
 public:
@@ -68,7 +68,7 @@ public:
 
   Standard_EXPORT virtual void SetString(const Standard_CString val) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_SelectNamed, StepData_SelectMember)
+  DEFINE_STANDARD_RTTIEXT(StepData_SelectNamed, SelectMember)
 
 protected:
 private:

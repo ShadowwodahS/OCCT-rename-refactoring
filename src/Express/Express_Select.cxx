@@ -123,7 +123,7 @@ Standard_Boolean Express_Select::GenerateClass() const
 
     anOS << "class RefObject;\n";
     if (!aSeqMember->IsEmpty())
-      anOS << "class StepData_SelectMember;\n";
+      anOS << "class SelectMember;\n";
 
     for (Standard_Integer i = 1; i <= myItems->Length(); i++)
     {
@@ -146,7 +146,7 @@ Standard_Boolean Express_Select::GenerateClass() const
          << "\n"
             "class "
          << aCPPName
-         << " : public StepData_SelectType\n"
+         << " : public SelectType\n"
             "{\n"
             "\n"
             "public:\n"
@@ -182,12 +182,12 @@ Standard_Boolean Express_Select::GenerateClass() const
       }
       anOS << "  //! -- 0 else\n"
               "  Standard_EXPORT virtual Standard_Integer CaseMem (const "
-              "Handle(StepData_SelectMember)& theEnt) const Standard_OVERRIDE;\n"
+              "Handle(SelectMember)& theEnt) const Standard_OVERRIDE;\n"
               "\n"
               "  //! Returns a new select member the type "
            << Name()
            << "Member\n"
-              "  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const "
+              "  Standard_EXPORT virtual Handle(SelectMember) NewMember() const "
               "Standard_OVERRIDE;\n"
               "\n";
     }
@@ -295,7 +295,7 @@ Standard_Boolean Express_Select::GenerateClass() const
       // write CaseMem method
       Express1::WriteMethodStamp(anOS, "CaseMem");
       anOS << "Standard_Integer " << aCPPName
-           << "::CaseMem (const Handle(StepData_SelectMember)& theEnt) const\n"
+           << "::CaseMem (const Handle(SelectMember)& theEnt) const\n"
               "{\n"
               "  if (theEnt.IsNull()) return 0;\n";
       for (int j = 1; j <= aSeqMember->Length(); j++)
@@ -317,7 +317,7 @@ Standard_Boolean Express_Select::GenerateClass() const
 
       // write NewMember method
       Express1::WriteMethodStamp(anOS, "NewMember");
-      anOS << "Handle(StepData_SelectMember) " << aCPPName
+      anOS << "Handle(SelectMember) " << aCPPName
            << "::NewMember() const\n"
               "{\n"
               "  return new "

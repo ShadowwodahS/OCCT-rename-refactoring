@@ -38,17 +38,17 @@ public:
     const Handle(TCollection_HAsciiString)&                      theDescription,
     const Handle(StepRepr_ProductDefinitionShape)&               theOfShape,
     const StepData_Logical                                       theProductDefinitional,
-    const Handle(StepDimTol_HArray1OfDatumReferenceCompartment)& theConstituents);
+    const Handle(HArray1OfDatumRefCompartment)& theConstituents);
 
   //! Returns field Constituents
-  inline Handle(StepDimTol_HArray1OfDatumReferenceCompartment) Constituents()
+  inline Handle(HArray1OfDatumRefCompartment) Constituents()
   {
     return myConstituents;
   }
 
   //! Set field Constituents
   inline void SetConstituents(
-    const Handle(StepDimTol_HArray1OfDatumReferenceCompartment)& theConstituents)
+    const Handle(HArray1OfDatumRefCompartment)& theConstituents)
   {
     myConstituents = theConstituents;
   }
@@ -76,6 +76,6 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepDimTol_DatumSystem, StepRepr_ShapeAspect)
 
 private:
-  Handle(StepDimTol_HArray1OfDatumReferenceCompartment) myConstituents;
+  Handle(HArray1OfDatumRefCompartment) myConstituents;
 };
 #endif // _StepDimTol_DatumSystem_HeaderFile

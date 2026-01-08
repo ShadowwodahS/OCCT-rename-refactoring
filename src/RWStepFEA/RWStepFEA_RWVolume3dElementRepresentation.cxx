@@ -50,12 +50,12 @@ void RWStepFEA_RWVolume3dElementRepresentation::ReadStep(
   Handle(TCollection_HAsciiString) aRepresentation_Name;
   data->ReadString(num, 1, "representation.name", ach, aRepresentation_Name);
 
-  Handle(StepRepr_HArray1OfRepresentationItem) aRepresentation_Items;
+  Handle(HArray1OfReprItem) aRepresentation_Items;
   Standard_Integer                             sub2 = 0;
   if (data->ReadSubList(num, 2, "representation.items", ach, sub2))
   {
     Standard_Integer nb0  = data->NbParams(sub2);
-    aRepresentation_Items = new StepRepr_HArray1OfRepresentationItem(1, nb0);
+    aRepresentation_Items = new HArray1OfReprItem(1, nb0);
     Standard_Integer num2 = sub2;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -80,12 +80,12 @@ void RWStepFEA_RWVolume3dElementRepresentation::ReadStep(
 
   // Inherited fields of ElementRepresentation
 
-  Handle(StepFEA_HArray1OfNodeRepresentation) aElementRepresentation_NodeList;
+  Handle(HArray1OfNodeRepr) aElementRepresentation_NodeList;
   Standard_Integer                            sub4 = 0;
   if (data->ReadSubList(num, 4, "element_representation.node_list", ach, sub4))
   {
     Standard_Integer nb0            = data->NbParams(sub4);
-    aElementRepresentation_NodeList = new StepFEA_HArray1OfNodeRepresentation(1, nb0);
+    aElementRepresentation_NodeList = new HArray1OfNodeRepr(1, nb0);
     Standard_Integer num2           = sub4;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

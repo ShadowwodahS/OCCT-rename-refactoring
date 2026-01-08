@@ -138,8 +138,8 @@ void TopoDSToStep_MakeStepWire::Init(const TopoWire&                    aWire,
     Standard_Integer nbPoints = mySeq.Length();
     if (nbPoints >= 3)
     {
-      Handle(StepGeom_HArray1OfCartesianPoint) aPolygon =
-        new StepGeom_HArray1OfCartesianPoint(1, nbPoints);
+      Handle(HArray1OfCartesianPoint) aPolygon =
+        new HArray1OfCartesianPoint(1, nbPoints);
       for (Standard_Integer i = 1; i <= nbPoints; i++)
       {
         aPolygon->SetValue(i, Handle(StepGeom_CartesianPoint)::DownCast(mySeq.Value(i)));

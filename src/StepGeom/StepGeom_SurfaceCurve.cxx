@@ -21,7 +21,7 @@ StepGeom_SurfaceCurve::StepGeom_SurfaceCurve() {}
 void StepGeom_SurfaceCurve::Init(
   const Handle(TCollection_HAsciiString)&            aName,
   const Handle(StepGeom_Curve)&                      aCurve3d,
-  const Handle(StepGeom_HArray1OfPcurveOrSurface)&   aAssociatedGeometry,
+  const Handle(HArray1OfPCurveOrSurface)&   aAssociatedGeometry,
   const StepGeom_PreferredSurfaceCurveRepresentation aMasterRepresentation)
 {
   // --- classe own fields ---
@@ -43,12 +43,12 @@ Handle(StepGeom_Curve) StepGeom_SurfaceCurve::Curve3d() const
 }
 
 void StepGeom_SurfaceCurve::SetAssociatedGeometry(
-  const Handle(StepGeom_HArray1OfPcurveOrSurface)& aAssociatedGeometry)
+  const Handle(HArray1OfPCurveOrSurface)& aAssociatedGeometry)
 {
   associatedGeometry = aAssociatedGeometry;
 }
 
-Handle(StepGeom_HArray1OfPcurveOrSurface) StepGeom_SurfaceCurve::AssociatedGeometry() const
+Handle(HArray1OfPCurveOrSurface) StepGeom_SurfaceCurve::AssociatedGeometry() const
 {
   return associatedGeometry;
 }

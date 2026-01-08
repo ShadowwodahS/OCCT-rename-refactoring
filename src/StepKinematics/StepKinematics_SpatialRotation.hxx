@@ -28,7 +28,7 @@ class StepKinematics_RotationAboutDirection;
 class TColStd_HArray1OfReal;
 
 //! Representation of STEP SELECT type SpatialRotation
-class StepKinematics_SpatialRotation : public StepData_SelectType
+class StepKinematics_SpatialRotation : public SelectType
 {
 
 public:

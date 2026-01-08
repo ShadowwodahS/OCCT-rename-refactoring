@@ -17,6 +17,6 @@
 #include <StepFEA_SequenceOfElementRepresentation.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(StepFEA_HSequenceOfElementRepresentation, StepFEA_SequenceOfElementRepresentation)
+DEFINE_HSEQUENCE(HSequenceOfElementRepr, StepFEA_SequenceOfElementRepresentation)
 
 #endif

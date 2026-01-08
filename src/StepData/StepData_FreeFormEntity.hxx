@@ -96,7 +96,7 @@ public:
 protected:
 private:
   AsciiString1         thetype;
-  Handle(StepData_HArray1OfField) thefields;
+  Handle(HArray1OfField) thefields;
   Handle(StepData_FreeFormEntity) thenext;
 };
 

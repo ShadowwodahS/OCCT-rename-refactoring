@@ -33,19 +33,19 @@ public:
   Standard_EXPORT StepFEA_FreedomsList();
 
   //! Initialize all fields (own and inherited)
-  Standard_EXPORT void Init(const Handle(StepFEA_HArray1OfDegreeOfFreedom)& aFreedoms);
+  Standard_EXPORT void Init(const Handle(HArray1OfDOF)& aFreedoms);
 
   //! Returns field Freedoms
-  Standard_EXPORT Handle(StepFEA_HArray1OfDegreeOfFreedom) Freedoms() const;
+  Standard_EXPORT Handle(HArray1OfDOF) Freedoms() const;
 
   //! Set field Freedoms
-  Standard_EXPORT void SetFreedoms(const Handle(StepFEA_HArray1OfDegreeOfFreedom)& Freedoms);
+  Standard_EXPORT void SetFreedoms(const Handle(HArray1OfDOF)& Freedoms);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_FreedomsList, RefObject)
 
 protected:
 private:
-  Handle(StepFEA_HArray1OfDegreeOfFreedom) theFreedoms;
+  Handle(HArray1OfDOF) theFreedoms;
 };
 
 #endif // _StepFEA_FreedomsList_HeaderFile

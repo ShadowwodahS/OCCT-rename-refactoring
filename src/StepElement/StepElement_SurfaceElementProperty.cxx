@@ -30,7 +30,7 @@ StepElement_SurfaceElementProperty::StepElement_SurfaceElementProperty() {}
 void StepElement_SurfaceElementProperty::Init(
   const Handle(TCollection_HAsciiString)&        aPropertyId,
   const Handle(TCollection_HAsciiString)&        aDescription,
-  const Handle(StepElement_SurfaceSectionField)& aSection)
+  const Handle(SurfaceSectionField)& aSection)
 {
 
   thePropertyId = aPropertyId;
@@ -72,7 +72,7 @@ void StepElement_SurfaceElementProperty::SetDescription(
 
 //=================================================================================================
 
-Handle(StepElement_SurfaceSectionField) StepElement_SurfaceElementProperty::Section() const
+Handle(SurfaceSectionField) StepElement_SurfaceElementProperty::Section() const
 {
   return theSection;
 }
@@ -80,7 +80,7 @@ Handle(StepElement_SurfaceSectionField) StepElement_SurfaceElementProperty::Sect
 //=================================================================================================
 
 void StepElement_SurfaceElementProperty::SetSection(
-  const Handle(StepElement_SurfaceSectionField)& aSection)
+  const Handle(SurfaceSectionField)& aSection)
 {
   theSection = aSection;
 }

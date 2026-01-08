@@ -62,12 +62,12 @@ void RWStepFEA_RWCurveElementIntervalLinearlyVarying::ReadStep(
 
   // Own fields of CurveElementIntervalLinearlyVarying
 
-  Handle(StepElement_HArray1OfCurveElementSectionDefinition) aSections;
+  Handle(HArray1OfCurveSectionDef) aSections;
   Standard_Integer                                           sub3 = 0;
   if (data->ReadSubList(num, 3, "sections", ach, sub3))
   {
     Standard_Integer nb0  = data->NbParams(sub3);
-    aSections             = new StepElement_HArray1OfCurveElementSectionDefinition(1, nb0);
+    aSections             = new HArray1OfCurveSectionDef(1, nb0);
     Standard_Integer num2 = sub3;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

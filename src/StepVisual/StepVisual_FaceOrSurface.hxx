@@ -28,7 +28,7 @@ class StepShape_Face;
 class StepGeom_Surface;
 
 //! Representation of STEP SELECT type FaceOrSurface
-class StepVisual_FaceOrSurface : public StepData_SelectType
+class StepVisual_FaceOrSurface : public SelectType
 {
 
 public:

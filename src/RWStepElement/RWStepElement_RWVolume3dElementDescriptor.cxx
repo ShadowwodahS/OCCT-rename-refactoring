@@ -62,12 +62,12 @@ void RWStepElement_RWVolume3dElementDescriptor::ReadStep(
 
   // Own fields of Volume3dElementDescriptor
 
-  Handle(StepElement_HArray1OfVolumeElementPurposeMember) aPurpose;
+  Handle(HArray1OfVolumePurposeMember) aPurpose;
   Standard_Integer                                        sub3 = 0;
   if (data->ReadSubList(num, 3, "purpose", ach, sub3))
   {
     Standard_Integer nb0  = data->NbParams(sub3);
-    aPurpose              = new StepElement_HArray1OfVolumeElementPurposeMember(1, nb0);
+    aPurpose              = new HArray1OfVolumePurposeMember(1, nb0);
     Standard_Integer num2 = sub3;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

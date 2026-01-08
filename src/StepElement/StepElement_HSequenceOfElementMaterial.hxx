@@ -17,6 +17,6 @@
 #include <StepElement_SequenceOfElementMaterial.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(StepElement_HSequenceOfElementMaterial, StepElement_SequenceOfElementMaterial)
+DEFINE_HSEQUENCE(HSequenceOfElementMaterial, StepElement_SequenceOfElementMaterial)
 
 #endif

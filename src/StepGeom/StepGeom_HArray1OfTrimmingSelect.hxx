@@ -20,6 +20,6 @@
 #include <StepGeom_Array1OfTrimmingSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepGeom_HArray1OfTrimmingSelect, StepGeom_Array1OfTrimmingSelect)
+DEFINE_HARRAY1(HArray1OfTrimmingSelect, StepGeom_Array1OfTrimmingSelect)
 
 #endif

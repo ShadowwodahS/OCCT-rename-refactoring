@@ -23,11 +23,11 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 class TCollection_HAsciiString;
 
 //! Representation of STEP SELECT type SourceItem
-class StepBasic_SourceItem : public StepData_SelectType
+class StepBasic_SourceItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT Standard_Integer
     CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Returns Value as Identifier (or Null if another type)
   Standard_EXPORT Handle(TCollection_HAsciiString) Identifier() const;

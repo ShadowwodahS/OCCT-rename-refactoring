@@ -1026,14 +1026,14 @@ Standard_Boolean StepData_StepReaderData::ReadMember(const Standard_Integer     
                                                      const Standard_Integer         nump,
                                                      const Standard_CString         mess,
                                                      Handle(Interface_Check)&       ach,
-                                                     Handle(StepData_SelectMember)& val) const
+                                                     Handle(SelectMember)& val) const
 {
   Handle(RefObject) v = val;
   Handle(StepData_PDescr)    nuldescr;
   if (v.IsNull())
   {
     return ReadAny(num, nump, mess, ach, nuldescr, v)
-           && !(val = Handle(StepData_SelectMember)::DownCast(v)).IsNull();
+           && !(val = Handle(SelectMember)::DownCast(v)).IsNull();
   }
   Standard_Boolean res = ReadAny(num, nump, mess, ach, nuldescr, v);
   if (v == val)
@@ -1165,7 +1165,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
     case Interface_ParamInteger: {
       if (!val.IsNull())
       {
-        DeclareAndCast(StepData_SelectMember, sm, val);
+        DeclareAndCast(SelectMember, sm, val);
         sm->SetReal(Interface_FileReaderData::Fastof(str));
         return Standard_True;
       }
@@ -1177,7 +1177,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
     case Interface_ParamReal: {
       if (!val.IsNull())
       {
-        DeclareAndCast(StepData_SelectMember, sm, val);
+        DeclareAndCast(SelectMember, sm, val);
         sm->SetReal(Interface_FileReaderData::Fastof(str));
         return Standard_True;
       }
@@ -1195,9 +1195,9 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
     case Interface_ParamVoid:
       break;
     case Interface_ParamEnum: {
-      Handle(StepData_SelectMember) sm;
+      Handle(SelectMember) sm;
       if (!val.IsNull())
-        sm = GetCasted(StepData_SelectMember, val);
+        sm = GetCasted(SelectMember, val);
       Handle(StepData_SelectInt)   sin;
       Handle(StepData_SelectNamed) sna;
       Standard_Integer             logic = -1;
@@ -1256,7 +1256,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
       // PDN May 2000: for reading SOURCE_ITEM (external references)
       if (!val.IsNull())
       {
-        DeclareAndCast(StepData_SelectMember, sm, val);
+        DeclareAndCast(SelectMember, sm, val);
         sm->SetString(txt->ToCString());
         return Standard_True;
       }
@@ -1307,7 +1307,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
             }
           }
         }
-        DeclareAndCast(StepData_SelectMember, sm, val);
+        DeclareAndCast(SelectMember, sm, val);
         if (sm.IsNull())
         {
           sm  = new StepData_SelectNamed;
@@ -1504,7 +1504,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer   nu
                                                      const Standard_Integer   nump,
                                                      const Standard_CString   mess,
                                                      Handle(Interface_Check)& ach,
-                                                     StepData_SelectType&     sel) const
+                                                     SelectType&     sel) const
 {
   Handle(String)   errmess; // Null si pas d erreur
   Standard_Boolean warn = Standard_False;

@@ -293,8 +293,8 @@ Standard_Boolean STEPConstruct_ValidationProps::FindTarget(
 
           Handle(TCollection_HAsciiString)             SRName = new TCollection_HAsciiString("");
           Handle(StepShape_ShapeRepresentation)        SR     = new StepShape_ShapeRepresentation;
-          Handle(StepRepr_HArray1OfRepresentationItem) SRItems =
-            new StepRepr_HArray1OfRepresentationItem(1, 1);
+          Handle(HArray1OfReprItem) SRItems =
+            new HArray1OfReprItem(1, 1);
           SRItems->SetValue(1, item);
           SR->Init(SRName, SRItems, Context);
 
@@ -364,8 +364,8 @@ Standard_Boolean STEPConstruct_ValidationProps::AddProp(
 
   Handle(TCollection_HAsciiString)             SRName = new TCollection_HAsciiString(Descr);
   Handle(StepRepr_Representation)              rep    = new StepRepr_Representation;
-  Handle(StepRepr_HArray1OfRepresentationItem) SRItems =
-    new StepRepr_HArray1OfRepresentationItem(1, 1);
+  Handle(HArray1OfReprItem) SRItems =
+    new HArray1OfReprItem(1, 1);
   SRItems->SetValue(1, Prop);
   rep->Init(SRName, SRItems, Context);
 

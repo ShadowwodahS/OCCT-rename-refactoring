@@ -39,7 +39,7 @@ Standard_Integer StepElement_CurveElementFreedom::CaseNum(
 //=================================================================================================
 
 Standard_Integer StepElement_CurveElementFreedom::CaseMem(
-  const Handle(StepData_SelectMember)& ent) const
+  const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -53,7 +53,7 @@ Standard_Integer StepElement_CurveElementFreedom::CaseMem(
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepElement_CurveElementFreedom::NewMember() const
+Handle(SelectMember) StepElement_CurveElementFreedom::NewMember() const
 {
   return new StepElement_CurveElementFreedomMember;
 }

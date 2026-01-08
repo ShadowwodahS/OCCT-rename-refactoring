@@ -1412,8 +1412,8 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
     return resb;
   }
 
-  Handle(StepRepr_HArray1OfRepresentationItem) items =
-    new StepRepr_HArray1OfRepresentationItem(1, nCc1);
+  Handle(HArray1OfReprItem) items =
+    new HArray1OfReprItem(1, nCc1);
 
   for (Standard_Integer rep = 1; rep <= nCc1; rep++)
   {
@@ -1428,8 +1428,8 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
     Standard_Integer j = 1;
     if (items->Value(j)->IsKind(STANDARD_TYPE(StepGeom_Axis2Placement3d)))
     {
-      Handle(StepRepr_HArray1OfRepresentationItem) axis =
-        new StepRepr_HArray1OfRepresentationItem(1, 1);
+      Handle(HArray1OfReprItem) axis =
+        new HArray1OfReprItem(1, 1);
       axis->SetValue(1, items->Value(j++));
       shapeRep->SetItems(axis);
     }
@@ -1450,8 +1450,8 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
       else
         ShapeRepr1 = new StepShape_ShapeRepresentation;
 
-      Handle(StepRepr_HArray1OfRepresentationItem) repr1 =
-        new StepRepr_HArray1OfRepresentationItem(1, 2);
+      Handle(HArray1OfReprItem) repr1 =
+        new HArray1OfReprItem(1, 2);
       repr1->SetValue(1, myContext.GetDefaultAxis());
       repr1->SetValue(2, items->Value(j));
       ShapeRepr1->SetItems(repr1);
@@ -1483,8 +1483,8 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
     }
     if (nC > 0)
     {
-      Handle(StepRepr_HArray1OfRepresentationItem) itemsTess =
-        new StepRepr_HArray1OfRepresentationItem(1, nC);
+      Handle(HArray1OfReprItem) itemsTess =
+        new HArray1OfReprItem(1, nC);
       Standard_Integer i = 1;
       for (Standard_Integer j = 1; j <= items->Length(); j++)
       {
@@ -1508,9 +1508,9 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
     else
     {
       // Add new representation item to the NMSSR's existing collection (ssv; 13.11.2010)
-      Handle(StepRepr_HArray1OfRepresentationItem) oldItems = shapeRep->Items();
-      Handle(StepRepr_HArray1OfRepresentationItem) newItems =
-        new StepRepr_HArray1OfRepresentationItem(1, oldItems->Length() + 1);
+      Handle(HArray1OfReprItem) oldItems = shapeRep->Items();
+      Handle(HArray1OfReprItem) newItems =
+        new HArray1OfReprItem(1, oldItems->Length() + 1);
       Standard_Integer el = 1;
       for (Standard_Integer i = 1; i <= oldItems->Length(); i++)
         newItems->SetValue(el++, oldItems->Value(i));
@@ -1685,8 +1685,8 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferCompound(
   myContext.PrevLevel();
 
   Standard_Integer                             nsub = ItemSeq->Length();
-  Handle(StepRepr_HArray1OfRepresentationItem) items =
-    new StepRepr_HArray1OfRepresentationItem(1, nsub);
+  Handle(HArray1OfReprItem) items =
+    new HArray1OfReprItem(1, nsub);
 
   // initialize representation
   for (Standard_Integer rep = 1; rep <= nsub; rep++)

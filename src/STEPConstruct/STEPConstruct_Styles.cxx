@@ -360,8 +360,8 @@ Standard_Boolean STEPConstruct_Styles::CreateMDGPR(
     return Standard_False;
 
   // create MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION
-  Handle(StepRepr_HArray1OfRepresentationItem) elems =
-    new StepRepr_HArray1OfRepresentationItem(1, myStyles.Extent());
+  Handle(HArray1OfReprItem) elems =
+    new HArray1OfReprItem(1, myStyles.Extent());
   for (Standard_Integer i = 1; i <= myStyles.Extent(); i++)
     elems->SetValue(i, Handle(StepRepr_RepresentationItem)::DownCast(myStyles.FindKey(i)));
   // create new MDGPR
@@ -396,8 +396,8 @@ Standard_Boolean STEPConstruct_Styles::CreateNAUOSRD(
   Handle(StepShape_ShapeRepresentation) aSR      = new StepShape_ShapeRepresentation;
   Handle(TCollection_HAsciiString)      ReprName = new TCollection_HAsciiString("");
   // element for axis 2 placement
-  Handle(StepRepr_HArray1OfRepresentationItem) elems =
-    new StepRepr_HArray1OfRepresentationItem(1, 1);
+  Handle(HArray1OfReprItem) elems =
+    new HArray1OfReprItem(1, 1);
   // get PDS
   Handle(StepRepr_ProductDefinitionShape) aPDS;
   if (initPDS.IsNull())

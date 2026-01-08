@@ -25,9 +25,9 @@
 
 class RefObject;
 class StepDimTol_Datum;
-class StepDimTol_HArray1OfDatumReferenceElement;
+class HArray1OfDatumRefElement;
 
-class StepDimTol_DatumOrCommonDatum : public StepData_SelectType
+class StepDimTol_DatumOrCommonDatum : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,6 +45,6 @@ public:
   Standard_EXPORT Handle(StepDimTol_Datum) Datum() const;
 
   //! returns Value as a CommonDatumList  (Null if another type)
-  Standard_EXPORT Handle(StepDimTol_HArray1OfDatumReferenceElement) CommonDatumList() const;
+  Standard_EXPORT Handle(HArray1OfDatumRefElement) CommonDatumList() const;
 };
 #endif // _StepDimTol_DatumOrCommonDatum_HeaderFile

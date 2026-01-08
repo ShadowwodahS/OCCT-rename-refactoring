@@ -32,7 +32,7 @@ class StepRepr_ShapeAspectRelationship;
 class StepBasic_DocumentFile;
 
 //! Representation of STEP SELECT type CharacterizedDefinition
-class StepRepr_CharacterizedDefinition : public StepData_SelectType
+class StepRepr_CharacterizedDefinition : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

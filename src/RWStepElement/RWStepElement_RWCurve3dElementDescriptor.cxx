@@ -64,17 +64,17 @@ void RWStepElement_RWCurve3dElementDescriptor::ReadStep(
 
   // Own fields of Curve3dElementDescriptor
 
-  Handle(StepElement_HArray1OfHSequenceOfCurveElementPurposeMember) aPurpose;
+  Handle(HArray1OfCurvePurposeSeq) aPurpose;
   Standard_Integer                                                  sub3 = 0;
   if (data->ReadSubList(num, 3, "purpose", ach, sub3))
   {
     Standard_Integer nb0 = data->NbParams(sub3);
     // Standard_Integer nbj0 = data->NbParams(data->ParamNumber(sub3,1));
-    aPurpose = new StepElement_HArray1OfHSequenceOfCurveElementPurposeMember(1, nb0);
+    aPurpose = new HArray1OfCurvePurposeSeq(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
-      Handle(StepElement_HSequenceOfCurveElementPurposeMember) HSCEPM =
-        new StepElement_HSequenceOfCurveElementPurposeMember;
+      Handle(HSequenceOfCurvePurposeMember) HSCEPM =
+        new HSequenceOfCurvePurposeMember;
       Standard_Integer subj3 = 0;
       if (data->ReadSubList(sub3, i0, "sub-part(purpose)", ach, subj3))
       {
@@ -128,7 +128,7 @@ void RWStepElement_RWCurve3dElementDescriptor::WriteStep(
   {
     SW.NewLine(Standard_False);
     SW.OpenSub();
-    Handle(StepElement_HSequenceOfCurveElementPurposeMember) HSCEPM = ent->Purpose()->Value(i2);
+    Handle(HSequenceOfCurvePurposeMember) HSCEPM = ent->Purpose()->Value(i2);
     for (Standard_Integer j2 = 1; j2 <= HSCEPM->Length(); j2++)
     {
       Handle(StepElement_CurveElementPurposeMember) Var0 = HSCEPM->Value(j2);
@@ -151,7 +151,7 @@ void RWStepElement_RWCurve3dElementDescriptor::Share(
   // Own fields of Curve3dElementDescriptor
   /* CKY  17JUN04. Content is made of strings and enums. No entity !
     for (Standard_Integer i1=1; i1 <= ent->Purpose()->Length(); i1++ ) {
-      Handle(StepElement_HSequenceOfCurveElementPurposeMember) HSCEPM = ent->Purpose()->Value(i1);
+      Handle(HSequenceOfCurvePurposeMember) HSCEPM = ent->Purpose()->Value(i1);
       for (Standard_Integer i2=1; i2 <= HSCEPM->Length(); i2++ ) {
         Handle(StepElement_CurveElementPurposeMember) Var1 = HSCEPM->Value(i2);
         iter.AddItem (Var1);

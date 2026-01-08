@@ -50,12 +50,12 @@ void RWStepDimTol_RWGeoTolAndGeoTolWthMod::ReadStep(
 
   data->NamedForComplex("GEOMETRIC_TOLERANCE_WITH_MODIFIERS", num0, num, ach);
   // Own fields of ModifiedGeometricTolerance
-  Handle(StepDimTol_HArray1OfGeometricToleranceModifier) aModifiers;
+  Handle(HArray1OfGeoTolModifier) aModifiers;
   Standard_Integer                                       sub = 0;
   if (data->ReadSubList(num, 1, "modifiers", ach, sub))
   {
     Standard_Integer nb0  = data->NbParams(sub);
-    aModifiers            = new StepDimTol_HArray1OfGeometricToleranceModifier(1, nb0);
+    aModifiers            = new HArray1OfGeoTolModifier(1, nb0);
     Standard_Integer num2 = sub;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

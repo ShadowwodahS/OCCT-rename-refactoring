@@ -31,7 +31,7 @@ class StepRepr_RepresentationRelationship;
 class StepRepr_ShapeAspect;
 class StepBasic_DocumentRelationship;
 
-class StepAP214_AutoDesignPresentedItemSelect : public StepData_SelectType
+class StepAP214_AutoDesignPresentedItemSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

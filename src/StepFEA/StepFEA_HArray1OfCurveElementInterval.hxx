@@ -18,6 +18,6 @@
 #include <StepFEA_Array1OfCurveElementInterval.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepFEA_HArray1OfCurveElementInterval, StepFEA_Array1OfCurveElementInterval)
+DEFINE_HARRAY1(HArray1OfCurveInterval, StepFEA_Array1OfCurveElementInterval)
 
 #endif

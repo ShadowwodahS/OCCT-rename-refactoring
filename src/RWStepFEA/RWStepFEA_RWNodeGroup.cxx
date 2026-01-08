@@ -59,12 +59,12 @@ void RWStepFEA_RWNodeGroup::ReadStep(const Handle(StepData_StepReaderData)& data
 
   // Own fields of NodeGroup
 
-  Handle(StepFEA_HArray1OfNodeRepresentation) aNodes;
+  Handle(HArray1OfNodeRepr) aNodes;
   Standard_Integer                            sub4 = 0;
   if (data->ReadSubList(num, 4, "nodes", ach, sub4))
   {
     Standard_Integer nb0  = data->NbParams(sub4);
-    aNodes                = new StepFEA_HArray1OfNodeRepresentation(1, nb0);
+    aNodes                = new HArray1OfNodeRepr(1, nb0);
     Standard_Integer num2 = sub4;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepRepr_Representation, RefObject)
 StepRepr_Representation::StepRepr_Representation() {}
 
 void StepRepr_Representation::Init(const Handle(TCollection_HAsciiString)&             aName,
-                                   const Handle(StepRepr_HArray1OfRepresentationItem)& aItems,
+                                   const Handle(HArray1OfReprItem)& aItems,
                                    const Handle(StepRepr_RepresentationContext)& aContextOfItems)
 {
   // --- classe own fields ---
@@ -40,12 +40,12 @@ Handle(TCollection_HAsciiString) StepRepr_Representation::Name() const
   return name;
 }
 
-void StepRepr_Representation::SetItems(const Handle(StepRepr_HArray1OfRepresentationItem)& aItems)
+void StepRepr_Representation::SetItems(const Handle(HArray1OfReprItem)& aItems)
 {
   items = aItems;
 }
 
-Handle(StepRepr_HArray1OfRepresentationItem) StepRepr_Representation::Items() const
+Handle(HArray1OfReprItem) StepRepr_Representation::Items() const
 {
   return items;
 }

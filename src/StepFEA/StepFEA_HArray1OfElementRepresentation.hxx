@@ -18,6 +18,6 @@
 #include <StepFEA_Array1OfElementRepresentation.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepFEA_HArray1OfElementRepresentation, StepFEA_Array1OfElementRepresentation)
+DEFINE_HARRAY1(HArray1OfElementRepr, StepFEA_Array1OfElementRepresentation)
 
 #endif

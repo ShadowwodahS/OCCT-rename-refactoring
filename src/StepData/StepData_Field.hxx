@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <StepData_Logical.hxx>
 #include <Standard_CString.hxx>
-class StepData_SelectMember;
+class SelectMember;
 
 //! Defines a generally defined Field for STEP data : can be used
 //! either in any kind of entity to implement it or in free format
@@ -96,7 +96,7 @@ public:
 
   //! Sets a SelectMember (for Integer1,Boolean,Enum,Real,Logical)
   //! Hence, the value of the field is accessed through this member
-  Standard_EXPORT void SetSelectMember(const Handle(StepData_SelectMember)& val);
+  Standard_EXPORT void SetSelectMember(const Handle(SelectMember)& val);
 
   //! Sets an Entity Value
   Standard_EXPORT void SetEntity(const Handle(RefObject)& val);

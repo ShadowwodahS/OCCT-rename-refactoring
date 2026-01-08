@@ -34,7 +34,7 @@ Standard_Integer StepElement_ElementAspect::CaseNum(const Handle(RefObject)& /*e
 
 //=================================================================================================
 
-Standard_Integer StepElement_ElementAspect::CaseMem(const Handle(StepData_SelectMember)& ent) const
+Standard_Integer StepElement_ElementAspect::CaseMem(const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -64,7 +64,7 @@ Standard_Integer StepElement_ElementAspect::CaseMem(const Handle(StepData_Select
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepElement_ElementAspect::NewMember() const
+Handle(SelectMember) StepElement_ElementAspect::NewMember() const
 {
   return new StepElement_ElementAspectMember;
 }

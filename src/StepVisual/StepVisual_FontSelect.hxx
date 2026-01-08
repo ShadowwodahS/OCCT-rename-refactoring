@@ -27,7 +27,7 @@ class RefObject;
 class StepVisual_PreDefinedTextFont;
 class StepVisual_ExternallyDefinedTextFont;
 
-class StepVisual_FontSelect : public StepData_SelectType
+class StepVisual_FontSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -27,7 +27,7 @@ class StepShape_DimensionalLocation;
 class StepShape_DimensionalSize;
 
 //! Representation of STEP SELECT type DimensionalCharacteristic
-class StepShape_DimensionalCharacteristic : public StepData_SelectType
+class StepShape_DimensionalCharacteristic : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -24,9 +24,9 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 
-class StepBasic_SizeSelect : public StepData_SelectType
+class StepBasic_SizeSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,12 +41,12 @@ public:
     CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns a SizeMember (POSITIVE_LENGTH_MEASURE) as preferred
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Recognizes a SelectMember as Real, named as PARAMETER_VALUE
   //! 1 -> PositiveLengthMeasure i.e. Real
   //! 0 else (i.e. Entity)
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& ent) const
     Standard_OVERRIDE;
 
   Standard_EXPORT void SetRealValue(const Standard_Real aReal);

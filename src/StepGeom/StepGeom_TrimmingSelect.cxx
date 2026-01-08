@@ -29,12 +29,12 @@ Standard_Integer StepGeom_TrimmingSelect::CaseNum(const Handle(RefObject)& ent) 
   return 0;
 }
 
-Handle(StepData_SelectMember) StepGeom_TrimmingSelect::NewMember() const
+Handle(SelectMember) StepGeom_TrimmingSelect::NewMember() const
 {
   return new StepGeom_TrimmingMember;
 }
 
-Standard_Integer StepGeom_TrimmingSelect::CaseMem(const Handle(StepData_SelectMember)& ent) const
+Standard_Integer StepGeom_TrimmingSelect::CaseMem(const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;

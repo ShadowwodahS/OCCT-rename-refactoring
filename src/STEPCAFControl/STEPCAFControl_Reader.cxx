@@ -2764,7 +2764,7 @@ static Standard_Boolean ReadDatums(
 {
   if (GTWDR.IsNull())
     return Standard_False;
-  Handle(StepDimTol_HArray1OfDatumSystemOrReference) aHADSOR = GTWDR->DatumSystemAP242();
+  Handle(HArray1OfDatumSystemOrRef) aHADSOR = GTWDR->DatumSystemAP242();
   if (aHADSOR.IsNull())
   {
     return Standard_False;
@@ -3309,14 +3309,14 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(RefObject)&
       if (aDS->NbConstituents() > 0)
       {
         // get datum feature and datum target from datum system
-        Handle(StepDimTol_HArray1OfDatumReferenceCompartment) aDRCA = aDS->Constituents();
+        Handle(HArray1OfDatumRefCompartment) aDRCA = aDS->Constituents();
         if (!aDRCA.IsNull())
         {
           for (Standard_Integer i = aDRCA->Lower(); i <= aDRCA->Upper(); i++)
           {
             Handle(StepDimTol_DatumReferenceCompartment) aDRC = aDRCA->Value(i);
             // gete modifiers
-            Handle(StepDimTol_HArray1OfDatumReferenceModifier) aModif = aDRC->Modifiers();
+            Handle(HArray1OfDatumRefModifier) aModif = aDRC->Modifiers();
             XCAFDimTolObjects_DatumModifiersSequence           aXCAFModifiers;
             XCAFDimTolObjects_DatumModifWithValue              aXCAFModifWithVal =
               XCAFDimTolObjects_DatumModifWithValue_None;
@@ -3378,7 +3378,7 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(RefObject)&
                 Handle(StepDimTol_DatumReferenceElement) aDRE =
                   Handle(StepDimTol_DatumReferenceElement)::DownCast(anIterDRC.Value());
                 // get modifiers from group of datums
-                Handle(StepDimTol_HArray1OfDatumReferenceModifier) aModifE = aDRE->Modifiers();
+                Handle(HArray1OfDatumRefModifier) aModifE = aDRE->Modifiers();
                 if (!aModifE.IsNull())
                 {
                   for (Standard_Integer k = aModifE->Lower(); k <= aModifE->Upper(); k++)
@@ -3618,12 +3618,12 @@ DataLabel STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(RefObject)& 
                     //   Handle(StepRepr_CompoundItemDefinitionMember)::DownCast(CID.Value());
                     // if(CIDM.IsNull()) continue;
                     // if(CIDM->ArrTransient().IsNull()) continue;
-                    // Handle(StepRepr_HArray1OfRepresentationItem) HARI;
+                    // Handle(HArray1OfReprItem) HARI;
                     // if(CID.CaseMem(CIDM)==1)
                     //   HARI = CID.ListRepresentationItem();
                     // if(CID.CaseMem(CIDM)==2)
                     //   HARI = CID.SetRepresentationItem();
-                    Handle(StepRepr_HArray1OfRepresentationItem) HARI = VR->ItemElement();
+                    Handle(HArray1OfReprItem) HARI = VR->ItemElement();
                     if (HARI.IsNull())
                       continue;
                     if (HARI->Length() > 0)
@@ -4034,7 +4034,7 @@ static void setDimObjectToXCAF(const Handle(RefObject)&    theEnt,
       Handle(StepShape_ShapeDimensionRepresentation) aSDR = aDCR->Representation();
       if (!aSDR.IsNull())
       {
-        Handle(StepRepr_HArray1OfRepresentationItem) aHARI = aSDR->Items();
+        Handle(HArray1OfReprItem) aHARI = aSDR->Items();
 
         if (!aHARI.IsNull())
         {
@@ -4648,7 +4648,7 @@ static void setGeomTolObjectToXCAF(const Handle(RefObject)&    theEnt,
       aTolObj->SetTypeOfValue(aTypeV);
     }
   }
-  Handle(StepDimTol_HArray1OfGeometricToleranceModifier) aModifiers;
+  Handle(HArray1OfGeoTolModifier) aModifiers;
   if (aTolEnt->IsKind(STANDARD_TYPE(StepDimTol_GeometricToleranceWithModifiers)))
   {
     aModifiers = Handle(StepDimTol_GeometricToleranceWithModifiers)::DownCast(aTolEnt)->Modifiers();
@@ -5440,7 +5440,7 @@ void collectRepresentationItems(const Interface_Graph&                       the
                                 const Handle(StepShape_ShapeRepresentation)& theRepresentation,
                                 NCollection_Sequence<Handle(StepRepr_RepresentationItem)>& theItems)
 {
-  for (StepRepr_HArray1OfRepresentationItem::Iterator anIter(theRepresentation->Items()->Array1());
+  for (HArray1OfReprItem::Iterator anIter(theRepresentation->Items()->Array1());
        anIter.More();
        anIter.Next())
   {
@@ -6241,7 +6241,7 @@ Standard_Boolean STEPCAFControl_Reader::findReprItems(
 
   Handle(Transfer_Binder)                      aBinder;
   const Handle(Transfer_TransientProcess)&     aTP = theWS->TransferReader()->TransientProcess();
-  Handle(StepRepr_HArray1OfRepresentationItem) aReprItems = aRepr->Items();
+  Handle(HArray1OfReprItem) aReprItems = aRepr->Items();
   if (!aReprItems->IsEmpty())
   {
     for (Standard_Integer anInd = aReprItems->Lower(); anInd <= aReprItems->Upper(); anInd++)
@@ -6286,7 +6286,7 @@ Standard_Boolean STEPCAFControl_Reader::fillAttributes(
     if (aUsedRepr.IsNull())
       continue;
 
-    Handle(StepRepr_HArray1OfRepresentationItem) aReprItems = aUsedRepr->Items();
+    Handle(HArray1OfReprItem) aReprItems = aUsedRepr->Items();
     if (aReprItems.IsNull())
       continue;
 

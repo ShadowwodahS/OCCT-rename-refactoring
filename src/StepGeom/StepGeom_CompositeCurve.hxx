@@ -38,13 +38,13 @@ public:
   Standard_EXPORT StepGeom_CompositeCurve();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&                aName,
-                            const Handle(StepGeom_HArray1OfCompositeCurveSegment)& aSegments,
+                            const Handle(HArray1OfCompositeSegment)& aSegments,
                             const StepData_Logical                                 aSelfIntersect);
 
   Standard_EXPORT void SetSegments(
-    const Handle(StepGeom_HArray1OfCompositeCurveSegment)& aSegments);
+    const Handle(HArray1OfCompositeSegment)& aSegments);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfCompositeCurveSegment) Segments() const;
+  Standard_EXPORT Handle(HArray1OfCompositeSegment) Segments() const;
 
   Standard_EXPORT Handle(StepGeom_CompositeCurveSegment) SegmentsValue(
     const Standard_Integer num) const;
@@ -59,7 +59,7 @@ public:
 
 protected:
 private:
-  Handle(StepGeom_HArray1OfCompositeCurveSegment) segments;
+  Handle(HArray1OfCompositeSegment) segments;
   StepData_Logical                                selfIntersect;
 };
 

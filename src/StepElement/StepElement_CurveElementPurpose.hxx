@@ -24,11 +24,11 @@
 #include <Standard_Integer.hxx>
 #include <StepElement_EnumeratedCurveElementPurpose.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 class TCollection_HAsciiString;
 
 //! Representation of STEP SELECT type CurveElementPurpose
-class StepElement_CurveElementPurpose : public StepData_SelectType
+class StepElement_CurveElementPurpose : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,11 +45,11 @@ public:
   //! 1 -> EnumeratedCurveElementPurpose
   //! 2 -> ApplicationDefinedElementPurpose
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& ent) const
     Standard_OVERRIDE;
 
   //! Returns a new select member the type CurveElementPurposeMember
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Set Value for EnumeratedCurveElementPurpose
   Standard_EXPORT void SetEnumeratedCurveElementPurpose(

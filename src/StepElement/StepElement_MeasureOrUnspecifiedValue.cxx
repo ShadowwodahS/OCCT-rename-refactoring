@@ -39,7 +39,7 @@ Standard_Integer StepElement_MeasureOrUnspecifiedValue::CaseNum(
 //=================================================================================================
 
 Standard_Integer StepElement_MeasureOrUnspecifiedValue::CaseMem(
-  const Handle(StepData_SelectMember)& ent) const
+  const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -53,7 +53,7 @@ Standard_Integer StepElement_MeasureOrUnspecifiedValue::CaseMem(
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepElement_MeasureOrUnspecifiedValue::NewMember() const
+Handle(SelectMember) StepElement_MeasureOrUnspecifiedValue::NewMember() const
 {
   return new StepElement_MeasureOrUnspecifiedValueMember;
 }

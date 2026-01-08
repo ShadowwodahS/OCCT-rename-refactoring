@@ -27,7 +27,7 @@ class RefObject;
 class StepRepr_ItemDefinedTransformation;
 class StepRepr_FunctionallyDefinedTransformation;
 
-class StepRepr_Transformation : public StepData_SelectType
+class StepRepr_Transformation : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

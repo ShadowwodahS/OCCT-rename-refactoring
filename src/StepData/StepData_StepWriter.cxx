@@ -544,7 +544,7 @@ void StepData_StepWriter::SendField(const StepData_Field&          fild,
 
   if (kind == 16)
   {
-    DeclareAndCast(StepData_SelectMember, sm, fild.Transient());
+    DeclareAndCast(SelectMember, sm, fild.Transient());
     SendSelect(sm, descr);
     return;
   }
@@ -691,7 +691,7 @@ void StepData_StepWriter::SendField(const StepData_Field&          fild,
 
 //=================================================================================================
 
-void StepData_StepWriter::SendSelect(const Handle(StepData_SelectMember)& sm,
+void StepData_StepWriter::SendSelect(const Handle(SelectMember)& sm,
                                      const Handle(StepData_PDescr)& /*descr*/)
 {
   //    Cas du SelectMember. Traiter le Select puis la valeur
@@ -974,9 +974,9 @@ void StepData_StepWriter::Send(const Handle(RefObject)& val)
     }
     //  SelectMember ? (toujours, si non repertoriee)
     //  mais attention, pas de description attachee
-    else if (val->IsKind(STANDARD_TYPE(StepData_SelectMember)))
+    else if (val->IsKind(STANDARD_TYPE(SelectMember)))
     {
-      DeclareAndCast(StepData_SelectMember, sm, val);
+      DeclareAndCast(SelectMember, sm, val);
       Handle(StepData_PDescr) descr; // null
       SendSelect(sm, descr);
     }

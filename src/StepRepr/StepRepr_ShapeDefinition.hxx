@@ -28,7 +28,7 @@ class StepRepr_ProductDefinitionShape;
 class StepRepr_ShapeAspect;
 class StepRepr_ShapeAspectRelationship;
 
-class StepRepr_ShapeDefinition : public StepData_SelectType
+class StepRepr_ShapeDefinition : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

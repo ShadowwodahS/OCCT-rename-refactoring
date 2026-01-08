@@ -32,7 +32,7 @@ void StepDimTol_GeneralDatumReference::Init(
   const StepData_Logical                                    theProductDefinitional,
   const StepDimTol_DatumOrCommonDatum&                      theBase,
   const Standard_Boolean                                    theHasModifiers,
-  const Handle(StepDimTol_HArray1OfDatumReferenceModifier)& theModifiers)
+  const Handle(HArray1OfDatumRefModifier)& theModifiers)
 {
   StepRepr_ShapeAspect::Init(theName, theDescription, theOfShape, theProductDefinitional);
   myBase = theBase;

@@ -27,7 +27,7 @@ class RefObject;
 class StepBasic_ProductDefinitionFormation;
 
 //! Representation of STEP SELECT type ContractedItem
-class StepAP203_ContractedItem : public StepData_SelectType
+class StepAP203_ContractedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

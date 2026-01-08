@@ -17,6 +17,6 @@
 #include <StepFEA_Array1OfCurveElementEndRelease.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepFEA_HArray1OfCurveElementEndRelease, StepFEA_Array1OfCurveElementEndRelease)
+DEFINE_HARRAY1(HArray1OfCurveEndRelease2, StepFEA_Array1OfCurveElementEndRelease)
 
 #endif

@@ -18,7 +18,7 @@ Handle(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve) BSWK;
 Standard_Integer                                              Deg, N, i, Nknots, itampon;
 Standard_Real                                                 rtampon;
 Handle(StepGeom_CartesianPoint)                               Pt = new StepGeom_CartesianPoint;
-Handle(StepGeom_HArray1OfCartesianPoint)                      Listpoints;
+Handle(HArray1OfCartesianPoint)                      Listpoints;
 StepGeom_BSplineCurveForm                                     Form;
 StepData_Logical                                              Fermeture, Selfinter;
 Handle(TColStd_HArray1OfInteger)                              Mult;
@@ -31,7 +31,7 @@ Deg = BS->Degree();
 N = BS->NbPoles();
 Array1OfPnt_gen P(1, N);
 BS->Poles(P);
-Listpoints = new StepGeom_HArray1OfCartesianPoint(1, N);
+Listpoints = new HArray1OfCartesianPoint(1, N);
 for (i = P.Lower(); i <= P.Upper(); i++)
 {
   GeomToStep_MakeCartesianPoint MkPoint(P.Value(i), theLocalFactors.LengthFactor());

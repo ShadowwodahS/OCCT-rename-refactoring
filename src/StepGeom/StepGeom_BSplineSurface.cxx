@@ -23,7 +23,7 @@ void StepGeom_BSplineSurface::Init(
   const Handle(TCollection_HAsciiString)&         aName,
   const Standard_Integer                          aUDegree,
   const Standard_Integer                          aVDegree,
-  const Handle(StepGeom_HArray2OfCartesianPoint)& aControlPointsList,
+  const Handle(HArray2OfCartesianPoint)& aControlPointsList,
   const StepGeom_BSplineSurfaceForm               aSurfaceForm,
   const StepData_Logical                          aUClosed,
   const StepData_Logical                          aVClosed,
@@ -62,12 +62,12 @@ Standard_Integer StepGeom_BSplineSurface::VDegree() const
 }
 
 void StepGeom_BSplineSurface::SetControlPointsList(
-  const Handle(StepGeom_HArray2OfCartesianPoint)& aControlPointsList)
+  const Handle(HArray2OfCartesianPoint)& aControlPointsList)
 {
   controlPointsList = aControlPointsList;
 }
 
-Handle(StepGeom_HArray2OfCartesianPoint) StepGeom_BSplineSurface::ControlPointsList() const
+Handle(HArray2OfCartesianPoint) StepGeom_BSplineSurface::ControlPointsList() const
 {
   return controlPointsList;
 }

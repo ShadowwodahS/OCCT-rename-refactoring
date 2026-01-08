@@ -363,7 +363,7 @@ protected:
   void writeGeomTolerance(const Handle(ExchangeSession)&                      theWS,
                           const TDF_LabelSequence&                                  theShapeSeqL,
                           const DataLabel&                                          theGeomTolL,
-                          const Handle(StepDimTol_HArray1OfDatumSystemOrReference)& theDatumSystem,
+                          const Handle(HArray1OfDatumSystemOrRef)& theDatumSystem,
                           const Handle(StepRepr_RepresentationContext)&             theRC,
                           const ConversionFactors& theLocalFactors = ConversionFactors());
 

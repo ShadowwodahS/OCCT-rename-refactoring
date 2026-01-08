@@ -21,6 +21,6 @@
 #include <StepGeom_Array1OfCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepGeom_HArray1OfCurve, StepGeom_Array1OfCurve)
+DEFINE_HARRAY1(HArray1OfCurve1, StepGeom_Array1OfCurve)
 
 #endif

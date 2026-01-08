@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepData_SelectInt.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectInt, StepData_SelectMember)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectInt, SelectMember)
 
 StepData_SelectInt::StepData_SelectInt()
 {

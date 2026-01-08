@@ -20,6 +20,6 @@
 #include <StepRepr_Array1OfRepresentationItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepRepr_HArray1OfRepresentationItem, StepRepr_Array1OfRepresentationItem)
+DEFINE_HARRAY1(HArray1OfReprItem, StepRepr_Array1OfRepresentationItem)
 
 #endif

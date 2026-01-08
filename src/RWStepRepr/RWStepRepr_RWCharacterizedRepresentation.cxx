@@ -47,13 +47,13 @@ void RWStepRepr_RWCharacterizedRepresentation::ReadStep(
   data->ReadString(num, 2, "description", ach, aDescription);
 
   // items
-  Handle(StepRepr_HArray1OfRepresentationItem) anItems;
+  Handle(HArray1OfReprItem) anItems;
   Handle(StepRepr_RepresentationItem)          anItem;
   Standard_Integer                             nsub;
   if (data->ReadSubList(num, 3, "items", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    anItems             = new StepRepr_HArray1OfRepresentationItem(1, nb);
+    anItems             = new HArray1OfReprItem(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (data->ReadEntity(nsub,

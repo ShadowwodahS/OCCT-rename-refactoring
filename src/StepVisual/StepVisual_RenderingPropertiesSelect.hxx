@@ -28,7 +28,7 @@ class StepVisual_SurfaceStyleReflectanceAmbient;
 class StepVisual_SurfaceStyleTransparent;
 
 //! Representation of STEP SELECT type RenderingPropertiesSelect
-class StepVisual_RenderingPropertiesSelect : public StepData_SelectType
+class StepVisual_RenderingPropertiesSelect : public SelectType
 {
 
 public:

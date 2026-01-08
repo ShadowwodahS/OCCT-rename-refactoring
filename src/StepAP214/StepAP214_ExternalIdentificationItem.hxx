@@ -40,7 +40,7 @@ class StepBasic_DateAndTimeAssignment;
 class StepBasic_DateAssignment;
 
 //! Representation of STEP SELECT type ExternalIdentificationItem
-class StepAP214_ExternalIdentificationItem : public StepData_SelectType
+class StepAP214_ExternalIdentificationItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

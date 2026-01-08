@@ -28,7 +28,7 @@ class StepVisual_AnnotationFillAreaOccurrence;
 class StepVisual_AnnotationTextOccurrence;
 class StepVisual_TessellatedAnnotationOccurrence;
 
-class StepVisual_DraughtingCalloutElement : public StepData_SelectType
+class StepVisual_DraughtingCalloutElement : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

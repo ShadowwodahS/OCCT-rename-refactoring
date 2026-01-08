@@ -60,12 +60,12 @@ void RWStepFEA_RWElementGroup::ReadStep(const Handle(StepData_StepReaderData)& d
 
   // Own fields of ElementGroup
 
-  Handle(StepFEA_HArray1OfElementRepresentation) aElements;
+  Handle(HArray1OfElementRepr) aElements;
   Standard_Integer                               sub4 = 0;
   if (data->ReadSubList(num, 4, "elements", ach, sub4))
   {
     Standard_Integer nb0  = data->NbParams(sub4);
-    aElements             = new StepFEA_HArray1OfElementRepresentation(1, nb0);
+    aElements             = new HArray1OfElementRepr(1, nb0);
     Standard_Integer num2 = sub4;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

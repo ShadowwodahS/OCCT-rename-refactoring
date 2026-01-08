@@ -27,7 +27,7 @@ class RefObject;
 class StepGeom_Pcurve;
 class StepGeom_Surface;
 
-class StepGeom_PcurveOrSurface : public StepData_SelectType
+class StepGeom_PcurveOrSurface : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

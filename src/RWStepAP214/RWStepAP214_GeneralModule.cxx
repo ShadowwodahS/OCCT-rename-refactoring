@@ -3765,7 +3765,7 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer           
     }
     break;
     case 513: {
-      DeclareAndCast(StepElement_SurfaceSectionField, anent, ent);
+      DeclareAndCast(SurfaceSectionField, anent, ent);
       RWStepElement_RWSurfaceSectionField tool;
       tool.Share(anent, iter);
     }
@@ -6785,7 +6785,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepElement_SurfaceSection;
       break;
     case 513:
-      ent = new StepElement_SurfaceSectionField;
+      ent = new SurfaceSectionField;
       break;
     case 514:
       ent = new StepElement_SurfaceSectionFieldConstant;

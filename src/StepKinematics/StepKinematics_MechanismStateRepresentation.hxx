@@ -33,7 +33,7 @@ public:
   Standard_EXPORT StepKinematics_MechanismStateRepresentation();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&               theName,
-                            const Handle(StepRepr_HArray1OfRepresentationItem)&   theItems,
+                            const Handle(HArray1OfReprItem)&   theItems,
                             const Handle(StepRepr_RepresentationContext)&         theContextOfItems,
                             const Handle(StepKinematics_MechanismRepresentation)& theMechanism);
 

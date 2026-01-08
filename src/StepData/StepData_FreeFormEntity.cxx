@@ -139,7 +139,7 @@ void StepData_FreeFormEntity::SetNbFields(const Standard_Integer nb)
   if (nb <= 0)
     thefields.Nullify();
   else
-    thefields = new StepData_HArray1OfField(1, nb);
+    thefields = new HArray1OfField(1, nb);
 }
 
 Standard_Integer StepData_FreeFormEntity::NbFields() const

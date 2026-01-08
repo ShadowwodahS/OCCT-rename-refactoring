@@ -809,7 +809,7 @@ Handle(TBSplineCurve) MakeBSplineCurveCommon(
     aUniqueKnotMultiplicities.SetValue(i, aCurrentVal);
   }
 
-  const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList =
+  const Handle(HArray1OfCartesianPoint)& aControlPointsList =
     aBSplineCurveWithKnots->ControlPointsList();
   Standard_Integer aSummaryMuultypisityDifference =
     aFirstMuultypisityDifference + aLastMuultypisityDifference;
@@ -953,7 +953,7 @@ Handle(Geom_BSplineSurface) StepToGeom1::MakeBSplineSurface(
   const Standard_Integer                          VDeg               = BS->VDegree();
   const Standard_Integer                          NUPoles            = BS->NbControlPointsListI();
   const Standard_Integer                          NVPoles            = BS->NbControlPointsListJ();
-  const Handle(StepGeom_HArray2OfCartesianPoint)& aControlPointsList = BS->ControlPointsList();
+  const Handle(HArray2OfCartesianPoint)& aControlPointsList = BS->ControlPointsList();
   TColgp_Array2OfPnt                              Poles(1, NUPoles, 1, NVPoles);
   for (i = 1; i <= NUPoles; i++)
   {
@@ -2143,7 +2143,7 @@ Standard_Boolean StepToGeom1::MakeTransformation3d(
 //: o6 abv 18 Feb 99: parameter Factor added
 //: p3 abv 23 Feb 99: parameter Shift added
 static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&                       aGeomCurve,
-                                         const Handle(StepGeom_HArray1OfTrimmingSelect)& TS,
+                                         const Handle(HArray1OfTrimmingSelect)& TS,
                                          const Standard_Integer                          nbSel,
                                          const Standard_Integer                          MasterRep,
                                          const Standard_Real                             Factor,
@@ -2252,8 +2252,8 @@ Handle(Geom_TrimmedCurve) StepToGeom1::MakeTrimmedCurve(const Handle(StepGeom_Tr
   if (theCurve.IsNull())
     return Handle(Geom_TrimmedCurve)();
 
-  const Handle(StepGeom_HArray1OfTrimmingSelect)& theTrimSel1 = SC->Trim1();
-  const Handle(StepGeom_HArray1OfTrimmingSelect)& theTrimSel2 = SC->Trim2();
+  const Handle(HArray1OfTrimmingSelect)& theTrimSel1 = SC->Trim1();
+  const Handle(HArray1OfTrimmingSelect)& theTrimSel2 = SC->Trim2();
   const Standard_Integer                          nbSel1      = SC->NbTrim1();
   const Standard_Integer                          nbSel2      = SC->NbTrim2();
 
@@ -2414,8 +2414,8 @@ Handle(Geom2d_BSplineCurve) StepToGeom1::MakeTrimmedCurve2d(const Handle(StepGeo
     return Handle(Geom2d_BSplineCurve)::DownCast(theGeomBasis);
   }
 
-  const Handle(StepGeom_HArray1OfTrimmingSelect)& theTrimSel1 = SC->Trim1();
-  const Handle(StepGeom_HArray1OfTrimmingSelect)& theTrimSel2 = SC->Trim2();
+  const Handle(HArray1OfTrimmingSelect)& theTrimSel1 = SC->Trim1();
+  const Handle(HArray1OfTrimmingSelect)& theTrimSel2 = SC->Trim2();
   const Standard_Integer                          nbSel1      = SC->NbTrim1();
   const Standard_Integer                          nbSel2      = SC->NbTrim2();
   if ((nbSel1 == 1) && (nbSel2 == 1) && (theTrimSel1->Value(1).CaseMember() > 0)

@@ -20,6 +20,6 @@
 #include <StepData_Array1OfField.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepData_HArray1OfField, StepData_Array1OfField)
+DEFINE_HARRAY1(HArray1OfField, StepData_Array1OfField)
 
 #endif

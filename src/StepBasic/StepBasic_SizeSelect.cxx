@@ -33,14 +33,14 @@ Standard_Integer StepBasic_SizeSelect::CaseNum(const Handle(RefObject)& ent) con
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepBasic_SizeSelect::NewMember() const
+Handle(SelectMember) StepBasic_SizeSelect::NewMember() const
 {
   return new StepBasic_SizeMember;
 }
 
 //=================================================================================================
 
-Standard_Integer StepBasic_SizeSelect::CaseMem(const Handle(StepData_SelectMember)& ent) const
+Standard_Integer StepBasic_SizeSelect::CaseMem(const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;

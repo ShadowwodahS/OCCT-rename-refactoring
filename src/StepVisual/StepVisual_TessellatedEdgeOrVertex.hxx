@@ -28,7 +28,7 @@ class StepVisual_TessellatedEdge;
 class StepVisual_TessellatedVertex;
 
 //! Representation of STEP SELECT type TessellatedEdgeOrVertex
-class StepVisual_TessellatedEdgeOrVertex : public StepData_SelectType
+class StepVisual_TessellatedEdgeOrVertex : public SelectType
 {
 
 public:

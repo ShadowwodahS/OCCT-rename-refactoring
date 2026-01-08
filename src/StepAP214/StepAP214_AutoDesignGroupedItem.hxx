@@ -36,7 +36,7 @@ class StepRepr_ShapeAspect;
 class StepShape_ShapeRepresentation;
 class StepVisual_TemplateInstance;
 
-class StepAP214_AutoDesignGroupedItem : public StepData_SelectType
+class StepAP214_AutoDesignGroupedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

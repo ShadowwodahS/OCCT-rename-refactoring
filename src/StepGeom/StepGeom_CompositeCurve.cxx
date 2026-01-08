@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepGeom_CompositeCurve, StepGeom_BoundedCurve)
 StepGeom_CompositeCurve::StepGeom_CompositeCurve() {}
 
 void StepGeom_CompositeCurve::Init(const Handle(TCollection_HAsciiString)&                aName,
-                                   const Handle(StepGeom_HArray1OfCompositeCurveSegment)& aSegments,
+                                   const Handle(HArray1OfCompositeSegment)& aSegments,
                                    const StepData_Logical aSelfIntersect)
 {
   // --- classe own fields ---
@@ -31,12 +31,12 @@ void StepGeom_CompositeCurve::Init(const Handle(TCollection_HAsciiString)&      
 }
 
 void StepGeom_CompositeCurve::SetSegments(
-  const Handle(StepGeom_HArray1OfCompositeCurveSegment)& aSegments)
+  const Handle(HArray1OfCompositeSegment)& aSegments)
 {
   segments = aSegments;
 }
 
-Handle(StepGeom_HArray1OfCompositeCurveSegment) StepGeom_CompositeCurve::Segments() const
+Handle(HArray1OfCompositeSegment) StepGeom_CompositeCurve::Segments() const
 {
   return segments;
 }

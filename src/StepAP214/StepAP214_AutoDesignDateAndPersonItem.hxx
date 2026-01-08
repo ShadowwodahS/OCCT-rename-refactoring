@@ -34,7 +34,7 @@ class StepRepr_ExternallyDefinedRepresentation;
 class StepBasic_ProductDefinitionRelationship;
 class StepBasic_ProductDefinitionWithAssociatedDocuments;
 
-class StepAP214_AutoDesignDateAndPersonItem : public StepData_SelectType
+class StepAP214_AutoDesignDateAndPersonItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

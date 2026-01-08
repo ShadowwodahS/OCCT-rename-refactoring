@@ -66,12 +66,12 @@ void RWStepElement_RWCurveElementSectionDerivedDefinitions::ReadStep(
   Standard_Real aCrossSectionalArea;
   data->ReadReal(num, 3, "cross_sectional_area", ach, aCrossSectionalArea);
 
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) aShearArea;
+  Handle(HArray1OfMeasureOrUnspecified) aShearArea;
   Standard_Integer                                       sub4 = 0;
   if (data->ReadSubList(num, 4, "shear_area", ach, sub4))
   {
     Standard_Integer nb0  = data->NbParams(sub4);
-    aShearArea            = new StepElement_HArray1OfMeasureOrUnspecifiedValue(1, nb0);
+    aShearArea            = new HArray1OfMeasureOrUnspecified(1, nb0);
     Standard_Integer num2 = sub4;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -102,12 +102,12 @@ void RWStepElement_RWCurveElementSectionDerivedDefinitions::ReadStep(
   StepElement_MeasureOrUnspecifiedValue aWarpingConstant;
   data->ReadEntity(num, 7, "warping_constant", ach, aWarpingConstant);
 
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) aLocationOfCentroid;
+  Handle(HArray1OfMeasureOrUnspecified) aLocationOfCentroid;
   Standard_Integer                                       sub8 = 0;
   if (data->ReadSubList(num, 8, "location_of_centroid", ach, sub8))
   {
     Standard_Integer nb0  = data->NbParams(sub8);
-    aLocationOfCentroid   = new StepElement_HArray1OfMeasureOrUnspecifiedValue(1, nb0);
+    aLocationOfCentroid   = new HArray1OfMeasureOrUnspecified(1, nb0);
     Standard_Integer num2 = sub8;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -117,12 +117,12 @@ void RWStepElement_RWCurveElementSectionDerivedDefinitions::ReadStep(
     }
   }
 
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) aLocationOfShearCentre;
+  Handle(HArray1OfMeasureOrUnspecified) aLocationOfShearCentre;
   Standard_Integer                                       sub9 = 0;
   if (data->ReadSubList(num, 9, "location_of_shear_centre", ach, sub9))
   {
     Standard_Integer nb0   = data->NbParams(sub9);
-    aLocationOfShearCentre = new StepElement_HArray1OfMeasureOrUnspecifiedValue(1, nb0);
+    aLocationOfShearCentre = new HArray1OfMeasureOrUnspecified(1, nb0);
     Standard_Integer num2  = sub9;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
@@ -132,12 +132,12 @@ void RWStepElement_RWCurveElementSectionDerivedDefinitions::ReadStep(
     }
   }
 
-  Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue) aLocationOfNonStructuralMass;
+  Handle(HArray1OfMeasureOrUnspecified) aLocationOfNonStructuralMass;
   Standard_Integer                                       sub10 = 0;
   if (data->ReadSubList(num, 10, "location_of_non_structural_mass", ach, sub10))
   {
     Standard_Integer nb0         = data->NbParams(sub10);
-    aLocationOfNonStructuralMass = new StepElement_HArray1OfMeasureOrUnspecifiedValue(1, nb0);
+    aLocationOfNonStructuralMass = new HArray1OfMeasureOrUnspecified(1, nb0);
     Standard_Integer num2        = sub10;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

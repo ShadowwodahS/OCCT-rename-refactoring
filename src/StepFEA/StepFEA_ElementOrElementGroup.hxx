@@ -27,7 +27,7 @@ class StepFEA_ElementRepresentation;
 class StepFEA_ElementGroup;
 
 //! Representation of STEP SELECT type ElementOrElementGroup
-class StepFEA_ElementOrElementGroup : public StepData_SelectType
+class StepFEA_ElementOrElementGroup : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

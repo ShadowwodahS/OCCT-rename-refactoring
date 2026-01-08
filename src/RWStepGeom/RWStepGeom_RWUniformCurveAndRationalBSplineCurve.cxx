@@ -60,13 +60,13 @@ void RWStepGeom_RWUniformCurveAndRationalBSplineCurve::ReadStep(
   data->ReadInteger(num, 1, "degree", ach, aDegree);
   // --- field : controlPointsList ---
 
-  Handle(StepGeom_HArray1OfCartesianPoint) aControlPointsList;
+  Handle(HArray1OfCartesianPoint) aControlPointsList;
   Handle(StepGeom_CartesianPoint)          anent2;
   Standard_Integer                         nsub2;
   if (data->ReadSubList(num, 2, "control_points_list", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aControlPointsList   = new StepGeom_HArray1OfCartesianPoint(1, nb2);
+    aControlPointsList   = new HArray1OfCartesianPoint(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

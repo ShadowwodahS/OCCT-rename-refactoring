@@ -24,13 +24,13 @@
 #include <Standard_Integer.hxx>
 
 class StepData_SelectReal;
-DEFINE_STANDARD_HANDLE(StepData_SelectReal, StepData_SelectMember)
+DEFINE_STANDARD_HANDLE(StepData_SelectReal, SelectMember)
 
 //! A SelectReal is a SelectMember specialised for a basic real
 //! type in a select which also accepts entities : this one has
 //! NO NAME
 //! For a named select, see SelectNamed
-class StepData_SelectReal : public StepData_SelectMember
+class StepData_SelectReal : public SelectMember
 {
 
 public:
@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT virtual void SetReal(const Standard_Real val) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_SelectReal, StepData_SelectMember)
+  DEFINE_STANDARD_RTTIEXT(StepData_SelectReal, SelectMember)
 
 protected:
 private:

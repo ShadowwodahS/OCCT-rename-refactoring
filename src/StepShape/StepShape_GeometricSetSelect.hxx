@@ -28,7 +28,7 @@ class StepGeom_Point;
 class StepGeom_Curve;
 class StepGeom_Surface;
 
-class StepShape_GeometricSetSelect : public StepData_SelectType
+class StepShape_GeometricSetSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

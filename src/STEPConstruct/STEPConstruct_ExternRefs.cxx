@@ -630,8 +630,8 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
       Handle(StepRepr_DescriptiveRepresentationItem) DRI =
         new StepRepr_DescriptiveRepresentationItem;
       DRI->Init(DRIname, DRIdscr);
-      Handle(StepRepr_HArray1OfRepresentationItem) fItems =
-        new StepRepr_HArray1OfRepresentationItem(1, 1);
+      Handle(HArray1OfReprItem) fItems =
+        new HArray1OfReprItem(1, 1);
       fItems->SetValue(1, DRI);
 
       Handle(TCollection_HAsciiString) SRfname  = new TCollection_HAsciiString("document format");

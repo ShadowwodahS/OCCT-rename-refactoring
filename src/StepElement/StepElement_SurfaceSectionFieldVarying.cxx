@@ -17,7 +17,7 @@
 
 #include <StepElement_SurfaceSectionFieldVarying.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldVarying, StepElement_SurfaceSectionField)
+IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldVarying, SurfaceSectionField)
 
 //=================================================================================================
 
@@ -26,10 +26,10 @@ StepElement_SurfaceSectionFieldVarying::StepElement_SurfaceSectionFieldVarying()
 //=================================================================================================
 
 void StepElement_SurfaceSectionFieldVarying::Init(
-  const Handle(StepElement_HArray1OfSurfaceSection)& aDefinitions,
+  const Handle(HArray1OfSurfaceSection)& aDefinitions,
   const Standard_Boolean                             aAdditionalNodeValues)
 {
-  // StepElement_SurfaceSectionField::Init();
+  // SurfaceSectionField::Init();
 
   theDefinitions = aDefinitions;
 
@@ -38,7 +38,7 @@ void StepElement_SurfaceSectionFieldVarying::Init(
 
 //=================================================================================================
 
-Handle(StepElement_HArray1OfSurfaceSection) StepElement_SurfaceSectionFieldVarying::Definitions()
+Handle(HArray1OfSurfaceSection) StepElement_SurfaceSectionFieldVarying::Definitions()
   const
 {
   return theDefinitions;
@@ -47,7 +47,7 @@ Handle(StepElement_HArray1OfSurfaceSection) StepElement_SurfaceSectionFieldVaryi
 //=================================================================================================
 
 void StepElement_SurfaceSectionFieldVarying::SetDefinitions(
-  const Handle(StepElement_HArray1OfSurfaceSection)& aDefinitions)
+  const Handle(HArray1OfSurfaceSection)& aDefinitions)
 {
   theDefinitions = aDefinitions;
 }

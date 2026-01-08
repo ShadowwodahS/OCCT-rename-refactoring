@@ -35,13 +35,13 @@ void StepElement_CurveElementSectionDerivedDefinitions::Init(
   const Handle(TCollection_HAsciiString)& aCurveElementSectionDefinition_Description,
   const Standard_Real                     aCurveElementSectionDefinition_SectionAngle,
   const Standard_Real                     aCrossSectionalArea,
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aShearArea,
+  const Handle(HArray1OfMeasureOrUnspecified)& aShearArea,
   const Handle(TColStd_HArray1OfReal)&                          aSecondMomentOfArea,
   const Standard_Real                                           aTorsionalConstant,
   const StepElement_MeasureOrUnspecifiedValue&                  aWarpingConstant,
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfCentroid,
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfShearCentre,
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfNonStructuralMass,
+  const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfCentroid,
+  const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfShearCentre,
+  const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfNonStructuralMass,
   const StepElement_MeasureOrUnspecifiedValue&                  aNonStructuralMass,
   const StepElement_MeasureOrUnspecifiedValue&                  aPolarMoment)
 {
@@ -86,7 +86,7 @@ void StepElement_CurveElementSectionDerivedDefinitions::SetCrossSectionalArea(
 
 //=================================================================================================
 
-Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
+Handle(HArray1OfMeasureOrUnspecified)
   StepElement_CurveElementSectionDerivedDefinitions::ShearArea() const
 {
   return theShearArea;
@@ -95,7 +95,7 @@ Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
 //=================================================================================================
 
 void StepElement_CurveElementSectionDerivedDefinitions::SetShearArea(
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aShearArea)
+  const Handle(HArray1OfMeasureOrUnspecified)& aShearArea)
 {
   theShearArea = aShearArea;
 }
@@ -149,7 +149,7 @@ void StepElement_CurveElementSectionDerivedDefinitions::SetWarpingConstant(
 
 //=================================================================================================
 
-Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
+Handle(HArray1OfMeasureOrUnspecified)
   StepElement_CurveElementSectionDerivedDefinitions::LocationOfCentroid() const
 {
   return theLocationOfCentroid;
@@ -158,14 +158,14 @@ Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
 //=================================================================================================
 
 void StepElement_CurveElementSectionDerivedDefinitions::SetLocationOfCentroid(
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfCentroid)
+  const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfCentroid)
 {
   theLocationOfCentroid = aLocationOfCentroid;
 }
 
 //=================================================================================================
 
-Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
+Handle(HArray1OfMeasureOrUnspecified)
   StepElement_CurveElementSectionDerivedDefinitions::LocationOfShearCentre() const
 {
   return theLocationOfShearCentre;
@@ -174,14 +174,14 @@ Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
 //=================================================================================================
 
 void StepElement_CurveElementSectionDerivedDefinitions::SetLocationOfShearCentre(
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfShearCentre)
+  const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfShearCentre)
 {
   theLocationOfShearCentre = aLocationOfShearCentre;
 }
 
 //=================================================================================================
 
-Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
+Handle(HArray1OfMeasureOrUnspecified)
   StepElement_CurveElementSectionDerivedDefinitions::LocationOfNonStructuralMass() const
 {
   return theLocationOfNonStructuralMass;
@@ -190,7 +190,7 @@ Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)
 //=================================================================================================
 
 void StepElement_CurveElementSectionDerivedDefinitions::SetLocationOfNonStructuralMass(
-  const Handle(StepElement_HArray1OfMeasureOrUnspecifiedValue)& aLocationOfNonStructuralMass)
+  const Handle(HArray1OfMeasureOrUnspecified)& aLocationOfNonStructuralMass)
 {
   theLocationOfNonStructuralMass = aLocationOfNonStructuralMass;
 }

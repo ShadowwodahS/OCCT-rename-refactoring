@@ -37,7 +37,7 @@ public:
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                           aName,
     const Handle(TCollection_HAsciiString)&                           aDescription,
-    const Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation)& aElements);
+    const Handle(HArray1OfPropDefRepr)& aElements);
 
   //! Returns field Name
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
@@ -52,11 +52,11 @@ public:
   Standard_EXPORT void SetDescription(const Handle(TCollection_HAsciiString)& Description);
 
   //! Returns field Elements
-  Standard_EXPORT Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation) Elements() const;
+  Standard_EXPORT Handle(HArray1OfPropDefRepr) Elements() const;
 
   //! Set field Elements
   Standard_EXPORT void SetElements(
-    const Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation)& Elements);
+    const Handle(HArray1OfPropDefRepr)& Elements);
 
   DEFINE_STANDARD_RTTIEXT(StepRepr_DataEnvironment, RefObject)
 
@@ -64,7 +64,7 @@ protected:
 private:
   Handle(TCollection_HAsciiString)                           theName;
   Handle(TCollection_HAsciiString)                           theDescription;
-  Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation) theElements;
+  Handle(HArray1OfPropDefRepr) theElements;
 };
 
 #endif // _StepRepr_DataEnvironment_HeaderFile

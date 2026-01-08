@@ -57,13 +57,13 @@ void RWStepGeom_RWBSplineCurve::ReadStep(const Handle(StepData_StepReaderData)& 
 
   // --- own field : controlPointsList ---
 
-  Handle(StepGeom_HArray1OfCartesianPoint) aControlPointsList;
+  Handle(HArray1OfCartesianPoint) aControlPointsList;
   Handle(StepGeom_CartesianPoint)          anent3;
   Standard_Integer                         nsub3;
   if (data->ReadSubList(num, 3, "control_points_list", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aControlPointsList   = new StepGeom_HArray1OfCartesianPoint(1, nb3);
+    aControlPointsList   = new HArray1OfCartesianPoint(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed

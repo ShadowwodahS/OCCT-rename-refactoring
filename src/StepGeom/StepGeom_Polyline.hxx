@@ -37,11 +37,11 @@ public:
   Standard_EXPORT StepGeom_Polyline();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&         aName,
-                            const Handle(StepGeom_HArray1OfCartesianPoint)& aPoints);
+                            const Handle(HArray1OfCartesianPoint)& aPoints);
 
-  Standard_EXPORT void SetPoints(const Handle(StepGeom_HArray1OfCartesianPoint)& aPoints);
+  Standard_EXPORT void SetPoints(const Handle(HArray1OfCartesianPoint)& aPoints);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfCartesianPoint) Points() const;
+  Standard_EXPORT Handle(HArray1OfCartesianPoint) Points() const;
 
   Standard_EXPORT Handle(StepGeom_CartesianPoint) PointsValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepGeom_HArray1OfCartesianPoint) points;
+  Handle(HArray1OfCartesianPoint) points;
 };
 
 #endif // _StepGeom_Polyline_HeaderFile

@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&            aName,
     const Handle(StepGeom_Curve)&                      aCurve3d,
-    const Handle(StepGeom_HArray1OfPcurveOrSurface)&   aAssociatedGeometry,
+    const Handle(HArray1OfPCurveOrSurface)&   aAssociatedGeometry,
     const StepGeom_PreferredSurfaceCurveRepresentation aMasterRepresentation);
 
   Standard_EXPORT void SetCurve3d(const Handle(StepGeom_Curve)& aCurve3d);
@@ -47,9 +47,9 @@ public:
   Standard_EXPORT Handle(StepGeom_Curve) Curve3d() const;
 
   Standard_EXPORT void SetAssociatedGeometry(
-    const Handle(StepGeom_HArray1OfPcurveOrSurface)& aAssociatedGeometry);
+    const Handle(HArray1OfPCurveOrSurface)& aAssociatedGeometry);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfPcurveOrSurface) AssociatedGeometry() const;
+  Standard_EXPORT Handle(HArray1OfPCurveOrSurface) AssociatedGeometry() const;
 
   Standard_EXPORT StepGeom_PcurveOrSurface
     AssociatedGeometryValue(const Standard_Integer num) const;
@@ -66,7 +66,7 @@ public:
 protected:
 private:
   Handle(StepGeom_Curve)                       curve3d;
-  Handle(StepGeom_HArray1OfPcurveOrSurface)    associatedGeometry;
+  Handle(HArray1OfPCurveOrSurface)    associatedGeometry;
   StepGeom_PreferredSurfaceCurveRepresentation masterRepresentation;
 };
 

@@ -28,7 +28,7 @@ class StepGeom_Axis2Placement3d;
 class StepGeom_SuParameters;
 
 //! Representation of STEP SELECT type RigidPlacement
-class StepKinematics_RigidPlacement : public StepData_SelectType
+class StepKinematics_RigidPlacement : public SelectType
 {
 
 public:

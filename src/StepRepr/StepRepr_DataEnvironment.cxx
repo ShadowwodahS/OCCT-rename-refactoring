@@ -29,7 +29,7 @@ StepRepr_DataEnvironment::StepRepr_DataEnvironment() {}
 void StepRepr_DataEnvironment::Init(
   const Handle(TCollection_HAsciiString)&                           aName,
   const Handle(TCollection_HAsciiString)&                           aDescription,
-  const Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation)& aElements)
+  const Handle(HArray1OfPropDefRepr)& aElements)
 {
 
   theName = aName;
@@ -69,7 +69,7 @@ void StepRepr_DataEnvironment::SetDescription(const Handle(TCollection_HAsciiStr
 
 //=================================================================================================
 
-Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation) StepRepr_DataEnvironment::Elements()
+Handle(HArray1OfPropDefRepr) StepRepr_DataEnvironment::Elements()
   const
 {
   return theElements;
@@ -78,7 +78,7 @@ Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation) StepRepr_DataEnvironm
 //=================================================================================================
 
 void StepRepr_DataEnvironment::SetElements(
-  const Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation)& aElements)
+  const Handle(HArray1OfPropDefRepr)& aElements)
 {
   theElements = aElements;
 }

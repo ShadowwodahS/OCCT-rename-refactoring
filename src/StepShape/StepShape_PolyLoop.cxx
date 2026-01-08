@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_PolyLoop, StepShape_Loop)
 StepShape_PolyLoop::StepShape_PolyLoop() {}
 
 void StepShape_PolyLoop::Init(const Handle(TCollection_HAsciiString)&         aName,
-                              const Handle(StepGeom_HArray1OfCartesianPoint)& aPolygon)
+                              const Handle(HArray1OfCartesianPoint)& aPolygon)
 {
   // --- classe own fields ---
   polygon = aPolygon;
@@ -27,12 +27,12 @@ void StepShape_PolyLoop::Init(const Handle(TCollection_HAsciiString)&         aN
   StepRepr_RepresentationItem::Init(aName);
 }
 
-void StepShape_PolyLoop::SetPolygon(const Handle(StepGeom_HArray1OfCartesianPoint)& aPolygon)
+void StepShape_PolyLoop::SetPolygon(const Handle(HArray1OfCartesianPoint)& aPolygon)
 {
   polygon = aPolygon;
 }
 
-Handle(StepGeom_HArray1OfCartesianPoint) StepShape_PolyLoop::Polygon() const
+Handle(HArray1OfCartesianPoint) StepShape_PolyLoop::Polygon() const
 {
   return polygon;
 }

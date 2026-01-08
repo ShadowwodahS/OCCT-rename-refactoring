@@ -33,9 +33,9 @@ StepFEA_Curve3dElementRepresentation::StepFEA_Curve3dElementRepresentation() {}
 
 void StepFEA_Curve3dElementRepresentation::Init(
   const Handle(TCollection_HAsciiString)&             aRepresentation_Name,
-  const Handle(StepRepr_HArray1OfRepresentationItem)& aRepresentation_Items,
+  const Handle(HArray1OfReprItem)& aRepresentation_Items,
   const Handle(StepRepr_RepresentationContext)&       aRepresentation_ContextOfItems,
-  const Handle(StepFEA_HArray1OfNodeRepresentation)&  aElementRepresentation_NodeList,
+  const Handle(HArray1OfNodeRepr)&  aElementRepresentation_NodeList,
   const Handle(StepFEA_FeaModel3d)&                   aModelRef,
   const Handle(StepElement_Curve3dElementDescriptor)& aElementDescriptor,
   const Handle(StepFEA_Curve3dElementProperty)&       aProperty,

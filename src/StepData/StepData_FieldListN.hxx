@@ -28,13 +28,13 @@ class StepData_Field;
 //! Describes a list of fields, in a general way
 //! This basic class is for a null size list
 //! Subclasses are for 1, N (fixed) or Dynamic sizes
-class StepData_FieldListN : public FieldList
+class FieldListN : public FieldList
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a FieldListN of <nb> Fields
-  Standard_EXPORT StepData_FieldListN(const Standard_Integer nb);
+  Standard_EXPORT FieldListN(const Standard_Integer nb);
 
   //! Returns the count of fields. Here, returns starting <nb>
   Standard_EXPORT virtual Standard_Integer NbFields() const Standard_OVERRIDE;

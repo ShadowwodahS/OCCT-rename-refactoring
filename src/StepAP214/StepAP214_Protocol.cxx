@@ -1286,7 +1286,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepElement_Surface3dElementDescriptor), 510);
   types.Bind(STANDARD_TYPE(StepElement_SurfaceElementProperty), 511);
   types.Bind(STANDARD_TYPE(StepElement_SurfaceSection), 512);
-  types.Bind(STANDARD_TYPE(StepElement_SurfaceSectionField), 513);
+  types.Bind(STANDARD_TYPE(SurfaceSectionField), 513);
   types.Bind(STANDARD_TYPE(StepElement_SurfaceSectionFieldConstant), 514);
   types.Bind(STANDARD_TYPE(StepElement_SurfaceSectionFieldVarying), 515);
   types.Bind(STANDARD_TYPE(StepElement_UniformSurfaceSection), 516);

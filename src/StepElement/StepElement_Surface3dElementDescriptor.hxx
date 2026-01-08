@@ -39,16 +39,16 @@ public:
   Standard_EXPORT void Init(
     const StepElement_ElementOrder          aElementDescriptor_TopologyOrder,
     const Handle(TCollection_HAsciiString)& aElementDescriptor_Description,
-    const Handle(StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember)& aPurpose,
+    const Handle(HArray1OfSurfacePurposeSeq)& aPurpose,
     const StepElement_Element2dShape                                           aShape);
 
   //! Returns field Purpose
-  Standard_EXPORT Handle(StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember) Purpose()
+  Standard_EXPORT Handle(HArray1OfSurfacePurposeSeq) Purpose()
     const;
 
   //! Set field Purpose
   Standard_EXPORT void SetPurpose(
-    const Handle(StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember)& Purpose);
+    const Handle(HArray1OfSurfacePurposeSeq)& Purpose);
 
   //! Returns field Shape
   Standard_EXPORT StepElement_Element2dShape Shape() const;
@@ -60,7 +60,7 @@ public:
 
 protected:
 private:
-  Handle(StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember) thePurpose;
+  Handle(HArray1OfSurfacePurposeSeq) thePurpose;
   StepElement_Element2dShape                                          theShape;
 };
 

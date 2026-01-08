@@ -41,12 +41,12 @@ void RWStepElement_RWSurfaceSectionFieldVarying::ReadStep(
 
   // Own fields of SurfaceSectionFieldVarying
 
-  Handle(StepElement_HArray1OfSurfaceSection) aDefinitions;
+  Handle(HArray1OfSurfaceSection) aDefinitions;
   Standard_Integer                            sub1 = 0;
   if (data->ReadSubList(num, 1, "definitions", ach, sub1))
   {
     Standard_Integer nb0  = data->NbParams(sub1);
-    aDefinitions          = new StepElement_HArray1OfSurfaceSection(1, nb0);
+    aDefinitions          = new HArray1OfSurfaceSection(1, nb0);
     Standard_Integer num2 = sub1;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

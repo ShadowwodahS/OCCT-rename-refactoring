@@ -67,7 +67,7 @@ void RWStepGeom_RWBSplineCurveWithKnots::ReadStep(
 
   // --- inherited field : controlPointsList ---
 
-  Handle(StepGeom_HArray1OfCartesianPoint) aControlPointsList;
+  Handle(HArray1OfCartesianPoint) aControlPointsList;
   Handle(StepGeom_CartesianPoint)          anent3;
   Standard_Integer                         nsub3;
   if (data->ReadSubList(num, 3, "control_points_list", ach, nsub3))
@@ -77,7 +77,7 @@ void RWStepGeom_RWBSplineCurveWithKnots::ReadStep(
       ach->AddFail("Number of control points of the b_spline_curve_form is equal to 0");
     else
     {
-      aControlPointsList = new StepGeom_HArray1OfCartesianPoint(1, nb3);
+      aControlPointsList = new HArray1OfCartesianPoint(1, nb3);
       for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
       {
         // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed

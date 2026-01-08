@@ -27,7 +27,7 @@ StepFEA_NodeSet::StepFEA_NodeSet() {}
 //=================================================================================================
 
 void StepFEA_NodeSet::Init(const Handle(TCollection_HAsciiString)& aRepresentationItem_Name,
-                           const Handle(StepFEA_HArray1OfNodeRepresentation)& aNodes)
+                           const Handle(HArray1OfNodeRepr)& aNodes)
 {
   StepGeom_GeometricRepresentationItem::Init(aRepresentationItem_Name);
 
@@ -36,14 +36,14 @@ void StepFEA_NodeSet::Init(const Handle(TCollection_HAsciiString)& aRepresentati
 
 //=================================================================================================
 
-Handle(StepFEA_HArray1OfNodeRepresentation) StepFEA_NodeSet::Nodes() const
+Handle(HArray1OfNodeRepr) StepFEA_NodeSet::Nodes() const
 {
   return theNodes;
 }
 
 //=================================================================================================
 
-void StepFEA_NodeSet::SetNodes(const Handle(StepFEA_HArray1OfNodeRepresentation)& aNodes)
+void StepFEA_NodeSet::SetNodes(const Handle(HArray1OfNodeRepr)& aNodes)
 {
   theNodes = aNodes;
 }

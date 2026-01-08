@@ -28,7 +28,7 @@ class StepGeom_BoundaryCurve;
 class StepGeom_DegeneratePcurve;
 
 //! Representation of STEP SELECT type SurfaceBoundary
-class StepGeom_SurfaceBoundary : public StepData_SelectType
+class StepGeom_SurfaceBoundary : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

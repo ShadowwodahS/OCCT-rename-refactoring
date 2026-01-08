@@ -27,7 +27,7 @@ class StepShape_ToleranceValue;
 class StepShape_LimitsAndFits;
 
 //! Added for Dimensional Tolerances
-class StepShape_ToleranceMethodDefinition : public StepData_SelectType
+class StepShape_ToleranceMethodDefinition : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

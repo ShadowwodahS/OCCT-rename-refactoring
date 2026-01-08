@@ -29,7 +29,7 @@ class StepDimTol_GeneralDatumReference;
 class StepShape_DimensionalLocation;
 class StepShape_DimensionalSize;
 
-class StepDimTol_ToleranceZoneTarget : public StepData_SelectType
+class StepDimTol_ToleranceZoneTarget : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

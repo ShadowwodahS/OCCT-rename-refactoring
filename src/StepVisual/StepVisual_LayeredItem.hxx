@@ -27,7 +27,7 @@ class RefObject;
 class StepVisual_PresentationRepresentation;
 class StepRepr_RepresentationItem;
 
-class StepVisual_LayeredItem : public StepData_SelectType
+class StepVisual_LayeredItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -42,13 +42,13 @@ void RWStepGeom_RWCompositeCurveOnSurface::ReadStep(
 
   // --- inherited field : segments ---
 
-  Handle(StepGeom_HArray1OfCompositeCurveSegment) aSegments;
+  Handle(HArray1OfCompositeSegment) aSegments;
   Handle(StepGeom_CompositeCurveSegment)          anent2;
   Standard_Integer                                nsub2;
   if (data->ReadSubList(num, 2, "segments", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aSegments            = new StepGeom_HArray1OfCompositeCurveSegment(1, nb2);
+    aSegments            = new HArray1OfCompositeSegment(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

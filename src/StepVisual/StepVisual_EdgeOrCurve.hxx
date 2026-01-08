@@ -28,7 +28,7 @@ class StepGeom_Curve;
 class StepShape_Edge;
 
 //! Representation of STEP SELECT type EdgeOrCurve
-class StepVisual_EdgeOrCurve : public StepData_SelectType
+class StepVisual_EdgeOrCurve : public SelectType
 {
 
 public:

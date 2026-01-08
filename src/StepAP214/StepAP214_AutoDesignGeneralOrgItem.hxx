@@ -33,7 +33,7 @@ class StepRepr_Representation;
 class StepRepr_ExternallyDefinedRepresentation;
 class StepAP214_AutoDesignDocumentReference;
 
-class StepAP214_AutoDesignGeneralOrgItem : public StepData_SelectType
+class StepAP214_AutoDesignGeneralOrgItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

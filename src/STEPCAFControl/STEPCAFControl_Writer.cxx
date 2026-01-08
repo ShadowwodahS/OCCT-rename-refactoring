@@ -1060,7 +1060,7 @@ static Standard_Boolean getStyledItem(const TopoShape&                     theSh
   }
   Handle(StepVisual_PresentationRepresentation) aMDGPR =
     Handle(StepVisual_PresentationRepresentation)::DownCast(theMapCompMDGPR.Find(aTopLevSh));
-  Handle(StepRepr_HArray1OfRepresentationItem) anSelItmHArr = aMDGPR->Items();
+  Handle(HArray1OfReprItem) anSelItmHArr = aMDGPR->Items();
   if (anSelItmHArr.IsNull())
   {
     return Standard_False;
@@ -1068,7 +1068,7 @@ static Standard_Boolean getStyledItem(const TopoShape&                     theSh
   // Search for PSA of Manifold solid
   TColStd_SequenceOfTransient aNewSeqRI;
   Standard_Boolean            isFilled = Standard_False;
-  for (StepRepr_HArray1OfRepresentationItem::Iterator anIter(anSelItmHArr->Array1());
+  for (HArray1OfReprItem::Iterator anIter(anSelItmHArr->Array1());
        anIter.More() && !anIsFound;
        anIter.Next())
   {
@@ -1455,15 +1455,15 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(ExchangeSession
           aMDGPR->SetContextOfItems(aContext);
           myMapCompMDGPR.Bind(aTopSh, aMDGPR);
         }
-        Handle(StepRepr_HArray1OfRepresentationItem) anOldItems   = aMDGPR->Items();
+        Handle(HArray1OfReprItem) anOldItems   = aMDGPR->Items();
         Standard_Integer                             oldLengthlen = 0;
         if (!anOldItems.IsNull())
           oldLengthlen = anOldItems->Length();
         const Standard_Integer aNbIt = oldLengthlen + Styles.NbStyles();
         if (!aNbIt)
           continue;
-        Handle(StepRepr_HArray1OfRepresentationItem) aNewItems =
-          new StepRepr_HArray1OfRepresentationItem(1, aNbIt);
+        Handle(HArray1OfReprItem) aNewItems =
+          new HArray1OfReprItem(1, aNbIt);
         Standard_Integer anElemInd = 1;
         for (Standard_Integer aStyleInd = 1; aStyleInd <= oldLengthlen; aStyleInd++)
         {
@@ -2073,15 +2073,15 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
     Handle(StepVisual_PresentationRepresentation) aMDGPR =
       Handle(StepVisual_PresentationRepresentation)::DownCast(theMapCompMDGPR.Find(aTopSh));
     // get old styled items to not lose it
-    Handle(StepRepr_HArray1OfRepresentationItem) anOldItems     = aMDGPR->Items();
+    Handle(HArray1OfReprItem) anOldItems     = aMDGPR->Items();
     Standard_Integer                             anOldLengthlen = 0;
     if (!anOldItems.IsNull())
       anOldLengthlen = anOldItems->Length();
     // create new array of styled items by an olds and new one
-    Handle(StepRepr_HArray1OfRepresentationItem) aNewItems =
-      new StepRepr_HArray1OfRepresentationItem(1, anOldLengthlen + 1);
+    Handle(HArray1OfReprItem) aNewItems =
+      new HArray1OfReprItem(1, anOldLengthlen + 1);
     Standard_Integer aSetStyleInd = 1;
-    for (StepRepr_HArray1OfRepresentationItem::Iterator aStyleIter(anOldItems->Array1());
+    for (HArray1OfReprItem::Iterator aStyleIter(anOldItems->Array1());
          aStyleIter.More();
          aStyleIter.Next())
     {
@@ -2576,8 +2576,8 @@ Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
   Handle(StepAP242_GeometricItemSpecificUsage) aGISU = new StepAP242_GeometricItemSpecificUsage();
   StepAP242_ItemIdentifiedRepresentationUsageDefinition aDefinition;
   aDefinition.SetValue(aSA);
-  Handle(StepRepr_HArray1OfRepresentationItem) anReprItems =
-    new StepRepr_HArray1OfRepresentationItem(1, 1);
+  Handle(HArray1OfReprItem) anReprItems =
+    new HArray1OfReprItem(1, 1);
   Handle(StepRepr_RepresentationItem) anIdentifiedItem =
     Handle(StepRepr_RepresentationItem)::DownCast(anEnt);
   anReprItems->SetValue(1, anIdentifiedItem);
@@ -2638,8 +2638,8 @@ void STEPCAFControl_Writer::writePresentation(const Handle(ExchangeSession)& the
   Handle(TCollection_HAsciiString)     aPrsName =
     thePrsName.IsNull() ? new TCollection_HAsciiString() : thePrsName;
   aDCallout->Init(aPrsName, aTAOs);
-  Handle(StepRepr_HArray1OfRepresentationItem) aDCsForDMIA =
-    new StepRepr_HArray1OfRepresentationItem(1, 1);
+  Handle(HArray1OfReprItem) aDCsForDMIA =
+    new HArray1OfReprItem(1, 1);
   aDCsForDMIA->SetValue(1, aDCallout);
   myGDTAnnotations.Append(aDCallout);
   StepAP242_ItemIdentifiedRepresentationUsageDefinition aDimension;
@@ -2895,23 +2895,23 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
         GeomToStep_MakeAxis2Placement3d   anAxisMaker(aDTAxis, theLocalFactors);
         Handle(StepGeom_Axis2Placement3d) anA2P3D = anAxisMaker.Value();
         anA2P3D->SetName(new TCollection_HAsciiString("orientation"));
-        Handle(StepRepr_HArray1OfRepresentationItem) anItems;
+        Handle(HArray1OfReprItem) anItems;
         // Process each datum target type
         if (aDatumType == XCAFDimTolObjects_DatumTargetType_Point)
         {
-          anItems = new StepRepr_HArray1OfRepresentationItem(1, 1);
+          anItems = new HArray1OfReprItem(1, 1);
         }
         else
         {
           Handle(TCollection_HAsciiString) aTargetValueName;
           if (aDatumType == XCAFDimTolObjects_DatumTargetType_Line)
           {
-            anItems          = new StepRepr_HArray1OfRepresentationItem(1, 2);
+            anItems          = new HArray1OfReprItem(1, 2);
             aTargetValueName = new TCollection_HAsciiString("target length");
           }
           else if (aDatumType == XCAFDimTolObjects_DatumTargetType_Rectangle)
           {
-            anItems          = new StepRepr_HArray1OfRepresentationItem(1, 3);
+            anItems          = new HArray1OfReprItem(1, 3);
             aTargetValueName = new TCollection_HAsciiString("target length");
             // Additional value
             Handle(StepRepr_ReprItemAndMeasureWithUnit) aTargetValue =
@@ -2925,7 +2925,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
           }
           else if (aDatumType == XCAFDimTolObjects_DatumTargetType_Circle)
           {
-            anItems          = new StepRepr_HArray1OfRepresentationItem(1, 2);
+            anItems          = new HArray1OfReprItem(1, 2);
             aTargetValueName = new TCollection_HAsciiString("target diameter");
           }
           // Value
@@ -3051,7 +3051,7 @@ static void WriteDimValues(const Handle(ExchangeSession)&             theWS,
     aMeasureName = "POSITIVE_LENGTH_MEASURE";
 
   // Values
-  Handle(StepRepr_HArray1OfRepresentationItem) aValues;
+  Handle(HArray1OfReprItem) aValues;
   Standard_Integer                             aNbItems = 1, aValIt = 1;
   if (theObject->IsDimWithRange())
     aNbItems += 2;
@@ -3060,7 +3060,7 @@ static void WriteDimValues(const Handle(ExchangeSession)&             theWS,
   if (theObject->GetType() == XCAFDimTolObjects_DimensionType_Location_Oriented)
     aNbItems++;
   aNbItems += theObject->NbDescriptions();
-  aValues = new StepRepr_HArray1OfRepresentationItem(1, aNbItems);
+  aValues = new HArray1OfReprItem(1, aNbItems);
 
   // Nominal value
   Standard_Real    aNominal = theObject->GetValue();
@@ -3155,8 +3155,8 @@ static void WriteDimValues(const Handle(ExchangeSession)&             theWS,
   {
     Handle(StepRepr_CompoundRepresentationItem) aCompoundRI =
       new StepRepr_CompoundRepresentationItem();
-    Handle(StepRepr_HArray1OfRepresentationItem) aModifItems =
-      new StepRepr_HArray1OfRepresentationItem(1, aModifiers.Length());
+    Handle(HArray1OfReprItem) aModifItems =
+      new HArray1OfReprItem(1, aModifiers.Length());
     for (Standard_Integer i = 1; i <= aModifiers.Length(); i++)
     {
       XCAFDimTolObjects_DimensionModif               aModif = aModifiers.Value(i);
@@ -3303,8 +3303,8 @@ static void WriteDerivedGeometry(const Handle(ExchangeSession)&             theW
     Handle(StepAP242_GeometricItemSpecificUsage) aGISU = new StepAP242_GeometricItemSpecificUsage();
     StepAP242_ItemIdentifiedRepresentationUsageDefinition aDefinition;
     aDefinition.SetValue(aDSA);
-    Handle(StepRepr_HArray1OfRepresentationItem) anItem =
-      new StepRepr_HArray1OfRepresentationItem(1, 1);
+    Handle(HArray1OfReprItem) anItem =
+      new HArray1OfReprItem(1, 1);
     anItem->SetValue(1, aPoint);
     aGISU->Init(new TCollection_HAsciiString(),
                 new TCollection_HAsciiString(),
@@ -3338,8 +3338,8 @@ static void WriteDerivedGeometry(const Handle(ExchangeSession)&             theW
     Handle(StepAP242_GeometricItemSpecificUsage) aGISU = new StepAP242_GeometricItemSpecificUsage();
     StepAP242_ItemIdentifiedRepresentationUsageDefinition aDefinition;
     aDefinition.SetValue(aDSA);
-    Handle(StepRepr_HArray1OfRepresentationItem) anItem =
-      new StepRepr_HArray1OfRepresentationItem(1, 1);
+    Handle(HArray1OfReprItem) anItem =
+      new HArray1OfReprItem(1, 1);
     anItem->SetValue(1, aPoint);
     aGISU->Init(new TCollection_HAsciiString(),
                 new TCollection_HAsciiString(),
@@ -3364,7 +3364,7 @@ static void WriteDerivedGeometry(const Handle(ExchangeSession)&             theW
 // purpose  : auxiliary (write Write datum system for given
 //           geometric_tolerance)
 //======================================================================
-static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
+static Handle(HArray1OfDatumSystemOrRef) WriteDatumSystem(
   const Handle(ExchangeSession)&               theWS,
   const DataLabel                                    theGeomTolL,
   const TDF_LabelSequence&                           theDatumSeq,
@@ -3405,8 +3405,8 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
   if (aMaxDatumNum == 0)
     return NULL;
 
-  Handle(StepDimTol_HArray1OfDatumReferenceCompartment) aConstituents =
-    new StepDimTol_HArray1OfDatumReferenceCompartment(1, aMaxDatumNum);
+  Handle(HArray1OfDatumRefCompartment) aConstituents =
+    new HArray1OfDatumRefCompartment(1, aMaxDatumNum);
   // Auxiliary datum to initialize attributes in Datum_System
   Handle(StepDimTol_Datum) aFirstDatum;
   for (Standard_Integer aConstituentsNum = 1; aConstituentsNum <= aMaxDatumNum; aConstituentsNum++)
@@ -3427,7 +3427,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
     StepDimTol_DatumOrCommonDatum                aDatumRef;
     Handle(StepDimTol_DatumReferenceCompartment) aCompartment =
       new StepDimTol_DatumReferenceCompartment();
-    Handle(StepDimTol_HArray1OfDatumReferenceModifier) aModifiers;
+    Handle(HArray1OfDatumRefModifier) aModifiers;
     if (aDatumSeqPos.Length() == 1)
     {
       // Datum entity
@@ -3460,8 +3460,8 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
     else
     {
       Standard_Integer                                  aSetInd = 1;
-      Handle(StepDimTol_HArray1OfDatumReferenceElement) aCommonDatumList =
-        new StepDimTol_HArray1OfDatumReferenceElement(1, aDatumSeqPos.Length());
+      Handle(HArray1OfDatumRefElement) aCommonDatumList =
+        new HArray1OfDatumRefElement(1, aDatumSeqPos.Length());
       for (XCAFDimTolObjects_DatumObjectSequence::Iterator aDatumIter(aDatumSeqPos);
            aDatumIter.More();
            aDatumIter.Next())
@@ -3481,7 +3481,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
         XCAFDimTolObjects_DatumModifWithValue    aModifWithVal;
         Standard_Real                            aValue = 0;
         aDatumObj->GetModifierWithValue(aModifWithVal, aValue);
-        Handle(StepDimTol_HArray1OfDatumReferenceModifier) anElemModifiers =
+        Handle(HArray1OfDatumRefModifier) anElemModifiers =
           GeometricToleranceProperty::GetDatumRefModifiers(aSimpleModifiers,
                                                            aModifWithVal,
                                                            aValue,
@@ -3522,7 +3522,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
   }
   // Remove null elements from aConstituents
   Standard_Integer aNbConstituents = 0;
-  for (StepDimTol_HArray1OfDatumReferenceCompartment::Iterator aConstituentIter(
+  for (HArray1OfDatumRefCompartment::Iterator aConstituentIter(
          aConstituents->Array1());
        aConstituentIter.More();
        aConstituentIter.Next())
@@ -3532,10 +3532,10 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
       aNbConstituents++;
     }
   }
-  Handle(StepDimTol_HArray1OfDatumReferenceCompartment) aResConstituents =
-    new StepDimTol_HArray1OfDatumReferenceCompartment(1, aNbConstituents);
+  Handle(HArray1OfDatumRefCompartment) aResConstituents =
+    new HArray1OfDatumRefCompartment(1, aNbConstituents);
   Standard_Integer aConstituentsIt = 0;
-  for (StepDimTol_HArray1OfDatumReferenceCompartment::Iterator aConstituentIter(
+  for (HArray1OfDatumRefCompartment::Iterator aConstituentIter(
          aConstituents->Array1());
        aConstituentIter.More();
        aConstituentIter.Next())
@@ -3547,7 +3547,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
     }
   }
 
-  Handle(StepDimTol_HArray1OfDatumSystemOrReference) aDatumSystem;
+  Handle(HArray1OfDatumSystemOrRef) aDatumSystem;
   Handle(StepDimTol_DatumSystem)                     aDS = new StepDimTol_DatumSystem();
   aDS->Init(new TCollection_HAsciiString(),
             new TCollection_HAsciiString(),
@@ -3557,7 +3557,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
   aModel->AddWithRefs(aDS);
   StepDimTol_DatumSystemOrReference anArrayValue;
   anArrayValue.SetValue(aDS);
-  aDatumSystem = new StepDimTol_HArray1OfDatumSystemOrReference(1, 1);
+  aDatumSystem = new HArray1OfDatumSystemOrRef(1, 1);
   aDatumSystem->SetValue(1, anArrayValue);
 
   // Axis
@@ -3569,8 +3569,8 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
     Handle(StepAP242_GeometricItemSpecificUsage) aGISU = new StepAP242_GeometricItemSpecificUsage();
     StepAP242_ItemIdentifiedRepresentationUsageDefinition aDefinition;
     aDefinition.SetValue(aDS);
-    Handle(StepRepr_HArray1OfRepresentationItem) anReprItems =
-      new StepRepr_HArray1OfRepresentationItem(1, 1);
+    Handle(HArray1OfReprItem) anReprItems =
+      new HArray1OfReprItem(1, 1);
     Handle(StepRepr_RepresentationItem) anIdentifiedItem = anAxis;
     anReprItems->SetValue(1, anIdentifiedItem);
     Handle(StepShape_ShapeDefinitionRepresentation) aSDR;
@@ -3621,8 +3621,8 @@ void STEPCAFControl_Writer::writeToleranceZone(
   Handle(StepDimTol_ToleranceZoneForm) aForm = new StepDimTol_ToleranceZoneForm();
   aModel->AddWithRefs(aForm);
   aForm->Init(GeometricToleranceProperty::GetTolValueType(theObject->GetTypeOfValue()));
-  Handle(StepDimTol_HArray1OfToleranceZoneTarget) aZoneTargetArray =
-    new StepDimTol_HArray1OfToleranceZoneTarget(1, 1);
+  Handle(HArray1OfToleranceZoneTarget) aZoneTargetArray =
+    new HArray1OfToleranceZoneTarget(1, 1);
   StepDimTol_ToleranceZoneTarget aTarget;
   aTarget.SetValue(theEntity);
   aZoneTargetArray->SetValue(1, aTarget);
@@ -3659,7 +3659,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
   const Handle(ExchangeSession)&                      theWS,
   const TDF_LabelSequence&                                  theShapeSeqL,
   const DataLabel&                                          theGeomTolL,
-  const Handle(StepDimTol_HArray1OfDatumSystemOrReference)& theDatumSystem,
+  const Handle(HArray1OfDatumSystemOrRef)& theDatumSystem,
   const Handle(StepRepr_RepresentationContext)&             theRC,
   const ConversionFactors&                                   theLocalFactors)
 {
@@ -3721,7 +3721,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
   // Modifiers
   // Simple modifiers
   XCAFDimTolObjects_GeomToleranceModifiersSequence       aModifiers = anObject->GetModifiers();
-  Handle(StepDimTol_HArray1OfGeometricToleranceModifier) aModifArray;
+  Handle(HArray1OfGeoTolModifier) aModifArray;
   Handle(StepBasic_LengthMeasureWithUnit)                aMaxLMWU;
   Standard_Integer                                       aModifNb = aModifiers.Length();
   if (anObject->GetMaterialRequirementModifier() != XCAFDimTolObjects_GeomToleranceMatReqModif_None)
@@ -3737,7 +3737,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
   if (aModifNb > 0)
   {
     isWithModif        = Standard_True;
-    aModifArray        = new StepDimTol_HArray1OfGeometricToleranceModifier(1, aModifNb);
+    aModifArray        = new HArray1OfGeoTolModifier(1, aModifNb);
     Standard_Integer k = 1;
     for (Standard_Integer i = 1; i <= aModifiers.Length(); i++)
     {
@@ -3961,8 +3961,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
     StepRepr_RepresentedDefinition aRD;
     aRD.SetValue(aPropD);
     Handle(StepShape_ShapeRepresentation)        aSR = new StepShape_ShapeRepresentation;
-    Handle(StepRepr_HArray1OfRepresentationItem) aHARI =
-      new StepRepr_HArray1OfRepresentationItem(1, 1);
+    Handle(HArray1OfReprItem) aHARI =
+      new HArray1OfReprItem(1, 1);
     aHARI->SetValue(1, anAF);
     aSR->Init(aName, aHARI, aRC);
     Handle(StepShape_ShapeDefinitionRepresentation) aSDR =
@@ -3978,8 +3978,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
     StepRepr_RepresentedDefinition aRD1;
     aRD1.SetValue(aPropD1);
     Handle(StepShape_ShapeRepresentation)        aSR1 = new StepShape_ShapeRepresentation;
-    Handle(StepRepr_HArray1OfRepresentationItem) aHARI1 =
-      new StepRepr_HArray1OfRepresentationItem(1, 1);
+    Handle(HArray1OfReprItem) aHARI1 =
+      new HArray1OfReprItem(1, 1);
     aHARI1->SetValue(1, anAF->FaceGeometry());
     aSR1->Init(aName, aHARI1, aRC);
     aModel->AddWithRefs(aSR1);
@@ -4055,8 +4055,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
     StepRepr_RepresentedDefinition aRD;
     aRD.SetValue(aPropD);
     Handle(StepShape_ShapeRepresentation)        aSR = new StepShape_ShapeRepresentation;
-    Handle(StepRepr_HArray1OfRepresentationItem) aHARI =
-      new StepRepr_HArray1OfRepresentationItem(1, 1);
+    Handle(HArray1OfReprItem) aHARI =
+      new HArray1OfReprItem(1, 1);
     if (aKind < 20)
       aHARI->SetValue(1, anEC);
     else
@@ -4101,8 +4101,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
         aRILMU2->Init(aMWU2, aRI2);
         aModel->AddWithRefs(aRILMU1);
         aModel->AddWithRefs(aRILMU2);
-        Handle(StepRepr_HArray1OfRepresentationItem) aHARIVR =
-          new StepRepr_HArray1OfRepresentationItem(1, 2);
+        Handle(HArray1OfReprItem) aHARIVR =
+          new HArray1OfReprItem(1, 2);
         aHARIVR->SetValue(1, aRILMU1);
         aHARIVR->SetValue(2, aRILMU2);
         Handle(StepRepr_ValueRange) aVR = new StepRepr_ValueRange;
@@ -4111,8 +4111,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
         aModel->AddEntity(aVR);
         Handle(StepShape_ShapeDimensionRepresentation) aSDimR =
           new StepShape_ShapeDimensionRepresentation;
-        Handle(StepRepr_HArray1OfRepresentationItem) aHARI1 =
-          new StepRepr_HArray1OfRepresentationItem(1, 1);
+        Handle(HArray1OfReprItem) aHARI1 =
+          new HArray1OfReprItem(1, 1);
         aHARI1->SetValue(1, aVR);
         aSDimR->Init(aName, aHARI1, aRC);
         aModel->AddWithRefs(aSDimR);
@@ -4131,8 +4131,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)&
         TDF_LabelSequence aDatumLabels;
         XCAFDoc_DimTolTool::GetDatumOfTolerLabels(aDimTolL, aDatumLabels);
         Standard_Integer                           aSetDatumInd = 1;
-        Handle(StepDimTol_HArray1OfDatumReference) aHADR =
-          new StepDimTol_HArray1OfDatumReference(1, aDatumLabels.Length());
+        Handle(HArray1OfDatumReference) aHADR =
+          new HArray1OfDatumReference(1, aDatumLabels.Length());
         for (TDF_LabelSequence::Iterator aDatumIter(aDatumLabels); aDatumIter.More();
              aDatumIter.Next(), aSetDatumInd++)
         {
@@ -4561,8 +4561,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(ExchangeSess
   // Write Derived geometry
   if (aConnectionPnts.Length() > 0)
   {
-    Handle(StepRepr_HArray1OfRepresentationItem) anItems =
-      new StepRepr_HArray1OfRepresentationItem(1, aConnectionPnts.Length());
+    Handle(HArray1OfReprItem) anItems =
+      new HArray1OfReprItem(1, aConnectionPnts.Length());
     for (Standard_Integer i = 0; i < aConnectionPnts.Length(); i++)
       anItems->SetValue(i + 1, aConnectionPnts(i));
     aCGRepr->Init(new TCollection_HAsciiString(), anItems, dummyRC);
@@ -4591,7 +4591,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(ExchangeSess
       continue;
     TDF_LabelSequence aDatumSeq;
     XCAFDoc_DimTolTool::GetDatumWithObjectOfTolerLabels(aGeomTolL, aDatumSeq);
-    Handle(StepDimTol_HArray1OfDatumSystemOrReference) aDatumSystem;
+    Handle(HArray1OfDatumSystemOrRef) aDatumSystem;
     if (aDatumSeq.Length() > 0)
       aDatumSystem = WriteDatumSystem(theWS, aGeomTolL, aDatumSeq, aDatumMap, aRC, theLocalFactors);
     writeGeomTolerance(theWS, aFirstShapeL, aGeomTolL, aDatumSystem, aRC, theLocalFactors);
@@ -4601,8 +4601,8 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(ExchangeSess
   if (myGDTAnnotations.Length() == 0)
     return Standard_True;
 
-  Handle(StepRepr_HArray1OfRepresentationItem) aItems =
-    new StepRepr_HArray1OfRepresentationItem(1, myGDTAnnotations.Length());
+  Handle(HArray1OfReprItem) aItems =
+    new HArray1OfReprItem(1, myGDTAnnotations.Length());
   for (Standard_Integer i = 1; i <= aItems->Length(); i++)
   {
     aItems->SetValue(i, myGDTAnnotations.Value(i - 1));
@@ -4735,8 +4735,8 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(ExchangeSess
         Handle(StepRepr_DescriptiveRepresentationItem) aDRI =
           new StepRepr_DescriptiveRepresentationItem;
         aDRI->Init(aName, aDescription);
-        Handle(StepRepr_HArray1OfRepresentationItem) aHARI =
-          new StepRepr_HArray1OfRepresentationItem(1, 1);
+        Handle(HArray1OfReprItem) aHARI =
+          new HArray1OfReprItem(1, 1);
         aHARI->SetValue(1, aDRI);
         aRepDRI = new StepRepr_Representation();
         aRepDRI->Init(new TCollection_HAsciiString("material name"), aHARI, aRC);
@@ -4769,7 +4769,7 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(ExchangeSess
           aMVM->SetReal(aDensity);
           Handle(StepRepr_MeasureRepresentationItem) aMRI = new StepRepr_MeasureRepresentationItem;
           aMRI->Init(aDensName, aMVM, aUnit);
-          aHARI = new StepRepr_HArray1OfRepresentationItem(1, 1);
+          aHARI = new HArray1OfReprItem(1, 1);
           aHARI->SetValue(1, aMRI);
           aRepMRI = new StepRepr_Representation();
           aRepMRI->Init(new TCollection_HAsciiString("density"), aHARI, aRC);

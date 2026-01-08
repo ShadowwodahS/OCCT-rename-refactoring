@@ -28,7 +28,7 @@ class StepVisual_StyledItem;
 class StepVisual_PresentationLayerAssignment;
 class StepVisual_PresentationRepresentation;
 
-class StepVisual_InvisibleItem : public StepData_SelectType
+class StepVisual_InvisibleItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

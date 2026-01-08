@@ -30,7 +30,7 @@ StepFEA_NodeRepresentation::StepFEA_NodeRepresentation() {}
 
 void StepFEA_NodeRepresentation::Init(
   const Handle(TCollection_HAsciiString)&             aRepresentation_Name,
-  const Handle(StepRepr_HArray1OfRepresentationItem)& aRepresentation_Items,
+  const Handle(HArray1OfReprItem)& aRepresentation_Items,
   const Handle(StepRepr_RepresentationContext)&       aRepresentation_ContextOfItems,
   const Handle(StepFEA_FeaModel)&                     aModelRef)
 {

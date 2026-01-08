@@ -32,7 +32,7 @@ StepFEA_CurveElementIntervalLinearlyVarying::StepFEA_CurveElementIntervalLinearl
 void StepFEA_CurveElementIntervalLinearlyVarying::Init(
   const Handle(StepFEA_CurveElementLocation)& aCurveElementInterval_FinishPosition,
   const Handle(StepBasic_EulerAngles)&        aCurveElementInterval_EuAngles,
-  const Handle(StepElement_HArray1OfCurveElementSectionDefinition)& aSections)
+  const Handle(HArray1OfCurveSectionDef)& aSections)
 {
   StepFEA_CurveElementInterval::Init(aCurveElementInterval_FinishPosition,
                                      aCurveElementInterval_EuAngles);
@@ -42,7 +42,7 @@ void StepFEA_CurveElementIntervalLinearlyVarying::Init(
 
 //=================================================================================================
 
-Handle(StepElement_HArray1OfCurveElementSectionDefinition)
+Handle(HArray1OfCurveSectionDef)
   StepFEA_CurveElementIntervalLinearlyVarying::Sections() const
 {
   return theSections;
@@ -51,7 +51,7 @@ Handle(StepElement_HArray1OfCurveElementSectionDefinition)
 //=================================================================================================
 
 void StepFEA_CurveElementIntervalLinearlyVarying::SetSections(
-  const Handle(StepElement_HArray1OfCurveElementSectionDefinition)& aSections)
+  const Handle(HArray1OfCurveSectionDef)& aSections)
 {
   theSections = aSections;
 }

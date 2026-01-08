@@ -36,7 +36,7 @@ class StepBasic_NameAssignment;
 class StepBasic_SecurityClassificationAssignment;
 
 //! Representation of STEP SELECT type RoleSelect
-class StepBasic_RoleSelect : public StepData_SelectType
+class StepBasic_RoleSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

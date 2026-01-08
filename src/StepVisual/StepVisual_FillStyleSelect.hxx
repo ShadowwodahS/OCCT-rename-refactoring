@@ -26,7 +26,7 @@
 class RefObject;
 class StepVisual_FillAreaStyleColour;
 
-class StepVisual_FillStyleSelect : public StepData_SelectType
+class StepVisual_FillStyleSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

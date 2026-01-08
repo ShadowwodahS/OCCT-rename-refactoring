@@ -31,7 +31,7 @@ class StepShape_FaceBound;
 class StepShape_ClosedShell;
 class StepShape_OpenShell;
 
-class StepShape_ReversibleTopologyItem : public StepData_SelectType
+class StepShape_ReversibleTopologyItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

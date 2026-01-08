@@ -24,13 +24,13 @@
 #include <StepData_SelectMember.hxx>
 
 class StepData_SelectInt;
-DEFINE_STANDARD_HANDLE(StepData_SelectInt, StepData_SelectMember)
+DEFINE_STANDARD_HANDLE(StepData_SelectInt, SelectMember)
 
 //! A SelectInt is a SelectMember specialised for a basic integer
 //! type in a select which also accepts entities : this one has
 //! NO NAME.
 //! For a named select, see SelectNamed
-class StepData_SelectInt : public StepData_SelectMember
+class StepData_SelectInt : public SelectMember
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT virtual void SetInt(const Standard_Integer val) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_SelectInt, StepData_SelectMember)
+  DEFINE_STANDARD_RTTIEXT(StepData_SelectInt, SelectMember)
 
 protected:
 private:

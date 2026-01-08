@@ -34,7 +34,7 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                  theRepresentation_Name,
-    const Handle(StepRepr_HArray1OfRepresentationItem)&      theRepresentation_Items,
+    const Handle(HArray1OfReprItem)&      theRepresentation_Items,
     const Handle(StepRepr_RepresentationContext)&            theRepresentation_ContextOfItems,
     const Handle(StepKinematics_KinematicTopologyStructure)& theParent);
 

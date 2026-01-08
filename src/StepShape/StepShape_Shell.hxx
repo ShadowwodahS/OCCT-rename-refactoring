@@ -27,7 +27,7 @@ class RefObject;
 class StepShape_OpenShell;
 class StepShape_ClosedShell;
 
-class StepShape_Shell : public StepData_SelectType
+class StepShape_Shell : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

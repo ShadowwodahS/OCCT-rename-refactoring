@@ -91,12 +91,12 @@ StepData_Field& StepData_Simple::CFieldNum(const Standard_Integer num)
   return thefields.CField(num);
 }
 
-const StepData_FieldListN& StepData_Simple::Fields() const
+const FieldListN& StepData_Simple::Fields() const
 {
   return thefields;
 }
 
-StepData_FieldListN& StepData_Simple::CFields()
+FieldListN& StepData_Simple::CFields()
 {
   return thefields;
 }

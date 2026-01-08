@@ -24,10 +24,10 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 class StepVisual_MarkerMember;
 
-class StepVisual_MarkerSelect : public StepData_SelectType
+class StepVisual_MarkerSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,10 +41,10 @@ public:
     CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns a new MarkerMember
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Returns 1 for a SelectMember enum, named MARKER_TYPE
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& sm) const
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& sm) const
     Standard_OVERRIDE;
 
   //! Gives access to the MarkerMember in order to get/set its value

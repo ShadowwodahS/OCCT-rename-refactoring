@@ -35,7 +35,7 @@ class StepBasic_SecurityClassification;
 class StepBasic_Certification;
 
 //! Representation of STEP SELECT type DateTimeItem
-class StepAP203_DateTimeItem : public StepData_SelectType
+class StepAP203_DateTimeItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

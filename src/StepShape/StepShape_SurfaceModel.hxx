@@ -26,7 +26,7 @@
 class RefObject;
 class StepShape_ShellBasedSurfaceModel;
 
-class StepShape_SurfaceModel : public StepData_SelectType
+class StepShape_SurfaceModel : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

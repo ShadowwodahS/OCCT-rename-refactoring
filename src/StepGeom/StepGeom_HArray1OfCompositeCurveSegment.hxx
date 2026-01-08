@@ -20,6 +20,6 @@
 #include <StepGeom_Array1OfCompositeCurveSegment.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepGeom_HArray1OfCompositeCurveSegment, StepGeom_Array1OfCompositeCurveSegment)
+DEFINE_HARRAY1(HArray1OfCompositeSegment, StepGeom_Array1OfCompositeCurveSegment)
 
 #endif

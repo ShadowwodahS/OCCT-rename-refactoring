@@ -34,7 +34,7 @@ public:
 
   //! Initialize all fields AP214
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&             theName,
-                            const Handle(StepRepr_HArray1OfRepresentationItem)& theItems,
+                            const Handle(HArray1OfReprItem)& theItems,
                             const Handle(StepRepr_RepresentationContext)&       theContextOfItems);
 
   //! Initialize all fields AP242

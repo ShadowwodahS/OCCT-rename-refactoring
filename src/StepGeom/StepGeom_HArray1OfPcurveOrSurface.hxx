@@ -20,6 +20,6 @@
 #include <StepGeom_Array1OfPcurveOrSurface.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepGeom_HArray1OfPcurveOrSurface, StepGeom_Array1OfPcurveOrSurface)
+DEFINE_HARRAY1(HArray1OfPCurveOrSurface, StepGeom_Array1OfPcurveOrSurface)
 
 #endif

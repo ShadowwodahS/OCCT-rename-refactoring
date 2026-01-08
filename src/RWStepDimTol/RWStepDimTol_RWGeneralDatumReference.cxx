@@ -83,7 +83,7 @@ void RWStepDimTol_RWGeneralDatumReference::ReadStep(
   }
   else
   {
-    Handle(StepDimTol_HArray1OfDatumReferenceElement) anItems;
+    Handle(HArray1OfDatumRefElement) anItems;
     Handle(StepDimTol_DatumReferenceElement)          anEnt;
     Standard_Integer                                  nbSub;
     if (data->ReadSubList(num, 5, "general_datum_reference.base", ach, nbSub))
@@ -98,7 +98,7 @@ void RWStepDimTol_RWGeneralDatumReference::ReadStep(
         }
       }
       Standard_Integer nbElements = data->NbParams(nbSub);
-      anItems                     = new StepDimTol_HArray1OfDatumReferenceElement(1, nbElements);
+      anItems                     = new HArray1OfDatumRefElement(1, nbElements);
       for (Standard_Integer i = 1; i <= nbElements; i++)
       {
         if (data->ReadEntity(nbSub,
@@ -116,12 +116,12 @@ void RWStepDimTol_RWGeneralDatumReference::ReadStep(
   Standard_Integer nbSub;
   Standard_Boolean hasModifiers =
     data->ReadSubList(num, 6, "general_datum_reference.modifiers", ach, nbSub, Standard_True);
-  Handle(StepDimTol_HArray1OfDatumReferenceModifier) aModifiers;
+  Handle(HArray1OfDatumRefModifier) aModifiers;
   if (hasModifiers)
   {
     StepDimTol_DatumReferenceModifier anEnt;
     Standard_Integer                  nbElements = data->NbParams(nbSub);
-    aModifiers = new StepDimTol_HArray1OfDatumReferenceModifier(1, nbElements);
+    aModifiers = new HArray1OfDatumRefModifier(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       aType = data->ParamType(nbSub, i);
@@ -138,7 +138,7 @@ void RWStepDimTol_RWGeneralDatumReference::ReadStep(
       }
       else
       {
-        Handle(StepData_SelectMember) aMember;
+        Handle(SelectMember) aMember;
         data->ReadMember(nbSub, i, "simple_datum_reference_modifier", ach, aMember);
         Standard_CString                                      anEnumText = aMember->EnumText();
         Handle(StepDimTol_SimpleDatumReferenceModifierMember) aSDRM =
@@ -185,7 +185,7 @@ void RWStepDimTol_RWGeneralDatumReference::WriteStep(
   }
   else if (aBaseType == 2)
   {
-    Handle(StepDimTol_HArray1OfDatumReferenceElement) anArray = ent->Base().CommonDatumList();
+    Handle(HArray1OfDatumRefElement) anArray = ent->Base().CommonDatumList();
     Standard_Integer i, nb = (anArray.IsNull() ? 0 : anArray->Length());
     SW.OpenTypedSub("COMMON_DATUM_LIST");
     for (i = 1; i <= nb; i++)
@@ -238,7 +238,7 @@ void RWStepDimTol_RWGeneralDatumReference::Share(
   }
   else if (aBaseType == 2)
   {
-    Handle(StepDimTol_HArray1OfDatumReferenceElement) anArray = ent->Base().CommonDatumList();
+    Handle(HArray1OfDatumRefElement) anArray = ent->Base().CommonDatumList();
     Standard_Integer i, nb = (anArray.IsNull() ? 0 : anArray->Length());
     for (i = 1; i <= nb; i++)
       iter.AddItem(anArray->Value(i));

@@ -24,7 +24,7 @@ StepGeom_UniformCurveAndRationalBSplineCurve::StepGeom_UniformCurveAndRationalBS
 void StepGeom_UniformCurveAndRationalBSplineCurve::Init(
   const Handle(TCollection_HAsciiString)&         aName,
   const Standard_Integer                          aDegree,
-  const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList,
+  const Handle(HArray1OfCartesianPoint)& aControlPointsList,
   const StepGeom_BSplineCurveForm                 aCurveForm,
   const StepData_Logical                          aClosedCurve,
   const StepData_Logical                          aSelfIntersect,
@@ -46,7 +46,7 @@ void StepGeom_UniformCurveAndRationalBSplineCurve::Init(
 void StepGeom_UniformCurveAndRationalBSplineCurve::Init(
   const Handle(TCollection_HAsciiString)&         aName,
   const Standard_Integer                          aDegree,
-  const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList,
+  const Handle(HArray1OfCartesianPoint)& aControlPointsList,
   const StepGeom_BSplineCurveForm                 aCurveForm,
   const StepData_Logical                          aClosedCurve,
   const StepData_Logical                          aSelfIntersect,

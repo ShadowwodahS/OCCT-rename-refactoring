@@ -64,13 +64,13 @@ void RWStepDimTol_RWDatumSystem::ReadStep(const Handle(StepData_StepReaderData)&
 
   // Own fields of DatumSystem
 
-  Handle(StepDimTol_HArray1OfDatumReferenceCompartment) aConstituents;
+  Handle(HArray1OfDatumRefCompartment) aConstituents;
   Handle(StepDimTol_DatumReferenceCompartment)          anEnt;
   Standard_Integer                                      nbSub;
   if (data->ReadSubList(num, 5, "base", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    aConstituents               = new StepDimTol_HArray1OfDatumReferenceCompartment(1, nbElements);
+    aConstituents               = new HArray1OfDatumRefCompartment(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub,

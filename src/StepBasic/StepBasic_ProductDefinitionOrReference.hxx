@@ -27,7 +27,7 @@ class StepBasic_ProductDefinition;
 class StepBasic_ProductDefinitionReference;
 class StepBasic_ProductDefinitionReferenceWithLocalRepresentation;
 
-class StepBasic_ProductDefinitionOrReference : public StepData_SelectType
+class StepBasic_ProductDefinitionOrReference : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

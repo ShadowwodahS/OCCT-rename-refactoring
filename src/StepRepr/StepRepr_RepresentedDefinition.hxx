@@ -30,7 +30,7 @@ class StepRepr_ShapeAspect;
 class StepRepr_ShapeAspectRelationship;
 
 //! Representation of STEP SELECT type RepresentedDefinition
-class StepRepr_RepresentedDefinition : public StepData_SelectType
+class StepRepr_RepresentedDefinition : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

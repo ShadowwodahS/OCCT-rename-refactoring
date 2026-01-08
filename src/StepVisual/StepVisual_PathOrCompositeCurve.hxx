@@ -28,7 +28,7 @@ class StepGeom_CompositeCurve;
 class StepShape_Path;
 
 //! Representation of STEP SELECT type PathOrCompositeCurve
-class StepVisual_PathOrCompositeCurve : public StepData_SelectType
+class StepVisual_PathOrCompositeCurve : public SelectType
 {
 
 public:

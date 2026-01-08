@@ -162,10 +162,10 @@ Standard_Boolean StepAP209_Construct::IsAnalys(
 
 //=================================================================================================
 
-Handle(StepElement_HSequenceOfElementMaterial) StepAP209_Construct::GetElementMaterial() const
+Handle(HSequenceOfElementMaterial) StepAP209_Construct::GetElementMaterial() const
 {
-  Handle(StepElement_HSequenceOfElementMaterial) aSequence =
-    new StepElement_HSequenceOfElementMaterial;
+  Handle(HSequenceOfElementMaterial) aSequence =
+    new HSequenceOfElementMaterial;
   Handle(Interface_InterfaceModel) model = Model();
   Standard_Integer                 nb    = model->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
@@ -183,11 +183,11 @@ Handle(StepElement_HSequenceOfElementMaterial) StepAP209_Construct::GetElementMa
 
 //=================================================================================================
 
-Handle(StepFEA_HSequenceOfElementGeometricRelationship) StepAP209_Construct::GetElemGeomRelat()
+Handle(HSequenceOfElementGeoRel) StepAP209_Construct::GetElemGeomRelat()
   const
 {
-  Handle(StepFEA_HSequenceOfElementGeometricRelationship) aSequence =
-    new StepFEA_HSequenceOfElementGeometricRelationship;
+  Handle(HSequenceOfElementGeoRel) aSequence =
+    new HSequenceOfElementGeoRel;
   Handle(Interface_InterfaceModel) model = Model();
   Standard_Integer                 nb    = model->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
@@ -545,7 +545,7 @@ Handle(StepShape_ShapeRepresentation) StepAP209_Construct::NominShape(
 
 //=================================================================================================
 
-Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElements1D(
+Handle(HSequenceOfElementRepr) StepAP209_Construct::GetElements1D(
   const Handle(StepFEA_FeaModel)& theFeaModel) const
 {
   return GetFeaElements(theFeaModel, STANDARD_TYPE(StepFEA_Curve3dElementRepresentation));
@@ -553,7 +553,7 @@ Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElement
 
 //=================================================================================================
 
-Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElements2D(
+Handle(HSequenceOfElementRepr) StepAP209_Construct::GetElements2D(
   const Handle(StepFEA_FeaModel)& theFeaModel) const
 {
   return GetFeaElements(theFeaModel, STANDARD_TYPE(StepFEA_Surface3dElementRepresentation));
@@ -561,7 +561,7 @@ Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElement
 
 //=================================================================================================
 
-Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElements3D(
+Handle(HSequenceOfElementRepr) StepAP209_Construct::GetElements3D(
   const Handle(StepFEA_FeaModel)& theFeaModel) const
 {
   return GetFeaElements(theFeaModel, STANDARD_TYPE(StepFEA_Volume3dElementRepresentation));
@@ -569,18 +569,18 @@ Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElement
 
 //=================================================================================================
 
-Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetFeaElements(
+Handle(HSequenceOfElementRepr) StepAP209_Construct::GetFeaElements(
   const Handle(StepFEA_FeaModel)& theFeaModel,
   const Handle(TypeInfo)&    theType) const
 {
-  Handle(StepFEA_HSequenceOfElementRepresentation) aSequence;
+  Handle(HSequenceOfElementRepr) aSequence;
   if (!theType->SubType(STANDARD_TYPE(StepFEA_ElementRepresentation)))
     return aSequence;
 
   Interface_EntityIterator anIter = Graph().Sharings(theFeaModel);
   anIter.Start();
   if (anIter.More())
-    aSequence = new StepFEA_HSequenceOfElementRepresentation;
+    aSequence = new HSequenceOfElementRepr;
 
   for (; anIter.More(); anIter.Next())
   {
@@ -597,11 +597,11 @@ Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetFeaElem
 
 //=================================================================================================
 
-Handle(StepElement_HSequenceOfCurveElementSectionDefinition) StepAP209_Construct::GetCurElemSection(
+Handle(HSequenceOfCurveSectionDef) StepAP209_Construct::GetCurElemSection(
   const Handle(StepFEA_Curve3dElementRepresentation)& ElemRepr) const
 {
-  Handle(StepElement_HSequenceOfCurveElementSectionDefinition) aSequence =
-    new StepElement_HSequenceOfCurveElementSectionDefinition;
+  Handle(HSequenceOfCurveSectionDef) aSequence =
+    new HSequenceOfCurveSectionDef;
   if (ElemRepr.IsNull())
     return aSequence;
 
@@ -609,7 +609,7 @@ Handle(StepElement_HSequenceOfCurveElementSectionDefinition) StepAP209_Construct
   if (C3dEP.IsNull())
     return aSequence;
 
-  Handle(StepFEA_HArray1OfCurveElementInterval) ACEI = C3dEP->IntervalDefinitions();
+  Handle(HArray1OfCurveInterval) ACEI = C3dEP->IntervalDefinitions();
   if (ACEI.IsNull())
     return aSequence;
 
@@ -705,7 +705,7 @@ Standard_Boolean StepAP209_Construct::CreateAnalysStructure(
   RI                                          = SR->ItemsValue(1);
   smodel->AddWithRefs(RI); // add new representation_item
   smodel->SetIdentLabel(RI, smodel->Number(RI));
-  Handle(StepRepr_HArray1OfRepresentationItem) ARI = new StepRepr_HArray1OfRepresentationItem(1, 1);
+  Handle(HArray1OfReprItem) ARI = new HArray1OfReprItem(1, 1);
   ARI->SetValue(1, RI);
   AnaSR->Init(new TCollection_HAsciiString("idealized_analysis_shape"), ARI, SR->ContextOfItems());
   smodel->AddWithRefs(AnaSR); // add idealized_analys_shape
@@ -917,8 +917,8 @@ Standard_Boolean StepAP209_Construct::CreateFeaStructure(
   // create fea_model_3d
   Handle(StepFEA_FeaModel3d) FM = new StepFEA_FeaModel3d;
   FM->SetName(new TCollection_HAsciiString("FEA_MODEL"));
-  Handle(StepRepr_HArray1OfRepresentationItem) HARI =
-    new StepRepr_HArray1OfRepresentationItem(1, 1);
+  Handle(HArray1OfReprItem) HARI =
+    new HArray1OfReprItem(1, 1);
   HARI->SetValue(1, FA2P3D);
   Handle(TColStd_HArray1OfAsciiString) HAAS = new TColStd_HArray1OfAsciiString(1, 1);
   HAAS->SetValue(1, "FEA_SOLVER");

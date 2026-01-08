@@ -37,7 +37,7 @@ Standard_Integer StepBasic_SourceItem::CaseNum(const Handle(RefObject)& ent) con
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepBasic_SourceItem::NewMember() const
+Handle(SelectMember) StepBasic_SourceItem::NewMember() const
 {
   Handle(StepData_SelectNamed) member = new StepData_SelectNamed;
   return member;

@@ -21,7 +21,7 @@
 
 #include <Standard_Transient.hxx>
 class TCollection_HAsciiString;
-class StepElement_SurfaceSectionField;
+class SurfaceSectionField;
 
 class StepElement_SurfaceElementProperty;
 DEFINE_STANDARD_HANDLE(StepElement_SurfaceElementProperty, RefObject)
@@ -37,7 +37,7 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&        aPropertyId,
                             const Handle(TCollection_HAsciiString)&        aDescription,
-                            const Handle(StepElement_SurfaceSectionField)& aSection);
+                            const Handle(SurfaceSectionField)& aSection);
 
   //! Returns field PropertyId
   Standard_EXPORT Handle(TCollection_HAsciiString) PropertyId() const;
@@ -52,10 +52,10 @@ public:
   Standard_EXPORT void SetDescription(const Handle(TCollection_HAsciiString)& Description);
 
   //! Returns field Section
-  Standard_EXPORT Handle(StepElement_SurfaceSectionField) Section() const;
+  Standard_EXPORT Handle(SurfaceSectionField) Section() const;
 
   //! Set field Section
-  Standard_EXPORT void SetSection(const Handle(StepElement_SurfaceSectionField)& Section);
+  Standard_EXPORT void SetSection(const Handle(SurfaceSectionField)& Section);
 
   DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceElementProperty, RefObject)
 
@@ -63,7 +63,7 @@ protected:
 private:
   Handle(TCollection_HAsciiString)        thePropertyId;
   Handle(TCollection_HAsciiString)        theDescription;
-  Handle(StepElement_SurfaceSectionField) theSection;
+  Handle(SurfaceSectionField) theSection;
 };
 
 #endif // _StepElement_SurfaceElementProperty_HeaderFile

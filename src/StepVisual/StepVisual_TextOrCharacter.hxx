@@ -28,7 +28,7 @@ class StepVisual_AnnotationText;
 class StepVisual_CompositeText;
 class StepVisual_TextLiteral;
 
-class StepVisual_TextOrCharacter : public StepData_SelectType
+class StepVisual_TextOrCharacter : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

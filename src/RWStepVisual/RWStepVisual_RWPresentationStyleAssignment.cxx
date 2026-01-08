@@ -52,7 +52,7 @@ void RWStepVisual_RWPresentationStyleAssignment::ReadStep(
       }
       else
       {
-        Handle(StepData_SelectMember) aMember;
+        Handle(SelectMember) aMember;
         data->ReadMember(nsub1, i1, "null_style", ach, aMember);
         Handle(StepVisual_NullStyleMember) aNullStyle = new StepVisual_NullStyleMember();
         if (!aMember.IsNull())

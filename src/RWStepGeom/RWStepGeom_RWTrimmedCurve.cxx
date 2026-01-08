@@ -57,12 +57,12 @@ void RWStepGeom_RWTrimmedCurve::ReadStep(const Handle(StepData_StepReaderData)& 
   Handle(StepGeom_CartesianPoint) aCartesianPoint;
   // Standard_Real aParameterValue; //szv#4:S4163:12Mar99 unused
 
-  Handle(StepGeom_HArray1OfTrimmingSelect) aTrim1;
+  Handle(HArray1OfTrimmingSelect) aTrim1;
   Standard_Integer                         nsub3;
   if (data->ReadSubList(num, 3, "trim_1", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aTrim1               = new StepGeom_HArray1OfTrimmingSelect(1, nb3);
+    aTrim1               = new HArray1OfTrimmingSelect(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       StepGeom_TrimmingSelect aTrim1Item;
@@ -74,12 +74,12 @@ void RWStepGeom_RWTrimmedCurve::ReadStep(const Handle(StepData_StepReaderData)& 
 
   // --- own field : trim2 ---
 
-  Handle(StepGeom_HArray1OfTrimmingSelect) aTrim2;
+  Handle(HArray1OfTrimmingSelect) aTrim2;
   Standard_Integer                         nsub4;
   if (data->ReadSubList(num, 4, "trim_2", ach, nsub4))
   {
     Standard_Integer nb4 = data->NbParams(nsub4);
-    aTrim2               = new StepGeom_HArray1OfTrimmingSelect(1, nb4);
+    aTrim2               = new HArray1OfTrimmingSelect(1, nb4);
     for (Standard_Integer i4 = 1; i4 <= nb4; i4++)
     {
 

@@ -29,7 +29,7 @@ class StepRepr_DescriptiveRepresentationItem;
 class StepRepr_MeasureRepresentationItem;
 class StepGeom_Placement;
 
-class StepShape_ShapeDimensionRepresentationItem : public StepData_SelectType
+class StepShape_ShapeDimensionRepresentationItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

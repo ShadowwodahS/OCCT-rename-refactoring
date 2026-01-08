@@ -52,7 +52,7 @@ public:
   Standard_EXPORT virtual StepData_Field& CField(const Standard_Integer num) Standard_OVERRIDE;
 
 private:
-  Handle(StepData_HArray1OfField) thefields;
+  Handle(HArray1OfField) thefields;
 };
 
 #endif // _StepData_FieldListD_HeaderFile

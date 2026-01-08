@@ -37,11 +37,11 @@ public:
   Standard_EXPORT StepShape_PolyLoop();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&         aName,
-                            const Handle(StepGeom_HArray1OfCartesianPoint)& aPolygon);
+                            const Handle(HArray1OfCartesianPoint)& aPolygon);
 
-  Standard_EXPORT void SetPolygon(const Handle(StepGeom_HArray1OfCartesianPoint)& aPolygon);
+  Standard_EXPORT void SetPolygon(const Handle(HArray1OfCartesianPoint)& aPolygon);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfCartesianPoint) Polygon() const;
+  Standard_EXPORT Handle(HArray1OfCartesianPoint) Polygon() const;
 
   Standard_EXPORT Handle(StepGeom_CartesianPoint) PolygonValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepGeom_HArray1OfCartesianPoint) polygon;
+  Handle(HArray1OfCartesianPoint) polygon;
 };
 
 #endif // _StepShape_PolyLoop_HeaderFile

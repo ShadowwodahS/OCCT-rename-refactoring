@@ -36,7 +36,7 @@ Standard_Integer StepElement_SurfaceElementPurpose::CaseNum(
 //=================================================================================================
 
 Standard_Integer StepElement_SurfaceElementPurpose::CaseMem(
-  const Handle(StepData_SelectMember)& ent) const
+  const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -50,7 +50,7 @@ Standard_Integer StepElement_SurfaceElementPurpose::CaseMem(
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepElement_SurfaceElementPurpose::NewMember() const
+Handle(SelectMember) StepElement_SurfaceElementPurpose::NewMember() const
 {
   return new StepElement_SurfaceElementPurposeMember;
 }

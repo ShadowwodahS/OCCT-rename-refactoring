@@ -33,11 +33,11 @@ class Interface_Check;
 class AsciiString1;
 class StepData_PDescr;
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 class StepData_Field;
 class StepData_ESDescr;
 class FieldList;
-class StepData_SelectType;
+class SelectType;
 class TCollection_HAsciiString;
 class EnumTool;
 
@@ -205,7 +205,7 @@ public:
                                               const Standard_Integer         nump,
                                               const Standard_CString         mess,
                                               Handle(Interface_Check)&       ach,
-                                              Handle(StepData_SelectMember)& val) const;
+                                              Handle(SelectMember)& val) const;
 
   //! Safe variant for arbitrary type of argument
   template <class T>
@@ -215,7 +215,7 @@ public:
                               Handle(Interface_Check)& ach,
                               Handle(T)&               val) const
   {
-    Handle(StepData_SelectMember) aVal = val;
+    Handle(SelectMember) aVal = val;
     return ReadMember(num, nump, mess, ach, aVal) && !(val = Handle(T)::DownCast(aVal)).IsNull();
   }
 
@@ -327,7 +327,7 @@ public:
                                               const Standard_Integer   nump,
                                               const Standard_CString   mess,
                                               Handle(Interface_Check)& ach,
-                                              StepData_SelectType&     sel) const;
+                                              SelectType&     sel) const;
 
   //! reads parameter <nump> of record <num> as a single Integer1.
   //! Return value & Check managed as by ReadXY (demands an Integer1)

@@ -70,13 +70,13 @@ void RWStepGeom_RWSurfaceCurveAndBoundedCurve::ReadStep(
   data->ReadEntity(num1, 1, "curve_3d", ach, STANDARD_TYPE(StepGeom_Curve), aCurve3d);
 
   // --- own field : associatedGeometry ---
-  Handle(StepGeom_HArray1OfPcurveOrSurface) aAssociatedGeometry;
+  Handle(HArray1OfPCurveOrSurface) aAssociatedGeometry;
   StepGeom_PcurveOrSurface                  aAssociatedGeometryItem;
   Standard_Integer                          nsub3;
   if (data->ReadSubList(num1, 2, "associated_geometry", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aAssociatedGeometry  = new StepGeom_HArray1OfPcurveOrSurface(1, nb3);
+    aAssociatedGeometry  = new HArray1OfPCurveOrSurface(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed

@@ -21,7 +21,7 @@ StepGeom_RectangularCompositeSurface::StepGeom_RectangularCompositeSurface() {}
 
 void StepGeom_RectangularCompositeSurface::Init(
   const Handle(TCollection_HAsciiString)&       aName,
-  const Handle(StepGeom_HArray2OfSurfacePatch)& aSegments)
+  const Handle(HArray2OfSurfacePatch)& aSegments)
 {
   // --- classe own fields ---
   segments = aSegments;
@@ -30,12 +30,12 @@ void StepGeom_RectangularCompositeSurface::Init(
 }
 
 void StepGeom_RectangularCompositeSurface::SetSegments(
-  const Handle(StepGeom_HArray2OfSurfacePatch)& aSegments)
+  const Handle(HArray2OfSurfacePatch)& aSegments)
 {
   segments = aSegments;
 }
 
-Handle(StepGeom_HArray2OfSurfacePatch) StepGeom_RectangularCompositeSurface::Segments() const
+Handle(HArray2OfSurfacePatch) StepGeom_RectangularCompositeSurface::Segments() const
 {
   return segments;
 }

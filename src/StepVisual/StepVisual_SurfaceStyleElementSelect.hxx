@@ -29,7 +29,7 @@ class StepVisual_SurfaceStyleBoundary;
 class StepVisual_SurfaceStyleParameterLine;
 class StepVisual_SurfaceStyleRendering;
 
-class StepVisual_SurfaceStyleElementSelect : public StepData_SelectType
+class StepVisual_SurfaceStyleElementSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

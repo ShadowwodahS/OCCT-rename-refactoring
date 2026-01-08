@@ -119,14 +119,14 @@ static Handle(StepGeom_TrimmedCurve) MakeTrimmedCurve(const Handle(StepGeom_Curv
                                                       Standard_Real                          trim2,
                                                       Standard_Boolean                       sense)
 {
-  Handle(StepGeom_HArray1OfTrimmingSelect) aSTS1 = new StepGeom_HArray1OfTrimmingSelect(1, 2);
+  Handle(HArray1OfTrimmingSelect) aSTS1 = new HArray1OfTrimmingSelect(1, 2);
   StepGeom_TrimmingSelect                  tSel;
   tSel.SetValue(P1);
   aSTS1->SetValue(1, tSel);
   tSel.SetParameterValue(trim1);
   aSTS1->SetValue(2, tSel);
 
-  Handle(StepGeom_HArray1OfTrimmingSelect) aSTS2 = new StepGeom_HArray1OfTrimmingSelect(1, 2);
+  Handle(HArray1OfTrimmingSelect) aSTS2 = new HArray1OfTrimmingSelect(1, 2);
   tSel.SetValue(P2);
   aSTS2->SetValue(1, tSel);
   tSel.SetParameterValue(trim2);

@@ -66,13 +66,13 @@ void RWStepDimTol_RWToleranceZone::ReadStep(const Handle(StepData_StepReaderData
 
   // Own fields of ToleranceZone
 
-  Handle(StepDimTol_HArray1OfToleranceZoneTarget) anItems;
+  Handle(HArray1OfToleranceZoneTarget) anItems;
   StepDimTol_ToleranceZoneTarget                  anEnt;
   Standard_Integer                                nbSub;
   if (data->ReadSubList(num, 5, "defining_tolerance", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    anItems                     = new StepDimTol_HArray1OfToleranceZoneTarget(1, nbElements);
+    anItems                     = new HArray1OfToleranceZoneTarget(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub, i, "tolerance_zone_target", ach, anEnt))

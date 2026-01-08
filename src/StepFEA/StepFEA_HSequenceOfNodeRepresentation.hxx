@@ -18,6 +18,6 @@
 #include <StepFEA_SequenceOfNodeRepresentation.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(StepFEA_HSequenceOfNodeRepresentation, StepFEA_SequenceOfNodeRepresentation)
+DEFINE_HSEQUENCE(HSequenceOfNodeRepr, StepFEA_SequenceOfNodeRepresentation)
 
 #endif

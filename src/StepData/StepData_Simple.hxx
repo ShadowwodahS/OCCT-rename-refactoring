@@ -80,10 +80,10 @@ public:
   Standard_EXPORT StepData_Field& CFieldNum(const Standard_Integer num);
 
   //! Returns the entire field list, read-only
-  Standard_EXPORT const StepData_FieldListN& Fields() const;
+  Standard_EXPORT const FieldListN& Fields() const;
 
   //! Returns the entire field list, read or write
-  Standard_EXPORT StepData_FieldListN& CFields();
+  Standard_EXPORT FieldListN& CFields();
 
   //! Fills a Check by using its Description
   Standard_EXPORT void Check(Handle(Interface_Check)& ach) const Standard_OVERRIDE;
@@ -95,7 +95,7 @@ public:
 
 protected:
 private:
-  StepData_FieldListN thefields;
+  FieldListN thefields;
 };
 
 #endif // _StepData_Simple_HeaderFile

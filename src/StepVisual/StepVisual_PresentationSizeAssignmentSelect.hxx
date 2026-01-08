@@ -28,7 +28,7 @@ class StepVisual_PresentationView;
 class StepVisual_PresentationArea;
 class StepVisual_AreaInSet;
 
-class StepVisual_PresentationSizeAssignmentSelect : public StepData_SelectType
+class StepVisual_PresentationSizeAssignmentSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

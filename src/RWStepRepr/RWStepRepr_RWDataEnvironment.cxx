@@ -47,12 +47,12 @@ void RWStepRepr_RWDataEnvironment::ReadStep(const Handle(StepData_StepReaderData
   Handle(TCollection_HAsciiString) aDescription;
   data->ReadString(num, 2, "description", ach, aDescription);
 
-  Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation) aElements;
+  Handle(HArray1OfPropDefRepr) aElements;
   Standard_Integer                                           sub3 = 0;
   if (data->ReadSubList(num, 3, "elements", ach, sub3))
   {
     Standard_Integer nb0  = data->NbParams(sub3);
-    aElements             = new StepRepr_HArray1OfPropertyDefinitionRepresentation(1, nb0);
+    aElements             = new HArray1OfPropDefRepr(1, nb0);
     Standard_Integer num2 = sub3;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

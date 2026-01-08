@@ -26,7 +26,7 @@ StepKinematics_MechanismRepresentation::StepKinematics_MechanismRepresentation()
 
 void StepKinematics_MechanismRepresentation::Init(
   const Handle(TCollection_HAsciiString)&                     theRepresentation_Name,
-  const Handle(StepRepr_HArray1OfRepresentationItem)&         theRepresentation_Items,
+  const Handle(HArray1OfReprItem)&         theRepresentation_Items,
   const Handle(StepRepr_RepresentationContext)&               theRepresentation_ContextOfItems,
   const StepKinematics_KinematicTopologyRepresentationSelect& theRepresentedTopology)
 {

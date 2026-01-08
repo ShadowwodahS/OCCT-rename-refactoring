@@ -29,7 +29,7 @@ class StepKinematics_KinematicTopologyNetworkStructure;
 class StepKinematics_KinematicTopologyStructure;
 
 //! Representation of STEP SELECT type KinematicTopologyRepresentationSelect
-class StepKinematics_KinematicTopologyRepresentationSelect : public StepData_SelectType
+class StepKinematics_KinematicTopologyRepresentationSelect : public SelectType
 {
 
 public:

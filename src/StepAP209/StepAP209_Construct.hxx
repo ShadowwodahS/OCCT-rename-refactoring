@@ -79,22 +79,22 @@ public:
   Standard_EXPORT Handle(StepShape_ShapeRepresentation) NominShape(
     const Handle(StepBasic_ProductDefinitionFormation)& PDF) const;
 
-  Standard_EXPORT Handle(StepElement_HSequenceOfElementMaterial) GetElementMaterial() const;
+  Standard_EXPORT Handle(HSequenceOfElementMaterial) GetElementMaterial() const;
 
-  Standard_EXPORT Handle(StepFEA_HSequenceOfElementGeometricRelationship) GetElemGeomRelat() const;
+  Standard_EXPORT Handle(HSequenceOfElementGeoRel) GetElemGeomRelat() const;
 
-  Standard_EXPORT Handle(StepFEA_HSequenceOfElementRepresentation) GetElements1D(
+  Standard_EXPORT Handle(HSequenceOfElementRepr) GetElements1D(
     const Handle(StepFEA_FeaModel)& theFeaModel) const;
 
-  Standard_EXPORT Handle(StepFEA_HSequenceOfElementRepresentation) GetElements2D(
+  Standard_EXPORT Handle(HSequenceOfElementRepr) GetElements2D(
     const Handle(StepFEA_FeaModel)& theFEAModel) const;
 
-  Standard_EXPORT Handle(StepFEA_HSequenceOfElementRepresentation) GetElements3D(
+  Standard_EXPORT Handle(HSequenceOfElementRepr) GetElements3D(
     const Handle(StepFEA_FeaModel)& theFEAModel) const;
 
   //! Getting list of curve_element_section_definitions
   //! for given element_representation
-  Standard_EXPORT Handle(StepElement_HSequenceOfCurveElementSectionDefinition) GetCurElemSection(
+  Standard_EXPORT Handle(HSequenceOfCurveSectionDef) GetCurElemSection(
     const Handle(StepFEA_Curve3dElementRepresentation)& ElemRepr) const;
 
   Standard_EXPORT Handle(StepShape_ShapeRepresentation) GetShReprForElem(
@@ -138,7 +138,7 @@ public:
     const Handle(StepRepr_ProductDefinitionShape)& PDS) const;
 
 protected:
-  Standard_EXPORT Handle(StepFEA_HSequenceOfElementRepresentation) GetFeaElements(
+  Standard_EXPORT Handle(HSequenceOfElementRepr) GetFeaElements(
     const Handle(StepFEA_FeaModel)& theFeaModel,
     const Handle(TypeInfo)&    theType) const;
 

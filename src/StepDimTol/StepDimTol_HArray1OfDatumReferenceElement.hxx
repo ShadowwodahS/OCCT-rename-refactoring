@@ -19,5 +19,5 @@
 #include <StepDimTol_Array1OfDatumReferenceElement.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepDimTol_HArray1OfDatumReferenceElement, StepDimTol_Array1OfDatumReferenceElement)
+DEFINE_HARRAY1(HArray1OfDatumRefElement, StepDimTol_Array1OfDatumReferenceElement)
 #endif // _StepDimTol_HArray1OfDatumReferenceElement_HeaderFile

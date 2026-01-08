@@ -30,7 +30,7 @@ StepVisual_TessellatedShapeRepresentationWithAccuracyParameters::
 
 void StepVisual_TessellatedShapeRepresentationWithAccuracyParameters::Init(
   const Handle(TCollection_HAsciiString)&             theRepresentation_Name,
-  const Handle(StepRepr_HArray1OfRepresentationItem)& theRepresentation_Items,
+  const Handle(HArray1OfReprItem)& theRepresentation_Items,
   const Handle(StepRepr_RepresentationContext)&       theRepresentation_ContextOfItems,
   const Handle(TColStd_HArray1OfReal)&                theTessellationAccuracyParameters)
 {

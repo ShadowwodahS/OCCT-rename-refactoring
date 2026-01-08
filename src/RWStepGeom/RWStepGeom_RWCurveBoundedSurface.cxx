@@ -52,13 +52,13 @@ void RWStepGeom_RWCurveBoundedSurface::ReadStep(
   Handle(StepGeom_Surface) aBasisSurface;
   data->ReadEntity(num, 2, "basis_surface", ach, STANDARD_TYPE(StepGeom_Surface), aBasisSurface);
 
-  Handle(StepGeom_HArray1OfSurfaceBoundary) aBoundaries;
+  Handle(HArray1OfSurfaceBoundary) aBoundaries;
   Standard_Integer                          sub3 = 0;
   if (data->ReadSubList(num, 3, "boundaries", ach, sub3))
   {
     Standard_Integer num2 = sub3;
     Standard_Integer nb0  = data->NbParams(num2);
-    aBoundaries           = new StepGeom_HArray1OfSurfaceBoundary(1, nb0);
+    aBoundaries           = new HArray1OfSurfaceBoundary(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       StepGeom_SurfaceBoundary anIt0;

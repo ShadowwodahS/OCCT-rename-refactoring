@@ -29,9 +29,9 @@ StepFEA_ElementRepresentation::StepFEA_ElementRepresentation() {}
 
 void StepFEA_ElementRepresentation::Init(
   const Handle(TCollection_HAsciiString)&             aRepresentation_Name,
-  const Handle(StepRepr_HArray1OfRepresentationItem)& aRepresentation_Items,
+  const Handle(HArray1OfReprItem)& aRepresentation_Items,
   const Handle(StepRepr_RepresentationContext)&       aRepresentation_ContextOfItems,
-  const Handle(StepFEA_HArray1OfNodeRepresentation)&  aNodeList)
+  const Handle(HArray1OfNodeRepr)&  aNodeList)
 {
   StepRepr_Representation::Init(aRepresentation_Name,
                                 aRepresentation_Items,
@@ -42,7 +42,7 @@ void StepFEA_ElementRepresentation::Init(
 
 //=================================================================================================
 
-Handle(StepFEA_HArray1OfNodeRepresentation) StepFEA_ElementRepresentation::NodeList() const
+Handle(HArray1OfNodeRepr) StepFEA_ElementRepresentation::NodeList() const
 {
   return theNodeList;
 }
@@ -50,7 +50,7 @@ Handle(StepFEA_HArray1OfNodeRepresentation) StepFEA_ElementRepresentation::NodeL
 //=================================================================================================
 
 void StepFEA_ElementRepresentation::SetNodeList(
-  const Handle(StepFEA_HArray1OfNodeRepresentation)& aNodeList)
+  const Handle(HArray1OfNodeRepr)& aNodeList)
 {
   theNodeList = aNodeList;
 }

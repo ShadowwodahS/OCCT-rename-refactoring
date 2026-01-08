@@ -22,11 +22,11 @@
 #include <StepData_SelectType.hxx>
 #include <StepData_UndefinedEntity.hxx>
 
-Standard_Boolean StepData_SelectType::Matches(const Handle(RefObject)& ent) const
+Standard_Boolean SelectType::Matches(const Handle(RefObject)& ent) const
 {
   if (CaseNum(ent) > 0)
     return Standard_True;
-  DeclareAndCast(StepData_SelectMember, sm, ent);
+  DeclareAndCast(SelectMember, sm, ent);
   if (sm.IsNull())
     return Standard_False;
   if (CaseMem(sm) > 0)
@@ -34,7 +34,7 @@ Standard_Boolean StepData_SelectType::Matches(const Handle(RefObject)& ent) cons
   return Standard_False;
 }
 
-void StepData_SelectType::SetValue(const Handle(RefObject)& ent)
+void SelectType::SetValue(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     thevalue.Nullify();
@@ -46,29 +46,29 @@ void StepData_SelectType::SetValue(const Handle(RefObject)& ent)
     thevalue = ent;
 }
 
-void StepData_SelectType::Nullify()
+void SelectType::Nullify()
 {
   thevalue.Nullify();
 }
 
-const Handle(RefObject)& StepData_SelectType::Value() const
+const Handle(RefObject)& SelectType::Value() const
 {
   return thevalue;
 }
 
-Standard_Boolean StepData_SelectType::IsNull() const
+Standard_Boolean SelectType::IsNull() const
 {
   return thevalue.IsNull();
 }
 
-Handle(TypeInfo) StepData_SelectType::Type() const
+Handle(TypeInfo) SelectType::Type() const
 {
   if (thevalue.IsNull())
     return STANDARD_TYPE(RefObject);
   return thevalue->DynamicType();
 }
 
-Standard_Integer StepData_SelectType::CaseNumber() const
+Standard_Integer SelectType::CaseNumber() const
 {
   if (thevalue.IsNull())
     return 0;
@@ -77,55 +77,55 @@ Standard_Integer StepData_SelectType::CaseNumber() const
 
 //  **********   Types Immediats   ***********
 
-Handle(StepData_PDescr) StepData_SelectType::Description() const
+Handle(StepData_PDescr) SelectType::Description() const
 {
   Handle(StepData_PDescr) nuldescr;
   return nuldescr;
 }
 
-Handle(StepData_SelectMember) StepData_SelectType::NewMember() const
+Handle(SelectMember) SelectType::NewMember() const
 {
-  Handle(StepData_SelectMember) nulmem;
+  Handle(SelectMember) nulmem;
   return nulmem;
 }
 
-Standard_Integer StepData_SelectType::CaseMem(const Handle(StepData_SelectMember)& /*ent*/) const
+Standard_Integer SelectType::CaseMem(const Handle(SelectMember)& /*ent*/) const
 {
   return 0;
 }
 
-Standard_Integer StepData_SelectType::CaseMember() const
+Standard_Integer SelectType::CaseMember() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return 0;
   return CaseMem(sm);
 }
 
-Handle(StepData_SelectMember) StepData_SelectType::Member() const
+Handle(SelectMember) SelectType::Member() const
 {
-  return GetCasted(StepData_SelectMember, thevalue);
+  return GetCasted(SelectMember, thevalue);
 }
 
-Standard_CString StepData_SelectType::SelectName() const
+Standard_CString SelectType::SelectName() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return "";
   return sm->Name();
 }
 
-Standard_Integer StepData_SelectType::Int() const
+Standard_Integer SelectType::Int() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return 0;
   return sm->Int();
 }
 
-void StepData_SelectType::SetInt(const Standard_Integer val)
+void SelectType::SetInt(const Standard_Integer val)
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     throw Standard_TypeMismatch("StepData1 : SelectType, SetInt");
   sm->SetInt(val);
@@ -133,11 +133,11 @@ void StepData_SelectType::SetInt(const Standard_Integer val)
 
 //  **********   Types Immediats : Differents Cas  ***********
 
-static Handle(StepData_SelectMember) SelectVal(const Handle(RefObject)& thevalue,
+static Handle(SelectMember) SelectVal(const Handle(RefObject)& thevalue,
                                                const Standard_CString            name,
                                                const int                         mode)
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (!sm.IsNull())
   {
     if (name && name[0] != '\0')
@@ -160,72 +160,72 @@ static Handle(StepData_SelectMember) SelectVal(const Handle(RefObject)& thevalue
   return sm;
 }
 
-Standard_Integer StepData_SelectType::Integer1() const
+Standard_Integer SelectType::Integer1() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return 0;
   return sm->Integer1();
 }
 
-void StepData_SelectType::SetInteger(const Standard_Integer val, const Standard_CString name)
+void SelectType::SetInteger(const Standard_Integer val, const Standard_CString name)
 {
-  Handle(StepData_SelectMember) sm = SelectVal(thevalue, name, 0);
+  Handle(SelectMember) sm = SelectVal(thevalue, name, 0);
   sm->SetInteger(val);
   if (CaseMem(sm) == 0)
     throw Standard_TypeMismatch("StepData1 : SelectType, SetInteger");
   thevalue = sm;
 }
 
-Standard_Boolean StepData_SelectType::Boolean() const
+Standard_Boolean SelectType::Boolean() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return Standard_False;
   return sm->Boolean();
 }
 
-void StepData_SelectType::SetBoolean(const Standard_Boolean val, const Standard_CString name)
+void SelectType::SetBoolean(const Standard_Boolean val, const Standard_CString name)
 {
-  Handle(StepData_SelectMember) sm = SelectVal(thevalue, name, 0);
+  Handle(SelectMember) sm = SelectVal(thevalue, name, 0);
   sm->SetBoolean(val);
   if (CaseMem(sm) == 0)
     throw Standard_TypeMismatch("StepData1 : SelectType, SetBoolean");
   thevalue = sm;
 }
 
-StepData_Logical StepData_SelectType::Logical() const
+StepData_Logical SelectType::Logical() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return StepData_LUnknown;
   return sm->Logical();
 }
 
-void StepData_SelectType::SetLogical(const StepData_Logical val, const Standard_CString name)
+void SelectType::SetLogical(const StepData_Logical val, const Standard_CString name)
 {
-  Handle(StepData_SelectMember) sm = SelectVal(thevalue, name, 0);
+  Handle(SelectMember) sm = SelectVal(thevalue, name, 0);
   sm->SetLogical(val);
   if (CaseMem(sm) == 0)
     throw Standard_TypeMismatch("StepData1 : SelectType, SetLogical");
   thevalue = sm;
 }
 
-Standard_Real StepData_SelectType::Real() const
+Standard_Real SelectType::Real() const
 {
-  DeclareAndCast(StepData_SelectMember, sm, thevalue);
+  DeclareAndCast(SelectMember, sm, thevalue);
   if (sm.IsNull())
     return 0.0;
   return sm->Real();
 }
 
-void StepData_SelectType::SetReal(const Standard_Real val, const Standard_CString name)
+void SelectType::SetReal(const Standard_Real val, const Standard_CString name)
 {
-  Handle(StepData_SelectMember) sm = SelectVal(thevalue, name, 1);
+  Handle(SelectMember) sm = SelectVal(thevalue, name, 1);
   sm->SetReal(val);
   if (CaseMem(sm) == 0)
     throw Standard_TypeMismatch("StepData1 : SelectType, SetReal");
   thevalue = sm;
 }
 
-StepData_SelectType::~StepData_SelectType() {}
+SelectType::~SelectType() {}

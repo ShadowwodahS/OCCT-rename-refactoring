@@ -45,7 +45,7 @@ class StepRepr_MeasureRepresentationItem;
 class StepBasic_ProductDefinitionContext;
 class StepRepr_RepresentationItem;
 
-class StepAP214_DocumentReferenceItem : public StepData_SelectType
+class StepAP214_DocumentReferenceItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

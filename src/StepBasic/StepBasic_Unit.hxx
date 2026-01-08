@@ -28,7 +28,7 @@ class StepBasic_NamedUnit;
 class StepBasic_DerivedUnit;
 
 //! Implements a select type unit (NamedUnit or DerivedUnit)
-class StepBasic_Unit : public StepData_SelectType
+class StepBasic_Unit : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -28,7 +28,7 @@ class StepRepr_Representation;
 class StepRepr_RepresentationItem;
 class StepVisual_PresentationSet;
 
-class StepVisual_StyleContextSelect : public StepData_SelectType
+class StepVisual_StyleContextSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

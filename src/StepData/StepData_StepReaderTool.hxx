@@ -25,7 +25,7 @@
 #include <Interface_ReaderLib.hxx>
 #include <Interface_FileReaderTool.hxx>
 #include <Standard_Integer.hxx>
-class StepData_FileRecognizer;
+class FileRecognizer;
 class StepData_StepReaderData;
 class StepData_Protocol;
 class Interface_Check;
@@ -58,7 +58,7 @@ public:
   //! FileRecognizer, stored and later used in Recognize
   //! Works only on data entities (skips header)
   //! <optimize : same as above
-  Standard_EXPORT void Prepare(const Handle(StepData_FileRecognizer)& reco,
+  Standard_EXPORT void Prepare(const Handle(FileRecognizer)& reco,
                                const Standard_Boolean                 optimize = Standard_True);
 
   //! recognizes records, by asking either ReaderLib (default) or
@@ -73,7 +73,7 @@ public:
   //! (N.B.: in Header, no Ident and no reference)
   //! FileRecognizer is to specify Entities which are allowed to be
   //! defined in the Header (not every type can be)
-  Standard_EXPORT void PrepareHeader(const Handle(StepData_FileRecognizer)& reco);
+  Standard_EXPORT void PrepareHeader(const Handle(FileRecognizer)& reco);
 
   //! fills model's header; that is, gives to it Header entities
   //! and commands their loading. Also fills StepModel's Global
@@ -94,7 +94,7 @@ public:
 
 protected:
 private:
-  Handle(StepData_FileRecognizer) thereco;
+  Handle(FileRecognizer) thereco;
   Interface_GeneralLib            theglib;
   Interface_ReaderLib             therlib;
 };

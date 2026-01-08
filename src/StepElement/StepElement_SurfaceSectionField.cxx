@@ -18,8 +18,8 @@
 #include <Standard_Type.hxx>
 #include <StepElement_SurfaceSectionField.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSectionField, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SurfaceSectionField, RefObject)
 
 //=================================================================================================
 
-StepElement_SurfaceSectionField::StepElement_SurfaceSectionField() {}
+SurfaceSectionField::SurfaceSectionField() {}

@@ -1404,7 +1404,7 @@ StepDimTol_GeometricToleranceModifier GeometricToleranceProperty::GetGeomToleran
 // function : GetDatumRefModifiers
 // purpose  : Note: this function does not add anything to model
 //=======================================================================
-Handle(StepDimTol_HArray1OfDatumReferenceModifier) GeometricToleranceProperty::GetDatumRefModifiers(
+Handle(HArray1OfDatumRefModifier) GeometricToleranceProperty::GetDatumRefModifiers(
   const XCAFDimTolObjects_DatumModifiersSequence& theModifiers,
   const XCAFDimTolObjects_DatumModifWithValue&    theModifWithVal,
   const Standard_Real                             theValue,
@@ -1416,8 +1416,8 @@ Handle(StepDimTol_HArray1OfDatumReferenceModifier) GeometricToleranceProperty::G
   Standard_Integer aModifNb = theModifiers.Length();
   if (theModifWithVal != XCAFDimTolObjects_DatumModifWithValue_None)
     aModifNb++;
-  Handle(StepDimTol_HArray1OfDatumReferenceModifier) aModifiers =
-    new StepDimTol_HArray1OfDatumReferenceModifier(1, aModifNb);
+  Handle(HArray1OfDatumRefModifier) aModifiers =
+    new HArray1OfDatumRefModifier(1, aModifNb);
 
   // Modifier with value
   if (theModifWithVal != XCAFDimTolObjects_DatumModifWithValue_None)

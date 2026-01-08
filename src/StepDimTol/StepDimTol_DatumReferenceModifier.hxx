@@ -26,7 +26,7 @@
 
 class RefObject;
 
-class StepDimTol_DatumReferenceModifier : public StepData_SelectType
+class StepDimTol_DatumReferenceModifier : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

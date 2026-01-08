@@ -35,7 +35,7 @@ class StepRepr_Representation;
 class StepRepr_ShapeAspect;
 class StepRepr_ShapeAspectRelationship;
 
-class StepAP242_IdAttributeSelect : public StepData_SelectType
+class StepAP242_IdAttributeSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -42,13 +42,13 @@ void RWStepShape_RWTransitionalShapeRepresentation::ReadStep(
 
   // --- inherited field : items ---
 
-  Handle(StepRepr_HArray1OfRepresentationItem) aItems;
+  Handle(HArray1OfReprItem) aItems;
   Handle(StepRepr_RepresentationItem)          anent2;
   Standard_Integer                             nsub2;
   if (data->ReadSubList(num, 2, "items", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aItems               = new StepRepr_HArray1OfRepresentationItem(1, nb2);
+    aItems               = new HArray1OfReprItem(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

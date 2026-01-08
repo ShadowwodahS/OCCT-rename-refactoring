@@ -28,7 +28,7 @@ class StepFEA_AlignedCurve3dElementCoordinateSystem;
 class StepFEA_ParametricCurve3dElementCoordinateSystem;
 
 //! Representation of STEP SELECT type CurveElementEndCoordinateSystem
-class StepFEA_CurveElementEndCoordinateSystem : public StepData_SelectType
+class StepFEA_CurveElementEndCoordinateSystem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

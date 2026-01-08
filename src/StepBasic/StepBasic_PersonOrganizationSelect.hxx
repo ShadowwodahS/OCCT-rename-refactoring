@@ -28,7 +28,7 @@ class StepBasic_Person;
 class StepBasic_Organization;
 class StepBasic_PersonAndOrganization;
 
-class StepBasic_PersonOrganizationSelect : public StepData_SelectType
+class StepBasic_PersonOrganizationSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

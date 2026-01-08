@@ -34,7 +34,7 @@ Standard_Integer StepFEA_DegreeOfFreedom::CaseNum(const Handle(RefObject)& /*ent
 
 //=================================================================================================
 
-Standard_Integer StepFEA_DegreeOfFreedom::CaseMem(const Handle(StepData_SelectMember)& ent) const
+Standard_Integer StepFEA_DegreeOfFreedom::CaseMem(const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -48,7 +48,7 @@ Standard_Integer StepFEA_DegreeOfFreedom::CaseMem(const Handle(StepData_SelectMe
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepFEA_DegreeOfFreedom::NewMember() const
+Handle(SelectMember) StepFEA_DegreeOfFreedom::NewMember() const
 {
   return new StepFEA_DegreeOfFreedomMember;
 }

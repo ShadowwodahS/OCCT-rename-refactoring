@@ -28,7 +28,7 @@ class StepShape_TypeQualifier;
 class StepShape_ValueFormatTypeQualifier;
 
 //! Added for Dimensional Tolerances
-class StepShape_ValueQualifier : public StepData_SelectType
+class StepShape_ValueQualifier : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Polyline, StepGeom_BoundedCurve)
 StepGeom_Polyline::StepGeom_Polyline() {}
 
 void StepGeom_Polyline::Init(const Handle(TCollection_HAsciiString)&         aName,
-                             const Handle(StepGeom_HArray1OfCartesianPoint)& aPoints)
+                             const Handle(HArray1OfCartesianPoint)& aPoints)
 {
   // --- classe own fields ---
   points = aPoints;
@@ -27,12 +27,12 @@ void StepGeom_Polyline::Init(const Handle(TCollection_HAsciiString)&         aNa
   StepRepr_RepresentationItem::Init(aName);
 }
 
-void StepGeom_Polyline::SetPoints(const Handle(StepGeom_HArray1OfCartesianPoint)& aPoints)
+void StepGeom_Polyline::SetPoints(const Handle(HArray1OfCartesianPoint)& aPoints)
 {
   points = aPoints;
 }
 
-Handle(StepGeom_HArray1OfCartesianPoint) StepGeom_Polyline::Points() const
+Handle(HArray1OfCartesianPoint) StepGeom_Polyline::Points() const
 {
   return points;
 }

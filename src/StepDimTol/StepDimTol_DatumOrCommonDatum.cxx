@@ -31,7 +31,7 @@ Standard_Integer StepDimTol_DatumOrCommonDatum::CaseNum(const Handle(RefObject)&
     return 0;
   if (ent->IsKind(STANDARD_TYPE(StepDimTol_Datum)))
     return 1;
-  if (ent->IsKind(STANDARD_TYPE(StepDimTol_HArray1OfDatumReferenceElement)))
+  if (ent->IsKind(STANDARD_TYPE(HArray1OfDatumRefElement)))
     return 2;
   return 0;
 }
@@ -41,8 +41,8 @@ Handle(StepDimTol_Datum) StepDimTol_DatumOrCommonDatum::Datum() const
   return GetCasted(StepDimTol_Datum, Value());
 }
 
-Handle(StepDimTol_HArray1OfDatumReferenceElement) StepDimTol_DatumOrCommonDatum::CommonDatumList()
+Handle(HArray1OfDatumRefElement) StepDimTol_DatumOrCommonDatum::CommonDatumList()
   const
 {
-  return GetCasted(StepDimTol_HArray1OfDatumReferenceElement, Value());
+  return GetCasted(HArray1OfDatumRefElement, Value());
 }

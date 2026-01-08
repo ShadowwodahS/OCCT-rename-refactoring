@@ -19,5 +19,5 @@
 #include <StepDimTol_Array1OfToleranceZoneTarget.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepDimTol_HArray1OfToleranceZoneTarget, StepDimTol_Array1OfToleranceZoneTarget)
+DEFINE_HARRAY1(HArray1OfToleranceZoneTarget, StepDimTol_Array1OfToleranceZoneTarget)
 #endif // _StepDimTol_HArray1OfToleranceZoneTarget_HeaderFile

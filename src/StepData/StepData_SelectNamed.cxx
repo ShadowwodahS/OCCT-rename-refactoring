@@ -13,7 +13,7 @@
 
 #include <StepData_SelectNamed.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectNamed, StepData_SelectMember)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectNamed, SelectMember)
 
 //  Definitions reprises de Field :
 #define KindInteger 1

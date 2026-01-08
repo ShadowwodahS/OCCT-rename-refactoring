@@ -28,7 +28,7 @@ class StepGeom_Pcurve;
 class StepGeom_SurfaceCurve;
 class StepGeom_CompositeCurveOnSurface;
 
-class StepGeom_CurveOnSurface : public StepData_SelectType
+class StepGeom_CurveOnSurface : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -21,8 +21,8 @@ StepGeom_TrimmedCurve::StepGeom_TrimmedCurve() {}
 
 void StepGeom_TrimmedCurve::Init(const Handle(TCollection_HAsciiString)&         aName,
                                  const Handle(StepGeom_Curve)&                   aBasisCurve,
-                                 const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim1,
-                                 const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim2,
+                                 const Handle(HArray1OfTrimmingSelect)& aTrim1,
+                                 const Handle(HArray1OfTrimmingSelect)& aTrim2,
                                  const Standard_Boolean                          aSenseAgreement,
                                  const StepGeom_TrimmingPreference aMasterRepresentation)
 {
@@ -46,12 +46,12 @@ Handle(StepGeom_Curve) StepGeom_TrimmedCurve::BasisCurve() const
   return basisCurve;
 }
 
-void StepGeom_TrimmedCurve::SetTrim1(const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim1)
+void StepGeom_TrimmedCurve::SetTrim1(const Handle(HArray1OfTrimmingSelect)& aTrim1)
 {
   trim1 = aTrim1;
 }
 
-Handle(StepGeom_HArray1OfTrimmingSelect) StepGeom_TrimmedCurve::Trim1() const
+Handle(HArray1OfTrimmingSelect) StepGeom_TrimmedCurve::Trim1() const
 {
   return trim1;
 }
@@ -66,12 +66,12 @@ Standard_Integer StepGeom_TrimmedCurve::NbTrim1() const
   return trim1->Length();
 }
 
-void StepGeom_TrimmedCurve::SetTrim2(const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim2)
+void StepGeom_TrimmedCurve::SetTrim2(const Handle(HArray1OfTrimmingSelect)& aTrim2)
 {
   trim2 = aTrim2;
 }
 
-Handle(StepGeom_HArray1OfTrimmingSelect) StepGeom_TrimmedCurve::Trim2() const
+Handle(HArray1OfTrimmingSelect) StepGeom_TrimmedCurve::Trim2() const
 {
   return trim2;
 }

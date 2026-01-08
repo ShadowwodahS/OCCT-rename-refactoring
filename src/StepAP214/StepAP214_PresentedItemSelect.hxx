@@ -27,7 +27,7 @@ class RefObject;
 class StepBasic_ProductDefinitionRelationship;
 class StepBasic_ProductDefinition;
 
-class StepAP214_PresentedItemSelect : public StepData_SelectType
+class StepAP214_PresentedItemSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

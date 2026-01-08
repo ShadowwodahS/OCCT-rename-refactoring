@@ -38,7 +38,7 @@ class AsciiString1;
 class TCollection_HAsciiString;
 class StepData_Field;
 class StepData_PDescr;
-class StepData_SelectMember;
+class SelectMember;
 class FieldList;
 class StepData_ESDescr;
 class RefObject;
@@ -175,7 +175,7 @@ public:
   Standard_EXPORT void SendField(const StepData_Field& fild, const Handle(StepData_PDescr)& descr);
 
   //! Sends a SelectMember, which cab be named or not
-  Standard_EXPORT void SendSelect(const Handle(StepData_SelectMember)& sm,
+  Standard_EXPORT void SendSelect(const Handle(SelectMember)& sm,
                                   const Handle(StepData_PDescr)&       descr);
 
   //! Send the content of an entity as being a FieldList controlled

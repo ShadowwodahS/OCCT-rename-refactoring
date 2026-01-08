@@ -42,7 +42,7 @@ GeomToStep_MakeBSplineSurfaceWithKnots::GeomToStep_MakeBSplineSurfaceWithKnots(
   Standard_Integer                aUDegree, aVDegree, NU, NV, i, j, NUknots, NVknots, itampon;
   Standard_Real                   rtampon;
   Handle(StepGeom_CartesianPoint) Pt = new StepGeom_CartesianPoint;
-  Handle(StepGeom_HArray2OfCartesianPoint) aControlPointsList;
+  Handle(HArray2OfCartesianPoint) aControlPointsList;
   StepGeom_BSplineSurfaceForm              aSurfaceForm;
   StepData_Logical                         aUClosed, aVClosed, aSelfIntersect;
   Handle(TColStd_HArray1OfInteger)         aUMultiplicities, aVMultiplicities;
@@ -58,7 +58,7 @@ GeomToStep_MakeBSplineSurfaceWithKnots::GeomToStep_MakeBSplineSurfaceWithKnots(
   NV = BS->NbVPoles();
   TColgp_Array2OfPnt P(1, NU, 1, NV);
   BS->Poles(P);
-  aControlPointsList = new StepGeom_HArray2OfCartesianPoint(1, NU, 1, NV);
+  aControlPointsList = new HArray2OfCartesianPoint(1, NU, 1, NV);
   for (i = P.LowerRow(); i <= P.UpperRow(); i++)
   {
     for (j = P.LowerCol(); j <= P.UpperCol(); j++)

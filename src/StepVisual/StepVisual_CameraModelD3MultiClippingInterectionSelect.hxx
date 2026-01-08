@@ -26,7 +26,7 @@ class RefObject;
 class StepGeom_Plane;
 class StepVisual_CameraModelD3MultiClippingUnion;
 
-class StepVisual_CameraModelD3MultiClippingInterectionSelect : public StepData_SelectType
+class StepVisual_CameraModelD3MultiClippingInterectionSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

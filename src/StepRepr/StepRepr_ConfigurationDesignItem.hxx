@@ -28,7 +28,7 @@ class StepBasic_ProductDefinition;
 class StepBasic_ProductDefinitionFormation;
 
 //! Representation of STEP SELECT type ConfigurationDesignItem
-class StepRepr_ConfigurationDesignItem : public StepData_SelectType
+class StepRepr_ConfigurationDesignItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

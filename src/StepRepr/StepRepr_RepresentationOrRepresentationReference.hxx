@@ -28,7 +28,7 @@ class StepRepr_Representation;
 class StepRepr_RepresentationReference;
 
 //! Representation of STEP SELECT type RepresentationOrRepresentationReference
-class StepRepr_RepresentationOrRepresentationReference : public StepData_SelectType
+class StepRepr_RepresentationOrRepresentationReference : public SelectType
 {
 
 public:

@@ -18,7 +18,7 @@
 #include <StepElement_SurfaceSection.hxx>
 #include <StepElement_SurfaceSectionFieldConstant.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldConstant, StepElement_SurfaceSectionField)
+IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldConstant, SurfaceSectionField)
 
 //=================================================================================================
 
@@ -29,7 +29,7 @@ StepElement_SurfaceSectionFieldConstant::StepElement_SurfaceSectionFieldConstant
 void StepElement_SurfaceSectionFieldConstant::Init(
   const Handle(StepElement_SurfaceSection)& aDefinition)
 {
-  //  StepElement_SurfaceSectionField::Init();
+  //  SurfaceSectionField::Init();
 
   theDefinition = aDefinition;
 }

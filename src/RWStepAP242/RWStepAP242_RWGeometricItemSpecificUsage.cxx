@@ -58,7 +58,7 @@ void RWStepAP242_RWGeometricItemSpecificUsage::ReadStep(
                    STANDARD_TYPE(StepRepr_Representation),
                    aRepresentation);
 
-  Handle(StepRepr_HArray1OfRepresentationItem) anItems;
+  Handle(HArray1OfReprItem) anItems;
   Handle(StepRepr_RepresentationItem)          anEnt;
   Standard_Integer                             nbSub;
   Interface_ParamType                          aType = data->ParamType(num, 5);
@@ -70,7 +70,7 @@ void RWStepAP242_RWGeometricItemSpecificUsage::ReadStep(
                      ach,
                      STANDARD_TYPE(StepRepr_RepresentationItem),
                      anEnt);
-    anItems = new StepRepr_HArray1OfRepresentationItem(1, 1);
+    anItems = new HArray1OfReprItem(1, 1);
     anItems->SetValue(1, anEnt);
   }
   else if (data->ReadSubList(num,
@@ -80,7 +80,7 @@ void RWStepAP242_RWGeometricItemSpecificUsage::ReadStep(
                              nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    anItems                     = new StepRepr_HArray1OfRepresentationItem(1, nbElements);
+    anItems                     = new HArray1OfReprItem(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub,

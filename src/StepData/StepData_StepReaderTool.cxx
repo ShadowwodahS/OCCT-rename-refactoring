@@ -61,7 +61,7 @@ Standard_Boolean StepData_StepReaderTool::Recognize(const Standard_Integer      
 
 //=================================================================================================
 
-void StepData_StepReaderTool::Prepare(const Handle(StepData_FileRecognizer)& reco,
+void StepData_StepReaderTool::Prepare(const Handle(FileRecognizer)& reco,
                                       const Standard_Boolean                 optim)
 {
   thereco = reco;
@@ -102,7 +102,7 @@ void StepData_StepReaderTool::Prepare(const Standard_Boolean optim)
 
 //=================================================================================================
 
-void StepData_StepReaderTool::PrepareHeader(const Handle(StepData_FileRecognizer)& reco)
+void StepData_StepReaderTool::PrepareHeader(const Handle(FileRecognizer)& reco)
 {
   Standard_Integer i = 0;
 

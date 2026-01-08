@@ -63,17 +63,17 @@ void RWStepElement_RWSurface3dElementDescriptor::ReadStep(
 
   // Own fields of Surface3dElementDescriptor
 
-  Handle(StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember) aPurpose;
+  Handle(HArray1OfSurfacePurposeSeq) aPurpose;
   Standard_Integer                                                    sub3 = 0;
   if (data->ReadSubList(num, 3, "purpose", ach, sub3))
   {
     Standard_Integer nb0 = data->NbParams(sub3);
     // Standard_Integer nbj0 = data->NbParams(data->ParamNumber(sub3,1));
-    aPurpose = new StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember(1, nb0);
+    aPurpose = new HArray1OfSurfacePurposeSeq(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
-      Handle(StepElement_HSequenceOfSurfaceElementPurposeMember) HSSEPM =
-        new StepElement_HSequenceOfSurfaceElementPurposeMember;
+      Handle(HSequenceOfSurfacePurposeMember) HSSEPM =
+        new HSequenceOfSurfacePurposeMember;
       Standard_Integer subj3 = 0;
       if (data->ReadSubList(sub3, i0, "sub-part(purpose)", ach, subj3))
       {
@@ -140,7 +140,7 @@ void RWStepElement_RWSurface3dElementDescriptor::WriteStep(
   {
     SW.NewLine(Standard_False);
     SW.OpenSub();
-    Handle(StepElement_HSequenceOfSurfaceElementPurposeMember) HSSEPM = ent->Purpose()->Value(i2);
+    Handle(HSequenceOfSurfacePurposeMember) HSSEPM = ent->Purpose()->Value(i2);
     for (Standard_Integer j2 = 1; j2 <= HSSEPM->Length(); j2++)
     {
       Handle(StepElement_SurfaceElementPurposeMember) Var0 = HSSEPM->Value(j2);
@@ -173,7 +173,7 @@ void RWStepElement_RWSurface3dElementDescriptor::Share(
   // Own fields of Surface3dElementDescriptor
   /*  CKY  17JUN04 : content is made of STRINGS or ENUMS , no entity !
     for (Standard_Integer i1=1; i1 <= ent->Purpose()->Length(); i1++ ) {
-      Handle(StepElement_HSequenceOfSurfaceElementPurposeMember) HSSEPM = ent->Purpose()->Value(i1);
+      Handle(HSequenceOfSurfacePurposeMember) HSSEPM = ent->Purpose()->Value(i1);
       for (Standard_Integer i2=1; i2 <= HSSEPM->Length(); i2++ ) {
         Handle(StepElement_SurfaceElementPurposeMember) Var1 = HSSEPM->Value(i2);
         iter.AddItem (Var1);

@@ -66,14 +66,14 @@ void RWStepDimTol_RWCircularRunoutTolerance::ReadStep(
 
   // Inherited fields of GeometricToleranceWithDatumReference
 
-  Handle(StepDimTol_HArray1OfDatumSystemOrReference)
+  Handle(HArray1OfDatumSystemOrRef)
                    aGeometricToleranceWithDatumReference_DatumSystem;
   Standard_Integer sub5 = 0;
   if (data->ReadSubList(num, 5, "geometric_tolerance_with_datum_reference.datum_system", ach, sub5))
   {
     Standard_Integer nb0 = data->NbParams(sub5);
     aGeometricToleranceWithDatumReference_DatumSystem =
-      new StepDimTol_HArray1OfDatumSystemOrReference(1, nb0);
+      new HArray1OfDatumSystemOrRef(1, nb0);
     Standard_Integer num2 = sub5;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

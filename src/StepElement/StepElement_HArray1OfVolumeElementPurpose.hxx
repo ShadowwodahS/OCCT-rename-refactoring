@@ -18,6 +18,6 @@
 #include <StepElement_Array1OfVolumeElementPurpose.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepElement_HArray1OfVolumeElementPurpose, StepElement_Array1OfVolumeElementPurpose)
+DEFINE_HARRAY1(HArray1OfVolumePurpose, StepElement_Array1OfVolumeElementPurpose)
 
 #endif

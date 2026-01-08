@@ -35,14 +35,14 @@ public:
   Standard_EXPORT StepRepr_CompoundRepresentationItem();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&             aName,
-                            const Handle(StepRepr_HArray1OfRepresentationItem)& item_element);
+                            const Handle(HArray1OfReprItem)& item_element);
 
-  Standard_EXPORT Handle(StepRepr_HArray1OfRepresentationItem) ItemElement() const;
+  Standard_EXPORT Handle(HArray1OfReprItem) ItemElement() const;
 
   Standard_EXPORT Standard_Integer NbItemElement() const;
 
   Standard_EXPORT void SetItemElement(
-    const Handle(StepRepr_HArray1OfRepresentationItem)& item_element);
+    const Handle(HArray1OfReprItem)& item_element);
 
   Standard_EXPORT Handle(StepRepr_RepresentationItem) ItemElementValue(
     const Standard_Integer num) const;
@@ -54,7 +54,7 @@ public:
 
 protected:
 private:
-  Handle(StepRepr_HArray1OfRepresentationItem) theItemElement;
+  Handle(HArray1OfReprItem) theItemElement;
 };
 
 #endif // _StepRepr_CompoundRepresentationItem_HeaderFile

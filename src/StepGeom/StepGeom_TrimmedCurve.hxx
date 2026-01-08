@@ -40,8 +40,8 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&         aName,
                             const Handle(StepGeom_Curve)&                   aBasisCurve,
-                            const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim1,
-                            const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim2,
+                            const Handle(HArray1OfTrimmingSelect)& aTrim1,
+                            const Handle(HArray1OfTrimmingSelect)& aTrim2,
                             const Standard_Boolean                          aSenseAgreement,
                             const StepGeom_TrimmingPreference               aMasterRepresentation);
 
@@ -49,17 +49,17 @@ public:
 
   Standard_EXPORT Handle(StepGeom_Curve) BasisCurve() const;
 
-  Standard_EXPORT void SetTrim1(const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim1);
+  Standard_EXPORT void SetTrim1(const Handle(HArray1OfTrimmingSelect)& aTrim1);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfTrimmingSelect) Trim1() const;
+  Standard_EXPORT Handle(HArray1OfTrimmingSelect) Trim1() const;
 
   Standard_EXPORT StepGeom_TrimmingSelect Trim1Value(const Standard_Integer num) const;
 
   Standard_EXPORT Standard_Integer NbTrim1() const;
 
-  Standard_EXPORT void SetTrim2(const Handle(StepGeom_HArray1OfTrimmingSelect)& aTrim2);
+  Standard_EXPORT void SetTrim2(const Handle(HArray1OfTrimmingSelect)& aTrim2);
 
-  Standard_EXPORT Handle(StepGeom_HArray1OfTrimmingSelect) Trim2() const;
+  Standard_EXPORT Handle(HArray1OfTrimmingSelect) Trim2() const;
 
   Standard_EXPORT StepGeom_TrimmingSelect Trim2Value(const Standard_Integer num) const;
 
@@ -79,8 +79,8 @@ public:
 protected:
 private:
   Handle(StepGeom_Curve)                   basisCurve;
-  Handle(StepGeom_HArray1OfTrimmingSelect) trim1;
-  Handle(StepGeom_HArray1OfTrimmingSelect) trim2;
+  Handle(HArray1OfTrimmingSelect) trim1;
+  Handle(HArray1OfTrimmingSelect) trim2;
   Standard_Boolean                         senseAgreement;
   StepGeom_TrimmingPreference              masterRepresentation;
 };

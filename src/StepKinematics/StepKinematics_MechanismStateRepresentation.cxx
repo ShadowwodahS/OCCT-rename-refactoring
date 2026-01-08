@@ -22,7 +22,7 @@ StepKinematics_MechanismStateRepresentation::StepKinematics_MechanismStateRepres
 
 void StepKinematics_MechanismStateRepresentation::Init(
   const Handle(TCollection_HAsciiString)&               theName,
-  const Handle(StepRepr_HArray1OfRepresentationItem)&   theItems,
+  const Handle(HArray1OfReprItem)&   theItems,
   const Handle(StepRepr_RepresentationContext)&         theContextOfItems,
   const Handle(StepKinematics_MechanismRepresentation)& theMechanism)
 {

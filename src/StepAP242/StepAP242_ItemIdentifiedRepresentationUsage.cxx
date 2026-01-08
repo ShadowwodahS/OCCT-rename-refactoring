@@ -31,7 +31,7 @@ void StepAP242_ItemIdentifiedRepresentationUsage::Init(
   const Handle(TCollection_HAsciiString)&                      theDescription,
   const StepAP242_ItemIdentifiedRepresentationUsageDefinition& theDefinition,
   const Handle(StepRepr_Representation)&                       theUsedRepresentation,
-  const Handle(StepRepr_HArray1OfRepresentationItem)&          theIdentifiedItem)
+  const Handle(HArray1OfReprItem)&          theIdentifiedItem)
 {
   // --- classe own fields ---
   name               = theName;

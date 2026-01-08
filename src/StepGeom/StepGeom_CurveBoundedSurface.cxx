@@ -31,7 +31,7 @@ StepGeom_CurveBoundedSurface::StepGeom_CurveBoundedSurface() {}
 void StepGeom_CurveBoundedSurface::Init(
   const Handle(TCollection_HAsciiString)&          aRepresentationItem_Name,
   const Handle(StepGeom_Surface)&                  aBasisSurface,
-  const Handle(StepGeom_HArray1OfSurfaceBoundary)& aBoundaries,
+  const Handle(HArray1OfSurfaceBoundary)& aBoundaries,
   const Standard_Boolean                           aImplicitOuter)
 {
   StepGeom_BoundedSurface::Init(aRepresentationItem_Name);
@@ -59,7 +59,7 @@ void StepGeom_CurveBoundedSurface::SetBasisSurface(const Handle(StepGeom_Surface
 
 //=================================================================================================
 
-Handle(StepGeom_HArray1OfSurfaceBoundary) StepGeom_CurveBoundedSurface::Boundaries() const
+Handle(HArray1OfSurfaceBoundary) StepGeom_CurveBoundedSurface::Boundaries() const
 {
   return theBoundaries;
 }
@@ -67,7 +67,7 @@ Handle(StepGeom_HArray1OfSurfaceBoundary) StepGeom_CurveBoundedSurface::Boundari
 //=================================================================================================
 
 void StepGeom_CurveBoundedSurface::SetBoundaries(
-  const Handle(StepGeom_HArray1OfSurfaceBoundary)& aBoundaries)
+  const Handle(HArray1OfSurfaceBoundary)& aBoundaries)
 {
   theBoundaries = aBoundaries;
 }

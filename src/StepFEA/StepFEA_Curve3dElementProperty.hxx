@@ -39,9 +39,9 @@ public:
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                aPropertyId,
     const Handle(TCollection_HAsciiString)&                aDescription,
-    const Handle(StepFEA_HArray1OfCurveElementInterval)&   aIntervalDefinitions,
-    const Handle(StepFEA_HArray1OfCurveElementEndOffset)&  aEndOffsets,
-    const Handle(StepFEA_HArray1OfCurveElementEndRelease)& aEndReleases);
+    const Handle(HArray1OfCurveInterval)&   aIntervalDefinitions,
+    const Handle(HArray1OfCurveEndOffset)&  aEndOffsets,
+    const Handle(HArray1OfCurveEndRelease2)& aEndReleases);
 
   //! Returns field PropertyId
   Standard_EXPORT Handle(TCollection_HAsciiString) PropertyId() const;
@@ -56,25 +56,25 @@ public:
   Standard_EXPORT void SetDescription(const Handle(TCollection_HAsciiString)& Description);
 
   //! Returns field IntervalDefinitions
-  Standard_EXPORT Handle(StepFEA_HArray1OfCurveElementInterval) IntervalDefinitions() const;
+  Standard_EXPORT Handle(HArray1OfCurveInterval) IntervalDefinitions() const;
 
   //! Set field IntervalDefinitions
   Standard_EXPORT void SetIntervalDefinitions(
-    const Handle(StepFEA_HArray1OfCurveElementInterval)& IntervalDefinitions);
+    const Handle(HArray1OfCurveInterval)& IntervalDefinitions);
 
   //! Returns field EndOffsets
-  Standard_EXPORT Handle(StepFEA_HArray1OfCurveElementEndOffset) EndOffsets() const;
+  Standard_EXPORT Handle(HArray1OfCurveEndOffset) EndOffsets() const;
 
   //! Set field EndOffsets
   Standard_EXPORT void SetEndOffsets(
-    const Handle(StepFEA_HArray1OfCurveElementEndOffset)& EndOffsets);
+    const Handle(HArray1OfCurveEndOffset)& EndOffsets);
 
   //! Returns field EndReleases
-  Standard_EXPORT Handle(StepFEA_HArray1OfCurveElementEndRelease) EndReleases() const;
+  Standard_EXPORT Handle(HArray1OfCurveEndRelease2) EndReleases() const;
 
   //! Set field EndReleases
   Standard_EXPORT void SetEndReleases(
-    const Handle(StepFEA_HArray1OfCurveElementEndRelease)& EndReleases);
+    const Handle(HArray1OfCurveEndRelease2)& EndReleases);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_Curve3dElementProperty, RefObject)
 
@@ -82,9 +82,9 @@ protected:
 private:
   Handle(TCollection_HAsciiString)                thePropertyId;
   Handle(TCollection_HAsciiString)                theDescription;
-  Handle(StepFEA_HArray1OfCurveElementInterval)   theIntervalDefinitions;
-  Handle(StepFEA_HArray1OfCurveElementEndOffset)  theEndOffsets;
-  Handle(StepFEA_HArray1OfCurveElementEndRelease) theEndReleases;
+  Handle(HArray1OfCurveInterval)   theIntervalDefinitions;
+  Handle(HArray1OfCurveEndOffset)  theEndOffsets;
+  Handle(HArray1OfCurveEndRelease2) theEndReleases;
 };
 
 #endif // _StepFEA_Curve3dElementProperty_HeaderFile

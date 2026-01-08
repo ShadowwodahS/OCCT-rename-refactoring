@@ -24,10 +24,10 @@
 #include <Standard_Integer.hxx>
 #include <StepElement_UnspecifiedValue.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 
 //! Representation of STEP SELECT type MeasureOrUnspecifiedValue
-class StepElement_MeasureOrUnspecifiedValue : public StepData_SelectType
+class StepElement_MeasureOrUnspecifiedValue : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,11 +44,11 @@ public:
   //! 1 -> ContextDependentMeasure
   //! 2 -> UnspecifiedValue
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& ent) const
     Standard_OVERRIDE;
 
   //! Returns a new select member the type MeasureOrUnspecifiedValueMember
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Set Value for ContextDependentMeasure
   Standard_EXPORT void SetContextDependentMeasure(const Standard_Real aVal);

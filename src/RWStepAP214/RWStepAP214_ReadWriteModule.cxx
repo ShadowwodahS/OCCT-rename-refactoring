@@ -9207,7 +9207,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
     }
     break;
     case 513: {
-      DeclareAndCast(StepElement_SurfaceSectionField, anent, ent);
+      DeclareAndCast(SurfaceSectionField, anent, ent);
       RWStepElement_RWSurfaceSectionField tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -14099,7 +14099,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
     }
     break;
     case 513: {
-      DeclareAndCast(StepElement_SurfaceSectionField, anent, ent);
+      DeclareAndCast(SurfaceSectionField, anent, ent);
       RWStepElement_RWSurfaceSectionField tool;
       tool.WriteStep(SW, anent);
     }

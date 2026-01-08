@@ -27,7 +27,7 @@ class RefObject;
 class StepBasic_ProductDefinitionFormation;
 
 //! Representation of STEP SELECT type StartRequestItem
-class StepAP203_StartRequestItem : public StepData_SelectType
+class StepAP203_StartRequestItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

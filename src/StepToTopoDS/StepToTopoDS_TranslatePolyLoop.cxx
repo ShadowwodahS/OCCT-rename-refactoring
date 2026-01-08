@@ -99,7 +99,7 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
       TP->AddFail(PL, "Surface not planar in a FacetedBRep !");
     Handle(ShapeAnalysis_Surface)            STSU = new ShapeAnalysis_Surface(GeomSurf);
     Standard_Integer                         Nb   = PL->NbPolygon();
-    Handle(StepGeom_HArray1OfCartesianPoint) Poly1 = new StepGeom_HArray1OfCartesianPoint(1, Nb + 1);
+    Handle(HArray1OfCartesianPoint) Poly1 = new HArray1OfCartesianPoint(1, Nb + 1);
 
     for (i = 1; i <= Nb; i++)
       Poly1->SetValue(i, PL->PolygonValue(i));

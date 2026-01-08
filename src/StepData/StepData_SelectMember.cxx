@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepData_SelectMember.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectMember, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMember, RefObject)
 
 //  Definitions reprises de Field :
 #define KindInteger 1
@@ -24,36 +24,36 @@ IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectMember, RefObject)
 #define KindReal 5
 #define KindString 6
 
-StepData_SelectMember::StepData_SelectMember() {}
+SelectMember::SelectMember() {}
 
-Standard_Boolean StepData_SelectMember::HasName() const
+Standard_Boolean SelectMember::HasName() const
 {
   return Standard_False;
 }
 
-Standard_CString StepData_SelectMember::Name() const
+Standard_CString SelectMember::Name() const
 {
   return "";
 }
 
-Standard_Boolean StepData_SelectMember::SetName(const Standard_CString /*bid*/)
+Standard_Boolean SelectMember::SetName(const Standard_CString /*bid*/)
 {
   return Standard_False;
 }
 
-Standard_Boolean StepData_SelectMember::Matches(const Standard_CString name) const
+Standard_Boolean SelectMember::Matches(const Standard_CString name) const
 {
   return !strcmp(name, Name());
 }
 
-Standard_Integer StepData_SelectMember::Kind() const
+Standard_Integer SelectMember::Kind() const
 {
   return 0;
 }
 
-void StepData_SelectMember::SetKind(const Standard_Integer) {}
+void SelectMember::SetKind(const Standard_Integer) {}
 
-Interface_ParamType StepData_SelectMember::ParamType() const
+Interface_ParamType SelectMember::ParamType() const
 {
   Standard_Integer kind = Kind();
   if (kind == 0)
@@ -71,36 +71,36 @@ Interface_ParamType StepData_SelectMember::ParamType() const
   return Interface_ParamMisc;
 }
 
-Standard_Integer StepData_SelectMember::Int() const
+Standard_Integer SelectMember::Int() const
 {
   return 0;
 }
 
-void StepData_SelectMember::SetInt(const Standard_Integer) {}
+void SelectMember::SetInt(const Standard_Integer) {}
 
-Standard_Integer StepData_SelectMember::Integer1() const
+Standard_Integer SelectMember::Integer1() const
 {
   return Int();
 }
 
-void StepData_SelectMember::SetInteger(const Standard_Integer val)
+void SelectMember::SetInteger(const Standard_Integer val)
 {
   SetKind(KindInteger);
   SetInt(val);
 }
 
-Standard_Boolean StepData_SelectMember::Boolean() const
+Standard_Boolean SelectMember::Boolean() const
 {
   return (Int() > 0);
 }
 
-void StepData_SelectMember::SetBoolean(const Standard_Boolean val)
+void SelectMember::SetBoolean(const Standard_Boolean val)
 {
   SetKind(KindBoolean);
   SetInt((val ? 1 : 0));
 }
 
-StepData_Logical StepData_SelectMember::Logical() const
+StepData_Logical SelectMember::Logical() const
 {
   Standard_Integer ival = Int();
   if (ival == 0)
@@ -110,7 +110,7 @@ StepData_Logical StepData_SelectMember::Logical() const
   return StepData_LUnknown;
 }
 
-void StepData_SelectMember::SetLogical(const StepData_Logical val)
+void SelectMember::SetLogical(const StepData_Logical val)
 {
   SetKind(KindLogical);
   if (val == StepData_LFalse)
@@ -121,31 +121,31 @@ void StepData_SelectMember::SetLogical(const StepData_Logical val)
     SetInt(0);
 }
 
-Standard_Real StepData_SelectMember::Real() const
+Standard_Real SelectMember::Real() const
 {
   return 0.0;
 }
 
-void StepData_SelectMember::SetReal(const Standard_Real) {}
+void SelectMember::SetReal(const Standard_Real) {}
 
-Standard_CString StepData_SelectMember::String() const
+Standard_CString SelectMember::String() const
 {
   return "";
 }
 
-void StepData_SelectMember::SetString(const Standard_CString) {}
+void SelectMember::SetString(const Standard_CString) {}
 
-Standard_Integer StepData_SelectMember::Enum() const
+Standard_Integer SelectMember::Enum() const
 {
   return Int();
 }
 
-Standard_CString StepData_SelectMember::EnumText() const
+Standard_CString SelectMember::EnumText() const
 {
   return String();
 }
 
-void StepData_SelectMember::SetEnum(const Standard_Integer val, const Standard_CString text)
+void SelectMember::SetEnum(const Standard_Integer val, const Standard_CString text)
 {
   SetKind(KindEnum);
   SetInt(val);
@@ -153,7 +153,7 @@ void StepData_SelectMember::SetEnum(const Standard_Integer val, const Standard_C
     SetEnumText(val, text);
 }
 
-void StepData_SelectMember::SetEnumText(const Standard_Integer /*val*/, const Standard_CString text)
+void SelectMember::SetEnumText(const Standard_Integer /*val*/, const Standard_CString text)
 {
   SetString(text);
 }

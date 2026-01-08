@@ -27,7 +27,7 @@
 #include <StepData_Logical.hxx>
 class RefObject;
 class StepData_PDescr;
-class StepData_SelectMember;
+class SelectMember;
 
 //! SelectType is the basis used for SELECT_TYPE definitions from
 //! the EXPRESS form. A SELECT_TYPE in EXPRESS is an enumeration
@@ -47,7 +47,7 @@ class StepData_SelectMember;
 //! with the definition of the SelectType
 //! - and (if judged useful) give the stored Entity under the good
 //! Type rather than simply "Transient".
-class StepData_SelectType
+class SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -101,21 +101,21 @@ public:
   //! specific SelectMember than SelectNamed. For instance for a
   //! Real plus a Name, a SelectReal plus a case number is a good
   //! solution, lighter than SelectNamed which is very multipurpose
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const;
 
   //! Recognize a SelectMember (kind, name). Returns a positive
   //! value which identifies the case in the List of immediate cases
   //! (distinct from the List of Entity Types). Zero if not
   //! recognizes
   //! Default returns 0, saying that no immediate value is allowed
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& ent) const;
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& ent) const;
 
   //! Returns the Type of the stored SelectMember, or zero if it is
   //! Null or Entity. Calls the method CaseMem on Value
   Standard_EXPORT Standard_Integer CaseMember() const;
 
   //! Returns Value as a SelectMember. Null if not a SelectMember
-  Standard_EXPORT Handle(StepData_SelectMember) Member() const;
+  Standard_EXPORT Handle(SelectMember) Member() const;
 
   //! Returns the type name of SelectMember. If no SelectMember or
   //! with no type name, returns an empty string
@@ -150,7 +150,7 @@ public:
 
   Standard_EXPORT void SetReal(const Standard_Real val, const Standard_CString name = "");
 
-  Standard_EXPORT virtual ~StepData_SelectType();
+  Standard_EXPORT virtual ~SelectType();
 
 private:
   Handle(RefObject) thevalue;

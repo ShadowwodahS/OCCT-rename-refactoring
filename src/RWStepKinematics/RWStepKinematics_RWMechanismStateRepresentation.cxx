@@ -45,13 +45,13 @@ void RWStepKinematics_RWMechanismStateRepresentation::ReadStep(
   theData->ReadString(theNum, 1, "name", theArch, aName);
 
   // Inherited field : items
-  Handle(StepRepr_HArray1OfRepresentationItem) aItems;
+  Handle(HArray1OfReprItem) aItems;
   Handle(StepRepr_RepresentationItem)          anEnt;
   Standard_Integer                             nsub;
   if (theData->ReadSubList(theNum, 2, "items", theArch, nsub))
   {
     Standard_Integer nb = theData->NbParams(nsub);
-    aItems              = new StepRepr_HArray1OfRepresentationItem(1, nb);
+    aItems              = new HArray1OfReprItem(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (theData->ReadEntity(nsub,

@@ -29,7 +29,7 @@ StepFEA_FeaModel::StepFEA_FeaModel() {}
 
 void StepFEA_FeaModel::Init(
   const Handle(TCollection_HAsciiString)&             aRepresentation_Name,
-  const Handle(StepRepr_HArray1OfRepresentationItem)& aRepresentation_Items,
+  const Handle(HArray1OfReprItem)& aRepresentation_Items,
   const Handle(StepRepr_RepresentationContext)&       aRepresentation_ContextOfItems,
   const Handle(TCollection_HAsciiString)&             aCreatingSoftware,
   const Handle(TColStd_HArray1OfAsciiString)&         aIntendedAnalysisCode,

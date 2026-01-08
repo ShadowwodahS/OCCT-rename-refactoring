@@ -41,7 +41,7 @@ class StepRepr_PropertyDefinitionRelationship;
 class StepRepr_ShapeAspect;
 class StepRepr_ShapeAspectRelationship;
 
-class StepAP242_ItemIdentifiedRepresentationUsageDefinition : public StepData_SelectType
+class StepAP242_ItemIdentifiedRepresentationUsageDefinition : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

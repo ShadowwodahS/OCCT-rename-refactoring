@@ -31,7 +31,7 @@ void RWStepElement_RWSurfaceSectionField::ReadStep(
   const Handle(StepData_StepReaderData)& data,
   const Standard_Integer                 num,
   Handle(Interface_Check)&               ach,
-  const Handle(StepElement_SurfaceSectionField)& /*ent*/) const
+  const Handle(SurfaceSectionField)& /*ent*/) const
 {
   // Check number of parameters
   if (!data->CheckNbParams(num, 0, ach, "surface_section_field"))
@@ -45,13 +45,13 @@ void RWStepElement_RWSurfaceSectionField::ReadStep(
 
 void RWStepElement_RWSurfaceSectionField::WriteStep(
   StepData_StepWriter&,
-  const Handle(StepElement_SurfaceSectionField)&) const
+  const Handle(SurfaceSectionField)&) const
 {
 }
 
 //=================================================================================================
 
-void RWStepElement_RWSurfaceSectionField::Share(const Handle(StepElement_SurfaceSectionField)&,
+void RWStepElement_RWSurfaceSectionField::Share(const Handle(SurfaceSectionField)&,
                                                 Interface_EntityIterator&) const
 {
 }

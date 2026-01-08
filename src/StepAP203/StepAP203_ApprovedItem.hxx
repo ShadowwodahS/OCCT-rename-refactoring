@@ -37,7 +37,7 @@ class StepBasic_Certification;
 class StepBasic_Contract;
 
 //! Representation of STEP SELECT type ApprovedItem
-class StepAP203_ApprovedItem : public StepData_SelectType
+class StepAP203_ApprovedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

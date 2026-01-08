@@ -28,7 +28,7 @@ class Date1;
 class StepBasic_LocalTime;
 class StepBasic_DateAndTime;
 
-class StepBasic_DateTimeSelect : public StepData_SelectType
+class StepBasic_DateTimeSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -50,14 +50,14 @@ void RWStepGeom_RWSeamCurve::ReadStep(const Handle(StepData_StepReaderData)& dat
 
   // --- inherited field : associatedGeometry ---
 
-  Handle(StepGeom_HArray1OfPcurveOrSurface) aAssociatedGeometry;
+  Handle(HArray1OfPCurveOrSurface) aAssociatedGeometry;
   StepGeom_PcurveOrSurface                  aAssociatedGeometryItem;
   Handle(RefObject)                assgeomval;
   Standard_Integer                          nsub3;
   if (data->ReadSubList(num, 3, "associated_geometry", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aAssociatedGeometry  = new StepGeom_HArray1OfPcurveOrSurface(1, nb3);
+    aAssociatedGeometry  = new HArray1OfPCurveOrSurface(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed

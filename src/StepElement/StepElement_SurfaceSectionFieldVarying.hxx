@@ -23,10 +23,10 @@
 #include <StepElement_SurfaceSectionField.hxx>
 
 class StepElement_SurfaceSectionFieldVarying;
-DEFINE_STANDARD_HANDLE(StepElement_SurfaceSectionFieldVarying, StepElement_SurfaceSectionField)
+DEFINE_STANDARD_HANDLE(StepElement_SurfaceSectionFieldVarying, SurfaceSectionField)
 
 //! Representation of STEP entity SurfaceSectionFieldVarying
-class StepElement_SurfaceSectionFieldVarying : public StepElement_SurfaceSectionField
+class StepElement_SurfaceSectionFieldVarying : public SurfaceSectionField
 {
 
 public:
@@ -34,15 +34,15 @@ public:
   Standard_EXPORT StepElement_SurfaceSectionFieldVarying();
 
   //! Initialize all fields (own and inherited)
-  Standard_EXPORT void Init(const Handle(StepElement_HArray1OfSurfaceSection)& aDefinitions,
+  Standard_EXPORT void Init(const Handle(HArray1OfSurfaceSection)& aDefinitions,
                             const Standard_Boolean aAdditionalNodeValues);
 
   //! Returns field Definitions
-  Standard_EXPORT Handle(StepElement_HArray1OfSurfaceSection) Definitions() const;
+  Standard_EXPORT Handle(HArray1OfSurfaceSection) Definitions() const;
 
   //! Set field Definitions
   Standard_EXPORT void SetDefinitions(
-    const Handle(StepElement_HArray1OfSurfaceSection)& Definitions);
+    const Handle(HArray1OfSurfaceSection)& Definitions);
 
   //! Returns field AdditionalNodeValues
   Standard_EXPORT Standard_Boolean AdditionalNodeValues() const;
@@ -50,11 +50,11 @@ public:
   //! Set field AdditionalNodeValues
   Standard_EXPORT void SetAdditionalNodeValues(const Standard_Boolean AdditionalNodeValues);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldVarying, StepElement_SurfaceSectionField)
+  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldVarying, SurfaceSectionField)
 
 protected:
 private:
-  Handle(StepElement_HArray1OfSurfaceSection) theDefinitions;
+  Handle(HArray1OfSurfaceSection) theDefinitions;
   Standard_Boolean                            theAdditionalNodeValues;
 };
 

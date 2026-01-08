@@ -36,7 +36,7 @@ Standard_Integer StepFEA_SymmetricTensor43d::CaseNum(
 
 //=================================================================================================
 
-Standard_Integer StepFEA_SymmetricTensor43d::CaseMem(const Handle(StepData_SelectMember)& ent) const
+Standard_Integer StepFEA_SymmetricTensor43d::CaseMem(const Handle(SelectMember)& ent) const
 {
   if (ent.IsNull())
     return 0;
@@ -58,9 +58,9 @@ Standard_Integer StepFEA_SymmetricTensor43d::CaseMem(const Handle(StepData_Selec
 
 //=================================================================================================
 
-Handle(StepData_SelectMember) StepFEA_SymmetricTensor43d::NewMember() const
+Handle(SelectMember) StepFEA_SymmetricTensor43d::NewMember() const
 {
-  // Handle(StepData_SelectMember) dummy;
+  // Handle(SelectMember) dummy;
   // return dummy;
   return new StepFEA_SymmetricTensor43dMember;
 }

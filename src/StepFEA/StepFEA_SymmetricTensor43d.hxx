@@ -24,10 +24,10 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 class RefObject;
-class StepData_SelectMember;
+class SelectMember;
 
 //! Representation of STEP SELECT type SymmetricTensor43d
-class StepFEA_SymmetricTensor43d : public StepData_SelectType
+class StepFEA_SymmetricTensor43d : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,10 +47,10 @@ public:
   //! 5 -> FeaColumnNormalisedOrthotropicSymmetricTensor43d
   //! 6 -> FeaColumnNormalisedMonoclinicSymmetricTensor43d
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(StepData_SelectMember)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseMem(const Handle(SelectMember)& ent) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SelectMember) NewMember() const Standard_OVERRIDE;
 
   //! Returns Value as AnisotropicSymmetricTensor43d (or Null if another type)
   Standard_EXPORT Handle(TColStd_HArray1OfReal) AnisotropicSymmetricTensor43d() const;

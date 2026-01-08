@@ -29,7 +29,7 @@ class StepVisual_CurveStyle;
 class StepVisual_NullStyleMember;
 class StepVisual_SurfaceStyleUsage;
 
-class StepVisual_PresentationStyleSelect : public StepData_SelectType
+class StepVisual_PresentationStyleSelect : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

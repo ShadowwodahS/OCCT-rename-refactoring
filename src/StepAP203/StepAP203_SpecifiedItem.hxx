@@ -28,7 +28,7 @@ class StepBasic_ProductDefinition;
 class StepRepr_ShapeAspect;
 
 //! Representation of STEP SELECT type SpecifiedItem
-class StepAP203_SpecifiedItem : public StepData_SelectType
+class StepAP203_SpecifiedItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

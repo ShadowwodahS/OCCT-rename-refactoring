@@ -29,7 +29,7 @@ class StepRepr_MappedItem;
 class StepRepr_Representation;
 class StepShape_TopologicalRepresentationItem;
 
-class StepVisual_StyledItemTarget : public StepData_SelectType
+class StepVisual_StyledItemTarget : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC

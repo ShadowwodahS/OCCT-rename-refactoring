@@ -28,7 +28,7 @@
 #define Handle_TheResul Handle(RefObject)
 #define TheResul RefObject
 #define TheResul_hxx <RefObject.hxx>
-#define Interface_Recognizer StepData_FileRecognizer
+#define Interface_Recognizer FileRecognizer
 #define Interface_Recognizer_hxx <StepData_FileRecognizer.hxx>
-#define Handle_Interface_Recognizer Handle(StepData_FileRecognizer)
+#define Handle_Interface_Recognizer Handle(FileRecognizer)
 #include "../Interface/Interface_Recognizer.gxx"

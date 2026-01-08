@@ -79,14 +79,14 @@ void RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface::ReadStep(
   data->ReadInteger(num, 2, "v_degree", ach, aVDegree);
   // --- field : controlPointsList ---
 
-  Handle(StepGeom_HArray2OfCartesianPoint) aControlPointsList;
+  Handle(HArray2OfCartesianPoint) aControlPointsList;
   Handle(StepGeom_CartesianPoint)          anent3;
   Standard_Integer                         nsub3;
   if (data->ReadSubList(num, 3, "control_points_list", ach, nsub3))
   {
     Standard_Integer nbi3 = data->NbParams(nsub3);
     Standard_Integer nbj3 = data->NbParams(data->ParamNumber(nsub3, 1));
-    aControlPointsList    = new StepGeom_HArray2OfCartesianPoint(1, nbi3, 1, nbj3);
+    aControlPointsList    = new HArray2OfCartesianPoint(1, nbi3, 1, nbj3);
     for (Standard_Integer i3 = 1; i3 <= nbi3; i3++)
     {
       Standard_Integer nsi3;

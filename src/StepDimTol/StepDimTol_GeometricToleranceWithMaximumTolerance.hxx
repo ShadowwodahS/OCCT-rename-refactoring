@@ -24,7 +24,7 @@
 class TCollection_HAsciiString;
 class StepBasic_MeasureWithUnit;
 class StepDimTol_GeometricToleranceTarget;
-class StepDimTol_HArray1OfGeometricToleranceModifier;
+class HArray1OfGeoTolModifier;
 
 class StepDimTol_GeometricToleranceWithMaximumTolerance;
 DEFINE_STANDARD_HANDLE(StepDimTol_GeometricToleranceWithMaximumTolerance,
@@ -45,7 +45,7 @@ public:
     const Handle(TCollection_HAsciiString)&                       theDescription,
     const Handle(StepBasic_MeasureWithUnit)&                      theMagnitude,
     const StepDimTol_GeometricToleranceTarget&                    theTolerancedShapeAspect,
-    const Handle(StepDimTol_HArray1OfGeometricToleranceModifier)& theModifiers,
+    const Handle(HArray1OfGeoTolModifier)& theModifiers,
     const Handle(StepBasic_LengthMeasureWithUnit)&                theUnitSize);
 
   //! Returns field MaximumUpperTolerance

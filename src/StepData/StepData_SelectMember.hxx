@@ -25,8 +25,8 @@
 #include <Interface_ParamType.hxx>
 #include <StepData_Logical.hxx>
 
-class StepData_SelectMember;
-DEFINE_STANDARD_HANDLE(StepData_SelectMember, RefObject)
+class SelectMember;
+DEFINE_STANDARD_HANDLE(SelectMember, RefObject)
 
 //! The general form for a Select Member. A Select Member can,
 //! either define a value of a basic type (such as an integer)
@@ -44,11 +44,11 @@ DEFINE_STANDARD_HANDLE(StepData_SelectMember, RefObject)
 //!
 //! Remark : this class itself could be deferred, because at least
 //! one of its virtual methods must be redefined to be usable
-class StepData_SelectMember : public RefObject
+class SelectMember : public RefObject
 {
 
 public:
-  Standard_EXPORT StepData_SelectMember();
+  Standard_EXPORT SelectMember();
 
   //! Tells if a SelectMember has a name. Default is False
   Standard_EXPORT virtual Standard_Boolean HasName() const;
@@ -110,7 +110,7 @@ public:
 
   Standard_EXPORT virtual void SetEnumText(const Standard_Integer val, const Standard_CString text);
 
-  DEFINE_STANDARD_RTTIEXT(StepData_SelectMember, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SelectMember, RefObject)
 
 protected:
 private:

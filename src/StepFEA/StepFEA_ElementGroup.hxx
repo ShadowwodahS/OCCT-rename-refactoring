@@ -39,19 +39,19 @@ public:
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aGroup_Name,
                             const Handle(TCollection_HAsciiString)& aGroup_Description,
                             const Handle(StepFEA_FeaModel)&         aFeaGroup_ModelRef,
-                            const Handle(StepFEA_HArray1OfElementRepresentation)& aElements);
+                            const Handle(HArray1OfElementRepr)& aElements);
 
   //! Returns field Elements
-  Standard_EXPORT Handle(StepFEA_HArray1OfElementRepresentation) Elements() const;
+  Standard_EXPORT Handle(HArray1OfElementRepr) Elements() const;
 
   //! Set field Elements
-  Standard_EXPORT void SetElements(const Handle(StepFEA_HArray1OfElementRepresentation)& Elements);
+  Standard_EXPORT void SetElements(const Handle(HArray1OfElementRepr)& Elements);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_ElementGroup, StepFEA_FeaGroup)
 
 protected:
 private:
-  Handle(StepFEA_HArray1OfElementRepresentation) theElements;
+  Handle(HArray1OfElementRepr) theElements;
 };
 
 #endif // _StepFEA_ElementGroup_HeaderFile

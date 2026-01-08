@@ -39,20 +39,20 @@ public:
   Standard_EXPORT void Init(
     const Handle(StepFEA_CurveElementLocation)& aCurveElementInterval_FinishPosition,
     const Handle(StepBasic_EulerAngles)&        aCurveElementInterval_EuAngles,
-    const Handle(StepElement_HArray1OfCurveElementSectionDefinition)& aSections);
+    const Handle(HArray1OfCurveSectionDef)& aSections);
 
   //! Returns field Sections
-  Standard_EXPORT Handle(StepElement_HArray1OfCurveElementSectionDefinition) Sections() const;
+  Standard_EXPORT Handle(HArray1OfCurveSectionDef) Sections() const;
 
   //! Set field Sections
   Standard_EXPORT void SetSections(
-    const Handle(StepElement_HArray1OfCurveElementSectionDefinition)& Sections);
+    const Handle(HArray1OfCurveSectionDef)& Sections);
 
   DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementIntervalLinearlyVarying, StepFEA_CurveElementInterval)
 
 protected:
 private:
-  Handle(StepElement_HArray1OfCurveElementSectionDefinition) theSections;
+  Handle(HArray1OfCurveSectionDef) theSections;
 };
 
 #endif // _StepFEA_CurveElementIntervalLinearlyVarying_HeaderFile

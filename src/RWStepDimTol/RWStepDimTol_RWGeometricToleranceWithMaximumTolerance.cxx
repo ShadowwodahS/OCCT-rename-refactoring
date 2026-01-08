@@ -66,12 +66,12 @@ void RWStepDimTol_RWGeometricToleranceWithMaximumTolerance::ReadStep(
                    aTolerancedShapeAspect);
 
   // inherited fields from GeometricToleranceWithModifiers
-  Handle(StepDimTol_HArray1OfGeometricToleranceModifier) aModifiers;
+  Handle(HArray1OfGeoTolModifier) aModifiers;
   Standard_Integer                                       sub5 = 0;
   if (data->ReadSubList(num, 5, "geometric_tolerance_with_modifiers.modifiers", ach, sub5))
   {
     Standard_Integer nb0  = data->NbParams(sub5);
-    aModifiers            = new StepDimTol_HArray1OfGeometricToleranceModifier(1, nb0);
+    aModifiers            = new HArray1OfGeoTolModifier(1, nb0);
     Standard_Integer num2 = sub5;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

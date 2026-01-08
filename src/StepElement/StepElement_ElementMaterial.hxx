@@ -37,7 +37,7 @@ public:
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                         aMaterialId,
     const Handle(TCollection_HAsciiString)&                         aDescription,
-    const Handle(StepRepr_HArray1OfMaterialPropertyRepresentation)& aProperties);
+    const Handle(HArray1OfMaterialPropRepr)& aProperties);
 
   //! Returns field MaterialId
   Standard_EXPORT Handle(TCollection_HAsciiString) MaterialId() const;
@@ -52,11 +52,11 @@ public:
   Standard_EXPORT void SetDescription(const Handle(TCollection_HAsciiString)& Description);
 
   //! Returns field Properties
-  Standard_EXPORT Handle(StepRepr_HArray1OfMaterialPropertyRepresentation) Properties() const;
+  Standard_EXPORT Handle(HArray1OfMaterialPropRepr) Properties() const;
 
   //! Set field Properties
   Standard_EXPORT void SetProperties(
-    const Handle(StepRepr_HArray1OfMaterialPropertyRepresentation)& Properties);
+    const Handle(HArray1OfMaterialPropRepr)& Properties);
 
   DEFINE_STANDARD_RTTIEXT(StepElement_ElementMaterial, RefObject)
 
@@ -64,7 +64,7 @@ protected:
 private:
   Handle(TCollection_HAsciiString)                         theMaterialId;
   Handle(TCollection_HAsciiString)                         theDescription;
-  Handle(StepRepr_HArray1OfMaterialPropertyRepresentation) theProperties;
+  Handle(HArray1OfMaterialPropRepr) theProperties;
 };
 
 #endif // _StepElement_ElementMaterial_HeaderFile

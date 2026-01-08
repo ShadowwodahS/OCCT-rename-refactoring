@@ -53,7 +53,7 @@ void RWStepVisual_RWPresentationStyleByContext::ReadStep(
       }
       else
       {
-        Handle(StepData_SelectMember) aMember;
+        Handle(SelectMember) aMember;
         data->ReadMember(nsub1, i1, "null_style", ach, aMember);
         Standard_CString                   anEnumText = aMember->EnumText();
         Handle(StepVisual_NullStyleMember) aNullStyle = new StepVisual_NullStyleMember();

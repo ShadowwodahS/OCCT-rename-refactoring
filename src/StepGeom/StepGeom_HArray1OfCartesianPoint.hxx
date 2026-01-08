@@ -20,6 +20,6 @@
 #include <StepGeom_Array1OfCartesianPoint.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepGeom_HArray1OfCartesianPoint, StepGeom_Array1OfCartesianPoint)
+DEFINE_HARRAY1(HArray1OfCartesianPoint, StepGeom_Array1OfCartesianPoint)
 
 #endif

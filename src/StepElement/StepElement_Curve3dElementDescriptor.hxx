@@ -38,20 +38,20 @@ public:
   Standard_EXPORT void Init(
     const StepElement_ElementOrder          aElementDescriptor_TopologyOrder,
     const Handle(TCollection_HAsciiString)& aElementDescriptor_Description,
-    const Handle(StepElement_HArray1OfHSequenceOfCurveElementPurposeMember)& aPurpose);
+    const Handle(HArray1OfCurvePurposeSeq)& aPurpose);
 
   //! Returns field Purpose
-  Standard_EXPORT Handle(StepElement_HArray1OfHSequenceOfCurveElementPurposeMember) Purpose() const;
+  Standard_EXPORT Handle(HArray1OfCurvePurposeSeq) Purpose() const;
 
   //! Set field Purpose
   Standard_EXPORT void SetPurpose(
-    const Handle(StepElement_HArray1OfHSequenceOfCurveElementPurposeMember)& Purpose);
+    const Handle(HArray1OfCurvePurposeSeq)& Purpose);
 
   DEFINE_STANDARD_RTTIEXT(StepElement_Curve3dElementDescriptor, StepElement_ElementDescriptor)
 
 protected:
 private:
-  Handle(StepElement_HArray1OfHSequenceOfCurveElementPurposeMember) thePurpose;
+  Handle(HArray1OfCurvePurposeSeq) thePurpose;
 };
 
 #endif // _StepElement_Curve3dElementDescriptor_HeaderFile

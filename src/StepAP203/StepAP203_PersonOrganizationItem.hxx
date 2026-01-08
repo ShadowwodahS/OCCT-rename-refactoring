@@ -36,7 +36,7 @@ class StepBasic_Contract;
 class StepBasic_SecurityClassification;
 
 //! Representation of STEP SELECT type PersonOrganizationItem
-class StepAP203_PersonOrganizationItem : public StepData_SelectType
+class StepAP203_PersonOrganizationItem : public SelectType
 {
 public:
   DEFINE_STANDARD_ALLOC
