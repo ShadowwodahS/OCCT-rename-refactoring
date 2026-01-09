@@ -27,7 +27,7 @@ StepShape_Subface::StepShape_Subface() {}
 //=================================================================================================
 
 void StepShape_Subface::Init(const Handle(TCollection_HAsciiString)&     aRepresentationItem_Name,
-                             const Handle(StepShape_HArray1OfFaceBound)& aFace_Bounds,
+                             const Handle(HArray1OfFaceBound)& aFace_Bounds,
                              const Handle(StepShape_Face)&               aParentFace)
 {
   StepShape_Face::Init(aRepresentationItem_Name, aFace_Bounds);

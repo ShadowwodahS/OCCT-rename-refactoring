@@ -37,11 +37,11 @@ public:
   Standard_EXPORT StepShape_Face();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&     aName,
-                            const Handle(StepShape_HArray1OfFaceBound)& aBounds);
+                            const Handle(HArray1OfFaceBound)& aBounds);
 
-  Standard_EXPORT virtual void SetBounds(const Handle(StepShape_HArray1OfFaceBound)& aBounds);
+  Standard_EXPORT virtual void SetBounds(const Handle(HArray1OfFaceBound)& aBounds);
 
-  Standard_EXPORT virtual Handle(StepShape_HArray1OfFaceBound) Bounds() const;
+  Standard_EXPORT virtual Handle(HArray1OfFaceBound) Bounds() const;
 
   Standard_EXPORT virtual Handle(StepShape_FaceBound) BoundsValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfFaceBound) bounds;
+  Handle(HArray1OfFaceBound) bounds;
 };
 
 #endif // _StepShape_Face_HeaderFile

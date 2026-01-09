@@ -362,7 +362,7 @@ Standard_Boolean VrmlAPI_Writer::write_v1(const TopoShape&    aShape,
   {
     Group Group1;
     Group1.Print(*anOutFile);
-    Vrml_Instancing I2("Shaded representation of shape");
+    Instancing I2("Shaded representation of shape");
     I2.DEF(*anOutFile);
     ShadedShapeConverter::Add(*anOutFile, aShape, myDrawer);
     Group1.Print(*anOutFile);
@@ -372,7 +372,7 @@ Standard_Boolean VrmlAPI_Writer::write_v1(const TopoShape&    aShape,
   {
     Group Group2;
     Group2.Print(*anOutFile);
-    Vrml_Instancing I3("Wire Frame representation of shape");
+    Instancing I3("Wire Frame representation of shape");
     I3.DEF(*anOutFile);
     WFDeflectionShapeConverter::Add(*anOutFile, aShape, myDrawer);
     Group2.Print(*anOutFile);

@@ -22,7 +22,7 @@ StepShape_BrepWithVoids::StepShape_BrepWithVoids() {}
 
 void StepShape_BrepWithVoids::Init(const Handle(TCollection_HAsciiString)&               aName,
                                    const Handle(StepShape_ClosedShell)&                  aOuter,
-                                   const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids)
+                                   const Handle(HArray1OfOrientedClosedShell)& aVoids)
 {
   // --- classe own fields ---
   voids = aVoids;
@@ -30,12 +30,12 @@ void StepShape_BrepWithVoids::Init(const Handle(TCollection_HAsciiString)&      
   StepShape_ManifoldSolidBrep::Init(aName, aOuter);
 }
 
-void StepShape_BrepWithVoids::SetVoids(const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids)
+void StepShape_BrepWithVoids::SetVoids(const Handle(HArray1OfOrientedClosedShell)& aVoids)
 {
   voids = aVoids;
 }
 
-Handle(StepShape_HArray1OfOrientedClosedShell) StepShape_BrepWithVoids::Voids() const
+Handle(HArray1OfOrientedClosedShell) StepShape_BrepWithVoids::Voids() const
 {
   return voids;
 }

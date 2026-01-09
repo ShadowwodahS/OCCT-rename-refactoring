@@ -25,9 +25,9 @@ StepVisual_AnnotationPlane::StepVisual_AnnotationPlane() {}
 
 void StepVisual_AnnotationPlane::Init(
   const Handle(TCollection_HAsciiString)&                        theName,
-  const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& theStyles,
+  const Handle(HArray1OfPresentationStyle)& theStyles,
   const Handle(RefObject)&                              theItem,
-  const Handle(StepVisual_HArray1OfAnnotationPlaneElement)&      theElements)
+  const Handle(HArray1OfAnnotationPlaneElement)&      theElements)
 {
   StepVisual_AnnotationOccurrence::Init(theName, theStyles, theItem);
   myElements = theElements;

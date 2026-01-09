@@ -14,7 +14,7 @@
 #include <Vrml_PerspectiveCamera.hxx>
 #include <Vrml_SFRotation.hxx>
 
-Vrml_PerspectiveCamera::Vrml_PerspectiveCamera()
+PerspectiveCamera::PerspectiveCamera()
     : myFocalDistance(5),
       myHeightAngle(0.785398)
 {
@@ -26,7 +26,7 @@ Vrml_PerspectiveCamera::Vrml_PerspectiveCamera()
   myOrientation = tmpSFR;
 }
 
-Vrml_PerspectiveCamera::Vrml_PerspectiveCamera(const Vector3d&          aPosition,
+PerspectiveCamera::PerspectiveCamera(const Vector3d&          aPosition,
                                                const SFRotation& aOrientation,
                                                const Standard_Real    aFocalDistance,
                                                const Standard_Real    aHeightAngle)
@@ -37,47 +37,47 @@ Vrml_PerspectiveCamera::Vrml_PerspectiveCamera(const Vector3d&          aPositio
   myHeightAngle   = aHeightAngle;
 }
 
-void Vrml_PerspectiveCamera::SetPosition(const Vector3d& aPosition)
+void PerspectiveCamera::SetPosition(const Vector3d& aPosition)
 {
   myPosition = aPosition;
 }
 
-Vector3d Vrml_PerspectiveCamera::Position1() const
+Vector3d PerspectiveCamera::Position1() const
 {
   return myPosition;
 }
 
-void Vrml_PerspectiveCamera::SetOrientation(const SFRotation& aOrientation)
+void PerspectiveCamera::SetOrientation(const SFRotation& aOrientation)
 {
   myOrientation = aOrientation;
 }
 
-SFRotation Vrml_PerspectiveCamera::Orientation() const
+SFRotation PerspectiveCamera::Orientation() const
 {
   return myOrientation;
 }
 
-void Vrml_PerspectiveCamera::SetFocalDistance(const Standard_Real aFocalDistance)
+void PerspectiveCamera::SetFocalDistance(const Standard_Real aFocalDistance)
 {
   myFocalDistance = aFocalDistance;
 }
 
-Standard_Real Vrml_PerspectiveCamera::FocalDistance() const
+Standard_Real PerspectiveCamera::FocalDistance() const
 {
   return myFocalDistance;
 }
 
-void Vrml_PerspectiveCamera::SetAngle(const Standard_Real aHeightAngle)
+void PerspectiveCamera::SetAngle(const Standard_Real aHeightAngle)
 {
   myHeightAngle = aHeightAngle;
 }
 
-Standard_Real Vrml_PerspectiveCamera::Angle() const
+Standard_Real PerspectiveCamera::Angle() const
 {
   return myHeightAngle;
 }
 
-Standard_OStream& Vrml_PerspectiveCamera::Print(Standard_OStream& anOStream) const
+Standard_OStream& PerspectiveCamera::Print(Standard_OStream& anOStream) const
 {
   anOStream << "PerspectiveCamera {\n";
   if (Abs(myPosition.X() - 0) > 0.0001 || Abs(myPosition.Y() - 0) > 0.0001

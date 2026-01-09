@@ -28,10 +28,10 @@ class HLRBRep_Data;
 class HLRBRep_EdgeData;
 
 class HLRTest_DrawableEdgeTool;
-DEFINE_STANDARD_HANDLE(HLRTest_DrawableEdgeTool, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(HLRTest_DrawableEdgeTool, Drawable3D)
 
 //! Used to display the results.
-class HLRTest_DrawableEdgeTool : public Draw_Drawable3D
+class HLRTest_DrawableEdgeTool : public Drawable3D
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& D) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(HLRTest_DrawableEdgeTool, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(HLRTest_DrawableEdgeTool, Drawable3D)
 
 protected:
 private:

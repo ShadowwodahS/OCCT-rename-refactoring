@@ -20,6 +20,6 @@
 #include <StepShape_Array1OfOrientedEdge.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfOrientedEdge, StepShape_Array1OfOrientedEdge)
+DEFINE_HARRAY1(HArray1OfOrientedEdge, StepShape_Array1OfOrientedEdge)
 
 #endif

@@ -23,12 +23,12 @@
 class AsciiString1;
 
 class ExprIntrp_GenFct;
-DEFINE_STANDARD_HANDLE(ExprIntrp_GenFct, ExprIntrp_Generator)
+DEFINE_STANDARD_HANDLE(ExprIntrp_GenFct, ExpressionGenerator)
 
 //! Implements an interpreter for defining functions.
 //! All its functionalities can be found in class
 //! GenExp.
-class ExprIntrp_GenFct : public ExprIntrp_Generator
+class ExprIntrp_GenFct : public ExpressionGenerator
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
-  DEFINE_STANDARD_RTTIEXT(ExprIntrp_GenFct, ExprIntrp_Generator)
+  DEFINE_STANDARD_RTTIEXT(ExprIntrp_GenFct, ExpressionGenerator)
 
 protected:
 private:

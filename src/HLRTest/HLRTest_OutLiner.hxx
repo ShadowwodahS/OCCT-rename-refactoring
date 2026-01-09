@@ -28,9 +28,9 @@ class TopoShape;
 class DrawDisplay;
 
 class HLRTest_OutLiner;
-DEFINE_STANDARD_HANDLE(HLRTest_OutLiner, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(HLRTest_OutLiner, Drawable3D)
 
-class HLRTest_OutLiner : public Draw_Drawable3D
+class HLRTest_OutLiner : public Drawable3D
 {
 
 public:
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
@@ -51,7 +51,7 @@ public:
   //! type of the variable.
   Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(HLRTest_OutLiner, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(HLRTest_OutLiner, Drawable3D)
 
 protected:
 private:

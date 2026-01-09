@@ -22,7 +22,7 @@
 
 #include <Expr_GeneralRelation.hxx>
 #include <Standard_Integer.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 
 class Expr_SingleRelation;
@@ -33,16 +33,16 @@ class Expr_SingleRelation : public Expr_GeneralRelation
 
 public:
   //! Defines the first member of the relation
-  Standard_EXPORT void SetFirstMember(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void SetFirstMember(const Handle(Expression1)& exp);
 
   //! Defines the second member of the relation
-  Standard_EXPORT void SetSecondMember(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void SetSecondMember(const Handle(Expression1)& exp);
 
   //! Returns the first member of the relation
-  Standard_EXPORT Handle(Expr_GeneralExpression) FirstMember() const;
+  Standard_EXPORT Handle(Expression1) FirstMember() const;
 
   //! Returns the second member of the relation
-  Standard_EXPORT Handle(Expr_GeneralExpression) SecondMember() const;
+  Standard_EXPORT Handle(Expression1) SecondMember() const;
 
   //! Tests if <me> is linear between its NamedUnknowns.
   Standard_EXPORT Standard_Boolean IsLinear() const Standard_OVERRIDE;
@@ -61,18 +61,18 @@ public:
 
   //! Tests if <me> contains <exp>.
   Standard_EXPORT Standard_Boolean
-    Contains(const Handle(Expr_GeneralExpression)& exp) const Standard_OVERRIDE;
+    Contains(const Handle(Expression1)& exp) const Standard_OVERRIDE;
 
   //! Replaces all occurrences of <var> with <with> in <me>.
   Standard_EXPORT void Replace(const Handle(Expr_NamedUnknown)&      var,
-                               const Handle(Expr_GeneralExpression)& with) Standard_OVERRIDE;
+                               const Handle(Expression1)& with) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Expr_SingleRelation, Expr_GeneralRelation)
 
 protected:
 private:
-  Handle(Expr_GeneralExpression) myFirstMember;
-  Handle(Expr_GeneralExpression) mySecondMember;
+  Handle(Expression1) myFirstMember;
+  Handle(Expression1) mySecondMember;
 };
 
 #endif // _Expr_SingleRelation_HeaderFile

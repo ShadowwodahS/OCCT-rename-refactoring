@@ -23,7 +23,7 @@ Standard_Integer StepShape_ValueQualifier::CaseNum(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     return 0;
-  if (ent->IsKind(STANDARD_TYPE(StepShape_PrecisionQualifier)))
+  if (ent->IsKind(STANDARD_TYPE(PrecisionQualifier1)))
     return 1;
   if (ent->IsKind(STANDARD_TYPE(StepShape_TypeQualifier)))
     return 2;
@@ -32,9 +32,9 @@ Standard_Integer StepShape_ValueQualifier::CaseNum(const Handle(RefObject)& ent)
   return 0;
 }
 
-Handle(StepShape_PrecisionQualifier) StepShape_ValueQualifier::PrecisionQualifier() const
+Handle(PrecisionQualifier1) StepShape_ValueQualifier::PrecisionQualifier() const
 {
-  return Handle(StepShape_PrecisionQualifier)::DownCast(Value());
+  return Handle(PrecisionQualifier1)::DownCast(Value());
 }
 
 Handle(StepShape_TypeQualifier) StepShape_ValueQualifier::TypeQualifier() const

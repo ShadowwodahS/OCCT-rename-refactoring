@@ -80,11 +80,11 @@ public:
 
 private:
   HLRAlgoProjector          myProjector;
-  Vrml_PerspectiveCamera     myPerspectiveCamera;
-  Vrml_OrthographicCamera    myOrthographicCamera;
-  Vrml_DirectionalLight      myDirectionalLight;
-  Vrml_PointLight            myPointLight;
-  Vrml_SpotLight             mySpotLight;
+  PerspectiveCamera     myPerspectiveCamera;
+  OrthographicCamera    myOrthographicCamera;
+  DirectionalLight      myDirectionalLight;
+  PointLight            myPointLight;
+  SpotLight             mySpotLight;
   VrmlConverter_TypeOfCamera myTypeOfCamera;
   VrmlConverter_TypeOfLight  myTypeOfLight;
   MatrixTransform       myMatrixTransform;

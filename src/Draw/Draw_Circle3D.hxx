@@ -26,9 +26,9 @@
 class DrawDisplay;
 
 class Draw_Circle3D;
-DEFINE_STANDARD_HANDLE(Draw_Circle3D, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Circle3D, Drawable3D)
 
-class Draw_Circle3D : public Draw_Drawable3D
+class Draw_Circle3D : public Drawable3D
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Circle3D, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Circle3D, Drawable3D)
 
 protected:
 private:

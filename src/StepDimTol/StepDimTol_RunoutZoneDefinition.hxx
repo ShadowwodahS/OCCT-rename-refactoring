@@ -22,7 +22,7 @@
 #include <StepDimTol_ToleranceZoneDefinition.hxx>
 #include <Standard_Integer.hxx>
 
-class StepRepr_HArray1OfShapeAspect;
+class HArray1OfShapeAspect;
 
 class StepDimTol_RunoutZoneDefinition;
 DEFINE_STANDARD_HANDLE(StepDimTol_RunoutZoneDefinition, StepDimTol_ToleranceZoneDefinition)
@@ -37,7 +37,7 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepDimTol_ToleranceZone)&         theZone,
-                            const Handle(StepRepr_HArray1OfShapeAspect)&    theBoundaries,
+                            const Handle(HArray1OfShapeAspect)&    theBoundaries,
                             const Handle(StepDimTol_RunoutZoneOrientation)& theOrientation);
 
   //! Returns field Orientation

@@ -20,7 +20,7 @@
 #include <Expr_UnknownIterator.hxx>
 #include <Expr_RUIterator.hxx>
 
-Handle(Expr_GeneralExpression) Expr1::CopyShare(const Handle(Expr_GeneralExpression)& exp)
+Handle(Expression1) Expr1::CopyShare(const Handle(Expression1)& exp)
 {
   if (exp->IsShareable())
   {
@@ -44,7 +44,7 @@ Standard_Integer Expr1::NbOfFreeVariables(const Handle(Expr_GeneralRelation)& re
   return nbvar;
 }
 
-Standard_Integer Expr1::NbOfFreeVariables(const Handle(Expr_GeneralExpression)& exp)
+Standard_Integer Expr1::NbOfFreeVariables(const Handle(Expression1)& exp)
 {
   Standard_Integer     nbvar = 0;
   UnknownIterator uit(exp);

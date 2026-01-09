@@ -46,13 +46,13 @@ void RWStepShape_RWConnectedEdgeSet::ReadStep(const Handle(StepData_StepReaderDa
 
   // Own fields of ConnectedEdgeSet
 
-  Handle(StepShape_HArray1OfEdge) aCesEdges;
+  Handle(HArray1OfEdge) aCesEdges;
   Standard_Integer                sub2 = 0;
   if (data->ReadSubList(num, 2, "ces_edges", ach, sub2))
   {
     Standard_Integer num2 = sub2;
     Standard_Integer nb0  = data->NbParams(num2);
-    aCesEdges             = new StepShape_HArray1OfEdge(1, nb0);
+    aCesEdges             = new HArray1OfEdge(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       Handle(StepShape_Edge) anIt0;

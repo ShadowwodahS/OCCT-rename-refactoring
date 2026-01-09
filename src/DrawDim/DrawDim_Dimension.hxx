@@ -25,10 +25,10 @@ class Point3d;
 class DrawDisplay;
 
 class DrawDim_Dimension;
-DEFINE_STANDARD_HANDLE(DrawDim_Dimension, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DrawDim_Dimension, Drawable3D)
 
 //! Dimension between planes and cylinder
-class DrawDim_Dimension : public Draw_Drawable3D
+class DrawDim_Dimension : public Drawable3D
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT void DrawText(const Point3d& Pos, DrawDisplay& D) const;
 
-  DEFINE_STANDARD_RTTIEXT(DrawDim_Dimension, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DrawDim_Dimension, Drawable3D)
 
 protected:
   Standard_EXPORT DrawDim_Dimension();

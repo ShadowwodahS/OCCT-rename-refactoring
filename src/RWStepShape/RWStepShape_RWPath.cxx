@@ -40,13 +40,13 @@ void RWStepShape_RWPath::ReadStep(const Handle(StepData_StepReaderData)& data,
 
   // --- own field : edgeList ---
 
-  Handle(StepShape_HArray1OfOrientedEdge) aEdgeList;
+  Handle(HArray1OfOrientedEdge) aEdgeList;
   Handle(StepShape_OrientedEdge)          anent2;
   Standard_Integer                        nsub2;
   if (data->ReadSubList(num, 2, "edge_list", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aEdgeList            = new StepShape_HArray1OfOrientedEdge(1, nb2);
+    aEdgeList            = new HArray1OfOrientedEdge(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

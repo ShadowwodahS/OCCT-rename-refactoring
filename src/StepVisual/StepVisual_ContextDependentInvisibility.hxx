@@ -33,7 +33,7 @@ public:
   //! Returns a ContextDependentInvisibility
   Standard_EXPORT StepVisual_ContextDependentInvisibility();
 
-  Standard_EXPORT void Init(const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems,
+  Standard_EXPORT void Init(const Handle(HArray1OfInvisibleItem)& aInvisibleItems,
                             const StepVisual_InvisibilityContext&            aPresentationContext);
 
   Standard_EXPORT void SetPresentationContext(

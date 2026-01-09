@@ -34,13 +34,13 @@
 //! If  several  nades  were  given  the  same  name,  then  the  last  DEF
 //! encountered  during  parsing  "wins".
 //! DEF/USE  is  limited  to  a  single  file.
-class Vrml_Instancing
+class Instancing
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds "DEF  <myName>" in  anOStream  (VRML  file).
-  Standard_EXPORT Vrml_Instancing(const AsciiString1& aString);
+  Standard_EXPORT Instancing(const AsciiString1& aString);
 
   //! Adds "USE  <myName>" in  anOStream (VRML  file).
   Standard_EXPORT Standard_OStream& DEF(Standard_OStream& anOStream) const;

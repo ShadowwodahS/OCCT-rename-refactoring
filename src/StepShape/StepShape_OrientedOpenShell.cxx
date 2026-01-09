@@ -26,7 +26,7 @@ void StepShape_OrientedOpenShell::Init(const Handle(TCollection_HAsciiString)& a
   openShellElement = aOpenShellElement;
   orientation      = aOrientation;
   // --- classe inherited fields ---
-  Handle(StepShape_HArray1OfFace) aCfsFaces;
+  Handle(HArray1OfFace1) aCfsFaces;
   aCfsFaces.Nullify();
   StepShape_ConnectedFaceSet::Init(aName, aCfsFaces);
 }
@@ -52,14 +52,14 @@ Standard_Boolean StepShape_OrientedOpenShell::Orientation() const
   return orientation;
 }
 
-void StepShape_OrientedOpenShell::SetCfsFaces(const Handle(StepShape_HArray1OfFace)& /*aCfsFaces*/)
+void StepShape_OrientedOpenShell::SetCfsFaces(const Handle(HArray1OfFace1)& /*aCfsFaces*/)
 {
   // WARNING : the field is redefined.
   // field set up forbidden.
   std::cout << "Field is redefined, SetUp Forbidden" << std::endl;
 }
 
-Handle(StepShape_HArray1OfFace) StepShape_OrientedOpenShell::CfsFaces() const
+Handle(HArray1OfFace1) StepShape_OrientedOpenShell::CfsFaces() const
 {
   // WARNING : the field is redefined.
   // method body is not yet automatically wrote

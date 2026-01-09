@@ -13,7 +13,7 @@
 
 #include <Vrml_DirectionalLight.hxx>
 
-Vrml_DirectionalLight::Vrml_DirectionalLight()
+DirectionalLight::DirectionalLight()
     : myOnOff(Standard_True),
       myIntensity(1),
       myColor(Quantity_NOC_WHITE),
@@ -22,7 +22,7 @@ Vrml_DirectionalLight::Vrml_DirectionalLight()
   //
 }
 
-Vrml_DirectionalLight::Vrml_DirectionalLight(const Standard_Boolean aOnOff,
+DirectionalLight::DirectionalLight(const Standard_Boolean aOnOff,
                                              const Standard_Real    aIntensity,
                                              const Color1&  aColor,
                                              const Vector3d&          aDirection)
@@ -37,17 +37,17 @@ Vrml_DirectionalLight::Vrml_DirectionalLight(const Standard_Boolean aOnOff,
   myDirection = aDirection;
 }
 
-void Vrml_DirectionalLight::SetOnOff(const Standard_Boolean aOnOff)
+void DirectionalLight::SetOnOff(const Standard_Boolean aOnOff)
 {
   myOnOff = aOnOff;
 }
 
-Standard_Boolean Vrml_DirectionalLight::OnOff() const
+Standard_Boolean DirectionalLight::OnOff() const
 {
   return myOnOff;
 }
 
-void Vrml_DirectionalLight::SetIntensity(const Standard_Real aIntensity)
+void DirectionalLight::SetIntensity(const Standard_Real aIntensity)
 {
   if (aIntensity < 0. || aIntensity > 1.)
   {
@@ -56,32 +56,32 @@ void Vrml_DirectionalLight::SetIntensity(const Standard_Real aIntensity)
   myIntensity = aIntensity;
 }
 
-Standard_Real Vrml_DirectionalLight::Intensity() const
+Standard_Real DirectionalLight::Intensity() const
 {
   return myIntensity;
 }
 
-void Vrml_DirectionalLight::SetColor(const Color1& aColor)
+void DirectionalLight::SetColor(const Color1& aColor)
 {
   myColor = aColor;
 }
 
-Color1 Vrml_DirectionalLight::Color() const
+Color1 DirectionalLight::Color() const
 {
   return myColor;
 }
 
-void Vrml_DirectionalLight::SetDirection(const Vector3d& aDirection)
+void DirectionalLight::SetDirection(const Vector3d& aDirection)
 {
   myDirection = aDirection;
 }
 
-Vector3d Vrml_DirectionalLight::Direction() const
+Vector3d DirectionalLight::Direction() const
 {
   return myDirection;
 }
 
-Standard_OStream& Vrml_DirectionalLight::Print(Standard_OStream& anOStream) const
+Standard_OStream& DirectionalLight::Print(Standard_OStream& anOStream) const
 {
   anOStream << "DirectionalLight {\n";
 

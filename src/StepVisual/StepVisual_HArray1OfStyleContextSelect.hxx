@@ -20,6 +20,6 @@
 #include <StepVisual_Array1OfStyleContextSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfStyleContextSelect, StepVisual_Array1OfStyleContextSelect)
+DEFINE_HARRAY1(HArray1OfStyleContext, StepVisual_Array1OfStyleContextSelect)
 
 #endif

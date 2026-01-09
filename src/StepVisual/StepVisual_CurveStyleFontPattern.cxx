@@ -14,11 +14,11 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_CurveStyleFontPattern.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CurveStyleFontPattern, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(CurveStyleFontPattern, RefObject)
 
-StepVisual_CurveStyleFontPattern::StepVisual_CurveStyleFontPattern() {}
+CurveStyleFontPattern::CurveStyleFontPattern() {}
 
-void StepVisual_CurveStyleFontPattern::Init(const Standard_Real aVisibleSegmentLength,
+void CurveStyleFontPattern::Init(const Standard_Real aVisibleSegmentLength,
                                             const Standard_Real aInvisibleSegmentLength)
 {
   // --- classe own fields ---
@@ -26,24 +26,24 @@ void StepVisual_CurveStyleFontPattern::Init(const Standard_Real aVisibleSegmentL
   invisibleSegmentLength = aInvisibleSegmentLength;
 }
 
-void StepVisual_CurveStyleFontPattern::SetVisibleSegmentLength(
+void CurveStyleFontPattern::SetVisibleSegmentLength(
   const Standard_Real aVisibleSegmentLength)
 {
   visibleSegmentLength = aVisibleSegmentLength;
 }
 
-Standard_Real StepVisual_CurveStyleFontPattern::VisibleSegmentLength() const
+Standard_Real CurveStyleFontPattern::VisibleSegmentLength() const
 {
   return visibleSegmentLength;
 }
 
-void StepVisual_CurveStyleFontPattern::SetInvisibleSegmentLength(
+void CurveStyleFontPattern::SetInvisibleSegmentLength(
   const Standard_Real aInvisibleSegmentLength)
 {
   invisibleSegmentLength = aInvisibleSegmentLength;
 }
 
-Standard_Real StepVisual_CurveStyleFontPattern::InvisibleSegmentLength() const
+Standard_Real CurveStyleFontPattern::InvisibleSegmentLength() const
 {
   return invisibleSegmentLength;
 }

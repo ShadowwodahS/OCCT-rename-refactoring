@@ -20,7 +20,7 @@
 #include <StepVisual_Array1OfBoxCharacteristicSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfBoxCharacteristicSelect,
+DEFINE_HARRAY1(HArray1OfBoxCharacteristic,
                StepVisual_Array1OfBoxCharacteristicSelect)
 
 #endif

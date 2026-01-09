@@ -25,7 +25,7 @@ RWStepShape_RWToleranceValue::RWStepShape_RWToleranceValue() {}
 void RWStepShape_RWToleranceValue::ReadStep(const Handle(StepData_StepReaderData)&  data,
                                             const Standard_Integer                  num,
                                             Handle(Interface_Check)&                ach,
-                                            const Handle(StepShape_ToleranceValue)& ent) const
+                                            const Handle(ToleranceValue1)& ent) const
 {
   // --- Number of Parameter Control ---
 
@@ -94,13 +94,13 @@ void RWStepShape_RWToleranceValue::ReadStep(const Handle(StepData_StepReaderData
 }
 
 void RWStepShape_RWToleranceValue::WriteStep(StepData_StepWriter&                    SW,
-                                             const Handle(StepShape_ToleranceValue)& ent) const
+                                             const Handle(ToleranceValue1)& ent) const
 {
   SW.Send(ent->LowerBound());
   SW.Send(ent->UpperBound());
 }
 
-void RWStepShape_RWToleranceValue::Share(const Handle(StepShape_ToleranceValue)& ent,
+void RWStepShape_RWToleranceValue::Share(const Handle(ToleranceValue1)& ent,
                                          Interface_EntityIterator&               iter) const
 {
   iter.AddItem(ent->LowerBound());

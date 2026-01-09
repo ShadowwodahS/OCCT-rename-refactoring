@@ -20,7 +20,7 @@
 #include <StepVisual_Array1OfSurfaceStyleElementSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfSurfaceStyleElementSelect,
+DEFINE_HARRAY1(HArray1OfSurfaceStyleElement,
                StepVisual_Array1OfSurfaceStyleElementSelect)
 
 #endif

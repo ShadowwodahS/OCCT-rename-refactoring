@@ -37,13 +37,13 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepDimTol_ToleranceZone)&      theZone,
-                            const Handle(StepRepr_HArray1OfShapeAspect)& theBoundaries);
+                            const Handle(HArray1OfShapeAspect)& theBoundaries);
 
   //! Returns field Boundaries
-  inline Handle(StepRepr_HArray1OfShapeAspect) Boundaries() const { return myBoundaries; }
+  inline Handle(HArray1OfShapeAspect) Boundaries() const { return myBoundaries; }
 
   //! Set field Boundaries
-  inline void SetBoundaries(const Handle(StepRepr_HArray1OfShapeAspect)& theBoundaries)
+  inline void SetBoundaries(const Handle(HArray1OfShapeAspect)& theBoundaries)
   {
     myBoundaries = theBoundaries;
   }
@@ -76,7 +76,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneDefinition, RefObject)
 
 private:
-  Handle(StepRepr_HArray1OfShapeAspect) myBoundaries;
+  Handle(HArray1OfShapeAspect) myBoundaries;
   Handle(StepDimTol_ToleranceZone)      myZone;
 };
 #endif // _StepDimTol_ToleranceZoneDefinition_HeaderFile

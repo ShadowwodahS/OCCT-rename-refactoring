@@ -23,9 +23,9 @@
 #include <StepVisual_Colour.hxx>
 
 class StepVisual_BackgroundColour;
-DEFINE_STANDARD_HANDLE(StepVisual_BackgroundColour, StepVisual_Colour)
+DEFINE_STANDARD_HANDLE(StepVisual_BackgroundColour, Colour)
 
-class StepVisual_BackgroundColour : public StepVisual_Colour
+class StepVisual_BackgroundColour : public Colour
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT StepVisual_AreaOrView Presentation() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_BackgroundColour, StepVisual_Colour)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_BackgroundColour, Colour)
 
 protected:
 private:

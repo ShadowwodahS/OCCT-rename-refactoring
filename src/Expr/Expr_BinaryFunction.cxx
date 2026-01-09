@@ -35,8 +35,8 @@
 IMPLEMENT_STANDARD_RTTIEXT(Expr_BinaryFunction, Expr_BinaryExpression)
 
 Expr_BinaryFunction::Expr_BinaryFunction(const Handle(Expr_GeneralFunction)&   func,
-                                         const Handle(Expr_GeneralExpression)& exp1,
-                                         const Handle(Expr_GeneralExpression)& exp2)
+                                         const Handle(Expression1)& exp1,
+                                         const Handle(Expression1)& exp2)
 {
   if (func->NbOfVariables() != 2)
   {
@@ -47,7 +47,7 @@ Expr_BinaryFunction::Expr_BinaryFunction(const Handle(Expr_GeneralFunction)&   f
   CreateSecondOperand(exp2);
 }
 
-Handle(Expr_GeneralExpression) Expr_BinaryFunction::ShallowSimplified() const
+Handle(Expression1) Expr_BinaryFunction::ShallowSimplified() const
 {
   if (FirstOperand()->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
@@ -67,21 +67,21 @@ Handle(Expr_GeneralExpression) Expr_BinaryFunction::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_BinaryFunction::Copy() const
+Handle(Expression1) Expr_BinaryFunction::Copy() const
 {
   return new Expr_BinaryFunction(myFunction,
                                  Expr1::CopyShare(FirstOperand()),
                                  Expr1::CopyShare(SecondOperand()));
 }
 
-Standard_Boolean Expr_BinaryFunction::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_BinaryFunction::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_BinaryFunction)))
   {
     return Standard_False;
   }
   Handle(Expr_BinaryFunction)    fother   = Handle(Expr_BinaryFunction)::DownCast(Other);
-  Handle(Expr_GeneralExpression) otherexp = fother->FirstOperand();
+  Handle(Expression1) otherexp = fother->FirstOperand();
   if (otherexp->IsIdentical(FirstOperand()))
   {
     otherexp = fother->SecondOperand();
@@ -117,27 +117,27 @@ Standard_Boolean Expr_BinaryFunction::IsLinear() const
   return myFunction->IsLinearOnVariable(2);
 }
 
-Handle(Expr_GeneralExpression) Expr_BinaryFunction::Derivative(
+Handle(Expression1) Expr_BinaryFunction::Derivative(
   const Handle(Expr_NamedUnknown)& X) const
 {
   Handle(Expr_NamedUnknown)      myvar1    = myFunction->Variable(1);
   Handle(Expr_NamedUnknown)      myvar2    = myFunction->Variable(2);
-  Handle(Expr_GeneralExpression) myfop     = FirstOperand();
-  Handle(Expr_GeneralExpression) mysop     = SecondOperand();
-  Handle(Expr_GeneralExpression) myexpder1 = myfop->Derivative(X);
-  Handle(Expr_GeneralExpression) myexpder2 = mysop->Derivative(X);
+  Handle(Expression1) myfop     = FirstOperand();
+  Handle(Expression1) mysop     = SecondOperand();
+  Handle(Expression1) myexpder1 = myfop->Derivative(X);
+  Handle(Expression1) myexpder2 = mysop->Derivative(X);
 
   Handle(Expr_GeneralFunction) myfuncder1 = myFunction->Derivative(myvar1);
   Handle(Expr_BinaryFunction)  firstpart =
     new Expr_BinaryFunction(myfuncder1, Expr1::CopyShare(myfop), Expr1::CopyShare(mysop));
 
-  Handle(Expr_GeneralExpression) fpart = firstpart->ShallowSimplified() * myexpder1;
+  Handle(Expression1) fpart = firstpart->ShallowSimplified() * myexpder1;
 
   Handle(Expr_GeneralFunction) myfuncder2 = myFunction->Derivative(myvar2);
   Handle(Expr_BinaryFunction)  secondpart =
     new Expr_BinaryFunction(myfuncder2, Expr1::CopyShare(myfop), Expr1::CopyShare(mysop));
 
-  Handle(Expr_GeneralExpression) spart = secondpart->ShallowSimplified() * myexpder2;
+  Handle(Expression1) spart = secondpart->ShallowSimplified() * myexpder2;
 
   fpart = fpart->ShallowSimplified();
   spart = spart->ShallowSimplified();

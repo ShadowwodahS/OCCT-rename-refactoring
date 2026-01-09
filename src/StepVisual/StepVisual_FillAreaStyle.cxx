@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_FillAreaStyle, RefObject)
 StepVisual_FillAreaStyle::StepVisual_FillAreaStyle() {}
 
 void StepVisual_FillAreaStyle::Init(const Handle(TCollection_HAsciiString)&            aName,
-                                    const Handle(StepVisual_HArray1OfFillStyleSelect)& aFillStyles)
+                                    const Handle(HArray1OfFillStyle)& aFillStyles)
 {
   // --- classe own fields ---
   name       = aName;
@@ -38,12 +38,12 @@ Handle(TCollection_HAsciiString) StepVisual_FillAreaStyle::Name() const
 }
 
 void StepVisual_FillAreaStyle::SetFillStyles(
-  const Handle(StepVisual_HArray1OfFillStyleSelect)& aFillStyles)
+  const Handle(HArray1OfFillStyle)& aFillStyles)
 {
   fillStyles = aFillStyles;
 }
 
-Handle(StepVisual_HArray1OfFillStyleSelect) StepVisual_FillAreaStyle::FillStyles() const
+Handle(HArray1OfFillStyle) StepVisual_FillAreaStyle::FillStyles() const
 {
   return fillStyles;
 }

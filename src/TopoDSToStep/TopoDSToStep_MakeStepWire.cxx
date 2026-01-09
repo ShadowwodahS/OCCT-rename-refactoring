@@ -276,8 +276,8 @@ void TopoDSToStep_MakeStepWire::Init(const TopoWire&                    aWire,
     Standard_Integer nbEdges = mySeq.Length();
     if (nbEdges > 0)
     {
-      Handle(StepShape_HArray1OfOrientedEdge) aList =
-        new StepShape_HArray1OfOrientedEdge(1, nbEdges);
+      Handle(HArray1OfOrientedEdge) aList =
+        new HArray1OfOrientedEdge(1, nbEdges);
       for (Standard_Integer i = 1; i <= nbEdges; i++)
       {
         aList->SetValue(i, Handle(StepShape_OrientedEdge)::DownCast(mySeq.Value(i)));

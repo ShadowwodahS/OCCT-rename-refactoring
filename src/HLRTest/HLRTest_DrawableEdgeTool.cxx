@@ -24,7 +24,7 @@
 #include <HLRTest_ShapeData.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_DrawableEdgeTool, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(HLRTest_DrawableEdgeTool, Drawable3D)
 
 //=================================================================================================
 

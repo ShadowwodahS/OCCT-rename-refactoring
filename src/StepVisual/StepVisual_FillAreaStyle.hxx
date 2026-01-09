@@ -36,16 +36,16 @@ public:
   Standard_EXPORT StepVisual_FillAreaStyle();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&            aName,
-                            const Handle(StepVisual_HArray1OfFillStyleSelect)& aFillStyles);
+                            const Handle(HArray1OfFillStyle)& aFillStyles);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
   Standard_EXPORT void SetFillStyles(
-    const Handle(StepVisual_HArray1OfFillStyleSelect)& aFillStyles);
+    const Handle(HArray1OfFillStyle)& aFillStyles);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfFillStyleSelect) FillStyles() const;
+  Standard_EXPORT Handle(HArray1OfFillStyle) FillStyles() const;
 
   Standard_EXPORT StepVisual_FillStyleSelect FillStylesValue(const Standard_Integer num) const;
 
@@ -56,7 +56,7 @@ public:
 protected:
 private:
   Handle(TCollection_HAsciiString)            name;
-  Handle(StepVisual_HArray1OfFillStyleSelect) fillStyles;
+  Handle(HArray1OfFillStyle) fillStyles;
 };
 
 #endif // _StepVisual_FillAreaStyle_HeaderFile

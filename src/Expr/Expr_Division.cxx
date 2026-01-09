@@ -27,28 +27,28 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Division, Expr_BinaryExpression)
 
-Expr_Division::Expr_Division(const Handle(Expr_GeneralExpression)& exp1,
-                             const Handle(Expr_GeneralExpression)& exp2)
+Expr_Division::Expr_Division(const Handle(Expression1)& exp1,
+                             const Handle(Expression1)& exp2)
 {
   CreateFirstOperand(exp1);
   CreateSecondOperand(exp2);
 }
 
-Handle(Expr_GeneralExpression) Expr_Division::Copy() const
+Handle(Expression1) Expr_Division::Copy() const
 {
   return Expr1::CopyShare(FirstOperand()) / Expr1::CopyShare(SecondOperand());
 }
 
-Standard_Boolean Expr_Division::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Division::IsIdentical(const Handle(Expression1)& Other) const
 {
   Standard_Boolean ident = Standard_False;
   if (Other->IsKind(STANDARD_TYPE(Expr_Division)))
   {
-    Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-    Handle(Expr_GeneralExpression) mysecond = SecondOperand();
+    Handle(Expression1) myfirst  = FirstOperand();
+    Handle(Expression1) mysecond = SecondOperand();
     Handle(Expr_Division)          DOther   = Handle(Expr_Division)::DownCast(Other);
-    Handle(Expr_GeneralExpression) fother   = DOther->FirstOperand();
-    Handle(Expr_GeneralExpression) sother   = DOther->SecondOperand();
+    Handle(Expression1) fother   = DOther->FirstOperand();
+    Handle(Expression1) sother   = DOther->SecondOperand();
     if (myfirst->IsIdentical(fother) && mysecond->IsIdentical(sother))
     {
       ident = Standard_True;
@@ -59,8 +59,8 @@ Standard_Boolean Expr_Division::IsIdentical(const Handle(Expr_GeneralExpression)
 
 Standard_Boolean Expr_Division::IsLinear() const
 {
-  Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-  Handle(Expr_GeneralExpression) mysecond = SecondOperand();
+  Handle(Expression1) myfirst  = FirstOperand();
+  Handle(Expression1) mysecond = SecondOperand();
   if (mysecond->IsKind(STANDARD_TYPE(Expr_NamedUnknown)) || mysecond->ContainsUnknowns())
   {
     return Standard_False;
@@ -68,24 +68,24 @@ Standard_Boolean Expr_Division::IsLinear() const
   return (myfirst->IsLinear() && mysecond->IsLinear());
 }
 
-Handle(Expr_GeneralExpression) Expr_Division::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_Division::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
   if (!Contains(X))
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-  Handle(Expr_GeneralExpression) mysecond = SecondOperand();
-  Handle(Expr_GeneralExpression) myfder   = myfirst->Derivative(X);
-  Handle(Expr_GeneralExpression) mysder   = mysecond->Derivative(X);
+  Handle(Expression1) myfirst  = FirstOperand();
+  Handle(Expression1) mysecond = SecondOperand();
+  Handle(Expression1) myfder   = myfirst->Derivative(X);
+  Handle(Expression1) mysder   = mysecond->Derivative(X);
 
   // "u'v"
   Handle(Expr_Product) firstprod = myfder * Expr1::CopyShare(mysecond);
 
-  Handle(Expr_GeneralExpression) firstsimp = firstprod->ShallowSimplified();
+  Handle(Expression1) firstsimp = firstprod->ShallowSimplified();
   // "uv'"
   Handle(Expr_Product)           secondprod = Expr1::CopyShare(myfirst) * mysder;
-  Handle(Expr_GeneralExpression) secondsimp = secondprod->ShallowSimplified();
+  Handle(Expression1) secondsimp = secondprod->ShallowSimplified();
   // "u'v - uv'"
   Handle(Expr_Difference) mynumer = firstsimp - secondsimp;
 
@@ -94,17 +94,17 @@ Handle(Expr_GeneralExpression) Expr_Division::Derivative(const Handle(Expr_Named
 
   // result = "u'v-uv' / v2"
 
-  Handle(Expr_GeneralExpression) snumer = mynumer->ShallowSimplified();
-  Handle(Expr_GeneralExpression) sdenom = mydenom->ShallowSimplified();
+  Handle(Expression1) snumer = mynumer->ShallowSimplified();
+  Handle(Expression1) sdenom = mydenom->ShallowSimplified();
   Handle(Expr_Division)          result = snumer / sdenom;
 
   return result->ShallowSimplified();
 }
 
-Handle(Expr_GeneralExpression) Expr_Division::ShallowSimplified() const
+Handle(Expression1) Expr_Division::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-  Handle(Expr_GeneralExpression) mysecond = SecondOperand();
+  Handle(Expression1) myfirst  = FirstOperand();
+  Handle(Expression1) mysecond = SecondOperand();
 
   if (myfirst->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
@@ -147,8 +147,8 @@ Standard_Real Expr_Division::Evaluate(const Expr_Array1OfNamedUnknown& vars,
 
 AsciiString1 Expr_Division::String() const
 {
-  Handle(Expr_GeneralExpression) op1 = FirstOperand();
-  Handle(Expr_GeneralExpression) op2 = SecondOperand();
+  Handle(Expression1) op1 = FirstOperand();
+  Handle(Expression1) op2 = SecondOperand();
   AsciiString1        str;
   if (op1->NbSubExpressions() > 1)
   {

@@ -36,13 +36,13 @@ void RWStepVisual_RWPresentationStyleAssignment::ReadStep(
 
   // --- own field : styles ---
 
-  Handle(StepVisual_HArray1OfPresentationStyleSelect) aStyles;
+  Handle(HArray1OfPresentationStyleSelect) aStyles;
   StepVisual_PresentationStyleSelect                  aStylesItem;
   Standard_Integer                                    nsub1;
   if (data->ReadSubList(num, 1, "styles", ach, nsub1))
   {
     Standard_Integer nb1 = data->NbParams(nsub1);
-    aStyles              = new StepVisual_HArray1OfPresentationStyleSelect(1, nb1);
+    aStyles              = new HArray1OfPresentationStyleSelect(1, nb1);
     for (Standard_Integer i1 = 1; i1 <= nb1; i1++)
     {
       Interface_ParamType aType = data->ParamType(nsub1, i1);

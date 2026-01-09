@@ -36,11 +36,11 @@ public:
   Standard_EXPORT StepShape_GeometricSet();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&              aName,
-                            const Handle(StepShape_HArray1OfGeometricSetSelect)& aElements);
+                            const Handle(HArray1OfGeometricSetSelect)& aElements);
 
-  Standard_EXPORT void SetElements(const Handle(StepShape_HArray1OfGeometricSetSelect)& aElements);
+  Standard_EXPORT void SetElements(const Handle(HArray1OfGeometricSetSelect)& aElements);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfGeometricSetSelect) Elements() const;
+  Standard_EXPORT Handle(HArray1OfGeometricSetSelect) Elements() const;
 
   Standard_EXPORT StepShape_GeometricSetSelect ElementsValue(const Standard_Integer num) const;
 
@@ -50,7 +50,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfGeometricSetSelect) elements;
+  Handle(HArray1OfGeometricSetSelect) elements;
 };
 
 #endif // _StepShape_GeometricSet_HeaderFile

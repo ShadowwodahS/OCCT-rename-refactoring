@@ -30,10 +30,10 @@ class AsciiString1;
 class DataLabel;
 
 class DDF_Browser;
-DEFINE_STANDARD_HANDLE(DDF_Browser, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DDF_Browser, Drawable3D)
 
 //! Browses a data framework from TDF1.
-class DDF_Browser : public Draw_Drawable3D
+class DDF_Browser : public Drawable3D
 {
 
 public:
@@ -41,7 +41,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
@@ -82,7 +82,7 @@ public:
   //! be displayed in information window.
   Standard_EXPORT AsciiString1 Information(const Standard_Integer anIndex = 0) const;
 
-  DEFINE_STANDARD_RTTIEXT(DDF_Browser, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DDF_Browser, Drawable3D)
 
 protected:
 private:

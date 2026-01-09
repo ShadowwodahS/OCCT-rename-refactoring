@@ -36,16 +36,16 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theRepresentationItem_Name,
-                            const Handle(StepVisual_HArray1OfTessellatedStructuredItem)& theItems,
+                            const Handle(HArray1OfTessellatedItem)& theItems,
                             const Standard_Boolean                     theHasGeometricLink,
                             const Handle(StepShape_ManifoldSolidBrep)& theGeometricLink);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepVisual_HArray1OfTessellatedStructuredItem) Items() const;
+  Standard_EXPORT Handle(HArray1OfTessellatedItem) Items() const;
 
   //! Sets field Items
   Standard_EXPORT void SetItems(
-    const Handle(StepVisual_HArray1OfTessellatedStructuredItem)& theItems);
+    const Handle(HArray1OfTessellatedItem)& theItems);
 
   //! Returns number of Items
   Standard_EXPORT Standard_Integer NbItems() const;
@@ -67,7 +67,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepVisual_TessellatedSolid, StepVisual_TessellatedItem)
 
 private:
-  Handle(StepVisual_HArray1OfTessellatedStructuredItem) myItems;
+  Handle(HArray1OfTessellatedItem) myItems;
   Handle(StepShape_ManifoldSolidBrep)                   myGeometricLink; //!< optional
   Standard_Boolean myHasGeometricLink; //!< flag "is GeometricLink defined"
 };

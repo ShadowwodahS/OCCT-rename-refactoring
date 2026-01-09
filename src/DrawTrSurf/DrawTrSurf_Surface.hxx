@@ -81,7 +81,7 @@ class DrawTrSurf_Surface : public DrawTrSurf_Drawable
   }
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

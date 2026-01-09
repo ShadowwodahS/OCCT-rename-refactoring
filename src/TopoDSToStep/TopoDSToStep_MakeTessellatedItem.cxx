@@ -217,8 +217,8 @@ void TopoDSToStep_MakeTessellatedItem::Init(const TopoShell&                   t
   Handle(StepVisual_TessellatedShell) aTessShell = new StepVisual_TessellatedShell();
   Handle(TCollection_HAsciiString)    aName      = new TCollection_HAsciiString("");
 
-  Handle(StepVisual_HArray1OfTessellatedStructuredItem) anItems =
-    new StepVisual_HArray1OfTessellatedStructuredItem(1, aTessFaces.Size());
+  Handle(HArray1OfTessellatedItem) anItems =
+    new HArray1OfTessellatedItem(1, aTessFaces.Size());
   for (Standard_Integer anIndx = aTessFaces.Lower(); anIndx <= aTessFaces.Upper(); ++anIndx)
   {
     anItems->SetValue(anIndx, aTessFaces.Value(anIndx));

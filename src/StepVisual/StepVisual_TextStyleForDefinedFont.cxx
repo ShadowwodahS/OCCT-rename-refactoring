@@ -19,18 +19,18 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_TextStyleForDefinedFont, RefObject)
 
 StepVisual_TextStyleForDefinedFont::StepVisual_TextStyleForDefinedFont() {}
 
-void StepVisual_TextStyleForDefinedFont::Init(const Handle(StepVisual_Colour)& aTextColour)
+void StepVisual_TextStyleForDefinedFont::Init(const Handle(Colour)& aTextColour)
 {
   // --- classe own fields ---
   textColour = aTextColour;
 }
 
-void StepVisual_TextStyleForDefinedFont::SetTextColour(const Handle(StepVisual_Colour)& aTextColour)
+void StepVisual_TextStyleForDefinedFont::SetTextColour(const Handle(Colour)& aTextColour)
 {
   textColour = aTextColour;
 }
 
-Handle(StepVisual_Colour) StepVisual_TextStyleForDefinedFont::TextColour() const
+Handle(Colour) StepVisual_TextStyleForDefinedFont::TextColour() const
 {
   return textColour;
 }

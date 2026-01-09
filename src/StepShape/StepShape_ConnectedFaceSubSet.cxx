@@ -28,7 +28,7 @@ StepShape_ConnectedFaceSubSet::StepShape_ConnectedFaceSubSet() {}
 
 void StepShape_ConnectedFaceSubSet::Init(
   const Handle(TCollection_HAsciiString)&   aRepresentationItem_Name,
-  const Handle(StepShape_HArray1OfFace)&    aConnectedFaceSet_CfsFaces,
+  const Handle(HArray1OfFace1)&    aConnectedFaceSet_CfsFaces,
   const Handle(StepShape_ConnectedFaceSet)& aParentFaceSet)
 {
   StepShape_ConnectedFaceSet::Init(aRepresentationItem_Name, aConnectedFaceSet_CfsFaces);

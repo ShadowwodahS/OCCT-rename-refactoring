@@ -103,7 +103,7 @@ extern "C" void ExprIntrp_EndDerivation()
 {
   Standard_Integer               degree = ExprIntrp_Recept.PopValue();
   Handle(Expr_NamedUnknown)      var = Handle(Expr_NamedUnknown)::DownCast(ExprIntrp_Recept.Pop());
-  Handle(Expr_GeneralExpression) exp = ExprIntrp_Recept.Pop();
+  Handle(Expression1) exp = ExprIntrp_Recept.Pop();
   exp                                = exp->NDerivative(var, degree);
   ExprIntrp_Recept.Push(exp);
 }
@@ -189,14 +189,14 @@ extern "C" void ExprIntrp_EndDiffFunction()
   Standard_Integer nbargs = thefunc->NbOfVariables();
   if (nbargs == 1)
   {
-    Handle(Expr_GeneralExpression) op  = ExprIntrp_Recept.Pop();
+    Handle(Expression1) op  = ExprIntrp_Recept.Pop();
     Handle(Expr_UnaryFunction)     res = new Expr_UnaryFunction(thefunc, op);
     ExprIntrp_Recept.Push(res);
   }
   else if (nbargs == 2)
   {
-    Handle(Expr_GeneralExpression) arg2 = ExprIntrp_Recept.Pop();
-    Handle(Expr_GeneralExpression) arg1 = ExprIntrp_Recept.Pop();
+    Handle(Expression1) arg2 = ExprIntrp_Recept.Pop();
+    Handle(Expression1) arg1 = ExprIntrp_Recept.Pop();
     if (arg1.IsNull())
     {
       throw ExprIntrp_SyntaxError();
@@ -207,7 +207,7 @@ extern "C" void ExprIntrp_EndDiffFunction()
   else
   {
     Expr_Array1OfGeneralExpression tabarg(1, nbargs);
-    Handle(Expr_GeneralExpression) arg;
+    Handle(Expression1) arg;
     for (Standard_Integer i = 1; i <= nbargs; i++)
     {
       arg = ExprIntrp_Recept.Pop();
@@ -222,15 +222,15 @@ extern "C" void ExprIntrp_EndDiffFunction()
   }
 }
 
-static Handle(Expr_GeneralExpression) ExprIntrp_StandardFunction(
+static Handle(Expression1) ExprIntrp_StandardFunction(
   const AsciiString1&        name,
-  const Handle(Expr_GeneralExpression)& op)
+  const Handle(Expression1)& op)
 {
   // return standard functions equivalent corresponding to <name>
   // with given operand <op> if exists. Returns null value if not.
   // <name> is not case sensitive
 
-  Handle(Expr_GeneralExpression) res;
+  Handle(Expression1) res;
   if ((name == "abs") || (name == "Abs"))
   {
     res = new Expr_Absolute(op);
@@ -309,8 +309,8 @@ static Handle(Expr_GeneralExpression) ExprIntrp_StandardFunction(
 extern "C" void ExprIntrp_EndDerFunction()
 {
   AsciiString1        name     = ExprIntrp_Recept.PopName();
-  Handle(Expr_GeneralExpression) op       = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) resstand = ExprIntrp_StandardFunction(name, op);
+  Handle(Expression1) op       = ExprIntrp_Recept.Pop();
+  Handle(Expression1) resstand = ExprIntrp_StandardFunction(name, op);
 
   if (!resstand.IsNull())
   {
@@ -338,7 +338,7 @@ extern "C" void ExprIntrp_EndDerFunction()
     }
     else
     {
-      Handle(Expr_GeneralExpression) res = resstand->NDerivative(var, ExprIntrp_Recept.PopValue());
+      Handle(Expression1) res = resstand->NDerivative(var, ExprIntrp_Recept.PopValue());
       ExprIntrp_Recept.Push(res);
     }
   }
@@ -365,9 +365,9 @@ extern "C" void ExprIntrp_EndDerFunction()
 extern "C" void ExprIntrp_EndFunction()
 {
   AsciiString1        name = ExprIntrp_Recept.PopName();
-  Handle(Expr_GeneralExpression) op   = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op   = ExprIntrp_Recept.Pop();
 
-  Handle(Expr_GeneralExpression) resstand = ExprIntrp_StandardFunction(name, op);
+  Handle(Expression1) resstand = ExprIntrp_StandardFunction(name, op);
   if (!resstand.IsNull())
   {
     ExprIntrp_Recept.Push(resstand->ShallowSimplified());
@@ -387,7 +387,7 @@ extern "C" void ExprIntrp_EndFunction()
     }
     else if (nbargs == 2)
     {
-      Handle(Expr_GeneralExpression) arg1 = ExprIntrp_Recept.Pop();
+      Handle(Expression1) arg1 = ExprIntrp_Recept.Pop();
       if (arg1.IsNull())
       {
         throw ExprIntrp_SyntaxError();
@@ -398,7 +398,7 @@ extern "C" void ExprIntrp_EndFunction()
     else
     {
       Expr_Array1OfGeneralExpression tabarg(1, nbargs);
-      Handle(Expr_GeneralExpression) arg;
+      Handle(Expression1) arg;
       tabarg(nbargs) = op;
       for (Standard_Integer i = 1; i < nbargs; i++)
       {
@@ -427,55 +427,55 @@ extern "C" void ExprIntrp_EndFuncArg()
 
 extern "C" void ExprIntrp_SumOperator()
 {
-  Handle(Expr_GeneralExpression) op2  = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) op1  = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op2  = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op1  = ExprIntrp_Recept.Pop();
   Handle(Expr_Sum)               sres = op1 + op2;
-  Handle(Expr_GeneralExpression) res  = sres->ShallowSimplified();
+  Handle(Expression1) res  = sres->ShallowSimplified();
   ExprIntrp_Recept.Push(res);
 }
 
 extern "C" void ExprIntrp_MinusOperator()
 {
-  Handle(Expr_GeneralExpression) op2 = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) op1 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op2 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op1 = ExprIntrp_Recept.Pop();
   Handle(Expr_Difference)        res = op1 - op2;
   ExprIntrp_Recept.Push(res->ShallowSimplified());
 }
 
 extern "C" void ExprIntrp_DivideOperator()
 {
-  Handle(Expr_GeneralExpression) op2 = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) op1 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op2 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op1 = ExprIntrp_Recept.Pop();
   Handle(Expr_Division)          res = op1 / op2;
   ExprIntrp_Recept.Push(res->ShallowSimplified());
 }
 
 extern "C" void ExprIntrp_ExpOperator()
 {
-  Handle(Expr_GeneralExpression) op2 = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) op1 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op2 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op1 = ExprIntrp_Recept.Pop();
   Handle(Expr_Exponentiate)      res = new Expr_Exponentiate(op1, op2);
   ExprIntrp_Recept.Push(res->ShallowSimplified());
 }
 
 extern "C" void ExprIntrp_ProductOperator()
 {
-  Handle(Expr_GeneralExpression) op2 = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) op1 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op2 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op1 = ExprIntrp_Recept.Pop();
   Handle(Expr_Product)           res = op1 * op2;
   ExprIntrp_Recept.Push(res->ShallowSimplified());
 }
 
 extern "C" void ExprIntrp_UnaryMinusOperator()
 {
-  Handle(Expr_GeneralExpression) op  = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op  = ExprIntrp_Recept.Pop();
   Handle(Expr_UnaryMinus)        res = new Expr_UnaryMinus(op);
   ExprIntrp_Recept.Push(res->ShallowSimplified());
 }
 
 extern "C" void ExprIntrp_UnaryPlusOperator()
 {
-  Handle(Expr_GeneralExpression) op = ExprIntrp_Recept.Pop();
+  Handle(Expression1) op = ExprIntrp_Recept.Pop();
   ExprIntrp_Recept.Push(op);
 }
 
@@ -539,8 +539,8 @@ extern "C" void ExprIntrperror(char* msg)
 
 extern "C" void ExprIntrp_EndOfEqual()
 {
-  Handle(Expr_GeneralExpression) memb2 = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) memb1 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) memb2 = ExprIntrp_Recept.Pop();
+  Handle(Expression1) memb1 = ExprIntrp_Recept.Pop();
   Handle(Expr_Equal)             res   = new Expr_Equal(memb1, memb2);
   ExprIntrp_Recept.PushRelation(res);
 }
@@ -600,7 +600,7 @@ extern "C" void ExprIntrp_EndOfAssign()
 
 extern "C" void ExprIntrp_EndOfFuncDef()
 {
-  Handle(Expr_GeneralExpression) theexp = ExprIntrp_Recept.Pop();
+  Handle(Expression1) theexp = ExprIntrp_Recept.Pop();
   Standard_Integer               nbargs = ExprIntrp_Recept.PopValue();
   Expr_Array1OfNamedUnknown      vars(1, nbargs);
   Expr_Array1OfNamedUnknown      internvars(1, nbargs);
@@ -651,14 +651,14 @@ extern "C" void ExprIntrp_Sumator()
 {
   Handle(Expr_NumericValue) number   = Handle(Expr_NumericValue)::DownCast(ExprIntrp_Recept.Pop());
   Standard_Integer          nb       = (Standard_Integer)number->GetValue();
-  Handle(Expr_GeneralExpression) inc = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) first = ExprIntrp_Recept.Pop();
+  Handle(Expression1) inc = ExprIntrp_Recept.Pop();
+  Handle(Expression1) first = ExprIntrp_Recept.Pop();
   Handle(Expr_NamedUnknown)      var = Handle(Expr_NamedUnknown)::DownCast(ExprIntrp_Recept.Pop());
-  Handle(Expr_GeneralExpression) theexp  = ExprIntrp_Recept.Pop();
+  Handle(Expression1) theexp  = ExprIntrp_Recept.Pop();
   Standard_Boolean               thesame = (theexp == var);
-  Handle(Expr_GeneralExpression) cur     = Expr1::CopyShare(first);
-  Handle(Expr_GeneralExpression) res;
-  Handle(Expr_GeneralExpression) member;
+  Handle(Expression1) cur     = Expr1::CopyShare(first);
+  Handle(Expression1) res;
+  Handle(Expression1) member;
   Expr_SequenceOfGeneralExpression seq;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
@@ -682,14 +682,14 @@ extern "C" void ExprIntrp_Productor()
 {
   Handle(Expr_NumericValue) number   = Handle(Expr_NumericValue)::DownCast(ExprIntrp_Recept.Pop());
   Standard_Integer          nb       = (Standard_Integer)number->GetValue();
-  Handle(Expr_GeneralExpression) inc = ExprIntrp_Recept.Pop();
-  Handle(Expr_GeneralExpression) first = ExprIntrp_Recept.Pop();
+  Handle(Expression1) inc = ExprIntrp_Recept.Pop();
+  Handle(Expression1) first = ExprIntrp_Recept.Pop();
   Handle(Expr_NamedUnknown)      var = Handle(Expr_NamedUnknown)::DownCast(ExprIntrp_Recept.Pop());
-  Handle(Expr_GeneralExpression) theexp  = ExprIntrp_Recept.Pop();
+  Handle(Expression1) theexp  = ExprIntrp_Recept.Pop();
   Standard_Boolean               thesame = (theexp == var);
-  Handle(Expr_GeneralExpression) cur     = Expr1::CopyShare(first);
-  Handle(Expr_GeneralExpression) res;
-  Handle(Expr_GeneralExpression) member;
+  Handle(Expression1) cur     = Expr1::CopyShare(first);
+  Handle(Expression1) res;
+  Handle(Expression1) member;
   Expr_SequenceOfGeneralExpression seq;
   for (Standard_Integer i = 1; i <= nb; i++)
   {

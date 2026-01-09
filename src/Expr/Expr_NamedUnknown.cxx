@@ -34,7 +34,7 @@ Expr_NamedUnknown::Expr_NamedUnknown(const AsciiString1& name)
   myExpression.Nullify();
 }
 
-const Handle(Expr_GeneralExpression)& Expr_NamedUnknown::AssignedExpression() const
+const Handle(Expression1)& Expr_NamedUnknown::AssignedExpression() const
 {
   if (!IsAssigned())
   {
@@ -43,7 +43,7 @@ const Handle(Expr_GeneralExpression)& Expr_NamedUnknown::AssignedExpression() co
   return myExpression;
 }
 
-void Expr_NamedUnknown::Assign(const Handle(Expr_GeneralExpression)& exp)
+void Expr_NamedUnknown::Assign(const Handle(Expression1)& exp)
 {
   Handle(Expr_NamedUnknown) me = this;
   if (exp->Contains(me))
@@ -53,7 +53,7 @@ void Expr_NamedUnknown::Assign(const Handle(Expr_GeneralExpression)& exp)
   myExpression = exp;
 }
 
-const Handle(Expr_GeneralExpression)& Expr_NamedUnknown::SubExpression(
+const Handle(Expression1)& Expr_NamedUnknown::SubExpression(
   const Standard_Integer I) const
 {
   if (!IsAssigned())
@@ -67,7 +67,7 @@ const Handle(Expr_GeneralExpression)& Expr_NamedUnknown::SubExpression(
   return AssignedExpression();
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedUnknown::Simplified() const
+Handle(Expression1) Expr_NamedUnknown::Simplified() const
 {
   if (!IsAssigned())
   {
@@ -80,7 +80,7 @@ Handle(Expr_GeneralExpression) Expr_NamedUnknown::Simplified() const
   }
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedUnknown::Copy() const
+Handle(Expression1) Expr_NamedUnknown::Copy() const
 {
   Handle(Expr_NamedUnknown) cop = new Expr_NamedUnknown(GetName());
   if (IsAssigned())
@@ -106,7 +106,7 @@ Standard_Boolean Expr_NamedUnknown::ContainsUnknowns() const
   }
 }
 
-Standard_Boolean Expr_NamedUnknown::Contains(const Handle(Expr_GeneralExpression)& exp) const
+Standard_Boolean Expr_NamedUnknown::Contains(const Handle(Expression1)& exp) const
 {
   if (!IsAssigned())
   {
@@ -135,7 +135,7 @@ Standard_Boolean Expr_NamedUnknown::IsLinear() const
   }
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedUnknown::Derivative(
+Handle(Expression1) Expr_NamedUnknown::Derivative(
   const Handle(Expr_NamedUnknown)& X) const
 {
   Handle(Expr_NamedUnknown) me = this;
@@ -157,7 +157,7 @@ Handle(Expr_GeneralExpression) Expr_NamedUnknown::Derivative(
 }
 
 void Expr_NamedUnknown::Replace(const Handle(Expr_NamedUnknown)&      var,
-                                const Handle(Expr_GeneralExpression)& with)
+                                const Handle(Expression1)& with)
 {
   if (IsAssigned())
   {
@@ -180,7 +180,7 @@ void Expr_NamedUnknown::Replace(const Handle(Expr_NamedUnknown)&      var,
   }
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedUnknown::ShallowSimplified() const
+Handle(Expression1) Expr_NamedUnknown::ShallowSimplified() const
 {
   if (IsAssigned())
   {

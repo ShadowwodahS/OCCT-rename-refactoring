@@ -14,6 +14,6 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_Colour.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_Colour, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Colour, RefObject)
 
-StepVisual_Colour::StepVisual_Colour() {}
+Colour::Colour() {}

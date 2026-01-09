@@ -36,14 +36,14 @@
 //! myScaleFactor (1,1,1)
 //! myScaleOrientation (0,0,1,0)
 //! myCenter (0,0,0)
-class Vrml_Transform
+class Transform
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Transform();
+  Standard_EXPORT Transform();
 
-  Standard_EXPORT Vrml_Transform(const Vector3d&          aTranslation,
+  Standard_EXPORT Transform(const Vector3d&          aTranslation,
                                  const SFRotation& aRotation,
                                  const Vector3d&          aScaleFactor,
                                  const SFRotation& aScaleOrientation,

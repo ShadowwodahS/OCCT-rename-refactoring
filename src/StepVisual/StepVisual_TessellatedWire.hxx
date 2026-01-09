@@ -36,16 +36,16 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theRepresentationItem_Name,
-                            const Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex)& theItems,
+                            const Handle(HArray1OfTessellatedEdgeOrVertex)& theItems,
                             const Standard_Boolean                 theHasGeometricModelLink,
                             const StepVisual_PathOrCompositeCurve& theGeometricModelLink);
 
   //! Returns field Items
-  Standard_EXPORT Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex) Items() const;
+  Standard_EXPORT Handle(HArray1OfTessellatedEdgeOrVertex) Items() const;
 
   //! Sets field Items
   Standard_EXPORT void SetItems(
-    const Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex)& theItems);
+    const Handle(HArray1OfTessellatedEdgeOrVertex)& theItems);
 
   //! Returns number of Items
   Standard_EXPORT Standard_Integer NbItems() const;
@@ -67,7 +67,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepVisual_TessellatedWire, StepVisual_TessellatedItem)
 
 private:
-  Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex) myItems;
+  Handle(HArray1OfTessellatedEdgeOrVertex) myItems;
   StepVisual_PathOrCompositeCurve                     myGeometricModelLink; //!< optional
   Standard_Boolean myHasGeometricModelLink; //!< flag "is GeometricModelLink defined"
 };

@@ -52,9 +52,9 @@ static Standard_Boolean repaint2d = Standard_False, repaint3d = Standard_False;
 //! Returns dictionary of variables
 //! Variables are stored in a map Integer1, Transient.
 //! The Integer1 Value is the content of the Tcl variable.
-static NCollection_Map<Handle(Draw_Drawable3D)>& Draw_changeDrawables()
+static NCollection_Map<Handle(Drawable3D)>& Draw_changeDrawables()
 {
-  static NCollection_Map<Handle(Draw_Drawable3D)> theVariables;
+  static NCollection_Map<Handle(Drawable3D)> theVariables;
   return theVariables;
 }
 
@@ -80,7 +80,7 @@ static Standard_Integer save(DrawInterpreter& theDI,
     return 1;
   }
 
-  Handle(Draw_Drawable3D) aDrawable = Draw1::Get(theArgVec[1]);
+  Handle(Drawable3D) aDrawable = Draw1::Get(theArgVec[1]);
   if (aDrawable.IsNull())
   {
     theDI << "Syntax error: '" << theArgVec[1] << "' is not a drawable";
@@ -160,12 +160,12 @@ static Standard_Integer restore(DrawInterpreter& theDI,
   {
     Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI, 1);
     Draw1::SetProgressBar(aProgress);
-    Handle(Draw_Drawable3D) aDrawable = Draw_Drawable3D::Restore(aType, *aStream);
+    Handle(Drawable3D) aDrawable = Drawable3D::Restore(aType, *aStream);
     if (aDrawable.IsNull())
     {
       // assume that this file stores a DBRep_DrawableShape variable
       aStream->seekg(0, std::ios::beg);
-      aDrawable = Draw_Drawable3D::Restore("DBRep_DrawableShape", *aStream);
+      aDrawable = Drawable3D::Restore("DBRep_DrawableShape", *aStream);
     }
     if (aDrawable.IsNull())
     {
@@ -193,7 +193,7 @@ static Standard_Integer display(DrawInterpreter& di, Standard_Integer n, const c
   {
     for (Standard_Integer i = 1; i < n; i++)
     {
-      Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+      Handle(Drawable3D) D = Draw1::Get(a[i]);
       if (!D.IsNull())
       {
         if (!D->Visible())
@@ -235,7 +235,7 @@ static Standard_Integer erase(DrawInterpreter& di, Standard_Integer n, const cha
     {
       for (i = 1; i < n; i++)
       {
-        Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+        Handle(Drawable3D) D = Draw1::Get(a[i]);
         if (D.IsNull())
         {
           if ((a[i][0] == '.') && (a[i][1] == '\0'))
@@ -247,11 +247,11 @@ static Standard_Integer erase(DrawInterpreter& di, Standard_Integer n, const cha
 
     // sauvegarde des proteges visibles
     Draw_SequenceOfDrawable3D prot;
-    for (NCollection_Map<Handle(Draw_Drawable3D)>::Iterator aMapIt(Draw1::Drawables());
+    for (NCollection_Map<Handle(Drawable3D)>::Iterator aMapIt(Draw1::Drawables());
          aMapIt.More();
          aMapIt.Next())
     {
-      const Handle(Draw_Drawable3D)& D = aMapIt.Key1();
+      const Handle(Drawable3D)& D = aMapIt.Key1();
       if (!D.IsNull())
       {
         if (D->Protected() && D->Visible())
@@ -281,7 +281,7 @@ static Standard_Integer erase(DrawInterpreter& di, Standard_Integer n, const cha
     {
       for (i = 1; i < n; i++)
       {
-        Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+        Handle(Drawable3D) D = Draw1::Get(a[i]);
         if (!D.IsNull())
         {
           if (!D->Visible())
@@ -302,7 +302,7 @@ static Standard_Integer erase(DrawInterpreter& di, Standard_Integer n, const cha
   {
     for (Standard_Integer i = 1; i < n; i++)
     {
-      Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+      Handle(Drawable3D) D = Draw1::Get(a[i]);
       if (!D.IsNull())
       {
         if (D->Visible())
@@ -343,7 +343,7 @@ static Standard_Integer draw(DrawInterpreter&, Standard_Integer n, const char** 
   Standard_Integer i;
   for (i = 3; i < n; i++)
   {
-    Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+    Handle(Drawable3D) D = Draw1::Get(a[i]);
     if (!D.IsNull())
       D->DrawOn(d);
   }
@@ -362,7 +362,7 @@ static Standard_Integer protect(DrawInterpreter& di, Standard_Integer n, const c
   Standard_Boolean prot = *a[0] != 'u';
   for (Standard_Integer i = 1; i < n; i++)
   {
-    Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+    Handle(Drawable3D) D = Draw1::Get(a[i]);
     if (!D.IsNull())
     {
       D->Protected(prot);
@@ -401,7 +401,7 @@ static Standard_Integer whatis(DrawInterpreter& di, Standard_Integer n, const ch
     return 1;
   for (Standard_Integer i = 1; i < n; i++)
   {
-    Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+    Handle(Drawable3D) D = Draw1::Get(a[i]);
     if (!D.IsNull())
     {
       D->Whatis(di);
@@ -434,7 +434,7 @@ static Standard_Integer dname(DrawInterpreter& di, Standard_Integer n, const cha
   //
   Standard_PCharacter     pC;
   Standard_Integer        i;
-  Handle(Draw_Drawable3D) aD;
+  Handle(Drawable3D) aD;
   //
   for (i = 1; i < n; ++i)
   {
@@ -462,7 +462,7 @@ static Standard_Integer dump(DrawInterpreter& DI, Standard_Integer n, const char
   Standard_Integer i;
   for (i = 1; i < n; i++)
   {
-    Handle(Draw_Drawable3D) D = Draw1::Get(a[i]);
+    Handle(Drawable3D) D = Draw1::Get(a[i]);
     if (!D.IsNull())
     {
       Standard_SStream sss;
@@ -485,7 +485,7 @@ static Standard_Integer copy(DrawInterpreter&, Standard_Integer n, const char** 
     return 1;
   Standard_Boolean cop = !strcasecmp(a[0], "copy");
 
-  Handle(Draw_Drawable3D) D;
+  Handle(Drawable3D) D;
   for (Standard_Integer i = 1; i < n; i += 2)
   {
     if (i + 1 >= n)
@@ -497,7 +497,7 @@ static Standard_Integer copy(DrawInterpreter&, Standard_Integer n, const char** 
         D = D->Copy();
       else
         // clear old name
-        Draw1::Set(a[i], Handle(Draw_Drawable3D)());
+        Draw1::Set(a[i], Handle(Drawable3D)());
 
       Draw1::Set(a[i + 1], D);
     }
@@ -580,7 +580,7 @@ static Standard_Integer isdraw(DrawInterpreter& di, Standard_Integer n, const ch
 {
   if (n != 2)
     return 1;
-  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
+  Handle(Drawable3D) D = Draw1::Get(a[1]);
   if (D.IsNull())
     di << "0";
   else
@@ -594,7 +594,7 @@ Standard_Integer isprot(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
     return 1;
-  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
+  Handle(Drawable3D) D = Draw1::Get(a[1]);
   if (D.IsNull())
     di << "0";
   else
@@ -670,7 +670,7 @@ static Standard_Integer lastrep(DrawInterpreter& di, Standard_Integer n, const c
 
 //=================================================================================================
 
-void Draw1::Set(const Standard_CString name, const Handle(Draw_Drawable3D)& D)
+void Draw1::Set(const Standard_CString name, const Handle(Drawable3D)& D)
 {
   Draw1::Set(name, D, autodisp);
 }
@@ -687,7 +687,7 @@ static char* tracevar(ClientData CD, Tcl_Interp*, const char* name, const char*,
   DrawInterpreter& aCommands = Draw1::GetInterpretor();
 
   // MSV 9.10.14 CR25344
-  Handle(Draw_Drawable3D) D(reinterpret_cast<Draw_Drawable3D*>(CD));
+  Handle(Drawable3D) D(reinterpret_cast<Drawable3D*>(CD));
   if (D.IsNull())
   {
     Tcl_UntraceVar(aCommands.Interp(), name, TCL_TRACE_UNSETS | TCL_TRACE_WRITES, tracevar, CD);
@@ -717,7 +717,7 @@ static char* tracevar(ClientData CD, Tcl_Interp*, const char* name, const char*,
 //=================================================================================================
 
 void Draw1::Set(const Standard_CString         name,
-               const Handle(Draw_Drawable3D)& D,
+               const Handle(Drawable3D)& D,
                const Standard_Boolean         displ)
 {
   DrawInterpreter& aCommands = Draw1::GetInterpretor();
@@ -739,7 +739,7 @@ void Draw1::Set(const Standard_CString         name,
                                       TCL_TRACE_UNSETS | TCL_TRACE_WRITES,
                                       tracevar,
                                       NULL);
-    Handle(Draw_Drawable3D) anOldD(reinterpret_cast<Draw_Drawable3D*>(aCD));
+    Handle(Drawable3D) anOldD(reinterpret_cast<Drawable3D*>(aCD));
     if (!anOldD.IsNull())
     {
       if (Draw1::Drawables().Contains(anOldD) && anOldD->Protected())
@@ -791,7 +791,7 @@ void Draw1::Set(const Standard_CString theName, const Standard_Real theValue)
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) Draw1::getDrawable(Standard_CString& theName,
+Handle(Drawable3D) Draw1::getDrawable(Standard_CString& theName,
                                           Standard_Boolean  theToAllowPick)
 {
   const Standard_Boolean toPick = ((theName[0] == '.') && (theName[1] == '\0'));
@@ -802,16 +802,16 @@ Handle(Draw_Drawable3D) Draw1::getDrawable(Standard_CString& theName,
                                       TCL_TRACE_UNSETS | TCL_TRACE_WRITES,
                                       tracevar,
                                       NULL);
-    Handle(Draw_Drawable3D) aDrawable = reinterpret_cast<Draw_Drawable3D*>(aCD);
-    return Draw1::Drawables().Contains(aDrawable) ? aDrawable : Handle(Draw_Drawable3D)();
+    Handle(Drawable3D) aDrawable = reinterpret_cast<Drawable3D*>(aCD);
+    return Draw1::Drawables().Contains(aDrawable) ? aDrawable : Handle(Drawable3D)();
   }
   else if (!theToAllowPick)
   {
-    return Handle(Draw_Drawable3D)();
+    return Handle(Drawable3D)();
   }
 
   std::cout << "Pick an object" << std::endl;
-  Handle(Draw_Drawable3D) aDrawable;
+  Handle(Drawable3D) aDrawable;
   dout.Select(p_id, p_X, p_Y, p_b);
   dout.Pick(p_id, p_X, p_Y, 5, aDrawable, 0);
   if (!aDrawable.IsNull() && aDrawable->Name() != NULL)
@@ -1199,7 +1199,7 @@ void Draw1::Set(const Standard_CString Name, const Standard_CString val)
 
 //=================================================================================================
 
-const NCollection_Map<Handle(Draw_Drawable3D)>& Draw1::Drawables()
+const NCollection_Map<Handle(Drawable3D)>& Draw1::Drawables()
 {
   return Draw_changeDrawables();
 }

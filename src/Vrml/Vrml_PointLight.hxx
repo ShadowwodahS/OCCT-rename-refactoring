@@ -32,14 +32,14 @@
 //! that  is  omni-directional.
 //! Color is  written  as  an  RGB  triple.
 //! Light intensity must be in the range 0.0 to 1.0, inclusive.
-class Vrml_PointLight
+class PointLight
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_PointLight();
+  Standard_EXPORT PointLight();
 
-  Standard_EXPORT Vrml_PointLight(const Standard_Boolean aOnOff,
+  Standard_EXPORT PointLight(const Standard_Boolean aOnOff,
                                   const Standard_Real    aIntensity,
                                   const Color1&  aColor,
                                   const Vector3d&          aLocation);

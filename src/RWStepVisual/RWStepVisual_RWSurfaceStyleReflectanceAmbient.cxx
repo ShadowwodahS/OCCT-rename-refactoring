@@ -31,7 +31,7 @@ void RWStepVisual_RWSurfaceStyleReflectanceAmbient::ReadStep(
   const Handle(StepData_StepReaderData)&                   data,
   const Standard_Integer                                   num,
   Handle(Interface_Check)&                                 ach,
-  const Handle(StepVisual_SurfaceStyleReflectanceAmbient)& ent) const
+  const Handle(SurfaceReflectanceAmbient)& ent) const
 {
   // Check number of parameters
   if (!data->CheckNbParams(num, 1, ach, "surface_style_reflectance_ambient"))
@@ -50,7 +50,7 @@ void RWStepVisual_RWSurfaceStyleReflectanceAmbient::ReadStep(
 
 void RWStepVisual_RWSurfaceStyleReflectanceAmbient::WriteStep(
   StepData_StepWriter&                                     SW,
-  const Handle(StepVisual_SurfaceStyleReflectanceAmbient)& ent) const
+  const Handle(SurfaceReflectanceAmbient)& ent) const
 {
 
   // Own fields of SurfaceStyleReflectanceAmbient
@@ -61,7 +61,7 @@ void RWStepVisual_RWSurfaceStyleReflectanceAmbient::WriteStep(
 //=================================================================================================
 
 void RWStepVisual_RWSurfaceStyleReflectanceAmbient::Share(
-  const Handle(StepVisual_SurfaceStyleReflectanceAmbient)&,
+  const Handle(SurfaceReflectanceAmbient)&,
   Interface_EntityIterator&) const
 {
 

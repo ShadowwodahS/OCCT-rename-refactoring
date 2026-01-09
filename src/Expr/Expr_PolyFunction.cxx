@@ -49,7 +49,7 @@ Handle(Expr_GeneralFunction) Expr_PolyFunction::Function() const
   return myFunction;
 }
 
-Handle(Expr_GeneralExpression) Expr_PolyFunction::ShallowSimplified() const
+Handle(Expression1) Expr_PolyFunction::ShallowSimplified() const
 {
   Standard_Boolean allval = Standard_True;
   Standard_Integer max    = NbSubExpressions();
@@ -74,7 +74,7 @@ Handle(Expr_GeneralExpression) Expr_PolyFunction::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_PolyFunction::Copy() const
+Handle(Expression1) Expr_PolyFunction::Copy() const
 {
   Standard_Integer               max = NbSubExpressions();
   Expr_Array1OfGeneralExpression vars(1, max);
@@ -85,7 +85,7 @@ Handle(Expr_GeneralExpression) Expr_PolyFunction::Copy() const
   return new Expr_PolyFunction(myFunction, vars);
 }
 
-Standard_Boolean Expr_PolyFunction::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_PolyFunction::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_PolyFunction)))
   {
@@ -102,7 +102,7 @@ Standard_Boolean Expr_PolyFunction::IsIdentical(const Handle(Expr_GeneralExpress
     return Standard_False;
   }
   Standard_Integer               max = NbSubExpressions();
-  Handle(Expr_GeneralExpression) opother;
+  Handle(Expression1) opother;
   for (Standard_Integer i = 1; i <= max; i++)
   {
     opother = pother->SubExpression(i);
@@ -134,10 +134,10 @@ Standard_Boolean Expr_PolyFunction::IsLinear() const
   return Standard_True;
 }
 
-Handle(Expr_GeneralExpression) Expr_PolyFunction::Derivative(
+Handle(Expression1) Expr_PolyFunction::Derivative(
   const Handle(Expr_NamedUnknown)& X) const
 {
-  Handle(Expr_GeneralExpression) myop;
+  Handle(Expression1) myop;
   Handle(Expr_NamedUnknown)      thevar;
   Handle(Expr_GeneralFunction)   partderfunc;
   Handle(Expr_PolyFunction)      partder;

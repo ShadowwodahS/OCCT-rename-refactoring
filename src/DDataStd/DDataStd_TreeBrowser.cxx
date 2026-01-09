@@ -30,7 +30,7 @@
 #include <TDF_Label.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DDataStd_TreeBrowser, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DDataStd_TreeBrowser, Drawable3D)
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Communication convention with tcl:
@@ -58,7 +58,7 @@ void DDataStd_TreeBrowser::DrawOn(DrawDisplay& /*dis*/) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_TreeBrowser::Copy() const
+Handle(Drawable3D) DDataStd_TreeBrowser::Copy() const
 {
   return new DDataStd_TreeBrowser(myRoot);
 }

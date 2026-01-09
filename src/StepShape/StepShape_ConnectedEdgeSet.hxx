@@ -36,19 +36,19 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aRepresentationItem_Name,
-                            const Handle(StepShape_HArray1OfEdge)&  aCesEdges);
+                            const Handle(HArray1OfEdge)&  aCesEdges);
 
   //! Returns field CesEdges
-  Standard_EXPORT Handle(StepShape_HArray1OfEdge) CesEdges() const;
+  Standard_EXPORT Handle(HArray1OfEdge) CesEdges() const;
 
   //! Set field CesEdges
-  Standard_EXPORT void SetCesEdges(const Handle(StepShape_HArray1OfEdge)& CesEdges);
+  Standard_EXPORT void SetCesEdges(const Handle(HArray1OfEdge)& CesEdges);
 
   DEFINE_STANDARD_RTTIEXT(StepShape_ConnectedEdgeSet, StepShape_TopologicalRepresentationItem)
 
 protected:
 private:
-  Handle(StepShape_HArray1OfEdge) theCesEdges;
+  Handle(HArray1OfEdge) theCesEdges;
 };
 
 #endif // _StepShape_ConnectedEdgeSet_HeaderFile

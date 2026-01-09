@@ -56,7 +56,7 @@ void RWStepVisual_RWSurfaceStyleParameterLine::ReadStep(
   AsciiString1 VType("V_DIRECTION_COUNT");
   AsciiString1 TrueType;
 
-  Handle(StepVisual_HArray1OfDirectionCountSelect) aDirectionCounts;
+  Handle(HArray1OfDirectionCount) aDirectionCounts;
   Standard_Integer                                 aDirectionCountsItem;
   DirectionCountSelect                  aDirectionCountSelect;
 
@@ -64,7 +64,7 @@ void RWStepVisual_RWSurfaceStyleParameterLine::ReadStep(
   if (data->ReadSubList(num, 2, "direction_counts", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aDirectionCounts     = new StepVisual_HArray1OfDirectionCountSelect(1, nb2);
+    aDirectionCounts     = new HArray1OfDirectionCount(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // looks for true type :

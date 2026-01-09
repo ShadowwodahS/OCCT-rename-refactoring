@@ -49,13 +49,13 @@ void RWStepDimTol_RWRunoutZoneDefinition::ReadStep(
                    STANDARD_TYPE(StepDimTol_ToleranceZone),
                    aToleranceZone);
 
-  Handle(StepRepr_HArray1OfShapeAspect) anItems;
+  Handle(HArray1OfShapeAspect) anItems;
   Handle(StepRepr_ShapeAspect)          anEnt;
   Standard_Integer                      nbSub;
   if (data->ReadSubList(num, 2, "tolerance_zone_definition.boundaries", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    anItems                     = new StepRepr_HArray1OfShapeAspect(1, nbElements);
+    anItems                     = new HArray1OfShapeAspect(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data

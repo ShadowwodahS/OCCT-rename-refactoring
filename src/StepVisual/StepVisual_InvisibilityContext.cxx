@@ -27,7 +27,7 @@ Standard_Integer StepVisual_InvisibilityContext::CaseNum(
     return 0;
   if (ent->IsKind(STANDARD_TYPE(StepVisual_PresentationRepresentation)))
     return 1;
-  if (ent->IsKind(STANDARD_TYPE(StepVisual_PresentationSet)))
+  if (ent->IsKind(STANDARD_TYPE(PresentationSet1)))
     return 2;
   if (ent->IsKind(STANDARD_TYPE(StepVisual_DraughtingModel)))
     return 3;
@@ -40,9 +40,9 @@ Handle(StepVisual_PresentationRepresentation) StepVisual_InvisibilityContext::
   return GetCasted(StepVisual_PresentationRepresentation, Value());
 }
 
-Handle(StepVisual_PresentationSet) StepVisual_InvisibilityContext::PresentationSet() const
+Handle(PresentationSet1) StepVisual_InvisibilityContext::PresentationSet() const
 {
-  return GetCasted(StepVisual_PresentationSet, Value());
+  return GetCasted(PresentationSet1, Value());
 }
 
 Handle(StepVisual_DraughtingModel) StepVisual_InvisibilityContext::DraughtingModel() const

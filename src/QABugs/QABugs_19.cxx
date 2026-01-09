@@ -293,7 +293,7 @@ Standard_Integer OCC22611(DrawInterpreter& di, Standard_Integer argc, const char
   for (Standard_Integer i = 0; i < aNb; i++)
   {
     aGen->Process(aToken);
-    Handle(Expr_GeneralExpression) aExpr = aGen->Expression();
+    Handle(Expression1) aExpr = aGen->Expression();
   }
 
   return 0;

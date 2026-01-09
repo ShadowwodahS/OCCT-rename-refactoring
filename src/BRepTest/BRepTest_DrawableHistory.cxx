@@ -15,7 +15,7 @@
 
 #include <BRepTest_DrawableHistory.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepTest_DrawableHistory, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(BRepTest_DrawableHistory, Drawable3D)
 
 //=================================================================================================
 

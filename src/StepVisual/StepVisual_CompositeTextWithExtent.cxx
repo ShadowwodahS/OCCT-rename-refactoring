@@ -21,7 +21,7 @@ StepVisual_CompositeTextWithExtent::StepVisual_CompositeTextWithExtent() {}
 
 void StepVisual_CompositeTextWithExtent::Init(
   const Handle(TCollection_HAsciiString)&            aName,
-  const Handle(StepVisual_HArray1OfTextOrCharacter)& aCollectedText,
+  const Handle(HArray1OfTextOrCharacter)& aCollectedText,
   const Handle(StepVisual_PlanarExtent)&             aExtent)
 {
   // --- classe own fields ---

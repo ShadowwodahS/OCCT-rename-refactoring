@@ -14,7 +14,7 @@
 #include <Vrml_OrthographicCamera.hxx>
 #include <Vrml_SFRotation.hxx>
 
-Vrml_OrthographicCamera::Vrml_OrthographicCamera()
+OrthographicCamera::OrthographicCamera()
     : myFocalDistance(5),
       myHeight(2)
 {
@@ -26,7 +26,7 @@ Vrml_OrthographicCamera::Vrml_OrthographicCamera()
   myOrientation = tmpSFR;
 }
 
-Vrml_OrthographicCamera::Vrml_OrthographicCamera(const Vector3d&          aPosition,
+OrthographicCamera::OrthographicCamera(const Vector3d&          aPosition,
                                                  const SFRotation& aOrientation,
                                                  const Standard_Real    aFocalDistance,
                                                  const Standard_Real    aHeight)
@@ -37,47 +37,47 @@ Vrml_OrthographicCamera::Vrml_OrthographicCamera(const Vector3d&          aPosit
   myHeight        = aHeight;
 }
 
-void Vrml_OrthographicCamera::SetPosition(const Vector3d& aPosition)
+void OrthographicCamera::SetPosition(const Vector3d& aPosition)
 {
   myPosition = aPosition;
 }
 
-Vector3d Vrml_OrthographicCamera::Position1() const
+Vector3d OrthographicCamera::Position1() const
 {
   return myPosition;
 }
 
-void Vrml_OrthographicCamera::SetOrientation(const SFRotation& aOrientation)
+void OrthographicCamera::SetOrientation(const SFRotation& aOrientation)
 {
   myOrientation = aOrientation;
 }
 
-SFRotation Vrml_OrthographicCamera::Orientation() const
+SFRotation OrthographicCamera::Orientation() const
 {
   return myOrientation;
 }
 
-void Vrml_OrthographicCamera::SetFocalDistance(const Standard_Real aFocalDistance)
+void OrthographicCamera::SetFocalDistance(const Standard_Real aFocalDistance)
 {
   myFocalDistance = aFocalDistance;
 }
 
-Standard_Real Vrml_OrthographicCamera::FocalDistance() const
+Standard_Real OrthographicCamera::FocalDistance() const
 {
   return myFocalDistance;
 }
 
-void Vrml_OrthographicCamera::SetHeight(const Standard_Real aHeight)
+void OrthographicCamera::SetHeight(const Standard_Real aHeight)
 {
   myHeight = aHeight;
 }
 
-Standard_Real Vrml_OrthographicCamera::Height() const
+Standard_Real OrthographicCamera::Height() const
 {
   return myHeight;
 }
 
-Standard_OStream& Vrml_OrthographicCamera::Print(Standard_OStream& anOStream) const
+Standard_OStream& OrthographicCamera::Print(Standard_OStream& anOStream) const
 {
   anOStream << "OrthographicCamera {\n";
   if (Abs(myPosition.X() - 0) > 0.0001 || Abs(myPosition.Y() - 0) > 0.0001

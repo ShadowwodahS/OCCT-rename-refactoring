@@ -23,7 +23,7 @@ StepVisual_CurveStyle::StepVisual_CurveStyle() {}
 void StepVisual_CurveStyle::Init(const Handle(TCollection_HAsciiString)& aName,
                                  const StepVisual_CurveStyleFontSelect&  aCurveFont,
                                  const StepBasic_SizeSelect&             aCurveWidth,
-                                 const Handle(StepVisual_Colour)&        aCurveColour)
+                                 const Handle(Colour)&        aCurveColour)
 {
   // --- classe own fields ---
   name        = aName;
@@ -62,12 +62,12 @@ StepBasic_SizeSelect StepVisual_CurveStyle::CurveWidth() const
   return curveWidth;
 }
 
-void StepVisual_CurveStyle::SetCurveColour(const Handle(StepVisual_Colour)& aCurveColour)
+void StepVisual_CurveStyle::SetCurveColour(const Handle(Colour)& aCurveColour)
 {
   curveColour = aCurveColour;
 }
 
-Handle(StepVisual_Colour) StepVisual_CurveStyle::CurveColour() const
+Handle(Colour) StepVisual_CurveStyle::CurveColour() const
 {
   return curveColour;
 }

@@ -20,6 +20,6 @@
 #include <Expr_GeneralExpression.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Expr_GeneralExpression)> Expr_Array1OfGeneralExpression;
+typedef NCollection_Array1<Handle(Expression1)> Expr_Array1OfGeneralExpression;
 
 #endif

@@ -130,8 +130,8 @@ TopoDSToStep_MakeManifoldSolidBrep::TopoDSToStep_MakeManifoldSolidBrep(
         Handle(StepVisual_TessellatedShell) aTessShell =
           Handle(StepVisual_TessellatedShell)::DownCast(aResult.second);
         Handle(TCollection_HAsciiString) aName = new TCollection_HAsciiString("");
-        Handle(StepVisual_HArray1OfTessellatedStructuredItem) anItems =
-          new StepVisual_HArray1OfTessellatedStructuredItem(1, aTessShell->NbItems());
+        Handle(HArray1OfTessellatedItem) anItems =
+          new HArray1OfTessellatedItem(1, aTessShell->NbItems());
         for (Standard_Integer i = 1; i <= aTessShell->NbItems(); ++i)
         {
           anItems->SetValue(i, aTessShell->ItemsValue(i));

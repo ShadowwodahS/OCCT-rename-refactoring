@@ -41,12 +41,12 @@ void RWStepShape_RWQualifiedRepresentationItem::ReadStep(
 
   // --- own field : qualifiers ---
 
-  Handle(StepShape_HArray1OfValueQualifier) quals;
+  Handle(HArray1OfValueQualifier) quals;
   Standard_Integer                          nsub2;
   if (data->ReadSubList(num, 2, "qualifiers", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    quals                = new StepShape_HArray1OfValueQualifier(1, nb2);
+    quals                = new HArray1OfValueQualifier(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       StepShape_ValueQualifier VQ;

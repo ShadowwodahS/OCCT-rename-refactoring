@@ -20,7 +20,7 @@
 #include <StepVisual_CurveStyleFontPattern.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(StepVisual_CurveStyleFontPattern)>
+typedef NCollection_Array1<Handle(CurveStyleFontPattern)>
   StepVisual_Array1OfCurveStyleFontPattern;
 
 #endif

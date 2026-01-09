@@ -18,13 +18,13 @@
 #include <Expr_UnknownIterator.hxx>
 #include <Standard_NoMoreObject.hxx>
 
-UnknownIterator::UnknownIterator(const Handle(Expr_GeneralExpression)& exp)
+UnknownIterator::UnknownIterator(const Handle(Expression1)& exp)
 {
   Perform(exp);
   myCurrent = 1;
 }
 
-void UnknownIterator::Perform(const Handle(Expr_GeneralExpression)& exp)
+void UnknownIterator::Perform(const Handle(Expression1)& exp)
 {
   if (exp->IsKind(STANDARD_TYPE(Expr_NamedUnknown)))
   {

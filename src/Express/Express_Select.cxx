@@ -38,7 +38,7 @@ Express_Select::Express_Select(const Standard_CString                         th
     : Express_Item(theName),
       myNames(theNames)
 {
-  myItems = new Express_HSequenceOfItem;
+  myItems = new ItemSequence;
 }
 
 //=================================================================================================
@@ -50,7 +50,7 @@ const Handle(TColStd_HSequenceOfHAsciiString)& Express_Select::Names() const
 
 //=================================================================================================
 
-const Handle(Express_HSequenceOfItem)& Express_Select::Items() const
+const Handle(ItemSequence)& Express_Select::Items() const
 {
   return myItems;
 }

@@ -23,7 +23,7 @@
 #include <gp_Trsf.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Grid, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(Draw_Grid, Drawable3D)
 
 static Standard_Real MinimumStep = 1.e-3;
 static Standard_Real Ratio       = 200.0;

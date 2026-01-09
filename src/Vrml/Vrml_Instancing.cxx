@@ -13,20 +13,20 @@
 
 #include <Vrml_Instancing.hxx>
 
-Vrml_Instancing::Vrml_Instancing(const AsciiString1& aString)
+Instancing::Instancing(const AsciiString1& aString)
 {
   AsciiString1 tmpAS = aString;
   tmpAS.ChangeAll(' ', '_', Standard_True);
   myName = tmpAS;
 }
 
-Standard_OStream& Vrml_Instancing::DEF(Standard_OStream& anOStream) const
+Standard_OStream& Instancing::DEF(Standard_OStream& anOStream) const
 {
   anOStream << "DEF " << myName << "\n";
   return anOStream;
 }
 
-Standard_OStream& Vrml_Instancing::USE(Standard_OStream& anOStream) const
+Standard_OStream& Instancing::USE(Standard_OStream& anOStream) const
 {
   anOStream << "USE " << myName << "\n";
   return anOStream;

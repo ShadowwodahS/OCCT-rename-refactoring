@@ -46,13 +46,13 @@ void RWStepShape_RWFaceBasedSurfaceModel::ReadStep(
 
   // Own fields of FaceBasedSurfaceModel
 
-  Handle(StepShape_HArray1OfConnectedFaceSet) aFbsmFaces;
+  Handle(HArray1OfConnectedFaceSet) aFbsmFaces;
   Standard_Integer                            sub2 = 0;
   if (data->ReadSubList(num, 2, "fbsm_faces", ach, sub2))
   {
     Standard_Integer num2 = sub2;
     Standard_Integer nb0  = data->NbParams(num2);
-    aFbsmFaces            = new StepShape_HArray1OfConnectedFaceSet(1, nb0);
+    aFbsmFaces            = new HArray1OfConnectedFaceSet(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       Handle(StepShape_ConnectedFaceSet) anIt0;

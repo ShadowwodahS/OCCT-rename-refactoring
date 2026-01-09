@@ -677,7 +677,7 @@ Standard_Boolean STEPControl_ActorWrite::IsAssembly(const Handle(StepData_StepMo
 
 // PTV 16.09.2002 added for transferring vertices.
 static Standard_Boolean transferVertex(const Handle(Transfer_FinderProcess)&          FP,
-                                       Handle(StepShape_HArray1OfGeometricSetSelect)& aGSS,
+                                       Handle(HArray1OfGeometricSetSelect)& aGSS,
                                        const TopoShape&                            aShVrtx,
                                        const Standard_Integer                         theNum,
                                        const ConversionFactors& theLocalFactors)
@@ -1272,8 +1272,8 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferShape(
           if (aNbVrtx)
           {
             // create new geometric curve set for all vertices
-            Handle(StepShape_HArray1OfGeometricSetSelect) aGSS =
-              new StepShape_HArray1OfGeometricSetSelect(1, aNbVrtx);
+            Handle(HArray1OfGeometricSetSelect) aGSS =
+              new HArray1OfGeometricSetSelect(1, aNbVrtx);
             Handle(TCollection_HAsciiString)    empty  = new TCollection_HAsciiString("");
             Handle(StepShape_GeometricCurveSet) aGCSet = new StepShape_GeometricCurveSet;
             aGCSet->SetName(empty);

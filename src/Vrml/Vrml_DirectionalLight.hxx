@@ -31,14 +31,14 @@
 //! along  rays  parallel  to  a  given  3-dimensional  vector
 //! Color is  written  as  an  RGB  triple.
 //! Light intensity must be in the range 0.0 to 1.0, inclusive.
-class Vrml_DirectionalLight
+class DirectionalLight
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_DirectionalLight();
+  Standard_EXPORT DirectionalLight();
 
-  Standard_EXPORT Vrml_DirectionalLight(const Standard_Boolean aOnOff,
+  Standard_EXPORT DirectionalLight(const Standard_Boolean aOnOff,
                                         const Standard_Real    aIntensity,
                                         const Color1&  aColor,
                                         const Vector3d&          aDirection);

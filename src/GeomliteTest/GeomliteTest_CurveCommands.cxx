@@ -933,7 +933,7 @@ static Standard_Integer cfindp(DrawInterpreter&, Standard_Integer n, const char*
 
   DrawDisplay d = dout.MakeDisplay(view);
 
-  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
+  Handle(Drawable3D) D = Draw1::Get(a[1]);
 
   Handle(DrawTrSurf_BezierCurve) DBz = Handle(DrawTrSurf_BezierCurve)::DownCast(D);
   if (!DBz.IsNull())

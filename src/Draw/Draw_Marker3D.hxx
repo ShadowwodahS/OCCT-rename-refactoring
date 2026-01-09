@@ -27,9 +27,9 @@
 class DrawDisplay;
 
 class Draw_Marker3D;
-DEFINE_STANDARD_HANDLE(Draw_Marker3D, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Marker3D, Drawable3D)
 
-class Draw_Marker3D : public Draw_Drawable3D
+class Draw_Marker3D : public Drawable3D
 {
 
 public:
@@ -54,7 +54,7 @@ public:
                                                       const Standard_Real Prec) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Marker3D, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Marker3D, Drawable3D)
 
 protected:
 private:

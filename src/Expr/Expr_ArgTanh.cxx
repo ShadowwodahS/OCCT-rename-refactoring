@@ -26,14 +26,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_ArgTanh, Expr_UnaryExpression)
 
-Expr_ArgTanh::Expr_ArgTanh(const Handle(Expr_GeneralExpression)& exp)
+Expr_ArgTanh::Expr_ArgTanh(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_ArgTanh::ShallowSimplified() const
+Handle(Expression1) Expr_ArgTanh::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   if (op->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) valop = Handle(Expr_NumericValue)::DownCast(op);
@@ -47,18 +47,18 @@ Handle(Expr_GeneralExpression) Expr_ArgTanh::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_ArgTanh::Copy() const
+Handle(Expression1) Expr_ArgTanh::Copy() const
 {
   return new Expr_ArgTanh(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_ArgTanh::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_ArgTanh::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_ArgTanh)))
   {
     return Standard_False;
   }
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   return op->IsIdentical(Other->SubExpression(1));
 }
 
@@ -71,14 +71,14 @@ Standard_Boolean Expr_ArgTanh::IsLinear() const
   return Standard_True;
 }
 
-Handle(Expr_GeneralExpression) Expr_ArgTanh::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_ArgTanh::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
   if (!Contains(X))
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) op    = Operand();
-  Handle(Expr_GeneralExpression) derop = op->Derivative(X);
+  Handle(Expression1) op    = Operand();
+  Handle(Expression1) derop = op->Derivative(X);
 
   Handle(Expr_Square) sq = new Expr_Square(Expr1::CopyShare(op));
 

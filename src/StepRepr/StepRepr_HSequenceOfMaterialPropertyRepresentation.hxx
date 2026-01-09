@@ -21,7 +21,7 @@
 #include <StepRepr_SequenceOfMaterialPropertyRepresentation.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(StepRepr_HSequenceOfMaterialPropertyRepresentation,
+DEFINE_HSEQUENCE(HSequenceOfMaterialPropRepr,
                  StepRepr_SequenceOfMaterialPropertyRepresentation)
 
 #endif

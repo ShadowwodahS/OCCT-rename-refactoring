@@ -13,7 +13,7 @@
 
 #include <Vrml_SpotLight.hxx>
 
-Vrml_SpotLight::Vrml_SpotLight()
+SpotLight::SpotLight()
     : myOnOff(Standard_True),
       myIntensity(1),
       myColor(Quantity_NOC_WHITE),
@@ -25,7 +25,7 @@ Vrml_SpotLight::Vrml_SpotLight()
   //
 }
 
-Vrml_SpotLight::Vrml_SpotLight(const Standard_Boolean aOnOff,
+SpotLight::SpotLight(const Standard_Boolean aOnOff,
                                const Standard_Real    aIntensity,
                                const Color1&  aColor,
                                const Vector3d&          aLocation,
@@ -46,17 +46,17 @@ Vrml_SpotLight::Vrml_SpotLight(const Standard_Boolean aOnOff,
   myCutOffAngle = aCutOffAngle;
 }
 
-void Vrml_SpotLight::SetOnOff(const Standard_Boolean aOnOff)
+void SpotLight::SetOnOff(const Standard_Boolean aOnOff)
 {
   myOnOff = aOnOff;
 }
 
-Standard_Boolean Vrml_SpotLight::OnOff() const
+Standard_Boolean SpotLight::OnOff() const
 {
   return myOnOff;
 }
 
-void Vrml_SpotLight::SetIntensity(const Standard_Real aIntensity)
+void SpotLight::SetIntensity(const Standard_Real aIntensity)
 {
   if (aIntensity < 0. || aIntensity > 1.)
   {
@@ -65,62 +65,62 @@ void Vrml_SpotLight::SetIntensity(const Standard_Real aIntensity)
   myIntensity = aIntensity;
 }
 
-Standard_Real Vrml_SpotLight::Intensity() const
+Standard_Real SpotLight::Intensity() const
 {
   return myIntensity;
 }
 
-void Vrml_SpotLight::SetColor(const Color1& aColor)
+void SpotLight::SetColor(const Color1& aColor)
 {
   myColor = aColor;
 }
 
-Color1 Vrml_SpotLight::Color() const
+Color1 SpotLight::Color() const
 {
   return myColor;
 }
 
-void Vrml_SpotLight::SetLocation(const Vector3d& aLocation)
+void SpotLight::SetLocation(const Vector3d& aLocation)
 {
   myLocation = aLocation;
 }
 
-Vector3d Vrml_SpotLight::Location() const
+Vector3d SpotLight::Location() const
 {
   return myLocation;
 }
 
-void Vrml_SpotLight::SetDirection(const Vector3d& aDirection)
+void SpotLight::SetDirection(const Vector3d& aDirection)
 {
   myDirection = aDirection;
 }
 
-Vector3d Vrml_SpotLight::Direction() const
+Vector3d SpotLight::Direction() const
 {
   return myDirection;
 }
 
-void Vrml_SpotLight::SetDropOffRate(const Standard_Real aDropOffRate)
+void SpotLight::SetDropOffRate(const Standard_Real aDropOffRate)
 {
   myDropOffRate = aDropOffRate;
 }
 
-Standard_Real Vrml_SpotLight::DropOffRate() const
+Standard_Real SpotLight::DropOffRate() const
 {
   return myDropOffRate;
 }
 
-void Vrml_SpotLight::SetCutOffAngle(const Standard_Real aCutOffAngle)
+void SpotLight::SetCutOffAngle(const Standard_Real aCutOffAngle)
 {
   myCutOffAngle = aCutOffAngle;
 }
 
-Standard_Real Vrml_SpotLight::CutOffAngle() const
+Standard_Real SpotLight::CutOffAngle() const
 {
   return myCutOffAngle;
 }
 
-Standard_OStream& Vrml_SpotLight::Print(Standard_OStream& anOStream) const
+Standard_OStream& SpotLight::Print(Standard_OStream& anOStream) const
 {
   anOStream << "SpotLight {\n";
 

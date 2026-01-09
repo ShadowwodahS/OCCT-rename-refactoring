@@ -226,7 +226,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_BrepWithVoids)&   theBRep
   done     = Standard_True;
 
   // Voids
-  for (StepShape_HArray1OfOrientedClosedShell::Iterator anIt(theBRepWithVoids->Voids()->Array1());
+  for (HArray1OfOrientedClosedShell::Iterator anIt(theBRepWithVoids->Voids()->Array1());
        anIt.More() && aPS.More();
        anIt.Next())
   {
@@ -356,7 +356,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_FacetedBrepAndBrepWithVoi
   aBuilder.MakeSolid(aSolid);
   aBuilder.Add(aSolid, aShape);
   Message_ProgressScope aPS(aPSRoot.Next(), NULL, theFBABWV->NbVoids());
-  for (StepShape_HArray1OfOrientedClosedShell::Iterator anIt(theFBABWV->Voids()->Array1());
+  for (HArray1OfOrientedClosedShell::Iterator anIt(theFBABWV->Voids()->Array1());
        anIt.More() && aPS.More();
        anIt.Next())
   {
@@ -491,7 +491,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_EdgeBasedWireframeModel)&
 {
   myResult.Nullify();
 
-  Handle(StepShape_HArray1OfConnectedEdgeSet) boundary = aEBWM->EbwmBoundary();
+  Handle(HArray1OfConnectedEdgeSet) boundary = aEBWM->EbwmBoundary();
   if (boundary.IsNull() || boundary->Length() < 1)
   {
     TP->AddWarning(aEBWM, "List of boundaries is empty");
@@ -517,7 +517,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_EdgeBasedWireframeModel)&
     Handle(StepShape_ConnectedEdgeSet) ces = boundary->Value(i);
     if (ces.IsNull())
       continue;
-    Handle(StepShape_HArray1OfEdge) edges = ces->CesEdges();
+    Handle(HArray1OfEdge) edges = ces->CesEdges();
     if (edges.IsNull() || edges->Length() < 1)
     {
       TP->AddWarning(ces, "No edges in connected_edge_set");
@@ -564,7 +564,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_FaceBasedSurfaceModel)& a
 {
   myResult.Nullify();
 
-  Handle(StepShape_HArray1OfConnectedFaceSet) boundary = aFBSM->FbsmFaces();
+  Handle(HArray1OfConnectedFaceSet) boundary = aFBSM->FbsmFaces();
   if (boundary.IsNull() || boundary->Length() < 1)
   {
     TP->AddWarning(aFBSM, "List of faces is empty");
@@ -591,7 +591,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_FaceBasedSurfaceModel)& a
     Handle(StepShape_ConnectedFaceSet) cfs = boundary->Value(i);
     if (cfs.IsNull())
       continue;
-    Handle(StepShape_HArray1OfFace) faces = cfs->CfsFaces();
+    Handle(HArray1OfFace1) faces = cfs->CfsFaces();
     if (faces.IsNull() || faces->Length() < 1)
     {
       TP->AddWarning(cfs, "No faces in connected_face_set");

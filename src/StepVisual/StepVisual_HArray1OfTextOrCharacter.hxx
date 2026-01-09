@@ -21,6 +21,6 @@
 #include <StepVisual_Array1OfTextOrCharacter.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfTextOrCharacter, StepVisual_Array1OfTextOrCharacter)
+DEFINE_HARRAY1(HArray1OfTextOrCharacter, StepVisual_Array1OfTextOrCharacter)
 
 #endif

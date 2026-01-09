@@ -33,12 +33,12 @@
 //! children  are  chosen.
 //! WWWAnchor  behaves  like  a  Separator,  pushing  the  traversal  state
 //! before  traversing  its  children  and  popping  it  afterwards.
-class Vrml_WWWAnchor
+class WWWAnchor
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_WWWAnchor(const AsciiString1& aName        = "",
+  Standard_EXPORT WWWAnchor(const AsciiString1& aName        = "",
                                  const AsciiString1& aDescription = "",
                                  const Vrml_WWWAnchorMap        aMap         = Vrml_MAP_NONE);
 

@@ -23,8 +23,8 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_GreaterThan, Expr_SingleRelation)
 
-Expr_GreaterThan::Expr_GreaterThan(const Handle(Expr_GeneralExpression)& exp1,
-                                   const Handle(Expr_GeneralExpression)& exp2)
+Expr_GreaterThan::Expr_GreaterThan(const Handle(Expression1)& exp1,
+                                   const Handle(Expression1)& exp2)
 {
   SetFirstMember(exp1);
   SetSecondMember(exp2);
@@ -32,8 +32,8 @@ Expr_GreaterThan::Expr_GreaterThan(const Handle(Expr_GeneralExpression)& exp1,
 
 Standard_Boolean Expr_GreaterThan::IsSatisfied() const
 {
-  Handle(Expr_GeneralExpression) fm = FirstMember();
-  Handle(Expr_GeneralExpression) sm = SecondMember();
+  Handle(Expression1) fm = FirstMember();
+  Handle(Expression1) sm = SecondMember();
   fm                                = fm->Simplified();
   sm                                = sm->Simplified();
   if (fm->IsKind(STANDARD_TYPE(Expr_NumericValue)))
@@ -50,15 +50,15 @@ Standard_Boolean Expr_GreaterThan::IsSatisfied() const
 
 Handle(Expr_GeneralRelation) Expr_GreaterThan::Simplified() const
 {
-  Handle(Expr_GeneralExpression) fm = FirstMember();
-  Handle(Expr_GeneralExpression) sm = SecondMember();
+  Handle(Expression1) fm = FirstMember();
+  Handle(Expression1) sm = SecondMember();
   return new Expr_GreaterThan(fm->Simplified(), sm->Simplified());
 }
 
 void Expr_GreaterThan::Simplify()
 {
-  Handle(Expr_GeneralExpression) fm = FirstMember();
-  Handle(Expr_GeneralExpression) sm = SecondMember();
+  Handle(Expression1) fm = FirstMember();
+  Handle(Expression1) sm = SecondMember();
   SetFirstMember(fm->Simplified());
   SetSecondMember(sm->Simplified());
 }

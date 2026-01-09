@@ -36,12 +36,12 @@ public:
   Standard_EXPORT StepVisual_CompositeText();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&            aName,
-                            const Handle(StepVisual_HArray1OfTextOrCharacter)& aCollectedText);
+                            const Handle(HArray1OfTextOrCharacter)& aCollectedText);
 
   Standard_EXPORT void SetCollectedText(
-    const Handle(StepVisual_HArray1OfTextOrCharacter)& aCollectedText);
+    const Handle(HArray1OfTextOrCharacter)& aCollectedText);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfTextOrCharacter) CollectedText() const;
+  Standard_EXPORT Handle(HArray1OfTextOrCharacter) CollectedText() const;
 
   Standard_EXPORT StepVisual_TextOrCharacter CollectedTextValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepVisual_HArray1OfTextOrCharacter) collectedText;
+  Handle(HArray1OfTextOrCharacter) collectedText;
 };
 
 #endif // _StepVisual_CompositeText_HeaderFile

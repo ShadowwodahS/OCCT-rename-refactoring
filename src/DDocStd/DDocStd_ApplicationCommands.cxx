@@ -359,7 +359,7 @@ static Standard_Integer DDocStd_Close(DrawInterpreter& theDI,
     anArgCase.LowerCase();
     if (anArgCase == "*" || anArgCase == "-all" || anArgCase == "all")
     {
-      for (NCollection_Map<Handle(Draw_Drawable3D)>::Iterator anIter(Draw1::Drawables());
+      for (NCollection_Map<Handle(Drawable3D)>::Iterator anIter(Draw1::Drawables());
            anIter.More();
            anIter.Next())
       {
@@ -426,11 +426,11 @@ static Standard_Integer DDocStd_Close(DrawInterpreter& theDI,
       return 1;
     }
 
-    if (Handle(Draw_Drawable3D) aDrawable = Draw1::GetExisting(aDocName))
+    if (Handle(Drawable3D) aDrawable = Draw1::GetExisting(aDocName))
     {
       dout.RemoveDrawable(aDrawable);
     }
-    Draw1::Set(aDocName, Handle(Draw_Drawable3D)());
+    Draw1::Set(aDocName, Handle(Drawable3D)());
   }
   return 0;
 }

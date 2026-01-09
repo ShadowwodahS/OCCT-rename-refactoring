@@ -32,7 +32,7 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                        theName,
-    const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& theStyles,
+    const Handle(HArray1OfPresentationStyle)& theStyles,
     const Handle(RefObject)&                              theItem,
     const Handle(StepGeom_GeometricRepresentationItem)&            theFillStyleTarget);
 

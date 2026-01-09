@@ -40,16 +40,16 @@ public:
   //! Initialize all fields AP242
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                            theName,
-    const Handle(StepShape_HArray1OfShapeDimensionRepresentationItem)& theItems,
+    const Handle(HArray1OfShapeDimReprItem)& theItems,
     const Handle(StepRepr_RepresentationContext)&                      theContextOfItems);
 
   Standard_EXPORT void SetItemsAP242(
-    const Handle(StepShape_HArray1OfShapeDimensionRepresentationItem)& theItems);
+    const Handle(HArray1OfShapeDimReprItem)& theItems);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfShapeDimensionRepresentationItem) ItemsAP242() const;
+  Standard_EXPORT Handle(HArray1OfShapeDimReprItem) ItemsAP242() const;
 
   DEFINE_STANDARD_RTTIEXT(StepShape_ShapeDimensionRepresentation, StepShape_ShapeRepresentation)
 private:
-  Handle(StepShape_HArray1OfShapeDimensionRepresentationItem) itemsAP242;
+  Handle(HArray1OfShapeDimReprItem) itemsAP242;
 };
 #endif // _StepShape_ShapeDimensionRepresentation_HeaderFile

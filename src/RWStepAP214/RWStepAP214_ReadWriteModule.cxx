@@ -6628,7 +6628,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
     break;
     case 64: {
-      DeclareAndCast(StepVisual_Colour, anent, ent);
+      DeclareAndCast(Colour, anent, ent);
       RWStepVisual_RWColour tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -6782,7 +6782,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
     break;
     case 89: {
-      DeclareAndCast(StepVisual_CurveStyleFontPattern, anent, ent);
+      DeclareAndCast(CurveStyleFontPattern, anent, ent);
       RWStepVisual_RWCurveStyleFontPattern tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -7497,7 +7497,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
     break;
     case 217: {
-      DeclareAndCast(StepVisual_PresentationSet, anent, ent);
+      DeclareAndCast(PresentationSet1, anent, ent);
       RWStepVisual_RWPresentationSet tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -8998,7 +8998,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
     }
     break;
     case 475: {
-      DeclareAndCast(StepShape_ToleranceValue, anent, ent);
+      DeclareAndCast(ToleranceValue1, anent, ent);
       RWStepShape_RWToleranceValue tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -9016,7 +9016,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
     }
     break;
     case 478: {
-      DeclareAndCast(StepShape_PrecisionQualifier, anent, ent);
+      DeclareAndCast(PrecisionQualifier1, anent, ent);
       RWStepShape_RWPrecisionQualifier tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -10193,13 +10193,13 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
     }
     break;
     case 720: {
-      DeclareAndCast(StepVisual_SurfaceStyleTransparent, anent, ent);
+      DeclareAndCast(SurfaceTransparency, anent, ent);
       RWStepVisual_RWSurfaceStyleTransparent tool;
       tool.ReadStep(data, num, ach, anent);
     }
     break;
     case 721: {
-      DeclareAndCast(StepVisual_SurfaceStyleReflectanceAmbient, anent, ent);
+      DeclareAndCast(SurfaceReflectanceAmbient, anent, ent);
       RWStepVisual_RWSurfaceStyleReflectanceAmbient tool;
       tool.ReadStep(data, num, ach, anent);
     }
@@ -11293,7 +11293,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
 
     break;
     case 64: {
-      DeclareAndCast(StepVisual_Colour, anent, ent);
+      DeclareAndCast(Colour, anent, ent);
       RWStepVisual_RWColour tool;
       //      if (anent.IsNull()) return;
       tool.WriteStep(SW, anent);
@@ -11469,7 +11469,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
 
     break;
     case 89: {
-      DeclareAndCast(StepVisual_CurveStyleFontPattern, anent, ent);
+      DeclareAndCast(CurveStyleFontPattern, anent, ent);
       RWStepVisual_RWCurveStyleFontPattern tool;
       //      if (anent.IsNull()) return;
       tool.WriteStep(SW, anent);
@@ -12285,7 +12285,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
 
     break;
     case 217: {
-      DeclareAndCast(StepVisual_PresentationSet, anent, ent);
+      DeclareAndCast(PresentationSet1, anent, ent);
       RWStepVisual_RWPresentationSet tool;
       //      if (anent.IsNull()) return;
       tool.WriteStep(SW, anent);
@@ -13890,7 +13890,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
     }
     break;
     case 475: {
-      DeclareAndCast(StepShape_ToleranceValue, anent, ent);
+      DeclareAndCast(ToleranceValue1, anent, ent);
       RWStepShape_RWToleranceValue tool;
       tool.WriteStep(SW, anent);
     }
@@ -13908,7 +13908,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
     }
     break;
     case 478: {
-      DeclareAndCast(StepShape_PrecisionQualifier, anent, ent);
+      DeclareAndCast(PrecisionQualifier1, anent, ent);
       RWStepShape_RWPrecisionQualifier tool;
       tool.WriteStep(SW, anent);
     }
@@ -15084,13 +15084,13 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
     }
     break;
     case 720: {
-      DeclareAndCast(StepVisual_SurfaceStyleTransparent, anent, ent);
+      DeclareAndCast(SurfaceTransparency, anent, ent);
       RWStepVisual_RWSurfaceStyleTransparent tool;
       tool.WriteStep(SW, anent);
     }
     break;
     case 721: {
-      DeclareAndCast(StepVisual_SurfaceStyleReflectanceAmbient, anent, ent);
+      DeclareAndCast(SurfaceReflectanceAmbient, anent, ent);
       RWStepVisual_RWSurfaceStyleReflectanceAmbient tool;
       tool.WriteStep(SW, anent);
     }

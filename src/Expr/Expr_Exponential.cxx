@@ -26,14 +26,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Exponential, Expr_UnaryExpression)
 
-Expr_Exponential::Expr_Exponential(const Handle(Expr_GeneralExpression)& exp)
+Expr_Exponential::Expr_Exponential(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_Exponential::ShallowSimplified() const
+Handle(Expression1) Expr_Exponential::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) myexp = Operand();
+  Handle(Expression1) myexp = Operand();
   if (myexp->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) myNVexp = Handle(Expr_NumericValue)::DownCast(myexp);
@@ -47,16 +47,16 @@ Handle(Expr_GeneralExpression) Expr_Exponential::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_Exponential::Copy() const
+Handle(Expression1) Expr_Exponential::Copy() const
 {
   return new Expr_Exponential(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_Exponential::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Exponential::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (Other->IsKind(STANDARD_TYPE(Expr_Exponential)))
   {
-    Handle(Expr_GeneralExpression) myexp = Operand();
+    Handle(Expression1) myexp = Operand();
     return myexp->IsIdentical(Other->SubExpression(1));
   }
   return Standard_False;
@@ -67,15 +67,15 @@ Standard_Boolean Expr_Exponential::IsLinear() const
   return !ContainsUnknowns();
 }
 
-Handle(Expr_GeneralExpression) Expr_Exponential::Derivative(
+Handle(Expression1) Expr_Exponential::Derivative(
   const Handle(Expr_NamedUnknown)& X) const
 {
   if (!Contains(X))
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) myexp = Operand();
-  Handle(Expr_GeneralExpression) myder = myexp->Derivative(X);
+  Handle(Expression1) myexp = Operand();
+  Handle(Expression1) myder = myexp->Derivative(X);
   Handle(Expr_Product)           resu  = Expr1::CopyShare(this) * myder;
   return resu->ShallowSimplified();
 }

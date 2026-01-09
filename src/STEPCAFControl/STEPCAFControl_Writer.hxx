@@ -384,7 +384,7 @@ private:
   Standard_Boolean                                                                myMatMode;
   NCollection_Vector<Handle(StepRepr_RepresentationItem)>                         myGDTAnnotations;
   Handle(StepVisual_DraughtingModel)                      myGDTPresentationDM;
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) myGDTPrsCurveStyle;
+  Handle(HArray1OfPresentationStyle) myGDTPrsCurveStyle;
   Handle(StepRepr_ProductDefinitionShape)                 myGDTCommonPDS;
 };
 

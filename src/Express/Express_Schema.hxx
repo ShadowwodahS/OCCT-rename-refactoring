@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 
 class TCollection_HAsciiString;
-class Express_HSequenceOfItem;
+class ItemSequence;
 class Express_Item;
 class AsciiString1;
 class Express_Type;
@@ -34,18 +34,18 @@ public:
   //! Creates a schema with given name and given set of items
   //! and calls Prepare()
   Standard_EXPORT Express_Schema(const Standard_CString                 theName,
-                                 const Handle(Express_HSequenceOfItem)& theItems);
+                                 const Handle(ItemSequence)& theItems);
 
   //! Creates a schema with given name and given set of items
   //! and calls Prepare()
   Standard_EXPORT Express_Schema(const Handle(TCollection_HAsciiString)& theName,
-                                 const Handle(Express_HSequenceOfItem)&  theItems);
+                                 const Handle(ItemSequence)&  theItems);
 
   //! Returns schema name
   Standard_EXPORT const Handle(TCollection_HAsciiString)& Name() const;
 
   //! Returns sequence of items
-  Standard_EXPORT const Handle(Express_HSequenceOfItem)& Items() const;
+  Standard_EXPORT const Handle(ItemSequence)& Items() const;
 
   //! Returns number of items
   Standard_EXPORT Standard_Integer NbItems() const;
@@ -81,7 +81,7 @@ private:
 
 private:
   Handle(TCollection_HAsciiString) myName;
-  Handle(Express_HSequenceOfItem)  myItems;
+  Handle(ItemSequence)  myItems;
   Express_DataMapOfAsciiStringItem myDict;
 };
 

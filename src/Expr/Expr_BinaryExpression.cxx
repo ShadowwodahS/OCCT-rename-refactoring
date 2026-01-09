@@ -21,9 +21,9 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_BinaryExpression, Expr_GeneralExpression)
+IMPLEMENT_STANDARD_RTTIEXT(Expr_BinaryExpression, Expression1)
 
-void Expr_BinaryExpression::SetFirstOperand(const Handle(Expr_GeneralExpression)& exp)
+void Expr_BinaryExpression::SetFirstOperand(const Handle(Expression1)& exp)
 {
   Handle(Expr_BinaryExpression) me;
   me = this;
@@ -38,7 +38,7 @@ void Expr_BinaryExpression::SetFirstOperand(const Handle(Expr_GeneralExpression)
   myFirstOperand = exp;
 }
 
-void Expr_BinaryExpression::SetSecondOperand(const Handle(Expr_GeneralExpression)& exp)
+void Expr_BinaryExpression::SetSecondOperand(const Handle(Expression1)& exp)
 {
   Handle(Expr_BinaryExpression) me;
   me = this;
@@ -53,12 +53,12 @@ void Expr_BinaryExpression::SetSecondOperand(const Handle(Expr_GeneralExpression
   mySecondOperand = exp;
 }
 
-void Expr_BinaryExpression::CreateFirstOperand(const Handle(Expr_GeneralExpression)& exp)
+void Expr_BinaryExpression::CreateFirstOperand(const Handle(Expression1)& exp)
 {
   myFirstOperand = exp;
 }
 
-void Expr_BinaryExpression::CreateSecondOperand(const Handle(Expr_GeneralExpression)& exp)
+void Expr_BinaryExpression::CreateSecondOperand(const Handle(Expression1)& exp)
 {
   mySecondOperand = exp;
 }
@@ -68,7 +68,7 @@ Standard_Integer Expr_BinaryExpression::NbSubExpressions() const
   return 2;
 }
 
-const Handle(Expr_GeneralExpression)& Expr_BinaryExpression::SubExpression(
+const Handle(Expression1)& Expr_BinaryExpression::SubExpression(
   const Standard_Integer I) const
 {
   if (I == 1)
@@ -109,7 +109,7 @@ Standard_Boolean Expr_BinaryExpression::ContainsUnknowns() const
   return Standard_False;
 }
 
-Standard_Boolean Expr_BinaryExpression::Contains(const Handle(Expr_GeneralExpression)& exp) const
+Standard_Boolean Expr_BinaryExpression::Contains(const Handle(Expression1)& exp) const
 {
   if (myFirstOperand == exp)
   {
@@ -131,7 +131,7 @@ Standard_Boolean Expr_BinaryExpression::Contains(const Handle(Expr_GeneralExpres
 }
 
 void Expr_BinaryExpression::Replace(const Handle(Expr_NamedUnknown)&      var,
-                                    const Handle(Expr_GeneralExpression)& with)
+                                    const Handle(Expression1)& with)
 {
   if (myFirstOperand == var)
   {
@@ -157,11 +157,11 @@ void Expr_BinaryExpression::Replace(const Handle(Expr_NamedUnknown)&      var,
   }
 }
 
-Handle(Expr_GeneralExpression) Expr_BinaryExpression::Simplified() const
+Handle(Expression1) Expr_BinaryExpression::Simplified() const
 {
   Handle(Expr_BinaryExpression)  cop = Handle(Expr_BinaryExpression)::DownCast(Copy());
-  Handle(Expr_GeneralExpression) op1 = cop->FirstOperand();
-  Handle(Expr_GeneralExpression) op2 = cop->SecondOperand();
+  Handle(Expression1) op1 = cop->FirstOperand();
+  Handle(Expression1) op2 = cop->SecondOperand();
   cop->SetFirstOperand(op1->Simplified());
   cop->SetSecondOperand(op2->Simplified());
   return cop->ShallowSimplified();

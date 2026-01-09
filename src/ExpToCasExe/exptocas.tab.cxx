@@ -99,14 +99,14 @@ int ec_curline(void);
 /************************************************/
 /* FUNCTIONS FOR CREATING SCHEMA REPRESENTATION */
 
-static Express_Schema*          mkschema(char* name, Express_HSequenceOfItem* ilist);
-static Express_HSequenceOfItem* mkilist(Express_Item* item, Express_HSequenceOfItem* seq);
+static Express_Schema*          mkschema(char* name, ItemSequence* ilist);
+static ItemSequence* mkilist(Express_Item* item, ItemSequence* seq);
 static Express_Item*            mkenum(char* name, TColStd_HSequenceOfHAsciiString* tlist);
 static Express_Item*            mkselect(char* name, TColStd_HSequenceOfHAsciiString* tlist);
 static Express_Item*            mkalias(char* name, Express_Type* type);
 static Express_Item*            mkentity(char*                            name,
                                          TColStd_HSequenceOfHAsciiString* inherit,
-                                         Express_HSequenceOfField*        field,
+                                         FieldSequence*        field,
                                          int                              isabstract);
 static Express_Reference*       mkrefs(char* name, TColStd_HSequenceOfHAsciiString* items);
 static TColStd_HSequenceOfHAsciiString* mktlist(char* name, TColStd_HSequenceOfHAsciiString* tlist);
@@ -116,7 +116,7 @@ static Express_Type*                    mktstd(int keyword);
 static Express_Type*                    mktname(char* name);
 static Express_Type*                    mktset(int keyword, int ilow, int ihigh, Express_Type* of);
 static Express_Field*                   mkfield(char* name, Express_Type* type, int optional);
-static Express_HSequenceOfField* mkflist(Express_Field* field, Express_HSequenceOfField* seq);
+static FieldSequence* mkflist(Express_Field* field, FieldSequence* seq);
 
 #ifndef YY_
   #if defined YYENABLE_NLS && YYENABLE_NLS
@@ -1423,18 +1423,18 @@ parser::symbol_kind_type parser::yytranslate_(int t)
 /************************************************/
 /* FUNCTIONS FOR CREATING SCHEMA REPRESENTATION */
 
-static Express_Schema* mkschema(char* name, Express_HSequenceOfItem* ilist)
+static Express_Schema* mkschema(char* name, ItemSequence* ilist)
 {
   Express_Schema* sch = new Express_Schema(name, ilist);
   Express1::Schema()   = sch;
   return sch;
 }
 
-static Express_HSequenceOfItem* mkilist(Express_Item* item, Express_HSequenceOfItem* seq)
+static ItemSequence* mkilist(Express_Item* item, ItemSequence* seq)
 {
   if (!seq)
   {
-    seq = new Express_HSequenceOfItem;
+    seq = new ItemSequence;
     seq->Append(item);
   }
   else
@@ -1459,7 +1459,7 @@ static Express_Item* mkalias(char* name, Express_Type* type)
 
 static Express_Item* mkentity(char*                            name,
                               TColStd_HSequenceOfHAsciiString* inherit,
-                              Express_HSequenceOfField*        field,
+                              FieldSequence*        field,
                               int                              isabstract)
 {
   Express_Entity* ent = new Express_Entity(name, inherit, field);
@@ -1548,13 +1548,13 @@ static Express_Field* mkfield(char* name, Express_Type* type, int optional)
   return new Express_Field(name, type, optional);
 }
 
-static Express_HSequenceOfField* mkflist(Express_Field* field, Express_HSequenceOfField* seq)
+static FieldSequence* mkflist(Express_Field* field, FieldSequence* seq)
 {
   if (seq)
     seq->Prepend(field);
   else
   {
-    seq = new Express_HSequenceOfField;
+    seq = new FieldSequence;
     seq->Append(field);
   }
   return seq;

@@ -31,7 +31,7 @@ class Geom2d_BSplineCurve;
 class Poly_Polygon2D;
 class Poly_Polygon3D;
 class MeshTriangulation;
-struct DrawTrSurf_Params;
+struct Params1;
 
 //! This package supports the display of parametric curves and surfaces.
 //!
@@ -165,7 +165,7 @@ public:
   Standard_EXPORT static Handle(Poly_Polygon2D) GetPolygon2D(Standard_CString& Name);
 
   //! Return package global parameters.
-  Standard_EXPORT static DrawTrSurf_Params& Parameters();
+  Standard_EXPORT static Params1& Parameters();
 
   //! defines display commands.
   Standard_EXPORT static void BasicCommands(DrawInterpreter& I);

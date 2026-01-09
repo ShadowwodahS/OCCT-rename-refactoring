@@ -27,11 +27,11 @@ class AsciiString1;
 class TDataStd_TreeNode;
 
 class DDataStd_TreeBrowser;
-DEFINE_STANDARD_HANDLE(DDataStd_TreeBrowser, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DDataStd_TreeBrowser, Drawable3D)
 
 //! Browses a TreeNode from TDataStd1.
 //! =================================
-class DDataStd_TreeBrowser : public Draw_Drawable3D
+class DDataStd_TreeBrowser : public Drawable3D
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
@@ -59,7 +59,7 @@ public:
   //! <L>
   Standard_EXPORT AsciiString1 OpenNode(const DataLabel& L) const;
 
-  DEFINE_STANDARD_RTTIEXT(DDataStd_TreeBrowser, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DDataStd_TreeBrowser, Drawable3D)
 
 protected:
 private:

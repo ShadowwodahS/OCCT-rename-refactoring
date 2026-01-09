@@ -81,12 +81,12 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
     {
       StepShape_Shell                 aShellSelect;
       Handle(StepShape_OpenShell)     aOpenShell = new StepShape_OpenShell();
-      Handle(StepShape_HArray1OfFace) aCfsFaces  = new StepShape_HArray1OfFace(1, 1);
+      Handle(HArray1OfFace1) aCfsFaces  = new HArray1OfFace1(1, 1);
       aCfsFaces->SetValue(1, aFS);
       Handle(TCollection_HAsciiString) aName = new TCollection_HAsciiString("");
       aOpenShell->Init(aName, aCfsFaces);
       aShellSelect.SetValue(aOpenShell);
-      Handle(StepShape_HArray1OfShell) aSbsmFaces = new StepShape_HArray1OfShell(1, 1);
+      Handle(HArray1OfShell1) aSbsmFaces = new HArray1OfShell1(1, 1);
       aSbsmFaces->SetValue(1, aShellSelect);
       theShellBasedSurfaceModel = new StepShape_ShellBasedSurfaceModel();
       theShellBasedSurfaceModel->Init(aName, aSbsmFaces);
@@ -113,7 +113,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
 {
   done = Standard_False;
   StepShape_Shell                  aShellSelect;
-  Handle(StepShape_HArray1OfShell) aSbsmBoundary;
+  Handle(HArray1OfShell1) aSbsmBoundary;
   Handle(StepShape_OpenShell)      aOpenShell;
   Handle(StepShape_ClosedShell)    aClosedShell;
   MoniTool_DataMapOfShapeTransient aMap;
@@ -138,7 +138,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
   {
     if (!StepB.Value().IsNull())
     {
-      aSbsmBoundary = new StepShape_HArray1OfShell(1, 1);
+      aSbsmBoundary = new HArray1OfShell1(1, 1);
       if (aShell.Closed())
       {
         aClosedShell = Handle(StepShape_ClosedShell)::DownCast(StepB.Value());
@@ -180,7 +180,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
 {
   done = Standard_False;
   StepShape_Shell                  aShellSelect;
-  Handle(StepShape_HArray1OfShell) aSbsmBoundary;
+  Handle(HArray1OfShell1) aSbsmBoundary;
   Handle(StepShape_OpenShell)      aOpenShell;
   Handle(StepShape_ClosedShell)    aClosedShell;
   TopoDS_Iterator                  It;
@@ -240,7 +240,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
   Standard_Integer N = S.Length();
   if (N >= 1)
   {
-    aSbsmBoundary = new StepShape_HArray1OfShell(1, N);
+    aSbsmBoundary = new HArray1OfShell1(1, N);
     for (Standard_Integer i = 1; i <= N; i++)
     {
       aOpenShell = Handle(StepShape_OpenShell)::DownCast(S.Value(i));

@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_ConnectedFaceSet, StepShape_TopologicalRepr
 StepShape_ConnectedFaceSet::StepShape_ConnectedFaceSet() {}
 
 void StepShape_ConnectedFaceSet::Init(const Handle(TCollection_HAsciiString)& aName,
-                                      const Handle(StepShape_HArray1OfFace)&  aCfsFaces)
+                                      const Handle(HArray1OfFace1)&  aCfsFaces)
 {
   // --- classe own fields ---
   cfsFaces = aCfsFaces;
@@ -28,12 +28,12 @@ void StepShape_ConnectedFaceSet::Init(const Handle(TCollection_HAsciiString)& aN
   StepRepr_RepresentationItem::Init(aName);
 }
 
-void StepShape_ConnectedFaceSet::SetCfsFaces(const Handle(StepShape_HArray1OfFace)& aCfsFaces)
+void StepShape_ConnectedFaceSet::SetCfsFaces(const Handle(HArray1OfFace1)& aCfsFaces)
 {
   cfsFaces = aCfsFaces;
 }
 
-Handle(StepShape_HArray1OfFace) StepShape_ConnectedFaceSet::CfsFaces() const
+Handle(HArray1OfFace1) StepShape_ConnectedFaceSet::CfsFaces() const
 {
   return cfsFaces;
 }

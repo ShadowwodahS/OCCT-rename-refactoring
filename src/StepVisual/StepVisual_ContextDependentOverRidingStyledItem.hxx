@@ -39,15 +39,15 @@ public:
   Standard_EXPORT StepVisual_ContextDependentOverRidingStyledItem();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&                        aName,
-                            const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
+                            const Handle(HArray1OfPresentationStyle)& aStyles,
                             const Handle(RefObject)&                              aItem,
                             const Handle(StepVisual_StyledItem)&                  aOverRiddenStyle,
-                            const Handle(StepVisual_HArray1OfStyleContextSelect)& aStyleContext);
+                            const Handle(HArray1OfStyleContext)& aStyleContext);
 
   Standard_EXPORT void SetStyleContext(
-    const Handle(StepVisual_HArray1OfStyleContextSelect)& aStyleContext);
+    const Handle(HArray1OfStyleContext)& aStyleContext);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfStyleContextSelect) StyleContext() const;
+  Standard_EXPORT Handle(HArray1OfStyleContext) StyleContext() const;
 
   Standard_EXPORT StepVisual_StyleContextSelect StyleContextValue(const Standard_Integer num) const;
 
@@ -58,7 +58,7 @@ public:
 
 protected:
 private:
-  Handle(StepVisual_HArray1OfStyleContextSelect) styleContext;
+  Handle(HArray1OfStyleContext) styleContext;
 };
 
 #endif // _StepVisual_ContextDependentOverRidingStyledItem_HeaderFile

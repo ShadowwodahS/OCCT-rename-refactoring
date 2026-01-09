@@ -28,11 +28,11 @@
 class Expr_NamedUnknown;
 class AsciiString1;
 
-class Expr_GeneralExpression;
-DEFINE_STANDARD_HANDLE(Expr_GeneralExpression, RefObject)
+class Expression1;
+DEFINE_STANDARD_HANDLE(Expression1, RefObject)
 
 //! Defines the general purposes of any expression.
-class Expr_GeneralExpression : public RefObject
+class Expression1 : public RefObject
 {
 
 public:
@@ -42,28 +42,28 @@ public:
 
   //! Returns the <I>-th sub-expression of <me>
   //! raises OutOfRange if <I> > NbSubExpressions(me)
-  Standard_EXPORT virtual const Handle(Expr_GeneralExpression)& SubExpression(
+  Standard_EXPORT virtual const Handle(Expression1)& SubExpression(
     const Standard_Integer I) const = 0;
 
   //! Returns a GeneralExpression after replacement of
   //! NamedUnknowns by an associated expression and after
   //! values computation.
-  Standard_EXPORT virtual Handle(Expr_GeneralExpression) Simplified() const = 0;
+  Standard_EXPORT virtual Handle(Expression1) Simplified() const = 0;
 
   //! Returns a GeneralExpression after a simplification
   //! of the arguments of <me>.
-  Standard_EXPORT virtual Handle(Expr_GeneralExpression) ShallowSimplified() const = 0;
+  Standard_EXPORT virtual Handle(Expression1) ShallowSimplified() const = 0;
 
   //! Returns a copy of <me> having the same unknowns and
   //! functions.
-  Standard_EXPORT virtual Handle(Expr_GeneralExpression) Copy() const = 0;
+  Standard_EXPORT virtual Handle(Expression1) Copy() const = 0;
 
   //! Tests if <me> contains NamedUnknowns.
   Standard_EXPORT virtual Standard_Boolean ContainsUnknowns() const = 0;
 
   //! Tests if <exp> is contained in <me>.
   Standard_EXPORT virtual Standard_Boolean Contains(
-    const Handle(Expr_GeneralExpression)& exp) const = 0;
+    const Handle(Expression1)& exp) const = 0;
 
   //! Tests if <me> is linear on every NamedUnknown it
   //! contains.
@@ -80,15 +80,15 @@ public:
   //! testing. It could also be very slow; to be used
   //! carefully.
   Standard_EXPORT virtual Standard_Boolean IsIdentical(
-    const Handle(Expr_GeneralExpression)& Other) const = 0;
+    const Handle(Expression1)& Other) const = 0;
 
   //! Returns the derivative on <X> unknown of <me>
-  Standard_EXPORT virtual Handle(Expr_GeneralExpression) Derivative(
+  Standard_EXPORT virtual Handle(Expression1) Derivative(
     const Handle(Expr_NamedUnknown)& X) const = 0;
 
   //! Returns the <N>-th derivative on <X> unknown of <me>.
   //! Raise OutOfRange if N <= 0
-  Standard_EXPORT virtual Handle(Expr_GeneralExpression) NDerivative(
+  Standard_EXPORT virtual Handle(Expression1) NDerivative(
     const Handle(Expr_NamedUnknown)& X,
     const Standard_Integer           N) const;
 
@@ -96,7 +96,7 @@ public:
   //! in <me>. Copies of <with> are made with the Copy() method.
   //! Raises InvalidOperand if <with> contains <me>.
   Standard_EXPORT virtual void Replace(const Handle(Expr_NamedUnknown)&      var,
-                                       const Handle(Expr_GeneralExpression)& with) = 0;
+                                       const Handle(Expression1)& with) = 0;
 
   //! Returns the value of <me> (as a Real) by
   //! replacement of <vars> by <vals>.
@@ -114,7 +114,7 @@ public:
   //! returns a string representing <me> in a readable way.
   Standard_EXPORT virtual AsciiString1 String() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Expr_GeneralExpression, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Expression1, RefObject)
 
 protected:
 private:

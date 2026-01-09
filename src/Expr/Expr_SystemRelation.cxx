@@ -72,7 +72,7 @@ Standard_Boolean Expr_SystemRelation::IsLinear() const
   return Standard_True;
 }
 
-Standard_Boolean Expr_SystemRelation::Contains(const Handle(Expr_GeneralExpression)& exp) const
+Standard_Boolean Expr_SystemRelation::Contains(const Handle(Expression1)& exp) const
 {
   for (Standard_Integer i = 1; i <= myRelations.Length(); i++)
   {
@@ -85,7 +85,7 @@ Standard_Boolean Expr_SystemRelation::Contains(const Handle(Expr_GeneralExpressi
 }
 
 void Expr_SystemRelation::Replace(const Handle(Expr_NamedUnknown)&      var,
-                                  const Handle(Expr_GeneralExpression)& with)
+                                  const Handle(Expression1)& with)
 {
   for (Standard_Integer i = 1; i <= myRelations.Length(); i++)
   {

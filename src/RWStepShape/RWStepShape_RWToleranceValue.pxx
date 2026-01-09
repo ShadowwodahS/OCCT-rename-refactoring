@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class StepData_StepReaderData;
 class Interface_Check;
-class StepShape_ToleranceValue;
+class ToleranceValue1;
 class StepData_StepWriter;
 class Interface_EntityIterator;
 
@@ -39,12 +39,12 @@ public:
   Standard_HIDDEN void ReadStep(const Handle(StepData_StepReaderData)&  data,
                                 const Standard_Integer                  num,
                                 Handle(Interface_Check)&                ach,
-                                const Handle(StepShape_ToleranceValue)& ent) const;
+                                const Handle(ToleranceValue1)& ent) const;
 
   Standard_HIDDEN void WriteStep(StepData_StepWriter&                    SW,
-                                 const Handle(StepShape_ToleranceValue)& ent) const;
+                                 const Handle(ToleranceValue1)& ent) const;
 
-  Standard_HIDDEN void Share(const Handle(StepShape_ToleranceValue)& ent,
+  Standard_HIDDEN void Share(const Handle(ToleranceValue1)& ent,
                              Interface_EntityIterator&               iter) const;
 
 protected:

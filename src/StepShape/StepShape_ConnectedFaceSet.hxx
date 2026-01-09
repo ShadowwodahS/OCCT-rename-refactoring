@@ -37,11 +37,11 @@ public:
   Standard_EXPORT StepShape_ConnectedFaceSet();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aName,
-                            const Handle(StepShape_HArray1OfFace)&  aCfsFaces);
+                            const Handle(HArray1OfFace1)&  aCfsFaces);
 
-  Standard_EXPORT virtual void SetCfsFaces(const Handle(StepShape_HArray1OfFace)& aCfsFaces);
+  Standard_EXPORT virtual void SetCfsFaces(const Handle(HArray1OfFace1)& aCfsFaces);
 
-  Standard_EXPORT virtual Handle(StepShape_HArray1OfFace) CfsFaces() const;
+  Standard_EXPORT virtual Handle(HArray1OfFace1) CfsFaces() const;
 
   Standard_EXPORT virtual Handle(StepShape_Face) CfsFacesValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfFace) cfsFaces;
+  Handle(HArray1OfFace1) cfsFaces;
 };
 
 #endif // _StepShape_ConnectedFaceSet_HeaderFile

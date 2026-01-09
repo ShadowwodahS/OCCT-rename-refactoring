@@ -3568,7 +3568,7 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer           
     break;
       // cases 474, 478, 479 : no shared entities
     case 475: {
-      DeclareAndCast(StepShape_ToleranceValue, anent, ent);
+      DeclareAndCast(ToleranceValue1, anent, ent);
       RWStepShape_RWToleranceValue tool;
       tool.Share(anent, iter);
     }
@@ -4679,13 +4679,13 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer           
     }
     break;
     case 720: {
-      DeclareAndCast(StepVisual_SurfaceStyleTransparent, anent, ent);
+      DeclareAndCast(SurfaceTransparency, anent, ent);
       RWStepVisual_RWSurfaceStyleTransparent tool;
       tool.Share(anent, iter);
     }
     break;
     case 721: {
-      DeclareAndCast(StepVisual_SurfaceStyleReflectanceAmbient, anent, ent);
+      DeclareAndCast(SurfaceReflectanceAmbient, anent, ent);
       RWStepVisual_RWSurfaceStyleReflectanceAmbient tool;
       tool.Share(anent, iter);
     }
@@ -5583,7 +5583,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepShape_ClosedShell;
       break;
     case 64:
-      ent = new StepVisual_Colour;
+      ent = new Colour;
       break;
     case 65:
       ent = new StepVisual_ColourRgb;
@@ -5649,7 +5649,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepVisual_CurveStyleFont;
       break;
     case 89:
-      ent = new StepVisual_CurveStyleFontPattern;
+      ent = new CurveStyleFontPattern;
       break;
     case 90:
       ent = new StepGeom_CylindricalSurface;
@@ -5961,7 +5961,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepVisual_PresentationRepresentation;
       break;
     case 217:
-      ent = new StepVisual_PresentationSet;
+      ent = new PresentationSet1;
       break;
     case 218:
       ent = new StepVisual_PresentationSize;
@@ -6675,7 +6675,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepShape_LimitsAndFits;
       break;
     case 475:
-      ent = new StepShape_ToleranceValue;
+      ent = new ToleranceValue1;
       break;
     case 476:
       ent = new StepShape_MeasureQualification;
@@ -6684,7 +6684,7 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepShape_PlusMinusTolerance;
       break;
     case 478:
-      ent = new StepShape_PrecisionQualifier;
+      ent = new PrecisionQualifier1;
       break;
     case 479:
       ent = new StepShape_TypeQualifier;
@@ -7277,10 +7277,10 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid(const Standard_Integer      
       ent = new StepVisual_AnnotationCurveOccurrenceAndGeomReprItem;
       break;
     case 720:
-      ent = new StepVisual_SurfaceStyleTransparent;
+      ent = new SurfaceTransparency;
       break;
     case 721:
-      ent = new StepVisual_SurfaceStyleReflectanceAmbient;
+      ent = new SurfaceReflectanceAmbient;
       break;
     case 722:
       ent = new StepVisual_SurfaceStyleRendering;

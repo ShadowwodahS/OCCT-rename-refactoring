@@ -13,7 +13,7 @@
 
 #include <StepVisual_BackgroundColour.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_BackgroundColour, StepVisual_Colour)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_BackgroundColour, Colour)
 
 StepVisual_BackgroundColour::StepVisual_BackgroundColour() {}
 

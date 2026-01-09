@@ -23,8 +23,8 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Different, Expr_SingleRelation)
 
-Expr_Different::Expr_Different(const Handle(Expr_GeneralExpression)& exp1,
-                               const Handle(Expr_GeneralExpression)& exp2)
+Expr_Different::Expr_Different(const Handle(Expression1)& exp1,
+                               const Handle(Expression1)& exp2)
 {
   SetFirstMember(exp1);
   SetSecondMember(exp2);
@@ -32,8 +32,8 @@ Expr_Different::Expr_Different(const Handle(Expr_GeneralExpression)& exp1,
 
 Standard_Boolean Expr_Different::IsSatisfied() const
 {
-  Handle(Expr_GeneralExpression) fm = FirstMember();
-  Handle(Expr_GeneralExpression) sm = SecondMember();
+  Handle(Expression1) fm = FirstMember();
+  Handle(Expression1) sm = SecondMember();
   fm                                = fm->Simplified();
   sm                                = sm->Simplified();
   return (!fm->IsIdentical(sm));
@@ -41,15 +41,15 @@ Standard_Boolean Expr_Different::IsSatisfied() const
 
 Handle(Expr_GeneralRelation) Expr_Different::Simplified() const
 {
-  Handle(Expr_GeneralExpression) fm = FirstMember();
-  Handle(Expr_GeneralExpression) sm = SecondMember();
+  Handle(Expression1) fm = FirstMember();
+  Handle(Expression1) sm = SecondMember();
   return new Expr_Different(fm->Simplified(), sm->Simplified());
 }
 
 void Expr_Different::Simplify()
 {
-  Handle(Expr_GeneralExpression) fm = FirstMember();
-  Handle(Expr_GeneralExpression) sm = SecondMember();
+  Handle(Expression1) fm = FirstMember();
+  Handle(Expression1) sm = SecondMember();
   SetFirstMember(fm->Simplified());
   SetSecondMember(sm->Simplified());
 }

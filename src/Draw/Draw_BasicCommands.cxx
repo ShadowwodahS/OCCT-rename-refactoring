@@ -95,7 +95,7 @@ static Standard_Integer dchronom(DrawInterpreter& theDI,
 
   const char*              aTimerName = theArgVec[1];
   Handle(Draw_Chronometer) aChronom;
-  if (Handle(Draw_Drawable3D) aDrawable = Draw1::Get(aTimerName))
+  if (Handle(Drawable3D) aDrawable = Draw1::Get(aTimerName))
   {
     aChronom = Handle(Draw_Chronometer)::DownCast(aDrawable);
   }

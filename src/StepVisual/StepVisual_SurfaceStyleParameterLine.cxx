@@ -20,7 +20,7 @@ StepVisual_SurfaceStyleParameterLine::StepVisual_SurfaceStyleParameterLine() {}
 
 void StepVisual_SurfaceStyleParameterLine::Init(
   const Handle(StepVisual_CurveStyle)&                    aStyleOfParameterLines,
-  const Handle(StepVisual_HArray1OfDirectionCountSelect)& aDirectionCounts)
+  const Handle(HArray1OfDirectionCount)& aDirectionCounts)
 {
   // --- classe own fields ---
   styleOfParameterLines = aStyleOfParameterLines;
@@ -39,12 +39,12 @@ Handle(StepVisual_CurveStyle) StepVisual_SurfaceStyleParameterLine::StyleOfParam
 }
 
 void StepVisual_SurfaceStyleParameterLine::SetDirectionCounts(
-  const Handle(StepVisual_HArray1OfDirectionCountSelect)& aDirectionCounts)
+  const Handle(HArray1OfDirectionCount)& aDirectionCounts)
 {
   directionCounts = aDirectionCounts;
 }
 
-Handle(StepVisual_HArray1OfDirectionCountSelect) StepVisual_SurfaceStyleParameterLine::
+Handle(HArray1OfDirectionCount) StepVisual_SurfaceStyleParameterLine::
   DirectionCounts() const
 {
   return directionCounts;

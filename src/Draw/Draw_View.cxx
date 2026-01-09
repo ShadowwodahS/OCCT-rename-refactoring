@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Draw_View::Draw_View(Standard_Integer theId,
+DrawView::DrawView(Standard_Integer theId,
                      DrawViewer*     theViewer,
                      Standard_Integer theX,
                      Standard_Integer theY,
@@ -60,7 +60,7 @@ static Aspect_Drawable findWindow(const char* theWindow)
 
 //=================================================================================================
 
-Draw_View::Draw_View(Standard_Integer theId, DrawViewer* theViewer, const char* theTitle)
+DrawView::DrawView(Standard_Integer theId, DrawViewer* theViewer, const char* theTitle)
     : DrawWindow(theTitle,
                   NCollection_Vec2<int>(0),
                   NCollection_Vec2<int>(50),
@@ -84,14 +84,14 @@ Draw_View::Draw_View(Standard_Integer theId, DrawViewer* theViewer, const char* 
 
 //=================================================================================================
 
-Draw_View::~Draw_View()
+DrawView::~DrawView()
 {
   DrawWindow::Destroy();
 }
 
 //=================================================================================================
 
-Standard_Boolean Draw_View::Init(const char* theType)
+Standard_Boolean DrawView::Init(const char* theType)
 {
   { // default fields
     myFocalDistance = 500.;
@@ -311,14 +311,14 @@ Standard_Boolean Draw_View::Init(const char* theType)
 
 //=================================================================================================
 
-void Draw_View::Transform(const Transform3d& theTransformation)
+void DrawView::Transform(const Transform3d& theTransformation)
 {
   myMatrix.Multiply(theTransformation);
 }
 
 //=================================================================================================
 
-void Draw_View::ResetFrame()
+void DrawView::ResetFrame()
 {
   myFrameX0 = 0;
   myFrameY0 = 0;
@@ -328,7 +328,7 @@ void Draw_View::ResetFrame()
 
 //=================================================================================================
 
-void Draw_View::GetFrame(Standard_Integer& theX0,
+void DrawView::GetFrame(Standard_Integer& theX0,
                          Standard_Integer& theY0,
                          Standard_Integer& theX1,
                          Standard_Integer& theY1)
@@ -352,7 +352,7 @@ void Draw_View::GetFrame(Standard_Integer& theX0,
 
 //=================================================================================================
 
-void Draw_View::WExpose()
+void DrawView::WExpose()
 {
   ResetFrame();
   myViewer->RepaintView(myId);

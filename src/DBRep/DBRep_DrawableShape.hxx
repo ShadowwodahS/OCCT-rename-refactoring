@@ -34,9 +34,9 @@ class Transform3d;
 
 //! Drawable structure to display a  shape. Contains a
 //! list of edges and a list of faces.
-class DBRep_DrawableShape : public Draw_Drawable3D
+class DBRep_DrawableShape : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(DBRep_DrawableShape, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DBRep_DrawableShape, Drawable3D)
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
@@ -98,7 +98,7 @@ class DBRep_DrawableShape : public Draw_Drawable3D
   Standard_EXPORT void DisplayHiddenLines(DrawDisplay& dis);
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
@@ -193,6 +193,6 @@ private:
   Standard_Real    myAng;
 };
 
-DEFINE_STANDARD_HANDLE(DBRep_DrawableShape, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DBRep_DrawableShape, Drawable3D)
 
 #endif // _DBRep_DrawableShape_HeaderFile

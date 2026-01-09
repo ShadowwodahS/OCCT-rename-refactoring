@@ -27,9 +27,9 @@
 
 //! Drawable History object.
 //! Allows keeping histories of the algorithms in Draw1.
-class BRepTest_DrawableHistory : public Draw_Drawable3D
+class BRepTest_DrawableHistory : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(BRepTest_DrawableHistory, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(BRepTest_DrawableHistory, Drawable3D)
 
 public:
   //! Creation of the Drawable history.
@@ -51,6 +51,6 @@ private:
   Handle(ShapeHistory) myHistory; //!< Tool for tracking History of shape's modification
 };
 
-DEFINE_STANDARD_HANDLE(BRepTest_DrawableHistory, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(BRepTest_DrawableHistory, Drawable3D)
 
 #endif

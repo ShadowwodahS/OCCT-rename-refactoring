@@ -25,25 +25,25 @@
 class Expr_NamedUnknown;
 
 class Expr_BinaryExpression;
-DEFINE_STANDARD_HANDLE(Expr_BinaryExpression, Expr_GeneralExpression)
+DEFINE_STANDARD_HANDLE(Expr_BinaryExpression, Expression1)
 
 //! Defines all binary expressions. The order of the two
 //! operands is significant.
-class Expr_BinaryExpression : public Expr_GeneralExpression
+class Expr_BinaryExpression : public Expression1
 {
 
 public:
-  const Handle(Expr_GeneralExpression)& FirstOperand() const;
+  const Handle(Expression1)& FirstOperand() const;
 
-  const Handle(Expr_GeneralExpression)& SecondOperand() const;
+  const Handle(Expression1)& SecondOperand() const;
 
   //! Sets first operand of <me>
   //! Raises InvalidOperand if exp = me
-  Standard_EXPORT void SetFirstOperand(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void SetFirstOperand(const Handle(Expression1)& exp);
 
   //! Sets second operand of <me>
   //! Raises InvalidOperand if <exp> contains <me>.
-  Standard_EXPORT void SetSecondOperand(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void SetSecondOperand(const Handle(Expression1)& exp);
 
   //! returns the number of sub-expressions contained
   //! in <me> ( >= 0)
@@ -51,7 +51,7 @@ public:
 
   //! returns the <I>-th sub-expression of <me>
   //! raises OutOfRange if <I> > NbSubExpressions(me)
-  Standard_EXPORT const Handle(Expr_GeneralExpression)& SubExpression(
+  Standard_EXPORT const Handle(Expression1)& SubExpression(
     const Standard_Integer I) const Standard_OVERRIDE;
 
   //! Does <me> contain NamedUnknown ?
@@ -59,31 +59,31 @@ public:
 
   //! Tests if <me> contains <exp>.
   Standard_EXPORT Standard_Boolean
-    Contains(const Handle(Expr_GeneralExpression)& exp) const Standard_OVERRIDE;
+    Contains(const Handle(Expression1)& exp) const Standard_OVERRIDE;
 
   //! Replaces all occurrences of <var> with <with> in <me>.
   //! Raises InvalidOperand if <with> contains <me>.
   Standard_EXPORT void Replace(const Handle(Expr_NamedUnknown)&      var,
-                               const Handle(Expr_GeneralExpression)& with) Standard_OVERRIDE;
+                               const Handle(Expression1)& with) Standard_OVERRIDE;
 
   //! Returns a GeneralExpression after replacement of
   //! NamedUnknowns by an associated expression and after
   //! values computation.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Simplified() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expression1) Simplified() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Expr_BinaryExpression, Expr_GeneralExpression)
+  DEFINE_STANDARD_RTTIEXT(Expr_BinaryExpression, Expression1)
 
 protected:
   //! Sets first operand of <me>
-  Standard_EXPORT void CreateFirstOperand(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void CreateFirstOperand(const Handle(Expression1)& exp);
 
   //! Sets second operand of <me>
   //! Raises InvalidOperand if <exp> contains <me>.
-  Standard_EXPORT void CreateSecondOperand(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void CreateSecondOperand(const Handle(Expression1)& exp);
 
 private:
-  Handle(Expr_GeneralExpression) myFirstOperand;
-  Handle(Expr_GeneralExpression) mySecondOperand;
+  Handle(Expression1) myFirstOperand;
+  Handle(Expression1) mySecondOperand;
 };
 
 #include <Expr_BinaryExpression.lxx>

@@ -25,10 +25,10 @@ StepVisual_ContextDependentOverRidingStyledItem::StepVisual_ContextDependentOver
 
 void StepVisual_ContextDependentOverRidingStyledItem::Init(
   const Handle(TCollection_HAsciiString)&                        aName,
-  const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
+  const Handle(HArray1OfPresentationStyle)& aStyles,
   const Handle(RefObject)&                              aItem,
   const Handle(StepVisual_StyledItem)&                           aOverRiddenStyle,
-  const Handle(StepVisual_HArray1OfStyleContextSelect)&          aStyleContext)
+  const Handle(HArray1OfStyleContext)&          aStyleContext)
 {
   // --- classe own fields ---
   styleContext = aStyleContext;
@@ -37,12 +37,12 @@ void StepVisual_ContextDependentOverRidingStyledItem::Init(
 }
 
 void StepVisual_ContextDependentOverRidingStyledItem::SetStyleContext(
-  const Handle(StepVisual_HArray1OfStyleContextSelect)& aStyleContext)
+  const Handle(HArray1OfStyleContext)& aStyleContext)
 {
   styleContext = aStyleContext;
 }
 
-Handle(StepVisual_HArray1OfStyleContextSelect) StepVisual_ContextDependentOverRidingStyledItem::
+Handle(HArray1OfStyleContext) StepVisual_ContextDependentOverRidingStyledItem::
   StyleContext() const
 {
   return styleContext;

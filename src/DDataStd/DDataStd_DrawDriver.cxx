@@ -82,7 +82,7 @@ static TopoShape Geometry1(const Handle(TDataXtd_Constraint)& A,
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const DataLabel& L) const
+Handle(Drawable3D) DDataStd_DrawDriver::Drawable(const DataLabel& L) const
 {
   // CONSTRAINT
 
@@ -154,13 +154,13 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const DataLabel& L) const
     return DrawableShape(NS->Label(), Draw_jaune);
   }
 
-  Handle(Draw_Drawable3D) D3D;
+  Handle(Drawable3D) D3D;
   return D3D;
 }
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
+Handle(Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
   const Handle(TDataXtd_Constraint)& A) const
 {
   Handle(DrawDim_Dimension) D;
@@ -330,11 +330,11 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const DataLabel&       L,
+Handle(Drawable3D) DDataStd_DrawDriver::DrawableShape(const DataLabel&       L,
                                                            const Draw_ColorKind   color,
                                                            const Standard_Boolean current) const
 {
-  Handle(Draw_Drawable3D)    DS;
+  Handle(Drawable3D)    DS;
   Handle(ShapeAttribute) NS;
   if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
@@ -350,7 +350,7 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const DataLabel&     
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const TopoShape&  s,
+Handle(Drawable3D) DDataStd_DrawDriver::DrawableShape(const TopoShape&  s,
                                                            const Draw_ColorKind color)
 {
   Handle(DBRep_DrawableShape) DS;

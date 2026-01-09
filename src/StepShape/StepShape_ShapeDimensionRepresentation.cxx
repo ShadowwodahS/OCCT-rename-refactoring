@@ -37,7 +37,7 @@ void StepShape_ShapeDimensionRepresentation::Init(
 
 void StepShape_ShapeDimensionRepresentation::Init(
   const Handle(TCollection_HAsciiString)&                            theName,
-  const Handle(StepShape_HArray1OfShapeDimensionRepresentationItem)& theItems,
+  const Handle(HArray1OfShapeDimReprItem)& theItems,
   const Handle(StepRepr_RepresentationContext)&                      theContextOfItems)
 {
   StepRepr_Representation::Init(theName, NULL, theContextOfItems);
@@ -47,14 +47,14 @@ void StepShape_ShapeDimensionRepresentation::Init(
 //=================================================================================================
 
 void StepShape_ShapeDimensionRepresentation::SetItemsAP242(
-  const Handle(StepShape_HArray1OfShapeDimensionRepresentationItem)& theItems)
+  const Handle(HArray1OfShapeDimReprItem)& theItems)
 {
   itemsAP242 = theItems;
 }
 
 //=================================================================================================
 
-Handle(StepShape_HArray1OfShapeDimensionRepresentationItem) StepShape_ShapeDimensionRepresentation::
+Handle(HArray1OfShapeDimReprItem) StepShape_ShapeDimensionRepresentation::
   ItemsAP242() const
 {
   return itemsAP242;

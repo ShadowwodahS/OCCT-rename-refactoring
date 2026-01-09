@@ -41,14 +41,14 @@ void RWStepVisual_RWCompositeText::ReadStep(const Handle(StepData_StepReaderData
 
   // --- own field : collectedText ---
 
-  Handle(StepVisual_HArray1OfTextOrCharacter) aCollectedText;
+  Handle(HArray1OfTextOrCharacter) aCollectedText;
   StepVisual_TextOrCharacter                  aCollectedTextItem;
   Standard_Integer                            nsub2;
   nsub2 = data->SubListNumber(num, 2, Standard_False);
   if (nsub2 != 0)
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aCollectedText       = new StepVisual_HArray1OfTextOrCharacter(1, nb2);
+    aCollectedText       = new HArray1OfTextOrCharacter(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

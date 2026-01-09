@@ -20,6 +20,6 @@
 #include <Expr_GeneralExpression.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(Expr_GeneralExpression)> Expr_SequenceOfGeneralExpression;
+typedef NCollection_Sequence<Handle(Expression1)> Expr_SequenceOfGeneralExpression;
 
 #endif

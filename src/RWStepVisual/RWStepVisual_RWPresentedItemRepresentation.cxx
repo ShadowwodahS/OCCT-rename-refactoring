@@ -38,9 +38,9 @@ void RWStepVisual_RWPresentedItemRepresentation::ReadStep(
   // szv#4:S4163:12Mar99 `Standard_Boolean stat1 =` not needed
   data->ReadEntity(num, 1, "date_time", ach, prs);
 
-  Handle(StepVisual_PresentedItem) pi;
+  Handle(PresentedItem) pi;
   // szv#4:S4163:12Mar99 `stat1 =` not needed
-  data->ReadEntity(num, 2, "dated_approval", ach, STANDARD_TYPE(StepVisual_PresentedItem), pi);
+  data->ReadEntity(num, 2, "dated_approval", ach, STANDARD_TYPE(PresentedItem), pi);
 
   //--- Initialisation of the read entity ---
 

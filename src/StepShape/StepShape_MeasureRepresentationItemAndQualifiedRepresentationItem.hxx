@@ -45,17 +45,17 @@ public:
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&          aName,
                             const Handle(StepBasic_MeasureValueMember)&      aValueComponent,
                             const StepBasic_Unit&                            aUnitComponent,
-                            const Handle(StepShape_HArray1OfValueQualifier)& qualifiers);
+                            const Handle(HArray1OfValueQualifier)& qualifiers);
 
   Standard_EXPORT void SetMeasure(const Handle(StepBasic_MeasureWithUnit)& Measure);
 
   Standard_EXPORT Handle(StepBasic_MeasureWithUnit) Measure() const;
 
-  Standard_EXPORT Handle(StepShape_HArray1OfValueQualifier) Qualifiers() const;
+  Standard_EXPORT Handle(HArray1OfValueQualifier) Qualifiers() const;
 
   Standard_EXPORT Standard_Integer NbQualifiers() const;
 
-  Standard_EXPORT void SetQualifiers(const Handle(StepShape_HArray1OfValueQualifier)& qualifiers);
+  Standard_EXPORT void SetQualifiers(const Handle(HArray1OfValueQualifier)& qualifiers);
 
   Standard_EXPORT StepShape_ValueQualifier QualifiersValue(const Standard_Integer num) const;
 
@@ -68,7 +68,7 @@ public:
 protected:
 private:
   Handle(StepBasic_MeasureWithUnit)         myMeasure;
-  Handle(StepShape_HArray1OfValueQualifier) theQualifiers;
+  Handle(HArray1OfValueQualifier) theQualifiers;
 };
 
 #endif // _StepShape_MeasureRepresentationItemAndQualifiedRepresentationItem_HeaderFile

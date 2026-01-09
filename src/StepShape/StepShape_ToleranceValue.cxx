@@ -14,33 +14,33 @@
 #include <StepBasic_MeasureWithUnit.hxx>
 #include <StepShape_ToleranceValue.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ToleranceValue, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ToleranceValue1, RefObject)
 
-StepShape_ToleranceValue::StepShape_ToleranceValue() {}
+ToleranceValue1::ToleranceValue1() {}
 
-void StepShape_ToleranceValue::Init(const Handle(RefObject)& lower_bound,
+void ToleranceValue1::Init(const Handle(RefObject)& lower_bound,
                                     const Handle(RefObject)& upper_bound)
 {
   theLowerBound = lower_bound;
   theUpperBound = upper_bound;
 }
 
-Handle(RefObject) StepShape_ToleranceValue::LowerBound() const
+Handle(RefObject) ToleranceValue1::LowerBound() const
 {
   return theLowerBound;
 }
 
-void StepShape_ToleranceValue::SetLowerBound(const Handle(RefObject)& lower_bound)
+void ToleranceValue1::SetLowerBound(const Handle(RefObject)& lower_bound)
 {
   theLowerBound = lower_bound;
 }
 
-Handle(RefObject) StepShape_ToleranceValue::UpperBound() const
+Handle(RefObject) ToleranceValue1::UpperBound() const
 {
   return theUpperBound;
 }
 
-void StepShape_ToleranceValue::SetUpperBound(const Handle(RefObject)& upper_bound)
+void ToleranceValue1::SetUpperBound(const Handle(RefObject)& upper_bound)
 {
   theUpperBound = upper_bound;
 }

@@ -36,16 +36,16 @@ public:
   Standard_EXPORT StepVisual_SurfaceSideStyle();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&                      aName,
-                            const Handle(StepVisual_HArray1OfSurfaceStyleElementSelect)& aStyles);
+                            const Handle(HArray1OfSurfaceStyleElement)& aStyles);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
   Standard_EXPORT void SetStyles(
-    const Handle(StepVisual_HArray1OfSurfaceStyleElementSelect)& aStyles);
+    const Handle(HArray1OfSurfaceStyleElement)& aStyles);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfSurfaceStyleElementSelect) Styles() const;
+  Standard_EXPORT Handle(HArray1OfSurfaceStyleElement) Styles() const;
 
   Standard_EXPORT StepVisual_SurfaceStyleElementSelect
     StylesValue(const Standard_Integer num) const;
@@ -57,7 +57,7 @@ public:
 protected:
 private:
   Handle(TCollection_HAsciiString)                      name;
-  Handle(StepVisual_HArray1OfSurfaceStyleElementSelect) styles;
+  Handle(HArray1OfSurfaceStyleElement) styles;
 };
 
 #endif // _StepVisual_SurfaceSideStyle_HeaderFile

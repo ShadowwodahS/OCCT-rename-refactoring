@@ -34,7 +34,7 @@ void StepShape_LoopAndPath::Init(const Handle(TCollection_HAsciiString)& aName,
 }
 
 void StepShape_LoopAndPath::Init(const Handle(TCollection_HAsciiString)&        aName,
-                                 const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+                                 const Handle(HArray1OfOrientedEdge)& aEdgeList)
 {
   // --- classe inherited fields ---
 
@@ -75,12 +75,12 @@ Handle(StepShape_Path) StepShape_LoopAndPath::Path() const
 
 //--- Specific Methods for AND classe field access ---
 
-void StepShape_LoopAndPath::SetEdgeList(const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+void StepShape_LoopAndPath::SetEdgeList(const Handle(HArray1OfOrientedEdge)& aEdgeList)
 {
   path->SetEdgeList(aEdgeList);
 }
 
-Handle(StepShape_HArray1OfOrientedEdge) StepShape_LoopAndPath::EdgeList() const
+Handle(HArray1OfOrientedEdge) StepShape_LoopAndPath::EdgeList() const
 {
   return path->EdgeList();
 }

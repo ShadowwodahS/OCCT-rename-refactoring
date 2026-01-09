@@ -13,7 +13,7 @@
 
 //: n7 abv 16.02.99: treatment of CARTESIAN_TRSF_OP_3D placed to StepGeom_MkTransformed3d
 // sln 23.10.2001. CTS23496: Verifying on error creation of directions is added
-// (StepToTopoDS_MakeTransformed::Compute(...) function)
+// (TransformedShapeBuilder::Compute(...) function)
 
 #include <Geom_Axis2Placement.hxx>
 #include <Geom_CartesianPoint.hxx>
@@ -36,11 +36,11 @@
 //  + pour CartesianOperator3d
 //=================================================================================================
 
-StepToTopoDS_MakeTransformed::StepToTopoDS_MakeTransformed() {}
+TransformedShapeBuilder::TransformedShapeBuilder() {}
 
 //=================================================================================================
 
-Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
+Standard_Boolean TransformedShapeBuilder::Compute(
   const Handle(StepGeom_Axis2Placement3d)& Origin,
   const Handle(StepGeom_Axis2Placement3d)& Target,
   const ConversionFactors&                  theLocalFactors)
@@ -67,7 +67,7 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
 
 //=================================================================================================
 
-Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
+Standard_Boolean TransformedShapeBuilder::Compute(
   const Handle(StepGeom_CartesianTransformationOperator3d)& Operator,
   const ConversionFactors&                                   theLocalFactors)
 {
@@ -76,14 +76,14 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
 
 //=================================================================================================
 
-const Transform3d& StepToTopoDS_MakeTransformed::Transformation() const
+const Transform3d& TransformedShapeBuilder::Transformation() const
 {
   return theTrsf;
 }
 
 //=================================================================================================
 
-Standard_Boolean StepToTopoDS_MakeTransformed::Transform(TopoShape& shape) const
+Standard_Boolean TransformedShapeBuilder::Transform(TopoShape& shape) const
 {
   if (theTrsf.Form() == gp_Identity)
     return Standard_False;
@@ -94,7 +94,7 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Transform(TopoShape& shape) const
 
 //=================================================================================================
 
-TopoShape StepToTopoDS_MakeTransformed::TranslateMappedItem(
+TopoShape TransformedShapeBuilder::TranslateMappedItem(
   const Handle(StepRepr_MappedItem)&       mapit,
   const Handle(Transfer_TransientProcess)& TP,
   const ConversionFactors&                  theLocalFactors,

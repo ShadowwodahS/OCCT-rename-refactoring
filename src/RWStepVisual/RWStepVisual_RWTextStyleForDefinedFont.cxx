@@ -34,9 +34,9 @@ void RWStepVisual_RWTextStyleForDefinedFont::ReadStep(
 
   // --- own field : textColour ---
 
-  Handle(StepVisual_Colour) aTextColour;
+  Handle(Colour) aTextColour;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat1 =` not needed
-  data->ReadEntity(num, 1, "text_colour", ach, STANDARD_TYPE(StepVisual_Colour), aTextColour);
+  data->ReadEntity(num, 1, "text_colour", ach, STANDARD_TYPE(Colour), aTextColour);
 
   //--- Initialisation of the read entity ---
 

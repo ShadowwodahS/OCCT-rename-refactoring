@@ -20,12 +20,12 @@
 #include <Draw_Drawable3D.hxx>
 #include <OSD_Timer.hxx>
 
-DEFINE_STANDARD_HANDLE(Draw_Chronometer, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Chronometer, Drawable3D)
 
 //! Class to store chronometer variables.
-class Draw_Chronometer : public Draw_Drawable3D
+class Draw_Chronometer : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(Draw_Chronometer, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Chronometer, Drawable3D)
 public:
   Standard_EXPORT Draw_Chronometer();
 
@@ -36,7 +36,7 @@ public:
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

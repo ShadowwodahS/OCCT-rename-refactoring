@@ -17,6 +17,6 @@
 #include <Express_SequenceOfField.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(Express_HSequenceOfField, Express_SequenceOfField)
+DEFINE_HSEQUENCE(FieldSequence, Express_SequenceOfField)
 
 #endif

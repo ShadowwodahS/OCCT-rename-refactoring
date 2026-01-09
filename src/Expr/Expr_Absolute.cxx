@@ -27,14 +27,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Absolute, Expr_UnaryExpression)
 
-Expr_Absolute::Expr_Absolute(const Handle(Expr_GeneralExpression)& exp)
+Expr_Absolute::Expr_Absolute(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_Absolute::ShallowSimplified() const
+Handle(Expression1) Expr_Absolute::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   if (op->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) valop = Handle(Expr_NumericValue)::DownCast(op);
@@ -48,18 +48,18 @@ Handle(Expr_GeneralExpression) Expr_Absolute::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_Absolute::Copy() const
+Handle(Expression1) Expr_Absolute::Copy() const
 {
   return new Expr_Absolute(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_Absolute::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Absolute::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_Absolute)))
   {
     return Standard_False;
   }
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   return op->IsIdentical(Other->SubExpression(1));
 }
 
@@ -68,10 +68,10 @@ Standard_Boolean Expr_Absolute::IsLinear() const
   return !ContainsUnknowns();
 }
 
-Handle(Expr_GeneralExpression) Expr_Absolute::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_Absolute::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
-  Handle(Expr_GeneralExpression) op    = Operand();
-  Handle(Expr_GeneralExpression) derop = op->Derivative(X);
+  Handle(Expression1) op    = Operand();
+  Handle(Expression1) derop = op->Derivative(X);
   Handle(Expr_Sign)              myder = new Expr_Sign(Expr1::CopyShare(op));
   Handle(Expr_Product)           resul = myder->ShallowSimplified() * derop;
   return resul->ShallowSimplified();

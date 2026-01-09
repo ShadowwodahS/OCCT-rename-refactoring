@@ -16,15 +16,15 @@
 
 #include <StepVisual_SurfaceStyleTransparent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleTransparent, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SurfaceTransparency, RefObject)
 
 //=================================================================================================
 
-StepVisual_SurfaceStyleTransparent::StepVisual_SurfaceStyleTransparent() {}
+SurfaceTransparency::SurfaceTransparency() {}
 
 //=================================================================================================
 
-void StepVisual_SurfaceStyleTransparent::Init(const Standard_Real theTransparency)
+void SurfaceTransparency::Init(const Standard_Real theTransparency)
 {
 
   myTransparency = theTransparency;
@@ -32,14 +32,14 @@ void StepVisual_SurfaceStyleTransparent::Init(const Standard_Real theTransparenc
 
 //=================================================================================================
 
-Standard_Real StepVisual_SurfaceStyleTransparent::Transparency() const
+Standard_Real SurfaceTransparency::Transparency() const
 {
   return myTransparency;
 }
 
 //=================================================================================================
 
-void StepVisual_SurfaceStyleTransparent::SetTransparency(const Standard_Real theTransparency)
+void SurfaceTransparency::SetTransparency(const Standard_Real theTransparency)
 {
   myTransparency = theTransparency;
 }

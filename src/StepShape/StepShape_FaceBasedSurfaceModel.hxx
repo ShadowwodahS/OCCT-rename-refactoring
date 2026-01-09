@@ -36,19 +36,19 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aRepresentationItem_Name,
-                            const Handle(StepShape_HArray1OfConnectedFaceSet)& aFbsmFaces);
+                            const Handle(HArray1OfConnectedFaceSet)& aFbsmFaces);
 
   //! Returns field FbsmFaces
-  Standard_EXPORT Handle(StepShape_HArray1OfConnectedFaceSet) FbsmFaces() const;
+  Standard_EXPORT Handle(HArray1OfConnectedFaceSet) FbsmFaces() const;
 
   //! Set field FbsmFaces
-  Standard_EXPORT void SetFbsmFaces(const Handle(StepShape_HArray1OfConnectedFaceSet)& FbsmFaces);
+  Standard_EXPORT void SetFbsmFaces(const Handle(HArray1OfConnectedFaceSet)& FbsmFaces);
 
   DEFINE_STANDARD_RTTIEXT(StepShape_FaceBasedSurfaceModel, StepGeom_GeometricRepresentationItem)
 
 protected:
 private:
-  Handle(StepShape_HArray1OfConnectedFaceSet) theFbsmFaces;
+  Handle(HArray1OfConnectedFaceSet) theFbsmFaces;
 };
 
 #endif // _StepShape_FaceBasedSurfaceModel_HeaderFile

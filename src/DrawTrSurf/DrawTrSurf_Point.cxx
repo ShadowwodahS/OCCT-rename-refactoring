@@ -23,7 +23,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Pnt2d.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Point, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Point, Drawable3D)
 
 //=================================================================================================
 
@@ -87,7 +87,7 @@ void DrawTrSurf_Point::Point2d(const gp_Pnt2d& P)
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Point::Copy() const
+Handle(Drawable3D) DrawTrSurf_Point::Copy() const
 {
   Handle(DrawTrSurf_Point) P;
   if (is3D)
@@ -152,9 +152,9 @@ void DrawTrSurf_Point::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Point::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_Point::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
+  const Params1& aParams = DrawTrSurf1::Parameters();
   Standard_Integer         is3d    = 0;
   theStream >> is3d;
   Standard_Real x, y, z = 0.0;

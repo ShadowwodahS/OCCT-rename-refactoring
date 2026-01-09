@@ -36,7 +36,7 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(StepDimTol_ToleranceZone)&        theZone,
-                            const Handle(StepRepr_HArray1OfShapeAspect)&   theBoundaries,
+                            const Handle(HArray1OfShapeAspect)&   theBoundaries,
                             const Handle(StepRepr_ShapeAspect)&            theProjectionEnd,
                             const Handle(StepBasic_LengthMeasureWithUnit)& theProjectionLength);
 

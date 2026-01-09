@@ -51,13 +51,13 @@ void RWStepShape_RWBrepWithVoids::ReadStep(const Handle(StepData_StepReaderData)
 
   // --- own field : voids ---
 
-  Handle(StepShape_HArray1OfOrientedClosedShell) aVoids;
+  Handle(HArray1OfOrientedClosedShell) aVoids;
   Handle(StepShape_OrientedClosedShell)          anent3;
   Standard_Integer                               nsub3;
   if (data->ReadSubList(num, 3, "voids", ach, nsub3))
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aVoids               = new StepShape_HArray1OfOrientedClosedShell(1, nb3);
+    aVoids               = new HArray1OfOrientedClosedShell(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat3 =` not needed

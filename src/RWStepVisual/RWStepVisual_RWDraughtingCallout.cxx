@@ -40,13 +40,13 @@ void RWStepVisual_RWDraughtingCallout::ReadStep(
   data->ReadString(num, 1, "name", ach, aName);
 
   // Own field: contents
-  Handle(StepVisual_HArray1OfDraughtingCalloutElement) aContents;
+  Handle(HArray1OfDraughtingCallout) aContents;
   StepVisual_DraughtingCalloutElement                  anEnt;
   Standard_Integer                                     nbSub;
   if (data->ReadSubList(num, 2, "contents", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    aContents                   = new StepVisual_HArray1OfDraughtingCalloutElement(1, nbElements);
+    aContents                   = new HArray1OfDraughtingCallout(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub, i, "content", ach, anEnt))

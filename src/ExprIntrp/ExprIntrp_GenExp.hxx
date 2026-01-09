@@ -21,17 +21,17 @@
 #include <Standard_Type.hxx>
 
 #include <ExprIntrp_Generator.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class AsciiString1;
 
 class ExprIntrp_GenExp;
-DEFINE_STANDARD_HANDLE(ExprIntrp_GenExp, ExprIntrp_Generator)
+DEFINE_STANDARD_HANDLE(ExprIntrp_GenExp, ExpressionGenerator)
 
 //! This class permits, from a string, to create any
 //! kind of expression of package Expr1 by using
 //! built-in functions such as Sin,Cos, etc, and by
 //! creating variables.
-class ExprIntrp_GenExp : public ExprIntrp_Generator
+class ExprIntrp_GenExp : public ExpressionGenerator
 {
 
 public:
@@ -46,9 +46,9 @@ public:
 
   //! Returns expression generated. Raises an exception if
   //! IsDone answers false.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Expression() const;
+  Standard_EXPORT Handle(Expression1) Expression() const;
 
-  DEFINE_STANDARD_RTTIEXT(ExprIntrp_GenExp, ExprIntrp_Generator)
+  DEFINE_STANDARD_RTTIEXT(ExprIntrp_GenExp, ExpressionGenerator)
 
 protected:
 private:
@@ -56,7 +56,7 @@ private:
   Standard_EXPORT ExprIntrp_GenExp();
 
   Standard_Boolean               done;
-  Handle(Expr_GeneralExpression) myExpression;
+  Handle(Expression1) myExpression;
 };
 
 #endif // _ExprIntrp_GenExp_HeaderFile

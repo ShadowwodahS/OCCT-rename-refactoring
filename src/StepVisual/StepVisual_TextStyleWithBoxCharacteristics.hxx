@@ -40,12 +40,12 @@ public:
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                    aName,
     const Handle(StepVisual_TextStyleForDefinedFont)&          aCharacterAppearance,
-    const Handle(StepVisual_HArray1OfBoxCharacteristicSelect)& aCharacteristics);
+    const Handle(HArray1OfBoxCharacteristic)& aCharacteristics);
 
   Standard_EXPORT void SetCharacteristics(
-    const Handle(StepVisual_HArray1OfBoxCharacteristicSelect)& aCharacteristics);
+    const Handle(HArray1OfBoxCharacteristic)& aCharacteristics);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfBoxCharacteristicSelect) Characteristics() const;
+  Standard_EXPORT Handle(HArray1OfBoxCharacteristic) Characteristics() const;
 
   Standard_EXPORT BoxCharacteristicSelect
     CharacteristicsValue(const Standard_Integer num) const;
@@ -56,7 +56,7 @@ public:
 
 protected:
 private:
-  Handle(StepVisual_HArray1OfBoxCharacteristicSelect) characteristics;
+  Handle(HArray1OfBoxCharacteristic) characteristics;
 };
 
 #endif // _StepVisual_TextStyleWithBoxCharacteristics_HeaderFile

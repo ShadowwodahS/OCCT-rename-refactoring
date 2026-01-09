@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_OutLiner, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(HLRTest_OutLiner, Drawable3D)
 
 //=================================================================================================
 
@@ -36,7 +36,7 @@ void HLRTest_OutLiner::DrawOn(DrawDisplay& /*dis*/) const {}
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) HLRTest_OutLiner::Copy() const
+Handle(Drawable3D) HLRTest_OutLiner::Copy() const
 {
   Handle(HLRTest_OutLiner) O = new HLRTest_OutLiner(myOutLiner->OriginalShape());
   return O;

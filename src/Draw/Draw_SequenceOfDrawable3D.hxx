@@ -20,6 +20,6 @@
 #include <Draw_Drawable3D.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(Draw_Drawable3D)> Draw_SequenceOfDrawable3D;
+typedef NCollection_Sequence<Handle(Drawable3D)> Draw_SequenceOfDrawable3D;
 
 #endif

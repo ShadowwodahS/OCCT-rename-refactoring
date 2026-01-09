@@ -60,10 +60,10 @@ void RWStepVisual_RWCurveStyle::ReadStep(const Handle(StepData_StepReaderData)& 
   //  aCurveWidth.SetValue(memb);
 
   // --- own field : curveColour ---
-  Handle(StepVisual_Colour) aCurveColour;
+  Handle(Colour) aCurveColour;
 
   // szv#4:S4163:12Mar99 `Standard_Boolean stat4 =` not needed
-  data->ReadEntity(num, 4, "curve_colour", ach, STANDARD_TYPE(StepVisual_Colour), aCurveColour);
+  data->ReadEntity(num, 4, "curve_colour", ach, STANDARD_TYPE(Colour), aCurveColour);
 
   //--- Initialisation of the read entity ---
   ent->Init(aName, aCurveFont, aCurveWidth, aCurveColour);

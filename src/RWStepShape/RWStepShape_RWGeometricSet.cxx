@@ -41,13 +41,13 @@ void RWStepShape_RWGeometricSet::ReadStep(const Handle(StepData_StepReaderData)&
 
   // --- own field : elements ---
 
-  Handle(StepShape_HArray1OfGeometricSetSelect) aElements;
+  Handle(HArray1OfGeometricSetSelect) aElements;
   StepShape_GeometricSetSelect                  aElementsItem;
   Standard_Integer                              nsub2;
   if (data->ReadSubList(num, 2, "elements", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aElements            = new StepShape_HArray1OfGeometricSetSelect(1, nb2);
+    aElements            = new HArray1OfGeometricSetSelect(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

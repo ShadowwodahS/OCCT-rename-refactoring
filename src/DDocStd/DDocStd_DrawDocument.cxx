@@ -51,7 +51,7 @@ void DDocStd_DrawDocument::DrawOn(DrawDisplay& /*dis*/) const {}
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDocStd_DrawDocument::Copy() const
+Handle(Drawable3D) DDocStd_DrawDocument::Copy() const
 {
   Handle(DDocStd_DrawDocument) D = new DDocStd_DrawDocument(myDocument);
   return D;

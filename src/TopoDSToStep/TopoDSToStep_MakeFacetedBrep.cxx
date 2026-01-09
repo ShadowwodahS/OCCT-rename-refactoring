@@ -136,8 +136,8 @@ TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoSolid& aSol
           Handle(StepVisual_TessellatedShell) aTessShell =
             Handle(StepVisual_TessellatedShell)::DownCast(StepB.TessellatedValue());
           Handle(TCollection_HAsciiString) aTessName = new TCollection_HAsciiString("");
-          Handle(StepVisual_HArray1OfTessellatedStructuredItem) anItems =
-            new StepVisual_HArray1OfTessellatedStructuredItem(1, aTessShell->NbItems());
+          Handle(HArray1OfTessellatedItem) anItems =
+            new HArray1OfTessellatedItem(1, aTessShell->NbItems());
           for (Standard_Integer i = 1; i <= aTessShell->NbItems(); ++i)
           {
             anItems->SetValue(i, aTessShell->ItemsValue(i));

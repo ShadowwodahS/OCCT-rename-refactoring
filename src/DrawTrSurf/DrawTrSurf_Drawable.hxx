@@ -24,16 +24,16 @@ class Adaptor2d_Curve2d;
 class Adaptor3d_Curve;
 class Adaptor3d_IsoCurve;
 
-DEFINE_STANDARD_HANDLE(DrawTrSurf_Drawable, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DrawTrSurf_Drawable, Drawable3D)
 
 //! this  class adds   to   the Drawable3D methods  to
 //! display Curves and Curves on Surface.
 //!
 //! The discretisation,  number  of points on a Curve,
 //! is stored in this class.
-class DrawTrSurf_Drawable : public Draw_Drawable3D
+class DrawTrSurf_Drawable : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Drawable, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Drawable, Drawable3D)
 public:
   //! Draw1 a polygon of the curve on the Display
   Standard_EXPORT void DrawCurve2dOn(Adaptor2d_Curve2d& C, DrawDisplay& D) const;

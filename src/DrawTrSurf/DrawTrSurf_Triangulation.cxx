@@ -26,7 +26,7 @@
 
 #include <stdio.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Triangulation, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Triangulation, Drawable3D)
 
 //=================================================================================================
 
@@ -147,7 +147,7 @@ void DrawTrSurf_Triangulation::DrawOn(DrawDisplay& dis) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Triangulation::Copy() const
+Handle(Drawable3D) DrawTrSurf_Triangulation::Copy() const
 {
   return new DrawTrSurf_Triangulation(myTriangulation);
 }
@@ -182,7 +182,7 @@ void DrawTrSurf_Triangulation::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Triangulation::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_Triangulation::Restore(Standard_IStream& theStream)
 {
   return new DrawTrSurf_Triangulation(Poly1::ReadTriangulation(theStream));
 }

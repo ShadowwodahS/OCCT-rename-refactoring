@@ -23,7 +23,7 @@
 #include <Expr_SequenceOfGeneralRelation.hxx>
 #include <Expr_GeneralRelation.hxx>
 #include <Standard_Integer.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 class AsciiString1;
 
@@ -73,11 +73,11 @@ public:
 
   //! Tests if <me> contains <exp>.
   Standard_EXPORT Standard_Boolean
-    Contains(const Handle(Expr_GeneralExpression)& exp) const Standard_OVERRIDE;
+    Contains(const Handle(Expression1)& exp) const Standard_OVERRIDE;
 
   //! Replaces all occurrences of <var> with <with> in <me>.
   Standard_EXPORT void Replace(const Handle(Expr_NamedUnknown)&      var,
-                               const Handle(Expr_GeneralExpression)& with) Standard_OVERRIDE;
+                               const Handle(Expression1)& with) Standard_OVERRIDE;
 
   //! returns a string representing <me> in a readable way.
   Standard_EXPORT AsciiString1 String() const Standard_OVERRIDE;

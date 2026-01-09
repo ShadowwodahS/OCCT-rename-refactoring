@@ -141,7 +141,7 @@ void TopoDSToStep_Builder::Init(const TopoShape&                   aShape,
       Standard_Integer nbFaces = mySeq.Length();
       if (nbFaces >= 1)
       {
-        Handle(StepShape_HArray1OfFace) aSet = new StepShape_HArray1OfFace(1, nbFaces);
+        Handle(HArray1OfFace1) aSet = new HArray1OfFace1(1, nbFaces);
         for (Standard_Integer i = 1; i <= nbFaces; i++)
         {
           aSet->SetValue(i, Handle(StepShape_Face)::DownCast(mySeq.Value(i)));

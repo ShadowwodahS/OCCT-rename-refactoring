@@ -24,7 +24,7 @@
 
 static AsciiString1 ExprIntrp_thestring;
 
-Standard_Boolean ExprIntrp1::Parse(const Handle(ExprIntrp_Generator)& gen,
+Standard_Boolean ExprIntrp1::Parse(const Handle(ExpressionGenerator)& gen,
                                   const AsciiString1&     str)
 {
   ExprIntrp_Recept.SetMaster(gen);

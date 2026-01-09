@@ -29,8 +29,8 @@
 #include <ExprIntrp_SequenceOfNamedFunction.hxx>
 #include <ExprIntrp_SequenceOfNamedExpression.hxx>
 #include <Standard_Integer.hxx>
-class ExprIntrp_Generator;
-class Expr_GeneralExpression;
+class ExpressionGenerator;
+class Expression1;
 class Expr_GeneralRelation;
 class AsciiString1;
 class Expr_GeneralFunction;
@@ -44,9 +44,9 @@ public:
 
   Standard_EXPORT ExprIntrp_Analysis();
 
-  Standard_EXPORT void SetMaster(const Handle(ExprIntrp_Generator)& agen);
+  Standard_EXPORT void SetMaster(const Handle(ExpressionGenerator)& agen);
 
-  Standard_EXPORT void Push(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void Push(const Handle(Expression1)& exp);
 
   Standard_EXPORT void PushRelation(const Handle(Expr_GeneralRelation)& rel);
 
@@ -56,7 +56,7 @@ public:
 
   Standard_EXPORT void PushFunction(const Handle(Expr_GeneralFunction)& func);
 
-  Standard_EXPORT Handle(Expr_GeneralExpression) Pop();
+  Standard_EXPORT Handle(Expression1) Pop();
 
   Standard_EXPORT Handle(Expr_GeneralRelation) PopRelation();
 
@@ -89,7 +89,7 @@ private:
   TColStd_ListOfInteger               myValueStack;
   ExprIntrp_SequenceOfNamedFunction   myFunctions;
   ExprIntrp_SequenceOfNamedExpression myNamed;
-  Handle(ExprIntrp_Generator)         myMaster;
+  Handle(ExpressionGenerator)         myMaster;
 };
 
 #endif // _ExprIntrp_Analysis_HeaderFile

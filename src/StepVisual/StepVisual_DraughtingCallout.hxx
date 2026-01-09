@@ -33,16 +33,16 @@ public:
   //! Init
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                     theName,
-    const Handle(StepVisual_HArray1OfDraughtingCalloutElement)& theContents);
+    const Handle(HArray1OfDraughtingCallout)& theContents);
 
   //! Returns field Contents
-  inline Handle(StepVisual_HArray1OfDraughtingCalloutElement) Contents() const
+  inline Handle(HArray1OfDraughtingCallout) Contents() const
   {
     return myContents;
   }
 
   //! Set field Contents
-  inline void SetContents(const Handle(StepVisual_HArray1OfDraughtingCalloutElement)& theContents)
+  inline void SetContents(const Handle(HArray1OfDraughtingCallout)& theContents)
   {
     myContents = theContents;
   }
@@ -69,6 +69,6 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepVisual_DraughtingCallout, StepGeom_GeometricRepresentationItem)
 
 private:
-  Handle(StepVisual_HArray1OfDraughtingCalloutElement) myContents;
+  Handle(HArray1OfDraughtingCallout) myContents;
 };
 #endif // _StepVisual_DraughtingCallout_HeaderFile

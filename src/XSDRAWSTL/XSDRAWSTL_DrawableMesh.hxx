@@ -24,9 +24,9 @@ class MeshVS_Mesh;
 class DrawDisplay;
 
 class XSDRAWSTL_DrawableMesh;
-DEFINE_STANDARD_HANDLE(XSDRAWSTL_DrawableMesh, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(XSDRAWSTL_DrawableMesh, Drawable3D)
 
-class XSDRAWSTL_DrawableMesh : public Draw_Drawable3D
+class XSDRAWSTL_DrawableMesh : public Drawable3D
 {
 
 public:
@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT Handle(MeshVS_Mesh) GetMesh() const;
 
-  DEFINE_STANDARD_RTTIEXT(XSDRAWSTL_DrawableMesh, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(XSDRAWSTL_DrawableMesh, Drawable3D)
 
 protected:
 private:

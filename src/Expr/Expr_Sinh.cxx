@@ -27,14 +27,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Sinh, Expr_UnaryExpression)
 
-Expr_Sinh::Expr_Sinh(const Handle(Expr_GeneralExpression)& exp)
+Expr_Sinh::Expr_Sinh(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_Sinh::ShallowSimplified() const
+Handle(Expression1) Expr_Sinh::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) myexp = Operand();
+  Handle(Expression1) myexp = Operand();
   if (myexp->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) myNVexp = Handle(Expr_NumericValue)::DownCast(myexp);
@@ -48,16 +48,16 @@ Handle(Expr_GeneralExpression) Expr_Sinh::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_Sinh::Copy() const
+Handle(Expression1) Expr_Sinh::Copy() const
 {
   return new Expr_Sinh(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_Sinh::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Sinh::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (Other->IsKind(STANDARD_TYPE(Expr_Sinh)))
   {
-    Handle(Expr_GeneralExpression) myexp = Operand();
+    Handle(Expression1) myexp = Operand();
     return myexp->IsIdentical(Other->SubExpression(1));
   }
   return Standard_False;
@@ -68,14 +68,14 @@ Standard_Boolean Expr_Sinh::IsLinear() const
   return !ContainsUnknowns();
 }
 
-Handle(Expr_GeneralExpression) Expr_Sinh::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_Sinh::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
   if (!Contains(X))
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) myexp    = Operand();
-  Handle(Expr_GeneralExpression) myder    = myexp->Derivative(X);
+  Handle(Expression1) myexp    = Operand();
+  Handle(Expression1) myder    = myexp->Derivative(X);
   Handle(Expr_Cosh)              firstder = new Expr_Cosh(Expr1::CopyShare(myexp));
   Handle(Expr_Product)           resu     = firstder->ShallowSimplified() * myder;
   return resu->ShallowSimplified();

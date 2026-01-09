@@ -28,7 +28,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Drawable, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Drawable, Drawable3D)
 
 //=======================================================================
 // function : DrawTrSurf_Drawable

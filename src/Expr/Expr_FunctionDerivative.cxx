@@ -161,7 +161,7 @@ AsciiString1 Expr_FunctionDerivative::GetStringName() const
   return res;
 }
 
-Handle(Expr_GeneralExpression) Expr_FunctionDerivative::Expression() const
+Handle(Expression1) Expr_FunctionDerivative::Expression() const
 {
   return myExp;
 }

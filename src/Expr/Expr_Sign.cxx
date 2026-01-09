@@ -24,14 +24,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Sign, Expr_UnaryExpression)
 
-Expr_Sign::Expr_Sign(const Handle(Expr_GeneralExpression)& exp)
+Expr_Sign::Expr_Sign(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_Sign::ShallowSimplified() const
+Handle(Expression1) Expr_Sign::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   if (op->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) valop = Handle(Expr_NumericValue)::DownCast(op);
@@ -41,18 +41,18 @@ Handle(Expr_GeneralExpression) Expr_Sign::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_Sign::Copy() const
+Handle(Expression1) Expr_Sign::Copy() const
 {
   return new Expr_Sign(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_Sign::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Sign::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_Sign)))
   {
     return Standard_False;
   }
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   return op->IsIdentical(Other->SubExpression(1));
 }
 
@@ -61,7 +61,7 @@ Standard_Boolean Expr_Sign::IsLinear() const
   return !ContainsUnknowns();
 }
 
-Handle(Expr_GeneralExpression) Expr_Sign::Derivative(const Handle(Expr_NamedUnknown)&) const
+Handle(Expression1) Expr_Sign::Derivative(const Handle(Expr_NamedUnknown)&) const
 {
   return new Expr_NumericValue(0.0);
 }

@@ -20,6 +20,6 @@
 #include <StepVisual_Array1OfInvisibleItem.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfInvisibleItem, StepVisual_Array1OfInvisibleItem)
+DEFINE_HARRAY1(HArray1OfInvisibleItem, StepVisual_Array1OfInvisibleItem)
 
 #endif

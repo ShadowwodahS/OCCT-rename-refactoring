@@ -89,7 +89,7 @@ void DrawTrSurf_BezierCurve::FindPole(const Standard_Real X,
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Copy() const
+Handle(Drawable3D) DrawTrSurf_BezierCurve::Copy() const
 {
   Handle(DrawTrSurf_BezierCurve) DC =
     new DrawTrSurf_BezierCurve(Handle(BezierCurve3d)::DownCast(curv->Copy()),
@@ -104,9 +104,9 @@ Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Copy() const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_BezierCurve::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
+  const Params1& aParams = DrawTrSurf1::Parameters();
   Handle(BezierCurve3d) aGeomCurve =
     Handle(BezierCurve3d)::DownCast(CurveSet1::ReadCurve(theStream));
   Handle(DrawTrSurf_BezierCurve) aDrawCurve = new DrawTrSurf_BezierCurve(aGeomCurve,

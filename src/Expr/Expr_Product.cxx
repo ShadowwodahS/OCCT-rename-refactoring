@@ -41,14 +41,14 @@ Expr_Product::Expr_Product(const Expr_SequenceOfGeneralExpression& exps)
   }
 }
 
-Expr_Product::Expr_Product(const Handle(Expr_GeneralExpression)& exp1,
-                           const Handle(Expr_GeneralExpression)& exp2)
+Expr_Product::Expr_Product(const Handle(Expression1)& exp1,
+                           const Handle(Expression1)& exp2)
 {
   AddOperand(exp1);
   AddOperand(exp2);
 }
 
-Handle(Expr_GeneralExpression) Expr_Product::Copy() const
+Handle(Expression1) Expr_Product::Copy() const
 {
   Standard_Integer                 i;
   Standard_Integer                 max = NbOperands();
@@ -60,7 +60,7 @@ Handle(Expr_GeneralExpression) Expr_Product::Copy() const
   return new Expr_Product(simps);
 }
 
-Standard_Boolean Expr_Product::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Product::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_Product)))
   {
@@ -73,8 +73,8 @@ Standard_Boolean Expr_Product::IsIdentical(const Handle(Expr_GeneralExpression)&
   {
     return Standard_False;
   }
-  Handle(Expr_GeneralExpression) myop;
-  Handle(Expr_GeneralExpression) hisop;
+  Handle(Expression1) myop;
+  Handle(Expression1) hisop;
   Standard_Integer               i = 1;
   TColStd_Array1OfInteger        tab(1, max);
   for (Standard_Integer k = 1; k <= max; k++)
@@ -110,7 +110,7 @@ Standard_Boolean Expr_Product::IsLinear() const
   Standard_Integer               max = NbOperands();
   Standard_Boolean               lin = Standard_True;
   Standard_Boolean               res = Standard_True;
-  Handle(Expr_GeneralExpression) asimp;
+  Handle(Expression1) asimp;
   for (i = 1; (i <= max) && res; i++)
   {
     asimp = Operand(i);
@@ -133,14 +133,14 @@ Standard_Boolean Expr_Product::IsLinear() const
   return res;
 }
 
-Handle(Expr_GeneralExpression) Expr_Product::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_Product::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
   if (!Contains(X))
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) firstop = Expr1::CopyShare(Operand(1)); // U
-  Handle(Expr_GeneralExpression) tailop;                                // V
+  Handle(Expression1) firstop = Expr1::CopyShare(Operand(1)); // U
+  Handle(Expression1) tailop;                                // V
   Standard_Integer               nbop = NbOperands();
   if (nbop == 2)
   {
@@ -155,8 +155,8 @@ Handle(Expr_GeneralExpression) Expr_Product::Derivative(const Handle(Expr_NamedU
     }
     tailop = prodop;
   }
-  Handle(Expr_GeneralExpression) firstder = firstop->Derivative(X); // U'
-  Handle(Expr_GeneralExpression) tailder  = tailop->Derivative(X);  // V'
+  Handle(Expression1) firstder = firstop->Derivative(X); // U'
+  Handle(Expression1) tailder  = tailop->Derivative(X);  // V'
 
   Handle(Expr_Product) firstmember = firstop * tailder; // U*V'
 
@@ -168,11 +168,11 @@ Handle(Expr_GeneralExpression) Expr_Product::Derivative(const Handle(Expr_NamedU
   return resu->ShallowSimplified();
 }
 
-Handle(Expr_GeneralExpression) Expr_Product::ShallowSimplified() const
+Handle(Expression1) Expr_Product::ShallowSimplified() const
 {
   Standard_Integer                 i;
   Standard_Integer                 max = NbOperands();
-  Handle(Expr_GeneralExpression)   op;
+  Handle(Expression1)   op;
   Expr_SequenceOfGeneralExpression newops;
   Standard_Real                    vals    = 0.;
   Standard_Integer                 nbvals  = 0;
@@ -184,7 +184,7 @@ Handle(Expr_GeneralExpression) Expr_Product::ShallowSimplified() const
   }
   if (subprod)
   {
-    Handle(Expr_GeneralExpression) other;
+    Handle(Expression1) other;
     Handle(Expr_Product)           prodop;
     Standard_Integer               nbsprodop;
     for (i = 1; i <= max; i++)
@@ -254,7 +254,7 @@ Handle(Expr_GeneralExpression) Expr_Product::ShallowSimplified() const
       }
       if (vals == -1.0)
       {
-        Handle(Expr_GeneralExpression) thefact;
+        Handle(Expression1) thefact;
         if (newops.Length() == 1)
         {
           thefact = newops(1);
@@ -297,7 +297,7 @@ Standard_Real Expr_Product::Evaluate(const Expr_Array1OfNamedUnknown& vars,
 
 AsciiString1 Expr_Product::String() const
 {
-  Handle(Expr_GeneralExpression) op;
+  Handle(Expression1) op;
   Standard_Integer               nbop = NbOperands();
   op                                  = Operand(1);
   AsciiString1 str;

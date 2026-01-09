@@ -22,7 +22,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_GenExp, ExprIntrp_Generator)
+IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_GenExp, ExpressionGenerator)
 
 ExprIntrp_GenExp::ExprIntrp_GenExp()
 {
@@ -62,7 +62,7 @@ Standard_Boolean ExprIntrp_GenExp::IsDone() const
   return done;
 }
 
-Handle(Expr_GeneralExpression) ExprIntrp_GenExp::Expression() const
+Handle(Expression1) ExprIntrp_GenExp::Expression() const
 {
   if (!done)
   {

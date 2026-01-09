@@ -29,12 +29,12 @@
 //! It  is  used  to  store  information  in  the  scene  graph,
 //! Typically  for  application-specific  purposes,  copyright  messages,
 //! or  other  strings.
-class Vrml_Info
+class InfoNode
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Info(const AsciiString1& aString = "<Undefined info>");
+  Standard_EXPORT InfoNode(const AsciiString1& aString = "<Undefined info>");
 
   Standard_EXPORT void SetString(const AsciiString1& aString);
 

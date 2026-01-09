@@ -14,7 +14,7 @@
 #include <StepVisual_ColourSpecification.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_ColourSpecification, StepVisual_Colour)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_ColourSpecification, Colour)
 
 StepVisual_ColourSpecification::StepVisual_ColourSpecification() {}
 

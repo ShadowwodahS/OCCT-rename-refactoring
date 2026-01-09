@@ -16,15 +16,15 @@
 
 #include <StepVisual_SurfaceStyleReflectanceAmbient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleReflectanceAmbient, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SurfaceReflectanceAmbient, RefObject)
 
 //=================================================================================================
 
-StepVisual_SurfaceStyleReflectanceAmbient::StepVisual_SurfaceStyleReflectanceAmbient() {}
+SurfaceReflectanceAmbient::SurfaceReflectanceAmbient() {}
 
 //=================================================================================================
 
-void StepVisual_SurfaceStyleReflectanceAmbient::Init(const Standard_Real theAmbientReflectance)
+void SurfaceReflectanceAmbient::Init(const Standard_Real theAmbientReflectance)
 {
 
   myAmbientReflectance = theAmbientReflectance;
@@ -32,14 +32,14 @@ void StepVisual_SurfaceStyleReflectanceAmbient::Init(const Standard_Real theAmbi
 
 //=================================================================================================
 
-Standard_Real StepVisual_SurfaceStyleReflectanceAmbient::AmbientReflectance() const
+Standard_Real SurfaceReflectanceAmbient::AmbientReflectance() const
 {
   return myAmbientReflectance;
 }
 
 //=================================================================================================
 
-void StepVisual_SurfaceStyleReflectanceAmbient::SetAmbientReflectance(
+void SurfaceReflectanceAmbient::SetAmbientReflectance(
   const Standard_Real theAmbientReflectance)
 {
   myAmbientReflectance = theAmbientReflectance;

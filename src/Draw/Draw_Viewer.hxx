@@ -28,7 +28,7 @@
 
 const Standard_Integer MAXVIEW = 30;
 
-class Draw_View;
+class DrawView;
 
 class DrawViewer
 {
@@ -125,12 +125,12 @@ public:
   Standard_EXPORT void             Flush();
 
   Standard_EXPORT void         DrawOnView(const Standard_Integer         id,
-                                          const Handle(Draw_Drawable3D)& D) const;
+                                          const Handle(Drawable3D)& D) const;
   Standard_EXPORT void         HighlightOnView(const Standard_Integer         id,
-                                               const Handle(Draw_Drawable3D)& D,
+                                               const Handle(Drawable3D)& D,
                                                const Draw_ColorKind           C = Draw_blanc) const;
-  Standard_EXPORT void         AddDrawable(const Handle(Draw_Drawable3D)& D);
-  Standard_EXPORT void         RemoveDrawable(const Handle(Draw_Drawable3D)& D);
+  Standard_EXPORT void         AddDrawable(const Handle(Drawable3D)& D);
+  Standard_EXPORT void         RemoveDrawable(const Handle(Drawable3D)& D);
   Standard_EXPORT DrawDisplay MakeDisplay(const Standard_Integer id) const;
 
   Standard_EXPORT void Select(Standard_Integer& id, // View, -1 if none
@@ -144,18 +144,18 @@ public:
          const Standard_Integer   X,
          const Standard_Integer   Y,
          const Standard_Integer   Prec,
-         Handle(Draw_Drawable3D)& D,
+         Handle(Drawable3D)& D,
          const Standard_Integer   First = 0) const; // search after this drawable
 
   Standard_EXPORT void LastPick(Point3d& P1, Point3d& P2, Standard_Real& Param);
   // returns the extremities and parameter of the last picked segment
 
   Standard_EXPORT ~DrawViewer();
-  Standard_EXPORT DrawViewer&                     operator<<(const Handle(Draw_Drawable3D)&);
+  Standard_EXPORT DrawViewer&                     operator<<(const Handle(Drawable3D)&);
   Standard_EXPORT const Draw_SequenceOfDrawable3D& GetDrawables();
 
 private:
-  Draw_View*                myViews[MAXVIEW];
+  DrawView*                myViews[MAXVIEW];
   Draw_SequenceOfDrawable3D myDrawables;
 };
 

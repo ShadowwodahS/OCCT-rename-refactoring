@@ -41,13 +41,13 @@ void RWStepVisual_RWFillAreaStyle::ReadStep(const Handle(StepData_StepReaderData
 
   // --- own field : fillStyles ---
 
-  Handle(StepVisual_HArray1OfFillStyleSelect) aFillStyles;
+  Handle(HArray1OfFillStyle) aFillStyles;
   StepVisual_FillStyleSelect                  aFillStylesItem;
   Standard_Integer                            nsub2;
   if (data->ReadSubList(num, 2, "fill_styles", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aFillStyles          = new StepVisual_HArray1OfFillStyleSelect(1, nb2);
+    aFillStyles          = new HArray1OfFillStyle(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

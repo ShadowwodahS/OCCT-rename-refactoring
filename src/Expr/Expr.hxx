@@ -23,7 +23,7 @@
 
 #include <Standard_Integer.hxx>
 #include <Standard_Real.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_GeneralRelation;
 
 //! This package describes  the data structure  of any
@@ -36,11 +36,11 @@ class Expr1
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static Handle(Expr_GeneralExpression) CopyShare(
-    const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT static Handle(Expression1) CopyShare(
+    const Handle(Expression1)& exp);
 
   Standard_EXPORT static Standard_Integer NbOfFreeVariables(
-    const Handle(Expr_GeneralExpression)& exp);
+    const Handle(Expression1)& exp);
 
   Standard_EXPORT static Standard_Integer NbOfFreeVariables(
     const Handle(Expr_GeneralRelation)& exp);

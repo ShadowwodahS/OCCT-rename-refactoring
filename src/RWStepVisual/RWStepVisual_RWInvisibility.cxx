@@ -34,13 +34,13 @@ void RWStepVisual_RWInvisibility::ReadStep(const Handle(StepData_StepReaderData)
 
   // --- own field : invisibleItems ---
 
-  Handle(StepVisual_HArray1OfInvisibleItem) aInvisibleItems;
+  Handle(HArray1OfInvisibleItem) aInvisibleItems;
   StepVisual_InvisibleItem                  aInvisibleItemsItem;
   Standard_Integer                          nsub1;
   if (data->ReadSubList(num, 1, "invisible_items", ach, nsub1))
   {
     Standard_Integer nb1 = data->NbParams(nsub1);
-    aInvisibleItems      = new StepVisual_HArray1OfInvisibleItem(1, nb1);
+    aInvisibleItems      = new HArray1OfInvisibleItem(1, nb1);
     for (Standard_Integer i1 = 1; i1 <= nb1; i1++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat1 =` not needed

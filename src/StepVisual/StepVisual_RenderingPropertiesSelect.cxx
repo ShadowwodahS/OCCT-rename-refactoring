@@ -29,25 +29,25 @@ Standard_Integer StepVisual_RenderingPropertiesSelect::CaseNum(
 {
   if (ent.IsNull())
     return 0;
-  if (ent->IsKind(STANDARD_TYPE(StepVisual_SurfaceStyleReflectanceAmbient)))
+  if (ent->IsKind(STANDARD_TYPE(SurfaceReflectanceAmbient)))
     return 1;
-  if (ent->IsKind(STANDARD_TYPE(StepVisual_SurfaceStyleTransparent)))
+  if (ent->IsKind(STANDARD_TYPE(SurfaceTransparency)))
     return 2;
   return 0;
 }
 
 //=================================================================================================
 
-Handle(StepVisual_SurfaceStyleReflectanceAmbient) StepVisual_RenderingPropertiesSelect::
+Handle(SurfaceReflectanceAmbient) StepVisual_RenderingPropertiesSelect::
   SurfaceStyleReflectanceAmbient() const
 {
-  return Handle(StepVisual_SurfaceStyleReflectanceAmbient)::DownCast(Value());
+  return Handle(SurfaceReflectanceAmbient)::DownCast(Value());
 }
 
 //=================================================================================================
 
-Handle(StepVisual_SurfaceStyleTransparent) StepVisual_RenderingPropertiesSelect::
+Handle(SurfaceTransparency) StepVisual_RenderingPropertiesSelect::
   SurfaceStyleTransparent() const
 {
-  return Handle(StepVisual_SurfaceStyleTransparent)::DownCast(Value());
+  return Handle(SurfaceTransparency)::DownCast(Value());
 }

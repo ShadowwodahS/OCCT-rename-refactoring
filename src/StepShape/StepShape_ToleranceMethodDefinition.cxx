@@ -23,16 +23,16 @@ Standard_Integer StepShape_ToleranceMethodDefinition::CaseNum(
 {
   if (ent.IsNull())
     return 0;
-  if (ent->IsKind(STANDARD_TYPE(StepShape_ToleranceValue)))
+  if (ent->IsKind(STANDARD_TYPE(ToleranceValue1)))
     return 1;
   if (ent->IsKind(STANDARD_TYPE(StepShape_LimitsAndFits)))
     return 2;
   return 0;
 }
 
-Handle(StepShape_ToleranceValue) StepShape_ToleranceMethodDefinition::ToleranceValue() const
+Handle(ToleranceValue1) StepShape_ToleranceMethodDefinition::ToleranceValue() const
 {
-  return Handle(StepShape_ToleranceValue)::DownCast(Value());
+  return Handle(ToleranceValue1)::DownCast(Value());
 }
 
 Handle(StepShape_LimitsAndFits) StepShape_ToleranceMethodDefinition::LimitsAndFits() const

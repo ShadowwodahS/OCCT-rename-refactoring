@@ -26,7 +26,7 @@ void StepShape_OrientedFace::Init(const Handle(TCollection_HAsciiString)& aName,
   faceElement = aFaceElement;
   orientation = aOrientation;
   // --- classe inherited fields ---
-  Handle(StepShape_HArray1OfFaceBound) aBounds;
+  Handle(HArray1OfFaceBound) aBounds;
   aBounds.Nullify();
   StepShape_Face::Init(aName, aBounds);
 }
@@ -51,14 +51,14 @@ Standard_Boolean StepShape_OrientedFace::Orientation() const
   return orientation;
 }
 
-void StepShape_OrientedFace::SetBounds(const Handle(StepShape_HArray1OfFaceBound)& /*aBounds*/)
+void StepShape_OrientedFace::SetBounds(const Handle(HArray1OfFaceBound)& /*aBounds*/)
 {
   // WARNING : the field is redefined.
   // field set up forbidden.
   std::cout << "Field is redefined, SetUp Forbidden" << std::endl;
 }
 
-Handle(StepShape_HArray1OfFaceBound) StepShape_OrientedFace::Bounds() const
+Handle(HArray1OfFaceBound) StepShape_OrientedFace::Bounds() const
 {
   // WARNING : the field is redefined.
   // method body is not yet automatically wrote

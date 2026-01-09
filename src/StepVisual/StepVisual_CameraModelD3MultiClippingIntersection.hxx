@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <StepGeom_GeometricRepresentationItem.hxx>
-class StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect;
+class HArray1OfCameraClippingIntersect;
 class TCollection_HAsciiString;
 
 DEFINE_STANDARD_HANDLE(StepVisual_CameraModelD3MultiClippingIntersection,
@@ -35,16 +35,16 @@ public:
 
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)& theName,
-    const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect)&
+    const Handle(HArray1OfCameraClippingIntersect)&
       theShapeClipping);
 
   void SetShapeClipping(
-    const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect)& theShapeClipping)
+    const Handle(HArray1OfCameraClippingIntersect)& theShapeClipping)
   {
     myShapeClipping = theShapeClipping;
   }
 
-  const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect) ShapeClipping()
+  const Handle(HArray1OfCameraClippingIntersect) ShapeClipping()
   {
     return myShapeClipping;
   }
@@ -52,6 +52,6 @@ public:
                           StepGeom_GeometricRepresentationItem)
 
 private:
-  Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect) myShapeClipping;
+  Handle(HArray1OfCameraClippingIntersect) myShapeClipping;
 };
 #endif // _StepVisual_CameraModelD3MultiClippingIntersection_HeaderFile

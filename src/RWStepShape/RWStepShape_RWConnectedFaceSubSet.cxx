@@ -47,13 +47,13 @@ void RWStepShape_RWConnectedFaceSubSet::ReadStep(
 
   // Inherited fields of ConnectedFaceSet
 
-  Handle(StepShape_HArray1OfFace) aConnectedFaceSet_CfsFaces;
+  Handle(HArray1OfFace1) aConnectedFaceSet_CfsFaces;
   Standard_Integer                sub2 = 0;
   if (data->ReadSubList(num, 2, "connected_face_set.cfs_faces", ach, sub2))
   {
     Standard_Integer num2      = sub2;
     Standard_Integer nb0       = data->NbParams(num2);
-    aConnectedFaceSet_CfsFaces = new StepShape_HArray1OfFace(1, nb0);
+    aConnectedFaceSet_CfsFaces = new HArray1OfFace1(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       Handle(StepShape_Face) anIt0;

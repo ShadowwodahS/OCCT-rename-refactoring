@@ -31,39 +31,39 @@ Expr_NamedConstant::Expr_NamedConstant(const AsciiString1& name,
   myValue = value;
 }
 
-const Handle(Expr_GeneralExpression)& Expr_NamedConstant::SubExpression(
+const Handle(Expression1)& Expr_NamedConstant::SubExpression(
   const Standard_Integer) const
 {
   throw Standard_OutOfRange();
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedConstant::Simplified() const
+Handle(Expression1) Expr_NamedConstant::Simplified() const
 {
-  Handle(Expr_GeneralExpression) res = new Expr_NumericValue(myValue);
+  Handle(Expression1) res = new Expr_NumericValue(myValue);
   return res;
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedConstant::Copy() const
+Handle(Expression1) Expr_NamedConstant::Copy() const
 {
   return new Expr_NamedConstant(GetName(), myValue);
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedConstant::Derivative(
+Handle(Expression1) Expr_NamedConstant::Derivative(
   const Handle(Expr_NamedUnknown)&) const
 {
-  Handle(Expr_GeneralExpression) aNumVal = new Expr_NumericValue(0.0);
+  Handle(Expression1) aNumVal = new Expr_NumericValue(0.0);
   return aNumVal;
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedConstant::NDerivative(const Handle(Expr_NamedUnknown)&,
+Handle(Expression1) Expr_NamedConstant::NDerivative(const Handle(Expr_NamedUnknown)&,
                                                                const Standard_Integer) const
 {
   return new Expr_NumericValue(0.0);
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedConstant::ShallowSimplified() const
+Handle(Expression1) Expr_NamedConstant::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) res = new Expr_NumericValue(myValue);
+  Handle(Expression1) res = new Expr_NumericValue(myValue);
   return res;
 }
 
@@ -83,7 +83,7 @@ Standard_Boolean Expr_NamedConstant::ContainsUnknowns() const
   return Standard_False;
 }
 
-Standard_Boolean Expr_NamedConstant::Contains(const Handle(Expr_GeneralExpression)&) const
+Standard_Boolean Expr_NamedConstant::Contains(const Handle(Expression1)&) const
 {
   return Standard_False;
 }
@@ -94,6 +94,6 @@ Standard_Boolean Expr_NamedConstant::IsLinear() const
 }
 
 void Expr_NamedConstant::Replace(const Handle(Expr_NamedUnknown)&,
-                                 const Handle(Expr_GeneralExpression)&)
+                                 const Handle(Expression1)&)
 {
 }

@@ -19,6 +19,6 @@
 #include <StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect,
+DEFINE_HARRAY1(HArray1OfCameraClippingIntersect,
                StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect)
 #endif // _StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect_HeaderFile

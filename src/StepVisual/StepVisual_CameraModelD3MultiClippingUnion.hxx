@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <StepGeom_GeometricRepresentationItem.hxx>
-class StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect;
+class HArray1OfCameraClippingUnion;
 class TCollection_HAsciiString;
 
 DEFINE_STANDARD_HANDLE(StepVisual_CameraModelD3MultiClippingUnion,
@@ -34,15 +34,15 @@ public:
 
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                                  theName,
-    const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect)& theShapeClipping);
+    const Handle(HArray1OfCameraClippingUnion)& theShapeClipping);
 
   void SetShapeClipping(
-    const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect)& theShapeClipping)
+    const Handle(HArray1OfCameraClippingUnion)& theShapeClipping)
   {
     myShapeClipping = theShapeClipping;
   }
 
-  const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect) ShapeClipping()
+  const Handle(HArray1OfCameraClippingUnion) ShapeClipping()
   {
     return myShapeClipping;
   }
@@ -50,6 +50,6 @@ public:
                           StepGeom_GeometricRepresentationItem)
 
 private:
-  Handle(StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect) myShapeClipping;
+  Handle(HArray1OfCameraClippingUnion) myShapeClipping;
 };
 #endif // _StepVisual_CameraModelD3MultiClippingUnion_HeaderFile

@@ -42,13 +42,13 @@ void RWStepVisual_RWOverRidingStyledItem::ReadStep(
 
   // --- inherited field : styles ---
 
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) aStyles;
+  Handle(HArray1OfPresentationStyle) aStyles;
   Handle(StepVisual_PresentationStyleAssignment)          anent2;
   Standard_Integer                                        nsub2;
   if (data->ReadSubList(num, 2, "styles", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aStyles              = new StepVisual_HArray1OfPresentationStyleAssignment(1, nb2);
+    aStyles              = new HArray1OfPresentationStyle(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

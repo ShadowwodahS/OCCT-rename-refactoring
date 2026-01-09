@@ -20,7 +20,7 @@
 #include <StepVisual_Array1OfTessellatedStructuredItem.hxx>
 #include <NCollection_HArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfTessellatedStructuredItem,
+DEFINE_HARRAY1(HArray1OfTessellatedItem,
                StepVisual_Array1OfTessellatedStructuredItem);
 
 #endif

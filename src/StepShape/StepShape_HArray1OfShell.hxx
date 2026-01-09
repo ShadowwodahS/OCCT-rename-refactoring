@@ -21,6 +21,6 @@
 #include <StepShape_Array1OfShell.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfShell, StepShape_Array1OfShell)
+DEFINE_HARRAY1(HArray1OfShell1, StepShape_Array1OfShell)
 
 #endif

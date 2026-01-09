@@ -24,7 +24,7 @@ void StepShape_MeasureQualification::Init(
   const Handle(TCollection_HAsciiString)&          name,
   const Handle(TCollection_HAsciiString)&          description,
   const Handle(StepBasic_MeasureWithUnit)&         qualified_measure,
-  const Handle(StepShape_HArray1OfValueQualifier)& qualifiers)
+  const Handle(HArray1OfValueQualifier)& qualifiers)
 {
   theName             = name;
   theDescription      = description;
@@ -64,7 +64,7 @@ void StepShape_MeasureQualification::SetQualifiedMeasure(
   theQualifiedMeasure = qualified_measure;
 }
 
-Handle(StepShape_HArray1OfValueQualifier) StepShape_MeasureQualification::Qualifiers() const
+Handle(HArray1OfValueQualifier) StepShape_MeasureQualification::Qualifiers() const
 {
   return theQualifiers;
 }
@@ -75,7 +75,7 @@ Standard_Integer StepShape_MeasureQualification::NbQualifiers() const
 }
 
 void StepShape_MeasureQualification::SetQualifiers(
-  const Handle(StepShape_HArray1OfValueQualifier)& qualifiers)
+  const Handle(HArray1OfValueQualifier)& qualifiers)
 {
   theQualifiers = qualifiers;
 }

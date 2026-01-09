@@ -27,7 +27,7 @@ StepDimTol_ToleranceZoneDefinition::StepDimTol_ToleranceZoneDefinition() {}
 
 void StepDimTol_ToleranceZoneDefinition::Init(
   const Handle(StepDimTol_ToleranceZone)&      theZone,
-  const Handle(StepRepr_HArray1OfShapeAspect)& theBoundaries)
+  const Handle(HArray1OfShapeAspect)& theBoundaries)
 {
   myBoundaries = theBoundaries;
   myZone       = theZone;

@@ -56,12 +56,12 @@ void RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI::ReadStep(
   if (!data->CheckNbParams(num, 1, ach, "qualified_representation_item"))
     return;
   // --- own field : qualifiers ---
-  Handle(StepShape_HArray1OfValueQualifier) quals;
+  Handle(HArray1OfValueQualifier) quals;
   Standard_Integer                          nsub;
   if (data->ReadSubList(num, 1, "qualifiers", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    quals               = new StepShape_HArray1OfValueQualifier(1, nb);
+    quals               = new HArray1OfValueQualifier(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       StepShape_ValueQualifier aVQ;

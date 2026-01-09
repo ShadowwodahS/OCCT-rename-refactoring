@@ -17,6 +17,6 @@
 #include <Express_SequenceOfEntity.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(Express_HSequenceOfEntity, Express_SequenceOfEntity)
+DEFINE_HSEQUENCE(EntitySequence, Express_SequenceOfEntity)
 
 #endif

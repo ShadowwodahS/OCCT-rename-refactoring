@@ -13,22 +13,22 @@
 
 #include <Vrml_Info.hxx>
 
-Vrml_Info::Vrml_Info(const AsciiString1& aString)
+InfoNode::InfoNode(const AsciiString1& aString)
 {
   myString = aString;
 }
 
-void Vrml_Info::SetString(const AsciiString1& aString)
+void InfoNode::SetString(const AsciiString1& aString)
 {
   myString = aString;
 }
 
-AsciiString1 Vrml_Info::String() const
+AsciiString1 InfoNode::String() const
 {
   return myString;
 }
 
-Standard_OStream& Vrml_Info::Print(Standard_OStream& anOStream) const
+Standard_OStream& InfoNode::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Info {\n";
 

@@ -22,7 +22,7 @@ StepVisual_TextStyleWithBoxCharacteristics::StepVisual_TextStyleWithBoxCharacter
 void StepVisual_TextStyleWithBoxCharacteristics::Init(
   const Handle(TCollection_HAsciiString)&                    aName,
   const Handle(StepVisual_TextStyleForDefinedFont)&          aCharacterAppearance,
-  const Handle(StepVisual_HArray1OfBoxCharacteristicSelect)& aCharacteristics)
+  const Handle(HArray1OfBoxCharacteristic)& aCharacteristics)
 {
   // --- classe own fields ---
   characteristics = aCharacteristics;
@@ -31,12 +31,12 @@ void StepVisual_TextStyleWithBoxCharacteristics::Init(
 }
 
 void StepVisual_TextStyleWithBoxCharacteristics::SetCharacteristics(
-  const Handle(StepVisual_HArray1OfBoxCharacteristicSelect)& aCharacteristics)
+  const Handle(HArray1OfBoxCharacteristic)& aCharacteristics)
 {
   characteristics = aCharacteristics;
 }
 
-Handle(StepVisual_HArray1OfBoxCharacteristicSelect) StepVisual_TextStyleWithBoxCharacteristics::
+Handle(HArray1OfBoxCharacteristic) StepVisual_TextStyleWithBoxCharacteristics::
   Characteristics() const
 {
   return characteristics;

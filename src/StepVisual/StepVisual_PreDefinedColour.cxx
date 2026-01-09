@@ -15,7 +15,7 @@
 #include <StepVisual_PreDefinedColour.hxx>
 #include <StepVisual_PreDefinedItem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PreDefinedColour, StepVisual_Colour)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PreDefinedColour, Colour)
 
 StepVisual_PreDefinedColour::StepVisual_PreDefinedColour()
 {

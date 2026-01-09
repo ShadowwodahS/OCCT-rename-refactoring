@@ -32,12 +32,12 @@ class Message_ProgressRange;
 //! addNode() and addTriangle() to fill the mesh data structure.
 //!
 //! The nodes with equal coordinates are merged automatically  on the fly.
-class RWStl_Reader : public RefObject
+class Reader3 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWStl_Reader, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Reader3, RefObject)
 public:
   //! Default constructor.
-  Standard_EXPORT RWStl_Reader();
+  Standard_EXPORT Reader3();
 
   //! Reads data from STL file (either binary or Ascii1).
   //! This function supports reading multi-domain STL files formed by concatenation

@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 
 #include <Expr_SingleRelation.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_GeneralRelation;
 class AsciiString1;
 
@@ -32,8 +32,8 @@ class Expr_Equal : public Expr_SingleRelation
 
 public:
   //! Creates the relation <exp1> = <exp2>.
-  Standard_EXPORT Expr_Equal(const Handle(Expr_GeneralExpression)& exp1,
-                             const Handle(Expr_GeneralExpression)& exp2);
+  Standard_EXPORT Expr_Equal(const Handle(Expression1)& exp1,
+                             const Handle(Expression1)& exp2);
 
   Standard_EXPORT Standard_Boolean IsSatisfied() const Standard_OVERRIDE;
 

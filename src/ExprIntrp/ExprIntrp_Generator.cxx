@@ -18,34 +18,34 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_Generator, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ExpressionGenerator, RefObject)
 
 #include <ExprIntrp_yaccanal.hxx>
 ExprIntrp_Analysis ExprIntrp_Recept;
 
-ExprIntrp_Generator::ExprIntrp_Generator() {}
+ExpressionGenerator::ExpressionGenerator() {}
 
-void ExprIntrp_Generator::Use(const Handle(Expr_NamedFunction)& func)
+void ExpressionGenerator::Use(const Handle(Expr_NamedFunction)& func)
 {
   myFunctions.Append(func);
 }
 
-void ExprIntrp_Generator::Use(const Handle(Expr_NamedExpression)& named)
+void ExpressionGenerator::Use(const Handle(Expr_NamedExpression)& named)
 {
   myNamed.Append(named);
 }
 
-const ExprIntrp_SequenceOfNamedFunction& ExprIntrp_Generator::GetFunctions() const
+const ExprIntrp_SequenceOfNamedFunction& ExpressionGenerator::GetFunctions() const
 {
   return myFunctions;
 }
 
-const ExprIntrp_SequenceOfNamedExpression& ExprIntrp_Generator::GetNamed() const
+const ExprIntrp_SequenceOfNamedExpression& ExpressionGenerator::GetNamed() const
 {
   return myNamed;
 }
 
-Handle(Expr_NamedFunction) ExprIntrp_Generator::GetFunction(
+Handle(Expr_NamedFunction) ExpressionGenerator::GetFunction(
   const AsciiString1& name) const
 {
   for (Standard_Integer i = 1; i <= myFunctions.Length(); i++)
@@ -59,7 +59,7 @@ Handle(Expr_NamedFunction) ExprIntrp_Generator::GetFunction(
   return curfunc;
 }
 
-Handle(Expr_NamedExpression) ExprIntrp_Generator::GetNamed(
+Handle(Expr_NamedExpression) ExpressionGenerator::GetNamed(
   const AsciiString1& name) const
 {
   for (Standard_Integer i = 1; i <= myNamed.Length(); i++)

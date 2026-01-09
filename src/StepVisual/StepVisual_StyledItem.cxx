@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_StyledItem, StepRepr_RepresentationItem)
 
 void StepVisual_StyledItem::Init(
   const Handle(TCollection_HAsciiString)&                        aName,
-  const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
+  const Handle(HArray1OfPresentationStyle)& aStyles,
   const Handle(RefObject)&                              aItem)
 {
   // --- classe own fields ---
@@ -31,7 +31,7 @@ void StepVisual_StyledItem::Init(
 }
 
 void StepVisual_StyledItem::SetStyles(
-  const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles)
+  const Handle(HArray1OfPresentationStyle)& aStyles)
 {
   myStyles = aStyles;
 }

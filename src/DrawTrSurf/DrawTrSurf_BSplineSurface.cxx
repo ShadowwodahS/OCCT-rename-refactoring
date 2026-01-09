@@ -303,7 +303,7 @@ void DrawTrSurf_BSplineSurface::FindVKnot(const Standard_Real X,
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_BSplineSurface::Copy() const
+Handle(Drawable3D) DrawTrSurf_BSplineSurface::Copy() const
 {
   Handle(DrawTrSurf_BSplineSurface) DS;
   if (!knotsIsos)
@@ -343,9 +343,9 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineSurface::Copy() const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_BSplineSurface::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_BSplineSurface::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params&    aParams = DrawTrSurf1::Parameters();
+  const Params1&    aParams = DrawTrSurf1::Parameters();
   Handle(Geom_BSplineSurface) aGeomSurface =
     Handle(Geom_BSplineSurface)::DownCast(SurfaceSet1::ReadSurface(theStream));
   Handle(DrawTrSurf_BSplineSurface) aDrawSurface;

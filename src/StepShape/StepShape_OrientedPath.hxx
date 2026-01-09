@@ -49,10 +49,10 @@ public:
 
   Standard_EXPORT Standard_Boolean Orientation() const;
 
-  Standard_EXPORT virtual void SetEdgeList(const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+  Standard_EXPORT virtual void SetEdgeList(const Handle(HArray1OfOrientedEdge)& aEdgeList)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(StepShape_HArray1OfOrientedEdge) EdgeList() const
+  Standard_EXPORT virtual Handle(HArray1OfOrientedEdge) EdgeList() const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(StepShape_OrientedEdge) EdgeListValue(

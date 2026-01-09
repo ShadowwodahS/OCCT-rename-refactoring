@@ -35,7 +35,7 @@ public:
   Standard_EXPORT StepVisual_CompositeTextWithExtent();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&            aName,
-                            const Handle(StepVisual_HArray1OfTextOrCharacter)& aCollectedText,
+                            const Handle(HArray1OfTextOrCharacter)& aCollectedText,
                             const Handle(StepVisual_PlanarExtent)&             aExtent);
 
   Standard_EXPORT void SetExtent(const Handle(StepVisual_PlanarExtent)& aExtent);

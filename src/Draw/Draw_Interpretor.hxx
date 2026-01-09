@@ -39,17 +39,17 @@ public:
                                               const char**      theArgVec);
 
   //! Callback1 for TCL (interface)
-  struct CallBackData
+  struct CallBackData1
   {
 
     //! Main constructor
-    CallBackData(DrawInterpreter* theDI)
+    CallBackData1(DrawInterpreter* theDI)
         : myDI(theDI)
     {
     }
 
     //! Destructor
-    virtual ~CallBackData() {}
+    virtual ~CallBackData1() {}
 
     //! Invoke function
     virtual Standard_Integer Invoke(DrawInterpreter& theDI,
@@ -64,11 +64,11 @@ public:
 
 protected:
   //! Callback1 implementation for global function definition
-  struct CallBackDataFunc : public CallBackData
+  struct CallBackDataFunc : public CallBackData1
   {
 
     CallBackDataFunc(DrawInterpreter* theDI, CommandFunction theFunc)
-        : CallBackData(theDI),
+        : CallBackData1(theDI),
           myFunc(theFunc)
     {
     }
@@ -85,7 +85,7 @@ protected:
 
   //! Callback1 implementation for class's method definition
   template <typename theObjHandle>
-  struct CallBackDataMethod : public CallBackData
+  struct CallBackDataMethod : public CallBackData1
   {
     typedef typename theObjHandle::element_type element_type;
     typedef Standard_Integer (element_type::*methodType)(DrawInterpreter&,
@@ -93,7 +93,7 @@ protected:
                                                          const char**);
 
     CallBackDataMethod(DrawInterpreter* theDI, const theObjHandle& theObjPtr, methodType theMethod)
-        : CallBackData(theDI),
+        : CallBackData1(theDI),
           myObjPtr(theObjPtr),
           myMethod(theMethod)
     {
@@ -279,7 +279,7 @@ protected:
   Standard_EXPORT void add(Standard_CString theCommandName,
                            Standard_CString theHelp,
                            Standard_CString theFileName,
-                           CallBackData*    theCallback,
+                           CallBackData1*    theCallback,
                            Standard_CString theGroup);
 
 private:

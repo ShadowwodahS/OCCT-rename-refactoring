@@ -37,14 +37,14 @@
 //! myName  ("")
 //! myBboxSize (0,0,0)
 //! myBboxCenter  (0,0,0)
-class Vrml_WWWInline
+class WWWInline
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_WWWInline();
+  Standard_EXPORT WWWInline();
 
-  Standard_EXPORT Vrml_WWWInline(const AsciiString1& aName,
+  Standard_EXPORT WWWInline(const AsciiString1& aName,
                                  const Vector3d&                  aBboxSize,
                                  const Vector3d&                  aBboxCenter);
 

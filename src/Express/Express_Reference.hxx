@@ -18,7 +18,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 
-class Express_HSequenceOfItem;
+class ItemSequence;
 
 //! Implements REFERENCE FROM (list of types used from other schema)
 //! item of the EXPRESS schema, with interface for Item class.
@@ -35,7 +35,7 @@ public:
 
   //! Returns handle to sequence of items corresponding to
   //! listed types
-  const Handle(Express_HSequenceOfItem)& Items() const { return myItems; }
+  const Handle(ItemSequence)& Items() const { return myItems; }
 
   //! Redefined to empty (in order to be able to instantiate)
   //! Return False
@@ -49,7 +49,7 @@ public:
 protected:
 private:
   Handle(TColStd_HSequenceOfHAsciiString) myTypes;
-  Handle(Express_HSequenceOfItem)         myItems;
+  Handle(ItemSequence)         myItems;
 };
 
 #endif // _Express_Reference_HeaderFile

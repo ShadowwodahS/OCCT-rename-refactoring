@@ -24,7 +24,7 @@
 #include <Draw_Interpretor.hxx>
 class AppDocument;
 class DrawDisplay;
-class Draw_Drawable3D;
+class Drawable3D;
 
 class DDocStd_DrawDocument;
 DEFINE_STANDARD_HANDLE(DDocStd_DrawDocument, DDF_Data)
@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 

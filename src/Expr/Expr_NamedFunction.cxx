@@ -27,7 +27,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedFunction, Expr_GeneralFunction)
 
 Expr_NamedFunction::Expr_NamedFunction(const AsciiString1&        name,
-                                       const Handle(Expr_GeneralExpression)& exp,
+                                       const Handle(Expression1)& exp,
                                        const Expr_Array1OfNamedUnknown&      vars)
     : myVariables(vars.Lower(), vars.Upper())
 {
@@ -127,12 +127,12 @@ AsciiString1 Expr_NamedFunction::GetStringName() const
   return myName;
 }
 
-Handle(Expr_GeneralExpression) Expr_NamedFunction::Expression() const
+Handle(Expression1) Expr_NamedFunction::Expression() const
 {
   return myExp;
 }
 
-void Expr_NamedFunction::SetExpression(const Handle(Expr_GeneralExpression)& anexp)
+void Expr_NamedFunction::SetExpression(const Handle(Expression1)& anexp)
 {
   myExp = anexp;
 }

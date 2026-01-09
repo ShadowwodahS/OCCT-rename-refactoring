@@ -308,7 +308,7 @@ void VrmlConverter_Projector::Add(Standard_OStream& anOStream) const
       TransformSeparator TS;
       TS.Print(anOStream);
       myMatrixTransform.Print(anOStream);
-      Vrml_Instancing I1("Perspective Camera");
+      Instancing I1("Perspective Camera");
       I1.DEF(anOStream);
       myPerspectiveCamera.Print(anOStream);
       TS.Print(anOStream);
@@ -318,7 +318,7 @@ void VrmlConverter_Projector::Add(Standard_OStream& anOStream) const
       TransformSeparator TS;
       TS.Print(anOStream);
       myMatrixTransform.Print(anOStream);
-      Vrml_Instancing I2("Orthographic Camera");
+      Instancing I2("Orthographic Camera");
       I2.DEF(anOStream);
       myOrthographicCamera.Print(anOStream);
       TS.Print(anOStream);

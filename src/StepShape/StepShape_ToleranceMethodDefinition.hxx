@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 class RefObject;
-class StepShape_ToleranceValue;
+class ToleranceValue1;
 class StepShape_LimitsAndFits;
 
 //! Added for Dimensional Tolerances
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as ToleranceValue
-  Standard_EXPORT Handle(StepShape_ToleranceValue) ToleranceValue() const;
+  Standard_EXPORT Handle(ToleranceValue1) ToleranceValue() const;
 
   //! Returns Value as LimitsAndFits
   Standard_EXPORT Handle(StepShape_LimitsAndFits) LimitsAndFits() const;

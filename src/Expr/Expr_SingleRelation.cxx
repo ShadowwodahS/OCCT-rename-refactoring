@@ -21,22 +21,22 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_SingleRelation, Expr_GeneralRelation)
 
-void Expr_SingleRelation::SetFirstMember(const Handle(Expr_GeneralExpression)& exp)
+void Expr_SingleRelation::SetFirstMember(const Handle(Expression1)& exp)
 {
   myFirstMember = exp;
 }
 
-void Expr_SingleRelation::SetSecondMember(const Handle(Expr_GeneralExpression)& exp)
+void Expr_SingleRelation::SetSecondMember(const Handle(Expression1)& exp)
 {
   mySecondMember = exp;
 }
 
-Handle(Expr_GeneralExpression) Expr_SingleRelation::FirstMember() const
+Handle(Expression1) Expr_SingleRelation::FirstMember() const
 {
   return myFirstMember;
 }
 
-Handle(Expr_GeneralExpression) Expr_SingleRelation::SecondMember() const
+Handle(Expression1) Expr_SingleRelation::SecondMember() const
 {
   return mySecondMember;
 }
@@ -54,7 +54,7 @@ Standard_Boolean Expr_SingleRelation::IsLinear() const
   return Standard_True;
 }
 
-Standard_Boolean Expr_SingleRelation::Contains(const Handle(Expr_GeneralExpression)& exp) const
+Standard_Boolean Expr_SingleRelation::Contains(const Handle(Expression1)& exp) const
 {
   if (myFirstMember == exp)
   {
@@ -72,7 +72,7 @@ Standard_Boolean Expr_SingleRelation::Contains(const Handle(Expr_GeneralExpressi
 }
 
 void Expr_SingleRelation::Replace(const Handle(Expr_NamedUnknown)&      var,
-                                  const Handle(Expr_GeneralExpression)& with)
+                                  const Handle(Expression1)& with)
 {
   if (myFirstMember == var)
   {

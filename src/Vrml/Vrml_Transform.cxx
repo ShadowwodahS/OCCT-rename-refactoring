@@ -13,7 +13,7 @@
 
 #include <Vrml_Transform.hxx>
 
-Vrml_Transform::Vrml_Transform()
+Transform::Transform()
 {
   Vector3d tmpV(0, 0, 0);
   myTranslation = tmpV;
@@ -38,7 +38,7 @@ Vrml_Transform::Vrml_Transform()
   myCenter = tmpV;
 }
 
-Vrml_Transform::Vrml_Transform(const Vector3d&          aTranslation,
+Transform::Transform(const Vector3d&          aTranslation,
                                const SFRotation& aRotation,
                                const Vector3d&          aScaleFactor,
                                const SFRotation& aScaleOrientation,
@@ -51,57 +51,57 @@ Vrml_Transform::Vrml_Transform(const Vector3d&          aTranslation,
   myCenter           = aCenter;
 }
 
-void Vrml_Transform::SetTranslation(const Vector3d& aTranslation)
+void Transform::SetTranslation(const Vector3d& aTranslation)
 {
   myTranslation = aTranslation;
 }
 
-Vector3d Vrml_Transform::Translation() const
+Vector3d Transform::Translation() const
 {
   return myTranslation;
 }
 
-void Vrml_Transform::SetRotation(const SFRotation& aRotation)
+void Transform::SetRotation(const SFRotation& aRotation)
 {
   myRotation = aRotation;
 }
 
-SFRotation Vrml_Transform::Rotation() const
+SFRotation Transform::Rotation() const
 {
   return myRotation;
 }
 
-void Vrml_Transform::SetScaleFactor(const Vector3d& aScaleFactor)
+void Transform::SetScaleFactor(const Vector3d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-Vector3d Vrml_Transform::ScaleFactor() const
+Vector3d Transform::ScaleFactor() const
 {
   return myScaleFactor;
 }
 
-void Vrml_Transform::SetScaleOrientation(const SFRotation& aScaleOrientation)
+void Transform::SetScaleOrientation(const SFRotation& aScaleOrientation)
 {
   myScaleOrientation = aScaleOrientation;
 }
 
-SFRotation Vrml_Transform::ScaleOrientation() const
+SFRotation Transform::ScaleOrientation() const
 {
   return myScaleOrientation;
 }
 
-void Vrml_Transform::SetCenter(const Vector3d& aCenter)
+void Transform::SetCenter(const Vector3d& aCenter)
 {
   myCenter = aCenter;
 }
 
-Vector3d Vrml_Transform::Center() const
+Vector3d Transform::Center() const
 {
   return myCenter;
 }
 
-Standard_OStream& Vrml_Transform::Print(Standard_OStream& anOStream) const
+Standard_OStream& Transform::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Transform {\n";
 

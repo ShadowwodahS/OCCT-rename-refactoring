@@ -24,7 +24,7 @@
 #include <StepBasic_SizeSelect.hxx>
 #include <Standard_Transient.hxx>
 class TCollection_HAsciiString;
-class StepVisual_Colour;
+class Colour;
 
 class StepVisual_CurveStyle;
 DEFINE_STANDARD_HANDLE(StepVisual_CurveStyle, RefObject)
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aName,
                             const StepVisual_CurveStyleFontSelect&  aCurveFont,
                             const StepBasic_SizeSelect&             aCurveWidth,
-                            const Handle(StepVisual_Colour)&        aCurveColour);
+                            const Handle(Colour)&        aCurveColour);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
@@ -53,9 +53,9 @@ public:
 
   Standard_EXPORT StepBasic_SizeSelect CurveWidth() const;
 
-  Standard_EXPORT void SetCurveColour(const Handle(StepVisual_Colour)& aCurveColour);
+  Standard_EXPORT void SetCurveColour(const Handle(Colour)& aCurveColour);
 
-  Standard_EXPORT Handle(StepVisual_Colour) CurveColour() const;
+  Standard_EXPORT Handle(Colour) CurveColour() const;
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyle, RefObject)
 
@@ -64,7 +64,7 @@ private:
   Handle(TCollection_HAsciiString) name;
   StepVisual_CurveStyleFontSelect  curveFont;
   StepBasic_SizeSelect             curveWidth;
-  Handle(StepVisual_Colour)        curveColour;
+  Handle(Colour)        curveColour;
 };
 
 #endif // _StepVisual_CurveStyle_HeaderFile

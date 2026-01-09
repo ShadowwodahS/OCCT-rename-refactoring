@@ -32,12 +32,12 @@ class StepRepr_MappedItem;
 class Transfer_TransientProcess;
 
 //! Produces instances by Transformation of a basic item
-class StepToTopoDS_MakeTransformed : public Root2
+class TransformedShapeBuilder : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT StepToTopoDS_MakeTransformed();
+  Standard_EXPORT TransformedShapeBuilder();
 
   //! Computes a transformation to pass from an Origin placement to
   //! a Target placement. Returns True when done

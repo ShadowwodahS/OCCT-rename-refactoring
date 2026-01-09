@@ -52,8 +52,8 @@ TopoDSToStep_MakeGeometricCurveSet::TopoDSToStep_MakeGeometricCurveSet(
     Standard_Integer nbItem = itemList->Length();
     if (nbItem > 0)
     {
-      Handle(StepShape_HArray1OfGeometricSetSelect) aGSS =
-        new StepShape_HArray1OfGeometricSetSelect(1, nbItem);
+      Handle(HArray1OfGeometricSetSelect) aGSS =
+        new HArray1OfGeometricSetSelect(1, nbItem);
 
       for (Standard_Integer i = 1; i <= nbItem; i++)
       {

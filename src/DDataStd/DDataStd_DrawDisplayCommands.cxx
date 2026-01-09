@@ -70,7 +70,7 @@ static Standard_Integer DDataStd_Rmdraw(DrawInterpreter&, Standard_Integer nb, c
     return 1;
   }
 
-  if (Handle(Draw_Drawable3D) D3D = Draw1::Get(arg[1]))
+  if (Handle(Drawable3D) D3D = Draw1::Get(arg[1]))
   {
     dout.RemoveDrawable(D3D);
     return 0;
@@ -93,7 +93,7 @@ static Standard_Integer DDataStd_DrawOwner(DrawInterpreter& di,
 {
   if (nb == 2)
   {
-    Handle(Draw_Drawable3D) D = Draw1::Get(arg[1]);
+    Handle(Drawable3D) D = Draw1::Get(arg[1]);
     if (!D.IsNull())
     {
       AsciiString1 entry;

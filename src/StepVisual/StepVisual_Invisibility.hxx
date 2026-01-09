@@ -34,12 +34,12 @@ public:
   //! Returns a Invisibility
   Standard_EXPORT StepVisual_Invisibility();
 
-  Standard_EXPORT void Init(const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems);
+  Standard_EXPORT void Init(const Handle(HArray1OfInvisibleItem)& aInvisibleItems);
 
   Standard_EXPORT void SetInvisibleItems(
-    const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems);
+    const Handle(HArray1OfInvisibleItem)& aInvisibleItems);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfInvisibleItem) InvisibleItems() const;
+  Standard_EXPORT Handle(HArray1OfInvisibleItem) InvisibleItems() const;
 
   Standard_EXPORT StepVisual_InvisibleItem InvisibleItemsValue(const Standard_Integer num) const;
 
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  Handle(StepVisual_HArray1OfInvisibleItem) invisibleItems;
+  Handle(HArray1OfInvisibleItem) invisibleItems;
 };
 
 #endif // _StepVisual_Invisibility_HeaderFile

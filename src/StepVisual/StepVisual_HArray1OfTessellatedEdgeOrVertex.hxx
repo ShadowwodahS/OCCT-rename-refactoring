@@ -20,7 +20,7 @@
 #include <StepVisual_Array1OfTessellatedEdgeOrVertex.hxx>
 #include <NCollection_HArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfTessellatedEdgeOrVertex,
+DEFINE_HARRAY1(HArray1OfTessellatedEdgeOrVertex,
                StepVisual_Array1OfTessellatedEdgeOrVertex);
 
 #endif

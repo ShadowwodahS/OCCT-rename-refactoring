@@ -26,33 +26,33 @@
 
 class DrawDisplay;
 
-DEFINE_STANDARD_HANDLE(Draw_Drawable3D, RefObject)
+DEFINE_STANDARD_HANDLE(Drawable3D, RefObject)
 
-class Draw_Drawable3D : public RefObject
+class Drawable3D : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Draw_Drawable3D, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Drawable3D, RefObject)
 public:
   //! Function type for restoring drawable from stream.
-  typedef Handle(Draw_Drawable3D) (*FactoryFunction_t)(Standard_IStream& theStream);
+  typedef Handle(Drawable3D) (*FactoryFunction_t)(Standard_IStream& theStream);
 
-  //! Register factory for restoring drawable from stream (opposite to Draw_Drawable3D::Save()).
+  //! Register factory for restoring drawable from stream (opposite to Drawable3D::Save()).
   //! @param[in] theType  class name
   //! @param[in] theFactory  factory function
   Standard_EXPORT static void RegisterFactory(const Standard_CString   theType,
                                               const FactoryFunction_t& theFactory);
 
-  //! Restore drawable from stream (opposite to Draw_Drawable3D::Save()).
+  //! Restore drawable from stream (opposite to Drawable3D::Save()).
   //! @param[in] theType  class name
   //! @param[in] theStream  input stream
   //! @return restored drawable or NULL if factory is undefined for specified class
-  Standard_EXPORT static Handle(Draw_Drawable3D) Restore(const Standard_CString theType,
+  Standard_EXPORT static Handle(Drawable3D) Restore(const Standard_CString theType,
                                                          Standard_IStream&      theStream);
 
 //! @def Draw_Drawable3D_FACTORY
-//! Auxiliary macros defining Draw_Drawable3D restoration API to sub-class.
+//! Auxiliary macros defining Drawable3D restoration API to sub-class.
 #define Draw_Drawable3D_FACTORY                                                                    \
-  static void RegisterFactory() { Draw_Drawable3D::RegisterFactory(get_type_name(), &Restore); }   \
-  Standard_EXPORT static Handle(Draw_Drawable3D) Restore(Standard_IStream& theStream);
+  static void RegisterFactory() { Drawable3D::RegisterFactory(get_type_name(), &Restore); }   \
+  Standard_EXPORT static Handle(Drawable3D) Restore(Standard_IStream& theStream);
 
 public:
   Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const = 0;
@@ -63,7 +63,7 @@ public:
                                                       const Standard_Real Prec) const;
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const;
@@ -115,7 +115,7 @@ public:
   virtual void Name(const Standard_CString N) { myName = N; }
 
 protected:
-  Standard_EXPORT Draw_Drawable3D();
+  Standard_EXPORT Drawable3D();
 
 private:
   Standard_Real    myXmin;

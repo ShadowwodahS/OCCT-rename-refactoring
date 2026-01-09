@@ -139,14 +139,14 @@ Standard_Boolean DDataStd_DrawPresentation::IsDisplayed() const
 
 //=================================================================================================
 
-void DDataStd_DrawPresentation::SetDrawable(const Handle(Draw_Drawable3D)& D)
+void DDataStd_DrawPresentation::SetDrawable(const Handle(Drawable3D)& D)
 {
   myDrawable = D;
 }
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawPresentation::GetDrawable() const
+Handle(Drawable3D) DDataStd_DrawPresentation::GetDrawable() const
 {
   return myDrawable;
 }
@@ -335,7 +335,7 @@ void DDataStd_DrawPresentation::DrawBuild()
     DD = new DDataStd_DrawDriver();
     DDataStd_DrawDriver::Set(DD);
   }
-  Handle(Draw_Drawable3D) D3D = DD->Drawable(Label());
+  Handle(Drawable3D) D3D = DD->Drawable(Label());
   if (D3D.IsNull())
     std::cout << "DDataStd_DrawPresentation::DrawBuild : null drawable" << std::endl;
   myDrawable = D3D;

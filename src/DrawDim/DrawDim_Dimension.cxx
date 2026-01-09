@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Dimension, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Dimension, Drawable3D)
 
 //=================================================================================================
 

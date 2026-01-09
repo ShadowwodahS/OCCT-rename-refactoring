@@ -29,14 +29,14 @@
 //! An orthographic camera defines a parallel projection from a viewpoint. This camera does
 //! not diminish objects with distance, as a PerspectiveCamera does. The viewing volume for
 //! an orthographic camera is a rectangular parallelepiped (a box).
-class Vrml_OrthographicCamera
+class OrthographicCamera
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_OrthographicCamera();
+  Standard_EXPORT OrthographicCamera();
 
-  Standard_EXPORT Vrml_OrthographicCamera(const Vector3d&          aPosition,
+  Standard_EXPORT OrthographicCamera(const Vector3d&          aPosition,
                                           const SFRotation& aOrientation,
                                           const Standard_Real    aFocalDistance,
                                           const Standard_Real    aHeight);

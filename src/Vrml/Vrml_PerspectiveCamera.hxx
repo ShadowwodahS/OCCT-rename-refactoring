@@ -28,14 +28,14 @@
 //! specifies a PerspectiveCamera node of VRML specifying properties of cameras.
 //! A perspective camera defines a perspective projection from a viewpoint. The viewing
 //! volume for a perspective camera is a truncated right pyramid.
-class Vrml_PerspectiveCamera
+class PerspectiveCamera
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_PerspectiveCamera();
+  Standard_EXPORT PerspectiveCamera();
 
-  Standard_EXPORT Vrml_PerspectiveCamera(const Vector3d&          aPosition,
+  Standard_EXPORT PerspectiveCamera(const Vector3d&          aPosition,
                                          const SFRotation& aOrientation,
                                          const Standard_Real    aFocalDistance,
                                          const Standard_Real    aHeightAngle);

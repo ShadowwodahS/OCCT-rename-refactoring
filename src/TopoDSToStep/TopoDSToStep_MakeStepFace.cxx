@@ -441,7 +441,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
     Standard_Integer nbWires = mySeq.Length();
     if (nbWires)
     {
-      Handle(StepShape_HArray1OfFaceBound) aBounds = new StepShape_HArray1OfFaceBound(1, nbWires);
+      Handle(HArray1OfFaceBound) aBounds = new HArray1OfFaceBound(1, nbWires);
       for (Standard_Integer i = 1; i <= nbWires; i++)
       {
         aBounds->SetValue(i, Handle(StepShape_FaceBound)::DownCast(mySeq.Value(i)));

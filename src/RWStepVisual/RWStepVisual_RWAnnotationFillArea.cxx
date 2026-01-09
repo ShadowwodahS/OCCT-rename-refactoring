@@ -44,13 +44,13 @@ void RWStepVisual_RWAnnotationFillArea::ReadStep(
   data->ReadString(num, 1, "name", ach, aName);
 
   // Own field : boundaries
-  Handle(StepShape_HArray1OfGeometricSetSelect) aElements;
+  Handle(HArray1OfGeometricSetSelect) aElements;
   StepShape_GeometricSetSelect                  aElementsItem;
   Standard_Integer                              nsub;
   if (data->ReadSubList(num, 2, "boundaries", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    aElements           = new StepShape_HArray1OfGeometricSetSelect(1, nb);
+    aElements           = new HArray1OfGeometricSetSelect(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (data->ReadEntity(nsub, i, "boundaries", ach, aElementsItem))

@@ -22,7 +22,7 @@
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
 
-class Express_HSequenceOfItem;
+class ItemSequence;
 
 //! Implements TYPE SELECT item of the EXPRESS
 //! schema, with interface for deferred Item class.
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT const Handle(TColStd_HSequenceOfHAsciiString)& Names() const;
 
   //! Returns sequence of items corresponding to typenames
-  Standard_EXPORT const Handle(Express_HSequenceOfItem)& Items() const;
+  Standard_EXPORT const Handle(ItemSequence)& Items() const;
 
   //! Create HXX/CXX files from item
   Standard_EXPORT virtual Standard_Boolean GenerateClass() const Standard_OVERRIDE;
@@ -54,7 +54,7 @@ private:
     generateSelectMember(const Handle(TColStd_HSequenceOfInteger)& theSeqMember) const;
 
   Handle(TColStd_HSequenceOfHAsciiString) myNames;
-  Handle(Express_HSequenceOfItem)         myItems;
+  Handle(ItemSequence)         myItems;
 };
 
 #endif // _Express_Select_HeaderFile

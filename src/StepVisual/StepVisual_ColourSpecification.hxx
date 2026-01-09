@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepVisual_ColourSpecification;
-DEFINE_STANDARD_HANDLE(StepVisual_ColourSpecification, StepVisual_Colour)
+DEFINE_STANDARD_HANDLE(StepVisual_ColourSpecification, Colour)
 
-class StepVisual_ColourSpecification : public StepVisual_Colour
+class StepVisual_ColourSpecification : public Colour
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_ColourSpecification, StepVisual_Colour)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_ColourSpecification, Colour)
 
 protected:
 private:

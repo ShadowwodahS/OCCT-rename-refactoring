@@ -39,7 +39,7 @@ void StepShape_FacetedBrepAndBrepWithVoids::Init(
 void StepShape_FacetedBrepAndBrepWithVoids::Init(
   const Handle(TCollection_HAsciiString)&               aName,
   const Handle(StepShape_ClosedShell)&                  aOuter,
-  const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids)
+  const Handle(HArray1OfOrientedClosedShell)& aVoids)
 {
   // --- class inherited fields ---
 
@@ -81,12 +81,12 @@ Handle(StepShape_BrepWithVoids) StepShape_FacetedBrepAndBrepWithVoids::BrepWithV
 //--- Specific Methods for AND class field access ---
 
 void StepShape_FacetedBrepAndBrepWithVoids::SetVoids(
-  const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids)
+  const Handle(HArray1OfOrientedClosedShell)& aVoids)
 {
   brepWithVoids->SetVoids(aVoids);
 }
 
-Handle(StepShape_HArray1OfOrientedClosedShell) StepShape_FacetedBrepAndBrepWithVoids::Voids() const
+Handle(HArray1OfOrientedClosedShell) StepShape_FacetedBrepAndBrepWithVoids::Voids() const
 {
   return brepWithVoids->Voids();
 }

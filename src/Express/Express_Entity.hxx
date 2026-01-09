@@ -20,9 +20,9 @@
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 #include <NCollection_DataMap.hxx>
 
-class Express_HSequenceOfEntity;
+class EntitySequence;
 
-class Express_HSequenceOfField;
+class FieldSequence;
 
 class Dico_DictionaryOfInteger;
 
@@ -37,16 +37,16 @@ public:
   //! methods Check and FillShared correspondingly.
   Standard_EXPORT Express_Entity(const Standard_CString                         theName,
                                  const Handle(TColStd_HSequenceOfHAsciiString)& theInherit,
-                                 const Handle(Express_HSequenceOfField)&        theFields);
+                                 const Handle(FieldSequence)&        theFields);
 
   //! Returns sequence of inherited classes (names)
   Standard_EXPORT const Handle(TColStd_HSequenceOfHAsciiString)& SuperTypes() const;
 
   //! Returns sequence of inherited items
-  Standard_EXPORT const Handle(Express_HSequenceOfEntity)& Inherit() const;
+  Standard_EXPORT const Handle(EntitySequence)& Inherit() const;
 
   //! Returns sequence of fields
-  Standard_EXPORT const Handle(Express_HSequenceOfField)& Fields() const;
+  Standard_EXPORT const Handle(FieldSequence)& Fields() const;
 
   //! Returns number of fields (only own fields if inherited is False
   //! and including fields of all supertypes if it is True)
@@ -103,8 +103,8 @@ private:
 
 private:
   Handle(TColStd_HSequenceOfHAsciiString) mySupers;
-  Handle(Express_HSequenceOfEntity)       myInherit;
-  Handle(Express_HSequenceOfField)        myFields;
+  Handle(EntitySequence)       myInherit;
+  Handle(FieldSequence)        myFields;
   Standard_Boolean                        myIsAbstract;
 };
 

@@ -27,7 +27,7 @@ StepVisual_CameraModelD3MultiClippingUnion::StepVisual_CameraModelD3MultiClippin
 
 void StepVisual_CameraModelD3MultiClippingUnion::Init(
   const Handle(TCollection_HAsciiString)&                                  theName,
-  const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect)& theShapeClipping)
+  const Handle(HArray1OfCameraClippingUnion)& theShapeClipping)
 {
   // Own field
   myShapeClipping = theShapeClipping;

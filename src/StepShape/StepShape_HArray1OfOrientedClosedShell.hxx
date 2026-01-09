@@ -20,6 +20,6 @@
 #include <StepShape_Array1OfOrientedClosedShell.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfOrientedClosedShell, StepShape_Array1OfOrientedClosedShell)
+DEFINE_HARRAY1(HArray1OfOrientedClosedShell, StepShape_Array1OfOrientedClosedShell)
 
 #endif

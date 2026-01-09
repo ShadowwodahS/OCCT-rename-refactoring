@@ -26,14 +26,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_LogOf10, Expr_UnaryExpression)
 
-Expr_LogOf10::Expr_LogOf10(const Handle(Expr_GeneralExpression)& exp)
+Expr_LogOf10::Expr_LogOf10(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_LogOf10::ShallowSimplified() const
+Handle(Expression1) Expr_LogOf10::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) myexp = Operand();
+  Handle(Expression1) myexp = Operand();
   if (myexp->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) myNVexp = Handle(Expr_NumericValue)::DownCast(myexp);
@@ -43,16 +43,16 @@ Handle(Expr_GeneralExpression) Expr_LogOf10::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_LogOf10::Copy() const
+Handle(Expression1) Expr_LogOf10::Copy() const
 {
   return new Expr_LogOf10(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_LogOf10::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_LogOf10::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (Other->IsKind(STANDARD_TYPE(Expr_LogOf10)))
   {
-    Handle(Expr_GeneralExpression) myexp = Operand();
+    Handle(Expression1) myexp = Operand();
     return myexp->IsIdentical(Other->SubExpression(1));
   }
   return Standard_False;
@@ -63,14 +63,14 @@ Standard_Boolean Expr_LogOf10::IsLinear() const
   return !ContainsUnknowns();
 }
 
-Handle(Expr_GeneralExpression) Expr_LogOf10::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_LogOf10::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
   if (!Contains(X))
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) myexp   = Operand();
-  Handle(Expr_GeneralExpression) myder   = myexp->Derivative(X);
+  Handle(Expression1) myexp   = Operand();
+  Handle(Expression1) myder   = myexp->Derivative(X);
   Standard_Real                  vlog    = Log(10.0);
   Handle(Expr_NumericValue)      vallog  = new Expr_NumericValue(vlog);
   Handle(Expr_Product)           theprod = Expr1::CopyShare(myexp) * vallog;

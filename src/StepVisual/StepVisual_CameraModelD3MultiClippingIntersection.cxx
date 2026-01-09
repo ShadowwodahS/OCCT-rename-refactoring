@@ -30,7 +30,7 @@ StepVisual_CameraModelD3MultiClippingIntersection::
 
 void StepVisual_CameraModelD3MultiClippingIntersection::Init(
   const Handle(TCollection_HAsciiString)&                                        theName,
-  const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect)& theShapeClipping)
+  const Handle(HArray1OfCameraClippingIntersect)& theShapeClipping)
 {
   // Own field
   myShapeClipping = theShapeClipping;

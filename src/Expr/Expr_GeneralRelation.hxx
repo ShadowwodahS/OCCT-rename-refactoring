@@ -22,7 +22,7 @@
 
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 class AsciiString1;
 
@@ -68,11 +68,11 @@ public:
 
   //! Tests if <exp> contains <var>.
   Standard_EXPORT virtual Standard_Boolean Contains(
-    const Handle(Expr_GeneralExpression)& exp) const = 0;
+    const Handle(Expression1)& exp) const = 0;
 
   //! Replaces all occurrences of <var> with <with> in <me>.
   Standard_EXPORT virtual void Replace(const Handle(Expr_NamedUnknown)&      var,
-                                       const Handle(Expr_GeneralExpression)& with) = 0;
+                                       const Handle(Expression1)& with) = 0;
 
   //! returns a string representing <me> in a readable way.
   Standard_EXPORT virtual AsciiString1 String() const = 0;

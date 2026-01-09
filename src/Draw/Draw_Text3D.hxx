@@ -26,9 +26,9 @@
 class DrawDisplay;
 
 class Draw_Text3D;
-DEFINE_STANDARD_HANDLE(Draw_Text3D, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Text3D, Drawable3D)
 
-class Draw_Text3D : public Draw_Drawable3D
+class Draw_Text3D : public Drawable3D
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Text3D, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Text3D, Drawable3D)
 
 protected:
 private:

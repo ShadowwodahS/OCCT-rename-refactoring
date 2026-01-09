@@ -25,11 +25,11 @@ class Expr_GeneralRelation;
 class AsciiString1;
 
 class ExprIntrp_GenRel;
-DEFINE_STANDARD_HANDLE(ExprIntrp_GenRel, ExprIntrp_Generator)
+DEFINE_STANDARD_HANDLE(ExprIntrp_GenRel, ExpressionGenerator)
 
 //! Implements an interpreter for equations or system
 //! of equations made of expressions of package Expr1.
-class ExprIntrp_GenRel : public ExprIntrp_Generator
+class ExprIntrp_GenRel : public ExpressionGenerator
 {
 
 public:
@@ -46,7 +46,7 @@ public:
   //! IsDone answers false.
   Standard_EXPORT Handle(Expr_GeneralRelation) Relation() const;
 
-  DEFINE_STANDARD_RTTIEXT(ExprIntrp_GenRel, ExprIntrp_Generator)
+  DEFINE_STANDARD_RTTIEXT(ExprIntrp_GenRel, ExpressionGenerator)
 
 protected:
 private:

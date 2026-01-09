@@ -53,9 +53,9 @@ void RWStepVisual_RWPointStyle::ReadStep(const Handle(StepData_StepReaderData)& 
 
   // --- own field : markerColour ---
 
-  Handle(StepVisual_Colour) aMarkerColour;
+  Handle(Colour) aMarkerColour;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat4 =` not needed
-  data->ReadEntity(num, 4, "marker_colour", ach, STANDARD_TYPE(StepVisual_Colour), aMarkerColour);
+  data->ReadEntity(num, 4, "marker_colour", ach, STANDARD_TYPE(Colour), aMarkerColour);
 
   //--- Initialisation of the read entity ---
 

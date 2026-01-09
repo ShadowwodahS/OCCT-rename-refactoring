@@ -63,7 +63,7 @@ void RWStepVisual_RWTextStyleWithBoxCharacteristics::ReadStep(
   AsciiString1 TypeRotate("BOX_ROTATE_ANGLE");
   AsciiString1 TrueType;
 
-  Handle(StepVisual_HArray1OfBoxCharacteristicSelect) aCharacteristics;
+  Handle(HArray1OfBoxCharacteristic) aCharacteristics;
   Standard_Real                                       aCharacteristicsItem;
   BoxCharacteristicSelect                  aBoxCharacteristicSelect;
 
@@ -72,7 +72,7 @@ void RWStepVisual_RWTextStyleWithBoxCharacteristics::ReadStep(
   if (nsub3 != 0)
   {
     Standard_Integer nb3 = data->NbParams(nsub3);
-    aCharacteristics     = new StepVisual_HArray1OfBoxCharacteristicSelect(1, nb3);
+    aCharacteristics     = new HArray1OfBoxCharacteristic(1, nb3);
     for (Standard_Integer i3 = 1; i3 <= nb3; i3++)
     {
       // Looks for true type :

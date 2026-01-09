@@ -34,12 +34,12 @@ public:
   //! Returns a PresentationStyleAssignment
   Standard_EXPORT StepVisual_PresentationStyleAssignment();
 
-  Standard_EXPORT void Init(const Handle(StepVisual_HArray1OfPresentationStyleSelect)& aStyles);
+  Standard_EXPORT void Init(const Handle(HArray1OfPresentationStyleSelect)& aStyles);
 
   Standard_EXPORT void SetStyles(
-    const Handle(StepVisual_HArray1OfPresentationStyleSelect)& aStyles);
+    const Handle(HArray1OfPresentationStyleSelect)& aStyles);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfPresentationStyleSelect) Styles() const;
+  Standard_EXPORT Handle(HArray1OfPresentationStyleSelect) Styles() const;
 
   Standard_EXPORT StepVisual_PresentationStyleSelect StylesValue(const Standard_Integer num) const;
 
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  Handle(StepVisual_HArray1OfPresentationStyleSelect) styles;
+  Handle(HArray1OfPresentationStyleSelect) styles;
 };
 
 #endif // _StepVisual_PresentationStyleAssignment_HeaderFile

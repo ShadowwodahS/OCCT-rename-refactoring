@@ -43,13 +43,13 @@ void RWStepVisual_RWAnnotationCurveOccurrenceAndGeomReprItem::ReadStep(
 
   data->NamedForComplex("STYLED_ITEM", "STYITM", num0, num, ach);
   // Inherited field : styles
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) aStyles;
+  Handle(HArray1OfPresentationStyle) aStyles;
   Handle(StepVisual_PresentationStyleAssignment)          anEnt;
   Standard_Integer                                        nsub;
   if (data->ReadSubList(num, 1, "styles", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    aStyles             = new StepVisual_HArray1OfPresentationStyleAssignment(1, nb);
+    aStyles             = new HArray1OfPresentationStyle(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (data->ReadEntity(nsub,

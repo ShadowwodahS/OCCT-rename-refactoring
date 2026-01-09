@@ -217,8 +217,8 @@ public:
     int                              num;
     char*                            str;
     TColStd_HSequenceOfHAsciiString* tlist;
-    Express_HSequenceOfField*        flist;
-    Express_HSequenceOfItem*         ilist;
+    FieldSequence*        flist;
+    ItemSequence*         ilist;
     Express_Field*                   field;
     Express_Item*                    item;
     Express_Type*                    type;

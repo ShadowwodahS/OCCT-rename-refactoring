@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_FaceSurface, StepShape_Face)
 StepShape_FaceSurface::StepShape_FaceSurface() {}
 
 void StepShape_FaceSurface::Init(const Handle(TCollection_HAsciiString)&     aName,
-                                 const Handle(StepShape_HArray1OfFaceBound)& aBounds,
+                                 const Handle(HArray1OfFaceBound)& aBounds,
                                  const Handle(StepGeom_Surface)&             aFaceGeometry,
                                  const Standard_Boolean                      aSameSense)
 {

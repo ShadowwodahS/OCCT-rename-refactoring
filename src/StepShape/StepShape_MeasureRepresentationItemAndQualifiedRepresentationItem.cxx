@@ -32,7 +32,7 @@ void StepShape_MeasureRepresentationItemAndQualifiedRepresentationItem::Init(
   const Handle(TCollection_HAsciiString)&          aName,
   const Handle(StepBasic_MeasureValueMember)&      aValueComponent,
   const StepBasic_Unit&                            aUnitComponent,
-  const Handle(StepShape_HArray1OfValueQualifier)& qualifiers)
+  const Handle(HArray1OfValueQualifier)& qualifiers)
 {
   StepRepr_RepresentationItem::Init(aName);
   myMeasure->Init(aValueComponent, aUnitComponent);
@@ -51,7 +51,7 @@ Handle(StepBasic_MeasureWithUnit)
   return myMeasure;
 }
 
-Handle(StepShape_HArray1OfValueQualifier)
+Handle(HArray1OfValueQualifier)
   StepShape_MeasureRepresentationItemAndQualifiedRepresentationItem::Qualifiers() const
 {
   return theQualifiers;
@@ -64,7 +64,7 @@ Standard_Integer StepShape_MeasureRepresentationItemAndQualifiedRepresentationIt
 }
 
 void StepShape_MeasureRepresentationItemAndQualifiedRepresentationItem::SetQualifiers(
-  const Handle(StepShape_HArray1OfValueQualifier)& qualifiers)
+  const Handle(HArray1OfValueQualifier)& qualifiers)
 {
   theQualifiers = qualifiers;
 }

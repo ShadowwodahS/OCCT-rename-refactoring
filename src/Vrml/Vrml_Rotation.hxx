@@ -27,14 +27,14 @@
 //! defines a Rotation node of VRML specifying matrix and transform properties.
 //! This  node  defines  a  3D  rotation  about  an  arbitrary  axis  through  the  origin.
 //! By  default  :  myRotation  =  (0 0 1 0)
-class Vrml_Rotation
+class VrmlRotation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Rotation();
+  Standard_EXPORT VrmlRotation();
 
-  Standard_EXPORT Vrml_Rotation(const SFRotation& aRotation);
+  Standard_EXPORT VrmlRotation(const SFRotation& aRotation);
 
   Standard_EXPORT void SetRotation(const SFRotation& aRotation);
 

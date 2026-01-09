@@ -13,7 +13,7 @@
 
 #include <Vrml_WWWAnchor.hxx>
 
-Vrml_WWWAnchor::Vrml_WWWAnchor(const AsciiString1& aName,
+WWWAnchor::WWWAnchor(const AsciiString1& aName,
                                const AsciiString1& aDescription,
                                const Vrml_WWWAnchorMap        aMap)
 {
@@ -22,37 +22,37 @@ Vrml_WWWAnchor::Vrml_WWWAnchor(const AsciiString1& aName,
   myMap         = aMap;
 }
 
-void Vrml_WWWAnchor::SetName(const AsciiString1& aName)
+void WWWAnchor::SetName(const AsciiString1& aName)
 {
   myName = aName;
 }
 
-AsciiString1 Vrml_WWWAnchor::Name() const
+AsciiString1 WWWAnchor::Name() const
 {
   return myName;
 }
 
-void Vrml_WWWAnchor::SetDescription(const AsciiString1& aDescription)
+void WWWAnchor::SetDescription(const AsciiString1& aDescription)
 {
   myDescription = aDescription;
 }
 
-AsciiString1 Vrml_WWWAnchor::Description() const
+AsciiString1 WWWAnchor::Description() const
 {
   return myDescription;
 }
 
-void Vrml_WWWAnchor::SetMap(const Vrml_WWWAnchorMap aMap)
+void WWWAnchor::SetMap(const Vrml_WWWAnchorMap aMap)
 {
   myMap = aMap;
 }
 
-Vrml_WWWAnchorMap Vrml_WWWAnchor::Map() const
+Vrml_WWWAnchorMap WWWAnchor::Map() const
 {
   return myMap;
 }
 
-Standard_OStream& Vrml_WWWAnchor::Print(Standard_OStream& anOStream) const
+Standard_OStream& WWWAnchor::Print(Standard_OStream& anOStream) const
 {
   anOStream << "WWWAnchor {\n";
 

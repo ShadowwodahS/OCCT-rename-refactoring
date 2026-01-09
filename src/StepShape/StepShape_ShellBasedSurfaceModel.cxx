@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_ShellBasedSurfaceModel, StepGeom_GeometricR
 StepShape_ShellBasedSurfaceModel::StepShape_ShellBasedSurfaceModel() {}
 
 void StepShape_ShellBasedSurfaceModel::Init(const Handle(TCollection_HAsciiString)& aName,
-                                            const Handle(StepShape_HArray1OfShell)& aSbsmBoundary)
+                                            const Handle(HArray1OfShell1)& aSbsmBoundary)
 {
   // --- classe own fields ---
   sbsmBoundary = aSbsmBoundary;
@@ -28,12 +28,12 @@ void StepShape_ShellBasedSurfaceModel::Init(const Handle(TCollection_HAsciiStrin
 }
 
 void StepShape_ShellBasedSurfaceModel::SetSbsmBoundary(
-  const Handle(StepShape_HArray1OfShell)& aSbsmBoundary)
+  const Handle(HArray1OfShell1)& aSbsmBoundary)
 {
   sbsmBoundary = aSbsmBoundary;
 }
 
-Handle(StepShape_HArray1OfShell) StepShape_ShellBasedSurfaceModel::SbsmBoundary() const
+Handle(HArray1OfShell1) StepShape_ShellBasedSurfaceModel::SbsmBoundary() const
 {
   return sbsmBoundary;
 }

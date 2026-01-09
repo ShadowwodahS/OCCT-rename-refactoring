@@ -4548,7 +4548,7 @@ static Standard_Integer OCC31697(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  Handle(Expr_GeneralExpression) anExpr = exprIntrp->Expression();
+  Handle(Expression1) anExpr = exprIntrp->Expression();
   Handle(Expr_NamedUnknown)      aVar   = new Expr_NamedUnknown(aVarStr);
 
   if (!anExpr->Contains(aVar))
@@ -4557,7 +4557,7 @@ static Standard_Integer OCC31697(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
 
-  Handle(Expr_GeneralExpression) aDer = anExpr->Derivative(aVar);
+  Handle(Expression1) aDer = anExpr->Derivative(aVar);
 
   AsciiString1 aDerStr = aDer->String();
 

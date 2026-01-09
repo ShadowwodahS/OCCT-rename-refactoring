@@ -67,7 +67,7 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
   Handle(StepShape_TopologicalRepresentationItem) aItem;
   Handle(StepShape_ClosedShell)                   aOuter, aCShell;
   Handle(StepShape_OrientedClosedShell)           aOCShell;
-  Handle(StepShape_HArray1OfOrientedClosedShell)  aVoids;
+  Handle(HArray1OfOrientedClosedShell)  aVoids;
   TColStd_SequenceOfTransient                     aTessShells;
 
   Handle(StepData_StepModel) aStepModel     = Handle(StepData_StepModel)::DownCast(FP->Model());
@@ -176,7 +176,7 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
   if (N >= 1)
   {
     Handle(TCollection_HAsciiString) aName = new TCollection_HAsciiString("");
-    aVoids                                 = new StepShape_HArray1OfOrientedClosedShell(1, N);
+    aVoids                                 = new HArray1OfOrientedClosedShell(1, N);
     for (Standard_Integer i = 1; i <= N; i++)
     {
       aOCShell = new StepShape_OrientedClosedShell;
@@ -208,8 +208,8 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
         Handle(StepVisual_TessellatedShell)::DownCast(anIt.Value());
       aNbItems += aTessShell->NbItems();
     }
-    Handle(StepVisual_HArray1OfTessellatedStructuredItem) anItems =
-      new StepVisual_HArray1OfTessellatedStructuredItem(1, aNbItems);
+    Handle(HArray1OfTessellatedItem) anItems =
+      new HArray1OfTessellatedItem(1, aNbItems);
     Standard_Integer j = 1;
     for (TColStd_SequenceOfTransient::Iterator anIt(aTessShells); anIt.More(); anIt.Next())
     {

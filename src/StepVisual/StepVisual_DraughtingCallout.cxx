@@ -25,7 +25,7 @@ StepVisual_DraughtingCallout::StepVisual_DraughtingCallout() {}
 
 void StepVisual_DraughtingCallout::Init(
   const Handle(TCollection_HAsciiString)&                     theName,
-  const Handle(StepVisual_HArray1OfDraughtingCalloutElement)& theContents)
+  const Handle(HArray1OfDraughtingCallout)& theContents)
 {
   StepGeom_GeometricRepresentationItem::Init(theName);
   myContents = theContents;

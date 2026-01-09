@@ -40,9 +40,9 @@ void RWStepVisual_RWFillAreaStyleColour::ReadStep(
 
   // --- own field : fillColour ---
 
-  Handle(StepVisual_Colour) aFillColour;
+  Handle(Colour) aFillColour;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed
-  data->ReadEntity(num, 2, "fill_colour", ach, STANDARD_TYPE(StepVisual_Colour), aFillColour);
+  data->ReadEntity(num, 2, "fill_colour", ach, STANDARD_TYPE(Colour), aFillColour);
 
   //--- Initialisation of the read entity ---
 

@@ -28,7 +28,7 @@
 #include <TDF_Label.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DDF_Data, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DDF_Data, Drawable3D)
 
 //=================================================================================================
 
@@ -47,7 +47,7 @@ void DDF_Data::DrawOn(DrawDisplay& /*dis*/) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDF_Data::Copy() const
+Handle(Drawable3D) DDF_Data::Copy() const
 {
   return new DDF_Data(myDF);
 }

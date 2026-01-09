@@ -24,7 +24,7 @@
 #include <StepBasic_SizeSelect.hxx>
 #include <Standard_Transient.hxx>
 class TCollection_HAsciiString;
-class StepVisual_Colour;
+class Colour;
 
 class StepVisual_PointStyle;
 DEFINE_STANDARD_HANDLE(StepVisual_PointStyle, RefObject)
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aName,
                             const StepVisual_MarkerSelect&          aMarker,
                             const StepBasic_SizeSelect&             aMarkerSize,
-                            const Handle(StepVisual_Colour)&        aMarkerColour);
+                            const Handle(Colour)&        aMarkerColour);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
@@ -53,9 +53,9 @@ public:
 
   Standard_EXPORT StepBasic_SizeSelect MarkerSize() const;
 
-  Standard_EXPORT void SetMarkerColour(const Handle(StepVisual_Colour)& aMarkerColour);
+  Standard_EXPORT void SetMarkerColour(const Handle(Colour)& aMarkerColour);
 
-  Standard_EXPORT Handle(StepVisual_Colour) MarkerColour() const;
+  Standard_EXPORT Handle(Colour) MarkerColour() const;
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_PointStyle, RefObject)
 
@@ -64,7 +64,7 @@ private:
   Handle(TCollection_HAsciiString) name;
   StepVisual_MarkerSelect          marker;
   StepBasic_SizeSelect             markerSize;
-  Handle(StepVisual_Colour)        markerColour;
+  Handle(Colour)        markerColour;
 };
 
 #endif // _StepVisual_PointStyle_HeaderFile

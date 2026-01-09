@@ -29,7 +29,7 @@ StepVisual_TessellatedShell::StepVisual_TessellatedShell()
 
 void StepVisual_TessellatedShell::Init(
   const Handle(TCollection_HAsciiString)&                      theRepresentationItem_Name,
-  const Handle(StepVisual_HArray1OfTessellatedStructuredItem)& theItems,
+  const Handle(HArray1OfTessellatedItem)& theItems,
   const Standard_Boolean                                       theHasTopologicalLink,
   const Handle(StepShape_ConnectedFaceSet)&                    theTopologicalLink)
 {
@@ -50,7 +50,7 @@ void StepVisual_TessellatedShell::Init(
 
 //=================================================================================================
 
-Handle(StepVisual_HArray1OfTessellatedStructuredItem) StepVisual_TessellatedShell::Items() const
+Handle(HArray1OfTessellatedItem) StepVisual_TessellatedShell::Items() const
 {
   return myItems;
 }
@@ -58,7 +58,7 @@ Handle(StepVisual_HArray1OfTessellatedStructuredItem) StepVisual_TessellatedShel
 //=================================================================================================
 
 void StepVisual_TessellatedShell::SetItems(
-  const Handle(StepVisual_HArray1OfTessellatedStructuredItem)& theItems)
+  const Handle(HArray1OfTessellatedItem)& theItems)
 {
   myItems = theItems;
 }

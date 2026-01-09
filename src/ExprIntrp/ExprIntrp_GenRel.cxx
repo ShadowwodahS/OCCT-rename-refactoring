@@ -22,7 +22,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_GenRel, ExprIntrp_Generator)
+IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_GenRel, ExpressionGenerator)
 
 ExprIntrp_GenRel::ExprIntrp_GenRel()
 {

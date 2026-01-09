@@ -23,16 +23,16 @@
 
 class MeshTriangulation;
 
-DEFINE_STANDARD_HANDLE(DrawTrSurf_Triangulation, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DrawTrSurf_Triangulation, Drawable3D)
 
 //! Used to display a triangulation.
 //!
 //! Display internal edges in blue
 //! Display boundary edges in red
 //! Optional display of triangles and nodes indices.
-class DrawTrSurf_Triangulation : public Draw_Drawable3D
+class DrawTrSurf_Triangulation : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Triangulation, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Triangulation, Drawable3D)
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
@@ -51,7 +51,7 @@ class DrawTrSurf_Triangulation : public Draw_Drawable3D
   Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

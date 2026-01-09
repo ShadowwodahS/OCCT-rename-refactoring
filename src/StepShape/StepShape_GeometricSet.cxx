@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_GeometricSet, StepGeom_GeometricRepresentat
 StepShape_GeometricSet::StepShape_GeometricSet() {}
 
 void StepShape_GeometricSet::Init(const Handle(TCollection_HAsciiString)&              aName,
-                                  const Handle(StepShape_HArray1OfGeometricSetSelect)& aElements)
+                                  const Handle(HArray1OfGeometricSetSelect)& aElements)
 {
   // --- classe own fields ---
   elements = aElements;
@@ -29,12 +29,12 @@ void StepShape_GeometricSet::Init(const Handle(TCollection_HAsciiString)&       
 }
 
 void StepShape_GeometricSet::SetElements(
-  const Handle(StepShape_HArray1OfGeometricSetSelect)& aElements)
+  const Handle(HArray1OfGeometricSetSelect)& aElements)
 {
   elements = aElements;
 }
 
-Handle(StepShape_HArray1OfGeometricSetSelect) StepShape_GeometricSet::Elements() const
+Handle(HArray1OfGeometricSetSelect) StepShape_GeometricSet::Elements() const
 {
   return elements;
 }

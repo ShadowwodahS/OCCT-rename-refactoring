@@ -25,7 +25,7 @@
 #include <Standard_Real.hxx>
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 class AsciiString1;
 
@@ -92,7 +92,7 @@ public:
 
   Standard_EXPORT AsciiString1 GetStringName() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Expr_GeneralExpression) Expression() const;
+  Standard_EXPORT Handle(Expression1) Expression() const;
 
   Standard_EXPORT void UpdateExpression();
 
@@ -103,7 +103,7 @@ public:
 protected:
 private:
   Handle(Expr_GeneralFunction)   myFunction;
-  Handle(Expr_GeneralExpression) myExp;
+  Handle(Expression1) myExp;
   Handle(Expr_NamedUnknown)      myDerivate;
   Standard_Integer               myDegree;
 };

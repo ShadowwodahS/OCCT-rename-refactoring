@@ -46,13 +46,13 @@ void RWStepShape_RWEdgeBasedWireframeModel::ReadStep(
 
   // Own fields of EdgeBasedWireframeModel
 
-  Handle(StepShape_HArray1OfConnectedEdgeSet) aEbwmBoundary;
+  Handle(HArray1OfConnectedEdgeSet) aEbwmBoundary;
   Standard_Integer                            sub2 = 0;
   if (data->ReadSubList(num, 2, "ebwm_boundary", ach, sub2))
   {
     Standard_Integer num2 = sub2;
     Standard_Integer nb0  = data->NbParams(num2);
-    aEbwmBoundary         = new StepShape_HArray1OfConnectedEdgeSet(1, nb0);
+    aEbwmBoundary         = new HArray1OfConnectedEdgeSet(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       Handle(StepShape_ConnectedEdgeSet) anIt0;

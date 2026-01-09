@@ -18,7 +18,7 @@
 #include <Standard_Type.hxx>
 #include <XSDRAWSTL_DrawableMesh.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DrawableMesh, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DrawableMesh, Drawable3D)
 
 //=================================================================================================
 

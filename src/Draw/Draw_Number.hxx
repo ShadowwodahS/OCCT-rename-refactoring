@@ -19,12 +19,12 @@
 
 #include <Draw_Drawable3D.hxx>
 
-DEFINE_STANDARD_HANDLE(Draw_Number, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Number, Drawable3D)
 
 //! To store numbers in variables.
-class Draw_Number : public Draw_Drawable3D
+class Draw_Number : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(Draw_Number, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Number, Drawable3D)
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
@@ -41,7 +41,7 @@ class Draw_Number : public Draw_Drawable3D
   virtual bool IsDisplayable() const Standard_OVERRIDE { return false; }
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

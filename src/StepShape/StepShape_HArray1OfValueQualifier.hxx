@@ -20,6 +20,6 @@
 #include <StepShape_Array1OfValueQualifier.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfValueQualifier, StepShape_Array1OfValueQualifier)
+DEFINE_HARRAY1(HArray1OfValueQualifier, StepShape_Array1OfValueQualifier)
 
 #endif

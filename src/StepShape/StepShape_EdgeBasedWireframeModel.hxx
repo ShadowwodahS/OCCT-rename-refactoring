@@ -36,20 +36,20 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aRepresentationItem_Name,
-                            const Handle(StepShape_HArray1OfConnectedEdgeSet)& aEbwmBoundary);
+                            const Handle(HArray1OfConnectedEdgeSet)& aEbwmBoundary);
 
   //! Returns field EbwmBoundary
-  Standard_EXPORT Handle(StepShape_HArray1OfConnectedEdgeSet) EbwmBoundary() const;
+  Standard_EXPORT Handle(HArray1OfConnectedEdgeSet) EbwmBoundary() const;
 
   //! Set field EbwmBoundary
   Standard_EXPORT void SetEbwmBoundary(
-    const Handle(StepShape_HArray1OfConnectedEdgeSet)& EbwmBoundary);
+    const Handle(HArray1OfConnectedEdgeSet)& EbwmBoundary);
 
   DEFINE_STANDARD_RTTIEXT(StepShape_EdgeBasedWireframeModel, StepGeom_GeometricRepresentationItem)
 
 protected:
 private:
-  Handle(StepShape_HArray1OfConnectedEdgeSet) theEbwmBoundary;
+  Handle(HArray1OfConnectedEdgeSet) theEbwmBoundary;
 };
 
 #endif // _StepShape_EdgeBasedWireframeModel_HeaderFile

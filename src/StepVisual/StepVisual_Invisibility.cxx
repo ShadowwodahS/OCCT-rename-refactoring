@@ -18,19 +18,19 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_Invisibility, RefObject)
 
 StepVisual_Invisibility::StepVisual_Invisibility() {}
 
-void StepVisual_Invisibility::Init(const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems)
+void StepVisual_Invisibility::Init(const Handle(HArray1OfInvisibleItem)& aInvisibleItems)
 {
   // --- classe own fields ---
   invisibleItems = aInvisibleItems;
 }
 
 void StepVisual_Invisibility::SetInvisibleItems(
-  const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems)
+  const Handle(HArray1OfInvisibleItem)& aInvisibleItems)
 {
   invisibleItems = aInvisibleItems;
 }
 
-Handle(StepVisual_HArray1OfInvisibleItem) StepVisual_Invisibility::InvisibleItems() const
+Handle(HArray1OfInvisibleItem) StepVisual_Invisibility::InvisibleItems() const
 {
   return invisibleItems;
 }

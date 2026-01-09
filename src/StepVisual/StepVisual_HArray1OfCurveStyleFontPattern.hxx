@@ -20,6 +20,6 @@
 #include <StepVisual_Array1OfCurveStyleFontPattern.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfCurveStyleFontPattern, StepVisual_Array1OfCurveStyleFontPattern)
+DEFINE_HARRAY1(HArray1OfCurveStyleFontPattern, StepVisual_Array1OfCurveStyleFontPattern)
 
 #endif

@@ -25,10 +25,10 @@
 class DrawDisplay;
 
 class Draw_Box;
-DEFINE_STANDARD_HANDLE(Draw_Box, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Box, Drawable3D)
 
 //! a 3d box
-class Draw_Box : public Draw_Drawable3D
+class Draw_Box : public Drawable3D
 {
 public:
   //! Constructor
@@ -37,7 +37,7 @@ public:
   //! Draws myOBB
   Standard_EXPORT void DrawOn(DrawDisplay& theDis) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Box, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Box, Drawable3D)
 
 protected:
   //! Converts the point (theX, theY, theZ) in local coordinate system to WCS.

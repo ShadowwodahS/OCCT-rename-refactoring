@@ -13,7 +13,7 @@
 
 #include <Vrml_PointLight.hxx>
 
-Vrml_PointLight::Vrml_PointLight()
+PointLight::PointLight()
     : myOnOff(Standard_True),
       myIntensity(1),
       myColor(Quantity_NOC_WHITE),
@@ -22,7 +22,7 @@ Vrml_PointLight::Vrml_PointLight()
   //
 }
 
-Vrml_PointLight::Vrml_PointLight(const Standard_Boolean aOnOff,
+PointLight::PointLight(const Standard_Boolean aOnOff,
                                  const Standard_Real    aIntensity,
                                  const Color1&  aColor,
                                  const Vector3d&          aLocation)
@@ -37,17 +37,17 @@ Vrml_PointLight::Vrml_PointLight(const Standard_Boolean aOnOff,
   myLocation  = aLocation;
 }
 
-void Vrml_PointLight::SetOnOff(const Standard_Boolean aOnOff)
+void PointLight::SetOnOff(const Standard_Boolean aOnOff)
 {
   myOnOff = aOnOff;
 }
 
-Standard_Boolean Vrml_PointLight::OnOff() const
+Standard_Boolean PointLight::OnOff() const
 {
   return myOnOff;
 }
 
-void Vrml_PointLight::SetIntensity(const Standard_Real aIntensity)
+void PointLight::SetIntensity(const Standard_Real aIntensity)
 {
   if (aIntensity < 0. || aIntensity > 1.)
   {
@@ -56,32 +56,32 @@ void Vrml_PointLight::SetIntensity(const Standard_Real aIntensity)
   myIntensity = aIntensity;
 }
 
-Standard_Real Vrml_PointLight::Intensity() const
+Standard_Real PointLight::Intensity() const
 {
   return myIntensity;
 }
 
-void Vrml_PointLight::SetColor(const Color1& aColor)
+void PointLight::SetColor(const Color1& aColor)
 {
   myColor = aColor;
 }
 
-Color1 Vrml_PointLight::Color() const
+Color1 PointLight::Color() const
 {
   return myColor;
 }
 
-void Vrml_PointLight::SetLocation(const Vector3d& aLocation)
+void PointLight::SetLocation(const Vector3d& aLocation)
 {
   myLocation = aLocation;
 }
 
-Vector3d Vrml_PointLight::Location() const
+Vector3d PointLight::Location() const
 {
   return myLocation;
 }
 
-Standard_OStream& Vrml_PointLight::Print(Standard_OStream& anOStream) const
+Standard_OStream& PointLight::Print(Standard_OStream& anOStream) const
 {
   anOStream << "PointLight {\n";
 

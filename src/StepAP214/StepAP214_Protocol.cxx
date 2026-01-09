@@ -828,7 +828,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepGeom_CartesianTransformationOperator3d), 61);
   types.Bind(STANDARD_TYPE(StepGeom_Circle), 62);
   types.Bind(STANDARD_TYPE(StepShape_ClosedShell), 63);
-  types.Bind(STANDARD_TYPE(StepVisual_Colour), 64);
+  types.Bind(STANDARD_TYPE(Colour), 64);
   types.Bind(STANDARD_TYPE(StepVisual_ColourRgb), 65);
   types.Bind(STANDARD_TYPE(StepVisual_ColourSpecification), 66);
   types.Bind(STANDARD_TYPE(StepGeom_CompositeCurve), 67);
@@ -853,7 +853,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepGeom_CurveReplica), 86);
   types.Bind(STANDARD_TYPE(StepVisual_CurveStyle), 87);
   types.Bind(STANDARD_TYPE(StepVisual_CurveStyleFont), 88);
-  types.Bind(STANDARD_TYPE(StepVisual_CurveStyleFontPattern), 89);
+  types.Bind(STANDARD_TYPE(CurveStyleFontPattern), 89);
   types.Bind(STANDARD_TYPE(StepGeom_CylindricalSurface), 90);
   types.Bind(STANDARD_TYPE(Date1), 91);
   types.Bind(STANDARD_TYPE(StepBasic_DateAndTime), 92);
@@ -976,7 +976,7 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepVisual_PresentationArea), 214);
   types.Bind(STANDARD_TYPE(StepVisual_PresentationLayerAssignment), 215);
   types.Bind(STANDARD_TYPE(StepVisual_PresentationRepresentation), 216);
-  types.Bind(STANDARD_TYPE(StepVisual_PresentationSet), 217);
+  types.Bind(STANDARD_TYPE(PresentationSet1), 217);
   types.Bind(STANDARD_TYPE(StepVisual_PresentationSize), 218);
   types.Bind(STANDARD_TYPE(StepVisual_PresentationStyleAssignment), 219);
   types.Bind(STANDARD_TYPE(StepVisual_PresentationStyleByContext), 220);
@@ -1245,10 +1245,10 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepRepr_Extension), 472);
   types.Bind(STANDARD_TYPE(StepShape_DirectedDimensionalLocation), 473);
   types.Bind(STANDARD_TYPE(StepShape_LimitsAndFits), 474);
-  types.Bind(STANDARD_TYPE(StepShape_ToleranceValue), 475);
+  types.Bind(STANDARD_TYPE(ToleranceValue1), 475);
   types.Bind(STANDARD_TYPE(StepShape_MeasureQualification), 476);
   types.Bind(STANDARD_TYPE(StepShape_PlusMinusTolerance), 477);
-  types.Bind(STANDARD_TYPE(StepShape_PrecisionQualifier), 478);
+  types.Bind(STANDARD_TYPE(PrecisionQualifier1), 478);
   types.Bind(STANDARD_TYPE(StepShape_TypeQualifier), 479);
   types.Bind(STANDARD_TYPE(StepShape_QualifiedRepresentationItem), 480);
   types.Bind(STANDARD_TYPE(StepShape_MeasureRepresentationItemAndQualifiedRepresentationItem), 481);
@@ -1461,8 +1461,8 @@ StepAP214_Protocol::StepAP214_Protocol()
   types.Bind(STANDARD_TYPE(StepVisual_CameraModelD3MultiClippingIntersection), 717);
   types.Bind(STANDARD_TYPE(StepVisual_CameraModelD3MultiClippingUnion), 718);
   types.Bind(STANDARD_TYPE(StepVisual_AnnotationCurveOccurrenceAndGeomReprItem), 719);
-  types.Bind(STANDARD_TYPE(StepVisual_SurfaceStyleTransparent), 720);
-  types.Bind(STANDARD_TYPE(StepVisual_SurfaceStyleReflectanceAmbient), 721);
+  types.Bind(STANDARD_TYPE(SurfaceTransparency), 720);
+  types.Bind(STANDARD_TYPE(SurfaceReflectanceAmbient), 721);
   types.Bind(STANDARD_TYPE(StepVisual_SurfaceStyleRendering), 722);
   types.Bind(STANDARD_TYPE(StepVisual_SurfaceStyleRenderingWithProperties), 723);
 

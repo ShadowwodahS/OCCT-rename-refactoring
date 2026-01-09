@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void Init(
     const Handle(StepVisual_CurveStyle)&                    aStyleOfParameterLines,
-    const Handle(StepVisual_HArray1OfDirectionCountSelect)& aDirectionCounts);
+    const Handle(HArray1OfDirectionCount)& aDirectionCounts);
 
   Standard_EXPORT void SetStyleOfParameterLines(
     const Handle(StepVisual_CurveStyle)& aStyleOfParameterLines);
@@ -46,9 +46,9 @@ public:
   Standard_EXPORT Handle(StepVisual_CurveStyle) StyleOfParameterLines() const;
 
   Standard_EXPORT void SetDirectionCounts(
-    const Handle(StepVisual_HArray1OfDirectionCountSelect)& aDirectionCounts);
+    const Handle(HArray1OfDirectionCount)& aDirectionCounts);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfDirectionCountSelect) DirectionCounts() const;
+  Standard_EXPORT Handle(HArray1OfDirectionCount) DirectionCounts() const;
 
   Standard_EXPORT DirectionCountSelect
     DirectionCountsValue(const Standard_Integer num) const;
@@ -60,7 +60,7 @@ public:
 protected:
 private:
   Handle(StepVisual_CurveStyle)                    styleOfParameterLines;
-  Handle(StepVisual_HArray1OfDirectionCountSelect) directionCounts;
+  Handle(HArray1OfDirectionCount) directionCounts;
 };
 
 #endif // _StepVisual_SurfaceStyleParameterLine_HeaderFile

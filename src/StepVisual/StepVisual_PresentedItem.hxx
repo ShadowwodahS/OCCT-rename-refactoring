@@ -22,14 +22,14 @@
 
 #include <Standard_Transient.hxx>
 
-class StepVisual_PresentedItem;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentedItem, RefObject)
+class PresentedItem;
+DEFINE_STANDARD_HANDLE(PresentedItem, RefObject)
 
-class StepVisual_PresentedItem : public RefObject
+class PresentedItem : public RefObject
 {
 
 public:
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentedItem, RefObject)
+  DEFINE_STANDARD_RTTIEXT(PresentedItem, RefObject)
 
 protected:
 private:

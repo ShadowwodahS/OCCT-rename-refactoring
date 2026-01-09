@@ -23,13 +23,13 @@
 #include <Expr_GeneralExpression.hxx>
 
 class Expr_NamedExpression;
-DEFINE_STANDARD_HANDLE(Expr_NamedExpression, Expr_GeneralExpression)
+DEFINE_STANDARD_HANDLE(Expr_NamedExpression, Expression1)
 
 //! Describe an expression used  by its name (as constants
 //! or variables). A single reference is made to a
 //! NamedExpression in every Expression (i.e. a
 //! NamedExpression is shared).
-class Expr_NamedExpression : public Expr_GeneralExpression
+class Expr_NamedExpression : public Expression1
 {
 
 public:
@@ -46,12 +46,12 @@ public:
   //! This method does not include any simplification before
   //! testing.
   Standard_EXPORT Standard_Boolean
-    IsIdentical(const Handle(Expr_GeneralExpression)& Other) const Standard_OVERRIDE;
+    IsIdentical(const Handle(Expression1)& Other) const Standard_OVERRIDE;
 
   //! returns a string representing <me> in a readable way.
   Standard_EXPORT AsciiString1 String() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Expr_NamedExpression, Expr_GeneralExpression)
+  DEFINE_STANDARD_RTTIEXT(Expr_NamedExpression, Expression1)
 
 protected:
 private:

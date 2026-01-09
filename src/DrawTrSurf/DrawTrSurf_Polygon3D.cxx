@@ -22,7 +22,7 @@
 #include <Poly.hxx>
 #include <Poly_Polygon3D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Polygon3D, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Polygon3D, Drawable3D)
 
 //=================================================================================================
 
@@ -56,7 +56,7 @@ void DrawTrSurf_Polygon3D::DrawOn(DrawDisplay& dis) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Polygon3D::Copy() const
+Handle(Drawable3D) DrawTrSurf_Polygon3D::Copy() const
 {
   return new DrawTrSurf_Polygon3D(myPolygon3D);
 }
@@ -91,7 +91,7 @@ void DrawTrSurf_Polygon3D::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Polygon3D::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_Polygon3D::Restore(Standard_IStream& theStream)
 {
   return new DrawTrSurf_Polygon3D(Poly1::ReadPolygon3D(theStream));
 }

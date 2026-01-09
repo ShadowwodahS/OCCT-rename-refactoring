@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_Face, StepShape_TopologicalRepresentationIt
 StepShape_Face::StepShape_Face() {}
 
 void StepShape_Face::Init(const Handle(TCollection_HAsciiString)&     aName,
-                          const Handle(StepShape_HArray1OfFaceBound)& aBounds)
+                          const Handle(HArray1OfFaceBound)& aBounds)
 {
   // --- classe own fields ---
   bounds = aBounds;
@@ -28,12 +28,12 @@ void StepShape_Face::Init(const Handle(TCollection_HAsciiString)&     aName,
   StepRepr_RepresentationItem::Init(aName);
 }
 
-void StepShape_Face::SetBounds(const Handle(StepShape_HArray1OfFaceBound)& aBounds)
+void StepShape_Face::SetBounds(const Handle(HArray1OfFaceBound)& aBounds)
 {
   bounds = aBounds;
 }
 
-Handle(StepShape_HArray1OfFaceBound) StepShape_Face::Bounds() const
+Handle(HArray1OfFaceBound) StepShape_Face::Bounds() const
 {
   return bounds;
 }

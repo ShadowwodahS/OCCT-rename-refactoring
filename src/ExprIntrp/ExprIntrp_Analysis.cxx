@@ -23,7 +23,7 @@
 
 ExprIntrp_Analysis::ExprIntrp_Analysis() {}
 
-void ExprIntrp_Analysis::Push(const Handle(Expr_GeneralExpression)& exp)
+void ExprIntrp_Analysis::Push(const Handle(Expression1)& exp)
 {
   myGEStack.Prepend(exp);
 }
@@ -48,9 +48,9 @@ void ExprIntrp_Analysis::PushValue(const Standard_Integer val)
   myValueStack.Prepend(val);
 }
 
-Handle(Expr_GeneralExpression) ExprIntrp_Analysis::Pop()
+Handle(Expression1) ExprIntrp_Analysis::Pop()
 {
-  Handle(Expr_GeneralExpression) res;
+  Handle(Expression1) res;
   if (!myGEStack.IsEmpty())
   {
     res = myGEStack.First();
@@ -124,7 +124,7 @@ void ExprIntrp_Analysis::ResetAll()
   myNamed.Clear();
 }
 
-void ExprIntrp_Analysis::SetMaster(const Handle(ExprIntrp_Generator)& agen)
+void ExprIntrp_Analysis::SetMaster(const Handle(ExpressionGenerator)& agen)
 {
   ResetAll();
   myMaster    = agen;

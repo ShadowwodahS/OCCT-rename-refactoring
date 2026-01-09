@@ -21,15 +21,15 @@
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
 
-class StepVisual_SurfaceStyleTransparent;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleTransparent, RefObject)
+class SurfaceTransparency;
+DEFINE_STANDARD_HANDLE(SurfaceTransparency, RefObject)
 
 //! Representation of STEP entity SurfaceStyleTransparent
-class StepVisual_SurfaceStyleTransparent : public RefObject
+class SurfaceTransparency : public RefObject
 {
 public:
   //! default constructor
-  Standard_EXPORT StepVisual_SurfaceStyleTransparent();
+  Standard_EXPORT SurfaceTransparency();
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Standard_Real theTransparency);
@@ -39,7 +39,7 @@ public:
   //! Sets field Transparency
   Standard_EXPORT void SetTransparency(const Standard_Real theTransparency);
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleTransparent, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SurfaceTransparency, RefObject)
 
 private:
   Standard_Real myTransparency;

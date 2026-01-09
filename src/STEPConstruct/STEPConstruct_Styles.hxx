@@ -37,7 +37,7 @@ class StepRepr_RepresentationContext;
 class StepVisual_MechanicalDesignGeometricPresentationRepresentation;
 class StepShape_ContextDependentShapeRepresentation;
 class StepRepr_ProductDefinitionShape;
-class StepVisual_Colour;
+class Colour;
 class Color1;
 
 //! Provides a mechanism for reading and writing shape styles
@@ -134,9 +134,9 @@ public:
   //! if isForNAUO true then returns PresentationStyleByContext
   Standard_EXPORT Handle(StepVisual_PresentationStyleAssignment) MakeColorPSA(
     const Handle(StepRepr_RepresentationItem)& item,
-    const Handle(StepVisual_Colour)&           SurfCol,
-    const Handle(StepVisual_Colour)&           CurveCol,
-    const Handle(StepVisual_Colour)&           RenderCol,
+    const Handle(Colour)&           SurfCol,
+    const Handle(Colour)&           CurveCol,
+    const Handle(Colour)&           RenderCol,
     const Standard_Real                        RenderTransp,
     const Standard_Boolean                     isForNAUO = Standard_False) const;
 
@@ -146,17 +146,17 @@ public:
   //! method are remembered.
   Standard_EXPORT Handle(StepVisual_PresentationStyleAssignment) GetColorPSA(
     const Handle(StepRepr_RepresentationItem)& item,
-    const Handle(StepVisual_Colour)&           Col);
+    const Handle(Colour)&           Col);
 
   //! Extract color definitions from the style entity
   //! For each type of color supported, result can be either
   //! NULL if it is not defined by that style, or last
   //! definition (if they are 1 or more)
   Standard_EXPORT Standard_Boolean GetColors(const Handle(StepVisual_StyledItem)& theStyle,
-                                             Handle(StepVisual_Colour)&           theSurfaceColour,
-                                             Handle(StepVisual_Colour)&           theBoundaryColour,
-                                             Handle(StepVisual_Colour)&           theCurveColour,
-                                             Handle(StepVisual_Colour)&           theRenderColour,
+                                             Handle(Colour)&           theSurfaceColour,
+                                             Handle(Colour)&           theBoundaryColour,
+                                             Handle(Colour)&           theCurveColour,
+                                             Handle(Colour)&           theRenderColour,
                                              Standard_Real&    theRenderTransparency,
                                              Standard_Boolean& theIsComponent) const;
 
@@ -164,20 +164,20 @@ public:
   //! The analysis is performed for whether the color corresponds to
   //! one of standard colors predefined in STEP. In that case,
   //! PredefinedColour entity is created instead of RGBColour
-  Standard_EXPORT static Handle(StepVisual_Colour) EncodeColor(const Color1& Col);
+  Standard_EXPORT static Handle(Colour) EncodeColor(const Color1& Col);
 
   //! Create STEP color entity by given Color1
   //! The analysis is performed for whether the color corresponds to
   //! one of standard colors predefined in STEP. In that case,
   //! PredefinedColour entity is created instead of RGBColour
-  Standard_EXPORT static Handle(StepVisual_Colour) EncodeColor(
+  Standard_EXPORT static Handle(Colour) EncodeColor(
     const Color1&                        Col,
     STEPConstruct_DataMapOfAsciiStringTransient& DPDCs,
     STEPConstruct_DataMapOfPointTransient&       ColRGBs);
 
   //! Decodes STEP color and fills the Color1.
   //! Returns True if OK or False if color is not recognized
-  Standard_EXPORT static Standard_Boolean DecodeColor(const Handle(StepVisual_Colour)& Colour,
+  Standard_EXPORT static Standard_Boolean DecodeColor(const Handle(Colour)& Colour,
                                                       Color1&                  Col);
 
 private:

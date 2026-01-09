@@ -41,13 +41,13 @@ void RWStepShape_RWFace::ReadStep(const Handle(StepData_StepReaderData)& data,
 
   // --- own field : bounds ---
 
-  Handle(StepShape_HArray1OfFaceBound) aBounds;
+  Handle(HArray1OfFaceBound) aBounds;
   Handle(StepShape_FaceBound)          anent2;
   Standard_Integer                     nsub2;
   if (data->ReadSubList(num, 2, "bounds", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aBounds              = new StepShape_HArray1OfFaceBound(1, nb2);
+    aBounds              = new HArray1OfFaceBound(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

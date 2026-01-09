@@ -32,15 +32,15 @@ public:
 
   Standard_EXPORT void Init(
     const Handle(TCollection_HAsciiString)&                        theName,
-    const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& theStyles,
+    const Handle(HArray1OfPresentationStyle)& theStyles,
     const Handle(RefObject)&                              theItem,
-    const Handle(StepVisual_HArray1OfAnnotationPlaneElement)&      theElements);
+    const Handle(HArray1OfAnnotationPlaneElement)&      theElements);
 
   //! Returns field Elements
-  inline Handle(StepVisual_HArray1OfAnnotationPlaneElement) Elements() const { return myElements; }
+  inline Handle(HArray1OfAnnotationPlaneElement) Elements() const { return myElements; }
 
   //! Set field Elements
-  inline void SetElements(const Handle(StepVisual_HArray1OfAnnotationPlaneElement)& theElements)
+  inline void SetElements(const Handle(HArray1OfAnnotationPlaneElement)& theElements)
   {
     myElements = theElements;
   }
@@ -67,6 +67,6 @@ public:
   DEFINE_STANDARD_RTTIEXT(StepVisual_AnnotationPlane, StepVisual_AnnotationOccurrence)
 
 private:
-  Handle(StepVisual_HArray1OfAnnotationPlaneElement) myElements;
+  Handle(HArray1OfAnnotationPlaneElement) myElements;
 };
 #endif // _StepVisual_AnnotationPlane_HeaderFile

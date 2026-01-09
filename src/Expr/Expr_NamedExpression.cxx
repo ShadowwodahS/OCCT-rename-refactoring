@@ -18,7 +18,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedExpression, Expr_GeneralExpression)
+IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedExpression, Expression1)
 
 //=================================================================================================
 
@@ -44,7 +44,7 @@ Standard_Boolean Expr_NamedExpression::IsShareable() const
 //=================================================================================================
 
 Standard_Boolean Expr_NamedExpression::IsIdentical(
-  const Handle(Expr_GeneralExpression)& theOther) const
+  const Handle(Expression1)& theOther) const
 {
   Standard_Boolean aResult(Standard_False);
   if (theOther->IsKind(STANDARD_TYPE(Expr_NamedExpression)))

@@ -22,7 +22,7 @@
 
 #include <Standard_Transient.hxx>
 class TCollection_HAsciiString;
-class StepVisual_Colour;
+class Colour;
 
 class StepVisual_FillAreaStyleColour;
 DEFINE_STANDARD_HANDLE(StepVisual_FillAreaStyleColour, RefObject)
@@ -35,22 +35,22 @@ public:
   Standard_EXPORT StepVisual_FillAreaStyleColour();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aName,
-                            const Handle(StepVisual_Colour)&        aFillColour);
+                            const Handle(Colour)&        aFillColour);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
-  Standard_EXPORT void SetFillColour(const Handle(StepVisual_Colour)& aFillColour);
+  Standard_EXPORT void SetFillColour(const Handle(Colour)& aFillColour);
 
-  Standard_EXPORT Handle(StepVisual_Colour) FillColour() const;
+  Standard_EXPORT Handle(Colour) FillColour() const;
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_FillAreaStyleColour, RefObject)
 
 protected:
 private:
   Handle(TCollection_HAsciiString) name;
-  Handle(StepVisual_Colour)        fillColour;
+  Handle(Colour)        fillColour;
 };
 
 #endif // _StepVisual_FillAreaStyleColour_HeaderFile

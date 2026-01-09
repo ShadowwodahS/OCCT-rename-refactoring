@@ -27,10 +27,10 @@ class HLRBRep_PolyAlgo;
 class DrawDisplay;
 
 class HLRTest_DrawablePolyEdgeTool;
-DEFINE_STANDARD_HANDLE(HLRTest_DrawablePolyEdgeTool, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(HLRTest_DrawablePolyEdgeTool, Drawable3D)
 
 //! Used to display the results.
-class HLRTest_DrawablePolyEdgeTool : public Draw_Drawable3D
+class HLRTest_DrawablePolyEdgeTool : public Drawable3D
 {
 
 public:
@@ -60,7 +60,7 @@ public:
 
   void Debug(const Standard_Boolean B);
 
-  DEFINE_STANDARD_RTTIEXT(HLRTest_DrawablePolyEdgeTool, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(HLRTest_DrawablePolyEdgeTool, Drawable3D)
 
 protected:
 private:

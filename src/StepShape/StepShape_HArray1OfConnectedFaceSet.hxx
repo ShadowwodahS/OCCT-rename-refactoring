@@ -20,6 +20,6 @@
 #include <StepShape_Array1OfConnectedFaceSet.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfConnectedFaceSet, StepShape_Array1OfConnectedFaceSet)
+DEFINE_HARRAY1(HArray1OfConnectedFaceSet, StepShape_Array1OfConnectedFaceSet)
 
 #endif

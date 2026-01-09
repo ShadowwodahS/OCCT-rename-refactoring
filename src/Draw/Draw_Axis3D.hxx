@@ -27,9 +27,9 @@ class Point3d;
 class DrawDisplay;
 
 class Draw_Axis3D;
-DEFINE_STANDARD_HANDLE(Draw_Axis3D, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Axis3D, Drawable3D)
 
-class Draw_Axis3D : public Draw_Drawable3D
+class Draw_Axis3D : public Drawable3D
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Axis3D, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Axis3D, Drawable3D)
 
 protected:
 private:

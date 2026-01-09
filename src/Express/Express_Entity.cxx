@@ -43,20 +43,20 @@ IMPLEMENT_STANDARD_RTTIEXT(Express_Entity, Express_Item)
 
 Express_Entity::Express_Entity(const Standard_CString                         theName,
                                const Handle(TColStd_HSequenceOfHAsciiString)& theInherit,
-                               const Handle(Express_HSequenceOfField)&        theFields)
+                               const Handle(FieldSequence)&        theFields)
     : Express_Item(theName),
       mySupers(theInherit),
       myFields(theFields)
 {
   // make empty lists to avoid checking every time
-  myInherit = new Express_HSequenceOfEntity;
+  myInherit = new EntitySequence;
   if (mySupers.IsNull())
   {
     mySupers = new TColStd_HSequenceOfHAsciiString;
   }
   if (myFields.IsNull())
   {
-    myFields = new Express_HSequenceOfField;
+    myFields = new FieldSequence;
   }
   myIsAbstract = Standard_False;
 }
@@ -70,14 +70,14 @@ const Handle(TColStd_HSequenceOfHAsciiString)& Express_Entity::SuperTypes() cons
 
 //=================================================================================================
 
-const Handle(Express_HSequenceOfEntity)& Express_Entity::Inherit() const
+const Handle(EntitySequence)& Express_Entity::Inherit() const
 {
   return myInherit;
 }
 
 //=================================================================================================
 
-const Handle(Express_HSequenceOfField)& Express_Entity::Fields() const
+const Handle(FieldSequence)& Express_Entity::Fields() const
 {
   return myFields;
 }

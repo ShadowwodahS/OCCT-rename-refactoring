@@ -22,7 +22,7 @@
 
 #include <StepVisual_PresentationRepresentationSelect.hxx>
 #include <Standard_Transient.hxx>
-class StepVisual_PresentedItem;
+class PresentedItem;
 
 class StepVisual_PresentedItemRepresentation;
 DEFINE_STANDARD_HANDLE(StepVisual_PresentedItemRepresentation, RefObject)
@@ -35,23 +35,23 @@ public:
   Standard_EXPORT StepVisual_PresentedItemRepresentation();
 
   Standard_EXPORT void Init(const StepVisual_PresentationRepresentationSelect& aPresentation,
-                            const Handle(StepVisual_PresentedItem)&            aItem);
+                            const Handle(PresentedItem)&            aItem);
 
   Standard_EXPORT void SetPresentation(
     const StepVisual_PresentationRepresentationSelect& aPresentation);
 
   Standard_EXPORT StepVisual_PresentationRepresentationSelect Presentation() const;
 
-  Standard_EXPORT void SetItem(const Handle(StepVisual_PresentedItem)& aItem);
+  Standard_EXPORT void SetItem(const Handle(PresentedItem)& aItem);
 
-  Standard_EXPORT Handle(StepVisual_PresentedItem) Item() const;
+  Standard_EXPORT Handle(PresentedItem) Item() const;
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_PresentedItemRepresentation, RefObject)
 
 protected:
 private:
   StepVisual_PresentationRepresentationSelect thePresentation;
-  Handle(StepVisual_PresentedItem)            theItem;
+  Handle(PresentedItem)            theItem;
 };
 
 #endif // _StepVisual_PresentedItemRepresentation_HeaderFile

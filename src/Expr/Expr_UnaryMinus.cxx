@@ -25,14 +25,14 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_UnaryMinus, Expr_UnaryExpression)
 
-Expr_UnaryMinus::Expr_UnaryMinus(const Handle(Expr_GeneralExpression)& exp)
+Expr_UnaryMinus::Expr_UnaryMinus(const Handle(Expression1)& exp)
 {
   CreateOperand(exp);
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryMinus::ShallowSimplified() const
+Handle(Expression1) Expr_UnaryMinus::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) myexp = Operand();
+  Handle(Expression1) myexp = Operand();
   if (myexp->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) myNVexp = Handle(Expr_NumericValue)::DownCast(myexp);
@@ -46,16 +46,16 @@ Handle(Expr_GeneralExpression) Expr_UnaryMinus::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryMinus::Copy() const
+Handle(Expression1) Expr_UnaryMinus::Copy() const
 {
   return -(Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_UnaryMinus::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_UnaryMinus::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (Other->IsKind(STANDARD_TYPE(Expr_UnaryMinus)))
   {
-    Handle(Expr_GeneralExpression) myexp = Operand();
+    Handle(Expression1) myexp = Operand();
     return myexp->IsIdentical(Other->SubExpression(1));
   }
   return Standard_False;
@@ -63,26 +63,26 @@ Standard_Boolean Expr_UnaryMinus::IsIdentical(const Handle(Expr_GeneralExpressio
 
 Standard_Boolean Expr_UnaryMinus::IsLinear() const
 {
-  Handle(Expr_GeneralExpression) myexp = Operand();
+  Handle(Expression1) myexp = Operand();
   return myexp->IsLinear();
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryMinus::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_UnaryMinus::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
-  Handle(Expr_GeneralExpression) myder = Operand();
+  Handle(Expression1) myder = Operand();
   myder                                = myder->Derivative(X);
   Handle(Expr_UnaryMinus) resu         = -myder;
   return resu->ShallowSimplified();
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryMinus::NDerivative(const Handle(Expr_NamedUnknown)& X,
+Handle(Expression1) Expr_UnaryMinus::NDerivative(const Handle(Expr_NamedUnknown)& X,
                                                             const Standard_Integer N) const
 {
   if (N <= 0)
   {
     throw Standard_OutOfRange();
   }
-  Handle(Expr_GeneralExpression) myder = Operand();
+  Handle(Expression1) myder = Operand();
   myder                                = myder->NDerivative(X, N);
   Handle(Expr_UnaryMinus) resu         = -myder;
   return resu->ShallowSimplified();
@@ -97,7 +97,7 @@ Standard_Real Expr_UnaryMinus::Evaluate(const Expr_Array1OfNamedUnknown& vars,
 AsciiString1 Expr_UnaryMinus::String() const
 {
   AsciiString1        str;
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   if (op->NbSubExpressions() > 1)
   {
     str = "-(";

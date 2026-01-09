@@ -21,12 +21,12 @@
 #include <Draw_Drawable3D.hxx>
 #include <Draw_Interpretor.hxx>
 
-DEFINE_STANDARD_HANDLE(HLRTest_Projector, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(HLRTest_Projector, Drawable3D)
 
 //! Draw1 Variable Projector to test.
-class HLRTest_Projector : public Draw_Drawable3D
+class HLRTest_Projector : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(HLRTest_Projector, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(HLRTest_Projector, Drawable3D)
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
@@ -38,7 +38,7 @@ class HLRTest_Projector : public Draw_Drawable3D
   Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

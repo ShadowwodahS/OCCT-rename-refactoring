@@ -22,7 +22,7 @@ StepVisual_PointStyle::StepVisual_PointStyle() {}
 void StepVisual_PointStyle::Init(const Handle(TCollection_HAsciiString)& aName,
                                  const StepVisual_MarkerSelect&          aMarker,
                                  const StepBasic_SizeSelect&             aMarkerSize,
-                                 const Handle(StepVisual_Colour)&        aMarkerColour)
+                                 const Handle(Colour)&        aMarkerColour)
 {
   // --- classe own fields ---
   name         = aName;
@@ -61,12 +61,12 @@ StepBasic_SizeSelect StepVisual_PointStyle::MarkerSize() const
   return markerSize;
 }
 
-void StepVisual_PointStyle::SetMarkerColour(const Handle(StepVisual_Colour)& aMarkerColour)
+void StepVisual_PointStyle::SetMarkerColour(const Handle(Colour)& aMarkerColour)
 {
   markerColour = aMarkerColour;
 }
 
-Handle(StepVisual_Colour) StepVisual_PointStyle::MarkerColour() const
+Handle(Colour) StepVisual_PointStyle::MarkerColour() const
 {
   return markerColour;
 }

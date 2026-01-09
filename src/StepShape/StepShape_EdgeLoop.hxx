@@ -37,11 +37,11 @@ public:
   Standard_EXPORT StepShape_EdgeLoop();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&        aName,
-                            const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList);
+                            const Handle(HArray1OfOrientedEdge)& aEdgeList);
 
-  Standard_EXPORT void SetEdgeList(const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList);
+  Standard_EXPORT void SetEdgeList(const Handle(HArray1OfOrientedEdge)& aEdgeList);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfOrientedEdge) EdgeList() const;
+  Standard_EXPORT Handle(HArray1OfOrientedEdge) EdgeList() const;
 
   Standard_EXPORT Handle(StepShape_OrientedEdge) EdgeListValue(const Standard_Integer num) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfOrientedEdge) edgeList;
+  Handle(HArray1OfOrientedEdge) edgeList;
 };
 
 #endif // _StepShape_EdgeLoop_HeaderFile

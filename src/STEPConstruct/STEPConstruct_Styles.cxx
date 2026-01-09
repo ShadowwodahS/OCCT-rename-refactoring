@@ -80,7 +80,7 @@ namespace
 //           for some reason), otherwise returns false.
 //=======================================================================
 Standard_Boolean ProcessAsSurfaceStyleRendering(const StepVisual_SurfaceStyleElementSelect& theSSES,
-                                                Handle(StepVisual_Colour)& theRenderColour,
+                                                Handle(Colour)& theRenderColour,
                                                 Standard_Real&             theRenderTransparency)
 {
   const Handle(StepVisual_SurfaceStyleRendering) aSSR = theSSES.SurfaceStyleRendering();
@@ -96,7 +96,7 @@ Standard_Boolean ProcessAsSurfaceStyleRendering(const StepVisual_SurfaceStyleEle
   {
     return Standard_True;
   }
-  const Handle(StepVisual_HArray1OfRenderingPropertiesSelect) aHARP = aSSRWP->Properties();
+  const Handle(HArray1OfRenderingProperties) aHARP = aSSRWP->Properties();
   if (aHARP.IsNull())
   {
     return Standard_True;
@@ -104,7 +104,7 @@ Standard_Boolean ProcessAsSurfaceStyleRendering(const StepVisual_SurfaceStyleEle
 
   for (Standard_Integer aPropIndex = 1; aPropIndex <= aHARP->Length(); ++aPropIndex)
   {
-    const Handle(StepVisual_SurfaceStyleTransparent) aSST =
+    const Handle(SurfaceTransparency) aSST =
       aHARP->Value(aPropIndex).SurfaceStyleTransparent();
     if (!aSST.IsNull())
     {
@@ -123,7 +123,7 @@ Standard_Boolean ProcessAsSurfaceStyleRendering(const StepVisual_SurfaceStyleEle
 //           for some reason), otherwise returns false.
 //=======================================================================
 Standard_Boolean ProcessAsSurfaceStyleBoundary(const StepVisual_SurfaceStyleElementSelect& theSSES,
-                                               Handle(StepVisual_Colour)& theBoundaryColour)
+                                               Handle(Colour)& theBoundaryColour)
 {
   const Handle(StepVisual_SurfaceStyleBoundary) aSSB = theSSES.SurfaceStyleBoundary();
   if (aSSB.IsNull())
@@ -150,7 +150,7 @@ Standard_Boolean ProcessAsSurfaceStyleBoundary(const StepVisual_SurfaceStyleElem
 //=======================================================================
 Standard_Boolean ProcessAsSurfaceStyleFillArea(const StepVisual_SurfaceStyleElementSelect& theSSES,
                                                const StepVisual_SurfaceSide                theSide,
-                                               Handle(StepVisual_Colour)& theSurfaceColour)
+                                               Handle(Colour)& theSurfaceColour)
 {
   const Handle(StepVisual_SurfaceStyleFillArea) aSSFA = theSSES.SurfaceStyleFillArea();
   if (aSSFA.IsNull())
@@ -189,9 +189,9 @@ Standard_Boolean ProcessAsSurfaceStyleFillArea(const StepVisual_SurfaceStyleElem
 //           otherwise returns false.
 //=======================================================================
 Standard_Boolean ProcessAsSurfaceStyleUsage(const StepVisual_PresentationStyleSelect& thePSS,
-                                            Handle(StepVisual_Colour)& theSurfaceColour,
-                                            Handle(StepVisual_Colour)& theBoundaryColour,
-                                            Handle(StepVisual_Colour)& theRenderColour,
+                                            Handle(Colour)& theSurfaceColour,
+                                            Handle(Colour)& theBoundaryColour,
+                                            Handle(Colour)& theRenderColour,
                                             Standard_Real&             theRenderTransparency)
 {
   const Handle(StepVisual_SurfaceStyleUsage) aSSU = thePSS.SurfaceStyleUsage();
@@ -223,7 +223,7 @@ Standard_Boolean ProcessAsSurfaceStyleUsage(const StepVisual_PresentationStyleSe
 //           for some reason), otherwise returns false.
 //=======================================================================
 Standard_Boolean ProcessAsCurveStyle(const StepVisual_PresentationStyleSelect& thePSS,
-                                     Handle(StepVisual_Colour)&                theCurveColour)
+                                     Handle(Colour)&                theCurveColour)
 {
   const Handle(StepVisual_CurveStyle) aCS = thePSS.CurveStyle();
   if (aCS.IsNull())
@@ -310,8 +310,8 @@ Handle(StepVisual_StyledItem) STEPConstruct_Styles::AddStyle(
 {
   Handle(StepVisual_StyledItem) Style;
 
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) Styles =
-    new StepVisual_HArray1OfPresentationStyleAssignment(1, 1);
+  Handle(HArray1OfPresentationStyle) Styles =
+    new HArray1OfPresentationStyle(1, 1);
   Styles->SetValue(1, PSA);
 
   if (Override.IsNull())
@@ -584,9 +584,9 @@ Standard_Boolean STEPConstruct_Styles::LoadInvisStyles(
 
 Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::MakeColorPSA(
   const Handle(StepRepr_RepresentationItem)& /*item*/,
-  const Handle(StepVisual_Colour)& SurfCol,
-  const Handle(StepVisual_Colour)& CurveCol,
-  const Handle(StepVisual_Colour)& RenderCol,
+  const Handle(Colour)& SurfCol,
+  const Handle(Colour)& CurveCol,
+  const Handle(Colour)& RenderCol,
   const Standard_Real              RenderTransp,
   const Standard_Boolean           isForNAUO) const
 {
@@ -603,8 +603,8 @@ Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::MakeColorPS
     StepVisual_FillStyleSelect FSS;
     FSS.SetValue(FASC);
 
-    Handle(StepVisual_HArray1OfFillStyleSelect) FASSs =
-      new StepVisual_HArray1OfFillStyleSelect(1, 1);
+    Handle(HArray1OfFillStyle) FASSs =
+      new HArray1OfFillStyle(1, 1);
     FASSs->SetValue(1, FSS);
 
     Handle(TCollection_HAsciiString) FASName = new TCollection_HAsciiString("");
@@ -617,19 +617,19 @@ Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::MakeColorPS
     StepVisual_SurfaceStyleElementSelect SES;
     SES.SetValue(SSFA);
 
-    Handle(StepVisual_HArray1OfSurfaceStyleElementSelect) SSESs;
+    Handle(HArray1OfSurfaceStyleElement) SSESs;
     if (RenderTransp == 0.0)
     {
-      SSESs = new StepVisual_HArray1OfSurfaceStyleElementSelect(1, 1);
+      SSESs = new HArray1OfSurfaceStyleElement(1, 1);
     }
     else
     {
-      Handle(StepVisual_SurfaceStyleTransparent) SST = new StepVisual_SurfaceStyleTransparent;
+      Handle(SurfaceTransparency) SST = new SurfaceTransparency;
       SST->Init(RenderTransp);
       StepVisual_RenderingPropertiesSelect RPS;
       RPS.SetValue(SST);
-      Handle(StepVisual_HArray1OfRenderingPropertiesSelect) HARP =
-        new StepVisual_HArray1OfRenderingPropertiesSelect(1, 1);
+      Handle(HArray1OfRenderingProperties) HARP =
+        new HArray1OfRenderingProperties(1, 1);
       HARP->SetValue(1, RPS);
       Handle(StepVisual_SurfaceStyleRenderingWithProperties) SSRWP =
         new StepVisual_SurfaceStyleRenderingWithProperties;
@@ -639,7 +639,7 @@ Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::MakeColorPS
       StepVisual_SurfaceStyleElementSelect SESR;
       SESR.SetValue(SSRWP);
 
-      SSESs = new StepVisual_HArray1OfSurfaceStyleElementSelect(1, 2);
+      SSESs = new HArray1OfSurfaceStyleElement(1, 2);
       SSESs->SetValue(2, SESR);
     }
     SSESs->SetValue(1, SES);
@@ -688,8 +688,8 @@ Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::MakeColorPS
   }
 
   // general part
-  Handle(StepVisual_HArray1OfPresentationStyleSelect) PSSs =
-    new StepVisual_HArray1OfPresentationStyleSelect(1, items.Length());
+  Handle(HArray1OfPresentationStyleSelect) PSSs =
+    new HArray1OfPresentationStyleSelect(1, items.Length());
   for (Standard_Integer i = 1; i <= items.Length(); i++)
   {
     StepVisual_PresentationStyleSelect PSS;
@@ -709,7 +709,7 @@ Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::MakeColorPS
 
 Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::GetColorPSA(
   const Handle(StepRepr_RepresentationItem)& item,
-  const Handle(StepVisual_Colour)&           Col)
+  const Handle(Colour)&           Col)
 {
   // if this color already was processed, just use the same PSA, else create new and add it to map
   Handle(StepVisual_PresentationStyleAssignment) PSA;
@@ -728,10 +728,10 @@ Handle(StepVisual_PresentationStyleAssignment) STEPConstruct_Styles::GetColorPSA
 //=================================================================================================
 
 Standard_Boolean STEPConstruct_Styles::GetColors(const Handle(StepVisual_StyledItem)& theStyle,
-                                                 Handle(StepVisual_Colour)& theSurfaceColour,
-                                                 Handle(StepVisual_Colour)& theBoundaryColour,
-                                                 Handle(StepVisual_Colour)& theCurveColour,
-                                                 Handle(StepVisual_Colour)& theRenderColour,
+                                                 Handle(Colour)& theSurfaceColour,
+                                                 Handle(Colour)& theBoundaryColour,
+                                                 Handle(Colour)& theCurveColour,
+                                                 Handle(Colour)& theRenderColour,
                                                  Standard_Real&             theRenderTransparency,
                                                  Standard_Boolean&          theIsComponent) const
 {
@@ -770,7 +770,7 @@ Standard_Boolean STEPConstruct_Styles::GetColors(const Handle(StepVisual_StyledI
 
 //=================================================================================================
 
-Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(const Color1& C)
+Handle(Colour) STEPConstruct_Styles::EncodeColor(const Color1& C)
 {
   // detect if color corresponds to one of pre-defined colors
   Standard_CString cName = 0;
@@ -812,7 +812,7 @@ Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(const Color1& C)
 
 //=================================================================================================
 
-Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(
+Handle(Colour) STEPConstruct_Styles::EncodeColor(
   const Color1&                        C,
   STEPConstruct_DataMapOfAsciiStringTransient& DPDCs,
   STEPConstruct_DataMapOfPointTransient&       ColRGBs)
@@ -877,7 +877,7 @@ Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_Styles::DecodeColor(const Handle(StepVisual_Colour)& Colour,
+Standard_Boolean STEPConstruct_Styles::DecodeColor(const Handle(Colour)& Colour,
                                                    Color1&                  Col)
 {
   if (Colour->IsKind(STANDARD_TYPE(StepVisual_ColourRgb)))

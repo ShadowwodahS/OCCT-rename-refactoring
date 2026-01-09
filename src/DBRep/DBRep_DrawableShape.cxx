@@ -52,7 +52,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DBRep_DrawableShape, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DBRep_DrawableShape, Drawable3D)
 
 static Standard_Real IsoRatio = 1.001;
 
@@ -951,7 +951,7 @@ TopoShape DBRep_DrawableShape::Shape() const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DBRep_DrawableShape::Copy() const
+Handle(Drawable3D) DBRep_DrawableShape::Copy() const
 {
   Handle(DBRep_DrawableShape) D = new DBRep_DrawableShape(myShape,
                                                           myFreeCol,
@@ -1053,7 +1053,7 @@ void DBRep_DrawableShape::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DBRep_DrawableShape::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DBRep_DrawableShape::Restore(Standard_IStream& theStream)
 {
   const DrawParams&            aParams = DBRep1::Parameters();
   ShapeBuilder                   aBuilder;
@@ -1062,7 +1062,7 @@ Handle(Draw_Drawable3D) DBRep_DrawableShape::Restore(Standard_IStream& theStream
   aShapeSet.Read(theStream, Message_ProgressIndicator::Start(aProgress));
   if (!aProgress.IsNull() && aProgress->UserBreak())
   {
-    return Handle(Draw_Drawable3D)();
+    return Handle(Drawable3D)();
   }
 
   TopoShape aTopoShape;

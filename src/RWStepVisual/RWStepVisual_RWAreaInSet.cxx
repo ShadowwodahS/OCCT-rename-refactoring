@@ -40,9 +40,9 @@ void RWStepVisual_RWAreaInSet::ReadStep(const Handle(StepData_StepReaderData)& d
 
   // --- own field : inSet ---
 
-  Handle(StepVisual_PresentationSet) aInSet;
+  Handle(PresentationSet1) aInSet;
   // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed
-  data->ReadEntity(num, 2, "in_set", ach, STANDARD_TYPE(StepVisual_PresentationSet), aInSet);
+  data->ReadEntity(num, 2, "in_set", ach, STANDARD_TYPE(PresentationSet1), aInSet);
 
   //--- Initialisation of the read entity ---
 

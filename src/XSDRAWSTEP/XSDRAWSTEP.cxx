@@ -391,7 +391,7 @@ static Standard_Integer steptrans(DrawInterpreter& theDI,
   if (n2 > 0)
     ax2 = Handle(StepGeom_Axis2Placement3d)::DownCast(aWS->StartingEntity(n2));
   ConversionFactors             aFactors;
-  StepToTopoDS_MakeTransformed mktrans;
+  TransformedShapeBuilder mktrans;
   if (mktrans.Compute(ax1, ax2, aFactors))
   {
     TopLoc_Location loc(mktrans.Transformation());

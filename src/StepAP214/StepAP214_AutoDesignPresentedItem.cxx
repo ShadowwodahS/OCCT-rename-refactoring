@@ -14,7 +14,7 @@
 #include <StepAP214_AutoDesignPresentedItem.hxx>
 #include <StepAP214_AutoDesignPresentedItemSelect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignPresentedItem, StepVisual_PresentedItem)
+IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignPresentedItem, PresentedItem)
 
 StepAP214_AutoDesignPresentedItem::StepAP214_AutoDesignPresentedItem() {}
 

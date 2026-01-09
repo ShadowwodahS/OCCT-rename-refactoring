@@ -21,7 +21,7 @@
 
 #include <StepVisual_CameraModelD3.hxx>
 class StepGeom_Axis2Placement3d;
-class StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect;
+class HArray1OfCameraClippingIntersect;
 class StepVisual_ViewVolume;
 class TCollection_HAsciiString;
 
@@ -37,22 +37,22 @@ public:
     const Handle(TCollection_HAsciiString)&  theName,
     const Handle(StepGeom_Axis2Placement3d)& theViewReferenceSystem,
     const Handle(StepVisual_ViewVolume)&     thePerspectiveOfVolume,
-    const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect)&
+    const Handle(HArray1OfCameraClippingIntersect)&
       theShapeClipping);
 
   void SetShapeClipping(
-    const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect)& theShapeClipping)
+    const Handle(HArray1OfCameraClippingIntersect)& theShapeClipping)
   {
     myShapeClipping = theShapeClipping;
   }
 
-  const Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect) ShapeClipping()
+  const Handle(HArray1OfCameraClippingIntersect) ShapeClipping()
   {
     return myShapeClipping;
   }
   DEFINE_STANDARD_RTTIEXT(StepVisual_CameraModelD3MultiClipping, StepVisual_CameraModelD3)
 
 private:
-  Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect) myShapeClipping;
+  Handle(HArray1OfCameraClippingIntersect) myShapeClipping;
 };
 #endif // _StepVisual_CameraModelD3MultiClipping_HeaderFile

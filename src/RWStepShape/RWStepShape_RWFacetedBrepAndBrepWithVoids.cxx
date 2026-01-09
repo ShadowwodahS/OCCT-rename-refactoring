@@ -40,13 +40,13 @@ void RWStepShape_RWFacetedBrepAndBrepWithVoids::ReadStep(
 
   // --- field : voids ---
 
-  Handle(StepShape_HArray1OfOrientedClosedShell) aVoids;
+  Handle(HArray1OfOrientedClosedShell) aVoids;
   Handle(StepShape_OrientedClosedShell)          anent;
   Standard_Integer                               nsub1;
   if (data->ReadSubList(num, 1, "voids", ach, nsub1))
   {
     Standard_Integer nb1 = data->NbParams(nsub1);
-    aVoids               = new StepShape_HArray1OfOrientedClosedShell(1, nb1);
+    aVoids               = new HArray1OfOrientedClosedShell(1, nb1);
     for (Standard_Integer i1 = 1; i1 <= nb1; i1++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat1 =` not needed

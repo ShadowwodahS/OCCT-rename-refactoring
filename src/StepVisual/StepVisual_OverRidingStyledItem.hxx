@@ -34,7 +34,7 @@ public:
   Standard_EXPORT StepVisual_OverRidingStyledItem();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&                        aName,
-                            const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
+                            const Handle(HArray1OfPresentationStyle)& aStyles,
                             const Handle(RefObject)&                              aItem,
                             const Handle(StepVisual_StyledItem)& aOverRiddenStyle);
 

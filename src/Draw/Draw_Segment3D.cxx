@@ -19,7 +19,7 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Segment3D, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(Draw_Segment3D, Drawable3D)
 
 //=================================================================================================
 

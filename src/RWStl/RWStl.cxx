@@ -63,7 +63,7 @@ inline static void convertDouble(const Standard_Real theValue, Standard_Characte
   theResult[3] = anUnion.c[3];
 }
 
-class Reader : public RWStl_Reader
+class Reader : public Reader3
 {
 public:
   //! Add new node

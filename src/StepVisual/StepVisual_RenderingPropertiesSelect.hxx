@@ -24,8 +24,8 @@
 #include <Standard_Integer.hxx>
 
 class RefObject;
-class StepVisual_SurfaceStyleReflectanceAmbient;
-class StepVisual_SurfaceStyleTransparent;
+class SurfaceReflectanceAmbient;
+class SurfaceTransparency;
 
 //! Representation of STEP SELECT type RenderingPropertiesSelect
 class StepVisual_RenderingPropertiesSelect : public SelectType
@@ -44,10 +44,10 @@ public:
     CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns Value as SurfaceStyleReflectanceAmbient (or Null if another type)
-  Standard_EXPORT Handle(StepVisual_SurfaceStyleReflectanceAmbient) SurfaceStyleReflectanceAmbient()
+  Standard_EXPORT Handle(SurfaceReflectanceAmbient) SurfaceStyleReflectanceAmbient()
     const;
 
   //! Returns Value as SurfaceStyleTransparent (or Null if another type)
-  Standard_EXPORT Handle(StepVisual_SurfaceStyleTransparent) SurfaceStyleTransparent() const;
+  Standard_EXPORT Handle(SurfaceTransparency) SurfaceStyleTransparent() const;
 };
 #endif // _StepVisual_RenderingPropertiesSelect_HeaderFile

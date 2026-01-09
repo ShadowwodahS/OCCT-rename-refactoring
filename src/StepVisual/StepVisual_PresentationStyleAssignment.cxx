@@ -19,19 +19,19 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationStyleAssignment, RefObject)
 StepVisual_PresentationStyleAssignment::StepVisual_PresentationStyleAssignment() {}
 
 void StepVisual_PresentationStyleAssignment::Init(
-  const Handle(StepVisual_HArray1OfPresentationStyleSelect)& aStyles)
+  const Handle(HArray1OfPresentationStyleSelect)& aStyles)
 {
   // --- classe own fields ---
   styles = aStyles;
 }
 
 void StepVisual_PresentationStyleAssignment::SetStyles(
-  const Handle(StepVisual_HArray1OfPresentationStyleSelect)& aStyles)
+  const Handle(HArray1OfPresentationStyleSelect)& aStyles)
 {
   styles = aStyles;
 }
 
-Handle(StepVisual_HArray1OfPresentationStyleSelect) StepVisual_PresentationStyleAssignment::Styles()
+Handle(HArray1OfPresentationStyleSelect) StepVisual_PresentationStyleAssignment::Styles()
   const
 {
   return styles;

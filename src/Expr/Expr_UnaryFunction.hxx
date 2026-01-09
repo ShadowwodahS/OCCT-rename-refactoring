@@ -24,7 +24,7 @@
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Expr_GeneralFunction;
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 class AsciiString1;
 
@@ -40,28 +40,28 @@ public:
   //! Creates me as <func>(<exp>).
   //! Raises exception if <func> is not unary.
   Standard_EXPORT Expr_UnaryFunction(const Handle(Expr_GeneralFunction)&   func,
-                                     const Handle(Expr_GeneralExpression)& exp);
+                                     const Handle(Expression1)& exp);
 
   //! Returns the function defining <me>.
   Standard_EXPORT Handle(Expr_GeneralFunction) Function() const;
 
   //! Returns a GeneralExpression after a simplification
   //! of the arguments of <me>.
-  Standard_EXPORT Handle(Expr_GeneralExpression) ShallowSimplified() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expression1) ShallowSimplified() const Standard_OVERRIDE;
 
   //! Returns a copy of <me> having the same unknowns and functions.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expression1) Copy() const Standard_OVERRIDE;
 
   //! Tests if <me> and <Other> define the same expression.
   //! This method does not include any simplification before
   //! testing.
   Standard_EXPORT Standard_Boolean
-    IsIdentical(const Handle(Expr_GeneralExpression)& Other) const Standard_OVERRIDE;
+    IsIdentical(const Handle(Expression1)& Other) const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean IsLinear() const Standard_OVERRIDE;
 
   //! returns the derivative on <X> unknown of <me>.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Derivative(
+  Standard_EXPORT Handle(Expression1) Derivative(
     const Handle(Expr_NamedUnknown)& X) const Standard_OVERRIDE;
 
   //! Returns the value of <me> (as a Real) by

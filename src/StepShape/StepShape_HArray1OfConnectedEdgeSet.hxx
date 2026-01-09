@@ -20,6 +20,6 @@
 #include <StepShape_Array1OfConnectedEdgeSet.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfConnectedEdgeSet, StepShape_Array1OfConnectedEdgeSet)
+DEFINE_HARRAY1(HArray1OfConnectedEdgeSet, StepShape_Array1OfConnectedEdgeSet)
 
 #endif

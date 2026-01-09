@@ -14,28 +14,28 @@
 #include <Vrml_Rotation.hxx>
 #include <Vrml_SFRotation.hxx>
 
-Vrml_Rotation::Vrml_Rotation()
+VrmlRotation::VrmlRotation()
 {
   SFRotation tmpR(0, 0, 1, 0);
   myRotation = tmpR;
 }
 
-Vrml_Rotation::Vrml_Rotation(const SFRotation& aRotation)
+VrmlRotation::VrmlRotation(const SFRotation& aRotation)
 {
   myRotation = aRotation;
 }
 
-void Vrml_Rotation::SetRotation(const SFRotation& aRotation)
+void VrmlRotation::SetRotation(const SFRotation& aRotation)
 {
   myRotation = aRotation;
 }
 
-SFRotation Vrml_Rotation::Rotation() const
+SFRotation VrmlRotation::Rotation() const
 {
   return myRotation;
 }
 
-Standard_OStream& Vrml_Rotation::Print(Standard_OStream& anOStream) const
+Standard_OStream& VrmlRotation::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Rotation {\n";
 

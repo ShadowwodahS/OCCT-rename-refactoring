@@ -14,7 +14,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <Vrml_WWWInline.hxx>
 
-Vrml_WWWInline::Vrml_WWWInline()
+WWWInline::WWWInline()
 {
   myName = "";
   Vector3d tmpVec(0, 0, 0);
@@ -22,7 +22,7 @@ Vrml_WWWInline::Vrml_WWWInline()
   myBboxCenter = tmpVec;
 }
 
-Vrml_WWWInline::Vrml_WWWInline(const AsciiString1& aName,
+WWWInline::WWWInline(const AsciiString1& aName,
                                const Vector3d&                  aBboxSize,
                                const Vector3d&                  aBboxCenter)
 {
@@ -31,37 +31,37 @@ Vrml_WWWInline::Vrml_WWWInline(const AsciiString1& aName,
   myBboxCenter = aBboxCenter;
 }
 
-void Vrml_WWWInline::SetName(const AsciiString1& aName)
+void WWWInline::SetName(const AsciiString1& aName)
 {
   myName = aName;
 }
 
-AsciiString1 Vrml_WWWInline::Name() const
+AsciiString1 WWWInline::Name() const
 {
   return myName;
 }
 
-void Vrml_WWWInline::SetBboxSize(const Vector3d& aBboxSize)
+void WWWInline::SetBboxSize(const Vector3d& aBboxSize)
 {
   myBboxSize = aBboxSize;
 }
 
-Vector3d Vrml_WWWInline::BboxSize() const
+Vector3d WWWInline::BboxSize() const
 {
   return myBboxSize;
 }
 
-void Vrml_WWWInline::SetBboxCenter(const Vector3d& aBboxCenter)
+void WWWInline::SetBboxCenter(const Vector3d& aBboxCenter)
 {
   myBboxCenter = aBboxCenter;
 }
 
-Vector3d Vrml_WWWInline::BboxCenter() const
+Vector3d WWWInline::BboxCenter() const
 {
   return myBboxCenter;
 }
 
-Standard_OStream& Vrml_WWWInline::Print(Standard_OStream& anOStream) const
+Standard_OStream& WWWInline::Print(Standard_OStream& anOStream) const
 {
   anOStream << "WWWInline {\n";
 

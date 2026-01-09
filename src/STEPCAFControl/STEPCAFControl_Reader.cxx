@@ -1024,7 +1024,7 @@ static void SetAssemblyComponentStyle(
   if (theStyle.IsNull())
     return;
 
-  Handle(StepVisual_Colour) aSurfCol, aBoundCol, aCurveCol, aRenderCol;
+  Handle(Colour) aSurfCol, aBoundCol, aCurveCol, aRenderCol;
   Standard_Real             aRenderTransp;
   // check if it is component style
   Standard_Boolean anIsComponent = Standard_False;
@@ -1182,7 +1182,7 @@ static void SetStyle(const Handle(ExchangeSession)&        theWS,
     anIsVisible = Standard_False;
     break;
   }
-  Handle(StepVisual_Colour) aSurfCol, aBoundCol, aCurveCol, aRenderCol;
+  Handle(Colour) aSurfCol, aBoundCol, aCurveCol, aRenderCol;
   Standard_Real             aRenderTransp;
   // check if it is component style
   Standard_Boolean anIsComponent = Standard_False;
@@ -2012,7 +2012,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadSHUOs(
       break;
     }
 
-    Handle(StepVisual_Colour) SurfCol, BoundCol, CurveCol, RenderCol;
+    Handle(Colour) SurfCol, BoundCol, CurveCol, RenderCol;
     Standard_Real             RenderTransp;
     // check if it is component style
     Standard_Boolean IsComponent = Standard_False;
@@ -4009,7 +4009,7 @@ static void setDimObjectToXCAF(const Handle(RefObject)&    theEnt,
   Standard_Boolean                            isPlusMinusTolerance = Standard_False;
   Handle(StepShape_TypeQualifier)             aTQ;
   Handle(StepShape_ValueFormatTypeQualifier)  aVFTQ;
-  Handle(StepShape_ToleranceValue)            aTV;
+  Handle(ToleranceValue1)            aTV;
   Handle(StepShape_LimitsAndFits)             aLAF;
   Handle(StepRepr_CompoundRepresentationItem) aCRI;
   Handle(StepGeom_Axis2Placement3d)           anAP;
@@ -5588,7 +5588,7 @@ void STEPCAFControl_Reader::ExpandSBSM(DataLabel&                               
     Handle(StepShape_ShellBasedSurfaceModel)::DownCast(Repr);
 
   // Access boundary shells
-  Handle(StepShape_HArray1OfShell) aShells = aSBSM->SbsmBoundary();
+  Handle(HArray1OfShell1) aShells = aSBSM->SbsmBoundary();
   for (Standard_Integer s = aShells->Lower(); s <= aShells->Upper(); ++s)
   {
     const StepShape_Shell&             aShell = aShells->Value(s);
@@ -5616,7 +5616,7 @@ void STEPCAFControl_Reader::ExpandShell(const Handle(StepShape_ConnectedFaceSet)
   SettleShapeData(Shell, RootLab, ShapeTool, TP);
 
   // Access faces
-  Handle(StepShape_HArray1OfFace) aFaces = Shell->CfsFaces();
+  Handle(HArray1OfFace1) aFaces = Shell->CfsFaces();
   for (Standard_Integer f = aFaces->Lower(); f <= aFaces->Upper(); ++f)
   {
     const Handle(StepShape_Face)& aFace = aFaces->Value(f);
@@ -5627,7 +5627,7 @@ void STEPCAFControl_Reader::ExpandShell(const Handle(StepShape_ConnectedFaceSet)
     SettleShapeData(aFace, RootLab, ShapeTool, TP);
 
     // Access face bounds
-    Handle(StepShape_HArray1OfFaceBound) aWires = aFace->Bounds();
+    Handle(HArray1OfFaceBound) aWires = aFace->Bounds();
     if (aWires.IsNull())
       continue;
     for (Standard_Integer w = aWires->Lower(); w <= aWires->Upper(); ++w)
@@ -5644,7 +5644,7 @@ void STEPCAFControl_Reader::ExpandShell(const Handle(StepShape_ConnectedFaceSet)
 
       // Access edges
       Handle(StepShape_EdgeLoop) anEdgeLoop           = Handle(StepShape_EdgeLoop)::DownCast(aWire);
-      Handle(StepShape_HArray1OfOrientedEdge) anEdges = anEdgeLoop->EdgeList();
+      Handle(HArray1OfOrientedEdge) anEdges = anEdgeLoop->EdgeList();
       for (Standard_Integer e = anEdges->Lower(); e <= anEdges->Upper(); ++e)
       {
         Handle(StepShape_OrientedEdge) anOrientedEdge = anEdges->Value(e);

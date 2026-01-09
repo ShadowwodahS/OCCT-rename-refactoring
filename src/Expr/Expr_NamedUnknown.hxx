@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class AsciiString1;
 
 class Expr_NamedUnknown;
@@ -43,11 +43,11 @@ public:
 
   //! If exists, returns the assigned expression.
   //! An exception is raised if the expression does not exist.
-  Standard_EXPORT const Handle(Expr_GeneralExpression)& AssignedExpression() const;
+  Standard_EXPORT const Handle(Expression1)& AssignedExpression() const;
 
   //! Assigns <me> to <exp> expression.
   //! Raises exception if <exp> refers to <me>.
-  Standard_EXPORT void Assign(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void Assign(const Handle(Expression1)& exp);
 
   //! Suppresses the assigned expression
   void Deassign();
@@ -58,38 +58,38 @@ public:
 
   //! Returns the <I>-th sub-expression of <me>
   //! raises OutOfRange if <I> > NbSubExpressions(me)
-  Standard_EXPORT const Handle(Expr_GeneralExpression)& SubExpression(
+  Standard_EXPORT const Handle(Expression1)& SubExpression(
     const Standard_Integer I) const Standard_OVERRIDE;
 
   //! Returns a GeneralExpression after replacement of
   //! NamedUnknowns by an associated expression and after
   //! values computation.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Simplified() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expression1) Simplified() const Standard_OVERRIDE;
 
   //! Returns a GeneralExpression after a simplification
   //! of the arguments of <me>.
-  Standard_EXPORT Handle(Expr_GeneralExpression) ShallowSimplified() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expression1) ShallowSimplified() const Standard_OVERRIDE;
 
   //! Returns a copy of <me> having the same unknowns and functions.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expression1) Copy() const Standard_OVERRIDE;
 
   //! Tests if <me> contains NamedUnknown.
   Standard_EXPORT Standard_Boolean ContainsUnknowns() const Standard_OVERRIDE;
 
   //! Tests if <exp> is contained in <me>.
   Standard_EXPORT Standard_Boolean
-    Contains(const Handle(Expr_GeneralExpression)& exp) const Standard_OVERRIDE;
+    Contains(const Handle(Expression1)& exp) const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean IsLinear() const Standard_OVERRIDE;
 
   //! Returns the derivative on <X> unknown of <me>
-  Standard_EXPORT Handle(Expr_GeneralExpression) Derivative(
+  Standard_EXPORT Handle(Expression1) Derivative(
     const Handle(Expr_NamedUnknown)& X) const Standard_OVERRIDE;
 
   //! Replaces all occurrences of <var> with <with> in <me>
   //! Raises InvalidOperand if <with> contains <me>.
   Standard_EXPORT void Replace(const Handle(Expr_NamedUnknown)&      var,
-                               const Handle(Expr_GeneralExpression)& with) Standard_OVERRIDE;
+                               const Handle(Expression1)& with) Standard_OVERRIDE;
 
   //! Returns the value of <me> (as a Real) by
   //! replacement of <vars> by <vals>.
@@ -102,7 +102,7 @@ public:
 
 protected:
 private:
-  Handle(Expr_GeneralExpression) myExpression;
+  Handle(Expression1) myExpression;
 };
 
 #include <Expr_NamedUnknown.lxx>

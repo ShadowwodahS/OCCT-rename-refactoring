@@ -285,7 +285,7 @@ void STEPCAFControl_Writer::Init(const Handle(ExchangeSession)& theWS,
   myPureRefLabels.Clear();
   myRootLabels.Clear();
   myGDTPresentationDM = new StepVisual_DraughtingModel();
-  myGDTPrsCurveStyle  = new StepVisual_HArray1OfPresentationStyleAssignment(1, 1);
+  myGDTPrsCurveStyle  = new HArray1OfPresentationStyle(1, 1);
 }
 
 //=================================================================================================
@@ -1101,7 +1101,7 @@ static Standard_Boolean getStyledItem(const TopoShape&                     theSh
       if (!isSameMonSolBR)
         continue;
     }
-    for (StepVisual_HArray1OfPresentationStyleAssignment::Iterator aStyleIter(
+    for (HArray1OfPresentationStyle::Iterator aStyleIter(
            aSelItm->Styles()->Array1());
          aStyleIter.More() && !anIsFound;
          aStyleIter.Next())
@@ -1125,7 +1125,7 @@ static Standard_Boolean setDefaultInstanceColor(
   Handle(StepVisual_PresentationStyleAssignment)& thePSA)
 {
   Standard_Boolean anIsFound = Standard_False;
-  for (StepVisual_HArray1OfPresentationStyleAssignment::Iterator aStyleIter(
+  for (HArray1OfPresentationStyle::Iterator aStyleIter(
          theStyleItem->Styles()->Array1());
        aStyleIter.More() && !anIsFound;
        aStyleIter.Next())
@@ -1139,10 +1139,10 @@ static Standard_Boolean setDefaultInstanceColor(
     // get style select from father PSA
     if (aFatherPSA->NbStyles() > 0)
     {
-      Handle(StepVisual_HArray1OfPresentationStyleSelect) aFatherStyles =
-        new StepVisual_HArray1OfPresentationStyleSelect(1, aFatherPSA->NbStyles());
+      Handle(HArray1OfPresentationStyleSelect) aFatherStyles =
+        new HArray1OfPresentationStyleSelect(1, aFatherPSA->NbStyles());
       Standard_Integer aSettingInd = 1;
-      for (StepVisual_HArray1OfPresentationStyleSelect::Iterator aFatherStyleIter(
+      for (HArray1OfPresentationStyleSelect::Iterator aFatherStyleIter(
              aFatherPSA->Styles()->Array1());
            aFatherStyleIter.More();
            aFatherStyleIter.Next())
@@ -1207,7 +1207,7 @@ static void MakeSTEPStyles(STEPConstruct_Styles&                        theStyle
   }
 
   // translate colors to STEP
-  Handle(StepVisual_Colour) aSurfColor, aCurvColor;
+  Handle(Colour) aSurfColor, aCurvColor;
   Standard_Real             aRenderTransp = 0.0;
   if (aStyle.IsSetColorSurf())
   {
@@ -1482,8 +1482,8 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(ExchangeSession
     {
       // create invisibility item and refer for styledItem
       Handle(StepVisual_Invisibility)           anInvisibility = new StepVisual_Invisibility();
-      Handle(StepVisual_HArray1OfInvisibleItem) anInvisibilitySeq =
-        new StepVisual_HArray1OfInvisibleItem(1, Styles.NbStyles());
+      Handle(HArray1OfInvisibleItem) anInvisibilitySeq =
+        new HArray1OfInvisibleItem(1, Styles.NbStyles());
       // put all style item into the harray
       for (Standard_Integer aStyleInd = 1; aStyleInd <= Styles.NbStyles(); aStyleInd++)
       {
@@ -1753,8 +1753,8 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(ExchangeSession
 
     // create layer entity
     Standard_Integer                        anSetStyleInd = 1;
-    Handle(StepVisual_HArray1OfLayeredItem) aHArrayOfLItem =
-      new StepVisual_HArray1OfLayeredItem(1, aSeqRI.Length());
+    Handle(HArray1OfLayeredItem) aHArrayOfLItem =
+      new HArray1OfLayeredItem(1, aSeqRI.Length());
     for (TColStd_SequenceOfTransient::Iterator aRIIter(aSeqRI); aRIIter.More(); aRIIter.Next())
     {
       StepVisual_LayeredItem aLI;
@@ -1768,8 +1768,8 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(ExchangeSession
     if (isLinv)
     {
       // Invisibility Item for containing invisible layers.
-      Handle(StepVisual_HArray1OfInvisibleItem) aHInvsblItm =
-        new StepVisual_HArray1OfInvisibleItem(1, 1);
+      Handle(HArray1OfInvisibleItem) aHInvsblItm =
+        new HArray1OfInvisibleItem(1, 1);
       StepVisual_InvisibleItem aInvIt;
       aInvIt.SetValue(aStepLayerAs);
       aHInvsblItm->SetValue(1, aInvIt);
@@ -1992,7 +1992,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
   // create styled item for the indicated SHUO and store to the model
   STEPConstruct_Styles aStyles(theWS);
   // translate colors to STEP
-  Handle(StepVisual_Colour) aSurfColor, aCurvColor;
+  Handle(Colour) aSurfColor, aCurvColor;
   Standard_Real             aRenderTransp = 0.0;
   if (theStyle.IsSetColorSurf())
   {
@@ -2109,8 +2109,8 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
     }
     // create invisibility item and refer for styledItem
     Handle(StepVisual_Invisibility)           aInvsblt = new StepVisual_Invisibility();
-    Handle(StepVisual_HArray1OfInvisibleItem) aHInvsblItm =
-      new StepVisual_HArray1OfInvisibleItem(1, 1);
+    Handle(HArray1OfInvisibleItem) aHInvsblItm =
+      new HArray1OfInvisibleItem(1, 1);
     // put all style item into the harray
     StepVisual_InvisibleItem anInvItem;
     anInvItem.SetValue(aSTEPstyle);
@@ -2631,8 +2631,8 @@ void STEPCAFControl_Writer::writePresentation(const Handle(ExchangeSession)& the
   aTAO->Init(new TCollection_HAsciiString(), myGDTPrsCurveStyle, aGeomSet);
   StepVisual_DraughtingCalloutElement aDCElement;
   aDCElement.SetValue(aTAO);
-  Handle(StepVisual_HArray1OfDraughtingCalloutElement) aTAOs =
-    new StepVisual_HArray1OfDraughtingCalloutElement(1, 1);
+  Handle(HArray1OfDraughtingCallout) aTAOs =
+    new HArray1OfDraughtingCallout(1, 1);
   aTAOs->SetValue(1, aDCElement);
   Handle(StepVisual_DraughtingCallout) aDCallout = new StepVisual_DraughtingCallout();
   Handle(TCollection_HAsciiString)     aPrsName =
@@ -2667,14 +2667,14 @@ void STEPCAFControl_Writer::writePresentation(const Handle(ExchangeSession)& the
   aNullStyle->SetEnumText(0, ".NULL.");
   StepVisual_PresentationStyleSelect aStyleItem;
   aStyleItem.SetValue(aNullStyle);
-  Handle(StepVisual_HArray1OfPresentationStyleSelect) aStyles =
-    new StepVisual_HArray1OfPresentationStyleSelect(1, 1);
+  Handle(HArray1OfPresentationStyleSelect) aStyles =
+    new HArray1OfPresentationStyleSelect(1, 1);
   aStyles->SetValue(1, aStyleItem);
   Handle(StepVisual_PresentationStyleAssignment) aPrsStyle =
     new StepVisual_PresentationStyleAssignment();
   aPrsStyle->Init(aStyles);
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) aPrsStyles =
-    new StepVisual_HArray1OfPresentationStyleAssignment(1, 1);
+  Handle(HArray1OfPresentationStyle) aPrsStyles =
+    new HArray1OfPresentationStyle(1, 1);
   aPrsStyles->SetValue(1, aPrsStyle);
   // Plane1
   Handle(StepGeom_Plane)                   aPlane = new StepGeom_Plane();
@@ -2691,8 +2691,8 @@ void STEPCAFControl_Writer::writePresentation(const Handle(ExchangeSession)& the
   // Annotation plane element
   StepVisual_AnnotationPlaneElement aPlaneElement;
   aPlaneElement.SetValue(aDCallout);
-  Handle(StepVisual_HArray1OfAnnotationPlaneElement) aDCsForAnnPln =
-    new StepVisual_HArray1OfAnnotationPlaneElement(1, 1);
+  Handle(HArray1OfAnnotationPlaneElement) aDCsForAnnPln =
+    new HArray1OfAnnotationPlaneElement(1, 1);
   aDCsForAnnPln->SetValue(1, aPlaneElement);
   // Init AnnotationPlane entity
   Handle(StepVisual_AnnotationPlane) anAnnPlane = new StepVisual_AnnotationPlane();
@@ -3076,8 +3076,8 @@ static void WriteDimValues(const Handle(ExchangeSession)&             theWS,
   {
     Handle(StepShape_QualifiedRepresentationItem) aQRI =
       new StepShape_QualifiedRepresentationItem();
-    Handle(StepShape_HArray1OfValueQualifier) aQualifiers =
-      new StepShape_HArray1OfValueQualifier(1, aNbQualifiers);
+    Handle(HArray1OfValueQualifier) aQualifiers =
+      new HArray1OfValueQualifier(1, aNbQualifiers);
     // Type qualifier
     if (theObject->HasQualifier() && !isAngle)
     {
@@ -3247,7 +3247,7 @@ static void WriteDimValues(const Handle(ExchangeSession)&             theWS,
     aLowerMWU->Init(aLowerValue, aUnit);
     aModel->AddWithRefs(aLowerMWU);
     // Tolerance
-    Handle(StepShape_ToleranceValue) aTolValue = new StepShape_ToleranceValue();
+    Handle(ToleranceValue1) aTolValue = new ToleranceValue1();
     aTolValue->Init(aLowerMWU, anUpperMWU);
     aModel->AddWithRefs(aTolValue);
     StepShape_ToleranceMethodDefinition aMethod;
@@ -4256,7 +4256,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(ExchangeSess
 
   // Common entities for presentation
   STEPConstruct_Styles                aStyles(theWS);
-  Handle(StepVisual_Colour)           aCurvColor = aStyles.EncodeColor(Quantity_NOC_WHITE);
+  Handle(Colour)           aCurvColor = aStyles.EncodeColor(Quantity_NOC_WHITE);
   Handle(StepRepr_RepresentationItem) anItem     = NULL;
   myGDTPrsCurveStyle->SetValue(
     1,

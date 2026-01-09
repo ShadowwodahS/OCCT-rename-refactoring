@@ -25,7 +25,7 @@
 #include <Draw_Interpretor.hxx>
 class MeshTriangulation;
 class DrawDisplay;
-class Draw_Drawable3D;
+class Drawable3D;
 
 class DrawTrSurf_Triangulation2D;
 DEFINE_STANDARD_HANDLE(DrawTrSurf_Triangulation2D, Draw_Drawable2D)
@@ -46,7 +46,7 @@ public:
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

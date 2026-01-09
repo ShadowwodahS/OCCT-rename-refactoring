@@ -22,7 +22,7 @@
 
 #include <Standard_Transient.hxx>
 #include <Draw_ColorKind.hxx>
-class Draw_Drawable3D;
+class Drawable3D;
 class DataLabel;
 class TDataXtd_Constraint;
 class TopoShape;
@@ -53,18 +53,18 @@ public:
 
   //! reusable methods (may used when redefined <Drawable>)
   //! =====================================================
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Drawable(const DataLabel& L) const;
+  Standard_EXPORT virtual Handle(Drawable3D) Drawable(const DataLabel& L) const;
 
-  Standard_EXPORT Handle(Draw_Drawable3D) DrawableConstraint(
+  Standard_EXPORT Handle(Drawable3D) DrawableConstraint(
     const Handle(TDataXtd_Constraint)& C) const;
 
-  Standard_EXPORT Handle(Draw_Drawable3D) DrawableShape(
+  Standard_EXPORT Handle(Drawable3D) DrawableShape(
     const DataLabel&       L,
     const Draw_ColorKind   color,
     const Standard_Boolean current = Standard_True) const;
 
   //! May be used for temporary display of a shape
-  Standard_EXPORT static Handle(Draw_Drawable3D) DrawableShape(const TopoShape&  s,
+  Standard_EXPORT static Handle(Drawable3D) DrawableShape(const TopoShape&  s,
                                                                const Draw_ColorKind color);
 
   DEFINE_STANDARD_RTTIEXT(DDataStd_DrawDriver, RefObject)

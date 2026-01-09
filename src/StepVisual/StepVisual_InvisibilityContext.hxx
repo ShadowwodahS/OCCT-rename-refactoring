@@ -26,7 +26,7 @@
 class RefObject;
 class StepVisual_DraughtingModel;
 class StepVisual_PresentationRepresentation;
-class StepVisual_PresentationSet;
+class PresentationSet1;
 
 class StepVisual_InvisibilityContext : public SelectType
 {
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT Handle(StepVisual_PresentationRepresentation) PresentationRepresentation() const;
 
   //! returns Value as a PresentationSet (Null if another type)
-  Standard_EXPORT Handle(StepVisual_PresentationSet) PresentationSet() const;
+  Standard_EXPORT Handle(PresentationSet1) PresentationSet() const;
 
   //! returns Value as a PresentationSet (Null if another type)
   Standard_EXPORT Handle(StepVisual_DraughtingModel) DraughtingModel() const;

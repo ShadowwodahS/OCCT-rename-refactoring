@@ -35,13 +35,13 @@ public:
   Standard_EXPORT StepShape_QualifiedRepresentationItem();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&          aName,
-                            const Handle(StepShape_HArray1OfValueQualifier)& qualifiers);
+                            const Handle(HArray1OfValueQualifier)& qualifiers);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfValueQualifier) Qualifiers() const;
+  Standard_EXPORT Handle(HArray1OfValueQualifier) Qualifiers() const;
 
   Standard_EXPORT Standard_Integer NbQualifiers() const;
 
-  Standard_EXPORT void SetQualifiers(const Handle(StepShape_HArray1OfValueQualifier)& qualifiers);
+  Standard_EXPORT void SetQualifiers(const Handle(HArray1OfValueQualifier)& qualifiers);
 
   Standard_EXPORT StepShape_ValueQualifier QualifiersValue(const Standard_Integer num) const;
 
@@ -52,7 +52,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfValueQualifier) theQualifiers;
+  Handle(HArray1OfValueQualifier) theQualifiers;
 };
 
 #endif // _StepShape_QualifiedRepresentationItem_HeaderFile

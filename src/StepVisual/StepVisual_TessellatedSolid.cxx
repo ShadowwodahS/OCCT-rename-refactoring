@@ -29,7 +29,7 @@ StepVisual_TessellatedSolid::StepVisual_TessellatedSolid()
 
 void StepVisual_TessellatedSolid::Init(
   const Handle(TCollection_HAsciiString)&                      theRepresentationItem_Name,
-  const Handle(StepVisual_HArray1OfTessellatedStructuredItem)& theItems,
+  const Handle(HArray1OfTessellatedItem)& theItems,
   const Standard_Boolean                                       theHasGeometricLink,
   const Handle(StepShape_ManifoldSolidBrep)&                   theGeometricLink)
 {
@@ -50,7 +50,7 @@ void StepVisual_TessellatedSolid::Init(
 
 //=================================================================================================
 
-Handle(StepVisual_HArray1OfTessellatedStructuredItem) StepVisual_TessellatedSolid::Items() const
+Handle(HArray1OfTessellatedItem) StepVisual_TessellatedSolid::Items() const
 {
   return myItems;
 }
@@ -58,7 +58,7 @@ Handle(StepVisual_HArray1OfTessellatedStructuredItem) StepVisual_TessellatedSoli
 //=================================================================================================
 
 void StepVisual_TessellatedSolid::SetItems(
-  const Handle(StepVisual_HArray1OfTessellatedStructuredItem)& theItems)
+  const Handle(HArray1OfTessellatedItem)& theItems)
 {
   myItems = theItems;
 }

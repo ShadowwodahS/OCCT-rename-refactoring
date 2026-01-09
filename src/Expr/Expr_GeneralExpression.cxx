@@ -21,14 +21,14 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_GeneralExpression, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Expression1, RefObject)
 
-Standard_Boolean Expr_GeneralExpression::IsShareable() const
+Standard_Boolean Expression1::IsShareable() const
 {
   return Standard_False;
 }
 
-Handle(Expr_GeneralExpression) Expr_GeneralExpression::NDerivative(
+Handle(Expression1) Expression1::NDerivative(
   const Handle(Expr_NamedUnknown)& X,
   const Standard_Integer           N) const
 {
@@ -36,7 +36,7 @@ Handle(Expr_GeneralExpression) Expr_GeneralExpression::NDerivative(
   {
     throw Standard_OutOfRange();
   }
-  Handle(Expr_GeneralExpression) first = Derivative(X);
+  Handle(Expression1) first = Derivative(X);
   if (N > 1)
   {
     return first->NDerivative(X, N - 1);
@@ -44,7 +44,7 @@ Handle(Expr_GeneralExpression) Expr_GeneralExpression::NDerivative(
   return first;
 }
 
-Standard_Real Expr_GeneralExpression::EvaluateNumeric() const
+Standard_Real Expression1::EvaluateNumeric() const
 {
   if (ContainsUnknowns())
   {

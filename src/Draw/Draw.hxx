@@ -22,7 +22,7 @@
 #include <Quantity_ColorRGBA.hxx>
 #include <Standard_Handle.hxx>
 
-class Draw_Drawable3D;
+class Drawable3D;
 class Draw_ProgressIndicator;
 
 //! MAQUETTE DESSIN MODELISATION
@@ -48,12 +48,12 @@ public:
 public: //! @name Tcl variables management tools
   //! Sets a variable. Display it if <Disp> is true.
   Standard_EXPORT static void Set(const Standard_CString         Name,
-                                  const Handle(Draw_Drawable3D)& D,
+                                  const Handle(Drawable3D)& D,
                                   const Standard_Boolean         Disp);
 
   //! Sets a    variable,  a  null   handle    clear the
   //! vartiable. Automatic display is context driven.
-  Standard_EXPORT static void Set(const Standard_CString Name, const Handle(Draw_Drawable3D)& D);
+  Standard_EXPORT static void Set(const Standard_CString Name, const Handle(Drawable3D)& D);
 
   //! Sets a numeric variable.
   Standard_EXPORT static void Set(const Standard_CString Name, const Standard_Real val);
@@ -64,13 +64,13 @@ public: //! @name Tcl variables management tools
   //! Returns a variable value.
   //! The name "." does a graphic selection; in this case theName will be is overwritten with the
   //! name of the variable.
-  static Handle(Draw_Drawable3D) Get(Standard_CString& theName)
+  static Handle(Drawable3D) Get(Standard_CString& theName)
   {
     return getDrawable(theName, Standard_True);
   }
 
   //! Returns a variable value.
-  static Handle(Draw_Drawable3D) GetExisting(const Standard_CString& theName)
+  static Handle(Drawable3D) GetExisting(const Standard_CString& theName)
   {
     Standard_CString aName = theName;
     return getDrawable(aName, Standard_False);
@@ -83,8 +83,8 @@ public: //! @name Tcl variables management tools
   //! Sets a TCL string variable
   Standard_EXPORT static void Set(const Standard_CString Name, const Standard_CString val);
 
-  //! Returns a map of Draw_Drawable3D variables.
-  Standard_EXPORT static const NCollection_Map<Handle(Draw_Drawable3D)>& Drawables();
+  //! Returns a map of Drawable3D variables.
+  Standard_EXPORT static const NCollection_Map<Handle(Drawable3D)>& Drawables();
 
 public: //! @name argument parsing tools
   //! Converts numeric expression, that can involve DRAW
@@ -265,7 +265,7 @@ protected:
   //! Returns a variable value.
   //! @param[in][out] theName   variable name, or "." to activate picking
   //! @param[in] theToAllowPick  when TRUE, "." name will activate picking
-  Standard_EXPORT static Handle(Draw_Drawable3D) getDrawable(Standard_CString& theName,
+  Standard_EXPORT static Handle(Drawable3D) getDrawable(Standard_CString& theName,
                                                              Standard_Boolean  theToAllowPick);
 
   //! Parses RGB(A) color argument(s) specified within theArgVec[0], theArgVec[1], theArgVec[2] and

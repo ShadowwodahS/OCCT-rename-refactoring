@@ -32,7 +32,7 @@
 #include <TDF_Label.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DDF_Browser, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(DDF_Browser, Drawable3D)
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Communication convention with tcl:
@@ -60,7 +60,7 @@ void DDF_Browser::DrawOn(DrawDisplay& /*dis*/) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDF_Browser::Copy() const
+Handle(Drawable3D) DDF_Browser::Copy() const
 {
   return new DDF_Browser(myDF);
 }

@@ -40,13 +40,13 @@ void RWStepVisual_RWAnnotationPlane::ReadStep(const Handle(StepData_StepReaderDa
   data->ReadString(num, 1, "name", ach, aName);
 
   // Inherited field : styles
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) aStyles;
+  Handle(HArray1OfPresentationStyle) aStyles;
   Handle(StepVisual_PresentationStyleAssignment)          anent2;
   Standard_Integer                                        nsub2;
   if (data->ReadSubList(num, 2, "styles", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aStyles              = new StepVisual_HArray1OfPresentationStyleAssignment(1, nb2);
+    aStyles              = new HArray1OfPresentationStyle(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       if (data->ReadEntity(nsub2,
@@ -64,13 +64,13 @@ void RWStepVisual_RWAnnotationPlane::ReadStep(const Handle(StepData_StepReaderDa
   data->ReadEntity(num, 3, "item", ach, STANDARD_TYPE(RefObject), aItem);
 
   // Own field: elements
-  Handle(StepVisual_HArray1OfAnnotationPlaneElement) anElements;
+  Handle(HArray1OfAnnotationPlaneElement) anElements;
   StepVisual_AnnotationPlaneElement                  anEnt;
   Standard_Integer                                   nbSub;
   if (data->ReadSubList(num, 4, "elements", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    anElements                  = new StepVisual_HArray1OfAnnotationPlaneElement(1, nbElements);
+    anElements                  = new HArray1OfAnnotationPlaneElement(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub, i, "content", ach, anEnt))

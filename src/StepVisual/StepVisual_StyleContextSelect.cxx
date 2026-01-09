@@ -28,7 +28,7 @@ Standard_Integer StepVisual_StyleContextSelect::CaseNum(const Handle(RefObject)&
     return 1;
   if (ent->IsKind(STANDARD_TYPE(StepRepr_RepresentationItem)))
     return 2;
-  if (ent->IsKind(STANDARD_TYPE(StepVisual_PresentationSet)))
+  if (ent->IsKind(STANDARD_TYPE(PresentationSet1)))
     return 3;
   return 0;
 }
@@ -43,7 +43,7 @@ Handle(StepRepr_RepresentationItem) StepVisual_StyleContextSelect::Representatio
   return GetCasted(StepRepr_RepresentationItem, Value());
 }
 
-Handle(StepVisual_PresentationSet) StepVisual_StyleContextSelect::PresentationSet() const
+Handle(PresentationSet1) StepVisual_StyleContextSelect::PresentationSet() const
 {
-  return GetCasted(StepVisual_PresentationSet, Value());
+  return GetCasted(PresentationSet1, Value());
 }

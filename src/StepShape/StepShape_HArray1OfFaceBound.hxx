@@ -20,6 +20,6 @@
 #include <StepShape_Array1OfFaceBound.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfFaceBound, StepShape_Array1OfFaceBound)
+DEFINE_HARRAY1(HArray1OfFaceBound, StepShape_Array1OfFaceBound)
 
 #endif

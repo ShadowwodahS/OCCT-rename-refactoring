@@ -45,14 +45,14 @@ void RWStepVisual_RWCameraModelD3MultiClippingIntersection::ReadStep(
   data->ReadString(num, 1, "name", ach, aName);
 
   // Own field : shape_clipping
-  Handle(StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect) aShapeClipping;
+  Handle(HArray1OfCameraClippingIntersect) aShapeClipping;
   StepVisual_CameraModelD3MultiClippingInterectionSelect                  anEnt;
   Standard_Integer                                                        nbSub;
   if (data->ReadSubList(num, 2, "shape_clipping", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
     aShapeClipping =
-      new StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect(1, nbElements);
+      new HArray1OfCameraClippingIntersect(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub, i, "shape_clipping", ach, anEnt))

@@ -41,13 +41,13 @@ void RWStepShape_RWShellBasedSurfaceModel::ReadStep(
 
   // --- own field : sbsmBoundary ---
 
-  Handle(StepShape_HArray1OfShell) aSbsmBoundary;
+  Handle(HArray1OfShell1) aSbsmBoundary;
   StepShape_Shell                  aSbsmBoundaryItem;
   Standard_Integer                 nsub2;
   if (data->ReadSubList(num, 2, "sbsm_boundary", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aSbsmBoundary        = new StepShape_HArray1OfShell(1, nb2);
+    aSbsmBoundary        = new HArray1OfShell1(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

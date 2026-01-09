@@ -20,8 +20,8 @@
 #include <Expr_GeneralExpression.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<Handle(Expr_GeneralExpression)> ExprIntrp_StackOfGeneralExpression;
-typedef NCollection_List<Handle(Expr_GeneralExpression)>::Iterator
+typedef NCollection_List<Handle(Expression1)> ExprIntrp_StackOfGeneralExpression;
+typedef NCollection_List<Handle(Expression1)>::Iterator
   ExprIntrp_ListIteratorOfStackOfGeneralExpression;
 
 #endif

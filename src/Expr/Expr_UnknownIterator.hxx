@@ -23,7 +23,7 @@
 
 #include <Expr_MapOfNamedUnknown.hxx>
 #include <Standard_Integer.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 
 //! Describes an iterator on NamedUnknowns contained
@@ -33,7 +33,7 @@ class UnknownIterator
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT UnknownIterator(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT UnknownIterator(const Handle(Expression1)& exp);
 
   Standard_EXPORT Standard_Boolean More() const;
 
@@ -43,7 +43,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Perform(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void Perform(const Handle(Expression1)& exp);
 
   Expr_MapOfNamedUnknown myMap;
   Standard_Integer       myCurrent;

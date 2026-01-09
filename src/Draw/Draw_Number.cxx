@@ -18,7 +18,7 @@
 
 #include <Draw_Display.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Number, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(Draw_Number, Drawable3D)
 
 //=================================================================================================
 
@@ -37,7 +37,7 @@ void Draw_Number::DrawOn(DrawDisplay&) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) Draw_Number::Copy() const
+Handle(Drawable3D) Draw_Number::Copy() const
 {
   Handle(Draw_Number) D = new Draw_Number(myValue);
   return D;
@@ -64,7 +64,7 @@ void Draw_Number::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) Draw_Number::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) Draw_Number::Restore(Standard_IStream& theStream)
 {
   Standard_Real aVal = RealLast();
   theStream >> aVal;

@@ -25,7 +25,7 @@
 #include <Expr_GeneralFunction.hxx>
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Expr_GeneralExpression;
+class Expression1;
 class Expr_NamedUnknown;
 
 class Expr_NamedFunction;
@@ -38,7 +38,7 @@ public:
   //! Creates a function of given variables <vars> with name
   //! <name> defined by the expression <exp>.
   Standard_EXPORT Expr_NamedFunction(const AsciiString1&        name,
-                                     const Handle(Expr_GeneralExpression)& exp,
+                                     const Handle(Expression1)& exp,
                                      const Expr_Array1OfNamedUnknown&      vars);
 
   //! Sets the name <newname> to <me>.
@@ -88,18 +88,18 @@ public:
   Standard_EXPORT AsciiString1 GetStringName() const Standard_OVERRIDE;
 
   //! Returns equivalent expression of <me>.
-  Standard_EXPORT Handle(Expr_GeneralExpression) Expression() const;
+  Standard_EXPORT Handle(Expression1) Expression() const;
 
   //! Modifies expression of <me>.
   //! Warning: Beware of derivatives. See FunctionDerivative
-  Standard_EXPORT void SetExpression(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT void SetExpression(const Handle(Expression1)& exp);
 
   DEFINE_STANDARD_RTTIEXT(Expr_NamedFunction, Expr_GeneralFunction)
 
 protected:
 private:
   AsciiString1        myName;
-  Handle(Expr_GeneralExpression) myExp;
+  Handle(Expression1) myExp;
   Expr_Array1OfNamedUnknown      myVariables;
 };
 

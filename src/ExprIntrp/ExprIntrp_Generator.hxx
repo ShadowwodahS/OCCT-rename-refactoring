@@ -26,12 +26,12 @@ class Expr_NamedFunction;
 class Expr_NamedExpression;
 class AsciiString1;
 
-class ExprIntrp_Generator;
-DEFINE_STANDARD_HANDLE(ExprIntrp_Generator, RefObject)
+class ExpressionGenerator;
+DEFINE_STANDARD_HANDLE(ExpressionGenerator, RefObject)
 
 //! Implements general services for interpretation of
 //! expressions.
-class ExprIntrp_Generator : public RefObject
+class ExpressionGenerator : public RefObject
 {
 
 public:
@@ -53,10 +53,10 @@ public:
   //! not.
   Standard_EXPORT Handle(Expr_NamedFunction) GetFunction(const AsciiString1& name) const;
 
-  DEFINE_STANDARD_RTTIEXT(ExprIntrp_Generator, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ExpressionGenerator, RefObject)
 
 protected:
-  Standard_EXPORT ExprIntrp_Generator();
+  Standard_EXPORT ExpressionGenerator();
 
 private:
   ExprIntrp_SequenceOfNamedFunction   myFunctions;

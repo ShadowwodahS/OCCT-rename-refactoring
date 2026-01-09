@@ -21,7 +21,7 @@ StepVisual_PresentationLayerAssignment::StepVisual_PresentationLayerAssignment()
 void StepVisual_PresentationLayerAssignment::Init(
   const Handle(TCollection_HAsciiString)&        aName,
   const Handle(TCollection_HAsciiString)&        aDescription,
-  const Handle(StepVisual_HArray1OfLayeredItem)& aAssignedItems)
+  const Handle(HArray1OfLayeredItem)& aAssignedItems)
 {
   // --- classe own fields ---
   name          = aName;
@@ -51,12 +51,12 @@ Handle(TCollection_HAsciiString) StepVisual_PresentationLayerAssignment::Descrip
 }
 
 void StepVisual_PresentationLayerAssignment::SetAssignedItems(
-  const Handle(StepVisual_HArray1OfLayeredItem)& aAssignedItems)
+  const Handle(HArray1OfLayeredItem)& aAssignedItems)
 {
   assignedItems = aAssignedItems;
 }
 
-Handle(StepVisual_HArray1OfLayeredItem) StepVisual_PresentationLayerAssignment::AssignedItems()
+Handle(HArray1OfLayeredItem) StepVisual_PresentationLayerAssignment::AssignedItems()
   const
 {
   return assignedItems;

@@ -23,12 +23,12 @@
 #include <Draw_Drawable3D.hxx>
 #include <Draw_Interpretor.hxx>
 
-DEFINE_STANDARD_HANDLE(DrawTrSurf_Point, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DrawTrSurf_Point, Drawable3D)
 
 //! A drawable point.
-class DrawTrSurf_Point : public Draw_Drawable3D
+class DrawTrSurf_Point : public Drawable3D
 {
-  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Point, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Point, Drawable3D)
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
@@ -60,7 +60,7 @@ class DrawTrSurf_Point : public Draw_Drawable3D
   Draw_MarkerShape Shape() const { return myShape; }
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;

@@ -64,22 +64,22 @@ void RWStepVisual_RWSurfaceStyleRenderingWithProperties::ReadStep(
   else
     ach->AddFail("Parameter #1 (surface_style_rendering.rendering_method) is not enumeration");
 
-  Handle(StepVisual_Colour) aSurfaceStyleRendering_SurfaceColour;
+  Handle(Colour) aSurfaceStyleRendering_SurfaceColour;
   data->ReadEntity(num,
                    2,
                    "surface_style_rendering.surface_colour",
                    ach,
-                   STANDARD_TYPE(StepVisual_Colour),
+                   STANDARD_TYPE(Colour),
                    aSurfaceStyleRendering_SurfaceColour);
 
   // Own fields of SurfaceStyleRenderingWithProperties
 
-  Handle(StepVisual_HArray1OfRenderingPropertiesSelect) aProperties;
+  Handle(HArray1OfRenderingProperties) aProperties;
   Standard_Integer                                      sub3 = 0;
   if (data->ReadSubList(num, 3, "properties", ach, sub3))
   {
     Standard_Integer nb0  = data->NbParams(sub3);
-    aProperties           = new StepVisual_HArray1OfRenderingPropertiesSelect(1, nb0);
+    aProperties           = new HArray1OfRenderingProperties(1, nb0);
     Standard_Integer num2 = sub3;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

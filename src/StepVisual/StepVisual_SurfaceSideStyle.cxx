@@ -21,7 +21,7 @@ StepVisual_SurfaceSideStyle::StepVisual_SurfaceSideStyle() {}
 
 void StepVisual_SurfaceSideStyle::Init(
   const Handle(TCollection_HAsciiString)&                      aName,
-  const Handle(StepVisual_HArray1OfSurfaceStyleElementSelect)& aStyles)
+  const Handle(HArray1OfSurfaceStyleElement)& aStyles)
 {
   // --- classe own fields ---
   name   = aName;
@@ -39,12 +39,12 @@ Handle(TCollection_HAsciiString) StepVisual_SurfaceSideStyle::Name() const
 }
 
 void StepVisual_SurfaceSideStyle::SetStyles(
-  const Handle(StepVisual_HArray1OfSurfaceStyleElementSelect)& aStyles)
+  const Handle(HArray1OfSurfaceStyleElement)& aStyles)
 {
   styles = aStyles;
 }
 
-Handle(StepVisual_HArray1OfSurfaceStyleElementSelect) StepVisual_SurfaceSideStyle::Styles() const
+Handle(HArray1OfSurfaceStyleElement) StepVisual_SurfaceSideStyle::Styles() const
 {
   return styles;
 }

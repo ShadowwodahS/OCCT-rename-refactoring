@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 class RefObject;
-class StepShape_PrecisionQualifier;
+class PrecisionQualifier1;
 class StepShape_TypeQualifier;
 class StepShape_ValueFormatTypeQualifier;
 
@@ -43,7 +43,7 @@ public:
   Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as PrecisionQualifier
-  Standard_EXPORT Handle(StepShape_PrecisionQualifier) PrecisionQualifier() const;
+  Standard_EXPORT Handle(PrecisionQualifier1) PrecisionQualifier() const;
 
   //! Returns Value as TypeQualifier
   Standard_EXPORT Handle(StepShape_TypeQualifier) TypeQualifier() const;

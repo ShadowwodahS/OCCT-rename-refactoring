@@ -38,19 +38,19 @@ public:
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(
     const StepVisual_ShadingSurfaceMethod theSurfaceStyleRendering_RenderingMethod,
-    const Handle(StepVisual_Colour)&      theSurfaceStyleRendering_SurfaceColour,
-    const Handle(StepVisual_HArray1OfRenderingPropertiesSelect)& theProperties);
+    const Handle(Colour)&      theSurfaceStyleRendering_SurfaceColour,
+    const Handle(HArray1OfRenderingProperties)& theProperties);
 
   //! Returns field Properties
-  Standard_EXPORT Handle(StepVisual_HArray1OfRenderingPropertiesSelect) Properties() const;
+  Standard_EXPORT Handle(HArray1OfRenderingProperties) Properties() const;
   //! Sets field Properties
   Standard_EXPORT void SetProperties(
-    const Handle(StepVisual_HArray1OfRenderingPropertiesSelect)& theProperties);
+    const Handle(HArray1OfRenderingProperties)& theProperties);
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleRenderingWithProperties,
                           StepVisual_SurfaceStyleRendering)
 
 private:
-  Handle(StepVisual_HArray1OfRenderingPropertiesSelect) myProperties;
+  Handle(HArray1OfRenderingProperties) myProperties;
 };
 #endif // _StepVisual_SurfaceStyleRenderingWithProperties_HeaderFile_

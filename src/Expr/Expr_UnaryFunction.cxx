@@ -36,7 +36,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(Expr_UnaryFunction, Expr_UnaryExpression)
 
 Expr_UnaryFunction::Expr_UnaryFunction(const Handle(Expr_GeneralFunction)&   func,
-                                       const Handle(Expr_GeneralExpression)& exp)
+                                       const Handle(Expression1)& exp)
 {
   if (func->NbOfVariables() != 1)
   {
@@ -51,9 +51,9 @@ Handle(Expr_GeneralFunction) Expr_UnaryFunction::Function() const
   return myFunction;
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryFunction::ShallowSimplified() const
+Handle(Expression1) Expr_UnaryFunction::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) op = Operand();
+  Handle(Expression1) op = Operand();
   if (op->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) nval = Handle(Expr_NumericValue)::DownCast(op);
@@ -68,19 +68,19 @@ Handle(Expr_GeneralExpression) Expr_UnaryFunction::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryFunction::Copy() const
+Handle(Expression1) Expr_UnaryFunction::Copy() const
 {
   return new Expr_UnaryFunction(myFunction, Expr1::CopyShare(Operand()));
 }
 
-Standard_Boolean Expr_UnaryFunction::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_UnaryFunction::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_UnaryFunction)))
   {
     return Standard_False;
   }
   Handle(Expr_UnaryFunction)     fother   = Handle(Expr_UnaryFunction)::DownCast(Other);
-  Handle(Expr_GeneralExpression) otherexp = fother->Operand();
+  Handle(Expression1) otherexp = fother->Operand();
   if (otherexp->IsIdentical(Operand()))
   {
     if (myFunction->IsIdentical(fother->Function()))
@@ -104,12 +104,12 @@ Standard_Boolean Expr_UnaryFunction::IsLinear() const
   return myFunction->IsLinearOnVariable(1);
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryFunction::Derivative(
+Handle(Expression1) Expr_UnaryFunction::Derivative(
   const Handle(Expr_NamedUnknown)& X) const
 {
   Handle(Expr_NamedUnknown)      myvar     = myFunction->Variable(1);
-  Handle(Expr_GeneralExpression) myop      = Operand();
-  Handle(Expr_GeneralExpression) myexpder  = myop->Derivative(X);
+  Handle(Expression1) myop      = Operand();
+  Handle(Expression1) myexpder  = myop->Derivative(X);
   Handle(Expr_GeneralFunction)   myfuncder = myFunction->Derivative(myvar);
   Handle(Expr_UnaryFunction) firstpart = new Expr_UnaryFunction(myfuncder, Expr1::CopyShare(myop));
   Handle(Expr_Product)       resu      = firstpart->ShallowSimplified() * myexpder;

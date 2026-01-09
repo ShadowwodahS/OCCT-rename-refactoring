@@ -18,7 +18,7 @@
 
 #include <Draw_Display.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Chronometer, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(Draw_Chronometer, Drawable3D)
 
 //=================================================================================================
 
@@ -36,7 +36,7 @@ void Draw_Chronometer::DrawOn(DrawDisplay&) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) Draw_Chronometer::Copy() const
+Handle(Drawable3D) Draw_Chronometer::Copy() const
 {
   Handle(Draw_Chronometer) C = new Draw_Chronometer();
   return C;

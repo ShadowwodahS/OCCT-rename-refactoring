@@ -45,7 +45,7 @@ void RWStepShape_RWShapeDimensionRepresentation::ReadStep(
   data->ReadString(num, 1, "representation.name", ach, aRepresentation_Name);
 
   Handle(HArray1OfReprItem)                aRepresentation_Items;
-  Handle(StepShape_HArray1OfShapeDimensionRepresentationItem) anItems;
+  Handle(HArray1OfShapeDimReprItem) anItems;
   Standard_Integer                                            sub2 = 0;
   if (data->ReadSubList(num, 2, "representation.items", ach, sub2))
   {
@@ -74,7 +74,7 @@ void RWStepShape_RWShapeDimensionRepresentation::ReadStep(
     }
     else
     {
-      anItems = new StepShape_HArray1OfShapeDimensionRepresentationItem(1, nb0);
+      anItems = new HArray1OfShapeDimReprItem(1, nb0);
       for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
       {
         data->ReadEntity(num2, i0, "representation.items", ach, anIt0AP242);

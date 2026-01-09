@@ -22,7 +22,7 @@
 
 #include <Standard_Transient.hxx>
 class StepVisual_PresentationArea;
-class StepVisual_PresentationSet;
+class PresentationSet1;
 
 class StepVisual_AreaInSet;
 DEFINE_STANDARD_HANDLE(StepVisual_AreaInSet, RefObject)
@@ -35,22 +35,22 @@ public:
   Standard_EXPORT StepVisual_AreaInSet();
 
   Standard_EXPORT void Init(const Handle(StepVisual_PresentationArea)& aArea,
-                            const Handle(StepVisual_PresentationSet)&  aInSet);
+                            const Handle(PresentationSet1)&  aInSet);
 
   Standard_EXPORT void SetArea(const Handle(StepVisual_PresentationArea)& aArea);
 
   Standard_EXPORT Handle(StepVisual_PresentationArea) Area() const;
 
-  Standard_EXPORT void SetInSet(const Handle(StepVisual_PresentationSet)& aInSet);
+  Standard_EXPORT void SetInSet(const Handle(PresentationSet1)& aInSet);
 
-  Standard_EXPORT Handle(StepVisual_PresentationSet) InSet() const;
+  Standard_EXPORT Handle(PresentationSet1) InSet() const;
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_AreaInSet, RefObject)
 
 protected:
 private:
   Handle(StepVisual_PresentationArea) area;
-  Handle(StepVisual_PresentationSet)  inSet;
+  Handle(PresentationSet1)  inSet;
 };
 
 #endif // _StepVisual_AreaInSet_HeaderFile

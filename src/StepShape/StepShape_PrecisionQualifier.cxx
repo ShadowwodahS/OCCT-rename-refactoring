@@ -14,21 +14,21 @@
 #include <Standard_Type.hxx>
 #include <StepShape_PrecisionQualifier.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_PrecisionQualifier, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(PrecisionQualifier1, RefObject)
 
-StepShape_PrecisionQualifier::StepShape_PrecisionQualifier() {}
+PrecisionQualifier1::PrecisionQualifier1() {}
 
-void StepShape_PrecisionQualifier::Init(const Standard_Integer precision_value)
+void PrecisionQualifier1::Init(const Standard_Integer precision_value)
 {
   thePrecisionValue = precision_value;
 }
 
-Standard_Integer StepShape_PrecisionQualifier::PrecisionValue() const
+Standard_Integer PrecisionQualifier1::PrecisionValue() const
 {
   return thePrecisionValue;
 }
 
-void StepShape_PrecisionQualifier::SetPrecisionValue(const Standard_Integer precision_value)
+void PrecisionQualifier1::SetPrecisionValue(const Standard_Integer precision_value)
 {
   thePrecisionValue = precision_value;
 }

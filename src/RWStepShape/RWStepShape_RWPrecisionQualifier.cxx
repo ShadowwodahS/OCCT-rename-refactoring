@@ -22,7 +22,7 @@ void RWStepShape_RWPrecisionQualifier::ReadStep(
   const Handle(StepData_StepReaderData)&      data,
   const Standard_Integer                      num,
   Handle(Interface_Check)&                    ach,
-  const Handle(StepShape_PrecisionQualifier)& ent) const
+  const Handle(PrecisionQualifier1)& ent) const
 {
   // --- Number of Parameter Control ---
 
@@ -41,7 +41,7 @@ void RWStepShape_RWPrecisionQualifier::ReadStep(
 
 void RWStepShape_RWPrecisionQualifier::WriteStep(
   StepData_StepWriter&                        SW,
-  const Handle(StepShape_PrecisionQualifier)& ent) const
+  const Handle(PrecisionQualifier1)& ent) const
 {
   SW.Send(ent->PrecisionValue());
 }

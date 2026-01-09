@@ -49,10 +49,10 @@ public:
 
   Standard_EXPORT Standard_Boolean Orientation() const;
 
-  Standard_EXPORT virtual void SetCfsFaces(const Handle(StepShape_HArray1OfFace)& aCfsFaces)
+  Standard_EXPORT virtual void SetCfsFaces(const Handle(HArray1OfFace1)& aCfsFaces)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(StepShape_HArray1OfFace) CfsFaces() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(HArray1OfFace1) CfsFaces() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(StepShape_Face) CfsFacesValue(const Standard_Integer num) const
     Standard_OVERRIDE;

@@ -61,7 +61,7 @@ class DrawTrSurf_BezierCurve2d : public DrawTrSurf_Curve2d
   DrawColor PolesColor() const { return polesLook; }
 
   //! For variable copy.
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
 private:
   Standard_Boolean drawPoles;

@@ -39,11 +39,11 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&               aName,
                             const Handle(StepShape_ClosedShell)&                  aOuter,
-                            const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids);
+                            const Handle(HArray1OfOrientedClosedShell)& aVoids);
 
-  Standard_EXPORT void SetVoids(const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids);
+  Standard_EXPORT void SetVoids(const Handle(HArray1OfOrientedClosedShell)& aVoids);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfOrientedClosedShell) Voids() const;
+  Standard_EXPORT Handle(HArray1OfOrientedClosedShell) Voids() const;
 
   Standard_EXPORT Handle(StepShape_OrientedClosedShell) VoidsValue(
     const Standard_Integer num) const;
@@ -54,7 +54,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfOrientedClosedShell) voids;
+  Handle(HArray1OfOrientedClosedShell) voids;
 };
 
 #endif // _StepShape_BrepWithVoids_HeaderFile

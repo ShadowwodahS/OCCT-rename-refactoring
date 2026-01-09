@@ -25,10 +25,10 @@ class TDF_Data;
 class DrawDisplay;
 
 class DDF_Data;
-DEFINE_STANDARD_HANDLE(DDF_Data, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(DDF_Data, Drawable3D)
 
 //! Encapsulates a data framework from TDF1 in a drawable object
-class DDF_Data : public Draw_Drawable3D
+class DDF_Data : public Drawable3D
 {
 
 public:
@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Drawable3D) Copy() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DDF_Data, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(DDF_Data, Drawable3D)
 
 protected:
 private:

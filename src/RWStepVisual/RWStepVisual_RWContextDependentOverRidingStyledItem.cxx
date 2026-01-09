@@ -48,13 +48,13 @@ void RWStepVisual_RWContextDependentOverRidingStyledItem::ReadStep(
 
   // --- inherited field : styles ---
 
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) aStyles;
+  Handle(HArray1OfPresentationStyle) aStyles;
   Handle(StepVisual_PresentationStyleAssignment)          anent2;
   Standard_Integer                                        nsub2;
   if (data->ReadSubList(num, 2, "styles", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aStyles              = new StepVisual_HArray1OfPresentationStyleAssignment(1, nb2);
+    aStyles              = new HArray1OfPresentationStyle(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed
@@ -86,13 +86,13 @@ void RWStepVisual_RWContextDependentOverRidingStyledItem::ReadStep(
 
   // --- own field : styleContext ---
 
-  Handle(StepVisual_HArray1OfStyleContextSelect) aStyleContext;
+  Handle(HArray1OfStyleContext) aStyleContext;
   StepVisual_StyleContextSelect                  aStyleContextItem;
   Standard_Integer                               nsub5;
   if (data->ReadSubList(num, 5, "style_context", ach, nsub5))
   {
     Standard_Integer nb5 = data->NbParams(nsub5);
-    aStyleContext        = new StepVisual_HArray1OfStyleContextSelect(1, nb5);
+    aStyleContext        = new HArray1OfStyleContext(1, nb5);
     for (Standard_Integer i5 = 1; i5 <= nb5; i5++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat5 =` not needed
@@ -102,7 +102,7 @@ void RWStepVisual_RWContextDependentOverRidingStyledItem::ReadStep(
   }
   else
   {
-    aStyleContext = new StepVisual_HArray1OfStyleContextSelect();
+    aStyleContext = new HArray1OfStyleContext();
   }
 
   //--- Initialisation of the read entity ---

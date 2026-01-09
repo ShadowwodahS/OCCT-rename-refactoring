@@ -41,14 +41,14 @@ Expr_Sum::Expr_Sum(const Expr_SequenceOfGeneralExpression& exps)
   }
 }
 
-Expr_Sum::Expr_Sum(const Handle(Expr_GeneralExpression)& exp1,
-                   const Handle(Expr_GeneralExpression)& exp2)
+Expr_Sum::Expr_Sum(const Handle(Expression1)& exp1,
+                   const Handle(Expression1)& exp2)
 {
   AddOperand(exp1);
   AddOperand(exp2);
 }
 
-Handle(Expr_GeneralExpression) Expr_Sum::Copy() const
+Handle(Expression1) Expr_Sum::Copy() const
 {
   Expr_SequenceOfGeneralExpression ops;
   Standard_Integer                 i;
@@ -60,7 +60,7 @@ Handle(Expr_GeneralExpression) Expr_Sum::Copy() const
   return new Expr_Sum(ops);
 }
 
-Standard_Boolean Expr_Sum::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Sum::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_Sum)))
   {
@@ -73,8 +73,8 @@ Standard_Boolean Expr_Sum::IsIdentical(const Handle(Expr_GeneralExpression)& Oth
   {
     return Standard_False;
   }
-  Handle(Expr_GeneralExpression) myop;
-  Handle(Expr_GeneralExpression) hisop;
+  Handle(Expression1) myop;
+  Handle(Expression1) hisop;
   Standard_Integer               i = 1;
   TColStd_Array1OfInteger        tab(1, max);
   for (Standard_Integer k = 1; k <= max; k++)
@@ -117,7 +117,7 @@ Standard_Boolean Expr_Sum::IsLinear() const
   return result;
 }
 
-Handle(Expr_GeneralExpression) Expr_Sum::Derivative(const Handle(Expr_NamedUnknown)& X) const
+Handle(Expression1) Expr_Sum::Derivative(const Handle(Expr_NamedUnknown)& X) const
 {
   Expr_SequenceOfGeneralExpression opsder;
   Standard_Integer                 i;
@@ -130,7 +130,7 @@ Handle(Expr_GeneralExpression) Expr_Sum::Derivative(const Handle(Expr_NamedUnkno
   return deriv->ShallowSimplified();
 }
 
-Handle(Expr_GeneralExpression) Expr_Sum::NDerivative(const Handle(Expr_NamedUnknown)& X,
+Handle(Expression1) Expr_Sum::NDerivative(const Handle(Expr_NamedUnknown)& X,
                                                      const Standard_Integer           N) const
 {
   if (N <= 0)
@@ -148,12 +148,12 @@ Handle(Expr_GeneralExpression) Expr_Sum::NDerivative(const Handle(Expr_NamedUnkn
   return deriv->ShallowSimplified();
 }
 
-Handle(Expr_GeneralExpression) Expr_Sum::ShallowSimplified() const
+Handle(Expression1) Expr_Sum::ShallowSimplified() const
 {
   Standard_Integer                 i;
   Standard_Integer                 max    = NbOperands();
   Standard_Integer                 nbvals = 0;
-  Handle(Expr_GeneralExpression)   op;
+  Handle(Expression1)   op;
   Expr_SequenceOfGeneralExpression newops;
   Standard_Boolean                 subsum = Standard_False;
   for (i = 1; (i <= max) && !subsum; i++)
@@ -163,7 +163,7 @@ Handle(Expr_GeneralExpression) Expr_Sum::ShallowSimplified() const
   }
   if (subsum)
   {
-    Handle(Expr_GeneralExpression) other;
+    Handle(Expression1) other;
     Handle(Expr_Sum)               sumop;
     Standard_Integer               nbssumop;
     for (i = 1; i <= max; i++)
@@ -254,7 +254,7 @@ Standard_Real Expr_Sum::Evaluate(const Expr_Array1OfNamedUnknown& vars,
 
 AsciiString1 Expr_Sum::String() const
 {
-  Handle(Expr_GeneralExpression) op;
+  Handle(Expression1) op;
   Standard_Integer               nbop = NbOperands();
   op                                  = Operand(1);
   AsciiString1 str;

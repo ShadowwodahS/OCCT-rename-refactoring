@@ -187,7 +187,7 @@ void DrawTrSurf_Curve::DrawOn(DrawDisplay& dis) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Curve::Copy() const
+Handle(Drawable3D) DrawTrSurf_Curve::Copy() const
 {
   Handle(DrawTrSurf_Curve) DC = new DrawTrSurf_Curve(Handle(GeomCurve3d)::DownCast(curv->Copy()),
                                                      look,
@@ -214,9 +214,9 @@ void DrawTrSurf_Curve::Save(Standard_OStream& theOs) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Curve::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_Curve::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params& aParams    = DrawTrSurf1::Parameters();
+  const Params1& aParams    = DrawTrSurf1::Parameters();
   Handle(GeomCurve3d)       aGeomCurve = CurveSet1::ReadCurve(theStream);
   Handle(DrawTrSurf_Curve) aDrawCurve = new DrawTrSurf_Curve(aGeomCurve,
                                                              aParams.CurvColor,

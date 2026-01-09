@@ -21,6 +21,6 @@
 #include <StepRepr_SequenceOfRepresentationItem.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(StepRepr_HSequenceOfRepresentationItem, StepRepr_SequenceOfRepresentationItem)
+DEFINE_HSEQUENCE(HSequenceOfReprItem, StepRepr_SequenceOfRepresentationItem)
 
 #endif

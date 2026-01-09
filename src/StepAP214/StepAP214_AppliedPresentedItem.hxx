@@ -25,9 +25,9 @@
 class StepAP214_PresentedItemSelect;
 
 class StepAP214_AppliedPresentedItem;
-DEFINE_STANDARD_HANDLE(StepAP214_AppliedPresentedItem, StepVisual_PresentedItem)
+DEFINE_STANDARD_HANDLE(StepAP214_AppliedPresentedItem, PresentedItem)
 
-class StepAP214_AppliedPresentedItem : public StepVisual_PresentedItem
+class StepAP214_AppliedPresentedItem : public PresentedItem
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbItems() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepAP214_AppliedPresentedItem, StepVisual_PresentedItem)
+  DEFINE_STANDARD_RTTIEXT(StepAP214_AppliedPresentedItem, PresentedItem)
 
 protected:
 private:

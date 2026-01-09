@@ -22,7 +22,7 @@
 #include <TCollection_AsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(Expr_NumericValue, Expr_GeneralExpression)
+IMPLEMENT_STANDARD_RTTIEXT(Expr_NumericValue, Expression1)
 
 Expr_NumericValue::Expr_NumericValue(const Standard_Real val)
 {
@@ -44,17 +44,17 @@ Standard_Integer Expr_NumericValue::NbSubExpressions() const
   return 0;
 }
 
-const Handle(Expr_GeneralExpression)& Expr_NumericValue::SubExpression(const Standard_Integer) const
+const Handle(Expression1)& Expr_NumericValue::SubExpression(const Standard_Integer) const
 {
   throw Standard_OutOfRange();
 }
 
-Handle(Expr_GeneralExpression) Expr_NumericValue::Simplified() const
+Handle(Expression1) Expr_NumericValue::Simplified() const
 {
   return Copy();
 }
 
-Handle(Expr_GeneralExpression) Expr_NumericValue::Copy() const
+Handle(Expression1) Expr_NumericValue::Copy() const
 {
   return new Expr_NumericValue(myValue);
 }
@@ -64,12 +64,12 @@ Standard_Boolean Expr_NumericValue::ContainsUnknowns() const
   return Standard_False;
 }
 
-Standard_Boolean Expr_NumericValue::Contains(const Handle(Expr_GeneralExpression)&) const
+Standard_Boolean Expr_NumericValue::Contains(const Handle(Expression1)&) const
 {
   return Standard_False;
 }
 
-Standard_Boolean Expr_NumericValue::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_NumericValue::IsIdentical(const Handle(Expression1)& Other) const
 {
   if (!Other->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
@@ -84,23 +84,23 @@ Standard_Boolean Expr_NumericValue::IsLinear() const
   return Standard_True;
 }
 
-Handle(Expr_GeneralExpression) Expr_NumericValue::Derivative(const Handle(Expr_NamedUnknown)&) const
+Handle(Expression1) Expr_NumericValue::Derivative(const Handle(Expr_NamedUnknown)&) const
 {
   return new Expr_NumericValue(0.0);
 }
 
-Handle(Expr_GeneralExpression) Expr_NumericValue::NDerivative(const Handle(Expr_NamedUnknown)&,
+Handle(Expression1) Expr_NumericValue::NDerivative(const Handle(Expr_NamedUnknown)&,
                                                               const Standard_Integer) const
 {
   return new Expr_NumericValue(0.0);
 }
 
 void Expr_NumericValue::Replace(const Handle(Expr_NamedUnknown)&,
-                                const Handle(Expr_GeneralExpression)&)
+                                const Handle(Expression1)&)
 {
 }
 
-Handle(Expr_GeneralExpression) Expr_NumericValue::ShallowSimplified() const
+Handle(Expression1) Expr_NumericValue::ShallowSimplified() const
 {
   Handle(Expr_NumericValue) me = this;
   return me;

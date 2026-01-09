@@ -20,6 +20,6 @@
 #include <StepVisual_Array1OfDirectionCountSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepVisual_HArray1OfDirectionCountSelect, StepVisual_Array1OfDirectionCountSelect)
+DEFINE_HARRAY1(HArray1OfDirectionCount, StepVisual_Array1OfDirectionCountSelect)
 
 #endif

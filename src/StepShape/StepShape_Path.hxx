@@ -37,12 +37,12 @@ public:
   Standard_EXPORT StepShape_Path();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&        aName,
-                            const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList);
+                            const Handle(HArray1OfOrientedEdge)& aEdgeList);
 
   Standard_EXPORT virtual void SetEdgeList(
-    const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList);
+    const Handle(HArray1OfOrientedEdge)& aEdgeList);
 
-  Standard_EXPORT virtual Handle(StepShape_HArray1OfOrientedEdge) EdgeList() const;
+  Standard_EXPORT virtual Handle(HArray1OfOrientedEdge) EdgeList() const;
 
   Standard_EXPORT virtual Handle(StepShape_OrientedEdge) EdgeListValue(
     const Standard_Integer num) const;
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfOrientedEdge) edgeList;
+  Handle(HArray1OfOrientedEdge) edgeList;
 };
 
 #endif // _StepShape_Path_HeaderFile

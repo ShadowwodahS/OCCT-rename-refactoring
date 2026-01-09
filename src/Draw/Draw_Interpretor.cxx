@@ -118,7 +118,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
                                    const char*      argv[])
 {
   Standard_Integer                code      = TCL_OK;
-  DrawInterpreter::CallBackData* aCallback = (DrawInterpreter::CallBackData*)theClientData;
+  DrawInterpreter::CallBackData1* aCallback = (DrawInterpreter::CallBackData1*)theClientData;
   DrawInterpreter&               di        = *(aCallback->myDI);
 
   // log command execution, except commands manipulating log itself and echo
@@ -241,7 +241,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
 
 static void CommandDelete(ClientData theClientData)
 {
-  DrawInterpreter::CallBackData* aCallback = (DrawInterpreter::CallBackData*)theClientData;
+  DrawInterpreter::CallBackData1* aCallback = (DrawInterpreter::CallBackData1*)theClientData;
   delete aCallback;
 }
 
@@ -308,7 +308,7 @@ void DrawInterpreter::SetToColorize(Standard_Boolean theToColorize)
 void DrawInterpreter::add(const Standard_CString          theCommandName,
                            const Standard_CString          theHelp,
                            const Standard_CString          theFileName,
-                           DrawInterpreter::CallBackData* theCallback,
+                           DrawInterpreter::CallBackData1* theCallback,
                            const Standard_CString          theGroup)
 {
   Standard_ASSERT_RAISE(myInterp != NULL, "Attempt to add command to Null interpretor");

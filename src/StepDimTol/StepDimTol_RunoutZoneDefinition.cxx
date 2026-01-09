@@ -28,7 +28,7 @@ StepDimTol_RunoutZoneDefinition::StepDimTol_RunoutZoneDefinition() {}
 
 void StepDimTol_RunoutZoneDefinition::Init(
   const Handle(StepDimTol_ToleranceZone)&         theZone,
-  const Handle(StepRepr_HArray1OfShapeAspect)&    theBoundaries,
+  const Handle(HArray1OfShapeAspect)&    theBoundaries,
   const Handle(StepDimTol_RunoutZoneOrientation)& theOrientation)
 {
   StepDimTol_ToleranceZoneDefinition::Init(theZone, theBoundaries);

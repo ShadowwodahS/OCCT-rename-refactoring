@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Boolean.hxx>
-class ExprIntrp_Generator;
+class ExpressionGenerator;
 class AsciiString1;
 
 //! Describes an interpreter for GeneralExpressions,
@@ -34,7 +34,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
 private:
-  Standard_EXPORT static Standard_Boolean Parse(const Handle(ExprIntrp_Generator)& gen,
+  Standard_EXPORT static Standard_Boolean Parse(const Handle(ExpressionGenerator)& gen,
                                                 const AsciiString1&     str);
 
 private:

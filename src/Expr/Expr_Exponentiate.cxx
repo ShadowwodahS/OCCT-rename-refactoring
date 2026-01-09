@@ -29,17 +29,17 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_Exponentiate, Expr_BinaryExpression)
 
-Expr_Exponentiate::Expr_Exponentiate(const Handle(Expr_GeneralExpression)& exp1,
-                                     const Handle(Expr_GeneralExpression)& exp2)
+Expr_Exponentiate::Expr_Exponentiate(const Handle(Expression1)& exp1,
+                                     const Handle(Expression1)& exp2)
 {
   CreateFirstOperand(exp1);
   CreateSecondOperand(exp2);
 }
 
-Handle(Expr_GeneralExpression) Expr_Exponentiate::ShallowSimplified() const
+Handle(Expression1) Expr_Exponentiate::ShallowSimplified() const
 {
-  Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-  Handle(Expr_GeneralExpression) mysecond = SecondOperand();
+  Handle(Expression1) myfirst  = FirstOperand();
+  Handle(Expression1) mysecond = SecondOperand();
 
   if (mysecond->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
@@ -74,18 +74,18 @@ Handle(Expr_GeneralExpression) Expr_Exponentiate::ShallowSimplified() const
   return me;
 }
 
-Handle(Expr_GeneralExpression) Expr_Exponentiate::Copy() const
+Handle(Expression1) Expr_Exponentiate::Copy() const
 {
   return new Expr_Exponentiate(Expr1::CopyShare(FirstOperand()), Expr1::CopyShare(SecondOperand()));
 }
 
-Standard_Boolean Expr_Exponentiate::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
+Standard_Boolean Expr_Exponentiate::IsIdentical(const Handle(Expression1)& Other) const
 {
   Standard_Boolean ident = Standard_False;
   if (Other->IsKind(STANDARD_TYPE(Expr_Exponentiate)))
   {
-    Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-    Handle(Expr_GeneralExpression) mysecond = SecondOperand();
+    Handle(Expression1) myfirst  = FirstOperand();
+    Handle(Expression1) mysecond = SecondOperand();
     if (myfirst->IsIdentical(Other->SubExpression(1)))
     {
       if (mysecond->IsIdentical(Other->SubExpression(2)))
@@ -102,7 +102,7 @@ Standard_Boolean Expr_Exponentiate::IsLinear() const
   return !ContainsUnknowns();
 }
 
-Handle(Expr_GeneralExpression) Expr_Exponentiate::Derivative(
+Handle(Expression1) Expr_Exponentiate::Derivative(
   const Handle(Expr_NamedUnknown)& X) const
 {
 
@@ -114,11 +114,11 @@ Handle(Expr_GeneralExpression) Expr_Exponentiate::Derivative(
   // Derivate of h(X) ** g(X) is :
   // h(X) * (g(X) ** (h(X)-1)) * g'(X) +
   // (g(X) ** h(X)) * Log(g(X)) * h'(X)
-  Handle(Expr_GeneralExpression) myfirst  = FirstOperand();
-  Handle(Expr_GeneralExpression) mysecond = SecondOperand();
+  Handle(Expression1) myfirst  = FirstOperand();
+  Handle(Expression1) mysecond = SecondOperand();
 
-  Handle(Expr_GeneralExpression) myfder = myfirst->Derivative(X);
-  Handle(Expr_GeneralExpression) mysder = mysecond->Derivative(X);
+  Handle(Expression1) myfder = myfirst->Derivative(X);
+  Handle(Expression1) mysder = mysecond->Derivative(X);
 
   Expr_SequenceOfGeneralExpression prod1;
   prod1.Append(Expr1::CopyShare(mysecond)); // h(X)
@@ -156,8 +156,8 @@ Standard_Real Expr_Exponentiate::Evaluate(const Expr_Array1OfNamedUnknown& vars,
 
 AsciiString1 Expr_Exponentiate::String() const
 {
-  Handle(Expr_GeneralExpression) op1 = FirstOperand();
-  Handle(Expr_GeneralExpression) op2 = SecondOperand();
+  Handle(Expression1) op1 = FirstOperand();
+  Handle(Expression1) op2 = SecondOperand();
   AsciiString1        str;
   if (op1->NbSubExpressions() > 1)
   {

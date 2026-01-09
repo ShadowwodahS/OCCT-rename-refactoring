@@ -29,7 +29,7 @@ StepVisual_TessellatedWire::StepVisual_TessellatedWire()
 
 void StepVisual_TessellatedWire::Init(
   const Handle(TCollection_HAsciiString)&                    theRepresentationItem_Name,
-  const Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex)& theItems,
+  const Handle(HArray1OfTessellatedEdgeOrVertex)& theItems,
   const Standard_Boolean                                     theHasGeometricModelLink,
   const StepVisual_PathOrCompositeCurve&                     theGeometricModelLink)
 {
@@ -50,7 +50,7 @@ void StepVisual_TessellatedWire::Init(
 
 //=================================================================================================
 
-Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex) StepVisual_TessellatedWire::Items() const
+Handle(HArray1OfTessellatedEdgeOrVertex) StepVisual_TessellatedWire::Items() const
 {
   return myItems;
 }
@@ -58,7 +58,7 @@ Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex) StepVisual_TessellatedWire::
 //=================================================================================================
 
 void StepVisual_TessellatedWire::SetItems(
-  const Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex)& theItems)
+  const Handle(HArray1OfTessellatedEdgeOrVertex)& theItems)
 {
   myItems = theItems;
 }

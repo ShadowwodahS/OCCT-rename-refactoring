@@ -73,7 +73,7 @@ static AsciiString1 MarkersHint("The possible markers are: \n\
 //=======================================================================
 Standard_EXPORT DrawColor DrawTrSurf_CurveColor(const DrawColor theColor)
 {
-  DrawTrSurf_Params& aParams    = DrawTrSurf1::Parameters();
+  Params1& aParams    = DrawTrSurf1::Parameters();
   DrawColor         aLastColor = aParams.CurvColor;
   aParams.CurvColor             = theColor;
   return aLastColor;
@@ -87,7 +87,7 @@ Standard_EXPORT DrawColor DrawTrSurf_CurveColor(const DrawColor theColor)
 //=======================================================================
 Standard_EXPORT DrawColor DrawTrSurf_PointColor(const DrawColor theColor)
 {
-  DrawTrSurf_Params& aParams    = DrawTrSurf1::Parameters();
+  Params1& aParams    = DrawTrSurf1::Parameters();
   DrawColor         aLastColor = aParams.PntColor;
   aParams.PntColor              = theColor;
   return aLastColor;
@@ -101,7 +101,7 @@ Standard_EXPORT DrawColor DrawTrSurf_PointColor(const DrawColor theColor)
 //=======================================================================
 Standard_EXPORT Draw_MarkerShape DrawTrSurf_PointMarker(const Draw_MarkerShape theMarker)
 {
-  DrawTrSurf_Params& aParams     = DrawTrSurf1::Parameters();
+  Params1& aParams     = DrawTrSurf1::Parameters();
   Draw_MarkerShape   aLastMarker = aParams.PntMarker;
   aParams.PntMarker              = theMarker;
   return aLastMarker;
@@ -109,9 +109,9 @@ Standard_EXPORT Draw_MarkerShape DrawTrSurf_PointMarker(const Draw_MarkerShape t
 
 //=================================================================================================
 
-DrawTrSurf_Params& DrawTrSurf1::Parameters()
+Params1& DrawTrSurf1::Parameters()
 {
-  static DrawTrSurf_Params aParams;
+  static Params1 aParams;
   return aParams;
 }
 
@@ -119,7 +119,7 @@ DrawTrSurf_Params& DrawTrSurf1::Parameters()
 
 static Handle(DrawTrSurf_Drawable) GetDrawable(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)     D = Draw1::Get(Name);
+  Handle(Drawable3D)     D = Draw1::Get(Name);
   Handle(DrawTrSurf_Drawable) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_Drawable)::DownCast(D);
@@ -130,7 +130,7 @@ static Handle(DrawTrSurf_Drawable) GetDrawable(Standard_CString& Name)
 
 static Handle(DrawTrSurf_Surface) GetSurface(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)    D = Draw1::Get(Name);
+  Handle(Drawable3D)    D = Draw1::Get(Name);
   Handle(DrawTrSurf_Surface) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_Surface)::DownCast(D);
@@ -141,7 +141,7 @@ static Handle(DrawTrSurf_Surface) GetSurface(Standard_CString& Name)
 
 static Handle(DrawTrSurf_BezierSurface) GetBezierSurface(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)          D = Draw1::Get(Name);
+  Handle(Drawable3D)          D = Draw1::Get(Name);
   Handle(DrawTrSurf_BezierSurface) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_BezierSurface)::DownCast(D);
@@ -152,7 +152,7 @@ static Handle(DrawTrSurf_BezierSurface) GetBezierSurface(Standard_CString& Name)
 
 static Handle(DrawTrSurf_BSplineSurface) GetBSplineSurface(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)           D = Draw1::Get(Name);
+  Handle(Drawable3D)           D = Draw1::Get(Name);
   Handle(DrawTrSurf_BSplineSurface) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_BSplineSurface)::DownCast(D);
@@ -163,7 +163,7 @@ static Handle(DrawTrSurf_BSplineSurface) GetBSplineSurface(Standard_CString& Nam
 
 static Handle(DrawTrSurf_BezierCurve) GetBezierCurve(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)        D = Draw1::Get(Name);
+  Handle(Drawable3D)        D = Draw1::Get(Name);
   Handle(DrawTrSurf_BezierCurve) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_BezierCurve)::DownCast(D);
@@ -174,7 +174,7 @@ static Handle(DrawTrSurf_BezierCurve) GetBezierCurve(Standard_CString& Name)
 
 static Handle(DrawTrSurf_BSplineCurve) GetBSplineCurve(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)         D = Draw1::Get(Name);
+  Handle(Drawable3D)         D = Draw1::Get(Name);
   Handle(DrawTrSurf_BSplineCurve) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_BSplineCurve)::DownCast(D);
@@ -185,7 +185,7 @@ static Handle(DrawTrSurf_BSplineCurve) GetBSplineCurve(Standard_CString& Name)
 
 static Handle(DrawTrSurf_BezierCurve2d) GetBezierCurve2d(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)          D = Draw1::Get(Name);
+  Handle(Drawable3D)          D = Draw1::Get(Name);
   Handle(DrawTrSurf_BezierCurve2d) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_BezierCurve2d)::DownCast(D);
@@ -196,7 +196,7 @@ static Handle(DrawTrSurf_BezierCurve2d) GetBezierCurve2d(Standard_CString& Name)
 
 static Handle(DrawTrSurf_BSplineCurve2d) GetBSplineCurve2d(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)           D = Draw1::Get(Name);
+  Handle(Drawable3D)           D = Draw1::Get(Name);
   Handle(DrawTrSurf_BSplineCurve2d) Dr;
   if (!D.IsNull())
     Dr = Handle(DrawTrSurf_BSplineCurve2d)::DownCast(D);
@@ -207,7 +207,7 @@ static Handle(DrawTrSurf_BSplineCurve2d) GetBSplineCurve2d(Standard_CString& Nam
 
 static Standard_Integer nbiso(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
-  DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
+  Params1& aParams = DrawTrSurf1::Parameters();
   if (n < 4)
   {
     if (n == 3)
@@ -236,7 +236,7 @@ static Standard_Integer nbiso(DrawInterpreter& di, Standard_Integer n, const cha
 
 static Standard_Integer drawpoles(DrawInterpreter&, Standard_Integer n, const char** a)
 {
-  DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
+  Params1& aParams = DrawTrSurf1::Parameters();
   if (n == 1)
   {
     if (!strcmp(a[0], "shpoles"))
@@ -398,7 +398,7 @@ static Standard_Integer drawpoles(DrawInterpreter&, Standard_Integer n, const ch
 
 static Standard_Integer draw(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
-  DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
+  Params1& aParams = DrawTrSurf1::Parameters();
   if (n <= 2)
   {
     if (!strcmp(a[0], "dmode"))
@@ -629,7 +629,7 @@ static Standard_Integer d2transform(DrawInterpreter& di, Standard_Integer n, con
 
 void DrawTrSurf1::Set(const Standard_CString theName, const Point3d& thePoint)
 {
-  DrawTrSurf_Params&       aParams = DrawTrSurf1::Parameters();
+  Params1&       aParams = DrawTrSurf1::Parameters();
   Handle(DrawTrSurf_Point) aDrawPoint =
     new DrawTrSurf_Point(thePoint, aParams.PntMarker, aParams.PntColor);
   Draw1::Set(theName, aDrawPoint);
@@ -639,7 +639,7 @@ void DrawTrSurf1::Set(const Standard_CString theName, const Point3d& thePoint)
 
 void DrawTrSurf1::Set(const Standard_CString theName, const gp_Pnt2d& thePoint)
 {
-  DrawTrSurf_Params&       aParams = DrawTrSurf1::Parameters();
+  Params1&       aParams = DrawTrSurf1::Parameters();
   Handle(DrawTrSurf_Point) aDrawPoint =
     new DrawTrSurf_Point(thePoint, aParams.PntMarker, aParams.PntColor);
   Draw1::Set(theName, aDrawPoint);
@@ -653,7 +653,7 @@ void DrawTrSurf1::Set(const Standard_CString       theName,
                      const Handle(Geom_Geometry)& theGeometry,
                      const Standard_Boolean       isSenseMarker)
 {
-  DrawTrSurf_Params&          aParams = DrawTrSurf1::Parameters();
+  Params1&          aParams = DrawTrSurf1::Parameters();
   Handle(DrawTrSurf_Drawable) aDrawable;
   if (Handle(BezierCurve3d) aGeomBezierCurve = Handle(BezierCurve3d)::DownCast(theGeometry))
   {
@@ -761,7 +761,7 @@ void DrawTrSurf1::Set(const Standard_CString      theName,
                      const Handle(GeomCurve2d)& theCurve,
                      const Standard_Boolean      isSenseMarker)
 {
-  DrawTrSurf_Params&          aParams = DrawTrSurf1::Parameters();
+  Params1&          aParams = DrawTrSurf1::Parameters();
   Handle(DrawTrSurf_Drawable) aDrawable;
   if (Handle(Geom2d_BezierCurve) aBezierCurve = Handle(Geom2d_BezierCurve)::DownCast(theCurve))
   {
@@ -820,7 +820,7 @@ void DrawTrSurf1::Set(const Standard_CString Name, const Handle(Poly_Polygon2D)&
 
 Handle(Geom_Geometry) DrawTrSurf1::Get(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D) D = Draw1::Get(Name);
+  Handle(Drawable3D) D = Draw1::Get(Name);
 
   Handle(DrawTrSurf_Curve) DC = Handle(DrawTrSurf_Curve)::DownCast(D);
   if (!DC.IsNull())

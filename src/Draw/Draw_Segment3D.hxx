@@ -25,9 +25,9 @@
 class DrawDisplay;
 
 class Draw_Segment3D;
-DEFINE_STANDARD_HANDLE(Draw_Segment3D, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Segment3D, Drawable3D)
 
-class Draw_Segment3D : public Draw_Drawable3D
+class Draw_Segment3D : public Drawable3D
 {
 
 public:
@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT void Last(const Point3d& P);
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Segment3D, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Segment3D, Drawable3D)
 
 protected:
 private:

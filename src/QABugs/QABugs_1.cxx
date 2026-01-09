@@ -90,7 +90,7 @@ static Standard_Integer OCC159bug(DrawInterpreter& di, Standard_Integer argc, co
   Handle(AppManager) A = DDocStd1::GetApplication();
   A->Close(D);
 
-  if (Handle(Draw_Drawable3D) DD = Draw1::GetExisting(argv[1]))
+  if (Handle(Drawable3D) DD = Draw1::GetExisting(argv[1]))
   {
     dout.RemoveDrawable(DD);
   }

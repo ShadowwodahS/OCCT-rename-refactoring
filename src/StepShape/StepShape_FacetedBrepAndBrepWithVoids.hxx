@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&               aName,
                             const Handle(StepShape_ClosedShell)&                  aOuter,
-                            const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids);
+                            const Handle(HArray1OfOrientedClosedShell)& aVoids);
 
   Standard_EXPORT void SetFacetedBrep(const Handle(StepShape_FacetedBrep)& aFacetedBrep);
 
@@ -56,9 +56,9 @@ public:
 
   Standard_EXPORT Handle(StepShape_BrepWithVoids) BrepWithVoids() const;
 
-  Standard_EXPORT void SetVoids(const Handle(StepShape_HArray1OfOrientedClosedShell)& aVoids);
+  Standard_EXPORT void SetVoids(const Handle(HArray1OfOrientedClosedShell)& aVoids);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfOrientedClosedShell) Voids() const;
+  Standard_EXPORT Handle(HArray1OfOrientedClosedShell) Voids() const;
 
   Standard_EXPORT Handle(StepShape_OrientedClosedShell) VoidsValue(
     const Standard_Integer num) const;

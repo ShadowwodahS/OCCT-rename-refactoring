@@ -42,13 +42,13 @@ void RWStepVisual_RWAnnotationFillAreaOccurrence::ReadStep(
   data->ReadString(num, 1, "name", ach, aName);
 
   // Inherited field : styles
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) aStyles;
+  Handle(HArray1OfPresentationStyle) aStyles;
   Handle(StepVisual_PresentationStyleAssignment)          anent;
   Standard_Integer                                        nsub;
   if (data->ReadSubList(num, 2, "styles", ach, nsub))
   {
     Standard_Integer nb = data->NbParams(nsub);
-    aStyles             = new StepVisual_HArray1OfPresentationStyleAssignment(1, nb);
+    aStyles             = new HArray1OfPresentationStyle(1, nb);
     for (Standard_Integer i = 1; i <= nb; i++)
     {
       if (data->ReadEntity(nsub,

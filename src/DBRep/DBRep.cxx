@@ -130,7 +130,7 @@ static Standard_Integer isos(DrawInterpreter& di, Standard_Integer NbArg, const 
   {
     for (Standard_Integer IArg = 1; IArg <= NbArg; IArg++)
     {
-      Handle(Draw_Drawable3D) Shape1 = Draw1::Get(Arg[IArg]);
+      Handle(Drawable3D) Shape1 = Draw1::Get(Arg[IArg]);
       if (!Shape1.IsNull())
       {
         Handle(DBRep_DrawableShape) Shape2 = Handle(DBRep_DrawableShape)::DownCast(Shape1);
@@ -254,7 +254,7 @@ static Standard_Integer hlr(DrawInterpreter& di, Standard_Integer n, const char*
 
   for (Standard_Integer i = nFirst; i < n; i++)
   {
-    Handle(Draw_Drawable3D)     D = Draw1::Get(a[i]);
+    Handle(Drawable3D)     D = Draw1::Get(a[i]);
     Handle(DBRep_DrawableShape) S = Handle(DBRep_DrawableShape)::DownCast(D);
     if (S.IsNull())
     {
@@ -333,7 +333,7 @@ static Standard_Integer dispor(DrawInterpreter&, Standard_Integer n, const char*
 
   for (Standard_Integer i = 1; i < n; i++)
   {
-    Handle(Draw_Drawable3D) d1 = Draw1::Get(a[i]);
+    Handle(Drawable3D) d1 = Draw1::Get(a[i]);
     if (Handle(DBRep_DrawableShape) d2 = Handle(DBRep_DrawableShape)::DownCast(d1))
     {
       d2->DisplayOrientation(d);
@@ -380,7 +380,7 @@ static Standard_Integer triangles(DrawInterpreter&, Standard_Integer n, const ch
   {
     for (Standard_Integer i = 1; i <= n - 1; i++)
     {
-      Handle(Draw_Drawable3D) d1 = Draw1::Get(a[i]);
+      Handle(Drawable3D) d1 = Draw1::Get(a[i]);
       if (Handle(DBRep_DrawableShape) d2 = Handle(DBRep_DrawableShape)::DownCast(d1))
       {
         d2->DisplayTriangulation(!(d2->DisplayTriangulation()));
@@ -467,7 +467,7 @@ static Standard_Integer polygons(DrawInterpreter&, Standard_Integer n, const cha
   {
     for (Standard_Integer i = 1; i <= n - 1; i++)
     {
-      Handle(Draw_Drawable3D) d1 = Draw1::Get(a[i]);
+      Handle(Drawable3D) d1 = Draw1::Get(a[i]);
       if (Handle(DBRep_DrawableShape) d2 = Handle(DBRep_DrawableShape)::DownCast(d1))
       {
         d2->DisplayPolygons(!(d2->DisplayPolygons()));

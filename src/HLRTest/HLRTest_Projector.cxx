@@ -20,7 +20,7 @@
 #include <gp_Ax3.hxx>
 #include <HLRAlgo_Projector.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_Projector, Draw_Drawable3D)
+IMPLEMENT_STANDARD_RTTIEXT(HLRTest_Projector, Drawable3D)
 
 //=================================================================================================
 
@@ -39,7 +39,7 @@ void HLRTest_Projector::DrawOn(DrawDisplay&) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) HLRTest_Projector::Copy() const
+Handle(Drawable3D) HLRTest_Projector::Copy() const
 {
   return new HLRTest_Projector(myProjector);
 }
@@ -97,7 +97,7 @@ void HLRTest_Projector::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) HLRTest_Projector::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) HLRTest_Projector::Restore(Standard_IStream& theStream)
 {
   Standard_Boolean aPerspective = false;
   Standard_Real    aFocus       = 1.0;

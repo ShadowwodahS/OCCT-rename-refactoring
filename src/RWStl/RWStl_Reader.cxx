@@ -29,7 +29,7 @@
 #include <algorithm>
 #include <limits>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWStl_Reader, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Reader3, RefObject)
 
 namespace
 {
@@ -46,12 +46,12 @@ class MergeNodeTool : public Poly_MergeNodesTool
 {
 public:
   //! Constructor
-  MergeNodeTool(RWStl_Reader* theReader, const Standard_Integer theNbFacets = -1)
+  MergeNodeTool(Reader3* theReader, const Standard_Integer theNbFacets = -1)
       : Poly_MergeNodesTool(theReader->MergeAngle(), 0.0, theNbFacets),
         myReader(theReader),
         myNodeIndexMap(1024, new NCollection_IncAllocator(1024 * 1024))
   {
-    // avoid redundant allocations as final triangulation is managed by RWStl_Reader subclass
+    // avoid redundant allocations as final triangulation is managed by Reader3 subclass
     ChangeOutput().Nullify();
   }
 
@@ -60,9 +60,9 @@ public:
   {
     Poly_MergeNodesTool::AddTriangle(theElemNodes);
 
-    // remap node indices returned by RWStl_Reader::AddNode();
+    // remap node indices returned by Reader3::AddNode();
     // this is a waste of time for most cases of sequential index adding, but preserved for keeping
-    // RWStl_Reader interface
+    // Reader3 interface
     int aNodesSrc[3] = {ElementNodeIndex(0), ElementNodeIndex(1), ElementNodeIndex(2)};
     int aNodesRes[3] = {-1, -1, -1};
     for (int aNodeIter = 0; aNodeIter < 3; ++aNodeIter)
@@ -82,7 +82,7 @@ public:
   }
 
 private:
-  RWStl_Reader*                                           myReader;
+  Reader3*                                           myReader;
   NCollection_DataMap<Standard_Integer, Standard_Integer> myNodeIndexMap;
 };
 
@@ -119,7 +119,7 @@ inline static Coords3d readStlFloatVec3(const char* theData)
 
 //=================================================================================================
 
-RWStl_Reader::RWStl_Reader()
+Reader3::Reader3()
     : myMergeAngle(M_PI / 2.0),
       myMergeTolearance(0.0)
 {
@@ -128,7 +128,7 @@ RWStl_Reader::RWStl_Reader()
 
 //=================================================================================================
 
-Standard_Boolean RWStl_Reader::Read(const char* theFile, const Message_ProgressRange& theProgress)
+Standard_Boolean Reader3::Read(const char* theFile, const Message_ProgressRange& theProgress)
 {
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
   std::shared_ptr<std::istream> aStream =
@@ -181,7 +181,7 @@ Standard_Boolean RWStl_Reader::Read(const char* theFile, const Message_ProgressR
 
 //=================================================================================================
 
-Standard_Boolean RWStl_Reader::IsAscii(Standard_IStream& theStream, const bool isSeekgAvailable)
+Standard_Boolean Reader3::IsAscii(Standard_IStream& theStream, const bool isSeekgAvailable)
 {
   // read first 134 bytes to detect file format
   char            aBuffer[THE_STL_MIN_FILE_SIZE];
@@ -278,7 +278,7 @@ static bool ReadVertex(const char* theStr, double& theX, double& theY, double& t
 
 //=================================================================================================
 
-Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
+Standard_Boolean Reader3::ReadAscii(Standard_IStream&            theStream,
                                          ReadLineBuffer&     theBuffer,
                                          const std::streampos         theUntilPos,
                                          const Message_ProgressRange& theProgress)
@@ -398,7 +398,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
 
 //=================================================================================================
 
-Standard_Boolean RWStl_Reader::ReadBinary(Standard_IStream&            theStream,
+Standard_Boolean Reader3::ReadBinary(Standard_IStream&            theStream,
                                           const Message_ProgressRange& theProgress)
 {
   /*

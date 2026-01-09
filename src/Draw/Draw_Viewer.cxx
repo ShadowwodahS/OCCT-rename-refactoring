@@ -31,7 +31,7 @@ extern Standard_Boolean          Draw_Batch;
 const Standard_Integer           MAXSEGMENT = 1000;
 Draw_XSegment                    segm[MAXSEGMENT];
 static int                       nbseg     = 0;
-static Draw_View*                curview   = NULL;
+static DrawView*                curview   = NULL;
 static Standard_Integer          curviewId = 0;
 static char                      blank[2]  = "";
 static Standard_Real             xmin, xmax, ymin, ymax;
@@ -99,7 +99,7 @@ void DrawViewer::MakeView(const Standard_Integer id,
   {
 
     DeleteView(id);
-    myViews[id] = new Draw_View(id, this, X, Y, W, H);
+    myViews[id] = new DrawView(id, this, X, Y, W, H);
 
     // View fields
     myViews[id]->SetDx(W / 2);
@@ -130,7 +130,7 @@ void DrawViewer::MakeView(const Standard_Integer id,
   {
 
     DeleteView(id);
-    myViews[id] = new Draw_View(id, this, X, Y, W, H, win);
+    myViews[id] = new DrawView(id, this, X, Y, W, H, win);
     myViews[id]->SetUseBuffer(useBuffer);
 
     // View fields
@@ -154,7 +154,7 @@ void DrawViewer::MakeView(const Standard_Integer id, const char* typ, const char
   {
 
     DeleteView(id);
-    myViews[id] = new Draw_View(id, this, window);
+    myViews[id] = new DrawView(id, this, window);
 
     myViews[id]->SetDx(myViews[id]->WidthWin() / 2);
     myViews[id]->SetDy(-myViews[id]->HeightWin() / 2);
@@ -199,7 +199,7 @@ void DrawViewer::SetZoom(const Standard_Integer id, const Standard_Real z)
   if (Draw_Batch)
     return;
 
-  Draw_View* aView = myViews[id];
+  DrawView* aView = myViews[id];
   if (aView)
   {
     Standard_Real zz = z / aView->GetZoom();
@@ -826,7 +826,7 @@ void DrawViewer::Flush()
 
 //=================================================================================================
 
-void DrawViewer::DrawOnView(const Standard_Integer id, const Handle(Draw_Drawable3D)& D) const
+void DrawViewer::DrawOnView(const Standard_Integer id, const Handle(Drawable3D)& D) const
 {
   if (Draw_Batch)
     return;
@@ -851,7 +851,7 @@ void DrawViewer::DrawOnView(const Standard_Integer id, const Handle(Draw_Drawabl
 //=================================================================================================
 
 void DrawViewer::HighlightOnView(const Standard_Integer         id,
-                                  const Handle(Draw_Drawable3D)& D,
+                                  const Handle(Drawable3D)& D,
                                   const Draw_ColorKind           C) const
 {
   if (Draw_Batch)
@@ -864,7 +864,7 @@ void DrawViewer::HighlightOnView(const Standard_Integer         id,
 
 //=================================================================================================
 
-void DrawViewer::AddDrawable(const Handle(Draw_Drawable3D)& D)
+void DrawViewer::AddDrawable(const Handle(Drawable3D)& D)
 {
   if (Draw_Batch)
     return;
@@ -877,7 +877,7 @@ void DrawViewer::AddDrawable(const Handle(Draw_Drawable3D)& D)
 
 //=================================================================================================
 
-void DrawViewer::RemoveDrawable(const Handle(Draw_Drawable3D)& D)
+void DrawViewer::RemoveDrawable(const Handle(Drawable3D)& D)
 {
   if (Draw_Batch)
     return;
@@ -1089,7 +1089,7 @@ Standard_Integer DrawViewer::Pick(const Standard_Integer   id,
                                    const Standard_Integer   X,
                                    const Standard_Integer   Y,
                                    const Standard_Integer   Prec,
-                                   Handle(Draw_Drawable3D)& D,
+                                   Handle(Drawable3D)& D,
                                    const Standard_Integer   first) const
 {
   if (Draw_Batch)
@@ -1166,7 +1166,7 @@ DrawViewer::~DrawViewer()
 // purpose  :
 //=======================================================================
 
-DrawViewer& DrawViewer::operator<<(const Handle(Draw_Drawable3D)& d3d)
+DrawViewer& DrawViewer::operator<<(const Handle(Drawable3D)& d3d)
 {
   if (Draw_Batch)
     return *this;

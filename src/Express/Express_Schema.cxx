@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Express_Schema, RefObject)
 //=================================================================================================
 
 Express_Schema::Express_Schema(const Standard_CString                 theName,
-                               const Handle(Express_HSequenceOfItem)& theItems)
+                               const Handle(ItemSequence)& theItems)
 {
   myName  = new TCollection_HAsciiString(theName);
   myItems = theItems;
@@ -42,7 +42,7 @@ Express_Schema::Express_Schema(const Standard_CString                 theName,
 //=================================================================================================
 
 Express_Schema::Express_Schema(const Handle(TCollection_HAsciiString)& theName,
-                               const Handle(Express_HSequenceOfItem)&  theItems)
+                               const Handle(ItemSequence)&  theItems)
 {
   myName  = theName;
   myItems = theItems;
@@ -58,7 +58,7 @@ const Handle(TCollection_HAsciiString)& Express_Schema::Name() const
 
 //=================================================================================================
 
-const Handle(Express_HSequenceOfItem)& Express_Schema::Items() const
+const Handle(ItemSequence)& Express_Schema::Items() const
 {
   return myItems;
 }
@@ -206,7 +206,7 @@ void Express_Schema::Prepare()
       {
         nameToCasCade(anEntity->SuperTypes()->Value(i));
       }
-      const Handle(Express_HSequenceOfField) aFields = anEntity->Fields();
+      const Handle(FieldSequence) aFields = anEntity->Fields();
       for (Standard_Integer i = 1; i <= aFields->Length(); i++)
       {
         nameToCasCade(aFields->Value(i)->HName());
@@ -235,7 +235,7 @@ void Express_Schema::Prepare()
     {
       const Handle(Express_Select)            aSelect = Handle(Express_Select)::DownCast(anItem);
       Handle(TColStd_HSequenceOfHAsciiString) aNames  = aSelect->Names();
-      Handle(Express_HSequenceOfItem)         anItems = aSelect->Items();
+      Handle(ItemSequence)         anItems = aSelect->Items();
       for (Standard_Integer i = 1; i <= aNames->Length(); i++)
       {
         Handle(Express_Item) aSubItem = Item(aNames->Value(i));
@@ -261,7 +261,7 @@ void Express_Schema::Prepare()
     {
       const Handle(Express_Entity)            anEntity   = Handle(Express_Entity)::DownCast(anItem);
       Handle(TColStd_HSequenceOfHAsciiString) aNames     = anEntity->SuperTypes();
-      Handle(Express_HSequenceOfEntity)       anInhItems = anEntity->Inherit();
+      Handle(EntitySequence)       anInhItems = anEntity->Inherit();
       for (Standard_Integer i = 1; i <= aNames->Length(); i++)
       {
         Handle(Express_Entity) aSubEntity =
@@ -276,7 +276,7 @@ void Express_Schema::Prepare()
                               << aNames->Value(i)->String() << " is not an ENTITY; ignored";
         }
       }
-      const Handle(Express_HSequenceOfField) aFields = anEntity->Fields();
+      const Handle(FieldSequence) aFields = anEntity->Fields();
       for (Standard_Integer i = 1; i <= aFields->Length(); i++)
       {
         PrepareType(aFields->Value(i)->Type());

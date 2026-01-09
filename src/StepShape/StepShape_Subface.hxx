@@ -36,7 +36,7 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&     aRepresentationItem_Name,
-                            const Handle(StepShape_HArray1OfFaceBound)& aFace_Bounds,
+                            const Handle(HArray1OfFaceBound)& aFace_Bounds,
                             const Handle(StepShape_Face)&               aParentFace);
 
   //! Returns field ParentFace

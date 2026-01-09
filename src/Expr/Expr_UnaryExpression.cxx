@@ -20,9 +20,9 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_UnaryExpression, Expr_GeneralExpression)
+IMPLEMENT_STANDARD_RTTIEXT(Expr_UnaryExpression, Expression1)
 
-void Expr_UnaryExpression::SetOperand(const Handle(Expr_GeneralExpression)& exp)
+void Expr_UnaryExpression::SetOperand(const Handle(Expression1)& exp)
 {
   Handle(Expr_UnaryExpression) me = this;
   if (exp == me)
@@ -36,7 +36,7 @@ void Expr_UnaryExpression::SetOperand(const Handle(Expr_GeneralExpression)& exp)
   myOperand = exp;
 }
 
-void Expr_UnaryExpression::CreateOperand(const Handle(Expr_GeneralExpression)& exp)
+void Expr_UnaryExpression::CreateOperand(const Handle(Expression1)& exp)
 {
   myOperand = exp;
 }
@@ -46,7 +46,7 @@ Standard_Integer Expr_UnaryExpression::NbSubExpressions() const
   return 1;
 }
 
-const Handle(Expr_GeneralExpression)& Expr_UnaryExpression::SubExpression(
+const Handle(Expression1)& Expr_UnaryExpression::SubExpression(
   const Standard_Integer I) const
 {
   if (I != 1)
@@ -65,7 +65,7 @@ Standard_Boolean Expr_UnaryExpression::ContainsUnknowns() const
   return Standard_True;
 }
 
-Standard_Boolean Expr_UnaryExpression::Contains(const Handle(Expr_GeneralExpression)& exp) const
+Standard_Boolean Expr_UnaryExpression::Contains(const Handle(Expression1)& exp) const
 {
   if (myOperand != exp)
   {
@@ -75,7 +75,7 @@ Standard_Boolean Expr_UnaryExpression::Contains(const Handle(Expr_GeneralExpress
 }
 
 void Expr_UnaryExpression::Replace(const Handle(Expr_NamedUnknown)&      var,
-                                   const Handle(Expr_GeneralExpression)& with)
+                                   const Handle(Expression1)& with)
 {
   if (myOperand == var)
   {
@@ -90,10 +90,10 @@ void Expr_UnaryExpression::Replace(const Handle(Expr_NamedUnknown)&      var,
   }
 }
 
-Handle(Expr_GeneralExpression) Expr_UnaryExpression::Simplified() const
+Handle(Expression1) Expr_UnaryExpression::Simplified() const
 {
   Handle(Expr_UnaryExpression)   cop = Handle(Expr_UnaryExpression)::DownCast(Copy());
-  Handle(Expr_GeneralExpression) op  = cop->Operand();
+  Handle(Expression1) op  = cop->Operand();
   cop->SetOperand(op->Simplified());
   return cop->ShallowSimplified();
 }

@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&        aName,
                             const Handle(TCollection_HAsciiString)&        aDescription,
-                            const Handle(StepVisual_HArray1OfLayeredItem)& aAssignedItems);
+                            const Handle(HArray1OfLayeredItem)& aAssignedItems);
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& aName);
 
@@ -49,9 +49,9 @@ public:
   Standard_EXPORT Handle(TCollection_HAsciiString) Description() const;
 
   Standard_EXPORT void SetAssignedItems(
-    const Handle(StepVisual_HArray1OfLayeredItem)& aAssignedItems);
+    const Handle(HArray1OfLayeredItem)& aAssignedItems);
 
-  Standard_EXPORT Handle(StepVisual_HArray1OfLayeredItem) AssignedItems() const;
+  Standard_EXPORT Handle(HArray1OfLayeredItem) AssignedItems() const;
 
   Standard_EXPORT StepVisual_LayeredItem AssignedItemsValue(const Standard_Integer num) const;
 
@@ -63,7 +63,7 @@ protected:
 private:
   Handle(TCollection_HAsciiString)        name;
   Handle(TCollection_HAsciiString)        description;
-  Handle(StepVisual_HArray1OfLayeredItem) assignedItems;
+  Handle(HArray1OfLayeredItem) assignedItems;
 };
 
 #endif // _StepVisual_PresentationLayerAssignment_HeaderFile

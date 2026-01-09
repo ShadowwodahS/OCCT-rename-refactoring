@@ -19,11 +19,11 @@
 
 class DrawViewer;
 
-class Draw_View : public DrawWindow
+class DrawView : public DrawWindow
 {
 public:
   //! Constructor
-  Draw_View(Standard_Integer theId,
+  DrawView(Standard_Integer theId,
             DrawViewer*     theViewer,
             Standard_Integer theX,
             Standard_Integer theY,
@@ -32,10 +32,10 @@ public:
             Aspect_Drawable  theWindow = 0);
 
   //! Constructor.
-  Draw_View(Standard_Integer theId, DrawViewer* theViewer, const char* theTitle);
+  DrawView(Standard_Integer theId, DrawViewer* theViewer, const char* theTitle);
 
   //! Destructor.
-  ~Draw_View();
+  ~DrawView();
 
 public: // @name getters and setters
   //! Gets horizontal offset.

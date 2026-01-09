@@ -18,7 +18,7 @@
 #include <Draw_MarkerShape.hxx>
 
 //! DrawTrSurf1 parameters.
-struct DrawTrSurf_Params
+struct Params1
 {
 public:
   DrawColor PntColor;
@@ -40,7 +40,7 @@ public:
   Standard_Integer NbUIsos;
   Standard_Integer NbVIsos;
 
-  DrawTrSurf_Params()
+  Params1()
       : PntColor(Draw_rouge),
         CurvColor(Draw_jaune),
         BoundsColor(Draw_vert),

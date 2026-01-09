@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class StepData_StepReaderData;
 class Interface_Check;
-class StepVisual_Colour;
+class Colour;
 class StepData_StepWriter;
 
 //! Read & Write Module for Colour
@@ -38,10 +38,10 @@ public:
   Standard_HIDDEN void ReadStep(const Handle(StepData_StepReaderData)& data,
                                 const Standard_Integer                 num,
                                 Handle(Interface_Check)&               ach,
-                                const Handle(StepVisual_Colour)&       ent) const;
+                                const Handle(Colour)&       ent) const;
 
   Standard_HIDDEN void WriteStep(StepData_StepWriter&             SW,
-                                 const Handle(StepVisual_Colour)& ent) const;
+                                 const Handle(Colour)& ent) const;
 
 protected:
 private:

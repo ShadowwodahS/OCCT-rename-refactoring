@@ -55,7 +55,7 @@ void DrawTrSurf_Polygon2D::DrawOn(DrawDisplay& dis) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Polygon2D::Copy() const
+Handle(Drawable3D) DrawTrSurf_Polygon2D::Copy() const
 {
   return new DrawTrSurf_Polygon2D(myPolygon2D);
 }
@@ -90,7 +90,7 @@ void DrawTrSurf_Polygon2D::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Polygon2D::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_Polygon2D::Restore(Standard_IStream& theStream)
 {
   return new DrawTrSurf_Polygon2D(Poly1::ReadPolygon2D(theStream));
 }

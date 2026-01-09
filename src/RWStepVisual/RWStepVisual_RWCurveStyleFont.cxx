@@ -41,13 +41,13 @@ void RWStepVisual_RWCurveStyleFont::ReadStep(const Handle(StepData_StepReaderDat
 
   // --- own field : patternList ---
 
-  Handle(StepVisual_HArray1OfCurveStyleFontPattern) aPatternList;
-  Handle(StepVisual_CurveStyleFontPattern)          anent2;
+  Handle(HArray1OfCurveStyleFontPattern) aPatternList;
+  Handle(CurveStyleFontPattern)          anent2;
   Standard_Integer                                  nsub2;
   if (data->ReadSubList(num, 2, "pattern_list", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aPatternList         = new StepVisual_HArray1OfCurveStyleFontPattern(1, nb2);
+    aPatternList         = new HArray1OfCurveStyleFontPattern(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed
@@ -55,7 +55,7 @@ void RWStepVisual_RWCurveStyleFont::ReadStep(const Handle(StepData_StepReaderDat
                            i2,
                            "curve_style_font_pattern",
                            ach,
-                           STANDARD_TYPE(StepVisual_CurveStyleFontPattern),
+                           STANDARD_TYPE(CurveStyleFontPattern),
                            anent2))
         aPatternList->SetValue(i2, anent2);
     }

@@ -36,11 +36,11 @@ public:
   Standard_EXPORT StepShape_ShellBasedSurfaceModel();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& aName,
-                            const Handle(StepShape_HArray1OfShell)& aSbsmBoundary);
+                            const Handle(HArray1OfShell1)& aSbsmBoundary);
 
-  Standard_EXPORT void SetSbsmBoundary(const Handle(StepShape_HArray1OfShell)& aSbsmBoundary);
+  Standard_EXPORT void SetSbsmBoundary(const Handle(HArray1OfShell1)& aSbsmBoundary);
 
-  Standard_EXPORT Handle(StepShape_HArray1OfShell) SbsmBoundary() const;
+  Standard_EXPORT Handle(HArray1OfShell1) SbsmBoundary() const;
 
   Standard_EXPORT StepShape_Shell SbsmBoundaryValue(const Standard_Integer num) const;
 
@@ -50,7 +50,7 @@ public:
 
 protected:
 private:
-  Handle(StepShape_HArray1OfShell) sbsmBoundary;
+  Handle(HArray1OfShell1) sbsmBoundary;
 };
 
 #endif // _StepShape_ShellBasedSurfaceModel_HeaderFile

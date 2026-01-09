@@ -145,7 +145,7 @@ void DrawTrSurf_BSplineCurve2d::FindKnot(const Standard_Real X,
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve2d::Copy() const
+Handle(Drawable3D) DrawTrSurf_BSplineCurve2d::Copy() const
 {
   Handle(DrawTrSurf_BSplineCurve2d) DC =
     new DrawTrSurf_BSplineCurve2d(Handle(Geom2d_BSplineCurve)::DownCast(curv->Copy()),
@@ -163,9 +163,9 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve2d::Copy() const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve2d::Restore(Standard_IStream& theStream)
+Handle(Drawable3D) DrawTrSurf_BSplineCurve2d::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params&    aParams = DrawTrSurf1::Parameters();
+  const Params1&    aParams = DrawTrSurf1::Parameters();
   Handle(Geom2d_BSplineCurve) aGeomCurve =
     Handle(Geom2d_BSplineCurve)::DownCast(Curve2dSet1::ReadCurve2d(theStream));
   Handle(DrawTrSurf_BSplineCurve2d) aDrawCurve = new DrawTrSurf_BSplineCurve2d(aGeomCurve,

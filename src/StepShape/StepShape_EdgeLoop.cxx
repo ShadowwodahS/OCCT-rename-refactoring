@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_EdgeLoop, StepShape_Loop)
 StepShape_EdgeLoop::StepShape_EdgeLoop() {}
 
 void StepShape_EdgeLoop::Init(const Handle(TCollection_HAsciiString)&        aName,
-                              const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+                              const Handle(HArray1OfOrientedEdge)& aEdgeList)
 {
   // --- class inherited fields ---
   StepRepr_RepresentationItem::Init(aName);
@@ -28,12 +28,12 @@ void StepShape_EdgeLoop::Init(const Handle(TCollection_HAsciiString)&        aNa
   edgeList = aEdgeList;
 }
 
-void StepShape_EdgeLoop::SetEdgeList(const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+void StepShape_EdgeLoop::SetEdgeList(const Handle(HArray1OfOrientedEdge)& aEdgeList)
 {
   edgeList = aEdgeList;
 }
 
-Handle(StepShape_HArray1OfOrientedEdge) StepShape_EdgeLoop::EdgeList() const
+Handle(HArray1OfOrientedEdge) StepShape_EdgeLoop::EdgeList() const
 {
   return edgeList;
 }

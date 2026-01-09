@@ -46,13 +46,13 @@ void RWStepShape_RWSubface::ReadStep(const Handle(StepData_StepReaderData)& data
 
   // Inherited fields of Face
 
-  Handle(StepShape_HArray1OfFaceBound) aFace_Bounds;
+  Handle(HArray1OfFaceBound) aFace_Bounds;
   Standard_Integer                     sub2 = 0;
   if (data->ReadSubList(num, 2, "face.bounds", ach, sub2))
   {
     Standard_Integer num2 = sub2;
     Standard_Integer nb0  = data->NbParams(num2);
-    aFace_Bounds          = new StepShape_HArray1OfFaceBound(1, nb0);
+    aFace_Bounds          = new HArray1OfFaceBound(1, nb0);
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {
       Handle(StepShape_FaceBound) anIt0;

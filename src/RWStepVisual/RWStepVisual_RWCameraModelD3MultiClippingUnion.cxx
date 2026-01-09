@@ -42,13 +42,13 @@ void RWStepVisual_RWCameraModelD3MultiClippingUnion::ReadStep(
   data->ReadString(num, 1, "name", ach, aName);
 
   // Own field : shape_clipping
-  Handle(StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect) aShapeClipping;
+  Handle(HArray1OfCameraClippingUnion) aShapeClipping;
   StepVisual_CameraModelD3MultiClippingUnionSelect                  anEnt;
   Standard_Integer                                                  nbSub;
   if (data->ReadSubList(num, 2, "shape_clipping", ach, nbSub))
   {
     Standard_Integer nbElements = data->NbParams(nbSub);
-    aShapeClipping = new StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect(1, nbElements);
+    aShapeClipping = new HArray1OfCameraClippingUnion(1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++)
     {
       if (data->ReadEntity(nbSub, i, "shape_clipping", ach, anEnt))

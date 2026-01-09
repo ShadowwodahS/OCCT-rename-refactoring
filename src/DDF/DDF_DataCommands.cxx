@@ -51,7 +51,7 @@ static Standard_Integer MakeDF(DrawInterpreter& di, Standard_Integer n, const ch
   if (n < 2)
     return 1;
 
-  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
+  Handle(Drawable3D) D = Draw1::Get(a[1]);
   Handle(DDF_Data)        NewDDF;
 
   if (!D.IsNull())
@@ -82,7 +82,7 @@ static Standard_Integer ClearDF(DrawInterpreter& di, Standard_Integer n, const c
   if (n < 2)
     return 1;
 
-  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
+  Handle(Drawable3D) D = Draw1::Get(a[1]);
   Handle(DDF_Data)        DDF1;
 
   if (!D.IsNull())
@@ -163,7 +163,7 @@ static Standard_Integer MiniDumpDF(DrawInterpreter& di, Standard_Integer n, cons
   if (n < 2)
     return 1;
 
-  Handle(Draw_Drawable3D) D;
+  Handle(Drawable3D) D;
   Handle(DDF_Data)        DDF1;
 
   D = Draw1::Get(a[1]);
@@ -203,7 +203,7 @@ static Standard_Integer XDumpDF(DrawInterpreter& di, Standard_Integer n, const c
   if (n < 2)
     return 1;
 
-  Handle(Draw_Drawable3D) D;
+  Handle(Drawable3D) D;
   Handle(DDF_Data)        DDF1;
 
   D = Draw1::Get(a[1]);

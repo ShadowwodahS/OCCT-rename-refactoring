@@ -24,9 +24,9 @@
 class StepVisual_PreDefinedItem;
 
 class StepVisual_PreDefinedColour;
-DEFINE_STANDARD_HANDLE(StepVisual_PreDefinedColour, StepVisual_Colour)
+DEFINE_STANDARD_HANDLE(StepVisual_PreDefinedColour, Colour)
 
-class StepVisual_PreDefinedColour : public StepVisual_Colour
+class StepVisual_PreDefinedColour : public Colour
 {
 
 public:
@@ -39,7 +39,7 @@ public:
   //! return a pre_defined_item part
   Standard_EXPORT const Handle(StepVisual_PreDefinedItem)& GetPreDefinedItem() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PreDefinedColour, StepVisual_Colour)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PreDefinedColour, Colour)
 
 protected:
 private:

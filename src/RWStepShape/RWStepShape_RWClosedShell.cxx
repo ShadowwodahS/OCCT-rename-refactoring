@@ -41,13 +41,13 @@ void RWStepShape_RWClosedShell::ReadStep(const Handle(StepData_StepReaderData)& 
 
   // --- inherited field : cfsFaces ---
 
-  Handle(StepShape_HArray1OfFace) aCfsFaces;
+  Handle(HArray1OfFace1) aCfsFaces;
   Handle(StepShape_Face)          anent2;
   Standard_Integer                nsub2;
   if (data->ReadSubList(num, 2, "cfs_faces", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
-    aCfsFaces            = new StepShape_HArray1OfFace(1, nb2);
+    aCfsFaces            = new HArray1OfFace1(1, nb2);
     for (Standard_Integer i2 = 1; i2 <= nb2; i2++)
     {
       // szv#4:S4163:12Mar99 `Standard_Boolean stat2 =` not needed

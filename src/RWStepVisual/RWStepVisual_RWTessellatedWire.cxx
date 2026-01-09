@@ -49,12 +49,12 @@ void RWStepVisual_RWTessellatedWire::ReadStep(
 
   // Own fields of TessellatedWire
 
-  Handle(StepVisual_HArray1OfTessellatedEdgeOrVertex) aItems;
+  Handle(HArray1OfTessellatedEdgeOrVertex) aItems;
   Standard_Integer                                    sub2 = 0;
   if (theData->ReadSubList(theNum, 2, "items", theCheck, sub2))
   {
     Standard_Integer nb0  = theData->NbParams(sub2);
-    aItems                = new StepVisual_HArray1OfTessellatedEdgeOrVertex(1, nb0);
+    aItems                = new HArray1OfTessellatedEdgeOrVertex(1, nb0);
     Standard_Integer num2 = sub2;
     for (Standard_Integer i0 = 1; i0 <= nb0; i0++)
     {

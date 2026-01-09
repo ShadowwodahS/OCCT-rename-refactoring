@@ -37,13 +37,13 @@ public:
   StepVisual_StyledItem() {}
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&                        aName,
-                            const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
+                            const Handle(HArray1OfPresentationStyle)& aStyles,
                             const Handle(RefObject)&                              aItem);
 
   Standard_EXPORT void SetStyles(
-    const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles);
+    const Handle(HArray1OfPresentationStyle)& aStyles);
 
-  const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& Styles() const { return myStyles; }
+  const Handle(HArray1OfPresentationStyle)& Styles() const { return myStyles; }
 
   const Handle(StepVisual_PresentationStyleAssignment)& StylesValue(
     const Standard_Integer num) const
@@ -65,7 +65,7 @@ public:
 
 protected:
 private:
-  Handle(StepVisual_HArray1OfPresentationStyleAssignment) myStyles;
+  Handle(HArray1OfPresentationStyle) myStyles;
   //! May be StepRepr_RepresentationItem for AP214(203) and StepVisual_StyledItemTarget for AP242
   Handle(RefObject) myItem;
   //! This is downcasted from myItem

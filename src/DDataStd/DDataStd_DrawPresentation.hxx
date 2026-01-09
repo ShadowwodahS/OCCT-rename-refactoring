@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <TDF_Attribute.hxx>
-class Draw_Drawable3D;
+class Drawable3D;
 class DataLabel;
 class Standard_GUID;
 class TDF_RelocationTable;
@@ -57,9 +57,9 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDisplayed() const;
 
-  Standard_EXPORT void SetDrawable(const Handle(Draw_Drawable3D)& D);
+  Standard_EXPORT void SetDrawable(const Handle(Drawable3D)& D);
 
-  Standard_EXPORT Handle(Draw_Drawable3D) GetDrawable() const;
+  Standard_EXPORT Handle(Drawable3D) GetDrawable() const;
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
@@ -104,7 +104,7 @@ private:
                                         const Handle(DDataStd_DrawPresentation)& P);
 
   Standard_Boolean        isDisplayed;
-  Handle(Draw_Drawable3D) myDrawable;
+  Handle(Drawable3D) myDrawable;
 };
 
 #endif // _DDataStd_DrawPresentation_HeaderFile

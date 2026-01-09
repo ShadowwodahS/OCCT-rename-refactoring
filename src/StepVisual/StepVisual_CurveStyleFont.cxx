@@ -21,7 +21,7 @@ StepVisual_CurveStyleFont::StepVisual_CurveStyleFont() {}
 
 void StepVisual_CurveStyleFont::Init(
   const Handle(TCollection_HAsciiString)&                  aName,
-  const Handle(StepVisual_HArray1OfCurveStyleFontPattern)& aPatternList)
+  const Handle(HArray1OfCurveStyleFontPattern)& aPatternList)
 {
   // --- classe own fields ---
   name        = aName;
@@ -39,17 +39,17 @@ Handle(TCollection_HAsciiString) StepVisual_CurveStyleFont::Name() const
 }
 
 void StepVisual_CurveStyleFont::SetPatternList(
-  const Handle(StepVisual_HArray1OfCurveStyleFontPattern)& aPatternList)
+  const Handle(HArray1OfCurveStyleFontPattern)& aPatternList)
 {
   patternList = aPatternList;
 }
 
-Handle(StepVisual_HArray1OfCurveStyleFontPattern) StepVisual_CurveStyleFont::PatternList() const
+Handle(HArray1OfCurveStyleFontPattern) StepVisual_CurveStyleFont::PatternList() const
 {
   return patternList;
 }
 
-Handle(StepVisual_CurveStyleFontPattern) StepVisual_CurveStyleFont::PatternListValue(
+Handle(CurveStyleFontPattern) StepVisual_CurveStyleFont::PatternListValue(
   const Standard_Integer num) const
 {
   return patternList->Value(num);

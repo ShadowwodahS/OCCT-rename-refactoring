@@ -58,8 +58,8 @@ void RWStepVisual_RWSurfaceStyleRendering::ReadStep(
   else
     ach->AddFail("Parameter #1 (rendering_method) is not enumeration");
 
-  Handle(StepVisual_Colour) aSurfaceColour;
-  data->ReadEntity(num, 2, "surface_colour", ach, STANDARD_TYPE(StepVisual_Colour), aSurfaceColour);
+  Handle(Colour) aSurfaceColour;
+  data->ReadEntity(num, 2, "surface_colour", ach, STANDARD_TYPE(Colour), aSurfaceColour);
 
   // Initialize entity
   ent->Init(aRenderingMethod, aSurfaceColour);

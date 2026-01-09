@@ -223,7 +223,7 @@ void DrawTrSurf_Surface::ClearIsos()
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Surface::Copy() const
+Handle(Drawable3D) DrawTrSurf_Surface::Copy() const
 {
   Handle(DrawTrSurf_Surface) DS =
     new DrawTrSurf_Surface(Handle(GeomSurface)::DownCast(surf->Copy()),
@@ -254,9 +254,9 @@ void DrawTrSurf_Surface::Save(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Surface::Restore(std::istream& theStream)
+Handle(Drawable3D) DrawTrSurf_Surface::Restore(std::istream& theStream)
 {
-  const DrawTrSurf_Params&   aParams      = DrawTrSurf1::Parameters();
+  const Params1&   aParams      = DrawTrSurf1::Parameters();
   Handle(GeomSurface)       aGeomSurface = SurfaceSet1::ReadSurface(theStream);
   Handle(DrawTrSurf_Surface) aDrawSurface = new DrawTrSurf_Surface(aGeomSurface,
                                                                    aParams.NbUIsos,

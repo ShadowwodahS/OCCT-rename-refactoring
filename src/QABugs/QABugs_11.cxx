@@ -1739,9 +1739,9 @@ static Standard_Integer OCC902(DrawInterpreter& di, Standard_Integer argc, const
     return 1;
   }
 
-  Handle(Expr_GeneralExpression) anExpr  = exprIntrp->Expression();
+  Handle(Expression1) anExpr  = exprIntrp->Expression();
   Handle(Expr_NamedUnknown)      aVar    = new Expr_NamedUnknown("x");
-  Handle(Expr_GeneralExpression) newExpr = anExpr->Derivative(aVar);
+  Handle(Expression1) newExpr = anExpr->Derivative(aVar);
 
   AsciiString1 res        = newExpr->String();
   Standard_CString        resStr     = res.ToCString();

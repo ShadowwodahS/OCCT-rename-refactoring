@@ -63,7 +63,7 @@ void HLRTest1::Set(const Standard_CString Name, const TopoShape& S)
 
 Handle(HLRTopoBRep_OutLiner) HLRTest1::GetOutLiner(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)  D  = Draw1::Get(Name);
+  Handle(Drawable3D)  D  = Draw1::Get(Name);
   Handle(HLRTest_OutLiner) HS = Handle(HLRTest_OutLiner)::DownCast(D);
   if (!HS.IsNull())
     return HS->OutLiner();

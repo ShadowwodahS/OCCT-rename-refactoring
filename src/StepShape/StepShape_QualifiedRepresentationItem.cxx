@@ -21,13 +21,13 @@ StepShape_QualifiedRepresentationItem::StepShape_QualifiedRepresentationItem() {
 
 void StepShape_QualifiedRepresentationItem::Init(
   const Handle(TCollection_HAsciiString)&          aName,
-  const Handle(StepShape_HArray1OfValueQualifier)& qualifiers)
+  const Handle(HArray1OfValueQualifier)& qualifiers)
 {
   StepRepr_RepresentationItem::Init(aName);
   theQualifiers = qualifiers;
 }
 
-Handle(StepShape_HArray1OfValueQualifier) StepShape_QualifiedRepresentationItem::Qualifiers() const
+Handle(HArray1OfValueQualifier) StepShape_QualifiedRepresentationItem::Qualifiers() const
 {
   return theQualifiers;
 }
@@ -38,7 +38,7 @@ Standard_Integer StepShape_QualifiedRepresentationItem::NbQualifiers() const
 }
 
 void StepShape_QualifiedRepresentationItem::SetQualifiers(
-  const Handle(StepShape_HArray1OfValueQualifier)& qualifiers)
+  const Handle(HArray1OfValueQualifier)& qualifiers)
 {
   theQualifiers = qualifiers;
 }

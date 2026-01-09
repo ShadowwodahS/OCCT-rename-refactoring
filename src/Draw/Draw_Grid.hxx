@@ -24,9 +24,9 @@
 class DrawDisplay;
 
 class Draw_Grid;
-DEFINE_STANDARD_HANDLE(Draw_Grid, Draw_Drawable3D)
+DEFINE_STANDARD_HANDLE(Draw_Grid, Drawable3D)
 
-class Draw_Grid : public Draw_Drawable3D
+class Draw_Grid : public Drawable3D
 {
 
 public:
@@ -53,7 +53,7 @@ public:
   //! Displays the grid.
   Standard_EXPORT void DrawOn(DrawDisplay& Out) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Grid, Draw_Drawable3D)
+  DEFINE_STANDARD_RTTIEXT(Draw_Grid, Drawable3D)
 
 protected:
 private:

@@ -21,15 +21,15 @@
 
 #include <Standard_Transient.hxx>
 
-class StepShape_ToleranceValue;
-DEFINE_STANDARD_HANDLE(StepShape_ToleranceValue, RefObject)
+class ToleranceValue1;
+DEFINE_STANDARD_HANDLE(ToleranceValue1, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_ToleranceValue : public RefObject
+class ToleranceValue1 : public RefObject
 {
 
 public:
-  Standard_EXPORT StepShape_ToleranceValue();
+  Standard_EXPORT ToleranceValue1();
 
   Standard_EXPORT void Init(const Handle(RefObject)& lower_bound,
                             const Handle(RefObject)& upper_bound);
@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT void SetUpperBound(const Handle(RefObject)& upper_bound);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_ToleranceValue, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ToleranceValue1, RefObject)
 
 protected:
 private:

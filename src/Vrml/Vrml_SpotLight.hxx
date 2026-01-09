@@ -37,14 +37,14 @@
 //! by  the  dropOfRate  and  cutOffAngle
 //! Color is  written  as  an  RGB  triple.
 //! Light intensity must be in the range 0.0 to 1.0, inclusive.
-class Vrml_SpotLight
+class SpotLight
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_SpotLight();
+  Standard_EXPORT SpotLight();
 
-  Standard_EXPORT Vrml_SpotLight(const Standard_Boolean aOnOff,
+  Standard_EXPORT SpotLight(const Standard_Boolean aOnOff,
                                  const Standard_Real    aIntensity,
                                  const Color1&  aColor,
                                  const Vector3d&          aLocation,

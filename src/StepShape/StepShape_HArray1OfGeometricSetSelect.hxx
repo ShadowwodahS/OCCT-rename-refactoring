@@ -21,6 +21,6 @@
 #include <StepShape_Array1OfGeometricSetSelect.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StepShape_HArray1OfGeometricSetSelect, StepShape_Array1OfGeometricSetSelect)
+DEFINE_HARRAY1(HArray1OfGeometricSetSelect, StepShape_Array1OfGeometricSetSelect)
 
 #endif

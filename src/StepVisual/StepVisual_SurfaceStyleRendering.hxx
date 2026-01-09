@@ -36,7 +36,7 @@ public:
 
   //! Initialize all fields (own and inherited)
   Standard_EXPORT void Init(const StepVisual_ShadingSurfaceMethod theRenderingMethod,
-                            const Handle(StepVisual_Colour)&      theSurfaceColour);
+                            const Handle(Colour)&      theSurfaceColour);
 
   //! Returns field RenderingMethod
   Standard_EXPORT StepVisual_ShadingSurfaceMethod RenderingMethod() const;
@@ -44,14 +44,14 @@ public:
   Standard_EXPORT void SetRenderingMethod(const StepVisual_ShadingSurfaceMethod theRenderingMethod);
 
   //! Returns field SurfaceColour
-  Standard_EXPORT Handle(StepVisual_Colour) SurfaceColour() const;
+  Standard_EXPORT Handle(Colour) SurfaceColour() const;
   //! Sets field SurfaceColour
-  Standard_EXPORT void SetSurfaceColour(const Handle(StepVisual_Colour)& theSurfaceColour);
+  Standard_EXPORT void SetSurfaceColour(const Handle(Colour)& theSurfaceColour);
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleRendering, RefObject)
 
 private:
   StepVisual_ShadingSurfaceMethod myRenderingMethod;
-  Handle(StepVisual_Colour)       mySurfaceColour;
+  Handle(Colour)       mySurfaceColour;
 };
 #endif // _StepVisual_SurfaceStyleRendering_HeaderFile_

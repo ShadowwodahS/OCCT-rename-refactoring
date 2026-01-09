@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepShape_Path, StepShape_TopologicalRepresentationIt
 StepShape_Path::StepShape_Path() {}
 
 void StepShape_Path::Init(const Handle(TCollection_HAsciiString)&        aName,
-                          const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+                          const Handle(HArray1OfOrientedEdge)& aEdgeList)
 {
   // --- classe own fields ---
   edgeList = aEdgeList;
@@ -27,12 +27,12 @@ void StepShape_Path::Init(const Handle(TCollection_HAsciiString)&        aName,
   StepRepr_RepresentationItem::Init(aName);
 }
 
-void StepShape_Path::SetEdgeList(const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
+void StepShape_Path::SetEdgeList(const Handle(HArray1OfOrientedEdge)& aEdgeList)
 {
   edgeList = aEdgeList;
 }
 
-Handle(StepShape_HArray1OfOrientedEdge) StepShape_Path::EdgeList() const
+Handle(HArray1OfOrientedEdge) StepShape_Path::EdgeList() const
 {
   return edgeList;
 }

@@ -123,7 +123,7 @@ void DrawTrSurf_Triangulation2D::DrawOn(DrawDisplay& dis) const
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DrawTrSurf_Triangulation2D::Copy() const
+Handle(Drawable3D) DrawTrSurf_Triangulation2D::Copy() const
 {
   return new DrawTrSurf_Triangulation2D(myTriangulation);
 }

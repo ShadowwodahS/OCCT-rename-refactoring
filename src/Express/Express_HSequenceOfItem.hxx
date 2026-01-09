@@ -17,6 +17,6 @@
 #include <Express_SequenceOfItem.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(Express_HSequenceOfItem, Express_SequenceOfItem)
+DEFINE_HSEQUENCE(ItemSequence, Express_SequenceOfItem)
 
 #endif
