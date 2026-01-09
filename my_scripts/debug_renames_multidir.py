@@ -23,7 +23,7 @@ REFACTOR_SCRIPT_PATH = os.path.join(SCRIPT_DIR, "content_refactor_batch.py")
 SOURCE_CSV_PATH = os.path.join(DOC_DIR, "occt_renaming_map.csv")
 WORK_CSV_PATH = os.path.join(DOC_DIR, "occt_renaming_map_new.csv")
 
-BAD_ROWS_LOG = os.path.join(DOC_DIR, "bad_names.txt")
+BAD_ROWS_LOG = os.path.join(DOC_DIR, "bad_renames.txt")
 CHANGE_LOG = os.path.join(DOC_DIR, "fixed_names.txt")
 GOOD_ROWS_LOG = os.path.join(DOC_DIR, "good_renames.txt")
 
@@ -168,7 +168,6 @@ def generate_fix_candidates(original_name, current_new_name, used_names):
     upper_count = sum(1 for c in suffix if c.isupper())
     
     cand_join = prefix + suffix
-    
     base_cand_drop = suffix
     cand_drop = base_cand_drop
     counter = 1
@@ -294,16 +293,13 @@ def get_smart_suspects(error_line, start, end):
 
 def attempt_auto_fix_and_verify_block(suspect_row, block_start, block_end):
     """
-    针对嫌疑行进行自动修复，并使用整个 Block (block_start~block_end) 进行验证。
-    返回: 
-      0: 修复成功，且 Block 通过。
-      1: 修复成功 (Error 转移)，Block 仍有其他错误。
-      -1: 修复失败。
+    返回值: (status, new_suspects_list)
+    status: 0=Perfect, 1=Moved(Chain), -1=Fail
     """
     print(f"\n🔧 [自动修复] 正在尝试修复第 {suspect_row} 行 (Scope: {block_start}-{block_end})...")
     
     orig_name, curr_new_name = get_row_info(suspect_row)
-    if not orig_name: return -1
+    if not orig_name: return -1, []
 
     used_names = get_all_current_names()
     candidates = generate_fix_candidates(orig_name, curr_new_name, used_names)
@@ -313,43 +309,35 @@ def attempt_auto_fix_and_verify_block(suspect_row, block_start, block_end):
 
     for cand in candidates:
         print(f"  👉 尝试方案: {cand} ...")
-        
-        # 1. 修改 CSV
         update_csv_row(suspect_row, cand)
         
-        # 2. 替换代码 (注意：这里替换整个 Block 范围！)
+        # 整块替换
         reset_all_targets()
         if not apply_refactoring_to_all(block_start, block_end):
             continue
             
-        # 3. 编译验证 (整体编译)
+        # 整块验证
         success, error_line, error_type = run_command(CMD_BUILD, "验证(整体)", stop_on_error=True)
         
-        # 4. 判断结果
         if success:
             log_fix(suspect_row, curr_new_name, cand, orig_name)
-            # 完美：不仅修复了嫌疑人，而且整个 Block 都通了
-            return 0 
+            return 0, []
         else:
-            # 编译失败，检查是不是同一个错误
-            # 我们再次调用 get_smart_suspects 看看现在的报错行是谁
+            # 编译失败，检查嫌疑人是否转移
             new_suspects = get_smart_suspects(error_line, block_start, block_end)
             
-            # 如果报错行已经不是当前的 suspect_row，说明 suspect_row 修好了！
-            # (或者如果 new_suspects 为空，可能是 link 错误，我们假设修好了)
-            if not new_suspects or suspect_row not in new_suspects:
-                print(f"  ✅ 方案 {cand} 有效！错误已转移 (至 {new_suspects})。")
+            # 如果新嫌疑人列表里不包含当前的 suspect_row，说明当前行已经修好了
+            if new_suspects and suspect_row not in new_suspects:
+                print(f"  ✅ 方案 {cand} 有效！错误已转移至: {new_suspects}")
                 log_fix(suspect_row, curr_new_name, cand, orig_name)
-                # 保留 CSV 修改，但返回 1，告诉外层继续排查其他错误
-                return 1
+                # 返回新的嫌疑人列表，供外层继续追击
+                return 1, new_suspects
             else:
-                print(f"     ❌ 方案 {cand} 无效，错误仍在第 {suspect_row} 行。")
-                # 继续循环下一个 candidate
+                print(f"     ❌ 方案 {cand} 无效，错误仍在第 {suspect_row} 行 (或无法定位新错误)。")
 
-    # 5. 全部失败
     print(f"  ❌ 所有修复方案均失败。回退到原始名。")
-    update_csv_row(suspect_row, orig_name) # 回退 CSV
-    return -1
+    update_csv_row(suspect_row, orig_name)
+    return -1, []
 
 def log_good_range(start, end):
     if start <= end:
@@ -383,15 +371,11 @@ def check_range(start, end, last_build_success=True):
         else:
             print(f"  [策略] 遇到 {error_type} 但上次成功 -> 判定为代码错误")
 
-    # 智能定位
-    suspect_rows = []
+    # 初始智能定位
+    suspects = []
     if not success and start != end:
-        suspect_rows = get_smart_suspects(error_line, start, end)
+        suspects = get_smart_suspects(error_line, start, end)
 
-    # 此时我们还没有 Reset 代码，正好用于分析 (其实 get_smart_suspects 已经读完了)
-    # 但为了后续流程（比如 attempt_auto_fix 里会先 reset 再 apply），这里先不急着 reset
-    # 不过上面的 check_range 逻辑里是先 reset 的。
-    # 鉴于 attempt_auto_fix 内部会 reset，这里我们可以先 reset 保持一致性
     reset_all_targets()
 
     if success:
@@ -400,43 +384,63 @@ def check_range(start, end, last_build_success=True):
 
     # === 失败处理 ===
     
-    # 1. 锁定单行坏行 -> 尝试修复
     if start == end:
-        # 单行模式下，block_start = block_end = start
-        res = attempt_auto_fix_and_verify_block(start, start, start)
-        if res == 0: # 成功且通过
+        # 单行失败 -> 尝试修复 (self-loop 验证)
+        res, _ = attempt_auto_fix_and_verify_block(start, start, start)
+        if res == 0: 
             log_good_range(start, end)
-        elif res == -1: # 修复失败
+        elif res == -1:
             log_bad_row(start, f"(无法修复)")
         return
 
-    # 2. 智能定位命中 -> 验证并尝试修复
-    if suspect_rows:
-        for s_row in suspect_rows:
-            # 这里的关键是：用当前大块 (start, end) 来验证 s_row 的修复
-            res = attempt_auto_fix_and_verify_block(s_row, start, end)
+    # === 连锁追击逻辑 (Chain Reaction) ===
+    # 如果有嫌疑人，进入追击循环
+    if suspects:
+        # 使用队列来处理连锁反应
+        chain_queue = list(suspects)
+        # 记录已尝试修复的行，防止死循环 (A->B->A)
+        visited_suspects = set()
+
+        while chain_queue:
+            s_row = chain_queue.pop(0) # 取出第一个嫌疑人
             
-            if res == 0:
-                # 完美：修好了 s_row，而且整个 start-end 都通了！
+            if s_row in visited_suspects:
+                print(f"  [连锁] 行 {s_row} 已处理过，跳过防止死循环。")
+                continue
+                
+            visited_suspects.add(s_row)
+            
+            # 尝试修复，并使用当前的大块范围验证
+            status, next_suspects = attempt_auto_fix_and_verify_block(s_row, start, end)
+            
+            if status == 0:
+                # 完美！整个块都通了！
+                print("  🎉 [连锁] 完美修复！当前块编译通过。")
                 log_good_range(start, end)
                 return 
             
-            elif res == 1:
-                # 进步：修好了 s_row，但 start-end 还有别的错
-                # s_row 已经在 CSV 里被改好了。
-                # 我们可以不用急着递归，而是直接在当前层级“继续”二分？
-                # 或者更稳健的做法：既然环境变了（CSV变了），我们可以递归二分
-                # 此时 s_row 已经是“好人”了。
-                print("  [智能分析] 嫌疑人已修复，继续排查剩余错误...")
-                # 此时不需要 return，让代码走到下面的二分法
-                # 二分法会再次编译，这虽然多了一次编译，但逻辑最简单
-                # 优化：如果我们确信错误在另一半，可以直接跳过 s_row
-                # 但为了简单，直接 fall through 到 B 步骤即可
-                break 
-
-            # res == -1: 没修好，尝试下一个嫌疑人
+            elif status == 1:
+                # 修复了当前行，但报错转移了
+                # 将新的嫌疑人加入队列头部 (优先处理新冒出来的)
+                if next_suspects:
+                    print(f"  🔁 [连锁] 追击新目标: {next_suspects}")
+                    # 过滤掉不在当前范围内的 (理论上不会有，但保险起见)
+                    valid_next = [x for x in next_suspects if start <= x <= end]
+                    chain_queue = valid_next + chain_queue
+                else:
+                    # 这种情况比较少见：Linker 错误可能没行号
+                    print("  ⚠️ [连锁] 错误转移但无法定位新嫌疑人。终止连锁。")
+                    break
+            
+            elif status == -1:
+                # 修复失败
+                print(f"  🛑 [连锁] 行 {s_row} 修复失败。终止连锁，回退二分。")
+                break
+        
+        # 如果循环结束还没 return，说明要么修复失败，要么追丢了 -> 走下面的二分法
 
     # B. 回退二分法
+    print("  [流程] 进入二分查找...")
     mid = (start + end) // 2
     check_range(start, mid, last_build_success=False)
     check_range(mid + 1, end, last_build_success=False)
