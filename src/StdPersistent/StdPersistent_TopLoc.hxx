@@ -25,7 +25,7 @@
 class TopLoc
 {
 public:
-  class Datum3D1 : public SharedObject::SharedBase<TopLoc_Datum3D>
+  class Datum3D1 : public SharedObject::SharedBase<Datum3D2>
   {
   public:
     //! Read persistent data from a file.
@@ -67,7 +67,7 @@ public:
 public:
   Standard_EXPORT static Handle(ItemLocation) Translate(const TopLoc_Location&            theLoc,
                                                         StdObjMgt_TransientPersistentMap& theMap);
-  Standard_EXPORT static Handle(Datum3D1)      Translate(const Handle(TopLoc_Datum3D)&     theDatum,
+  Standard_EXPORT static Handle(Datum3D1)      Translate(const Handle(Datum3D2)&     theDatum,
                                                         StdObjMgt_TransientPersistentMap& theMap);
 };
 

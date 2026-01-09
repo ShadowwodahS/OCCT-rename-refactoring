@@ -429,7 +429,7 @@ void Cocoa_Window::SetTitle (const AsciiString1& theTitle)
 // function : InvalidateContent
 // purpose  :
 // =======================================================================
-void Cocoa_Window::InvalidateContent (const Handle(Aspect_DisplayConnection)& )
+void Cocoa_Window::InvalidateContent (const Handle(DisplayConnection1)& )
 {
   if (myHView == NULL)
   {

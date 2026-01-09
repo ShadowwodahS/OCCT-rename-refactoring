@@ -38,7 +38,7 @@ public:
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
-  static const Handle(Bnd_HArray1OfBox)& ComponentsBounding(
+  static const Handle(BoxArray)& ComponentsBounding(
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh);
 
   //! Give the tolerance of the polygon.

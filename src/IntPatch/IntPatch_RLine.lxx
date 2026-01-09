@@ -57,7 +57,7 @@ inline void IntPatch_RLine::SetLastPoint(const Standard_Integer IndLast)
   indl = IndLast;
 }
 
-inline void IntPatch_RLine::Add(const Handle(IntSurf_LineOn2S)& L)
+inline void IntPatch_RLine::Add(const Handle(LineOnTwoSurfaces)& L)
 {
   curv = L;
 }
@@ -145,7 +145,7 @@ inline const PointOn2Surfaces& IntPatch_RLine::Point(const Standard_Integer Inde
   return curv->Value(Index);
 }
 
-inline Handle(IntSurf_LineOn2S) IntPatch_RLine::Curve() const
+inline Handle(LineOnTwoSurfaces) IntPatch_RLine::Curve() const
 {
   return (curv);
 }

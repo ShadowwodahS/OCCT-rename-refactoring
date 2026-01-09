@@ -26,13 +26,13 @@
   #define No_Standard_OutOfRange
 #endif
 
-#define SURFACE1 (*((Handle(Adaptor3d_Surface)*)(surface1)))
-#define SURFACE2 (*((Handle(Adaptor3d_Surface)*)(surface2)))
+#define SURFACE1 (*((Handle(SurfaceAdaptor)*)(surface1)))
+#define SURFACE2 (*((Handle(SurfaceAdaptor)*)(surface2)))
 #define CURVE (*((Handle(Adaptor2d_Curve2d)*)(curve)))
 
-IntPatch_CSFunction::IntPatch_CSFunction(const Handle(Adaptor3d_Surface)& S1,
+IntPatch_CSFunction::IntPatch_CSFunction(const Handle(SurfaceAdaptor)& S1,
                                          const Handle(Adaptor2d_Curve2d)& C,
-                                         const Handle(Adaptor3d_Surface)& S2)
+                                         const Handle(SurfaceAdaptor)& S2)
 {
   surface1 = (Standard_Address)(&S1);
   surface2 = (Standard_Address)(&S2);
@@ -131,7 +131,7 @@ Standard_Real IntPatch_CSFunction::Root() const
   return f;
 }
 
-const Handle(Adaptor3d_Surface)& IntPatch_CSFunction::AuxillarSurface() const
+const Handle(SurfaceAdaptor)& IntPatch_CSFunction::AuxillarSurface() const
 {
   return SURFACE1;
 }

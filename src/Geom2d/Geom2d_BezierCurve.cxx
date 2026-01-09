@@ -66,7 +66,7 @@ Geom2d_BezierCurve::Geom2d_BezierCurve(const TColgp_Array1OfPnt2d& Poles)
 {
   //  copy the poles
 
-  Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, Poles.Length());
+  Handle(Point2dArray) npoles = new Point2dArray(1, Poles.Length());
 
   npoles->ChangeArray1() = Poles;
 
@@ -82,7 +82,7 @@ Geom2d_BezierCurve::Geom2d_BezierCurve(const TColgp_Array1OfPnt2d& Poles,
 {
   // copy the poles
 
-  Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, Poles.Length());
+  Handle(Point2dArray) npoles = new Point2dArray(1, Poles.Length());
 
   npoles->ChangeArray1() = Poles;
 
@@ -130,7 +130,7 @@ void Geom2d_BezierCurve::Increase(const Standard_Integer Deg)
   Standard_ConstructionError_Raise_if(Deg < Degree() || Deg > Geom2d_BezierCurve::MaxDegree(),
                                       "Geom2d_BezierCurve::Increase");
 
-  Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, Deg + 1);
+  Handle(Point2dArray) npoles = new Point2dArray(1, Deg + 1);
 
   Handle(TColStd_HArray1OfReal) nweights;
 
@@ -197,7 +197,7 @@ void Geom2d_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
   Standard_Integer i;
 
   // Insert the pole
-  Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, nbpoles + 1);
+  Handle(Point2dArray) npoles = new Point2dArray(1, nbpoles + 1);
 
   TColgp_Array1OfPnt2d&       newpoles = npoles->ChangeArray1();
   const TColgp_Array1OfPnt2d& oldpoles = poles->Array1();
@@ -259,7 +259,7 @@ void Geom2d_BezierCurve::RemovePole(const Standard_Integer Index)
   Standard_Integer i;
 
   // Remove the pole
-  Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, nbpoles - 1);
+  Handle(Point2dArray) npoles = new Point2dArray(1, nbpoles - 1);
 
   TColgp_Array1OfPnt2d&       newpoles = npoles->ChangeArray1();
   const TColgp_Array1OfPnt2d& oldpoles = poles->Array1();
@@ -666,7 +666,7 @@ void Geom2d_BezierCurve::Resolution(const Standard_Real ToleranceUV, Standard_Re
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_BezierCurve::Copy() const
+Handle(Geometry2) Geom2d_BezierCurve::Copy() const
 {
 
   Handle(Geom2d_BezierCurve) C;
@@ -679,7 +679,7 @@ Handle(Geom2d_Geometry) Geom2d_BezierCurve::Copy() const
 
 //=================================================================================================
 
-void Geom2d_BezierCurve::Init(const Handle(TColgp_HArray1OfPnt2d)& Poles,
+void Geom2d_BezierCurve::Init(const Handle(Point2dArray)& Poles,
                               const Handle(TColStd_HArray1OfReal)& Weights)
 {
   Standard_Integer nbpoles = Poles->Length();

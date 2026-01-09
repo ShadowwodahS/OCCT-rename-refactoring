@@ -33,11 +33,11 @@
 #include <GeomAbs_Shape.hxx>
 
 class GeomFill_CircularBlendFunc;
-DEFINE_STANDARD_HANDLE(GeomFill_CircularBlendFunc, Approx_SweepFunction)
+DEFINE_STANDARD_HANDLE(GeomFill_CircularBlendFunc, SweepFunction)
 
 //! Circular     Blend Function  to    approximate by
 //! SweepApproximation from Approx
-class GeomFill_CircularBlendFunc : public Approx_SweepFunction
+class GeomFill_CircularBlendFunc : public SweepFunction
 {
 
 public:
@@ -50,9 +50,9 @@ public:
   //! parameterisation  matches  the  circle  one.  --
   //! ChFi3d_Polynomial corresponds to a polynomial --
   //! representation of circles.
-  Standard_EXPORT GeomFill_CircularBlendFunc(const Handle(Adaptor3d_Curve)& Path,
-                                             const Handle(Adaptor3d_Curve)& Curve1,
-                                             const Handle(Adaptor3d_Curve)& Curve2,
+  Standard_EXPORT GeomFill_CircularBlendFunc(const Handle(Curve5)& Path,
+                                             const Handle(Curve5)& Curve1,
+                                             const Handle(Curve5)& Curve2,
                                              const Standard_Real            Radius,
                                              const Standard_Boolean Polynomial = Standard_False);
 
@@ -159,7 +159,7 @@ public:
   Standard_EXPORT virtual void GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_CircularBlendFunc, Approx_SweepFunction)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_CircularBlendFunc, SweepFunction)
 
 protected:
 private:
@@ -170,12 +170,12 @@ private:
   Standard_Real                maxang;
   Standard_Real                minang;
   Standard_Real                distmin;
-  Handle(Adaptor3d_Curve)      myPath;
-  Handle(Adaptor3d_Curve)      myCurve1;
-  Handle(Adaptor3d_Curve)      myCurve2;
-  Handle(Adaptor3d_Curve)      myTPath;
-  Handle(Adaptor3d_Curve)      myTCurve1;
-  Handle(Adaptor3d_Curve)      myTCurve2;
+  Handle(Curve5)      myPath;
+  Handle(Curve5)      myCurve1;
+  Handle(Curve5)      myCurve2;
+  Handle(Curve5)      myTPath;
+  Handle(Curve5)      myTCurve1;
+  Handle(Curve5)      myTCurve2;
   Standard_Integer             myDegree;
   Standard_Integer             myNbKnots;
   Standard_Integer             myNbPoles;

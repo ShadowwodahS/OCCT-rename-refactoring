@@ -44,7 +44,7 @@ AIS_RubberBand::AIS_RubberBand()
   myDrawer->ShadingAspect()->SetTransparency(1.0);
   myDrawer->ShadingAspect()->SetColor(Quantity_NOC_WHITE);
 
-  SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+  SetTransformPersistence(new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   SetZLayer(Graphic3d_ZLayerId_TopOSD);
 }
 
@@ -65,7 +65,7 @@ AIS_RubberBand::AIS_RubberBand(const Color1&   theLineColor,
   myDrawer->ShadingAspect()->SetTransparency(1.0);
   myDrawer->ShadingAspect()->SetColor(Quantity_NOC_WHITE);
 
-  SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+  SetTransformPersistence(new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   SetZLayer(Graphic3d_ZLayerId_TopOSD);
 }
 
@@ -88,7 +88,7 @@ AIS_RubberBand::AIS_RubberBand(const Color1&   theLineColor,
   myDrawer->ShadingAspect()->Aspect()->SetAlphaMode(Graphic3d_AlphaMode_Blend);
   myDrawer->ShadingAspect()->SetTransparency(theTransparency);
 
-  SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+  SetTransformPersistence(new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   SetZLayer(Graphic3d_ZLayerId_TopOSD);
 }
 
@@ -275,7 +275,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
   {
     Standard_Integer aPtIdx     = isClockwiseOrdered ? aIdx : (aIdx + 1) % anIndexes.Length();
     Standard_Integer aNextPtIdx = isClockwiseOrdered ? (aIdx + 1) % anIndexes.Length() : aIdx;
-    BRepMesh_Edge anEdge(anIndexes.Value(aPtIdx), anIndexes.Value(aNextPtIdx), BRepMesh_Frontier);
+    Edge3 anEdge(anIndexes.Value(aPtIdx), anIndexes.Value(aNextPtIdx), BRepMesh_Frontier);
     aMeshStructure->AddLink(anEdge);
   }
 

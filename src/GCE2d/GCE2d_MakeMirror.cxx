@@ -26,7 +26,7 @@
 //=========================================================================
 GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Pnt2d& Point)
 {
-  TheMirror = new Geom2d_Transformation();
+  TheMirror = new Transformation2d();
   TheMirror->SetMirror(Point);
 }
 
@@ -36,7 +36,7 @@ GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Pnt2d& Point)
 
 GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Ax2d& Axis)
 {
-  TheMirror = new Geom2d_Transformation();
+  TheMirror = new Transformation2d();
   TheMirror->SetMirror(Axis);
 }
 
@@ -46,7 +46,7 @@ GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Ax2d& Axis)
 
 GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Lin2d& Line)
 {
-  TheMirror = new Geom2d_Transformation();
+  TheMirror = new Transformation2d();
   TheMirror->SetMirror(gp_Ax2d(Line.Location(), Line.Direction()));
 }
 
@@ -57,11 +57,11 @@ GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Lin2d& Line)
 
 GCE2d_MakeMirror::GCE2d_MakeMirror(const gp_Pnt2d& Point, const gp_Dir2d& Direc)
 {
-  TheMirror = new Geom2d_Transformation();
+  TheMirror = new Transformation2d();
   TheMirror->SetMirror(gp_Ax2d(Point, Direc));
 }
 
-const Handle(Geom2d_Transformation)& GCE2d_MakeMirror::Value() const
+const Handle(Transformation2d)& GCE2d_MakeMirror::Value() const
 {
   return TheMirror;
 }

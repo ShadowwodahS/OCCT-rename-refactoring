@@ -20,7 +20,7 @@
 // function : SetPint
 // purpose  :
 //=======================================================================
-inline void TopOpeBRep_Point2d::SetPint(const IntRes2d_IntersectionPoint& P)
+inline void TopOpeBRep_Point2d::SetPint(const IntersectionPoint3& P)
 {
   mypint    = P;
   myhaspint = Standard_True;
@@ -39,7 +39,7 @@ inline Standard_Boolean TopOpeBRep_Point2d::HasPint() const
 // function : Pint
 // purpose  :
 //=======================================================================
-inline const IntRes2d_IntersectionPoint& TopOpeBRep_Point2d::Pint() const
+inline const IntersectionPoint3& TopOpeBRep_Point2d::Pint() const
 {
   if (!HasPint())
     throw ExceptionBase("TopOpeBRep_Point2d::Pint");

@@ -618,22 +618,22 @@ Standard_Integer ChFi3d_ChBuilder::NbSurf(const Standard_Integer IC) const
 //--------------------------AJOUT---------------------------------------
 //=================================================================================================
 
-Handle(ChFiDS_SecHArray1) ChFi3d_ChBuilder::Sect(const Standard_Integer IC,
+Handle(SecHArray1) ChFi3d_ChBuilder::Sect(const Standard_Integer IC,
                                                  const Standard_Integer IS) const
 {
   ChFiDS_ListIteratorOfListOfStripe itel;
   Standard_Integer                  i = 1;
-  Handle(ChFiDS_SecHArray1)         res;
+  Handle(SecHArray1)         res;
   for (itel.Initialize(myListStripe); itel.More(); itel.Next(), i++)
   {
     if (i == IC)
     {
       Handle(RefObject) bid = itel.Value()->SetOfSurfData()->Value(IS)->Simul();
-      res                            = Handle(ChFiDS_SecHArray1)::DownCast(bid);
+      res                            = Handle(SecHArray1)::DownCast(bid);
       return res;
     }
   }
-  return Handle(ChFiDS_SecHArray1)();
+  return Handle(SecHArray1)();
 }
 
 //-------------------MODIFS---------------------------------------------
@@ -655,7 +655,7 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
   gp_Pnt2d p2l =
     SD->InterferenceOnS2().PCurveOnSurf()->Value(SD->InterferenceOnS2().LastParameter());
   GeomAdaptor_Surface       AS(S);
-  Handle(ChFiDS_SecHArray1) sec;
+  Handle(SecHArray1) sec;
   Standard_Real             u1, v1, u2, v2;
   GeomAbs_SurfaceType       typ = AS.GetType();
   switch (typ)
@@ -665,7 +665,7 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       v2                       = p2f.Y();
       u1                       = Max(p1f.X(), p2f.X());
       u2                       = Min(p1l.X(), p2l.X());
-      sec                      = new ChFiDS_SecHArray1(1, 2);
+      sec                      = new SecHArray1(1, 2);
       gp_Pln              Pl   = AS.Plane1();
       CircularSection& sec1 = sec->ChangeValue(1);
       CircularSection& sec2 = sec->ChangeValue(2);
@@ -684,7 +684,7 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       Standard_Integer n = (Standard_Integer)(36. * ang / M_PI + 1);
       if (n < 2)
         n = 2;
-      sec = new ChFiDS_SecHArray1(1, n);
+      sec = new SecHArray1(1, n);
       for (Standard_Integer i = 1; i <= n; i++)
       {
         CircularSection& isec = sec->ChangeValue(i);
@@ -806,11 +806,11 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
 
     if (!done)
       return Standard_False;
-    Handle(ChFiDS_SecHArray1) sec;
+    Handle(SecHArray1) sec;
     gp_Pnt2d                  pf1, pl1, pf2, pl2;
 
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -964,11 +964,11 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
 
     if (!done)
       return Standard_False;
-    Handle(ChFiDS_SecHArray1) sec;
+    Handle(SecHArray1) sec;
     gp_Pnt2d                  pf1, pl1, pf2, pl2;
 
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -1097,11 +1097,11 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
 
     if (!done)
       return Standard_False;
-    Handle(ChFiDS_SecHArray1) sec;
+    Handle(SecHArray1) sec;
     gp_Pnt2d                  pf1, pl1, pf2, pl2;
 
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);

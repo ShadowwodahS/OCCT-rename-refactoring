@@ -26,7 +26,7 @@
 #include <math_Matrix.hxx>
 
 //=======================================================================
-FairCurve_Energy::FairCurve_Energy(const Handle(TColgp_HArray1OfPnt2d)& Poles,
+FairCurve_Energy::FairCurve_Energy(const Handle(Point2dArray)& Poles,
                                    const Standard_Integer               ContrOrder1,
                                    const Standard_Integer               ContrOrder2,
                                    const Standard_Boolean               WithAuxValue,

@@ -22,7 +22,7 @@
 
 #include <XSControl_Vars.hxx>
 class RefObject;
-class Geom_Geometry;
+class Geometry3;
 class GeomCurve2d;
 class GeomCurve3d;
 class GeomSurface;
@@ -43,7 +43,7 @@ public:
   Standard_EXPORT virtual void Set(const Standard_CString            name,
                                    const Handle(RefObject)& val) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Geom_Geometry) GetGeom(Standard_CString& name) const
+  Standard_EXPORT virtual Handle(Geometry3) GetGeom(Standard_CString& name) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(GeomCurve2d) GetCurve2d(Standard_CString& name) const

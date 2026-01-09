@@ -36,7 +36,7 @@ class ResConstraintGradientbisBSpline;
 class AppParCurves_MultiCurve;
 
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute
-    : public math_MultipleVarFunctionWithGradient
+    : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,7 +47,7 @@ public:
     const AppDef_MultiLine&                               SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     const math_Vector&                                    Parameters,
     const Standard_Integer                                Deg);
 
@@ -90,11 +90,11 @@ public:
   Standard_EXPORT Standard_Real MaxError2d() const;
 
   Standard_EXPORT AppParCurves_Constraint
-    FirstConstraint(const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    FirstConstraint(const Handle(ConstraintCoupleArray)& TheConstraints,
                     const Standard_Integer                                FirstPoint) const;
 
   Standard_EXPORT AppParCurves_Constraint
-    LastConstraint(const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    LastConstraint(const Handle(ConstraintCoupleArray)& TheConstraints,
                    const Standard_Integer                                LastPoint) const;
 
 protected:
@@ -127,7 +127,7 @@ private:
   Standard_Real                                        ERR2d;
   Standard_Integer                                     FirstP;
   Standard_Integer                                     LastP;
-  Handle(AppParCurves_HArray1OfConstraintCouple)       myConstraints;
+  Handle(ConstraintCoupleArray)       myConstraints;
 };
 
 #endif // _AppDef_ParFunctionOfMyGradientbisOfBSplineCompute_HeaderFile

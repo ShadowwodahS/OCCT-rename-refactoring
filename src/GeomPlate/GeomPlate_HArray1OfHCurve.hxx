@@ -20,6 +20,6 @@
 #include <GeomPlate_Array1OfHCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(GeomPlate_HArray1OfHCurve, GeomPlate_Array1OfHCurve)
+DEFINE_HARRAY1(HandleCurveArray, GeomPlate_Array1OfHCurve)
 
 #endif

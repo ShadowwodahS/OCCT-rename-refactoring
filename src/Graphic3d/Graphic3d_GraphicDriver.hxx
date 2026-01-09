@@ -24,7 +24,7 @@
 #include <Graphic3d_TypeOfLimit.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-class Aspect_DisplayConnection;
+class DisplayConnection1;
 class Aspect_Window;
 class Graphic3d_CView;
 class Graphic3d_Layer;
@@ -141,7 +141,7 @@ public:
                                       Handle(Graphic3d_CView)&     theView) = 0;
 
   //! returns Handle to display connection
-  Standard_EXPORT const Handle(Aspect_DisplayConnection)& GetDisplayConnection() const;
+  Standard_EXPORT const Handle(DisplayConnection1)& GetDisplayConnection() const;
 
   //! Returns a new identification number for a new structure.
   Standard_EXPORT Standard_Integer NewIdentification();
@@ -154,10 +154,10 @@ public:
 
 protected:
   //! Initializes the Driver
-  Standard_EXPORT Graphic3d_GraphicDriver(const Handle(Aspect_DisplayConnection)& theDisp);
+  Standard_EXPORT Graphic3d_GraphicDriver(const Handle(DisplayConnection1)& theDisp);
 
 protected:
-  Handle(Aspect_DisplayConnection)                                 myDisplayConnection;
+  Handle(DisplayConnection1)                                 myDisplayConnection;
   GenId                                                     myStructGenId;
   NCollection_List<Handle(Graphic3d_Layer)>                        myLayers;
   NCollection_DataMap<Graphic3d_ZLayerId, Handle(Graphic3d_Layer)> myLayerIds;

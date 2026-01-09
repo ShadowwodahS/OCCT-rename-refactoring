@@ -132,7 +132,7 @@ Handle(TDF_Attribute) XCAFDoc_Material::NewEmpty() const
 //=================================================================================================
 
 void XCAFDoc_Material::Paste(const Handle(TDF_Attribute)& Into,
-                             const Handle(TDF_RelocationTable)& /*RT*/) const
+                             const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(XCAFDoc_Material)::DownCast(Into)->Set(myName,
                                                 myDescription,

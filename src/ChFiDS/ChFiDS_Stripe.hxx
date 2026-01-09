@@ -40,7 +40,7 @@ public:
   //! Reset everything except Spine.
   Standard_EXPORT void Reset();
 
-  const Handle(ChFiDS_HData)& SetOfSurfData() const;
+  const Handle(ChamferFilletData)& SetOfSurfData() const;
 
   const Handle(ChFiDS_Spine)& Spine() const;
 
@@ -50,7 +50,7 @@ public:
 
   Standard_Integer Choix() const;
 
-  Handle(ChFiDS_HData)& ChangeSetOfSurfData();
+  Handle(ChamferFilletData)& ChangeSetOfSurfData();
 
   Handle(ChFiDS_Spine)& ChangeSpine();
 
@@ -158,7 +158,7 @@ private:
   Standard_Real        pardeb2;
   Standard_Real        parfin2;
   Handle(ChFiDS_Spine) mySpine;
-  Handle(ChFiDS_HData) myHdata;
+  Handle(ChamferFilletData) myHdata;
   Handle(GeomCurve2d) pcrv1;
   Handle(GeomCurve2d) pcrv2;
   Standard_Integer     myChoix;

@@ -905,7 +905,7 @@ private:
 
 void Geom2dConvert1::ConcatG1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfCurves,
                              const TColStd_Array1OfReal&               ArrayOfToler,
-                             Handle(TColGeom2d_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                             Handle(BSplineCurveArray2d)& ArrayOfConcatenated,
                              Standard_Boolean&                         ClosedFlag,
                              const Standard_Real                       ClosedTolerance)
 
@@ -973,7 +973,7 @@ void Geom2dConvert1::ConcatG1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
     ReorderArrayOfG1(ArrayOfCurves, local_tolerance, tabG1, nb_vertex_group0, ClosedTolerance);
   }
 
-  ArrayOfConcatenated = new TColGeom2d_HArray1OfBSplineCurve(0, nb_group - 1);
+  ArrayOfConcatenated = new BSplineCurveArray2d(0, nb_group - 1);
 
   Standard_Boolean fusion;
   // Standard_Integer       k=0;
@@ -1137,7 +1137,7 @@ void Geom2dConvert1::ConcatG1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
 void Geom2dConvert1::ConcatC1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfCurves,
                              const TColStd_Array1OfReal&               ArrayOfToler,
                              Handle(TColStd_HArray1OfInteger)&         ArrayOfIndices,
-                             Handle(TColGeom2d_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                             Handle(BSplineCurveArray2d)& ArrayOfConcatenated,
                              Standard_Boolean&                         ClosedFlag,
                              const Standard_Real                       ClosedTolerance)
 {
@@ -1155,7 +1155,7 @@ void Geom2dConvert1::ConcatC1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
 void Geom2dConvert1::ConcatC1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfCurves,
                              const TColStd_Array1OfReal&               ArrayOfToler,
                              Handle(TColStd_HArray1OfInteger)&         ArrayOfIndices,
-                             Handle(TColGeom2d_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                             Handle(BSplineCurveArray2d)& ArrayOfConcatenated,
                              Standard_Boolean&                         ClosedFlag,
                              const Standard_Real                       ClosedTolerance,
                              const Standard_Real                       AngularTolerance)
@@ -1229,7 +1229,7 @@ void Geom2dConvert1::ConcatC1(TColGeom2d_Array1OfBSplineCurve&          ArrayOfC
   }
 
   ArrayOfIndices      = new TColStd_HArray1OfInteger(0, nb_group);
-  ArrayOfConcatenated = new TColGeom2d_HArray1OfBSplineCurve(0, nb_group - 1);
+  ArrayOfConcatenated = new BSplineCurveArray2d(0, nb_group - 1);
 
   Standard_Boolean fusion;
   Standard_Integer k = 0;
@@ -1457,7 +1457,7 @@ void Geom2dConvert1::C0BSplineToC1BSplineCurve(Handle(Geom2d_BSplineCurve)& BS,
 
     const Standard_Real                      anAngularToler = 1.0e-7;
     Handle(TColStd_HArray1OfInteger)         ArrayOfIndices;
-    Handle(TColGeom2d_HArray1OfBSplineCurve) ArrayOfConcatenated;
+    Handle(BSplineCurveArray2d) ArrayOfConcatenated;
 
     BS->D1(BS->FirstParameter(), point1, V1); // a verifier
     BS->D1(BS->LastParameter(), point2, V2);
@@ -1493,7 +1493,7 @@ void Geom2dConvert1::C0BSplineToC1BSplineCurve(Handle(Geom2d_BSplineCurve)& BS,
 
 void Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(
   const Handle(Geom2d_BSplineCurve)&        BS,
-  Handle(TColGeom2d_HArray1OfBSplineCurve)& tabBS,
+  Handle(BSplineCurveArray2d)& tabBS,
   const Standard_Real                       tolerance)
 {
   C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, tolerance, Precision1::Angular());
@@ -1503,7 +1503,7 @@ void Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(
 
 void Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(
   const Handle(Geom2d_BSplineCurve)&        BS,
-  Handle(TColGeom2d_HArray1OfBSplineCurve)& tabBS,
+  Handle(BSplineCurveArray2d)& tabBS,
   const Standard_Real                       AngularTolerance,
   const Standard_Real                       Tolerance)
 
@@ -1568,7 +1568,7 @@ void Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(
   }
   else
   {
-    tabBS = new TColGeom2d_HArray1OfBSplineCurve(0, 0);
+    tabBS = new BSplineCurveArray2d(0, 0);
     tabBS->SetValue(0, BS);
   }
 }

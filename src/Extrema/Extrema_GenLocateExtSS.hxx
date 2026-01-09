@@ -21,17 +21,17 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <Extrema_POnSurf.hxx>
-class Adaptor3d_Surface;
+class SurfaceAdaptor;
 
 //! With two close points it calculates the distance
 //! between two surfaces.
 //! This distance can be a minimum or a maximum.
-class Extrema_GenLocateExtSS
+class GenericSurfaceSurfaceExtrema
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Extrema_GenLocateExtSS();
+  Standard_EXPORT GenericSurfaceSurfaceExtrema();
 
   //! Calculates the distance with two close points.
   //! The close points are defined by the parameter values
@@ -39,8 +39,8 @@ public:
   //! The function F(u1,v1,u2,v2)=distance(S1(u1,v1),S2(u2,v2))
   //! has an extremun when gradient(F)=0. The algorithm searches
   //! a zero near the close points.
-  Standard_EXPORT Extrema_GenLocateExtSS(const Adaptor3d_Surface& S1,
-                                         const Adaptor3d_Surface& S2,
+  Standard_EXPORT GenericSurfaceSurfaceExtrema(const SurfaceAdaptor& S1,
+                                         const SurfaceAdaptor& S2,
                                          const Standard_Real      U1,
                                          const Standard_Real      V1,
                                          const Standard_Real      U2,
@@ -48,8 +48,8 @@ public:
                                          const Standard_Real      Tol1,
                                          const Standard_Real      Tol2);
 
-  Standard_EXPORT void Perform(const Adaptor3d_Surface& S1,
-                               const Adaptor3d_Surface& S2,
+  Standard_EXPORT void Perform(const SurfaceAdaptor& S1,
+                               const SurfaceAdaptor& S2,
                                const Standard_Real      U1,
                                const Standard_Real      V1,
                                const Standard_Real      U2,

@@ -435,7 +435,7 @@ void Tool3::TagList(const AsciiString1& anEntry, TColStd_ListOfInteger& aTagList
 // purpose  : Returns the label expressed by <anEntry>.
 //=======================================================================
 
-void Tool3::Label(const Handle(TDF_Data)&        aDF,
+void Tool3::Label(const Handle(Data2)&        aDF,
                      const AsciiString1& anEntry,
                      DataLabel&                     aLabel,
                      const Standard_Boolean         create)
@@ -454,7 +454,7 @@ void Tool3::Label(const Handle(TDF_Data)&        aDF,
 //           and creates it if <create> is true.
 //=======================================================================
 
-void Tool3::Label(const Handle(TDF_Data)& aDF,
+void Tool3::Label(const Handle(Data2)& aDF,
                      const Standard_CString  anEntry,
                      DataLabel&              aLabel,
                      const Standard_Boolean  create)
@@ -477,7 +477,7 @@ void Tool3::Label(const Handle(TDF_Data)& aDF,
 //           and creates it if <create> is true.
 //=======================================================================
 
-void Tool3::Label(const Handle(TDF_Data)&      aDF,
+void Tool3::Label(const Handle(Data2)&      aDF,
                      const TColStd_ListOfInteger& aTagList,
                      DataLabel&                   aLabel,
                      const Standard_Boolean       create)
@@ -563,7 +563,7 @@ void Tool3::DeductLabels(TDF_LabelList& aLabelList, TDF_LabelIntegerMap& aLabelM
 // purpose  : Deep dump of a DF.
 //=======================================================================
 
-void Tool3::DeepDump(Standard_OStream& anOS, const Handle(TDF_Data)& aDF)
+void Tool3::DeepDump(Standard_OStream& anOS, const Handle(Data2)& aDF)
 {
   anOS << aDF;
   Tool3::DeepDump(anOS, aDF->Root());
@@ -575,7 +575,7 @@ void Tool3::DeepDump(Standard_OStream& anOS, const Handle(TDF_Data)& aDF)
 //=======================================================================
 
 void Tool3::ExtendedDeepDump(Standard_OStream&       anOS,
-                                const Handle(TDF_Data)& aDF,
+                                const Handle(Data2)& aDF,
                                 const IDFilter&     aFilter)
 {
   anOS << aDF;

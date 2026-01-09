@@ -24,14 +24,14 @@
 #include <TColgp_Array1OfVec.hxx>
 #include <gp_Mat.hxx>
 #include <Standard_Integer.hxx>
-class GeomFill_LocationLaw;
+class LocationLaw;
 
 class GeomFill_LocFunction
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_LocFunction(const Handle(GeomFill_LocationLaw)& Law1);
+  Standard_EXPORT GeomFill_LocFunction(const Handle(LocationLaw)& Law1);
 
   //! compute the section for v = param
   Standard_EXPORT Standard_Boolean D0(const Standard_Real Param,
@@ -59,7 +59,7 @@ public:
 
 protected:
 private:
-  Handle(GeomFill_LocationLaw) myLaw;
+  Handle(LocationLaw) myLaw;
   TColgp_Array1OfVec           V;
   TColgp_Array1OfVec           DV;
   TColgp_Array1OfVec           D2V;

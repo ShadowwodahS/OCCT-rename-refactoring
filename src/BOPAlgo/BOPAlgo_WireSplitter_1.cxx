@@ -1077,7 +1077,7 @@ Standard_Boolean RefineAngle2D(const TopoVertex&            aV,
     aT2max = -1.;
     for (j = 1; j <= aNbP; ++j)
     {
-      const IntRes2d_IntersectionPoint& aIPj = aGInter.Point(j);
+      const IntersectionPoint3& aIPj = aGInter.Point(j);
       aT1j                                   = aIPj.ParamOnFirst();
       aT2j                                   = aIPj.ParamOnSecond();
       //

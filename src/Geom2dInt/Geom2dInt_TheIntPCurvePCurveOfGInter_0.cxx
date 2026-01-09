@@ -38,6 +38,6 @@
 #define IntCurve_ExactIntersectionPoint Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter
 #define IntCurve_ExactIntersectionPoint_hxx                                                        \
   <Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter.hxx>
-#define IntCurve_IntPolyPolyGen Geom2dInt_TheIntPCurvePCurveOfGInter
+#define IntCurve_IntPolyPolyGen IntPCurvePCurve2d
 #define IntCurve_IntPolyPolyGen_hxx <Geom2dInt_TheIntPCurvePCurveOfGInter.hxx>
 #include "../IntCurve/IntCurve_IntPolyPolyGen.gxx"

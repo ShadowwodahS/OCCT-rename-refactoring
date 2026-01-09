@@ -18,7 +18,7 @@
 #include <gp_Elips2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BElips, GccInt_Bisec)
+IMPLEMENT_STANDARD_RTTIEXT(GccInt_BElips, Bisector2)
 
 GccInt_BElips::GccInt_BElips(const gp_Elips2d& Ellipse)
 {

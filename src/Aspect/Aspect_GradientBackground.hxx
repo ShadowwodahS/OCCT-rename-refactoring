@@ -20,7 +20,7 @@
 #include <Aspect_Background.hxx>
 
 //! This class allows the definition of a window gradient background.
-class Aspect_GradientBackground : public Aspect_Background
+class Aspect_GradientBackground : public Background1
 {
 public:
   DEFINE_STANDARD_ALLOC

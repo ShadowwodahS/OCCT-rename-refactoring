@@ -119,10 +119,10 @@ public:
   Handle(TColStd_HArray2OfReal) Poles1d() const;
 
   //! returns the poles from the algorithms as is
-  Handle(TColgp_HArray2OfPnt2d) Poles2d() const;
+  Handle(Point2dGrid) Poles2d() const;
 
   //! -- returns the poles from the algorithms as is
-  Handle(TColgp_HArray2OfPnt) Poles() const;
+  Handle(PointGrid) Poles() const;
 
   //! as the name says
   Standard_EXPORT Standard_Integer NbPoles() const;
@@ -181,8 +181,8 @@ private:
   Standard_Boolean                 myDone;
   Standard_Boolean                 myHasResult;
   Handle(TColStd_HArray2OfReal)    my1DPoles;
-  Handle(TColgp_HArray2OfPnt2d)    my2DPoles;
-  Handle(TColgp_HArray2OfPnt)      my3DPoles;
+  Handle(Point2dGrid)    my2DPoles;
+  Handle(PointGrid)      my3DPoles;
   Handle(TColStd_HArray1OfReal)    myKnots;
   Handle(TColStd_HArray1OfInteger) myMults;
   Standard_Integer                 myDegree;

@@ -15,4 +15,4 @@
 
 #include <IMeshTools_MeshAlgo.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshTools_MeshAlgo, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(MeshAlgorithm, RefObject)

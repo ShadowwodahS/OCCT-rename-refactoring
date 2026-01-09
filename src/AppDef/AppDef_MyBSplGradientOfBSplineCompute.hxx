@@ -34,7 +34,7 @@ class AppDef_MultiLine;
 class MultiLineTool;
 class AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute;
 class AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute;
-class AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute;
+class BSplBFGSGradientBSplineCompute;
 class AppParCurves_MultiBSpCurve;
 
 class AppDef_MyBSplGradientOfBSplineCompute
@@ -52,7 +52,7 @@ public:
     const AppDef_MultiLine&                               SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const TColStd_Array1OfReal&                           Knots,
     const TColStd_Array1OfInteger&                        Mults,
@@ -71,7 +71,7 @@ public:
     const AppDef_MultiLine&                               SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const TColStd_Array1OfReal&                           Knots,
     const TColStd_Array1OfInteger&                        Mults,
@@ -111,7 +111,7 @@ protected:
   Standard_EXPORT void Perform(const AppDef_MultiLine&                               SSP,
                                const Standard_Integer                                FirstPoint,
                                const Standard_Integer                                LastPoint,
-                               const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+                               const Handle(ConstraintCoupleArray)& TheConstraints,
                                math_Vector&                                          Parameters,
                                const TColStd_Array1OfReal&                           Knots,
                                const TColStd_Array1OfInteger&                        Mults,

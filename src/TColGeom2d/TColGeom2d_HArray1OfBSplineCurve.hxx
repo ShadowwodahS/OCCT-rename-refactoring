@@ -21,6 +21,6 @@
 #include <TColGeom2d_Array1OfBSplineCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColGeom2d_HArray1OfBSplineCurve, TColGeom2d_Array1OfBSplineCurve)
+DEFINE_HARRAY1(BSplineCurveArray2d, TColGeom2d_Array1OfBSplineCurve)
 
 #endif

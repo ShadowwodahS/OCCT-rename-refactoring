@@ -19,9 +19,9 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Buffer Object - is a general storage object for arbitrary data (see sub-classes).
-class OpenGl_Buffer : public OpenGl_Resource
+class OpenGl_Buffer : public Resource
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Buffer, OpenGl_Resource)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Buffer, Resource)
 public:
   //! Helpful constants
   static const unsigned int NO_BUFFER = 0;
@@ -293,6 +293,6 @@ protected:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Buffer, OpenGl_Resource)
+DEFINE_STANDARD_HANDLE(OpenGl_Buffer, Resource)
 
 #endif // _OpenGl_Buffer_H__

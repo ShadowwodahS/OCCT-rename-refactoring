@@ -1158,7 +1158,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           Standard_Integer i, index1 = 0, index2 = 0;
           Standard_Real    pardist, pardist1 = -1., pardist2 = -1.;
           // iterate on intersection points
-          IntRes2d_IntersectionPoint IP;
+          IntersectionPoint3 IP;
           for (i = 1; i <= Inter.NbPoints(); i++)
           {
             IP = Inter.Point(i);
@@ -1555,7 +1555,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                     }
                     // iterate on intersection segments
                     Standard_Integer             flag = 0;
-                    IntRes2d_IntersectionPoint   IP;
+                    IntersectionPoint3   IP;
                     IntRes2d_IntersectionSegment IS;
                     for (i = 1; i <= Inter.NbSegments(); i++)
                     {

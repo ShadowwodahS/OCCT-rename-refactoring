@@ -45,7 +45,7 @@ AIS_ConnectedInteractive::AIS_ConnectedInteractive(
 //=================================================================================================
 
 void AIS_ConnectedInteractive::connect(const Handle(VisualEntity)& theAnotherObj,
-                                       const Handle(TopLoc_Datum3D)&        theLocation)
+                                       const Handle(Datum3D2)&        theLocation)
 {
   if (myReference == theAnotherObj)
   {
@@ -128,7 +128,7 @@ void AIS_ConnectedInteractive::Compute(const Handle(PrsMgr_PresentationManager)&
 //=================================================================================================
 
 void AIS_ConnectedInteractive::computeHLR(const Handle(CameraOn3d)&   theProjector,
-                                          const Handle(TopLoc_Datum3D)&     theTransformation,
+                                          const Handle(Datum3D2)&     theTransformation,
                                           const Handle(Prs3d_Presentation)& thePresentation)
 {
   const bool hasTrsf = !theTransformation.IsNull() && theTransformation->Form() != gp_Identity;

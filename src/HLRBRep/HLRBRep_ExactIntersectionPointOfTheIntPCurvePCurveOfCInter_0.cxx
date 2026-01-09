@@ -36,6 +36,6 @@
 #define IntCurve_ExactIntersectionPoint HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter
 #define IntCurve_ExactIntersectionPoint_hxx                                                        \
   <HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter.hxx>
-#define IntCurve_IntPolyPolyGen HLRBRep_TheIntPCurvePCurveOfCInter
+#define IntCurve_IntPolyPolyGen IntPCurvePCurveCInter
 #define IntCurve_IntPolyPolyGen_hxx <HLRBRep_TheIntPCurvePCurveOfCInter.hxx>
 #include "../IntCurve/IntCurve_ExactIntersectionPoint.gxx"

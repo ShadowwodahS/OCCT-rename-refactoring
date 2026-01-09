@@ -29,19 +29,19 @@
 #include <TColgp_HArray2OfLin2d.hxx>
 #include <TColgp_HArray2OfCirc2d.hxx>
 
-class ShapePersistent_HArray2 : private HArray2
+class HArray21 : private HArray2
 {
 public:
-  typedef instance<TColgp_HArray2OfXYZ>    XYZ;
-  typedef instance<TColgp_HArray2OfPnt>    Pnt;
-  typedef instance<TColgp_HArray2OfDir>    Dir;
-  typedef instance<TColgp_HArray2OfVec>    Vec;
-  typedef instance<TColgp_HArray2OfXY>     XY;
-  typedef instance<TColgp_HArray2OfPnt2d>  Pnt2d;
-  typedef instance<TColgp_HArray2OfDir2d>  Dir2d;
-  typedef instance<TColgp_HArray2OfVec2d>  Vec2d;
-  typedef instance<TColgp_HArray2OfLin2d>  Lin2d;
-  typedef instance<TColgp_HArray2OfCirc2d> Circ2d;
+  typedef instance<XYZGrid>    XYZ;
+  typedef instance<PointGrid>    Pnt;
+  typedef instance<DirectionGrid>    Dir;
+  typedef instance<VectorGrid>    Vec;
+  typedef instance<XYGrid>     XY;
+  typedef instance<Point2dGrid>  Pnt2d;
+  typedef instance<Direction2dGrid>  Dir2d;
+  typedef instance<Vector2dGrid>  Vec2d;
+  typedef instance<Line2dGrid>  Lin2d;
+  typedef instance<Circle2dGrid> Circ2d;
 };
 
 #endif

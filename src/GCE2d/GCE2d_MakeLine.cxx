@@ -46,7 +46,7 @@ GCE2d_MakeLine::GCE2d_MakeLine(const gp_Pnt2d& P, const gp_Dir2d& V)
 
 GCE2d_MakeLine::GCE2d_MakeLine(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
-  gce_MakeLin2d L(P1, P2);
+  LineBuilder2d L(P1, P2);
   TheError = L.Status();
   if (TheError == gce_Done)
   {
@@ -56,7 +56,7 @@ GCE2d_MakeLine::GCE2d_MakeLine(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 
 GCE2d_MakeLine::GCE2d_MakeLine(const gp_Lin2d& Lin, const gp_Pnt2d& Point)
 {
-  gce_MakeLin2d L(Lin, Point);
+  LineBuilder2d L(Lin, Point);
   TheError = L.Status();
   if (TheError == gce_Done)
   {
@@ -66,7 +66,7 @@ GCE2d_MakeLine::GCE2d_MakeLine(const gp_Lin2d& Lin, const gp_Pnt2d& Point)
 
 GCE2d_MakeLine::GCE2d_MakeLine(const gp_Lin2d& Lin, const Standard_Real Dist)
 {
-  gce_MakeLin2d L(Lin, Dist);
+  LineBuilder2d L(Lin, Dist);
   TheError = L.Status();
   if (TheError == gce_Done)
   {

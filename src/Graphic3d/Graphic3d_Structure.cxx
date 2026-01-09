@@ -316,7 +316,7 @@ void Graphic3d_Structure::ReCompute()
 
 //=================================================================================================
 
-void Graphic3d_Structure::ReCompute(const Handle(Graphic3d_DataStructureManager)& theProjector)
+void Graphic3d_Structure::ReCompute(const Handle(DataStructureManager)& theProjector)
 {
   myStructureManager->ReCompute(this, theProjector);
 }
@@ -577,7 +577,7 @@ void Graphic3d_Structure::DisconnectAll(const Graphic3d_TypeOfConnection theType
 
 //=================================================================================================
 
-void Graphic3d_Structure::SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
+void Graphic3d_Structure::SetTransformation(const Handle(Datum3D2)& theTrsf)
 {
   if (IsDeleted())
     return;
@@ -586,7 +586,7 @@ void Graphic3d_Structure::SetTransformation(const Handle(TopLoc_Datum3D)& theTrs
 
   if (!theTrsf.IsNull() && theTrsf->Trsf().Form() == gp_Identity)
   {
-    myCStructure->SetTransformation(Handle(TopLoc_Datum3D)());
+    myCStructure->SetTransformation(Handle(Datum3D2)());
   }
   else
   {
@@ -639,7 +639,7 @@ Box2 Graphic3d_Structure::MinMaxValues(const Standard_Boolean theToIgnoreInfinit
 //=================================================================================================
 
 void Graphic3d_Structure::SetTransformPersistence(
-  const Handle(Graphic3d_TransformPers)& theTrsfPers)
+  const Handle(TransformPers)& theTrsfPers)
 {
   if (IsDeleted())
   {

@@ -101,7 +101,7 @@ static void findfourpoints(const Standard_Real,
   }
 }
 
-/*static Standard_Real curvature(const Standard_Real U, const Adaptor3d_Curve& C)
+/*static Standard_Real curvature(const Standard_Real U, const Curve5& C)
 {
   Standard_Real k, tau, mod1, mod2, OMEGA;
   Point3d P;
@@ -118,7 +118,7 @@ static void findfourpoints(const Standard_Real,
 }
 */
 
-Approx_CurvlinFunc::Approx_CurvlinFunc(const Handle(Adaptor3d_Curve)& C, const Standard_Real Tol)
+Approx_CurvlinFunc::Approx_CurvlinFunc(const Handle(Curve5)& C, const Standard_Real Tol)
     : myC3D(C),
       myCase(1),
       myFirstS(0),
@@ -131,7 +131,7 @@ Approx_CurvlinFunc::Approx_CurvlinFunc(const Handle(Adaptor3d_Curve)& C, const S
 }
 
 Approx_CurvlinFunc::Approx_CurvlinFunc(const Handle(Adaptor2d_Curve2d)& C2D,
-                                       const Handle(Adaptor3d_Surface)& S,
+                                       const Handle(SurfaceAdaptor)& S,
                                        const Standard_Real              Tol)
     : myC2D1(C2D),
       mySurf1(S),
@@ -147,8 +147,8 @@ Approx_CurvlinFunc::Approx_CurvlinFunc(const Handle(Adaptor2d_Curve2d)& C2D,
 
 Approx_CurvlinFunc::Approx_CurvlinFunc(const Handle(Adaptor2d_Curve2d)& C2D1,
                                        const Handle(Adaptor2d_Curve2d)& C2D2,
-                                       const Handle(Adaptor3d_Surface)& S1,
-                                       const Handle(Adaptor3d_Surface)& S2,
+                                       const Handle(SurfaceAdaptor)& S1,
+                                       const Handle(SurfaceAdaptor)& S2,
                                        const Standard_Real              Tol)
     : myC2D1(C2D1),
       myC2D2(C2D2),
@@ -206,7 +206,7 @@ void Approx_CurvlinFunc::Init()
 // history  : 23/10/1998 PMN : Cut at curve's discontinuities
 //=================================================================================================
 
-void Approx_CurvlinFunc::Init(Adaptor3d_Curve&               C,
+void Approx_CurvlinFunc::Init(Curve5&               C,
                               Handle(TColStd_HArray1OfReal)& Si,
                               Handle(TColStd_HArray1OfReal)& Ui) const
 {
@@ -436,7 +436,7 @@ void Approx_CurvlinFunc::Length()
   }
 }
 
-Standard_Real Approx_CurvlinFunc::Length(Adaptor3d_Curve&    C,
+Standard_Real Approx_CurvlinFunc::Length(Curve5&    C,
                                          const Standard_Real FirstU,
                                          const Standard_Real LastU) const
 {
@@ -478,7 +478,7 @@ Standard_Real Approx_CurvlinFunc::GetSParameter(const Standard_Real U) const
   return S;
 }
 
-Standard_Real Approx_CurvlinFunc::GetUParameter(Adaptor3d_Curve&       C,
+Standard_Real Approx_CurvlinFunc::GetUParameter(Curve5&       C,
                                                 const Standard_Real    S,
                                                 const Standard_Integer NumberOfCurve) const
 {
@@ -551,7 +551,7 @@ Standard_Real Approx_CurvlinFunc::GetUParameter(Adaptor3d_Curve&       C,
   return U;
 }
 
-Standard_Real Approx_CurvlinFunc::GetSParameter(Adaptor3d_Curve&    C,
+Standard_Real Approx_CurvlinFunc::GetSParameter(Curve5&    C,
                                                 const Standard_Real U,
                                                 const Standard_Real Len) const
 {
@@ -661,7 +661,7 @@ Standard_Boolean Approx_CurvlinFunc::EvalCurOnSur(const Standard_Real    S,
                                                   const Standard_Integer NumberOfCurve) const
 {
   Handle(Adaptor2d_Curve2d) Cur2D;
-  Handle(Adaptor3d_Surface) Surf;
+  Handle(SurfaceAdaptor) Surf;
   Standard_Real             U = 0, Length = 0;
 
   if (NumberOfCurve == 1)

@@ -861,7 +861,7 @@ void ShapeBuilder::UpdateEdge(const TopoEdge&                         E,
 //=================================================================================================
 
 void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
-                              const Handle(Poly_Polygon2D)& P,
+                              const Handle(Polygon2D2)& P,
                               const TopoFace&            F) const
 {
   TopLoc_Location             l;
@@ -872,7 +872,7 @@ void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
 //=================================================================================================
 
 void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
-                              const Handle(Poly_Polygon2D)& P,
+                              const Handle(Polygon2D2)& P,
                               const Handle(GeomSurface)&   S,
                               const TopLoc_Location&        L) const
 {
@@ -914,8 +914,8 @@ void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
 //=================================================================================================
 
 void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
-                              const Handle(Poly_Polygon2D)& P1,
-                              const Handle(Poly_Polygon2D)& P2,
+                              const Handle(Polygon2D2)& P1,
+                              const Handle(Polygon2D2)& P2,
                               const TopoFace&            F) const
 {
   TopLoc_Location             l;
@@ -926,8 +926,8 @@ void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
 //=================================================================================================
 
 void ShapeBuilder::UpdateEdge(const TopoEdge&            E,
-                              const Handle(Poly_Polygon2D)& P1,
-                              const Handle(Poly_Polygon2D)& P2,
+                              const Handle(Polygon2D2)& P1,
+                              const Handle(Polygon2D2)& P2,
                               const Handle(GeomSurface)&   S,
                               const TopLoc_Location&        L) const
 {

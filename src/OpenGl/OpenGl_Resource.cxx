@@ -16,9 +16,9 @@
 #include <OpenGl_Resource.hxx>
 #include <OpenGl_NamedResource.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Resource, RefObject)
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_NamedResource, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(Resource, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_NamedResource, Resource)
 
-OpenGl_Resource::OpenGl_Resource() {}
+Resource::Resource() {}
 
-OpenGl_Resource::~OpenGl_Resource() {}
+Resource::~Resource() {}

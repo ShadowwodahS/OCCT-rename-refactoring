@@ -33,11 +33,11 @@
 #include <XCAFDoc_ShapeTool.hxx>
 #include <XCAFDoc_VisMaterialTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWMesh_CafReader, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(CafReader, RefObject)
 
 //=================================================================================================
 
-RWMesh_CafReader::RWMesh_CafReader()
+CafReader::CafReader()
     : myToFillDoc(Standard_True),
       myToFillIncomplete(Standard_True),
       myMemoryLimitMiB(-1),
@@ -48,12 +48,12 @@ RWMesh_CafReader::RWMesh_CafReader()
 
 //=================================================================================================
 
-RWMesh_CafReader::~RWMesh_CafReader()
+CafReader::~CafReader()
 {
   //
 }
 
-void RWMesh_CafReader::SetDocument(const Handle(AppDocument)& theDoc)
+void CafReader::SetDocument(const Handle(AppDocument)& theDoc)
 {
   myXdeDoc                    = theDoc;
   Standard_Real aScaleFactorM = 1.;
@@ -65,7 +65,7 @@ void RWMesh_CafReader::SetDocument(const Handle(AppDocument)& theDoc)
 
 //=================================================================================================
 
-TopoShape RWMesh_CafReader::SingleShape() const
+TopoShape CafReader::SingleShape() const
 {
   if (myRootShapes.Size() > 1)
   {
@@ -88,7 +88,7 @@ TopoShape RWMesh_CafReader::SingleShape() const
 
 //=================================================================================================
 
-Standard_Boolean RWMesh_CafReader::perform(const AsciiString1& theFile,
+Standard_Boolean CafReader::perform(const AsciiString1& theFile,
                                            const Message_ProgressRange&   theProgress,
                                            const Standard_Boolean         theToProbe)
 {
@@ -99,7 +99,7 @@ Standard_Boolean RWMesh_CafReader::perform(const AsciiString1& theFile,
 
 //=================================================================================================
 
-Standard_Boolean RWMesh_CafReader::perform(std::istream&                  theStream,
+Standard_Boolean CafReader::perform(std::istream&                  theStream,
                                            const AsciiString1& theFile,
                                            const Message_ProgressRange&   theProgress,
                                            const Standard_Boolean         theToProbe)
@@ -163,7 +163,7 @@ Standard_Boolean RWMesh_CafReader::perform(std::istream&                  theStr
 
 //=================================================================================================
 
-void RWMesh_CafReader::fillDocument()
+void CafReader::fillDocument()
 {
   if (!myToFillDoc || myXdeDoc.IsNull() || myRootShapes.IsEmpty())
   {
@@ -199,7 +199,7 @@ void RWMesh_CafReader::fillDocument()
 
 //=================================================================================================
 
-void RWMesh_CafReader::setShapeName(const DataLabel&               theLabel,
+void CafReader::setShapeName(const DataLabel&               theLabel,
                                     const TopAbs_ShapeEnum         theShapeType,
                                     const AsciiString1& theName,
                                     const DataLabel&               theParentLabel,
@@ -221,7 +221,7 @@ void RWMesh_CafReader::setShapeName(const DataLabel&               theLabel,
 
 //=================================================================================================
 
-void RWMesh_CafReader::setShapeStyle(const CafDocumentTools& theTools,
+void CafReader::setShapeStyle(const CafDocumentTools& theTools,
                                      const DataLabel&        theLabel,
                                      const XCAFPrs_Style&    theStyle)
 {
@@ -248,7 +248,7 @@ void RWMesh_CafReader::setShapeStyle(const CafDocumentTools& theTools,
 
 //=================================================================================================
 
-void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
+void CafReader::setShapeNamedData(const CafDocumentTools&,
                                          const DataLabel&                  theLabel,
                                          const Handle(TDataStd_NamedData)& theNameData)
 {
@@ -281,7 +281,7 @@ void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
 
 //=================================================================================================
 
-Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&              theTools,
+Standard_Boolean CafReader::addShapeIntoDoc(CafDocumentTools&              theTools,
                                                    const TopoShape&            theShape,
                                                    const DataLabel&               theLabel,
                                                    const AsciiString1& theParentName)
@@ -460,7 +460,7 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
 
 //=================================================================================================
 
-Standard_Boolean RWMesh_CafReader::addSubShapeIntoDoc(CafDocumentTools&   theTools,
+Standard_Boolean CafReader::addSubShapeIntoDoc(CafDocumentTools&   theTools,
                                                       const TopoShape& theShape,
                                                       const DataLabel&    theParentLabel)
 {
@@ -516,7 +516,7 @@ Standard_Boolean RWMesh_CafReader::addSubShapeIntoDoc(CafDocumentTools&   theToo
 
 //=================================================================================================
 
-void RWMesh_CafReader::generateNames(const AsciiString1& theFile,
+void CafReader::generateNames(const AsciiString1& theFile,
                                      const Standard_Integer         theRootLower,
                                      const Standard_Boolean         theWithSubLabels)
 {

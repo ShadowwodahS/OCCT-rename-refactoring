@@ -20,6 +20,6 @@
 #include <TColGeom_Array2OfSurface.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(TColGeom_HArray2OfSurface, TColGeom_Array2OfSurface)
+DEFINE_HARRAY2(SurfaceGridArray, TColGeom_Array2OfSurface)
 
 #endif

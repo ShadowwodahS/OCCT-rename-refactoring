@@ -29,7 +29,7 @@
 
 class MeshTriangulation;
 class Poly_Polygon3D;
-class Poly_Polygon2D;
+class Polygon2D2;
 class Triangle2;
 
 //! This  package  provides  classes  and services  to
@@ -50,7 +50,7 @@ public:
   //! Computes and  stores  the    link from   nodes  to
   //! triangles     and from triangles to   neighbouring
   //! triangles.
-  //! This tool is obsolete, replaced by Poly_CoherentTriangulation
+  //! This tool is obsolete, replaced by CoherentTriangulation
   //! Algorithm to make minimal loops in a graph
   //! Join several triangulations to one new triangulation object.
   //! The new triangulation is just a mechanical sum of input
@@ -82,7 +82,7 @@ public:
   //! format  intended  to  be read back   with the Read
   //! method. If compact is False  it is a "Dump" format
   //! intended to be informative.
-  Standard_EXPORT static void Write(const Handle(Poly_Polygon2D)& P,
+  Standard_EXPORT static void Write(const Handle(Polygon2D2)& P,
                                     Standard_OStream&             OS,
                                     const Standard_Boolean        Compact = Standard_True);
 
@@ -96,7 +96,7 @@ public:
 
   //! Dumps  the  2D  polygon.  This   is a call to  the
   //! previous method with Comapct set to False.
-  Standard_EXPORT static void Dump(const Handle(Poly_Polygon2D)& P, Standard_OStream& OS);
+  Standard_EXPORT static void Dump(const Handle(Polygon2D2)& P, Standard_OStream& OS);
 
   //! Reads a triangulation from the stream <IS>.
   Standard_EXPORT static Handle(MeshTriangulation) ReadTriangulation(Standard_IStream& IS);
@@ -105,7 +105,7 @@ public:
   Standard_EXPORT static Handle(Poly_Polygon3D) ReadPolygon3D(Standard_IStream& IS);
 
   //! Reads a 2D polygon from the stream <IS>.
-  Standard_EXPORT static Handle(Poly_Polygon2D) ReadPolygon2D(Standard_IStream& IS);
+  Standard_EXPORT static Handle(Polygon2D2) ReadPolygon2D(Standard_IStream& IS);
 
   //! Compute node normals for face triangulation
   //! as mean normal of surrounding triangles

@@ -86,7 +86,7 @@ static void ComputePoles(const Standard_Real R,
 
 //=================================================================================================
 
-Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&     T,
+TorusToBSplineConverter::TorusToBSplineConverter(const gp_Torus&     T,
                                                              const Standard_Real U1,
                                                              const Standard_Real U2,
                                                              const Standard_Real V1,
@@ -102,7 +102,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
   Standard_Real deltaV = V2 - V1;
   Standard_DomainError_Raise_if((deltaU > 2 * M_PI) || (deltaU < 0.) || (deltaV > 2 * M_PI)
                                   || (deltaV < 0.),
-                                "Convert_TorusToBSplineSurface");
+                                "TorusToBSplineConverter");
 
   isuperiodic = Standard_False;
   isvperiodic = Standard_False;
@@ -169,7 +169,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
 
 //=================================================================================================
 
-Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&        T,
+TorusToBSplineConverter::TorusToBSplineConverter(const gp_Torus&        T,
                                                              const Standard_Real    Param1,
                                                              const Standard_Real    Param2,
                                                              const Standard_Boolean UTrim)
@@ -184,7 +184,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
   Standard_Real delta = Param2 - Param1;
 #endif
   Standard_DomainError_Raise_if((delta > 2 * M_PI) || (delta < 0.),
-                                "Convert_TorusToBSplineSurface");
+                                "TorusToBSplineConverter");
 
   Standard_Integer i, j;
   Standard_Real    deltaU, deltaV;
@@ -283,7 +283,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
 
 //=================================================================================================
 
-Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus& T)
+TorusToBSplineConverter::TorusToBSplineConverter(const gp_Torus& T)
     : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,

@@ -23,7 +23,7 @@
 
 static Standard_Real uinf, vinf, usup, vsup;
 
-Standard_Integer HContTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HContTool::NbSamplesV(const Handle(SurfaceAdaptor)& S,
                                               const Standard_Real,
                                               const Standard_Real)
 {
@@ -65,7 +65,7 @@ Standard_Integer HContTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
   return (nbs);
 }
 
-Standard_Integer HContTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HContTool::NbSamplesU(const Handle(SurfaceAdaptor)& S,
                                               const Standard_Real,
                                               const Standard_Real)
 {
@@ -110,7 +110,7 @@ Standard_Integer HContTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
   return (nbs);
 }
 
-Standard_Integer HContTool::NbSamplePoints(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HContTool::NbSamplePoints(const Handle(SurfaceAdaptor)& S)
 {
   uinf = S->FirstUParameter();
   usup = S->LastUParameter();
@@ -168,7 +168,7 @@ Standard_Integer HContTool::NbSamplePoints(const Handle(Adaptor3d_Surface)& S)
     return 5;
 }
 
-void HContTool::SamplePoint(const Handle(Adaptor3d_Surface)& S,
+void HContTool::SamplePoint(const Handle(SurfaceAdaptor)& S,
                                    const Standard_Integer           Index,
                                    Standard_Real&                   U,
                                    Standard_Real&                   V)
@@ -293,14 +293,14 @@ Standard_Boolean HContTool::Project(const Handle(Adaptor2d_Curve2d)& C,
   return Standard_True;
 }
 
-Standard_Real HContTool::Tolerance(const Handle(Adaptor3d_HVertex)& V,
+Standard_Real HContTool::Tolerance(const Handle(HandleVertex)& V,
                                           const Handle(Adaptor2d_Curve2d)& C)
 {
   //  return BRepAdaptor2d_Curve2dTool::Resolution(C,BRepInspector::Tolerance(V));
   return V->Resolution(C);
 }
 
-Standard_Real HContTool::Parameter(const Handle(Adaptor3d_HVertex)& V,
+Standard_Real HContTool::Parameter(const Handle(HandleVertex)& V,
                                           const Handle(Adaptor2d_Curve2d)& C)
 {
   //  return BRepInspector::Parameter(V,C.Edge());
@@ -334,7 +334,7 @@ Standard_Boolean HContTool::IsVertex(const Handle(Adaptor2d_Curve2d)&,
 
 void HContTool::Vertex(const Handle(Adaptor2d_Curve2d)&,
                               const Standard_Integer,
-                              Handle(Adaptor3d_HVertex)&)
+                              Handle(HandleVertex)&)
 {
   throw Standard_OutOfRange();
 }

@@ -20,9 +20,9 @@
 
 //=================================================================================================
 
-BlendFunc_GenChamfInv::BlendFunc_GenChamfInv(const Handle(Adaptor3d_Surface)& S1,
-                                             const Handle(Adaptor3d_Surface)& S2,
-                                             const Handle(Adaptor3d_Curve)&   C)
+BlendFunc_GenChamfInv::BlendFunc_GenChamfInv(const Handle(SurfaceAdaptor)& S1,
+                                             const Handle(SurfaceAdaptor)& S2,
+                                             const Handle(Curve5)&   C)
     : surf1(S1),
       surf2(S2),
       curv(C),

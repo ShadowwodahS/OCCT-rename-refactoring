@@ -22,11 +22,11 @@
 class Point3d;
 
 //! Interface class providing API for edge tessellation tools.
-class IMeshTools_CurveTessellator : public RefObject
+class CurveTessellator : public RefObject
 {
 public:
   //! Destructor.
-  virtual ~IMeshTools_CurveTessellator() {}
+  virtual ~CurveTessellator() {}
 
   //! Returns number of tessellation points.
   Standard_EXPORT virtual Standard_Integer PointsNb() const = 0;
@@ -40,11 +40,11 @@ public:
                                                  Point3d&                thePoint,
                                                  Standard_Real&         theParameter) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_CurveTessellator, RefObject)
+  DEFINE_STANDARD_RTTIEXT(CurveTessellator, RefObject)
 
 protected:
   //! Constructor.
-  IMeshTools_CurveTessellator() {}
+  CurveTessellator() {}
 };
 
 #endif

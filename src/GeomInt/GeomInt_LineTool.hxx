@@ -29,14 +29,14 @@ class LineTool2
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static Standard_Integer NbVertex(const Handle(IntPatch_Line)& L);
+  Standard_EXPORT static Standard_Integer NbVertex(const Handle(Line2)& L);
 
-  Standard_EXPORT static const IntPatch_Point& Vertex(const Handle(IntPatch_Line)& L,
+  Standard_EXPORT static const IntPatch_Point& Vertex(const Handle(Line2)& L,
                                                       const Standard_Integer       I);
 
-  Standard_EXPORT static Standard_Real FirstParameter(const Handle(IntPatch_Line)& L);
+  Standard_EXPORT static Standard_Real FirstParameter(const Handle(Line2)& L);
 
-  Standard_EXPORT static Standard_Real LastParameter(const Handle(IntPatch_Line)& L);
+  Standard_EXPORT static Standard_Real LastParameter(const Handle(Line2)& L);
 
   Standard_EXPORT static Standard_Boolean DecompositionOfWLine(
     const Handle(IntPatch_WLine)&      theWLine,

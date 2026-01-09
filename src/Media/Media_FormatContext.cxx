@@ -31,7 +31,7 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_FormatContext, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(FormatContext, RefObject)
 
 namespace
 {
@@ -72,7 +72,7 @@ static AsciiString1 formatFps(double theVal)
 
 //=================================================================================================
 
-AsciiString1 Media_FormatContext::FormatAVErrorDescription(int theErrCodeAV)
+AsciiString1 FormatContext::FormatAVErrorDescription(int theErrCodeAV)
 {
 #ifdef HAVE_FFMPEG
   char aBuff[4096];
@@ -105,7 +105,7 @@ AsciiString1 Media_FormatContext::FormatAVErrorDescription(int theErrCodeAV)
 
 //=================================================================================================
 
-double Media_FormatContext::FormatUnitsToSeconds(int64_t theTimeUnits)
+double FormatContext::FormatUnitsToSeconds(int64_t theTimeUnits)
 {
 #ifdef HAVE_FFMPEG
   return (theTimeUnits != AV_NOPTS_VALUE) ? (ST_AV_TIME_BASE_D * theTimeUnits) : 0.0;
@@ -117,7 +117,7 @@ double Media_FormatContext::FormatUnitsToSeconds(int64_t theTimeUnits)
 
 //=================================================================================================
 
-double Media_FormatContext::UnitsToSeconds(const AVRational& theTimeBase, int64_t theTimeUnits)
+double FormatContext::UnitsToSeconds(const AVRational& theTimeBase, int64_t theTimeUnits)
 {
 #ifdef HAVE_FFMPEG
   return (theTimeUnits != AV_NOPTS_VALUE) ? (av_q2d(theTimeBase) * theTimeUnits) : 0.0;
@@ -130,7 +130,7 @@ double Media_FormatContext::UnitsToSeconds(const AVRational& theTimeBase, int64_
 
 //=================================================================================================
 
-double Media_FormatContext::StreamUnitsToSeconds(const AVStream& theStream, int64_t theTimeUnits)
+double FormatContext::StreamUnitsToSeconds(const AVStream& theStream, int64_t theTimeUnits)
 {
 #ifdef HAVE_FFMPEG
   return UnitsToSeconds(theStream.time_base, theTimeUnits);
@@ -143,7 +143,7 @@ double Media_FormatContext::StreamUnitsToSeconds(const AVStream& theStream, int6
 
 //=================================================================================================
 
-int64_t Media_FormatContext::SecondsToUnits(double theTimeSeconds)
+int64_t FormatContext::SecondsToUnits(double theTimeSeconds)
 {
 #ifdef HAVE_FFMPEG
   return int64_t(theTimeSeconds / ST_AV_TIME_BASE_D);
@@ -155,7 +155,7 @@ int64_t Media_FormatContext::SecondsToUnits(double theTimeSeconds)
 
 //=================================================================================================
 
-int64_t Media_FormatContext::SecondsToUnits(const AVRational& theTimeBase, double theTimeSeconds)
+int64_t FormatContext::SecondsToUnits(const AVRational& theTimeBase, double theTimeSeconds)
 {
 #ifdef HAVE_FFMPEG
   return int64_t(theTimeSeconds / av_q2d(theTimeBase));
@@ -168,7 +168,7 @@ int64_t Media_FormatContext::SecondsToUnits(const AVRational& theTimeBase, doubl
 
 //=================================================================================================
 
-int64_t Media_FormatContext::StreamSecondsToUnits(const AVStream& theStream, double theTimeSeconds)
+int64_t FormatContext::StreamSecondsToUnits(const AVStream& theStream, double theTimeSeconds)
 {
 #ifdef HAVE_FFMPEG
   return SecondsToUnits(theStream.time_base, theTimeSeconds);
@@ -181,7 +181,7 @@ int64_t Media_FormatContext::StreamSecondsToUnits(const AVStream& theStream, dou
 
 //=================================================================================================
 
-Media_FormatContext::Media_FormatContext()
+FormatContext::FormatContext()
     : myFormatCtx(NULL),
       myPtsStartBase(0.0),
       myDuration(0.0)
@@ -191,14 +191,14 @@ Media_FormatContext::Media_FormatContext()
 
 //=================================================================================================
 
-Media_FormatContext::~Media_FormatContext()
+FormatContext::~FormatContext()
 {
   Close();
 }
 
 //=================================================================================================
 
-unsigned int Media_FormatContext::NbSteams() const
+unsigned int FormatContext::NbSteams() const
 {
 #ifdef HAVE_FFMPEG
   return myFormatCtx->nb_streams;
@@ -209,19 +209,19 @@ unsigned int Media_FormatContext::NbSteams() const
 
 //=================================================================================================
 
-const AVStream& Media_FormatContext::Stream(unsigned int theIndex) const
+const AVStream& FormatContext::Stream(unsigned int theIndex) const
 {
 #ifdef HAVE_FFMPEG
   return *myFormatCtx->streams[theIndex];
 #else
   (void)theIndex;
-  throw Standard_ProgramError("Media_FormatContext::Stream()");
+  throw Standard_ProgramError("FormatContext::Stream()");
 #endif
 }
 
 //=================================================================================================
 
-bool Media_FormatContext::OpenInput(const AsciiString1& theInput)
+bool FormatContext::OpenInput(const AsciiString1& theInput)
 {
 #ifdef HAVE_FFMPEG
   const int avErrCode = avformat_open_input(&myFormatCtx, theInput.ToCString(), NULL, NULL);
@@ -281,7 +281,7 @@ bool Media_FormatContext::OpenInput(const AsciiString1& theInput)
 
 //=================================================================================================
 
-void Media_FormatContext::Close()
+void FormatContext::Close()
 {
   if (myFormatCtx != NULL)
   {
@@ -294,7 +294,7 @@ void Media_FormatContext::Close()
 
 //=================================================================================================
 
-AsciiString1 Media_FormatContext::FormatTime(double theSeconds)
+AsciiString1 FormatContext::FormatTime(double theSeconds)
 {
   double       aSecIn = theSeconds;
   unsigned int aHours = (unsigned int)(aSecIn * THE_SECOND_IN_HOUR);
@@ -327,7 +327,7 @@ AsciiString1 Media_FormatContext::FormatTime(double theSeconds)
 
 //=================================================================================================
 
-AsciiString1 Media_FormatContext::FormatTimeProgress(double theProgress,
+AsciiString1 FormatContext::FormatTimeProgress(double theProgress,
                                                                 double theDuration)
 {
   double       aSecIn1 = theProgress;
@@ -365,7 +365,7 @@ AsciiString1 Media_FormatContext::FormatTimeProgress(double theProgress,
 
 //=================================================================================================
 
-AsciiString1 Media_FormatContext::StreamInfo(unsigned int    theIndex,
+AsciiString1 FormatContext::StreamInfo(unsigned int    theIndex,
                                                         AVCodecContext* theCodecCtx) const
 {
 #ifdef HAVE_FFMPEG
@@ -433,7 +433,7 @@ AsciiString1 Media_FormatContext::StreamInfo(unsigned int    theIndex,
 
 //=================================================================================================
 
-bool Media_FormatContext::ReadPacket(const Handle(Media_Packet)& thePacket)
+bool FormatContext::ReadPacket(const Handle(Media_Packet)& thePacket)
 {
   if (thePacket.IsNull())
   {
@@ -449,7 +449,7 @@ bool Media_FormatContext::ReadPacket(const Handle(Media_Packet)& thePacket)
 
 //=================================================================================================
 
-bool Media_FormatContext::SeekStream(unsigned int theStreamId,
+bool FormatContext::SeekStream(unsigned int theStreamId,
                                      double       theSeekPts,
                                      bool         theToSeekBack)
 {
@@ -497,7 +497,7 @@ bool Media_FormatContext::SeekStream(unsigned int theStreamId,
 
 //=================================================================================================
 
-bool Media_FormatContext::Seek(double theSeekPts, bool theToSeekBack)
+bool FormatContext::Seek(double theSeekPts, bool theToSeekBack)
 {
 #ifdef HAVE_FFMPEG
   const int aFlags      = theToSeekBack ? AVSEEK_FLAG_BACKWARD : 0;

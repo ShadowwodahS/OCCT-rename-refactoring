@@ -27,15 +27,15 @@
 class TopoShape;
 
 //! This class intended to setup / retrieve default triangulation algorithm. <br>
-//! Use BRepMesh_DiscretFactory::Get() static method to retrieve global Factory instance. <br>
-//! Use BRepMesh_DiscretFactory::Discret() method to retrieve meshing tool. <br>
-class BRepMesh_DiscretFactory
+//! Use DiscretizationFactory::Get() static method to retrieve global Factory instance. <br>
+//! Use DiscretizationFactory::Discret() method to retrieve meshing tool. <br>
+class DiscretizationFactory
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the global factory instance.
-  Standard_EXPORT static BRepMesh_DiscretFactory& Get();
+  Standard_EXPORT static DiscretizationFactory& Get();
 
   //! Returns the list of registered meshing algorithms.
   const TColStd_MapOfAsciiString& Names() const { return myNames; }
@@ -83,10 +83,10 @@ public:
 
 protected:
   //! Constructor
-  Standard_EXPORT BRepMesh_DiscretFactory();
+  Standard_EXPORT DiscretizationFactory();
 
   //! Destructor
-  Standard_EXPORT virtual ~BRepMesh_DiscretFactory();
+  Standard_EXPORT virtual ~DiscretizationFactory();
 
   //! Clears factory data.
   Standard_EXPORT void clear();

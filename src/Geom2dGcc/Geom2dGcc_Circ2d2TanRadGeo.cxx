@@ -206,7 +206,7 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedLine& Qu
                            C2.Value(lastparam),
                            lastparam,
                            Tol);
-        Geom2dInt_TheIntConicCurveOfGInter Intp(Line, D1, C2, D2, Tol, Tol);
+        IntConicCurve2d Intp(Line, D1, C2, D2, Tol, Tol);
         if (Intp.IsDone())
         {
           if (!Intp.IsEmpty())
@@ -397,7 +397,7 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedCircle& 
       cote2(2) = -Radius;
     }
     Standard_Real                      R1 = C1.Radius();
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1 && NbrSol < aNbSolMAX; jcote1++)
     {
       gp_Circ2d       Circ(C1.XAxis(), R1 + cote1(jcote1));
@@ -564,7 +564,7 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve&
                        M_PI + M_PI,
                        Tol);
     D1.SetEquivalentParameters(0., M_PI + M_PI);
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1 && NbrSol < aNbSolMAX; jcote1++)
     {
       Handle(Geom2dAdaptor_Curve) HCu1 = new Geom2dAdaptor_Curve(Cu1);

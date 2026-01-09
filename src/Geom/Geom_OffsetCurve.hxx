@@ -29,7 +29,7 @@
 class Point3d;
 class Vector3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_OffsetCurve;
 DEFINE_STANDARD_HANDLE(Geom_OffsetCurve, GeomCurve3d)
@@ -276,7 +276,7 @@ public:
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this offset curve.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Returns continuity of the basis curve.
   Standard_EXPORT GeomAbs_Shape GetBasisCurveContinuity() const;

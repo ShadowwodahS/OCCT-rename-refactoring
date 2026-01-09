@@ -20,6 +20,6 @@
 #include <TDF_AttributeArray1.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TDF_HAttributeArray1, TDF_AttributeArray1)
+DEFINE_HARRAY1(HAttributeArray1, TDF_AttributeArray1)
 
 #endif

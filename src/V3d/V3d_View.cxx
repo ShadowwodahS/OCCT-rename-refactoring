@@ -465,7 +465,7 @@ Standard_Boolean ViewWindow::IsEmpty() const
 
 void ViewWindow::UpdateLights() const
 {
-  Handle(Graphic3d_LightSet) aLights = new Graphic3d_LightSet();
+  Handle(LightSet) aLights = new LightSet();
   for (V3d_ListOfLight::Iterator anActiveLightIter(myActiveLights); anActiveLightIter.More();
        anActiveLightIter.Next())
   {
@@ -522,7 +522,7 @@ void ViewWindow::SetBackgroundColor(const Quantity_TypeOfColor theType,
 
 void ViewWindow::SetBackgroundColor(const Color1& theColor)
 {
-  myView->SetBackground(Aspect_Background(theColor));
+  myView->SetBackground(Background1(theColor));
 
   if (myImmediateUpdate)
   {
@@ -3160,14 +3160,14 @@ Standard_Integer ViewWindow::LightLimit() const
 
 void ViewWindow::AddClipPlane(const Handle(Graphic3d_ClipPlane)& thePlane)
 {
-  Handle(Graphic3d_SequenceOfHClipPlane) aSeqOfPlanes = ClipPlanes();
+  Handle(SequenceOfHClipPlane) aSeqOfPlanes = ClipPlanes();
   if (aSeqOfPlanes.IsNull())
   {
-    aSeqOfPlanes = new Graphic3d_SequenceOfHClipPlane();
+    aSeqOfPlanes = new SequenceOfHClipPlane();
   }
   else
   {
-    for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*aSeqOfPlanes); aPlaneIt.More();
+    for (SequenceOfHClipPlane::Iterator aPlaneIt(*aSeqOfPlanes); aPlaneIt.More();
          aPlaneIt.Next())
     {
       const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
@@ -3187,13 +3187,13 @@ void ViewWindow::AddClipPlane(const Handle(Graphic3d_ClipPlane)& thePlane)
 
 void ViewWindow::RemoveClipPlane(const Handle(Graphic3d_ClipPlane)& thePlane)
 {
-  Handle(Graphic3d_SequenceOfHClipPlane) aSeqOfPlanes = ClipPlanes();
+  Handle(SequenceOfHClipPlane) aSeqOfPlanes = ClipPlanes();
   if (aSeqOfPlanes.IsNull())
   {
     return;
   }
 
-  for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*aSeqOfPlanes); aPlaneIt.More();
+  for (SequenceOfHClipPlane::Iterator aPlaneIt(*aSeqOfPlanes); aPlaneIt.More();
        aPlaneIt.Next())
   {
     const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
@@ -3210,14 +3210,14 @@ void ViewWindow::RemoveClipPlane(const Handle(Graphic3d_ClipPlane)& thePlane)
 
 //=================================================================================================
 
-void ViewWindow::SetClipPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+void ViewWindow::SetClipPlanes(const Handle(SequenceOfHClipPlane)& thePlanes)
 {
   myView->SetClipPlanes(thePlanes);
 }
 
 //=================================================================================================
 
-const Handle(Graphic3d_SequenceOfHClipPlane)& ViewWindow::ClipPlanes() const
+const Handle(SequenceOfHClipPlane)& ViewWindow::ClipPlanes() const
 {
   return myView->ClipPlanes();
 }

@@ -20,6 +20,6 @@
 #include <GeomFill_Array1OfLocationLaw.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(GeomFill_HArray1OfLocationLaw, GeomFill_Array1OfLocationLaw)
+DEFINE_HARRAY1(LocationLawArray, GeomFill_Array1OfLocationLaw)
 
 #endif

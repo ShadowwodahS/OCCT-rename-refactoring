@@ -20,7 +20,7 @@
 #include <Standard_DefineHandle.hxx>
 
 //! Represents initial set of parameters triangulation is built for.
-class Poly_TriangulationParameters : public RefObject
+class TriangulationParameters : public RefObject
 {
 public:
   //! Constructor.
@@ -28,7 +28,7 @@ public:
   //! @param theDeflection linear deflection
   //! @param theAngle angular deflection
   //! @param theMinSize minimum size
-  Poly_TriangulationParameters(const Standard_Real theDeflection = -1.,
+  TriangulationParameters(const Standard_Real theDeflection = -1.,
                                const Standard_Real theAngle      = -1.,
                                const Standard_Real theMinSize    = -1.)
       : myDeflection(theDeflection),
@@ -38,7 +38,7 @@ public:
   }
 
   //! Destructor.
-  virtual ~Poly_TriangulationParameters() {}
+  virtual ~TriangulationParameters() {}
 
   //! Returns true if linear deflection is defined.
   Standard_Boolean HasDeflection() const { return !(myDeflection < 0.); }
@@ -58,7 +58,7 @@ public:
   //! Returns minimum size or -1 if undefined.
   Standard_Real MinSize() const { return myMinSize; }
 
-  DEFINE_STANDARD_RTTIEXT(Poly_TriangulationParameters, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TriangulationParameters, RefObject)
 
 private:
   Standard_Real myDeflection;
@@ -66,6 +66,6 @@ private:
   Standard_Real myMinSize;
 };
 
-DEFINE_STANDARD_HANDLE(Poly_TriangulationParameters, RefObject)
+DEFINE_STANDARD_HANDLE(TriangulationParameters, RefObject)
 
 #endif

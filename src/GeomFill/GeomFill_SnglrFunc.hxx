@@ -31,15 +31,15 @@ class Point3d;
 class Vector3d;
 
 //! to  represent  function  C'(t)^C''(t)
-class GeomFill_SnglrFunc : public Adaptor3d_Curve
+class GeomFill_SnglrFunc : public Curve5
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_SnglrFunc(const Handle(Adaptor3d_Curve)& HC);
+  Standard_EXPORT GeomFill_SnglrFunc(const Handle(Curve5)& HC);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   Standard_EXPORT void SetRatio(const Standard_Real Ratio);
 
@@ -111,7 +111,7 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Curve) myHCurve;
+  Handle(Curve5) myHCurve;
   Standard_Real           ratio;
 };
 

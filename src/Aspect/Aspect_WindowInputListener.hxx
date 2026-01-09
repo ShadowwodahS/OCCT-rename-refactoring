@@ -50,10 +50,10 @@ public:
 
 public: //! @name keyboard input
   //! Return keyboard state.
-  const Aspect_VKeySet& Keys() const { return myKeys; }
+  const VKeySet& Keys() const { return myKeys; }
 
   //! Return keyboard state.
-  Aspect_VKeySet& ChangeKeys() { return myKeys; }
+  VKeySet& ChangeKeys() { return myKeys; }
 
   //! Press key.
   //! Default implementation updates internal cache.
@@ -236,7 +236,7 @@ protected:
   OSD_Timer myEventTimer; //!< timer for timestamping events
 
 protected:               //! @name keyboard input variables
-  Aspect_VKeySet myKeys; //!< keyboard state
+  VKeySet myKeys; //!< keyboard state
 
 protected:                              //! @name mouse input variables
   Graphic3d_Vec2i  myMousePositionLast; //!< last mouse position

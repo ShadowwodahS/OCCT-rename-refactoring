@@ -29,7 +29,7 @@ class Adaptor2d_Curve2d;
 class Geom2dCurveTool;
 
 class Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
-    : public math_FunctionWithDerivative
+    : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

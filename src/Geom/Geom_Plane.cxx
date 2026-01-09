@@ -47,7 +47,7 @@ typedef Coords3d     XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) GeomPlane::Copy() const
+Handle(Geometry3) GeomPlane::Copy() const
 {
 
   Handle(GeomPlane) Pl = new Plane1(pos);

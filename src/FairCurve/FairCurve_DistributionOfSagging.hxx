@@ -36,9 +36,9 @@ public:
 
   Standard_EXPORT FairCurve_DistributionOfSagging(const Standard_Integer               BSplOrder,
                                                   const Handle(TColStd_HArray1OfReal)& FlatKnots,
-                                                  const Handle(TColgp_HArray1OfPnt2d)& Poles,
+                                                  const Handle(Point2dArray)& Poles,
                                                   const Standard_Integer     DerivativeOrder,
-                                                  const FairCurve_BattenLaw& Law1,
+                                                  const BattenLaw& Law1,
                                                   const Standard_Integer     NbValAux = 0);
 
   //! computes the values <F> of the functions for the
@@ -50,7 +50,7 @@ public:
 
 protected:
 private:
-  FairCurve_BattenLaw MyLaw;
+  BattenLaw MyLaw;
 };
 
 #endif // _FairCurve_DistributionOfSagging_HeaderFile

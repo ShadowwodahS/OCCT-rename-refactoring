@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
 #include <gp_Trsf.hxx>
-class TopLoc_Datum3D;
+class Datum3D2;
 
 //! An ItemLocation is an elementary coordinate system
 //! in a Location.
@@ -43,7 +43,7 @@ public:
 
   //! Sets the elementary Datum to <D>
   //! Sets the exponent to <P>
-  Standard_EXPORT TopLoc_ItemLocation(const Handle(TopLoc_Datum3D)& D, const Standard_Integer P);
+  Standard_EXPORT TopLoc_ItemLocation(const Handle(Datum3D2)& D, const Standard_Integer P);
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  Handle(TopLoc_Datum3D) myDatum;
+  Handle(Datum3D2) myDatum;
   Standard_Integer       myPower;
   Transform3d                myTrsf;
 };

@@ -366,7 +366,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
 
   if (myBuild)
   {
-    Handle(TColgp_HArray1OfPnt)   thePnts   = new TColgp_HArray1OfPnt(1, nbPini);
+    Handle(PointArray1)   thePnts   = new PointArray1(1, nbPini);
     Handle(TColStd_HArray1OfReal) theParams = new TColStd_HArray1OfReal(1, nbPini);
     for (iPnt = 1; iPnt <= nbPini; iPnt++)
     {
@@ -384,7 +384,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3
     }
   }
 
-  Handle(TColgp_HArray1OfPnt2d) thePnts2d   = new TColgp_HArray1OfPnt2d(1, nbPini);
+  Handle(Point2dArray) thePnts2d   = new Point2dArray(1, nbPini);
   Handle(TColStd_HArray1OfReal) theParams2d = new TColStd_HArray1OfReal(1, nbPini);
   for (iPnt = 1; iPnt <= nbPini; iPnt++)
   {
@@ -1664,7 +1664,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
 
 Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
   const Standard_Integer /*nbrPnt*/,
-  Handle(TColgp_HArray1OfPnt2d)& points2d,
+  Handle(Point2dArray)& points2d,
   Handle(TColStd_HArray1OfReal)& params,
   const Handle(GeomCurve3d)& /*orig*/) const
 {
@@ -1744,7 +1744,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
 
 Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::InterpolatePCurve(
   const Standard_Integer         nbrPnt,
-  Handle(TColgp_HArray1OfPnt2d)& points2d,
+  Handle(Point2dArray)& points2d,
   Handle(TColStd_HArray1OfReal)& params,
   const Handle(GeomCurve3d)& /*orig*/) const
 {
@@ -1791,7 +1791,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::InterpolatePCurve(
 
 Handle(GeomCurve3d) ShapeConstruct_ProjectCurveOnSurface::InterpolateCurve3d(
   const Standard_Integer,
-  Handle(TColgp_HArray1OfPnt)&   points,
+  Handle(PointArray1)&   points,
   Handle(TColStd_HArray1OfReal)& params,
   const Handle(GeomCurve3d)& /*orig*/) const
 {
@@ -1900,7 +1900,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(GeomCur
     IntCurve_IntConicConic Intersector(anIsoLine, Dom1, aLine, Dom2, 1.e-10, 1.e-10);
     if (Intersector.IsDone() && !Intersector.IsEmpty())
     {
-      IntRes2d_IntersectionPoint IntPoint = Intersector.Point(1);
+      IntersectionPoint3 IntPoint = Intersector.Point(1);
       FinishPoint                         = IntPoint.Value();
     }
     else
@@ -2027,7 +2027,7 @@ void ShapeConstruct_ProjectCurveOnSurface::InsertAdditionalPointOrAdjust(
 
 //=================================================================================================
 
-void ShapeConstruct_ProjectCurveOnSurface::CheckPoints(Handle(TColgp_HArray1OfPnt)&   points,
+void ShapeConstruct_ProjectCurveOnSurface::CheckPoints(Handle(PointArray1)&   points,
                                                        Handle(TColStd_HArray1OfReal)& params,
                                                        Standard_Real&                 preci) const
 {
@@ -2084,7 +2084,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints(Handle(TColgp_HArray1OfPn
 #endif
     return;
   }
-  Handle(TColgp_HArray1OfPnt)   newPnts   = new TColgp_HArray1OfPnt(firstElem, newLast);
+  Handle(PointArray1)   newPnts   = new PointArray1(firstElem, newLast);
   Handle(TColStd_HArray1OfReal) newParams = new TColStd_HArray1OfReal(firstElem, newLast);
   Standard_Integer              newCurr   = 1;
   for (i = firstElem; i <= lastElem; i++)
@@ -2103,7 +2103,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints(Handle(TColgp_HArray1OfPn
 
 //=================================================================================================
 
-void ShapeConstruct_ProjectCurveOnSurface::CheckPoints2d(Handle(TColgp_HArray1OfPnt2d)& points,
+void ShapeConstruct_ProjectCurveOnSurface::CheckPoints2d(Handle(Point2dArray)& points,
                                                          Handle(TColStd_HArray1OfReal)& params,
                                                          Standard_Real&                 preci) const
 {
@@ -2167,7 +2167,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints2d(Handle(TColgp_HArray1Of
     newLast = firstElem + 1;
     // return;
   }
-  Handle(TColgp_HArray1OfPnt2d) newPnts   = new TColgp_HArray1OfPnt2d(firstElem, newLast);
+  Handle(Point2dArray) newPnts   = new Point2dArray(firstElem, newLast);
   Handle(TColStd_HArray1OfReal) newParams = new TColStd_HArray1OfReal(firstElem, newLast);
   Standard_Integer              newCurr   = 1;
   for (i = firstElem; i <= lastElem; i++)

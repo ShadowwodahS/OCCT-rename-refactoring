@@ -26,7 +26,7 @@ class Adaptor3d_TopolTool;
 
 //! Implementation of the intersection between two
 //! quadric patches : Plane1, Cone, Cylinder or Sphere.
-class IntPatch_ImpImpIntersection
+class ImplicitImplicitIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,18 +47,18 @@ public:
     IntStatus_Fail
   };
 
-  Standard_EXPORT IntPatch_ImpImpIntersection();
+  Standard_EXPORT ImplicitImplicitIntersection();
 
   //! Flag theIsReqToKeepRLine has been entered only for
   //! compatibility with TopOpeBRep1 package. It shall be deleted
   //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
-  //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
+  //! Line2 (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.
-  Standard_EXPORT IntPatch_ImpImpIntersection(
-    const Handle(Adaptor3d_Surface)&   S1,
+  Standard_EXPORT ImplicitImplicitIntersection(
+    const Handle(SurfaceAdaptor)&   S1,
     const Handle(Adaptor3d_TopolTool)& D1,
-    const Handle(Adaptor3d_Surface)&   S2,
+    const Handle(SurfaceAdaptor)&   S2,
     const Handle(Adaptor3d_TopolTool)& D2,
     const Standard_Real                TolArc,
     const Standard_Real                TolTang,
@@ -68,11 +68,11 @@ public:
   //! compatibility with TopOpeBRep1 package. It shall be deleted
   //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
-  //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
+  //! Line2 (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   S1,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)&   S1,
                                const Handle(Adaptor3d_TopolTool)& D1,
-                               const Handle(Adaptor3d_Surface)&   S2,
+                               const Handle(SurfaceAdaptor)&   S2,
                                const Handle(Adaptor3d_TopolTool)& D2,
                                const Standard_Real                TolArc,
                                const Standard_Real                TolTang,
@@ -111,7 +111,7 @@ public:
 
   //! Returns the line of range Index.
   //! An exception is raised if Index<=0 or Index>NbLine.
-  const Handle(IntPatch_Line)& Line(const Standard_Integer Index) const;
+  const Handle(Line2)& Line(const Standard_Integer Index) const;
 
 protected:
 private:

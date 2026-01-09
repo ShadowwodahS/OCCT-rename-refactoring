@@ -29,7 +29,7 @@ class Quadric1;
 class gp_Lin;
 class LineTool3;
 
-class HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf : public math_FunctionWithDerivative
+class HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

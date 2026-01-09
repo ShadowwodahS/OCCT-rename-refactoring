@@ -45,7 +45,7 @@ Convert_ConicToBSplineCurve::Convert_ConicToBSplineCurve(const Standard_Integer 
 {
   if (NbPoles >= 2)
   {
-    poles = new TColgp_HArray1OfPnt2d(1, NbPoles);
+    poles = new Point2dArray(1, NbPoles);
 
     weights = new TColStd_HArray1OfReal(1, NbPoles);
   }

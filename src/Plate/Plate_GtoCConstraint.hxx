@@ -29,36 +29,36 @@ class D2;
 class D3;
 
 //! define a G1, G2  or G3 constraint on the Plate
-class Plate_GtoCConstraint
+class GtoCConstraint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_GtoCConstraint(const Plate_GtoCConstraint& ref);
+  Standard_EXPORT GtoCConstraint(const GtoCConstraint& ref);
 
-  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
+  Standard_EXPORT GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T);
 
-  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
+  Standard_EXPORT GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T,
                                        const Coords3d&   nP);
 
-  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
+  Standard_EXPORT GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T,
                                        const D2& D2S,
                                        const D2& D2T);
 
-  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
+  Standard_EXPORT GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T,
                                        const D2& D2S,
                                        const D2& D2T,
                                        const Coords3d&   nP);
 
-  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
+  Standard_EXPORT GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T,
                                        const D2& D2S,
@@ -66,7 +66,7 @@ public:
                                        const D3& D3S,
                                        const D3& D3T);
 
-  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
+  Standard_EXPORT GtoCConstraint(const Coords2d&    point2d,
                                        const D1& D1S,
                                        const D1& D1T,
                                        const D2& D2S,

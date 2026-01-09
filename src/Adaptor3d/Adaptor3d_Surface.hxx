@@ -34,7 +34,7 @@
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_Surface, RefObject)
+DEFINE_STANDARD_HANDLE(SurfaceAdaptor, RefObject)
 
 //! Root class for surfaces on which geometric algorithms work.
 //! An adapted surface is an interface between the
@@ -55,12 +55,12 @@ DEFINE_STANDARD_HANDLE(Adaptor3d_Surface, RefObject)
 //! Polynomial coefficients of BSpline surfaces used for their evaluation are cached for better
 //! performance. Therefore these evaluations are not thread-safe and parallel evaluations need to be
 //! prevented.
-class Adaptor3d_Surface : public RefObject
+class SurfaceAdaptor : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_Surface, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SurfaceAdaptor, RefObject)
 public:
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const;
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) ShallowCopy() const;
 
   Standard_EXPORT virtual Standard_Real FirstUParameter() const;
 
@@ -95,7 +95,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) UTrim(const Standard_Real First,
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) UTrim(const Standard_Real First,
                                                           const Standard_Real Last,
                                                           const Standard_Real Tol) const;
 
@@ -103,7 +103,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) VTrim(const Standard_Real First,
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) VTrim(const Standard_Real First,
                                                           const Standard_Real Last,
                                                           const Standard_Real Tol) const;
 
@@ -224,12 +224,12 @@ public:
 
   Standard_EXPORT virtual Dir3d Direction() const;
 
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) BasisCurve() const;
+  Standard_EXPORT virtual Handle(Curve5) BasisCurve() const;
 
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) BasisSurface() const;
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) BasisSurface() const;
 
   Standard_EXPORT virtual Standard_Real OffsetValue() const;
-  Standard_EXPORT virtual ~Adaptor3d_Surface();
+  Standard_EXPORT virtual ~SurfaceAdaptor();
 };
 
 #endif // _Adaptor3d_Surface_HeaderFile

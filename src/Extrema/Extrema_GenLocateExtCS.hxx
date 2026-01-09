@@ -22,18 +22,18 @@
 
 #include <Extrema_POnCurv.hxx>
 #include <Extrema_POnSurf.hxx>
-class Adaptor3d_Curve;
-class Adaptor3d_Surface;
+class Curve5;
+class SurfaceAdaptor;
 
 //! With two close points it calculates the distance
 //! between two surfaces.
 //! This distance can be a minimum or a maximum.
-class Extrema_GenLocateExtCS
+class GenericCurveSurfaceExtrema
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Extrema_GenLocateExtCS();
+  Standard_EXPORT GenericCurveSurfaceExtrema();
 
   //! Calculates the distance with two close points.
   //! The close points are defined by the parameter values
@@ -41,16 +41,16 @@ public:
   //! The function F(t,u,v)=distance(C(t),S(u,v))
   //! has an extremun when gradient(F)=0. The algorithm searches
   //! a zero near the close points.
-  Standard_EXPORT Extrema_GenLocateExtCS(const Adaptor3d_Curve&   C,
-                                         const Adaptor3d_Surface& S,
+  Standard_EXPORT GenericCurveSurfaceExtrema(const Curve5&   C,
+                                         const SurfaceAdaptor& S,
                                          const Standard_Real      T,
                                          const Standard_Real      U,
                                          const Standard_Real      V,
                                          const Standard_Real      Tol1,
                                          const Standard_Real      Tol2);
 
-  Standard_EXPORT void Perform(const Adaptor3d_Curve&   C,
-                               const Adaptor3d_Surface& S,
+  Standard_EXPORT void Perform(const Curve5&   C,
+                               const SurfaceAdaptor& S,
                                const Standard_Real      T,
                                const Standard_Real      U,
                                const Standard_Real      V,

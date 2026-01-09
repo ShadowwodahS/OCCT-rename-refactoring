@@ -34,7 +34,7 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
-class Law_Function;
+class Function2;
 class BRepFill_LocationLaw;
 class BRepFill_SectionLaw;
 class Frame3d;
@@ -136,14 +136,14 @@ public:
   //! Set  an    section  and  an   homotetic    law.
   //! The  homotetie's  centers  is  given  by  point  on  the  <Spine>.
   Standard_EXPORT void SetLaw(const TopoShape&         Profile,
-                              const Handle(Law_Function)& L,
+                              const Handle(Function2)& L,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
 
   //! Set  an    section  and  an   homotetic    law.
   //! The  homotetie  center  is  given  by  point  on  the  <Spine>
   Standard_EXPORT void SetLaw(const TopoShape&         Profile,
-                              const Handle(Law_Function)& L,
+                              const Handle(Function2)& L,
                               const TopoVertex&        Location,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
@@ -237,7 +237,7 @@ private:
   Standard_Integer                   myMaxDegree;
   Standard_Integer                   myMaxSegments;
   Standard_Boolean                   myForceApproxC1;
-  Handle(Law_Function)               myLaw;
+  Handle(Function2)               myLaw;
   Standard_Boolean                   myIsAutomaticLaw;
   Handle(BRepFill_LocationLaw)       myLocation;
   Handle(BRepFill_SectionLaw)        mySection;

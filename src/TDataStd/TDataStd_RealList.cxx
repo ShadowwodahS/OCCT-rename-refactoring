@@ -302,7 +302,7 @@ void TDataStd_RealList::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataStd_RealList::Paste(const Handle(TDF_Attribute)& Into,
-                              const Handle(TDF_RelocationTable)&) const
+                              const Handle(RelocationTable1)&) const
 {
   Handle(TDataStd_RealList) aList = Handle(TDataStd_RealList)::DownCast(Into);
   aList->Clear();

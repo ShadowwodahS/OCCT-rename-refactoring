@@ -62,7 +62,7 @@
 //=================================================================================================
 
 // Standard_Boolean DNaming_DFandUS(char* a,
-// 				 Handle(TDF_Data)&           ND,
+// 				 Handle(Data2)&           ND,
 // 				 Handle(TNaming_UsedShapes)& US)
 // {
 //   Handle(DDF_Data) DND = Handle(DDF_Data)::DownCast (Draw1::Get(a));
@@ -74,7 +74,7 @@
 //=================================================================================================
 
 void DNaming1::GetShape(const Standard_CString  LabelName,
-                       const Handle(TDF_Data)& DF,
+                       const Handle(Data2)& DF,
                        ShapeList&   L)
 {
   L.Clear();
@@ -104,7 +104,7 @@ void DNaming_BuildMap(TDF_LabelMap& Updated, const DataLabel& Lab)
 
 //=================================================================================================
 
-TopoShape DNaming1::CurrentShape(const Standard_CString LabelName, const Handle(TDF_Data)& DF)
+TopoShape DNaming1::CurrentShape(const Standard_CString LabelName, const Handle(Data2)& DF)
 {
   TopoShape     S;
   DataLabel        Label;
@@ -133,7 +133,7 @@ TopoShape DNaming1::CurrentShape(const Standard_CString LabelName, const Handle(
 //=================================================================================================
 
 AsciiString1 DNaming1::GetEntry(const TopoShape&     Shape,
-                                          const Handle(TDF_Data)& DF,
+                                          const Handle(Data2)& DF,
                                           Standard_Integer&       theStatus)
 {
   theStatus = 0;

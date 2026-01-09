@@ -26,7 +26,7 @@
 #include <math_FunctionWithDerivative.hxx>
 
 //! This class describe a function of a single variable.
-class Geom2dGcc_FunctionTanObl : public math_FunctionWithDerivative
+class Geom2dGcc_FunctionTanObl : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -15,11 +15,11 @@
 
 #include <OpenGl_Caps.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Caps, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Caps, RefObject)
 
 //=================================================================================================
 
-OpenGl_Caps::OpenGl_Caps()
+Caps::Caps()
     : sRGBDisable(Standard_False),
       compressedTexturesDisable(Standard_False),
       vboDisable(Standard_False),
@@ -59,7 +59,7 @@ OpenGl_Caps::OpenGl_Caps()
 // function : operator=
 // purpose  :
 // =======================================================================
-OpenGl_Caps& OpenGl_Caps::operator=(const OpenGl_Caps& theCopy)
+Caps& Caps::operator=(const Caps& theCopy)
 {
   sRGBDisable               = theCopy.sRGBDisable;
   compressedTexturesDisable = theCopy.compressedTexturesDisable;
@@ -90,7 +90,7 @@ OpenGl_Caps& OpenGl_Caps::operator=(const OpenGl_Caps& theCopy)
 
 //=================================================================================================
 
-OpenGl_Caps::~OpenGl_Caps()
+Caps::~Caps()
 {
   //
 }

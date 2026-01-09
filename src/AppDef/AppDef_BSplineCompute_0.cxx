@@ -44,7 +44,7 @@
 #define Approx_BSpParFunctionOfMyBSplGradient_hxx                                                  \
   <AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute.hxx>
 #define Approx_BSpGradient_BFGSOfMyBSplGradient                                                    \
-  AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute
+  BSplBFGSGradientBSplineCompute
 #define Approx_BSpGradient_BFGSOfMyBSplGradient_hxx                                                \
   <AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute.hxx>
 #define Approx_BSpParLeastSquareOfMyBSplGradient                                                   \
@@ -55,7 +55,7 @@
 #define Approx_BSpParFunctionOfMyBSplGradient_hxx                                                  \
   <AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute.hxx>
 #define Approx_BSpGradient_BFGSOfMyBSplGradient                                                    \
-  AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute
+  BSplBFGSGradientBSplineCompute
 #define Approx_BSpGradient_BFGSOfMyBSplGradient_hxx                                                \
   <AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute.hxx>
 #define Approx_MyGradientbis AppDef_MyGradientbisOfBSplineCompute
@@ -69,7 +69,7 @@
 #define Approx_ParFunctionOfMyGradientbis AppDef_ParFunctionOfMyGradientbisOfBSplineCompute
 #define Approx_ParFunctionOfMyGradientbis_hxx                                                      \
   <AppDef_ParFunctionOfMyGradientbisOfBSplineCompute.hxx>
-#define Approx_Gradient_BFGSOfMyGradientbis AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute
+#define Approx_Gradient_BFGSOfMyGradientbis BFGSGradientbisBSplineCompute
 #define Approx_Gradient_BFGSOfMyGradientbis_hxx                                                    \
   <AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute.hxx>
 #define Approx_ParLeastSquareOfMyGradientbis AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute
@@ -81,7 +81,7 @@
 #define Approx_ParFunctionOfMyGradientbis AppDef_ParFunctionOfMyGradientbisOfBSplineCompute
 #define Approx_ParFunctionOfMyGradientbis_hxx                                                      \
   <AppDef_ParFunctionOfMyGradientbisOfBSplineCompute.hxx>
-#define Approx_Gradient_BFGSOfMyGradientbis AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute
+#define Approx_Gradient_BFGSOfMyGradientbis BFGSGradientbisBSplineCompute
 #define Approx_Gradient_BFGSOfMyGradientbis_hxx                                                    \
   <AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute.hxx>
 #define Approx_BSplComputeLine AppDef_BSplineCompute

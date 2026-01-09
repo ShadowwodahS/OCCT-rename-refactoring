@@ -24,18 +24,18 @@
 #include <NCollection_Sequence.hxx>
 
 //! List of shader objects.
-typedef NCollection_Sequence<Handle(Graphic3d_ShaderObject)> Graphic3d_ShaderObjectList;
+typedef NCollection_Sequence<Handle(ShaderObject)> Graphic3d_ShaderObjectList;
 
 //! List of custom uniform shader variables.
-typedef NCollection_Sequence<Handle(Graphic3d_ShaderVariable)> Graphic3d_ShaderVariableList;
+typedef NCollection_Sequence<Handle(ShaderVariable1)> Graphic3d_ShaderVariableList;
 
 //! List of custom vertex shader attributes
-typedef NCollection_Sequence<Handle(Graphic3d_ShaderAttribute)> Graphic3d_ShaderAttributeList;
+typedef NCollection_Sequence<Handle(ShaderAttribute)> Graphic3d_ShaderAttributeList;
 
 //! This class is responsible for managing shader programs.
-class Graphic3d_ShaderProgram : public RefObject
+class ShaderProgram2 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderProgram, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShaderProgram2, RefObject)
 public:
   //! Default value of THE_MAX_LIGHTS macros within GLSL program (see Declarations.glsl).
   static const Standard_Integer THE_MAX_LIGHTS_DEFAULT = 8;
@@ -48,10 +48,10 @@ public:
 
 public:
   //! Creates new empty program object.
-  Standard_EXPORT Graphic3d_ShaderProgram();
+  Standard_EXPORT ShaderProgram2();
 
   //! Releases resources of program object.
-  Standard_EXPORT virtual ~Graphic3d_ShaderProgram();
+  Standard_EXPORT virtual ~ShaderProgram2();
 
   //! Checks if the program object is valid or not.
   Standard_EXPORT virtual Standard_Boolean IsDone() const;
@@ -60,7 +60,7 @@ public:
   const AsciiString1& GetId() const { return myID; }
 
   //! Sets unique ID used to manage resource in graphic driver.
-  //! WARNING! Graphic3d_ShaderProgram constructor generates a unique id for proper resource
+  //! WARNING! ShaderProgram2 constructor generates a unique id for proper resource
   //! management; however if application overrides it, it is responsibility of application to avoid
   //! name collisions.
   void SetId(const AsciiString1& theId) { myID = theId; }
@@ -110,10 +110,10 @@ public:
   void SetNbClipPlanesMax(Standard_Integer theNbPlanes) { myNbClipPlanesMax = theNbPlanes; }
 
   //! Attaches shader object to the program object.
-  Standard_EXPORT Standard_Boolean AttachShader(const Handle(Graphic3d_ShaderObject)& theShader);
+  Standard_EXPORT Standard_Boolean AttachShader(const Handle(ShaderObject)& theShader);
 
   //! Detaches shader object from the program object.
-  Standard_EXPORT Standard_Boolean DetachShader(const Handle(Graphic3d_ShaderObject)& theShader);
+  Standard_EXPORT Standard_Boolean DetachShader(const Handle(ShaderObject)& theShader);
 
   //! Returns list of attached shader objects.
   const Graphic3d_ShaderObjectList& ShaderObjects() const { return myShaderObjects; }
@@ -262,18 +262,18 @@ private:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderProgram, RefObject)
+DEFINE_STANDARD_HANDLE(ShaderProgram2, RefObject)
 
 // =======================================================================
 // function : PushVariable
 // purpose  : Pushes custom uniform variable to the program
 // =======================================================================
 template <class T>
-inline Standard_Boolean Graphic3d_ShaderProgram::PushVariable(
+inline Standard_Boolean ShaderProgram2::PushVariable(
   const AsciiString1& theName,
   const T&                       theValue)
 {
-  Handle(Graphic3d_ShaderVariable) aVariable = Graphic3d_ShaderVariable::Create(theName, theValue);
+  Handle(ShaderVariable1) aVariable = ShaderVariable1::Create(theName, theValue);
   if (aVariable.IsNull() || !aVariable->IsDone())
   {
     return Standard_False;

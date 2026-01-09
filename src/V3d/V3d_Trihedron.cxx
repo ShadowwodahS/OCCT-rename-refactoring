@@ -85,7 +85,7 @@ V3d_Trihedron::V3d_Trihedron()
       myIsWireframe(Standard_False),
       myToCompute(Standard_True)
 {
-  myTransformPers = new Graphic3d_TransformPers(Graphic3d_TMF_TriedronPers, Aspect_TOTP_LEFT_LOWER);
+  myTransformPers = new TransformPers(Graphic3d_TMF_TriedronPers, Aspect_TOTP_LEFT_LOWER);
   SetPosition(Aspect_TOTP_LEFT_LOWER);
 
   // Set material.
@@ -235,7 +235,7 @@ void V3d_Trihedron::Display(const ViewWindow& theView)
     myStructure->SetZLayer(Graphic3d_ZLayerId_Topmost);
     myStructure->SetDisplayPriority(Graphic3d_DisplayPriority_Highlight);
     myStructure->SetInfiniteState(Standard_True);
-    myStructure->CStructure()->ViewAffinity = new Graphic3d_ViewAffinity();
+    myStructure->CStructure()->ViewAffinity = new ViewAffinity1();
     myStructure->CStructure()->ViewAffinity->SetVisible(Standard_False);
     myStructure->CStructure()->ViewAffinity->SetVisible(theView.View()->Identification(), true);
     myToCompute = Standard_True;

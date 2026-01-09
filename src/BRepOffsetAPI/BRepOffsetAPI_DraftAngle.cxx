@@ -399,7 +399,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
           Standard_Integer aNbIntPnt = aGInter.NbPoints();
           for (k = 1; k <= aNbIntPnt; ++k)
           {
-            const IntRes2d_IntersectionPoint& aP2DInt = aGInter.Point(k);
+            const IntersectionPoint3& aP2DInt = aGInter.Point(k);
             const gp_Pnt2d&                   aP2D    = aP2DInt.Value();
             Point3d                            aP3D    = aSurf->Value(aP2D.X(), aP2D.Y());
             //

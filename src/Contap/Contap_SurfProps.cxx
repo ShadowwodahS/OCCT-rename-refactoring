@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
+void SurfaceProperties::Normale(const Handle(SurfaceAdaptor)& S,
                                const Standard_Real              U,
                                const Standard_Real              V,
                                Point3d&                          P,
@@ -128,7 +128,7 @@ void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
+void SurfaceProperties::DerivAndNorm(const Handle(SurfaceAdaptor)& S,
                                     const Standard_Real              U,
                                     const Standard_Real              V,
                                     Point3d&                          P,
@@ -233,7 +233,7 @@ void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-void SurfaceProperties::NormAndDn(const Handle(Adaptor3d_Surface)& S,
+void SurfaceProperties::NormAndDn(const Handle(SurfaceAdaptor)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
                                  Point3d&                          P,

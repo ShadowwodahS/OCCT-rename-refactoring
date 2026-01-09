@@ -99,7 +99,7 @@ static Standard_Integer inqadd(const Standard_Real    d1,
   return nbadd;
 }
 
-static Handle(Law_Linear) mklin(const Handle(Law_Function)& func)
+static Handle(Law_Linear) mklin(const Handle(Function2)& func)
 {
   Handle(Law_Linear) fu = Handle(Law_Linear)::DownCast(func);
   if (fu.IsNull())
@@ -113,7 +113,7 @@ static Handle(Law_Linear) mklin(const Handle(Law_Function)& func)
 }
 
 static void sortbounds(const Standard_Integer     nb,
-                       Handle(GeomFill_Boundary)* bound,
+                       Handle(Boundary2)* bound,
                        Standard_Boolean*          rev,
                        CornerState*      stat)
 {
@@ -121,7 +121,7 @@ static void sortbounds(const Standard_Integer     nb,
   // flaguer ceux a renverser,
   // flaguer les baillements au coins.
   Standard_Integer          i, j;
-  Handle(GeomFill_Boundary) temp;
+  Handle(Boundary2) temp;
   rev[0] = 0;
   Point3d pf, pl;
   Point3d qf, ql;
@@ -205,11 +205,11 @@ static void sortbounds(const Standard_Integer     nb,
 }
 
 static void coonscnd(const Standard_Integer     nb,
-                     Handle(GeomFill_Boundary)* bound,
+                     Handle(Boundary2)* bound,
                      Standard_Boolean*          rev,
                      CornerState*      stat,
-                     //		     Handle(GeomFill_TgtField)* tga,
-                     Handle(GeomFill_TgtField)*,
+                     //		     Handle(TangentField)* tga,
+                     Handle(TangentField)*,
                      Standard_Real* mintg)
 {
   Standard_Real    fact_normalization = 100.;
@@ -268,11 +268,11 @@ static void coonscnd(const Standard_Integer     nb,
 }
 
 static void killcorners(const Standard_Integer     nb,
-                        Handle(GeomFill_Boundary)* bound,
+                        Handle(Boundary2)* bound,
                         Standard_Boolean*          rev,
                         Standard_Boolean*          nrev,
                         CornerState*      stat,
-                        Handle(GeomFill_TgtField)* tga)
+                        Handle(TangentField)* tga)
 {
   Standard_Integer i;
   // Pour chaque  bound, on  controle l etat  des extremites  et on flingue
@@ -366,9 +366,9 @@ GeomFill_ConstrainedFilling::GeomFill_ConstrainedFilling(const Standard_Integer 
 
 //=================================================================================================
 
-void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
-                                       const Handle(GeomFill_Boundary)& B2,
-                                       const Handle(GeomFill_Boundary)& B3,
+void GeomFill_ConstrainedFilling::Init(const Handle(Boundary2)& B1,
+                                       const Handle(Boundary2)& B2,
+                                       const Handle(Boundary2)& B3,
                                        const Standard_Boolean           NoCheck)
 {
 #ifdef OCCT_DEBUG
@@ -380,7 +380,7 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
 #endif
   Standard_Boolean rev[3];
   rev[0] = rev[1] = rev[2] = Standard_False;
-  Handle(GeomFill_Boundary) bound[3];
+  Handle(Boundary2) bound[3];
   bound[0] = B1;
   bound[1] = B2;
   bound[2] = B3;
@@ -413,7 +413,7 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
 
   ptch = new GeomFill_CoonsAlgPatch(bound[0], bound[1], DB, bound[2]);
 
-  Handle(GeomFill_TgtField) ttgalg[3];
+  Handle(TangentField) ttgalg[3];
   if (bound[0]->HasNormals())
     ttgalg[0] = tgalg[0] = new GeomFill_TgtOnCoons(ptch, 0);
   if (bound[1]->HasNormals())
@@ -449,7 +449,7 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
     {
       if (!CheckTgte(i))
       {
-        Handle(Law_Function) fu1, fu2;
+        Handle(Function2) fu1, fu2;
         ptch->Func(fu1, fu2);
         fu1 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu1));
         fu2 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu2));
@@ -464,10 +464,10 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
 
 //=================================================================================================
 
-void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
-                                       const Handle(GeomFill_Boundary)& B2,
-                                       const Handle(GeomFill_Boundary)& B3,
-                                       const Handle(GeomFill_Boundary)& B4,
+void GeomFill_ConstrainedFilling::Init(const Handle(Boundary2)& B1,
+                                       const Handle(Boundary2)& B2,
+                                       const Handle(Boundary2)& B3,
+                                       const Handle(Boundary2)& B4,
                                        const Standard_Boolean           NoCheck)
 {
 #ifdef OCCT_DEBUG
@@ -479,7 +479,7 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
 #endif
   Standard_Boolean rev[4];
   rev[0] = rev[1] = rev[2] = rev[3] = Standard_False;
-  Handle(GeomFill_Boundary) bound[4];
+  Handle(Boundary2) bound[4];
   bound[0] = B1;
   bound[1] = B2;
   bound[2] = B3;
@@ -538,10 +538,10 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
     {
       if (!CheckTgte(i))
       {
-        Handle(Law_Function) fu1, fu2;
+        Handle(Function2) fu1, fu2;
         ptch->Func(fu1, fu2);
-        Handle(Law_Function) ffu1 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu1));
-        Handle(Law_Function) ffu2 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu2));
+        Handle(Function2) ffu1 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu1));
+        Handle(Function2) ffu2 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu2));
         ptch->SetFunc(ffu1, ffu2);
         break;
       }
@@ -580,7 +580,7 @@ void GeomFill_ConstrainedFilling::ReBuild()
 
 //=================================================================================================
 
-Handle(GeomFill_Boundary) GeomFill_ConstrainedFilling::Boundary(const Standard_Integer I) const
+Handle(Boundary2) GeomFill_ConstrainedFilling::Boundary(const Standard_Integer I) const
 {
   return ptch->Bound(I);
 }
@@ -687,7 +687,7 @@ void GeomFill_ConstrainedFilling::PerformApprox()
     i3d                    = 0;
     for (ii = 0; ii <= 1; ii++)
     {
-      curvpol[ibound[ii]]    = new TColgp_HArray1OfPnt(1, nbpol);
+      curvpol[ibound[ii]]    = new PointArray1(1, nbpol);
       TColgp_Array1OfPnt& cp = curvpol[ibound[ii]]->ChangeArray1();
       if (ctr[ii])
       {
@@ -703,7 +703,7 @@ void GeomFill_ConstrainedFilling::PerformApprox()
       }
       if (ctr[ii] == 2)
       {
-        tgtepol[ibound[ii]] = new TColgp_HArray1OfPnt(1, nbpol);
+        tgtepol[ibound[ii]] = new PointArray1(1, nbpol);
         app.Poles(++i3d, tgtepol[ibound[ii]]->ChangeArray1());
       }
     }
@@ -755,8 +755,8 @@ void GeomFill_ConstrainedFilling::MatchKnots()
     {
       nm[1]    = new TColStd_HArray1OfInteger(1, nbnk);
       nk[1]    = new TColStd_HArray1OfReal(1, nbnk);
-      ncpol[1] = new TColgp_HArray1OfPnt(1, nbnp);
-      ncpol[3] = new TColgp_HArray1OfPnt(1, nbnp);
+      ncpol[1] = new PointArray1(1, nbnp);
+      ncpol[3] = new PointArray1(1, nbnp);
       BSplCLib1::InsertKnots(degree[1],
                             0,
                             curvpol[1]->Array1(),
@@ -788,7 +788,7 @@ void GeomFill_ConstrainedFilling::MatchKnots()
                             0);
       if (!tgtepol[1].IsNull())
       {
-        ntpol[1] = new TColgp_HArray1OfPnt(1, nbnp);
+        ntpol[1] = new PointArray1(1, nbnp);
         BSplCLib1::InsertKnots(degree[1],
                               0,
                               tgtepol[1]->Array1(),
@@ -806,7 +806,7 @@ void GeomFill_ConstrainedFilling::MatchKnots()
       }
       if (!tgtepol[3].IsNull())
       {
-        ntpol[3] = new TColgp_HArray1OfPnt(1, nbnp);
+        ntpol[3] = new PointArray1(1, nbnp);
         BSplCLib1::InsertKnots(degree[1],
                               0,
                               tgtepol[3]->Array1(),
@@ -866,8 +866,8 @@ void GeomFill_ConstrainedFilling::MatchKnots()
     {
       nm[0]    = new TColStd_HArray1OfInteger(1, nbnk);
       nk[0]    = new TColStd_HArray1OfReal(1, nbnk);
-      ncpol[0] = new TColgp_HArray1OfPnt(1, nbnp);
-      ncpol[2] = new TColgp_HArray1OfPnt(1, nbnp);
+      ncpol[0] = new PointArray1(1, nbnp);
+      ncpol[2] = new PointArray1(1, nbnp);
       BSplCLib1::InsertKnots(degree[0],
                             0,
                             curvpol[0]->Array1(),
@@ -899,7 +899,7 @@ void GeomFill_ConstrainedFilling::MatchKnots()
                             0);
       if (!tgtepol[0].IsNull())
       {
-        ntpol[0] = new TColgp_HArray1OfPnt(1, nbnp);
+        ntpol[0] = new PointArray1(1, nbnp);
         BSplCLib1::InsertKnots(degree[0],
                               0,
                               tgtepol[0]->Array1(),
@@ -917,7 +917,7 @@ void GeomFill_ConstrainedFilling::MatchKnots()
       }
       if (!tgtepol[2].IsNull())
       {
-        ntpol[2] = new TColgp_HArray1OfPnt(1, nbnp);
+        ntpol[2] = new PointArray1(1, nbnp);
         BSplCLib1::InsertKnots(degree[0],
                               0,
                               tgtepol[2]->Array1(),
@@ -1015,7 +1015,7 @@ void GeomFill_ConstrainedFilling::PerformS0()
   Standard_Integer i, j;
   Standard_Integer ni     = ncpol[0]->Length();
   Standard_Integer nj     = ncpol[1]->Length();
-  S0                      = new TColgp_HArray2OfPnt(1, ni, 1, nj);
+  S0                      = new PointGrid(1, ni, 1, nj);
   TColgp_Array2OfPnt& ss0 = S0->ChangeArray2();
   const Coords3d&       c0  = ptch->Corner(0).Coord();
   const Coords3d&       c1  = ptch->Corner(1).Coord();
@@ -1208,7 +1208,7 @@ void GeomFill_ConstrainedFilling::PerformS1()
   //         + pq[2](j)*ntpol[2](i) + pq[3](i)*ntpol[3](j)
   //         - pq[3](i)*pq[0](j)*v[0] - pq[0](j)*pq[1](i)*v[1]
   //         - pq[1](i)*pq[2](j)*v[2] - pq[2](j)*pq[3](i)*v[3]
-  S1                      = new TColgp_HArray2OfPnt(1, ni, 1, nj);
+  S1                      = new PointGrid(1, ni, 1, nj);
   TColgp_Array2OfPnt& ss1 = S1->ChangeArray2();
   const Coords3d&       v0  = v[0].XYZ();
   const Coords3d&       v1  = v[1].XYZ();
@@ -1323,7 +1323,7 @@ void GeomFill_ConstrainedFilling::PerformSurface()
 
 Standard_Boolean GeomFill_ConstrainedFilling::CheckTgte(const Standard_Integer I)
 {
-  Handle(GeomFill_Boundary) bou = ptch->Bound(I);
+  Handle(Boundary2) bou = ptch->Bound(I);
   if (!bou->HasNormals())
     return Standard_True;
   // On prend 13 points le long du bord et on verifie que le triedre
@@ -1462,7 +1462,7 @@ void GeomFill_ConstrainedFilling::CheckCoonsAlgPatch(const Standard_Integer I)
   }
   Point3d                    pbound;
   Vector3d                    vptch;
-  Handle(GeomFill_Boundary) bou = ptch->Bound(I);
+  Handle(Boundary2) bou = ptch->Bound(I);
   for (Standard_Integer k = 0; k <= nbp; k++)
   {
     pbound = bou->Value(ww);
@@ -1497,7 +1497,7 @@ void GeomFill_ConstrainedFilling::CheckTgteField(const Standard_Integer I)
   Vector3d                    d1;
   Standard_Boolean          caplisse = 0;
   Standard_Real             maxang = 0., pmix = 0, pmixcur;
-  Handle(GeomFill_Boundary) bou = ptch->Bound(I);
+  Handle(Boundary2) bou = ptch->Bound(I);
   for (Standard_Integer iu = 0; iu <= 30; iu++)
   {
     Standard_Real uu = iu / 30.;
@@ -1547,7 +1547,7 @@ void GeomFill_ConstrainedFilling::CheckApprox(const Standard_Integer I)
   Standard_Real             maxang = 0., maxdist = 0.;
   Point3d                    pbound, papp, pbid;
   Vector3d                    vbound, vapp;
-  Handle(GeomFill_Boundary) bou = ptch->Bound(I);
+  Handle(Boundary2) bou = ptch->Bound(I);
   for (Standard_Integer iu = 0; iu <= nbp; iu++)
   {
     Standard_Real uu = iu;
@@ -1645,7 +1645,7 @@ void GeomFill_ConstrainedFilling::CheckResult(const Standard_Integer I)
   Standard_Real    ang[31];
   Standard_Boolean hasang[31];
 #endif
-  Handle(GeomFill_Boundary) bou = ptch->Bound(I);
+  Handle(Boundary2) bou = ptch->Bound(I);
   Standard_Integer          k;
   for (k = 0; k <= 30; k++)
   {

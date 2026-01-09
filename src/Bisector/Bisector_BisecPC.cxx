@@ -158,7 +158,7 @@ Standard_Real Bisector_BisecPC::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Bisector_BisecPC::Copy() const
+Handle(Geometry2) Bisector_BisecPC::Copy() const
 {
   Handle(GeomCurve2d)     CopyC = Handle(GeomCurve2d)::DownCast(curve->Copy());
   Handle(Bisector_BisecPC) C     = new Bisector_BisecPC();

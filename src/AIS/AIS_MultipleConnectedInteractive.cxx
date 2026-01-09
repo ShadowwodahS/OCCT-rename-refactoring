@@ -35,8 +35,8 @@ AIS_MultipleConnectedInteractive::AIS_MultipleConnectedInteractive()
 
 Handle(VisualEntity) AIS_MultipleConnectedInteractive::connect(
   const Handle(VisualEntity)&   theAnotherObj,
-  const Handle(TopLoc_Datum3D)&          theTrsf,
-  const Handle(Graphic3d_TransformPers)& theTrsfPers)
+  const Handle(Datum3D2)&          theTrsf,
+  const Handle(TransformPers)& theTrsfPers)
 {
   if (myAssemblyOwner.IsNull())
     myAssemblyOwner = new SelectMgr_EntityOwner(this);

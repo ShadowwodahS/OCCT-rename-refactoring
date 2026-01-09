@@ -120,7 +120,7 @@ Handle(TDF_Attribute) TDataStd_Expression::NewEmpty() const
 //=================================================================================================
 
 void TDataStd_Expression::Paste(const Handle(TDF_Attribute)&       Into,
-                                const Handle(TDF_RelocationTable)& RT) const
+                                const Handle(RelocationTable1)& RT) const
 {
   Handle(TDataStd_Expression) EXPR = Handle(TDataStd_Expression)::DownCast(Into);
   EXPR->SetExpression(myExpression);

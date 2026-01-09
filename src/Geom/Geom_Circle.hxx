@@ -27,7 +27,7 @@ class Frame3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class GeomCircle;
 DEFINE_STANDARD_HANDLE(GeomCircle, Geom_Conic)
@@ -151,7 +151,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this circle.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

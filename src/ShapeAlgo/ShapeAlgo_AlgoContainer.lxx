@@ -20,7 +20,7 @@
 // purpose  :
 //=======================================================================
 
-inline void ShapeAlgo_AlgoContainer::SetToolContainer(const Handle(ShapeAlgo_ToolContainer)& TC)
+inline void ShapeAlgo_AlgoContainer::SetToolContainer(const Handle(ToolContainer1)& TC)
 {
   myTC = TC;
 }
@@ -30,7 +30,7 @@ inline void ShapeAlgo_AlgoContainer::SetToolContainer(const Handle(ShapeAlgo_Too
 // purpose  :
 //=======================================================================
 
-inline Handle(ShapeAlgo_ToolContainer) ShapeAlgo_AlgoContainer::ToolContainer() const
+inline Handle(ToolContainer1) ShapeAlgo_AlgoContainer::ToolContainer() const
 {
   return myTC;
 }

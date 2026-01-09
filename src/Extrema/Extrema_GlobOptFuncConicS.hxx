@@ -30,17 +30,17 @@ class Extrema_GlobOptFuncConicS : public MultipleVarFunction
 {
 public:
   //! Curve and surface should exist during all the lifetime of Extrema_GlobOptFuncConicS.
-  Standard_EXPORT Extrema_GlobOptFuncConicS(const Adaptor3d_Curve* C, const Adaptor3d_Surface* S);
+  Standard_EXPORT Extrema_GlobOptFuncConicS(const Curve5* C, const SurfaceAdaptor* S);
 
-  Standard_EXPORT Extrema_GlobOptFuncConicS(const Adaptor3d_Surface* S);
+  Standard_EXPORT Extrema_GlobOptFuncConicS(const SurfaceAdaptor* S);
 
-  Standard_EXPORT Extrema_GlobOptFuncConicS(const Adaptor3d_Surface* S,
+  Standard_EXPORT Extrema_GlobOptFuncConicS(const SurfaceAdaptor* S,
                                             const Standard_Real      theUf,
                                             const Standard_Real      theUl,
                                             const Standard_Real      theVf,
                                             const Standard_Real      theVl);
 
-  Standard_EXPORT void LoadConic(const Adaptor3d_Curve* S,
+  Standard_EXPORT void LoadConic(const Curve5* S,
                                  const Standard_Real    theTf,
                                  const Standard_Real    theTl);
 
@@ -56,8 +56,8 @@ private:
 
   void value(Standard_Real su, Standard_Real sv, Standard_Real& F);
 
-  const Adaptor3d_Curve*   myC;
-  const Adaptor3d_Surface* myS;
+  const Curve5*   myC;
+  const SurfaceAdaptor* myS;
   GeomAbs_CurveType        myCType;
   gp_Lin                   myLin;
   gp_Circ                  myCirc;

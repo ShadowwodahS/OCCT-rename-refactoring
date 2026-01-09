@@ -30,35 +30,35 @@ class gp_Torus;
 //! Computes the global properties and the volume of a geometric solid
 //! (3D closed region of space)
 //! The solid can be elementary(definition in the gp1 package)
-class GProp_VelGProps : public GeometricProperties
+class VelocityGeometricProperties : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GProp_VelGProps();
+  Standard_EXPORT VelocityGeometricProperties();
 
-  Standard_EXPORT GProp_VelGProps(const Cylinder1&  S,
+  Standard_EXPORT VelocityGeometricProperties(const Cylinder1&  S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
                                   const Point3d&       VLocation);
 
-  Standard_EXPORT GProp_VelGProps(const Cone1&      S,
+  Standard_EXPORT VelocityGeometricProperties(const Cone1&      S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
                                   const Point3d&       VLocation);
 
-  Standard_EXPORT GProp_VelGProps(const Sphere3&    S,
+  Standard_EXPORT VelocityGeometricProperties(const Sphere3&    S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Point3d&       VLocation);
 
-  Standard_EXPORT GProp_VelGProps(const gp_Torus&     S,
+  Standard_EXPORT VelocityGeometricProperties(const gp_Torus&     S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,

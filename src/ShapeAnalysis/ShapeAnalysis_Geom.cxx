@@ -31,7 +31,7 @@ Standard_Boolean Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts,
                                                   Standard_Real&            Dmax)
 {
   // szv#4:S4163:12Mar99 warning
-  GProp_PGProps Pmat(Pnts);
+  PointGeometricProperties Pmat(Pnts);
   Point3d        g = Pmat.CentreOfMass();
   Standard_Real Xg, Yg, Zg;
   g.Coord(Xg, Yg, Zg);

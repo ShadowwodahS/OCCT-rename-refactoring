@@ -200,9 +200,9 @@ Standard_Integer BRepBlend_SurfRstLineBuilder::ArcToRecadre(const math_Vector&  
 //=================================================================================================
 
 BRepBlend_SurfRstLineBuilder::BRepBlend_SurfRstLineBuilder(
-  const Handle(Adaptor3d_Surface)&   Surf1,
+  const Handle(SurfaceAdaptor)&   Surf1,
   const Handle(Adaptor3d_TopolTool)& Domain1,
-  const Handle(Adaptor3d_Surface)&   Surf2,
+  const Handle(SurfaceAdaptor)&   Surf2,
   const Handle(Adaptor2d_Curve2d)&   Rst,
   const Handle(Adaptor3d_TopolTool)& Domain2)
     : done(Standard_False),
@@ -372,7 +372,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::PerformFirstSection(Blend_SurfRst
   Standard_Real             U = 0., V = 0.;
   math_Vector               infbound(1, 3), supbound(1, 3), tolerance(1, 3);
   math_Vector               solinvp(1, 3), solinvrst(1, 4), solinvs(1, 3);
-  Handle(Adaptor3d_HVertex) Vtxp, Vtxrst, Vtxs, Vtxc;
+  Handle(HandleVertex) Vtxp, Vtxrst, Vtxs, Vtxc;
   Standard_Boolean          IsVtxp = 0, IsVtxrst = 0, IsVtxs = 0;
   Handle(Adaptor2d_Curve2d) Arc;
   wp = wrst = ws = Pmax;
@@ -567,7 +567,7 @@ void BRepBlend_SurfRstLineBuilder::InternalPerform(Blend_SurfRstFunction&  Func,
   math_Vector               infbound(1, 3), supbound(1, 3);
   math_Vector               parinit(1, 3), tolerance(1, 3);
   math_Vector               solinvp(1, 3), solinvrst(1, 4), solinvs(1, 3);
-  Handle(Adaptor3d_HVertex) Vtxp, Vtxrst, Vtxs, Vtxc;
+  Handle(HandleVertex) Vtxp, Vtxrst, Vtxs, Vtxc;
   Standard_Boolean          IsVtxp = 0, IsVtxrst = 0, IsVtxs = 0;
   BRepBlend_Extremity       Extrst, Exts;
   Handle(Adaptor2d_Curve2d) Arc;
@@ -1004,7 +1004,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfCurvFuncInv&   
                                                        math_Vector&               Solinv,
                                                        Handle(Adaptor2d_Curve2d)& Arc,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   Standard_Boolean recadre = Standard_False;
 
@@ -1140,7 +1140,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfRstFunction&   
                                                        Blend_FuncInv&             Finv,
                                                        math_Vector&               Solinv,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   math_Vector toler(1, 4), infb(1, 4), supb(1, 4);
   Finv.GetTolerance(toler, tolpoint3d);
@@ -1220,7 +1220,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfRstFunction&   
 Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfPointFuncInv&    FinvP,
                                                        math_Vector&               Solinv,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   // Le point.
   gp_Pnt2d      p2drst;
@@ -1348,7 +1348,7 @@ void BRepBlend_SurfRstLineBuilder::MakeExtremity(BRepBlend_Extremity&           
                                                  const Handle(Adaptor2d_Curve2d)& Arc,
                                                  const Standard_Real              Param,
                                                  const Standard_Boolean           IsVtx,
-                                                 const Handle(Adaptor3d_HVertex)& Vtx)
+                                                 const Handle(HandleVertex)& Vtx)
 {
   Transition2          Tline, Tarc;
   Standard_Real               prm;

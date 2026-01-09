@@ -22,15 +22,15 @@ struct AVBufferPool;
 struct AVBufferRef;
 
 //! AVBufferPool wrapper.
-class Media_BufferPool : public RefObject
+class BufferPool : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_BufferPool, RefObject)
+  DEFINE_STANDARD_RTTIEXT(BufferPool, RefObject)
 public:
   //! Empty constructor
-  Standard_EXPORT Media_BufferPool();
+  Standard_EXPORT BufferPool();
 
   //! Destructor
-  Standard_EXPORT ~Media_BufferPool();
+  Standard_EXPORT ~BufferPool();
 
   //! Release the pool (reference-counted buffer will be released when needed).
   Standard_EXPORT void Release();
@@ -46,8 +46,8 @@ public:
 
 private:
   // prevent copies
-  Media_BufferPool(const Media_BufferPool& theCopy);
-  Media_BufferPool& operator=(const Media_BufferPool& theCopy);
+  BufferPool(const BufferPool& theCopy);
+  BufferPool& operator=(const BufferPool& theCopy);
 
 protected:
   AVBufferPool* myPool;

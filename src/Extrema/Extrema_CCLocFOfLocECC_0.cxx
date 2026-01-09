@@ -25,11 +25,11 @@
 #include <Extrema_SequenceOfPOnCurv.hxx>
 #include <math_Matrix.hxx>
 
-#define Curve1 Adaptor3d_Curve
+#define Curve1 Curve5
 #define Curve1_hxx <Adaptor3d_Curve.hxx>
 #define Tool1 CurveTool4
 #define Tool1_hxx <Extrema_CurveTool.hxx>
-#define Curve2 Adaptor3d_Curve
+#define Curve2 Curve5
 #define Curve2_hxx <Adaptor3d_Curve.hxx>
 #define Tool2 CurveTool4
 #define Tool2_hxx <Extrema_CurveTool.hxx>

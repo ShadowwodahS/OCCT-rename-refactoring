@@ -25,13 +25,13 @@
 class Point3d;
 
 class Geom_Point;
-DEFINE_STANDARD_HANDLE(Geom_Point, Geom_Geometry)
+DEFINE_STANDARD_HANDLE(Geom_Point, Geometry3)
 
 //! The abstract class Point describes the common
 //! behavior of geometric points in 3D space.
 //! The Geom package also provides the concrete class
 //! Geom_CartesianPoint.
-class Geom_Point : public Geom_Geometry
+class Geom_Point : public Geometry3
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   //! Computes the square distance between <me> and <Other>.
   Standard_EXPORT Standard_Real SquareDistance(const Handle(Geom_Point)& Other) const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Point, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(Geom_Point, Geometry3)
 
 protected:
 private:

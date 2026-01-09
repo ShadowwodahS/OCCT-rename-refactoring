@@ -95,7 +95,7 @@ Handle(TDF_Attribute) XCAFDoc_VisMaterial::NewEmpty() const
 //=================================================================================================
 
 void XCAFDoc_VisMaterial::Paste(const Handle(TDF_Attribute)& theInto,
-                                const Handle(TDF_RelocationTable)&) const
+                                const Handle(RelocationTable1)&) const
 {
   XCAFDoc_VisMaterial* anOther = dynamic_cast<XCAFDoc_VisMaterial*>(theInto.get());
   anOther->Backup();
@@ -282,7 +282,7 @@ void XCAFDoc_VisMaterial::FillAspect(const Handle(Graphic3d_Aspects)& theAspect)
   }
 
   Standard_Integer             aTexIter    = 0;
-  Handle(Graphic3d_TextureSet) aTextureSet = new Graphic3d_TextureSet(aNbTexUnits);
+  Handle(TextureSet1) aTextureSet = new TextureSet1(aNbTexUnits);
   if (!aColorTexture.IsNull())
   {
     aTextureSet->SetValue(aTexIter++,

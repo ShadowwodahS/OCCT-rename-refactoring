@@ -85,7 +85,7 @@ void TDataStd_UAttribute::Restore(const Handle(TDF_Attribute)& with)
 //=================================================================================================
 
 void TDataStd_UAttribute::Paste(const Handle(TDF_Attribute)& into,
-                                const Handle(TDF_RelocationTable)& /*RT*/) const
+                                const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(TDataStd_UAttribute) A = Handle(TDataStd_UAttribute)::DownCast(into);
   A->SetID(myID);

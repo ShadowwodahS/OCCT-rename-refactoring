@@ -3022,7 +3022,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const PointOn2Surfaces& thePOn2
 
   for (Standard_Integer aLIdx = 1; aLIdx <= lines.Length(); aLIdx++)
   {
-    const Handle(IntSurf_LineOn2S)& aL = lines(aLIdx)->Line();
+    const Handle(LineOnTwoSurfaces)& aL = lines(aLIdx)->Line();
 
     if (aL->IsOutBox(aP3d))
       continue;

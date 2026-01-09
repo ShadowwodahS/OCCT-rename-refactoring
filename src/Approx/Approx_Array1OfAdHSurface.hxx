@@ -20,6 +20,6 @@
 #include <Adaptor3d_Surface.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Adaptor3d_Surface)> Approx_Array1OfAdHSurface;
+typedef NCollection_Array1<Handle(SurfaceAdaptor)> Approx_Array1OfAdHSurface;
 
 #endif

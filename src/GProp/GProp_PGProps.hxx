@@ -44,10 +44,10 @@ class Point3d;
 //! component of the composed system must be
 //! coherent. Note that this coherence cannot be checked.
 //! Nonetheless, you are advised to restrict your use of a
-//! GProp_PGProps object to a set of points and to
+//! PointGeometricProperties object to a set of points and to
 //! create a GeometricProperties object in order to bring
 //! together global properties of different systems.
-class GProp_PGProps : public GeometricProperties
+class PointGeometricProperties : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -68,7 +68,7 @@ public:
   //! not kept by this framework, which only keeps that
   //! system's global properties. Note that the current
   //! system may be more complex1 than a set of points.
-  Standard_EXPORT GProp_PGProps();
+  Standard_EXPORT PointGeometricProperties();
 
   //! Brings together the global properties already
   //! retained by this framework with those induced by
@@ -85,11 +85,11 @@ public:
 
   //! computes the global properties of the system of points Pnts.
   //! The density of the points are defaulted to all being 1
-  Standard_EXPORT GProp_PGProps(const TColgp_Array1OfPnt& Pnts);
+  Standard_EXPORT PointGeometricProperties(const TColgp_Array1OfPnt& Pnts);
 
   //! computes the global properties of the system of points Pnts.
   //! The density of the points are defaulted to all being 1
-  Standard_EXPORT GProp_PGProps(const TColgp_Array2OfPnt& Pnts);
+  Standard_EXPORT PointGeometricProperties(const TColgp_Array2OfPnt& Pnts);
 
   //! computes the global properties of the system of points Pnts.
   //! A density is associated with each point.
@@ -99,7 +99,7 @@ public:
   //!
   //! raises if the length of Pnts and the length of Density
   //! is not the same.
-  Standard_EXPORT GProp_PGProps(const TColgp_Array1OfPnt&   Pnts,
+  Standard_EXPORT PointGeometricProperties(const TColgp_Array1OfPnt&   Pnts,
                                 const TColStd_Array1OfReal& Density);
 
   //! computes the global properties of the system of points Pnts.
@@ -110,7 +110,7 @@ public:
   //!
   //! Raised if the length of Pnts and the length of Density
   //! is not the same.
-  Standard_EXPORT GProp_PGProps(const TColgp_Array2OfPnt&   Pnts,
+  Standard_EXPORT PointGeometricProperties(const TColgp_Array2OfPnt&   Pnts,
                                 const TColStd_Array2OfReal& Density);
 
   //! Computes the barycentre of a set of points. The density of the

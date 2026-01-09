@@ -92,7 +92,7 @@ public:
   //! This method is used when copying an attribute from a source structure
   //! into a target structure.
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       theInto,
-                             const Handle(TDF_RelocationTable)& theRT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& theRT) const Standard_OVERRIDE;
 
   //! It is called just before Commit or Abort transaction
   //! and does Backup() to create a delta

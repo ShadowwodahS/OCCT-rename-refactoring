@@ -24,8 +24,8 @@
 
 class MeshVS_PrsBuilder;
 class TColStd_HPackedMapOfInteger;
-class MeshVS_DataSource;
-class MeshVS_Drawer;
+class MeshDataSource;
+class MeshDrawer;
 class SelectMgr_EntityOwner;
 
 DEFINE_STANDARD_HANDLE(MeshVS_Mesh, VisualEntity)
@@ -127,16 +127,16 @@ or directly iterate under sequence of builders.")
     const Standard_Boolean IsElement);
 
   //! Returns default builders' data source
-  Standard_EXPORT Handle(MeshVS_DataSource) GetDataSource() const;
+  Standard_EXPORT Handle(MeshDataSource) GetDataSource() const;
 
   //! Sets default builders' data source
-  Standard_EXPORT void SetDataSource(const Handle(MeshVS_DataSource)& aDataSource);
+  Standard_EXPORT void SetDataSource(const Handle(MeshDataSource)& aDataSource);
 
   //! Returns default builders' drawer
-  Standard_EXPORT Handle(MeshVS_Drawer) GetDrawer() const;
+  Standard_EXPORT Handle(MeshDrawer) GetDrawer() const;
 
   //! Sets default builders' drawer
-  Standard_EXPORT void SetDrawer(const Handle(MeshVS_Drawer)& aDrawer);
+  Standard_EXPORT void SetDrawer(const Handle(MeshDrawer)& aDrawer);
 
   //! Returns True if specified element is hidden
   //! By default no elements are hidden
@@ -211,9 +211,9 @@ protected:
   MeshVS_DataMapOfIntegerOwner  myVolumeOwners;
   MeshVS_DataMapOfIntegerOwner  myGroupOwners;
   MeshVS_DataMapOfIntegerOwner  myMeshOwners;
-  Handle(MeshVS_Drawer)         myCurrentDrawer;
-  Handle(MeshVS_Drawer)         mySelectionDrawer;
-  Handle(MeshVS_Drawer)         myHilightDrawer;
+  Handle(MeshDrawer)         myCurrentDrawer;
+  Handle(MeshDrawer)         mySelectionDrawer;
+  Handle(MeshDrawer)         myHilightDrawer;
   Handle(SelectMgr_EntityOwner) myWholeMeshOwner;
 
 private:
@@ -222,7 +222,7 @@ private:
   Handle(TColStd_HPackedMapOfInteger) myHiddenElements;
   Handle(TColStd_HPackedMapOfInteger) myHiddenNodes;
   Handle(TColStd_HPackedMapOfInteger) mySelectableNodes;
-  Handle(MeshVS_DataSource)           myDataSource;
+  Handle(MeshDataSource)           myDataSource;
   MeshVS_MeshSelectionMethod          mySelectionMethod;
 };
 

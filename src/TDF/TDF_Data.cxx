@@ -35,7 +35,7 @@
 
 typedef NCollection_Array1<Handle(TDF_AttributeDelta)> TDF_Array1OfAttributeIDelta;
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Data2, RefObject)
 
 #undef DEB_DELTA_CREATION
 #define TDF_DATA_COMMIT_OPTIMIZED
@@ -89,11 +89,11 @@ IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
   }
 
 //=======================================================================
-// function : TDF_Data
+// function : Data2
 // purpose  : empty constructor
 //=======================================================================
 
-TDF_Data::TDF_Data()
+Data2::Data2()
     : myTransaction(0),
       myNbTouchedAtt(0),
       myNotUndoMode(Standard_True),
@@ -111,7 +111,7 @@ TDF_Data::TDF_Data()
 // purpose  : Used to implement the destructor ~.
 //=======================================================================
 
-void TDF_Data::Destroy()
+void Data2::Destroy()
 {
   AbortUntilTransaction(1);
   // Forget the Owner attribute from the root label to avoid referencing document before
@@ -130,7 +130,7 @@ void TDF_Data::Destroy()
 
 //=================================================================================================
 
-Standard_Integer TDF_Data::OpenTransaction()
+Standard_Integer Data2::OpenTransaction()
 {
   myTimes.Prepend(myTime);
   return ++myTransaction;
@@ -141,21 +141,21 @@ Standard_Integer TDF_Data::OpenTransaction()
 // purpose  : Commits the current transaction.
 //=======================================================================
 
-Handle(TDF_Delta) TDF_Data::CommitTransaction(const Standard_Boolean withDelta)
+Handle(Delta) Data2::CommitTransaction(const Standard_Boolean withDelta)
 {
-  Handle(TDF_Delta) delta;
+  Handle(Delta) delta;
   if (myTransaction > 0)
   {
     if (withDelta)
-      delta = new TDF_Delta();
+      delta = new Delta();
 #ifdef OCCT_DEBUG_DELTA
-    std::cout << "TDF_Data::Begin Commit #" << myTransaction << std::endl;
+    std::cout << "Data2::Begin Commit #" << myTransaction << std::endl;
 #endif
 #ifdef TDF_DATA_COMMIT_OPTIMIZED
     myNbTouchedAtt = 0;
     if (Root().myLabelNode->MayBeModified())
 #endif
-      myNbTouchedAtt = TDF_Data::CommitTransaction(Root(), delta, withDelta);
+      myNbTouchedAtt = Data2::CommitTransaction(Root(), delta, withDelta);
 
     if (myNbTouchedAtt && !(withDelta && delta->IsEmpty()))
       ++myTime;
@@ -168,7 +168,7 @@ Handle(TDF_Delta) TDF_Data::CommitTransaction(const Standard_Boolean withDelta)
 #ifdef OCCT_DEBUG_DELTA
         if (myTransaction == 0)
         {
-          std::cout << "TDF_Data::Commit generated this delta in t=0:" << std::endl;
+          std::cout << "Data2::Commit generated this delta in t=0:" << std::endl;
           delta->Dump(std::cout);
         }
 #endif
@@ -177,7 +177,7 @@ Handle(TDF_Delta) TDF_Data::CommitTransaction(const Standard_Boolean withDelta)
       else
       {
         if (myTransaction == 0)
-          std::cout << "TDF_Data::Commit generated NO delta." << std::endl;
+          std::cout << "Data2::Commit generated NO delta." << std::endl;
       }
 #endif
     }
@@ -193,17 +193,17 @@ Handle(TDF_Delta) TDF_Data::CommitTransaction(const Standard_Boolean withDelta)
 //           the given transaction index.
 //=======================================================================
 
-Handle(TDF_Delta) TDF_Data::CommitUntilTransaction(const Standard_Integer untilTransaction,
+Handle(Delta) Data2::CommitUntilTransaction(const Standard_Integer untilTransaction,
                                                    const Standard_Boolean withDelta)
 {
-  Handle(TDF_Delta) delta;
+  Handle(Delta) delta;
   if ((untilTransaction > 0) && (myTransaction >= untilTransaction))
   {
     while (myTransaction > untilTransaction)
     {
-      delta = TDF_Data::CommitTransaction(Standard_False);
+      delta = Data2::CommitTransaction(Standard_False);
     }
-    delta = TDF_Data::CommitTransaction(withDelta);
+    delta = Data2::CommitTransaction(withDelta);
   }
   return delta;
 }
@@ -213,8 +213,8 @@ Handle(TDF_Delta) TDF_Data::CommitUntilTransaction(const Standard_Integer untilT
 // purpose  : Recursive method used to implement the commit action.
 //=======================================================================
 
-Standard_Integer TDF_Data::CommitTransaction(const DataLabel&         aLabel,
-                                             const Handle(TDF_Delta)& aDelta,
+Standard_Integer Data2::CommitTransaction(const DataLabel&         aLabel,
+                                             const Handle(Delta)& aDelta,
                                              const Standard_Boolean   withDelta)
 {
   aLabel.myLabelNode->MayBeModified(Standard_False);
@@ -340,7 +340,7 @@ Standard_Integer TDF_Data::CommitTransaction(const DataLabel&         aLabel,
 #ifdef TDF_DATA_COMMIT_OPTIMIZED
     if (itr2.Value().myLabelNode->MayBeModified())
 #endif
-      nbTouchedAtt += TDF_Data::CommitTransaction(itr2.Value(), aDelta, withDelta);
+      nbTouchedAtt += Data2::CommitTransaction(itr2.Value(), aDelta, withDelta);
   }
 
   return nbTouchedAtt;
@@ -351,10 +351,10 @@ Standard_Integer TDF_Data::CommitTransaction(const DataLabel&         aLabel,
 // purpose  : Aborts the current transaction.
 //=======================================================================
 
-void TDF_Data::AbortTransaction()
+void Data2::AbortTransaction()
 {
   if (myTransaction > 0)
-    Undo(TDF_Data::CommitTransaction(Standard_True), Standard_False);
+    Undo(Data2::CommitTransaction(Standard_True), Standard_False);
   TDF_Data_DebugModified("New ABORT");
 }
 
@@ -363,22 +363,22 @@ void TDF_Data::AbortTransaction()
 // purpose  : Aborts the transactions until AND including the given index.
 //=======================================================================
 
-void TDF_Data::AbortUntilTransaction(const Standard_Integer untilTransaction)
+void Data2::AbortUntilTransaction(const Standard_Integer untilTransaction)
 {
   if (untilTransaction > 0)
-    Undo(TDF_Data::CommitUntilTransaction(untilTransaction, Standard_True), Standard_False);
+    Undo(Data2::CommitUntilTransaction(untilTransaction, Standard_True), Standard_False);
 }
 
 //=================================================================================================
 
-Standard_Boolean TDF_Data::IsApplicable(const Handle(TDF_Delta)& aDelta) const
+Standard_Boolean Data2::IsApplicable(const Handle(Delta)& aDelta) const
 {
   return !aDelta.IsNull() && aDelta->IsApplicable(myTime);
 }
 
 //=================================================================================================
 
-void TDF_Data::FixOrder(const Handle(TDF_Delta)& theDelta)
+void Data2::FixOrder(const Handle(Delta)& theDelta)
 {
   // make all OnRemoval (which will cause addition of the attribute) are in the end
   // to do not put two attributes with the same GUID at one label during undo/redo
@@ -410,9 +410,9 @@ void TDF_Data::FixOrder(const Handle(TDF_Delta)& theDelta)
 // purpose  : Applies a delta to undo  actions.
 //=======================================================================
 
-Handle(TDF_Delta) TDF_Data::Undo(const Handle(TDF_Delta)& aDelta, const Standard_Boolean withDelta)
+Handle(Delta) Data2::Undo(const Handle(Delta)& aDelta, const Standard_Boolean withDelta)
 {
-  Handle(TDF_Delta) newDelta;
+  Handle(Delta) newDelta;
   if (!aDelta.IsNull())
   {
     if (aDelta->IsApplicable(myTime))
@@ -420,7 +420,7 @@ Handle(TDF_Delta) TDF_Data::Undo(const Handle(TDF_Delta)& aDelta, const Standard
       if (withDelta)
         OpenTransaction();
 #ifdef OCCT_DEBUG_DELTA
-      std::cout << "TDF_Data::Undo applies this delta:" << std::endl;
+      std::cout << "Data2::Undo applies this delta:" << std::endl;
       aDelta->Dump(std::cout);
 #endif
       aDelta->BeforeOrAfterApply(Standard_True);
@@ -434,7 +434,7 @@ Handle(TDF_Delta) TDF_Data::Undo(const Handle(TDF_Delta)& aDelta, const Standard
         newDelta->Validity(aDelta->EndTime(), aDelta->BeginTime());
 #ifdef OCCT_DEBUG_DELTA
         std::cout
-          << "TDF_Data::Undo, after validity correction, Delta is now available from time \t#"
+          << "Data2::Undo, after validity correction, Delta is now available from time \t#"
           << newDelta->BeginTime() << " to time \t#" << newDelta->EndTime() << std::endl;
 #endif
       }
@@ -447,7 +447,7 @@ Handle(TDF_Delta) TDF_Data::Undo(const Handle(TDF_Delta)& aDelta, const Standard
 
 //=================================================================================================
 
-void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
+void Data2::SetAccessByEntries(const Standard_Boolean aSet)
 {
   myAccessByEntries = aSet;
 
@@ -472,7 +472,7 @@ void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
 
 //=================================================================================================
 
-void TDF_Data::RegisterLabel(const DataLabel& aLabel)
+void Data2::RegisterLabel(const DataLabel& aLabel)
 {
   AsciiString1 anEntry;
   Tool3::Entry(aLabel, anEntry);
@@ -481,9 +481,9 @@ void TDF_Data::RegisterLabel(const DataLabel& aLabel)
 
 //=================================================================================================
 
-Standard_OStream& TDF_Data::Dump(Standard_OStream& anOS) const
+Standard_OStream& Data2::Dump(Standard_OStream& anOS) const
 {
-  anOS << "Dump of a TDF_Data." << std::endl;
+  anOS << "Dump of a Data2." << std::endl;
   anOS << "Current transaction: " << myTransaction;
   anOS << "; Current tick: " << myTime << ";" << std::endl;
   return anOS;
@@ -491,7 +491,7 @@ Standard_OStream& TDF_Data::Dump(Standard_OStream& anOS) const
 
 //=================================================================================================
 
-void TDF_Data::DumpJson(Standard_OStream& theOStream, Standard_Integer /*theDepth*/) const
+void Data2::DumpJson(Standard_OStream& theOStream, Standard_Integer /*theDepth*/) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

@@ -448,7 +448,7 @@ public:
   //-- ============================================================
   void SetIntersection(Standard_Integer                  i0,
                        Standard_Integer                  i1,
-                       const IntRes2d_IntersectionPoint& IP)
+                       const IntersectionPoint3& IP)
   {
     const Transition3& T1 = IP.TransitionOfFirst();
     const Transition3& T2 = IP.TransitionOfSecond();
@@ -578,12 +578,12 @@ void HLRBRep_Data::Write(const Handle(HLRBRep_Data)& DS,
 
     if (de != 0)
     {
-      const Handle(HLRAlgo_WiresBlock)& wb = fd->Wires();
+      const Handle(WiresBlock)& wb = fd->Wires();
       Standard_Integer                  nw = wb->NbWires();
 
       for (Standard_Integer iw = 1; iw <= nw; iw++)
       {
-        const Handle(HLRAlgo_EdgesBlock)& eb = wb->Wire(iw);
+        const Handle(EdgesBlock)& eb = wb->Wire(iw);
         Standard_Integer                  ne = eb->NbEdges();
 
         for (Standard_Integer ie = 1; ie <= ne; ie++)
@@ -607,11 +607,11 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
   Standard_Integer i;
   Standard_Real    tolMinMax = 0;
 
-  HLRAlgo_EdgesBlock::MinMaxIndices1 FaceMin, FaceMax;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 MinMaxFace;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 WireMin, WireMax, MinMaxWire;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 EdgeMin, EdgeMax;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 MinMaxEdge;
+  EdgesBlock::MinMaxIndices1 FaceMin, FaceMax;
+  EdgesBlock::MinMaxIndices1 MinMaxFace;
+  EdgesBlock::MinMaxIndices1 WireMin, WireMax, MinMaxWire;
+  EdgesBlock::MinMaxIndices1 EdgeMin, EdgeMax;
+  EdgesBlock::MinMaxIndices1 MinMaxEdge;
   Standard_Real                     TotMin[16], TotMax[16];
   HLRAlgo1::InitMinMax(Precision1::Infinite(), TotMin, TotMax);
 
@@ -942,12 +942,12 @@ void HLRBRep_Data::Update(const HLRAlgoProjector& P)
 
 //=================================================================================================
 
-void HLRBRep_Data::InitBoundSort(const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxTot,
+void HLRBRep_Data::InitBoundSort(const EdgesBlock::MinMaxIndices1& MinMaxTot,
                                  const Standard_Integer                   e1,
                                  const Standard_Integer                   e2)
 {
   myNbrSortEd                                         = 0;
-  const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxShap = MinMaxTot;
+  const EdgesBlock::MinMaxIndices1& MinMaxShap = MinMaxTot;
 
   for (Standard_Integer e = e1; e <= e2; e++)
   {
@@ -1188,7 +1188,7 @@ void HLRBRep_Data::NextInterference()
     // rejection of current wire
     if (myFaceItr1.BeginningOfWire())
     {
-      HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxWire = myFaceItr1.Wire()->MinMax();
+      EdgesBlock::MinMaxIndices1& MinMaxWire = myFaceItr1.Wire()->MinMax();
       if (((MinMaxWire.Max[0] - myLEMinMax->Min[0]) & 0x80008000) != 0
           || ((myLEMinMax->Max[0] - MinMaxWire.Min[0]) & 0x80008000) != 0
           || ((MinMaxWire.Max[1] - myLEMinMax->Min[1]) & 0x80008000) != 0
@@ -1225,7 +1225,7 @@ void HLRBRep_Data::NextInterference()
       if (!((HLRBRep_EdgeData*)myFEData)->Vertical() && !(myFEDouble && !myFEOutLine))
       {
         // not a vertical edge and not a double Edge
-        HLRAlgo_EdgesBlock::MinMaxIndices1* MinMaxFEdg = &((HLRBRep_EdgeData*)myFEData)->MinMax();
+        EdgesBlock::MinMaxIndices1* MinMaxFEdg = &((HLRBRep_EdgeData*)myFEData)->MinMax();
         //-- -----------------------------------------------------------------------
         //-- Max - Min doit etre positif pour toutes les directions
         //--
@@ -1667,7 +1667,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
 {
   (void)I; // avoid compiler warning
 
-  const Handle(HLRAlgo_WiresBlock)& wb = FD.Wires();
+  const Handle(WiresBlock)& wb = FD.Wires();
   Standard_Integer                  nw = wb->NbWires();
   Standard_Integer                  iw1, ie1, ne1;
   const Transform3d&                    T              = myProj.Transformation();
@@ -1677,7 +1677,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
 
   for (iw1 = 1; iw1 <= nw; iw1++)
   {
-    const Handle(HLRAlgo_EdgesBlock)& eb1 = wb->Wire(iw1);
+    const Handle(EdgesBlock)& eb1 = wb->Wire(iw1);
     ne1                                   = eb1->NbEdges();
 
     for (ie1 = 1; ie1 <= ne1; ie1++)
@@ -1783,14 +1783,14 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
 void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
 {
   Standard_Real                     p, pu, pv, r;
-  const Handle(HLRAlgo_WiresBlock)& wb = FD.Wires();
+  const Handle(WiresBlock)& wb = FD.Wires();
   Standard_Integer                  nw = wb->NbWires();
   Standard_Integer                  iw1, ie1, ne1;
   const Transform3d&                    T = myProj.Transformation();
 
   for (iw1 = 1; iw1 <= nw; iw1++)
   {
-    const Handle(HLRAlgo_EdgesBlock)& eb1 = wb->Wire(iw1);
+    const Handle(EdgesBlock)& eb1 = wb->Wire(iw1);
     ne1                                   = eb1->NbEdges();
 
     for (ie1 = 1; ie1 <= ne1; ie1++)
@@ -1853,8 +1853,8 @@ static void REJECT1(const Standard_Real                theDeca[],
                     const Standard_Real                theTotMin[],
                     const Standard_Real                theTotMax[],
                     const Standard_Real                theSurD[],
-                    HLRAlgo_EdgesBlock::MinMaxIndices1& theVertMin,
-                    HLRAlgo_EdgesBlock::MinMaxIndices1& theVertMax)
+                    EdgesBlock::MinMaxIndices1& theVertMin,
+                    EdgesBlock::MinMaxIndices1& theVertMax)
 {
   theVertMin.Min[0] = (Standard_Integer)((theDeca[0] + theTotMin[0]) * theSurD[0]);
   theVertMax.Min[0] = (Standard_Integer)((theDeca[0] + theTotMax[0]) * theSurD[0]);
@@ -1901,7 +1901,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
   (void)E; // avoid compiler warning
 
   nbClassification++;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 VertMin, VertMax, MinMaxVert;
+  EdgesBlock::MinMaxIndices1 VertMin, VertMax, MinMaxVert;
   Standard_Real                     TotMin[16], TotMax[16];
 
   Standard_Integer i;
@@ -2167,7 +2167,7 @@ TopAbs_State HLRBRep_Data::SimplClassify(const Standard_Integer /*E*/,
                                          const Standard_Real     p2)
 {
   nbClassification++;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 VertMin, VertMax, MinMaxVert;
+  EdgesBlock::MinMaxIndices1 VertMin, VertMax, MinMaxVert;
   Standard_Real                     TotMin[16], TotMax[16];
 
   Standard_Integer i;
@@ -2218,7 +2218,7 @@ TopAbs_State HLRBRep_Data::SimplClassify(const Standard_Integer /*E*/,
 // purpose  : build an interference if non Rejected intersection point
 //=======================================================================
 
-Standard_Boolean HLRBRep_Data::RejectedPoint(const IntRes2d_IntersectionPoint& PInter,
+Standard_Boolean HLRBRep_Data::RejectedPoint(const IntersectionPoint3& PInter,
                                              const TopAbs_Orientation          BoundOri,
                                              const Standard_Integer            NumSeg)
 {

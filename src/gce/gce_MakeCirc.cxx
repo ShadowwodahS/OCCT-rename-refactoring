@@ -28,7 +28,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=======================================================================
-// function : gce_MakeCirc
+// function : CircleBuilder1
 // purpose  :
 //   Creation d un cercle 3d de gp1 passant par trois points.              +
 //   Trois cas de figures :                                               +
@@ -44,7 +44,7 @@
 //      La solution a pour centre l intersection de ces deux droite et    +
 //      pour rayon la distance entre ce centre et l un des trois points.  +
 //=========================================================================
-gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& P3)
+CircleBuilder1::CircleBuilder1(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   //=========================================================================
   //   Traitement.                                                          +
@@ -169,7 +169,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
 
 //=================================================================================================
 
-gce_MakeCirc::gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius)
+CircleBuilder1::CircleBuilder1(const Frame3d& A2, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -186,19 +186,19 @@ gce_MakeCirc::gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius)
 //   Creation d un gp_Circ par son centre <Center>, son plan <Plane1> et   +
 //   son rayon <Radius>.                                                  +
 //=========================================================================
-gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Pln& Plane1, const Standard_Real Radius)
+CircleBuilder1::CircleBuilder1(const Point3d& Center, const gp_Pln& Plane1, const Standard_Real Radius)
 {
-  gce_MakeCirc C = gce_MakeCirc(Center, Plane1.Position1().Direction(), Radius);
+  CircleBuilder1 C = CircleBuilder1(Center, Plane1.Position1().Direction(), Radius);
   TheCirc        = C.Value();
   TheError       = C.Status();
 }
 
 //=======================================================================
-// function : gce_MakeCirc
+// function : CircleBuilder1
 // purpose  : Creation d un gp_Circ par son centre <Center>,
 // sa normale <Norm> et son rayon <Radius>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Dir3d& Norm, const Standard_Real Radius)
+CircleBuilder1::CircleBuilder1(const Point3d& Center, const Dir3d& Norm, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -260,11 +260,11 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Dir3d& Norm, const Stand
 }
 
 //=======================================================================
-// function : gce_MakeCirc
+// function : CircleBuilder1
 // purpose  :  Creation d un gp_Circ par son centre <Center>,
 // sa normale <Ptaxis> et  son rayon <Radius>
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const Standard_Real Radius)
+CircleBuilder1::CircleBuilder1(const Point3d& Center, const Point3d& Ptaxis, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -293,7 +293,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const S
       //  l'une des coordonnees du vecteur est nulle.                           +
       //=========================================================================
 
-      Dir3d Norm = gce_MakeDir(Center, Ptaxis);
+      Dir3d Norm = DirectionBuilder(Center, Ptaxis);
       if (Babs <= Aabs && Babs <= Cabs)
       {
         if (Aabs > Cabs)
@@ -334,10 +334,10 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const S
 }
 
 //=======================================================================
-// function : gce_MakeCirc
+// function : CircleBuilder1
 // purpose  : Creation d un gp_Circ par son axe <Axis> et son rayon <Radius>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const Axis3d& Axis, const Standard_Real Radius)
+CircleBuilder1::CircleBuilder1(const Axis3d& Axis, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -401,11 +401,11 @@ gce_MakeCirc::gce_MakeCirc(const Axis3d& Axis, const Standard_Real Radius)
 }
 
 //=======================================================================
-// function : gce_MakeCirc
+// function : CircleBuilder1
 // purpose  : Creation d un gp_Circ concentrique a un autre gp_circ a une distance +
 //   donnee.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist)
+CircleBuilder1::CircleBuilder1(const gp_Circ& Circ, const Standard_Real Dist)
 {
   Standard_Real Rad = Circ.Radius() + Dist;
   if (Rad < 0.)
@@ -420,11 +420,11 @@ gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist)
 }
 
 //=======================================================================
-// function : gce_MakeCirc
+// function : CircleBuilder1
 // purpose  : Creation d un gp_Circ concentrique a un autre gp_circ dont le rayon
 //   est egal a la distance de <Point> a l axe de <Circ>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Point3d& P)
+CircleBuilder1::CircleBuilder1(const gp_Circ& Circ, const Point3d& P)
 {
   Standard_Real Rad = gp_Lin(Circ.Axis()).Distance(P);
   TheCirc           = gp_Circ(Circ.Position1(), Rad);
@@ -433,22 +433,22 @@ gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Point3d& P)
 
 //=================================================================================================
 
-const gp_Circ& gce_MakeCirc::Value() const
+const gp_Circ& CircleBuilder1::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeCirc::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "CircleBuilder1::Value() - no result");
   return TheCirc;
 }
 
 //=================================================================================================
 
-const gp_Circ& gce_MakeCirc::Operator() const
+const gp_Circ& CircleBuilder1::Operator() const
 {
   return Value();
 }
 
 //=================================================================================================
 
-gce_MakeCirc::operator gp_Circ() const
+CircleBuilder1::operator gp_Circ() const
 {
   return Value();
 }

@@ -1174,8 +1174,8 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
   Standard_Integer              X, Y, b, not_done;
   Standard_Integer              num_points = 0;
   gp_Pnt2d                      a_point(0.0e0, 0.0e0);
-  Handle(TColgp_HArray1OfPnt2d) points_array_ptr = new TColgp_HArray1OfPnt2d(1, 1);
-  Handle(TColgp_HArray1OfPnt2d) new_points_array_ptr;
+  Handle(Point2dArray) points_array_ptr = new Point2dArray(1, 1);
+  Handle(Point2dArray) new_points_array_ptr;
 
   not_done = 1;
   while (not_done)
@@ -1187,14 +1187,14 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
     a_point.SetCoord(2, (Standard_Real)Y / z);
     if (num_points == 0)
     {
-      points_array_ptr                    = new TColgp_HArray1OfPnt2d(1, 1);
+      points_array_ptr                    = new Point2dArray(1, 1);
       points_array_ptr->ChangeArray1()(1) = a_point;
       first_point                         = a_point;
     }
     num_points += 1;
     if (num_points >= 2)
     {
-      new_points_array_ptr = new TColgp_HArray1OfPnt2d(1, num_points);
+      new_points_array_ptr = new Point2dArray(1, num_points);
       for (ii = 1; ii <= num_points - 1; ii++)
       {
         new_points_array_ptr->ChangeArray1()(ii) = points_array_ptr->Array1()(ii);

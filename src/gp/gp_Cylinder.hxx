@@ -33,7 +33,7 @@
 //! gives an orientation (direct or indirect) to the
 //! Geom_CylindricalSurface cylinder.
 //! See Also
-//! gce_MakeCylinder which provides functions for more
+//! CylinderBuilder which provides functions for more
 //! complex1 cylinder constructions
 //! Geom_CylindricalSurface which provides additional
 //! functions for constructing cylinders and works, in

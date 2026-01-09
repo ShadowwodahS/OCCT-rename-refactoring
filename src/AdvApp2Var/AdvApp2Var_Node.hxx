@@ -24,15 +24,15 @@
 #include <TColStd_Array2OfReal.hxx>
 
 //! used to store constraints on a (Ui,Vj) point
-class AdvApp2Var_Node : public RefObject
+class ApproximationNode : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AdvApp2Var_Node, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ApproximationNode, RefObject)
 public:
-  Standard_EXPORT AdvApp2Var_Node();
+  Standard_EXPORT ApproximationNode();
 
-  Standard_EXPORT AdvApp2Var_Node(const Standard_Integer iu, const Standard_Integer iv);
+  Standard_EXPORT ApproximationNode(const Standard_Integer iu, const Standard_Integer iv);
 
-  Standard_EXPORT AdvApp2Var_Node(const Coords2d&           UV,
+  Standard_EXPORT ApproximationNode(const Coords2d&           UV,
                                   const Standard_Integer iu,
                                   const Standard_Integer iv);
 
@@ -77,7 +77,7 @@ public:
   }
 
   //! Assign operator.
-  AdvApp2Var_Node& operator=(const AdvApp2Var_Node& theOther)
+  ApproximationNode& operator=(const ApproximationNode& theOther)
   {
     myTruePoints = theOther.myTruePoints;
     myErrors     = theOther.myErrors;
@@ -88,7 +88,7 @@ public:
   }
 
 private:
-  AdvApp2Var_Node(const AdvApp2Var_Node& theOther);
+  ApproximationNode(const ApproximationNode& theOther);
 
 private:
   TColgp_Array2OfPnt   myTruePoints;

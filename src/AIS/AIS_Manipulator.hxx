@@ -309,7 +309,7 @@ public: //! @name Configuration of graphical transformations
   //! @warning revise use of AdjustSize argument of of \sa AttachToObjects method
   //! when enabling zoom persistence.
   Standard_EXPORT virtual void SetTransformPersistence(
-    const Handle(Graphic3d_TransformPers)& theTrsfPers) Standard_OVERRIDE;
+    const Handle(TransformPers)& theTrsfPers) Standard_OVERRIDE;
 
 public: //! @name Setters for parameters
   enum ManipulatorSkin
@@ -442,7 +442,7 @@ protected:
 
   Standard_EXPORT void adjustSize(const Box2& theBox);
 
-  Standard_EXPORT void setTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers);
+  Standard_EXPORT void setTransformPersistence(const Handle(TransformPers)& theTrsfPers);
 
   //! Redefines local transformation management method to inform user of improper use.
   //! @warning this interactive object does not support setting custom local transformation,
@@ -450,7 +450,7 @@ protected:
   //! without need for recomputing presentation.
   //! @warning Invokes debug assertion in debug to catch incompatible usage of the
   //! method, silently does nothing in release mode.
-  Standard_EXPORT virtual void setLocalTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
+  Standard_EXPORT virtual void setLocalTransformation(const Handle(Datum3D2)& theTrsf)
     Standard_OVERRIDE;
   using VisualEntity::SetLocalTransformation; // hide visibility
 
@@ -591,7 +591,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     const Axis3d& Position1() const { return myPosition; }
 
-    void SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
+    void SetTransformPersistence(const Handle(TransformPers)& theTrsfPers)
     {
       if (!myHighlightTranslator.IsNull())
       {
@@ -614,7 +614,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
       }
     }
 
-    void Transform(const Handle(TopLoc_Datum3D)& theTransformation)
+    void Transform(const Handle(Datum3D2)& theTransformation)
     {
       if (!myHighlightTranslator.IsNull())
       {

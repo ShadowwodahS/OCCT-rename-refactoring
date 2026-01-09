@@ -23,7 +23,7 @@
 #include <StdFail_NotDone.hxx>
 
 // mask the return of a Adaptor2d_Curve2d as a Point3d
-static Point3d Value(const Adaptor3d_Curve& theC, const Standard_Real theParameter)
+static Point3d Value(const Curve5& theC, const Standard_Real theParameter)
 {
   return theC.Value(theParameter);
 }
@@ -45,7 +45,7 @@ UniformDeflection1::UniformDeflection1()
 
 //=================================================================================================
 
-UniformDeflection1::UniformDeflection1(const Adaptor3d_Curve& theC,
+UniformDeflection1::UniformDeflection1(const Curve5& theC,
                                                    const Standard_Real    theDeflection,
                                                    const Standard_Real    theU1,
                                                    const Standard_Real    theU2,
@@ -58,7 +58,7 @@ UniformDeflection1::UniformDeflection1(const Adaptor3d_Curve& theC,
 
 //=================================================================================================
 
-UniformDeflection1::UniformDeflection1(const Adaptor3d_Curve& theC,
+UniformDeflection1::UniformDeflection1(const Curve5& theC,
                                                    const Standard_Real    theDeflection,
                                                    const Standard_Boolean theWithControl)
     : myDone(Standard_False),
@@ -93,7 +93,7 @@ UniformDeflection1::UniformDeflection1(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-void UniformDeflection1::Initialize(const Adaptor3d_Curve& theC,
+void UniformDeflection1::Initialize(const Curve5& theC,
                                           const Standard_Real    theDeflection,
                                           const Standard_Boolean theWithControl)
 {
@@ -111,7 +111,7 @@ void UniformDeflection1::Initialize(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-void UniformDeflection1::Initialize(const Adaptor3d_Curve& theC,
+void UniformDeflection1::Initialize(const Curve5& theC,
                                           const Standard_Real    theDeflection,
                                           const Standard_Real    theU1,
                                           const Standard_Real    theU2,

@@ -305,7 +305,7 @@ GCPnts_AbscissaPoint::GCPnts_AbscissaPoint()
 
 //=================================================================================================
 
-Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor3d_Curve& theC)
+Standard_Real GCPnts_AbscissaPoint::Length(const Curve5& theC)
 {
   return GCPnts_AbscissaPoint::Length(theC, theC.FirstParameter(), theC.LastParameter());
 }
@@ -319,7 +319,7 @@ Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& theC)
 
 //=================================================================================================
 
-Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor3d_Curve& theC, const Standard_Real theTol)
+Standard_Real GCPnts_AbscissaPoint::Length(const Curve5& theC, const Standard_Real theTol)
 {
   return GCPnts_AbscissaPoint::Length(theC, theC.FirstParameter(), theC.LastParameter(), theTol);
 }
@@ -334,7 +334,7 @@ Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor3d_Curve& theC,
+Standard_Real GCPnts_AbscissaPoint::Length(const Curve5& theC,
                                            const Standard_Real    theU1,
                                            const Standard_Real    theU2)
 {
@@ -352,7 +352,7 @@ Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-Standard_Real GCPnts_AbscissaPoint::Length(const Adaptor3d_Curve& theC,
+Standard_Real GCPnts_AbscissaPoint::Length(const Curve5& theC,
                                            const Standard_Real    theU1,
                                            const Standard_Real    theU2,
                                            const Standard_Real    theTol)
@@ -446,7 +446,7 @@ void GCPnts_AbscissaPoint::compute(const TheCurve&     theC,
 
 //=================================================================================================
 
-GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
+GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Curve5& theC,
                                            const Standard_Real    theAbscissa,
                                            const Standard_Real    theU0)
 {
@@ -492,7 +492,7 @@ void GCPnts_AbscissaPoint::advCompute(const Standard_Real theTol,
 //=================================================================================================
 
 GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Standard_Real    theTol,
-                                           const Adaptor3d_Curve& theC,
+                                           const Curve5& theC,
                                            const Standard_Real    theAbscissa,
                                            const Standard_Real    theU0)
 {
@@ -511,7 +511,7 @@ GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Standard_Real      theTol,
 
 //=================================================================================================
 
-GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
+GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Curve5& theC,
                                            const Standard_Real    theAbscissa,
                                            const Standard_Real    theU0,
                                            const Standard_Real    theUi)
@@ -533,7 +533,7 @@ GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
+GCPnts_AbscissaPoint::GCPnts_AbscissaPoint(const Curve5& theC,
                                            const Standard_Real    theAbscissa,
                                            const Standard_Real    theU0,
                                            const Standard_Real    theUi,

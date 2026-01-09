@@ -29,7 +29,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_EvolvedSection, GeomFill_SectionLaw)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_EvolvedSection, SectionLaw)
 
 #ifdef DRAW
   #include <DrawTrSurf.hxx>
@@ -40,7 +40,7 @@ static Standard_Boolean Affich = 0;
 #endif
 
 GeomFill_EvolvedSection::GeomFill_EvolvedSection(const Handle(GeomCurve3d)&   C,
-                                                 const Handle(Law_Function)& L)
+                                                 const Handle(Function2)& L)
 {
   L->Bounds(First, Last);
   mySection = Handle(GeomCurve3d)::DownCast(C->Copy());

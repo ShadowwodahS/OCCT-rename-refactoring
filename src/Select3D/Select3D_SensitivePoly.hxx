@@ -42,7 +42,7 @@ public:
   //! the sensitivity type Sensitivity.
   //! The array of points is the outer polygon of the geometric face.
   Standard_EXPORT Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                         const Handle(TColgp_HArray1OfPnt)&   thePoints,
+                                         const Handle(PointArray1)&   thePoints,
                                          const Standard_Boolean               theIsBVHEnabled);
 
   //! Constructs the sensitive arc object defined by the
@@ -72,10 +72,10 @@ public:
   Standard_EXPORT virtual Standard_Integer NbSubElements() const Standard_OVERRIDE;
 
   //! Returns the 3D points of the array used at construction time.
-  void Points3D(Handle(TColgp_HArray1OfPnt)& theHArrayOfPnt)
+  void Points3D(Handle(PointArray1)& theHArrayOfPnt)
   {
     Standard_Integer aSize = myPolyg.Size();
-    theHArrayOfPnt         = new TColgp_HArray1OfPnt(1, aSize);
+    theHArrayOfPnt         = new PointArray1(1, aSize);
     for (Standard_Integer anIndex = 1; anIndex <= aSize; anIndex++)
     {
       theHArrayOfPnt->SetValue(anIndex, myPolyg.Pnt(anIndex - 1));

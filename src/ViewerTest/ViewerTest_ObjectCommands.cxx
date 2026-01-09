@@ -1177,7 +1177,7 @@ static int VPointBuilder(DrawInterpreter&, Standard_Integer theArgNb, const char
   if (is2d)
   {
     aPointPrs->SetTransformPersistence(
-      new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_UPPER));
+      new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_UPPER));
     aPointPrs->SetZLayer(Graphic3d_ZLayerId_TopOSD);
   }
   ViewerTest1::Display(aName, aPointPrs);
@@ -2409,7 +2409,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
 
   aTextPrs->SetText(aText);
 
-  Handle(Graphic3d_TransformPers) aTrsfPers;
+  Handle(TransformPers) aTrsfPers;
   Aspect_TypeOfDisplayText        aDisplayType = Aspect_TODT_NORMAL;
 
   Standard_Boolean aHasPlane = Standard_False;
@@ -2417,7 +2417,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
   Dir3d           aDirection;
   Point3d           aPos;
 
-  Handle(Font_TextFormatter) aTextFormatter;
+  Handle(TextFormatter1) aTextFormatter;
   for (; anArgIt < theArgsNb; ++anArgIt)
   {
     AsciiString1 aParam(theArgVec[anArgIt]);
@@ -2532,7 +2532,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
     {
       if (aTextFormatter.IsNull())
       {
-        aTextFormatter = new Font_TextFormatter();
+        aTextFormatter = new TextFormatter1();
       }
       aTextFormatter->SetWrapping((Standard_ShortReal)Draw1::Atof(theArgVec[++anArgIt]));
     }
@@ -2628,7 +2628,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
     }
     else if (aParam == "-2d")
     {
-      aTrsfPers = new Graphic3d_TransformPers(Graphic3d_TMF_2d);
+      aTrsfPers = new TransformPers(Graphic3d_TMF_2d);
     }
     else if (aParam == "-trsfperspos" || aParam == "-perspos")
     {
@@ -2673,7 +2673,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
       {
         aCorner |= Aspect_TOTP_BOTTOM;
       }
-      aTrsfPers = new Graphic3d_TransformPers(aTrsfPers->Mode(),
+      aTrsfPers = new TransformPers(aTrsfPers->Mode(),
                                               Aspect_TypeOfTriedronPosition(aCorner),
                                               Graphic3d_Vec2i(aZ.IntegerValue()));
     }
@@ -2704,7 +2704,7 @@ static int VDrawText(DrawInterpreter& theDI, Standard_Integer theArgsNb, const c
   }
   else if (!aTextPrs->TransformPersistence().IsNull())
   {
-    aContext->SetTransformPersistence(aTextPrs, Handle(Graphic3d_TransformPers)());
+    aContext->SetTransformPersistence(aTextPrs, Handle(TransformPers)());
   }
 
   if (isNewPrs)
@@ -5872,7 +5872,7 @@ static int TextToBRep(DrawInterpreter& /*theDI*/,
 //=======================================================================
 struct FontComparator
 {
-  bool operator()(const Handle(Font_SystemFont)& theFontA, const Handle(Font_SystemFont)& theFontB)
+  bool operator()(const Handle(SystemFont)& theFontA, const Handle(SystemFont)& theFontB)
   {
     return theFontA->FontKey().IsLess(theFontB->FontKey());
   }
@@ -5880,7 +5880,7 @@ struct FontComparator
 
 static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
-  Handle(Font_FontMgr) aMgr        = Font_FontMgr::GetInstance();
+  Handle(FontMgr) aMgr        = FontMgr::GetInstance();
   bool                 toPrintList = theArgNb < 2, toPrintNames = false;
   Font_StrictLevel     aStrictLevel = Font_StrictLevel_Any;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
@@ -5932,18 +5932,18 @@ static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
       if (toFindAll || aFontName.Search("*") != -1)
       {
         const Font_NListOfSystemFont         aFonts = aMgr->GetAvailableFonts();
-        std::vector<Handle(Font_SystemFont)> aFontsSorted;
+        std::vector<Handle(SystemFont)> aFontsSorted;
         aFontsSorted.reserve(aFonts.Size());
         for (Font_NListOfSystemFont::Iterator aFontIter(aFonts); aFontIter.More(); aFontIter.Next())
         {
           aFontsSorted.push_back(aFontIter.Value());
         }
         std::stable_sort(aFontsSorted.begin(), aFontsSorted.end(), FontComparator());
-        for (std::vector<Handle(Font_SystemFont)>::iterator aFontIter = aFontsSorted.begin();
+        for (std::vector<Handle(SystemFont)>::iterator aFontIter = aFontsSorted.begin();
              aFontIter != aFontsSorted.end();
              ++aFontIter)
         {
-          const Handle(Font_SystemFont)& aFont  = *aFontIter;
+          const Handle(SystemFont)& aFont  = *aFontIter;
           const AsciiString1  aCheck = AsciiString1("string match -nocase \"")
                                                  + aFontName + "\" \"" + aFont->FontName() + "\"";
           if (theDI.Eval(aCheck.ToCString()) == 0 && *theDI.Result() != '1')
@@ -5965,7 +5965,7 @@ static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
           }
         }
       }
-      else if (Handle(Font_SystemFont) aFont = aMgr->FindFont(aFontName, aStrictLevel, aFontAspect))
+      else if (Handle(SystemFont) aFont = aMgr->FindFont(aFontName, aStrictLevel, aFontAspect))
       {
         aResult = toPrintInfo ? aFont->ToString() : aFont->FontName();
       }
@@ -6011,7 +6011,7 @@ static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
         }
       }
 
-      Handle(Font_SystemFont) aFont = aMgr->CheckFont(aFontPath);
+      Handle(SystemFont) aFont = aMgr->CheckFont(aFontPath);
       if (aFont.IsNull())
       {
         Message1::SendFail() << "Error: font '" << aFontPath << "' is not found!";
@@ -6025,7 +6025,7 @@ static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
         {
           aName = aFontName;
         }
-        Handle(Font_SystemFont) aFont2 = new Font_SystemFont(aName);
+        Handle(SystemFont) aFont2 = new SystemFont(aName);
         if (aFontAspect != Font_FontAspect_UNDEFINED)
         {
           aFont2->SetFontPath(aFontAspect, aFontPath, 0);
@@ -6109,7 +6109,7 @@ static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
       {
         ++anArgIter;
       }
-      Font_FontMgr::ToUseUnicodeSubsetFallback() = toEnable;
+      FontMgr::ToUseUnicodeSubsetFallback() = toEnable;
     }
     else
     {
@@ -6122,18 +6122,18 @@ static int VFont(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     // just print the list of available fonts
     Standard_Boolean                     isFirst = Standard_True;
     const Font_NListOfSystemFont         aFonts  = aMgr->GetAvailableFonts();
-    std::vector<Handle(Font_SystemFont)> aFontsSorted;
+    std::vector<Handle(SystemFont)> aFontsSorted;
     aFontsSorted.reserve(aFonts.Size());
     for (Font_NListOfSystemFont::Iterator aFontIter(aFonts); aFontIter.More(); aFontIter.Next())
     {
       aFontsSorted.push_back(aFontIter.Value());
     }
     std::stable_sort(aFontsSorted.begin(), aFontsSorted.end(), FontComparator());
-    for (std::vector<Handle(Font_SystemFont)>::iterator aFontIter = aFontsSorted.begin();
+    for (std::vector<Handle(SystemFont)>::iterator aFontIter = aFontsSorted.begin();
          aFontIter != aFontsSorted.end();
          ++aFontIter)
     {
-      const Handle(Font_SystemFont)& aFont = *aFontIter;
+      const Handle(SystemFont)& aFont = *aFontIter;
 
       if (toPrintNames)
       {

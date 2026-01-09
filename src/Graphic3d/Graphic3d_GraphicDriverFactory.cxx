@@ -15,7 +15,7 @@
 
 #include <Graphic3d_GraphicDriver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_GraphicDriverFactory, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(GraphicDriverFactory, RefObject)
 
 namespace
 {
@@ -28,15 +28,15 @@ static Graphic3d_GraphicDriverFactoryList& getDriverFactories()
 
 //=================================================================================================
 
-const Graphic3d_GraphicDriverFactoryList& Graphic3d_GraphicDriverFactory::DriverFactories()
+const Graphic3d_GraphicDriverFactoryList& GraphicDriverFactory::DriverFactories()
 {
   return getDriverFactories();
 }
 
 //=================================================================================================
 
-void Graphic3d_GraphicDriverFactory::RegisterFactory(
-  const Handle(Graphic3d_GraphicDriverFactory)& theFactory,
+void GraphicDriverFactory::RegisterFactory(
+  const Handle(GraphicDriverFactory)& theFactory,
   bool                                          theIsPreferred)
 {
   const AsciiString1       aName      = theFactory->Name();
@@ -61,7 +61,7 @@ void Graphic3d_GraphicDriverFactory::RegisterFactory(
 
 //=================================================================================================
 
-void Graphic3d_GraphicDriverFactory::UnregisterFactory(const AsciiString1& theName)
+void GraphicDriverFactory::UnregisterFactory(const AsciiString1& theName)
 {
   Graphic3d_GraphicDriverFactoryList& aFactories = getDriverFactories();
   for (Graphic3d_GraphicDriverFactoryList::Iterator anIter(aFactories); anIter.More();)
@@ -79,15 +79,15 @@ void Graphic3d_GraphicDriverFactory::UnregisterFactory(const AsciiString1& theNa
 
 //=================================================================================================
 
-Handle(Graphic3d_GraphicDriverFactory) Graphic3d_GraphicDriverFactory::DefaultDriverFactory()
+Handle(GraphicDriverFactory) GraphicDriverFactory::DefaultDriverFactory()
 {
   const Graphic3d_GraphicDriverFactoryList& aMap = getDriverFactories();
-  return !aMap.IsEmpty() ? aMap.First() : Handle(Graphic3d_GraphicDriverFactory)();
+  return !aMap.IsEmpty() ? aMap.First() : Handle(GraphicDriverFactory)();
 }
 
 //=================================================================================================
 
-Graphic3d_GraphicDriverFactory::Graphic3d_GraphicDriverFactory(
+GraphicDriverFactory::GraphicDriverFactory(
   const AsciiString1& theName)
     : myName(theName)
 {

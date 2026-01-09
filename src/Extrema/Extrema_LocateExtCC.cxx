@@ -21,8 +21,8 @@
 #include <Precision.hxx>
 #include <StdFail_NotDone.hxx>
 
-Extrema_LocateExtCC::Extrema_LocateExtCC(const Adaptor3d_Curve& C1,
-                                         const Adaptor3d_Curve& C2,
+LocateCurveCurveExtrema::LocateCurveCurveExtrema(const Curve5& C1,
+                                         const Curve5& C2,
                                          const Standard_Real    U0,
                                          const Standard_Real    V0)
     : mySqDist(RealLast())
@@ -33,7 +33,7 @@ Extrema_LocateExtCC::Extrema_LocateExtCC(const Adaptor3d_Curve& C1,
 
   // Non implemente pour l instant: l appel a Extrema_ELCC.
 
-  Extrema_LocECC Xtrem(C1, C2, U0, V0, TolU, TolV);
+  LocalCurveCurveExtrema Xtrem(C1, C2, U0, V0, TolU, TolV);
   // Exploitation
 
   myDone = Xtrem.IsDone();
@@ -46,13 +46,13 @@ Extrema_LocateExtCC::Extrema_LocateExtCC(const Adaptor3d_Curve& C1,
   }
 }
 
-Standard_Boolean Extrema_LocateExtCC::IsDone() const
+Standard_Boolean LocateCurveCurveExtrema::IsDone() const
 {
 
   return myDone;
 }
 
-Standard_Real Extrema_LocateExtCC::SquareDistance() const
+Standard_Real LocateCurveCurveExtrema::SquareDistance() const
 {
 
   if (!IsDone())
@@ -62,7 +62,7 @@ Standard_Real Extrema_LocateExtCC::SquareDistance() const
   return mySqDist;
 }
 
-void Extrema_LocateExtCC::Point(PointOnCurve1& P1, PointOnCurve1& P2) const
+void LocateCurveCurveExtrema::Point(PointOnCurve1& P1, PointOnCurve1& P2) const
 {
 
   if (!IsDone())

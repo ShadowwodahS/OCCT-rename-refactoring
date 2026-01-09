@@ -45,14 +45,14 @@ public:
   //! only the tangent, N should be equal to 1.
   //! <Resolution> is the linear tolerance (it is used to test
   //! if a vector is null).
-  Standard_EXPORT LProp3d_CLProps(const Handle(Adaptor3d_Curve)& C,
+  Standard_EXPORT LProp3d_CLProps(const Handle(Curve5)& C,
                                   const Standard_Integer         N,
                                   const Standard_Real            Resolution);
 
   //! Same as previous constructor but here the parameter is
   //! set to the value <U>.
   //! All the computations done will be related to <C> and <U>.
-  Standard_EXPORT LProp3d_CLProps(const Handle(Adaptor3d_Curve)& C,
+  Standard_EXPORT LProp3d_CLProps(const Handle(Curve5)& C,
                                   const Standard_Real            U,
                                   const Standard_Integer         N,
                                   const Standard_Real            Resolution);
@@ -71,7 +71,7 @@ public:
 
   //! Initializes the local properties of the curve
   //! for the new curve.
-  Standard_EXPORT void SetCurve(const Handle(Adaptor3d_Curve)& C);
+  Standard_EXPORT void SetCurve(const Handle(Curve5)& C);
 
   //! Returns the Point.
   Standard_EXPORT const Point3d& Value() const;
@@ -107,7 +107,7 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
   Standard_Real           myU;
   Standard_Integer        myDerOrder;
   Standard_Real           myCN;

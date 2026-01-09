@@ -559,7 +559,7 @@ static Standard_Integer BSplRes(DrawInterpreter& di, Standard_Integer argc, cons
     return 1;
   }
 
-  Handle(ShapeCustom_RestrictionParameters) aParameters = new ShapeCustom_RestrictionParameters;
+  Handle(RestrictionParameters) aParameters = new RestrictionParameters;
   TopoShape                              result      = ShapeCustom1::BSplineRestriction(Shape,
                                                         Draw1::Atof(argv[3]),
                                                         Draw1::Atof(argv[4]),

@@ -62,7 +62,7 @@ typedef Coords3d                   XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_SurfaceOfRevolution::Copy() const
+Handle(Geometry3) Geom_SurfaceOfRevolution::Copy() const
 {
 
   return new Geom_SurfaceOfRevolution(basisCurve, Axis());

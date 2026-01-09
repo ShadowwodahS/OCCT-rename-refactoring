@@ -17,7 +17,7 @@
 // Redefinition de BFGSOptimizer:
 // ==========================
 
-AppParCurves_BSpGradient_BFGS::AppParCurves_BSpGradient_BFGS(math_MultipleVarFunctionWithGradient& F,
+AppParCurves_BSpGradient_BFGS::AppParCurves_BSpGradient_BFGS(MultiVarFunctionWithGradient& F,
 							     const math_Vector& StartingPoint,
 							     const Standard_Real Tolerance3d,
 							     const Standard_Real Tolerance2d,
@@ -31,7 +31,7 @@ AppParCurves_BSpGradient_BFGS::AppParCurves_BSpGradient_BFGS(math_MultipleVarFun
   Perform(F, StartingPoint);
 }
 
-Standard_Boolean AppParCurves_BSpGradient_BFGS::IsSolutionReached(math_MultipleVarFunctionWithGradient& F) const {
+Standard_Boolean AppParCurves_BSpGradient_BFGS::IsSolutionReached(MultiVarFunctionWithGradient& F) const {
   Standard_Boolean Result, Result2;
   AppParCurves_BSpParFunction *F1 = (AppParCurves_BSpParFunction*) &F;
   

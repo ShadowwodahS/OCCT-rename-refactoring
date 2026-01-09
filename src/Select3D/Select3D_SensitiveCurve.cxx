@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveCurve, Select3D_SensitivePoly)
 //=================================================================================================
 
 Select3D_SensitiveCurve::Select3D_SensitiveCurve(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                                 const Handle(TColgp_HArray1OfPnt)&   thePoints)
+                                                 const Handle(PointArray1)&   thePoints)
     : Select3D_SensitivePoly(theOwnerId, thePoints, Standard_True)
 
 {
@@ -43,7 +43,7 @@ Select3D_SensitiveCurve::Select3D_SensitiveCurve(const Handle(SelectMgr_EntityOw
 
 Handle(Select3D_SensitiveEntity) Select3D_SensitiveCurve::GetConnected()
 {
-  Handle(TColgp_HArray1OfPnt) aPoints = new TColgp_HArray1OfPnt(1, myPolyg.Size());
+  Handle(PointArray1) aPoints = new PointArray1(1, myPolyg.Size());
   for (Standard_Integer anIndex = 1; anIndex <= myPolyg.Size(); ++anIndex)
   {
     aPoints->SetValue(anIndex, myPolyg.Pnt(anIndex - 1));

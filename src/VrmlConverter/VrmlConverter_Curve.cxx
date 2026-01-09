@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-static void FindLimits(const Adaptor3d_Curve& aCurve,
+static void FindLimits(const Curve5& aCurve,
                        const Standard_Real    aLimit,
                        Standard_Real&         First,
                        Standard_Real&         Last)
@@ -75,7 +75,7 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 
 //=================================================================================================
 
-static void DrawCurve(const Adaptor3d_Curve&              aCurve,
+static void DrawCurve(const Curve5&              aCurve,
                       const Standard_Integer              NbP,
                       const Standard_Real                 U1,
                       const Standard_Real                 U2,
@@ -83,7 +83,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
                       Standard_OStream&                   anOStream)
 {
   Standard_Integer                 nbintervals = 1, i;
-  Handle(TColgp_HArray1OfVec)      HAV1;
+  Handle(VectorArray)      HAV1;
   Handle(TColStd_HArray1OfInteger) HAI1;
 
   if (aCurve.GetType() == GeomAbs_BSplineCurve)
@@ -97,7 +97,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
   {
     case GeomAbs_Line: {
       Vector3d V;
-      HAV1 = new TColgp_HArray1OfVec(1, 2);
+      HAV1 = new VectorArray(1, 2);
       // array of coordinates of line
       Point3d p = aCurve.Value(U1);
       V.SetX(p.X());
@@ -127,7 +127,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
       //     std::cout <<  "N " << N << std::endl;
 
       Vector3d V;
-      HAV1 = new TColgp_HArray1OfVec(1, N);
+      HAV1 = new VectorArray(1, N);
       //      HAI1 = new TColStd_HArray1OfInteger(1,(N/2*3+N%2));
       HAI1             = new TColStd_HArray1OfInteger(1, N + 1);
       Standard_Real DU = (U2 - U1) / (N - 1);
@@ -206,7 +206,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
+void CurveConverter::Add(const Curve5&              aCurve,
                               const Handle(VrmlConverter_Drawer)& aDrawer,
                               Standard_OStream&                   anOStream)
 {
@@ -226,7 +226,7 @@ void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
+void CurveConverter::Add(const Curve5&              aCurve,
                               const Standard_Real                 U1,
                               const Standard_Real                 U2,
                               const Handle(VrmlConverter_Drawer)& aDrawer,
@@ -251,7 +251,7 @@ void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void CurveConverter::Add(const Adaptor3d_Curve& aCurve,
+void CurveConverter::Add(const Curve5& aCurve,
                               const Standard_Real    U1,
                               const Standard_Real    U2,
                               Standard_OStream&      anOStream,

@@ -28,15 +28,15 @@ class MultiLineToolWLApprox;
 class GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox;
-class math_MultipleVarFunctionWithGradient;
+class MultiVarFunctionWithGradient;
 
-class GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox : public BFGSOptimizer
+class BSplBFGSGradientLineApprox : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox(
-    math_MultipleVarFunctionWithGradient& F,
+  Standard_EXPORT BSplBFGSGradientLineApprox(
+    MultiVarFunctionWithGradient& F,
     const math_Vector&                    StartingPoint,
     const Standard_Real                   Tolerance3d,
     const Standard_Real                   Tolerance2d,
@@ -44,7 +44,7 @@ public:
     const Standard_Integer                NbIterations = 200);
 
   Standard_EXPORT virtual Standard_Boolean IsSolutionReached(
-    math_MultipleVarFunctionWithGradient& F) const Standard_OVERRIDE;
+    MultiVarFunctionWithGradient& F) const Standard_OVERRIDE;
 
 protected:
 private:

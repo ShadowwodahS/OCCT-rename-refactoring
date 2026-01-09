@@ -21,8 +21,8 @@
 #include <Standard_GUID.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_GUID, Handle(TFunction_Driver)> TFunction_DataMapOfGUIDDriver;
-typedef NCollection_DataMap<Standard_GUID, Handle(TFunction_Driver)>::Iterator
+typedef NCollection_DataMap<Standard_GUID, Handle(FunctionDriver1)> TFunction_DataMapOfGUIDDriver;
+typedef NCollection_DataMap<Standard_GUID, Handle(FunctionDriver1)>::Iterator
   TFunction_DataMapIteratorOfDataMapOfGUIDDriver;
 
 #endif

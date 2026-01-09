@@ -19,20 +19,20 @@ IMPLEMENT_STANDARD_RTTIEXT(Vrml_TextureCoordinate2, RefObject)
 Vrml_TextureCoordinate2::Vrml_TextureCoordinate2()
 {
   gp_Vec2d tmpVec(0, 0);
-  myPoint = new TColgp_HArray1OfVec2d(1, 1, tmpVec);
+  myPoint = new Vector2dArray(1, 1, tmpVec);
 }
 
-Vrml_TextureCoordinate2::Vrml_TextureCoordinate2(const Handle(TColgp_HArray1OfVec2d)& aPoint)
+Vrml_TextureCoordinate2::Vrml_TextureCoordinate2(const Handle(Vector2dArray)& aPoint)
 {
   myPoint = aPoint;
 }
 
-void Vrml_TextureCoordinate2::SetPoint(const Handle(TColgp_HArray1OfVec2d)& aPoint)
+void Vrml_TextureCoordinate2::SetPoint(const Handle(Vector2dArray)& aPoint)
 {
   myPoint = aPoint;
 }
 
-Handle(TColgp_HArray1OfVec2d) Vrml_TextureCoordinate2::Point() const
+Handle(Vector2dArray) Vrml_TextureCoordinate2::Point() const
 {
   return myPoint;
 }

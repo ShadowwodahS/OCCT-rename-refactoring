@@ -1003,8 +1003,8 @@ void CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean WithRotatio
 
   // construction of tables of planes of wires
   gp_Pln                      P;
-  Handle(TColgp_HArray1OfPnt) Pos = new (TColgp_HArray1OfPnt)(1, NbSects);
-  Handle(TColgp_HArray1OfVec) Axe = new (TColgp_HArray1OfVec)(1, NbSects);
+  Handle(PointArray1) Pos = new (PointArray1)(1, NbSects);
+  Handle(VectorArray) Axe = new (VectorArray)(1, NbSects);
   for (i = ideb; i <= ifin; i++)
   {
     if (PlaneOfWire(TopoDS::Wire(myWork(i)), P))
@@ -1699,10 +1699,10 @@ void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
 
     // construction of tables of planes of wires
     gp_Pln P;
-    Handle(TColgp_HArray1OfPnt) Pos
-      = new (TColgp_HArray1OfPnt) (1,NbSects);
-    Handle(TColgp_HArray1OfVec) Axe
-      = new (TColgp_HArray1OfVec) (1,NbSects);
+    Handle(PointArray1) Pos
+      = new (PointArray1) (1,NbSects);
+    Handle(VectorArray) Axe
+      = new (VectorArray) (1,NbSects);
     for (i=ideb;i<=ifin;i++) {
       if (PlaneOfWire(TopoDS::Wire(myWork(i)),P)) {
         Pos->SetValue(i,P.Location());

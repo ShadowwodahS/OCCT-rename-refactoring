@@ -277,7 +277,7 @@ static IFSelect_ReturnStatus XSControl_tpdraw(const Handle(IFSelect_SessionPilot
         sout << "Entite n0 " << num << " : pas de resultat" << std::endl;
         continue;
       }
-      DeclareAndCast(Geom_Geometry, geom, resu);
+      DeclareAndCast(Geometry3, geom, resu);
       sout << "Entite n0 " << num << " : resultat " << resu->DynamicType()->Name();
       if (geom.IsNull())
       {

@@ -51,7 +51,7 @@ Handle(IMeshData_Model) BRepMesh_ModelBuilder::performInternal(
     if (theParameters.Relative)
     {
       Standard_Real aMaxSize;
-      BRepMesh_ShapeTool::BoxMaxDimension(aBox, aMaxSize);
+      ShapeTool2::BoxMaxDimension(aBox, aMaxSize);
       aModel->SetMaxSize(aMaxSize);
     }
     else
@@ -59,7 +59,7 @@ Handle(IMeshData_Model) BRepMesh_ModelBuilder::performInternal(
       aModel->SetMaxSize(Max(theParameters.Deflection, theParameters.DeflectionInterior));
     }
 
-    Handle(IMeshTools_ShapeVisitor) aVisitor = new BRepMesh_ShapeVisitor(aModel);
+    Handle(ShapeVisitor) aVisitor = new BRepMesh_ShapeVisitor(aModel);
 
     IMeshTools_ShapeExplorer aExplorer(theShape);
     aExplorer.Accept(aVisitor);

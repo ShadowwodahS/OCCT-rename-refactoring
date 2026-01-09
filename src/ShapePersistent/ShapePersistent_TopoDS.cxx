@@ -93,7 +93,7 @@ void ShapePersistent_TopoDS::pTBase::addShapesT(TopoShape& theParent) const
 template void ShapePersistent_TopoDS::pTBase::addShapesT<HArray1::Persistent>(
   TopoShape& theParent) const;
 
-template void ShapePersistent_TopoDS::pTBase::addShapesT<StdPersistent_HArray1::Shape1>(
+template void ShapePersistent_TopoDS::pTBase::addShapesT<HArray12::Shape1>(
   TopoShape& theParent) const;
 
 template <class Target>

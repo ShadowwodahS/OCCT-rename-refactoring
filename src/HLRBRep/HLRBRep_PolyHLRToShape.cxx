@@ -45,7 +45,7 @@ void HLRBRep_PolyHLRToShape::Update(const Handle(HLRBRep_PolyAlgo)& A)
   TopoShape       S;
   Standard_Boolean   reg1, regn, outl, intl;
   const Transform3d&     T = myAlgo->Projector().Transformation();
-  HLRAlgo_EdgeStatus status;
+  EdgeStatus status;
 
   for (myAlgo->InitHide(); myAlgo->MoreHide(); myAlgo->NextHide())
   {

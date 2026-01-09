@@ -207,7 +207,7 @@ void LinkToContour(const BRepMAT2d_Explorer&        Explo,
                    TColStd_DataMapOfIntegerInteger& Link1)
 {
   Handle(MAT_BasicElt)    BE;
-  Handle(Geom2d_Geometry) GeomBE;
+  Handle(Geometry2) GeomBE;
   Handle(TypeInfo)   Type;
   Standard_Boolean        DirectSense = Standard_True;
   Standard_Boolean        LastPoint   = Standard_False;

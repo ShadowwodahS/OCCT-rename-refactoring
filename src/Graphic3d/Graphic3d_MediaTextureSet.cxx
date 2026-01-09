@@ -33,12 +33,12 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_MediaTextureSet, Graphic3d_TextureSet)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_MediaTextureSet, TextureSet1)
 
 //=================================================================================================
 
 Graphic3d_MediaTextureSet::Graphic3d_MediaTextureSet()
-    : Graphic3d_TextureSet(4),
+    : TextureSet1(4),
       myMutex(new Standard_HMutex()),
       myCallbackFunction(NULL),
       myCallbackUserPtr(NULL),
@@ -88,24 +88,24 @@ Graphic3d_MediaTextureSet::Graphic3d_MediaTextureSet()
     "                    occTexture2D (occSampler2, TexCoord.st).r);" EOL
     " occSetFragColor (vec4 (convertToRGB (aYUV), 1.0));" EOL "}";
 
-  myShaderYUV = new Graphic3d_ShaderProgram();
+  myShaderYUV = new ShaderProgram2();
   myShaderYUV->SetHeader("#version 150");
   myShaderYUV->SetNbLightsMax(0);
   myShaderYUV->SetNbClipPlanesMax(0);
   myShaderYUV->AttachShader(
-    Graphic3d_ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aSrcVert));
+    ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aSrcVert));
   myShaderYUV->AttachShader(
-    Graphic3d_ShaderObject::CreateFromSource(Graphic3d_TOS_FRAGMENT,
+    ShaderObject::CreateFromSource(Graphic3d_TOS_FRAGMENT,
                                              aSrcFrag + F_SHADER_YUV2RGB_MPEG));
 
-  myShaderYUVJ = new Graphic3d_ShaderProgram();
+  myShaderYUVJ = new ShaderProgram2();
   myShaderYUVJ->SetHeader("#version 150");
   myShaderYUVJ->SetNbLightsMax(0);
   myShaderYUVJ->SetNbClipPlanesMax(0);
   myShaderYUVJ->AttachShader(
-    Graphic3d_ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aSrcVert));
+    ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aSrcVert));
   myShaderYUVJ->AttachShader(
-    Graphic3d_ShaderObject::CreateFromSource(Graphic3d_TOS_FRAGMENT,
+    ShaderObject::CreateFromSource(Graphic3d_TOS_FRAGMENT,
                                              aSrcFrag + F_SHADER_YUV2RGB_FULL));
 }
 

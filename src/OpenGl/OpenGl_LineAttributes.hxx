@@ -26,13 +26,13 @@ typedef NCollection_DataMap<Handle(Graphic3d_HatchStyle), unsigned int>
 
 class OpenGl_Context;
 
-DEFINE_STANDARD_HANDLE(OpenGl_LineAttributes, OpenGl_Resource)
+DEFINE_STANDARD_HANDLE(OpenGl_LineAttributes, Resource)
 
 //! Utility class to manage OpenGL resources of polygon hatching styles.
 //! @note the implementation is not supported by Core Profile and by ES version.
-class OpenGl_LineAttributes : public OpenGl_Resource
+class OpenGl_LineAttributes : public Resource
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_LineAttributes, OpenGl_Resource)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_LineAttributes, Resource)
 public:
   //! Default constructor.
   Standard_EXPORT OpenGl_LineAttributes();

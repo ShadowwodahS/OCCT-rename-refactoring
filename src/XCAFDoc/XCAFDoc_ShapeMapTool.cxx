@@ -69,7 +69,7 @@ Handle(TDF_Attribute) XCAFDoc_ShapeMapTool::NewEmpty() const
 //=================================================================================================
 
 void XCAFDoc_ShapeMapTool::Paste(const Handle(TDF_Attribute)& /*into*/,
-                                 const Handle(TDF_RelocationTable)& /*RT*/) const
+                                 const Handle(RelocationTable1)& /*RT*/) const
 {
 }
 

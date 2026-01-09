@@ -39,7 +39,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! case of a free 3D curve
-  Standard_EXPORT Approx_CurvilinearParameter(const Handle(Adaptor3d_Curve)& C3D,
+  Standard_EXPORT Approx_CurvilinearParameter(const Handle(Curve5)& C3D,
                                               const Standard_Real            Tol,
                                               const GeomAbs_Shape            Order,
                                               const Standard_Integer         MaxDegree,
@@ -47,7 +47,7 @@ public:
 
   //! case of a curve on one surface
   Standard_EXPORT Approx_CurvilinearParameter(const Handle(Adaptor2d_Curve2d)& C2D,
-                                              const Handle(Adaptor3d_Surface)& Surf,
+                                              const Handle(SurfaceAdaptor)& Surf,
                                               const Standard_Real              Tol,
                                               const GeomAbs_Shape              Order,
                                               const Standard_Integer           MaxDegree,
@@ -55,9 +55,9 @@ public:
 
   //! case of a curve on two surfaces
   Standard_EXPORT Approx_CurvilinearParameter(const Handle(Adaptor2d_Curve2d)& C2D1,
-                                              const Handle(Adaptor3d_Surface)& Surf1,
+                                              const Handle(SurfaceAdaptor)& Surf1,
                                               const Handle(Adaptor2d_Curve2d)& C2D2,
-                                              const Handle(Adaptor3d_Surface)& Surf2,
+                                              const Handle(SurfaceAdaptor)& Surf2,
                                               const Standard_Real              Tol,
                                               const GeomAbs_Shape              Order,
                                               const Standard_Integer           MaxDegree,
@@ -92,7 +92,7 @@ public:
 
 private:
   Standard_EXPORT static void ToleranceComputation(const Handle(Adaptor2d_Curve2d)& C2D,
-                                                   const Handle(Adaptor3d_Surface)& S,
+                                                   const Handle(SurfaceAdaptor)& S,
                                                    const Standard_Integer           MaxNumber,
                                                    const Standard_Real              Tol,
                                                    Standard_Real&                   TolV,

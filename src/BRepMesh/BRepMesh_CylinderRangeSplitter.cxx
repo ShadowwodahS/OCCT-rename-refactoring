@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void BRepMesh_CylinderRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFace,
+void CylinderRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFace,
                                            const Parameters3&  theParameters)
 {
   DefaultRangeSplitter::Reset(theDFace, theParameters);
@@ -34,7 +34,7 @@ void BRepMesh_CylinderRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFac
 
 //=================================================================================================
 
-Handle(IMeshData::ListOfPnt2d) BRepMesh_CylinderRangeSplitter::GenerateSurfaceNodes(
+Handle(IMeshData::ListOfPnt2d) CylinderRangeSplitter::GenerateSurfaceNodes(
   const Parameters3& /*theParameters*/) const
 {
   const std::pair<Standard_Real, Standard_Real>& aRangeU = GetRangeU();
@@ -85,7 +85,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_CylinderRangeSplitter::GenerateSurfaceNo
 
 //=================================================================================================
 
-void BRepMesh_CylinderRangeSplitter::computeDelta(const Standard_Real /*theLengthU*/,
+void CylinderRangeSplitter::computeDelta(const Standard_Real /*theLengthU*/,
                                                   const Standard_Real theLengthV)
 {
   const std::pair<double, double>& aRangeV = GetRangeV();

@@ -288,7 +288,7 @@ TopoShape ShapeFix_Shape::Shape() const
 
 //=================================================================================================
 
-void ShapeFix_Shape::SetMsgRegistrator(const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg)
+void ShapeFix_Shape::SetMsgRegistrator(const Handle(BasicMsgRegistrator)& msgreg)
 {
   ShapeFix_Root::SetMsgRegistrator(msgreg);
   myFixSolid->SetMsgRegistrator(msgreg);

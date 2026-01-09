@@ -70,7 +70,7 @@ Standard_Boolean ShapeFix1::SameParameter(const TopoShape&                      
                                          const Standard_Boolean                         enforce,
                                          const Standard_Real                            preci,
                                          const Message_ProgressRange&                   theProgress,
-                                         const Handle(ShapeExtend_BasicMsgRegistrator)& theMsgReg)
+                                         const Handle(BasicMsgRegistrator)& theMsgReg)
 {
   // Calculate number of edges
   Standard_Integer aNbEdges = 0;

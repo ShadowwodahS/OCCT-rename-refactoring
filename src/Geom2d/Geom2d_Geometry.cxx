@@ -21,15 +21,15 @@
 #include <gp_Vec2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Geometry, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Geometry2, RefObject)
 
-typedef Geom2d_Geometry Geometry1;
+typedef Geometry2 Geometry1;
 typedef gp_Ax2d         Ax2d;
 typedef gp_Pnt2d        Pnt2d;
 typedef gp_Vec2d        Vec2d;
 typedef Transform2d       Trsf2d;
 
-void Geom2d_Geometry::Mirror(const gp_Pnt2d& P)
+void Geometry2::Mirror(const gp_Pnt2d& P)
 {
 
   Trsf2d T;
@@ -37,7 +37,7 @@ void Geom2d_Geometry::Mirror(const gp_Pnt2d& P)
   Transform(T);
 }
 
-void Geom2d_Geometry::Mirror(const gp_Ax2d& A)
+void Geometry2::Mirror(const gp_Ax2d& A)
 {
 
   Trsf2d T;
@@ -45,7 +45,7 @@ void Geom2d_Geometry::Mirror(const gp_Ax2d& A)
   Transform(T);
 }
 
-void Geom2d_Geometry::Rotate(const gp_Pnt2d& P, const Standard_Real Ang)
+void Geometry2::Rotate(const gp_Pnt2d& P, const Standard_Real Ang)
 {
 
   Trsf2d T;
@@ -53,7 +53,7 @@ void Geom2d_Geometry::Rotate(const gp_Pnt2d& P, const Standard_Real Ang)
   Transform(T);
 }
 
-void Geom2d_Geometry::Scale(const gp_Pnt2d& P, const Standard_Real S)
+void Geometry2::Scale(const gp_Pnt2d& P, const Standard_Real S)
 {
 
   Trsf2d T;
@@ -61,7 +61,7 @@ void Geom2d_Geometry::Scale(const gp_Pnt2d& P, const Standard_Real S)
   Transform(T);
 }
 
-void Geom2d_Geometry::Translate(const gp_Vec2d& V)
+void Geometry2::Translate(const gp_Vec2d& V)
 {
 
   Trsf2d T;
@@ -69,63 +69,63 @@ void Geom2d_Geometry::Translate(const gp_Vec2d& V)
   Transform(T);
 }
 
-void Geom2d_Geometry::Translate(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
+void Geometry2::Translate(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
 
   Vec2d V(P1, P2);
   Translate(V);
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Mirrored(const gp_Pnt2d& P) const
+Handle(Geometry2) Geometry2::Mirrored(const gp_Pnt2d& P) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Mirror(P);
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Mirrored(const gp_Ax2d& A) const
+Handle(Geometry2) Geometry2::Mirrored(const gp_Ax2d& A) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Mirror(A);
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Rotated(const gp_Pnt2d& P, const Standard_Real Ang) const
+Handle(Geometry2) Geometry2::Rotated(const gp_Pnt2d& P, const Standard_Real Ang) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Rotate(P, Ang);
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Scaled(const gp_Pnt2d& P, const Standard_Real S) const
+Handle(Geometry2) Geometry2::Scaled(const gp_Pnt2d& P, const Standard_Real S) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Scale(P, S);
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Transformed(const Transform2d& T) const
+Handle(Geometry2) Geometry2::Transformed(const Transform2d& T) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Transform(T);
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Translated(const gp_Vec2d& V) const
+Handle(Geometry2) Geometry2::Translated(const gp_Vec2d& V) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Translate(V);
   return G;
 }
 
-Handle(Geom2d_Geometry) Geom2d_Geometry::Translated(const gp_Pnt2d& P1, const gp_Pnt2d& P2) const
+Handle(Geometry2) Geometry2::Translated(const gp_Pnt2d& P1, const gp_Pnt2d& P2) const
 {
-  Handle(Geom2d_Geometry) G = Copy();
+  Handle(Geometry2) G = Copy();
   G->Translate(P1, P2);
   return G;
 }
 
-void Geom2d_Geometry::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void Geometry2::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 }

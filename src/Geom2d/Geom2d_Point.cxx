@@ -18,7 +18,7 @@
 #include <gp_Pnt2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Point, Geom2d_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Point, Geometry2)
 
 typedef Geom2d_Point Point;
 
@@ -44,5 +44,5 @@ void Geom2d_Point::DumpJson(Standard_OStream& theOStream, Standard_Integer theDe
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom2d_Geometry)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geometry2)
 }

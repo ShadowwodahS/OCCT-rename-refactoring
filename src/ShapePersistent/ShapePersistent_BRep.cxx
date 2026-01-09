@@ -501,7 +501,7 @@ void ShapePersistent_BRep::PolygonOnSurface::PChildren(
 
 Handle(BRep_CurveRepresentation) ShapePersistent_BRep::PolygonOnSurface::import() const
 {
-  Handle(Poly_Polygon2D) aPolygon2D;
+  Handle(Polygon2D2) aPolygon2D;
   if (myPolygon2D)
     aPolygon2D = myPolygon2D->Import();
 
@@ -536,11 +536,11 @@ void ShapePersistent_BRep::PolygonOnClosedSurface::PChildren(
 
 Handle(BRep_CurveRepresentation) ShapePersistent_BRep::PolygonOnClosedSurface::import() const
 {
-  Handle(Poly_Polygon2D) aPolygon2D;
+  Handle(Polygon2D2) aPolygon2D;
   if (myPolygon2D)
     aPolygon2D = myPolygon2D->Import();
 
-  Handle(Poly_Polygon2D) aPolygon2;
+  Handle(Polygon2D2) aPolygon2;
   if (myPolygon2)
     aPolygon2 = myPolygon2->Import();
 
@@ -877,12 +877,12 @@ Handle(ShapePersistent_BRep::TFace::pTObjectT) ShapePersistent_BRep::Translate(
   PTF->myNaturalRestriction = TTF->NaturalRestriction();
 
   // Surface
-  PTF->mySurface = ShapePersistent_Geom::Translate(TTF->Surface(), theMap);
+  PTF->mySurface = Geom1::Translate(TTF->Surface(), theMap);
 
   // Triangulation
   if (theTriangleMode == ShapePersistent_WithTriangle)
   {
-    PTF->myTriangulation = ShapePersistent_Poly::Translate(TTF->Triangulation(), theMap);
+    PTF->myTriangulation = Poly3::Translate(TTF->Triangulation(), theMap);
   }
 
   return PTF;
@@ -900,7 +900,7 @@ Handle(ShapePersistent_BRep::PointOnCurve) ShapePersistent_BRep::Translate(
 {
   Handle(PointOnCurve) aPPonC = new PointOnCurve;
   aPPonC->myParameter         = theParam;
-  aPPonC->myCurve             = ShapePersistent_Geom::Translate(theCurve, theMap);
+  aPPonC->myCurve             = Geom1::Translate(theCurve, theMap);
   aPPonC->myLocation          = StdObject_Location::Translate(theLoc, theMap);
   return aPPonC;
 }
@@ -919,7 +919,7 @@ Handle(ShapePersistent_BRep::PointOnCurveOnSurface) ShapePersistent_BRep::Transl
   Handle(PointOnCurveOnSurface) aPPonConS = new PointOnCurveOnSurface;
   aPPonConS->myParameter                  = theParam;
   aPPonConS->myPCurve                     = ShapePersistent_Geom2d::Translate(theCurve, theMap);
-  aPPonConS->mySurface                    = ShapePersistent_Geom::Translate(theSurf, theMap);
+  aPPonConS->mySurface                    = Geom1::Translate(theSurf, theMap);
   aPPonConS->myLocation                   = StdObject_Location::Translate(theLoc, theMap);
   return aPPonConS;
 }
@@ -938,7 +938,7 @@ Handle(ShapePersistent_BRep::PointOnSurface) ShapePersistent_BRep::Translate(
   Handle(PointOnSurface) aPonS = new PointOnSurface;
   aPonS->myParameter           = theParam;
   aPonS->myParameter2          = theParam2;
-  aPonS->mySurface             = ShapePersistent_Geom::Translate(theSurf, theMap);
+  aPonS->mySurface             = Geom1::Translate(theSurf, theMap);
   aPonS->myLocation            = StdObject_Location::Translate(theLoc, theMap);
   return aPonS;
 }
@@ -959,7 +959,7 @@ Handle(ShapePersistent_BRep::CurveOnSurface) ShapePersistent_BRep::Translate(
   aPConS->myPCurve              = ShapePersistent_Geom2d::Translate(theCurve, theMap);
   aPConS->myFirst               = theFirstParam;
   aPConS->myLast                = theLastParam;
-  aPConS->mySurface             = ShapePersistent_Geom::Translate(theSurf, theMap);
+  aPConS->mySurface             = Geom1::Translate(theSurf, theMap);
   aPConS->myLocation            = StdObject_Location::Translate(theLoc, theMap);
   return aPConS;
 }
@@ -983,7 +983,7 @@ Handle(ShapePersistent_BRep::CurveOnClosedSurface) ShapePersistent_BRep::Transla
   aPConCS->myPCurve2                   = ShapePersistent_Geom2d::Translate(theCurve2, theMap);
   aPConCS->myFirst                     = theFirstParam;
   aPConCS->myLast                      = theLastParam;
-  aPConCS->mySurface                   = ShapePersistent_Geom::Translate(theSurf, theMap);
+  aPConCS->mySurface                   = Geom1::Translate(theSurf, theMap);
   aPConCS->myLocation                  = StdObject_Location::Translate(theLoc, theMap);
   aPConCS->myContinuity                = theContinuity;
   return aPConCS;
@@ -1002,8 +1002,8 @@ Handle(ShapePersistent_BRep::CurveOn2Surfaces) ShapePersistent_BRep::Translate(
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(CurveOn2Surfaces) aPCon2S = new CurveOn2Surfaces;
-  aPCon2S->mySurface               = ShapePersistent_Geom::Translate(theSurf, theMap);
-  aPCon2S->mySurface2              = ShapePersistent_Geom::Translate(theSurf2, theMap);
+  aPCon2S->mySurface               = Geom1::Translate(theSurf, theMap);
+  aPCon2S->mySurface2              = Geom1::Translate(theSurf2, theMap);
   aPCon2S->myLocation              = StdObject_Location::Translate(theLoc, theMap);
   aPCon2S->myLocation2             = StdObject_Location::Translate(theLoc2, theMap);
   aPCon2S->myContinuity            = theContinuity;
@@ -1022,7 +1022,7 @@ Handle(ShapePersistent_BRep::Curve3D) ShapePersistent_BRep::Translate(
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(Curve3D) aPCurve3D = new Curve3D;
-  aPCurve3D->myCurve3D      = ShapePersistent_Geom::Translate(theCurve, theMap);
+  aPCurve3D->myCurve3D      = Geom1::Translate(theCurve, theMap);
   aPCurve3D->myLocation     = StdObject_Location::Translate(theLoc, theMap);
   aPCurve3D->myFirst        = theFirstParam;
   aPCurve3D->myLast         = theLastParam;
@@ -1039,7 +1039,7 @@ Handle(ShapePersistent_BRep::Polygon3D) ShapePersistent_BRep::Translate(
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(Polygon3D) aPPoly = new Polygon3D;
-  aPPoly->myPolygon3D      = ShapePersistent_Poly::Translate(thePoly, theMap);
+  aPPoly->myPolygon3D      = Poly3::Translate(thePoly, theMap);
   aPPoly->myLocation       = StdObject_Location::Translate(theLoc, theMap);
   return aPPoly;
 }
@@ -1049,16 +1049,16 @@ Handle(ShapePersistent_BRep::Polygon3D) ShapePersistent_BRep::Translate(
 // purpose  : Translates a shape to its persistent avatar
 //=======================================================================
 Handle(ShapePersistent_BRep::PolygonOnClosedSurface) ShapePersistent_BRep::Translate(
-  const Handle(Poly_Polygon2D)&     thePoly,
-  const Handle(Poly_Polygon2D)&     thePoly2,
+  const Handle(Polygon2D2)&     thePoly,
+  const Handle(Polygon2D2)&     thePoly2,
   const Handle(GeomSurface)&       theSurf,
   const TopLoc_Location&            theLoc,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(PolygonOnClosedSurface) aPPonCS = new PolygonOnClosedSurface;
-  aPPonCS->myPolygon2D                   = ShapePersistent_Poly::Translate(thePoly, theMap);
-  aPPonCS->myPolygon2                    = ShapePersistent_Poly::Translate(thePoly2, theMap);
-  aPPonCS->mySurface                     = ShapePersistent_Geom::Translate(theSurf, theMap);
+  aPPonCS->myPolygon2D                   = Poly3::Translate(thePoly, theMap);
+  aPPonCS->myPolygon2                    = Poly3::Translate(thePoly2, theMap);
+  aPPonCS->mySurface                     = Geom1::Translate(theSurf, theMap);
   aPPonCS->myLocation                    = StdObject_Location::Translate(theLoc, theMap);
   return aPPonCS;
 }
@@ -1068,14 +1068,14 @@ Handle(ShapePersistent_BRep::PolygonOnClosedSurface) ShapePersistent_BRep::Trans
 // purpose  : Translates a shape to its persistent avatar
 //=======================================================================
 Handle(ShapePersistent_BRep::PolygonOnSurface) ShapePersistent_BRep::Translate(
-  const Handle(Poly_Polygon2D)&     thePoly,
+  const Handle(Polygon2D2)&     thePoly,
   const Handle(GeomSurface)&       theSurf,
   const TopLoc_Location&            theLoc,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(PolygonOnSurface) aPPonS = new PolygonOnSurface;
-  aPPonS->myPolygon2D             = ShapePersistent_Poly::Translate(thePoly, theMap);
-  aPPonS->mySurface               = ShapePersistent_Geom::Translate(theSurf, theMap);
+  aPPonS->myPolygon2D             = Poly3::Translate(thePoly, theMap);
+  aPPonS->mySurface               = Geom1::Translate(theSurf, theMap);
   aPPonS->myLocation              = StdObject_Location::Translate(theLoc, theMap);
   return aPPonS;
 }
@@ -1092,9 +1092,9 @@ Handle(ShapePersistent_BRep::PolygonOnClosedTriangulation) ShapePersistent_BRep:
   StdObjMgt_TransientPersistentMap&          theMap)
 {
   Handle(PolygonOnClosedTriangulation) aPPonCS = new PolygonOnClosedTriangulation;
-  aPPonCS->myPolygon       = ShapePersistent_Poly::Translate(thePolyOnTriang, theMap);
-  aPPonCS->myPolygon2      = ShapePersistent_Poly::Translate(thePolyOnTriang2, theMap);
-  aPPonCS->myTriangulation = ShapePersistent_Poly::Translate(thePolyTriang, theMap);
+  aPPonCS->myPolygon       = Poly3::Translate(thePolyOnTriang, theMap);
+  aPPonCS->myPolygon2      = Poly3::Translate(thePolyOnTriang2, theMap);
+  aPPonCS->myTriangulation = Poly3::Translate(thePolyTriang, theMap);
   aPPonCS->myLocation      = StdObject_Location::Translate(theLoc, theMap);
   return aPPonCS;
 }
@@ -1110,8 +1110,8 @@ Handle(ShapePersistent_BRep::PolygonOnTriangulation) ShapePersistent_BRep::Trans
   StdObjMgt_TransientPersistentMap&          theMap)
 {
   Handle(PolygonOnTriangulation) aPPonT = new PolygonOnTriangulation;
-  aPPonT->myPolygon                     = ShapePersistent_Poly::Translate(thePolyOnTriang, theMap);
-  aPPonT->myTriangulation               = ShapePersistent_Poly::Translate(thePolyTriang, theMap);
+  aPPonT->myPolygon                     = Poly3::Translate(thePolyOnTriang, theMap);
+  aPPonT->myTriangulation               = Poly3::Translate(thePolyTriang, theMap);
   aPPonT->myLocation                    = StdObject_Location::Translate(theLoc, theMap);
   return aPPonT;
 }

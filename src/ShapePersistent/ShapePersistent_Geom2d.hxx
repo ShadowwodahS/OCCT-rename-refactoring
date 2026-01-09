@@ -23,12 +23,12 @@
 #include <Geom2d_Transformation.hxx>
 #include <Geom2d_Curve.hxx>
 
-class ShapePersistent_Geom2d : public ShapePersistent_Geom
+class ShapePersistent_Geom2d : public Geom1
 {
-  typedef geometryBase<Geom2d_Geometry> basic;
+  typedef geometryBase<Geometry2> basic;
 
 public:
-  typedef ShapePersistent_Geom::Geometry1 Geometry1;
+  typedef Geom1::Geometry1 Geometry1;
 
   typedef subBase_empty<basic>                             Point;
   typedef instance<Point, Geom2d_CartesianPoint, gp_Pnt2d> CartesianPoint;
@@ -39,7 +39,7 @@ public:
 
   typedef instance<basic, Geom2d_AxisPlacement, gp_Ax2d> AxisPlacement;
 
-  typedef instance<SharedBase<Geom2d_Transformation>, Geom2d_Transformation, Transform2d>
+  typedef instance<SharedBase<Transformation2d>, Transformation2d, Transform2d>
     Transformation;
 
   typedef geometryBase<GeomCurve2d> Curve;
@@ -54,7 +54,7 @@ public:
 // Geometry1
 //=======================================================================
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<Geom2d_Geometry>::PName() const
+inline Standard_CString Geom1::geometryBase<Geometry2>::PName() const
 {
   return "PGeom2d_Geometry";
 }
@@ -63,8 +63,8 @@ inline Standard_CString ShapePersistent_Geom::geometryBase<Geom2d_Geometry>::PNa
 // Point
 //=======================================================================
 template <>
-inline Standard_CString ShapePersistent_Geom::subBase_empty<
-  ShapePersistent_Geom2d::geometryBase<Geom2d_Geometry>>::PName() const
+inline Standard_CString Geom1::subBase_empty<
+  ShapePersistent_Geom2d::geometryBase<Geometry2>>::PName() const
 {
   return "PGeom2d_Point";
 }
@@ -73,14 +73,14 @@ inline Standard_CString ShapePersistent_Geom::subBase_empty<
 // CartesianPoint
 //=======================================================================
 template <>
-inline Standard_CString ShapePersistent_Geom::
+inline Standard_CString Geom1::
   instance<ShapePersistent_Geom2d::Point, Geom2d_CartesianPoint, gp_Pnt2d>::PName() const
 {
   return "PGeom2d_CartesianPoint";
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Point,
+inline void Geom1::instance<ShapePersistent_Geom2d::Point,
                                            Geom2d_CartesianPoint,
                                            gp_Pnt2d>::Write(WriteData& theWriteData) const
 {
@@ -92,23 +92,23 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Point,
 // Direction
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
+Standard_CString Geom1::
   instance<ShapePersistent_Geom2d::Direction, Geom2d_Direction, gp_Dir2d>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Direction, Geom2d_Direction, gp_Dir2d>::
+void Geom1::instance<ShapePersistent_Geom2d::Direction, Geom2d_Direction, gp_Dir2d>::
   Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // VectorWithMagnitude
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
+Standard_CString Geom1::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
                                                 Geom2d_VectorWithMagnitude,
                                                 gp_Vec2d>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
+void Geom1::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
                                     Geom2d_VectorWithMagnitude,
                                     gp_Vec2d>::Write(WriteData& theWriteData) const;
 
@@ -116,11 +116,11 @@ void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::VectorWithMagnitude,
 // AxisPlacement
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
+Standard_CString Geom1::
   instance<ShapePersistent_Geom2d::AxisPlacement, Geom2d_AxisPlacement, gp_Ax2d>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::AxisPlacement,
+void Geom1::instance<ShapePersistent_Geom2d::AxisPlacement,
                                     Geom2d_AxisPlacement,
                                     gp_Ax2d>::Write(WriteData& theWriteData) const;
 
@@ -128,24 +128,24 @@ void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::AxisPlacement,
 // Transformation
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom2d::Transformation, Geom2d_Transformation, Transform2d>::PName() const;
+Standard_CString Geom1::
+  instance<ShapePersistent_Geom2d::Transformation, Transformation2d, Transform2d>::PName() const;
 
 template <>
-void ShapePersistent_Geom::
-  instance<ShapePersistent_Geom2d::Transformation, Geom2d_Transformation, Transform2d>::PChildren(
+void Geom1::
+  instance<ShapePersistent_Geom2d::Transformation, Transformation2d, Transform2d>::PChildren(
     StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Transformation,
-                                    Geom2d_Transformation,
+void Geom1::instance<ShapePersistent_Geom2d::Transformation,
+                                    Transformation2d,
                                     Transform2d>::Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Curve
 //=======================================================================
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<GeomCurve2d>::PName() const
+inline Standard_CString Geom1::geometryBase<GeomCurve2d>::PName() const
 {
   return "PGeom2d_Curve";
 }

@@ -20,7 +20,7 @@
 #include <Law_Function.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_Constant, Law_Function)
+IMPLEMENT_STANDARD_RTTIEXT(Law_Constant, Function2)
 
 //=================================================================================================
 
@@ -92,7 +92,7 @@ void Law_Constant::D2(const Standard_Real, Standard_Real& F, Standard_Real& D, S
 
 //=================================================================================================
 
-Handle(Law_Function) Law_Constant::Trim(const Standard_Real PFirst,
+Handle(Function2) Law_Constant::Trim(const Standard_Real PFirst,
                                         const Standard_Real PLast,
                                         //				      const Standard_Real Tol) const
                                         const Standard_Real) const

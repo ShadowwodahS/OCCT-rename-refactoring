@@ -27,7 +27,7 @@
 
 //! This abstract class describes a Function of 1 Variable
 //! used to find a line tangent to a curve and a circle.
-class Geom2dGcc_FunctionTanCirCu : public math_FunctionWithDerivative
+class Geom2dGcc_FunctionTanCirCu : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

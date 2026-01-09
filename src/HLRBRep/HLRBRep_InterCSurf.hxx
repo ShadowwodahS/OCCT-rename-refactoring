@@ -30,7 +30,7 @@ class HLRBRep_ThePolygonOfInterCSurf;
 class PolygonToolInterCSurf;
 class HLRBRep_ThePolyhedronOfInterCSurf;
 class PolyhedronToolInterCSurf;
-class HLRBRep_TheInterferenceOfInterCSurf;
+class InterferenceInterCSurf;
 class HLRBRep_TheCSFunctionOfInterCSurf;
 class HLRBRep_TheExactInterCSurf;
 class QuadCurvExactInterCSurf;
@@ -43,13 +43,13 @@ class gp_Hypr;
 class ConicQuadIntersection;
 class Box2;
 
-class HLRBRep_InterCSurf : public CurveSurfaceIntersection1
+class CurveSurfaceIntersection2 : public CurveSurfaceIntersection1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty Constructor
-  Standard_EXPORT HLRBRep_InterCSurf();
+  Standard_EXPORT CurveSurfaceIntersection2();
 
   //! Compute the Intersection between the curve and the
   //! surface

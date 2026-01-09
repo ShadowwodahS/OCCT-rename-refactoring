@@ -169,7 +169,7 @@ Standard_Boolean StdPrs_ToolTriangulatedShape::Tessellate(const TopoShape&      
 
   // retrieve meshing tool from Factory
   Handle(BRepMesh_DiscretRoot) aMeshAlgo =
-    BRepMesh_DiscretFactory::Get().Discret(theShape, aDeflection, theDrawer->DeviationAngle());
+    DiscretizationFactory::Get().Discret(theShape, aDeflection, theDrawer->DeviationAngle());
   if (!aMeshAlgo.IsNull())
   {
     aMeshAlgo->Perform();

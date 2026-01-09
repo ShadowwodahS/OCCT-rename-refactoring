@@ -28,7 +28,7 @@ class Message_Msg;
 class TopoShape;
 
 class ShapeExtend_MsgRegistrator;
-DEFINE_STANDARD_HANDLE(ShapeExtend_MsgRegistrator, ShapeExtend_BasicMsgRegistrator)
+DEFINE_STANDARD_HANDLE(ShapeExtend_MsgRegistrator, BasicMsgRegistrator)
 
 //! Attaches messages to the objects (generic Transient or shape).
 //! The objects of this class are transmitted to the Shape Healing
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_MsgRegistrator, ShapeExtend_BasicMsgRegistrat
 //! Messages are added to the Maps (stored as a field) that can be
 //! used, for instance, by Data Exchange processors to attach those
 //! messages to initial file entities.
-class ShapeExtend_MsgRegistrator : public ShapeExtend_BasicMsgRegistrator
+class ShapeExtend_MsgRegistrator : public BasicMsgRegistrator
 {
 
 public:
@@ -65,7 +65,7 @@ public:
   //! Returns a Map of shapes and message list
   const ShapeExtend_DataMapOfShapeListOfMsg& MapShape() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeExtend_MsgRegistrator, ShapeExtend_BasicMsgRegistrator)
+  DEFINE_STANDARD_RTTIEXT(ShapeExtend_MsgRegistrator, BasicMsgRegistrator)
 
 protected:
 private:

@@ -27,12 +27,12 @@ AppDef_MultiLine::AppDef_MultiLine(const Standard_Integer NbMult)
   if (NbMult < 0)
     throw Standard_ConstructionError();
 
-  tabMult = new AppDef_HArray1OfMultiPointConstraint(1, NbMult);
+  tabMult = new MultiPointConstraintArray(1, NbMult);
 }
 
 AppDef_MultiLine::AppDef_MultiLine(const AppDef_Array1OfMultiPointConstraint& tabMultiP)
 {
-  tabMult = new AppDef_HArray1OfMultiPointConstraint(1, tabMultiP.Length());
+  tabMult = new MultiPointConstraintArray(1, tabMultiP.Length());
   Standard_Integer i, Lower = tabMultiP.Lower();
   for (i = 1; i <= tabMultiP.Length(); i++)
   {
@@ -42,7 +42,7 @@ AppDef_MultiLine::AppDef_MultiLine(const AppDef_Array1OfMultiPointConstraint& ta
 
 AppDef_MultiLine::AppDef_MultiLine(const TColgp_Array1OfPnt& tabP3d)
 {
-  tabMult = new AppDef_HArray1OfMultiPointConstraint(1, tabP3d.Length());
+  tabMult = new MultiPointConstraintArray(1, tabP3d.Length());
   Standard_Integer i, Lower = tabP3d.Lower();
   for (i = 1; i <= tabP3d.Length(); i++)
   {
@@ -54,7 +54,7 @@ AppDef_MultiLine::AppDef_MultiLine(const TColgp_Array1OfPnt& tabP3d)
 
 AppDef_MultiLine::AppDef_MultiLine(const TColgp_Array1OfPnt2d& tabP2d)
 {
-  tabMult = new AppDef_HArray1OfMultiPointConstraint(1, tabP2d.Length());
+  tabMult = new MultiPointConstraintArray(1, tabP2d.Length());
   Standard_Integer i, Lower = tabP2d.Lower();
   for (i = 1; i <= tabP2d.Length(); i++)
   {

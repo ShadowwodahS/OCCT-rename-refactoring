@@ -26,25 +26,25 @@
 #include <Extrema_SequenceOfPOnSurf.hxx>
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <math_Vector.hxx>
-class Adaptor3d_Curve;
-class Adaptor3d_Surface;
+class Curve5;
+class SurfaceAdaptor;
 class math_Matrix;
 class PointOnCurve1;
 class PointOnSurface1;
 
 //! Function to find extrema of the
 //! distance between a curve and a surface.
-class Extrema_FuncExtCS : public math_FunctionSetWithDerivatives
+class Extrema_FuncExtCS : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT Extrema_FuncExtCS();
 
-  Standard_EXPORT Extrema_FuncExtCS(const Adaptor3d_Curve& C, const Adaptor3d_Surface& S);
+  Standard_EXPORT Extrema_FuncExtCS(const Curve5& C, const SurfaceAdaptor& S);
 
   //! sets the field mysurf of the function.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C, const Adaptor3d_Surface& S);
+  Standard_EXPORT void Initialize(const Curve5& C, const SurfaceAdaptor& S);
 
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
 
@@ -87,8 +87,8 @@ public:
   Extrema_SequenceOfPOnSurf& PointsOnSurf() { return myPoint2; }
 
 private:
-  const Adaptor3d_Curve*    myC;
-  const Adaptor3d_Surface*  myS;
+  const Curve5*    myC;
+  const SurfaceAdaptor*  myS;
   Point3d                    myP1;
   Point3d                    myP2;
   Standard_Real             myt;

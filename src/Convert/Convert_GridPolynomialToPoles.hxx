@@ -96,7 +96,7 @@ public:
   Standard_EXPORT Standard_Integer NbVPoles() const;
 
   //! returns the poles of the BSpline Surface
-  Standard_EXPORT const Handle(TColgp_HArray2OfPnt)& Poles() const;
+  Standard_EXPORT const Handle(PointGrid)& Poles() const;
 
   Standard_EXPORT Standard_Integer UDegree() const;
 
@@ -135,7 +135,7 @@ private:
   Handle(TColStd_HArray1OfReal)    myVKnots;
   Handle(TColStd_HArray1OfInteger) myUMults;
   Handle(TColStd_HArray1OfInteger) myVMults;
-  Handle(TColgp_HArray2OfPnt)      myPoles;
+  Handle(PointGrid)      myPoles;
   Standard_Integer                 myUDegree;
   Standard_Integer                 myVDegree;
   Standard_Boolean                 myDone;

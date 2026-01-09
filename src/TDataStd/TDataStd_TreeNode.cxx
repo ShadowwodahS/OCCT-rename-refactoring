@@ -620,7 +620,7 @@ void TDataStd_TreeNode::Restore(const Handle(TDF_Attribute)& other)
 //=======================================================================
 
 void TDataStd_TreeNode::Paste(const Handle(TDF_Attribute)&       into,
-                              const Handle(TDF_RelocationTable)& RT) const
+                              const Handle(RelocationTable1)& RT) const
 {
   Handle(TDataStd_TreeNode) intof = Handle(TDataStd_TreeNode)::DownCast(into);
   Handle(TDataStd_TreeNode) func;

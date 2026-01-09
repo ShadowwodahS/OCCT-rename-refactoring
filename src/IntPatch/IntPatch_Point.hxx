@@ -25,7 +25,7 @@
 #include <IntSurf_Transition.hxx>
 #include <Adaptor2d_Curve2d.hxx>
 
-class Adaptor3d_HVertex;
+class HandleVertex;
 class Point3d;
 
 //! Definition of an intersection point between two surfaces.
@@ -71,7 +71,7 @@ public:
   //! first patch, otherwise the point is on the domain of the
   //! second surface.
   Standard_EXPORT void SetVertex(const Standard_Boolean           OnFirst,
-                                 const Handle(Adaptor3d_HVertex)& V);
+                                 const Handle(HandleVertex)& V);
 
   //! Sets the values of a point which is on one of the domain,
   //! when both surfaces are implicit ones.
@@ -128,7 +128,7 @@ public:
   //! on the domain of the first patch, i-e when the function
   //! IsVertexOnS1 returns True.
   //! Otherwise, an exception is raised.
-  const Handle(Adaptor3d_HVertex)& VertexOnS1() const;
+  const Handle(HandleVertex)& VertexOnS1() const;
 
   //! Returns the arc of restriction containing the
   //! vertex.
@@ -167,7 +167,7 @@ public:
   //! on the domain of the second patch, i-e when the function
   //! IsVertexOnS2 returns True.
   //! Otherwise, an exception is raised.
-  const Handle(Adaptor3d_HVertex)& VertexOnS2() const;
+  const Handle(HandleVertex)& VertexOnS2() const;
 
   //! Returns the arc of restriction containing the
   //! vertex.
@@ -218,14 +218,14 @@ private:
 
   Standard_Boolean          onS1;
   Standard_Boolean          vtxonS1;
-  Handle(Adaptor3d_HVertex) vS1;
+  Handle(HandleVertex) vS1;
   Handle(Adaptor2d_Curve2d) arcS1;
   Transition2        traline1;
   Transition2        tra1;
   Standard_Real             prm1;
   Standard_Boolean          onS2;
   Standard_Boolean          vtxonS2;
-  Handle(Adaptor3d_HVertex) vS2;
+  Handle(HandleVertex) vS2;
   Handle(Adaptor2d_Curve2d) arcS2;
   Transition2        traline2;
   Transition2        tra2;

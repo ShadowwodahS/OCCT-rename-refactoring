@@ -134,7 +134,7 @@ public:
   //! Sometimes the density will have already been given at
   //! the time of construction of the framework Item. This
   //! may be the case for example, if Item is a
-  //! GProp_PGProps framework built to compute the
+  //! PointGeometricProperties framework built to compute the
   //! global properties of a set of points ; or another
   //! GeometricProperties object which already retains
   //! composite global properties. In these cases the real

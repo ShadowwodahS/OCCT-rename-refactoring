@@ -18,7 +18,7 @@
 #include <Graphic3d_CubeMapSide.hxx>
 #include <Standard_Macro.hxx>
 
-class Graphic3d_ValidatedCubeMapOrder;
+class ValidatedCubeMapOrder;
 
 //! CubeMapOrder maps sides of cubemap on tiles in packed cubemap image
 //! to support different tiles order in such images.
@@ -40,16 +40,16 @@ public:
                                          unsigned char thePosZLocation,
                                          unsigned char theNegZLocation);
 
-  //! Creates CubeMapOrder using Graphic3d_ValidatedCubeMapOrder.
-  Standard_EXPORT CubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOrder);
+  //! Creates CubeMapOrder using ValidatedCubeMapOrder.
+  Standard_EXPORT CubeMapOrder(const ValidatedCubeMapOrder& theOrder);
 
   //! Alias of 'operator='.
   Standard_EXPORT CubeMapOrder& Set(const CubeMapOrder& theOrder);
 
   //! Checks whether order is valid and returns object containing it.
   //! If order is invalid then exception will be thrown.
-  //! This method is only way to create Graphic3d_ValidatedCubeMapOrder except copy constructor.
-  Standard_EXPORT Graphic3d_ValidatedCubeMapOrder Validated() const;
+  //! This method is only way to create ValidatedCubeMapOrder except copy constructor.
+  Standard_EXPORT ValidatedCubeMapOrder Validated() const;
 
 public:
   //! Sets number of tile in packed cubemap image according passed cubemap side.
@@ -60,11 +60,11 @@ public:
   Standard_EXPORT CubeMapOrder& SetDefault();
 
   //! Applies another cubemap order as permutation for the current one.
-  Standard_EXPORT CubeMapOrder& Permute(const Graphic3d_ValidatedCubeMapOrder& anOrder);
+  Standard_EXPORT CubeMapOrder& Permute(const ValidatedCubeMapOrder& anOrder);
 
   //! Returns permuted by other cubemap order copy of current one.
   Standard_EXPORT CubeMapOrder
-    Permuted(const Graphic3d_ValidatedCubeMapOrder& anOrder) const;
+    Permuted(const ValidatedCubeMapOrder& anOrder) const;
 
   //! Swaps values of two cubemap sides.
   Standard_EXPORT CubeMapOrder& Swap(Graphic3d_CubeMapSide theFirstSide,
@@ -100,7 +100,7 @@ public:
 public:
   //! Returns default order in protector container class.
   //! It is guaranteed to be valid.
-  Standard_EXPORT static const Graphic3d_ValidatedCubeMapOrder& Default();
+  Standard_EXPORT static const ValidatedCubeMapOrder& Default();
 
 private:
   //! Alias of 'Get' with other parameter's type for more handful iteration.
@@ -118,12 +118,12 @@ private:
   bool         myHasOverflows; //!< Indicates if there are attempts to assign index greater than 5
 };
 
-//! Graphic3d_ValidatedCubeMapOrder contains completely valid order object.
+//! ValidatedCubeMapOrder contains completely valid order object.
 //! The only way to create this class except copy constructor is 'Validated' method of
 //! CubeMapOrder. This class can initialize CubeMapOrder. It is supposed to be
 //! used in case of necessity of completely valid order (in function argument as example). It helps
 //! to automate order's valid checks.
-class Graphic3d_ValidatedCubeMapOrder
+class ValidatedCubeMapOrder
 {
 
 public:
@@ -133,7 +133,7 @@ public:
   const CubeMapOrder* operator->() const { return &Order; }
 
   //! Copy constructor.
-  Graphic3d_ValidatedCubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOther)
+  ValidatedCubeMapOrder(const ValidatedCubeMapOrder& theOther)
       : Order(theOther.Order)
   {
   }
@@ -142,15 +142,15 @@ public:
   const CubeMapOrder Order; //!< Completely valid order
 
 private:
-  //! Only CubeMapOrder can generate Graphic3d_ValidatedCubeMapOrder in 'Validated'
+  //! Only CubeMapOrder can generate ValidatedCubeMapOrder in 'Validated'
   //! method.
-  Graphic3d_ValidatedCubeMapOrder(const CubeMapOrder theOrder)
+  ValidatedCubeMapOrder(const CubeMapOrder theOrder)
       : Order(theOrder)
   {
   }
 
   //! Deleted 'operator='
-  Graphic3d_ValidatedCubeMapOrder& operator=(const Graphic3d_ValidatedCubeMapOrder&);
+  ValidatedCubeMapOrder& operator=(const ValidatedCubeMapOrder&);
 };
 
 #endif // _Graphic3d_CubeMapOrder_HeaderFile

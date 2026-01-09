@@ -71,11 +71,11 @@ public:
   //! Returns null handle if current side is invalid or if image is not in supported compressed
   //! format.
   virtual Handle(Image_CompressedPixMap) CompressedValue(
-    const Handle(Image_SupportedFormats)& theSupported) = 0;
+    const Handle(SupportedFormats)& theSupported) = 0;
 
   //! Returns PixMap containing current side of cubemap.
   //! Returns null handle if current side is invalid.
-  virtual Handle(Image_PixMap) Value(const Handle(Image_SupportedFormats)& theSupported) = 0;
+  virtual Handle(Image_PixMap) Value(const Handle(SupportedFormats)& theSupported) = 0;
 
   //! Sets iterator state to +X cubemap side.
   Graphic3d_CubeMap& Reset()

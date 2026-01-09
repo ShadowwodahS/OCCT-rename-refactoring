@@ -27,7 +27,7 @@ class Standard_GUID;
 class TDF_AttributeDelta;
 class TDF_DeltaOnAddition;
 class TDF_DeltaOnRemoval;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DataSet;
 
 class TNaming_UsedShapes;
@@ -88,7 +88,7 @@ public:
   //! attribute may be a brand new one or a new version
   //! of the previous one.
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       intoAttribute,
-                                     const Handle(TDF_RelocationTable)& aRelocTationable) const
+                                     const Handle(RelocationTable1)& aRelocTationable) const
     Standard_OVERRIDE;
 
   //! Adds the directly referenced attributes and labels

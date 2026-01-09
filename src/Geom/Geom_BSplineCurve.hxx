@@ -34,7 +34,7 @@
 class Point3d;
 class Vector3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class BSplineCurve3d;
 DEFINE_STANDARD_HANDLE(BSplineCurve3d, Geom_BoundedCurve)
@@ -820,7 +820,7 @@ public:
   Standard_EXPORT void Resolution(const Standard_Real Tolerance3D, Standard_Real& UTolerance);
 
   //! Creates a new object which is a copy of this BSpline curve.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Compare two Bspline curve on identity;
   Standard_EXPORT Standard_Boolean IsEqual(const Handle(BSplineCurve3d)& theOther,
@@ -842,7 +842,7 @@ private:
   GeomAbs_BSplKnotDistribution     knotSet;
   GeomAbs_Shape                    smooth;
   Standard_Integer                 deg;
-  Handle(TColgp_HArray1OfPnt)      poles;
+  Handle(PointArray1)      poles;
   Handle(TColStd_HArray1OfReal)    weights;
   Handle(TColStd_HArray1OfReal)    flatknots;
   Handle(TColStd_HArray1OfReal)    knots;

@@ -24,13 +24,13 @@
 
 //! Extension of TDataStd_DataMapOfStringReal class
 //! to be manipulated by handle.
-class TDataStd_HDataMapOfStringReal : public RefObject
+class StringRealMap : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringReal, RefObject)
+  DEFINE_STANDARD_RTTIEXT(StringRealMap, RefObject)
 public:
-  Standard_EXPORT TDataStd_HDataMapOfStringReal(const Standard_Integer NbBuckets = 1);
+  Standard_EXPORT StringRealMap(const Standard_Integer NbBuckets = 1);
 
-  Standard_EXPORT TDataStd_HDataMapOfStringReal(const TDataStd_DataMapOfStringReal& theOther);
+  Standard_EXPORT StringRealMap(const TDataStd_DataMapOfStringReal& theOther);
 
   const TDataStd_DataMapOfStringReal& Map() const { return myMap; }
 
@@ -40,6 +40,6 @@ private:
   TDataStd_DataMapOfStringReal myMap;
 };
 
-DEFINE_STANDARD_HANDLE(TDataStd_HDataMapOfStringReal, RefObject)
+DEFINE_STANDARD_HANDLE(StringRealMap, RefObject)
 
 #endif // _TDataStd_HDataMapOfStringReal_HeaderFile

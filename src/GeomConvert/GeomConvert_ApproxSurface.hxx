@@ -63,7 +63,7 @@ public:
   //! -   the maximum number of segments MaxSegments
   //! allowed in the resulting BSpline curve
   //! -   the index of precision PrecisCode.
-  Standard_EXPORT GeomConvert_ApproxSurface(const Handle(Adaptor3d_Surface)& Surf,
+  Standard_EXPORT GeomConvert_ApproxSurface(const Handle(SurfaceAdaptor)& Surf,
                                             const Standard_Real              Tol3d,
                                             const GeomAbs_Shape              UContinuity,
                                             const GeomAbs_Shape              VContinuity,
@@ -95,7 +95,7 @@ public:
 protected:
 private:
   //! Converts a surface to B-spline
-  Standard_EXPORT void Approximate(const Handle(Adaptor3d_Surface)& theSurf,
+  Standard_EXPORT void Approximate(const Handle(SurfaceAdaptor)& theSurf,
                                    const Standard_Real              theTol3d,
                                    const GeomAbs_Shape              theUContinuity,
                                    const GeomAbs_Shape              theVContinuity,

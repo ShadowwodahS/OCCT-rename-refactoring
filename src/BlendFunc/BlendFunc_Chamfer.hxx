@@ -35,9 +35,9 @@ class BlendFunc_Chamfer : public BlendFunc_GenChamfer
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_Chamfer(const Handle(Adaptor3d_Surface)& S1,
-                                    const Handle(Adaptor3d_Surface)& S2,
-                                    const Handle(Adaptor3d_Curve)&   CG);
+  Standard_EXPORT BlendFunc_Chamfer(const Handle(SurfaceAdaptor)& S1,
+                                    const Handle(SurfaceAdaptor)& S2,
+                                    const Handle(Curve5)&   CG);
 
   //! computes the values <F> of the Functions for the
   //! variable <X>.

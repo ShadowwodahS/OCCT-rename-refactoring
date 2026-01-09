@@ -178,7 +178,7 @@ void Wasm_Window::SetSizeBacking(const Graphic3d_Vec2i& theSize)
 
 //=================================================================================================
 
-void Wasm_Window::InvalidateContent(const Handle(Aspect_DisplayConnection)&)
+void Wasm_Window::InvalidateContent(const Handle(DisplayConnection1)&)
 {
   //
 }

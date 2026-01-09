@@ -235,7 +235,7 @@ public:
 
   //! Returns the table of poles of the BSpline surface
   //! whose data is computed in this framework.
-  const Handle(TColgp_HArray2OfPnt)& Poles() const;
+  const Handle(PointGrid)& Poles() const;
 
   //! Returns the knots table for the u parametric
   //! direction of the BSpline surface whose data is computed in this framework.
@@ -287,7 +287,7 @@ private:
   Handle(TColStd_HArray1OfInteger) myUMults;
   Handle(TColStd_HArray1OfReal)    myUKnots;
   Handle(TColStd_HArray1OfReal)    myVKnots;
-  Handle(TColgp_HArray2OfPnt)      myPoles;
+  Handle(PointGrid)      myPoles;
   Standard_Boolean                 isrational;
   Standard_Boolean                 myDone;
 };

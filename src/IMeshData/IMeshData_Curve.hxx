@@ -23,7 +23,7 @@ class Point3d;
 
 //! Interface class representing discrete 3d curve of edge.
 //! Indexation of points starts from zero.
-class IMeshData_Curve : public IMeshData_ParametersList
+class IMeshData_Curve : public ParametersList
 {
 public:
   //! Destructor.
@@ -44,7 +44,7 @@ public:
   //! Removes point with the given index.
   Standard_EXPORT virtual void RemovePoint(const Standard_Integer theIndex) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshData_Curve, IMeshData_ParametersList)
+  DEFINE_STANDARD_RTTIEXT(IMeshData_Curve, ParametersList)
 
 protected:
   //! Constructor.

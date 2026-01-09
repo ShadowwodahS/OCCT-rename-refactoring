@@ -54,9 +54,9 @@ public:
                                const TopAbs_ShapeEnum TS,
                                const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
-  Standard_EXPORT const Handle(Bnd_HArray1OfBox)& HAB() const;
+  Standard_EXPORT const Handle(BoxArray)& HAB() const;
 
-  Standard_EXPORT static void MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Box2& COB);
+  Standard_EXPORT static void MakeHABCOB(const Handle(BoxArray)& HAB, Box2& COB);
 
   Standard_EXPORT const TopoShape& HABShape(const Standard_Integer I) const;
 
@@ -84,7 +84,7 @@ private:
   TopoShape                        myLastCompareShape;
   Box2                             myLastCompareShapeBox;
   Handle(HBoxTool1)     myHBT;
-  Handle(Bnd_HArray1OfBox)            myHAB;
+  Handle(BoxArray)            myHAB;
   Handle(TColStd_HArray1OfInteger)    myHAI;
 };
 

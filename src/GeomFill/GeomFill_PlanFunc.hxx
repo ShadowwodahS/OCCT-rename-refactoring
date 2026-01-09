@@ -27,14 +27,14 @@
 
 class Vector3d;
 
-class GeomFill_PlanFunc : public math_FunctionWithDerivative
+class GeomFill_PlanFunc : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomFill_PlanFunc(const Point3d&                  P,
                                     const Vector3d&                  V,
-                                    const Handle(Adaptor3d_Curve)& C);
+                                    const Handle(Curve5)& C);
 
   //! computes the value <F>of the function for the variable <X>.
   //! Returns True if the calculation were successfully done,
@@ -82,7 +82,7 @@ private:
   Coords3d                  myVec;
   Coords3d                  V;
   Point3d                  G;
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
 };
 
 #endif // _GeomFill_PlanFunc_HeaderFile

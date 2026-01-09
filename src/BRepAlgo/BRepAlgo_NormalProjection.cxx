@@ -604,7 +604,7 @@ const ShapeList& BRepAlgo_NormalProjection::Generated(const TopoShape& S)
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgo_NormalProjection::IsElementary(const Adaptor3d_Curve& C) const
+Standard_Boolean BRepAlgo_NormalProjection::IsElementary(const Curve5& C) const
 {
   GeomAbs_CurveType type;
   type = C.GetType();

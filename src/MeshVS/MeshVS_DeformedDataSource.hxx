@@ -29,13 +29,13 @@
 class Vector3d;
 
 class MeshVS_DeformedDataSource;
-DEFINE_STANDARD_HANDLE(MeshVS_DeformedDataSource, MeshVS_DataSource)
+DEFINE_STANDARD_HANDLE(MeshVS_DeformedDataSource, MeshDataSource)
 
 //! The class provides default class which helps to represent node displacements by deformed mesh
 //! This class has an internal handle to canonical non-deformed mesh data source and
 //! map of displacement vectors. The displacement can be magnified to useful size.
 //! All methods is implemented with calling the corresponding methods of non-deformed data source.
-class MeshVS_DeformedDataSource : public MeshVS_DataSource
+class MeshVS_DeformedDataSource : public MeshDataSource
 {
 
 public:
@@ -43,7 +43,7 @@ public:
   //! theNonDeformDS is canonical non-deformed data source, by which we are able to calculate
   //! deformed mesh geometry
   //! theMagnify is coefficient of displacement magnify
-  Standard_EXPORT MeshVS_DeformedDataSource(const Handle(MeshVS_DataSource)& theNonDeformDS,
+  Standard_EXPORT MeshVS_DeformedDataSource(const Handle(MeshDataSource)& theNonDeformDS,
                                             const Standard_Real              theMagnify);
 
   Standard_EXPORT virtual Standard_Boolean GetGeom(const Standard_Integer ID,
@@ -60,7 +60,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean Get3DGeom(
     const Standard_Integer                     ID,
     Standard_Integer&                          NbNodes,
-    Handle(MeshVS_HArray1OfSequenceOfInteger)& Data) const Standard_OVERRIDE;
+    Handle(IntegerSequenceArray)& Data) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Address GetAddr(const Standard_Integer ID,
                                                    const Standard_Boolean IsElement) const
@@ -88,21 +88,21 @@ public:
   //! This method sets vector ( Vect ) assigned to node number ID.
   Standard_EXPORT void SetVector(const Standard_Integer ID, const Vector3d& Vect);
 
-  Standard_EXPORT void SetNonDeformedDataSource(const Handle(MeshVS_DataSource)& theDS);
+  Standard_EXPORT void SetNonDeformedDataSource(const Handle(MeshDataSource)& theDS);
 
   //! With this methods you can read and change internal canonical data source
-  Standard_EXPORT Handle(MeshVS_DataSource) GetNonDeformedDataSource() const;
+  Standard_EXPORT Handle(MeshDataSource) GetNonDeformedDataSource() const;
 
   Standard_EXPORT void SetMagnify(const Standard_Real theMagnify);
 
   //! With this methods you can read and change magnify coefficient of nodal displacements
   Standard_EXPORT Standard_Real GetMagnify() const;
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_DeformedDataSource, MeshVS_DataSource)
+  DEFINE_STANDARD_RTTIEXT(MeshVS_DeformedDataSource, MeshDataSource)
 
 protected:
 private:
-  Handle(MeshVS_DataSource)     myNonDeformedDataSource;
+  Handle(MeshDataSource)     myNonDeformedDataSource;
   PackedIntegerMap    myEmptyMap;
   MeshVS_DataMapOfIntegerVector myVectors;
   Standard_Real                 myMagnify;

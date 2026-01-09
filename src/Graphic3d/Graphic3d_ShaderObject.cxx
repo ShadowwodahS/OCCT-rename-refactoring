@@ -20,7 +20,7 @@
 #include <OSD_Protection.hxx>
 #include <Standard_Atomic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderObject, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShaderObject, RefObject)
 
 namespace
 {
@@ -28,10 +28,10 @@ static volatile Standard_Integer THE_SHADER_OBJECT_COUNTER = 0;
 }
 
 // =======================================================================
-// function : Graphic3d_ShaderObject
+// function : ShaderObject
 // purpose  : Creates a shader object from specified file
 // =======================================================================
-Graphic3d_ShaderObject::Graphic3d_ShaderObject(const Graphic3d_TypeOfShaderObject theType)
+ShaderObject::ShaderObject(const Graphic3d_TypeOfShaderObject theType)
     : myType(theType)
 {
   myID = AsciiString1("Graphic3d_ShaderObject_")
@@ -42,11 +42,11 @@ Graphic3d_ShaderObject::Graphic3d_ShaderObject(const Graphic3d_TypeOfShaderObjec
 // function : CreatFromFile
 // purpose  : Creates new shader object from specified file
 // =======================================================================
-Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromFile(
+Handle(ShaderObject) ShaderObject::CreateFromFile(
   const Graphic3d_TypeOfShaderObject theType,
   const AsciiString1&     thePath)
 {
-  Handle(Graphic3d_ShaderObject) aShader = new Graphic3d_ShaderObject(theType);
+  Handle(ShaderObject) aShader = new ShaderObject(theType);
   aShader->myPath                        = thePath;
 
   SystemFile aFile(thePath);
@@ -66,20 +66,20 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromFile(
 // function : CreatFromSource
 // purpose  : Creates new shader object from specified source
 // =======================================================================
-Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
+Handle(ShaderObject) ShaderObject::CreateFromSource(
   const Graphic3d_TypeOfShaderObject theType,
   const AsciiString1&     theSource)
 {
-  Handle(Graphic3d_ShaderObject) aShader = new Graphic3d_ShaderObject(theType);
+  Handle(ShaderObject) aShader = new ShaderObject(theType);
   aShader->mySource                      = theSource;
   return aShader;
 }
 
 // =======================================================================
-// function : ~Graphic3d_ShaderObject
+// function : ~ShaderObject
 // purpose  : Releases resources of shader object
 // =======================================================================
-Graphic3d_ShaderObject::~Graphic3d_ShaderObject()
+ShaderObject::~ShaderObject()
 {
   //
 }
@@ -88,14 +88,14 @@ Graphic3d_ShaderObject::~Graphic3d_ShaderObject()
 // function : IsDone
 // purpose  : Checks if the shader object is valid or not
 // =======================================================================
-Standard_Boolean Graphic3d_ShaderObject::IsDone() const
+Standard_Boolean ShaderObject::IsDone() const
 {
   return !mySource.IsEmpty();
 }
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
+Handle(ShaderObject) ShaderObject::CreateFromSource(
   AsciiString1&       theSource,
   Graphic3d_TypeOfShaderObject   theType,
   const ShaderVariableList&      theUniforms,
@@ -106,14 +106,14 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
 {
   if (theSource.IsEmpty())
   {
-    return Handle(Graphic3d_ShaderObject)();
+    return Handle(ShaderObject)();
   }
 
   AsciiString1 aSrcUniforms, aSrcInOuts, aSrcInStructs, aSrcOutStructs;
   for (ShaderVariableList::Iterator anUniformIter(theUniforms); anUniformIter.More();
        anUniformIter.Next())
   {
-    const ShaderVariable& aVar = anUniformIter.Value();
+    const ShaderVariable2& aVar = anUniformIter.Value();
     if ((aVar.Stages & theType) != 0)
     {
       aSrcUniforms += AsciiString1("\nuniform ") + aVar.Name + ";";
@@ -122,7 +122,7 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
   for (ShaderVariableList::Iterator aVarListIter(theStageInOuts); aVarListIter.More();
        aVarListIter.Next())
   {
-    const ShaderVariable& aVar        = aVarListIter.Value();
+    const ShaderVariable2& aVar        = aVarListIter.Value();
     Standard_Integer      aStageLower = IntegerLast(), aStageUpper = IntegerFirst();
     for (Standard_Integer aStageIter = Graphic3d_TOS_VERTEX;
          aStageIter <= (Standard_Integer)Graphic3d_TOS_COMPUTE;
@@ -221,5 +221,5 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
   }
 
   theSource.Prepend(aSrcUniforms + aSrcInStructs + aSrcOutStructs + aSrcInOuts);
-  return Graphic3d_ShaderObject::CreateFromSource(theType, theSource);
+  return ShaderObject::CreateFromSource(theType, theSource);
 }

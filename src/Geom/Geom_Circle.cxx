@@ -38,7 +38,7 @@ typedef Coords3d      XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) GeomCircle::Copy() const
+Handle(Geometry3) GeomCircle::Copy() const
 {
 
   Handle(GeomCircle) C;

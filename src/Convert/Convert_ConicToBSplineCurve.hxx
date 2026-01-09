@@ -123,7 +123,7 @@ protected:
                                               const Standard_Integer NumberOfKnots,
                                               const Standard_Integer Degree);
 
-  Handle(TColgp_HArray1OfPnt2d)    poles;
+  Handle(Point2dArray)    poles;
   Handle(TColStd_HArray1OfReal)    weights;
   Handle(TColStd_HArray1OfReal)    knots;
   Handle(TColStd_HArray1OfInteger) mults;

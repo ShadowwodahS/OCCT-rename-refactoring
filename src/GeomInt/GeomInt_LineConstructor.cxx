@@ -109,7 +109,7 @@ static void RejectDuplicates(NCollection_Array1<GeomInt_Vertex>& theVtxArr);
 
 //=================================================================================================
 
-void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
+void GeomInt_LineConstructor::Perform(const Handle(Line2)& L)
 {
   Standard_Integer        i, nbvtx;
   Standard_Real           firstp, lastp;
@@ -669,7 +669,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-void GeomInt_LineConstructor::TreatCircle(const Handle(IntPatch_Line)& theLine,
+void GeomInt_LineConstructor::TreatCircle(const Handle(Line2)& theLine,
                                           const Standard_Real          theTol)
 {
   const IntPatch_IType         aType = theLine->ArcType();

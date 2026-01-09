@@ -48,7 +48,7 @@ void OpenGl_AspectsProgram::UpdateRediness(const Handle(Graphic3d_Aspects)& theA
 //=================================================================================================
 
 void OpenGl_AspectsProgram::build(const Handle(OpenGl_Context)&          theCtx,
-                                  const Handle(Graphic3d_ShaderProgram)& theShader)
+                                  const Handle(ShaderProgram2)& theShader)
 {
   if (theCtx->core20fwd == NULL)
   {

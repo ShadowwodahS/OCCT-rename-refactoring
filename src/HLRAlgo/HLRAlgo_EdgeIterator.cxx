@@ -39,22 +39,22 @@ HLRAlgo_EdgeIterator::HLRAlgo_EdgeIterator()
 
 //=================================================================================================
 
-void HLRAlgo_EdgeIterator::InitHidden(HLRAlgo_EdgeStatus& status)
+void HLRAlgo_EdgeIterator::InitHidden(EdgeStatus& status)
 {
   EHid = &status;
   iHid = 1;
-  if (((HLRAlgo_EdgeStatus*)EHid)->AllHidden())
+  if (((EdgeStatus*)EHid)->AllHidden())
   {
-    ((HLRAlgo_EdgeStatus*)EHid)->Bounds(myHidStart, myHidTolStart, myHidEnd, myHidTolEnd);
+    ((EdgeStatus*)EHid)->Bounds(myHidStart, myHidTolStart, myHidEnd, myHidTolEnd);
     myNbHid = 0;
   }
   else
   {
-    myNbHid = ((HLRAlgo_EdgeStatus*)EHid)->NbVisiblePart();
+    myNbHid = ((EdgeStatus*)EHid)->NbVisiblePart();
     Standard_Real      B1;
     Standard_ShortReal B2;
-    ((HLRAlgo_EdgeStatus*)EHid)->Bounds(myHidStart, myHidTolStart, B1, B2);
-    ((HLRAlgo_EdgeStatus*)EHid)->VisiblePart(iHid, myHidEnd, myHidTolEnd, B1, B2);
+    ((EdgeStatus*)EHid)->Bounds(myHidStart, myHidTolStart, B1, B2);
+    ((EdgeStatus*)EHid)->VisiblePart(iHid, myHidEnd, myHidTolEnd, B1, B2);
   }
   if (myHidStart + myHidTolStart >= myHidEnd - myHidTolEnd
       && myHidEnd + myHidTolEnd >= myHidStart - myHidTolStart)
@@ -71,16 +71,16 @@ void HLRAlgo_EdgeIterator::NextHidden()
   {
     Standard_Real      B1;
     Standard_ShortReal B2;
-    ((HLRAlgo_EdgeStatus*)EHid)->VisiblePart(iHid, B1, B2, myHidStart, myHidTolStart);
+    ((EdgeStatus*)EHid)->VisiblePart(iHid, B1, B2, myHidStart, myHidTolStart);
     iHid++;
     if (iHid == myNbHid + 1)
     {
-      ((HLRAlgo_EdgeStatus*)EHid)->Bounds(B1, B2, myHidEnd, myHidTolEnd);
+      ((EdgeStatus*)EHid)->Bounds(B1, B2, myHidEnd, myHidTolEnd);
       if (myHidStart + myHidTolStart >= myHidEnd - myHidTolEnd
           && myHidEnd + myHidTolEnd >= myHidStart - myHidTolStart)
         iHid++;
     }
     else
-      ((HLRAlgo_EdgeStatus*)EHid)->VisiblePart(iHid, myHidEnd, myHidTolEnd, B1, B2);
+      ((EdgeStatus*)EHid)->VisiblePart(iHid, myHidEnd, myHidTolEnd, B1, B2);
   }
 }

@@ -23,7 +23,7 @@
 static const Standard_Integer MyMaxQuasiFleshe = 2000;
 
 // mask the return of a Adaptor2d_Curve2d as a Point3d
-static Point3d Value(const Adaptor3d_Curve& theC, const Standard_Real theParameter)
+static Point3d Value(const Curve5& theC, const Standard_Real theParameter)
 {
   return theC.Value(theParameter);
 }
@@ -36,7 +36,7 @@ static Point3d Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParam
   return aPoint;
 }
 
-static void D1(const Adaptor3d_Curve& theC,
+static void D1(const Curve5& theC,
                const Standard_Real    theParameter,
                Point3d&                theP,
                Vector3d&                theV)
@@ -488,7 +488,7 @@ QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler()
 
 //=================================================================================================
 
-QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Curve5& theC,
                                                              const Standard_Real    theDeflection,
                                                              const Standard_Real    theU1,
                                                              const Standard_Real    theU2,
@@ -516,7 +516,7 @@ QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor2d_Cur
 
 //=================================================================================================
 
-QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Curve5& theC,
                                                              const Standard_Real    theDeflection,
                                                              const GeomAbs_Shape    theContinuity)
     : myDone(Standard_False),
@@ -540,7 +540,7 @@ QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor2d_Cur
 
 //=================================================================================================
 
-void QuasiUniformDeflectionSampler::Initialize(const Adaptor3d_Curve& theC,
+void QuasiUniformDeflectionSampler::Initialize(const Curve5& theC,
                                                const Standard_Real    theDeflection,
                                                const GeomAbs_Shape    theContinuity)
 {
@@ -558,7 +558,7 @@ void QuasiUniformDeflectionSampler::Initialize(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-void QuasiUniformDeflectionSampler::Initialize(const Adaptor3d_Curve& theC,
+void QuasiUniformDeflectionSampler::Initialize(const Curve5& theC,
                                                const Standard_Real    theDeflection,
                                                const Standard_Real    theU1,
                                                const Standard_Real    theU2,

@@ -34,7 +34,7 @@ inline const PointOn2Surfaces& IntWalk_PWalking::Value(const Standard_Integer In
   return line->Value(Index);
 }
 
-inline const Handle(IntSurf_LineOn2S)& IntWalk_PWalking::Line() const
+inline const Handle(LineOnTwoSurfaces)& IntWalk_PWalking::Line() const
 {
 
   if (!done)

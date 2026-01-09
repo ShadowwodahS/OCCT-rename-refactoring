@@ -24,7 +24,7 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class math_FunctionWithDerivative;
+class FunctionWithDerivative;
 
 //! This class implements an algorithm which finds all the real roots of
 //! a function with derivative within a given range.
@@ -40,7 +40,7 @@ public:
   //! abs(Xi - Xi-1) <= Epsx and abs(F(Xi)-K) <= EpsF.
   //! The function is considered as null between A and B if
   //! abs(F-K) <= EpsNull within this range.
-  Standard_EXPORT FunctionRootsSolver(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionRootsSolver(FunctionWithDerivative& F,
                                      const Standard_Real          A,
                                      const Standard_Real          B,
                                      const Standard_Integer       NbSample,

@@ -125,7 +125,7 @@ Standard_Boolean BRepTools_PurgeLocations::PurgeLocation(const TopoShape& theS,
 
   while (!isEmpty)
   {
-    const Handle(TopLoc_Datum3D)& aFD   = aRefLoc.FirstDatum();
+    const Handle(Datum3D2)& aFD   = aRefLoc.FirstDatum();
     Transform3d                       aTrsf = aFD->Trsf();
     Standard_Integer              aFP   = aRefLoc.FirstPower();
     Standard_Boolean              isBad =

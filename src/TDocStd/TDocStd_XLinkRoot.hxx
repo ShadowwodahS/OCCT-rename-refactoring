@@ -23,15 +23,15 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Data;
-class TDF_RelocationTable;
+class Data2;
+class RelocationTable1;
 
 class TDocStd_XLinkRoot;
 DEFINE_STANDARD_HANDLE(TDocStd_XLinkRoot, TDF_Attribute)
 
 //! This attribute is the root of all external
 //! references contained in a Data from TDF1. Only one
-//! instance of this class is added to the TDF_Data
+//! instance of this class is added to the Data2
 //! root label. Starting from this attribute all the
 //! Reference1 are linked together, to be found easily.
 class TDocStd_XLinkRoot : public TDF_Attribute
@@ -42,8 +42,8 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Sets an empty XLinkRoot to Root or gets the
-  //! existing one. Only one attribute per TDF_Data.
-  Standard_EXPORT static Handle(TDocStd_XLinkRoot) Set(const Handle(TDF_Data)& aDF);
+  //! existing one. Only one attribute per Data2.
+  Standard_EXPORT static Handle(TDocStd_XLinkRoot) Set(const Handle(Data2)& aDF);
 
   //! Inserts <anXLinkPtr> at the beginning of the XLink chain.
   Standard_EXPORT static void Insert(const TDocStd_XLinkPtr& anXLinkPtr);
@@ -65,7 +65,7 @@ public:
 
   //! Does nothing.
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       intoAttribute,
-                             const Handle(TDF_RelocationTable)& aRelocationTable) const
+                             const Handle(RelocationTable1)& aRelocationTable) const
     Standard_OVERRIDE;
 
   //! Dumps the attribute on <aStream>.

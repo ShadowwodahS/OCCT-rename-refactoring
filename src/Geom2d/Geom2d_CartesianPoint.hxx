@@ -23,7 +23,7 @@
 #include <Geom2d_Point.hxx>
 #include <Standard_Real.hxx>
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_CartesianPoint;
 DEFINE_STANDARD_HANDLE(Geom2d_CartesianPoint, Geom2d_Point)
@@ -68,7 +68,7 @@ public:
 
   Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

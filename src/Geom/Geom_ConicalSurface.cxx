@@ -52,7 +52,7 @@ typedef Coords3d              XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_ConicalSurface::Copy() const
+Handle(Geometry3) Geom_ConicalSurface::Copy() const
 {
 
   Handle(Geom_ConicalSurface) Cs;

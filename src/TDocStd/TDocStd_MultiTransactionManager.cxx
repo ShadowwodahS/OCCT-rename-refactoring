@@ -20,11 +20,11 @@
 #include <TDocStd_ApplicationDelta.hxx>
 #include <TDocStd_Document.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_MultiTransactionManager, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(MultiTransactionManager, RefObject)
 
 //=================================================================================================
 
-TDocStd_MultiTransactionManager::TDocStd_MultiTransactionManager()
+MultiTransactionManager::MultiTransactionManager()
 {
   myUndoLimit                   = 0;
   myOpenTransaction             = Standard_False;
@@ -34,7 +34,7 @@ TDocStd_MultiTransactionManager::TDocStd_MultiTransactionManager()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::SetUndoLimit(const Standard_Integer theLimit)
+void MultiTransactionManager::SetUndoLimit(const Standard_Integer theLimit)
 {
   myUndoLimit = theLimit;
 
@@ -54,7 +54,7 @@ void TDocStd_MultiTransactionManager::SetUndoLimit(const Standard_Integer theLim
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::Undo()
+void MultiTransactionManager::Undo()
 {
   if (myUndos.IsEmpty())
     return;
@@ -74,7 +74,7 @@ void TDocStd_MultiTransactionManager::Undo()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::Redo()
+void MultiTransactionManager::Redo()
 {
   if (myRedos.IsEmpty())
     return;
@@ -94,12 +94,12 @@ void TDocStd_MultiTransactionManager::Redo()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::OpenCommand()
+void MultiTransactionManager::OpenCommand()
 {
   if (myOpenTransaction)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "TDocStd_MultiTransactionManager::OpenCommand(): "
+    std::cout << "MultiTransactionManager::OpenCommand(): "
                  "Can't start new application transaction while a "
                  "previous one is not committed or aborted"
               << std::endl;
@@ -119,7 +119,7 @@ void TDocStd_MultiTransactionManager::OpenCommand()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::AbortCommand()
+void MultiTransactionManager::AbortCommand()
 {
   myOpenTransaction = Standard_False;
   Standard_Integer i;
@@ -132,9 +132,9 @@ void TDocStd_MultiTransactionManager::AbortCommand()
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_MultiTransactionManager::CommitCommand()
+Standard_Boolean MultiTransactionManager::CommitCommand()
 {
-  Handle(TDocStd_ApplicationDelta) aDelta     = new TDocStd_ApplicationDelta;
+  Handle(ApplicationDelta) aDelta     = new ApplicationDelta;
   Standard_Boolean                 isCommited = Standard_False;
   Standard_Integer                 i;
   for (i = myDocuments.Length(); i > 0; i--)
@@ -165,7 +165,7 @@ Standard_Boolean TDocStd_MultiTransactionManager::CommitCommand()
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_MultiTransactionManager::CommitCommand(
+Standard_Boolean MultiTransactionManager::CommitCommand(
   const UtfString& theName)
 {
   Standard_Boolean isCommited = CommitCommand();
@@ -176,7 +176,7 @@ Standard_Boolean TDocStd_MultiTransactionManager::CommitCommand(
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::DumpTransaction(Standard_OStream& anOS) const
+void MultiTransactionManager::DumpTransaction(Standard_OStream& anOS) const
 {
   Standard_Integer i;
   if (myDocuments.Length() == 0)
@@ -205,7 +205,7 @@ void TDocStd_MultiTransactionManager::DumpTransaction(Standard_OStream& anOS) co
 
   for (i = myUndos.Length(); i > 0; i--)
   {
-    Handle(TDocStd_ApplicationDelta) delta = myUndos.Value(i);
+    Handle(ApplicationDelta) delta = myUndos.Value(i);
     anOS << " Undo: ";
     delta->Dump(anOS);
     if (i == 1)
@@ -219,7 +219,7 @@ void TDocStd_MultiTransactionManager::DumpTransaction(Standard_OStream& anOS) co
   }
   for (i = 1; i <= myRedos.Length(); i++)
   {
-    Handle(TDocStd_ApplicationDelta) delta = myRedos.Value(i);
+    Handle(ApplicationDelta) delta = myRedos.Value(i);
     anOS << " Redo: ";
     delta->Dump(anOS);
     anOS << std::endl;
@@ -228,7 +228,7 @@ void TDocStd_MultiTransactionManager::DumpTransaction(Standard_OStream& anOS) co
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::RemoveLastUndo()
+void MultiTransactionManager::RemoveLastUndo()
 {
   if (myUndos.Length() == 0)
     return;
@@ -243,7 +243,7 @@ void TDocStd_MultiTransactionManager::RemoveLastUndo()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::AddDocument(const Handle(AppDocument)& theDoc)
+void MultiTransactionManager::AddDocument(const Handle(AppDocument)& theDoc)
 {
   Standard_Integer i;
   for (i = myDocuments.Length(); i > 0; i--)
@@ -273,7 +273,7 @@ void TDocStd_MultiTransactionManager::AddDocument(const Handle(AppDocument)& the
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::RemoveDocument(const Handle(AppDocument)& theDoc)
+void MultiTransactionManager::RemoveDocument(const Handle(AppDocument)& theDoc)
 {
   Standard_Integer i;
   for (i = myDocuments.Length(); i > 0; i--)
@@ -283,7 +283,7 @@ void TDocStd_MultiTransactionManager::RemoveDocument(const Handle(AppDocument)& 
   }
   for (i = myUndos.Length(); i > 0; i--)
   {
-    Handle(TDocStd_ApplicationDelta) delta = myUndos.Value(i);
+    Handle(ApplicationDelta) delta = myUndos.Value(i);
     TDocStd_SequenceOfDocument&      docs  = delta->GetDocuments();
     for (Standard_Integer j = docs.Length(); j > 0; j--)
     {
@@ -297,7 +297,7 @@ void TDocStd_MultiTransactionManager::RemoveDocument(const Handle(AppDocument)& 
   }
   for (i = myRedos.Length(); i > 0; i--)
   {
-    Handle(TDocStd_ApplicationDelta) delta = myRedos.Value(i);
+    Handle(ApplicationDelta) delta = myRedos.Value(i);
     TDocStd_SequenceOfDocument&      docs  = delta->GetDocuments();
     for (Standard_Integer j = docs.Length(); j > 0; j--)
     {
@@ -313,7 +313,7 @@ void TDocStd_MultiTransactionManager::RemoveDocument(const Handle(AppDocument)& 
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::SetNestedTransactionMode(const Standard_Boolean isAllowed)
+void MultiTransactionManager::SetNestedTransactionMode(const Standard_Boolean isAllowed)
 {
   myIsNestedTransactionMode = isAllowed;
   Standard_Integer i;
@@ -329,7 +329,7 @@ void TDocStd_MultiTransactionManager::SetNestedTransactionMode(const Standard_Bo
 // purpose  : if theTransactionOnly is True changes is denied outside transactions
 //=======================================================================
 
-void TDocStd_MultiTransactionManager::SetModificationMode(const Standard_Boolean theTransactionOnly)
+void MultiTransactionManager::SetModificationMode(const Standard_Boolean theTransactionOnly)
 {
   myOnlyTransactionModification = theTransactionOnly;
 
@@ -342,7 +342,7 @@ void TDocStd_MultiTransactionManager::SetModificationMode(const Standard_Boolean
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::ClearUndos()
+void MultiTransactionManager::ClearUndos()
 {
   AbortCommand();
 
@@ -356,7 +356,7 @@ void TDocStd_MultiTransactionManager::ClearUndos()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::ClearRedos()
+void MultiTransactionManager::ClearRedos()
 {
   AbortCommand();
 

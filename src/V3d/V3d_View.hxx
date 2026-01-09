@@ -1030,7 +1030,7 @@ public:
 
   //! Get clip planes.
   //! @return sequence clip planes that have been set for the view
-  Standard_EXPORT const Handle(Graphic3d_SequenceOfHClipPlane)& ClipPlanes() const;
+  Standard_EXPORT const Handle(SequenceOfHClipPlane)& ClipPlanes() const;
 
   //! Sets sequence of clip planes to the view. The planes that have been set
   //! before are removed from the view. The composition of clip planes
@@ -1039,7 +1039,7 @@ public:
   //! Graphic3d_GraphicDriver. Please be aware that the planes that
   //! exceed the limit are ignored during rendering.
   //! @param[in] thePlanes  the clip planes to set.
-  Standard_EXPORT void SetClipPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes);
+  Standard_EXPORT void SetClipPlanes(const Handle(SequenceOfHClipPlane)& thePlanes);
 
   //! Returns the MAX number of clipping planes associated to the view.
   Standard_EXPORT Standard_Integer PlaneLimit() const;

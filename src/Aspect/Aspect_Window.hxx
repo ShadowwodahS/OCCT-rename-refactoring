@@ -30,7 +30,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class Aspect_DisplayConnection;
+class DisplayConnection1;
 
 DEFINE_STANDARD_HANDLE(Aspect_Window, RefObject)
 
@@ -62,10 +62,10 @@ public:
   }
 
   //! Returns connection to Display or NULL.
-  const Handle(Aspect_DisplayConnection)& DisplayConnection() const { return myDisplay; }
+  const Handle(DisplayConnection1)& DisplayConnection() const { return myDisplay; }
 
   //! Returns the window background.
-  Standard_EXPORT Aspect_Background Background() const;
+  Standard_EXPORT Background1 Background() const;
 
   //! Returns the current image background fill mode.
   Standard_EXPORT Aspect_FillMethod BackgroundFillMethod() const;
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT Aspect_GradientBackground GradientBackground() const;
 
   //! Modifies the window background.
-  Standard_EXPORT void SetBackground(const Aspect_Background& theBack);
+  Standard_EXPORT void SetBackground(const Background1& theBack);
 
   //! Modifies the window background.
   Standard_EXPORT void SetBackground(const Color1& theColor);
@@ -138,7 +138,7 @@ public:
   //! Optional display argument should be passed when called from non-GUI thread
   //! on platforms implementing thread-unsafe connections to display.
   //! NULL can be passed instead otherwise.
-  virtual void InvalidateContent(const Handle(Aspect_DisplayConnection)& theDisp) { (void)theDisp; }
+  virtual void InvalidateContent(const Handle(DisplayConnection1)& theDisp) { (void)theDisp; }
 
 public:
   //! Return device pixel ratio (logical to backing store scale factor).
@@ -165,8 +165,8 @@ protected:
   Standard_EXPORT Aspect_Window();
 
 protected:
-  Handle(Aspect_DisplayConnection) myDisplay; //!< Display connection
-  Aspect_Background                MyBackground;
+  Handle(DisplayConnection1) myDisplay; //!< Display connection
+  Background1                MyBackground;
   Aspect_GradientBackground        MyGradientBackground;
   Aspect_FillMethod                MyBackgroundFillMethod;
   Standard_Boolean                 MyIsVirtual;

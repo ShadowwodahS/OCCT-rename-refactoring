@@ -110,7 +110,7 @@ void XmlMXCAFDoc_LocationDriver::Translate(const TopLoc_Location&      theLoc,
   // the relocation table, but now it's not necessary
   // (try to uncomment it if some problems appear)
   /*
-  Handle(TopLoc_Datum3D) aDatum = theLoc.FirstDatum();
+  Handle(Datum3D2) aDatum = theLoc.FirstDatum();
 
   if(!theMap.Contains(aDatum)) {
     theMap.Add(aDatum);
@@ -140,7 +140,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
   }
 
   Standard_Integer       aPower;
-  Handle(TopLoc_Datum3D) aDatum;
+  Handle(Datum3D2) aDatum;
 
   if (aFileVer >= TDocStd_FormatVersion_VERSION_6)
   {
@@ -164,7 +164,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
       Standard_Integer aDatumID;
       aLocElem.getAttribute(::DatumString()).GetInteger(aDatumID);
       if (aDatumID > 0 && theMap.IsBound(aDatumID))
-        aDatum = Handle(TopLoc_Datum3D)::DownCast(theMap.Find(aDatumID));
+        aDatum = Handle(Datum3D2)::DownCast(theMap.Find(aDatumID));
       else
         return Standard_False;
     }
@@ -172,7 +172,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
     {
       Transform3d aTrsf;
       GPStorage::Translate(aPD.Element().getAttribute(::TrsfString()), aTrsf);
-      aDatum = new TopLoc_Datum3D(aTrsf);
+      aDatum = new Datum3D2(aTrsf);
       theMap.Bind(aPD.Id(), aDatum);
     }
   }

@@ -30,7 +30,7 @@
 class gp_Pnt2d;
 class gp_Vec2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_BezierCurve;
 DEFINE_STANDARD_HANDLE(Geom2d_BezierCurve, Geom2d_BoundedCurve)
@@ -304,7 +304,7 @@ public:
   Standard_EXPORT void Resolution(const Standard_Real ToleranceUV, Standard_Real& UTolerance);
 
   //! Creates a new object which is a copy of this Bezier curve.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -323,12 +323,12 @@ private:
   //! Update rational and closed.
   //!
   //! if nbpoles < 2 or nbboles > MaDegree + 1
-  void Init(const Handle(TColgp_HArray1OfPnt2d)& Poles,
+  void Init(const Handle(Point2dArray)& Poles,
             const Handle(TColStd_HArray1OfReal)& Weights);
 
   Standard_Boolean              rational;
   Standard_Boolean              closed;
-  Handle(TColgp_HArray1OfPnt2d) poles;
+  Handle(Point2dArray) poles;
   Handle(TColStd_HArray1OfReal) weights;
   Standard_Real                 maxderivinv;
   Standard_Boolean              maxderivinvok;

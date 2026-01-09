@@ -26,14 +26,14 @@
 #include <stack>
 
 //! Auxiliary tool providing API for manipulation with BRepMesh_DataStructureOfDelaun.
-class BRepMesh_MeshTool : public RefObject
+class MeshTool : public RefObject
 {
 public:
   //! Helper1 functor intended to separate points to left and right from the constraint.
   class NodeClassifier
   {
   public:
-    NodeClassifier(const BRepMesh_Edge&                          theConstraint,
+    NodeClassifier(const Edge3&                          theConstraint,
                    const Handle(BRepMesh_DataStructureOfDelaun)& theStructure)
         : myStructure(theStructure)
     {
@@ -74,10 +74,10 @@ public:
 
   //! Constructor.
   //! Initializes tool by the given data structure.
-  Standard_EXPORT BRepMesh_MeshTool(const Handle(BRepMesh_DataStructureOfDelaun)& theStructure);
+  Standard_EXPORT MeshTool(const Handle(BRepMesh_DataStructureOfDelaun)& theStructure);
 
   //! Destructor.
-  Standard_EXPORT virtual ~BRepMesh_MeshTool();
+  Standard_EXPORT virtual ~MeshTool();
 
   //! Returns data structure manipulated by this tool.
   const Handle(BRepMesh_DataStructureOfDelaun)& GetStructure() const { return myStructure; }
@@ -121,7 +121,7 @@ public:
                Standard_Boolean&      theLinkOri)
   {
     const Standard_Integer aLinkIt =
-      myStructure->AddLink(BRepMesh_Edge(theFirstNode, theLastNode, BRepMesh_Free));
+      myStructure->AddLink(Edge3(theFirstNode, theLastNode, BRepMesh_Free));
 
     theLinkIndex = Abs(aLinkIt);
     theLinkOri   = (aLinkIt > 0);
@@ -157,7 +157,7 @@ public:
   Standard_EXPORT Handle(IMeshData::MapOfInteger) GetEdgesByType(
     const BRepMesh_DegreeOfFreedom theEdgeType) const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_MeshTool, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MeshTool, RefObject)
 
 private:
   //! Returns True if the given point lies within circumcircle of the given triangle.
@@ -209,7 +209,7 @@ private:
   //! Iteratively erases triangles and their neighbours consisting
   //! of free links using the given link as starting front.
   //! Only triangles around the constraint's saddle nodes will be removed.
-  void collectTrianglesOnFreeLinksAroundNodesOf(const BRepMesh_Edge&     theConstraint,
+  void collectTrianglesOnFreeLinksAroundNodesOf(const Edge3&     theConstraint,
                                                 const Standard_Integer   theStartLink,
                                                 IMeshData::MapOfInteger& theTriangles);
 

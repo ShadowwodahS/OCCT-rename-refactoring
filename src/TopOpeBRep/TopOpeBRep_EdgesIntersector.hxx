@@ -35,7 +35,7 @@ class BRepAdaptor_Surface;
 class AsciiString1;
 class TopOpeBRep_Point2d;
 class IntRes2d_IntersectionSegment;
-class IntRes2d_IntersectionPoint;
+class IntersectionPoint3;
 class StateTransition;
 class Point3d;
 
@@ -141,7 +141,7 @@ private:
 
   Standard_EXPORT void NextPoint1();
 
-  Standard_EXPORT const IntRes2d_IntersectionPoint& Point1() const;
+  Standard_EXPORT const IntersectionPoint3& Point1() const;
 
   Standard_EXPORT StateTransition Transition1(const Standard_Integer   Index,
                                                       const TopAbs_Orientation EO) const;

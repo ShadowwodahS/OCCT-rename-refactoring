@@ -18,7 +18,7 @@
 
 #include <Standard_Type.hxx>
 
-class Graphic3d_FrameStatsDataTmp;
+class FrameStatsDataTmp;
 class OpenGl_Workspace;
 class OpenGl_Context;
 
@@ -64,13 +64,13 @@ public:
   //! Increment memory usage statistics.
   //! Default implementation puts EstimatedDataSize() into
   //! Graphic3d_FrameStatsCounter_EstimatedBytesGeom.
-  Standard_EXPORT virtual void UpdateMemStats(Graphic3d_FrameStatsDataTmp& theStats) const;
+  Standard_EXPORT virtual void UpdateMemStats(FrameStatsDataTmp& theStats) const;
 
   //! Increment draw calls statistics.
   //! @param[in][out] theStats   frame counters to increment
   //! @param[in] theIsDetailed   indicate detailed dump (more counters - number of triangles,
   //! points, etc.)
-  Standard_EXPORT virtual void UpdateDrawStats(Graphic3d_FrameStatsDataTmp& theStats,
+  Standard_EXPORT virtual void UpdateDrawStats(FrameStatsDataTmp& theStats,
                                                bool                         theIsDetailed) const;
 
   //! Update parameters of the drawable elements.

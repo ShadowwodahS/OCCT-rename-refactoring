@@ -42,7 +42,7 @@ class Contap_SurfFunction;
 class Contap_TheIWLineOfTheIWalking;
 class FunctionSetRoot;
 
-class Contap_TheIWalking
+class TheIWalking1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -56,7 +56,7 @@ public:
   //! theToFillHoles is the flag defining whether possible holes
   //! between resulting curves are filled or not
   //! in case of Contap walking theToFillHoles is True
-  Standard_EXPORT Contap_TheIWalking(const Standard_Real    Epsilon,
+  Standard_EXPORT TheIWalking1(const Standard_Real    Epsilon,
                                      const Standard_Real    Deflection,
                                      const Standard_Real    Step,
                                      const Standard_Boolean theToFillHoles = Standard_False);
@@ -77,14 +77,14 @@ public:
   Standard_EXPORT void Perform(const IntSurf_SequenceOfPathPoint&     Pnts1,
                                const IntSurf_SequenceOfInteriorPoint& Pnts2,
                                Contap_SurfFunction&                   Func,
-                               const Handle(Adaptor3d_Surface)&       S,
+                               const Handle(SurfaceAdaptor)&       S,
                                const Standard_Boolean                 Reversed = Standard_False);
 
   //! Searches a set of polylines starting on a point of Pnts1.
   //! Each point on a resulting polyline verifies F(u,v)=0
   Standard_EXPORT void Perform(const IntSurf_SequenceOfPathPoint& Pnts1,
                                Contap_SurfFunction&               Func,
-                               const Handle(Adaptor3d_Surface)&   S,
+                               const Handle(SurfaceAdaptor)&   S,
                                const Standard_Boolean             Reversed = Standard_False);
 
   //! Returns true if the calculus was successful.
@@ -241,7 +241,7 @@ private:
 #define ThePointOfLoopTool_hxx <IntSurf_InteriorPointTool.hxx>
 #define ThePOLIterator IntSurf_SequenceOfInteriorPoint
 #define ThePOLIterator_hxx <IntSurf_SequenceOfInteriorPoint.hxx>
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
@@ -252,7 +252,7 @@ private:
 #define IntWalk_SequenceOfIWLine Contap_SequenceOfIWLineOfTheIWalking
 #define IntWalk_SequenceOfIWLine_hxx <Contap_SequenceOfIWLineOfTheIWalking.hxx>
 #define Handle_IntWalk_TheIWLine Handle(Contap_TheIWLineOfTheIWalking)
-#define IntWalk_IWalking Contap_TheIWalking
+#define IntWalk_IWalking TheIWalking1
 #define IntWalk_IWalking_hxx <Contap_TheIWalking.hxx>
 
 #include <IntWalk_IWalking.lxx>

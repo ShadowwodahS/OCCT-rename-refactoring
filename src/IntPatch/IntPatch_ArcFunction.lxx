@@ -25,7 +25,7 @@ inline void IntPatch_ArcFunction::Set(const Handle(Adaptor2d_Curve2d)& A)
   seqpt.Clear();
 }
 
-inline void IntPatch_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
+inline void IntPatch_ArcFunction::Set(const Handle(SurfaceAdaptor)& S)
 {
   mySurf = S;
   seqpt.Clear();
@@ -47,7 +47,7 @@ inline const Handle(Adaptor2d_Curve2d)& IntPatch_ArcFunction::Arc() const
   return (myArc);
 }
 
-inline const Handle(Adaptor3d_Surface)& IntPatch_ArcFunction::Surface() const
+inline const Handle(SurfaceAdaptor)& IntPatch_ArcFunction::Surface() const
 {
   return (mySurf);
 }

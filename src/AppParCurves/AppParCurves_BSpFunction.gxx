@@ -32,7 +32,7 @@ AppParCurves_BSpFunction::
   AppParCurves_BSpFunction(const MultiLine& SSP,
 	 const Standard_Integer FirstPoint,
 	 const Standard_Integer LastPoint,
-	 const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+	 const Handle(ConstraintCoupleArray)& TheConstraints,
 	 const math_Vector& Parameters,
          const TColStd_Array1OfReal& Knots,
          const TColStd_Array1OfInteger& Mults,
@@ -124,7 +124,7 @@ AppParCurves_BSpFunction::
 
 
 AppParCurves_Constraint AppParCurves_BSpFunction::FirstConstraint
-  (const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  (const Handle(ConstraintCoupleArray)& TheConstraints,
    const Standard_Integer FirstPoint) const
 {
   Standard_Integer i, myindex;
@@ -145,7 +145,7 @@ AppParCurves_Constraint AppParCurves_BSpFunction::FirstConstraint
 
 
 AppParCurves_Constraint AppParCurves_BSpFunction::LastConstraint
-  (const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  (const Handle(ConstraintCoupleArray)& TheConstraints,
    const Standard_Integer LastPoint) const
 {
   Standard_Integer i, myindex;

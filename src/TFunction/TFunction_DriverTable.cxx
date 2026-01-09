@@ -46,7 +46,7 @@ TFunction_DriverTable::TFunction_DriverTable() {}
 //=======================================================================
 
 Standard_Boolean TFunction_DriverTable::AddDriver(const Standard_GUID&            guid,
-                                                  const Handle(TFunction_Driver)& driver,
+                                                  const Handle(FunctionDriver1)& driver,
                                                   const Standard_Integer          thread)
 {
   if (thread == 0)
@@ -56,13 +56,13 @@ Standard_Boolean TFunction_DriverTable::AddDriver(const Standard_GUID&          
     if (myThreadDrivers.IsNull())
     {
       // Create a new table for thread-drivers.
-      myThreadDrivers = new TFunction_HArray1OfDataMapOfGUIDDriver(1, thread);
+      myThreadDrivers = new GUIDDriverArray(1, thread);
     }
     else if (myThreadDrivers->Upper() < thread)
     {
       // Create a bigger table for thread-drivers.
-      Handle(TFunction_HArray1OfDataMapOfGUIDDriver) new_dt =
-        new TFunction_HArray1OfDataMapOfGUIDDriver(1, thread);
+      Handle(GUIDDriverArray) new_dt =
+        new GUIDDriverArray(1, thread);
       // Copy old table to the expanded (new) one.
       Standard_Integer i = 1, old_upper = myThreadDrivers->Upper();
       for (; i <= old_upper; i++)
@@ -99,7 +99,7 @@ Standard_Boolean TFunction_DriverTable::HasDriver(const Standard_GUID&   guid,
 //=======================================================================
 
 Standard_Boolean TFunction_DriverTable::FindDriver(const Standard_GUID&      guid,
-                                                   Handle(TFunction_Driver)& driver,
+                                                   Handle(FunctionDriver1)& driver,
                                                    const Standard_Integer    thread) const
 {
   if (thread == 0)

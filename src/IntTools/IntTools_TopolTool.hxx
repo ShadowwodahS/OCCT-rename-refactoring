@@ -35,7 +35,7 @@ public:
   Standard_EXPORT IntTools_TopolTool();
 
   //! Initializes me by surface
-  Standard_EXPORT IntTools_TopolTool(const Handle(Adaptor3d_Surface)& theSurface);
+  Standard_EXPORT IntTools_TopolTool(const Handle(SurfaceAdaptor)& theSurface);
 
   //! Redefined empty initializer
   //!
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT virtual void Initialize() Standard_OVERRIDE;
 
   //! Initializes me by surface
-  Standard_EXPORT virtual void Initialize(const Handle(Adaptor3d_Surface)& theSurface)
+  Standard_EXPORT virtual void Initialize(const Handle(SurfaceAdaptor)& theSurface)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeSamplePoints() Standard_OVERRIDE;

@@ -24,21 +24,21 @@
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_DataSource, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(MeshDataSource, RefObject)
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::Get3DGeom(
+Standard_Boolean MeshDataSource::Get3DGeom(
   const Standard_Integer /*ID*/,
   Standard_Integer& /*NbNodes*/,
-  Handle(MeshVS_HArray1OfSequenceOfInteger)& /*Data*/) const
+  Handle(IntegerSequenceArray)& /*Data*/) const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetNormal(const Standard_Integer Id,
+Standard_Boolean MeshDataSource::GetNormal(const Standard_Integer Id,
                                               const Standard_Integer Max,
                                               Standard_Real&         nx,
                                               Standard_Real&         ny,
@@ -89,7 +89,7 @@ Standard_Boolean MeshVS_DataSource::GetNormal(const Standard_Integer Id,
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetNodeNormal(const Standard_Integer /*ranknode*/,
+Standard_Boolean MeshDataSource::GetNodeNormal(const Standard_Integer /*ranknode*/,
                                                   const Standard_Integer /*Id*/,
                                                   Standard_Real& /*nx*/,
                                                   Standard_Real& /*ny*/,
@@ -100,7 +100,7 @@ Standard_Boolean MeshVS_DataSource::GetNodeNormal(const Standard_Integer /*rankn
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetNormalsByElement(
+Standard_Boolean MeshDataSource::GetNormalsByElement(
   const Standard_Integer         Id,
   const Standard_Boolean         IsNodal,
   const Standard_Integer         MaxNodes,
@@ -120,7 +120,7 @@ Standard_Boolean MeshVS_DataSource::GetNormalsByElement(
 
   Standard_Integer aNbNormals = NbNodes;
 
-  Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
+  Handle(IntegerSequenceArray) aTopo;
   if (Type == MeshVS_ET_Volume)
   {
     if (!Get3DGeom(Id, NbNodes, aTopo))
@@ -207,11 +207,11 @@ Standard_Boolean MeshVS_DataSource::GetNormalsByElement(
 
 //=================================================================================================
 
-void MeshVS_DataSource::GetAllGroups(PackedIntegerMap& /*Ids*/) const {}
+void MeshDataSource::GetAllGroups(PackedIntegerMap& /*Ids*/) const {}
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetGroup(const Standard_Integer /*Id*/,
+Standard_Boolean MeshDataSource::GetGroup(const Standard_Integer /*Id*/,
                                              MeshVS_EntityType& Type,
                                              PackedIntegerMap& /*Ids*/) const
 {
@@ -221,21 +221,21 @@ Standard_Boolean MeshVS_DataSource::GetGroup(const Standard_Integer /*Id*/,
 
 //=================================================================================================
 
-Standard_Address MeshVS_DataSource::GetGroupAddr(const Standard_Integer /*ID*/) const
+Standard_Address MeshDataSource::GetGroupAddr(const Standard_Integer /*ID*/) const
 {
   return NULL;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::IsAdvancedSelectionEnabled() const
+Standard_Boolean MeshDataSource::IsAdvancedSelectionEnabled() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
+Standard_Boolean MeshDataSource::GetDetectedEntities(
   const Handle(MeshVS_Mesh)& /*theMesh*/,
   const Standard_Real /*X*/,
   const Standard_Real /*Y*/,
@@ -249,7 +249,7 @@ Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
+Standard_Boolean MeshDataSource::GetDetectedEntities(
   const Handle(MeshVS_Mesh)& /*theMesh*/,
   const Standard_Real /*XMin*/,
   const Standard_Real /*YMin*/,
@@ -264,7 +264,7 @@ Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
+Standard_Boolean MeshDataSource::GetDetectedEntities(
   const Handle(MeshVS_Mesh)& /*theMesh*/,
   const TColgp_Array1OfPnt2d& /*Polyline*/,
   const Bnd_Box2d& /*aBox*/,
@@ -277,7 +277,7 @@ Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
+Standard_Boolean MeshDataSource::GetDetectedEntities(
   const Handle(MeshVS_Mesh)& /*theMesh*/,
   Handle(TColStd_HPackedMapOfInteger)& /*Nodes*/,
   Handle(TColStd_HPackedMapOfInteger)& /*Elements*/)
@@ -287,7 +287,7 @@ Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
 
 //=================================================================================================
 
-Box2 MeshVS_DataSource::GetBoundingBox() const
+Box2 MeshDataSource::GetBoundingBox() const
 {
   // Compute the 3D bounding box for mesh
   Box2                           aBox;

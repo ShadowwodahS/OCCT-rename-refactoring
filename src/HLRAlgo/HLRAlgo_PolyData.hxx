@@ -28,13 +28,13 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Boolean.hxx>
 
-class HLRAlgo_EdgeStatus;
+class EdgeStatus;
 
-class HLRAlgo_PolyData;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyData, RefObject)
+class PolyData1;
+DEFINE_STANDARD_HANDLE(PolyData1, RefObject)
 
 //! Data structure of a set of Triangles.
-class HLRAlgo_PolyData : public RefObject
+class PolyData1 : public RefObject
 {
 
 public:
@@ -89,13 +89,13 @@ public:
     }
   };
 
-  Standard_EXPORT HLRAlgo_PolyData();
+  Standard_EXPORT PolyData1();
 
-  Standard_EXPORT void HNodes(const Handle(TColgp_HArray1OfXYZ)& HNodes);
+  Standard_EXPORT void HNodes(const Handle(XYZArray)& HNodes);
 
-  Standard_EXPORT void HTData(const Handle(HLRAlgo_HArray1OfTData)& HTData);
+  Standard_EXPORT void HTData(const Handle(HandleTDataArray)& HTData);
 
-  Standard_EXPORT void HPHDat(const Handle(HLRAlgo_HArray1OfPHDat)& HPHDat);
+  Standard_EXPORT void HPHDat(const Handle(HandlePHDatArray)& HPHDat);
 
   void FaceIndex(const Standard_Integer I);
 
@@ -116,11 +116,11 @@ public:
                                       Triangle1&                       theTriangle,
                                       BiPoint::IndicesT1&      theIndices,
                                       const Standard_Boolean          HidingShell,
-                                      HLRAlgo_EdgeStatus&             status);
+                                      EdgeStatus&             status);
 
   FaceIndices1& Indices() { return myFaceIndices; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyData, RefObject)
+  DEFINE_STANDARD_RTTIEXT(PolyData1, RefObject)
 
 private:
   //! evident.
@@ -129,12 +129,12 @@ private:
                          const Standard_Boolean          Crossing,
                          const Standard_Boolean          HideBefore,
                          const Standard_Integer          TrFlags,
-                         HLRAlgo_EdgeStatus&             status);
+                         EdgeStatus&             status);
 
   FaceIndices1                    myFaceIndices;
-  Handle(TColgp_HArray1OfXYZ)    myHNodes;
-  Handle(HLRAlgo_HArray1OfTData) myHTData;
-  Handle(HLRAlgo_HArray1OfPHDat) myHPHDat;
+  Handle(XYZArray)    myHNodes;
+  Handle(HandleTDataArray) myHTData;
+  Handle(HandlePHDatArray) myHPHDat;
 };
 
 #include <HLRAlgo_PolyData.lxx>

@@ -19,7 +19,7 @@
 #include <TColStd_DataMapOfIntegerReal.hxx>
 #include <XSDRAWSTL_DataSource3D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DataSource3D, MeshVS_DataSource)
+IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DataSource3D, MeshDataSource)
 
 //=================================================================================================
 
@@ -193,12 +193,12 @@ Standard_Boolean XSDRAWSTL_DataSource3D::GetGeom(const Standard_Integer theID,
 Standard_Boolean XSDRAWSTL_DataSource3D::Get3DGeom(
   const Standard_Integer                     theID,
   Standard_Integer&                          theNbNodes,
-  Handle(MeshVS_HArray1OfSequenceOfInteger)& theData) const
+  Handle(IntegerSequenceArray)& theData) const
 {
-  Handle(MeshVS_HArray1OfSequenceOfInteger) aMeshData;
+  Handle(IntegerSequenceArray) aMeshData;
   if (theID == 1 || theID == 5)
   {
-    aMeshData  = new MeshVS_HArray1OfSequenceOfInteger(1, 4);
+    aMeshData  = new IntegerSequenceArray(1, 4);
     theNbNodes = 4;
     for (Standard_Integer anElemI = 1; anElemI <= 4; anElemI++)
     {
@@ -212,7 +212,7 @@ Standard_Boolean XSDRAWSTL_DataSource3D::Get3DGeom(
 
   if (theID == 2 || theID == 4)
   {
-    aMeshData  = new MeshVS_HArray1OfSequenceOfInteger(1, 6);
+    aMeshData  = new IntegerSequenceArray(1, 6);
     theNbNodes = 8;
     for (Standard_Integer anElemI = 1, k = 1; anElemI <= 4; anElemI++)
     {
@@ -239,7 +239,7 @@ Standard_Boolean XSDRAWSTL_DataSource3D::Get3DGeom(
 
   if (theID == 3)
   {
-    aMeshData  = new MeshVS_HArray1OfSequenceOfInteger(1, 5);
+    aMeshData  = new IntegerSequenceArray(1, 5);
     theNbNodes = 6;
     for (Standard_Integer anElemI = 1; anElemI <= 2; anElemI++)
     {

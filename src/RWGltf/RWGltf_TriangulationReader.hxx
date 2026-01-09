@@ -22,10 +22,10 @@
 class RWGltf_GltfLatePrimitiveArray;
 class RWGltf_GltfPrimArrayData;
 
-//! RWMesh_TriangulationReader implementation creating MeshTriangulation.
-class RWGltf_TriangulationReader : public RWMesh_TriangulationReader
+//! TriangulationReader implementation creating MeshTriangulation.
+class RWGltf_TriangulationReader : public TriangulationReader
 {
-  DEFINE_STANDARD_RTTIEXT(RWGltf_TriangulationReader, RWMesh_TriangulationReader)
+  DEFINE_STANDARD_RTTIEXT(RWGltf_TriangulationReader, TriangulationReader)
 public:
   //! Empty constructor.
   Standard_EXPORT RWGltf_TriangulationReader();

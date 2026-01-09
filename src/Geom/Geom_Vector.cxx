@@ -18,7 +18,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Vector, Geom_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_Vector, Geometry3)
 
 typedef Geom_Vector Vector;
 typedef Axis3d      Ax1;

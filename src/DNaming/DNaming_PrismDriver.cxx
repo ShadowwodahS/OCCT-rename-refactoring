@@ -45,7 +45,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_PrismDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_PrismDriver, FunctionDriver1)
 
 // OCC
 // OCAF

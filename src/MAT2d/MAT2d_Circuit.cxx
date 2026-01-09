@@ -59,8 +59,8 @@ static Standard_Boolean AffichCircuit = 0;
 
 // static functions:
 
-static Standard_Real CrossProd(const Handle(Geom2d_Geometry)& Geom1,
-                               const Handle(Geom2d_Geometry)& Geom2,
+static Standard_Real CrossProd(const Handle(Geometry2)& Geom1,
+                               const Handle(Geometry2)& Geom2,
                                Standard_Real&                 DotProd);
 
 //=================================================================================================
@@ -219,8 +219,8 @@ void MAT2d_Circuit::Perform(MAT2d_SequenceOfSequenceOfGeometry& FigItem,
 //           une cassure saillante par rapport <Direction>
 //=======================================================================
 
-Standard_Boolean MAT2d_Circuit::IsSharpCorner(const Handle(Geom2d_Geometry)& Geom1,
-                                              const Handle(Geom2d_Geometry)& Geom2,
+Standard_Boolean MAT2d_Circuit::IsSharpCorner(const Handle(Geometry2)& Geom1,
+                                              const Handle(Geometry2)& Geom2,
                                               const Standard_Real            Direction) const
 {
   Standard_Real               DotProd;
@@ -724,7 +724,7 @@ Standard_Integer MAT2d_Circuit::LineLength(const Standard_Integer I) const
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) MAT2d_Circuit::Value(const Standard_Integer Index) const
+Handle(Geometry2) MAT2d_Circuit::Value(const Standard_Integer Index) const
 {
   return geomElements.Value(Index);
 }
@@ -858,8 +858,8 @@ void MAT2d_Circuit::UpDateLink(const Standard_Integer IFirst,
 //            tangentes a la fin de Geom1 et au debut de Geom2.
 //            Geom1 et Geom2 doivent etre des courbes.
 //==========================================================================
-static Standard_Real CrossProd(const Handle(Geom2d_Geometry)& Geom1,
-                               const Handle(Geom2d_Geometry)& Geom2,
+static Standard_Real CrossProd(const Handle(Geometry2)& Geom1,
+                               const Handle(Geometry2)& Geom2,
                                Standard_Real&                 DotProd)
 {
   Handle(Geom2d_TrimmedCurve) Curve;

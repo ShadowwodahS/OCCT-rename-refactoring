@@ -34,14 +34,14 @@ OpenGl_Element::~OpenGl_Element()
 
 //=================================================================================================
 
-void OpenGl_Element::UpdateMemStats(Graphic3d_FrameStatsDataTmp& theStats) const
+void OpenGl_Element::UpdateMemStats(FrameStatsDataTmp& theStats) const
 {
   theStats[Graphic3d_FrameStatsCounter_EstimatedBytesGeom] += EstimatedDataSize();
 }
 
 //=================================================================================================
 
-void OpenGl_Element::UpdateDrawStats(Graphic3d_FrameStatsDataTmp&, bool) const
+void OpenGl_Element::UpdateDrawStats(FrameStatsDataTmp&, bool) const
 {
   //
 }

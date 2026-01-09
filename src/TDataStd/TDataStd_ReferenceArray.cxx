@@ -73,7 +73,7 @@ void TDataStd_ReferenceArray::Init(const Standard_Integer lower, const Standard_
 {
   Standard_RangeError_Raise_if(upper < lower, "TDataStd_ReferenceArray::Init");
   Backup();
-  myArray = new TDataStd_HLabelArray1(lower, upper);
+  myArray = new HLabelArray1(lower, upper);
 }
 
 //=================================================================================================
@@ -146,14 +146,14 @@ Standard_Integer TDataStd_ReferenceArray::Length() const
 
 //=================================================================================================
 
-const Handle(TDataStd_HLabelArray1)& TDataStd_ReferenceArray::InternalArray() const
+const Handle(HLabelArray1)& TDataStd_ReferenceArray::InternalArray() const
 {
   return myArray;
 }
 
 //=================================================================================================
 
-void TDataStd_ReferenceArray::SetInternalArray(const Handle(TDataStd_HLabelArray1)& values,
+void TDataStd_ReferenceArray::SetInternalArray(const Handle(HLabelArray1)& values,
                                                const Standard_Boolean)
 {
   //  myArray = values;
@@ -186,7 +186,7 @@ void TDataStd_ReferenceArray::SetInternalArray(const Handle(TDataStd_HLabelArray
   Backup();
 
   if (myArray.IsNull() || !aDimEqual)
-    myArray = new TDataStd_HLabelArray1(aLower, anUpper);
+    myArray = new HLabelArray1(aLower, anUpper);
 
   for (i = aLower; i <= anUpper; i++)
     myArray->SetValue(i, values->Value(i));
@@ -252,7 +252,7 @@ void TDataStd_ReferenceArray::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataStd_ReferenceArray::Paste(const Handle(TDF_Attribute)&       Into,
-                                    const Handle(TDF_RelocationTable)& RT) const
+                                    const Handle(RelocationTable1)& RT) const
 {
   Handle(TDataStd_ReferenceArray) anArray = Handle(TDataStd_ReferenceArray)::DownCast(Into);
   if (myArray.IsNull())

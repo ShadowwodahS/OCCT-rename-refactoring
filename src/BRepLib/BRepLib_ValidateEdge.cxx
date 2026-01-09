@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-BRepLib_ValidateEdge::BRepLib_ValidateEdge(Handle(Adaptor3d_Curve)          theReferenceCurve,
+BRepLib_ValidateEdge::BRepLib_ValidateEdge(Handle(Curve5)          theReferenceCurve,
                                            Handle(Adaptor3d_CurveOnSurface) theOtherCurve,
                                            Standard_Boolean                 theSameParameter)
     : myReferenceCurve(theReferenceCurve),
@@ -66,7 +66,7 @@ void BRepLib_ValidateEdge::UpdateTolerance(Standard_Real& theToleranceToUpdate)
 
 Standard_Real BRepLib_ValidateEdge::correctTolerance(Standard_Real theTolerance)
 {
-  const Handle(Adaptor3d_Surface)& aSurface          = myOtherCurve->GetSurface();
+  const Handle(SurfaceAdaptor)& aSurface          = myOtherCurve->GetSurface();
   Standard_Real                    aCurvePrecision   = BRepCheck1::PrecCurve(*myReferenceCurve);
   Standard_Real                    aSurfacePrecision = BRepCheck1::PrecSurface(aSurface);
   Standard_Real                    aToleranceDelta =

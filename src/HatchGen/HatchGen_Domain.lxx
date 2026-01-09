@@ -21,8 +21,8 @@
 // Purpose  : Sets the first and the second points of the domain.
 //=======================================================================
 
-inline void HatchGen_Domain::SetPoints(const HatchGen_PointOnHatching& P1,
-                                       const HatchGen_PointOnHatching& P2)
+inline void HatchGen_Domain::SetPoints(const PointOnHatching& P1,
+                                       const PointOnHatching& P2)
 {
   myHasFirstPoint  = Standard_True;
   myFirstPoint     = P1;
@@ -47,7 +47,7 @@ inline void HatchGen_Domain::SetPoints()
 // Purpose  : Sets the first point of the domain.
 //=======================================================================
 
-inline void HatchGen_Domain::SetFirstPoint(const HatchGen_PointOnHatching& P)
+inline void HatchGen_Domain::SetFirstPoint(const PointOnHatching& P)
 {
   myHasFirstPoint = Standard_True;
   myFirstPoint    = P;
@@ -68,7 +68,7 @@ inline void HatchGen_Domain::SetFirstPoint()
 // Purpose  : Sets the second point of the domain.
 //=======================================================================
 
-inline void HatchGen_Domain::SetSecondPoint(const HatchGen_PointOnHatching& P)
+inline void HatchGen_Domain::SetSecondPoint(const PointOnHatching& P)
 {
   myHasSecondPoint = Standard_True;
   mySecondPoint    = P;
@@ -99,7 +99,7 @@ inline Standard_Boolean HatchGen_Domain::HasFirstPoint() const
 // Purpose  : Returns the first point of the domain.
 //=======================================================================
 
-inline const HatchGen_PointOnHatching& HatchGen_Domain::FirstPoint() const
+inline const PointOnHatching& HatchGen_Domain::FirstPoint() const
 {
   Standard_DomainError_Raise_if(!myHasFirstPoint, "HatchGen_Domain::FirstPoint");
   return myFirstPoint;
@@ -120,7 +120,7 @@ inline Standard_Boolean HatchGen_Domain::HasSecondPoint() const
 // Purpose  : Returns the second of the domain.
 //=======================================================================
 
-inline const HatchGen_PointOnHatching& HatchGen_Domain::SecondPoint() const
+inline const PointOnHatching& HatchGen_Domain::SecondPoint() const
 {
   Standard_DomainError_Raise_if(!myHasSecondPoint, "HatchGen_Domain::SecondPoint");
   return mySecondPoint;

@@ -88,7 +88,7 @@ void CirclePoint2dBisector::DefineSolutions()
 //  two parabolas (biscirPnt1, biscirPnt1).                          +
 //=========================================================================
 
-Handle(GccInt_Bisec) CirclePoint2dBisector::ThisSolution(const Standard_Integer Index) const
+Handle(Bisector2) CirclePoint2dBisector::ThisSolution(const Standard_Integer Index) const
 {
 
   if (!WellDone)
@@ -97,7 +97,7 @@ Handle(GccInt_Bisec) CirclePoint2dBisector::ThisSolution(const Standard_Integer 
   if ((Index <= 0) || (Index > NbrSol))
     throw Standard_OutOfRange();
 
-  Handle(GccInt_Bisec) bissol;
+  Handle(Bisector2) bissol;
   Standard_Real        xpoint  = point.X();
   Standard_Real        ypoint  = point.Y();
   Standard_Real        xcencir = circle.Location().X();

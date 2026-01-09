@@ -63,7 +63,7 @@ void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOfNode(const Standard_I
 
 //=================================================================================================
 
-void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOf(const BRepMesh_Edge& theLink)
+void BRepMesh_SelectorOfDataStructureOfDelaun::NeighboursOf(const Edge3& theLink)
 {
   NeighboursOfNode(theLink.FirstNode());
   NeighboursOfNode(theLink.LastNode());

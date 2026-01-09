@@ -49,13 +49,13 @@ public:
   //! Curves all based on the same complete curve.
   Standard_EXPORT virtual void Build(const Standard_Boolean Segment1) Standard_OVERRIDE;
 
-  Standard_EXPORT const Handle(TColGeom_HArray1OfCurve)& GetCurves() const;
+  Standard_EXPORT const Handle(HArray1OfCurve3)& GetCurves() const;
 
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve3d, ShapeUpgrade_SplitCurve)
 
 protected:
   Handle(GeomCurve3d)              myCurve;
-  Handle(TColGeom_HArray1OfCurve) myResultingCurves;
+  Handle(HArray1OfCurve3) myResultingCurves;
 
 private:
 };

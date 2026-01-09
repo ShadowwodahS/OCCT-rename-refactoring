@@ -30,7 +30,7 @@
 class Point3d;
 class Vector3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class BezierCurve3d;
 DEFINE_STANDARD_HANDLE(BezierCurve3d, Geom_BoundedCurve)
@@ -324,7 +324,7 @@ public:
   Standard_EXPORT void Resolution(const Standard_Real Tolerance3D, Standard_Real& UTolerance);
 
   //! Creates a new object which is a copy of this Bezier curve.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -342,11 +342,11 @@ private:
   //! Update rational and closed.
   //!
   //! if nbpoles < 2 or nbboles > MaDegree + 1
-  void Init(const Handle(TColgp_HArray1OfPnt)& Poles, const Handle(TColStd_HArray1OfReal)& Weights);
+  void Init(const Handle(PointArray1)& Poles, const Handle(TColStd_HArray1OfReal)& Weights);
 
   Standard_Boolean              rational;
   Standard_Boolean              closed;
-  Handle(TColgp_HArray1OfPnt)   poles;
+  Handle(PointArray1)   poles;
   Handle(TColStd_HArray1OfReal) weights;
   Standard_Real                 maxderivinv;
   Standard_Boolean              maxderivinvok;

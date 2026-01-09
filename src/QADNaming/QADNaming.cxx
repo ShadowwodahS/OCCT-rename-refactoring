@@ -36,7 +36,7 @@
 //=================================================================================================
 
 void QADNaming1::GetShape(const Standard_CString  LabelName,
-                         const Handle(TDF_Data)& DF,
+                         const Handle(Data2)& DF,
                          ShapeList&   L)
 {
   L.Clear();
@@ -66,7 +66,7 @@ void QADNaming_BuildMap(TDF_LabelMap& Updated, const DataLabel& Lab)
 
 //=================================================================================================
 
-TopoShape QADNaming1::CurrentShape(const Standard_CString LabelName, const Handle(TDF_Data)& DF)
+TopoShape QADNaming1::CurrentShape(const Standard_CString LabelName, const Handle(Data2)& DF)
 {
   TopoShape     S;
   DataLabel        Label;
@@ -91,7 +91,7 @@ TopoShape QADNaming1::CurrentShape(const Standard_CString LabelName, const Handl
 //=================================================================================================
 
 AsciiString1 QADNaming1::GetEntry(const TopoShape&     Shape,
-                                            const Handle(TDF_Data)& DF,
+                                            const Handle(Data2)& DF,
                                             Standard_Integer&       theStatus)
 {
   theStatus = 0;
@@ -122,7 +122,7 @@ AsciiString1 QADNaming1::GetEntry(const TopoShape&     Shape,
 Standard_Boolean QADNaming1::Entry(const Standard_Address theArguments, DataLabel& theLabel)
 {
   const char**     arg = (const char**)theArguments;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
   {
     std::cout << "Wrong df" << std::endl;

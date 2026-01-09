@@ -26,7 +26,7 @@ class Dir3d;
 class Point3d;
 
 class Geom_AxisPlacement;
-DEFINE_STANDARD_HANDLE(Geom_AxisPlacement, Geom_Geometry)
+DEFINE_STANDARD_HANDLE(Geom_AxisPlacement, Geometry3)
 
 //! The abstract class AxisPlacement describes the
 //! common behavior of positioning systems in 3D space,
@@ -54,7 +54,7 @@ DEFINE_STANDARD_HANDLE(Geom_AxisPlacement, Geom_Geometry)
 //! The axis whose origin is the origin of the positioning
 //! system and whose unit vector is its "main Direction" is
 //! also called the "Axis" or "main Axis" of the positioning system.
-class Geom_AxisPlacement : public Geom_Geometry
+class Geom_AxisPlacement : public Geometry3
 {
 
 public:
@@ -98,7 +98,7 @@ public:
   //! Returns the Location point (origin) of the axis placement.
   Standard_EXPORT Point3d Location() const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_AxisPlacement, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(Geom_AxisPlacement, Geometry3)
 
 protected:
   Axis3d axis;

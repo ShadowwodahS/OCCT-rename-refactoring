@@ -54,7 +54,7 @@ void ShapeAnalysis_WireVertex::Init(const Handle(ShapeExtend_WireData)& sbwd,
   myWire = sbwd;
   myStat = new TColStd_HArray1OfInteger(1, nb);
   myStat->Init(0);
-  myPos  = new TColgp_HArray1OfXYZ(1, nb);
+  myPos  = new XYZArray(1, nb);
   myUPre = new TColStd_HArray1OfReal(1, nb);
   myUPre->Init(0.0);
   myUFol = new TColStd_HArray1OfReal(1, nb);

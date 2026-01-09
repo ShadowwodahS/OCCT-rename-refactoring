@@ -39,7 +39,7 @@ typedef Coords2d       XY;
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_Line::Copy() const
+Handle(Geometry2) Geom2d_Line::Copy() const
 {
   Handle(Geom2d_Line) L;
   L = new Line(pos);

@@ -314,7 +314,7 @@ const OpenGl_Aspects* OpenGl_Workspace::ApplyAspects(bool theToBindTextures)
 
   if (theToBindTextures)
   {
-    const Handle(OpenGl_TextureSet)& aTextureSet = TextureSet();
+    const Handle(TextureSet2)& aTextureSet = TextureSet();
     myGlContext->BindTextures(aTextureSet, Handle(OpenGl_ShaderProgram)());
   }
 
@@ -354,7 +354,7 @@ Handle(OpenGl_FrameBuffer) OpenGl_Workspace::FBOCreate(const Standard_Integer th
 
   // create the FBO
   const Handle(OpenGl_Context)& aCtx = GetGlContext();
-  aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+  aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
   Handle(OpenGl_FrameBuffer) aFrameBuffer = new OpenGl_FrameBuffer();
   if (!aFrameBuffer->Init(aCtx,
                           Graphic3d_Vec2i(theWidth, theHeight),

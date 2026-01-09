@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CubeMapPacked, Graphic3d_CubeMap)
 //=================================================================================================
 
 Graphic3d_CubeMapPacked::Graphic3d_CubeMapPacked(const AsciiString1&         theFilePath,
-                                                 const Graphic3d_ValidatedCubeMapOrder& theOrder)
+                                                 const ValidatedCubeMapOrder& theOrder)
     : Graphic3d_CubeMap(theFilePath),
       myOrder(theOrder),
       myTileNumberX(1)
@@ -32,7 +32,7 @@ Graphic3d_CubeMapPacked::Graphic3d_CubeMapPacked(const AsciiString1&         the
 //=================================================================================================
 
 Graphic3d_CubeMapPacked::Graphic3d_CubeMapPacked(const Handle(Image_PixMap)&            theImage,
-                                                 const Graphic3d_ValidatedCubeMapOrder& theOrder)
+                                                 const ValidatedCubeMapOrder& theOrder)
     : Graphic3d_CubeMap(Handle(Image_PixMap)()),
       myOrder(theOrder),
       myTileNumberX(1)
@@ -46,7 +46,7 @@ Graphic3d_CubeMapPacked::Graphic3d_CubeMapPacked(const Handle(Image_PixMap)&    
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) Graphic3d_CubeMapPacked::CompressedValue(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   if (myTileNumberX == 0 || !myPixMap.IsNull())
   {
@@ -72,7 +72,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapPacked::CompressedValue(
 //=================================================================================================
 
 Handle(Image_PixMap) Graphic3d_CubeMapPacked::Value(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   if (myTileNumberX != 0)
   {
@@ -201,7 +201,7 @@ Standard_Boolean Graphic3d_CubeMapPacked::checkImage(const Handle(Image_PixMap)&
 
 //=================================================================================================
 
-void Graphic3d_CubeMapPacked::tryLoadImage(const Handle(Image_SupportedFormats)& theSupported,
+void Graphic3d_CubeMapPacked::tryLoadImage(const Handle(SupportedFormats)& theSupported,
                                            const AsciiString1&        theFilePath)
 {
   Handle(Image_AlienPixMap) anImage = new Image_AlienPixMap;

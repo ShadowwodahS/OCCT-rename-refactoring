@@ -38,7 +38,7 @@ public:
 
   const Coords3d& DV() const;
 
-  friend class Plate_GtoCConstraint;
+  friend class GtoCConstraint;
   friend class FreeGtoCConstraint;
 
 protected:

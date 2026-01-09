@@ -25,8 +25,8 @@
 #include <CDM_Document.hxx>
 #include <TDF_LabelMap.hxx>
 #include <TDocStd_FormatVersion.hxx>
-class TDF_Data;
-class TDF_Delta;
+class Data2;
+class Delta;
 class DataLabel;
 class AsciiString1;
 class TDocStd_CompoundDelta;
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(AppDocument, CDM_Document)
 //! The document also allows you to manage:
 //! -   modifications, providing Undo and Redo functions.
 //! -   command transactions.
-//! Warning: The only data saved is the framework (TDF_Data)
+//! Warning: The only data saved is the framework (Data2)
 class AppDocument : public CDM_Document
 {
 
@@ -85,9 +85,9 @@ public:
   //! saved. Raise an exception if <me> is not saved.
   Standard_EXPORT UtfString GetPath() const;
 
-  Standard_EXPORT void SetData(const Handle(TDF_Data)& data);
+  Standard_EXPORT void SetData(const Handle(Data2)& data);
 
-  Standard_EXPORT Handle(TDF_Data) GetData() const;
+  Standard_EXPORT Handle(Data2) GetData() const;
 
   //! Returns the main label in this data framework.
   //! By definition, this is the label with the entry 0:1.
@@ -276,13 +276,13 @@ private:
   //! private methods
   //! ===============
   Standard_EXPORT static void AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)& theDelta1,
-                                                    const Handle(TDF_Delta)&             theDelta2);
+                                                    const Handle(Delta)&             theDelta2);
 
-  Handle(TDF_Data)      myData;
+  Handle(Data2)      myData;
   Standard_Integer      myUndoLimit;
   TDF_Transaction       myUndoTransaction;
-  Handle(TDF_Delta)     myFromUndo;
-  Handle(TDF_Delta)     myFromRedo;
+  Handle(Delta)     myFromUndo;
+  Handle(Delta)     myFromRedo;
   Standard_Integer      mySaveTime;
   Standard_Boolean      myIsNestedTransactionMode;
   TDF_DeltaList         myUndoFILO;

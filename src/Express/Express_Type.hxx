@@ -20,7 +20,7 @@ class AsciiString1;
 
 //! Provides basis for identification (reference) to some type
 //! in express schema
-class Express_Type : public RefObject
+class ExpressType : public RefObject
 {
 
 public:
@@ -49,11 +49,11 @@ public:
   Standard_EXPORT virtual void Use2(const AsciiString1& theRefName,
                                     const AsciiString1& theRefPack) const;
 
-  DEFINE_STANDARD_RTTIEXT(Express_Type, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ExpressType, RefObject)
 
 protected:
   //! Empty constructor
-  Standard_EXPORT Express_Type();
+  Standard_EXPORT ExpressType();
 
 private:
 };

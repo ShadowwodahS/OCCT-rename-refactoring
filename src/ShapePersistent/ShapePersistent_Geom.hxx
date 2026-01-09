@@ -32,7 +32,7 @@
 #include <Geom_Transformation.hxx>
 #include <Geom_Surface.hxx>
 
-class ShapePersistent_Geom : public SharedObject
+class Geom1 : public SharedObject
 {
 public:
   class Geometry1 : public StdObjMgt_Persistent
@@ -56,7 +56,7 @@ protected:
     //! Write persistent data to a file.
     virtual void Write(WriteData&) const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::geometryBase::Write - not implemented");
+      Standard_NotImplemented::Raise("Geom1::geometryBase::Write - not implemented");
     }
 
     //! Gets persistent child objects
@@ -65,7 +65,7 @@ protected:
     //! Returns persistent type name
     virtual Standard_CString PName() const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::geometryBase::PName - not implemented");
+      Standard_NotImplemented::Raise("Geom1::geometryBase::PName - not implemented");
       return "";
     }
   };
@@ -83,13 +83,13 @@ protected:
     //! Gets persistent child objects
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::subBase::PChildren - not implemented");
+      Standard_NotImplemented::Raise("Geom1::subBase::PChildren - not implemented");
     }
 
     //! Returns persistent type name
     virtual Standard_CString PName() const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::subBase::PName - not implemented");
+      Standard_NotImplemented::Raise("Geom1::subBase::PName - not implemented");
       return "";
     }
   };
@@ -110,7 +110,7 @@ protected:
     //! Returns persistent type name
     virtual Standard_CString PName() const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::subBase_gp::PName - not implemented");
+      Standard_NotImplemented::Raise("Geom1::subBase_gp::PName - not implemented");
       return "";
     }
   };
@@ -122,7 +122,7 @@ protected:
     virtual Standard_CString PName() const
     {
       Standard_NotImplemented::Raise(
-        "ShapePersistent_Geom::subBase_empty::PName - not implemented");
+        "Geom1::subBase_empty::PName - not implemented");
       return "";
     }
   };
@@ -145,19 +145,19 @@ protected:
     //! Write persistent data to a file.
     virtual void Write(WriteData&) const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::instance::Write - not implemented");
+      Standard_NotImplemented::Raise("Geom1::instance::Write - not implemented");
     }
 
     //! Returns persistent type name
     virtual Standard_CString PName() const
     {
-      Standard_NotImplemented::Raise("ShapePersistent_Geom::instance::PName - not implemented");
+      Standard_NotImplemented::Raise("Geom1::instance::PName - not implemented");
       return "";
     }
   };
 
 private:
-  typedef geometryBase<Geom_Geometry> basic;
+  typedef geometryBase<Geometry3> basic;
 
 public:
   typedef subBase_empty<basic>                         Point;
@@ -171,7 +171,7 @@ public:
   typedef instance<AxisPlacement, Geom_Axis1Placement, Axis3d> Axis1Placement;
   typedef instance<AxisPlacement, Geom_Axis2Placement>         Axis2Placement;
 
-  typedef instance<SharedBase<Geom_Transformation>, Geom_Transformation, Transform3d> Transformation;
+  typedef instance<SharedBase<Transformation1>, Transformation1, Transform3d> Transformation;
 
   typedef geometryBase<GeomCurve3d>   Curve;
   typedef geometryBase<GeomSurface> Surface;
@@ -190,7 +190,7 @@ public:
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::subBase_empty<ShapePersistent_Geom::basic>::PName()
+inline Standard_CString Geom1::subBase_empty<Geom1::basic>::PName()
   const
 {
   return "PGeom_Point";
@@ -201,14 +201,14 @@ inline Standard_CString ShapePersistent_Geom::subBase_empty<ShapePersistent_Geom
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Point, Geom_CartesianPoint, Point3d>::PName() const
+inline Standard_CString Geom1::
+  instance<Geom1::Point, Geom_CartesianPoint, Point3d>::PName() const
 {
   return "PGeom_CartesianPoint";
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Point,
+inline void Geom1::instance<Geom1::Point,
                                            Geom_CartesianPoint,
                                            Point3d>::Write(WriteData& theWriteData) const
 {
@@ -221,7 +221,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Point,
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::basic,
+inline Standard_CString Geom1::subBase_gp<Geom1::basic,
                                                          Vector3d>::PName() const
 {
   return "PGeom_Vector";
@@ -232,14 +232,14 @@ inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::b
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Direction, Geom_Direction, Dir3d>::PName() const
+inline Standard_CString Geom1::
+  instance<Geom1::Direction, Geom_Direction, Dir3d>::PName() const
 {
   return "PGeom_Direction";
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Direction,
+inline void Geom1::instance<Geom1::Direction,
                                            Geom_Direction,
                                            Dir3d>::Write(WriteData& theWriteData) const
 {
@@ -252,7 +252,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Direction,
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagnitude,
+inline Standard_CString Geom1::instance<Geom1::VectorWithMagnitude,
                                                        Geom_VectorWithMagnitude,
                                                        Vector3d>::PName() const
 {
@@ -260,7 +260,7 @@ inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Vec
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagnitude,
+inline void Geom1::instance<Geom1::VectorWithMagnitude,
                                            Geom_VectorWithMagnitude,
                                            Vector3d>::Write(WriteData& theWriteData) const
 {
@@ -274,7 +274,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagni
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::basic,
+inline Standard_CString Geom1::subBase_gp<Geom1::basic,
                                                          Axis3d>::PName() const
 {
   return "PGeom_AxisPlacement";
@@ -285,14 +285,14 @@ inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::b
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Axis1Placement, Geom_Axis1Placement, Axis3d>::PName() const
+inline Standard_CString Geom1::
+  instance<Geom1::Axis1Placement, Geom_Axis1Placement, Axis3d>::PName() const
 {
   return "PGeom_Axis1Placement";
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Axis1Placement,
+inline void Geom1::instance<Geom1::Axis1Placement,
                                            Geom_Axis1Placement,
                                            Axis3d>::Write(WriteData& theWriteData) const
 {
@@ -305,14 +305,14 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Axis1Placement,
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
+inline Standard_CString Geom1::instance<Geom1::AxisPlacement,
                                                        Geom_Axis2Placement>::PName() const
 {
   return "PGeom_Axis2Placement";
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
+inline void Geom1::instance<Geom1::AxisPlacement,
                                            Geom_Axis2Placement>::Read(ReadData&
                                                                         theReadData)
 {
@@ -325,7 +325,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
+inline void Geom1::instance<Geom1::AxisPlacement,
                                            Geom_Axis2Placement>::Write(WriteData&
                                                                          theWriteData) const
 {
@@ -340,15 +340,15 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Transformation, Geom_Transformation, Transform3d>::PName() const
+inline Standard_CString Geom1::
+  instance<Geom1::Transformation, Transformation1, Transform3d>::PName() const
 {
   return "PGeom_Transformation";
 }
 
 template <>
-inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Transformation,
-                                           Geom_Transformation,
+inline void Geom1::instance<Geom1::Transformation,
+                                           Transformation1,
                                            Transform3d>::Write(WriteData& theWriteData) const
 {
   theWriteData << myTransient->Trsf();
@@ -359,7 +359,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Transformation,
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<Geom_Geometry>::PName() const
+inline Standard_CString Geom1::geometryBase<Geometry3>::PName() const
 {
   return "PGeom_Geometry";
 }
@@ -369,7 +369,7 @@ inline Standard_CString ShapePersistent_Geom::geometryBase<Geom_Geometry>::PName
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<GeomCurve3d>::PName() const
+inline Standard_CString Geom1::geometryBase<GeomCurve3d>::PName() const
 {
   return "PGeom_Curve";
 }
@@ -379,7 +379,7 @@ inline Standard_CString ShapePersistent_Geom::geometryBase<GeomCurve3d>::PName()
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<GeomSurface>::PName() const
+inline Standard_CString Geom1::geometryBase<GeomSurface>::PName() const
 {
   return "PGeom_Surface";
 }

@@ -31,7 +31,7 @@
 class MAT2d_Circuit;
 class MAT_Bisector;
 class Bisector_Bisec;
-class Geom2d_Geometry;
+class Geometry2;
 class gp_Pnt2d;
 class gp_Vec2d;
 
@@ -125,7 +125,7 @@ public:
   Standard_EXPORT const Bisector_Bisec& GeomBis(const Standard_Integer Index) const;
 
   //! Returns the Geometry1 of index <Index> in <theGeomElts>.
-  Standard_EXPORT Handle(Geom2d_Geometry) GeomElt(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(Geometry2) GeomElt(const Standard_Integer Index) const;
 
   //! Returns the point of index <Index> in the <theGeomPnts>.
   Standard_EXPORT const gp_Pnt2d& GeomPnt(const Standard_Integer Index) const;

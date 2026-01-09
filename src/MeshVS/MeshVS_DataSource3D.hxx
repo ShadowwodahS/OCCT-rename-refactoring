@@ -24,25 +24,25 @@
 #include <Standard_Integer.hxx>
 
 class MeshVS_DataSource3D;
-DEFINE_STANDARD_HANDLE(MeshVS_DataSource3D, MeshVS_DataSource)
+DEFINE_STANDARD_HANDLE(MeshVS_DataSource3D, MeshDataSource)
 
-class MeshVS_DataSource3D : public MeshVS_DataSource
+class MeshVS_DataSource3D : public MeshDataSource
 {
 
 public:
-  Standard_EXPORT Handle(MeshVS_HArray1OfSequenceOfInteger) GetPrismTopology(
+  Standard_EXPORT Handle(IntegerSequenceArray) GetPrismTopology(
     const Standard_Integer BasePoints) const;
 
-  Standard_EXPORT Handle(MeshVS_HArray1OfSequenceOfInteger) GetPyramidTopology(
+  Standard_EXPORT Handle(IntegerSequenceArray) GetPyramidTopology(
     const Standard_Integer BasePoints) const;
 
-  Standard_EXPORT static Handle(MeshVS_HArray1OfSequenceOfInteger) CreatePrismTopology(
+  Standard_EXPORT static Handle(IntegerSequenceArray) CreatePrismTopology(
     const Standard_Integer BasePoints);
 
-  Standard_EXPORT static Handle(MeshVS_HArray1OfSequenceOfInteger) CreatePyramidTopology(
+  Standard_EXPORT static Handle(IntegerSequenceArray) CreatePyramidTopology(
     const Standard_Integer BasePoints);
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_DataSource3D, MeshVS_DataSource)
+  DEFINE_STANDARD_RTTIEXT(MeshVS_DataSource3D, MeshDataSource)
 
 protected:
 private:

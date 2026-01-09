@@ -79,8 +79,8 @@ static void ResultChron(Chronometer& ch, Standard_Real& time)
 // critical section. myPeriodicDir - 0 for U periodicity and 1 for V periodicity.
 struct SplitDS
 {
-  SplitDS(const Handle(Adaptor3d_Curve)&     theCurve,
-          const Handle(Adaptor3d_Surface)&   theSurface,
+  SplitDS(const Handle(Curve5)&     theCurve,
+          const Handle(SurfaceAdaptor)&   theSurface,
           NCollection_Vector<Standard_Real>& theSplits)
       : myCurve(theCurve),
         mySurface(theSurface),
@@ -94,8 +94,8 @@ struct SplitDS
   {
   }
 
-  const Handle(Adaptor3d_Curve)      myCurve;
-  const Handle(Adaptor3d_Surface)    mySurface;
+  const Handle(Curve5)      myCurve;
+  const Handle(SurfaceAdaptor)    mySurface;
   NCollection_Vector<Standard_Real>& mySplits;
 
   Standard_Real    myPerMinParam;
@@ -113,8 +113,8 @@ private:
 };
 
 //! Compute split points in the parameter space of the curve.
-static void BuildCurveSplits(const Handle(Adaptor3d_Curve)&     theCurve,
-                             const Handle(Adaptor3d_Surface)&   theSurface,
+static void BuildCurveSplits(const Handle(Curve5)&     theCurve,
+                             const Handle(SurfaceAdaptor)&   theSurface,
                              const Standard_Real                theTolU,
                              const Standard_Real                theTolV,
                              NCollection_Vector<Standard_Real>& theSplits);
@@ -145,8 +145,8 @@ static void d1(const Standard_Real              t,
                const Standard_Real              u,
                const Standard_Real              v,
                gp_Vec2d&                        V,
-               const Handle(Adaptor3d_Curve)&   Curve,
-               const Handle(Adaptor3d_Surface)& Surface)
+               const Handle(Curve5)&   Curve,
+               const Handle(SurfaceAdaptor)& Surface)
 {
   Point3d S, C;
   Vector3d DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
@@ -177,8 +177,8 @@ static void d2(const Standard_Real              t,
                const Standard_Real              v,
                gp_Vec2d&                        V1,
                gp_Vec2d&                        V2,
-               const Handle(Adaptor3d_Curve)&   Curve,
-               const Handle(Adaptor3d_Surface)& Surface)
+               const Handle(Curve5)&   Curve,
+               const Handle(SurfaceAdaptor)& Surface)
 {
   Point3d S, C;
   Vector3d DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
@@ -243,8 +243,8 @@ static void d1CurvOnSurf(const Standard_Real t,
   const Standard_Real u,
   const Standard_Real v,
   Vector3d& V, 
-  const Handle(Adaptor3d_Curve)& Curve, 
-  const Handle(Adaptor3d_Surface)& Surface)
+  const Handle(Curve5)& Curve, 
+  const Handle(SurfaceAdaptor)& Surface)
 {
   Point3d S, C;
   gp_Vec2d V2d;
@@ -282,8 +282,8 @@ static void d2CurvOnSurf(const Standard_Real              t,
                          const Standard_Real              v,
                          Vector3d&                          V1,
                          Vector3d&                          V2,
-                         const Handle(Adaptor3d_Curve)&   Curve,
-                         const Handle(Adaptor3d_Surface)& Surface)
+                         const Handle(Curve5)&   Curve,
+                         const Handle(SurfaceAdaptor)& Surface)
 {
   Point3d   S, C;
   gp_Vec2d V12d, V22d;
@@ -354,8 +354,8 @@ static Standard_Boolean ExactBound(Point3d&                          Sol,
                                    const Standard_Real              Tol,
                                    const Standard_Real              TolU,
                                    const Standard_Real              TolV,
-                                   const Handle(Adaptor3d_Curve)&   Curve,
-                                   const Handle(Adaptor3d_Surface)& Surface)
+                                   const Handle(Curve5)&   Curve,
+                                   const Handle(SurfaceAdaptor)& Surface)
 {
   Standard_Real U0, V0, t, t1, t2, FirstU, LastU, FirstV, LastV;
   gp_Pnt2d      POnS;
@@ -471,8 +471,8 @@ static void DichExactBound(Point3d&                          Sol,
                            const Standard_Real              Tol,
                            const Standard_Real              TolU,
                            const Standard_Real              TolV,
-                           const Handle(Adaptor3d_Curve)&   Curve,
-                           const Handle(Adaptor3d_Surface)& Surface)
+                           const Handle(Curve5)&   Curve,
+                           const Handle(SurfaceAdaptor)& Surface)
 {
 #ifdef OCCT_DEBUG_CHRONO
   InitChron(chr_dicho_bound);
@@ -517,8 +517,8 @@ static void DichExactBound(Point3d&                          Sol,
 
 static Standard_Boolean InitialPoint(const Point3d&                    Point,
                                      const Standard_Real              t,
-                                     const Handle(Adaptor3d_Curve)&   C,
-                                     const Handle(Adaptor3d_Surface)& S,
+                                     const Handle(Curve5)&   C,
+                                     const Handle(SurfaceAdaptor)& S,
                                      const Standard_Real              TolU,
                                      const Standard_Real              TolV,
                                      Standard_Real&                   U,
@@ -592,14 +592,14 @@ ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve()
 
 //=================================================================================================
 
-ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Handle(Adaptor3d_Surface)& theSurface,
-                                                       const Handle(Adaptor3d_Curve)&   theCurve,
+ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Handle(SurfaceAdaptor)& theSurface,
+                                                       const Handle(Curve5)&   theCurve,
                                                        const Standard_Real              theTolU,
                                                        const Standard_Real              theTolV)
     : mySurface(theSurface),
       myCurve(theCurve),
       myNbCurves(0),
-      mySequence(new ProjLib_HSequenceOfHSequenceOfPnt()),
+      mySequence(new PointSequenceGrid()),
       myTol3d(1.e-6),
       myContinuity(GeomAbs_C2),
       myMaxDegree(14),
@@ -615,15 +615,15 @@ ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Handle(Adaptor3d_Su
 
 //=================================================================================================
 
-ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Handle(Adaptor3d_Surface)& theSurface,
-                                                       const Handle(Adaptor3d_Curve)&   theCurve,
+ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Handle(SurfaceAdaptor)& theSurface,
+                                                       const Handle(Curve5)&   theCurve,
                                                        const Standard_Real              theTolU,
                                                        const Standard_Real              theTolV,
                                                        const Standard_Real              theMaxDist)
     : mySurface(theSurface),
       myCurve(theCurve),
       myNbCurves(0),
-      mySequence(new ProjLib_HSequenceOfHSequenceOfPnt()),
+      mySequence(new PointSequenceGrid()),
       myTol3d(1.e-6),
       myContinuity(GeomAbs_C2),
       myMaxDegree(14),
@@ -640,13 +640,13 @@ ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Handle(Adaptor3d_Su
 //=================================================================================================
 
 ProjLib_CompProjectedCurve::ProjLib_CompProjectedCurve(const Standard_Real              theTol3d,
-                                                       const Handle(Adaptor3d_Surface)& theSurface,
-                                                       const Handle(Adaptor3d_Curve)&   theCurve,
+                                                       const Handle(SurfaceAdaptor)& theSurface,
+                                                       const Handle(Curve5)&   theCurve,
                                                        const Standard_Real              theMaxDist)
     : mySurface(theSurface),
       myCurve(theCurve),
       myNbCurves(0),
-      mySequence(new ProjLib_HSequenceOfHSequenceOfPnt()),
+      mySequence(new PointSequenceGrid()),
       myTol3d(theTol3d),
       myContinuity(GeomAbs_C2),
       myMaxDegree(14),
@@ -897,7 +897,7 @@ void ProjLib_CompProjectedCurve::Init()
       break;
 
     // We have found a new continuous part
-    Handle(TColgp_HSequenceOfPnt) hSeq = new TColgp_HSequenceOfPnt();
+    Handle(PointSequence2) hSeq = new PointSequence2();
     mySequence->Append(hSeq);
     myNbCurves++;
     mySequence->Value(myNbCurves)->Append(Triple);
@@ -1229,20 +1229,20 @@ void ProjLib_CompProjectedCurve::Perform()
   gp_Pnt2d                  P2d, Pdeb, Pfin;
   Point3d                    P;
   Handle(Adaptor2d_Curve2d) HPCur;
-  Handle(Adaptor3d_Surface) HS = mySurface->ShallowCopy(); // For expand bounds of surface
+  Handle(SurfaceAdaptor) HS = mySurface->ShallowCopy(); // For expand bounds of surface
   Handle(GeomCurve2d)      PCur2d;                        // Only for isoparametric projection
   Handle(GeomCurve3d)        PCur3d;
 
   if (myProj2d == Standard_True)
   {
-    myResult2dPoint = new TColgp_HArray1OfPnt2d(1, myNbCurves);
-    myResult2dCurve = new TColGeom2d_HArray1OfCurve(1, myNbCurves);
+    myResult2dPoint = new Point2dArray(1, myNbCurves);
+    myResult2dCurve = new HArray1OfCurve2(1, myNbCurves);
   }
 
   if (myProj3d == Standard_True)
   {
-    myResult3dPoint = new TColgp_HArray1OfPnt(1, myNbCurves);
-    myResult3dCurve = new TColGeom_HArray1OfCurve(1, myNbCurves);
+    myResult3dPoint = new PointArray1(1, myNbCurves);
+    myResult3dCurve = new HArray1OfCurve3(1, myNbCurves);
   }
 
   myResultIsPoint = new TColStd_HArray1OfBoolean(1, myNbCurves);
@@ -1441,28 +1441,28 @@ void ProjLib_CompProjectedCurve::SetProj2d(const Standard_Boolean theProj2d)
 
 //=================================================================================================
 
-void ProjLib_CompProjectedCurve::Load(const Handle(Adaptor3d_Surface)& S)
+void ProjLib_CompProjectedCurve::Load(const Handle(SurfaceAdaptor)& S)
 {
   mySurface = S;
 }
 
 //=================================================================================================
 
-void ProjLib_CompProjectedCurve::Load(const Handle(Adaptor3d_Curve)& C)
+void ProjLib_CompProjectedCurve::Load(const Handle(Curve5)& C)
 {
   myCurve = C;
 }
 
 //=================================================================================================
 
-const Handle(Adaptor3d_Surface)& ProjLib_CompProjectedCurve::GetSurface() const
+const Handle(SurfaceAdaptor)& ProjLib_CompProjectedCurve::GetSurface() const
 {
   return mySurface;
 }
 
 //=================================================================================================
 
-const Handle(Adaptor3d_Curve)& ProjLib_CompProjectedCurve::GetCurve() const
+const Handle(Curve5)& ProjLib_CompProjectedCurve::GetCurve() const
 {
   return myCurve;
 }
@@ -1710,7 +1710,7 @@ gp_Vec2d ProjLib_CompProjectedCurve::DN(const Standard_Real t, const Standard_In
 
 //=================================================================================================
 
-const Handle(ProjLib_HSequenceOfHSequenceOfPnt)& ProjLib_CompProjectedCurve::GetSequence() const
+const Handle(PointSequenceGrid)& ProjLib_CompProjectedCurve::GetSequence() const
 {
   return mySequence;
 }
@@ -2165,8 +2165,8 @@ void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(Point3d& thePoint) c
 
 //=================================================================================================
 
-void BuildCurveSplits(const Handle(Adaptor3d_Curve)&     theCurve,
-                      const Handle(Adaptor3d_Surface)&   theSurface,
+void BuildCurveSplits(const Handle(Curve5)&     theCurve,
+                      const Handle(SurfaceAdaptor)&   theSurface,
                       const Standard_Real                theTolU,
                       const Standard_Real                theTolV,
                       NCollection_Vector<Standard_Real>& theSplits)
@@ -2243,7 +2243,7 @@ void FindSplitPoint(SplitDS&            theSplitDS,
                     const Standard_Real theMaxParam)
 {
   // Make extrema copy to avoid dependencies between different levels of the recursion.
-  Extrema_ExtCC anExtCC;
+  CurveCurveExtrema2 anExtCC;
   anExtCC.SetCurve(1, *theSplitDS.myExtCCCurve1);
   anExtCC.SetCurve(2, *theSplitDS.myCurve);
   // clang-format off

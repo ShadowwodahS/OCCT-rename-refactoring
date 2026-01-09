@@ -62,30 +62,30 @@ public:
                                          Standard_Real       Min[16],
                                          Standard_Real       Max[16]);
 
-  Standard_EXPORT static void EncodeMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
-                                           HLRAlgo_EdgesBlock::MinMaxIndices1& Max,
-                                           HLRAlgo_EdgesBlock::MinMaxIndices1& MinMax);
+  Standard_EXPORT static void EncodeMinMax(EdgesBlock::MinMaxIndices1& Min,
+                                           EdgesBlock::MinMaxIndices1& Max,
+                                           EdgesBlock::MinMaxIndices1& MinMax);
 
-  Standard_EXPORT static Standard_Real SizeBox(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
-                                               HLRAlgo_EdgesBlock::MinMaxIndices1& Max);
+  Standard_EXPORT static Standard_Real SizeBox(EdgesBlock::MinMaxIndices1& Min,
+                                               EdgesBlock::MinMaxIndices1& Max);
 
-  Standard_EXPORT static void DecodeMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMax,
-                                           HLRAlgo_EdgesBlock::MinMaxIndices1&       Min,
-                                           HLRAlgo_EdgesBlock::MinMaxIndices1&       Max);
+  Standard_EXPORT static void DecodeMinMax(const EdgesBlock::MinMaxIndices1& MinMax,
+                                           EdgesBlock::MinMaxIndices1&       Min,
+                                           EdgesBlock::MinMaxIndices1&       Max);
 
-  static void CopyMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& IMin,
-                         HLRAlgo_EdgesBlock::MinMaxIndices1& IMax,
-                         HLRAlgo_EdgesBlock::MinMaxIndices1& OMin,
-                         HLRAlgo_EdgesBlock::MinMaxIndices1& OMax)
+  static void CopyMinMax(EdgesBlock::MinMaxIndices1& IMin,
+                         EdgesBlock::MinMaxIndices1& IMax,
+                         EdgesBlock::MinMaxIndices1& OMin,
+                         EdgesBlock::MinMaxIndices1& OMax)
   {
     OMin = IMin;
     OMax = IMax;
   }
 
-  Standard_EXPORT static void AddMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& IMin,
-                                        HLRAlgo_EdgesBlock::MinMaxIndices1& IMax,
-                                        HLRAlgo_EdgesBlock::MinMaxIndices1& OMin,
-                                        HLRAlgo_EdgesBlock::MinMaxIndices1& OMax);
+  Standard_EXPORT static void AddMinMax(EdgesBlock::MinMaxIndices1& IMin,
+                                        EdgesBlock::MinMaxIndices1& IMax,
+                                        EdgesBlock::MinMaxIndices1& OMin,
+                                        EdgesBlock::MinMaxIndices1& OMax);
 };
 
 #endif // _HLRAlgo_HeaderFile

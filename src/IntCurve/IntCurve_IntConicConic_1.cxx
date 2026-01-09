@@ -47,10 +47,10 @@ const Standard_Real PIsur2 = 0.5 * M_PI;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 IntRes2d_Position                FindPositionLL(Standard_Real&, const Domain2&);
-const IntRes2d_IntersectionPoint SegmentToPoint(const IntRes2d_IntersectionPoint& Pa,
+const IntersectionPoint3 SegmentToPoint(const IntersectionPoint3& Pa,
                                                 const Transition3&        T1a,
                                                 const Transition3&        T2a,
-                                                const IntRes2d_IntersectionPoint& Pb,
+                                                const IntersectionPoint3& Pb,
                                                 const Transition3&        T1b,
                                                 const Transition3&        T2b);
 
@@ -1067,7 +1067,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
       IntImpParGen1::DeterminePosition(Pos2a, _DomainCirc2, P2a, PIpPI - C2inf);
       Determine_Transition_LC(Pos1a, Tan1, Norm1, T1a, Pos2a, Tan2, Norm2, T2a, Tol);
 
-      IntRes2d_IntersectionPoint NewPoint1(P1a, C1inf, PIpPI - C2inf, T1a, T2a, Standard_False);
+      IntersectionPoint3 NewPoint1(P1a, C1inf, PIpPI - C2inf, T1a, T2a, Standard_False);
 
       if ((SolutionC1[i].Length() > 0.0) || (SolutionC2[i].Length() > 0.0))
       {
@@ -1104,7 +1104,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
           }
         }
 
-        IntRes2d_IntersectionPoint   NewPoint2(P1b, C1sup, PIpPI - C2sup, T1b, T2b, Standard_False);
+        IntersectionPoint3   NewPoint2(P1b, C1sup, PIpPI - C2sup, T1b, T2b, Standard_False);
         IntRes2d_IntersectionSegment NewSeg(NewPoint1, NewPoint2, !isOpposite, Standard_False);
         Append(NewSeg);
       }
@@ -1122,7 +1122,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
       IntImpParGen1::DeterminePosition(Pos2a, DomainCirc2, P2a, C2inf);
       Determine_Transition_LC(Pos1a, Tan1, Norm1, T1a, Pos2a, Tan2, Norm2, T2a, Tol);
 
-      IntRes2d_IntersectionPoint NewPoint1(P1a, C1inf, C2inf, T1a, T2a, Standard_False);
+      IntersectionPoint3 NewPoint1(P1a, C1inf, C2inf, T1a, T2a, Standard_False);
 
       if ((SolutionC1[i].Length() > 0.0) || (SolutionC2[i].Length() > 0.0))
       {
@@ -1152,7 +1152,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
             C2sup += PIpPI;
         }
 
-        IntRes2d_IntersectionPoint   NewPoint2(P1b, C1sup, C2sup, T1b, T2b, Standard_False);
+        IntersectionPoint3   NewPoint2(P1b, C1sup, C2sup, T1b, T2b, Standard_False);
         IntRes2d_IntersectionSegment NewSeg(NewPoint1, NewPoint2, isOpposite, Standard_False);
         Append(NewSeg);
       }
@@ -1221,7 +1221,7 @@ static Standard_Boolean computeIntPoint(const Domain2&      theCurDomain,
                                         Standard_Real&              theResSup,
                                         Standard_Integer            theNum,
                                         IntRes2d_TypeTrans          theCurTrans,
-                                        IntRes2d_IntersectionPoint& theNewPoint)
+                                        IntersectionPoint3& theNewPoint)
 {
   if (fabs(theResSup - theParCur) > fabs(theResInf - theParCur))
     theResSup = theResInf;
@@ -1346,7 +1346,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
   //--                             0 : Non Confondues
   //--                             2 : Confondues a la tolerance pres
   Standard_Integer           nbsol;
-  IntRes2d_IntersectionPoint PtSeg1, PtSeg2;
+  IntersectionPoint3 PtSeg1, PtSeg2;
   Standard_Real              aHalfSinL1L2;
   Standard_Real              Tol = TolR;
   if (Tol < Precision1::PConfusion())
@@ -1474,7 +1474,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
              ? IntRes2d_Out
              : (ProdVectTan <= -TOLERANCE_ANGULAIRE ? IntRes2d_In : IntRes2d_Undecided));
 
-        IntRes2d_IntersectionPoint NewPoint1;
+        IntersectionPoint3 NewPoint1;
         if (computeIntPoint(Domain1,
                             Domain2,
                             L1,
@@ -1897,7 +1897,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                ? IntRes2d_In
                : (ProdVectTan <= -TOLERANCE_ANGULAIRE ? IntRes2d_Out : IntRes2d_Undecided));
 
-          IntRes2d_IntersectionPoint NewPoint1;
+          IntersectionPoint3 NewPoint1;
           if (computeIntPoint(Domain2,
                               Domain1,
                               L2,
@@ -2089,7 +2089,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
               Pos2 = FindPositionLL(ParamStart2, Domain2);
               Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
               Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
-              IntRes2d_IntersectionPoint P1(ElCLib1::Value(ParamStart, L1),
+              IntersectionPoint3 P1(ElCLib1::Value(ParamStart, L1),
                                             ParamStart,
                                             ParamStart2,
                                             Tinf,
@@ -2103,7 +2103,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
                 Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
 
-                IntRes2d_IntersectionPoint   P2(ElCLib1::Value(ParamEnd, L1),
+                IntersectionPoint3   P2(ElCLib1::Value(ParamEnd, L1),
                                               ParamEnd,
                                               ParamEnd2,
                                               Tinf,
@@ -2126,7 +2126,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
             Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
             Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
 
-            IntRes2d_IntersectionPoint   P(ElCLib1::Value(ParamStart, L1),
+            IntersectionPoint3   P(ElCLib1::Value(ParamStart, L1),
                                          ParamStart,
                                          ParamStart2,
                                          Tinf,
@@ -2143,7 +2143,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
           Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
           Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
 
-          IntRes2d_IntersectionPoint   P2(ElCLib1::Value(ParamEnd, L1),
+          IntersectionPoint3   P2(ElCLib1::Value(ParamEnd, L1),
                                         ParamEnd,
                                         ParamEnd2,
                                         Tinf,
@@ -2469,7 +2469,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
         Cinf = NormalizeOnCircleDomain(SolutionCircle[i].Binf, CIRC_Domain);
       }
 
-      IntRes2d_IntersectionPoint NewPoint1(P1a, Linf, Cinf, T2a, T1a, ReversedParameters());
+      IntersectionPoint3 NewPoint1(P1a, Linf, Cinf, T2a, T1a, ReversedParameters());
 
       if ((SolutionLine[i].Length() + SolutionCircle[i].Length()) > 0.0)
       {
@@ -2510,7 +2510,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
           Csup = NormalizeOnCircleDomain(SolutionCircle[i].Bsup, CIRC_Domain);
         }
 
-        IntRes2d_IntersectionPoint NewPoint2(P1b, Lsup, Csup, T2b, T1b, ReversedParameters());
+        IntersectionPoint3 NewPoint2(P1b, Lsup, Csup, T2b, T1b, ReversedParameters());
 
         if (((Abs(Csup - Cinf) * R > MaxTol) && (Abs(Lsup - Linf) > MaxTol))
             || (T1a.TransitionType() != T2a.TransitionType()))
@@ -2540,7 +2540,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
         //--Standard_Real
         // Cmid=NormalizeOnCircleDomain(0.5*(SolutionCircle[i].Bsup+SolutionCircle[i].Binf)
         //--					   ,CIRC_Domain);
-        //--IntRes2d_IntersectionPoint NewPoint(P2a,0.5*(Linf+Lsup)
+        //--IntersectionPoint3 NewPoint(P2a,0.5*(Linf+Lsup)
         //--				    ,Cmid
         //--				    ,T2a,T1a,ReversedParameters());
         Insert(NewPoint1);
@@ -2549,10 +2549,10 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
   }
 }
 
-const IntRes2d_IntersectionPoint SegmentToPoint(const IntRes2d_IntersectionPoint& Pa,
+const IntersectionPoint3 SegmentToPoint(const IntersectionPoint3& Pa,
                                                 const Transition3&        T1a,
                                                 const Transition3&        T2a,
-                                                const IntRes2d_IntersectionPoint& Pb,
+                                                const IntersectionPoint3& Pb,
                                                 const Transition3&        T1b,
                                                 const Transition3&        T2b)
 {
@@ -2581,7 +2581,7 @@ const IntRes2d_IntersectionPoint SegmentToPoint(const IntRes2d_IntersectionPoint
     t2.SetPosition(T2b.PositionOnCurve());
     u2 = Pb.ParamOnSecond();
   }
-  return (IntRes2d_IntersectionPoint(Pa.Value(), u1, u2, t1, t2, Standard_False));
+  return (IntersectionPoint3(Pa.Value(), u1, u2, t1, t2, Standard_False));
 }
 
 //=================================================================================================
@@ -3054,7 +3054,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
         Einf = NormalizeOnCircleDomain(SolutionEllipse[i].Binf, DE);
       }
 
-      IntRes2d_IntersectionPoint NewPoint1(P1a, Linf, Einf, T2a, T1a, ReversedParameters());
+      IntersectionPoint3 NewPoint1(P1a, Linf, Einf, T2a, T1a, ReversedParameters());
 
       if ((SolutionLine[i].Length() + SolutionEllipse[i].Length()) > 0.0)
       {
@@ -3101,7 +3101,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
           Esup = NormalizeOnCircleDomain(SolutionEllipse[i].Bsup, DE);
         }
 
-        IntRes2d_IntersectionPoint NewPoint2(P1b, Lsup, Esup, T2b, T1b, ReversedParameters());
+        IntersectionPoint3 NewPoint2(P1b, Lsup, Esup, T2b, T1b, ReversedParameters());
 
         if (((Abs(Esup - Einf) * R > MaxTol) && (Abs(Lsup - Linf) > MaxTol))
             || (T1a.TransitionType() != T2a.TransitionType()))

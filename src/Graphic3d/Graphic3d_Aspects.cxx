@@ -57,7 +57,7 @@ void Graphic3d_Aspects::SetTextureMap(const Handle(Graphic3d_TextureMap)& theTex
     return;
   }
 
-  myTextureSet = new Graphic3d_TextureSet(theTexture);
+  myTextureSet = new TextureSet1(theTexture);
 }
 
 //=================================================================================================

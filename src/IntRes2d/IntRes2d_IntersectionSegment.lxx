@@ -15,8 +15,8 @@
 #include <Standard_DomainError.hxx>
 
 inline IntRes2d_IntersectionSegment::IntRes2d_IntersectionSegment(
-  const IntRes2d_IntersectionPoint& P1,
-  const IntRes2d_IntersectionPoint& P2,
+  const IntersectionPoint3& P1,
+  const IntersectionPoint3& P2,
   const Standard_Boolean            Oppos,
   const Standard_Boolean            ReverseFlag)
     :
@@ -38,7 +38,7 @@ inline IntRes2d_IntersectionSegment::IntRes2d_IntersectionSegment(
 }
 
 inline IntRes2d_IntersectionSegment::IntRes2d_IntersectionSegment(
-  const IntRes2d_IntersectionPoint& P,
+  const IntersectionPoint3& P,
   const Standard_Boolean            First,
   const Standard_Boolean            Oppos,
   const Standard_Boolean            ReverseFlag)
@@ -104,7 +104,7 @@ inline Standard_Boolean IntRes2d_IntersectionSegment::HasLastPoint() const
   return last;
 }
 
-inline const IntRes2d_IntersectionPoint& IntRes2d_IntersectionSegment::FirstPoint() const
+inline const IntersectionPoint3& IntRes2d_IntersectionSegment::FirstPoint() const
 {
 
   if (!first)
@@ -114,7 +114,7 @@ inline const IntRes2d_IntersectionPoint& IntRes2d_IntersectionSegment::FirstPoin
   return ptfirst;
 }
 
-inline const IntRes2d_IntersectionPoint& IntRes2d_IntersectionSegment::LastPoint() const
+inline const IntersectionPoint3& IntRes2d_IntersectionSegment::LastPoint() const
 {
 
   if (!last)

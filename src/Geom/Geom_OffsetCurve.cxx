@@ -42,7 +42,7 @@ static const Standard_Real MyAngularToleranceForG1 = Precision1::Angular();
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_OffsetCurve::Copy() const
+Handle(Geometry3) Geom_OffsetCurve::Copy() const
 {
 
   Handle(Geom_OffsetCurve) C;

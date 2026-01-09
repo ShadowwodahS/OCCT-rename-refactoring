@@ -22,18 +22,18 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SectionLaw, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SectionLaw, RefObject)
 
-Standard_Boolean GeomFill_SectionLaw::D1(const Standard_Real,
+Standard_Boolean SectionLaw::D1(const Standard_Real,
                                          TColgp_Array1OfPnt&,
                                          TColgp_Array1OfVec&,
                                          TColStd_Array1OfReal&,
                                          TColStd_Array1OfReal&)
 {
-  throw Standard_NotImplemented("GeomFill_SectionLaw::D1");
+  throw Standard_NotImplemented("SectionLaw::D1");
 }
 
-Standard_Boolean GeomFill_SectionLaw::D2(const Standard_Real,
+Standard_Boolean SectionLaw::D2(const Standard_Real,
                                          TColgp_Array1OfPnt&,
                                          TColgp_Array1OfVec&,
                                          TColgp_Array1OfVec&,
@@ -41,52 +41,52 @@ Standard_Boolean GeomFill_SectionLaw::D2(const Standard_Real,
                                          TColStd_Array1OfReal&,
                                          TColStd_Array1OfReal&)
 {
-  throw Standard_NotImplemented("GeomFill_SectionLaw::D2");
+  throw Standard_NotImplemented("SectionLaw::D2");
 }
 
-Handle(Geom_BSplineSurface) GeomFill_SectionLaw::BSplineSurface() const
+Handle(Geom_BSplineSurface) SectionLaw::BSplineSurface() const
 {
   Handle(Geom_BSplineSurface) BS;
   BS.Nullify();
   return BS;
 }
 
-void GeomFill_SectionLaw::SetTolerance(const Standard_Real, const Standard_Real)
+void SectionLaw::SetTolerance(const Standard_Real, const Standard_Real)
 {
   // Ne fait Rien
 }
 
-Point3d GeomFill_SectionLaw::BarycentreOfSurf() const
+Point3d SectionLaw::BarycentreOfSurf() const
 {
 
-  throw Standard_NotImplemented("GeomFill_SectionLaw::BarycentreOfSurf");
+  throw Standard_NotImplemented("SectionLaw::BarycentreOfSurf");
 }
 
-void GeomFill_SectionLaw::GetMinimalWeight(TColStd_Array1OfReal&) const
+void SectionLaw::GetMinimalWeight(TColStd_Array1OfReal&) const
 {
-  throw Standard_NotImplemented("GeomFill_SectionLaw::GetMinimalWeight");
+  throw Standard_NotImplemented("SectionLaw::GetMinimalWeight");
 }
 
-Standard_Boolean GeomFill_SectionLaw::IsConstant(Standard_Real& Error) const
+Standard_Boolean SectionLaw::IsConstant(Standard_Real& Error) const
 {
   Error = 0.;
   return Standard_False;
 }
 
-Handle(GeomCurve3d) GeomFill_SectionLaw::ConstantSection() const
+Handle(GeomCurve3d) SectionLaw::ConstantSection() const
 {
   Handle(GeomCurve3d) C;
-  throw Standard_DomainError("GeomFill_SectionLaw::ConstantSection");
+  throw Standard_DomainError("SectionLaw::ConstantSection");
 }
 
-Standard_Boolean GeomFill_SectionLaw::IsConicalLaw(Standard_Real& Error) const
+Standard_Boolean SectionLaw::IsConicalLaw(Standard_Real& Error) const
 {
   Error = 0.;
   return Standard_False;
 }
 
-Handle(GeomCurve3d) GeomFill_SectionLaw::CirclSection(const Standard_Real) const
+Handle(GeomCurve3d) SectionLaw::CirclSection(const Standard_Real) const
 {
   Handle(GeomCurve3d) C;
-  throw Standard_DomainError("GeomFill_SectionLaw::CirclSection");
+  throw Standard_DomainError("SectionLaw::CirclSection");
 }

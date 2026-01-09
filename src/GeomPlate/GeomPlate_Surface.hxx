@@ -30,7 +30,7 @@ class GeneralTransform2d;
 class GeomCurve3d;
 class Point3d;
 class Vector3d;
-class Geom_Geometry;
+class Geometry3;
 
 class GeomPlate_Surface;
 DEFINE_STANDARD_HANDLE(GeomPlate_Surface, GeomSurface)
@@ -257,7 +257,7 @@ public:
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Transformation of a geometric object. This transformation
   //! can be a translation, a rotation, a symmetry, a scaling

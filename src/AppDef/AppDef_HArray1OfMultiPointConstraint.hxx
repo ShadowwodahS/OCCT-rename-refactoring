@@ -21,6 +21,6 @@
 #include <AppDef_Array1OfMultiPointConstraint.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(AppDef_HArray1OfMultiPointConstraint, AppDef_Array1OfMultiPointConstraint)
+DEFINE_HARRAY1(MultiPointConstraintArray, AppDef_Array1OfMultiPointConstraint)
 
 #endif

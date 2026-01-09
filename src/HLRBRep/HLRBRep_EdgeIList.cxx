@@ -70,7 +70,7 @@ static Standard_Boolean SimilarInterference(const HLRAlgo_Interference& I1,
 void EdgeIList::ProcessComplex(HLRAlgo_InterferenceList&           IL,
                                        const HLRBRep_EdgeInterferenceTool& T)
 {
-  TopCnx_EdgeFaceTransition              transTool;
+  EdgeFaceTransition              transTool;
   Dir3d                                 TgtE, NormE, TgtI, NormI;
   const Standard_Real                    TolAng = 0.0001;
   Standard_Real                          CurvE, CurvI;

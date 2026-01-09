@@ -35,7 +35,7 @@ class Point3d;
 class Vector3d;
 class gp_Dir2d;
 
-class BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox : public math_FunctionSetWithDerivatives
+class BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -30,7 +30,7 @@ IMPLEMENT_STANDARD_RTTIEXT(MeshVS_MeshOwner, SelectMgr_EntityOwner)
 //=================================================================================================
 
 MeshVS_MeshOwner::MeshVS_MeshOwner(const SelectMgr_SelectableObject* theSelObj,
-                                   const Handle(MeshVS_DataSource)&  theDS,
+                                   const Handle(MeshDataSource)&  theDS,
                                    const Standard_Integer            thePriority)
     : SelectMgr_EntityOwner(theSelObj, thePriority)
 {
@@ -41,7 +41,7 @@ MeshVS_MeshOwner::MeshVS_MeshOwner(const SelectMgr_SelectableObject* theSelObj,
 
 //=================================================================================================
 
-const Handle(MeshVS_DataSource)& MeshVS_MeshOwner::GetDataSource() const
+const Handle(MeshDataSource)& MeshVS_MeshOwner::GetDataSource() const
 {
   return myDataSource;
 }

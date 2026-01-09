@@ -19,7 +19,7 @@ inline Standard_Integer FairCurve_Energy::NbVariables() const
   return MyNbVar;
 }
 
-inline const Handle(TColgp_HArray1OfPnt2d)& FairCurve_Energy::Poles() const
+inline const Handle(Point2dArray)& FairCurve_Energy::Poles() const
 {
   return MyPoles;
 }

@@ -28,7 +28,7 @@
 //=================================================================================================
 
 void StdPrs_ShadedSurface::Add(const Handle(Prs3d_Presentation)& thePrs,
-                               const Adaptor3d_Surface&          theSurface,
+                               const SurfaceAdaptor&          theSurface,
                                const Handle(StyleDrawer)&       theDrawer)
 {
   Standard_Integer N1 = theDrawer->UIsoAspect()->Number();

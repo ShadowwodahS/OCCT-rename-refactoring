@@ -184,7 +184,7 @@ private:
   SurfaceBinarySet                            mySurfaces;
   CurveBinarySet                              myCurves;
   Curve2dBinarySet                            myCurves2d;
-  NCollection_IndexedMap<Handle(Poly_Polygon2D)> myPolygons2D;
+  NCollection_IndexedMap<Handle(Polygon2D2)> myPolygons2D;
   NCollection_IndexedMap<Handle(Poly_Polygon3D)> myPolygons3D;
   NCollection_IndexedDataMap<Handle(MeshTriangulation),
                              // clang-format off

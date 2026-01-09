@@ -22,8 +22,8 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
 #include <NCollection_DefineAlloc.hxx>
-class TDF_Data;
-class TDF_Delta;
+class Data2;
+class Delta;
 
 class DDF_Transaction;
 DEFINE_STANDARD_HANDLE(DDF_Transaction, RefObject)
@@ -39,7 +39,7 @@ public:
 
   //! Creates a transaction context on <aDF>, ready to
   //! be opened.
-  Standard_EXPORT DDF_Transaction(const Handle(TDF_Data)& aDF);
+  Standard_EXPORT DDF_Transaction(const Handle(Data2)& aDF);
 
   //! If not yet done, opens a new transaction on
   //! <myDF>. Returns the index of the just opened
@@ -52,7 +52,7 @@ public:
 
   //! Commits the transactions until AND including the
   //! current opened one.
-  Standard_EXPORT Handle(TDF_Delta) Commit(const Standard_Boolean withDelta = Standard_False);
+  Standard_EXPORT Handle(Delta) Commit(const Standard_Boolean withDelta = Standard_False);
 
   //! Aborts the transactions until AND including the
   //! current opened one.
@@ -61,7 +61,7 @@ public:
   ~DDF_Transaction() { Abort(); }
 
   //! Returns the Data from TDF1.
-  Standard_EXPORT Handle(TDF_Data) Data() const;
+  Standard_EXPORT Handle(Data2) Data() const;
 
   //! Returns the number of the transaction opened by <me>.
   Standard_EXPORT Standard_Integer Transaction() const;

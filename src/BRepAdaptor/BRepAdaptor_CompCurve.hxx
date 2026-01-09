@@ -43,7 +43,7 @@ class gp_Parab;
 class BezierCurve3d;
 class BSplineCurve3d;
 
-DEFINE_STANDARD_HANDLE(BRepAdaptor_CompCurve, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(BRepAdaptor_CompCurve, Curve5)
 
 //! The Curve from BRepAdaptor allows to use a Wire
 //! of the BRep topology like a 3D curve.
@@ -55,9 +55,9 @@ DEFINE_STANDARD_HANDLE(BRepAdaptor_CompCurve, Adaptor3d_Curve)
 //!
 //! BRepAdaptor_CompCurve can only work on valid wires where all edges are
 //! connected to each other to make a chain.
-class BRepAdaptor_CompCurve : public Adaptor3d_Curve
+class BRepAdaptor_CompCurve : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(BRepAdaptor_CompCurve, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(BRepAdaptor_CompCurve, Curve5)
 public:
   //! Creates an undefined Curve with no Wire loaded.
   Standard_EXPORT BRepAdaptor_CompCurve();
@@ -75,7 +75,7 @@ public:
                                         const Standard_Real    Tol);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   //! Sets the  wire <W>.
   Standard_EXPORT void Initialize(const TopoWire&     W,
@@ -117,7 +117,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 

@@ -65,7 +65,7 @@ Extrema_FuncExtSS::Extrema_FuncExtSS()
 
 //=================================================================================================
 
-Extrema_FuncExtSS::Extrema_FuncExtSS(const Adaptor3d_Surface& S1, const Adaptor3d_Surface& S2)
+Extrema_FuncExtSS::Extrema_FuncExtSS(const SurfaceAdaptor& S1, const SurfaceAdaptor& S2)
     : myU1(0.0),
       myV1(0.0),
       myU2(0.0),
@@ -79,7 +79,7 @@ Extrema_FuncExtSS::Extrema_FuncExtSS(const Adaptor3d_Surface& S1, const Adaptor3
 
 //=================================================================================================
 
-void Extrema_FuncExtSS::Initialize(const Adaptor3d_Surface& S1, const Adaptor3d_Surface& S2)
+void Extrema_FuncExtSS::Initialize(const SurfaceAdaptor& S1, const SurfaceAdaptor& S2)
 {
   myS1     = &S1;
   myS2     = &S2;

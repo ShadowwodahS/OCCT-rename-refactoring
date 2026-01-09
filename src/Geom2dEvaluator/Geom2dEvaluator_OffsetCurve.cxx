@@ -17,11 +17,11 @@
 #include <Geom2dAdaptor_Curve.hxx>
 #include <Standard_NullValue.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2dEvaluator_OffsetCurve, Geom2dEvaluator_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2dEvaluator_OffsetCurve, Curve4)
 
 Geom2dEvaluator_OffsetCurve::Geom2dEvaluator_OffsetCurve(const Handle(GeomCurve2d)& theBase,
                                                          const Standard_Real         theOffset)
-    : Geom2dEvaluator_Curve(),
+    : Curve4(),
       myBaseCurve(theBase),
       myOffset(theOffset)
 {
@@ -29,7 +29,7 @@ Geom2dEvaluator_OffsetCurve::Geom2dEvaluator_OffsetCurve(const Handle(GeomCurve2
 
 Geom2dEvaluator_OffsetCurve::Geom2dEvaluator_OffsetCurve(const Handle(Geom2dAdaptor_Curve)& theBase,
                                                          const Standard_Real theOffset)
-    : Geom2dEvaluator_Curve(),
+    : Curve4(),
       myBaseAdaptor(theBase),
       myOffset(theOffset)
 {
@@ -109,7 +109,7 @@ gp_Vec2d Geom2dEvaluator_OffsetCurve::DN(const Standard_Real    theU,
   return aDN;
 }
 
-Handle(Geom2dEvaluator_Curve) Geom2dEvaluator_OffsetCurve::ShallowCopy() const
+Handle(Curve4) Geom2dEvaluator_OffsetCurve::ShallowCopy() const
 {
   Handle(Geom2dEvaluator_OffsetCurve) aCopy;
   if (!myBaseAdaptor.IsNull())

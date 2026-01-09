@@ -26,12 +26,12 @@
 #include <Standard_Real.hxx>
 
 //! if Cutting is necessary in [a,b], we cut at (a+b) / 2.
-class AdvApprox_DichoCutting : public CuttingTool
+class DichotomicCutting : public CuttingTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT AdvApprox_DichoCutting();
+  Standard_EXPORT DichotomicCutting();
 
   Standard_EXPORT virtual Standard_Boolean Value(const Standard_Real a,
                                                  const Standard_Real b,

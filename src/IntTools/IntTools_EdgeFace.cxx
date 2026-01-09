@@ -407,7 +407,7 @@ Standard_Boolean IntTools_EdgeFace::CheckTouch(const IntTools_CommonPrt& aCP, St
       else
       {
         // modified by NIZHNY-MKK  Thu Jul 21 11:35:32 2005.BEGIN
-        IntCurveSurface_HInter anExactIntersector;
+        HandleIntersection anExactIntersector;
 
         Handle(GeomAdaptor_Curve)   aCurve   = new GeomAdaptor_Curve(TheCurve);
         Handle(GeomAdaptor_Surface) aSurface = new GeomAdaptor_Surface(TheSurface);

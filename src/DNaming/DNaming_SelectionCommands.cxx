@@ -92,7 +92,7 @@ static Standard_Integer DNaming_Select(DrawInterpreter& di, Standard_Integer n, 
   if (n > 3)
   {
     Standard_Boolean geometry = !(strcmp(a[0], "SelectGeometry"));
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -178,7 +178,7 @@ static Standard_Integer DNaming_SolveSelection(DrawInterpreter& di,
   if (n == 3)
   {
     char             name[100];
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -228,7 +228,7 @@ static Standard_Integer DNaming_DumpSelection(DrawInterpreter& di,
 {
   if (n == 3 || n == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -278,7 +278,7 @@ static Standard_Integer DNaming_ArgsSelection(DrawInterpreter& di,
 {
   if (n == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -344,7 +344,7 @@ static Standard_Integer DNaming_Attachment(DrawInterpreter& di, Standard_Integer
 {
   if (n == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;

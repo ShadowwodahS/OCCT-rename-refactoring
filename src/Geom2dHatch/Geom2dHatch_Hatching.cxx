@@ -155,7 +155,7 @@ HatchGen_ErrorStatus Geom2dHatch_Hatching::Status() const
 // Purpose  : Adds an intersection point to the hatching.
 //=======================================================================
 
-void Geom2dHatch_Hatching::AddPoint(const HatchGen_PointOnHatching& Point,
+void Geom2dHatch_Hatching::AddPoint(const PointOnHatching& Point,
                                     const Standard_Real             Confusion)
 {
   Standard_Integer NbPoints = myPoints.Length();
@@ -163,7 +163,7 @@ void Geom2dHatch_Hatching::AddPoint(const HatchGen_PointOnHatching& Point,
   Standard_Integer IPntH;
   for (IPntH = 1; IPntH <= NbPoints; IPntH++)
   {
-    const HatchGen_PointOnHatching& PntH = myPoints.Value(IPntH);
+    const PointOnHatching& PntH = myPoints.Value(IPntH);
     if (!PntH.IsLower(Point, Confusion))
       break;
   }
@@ -173,7 +173,7 @@ void Geom2dHatch_Hatching::AddPoint(const HatchGen_PointOnHatching& Point,
   }
   else
   {
-    HatchGen_PointOnHatching& PntH = myPoints.ChangeValue(IPntH);
+    PointOnHatching& PntH = myPoints.ChangeValue(IPntH);
     if (PntH.IsGreater(Point, Confusion))
     {
       myPoints.InsertBefore(IPntH, Point);
@@ -182,7 +182,7 @@ void Geom2dHatch_Hatching::AddPoint(const HatchGen_PointOnHatching& Point,
     {
       for (Standard_Integer IPntE = 1; IPntE <= Point.NbPoints(); IPntE++)
       {
-        const HatchGen_PointOnElement& PntE = Point.Point(IPntE);
+        const PointOnElement& PntE = Point.Point(IPntE);
         PntH.AddPoint(PntE, Confusion);
       }
     }
@@ -206,13 +206,13 @@ Standard_Integer Geom2dHatch_Hatching::NbPoints() const
 // Purpose  : Returns the Index-th intersection point on the hatching.
 //=======================================================================
 
-const HatchGen_PointOnHatching& Geom2dHatch_Hatching::Point(const Standard_Integer Index) const
+const PointOnHatching& Geom2dHatch_Hatching::Point(const Standard_Integer Index) const
 {
 #if RAISE_IF_NOSUCHOBJECT
   Standard_Integer NbPoints = myPoints.Length();
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints, "");
 #endif
-  const HatchGen_PointOnHatching& Point = myPoints.Value(Index);
+  const PointOnHatching& Point = myPoints.Value(Index);
   return Point;
 }
 
@@ -221,13 +221,13 @@ const HatchGen_PointOnHatching& Geom2dHatch_Hatching::Point(const Standard_Integ
 // Purpose  : Returns the Index-th intersection point on the hatching.
 //=======================================================================
 
-HatchGen_PointOnHatching& Geom2dHatch_Hatching::ChangePoint(const Standard_Integer Index)
+PointOnHatching& Geom2dHatch_Hatching::ChangePoint(const Standard_Integer Index)
 {
 #if RAISE_IF_NOSUCHOBJECT
   Standard_Integer NbPoints = myPoints.Length();
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints, "");
 #endif
-  HatchGen_PointOnHatching& Point = myPoints.ChangeValue(Index);
+  PointOnHatching& Point = myPoints.ChangeValue(Index);
   return Point;
 }
 
@@ -258,7 +258,7 @@ void Geom2dHatch_Hatching::ClrPoints()
     ClrDomains();
   for (Standard_Integer IPntH = 1; IPntH <= myPoints.Length(); IPntH++)
   {
-    HatchGen_PointOnHatching& Point = myPoints.ChangeValue(IPntH);
+    PointOnHatching& Point = myPoints.ChangeValue(IPntH);
     Point.ClrPoints();
   }
   myPoints.Clear();

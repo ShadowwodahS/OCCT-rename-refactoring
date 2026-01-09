@@ -13,11 +13,11 @@
 
 #include <Graphic3d_TextureParams.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TextureParams, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TextureParams, RefObject)
 
 //=================================================================================================
 
-Graphic3d_TextureParams::Graphic3d_TextureParams()
+TextureParams::TextureParams()
     : myGenPlaneS(0.0f, 0.0f, 0.0f, 0.0f),
       myGenPlaneT(0.0f, 0.0f, 0.0f, 0.0f),
       myScale(1.0f, 1.0f),
@@ -38,21 +38,21 @@ Graphic3d_TextureParams::Graphic3d_TextureParams()
 
 //=================================================================================================
 
-Graphic3d_TextureParams::~Graphic3d_TextureParams()
+TextureParams::~TextureParams()
 {
   //
 }
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetModulate(const Standard_Boolean theToModulate)
+void TextureParams::SetModulate(const Standard_Boolean theToModulate)
 {
   myToModulate = theToModulate;
 }
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetRepeat(const Standard_Boolean theToRepeat)
+void TextureParams::SetRepeat(const Standard_Boolean theToRepeat)
 {
   if (myToRepeat != theToRepeat)
   {
@@ -63,7 +63,7 @@ void Graphic3d_TextureParams::SetRepeat(const Standard_Boolean theToRepeat)
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetFilter(const Graphic3d_TypeOfTextureFilter theFilter)
+void TextureParams::SetFilter(const Graphic3d_TypeOfTextureFilter theFilter)
 {
   if (myFilter != theFilter)
   {
@@ -74,7 +74,7 @@ void Graphic3d_TextureParams::SetFilter(const Graphic3d_TypeOfTextureFilter theF
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetAnisoFilter(const Graphic3d_LevelOfTextureAnisotropy theLevel)
+void TextureParams::SetAnisoFilter(const Graphic3d_LevelOfTextureAnisotropy theLevel)
 {
   if (myAnisoLevel != theLevel)
   {
@@ -85,28 +85,28 @@ void Graphic3d_TextureParams::SetAnisoFilter(const Graphic3d_LevelOfTextureAniso
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetRotation(const Standard_ShortReal theAngleDegrees)
+void TextureParams::SetRotation(const Standard_ShortReal theAngleDegrees)
 {
   myRotAngle = theAngleDegrees;
 }
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetScale(const Graphic3d_Vec2 theScale)
+void TextureParams::SetScale(const Graphic3d_Vec2 theScale)
 {
   myScale = theScale;
 }
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetTranslation(const Graphic3d_Vec2 theVec)
+void TextureParams::SetTranslation(const Graphic3d_Vec2 theVec)
 {
   myTranslation = theVec;
 }
 
 //=================================================================================================
 
-void Graphic3d_TextureParams::SetGenMode(const Graphic3d_TypeOfTextureMode theMode,
+void TextureParams::SetGenMode(const Graphic3d_TypeOfTextureMode theMode,
                                          const Graphic3d_Vec4              thePlaneS,
                                          const Graphic3d_Vec4              thePlaneT)
 {

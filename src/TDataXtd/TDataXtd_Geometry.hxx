@@ -32,7 +32,7 @@ class gp_Elips;
 class gp_Pln;
 class Cylinder1;
 class Standard_GUID;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDataXtd_Geometry;
 DEFINE_STANDARD_HANDLE(TDataXtd_Geometry, TDF_Attribute)
@@ -133,7 +133,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 

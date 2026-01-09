@@ -442,7 +442,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
 
   if (!theObject->ClipPlanes().IsNull() && theObject->ClipPlanes()->ToOverrideGlobal())
   {
-    aMgr.SetViewClipping(Handle(Graphic3d_SequenceOfHClipPlane)(),
+    aMgr.SetViewClipping(Handle(SequenceOfHClipPlane)(),
                          theObject->ClipPlanes(),
                          &theMgr);
   }
@@ -456,7 +456,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
       // As more simple alternative - just clip entire object by its anchor point defined in the
       // world space.
       const Point3d anAnchor = theObject->TransformPersistence()->AnchorPoint();
-      for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*theMgr.ViewClipping());
+      for (SequenceOfHClipPlane::Iterator aPlaneIt(*theMgr.ViewClipping());
            aPlaneIt.More();
            aPlaneIt.Next())
       {
@@ -474,7 +474,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
       }
     }
 
-    aMgr.SetViewClipping(Handle(Graphic3d_SequenceOfHClipPlane)(),
+    aMgr.SetViewClipping(Handle(SequenceOfHClipPlane)(),
                          theObject->ClipPlanes(),
                          &theMgr);
   }
@@ -489,9 +489,9 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
     Graphic3d_BndBox3d aBBox(aSensitivesTree->MinPoint(0), aSensitivesTree->MaxPoint(0));
     // If box selection is active, and the whole sensitive tree is out of the clip planes
     // selection is empty for this object
-    const Handle(Graphic3d_SequenceOfHClipPlane)& aViewPlanes = theMgr.ViewClipping();
+    const Handle(SequenceOfHClipPlane)& aViewPlanes = theMgr.ViewClipping();
 
-    for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*aViewPlanes); aPlaneIt.More();
+    for (SequenceOfHClipPlane::Iterator aPlaneIt(*aViewPlanes); aPlaneIt.More();
          aPlaneIt.Next())
     {
       const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
@@ -561,9 +561,9 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
                                  aSensitivesTree->MaxPoint(aNode));
         // If box selection is active, and the whole sensitive tree is out of the clip planes
         // selection is empty for this object
-        const Handle(Graphic3d_SequenceOfHClipPlane)& aViewPlanes = theMgr.ViewClipping();
+        const Handle(SequenceOfHClipPlane)& aViewPlanes = theMgr.ViewClipping();
 
-        for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*aViewPlanes); aPlaneIt.More();
+        for (SequenceOfHClipPlane::Iterator aPlaneIt(*aViewPlanes); aPlaneIt.More();
              aPlaneIt.Next())
         {
           const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
@@ -673,7 +673,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
 
   const Handle(CameraOn3d)& aCamera = mySelectingVolumeMgr.Camera();
   Graphic3d_Mat4d                 aProjectionMat, aWorldViewMat;
-  Graphic3d_WorldViewProjState    aViewState;
+  WorldViewProjState1    aViewState;
   if (!aCamera.IsNull())
   {
     aProjectionMat = aCamera->ProjectionMatrix();
@@ -811,7 +811,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
         {
           const Handle(SelectMgr_SelectableObject)& aSelObj =
             mySelectableObjects.GetObjectById(aBVHSubset, anIdx);
-          const Handle(Graphic3d_ViewAffinity)& aViewAffinity = aSelObj->ViewAffinity();
+          const Handle(ViewAffinity1)& aViewAffinity = aSelObj->ViewAffinity();
           if (theViewId == -1 || aViewAffinity->IsVisible(theViewId))
           {
             traverseObject(aSelObj, aMgr, aCamera, aProjectionMat, aWorldViewMat, aWinSize);
@@ -1228,7 +1228,7 @@ void SelectMgr_ViewerSelector::Pick(const Standard_Integer  theXPix,
 
   mySelectingVolumeMgr.BuildSelectingVolume();
   mySelectingVolumeMgr.SetViewClipping(theView->ClipPlanes(),
-                                       Handle(Graphic3d_SequenceOfHClipPlane)(),
+                                       Handle(SequenceOfHClipPlane)(),
                                        NULL);
 
   TraverseSensitives(theView->View()->Identification());
@@ -1255,7 +1255,7 @@ void SelectMgr_ViewerSelector::Pick(const Standard_Integer  theXPMin,
 
   mySelectingVolumeMgr.BuildSelectingVolume();
   mySelectingVolumeMgr.SetViewClipping(theView->ClipPlanes(),
-                                       Handle(Graphic3d_SequenceOfHClipPlane)(),
+                                       Handle(SequenceOfHClipPlane)(),
                                        NULL);
   TraverseSensitives(theView->View()->Identification());
 }
@@ -1276,7 +1276,7 @@ void SelectMgr_ViewerSelector::Pick(const TColgp_Array1OfPnt2d& thePolyline,
   mySelectingVolumeMgr.SetWindowSize(aWidth, aHeight);
   mySelectingVolumeMgr.BuildSelectingVolume();
   mySelectingVolumeMgr.SetViewClipping(theView->ClipPlanes(),
-                                       Handle(Graphic3d_SequenceOfHClipPlane)(),
+                                       Handle(SequenceOfHClipPlane)(),
                                        NULL);
 
   TraverseSensitives(theView->View()->Identification());
@@ -1291,7 +1291,7 @@ void SelectMgr_ViewerSelector::Pick(const Axis3d& theAxis, const Handle(ViewWind
   mySelectingVolumeMgr.InitAxisSelectingVolume(theAxis);
   mySelectingVolumeMgr.BuildSelectingVolume();
   mySelectingVolumeMgr.SetViewClipping(theView->ClipPlanes(),
-                                       Handle(Graphic3d_SequenceOfHClipPlane)(),
+                                       Handle(SequenceOfHClipPlane)(),
                                        NULL);
 
   TraverseSensitives(theView->View()->Identification());
@@ -1405,7 +1405,7 @@ void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(SelectionContainer)
   Handle(Graphic3d_Structure) aStruct =
     new Graphic3d_Structure(theView->Viewer()->StructureManager());
 
-  SelectMgr1::ComputeSensitivePrs(aStruct, theSel, theTrsf, Handle(Graphic3d_TransformPers)());
+  SelectMgr1::ComputeSensitivePrs(aStruct, theSel, theTrsf, Handle(TransformPers)());
 
   myStructs.Append(aStruct);
   myStructs.Last()->SetDisplayPriority(Graphic3d_DisplayPriority_Topmost);

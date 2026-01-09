@@ -152,7 +152,7 @@ private:
 private:
   Handle(NCollection_IncAllocator) myAllocator;
   IMeshData::VertexCellFilter      myCellFilter;
-  BRepMesh_VertexInspector         mySelector;
+  VertexInspector         mySelector;
   Standard_Real                    myTolerance[2];
 };
 

@@ -43,7 +43,7 @@ void ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   gp_Lin        L2(AttachmentPoint2, aDirection);
   Point3d        Proj1 = ElCLib1::Value(ElCLib1::Parameter(L1, OffsetPoint), L1);
   Point3d        Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, OffsetPoint), L2);
-  gp_Lin        L3    = gce_MakeLin(Proj1, Proj2);
+  gp_Lin        L3    = LineBuilder(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib1::Parameter(L3, Proj1);
   parmax             = parmin;
@@ -140,7 +140,7 @@ void ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   gp_Lin        L2(AttachmentPoint2, aDirection);
   Point3d        Proj1 = ElCLib1::Value(ElCLib1::Parameter(L1, OffsetPoint), L1);
   Point3d        Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, OffsetPoint), L2);
-  gp_Lin        L3    = gce_MakeLin(Proj1, Proj2);
+  gp_Lin        L3    = LineBuilder(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib1::Parameter(L3, Proj1);
   parmax             = parmin;

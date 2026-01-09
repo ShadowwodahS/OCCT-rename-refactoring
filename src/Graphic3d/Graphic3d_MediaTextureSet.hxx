@@ -19,13 +19,13 @@
 #include <Graphic3d_MediaTexture.hxx>
 #include <Graphic3d_TextureSet.hxx>
 
-class Graphic3d_ShaderProgram;
+class ShaderProgram2;
 class Media_PlayerContext;
 
 //! Texture adapter for Media_Frame.
-class Graphic3d_MediaTextureSet : public Graphic3d_TextureSet, public IFrameQueue
+class Graphic3d_MediaTextureSet : public TextureSet1, public IFrameQueue
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_MediaTextureSet, Graphic3d_TextureSet)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_MediaTextureSet, TextureSet1)
 public:
   //! Callback1 definition.
   typedef void (*CallbackOnUpdate_t)(void* theUserPtr);
@@ -59,13 +59,13 @@ public:
   Graphic3d_Vec2i FrameSize() const { return myFrameSize; }
 
   //! Return shader program for displaying texture set.
-  Handle(Graphic3d_ShaderProgram) ShaderProgram() const
+  Handle(ShaderProgram2) ShaderProgram() const
   {
     if (myIsPlanarYUV)
     {
       return myIsFullRangeYUV ? myShaderYUVJ : myShaderYUV;
     }
-    return Handle(Graphic3d_ShaderProgram)();
+    return Handle(ShaderProgram2)();
   }
 
   //! Return TRUE if texture set defined 3 YUV planes.
@@ -91,8 +91,8 @@ private:
 protected:
   Handle(Media_PlayerContext)     myPlayerCtx;        //!< player context
   Handle(Media_Frame)             myFramePair[2];     //!< front/back frames pair
-  Handle(Graphic3d_ShaderProgram) myShaderYUV;        //!< shader program for YUV  texture set
-  Handle(Graphic3d_ShaderProgram) myShaderYUVJ;       //!< shader program for YUVJ texture set
+  Handle(ShaderProgram2) myShaderYUV;        //!< shader program for YUV  texture set
+  Handle(ShaderProgram2) myShaderYUVJ;       //!< shader program for YUVJ texture set
   Handle(Standard_HMutex)         myMutex;            //!< mutex for accessing frames
   AsciiString1         myInput;            //!< input media
   CallbackOnUpdate_t              myCallbackFunction; //!< callback function

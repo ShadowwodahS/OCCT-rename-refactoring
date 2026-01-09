@@ -15,7 +15,7 @@
 
 #include <NCollection_LocalArray.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_LightSet, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(LightSet, RefObject)
 
 namespace
 {
@@ -30,7 +30,7 @@ static const char THE_LIGHT_KEY_LETTERS[Graphic3d_TypeOfLightSource_NB] = {
 
 //=================================================================================================
 
-Graphic3d_LightSet::Graphic3d_LightSet()
+LightSet::LightSet()
     : myAmbient(0.0f, 0.0f, 0.0f, 0.0f),
       myNbEnabled(0),
       myNbCastShadows(0),
@@ -43,11 +43,11 @@ Graphic3d_LightSet::Graphic3d_LightSet()
 
 //=================================================================================================
 
-Standard_Boolean Graphic3d_LightSet::Add(const Handle(Graphic3d_CLight)& theLight)
+Standard_Boolean LightSet::Add(const Handle(Graphic3d_CLight)& theLight)
 {
   if (theLight.IsNull())
   {
-    throw Standard_ProgramError("Graphic3d_LightSet::Add(), NULL argument");
+    throw Standard_ProgramError("LightSet::Add(), NULL argument");
   }
 
   const Standard_Integer anOldExtent = myLights.Extent();
@@ -65,7 +65,7 @@ Standard_Boolean Graphic3d_LightSet::Add(const Handle(Graphic3d_CLight)& theLigh
 
 //=================================================================================================
 
-Standard_Boolean Graphic3d_LightSet::Remove(const Handle(Graphic3d_CLight)& theLight)
+Standard_Boolean LightSet::Remove(const Handle(Graphic3d_CLight)& theLight)
 {
   const Standard_Integer anIndToRemove = myLights.FindIndex(theLight);
   if (anIndToRemove <= 0)
@@ -81,7 +81,7 @@ Standard_Boolean Graphic3d_LightSet::Remove(const Handle(Graphic3d_CLight)& theL
 
 //=================================================================================================
 
-Standard_Size Graphic3d_LightSet::UpdateRevision()
+Standard_Size LightSet::UpdateRevision()
 {
   if (myCacheRevision == myRevision)
   {

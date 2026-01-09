@@ -24,7 +24,7 @@
 #include <math_Status.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class math_FunctionWithDerivative;
+class FunctionWithDerivative;
 
 //! This class implements a combination of Newton-Raphson and bissection
 //! methods to find the root of the function between two bounds.
@@ -45,7 +45,7 @@ public:
   //! The solution is found when:
   //! abs(Xi - Xi-1) <= TolX and F(Xi) * F(Xi-1) <= 0
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT void Perform(math_FunctionWithDerivative& F,
+  Standard_EXPORT void Perform(FunctionWithDerivative& F,
                                const Standard_Real          Bound1,
                                const Standard_Real          Bound2,
                                const Standard_Integer       NbIterations = 100);
@@ -54,7 +54,7 @@ public:
   //! solution has been found.
   //! It can be redefined in a sub-class to implement a specific test to
   //! stop the iterations.
-  virtual Standard_Boolean IsSolutionReached(math_FunctionWithDerivative& theFunction);
+  virtual Standard_Boolean IsSolutionReached(FunctionWithDerivative& theFunction);
 
   //! Tests is the root has been successfully found.
   Standard_Boolean IsDone() const;

@@ -69,8 +69,8 @@ public:
 
 protected:
 private:
-  Handle(Plate_HArray1OfPinpointConstraint) myPPC;
-  Handle(TColgp_HArray2OfXYZ)               myCoef;
+  Handle(PinpointConstraintArray) myPPC;
+  Handle(XYZGrid)               myCoef;
 };
 
 #include <Plate_LinearScalarConstraint.lxx>

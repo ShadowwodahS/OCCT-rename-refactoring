@@ -33,7 +33,7 @@ typedef Vector3d              Vec;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Axis2Placement::Copy() const
+Handle(Geometry3) Geom_Axis2Placement::Copy() const
 {
 
   Handle(Geom_Axis2Placement) A2;

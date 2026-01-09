@@ -33,7 +33,7 @@ void IGESDimen_NewDimensionedGeometry::Init(const Standard_Integer             n
                                             const Standard_Real                anAngle,
                                             const Handle(HArray1OfIGESEntity)& allEntities,
                                             const Handle(TColStd_HArray1OfInteger)& allLocations,
-                                            const Handle(TColgp_HArray1OfXYZ)&      allPoints)
+                                            const Handle(XYZArray)&      allPoints)
 {
   Standard_Integer num = allEntities->Length();
   if (allEntities->Lower() != 1 || allLocations->Lower() != 1 || allLocations->Length() != num

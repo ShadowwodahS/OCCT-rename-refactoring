@@ -102,7 +102,7 @@ void GeomFill_Sweep_Eval::Evaluate(Standard_Integer*, /*Dimension*/
 
 //=================================================================================================
 
-GeomFill_Sweep::GeomFill_Sweep(const Handle(GeomFill_LocationLaw)& Location,
+GeomFill_Sweep::GeomFill_Sweep(const Handle(LocationLaw)& Location,
                                const Standard_Boolean              WithKpart)
 {
   done = Standard_False;
@@ -177,7 +177,7 @@ Standard_Boolean GeomFill_Sweep::VReversed() const
 
 //=================================================================================================
 
-void GeomFill_Sweep::Build(const Handle(GeomFill_SectionLaw)& Section,
+void GeomFill_Sweep::Build(const Handle(SectionLaw)& Section,
                            const GeomFill_ApproxStyle         Methode,
                            const GeomAbs_Shape                Continuity,
                            const Standard_Integer             Degmax,
@@ -301,7 +301,7 @@ Standard_Boolean GeomFill_Sweep::BuildAll(const GeomAbs_Shape    Continuity,
       if (ConvertApprox.HasResult())
       {
         mySurface = ConvertApprox.Surface();
-        myCurve2d = new (TColGeom2d_HArray1OfCurve)(1, 2);
+        myCurve2d = new (HArray1OfCurve2)(1, 2);
         CError    = new (TColStd_HArray2OfReal)(1, 2, 1, 2);
 
         Handle(Geom_BSplineSurface) BSplSurf(Handle(Geom_BSplineSurface)::DownCast(mySurface));
@@ -332,7 +332,7 @@ Standard_Boolean GeomFill_Sweep::BuildAll(const GeomAbs_Shape    Continuity,
     // Les Courbes 2d
     if (myCurve2d.IsNull())
     {
-      myCurve2d = new (TColGeom2d_HArray1OfCurve)(1, 2 + myLoc->TraceNumber());
+      myCurve2d = new (HArray1OfCurve2)(1, 2 + myLoc->TraceNumber());
       CError    = new (TColStd_HArray2OfReal)(1, 2, 1, 2 + myLoc->TraceNumber());
       Standard_Integer kk, ii, ifin = 1, ideb;
 
@@ -411,7 +411,7 @@ Standard_Boolean GeomFill_Sweep::BuildProduct(const GeomAbs_Shape    Continuity,
   TColStd_Array1OfReal Param_de_decoupeC3(1, NbIntervalC3 + 1);
   myLoc->Intervals(Param_de_decoupeC3, GeomAbs_C3);
 
-  AdvApprox_PrefAndRec Preferentiel(Param_de_decoupeC2, Param_de_decoupeC3);
+  PreferredAndRecommended Preferentiel(Param_de_decoupeC2, Param_de_decoupeC3);
 
   Handle(TColStd_HArray1OfReal) ThreeDTol = new (TColStd_HArray1OfReal)(1, 4);
   ThreeDTol->Init(Tol3d); // A Affiner...
@@ -438,7 +438,7 @@ Standard_Boolean GeomFill_Sweep::BuildProduct(const GeomAbs_Shape    Continuity,
   if (Ok)
   {
     /*    TColgp_Array1OfMat TM(1, nbpoles);
-        Handle(TColgp_HArray2OfPnt) ResPoles;
+        Handle(PointGrid) ResPoles;
         ResPoles = Approx.Poles();
 
         // Produit Tensoriel
@@ -481,8 +481,8 @@ Standard_Boolean GeomFill_Sweep::BuildProduct(const GeomAbs_Shape    Continuity,
 //     * the type of section should be a line
 //     * theLoc should represent a translation.
 
-static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)& theLoc,
-                                             const Handle(GeomFill_SectionLaw)&  theSec,
+static Standard_Boolean IsSweepParallelSpine(const Handle(LocationLaw)& theLoc,
+                                             const Handle(SectionLaw)&  theSec,
                                              const Standard_Real                 theTol)
 {
   // Get the first and last transformations of the location

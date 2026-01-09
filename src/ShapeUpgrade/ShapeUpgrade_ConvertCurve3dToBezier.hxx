@@ -68,9 +68,9 @@ public:
 private:
   //! Returns the list of bezier curves correspondent to original
   //! curve.
-  Standard_EXPORT Handle(TColGeom_HSequenceOfCurve) Segments() const;
+  Standard_EXPORT Handle(HSequenceOfCurve1) Segments() const;
 
-  Handle(TColGeom_HSequenceOfCurve) mySegments;
+  Handle(HSequenceOfCurve1) mySegments;
   Handle(TColStd_HSequenceOfReal)   mySplitParams;
   Standard_Boolean                  myLineMode;
   Standard_Boolean                  myCircleMode;

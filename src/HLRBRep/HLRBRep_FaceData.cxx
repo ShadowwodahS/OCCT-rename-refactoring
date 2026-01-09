@@ -40,14 +40,14 @@ void HLRBRep_FaceData::Set(const TopoFace&       FG,
   Geometry1().Surface(FG);
   myTolerance = (Standard_ShortReal)(BRepInspector::Tolerance(FG));
   Orientation(Or);
-  Wires() = new HLRAlgo_WiresBlock(NW);
+  Wires() = new WiresBlock(NW);
 }
 
 //=================================================================================================
 
 void HLRBRep_FaceData::SetWire(const Standard_Integer WI, const Standard_Integer NE)
 {
-  Wires()->Set(WI, new HLRAlgo_EdgesBlock(NE));
+  Wires()->Set(WI, new EdgesBlock(NE));
 }
 
 //=================================================================================================

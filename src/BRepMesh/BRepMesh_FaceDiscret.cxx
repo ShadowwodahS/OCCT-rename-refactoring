@@ -20,11 +20,11 @@
 #include <IMeshTools_MeshAlgo.hxx>
 #include <OSD_Parallel.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_FaceDiscret, IMeshTools_ModelAlgo)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_FaceDiscret, ModelAlgorithm)
 
 //=================================================================================================
 
-BRepMesh_FaceDiscret::BRepMesh_FaceDiscret(const Handle(IMeshTools_MeshAlgoFactory)& theAlgoFactory)
+BRepMesh_FaceDiscret::BRepMesh_FaceDiscret(const Handle(MeshAlgorithmFactory)& theAlgoFactory)
     : myAlgoFactory(theAlgoFactory)
 {
 }
@@ -106,7 +106,7 @@ void BRepMesh_FaceDiscret::process(const Standard_Integer       theFaceIndex,
   {
     OCC_CATCH_SIGNALS
 
-    Handle(IMeshTools_MeshAlgo) aMeshingAlgo =
+    Handle(MeshAlgorithm) aMeshingAlgo =
       myAlgoFactory->GetAlgo(aDFace->GetSurface()->GetType(), myParameters);
 
     if (aMeshingAlgo.IsNull())

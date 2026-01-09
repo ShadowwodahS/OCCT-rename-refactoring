@@ -69,7 +69,7 @@ public:
 
   void SetLastPoint(const Standard_Integer IndLast);
 
-  void Add(const Handle(IntSurf_LineOn2S)& L);
+  void Add(const Handle(LineOnTwoSurfaces)& L);
 
   //! Returns True if the intersection is on the domain of the
   //! first patch.
@@ -147,7 +147,7 @@ public:
   Standard_EXPORT void ComputeVertexParameters(const Standard_Real Tol);
 
   //! Returns set of intersection points
-  virtual Handle(IntSurf_LineOn2S) Curve() const Standard_OVERRIDE;
+  virtual Handle(LineOnTwoSurfaces) Curve() const Standard_OVERRIDE;
 
   //! Returns TRUE if theP is out of the box built from
   //! the points on 1st surface
@@ -172,7 +172,7 @@ public:
   //! Removes vertices from the line (i.e. cleans svtx member)
   virtual void ClearVertexes() Standard_OVERRIDE { svtx.Clear(); }
 
-  void SetCurve(const Handle(IntSurf_LineOn2S)& theNewCurve) { curv = theNewCurve; }
+  void SetCurve(const Handle(LineOnTwoSurfaces)& theNewCurve) { curv = theNewCurve; }
 
   //! if (theMode == 0) then prints the information about WLine
   //! if (theMode == 1) then prints the list of 3d-points
@@ -192,7 +192,7 @@ private:
   Standard_Real             ParamSup1;
   Standard_Real             ParamInf2;
   Standard_Real             ParamSup2;
-  Handle(IntSurf_LineOn2S)  curv;
+  Handle(LineOnTwoSurfaces)  curv;
   Standard_Boolean          fipt;
   Standard_Boolean          lapt;
   Standard_Integer          indf;

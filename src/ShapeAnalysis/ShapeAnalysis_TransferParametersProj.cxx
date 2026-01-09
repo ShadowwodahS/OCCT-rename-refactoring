@@ -177,7 +177,7 @@ Standard_Real ShapeAnalysis_TransferParametersProj::PreformSegment(const Standar
   if (To2d)
   {
     Point3d                      p1   = myCurve->Value(Param).Transformed(myLocation.Inverted());
-    Handle(Adaptor3d_Surface)   AdS  = myAC3d.GetSurface();
+    Handle(SurfaceAdaptor)   AdS  = myAC3d.GetSurface();
     Handle(Geom2dAdaptor_Curve) AC2d = new Geom2dAdaptor_Curve(myCurve2d, First, Last);
     Adaptor3d_CurveOnSurface    Ad1(AC2d, AdS);
     projDev = sac.Project(Ad1, p1, myPrecision, pproj, ppar); // pdn

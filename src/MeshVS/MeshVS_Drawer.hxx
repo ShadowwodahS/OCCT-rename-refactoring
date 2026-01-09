@@ -30,19 +30,19 @@ class Color1;
 class Graphic3d_MaterialAspect;
 class AsciiString1;
 
-class MeshVS_Drawer;
-DEFINE_STANDARD_HANDLE(MeshVS_Drawer, RefObject)
+class MeshDrawer;
+DEFINE_STANDARD_HANDLE(MeshDrawer, RefObject)
 
 //! This class provided the common interface to share between classes
 //! big set of constants affecting to object appearance. By default, this class
 //! can store integers, doubles, OCC colors, OCC materials. Each of OCC enum members
 //! can be stored as integers.
-class MeshVS_Drawer : public RefObject
+class MeshDrawer : public RefObject
 {
 
 public:
   //! This method copies other drawer contents to this.
-  Standard_EXPORT virtual void Assign(const Handle(MeshVS_Drawer)& aDrawer);
+  Standard_EXPORT virtual void Assign(const Handle(MeshDrawer)& aDrawer);
 
   Standard_EXPORT void SetInteger(const Standard_Integer Key1, const Standard_Integer Value);
 
@@ -88,7 +88,7 @@ public:
 
   Standard_EXPORT Standard_Boolean RemoveAsciiString(const Standard_Integer Key1);
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_Drawer, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MeshDrawer, RefObject)
 
 protected:
 private:

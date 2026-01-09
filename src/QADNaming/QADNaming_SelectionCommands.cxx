@@ -93,7 +93,7 @@ static Standard_Integer QADNaming_Select(DrawInterpreter& di, Standard_Integer n
   if (n == 4 || n == 5)
   {
     Standard_Boolean geometry = (strcmp(a[0], "SelectGeometry") == 0 ? 1 : 0);
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -164,7 +164,7 @@ static Standard_Integer QADNaming_DumpSelection(DrawInterpreter& di,
 {
   if (n == 3 || n == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -215,7 +215,7 @@ static Standard_Integer QADNaming_ArgsSelection(DrawInterpreter& di,
 {
   if (n == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;
@@ -283,7 +283,7 @@ static Standard_Integer QADNaming_Attachment(DrawInterpreter& di,
 {
   if (n == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;

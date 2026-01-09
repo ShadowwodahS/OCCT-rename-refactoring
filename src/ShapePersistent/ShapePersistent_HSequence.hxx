@@ -109,46 +109,46 @@ class HSequence
   };
 
 public:
-  typedef instance<TColgp_HSequenceOfXYZ> XYZ;
-  typedef instance<TColgp_HSequenceOfPnt> Pnt;
-  typedef instance<TColgp_HSequenceOfDir> Dir;
-  typedef instance<TColgp_HSequenceOfVec> Vec;
+  typedef instance<XYZSequence> XYZ;
+  typedef instance<PointSequence2> Pnt;
+  typedef instance<DirectionSequence> Dir;
+  typedef instance<VectorSequence> Vec;
 };
 
 //=======================================================================
 // XYZ
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfXYZ>::PName() const;
+Standard_CString HSequence::instance<XYZSequence>::PName() const;
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfXYZ>::PName() const;
+Standard_CString HSequence::node<XYZSequence>::PName() const;
 
 //=======================================================================
 // Pnt
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfPnt>::PName() const;
+Standard_CString HSequence::instance<PointSequence2>::PName() const;
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfPnt>::PName() const;
+Standard_CString HSequence::node<PointSequence2>::PName() const;
 
 //=======================================================================
 // Dir
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfDir>::PName() const;
+Standard_CString HSequence::instance<DirectionSequence>::PName() const;
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfDir>::PName() const;
+Standard_CString HSequence::node<DirectionSequence>::PName() const;
 
 //=======================================================================
 // Vec
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfVec>::PName() const;
+Standard_CString HSequence::instance<VectorSequence>::PName() const;
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfVec>::PName() const;
+Standard_CString HSequence::node<VectorSequence>::PName() const;
 
 #endif

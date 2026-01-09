@@ -26,7 +26,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_Transient.hxx>
 #include <IntSurf_Allocator.hxx>
-class IntSurf_LineOn2S;
+class LineOnTwoSurfaces;
 class Standard_OutOfRange;
 class Standard_DomainError;
 class IntSurf_PathPoint;
@@ -87,7 +87,7 @@ public:
   const PointOn2Surfaces& Value(const Standard_Integer Index) const;
 
   //! Returns the LineOn2S contained in the walking line.
-  const Handle(IntSurf_LineOn2S)& Line() const;
+  const Handle(LineOnTwoSurfaces)& Line() const;
 
   //! Returns True if the line is closed.
   Standard_Boolean IsClosed() const;
@@ -148,7 +148,7 @@ public:
 
 protected:
 private:
-  Handle(IntSurf_LineOn2S) line;
+  Handle(LineOnTwoSurfaces) line;
   IntSurf_SequenceOfCouple couple;
   Standard_Boolean         closed;
   Standard_Boolean         hasFirst;

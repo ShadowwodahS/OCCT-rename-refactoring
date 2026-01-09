@@ -54,7 +54,7 @@ class Point3d;
 //! * Creates a parabola with its local coordinate system "A2"
 //! and it's focal length "Focal".
 //! * Create a parabola with its directrix and its focus point.
-class gce_MakeParab : public Root6
+class ParabolaBuilder : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -67,7 +67,7 @@ public:
   //! of the parabola. The Location point of A2 is the vertex of
   //! the parabola
   //! The status is "NullFocusLength" if Focal < 0.0
-  Standard_EXPORT gce_MakeParab(const Frame3d& A2, const Standard_Real Focal);
+  Standard_EXPORT ParabolaBuilder(const Frame3d& A2, const Standard_Real Focal);
 
   //! D is the directrix of the parabola and F the focus point.
   //! The symmetry axis (XAxis) of the parabola is normal to the
@@ -77,7 +77,7 @@ public:
   //! point is the vertex of the parabola. The normal to the plane
   //! of the parabola is the cross product between the XAxis and the
   //! YAxis.
-  Standard_EXPORT gce_MakeParab(const Axis3d& D, const Point3d& F);
+  Standard_EXPORT ParabolaBuilder(const Axis3d& D, const Point3d& F);
 
   //! Returns the constructed parabola.
   //! Exceptions StdFail_NotDone if no parabola is constructed.

@@ -24,13 +24,13 @@
 #include <Standard_Real.hxx>
 
 class Geom_Vector;
-DEFINE_STANDARD_HANDLE(Geom_Vector, Geom_Geometry)
+DEFINE_STANDARD_HANDLE(Geom_Vector, Geometry3)
 
 //! The abstract class Vector describes the common
 //! behavior of vectors in 3D space.
 //! The Geom package provides two concrete classes of
 //! vectors: Geom_Direction (unit vector) and Geom_VectorWithMagnitude.
-class Geom_Vector : public Geom_Geometry
+class Geom_Vector : public Geometry3
 {
 
 public:
@@ -124,7 +124,7 @@ public:
   //! Converts this vector into a Vector3d vector.
   Standard_EXPORT const Vector3d& Vec() const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Vector, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(Geom_Vector, Geometry3)
 
 protected:
   Vector3d gpVec;

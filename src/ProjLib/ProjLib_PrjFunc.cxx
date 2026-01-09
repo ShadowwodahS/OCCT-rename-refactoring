@@ -22,9 +22,9 @@
 #include <ProjLib_PrjFunc.hxx>
 #include <Standard_ConstructionError.hxx>
 
-ProjLib_PrjFunc::ProjLib_PrjFunc(const Adaptor3d_Curve*   C,
+ProjLib_PrjFunc::ProjLib_PrjFunc(const Curve5*   C,
                                  const Standard_Real      FixVal,
-                                 const Adaptor3d_Surface* S,
+                                 const SurfaceAdaptor* S,
                                  const Standard_Integer   Fix)
     : myCurve(C),
       mySurface(S),

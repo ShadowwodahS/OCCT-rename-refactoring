@@ -23,12 +23,12 @@
 #include <Message_ProgressRange.hxx>
 
 class ShapeProcess_Context;
-class ShapeProcess_Operator;
-DEFINE_STANDARD_HANDLE(ShapeProcess_Operator, RefObject)
+class Operator;
+DEFINE_STANDARD_HANDLE(Operator, RefObject)
 
 //! Abstract Operator class providing a tool to
 //! perform an operation on Context
-class ShapeProcess_Operator : public RefObject
+class Operator : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
     const Handle(ShapeProcess_Context)& context,
     const Message_ProgressRange&        theProgress = Message_ProgressRange()) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeProcess_Operator, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Operator, RefObject)
 
 protected:
 private:

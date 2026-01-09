@@ -36,7 +36,7 @@ class Cone1;
 //! [0, 2PI].
 //! KeyWords :
 //! Convert, Cone, BSplineSurface.
-class Convert_ConeToBSplineSurface : public ElementaryToBSplineSurface
+class ConeToBSplineConverter : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,7 +46,7 @@ public:
   //!
   //! Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_ConeToBSplineSurface(const Cone1&      C,
+  Standard_EXPORT ConeToBSplineConverter(const Cone1&      C,
                                                const Standard_Real U1,
                                                const Standard_Real U2,
                                                const Standard_Real V1,
@@ -56,7 +56,7 @@ public:
   //! Cone in the U and V parametric directions.
   //!
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_ConeToBSplineSurface(const Cone1&      C,
+  Standard_EXPORT ConeToBSplineConverter(const Cone1&      C,
                                                const Standard_Real V1,
                                                const Standard_Real V2);
 

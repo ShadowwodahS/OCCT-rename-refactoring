@@ -34,7 +34,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 
-class Law_Function;
+class Function2;
 class gp_Circ;
 class Point2;
 
@@ -43,10 +43,10 @@ class BlendFunc_EvolRad : public Blend_Function
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_EvolRad(const Handle(Adaptor3d_Surface)& S1,
-                                    const Handle(Adaptor3d_Surface)& S2,
-                                    const Handle(Adaptor3d_Curve)&   C,
-                                    const Handle(Law_Function)&      Law1);
+  Standard_EXPORT BlendFunc_EvolRad(const Handle(SurfaceAdaptor)& S1,
+                                    const Handle(SurfaceAdaptor)& S2,
+                                    const Handle(Curve5)&   C,
+                                    const Handle(Function2)&      Law1);
 
   //! returns the number of equations of the function.
   Standard_EXPORT Standard_Integer NbEquations() const Standard_OVERRIDE;
@@ -218,12 +218,12 @@ private:
                                                  const Standard_Boolean ByParam = Standard_False,
                                                  const Standard_Real    Param   = 0);
 
-  Handle(Adaptor3d_Surface)    surf1;
-  Handle(Adaptor3d_Surface)    surf2;
-  Handle(Adaptor3d_Curve)      curv;
-  Handle(Adaptor3d_Curve)      tcurv;
-  Handle(Law_Function)         fevol;
-  Handle(Law_Function)         tevol;
+  Handle(SurfaceAdaptor)    surf1;
+  Handle(SurfaceAdaptor)    surf2;
+  Handle(Curve5)      curv;
+  Handle(Curve5)      tcurv;
+  Handle(Function2)         fevol;
+  Handle(Function2)         tevol;
   Point3d                       pts1;
   Point3d                       pts2;
   Standard_Boolean             istangent;

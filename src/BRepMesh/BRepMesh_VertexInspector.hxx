@@ -23,14 +23,14 @@
 #include <BRepMesh_Vertex.hxx>
 
 //! Class intended for fast searching of the coincidence points.
-class BRepMesh_VertexInspector : public CellInspectorXY
+class VertexInspector : public CellInspectorXY
 {
 public:
   typedef Standard_Integer Target;
 
   //! Constructor.
   //! @param theAllocator memory allocator to be used by internal collections.
-  BRepMesh_VertexInspector(const Handle(NCollection_IncAllocator)& theAllocator)
+  VertexInspector(const Handle(NCollection_IncAllocator)& theAllocator)
       : myIndex(0),
         myMinSqDist(RealLast()),
         myVertices(new IMeshData::VectorOfVertex),

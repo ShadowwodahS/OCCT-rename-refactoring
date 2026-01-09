@@ -24,14 +24,14 @@
 
 class Standard_DomainError;
 class StdFail_NotDone;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointOnCurve1;
 class Point3d;
 class Vector3d;
 class Extrema_CCLocFOfLocECC;
 
-class Extrema_LocECC
+class LocalCurveCurveExtrema
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -42,8 +42,8 @@ public:
   //! The function F(u,v)=distance(C1(u),C2(v)) has an
   //! extremun when gradient(f)=0. The algorithm searches
   //! the zero near the close point.
-  Standard_EXPORT Extrema_LocECC(const Adaptor3d_Curve& C1,
-                                 const Adaptor3d_Curve& C2,
+  Standard_EXPORT LocalCurveCurveExtrema(const Curve5& C1,
+                                 const Curve5& C2,
                                  const Standard_Real    U0,
                                  const Standard_Real    V0,
                                  const Standard_Real    TolU,

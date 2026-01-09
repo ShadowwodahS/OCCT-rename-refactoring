@@ -28,10 +28,10 @@ class Express_Alias : public Express_Item
 public:
   //! Create ALIAS item and initialize it
   Standard_EXPORT Express_Alias(const Standard_CString      theName,
-                                const Handle(Express_Type)& theType);
+                                const Handle(ExpressType)& theType);
 
   //! Returns aliased type
-  Standard_EXPORT const Handle(Express_Type)& Type() const;
+  Standard_EXPORT const Handle(ExpressType)& Type() const;
 
   //! Returns name of aliased type
   Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
@@ -46,7 +46,7 @@ public:
 
 protected:
 private:
-  Handle(Express_Type) myType;
+  Handle(ExpressType) myType;
 };
 
 #endif // _Express_Alias_HeaderFile

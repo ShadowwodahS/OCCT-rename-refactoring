@@ -42,7 +42,7 @@ static Standard_Real f3d(const Standard_Real X, const Standard_Address C)
 {
   Point3d P;
   Vector3d V;
-  ((Adaptor3d_Curve*)C)->D1(X, P, V);
+  ((Curve5*)C)->D1(X, P, V);
   return V.Magnitude();
 }
 
@@ -54,7 +54,7 @@ static Standard_Real f2d(const Standard_Real X, const Standard_Address C)
   return V.Magnitude();
 }
 
-static Standard_Integer order(const Adaptor3d_Curve& C)
+static Standard_Integer order(const Curve5& C)
 {
   switch (C.GetType())
   {
@@ -100,7 +100,7 @@ static Standard_Integer order(const Adaptor2d_Curve2d& C)
 
 //=================================================================================================
 
-Standard_Real CPnts_AbscissaPoint::Length(const Adaptor3d_Curve& C)
+Standard_Real CPnts_AbscissaPoint::Length(const Curve5& C)
 {
   return CPnts_AbscissaPoint::Length(C, C.FirstParameter(), C.LastParameter());
 }
@@ -117,7 +117,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C)
 // purpose  : 3d with tolerance
 //=======================================================================
 
-Standard_Real CPnts_AbscissaPoint::Length(const Adaptor3d_Curve& C, const Standard_Real Tol)
+Standard_Real CPnts_AbscissaPoint::Length(const Curve5& C, const Standard_Real Tol)
 {
   return CPnts_AbscissaPoint::Length(C, C.FirstParameter(), C.LastParameter(), Tol);
 }
@@ -137,11 +137,11 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C, const Stan
 // purpose  : 3d with parameters
 //=======================================================================
 
-Standard_Real CPnts_AbscissaPoint::Length(const Adaptor3d_Curve& C,
+Standard_Real CPnts_AbscissaPoint::Length(const Curve5& C,
                                           const Standard_Real    U1,
                                           const Standard_Real    U2)
 {
-  CPnts_MyGaussFunction FG;
+  GaussFunctionSampler FG;
   // POP pout WNT
   CPnts_RealFunction rf = f3d;
   FG.Init(rf, (Standard_Address)&C);
@@ -163,7 +163,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C,
                                           const Standard_Real      U1,
                                           const Standard_Real      U2)
 {
-  CPnts_MyGaussFunction FG;
+  GaussFunctionSampler FG;
   // POP pout WNT
   CPnts_RealFunction rf = f2d;
   FG.Init(rf, (Standard_Address)&C);
@@ -181,12 +181,12 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C,
 // purpose  : 3d with parameters and tolerance
 //=======================================================================
 
-Standard_Real CPnts_AbscissaPoint::Length(const Adaptor3d_Curve& C,
+Standard_Real CPnts_AbscissaPoint::Length(const Curve5& C,
                                           const Standard_Real    U1,
                                           const Standard_Real    U2,
                                           const Standard_Real    Tol)
 {
-  CPnts_MyGaussFunction FG;
+  GaussFunctionSampler FG;
   // POP pout WNT
   CPnts_RealFunction rf = f3d;
   FG.Init(rf, (Standard_Address)&C);
@@ -209,7 +209,7 @@ Standard_Real CPnts_AbscissaPoint::Length(const Adaptor2d_Curve2d& C,
                                           const Standard_Real      U2,
                                           const Standard_Real      Tol)
 {
-  CPnts_MyGaussFunction FG;
+  GaussFunctionSampler FG;
   // POP pout WNT
   CPnts_RealFunction rf = f2d;
   FG.Init(rf, (Standard_Address)&C);
@@ -235,7 +235,7 @@ CPnts_AbscissaPoint::CPnts_AbscissaPoint()
 
 //=================================================================================================
 
-CPnts_AbscissaPoint::CPnts_AbscissaPoint(const Adaptor3d_Curve& C,
+CPnts_AbscissaPoint::CPnts_AbscissaPoint(const Curve5& C,
                                          const Standard_Real    Abscissa,
                                          const Standard_Real    U0,
                                          const Standard_Real    Resolution)
@@ -259,7 +259,7 @@ CPnts_AbscissaPoint::CPnts_AbscissaPoint(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-CPnts_AbscissaPoint::CPnts_AbscissaPoint(const Adaptor3d_Curve& C,
+CPnts_AbscissaPoint::CPnts_AbscissaPoint(const Curve5& C,
                                          const Standard_Real    Abscissa,
                                          const Standard_Real    U0,
                                          const Standard_Real    Ui,
@@ -283,7 +283,7 @@ CPnts_AbscissaPoint::CPnts_AbscissaPoint(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-void CPnts_AbscissaPoint::Init(const Adaptor3d_Curve& C)
+void CPnts_AbscissaPoint::Init(const Curve5& C)
 {
   Init(C, C.FirstParameter(), C.LastParameter());
 }
@@ -300,7 +300,7 @@ void CPnts_AbscissaPoint::Init(const Adaptor2d_Curve2d& C)
 // purpose  : introduced by rbv for curvilinear parametrization
 //=======================================================================
 
-void CPnts_AbscissaPoint::Init(const Adaptor3d_Curve& C, const Standard_Real Tol)
+void CPnts_AbscissaPoint::Init(const Curve5& C, const Standard_Real Tol)
 {
   Init(C, C.FirstParameter(), C.LastParameter(), Tol);
 }
@@ -314,7 +314,7 @@ void CPnts_AbscissaPoint::Init(const Adaptor2d_Curve2d& C, const Standard_Real T
 
 //=================================================================================================
 
-void CPnts_AbscissaPoint::Init(const Adaptor3d_Curve& C,
+void CPnts_AbscissaPoint::Init(const Curve5& C,
                                const Standard_Real    U1,
                                const Standard_Real    U2)
 {
@@ -353,7 +353,7 @@ void CPnts_AbscissaPoint::Init(const Adaptor2d_Curve2d& C,
 // purpose  : introduced by rbv for curvilinear parametrization
 //=======================================================================
 
-void CPnts_AbscissaPoint::Init(const Adaptor3d_Curve& C,
+void CPnts_AbscissaPoint::Init(const Curve5& C,
                                const Standard_Real    U1,
                                const Standard_Real    U2,
                                const Standard_Real    Tol)

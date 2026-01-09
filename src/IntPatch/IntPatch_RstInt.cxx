@@ -110,7 +110,7 @@ static void Recadre(GeomAbs_SurfaceType           typeS1,
 
 const Standard_Real Confusion = Precision1::Confusion();
 
-inline Standard_Real Tol3d(const Handle(Adaptor3d_HVertex)&   vtx,
+inline Standard_Real Tol3d(const Handle(HandleVertex)&   vtx,
                            const Handle(Adaptor3d_TopolTool)& Domain,
                            const Standard_Real                tolDef = 0.)
 {
@@ -126,10 +126,10 @@ inline Standard_Real Tol3d(const Handle(Adaptor2d_Curve2d)&   arc,
 
 static Standard_Boolean CoincideOnArc(const Point3d&                      Ptsommet,
                                       const Handle(Adaptor2d_Curve2d)&   A,
-                                      const Handle(Adaptor3d_Surface)&   Surf,
+                                      const Handle(SurfaceAdaptor)&   Surf,
                                       const Standard_Real                Toler,
                                       const Handle(Adaptor3d_TopolTool)& Domain,
-                                      Handle(Adaptor3d_HVertex)&         Vtx)
+                                      Handle(HandleVertex)&         Vtx)
 {
   Standard_Real distmin = RealLast();
   Standard_Real tolarc  = Max(Toler, Tol3d(A, Domain));
@@ -138,7 +138,7 @@ static Standard_Boolean CoincideOnArc(const Point3d&                      Ptsomm
   Domain->InitVertexIterator();
   while (Domain->MoreVertex())
   {
-    Handle(Adaptor3d_HVertex) vtx1  = Domain->Vertex();
+    Handle(HandleVertex) vtx1  = Domain->Vertex();
     Standard_Real             prm   = HInterTool::Parameter(vtx1, A);
     gp_Pnt2d                  p2d   = A->Value(prm);
     Point3d                    point = Surf->Value(p2d.X(), p2d.Y());
@@ -197,7 +197,7 @@ static void VerifyTgline(const Handle(IntPatch_WLine)& wlin,
   }
 }
 
-static void GetLinePoint2d(const Handle(IntPatch_Line)& L,
+static void GetLinePoint2d(const Handle(Line2)& L,
                            const Standard_Real          param,
                            const Standard_Boolean       OnFirst,
                            Standard_Real&               U,
@@ -250,8 +250,8 @@ static void GetLinePoint2d(const Handle(IntPatch_Line)& L,
   V = (1. - par) * vs1 + par * vs2;
 }
 
-static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
-                                      const Handle(Adaptor3d_Surface)& OtherSurf,
+static Standard_Boolean FindParameter(const Handle(Line2)&     L,
+                                      const Handle(SurfaceAdaptor)& OtherSurf,
                                       const Standard_Real              Tol,
                                       const Point3d&                    Ptsom,
                                       const gp_Pnt2d&                  Ptsom2d,
@@ -406,10 +406,10 @@ inline Standard_Boolean ArePnt2dEqual(const gp_Pnt2d&     p1,
 
 //=================================================================================================
 
-void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
-                                      const Handle(Adaptor3d_Surface)&   Surf,
+void RestrictedIntersection::PutVertexOnLine(const Handle(Line2)&       L,
+                                      const Handle(SurfaceAdaptor)&   Surf,
                                       const Handle(Adaptor3d_TopolTool)& Domain,
-                                      const Handle(Adaptor3d_Surface)&   OtherSurf,
+                                      const Handle(SurfaceAdaptor)&   OtherSurf,
                                       const Standard_Boolean             OnFirst,
                                       const Standard_Real                Tol)
 {
@@ -446,7 +446,7 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
   gp_Vec2d d2d;
 
   IntPatch_Point            Sommet, ptline;
-  Handle(Adaptor3d_HVertex) vtxarc, vtxline;
+  Handle(HandleVertex) vtxarc, vtxline;
   Handle(Adaptor2d_Curve2d) arc;
   Standard_Boolean          VtxOnArc, duplicate, found;
   Transition2        transarc, transline;
@@ -494,8 +494,8 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
   //-- il faut dans ce cas considerer la restriction                      --
   //--                                la restriction decalee de +-2PI     --
   //------------------------------------------------------------------------
-  const Handle(Adaptor3d_Surface)& Surf1               = (OnFirst ? Surf : OtherSurf);
-  const Handle(Adaptor3d_Surface)& Surf2               = (OnFirst ? OtherSurf : Surf);
+  const Handle(SurfaceAdaptor)& Surf1               = (OnFirst ? Surf : OtherSurf);
+  const Handle(SurfaceAdaptor)& Surf2               = (OnFirst ? OtherSurf : Surf);
   GeomAbs_SurfaceType              TypeS1              = Surf1->GetType();
   GeomAbs_SurfaceType              TypeS2              = Surf2->GetType();
   Standard_Boolean                 SurfaceIsPeriodic   = Standard_False;
@@ -536,7 +536,7 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
     Domain->Initialize(arc);
     for (Domain->InitVertexIterator(); Domain->MoreVertex(); Domain->NextVertex())
     {
-      Handle(Adaptor3d_HVertex) vtx = Domain->Vertex();
+      Handle(HandleVertex) vtx = Domain->Vertex();
       Standard_Real             prm = HInterTool::Parameter(vtx, arc);
       if (Abs(prm - PFirst) < Precision1::PConfusion())
       {
@@ -1005,7 +1005,7 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
                 }
                 else
                 {
-                  Handle(Adaptor3d_HVertex) vtxref =
+                  Handle(HandleVertex) vtxref =
                     (OnFirst) ? (ptline.VertexOnS1()) : (ptline.VertexOnS2());
                   if ((OnFirst && !ptline.IsOnDomS2()) || (!OnFirst && !ptline.IsOnDomS1()))
                   {

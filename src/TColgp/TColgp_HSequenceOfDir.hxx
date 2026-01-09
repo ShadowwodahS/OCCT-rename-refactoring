@@ -21,6 +21,6 @@
 #include <TColgp_SequenceOfDir.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TColgp_HSequenceOfDir, TColgp_SequenceOfDir)
+DEFINE_HSEQUENCE(DirectionSequence, TColgp_SequenceOfDir)
 
 #endif

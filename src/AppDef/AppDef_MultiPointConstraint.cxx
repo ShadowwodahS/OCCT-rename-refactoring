@@ -27,23 +27,23 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint() {}
 
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const Standard_Integer NbPoles,
                                                          const Standard_Integer NbPoles2d)
-    : AppParCurves_MultiPoint(NbPoles, NbPoles2d)
+    : MultiPoint(NbPoles, NbPoles2d)
 {
 }
 
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPnt& tabP)
-    : AppParCurves_MultiPoint(tabP)
+    : MultiPoint(tabP)
 {
 }
 
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPnt2d& tabP2d)
-    : AppParCurves_MultiPoint(tabP2d)
+    : MultiPoint(tabP2d)
 {
 }
 
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPnt&   tabP,
                                                          const TColgp_Array1OfPnt2d& tabP2d)
-    : AppParCurves_MultiPoint(tabP, tabP2d)
+    : MultiPoint(tabP, tabP2d)
 {
 }
 
@@ -53,7 +53,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
                                                          const TColgp_Array1OfVec2d& tabVec2d,
                                                          const TColgp_Array1OfVec&   tabCur,
                                                          const TColgp_Array1OfVec2d& tabCur2d)
-    : AppParCurves_MultiPoint(tabP, tabP2d)
+    : MultiPoint(tabP, tabP2d)
 {
 
   if ((tabP.Length() != tabVec.Length()) || (tabP2d.Length() != tabVec2d.Length())
@@ -62,8 +62,8 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     throw Standard_ConstructionError();
   }
 
-  tabTang   = new TColgp_HArray1OfVec(1, tabVec.Length());
-  tabTang2d = new TColgp_HArray1OfVec2d(1, tabVec2d.Length());
+  tabTang   = new VectorArray(1, tabVec.Length());
+  tabTang2d = new Vector2dArray(1, tabVec2d.Length());
 
   Standard_Integer i, Lower = tabVec.Lower();
   for (i = 1; i <= tabVec.Length(); i++)
@@ -76,8 +76,8 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     tabTang2d->SetValue(i, tabVec2d.Value(Lower + i - 1));
   }
 
-  tabCurv   = new TColgp_HArray1OfVec(1, tabCur.Length());
-  tabCurv2d = new TColgp_HArray1OfVec2d(1, tabCur2d.Length());
+  tabCurv   = new VectorArray(1, tabCur.Length());
+  tabCurv2d = new Vector2dArray(1, tabCur2d.Length());
 
   Lower = tabCur.Lower();
   for (i = 1; i <= tabVec.Length(); i++)
@@ -95,7 +95,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
                                                          const TColgp_Array1OfPnt2d& tabP2d,
                                                          const TColgp_Array1OfVec&   tabVec,
                                                          const TColgp_Array1OfVec2d& tabVec2d)
-    : AppParCurves_MultiPoint(tabP, tabP2d)
+    : MultiPoint(tabP, tabP2d)
 {
 
   if ((tabP.Length() != tabVec.Length()) || (tabP2d.Length() != tabVec2d.Length()))
@@ -103,8 +103,8 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     throw Standard_ConstructionError();
   }
 
-  tabTang   = new TColgp_HArray1OfVec(1, tabVec.Length());
-  tabTang2d = new TColgp_HArray1OfVec2d(1, tabVec2d.Length());
+  tabTang   = new VectorArray(1, tabVec.Length());
+  tabTang2d = new Vector2dArray(1, tabVec2d.Length());
 
   Standard_Integer i, Lower = tabVec.Lower();
   for (i = 1; i <= tabVec.Length(); i++)
@@ -120,7 +120,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
 
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPnt& tabP,
                                                          const TColgp_Array1OfVec& tabVec)
-    : AppParCurves_MultiPoint(tabP)
+    : MultiPoint(tabP)
 {
 
   if (tabP.Length() != tabVec.Length())
@@ -128,7 +128,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     throw Standard_ConstructionError();
   }
 
-  tabTang = new TColgp_HArray1OfVec(1, tabVec.Length());
+  tabTang = new VectorArray(1, tabVec.Length());
 
   Standard_Integer i, Lower = tabVec.Lower();
   for (i = 1; i <= tabVec.Length(); i++)
@@ -140,7 +140,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPnt& tabP,
                                                          const TColgp_Array1OfVec& tabVec,
                                                          const TColgp_Array1OfVec& tabCur)
-    : AppParCurves_MultiPoint(tabP)
+    : MultiPoint(tabP)
 {
 
   if ((tabP.Length() != tabVec.Length()) || (tabP.Length() != tabCur.Length()))
@@ -148,14 +148,14 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     throw Standard_ConstructionError();
   }
 
-  tabTang = new TColgp_HArray1OfVec(1, tabVec.Length());
+  tabTang = new VectorArray(1, tabVec.Length());
   Standard_Integer i, Lower = tabVec.Lower();
   for (i = 1; i <= tabVec.Length(); i++)
   {
     tabTang->SetValue(i, tabVec.Value(Lower + i - 1));
   }
 
-  tabCurv = new TColgp_HArray1OfVec(1, tabCur.Length());
+  tabCurv = new VectorArray(1, tabCur.Length());
   Lower   = tabCur.Lower();
   for (i = 1; i <= tabCur.Length(); i++)
   {
@@ -167,7 +167,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
                                                          const TColgp_Array1OfVec2d& tabVec2d)
     :
 
-      AppParCurves_MultiPoint(tabP2d)
+      MultiPoint(tabP2d)
 {
 
   if (tabP2d.Length() != tabVec2d.Length())
@@ -175,7 +175,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     throw Standard_ConstructionError();
   }
 
-  tabTang2d = new TColgp_HArray1OfVec2d(1, tabVec2d.Length());
+  tabTang2d = new Vector2dArray(1, tabVec2d.Length());
   Standard_Integer i, Lower = tabVec2d.Lower();
   for (i = 1; i <= tabVec2d.Length(); i++)
   {
@@ -186,7 +186,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
 AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPnt2d& tabP2d,
                                                          const TColgp_Array1OfVec2d& tabVec2d,
                                                          const TColgp_Array1OfVec2d& tabCur2d)
-    : AppParCurves_MultiPoint(tabP2d)
+    : MultiPoint(tabP2d)
 {
 
   if ((tabP2d.Length() != tabVec2d.Length()) || (tabCur2d.Length() != tabP2d.Length()))
@@ -194,14 +194,14 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
     throw Standard_ConstructionError();
   }
 
-  tabTang2d = new TColgp_HArray1OfVec2d(1, tabVec2d.Length());
+  tabTang2d = new Vector2dArray(1, tabVec2d.Length());
   Standard_Integer i, Lower = tabVec2d.Lower();
   for (i = 1; i <= tabVec2d.Length(); i++)
   {
     tabTang2d->SetValue(i, tabVec2d.Value(Lower + i - 1));
   }
 
-  tabCurv2d = new TColgp_HArray1OfVec2d(1, tabCur2d.Length());
+  tabCurv2d = new Vector2dArray(1, tabCur2d.Length());
   Lower     = tabCur2d.Lower();
   for (i = 1; i <= tabCur2d.Length(); i++)
   {
@@ -212,7 +212,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
 void AppDef_MultiPointConstraint::SetTang(const Standard_Integer Index, const Vector3d& Tang)
 {
   if (tabTang.IsNull())
-    tabTang = new TColgp_HArray1OfVec(1, nbP);
+    tabTang = new VectorArray(1, nbP);
   if ((Index <= 0) || (Index > nbP))
   {
     throw Standard_OutOfRange();
@@ -232,7 +232,7 @@ Vector3d AppDef_MultiPointConstraint::Tang(const Standard_Integer Index) const
 void AppDef_MultiPointConstraint::SetTang2d(const Standard_Integer Index, const gp_Vec2d& Tang2d)
 {
   if (tabTang2d.IsNull())
-    tabTang2d = new TColgp_HArray1OfVec2d(1, nbP2d);
+    tabTang2d = new Vector2dArray(1, nbP2d);
 
   if ((Index <= nbP) || (Index > nbP + nbP2d))
   {
@@ -253,7 +253,7 @@ gp_Vec2d AppDef_MultiPointConstraint::Tang2d(const Standard_Integer Index) const
 void AppDef_MultiPointConstraint::SetCurv(const Standard_Integer Index, const Vector3d& Curv)
 {
   if (tabCurv.IsNull())
-    tabCurv = new TColgp_HArray1OfVec(1, nbP);
+    tabCurv = new VectorArray(1, nbP);
   if ((Index <= 0) || (Index > nbP))
   {
     throw Standard_OutOfRange();
@@ -273,7 +273,7 @@ Vector3d AppDef_MultiPointConstraint::Curv(const Standard_Integer Index) const
 void AppDef_MultiPointConstraint::SetCurv2d(const Standard_Integer Index, const gp_Vec2d& Curv2d)
 {
   if (tabCurv2d.IsNull())
-    tabCurv2d = new TColgp_HArray1OfVec2d(1, nbP2d);
+    tabCurv2d = new Vector2dArray(1, nbP2d);
   if ((Index <= nbP) || (Index > nbP + nbP2d))
   {
     throw Standard_OutOfRange();

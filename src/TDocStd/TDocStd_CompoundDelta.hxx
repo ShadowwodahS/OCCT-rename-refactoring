@@ -20,24 +20,24 @@
 #include <TDF_Delta.hxx>
 
 class TDocStd_CompoundDelta;
-DEFINE_STANDARD_HANDLE(TDocStd_CompoundDelta, TDF_Delta)
+DEFINE_STANDARD_HANDLE(TDocStd_CompoundDelta, Delta)
 
 //! A delta set is available at <aSourceTime>. If
-//! applied, it restores the TDF_Data in the state it
+//! applied, it restores the Data2 in the state it
 //! was at <aTargetTime>.
-class TDocStd_CompoundDelta : public TDF_Delta
+class TDocStd_CompoundDelta : public Delta
 {
 
 public:
   //! Creates a compound delta.
   //! Validates <me> at <aBeginTime>. If applied, it
-  //! restores the TDF_Data in the state it was at
-  //! <anEndTime>. Reserved to TDF_Data.
+  //! restores the Data2 in the state it was at
+  //! <anEndTime>. Reserved to Data2.
   Standard_EXPORT TDocStd_CompoundDelta();
 
   friend class AppDocument;
 
-  DEFINE_STANDARD_RTTIEXT(TDocStd_CompoundDelta, TDF_Delta)
+  DEFINE_STANDARD_RTTIEXT(TDocStd_CompoundDelta, Delta)
 
 protected:
 private:

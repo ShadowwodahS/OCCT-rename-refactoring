@@ -27,20 +27,20 @@
 #include <Standard_OStream.hxx>
 class TDF_AttributeDelta;
 
-class TDF_Delta;
-DEFINE_STANDARD_HANDLE(TDF_Delta, RefObject)
+class Delta;
+DEFINE_STANDARD_HANDLE(Delta, RefObject)
 
 //! A set of AttributeDelta for a given transaction
 //! number and reference time number.
 //! A delta set is available at <aSourceTime>. If
-//! applied, it restores the TDF_Data in the state it
+//! applied, it restores the Data2 in the state it
 //! was at <aTargetTime>.
-class TDF_Delta : public RefObject
+class Delta : public RefObject
 {
 
 public:
   //! Creates a delta.
-  Standard_EXPORT TDF_Delta();
+  Standard_EXPORT Delta();
 
   //! Returns true if there is nothing to undo.
   Standard_Boolean IsEmpty() const;
@@ -73,19 +73,19 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  friend class TDF_Data;
+  friend class Data2;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_Delta, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Delta, RefObject)
 
 protected:
   //! Validates <me> at <aBeginTime>. If applied, it
-  //! restores the TDF_Data in the state it was at
-  //! <anEndTime>. Reserved to TDF_Data.
+  //! restores the Data2 in the state it was at
+  //! <anEndTime>. Reserved to Data2.
   Standard_EXPORT void Validity(const Standard_Integer aBeginTime,
                                 const Standard_Integer anEndTime);
 
   //! Adds an AttributeDelta to the list. Reserved to
-  //! TDF_Data.
+  //! Data2.
   Standard_EXPORT void AddAttributeDelta(const Handle(TDF_AttributeDelta)& anAttributeDelta);
 
 private:

@@ -22,7 +22,7 @@
 #include <gp_Pnt2d.hxx>
 #include <StdFail_NotDone.hxx>
 
-gce_MakeParab2d::gce_MakeParab2d(const Ax22d& A, const Standard_Real Focal)
+ParabolaBuilder2d1::ParabolaBuilder2d1(const Ax22d& A, const Standard_Real Focal)
 {
   if (Focal < 0.0)
   {
@@ -35,7 +35,7 @@ gce_MakeParab2d::gce_MakeParab2d(const Ax22d& A, const Standard_Real Focal)
   }
 }
 
-gce_MakeParab2d::gce_MakeParab2d(const gp_Ax2d&         MirrorAxis,
+ParabolaBuilder2d1::ParabolaBuilder2d1(const gp_Ax2d&         MirrorAxis,
                                  const Standard_Real    Focal,
                                  const Standard_Boolean Sense)
 {
@@ -50,7 +50,7 @@ gce_MakeParab2d::gce_MakeParab2d(const gp_Ax2d&         MirrorAxis,
   }
 }
 
-gce_MakeParab2d::gce_MakeParab2d(const gp_Ax2d& D, const gp_Pnt2d& F, const Standard_Boolean Sense)
+ParabolaBuilder2d1::ParabolaBuilder2d1(const gp_Ax2d& D, const gp_Pnt2d& F, const Standard_Boolean Sense)
 {
   TheParab2d = gp_Parab2d(D, F, Sense);
   TheError   = gce_Done;
@@ -63,7 +63,7 @@ gce_MakeParab2d::gce_MakeParab2d(const gp_Ax2d& D, const gp_Pnt2d& F, const Stan
 //   <S1> donne la focale.                                                +
 //=========================================================================
 
-gce_MakeParab2d::gce_MakeParab2d(const gp_Pnt2d&        S,
+ParabolaBuilder2d1::ParabolaBuilder2d1(const gp_Pnt2d&        S,
                                  const gp_Pnt2d&        Center,
                                  const Standard_Boolean Sense)
 {
@@ -79,18 +79,18 @@ gce_MakeParab2d::gce_MakeParab2d(const gp_Pnt2d&        S,
   }
 }
 
-const gp_Parab2d& gce_MakeParab2d::Value() const
+const gp_Parab2d& ParabolaBuilder2d1::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeParab2d::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "ParabolaBuilder2d1::Value() - no result");
   return TheParab2d;
 }
 
-const gp_Parab2d& gce_MakeParab2d::Operator() const
+const gp_Parab2d& ParabolaBuilder2d1::Operator() const
 {
   return Value();
 }
 
-gce_MakeParab2d::operator gp_Parab2d() const
+ParabolaBuilder2d1::operator gp_Parab2d() const
 {
   return Value();
 }

@@ -29,7 +29,7 @@ public:
   //! @param thePenLoc start position and orientation on the baseline
   //! @return result shape with pen transformation applied as shape location
   Standard_EXPORT TopoShape Perform(StdPrs_BRepFont&                  theFont,
-                                       const Handle(Font_TextFormatter)& theFormatter,
+                                       const Handle(TextFormatter1)& theFormatter,
                                        const Ax3&                     thePenLoc = Ax3());
   //! Render text as BRep shape.
   //! @param theString text in UTF-8 encoding

@@ -73,7 +73,7 @@ void EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     SmallDist = Dist * 0.05; // 1/20.0 part
     if (SmallDist <= Precision1::Confusion())
       SmallDist = Dist;
-    LineDir = gce_MakeDir(Middle12, Middle34);
+    LineDir = DirectionBuilder(Middle12, Middle34);
     OrtDir  = Plane1->Pln().Axis().Direction() ^ LineDir;
     LineVec = Vector3d(LineDir) * SmallDist;
     OrtVec  = Vector3d(OrtDir) * SmallDist;
@@ -88,7 +88,7 @@ void EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     {
       Standard_Real Angle  = Vector3d(Middle, Point1).Angle(Vector3d(Middle, Point3));
       Point3d        MidPnt = Point1.Rotated(Plane1->Pln().Axis(), Angle * 0.5);
-      OrtDir               = gce_MakeDir(Middle, MidPnt);
+      OrtDir               = DirectionBuilder(Middle, MidPnt);
       LineDir              = OrtDir ^ Plane1->Pln().Axis().Direction();
 
       Standard_Real Distance = Point1.Distance(Point2);

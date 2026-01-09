@@ -139,13 +139,13 @@ void Framework::ChangeIso(const Standard_Integer        IndexIso,
 // purpose  : return the node of coordinates (U,V)
 //==========================================================================================
 
-const Handle(AdvApp2Var_Node)& Framework::Node(const Standard_Real U,
+const Handle(ApproximationNode)& Framework::Node(const Standard_Real U,
                                                           const Standard_Real V) const
 {
   for (AdvApp2Var_SequenceOfNode::Iterator aNodeIter(myNodeConstraints); aNodeIter.More();
        aNodeIter.Next())
   {
-    const Handle(AdvApp2Var_Node)& aNode = aNodeIter.Value();
+    const Handle(ApproximationNode)& aNode = aNodeIter.Value();
     if (aNode->Coord().X() == U && aNode->Coord().Y() == V)
     {
       return aNode;
@@ -279,8 +279,8 @@ void Framework::UpdateInU(const Standard_Real CuttingValue)
   }
 
   //  insertion des nouveaux noeuds (U*,Vj)
-  Handle(AdvApp2Var_Node) aNext;
-  Handle(AdvApp2Var_Node) aPrev = myNodeConstraints.First();
+  Handle(ApproximationNode) aNext;
+  Handle(ApproximationNode) aPrev = myNodeConstraints.First();
   for (Standard_Integer j = 1; j < myNodeConstraints.Length(); j++)
   {
     aNext = myNodeConstraints.Value(j + 1);
@@ -288,8 +288,8 @@ void Framework::UpdateInU(const Standard_Real CuttingValue)
         && aPrev->Coord().Y() == aNext->Coord().Y())
     {
       Coords2d                   aNewUV(CuttingValue, aPrev->Coord().Y());
-      Handle(AdvApp2Var_Node) aNewNode =
-        new AdvApp2Var_Node(aNewUV, aPrev->UOrder(), aPrev->VOrder());
+      Handle(ApproximationNode) aNewNode =
+        new ApproximationNode(aNewUV, aPrev->UOrder(), aPrev->VOrder());
       myNodeConstraints.InsertAfter(j, aNewNode);
     }
     aPrev = aNext;
@@ -375,10 +375,10 @@ void Framework::UpdateInV(const Standard_Real CuttingValue)
   }
   for (j = 1; j <= myUConstraints.Length() + 1; j++)
   {
-    const Handle(AdvApp2Var_Node)& aJNode = myNodeConstraints.Value(j);
+    const Handle(ApproximationNode)& aJNode = myNodeConstraints.Value(j);
     Coords2d                          NewUV(aJNode->Coord().X(), CuttingValue);
-    Handle(AdvApp2Var_Node)        aNewNode =
-      new AdvApp2Var_Node(NewUV, aJNode->UOrder(), aJNode->VOrder());
+    Handle(ApproximationNode)        aNewNode =
+      new ApproximationNode(NewUV, aJNode->UOrder(), aJNode->VOrder());
     myNodeConstraints.InsertAfter(i + j - 2, aNewNode);
   }
 }

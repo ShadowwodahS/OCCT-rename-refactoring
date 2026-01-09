@@ -26,7 +26,7 @@
 //   Creation d une Ellipse 3d de gp1 a partir de son Ax2 et de son        +
 //   grand rayon <MajorRadius> et son petit rayon <MinorRadius>.          +
 //=========================================================================
-gce_MakeElips::gce_MakeElips(const Frame3d&       A2,
+EllipseBuilder1::EllipseBuilder1(const Frame3d&       A2,
                              const Standard_Real MajorRadius,
                              const Standard_Real MinorRadius)
 {
@@ -51,7 +51,7 @@ gce_MakeElips::gce_MakeElips(const Frame3d&       A2,
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
 
-gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d& Center)
+EllipseBuilder1::EllipseBuilder1(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
   Standard_Real D1 = S1.Distance(Center);
   if (D1 < gp1::Resolution())
@@ -75,18 +75,18 @@ gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d
   }
 }
 
-const gp_Elips& gce_MakeElips::Value() const
+const gp_Elips& EllipseBuilder1::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeElips::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "EllipseBuilder1::Value() - no result");
   return TheElips;
 }
 
-const gp_Elips& gce_MakeElips::Operator() const
+const gp_Elips& EllipseBuilder1::Operator() const
 {
   return Value();
 }
 
-gce_MakeElips::operator gp_Elips() const
+EllipseBuilder1::operator gp_Elips() const
 {
   return Value();
 }

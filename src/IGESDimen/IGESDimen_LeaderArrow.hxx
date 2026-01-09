@@ -52,7 +52,7 @@ public:
                             const Standard_Real               width,
                             const Standard_Real               depth,
                             const Coords2d&                      position,
-                            const Handle(TColgp_HArray1OfXY)& segments);
+                            const Handle(XYArray)& segments);
 
   //! Changes FormNumber (indicates the Shape of the Arrow2)
   //! Error if not in range [0-12]
@@ -92,7 +92,7 @@ private:
   Standard_Real              theArrowHeadWidth;
   Standard_Real              theZDepth;
   Coords2d                      theArrowHead;
-  Handle(TColgp_HArray1OfXY) theSegmentTails;
+  Handle(XYArray) theSegmentTails;
 };
 
 #endif // _IGESDimen_LeaderArrow_HeaderFile

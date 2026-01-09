@@ -20,6 +20,6 @@
 #include <IntCurveSurface_IntersectionSegment.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntCurveSurface_IntersectionSegment> IntCurveSurface_SequenceOfSeg;
+typedef NCollection_Sequence<IntersectionSegment> IntCurveSurface_SequenceOfSeg;
 
 #endif

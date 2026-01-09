@@ -26,7 +26,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
 #include <GeomAbs_Shape.hxx>
-class GeomFill_SectionLaw;
+class SectionLaw;
 class TopoVertex;
 class TopoShape;
 class TopoWire;
@@ -42,7 +42,7 @@ class BRepFill_SectionLaw : public RefObject
 public:
   Standard_EXPORT Standard_Integer NbLaw() const;
 
-  Standard_EXPORT const Handle(GeomFill_SectionLaw)& Law1(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(SectionLaw)& Law1(const Standard_Integer Index) const;
 
   Standard_EXPORT Standard_Integer IndexOfEdge(const TopoShape& anEdge) const;
 
@@ -57,7 +57,7 @@ public:
   //! Say if the input shape is a  vertex.
   Standard_EXPORT virtual Standard_Boolean IsVertex() const = 0;
 
-  Standard_EXPORT virtual Handle(GeomFill_SectionLaw) ConcatenedLaw() const = 0;
+  Standard_EXPORT virtual Handle(SectionLaw) ConcatenedLaw() const = 0;
 
   Standard_EXPORT virtual GeomAbs_Shape Continuity(const Standard_Integer Index,
                                                    const Standard_Real    TolAngular) const = 0;
@@ -77,7 +77,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(BRepFill_SectionLaw, RefObject)
 
 protected:
-  Handle(GeomFill_HArray1OfSectionLaw) myLaws;
+  Handle(SectionLawArray) myLaws;
   Standard_Boolean                     uclosed;
   Standard_Boolean                     vclosed;
   Standard_Boolean                     myDone;

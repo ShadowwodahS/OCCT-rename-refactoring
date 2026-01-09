@@ -1161,7 +1161,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckSelfIntersectingEdge(
 
   for (Standard_Integer i = 1; i <= Inter.NbPoints(); i++)
   {
-    const IntRes2d_IntersectionPoint& IP  = Inter.Point(i);
+    const IntersectionPoint3& IP  = Inter.Point(i);
     const Transition3&        Tr1 = IP.TransitionOfFirst();
     const Transition3&        Tr2 = IP.TransitionOfSecond();
     if (Tr1.PositionOnCurve() != IntRes2d_Middle && Tr2.PositionOnCurve() != IntRes2d_Middle)
@@ -1293,7 +1293,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
   Standard_Integer NbPoints = Inter.NbPoints(), NbSegments = Inter.NbSegments();
   for (Standard_Integer i = 1; i <= NbPoints + NbSegments; i++)
   {
-    IntRes2d_IntersectionPoint IP;
+    IntersectionPoint3 IP;
     Transition3        Tr1, Tr2;
     if (i <= NbPoints)
       IP = Inter.Point(i);
@@ -1439,7 +1439,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
   Standard_Integer NbPoints = Inter.NbPoints(), NbSegments = Inter.NbSegments();
   for (Standard_Integer i = 1; i <= NbPoints + NbSegments; i++)
   {
-    IntRes2d_IntersectionPoint IP;
+    IntersectionPoint3 IP;
     Transition3        Tr1, Tr2;
     if (i <= NbPoints)
       IP = Inter.Point(i);

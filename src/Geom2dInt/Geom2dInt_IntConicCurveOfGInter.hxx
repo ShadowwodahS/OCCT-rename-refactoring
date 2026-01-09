@@ -27,7 +27,7 @@ class Standard_ConstructionError;
 class ConicTool;
 class Adaptor2d_Curve2d;
 class Geom2dCurveTool;
-class Geom2dInt_TheIntConicCurveOfGInter;
+class IntConicCurve2d;
 class gp_Lin2d;
 class Domain2;
 class gp_Circ2d;
@@ -172,7 +172,7 @@ private:
   Standard_Real                      param2inf;
   Standard_Real                      param2sup;
   IntCurve_IntConicConic             intconiconi;
-  Geom2dInt_TheIntConicCurveOfGInter intconicurv;
+  IntConicCurve2d intconicurv;
 };
 
 #endif // _Geom2dInt_IntConicCurveOfGInter_HeaderFile

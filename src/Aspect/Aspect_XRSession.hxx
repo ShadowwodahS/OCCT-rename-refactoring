@@ -181,25 +181,25 @@ public:
   //! Fetch data for digital input action (like button).
   //! @param[in] theAction  action of Aspect_XRActionType_InputDigital type
   virtual XRDigitalActionData GetDigitalActionData(
-    const Handle(Aspect_XRAction)& theAction) const = 0;
+    const Handle(XRAction)& theAction) const = 0;
 
   //! Fetch data for digital input action (like axis).
   //! @param[in] theAction  action of Aspect_XRActionType_InputAnalog type
   virtual XRAnalogActionData GetAnalogActionData(
-    const Handle(Aspect_XRAction)& theAction) const = 0;
+    const Handle(XRAction)& theAction) const = 0;
 
   //! Fetch data for pose input action (like fingertip position).
   //! The returned values will match the values returned by the last call to WaitPoses().
   //! @param[in] theAction  action of Aspect_XRActionType_InputPose type
-  virtual Aspect_XRPoseActionData GetPoseActionDataForNextFrame(
-    const Handle(Aspect_XRAction)& theAction) const = 0;
+  virtual XRPoseActionData GetPoseActionDataForNextFrame(
+    const Handle(XRAction)& theAction) const = 0;
 
   //! Trigger vibration.
-  Standard_EXPORT void TriggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
+  Standard_EXPORT void TriggerHapticVibrationAction(const Handle(XRAction)&   theAction,
                                                     const XRHapticActionData& theParams);
 
   //! Abort vibration.
-  Standard_EXPORT void AbortHapticVibrationAction(const Handle(Aspect_XRAction)& theAction);
+  Standard_EXPORT void AbortHapticVibrationAction(const Handle(XRAction)& theAction);
 
   //! Return tracking origin.
   TrackingUniverseOrigin TrackingOrigin() const { return myTrackOrigin; }
@@ -208,10 +208,10 @@ public:
   virtual void SetTrackingOrigin(TrackingUniverseOrigin theOrigin) { myTrackOrigin = theOrigin; }
 
   //! Return generic action for specific hand or NULL if undefined.
-  const Handle(Aspect_XRAction)& GenericAction(Aspect_XRTrackedDeviceRole theDevice,
+  const Handle(XRAction)& GenericAction(Aspect_XRTrackedDeviceRole theDevice,
                                                Aspect_XRGenericAction     theAction) const
   {
-    const NCollection_Array1<Handle(Aspect_XRAction)>& anActions = myRoleActions[theDevice];
+    const NCollection_Array1<Handle(XRAction)>& anActions = myRoleActions[theDevice];
     return anActions[theAction];
   }
 
@@ -242,11 +242,11 @@ protected:
                                                              Handle(Image_Texture)& theTexture) = 0;
 
   //! Trigger vibration.
-  virtual void triggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
+  virtual void triggerHapticVibrationAction(const Handle(XRAction)&   theAction,
                                             const XRHapticActionData& theParams) = 0;
 
 protected:
-  NCollection_Array1<Handle(Aspect_XRAction)>
+  NCollection_Array1<Handle(XRAction)>
     // clang-format off
                                   myRoleActions[Aspect_XRTrackedDeviceRole_NB]; //!< generic actions
   Aspect_XRActionSetMap           myActionSets;   //!< actions sets

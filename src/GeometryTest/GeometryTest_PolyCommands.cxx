@@ -131,7 +131,7 @@ static Standard_Integer polygon2d(DrawInterpreter& di, Standard_Integer n, const
     j += 2;
   }
 
-  Handle(Poly_Polygon2D) P2d = new Poly_Polygon2D(Nodes);
+  Handle(Polygon2D2) P2d = new Polygon2D2(Nodes);
 
   DrawTrSurf1::Set(a[1], P2d);
 
@@ -198,11 +198,11 @@ static Standard_Integer AddNode(DrawInterpreter& theDI,
 
   if (theNArg == 4)
   {
-    Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
+    Handle(Polygon2D2) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
     TColgp_Array1OfPnt2d   aNodes(aPoly2d->Nodes().Lower(), aPoly2d->Nodes().Upper() + 1);
     AddNode(aPoly2d, gp_Pnt2d(Draw1::Atof(theArgVal[2]), Draw1::Atof(theArgVal[3])), aNodes);
     aPoly2d.Nullify();
-    aPoly2d = new Poly_Polygon2D(aNodes);
+    aPoly2d = new Polygon2D2(aNodes);
     DrawTrSurf1::Set(theArgVal[1], aPoly2d);
   }
   else
@@ -232,7 +232,7 @@ static Standard_Integer PolygonProps(DrawInterpreter& theDI,
     return 1;
   }
 
-  Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
+  Handle(Polygon2D2) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
 
   Standard_Real anArea = 0.0, aPerimeter = 0.0;
   Poly1::PolygonProperties(aPoly2d->Nodes(), anArea, aPerimeter);

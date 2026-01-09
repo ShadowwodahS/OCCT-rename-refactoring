@@ -23,11 +23,11 @@ class BVH_Builder;
 
 //! A non-template class for using as base for BVH_TreeBase
 //! (just to have a named base class).
-class BVH_TreeBaseTransient : public RefObject
+class TransientTreeBase : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_TreeBaseTransient, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TransientTreeBase, RefObject)
 protected:
-  BVH_TreeBaseTransient() {}
+  TransientTreeBase() {}
 
   //! Dumps the content of me into the stream
   virtual void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const
@@ -56,7 +56,7 @@ protected:
 //! such as collision detection, ray-tracing, searching of nearest
 //! objects, and view frustum culling.
 template <class T, int N>
-class BVH_TreeBase : public BVH_TreeBaseTransient
+class BVH_TreeBase : public TransientTreeBase
 {
   friend class BVH_Builder<T, N>;
 

@@ -135,11 +135,11 @@ typedef Graphic3d_UniformValue<Graphic3d_Vec3> Graphic3d_UniformVec3;
 typedef Graphic3d_UniformValue<Graphic3d_Vec4> Graphic3d_UniformVec4;
 
 //! Describes custom uniform shader variable.
-class Graphic3d_ShaderVariable : public RefObject
+class ShaderVariable1 : public RefObject
 {
 public:
   //! Releases resources of shader variable.
-  Standard_EXPORT virtual ~Graphic3d_ShaderVariable();
+  Standard_EXPORT virtual ~ShaderVariable1();
 
   //! Returns name of shader variable.
   Standard_EXPORT const AsciiString1& Name() const;
@@ -152,15 +152,15 @@ public:
 
   //! Creates new initialized shader variable.
   template <class T>
-  static Graphic3d_ShaderVariable* Create(const AsciiString1& theName,
+  static ShaderVariable1* Create(const AsciiString1& theName,
                                           const T&                       theValue);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderVariable, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShaderVariable1, RefObject)
 
 protected:
   //! Creates new uninitialized shader variable.
-  Standard_EXPORT Graphic3d_ShaderVariable(const AsciiString1& theName);
+  Standard_EXPORT ShaderVariable1(const AsciiString1& theName);
 
 protected:
   //! The name of uniform shader variable.
@@ -170,7 +170,7 @@ protected:
   ValueInterface* myValue;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderVariable, RefObject)
+DEFINE_STANDARD_HANDLE(ShaderVariable1, RefObject)
 
 #include <Graphic3d_ShaderVariable.lxx>
 

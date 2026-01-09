@@ -104,8 +104,8 @@ private:
   Standard_Boolean                 myIsPar;
   Standard_Integer                 myNbExt;
   Handle(TColStd_HArray1OfReal)    mySqDist;
-  Handle(Extrema_HArray1OfPOnSurf) myPOnS1;
-  Handle(Extrema_HArray1OfPOnSurf) myPOnS2;
+  Handle(PointOnSurfaceArray) myPOnS1;
+  Handle(PointOnSurfaceArray) myPOnS2;
 };
 
 #endif // _Extrema_ExtElSS_HeaderFile

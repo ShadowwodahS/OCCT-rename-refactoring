@@ -49,16 +49,16 @@ struct Graphic3d_ZLayerSettings
   //! Return lights list to be used for rendering presentations within this Z-Layer; NULL by
   //! default. NULL list (but not empty list!) means that default lights assigned to the View should
   //! be used instead of per-layer lights.
-  const Handle(Graphic3d_LightSet)& Lights() const { return myLights; }
+  const Handle(LightSet)& Lights() const { return myLights; }
 
   //! Assign lights list to be used.
-  void SetLights(const Handle(Graphic3d_LightSet)& theLights) { myLights = theLights; }
+  void SetLights(const Handle(LightSet)& theLights) { myLights = theLights; }
 
   //! Return the origin of all objects within the layer.
   const Coords3d& Origin() const { return myOrigin; }
 
   //! Return the transformation to the origin.
-  const Handle(TopLoc_Datum3D)& OriginTransformation() const { return myOriginTrsf; }
+  const Handle(Datum3D2)& OriginTransformation() const { return myOriginTrsf; }
 
   //! Set the origin of all objects within the layer.
   void SetOrigin(const Coords3d& theOrigin)
@@ -69,7 +69,7 @@ struct Graphic3d_ZLayerSettings
     {
       Transform3d aTrsf;
       aTrsf.SetTranslation(theOrigin);
-      myOriginTrsf = new TopLoc_Datum3D(aTrsf);
+      myOriginTrsf = new Datum3D2(aTrsf);
     }
   }
 
@@ -206,8 +206,8 @@ struct Graphic3d_ZLayerSettings
 
 protected:
   AsciiString1    myName;       //!< user-provided name
-  Handle(Graphic3d_LightSet) myLights;     //!< lights list
-  Handle(TopLoc_Datum3D)     myOriginTrsf; //!< transformation to the origin
+  Handle(LightSet) myLights;     //!< lights list
+  Handle(Datum3D2)     myOriginTrsf; //!< transformation to the origin
   // clang-format off
   Coords3d                      myOrigin;                //!< the origin of all objects within the layer
   Standard_Real               myCullingDistance;       //!< distance to discard objects

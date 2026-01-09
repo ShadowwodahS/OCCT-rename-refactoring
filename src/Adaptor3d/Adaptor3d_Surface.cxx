@@ -30,191 +30,191 @@
 #include <gp_Vec.hxx>
 #include <Standard_NotImplemented.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_Surface, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SurfaceAdaptor, RefObject)
 
 //=================================================================================================
 
-Adaptor3d_Surface::~Adaptor3d_Surface() {}
+SurfaceAdaptor::~SurfaceAdaptor() {}
 
 //=================================================================================================
 
-Handle(Adaptor3d_Surface) Adaptor3d_Surface::ShallowCopy() const
+Handle(SurfaceAdaptor) SurfaceAdaptor::ShallowCopy() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::ShallowCopy");
+  throw Standard_NotImplemented("SurfaceAdaptor::ShallowCopy");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::FirstUParameter() const
+Standard_Real SurfaceAdaptor::FirstUParameter() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::FirstUParameter");
+  throw Standard_NotImplemented("SurfaceAdaptor::FirstUParameter");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::LastUParameter() const
+Standard_Real SurfaceAdaptor::LastUParameter() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::LastUParameter");
+  throw Standard_NotImplemented("SurfaceAdaptor::LastUParameter");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::FirstVParameter() const
+Standard_Real SurfaceAdaptor::FirstVParameter() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::FirstVParameter");
+  throw Standard_NotImplemented("SurfaceAdaptor::FirstVParameter");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::LastVParameter() const
+Standard_Real SurfaceAdaptor::LastVParameter() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::LastVParameter");
+  throw Standard_NotImplemented("SurfaceAdaptor::LastVParameter");
 }
 
 //=================================================================================================
 
-GeomAbs_Shape Adaptor3d_Surface::UContinuity() const
+GeomAbs_Shape SurfaceAdaptor::UContinuity() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::UContinuity");
+  throw Standard_NotImplemented("SurfaceAdaptor::UContinuity");
 }
 
 //=================================================================================================
 
-GeomAbs_Shape Adaptor3d_Surface::VContinuity() const
+GeomAbs_Shape SurfaceAdaptor::VContinuity() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::VContinuity");
+  throw Standard_NotImplemented("SurfaceAdaptor::VContinuity");
 }
 
 //=================================================================================================
 
-// Standard_Integer Adaptor3d_Surface::NbUIntervals(const GeomAbs_Shape S) const
-Standard_Integer Adaptor3d_Surface::NbUIntervals(const GeomAbs_Shape) const
+// Standard_Integer SurfaceAdaptor::NbUIntervals(const GeomAbs_Shape S) const
+Standard_Integer SurfaceAdaptor::NbUIntervals(const GeomAbs_Shape) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::NbUIntervals");
+  throw Standard_NotImplemented("SurfaceAdaptor::NbUIntervals");
 }
 
 //=================================================================================================
 
-// Standard_Integer Adaptor3d_Surface::NbVIntervals(const GeomAbs_Shape S) const
-Standard_Integer Adaptor3d_Surface::NbVIntervals(const GeomAbs_Shape) const
+// Standard_Integer SurfaceAdaptor::NbVIntervals(const GeomAbs_Shape S) const
+Standard_Integer SurfaceAdaptor::NbVIntervals(const GeomAbs_Shape) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::NbVIntervals");
+  throw Standard_NotImplemented("SurfaceAdaptor::NbVIntervals");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::UIntervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
-void Adaptor3d_Surface::UIntervals(TColStd_Array1OfReal&, const GeomAbs_Shape) const
+// void SurfaceAdaptor::UIntervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
+void SurfaceAdaptor::UIntervals(TColStd_Array1OfReal&, const GeomAbs_Shape) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::UIntervals");
+  throw Standard_NotImplemented("SurfaceAdaptor::UIntervals");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::VIntervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
-void Adaptor3d_Surface::VIntervals(TColStd_Array1OfReal&, const GeomAbs_Shape) const
+// void SurfaceAdaptor::VIntervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
+void SurfaceAdaptor::VIntervals(TColStd_Array1OfReal&, const GeomAbs_Shape) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::VIntervals");
+  throw Standard_NotImplemented("SurfaceAdaptor::VIntervals");
 }
 
 //=================================================================================================
 
-// Handle(Adaptor3d_Surface) Adaptor3d_Surface::UTrim(const Standard_Real First, const Standard_Real
+// Handle(SurfaceAdaptor) SurfaceAdaptor::UTrim(const Standard_Real First, const Standard_Real
 // Last, const Standard_Real Tol) const
-Handle(Adaptor3d_Surface) Adaptor3d_Surface::UTrim(const Standard_Real,
+Handle(SurfaceAdaptor) SurfaceAdaptor::UTrim(const Standard_Real,
                                                    const Standard_Real,
                                                    const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::UTrim");
+  throw Standard_NotImplemented("SurfaceAdaptor::UTrim");
 }
 
 //=================================================================================================
 
-// Handle(Adaptor3d_Surface) Adaptor3d_Surface::VTrim(const Standard_Real First, const Standard_Real
+// Handle(SurfaceAdaptor) SurfaceAdaptor::VTrim(const Standard_Real First, const Standard_Real
 // Last, const Standard_Real Tol) const
-Handle(Adaptor3d_Surface) Adaptor3d_Surface::VTrim(const Standard_Real,
+Handle(SurfaceAdaptor) SurfaceAdaptor::VTrim(const Standard_Real,
                                                    const Standard_Real,
                                                    const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::VTrim");
+  throw Standard_NotImplemented("SurfaceAdaptor::VTrim");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Surface::IsUClosed() const
+Standard_Boolean SurfaceAdaptor::IsUClosed() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::IsUClosed");
+  throw Standard_NotImplemented("SurfaceAdaptor::IsUClosed");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Surface::IsVClosed() const
+Standard_Boolean SurfaceAdaptor::IsVClosed() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::IsVClosed");
+  throw Standard_NotImplemented("SurfaceAdaptor::IsVClosed");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Surface::IsUPeriodic() const
+Standard_Boolean SurfaceAdaptor::IsUPeriodic() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::IsUPeriodic");
+  throw Standard_NotImplemented("SurfaceAdaptor::IsUPeriodic");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::UPeriod() const
+Standard_Real SurfaceAdaptor::UPeriod() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::UPeriod");
+  throw Standard_NotImplemented("SurfaceAdaptor::UPeriod");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Surface::IsVPeriodic() const
+Standard_Boolean SurfaceAdaptor::IsVPeriodic() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::IsVPeriodic");
+  throw Standard_NotImplemented("SurfaceAdaptor::IsVPeriodic");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::VPeriod() const
+Standard_Real SurfaceAdaptor::VPeriod() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::VPeriod");
+  throw Standard_NotImplemented("SurfaceAdaptor::VPeriod");
 }
 
 //=================================================================================================
 
-// Point3d Adaptor3d_Surface::Value(const Standard_Real U, const Standard_Real V) const
-Point3d Adaptor3d_Surface::Value(const Standard_Real, const Standard_Real) const
+// Point3d SurfaceAdaptor::Value(const Standard_Real U, const Standard_Real V) const
+Point3d SurfaceAdaptor::Value(const Standard_Real, const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Value");
+  throw Standard_NotImplemented("SurfaceAdaptor::Value");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
-void Adaptor3d_Surface::D0(const Standard_Real, const Standard_Real, Point3d&) const
+// void SurfaceAdaptor::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
+void SurfaceAdaptor::D0(const Standard_Real, const Standard_Real, Point3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::D0");
+  throw Standard_NotImplemented("SurfaceAdaptor::D0");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D1(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// void SurfaceAdaptor::D1(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
 // Vector3d& D1V) const
-void Adaptor3d_Surface::D1(const Standard_Real,
+void SurfaceAdaptor::D1(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
                            Vector3d&,
                            Vector3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::D1");
+  throw Standard_NotImplemented("SurfaceAdaptor::D1");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D2(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// void SurfaceAdaptor::D2(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
 // Vector3d& D1V, Vector3d& D2U, Vector3d& D2V, Vector3d& D2UV) const
-void Adaptor3d_Surface::D2(const Standard_Real,
+void SurfaceAdaptor::D2(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
                            Vector3d&,
@@ -223,15 +223,15 @@ void Adaptor3d_Surface::D2(const Standard_Real,
                            Vector3d&,
                            Vector3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::D2");
+  throw Standard_NotImplemented("SurfaceAdaptor::D2");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// void SurfaceAdaptor::D3(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
 // Vector3d& D1V, Vector3d& D2U, Vector3d& D2V, Vector3d& D2UV, Vector3d& D3U, Vector3d& D3V, Vector3d& D3UUV,
 // Vector3d& D3UVV) const
-void Adaptor3d_Surface::D3(const Standard_Real,
+void SurfaceAdaptor::D3(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
                            Vector3d&,
@@ -244,180 +244,180 @@ void Adaptor3d_Surface::D3(const Standard_Real,
                            Vector3d&,
                            Vector3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::D3");
+  throw Standard_NotImplemented("SurfaceAdaptor::D3");
 }
 
 //=================================================================================================
 
-// Vector3d Adaptor3d_Surface::DN(const Standard_Real U, const Standard_Real V, const Standard_Integer
+// Vector3d SurfaceAdaptor::DN(const Standard_Real U, const Standard_Real V, const Standard_Integer
 // Nu, const Standard_Integer Nv) const
-Vector3d Adaptor3d_Surface::DN(const Standard_Real,
+Vector3d SurfaceAdaptor::DN(const Standard_Real,
                              const Standard_Real,
                              const Standard_Integer,
                              const Standard_Integer) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::DN");
+  throw Standard_NotImplemented("SurfaceAdaptor::DN");
 }
 
 //=================================================================================================
 
-// Standard_Real Adaptor3d_Surface::UResolution(const Standard_Real R3d) const
-Standard_Real Adaptor3d_Surface::UResolution(const Standard_Real) const
+// Standard_Real SurfaceAdaptor::UResolution(const Standard_Real R3d) const
+Standard_Real SurfaceAdaptor::UResolution(const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::UResolution");
+  throw Standard_NotImplemented("SurfaceAdaptor::UResolution");
 }
 
 //=================================================================================================
 
-// Standard_Real Adaptor3d_Surface::VResolution(const Standard_Real R3d) const
-Standard_Real Adaptor3d_Surface::VResolution(const Standard_Real) const
+// Standard_Real SurfaceAdaptor::VResolution(const Standard_Real R3d) const
+Standard_Real SurfaceAdaptor::VResolution(const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::VResolution");
+  throw Standard_NotImplemented("SurfaceAdaptor::VResolution");
 }
 
 //=================================================================================================
 
-GeomAbs_SurfaceType Adaptor3d_Surface::GetType() const
+GeomAbs_SurfaceType SurfaceAdaptor::GetType() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::GetType");
+  throw Standard_NotImplemented("SurfaceAdaptor::GetType");
 }
 
 //=================================================================================================
 
-gp_Pln Adaptor3d_Surface::Plane1() const
+gp_Pln SurfaceAdaptor::Plane1() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Plane1");
+  throw Standard_NotImplemented("SurfaceAdaptor::Plane1");
 }
 
 //=================================================================================================
 
-Cylinder1 Adaptor3d_Surface::Cylinder() const
+Cylinder1 SurfaceAdaptor::Cylinder() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Cylinder");
+  throw Standard_NotImplemented("SurfaceAdaptor::Cylinder");
 }
 
 //=================================================================================================
 
-Cone1 Adaptor3d_Surface::Cone() const
+Cone1 SurfaceAdaptor::Cone() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Cone");
+  throw Standard_NotImplemented("SurfaceAdaptor::Cone");
 }
 
 //=================================================================================================
 
-Sphere3 Adaptor3d_Surface::Sphere() const
+Sphere3 SurfaceAdaptor::Sphere() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Sphere");
+  throw Standard_NotImplemented("SurfaceAdaptor::Sphere");
 }
 
 //=================================================================================================
 
-gp_Torus Adaptor3d_Surface::Torus() const
+gp_Torus SurfaceAdaptor::Torus() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Torus");
+  throw Standard_NotImplemented("SurfaceAdaptor::Torus");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Surface::UDegree() const
+Standard_Integer SurfaceAdaptor::UDegree() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::UDegree");
+  throw Standard_NotImplemented("SurfaceAdaptor::UDegree");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Surface::NbUPoles() const
+Standard_Integer SurfaceAdaptor::NbUPoles() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::NbUPoles");
+  throw Standard_NotImplemented("SurfaceAdaptor::NbUPoles");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Surface::VDegree() const
+Standard_Integer SurfaceAdaptor::VDegree() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::VDegree");
+  throw Standard_NotImplemented("SurfaceAdaptor::VDegree");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Surface::NbVPoles() const
+Standard_Integer SurfaceAdaptor::NbVPoles() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::NbVPoles");
+  throw Standard_NotImplemented("SurfaceAdaptor::NbVPoles");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Surface::NbUKnots() const
+Standard_Integer SurfaceAdaptor::NbUKnots() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::NbUKnots");
+  throw Standard_NotImplemented("SurfaceAdaptor::NbUKnots");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Surface::NbVKnots() const
+Standard_Integer SurfaceAdaptor::NbVKnots() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::NbVKnots");
+  throw Standard_NotImplemented("SurfaceAdaptor::NbVKnots");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Surface::IsURational() const
+Standard_Boolean SurfaceAdaptor::IsURational() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::IsURational");
+  throw Standard_NotImplemented("SurfaceAdaptor::IsURational");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Surface::IsVRational() const
+Standard_Boolean SurfaceAdaptor::IsVRational() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::IsVRational");
+  throw Standard_NotImplemented("SurfaceAdaptor::IsVRational");
 }
 
 //=================================================================================================
 
-Handle(Geom_BezierSurface) Adaptor3d_Surface::Bezier() const
+Handle(Geom_BezierSurface) SurfaceAdaptor::Bezier() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Bezier");
+  throw Standard_NotImplemented("SurfaceAdaptor::Bezier");
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) Adaptor3d_Surface::BSpline() const
+Handle(Geom_BSplineSurface) SurfaceAdaptor::BSpline() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::BSpline");
+  throw Standard_NotImplemented("SurfaceAdaptor::BSpline");
 }
 
 //=================================================================================================
 
-Axis3d Adaptor3d_Surface::AxeOfRevolution() const
+Axis3d SurfaceAdaptor::AxeOfRevolution() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::AxeOfRevolution");
+  throw Standard_NotImplemented("SurfaceAdaptor::AxeOfRevolution");
 }
 
 //=================================================================================================
 
-Dir3d Adaptor3d_Surface::Direction() const
+Dir3d SurfaceAdaptor::Direction() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::Direction");
+  throw Standard_NotImplemented("SurfaceAdaptor::Direction");
 }
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) Adaptor3d_Surface::BasisCurve() const
+Handle(Curve5) SurfaceAdaptor::BasisCurve() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::BasisCurve");
+  throw Standard_NotImplemented("SurfaceAdaptor::BasisCurve");
 }
 
 //=================================================================================================
 
-Handle(Adaptor3d_Surface) Adaptor3d_Surface::BasisSurface() const
+Handle(SurfaceAdaptor) SurfaceAdaptor::BasisSurface() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::BasisSurface");
+  throw Standard_NotImplemented("SurfaceAdaptor::BasisSurface");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Surface::OffsetValue() const
+Standard_Real SurfaceAdaptor::OffsetValue() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Surface::OffsetValue");
+  throw Standard_NotImplemented("SurfaceAdaptor::OffsetValue");
 }

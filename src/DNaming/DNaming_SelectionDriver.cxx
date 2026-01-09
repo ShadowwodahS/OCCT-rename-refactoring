@@ -25,7 +25,7 @@
 #include <TNaming_Tool.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_SelectionDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_SelectionDriver, FunctionDriver1)
 
 // #define SEL_DEB 1
 #ifdef OCCT_DEBUG

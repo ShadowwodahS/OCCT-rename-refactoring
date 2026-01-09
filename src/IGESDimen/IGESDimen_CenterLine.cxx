@@ -29,7 +29,7 @@ IGESDimen_CenterLine::IGESDimen_CenterLine() {}
 
 void IGESDimen_CenterLine::Init(const Standard_Integer            aDataType,
                                 const Standard_Real               aZdisp,
-                                const Handle(TColgp_HArray1OfXY)& dataPnts)
+                                const Handle(XYArray)& dataPnts)
 {
   if (dataPnts->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_CenterLine : Init");

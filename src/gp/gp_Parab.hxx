@@ -42,7 +42,7 @@
 //! The "main Direction" of the local coordinate system gives
 //! the normal vector to the plane of the parabola.
 //! See Also
-//! gce_MakeParab which provides functions for more
+//! ParabolaBuilder which provides functions for more
 //! complex1 parabola constructions
 //! Geom_Parabola which provides additional functions for
 //! constructing parabolas and works, in particular, with the

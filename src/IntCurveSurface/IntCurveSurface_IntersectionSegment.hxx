@@ -26,14 +26,14 @@
 //! A IntersectionSegment describes a segment of curve
 //! (w1,w2) where distance(C(w),Surface) is less than a
 //! given tolerances.
-class IntCurveSurface_IntersectionSegment
+class IntersectionSegment
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntCurveSurface_IntersectionSegment();
+  Standard_EXPORT IntersectionSegment();
 
-  Standard_EXPORT IntCurveSurface_IntersectionSegment(const IntersectionPoint1& P1,
+  Standard_EXPORT IntersectionSegment(const IntersectionPoint1& P1,
                                                       const IntersectionPoint1& P2);
 
   Standard_EXPORT void SetValues(const IntersectionPoint1& P1,

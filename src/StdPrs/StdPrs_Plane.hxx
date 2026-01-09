@@ -20,7 +20,7 @@
 #include <Prs3d_Root.hxx>
 #include <Prs3d_Drawer.hxx>
 
-class Adaptor3d_Surface;
+class SurfaceAdaptor;
 
 //! A framework to display infinite planes.
 class StdPrs_Plane : public Root7
@@ -33,7 +33,7 @@ public:
   //! aPresentation, and the attributes of the display are
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Adaptor3d_Surface&          aPlane,
+                                  const SurfaceAdaptor&          aPlane,
                                   const Handle(StyleDrawer)&       aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
@@ -42,7 +42,7 @@ public:
                                                 const Standard_Real         Y,
                                                 const Standard_Real         Z,
                                                 const Standard_Real         aDistance,
-                                                const Adaptor3d_Surface&    aPlane,
+                                                const SurfaceAdaptor&    aPlane,
                                                 const Handle(StyleDrawer)& aDrawer);
 };
 

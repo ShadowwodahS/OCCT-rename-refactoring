@@ -210,7 +210,7 @@ Standard_Size OpenGl_Text::EstimatedDataSize() const
 
 //=================================================================================================
 
-void OpenGl_Text::UpdateDrawStats(Graphic3d_FrameStatsDataTmp& theStats, bool theIsDetailed) const
+void OpenGl_Text::UpdateDrawStats(FrameStatsDataTmp& theStats, bool theIsDetailed) const
 {
   ++theStats[Graphic3d_FrameStatsCounter_NbElemsNotCulled];
   ++theStats[Graphic3d_FrameStatsCounter_NbElemsTextNotCulled];
@@ -309,8 +309,8 @@ void OpenGl_Text::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
 
   // Bind custom shader program or generate default version
   aCtx->ShaderManager()->BindFontProgram(aTextAspect->ShaderProgramRes(aCtx));
-  const Handle(OpenGl_TextureSet) aPrevTexture =
-    aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+  const Handle(TextureSet2) aPrevTexture =
+    aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
 
   if (myText->HasPlane() && myText->HasOwnAnchorPoint())
   {
@@ -569,7 +569,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont(const Handle(OpenGl_Context)&  theCtx,
 
   if (!theCtx->GetResource(theKey, aFont))
   {
-    Handle(Font_FontMgr)           aFontMgr  = Font_FontMgr::GetInstance();
+    Handle(FontMgr)           aFontMgr  = FontMgr::GetInstance();
     const AsciiString1& aFontName = !theAspect.Aspect()->TextFont().IsNull()
                                                  ? theAspect.Aspect()->TextFont()->String()
                                                  : THE_DEFAULT_FONT;
@@ -638,7 +638,7 @@ void OpenGl_Text::drawRect(const Handle(OpenGl_Context)& theCtx,
   }
 
   // bind unlit program
-  theCtx->ShaderManager()->BindFaceProgram(Handle(OpenGl_TextureSet)(),
+  theCtx->ShaderManager()->BindFaceProgram(Handle(TextureSet2)(),
                                            Graphic3d_TypeOfShadingModel_Unlit,
                                            Graphic3d_AlphaMode_Opaque,
                                            Standard_False,
@@ -700,10 +700,10 @@ void OpenGl_Text::render(const Handle(OpenGl_Context)& theCtx,
 
   if (myTextures.IsEmpty())
   {
-    Handle(Font_TextFormatter) aFormatter = myText->TextFormatter();
+    Handle(TextFormatter1) aFormatter = myText->TextFormatter();
     if (aFormatter.IsNull())
     {
-      aFormatter = new Font_TextFormatter();
+      aFormatter = new TextFormatter1();
     }
     aFormatter->SetupAlignment(myText->HorizontalAlignment(), myText->VerticalAlignment());
     aFormatter->Reset();

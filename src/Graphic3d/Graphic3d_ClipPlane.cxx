@@ -188,10 +188,10 @@ void Graphic3d_ClipPlane::SetCappingTexture(const Handle(Graphic3d_TextureMap)& 
   if (!theTexture.IsNull())
   {
     myAspect->SetTextureMapOn();
-    Handle(Graphic3d_TextureSet) aTextureSet = myAspect->TextureSet();
+    Handle(TextureSet1) aTextureSet = myAspect->TextureSet();
     if (aTextureSet.IsNull() || aTextureSet->Size() != 1)
     {
-      aTextureSet = new Graphic3d_TextureSet(theTexture);
+      aTextureSet = new TextureSet1(theTexture);
     }
     else
     {
@@ -202,7 +202,7 @@ void Graphic3d_ClipPlane::SetCappingTexture(const Handle(Graphic3d_TextureMap)& 
   else
   {
     myAspect->SetTextureMapOff();
-    myAspect->SetTextureSet(Handle(Graphic3d_TextureSet)());
+    myAspect->SetTextureSet(Handle(TextureSet1)());
   }
   ++myAspectMod;
 }

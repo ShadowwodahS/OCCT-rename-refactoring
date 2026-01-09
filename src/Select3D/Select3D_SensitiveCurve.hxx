@@ -44,7 +44,7 @@ public:
   //! Constructs a sensitive curve object defined by the
   //! owner theOwnerId and the set of points ThePoints.
   Standard_EXPORT Select3D_SensitiveCurve(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                          const Handle(TColgp_HArray1OfPnt)&   thePoints);
+                                          const Handle(PointArray1)&   thePoints);
 
   //! Creation of Sensitive Curve from Points.
   //!          Warning : This Method should disappear in the next version...

@@ -22,7 +22,7 @@ class TCollection_HAsciiString;
 class ItemSequence;
 class Express_Item;
 class AsciiString1;
-class Express_Type;
+class ExpressType;
 
 //! Represents a schema as a list of items and provides general
 //! tools for generating HXX/CXX files (including dictionary of
@@ -77,7 +77,7 @@ private:
   //! Prepares type for work by setting its handle to item in the
   //! schema according to dictionary (for types which refer items
   //! by name)
-  Standard_EXPORT void PrepareType(const Handle(Express_Type)& theType) const;
+  Standard_EXPORT void PrepareType(const Handle(ExpressType)& theType) const;
 
 private:
   Handle(TCollection_HAsciiString) myName;

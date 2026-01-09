@@ -19,7 +19,7 @@
 #include <OpenGl_Text.hxx>
 
 class Graphic3d_ArrayOfTriangles;
-class Graphic3d_TransformPers;
+class TransformPers;
 class OpenGl_IndexBuffer;
 class OpenGl_VertexBuffer;
 
@@ -60,10 +60,10 @@ protected:
 protected:
   Handle(OpenGl_FrameStats) myStatsPrev;               //!< currently displayed stats
                                                        // clang-format off
-  Handle(Graphic3d_TransformPers)    myCountersTrsfPers;  //!< transformation persistence for counters presentation
+  Handle(TransformPers)    myCountersTrsfPers;  //!< transformation persistence for counters presentation
   OpenGl_Text                        myCountersText;      //!< counters presentation
   OpenGl_Aspects                     myTextAspect;        //!< text aspect
-  Handle(Graphic3d_TransformPers)    myChartTrsfPers;     //!< transformation persistence for chart presentation
+  Handle(TransformPers)    myChartTrsfPers;     //!< transformation persistence for chart presentation
                                                        // clang-format on
   Handle(Graphic3d_ArrayOfTriangles) myChartArray;     //!< array of chart triangles
   Handle(OpenGl_VertexBuffer)        myChartVertices;  //!< VBO with chart triangles

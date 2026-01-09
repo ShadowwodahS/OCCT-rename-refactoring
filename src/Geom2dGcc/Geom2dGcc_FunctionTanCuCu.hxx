@@ -31,7 +31,7 @@ class math_Matrix;
 
 //! This abstract class describes a Function of 1 Variable
 //! used to find a line tangent to two curves.
-class Geom2dGcc_FunctionTanCuCu : public math_FunctionSetWithDerivatives
+class Geom2dGcc_FunctionTanCuCu : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

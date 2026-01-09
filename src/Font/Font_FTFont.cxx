@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Font_FTFont, RefObject)
 
 //=================================================================================================
 
-Font_FTFont::Font_FTFont(const Handle(Font_FTLibrary)& theFTLib)
+Font_FTFont::Font_FTFont(const Handle(FTLibrary)& theFTLib)
     : myFTLib(theFTLib),
       myFTFace(NULL),
       myActiveFTFace(NULL),
@@ -44,11 +44,11 @@ Font_FTFont::Font_FTFont(const Handle(Font_FTLibrary)& theFTLib)
       myLoadFlags(0),
 #endif
       myUChar(0U),
-      myToUseUnicodeSubsetFallback(Font_FontMgr::ToUseUnicodeSubsetFallback())
+      myToUseUnicodeSubsetFallback(FontMgr::ToUseUnicodeSubsetFallback())
 {
   if (myFTLib.IsNull())
   {
-    myFTLib = new Font_FTLibrary();
+    myFTLib = new FTLibrary();
   }
 }
 
@@ -199,10 +199,10 @@ Handle(Font_FTFont) Font_FTFont::FindAndCreate(const AsciiString1& theFontName,
                                                const FTFontParams&       theParams,
                                                const Font_StrictLevel         theStrictLevel)
 {
-  Handle(Font_FontMgr) aFontMgr    = Font_FontMgr::GetInstance();
+  Handle(FontMgr) aFontMgr    = FontMgr::GetInstance();
   Font_FontAspect      aFontAspect = theFontAspect;
   FTFontParams    aParams     = theParams;
-  if (Handle(Font_SystemFont) aRequestedFont =
+  if (Handle(SystemFont) aRequestedFont =
         aFontMgr->FindFont(theFontName, theStrictLevel, aFontAspect))
   {
     if (aRequestedFont->IsSingleStrokeFont())
@@ -237,7 +237,7 @@ Handle(Font_FTFont) Font_FTFont::FindAndCreate(const AsciiString1& theFontName,
         break;
     }
     Handle(Font_FTFont) aFont = new Font_FTFont();
-    if (aFont->Init(Font_FontMgr::EmbedFallbackFont(), "Embed Fallback Font", aParams, 0))
+    if (aFont->Init(FontMgr::EmbedFallbackFont(), "Embed Fallback Font", aParams, 0))
     {
       aFont->myFontAspect = aFontAspect;
       return aFont;
@@ -256,8 +256,8 @@ bool Font_FTFont::FindAndInit(const AsciiString1& theFontName,
 {
   FTFontParams aParams     = theParams;
   myFontAspect                  = theFontAspect;
-  Handle(Font_FontMgr) aFontMgr = Font_FontMgr::GetInstance();
-  if (Handle(Font_SystemFont) aRequestedFont =
+  Handle(FontMgr) aFontMgr = FontMgr::GetInstance();
+  if (Handle(SystemFont) aRequestedFont =
         aFontMgr->FindFont(theFontName.ToCString(), theStrictLevel, myFontAspect))
   {
     if (aRequestedFont->IsSingleStrokeFont())
@@ -277,7 +277,7 @@ bool Font_FTFont::FindAndInit(const AsciiString1& theFontName,
     {
       aParams.ToSynthesizeItalic = true;
     }
-    return Init(Font_FontMgr::EmbedFallbackFont(), "Embed Fallback Font", aParams, 0);
+    return Init(FontMgr::EmbedFallbackFont(), "Embed Fallback Font", aParams, 0);
   }
 #endif
   Release();
@@ -297,8 +297,8 @@ bool Font_FTFont::findAndInitFallback(Font_UnicodeSubset theSubset)
   myFallbackFaces[theSubset]                               = new Font_FTFont(myFTLib);
   myFallbackFaces[theSubset]->myToUseUnicodeSubsetFallback = false; // no recursion
 
-  Handle(Font_FontMgr) aFontMgr = Font_FontMgr::GetInstance();
-  if (Handle(Font_SystemFont) aRequestedFont = aFontMgr->FindFallbackFont(theSubset, myFontAspect))
+  Handle(FontMgr) aFontMgr = FontMgr::GetInstance();
+  if (Handle(SystemFont) aRequestedFont = aFontMgr->FindFallbackFont(theSubset, myFontAspect))
   {
     FTFontParams aParams  = myFontParams;
     aParams.IsSingleStrokeFont = aRequestedFont->IsSingleStrokeFont();
@@ -677,7 +677,7 @@ Rect Font_FTFont::BoundingBox(const NCollection_String&               theString,
                                    const Graphic3d_HorizontalTextAlignment theAlignX,
                                    const Graphic3d_VerticalTextAlignment   theAlignY)
 {
-  Font_TextFormatter aFormatter;
+  TextFormatter1 aFormatter;
   aFormatter.SetupAlignment(theAlignX, theAlignY);
   aFormatter.Reset();
 

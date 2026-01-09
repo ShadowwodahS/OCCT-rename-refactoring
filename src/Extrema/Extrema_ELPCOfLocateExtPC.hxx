@@ -31,7 +31,7 @@
 class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointElCCurveExtrema;
 class Point3d;
@@ -57,7 +57,7 @@ public:
   //! if n is the number of iterations,
   //! the algorithm stops when abs(F(Un)-F(Un-1)) < Tol.
   Standard_EXPORT Extrema_ELPCOfLocateExtPC(const Point3d&          P,
-                                            const Adaptor3d_Curve& C,
+                                            const Curve5& C,
                                             const Standard_Real    Uinf,
                                             const Standard_Real    Usup,
                                             const Standard_Real    TolF = 1.0e-10);
@@ -71,11 +71,11 @@ public:
   //! if n is the number of iterations,
   //! the algorithm stops when abs(F(Un)-F(Un-1)) < Tol.
   Standard_EXPORT Extrema_ELPCOfLocateExtPC(const Point3d&          P,
-                                            const Adaptor3d_Curve& C,
+                                            const Curve5& C,
                                             const Standard_Real    TolF = 1.0e-10);
 
   //! initializes the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C,
+  Standard_EXPORT void Initialize(const Curve5& C,
                                   const Standard_Real    Uinf,
                                   const Standard_Real    Usup,
                                   const Standard_Real    TolF = 1.0e-10);

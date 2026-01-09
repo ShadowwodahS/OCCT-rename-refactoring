@@ -20,6 +20,6 @@
 #include <Bnd_Array1OfSphere.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Bnd_HArray1OfSphere, Bnd_Array1OfSphere)
+DEFINE_HARRAY1(SphereArray, Bnd_Array1OfSphere)
 
 #endif

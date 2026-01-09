@@ -26,7 +26,7 @@
 //! Function for search of sphere canonic parameters: coordinates of center and radius from set of
 //! moints by least square method.
 //! //!
-//! The class inherits math_MultipleVarFunctionWithGradient and thus is intended
+//! The class inherits MultiVarFunctionWithGradient and thus is intended
 //! for use in BFGSOptimizer algorithm.
 //!
 //! The criteria is:
@@ -41,7 +41,7 @@
 //! dF/dR : G4(x0, y0, z0, R) = -4*R*Sum[...]
 //! [...] = [(x(i) - x0)^2 + (y(i) - y0)^2 + (z(i) - z0)^2 - R^2]
 //!
-class GeomConvert_FuncSphereLSDist : public math_MultipleVarFunctionWithGradient
+class GeomConvert_FuncSphereLSDist : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -49,9 +49,9 @@ public:
   //! Constructor.
   Standard_EXPORT GeomConvert_FuncSphereLSDist() {};
 
-  Standard_EXPORT GeomConvert_FuncSphereLSDist(const Handle(TColgp_HArray1OfXYZ)& thePoints);
+  Standard_EXPORT GeomConvert_FuncSphereLSDist(const Handle(XYZArray)& thePoints);
 
-  void SetPoints(const Handle(TColgp_HArray1OfXYZ)& thePoints) { myPoints = thePoints; }
+  void SetPoints(const Handle(XYZArray)& thePoints) { myPoints = thePoints; }
 
   //! Number of variables.
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
@@ -68,6 +68,6 @@ public:
                                           math_Vector&       G) Standard_OVERRIDE;
 
 private:
-  Handle(TColgp_HArray1OfXYZ) myPoints;
+  Handle(XYZArray) myPoints;
 };
 #endif // _GeomConvert_FuncSphereLSDist_HeaderFile

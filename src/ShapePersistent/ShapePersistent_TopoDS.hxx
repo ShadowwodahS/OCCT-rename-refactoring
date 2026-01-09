@@ -109,7 +109,7 @@ protected:
   };
 
   template <class Persistent>
-  struct tObject1 : public tObjectT<Persistent, StdPersistent_HArray1::Shape1>
+  struct tObject1 : public tObjectT<Persistent, HArray12::Shape1>
   {
   };
 

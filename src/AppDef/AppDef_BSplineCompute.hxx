@@ -37,12 +37,12 @@ class MultiLineTool;
 class AppDef_MyBSplGradientOfBSplineCompute;
 class AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute;
 class AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute;
-class AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute;
+class BSplBFGSGradientBSplineCompute;
 class AppDef_MyGradientbisOfBSplineCompute;
 class AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute;
 class ResConstraintGradientbisBSpline;
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute;
-class AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute;
+class BFGSGradientbisBSplineCompute;
 class AppParCurves_MultiBSpCurve;
 class AppParCurves_MultiCurve;
 
@@ -240,7 +240,7 @@ private:
   Handle(TColStd_HArray1OfInteger)               mymults;
   Standard_Boolean                               myhasknots;
   Standard_Boolean                               myhasmults;
-  Handle(AppParCurves_HArray1OfConstraintCouple) myConstraints;
+  Handle(ConstraintCoupleArray) myConstraints;
   Standard_Integer                               mydegremin;
   Standard_Integer                               mydegremax;
   Standard_Real                                  mytol3d;

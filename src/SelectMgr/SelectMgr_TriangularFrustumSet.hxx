@@ -34,7 +34,7 @@ public:
   //! Auxiliary structure to define selection polyline
   struct SelectionPolyline
   {
-    Handle(TColgp_HArray1OfPnt2d) Points;
+    Handle(Point2dArray) Points;
   };
 
 public:

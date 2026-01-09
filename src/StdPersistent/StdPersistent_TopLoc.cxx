@@ -24,7 +24,7 @@ void TopLoc::Datum3D1::Read(ReadData& theReadData)
 {
   Transform3d aTrsf;
   theReadData >> aTrsf;
-  myTransient = new TopLoc_Datum3D(aTrsf);
+  myTransient = new Datum3D2(aTrsf);
 }
 
 void TopLoc::Datum3D1::Write(WriteData& theWriteData) const
@@ -94,7 +94,7 @@ Handle(TopLoc::ItemLocation) TopLoc::Translate(
 // purpose  : Create a persistent object from a location datum
 //=======================================================================
 Handle(TopLoc::Datum3D1) TopLoc::Translate(
-  const Handle(TopLoc_Datum3D)&     theDatum,
+  const Handle(Datum3D2)&     theDatum,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(Datum3D1) aPDatum;

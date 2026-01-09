@@ -71,7 +71,7 @@ protected:
       aMesher.RemoveAuxElements();
     }
 
-    BRepMesh_MeshTool aCleaner(aStructure);
+    MeshTool aCleaner(aStructure);
     aCleaner.EraseFreeLinks();
 
     postProcessMesh(aMesher, theRange);

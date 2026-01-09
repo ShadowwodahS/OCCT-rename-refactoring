@@ -28,7 +28,7 @@
 #include <IMeshTools_Context.hxx>
 #include <BRepTools.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ShapeVisitor, IMeshTools_ShapeVisitor)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ShapeVisitor, ShapeVisitor)
 
 //=================================================================================================
 

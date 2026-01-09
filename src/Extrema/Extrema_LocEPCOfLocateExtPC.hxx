@@ -24,7 +24,7 @@
 class Standard_DomainError;
 class Standard_TypeMismatch;
 class StdFail_NotDone;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointOnCurve1;
 class Point3d;
@@ -48,7 +48,7 @@ public:
   //! At the nth iteration, the criteria is:
   //! abs(Un - Un-1) < TolU.
   Standard_EXPORT Extrema_LocEPCOfLocateExtPC(const Point3d&          P,
-                                              const Adaptor3d_Curve& C,
+                                              const Curve5& C,
                                               const Standard_Real    U0,
                                               const Standard_Real    TolU);
 
@@ -63,14 +63,14 @@ public:
   //! At the nth iteration, the criteria is:
   //! abs(Un - Un-1) < TolU.
   Standard_EXPORT Extrema_LocEPCOfLocateExtPC(const Point3d&          P,
-                                              const Adaptor3d_Curve& C,
+                                              const Curve5& C,
                                               const Standard_Real    U0,
                                               const Standard_Real    Umin,
                                               const Standard_Real    Usup,
                                               const Standard_Real    TolU);
 
   //! sets the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C,
+  Standard_EXPORT void Initialize(const Curve5& C,
                                   const Standard_Real    Umin,
                                   const Standard_Real    Usup,
                                   const Standard_Real    TolU);

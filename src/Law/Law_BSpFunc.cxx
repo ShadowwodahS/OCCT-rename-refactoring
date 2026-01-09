@@ -25,7 +25,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_BSpFunc, Law_Function)
+IMPLEMENT_STANDARD_RTTIEXT(Law_BSpFunc, Function2)
 
 #define PosTol Precision1::PConfusion() / 2
 
@@ -322,7 +322,7 @@ void Law_BSpFunc::D2(const Standard_Real X, Standard_Real& F, Standard_Real& D, 
 
 //=================================================================================================
 
-Handle(Law_Function) Law_BSpFunc::Trim(const Standard_Real PFirst,
+Handle(Function2) Law_BSpFunc::Trim(const Standard_Real PFirst,
                                        const Standard_Real PLast,
                                        //				       const Standard_Real Tol) const
                                        const Standard_Real) const

@@ -34,7 +34,7 @@ class Point3d;
 class Vector3d;
 class Geom_BoundedSurface;
 class Dir3d;
-class Adaptor3d_Curve;
+class Curve5;
 class Geom_BSplineSurface;
 class Geom_BezierSurface;
 class GeomSurface;
@@ -211,8 +211,8 @@ public:
   //! parameters  given    in   the Parameters  array    by
   //! evaluating each parameter  the two curves  and taking
   //! the maximum of the evaluated distance
-  Standard_EXPORT static void EvalMaxParametricDistance(const Adaptor3d_Curve&      Curve,
-                                                        const Adaptor3d_Curve&      AReferenceCurve,
+  Standard_EXPORT static void EvalMaxParametricDistance(const Curve5&      Curve,
+                                                        const Curve5&      AReferenceCurve,
                                                         const Standard_Real         Tolerance,
                                                         const TColStd_Array1OfReal& Parameters,
                                                         Standard_Real&              MaxDistance);
@@ -221,8 +221,8 @@ public:
   //! given in the Parameters array by projecting from the Curve
   //! to the reference curve and taking the minimum distance
   //! Than the maximum will be taken on those minimas.
-  Standard_EXPORT static void EvalMaxDistanceAlongParameter(const Adaptor3d_Curve& Curve,
-                                                            const Adaptor3d_Curve& AReferenceCurve,
+  Standard_EXPORT static void EvalMaxDistanceAlongParameter(const Curve5& Curve,
+                                                            const Curve5& AReferenceCurve,
                                                             const Standard_Real    Tolerance,
                                                             const TColStd_Array1OfReal& Parameters,
                                                             Standard_Real& MaxDistance);
@@ -304,7 +304,7 @@ public:
   //! @return Standard_True when 3d curve is built and Standard_False otherwise.
   Standard_EXPORT static Handle(GeomCurve3d) buildC3dOnIsoLine(
     const Handle(Adaptor2d_Curve2d)& theC2D,
-    const Handle(Adaptor3d_Surface)& theSurf,
+    const Handle(SurfaceAdaptor)& theSurf,
     const Standard_Real              theFirst,
     const Standard_Real              theLast,
     const Standard_Real              theTolerance,

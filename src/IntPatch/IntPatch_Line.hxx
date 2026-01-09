@@ -25,8 +25,8 @@
 #include <IntSurf_Situation.hxx>
 #include <Standard_Transient.hxx>
 
-class IntPatch_Line;
-DEFINE_STANDARD_HANDLE(IntPatch_Line, RefObject)
+class Line2;
+DEFINE_STANDARD_HANDLE(Line2, RefObject)
 
 //! Definition of an intersection line between two
 //! surfaces.
@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(IntPatch_Line, RefObject)
 //! or analytic, as defined in the class ALine, or defined
 //! by a set of points (coming from a walking algorithm) as
 //! defined in the class WLine.
-class IntPatch_Line : public RefObject
+class Line2 : public RefObject
 {
 
 public:
@@ -108,24 +108,24 @@ public:
   //! on the second patch.
   Standard_Boolean IsVIsoOnS2() const;
 
-  DEFINE_STANDARD_RTTIEXT(IntPatch_Line, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Line2, RefObject)
 
 protected:
   //! To initialize the fields, when the transitions
   //! are In or Out.
-  Standard_EXPORT IntPatch_Line(const Standard_Boolean  Tang,
+  Standard_EXPORT Line2(const Standard_Boolean  Tang,
                                 const IntSurf_TypeTrans Trans1,
                                 const IntSurf_TypeTrans Trans2);
 
   //! To initialize the fields, when the transitions
   //! are Touch.
-  Standard_EXPORT IntPatch_Line(const Standard_Boolean  Tang,
+  Standard_EXPORT Line2(const Standard_Boolean  Tang,
                                 const IntSurf_Situation Situ1,
                                 const IntSurf_Situation Situ2);
 
   //! To initialize the fields, when the transitions
   //! are Undecided.
-  Standard_EXPORT IntPatch_Line(const Standard_Boolean Tang);
+  Standard_EXPORT Line2(const Standard_Boolean Tang);
 
   IntPatch_IType typ;
 

@@ -354,7 +354,7 @@ Standard_Real Bisector_BisecCC::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Bisector_BisecCC::Copy() const
+Handle(Geometry2) Bisector_BisecCC::Copy() const
 {
   Handle(GeomCurve2d) CopyCurve1 = Handle(GeomCurve2d)::DownCast(curve1->Copy());
   Handle(GeomCurve2d) CopyCurve2 = Handle(GeomCurve2d)::DownCast(curve2->Copy());

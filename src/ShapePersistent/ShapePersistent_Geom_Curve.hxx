@@ -35,7 +35,7 @@
 #include <gp_Hypr.hxx>
 #include <gp_Parab.hxx>
 
-class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
+class ShapePersistent_Geom_Curve : private Geom1
 {
   typedef Curve::PersistentBase pBase;
 
@@ -73,16 +73,16 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
 
   private:
     Standard_Boolean                     myRational;
-    Handle(ShapePersistent_HArray1::Pnt) myPoles;
+    Handle(HArray11::Pnt) myPoles;
     Handle(HArray1::Real) myWeights;
   };
 
-  class pBSpline : public pBounded
+  class pBSpline1 : public pBounded
   {
     friend class ShapePersistent_Geom_Curve;
 
   public:
-    pBSpline()
+    pBSpline1()
         : myRational(Standard_False),
           myPeriodic(Standard_False),
           mySpineDegree(0)
@@ -117,7 +117,7 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
     Standard_Boolean                        myRational;
     Standard_Boolean                        myPeriodic;
     Standard_Integer                        mySpineDegree;
-    Handle(ShapePersistent_HArray1::Pnt)    myPoles;
+    Handle(HArray11::Pnt)    myPoles;
     Handle(HArray1::Real)    myWeights;
     Handle(HArray1::Real)    myKnots;
     Handle(HArray1::Integer1) myMultiplicities;
@@ -205,7 +205,7 @@ public:
 
   typedef subBase_empty<Curve>       Bounded;
   typedef Delayed<Bounded, pBezier1>  Bezier;
-  typedef Delayed<Bounded, pBSpline> BSpline;
+  typedef Delayed<Bounded, pBSpline1> BSpline;
   typedef Delayed<Bounded, pTrimmed1> Trimmed;
 
   typedef Delayed<Curve, pOffset1> Offset;
@@ -244,62 +244,62 @@ public:
 // Line
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::
+Standard_CString Geom1::instance<Geom1::Curve, GeomLine, Axis3d>::
   PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::Write(
+void Geom1::instance<Geom1::Curve, GeomLine, Axis3d>::Write(
   WriteData& theWriteData) const;
 
 //=======================================================================
 // Conic
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, Frame3d>::PName()
+Standard_CString Geom1::subBase_gp<Geom1::Curve, Frame3d>::PName()
   const;
 
 //=======================================================================
 // Circle
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
+Standard_CString Geom1::
   instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::Write(
+void Geom1::instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::Write(
   WriteData& theWriteData) const;
 
 //=======================================================================
 // Ellipse
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
+Standard_CString Geom1::
   instance<ShapePersistent_Geom_Curve::Conic, Geom_Ellipse, gp_Elips>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Ellipse, gp_Elips>::
+void Geom1::instance<ShapePersistent_Geom_Curve::Conic, Geom_Ellipse, gp_Elips>::
   Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Hyperbola
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
+Standard_CString Geom1::
   instance<ShapePersistent_Geom_Curve::Conic, Geom_Hyperbola, gp_Hypr>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Hyperbola, gp_Hypr>::
+void Geom1::instance<ShapePersistent_Geom_Curve::Conic, Geom_Hyperbola, gp_Hypr>::
   Write(WriteData& theWriteData) const;
 
 //=======================================================================
 // Parabola
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::
+Standard_CString Geom1::
   instance<ShapePersistent_Geom_Curve::Conic, Geom_Parabola, gp_Parab>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Parabola, gp_Parab>::
+void Geom1::instance<ShapePersistent_Geom_Curve::Conic, Geom_Parabola, gp_Parab>::
   Write(WriteData& theWriteData) const;
 
 #endif

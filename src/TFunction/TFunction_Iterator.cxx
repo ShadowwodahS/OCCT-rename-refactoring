@@ -54,7 +54,7 @@ void TFunction_Iterator::Init(const DataLabel& Access)
   {
     const DataLabel& L = itrm.Key2();
 
-    TFunction_IFunction         iFunction(L);
+    FunctionInterface         iFunction(L);
     Handle(TFunction_GraphNode) graphNode = iFunction.GetGraphNode();
     TFunction_ExecutionStatus   status    = graphNode->GetStatus();
 
@@ -167,7 +167,7 @@ void TFunction_Iterator::Next()
   for (; itrl.More(); itrl.Next())
   {
     const DataLabel&    L = itrl.Value();
-    TFunction_IFunction iFunction(L);
+    FunctionInterface iFunction(L);
 
     Handle(TFunction_GraphNode) graphNode = iFunction.GetGraphNode();
     const TColStd_MapOfInteger& next      = graphNode->GetNext();
@@ -202,7 +202,7 @@ void TFunction_Iterator::Next()
         // all other previous functions of the next functions.
 
         // Check status, it should be "not executed"
-        TFunction_IFunction         iNextFunction(Lnext);
+        FunctionInterface         iNextFunction(Lnext);
         Handle(TFunction_GraphNode) nextGraphNode = iNextFunction.GetGraphNode();
         TFunction_ExecutionStatus   next_status   = nextGraphNode->GetStatus();
         if (next_status != TFunction_ES_NotExecuted && next_status != TFunction_ES_Executing)
@@ -260,7 +260,7 @@ void TFunction_Iterator::Next()
 
 TFunction_ExecutionStatus TFunction_Iterator::GetStatus(const DataLabel& func) const
 {
-  TFunction_IFunction iFunction(func);
+  FunctionInterface iFunction(func);
   return iFunction.GetGraphNode()->GetStatus();
 }
 
@@ -272,7 +272,7 @@ TFunction_ExecutionStatus TFunction_Iterator::GetStatus(const DataLabel& func) c
 void TFunction_Iterator::SetStatus(const DataLabel&                func,
                                    const TFunction_ExecutionStatus status) const
 {
-  TFunction_IFunction iFunction(func);
+  FunctionInterface iFunction(func);
   iFunction.GetGraphNode()->SetStatus(status);
 }
 

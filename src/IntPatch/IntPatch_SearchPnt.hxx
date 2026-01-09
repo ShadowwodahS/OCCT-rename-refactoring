@@ -19,6 +19,6 @@
 
 #include <Intf_InterferencePolygon2d.hxx>
 
-typedef Intf_InterferencePolygon2d IntPatch_SearchPnt;
+typedef InterferencePolygon2d IntPatch_SearchPnt;
 
 #endif // _IntPatch_SearchPnt_HeaderFile

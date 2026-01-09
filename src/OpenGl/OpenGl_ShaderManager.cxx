@@ -25,7 +25,7 @@
 #include <OpenGl_VertexBufferCompat.hxx>
 #include <OpenGl_Workspace.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderManager, Graphic3d_ShaderManager)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderManager, ShaderManager)
 
 namespace
 {
@@ -137,7 +137,7 @@ static void bindLight(const Graphic3d_CLight& theLight,
 // purpose  : Creates new empty shader manager
 // =======================================================================
 OpenGl_ShaderManager::OpenGl_ShaderManager(OpenGl_Context* theContext)
-    : Graphic3d_ShaderManager(theContext->GraphicsLibrary()),
+    : ShaderManager(theContext->GraphicsLibrary()),
       myFfpProgram(new OpenGl_ShaderProgramFFP()),
       myShadingModel(Graphic3d_TypeOfShadingModel_Gouraud),
       myUnlitPrograms(new OpenGl_SetOfPrograms()),
@@ -185,7 +185,7 @@ void OpenGl_ShaderManager::clear()
 // function : Create
 // purpose  : Creates new shader program
 // =======================================================================
-Standard_Boolean OpenGl_ShaderManager::Create(const Handle(Graphic3d_ShaderProgram)& theProxy,
+Standard_Boolean OpenGl_ShaderManager::Create(const Handle(ShaderProgram2)& theProxy,
                                               AsciiString1&               theShareKey,
                                               Handle(OpenGl_ShaderProgram)&          theProgram)
 {
@@ -259,7 +259,7 @@ void OpenGl_ShaderManager::Unregister(AsciiString1&      theShareKey,
 
 void OpenGl_ShaderManager::switchLightPrograms()
 {
-  const Handle(Graphic3d_LightSet)& aLights = myLightSourceState.LightSources();
+  const Handle(LightSet)& aLights = myLightSourceState.LightSources();
   if (aLights.IsNull())
   {
     if (!myMapOfLightPrograms.Find("unlit", myLightPrograms))
@@ -298,7 +298,7 @@ void OpenGl_ShaderManager::UpdateSRgbState()
 // purpose  : Updates state of OCCT light sources
 // =======================================================================
 void OpenGl_ShaderManager::UpdateLightSourceStateTo(
-  const Handle(Graphic3d_LightSet)&    theLights,
+  const Handle(LightSet)&    theLights,
   Standard_Integer                     theSpecIBLMapLevels,
   const Handle(OpenGl_ShadowMapArray)& theShadowMaps)
 {
@@ -376,9 +376,9 @@ void OpenGl_ShaderManager::pushLightSourceState(
     GLenum            aLightGlId = GL_LIGHT0;
     const OpenGl_Mat4 aModelView =
       myWorldViewState.WorldViewMatrix() * myModelWorldState.ModelWorldMatrix();
-    for (Graphic3d_LightSet::Iterator aLightIt(
+    for (LightSet::Iterator aLightIt(
            myLightSourceState.LightSources(),
-           Graphic3d_LightSet::IterationFilter_ExcludeDisabledAndAmbient);
+           LightSet::IterationFilter_ExcludeDisabledAndAmbient);
          aLightIt.More();
          aLightIt.Next())
     {
@@ -452,9 +452,9 @@ void OpenGl_ShaderManager::pushLightSourceState(
   }
 
   Standard_Integer aLightsNb = 0;
-  for (Graphic3d_LightSet::Iterator anIter(
+  for (LightSet::Iterator anIter(
          myLightSourceState.LightSources(),
-         Graphic3d_LightSet::IterationFilter_ExcludeDisabledAndAmbient);
+         LightSet::IterationFilter_ExcludeDisabledAndAmbient);
        anIter.More();
        anIter.Next())
   {
@@ -476,7 +476,7 @@ void OpenGl_ShaderManager::pushLightSourceState(
     Standard_Integer&             aLightType   = myLightTypeArray.ChangeValue(aLightsNb);
     ShaderLightParameters& aLightParams = myLightParamsArray.ChangeValue(aLightsNb);
     if (!aLight
-           .IsEnabled()) // has no affect with Graphic3d_LightSet::IterationFilter_ExcludeDisabled -
+           .IsEnabled()) // has no affect with LightSet::IterationFilter_ExcludeDisabled -
                          // here just for consistency
     {
       // if it is desired to keep disabled light in the same order - we can replace it with a black
@@ -1124,7 +1124,7 @@ Standard_Boolean OpenGl_ShaderManager::BindFontProgram(
 
   if (myFontProgram.IsNull())
   {
-    Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramFont();
+    Handle(ShaderProgram2) aProgramSrc = getStdProgramFont();
     AsciiString1         aKey;
     if (!Create(aProgramSrc, aKey, myFontProgram))
     {
@@ -1155,7 +1155,7 @@ Standard_Boolean OpenGl_ShaderManager::BindFboBlitProgram(Standard_Integer theNb
     return myContext->BindProgram(aProg);
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc =
+  Handle(ShaderProgram2) aProgramSrc =
     getStdProgramFboBlit(aNbSamples, theIsFallback_sRGB);
   AsciiString1 aKey;
   if (!Create(aProgramSrc, aKey, aProg))
@@ -1181,7 +1181,7 @@ Standard_Boolean OpenGl_ShaderManager::BindOitCompositingProgram(Standard_Boolea
     return myContext->BindProgram(aProgram);
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramOitCompositing(theIsMSAAEnabled);
+  Handle(ShaderProgram2) aProgramSrc = getStdProgramOitCompositing(theIsMSAAEnabled);
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
@@ -1206,7 +1206,7 @@ Standard_Boolean OpenGl_ShaderManager::BindOitDepthPeelingBlendProgram(bool theI
     return myContext->BindProgram(aProgram);
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramOitDepthPeelingBlend(theIsMSAAEnabled);
+  Handle(ShaderProgram2) aProgramSrc = getStdProgramOitDepthPeelingBlend(theIsMSAAEnabled);
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
@@ -1230,7 +1230,7 @@ Standard_Boolean OpenGl_ShaderManager::BindOitDepthPeelingFlushProgram(bool theI
     return myContext->BindProgram(aProgram);
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramOitDepthPeelingFlush(theIsMSAAEnabled);
+  Handle(ShaderProgram2) aProgramSrc = getStdProgramOitDepthPeelingFlush(theIsMSAAEnabled);
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
@@ -1251,7 +1251,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramUnlit(
   Standard_Integer              theBits,
   Standard_Boolean              theIsOutline)
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramUnlit(theBits, theIsOutline);
+  Handle(ShaderProgram2) aProgramSrc = getStdProgramUnlit(theBits, theIsOutline);
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, theProgram))
   {
@@ -1267,7 +1267,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramGouraud(
   Handle(OpenGl_ShaderProgram)& theProgram,
   const Standard_Integer        theBits)
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc =
+  Handle(ShaderProgram2) aProgramSrc =
     getStdProgramGouraud(myLightSourceState.LightSources(), theBits);
   AsciiString1 aKey;
   if (!Create(aProgramSrc, aKey, theProgram))
@@ -1288,7 +1288,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramPhong(
 {
   Standard_Integer aNbShadowMaps =
     myLightSourceState.HasShadowMaps() ? myLightSourceState.LightSources()->NbCastShadows() : 0;
-  Handle(Graphic3d_ShaderProgram) aProgramSrc =
+  Handle(ShaderProgram2) aProgramSrc =
     getStdProgramPhong(myLightSourceState.LightSources(),
                        theBits,
                        theIsFlatNormal,
@@ -1318,7 +1318,7 @@ Standard_Boolean OpenGl_ShaderManager::BindStereoProgram(Graphic3d_StereoMode th
     return myContext->BindProgram(aProgram);
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramStereo(theStereoMode);
+  Handle(ShaderProgram2) aProgramSrc = getStdProgramStereo(theStereoMode);
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
@@ -1337,7 +1337,7 @@ Standard_Boolean OpenGl_ShaderManager::BindStereoProgram(Graphic3d_StereoMode th
 
 Standard_Boolean OpenGl_ShaderManager::prepareStdProgramBoundBox()
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = Graphic3d_ShaderManager::getStdProgramBoundBox();
+  Handle(ShaderProgram2) aProgramSrc = ShaderManager::getStdProgramBoundBox();
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, myBoundBoxProgram))
   {
@@ -1384,7 +1384,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramBoundBox()
 
 Standard_Boolean OpenGl_ShaderManager::preparePBREnvBakingProgram(Standard_Integer theIndex)
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = getPBREnvBakingProgram(theIndex);
+  Handle(ShaderProgram2) aProgramSrc = getPBREnvBakingProgram(theIndex);
   AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, myPBREnvBakingProgram[theIndex]))
   {
@@ -1432,7 +1432,7 @@ Standard_Boolean OpenGl_ShaderManager::preparePBREnvBakingProgram(Standard_Integ
 
 //=================================================================================================
 
-const Handle(Graphic3d_ShaderProgram)& OpenGl_ShaderManager::GetBgCubeMapProgram()
+const Handle(ShaderProgram2)& OpenGl_ShaderManager::GetBgCubeMapProgram()
 {
   if (myBgCubeMapProgram.IsNull())
   {
@@ -1443,7 +1443,7 @@ const Handle(Graphic3d_ShaderProgram)& OpenGl_ShaderManager::GetBgCubeMapProgram
 
 //=================================================================================================
 
-const Handle(Graphic3d_ShaderProgram)& OpenGl_ShaderManager::GetBgSkydomeProgram()
+const Handle(ShaderProgram2)& OpenGl_ShaderManager::GetBgSkydomeProgram()
 {
   if (myBgSkydomeProgram.IsNull())
   {
@@ -1454,7 +1454,7 @@ const Handle(Graphic3d_ShaderProgram)& OpenGl_ShaderManager::GetBgSkydomeProgram
 
 //=================================================================================================
 
-const Handle(Graphic3d_ShaderProgram)& OpenGl_ShaderManager::GetColoredQuadProgram()
+const Handle(ShaderProgram2)& OpenGl_ShaderManager::GetColoredQuadProgram()
 {
   if (myColoredQuadProgram.IsNull())
   {
@@ -1481,7 +1481,7 @@ Standard_Boolean OpenGl_ShaderManager::bindProgramWithState(
 //=================================================================================================
 
 Standard_Boolean OpenGl_ShaderManager::BindMarkerProgram(
-  const Handle(OpenGl_TextureSet)&    theTextures,
+  const Handle(TextureSet2)&    theTextures,
   Graphic3d_TypeOfShadingModel        theShadingModel,
   Graphic3d_AlphaMode                 theAlphaMode,
   Standard_Boolean                    theHasVertColor,

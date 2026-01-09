@@ -35,7 +35,7 @@ class Coords2d;
 class ChFiDS_SurfData;
 class ChFiDS_Spine;
 class ChFiDS_Stripe;
-class Law_Function;
+class Function2;
 class TopoEdge;
 class TopoShape;
 class TopoVertex;
@@ -65,7 +65,7 @@ public:
   Standard_EXPORT void Add(const Standard_Real Radius, const TopoEdge& E);
 
   //! Set the radius of the contour of index IC.
-  Standard_EXPORT void SetRadius(const Handle(Law_Function)& C,
+  Standard_EXPORT void SetRadius(const Handle(Function2)& C,
                                  const Standard_Integer      IC,
                                  const Standard_Integer      IinC);
 
@@ -119,19 +119,19 @@ public:
   //! Returns the rule of  elementary  evolution of  the
   //! part to  variable vector framing E, returns a
   //! rule zero if E is flagged as edge constant.
-  Standard_EXPORT Handle(Law_Function) GetLaw(const Standard_Integer IC, const TopoEdge& E);
+  Standard_EXPORT Handle(Function2) GetLaw(const Standard_Integer IC, const TopoEdge& E);
 
   //! Sets the rule of elementary evolution of  the
   //! part to variable  vector framing E.
   Standard_EXPORT void SetLaw(const Standard_Integer      IC,
                               const TopoEdge&          E,
-                              const Handle(Law_Function)& L);
+                              const Handle(Function2)& L);
 
   Standard_EXPORT void Simulate(const Standard_Integer IC);
 
   Standard_EXPORT Standard_Integer NbSurf(const Standard_Integer IC) const;
 
-  Standard_EXPORT Handle(ChFiDS_SecHArray1) Sect(const Standard_Integer IC,
+  Standard_EXPORT Handle(SecHArray1) Sect(const Standard_Integer IC,
                                                  const Standard_Integer IS) const;
 
 protected:

@@ -23,19 +23,19 @@ class OpenGl_Texture;
 
 //! Class implements OpenGL sampler object resource that
 //! stores the sampling parameters for a texture access.
-class OpenGl_Sampler : public OpenGl_Resource
+class OpenGl_Sampler : public Resource
 {
   friend class OpenGl_Context;
   friend class OpenGl_Texture;
   friend class OpenGl_Text;
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Sampler, OpenGl_Resource)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Sampler, Resource)
 public:
   //! Helpful constant defining invalid sampler identifier
   static const unsigned int NO_SAMPLER = 0;
 
 public:
   //! Creates new sampler object.
-  Standard_EXPORT OpenGl_Sampler(const Handle(Graphic3d_TextureParams)& theParams);
+  Standard_EXPORT OpenGl_Sampler(const Handle(TextureParams)& theParams);
 
   //! Releases resources of sampler object.
   Standard_EXPORT virtual ~OpenGl_Sampler();
@@ -92,10 +92,10 @@ public:
   void SetImmutable() { myIsImmutable = true; }
 
   //! Returns texture parameters.
-  const Handle(Graphic3d_TextureParams)& Parameters() { return myParams; }
+  const Handle(TextureParams)& Parameters() { return myParams; }
 
   //! Sets texture parameters.
-  Standard_EXPORT void SetParameters(const Handle(Graphic3d_TextureParams)& theParams);
+  Standard_EXPORT void SetParameters(const Handle(TextureParams)& theParams);
 
   //! Returns texture parameters initialization state.
   bool ToUpdateParameters() const { return mySamplerRevision != myParams->SamplerRevision(); }
@@ -120,7 +120,7 @@ protected:
   //! @param[in] theTarget   OpenGL texture target
   //! @param[in] theMaxMipLevel  maximum mipmap level defined within the texture
   Standard_EXPORT static void applySamplerParams(const Handle(OpenGl_Context)&          theCtx,
-                                                 const Handle(Graphic3d_TextureParams)& theParams,
+                                                 const Handle(TextureParams)& theParams,
                                                  OpenGl_Sampler*                        theSampler,
                                                  const unsigned int                     theTarget,
                                                  const Standard_Integer theMaxMipLevel);
@@ -129,16 +129,16 @@ protected:
   Standard_EXPORT static void applyGlobalTextureParams(
     const Handle(OpenGl_Context)&          theCtx,
     const OpenGl_Texture&                  theTexture,
-    const Handle(Graphic3d_TextureParams)& theParams);
+    const Handle(TextureParams)& theParams);
 
   //! Reset global texture state for deprecated OpenGL functionality.
   Standard_EXPORT static void resetGlobalTextureParams(
     const Handle(OpenGl_Context)&          theCtx,
     const OpenGl_Texture&                  theTexture,
-    const Handle(Graphic3d_TextureParams)& theParams);
+    const Handle(TextureParams)& theParams);
 
 protected:
-  Handle(Graphic3d_TextureParams) myParams; //!< texture parameters
+  Handle(TextureParams) myParams; //!< texture parameters
   // clang-format off
   unsigned int                    mySamplerRevision; //!< modification counter of parameters related to sampler state
   unsigned int                    mySamplerID;       //!< OpenGL sampler object ID
@@ -146,6 +146,6 @@ protected:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Sampler, OpenGl_Resource)
+DEFINE_STANDARD_HANDLE(OpenGl_Sampler, Resource)
 
 #endif // _OpenGl_Sampler_Header

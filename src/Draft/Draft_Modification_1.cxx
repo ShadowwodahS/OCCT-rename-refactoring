@@ -1498,7 +1498,7 @@ void Draft_Modification::Perform()
         return;
       }
 
-      IntCurveSurface_HInter myintcs;
+      HandleIntersection myintcs;
       myintcs.Perform(HAC, HAS);
       if (!myintcs.IsDone())
       {

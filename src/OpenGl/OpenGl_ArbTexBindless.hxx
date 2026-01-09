@@ -22,7 +22,7 @@
 //! This extension allows OpenGL applications to access texture objects in
 //! shaders without first binding each texture to one of a limited number of
 //! texture image units.
-struct OpenGl_ArbTexBindless : protected GlFunctions
+struct ArbTexBindless : protected GlFunctions
 {
 #if !defined(GL_ES_VERSION_2_0)
   using GlFunctions::glGetImageHandleARB;

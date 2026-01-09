@@ -46,17 +46,17 @@
   <HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.hxx>
 #define IntCurve_TheLocateExtPCOfTheProjPCur HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter
 #define IntCurve_TheLocateExtPCOfTheProjPCur_hxx <HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter.hxx>
-#define IntCurve_TheIntConicCurve HLRBRep_TheIntConicCurveOfCInter
+#define IntCurve_TheIntConicCurve IntConicCurveCInter
 #define IntCurve_TheIntConicCurve_hxx <HLRBRep_TheIntConicCurveOfCInter.hxx>
-#define IntCurve_TheIntersectorOfTheIntConicCurve HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter
+#define IntCurve_TheIntersectorOfTheIntConicCurve IntersectorIntConicCurveCInter
 #define IntCurve_TheIntersectorOfTheIntConicCurve_hxx                                              \
   <HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter.hxx>
-#define IntCurve_TheIntersectorOfTheIntConicCurve HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter
+#define IntCurve_TheIntersectorOfTheIntConicCurve IntersectorIntConicCurveCInter
 #define IntCurve_TheIntersectorOfTheIntConicCurve_hxx                                              \
   <HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter.hxx>
 #define IntCurve_IntConicCurve HLRBRep_IntConicCurveOfCInter
 #define IntCurve_IntConicCurve_hxx <HLRBRep_IntConicCurveOfCInter.hxx>
-#define IntCurve_TheIntPCurvePCurve HLRBRep_TheIntPCurvePCurveOfCInter
+#define IntCurve_TheIntPCurvePCurve IntPCurvePCurveCInter
 #define IntCurve_TheIntPCurvePCurve_hxx <HLRBRep_TheIntPCurvePCurveOfCInter.hxx>
 #define IntCurve_ThePolygon2dOfTheIntPCurvePCurve HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter
 #define IntCurve_ThePolygon2dOfTheIntPCurvePCurve_hxx                                              \

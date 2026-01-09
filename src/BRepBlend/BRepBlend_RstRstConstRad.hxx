@@ -47,11 +47,11 @@ class BRepBlend_RstRstConstRad : public Blend_RstRstFunction
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_RstRstConstRad(const Handle(Adaptor3d_Surface)& Surf1,
+  Standard_EXPORT BRepBlend_RstRstConstRad(const Handle(SurfaceAdaptor)& Surf1,
                                            const Handle(Adaptor2d_Curve2d)& Rst1,
-                                           const Handle(Adaptor3d_Surface)& Surf2,
+                                           const Handle(SurfaceAdaptor)& Surf2,
                                            const Handle(Adaptor2d_Curve2d)& Rst2,
-                                           const Handle(Adaptor3d_Curve)&   CGuide);
+                                           const Handle(Curve5)&   CGuide);
 
   //! Returns 2.
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
@@ -80,9 +80,9 @@ public:
                                           math_Vector&       F,
                                           math_Matrix&       D) Standard_OVERRIDE;
 
-  Standard_EXPORT void Set(const Handle(Adaptor3d_Surface)& SurfRef1,
+  Standard_EXPORT void Set(const Handle(SurfaceAdaptor)& SurfRef1,
                            const Handle(Adaptor2d_Curve2d)& RstRef1,
-                           const Handle(Adaptor3d_Surface)& SurfRef2,
+                           const Handle(SurfaceAdaptor)& SurfRef2,
                            const Handle(Adaptor2d_Curve2d)& RstRef2);
 
   Standard_EXPORT void Set(const Standard_Real Param) Standard_OVERRIDE;
@@ -238,14 +238,14 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface)    surf1;
-  Handle(Adaptor3d_Surface)    surf2;
+  Handle(SurfaceAdaptor)    surf1;
+  Handle(SurfaceAdaptor)    surf2;
   Handle(Adaptor2d_Curve2d)    rst1;
   Handle(Adaptor2d_Curve2d)    rst2;
   Adaptor3d_CurveOnSurface     cons1;
   Adaptor3d_CurveOnSurface     cons2;
-  Handle(Adaptor3d_Curve)      guide;
-  Handle(Adaptor3d_Curve)      tguide;
+  Handle(Curve5)      guide;
+  Handle(Curve5)      tguide;
   Point3d                       ptrst1;
   Point3d                       ptrst2;
   gp_Pnt2d                     pt2drst1;
@@ -265,9 +265,9 @@ private:
   Vector3d                       nplan;
   Standard_Real                normtg;
   Standard_Real                theD;
-  Handle(Adaptor3d_Surface)    surfref1;
+  Handle(SurfaceAdaptor)    surfref1;
   Handle(Adaptor2d_Curve2d)    rstref1;
-  Handle(Adaptor3d_Surface)    surfref2;
+  Handle(SurfaceAdaptor)    surfref2;
   Handle(Adaptor2d_Curve2d)    rstref2;
   Standard_Real                maxang;
   Standard_Real                minang;

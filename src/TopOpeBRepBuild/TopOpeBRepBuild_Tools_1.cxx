@@ -44,8 +44,8 @@ static void             CheckEdge(const TopoEdge& E, const Standard_Real aMaxTol
 static void             CorrectEdgeTolerance(const TopoEdge&  myShape,
                                              const TopoFace&  S,
                                              const Standard_Real aMaxTol);
-static Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
-                                 const Adaptor3d_Curve& Other,
+static Standard_Boolean Validate(const Curve5& CRef,
+                                 const Curve5& Other,
                                  const Standard_Real    Tol,
                                  const Standard_Boolean SameParameter,
                                  Standard_Real&         aNewTolerance);
@@ -109,7 +109,7 @@ void CorrectEdgeTolerance(const TopoEdge&  myShape,
   //
   // 1. Minimum of conditions to Perform
   Handle(BRep_CurveRepresentation) myCref;
-  Handle(Adaptor3d_Curve)          myHCurve;
+  Handle(Curve5)          myHCurve;
 
   myCref.Nullify();
 
@@ -325,8 +325,8 @@ void CorrectEdgeTolerance(const TopoEdge&  myShape,
 
 //=================================================================================================
 
-Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
-                          const Adaptor3d_Curve& Other,
+Standard_Boolean Validate(const Curve5& CRef,
+                          const Curve5& Other,
                           const Standard_Real    Tol,
                           const Standard_Boolean SameParameter,
                           Standard_Real&         aNewTolerance)

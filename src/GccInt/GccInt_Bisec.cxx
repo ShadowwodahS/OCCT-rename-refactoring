@@ -24,34 +24,34 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_Bisec, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Bisector2, RefObject)
 
-gp_Circ2d GccInt_Bisec::Circle() const
+gp_Circ2d Bisector2::Circle() const
 {
   throw Standard_NotImplemented();
 }
 
-gp_Elips2d GccInt_Bisec::Ellipse() const
+gp_Elips2d Bisector2::Ellipse() const
 {
   throw Standard_NotImplemented();
 }
 
-gp_Hypr2d GccInt_Bisec::Hyperbola() const
+gp_Hypr2d Bisector2::Hyperbola() const
 {
   throw Standard_NotImplemented();
 }
 
-gp_Lin2d GccInt_Bisec::Line() const
+gp_Lin2d Bisector2::Line() const
 {
   throw Standard_NotImplemented();
 }
 
-gp_Parab2d GccInt_Bisec::Parabola() const
+gp_Parab2d Bisector2::Parabola() const
 {
   throw Standard_NotImplemented();
 }
 
-gp_Pnt2d GccInt_Bisec::Point() const
+gp_Pnt2d Bisector2::Point() const
 {
   throw Standard_NotImplemented();
 }

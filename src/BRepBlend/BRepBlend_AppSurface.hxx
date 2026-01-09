@@ -31,7 +31,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <Standard_OStream.hxx>
-class Approx_SweepFunction;
+class SweepFunction;
 
 //! Used to Approximate the blending surfaces.
 class BRepBlend_AppSurface : public BlendApproximation
@@ -46,7 +46,7 @@ public:
   //! approximated  with an  tolerance   given  by   the
   //! resolution on   support surfaces,  but  if this
   //! tolerance is too large Tol2d  is used.
-  Standard_EXPORT BRepBlend_AppSurface(const Handle(Approx_SweepFunction)& Funct,
+  Standard_EXPORT BRepBlend_AppSurface(const Handle(SweepFunction)& Funct,
                                        const Standard_Real                 First,
                                        const Standard_Real                 Last,
                                        const Standard_Real                 Tol3d,

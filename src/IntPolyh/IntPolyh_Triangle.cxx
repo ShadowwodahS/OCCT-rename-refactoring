@@ -33,7 +33,7 @@ static void NewTriangle(const Standard_Integer           P1,
                         const Standard_Integer           P2,
                         const Standard_Integer           P3,
                         IntPolyh_ArrayOfTriangles&       TTriangles,
-                        const Handle(Adaptor3d_Surface)& MySurface,
+                        const Handle(SurfaceAdaptor)& MySurface,
                         IntPolyh_ArrayOfPoints&          TPoints);
 static void NewEdge(const Standard_Integer P1,
                     const Standard_Integer P2,
@@ -51,7 +51,7 @@ static void OldEdge(const Standard_Integer EdgeN,
 //           It is computed as a distance between triangles plane and
 //           barycenter of the triangle in UV space.
 //=======================================================================
-Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurface,
+Standard_Real Triangle4::ComputeDeflection(const Handle(SurfaceAdaptor)& theSurface,
                                                    const IntPolyh_ArrayOfPoints&    TPoints)
 {
   myDeflection = 0.;
@@ -97,7 +97,7 @@ Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surfac
 
 //=================================================================================================
 
-Standard_Integer IntPolyh_Triangle::GetNextTriangle(const Standard_Integer       theTriangle,
+Standard_Integer Triangle4::GetNextTriangle(const Standard_Integer       theTriangle,
                                                     const Standard_Integer       theEdgeNum,
                                                     const IntPolyh_ArrayOfEdges& TEdges) const
 {
@@ -115,7 +115,7 @@ Standard_Integer IntPolyh_Triangle::GetNextTriangle(const Standard_Integer      
 
 //=================================================================================================
 
-void IntPolyh_Triangle::LinkEdges2Triangle(const IntPolyh_ArrayOfEdges& TEdges,
+void Triangle4::LinkEdges2Triangle(const IntPolyh_ArrayOfEdges& TEdges,
                                            const Standard_Integer       theEdge1,
                                            const Standard_Integer       theEdge2,
                                            const Standard_Integer       theEdge3)
@@ -147,7 +147,7 @@ void GetInfoTA(const Standard_Integer           numP1,
 {
   /// On veut savoir quel est le troisieme point du triangle
   /// adjacent (TriAdj) et quel sont les edges partant de ce point
-  const IntPolyh_Triangle& TriAdj = TTriangles[numTA];
+  const Triangle4& TriAdj = TTriangles[numTA];
   Standard_Integer         P1b    = TriAdj.FirstPoint();
   Standard_Integer         P2b    = TriAdj.SecondPoint();
   Standard_Integer         P3b    = TriAdj.ThirdPoint();
@@ -211,7 +211,7 @@ void NewTriangle(const Standard_Integer           P1,
                  const Standard_Integer           P2,
                  const Standard_Integer           P3,
                  IntPolyh_ArrayOfTriangles&       TTriangles,
-                 const Handle(Adaptor3d_Surface)& MySurface,
+                 const Handle(SurfaceAdaptor)& MySurface,
                  IntPolyh_ArrayOfPoints&          TPoints)
 {
   const Standard_Integer FinTT = TTriangles.NbItems();
@@ -259,8 +259,8 @@ void OldEdge(const Standard_Integer EdgeN,
 
 //=================================================================================================
 
-void IntPolyh_Triangle::MiddleRefinement(const Standard_Integer           NumTri,
-                                         const Handle(Adaptor3d_Surface)& MySurface,
+void Triangle4::MiddleRefinement(const Standard_Integer           NumTri,
+                                         const Handle(SurfaceAdaptor)& MySurface,
                                          IntPolyh_ArrayOfPoints&          TPoints,
                                          IntPolyh_ArrayOfTriangles&       TTriangles,
                                          IntPolyh_ArrayOfEdges&           TEdges)
@@ -560,10 +560,10 @@ void IntPolyh_Triangle::MiddleRefinement(const Standard_Integer           NumTri
 
 //=================================================================================================
 
-void IntPolyh_Triangle::MultipleMiddleRefinement(const Standard_Real    theRefineCriterion,
+void Triangle4::MultipleMiddleRefinement(const Standard_Real    theRefineCriterion,
                                                  const Box2&         theBox,
                                                  const Standard_Integer theTriangleNumber,
-                                                 const Handle(Adaptor3d_Surface)& theSurface,
+                                                 const Handle(SurfaceAdaptor)& theSurface,
                                                  IntPolyh_ArrayOfPoints&          TPoints,
                                                  IntPolyh_ArrayOfTriangles&       TTriangles,
                                                  IntPolyh_ArrayOfEdges&           TEdges)
@@ -579,7 +579,7 @@ void IntPolyh_Triangle::MultipleMiddleRefinement(const Standard_Real    theRefin
   // Refine the new triangles
   for (Standard_Integer i = FinTTInit; i < TTriangles.NbItems() && i < MaxNbTT; ++i)
   {
-    IntPolyh_Triangle& aTriangle = TTriangles[i];
+    Triangle4& aTriangle = TTriangles[i];
     if (theBox.IsOut(aTriangle.BoundingBox(TPoints)))
     {
       aTriangle.SetIntersectionPossible(Standard_False);
@@ -593,7 +593,7 @@ void IntPolyh_Triangle::MultipleMiddleRefinement(const Standard_Real    theRefin
 
 //=================================================================================================
 
-void IntPolyh_Triangle::SetEdgeAndOrientation(const Edge&   theEdge,
+void Triangle4::SetEdgeAndOrientation(const Edge&   theEdge,
                                               const Standard_Integer theEdgeIndex)
 {
   // Points on the edge - pe1, pe2
@@ -633,7 +633,7 @@ void IntPolyh_Triangle::SetEdgeAndOrientation(const Edge&   theEdge,
 
 //=================================================================================================
 
-const Box2& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& thePoints)
+const Box2& Triangle4::BoundingBox(const IntPolyh_ArrayOfPoints& thePoints)
 {
   if (myBox.IsVoid())
   {
@@ -650,7 +650,7 @@ const Box2& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& thePoin
 
 //=================================================================================================
 
-void IntPolyh_Triangle::Dump(const Standard_Integer i) const
+void Triangle4::Dump(const Standard_Integer i) const
 {
   printf("\nTriangle(%3d) : Points %5d %5d %5d Edges %5d %5d %5d deflection: %8f "
          "intersection possible %8d  intersection: %5d\n",

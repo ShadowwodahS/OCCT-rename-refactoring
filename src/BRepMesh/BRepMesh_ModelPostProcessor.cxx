@@ -24,7 +24,7 @@
 #include <BRepLib.hxx>
 #include <Poly_TriangulationParameters.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ModelPostProcessor, IMeshTools_ModelAlgo)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ModelPostProcessor, ModelAlgorithm)
 
 namespace
 {
@@ -75,7 +75,7 @@ private:
     Handle(Poly_Polygon3D) aPoly3D = new Poly_Polygon3D(aNodes, aUVNodes);
     aPoly3D->Deflection(theDEdge->GetDeflection());
 
-    BRepMesh_ShapeTool::UpdateEdge(theDEdge->GetEdge(), aPoly3D);
+    ShapeTool2::UpdateEdge(theDEdge->GetEdge(), aPoly3D);
   }
 
   //! Commits all polygons on triangulations correspondent to the given edge.
@@ -117,7 +117,7 @@ private:
         const IMeshData::ListOfIPCurves& aPCurves = aPolygonIt.Value();
         if (aPCurves.Size() == 2)
         {
-          BRepMesh_ShapeTool::UpdateEdge(
+          ShapeTool2::UpdateEdge(
             aEdge,
             collectPolygon(aPCurves.First(), theDEdge->GetDeflection()),
             collectPolygon(aPCurves.Last(), theDEdge->GetDeflection()),
@@ -126,7 +126,7 @@ private:
         }
         else
         {
-          BRepMesh_ShapeTool::UpdateEdge(
+          ShapeTool2::UpdateEdge(
             aEdge,
             collectPolygon(aPCurves.First(), theDEdge->GetDeflection()),
             aTriangulation,
@@ -166,7 +166,7 @@ public:
   DeflectionEstimator(const Handle(IMeshData_Model)& theModel,
                       const Parameters3&   theParams)
       : myModel(theModel),
-        myParams(new Poly_TriangulationParameters(theParams.Deflection,
+        myParams(new TriangulationParameters(theParams.Deflection,
                                                   theParams.Angle,
                                                   theParams.MinSize))
   {
@@ -195,7 +195,7 @@ public:
 
 private:
   Handle(IMeshData_Model)              myModel;
-  Handle(Poly_TriangulationParameters) myParams;
+  Handle(TriangulationParameters) myParams;
 };
 } // namespace
 

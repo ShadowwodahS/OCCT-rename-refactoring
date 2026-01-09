@@ -15,4 +15,4 @@
 
 #include <IMeshTools_ShapeVisitor.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshTools_ShapeVisitor, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeVisitor, RefObject)

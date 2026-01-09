@@ -74,7 +74,7 @@ void TObj_TModel::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void TObj_TModel::Paste(const Handle(TDF_Attribute)& theInto,
-                        const Handle(TDF_RelocationTable)& /* RT */) const
+                        const Handle(RelocationTable1)& /* RT */) const
 {
   Handle(TObj_TModel) R = Handle(TObj_TModel)::DownCast(theInto);
   R->Set(myModel);

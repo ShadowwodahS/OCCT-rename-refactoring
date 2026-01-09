@@ -161,7 +161,7 @@ Standard_Boolean OpenGl_View::updateRaytraceGeometry(const RaytraceUpdateMode   
                aGroupIter.Next())
           {
             // Extract OpenGL elements from the group (primitives arrays)
-            for (const OpenGl_ElementNode* aNode = aGroupIter.Value()->FirstNode(); aNode != NULL;
+            for (const ElementNode* aNode = aGroupIter.Value()->FirstNode(); aNode != NULL;
                  aNode                           = aNode->next)
             {
               OpenGl_PrimitiveArray* aPrimArray = dynamic_cast<OpenGl_PrimitiveArray*>(aNode->elem);
@@ -314,7 +314,7 @@ Standard_Boolean OpenGl_View::toUpdateStructure(const OpenGl_Structure* theStruc
 // function : buildTextureTransform
 // purpose  : Constructs texture transformation matrix
 // =======================================================================
-void buildTextureTransform(const Handle(Graphic3d_TextureParams)& theParams, BVH_Mat4f& theMatrix)
+void buildTextureTransform(const Handle(TextureParams)& theParams, BVH_Mat4f& theMatrix)
 {
   theMatrix.InitIdentity();
   if (theParams.IsNull())
@@ -437,7 +437,7 @@ RaytraceMaterial OpenGl_View::convertMaterial(const OpenGl_Aspects*         theA
     return aResMat;
   }
 
-  const Handle(OpenGl_TextureSet)& aTextureSet = theAspect->TextureSet(theGlContext);
+  const Handle(TextureSet2)& aTextureSet = theAspect->TextureSet(theGlContext);
   if (aTextureSet.IsNull() || aTextureSet->IsEmpty() || aTextureSet->First().IsNull())
   {
     return aResMat;
@@ -446,7 +446,7 @@ RaytraceMaterial OpenGl_View::convertMaterial(const OpenGl_Aspects*         theA
   if (theGlContext->HasRayTracingTextures())
   {
     // write texture ID to diffuse w-components
-    for (OpenGl_TextureSet::Iterator aTexIter(aTextureSet); aTexIter.More(); aTexIter.Next())
+    for (TextureSet2::Iterator aTexIter(aTextureSet); aTexIter.More(); aTexIter.Next())
     {
       const Handle(OpenGl_Texture)& aTexture = aTexIter.Value();
       if (aTexIter.Unit() == Graphic3d_TextureUnit_BaseColor)
@@ -532,7 +532,7 @@ Standard_Boolean OpenGl_View::addRaytraceStructure(const OpenGl_Structure*      
 // =======================================================================
 Standard_Boolean OpenGl_View::addRaytraceGroups(const OpenGl_Structure*        theStructure,
                                                 const RaytraceMaterial& theStructMat,
-                                                const Handle(TopLoc_Datum3D)&  theTrsf,
+                                                const Handle(Datum3D2)&  theTrsf,
                                                 const Handle(OpenGl_Context)&  theGlContext)
 {
   OpenGl_Mat4 aMat4;
@@ -553,7 +553,7 @@ Standard_Boolean OpenGl_View::addRaytraceGroups(const OpenGl_Structure*        t
                                                                                    : theStructMat);
 
     // Add OpenGL elements from group (extract primitives arrays and aspects)
-    for (const OpenGl_ElementNode* aNode = aGroupIter.Value()->FirstNode(); aNode != NULL;
+    for (const ElementNode* aNode = aGroupIter.Value()->FirstNode(); aNode != NULL;
          aNode                           = aNode->next)
     {
       OpenGl_Aspects* anAspect = dynamic_cast<OpenGl_Aspects*>(aNode->elem);
@@ -1062,13 +1062,13 @@ Standard_Boolean OpenGl_View::addRaytracePolygonArray(
   return Standard_True;
 }
 
-const AsciiString1 OpenGl_View::ShaderSource::EMPTY_PREFIX;
+const AsciiString1 OpenGl_View::ShaderSource1::EMPTY_PREFIX;
 
 // =======================================================================
 // function : Source
 // purpose  : Returns shader source combined with prefix
 // =======================================================================
-AsciiString1 OpenGl_View::ShaderSource::Source(const Handle(OpenGl_Context)& theCtx,
+AsciiString1 OpenGl_View::ShaderSource1::Source(const Handle(OpenGl_Context)& theCtx,
                                                           const GLenum theType) const
 {
   AsciiString1 aVersion = theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES
@@ -1098,7 +1098,7 @@ AsciiString1 OpenGl_View::ShaderSource::Source(const Handle(OpenGl_Context)& the
 // function : LoadFromFiles
 // purpose  : Loads shader source from specified files
 // =======================================================================
-Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
+Standard_Boolean OpenGl_View::ShaderSource1::LoadFromFiles(
   const AsciiString1* theFileNames,
   const AsciiString1& thePrefix)
 {
@@ -1149,7 +1149,7 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
 
 //=================================================================================================
 
-Standard_Boolean OpenGl_View::ShaderSource::LoadFromStrings(
+Standard_Boolean OpenGl_View::ShaderSource1::LoadFromStrings(
   const AsciiString1* theStrings,
   const AsciiString1& thePrefix)
 {
@@ -1278,7 +1278,7 @@ Standard_Boolean OpenGl_View::safeFailBack(const UtfString& theMessage,
 // purpose  : Creates new shader object with specified source
 // =======================================================================
 Handle(OpenGl_ShaderObject) OpenGl_View::initShader(const GLenum                  theType,
-                                                    const ShaderSource&           theSource,
+                                                    const ShaderSource1&           theSource,
                                                     const Handle(OpenGl_Context)& theGlContext)
 {
   Handle(OpenGl_ShaderObject) aShader = new OpenGl_ShaderObject(theType);
@@ -1315,7 +1315,7 @@ Handle(OpenGl_ShaderProgram) OpenGl_View::initProgram(
 {
   const AsciiString1 anId = AsciiString1("occt_rt_") + theName;
   Handle(OpenGl_ShaderProgram)  aProgram =
-    new OpenGl_ShaderProgram(Handle(Graphic3d_ShaderProgram)(), anId);
+    new OpenGl_ShaderProgram(Handle(ShaderProgram2)(), anId);
 
   if (!aProgram->Create(theGlContext))
   {
@@ -1589,7 +1589,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
 
     myRaytraceParameters.NbBounces = myRenderParams.RaytracingDepth;
 
-    const AsciiString1 aShaderFolder = Graphic3d_ShaderProgram::ShadersFolder();
+    const AsciiString1 aShaderFolder = ShaderProgram2::ShadersFolder();
     if (myIsRaytraceDataValid)
     {
       myRaytraceParameters.StackSize =
@@ -1603,7 +1603,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
     Message1::SendTrace() << "GLSL prefix string:" << std::endl << aPrefixString;
 #endif
 
-    ShaderSource aBasicVertShaderSrc;
+    ShaderSource1 aBasicVertShaderSrc;
     {
       if (!aShaderFolder.IsEmpty())
       {
@@ -2616,9 +2616,9 @@ Standard_Boolean OpenGl_View::updateRaytraceLightSources(const OpenGl_Mat4& theI
 
     // move positional light sources at the front of the list
     aLightSources.reserve(myLights->Extent());
-    for (Graphic3d_LightSet::Iterator aLightIter(
+    for (LightSet::Iterator aLightIter(
            myLights,
-           Graphic3d_LightSet::IterationFilter_ExcludeDisabledAndAmbient);
+           LightSet::IterationFilter_ExcludeDisabledAndAmbient);
          aLightIter.More();
          aLightIter.Next())
     {
@@ -2629,9 +2629,9 @@ Standard_Boolean OpenGl_View::updateRaytraceLightSources(const OpenGl_Mat4& theI
       }
     }
 
-    for (Graphic3d_LightSet::Iterator aLightIter(
+    for (LightSet::Iterator aLightIter(
            myLights,
-           Graphic3d_LightSet::IterationFilter_ExcludeDisabledAndAmbient);
+           LightSet::IterationFilter_ExcludeDisabledAndAmbient);
          aLightIter.More();
          aLightIter.Next())
     {
@@ -2872,11 +2872,11 @@ Standard_Boolean OpenGl_View::setUniformState(const Standard_Integer        theP
     aBackColorTop = myBackgrounds[Graphic3d_TOB_GRADIENT]->GradientColor(0);
     aBackColorBot = myBackgrounds[Graphic3d_TOB_GRADIENT]->GradientColor(1);
 
-    if (myCamera->Tile().IsValid())
+    if (myCamera->Tile1().IsValid())
     {
-      Standard_Integer aTileOffset = myCamera->Tile().OffsetLowerLeft().y();
-      Standard_Integer aTileSize   = myCamera->Tile().TileSize.y();
-      Standard_Integer aViewSize   = myCamera->Tile().TotalSize.y();
+      Standard_Integer aTileOffset = myCamera->Tile1().OffsetLowerLeft().y();
+      Standard_Integer aTileSize   = myCamera->Tile1().TileSize.y();
+      Standard_Integer aViewSize   = myCamera->Tile1().TotalSize.y();
       OpenGl_Vec4      aColorRange = aBackColorTop - aBackColorBot;
       aBackColorBot                = aBackColorBot + aColorRange * ((float)aTileOffset / aViewSize);
       aBackColorTop                = aBackColorBot + aColorRange * ((float)aTileSize / aViewSize);
@@ -2892,7 +2892,7 @@ Standard_Boolean OpenGl_View::setUniformState(const Standard_Integer        theP
                          aBackColorBot);
 
   // Set environment map parameters
-  const Handle(OpenGl_TextureSet)& anEnvTextureSet =
+  const Handle(TextureSet2)& anEnvTextureSet =
     myRaytraceParameters.CubemapForBack ? myCubeMapParams->TextureSet(theGlContext) : myTextureEnv;
   const bool toDisableEnvironmentMap =
     anEnvTextureSet.IsNull() || anEnvTextureSet->IsEmpty() || !anEnvTextureSet->First()->IsValid();
@@ -3001,7 +3001,7 @@ void OpenGl_View::bindRaytraceTextures(const Handle(OpenGl_Context)& theGlContex
     }
   }
 
-  const Handle(OpenGl_TextureSet)& anEnvTextureSet =
+  const Handle(TextureSet2)& anEnvTextureSet =
     myRaytraceParameters.CubemapForBack ? myCubeMapParams->TextureSet(theGlContext) : myTextureEnv;
   if (!anEnvTextureSet.IsNull() && !anEnvTextureSet->IsEmpty()
       && anEnvTextureSet->First()->IsValid())

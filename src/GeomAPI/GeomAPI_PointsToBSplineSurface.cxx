@@ -489,8 +489,8 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColgp_Array2OfPnt& Points,
     Line.SetValue(j, MP);
   }
 
-  Handle(AppParCurves_HArray1OfConstraintCouple) TABofCC =
-    new AppParCurves_HArray1OfConstraintCouple(1, NbPointJ);
+  Handle(ConstraintCoupleArray) TABofCC =
+    new ConstraintCoupleArray(1, NbPointJ);
   AppParCurves_Constraint Constraint = AppParCurves_NoConstraint;
 
   for (i = 1; i <= NbPointJ; ++i)
@@ -560,8 +560,8 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColgp_Array2OfPnt& Points,
     Line2.SetValue(i, MP);
   }
 
-  Handle(AppParCurves_HArray1OfConstraintCouple) TABofCC2 =
-    new AppParCurves_HArray1OfConstraintCouple(1, NbPointI);
+  Handle(ConstraintCoupleArray) TABofCC2 =
+    new ConstraintCoupleArray(1, NbPointI);
 
   for (i = 1; i <= NbPointI; ++i)
   {

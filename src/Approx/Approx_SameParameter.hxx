@@ -39,15 +39,15 @@ public:
                                        const Standard_Real         Tol);
 
   //! Warning: the C3D and C2D must have the same parametric domain.
-  Standard_EXPORT SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
+  Standard_EXPORT SameParameterTool(const Handle(Curve5)&   C3D,
                                        const Handle(GeomCurve2d)&      C2D,
-                                       const Handle(Adaptor3d_Surface)& S,
+                                       const Handle(SurfaceAdaptor)& S,
                                        const Standard_Real              Tol);
 
   //! Warning: the C3D and C2D must have the same parametric domain.
-  Standard_EXPORT SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
+  Standard_EXPORT SameParameterTool(const Handle(Curve5)&   C3D,
                                        const Handle(Adaptor2d_Curve2d)& C2D,
-                                       const Handle(Adaptor3d_Surface)& S,
+                                       const Handle(SurfaceAdaptor)& S,
                                        const Standard_Real              Tol);
 
   //!@Returns .false. if calculations failed,
@@ -71,7 +71,7 @@ public:
   //! Returns the 3D curve that has the same parameter as
   //! the 3D curve once evaluated on the surface up to the
   //! specified tolerance.
-  Handle(Adaptor3d_Curve) Curve3d() const { return myC3d; }
+  Handle(Curve5) Curve3d() const { return myC3d; }
 
   //! Returns the 3D curve on surface that has the same parameter as
   //! the 3D curve up to the specified tolerance.
@@ -168,8 +168,8 @@ private:
   Standard_Real                    myTolReached;
   Handle(GeomCurve2d)             myCurve2d;
   Handle(Adaptor2d_Curve2d)        myHCurve2d;
-  Handle(Adaptor3d_Curve)          myC3d;
-  Handle(Adaptor3d_Surface)        mySurf;
+  Handle(Curve5)          myC3d;
+  Handle(SurfaceAdaptor)        mySurf;
   Handle(Adaptor3d_CurveOnSurface) myCurveOnSurface;
 };
 

@@ -19,7 +19,7 @@
 #include <Graphic3d_ViewAffinity.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<const RefObject*, Handle(Graphic3d_ViewAffinity)>
+typedef NCollection_DataMap<const RefObject*, Handle(ViewAffinity1)>
   Graphic3d_MapOfObject;
 
 #endif // _Graphic3d_MapOfObject

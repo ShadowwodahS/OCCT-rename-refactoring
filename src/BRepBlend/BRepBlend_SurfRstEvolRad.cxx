@@ -115,11 +115,11 @@ static void FusionneIntervalles(const TColStd_Array1OfReal& I1,
 
 //=================================================================================================
 
-BRepBlend_SurfRstEvolRad::BRepBlend_SurfRstEvolRad(const Handle(Adaptor3d_Surface)& Surf,
-                                                   const Handle(Adaptor3d_Surface)& SurfRst,
+BRepBlend_SurfRstEvolRad::BRepBlend_SurfRstEvolRad(const Handle(SurfaceAdaptor)& Surf,
+                                                   const Handle(SurfaceAdaptor)& SurfRst,
                                                    const Handle(Adaptor2d_Curve2d)& Rst,
-                                                   const Handle(Adaptor3d_Curve)&   CGuide,
-                                                   const Handle(Law_Function)&      Evol)
+                                                   const Handle(Curve5)&   CGuide,
+                                                   const Handle(Function2)&      Evol)
     : surf(Surf),
       surfrst(SurfRst),
       rst(Rst),
@@ -303,7 +303,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Values(const math_Vector& X,
 
 //=================================================================================================
 
-void BRepBlend_SurfRstEvolRad::Set(const Handle(Adaptor3d_Surface)& SurfRef,
+void BRepBlend_SurfRstEvolRad::Set(const Handle(SurfaceAdaptor)& SurfRef,
                                    const Handle(Adaptor2d_Curve2d)& RstRef)
 {
   surfref = SurfRef;

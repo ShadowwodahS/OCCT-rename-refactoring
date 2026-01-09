@@ -42,7 +42,7 @@ typedef Vector3d            Vec;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_TrimmedCurve::Copy() const
+Handle(Geometry3) Geom_TrimmedCurve::Copy() const
 {
 
   Handle(Geom_TrimmedCurve) Tc = new TrimmedCurve(basisCurve, uTrim1, uTrim2);

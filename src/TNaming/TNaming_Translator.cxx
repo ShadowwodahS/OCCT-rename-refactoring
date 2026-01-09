@@ -128,13 +128,13 @@ void NamingTranslator::DumpMap(const Standard_Boolean isWrite) const
         BRepTools1::Write(S2, itemname.Cat(i).ToCString());
       }
     }
-    else if ((myMap.FindKey(i))->DynamicType() == STANDARD_TYPE(TopLoc_Datum3D))
+    else if ((myMap.FindKey(i))->DynamicType() == STANDARD_TYPE(Datum3D2))
     {
       if (isWrite)
       {
-        const Handle(TopLoc_Datum3D) key = Handle(TopLoc_Datum3D)::DownCast(myMap.FindKey(i));
-        const Handle(TopLoc_Datum3D) Item =
-          Handle(TopLoc_Datum3D)::DownCast(myMap.FindFromIndex(i));
+        const Handle(Datum3D2) key = Handle(Datum3D2)::DownCast(myMap.FindKey(i));
+        const Handle(Datum3D2) Item =
+          Handle(Datum3D2)::DownCast(myMap.FindFromIndex(i));
         std::cout << "NamingTranslator::DumpMap: Location_Key_name  = "
                   << keyname.Cat(i).ToCString() << std::endl;
         key->ShallowDump(std::cout);

@@ -25,13 +25,13 @@
 class gp_Pnt2d;
 
 class Geom2d_Point;
-DEFINE_STANDARD_HANDLE(Geom2d_Point, Geom2d_Geometry)
+DEFINE_STANDARD_HANDLE(Geom2d_Point, Geometry2)
 
 //! The abstract class Point describes the common
 //! behavior of geometric points in 2D space.
 //! The Geom2d package also provides the concrete
 //! class Geom2d_CartesianPoint.
-class Geom2d_Point : public Geom2d_Geometry
+class Geom2d_Point : public Geometry2
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Point, Geom2d_Geometry)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_Point, Geometry2)
 
 protected:
 private:

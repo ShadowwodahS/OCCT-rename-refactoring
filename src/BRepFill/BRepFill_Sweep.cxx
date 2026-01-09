@@ -196,7 +196,7 @@ static void Translate(const Handle(HArray2OfShape)& ArrayIn,
 // function : Box1
 // purpose  : Bounding box of a section.
 //=======================================================================
-static void Box1(Handle(GeomFill_SectionLaw)& Sec, const Standard_Real U, Box2& Box1)
+static void Box1(Handle(SectionLaw)& Sec, const Standard_Real U, Box2& Box1)
 
 {
   Standard_Integer NbPoles, bid;
@@ -250,9 +250,9 @@ static Handle(GeomCurve2d) Couture(const TopoEdge&          E,
 // purpose  : Check a posteriori that sameparameter has worked correctly
 //=======================================================================
 
-static Standard_Boolean CheckSameParameter(const Handle(Adaptor3d_Curve)&   C3d,
+static Standard_Boolean CheckSameParameter(const Handle(Curve5)&   C3d,
                                            const Handle(GeomCurve2d)&      Pcurv,
-                                           const Handle(Adaptor3d_Surface)& S,
+                                           const Handle(SurfaceAdaptor)& S,
                                            const Standard_Real              tol3d,
                                            Standard_Real&                   tolreached)
 {
@@ -289,7 +289,7 @@ static Standard_Boolean CheckSameParameter(const Handle(Adaptor3d_Curve)&   C3d,
 // with exact calculation method of edge tolerance
 //=======================================================================
 static Standard_Boolean CheckSameParameterExact(
-  const Handle(Adaptor3d_Curve)&          C3d,
+  const Handle(Curve5)&          C3d,
   const Handle(Adaptor3d_CurveOnSurface)& curveOnSurface,
   const Standard_Real                     tol3d,
   Standard_Real&                          tolreached)
@@ -356,7 +356,7 @@ static Standard_Boolean SameParameter(TopoEdge&                E,
     }
   }
 
-  const Handle(Adaptor3d_Curve)& aHCurve = HC3d; // to avoid ambiguity
+  const Handle(Curve5)& aHCurve = HC3d; // to avoid ambiguity
   SameParameterTool           sp(aHCurve, Pcurv, S, tol3d);
   if (sp.IsDone() && !sp.IsSameParameter())
     Pcurv = sp.Curve2d();
@@ -368,7 +368,7 @@ static Standard_Boolean SameParameter(TopoEdge&                E,
     return Standard_False;
   }
 
-  Handle(Adaptor3d_Curve)          curve3d        = sp.Curve3d();
+  Handle(Curve5)          curve3d        = sp.Curve3d();
   Handle(Adaptor3d_CurveOnSurface) curveOnSurface = sp.CurveOnSurface();
 
   if (!CheckSameParameterExact(curve3d, curveOnSurface, tol3d, ResTol) && ResTol > tolreached)
@@ -3726,7 +3726,7 @@ Standard_Real BRepFill_Sweep::EvalExtrapol(const Standard_Integer         Index,
       return Extrap; // = 0.0
     }
 
-    Handle(GeomFill_SectionLaw) Sec;
+    Handle(SectionLaw) Sec;
     Sec = mySec->ConcatenedLaw();
 
     // Calculating parameter U

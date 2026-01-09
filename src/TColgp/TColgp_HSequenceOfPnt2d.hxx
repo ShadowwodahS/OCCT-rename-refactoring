@@ -21,6 +21,6 @@
 #include <TColgp_SequenceOfPnt2d.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TColgp_HSequenceOfPnt2d, TColgp_SequenceOfPnt2d)
+DEFINE_HSEQUENCE(Point2dSequence, TColgp_SequenceOfPnt2d)
 
 #endif

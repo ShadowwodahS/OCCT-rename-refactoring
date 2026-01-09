@@ -24,7 +24,7 @@
 #include <OSD_Path.hxx>
 #include <Standard_Atomic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderProgram, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShaderProgram2, RefObject)
 
 namespace
 {
@@ -33,7 +33,7 @@ static volatile Standard_Integer THE_PROGRAM_OBJECT_COUNTER = 0;
 
 //=================================================================================================
 
-const AsciiString1& Graphic3d_ShaderProgram::ShadersFolder()
+const AsciiString1& ShaderProgram2::ShadersFolder()
 {
   static Standard_Boolean        THE_IS_DEFINED = Standard_False;
   static AsciiString1 THE_SHADERS_FOLDER;
@@ -72,10 +72,10 @@ const AsciiString1& Graphic3d_ShaderProgram::ShadersFolder()
 }
 
 // =======================================================================
-// function : Graphic3d_ShaderProgram
+// function : ShaderProgram2
 // purpose  : Creates new empty program object
 // =======================================================================
-Graphic3d_ShaderProgram::Graphic3d_ShaderProgram()
+ShaderProgram2::ShaderProgram2()
     : myNbLightsMax(THE_MAX_LIGHTS_DEFAULT),
       myNbShadowMaps(0),
       myNbClipPlanesMax(THE_MAX_CLIP_PLANES_DEFAULT),
@@ -91,10 +91,10 @@ Graphic3d_ShaderProgram::Graphic3d_ShaderProgram()
 }
 
 // =======================================================================
-// function : ~Graphic3d_ShaderProgram
+// function : ~ShaderProgram2
 // purpose  : Releases resources of program object
 // =======================================================================
-Graphic3d_ShaderProgram::~Graphic3d_ShaderProgram()
+ShaderProgram2::~ShaderProgram2()
 {
   //
 }
@@ -103,7 +103,7 @@ Graphic3d_ShaderProgram::~Graphic3d_ShaderProgram()
 // function : IsDone
 // purpose  : Checks if the program object is valid or not
 // =======================================================================
-Standard_Boolean Graphic3d_ShaderProgram::IsDone() const
+Standard_Boolean ShaderProgram2::IsDone() const
 {
   if (myShaderObjects.IsEmpty())
   {
@@ -123,8 +123,8 @@ Standard_Boolean Graphic3d_ShaderProgram::IsDone() const
 // function : AttachShader
 // purpose  : Attaches shader object to the program object
 // =======================================================================
-Standard_Boolean Graphic3d_ShaderProgram::AttachShader(
-  const Handle(Graphic3d_ShaderObject)& theShader)
+Standard_Boolean ShaderProgram2::AttachShader(
+  const Handle(ShaderObject)& theShader)
 {
   if (theShader.IsNull())
   {
@@ -145,8 +145,8 @@ Standard_Boolean Graphic3d_ShaderProgram::AttachShader(
 // function : DetachShader
 // purpose  : Detaches shader object from the program object
 // =======================================================================
-Standard_Boolean Graphic3d_ShaderProgram::DetachShader(
-  const Handle(Graphic3d_ShaderObject)& theShader)
+Standard_Boolean ShaderProgram2::DetachShader(
+  const Handle(ShaderObject)& theShader)
 {
   if (theShader.IsNull())
   {
@@ -169,14 +169,14 @@ Standard_Boolean Graphic3d_ShaderProgram::DetachShader(
 // function : ClearVariables
 // purpose  : Removes all custom uniform variables from the program
 // =======================================================================
-void Graphic3d_ShaderProgram::ClearVariables()
+void ShaderProgram2::ClearVariables()
 {
   myVariables.Clear();
 }
 
 //=================================================================================================
 
-void Graphic3d_ShaderProgram::SetVertexAttributes(
+void ShaderProgram2::SetVertexAttributes(
   const Graphic3d_ShaderAttributeList& theAttributes)
 {
   myAttributes = theAttributes;

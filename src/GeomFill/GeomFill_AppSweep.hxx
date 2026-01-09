@@ -39,7 +39,7 @@ class StdFail_NotDone;
 class Standard_DomainError;
 class Standard_OutOfRange;
 class GeomFill_SweepSectionGenerator;
-class GeomFill_Line;
+class Line1;
 
 //! Approximate a sweep surface passing  by  all the
 //! curves described in the SweepSectionGenerator.
@@ -91,14 +91,14 @@ public:
                                        Standard_Real& W2,
                                        Standard_Real& W3) const;
 
-  Standard_EXPORT void Perform(const Handle(GeomFill_Line)&    Lin,
+  Standard_EXPORT void Perform(const Handle(Line1)&    Lin,
                                GeomFill_SweepSectionGenerator& SecGen,
                                const Standard_Boolean          SpApprox = Standard_False);
 
-  Standard_EXPORT void PerformSmoothing(const Handle(GeomFill_Line)&    Lin,
+  Standard_EXPORT void PerformSmoothing(const Handle(Line1)&    Lin,
                                         GeomFill_SweepSectionGenerator& SecGen);
 
-  Standard_EXPORT void Perform(const Handle(GeomFill_Line)&    Lin,
+  Standard_EXPORT void Perform(const Handle(Line1)&    Lin,
                                GeomFill_SweepSectionGenerator& SecGen,
                                const Standard_Integer          NbMaxP);
 
@@ -159,7 +159,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void InternalPerform(const Handle(GeomFill_Line)&    Lin,
+  Standard_EXPORT void InternalPerform(const Handle(Line1)&    Lin,
                                        GeomFill_SweepSectionGenerator& SecGen,
                                        const Standard_Boolean          SpApprox,
                                        const Standard_Boolean          UseVariational);
@@ -173,7 +173,7 @@ private:
   Standard_Integer                 udeg;
   Standard_Integer                 vdeg;
   Standard_Boolean                 knownp;
-  Handle(TColgp_HArray2OfPnt)      tabPoles;
+  Handle(PointGrid)      tabPoles;
   Handle(TColStd_HArray2OfReal)    tabWeights;
   Handle(TColStd_HArray1OfReal)    tabUKnots;
   Handle(TColStd_HArray1OfReal)    tabVKnots;
@@ -189,8 +189,8 @@ private:
 
 #define TheSectionGenerator GeomFill_SweepSectionGenerator
 #define TheSectionGenerator_hxx <GeomFill_SweepSectionGenerator.hxx>
-#define Handle_TheLine Handle(GeomFill_Line)
-#define TheLine GeomFill_Line
+#define Handle_TheLine Handle(Line1)
+#define TheLine Line1
 #define TheLine_hxx <GeomFill_Line.hxx>
 #define AppBlend_AppSurf GeomFill_AppSweep
 #define AppBlend_AppSurf_hxx <GeomFill_AppSweep.hxx>

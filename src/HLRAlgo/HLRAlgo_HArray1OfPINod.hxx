@@ -20,6 +20,6 @@
 #include <HLRAlgo_Array1OfPINod.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(HLRAlgo_HArray1OfPINod, HLRAlgo_Array1OfPINod)
+DEFINE_HARRAY1(HandlePINodArray, HLRAlgo_Array1OfPINod)
 
 #endif

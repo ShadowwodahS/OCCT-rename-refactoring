@@ -274,7 +274,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
   }
 
   bool                                                isExplicitShaderType = false;
-  Handle(Graphic3d_ShaderProgram)                     aProgram = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2)                     aProgram = new ShaderProgram2();
   NCollection_Sequence<Handle(VisualEntity)> aPrsList;
   Graphic3d_GroupAspect                               aGroupAspect     = Graphic3d_ASPECT_FILL_AREA;
   bool                                                isSetGroupAspect = false;
@@ -296,7 +296,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
     else if (!aProgram.IsNull() && aProgram->ShaderObjects().IsEmpty()
              && (anArg == "-phong" || anArg == "phong"))
     {
-      const AsciiString1& aShadersRoot = Graphic3d_ShaderProgram::ShadersFolder();
+      const AsciiString1& aShadersRoot = ShaderProgram2::ShadersFolder();
       if (aShadersRoot.IsEmpty())
       {
         Message1::SendFail(
@@ -319,9 +319,9 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       }
 
       aProgram->AttachShader(
-        Graphic3d_ShaderObject::CreateFromFile(Graphic3d_TOS_VERTEX, aSrcVert));
+        ShaderObject::CreateFromFile(Graphic3d_TOS_VERTEX, aSrcVert));
       aProgram->AttachShader(
-        Graphic3d_ShaderObject::CreateFromFile(Graphic3d_TOS_FRAGMENT, aSrcFrag));
+        ShaderObject::CreateFromFile(Graphic3d_TOS_FRAGMENT, aSrcFrag));
     }
     else if (aPrsList.IsEmpty() && anArg == "*")
     {
@@ -398,9 +398,9 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
       }
 
       const bool                     isSrcFile = SystemFile(aShaderPath).Exists();
-      Handle(Graphic3d_ShaderObject) aShader =
-        isSrcFile ? Graphic3d_ShaderObject::CreateFromFile(Graphic3d_TOS_VERTEX, aShaderPath)
-                  : Graphic3d_ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aShaderPath);
+      Handle(ShaderObject) aShader =
+        isSrcFile ? ShaderObject::CreateFromFile(Graphic3d_TOS_VERTEX, aShaderPath)
+                  : ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aShaderPath);
       const AsciiString1& aShaderSrc = aShader->Source();
 
       const bool hasVertPos = aShaderSrc.Search("gl_Position") != -1;
@@ -425,7 +425,7 @@ static Standard_Integer VShaderProg(DrawInterpreter&,
         return 1;
       }
 
-      aProgram->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aShaderType, aShaderSrc));
+      aProgram->AttachShader(ShaderObject::CreateFromSource(aShaderType, aShaderSrc));
     }
     else
     {

@@ -107,7 +107,7 @@ TopoShape BRepSweep_NumLinearRegularSweep::Shape(const TopoShape&   aGenS,
     TopoShape           bGenS, cGenS, subGenS, subsubGenS;
     SweepNumShape         bDirS, subDirS;
     BRepSweep_Iterator     It;
-    Sweep_NumShapeIterator Kt;
+    NumShapeIterator Kt;
     BRepSweep_Iterator     Lt;
     TopAbs_Orientation     Or, Pr;
     if (myDirShapeTool.Type(aDirS) == TopAbs_VERTEX)

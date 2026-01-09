@@ -56,7 +56,7 @@ GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint()
 //---------------------------------------------------------
 //         Constructeurs avec courbe sur surface
 //---------------------------------------------------------
-GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint(const Handle(Adaptor3d_Curve)& Boundary,
+GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint(const Handle(Curve5)& Boundary,
                                                       const Standard_Integer         Tang,
                                                       const Standard_Integer         NPt,
                                                       const Standard_Real            TolDist,
@@ -212,7 +212,7 @@ void GeomPlate_CurveConstraint ::D2(const Standard_Real U,
 //---------------------------------------------------------
 // Fonction : SetG0Criterion
 //---------------------------------------------------------
-void GeomPlate_CurveConstraint ::SetG0Criterion(const Handle(Law_Function)& G0Crit)
+void GeomPlate_CurveConstraint ::SetG0Criterion(const Handle(Function2)& G0Crit)
 {
   myG0Crit  = G0Crit;
   myConstG0 = Standard_False;
@@ -221,7 +221,7 @@ void GeomPlate_CurveConstraint ::SetG0Criterion(const Handle(Law_Function)& G0Cr
 //---------------------------------------------------------
 // Fonction : SetG1Criterion
 //---------------------------------------------------------
-void GeomPlate_CurveConstraint ::SetG1Criterion(const Handle(Law_Function)& G1Crit)
+void GeomPlate_CurveConstraint ::SetG1Criterion(const Handle(Function2)& G1Crit)
 {
   if (!my3dCurve.IsNull())
     throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
@@ -232,7 +232,7 @@ void GeomPlate_CurveConstraint ::SetG1Criterion(const Handle(Law_Function)& G1Cr
 //---------------------------------------------------------
 // Fonction : SetG2Criterion
 //---------------------------------------------------------
-void GeomPlate_CurveConstraint ::SetG2Criterion(const Handle(Law_Function)& G2Crit)
+void GeomPlate_CurveConstraint ::SetG2Criterion(const Handle(Function2)& G2Crit)
 {
   if (!my3dCurve.IsNull())
     throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
@@ -334,10 +334,10 @@ void GeomPlate_CurveConstraint ::SetProjectedCurve(const Handle(Adaptor2d_Curve2
 //---------------------------------------------------------
 // Fonction : Curve3d
 //---------------------------------------------------------
-Handle(Adaptor3d_Curve) GeomPlate_CurveConstraint ::Curve3d() const
+Handle(Curve5) GeomPlate_CurveConstraint ::Curve3d() const
 {
   if (my3dCurve.IsNull())
-    return Handle(Adaptor3d_Curve)(myFrontiere);
+    return Handle(Curve5)(myFrontiere);
   else
     return my3dCurve;
 }

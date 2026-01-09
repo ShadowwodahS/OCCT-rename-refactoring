@@ -44,7 +44,7 @@ public:
   //! - dataPoints : Data points
   Standard_EXPORT void Init(const Standard_Integer            dataType,
                             const Standard_Real               aDisp,
-                            const Handle(TColgp_HArray1OfXY)& dataPoints);
+                            const Handle(XYArray)& dataPoints);
 
   //! Changes FormNumber (indicates the Type of the Hatches)
   //! Error if not in range [31-38]
@@ -73,7 +73,7 @@ protected:
 private:
   Standard_Integer           theDatatype;
   Standard_Real              theZDisplacement;
-  Handle(TColgp_HArray1OfXY) theDataPoints;
+  Handle(XYArray) theDataPoints;
 };
 
 #endif // _IGESDimen_Section_HeaderFile

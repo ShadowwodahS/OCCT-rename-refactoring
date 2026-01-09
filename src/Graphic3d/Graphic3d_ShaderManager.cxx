@@ -36,7 +36,7 @@
 #include "../Shaders/Shaders_SkydomBackground_fs.pxx"
 #include "../Shaders/Shaders_TangentSpaceNormal_glsl.pxx"
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderManager, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShaderManager, RefObject)
 
 namespace
 {
@@ -189,8 +189,8 @@ const char THE_VERT_gl_Position_OUTLINE[] = EOL
 
 //=================================================================================================
 
-AsciiString1 Graphic3d_ShaderManager::genLightKey(
-  const Handle(Graphic3d_LightSet)& theLights,
+AsciiString1 ShaderManager::genLightKey(
+  const Handle(LightSet)& theLights,
   const bool                        theHasShadowMap) const
 {
   if (theLights->NbEnabled() <= THE_NB_UNROLLED_LIGHTS_MAX)
@@ -205,7 +205,7 @@ AsciiString1 Graphic3d_ShaderManager::genLightKey(
 
 //=================================================================================================
 
-Graphic3d_ShaderManager::Graphic3d_ShaderManager(Aspect_GraphicsLibrary theGapi)
+ShaderManager::ShaderManager(Aspect_GraphicsLibrary theGapi)
     : myGapi(theGapi),
       // desktop defines a dedicated API for point size, with gl_PointSize added later to GLSL
       myHasFlatShading(true),
@@ -220,14 +220,14 @@ Graphic3d_ShaderManager::Graphic3d_ShaderManager(Aspect_GraphicsLibrary theGapi)
 
 //=================================================================================================
 
-Graphic3d_ShaderManager::~Graphic3d_ShaderManager()
+ShaderManager::~ShaderManager()
 {
   //
 }
 
 //=================================================================================================
 
-bool Graphic3d_ShaderManager::hasGlslBitwiseOps() const
+bool ShaderManager::hasGlslBitwiseOps() const
 {
   switch (myGapi)
   {
@@ -244,7 +244,7 @@ bool Graphic3d_ShaderManager::hasGlslBitwiseOps() const
 
 //=================================================================================================
 
-int Graphic3d_ShaderManager::defaultGlslVersion(const Handle(Graphic3d_ShaderProgram)& theProgram,
+int ShaderManager::defaultGlslVersion(const Handle(ShaderProgram2)& theProgram,
                                                 const AsciiString1&         theName,
                                                 int                                    theBits,
                                                 bool theUsesDerivates) const
@@ -377,8 +377,8 @@ int Graphic3d_ShaderManager::defaultGlslVersion(const Handle(Graphic3d_ShaderPro
 
 //=================================================================================================
 
-void Graphic3d_ShaderManager::defaultOitGlslVersion(
-  const Handle(Graphic3d_ShaderProgram)& theProgram,
+void ShaderManager::defaultOitGlslVersion(
+  const Handle(ShaderProgram2)& theProgram,
   const AsciiString1&         theName,
   bool                                   theMsaa) const
 {
@@ -428,13 +428,13 @@ void Graphic3d_ShaderManager::defaultOitGlslVersion(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFont() const
+Handle(ShaderProgram2) ShaderManager::getStdProgramFont() const
 {
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                           Graphic3d_TOS_FRAGMENT));
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
+    ShaderObject::ShaderVariable2("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
   AsciiString1 aSrcVert = AsciiString1()
@@ -451,17 +451,17 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFont() con
     + EOL "void main()" EOL "{" EOL "  vec4 aColor = occColor;" EOL "  aColor.a *= getAlpha();" EOL
           "  if (aColor.a <= 0.285) discard;" EOL "  occSetFragColor (aColor);" EOL "}";
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   defaultGlslVersion(aProgramSrc, "font", 0);
   aProgramSrc->SetDefaultSampler(false);
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbShadowMaps(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -470,13 +470,13 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFont() con
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
+Handle(ShaderProgram2) ShaderManager::getStdProgramFboBlit(
   Standard_Integer theNbSamples,
   Standard_Boolean theIsFallback_sRGB) const
 {
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
+    ShaderObject::ShaderVariable2("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
   AsciiString1 aSrcVert =
@@ -488,16 +488,16 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
   {
     if (myGapi == Aspect_GraphicsLibrary_OpenGLES)
     {
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("highp sampler2DMS uColorSampler",
+      aUniforms.Append(ShaderObject::ShaderVariable2("highp sampler2DMS uColorSampler",
                                                               Graphic3d_TOS_FRAGMENT));
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("highp sampler2DMS uDepthSampler",
+      aUniforms.Append(ShaderObject::ShaderVariable2("highp sampler2DMS uDepthSampler",
                                                               Graphic3d_TOS_FRAGMENT));
     }
     else
     {
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2DMS uColorSampler",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2DMS uColorSampler",
                                                               Graphic3d_TOS_FRAGMENT));
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2DMS uDepthSampler",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2DMS uDepthSampler",
                                                               Graphic3d_TOS_FRAGMENT));
     }
 
@@ -517,9 +517,9 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
   else
   {
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2D uColorSampler", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("sampler2D uColorSampler", Graphic3d_TOS_FRAGMENT));
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2D uDepthSampler", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("sampler2D uDepthSampler", Graphic3d_TOS_FRAGMENT));
     aSrcFrag = AsciiString1() + (theIsFallback_sRGB ? EOL "#define THE_SHIFT_sRGB" : "")
                + EOL "void main()" EOL "{" EOL
                      "  gl_FragDepth = occTexture2D (uDepthSampler, TexCoord).r;" EOL
@@ -529,7 +529,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
                      "  occSetFragColor (aColor);" EOL "}";
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   switch (myGapi)
   {
     case Aspect_GraphicsLibrary_OpenGL: {
@@ -578,11 +578,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbShadowMaps(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -591,15 +591,15 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitCompositing(
+Handle(ShaderProgram2) ShaderManager::getStdProgramOitCompositing(
   const Standard_Boolean theMsaa) const
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   AsciiString1         aSrcVert, aSrcFrag;
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
+    ShaderObject::ShaderVariable2("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
   aSrcVert = EOL "void main()" EOL "{" EOL "  TexCoord    = occVertex.zw;" EOL
@@ -608,9 +608,9 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitComposi
   if (!theMsaa)
   {
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2D uAccumTexture", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("sampler2D uAccumTexture", Graphic3d_TOS_FRAGMENT));
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2D uWeightTexture", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("sampler2D uWeightTexture", Graphic3d_TOS_FRAGMENT));
     aSrcFrag =
       EOL "void main()" EOL "{" EOL "  vec4 aAccum   = occTexture2D (uAccumTexture,  TexCoord);" EOL
           "  float aWeight = occTexture2D (uWeightTexture, TexCoord).r;" EOL
@@ -619,9 +619,9 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitComposi
   else
   {
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2DMS uAccumTexture", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("sampler2DMS uAccumTexture", Graphic3d_TOS_FRAGMENT));
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2DMS uWeightTexture", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("sampler2DMS uWeightTexture", Graphic3d_TOS_FRAGMENT));
     aSrcFrag =
       EOL "void main()" EOL "{" EOL
           "  ivec2 aTexel  = ivec2 (vec2 (textureSize (uAccumTexture)) * TexCoord);" EOL
@@ -635,11 +635,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitComposi
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbShadowMaps(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -648,17 +648,17 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitComposi
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPeelingBlend(
+Handle(ShaderProgram2) ShaderManager::getStdProgramOitDepthPeelingBlend(
   Standard_Boolean theMsaa) const
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   AsciiString1         aSrcVert, aSrcFrag;
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aSrcVert = EOL "void main()" EOL "{" EOL
                  "  gl_Position = vec4 (occVertex.x, occVertex.y, 0.0, 1.0);" EOL "}";
 
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable(
+  aUniforms.Append(ShaderObject::ShaderVariable2(
     theMsaa ? "sampler2DMS uDepthPeelingBackColor" : "sampler2D uDepthPeelingBackColor",
     Graphic3d_TOS_FRAGMENT));
   aSrcFrag = AsciiString1() + EOL "void main()" EOL "{" EOL "  #define THE_SAMPLE_ID "
@@ -670,11 +670,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
   aProgramSrc->SetDefaultSampler(false);
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -683,20 +683,20 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPeelingFlush(
+Handle(ShaderProgram2) ShaderManager::getStdProgramOitDepthPeelingFlush(
   Standard_Boolean theMsaa) const
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   AsciiString1         aSrcVert, aSrcFrag;
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aSrcVert = EOL "void main()" EOL "{" EOL
                  "  gl_Position = vec4 (occVertex.x, occVertex.y, 0.0, 1.0);" EOL "}";
 
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable(
+  aUniforms.Append(ShaderObject::ShaderVariable2(
     theMsaa ? "sampler2DMS uDepthPeelingFrontColor" : "sampler2D uDepthPeelingFrontColor",
     Graphic3d_TOS_FRAGMENT));
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable(
+  aUniforms.Append(ShaderObject::ShaderVariable2(
     theMsaa ? "sampler2DMS uDepthPeelingBackColor" : "sampler2D uDepthPeelingBackColor",
     Graphic3d_TOS_FRAGMENT));
   aSrcFrag =
@@ -714,11 +714,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
   aProgramSrc->SetDefaultSampler(false);
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -727,7 +727,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
 
 //=================================================================================================
 
-AsciiString1 Graphic3d_ShaderManager::pointSpriteAlphaSrc(Standard_Integer theBits) const
+AsciiString1 ShaderManager::pointSpriteAlphaSrc(Standard_Integer theBits) const
 {
   const bool isAlpha =
     (theBits & Graphic3d_ShaderFlags_PointSpriteA) == Graphic3d_ShaderFlags_PointSpriteA;
@@ -740,7 +740,7 @@ AsciiString1 Graphic3d_ShaderManager::pointSpriteAlphaSrc(Standard_Integer theBi
 
 //=================================================================================================
 
-AsciiString1 Graphic3d_ShaderManager::pointSpriteShadingSrc(
+AsciiString1 ShaderManager::pointSpriteShadingSrc(
   const AsciiString1& theBaseColorSrc,
   Standard_Integer               theBits) const
 {
@@ -766,8 +766,8 @@ AsciiString1 Graphic3d_ShaderManager::pointSpriteShadingSrc(
 
 //! Prepare GLSL source for geometry shader according to parameters.
 static AsciiString1 prepareGeomMainSrc(
-  Graphic3d_ShaderObject::ShaderVariableList& theUnifoms,
-  Graphic3d_ShaderObject::ShaderVariableList& theStageInOuts,
+  ShaderObject::ShaderVariableList& theUnifoms,
+  ShaderObject::ShaderVariableList& theStageInOuts,
   Standard_Integer                            theBits)
 {
   if ((theBits & Graphic3d_ShaderFlags_NeedsGeomShader) == 0)
@@ -780,19 +780,19 @@ static AsciiString1 prepareGeomMainSrc(
   if ((theBits & Graphic3d_ShaderFlags_MeshEdges) != 0)
   {
     theUnifoms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 occViewport", Graphic3d_TOS_GEOMETRY));
+      ShaderObject::ShaderVariable2("vec4 occViewport", Graphic3d_TOS_GEOMETRY));
     theUnifoms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("bool occIsQuadMode", Graphic3d_TOS_GEOMETRY));
+      ShaderObject::ShaderVariable2("bool occIsQuadMode", Graphic3d_TOS_GEOMETRY));
     theUnifoms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("float occLineWidth", Graphic3d_TOS_GEOMETRY));
+      ShaderObject::ShaderVariable2("float occLineWidth", Graphic3d_TOS_GEOMETRY));
     theUnifoms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("float occLineWidth", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("float occLineWidth", Graphic3d_TOS_FRAGMENT));
     theUnifoms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("float occLineFeather", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("float occLineFeather", Graphic3d_TOS_FRAGMENT));
     theUnifoms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 occWireframeColor", Graphic3d_TOS_FRAGMENT));
+      ShaderObject::ShaderVariable2("vec4 occWireframeColor", Graphic3d_TOS_FRAGMENT));
     theStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec3 EdgeDistance",
+      ShaderObject::ShaderVariable2("vec3 EdgeDistance",
                                              Graphic3d_TOS_GEOMETRY | Graphic3d_TOS_FRAGMENT));
 
     aSrcMainGeom =
@@ -822,7 +822,7 @@ static AsciiString1 prepareGeomMainSrc(
   {
     const AsciiString1 aVertIndex(aVertIter);
     // pass variables from Vertex shader to Fragment shader through Geometry1 shader
-    for (Graphic3d_ShaderObject::ShaderVariableList::Iterator aVarListIter(theStageInOuts);
+    for (ShaderObject::ShaderVariableList::Iterator aVarListIter(theStageInOuts);
          aVarListIter.More();
          aVarListIter.Next())
     {
@@ -869,17 +869,17 @@ static AsciiString1 prepareGeomMainSrc(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
+Handle(ShaderProgram2) ShaderManager::getStdProgramUnlit(
   Standard_Integer theBits,
   Standard_Boolean theIsOutline) const
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   AsciiString1         aSrcVert, aSrcVertExtraMain, aSrcVertExtraFunc, aSrcGetAlpha,
     aSrcVertEndMain;
   AsciiString1 aSrcFrag, aSrcFragExtraMain;
   AsciiString1 aSrcFragGetColor     = EOL "vec4 getColor(void) { return occColor; }";
   AsciiString1 aSrcFragMainGetColor = EOL "  occSetFragColor (getFinalColor());";
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
 
   if ((theBits & Graphic3d_ShaderFlags_IsPoint) != 0)
   {
@@ -890,7 +890,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
 
     if ((theBits & Graphic3d_ShaderFlags_PointSprite) != 0)
     {
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerPointSprite",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerPointSprite",
                                                               Graphic3d_TOS_FRAGMENT));
       if ((theBits & Graphic3d_ShaderFlags_PointSpriteA) != Graphic3d_ShaderFlags_PointSpriteA)
       {
@@ -902,10 +902,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
                && (theBits & Graphic3d_ShaderFlags_VertColor) == 0)
       {
         aProgramSrc->SetTextureSetBits(Graphic3d_TextureSetBits_BaseColor);
-        aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+        aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                                 Graphic3d_TOS_VERTEX));
         aStageInOuts.Append(
-          Graphic3d_ShaderObject::ShaderVariable("vec4 VertColor",
+          ShaderObject::ShaderVariable2("vec4 VertColor",
                                                  Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
         aSrcVertExtraMain +=
           EOL "  VertColor = occTexture2D (occSamplerBaseColor, occTexCoord.xy);";
@@ -923,10 +923,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
           && (theBits & Graphic3d_ShaderFlags_VertColor) == 0)
       {
         aProgramSrc->SetTextureSetBits(Graphic3d_TextureSetBits_BaseColor);
-        aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+        aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                                 Graphic3d_TOS_VERTEX));
         aStageInOuts.Append(
-          Graphic3d_ShaderObject::ShaderVariable("vec4 VertColor",
+          ShaderObject::ShaderVariable2("vec4 VertColor",
                                                  Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
         aSrcVertExtraMain +=
           EOL "  VertColor = occTexture2D (occSamplerBaseColor, occTexCoord.xy);";
@@ -942,10 +942,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   {
     if ((theBits & Graphic3d_ShaderFlags_HasTextures) != 0)
     {
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                               Graphic3d_TOS_FRAGMENT));
       aStageInOuts.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec4 TexCoord",
+        ShaderObject::ShaderVariable2("vec4 TexCoord",
                                                Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
       if ((theBits & Graphic3d_ShaderFlags_HasTextures) == Graphic3d_ShaderFlags_TextureEnv)
@@ -975,7 +975,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   if ((theBits & Graphic3d_ShaderFlags_VertColor) != 0)
   {
     aStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 VertColor",
+      ShaderObject::ShaderVariable2("vec4 VertColor",
                                              Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
     aSrcVertExtraMain += EOL "  VertColor = occVertColor;";
     aSrcFragGetColor = EOL "vec4 getColor(void) { return VertColor; }";
@@ -985,13 +985,13 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   if ((theBits & Graphic3d_ShaderFlags_ClipPlanesN) != 0)
   {
     aStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 PositionWorld",
+      ShaderObject::ShaderVariable2("vec4 PositionWorld",
                                              Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
     aSrcVertExtraMain += EOL "  PositionWorld = occModelWorldMatrix * occVertex;";
 
     if ((theBits & Graphic3d_ShaderFlags_ClipPlanesN) == Graphic3d_ShaderFlags_ClipPlanesN)
     {
-      aNbClipPlanes = Graphic3d_ShaderProgram::THE_MAX_CLIP_PLANES_DEFAULT;
+      aNbClipPlanes = ShaderProgram2::THE_MAX_CLIP_PLANES_DEFAULT;
       aSrcFragExtraMain += (theBits & Graphic3d_ShaderFlags_ClipChains) != 0
                              ? THE_FRAG_CLIP_CHAINS_N
                              : THE_FRAG_CLIP_PLANES_N;
@@ -1023,9 +1023,9 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   if (theIsOutline)
   {
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("float occOrthoScale", Graphic3d_TOS_VERTEX));
+      ShaderObject::ShaderVariable2("float occOrthoScale", Graphic3d_TOS_VERTEX));
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("float occSilhouetteThickness", Graphic3d_TOS_VERTEX));
+      ShaderObject::ShaderVariable2("float occSilhouetteThickness", Graphic3d_TOS_VERTEX));
     aSrcVertEndMain = THE_VERT_gl_Position_OUTLINE;
   }
   else if ((theBits & Graphic3d_ShaderFlags_StippleLine) != 0)
@@ -1035,20 +1035,20 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
     {
       if (hasGlslBitwiseOps())
       {
-        aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("int   occStipplePattern",
+        aUniforms.Append(ShaderObject::ShaderVariable2("int   occStipplePattern",
                                                                 Graphic3d_TOS_FRAGMENT));
       }
       else
       {
-        aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("bool  occStipplePattern[16]",
+        aUniforms.Append(ShaderObject::ShaderVariable2("bool  occStipplePattern[16]",
                                                                 Graphic3d_TOS_FRAGMENT));
       }
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("float occStippleFactor", Graphic3d_TOS_FRAGMENT));
+        ShaderObject::ShaderVariable2("float occStippleFactor", Graphic3d_TOS_FRAGMENT));
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec4 occViewport", Graphic3d_TOS_VERTEX));
+        ShaderObject::ShaderVariable2("vec4 occViewport", Graphic3d_TOS_VERTEX));
       aStageInOuts.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec2 ScreenSpaceCoord",
+        ShaderObject::ShaderVariable2("vec2 ScreenSpaceCoord",
                                                Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
       aSrcVertEndMain = EOL "  vec2 aPosition   = gl_Position.xy / gl_Position.w;" EOL
                             "  aPosition        = aPosition * 0.5 + 0.5;" EOL
@@ -1093,21 +1093,21 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   aProgramSrc->SetNbClipPlanesMax(aNbClipPlanes);
   aProgramSrc->SetAlphaTest((theBits & Graphic3d_ShaderFlags_AlphaTest) != 0);
   const Standard_Integer aNbGeomInputVerts = !aSrcGeom.IsEmpty() ? 3 : 0;
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts,
                                                                      "",
                                                                      "",
                                                                      aNbGeomInputVerts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcGeom,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcGeom,
                                                                      Graphic3d_TOS_GEOMETRY,
                                                                      aUniforms,
                                                                      aStageInOuts,
                                                                      "geomIn",
                                                                      "geomOut",
                                                                      aNbGeomInputVerts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts,
@@ -1119,9 +1119,9 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
 
 //=================================================================================================
 
-AsciiString1 Graphic3d_ShaderManager::stdComputeLighting(
+AsciiString1 ShaderManager::stdComputeLighting(
   Standard_Integer&                 theNbLights,
-  const Handle(Graphic3d_LightSet)& theLights,
+  const Handle(LightSet)& theLights,
   Standard_Boolean                  theHasVertColor,
   Standard_Boolean                  theIsPBR,
   Standard_Boolean                  theHasTexColor,
@@ -1135,9 +1135,9 @@ AsciiString1 Graphic3d_ShaderManager::stdComputeLighting(
     if (theNbLights <= THE_NB_UNROLLED_LIGHTS_MAX)
     {
       Standard_Integer anIndex = 0;
-      for (Graphic3d_LightSet::Iterator aLightIter(
+      for (LightSet::Iterator aLightIter(
              theLights,
-             Graphic3d_LightSet::IterationFilter_ExcludeDisabledAndAmbient);
+             LightSet::IterationFilter_ExcludeDisabledAndAmbient);
            aLightIter.More();
            aLightIter.Next())
       {
@@ -1338,16 +1338,16 @@ AsciiString1 Graphic3d_ShaderManager::stdComputeLighting(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
-  const Handle(Graphic3d_LightSet)& theLights,
+Handle(ShaderProgram2) ShaderManager::getStdProgramGouraud(
+  const Handle(LightSet)& theLights,
   Standard_Integer                  theBits) const
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   AsciiString1         aSrcVert, aSrcVertColor, aSrcVertExtraMain;
   AsciiString1         aSrcFrag, aSrcFragExtraMain;
   AsciiString1         aSrcFragGetColor =
     EOL "vec4 getColor(void) { return gl_FrontFacing ? FrontColor : BackColor; }";
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   bool                                       toUseTexColor = false;
   if ((theBits & Graphic3d_ShaderFlags_IsPoint) != 0)
   {
@@ -1358,7 +1358,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
 
     if ((theBits & Graphic3d_ShaderFlags_PointSprite) != 0)
     {
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerPointSprite",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerPointSprite",
                                                               Graphic3d_TOS_FRAGMENT));
       aSrcFragGetColor = pointSpriteShadingSrc("gl_FrontFacing ? FrontColor : BackColor", theBits);
     }
@@ -1367,7 +1367,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
         && (theBits & Graphic3d_ShaderFlags_VertColor) == 0)
     {
       aProgramSrc->SetTextureSetBits(Graphic3d_TextureSetBits_BaseColor);
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                               Graphic3d_TOS_VERTEX));
       aSrcVertColor = EOL
         "vec4 getVertColor(void) { return occTexture2D (occSamplerBaseColor, occTexCoord.xy); }";
@@ -1379,10 +1379,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
     {
       toUseTexColor = true;
       aProgramSrc->SetTextureSetBits(Graphic3d_TextureSetBits_BaseColor);
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                               Graphic3d_TOS_FRAGMENT));
       aStageInOuts.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec4 TexCoord",
+        ShaderObject::ShaderVariable2("vec4 TexCoord",
                                                Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
       aSrcVertExtraMain += THE_VARY_TexCoord_Trsf;
 
@@ -1402,13 +1402,13 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
   if ((theBits & Graphic3d_ShaderFlags_ClipPlanesN) != 0)
   {
     aStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 PositionWorld",
+      ShaderObject::ShaderVariable2("vec4 PositionWorld",
                                              Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
     aSrcVertExtraMain += EOL "  PositionWorld = aPositionWorld;";
 
     if ((theBits & Graphic3d_ShaderFlags_ClipPlanesN) == Graphic3d_ShaderFlags_ClipPlanesN)
     {
-      aNbClipPlanes = Graphic3d_ShaderProgram::THE_MAX_CLIP_PLANES_DEFAULT;
+      aNbClipPlanes = ShaderProgram2::THE_MAX_CLIP_PLANES_DEFAULT;
       aSrcFragExtraMain += (theBits & Graphic3d_ShaderFlags_ClipChains) != 0
                              ? THE_FRAG_CLIP_CHAINS_N
                              : THE_FRAG_CLIP_PLANES_N;
@@ -1438,10 +1438,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
   }
 
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec4 FrontColor",
+    ShaderObject::ShaderVariable2("vec4 FrontColor",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec4 BackColor",
+    ShaderObject::ShaderVariable2("vec4 BackColor",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
   Standard_Integer              aNbLights = 0;
@@ -1478,21 +1478,21 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
   aProgramSrc->SetNbClipPlanesMax(aNbClipPlanes);
   aProgramSrc->SetAlphaTest((theBits & Graphic3d_ShaderFlags_AlphaTest) != 0);
   const Standard_Integer aNbGeomInputVerts = !aSrcGeom.IsEmpty() ? 3 : 0;
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts,
                                                                      "",
                                                                      "",
                                                                      aNbGeomInputVerts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcGeom,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcGeom,
                                                                      Graphic3d_TOS_GEOMETRY,
                                                                      aUniforms,
                                                                      aStageInOuts,
                                                                      "geomIn",
                                                                      "geomOut",
                                                                      aNbGeomInputVerts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts,
@@ -1504,8 +1504,8 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
-  const Handle(Graphic3d_LightSet)& theLights,
+Handle(ShaderProgram2) ShaderManager::getStdProgramPhong(
+  const Handle(LightSet)& theLights,
   const Standard_Integer            theBits,
   const Standard_Boolean            theIsFlatNormal,
   const Standard_Boolean            theIsPBR,
@@ -1528,14 +1528,14 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
                          "using dFdx/dFdy on Adreno");
   }
 
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   aProgramSrc->SetPBR(theIsPBR); // should be set before defaultGlslVersion()
 
   AsciiString1 aSrcVert, aSrcVertExtraFunc, aSrcVertExtraMain;
   AsciiString1 aSrcFrag, aSrcFragGetVertColor, aSrcFragExtraMain;
   AsciiString1 aSrcFragGetColor =
     AsciiString1() + EOL "vec4 getColor(void) { return " + aPhongCompLight + "; }";
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   if ((theBits & Graphic3d_ShaderFlags_IsPoint) != 0)
   {
     if (mySetPointSize)
@@ -1545,7 +1545,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
 
     if ((theBits & Graphic3d_ShaderFlags_PointSprite) != 0)
     {
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerPointSprite",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerPointSprite",
                                                               Graphic3d_TOS_FRAGMENT));
       aSrcFragGetColor = pointSpriteShadingSrc(aPhongCompLight, theBits);
     }
@@ -1554,10 +1554,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
         && (theBits & Graphic3d_ShaderFlags_VertColor) == 0)
     {
       aProgramSrc->SetTextureSetBits(Graphic3d_TextureSetBits_BaseColor);
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                               Graphic3d_TOS_VERTEX));
       aStageInOuts.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec4 VertColor",
+        ShaderObject::ShaderVariable2("vec4 VertColor",
                                                Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
       aSrcVertExtraMain += EOL "  VertColor = occTexture2D (occSamplerBaseColor, occTexCoord.xy);";
@@ -1569,10 +1569,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
     if ((theBits & Graphic3d_ShaderFlags_TextureRGB) != 0)
     {
       toUseTexColor = true;
-      aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("sampler2D occSamplerBaseColor",
+      aUniforms.Append(ShaderObject::ShaderVariable2("sampler2D occSamplerBaseColor",
                                                               Graphic3d_TOS_FRAGMENT));
       aStageInOuts.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec4 TexCoord",
+        ShaderObject::ShaderVariable2("vec4 TexCoord",
                                                Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
       aSrcVertExtraMain += THE_VARY_TexCoord_Trsf;
 
@@ -1603,7 +1603,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   if ((theBits & Graphic3d_ShaderFlags_VertColor) != 0)
   {
     aStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 VertColor",
+      ShaderObject::ShaderVariable2("vec4 VertColor",
                                              Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
     aSrcVertExtraMain += EOL "  VertColor = occVertColor;";
     aSrcFragGetVertColor = EOL "vec4 getVertColor(void) { return VertColor; }";
@@ -1614,7 +1614,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   {
     if ((theBits & Graphic3d_ShaderFlags_ClipPlanesN) == Graphic3d_ShaderFlags_ClipPlanesN)
     {
-      aNbClipPlanes = Graphic3d_ShaderProgram::THE_MAX_CLIP_PLANES_DEFAULT;
+      aNbClipPlanes = ShaderProgram2::THE_MAX_CLIP_PLANES_DEFAULT;
       aSrcFragExtraMain += (theBits & Graphic3d_ShaderFlags_ClipChains) != 0
                              ? THE_FRAG_CLIP_CHAINS_N
                              : THE_FRAG_CLIP_PLANES_N;
@@ -1653,7 +1653,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   else
   {
     aStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec3 vNormal",
+      ShaderObject::ShaderVariable2("vec3 vNormal",
                                              Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
     aSrcVertExtraFunc += THE_FUNC_transformNormal_world;
     aSrcVertExtraMain += EOL "  vNormal = transformNormal (occNormal);";
@@ -1678,24 +1678,24 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   }
 
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec4 PositionWorld",
+    ShaderObject::ShaderVariable2("vec4 PositionWorld",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec3 View",
+    ShaderObject::ShaderVariable2("vec3 View",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
   if (theNbShadowMaps > 0)
   {
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("mat4      occShadowMapMatrices[THE_NB_SHADOWMAPS]",
+      ShaderObject::ShaderVariable2("mat4      occShadowMapMatrices[THE_NB_SHADOWMAPS]",
                                              Graphic3d_TOS_VERTEX));
     aUniforms.Append(
-      Graphic3d_ShaderObject::ShaderVariable("sampler2D occShadowMapSamplers[THE_NB_SHADOWMAPS]",
+      ShaderObject::ShaderVariable2("sampler2D occShadowMapSamplers[THE_NB_SHADOWMAPS]",
                                              Graphic3d_TOS_FRAGMENT));
-    aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("vec2      occShadowMapSizeBias",
+    aUniforms.Append(ShaderObject::ShaderVariable2("vec2      occShadowMapSizeBias",
                                                             Graphic3d_TOS_FRAGMENT));
 
     aStageInOuts.Append(
-      Graphic3d_ShaderObject::ShaderVariable("vec4 PosLightSpace[THE_NB_SHADOWMAPS]",
+      ShaderObject::ShaderVariable2("vec4 PosLightSpace[THE_NB_SHADOWMAPS]",
                                              Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
     aSrcVertExtraMain += EOL
       "  for (int aShadowIter = 0; aShadowIter < THE_NB_SHADOWMAPS; ++aShadowIter)" EOL "  {" EOL
@@ -1741,21 +1741,21 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   aProgramSrc->SetAlphaTest((theBits & Graphic3d_ShaderFlags_AlphaTest) != 0);
 
   const Standard_Integer aNbGeomInputVerts = !aSrcGeom.IsEmpty() ? 3 : 0;
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts,
                                                                      "",
                                                                      "",
                                                                      aNbGeomInputVerts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcGeom,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcGeom,
                                                                      Graphic3d_TOS_GEOMETRY,
                                                                      aUniforms,
                                                                      aStageInOuts,
                                                                      "geomIn",
                                                                      "geomOut",
                                                                      aNbGeomInputVerts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts,
@@ -1767,14 +1767,14 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
+Handle(ShaderProgram2) ShaderManager::getStdProgramStereo(
   Graphic3d_StereoMode theStereoMode) const
 {
-  Handle(Graphic3d_ShaderProgram)            aProgramSrc = new Graphic3d_ShaderProgram();
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  Handle(ShaderProgram2)            aProgramSrc = new ShaderProgram2();
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
 
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
+    ShaderObject::ShaderVariable2("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
   AsciiString1 aSrcVert =
     EOL "void main()" EOL "{" EOL "  TexCoord    = occVertex.zw;" EOL
@@ -1782,18 +1782,18 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
 
   AsciiString1 aSrcFrag;
   aUniforms.Append(
-    Graphic3d_ShaderObject::ShaderVariable("sampler2D uLeftSampler", Graphic3d_TOS_FRAGMENT));
+    ShaderObject::ShaderVariable2("sampler2D uLeftSampler", Graphic3d_TOS_FRAGMENT));
   aUniforms.Append(
-    Graphic3d_ShaderObject::ShaderVariable("sampler2D uRightSampler", Graphic3d_TOS_FRAGMENT));
+    ShaderObject::ShaderVariable2("sampler2D uRightSampler", Graphic3d_TOS_FRAGMENT));
   const char* aName = "stereo";
   switch (theStereoMode)
   {
     case Graphic3d_StereoMode_Anaglyph: {
       aName = "anaglyph";
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("mat4 uMultL", Graphic3d_TOS_FRAGMENT));
+        ShaderObject::ShaderVariable2("mat4 uMultL", Graphic3d_TOS_FRAGMENT));
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("mat4 uMultR", Graphic3d_TOS_FRAGMENT));
+        ShaderObject::ShaderVariable2("mat4 uMultR", Graphic3d_TOS_FRAGMENT));
       const AsciiString1 aNormalize =
         mySRgbState ? EOL "#define sRgb2linear(theColor) theColor" EOL
                           "#define linear2sRgb(theColor) theColor"
@@ -1813,7 +1813,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
     case Graphic3d_StereoMode_RowInterlaced: {
       aName = "row-interlaced";
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec2 uTexOffset", Graphic3d_TOS_FRAGMENT));
+        ShaderObject::ShaderVariable2("vec2 uTexOffset", Graphic3d_TOS_FRAGMENT));
       aSrcFrag = EOL "void main()" EOL "{" EOL "  vec2 aTexCoordL = TexCoord - uTexOffset;" EOL
                      "  vec2 aTexCoordR = TexCoord + uTexOffset;" EOL
                      "  vec4 aColorL = occTexture2D (uLeftSampler,  aTexCoordL);" EOL
@@ -1826,7 +1826,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
     case Graphic3d_StereoMode_ColumnInterlaced: {
       aName = "column-interlaced";
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec2 uTexOffset", Graphic3d_TOS_FRAGMENT));
+        ShaderObject::ShaderVariable2("vec2 uTexOffset", Graphic3d_TOS_FRAGMENT));
       aSrcFrag = EOL "void main()" EOL "{" EOL "  vec2 aTexCoordL = TexCoord - uTexOffset;" EOL
                      "  vec2 aTexCoordR = TexCoord + uTexOffset;" EOL
                      "  vec4 aColorL = occTexture2D (uLeftSampler,  aTexCoordL);" EOL
@@ -1839,7 +1839,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
     case Graphic3d_StereoMode_ChessBoard: {
       aName = "chessboard";
       aUniforms.Append(
-        Graphic3d_ShaderObject::ShaderVariable("vec2 uTexOffset", Graphic3d_TOS_FRAGMENT));
+        ShaderObject::ShaderVariable2("vec2 uTexOffset", Graphic3d_TOS_FRAGMENT));
       aSrcFrag = EOL "void main()" EOL "{" EOL "  vec2 aTexCoordL = TexCoord - uTexOffset;" EOL
                      "  vec2 aTexCoordR = TexCoord + uTexOffset;" EOL
                      "  vec4 aColorL = occTexture2D (uLeftSampler,  aTexCoordL);" EOL
@@ -1891,11 +1891,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbShadowMaps(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -1904,15 +1904,15 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramBoundBox() const
+Handle(ShaderProgram2) ShaderManager::getStdProgramBoundBox() const
 {
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aUniforms.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec3 occBBoxCenter", Graphic3d_TOS_VERTEX));
+    ShaderObject::ShaderVariable2("vec3 occBBoxCenter", Graphic3d_TOS_VERTEX));
   aUniforms.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec3 occBBoxSize", Graphic3d_TOS_VERTEX));
+    ShaderObject::ShaderVariable2("vec3 occBBoxSize", Graphic3d_TOS_VERTEX));
 
   AsciiString1 aSrcVert =
     EOL "void main()" EOL "{" EOL
@@ -1929,11 +1929,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramBoundBox()
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbShadowMaps(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -1942,14 +1942,14 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramBoundBox()
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getPBREnvBakingProgram(
+Handle(ShaderProgram2) ShaderManager::getPBREnvBakingProgram(
   Standard_Integer theIndex) const
 {
   Standard_ASSERT_RAISE(theIndex >= 0 && theIndex <= 2, "");
-  Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgramSrc = new ShaderProgram2();
   aProgramSrc->SetPBR(true); // should be set before defaultGlslVersion()
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
 
   AsciiString1 aSrcVert =
     AsciiString1() + THE_FUNC_cubemap_vector_transform + Shaders_PBREnvBaking_vs;
@@ -1994,11 +1994,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getPBREnvBakingProgram(
   aProgramSrc->SetNbLightsMax(0);
   aProgramSrc->SetNbShadowMaps(0);
   aProgramSrc->SetNbClipPlanesMax(0);
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                      Graphic3d_TOS_VERTEX,
                                                                      aUniforms,
                                                                      aStageInOuts));
-  aProgramSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgramSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                      Graphic3d_TOS_FRAGMENT,
                                                                      aUniforms,
                                                                      aStageInOuts));
@@ -2007,18 +2007,18 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getPBREnvBakingProgram(
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgCubeMapProgram() const
+Handle(ShaderProgram2) ShaderManager::getBgCubeMapProgram() const
 {
-  Handle(Graphic3d_ShaderProgram) aProgSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgSrc = new ShaderProgram2();
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec3 ViewDirection",
+    ShaderObject::ShaderVariable2("vec3 ViewDirection",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
   aUniforms.Append(
-    Graphic3d_ShaderObject::ShaderVariable("samplerCube occSampler0", Graphic3d_TOS_FRAGMENT));
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("int uYCoeff", Graphic3d_TOS_VERTEX));
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("int uZCoeff", Graphic3d_TOS_VERTEX));
+    ShaderObject::ShaderVariable2("samplerCube occSampler0", Graphic3d_TOS_FRAGMENT));
+  aUniforms.Append(ShaderObject::ShaderVariable2("int uYCoeff", Graphic3d_TOS_VERTEX));
+  aUniforms.Append(ShaderObject::ShaderVariable2("int uZCoeff", Graphic3d_TOS_VERTEX));
 
   AsciiString1 aSrcVert =
     AsciiString1() + THE_FUNC_cubemap_vector_transform
@@ -2063,11 +2063,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgCubeMapProgram() c
   aProgSrc->SetNbLightsMax(0);
   aProgSrc->SetNbShadowMaps(0);
   aProgSrc->SetNbClipPlanesMax(0);
-  aProgSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                   Graphic3d_TOS_VERTEX,
                                                                   aUniforms,
                                                                   aStageInOuts));
-  aProgSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                   Graphic3d_TOS_FRAGMENT,
                                                                   aUniforms,
                                                                   aStageInOuts));
@@ -2076,13 +2076,13 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgCubeMapProgram() c
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgSkydomeProgram() const
+Handle(ShaderProgram2) ShaderManager::getBgSkydomeProgram() const
 {
-  Handle(Graphic3d_ShaderProgram) aProgSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgSrc = new ShaderProgram2();
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
+    ShaderObject::ShaderVariable2("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
   AsciiString1 aSrcVert =
@@ -2103,11 +2103,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgSkydomeProgram() c
       aProgSrc->SetHeader("#version 300 es");
     }
   }
-  aProgSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                   Graphic3d_TOS_VERTEX,
                                                                   aUniforms,
                                                                   aStageInOuts));
-  aProgSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                   Graphic3d_TOS_FRAGMENT,
                                                                   aUniforms,
                                                                   aStageInOuts));
@@ -2117,16 +2117,16 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgSkydomeProgram() c
 
 //=================================================================================================
 
-Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getColoredQuadProgram() const
+Handle(ShaderProgram2) ShaderManager::getColoredQuadProgram() const
 {
-  Handle(Graphic3d_ShaderProgram) aProgSrc = new Graphic3d_ShaderProgram();
+  Handle(ShaderProgram2) aProgSrc = new ShaderProgram2();
 
-  Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
+  ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aStageInOuts.Append(
-    Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
+    ShaderObject::ShaderVariable2("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("vec3 uColor1", Graphic3d_TOS_FRAGMENT));
-  aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("vec3 uColor2", Graphic3d_TOS_FRAGMENT));
+  aUniforms.Append(ShaderObject::ShaderVariable2("vec3 uColor1", Graphic3d_TOS_FRAGMENT));
+  aUniforms.Append(ShaderObject::ShaderVariable2("vec3 uColor2", Graphic3d_TOS_FRAGMENT));
 
   AsciiString1 aSrcVert = AsciiString1()
                                      + EOL
@@ -2140,11 +2140,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getColoredQuadProgram()
           "  occSetFragColor (vec4 (mix (uColor2, c1, TexCoord.y), 1.0));" EOL "}";
 
   defaultGlslVersion(aProgSrc, "colored_quad", 0);
-  aProgSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcVert,
+  aProgSrc->AttachShader(ShaderObject::CreateFromSource(aSrcVert,
                                                                   Graphic3d_TOS_VERTEX,
                                                                   aUniforms,
                                                                   aStageInOuts));
-  aProgSrc->AttachShader(Graphic3d_ShaderObject::CreateFromSource(aSrcFrag,
+  aProgSrc->AttachShader(ShaderObject::CreateFromSource(aSrcFrag,
                                                                   Graphic3d_TOS_FRAGMENT,
                                                                   aUniforms,
                                                                   aStageInOuts));

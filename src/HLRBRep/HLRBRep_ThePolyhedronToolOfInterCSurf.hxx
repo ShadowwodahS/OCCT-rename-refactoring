@@ -40,7 +40,7 @@ public:
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
-  static const Handle(Bnd_HArray1OfBox)& ComponentsBounding(
+  static const Handle(BoxArray)& ComponentsBounding(
     const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh);
 
   //! Give the tolerance of the polygon.

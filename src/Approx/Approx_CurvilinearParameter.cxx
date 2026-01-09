@@ -127,7 +127,7 @@ void Approx_CurvilinearParameter_EvalCurv::Evaluate(Standard_Integer* Dimension,
     Result[i] = Res(i);
 }
 
-Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor3d_Curve)& C3D,
+Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Curve5)& C3D,
                                                          const Standard_Real            Tol,
                                                          const GeomAbs_Shape            Order,
                                                          const Standard_Integer         MaxDegree,
@@ -165,7 +165,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor3d_
   Standard_Integer     NbInterv_C3 = fonct->NbIntervals(GeomAbs_C3);
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   fonct->Intervals(CutPnts_C3, GeomAbs_C3);
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
 #ifdef OCCT_DEBUG_CHRONO
   InitChron(chr_approx);
@@ -281,7 +281,7 @@ void Approx_CurvilinearParameter_EvalCurvOnSurf::Evaluate(Standard_Integer* Dime
 }
 
 Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_Curve2d)& C2D,
-                                                         const Handle(Adaptor3d_Surface)& Surf,
+                                                         const Handle(SurfaceAdaptor)& Surf,
                                                          const Standard_Real              Tol,
                                                          const GeomAbs_Shape              Order,
                                                          const Standard_Integer           MaxDegree,
@@ -329,7 +329,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_
   Standard_Integer     NbInterv_C3 = fonct->NbIntervals(GeomAbs_C3);
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   fonct->Intervals(CutPnts_C3, GeomAbs_C3);
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
 #ifdef OCCT_DEBUG_CHRONO
   InitChron(chr_approx);
@@ -456,9 +456,9 @@ void Approx_CurvilinearParameter_EvalCurvOn2Surf::Evaluate(Standard_Integer* Dim
 }
 
 Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_Curve2d)& C2D1,
-                                                         const Handle(Adaptor3d_Surface)& Surf1,
+                                                         const Handle(SurfaceAdaptor)& Surf1,
                                                          const Handle(Adaptor2d_Curve2d)& C2D2,
-                                                         const Handle(Adaptor3d_Surface)& Surf2,
+                                                         const Handle(SurfaceAdaptor)& Surf2,
                                                          const Standard_Real              Tol,
                                                          const GeomAbs_Shape              Order,
                                                          const Standard_Integer           MaxDegree,
@@ -508,7 +508,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_
   Standard_Integer     NbInterv_C3 = fonct->NbIntervals(GeomAbs_C3);
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   fonct->Intervals(CutPnts_C3, GeomAbs_C3);
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
 #ifdef OCCT_DEBUG_CHRONO
   InitChron(chr_approx);
@@ -659,7 +659,7 @@ void Approx_CurvilinearParameter::Dump(Standard_OStream& o) const
 //=================================================================================================
 
 void Approx_CurvilinearParameter::ToleranceComputation(const Handle(Adaptor2d_Curve2d)& C2D,
-                                                       const Handle(Adaptor3d_Surface)& S,
+                                                       const Handle(SurfaceAdaptor)& S,
                                                        const Standard_Integer           MaxNumber,
                                                        const Standard_Real              Tol,
                                                        Standard_Real&                   TolV,

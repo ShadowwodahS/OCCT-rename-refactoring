@@ -22,9 +22,9 @@
 #include <Standard_Handle.hxx>
 
 class GeomCurve3d;
-class Adaptor3d_Curve;
+class Curve5;
 class GeomSurface;
-class Adaptor3d_Surface;
+class SurfaceAdaptor;
 
 //! this package contains the  geometric definition of
 //! curve and surface necessary to use algorithms.
@@ -37,13 +37,13 @@ public:
   //! handled by reference.
   //! Build a GeomCurve3d using the information from the
   //! Curve from Adaptor3d
-  Standard_EXPORT static Handle(GeomCurve3d) MakeCurve(const Adaptor3d_Curve& C);
+  Standard_EXPORT static Handle(GeomCurve3d) MakeCurve(const Curve5& C);
 
   //! Build a GeomSurface using the information from the Surface from Adaptor3d
   //! @param theS - Surface adaptor to convert.
   //! @param theTrimFlag - True if perform trim surface values by adaptor and false otherwise.
   Standard_EXPORT static Handle(GeomSurface) MakeSurface(
-    const Adaptor3d_Surface& theS,
+    const SurfaceAdaptor& theS,
     const Standard_Boolean   theTrimFlag = Standard_True);
 };
 

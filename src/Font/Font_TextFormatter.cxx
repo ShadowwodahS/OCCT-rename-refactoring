@@ -19,7 +19,7 @@
 
 #include <Precision.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_TextFormatter, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TextFormatter1, RefObject)
 
 namespace
 {
@@ -53,7 +53,7 @@ inline void moveY(NCollection_Vector<Vec2f>& theCorners,
 
 //=================================================================================================
 
-Font_TextFormatter::Font_TextFormatter()
+TextFormatter1::TextFormatter1()
     : myAlignX(Graphic3d_HTA_LEFT),
       myAlignY(Graphic3d_VTA_TOP),
       myTabSize(8),
@@ -80,7 +80,7 @@ Font_TextFormatter::Font_TextFormatter()
 
 //=================================================================================================
 
-void Font_TextFormatter::SetupAlignment(const Graphic3d_HorizontalTextAlignment theAlignX,
+void TextFormatter1::SetupAlignment(const Graphic3d_HorizontalTextAlignment theAlignX,
                                         const Graphic3d_VerticalTextAlignment   theAlignY)
 {
   myAlignX = theAlignX;
@@ -89,7 +89,7 @@ void Font_TextFormatter::SetupAlignment(const Graphic3d_HorizontalTextAlignment 
 
 //=================================================================================================
 
-void Font_TextFormatter::Reset()
+void TextFormatter1::Reset()
 {
   myIsFormatted = false;
   myString.Clear();
@@ -104,7 +104,7 @@ void Font_TextFormatter::Reset()
 
 //=================================================================================================
 
-void Font_TextFormatter::Append(const NCollection_String& theString, Font_FTFont& theFont)
+void TextFormatter1::Append(const NCollection_String& theString, Font_FTFont& theFont)
 {
   if (theString.IsEmpty())
   {
@@ -118,7 +118,7 @@ void Font_TextFormatter::Append(const NCollection_String& theString, Font_FTFont
   int aSymbolsCounter = 0; // special counter to process tabulation symbols
 
   // first pass - render all symbols using associated font on single ZERO baseline
-  for (Font_TextFormatter::Iterator aFormatterIt(*this); aFormatterIt.More(); aFormatterIt.Next())
+  for (TextFormatter1::Iterator aFormatterIt(*this); aFormatterIt.More(); aFormatterIt.Next())
   {
     const Standard_Utf32Char aCharThis = aFormatterIt.Symbol();
     const Standard_Utf32Char aCharNext = aFormatterIt.SymbolNext();
@@ -158,7 +158,7 @@ void Font_TextFormatter::Append(const NCollection_String& theString, Font_FTFont
 
 //=================================================================================================
 
-void Font_TextFormatter::newLine(const Standard_Integer   theLastRect,
+void TextFormatter1::newLine(const Standard_Integer   theLastRect,
                                  const Standard_ShortReal theMaxLineWidth)
 {
   Standard_Integer aFirstCornerId = myRectLineStart;
@@ -200,7 +200,7 @@ void Font_TextFormatter::newLine(const Standard_Integer   theLastRect,
 
 //=================================================================================================
 
-void Font_TextFormatter::Format()
+void TextFormatter1::Format()
 {
   if (myCorners.Length() == 0 || myIsFormatted)
   {
@@ -243,7 +243,7 @@ void Font_TextFormatter::Format()
   }
 
   Standard_Utf32Char aCharPrev = 0;
-  for (Font_TextFormatter::Iterator aFormatterIt(*this); aFormatterIt.More(); aFormatterIt.Next())
+  for (TextFormatter1::Iterator aFormatterIt(*this); aFormatterIt.More(); aFormatterIt.Next())
   {
     const Standard_Utf32Char aCharThis = aFormatterIt.Symbol();
     aRectIter                          = aFormatterIt.SymbolPosition();
@@ -265,7 +265,7 @@ void Font_TextFormatter::Format()
       Standard_Boolean         isCurWordFits = true;
       if (myIsWordWrapping && IsSeparatorSymbol(aCharPrev))
       {
-        for (Font_TextFormatter::Iterator aWordIt = aFormatterIt; aWordIt.More(); aWordIt.Next())
+        for (TextFormatter1::Iterator aWordIt = aFormatterIt; aWordIt.More(); aWordIt.Next())
         {
           if (IsSeparatorSymbol(aWordIt.Symbol()))
           {
@@ -316,7 +316,7 @@ void Font_TextFormatter::Format()
 
 //=================================================================================================
 
-Standard_Boolean Font_TextFormatter::GlyphBoundingBox(const Standard_Integer theIndex,
+Standard_Boolean TextFormatter1::GlyphBoundingBox(const Standard_Integer theIndex,
                                                       Rect&             theBndBox) const
 {
   if (theIndex < 0 || theIndex >= Corners().Size())
@@ -363,7 +363,7 @@ Standard_Boolean Font_TextFormatter::GlyphBoundingBox(const Standard_Integer the
 
 //=================================================================================================
 
-Standard_Boolean Font_TextFormatter::IsLFSymbol(const Standard_Integer theIndex) const
+Standard_Boolean TextFormatter1::IsLFSymbol(const Standard_Integer theIndex) const
 {
   Rect aBndBox;
   if (!GlyphBoundingBox(theIndex, aBndBox))
@@ -376,7 +376,7 @@ Standard_Boolean Font_TextFormatter::IsLFSymbol(const Standard_Integer theIndex)
 
 //=================================================================================================
 
-Standard_ShortReal Font_TextFormatter::FirstPosition() const
+Standard_ShortReal TextFormatter1::FirstPosition() const
 {
   switch (myAlignX)
   {
@@ -392,7 +392,7 @@ Standard_ShortReal Font_TextFormatter::FirstPosition() const
 
 //=================================================================================================
 
-Standard_Integer Font_TextFormatter::LinePositionIndex(const Standard_Integer theIndex) const
+Standard_Integer TextFormatter1::LinePositionIndex(const Standard_Integer theIndex) const
 {
   Standard_Integer anIndex = 0;
 
@@ -410,7 +410,7 @@ Standard_Integer Font_TextFormatter::LinePositionIndex(const Standard_Integer th
 
 //=================================================================================================
 
-Standard_Integer Font_TextFormatter::LineIndex(const Standard_Integer theIndex) const
+Standard_Integer TextFormatter1::LineIndex(const Standard_Integer theIndex) const
 {
   if (myLineSpacing < 0.0f)
   {
@@ -422,7 +422,7 @@ Standard_Integer Font_TextFormatter::LineIndex(const Standard_Integer theIndex) 
 
 //=================================================================================================
 
-Standard_ShortReal Font_TextFormatter::LineWidth(const Standard_Integer theIndex) const
+Standard_ShortReal TextFormatter1::LineWidth(const Standard_Integer theIndex) const
 {
   if (theIndex < 0)
   {

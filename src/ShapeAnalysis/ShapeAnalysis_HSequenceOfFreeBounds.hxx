@@ -20,6 +20,6 @@
 #include <ShapeAnalysis_SequenceOfFreeBounds.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(ShapeAnalysis_HSequenceOfFreeBounds, ShapeAnalysis_SequenceOfFreeBounds)
+DEFINE_HSEQUENCE(HSequenceOfFreeBounds, ShapeAnalysis_SequenceOfFreeBounds)
 
 #endif

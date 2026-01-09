@@ -27,11 +27,11 @@
 #include <Standard_Integer.hxx>
 class Standard_GUID;
 class TFunction_Logbook;
-class TFunction_Driver;
+class FunctionDriver1;
 class TFunction_GraphNode;
 
 //! Interface class for usage of Function Mechanism
-class TFunction_IFunction
+class FunctionInterface
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,11 +53,11 @@ public:
   //! An empty constructor.
   Standard_EXPORT static Standard_Boolean UpdateDependencies(const DataLabel& Access);
 
-  Standard_EXPORT TFunction_IFunction();
+  Standard_EXPORT FunctionInterface();
 
   //! A constructor.
   //! Initializes the interface by the label of function.
-  Standard_EXPORT TFunction_IFunction(const DataLabel& L);
+  Standard_EXPORT FunctionInterface(const DataLabel& L);
 
   //! Initializes the interface by the label of function.
   Standard_EXPORT void Init(const DataLabel& L);
@@ -95,7 +95,7 @@ public:
   Standard_EXPORT Handle(TFunction_Logbook) GetLogbook() const;
 
   //! Returns a driver of the function.
-  Standard_EXPORT Handle(TFunction_Driver) GetDriver(const Standard_Integer thread = 0) const;
+  Standard_EXPORT Handle(FunctionDriver1) GetDriver(const Standard_Integer thread = 0) const;
 
   //! Returns a graph node of the function.
   Standard_EXPORT Handle(TFunction_GraphNode) GetGraphNode() const;

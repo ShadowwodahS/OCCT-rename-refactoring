@@ -27,12 +27,12 @@
 
 //! inherits class Cutting; contains a list of preferential points (di)i
 //! if Cutting is necessary in [a,b], we cut at the di nearest from (a+b)/2.
-class AdvApprox_PrefCutting : public CuttingTool
+class PreferredCutting : public CuttingTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT AdvApprox_PrefCutting(const TColStd_Array1OfReal& CutPnts);
+  Standard_EXPORT PreferredCutting(const TColStd_Array1OfReal& CutPnts);
 
   Standard_EXPORT virtual Standard_Boolean Value(const Standard_Real a,
                                                  const Standard_Real b,

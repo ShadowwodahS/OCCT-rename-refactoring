@@ -24,22 +24,22 @@ struct Parameters3;
 
 //! Base interface for factories producing instances of triangulation
 //! algorithms taking into account type of surface of target face.
-class IMeshTools_MeshAlgoFactory : public RefObject
+class MeshAlgorithmFactory : public RefObject
 {
 public:
   //! Destructor.
-  virtual ~IMeshTools_MeshAlgoFactory() {}
+  virtual ~MeshAlgorithmFactory() {}
 
   //! Creates instance of meshing algorithm for the given type of surface.
-  Standard_EXPORT virtual Handle(IMeshTools_MeshAlgo) GetAlgo(
+  Standard_EXPORT virtual Handle(MeshAlgorithm) GetAlgo(
     const GeomAbs_SurfaceType    theSurfaceType,
     const Parameters3& theParameters) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgoFactory, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MeshAlgorithmFactory, RefObject)
 
 protected:
   //! Constructor.
-  IMeshTools_MeshAlgoFactory() {}
+  MeshAlgorithmFactory() {}
 };
 
 #endif

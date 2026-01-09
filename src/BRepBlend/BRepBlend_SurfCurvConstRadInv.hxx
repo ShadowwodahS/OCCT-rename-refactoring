@@ -39,9 +39,9 @@ class BRepBlend_SurfCurvConstRadInv : public Blend_SurfCurvFuncInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_SurfCurvConstRadInv(const Handle(Adaptor3d_Surface)& S,
-                                                const Handle(Adaptor3d_Curve)&   C,
-                                                const Handle(Adaptor3d_Curve)&   Cg);
+  Standard_EXPORT BRepBlend_SurfCurvConstRadInv(const Handle(SurfaceAdaptor)& S,
+                                                const Handle(Curve5)&   C,
+                                                const Handle(Curve5)&   Cg);
 
   Standard_EXPORT void Set(const Standard_Real R, const Standard_Integer Choix);
 
@@ -86,9 +86,9 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf;
-  Handle(Adaptor3d_Curve)   curv;
-  Handle(Adaptor3d_Curve)   guide;
+  Handle(SurfaceAdaptor) surf;
+  Handle(Curve5)   curv;
+  Handle(Curve5)   guide;
   Handle(Adaptor2d_Curve2d) rst;
   Standard_Real             ray;
   Standard_Integer          choix;

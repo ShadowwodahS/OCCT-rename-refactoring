@@ -650,8 +650,8 @@ void SelectMgr_SelectingVolumeManager::GetPlanes(
 //=================================================================================================
 
 void SelectMgr_SelectingVolumeManager::SetViewClipping(
-  const Handle(Graphic3d_SequenceOfHClipPlane)& theViewPlanes,
-  const Handle(Graphic3d_SequenceOfHClipPlane)& theObjPlanes,
+  const Handle(SequenceOfHClipPlane)& theViewPlanes,
+  const Handle(SequenceOfHClipPlane)& theObjPlanes,
   const SelectMgr_SelectingVolumeManager*       theWorldSelMgr)
 {
   myViewClipPlanes   = theViewPlanes;

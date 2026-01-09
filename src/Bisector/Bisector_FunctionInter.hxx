@@ -27,7 +27,7 @@ class Bisector_Curve;
 
 //! 2                      2
 //! F(u) =  (PC(u) - PBis1(u))   + (PC(u) - PBis2(u))
-class Bisector_FunctionInter : public math_FunctionWithDerivative
+class Bisector_FunctionInter : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

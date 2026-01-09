@@ -29,21 +29,21 @@ class gp_Lin;
 //! in 3D space.
 //! It can be an elementary curve from package gp1 such as
 //! Lin, Circ, Elips, Parab .
-class GProp_CelGProps : public GeometricProperties
+class CellGeometricProperties : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GProp_CelGProps();
+  Standard_EXPORT CellGeometricProperties();
 
-  Standard_EXPORT GProp_CelGProps(const gp_Circ& C, const Point3d& CLocation);
+  Standard_EXPORT CellGeometricProperties(const gp_Circ& C, const Point3d& CLocation);
 
-  Standard_EXPORT GProp_CelGProps(const gp_Circ&      C,
+  Standard_EXPORT CellGeometricProperties(const gp_Circ&      C,
                                   const Standard_Real U1,
                                   const Standard_Real U2,
                                   const Point3d&       CLocation);
 
-  Standard_EXPORT GProp_CelGProps(const gp_Lin&       C,
+  Standard_EXPORT CellGeometricProperties(const gp_Lin&       C,
                                   const Standard_Real U1,
                                   const Standard_Real U2,
                                   const Point3d&       CLocation);

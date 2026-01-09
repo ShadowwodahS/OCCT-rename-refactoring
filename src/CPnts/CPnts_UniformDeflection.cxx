@@ -49,7 +49,7 @@
 
 static inline void D03d(const Standard_Address C, const Standard_Real U, Point3d& P)
 {
-  ((Adaptor3d_Curve*)C)->D0(U, P);
+  ((Curve5*)C)->D0(U, P);
 }
 
 static void D02d(const Standard_Address C, const Standard_Real U, Point3d& PP)
@@ -65,7 +65,7 @@ static inline void D23d(const Standard_Address C,
                         Vector3d&                V1,
                         Vector3d&                V2)
 {
-  ((Adaptor3d_Curve*)C)->D2(U, P, V1, V2);
+  ((Curve5*)C)->D2(U, P, V1, V2);
 }
 
 static void D22d(const Standard_Address C,
@@ -278,7 +278,7 @@ UniformDeflectionSampler::UniformDeflectionSampler()
 
 //=================================================================================================
 
-UniformDeflectionSampler::UniformDeflectionSampler(const Adaptor3d_Curve& C,
+UniformDeflectionSampler::UniformDeflectionSampler(const Curve5& C,
                                                  const Standard_Real    Deflection,
                                                  const Standard_Real    Resolution,
                                                  const Standard_Boolean WithControl)
@@ -298,7 +298,7 @@ UniformDeflectionSampler::UniformDeflectionSampler(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-void UniformDeflectionSampler::Initialize(const Adaptor3d_Curve& C,
+void UniformDeflectionSampler::Initialize(const Curve5& C,
                                          const Standard_Real    Deflection,
                                          const Standard_Real    Resolution,
                                          const Standard_Boolean WithControl)
@@ -318,7 +318,7 @@ void UniformDeflectionSampler::Initialize(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-UniformDeflectionSampler ::UniformDeflectionSampler(const Adaptor3d_Curve& C,
+UniformDeflectionSampler ::UniformDeflectionSampler(const Curve5& C,
                                                   const Standard_Real    Deflection,
                                                   const Standard_Real    U1,
                                                   const Standard_Real    U2,
@@ -342,7 +342,7 @@ UniformDeflectionSampler ::UniformDeflectionSampler(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-void UniformDeflectionSampler::Initialize(const Adaptor3d_Curve& C,
+void UniformDeflectionSampler::Initialize(const Curve5& C,
                                          const Standard_Real    Deflection,
                                          const Standard_Real    U1,
                                          const Standard_Real    U2,

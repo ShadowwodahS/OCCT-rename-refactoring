@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(FEmTool_Curve, RefObject)
 
 FEmTool_Curve::FEmTool_Curve(const Standard_Integer   Dimension,
                              const Standard_Integer   NbElements,
-                             const Handle(PLib_Base)& TheBase,
+                             const Handle(PolynomialBase)& TheBase,
                              const Standard_Real)
     : myNbElements(NbElements),
       myDimension(Dimension),
@@ -407,7 +407,7 @@ Standard_Integer FEmTool_Curve::Dimension() const
   return myDimension;
 }
 
-Handle(PLib_Base) FEmTool_Curve::Base() const
+Handle(PolynomialBase) FEmTool_Curve::Base() const
 {
   return myBase;
 }

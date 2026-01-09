@@ -45,15 +45,15 @@ public:
   //! <Tol>    is   the   tolerance   with  which    the
   //! approximation is performed.
   //! Other parameters for approximation have default values.
-  Standard_EXPORT ProjLib_ComputeApprox(const Handle(Adaptor3d_Curve)&   C,
-                                        const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT ProjLib_ComputeApprox(const Handle(Curve5)&   C,
+                                        const Handle(SurfaceAdaptor)& S,
                                         const Standard_Real              Tol);
 
   //! Performs projecting.
   //! In case of approximation current values of parameters are used:
   //! default values or set by corresponding methods Set...
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Curve)&   C,
-                               const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Perform(const Handle(Curve5)&   C,
+                               const Handle(SurfaceAdaptor)& S);
 
   //! Set tolerance of approximation.
   //! Default value is Precision1::Confusion().

@@ -65,7 +65,7 @@ void DBRep_HideData::Set(const Standard_Integer viewID,
   TopoShape       Sori;
   Standard_Boolean   reg1, regn, outl, intl;
   Standard_Address   Coordinates;
-  HLRAlgo_EdgeStatus status;
+  EdgeStatus status;
 
   for (hider->InitHide(); hider->MoreHide(); hider->NextHide())
   {

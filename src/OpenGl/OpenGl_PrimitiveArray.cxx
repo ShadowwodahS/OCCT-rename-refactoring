@@ -546,7 +546,7 @@ void OpenGl_PrimitiveArray::drawEdges(const Handle(OpenGl_Workspace)& theWorkspa
 
   if (aGlContext->core20fwd != NULL)
   {
-    aGlContext->ShaderManager()->BindLineProgram(Handle(OpenGl_TextureSet)(),
+    aGlContext->ShaderManager()->BindLineProgram(Handle(TextureSet2)(),
                                                  anAspect->Aspect()->EdgeLineType(),
                                                  Graphic3d_TypeOfShadingModel_Unlit,
                                                  Graphic3d_AlphaMode_Opaque,
@@ -796,7 +796,7 @@ Standard_Size OpenGl_PrimitiveArray::EstimatedDataSize() const
 
 //=================================================================================================
 
-void OpenGl_PrimitiveArray::UpdateDrawStats(Graphic3d_FrameStatsDataTmp& theStats,
+void OpenGl_PrimitiveArray::UpdateDrawStats(FrameStatsDataTmp& theStats,
                                             bool                         theIsDetailed) const
 {
   ++theStats[Graphic3d_FrameStatsCounter_NbElemsNotCulled];
@@ -954,7 +954,7 @@ void OpenGl_PrimitiveArray::Render(const Handle(OpenGl_Workspace)& theWorkspace)
   // clang-format off
   anAspectFace = theWorkspace->ApplyAspects (false); // do not bind textures before binding the program
   // clang-format on
-  const Handle(OpenGl_TextureSet)& aTextureSet = theWorkspace->TextureSet();
+  const Handle(TextureSet2)& aTextureSet = theWorkspace->TextureSet();
   const bool                       toEnableEnvMap =
     !aTextureSet.IsNull() && aTextureSet == theWorkspace->EnvironmentTexture();
   if (toDrawArray)
@@ -980,7 +980,7 @@ void OpenGl_PrimitiveArray::Render(const Handle(OpenGl_Workspace)& theWorkspace)
       case GL_LINE_STRIP: {
         aShadingModel =
           aCtx->ShaderManager()->ChooseLineShadingModel(anAspectFace->ShadingModel(), hasVertNorm);
-        aCtx->ShaderManager()->BindLineProgram(Handle(OpenGl_TextureSet)(),
+        aCtx->ShaderManager()->BindLineProgram(Handle(TextureSet2)(),
                                                anAspectFace->Aspect()->LineType(),
                                                aShadingModel,
                                                Graphic3d_AlphaMode_Opaque,

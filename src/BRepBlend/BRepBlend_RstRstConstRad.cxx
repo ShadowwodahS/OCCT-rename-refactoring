@@ -55,11 +55,11 @@ static void t3dto2d(Standard_Real& a,
 
 //=================================================================================================
 
-BRepBlend_RstRstConstRad::BRepBlend_RstRstConstRad(const Handle(Adaptor3d_Surface)& Surf1,
+BRepBlend_RstRstConstRad::BRepBlend_RstRstConstRad(const Handle(SurfaceAdaptor)& Surf1,
                                                    const Handle(Adaptor2d_Curve2d)& Rst1,
-                                                   const Handle(Adaptor3d_Surface)& Surf2,
+                                                   const Handle(SurfaceAdaptor)& Surf2,
                                                    const Handle(Adaptor2d_Curve2d)& Rst2,
-                                                   const Handle(Adaptor3d_Curve)&   CGuide)
+                                                   const Handle(Curve5)&   CGuide)
     : surf1(Surf1),
       surf2(Surf2),
       rst1(Rst1),
@@ -141,9 +141,9 @@ Standard_Boolean BRepBlend_RstRstConstRad::Values(const math_Vector& X,
 
 //=================================================================================================
 
-void BRepBlend_RstRstConstRad::Set(const Handle(Adaptor3d_Surface)& SurfRef1,
+void BRepBlend_RstRstConstRad::Set(const Handle(SurfaceAdaptor)& SurfRef1,
                                    const Handle(Adaptor2d_Curve2d)& RstRef1,
-                                   const Handle(Adaptor3d_Surface)& SurfRef2,
+                                   const Handle(SurfaceAdaptor)& SurfRef2,
                                    const Handle(Adaptor2d_Curve2d)& RstRef2)
 {
   surfref1 = SurfRef1;

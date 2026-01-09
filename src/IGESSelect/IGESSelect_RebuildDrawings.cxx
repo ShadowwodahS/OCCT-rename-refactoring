@@ -93,9 +93,9 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
         views = new HArray1OfViewKindEntity(1, nbv);
       //  Passer ses vues : toutes
       //  Aussi les positions des vues
-      Handle(TColgp_HArray1OfXY) origs;
+      Handle(XYArray) origs;
       if (nbv > 0)
-        origs = new TColgp_HArray1OfXY(1, nbv);
+        origs = new XYArray(1, nbv);
       for (Standard_Integer iv = 1; iv <= nbv; iv++)
       {
         DeclareAndCast(IGESData_ViewKindEntity, aview, TC.Transferred(draw->ViewItem(iv)));
@@ -139,9 +139,9 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
         views = new HArray1OfViewKindEntity(1, nbv);
       //  Passer ses vues : toutes
       //  Aussi les positions des vues .. et les rotations
-      Handle(TColgp_HArray1OfXY) origs;
+      Handle(XYArray) origs;
       if (nbv > 0)
-        origs = new TColgp_HArray1OfXY(1, nbv);
+        origs = new XYArray(1, nbv);
       Handle(TColStd_HArray1OfReal) rots;
       if (nbv > 0)
       {

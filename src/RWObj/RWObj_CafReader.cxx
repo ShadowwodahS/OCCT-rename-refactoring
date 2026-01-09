@@ -14,7 +14,7 @@
 
 #include <RWObj_CafReader.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWObj_CafReader, RWMesh_CafReader)
+IMPLEMENT_STANDARD_RTTIEXT(RWObj_CafReader, CafReader)
 
 //=================================================================================================
 

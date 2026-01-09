@@ -33,14 +33,14 @@
 // PROGRAMMATION MATHEMATIQUE (theorie et algorithmes) tome1 page 82.
 
 // Target function for 1D problem, point and direction are known.
-class DirFunction : public math_FunctionWithDerivative
+class DirFunction : public FunctionWithDerivative
 {
 
   math_Vector*                          P0;
   math_Vector*                          Dir;
   math_Vector*                          P;
   math_Vector*                          G;
-  math_MultipleVarFunctionWithGradient* F;
+  MultiVarFunctionWithGradient* F;
 
 public:
   //! Ctor.
@@ -48,7 +48,7 @@ public:
               math_Vector&                          V2,
               math_Vector&                          V3,
               math_Vector&                          V4,
-              math_MultipleVarFunctionWithGradient& f)
+              MultiVarFunctionWithGradient& f)
       : P0(&V1),
         Dir(&V2),
         P(&V3),
@@ -302,7 +302,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&       P,
 // function : Perform
 // purpose  : Performs minimization problem using BFGS method.
 //=============================================================================
-void BFGSOptimizer::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vector& StartingPoint)
+void BFGSOptimizer::Perform(MultiVarFunctionWithGradient& F, const math_Vector& StartingPoint)
 {
   const Standard_Integer n    = TheLocation.Length();
   Standard_Boolean       Good = Standard_True;
@@ -415,7 +415,7 @@ void BFGSOptimizer::Perform(math_MultipleVarFunctionWithGradient& F, const math_
 // function : IsSolutionReached
 // purpose  : Checks whether solution reached or not.
 //=============================================================================
-Standard_Boolean BFGSOptimizer::IsSolutionReached(math_MultipleVarFunctionWithGradient&) const
+Standard_Boolean BFGSOptimizer::IsSolutionReached(MultiVarFunctionWithGradient&) const
 {
 
   return 2.0 * fabs(TheMinimum - PreviousMinimum)

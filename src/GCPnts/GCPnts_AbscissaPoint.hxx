@@ -19,7 +19,7 @@
 
 #include <CPnts_AbscissaPoint.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 class Adaptor2d_Curve2d;
 
 //! Provides an algorithm to compute a point on a curve
@@ -36,13 +36,13 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Computes the length of the 3D Curve.
-  Standard_EXPORT static Standard_Real Length(const Adaptor3d_Curve& theC);
+  Standard_EXPORT static Standard_Real Length(const Curve5& theC);
 
   //! Computes the length of the 2D Curve.
   Standard_EXPORT static Standard_Real Length(const Adaptor2d_Curve2d& theC);
 
   //! Computes the length of the 3D Curve with the given tolerance.
-  Standard_EXPORT static Standard_Real Length(const Adaptor3d_Curve& theC,
+  Standard_EXPORT static Standard_Real Length(const Curve5& theC,
                                               const Standard_Real    theTol);
 
   //! Computes the length of the 2D Curve with the given tolerance.
@@ -50,7 +50,7 @@ public:
                                               const Standard_Real      theTol);
 
   //! Computes the length of the 3D Curve.
-  Standard_EXPORT static Standard_Real Length(const Adaptor3d_Curve& theC,
+  Standard_EXPORT static Standard_Real Length(const Curve5& theC,
                                               const Standard_Real    theU1,
                                               const Standard_Real    theU2);
 
@@ -60,7 +60,7 @@ public:
                                               const Standard_Real      theU2);
 
   //! Computes the length of the 3D Curve with the given tolerance.
-  Standard_EXPORT static Standard_Real Length(const Adaptor3d_Curve& theC,
+  Standard_EXPORT static Standard_Real Length(const Curve5& theC,
                                               const Standard_Real    theU1,
                                               const Standard_Real    theU2,
                                               const Standard_Real    theTol);
@@ -77,7 +77,7 @@ public:
 
   //! The algorithm computes a point on a curve at the
   //! distance theAbscissa from the point of parameter theU0.
-  Standard_EXPORT GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
+  Standard_EXPORT GCPnts_AbscissaPoint(const Curve5& theC,
                                        const Standard_Real    theAbscissa,
                                        const Standard_Real    theU0);
 
@@ -85,7 +85,7 @@ public:
   //! the distance theAbscissa from the point of parameter
   //! theU0 with the given tolerance.
   Standard_EXPORT GCPnts_AbscissaPoint(const Standard_Real    theTol,
-                                       const Adaptor3d_Curve& theC,
+                                       const Curve5& theC,
                                        const Standard_Real    theAbscissa,
                                        const Standard_Real    theU0);
 
@@ -107,7 +107,7 @@ public:
   //! distance theAbscissa from the point of parameter theU0.
   //! theUi is the starting value used in the iterative process
   //! which find the solution, it must be close to the final solution.
-  Standard_EXPORT GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
+  Standard_EXPORT GCPnts_AbscissaPoint(const Curve5& theC,
                                        const Standard_Real    theAbscissa,
                                        const Standard_Real    theU0,
                                        const Standard_Real    theUi);
@@ -125,7 +125,7 @@ public:
   //! distance theAbscissa from the point of parameter theU0.
   //! theUi is the starting value used in the iterative process
   //! which find the solution, it must be close to the final solution
-  Standard_EXPORT GCPnts_AbscissaPoint(const Adaptor3d_Curve& theC,
+  Standard_EXPORT GCPnts_AbscissaPoint(const Curve5& theC,
                                        const Standard_Real    theAbscissa,
                                        const Standard_Real    theU0,
                                        const Standard_Real    theUi,

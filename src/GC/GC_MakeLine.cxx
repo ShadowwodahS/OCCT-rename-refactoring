@@ -46,7 +46,7 @@ GC_MakeLine::GC_MakeLine(const gp_Lin& L)
 
 GC_MakeLine::GC_MakeLine(const Point3d& P1, const Point3d& P2)
 {
-  gce_MakeLin L(P1, P2);
+  LineBuilder L(P1, P2);
   TheError = L.Status();
   if (TheError == gce_Done)
   {
@@ -56,7 +56,7 @@ GC_MakeLine::GC_MakeLine(const Point3d& P1, const Point3d& P2)
 
 GC_MakeLine::GC_MakeLine(const gp_Lin& Lin, const Point3d& Point)
 {
-  gce_MakeLin L(Lin, Point);
+  LineBuilder L(Lin, Point);
   TheError = L.Status();
   if (TheError == gce_Done)
   {

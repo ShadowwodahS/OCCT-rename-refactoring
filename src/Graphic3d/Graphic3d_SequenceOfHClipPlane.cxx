@@ -13,11 +13,11 @@
 
 #include <Graphic3d_SequenceOfHClipPlane.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_SequenceOfHClipPlane, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SequenceOfHClipPlane, RefObject)
 
 //=================================================================================================
 
-Graphic3d_SequenceOfHClipPlane::Graphic3d_SequenceOfHClipPlane()
+SequenceOfHClipPlane::SequenceOfHClipPlane()
     : myToOverrideGlobal(Standard_False)
 {
   //
@@ -25,7 +25,7 @@ Graphic3d_SequenceOfHClipPlane::Graphic3d_SequenceOfHClipPlane()
 
 //=================================================================================================
 
-bool Graphic3d_SequenceOfHClipPlane::Append(const Handle(Graphic3d_ClipPlane)& theItem)
+bool SequenceOfHClipPlane::Append(const Handle(Graphic3d_ClipPlane)& theItem)
 {
   for (NCollection_Sequence<Handle(Graphic3d_ClipPlane)>::Iterator anItemIter(myItems);
        anItemIter.More();
@@ -42,7 +42,7 @@ bool Graphic3d_SequenceOfHClipPlane::Append(const Handle(Graphic3d_ClipPlane)& t
 
 //=================================================================================================
 
-bool Graphic3d_SequenceOfHClipPlane::Remove(const Handle(Graphic3d_ClipPlane)& theItem)
+bool SequenceOfHClipPlane::Remove(const Handle(Graphic3d_ClipPlane)& theItem)
 {
   for (NCollection_Sequence<Handle(Graphic3d_ClipPlane)>::Iterator anItemIter(myItems);
        anItemIter.More();
@@ -59,7 +59,7 @@ bool Graphic3d_SequenceOfHClipPlane::Remove(const Handle(Graphic3d_ClipPlane)& t
 
 //=================================================================================================
 
-void Graphic3d_SequenceOfHClipPlane::DumpJson(Standard_OStream& theOStream,
+void SequenceOfHClipPlane::DumpJson(Standard_OStream& theOStream,
                                               Standard_Integer  theDepth) const
 {
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myToOverrideGlobal)

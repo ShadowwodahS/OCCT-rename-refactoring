@@ -26,14 +26,14 @@ class Class2d;
 
 //! Auxiliary class intended for classification of points
 //! regarding internals of discrete face.
-class BRepMesh_Classifier : public RefObject
+class FaceClassifier : public RefObject
 {
 public:
   //! Constructor.
-  Standard_EXPORT BRepMesh_Classifier();
+  Standard_EXPORT FaceClassifier();
 
   //! Destructor.
-  Standard_EXPORT virtual ~BRepMesh_Classifier();
+  Standard_EXPORT virtual ~FaceClassifier();
 
   //! Performs classification of the given point regarding to face internals.
   //! @param thePoint Point in parametric space to be classified.
@@ -53,7 +53,7 @@ public:
                                     const std::pair<Standard_Real, Standard_Real>& theRangeU,
                                     const std::pair<Standard_Real, Standard_Real>& theRangeV);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_Classifier, RefObject)
+  DEFINE_STANDARD_RTTIEXT(FaceClassifier, RefObject)
 
 private:
   NCollection_Vector<NCollection_Handle<Class2d>> myTabClass;

@@ -26,7 +26,7 @@
 #include <BRepMesh_ConeRangeSplitter.hxx>
 #include <Poly_TriangulationParameters.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ModelPreProcessor, IMeshTools_ModelAlgo)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ModelPreProcessor, ModelAlgorithm)
 
 namespace
 {
@@ -60,13 +60,13 @@ public:
       // If there is an info about initial parameters, use it due to deflection kept
       // by MeshTriangulation is generally an estimation upon generated mesh and can
       // be either less or even greater than specified value.
-      const Handle(Poly_TriangulationParameters)& aSourceParams = aTriangulation->Parameters();
+      const Handle(TriangulationParameters)& aSourceParams = aTriangulation->Parameters();
       const Standard_Real aDeflection = (!aSourceParams.IsNull() && aSourceParams->HasDeflection())
                                           ? aSourceParams->Deflection()
                                           : aTriangulation->Deflection();
 
       Standard_Boolean isTriangulationConsistent =
-        BRepMesh_Deflection::IsConsistent(aDeflection,
+        DeflectionControl::IsConsistent(aDeflection,
                                           aDFace->GetDeflection(),
                                           myAllowQualityDecrease);
 
@@ -157,7 +157,7 @@ private:
   //! Returns step for splitting seam edge of a cone.
   Standard_Real getConeStep(const IMeshData::IFaceHandle& theDFace) const
   {
-    BRepMesh_ConeRangeSplitter aSplitter;
+    ConeRangeSplitter aSplitter;
     aSplitter.Reset(theDFace, myParameters);
 
     const IMeshData::IWireHandle& aDWire = theDFace->GetWire(0);
@@ -320,7 +320,7 @@ Standard_Boolean BRepMesh_ModelPreProcessor::performInternal(
       {
         TopLoc_Location aLoc;
         BRepInspector::Polygon3D(aDEdge->GetEdge(), aLoc);
-        BRepMesh_ShapeTool::NullifyEdge(aDEdge->GetEdge(), aLoc);
+        ShapeTool2::NullifyEdge(aDEdge->GetEdge(), aLoc);
       }
 
       continue;
@@ -346,11 +346,11 @@ Standard_Boolean BRepMesh_ModelPreProcessor::performInternal(
             for (Standard_Integer aWireEdgeIt = 0; aWireEdgeIt < aDWire->EdgesNb(); ++aWireEdgeIt)
             {
               const IMeshData::IEdgeHandle aTmpDEdge = aDWire->GetEdge(aWireEdgeIt);
-              BRepMesh_ShapeTool::NullifyEdge(aTmpDEdge->GetEdge(), aTriangulation, aLoc);
+              ShapeTool2::NullifyEdge(aTmpDEdge->GetEdge(), aTriangulation, aLoc);
             }
           }
 
-          BRepMesh_ShapeTool::NullifyFace(aDFace->GetFace());
+          ShapeTool2::NullifyFace(aDFace->GetFace());
         }
       }
     }

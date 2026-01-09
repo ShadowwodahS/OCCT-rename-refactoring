@@ -20,7 +20,7 @@
 #include <TDF_Attribute.hxx>
 #include <XCAFDoc_AssemblyItemId.hxx>
 
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class XCAFDoc_AssemblyItemRef;
 DEFINE_STANDARD_HANDLE(XCAFDoc_AssemblyItemRef, TDF_Attribute)
@@ -142,7 +142,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
   Standard_EXPORT void Restore(const Handle(TDF_Attribute)& theAttrFrom) Standard_OVERRIDE;
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       theAttrInto,
-                             const Handle(TDF_RelocationTable)& theRT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& theRT) const Standard_OVERRIDE;
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& theOS) const Standard_OVERRIDE;
 
 private:

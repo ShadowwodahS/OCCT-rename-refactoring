@@ -248,7 +248,7 @@ static Standard_Boolean bsplinerestriction(const Handle(ShapeProcess_Context)& c
   Standard_Boolean ModeDeg  = ctx->BooleanVal("PreferDegree", Standard_True);
   Standard_Boolean Rational = ctx->BooleanVal("RationalToPolynomial", Standard_False);
 
-  Handle(ShapeCustom_RestrictionParameters) aParameters = new ShapeCustom_RestrictionParameters;
+  Handle(RestrictionParameters) aParameters = new RestrictionParameters;
   ctx->GetInteger("MaxDegree", aParameters->GMaxDegree());
   ctx->GetInteger("MaxNbSegments", aParameters->GMaxSeg());
   ctx->GetBoolean("OffsetSurfaceMode", aParameters->ConvertOffsetSurf());

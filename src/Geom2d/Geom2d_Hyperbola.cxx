@@ -42,7 +42,7 @@ typedef Coords2d            XY;
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_Hyperbola::Copy() const
+Handle(Geometry2) Geom2d_Hyperbola::Copy() const
 {
   Handle(Geom2d_Hyperbola) H;
   H = new Hyperbola(pos, majorRadius, minorRadius);

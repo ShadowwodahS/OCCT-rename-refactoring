@@ -765,7 +765,7 @@ Standard_Boolean Tools2::ComputeTolerance(const Handle(GeomCurve3d)&   theCurve3
 {
   GeomLib_CheckCurveOnSurface aCS;
   //
-  const Handle(Adaptor3d_Curve) aGeomAdaptorCurve =
+  const Handle(Curve5) aGeomAdaptorCurve =
     new GeomAdaptor_Curve(theCurve3D, theFirst, theLast);
 
   Handle(Adaptor2d_Curve2d) aGeom2dAdaptorCurve =

@@ -98,7 +98,7 @@ static Standard_Integer Affich = 0;
 //---------------------------------------------------------
 GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(
   const Handle(TColStd_HArray1OfInteger)&  NPoints,
-  const Handle(GeomPlate_HArray1OfHCurve)& TabCurve,
+  const Handle(HandleCurveArray)& TabCurve,
   const Handle(TColStd_HArray1OfInteger)&  Tang,
   const Standard_Integer                   Degree,
   const Standard_Integer                   NbIter,
@@ -118,8 +118,8 @@ GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(
 {
   Standard_Integer NTCurve = TabCurve->Length(); // Number of linear constraints
   myNbPtsOnCur = 0; // Different calculation of the number of points depending on the length
-  myLinCont    = new GeomPlate_HSequenceOfCurveConstraint;
-  myPntCont    = new GeomPlate_HSequenceOfPointConstraint;
+  myLinCont    = new CurveConstraintSequence;
+  myPntCont    = new PointConstraintSequence;
   if (myNbIter < 1)
     throw Standard_ConstructionError("GeomPlate :  Number of iteration must be >= 1");
 
@@ -178,8 +178,8 @@ GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(const Handle(GeomSurfac
     throw Standard_ConstructionError("GeomPlate :  Number of iteration must be >= 1");
   if (myDegree < 2)
     throw Standard_ConstructionError("GeomPlate : the degree must be above 2");
-  myLinCont        = new GeomPlate_HSequenceOfCurveConstraint;
-  myPntCont        = new GeomPlate_HSequenceOfPointConstraint;
+  myLinCont        = new CurveConstraintSequence;
+  myPntCont        = new PointConstraintSequence;
   mySurfInitIsGive = Standard_True;
 
   myIsLinear = Standard_True;
@@ -211,8 +211,8 @@ GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(const Standard_Integer 
     throw Standard_ConstructionError("GeomPlate :  Number of iteration must be >= 1");
   if (myDegree < 2)
     throw Standard_ConstructionError("GeomPlate : the degree resolution must be upper of 2");
-  myLinCont        = new GeomPlate_HSequenceOfCurveConstraint;
-  myPntCont        = new GeomPlate_HSequenceOfPointConstraint;
+  myLinCont        = new CurveConstraintSequence;
+  myPntCont        = new PointConstraintSequence;
   mySurfInitIsGive = Standard_False;
 
   myIsLinear = Standard_True;
@@ -251,7 +251,7 @@ static void TrierTab(Handle(TColStd_HArray1OfInteger)& Tab)
 //---------------------------------------------------------
 // Function : ProjectCurve
 //---------------------------------------------------------
-Handle(GeomCurve2d) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Adaptor3d_Curve)& Curv)
+Handle(GeomCurve2d) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Curve5)& Curv)
 {
   // Project a curve on a plane
   Handle(GeomCurve2d)        Curve2d;
@@ -311,7 +311,7 @@ Handle(GeomCurve2d) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Adapt
 //---------------------------------------------------------
 // Function : ProjectedCurve
 //---------------------------------------------------------
-Handle(Adaptor2d_Curve2d) GeomPlate_BuildPlateSurface::ProjectedCurve(Handle(Adaptor3d_Curve)& Curv)
+Handle(Adaptor2d_Curve2d) GeomPlate_BuildPlateSurface::ProjectedCurve(Handle(Curve5)& Curv)
 {
   // Projection of a curve on the initial surface
 
@@ -394,8 +394,8 @@ void GeomPlate_BuildPlateSurface::Init()
 {
   myLinCont->Clear();
   myPntCont->Clear();
-  myPntCont = new GeomPlate_HSequenceOfPointConstraint;
-  myLinCont = new GeomPlate_HSequenceOfCurveConstraint;
+  myPntCont = new PointConstraintSequence;
+  myLinCont = new CurveConstraintSequence;
 }
 
 //---------------------------------------------------------
@@ -595,12 +595,12 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
   //======================================================================
   // Management of incompatibilites between curves
   //======================================================================
-  Handle(GeomPlate_HArray1OfSequenceOfReal) PntInter;
-  Handle(GeomPlate_HArray1OfSequenceOfReal) PntG1G1;
+  Handle(RealSequenceArray) PntInter;
+  Handle(RealSequenceArray) PntG1G1;
   if (NTLinCont != 0)
   {
-    PntInter = new GeomPlate_HArray1OfSequenceOfReal(1, NTLinCont);
-    PntG1G1  = new GeomPlate_HArray1OfSequenceOfReal(1, NTLinCont);
+    PntInter = new RealSequenceArray(1, NTLinCont);
+    PntG1G1  = new RealSequenceArray(1, NTLinCont);
     Intersect(PntInter, PntG1G1);
   }
 
@@ -1143,10 +1143,10 @@ Handle(TColStd_HArray1OfInteger) GeomPlate_BuildPlateSurface::Sense() const
 //---------------------------------------------------------
 // Function : Curve2d
 //---------------------------------------------------------
-Handle(TColGeom2d_HArray1OfCurve) GeomPlate_BuildPlateSurface::Curves2d() const
+Handle(HArray1OfCurve2) GeomPlate_BuildPlateSurface::Curves2d() const
 {
   Standard_Integer                  NTCurve = myLinCont->Length();
-  Handle(TColGeom2d_HArray1OfCurve) C2dfin  = new TColGeom2d_HArray1OfCurve(1, NTCurve);
+  Handle(HArray1OfCurve2) C2dfin  = new HArray1OfCurve2(1, NTCurve);
 
   for (Standard_Integer i = 1; i <= NTCurve; i++)
     C2dfin->SetValue(i, myLinCont->Value(myInitOrder->Value(i))->Curve2dOnSurf());
@@ -1382,8 +1382,8 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     nopt = 3;
     // Table contains the cloud of points for calculation of the plane
     Standard_Integer            NbPoint = 20, Discr = NbPoint / 4, pnum = 0;
-    Handle(TColgp_HArray1OfPnt) Pts =
-      new TColgp_HArray1OfPnt(1, (NbPoint + 1) * NTLinCont + NTPntCont);
+    Handle(PointArray1) Pts =
+      new PointArray1(1, (NbPoint + 1) * NTLinCont + NTPntCont);
     TColgp_SequenceOfVec    Vecs, NewVecs;
     GeomPlate_SequenceOfAij Aset;
     Standard_Real           Uinit, Ufinal, Uif;
@@ -1564,7 +1564,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
       Npt += NbPoint;
     }
     // Table containing a cloud of points for calculation of the plane
-    Handle(TColgp_HArray1OfPnt) Pts     = new TColgp_HArray1OfPnt(1, 20 * NTLinCont + NTPntCont);
+    Handle(PointArray1) Pts     = new PointArray1(1, 20 * NTLinCont + NTPntCont);
     Standard_Integer            NbPoint = 20;
     Standard_Real               Uinit, Ufinal, Uif;
     for (i = 1; i <= NTLinCont; i++)
@@ -1637,7 +1637,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
       Standard_Real LastPar  = myLinCont->Value(i)->LastParameter();
       Standard_Real Uif      = (LastPar - FirstPar) / (NbPoint);
 
-      Handle(Adaptor3d_Curve)             Curve = myLinCont->Value(i)->Curve3d();
+      Handle(Curve5)             Curve = myLinCont->Value(i)->Curve3d();
       Handle(ProjLib_HCompProjectedCurve) ProjCurve =
         new ProjLib_HCompProjectedCurve(hsur, Curve, myTol3d, myTol3d);
       Adaptor3d_CurveOnSurface AProj(ProjCurve, hsur);
@@ -1720,12 +1720,12 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     //======================================================================
     // Management of incompatibilities between curves
     //======================================================================
-    Handle(GeomPlate_HArray1OfSequenceOfReal) PntInter;
-    Handle(GeomPlate_HArray1OfSequenceOfReal) PntG1G1;
+    Handle(RealSequenceArray) PntInter;
+    Handle(RealSequenceArray) PntG1G1;
     if (NTLinCont != 0)
     {
-      PntInter = new GeomPlate_HArray1OfSequenceOfReal(1, NTLinCont);
-      PntG1G1  = new GeomPlate_HArray1OfSequenceOfReal(1, NTLinCont);
+      PntInter = new RealSequenceArray(1, NTLinCont);
+      PntG1G1  = new RealSequenceArray(1, NTLinCont);
       Intersect(PntInter, PntG1G1);
     }
 
@@ -1790,13 +1790,13 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
 // If the intersection is compatible (in cases G1-G1)
 // remove the point on one of two curves
 //---------------------------------------------------------
-void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOfReal)& PntInter,
-                                            Handle(GeomPlate_HArray1OfSequenceOfReal)& PntG1G1)
+void GeomPlate_BuildPlateSurface::Intersect(Handle(RealSequenceArray)& PntInter,
+                                            Handle(RealSequenceArray)& PntG1G1)
 {
   Standard_Integer           NTLinCont = myLinCont->Length();
   Geom2dInt_GInter           Intersection;
   Geom2dAdaptor_Curve        Ci, Cj;
-  IntRes2d_IntersectionPoint int2d;
+  IntersectionPoint3 int2d;
   Point3d                     P1, P2;
   gp_Pnt2d                   P2d;
   gp_Vec2d                   V2d;
@@ -1908,13 +1908,13 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
               Vector3d vec, vecU, vecV, N;
               if (myLinCont->Value(i)->Order() == 0)
               {
-                Handle(Adaptor3d_Curve) theCurve = myLinCont->Value(i)->Curve3d();
+                Handle(Curve5) theCurve = myLinCont->Value(i)->Curve3d();
                 theCurve->D1(int2d.ParamOnFirst(), P1, vec);
                 myLinCont->Value(j)->D1(int2d.ParamOnSecond(), P2, vecU, vecV);
               }
               else
               {
-                Handle(Adaptor3d_Curve) theCurve = myLinCont->Value(j)->Curve3d();
+                Handle(Curve5) theCurve = myLinCont->Value(j)->Curve3d();
                 theCurve->D1(int2d.ParamOnSecond(), P2, vec);
                 myLinCont->Value(i)->D1(int2d.ParamOnFirst(), P1, vecU, vecV);
               }
@@ -2024,8 +2024,8 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
 // and to removal of duplicate points.
 //---------------------------------------------------------
 void GeomPlate_BuildPlateSurface::Discretise(
-  const Handle(GeomPlate_HArray1OfSequenceOfReal)& PntInter,
-  const Handle(GeomPlate_HArray1OfSequenceOfReal)& PntG1G1)
+  const Handle(RealSequenceArray)& PntInter,
+  const Handle(RealSequenceArray)& PntG1G1)
 {
   Standard_Integer     NTLinCont = myLinCont->Length();
   Standard_Boolean     ACR;
@@ -2033,8 +2033,8 @@ void GeomPlate_BuildPlateSurface::Discretise(
   Geom2dAdaptor_Curve  AC2d;
   //  Handle(Adaptor_HCurve2d) HC2d;
   Handle(Law_Interpol) acrlaw = new (Law_Interpol)();
-  myPlateCont                 = new GeomPlate_HArray1OfSequenceOfReal(1, NTLinCont);
-  myParCont                   = new GeomPlate_HArray1OfSequenceOfReal(1, NTLinCont);
+  myPlateCont                 = new RealSequenceArray(1, NTLinCont);
+  myParCont                   = new RealSequenceArray(1, NTLinCont);
 
   //===========================================================================
   // Construction of the table containing parameters of constraint points
@@ -2309,7 +2309,7 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
             D1 D1init(V3.XYZ(), V4.XYZ());
             if (!myFree)
             {
-              Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final);
+              GtoCConstraint GCC(P2d.XY(), D1init, D1final);
               myPlate.Load(GCC);
             }
             else if (NbBoucle == 1)
@@ -2350,7 +2350,7 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
             D2 D2init(V8.XYZ(), V9.XYZ(), V10.XYZ());
             //		  if (! myFree)
             //		    {
-            Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final, D2init, D2final);
+            GtoCConstraint GCC(P2d.XY(), D1init, D1final, D2init, D2final);
             myPlate.Load(GCC);
             //		    }
             //		  else // Good but too expansive
@@ -2398,7 +2398,7 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
       D1 D1init(V3.XYZ(), V4.XYZ());
       if (!myFree)
       {
-        Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final);
+        GtoCConstraint GCC(P2d.XY(), D1init, D1final);
         myPlate.Load(GCC);
       }
       else
@@ -2407,7 +2407,7 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
         myPlate.Load(FreeGCC);
       }
     }
-    // Loading of points G2 GeomPlate_PlateG0Criterion
+    // Loading of points G2 G0Criterion
     if (Tang == 2) // ==2
     {
       Vector3d V1, V2, V3, V4, V5, V6, V7, V8, V9, V10;
@@ -2420,7 +2420,7 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
       D2 D2init(V8.XYZ(), V9.XYZ(), V10.XYZ());
       //	if (! myFree)
       //	  {
-      Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final, D2init, D2final);
+      GtoCConstraint GCC(P2d.XY(), D1init, D1final, D2init, D2final);
       myPlate.Load(GCC);
       //	  }
       //	else // Good but too expansive

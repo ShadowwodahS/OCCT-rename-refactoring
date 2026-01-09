@@ -38,7 +38,7 @@ Standard_Integer BRepFill_SectionLaw::NbLaw() const
 
 //=================================================================================================
 
-const Handle(GeomFill_SectionLaw)& BRepFill_SectionLaw::Law1(const Standard_Integer Index) const
+const Handle(SectionLaw)& BRepFill_SectionLaw::Law1(const Standard_Integer Index) const
 {
   return myLaws->Value(Index);
 }

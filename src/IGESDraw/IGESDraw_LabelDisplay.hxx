@@ -57,7 +57,7 @@ public:
   //! allLeaderEntities, allLabelLevels and allDisplayedEntities are
   //! not same.
   Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViews,
-                            const Handle(TColgp_HArray1OfXYZ)&              allTextLocations,
+                            const Handle(XYZArray)&              allTextLocations,
                             const Handle(HArray1OfLeaderArrow)&   allLeaderEntities,
                             const Handle(TColStd_HArray1OfInteger)&         allLabelLevels,
                             const Handle(HArray1OfIGESEntity)&     allDisplayedEntities);
@@ -99,7 +99,7 @@ public:
 protected:
 private:
   Handle(HArray1OfViewKindEntity) theViews;
-  Handle(TColgp_HArray1OfXYZ)              theTextLocations;
+  Handle(XYZArray)              theTextLocations;
   Handle(HArray1OfLeaderArrow)   theLeaderEntities;
   Handle(TColStd_HArray1OfInteger)         theLabelLevels;
   Handle(HArray1OfIGESEntity)     theDisplayedEntities;

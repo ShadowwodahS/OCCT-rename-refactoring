@@ -37,7 +37,7 @@ Geom2d_CartesianPoint::Geom2d_CartesianPoint(const Standard_Real X, const Standa
 {
 }
 
-Handle(Geom2d_Geometry) Geom2d_CartesianPoint::Copy() const
+Handle(Geometry2) Geom2d_CartesianPoint::Copy() const
 {
 
   Handle(Geom2d_CartesianPoint) P;

@@ -265,7 +265,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     for (Standard_Integer i = 1; i <= myFields->Length(); i++)
     {
       Handle(Express_Field)   aField        = myFields->Value(i);
-      Handle(Express_Type)    aFieldType    = aField->Type();
+      Handle(ExpressType)    aFieldType    = aField->Type();
       AsciiString1 aFieldCPPName = aFieldType->CPPName();
       anOS << "  //! Returns field " << aField->Name() << "\n";
       if (aFieldType->IsHandle())
@@ -377,7 +377,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       for (Standard_Integer i = 1; i <= myFields->Length(); i++)
       {
         Handle(Express_Field) aField     = myFields->Value(i);
-        Handle(Express_Type)  aFieldType = aField->Type();
+        Handle(ExpressType)  aFieldType = aField->Type();
         if (aFieldType->IsHandle())
         {
           anOS << "  Handle(" << aFieldType->CPPName() << ") my" << aField->Name() << ";";
@@ -478,7 +478,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     for (Standard_Integer i = 1; i <= myFields->Length(); i++)
     {
       Handle(Express_Field)   aField        = myFields->Value(i);
-      Handle(Express_Type)    aFieldType    = aField->Type();
+      Handle(ExpressType)    aFieldType    = aField->Type();
       AsciiString1 aFieldCPPName = aFieldType->CPPName();
       writeGetMethod(anOS,
                      aCPPName,
@@ -1026,7 +1026,7 @@ void Express_Entity::PropagateUse() const
   }
   for (Standard_Integer i = 1; i <= myFields->Length(); i++)
   {
-    Handle(Express_Type) aType = myFields->Value(i)->Type();
+    Handle(ExpressType) aType = myFields->Value(i)->Type();
     aType->Use2(aName, aPack);
   }
 }
@@ -1052,7 +1052,7 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
   // write includes for own fields
   for (Standard_Integer i = 1; i <= myFields->Length(); i++)
   {
-    Handle(Express_Type) aType = myFields->Value(i)->Type();
+    Handle(ExpressType) aType = myFields->Value(i)->Type();
     aType->Use();
     const AsciiString1 aTypeCPPName = aType->CPPName();
     if (aDict.IsBound(aTypeCPPName))
@@ -1162,7 +1162,7 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
 // purpose  : auxiliary for WriteRWReadField
 //=======================================================================
 
-static AsciiString1 typeToSTEPName(const Handle(Express_Type)& theType)
+static AsciiString1 typeToSTEPName(const Handle(ExpressType)& theType)
 {
   AsciiString1 aCPPName = theType->CPPName();
   AsciiString1 aCls     = aCPPName.Token("_", 2);
@@ -1179,7 +1179,7 @@ static void writeRWReadField(Standard_OStream&              theOS,
                              const AsciiString1& theIndex,
                              const AsciiString1& theSTEPName,
                              const AsciiString1& theVarName,
-                             const Handle(Express_Type)&    theVarType,
+                             const Handle(ExpressType)&    theVarType,
                              const Standard_Integer         theLevel,
                              const Standard_Boolean         isOptional)
 {
@@ -1201,7 +1201,7 @@ static void writeRWReadField(Standard_OStream&              theOS,
   }
 
   // decode aliased types
-  Handle(Express_Type)          aType        = theVarType;
+  Handle(ExpressType)          aType        = theVarType;
   const AsciiString1 aTypeCPPName = aType->CPPName();
   while (aType->IsKind(STANDARD_TYPE(Express_NamedType)))
   {
@@ -1460,7 +1460,7 @@ Standard_Integer Express_Entity::writeRWReadCode(Standard_OStream&      theOS,
 
 static void writeRWWriteField(Standard_OStream&              theOS,
                               const AsciiString1& theVarName,
-                              const Handle(Express_Type)&    theVarType,
+                              const Handle(ExpressType)&    theVarType,
                               const Standard_Integer         theIndex,
                               const Standard_Integer         theLevel)
 {
@@ -1474,7 +1474,7 @@ static void writeRWWriteField(Standard_OStream&              theOS,
   aLevel++;
 
   // decode aliased types
-  Handle(Express_Type) aType = theVarType;
+  Handle(ExpressType) aType = theVarType;
   while (aType->IsKind(STANDARD_TYPE(Express_NamedType)))
   {
     Handle(Express_NamedType) aNamedType = Handle(Express_NamedType)::DownCast(aType);
@@ -1637,7 +1637,7 @@ Standard_Integer Express_Entity::writeRWWriteCode(Standard_OStream&      theOS,
 
 static Standard_Boolean writeRWShareField(Standard_OStream&              theOS,
                                           const AsciiString1& theVarName,
-                                          const Handle(Express_Type)&    theVarType,
+                                          const Handle(ExpressType)&    theVarType,
                                           const Standard_Integer         theIndex,
                                           const Standard_Integer         theLevel)
 {
@@ -1651,7 +1651,7 @@ static Standard_Boolean writeRWShareField(Standard_OStream&              theOS,
   aLevel++;
 
   // decode aliased types
-  Handle(Express_Type) aType = theVarType;
+  Handle(ExpressType) aType = theVarType;
   while (aType->IsKind(STANDARD_TYPE(Express_NamedType)))
   {
     Handle(Express_NamedType) aNamedType = Handle(Express_NamedType)::DownCast(aType);
@@ -1816,7 +1816,7 @@ Standard_Integer Express_Entity::makeInit(Standard_OStream&      theOS,
   for (Standard_Integer i = 1; i <= myFields->Length(); i++)
   {
     Handle(Express_Field)   aField     = myFields->Value(i);
-    Handle(Express_Type)    aFieldType = aField->Type();
+    Handle(ExpressType)    aFieldType = aField->Type();
     AsciiString1 aVarName(aField->Name());
     if (theOwn != 1)
     {

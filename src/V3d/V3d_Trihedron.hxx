@@ -50,7 +50,7 @@ public:
   }
 
   //! Return trihedron position.
-  const Handle(Graphic3d_TransformPers) TransformPersistence() const { return myTransformPers; }
+  const Handle(TransformPers) TransformPersistence() const { return myTransformPers; }
 
   //! Setup the corner to draw the trihedron.
   Standard_EXPORT void SetPosition(const Aspect_TypeOfTriedronPosition thePosition);
@@ -154,7 +154,7 @@ protected:
   AsciiString1     myLabels[3];
 
   Handle(Graphic3d_Structure)     myStructure;
-  Handle(Graphic3d_TransformPers) myTransformPers;
+  Handle(TransformPers) myTransformPers;
 
   Standard_Real    myScale;
   Standard_Real    myRatio;

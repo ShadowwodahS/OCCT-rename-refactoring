@@ -630,7 +630,7 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::SameSupport(const TopoEdge& E1,
 
   if (!loc.IsIdentity())
   {
-    Handle(Geom_Geometry) GG1 = C1->Transformed(loc.Transformation());
+    Handle(Geometry3) GG1 = C1->Transformed(loc.Transformation());
     C1                        = Handle(GeomCurve3d)::DownCast(GG1);
   }
   C2 = BRepInspector::Curve(E2, loc, f2, l2);
@@ -641,7 +641,7 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::SameSupport(const TopoEdge& E1,
 
   if (!loc.IsIdentity())
   {
-    Handle(Geom_Geometry) GG2 = C2->Transformed(loc.Transformation());
+    Handle(Geometry3) GG2 = C2->Transformed(loc.Transformation());
     C2                        = Handle(GeomCurve3d)::DownCast(GG2);
   }
 

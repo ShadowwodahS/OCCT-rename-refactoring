@@ -22,7 +22,7 @@
 
 #define TheQuadric Quadric1
 #define TheQuadric_hxx <IntSurf_Quadric.hxx>
-#define TheCurve Handle(Adaptor3d_Curve)
+#define TheCurve Handle(Curve5)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
 #define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>

@@ -44,7 +44,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_NSections, GeomFill_SectionLaw)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_NSections, SectionLaw)
 
 #ifdef OCCT_DEBUG
   #ifdef DRAW
@@ -626,7 +626,7 @@ void GeomFill_NSections::ComputeSurface()
     }
     section.Perform(Precision1::PConfusion());
 
-    Handle(GeomFill_Line) line = new GeomFill_Line(Nbcurves);
+    Handle(Line1) line = new Line1(Nbcurves);
     Standard_Integer      nbIt = 0, degmin = 2, degmax = 6;
     Standard_Boolean      knownP = Nbpar > 0;
     GeomFill_AppSurf      anApprox(degmin, degmax, myPres3d, myPres3d, nbIt, knownP);

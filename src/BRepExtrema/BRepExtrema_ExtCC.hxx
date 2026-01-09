@@ -69,7 +69,7 @@ public:
                                               Point3d&        P22) const;
 
 private:
-  Extrema_ExtCC             myExtCC;
+  CurveCurveExtrema2             myExtCC;
   Handle(BRepAdaptor_Curve) myHC;
 };
 

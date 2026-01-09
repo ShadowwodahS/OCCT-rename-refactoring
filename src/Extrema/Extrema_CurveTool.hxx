@@ -33,7 +33,7 @@
 #include <gp_Elips.hxx>
 #include <gp_Hypr.hxx>
 #include <gp_Parab.hxx>
-class Adaptor3d_Curve;
+class Curve5;
 class Point3d;
 class Vector3d;
 class BezierCurve3d;
@@ -44,78 +44,78 @@ class CurveTool4
 public:
   DEFINE_STANDARD_ALLOC
 
-  static Standard_Real FirstParameter(const Adaptor3d_Curve& C);
+  static Standard_Real FirstParameter(const Curve5& C);
 
-  static Standard_Real LastParameter(const Adaptor3d_Curve& C);
+  static Standard_Real LastParameter(const Curve5& C);
 
-  static GeomAbs_Shape Continuity(const Adaptor3d_Curve& C);
+  static GeomAbs_Shape Continuity(const Curve5& C);
 
   //! Returns  the number  of  intervals for  continuity
   //! <S>. May be one if Continuity(me) >= <S>
-  static Standard_Integer NbIntervals(Adaptor3d_Curve& C, const GeomAbs_Shape S);
+  static Standard_Integer NbIntervals(Curve5& C, const GeomAbs_Shape S);
 
   //! Stores in <T> the  parameters bounding the intervals
   //! of continuity <S>.
   //!
   //! The array must provide  enough room to  accommodate
   //! for the parameters. i.e. T.Length() > NbIntervals()
-  static void Intervals(Adaptor3d_Curve& C, TColStd_Array1OfReal& T, const GeomAbs_Shape S);
+  static void Intervals(Curve5& C, TColStd_Array1OfReal& T, const GeomAbs_Shape S);
 
   //! Returns the parameters bounding the intervals of subdivision of curve
   //! according to Curvature deflection. Value of deflection is defined in method.
   //!
-  Standard_EXPORT static Handle(TColStd_HArray1OfReal) DeflCurvIntervals(const Adaptor3d_Curve& C);
+  Standard_EXPORT static Handle(TColStd_HArray1OfReal) DeflCurvIntervals(const Curve5& C);
 
-  Standard_EXPORT static Standard_Boolean IsPeriodic(const Adaptor3d_Curve& C);
+  Standard_EXPORT static Standard_Boolean IsPeriodic(const Curve5& C);
 
-  static Standard_Real Period(const Adaptor3d_Curve& C);
+  static Standard_Real Period(const Curve5& C);
 
-  static Standard_Real Resolution(const Adaptor3d_Curve& C, const Standard_Real R3d);
+  static Standard_Real Resolution(const Curve5& C, const Standard_Real R3d);
 
-  static GeomAbs_CurveType GetType(const Adaptor3d_Curve& C);
+  static GeomAbs_CurveType GetType(const Curve5& C);
 
-  static Point3d Value(const Adaptor3d_Curve& C, const Standard_Real U);
+  static Point3d Value(const Curve5& C, const Standard_Real U);
 
-  static void D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P);
+  static void D0(const Curve5& C, const Standard_Real U, Point3d& P);
 
-  static void D1(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P, Vector3d& V);
+  static void D1(const Curve5& C, const Standard_Real U, Point3d& P, Vector3d& V);
 
-  static void D2(const Adaptor3d_Curve& C,
+  static void D2(const Curve5& C,
                  const Standard_Real    U,
                  Point3d&                P,
                  Vector3d&                V1,
                  Vector3d&                V2);
 
-  static void D3(const Adaptor3d_Curve& C,
+  static void D3(const Curve5& C,
                  const Standard_Real    U,
                  Point3d&                P,
                  Vector3d&                V1,
                  Vector3d&                V2,
                  Vector3d&                V3);
 
-  static Vector3d DN(const Adaptor3d_Curve& C, const Standard_Real U, const Standard_Integer N);
+  static Vector3d DN(const Curve5& C, const Standard_Real U, const Standard_Integer N);
 
-  static gp_Lin Line(const Adaptor3d_Curve& C);
+  static gp_Lin Line(const Curve5& C);
 
-  static gp_Circ Circle(const Adaptor3d_Curve& C);
+  static gp_Circ Circle(const Curve5& C);
 
-  static gp_Elips Ellipse(const Adaptor3d_Curve& C);
+  static gp_Elips Ellipse(const Curve5& C);
 
-  static gp_Hypr Hyperbola(const Adaptor3d_Curve& C);
+  static gp_Hypr Hyperbola(const Curve5& C);
 
-  static gp_Parab Parabola(const Adaptor3d_Curve& C);
+  static gp_Parab Parabola(const Curve5& C);
 
-  static Standard_Integer Degree(const Adaptor3d_Curve& C);
+  static Standard_Integer Degree(const Curve5& C);
 
-  static Standard_Boolean IsRational(const Adaptor3d_Curve& C);
+  static Standard_Boolean IsRational(const Curve5& C);
 
-  static Standard_Integer NbPoles(const Adaptor3d_Curve& C);
+  static Standard_Integer NbPoles(const Curve5& C);
 
-  static Standard_Integer NbKnots(const Adaptor3d_Curve& C);
+  static Standard_Integer NbKnots(const Curve5& C);
 
-  static Handle(BezierCurve3d) Bezier(const Adaptor3d_Curve& C);
+  static Handle(BezierCurve3d) Bezier(const Curve5& C);
 
-  static Handle(BSplineCurve3d) BSpline(const Adaptor3d_Curve& C);
+  static Handle(BSplineCurve3d) BSpline(const Curve5& C);
 
 protected:
 private:

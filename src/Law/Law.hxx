@@ -30,7 +30,7 @@
 class Law_BSpFunc;
 class Law_Linear;
 class Law_BSpline;
-class Adaptor3d_Curve;
+class Curve5;
 
 //! Multiple services concerning 1d functions.
 class Law1
@@ -71,7 +71,7 @@ public:
   //! Computes a 1 d curve to  reparametrize a curve. Its an
   //! interpolation of NbPoints  points calculated  at quasi
   //! constant abscissa.
-  Standard_EXPORT static Handle(Law_BSpline) Reparametrize(const Adaptor3d_Curve& Curve,
+  Standard_EXPORT static Handle(Law_BSpline) Reparametrize(const Curve5& Curve,
                                                            const Standard_Real    First,
                                                            const Standard_Real    Last,
                                                            const Standard_Boolean HasDF,

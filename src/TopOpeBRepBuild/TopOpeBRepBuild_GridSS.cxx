@@ -1559,7 +1559,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
       Standard_Integer i;
       for (i = 1; i <= anInter.NbPoints(); i++)
       {
-        const IntRes2d_IntersectionPoint& aIP  = anInter.Point(i);
+        const IntersectionPoint3& aIP  = anInter.Point(i);
         Standard_Real                     pLin = aIP.ParamOnFirst();
         if (pLin > tol2d && pLin < pLinMin)
         {

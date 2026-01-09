@@ -36,7 +36,7 @@ XCAFPrs_Texture::XCAFPrs_Texture(const Handle(Image_Texture)& theImageSource,
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) XCAFPrs_Texture::GetCompressedImage(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   return !myImageSource.IsNull() ? myImageSource->ReadCompressedImage(theSupported)
                                  : Handle(Image_CompressedPixMap)();
@@ -44,7 +44,7 @@ Handle(Image_CompressedPixMap) XCAFPrs_Texture::GetCompressedImage(
 
 //=================================================================================================
 
-Handle(Image_PixMap) XCAFPrs_Texture::GetImage(const Handle(Image_SupportedFormats)& theSupported)
+Handle(Image_PixMap) XCAFPrs_Texture::GetImage(const Handle(SupportedFormats)& theSupported)
 {
   Handle(Image_PixMap) anImage;
   if (!myImageSource.IsNull())

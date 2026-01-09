@@ -138,7 +138,7 @@ void FrameStatsData::FillMax(const FrameStatsData& theOther)
 
 //=================================================================================================
 
-Graphic3d_FrameStatsDataTmp::Graphic3d_FrameStatsDataTmp()
+FrameStatsDataTmp::FrameStatsDataTmp()
 {
   myOsdTimers.resize(Graphic3d_FrameStatsTimer_NB, OSD_Timer(true));
   myTimersPrev.resize(Graphic3d_FrameStatsTimer_NB, 0.0);
@@ -146,7 +146,7 @@ Graphic3d_FrameStatsDataTmp::Graphic3d_FrameStatsDataTmp()
 
 //=================================================================================================
 
-void Graphic3d_FrameStatsDataTmp::FlushTimers(Standard_Size theNbFrames, bool theIsFinal)
+void FrameStatsDataTmp::FlushTimers(Standard_Size theNbFrames, bool theIsFinal)
 {
   for (size_t aTimerIter = 0; aTimerIter < myTimers.size(); ++aTimerIter)
   {
@@ -168,7 +168,7 @@ void Graphic3d_FrameStatsDataTmp::FlushTimers(Standard_Size theNbFrames, bool th
 
 //=================================================================================================
 
-void Graphic3d_FrameStatsDataTmp::Reset()
+void FrameStatsDataTmp::Reset()
 {
   FrameStatsData::Reset();
   myTimersPrev.assign(myTimersPrev.size(), 0.0);

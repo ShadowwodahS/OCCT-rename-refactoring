@@ -20,7 +20,7 @@
 #include <TDF_LabelSequence.hxx>
 #include <XCAFNoteObjects_NoteObject.hxx>
 
-class TDF_RelocationTable;
+class RelocationTable1;
 
 //! A base note attribute.
 //! Any note contains the name of the user created the note
@@ -62,7 +62,7 @@ public:
   // Overrides TDF_Attribute virtuals
   Standard_EXPORT void Restore(const Handle(TDF_Attribute)& theAttrFrom) Standard_OVERRIDE;
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       theAttrInto,
-                             const Handle(TDF_RelocationTable)& theRT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& theRT) const Standard_OVERRIDE;
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& theOS) const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream

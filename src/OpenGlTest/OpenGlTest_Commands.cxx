@@ -32,14 +32,14 @@
 #include <ViewerTest.hxx>
 #include <ViewerTest_AutoUpdater.hxx>
 
-static Handle(OpenGl_Caps) getDefaultCaps()
+static Handle(Caps) getDefaultCaps()
 {
   Handle(OpenGl_GraphicDriverFactory) aFactory = Handle(OpenGl_GraphicDriverFactory)::DownCast(
-    Graphic3d_GraphicDriverFactory::DefaultDriverFactory());
+    GraphicDriverFactory::DefaultDriverFactory());
   if (aFactory.IsNull())
   {
     for (Graphic3d_GraphicDriverFactoryList::Iterator aFactoryIter(
-           Graphic3d_GraphicDriverFactory::DriverFactories());
+           GraphicDriverFactory::DriverFactories());
          aFactoryIter.More();
          aFactoryIter.Next())
     {
@@ -157,7 +157,7 @@ void VUserDrawObj::ComputeSelection(const Handle(SelectionContainer)& theSelecti
     return;
   }
   Handle(SelectMgr_EntityOwner) anEntityOwner = new SelectMgr_EntityOwner(this);
-  Handle(TColgp_HArray1OfPnt)   aPnts         = new TColgp_HArray1OfPnt(1, 5);
+  Handle(PointArray1)   aPnts         = new PointArray1(1, 5);
   aPnts->SetValue(1, Point3d(myCoords[0], myCoords[1], myCoords[2]));
   aPnts->SetValue(2, Point3d(myCoords[3], myCoords[4], myCoords[2]));
   aPnts->SetValue(3, Point3d(myCoords[3], myCoords[4], myCoords[5]));
@@ -176,7 +176,7 @@ void VUserDrawObj::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
   aMA->Aspect()->MarkerType();
   OpenGl_Vec4 aColor = theWorkspace->InteriorColor();
 
-  aCtx->ShaderManager()->BindLineProgram(Handle(OpenGl_TextureSet)(),
+  aCtx->ShaderManager()->BindLineProgram(Handle(TextureSet2)(),
                                          Aspect_TOL_SOLID,
                                          Graphic3d_TypeOfShadingModel_Unlit,
                                          Graphic3d_AlphaMode_Opaque,
@@ -348,8 +348,8 @@ static int VGlDebug(DrawInterpreter& theDI, Standard_Integer theArgNb, const cha
       aGlCtx = aDriver->GetSharedContext();
     }
   }
-  OpenGl_Caps* aDefCaps = getDefaultCaps().get();
-  OpenGl_Caps* aCaps    = !aDriver.IsNull() ? &aDriver->ChangeOptions() : NULL;
+  Caps* aDefCaps = getDefaultCaps().get();
+  Caps* aCaps    = !aDriver.IsNull() ? &aDriver->ChangeOptions() : NULL;
 
   if (theArgNb < 2)
   {
@@ -542,7 +542,7 @@ static int VVbo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** 
 
 static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
-  OpenGl_Caps*                   aCaps = getDefaultCaps().get();
+  Caps*                   aCaps = getDefaultCaps().get();
   Handle(OpenGl_GraphicDriver)   aDriver;
   Handle(VisualContext) aContext = ViewerTest1::GetAISContext();
   if (!aContext.IsNull())

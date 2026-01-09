@@ -100,8 +100,8 @@ void IntSurf1::MakeTransition(const Vector3d&       TgFirst,
 
 //=================================================================================================
 
-void IntSurf1::SetPeriod(const Handle(Adaptor3d_Surface)& theFirstSurf,
-                        const Handle(Adaptor3d_Surface)& theSecondSurf,
+void IntSurf1::SetPeriod(const Handle(SurfaceAdaptor)& theFirstSurf,
+                        const Handle(SurfaceAdaptor)& theSecondSurf,
                         Standard_Real                    theArrOfPeriod[4])
 {
   theArrOfPeriod[0] = theFirstSurf->IsUPeriodic() ? theFirstSurf->UPeriod() : 0.0;

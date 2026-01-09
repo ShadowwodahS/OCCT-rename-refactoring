@@ -63,7 +63,7 @@ static Vector3d DDeriv(const Vector3d& F, const Vector3d& DF, const Vector3d& D2
 //=======================================================================
 static void NormalD0(const Standard_Real              U,
                      const Standard_Real              V,
-                     const Handle(Adaptor3d_Surface)& Surf,
+                     const Handle(SurfaceAdaptor)& Surf,
                      Dir3d&                          Normal,
                      Standard_Integer&                OrderU,
                      Standard_Integer&                OrderV)
@@ -151,7 +151,7 @@ static void NormalD0(const Standard_Real              U,
 //=======================================================================
 static void NormalD1(const Standard_Real              U,
                      const Standard_Real              V,
-                     const Handle(Adaptor3d_Surface)& Surf,
+                     const Handle(SurfaceAdaptor)& Surf,
                      Dir3d&                          Normal,
                      Vector3d&                          D1UNormal,
                      Vector3d&                          D1VNormal)
@@ -232,7 +232,7 @@ static void NormalD1(const Standard_Real              U,
 //=======================================================================
 static void NormalD2(const Standard_Real              U,
                      const Standard_Real              V,
-                     const Handle(Adaptor3d_Surface)& Surf,
+                     const Handle(SurfaceAdaptor)& Surf,
                      Dir3d&                          Normal,
                      Vector3d&                          D1UNormal,
                      Vector3d&                          D1VNormal,
@@ -339,7 +339,7 @@ Standard_Boolean GeomFill_Darboux::D0(const Standard_Real Param,
   Vector3d                    dS_du, dS_dv;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
-  Handle(Adaptor3d_Surface) mySupport =
+  Handle(SurfaceAdaptor) mySupport =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetSurface();
   Standard_Integer OrderU, OrderV;
   myCurve2d->D1(Param, C2d, D2d);
@@ -376,7 +376,7 @@ Standard_Boolean GeomFill_Darboux::D1(const Standard_Real Param,
   Vector3d                    dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, F, DF;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
-  Handle(Adaptor3d_Surface) mySupport =
+  Handle(SurfaceAdaptor) mySupport =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetSurface();
   //  Standard_Integer Order;
   myCurve2d->D2(Param, C2d, D2d, D2_2d);
@@ -421,7 +421,7 @@ Standard_Boolean GeomFill_Darboux::D2(const Standard_Real Param,
   Vector3d   dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, d3S_du, d3S_dv, d3S_duuv, d3S_duvv, F, DF, D2F;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
-  Handle(Adaptor3d_Surface) mySupport =
+  Handle(SurfaceAdaptor) mySupport =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetSurface();
   //  Standard_Integer Order;
   myCurve2d->D3(Param, C2d, D2d, D2_2d, D3_2d);

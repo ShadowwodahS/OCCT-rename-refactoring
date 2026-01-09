@@ -25,29 +25,29 @@
 #include <TColStd_SequenceOfReal.hxx>
 #include <gp_Pnt.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 class PointOnCurve1;
 class ExtElC;
 
 //! It calculates all the distance between two curves.
 //! These distances can be maximum or minimum.
-class Extrema_ExtCC
+class CurveCurveExtrema2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Extrema_ExtCC(const Standard_Real TolC1 = 1.0e-10,
+  Standard_EXPORT CurveCurveExtrema2(const Standard_Real TolC1 = 1.0e-10,
                                 const Standard_Real TolC2 = 1.0e-10);
 
   //! It calculates all the distances.
-  Standard_EXPORT Extrema_ExtCC(const Adaptor3d_Curve& C1,
-                                const Adaptor3d_Curve& C2,
+  Standard_EXPORT CurveCurveExtrema2(const Curve5& C1,
+                                const Curve5& C2,
                                 const Standard_Real    TolC1 = 1.0e-10,
                                 const Standard_Real    TolC2 = 1.0e-10);
 
   //! It calculates all the distances.
-  Standard_EXPORT Extrema_ExtCC(const Adaptor3d_Curve& C1,
-                                const Adaptor3d_Curve& C2,
+  Standard_EXPORT CurveCurveExtrema2(const Curve5& C1,
+                                const Curve5& C2,
                                 const Standard_Real    U1,
                                 const Standard_Real    U2,
                                 const Standard_Real    V1,
@@ -56,14 +56,14 @@ public:
                                 const Standard_Real    TolC2 = 1.0e-10);
 
   //! Initializes but does not perform algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C1,
-                                  const Adaptor3d_Curve& C2,
+  Standard_EXPORT void Initialize(const Curve5& C1,
+                                  const Curve5& C2,
                                   const Standard_Real    TolC1 = 1.0e-10,
                                   const Standard_Real    TolC2 = 1.0e-10);
 
   //! Initializes but does not perform algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C1,
-                                  const Adaptor3d_Curve& C2,
+  Standard_EXPORT void Initialize(const Curve5& C1,
+                                  const Curve5& C2,
                                   const Standard_Real    U1,
                                   const Standard_Real    U2,
                                   const Standard_Real    V1,
@@ -71,10 +71,10 @@ public:
                                   const Standard_Real    TolC1 = 1.0e-10,
                                   const Standard_Real    TolC2 = 1.0e-10);
 
-  Standard_EXPORT void SetCurve(const Standard_Integer theRank, const Adaptor3d_Curve& C);
+  Standard_EXPORT void SetCurve(const Standard_Integer theRank, const Curve5& C);
 
   Standard_EXPORT void SetCurve(const Standard_Integer theRank,
-                                const Adaptor3d_Curve& C,
+                                const Curve5& C,
                                 const Standard_Real    Uinf,
                                 const Standard_Real    Usup);
 
@@ -156,8 +156,8 @@ protected:
 
 private:
   // disallow copies
-  Extrema_ExtCC(Extrema_ExtCC&) Standard_DELETE;
-  Extrema_ExtCC& operator=(Extrema_ExtCC&) Standard_DELETE;
+  CurveCurveExtrema2(CurveCurveExtrema2&) Standard_DELETE;
+  CurveCurveExtrema2& operator=(CurveCurveExtrema2&) Standard_DELETE;
 
 private:
   Standard_Boolean          myIsFindSingleSolution; // Default value is false.
@@ -166,7 +166,7 @@ private:
   Standard_Boolean          myIsParallel;
   Extrema_SequenceOfPOnCurv mypoints;
   TColStd_SequenceOfReal    mySqDist;
-  const Adaptor3d_Curve*    myC[2];
+  const Curve5*    myC[2];
   Standard_Real             myInf[2];
   Standard_Real             mySup[2];
   Standard_Real             myTol[2];

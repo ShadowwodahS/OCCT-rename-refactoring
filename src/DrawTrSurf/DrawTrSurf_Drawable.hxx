@@ -21,7 +21,7 @@
 #include <GeomAbs_IsoType.hxx>
 
 class Adaptor2d_Curve2d;
-class Adaptor3d_Curve;
+class Curve5;
 class Adaptor3d_IsoCurve;
 
 DEFINE_STANDARD_HANDLE(DrawTrSurf_Drawable, Drawable3D)
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void DrawCurve2dOn(Adaptor2d_Curve2d& C, DrawDisplay& D) const;
 
   //! Draw1 a polygon of the curve on the Display
-  Standard_EXPORT void DrawCurveOn(Adaptor3d_Curve& C, DrawDisplay& D) const;
+  Standard_EXPORT void DrawCurveOn(Curve5& C, DrawDisplay& D) const;
 
   //! Load C  with the specified iso  and Draw1 a polygon
   //! of the curve on the Display

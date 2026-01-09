@@ -27,7 +27,7 @@ class TDataXtd_Constraint;
 class VisualEntity;
 class UtfString;
 class TopoShape;
-class Geom_Geometry;
+class Geometry3;
 
 class ConstraintPresentationTools
 {
@@ -111,7 +111,7 @@ private:
                                           TopoShape&                      aShape);
 
   Standard_EXPORT static void GetGeom(const Handle(TDataXtd_Constraint)& aConst,
-                                      Handle(Geom_Geometry)&             aGeom);
+                                      Handle(Geometry3)&             aGeom);
 
   Standard_EXPORT static void GetTwoShapes(const Handle(TDataXtd_Constraint)& aConst,
                                            TopoShape&                      aShape1,
@@ -120,20 +120,20 @@ private:
   Standard_EXPORT static void GetShapesAndGeom(const Handle(TDataXtd_Constraint)& aConst,
                                                TopoShape&                      aShape1,
                                                TopoShape&                      aShape2,
-                                               Handle(Geom_Geometry)&             aGeom);
+                                               Handle(Geometry3)&             aGeom);
 
   Standard_EXPORT static void GetShapesAndGeom(const Handle(TDataXtd_Constraint)& aConst,
                                                TopoShape&                      aShape1,
                                                TopoShape&                      aShape2,
                                                TopoShape&                      aShape3,
-                                               Handle(Geom_Geometry)&             aGeom);
+                                               Handle(Geometry3)&             aGeom);
 
   Standard_EXPORT static void GetShapesAndGeom(const Handle(TDataXtd_Constraint)& aConst,
                                                TopoShape&                      aShape1,
                                                TopoShape&                      aShape2,
                                                TopoShape&                      aShape3,
                                                TopoShape&                      aShape4,
-                                               Handle(Geom_Geometry)&             aGeom);
+                                               Handle(Geometry3)&             aGeom);
 };
 
 #endif // _TPrsStd_ConstraintTools_HeaderFile

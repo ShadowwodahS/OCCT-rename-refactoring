@@ -26,7 +26,7 @@
 //! Function for search of cylinder canonic parameters: coordinates of center local coordinate
 //! system, direction of axis and radius from set of points by least square method.
 //!
-//! The class inherits math_MultipleVarFunctionWithGradient and thus is intended
+//! The class inherits MultiVarFunctionWithGradient and thus is intended
 //! for use in BFGSOptimizer algorithm.
 //!
 //! Parametrisation:
@@ -54,7 +54,7 @@
 //! dF/dz0 : G3(...) = 2*Sum{[...]*Dz0}
 //! dF/dR : G4(...) = -4*R*Sum[...]
 //! [...] = [|(P(i) - Loc)^dir|^2 - R^2]
-class GeomConvert_FuncCylinderLSDist : public math_MultipleVarFunctionWithGradient
+class GeomConvert_FuncCylinderLSDist : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -62,10 +62,10 @@ public:
   //! Constructor.
   Standard_EXPORT GeomConvert_FuncCylinderLSDist() {};
 
-  Standard_EXPORT GeomConvert_FuncCylinderLSDist(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+  Standard_EXPORT GeomConvert_FuncCylinderLSDist(const Handle(XYZArray)& thePoints,
                                                  const Dir3d&                      theDir);
 
-  void SetPoints(const Handle(TColgp_HArray1OfXYZ)& thePoints) { myPoints = thePoints; }
+  void SetPoints(const Handle(XYZArray)& thePoints) { myPoints = thePoints; }
 
   void SetDir(const Dir3d& theDir) { myDir = theDir; }
 
@@ -84,7 +84,7 @@ public:
                                           math_Vector&       G) Standard_OVERRIDE;
 
 private:
-  Handle(TColgp_HArray1OfXYZ) myPoints;
+  Handle(XYZArray) myPoints;
   Dir3d                      myDir;
 };
 #endif // _GeomConvert_FuncCylinderLSDist_HeaderFile

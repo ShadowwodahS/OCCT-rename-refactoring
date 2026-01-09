@@ -91,13 +91,13 @@ void NodalDisplRotTool::ReadOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& 
                         aNode))
         tempNodes->SetValue(j, aNode);
 
-      Handle(TColgp_HArray1OfXYZ) tempArray1;
-      Handle(TColgp_HArray1OfXYZ) tempArray;
+      Handle(XYZArray) tempArray1;
+      Handle(XYZArray) tempArray;
       if (tempFlag)
       {
         // tempFlag indicates if nbcases has been properly read
-        tempArray1 = new TColgp_HArray1OfXYZ(1, nbcases);
-        tempArray  = new TColgp_HArray1OfXYZ(1, nbcases);
+        tempArray1 = new XYZArray(1, nbcases);
+        tempArray  = new XYZArray(1, nbcases);
         for (Standard_Integer k = 1; k <= nbcases; k++)
         {
           Coords3d atrans, arot;
@@ -181,8 +181,8 @@ void NodalDisplRotTool::OwnCopy(const Handle(IGESAppli_NodalDisplAndRot)& anothe
   }
   for (Standard_Integer n = 1; n <= nbnodes; n++)
   {
-    Handle(TColgp_HArray1OfXYZ) tempArray1 = new TColgp_HArray1OfXYZ(1, nbcases);
-    Handle(TColgp_HArray1OfXYZ) tempArray2 = new TColgp_HArray1OfXYZ(1, nbcases);
+    Handle(XYZArray) tempArray1 = new XYZArray(1, nbcases);
+    Handle(XYZArray) tempArray2 = new XYZArray(1, nbcases);
     for (Standard_Integer k = 1; k <= nbcases; k++)
     {
       tempArray1->SetValue(k, another->TranslationParameter(n, k));

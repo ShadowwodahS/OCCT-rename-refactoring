@@ -26,7 +26,7 @@
 //! Explodes wires of discrete face on sets of segments using tessellation
 //! data stored in model. Each segment is then checked for intersection with
 //! other ones. All collisions are registered and returned as result of check.
-class BRepMesh_FaceChecker : public RefObject
+class FaceChecker : public RefObject
 {
 public: //! @name mesher API
   //! Identifies segment inside face.
@@ -58,11 +58,11 @@ public: //! @name mesher API
     ArrayOfMapOfIEdgePtr;
 
   //! Default constructor
-  Standard_EXPORT BRepMesh_FaceChecker(const IMeshData::IFaceHandle& theFace,
+  Standard_EXPORT FaceChecker(const IMeshData::IFaceHandle& theFace,
                                        const Parameters3&  theParameters);
 
   //! Destructor
-  Standard_EXPORT virtual ~BRepMesh_FaceChecker();
+  Standard_EXPORT virtual ~FaceChecker();
 
   //! Performs check wires of the face for intersections.
   //! @return True if there is no intersection, False elsewhere.
@@ -77,7 +77,7 @@ public: //! @name mesher API
   //! Checks wire with the given index for intersection with others.
   void operator()(const Standard_Integer theWireIndex) const { perform(theWireIndex); }
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_FaceChecker, RefObject)
+  DEFINE_STANDARD_RTTIEXT(FaceChecker, RefObject)
 
 private:
   //! Returns True in case if check can be performed in parallel mode.
@@ -96,9 +96,9 @@ private:
   void perform(const Standard_Integer theWireIndex) const;
 
 private:
-  BRepMesh_FaceChecker(const BRepMesh_FaceChecker& theOther);
+  FaceChecker(const FaceChecker& theOther);
 
-  void operator=(const BRepMesh_FaceChecker& theOther);
+  void operator=(const FaceChecker& theOther);
 
 private:
   IMeshData::IFaceHandle       myDFace;

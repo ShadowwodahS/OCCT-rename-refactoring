@@ -29,15 +29,15 @@
 class TCollection_HAsciiString;
 class NCollection_Buffer;
 
-DEFINE_STANDARD_HANDLE(Font_FontMgr, RefObject)
+DEFINE_STANDARD_HANDLE(FontMgr, RefObject)
 
 //! Collects and provides information about available fonts in system.
-class Font_FontMgr : public RefObject
+class FontMgr : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Font_FontMgr, RefObject)
+  DEFINE_STANDARD_RTTIEXT(FontMgr, RefObject)
 public:
   //! Return global instance of font manager.
-  Standard_EXPORT static Handle(Font_FontMgr) GetInstance();
+  Standard_EXPORT static Handle(FontMgr) GetInstance();
 
   //! Return font aspect as string.
   static const char* FontAspectToString(Font_FontAspect theAspect)
@@ -87,14 +87,14 @@ public:
   //! If theFontName is empty string returned font can have any FontName.
   //! If theFontAspect is Font_FA_Undefined returned font can have any FontAspect.
   //! If theFontSize is "-1" returned font can have any FontSize.
-  Standard_EXPORT Handle(Font_SystemFont) GetFont(
+  Standard_EXPORT Handle(SystemFont) GetFont(
     const Handle(TCollection_HAsciiString)& theFontName,
     const Font_FontAspect                   theFontAspect,
     const Standard_Integer                  theFontSize) const;
 
   //! Returns font that match given name or NULL if such font family is NOT registered.
   //! Note that unlike FindFont(), this method ignores font aliases and does not look for fall-back.
-  Standard_EXPORT Handle(Font_SystemFont) GetFont(const AsciiString1& theFontName) const;
+  Standard_EXPORT Handle(SystemFont) GetFont(const AsciiString1& theFontName) const;
 
   //! Tries to find font by given parameters.
   //! If the specified font is not found tries to use font names mapping.
@@ -108,14 +108,14 @@ public:
   //!                                  can be modified if specified font alias refers to another
   //!                                  style (compatibility with obsolete aliases)
   //! @param[in] theDoFailMsg          put error message on failure into default messenger
-  Standard_EXPORT Handle(Font_SystemFont) FindFont(
+  Standard_EXPORT Handle(SystemFont) FindFont(
     const AsciiString1& theFontName,
     Font_StrictLevel               theStrictLevel,
     Font_FontAspect&               theFontAspect,
     Standard_Boolean               theDoFailMsg = Standard_True) const;
 
   //! Tries to find font by given parameters.
-  Handle(Font_SystemFont) FindFont(const AsciiString1& theFontName,
+  Handle(SystemFont) FindFont(const AsciiString1& theFontName,
                                    Font_FontAspect&               theFontAspect) const
   {
     return FindFont(theFontName, Font_StrictLevel_Any, theFontAspect);
@@ -125,29 +125,29 @@ public:
   //! Returns NULL in case when fallback font is not found in the system.
   //! @param[in] theSubset      Unicode subset
   //! @param[in] theFontAspect  font aspect to find
-  Standard_EXPORT Handle(Font_SystemFont) FindFallbackFont(Font_UnicodeSubset theSubset,
+  Standard_EXPORT Handle(SystemFont) FindFallbackFont(Font_UnicodeSubset theSubset,
                                                            Font_FontAspect    theFontAspect) const;
 
   //! Read font file and retrieve information from it (the list of font faces).
   Standard_EXPORT Standard_Boolean
-    CheckFont(NCollection_Sequence<Handle(Font_SystemFont)>& theFonts,
+    CheckFont(NCollection_Sequence<Handle(SystemFont)>& theFonts,
               const AsciiString1&                 theFontPath) const;
 
   //! Read font file and retrieve information from it.
-  Standard_EXPORT Handle(Font_SystemFont) CheckFont(const Standard_CString theFontPath) const;
+  Standard_EXPORT Handle(SystemFont) CheckFont(const Standard_CString theFontPath) const;
 
   //! Register new font.
   //! If there is existing entity with the same name and properties but different path
   //! then font will be overridden or ignored depending on theToOverride flag.
-  Standard_EXPORT Standard_Boolean RegisterFont(const Handle(Font_SystemFont)& theFont,
+  Standard_EXPORT Standard_Boolean RegisterFont(const Handle(SystemFont)& theFont,
                                                 const Standard_Boolean         theToOverride);
 
   //! Register new fonts.
-  Standard_Boolean RegisterFonts(const NCollection_Sequence<Handle(Font_SystemFont)>& theFonts,
+  Standard_Boolean RegisterFonts(const NCollection_Sequence<Handle(SystemFont)>& theFonts,
                                  const Standard_Boolean                               theToOverride)
   {
     Standard_Boolean isRegistered = Standard_False;
-    for (NCollection_Sequence<Handle(Font_SystemFont)>::Iterator aFontIter(theFonts);
+    for (NCollection_Sequence<Handle(SystemFont)>::Iterator aFontIter(theFonts);
          aFontIter.More();
          aFontIter.Next())
     {
@@ -180,7 +180,7 @@ public:
   //! and defining several fallback fonts like Font_NOF_CJK ("cjk") or "courier" for fonts,
   //! which availability depends on system.
   //!
-  //! By default, Font_FontMgr registers standard aliases, which could be extended or replaced by
+  //! By default, FontMgr registers standard aliases, which could be extended or replaced by
   //! application basing on better knowledge of the system or basing on additional fonts packaged
   //! with application itself. Aliases are defined "in advance", so that they could point to
   //! non-existing fonts, and they are resolved dynamically on request - first existing font is
@@ -216,25 +216,25 @@ public:
 
 private:
   //! Creates empty font manager object
-  Standard_EXPORT Font_FontMgr();
+  Standard_EXPORT FontMgr();
 
 private:
   struct FontHasher1
   {
-    size_t operator()(const Handle(Font_SystemFont)& theFont) const noexcept
+    size_t operator()(const Handle(SystemFont)& theFont) const noexcept
     {
       return std::hash<AsciiString1>{}(theFont->FontKey());
     }
 
-    bool operator()(const Handle(Font_SystemFont)& theFont1,
-                    const Handle(Font_SystemFont)& theFont2) const
+    bool operator()(const Handle(SystemFont)& theFont1,
+                    const Handle(SystemFont)& theFont2) const
     {
       return theFont1->IsEqual(theFont2);
     }
   };
 
   //! Map storing registered fonts.
-  class Font_FontMap : public NCollection_IndexedMap<Handle(Font_SystemFont), FontHasher1>
+  class Font_FontMap : public NCollection_IndexedMap<Handle(SystemFont), FontHasher1>
   {
   public:
     //! Empty constructor.
@@ -243,30 +243,30 @@ private:
     //! Try finding font with specified parameters or the closest one.
     //! @param[in] theFontName  font family to find (or empty string if family name can be ignored)
     //! @return best match font or NULL if not found
-    Handle(Font_SystemFont) Find(const AsciiString1& theFontName) const;
+    Handle(SystemFont) Find(const AsciiString1& theFontName) const;
   };
 
   //! Structure defining font alias.
-  struct Font_FontAlias
+  struct FontAlias
   {
     AsciiString1 FontName;
     Font_FontAspect         FontAspect;
 
-    Font_FontAlias(const AsciiString1& theFontName,
+    FontAlias(const AsciiString1& theFontName,
                    Font_FontAspect                theFontAspect = Font_FontAspect_UNDEFINED)
         : FontName(theFontName),
           FontAspect(theFontAspect)
     {
     }
 
-    Font_FontAlias()
+    FontAlias()
         : FontAspect(Font_FontAspect_UNDEFINED)
     {
     }
   };
 
   //! Sequence of font aliases.
-  typedef NCollection_Shared<NCollection_Sequence<Font_FontAlias>> Font_FontAliasSequence;
+  typedef NCollection_Shared<NCollection_Sequence<FontAlias>> Font_FontAliasSequence;
 
   //! Register font alias.
   void addFontAlias(const AsciiString1&        theAliasName,

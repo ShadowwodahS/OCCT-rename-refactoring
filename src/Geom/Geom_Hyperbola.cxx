@@ -41,7 +41,7 @@ typedef Coords3d         XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Hyperbola::Copy() const
+Handle(Geometry3) Geom_Hyperbola::Copy() const
 {
 
   Handle(Geom_Hyperbola) H;

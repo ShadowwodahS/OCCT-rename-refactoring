@@ -92,7 +92,7 @@ void BRepFill_LocationLaw::Init(const TopoWire& Path)
     if (!BRepInspector::Degenerated(wexp.Current()))
       NbEdge++;
 
-  myLaws   = new (GeomFill_HArray1OfLocationLaw)(1, NbEdge);
+  myLaws   = new (LocationLawArray)(1, NbEdge);
   myLength = new (TColStd_HArray1OfReal)(1, NbEdge + 1);
   myLength->Init(-1.);
   myLength->SetValue(1, 0.);
@@ -286,7 +286,7 @@ Standard_Integer BRepFill_LocationLaw::NbLaw() const
 
 //=================================================================================================
 
-const Handle(GeomFill_LocationLaw)& BRepFill_LocationLaw::Law1(const Standard_Integer Index) const
+const Handle(LocationLaw)& BRepFill_LocationLaw::Law1(const Standard_Integer Index) const
 {
   return myLaws->Value(Index);
 }
@@ -590,7 +590,7 @@ void BRepFill_LocationLaw::Parameter(const Standard_Real Abcissa,
   if (Trouve)
   {
     Standard_Real                       f, l;
-    const Handle(GeomFill_LocationLaw)& Law1 = myLaws->Value(iedge);
+    const Handle(LocationLaw)& Law1 = myLaws->Value(iedge);
     Law1->GetDomain(f, l);
 
     if (Abcissa == myLength->Value(iedge + 1))

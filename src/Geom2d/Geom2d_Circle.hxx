@@ -28,7 +28,7 @@ class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_Circle;
 DEFINE_STANDARD_HANDLE(Geom2d_Circle, Geom2d_Conic)
@@ -151,7 +151,7 @@ public:
   Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this circle.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

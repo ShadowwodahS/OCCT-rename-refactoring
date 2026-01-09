@@ -20,6 +20,6 @@
 #include <HatchGen_PointOnElement.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<HatchGen_PointOnElement> HatchGen_PointsOnElement;
+typedef NCollection_Sequence<PointOnElement> HatchGen_PointsOnElement;
 
 #endif

@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class Geom_Transformation;
+class Transformation1;
 class gp_Lin;
 class Axis3d;
 class Point3d;
@@ -30,7 +30,7 @@ class Dir3d;
 
 //! This class implements elementary construction algorithms for a
 //! rotation in 3D space. The result is a
-//! Geom_Transformation transformation.
+//! Transformation1 transformation.
 //! A MakeRotation object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -53,13 +53,13 @@ public:
                                   const Standard_Real Angle);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation1)& Value() const;
 
-  operator const Handle(Geom_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation1) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom_Transformation) TheRotation;
+  Handle(Transformation1) TheRotation;
 };
 
 #endif // _GC_MakeRotation_HeaderFile

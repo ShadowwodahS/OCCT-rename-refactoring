@@ -282,7 +282,7 @@ static void ScaleTangents(const TColgp_Array1OfPnt2d&    PointsArray,
 
 //=================================================================================================
 
-Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)& PointsPtr,
+Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(Point2dArray)& PointsPtr,
                                              const Standard_Boolean               PeriodicFlag,
                                              const Standard_Real                  Tolerance)
     : myTolerance(Tolerance),
@@ -294,7 +294,7 @@ Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)
 {
   Standard_Integer ii;
   Standard_Boolean result = CheckPoints(PointsPtr->Array1(), Tolerance);
-  myTangents              = new TColgp_HArray1OfVec2d(myPoints->Lower(), myPoints->Upper());
+  myTangents              = new Vector2dArray(myPoints->Lower(), myPoints->Upper());
   myTangentFlags          = new TColStd_HArray1OfBoolean(myPoints->Lower(), myPoints->Upper());
 
   if (!result)
@@ -311,7 +311,7 @@ Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)
 
 //=================================================================================================
 
-Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)& PointsPtr,
+Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(Point2dArray)& PointsPtr,
                                              const Handle(TColStd_HArray1OfReal)& ParametersPtr,
                                              const Standard_Boolean               PeriodicFlag,
                                              const Standard_Real                  Tolerance)
@@ -333,7 +333,7 @@ Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)
       throw Standard_ConstructionError();
     }
   }
-  myTangents     = new TColgp_HArray1OfVec2d(myPoints->Lower(), myPoints->Upper());
+  myTangents     = new Vector2dArray(myPoints->Lower(), myPoints->Upper());
   myTangentFlags = new TColStd_HArray1OfBoolean(myPoints->Lower(), myPoints->Upper());
 
   if (!result)
@@ -371,7 +371,7 @@ void Geom2dAPI_Interpolate::Load(const TColgp_Array1OfVec2d&             Tangent
   result = CheckTangents(Tangents, TangentFlagsPtr->Array1(), myTolerance);
   if (result)
   {
-    myTangents = new TColgp_HArray1OfVec2d(Tangents.Lower(), Tangents.Upper());
+    myTangents = new Vector2dArray(Tangents.Lower(), Tangents.Upper());
     for (ii = Tangents.Lower(); ii <= Tangents.Upper(); ii++)
     {
       myTangents->SetValue(ii, Tangents.Value(ii));

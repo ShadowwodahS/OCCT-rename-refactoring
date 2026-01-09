@@ -21,6 +21,6 @@
 #include <TDataStd_LabelArray1.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TDataStd_HLabelArray1, TDataStd_LabelArray1)
+DEFINE_HARRAY1(HLabelArray1, TDataStd_LabelArray1)
 
 #endif

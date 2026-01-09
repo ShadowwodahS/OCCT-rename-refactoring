@@ -21,6 +21,6 @@
 #include <TColgp_Array1OfDir2d.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfDir2d, TColgp_Array1OfDir2d)
+DEFINE_HARRAY1(Direction2dArray, TColgp_Array1OfDir2d)
 
 #endif

@@ -82,14 +82,14 @@ static Standard_Boolean AffichDist = Standard_False;
 static Domain2 Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1,
                               const Standard_Real                Tolerance);
 
-static Handle(TypeInfo) Type(const Handle(Geom2d_Geometry)& acurve);
+static Handle(TypeInfo) Type(const Handle(Geometry2)& acurve);
 
 static Standard_Boolean AreNeighbours(const Standard_Integer IEdge1,
                                       const Standard_Integer IEdge2,
                                       const Standard_Integer NbEdge);
 
 static void             SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1);
-static Standard_Boolean CheckEnds(const Handle(Geom2d_Geometry)& Elt,
+static Standard_Boolean CheckEnds(const Handle(Geometry2)& Elt,
                                   const gp_Pnt2d&                PCom,
                                   const Standard_Real            Distance,
                                   const Standard_Real            Tol);
@@ -309,7 +309,7 @@ Standard_Integer MAT2d_Tool2d::Tangent(const Standard_Integer bisector)
 void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
 {
   Handle(Geom2d_Point)    point1, point2;
-  Handle(Geom2d_Geometry) elt1, elt2;
+  Handle(Geometry2) elt1, elt2;
   Bisector_Bisec          bisector;
   Standard_Real           tolerance = MAT2d_TOLCONF;
 
@@ -598,7 +598,7 @@ Standard_Boolean MAT2d_Tool2d::Projection(const Standard_Integer IEdge,
                                           Standard_Real&         Distance) const
 {
   gp_Pnt2d                    PEdge;
-  Handle(Geom2d_Geometry)     Elt  = theCircuit->Value(IEdge);
+  Handle(Geometry2)     Elt  = theCircuit->Value(IEdge);
   Handle(TypeInfo)       Type = Elt->DynamicType();
   Handle(Geom2d_TrimmedCurve) Curve;
   Standard_Integer            INext;
@@ -709,7 +709,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
   {
     if (!isDone2)
     {
-      Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge2);
+      Handle(Geometry2) Elt = theCircuit->Value(IEdge2);
       Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(1));
       if (CheckEnds(Elt, PCom, Dist(1), Tol))
       {
@@ -721,7 +721,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
   {
     if (isDone2)
     {
-      Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge1);
+      Handle(Geometry2) Elt = theCircuit->Value(IEdge1);
       Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(2));
       if (CheckEnds(Elt, PCom, Dist(2), Tol))
       {
@@ -749,7 +749,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
   {
     if (!isDone4)
     {
-      Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge4);
+      Handle(Geometry2) Elt = theCircuit->Value(IEdge4);
       Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(3));
       if (CheckEnds(Elt, PCom, Dist(3), Tol))
       {
@@ -761,7 +761,7 @@ Standard_Boolean MAT2d_Tool2d::IsSameDistance(const Handle(MAT_Bisector)& Bisect
   {
     if (isDone4)
     {
-      Handle(Geom2d_Geometry) Elt = theCircuit->Value(IEdge3);
+      Handle(Geometry2) Elt = theCircuit->Value(IEdge3);
       Standard_Real           Tol = Max(Precision1::Confusion(), eps * Dist(4));
       if (CheckEnds(Elt, PCom, Dist(4), Tol))
       {
@@ -1170,7 +1170,7 @@ Bisector_Bisec& MAT2d_Tool2d::ChangeGeomBis(const Standard_Integer Index)
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) MAT2d_Tool2d::GeomElt(const Standard_Integer Index) const
+Handle(Geometry2) MAT2d_Tool2d::GeomElt(const Standard_Integer Index) const
 {
   return theCircuit->Value(Index);
 }
@@ -1264,7 +1264,7 @@ void MAT2d_Tool2d::BisecFusion(const Standard_Integer I1, const Standard_Integer
 
 //=================================================================================================
 
-static Handle(TypeInfo) Type(const Handle(Geom2d_Geometry)& aGeom)
+static Handle(TypeInfo) Type(const Handle(Geometry2)& aGeom)
 {
   Handle(TypeInfo) type = aGeom->DynamicType();
   Handle(GeomCurve2d)  curve;
@@ -1390,7 +1390,7 @@ Domain2 Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1, const Standard_Real
 
 //=================================================================================================
 
-Standard_Boolean CheckEnds(const Handle(Geom2d_Geometry)& Elt,
+Standard_Boolean CheckEnds(const Handle(Geometry2)& Elt,
                            const gp_Pnt2d&                PCom,
                            const Standard_Real            Distance,
                            const Standard_Real            Tol)

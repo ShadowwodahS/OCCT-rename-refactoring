@@ -78,7 +78,7 @@ public:
   Standard_EXPORT HatchGen_ErrorStatus Status() const;
 
   //! Adds an intersection point to the hatching.
-  Standard_EXPORT void AddPoint(const HatchGen_PointOnHatching& Point,
+  Standard_EXPORT void AddPoint(const PointOnHatching& Point,
                                 const Standard_Real             Confusion);
 
   //! Returns the number of intersection points
@@ -89,13 +89,13 @@ public:
   //! hatching.
   //! The exception OutOfRange is raised if
   //! Index < 1 or Index > NbPoints.
-  Standard_EXPORT const HatchGen_PointOnHatching& Point(const Standard_Integer Index) const;
+  Standard_EXPORT const PointOnHatching& Point(const Standard_Integer Index) const;
 
   //! Returns the Index-th intersection point of the
   //! hatching.
   //! The exception OutOfRange is raised if
   //! Index < 1 or Index > NbPoints.
-  Standard_EXPORT HatchGen_PointOnHatching& ChangePoint(const Standard_Integer Index);
+  Standard_EXPORT PointOnHatching& ChangePoint(const Standard_Integer Index);
 
   //! Removes the Index-th intersection point of the
   //! hatching.

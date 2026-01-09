@@ -32,7 +32,7 @@
   <AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute.hxx>
 #define AppParCurves_BSpParFunction AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute
 #define AppParCurves_BSpParFunction_hxx <AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute.hxx>
-#define AppParCurves_BSpGradient_BFGS AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute
+#define AppParCurves_BSpGradient_BFGS BSplBFGSGradientBSplineCompute
 #define AppParCurves_BSpGradient_BFGS_hxx                                                          \
   <AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute.hxx>
 #define AppParCurves_BSpGradient AppDef_MyBSplGradientOfBSplineCompute

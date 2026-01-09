@@ -95,7 +95,7 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& theWeights)
 
 //=================================================================================================
 
-Handle(Geom_Geometry) BSplineCurve3d::Copy() const
+Handle(Geometry3) BSplineCurve3d::Copy() const
 {
   Handle(BSplineCurve3d) C;
   if (IsRational())
@@ -128,7 +128,7 @@ BSplineCurve3d::BSplineCurve3d(const TColgp_Array1OfPnt&      Poles,
 
   // copy arrays
 
-  poles                 = new TColgp_HArray1OfPnt(1, Poles.Length());
+  poles                 = new PointArray1(1, Poles.Length());
   poles->ChangeArray1() = Poles;
 
   knots                 = new TColStd_HArray1OfReal(1, Knots.Length());
@@ -176,7 +176,7 @@ BSplineCurve3d::BSplineCurve3d(const TColgp_Array1OfPnt&      Poles,
 
   // copy arrays
 
-  poles                 = new TColgp_HArray1OfPnt(1, Poles.Length());
+  poles                 = new PointArray1(1, Poles.Length());
   poles->ChangeArray1() = Poles;
   if (rational)
   {
@@ -216,8 +216,8 @@ void BSplineCurve3d::IncreaseDegree(const Standard_Integer Degree)
 
   Standard_Integer Step = Degree - deg;
 
-  Handle(TColgp_HArray1OfPnt) npoles =
-    new TColgp_HArray1OfPnt(1, poles->Length() + Step * (ToK2 - FromK1));
+  Handle(PointArray1) npoles =
+    new PointArray1(1, poles->Length() + Step * (ToK2 - FromK1));
 
   Standard_Integer nbknots =
     BSplCLib1::IncreaseDegreeCountKnots(deg, Degree, periodic, mults->Array1());
@@ -328,7 +328,7 @@ void BSplineCurve3d::InsertKnots(const TColStd_Array1OfReal&    Knots,
   if (nbpoles == poles->Length())
     return;
 
-  Handle(TColgp_HArray1OfPnt)      npoles = new TColgp_HArray1OfPnt(1, nbpoles);
+  Handle(PointArray1)      npoles = new PointArray1(1, nbpoles);
   Handle(TColStd_HArray1OfReal)    nknots = knots;
   Handle(TColStd_HArray1OfInteger) nmults = mults;
 
@@ -392,7 +392,7 @@ Standard_Boolean BSplineCurve3d::RemoveKnot(const Standard_Integer Index,
   if (step <= 0)
     return Standard_True;
 
-  Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, oldpoles.Length() - step);
+  Handle(PointArray1) npoles = new PointArray1(1, oldpoles.Length() - step);
 
   Handle(TColStd_HArray1OfReal)    nknots = knots;
   Handle(TColStd_HArray1OfInteger) nmults = mults;
@@ -605,7 +605,7 @@ void BSplineCurve3d::Segment1(const Standard_Real U1,
   Standard_Integer nbpoles = pindex2 - pindex1 + 1;
 
   Handle(TColStd_HArray1OfReal) nweights = new TColStd_HArray1OfReal(1, nbpoles);
-  Handle(TColgp_HArray1OfPnt)   npoles   = new TColgp_HArray1OfPnt(1, nbpoles);
+  Handle(PointArray1)   npoles   = new PointArray1(1, nbpoles);
 
   k = 1;
   if (rational)
@@ -723,9 +723,9 @@ void BSplineCurve3d::SetPeriodic()
   // compute new number of poles;
   Standard_Integer nbp = BSplCLib1::NbPoles(deg, Standard_True, cmults);
 
-  Handle(TColgp_HArray1OfPnt) tp = poles;
+  Handle(PointArray1) tp = poles;
   TColgp_Array1OfPnt          cpoles((poles->Array1())(1), 1, nbp);
-  poles                 = new TColgp_HArray1OfPnt(1, nbp);
+  poles                 = new PointArray1(1, nbp);
   poles->ChangeArray1() = cpoles;
 
   if (rational)
@@ -786,7 +786,7 @@ void BSplineCurve3d::SetOrigin(const Standard_Integer Index)
     index += mults->Value(i);
 
   // set the poles and weights
-  Handle(TColgp_HArray1OfPnt)   npoles     = new TColgp_HArray1OfPnt(1, nbpoles);
+  Handle(PointArray1)   npoles     = new PointArray1(1, nbpoles);
   Handle(TColStd_HArray1OfReal) nweights   = new TColStd_HArray1OfReal(1, nbpoles);
   TColgp_Array1OfPnt&           newpoles   = npoles->ChangeArray1();
   TColStd_Array1OfReal&         newweights = nweights->ChangeArray1();
@@ -892,7 +892,7 @@ void BSplineCurve3d::SetNotPeriodic()
     Standard_Integer NbKnots, NbPoles;
     BSplCLib1::PrepareUnperiodize(deg, mults->Array1(), NbKnots, NbPoles);
 
-    Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, NbPoles);
+    Handle(PointArray1) npoles = new PointArray1(1, NbPoles);
 
     Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, NbKnots);
 

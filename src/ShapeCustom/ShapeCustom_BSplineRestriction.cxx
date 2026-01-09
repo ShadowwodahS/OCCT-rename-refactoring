@@ -127,7 +127,7 @@ static Standard_Boolean IsConvertCurve3d(
   Standard_Integer                                 Degree,
   Standard_Integer                                 NbSeg,
   Standard_Boolean                                 myRational,
-  const Handle(ShapeCustom_RestrictionParameters)& aParameters)
+  const Handle(RestrictionParameters)& aParameters)
 {
   if (aCurve.IsNull())
     return Standard_False;
@@ -171,7 +171,7 @@ static Standard_Boolean IsConvertSurface(
   const Standard_Integer                           Degree,
   const Standard_Integer                           NbSeg,
   const Standard_Boolean                           myRational,
-  const Handle(ShapeCustom_RestrictionParameters)& aParameters)
+  const Handle(RestrictionParameters)& aParameters)
 {
   if (aSurface.IsNull())
     return Standard_False;
@@ -250,7 +250,7 @@ static Standard_Boolean IsConvertCurve2d(
   Standard_Integer                                 Degree,
   Standard_Integer                                 NbSeg,
   Standard_Boolean                                 myRational,
-  const Handle(ShapeCustom_RestrictionParameters)& aParameters)
+  const Handle(RestrictionParameters)& aParameters)
 {
   if (aCurve.IsNull())
     return Standard_False;
@@ -303,7 +303,7 @@ ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction()
   myConvert           = Standard_False;
   myDeg               = Standard_True;
   myRational          = Standard_False;
-  myParameters        = new ShapeCustom_RestrictionParameters;
+  myParameters        = new RestrictionParameters;
 }
 
 ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction(
@@ -335,7 +335,7 @@ ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction(
   myConvert           = Standard_False;
   myDeg               = Deg;
   myRational          = Rational;
-  myParameters        = new ShapeCustom_RestrictionParameters;
+  myParameters        = new RestrictionParameters;
 }
 
 ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction(
@@ -350,7 +350,7 @@ ShapeCustom_BSplineRestriction::ShapeCustom_BSplineRestriction(
   const Standard_Integer                           aNbMaxSeg,
   const Standard_Boolean                           Deg,
   const Standard_Boolean                           Rational,
-  const Handle(ShapeCustom_RestrictionParameters)& aModes)
+  const Handle(RestrictionParameters)& aModes)
 {
   myApproxSurfaceFlag = anApproxSurfaceFlag;
   myApproxCurve3dFlag = anApproxCurve3dFlag;

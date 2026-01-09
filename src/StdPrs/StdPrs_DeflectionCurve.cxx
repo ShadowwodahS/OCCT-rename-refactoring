@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-static Standard_Real GetDeflection(const Adaptor3d_Curve&      aCurve,
+static Standard_Real GetDeflection(const Curve5&      aCurve,
                                    const Standard_Real         U1,
                                    const Standard_Real         U2,
                                    const Handle(StyleDrawer)& aDrawer)
@@ -70,7 +70,7 @@ static Standard_Real GetDeflection(const Adaptor3d_Curve&      aCurve,
 
 //=================================================================================================
 
-static Standard_Boolean FindLimits(const Adaptor3d_Curve& aCurve,
+static Standard_Boolean FindLimits(const Curve5& aCurve,
                                    const Standard_Real    aLimit,
                                    Standard_Real&         First,
                                    Standard_Real&         Last)
@@ -128,7 +128,7 @@ static Standard_Boolean FindLimits(const Adaptor3d_Curve& aCurve,
 
 //=================================================================================================
 
-static void drawCurve(Adaptor3d_Curve&               aCurve,
+static void drawCurve(Curve5&               aCurve,
                       const Handle(Graphic3d_Group)& aGroup,
                       const Standard_Real            TheDeflection,
                       const Standard_Real            anAngle,
@@ -208,7 +208,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
                                    const Standard_Real    Y,
                                    const Standard_Real    Z,
                                    const Standard_Real    aDistance,
-                                   const Adaptor3d_Curve& aCurve,
+                                   const Curve5& aCurve,
                                    const Standard_Real    TheDeflection,
                                    const Standard_Real    anAngle,
                                    const Standard_Real    U1,
@@ -280,7 +280,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
 //=================================================================================================
 
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                 Adaptor3d_Curve&                  aCurve,
+                                 Curve5&                  aCurve,
                                  const Handle(StyleDrawer)&       aDrawer,
                                  const Standard_Boolean            theToDrawCurve)
 {
@@ -320,7 +320,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 //=================================================================================================
 
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                 Adaptor3d_Curve&                  aCurve,
+                                 Curve5&                  aCurve,
                                  const Standard_Real               U1,
                                  const Standard_Real               U2,
                                  const Handle(StyleDrawer)&       aDrawer,
@@ -366,7 +366,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 //=================================================================================================
 
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                 Adaptor3d_Curve&                  aCurve,
+                                 Curve5&                  aCurve,
                                  const Standard_Real               U1,
                                  const Standard_Real               U2,
                                  const Standard_Real               aDeflection,
@@ -386,7 +386,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 //=================================================================================================
 
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                 Adaptor3d_Curve&                  aCurve,
+                                 Curve5&                  aCurve,
                                  const Standard_Real               aDeflection,
                                  const Standard_Real               aLimit,
                                  const Standard_Real               anAngle,
@@ -411,7 +411,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 //=================================================================================================
 
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                 Adaptor3d_Curve&                  aCurve,
+                                 Curve5&                  aCurve,
                                  const Standard_Real               aDeflection,
                                  const Handle(StyleDrawer)&       aDrawer,
                                  TColgp_SequenceOfPnt&             Points,
@@ -437,7 +437,7 @@ Standard_Boolean StdPrs_DeflectionCurve::Match(const Standard_Real         X,
                                                const Standard_Real         Y,
                                                const Standard_Real         Z,
                                                const Standard_Real         aDistance,
-                                               const Adaptor3d_Curve&      aCurve,
+                                               const Curve5&      aCurve,
                                                const Handle(StyleDrawer)& aDrawer)
 {
   Standard_Real V1, V2;
@@ -462,7 +462,7 @@ Standard_Boolean StdPrs_DeflectionCurve::Match(const Standard_Real         X,
                                                const Standard_Real         Y,
                                                const Standard_Real         Z,
                                                const Standard_Real         aDistance,
-                                               const Adaptor3d_Curve&      aCurve,
+                                               const Curve5&      aCurve,
                                                const Standard_Real         U1,
                                                const Standard_Real         U2,
                                                const Handle(StyleDrawer)& aDrawer)
@@ -492,7 +492,7 @@ Standard_Boolean StdPrs_DeflectionCurve::Match(const Standard_Real    X,
                                                const Standard_Real    Y,
                                                const Standard_Real    Z,
                                                const Standard_Real    aDistance,
-                                               const Adaptor3d_Curve& aCurve,
+                                               const Curve5& aCurve,
                                                const Standard_Real    U1,
                                                const Standard_Real    U2,
                                                const Standard_Real    aDeflection,
@@ -507,7 +507,7 @@ Standard_Boolean StdPrs_DeflectionCurve::Match(const Standard_Real    X,
                                                const Standard_Real    Y,
                                                const Standard_Real    Z,
                                                const Standard_Real    aDistance,
-                                               const Adaptor3d_Curve& aCurve,
+                                               const Curve5& aCurve,
                                                const Standard_Real    aDeflection,
                                                const Standard_Real    aLimit,
                                                const Standard_Real    anAngle)

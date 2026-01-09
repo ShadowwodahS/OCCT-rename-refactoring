@@ -697,7 +697,7 @@ void IntTools_FaceFace::MakeCurve(const Standard_Integer             Index,
   Standard_Integer      i, j, aNbParts;
   Standard_Real         fprm, lprm;
   Standard_Real         Tolpc;
-  Handle(IntPatch_Line) L;
+  Handle(Line2) L;
   IntPatch_IType        typl;
   Handle(GeomCurve3d)    newc;
   //

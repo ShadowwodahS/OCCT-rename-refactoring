@@ -41,7 +41,7 @@
 #include <TColgp_HArray2OfPnt.hxx>
 #include <TColgp_SequenceOfArray1OfPnt2d.hxx>
 #include <gp_Vec.hxx>
-class Approx_SweepFunction;
+class SweepFunction;
 class CuttingTool;
 
 //! Approximation  of  an  Surface   S(u,v)
@@ -51,14 +51,14 @@ class CuttingTool;
 //! This surface is defined by a function F(u, v)
 //! where Ft(u) = F(u, t) is a bspline curve.
 //! To use this algorithme, you  have to implement Ft(u)
-//! as a derivative class  of Approx_SweepFunction.
+//! as a derivative class  of SweepFunction.
 //! This algorithm can be used by blending, sweeping...
 class Approx_SweepApproximation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Approx_SweepApproximation(const Handle(Approx_SweepFunction)& Func);
+  Standard_EXPORT Approx_SweepApproximation(const Handle(SweepFunction)& Func);
 
   //! Perform the Approximation
   //! [First, Last] : Approx_SweepApproximation.cdl
@@ -194,7 +194,7 @@ private:
                                       const Standard_Real Last,
                                       Standard_Real&      Result);
 
-  Handle(Approx_SweepFunction)     myFunc;
+  Handle(SweepFunction)     myFunc;
   Standard_Boolean                 done;
   Standard_Integer                 Num1DSS;
   Standard_Integer                 Num2DSS;
@@ -202,7 +202,7 @@ private:
   Standard_Integer                 udeg;
   Standard_Integer                 vdeg;
   Standard_Integer                 deg2d;
-  Handle(TColgp_HArray2OfPnt)      tabPoles;
+  Handle(PointGrid)      tabPoles;
   Handle(TColStd_HArray2OfReal)    tabWeights;
   Handle(TColStd_HArray1OfReal)    tabUKnots;
   Handle(TColStd_HArray1OfReal)    tabVKnots;
@@ -217,16 +217,16 @@ private:
   Handle(TColStd_HArray1OfReal)    AError1d;
   Handle(TColStd_HArray1OfReal)    Ave2dError;
   Handle(TColStd_HArray1OfReal)    AError3d;
-  Handle(Approx_HArray1OfGTrsf2d)  AAffin;
+  Handle(GeneralTransform2dArray)  AAffin;
   Handle(TColStd_HArray1OfReal)    COnSurfErr;
   Vector3d                           Translation;
-  Handle(TColgp_HArray1OfPnt)      myPoles;
-  Handle(TColgp_HArray1OfPnt2d)    myPoles2d;
+  Handle(PointArray1)      myPoles;
+  Handle(Point2dArray)    myPoles2d;
   Handle(TColStd_HArray1OfReal)    myWeigths;
-  Handle(TColgp_HArray1OfVec)      myDPoles;
-  Handle(TColgp_HArray1OfVec)      myD2Poles;
-  Handle(TColgp_HArray1OfVec2d)    myDPoles2d;
-  Handle(TColgp_HArray1OfVec2d)    myD2Poles2d;
+  Handle(VectorArray)      myDPoles;
+  Handle(VectorArray)      myD2Poles;
+  Handle(Vector2dArray)    myDPoles2d;
+  Handle(Vector2dArray)    myD2Poles2d;
   Handle(TColStd_HArray1OfReal)    myDWeigths;
   Handle(TColStd_HArray1OfReal)    myD2Weigths;
   Standard_Integer                 myOrder;

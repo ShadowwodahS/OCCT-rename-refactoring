@@ -28,7 +28,7 @@
 
 class OSD_FileSystem;
 class MeshTriangulation;
-class Poly_TriangulationParameters;
+class TriangulationParameters;
 
 DEFINE_STANDARD_HANDLE(MeshTriangulation, RefObject)
 
@@ -110,10 +110,10 @@ public:
   void Deflection(const Standard_Real theDeflection) { myDeflection = theDeflection; }
 
   //! Returns initial set of parameters used to generate this triangulation.
-  const Handle(Poly_TriangulationParameters)& Parameters() const { return myParams; }
+  const Handle(TriangulationParameters)& Parameters() const { return myParams; }
 
   //! Updates initial set of parameters used to generate this triangulation.
-  void Parameters(const Handle(Poly_TriangulationParameters)& theParams) { myParams = theParams; }
+  void Parameters(const Handle(TriangulationParameters)& theParams) { myParams = theParams; }
 
   //! Clears internal arrays of nodes and all attributes.
   Standard_EXPORT virtual void Clear();
@@ -297,17 +297,17 @@ public:
   //! Returns the table of 3D points for read-only access or NULL if nodes array is undefined.
   //! MeshTriangulation::Node() should be used instead when possible.
   //! Returned object should not be used after MeshTriangulation destruction.
-  Standard_EXPORT Handle(TColgp_HArray1OfPnt) MapNodeArray() const;
+  Standard_EXPORT Handle(PointArray1) MapNodeArray() const;
 
   //! Returns the triangle array for read-only access or NULL if triangle array is undefined.
   //! MeshTriangulation::Triangle1() should be used instead when possible.
   //! Returned object should not be used after MeshTriangulation destruction.
-  Standard_EXPORT Handle(Poly_HArray1OfTriangle) MapTriangleArray() const;
+  Standard_EXPORT Handle(TriangleArray1) MapTriangleArray() const;
 
   //! Returns the table of 2D nodes for read-only access or NULL if UV nodes array is undefined.
   //! MeshTriangulation::UVNode() should be used instead when possible.
   //! Returned object should not be used after MeshTriangulation destruction.
-  Standard_EXPORT Handle(TColgp_HArray1OfPnt2d) MapUVNodeArray() const;
+  Standard_EXPORT Handle(Point2dArray) MapUVNodeArray() const;
 
   //! Returns the table of per-vertex normals for read-only access or NULL if normals array is
   //! undefined. MeshTriangulation::Normal() should be used instead when possible. Returned object
@@ -407,7 +407,7 @@ protected:
   NCollection_Array1<gp_Vec3f> myNormals;
   Poly_MeshPurpose             myPurpose;
 
-  Handle(Poly_TriangulationParameters) myParams;
+  Handle(TriangulationParameters) myParams;
 };
 
 #endif // _Poly_Triangulation_HeaderFile

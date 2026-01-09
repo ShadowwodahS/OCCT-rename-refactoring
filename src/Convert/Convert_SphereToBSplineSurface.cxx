@@ -85,7 +85,7 @@ static void ComputePoles(const Standard_Real R,
 
 //=================================================================================================
 
-Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3&    Sph,
+SphereToBSplineConverter::SphereToBSplineConverter(const Sphere3&    Sph,
                                                                const Standard_Real U1,
                                                                const Standard_Real U2,
                                                                const Standard_Real V1,
@@ -101,7 +101,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3&   
   Standard_Real deltaV = V2 - V1;
   Standard_DomainError_Raise_if((deltaU > 2 * M_PI) || (deltaU < 0.) || (V1 < -M_PI / 2.0)
                                   || (V2 > M_PI / 2),
-                                "Convert_SphereToBSplineSurface");
+                                "SphereToBSplineConverter");
 
   isuperiodic = Standard_False;
   isvperiodic = Standard_False;
@@ -167,7 +167,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3&   
 
 //=================================================================================================
 
-Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3&       Sph,
+SphereToBSplineConverter::SphereToBSplineConverter(const Sphere3&       Sph,
                                                                const Standard_Real    Param1,
                                                                const Standard_Real    Param2,
                                                                const Standard_Boolean UTrim)
@@ -182,7 +182,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3&   
   Standard_Real delta = Param2 - Param1;
 #endif
   Standard_DomainError_Raise_if((delta > 2 * M_PI) || (delta < 0.),
-                                "Convert_SphereToBSplineSurface");
+                                "SphereToBSplineConverter");
 
   Standard_Integer i, j;
   Standard_Real    deltaU, deltaV;
@@ -281,7 +281,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3&   
 
 //=================================================================================================
 
-Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const Sphere3& Sph)
+SphereToBSplineConverter::SphereToBSplineConverter(const Sphere3& Sph)
     : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,

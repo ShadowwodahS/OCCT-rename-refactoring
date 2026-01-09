@@ -161,10 +161,10 @@ static void Drawsect(const Standard_Real param, Blend_RstRstFunction& Func)
 
 //=================================================================================================
 
-BRepBlend_RstRstLineBuilder::BRepBlend_RstRstLineBuilder(const Handle(Adaptor3d_Surface)&   Surf1,
+BRepBlend_RstRstLineBuilder::BRepBlend_RstRstLineBuilder(const Handle(SurfaceAdaptor)&   Surf1,
                                                          const Handle(Adaptor2d_Curve2d)&   Rst1,
                                                          const Handle(Adaptor3d_TopolTool)& Domain1,
-                                                         const Handle(Adaptor3d_Surface)&   Surf2,
+                                                         const Handle(SurfaceAdaptor)&   Surf2,
                                                          const Handle(Adaptor2d_Curve2d)&   Rst2,
                                                          const Handle(Adaptor3d_TopolTool)& Domain2)
     : done(Standard_False),
@@ -340,7 +340,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::PerformFirstSection(Blend_RstRstFu
   Standard_Real             trst11 = 0., trst12 = 0., trst21 = 0., trst22 = 0.;
   math_Vector               infbound(1, 2), supbound(1, 2), tolerance(1, 2);
   math_Vector               solinvp1(1, 2), solinvp2(1, 2), solinvrst1(1, 3), solinvrst2(1, 3);
-  Handle(Adaptor3d_HVertex) Vtxp1, Vtxp2, Vtxrst1, Vtxrst2, Vtxc;
+  Handle(HandleVertex) Vtxp1, Vtxp2, Vtxrst1, Vtxrst2, Vtxc;
   Standard_Boolean          IsVtxp1 = 0, IsVtxp2 = 0, IsVtxrst1 = 0, IsVtxrst2 = 0;
   Handle(Adaptor2d_Curve2d) Arc;
   wp1 = wp2 = wrst1 = wrst2 = Pmax;
@@ -622,7 +622,7 @@ void BRepBlend_RstRstLineBuilder::InternalPerform(Blend_RstRstFunction&   Func,
   math_Vector               infbound(1, 2), supbound(1, 2);
   math_Vector               parinit(1, 2), tolerance(1, 2);
   math_Vector               solinvp1(1, 2), solinvp2(1, 2), solinvrst1(1, 3), solinvrst2(1, 3);
-  Handle(Adaptor3d_HVertex) Vtxp1, Vtxp2, Vtxrst1, Vtxrst2;
+  Handle(HandleVertex) Vtxp1, Vtxp2, Vtxrst1, Vtxrst2;
   Standard_Boolean          IsVtxp1 = 0, IsVtxp2 = 0, IsVtxrst1 = 0, IsVtxrst2 = 0;
   BRepBlend_Extremity       Extrst1, Extrst2;
 
@@ -1155,7 +1155,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre1(Blend_RstRstFunction&    
                                                        Blend_SurfCurvFuncInv&     Finv,
                                                        math_Vector&               Solinv,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   math_Vector toler(1, 3), infb(1, 3), supb(1, 3);
   Finv.GetTolerance(toler, tolpoint3d);
@@ -1241,7 +1241,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre2(Blend_RstRstFunction&    
                                                        Blend_SurfCurvFuncInv&     Finv,
                                                        math_Vector&               Solinv,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   math_Vector toler(1, 3), infb(1, 3), supb(1, 3);
   Finv.GetTolerance(toler, tolpoint3d);
@@ -1323,7 +1323,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre2(Blend_RstRstFunction&    
 Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre1(Blend_CurvPointFuncInv&    FinvP,
                                                        math_Vector&               Solinv,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   // One is located on the last or the first point, following the
   // direction of processing.
@@ -1397,7 +1397,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre1(Blend_CurvPointFuncInv&  
 Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre2(Blend_CurvPointFuncInv&    FinvP,
                                                        math_Vector&               Solinv,
                                                        Standard_Boolean&          IsVtx,
-                                                       Handle(Adaptor3d_HVertex)& Vtx)
+                                                       Handle(HandleVertex)& Vtx)
 {
   // One is located on the last or the first point, following the
   // direction of processing.
@@ -1529,7 +1529,7 @@ void BRepBlend_RstRstLineBuilder::MakeExtremity(BRepBlend_Extremity&            
                                                 const Handle(Adaptor2d_Curve2d)& Arc,
                                                 const Standard_Real              Param,
                                                 const Standard_Boolean           IsVtx,
-                                                const Handle(Adaptor3d_HVertex)& Vtx)
+                                                const Handle(HandleVertex)& Vtx)
 {
   Transition2          Tline, Tarc;
   Standard_Real               prm;

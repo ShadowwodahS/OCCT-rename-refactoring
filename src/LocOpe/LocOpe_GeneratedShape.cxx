@@ -18,4 +18,4 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Edge.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(LocOpe_GeneratedShape, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(GeneratedShape, RefObject)

@@ -28,13 +28,13 @@ class Dir3d;
 //! TheEdgeFaceTransition is an algorithm to   compute
 //! the  cumulated  transition for interferences on an
 //! edge.
-class TopCnx_EdgeFaceTransition
+class EdgeFaceTransition
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an empty algorithm.
-  Standard_EXPORT TopCnx_EdgeFaceTransition();
+  Standard_EXPORT EdgeFaceTransition();
 
   //! Initialize  the     algorithm    with the    local
   //! description of the edge.

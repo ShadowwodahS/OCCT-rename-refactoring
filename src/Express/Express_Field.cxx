@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Express_Field, RefObject)
 //=================================================================================================
 
 Express_Field::Express_Field(const Standard_CString      theName,
-                             const Handle(Express_Type)& theType,
+                             const Handle(ExpressType)& theType,
                              const Standard_Boolean      theOpt)
 {
   myName = new TCollection_HAsciiString(theName);
@@ -34,7 +34,7 @@ Express_Field::Express_Field(const Standard_CString      theName,
 //=================================================================================================
 
 Express_Field::Express_Field(const Handle(TCollection_HAsciiString)& theName,
-                             const Handle(Express_Type)&             theType,
+                             const Handle(ExpressType)&             theType,
                              const Standard_Boolean                  theOpt)
 {
   myName = theName;
@@ -58,7 +58,7 @@ Handle(TCollection_HAsciiString) Express_Field::HName() const
 
 //=================================================================================================
 
-const Handle(Express_Type)& Express_Field::Type() const
+const Handle(ExpressType)& Express_Field::Type() const
 {
   return myType;
 }

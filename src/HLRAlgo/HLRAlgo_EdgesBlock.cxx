@@ -21,11 +21,11 @@
 #include <HLRAlgo_EdgesBlock.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(EdgesBlock, RefObject)
 
 //=================================================================================================
 
-HLRAlgo_EdgesBlock::HLRAlgo_EdgesBlock(const Standard_Integer NbEdges)
+EdgesBlock::EdgesBlock(const Standard_Integer NbEdges)
     : myEdges(1, NbEdges),
       myFlags(1, NbEdges)
 {

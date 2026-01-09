@@ -449,9 +449,9 @@ public:
   IODType GetIODType() const { return myIODType; }
 
   //! Get current tile.
-  const CameraTile& Tile() const { return myTile; }
+  const CameraTile& Tile1() const { return myTile; }
 
-  //! Sets the Tile defining the drawing sub-area within View.
+  //! Sets the Tile1 defining the drawing sub-area within View.
   //! Note that tile defining a region outside the view boundaries is also valid - use method
   //! CameraTile::Cropped() to assign a cropped copy.
   //! @param theTile tile definition
@@ -546,7 +546,7 @@ public:
   //! @name Camera modification state
 public:
   //! @return projection modification state of the camera.
-  const Graphic3d_WorldViewProjState& WorldViewProjState() const { return myWorldViewProjState; }
+  const WorldViewProjState1& WorldViewProjState() const { return myWorldViewProjState; }
 
   //! Returns modification state of camera projection matrix
   Standard_Size ProjectionState() const { return myWorldViewProjState.ProjectionState(); }
@@ -801,7 +801,7 @@ private:
   Standard_Real myIOD;     //!< Intraocular distance value.
   IODType       myIODType; //!< Intraocular distance definition type.
 
-  CameraTile myTile; //!< Tile defining sub-area for drawing
+  CameraTile myTile; //!< Tile1 defining sub-area for drawing
 
   Graphic3d_Mat4d                   myCustomProjMatM;
   Graphic3d_Mat4d                   myCustomProjMatL;
@@ -819,7 +819,7 @@ private:
   mutable TransformMatrices<Standard_Real>      myMatricesD;
   mutable TransformMatrices<Standard_ShortReal> myMatricesF;
 
-  mutable Graphic3d_WorldViewProjState myWorldViewProjState;
+  mutable WorldViewProjState1 myWorldViewProjState;
 
 public:
   DEFINE_STANDARD_RTTIEXT(CameraOn3d, RefObject)

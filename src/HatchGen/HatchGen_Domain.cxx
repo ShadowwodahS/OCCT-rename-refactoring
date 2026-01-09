@@ -28,8 +28,8 @@ HatchGen_Domain::HatchGen_Domain()
 
 //=================================================================================================
 
-HatchGen_Domain::HatchGen_Domain(const HatchGen_PointOnHatching& P1,
-                                 const HatchGen_PointOnHatching& P2)
+HatchGen_Domain::HatchGen_Domain(const PointOnHatching& P1,
+                                 const PointOnHatching& P2)
     : myHasFirstPoint(Standard_True),
       myFirstPoint(P1),
       myHasSecondPoint(Standard_True),
@@ -39,7 +39,7 @@ HatchGen_Domain::HatchGen_Domain(const HatchGen_PointOnHatching& P1,
 
 //=================================================================================================
 
-HatchGen_Domain::HatchGen_Domain(const HatchGen_PointOnHatching& P, const Standard_Boolean First)
+HatchGen_Domain::HatchGen_Domain(const PointOnHatching& P, const Standard_Boolean First)
 {
   if (First)
   {

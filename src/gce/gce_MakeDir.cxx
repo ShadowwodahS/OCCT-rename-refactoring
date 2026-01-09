@@ -25,7 +25,7 @@
 //=========================================================================
 //   Creation d une direction 3d (Dir) de gp1 a partir de 2 Pnt de gp1.     +
 //=========================================================================
-gce_MakeDir::gce_MakeDir(const Point3d& P1, const Point3d& P2)
+DirectionBuilder::DirectionBuilder(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) <= gp1::Resolution())
   {
@@ -38,7 +38,7 @@ gce_MakeDir::gce_MakeDir(const Point3d& P1, const Point3d& P2)
   }
 }
 
-gce_MakeDir::gce_MakeDir(const Coords3d& Coord)
+DirectionBuilder::DirectionBuilder(const Coords3d& Coord)
 {
   if (Coord.Modulus() <= gp1::Resolution())
   {
@@ -51,7 +51,7 @@ gce_MakeDir::gce_MakeDir(const Coords3d& Coord)
   }
 }
 
-gce_MakeDir::gce_MakeDir(const Vector3d& V)
+DirectionBuilder::DirectionBuilder(const Vector3d& V)
 {
   if (V.Magnitude() <= gp1::Resolution())
   {
@@ -64,7 +64,7 @@ gce_MakeDir::gce_MakeDir(const Vector3d& V)
   }
 }
 
-gce_MakeDir::gce_MakeDir(const Standard_Real Xv, const Standard_Real Yv, const Standard_Real Zv)
+DirectionBuilder::DirectionBuilder(const Standard_Real Xv, const Standard_Real Yv, const Standard_Real Zv)
 {
   if (Xv * Xv + Yv * Yv + Zv * Zv <= gp1::Resolution())
   {
@@ -77,18 +77,18 @@ gce_MakeDir::gce_MakeDir(const Standard_Real Xv, const Standard_Real Yv, const S
   }
 }
 
-const Dir3d& gce_MakeDir::Value() const
+const Dir3d& DirectionBuilder::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeDir::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "DirectionBuilder::Value() - no result");
   return TheDir;
 }
 
-const Dir3d& gce_MakeDir::Operator() const
+const Dir3d& DirectionBuilder::Operator() const
 {
   return Value();
 }
 
-gce_MakeDir::operator Dir3d() const
+DirectionBuilder::operator Dir3d() const
 {
   return Value();
 }

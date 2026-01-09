@@ -24,8 +24,8 @@
 #include <GeomFill_PipeError.hxx>
 
 class GeomSurface;
-class GeomFill_LocationLaw;
-class GeomFill_SectionLaw;
+class LocationLaw;
+class SectionLaw;
 class GeomCurve3d;
 class GeomCurve2d;
 class Dir3d;
@@ -136,9 +136,9 @@ public:
 
   //! Create  a pipe  with  a constant  radius with  2
   //! guide-line.
-  Standard_EXPORT GeomFill_Pipe(const Handle(Adaptor3d_Curve)& Path,
-                                const Handle(Adaptor3d_Curve)& Curve1,
-                                const Handle(Adaptor3d_Curve)& Curve2,
+  Standard_EXPORT GeomFill_Pipe(const Handle(Curve5)& Path,
+                                const Handle(Curve5)& Curve1,
+                                const Handle(Curve5)& Curve2,
                                 const Standard_Real            Radius);
 
   //! Create a pipe with a constant section and  with 1
@@ -180,7 +180,7 @@ public:
   //! transformation which transforms coordinate system
   //! T1 into coordinate system Ti.
   Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)&      Path,
-                                const Handle(Adaptor3d_Curve)& Guide,
+                                const Handle(Curve5)& Guide,
                                 const Handle(GeomCurve3d)&      FirstSect,
                                 const Standard_Boolean         ByACR,
                                 const Standard_Boolean         rotat);
@@ -208,9 +208,9 @@ public:
 
   //! Create  a pipe  with  a constant  radius with  2
   //! guide-line.
-  Standard_EXPORT void Init(const Handle(Adaptor3d_Curve)& Path,
-                            const Handle(Adaptor3d_Curve)& Curve1,
-                            const Handle(Adaptor3d_Curve)& Curve2,
+  Standard_EXPORT void Init(const Handle(Curve5)& Path,
+                            const Handle(Curve5)& Curve1,
+                            const Handle(Curve5)& Curve2,
                             const Standard_Real            Radius);
 
   //! Initializes this pipe algorithm to build the following surface:
@@ -222,7 +222,7 @@ public:
   //! Use the function Perform to build the surface.
   //! Note: a description of the resulting surface is given under Constructors.
   Standard_EXPORT void Init(const Handle(GeomCurve3d)&      Path,
-                            const Handle(Adaptor3d_Curve)& Guide,
+                            const Handle(Curve5)& Guide,
                             const Handle(GeomCurve3d)&      FirstSect,
                             const Standard_Boolean         ByACR,
                             const Standard_Boolean         rotat);
@@ -305,12 +305,12 @@ private:
   GeomFill_PipeError           myStatus; //!< Execution status
   Standard_Real                myRadius;
   Standard_Real                myError;
-  Handle(Adaptor3d_Curve)      myAdpPath;
-  Handle(Adaptor3d_Curve)      myAdpFirstSect;
-  Handle(Adaptor3d_Curve)      myAdpLastSect;
+  Handle(Curve5)      myAdpPath;
+  Handle(Curve5)      myAdpFirstSect;
+  Handle(Curve5)      myAdpLastSect;
   Handle(GeomSurface)         mySurface;
-  Handle(GeomFill_LocationLaw) myLoc;
-  Handle(GeomFill_SectionLaw)  mySec;
+  Handle(LocationLaw) myLoc;
+  Handle(SectionLaw)  mySec;
   Standard_Integer             myType;
   Standard_Boolean             myExchUV;
   Standard_Boolean             myKPart;

@@ -36,7 +36,7 @@ class AsciiString1;
 class UtfString;
 class DataLabel;
 class Standard_GUID;
-class TDF_Data;
+class Data2;
 
 //! Binary persistent representation of an object.
 //! Really it is used as a buffer for read/write an object.
@@ -209,7 +209,7 @@ public:
     return GetExtendedString(theValue);
   }
 
-  Standard_EXPORT const BinObjMgt_Persistent& GetLabel(const Handle(TDF_Data)& theDS,
+  Standard_EXPORT const BinObjMgt_Persistent& GetLabel(const Handle(Data2)& theDS,
                                                        DataLabel&              theValue) const;
 
   Standard_EXPORT const BinObjMgt_Persistent& GetGUID(Standard_GUID& theValue) const;

@@ -23,7 +23,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 #include <ShapeCustom_Modification.hxx>
-class ShapeCustom_RestrictionParameters;
+class RestrictionParameters;
 class TopoFace;
 class GeomSurface;
 class TopLoc_Location;
@@ -72,7 +72,7 @@ public:
     const Standard_Integer                           aNbMaxSeg,
     const Standard_Boolean                           Degree,
     const Standard_Boolean                           Rational,
-    const Handle(ShapeCustom_RestrictionParameters)& aModes);
+    const Handle(RestrictionParameters)& aModes);
 
   //! Returns Standard_True if  the  face <F> has   been
   //! modified.  In this  case, <S> is the new geometric
@@ -204,11 +204,11 @@ public:
 
   //! Returns the container of modes which defines
   //! what geometry should be converted to BSplines.
-  Handle(ShapeCustom_RestrictionParameters) GetRestrictionParameters() const;
+  Handle(RestrictionParameters) GetRestrictionParameters() const;
 
   //! Sets the container of modes which defines
   //! what geometry should be converted to BSplines.
-  void SetRestrictionParameters(const Handle(ShapeCustom_RestrictionParameters)& aModes);
+  void SetRestrictionParameters(const Handle(RestrictionParameters)& aModes);
 
   //! Returns error for approximation curve3d.
   Standard_Real Curve3dError() const;
@@ -262,7 +262,7 @@ private:
   Standard_Boolean                          myDeg;
   Standard_Boolean                          myConvert;
   Standard_Boolean                          myRational;
-  Handle(ShapeCustom_RestrictionParameters) myParameters;
+  Handle(RestrictionParameters) myParameters;
 };
 
 #include <ShapeCustom_BSplineRestriction.lxx>

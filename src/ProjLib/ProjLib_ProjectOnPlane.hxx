@@ -44,7 +44,7 @@ class BSplineCurve3d;
 //!
 //! The projection can be done  along every direction  not
 //! parallel to the plane.
-class ProjLib_ProjectOnPlane : public Adaptor3d_Curve
+class ProjLib_ProjectOnPlane : public Curve5
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT ProjLib_ProjectOnPlane(const Ax3& Pl, const Dir3d& D);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   //! Sets the  Curve  and perform  the projection.
   //! if <KeepParametrization> is true, the parametrization
@@ -71,7 +71,7 @@ public:
   //! the parametrization of the initial  curve <C>.
   //! It means: proj(C(u)) = PC(u) for each u.
   //! Otherwise, the parametrization may change.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Curve)& C,
+  Standard_EXPORT void Load(const Handle(Curve5)& C,
                             const Standard_Real            Tolerance,
                             const Standard_Boolean         KeepParametrization = Standard_True);
 
@@ -79,7 +79,7 @@ public:
 
   Standard_EXPORT const Dir3d& GetDirection() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Curve)& GetCurve() const;
+  Standard_EXPORT const Handle(Curve5)& GetCurve() const;
 
   Standard_EXPORT const Handle(GeomAdaptor_Curve)& GetResult() const;
 
@@ -105,7 +105,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -204,7 +204,7 @@ protected:
   void BuildByApprox(const Standard_Real theLimitParameter);
 
 private:
-  Handle(Adaptor3d_Curve)   myCurve;
+  Handle(Curve5)   myCurve;
   Ax3                    myPlane;
   Dir3d                    myDirection;
   Standard_Boolean          myKeepParam;

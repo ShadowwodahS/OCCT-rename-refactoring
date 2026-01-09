@@ -17,18 +17,18 @@
 #include <GeomFill_Line.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_Line, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Line1, RefObject)
 
 //=================================================================================================
 
-GeomFill_Line::GeomFill_Line()
+Line1::Line1()
 {
   myNbPoints = 0;
 }
 
 //=================================================================================================
 
-GeomFill_Line::GeomFill_Line(const Standard_Integer NbPoints)
+Line1::Line1(const Standard_Integer NbPoints)
     : myNbPoints(NbPoints)
 {
 }

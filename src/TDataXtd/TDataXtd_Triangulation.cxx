@@ -283,7 +283,7 @@ void TDataXtd_Triangulation::Restore(const Handle(TDF_Attribute)& theAttribute)
 //=================================================================================================
 
 void TDataXtd_Triangulation::Paste(const Handle(TDF_Attribute)& theIntoAttribute,
-                                   const Handle(TDF_RelocationTable)&) const
+                                   const Handle(RelocationTable1)&) const
 {
   Handle(TDataXtd_Triangulation) M = Handle(TDataXtd_Triangulation)::DownCast(theIntoAttribute);
   M->myTriangulation.Nullify();

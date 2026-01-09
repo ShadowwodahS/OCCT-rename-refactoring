@@ -36,11 +36,11 @@ class GeomInt_TheImpPrmSvSurfacesOfWLApprox : public SurfaceSurfaces
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomInt_TheImpPrmSvSurfacesOfWLApprox(const Handle(Adaptor3d_Surface)& Surf1,
+  Standard_EXPORT GeomInt_TheImpPrmSvSurfacesOfWLApprox(const Handle(SurfaceAdaptor)& Surf1,
                                                         const Quadric1&           Surf2);
 
   Standard_EXPORT GeomInt_TheImpPrmSvSurfacesOfWLApprox(const Quadric1&           Surf1,
-                                                        const Handle(Adaptor3d_Surface)& Surf2);
+                                                        const Handle(SurfaceAdaptor)& Surf2);
 
   //! returns True if Tg,Tguv1 Tguv2 can be computed.
   Standard_EXPORT Standard_Boolean Compute(Standard_Real& u1,

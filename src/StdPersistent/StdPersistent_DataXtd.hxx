@@ -27,7 +27,7 @@
 
 class DataXtd
 {
-  class _void : private Void
+  class _void1 : private Void
   {
   public:
     template <class AttribClass>
@@ -37,11 +37,11 @@ class DataXtd
   };
 
 public:
-  typedef _void::Instance<TDataXtd_Shape>     Shape;
-  typedef _void::Instance<TDataXtd_Point>     Point;
-  typedef _void::Instance<TDataXtd_Axis>      Axis;
-  typedef _void::Instance<TDataXtd_Plane>     Plane1;
-  typedef _void::Instance<TDataXtd_Placement> Placement;
+  typedef _void1::Instance<TDataXtd_Shape>     Shape;
+  typedef _void1::Instance<TDataXtd_Point>     Point;
+  typedef _void1::Instance<TDataXtd_Axis>      Axis;
+  typedef _void1::Instance<TDataXtd_Plane>     Plane1;
+  typedef _void1::Instance<TDataXtd_Placement> Placement;
 
   class Geometry1 : public StdObjMgt_Attribute<TDataXtd_Geometry>::SingleInt
   {

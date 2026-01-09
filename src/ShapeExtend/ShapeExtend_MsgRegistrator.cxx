@@ -19,12 +19,12 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_MsgRegistrator, ShapeExtend_BasicMsgRegistrator)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_MsgRegistrator, BasicMsgRegistrator)
 
 //=================================================================================================
 
 ShapeExtend_MsgRegistrator::ShapeExtend_MsgRegistrator()
-    : ShapeExtend_BasicMsgRegistrator()
+    : BasicMsgRegistrator()
 {
 }
 

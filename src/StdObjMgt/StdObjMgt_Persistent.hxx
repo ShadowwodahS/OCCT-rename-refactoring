@@ -25,7 +25,7 @@ class ReadData;
 class WriteData;
 class AppDocument;
 class TDF_Attribute;
-class TDF_Data;
+class Data2;
 class TCollection_HAsciiString;
 class TCollection_HExtendedString;
 
@@ -93,7 +93,7 @@ public:
   //! Get a label expressed by referenced extended string
   //! (to be overridden by extended string class;
   //! returns a null label by default for other classes).
-  Standard_EXPORT virtual DataLabel Label(const Handle(TDF_Data)& theDF) const;
+  Standard_EXPORT virtual DataLabel Label(const Handle(Data2)& theDF) const;
 
   //! Returns the assigned persistent type number
   Standard_Integer TypeNum() const { return myTypeNum; }

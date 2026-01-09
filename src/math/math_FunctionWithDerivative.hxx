@@ -28,7 +28,7 @@
 //! This abstract class describes the virtual functions associated with
 //! a function of a single variable for which the first derivative is
 //! available.
-class math_FunctionWithDerivative : public Function1
+class FunctionWithDerivative : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean Values(const Standard_Real X,
                                                   Standard_Real&      F,
                                                   Standard_Real&      D) = 0;
-  Standard_EXPORT virtual ~math_FunctionWithDerivative();
+  Standard_EXPORT virtual ~FunctionWithDerivative();
 
 protected:
 private:

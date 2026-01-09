@@ -30,12 +30,12 @@ class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter;
 class Domain2;
 
-class HLRBRep_TheIntPCurvePCurveOfCInter : public Intersection2
+class IntPCurvePCurveCInter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT HLRBRep_TheIntPCurvePCurveOfCInter();
+  Standard_EXPORT IntPCurvePCurveCInter();
 
   Standard_EXPORT void Perform(const Standard_Address& Curve1,
                                const Domain2&  Domain1,

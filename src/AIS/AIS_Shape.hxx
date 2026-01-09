@@ -284,7 +284,7 @@ protected:
 
   //! Compute projected presentation.
   virtual void computeHLR(const Handle(CameraOn3d)&   theProjector,
-                          const Handle(TopLoc_Datum3D)&     theTrsf,
+                          const Handle(Datum3D2)&     theTrsf,
                           const Handle(Prs3d_Presentation)& thePrs) Standard_OVERRIDE
   {
     if (!theTrsf.IsNull() && theTrsf->Form() != gp_Identity)

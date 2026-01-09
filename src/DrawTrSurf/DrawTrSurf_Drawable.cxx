@@ -103,7 +103,7 @@ void DrawTrSurf_Drawable::DrawCurve2dOn(Adaptor2d_Curve2d& C, DrawDisplay& aDisp
 // purpose  : draw a 3D curve
 //=======================================================================
 static void PlotCurve(DrawDisplay&          aDisplay,
-                      const Adaptor3d_Curve& C,
+                      const Curve5& C,
                       Standard_Real&         theFirstParam,
                       Standard_Real          theHalfStep,
                       const Point3d&          theFirstPnt,
@@ -133,7 +133,7 @@ static void PlotCurve(DrawDisplay&          aDisplay,
 // purpose  : draw a 3D curve
 //=======================================================================
 
-void DrawTrSurf_Drawable::DrawCurveOn(Adaptor3d_Curve& C, DrawDisplay& aDisplay) const
+void DrawTrSurf_Drawable::DrawCurveOn(Curve5& C, DrawDisplay& aDisplay) const
 {
   Point3d P;
   if (myDrawMode == 1)

@@ -27,9 +27,9 @@ class BRepPrimAPI_MakeRevol;
 class TopoShape;
 
 class DNaming_RevolutionDriver;
-DEFINE_STANDARD_HANDLE(DNaming_RevolutionDriver, TFunction_Driver)
+DEFINE_STANDARD_HANDLE(DNaming_RevolutionDriver, FunctionDriver1)
 
-class DNaming_RevolutionDriver : public TFunction_Driver
+class DNaming_RevolutionDriver : public FunctionDriver1
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Execute(Handle(TFunction_Logbook)& theLog) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DNaming_RevolutionDriver, TFunction_Driver)
+  DEFINE_STANDARD_RTTIEXT(DNaming_RevolutionDriver, FunctionDriver1)
 
 protected:
 private:

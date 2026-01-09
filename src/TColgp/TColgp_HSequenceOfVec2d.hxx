@@ -21,6 +21,6 @@
 #include <TColgp_SequenceOfVec2d.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TColgp_HSequenceOfVec2d, TColgp_SequenceOfVec2d)
+DEFINE_HSEQUENCE(Vector2dSequence, TColgp_SequenceOfVec2d)
 
 #endif

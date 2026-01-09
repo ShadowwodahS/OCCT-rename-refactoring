@@ -30,7 +30,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Real CurveTool4::FirstParameter(const Adaptor3d_Curve& C)
+inline Standard_Real CurveTool4::FirstParameter(const Curve5& C)
 {
   return C.FirstParameter();
 }
@@ -40,7 +40,7 @@ inline Standard_Real CurveTool4::FirstParameter(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Real CurveTool4::LastParameter(const Adaptor3d_Curve& C)
+inline Standard_Real CurveTool4::LastParameter(const Curve5& C)
 {
   return C.LastParameter();
 }
@@ -50,7 +50,7 @@ inline Standard_Real CurveTool4::LastParameter(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Point3d CurveTool4::Value(const Adaptor3d_Curve& C, const Standard_Real U)
+inline Point3d CurveTool4::Value(const Curve5& C, const Standard_Real U)
 {
   return C.Value(U);
 }
@@ -60,7 +60,7 @@ inline Point3d CurveTool4::Value(const Adaptor3d_Curve& C, const Standard_Real U
 // purpose  :
 //=======================================================================
 
-inline void CurveTool4::D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P)
+inline void CurveTool4::D0(const Curve5& C, const Standard_Real U, Point3d& P)
 {
   C.D0(U, P);
 }
@@ -70,7 +70,7 @@ inline void CurveTool4::D0(const Adaptor3d_Curve& C, const Standard_Real U, Poin
 // purpose  :
 //=======================================================================
 
-inline void CurveTool4::D1(const Adaptor3d_Curve& C,
+inline void CurveTool4::D1(const Curve5& C,
                                   const Standard_Real    U,
                                   Point3d&                P,
                                   Vector3d&                V)
@@ -83,7 +83,7 @@ inline void CurveTool4::D1(const Adaptor3d_Curve& C,
 // purpose  :
 //=======================================================================
 
-inline void CurveTool4::D2(const Adaptor3d_Curve& C,
+inline void CurveTool4::D2(const Curve5& C,
                                   const Standard_Real    U,
                                   Point3d&                P,
                                   Vector3d&                V1,
@@ -97,7 +97,7 @@ inline void CurveTool4::D2(const Adaptor3d_Curve& C,
 // purpose  :
 //=======================================================================
 
-inline void CurveTool4::D3(const Adaptor3d_Curve& C,
+inline void CurveTool4::D3(const Curve5& C,
                                   const Standard_Real    U,
                                   Point3d&                P,
                                   Vector3d&                V1,
@@ -111,7 +111,7 @@ inline void CurveTool4::D3(const Adaptor3d_Curve& C,
 // function : DN
 // purpose  :
 //=======================================================================
-inline Vector3d CurveTool4::DN(const Adaptor3d_Curve& C,
+inline Vector3d CurveTool4::DN(const Curve5& C,
                                     const Standard_Real    U,
                                     const Standard_Integer N)
 {
@@ -123,7 +123,7 @@ inline Vector3d CurveTool4::DN(const Adaptor3d_Curve& C,
 // purpose  :
 //=======================================================================
 
-inline GeomAbs_Shape CurveTool4::Continuity(const Adaptor3d_Curve& C)
+inline GeomAbs_Shape CurveTool4::Continuity(const Curve5& C)
 {
   return C.Continuity();
 }
@@ -133,7 +133,7 @@ inline GeomAbs_Shape CurveTool4::Continuity(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer CurveTool4::NbIntervals(Adaptor3d_Curve& C, const GeomAbs_Shape S)
+inline Standard_Integer CurveTool4::NbIntervals(Curve5& C, const GeomAbs_Shape S)
 {
   return C.NbIntervals(S);
 }
@@ -143,7 +143,7 @@ inline Standard_Integer CurveTool4::NbIntervals(Adaptor3d_Curve& C, const GeomAb
 // purpose  :
 //=======================================================================
 
-inline void CurveTool4::Intervals(Adaptor3d_Curve&      C,
+inline void CurveTool4::Intervals(Curve5&      C,
                                          TColStd_Array1OfReal& T,
                                          const GeomAbs_Shape   S)
 {
@@ -155,7 +155,7 @@ inline void CurveTool4::Intervals(Adaptor3d_Curve&      C,
 // purpose  :
 //=======================================================================
 
-inline Standard_Real CurveTool4::Period(const Adaptor3d_Curve& C)
+inline Standard_Real CurveTool4::Period(const Curve5& C)
 {
   return C.Period();
 }
@@ -165,7 +165,7 @@ inline Standard_Real CurveTool4::Period(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline GeomAbs_CurveType CurveTool4::GetType(const Adaptor3d_Curve& C)
+inline GeomAbs_CurveType CurveTool4::GetType(const Curve5& C)
 {
   return C.GetType();
 }
@@ -175,7 +175,7 @@ inline GeomAbs_CurveType CurveTool4::GetType(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Lin CurveTool4::Line(const Adaptor3d_Curve& C)
+inline gp_Lin CurveTool4::Line(const Curve5& C)
 {
   return C.Line();
 }
@@ -185,7 +185,7 @@ inline gp_Lin CurveTool4::Line(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Circ CurveTool4::Circle(const Adaptor3d_Curve& C)
+inline gp_Circ CurveTool4::Circle(const Curve5& C)
 {
   return C.Circle();
 }
@@ -195,7 +195,7 @@ inline gp_Circ CurveTool4::Circle(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Elips CurveTool4::Ellipse(const Adaptor3d_Curve& C)
+inline gp_Elips CurveTool4::Ellipse(const Curve5& C)
 {
   return C.Ellipse();
 }
@@ -205,7 +205,7 @@ inline gp_Elips CurveTool4::Ellipse(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Hypr CurveTool4::Hyperbola(const Adaptor3d_Curve& C)
+inline gp_Hypr CurveTool4::Hyperbola(const Curve5& C)
 {
   return C.Hyperbola();
 }
@@ -215,7 +215,7 @@ inline gp_Hypr CurveTool4::Hyperbola(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Parab CurveTool4::Parabola(const Adaptor3d_Curve& C)
+inline gp_Parab CurveTool4::Parabola(const Curve5& C)
 {
   return C.Parabola();
 }
@@ -225,7 +225,7 @@ inline gp_Parab CurveTool4::Parabola(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer CurveTool4::NbPoles(const Adaptor3d_Curve& C)
+inline Standard_Integer CurveTool4::NbPoles(const Curve5& C)
 {
   return C.NbPoles();
 }
@@ -235,7 +235,7 @@ inline Standard_Integer CurveTool4::NbPoles(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer CurveTool4::Degree(const Adaptor3d_Curve& C)
+inline Standard_Integer CurveTool4::Degree(const Curve5& C)
 {
   return C.Degree();
 }
@@ -245,7 +245,7 @@ inline Standard_Integer CurveTool4::Degree(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean CurveTool4::IsRational(const Adaptor3d_Curve& C)
+inline Standard_Boolean CurveTool4::IsRational(const Curve5& C)
 {
   return C.IsRational();
 }
@@ -255,7 +255,7 @@ inline Standard_Boolean CurveTool4::IsRational(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer CurveTool4::NbKnots(const Adaptor3d_Curve& C)
+inline Standard_Integer CurveTool4::NbKnots(const Curve5& C)
 {
   return C.NbKnots();
 }
@@ -265,7 +265,7 @@ inline Standard_Integer CurveTool4::NbKnots(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Handle(BezierCurve3d) CurveTool4::Bezier(const Adaptor3d_Curve& C)
+inline Handle(BezierCurve3d) CurveTool4::Bezier(const Curve5& C)
 {
   return C.Bezier();
 }
@@ -275,7 +275,7 @@ inline Handle(BezierCurve3d) CurveTool4::Bezier(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Handle(BSplineCurve3d) CurveTool4::BSpline(const Adaptor3d_Curve& C)
+inline Handle(BSplineCurve3d) CurveTool4::BSpline(const Curve5& C)
 {
   return C.BSpline();
 }
@@ -285,7 +285,7 @@ inline Handle(BSplineCurve3d) CurveTool4::BSpline(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Standard_Real CurveTool4::Resolution(const Adaptor3d_Curve& C,
+inline Standard_Real CurveTool4::Resolution(const Curve5& C,
                                                    const Standard_Real    R3d)
 {
   return C.Resolution(R3d);

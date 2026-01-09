@@ -174,7 +174,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoWire& wire)
 
     // Fill array of end points
     Edge1          sae;
-    Handle(TColgp_HArray1OfPnt) theAPnt = new TColgp_HArray1OfPnt(1, NbEdges);
+    Handle(PointArray1) theAPnt = new PointArray1(1, NbEdges);
     for (Standard_Integer i = 1; i <= NbEdges; i++)
       theAPnt->SetValue(i, BRepInspector::Pnt(sae.FirstVertex(TopoDS::Edge(theEdges->Value(i)))));
 

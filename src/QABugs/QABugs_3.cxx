@@ -153,7 +153,7 @@ static Standard_Integer BUC60729(DrawInterpreter& /*di*/,
   Standard_Integer i;
 
   //  Box2 __emptyBox; // Box1 is void !
-  //  Handle(Bnd_HArray1OfBox) __aSetOfBox = new Bnd_HArray1OfBox( 1, siMaxNbrBox, __emptyBox );
+  //  Handle(BoxArray) __aSetOfBox = new BoxArray( 1, siMaxNbrBox, __emptyBox );
 
   for (i = 1, aExplorer.ReInit(); aExplorer.More(); aExplorer.Next(), i++)
   {
@@ -870,7 +870,7 @@ static int BUC60817(DrawInterpreter& di, Standard_Integer argc, const char** arg
     return 0;
   }
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
   {
     di << 2;
@@ -911,7 +911,7 @@ static int BUC60831_1(DrawInterpreter& di, Standard_Integer argc, const char** a
     return 0;
   }
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
   {
     di << -2;
@@ -940,7 +940,7 @@ static int BUC60831_2(DrawInterpreter& di, Standard_Integer argc, const char** a
     return 0;
   }
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
   {
     di << 2;
@@ -965,7 +965,7 @@ static int BUC60836(DrawInterpreter& di, Standard_Integer argc, const char** arg
     return 0;
   }
 
-  Handle(TDF_Data) aDF;
+  Handle(Data2) aDF;
   if (!DDF1::GetDF(argv[1], aDF))
   {
     di << 2;
@@ -1005,7 +1005,7 @@ static int BUC60836(DrawInterpreter& di, Standard_Integer argc, const char** arg
   TDF_ListIteratorOfDeltaList IDL;
   for (IDL.Initialize(Us), i = 1; IDL.More(); IDL.Next(), i++)
   {
-    Handle(TDF_Delta)          D = IDL.Value();
+    Handle(Delta)          D = IDL.Value();
     UtfString S(Names[i - 1]);
     D->SetName(S);
     //    std::cout<<" U"<<i<<"="<<D->Name()<<std::endl;
@@ -1019,14 +1019,14 @@ static int BUC60836(DrawInterpreter& di, Standard_Integer argc, const char** arg
 
   for (IDL.Initialize(Us), i = 1; IDL.More(); IDL.Next(), i++)
   {
-    Handle(TDF_Delta) D = IDL.Value();
+    Handle(Delta) D = IDL.Value();
     //    std::cout<<" U"<<i<<"="<<D->Name()<<std::endl;
   }
 
   UtfString n2name("n2");
   for (IDL.Initialize(Rs), i = 1; IDL.More(); IDL.Next(), i++)
   {
-    Handle(TDF_Delta) D = IDL.Value();
+    Handle(Delta) D = IDL.Value();
     if (i == 1 && !D->Name().IsEqual(n2name))
     {
       di << 4;
@@ -1047,7 +1047,7 @@ static int BUC60847(DrawInterpreter& di, Standard_Integer argc, const char** arg
     return 0;
   }
 
-  Handle(TDF_Data) aDF;
+  Handle(Data2) aDF;
   if (!DDF1::GetDF(argv[1], aDF))
   {
     di << 2;
@@ -1089,7 +1089,7 @@ static int BUC60862(DrawInterpreter& di, Standard_Integer argc, const char** arg
     return 0;
   }
 
-  Handle(TDF_Data) aDF;
+  Handle(Data2) aDF;
   if (!DDF1::GetDF(argv[1], aDF))
   {
     di << 2;
@@ -1155,7 +1155,7 @@ static int BUC60910(DrawInterpreter& di, Standard_Integer argc, const char** arg
     return 0;
   }
 
-  Handle(TDF_Data) aDF;
+  Handle(Data2) aDF;
   if (!DDF1::GetDF(argv[1], aDF))
   {
     di << 2;
@@ -1204,7 +1204,7 @@ static int BUC60925(DrawInterpreter& di, Standard_Integer argc, const char** arg
     return 0;
   }
 
-  Handle(TDF_Data) aDF;
+  Handle(Data2) aDF;
   if (!DDF1::GetDF(argv[1], aDF))
   {
     di << 2;

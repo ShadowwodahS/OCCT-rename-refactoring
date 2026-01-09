@@ -29,7 +29,7 @@ IGESDimen_WitnessLine::IGESDimen_WitnessLine() {}
 
 void IGESDimen_WitnessLine::Init(const Standard_Integer            dataType,
                                  const Standard_Real               aDisp,
-                                 const Handle(TColgp_HArray1OfXY)& dataPoints)
+                                 const Handle(XYArray)& dataPoints)
 {
   if (dataPoints->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_WitnessLine : Init");

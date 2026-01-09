@@ -23,7 +23,7 @@
 
 class MeshVS_Mesh;
 class Color1;
-class MeshVS_DataSource;
+class MeshDataSource;
 class AsciiString1;
 
 DEFINE_STANDARD_HANDLE(MeshVS_TextPrsBuilder, MeshVS_PrsBuilder)
@@ -39,7 +39,7 @@ public:
     const Standard_Real              Height,
     const Color1&            Color,
     const MeshVS_DisplayModeFlags&   Flags    = MeshVS_DMF_TextDataPrs,
-    const Handle(MeshVS_DataSource)& DS       = 0,
+    const Handle(MeshDataSource)& DS       = 0,
     const Standard_Integer           Id       = -1,
     const MeshVS_BuilderPriority&    Priority = MeshVS_BP_Text);
 

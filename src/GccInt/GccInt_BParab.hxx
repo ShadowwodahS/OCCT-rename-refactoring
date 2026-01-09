@@ -24,11 +24,11 @@
 #include <GccInt_IType.hxx>
 
 class GccInt_BParab;
-DEFINE_STANDARD_HANDLE(GccInt_BParab, GccInt_Bisec)
+DEFINE_STANDARD_HANDLE(GccInt_BParab, Bisector2)
 
 //! Describes a parabola as a bisecting curve between two
 //! 2D geometric objects (such as lines, circles or points).
-class GccInt_BParab : public GccInt_Bisec
+class GccInt_BParab : public Bisector2
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Returns GccInt_Par, which is the type of any GccInt_BParab bisecting curve.
   Standard_EXPORT GccInt_IType ArcType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_BParab, GccInt_Bisec)
+  DEFINE_STANDARD_RTTIEXT(GccInt_BParab, Bisector2)
 
 protected:
 private:

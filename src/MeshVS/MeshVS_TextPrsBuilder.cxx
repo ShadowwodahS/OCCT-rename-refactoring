@@ -39,12 +39,12 @@ MeshVS_TextPrsBuilder::MeshVS_TextPrsBuilder(const Handle(MeshVS_Mesh)&       Pa
                                              const Standard_Real              Height,
                                              const Color1&            Color,
                                              const MeshVS_DisplayModeFlags&   Flags,
-                                             const Handle(MeshVS_DataSource)& DS,
+                                             const Handle(MeshDataSource)& DS,
                                              const Standard_Integer           Id,
                                              const MeshVS_BuilderPriority&    Priority)
     : MeshVS_PrsBuilder(Parent, Flags, DS, Id, Priority)
 {
-  Handle(MeshVS_Drawer) aDrawer = GetDrawer();
+  Handle(MeshDrawer) aDrawer = GetDrawer();
   if (!aDrawer.IsNull())
   {
     aDrawer->SetDouble(MeshVS_DA_TextHeight, Height);
@@ -126,8 +126,8 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
                                   const Standard_Boolean            IsElement,
                                   const Standard_Integer            theDisplayMode) const
 {
-  Handle(MeshVS_DataSource) aSource = GetDataSource();
-  Handle(MeshVS_Drawer)     aDrawer = GetDrawer();
+  Handle(MeshDataSource) aSource = GetDataSource();
+  Handle(MeshDrawer)     aDrawer = GetDrawer();
   if (aSource.IsNull() || aDrawer.IsNull() || !HasTexts(IsElement)
       || (theDisplayMode & GetFlags()) == 0)
     return;

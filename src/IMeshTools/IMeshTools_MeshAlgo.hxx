@@ -23,22 +23,22 @@
 struct Parameters3;
 
 //! Interface class providing API for algorithms intended to create mesh for discrete face.
-class IMeshTools_MeshAlgo : public RefObject
+class MeshAlgorithm : public RefObject
 {
 public:
   //! Destructor.
-  virtual ~IMeshTools_MeshAlgo() {}
+  virtual ~MeshAlgorithm() {}
 
   //! Performs processing of the given face.
   Standard_EXPORT virtual void Perform(const IMeshData::IFaceHandle& theDFace,
                                        const Parameters3&  theParameters,
                                        const Message_ProgressRange&  theRange) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgo, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MeshAlgorithm, RefObject)
 
 protected:
   //! Constructor.
-  IMeshTools_MeshAlgo() {}
+  MeshAlgorithm() {}
 };
 
 #endif

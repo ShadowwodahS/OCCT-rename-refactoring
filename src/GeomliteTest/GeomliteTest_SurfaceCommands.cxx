@@ -171,7 +171,7 @@ static Standard_Integer anasurface(DrawInterpreter&, Standard_Integer n, const c
   else
     return 1;
 
-  Handle(Geom_Geometry) result;
+  Handle(Geometry3) result;
 
   if (!strcasecmp(a[0], "plane"))
   {
@@ -423,7 +423,7 @@ static Standard_Integer trimming(DrawInterpreter&, Standard_Integer n, const cha
   Standard_Real    v1 = 0., v2 = 0.;
   Standard_Boolean USense = Standard_True, VSense = Standard_True;
 
-  Handle(Geom_Geometry) result;
+  Handle(Geometry3) result;
   Handle(GeomCurve2d)  result2d;
 
   if (!strcasecmp(a[0], "trim"))
@@ -968,7 +968,7 @@ static Standard_Integer offseting(DrawInterpreter&, Standard_Integer n, const ch
 
   Standard_Real dist = Draw1::Atof(a[3]);
 
-  Handle(Geom_Geometry) result;
+  Handle(Geometry3) result;
 
   if (yasurf)
   {

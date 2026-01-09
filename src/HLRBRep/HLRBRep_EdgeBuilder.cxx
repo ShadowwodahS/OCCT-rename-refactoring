@@ -38,7 +38,7 @@ HLRBRep_EdgeBuilder::HLRBRep_EdgeBuilder(HLRBRep_VertexList& VList)
 
   Standard_DomainError_Raise_if(!VList.More(), "EdgeBuilder  : Empty vertex list");
 
-  Handle(HLRBRep_AreaLimit) last, cur;
+  Handle(AreaLimit) last, cur;
   TopAbs_State              before, after, ebefore, eafter;
   Intersection3      V;
 
@@ -123,7 +123,7 @@ HLRBRep_EdgeBuilder::HLRBRep_EdgeBuilder(HLRBRep_VertexList& VList)
 
     // create the Limit and connect to list
     V   = VList.Current();
-    cur = new HLRBRep_AreaLimit(V,
+    cur = new AreaLimit(V,
                                 VList.IsBoundary(),
                                 VList.IsInterference(),
                                 before,
@@ -278,14 +278,14 @@ TopAbs_State HLRBRep_EdgeBuilder::AreaEdgeState() const
 
 //=================================================================================================
 
-Handle(HLRBRep_AreaLimit) HLRBRep_EdgeBuilder::LeftLimit() const
+Handle(AreaLimit) HLRBRep_EdgeBuilder::LeftLimit() const
 {
   return left;
 }
 
 //=================================================================================================
 
-Handle(HLRBRep_AreaLimit) HLRBRep_EdgeBuilder::RightLimit() const
+Handle(AreaLimit) HLRBRep_EdgeBuilder::RightLimit() const
 {
   return right;
 }
@@ -431,10 +431,10 @@ TopAbs_Orientation HLRBRep_EdgeBuilder::Orientation() const
 
 void HLRBRep_EdgeBuilder::Destroy()
 {
-  Handle(HLRBRep_AreaLimit) cur = myLimits;
+  Handle(AreaLimit) cur = myLimits;
   while (!cur.IsNull())
   {
-    Handle(HLRBRep_AreaLimit) n = cur->Next();
+    Handle(AreaLimit) n = cur->Next();
     cur->Clear();
     cur = n;
   }

@@ -239,7 +239,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
 // purpose  : used in CheckValidity to find out is there
 //           intersection between curve and axe of revolution
 //=======================================================================
-static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const Axis3d& theAxe)
+static Standard_Boolean IsIntersect(const Handle(Curve5)& theC, const Axis3d& theAxe)
 {
   const gp_Lin anAxis(theAxe);
   // Quick test for circle
@@ -261,7 +261,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
   const Standard_Real     aParF   = theC->FirstParameter() + aParTol,
                       aParL       = theC->LastParameter() - aParTol;
 
-  Extrema_ExtCC anExtr(*theC, aLin);
+  CurveCurveExtrema2 anExtr(*theC, aLin);
   anExtr.Perform();
   if (anExtr.IsDone() && anExtr.NbExt() > 0)
   {

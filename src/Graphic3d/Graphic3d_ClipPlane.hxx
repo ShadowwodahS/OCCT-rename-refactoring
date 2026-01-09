@@ -128,7 +128,7 @@ public:
   //!
   //! Note that Graphic3d_ClipPlane item cannot:
   //! - Define a Chain with logical OR (disjunction) operation;
-  //!   this should be done through Graphic3d_SequenceOfHClipPlane.
+  //!   this should be done through SequenceOfHClipPlane.
   //! - Define nested Chains.
   //! - Disable Chain items; only entire Chain can be disabled (by disabled a head of Chain).
   //!

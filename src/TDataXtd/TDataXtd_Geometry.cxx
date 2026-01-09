@@ -449,7 +449,7 @@ void TDataXtd_Geometry::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataXtd_Geometry::Paste(const Handle(TDF_Attribute)& Into,
-                              const Handle(TDF_RelocationTable)&) const
+                              const Handle(RelocationTable1)&) const
 {
   Handle(TDataXtd_Geometry)::DownCast(Into)->SetType(myType);
 }

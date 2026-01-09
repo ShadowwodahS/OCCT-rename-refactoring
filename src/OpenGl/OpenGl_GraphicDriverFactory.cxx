@@ -21,13 +21,13 @@
   #define OpenGl_DRIVER_NAME "TKOpenGl"
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_GraphicDriverFactory, Graphic3d_GraphicDriverFactory)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_GraphicDriverFactory, GraphicDriverFactory)
 
 //=================================================================================================
 
 OpenGl_GraphicDriverFactory::OpenGl_GraphicDriverFactory()
-    : Graphic3d_GraphicDriverFactory(OpenGl_DRIVER_NAME),
-      myDefaultCaps(new OpenGl_Caps())
+    : GraphicDriverFactory(OpenGl_DRIVER_NAME),
+      myDefaultCaps(new Caps())
 {
   //
 }
@@ -35,7 +35,7 @@ OpenGl_GraphicDriverFactory::OpenGl_GraphicDriverFactory()
 //=================================================================================================
 
 Handle(Graphic3d_GraphicDriver) OpenGl_GraphicDriverFactory::CreateDriver(
-  const Handle(Aspect_DisplayConnection)& theDisp)
+  const Handle(DisplayConnection1)& theDisp)
 {
   Handle(OpenGl_GraphicDriver) aDriver = new OpenGl_GraphicDriver(theDisp, false);
   aDriver->ChangeOptions()             = *myDefaultCaps;

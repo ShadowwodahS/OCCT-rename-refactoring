@@ -35,7 +35,7 @@ class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-class Extrema_PCLocFOfLocEPCOfLocateExtPC2d : public math_FunctionWithDerivative
+class Extrema_PCLocFOfLocEPCOfLocateExtPC2d : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

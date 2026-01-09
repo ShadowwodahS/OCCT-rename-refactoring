@@ -39,7 +39,7 @@ typedef Coords3d  XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Ellipse::Copy() const
+Handle(Geometry3) Geom_Ellipse::Copy() const
 {
   Handle(Geom_Ellipse) E;
   E = new Geom_Ellipse(pos, majorRadius, minorRadius);

@@ -332,16 +332,16 @@ public:
   //! After cloning all objects it is necessary to call copy references
   //! with the same relocation table
   virtual Standard_EXPORT Handle(TObj_Object) Clone(const DataLabel&            theTargetLabel,
-                                                    Handle(TDF_RelocationTable) theRelocTable = 0);
+                                                    Handle(RelocationTable1) theRelocTable = 0);
 
   //! Coping the references.
   //! return Standard_False is Target object is different type
   virtual Standard_EXPORT void CopyReferences(const Handle(TObj_Object)&         theTargetObject,
-                                              const Handle(TDF_RelocationTable)& theRelocTable);
+                                              const Handle(RelocationTable1)& theRelocTable);
 
   //! Coping the children from source label to the target.
   virtual Standard_EXPORT void CopyChildren(DataLabel&                         theTargetLabel,
-                                            const Handle(TDF_RelocationTable)& theRelocTable);
+                                            const Handle(RelocationTable1)& theRelocTable);
 
 public:
   /**
@@ -374,7 +374,7 @@ protected:
   //! Coping the references from source label to the target.
   Standard_EXPORT void copyReferences(const DataLabel&                   theSourceLabel,
                                       DataLabel&                         theTargetLabel,
-                                      const Handle(TDF_RelocationTable)& theRelocTable);
+                                      const Handle(RelocationTable1)& theRelocTable);
 
 public:
   /**

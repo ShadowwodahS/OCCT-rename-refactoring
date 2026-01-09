@@ -146,11 +146,11 @@ Circle2dBisector::Circle2dBisector(const gp_Circ2d& Circ1, const gp_Circ2d& Circ
 //  Also return the radiuses of two circles R1 and R2.                    +
 //=========================================================================
 
-Handle(GccInt_Bisec) Circle2dBisector::ThisSolution(const Standard_Integer Index) const
+Handle(Bisector2) Circle2dBisector::ThisSolution(const Standard_Integer Index) const
 {
 
   Standard_Real        Tol = 1.e-14;
-  Handle(GccInt_Bisec) bissol;
+  Handle(Bisector2) bissol;
 
   if (!WellDone)
   {

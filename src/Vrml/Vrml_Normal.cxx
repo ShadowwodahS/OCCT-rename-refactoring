@@ -16,7 +16,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Vrml_Normal, RefObject)
 
-Vrml_Normal::Vrml_Normal(const Handle(TColgp_HArray1OfVec)& aVector)
+Vrml_Normal::Vrml_Normal(const Handle(VectorArray)& aVector)
 {
   myVector = aVector;
 }
@@ -24,7 +24,7 @@ Vrml_Normal::Vrml_Normal(const Handle(TColgp_HArray1OfVec)& aVector)
 Vrml_Normal::Vrml_Normal()
 {
   Vector3d Tmp_Vec;
-  myVector = new TColgp_HArray1OfVec(1, 1);
+  myVector = new VectorArray(1, 1);
 
   Tmp_Vec.SetX(0);
   Tmp_Vec.SetY(0);
@@ -32,12 +32,12 @@ Vrml_Normal::Vrml_Normal()
   myVector->SetValue(1, Tmp_Vec);
 }
 
-void Vrml_Normal::SetVector(const Handle(TColgp_HArray1OfVec)& aVector)
+void Vrml_Normal::SetVector(const Handle(VectorArray)& aVector)
 {
   myVector = aVector;
 }
 
-Handle(TColgp_HArray1OfVec) Vrml_Normal::Vector() const
+Handle(VectorArray) Vrml_Normal::Vector() const
 {
   return myVector;
 }

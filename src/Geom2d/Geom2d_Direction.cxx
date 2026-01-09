@@ -30,7 +30,7 @@ typedef gp_Ax2d          Ax2d;
 typedef gp_Pnt2d         Pnt2d;
 typedef Transform2d        Trsf2d;
 
-Handle(Geom2d_Geometry) Geom2d_Direction::Copy() const
+Handle(Geometry2) Geom2d_Direction::Copy() const
 {
 
   Handle(Geom2d_Direction) D;

@@ -25,7 +25,7 @@
 #include <gp_Vec.hxx>
 #include <gp_Dir.hxx>
 
-#define Surface Handle(Adaptor3d_Surface)
+#define Surface Handle(SurfaceAdaptor)
 #define Surface_hxx <Adaptor3d_Surface.hxx>
 #define Tool SurfaceTool2
 #define Tool_hxx <LProp3d_SurfaceTool.hxx>

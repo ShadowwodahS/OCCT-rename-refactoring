@@ -75,7 +75,7 @@ Handle(TObj_Model) TObj_Object::GetModel() const
     return aModel;
 
   // DataLabel aLabel = AppDocument::Get(myLabel)->Main();
-  Handle(TDF_Data) aData = myLabel.Data();
+  Handle(Data2) aData = myLabel.Data();
   if (aData.IsNull())
     return aModel;
 
@@ -1022,11 +1022,11 @@ static void copyTagSources(const DataLabel& theSourceLabel, const DataLabel& the
 //=================================================================================================
 
 Handle(TObj_Object) TObj_Object::Clone(const DataLabel&            theTargetLabel,
-                                       Handle(TDF_RelocationTable) theRelocTable)
+                                       Handle(RelocationTable1) theRelocTable)
 {
-  Handle(TDF_RelocationTable) aRelocTable = theRelocTable;
+  Handle(RelocationTable1) aRelocTable = theRelocTable;
   if (theRelocTable.IsNull())
-    aRelocTable = new TDF_RelocationTable;
+    aRelocTable = new RelocationTable1;
   Handle(TObj_Object) aNewObj;
   // take current model for restoring it after creating object.
   const Handle(TObj_Model)& aCurrentModel = Assistant::GetCurrentModel();
@@ -1100,7 +1100,7 @@ Standard_Boolean TObj_Object::copyData(const Handle(TObj_Object)& theTargetObjec
 //=================================================================================================
 
 void TObj_Object::CopyChildren(DataLabel&                         theTargetLabel,
-                               const Handle(TDF_RelocationTable)& theRelocTable)
+                               const Handle(RelocationTable1)& theRelocTable)
 {
   DataLabel                   aSourceChildLabel = GetChildLabel();
   Handle(TObj_ObjectIterator) aChildren         = // GetChildren();
@@ -1132,7 +1132,7 @@ void TObj_Object::CopyChildren(DataLabel&                         theTargetLabel
 //=================================================================================================
 
 void TObj_Object::CopyReferences(const Handle(TObj_Object)&         theTargetObject,
-                                 const Handle(TDF_RelocationTable)& theRelocTable)
+                                 const Handle(RelocationTable1)& theRelocTable)
 {
   // recursive copy of references
   Handle(TObj_ObjectIterator)
@@ -1166,7 +1166,7 @@ void TObj_Object::CopyReferences(const Handle(TObj_Object)&         theTargetObj
 
 void TObj_Object::copyReferences(const DataLabel&                   theSourceLabel,
                                  DataLabel&                         theTargetLabel,
-                                 const Handle(TDF_RelocationTable)& theRelocTable)
+                                 const Handle(RelocationTable1)& theRelocTable)
 {
   TDF_AttributeIterator anIter(theSourceLabel);
   for (; anIter.More(); anIter.Next())
@@ -1296,13 +1296,13 @@ Standard_Boolean TObj_Object::RemoveBackReferences(const TObj_DeletingMode theMo
     return Standard_False;
   // Delete or link off the referencing objects
   Standard_Integer i;
-  Handle(TDF_Data) anOwnData = GetLabel().Data();
+  Handle(Data2) anOwnData = GetLabel().Data();
   for (i = 1; i <= aContainers.Length(); i++)
   {
     Handle(TObj_Object) anObj = aContainers(i);
     if (anObj.IsNull() || anObj->GetLabel().IsNull())
       continue; // undead object on dead label
-    Handle(TDF_Data) aData      = anObj->GetLabel().Data();
+    Handle(Data2) aData      = anObj->GetLabel().Data();
     Standard_Boolean aModifMode = aData->IsModificationAllowed();
     if (anOwnData != aData)
       aData->AllowModification(Standard_True);
@@ -1321,7 +1321,7 @@ Standard_Boolean TObj_Object::RemoveBackReferences(const TObj_DeletingMode theMo
     Handle(TObj_Object) anObj = aStrongs(i);
     if (anObj.IsNull() || anObj->GetLabel().IsNull())
       continue; // undead object on dead label
-    Handle(TDF_Data) aData      = anObj->GetLabel().Data();
+    Handle(Data2) aData      = anObj->GetLabel().Data();
     Standard_Boolean aModifMode = aData->IsModificationAllowed();
     if (anOwnData != aData)
       aData->AllowModification(Standard_True);

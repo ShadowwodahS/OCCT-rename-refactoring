@@ -1067,7 +1067,7 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const ShapeList& theLSplits,
 //           The algorithm "Evolved" must be improved to process such cases.
 //            Currently they are not processed and this function is useless.
 //=======================================================================
-class NormalFunc : public math_MultipleVarFunctionWithGradient
+class NormalFunc : public MultiVarFunctionWithGradient
 {
 public:
   NormalFunc(const Adaptor3d_CurveOnSurface& theCOS) :myCOnS(theCOS)
@@ -1119,7 +1119,7 @@ public:
   Point3d GetPoint(const Standard_Real theX)
   {
     const Handle(Adaptor2d_Curve2d) &aC = myCOnS.GetCurve();
-    const Handle(Adaptor3d_Surface) &aS = myCOnS.GetSurface();
+    const Handle(SurfaceAdaptor) &aS = myCOnS.GetSurface();
     const gp_Pnt2d aP2d(aC->Value(theX));
     return aS->Value(aP2d.X(), aP2d.Y());
   }
@@ -1144,7 +1144,7 @@ private:
 Standard_Boolean NormalFunc::Value(const math_Vector& theX, Standard_Real& theF)
 {
   const Handle(Adaptor2d_Curve2d) &aC = myCOnS.GetCurve();
-  const Handle(Adaptor3d_Surface) &aS = myCOnS.GetSurface();
+  const Handle(SurfaceAdaptor) &aS = myCOnS.GetSurface();
 
   const gp_Pnt2d aP2d(aC->Value(theX(1)));
   Point3d aP3d;
@@ -1183,7 +1183,7 @@ Standard_Boolean NormalFunc::Value(const math_Vector& theX, Standard_Real& theF)
 Standard_Boolean NormalFunc::Gradient(const math_Vector& theX, math_Vector& theG)
 {
   const Handle(Adaptor2d_Curve2d) &aC = myCOnS.GetCurve();
-  const Handle(Adaptor3d_Surface) &aS = myCOnS.GetSurface();
+  const Handle(SurfaceAdaptor) &aS = myCOnS.GetSurface();
 
   gp_Pnt2d aP2d;
   gp_Vec2d aDc;

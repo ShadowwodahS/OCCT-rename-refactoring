@@ -28,7 +28,7 @@ struct AVCodec;
 struct AVFrame;
 struct SwsContext;
 
-// Undefine macro that clashes with name used by field of Image_VideoParams;
+// Undefine macro that clashes with name used by field of VideoParams;
 // this macro is defined in headers of older versions of libavutil
 // (see definition of macro FF_API_PIX_FMT in version.h)
 #ifdef PixelFormat
@@ -37,7 +37,7 @@ struct SwsContext;
 
 //! Auxiliary structure defining video parameters.
 //! Please refer to FFmpeg documentation for defining text values.
-struct Image_VideoParams
+struct VideoParams
 {
   // clang-format off
   AsciiString1 Format;           //!< [optional]  video format (container), if empty - will be determined from the file name
@@ -52,7 +52,7 @@ struct Image_VideoParams
     VideoCodecParams; //!< map of advanced video codec parameters
 
   //! Empty constructor.
-  Image_VideoParams()
+  VideoParams()
       : Width(0),
         Height(0),
         FpsNum(0),
@@ -78,15 +78,15 @@ struct Image_VideoParams
 };
 
 //! Video recording tool based on FFmpeg framework.
-class Image_VideoRecorder : public RefObject
+class VideoRecorder : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_VideoRecorder, RefObject)
+  DEFINE_STANDARD_RTTIEXT(VideoRecorder, RefObject)
 public:
   //! Empty constructor.
-  Standard_EXPORT Image_VideoRecorder();
+  Standard_EXPORT VideoRecorder();
 
   //! Destructor.
-  Standard_EXPORT virtual ~Image_VideoRecorder();
+  Standard_EXPORT virtual ~VideoRecorder();
 
   //! Close the stream - stop recorder.
   Standard_EXPORT void Close();
@@ -95,7 +95,7 @@ public:
   //! @param[in] theFileName  video filename
   //! @param[in] theParams    video parameters
   Standard_EXPORT Standard_Boolean Open(const char*              theFileName,
-                                        const Image_VideoParams& theParams);
+                                        const VideoParams& theParams);
 
   //! Access RGBA frame, should NOT be re-initialized outside.
   //! Note that image is expected to have upper-left origin.
@@ -114,11 +114,11 @@ protected:
   //! Append video stream.
   //! theParams[in]      video parameters
   //! theDefCodecId[in]  identifier of codec managed by FFmpeg library (AVCodecID enum)
-  Standard_EXPORT Standard_Boolean addVideoStream(const Image_VideoParams& theParams,
+  Standard_EXPORT Standard_Boolean addVideoStream(const VideoParams& theParams,
                                                   const Standard_Integer   theDefCodecId);
 
   //! Open video codec.
-  Standard_EXPORT Standard_Boolean openVideoCodec(const Image_VideoParams& theParams);
+  Standard_EXPORT Standard_Boolean openVideoCodec(const VideoParams& theParams);
 
   //! Write new video frame.
   Standard_EXPORT Standard_Boolean writeVideoFrame(const Standard_Boolean theToFlush);
@@ -143,6 +143,6 @@ protected:
   int64_t       myFrameCount; //!< current frame index
 };
 
-DEFINE_STANDARD_HANDLE(Image_VideoRecorder, RefObject)
+DEFINE_STANDARD_HANDLE(VideoRecorder, RefObject)
 
 #endif // Image_VideoRecorder_HeaderFile_

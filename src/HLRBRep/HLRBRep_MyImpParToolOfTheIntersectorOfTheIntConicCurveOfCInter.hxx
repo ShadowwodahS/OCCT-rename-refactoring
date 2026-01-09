@@ -28,7 +28,7 @@ class ConicTool;
 class CurveTool5;
 
 class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
-    : public math_FunctionWithDerivative
+    : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

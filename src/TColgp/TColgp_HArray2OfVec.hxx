@@ -21,6 +21,6 @@
 #include <TColgp_Array2OfVec.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(TColgp_HArray2OfVec, TColgp_Array2OfVec)
+DEFINE_HARRAY2(VectorGrid, TColgp_Array2OfVec)
 
 #endif

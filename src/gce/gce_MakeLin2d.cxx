@@ -25,7 +25,7 @@
 //=========================================================================
 //   Creation d une ligne 2d de gp1 a partir d un Ax2d de gp1.              +
 //=========================================================================
-gce_MakeLin2d::gce_MakeLin2d(const gp_Ax2d& A)
+LineBuilder2d::LineBuilder2d(const gp_Ax2d& A)
 {
   TheLin2d = gp_Lin2d(A);
   TheError = gce_Done;
@@ -36,7 +36,7 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Ax2d& A)
 //   et d une direction V (Dir2d de gp1).                                  +
 //=========================================================================
 
-gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P, const gp_Dir2d& V)
+LineBuilder2d::LineBuilder2d(const gp_Pnt2d& P, const gp_Dir2d& V)
 {
   TheLin2d = gp_Lin2d(P, V);
   TheError = gce_Done;
@@ -47,7 +47,7 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P, const gp_Dir2d& V)
 //    equation.                                                           +
 //=========================================================================
 
-gce_MakeLin2d::gce_MakeLin2d(const Standard_Real A, const Standard_Real B, const Standard_Real C)
+LineBuilder2d::LineBuilder2d(const Standard_Real A, const Standard_Real B, const Standard_Real C)
 {
   if (A * A + B * B <= gp1::Resolution())
   {
@@ -65,7 +65,7 @@ gce_MakeLin2d::gce_MakeLin2d(const Standard_Real A, const Standard_Real B, const
 //   <P2>.                                                                +
 //=========================================================================
 
-gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
+LineBuilder2d::LineBuilder2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
   if (P1.Distance(P2) >= gp1::Resolution())
   {
@@ -83,7 +83,7 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 //   <Line1> passant par le point <Point1>.                               +
 //=========================================================================
 
-gce_MakeLin2d::gce_MakeLin2d(const gp_Lin2d& Line, const gp_Pnt2d& Point)
+LineBuilder2d::LineBuilder2d(const gp_Lin2d& Line, const gp_Pnt2d& Point)
 {
   TheLin2d = gp_Lin2d(Point, Line.Direction());
   TheError = gce_Done;
@@ -94,25 +94,25 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Lin2d& Line, const gp_Pnt2d& Point)
 //   <Line1> a une distance <Dist1>.                                      +
 //=========================================================================
 
-gce_MakeLin2d::gce_MakeLin2d(const gp_Lin2d& Line, const Standard_Real Dist)
+LineBuilder2d::LineBuilder2d(const gp_Lin2d& Line, const Standard_Real Dist)
 {
   gp_Pnt2d Point(Line.Location().XY() + Dist * Coords2d(-Line.Direction().Y(), Line.Direction().X()));
   TheLin2d = gp_Lin2d(Point, Line.Direction());
   TheError = gce_Done;
 }
 
-gp_Lin2d gce_MakeLin2d::Value() const
+gp_Lin2d LineBuilder2d::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeLin2d::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "LineBuilder2d::Value() - no result");
   return TheLin2d;
 }
 
-gp_Lin2d gce_MakeLin2d::Operator() const
+gp_Lin2d LineBuilder2d::Operator() const
 {
   return Value();
 }
 
-gce_MakeLin2d::operator gp_Lin2d() const
+LineBuilder2d::operator gp_Lin2d() const
 {
   return Value();
 }

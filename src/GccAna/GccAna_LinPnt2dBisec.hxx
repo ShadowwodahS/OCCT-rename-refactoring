@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Boolean.hxx>
-class GccInt_Bisec;
+class Bisector2;
 class gp_Lin2d;
 class gp_Pnt2d;
 
@@ -49,12 +49,12 @@ public:
 
   //! Returns the number of solutions.
   //! It raises NotDone if the construction algorithm didn't succeed.
-  Standard_EXPORT Handle(GccInt_Bisec) ThisSolution() const;
+  Standard_EXPORT Handle(Bisector2) ThisSolution() const;
 
 protected:
 private:
   Standard_Boolean     WellDone;
-  Handle(GccInt_Bisec) bissol;
+  Handle(Bisector2) bissol;
 };
 
 #endif // _GccAna_LinPnt2dBisec_HeaderFile

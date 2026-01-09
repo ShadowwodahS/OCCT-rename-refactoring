@@ -387,7 +387,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
         Standard_ShortReal tol1 = 0., tol2 = 0.;
 
         HLRBRep_EdgeData&   ed = myEData(E);
-        HLRAlgo_EdgeStatus& ES = ed.Status();
+        EdgeStatus& ES = ed.Status();
 
         Standard_Boolean foundHidden = Standard_False;
 

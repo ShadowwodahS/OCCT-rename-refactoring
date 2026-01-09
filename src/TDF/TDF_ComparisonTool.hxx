@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 class TDF_DataSet;
 class IDFilter;
-class TDF_RelocationTable;
+class RelocationTable1;
 class DataLabel;
 
 //! This class provides services to compare sets of
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT static void Compare(const Handle(TDF_DataSet)&         aSourceDataSet,
                                       const Handle(TDF_DataSet)&         aTargetDataSet,
                                       const IDFilter&                aFilter,
-                                      const Handle(TDF_RelocationTable)& aRelocationTable);
+                                      const Handle(RelocationTable1)& aRelocationTable);
 
   //! Finds from <aRefDataSet> all the keys not bound
   //! into <aRelocationTable> and put them into
@@ -68,7 +68,7 @@ public:
   //! 3 : both labels & attributes treatment.
   Standard_EXPORT static Standard_Boolean SourceUnbound(
     const Handle(TDF_DataSet)&         aRefDataSet,
-    const Handle(TDF_RelocationTable)& aRelocationTable,
+    const Handle(RelocationTable1)& aRelocationTable,
     const IDFilter&                aFilter,
     const Handle(TDF_DataSet)&         aDiffDataSet,
     const Standard_Integer             anOption = 2);
@@ -85,7 +85,7 @@ public:
   //! 3 : both labels & attributes treatment.
   Standard_EXPORT static Standard_Boolean TargetUnbound(
     const Handle(TDF_DataSet)&         aRefDataSet,
-    const Handle(TDF_RelocationTable)& aRelocationTable,
+    const Handle(RelocationTable1)& aRelocationTable,
     const IDFilter&                aFilter,
     const Handle(TDF_DataSet)&         aDiffDataSet,
     const Standard_Integer             anOption = 2);
@@ -106,13 +106,13 @@ private:
                                       const Handle(TDF_DataSet)&         aSourceDataSet,
                                       const Handle(TDF_DataSet)&         aTargetDataSet,
                                       const IDFilter&                aFilter,
-                                      const Handle(TDF_RelocationTable)& aRelocationTable);
+                                      const Handle(RelocationTable1)& aRelocationTable);
 
   //! Internal function used by SourceUnbound() and
   //! TargetUnbound().
   Standard_EXPORT static Standard_Boolean Unbound(
     const Handle(TDF_DataSet)&         aRefDataSet,
-    const Handle(TDF_RelocationTable)& aRelocationTable,
+    const Handle(RelocationTable1)& aRelocationTable,
     const IDFilter&                aFilter,
     const Handle(TDF_DataSet)&         aDiffDataSet,
     const Standard_Integer             anOption,

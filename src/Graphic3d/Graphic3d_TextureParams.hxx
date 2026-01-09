@@ -26,15 +26,15 @@
 #include <Standard_Transient.hxx>
 
 //! This class describes texture parameters.
-class Graphic3d_TextureParams : public RefObject
+class TextureParams : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_TextureParams, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TextureParams, RefObject)
 public:
   //! Default constructor.
-  Standard_EXPORT Graphic3d_TextureParams();
+  Standard_EXPORT TextureParams();
 
   //! Destructor.
-  Standard_EXPORT virtual ~Graphic3d_TextureParams();
+  Standard_EXPORT virtual ~TextureParams();
 
   //! Default texture unit to be used, default is Graphic3d_TextureUnit_BaseColor.
   Graphic3d_TextureUnit TextureUnit() const { return myTextureUnit; }
@@ -149,6 +149,6 @@ private:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_TextureParams, RefObject)
+DEFINE_STANDARD_HANDLE(TextureParams, RefObject)
 
 #endif // _Graphic3d_TextureParams_HeaderFile

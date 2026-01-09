@@ -28,9 +28,9 @@ class TopoEdge;
 class TopoVertex;
 
 class LocOpe_GluedShape;
-DEFINE_STANDARD_HANDLE(LocOpe_GluedShape, LocOpe_GeneratedShape)
+DEFINE_STANDARD_HANDLE(LocOpe_GluedShape, GeneratedShape)
 
-class LocOpe_GluedShape : public LocOpe_GeneratedShape
+class LocOpe_GluedShape : public GeneratedShape
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   //! faces.
   Standard_EXPORT const ShapeList& OrientedFaces() Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(LocOpe_GluedShape, LocOpe_GeneratedShape)
+  DEFINE_STANDARD_RTTIEXT(LocOpe_GluedShape, GeneratedShape)
 
 protected:
 private:

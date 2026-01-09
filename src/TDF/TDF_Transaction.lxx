@@ -19,7 +19,7 @@
 // Version	Date		Purpose
 //		0.0	Oct  1 1997	Creation
 
-inline Handle(TDF_Data) TDF_Transaction::Data() const
+inline Handle(Data2) TDF_Transaction::Data() const
 {
   return myDF;
 }

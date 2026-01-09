@@ -52,7 +52,7 @@ static Standard_Integer DDataStd_SetConstraint(DrawInterpreter& di,
     return 1;
   }
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -192,7 +192,7 @@ static Standard_Integer DDataStd_GetConstraint(DrawInterpreter& di,
   Handle(TDataXtd_Constraint) CTR;
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     DataLabel        L;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
@@ -240,7 +240,7 @@ static Standard_Integer DDataStd_SetPattern(DrawInterpreter& di,
     return 1;
   }
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -360,7 +360,7 @@ static Standard_Integer DDataStd_DumpPattern(DrawInterpreter& di,
   Handle(TDataXtd_PatternStd) CTR;
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     DataLabel        L;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
@@ -450,7 +450,7 @@ static Standard_Integer DDataStd_SetPosition(DrawInterpreter& di,
 {
   if (nb == 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -476,7 +476,7 @@ static Standard_Integer DDataStd_GetPosition(DrawInterpreter& di,
 {
   if (nb == 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;

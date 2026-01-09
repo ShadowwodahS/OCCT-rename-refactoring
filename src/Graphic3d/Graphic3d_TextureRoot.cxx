@@ -85,7 +85,7 @@ AsciiString1 Graphic3d_TextureRoot::TexturesFolder()
 
 Graphic3d_TextureRoot::Graphic3d_TextureRoot(const AsciiString1& theFileName,
                                              const Graphic3d_TypeOfTexture  theType)
-    : myParams(new Graphic3d_TextureParams()),
+    : myParams(new TextureParams()),
       myPath(theFileName),
       myRevision(0),
       myType(theType == Graphic3d_TOT_2D_MIPMAP ? Graphic3d_TypeOfTexture_2D : theType),
@@ -100,7 +100,7 @@ Graphic3d_TextureRoot::Graphic3d_TextureRoot(const AsciiString1& theFileName,
 
 Graphic3d_TextureRoot::Graphic3d_TextureRoot(const Handle(Image_PixMap)&   thePixMap,
                                              const Graphic3d_TypeOfTexture theType)
-    : myParams(new Graphic3d_TextureParams()),
+    : myParams(new TextureParams()),
       myPixMap(thePixMap),
       myRevision(0),
       myType(theType == Graphic3d_TOT_2D_MIPMAP ? Graphic3d_TypeOfTexture_2D : theType),
@@ -129,7 +129,7 @@ void Graphic3d_TextureRoot::generateId()
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) Graphic3d_TextureRoot::GetCompressedImage(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   if (!myPixMap.IsNull())
   {
@@ -163,7 +163,7 @@ Handle(Image_CompressedPixMap) Graphic3d_TextureRoot::GetCompressedImage(
 //=================================================================================================
 
 Handle(Image_PixMap) Graphic3d_TextureRoot::GetImage(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   if (Handle(Image_PixMap) anOldImage = GetImage())
   {
@@ -199,7 +199,7 @@ Handle(Image_PixMap) Graphic3d_TextureRoot::GetImage(
 
 //=================================================================================================
 
-void Graphic3d_TextureRoot::convertToCompatible(const Handle(Image_SupportedFormats)& theSupported,
+void Graphic3d_TextureRoot::convertToCompatible(const Handle(SupportedFormats)& theSupported,
                                                 const Handle(Image_PixMap)&           theImage)
 {
   if (theImage.IsNull() || theSupported.IsNull() || theSupported->IsSupported(theImage->Format()))

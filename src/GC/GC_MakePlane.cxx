@@ -60,7 +60,7 @@ GC_MakePlane::GC_MakePlane(const Standard_Real A,
 
 GC_MakePlane::GC_MakePlane(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
-  gce_MakePln Pl(P1, P2, P3);
+  PlaneBuilder1 Pl(P1, P2, P3);
   TheError = Pl.Status();
   if (TheError == gce_Done)
   {
@@ -74,7 +74,7 @@ GC_MakePlane::GC_MakePlane(const Point3d& P1, const Point3d& P2, const Point3d& 
 
 GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Standard_Real Dist)
 {
-  gp_Pln Pln = gce_MakePln(Pl, Dist);
+  gp_Pln Pln = PlaneBuilder1(Pl, Dist);
   TheError   = gce_Done;
   ThePlane   = new GeomPlane(Pln);
 }
@@ -86,7 +86,7 @@ GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Standard_Real Dist)
 
 GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Point3d& Point)
 {
-  gp_Pln Pln = gce_MakePln(Pl, Point);
+  gp_Pln Pln = PlaneBuilder1(Pl, Point);
   TheError   = gce_Done;
   ThePlane   = new GeomPlane(Pln);
 }
@@ -97,7 +97,7 @@ GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Point3d& Point)
 
 GC_MakePlane::GC_MakePlane(const Axis3d& Axis)
 {
-  gp_Pln Pln = gce_MakePln(Axis);
+  gp_Pln Pln = PlaneBuilder1(Axis);
   TheError   = gce_Done;
   ThePlane   = new GeomPlane(Pln);
 }

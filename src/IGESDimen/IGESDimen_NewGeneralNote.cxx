@@ -53,7 +53,7 @@ void IGESDimen_NewGeneralNote::Init(
   const Handle(TColStd_HArray1OfReal)&           rotAngles,
   const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,
   const Handle(TColStd_HArray1OfInteger)&        rotateFlags,
-  const Handle(TColgp_HArray1OfXYZ)&             startPoints,
+  const Handle(XYZArray)&             startPoints,
   const Handle(Interface_HArray1OfHAsciiString)& texts)
 {
   Standard_Integer num = nbChars->Length();

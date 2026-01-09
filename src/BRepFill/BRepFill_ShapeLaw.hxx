@@ -25,10 +25,10 @@
 #include <BRepFill_SectionLaw.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class Law_Function;
+class Function2;
 class TopoVertex;
 class TopoWire;
-class GeomFill_SectionLaw;
+class SectionLaw;
 class TopoEdge;
 
 class BRepFill_ShapeLaw;
@@ -49,7 +49,7 @@ public:
 
   //! Construct an evolutive Law1
   Standard_EXPORT BRepFill_ShapeLaw(const TopoWire&          W,
-                                    const Handle(Law_Function)& L,
+                                    const Handle(Function2)& L,
                                     const Standard_Boolean      Build = Standard_True);
 
   //! Say if the input shape is a  vertex.
@@ -59,7 +59,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
 
   //! Give the law build on a concatenated section
-  Standard_EXPORT virtual Handle(GeomFill_SectionLaw) ConcatenedLaw() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SectionLaw) ConcatenedLaw() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual GeomAbs_Shape Continuity(const Standard_Integer Index,
                                                    const Standard_Real    TolAngular) const
@@ -86,7 +86,7 @@ private:
 
   TopoShape                    myShape;
   Handle(HArray1OfShape) myEdges;
-  Handle(Law_Function)            TheLaw;
+  Handle(Function2)            TheLaw;
 };
 
 #include <BRepFill_ShapeLaw.lxx>

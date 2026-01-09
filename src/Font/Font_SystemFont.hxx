@@ -24,12 +24,12 @@
 
 //! This class stores information about the font, which is merely a file path and cached metadata
 //! about the font.
-class Font_SystemFont : public RefObject
+class SystemFont : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Font_SystemFont, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SystemFont, RefObject)
 public:
   //! Creates a new font object.
-  Standard_EXPORT Font_SystemFont(const AsciiString1& theFontName);
+  Standard_EXPORT SystemFont(const AsciiString1& theFontName);
 
   //! Returns font family name (lower-cased).
   const AsciiString1& FontKey() const { return myFontKey; }
@@ -112,7 +112,7 @@ public:
   }
 
   //! Return true if the FontName, FontAspect and FontSize are the same.
-  Standard_EXPORT Standard_Boolean IsEqual(const Handle(Font_SystemFont)& theOtherFont) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const Handle(SystemFont)& theOtherFont) const;
 
   //! Return TRUE if this is single-stroke (one-line) font, FALSE by default.
   //! Such fonts define single-line glyphs instead of closed contours, so that they are rendered
@@ -126,7 +126,7 @@ public:
   Standard_EXPORT AsciiString1 ToString() const;
 
 public:
-  bool operator==(const Font_SystemFont& theFont) const
+  bool operator==(const SystemFont& theFont) const
   {
     return myFontKey.IsEqual(theFont.FontKey());
   }
@@ -142,9 +142,9 @@ private:
 namespace std
 {
 template <>
-struct hash<Handle(Font_SystemFont)>
+struct hash<Handle(SystemFont)>
 {
-  size_t operator()(const Handle(Font_SystemFont)& theLink) const noexcept
+  size_t operator()(const Handle(SystemFont)& theLink) const noexcept
   {
     if (theLink.IsNull())
       return 0;
@@ -153,6 +153,6 @@ struct hash<Handle(Font_SystemFont)>
 };
 }; // namespace std
 
-DEFINE_STANDARD_HANDLE(Font_SystemFont, RefObject)
+DEFINE_STANDARD_HANDLE(SystemFont, RefObject)
 
 #endif // _Font_SystemFont_HeaderFile

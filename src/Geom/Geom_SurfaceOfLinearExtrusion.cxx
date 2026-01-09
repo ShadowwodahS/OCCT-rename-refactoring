@@ -55,7 +55,7 @@ typedef Coords3d                        XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_SurfaceOfLinearExtrusion::Copy() const
+Handle(Geometry3) Geom_SurfaceOfLinearExtrusion::Copy() const
 {
 
   Handle(Geom_SurfaceOfLinearExtrusion) Sr;

@@ -29,7 +29,7 @@
 #include <TColStd_SequenceOfBoolean.hxx>
 #include <Standard_Integer.hxx>
 #include <MAT2d_SequenceOfConnexion.hxx>
-class Geom2d_Geometry;
+class Geometry2;
 class MAT2d_Connexion;
 class BiInt;
 class MiniPath;
@@ -56,7 +56,7 @@ public:
   Standard_EXPORT Standard_Integer NumberOfItems() const;
 
   //! Returns the item at position <Index> in <me>.
-  Standard_EXPORT Handle(Geom2d_Geometry) Value(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(Geometry2) Value(const Standard_Integer Index) const;
 
   //! Returns the number of items on the line <IndexLine>.
   Standard_EXPORT Standard_Integer LineLength(const Standard_Integer IndexLine) const;
@@ -78,8 +78,8 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Standard_Boolean IsSharpCorner(const Handle(Geom2d_Geometry)& Geom1,
-                                                 const Handle(Geom2d_Geometry)& Geom2,
+  Standard_EXPORT Standard_Boolean IsSharpCorner(const Handle(Geometry2)& Geom1,
+                                                 const Handle(Geometry2)& Geom2,
                                                  const Standard_Real            Direction) const;
 
   Standard_EXPORT Standard_Boolean PassByLast(const Handle(MAT2d_Connexion)& C1,

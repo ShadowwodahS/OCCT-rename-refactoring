@@ -28,7 +28,7 @@ inline Handle(ShapeBuild_ReShape) ShapeFix_Root::Context() const
 // purpose  :
 //=======================================================================
 
-inline Handle(ShapeExtend_BasicMsgRegistrator) ShapeFix_Root::MsgRegistrator() const
+inline Handle(BasicMsgRegistrator) ShapeFix_Root::MsgRegistrator() const
 {
   return myMsgReg;
 }

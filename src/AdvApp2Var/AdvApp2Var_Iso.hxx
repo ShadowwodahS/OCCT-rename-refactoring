@@ -29,7 +29,7 @@
 #include <TColStd_HArray2OfReal.hxx>
 #include <AdvApp2Var_EvaluatorFunc2Var.hxx>
 class AdvApp2Var_Context;
-class AdvApp2Var_Node;
+class ApproximationNode;
 
 //! used to store constraints on a line U = Ui or V = Vj
 class AdvApp2Var_Iso : public RefObject
@@ -62,8 +62,8 @@ public:
                                   const Standard_Real                 c,
                                   const Standard_Real                 d,
                                   const EvaluatorFunc2Var& func,
-                                  AdvApp2Var_Node&                    NodeBegin,
-                                  AdvApp2Var_Node&                    NodeEnd);
+                                  ApproximationNode&                    NodeBegin,
+                                  ApproximationNode&                    NodeEnd);
 
   Standard_EXPORT void ChangeDomain(const Standard_Real a, const Standard_Real b);
 

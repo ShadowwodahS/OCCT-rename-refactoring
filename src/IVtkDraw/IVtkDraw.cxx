@@ -122,13 +122,13 @@ typedef IVtkDraw_HighlightAndSelectionPipeline PipelinePtr;
 
 Standard_IMPORT Standard_Boolean Draw_VirtualWindows;
 
-static Handle(Aspect_DisplayConnection)& GetDisplayConnection()
+static Handle(DisplayConnection1)& GetDisplayConnection()
 {
-  static Handle(Aspect_DisplayConnection) aDisplayConnection;
+  static Handle(DisplayConnection1) aDisplayConnection;
   return aDisplayConnection;
 }
 
-static void SetDisplayConnection(const Handle(Aspect_DisplayConnection)& theDisplayConnection)
+static void SetDisplayConnection(const Handle(DisplayConnection1)& theDisplayConnection)
 {
   GetDisplayConnection() = theDisplayConnection;
 }
@@ -281,7 +281,7 @@ void IVtkDraw::ViewerInit(const IVtkWinParams& theParams)
 
   if (!GetRenderer())
   {
-    SetDisplayConnection(new Aspect_DisplayConnection());
+    SetDisplayConnection(new DisplayConnection1());
 #ifdef _WIN32
     if (GetWindow().IsNull())
     {

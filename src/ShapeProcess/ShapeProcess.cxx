@@ -26,7 +26,7 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <TCollection_AsciiString.hxx>
 
-static NCollection_DataMap<AsciiString1, Handle(ShapeProcess_Operator)> aMapOfOperators;
+static NCollection_DataMap<AsciiString1, Handle(Operator)> aMapOfOperators;
 
 namespace
 {
@@ -56,7 +56,7 @@ private:
 //=================================================================================================
 
 Standard_Boolean ShapeProcess1::RegisterOperator(const Standard_CString               name,
-                                                const Handle(ShapeProcess_Operator)& op)
+                                                const Handle(Operator)& op)
 {
   if (aMapOfOperators.IsBound(name))
   {
@@ -72,7 +72,7 @@ Standard_Boolean ShapeProcess1::RegisterOperator(const Standard_CString         
 //=================================================================================================
 
 Standard_Boolean ShapeProcess1::FindOperator(const Standard_CString         name,
-                                            Handle(ShapeProcess_Operator)& op)
+                                            Handle(Operator)& op)
 {
   if (!aMapOfOperators.IsBound(name))
   {
@@ -149,7 +149,7 @@ Standard_Boolean ShapeProcess1::Perform(const Handle(ShapeProcess_Context)& cont
       context->Messenger()->Send(SMSG5, Message_Alarm);
     }
 
-    Handle(ShapeProcess_Operator) op;
+    Handle(Operator) op;
     if (!ShapeProcess1::FindOperator(oper.ToCString(), op))
     {
       if (context->TraceLevel() > 0)
@@ -189,7 +189,7 @@ Standard_Boolean ShapeProcess1::Perform(const Handle(ShapeProcess_Context)&  the
     return Standard_False;
   }
 
-  std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> anOperators =
+  std::vector<std::pair<const char*, Handle(Operator)>> anOperators =
     getOperators(theOperations);
   if (anOperators.empty())
   {
@@ -203,7 +203,7 @@ Standard_Boolean ShapeProcess1::Perform(const Handle(ShapeProcess_Context)&  the
   for (const auto& anOperator : anOperators)
   {
     const char*                          anOperationName = anOperator.first;
-    const Handle(ShapeProcess_Operator)& anOperation     = anOperator.second;
+    const Handle(Operator)& anOperation     = anOperator.second;
     Message_ProgressRange                aProgressRange  = aProgressScope.Next();
     ScopeLock anOperationScope(*theContext, anOperationName); // Set operation scope.
     try
@@ -245,10 +245,10 @@ std::pair<ShapeProcess1::Operation, bool> ShapeProcess1::ToOperationFlag(const c
 
 //=================================================================================================
 
-std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> ShapeProcess1::getOperators(
+std::vector<std::pair<const char*, Handle(Operator)>> ShapeProcess1::getOperators(
   const ShapeProcess1::OperationsFlags& theFlags)
 {
-  std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> aResult;
+  std::vector<std::pair<const char*, Handle(Operator)>> aResult;
   for (std::underlying_type<Operation>::type anOperation = Operation::First;
        anOperation <= Operation::Last;
        ++anOperation)
@@ -260,7 +260,7 @@ std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> ShapeProcess1
       {
         continue;
       }
-      Handle(ShapeProcess_Operator) anOperator;
+      Handle(Operator) anOperator;
       if (FindOperator(anOperationName, anOperator))
       {
         aResult.emplace_back(anOperationName, anOperator);

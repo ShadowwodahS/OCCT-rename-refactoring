@@ -19,18 +19,18 @@
 #include <HLRAlgo_BiPoint.hxx>
 #include <HLRAlgo_ListIteratorOfListOfBPoint.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(PolyShellData, RefObject)
 
 //=================================================================================================
 
-HLRAlgo_PolyShellData::HLRAlgo_PolyShellData(const Standard_Integer nbFace)
+PolyShellData::PolyShellData(const Standard_Integer nbFace)
     : myPolyg(1, nbFace)
 {
 }
 
 //=================================================================================================
 
-void HLRAlgo_PolyShellData::UpdateGlobalMinMax(HLRAlgo_PolyData::Box1& theBox)
+void PolyShellData::UpdateGlobalMinMax(PolyData1::Box1& theBox)
 {
   HLRAlgo_ListIteratorOfListOfBPoint it;
 
@@ -83,14 +83,14 @@ void HLRAlgo_PolyShellData::UpdateGlobalMinMax(HLRAlgo_PolyData::Box1& theBox)
   }
   for (Standard_Integer i = myPolyg.Lower(); i <= myPolyg.Upper(); i++)
   {
-    const Handle(HLRAlgo_PolyData)& aPd = myPolyg.ChangeValue(i);
+    const Handle(PolyData1)& aPd = myPolyg.ChangeValue(i);
     aPd->UpdateGlobalMinMax(theBox);
   }
 }
 
 //=================================================================================================
 
-void HLRAlgo_PolyShellData::UpdateHiding(const Standard_Integer nbHiding)
+void PolyShellData::UpdateHiding(const Standard_Integer nbHiding)
 {
   if (nbHiding > 0)
   {
@@ -98,7 +98,7 @@ void HLRAlgo_PolyShellData::UpdateHiding(const Standard_Integer nbHiding)
   }
   else
   {
-    NCollection_Array1<Handle(HLRAlgo_PolyData)> anEmpty;
+    NCollection_Array1<Handle(PolyData1)> anEmpty;
     myHPolHi.Move(anEmpty);
   }
 }

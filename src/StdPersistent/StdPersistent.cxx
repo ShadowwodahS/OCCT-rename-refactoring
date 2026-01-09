@@ -33,7 +33,7 @@ void StdPersistent1::BindTypes(MapOfInstantiators& theMap)
   theMap.Bind<TopLoc::Datum3D1>("PTopLoc_Datum3D");
   theMap.Bind<TopLoc::ItemLocation>("PTopLoc_ItemLocation");
   theMap.Bind<StdPersistent_TopoDS::TShape>("PTopoDS_TShape1");
-  theMap.Bind<StdPersistent_HArray1::Shape1>("PTopoDS_HArray1OfShape1");
+  theMap.Bind<HArray12::Shape1>("PTopoDS_HArray1OfShape1");
   theMap.Bind<Naming2::Name>("PNaming_Name");
   theMap.Bind<Naming2::Name_1>("PNaming_Name_1");
   theMap.Bind<Naming2::Name_2>("PNaming_Name_2");
@@ -43,7 +43,7 @@ void StdPersistent1::BindTypes(MapOfInstantiators& theMap)
   // Attributes
   theMap.Bind<Naming2::NamedShape1>("PNaming_NamedShape");
   theMap.Bind<Naming2::Naming1>("PNaming_Naming");
-  theMap.Bind<Naming2::Naming_1>("PNaming_Naming_1");
+  theMap.Bind<Naming2::Naming_11>("PNaming_Naming_1");
   theMap.Bind<Naming2::Naming_2>("PNaming_Naming_2");
 
   theMap.Bind<DataXtd::Shape>("PDataXtd_Shape");

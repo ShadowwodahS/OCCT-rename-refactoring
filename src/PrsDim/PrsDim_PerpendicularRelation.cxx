@@ -122,8 +122,8 @@ void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectionContai
 
   if (ok1 && ok2)
   {
-    Vector3d        vec1(gce_MakeDir(pos, myFAttach));
-    Vector3d        vec2(gce_MakeDir(pos, mySAttach));
+    Vector3d        vec1(DirectionBuilder(pos, myFAttach));
+    Vector3d        vec2(DirectionBuilder(pos, mySAttach));
     Standard_Real dist1(pos.Distance(myFAttach));
     Standard_Real dist2(pos.Distance(mySAttach));
     vec1 *= dist1;
@@ -273,7 +273,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
       else
         length = 2. * ptat11.Distance(ptat12) / 5.;
       lengthComputed = Standard_True;
-      Vector3d vec1(gce_MakeDir(myPosition, p1));
+      Vector3d vec1(DirectionBuilder(myPosition, p1));
       vec1.Multiply(length);
       pAx1      = myPosition.Translated(vec1);
       myFAttach = pAx1;
@@ -294,7 +294,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
       {
         interOut2 = Standard_True;
       }
-      Vector3d vec2(gce_MakeDir(myPosition, p2));
+      Vector3d vec2(DirectionBuilder(myPosition, p2));
       if (!lengthComputed)
       {
         if (!isInfinite1)

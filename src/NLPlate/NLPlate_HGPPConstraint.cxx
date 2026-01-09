@@ -20,50 +20,50 @@
 #include <Plate_D3.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HGPPConstraint, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(HandleGPPConstraint, RefObject)
 
-void NLPlate_HGPPConstraint::SetUVFreeSliding(const Standard_Boolean) {}
+void HandleGPPConstraint::SetUVFreeSliding(const Standard_Boolean) {}
 
-void NLPlate_HGPPConstraint::SetIncrementalLoadAllowed(const Standard_Boolean) {}
+void HandleGPPConstraint::SetIncrementalLoadAllowed(const Standard_Boolean) {}
 
-void NLPlate_HGPPConstraint::SetActiveOrder(const Standard_Integer ActiveOrder)
+void HandleGPPConstraint::SetActiveOrder(const Standard_Integer ActiveOrder)
 {
   myActiveOrder = ActiveOrder;
 }
 
-void NLPlate_HGPPConstraint::SetUV(const Coords2d& UV)
+void HandleGPPConstraint::SetUV(const Coords2d& UV)
 {
   myUV = UV;
 }
 
-void NLPlate_HGPPConstraint::SetOrientation(const Standard_Integer /*Orient*/) {}
+void HandleGPPConstraint::SetOrientation(const Standard_Integer /*Orient*/) {}
 
-void NLPlate_HGPPConstraint::SetG0Criterion(const Standard_Real /*TolDist*/) {}
+void HandleGPPConstraint::SetG0Criterion(const Standard_Real /*TolDist*/) {}
 
-void NLPlate_HGPPConstraint::SetG1Criterion(const Standard_Real /*TolAng*/) {}
+void HandleGPPConstraint::SetG1Criterion(const Standard_Real /*TolAng*/) {}
 
-void NLPlate_HGPPConstraint::SetG2Criterion(const Standard_Real /*TolCurv*/) {}
+void HandleGPPConstraint::SetG2Criterion(const Standard_Real /*TolCurv*/) {}
 
-void NLPlate_HGPPConstraint::SetG3Criterion(const Standard_Real /*TolG3*/) {}
+void HandleGPPConstraint::SetG3Criterion(const Standard_Real /*TolG3*/) {}
 
-Standard_Boolean NLPlate_HGPPConstraint::UVFreeSliding() const
+Standard_Boolean HandleGPPConstraint::UVFreeSliding() const
 {
   return Standard_False;
 }
 
-Standard_Boolean NLPlate_HGPPConstraint::IncrementalLoadAllowed() const
+Standard_Boolean HandleGPPConstraint::IncrementalLoadAllowed() const
 {
   return Standard_False;
 }
 
-const Coords2d& NLPlate_HGPPConstraint::UV() const
+const Coords2d& HandleGPPConstraint::UV() const
 {
   return myUV;
 }
 
 static const Coords3d XYZnull(0., 0., 0.);
 
-const Coords3d& NLPlate_HGPPConstraint::G0Target() const
+const Coords3d& HandleGPPConstraint::G0Target() const
 {
   return XYZnull;
   // cette methode ne devrait pas etre appelee
@@ -71,7 +71,7 @@ const Coords3d& NLPlate_HGPPConstraint::G0Target() const
 
 static const D1 D1null(XYZnull, XYZnull);
 
-const D1& NLPlate_HGPPConstraint::G1Target() const
+const D1& HandleGPPConstraint::G1Target() const
 {
   return D1null;
   // cette methode ne devrait pas etre appelee
@@ -79,7 +79,7 @@ const D1& NLPlate_HGPPConstraint::G1Target() const
 
 static const D2 D2null(XYZnull, XYZnull, XYZnull);
 
-const D2& NLPlate_HGPPConstraint::G2Target() const
+const D2& HandleGPPConstraint::G2Target() const
 {
   return D2null;
   // cette methode ne devrait pas etre appelee
@@ -87,33 +87,33 @@ const D2& NLPlate_HGPPConstraint::G2Target() const
 
 static const D3 D3null(XYZnull, XYZnull, XYZnull, XYZnull);
 
-const D3& NLPlate_HGPPConstraint::G3Target() const
+const D3& HandleGPPConstraint::G3Target() const
 {
   return D3null;
   // cette methode ne devrait pas etre applee
 }
 
-Standard_Integer NLPlate_HGPPConstraint::Orientation()
+Standard_Integer HandleGPPConstraint::Orientation()
 {
   return 0;
 }
 
-Standard_Real NLPlate_HGPPConstraint::G0Criterion() const
+Standard_Real HandleGPPConstraint::G0Criterion() const
 {
   return 0.;
 }
 
-Standard_Real NLPlate_HGPPConstraint::G1Criterion() const
+Standard_Real HandleGPPConstraint::G1Criterion() const
 {
   return 0.;
 }
 
-Standard_Real NLPlate_HGPPConstraint::G2Criterion() const
+Standard_Real HandleGPPConstraint::G2Criterion() const
 {
   return 0.;
 }
 
-Standard_Real NLPlate_HGPPConstraint::G3Criterion() const
+Standard_Real HandleGPPConstraint::G3Criterion() const
 {
   return 0.;
 }

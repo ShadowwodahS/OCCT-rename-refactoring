@@ -13,11 +13,11 @@
 
 #include "Aspect_VKeySet.hxx"
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_VKeySet, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(VKeySet, RefObject)
 
 //=================================================================================================
 
-Aspect_VKeySet::Aspect_VKeySet()
+VKeySet::VKeySet()
     : myKeys(0, Aspect_VKey_MAX),
       myModifiers(Aspect_VKeyFlags_NONE)
 {
@@ -26,7 +26,7 @@ Aspect_VKeySet::Aspect_VKeySet()
 
 //=================================================================================================
 
-void Aspect_VKeySet::Reset()
+void VKeySet::Reset()
 {
   Standard_Mutex::Sentry aLock(myLock);
   myModifiers = 0;
@@ -38,7 +38,7 @@ void Aspect_VKeySet::Reset()
 
 //=================================================================================================
 
-void Aspect_VKeySet::KeyDown(Aspect_VKey theKey, double theTime, double thePressure)
+void VKeySet::KeyDown(Aspect_VKey theKey, double theTime, double thePressure)
 {
   Standard_Mutex::Sentry aLock(myLock);
   if (myKeys[theKey].KStatus != KeyStatus_Pressed)
@@ -54,7 +54,7 @@ void Aspect_VKeySet::KeyDown(Aspect_VKey theKey, double theTime, double thePress
 
 //=================================================================================================
 
-void Aspect_VKeySet::KeyUp(Aspect_VKey theKey, double theTime)
+void VKeySet::KeyUp(Aspect_VKey theKey, double theTime)
 {
   Standard_Mutex::Sentry aLock(myLock);
   if (myKeys[theKey].KStatus == KeyStatus_Pressed)
@@ -72,7 +72,7 @@ void Aspect_VKeySet::KeyUp(Aspect_VKey theKey, double theTime)
 
 //=================================================================================================
 
-void Aspect_VKeySet::KeyFromAxis(Aspect_VKey theNegative,
+void VKeySet::KeyFromAxis(Aspect_VKey theNegative,
                                  Aspect_VKey thePositive,
                                  double      theTime,
                                  double      thePressure)
@@ -104,7 +104,7 @@ void Aspect_VKeySet::KeyFromAxis(Aspect_VKey theNegative,
 
 //=================================================================================================
 
-bool Aspect_VKeySet::HoldDuration(Aspect_VKey theKey,
+bool VKeySet::HoldDuration(Aspect_VKey theKey,
                                   double      theTime,
                                   double&     theDuration,
                                   double&     thePressure)

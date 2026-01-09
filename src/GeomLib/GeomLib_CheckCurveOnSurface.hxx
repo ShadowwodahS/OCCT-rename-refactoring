@@ -33,11 +33,11 @@ public:
 
   //! Constructor
   Standard_EXPORT GeomLib_CheckCurveOnSurface(
-    const Handle(Adaptor3d_Curve)& theCurve,
+    const Handle(Curve5)& theCurve,
     const Standard_Real            theTolRange = Precision1::PConfusion());
 
   //! Sets the data for the algorithm
-  Standard_EXPORT void Init(const Handle(Adaptor3d_Curve)& theCurve,
+  Standard_EXPORT void Init(const Handle(Curve5)& theCurve,
                             const Standard_Real            theTolRange = Precision1::PConfusion());
 
   //! Initializes all members by default values
@@ -72,7 +72,7 @@ public:
   Standard_Real MaxParameter() const { return myMaxParameter; }
 
 private:
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
   Standard_Integer        myErrorStatus;
   Standard_Real           myMaxDistance;
   Standard_Real           myMaxParameter;

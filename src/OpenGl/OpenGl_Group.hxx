@@ -24,10 +24,10 @@
 
 class OpenGl_Structure;
 
-struct OpenGl_ElementNode
+struct ElementNode
 {
   OpenGl_Element*     elem;
-  OpenGl_ElementNode* next;
+  ElementNode* next;
   DEFINE_STANDARD_ALLOC
 };
 
@@ -101,7 +101,7 @@ public:
   Standard_EXPORT virtual void Release(const Handle(OpenGl_Context)& theGlCtx);
 
   //! Returns first OpenGL element node of the group.
-  const OpenGl_ElementNode* FirstNode() const { return myFirst; }
+  const ElementNode* FirstNode() const { return myFirst; }
 
   //! Returns OpenGL aspect.
   const OpenGl_Aspects* GlAspects() const { return myAspects; }
@@ -130,8 +130,8 @@ private:
 
 protected:
   OpenGl_Aspects*     myAspects;
-  OpenGl_ElementNode* myFirst;
-  OpenGl_ElementNode* myLast;
+  ElementNode* myFirst;
+  ElementNode* myLast;
   Standard_Boolean    myIsRaytracable;
 
 public:

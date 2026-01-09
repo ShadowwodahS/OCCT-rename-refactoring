@@ -59,7 +59,7 @@ public:
                             const Standard_Real                         anAngle,
                             const Handle(HArray1OfIGESEntity)& allEntities,
                             const Handle(TColStd_HArray1OfInteger)&     allLocations,
-                            const Handle(TColgp_HArray1OfXYZ)&          allPoints);
+                            const Handle(XYZArray)&          allPoints);
 
   //! returns the number of dimensions
   Standard_EXPORT Standard_Integer NbDimensions() const;
@@ -102,7 +102,7 @@ private:
   Standard_Real                        theAngleValue;
   Handle(HArray1OfIGESEntity) theGeometryEntities;
   Handle(TColStd_HArray1OfInteger)     theDimensionLocationFlags;
-  Handle(TColgp_HArray1OfXYZ)          thePoints;
+  Handle(XYZArray)          thePoints;
 };
 
 #endif // _IGESDimen_NewDimensionedGeometry_HeaderFile

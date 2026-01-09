@@ -660,7 +660,7 @@ Standard_Real BRepCheck_Edge::Tolerance()
   {
     prm  = ((NCONTROL - 1 - i) * First + i * Last) / (NCONTROL - 1);
     tol2 = dist2 = 0.;
-    center       = (*(Handle(Adaptor3d_Curve)*)&theRep(1))->Value(prm);
+    center       = (*(Handle(Curve5)*)&theRep(1))->Value(prm);
     if (Precision1::IsInfinite(center.X()) || Precision1::IsInfinite(center.Y())
         || Precision1::IsInfinite(center.Z()))
     {
@@ -668,7 +668,7 @@ Standard_Real BRepCheck_Edge::Tolerance()
     }
     for (iRep = 2; iRep <= nbRep; iRep++)
     {
-      othP = (*(Handle(Adaptor3d_Curve)*)&theRep(iRep))->Value(prm);
+      othP = (*(Handle(Curve5)*)&theRep(iRep))->Value(prm);
       if (Precision1::IsInfinite(othP.X()) || Precision1::IsInfinite(othP.Y())
           || Precision1::IsInfinite(othP.Z()))
       {

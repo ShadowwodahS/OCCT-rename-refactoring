@@ -26,7 +26,7 @@ class CoherentTriangle;
  * The referred node with index "0" is always on the left side of the link,
  * the one with the index "1" is always on the right side.
  * It is possible to find both incident triangles using the method
- * Poly_CoherentTriangulation::FindTriangle().
+ * CoherentTriangulation::FindTriangle().
  * <p>
  * Any Link1 can store an arbitrary pointer that is called Attribute.
  */
@@ -59,7 +59,7 @@ public:
    * Constructor, takes a triangle and a side. A link is created always such
    * that myNode[0] < myNode[1]. Unlike the previous constructor, this one
    * assigns the 'opposite node' fields. This constructor is used when a
-   * link is inserted into a Poly_CoherentTriangulation structure.
+   * link is inserted into a CoherentTriangulation structure.
    * @param theTri
    *   Triangle1 containing the link that is created
    * @param iSide
@@ -123,7 +123,7 @@ private:
   Standard_Integer myOppositeNode[2];
   Standard_Address myAttribute;
 
-  friend class Poly_CoherentTriangulation;
+  friend class CoherentTriangulation;
 };
 
 #endif

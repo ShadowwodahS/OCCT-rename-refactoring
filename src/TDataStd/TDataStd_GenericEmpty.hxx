@@ -19,7 +19,7 @@
 
 #include <TDF_DerivedAttribute.hxx>
 
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDataStd_GenericEmpty;
 DEFINE_STANDARD_HANDLE(TDataStd_GenericEmpty, TDF_Attribute)
@@ -33,7 +33,7 @@ public:
   Standard_EXPORT void Restore(const Handle(TDF_Attribute)&) Standard_OVERRIDE {};
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&,
-                             const Handle(TDF_RelocationTable)&) const Standard_OVERRIDE
+                             const Handle(RelocationTable1)&) const Standard_OVERRIDE
   {
   }
 

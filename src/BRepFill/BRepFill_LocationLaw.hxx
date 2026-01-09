@@ -29,7 +29,7 @@
 #include <Standard_Transient.hxx>
 #include <GeomFill_PipeError.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-class GeomFill_LocationLaw;
+class LocationLaw;
 class TopoEdge;
 class TopoVertex;
 class TopoShape;
@@ -65,7 +65,7 @@ public:
 
   //! Return the elementary Law1 of rank <Index>
   //! <Index> have to be in [1, NbLaw()]
-  Standard_EXPORT const Handle(GeomFill_LocationLaw)& Law1(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(LocationLaw)& Law1(const Standard_Integer Index) const;
 
   //! return the path
   Standard_EXPORT const TopoWire& Wire() const;
@@ -140,7 +140,7 @@ protected:
 
   TopoWire                           myPath;
   Standard_Real                         myTol;
-  Handle(GeomFill_HArray1OfLocationLaw) myLaws;
+  Handle(LocationLawArray) myLaws;
   Handle(TColStd_HArray1OfReal)         myLength;
   Handle(HArray1OfShape)       myEdges;
   Handle(TColStd_HArray1OfInteger)      myDisc;

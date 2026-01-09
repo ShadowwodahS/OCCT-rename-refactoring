@@ -43,8 +43,8 @@ class BRepBlend_CurvPointRadInv : public Blend_CurvPointFuncInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_CurvPointRadInv(const Handle(Adaptor3d_Curve)& C1,
-                                            const Handle(Adaptor3d_Curve)& C2);
+  Standard_EXPORT BRepBlend_CurvPointRadInv(const Handle(Curve5)& C1,
+                                            const Handle(Curve5)& C2);
 
   Standard_EXPORT void Set(const Standard_Integer Choix);
 
@@ -89,8 +89,8 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Curve) curv1;
-  Handle(Adaptor3d_Curve) curv2;
+  Handle(Curve5) curv1;
+  Handle(Curve5) curv2;
   Point3d                  point;
   Standard_Integer        choix;
 };

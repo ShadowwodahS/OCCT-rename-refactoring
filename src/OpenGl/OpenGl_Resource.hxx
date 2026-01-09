@@ -28,15 +28,15 @@ class OpenGl_Context;
 //! Destruction of object with unreleased GPU resources will cause leaks
 //! which will be ignored in release mode and will immediately stop program execution in debug mode
 //! using assert.
-class OpenGl_Resource : public RefObject
+class Resource : public RefObject
 {
 
 public:
   //! Empty constructor
-  Standard_EXPORT OpenGl_Resource();
+  Standard_EXPORT Resource();
 
   //! Destructor. Inheritors should call Clean (NULL) within it.
-  Standard_EXPORT virtual ~OpenGl_Resource();
+  Standard_EXPORT virtual ~Resource();
 
   //! Release GPU resources.
   //! Notice that implementation should be SAFE for several consecutive calls
@@ -57,13 +57,13 @@ public:
 
 private:
   //! Copy should be performed only within Handles!
-  OpenGl_Resource(const OpenGl_Resource&);
-  OpenGl_Resource& operator=(const OpenGl_Resource&);
+  Resource(const Resource&);
+  Resource& operator=(const Resource&);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Resource, RefObject) // Type definition
+  DEFINE_STANDARD_RTTIEXT(Resource, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Resource, RefObject)
+DEFINE_STANDARD_HANDLE(Resource, RefObject)
 
 #endif // _OpenGl_Resource_H__

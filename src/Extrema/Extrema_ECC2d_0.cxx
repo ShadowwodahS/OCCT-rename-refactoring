@@ -31,8 +31,8 @@
 #define Curve2_hxx <Adaptor2d_Curve2d.hxx>
 #define Tool2 Curve2dTool1
 #define Tool2_hxx <Extrema_Curve2dTool.hxx>
-#define Handle_ArrayOfPnt Handle(TColgp_HArray1OfPnt2d)
-#define ArrayOfPnt TColgp_HArray1OfPnt2d
+#define Handle_ArrayOfPnt Handle(Point2dArray)
+#define ArrayOfPnt Point2dArray
 #define ArrayOfPnt_hxx <TColgp_HArray1OfPnt2d.hxx>
 #define POnC PointOnCurve2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>

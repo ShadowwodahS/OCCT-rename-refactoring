@@ -23,14 +23,14 @@
 #include <math_Matrix.hxx>
 #include <math_Vector.hxx>
 
-GProp_VelGProps::GProp_VelGProps() {}
+VelocityGeometricProperties::VelocityGeometricProperties() {}
 
-void GProp_VelGProps::SetLocation(const Point3d& VLocation)
+void VelocityGeometricProperties::SetLocation(const Point3d& VLocation)
 {
   loc = VLocation;
 }
 
-GProp_VelGProps::GProp_VelGProps(const Cylinder1&  S,
+VelocityGeometricProperties::VelocityGeometricProperties(const Cylinder1&  S,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
@@ -41,7 +41,7 @@ GProp_VelGProps::GProp_VelGProps(const Cylinder1&  S,
   Perform(S, Alpha1, Alpha2, Z1, Z2);
 }
 
-GProp_VelGProps::GProp_VelGProps(const Cone1&      S,
+VelocityGeometricProperties::VelocityGeometricProperties(const Cone1&      S,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
@@ -52,7 +52,7 @@ GProp_VelGProps::GProp_VelGProps(const Cone1&      S,
   Perform(S, Alpha1, Alpha2, Z1, Z2);
 }
 
-GProp_VelGProps::GProp_VelGProps(const Sphere3&    S,
+VelocityGeometricProperties::VelocityGeometricProperties(const Sphere3&    S,
                                  const Standard_Real Teta1,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
@@ -63,7 +63,7 @@ GProp_VelGProps::GProp_VelGProps(const Sphere3&    S,
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);
 }
 
-GProp_VelGProps::GProp_VelGProps(const gp_Torus&     S,
+VelocityGeometricProperties::VelocityGeometricProperties(const gp_Torus&     S,
                                  const Standard_Real Teta1,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
@@ -74,7 +74,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Torus&     S,
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);
 }
 
-void GProp_VelGProps::Perform(const Cylinder1&  S,
+void VelocityGeometricProperties::Perform(const Cylinder1&  S,
                               const Standard_Real Alpha1,
                               const Standard_Real Alpha2,
                               const Standard_Real Z1,
@@ -146,7 +146,7 @@ void GProp_VelGProps::Perform(const Cylinder1&  S,
   inertia = inertia + Hop;
 }
 
-void GProp_VelGProps::Perform(const Cone1&      S,
+void VelocityGeometricProperties::Perform(const Cone1&      S,
                               const Standard_Real Alpha1,
                               const Standard_Real Alpha2,
                               const Standard_Real Z1,
@@ -229,7 +229,7 @@ void GProp_VelGProps::Perform(const Cone1&      S,
   inertia = inertia + Hop;
 }
 
-void GProp_VelGProps::Perform(const Sphere3&    S,
+void VelocityGeometricProperties::Perform(const Sphere3&    S,
                               const Standard_Real Teta1,
                               const Standard_Real Teta2,
                               const Standard_Real Alpha1,
@@ -309,7 +309,7 @@ void GProp_VelGProps::Perform(const Sphere3&    S,
   inertia = inertia + Hop;
 }
 
-void GProp_VelGProps::Perform(const gp_Torus&     S,
+void VelocityGeometricProperties::Perform(const gp_Torus&     S,
                               const Standard_Real Teta1,
                               const Standard_Real Teta2,
                               const Standard_Real Alpha1,

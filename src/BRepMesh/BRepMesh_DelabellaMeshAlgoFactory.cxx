@@ -61,7 +61,7 @@ struct DeflectionControlMeshAlgo
 };
 } // namespace
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_DelabellaMeshAlgoFactory, IMeshTools_MeshAlgoFactory)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_DelabellaMeshAlgoFactory, MeshAlgorithmFactory)
 
 //=================================================================================================
 
@@ -73,7 +73,7 @@ BRepMesh_DelabellaMeshAlgoFactory::~BRepMesh_DelabellaMeshAlgoFactory() {}
 
 //=================================================================================================
 
-Handle(IMeshTools_MeshAlgo) BRepMesh_DelabellaMeshAlgoFactory::GetAlgo(
+Handle(MeshAlgorithm) BRepMesh_DelabellaMeshAlgoFactory::GetAlgo(
   const GeomAbs_SurfaceType    theSurfaceType,
   const Parameters3& theParameters) const
 {
@@ -86,8 +86,8 @@ Handle(IMeshTools_MeshAlgo) BRepMesh_DelabellaMeshAlgoFactory::GetAlgo(
       break;
 
     case GeomAbs_Sphere: {
-      NodeInsertionMeshAlgo<BRepMesh_SphereRangeSplitter>::Type* aMeshAlgo =
-        new NodeInsertionMeshAlgo<BRepMesh_SphereRangeSplitter>::Type;
+      NodeInsertionMeshAlgo<SphereRangeSplitter>::Type* aMeshAlgo =
+        new NodeInsertionMeshAlgo<SphereRangeSplitter>::Type;
       aMeshAlgo->SetPreProcessSurfaceNodes(Standard_True);
       return aMeshAlgo;
     }
@@ -95,13 +95,13 @@ Handle(IMeshTools_MeshAlgo) BRepMesh_DelabellaMeshAlgoFactory::GetAlgo(
 
     case GeomAbs_Cylinder:
       return theParameters.InternalVerticesMode
-               ? new DefaultNodeInsertionMeshAlgo<BRepMesh_CylinderRangeSplitter>::Type
+               ? new DefaultNodeInsertionMeshAlgo<CylinderRangeSplitter>::Type
                : new DefaultBaseMeshAlgo::Type;
       break;
 
     case GeomAbs_Cone: {
-      NodeInsertionMeshAlgo<BRepMesh_ConeRangeSplitter>::Type* aMeshAlgo =
-        new NodeInsertionMeshAlgo<BRepMesh_ConeRangeSplitter>::Type;
+      NodeInsertionMeshAlgo<ConeRangeSplitter>::Type* aMeshAlgo =
+        new NodeInsertionMeshAlgo<ConeRangeSplitter>::Type;
       aMeshAlgo->SetPreProcessSurfaceNodes(Standard_True);
       return aMeshAlgo;
     }

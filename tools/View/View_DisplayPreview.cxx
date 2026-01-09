@@ -40,11 +40,11 @@ static void enableGlobalClipping(const Handle(VisualEntity)& theObject,
 {
   if (theIsEnable)
   {
-    theObject->SetClipPlanes(Handle(Graphic3d_SequenceOfHClipPlane)());
+    theObject->SetClipPlanes(Handle(SequenceOfHClipPlane)());
   }
   else
   {
-    Handle(Graphic3d_SequenceOfHClipPlane) aPlanes = new Graphic3d_SequenceOfHClipPlane();
+    Handle(SequenceOfHClipPlane) aPlanes = new SequenceOfHClipPlane();
     aPlanes->SetOverrideGlobal(Standard_True);
     theObject->SetClipPlanes(aPlanes);
   }

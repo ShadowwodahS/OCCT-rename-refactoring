@@ -34,17 +34,17 @@ public:
   Standard_EXPORT TheSearchInside1();
 
   Standard_EXPORT TheSearchInside1(Contap_SurfFunction&               F,
-                                         const Handle(Adaptor3d_Surface)&   Surf,
+                                         const Handle(SurfaceAdaptor)&   Surf,
                                          const Handle(Adaptor3d_TopolTool)& T,
                                          const Standard_Real                Epsilon);
 
   Standard_EXPORT void Perform(Contap_SurfFunction&               F,
-                               const Handle(Adaptor3d_Surface)&   Surf,
+                               const Handle(SurfaceAdaptor)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& T,
                                const Standard_Real                Epsilon);
 
   Standard_EXPORT void Perform(Contap_SurfFunction&             F,
-                               const Handle(Adaptor3d_Surface)& Surf,
+                               const Handle(SurfaceAdaptor)& Surf,
                                const Standard_Real              UStart,
                                const Standard_Real              VStart);
 
@@ -68,7 +68,7 @@ private:
   IntSurf_SequenceOfInteriorPoint list;
 };
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>

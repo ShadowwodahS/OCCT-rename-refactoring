@@ -41,11 +41,11 @@ protected:
 };
 
 //! Defines state of OCCT projection transformation.
-class OpenGl_ProjectionState : public StateInterface
+class ProjectionState1 : public StateInterface
 {
 public:
   //! Creates uninitialized projection state.
-  Standard_EXPORT OpenGl_ProjectionState();
+  Standard_EXPORT ProjectionState1();
 
   //! Sets new projection matrix.
   Standard_EXPORT void Set(const OpenGl_Mat4& theProjectionMatrix);
@@ -63,11 +63,11 @@ private:
 };
 
 //! Defines state of OCCT model-world transformation.
-class OpenGl_ModelWorldState : public StateInterface
+class ModelWorldState1 : public StateInterface
 {
 public:
   //! Creates uninitialized model-world state.
-  Standard_EXPORT OpenGl_ModelWorldState();
+  Standard_EXPORT ModelWorldState1();
 
   //! Sets new model-world matrix.
   Standard_EXPORT void Set(const OpenGl_Mat4& theModelWorldMatrix);
@@ -85,11 +85,11 @@ private:
 };
 
 //! Defines state of OCCT world-view transformation.
-class OpenGl_WorldViewState : public StateInterface
+class WorldViewState1 : public StateInterface
 {
 public:
   //! Creates uninitialized world-view state.
-  Standard_EXPORT OpenGl_WorldViewState();
+  Standard_EXPORT WorldViewState1();
 
   //! Sets new world-view matrix.
   Standard_EXPORT void Set(const OpenGl_Mat4& theWorldViewMatrix);
@@ -118,10 +118,10 @@ public:
   }
 
   //! Sets new light sources.
-  void Set(const Handle(Graphic3d_LightSet)& theLightSources) { myLightSources = theLightSources; }
+  void Set(const Handle(LightSet)& theLightSources) { myLightSources = theLightSources; }
 
   //! Returns current list of light sources.
-  const Handle(Graphic3d_LightSet)& LightSources() const { return myLightSources; }
+  const Handle(LightSet)& LightSources() const { return myLightSources; }
 
   //! Returns number of mipmap levels used in specular IBL map.
   //! 0 by default or in case of using non-PBR shading model.
@@ -149,7 +149,7 @@ public:
   void SetCastShadows(bool theToCast) { myToCastShadows = theToCast; }
 
 private:
-  Handle(Graphic3d_LightSet) myLightSources;     //!< List of OCCT light sources
+  Handle(LightSet) myLightSources;     //!< List of OCCT light sources
                                                  // clang-format off
   Standard_Integer           mySpecIBLMapLevels; //!< Number of mipmap levels used in specular IBL map (0 by default or in case of using non-PBR shading model)
                                                  // clang-format on
@@ -180,11 +180,11 @@ protected:
 };
 
 //! Defines generic state of order-independent transparency rendering properties.
-class OpenGl_OitState : public StateInterface
+class OitState1 : public StateInterface
 {
 public:
   //! Creates new uniform state.
-  OpenGl_OitState()
+  OitState1()
       : myOitMode(Graphic3d_RTM_BLEND_UNORDERED),
         myDepthFactor(0.5f)
   {

@@ -23,7 +23,7 @@
 #include <GeomTools_SurfaceSet.hxx>
 #include <GeomTools_UndefinedTypeHandler.hxx>
 
-static Handle(GeomTools_UndefinedTypeHandler) theActiveHandler = new GeomTools_UndefinedTypeHandler;
+static Handle(UndefinedTypeHandler) theActiveHandler = new UndefinedTypeHandler;
 
 void GeomTools1::Dump(const Handle(GeomSurface)& S, Standard_OStream& OS)
 {
@@ -72,7 +72,7 @@ void GeomTools1::Read(Handle(GeomCurve2d)& C, Standard_IStream& IS)
 
 //=================================================================================================
 
-void GeomTools1::SetUndefinedTypeHandler(const Handle(GeomTools_UndefinedTypeHandler)& aHandler)
+void GeomTools1::SetUndefinedTypeHandler(const Handle(UndefinedTypeHandler)& aHandler)
 {
   if (!aHandler.IsNull())
     theActiveHandler = aHandler;
@@ -80,7 +80,7 @@ void GeomTools1::SetUndefinedTypeHandler(const Handle(GeomTools_UndefinedTypeHan
 
 //=================================================================================================
 
-Handle(GeomTools_UndefinedTypeHandler) GeomTools1::GetUndefinedTypeHandler()
+Handle(UndefinedTypeHandler) GeomTools1::GetUndefinedTypeHandler()
 {
   return theActiveHandler;
 }

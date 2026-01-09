@@ -158,7 +158,7 @@ void IntAttribute::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void IntAttribute::Paste(const Handle(TDF_Attribute)& Into,
-                             const Handle(TDF_RelocationTable)& /*RT*/) const
+                             const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(IntAttribute) anInt = Handle(IntAttribute)::DownCast(Into);
   anInt->Set(myValue);

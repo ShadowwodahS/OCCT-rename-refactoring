@@ -21,7 +21,7 @@
 #include <Adaptor3d_HVertex.hxx>
 #include <Contap_ThePathPointOfTheSearch.hxx>
 
-#define TheVertex Handle(Adaptor3d_HVertex)
+#define TheVertex Handle(HandleVertex)
 #define TheVertex_hxx <Adaptor3d_HVertex.hxx>
 #define TheArc Handle(Adaptor2d_Curve2d)
 #define TheArc_hxx <Adaptor2d_Curve2d.hxx>

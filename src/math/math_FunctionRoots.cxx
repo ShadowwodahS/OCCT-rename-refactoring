@@ -37,10 +37,10 @@ static Standard_Integer nbsolve = 0;
 
 class DerivFunction : public Function1
 {
-  math_FunctionWithDerivative* myF;
+  FunctionWithDerivative* myF;
 
 public:
-  DerivFunction(math_FunctionWithDerivative& theF)
+  DerivFunction(FunctionWithDerivative& theF)
       : myF(&theF)
   {
   }
@@ -54,7 +54,7 @@ public:
 static void AppendRoot(TColStd_SequenceOfReal&      Sol,
                        TColStd_SequenceOfInteger&   NbStateSol,
                        const Standard_Real          X,
-                       math_FunctionWithDerivative& F,
+                       FunctionWithDerivative& F,
                        //			const Standard_Real K,
                        const Standard_Real,
                        const Standard_Real dX)
@@ -110,7 +110,7 @@ static void AppendRoot(TColStd_SequenceOfReal&      Sol,
   }
 }
 
-static void Solve(math_FunctionWithDerivative& F,
+static void Solve(FunctionWithDerivative& F,
                   const Standard_Real          K,
                   const Standard_Real          x1,
                   const Standard_Real          y1,
@@ -257,7 +257,7 @@ static void Solve(math_FunctionWithDerivative& F,
 // #define MATH_FUNCTIONROOTS_OLDCODE // Ancien
 // #define MATH_FUNCTIONROOTS_CHECK // Check
 
-FunctionRootsSolver::FunctionRootsSolver(math_FunctionWithDerivative& F,
+FunctionRootsSolver::FunctionRootsSolver(FunctionWithDerivative& F,
                                        const Standard_Real          A,
                                        const Standard_Real          B,
                                        const Standard_Integer       NbSample,

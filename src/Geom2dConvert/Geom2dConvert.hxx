@@ -186,7 +186,7 @@ public:
   Standard_EXPORT static void ConcatG1(
     TColGeom2d_Array1OfBSplineCurve&          ArrayOfCurves,
     const TColStd_Array1OfReal&               ArrayOfToler,
-    Handle(TColGeom2d_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+    Handle(BSplineCurveArray2d)& ArrayOfConcatenated,
     Standard_Boolean&                         ClosedFlag,
     const Standard_Real                       ClosedTolerance);
 
@@ -206,7 +206,7 @@ public:
     TColGeom2d_Array1OfBSplineCurve&          ArrayOfCurves,
     const TColStd_Array1OfReal&               ArrayOfToler,
     Handle(TColStd_HArray1OfInteger)&         ArrayOfIndices,
-    Handle(TColGeom2d_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+    Handle(BSplineCurveArray2d)& ArrayOfConcatenated,
     Standard_Boolean&                         ClosedFlag,
     const Standard_Real                       ClosedTolerance);
 
@@ -226,7 +226,7 @@ public:
     TColGeom2d_Array1OfBSplineCurve&          ArrayOfCurves,
     const TColStd_Array1OfReal&               ArrayOfToler,
     Handle(TColStd_HArray1OfInteger)&         ArrayOfIndices,
-    Handle(TColGeom2d_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+    Handle(BSplineCurveArray2d)& ArrayOfConcatenated,
     Standard_Boolean&                         ClosedFlag,
     const Standard_Real                       ClosedTolerance,
     const Standard_Real                       AngularTolerance);
@@ -244,7 +244,7 @@ public:
   //! Tolerance is a geometrical tolerance
   Standard_EXPORT static void C0BSplineToArrayOfC1BSplineCurve(
     const Handle(Geom2d_BSplineCurve)&        BS,
-    Handle(TColGeom2d_HArray1OfBSplineCurve)& tabBS,
+    Handle(BSplineCurveArray2d)& tabBS,
     const Standard_Real                       Tolerance);
 
   //! This Method   reduces as far  as  it is possible  the
@@ -253,7 +253,7 @@ public:
   //! tolerance is a geometrical tolerance
   Standard_EXPORT static void C0BSplineToArrayOfC1BSplineCurve(
     const Handle(Geom2d_BSplineCurve)&        BS,
-    Handle(TColGeom2d_HArray1OfBSplineCurve)& tabBS,
+    Handle(BSplineCurveArray2d)& tabBS,
     const Standard_Real                       AngularTolerance,
     const Standard_Real                       Tolerance);
 };

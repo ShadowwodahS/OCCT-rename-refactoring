@@ -34,7 +34,7 @@ public:
 
   Standard_EXPORT D2(const D2& ref);
 
-  friend class Plate_GtoCConstraint;
+  friend class GtoCConstraint;
   friend class FreeGtoCConstraint;
 
 protected:

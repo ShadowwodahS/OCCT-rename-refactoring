@@ -59,7 +59,7 @@ HLRTest_DrawablePolyEdgeTool::HLRTest_DrawablePolyEdgeTool(const Handle(HLRBRep_
   myBiPntVis.Clear();
   myBiPntHid.Clear();
   Standard_Address   Coordinates;
-  HLRAlgo_EdgeStatus status;
+  EdgeStatus status;
   TopoShape       S;
   Standard_Boolean   reg1, regn, outl, intl;
 

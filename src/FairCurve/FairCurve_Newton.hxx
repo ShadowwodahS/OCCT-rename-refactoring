@@ -25,7 +25,7 @@
 class math_MultipleVarFunctionWithHessian;
 
 //! Algorithme of Optimization used to make "FairCurve"
-class FairCurve_Newton : public NewtonMinimum
+class NewtonSolver : public NewtonMinimum
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -35,7 +35,7 @@ public:
   //! positive  (if the smaller eigenvalue of H < Convexity)
   //! or IsConverged() returns True for 2 successives Iterations.
   //! Warning: This constructor do not computation
-  Standard_EXPORT FairCurve_Newton(const math_MultipleVarFunctionWithHessian& theFunction,
+  Standard_EXPORT NewtonSolver(const math_MultipleVarFunctionWithHessian& theFunction,
                                    const Standard_Real    theSpatialTolerance   = 1.0e-7,
                                    const Standard_Real    theCriteriumTolerance = 1.0e-7,
                                    const Standard_Integer theNbIterations       = 40,

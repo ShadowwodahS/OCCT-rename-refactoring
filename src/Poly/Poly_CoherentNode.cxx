@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-void Poly_CoherentNode::Clear(const Handle(NCollection_BaseAllocator)& theAlloc)
+void CoherentNode::Clear(const Handle(NCollection_BaseAllocator)& theAlloc)
 {
   CoherentTriPtr::RemoveList(myTriangles, theAlloc);
   myUV[0]     = Precision1::Infinite();
@@ -34,7 +34,7 @@ void Poly_CoherentNode::Clear(const Handle(NCollection_BaseAllocator)& theAlloc)
 // purpose  : Define the normal vector in the Node.
 //=======================================================================
 
-void Poly_CoherentNode::SetNormal(const Coords3d& theVector)
+void CoherentNode::SetNormal(const Coords3d& theVector)
 {
   myNormal[0] = static_cast<Standard_ShortReal>(theVector.X());
   myNormal[1] = static_cast<Standard_ShortReal>(theVector.Y());
@@ -43,7 +43,7 @@ void Poly_CoherentNode::SetNormal(const Coords3d& theVector)
 
 //=================================================================================================
 
-void Poly_CoherentNode::AddTriangle(const CoherentTriangle&             theTri,
+void CoherentNode::AddTriangle(const CoherentTriangle&             theTri,
                                     const Handle(NCollection_BaseAllocator)& theAlloc)
 {
   if (myTriangles == NULL)
@@ -54,7 +54,7 @@ void Poly_CoherentNode::AddTriangle(const CoherentTriangle&             theTri,
 
 //=================================================================================================
 
-Standard_Boolean Poly_CoherentNode::RemoveTriangle(
+Standard_Boolean CoherentNode::RemoveTriangle(
   const CoherentTriangle&             theTri,
   const Handle(NCollection_BaseAllocator)& theAlloc)
 {
@@ -85,7 +85,7 @@ Standard_Boolean Poly_CoherentNode::RemoveTriangle(
 
 //=================================================================================================
 
-void Poly_CoherentNode::Dump(Standard_OStream& theStream) const
+void CoherentNode::Dump(Standard_OStream& theStream) const
 {
   char buf[256];
   Sprintf(buf, "  X =%9.4f; Y =%9.4f; Z =%9.4f", X(), Y(), Z());

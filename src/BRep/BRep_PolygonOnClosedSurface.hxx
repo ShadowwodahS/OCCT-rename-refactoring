@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <BRep_PolygonOnSurface.hxx>
-class Poly_Polygon2D;
+class Polygon2D2;
 class GeomSurface;
 class TopLoc_Location;
 class BRep_CurveRepresentation;
@@ -35,17 +35,17 @@ class BRep_PolygonOnClosedSurface : public BRep_PolygonOnSurface
 {
 
 public:
-  Standard_EXPORT BRep_PolygonOnClosedSurface(const Handle(Poly_Polygon2D)& P1,
-                                              const Handle(Poly_Polygon2D)& P2,
+  Standard_EXPORT BRep_PolygonOnClosedSurface(const Handle(Polygon2D2)& P1,
+                                              const Handle(Polygon2D2)& P2,
                                               const Handle(GeomSurface)&   S,
                                               const TopLoc_Location&        L);
 
   //! returns True.
   Standard_EXPORT virtual Standard_Boolean IsPolygonOnClosedSurface() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Poly_Polygon2D)& Polygon2() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(Polygon2D2)& Polygon2() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Polygon2(const Handle(Poly_Polygon2D)& P) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Polygon2(const Handle(Polygon2D2)& P) Standard_OVERRIDE;
 
   //! Return a copy of this representation.
   Standard_EXPORT virtual Handle(BRep_CurveRepresentation) Copy() const Standard_OVERRIDE;
@@ -58,7 +58,7 @@ public:
 
 protected:
 private:
-  Handle(Poly_Polygon2D) myPolygon2;
+  Handle(Polygon2D2) myPolygon2;
 };
 
 #endif // _BRep_PolygonOnClosedSurface_HeaderFile

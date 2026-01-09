@@ -28,7 +28,7 @@
 //  Constructions d un cylindre de gp1 par son Ax2 A2 et son rayon         +
 //  Radius.                                                               +
 //=========================================================================
-gce_MakeCylinder::gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius)
+CylinderBuilder::CylinderBuilder(const Frame3d& A2, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -46,7 +46,7 @@ gce_MakeCylinder::gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius
 //  Radius.                                                               +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radius)
+CylinderBuilder::CylinderBuilder(const Axis3d& Axis, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -80,7 +80,7 @@ gce_MakeCylinder::gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radiu
 //  Constructions d un cylindre de gp1 par un cercle.                      +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const gp_Circ& Circ)
+CylinderBuilder::CylinderBuilder(const gp_Circ& Circ)
 {
   TheCylinder = Cylinder1(Circ.Position1(), Circ.Radius());
   TheError    = gce_Done;
@@ -92,7 +92,7 @@ gce_MakeCylinder::gce_MakeCylinder(const gp_Circ& Circ)
 //  le rayon du cylindre.                                                 +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3)
+CylinderBuilder::CylinderBuilder(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   if (P1.Distance(P2) < gp1::Resolution())
   {
@@ -127,7 +127,7 @@ gce_MakeCylinder::gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const P
 //  gp1 a une distance Dist.                                               +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const Cylinder1& Cyl, const Standard_Real Dist)
+CylinderBuilder::CylinderBuilder(const Cylinder1& Cyl, const Standard_Real Dist)
 {
   Standard_Real Rad = Cyl.Radius() + Dist;
   if (Rad < 0.)
@@ -147,7 +147,7 @@ gce_MakeCylinder::gce_MakeCylinder(const Cylinder1& Cyl, const Standard_Real Dis
 //  gp1 passant par le point P.                                            +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const Cylinder1& Cyl, const Point3d& P)
+CylinderBuilder::CylinderBuilder(const Cylinder1& Cyl, const Point3d& P)
 {
   gp_Lin        L(Cyl.Axis());
   Standard_Real Rad = L.Distance(P);
@@ -156,18 +156,18 @@ gce_MakeCylinder::gce_MakeCylinder(const Cylinder1& Cyl, const Point3d& P)
   TheError = gce_Done;
 }
 
-const Cylinder1& gce_MakeCylinder::Value() const
+const Cylinder1& CylinderBuilder::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeCylinder::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "CylinderBuilder::Value() - no result");
   return TheCylinder;
 }
 
-const Cylinder1& gce_MakeCylinder::Operator() const
+const Cylinder1& CylinderBuilder::Operator() const
 {
   return Value();
 }
 
-gce_MakeCylinder::operator Cylinder1() const
+CylinderBuilder::operator Cylinder1() const
 {
   return Value();
 }

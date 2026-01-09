@@ -27,7 +27,7 @@
 class DataLabel;
 class Standard_GUID;
 class TFunction_Logbook;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 DEFINE_STANDARD_HANDLE(TFunction_Logbook, TDF_Attribute)
 
@@ -108,7 +108,7 @@ public:
 
   //! Pastes the attribute to another label.
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       into,
-                                     const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                                     const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   //! Returns a new empty instance of the attribute.
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;

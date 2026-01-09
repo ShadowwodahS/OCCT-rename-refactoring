@@ -25,10 +25,10 @@ class TopoEdge;
 class TopoVertex;
 class TopoFace;
 
-class LocOpe_GeneratedShape;
-DEFINE_STANDARD_HANDLE(LocOpe_GeneratedShape, RefObject)
+class GeneratedShape;
+DEFINE_STANDARD_HANDLE(GeneratedShape, RefObject)
 
-class LocOpe_GeneratedShape : public RefObject
+class GeneratedShape : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
   //! faces.
   Standard_EXPORT virtual const ShapeList& OrientedFaces() = 0;
 
-  DEFINE_STANDARD_RTTIEXT(LocOpe_GeneratedShape, RefObject)
+  DEFINE_STANDARD_RTTIEXT(GeneratedShape, RefObject)
 
 protected:
   ShapeList myGEdges;

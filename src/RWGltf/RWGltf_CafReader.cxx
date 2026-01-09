@@ -27,7 +27,7 @@
 #include <OSD_ThreadPool.hxx>
 #include <RWGltf_GltfLatePrimitiveArray.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWGltf_CafReader, RWMesh_CafReader)
+IMPLEMENT_STANDARD_RTTIEXT(RWGltf_CafReader, CafReader)
 
 //! Abstract base functor for parallel execution of glTF data loading.
 class RWGltf_CafReader::CafReader_GltfBaseLoadingFunctor
@@ -343,7 +343,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
 
 //=================================================================================================
 
-Handle(RWMesh_TriangulationReader) RWGltf_CafReader::createMeshReaderContext() const
+Handle(TriangulationReader) RWGltf_CafReader::createMeshReaderContext() const
 {
   Handle(RWGltf_TriangulationReader) aReader = new RWGltf_TriangulationReader();
   aReader->SetDoublePrecision(myIsDoublePrecision);
@@ -398,7 +398,7 @@ Standard_Boolean RWGltf_CafReader::readLateData(NCollection_Vector<TopoFace>& th
 
 void RWGltf_CafReader::updateLateDataReader(
   NCollection_Vector<TopoFace>&          theFaces,
-  const Handle(RWMesh_TriangulationReader)& theReader) const
+  const Handle(TriangulationReader)& theReader) const
 {
   TopLoc_Location aDummyLoc;
   for (NCollection_Vector<TopoFace>::Iterator aFaceIter(theFaces); aFaceIter.More();

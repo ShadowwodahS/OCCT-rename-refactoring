@@ -24,7 +24,7 @@
 #include <OpenGl_Sampler.hxx>
 
 class OpenGl_Element;
-struct OpenGl_ElementNode;
+struct ElementNode;
 class OpenGl_Group;
 
 namespace OpenGl_Raytrace
@@ -33,7 +33,7 @@ namespace OpenGl_Raytrace
 Standard_EXPORT Standard_Boolean IsRaytracedGroup(const OpenGl_Group* theGroup);
 
 //! Checks to see if the element contains ray-trace geometry.
-Standard_EXPORT Standard_Boolean IsRaytracedElement(const OpenGl_ElementNode* theNode);
+Standard_EXPORT Standard_Boolean IsRaytracedElement(const ElementNode* theNode);
 
 //! Checks to see if the element contains ray-trace geometry.
 Standard_EXPORT Standard_Boolean IsRaytracedElement(const OpenGl_Element* theElement);

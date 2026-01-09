@@ -47,12 +47,12 @@ public:
   //! Initializes this comparison algorithm with
   //! -   the set of bounding boxes SetOfBox.
   Standard_EXPORT void Initialize(const Box2&                  CompleteBox,
-                                  const Handle(Bnd_HArray1OfBox)& SetOfBox);
+                                  const Handle(BoxArray)& SetOfBox);
 
   //! Initializes this comparison algorithm with
   //! -   the set of bounding boxes SetOfBox, where
   //! CompleteBox is given as the global bounding box of SetOfBox.
-  Standard_EXPORT void Initialize(const Handle(Bnd_HArray1OfBox)& SetOfBox);
+  Standard_EXPORT void Initialize(const Handle(BoxArray)& SetOfBox);
 
   //! Initializes this comparison algorithm, giving it only
   //! -   the maximum number nbComponents
@@ -105,7 +105,7 @@ private:
   Standard_EXPORT void SortBoxes();
 
   Box2                         myBox;
-  Handle(Bnd_HArray1OfBox)        myBndComponents;
+  Handle(BoxArray)        myBndComponents;
   Standard_Real                   Xmin;
   Standard_Real                   Ymin;
   Standard_Real                   Zmin;

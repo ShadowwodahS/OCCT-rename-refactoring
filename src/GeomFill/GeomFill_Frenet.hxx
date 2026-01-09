@@ -43,7 +43,7 @@ public:
 
   //! initialize curve of frenet law
   //! @return Standard_True
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
   //! compute Triedrhon on curve at parameter <Param>

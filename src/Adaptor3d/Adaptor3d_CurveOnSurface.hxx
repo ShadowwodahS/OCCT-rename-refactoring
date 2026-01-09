@@ -24,45 +24,45 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_HSequenceOfReal.hxx>
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_CurveOnSurface, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(Adaptor3d_CurveOnSurface, Curve5)
 
 //! An interface between the services provided by a curve
 //! lying on a surface from the package Geom and those
 //! required of the curve by algorithms which use it. The
 //! curve is defined as a 2D curve from the Geom2d
 //! package, in the parametric space of the surface.
-class Adaptor3d_CurveOnSurface : public Adaptor3d_Curve
+class Adaptor3d_CurveOnSurface : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_CurveOnSurface, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Adaptor3d_CurveOnSurface, Curve5)
 public:
   Standard_EXPORT Adaptor3d_CurveOnSurface();
 
-  Standard_EXPORT Adaptor3d_CurveOnSurface(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT Adaptor3d_CurveOnSurface(const Handle(SurfaceAdaptor)& S);
 
   //! Creates a CurveOnSurface from the 2d curve <C> and
   //! the surface <S>.
   Standard_EXPORT Adaptor3d_CurveOnSurface(const Handle(Adaptor2d_Curve2d)& C,
-                                           const Handle(Adaptor3d_Surface)& S);
+                                           const Handle(SurfaceAdaptor)& S);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   //! Changes the surface.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Load(const Handle(SurfaceAdaptor)& S);
 
   //! Changes the 2d curve.
   Standard_EXPORT void Load(const Handle(Adaptor2d_Curve2d)& C);
 
   //! Load both curve and surface.
-  Standard_EXPORT void Load(const Handle(Adaptor2d_Curve2d)& C, const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Load(const Handle(Adaptor2d_Curve2d)& C, const Handle(SurfaceAdaptor)& S);
 
   Standard_EXPORT const Handle(Adaptor2d_Curve2d)& GetCurve() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Surface)& GetSurface() const;
+  Standard_EXPORT const Handle(SurfaceAdaptor)& GetSurface() const;
 
   Standard_EXPORT Handle(Adaptor2d_Curve2d)& ChangeCurve();
 
-  Standard_EXPORT Handle(Adaptor3d_Surface)& ChangeSurface();
+  Standard_EXPORT Handle(SurfaceAdaptor)& ChangeSurface();
 
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 
@@ -86,7 +86,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -178,19 +178,19 @@ private:
 
   Standard_EXPORT void LocatePart(const gp_Pnt2d&                  UV,
                                   const gp_Vec2d&                  DUV,
-                                  const Handle(Adaptor3d_Surface)& S,
+                                  const Handle(SurfaceAdaptor)& S,
                                   gp_Pnt2d&                        LeftBot,
                                   gp_Pnt2d&                        RightTop) const;
 
   Standard_EXPORT Standard_Boolean LocatePart_RevExt(const gp_Pnt2d&                  UV,
                                                      const gp_Vec2d&                  DUV,
-                                                     const Handle(Adaptor3d_Surface)& S,
+                                                     const Handle(SurfaceAdaptor)& S,
                                                      gp_Pnt2d&                        LeftBot,
                                                      gp_Pnt2d& RightTop) const;
 
   Standard_EXPORT Standard_Boolean LocatePart_Offset(const gp_Pnt2d&                  UV,
                                                      const gp_Vec2d&                  DUV,
-                                                     const Handle(Adaptor3d_Surface)& S,
+                                                     const Handle(SurfaceAdaptor)& S,
                                                      gp_Pnt2d&                        LeftBot,
                                                      gp_Pnt2d& RightTop) const;
 
@@ -205,13 +205,13 @@ private:
                                   Standard_Boolean&           DerIsNull) const;
 
 private:
-  Handle(Adaptor3d_Surface)       mySurface;
+  Handle(SurfaceAdaptor)       mySurface;
   Handle(Adaptor2d_Curve2d)       myCurve;
   GeomAbs_CurveType               myType;
   gp_Circ                         myCirc;
   gp_Lin                          myLin;
-  Handle(Adaptor3d_Surface)       myFirstSurf;
-  Handle(Adaptor3d_Surface)       myLastSurf;
+  Handle(SurfaceAdaptor)       myFirstSurf;
+  Handle(SurfaceAdaptor)       myLastSurf;
   Handle(TColStd_HSequenceOfReal) myIntervals;
   GeomAbs_Shape                   myIntCont;
 };

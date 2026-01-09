@@ -26,7 +26,7 @@
 #include <Bisector_Curve.hxx>
 #include <GeomAbs_Shape.hxx>
 class GeomCurve2d;
-class Geom2d_Geometry;
+class Geometry2;
 class Transform2d;
 class gp_Vec2d;
 
@@ -95,7 +95,7 @@ public:
   //! where the curves are inversed.
   Standard_EXPORT Handle(Bisector_BisecCC) ChangeGuide() const;
 
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Transformation of a geometric object. This transformation
   //! can be a translation, a rotation, a symmetry, a scaling

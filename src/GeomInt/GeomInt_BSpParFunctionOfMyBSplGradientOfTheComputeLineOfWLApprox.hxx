@@ -39,7 +39,7 @@ class AppParCurves_MultiBSpCurve;
 class math_Matrix;
 
 class GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox
-    : public math_MultipleVarFunctionWithGradient
+    : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -50,7 +50,7 @@ public:
     const GeomInt_TheMultiLineOfWLApprox&                 SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     const math_Vector&                                    Parameters,
     const TColStd_Array1OfReal&                           Knots,
     const TColStd_Array1OfInteger&                        Mults,
@@ -109,11 +109,11 @@ public:
   Standard_EXPORT const math_IntegerVector& Index() const;
 
   Standard_EXPORT AppParCurves_Constraint
-    FirstConstraint(const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    FirstConstraint(const Handle(ConstraintCoupleArray)& TheConstraints,
                     const Standard_Integer                                FirstPoint) const;
 
   Standard_EXPORT AppParCurves_Constraint
-    LastConstraint(const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    LastConstraint(const Handle(ConstraintCoupleArray)& TheConstraints,
                    const Standard_Integer                                LastPoint) const;
 
   Standard_EXPORT void SetFirstLambda(const Standard_Real l1);
@@ -150,7 +150,7 @@ private:
   Standard_Real                                                       ERR2d;
   Standard_Integer                                                    FirstP;
   Standard_Integer                                                    LastP;
-  Handle(AppParCurves_HArray1OfConstraintCouple)                      myConstraints;
+  Handle(ConstraintCoupleArray)                      myConstraints;
   Standard_Real                                                       mylambda1;
   Standard_Real                                                       mylambda2;
 };

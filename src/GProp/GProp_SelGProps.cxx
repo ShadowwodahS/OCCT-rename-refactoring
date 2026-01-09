@@ -23,14 +23,14 @@
 #include <math_Matrix.hxx>
 #include <math_Vector.hxx>
 
-GProp_SelGProps::GProp_SelGProps() {}
+SelectionGeometricProperties::SelectionGeometricProperties() {}
 
-void GProp_SelGProps::SetLocation(const Point3d& SLocation)
+void SelectionGeometricProperties::SetLocation(const Point3d& SLocation)
 {
   loc = SLocation;
 }
 
-void GProp_SelGProps::Perform(const Cylinder1&  S,
+void SelectionGeometricProperties::Perform(const Cylinder1&  S,
                               const Standard_Real Alpha1,
                               const Standard_Real Alpha2,
                               const Standard_Real Z1,
@@ -99,7 +99,7 @@ void GProp_SelGProps::Perform(const Cylinder1&  S,
   inertia = inertia + Hop;
 }
 
-void GProp_SelGProps::Perform(const Cone1&      S,
+void SelectionGeometricProperties::Perform(const Cone1&      S,
                               const Standard_Real Alpha1,
                               const Standard_Real Alpha2,
                               const Standard_Real Z1,
@@ -184,7 +184,7 @@ void GProp_SelGProps::Perform(const Cone1&      S,
   inertia = inertia + Hop;
 }
 
-void GProp_SelGProps::Perform(const Sphere3&    S,
+void SelectionGeometricProperties::Perform(const Sphere3&    S,
                               const Standard_Real Teta1,
                               const Standard_Real Teta2,
                               const Standard_Real Alpha1,
@@ -262,7 +262,7 @@ void GProp_SelGProps::Perform(const Sphere3&    S,
   inertia = inertia + Hop;
 }
 
-void GProp_SelGProps::Perform(const gp_Torus&     S,
+void SelectionGeometricProperties::Perform(const gp_Torus&     S,
                               const Standard_Real Teta1,
                               const Standard_Real Teta2,
                               const Standard_Real Alpha1,
@@ -344,7 +344,7 @@ void GProp_SelGProps::Perform(const gp_Torus&     S,
   inertia = inertia + Hop;
 }
 
-GProp_SelGProps::GProp_SelGProps(const Cone1&      S,
+SelectionGeometricProperties::SelectionGeometricProperties(const Cone1&      S,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
@@ -355,7 +355,7 @@ GProp_SelGProps::GProp_SelGProps(const Cone1&      S,
   Perform(S, Alpha1, Alpha2, Z1, Z2);
 }
 
-GProp_SelGProps::GProp_SelGProps(const Cylinder1&  S,
+SelectionGeometricProperties::SelectionGeometricProperties(const Cylinder1&  S,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
@@ -366,7 +366,7 @@ GProp_SelGProps::GProp_SelGProps(const Cylinder1&  S,
   Perform(S, Alpha1, Alpha2, Z1, Z2);
 }
 
-GProp_SelGProps::GProp_SelGProps(const Sphere3&    S,
+SelectionGeometricProperties::SelectionGeometricProperties(const Sphere3&    S,
                                  const Standard_Real Teta1,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
@@ -377,7 +377,7 @@ GProp_SelGProps::GProp_SelGProps(const Sphere3&    S,
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);
 }
 
-GProp_SelGProps::GProp_SelGProps(const gp_Torus&     S,
+SelectionGeometricProperties::SelectionGeometricProperties(const gp_Torus&     S,
                                  const Standard_Real Teta1,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,

@@ -55,7 +55,7 @@ static void AddPoles(const Handle(Prs3d_Presentation)& aPresentation,
 //=================================================================================================
 
 void StdPrs_WFPoleSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                               const Adaptor3d_Surface&          aSurface,
+                               const SurfaceAdaptor&          aSurface,
                                const Handle(StyleDrawer)&       aDrawer)
 {
 

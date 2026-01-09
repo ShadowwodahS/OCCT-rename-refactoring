@@ -44,11 +44,11 @@ class Vrml_TextureCoordinate2 : public RefObject
 public:
   Standard_EXPORT Vrml_TextureCoordinate2();
 
-  Standard_EXPORT Vrml_TextureCoordinate2(const Handle(TColgp_HArray1OfVec2d)& aPoint);
+  Standard_EXPORT Vrml_TextureCoordinate2(const Handle(Vector2dArray)& aPoint);
 
-  Standard_EXPORT void SetPoint(const Handle(TColgp_HArray1OfVec2d)& aPoint);
+  Standard_EXPORT void SetPoint(const Handle(Vector2dArray)& aPoint);
 
-  Standard_EXPORT Handle(TColgp_HArray1OfVec2d) Point() const;
+  Standard_EXPORT Handle(Vector2dArray) Point() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
@@ -56,7 +56,7 @@ public:
 
 protected:
 private:
-  Handle(TColgp_HArray1OfVec2d) myPoint;
+  Handle(Vector2dArray) myPoint;
 };
 
 #endif // _Vrml_TextureCoordinate2_HeaderFile

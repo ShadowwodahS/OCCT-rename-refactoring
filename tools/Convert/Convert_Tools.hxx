@@ -40,7 +40,7 @@
 
 class GeomLine;
 class GeomPlane;
-class Geom_Transformation;
+class Transformation1;
 
 //! \class Convert_Tools
 //! \brief The tool that gives auxiliary methods for qt elements manipulation.

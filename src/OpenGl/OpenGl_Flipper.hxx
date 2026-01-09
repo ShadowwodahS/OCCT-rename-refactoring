@@ -25,13 +25,13 @@ class Frame3d;
 //! - Y    - heads to the up side of view.
 //! - N(Z) - heads towards the screen.
 //! Originally, this element serves for need of flipping the 3D text of dimension presentations.
-class OpenGl_Flipper : public OpenGl_Element
+class Flipper : public OpenGl_Element
 {
 public:
   //! Construct rendering element to flip model-view matrix
   //! along the reference system to ensure up-Y, right-X orientation.
   //! @param[in] theReferenceSystem  the reference coordinate system.
-  Standard_EXPORT OpenGl_Flipper(const Frame3d& theReferenceSystem);
+  Standard_EXPORT Flipper(const Frame3d& theReferenceSystem);
 
   //! Set options for the element.
   //! @param[in] theIsEnabled  flag indicates whether the flipper

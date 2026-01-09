@@ -64,8 +64,8 @@ public:
   Standard_Integer PlaneIndex() const { return myCurrIndex; }
 
 private:
-  Graphic3d_SequenceOfHClipPlane::Iterator    myIter1;
-  Graphic3d_SequenceOfHClipPlane::Iterator    myIter2;
+  SequenceOfHClipPlane::Iterator    myIter1;
+  SequenceOfHClipPlane::Iterator    myIter2;
   const NCollection_Vector<Standard_Boolean>* myDisabled;
   Standard_Integer                            myCurrIndex;
 };

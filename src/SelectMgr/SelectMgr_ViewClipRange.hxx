@@ -24,7 +24,7 @@
 #include <vector>
 
 class Axis3d;
-class Graphic3d_SequenceOfHClipPlane;
+class SequenceOfHClipPlane;
 
 //! Class for handling depth clipping range.
 //! It is used to perform checks in case if global (for the whole view)
@@ -106,7 +106,7 @@ public:
   }
 
   //! Add clipping planes. Planes and picking ray should be defined in the same coordinate system.
-  Standard_EXPORT void AddClippingPlanes(const Graphic3d_SequenceOfHClipPlane& thePlanes,
+  Standard_EXPORT void AddClippingPlanes(const SequenceOfHClipPlane& thePlanes,
                                          const Axis3d&                         thePickRay);
 
   //! Returns the main unclipped range; [-inf, inf] by default.

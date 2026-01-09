@@ -25,7 +25,7 @@
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
 
-class CSLib_NormalPolyDef : public math_FunctionWithDerivative
+class CSLib_NormalPolyDef : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

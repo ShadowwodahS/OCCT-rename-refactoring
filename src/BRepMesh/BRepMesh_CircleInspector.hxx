@@ -22,7 +22,7 @@
 #include <NCollection_CellFilter.hxx>
 
 //! Auxiliary class to find circles shot by the given point.
-class BRepMesh_CircleInspector : public CellInspectorXY
+class CircleInspector : public CellInspectorXY
 {
 public:
   typedef Standard_Integer Target;
@@ -31,7 +31,7 @@ public:
   //! @param theTolerance tolerance to be used for identification of shot circles.
   //! @param theReservedSize size to be reserved for vector of circles.
   //! @param theAllocator memory allocator to be used by internal collections.
-  BRepMesh_CircleInspector(const Standard_Real                     theTolerance,
+  CircleInspector(const Standard_Real                     theTolerance,
                            const Standard_Integer                  theReservedSize,
                            const Handle(NCollection_IncAllocator)& theAllocator)
       : mySqTolerance(theTolerance * theTolerance),

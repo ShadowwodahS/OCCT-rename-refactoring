@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-Extrema_GenLocateExtSS::Extrema_GenLocateExtSS()
+GenericSurfaceSurfaceExtrema::GenericSurfaceSurfaceExtrema()
     : myDone(Standard_False),
       mySqDist(RealLast())
 {
@@ -33,8 +33,8 @@ Extrema_GenLocateExtSS::Extrema_GenLocateExtSS()
 
 //=================================================================================================
 
-Extrema_GenLocateExtSS::Extrema_GenLocateExtSS(const Adaptor3d_Surface& S1,
-                                               const Adaptor3d_Surface& S2,
+GenericSurfaceSurfaceExtrema::GenericSurfaceSurfaceExtrema(const SurfaceAdaptor& S1,
+                                               const SurfaceAdaptor& S2,
                                                const Standard_Real      U1,
                                                const Standard_Real      V1,
                                                const Standard_Real      U2,
@@ -47,8 +47,8 @@ Extrema_GenLocateExtSS::Extrema_GenLocateExtSS(const Adaptor3d_Surface& S1,
 
 //=================================================================================================
 
-void Extrema_GenLocateExtSS::Perform(const Adaptor3d_Surface& S1,
-                                     const Adaptor3d_Surface& S2,
+void GenericSurfaceSurfaceExtrema::Perform(const SurfaceAdaptor& S1,
+                                     const SurfaceAdaptor& S2,
                                      const Standard_Real      U1,
                                      const Standard_Real      V1,
                                      const Standard_Real      U2,
@@ -105,14 +105,14 @@ void Extrema_GenLocateExtSS::Perform(const Adaptor3d_Surface& S1,
 
 //=================================================================================================
 
-Standard_Boolean Extrema_GenLocateExtSS::IsDone() const
+Standard_Boolean GenericSurfaceSurfaceExtrema::IsDone() const
 {
   return myDone;
 }
 
 //=================================================================================================
 
-Standard_Real Extrema_GenLocateExtSS::SquareDistance() const
+Standard_Real GenericSurfaceSurfaceExtrema::SquareDistance() const
 {
   if (!IsDone())
   {
@@ -123,7 +123,7 @@ Standard_Real Extrema_GenLocateExtSS::SquareDistance() const
 
 //=================================================================================================
 
-const PointOnSurface1& Extrema_GenLocateExtSS::PointOnS1() const
+const PointOnSurface1& GenericSurfaceSurfaceExtrema::PointOnS1() const
 {
   if (!IsDone())
   {
@@ -134,7 +134,7 @@ const PointOnSurface1& Extrema_GenLocateExtSS::PointOnS1() const
 
 //=================================================================================================
 
-const PointOnSurface1& Extrema_GenLocateExtSS::PointOnS2() const
+const PointOnSurface1& GenericSurfaceSurfaceExtrema::PointOnS2() const
 {
   if (!IsDone())
   {

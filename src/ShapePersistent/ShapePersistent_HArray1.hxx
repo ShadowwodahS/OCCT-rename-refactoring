@@ -30,20 +30,20 @@
 #include <TColgp_HArray1OfCirc2d.hxx>
 #include <Poly_HArray1OfTriangle.hxx>
 
-class ShapePersistent_HArray1 : private HArray1
+class HArray11 : private HArray1
 {
 public:
-  typedef instance<TColgp_HArray1OfXYZ>    XYZ;
-  typedef instance<TColgp_HArray1OfPnt>    Pnt;
-  typedef instance<TColgp_HArray1OfDir>    Dir;
-  typedef instance<TColgp_HArray1OfVec>    Vec;
-  typedef instance<TColgp_HArray1OfXY>     XY;
-  typedef instance<TColgp_HArray1OfPnt2d>  Pnt2d;
-  typedef instance<TColgp_HArray1OfDir2d>  Dir2d;
-  typedef instance<TColgp_HArray1OfVec2d>  Vec2d;
-  typedef instance<TColgp_HArray1OfLin2d>  Lin2d;
-  typedef instance<TColgp_HArray1OfCirc2d> Circ2d;
-  typedef instance<Poly_HArray1OfTriangle> Triangle1;
+  typedef instance<XYZArray>    XYZ;
+  typedef instance<PointArray1>    Pnt;
+  typedef instance<DirectionArray>    Dir;
+  typedef instance<VectorArray>    Vec;
+  typedef instance<XYArray>     XY;
+  typedef instance<Point2dArray>  Pnt2d;
+  typedef instance<Direction2dArray>  Dir2d;
+  typedef instance<Vector2dArray>  Vec2d;
+  typedef instance<Line2dArray>  Lin2d;
+  typedef instance<Circle2dArray> Circ2d;
+  typedef instance<TriangleArray1> Triangle1;
 };
 
 inline ReadData& operator>>(ReadData& theReadData, Triangle2& theTriangle)

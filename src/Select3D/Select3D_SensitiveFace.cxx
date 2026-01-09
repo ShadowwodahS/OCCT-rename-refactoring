@@ -43,7 +43,7 @@ Select3D_SensitiveFace::Select3D_SensitiveFace(const Handle(SelectMgr_EntityOwne
 //=================================================================================================
 
 Select3D_SensitiveFace::Select3D_SensitiveFace(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                               const Handle(TColgp_HArray1OfPnt)&   thePoints,
+                                               const Handle(PointArray1)&   thePoints,
                                                const Select3D_TypeOfSensitivity     theType)
     : Select3D_SensitiveEntity(theOwnerId),
       mySensType(theType)
@@ -63,7 +63,7 @@ Select3D_SensitiveFace::Select3D_SensitiveFace(const Handle(SelectMgr_EntityOwne
 // purpose  : Initializes the given array theHArrayOfPnt by 3d
 //            coordinates of vertices of the face
 //=======================================================================
-void Select3D_SensitiveFace::GetPoints(Handle(TColgp_HArray1OfPnt)& theHArrayOfPnt)
+void Select3D_SensitiveFace::GetPoints(Handle(PointArray1)& theHArrayOfPnt)
 {
   if (myFacePoints->IsKind(STANDARD_TYPE(Select3D_SensitivePoly)))
   {
@@ -99,7 +99,7 @@ Standard_Boolean Select3D_SensitiveFace::Matches(SelectingVolumeManager& theMgr,
 Handle(Select3D_SensitiveEntity) Select3D_SensitiveFace::GetConnected()
 {
   // Create a copy of this
-  Handle(TColgp_HArray1OfPnt) aPoints;
+  Handle(PointArray1) aPoints;
   GetPoints(aPoints);
 
   Handle(Select3D_SensitiveEntity) aNewEntity =

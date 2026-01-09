@@ -128,7 +128,7 @@ void TObj_TReference::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void TObj_TReference::Paste(const Handle(TDF_Attribute)&       theInto,
-                            const Handle(TDF_RelocationTable)& RT) const
+                            const Handle(RelocationTable1)& RT) const
 {
   Handle(TObj_TReference) aReference = Handle(TObj_TReference)::DownCast(theInto);
   Handle(TObj_TObject)    aObject, aMasterTObj;

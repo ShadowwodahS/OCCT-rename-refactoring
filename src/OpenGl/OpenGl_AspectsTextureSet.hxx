@@ -18,7 +18,7 @@
 #include <Graphic3d_TextureMap.hxx>
 
 class OpenGl_Context;
-class OpenGl_TextureSet;
+class TextureSet2;
 class OpenGl_PointSprite;
 
 //! OpenGl resources for custom textures.
@@ -40,7 +40,7 @@ public:
   void Invalidate() { myIsTextureReady = false; }
 
   //! Return textures array.
-  const Handle(OpenGl_TextureSet)& TextureSet(const Handle(OpenGl_Context)&     theCtx,
+  const Handle(TextureSet2)& TextureSet(const Handle(OpenGl_Context)&     theCtx,
                                               const Handle(Graphic3d_Aspects)&  theAspect,
                                               const Handle(OpenGl_PointSprite)& theSprite,
                                               const Handle(OpenGl_PointSprite)& theSpriteA,
@@ -68,7 +68,7 @@ private:
                              const Handle(OpenGl_PointSprite)& theSpriteA);
 
 private:
-  Handle(OpenGl_TextureSet) myTextures[2];
+  Handle(TextureSet2) myTextures[2];
   Standard_Boolean          myIsTextureReady;
 };
 

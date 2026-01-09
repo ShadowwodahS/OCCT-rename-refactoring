@@ -200,7 +200,7 @@ void Geom2dHatch_Hatcher::RemElement(const Standard_Integer IndE)
       Standard_Boolean      DomainsToClear = Standard_False;
       for (Standard_Integer IPntH = Hatching.NbPoints(); IPntH > 0; IPntH--)
       {
-        HatchGen_PointOnHatching PntH = Hatching.ChangePoint(IPntH);
+        PointOnHatching PntH = Hatching.ChangePoint(IPntH);
         for (Standard_Integer IPntE = PntH.NbPoints(); IPntE > 0; IPntE--)
         {
           if (PntH.Point(IPntE).Index() == IndE)
@@ -376,7 +376,7 @@ void Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH)
   {
     for (Standard_Integer IPnt = 1; IPnt <= Hatching.NbPoints(); IPnt++)
     {
-      HatchGen_PointOnHatching& PntH = Hatching.ChangePoint(IPnt);
+      PointOnHatching& PntH = Hatching.ChangePoint(IPnt);
       OK                             = GlobalTransition(PntH);
       AllOK                          = AllOK && OK;
     }
@@ -391,7 +391,7 @@ void Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH)
 // Purpose  : Dump of the intersection point.
 //=======================================================================
 
-static void IntersectionPointDump(const IntRes2d_IntersectionPoint& Pnt,
+static void IntersectionPointDump(const IntersectionPoint3& Pnt,
                                   const Standard_Integer            Index)
 {
   Standard_Integer SavedPrecision = std::cout.precision();
@@ -562,16 +562,16 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
 
   for (Standard_Integer IPntI = 1; IPntI <= myIntersector.NbPoints(); IPntI++)
   {
-    const IntRes2d_IntersectionPoint& PntI = myIntersector.Point(IPntI);
+    const IntersectionPoint3& PntI = myIntersector.Point(IPntI);
 
 #if TRACE_HATCHER
     IntersectionPointDump(PntI, IPntI);
 #endif
 
-    HatchGen_PointOnElement PntE(PntI);
+    PointOnElement PntE(PntI);
     PntE.SetIndex(IndE);
 
-    HatchGen_PointOnHatching PntH(PntI);
+    PointOnHatching PntH(PntI);
     PntH.SetIndex(IndH);
     PntH.AddPoint(PntE, myConfusion2d);
 
@@ -601,8 +601,8 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
     if (FirstPoint && LastPoint)
     {
 
-      const IntRes2d_IntersectionPoint& Pnt1 = Seg.FirstPoint();
-      const IntRes2d_IntersectionPoint& Pnt2 = Seg.LastPoint();
+      const IntersectionPoint3& Pnt1 = Seg.FirstPoint();
+      const IntersectionPoint3& Pnt2 = Seg.LastPoint();
 
       const Transition3& TrsPnt1H = Pnt1.TransitionOfFirst();
       const Transition3& TrsPnt1E = Pnt1.TransitionOfSecond();
@@ -647,7 +647,7 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
       if (Conf2d || Conf3d)
       {
 
-        HatchGen_PointOnElement PntE;
+        PointOnElement PntE;
         PntE.SetIndex(IndE);
         PntE.SetParameter((Pnt1.ParamOnSecond() + Pnt2.ParamOnSecond()) / 2.);
         switch (TrsPnt1E.PositionOnCurve())
@@ -690,7 +690,7 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
         PntE.SetStateBefore((TypePnt1H == IntRes2d_In) ? TopAbs_OUT : TopAbs_IN);
         PntE.SetStateAfter((TypePnt2H == IntRes2d_In) ? TopAbs_OUT : TopAbs_IN);
 
-        HatchGen_PointOnHatching PntH;
+        PointOnHatching PntH;
         PntH.SetIndex(IndH);
         PntH.SetParameter((Pnt1.ParamOnFirst() + Pnt2.ParamOnFirst()) / 2.);
         switch (TrsPnt1H.PositionOnCurve())
@@ -749,18 +749,18 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
       if (FirstPoint)
       {
 
-        const IntRes2d_IntersectionPoint& PntI = Seg.FirstPoint();
+        const IntersectionPoint3& PntI = Seg.FirstPoint();
 
 #if TRACE_HATCHER
         IntersectionPointDump(PntI, 1);
 #endif
 
-        HatchGen_PointOnElement PntE(PntI);
+        PointOnElement PntE(PntI);
         PntE.SetIndex(IndE);
         PntE.SetSegmentBeginning(Standard_True);
         PntE.SetSegmentEnd(Standard_False);
 
-        HatchGen_PointOnHatching PntH(PntI);
+        PointOnHatching PntH(PntI);
         PntH.SetIndex(IndH);
         PntH.AddPoint(PntE, myConfusion2d);
 
@@ -782,18 +782,18 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
       if (LastPoint)
       {
 
-        const IntRes2d_IntersectionPoint& PntI = Seg.LastPoint();
+        const IntersectionPoint3& PntI = Seg.LastPoint();
 
 #if TRACE_HATCHER
         IntersectionPointDump(PntI, 2);
 #endif
 
-        HatchGen_PointOnElement PntE(PntI);
+        PointOnElement PntE(PntI);
         PntE.SetIndex(IndE);
         PntE.SetSegmentBeginning(Standard_False);
         PntE.SetSegmentEnd(Standard_True);
 
-        HatchGen_PointOnHatching PntH(PntI);
+        PointOnHatching PntH(PntI);
         PntH.SetIndex(IndH);
         PntH.AddPoint(PntE, myConfusion2d);
 
@@ -829,7 +829,7 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
 //            IndH-th hatching.
 //=======================================================================
 
-Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching& Point)
+Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(PointOnHatching& Point)
 {
   TopAbs_State     StateBefore  = TopAbs_UNKNOWN;
   TopAbs_State     StateAfter   = TopAbs_UNKNOWN;
@@ -869,7 +869,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
 #endif
   for (Standard_Integer IPntE = 1; IPntE <= Point.NbPoints(); IPntE++)
   {
-    const HatchGen_PointOnElement& PntE = Point.Point(IPntE);
+    const PointOnElement& PntE = Point.Point(IPntE);
 
     SegmentBegin = SegmentBegin || PntE.SegmentBeginning();
     SegmentEnd   = SegmentEnd || PntE.SegmentEnd();
@@ -1156,7 +1156,7 @@ void Geom2dHatch_Hatcher::ComputeDomains(const Standard_Integer IndH)
     Standard_Boolean FirstPoint = IPnt == 1;
     Standard_Boolean LastPoint  = IPnt == NbPnt;
 
-    const HatchGen_PointOnHatching& CurPnt = Hatching.Point(IPnt);
+    const PointOnHatching& CurPnt = Hatching.Point(IPnt);
 
 #if TRACE_HATCHER
     std::cout << "===== ComputeDomains:: Hatching # " << std::setw(3) << IndH
@@ -1796,7 +1796,7 @@ void Geom2dHatch_Hatcher::Dump() const
       std::cout << " contains " << NbPnt << " restriction points :" << std::endl;
       for (Standard_Integer IPnt = 1; IPnt <= NbPnt; IPnt++)
       {
-        const HatchGen_PointOnHatching& PntH = Hatching.Point(IPnt);
+        const PointOnHatching& PntH = Hatching.Point(IPnt);
         PntH.Dump(IPnt);
       }
       std::cout << "----------------------------------------------" << std::endl;

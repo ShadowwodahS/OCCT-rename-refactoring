@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom_Transformation;
+class Transformation1;
 class Point3d;
 class Axis3d;
 class gp_Lin;
@@ -31,7 +31,7 @@ class Frame3d;
 
 //! This class implements elementary construction algorithms for a
 //! symmetrical transformation in 3D space about a point,
-//! axis or plane. The result is a Geom_Transformation transformation.
+//! axis or plane. The result is a Transformation1 transformation.
 //! A MakeMirror object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -58,13 +58,13 @@ public:
   Standard_EXPORT GC_MakeMirror(const Frame3d& Plane1);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation1)& Value() const;
 
-  operator const Handle(Geom_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation1) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom_Transformation) TheMirror;
+  Handle(Transformation1) TheMirror;
 };
 
 #endif // _GC_MakeMirror_HeaderFile

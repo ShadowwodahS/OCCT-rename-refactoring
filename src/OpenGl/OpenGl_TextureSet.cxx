@@ -16,11 +16,11 @@
 
 #include <OpenGl_Texture.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_TextureSet, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TextureSet2, RefObject)
 
 //=================================================================================================
 
-OpenGl_TextureSet::OpenGl_TextureSet(const Handle(OpenGl_Texture)& theTexture)
+TextureSet2::TextureSet2(const Handle(OpenGl_Texture)& theTexture)
     : myTextures(0, 0),
       myTextureSetBits(Graphic3d_TextureSetBits_NONE)
 {
@@ -33,7 +33,7 @@ OpenGl_TextureSet::OpenGl_TextureSet(const Handle(OpenGl_Texture)& theTexture)
 
 //=================================================================================================
 
-bool OpenGl_TextureSet::IsModulate() const
+bool TextureSet2::IsModulate() const
 {
   return myTextures.IsEmpty() || myTextures.First().Texture.IsNull()
          || myTextures.First().Texture->Sampler()->Parameters()->IsModulate();
@@ -41,7 +41,7 @@ bool OpenGl_TextureSet::IsModulate() const
 
 //=================================================================================================
 
-bool OpenGl_TextureSet::HasNonPointSprite() const
+bool TextureSet2::HasNonPointSprite() const
 {
   if (myTextures.IsEmpty())
   {
@@ -56,7 +56,7 @@ bool OpenGl_TextureSet::HasNonPointSprite() const
 
 //=================================================================================================
 
-bool OpenGl_TextureSet::HasPointSprite() const
+bool TextureSet2::HasPointSprite() const
 {
   return !myTextures.IsEmpty() && !myTextures.Last().Texture.IsNull()
          && myTextures.Last().Texture->IsPointSprite();

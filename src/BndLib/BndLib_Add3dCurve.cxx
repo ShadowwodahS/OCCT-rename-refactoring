@@ -27,11 +27,11 @@
 #include <math_PSO.hxx>
 #include <math_BrentMinimum.hxx>
 //
-static Standard_Integer NbSamples(const Adaptor3d_Curve& C,
+static Standard_Integer NbSamples(const Curve5& C,
                                   const Standard_Real    Umin,
                                   const Standard_Real    Umax);
 
-static Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
+static Standard_Real AdjustExtr(const Curve5& C,
                                 const Standard_Real    UMin,
                                 const Standard_Real    UMax,
                                 const Standard_Real    Extr0,
@@ -44,7 +44,7 @@ static Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
 // purpose  : This method intended to reduce box in case of
 //           bezier and bspline curve.
 //=======================================================================
-static void reduceSplineBox(const Adaptor3d_Curve& theCurve,
+static void reduceSplineBox(const Curve5& theCurve,
                             const Box2&         theOrigBox,
                             Box2&               theReducedBox)
 {
@@ -99,14 +99,14 @@ static void reduceSplineBox(const Adaptor3d_Curve& theCurve,
 
 //=================================================================================================
 
-void Add3dCurve::Add(const Adaptor3d_Curve& C, const Standard_Real Tol, Box2& B)
+void Add3dCurve::Add(const Curve5& C, const Standard_Real Tol, Box2& B)
 {
   Add3dCurve::Add(C, C.FirstParameter(), C.LastParameter(), Tol, B);
 }
 
 // OCC566(apo)->
 static Standard_Real FillBox(Box2&               B,
-                             const Adaptor3d_Curve& C,
+                             const Curve5& C,
                              const Standard_Real    first,
                              const Standard_Real    last,
                              const Standard_Integer N)
@@ -146,7 +146,7 @@ static Standard_Real FillBox(Box2&               B,
 //<-OCC566(apo)
 //=================================================================================================
 
-void Add3dCurve::Add(const Adaptor3d_Curve& C,
+void Add3dCurve::Add(const Curve5& C,
                             const Standard_Real    U1,
                             const Standard_Real    U2,
                             const Standard_Real    Tol,
@@ -194,7 +194,7 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
           || Abs(Bs->LastParameter() - U2) > Precision1::Parametric(Tol))
       {
 
-        Handle(Geom_Geometry)     G = Bs->Copy();
+        Handle(Geometry3)     G = Bs->Copy();
         Handle(BSplineCurve3d) Bsaux(Handle(BSplineCurve3d)::DownCast(G));
         Standard_Real             u1 = U1, u2 = U2;
         //// modified by jgv, 24.10.01 for BUC61031 ////
@@ -259,14 +259,14 @@ void Add3dCurve::Add(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-void Add3dCurve::AddOptimal(const Adaptor3d_Curve& C, const Standard_Real Tol, Box2& B)
+void Add3dCurve::AddOptimal(const Curve5& C, const Standard_Real Tol, Box2& B)
 {
   Add3dCurve::AddOptimal(C, C.FirstParameter(), C.LastParameter(), Tol, B);
 }
 
 //=================================================================================================
 
-void Add3dCurve::AddOptimal(const Adaptor3d_Curve& C,
+void Add3dCurve::AddOptimal(const Curve5& C,
                                    const Standard_Real    U1,
                                    const Standard_Real    U2,
                                    const Standard_Real    Tol,
@@ -303,7 +303,7 @@ void Add3dCurve::AddOptimal(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
+void Add3dCurve::AddGenCurv(const Curve5& C,
                                    const Standard_Real    UMin,
                                    const Standard_Real    UMax,
                                    const Standard_Real    Tol,
@@ -410,7 +410,7 @@ void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
 class CurvMaxMinCoordMVar : public MultipleVarFunction
 {
 public:
-  CurvMaxMinCoordMVar(const Adaptor3d_Curve& theCurve,
+  CurvMaxMinCoordMVar(const Curve5& theCurve,
                       const Standard_Real    UMin,
                       const Standard_Real    UMax,
                       const Standard_Integer CoordIndx,
@@ -448,7 +448,7 @@ private:
     return Standard_True;
   }
 
-  const Adaptor3d_Curve& myCurve;
+  const Curve5& myCurve;
   Standard_Real          myUMin;
   Standard_Real          myUMax;
   Standard_Integer       myCoordIndx;
@@ -459,7 +459,7 @@ private:
 class CurvMaxMinCoord : public Function1
 {
 public:
-  CurvMaxMinCoord(const Adaptor3d_Curve& theCurve,
+  CurvMaxMinCoord(const Curve5& theCurve,
                   const Standard_Real    UMin,
                   const Standard_Real    UMax,
                   const Standard_Integer CoordIndx,
@@ -495,7 +495,7 @@ private:
     return Standard_True;
   }
 
-  const Adaptor3d_Curve& myCurve;
+  const Curve5& myCurve;
   Standard_Real          myUMin;
   Standard_Real          myUMax;
   Standard_Integer       myCoordIndx;
@@ -504,7 +504,7 @@ private:
 
 //=================================================================================================
 
-Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
+Standard_Real AdjustExtr(const Curve5& C,
                          const Standard_Real    UMin,
                          const Standard_Real    UMax,
                          const Standard_Real    Extr0,
@@ -561,7 +561,7 @@ Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-Standard_Integer NbSamples(const Adaptor3d_Curve& C,
+Standard_Integer NbSamples(const Curve5& C,
                            const Standard_Real    Umin,
                            const Standard_Real    Umax)
 {

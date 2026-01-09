@@ -152,14 +152,14 @@ static void PrintEntry(const DataLabel& label, const Standard_Boolean allLevels)
 void TDF_CopyLabel::Perform()
 {
   myIsDone = Standard_False;
-  if (mySL.Data()->Root().IsDifferent(myTL.Data()->Root()) && // TDF_Data is not the same
+  if (mySL.Data()->Root().IsDifferent(myTL.Data()->Root()) && // Data2 is not the same
                                                               // clang-format off
      !Tool3::IsSelfContained(mySL, myFilter)) return;               //source label isn't self-contained
   // clang-format on
 
   Standard_Boolean extReferers = ExternalReferences(mySL, myMapOfExt, myFilter);
 
-  myRT                   = new TDF_RelocationTable(Standard_True);
+  myRT                   = new RelocationTable1(Standard_True);
   Handle(TDF_DataSet) ds = new TDF_DataSet();
   ClosureMode     mode(Standard_True); // descendant plus reference
   ds->AddLabel(mySL);
@@ -183,7 +183,7 @@ void TDF_CopyLabel::Perform()
 
 //=================================================================================================
 
-const Handle(TDF_RelocationTable)& TDF_CopyLabel::RelocationTable() const
+const Handle(RelocationTable1)& TDF_CopyLabel::RelocationTable() const
 {
   return myRT;
 }

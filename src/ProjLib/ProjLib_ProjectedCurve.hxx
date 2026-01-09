@@ -54,18 +54,18 @@ public:
   Standard_EXPORT ProjLib_ProjectedCurve();
 
   //! Constructor with initialisation field mySurface
-  Standard_EXPORT ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT ProjLib_ProjectedCurve(const Handle(SurfaceAdaptor)& S);
 
   //! Constructor, which performs projecting.
   //! If projecting uses approximation, default parameters are used, in particular, 3d tolerance of
   //! approximation is Precision1::Confusion()
-  Standard_EXPORT ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
-                                         const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT ProjLib_ProjectedCurve(const Handle(SurfaceAdaptor)& S,
+                                         const Handle(Curve5)&   C);
 
   //! Constructor, which performs projecting.
   //! If projecting uses approximation, 3d tolerance is Tol, default parameters are used,
-  Standard_EXPORT ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
-                                         const Handle(Adaptor3d_Curve)&   C,
+  Standard_EXPORT ProjLib_ProjectedCurve(const Handle(SurfaceAdaptor)& S,
+                                         const Handle(Curve5)&   C,
                                          const Standard_Real              Tol);
 
   //! Shallow copy of adaptor
@@ -76,13 +76,13 @@ public:
   Standard_EXPORT void Load(const Standard_Real Tolerance);
 
   //! Changes the Surface.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Load(const Handle(SurfaceAdaptor)& S);
 
   //! Performs projecting for given curve.
   //! If projecting uses approximation,
   //! approximation parameters can be set before by corresponding methods
   //! SetDegree(...), SetMaxSegmets(...), SetBndPnt(...), SetMaxDist(...)
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Curve)& C);
+  Standard_EXPORT void Perform(const Handle(Curve5)& C);
 
   //! Set min and max possible degree of result BSpline curve2d, which is got by approximation.
   //! If theDegMin/Max < 0, algorithm uses values that are chosen depending of types curve 3d
@@ -106,9 +106,9 @@ public:
   //! theMaxDist, algorithm stops working.
   Standard_EXPORT void SetMaxDist(const Standard_Real theMaxDist);
 
-  Standard_EXPORT const Handle(Adaptor3d_Surface)& GetSurface() const;
+  Standard_EXPORT const Handle(SurfaceAdaptor)& GetSurface() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Curve)& GetCurve() const;
+  Standard_EXPORT const Handle(Curve5)& GetCurve() const;
 
   //! returns the tolerance reached if an approximation
   //! is Done.
@@ -227,8 +227,8 @@ public:
 
 private:
   Standard_Real             myTolerance;
-  Handle(Adaptor3d_Surface) mySurface;
-  Handle(Adaptor3d_Curve)   myCurve;
+  Handle(SurfaceAdaptor) mySurface;
+  Handle(Curve5)   myCurve;
   ProjLib_Projector         myResult;
   Standard_Integer          myDegMin;
   Standard_Integer          myDegMax;

@@ -35,7 +35,7 @@
 class Graphic3d_Structure;
 class Graphic3d_ArrayOfPrimitives;
 class Graphic3d_Text;
-class Graphic3d_TransformPers;
+class TransformPers;
 
 //! This class allows the definition of groups
 //! of primitives inside of graphic objects (presentations).
@@ -138,11 +138,11 @@ public:
   virtual void SetTransformation(const Transform3d& theTrsf) { myTrsf = theTrsf; }
 
   //! Return transformation persistence.
-  const Handle(Graphic3d_TransformPers)& TransformPersistence() const { return myTrsfPers; }
+  const Handle(TransformPers)& TransformPersistence() const { return myTrsfPers; }
 
   //! Set transformation persistence.
   Standard_EXPORT virtual void SetTransformPersistence(
-    const Handle(Graphic3d_TransformPers)& theTrsfPers);
+    const Handle(TransformPers)& theTrsfPers);
 
   //! Returns Standard_True if the group <me> is deleted.
   //! <me> is deleted after the call Remove (me) or the
@@ -313,7 +313,7 @@ protected:
   Standard_EXPORT void Update() const;
 
 protected:
-  Handle(Graphic3d_TransformPers) myTrsfPers;  //!< current transform persistence
+  Handle(TransformPers) myTrsfPers;  //!< current transform persistence
   Graphic3d_Structure*            myStructure; //!< pointer to the parent structure
   Graphic3d_BndBox4f              myBounds;    //!< bounding box
   Transform3d                         myTrsf;      //!< group transformation

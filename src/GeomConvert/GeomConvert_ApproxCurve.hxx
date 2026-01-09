@@ -53,7 +53,7 @@ public:
   //! MaxSegments allowed in the resulting BSpline curve, and
   //! -      the highest degree MaxDeg which the
   //! polynomial defining the BSpline curve may have.
-  Standard_EXPORT GeomConvert_ApproxCurve(const Handle(Adaptor3d_Curve)& Curve,
+  Standard_EXPORT GeomConvert_ApproxCurve(const Handle(Curve5)& Curve,
                                           const Standard_Real            Tol3d,
                                           const GeomAbs_Shape            Order,
                                           const Standard_Integer         MaxSegments,
@@ -82,7 +82,7 @@ public:
 protected:
 private:
   //! Converts a curve to B-spline
-  Standard_EXPORT void Approximate(const Handle(Adaptor3d_Curve)& theCurve,
+  Standard_EXPORT void Approximate(const Handle(Curve5)& theCurve,
                                    const Standard_Real            theTol3d,
                                    const GeomAbs_Shape            theOrder,
                                    const Standard_Integer         theMaxSegments,

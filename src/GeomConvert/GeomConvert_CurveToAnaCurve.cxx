@@ -183,13 +183,13 @@ Handle(GeomLine) GeomConvert_CurveToAnaCurve::ComputeLine(const Handle(GeomCurve
   cf = c1;
   cl = c2;
 
-  Handle(TColgp_HArray1OfPnt) Poles;
+  Handle(PointArray1) Poles;
   Standard_Integer            nbPoles;
   Handle(BSplineCurve3d)   bsc = Handle(BSplineCurve3d)::DownCast(curve);
   if (!bsc.IsNull())
   {
     nbPoles = bsc->NbPoles();
-    Poles   = new TColgp_HArray1OfPnt(1, nbPoles);
+    Poles   = new PointArray1(1, nbPoles);
     bsc->Poles(Poles->ChangeArray1());
   }
   else
@@ -198,13 +198,13 @@ Handle(GeomLine) GeomConvert_CurveToAnaCurve::ComputeLine(const Handle(GeomCurve
     if (!bzc.IsNull())
     {
       nbPoles = bzc->NbPoles();
-      Poles   = new TColgp_HArray1OfPnt(1, nbPoles);
+      Poles   = new PointArray1(1, nbPoles);
       bzc->Poles(Poles->ChangeArray1());
     }
     else
     {
       nbPoles          = 23;
-      Poles            = new TColgp_HArray1OfPnt(1, nbPoles);
+      Poles            = new PointArray1(1, nbPoles);
       Standard_Real dt = (c2 - c1) / (nbPoles - 1);
       Poles->SetValue(1, P1);
       Poles->SetValue(nbPoles, P2);
@@ -239,7 +239,7 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::GetCircle(gp_Circ&      crc,
     return Standard_False;
 
   //  Building the circle
-  gce_MakeCirc mkc(P0, P1, P2);
+  CircleBuilder1 mkc(P0, P1, P2);
   if (!mkc.IsDone())
     return Standard_False;
   crc = mkc.Value();
@@ -328,7 +328,7 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeCircle(const Handle(Geom
 
 //=================================================================================================
 
-static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
+static Standard_Boolean IsArrayPntPlanar(const Handle(PointArray1)& HAP,
                                          Dir3d&                            Norm,
                                          const Standard_Real                prec)
 {
@@ -527,7 +527,7 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geo
     c2n = c2;
   //
   Coords3d                      aBC;
-  Handle(TColgp_HArray1OfPnt) AP = new TColgp_HArray1OfPnt(1, 5);
+  Handle(PointArray1) AP = new PointArray1(1, 5);
   AP->SetValue(1, PStart);
   aBC += PStart.XYZ();
   Standard_Real dc = (c2n - c1) / 4;

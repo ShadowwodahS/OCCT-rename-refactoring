@@ -32,7 +32,7 @@ class math_Matrix;
 
 //! This abstract class describes a set on N Functions of
 //! M independent variables.
-class Geom2dGcc_FunctionTanCuCuOnCu : public math_FunctionSetWithDerivatives
+class Geom2dGcc_FunctionTanCuCuOnCu : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

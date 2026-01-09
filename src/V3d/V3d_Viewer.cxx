@@ -795,7 +795,7 @@ void ViewManager::ShowGridEcho(const Handle(ViewWindow)& theView, const Vertex1&
 
   myGridEchoStructure->SetZLayer(Graphic3d_ZLayerId_Topmost);
   myGridEchoStructure->SetInfiniteState(Standard_True);
-  myGridEchoStructure->CStructure()->ViewAffinity = new Graphic3d_ViewAffinity();
+  myGridEchoStructure->CStructure()->ViewAffinity = new ViewAffinity1();
   myGridEchoStructure->CStructure()->ViewAffinity->SetVisible(Standard_False);
   myGridEchoStructure->CStructure()->ViewAffinity->SetVisible(theView->View()->Identification(),
                                                               true);
@@ -812,7 +812,7 @@ void ViewManager::HideGridEcho(const Handle(ViewWindow)& theView)
   }
 
   myGridEchoLastVert.SetCoord(ShortRealLast(), ShortRealLast(), ShortRealLast());
-  const Handle(Graphic3d_ViewAffinity)& anAffinity =
+  const Handle(ViewAffinity1)& anAffinity =
     myGridEchoStructure->CStructure()->ViewAffinity;
   if (!anAffinity.IsNull() && anAffinity->IsVisible(theView->View()->Identification()))
   {

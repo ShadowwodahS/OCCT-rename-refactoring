@@ -40,7 +40,7 @@ AppParCurves_Function::
   AppParCurves_Function(const MultiLine& SSP,
 	 const Standard_Integer FirstPoint,
 	 const Standard_Integer LastPoint,
-	 const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+	 const Handle(ConstraintCoupleArray)& TheConstraints,
 	 const math_Vector& Parameters,
 	 const Standard_Integer Deg) :
          MyMultiLine(SSP),
@@ -128,7 +128,7 @@ AppParCurves_Function::
 
 
 AppParCurves_Constraint AppParCurves_Function::FirstConstraint
-  (const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  (const Handle(ConstraintCoupleArray)& TheConstraints,
    const Standard_Integer FirstPoint) const
 {
   Standard_Integer i, myindex;
@@ -149,7 +149,7 @@ AppParCurves_Constraint AppParCurves_Function::FirstConstraint
 
 
 AppParCurves_Constraint AppParCurves_Function::LastConstraint
-  (const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  (const Handle(ConstraintCoupleArray)& TheConstraints,
    const Standard_Integer LastPoint) const
 {
   Standard_Integer i, myindex;

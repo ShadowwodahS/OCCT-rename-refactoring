@@ -24,13 +24,13 @@
 
 //! Extension of TDataStd_DataMapOfStringByte class
 //! to be manipulated by handle.
-class TDataStd_HDataMapOfStringByte : public RefObject
+class StringByteMap : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringByte, RefObject)
+  DEFINE_STANDARD_RTTIEXT(StringByteMap, RefObject)
 public:
-  Standard_EXPORT TDataStd_HDataMapOfStringByte(const Standard_Integer NbBuckets = 1);
+  Standard_EXPORT StringByteMap(const Standard_Integer NbBuckets = 1);
 
-  Standard_EXPORT TDataStd_HDataMapOfStringByte(const TDataStd_DataMapOfStringByte& theOther);
+  Standard_EXPORT StringByteMap(const TDataStd_DataMapOfStringByte& theOther);
 
   const TDataStd_DataMapOfStringByte& Map() const { return myMap; }
 
@@ -40,6 +40,6 @@ private:
   TDataStd_DataMapOfStringByte myMap;
 };
 
-DEFINE_STANDARD_HANDLE(TDataStd_HDataMapOfStringByte, RefObject)
+DEFINE_STANDARD_HANDLE(StringByteMap, RefObject)
 
 #endif // _TDataStd_HDataMapOfStringByte_HeaderFile

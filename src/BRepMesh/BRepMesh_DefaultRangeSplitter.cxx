@@ -117,7 +117,7 @@ void DefaultRangeSplitter::computeTolerance(const Standard_Real /*theLenU*/,
   // Slightly increase exact resolution so to cover links with approximate
   // length equal to resolution itself on sub-resolution differences.
   const Standard_Real      aTolerance = BRepInspector::Tolerance(myDFace->GetFace());
-  const Adaptor3d_Surface& aSurface   = GetSurface()->Surface();
+  const SurfaceAdaptor& aSurface   = GetSurface()->Surface();
   const Standard_Real      aResU      = aSurface.UResolution(aTolerance) * 1.1;
   const Standard_Real      aResV      = aSurface.VResolution(aTolerance) * 1.1;
 

@@ -32,17 +32,17 @@
 //! or full hidden.
 //!
 //! The Sequence  of visible Intervals  on the Edge.
-class HLRAlgo_EdgeStatus
+class EdgeStatus
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT HLRAlgo_EdgeStatus();
+  Standard_EXPORT EdgeStatus();
 
   //! Creates a  new  EdgeStatus.  Default visible.  The
   //! Edge is   bounded by the  interval  <Start>, <End>
   //! with the tolerances <TolStart>, <TolEnd>.
-  Standard_EXPORT HLRAlgo_EdgeStatus(const Standard_Real      Start,
+  Standard_EXPORT EdgeStatus(const Standard_Real      Start,
                                      const Standard_ShortReal TolStart,
                                      const Standard_Real      End,
                                      const Standard_ShortReal TolEnd);

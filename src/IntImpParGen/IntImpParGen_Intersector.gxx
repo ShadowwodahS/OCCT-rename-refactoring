@@ -324,7 +324,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         Pos2, Tan2, Norm2, Trans2,
         Tolerance_Angulaire);
 
-      IntRes2d_IntersectionPoint IP(pt1, param1, param2
+      IntersectionPoint3 IP(pt1, param1, param2
         , Trans1, Trans2
         , ReversedParameters());
       Insert(IP);
@@ -517,12 +517,12 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         Pt1_on1.SetY(m);
       }
 
-      IntRes2d_IntersectionPoint new_p1(Pt1_on1
+      IntersectionPoint3 new_p1(Pt1_on1
 					,Param1_on1,Param1_on2
 					,Trans1,Trans2
 					,ReversedParameters());
       if(!OnlyOnePoint) {
-        IntRes2d_IntersectionPoint new_p2;
+        IntersectionPoint3 new_p2;
 
         Param2_on1 = IntImpParGen1::NormalizeOnDomain(Param2_on1, TheImpCurveDomain);
         Param2_on2 = IntImpParGen1::NormalizeOnDomain(Param2_on2, TheParCurveDomain);
@@ -585,7 +585,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         IntImpParGen1::DetermineTransition(IntRes2d_Head, Tan1, Norm1, Trans1,
           IntRes2d_Head, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
-        IntRes2d_IntersectionPoint IP(TheImpCurveDomain.FirstPoint(),
+        IntersectionPoint3 IP(TheImpCurveDomain.FirstPoint(),
           param1, param2,
           Trans1, Trans2,
           ReversedParameters());
@@ -602,7 +602,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         IntImpParGen1::DetermineTransition(IntRes2d_Head, Tan1, Norm1, Trans1,
           IntRes2d_End, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
-        IntRes2d_IntersectionPoint IP(TheImpCurveDomain.FirstPoint(),
+        IntersectionPoint3 IP(TheImpCurveDomain.FirstPoint(),
           param1, param2,
           Trans1, Trans2,
           ReversedParameters());
@@ -622,7 +622,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         IntImpParGen1::DetermineTransition(IntRes2d_End, Tan1, Norm1, Trans1,
           IntRes2d_Head, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
-        IntRes2d_IntersectionPoint IP(TheImpCurveDomain.LastPoint(),
+        IntersectionPoint3 IP(TheImpCurveDomain.LastPoint(),
           param1, param2,
           Trans1, Trans2,
           ReversedParameters());
@@ -639,7 +639,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         IntImpParGen1::DetermineTransition(IntRes2d_End, Tan1, Norm1, Trans1,
           IntRes2d_End, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
-        IntRes2d_IntersectionPoint IP(TheImpCurveDomain.LastPoint(),
+        IntersectionPoint3 IP(TheImpCurveDomain.LastPoint(),
           param1, param2,
           Trans1, Trans2,
           ReversedParameters());

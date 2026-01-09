@@ -30,20 +30,20 @@ IMPLEMENT_STANDARD_RTTIEXT(MeshVS_SensitivePolyhedron, Select3D_SensitiveEntity)
 MeshVS_SensitivePolyhedron::MeshVS_SensitivePolyhedron(
   const Handle(SelectMgr_EntityOwner)&             theOwner,
   const TColgp_Array1OfPnt&                        theNodes,
-  const Handle(MeshVS_HArray1OfSequenceOfInteger)& theTopo)
+  const Handle(IntegerSequenceArray)& theTopo)
     : Select3D_SensitiveEntity(theOwner),
       myTopo(theTopo)
 {
   Standard_Integer aPlaneLowIdx   = theTopo->Lower();
   Standard_Integer aPlaneUpIdx    = theTopo->Upper();
   Standard_Integer aNodesLowerIdx = theNodes.Lower();
-  myNodes                         = new TColgp_HArray1OfPnt(aNodesLowerIdx, theNodes.Upper());
+  myNodes                         = new PointArray1(aNodesLowerIdx, theNodes.Upper());
   myCenter                        = Coords3d(0.0, 0.0, 0.0);
 
   for (Standard_Integer aPlaneIdx = aPlaneLowIdx; aPlaneIdx <= aPlaneUpIdx; ++aPlaneIdx)
   {
     Standard_Integer            aVertNb    = theTopo->Value(aPlaneIdx).Length();
-    Handle(TColgp_HArray1OfPnt) aVertArray = new TColgp_HArray1OfPnt(0, aVertNb - 1);
+    Handle(PointArray1) aVertArray = new PointArray1(0, aVertNb - 1);
     for (Standard_Integer aVertIdx = 1; aVertIdx <= aVertNb; ++aVertIdx)
     {
       Standard_Integer aNodeIdx = theTopo->Value(aPlaneIdx).Value(aVertIdx);

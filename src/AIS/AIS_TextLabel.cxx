@@ -231,13 +231,13 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
       if (myHasOrientation3D)
       {
         anAsp->Aspect()->SetTextZoomable(myHasFlipping ? Standard_True : Standard_False);
-        SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_ZoomPers, aPosition));
+        SetTransformPersistence(new TransformPers(Graphic3d_TMF_ZoomPers, aPosition));
         aPosition = gp1::Origin();
       }
       else if (isTextZoomable || TransformPersistence().IsNull()
                || TransformPersistence()->Mode() != Graphic3d_TMF_2d)
       {
-        Handle(Graphic3d_TransformPers) aTrsfPers = new Graphic3d_TransformPers(
+        Handle(TransformPers) aTrsfPers = new TransformPers(
           isTextZoomable ? Graphic3d_TMF_RotatePers : Graphic3d_TMF_ZoomRotatePers,
           aPosition);
         SetTransformPersistence(aTrsfPers);

@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IntPatch_WLine, IntPatch_PointLine)
 #include <Precision.hxx>
 #include <stdio.h>
 
-IntPatch_WLine::IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line,
+IntPatch_WLine::IntPatch_WLine(const Handle(LineOnTwoSurfaces)& Line,
                                const Standard_Boolean          Tang,
                                const IntSurf_TypeTrans         Trans1,
                                const IntSurf_TypeTrans         Trans2)
@@ -44,7 +44,7 @@ IntPatch_WLine::IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line,
   u1period = v1period = u2period = v2period = 0.0;
 }
 
-IntPatch_WLine::IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line,
+IntPatch_WLine::IntPatch_WLine(const Handle(LineOnTwoSurfaces)& Line,
                                const Standard_Boolean          Tang,
                                const IntSurf_Situation         Situ1,
                                const IntSurf_Situation         Situ2)
@@ -61,7 +61,7 @@ IntPatch_WLine::IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line,
   u1period = v1period = u2period = v2period = 0.0;
 }
 
-IntPatch_WLine::IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line, const Standard_Boolean Tang)
+IntPatch_WLine::IntPatch_WLine(const Handle(LineOnTwoSurfaces)& Line, const Standard_Boolean Tang)
     : IntPatch_PointLine(Tang),
       fipt(Standard_False),
       lapt(Standard_False),
@@ -80,7 +80,7 @@ void IntPatch_WLine::SetPoint(const Standard_Integer Index, const IntPatch_Point
   curv->Value(Index, thepoint.PntOn2S());
 }
 
-Handle(IntSurf_LineOn2S) IntPatch_WLine::Curve() const
+Handle(LineOnTwoSurfaces) IntPatch_WLine::Curve() const
 {
   return (curv);
 }

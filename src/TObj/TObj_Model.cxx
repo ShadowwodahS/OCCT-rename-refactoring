@@ -446,7 +446,7 @@ Handle(TObj_Model) TObj_Model::GetDocumentModel(const DataLabel& theLabel)
     return aModel;
 
   Handle(AppDocument) aDoc;
-  Handle(TDF_Data)         aData  = theLabel.Data();
+  Handle(Data2)         aData  = theLabel.Data();
   DataLabel                aRootL = aData->Root();
   if (aRootL.IsNull())
     return aModel;
@@ -864,13 +864,13 @@ DataLabel TObj_Model::GetDataLabel() const
 //=================================================================================================
 
 Standard_Boolean TObj_Model::Paste(Handle(TObj_Model)          theModel,
-                                   Handle(TDF_RelocationTable) theRelocTable)
+                                   Handle(RelocationTable1) theRelocTable)
 {
   if (theModel.IsNull())
     return Standard_False;
   // clearing dictionary of objects names
   //  theModel->GetDictionary()->NewEmpty()->Paste(theModel->GetDictionary(),
-  //                                               new TDF_RelocationTable);
+  //                                               new RelocationTable1);
   //  theModel->GetLabel().ForgetAllAttributes(Standard_True);
   TObj_TNameContainer::Set(theModel->GetLabel());
   GetMainPartition()->Clone(theModel->GetLabel(), theRelocTable);
@@ -880,7 +880,7 @@ Standard_Boolean TObj_Model::Paste(Handle(TObj_Model)          theModel,
 //=================================================================================================
 
 void TObj_Model::CopyReferences(const Handle(TObj_Model)&          theTarget,
-                                const Handle(TDF_RelocationTable)& theRelocTable)
+                                const Handle(RelocationTable1)& theRelocTable)
 {
   Handle(TObj_Object) aMyRoot     = GetMainPartition();
   Handle(TObj_Object) aTargetRoot = theTarget->GetMainPartition();

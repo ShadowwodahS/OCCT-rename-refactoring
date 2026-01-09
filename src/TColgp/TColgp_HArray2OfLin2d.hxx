@@ -21,6 +21,6 @@
 #include <TColgp_Array2OfLin2d.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(TColgp_HArray2OfLin2d, TColgp_Array2OfLin2d)
+DEFINE_HARRAY2(Line2dGrid, TColgp_Array2OfLin2d)
 
 #endif

@@ -357,8 +357,8 @@ static Standard_Integer DT_ShapeConvertRev(DrawInterpreter& di, Standard_Integer
     return 1;
       }
 
-      Handle(TColGeom_HArray2OfSurface)
-    TheGridSurf= new TColGeom_HArray2OfSurface(1,NbU,1,NbV);
+      Handle(SurfaceGridArray)
+    TheGridSurf= new SurfaceGridArray(1,NbU,1,NbV);
 
       for (Standard_Integer iu=1; iu<=NbU; iu++) {
     for (Standard_Integer jv=1; jv<=NbV; jv++) {
@@ -735,7 +735,7 @@ static Standard_Integer DT_SplitCurve(DrawInterpreter& di, Standard_Integer n, c
     theTool->SetSplitValues(spval);
   }
   theTool->Perform(Standard_True);
-  Handle(TColGeom_HArray1OfCurve) theCurves = theTool->GetCurves();
+  Handle(HArray1OfCurve3) theCurves = theTool->GetCurves();
   Standard_Integer                NbC       = theCurves->Length();
   for (Standard_Integer icurv = 1; icurv <= NbC; icurv++)
   {
@@ -783,7 +783,7 @@ static Standard_Integer DT_SplitCurve2d(DrawInterpreter& di, Standard_Integer n,
     theTool->SetSplitValues(spval);
   }
   theTool->Perform(Standard_True);
-  Handle(TColGeom2d_HArray1OfCurve) theCurves = theTool->GetCurves();
+  Handle(HArray1OfCurve2) theCurves = theTool->GetCurves();
   Standard_Integer                  NbC       = theCurves->Length();
   for (Standard_Integer icurv = 1; icurv <= NbC; icurv++)
   {
@@ -925,8 +925,8 @@ static Standard_Integer DT_SplitSurface(DrawInterpreter& di, Standard_Integer n,
       Standard_Integer      nbU=Draw1::Atoi(a[2]);
       Standard_Integer      nbV=Draw1::Atoi(a[3]);
       if (nbU==0 || nbV==0) return 1;
-      Handle(TColGeom_HArray2OfSurface)
-        theGrid= new TColGeom_HArray2OfSurface(1,nbU,1,nbV);
+      Handle(SurfaceGridArray)
+        theGrid= new SurfaceGridArray(1,nbU,1,nbV);
       for (Standard_Integer iu=1; iu<=nbU; iu++) {
         for (Standard_Integer iv=1; iv<=nbV; iv++) {
       Handle(GeomSurface) GS = DrawTrSurf1::GetSurface(a[3+(iu-1)*nbV+iv]);
@@ -970,7 +970,7 @@ static Standard_Integer DT_SplitSurface(DrawInterpreter& di, Standard_Integer n,
   di << "\n";
 
   di << "appel a Surfaces\n";
-  Handle(TColGeom_HArray2OfSurface) theSurfaces = Grid->Patches();
+  Handle(SurfaceGridArray) theSurfaces = Grid->Patches();
 
   di << "transfert resultat\n";
   Standard_Integer NbRow = theSurfaces->ColLength();
@@ -1174,8 +1174,8 @@ static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, co
     di << "\n";
   }
 
-  Handle(TColGeom_HArray2OfSurface) AS =
-    new TColGeom_HArray2OfSurface(1, uval.Length() + 1, 1, vval.Length() + 1);
+  Handle(SurfaceGridArray) AS =
+    new SurfaceGridArray(1, uval.Length() + 1, 1, vval.Length() + 1);
   for (i = 0; i <= uval.Length(); i++)
   {
     Standard_Real umin = (i ? uval(i) : Uf);

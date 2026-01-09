@@ -122,8 +122,8 @@ void ShadedShapeConverter::Add(Standard_OStream&                   anOStream,
     Handle(VrmlConverter_ShadingAspect) SA = new VrmlConverter_ShadingAspect;
     SA                                     = aDrawer->ShadingAspect();
 
-    Handle(TColgp_HArray1OfVec) HAV1 = new TColgp_HArray1OfVec(1, nbVertices);
-    Handle(TColgp_HArray1OfVec) HAV2 = new TColgp_HArray1OfVec(1, nbVertices);
+    Handle(VectorArray) HAV1 = new VectorArray(1, nbVertices);
+    Handle(VectorArray) HAV2 = new VectorArray(1, nbVertices);
 
     Vector3d V, VV;
 

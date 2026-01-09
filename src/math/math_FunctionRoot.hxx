@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class math_FunctionWithDerivative;
+class FunctionWithDerivative;
 
 //! This class implements the computation of a root of a function of
 //! a single variable which is near an initial guess using a minimization
@@ -40,7 +40,7 @@ public:
   //! the expected solution does not stay in the range A..B.
   //! The solution is found when abs(Xi - Xi-1) <= Tolerance;
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT FunctionRootSolver(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionRootSolver(FunctionWithDerivative& F,
                                     const Standard_Real          Guess,
                                     const Standard_Real          Tolerance,
                                     const Standard_Integer       NbIterations = 100);
@@ -52,7 +52,7 @@ public:
   //! range A..B
   //! The solution is found when abs(Xi - Xi-1) <= Tolerance;
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT FunctionRootSolver(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionRootSolver(FunctionWithDerivative& F,
                                     const Standard_Real          Guess,
                                     const Standard_Real          Tolerance,
                                     const Standard_Real          A,

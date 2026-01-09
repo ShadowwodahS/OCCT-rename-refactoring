@@ -34,8 +34,8 @@ IGESConvGeom_GeomBuilder::IGESConvGeom_GeomBuilder()
 
 void IGESConvGeom_GeomBuilder::Clear()
 {
-  theXYZ = new TColgp_HSequenceOfXYZ();
-  theVec = new TColgp_HSequenceOfXYZ();
+  theXYZ = new XYZSequence();
+  theVec = new XYZSequence();
   Transform3d trid;
   thepos = trid;
 }

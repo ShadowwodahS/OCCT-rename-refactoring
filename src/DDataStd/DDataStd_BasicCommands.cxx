@@ -92,7 +92,7 @@ static Standard_Integer DDataStd_SetInteger(DrawInterpreter& di,
 {
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -126,7 +126,7 @@ static Standard_Integer DDataStd_SetReal(DrawInterpreter& di,
 {
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -160,7 +160,7 @@ static Standard_Integer DDataStd_SetReference(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -186,7 +186,7 @@ static Standard_Integer DDataStd_SetComment(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -209,7 +209,7 @@ static Standard_Integer DDataStd_GetInteger(DrawInterpreter& di,
 {
   if (nb == 3 || nb == 4 || nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     Handle(IntAttribute) A;
@@ -265,7 +265,7 @@ static Standard_Integer DDataStd_GetReal(DrawInterpreter& di,
 {
   if (nb == 3 || nb == 4 || nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     Handle(TDataStd_Real) A;
@@ -320,7 +320,7 @@ static Standard_Integer DDataStd_GetReference(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     Handle(TDF_Reference) REF;
@@ -346,7 +346,7 @@ static Standard_Integer DDataStd_GetComment(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     Handle(TDataStd_Comment) A;
@@ -369,7 +369,7 @@ static Standard_Integer DDataStd_Self(DrawInterpreter& di, Standard_Integer nb, 
   AsciiString1 s;
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -395,7 +395,7 @@ static Standard_Integer DDataStd_Self(DrawInterpreter& di, Standard_Integer nb, 
 //                                            const char** arg)
 // {
 //   if( nb == 4 ) {
-//     Handle(TDF_Data) DF;
+//     Handle(Data2) DF;
 //     if (!DDF1::GetDF(arg[1],DF))  return 1;
 //     DataLabel label;
 //     DDF1::AddLabel(DF, arg[2], label);
@@ -418,7 +418,7 @@ static Standard_Integer DDataStd_SetUAttribute(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -442,7 +442,7 @@ static Standard_Integer DDataStd_GetUAttribute(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -479,7 +479,7 @@ static Standard_Integer DDataStd_GetUAttribute(DrawInterpreter& di,
 //                                           const char** arg)
 // {
 //   if( nb == 4 ) {
-//     Handle(TDF_Data) DF;
+//     Handle(Data2) DF;
 //     if (!DDF1::GetDF(arg[1],DF)) return 1;
 //     DataLabel label;
 //     if( !DDF1::FindLabel(DF, arg[2], label) ) {
@@ -515,7 +515,7 @@ static Standard_Integer DDataStd_SetIntArray(DrawInterpreter& di,
 {
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -575,7 +575,7 @@ static Standard_Integer DDataStd_SetIntArrayValue(DrawInterpreter&,
                                                   const char** arg)
 {
   // Get document.
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -609,7 +609,7 @@ static Standard_Integer DDataStd_GetIntArray(DrawInterpreter& di,
 
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -658,7 +658,7 @@ static Standard_Integer DDataStd_GetIntArrayValue(DrawInterpreter& di,
                                                   Standard_Integer,
                                                   const char** arg)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -700,7 +700,7 @@ static Standard_Integer DDataStd_ChangeIntArray(DrawInterpreter& di,
 
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -765,7 +765,7 @@ static Standard_Integer DDataStd_SetIntArrayTest(DrawInterpreter& di,
                                                  const char** arg)
 {
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DataLabel label;
@@ -793,7 +793,7 @@ static Standard_Integer DDataStd_SetRealArray(DrawInterpreter& di,
 {
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -852,7 +852,7 @@ static Standard_Integer DDataStd_SetRealArrayValue(DrawInterpreter&,
                                                    const char** arg)
 {
   // Get document.
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -885,7 +885,7 @@ static Standard_Integer DDataStd_GetRealArray(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -941,7 +941,7 @@ static Standard_Integer DDataStd_GetRealArrayValue(DrawInterpreter& di,
                                                    Standard_Integer,
                                                    const char** arg)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -983,7 +983,7 @@ static Standard_Integer DDataStd_ChangeRealArray(DrawInterpreter& di,
 
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1048,7 +1048,7 @@ static Standard_Integer DDataStd_SetVariable(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1076,7 +1076,7 @@ static Standard_Integer DDataStd_GetVariable(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1109,7 +1109,7 @@ static Standard_Integer DDataStd_SetRelation(DrawInterpreter& di,
 {
   if (nb >= 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1149,7 +1149,7 @@ static Standard_Integer DDataStd_DumpRelation(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -1200,7 +1200,7 @@ static Standard_Integer DDataStd_SetFunction(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1228,7 +1228,7 @@ static Standard_Integer DDataStd_GetFunction(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1267,7 +1267,7 @@ static Standard_Integer DDataStd_SetExtStringArray(DrawInterpreter& di,
 {
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1329,7 +1329,7 @@ static Standard_Integer DDataStd_SetExtStringArrayValue(DrawInterpreter&,
                                                         const char** arg)
 {
   // Get document.
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -1363,7 +1363,7 @@ static Standard_Integer DDataStd_GetExtStringArray(DrawInterpreter& di,
   if (nb >= 3)
   {
 
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1412,7 +1412,7 @@ static Standard_Integer DDataStd_GetExtStringArrayValue(DrawInterpreter& di,
                                                         Standard_Integer,
                                                         const char** arg)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -1455,7 +1455,7 @@ static Standard_Integer DDataStd_ChangeExtStrArray(DrawInterpreter& di,
 
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1521,7 +1521,7 @@ static Standard_Integer DDataStd_KeepUTF(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -1572,7 +1572,7 @@ static Standard_Integer DDataStd_GetUTFtoFile(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -1644,7 +1644,7 @@ static Standard_Integer DDataStd_SetByteArray(DrawInterpreter& di,
 {
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -1710,7 +1710,7 @@ static Standard_Integer DDataStd_SetByteArrayValue(DrawInterpreter&,
                                                    const char** arg)
 {
   // Get document.
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -1750,7 +1750,7 @@ static Standard_Integer DDataStd_SetBooleanArray(DrawInterpreter& di,
 {
   if (nb >= 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -1816,7 +1816,7 @@ static Standard_Integer DDataStd_SetBooleanArrayValue(DrawInterpreter& di,
                                                       const char** arg)
 {
   // Get document.
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -1856,7 +1856,7 @@ static Standard_Integer DDataStd_SetExtStringList(DrawInterpreter& di,
 {
   if (nb > 2)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -1911,7 +1911,7 @@ static Standard_Integer DDataStd_SetReferenceList(DrawInterpreter& di,
 {
   if (nb > 2)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -1968,7 +1968,7 @@ static Standard_Integer DDataStd_SetBooleanList(DrawInterpreter& di,
 {
   if (nb > 2)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2027,7 +2027,7 @@ static Standard_Integer DDataStd_SetIntegerList(DrawInterpreter& di,
 {
   if (nb > 2)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2081,7 +2081,7 @@ static Standard_Integer DDataStd_SetRealList(DrawInterpreter& di,
 {
   if (nb > 2)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2135,7 +2135,7 @@ static Standard_Integer DDataStd_InsertBeforeExtStringList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2167,7 +2167,7 @@ static Standard_Integer DDataStd_InsertAfterExtStringList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2199,7 +2199,7 @@ static Standard_Integer DDataStd_RemoveExtStringList(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2230,7 +2230,7 @@ static Standard_Integer DDataStd_InsertBeforeBooleanList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2262,7 +2262,7 @@ static Standard_Integer DDataStd_InsertAfterBooleanList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2294,7 +2294,7 @@ static Standard_Integer DDataStd_RemoveBooleanList(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2325,7 +2325,7 @@ static Standard_Integer DDataStd_InsertBeforeIntegerList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2357,7 +2357,7 @@ static Standard_Integer DDataStd_InsertAfterIntegerList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2389,7 +2389,7 @@ static Standard_Integer DDataStd_RemoveIntegerList(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2420,7 +2420,7 @@ static Standard_Integer DDataStd_InsertBeforeRealList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2452,7 +2452,7 @@ static Standard_Integer DDataStd_InsertAfterRealList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2484,7 +2484,7 @@ static Standard_Integer DDataStd_RemoveRealList(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2515,7 +2515,7 @@ static Standard_Integer DDataStd_InsertBeforeReferenceList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2550,7 +2550,7 @@ static Standard_Integer DDataStd_InsertAfterReferenceList(DrawInterpreter& di,
 {
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2585,7 +2585,7 @@ static Standard_Integer DDataStd_RemoveReferenceList(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2616,7 +2616,7 @@ static Standard_Integer DDataStd_GetByteArray(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -2665,7 +2665,7 @@ static Standard_Integer DDataStd_GetByteArrayValue(DrawInterpreter& di,
                                                    Standard_Integer,
                                                    const char** arg)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -2706,7 +2706,7 @@ static Standard_Integer DDataStd_GetBooleanArray(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2757,7 +2757,7 @@ static Standard_Integer DDataStd_GetBooleanArrayValue(DrawInterpreter& di,
                                                       Standard_Integer,
                                                       const char** arg)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -2799,7 +2799,7 @@ static Standard_Integer DDataStd_ChangeByteArray(DrawInterpreter& di,
 
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -2869,7 +2869,7 @@ static Standard_Integer DDataStd_GetBooleanList(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2928,7 +2928,7 @@ static Standard_Integer DDataStd_GetIntegerList(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -2988,7 +2988,7 @@ static Standard_Integer DDataStd_GetRealList(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -3047,7 +3047,7 @@ static Standard_Integer DDataStd_GetExtStringList(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -3109,7 +3109,7 @@ static Standard_Integer DDataStd_GetReferenceList(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -3177,7 +3177,7 @@ static Standard_Integer DDataStd_SetIntPackedMap(DrawInterpreter& di,
 
   if (nb > 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3220,7 +3220,7 @@ static Standard_Integer DDataStd_GetIntPackedMap(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3255,7 +3255,7 @@ static Standard_Integer DDataStd_ChangeIntPackedMap_Add(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -3303,7 +3303,7 @@ static Standard_Integer DDataStd_ChangeIntPackedMap_Rem(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -3352,7 +3352,7 @@ static Standard_Integer DDataStd_ChangeIntPackedMap_AddRem(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -3403,7 +3403,7 @@ static Standard_Integer DDataStd_SetIntPHugeMap(DrawInterpreter& di,
 
   if (nb > 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3444,7 +3444,7 @@ static Standard_Integer DDataStd_SetNDataIntegers2(DrawInterpreter& di,
 
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3487,7 +3487,7 @@ static Standard_Integer DDataStd_SetNDataIntAr2(DrawInterpreter& di,
 
   if (nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3534,7 +3534,7 @@ static Standard_Integer DDataStd_SetAsciiString(DrawInterpreter& di,
 
   if (nb == 4 || nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3576,7 +3576,7 @@ static Standard_Integer DDataStd_GetAsciiString(DrawInterpreter& di,
 {
   if (nb == 3 || nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3621,7 +3621,7 @@ static Standard_Integer DDataStd_SetNDataIntegers(DrawInterpreter& di,
 
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3671,7 +3671,7 @@ static Standard_Integer DDataStd_GetNDIntegers(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3713,7 +3713,7 @@ static Standard_Integer DDataStd_GetNDInteger(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3760,7 +3760,7 @@ static Standard_Integer DDataStd_SetNDataReals(DrawInterpreter& di,
 
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3801,7 +3801,7 @@ static Standard_Integer DDataStd_GetNDReals(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3842,7 +3842,7 @@ static Standard_Integer DDataStd_GetNDReal(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3889,7 +3889,7 @@ static Standard_Integer DDataStd_SetNDataStrings(DrawInterpreter& di,
 
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3942,7 +3942,7 @@ static Standard_Integer DDataStd_GetNDStrings(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -3990,7 +3990,7 @@ static Standard_Integer DDataStd_GetNDString(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4038,7 +4038,7 @@ static Standard_Integer DDataStd_SetNDataBytes(DrawInterpreter& di,
 
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4079,7 +4079,7 @@ static Standard_Integer DDataStd_GetNDBytes(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4120,7 +4120,7 @@ static Standard_Integer DDataStd_GetNDByte(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4167,7 +4167,7 @@ static Standard_Integer DDataStd_SetNDataIntAr(DrawInterpreter& di,
 
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4213,7 +4213,7 @@ static Standard_Integer DDataStd_GetNDIntArrays(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4266,7 +4266,7 @@ static Standard_Integer DDataStd_GetNDIntArray(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4325,7 +4325,7 @@ static Standard_Integer DDataStd_SetNDataRealAr(DrawInterpreter& di,
 
   if (nb >= 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4371,7 +4371,7 @@ static Standard_Integer DDataStd_GetNDRealArrays(DrawInterpreter& di,
 
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4424,7 +4424,7 @@ static Standard_Integer DDataStd_GetNDRealArray(DrawInterpreter& di,
 
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel aLabel;
@@ -4480,7 +4480,7 @@ static Standard_Integer DDataStd_SetRefArray(DrawInterpreter& di,
 {
   if (nb >= 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -4543,7 +4543,7 @@ static Standard_Integer DDataStd_SetRefArrayValue(DrawInterpreter&,
                                                   const char** arg)
 {
   // Get document.
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -4577,7 +4577,7 @@ static Standard_Integer DDataStd_GetRefArray(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel label;
@@ -4632,7 +4632,7 @@ static Standard_Integer DDataStd_GetRefArrayValue(DrawInterpreter& di,
 {
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -4693,7 +4693,7 @@ static Standard_Integer DDataStd_SetTriangulation(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 
@@ -4737,7 +4737,7 @@ static Standard_Integer DDataStd_DumpMesh(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
 

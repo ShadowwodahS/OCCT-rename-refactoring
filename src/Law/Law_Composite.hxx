@@ -27,7 +27,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class Law_Composite;
-DEFINE_STANDARD_HANDLE(Law_Composite, Law_Function)
+DEFINE_STANDARD_HANDLE(Law_Composite, Function2)
 
 //! Loi  composite constituee  d une liste  de lois de
 //! ranges consecutifs.
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(Law_Composite, Law_Function)
 //! ElSpine.
 //! CET OBJET REPOND DONC A UN PROBLEME D IMPLEMENTATION
 //! SPECIFIQUE AUX CONGES!!!
-class Law_Composite : public Law_Function
+class Law_Composite : public Function2
 {
 
 public:
@@ -83,7 +83,7 @@ public:
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
   //! the Law1 is not Cn.
-  Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
+  Standard_EXPORT Handle(Function2) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -92,7 +92,7 @@ public:
 
   //! Returns the elementary  function of the composite used
   //! to compute at parameter W.
-  Standard_EXPORT Handle(Law_Function)& ChangeElementaryLaw(const Standard_Real W);
+  Standard_EXPORT Handle(Function2)& ChangeElementaryLaw(const Standard_Real W);
 
   Standard_EXPORT Law_Laws& ChangeLaws();
 
@@ -100,7 +100,7 @@ public:
 
   Standard_EXPORT void SetPeriodic();
 
-  DEFINE_STANDARD_RTTIEXT(Law_Composite, Law_Function)
+  DEFINE_STANDARD_RTTIEXT(Law_Composite, Function2)
 
 private:
   //! Set the current function.
@@ -108,7 +108,7 @@ private:
 
   Standard_Real        first;
   Standard_Real        last;
-  Handle(Law_Function) curfunc;
+  Handle(Function2) curfunc;
   Law_Laws             funclist;
   Standard_Boolean     periodic;
   Standard_Real        TFirst;

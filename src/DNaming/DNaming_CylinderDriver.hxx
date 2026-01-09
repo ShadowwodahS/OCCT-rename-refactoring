@@ -26,10 +26,10 @@ class DataLabel;
 class CylinderMaker;
 
 class DNaming_CylinderDriver;
-DEFINE_STANDARD_HANDLE(DNaming_CylinderDriver, TFunction_Driver)
+DEFINE_STANDARD_HANDLE(DNaming_CylinderDriver, FunctionDriver1)
 
 //! Computes Cylinder function
-class DNaming_CylinderDriver : public TFunction_Driver
+class DNaming_CylinderDriver : public FunctionDriver1
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Execute(Handle(TFunction_Logbook)& theLog) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DNaming_CylinderDriver, TFunction_Driver)
+  DEFINE_STANDARD_RTTIEXT(DNaming_CylinderDriver, FunctionDriver1)
 
 protected:
 private:

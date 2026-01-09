@@ -33,7 +33,7 @@
 //=================================================================================================
 
 void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
-                        const Handle(TDF_RelocationTable)& aRelocationTable)
+                        const Handle(RelocationTable1)& aRelocationTable)
 {
   IDFilter privilegeFilter; // Ignore the target attribute's privilege!
   IDFilter refFilter;       // Will not be used.
@@ -43,7 +43,7 @@ void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
 //=================================================================================================
 
 void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
-                        const Handle(TDF_RelocationTable)& aRelocationTable,
+                        const Handle(RelocationTable1)& aRelocationTable,
                         const IDFilter&                aPrivilegeFilter)
 {
   IDFilter refFilter; // Will not be used.
@@ -53,7 +53,7 @@ void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
 //=================================================================================================
 
 void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
-                        const Handle(TDF_RelocationTable)& aRelocationTable,
+                        const Handle(RelocationTable1)& aRelocationTable,
                         const IDFilter&                aPrivilegeFilter,
                         const IDFilter& /* aRefFilter */,
                         const Standard_Boolean /* setSelfContained */)

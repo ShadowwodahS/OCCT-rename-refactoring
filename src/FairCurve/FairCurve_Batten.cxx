@@ -70,7 +70,7 @@ FairCurve_Batten::FairCurve_Batten(const gp_Pnt2d&     P1,
   //
   Handle(TColStd_HArray1OfReal)    Iknots = new TColStd_HArray1OfReal(1, 2);
   Handle(TColStd_HArray1OfInteger) Imults = new TColStd_HArray1OfInteger(1, 2);
-  Handle(TColgp_HArray1OfPnt2d)    Ipoles = new TColgp_HArray1OfPnt2d(1, 2);
+  Handle(Point2dArray)    Ipoles = new Point2dArray(1, 2);
 
   Iknots->SetValue(1, 0);
   Iknots->SetValue(2, 1);
@@ -83,7 +83,7 @@ FairCurve_Batten::FairCurve_Batten(const gp_Pnt2d&     P1,
 
   //  Increase the degree
 
-  Handle(TColgp_HArray1OfPnt2d)    Npoles  = new TColgp_HArray1OfPnt2d(1, Degree + 1);
+  Handle(Point2dArray)    Npoles  = new Point2dArray(1, Degree + 1);
   Handle(TColStd_HArray1OfReal)    Nweight = new TColStd_HArray1OfReal(1, 2);
   Handle(TColStd_HArray1OfReal)    Nknots  = new TColStd_HArray1OfReal(1, 2);
   Handle(TColStd_HArray1OfInteger) Nmults  = new TColStd_HArray1OfInteger(1, 2);
@@ -240,7 +240,7 @@ Standard_Boolean FairCurve_Batten::Compute(const gp_Vec2d&         DeltaP1,
   TColStd_Array1OfInteger       mults(1, 2);
   TColgp_Array1OfPnt2d          HermitePoles(1, L);
   TColgp_Array1OfPnt2d          Interpolation(1, L);
-  Handle(TColgp_HArray1OfPnt2d) NPoles = new TColgp_HArray1OfPnt2d(1, Poles->Length());
+  Handle(Point2dArray) NPoles = new Point2dArray(1, Poles->Length());
 
   // Polynoms of Hermite
   math_Matrix HermiteCoef(1, L, 1, L);
@@ -336,7 +336,7 @@ Standard_Boolean FairCurve_Batten::Compute(const gp_Vec2d&         DeltaP1,
   }
 
   // Energy and vectors of initialisation
-  FairCurve_BattenLaw      LBatten(NewHeight, NewSlope, SlidingLength);
+  BattenLaw      LBatten(NewHeight, NewSlope, SlidingLength);
   FairCurve_EnergyOfBatten EBatten(Degree + 1,
                                    Flatknots,
                                    NPoles,
@@ -359,7 +359,7 @@ Standard_Boolean FairCurve_Batten::Compute(const gp_Vec2d&         DeltaP1,
   Ok = EBatten.Variable(VInit);
 
   // Minimisation
-  FairCurve_Newton Newton(EBatten,
+  NewtonSolver Newton(EBatten,
                           Tolerance * P1P2.Magnitude() / 10,
                           Tolerance,
                           NbIterations,
@@ -462,7 +462,7 @@ Standard_Boolean FairCurve_Batten::Compute(const gp_Vec2d&         DeltaP1,
     }
 
     NewBS->InsertKnots(NKnots->Array1(), NMults->Array1(), 1.e-10);
-    Handle(TColgp_HArray1OfPnt2d) NewNPoles = new TColgp_HArray1OfPnt2d(1, NewBS->NbPoles());
+    Handle(Point2dArray) NewNPoles = new Point2dArray(1, NewBS->NbPoles());
     NewBS->Poles(NewNPoles->ChangeArray1());
     NewBS->Multiplicities(NMults->ChangeArray1());
     NewBS->Knots(NKnots->ChangeArray1());

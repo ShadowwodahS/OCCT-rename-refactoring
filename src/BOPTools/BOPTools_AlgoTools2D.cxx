@@ -571,7 +571,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
     }
     if (isExtendSurf)
     {
-      Handle(Adaptor3d_Surface) anA3dSurf;
+      Handle(SurfaceAdaptor) anA3dSurf;
       Standard_Real             dt = (aBAHS->LastUParameter() - aBAHS->FirstUParameter());
       if (!aBAHS->IsUPeriodic() || Abs(dt - aBAHS->UPeriod()) > 0.01 * dt)
       {

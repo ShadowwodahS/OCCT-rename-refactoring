@@ -50,27 +50,27 @@ Handle(SequenceClass) HSequence::instance<SequenceClass>::Import() const
   return aSequence;
 }
 
-template class HSequence::node<TColgp_HSequenceOfXYZ>;
-template class HSequence::node<TColgp_HSequenceOfPnt>;
-template class HSequence::node<TColgp_HSequenceOfDir>;
-template class HSequence::node<TColgp_HSequenceOfVec>;
+template class HSequence::node<XYZSequence>;
+template class HSequence::node<PointSequence2>;
+template class HSequence::node<DirectionSequence>;
+template class HSequence::node<VectorSequence>;
 
-template class HSequence::instance<TColgp_HSequenceOfXYZ>;
-template class HSequence::instance<TColgp_HSequenceOfPnt>;
-template class HSequence::instance<TColgp_HSequenceOfDir>;
-template class HSequence::instance<TColgp_HSequenceOfVec>;
+template class HSequence::instance<XYZSequence>;
+template class HSequence::instance<PointSequence2>;
+template class HSequence::instance<DirectionSequence>;
+template class HSequence::instance<VectorSequence>;
 
 //=======================================================================
 // XYZ
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfXYZ>::PName() const
+Standard_CString HSequence::instance<XYZSequence>::PName() const
 {
   return "PColgp_HSequenceOfXYZ";
 }
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfXYZ>::PName() const
+Standard_CString HSequence::node<XYZSequence>::PName() const
 {
   return "PColgp_SeqNodeOfHSequenceOfXYZ";
 }
@@ -79,13 +79,13 @@ Standard_CString HSequence::node<TColgp_HSequenceOfXYZ>::PName() const
 // Pnt
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfPnt>::PName() const
+Standard_CString HSequence::instance<PointSequence2>::PName() const
 {
   return "PColgp_HSequenceOfPnt";
 }
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfPnt>::PName() const
+Standard_CString HSequence::node<PointSequence2>::PName() const
 {
   return "PColgp_SeqNodeOfHSequenceOfPnt";
 }
@@ -94,13 +94,13 @@ Standard_CString HSequence::node<TColgp_HSequenceOfPnt>::PName() const
 // Dir
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfDir>::PName() const
+Standard_CString HSequence::instance<DirectionSequence>::PName() const
 {
   return "PColgp_HSequenceOfDir";
 }
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfDir>::PName() const
+Standard_CString HSequence::node<DirectionSequence>::PName() const
 {
   return "PColgp_SeqNodeOfHSequenceOffDir";
 }
@@ -109,13 +109,13 @@ Standard_CString HSequence::node<TColgp_HSequenceOfDir>::PName() const
 // Vec
 //=======================================================================
 template <>
-Standard_CString HSequence::instance<TColgp_HSequenceOfVec>::PName() const
+Standard_CString HSequence::instance<VectorSequence>::PName() const
 {
   return "PColgp_HSequenceOfVec";
 }
 
 template <>
-Standard_CString HSequence::node<TColgp_HSequenceOfVec>::PName() const
+Standard_CString HSequence::node<VectorSequence>::PName() const
 {
   return "PColgp_SeqNodeOfHSequenceOfVec";
 }

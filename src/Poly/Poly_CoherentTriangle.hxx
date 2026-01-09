@@ -155,7 +155,7 @@ private:
   const CoherentTriangle* mypConnected[3]{};
   const CoherentLink*     mypLink[3]{};
 
-  friend class Poly_CoherentTriangulation;
+  friend class CoherentTriangulation;
 };
 
 #endif

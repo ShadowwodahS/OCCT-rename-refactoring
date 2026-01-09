@@ -18,7 +18,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDataStd_GenericExtString;
 DEFINE_STANDARD_HANDLE(TDataStd_GenericExtString, TDF_Attribute)
@@ -46,7 +46,7 @@ public:
   Standard_EXPORT void Restore(const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

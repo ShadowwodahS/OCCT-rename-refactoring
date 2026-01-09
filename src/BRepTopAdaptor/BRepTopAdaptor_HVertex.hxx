@@ -27,9 +27,9 @@
 class gp_Pnt2d;
 
 class BRepTopAdaptor_HVertex;
-DEFINE_STANDARD_HANDLE(BRepTopAdaptor_HVertex, Adaptor3d_HVertex)
+DEFINE_STANDARD_HANDLE(BRepTopAdaptor_HVertex, HandleVertex)
 
-class BRepTopAdaptor_HVertex : public Adaptor3d_HVertex
+class BRepTopAdaptor_HVertex : public HandleVertex
 {
 
 public:
@@ -51,10 +51,10 @@ public:
 
   Standard_EXPORT virtual TopAbs_Orientation Orientation() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Standard_Boolean IsSame(const Handle(Adaptor3d_HVertex)& Other)
+  Standard_EXPORT virtual Standard_Boolean IsSame(const Handle(HandleVertex)& Other)
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTopAdaptor_HVertex, Adaptor3d_HVertex)
+  DEFINE_STANDARD_RTTIEXT(BRepTopAdaptor_HVertex, HandleVertex)
 
 protected:
 private:

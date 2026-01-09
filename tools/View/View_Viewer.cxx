@@ -54,7 +54,7 @@ void View_Viewer::InitViewer(const Handle(VisualContext)& theContext)
 // =======================================================================
 Handle(VisualContext) View_Viewer::CreateStandardViewer()
 {
-  Handle(Aspect_DisplayConnection)    aDisplayConnection = new Aspect_DisplayConnection();
+  Handle(DisplayConnection1)    aDisplayConnection = new DisplayConnection1();
   static Handle(OpenGl_GraphicDriver) aGraphicDriver = new OpenGl_GraphicDriver(aDisplayConnection);
 
   Handle(ViewManager) aViewer = new ViewManager(aGraphicDriver);

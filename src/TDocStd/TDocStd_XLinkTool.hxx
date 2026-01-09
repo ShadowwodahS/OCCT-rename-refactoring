@@ -23,7 +23,7 @@
 
 #include <Standard_Boolean.hxx>
 class TDF_DataSet;
-class TDF_RelocationTable;
+class RelocationTable1;
 class DataLabel;
 
 //! This  tool class  is  used to copy  the content of
@@ -93,14 +93,14 @@ public:
 
   Standard_EXPORT Handle(TDF_DataSet) DataSet() const;
 
-  Standard_EXPORT Handle(TDF_RelocationTable) RelocationTable() const;
+  Standard_EXPORT Handle(RelocationTable1) RelocationTable() const;
 
 protected:
   Standard_Boolean isDone;
 
 private:
   Handle(TDF_DataSet)         myDS;
-  Handle(TDF_RelocationTable) myRT;
+  Handle(RelocationTable1) myRT;
 };
 
 #endif // _TDocStd_XLinkTool_HeaderFile

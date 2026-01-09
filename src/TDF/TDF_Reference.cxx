@@ -98,7 +98,7 @@ void TDF_Reference::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDF_Reference::Paste(const Handle(TDF_Attribute)&       Into,
-                          const Handle(TDF_RelocationTable)& RT) const
+                          const Handle(RelocationTable1)& RT) const
 {
   DataLabel tLab;
   if (!myOrigin.IsNull())

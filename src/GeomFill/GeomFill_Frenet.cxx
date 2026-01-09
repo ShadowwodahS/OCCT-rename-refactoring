@@ -106,7 +106,7 @@ Handle(GeomFill_TrihedronLaw) GeomFill_Frenet::Copy() const
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_Frenet::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_Frenet::SetCurve(const Handle(Curve5)& C)
 {
   GeomFill_TrihedronLaw::SetCurve(C);
   if (!C.IsNull())

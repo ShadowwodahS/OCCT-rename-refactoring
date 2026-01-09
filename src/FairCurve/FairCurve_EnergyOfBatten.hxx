@@ -46,10 +46,10 @@ public:
   //! Angles correspond to the Ox axis
   Standard_EXPORT FairCurve_EnergyOfBatten(const Standard_Integer               BSplOrder,
                                            const Handle(TColStd_HArray1OfReal)& FlatKnots,
-                                           const Handle(TColgp_HArray1OfPnt2d)& Poles,
+                                           const Handle(Point2dArray)& Poles,
                                            const Standard_Integer               ContrOrder1,
                                            const Standard_Integer               ContrOrder2,
-                                           const FairCurve_BattenLaw&           Law1,
+                                           const BattenLaw&           Law1,
                                            const Standard_Real                  LengthSliding,
                                            const Standard_Boolean FreeSliding = Standard_True,
                                            const Standard_Real    Angle1      = 0,
@@ -75,7 +75,7 @@ protected:
 private:
   Standard_Real                   MyLengthSliding;
   Standard_Real                   OriginalSliding;
-  FairCurve_BattenLaw             MyBattenLaw;
+  BattenLaw             MyBattenLaw;
   FairCurve_DistributionOfTension MyTension;
   FairCurve_DistributionOfSagging MySagging;
   FairCurve_AnalysisCode          MyStatus;

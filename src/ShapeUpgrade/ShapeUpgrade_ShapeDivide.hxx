@@ -27,7 +27,7 @@
 #include <ShapeExtend_Status.hxx>
 class ShapeUpgrade_FaceDivide;
 class ShapeBuild_ReShape;
-class ShapeExtend_BasicMsgRegistrator;
+class BasicMsgRegistrator;
 class Message_Msg;
 
 // resolve name collisions with X11 headers
@@ -84,10 +84,10 @@ public:
 
   //! Sets message registrator
   Standard_EXPORT virtual void SetMsgRegistrator(
-    const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg);
+    const Handle(BasicMsgRegistrator)& msgreg);
 
   //! Returns message registrator
-  Standard_EXPORT Handle(ShapeExtend_BasicMsgRegistrator) MsgRegistrator() const;
+  Standard_EXPORT Handle(BasicMsgRegistrator) MsgRegistrator() const;
 
   //! Sends a message to be attached to the shape.
   //! Calls corresponding message of message registrator.
@@ -123,7 +123,7 @@ protected:
   Standard_EXPORT virtual Message_Msg GetEdgeMsg() const;
 
   Handle(ShapeBuild_ReShape)              myContext;
-  Handle(ShapeExtend_BasicMsgRegistrator) myMsgReg;
+  Handle(BasicMsgRegistrator) myMsgReg;
   TopoShape                            myShape;
   TopoShape                            myResult;
   Standard_Real                           myPrecision;

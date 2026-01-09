@@ -27,11 +27,11 @@
 class IntPatch_Point;
 class IntPatch_ALine;
 
-DEFINE_STANDARD_HANDLE(IntPatch_ALine, IntPatch_Line)
+DEFINE_STANDARD_HANDLE(IntPatch_ALine, Line2)
 
 //! Implementation of an intersection line described by a
 //! parametrized curve.
-class IntPatch_ALine : public IntPatch_Line
+class IntPatch_ALine : public Line2
 {
 
 public:
@@ -132,7 +132,7 @@ public:
 
   Standard_EXPORT const Curve1& Curve() const;
 
-  DEFINE_STANDARD_RTTIEXT(IntPatch_ALine, IntPatch_Line)
+  DEFINE_STANDARD_RTTIEXT(IntPatch_ALine, Line2)
 
 protected:
 private:

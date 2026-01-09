@@ -35,7 +35,7 @@
 void ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataSet,
                                  const Handle(TDF_DataSet)&         aTargetDataSet,
                                  const IDFilter&                aFilter,
-                                 const Handle(TDF_RelocationTable)& aRelocationTable)
+                                 const Handle(RelocationTable1)& aRelocationTable)
 {
   if (aSourceDataSet->IsEmpty() || aTargetDataSet->IsEmpty())
     return;
@@ -85,7 +85,7 @@ void ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
                                  const Handle(TDF_DataSet)&         aSourceDataSet,
                                  const Handle(TDF_DataSet)&         aTargetDataSet,
                                  const IDFilter&                aFilter,
-                                 const Handle(TDF_RelocationTable)& aRelocationTable)
+                                 const Handle(RelocationTable1)& aRelocationTable)
 {
   TDF_LabelDataMap&     the2LabMap = aRelocationTable->LabelTable();
   TDF_AttributeDataMap& the2AttMap = aRelocationTable->AttributeTable();
@@ -139,7 +139,7 @@ void ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
 
 Standard_Boolean ComparisonTool::SourceUnbound(
   const Handle(TDF_DataSet)&         aRefDataSet,
-  const Handle(TDF_RelocationTable)& aRelocationTable,
+  const Handle(RelocationTable1)& aRelocationTable,
   const IDFilter&                aFilter,
   const Handle(TDF_DataSet)&         aDiffDataSet,
   const Standard_Integer             anOption)
@@ -154,7 +154,7 @@ Standard_Boolean ComparisonTool::SourceUnbound(
 
 Standard_Boolean ComparisonTool::TargetUnbound(
   const Handle(TDF_DataSet)&         aRefDataSet,
-  const Handle(TDF_RelocationTable)& aRelocationTable,
+  const Handle(RelocationTable1)& aRelocationTable,
   const IDFilter&                aFilter,
   const Handle(TDF_DataSet)&         aDiffDataSet,
   const Standard_Integer             anOption)
@@ -171,7 +171,7 @@ Standard_Boolean ComparisonTool::TargetUnbound(
 //=======================================================================
 
 Standard_Boolean ComparisonTool::Unbound(const Handle(TDF_DataSet)&         aRefDataSet,
-                                             const Handle(TDF_RelocationTable)& aRelocationTable,
+                                             const Handle(RelocationTable1)& aRelocationTable,
                                              const IDFilter&                aFilter,
                                              const Handle(TDF_DataSet)&         aDiffDataSet,
                                              const Standard_Integer             anOption,

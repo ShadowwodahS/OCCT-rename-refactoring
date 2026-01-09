@@ -281,7 +281,7 @@ static void ScaleTangents(const TColgp_Array1OfPnt&      PointsArray,
 
 //=================================================================================================
 
-GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)& PointsPtr,
+GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(PointArray1)& PointsPtr,
                                          const Standard_Boolean             PeriodicFlag,
                                          const Standard_Real                Tolerance)
     : myTolerance(Tolerance),
@@ -292,7 +292,7 @@ GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)& Poin
 {
   Standard_Integer ii;
   Standard_Boolean result = CheckPoints(PointsPtr->Array1(), Tolerance);
-  myTangents              = new TColgp_HArray1OfVec(myPoints->Lower(), myPoints->Upper());
+  myTangents              = new VectorArray(myPoints->Lower(), myPoints->Upper());
   myTangentFlags          = new TColStd_HArray1OfBoolean(myPoints->Lower(), myPoints->Upper());
 
   if (!result)
@@ -309,7 +309,7 @@ GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)& Poin
 
 //=================================================================================================
 
-GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)&   PointsPtr,
+GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(PointArray1)&   PointsPtr,
                                          const Handle(TColStd_HArray1OfReal)& ParametersPtr,
                                          const Standard_Boolean               PeriodicFlag,
                                          const Standard_Real                  Tolerance)
@@ -331,7 +331,7 @@ GeomAPI_Interpolate::GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)&   Po
       throw Standard_ConstructionError();
     }
   }
-  myTangents     = new TColgp_HArray1OfVec(myPoints->Lower(), myPoints->Upper());
+  myTangents     = new VectorArray(myPoints->Lower(), myPoints->Upper());
   myTangentFlags = new TColStd_HArray1OfBoolean(myPoints->Lower(), myPoints->Upper());
 
   if (!result)
@@ -369,7 +369,7 @@ void GeomAPI_Interpolate::Load(const TColgp_Array1OfVec&               Tangents,
   result = CheckTangents(Tangents, TangentFlagsPtr->Array1(), myTolerance);
   if (result)
   {
-    myTangents = new TColgp_HArray1OfVec(Tangents.Lower(), Tangents.Upper());
+    myTangents = new VectorArray(Tangents.Lower(), Tangents.Upper());
     for (ii = Tangents.Lower(); ii <= Tangents.Upper(); ii++)
     {
       myTangents->SetValue(ii, Tangents.Value(ii));

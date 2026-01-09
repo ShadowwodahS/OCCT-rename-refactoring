@@ -35,7 +35,7 @@ class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-class Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter : public math_FunctionWithDerivative
+class Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

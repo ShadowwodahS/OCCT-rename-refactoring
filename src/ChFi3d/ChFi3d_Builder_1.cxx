@@ -429,7 +429,7 @@ Standard_Integer ChFi3d_Builder::NbComputedSurfaces(const Standard_Integer IC) c
     return 0;
   if (st->Spine().IsNull())
     return 0;
-  Handle(ChFiDS_HData) hd = st->SetOfSurfData();
+  Handle(ChamferFilletData) hd = st->SetOfSurfData();
   if (hd.IsNull())
     return 0;
   return hd->Length();
@@ -452,7 +452,7 @@ Handle(GeomSurface) ChFi3d_Builder::ComputedSurface(const Standard_Integer IC,
       break;
     }
   }
-  Handle(ChFiDS_HData) hd    = st->SetOfSurfData();
+  Handle(ChamferFilletData) hd    = st->SetOfSurfData();
   Standard_Integer     isurf = hd->Value(IS)->Surf();
   return myDS->Surface(isurf).Surface();
 }

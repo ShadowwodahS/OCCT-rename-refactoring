@@ -21,7 +21,7 @@
 void OpenGlTest1::Factory(DrawInterpreter& theDI)
 {
   static const Handle(OpenGl_GraphicDriverFactory) aFactory = new OpenGl_GraphicDriverFactory();
-  Graphic3d_GraphicDriverFactory::RegisterFactory(aFactory);
+  GraphicDriverFactory::RegisterFactory(aFactory);
   OpenGlTest1::Commands(theDI);
 #ifdef DEB
   theDI << "Draw1 Plugin1 : OpenGL commands are loaded.\n";

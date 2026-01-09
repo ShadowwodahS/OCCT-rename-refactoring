@@ -35,7 +35,7 @@ class SurfaceTool4;
 class math_Matrix;
 
 class BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox
-    : public math_FunctionSetWithDerivatives
+    : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

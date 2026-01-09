@@ -16,11 +16,11 @@
 #include <ShapeCustom_RestrictionParameters.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeCustom_RestrictionParameters, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(RestrictionParameters, RefObject)
 
 //=================================================================================================
 
-ShapeCustom_RestrictionParameters::ShapeCustom_RestrictionParameters()
+RestrictionParameters::RestrictionParameters()
 {
   myGMaxSeg    = 10000;
   myGMaxDegree = 15;

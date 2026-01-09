@@ -20,6 +20,6 @@
 #include <Adaptor3d_Curve.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Adaptor3d_Curve)> GeomPlate_Array1OfHCurve;
+typedef NCollection_Array1<Handle(Curve5)> GeomPlate_Array1OfHCurve;
 
 #endif

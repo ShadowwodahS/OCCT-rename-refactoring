@@ -60,7 +60,7 @@ class Ax22d;
 //! Location point of the hyperbola C and the vertex of the First
 //! (or Second) Conjugate branch.
 //! The major radius can be lower than the minor radius.
-class gce_MakeHypr2d : public Root6
+class HyperbolaBuilder2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -70,7 +70,7 @@ public:
   //! -   the major axis of the hyperbola is defined by Center and point S1,
   //! -   the major radius is the distance between Center and S1, and
   //! -   the minor radius is the distance between point S2 and the major axis.
-  Standard_EXPORT gce_MakeHypr2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center);
+  Standard_EXPORT HyperbolaBuilder2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center);
 
   //! Constructs a hyperbola with major and minor radii MajorRadius and
   //! MinorRadius, where:
@@ -81,7 +81,7 @@ public:
   //! A, with major and minor radii MajorRadius and
   //! MinorRadius, where its major axis is the "X Axis"
   //! of A (A is the local coordinate system of the hyperbola).
-  Standard_EXPORT gce_MakeHypr2d(const gp_Ax2d&         MajorAxis,
+  Standard_EXPORT HyperbolaBuilder2d(const gp_Ax2d&         MajorAxis,
                                  const Standard_Real    MajorRadius,
                                  const Standard_Real    MinorRadius,
                                  const Standard_Boolean Sense);
@@ -90,7 +90,7 @@ public:
   //! A, with major and minor radii MajorRadius and
   //! MinorRadius, where its major axis is the "X Axis"
   //! of A (A is the local coordinate system of the hyperbola).
-  Standard_EXPORT gce_MakeHypr2d(const Ax22d&     A,
+  Standard_EXPORT HyperbolaBuilder2d(const Ax22d&     A,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius);
 

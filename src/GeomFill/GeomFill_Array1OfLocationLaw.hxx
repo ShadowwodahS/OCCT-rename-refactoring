@@ -20,6 +20,6 @@
 #include <GeomFill_LocationLaw.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(GeomFill_LocationLaw)> GeomFill_Array1OfLocationLaw;
+typedef NCollection_Array1<Handle(LocationLaw)> GeomFill_Array1OfLocationLaw;
 
 #endif

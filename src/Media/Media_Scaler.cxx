@@ -30,11 +30,11 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_Scaler, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Scaler, RefObject)
 
 //=================================================================================================
 
-Media_Scaler::Media_Scaler()
+Scaler::Scaler()
     : mySwsContext(NULL),
       mySrcFormat(0),
       myResFormat(0)
@@ -47,14 +47,14 @@ Media_Scaler::Media_Scaler()
 
 //=================================================================================================
 
-Media_Scaler::~Media_Scaler()
+Scaler::~Scaler()
 {
   Release();
 }
 
 //=================================================================================================
 
-void Media_Scaler::Release()
+void Scaler::Release()
 {
   if (mySwsContext != NULL)
   {
@@ -67,7 +67,7 @@ void Media_Scaler::Release()
 
 //=================================================================================================
 
-bool Media_Scaler::Init(const Graphic3d_Vec2i& theSrcDims,
+bool Scaler::Init(const Graphic3d_Vec2i& theSrcDims,
                         int                    theSrcFormat,
                         const Graphic3d_Vec2i& theResDims,
                         int                    theResFormat)
@@ -112,7 +112,7 @@ bool Media_Scaler::Init(const Graphic3d_Vec2i& theSrcDims,
 
 //=================================================================================================
 
-bool Media_Scaler::Convert(const Handle(Media_Frame)& theSrc, const Handle(Media_Frame)& theRes)
+bool Scaler::Convert(const Handle(Media_Frame)& theSrc, const Handle(Media_Frame)& theRes)
 {
   if (theSrc.IsNull() || theSrc->IsEmpty() || theRes.IsNull() || theRes->IsEmpty()
       || theSrc == theRes)

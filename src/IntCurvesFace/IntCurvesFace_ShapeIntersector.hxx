@@ -31,7 +31,7 @@
 #include <IntCurvesFace_Intersector.hxx>
 #include <TopAbs_State.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 class TopoShape;
 class gp_Lin;
 class Point3d;
@@ -70,7 +70,7 @@ public:
 
   //! same method for a HCurve from Adaptor3d.
   //! PInf an PSup can also be -INF and +INF.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Curve)& HCu,
+  Standard_EXPORT void Perform(const Handle(Curve5)& HCu,
                                const Standard_Real            PInf,
                                const Standard_Real            PSup);
 

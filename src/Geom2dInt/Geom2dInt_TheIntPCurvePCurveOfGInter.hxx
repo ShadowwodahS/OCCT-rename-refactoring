@@ -31,12 +31,12 @@ class Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter;
 class Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter;
 class Domain2;
 
-class Geom2dInt_TheIntPCurvePCurveOfGInter : public Intersection2
+class IntPCurvePCurve2d : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Geom2dInt_TheIntPCurvePCurveOfGInter();
+  Standard_EXPORT IntPCurvePCurve2d();
 
   Standard_EXPORT void Perform(const Adaptor2d_Curve2d& Curve1,
                                const Domain2&   Domain1,

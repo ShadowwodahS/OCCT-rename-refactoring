@@ -34,7 +34,7 @@ class GeomFill_TrihedronLaw : public RefObject
 public:
   //! initialize curve of trihedron law
   //! @return Standard_True
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C);
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C);
 
   Standard_EXPORT virtual Handle(GeomFill_TrihedronLaw) Copy() const = 0;
 
@@ -112,8 +112,8 @@ public:
   DEFINE_STANDARD_RTTIEXT(GeomFill_TrihedronLaw, RefObject)
 
 protected:
-  Handle(Adaptor3d_Curve) myCurve;
-  Handle(Adaptor3d_Curve) myTrimmed;
+  Handle(Curve5) myCurve;
+  Handle(Curve5) myTrimmed;
 
 private:
 };

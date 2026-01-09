@@ -453,7 +453,7 @@ void WNT_Window::SetTitle(const AsciiString1& theTitle)
 
 //=================================================================================================
 
-void WNT_Window::InvalidateContent(const Handle(Aspect_DisplayConnection)&)
+void WNT_Window::InvalidateContent(const Handle(DisplayConnection1)&)
 {
   if (myHWindow != NULL)
   {
@@ -972,7 +972,7 @@ bool WNT_Window::ProcessMessage(Aspect_WindowInputListener& theListener, MSG& th
                                    aRawInput->data.hid.dwSizeHid);
       if (theListener.Update3dMouse(aSpaceData))
       {
-        InvalidateContent(Handle(Aspect_DisplayConnection)());
+        InvalidateContent(Handle(DisplayConnection1)());
       }
       return true;
     }
@@ -1032,7 +1032,7 @@ bool WNT_Window::ProcessMessage(Aspect_WindowInputListener& theListener, MSG& th
 
       if (hasUpdates)
       {
-        InvalidateContent(Handle(Aspect_DisplayConnection)());
+        InvalidateContent(Handle(DisplayConnection1)());
       }
       return true;
     }

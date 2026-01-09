@@ -31,11 +31,11 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_BufferPool, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(BufferPool, RefObject)
 
 //=================================================================================================
 
-Media_BufferPool::Media_BufferPool()
+BufferPool::BufferPool()
     : myPool(NULL),
       myBufferSize(0)
 {
@@ -44,14 +44,14 @@ Media_BufferPool::Media_BufferPool()
 
 //=================================================================================================
 
-Media_BufferPool::~Media_BufferPool()
+BufferPool::~BufferPool()
 {
   Release();
 }
 
 //=================================================================================================
 
-void Media_BufferPool::Release()
+void BufferPool::Release()
 {
   if (myPool != NULL)
   {
@@ -65,7 +65,7 @@ void Media_BufferPool::Release()
 
 //=================================================================================================
 
-bool Media_BufferPool::Init(int theBufferSize)
+bool BufferPool::Init(int theBufferSize)
 {
   if (myBufferSize == theBufferSize)
   {
@@ -87,7 +87,7 @@ bool Media_BufferPool::Init(int theBufferSize)
 
 //=================================================================================================
 
-AVBufferRef* Media_BufferPool::GetBuffer()
+AVBufferRef* BufferPool::GetBuffer()
 {
 #ifdef HAVE_FFMPEG
   return av_buffer_pool_get(myPool);

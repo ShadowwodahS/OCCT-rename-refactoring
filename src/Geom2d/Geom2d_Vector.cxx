@@ -18,7 +18,7 @@
 #include <gp_Vec2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Vector, Geom2d_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Vector, Geometry2)
 
 typedef Geom2d_Vector Vector;
 typedef gp_Ax2d       Ax2d;

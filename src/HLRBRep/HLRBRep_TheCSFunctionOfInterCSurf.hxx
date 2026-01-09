@@ -32,7 +32,7 @@ class LineTool3;
 class math_Matrix;
 class Point3d;
 
-class HLRBRep_TheCSFunctionOfInterCSurf : public math_FunctionSetWithDerivatives
+class HLRBRep_TheCSFunctionOfInterCSurf : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

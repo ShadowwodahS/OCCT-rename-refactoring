@@ -34,18 +34,18 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPExtS, RefObject)
 
-static Frame3d GetPosition(const Handle(Adaptor3d_Curve)& C);
+static Frame3d GetPosition(const Handle(Curve5)& C);
 
 static void PerformExtPElC(PointElCCurveExtrema&               E,
                            const Point3d&                  P,
-                           const Handle(Adaptor3d_Curve)& C,
+                           const Handle(Curve5)& C,
                            const Standard_Real            Tol);
 
 static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& theType,
                                                      const Frame3d&            theCurvePos,
                                                      const Dir3d&            theSurfaceDirection);
 
-static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C);
+static Point3d GetValue(const Standard_Real U, const Handle(Curve5)& C);
 
 //=======================================================================
 // function : Project
@@ -241,7 +241,7 @@ void Extrema_ExtPExtS::Initialize(const Handle(GeomAdaptor_SurfaceOfLinearExtrus
   myDone                     = Standard_False;
   myNbExt                    = 0;
 
-  Handle(Adaptor3d_Curve) anACurve = theS->BasisCurve();
+  Handle(Curve5) anACurve = theS->BasisCurve();
 
   myF.Initialize(*theS);
   myC                        = anACurve;
@@ -490,7 +490,7 @@ const PointOnSurface1& Extrema_ExtPExtS::Point(const Standard_Integer N) const
 
 //=============================================================================
 
-static Frame3d GetPosition(const Handle(Adaptor3d_Curve)& C)
+static Frame3d GetPosition(const Handle(Curve5)& C)
 {
   switch (C->GetType())
   {
@@ -521,7 +521,7 @@ static Frame3d GetPosition(const Handle(Adaptor3d_Curve)& C)
 
 static void PerformExtPElC(PointElCCurveExtrema&               E,
                            const Point3d&                  P,
-                           const Handle(Adaptor3d_Curve)& C,
+                           const Handle(Curve5)& C,
                            const Standard_Real            Tol)
 {
   switch (C->GetType())
@@ -573,7 +573,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
 
 //=================================================================================================
 
-static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
+static Point3d GetValue(const Standard_Real U, const Handle(Curve5)& C)
 {
   switch (C->GetType())
   {
@@ -597,7 +597,7 @@ static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
 // #ifdef OCCT_DEBUG
 // static Standard_Real GetU(const Vector3d& vec,
 //			  const Point3d& P,
-//			  const Handle(Adaptor3d_Curve)& C)
+//			  const Handle(Curve5)& C)
 //{
 //  switch (C->GetType()) {
 //  case GeomAbs_Line:

@@ -368,10 +368,10 @@ void ShapeUpgrade_WireDivide::Perform()
       Standard_Boolean isSeam = Standard_False;
       if (!myFace.IsNull())
         isSeam = BRepInspector::IsClosed(E, myFace);
-      Handle(TColGeom2d_HArray1OfCurve) theSegments2d;
+      Handle(HArray1OfCurve2) theSegments2d;
       if (myEdgeDivide->HasCurve2d())
         theSegments2d = theSplit2dTool->GetCurves();
-      Handle(TColGeom2d_HArray1OfCurve) theSegments2dR;
+      Handle(HArray1OfCurve2) theSegments2dR;
       if (isSeam)
       {
         Handle(GeomCurve2d) c2;
@@ -440,7 +440,7 @@ void ShapeUpgrade_WireDivide::Perform()
       {
         Handle(GeomCurve2d) c2d;
         sae.PCurve(E, myFace, c2d, af, al, Standard_False);
-        Handle(Adaptor3d_Surface) AdS  = new GeomAdaptor_Surface(Surf);
+        Handle(SurfaceAdaptor) AdS  = new GeomAdaptor_Surface(Surf);
         Handle(Adaptor2d_Curve2d) AC2d = new Geom2dAdaptor_Curve(c2d, af, al);
         AdCS.Load(AC2d);
         AdCS.Load(AdS);
@@ -468,7 +468,7 @@ void ShapeUpgrade_WireDivide::Perform()
       }
 
       // creating new edge(s)
-      Handle(TColGeom_HArray1OfCurve) theSegments3d;
+      Handle(HArray1OfCurve3) theSegments3d;
       if (myEdgeDivide->HasCurve3d())
         theSegments3d = theSplit3dTool->GetCurves();
 

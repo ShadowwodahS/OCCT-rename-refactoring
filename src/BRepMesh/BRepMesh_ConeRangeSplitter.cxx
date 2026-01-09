@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-std::pair<Standard_Real, Standard_Real> BRepMesh_ConeRangeSplitter::GetSplitSteps(
+std::pair<Standard_Real, Standard_Real> ConeRangeSplitter::GetSplitSteps(
   const Parameters3&                   theParameters,
   std::pair<Standard_Integer, Standard_Integer>& theStepsNb) const
 {
@@ -55,7 +55,7 @@ std::pair<Standard_Real, Standard_Real> BRepMesh_ConeRangeSplitter::GetSplitStep
 
 //=================================================================================================
 
-Handle(IMeshData::ListOfPnt2d) BRepMesh_ConeRangeSplitter::GenerateSurfaceNodes(
+Handle(IMeshData::ListOfPnt2d) ConeRangeSplitter::GenerateSurfaceNodes(
   const Parameters3& theParameters) const
 {
   const std::pair<Standard_Real, Standard_Real>& aRangeU = GetRangeU();

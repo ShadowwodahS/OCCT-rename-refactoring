@@ -24,7 +24,7 @@
 class gp_Vec2d;
 class gp_Pnt2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_VectorWithMagnitude;
 DEFINE_STANDARD_HANDLE(Geom2d_VectorWithMagnitude, Geom2d_Vector)
@@ -141,7 +141,7 @@ public:
   Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this vector.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Geom2d_VectorWithMagnitude, Geom2d_Vector)
 

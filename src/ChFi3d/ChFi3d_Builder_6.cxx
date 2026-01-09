@@ -279,7 +279,7 @@ static void CompParam(const Geom2dAdaptor_Curve& Carc,
 #ifdef OCCT_DEBUG
     std::cout << "CompParam : bad intersection parameters" << std::endl;
 #endif
-    IntRes2d_IntersectionPoint int2d;
+    IntersectionPoint3 int2d;
     Geom2dInt_GInter           Intersection;
     Standard_Integer           nbpt, nbseg;
     Intersection.Perform(Geom2dAdaptor_Curve(Ctg),
@@ -435,9 +435,9 @@ static void UpdateLine(Handle(BRepBlend_Line)& Line, const Standard_Boolean isfi
 
 Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         Data,
                                               const Handle(GeomSurface)&      Surfcoin,
-                                              const Handle(Adaptor3d_Surface)& S1,
+                                              const Handle(SurfaceAdaptor)& S1,
                                               const Handle(GeomCurve2d)&      PC1,
-                                              const Handle(Adaptor3d_Surface)& S2,
+                                              const Handle(SurfaceAdaptor)& S2,
                                               const Handle(GeomCurve2d)&      PC2,
                                               const TopAbs_Orientation         Or,
                                               const Standard_Boolean           On1,
@@ -550,8 +550,8 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
 Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         Data,
                                               Blend_Function&                  Func,
                                               Handle(BRepBlend_Line)&          lin,
-                                              const Handle(Adaptor3d_Surface)& S1,
-                                              const Handle(Adaptor3d_Surface)& S2,
+                                              const Handle(SurfaceAdaptor)& S1,
+                                              const Handle(SurfaceAdaptor)& S2,
                                               const TopAbs_Orientation         Or1,
                                               const Standard_Boolean           Gd1,
                                               const Standard_Boolean           Gd2,
@@ -593,8 +593,8 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
 Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         Data,
                                               Blend_SurfRstFunction&           Func,
                                               Handle(BRepBlend_Line)&          lin,
-                                              const Handle(Adaptor3d_Surface)& S1,
-                                              const Handle(Adaptor3d_Surface)& S2,
+                                              const Handle(SurfaceAdaptor)& S1,
+                                              const Handle(SurfaceAdaptor)& S2,
                                               const TopAbs_Orientation         Or,
                                               const Standard_Boolean           Reversed)
 {
@@ -629,8 +629,8 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
 Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         Data,
                                               Blend_RstRstFunction&            Func,
                                               Handle(BRepBlend_Line)&          lin,
-                                              const Handle(Adaptor3d_Surface)& S1,
-                                              const Handle(Adaptor3d_Surface)& S2,
+                                              const Handle(SurfaceAdaptor)& S1,
+                                              const Handle(SurfaceAdaptor)& S2,
                                               const TopAbs_Orientation         Or)
 {
   Handle(BRepBlend_AppFuncRstRst) TheFunc =
@@ -664,8 +664,8 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
 Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data,
                                            const BlendApproximation&           approx,
                                            const Handle(BRepBlend_Line)&    lin,
-                                           const Handle(Adaptor3d_Surface)& S1,
-                                           const Handle(Adaptor3d_Surface)& S2,
+                                           const Handle(SurfaceAdaptor)& S1,
+                                           const Handle(SurfaceAdaptor)& S2,
                                            const TopAbs_Orientation         Or1,
                                            const Standard_Boolean           Gd1,
                                            const Standard_Boolean           Gd2,
@@ -923,7 +923,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
 
   // the orientation of the fillet in relation to the faces is evaluated,
 
-  Handle(Adaptor3d_Surface) Sref = S1;
+  Handle(SurfaceAdaptor) Sref = S1;
   PCurveOnFace                   = Fint1.PCurveOnFace();
   if (Reversed)
   {
@@ -1021,9 +1021,9 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
 Standard_Boolean ChFi3d_Builder::ComputeData(Handle(ChFiDS_SurfData)&           Data,
                                              const Handle(ChFiDS_ElSpine)&      HGuide,
                                              Handle(BRepBlend_Line)&            Lin,
-                                             const Handle(Adaptor3d_Surface)&   S1,
+                                             const Handle(SurfaceAdaptor)&   S1,
                                              const Handle(Adaptor3d_TopolTool)& I1,
-                                             const Handle(Adaptor3d_Surface)&   S2,
+                                             const Handle(SurfaceAdaptor)&   S2,
                                              const Handle(Adaptor2d_Curve2d)&   PC2,
                                              const Handle(Adaptor3d_TopolTool)& I2,
                                              Standard_Boolean&                  Decroch,
@@ -1186,11 +1186,11 @@ Standard_Boolean ChFi3d_Builder::ComputeData(Handle(ChFiDS_SurfData)&           
 Standard_Boolean ChFi3d_Builder::ComputeData(Handle(ChFiDS_SurfData)&           Data,
                                              const Handle(ChFiDS_ElSpine)&      HGuide,
                                              Handle(BRepBlend_Line)&            Lin,
-                                             const Handle(Adaptor3d_Surface)&   S1,
+                                             const Handle(SurfaceAdaptor)&   S1,
                                              const Handle(Adaptor2d_Curve2d)&   PC1,
                                              const Handle(Adaptor3d_TopolTool)& I1,
                                              Standard_Boolean&                  Decroch1,
-                                             const Handle(Adaptor3d_Surface)&   S2,
+                                             const Handle(SurfaceAdaptor)&   S2,
                                              const Handle(Adaptor2d_Curve2d)&   PC2,
                                              const Handle(Adaptor3d_TopolTool)& I2,
                                              Standard_Boolean&                  Decroch2,
@@ -1360,9 +1360,9 @@ Standard_Boolean ChFi3d_Builder::ComputeData(Handle(ChFiDS_SurfData)&           
 Standard_Boolean ChFi3d_Builder::SimulData(Handle(ChFiDS_SurfData)& /*Data*/,
                                            const Handle(ChFiDS_ElSpine)&      HGuide,
                                            Handle(BRepBlend_Line)&            Lin,
-                                           const Handle(Adaptor3d_Surface)&   S1,
+                                           const Handle(SurfaceAdaptor)&   S1,
                                            const Handle(Adaptor3d_TopolTool)& I1,
-                                           const Handle(Adaptor3d_Surface)&   S2,
+                                           const Handle(SurfaceAdaptor)&   S2,
                                            const Handle(Adaptor2d_Curve2d)&   PC2,
                                            const Handle(Adaptor3d_TopolTool)& I2,
                                            Standard_Boolean&                  Decroch,
@@ -1519,11 +1519,11 @@ Standard_Boolean ChFi3d_Builder::SimulData(Handle(ChFiDS_SurfData)& /*Data*/,
 Standard_Boolean ChFi3d_Builder::SimulData(Handle(ChFiDS_SurfData)& /*Data*/,
                                            const Handle(ChFiDS_ElSpine)&      HGuide,
                                            Handle(BRepBlend_Line)&            Lin,
-                                           const Handle(Adaptor3d_Surface)&   S1,
+                                           const Handle(SurfaceAdaptor)&   S1,
                                            const Handle(Adaptor2d_Curve2d)&   PC1,
                                            const Handle(Adaptor3d_TopolTool)& I1,
                                            Standard_Boolean&                  Decroch1,
-                                           const Handle(Adaptor3d_Surface)&   S2,
+                                           const Handle(SurfaceAdaptor)&   S2,
                                            const Handle(Adaptor2d_Curve2d)&   PC2,
                                            const Handle(Adaptor3d_TopolTool)& I2,
                                            Standard_Boolean&                  Decroch2,
@@ -1690,9 +1690,9 @@ Standard_Boolean ChFi3d_Builder::ComputeData(Handle(ChFiDS_SurfData)&           
                                              const Handle(ChFiDS_ElSpine)&      HGuide,
                                              const Handle(ChFiDS_Spine)&        Spine,
                                              Handle(BRepBlend_Line)&            Lin,
-                                             const Handle(Adaptor3d_Surface)&   S1,
+                                             const Handle(SurfaceAdaptor)&   S1,
                                              const Handle(Adaptor3d_TopolTool)& I1,
-                                             const Handle(Adaptor3d_Surface)&   S2,
+                                             const Handle(SurfaceAdaptor)&   S2,
                                              const Handle(Adaptor3d_TopolTool)& I2,
                                              Blend_Function&                    Func,
                                              Blend_FuncInv&                     FInv,
@@ -2456,9 +2456,9 @@ Standard_Boolean ChFi3d_Builder::SimulData(Handle(ChFiDS_SurfData)& /*Data*/,
                                            const Handle(ChFiDS_ElSpine)&      HGuide,
                                            const Handle(ChFiDS_ElSpine)&      AdditionalHGuide,
                                            Handle(BRepBlend_Line)&            Lin,
-                                           const Handle(Adaptor3d_Surface)&   S1,
+                                           const Handle(SurfaceAdaptor)&   S1,
                                            const Handle(Adaptor3d_TopolTool)& I1,
-                                           const Handle(Adaptor3d_Surface)&   S2,
+                                           const Handle(SurfaceAdaptor)&   S2,
                                            const Handle(Adaptor3d_TopolTool)& I2,
                                            Blend_Function&                    Func,
                                            Blend_FuncInv&                     FInv,

@@ -133,5 +133,5 @@ void V3d_Plane::Update()
   Transform3d      aTransform;
   aTransform.SetTransformation(aGeomPln.Position1());
   aTransform.Invert();
-  myGraphicStructure->SetTransformation(new TopLoc_Datum3D(aTransform));
+  myGraphicStructure->SetTransformation(new Datum3D2(aTransform));
 }

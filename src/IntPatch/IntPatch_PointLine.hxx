@@ -23,17 +23,17 @@
 class Point3d;
 class gp_Pnt2d;
 class PointOn2Surfaces;
-class IntSurf_LineOn2S;
+class LineOnTwoSurfaces;
 class IntPatch_Point;
 
-DEFINE_STANDARD_HANDLE(IntPatch_PointLine, IntPatch_Line)
+DEFINE_STANDARD_HANDLE(IntPatch_PointLine, Line2)
 
 //! Definition of an intersection line between two
 //! surfaces.
 //! A line defined by a set of points
 //! (e.g. coming from a walking algorithm) as
 //! defined in the class WLine or RLine (Restriction line).
-class IntPatch_PointLine : public IntPatch_Line
+class IntPatch_PointLine : public Line2
 {
 public:
   //! Adds a vertex in the list. If theIsPrepend == TRUE the new
@@ -64,7 +64,7 @@ public:
   Standard_EXPORT virtual void RemoveVertex(const Standard_Integer theIndex) = 0;
 
   //! Returns set of intersection points
-  Standard_EXPORT virtual Handle(IntSurf_LineOn2S) Curve() const = 0;
+  Standard_EXPORT virtual Handle(LineOnTwoSurfaces) Curve() const = 0;
 
   //! Returns TRUE if P1 is out of the box built from
   //! the points on 1st surface
@@ -81,11 +81,11 @@ public:
   //! the intersection line in given point.
   //! Returns negative value if computation is not possible.
   Standard_EXPORT static Standard_Real CurvatureRadiusOfIntersLine(
-    const Handle(Adaptor3d_Surface)& theS1,
-    const Handle(Adaptor3d_Surface)& theS2,
+    const Handle(SurfaceAdaptor)& theS1,
+    const Handle(SurfaceAdaptor)& theS2,
     const PointOn2Surfaces&           theUVPoint);
 
-  DEFINE_STANDARD_RTTIEXT(IntPatch_PointLine, IntPatch_Line)
+  DEFINE_STANDARD_RTTIEXT(IntPatch_PointLine, Line2)
 
 protected:
   //! To initialize the fields, when the transitions

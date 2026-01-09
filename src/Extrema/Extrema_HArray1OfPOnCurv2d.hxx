@@ -21,6 +21,6 @@
 #include <Extrema_Array1OfPOnCurv2d.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Extrema_HArray1OfPOnCurv2d, Extrema_Array1OfPOnCurv2d)
+DEFINE_HARRAY1(PointOnCurve2dArray, Extrema_Array1OfPOnCurv2d)
 
 #endif

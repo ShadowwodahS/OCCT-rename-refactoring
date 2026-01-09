@@ -29,22 +29,22 @@ class TangentZone;
 //! Computes the  interference between two polyhedra or the
 //! self interference of a polyhedron. Points of intersection,
 //! polylines  of intersection and zones of tangence.
-class IntPatch_InterferencePolyhedron : public Intf_Interference
+class PolyhedronInterference : public Intf_Interference
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an empty interference of Polyhedron.
-  Standard_EXPORT IntPatch_InterferencePolyhedron();
+  Standard_EXPORT PolyhedronInterference();
 
   //! Constructs  and computes  an  interference between  the two
   //! Polyhedra.
-  Standard_EXPORT IntPatch_InterferencePolyhedron(const IntPatch_Polyhedron& Obje1,
+  Standard_EXPORT PolyhedronInterference(const IntPatch_Polyhedron& Obje1,
                                                   const IntPatch_Polyhedron& Obje2);
 
   //! Constructs  and  computes   the self   interference  of   a
   //! Polyhedron.
-  Standard_EXPORT IntPatch_InterferencePolyhedron(const IntPatch_Polyhedron& Obje);
+  Standard_EXPORT PolyhedronInterference(const IntPatch_Polyhedron& Obje);
 
   //! Computes the interference between the two Polyhedra.
   Standard_EXPORT void Perform(const IntPatch_Polyhedron& Obje1, const IntPatch_Polyhedron& Obje2);

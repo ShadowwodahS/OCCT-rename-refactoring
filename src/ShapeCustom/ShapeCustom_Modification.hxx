@@ -19,7 +19,7 @@
 
 #include <BRepTools_Modification.hxx>
 #include <Message_Gravity.hxx>
-class ShapeExtend_BasicMsgRegistrator;
+class BasicMsgRegistrator;
 class TopoShape;
 class Message_Msg;
 
@@ -34,10 +34,10 @@ class ShapeCustom_Modification : public ShapeModification
 public:
   //! Sets message registrator
   Standard_EXPORT virtual void SetMsgRegistrator(
-    const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg);
+    const Handle(BasicMsgRegistrator)& msgreg);
 
   //! Returns message registrator
-  Standard_EXPORT Handle(ShapeExtend_BasicMsgRegistrator) MsgRegistrator() const;
+  Standard_EXPORT Handle(BasicMsgRegistrator) MsgRegistrator() const;
 
   //! Sends a message to be attached to the shape.
   //! Calls corresponding message of message registrator.
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  Handle(ShapeExtend_BasicMsgRegistrator) myMsgReg;
+  Handle(BasicMsgRegistrator) myMsgReg;
 };
 
 #endif // _ShapeCustom_Modification_HeaderFile

@@ -24,7 +24,7 @@
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
 
-DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
+DEFINE_STANDARD_HANDLE(Transformation1, RefObject)
 
 //! Describes how to construct the following elementary transformations
 //! - translations,
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
 //! transformation can change a circle into an ellipse, and
 //! therefore change the real type of the object. Such a
 //! transformation is forbidden in this environment and
-//! cannot be a Geom_Transformation.
+//! cannot be a Transformation1.
 //! The transformation can be represented as follow :
 //!
 //! V1   V2   V3    T
@@ -51,24 +51,24 @@ DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
 //! where {V1, V2, V3} defines the vectorial part of the
 //! transformation and T defines the translation part of
 //! the transformation.
-//! Note: Geom_Transformation transformations
+//! Note: Transformation1 transformations
 //! provide the same kind of "geometric" services as
 //! Transform3d ones but have more complex1 data structures.
 //! The geometric objects provided by the Geom
 //! package use Transform3d transformations in the syntaxes
 //! Transform and Transformed.
-//! Geom_Transformation transformations are used in
+//! Transformation1 transformations are used in
 //! a context where they can be shared by several
 //! objects contained inside a common data structure.
-class Geom_Transformation : public RefObject
+class Transformation1 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Geom_Transformation, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Transformation1, RefObject)
 public:
   //! Creates an identity transformation.
-  Standard_EXPORT Geom_Transformation();
+  Standard_EXPORT Transformation1();
 
   //! Creates a transient copy of T.
-  Standard_EXPORT Geom_Transformation(const Transform3d& T);
+  Standard_EXPORT Transformation1(const Transform3d& T);
 
   //! Makes the transformation into a symmetrical transformation
   //! with respect to a point P.
@@ -110,7 +110,7 @@ public:
   //! Real x2, y2, z2;  // are the coordinates of a point in the
   //! // local system ToSystem2
   //! Point3d P1 (x1, y1, z1)
-  //! Geom_Transformation T;
+  //! Transformation1 T;
   //! T.SetTransformation (FromSystem1, ToSystem2);
   //! Point3d P2 = P1.Transformed (T);
   //! P2.Coord (x2, y2, z2);
@@ -170,17 +170,17 @@ public:
   //! Raised if the transformation is singular. This means that
   //! the ScaleFactor is lower or equal to Resolution from
   //! package gp1.
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Transformation) Inverted() const;
+  Standard_NODISCARD Standard_EXPORT Handle(Transformation1) Inverted() const;
 
   //! Computes the transformation composed with Other and <me>.
   //! <me> * Other.
   //! Returns a new transformation
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Transformation) Multiplied(
-    const Handle(Geom_Transformation)& Other) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Transformation1) Multiplied(
+    const Handle(Transformation1)& Other) const;
 
   //! Computes the transformation composed with Other and <me> .
   //! <me> = <me> * Other.
-  void Multiply(const Handle(Geom_Transformation)& theOther) { gpTrsf.Multiply(theOther->Trsf()); }
+  void Multiply(const Handle(Transformation1)& theOther) { gpTrsf.Multiply(theOther->Trsf()); }
 
   //! Computes the following composition of transformations
   //! if N > 0  <me> * <me> * .......* <me>.
@@ -191,11 +191,11 @@ public:
   void Power(const Standard_Integer N) { gpTrsf.Power(N); }
 
   //! Raised if N < 0 and if the transformation is not inversible
-  Standard_EXPORT Handle(Geom_Transformation) Powered(const Standard_Integer N) const;
+  Standard_EXPORT Handle(Transformation1) Powered(const Standard_Integer N) const;
 
   //! Computes the matrix of the transformation composed with
   //! <me> and Other.     <me> = Other * <me>
-  Standard_EXPORT void PreMultiply(const Handle(Geom_Transformation)& Other);
+  Standard_EXPORT void PreMultiply(const Handle(Transformation1)& Other);
 
   //! Applies the transformation <me> to the triplet {X, Y, Z}.
   void Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
@@ -204,7 +204,7 @@ public:
   }
 
   //! Creates a new object which is a copy of this transformation.
-  Standard_EXPORT Handle(Geom_Transformation) Copy() const;
+  Standard_EXPORT Handle(Transformation1) Copy() const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

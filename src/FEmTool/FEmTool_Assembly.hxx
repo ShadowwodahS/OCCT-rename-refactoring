@@ -38,7 +38,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT FEmTool_Assembly(const TColStd_Array2OfInteger&        Dependence,
-                                   const Handle(FEmTool_HAssemblyTable)& Table);
+                                   const Handle(AssemblyTable1)& Table);
 
   //! Nullify all Matrix 's Coefficient
   Standard_EXPORT void NullifyMatrix();
@@ -78,12 +78,12 @@ public:
 
   Standard_EXPORT Standard_Integer NbGlobVar() const;
 
-  Standard_EXPORT void GetAssemblyTable(Handle(FEmTool_HAssemblyTable)& AssTable) const;
+  Standard_EXPORT void GetAssemblyTable(Handle(AssemblyTable1)& AssTable) const;
 
 protected:
 private:
   TColStd_Array2OfInteger        myDepTable;
-  Handle(FEmTool_HAssemblyTable) myRefTable;
+  Handle(AssemblyTable1) myRefTable;
   Standard_Boolean               IsSolved;
   Handle(FEmTool_ProfileMatrix)  H;
   math_Vector                    B;

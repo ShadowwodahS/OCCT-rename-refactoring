@@ -114,8 +114,8 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
         {
           // Not more than 2 additional points from perpendiculars.
           mySqDist = new TColStd_HArray1OfReal(1, myNbExt + 2);
-          myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt + 2);
-          myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt + 2);
+          myPoint1 = new PointOnCurveArray(1, myNbExt + 2);
+          myPoint2 = new PointOnSurfaceArray(1, myNbExt + 2);
           Standard_Real u, v, w;
           for (i = 1; i <= myNbExt; i++)
           {
@@ -141,8 +141,8 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Cylinder1& S)
         {
           myNbExt  = ExPS.NbExt();
           mySqDist = new TColStd_HArray1OfReal(1, myNbExt);
-          myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt);
-          myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt);
+          myPoint1 = new PointOnCurveArray(1, myNbExt);
+          myPoint2 = new PointOnSurfaceArray(1, myNbExt);
         }
         else
           myNbExt += ExPS.NbExt();
@@ -234,8 +234,8 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Sphere3& S)
         aStartIdx = myNbExt;
         // Not more than 2 additional points from perpendiculars.
         mySqDist = new TColStd_HArray1OfReal(1, myNbExt + 2);
-        myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt + 2);
-        myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt + 2);
+        myPoint1 = new PointOnCurveArray(1, myNbExt + 2);
+        myPoint2 = new PointOnSurfaceArray(1, myNbExt + 2);
 
         for (i = 1; i <= myNbExt; i++)
         {
@@ -259,8 +259,8 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const Sphere3& S)
       {
         myNbExt  = ExPS.NbExt();
         mySqDist = new TColStd_HArray1OfReal(1, myNbExt);
-        myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt);
-        myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt);
+        myPoint1 = new PointOnCurveArray(1, myNbExt);
+        myPoint2 = new PointOnSurfaceArray(1, myNbExt);
       }
       else
         myNbExt += ExPS.NbExt();
@@ -345,9 +345,9 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
 
     if (!isParallel)
     {
-      myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt);
+      myPoint1 = new PointOnCurveArray(1, myNbExt);
       mySqDist = new TColStd_HArray1OfReal(1, myNbExt);
-      myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt);
+      myPoint2 = new PointOnSurfaceArray(1, myNbExt);
 
       Standard_Integer i;
       Point3d           PC, PP;
@@ -448,8 +448,8 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const Cylinder1& S)
       // Compute the extremas.
       myNbExt  = 2 * aNbExt + aNbInter;
       mySqDist = new TColStd_HArray1OfReal(1, myNbExt);
-      myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt);
-      myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt);
+      myPoint1 = new PointOnCurveArray(1, myNbExt);
+      myPoint2 = new PointOnSurfaceArray(1, myNbExt);
 
       for (i = 1; i <= aNbExt; i++)
       {
@@ -607,8 +607,8 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const Sphere3& S)
     myDone  = Standard_True;
 
     mySqDist = new TColStd_HArray1OfReal(1, 1);
-    myPoint1 = new Extrema_HArray1OfPOnCurv(1, 1);
-    myPoint2 = new Extrema_HArray1OfPOnSurf(1, 1);
+    myPoint1 = new PointOnCurveArray(1, 1);
+    myPoint2 = new PointOnSurfaceArray(1, 1);
 
     // Compute parameter on circle
     const Standard_Real aT = ElCLib1::Parameter(C, S.Location());
@@ -671,8 +671,8 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const Sphere3& S)
   myNbExt = aSols.Extent();
 
   mySqDist = new TColStd_HArray1OfReal(1, myNbExt);
-  myPoint1 = new Extrema_HArray1OfPOnCurv(1, myNbExt);
-  myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt);
+  myPoint1 = new PointOnCurveArray(1, myNbExt);
+  myPoint2 = new PointOnSurfaceArray(1, myNbExt);
 
   TColStd_ListIteratorOfListOfInteger it(aSols);
   for (Standard_Integer iSol = 1; it.More(); it.Next(), ++iSol)
@@ -742,7 +742,7 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
       Standard_Real   T  = -0.5 * Log((A + B) / (B - A));
       Point3d          Ph = ElCLib1::HyperbolaValue(T, Pos, C.MajorRadius(), C.MinorRadius());
       PointOnCurve1 PC(T, Ph);
-      myPoint1 = new Extrema_HArray1OfPOnCurv(1, 1);
+      myPoint1 = new PointOnCurveArray(1, 1);
       myPoint1->SetValue(1, PC);
 
       mySqDist = new TColStd_HArray1OfReal(1, 1);
@@ -752,7 +752,7 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
       ElSLib1::PlaneParameters(S.Position1(), Ph, U, V);
       Point3d          Pp = ElSLib1::PlaneValue(U, V, S.Position1());
       PointOnSurface1 PS(U, V, Pp);
-      myPoint2 = new Extrema_HArray1OfPOnSurf(1, 1);
+      myPoint2 = new PointOnSurfaceArray(1, 1);
       myPoint2->SetValue(1, PS);
 
       myNbExt = 1;

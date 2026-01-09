@@ -231,7 +231,7 @@ void WFShapeConverter::Add(Standard_OStream&                   anOStream,
 
   if (qnt != 0)
   {
-    Handle(TColgp_HArray1OfVec) HAV = new TColgp_HArray1OfVec(1, qnt);
+    Handle(VectorArray) HAV = new VectorArray(1, qnt);
     Vector3d                      V;
     Point3d                      P;
     Standard_Integer            i = 0;

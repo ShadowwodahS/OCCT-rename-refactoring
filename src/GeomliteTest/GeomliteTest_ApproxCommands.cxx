@@ -102,7 +102,7 @@ static Standard_Integer NbConstraint(const AppParCurves_Constraint C1,
 //=======================================================================
 // function : PointsByPick
 //=======================================================================
-static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint)& MPC,
+static Standard_Integer PointsByPick(Handle(MultiPointConstraintArray)& MPC,
                                      DrawInterpreter&                             di)
 {
   Standard_Integer id, XX, YY, b, i;
@@ -145,7 +145,7 @@ static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint
       }
     }
 
-    MPC = new (AppDef_HArray1OfMultiPointConstraint)(1, ThePoints.Length());
+    MPC = new (MultiPointConstraintArray)(1, ThePoints.Length());
     AppDef_MultiPointConstraint mpc(1, 0);
     MPC->ChangeArray1().Init(mpc);
     for (i = 1; i <= ThePoints.Length(); i++)
@@ -183,7 +183,7 @@ static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint
       }
     }
 
-    MPC = new (AppDef_HArray1OfMultiPointConstraint)(1, ThePoints.Length());
+    MPC = new (MultiPointConstraintArray)(1, ThePoints.Length());
     for (i = 1; i <= ThePoints.Length(); i++)
     {
       AppDef_MultiPointConstraint mpc(0, 1);
@@ -197,8 +197,8 @@ static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint
 //=======================================================================
 // function : PointsByFile
 //=======================================================================
-static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
-                         Handle(AppParCurves_HArray1OfConstraintCouple)& TABofCC,
+static void PointsByFile(Handle(MultiPointConstraintArray)&   MPC,
+                         Handle(ConstraintCoupleArray)& TABofCC,
                          std::ifstream&                                  iFile,
                          DrawInterpreter&                               di)
 {
@@ -213,7 +213,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
   if (!strcmp(dimen, "3d"))
   {
     Handle(Draw_Marker3D) mark;
-    MPC = new (AppDef_HArray1OfMultiPointConstraint)(1, nbp);
+    MPC = new (MultiPointConstraintArray)(1, nbp);
 
     for (i = 1; i <= nbp; i++)
     {
@@ -243,7 +243,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
       if ((nbc < 1) || (nbc > nbp))
         return; // Y a comme un probleme
       AppParCurves_Constraint Constraint = AppParCurves_NoConstraint;
-      TABofCC                            = new AppParCurves_HArray1OfConstraintCouple(1, nbp);
+      TABofCC                            = new ConstraintCoupleArray(1, nbp);
       for (i = 1; i <= nbp; i++)
       {
         ConstraintCouple ACC(i, Constraint);
@@ -275,7 +275,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
   else if (!strcmp(dimen, "2d"))
   {
     Handle(Draw_Marker2D) mark;
-    MPC = new (AppDef_HArray1OfMultiPointConstraint)(1, nbp);
+    MPC = new (MultiPointConstraintArray)(1, nbp);
 
     for (i = 1; i <= nbp; i++)
     {
@@ -306,7 +306,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
       if ((nbc < 1) || (nbc > nbp))
         return; // Y a comme un probleme
       AppParCurves_Constraint Constraint = AppParCurves_NoConstraint;
-      TABofCC                            = new AppParCurves_HArray1OfConstraintCouple(1, nbp);
+      TABofCC                            = new ConstraintCoupleArray(1, nbp);
       for (i = 1; i <= nbp; i++)
       {
         ConstraintCouple ACC(i, Constraint);
@@ -349,9 +349,9 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
 
   AppParCurves_Constraint Constraint = AppParCurves_NoConstraint;
 
-  Handle(AppParCurves_HArray1OfConstraintCouple) TABofCC;
+  Handle(ConstraintCoupleArray) TABofCC;
   TABofCC.Nullify();
-  Handle(AppDef_HArray1OfMultiPointConstraint) Points;
+  Handle(MultiPointConstraintArray) Points;
   Standard_Integer                             id = 0, DegMax = -1;
 
   if (n == 1)
@@ -424,12 +424,12 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
   if (Points->Value(1).NbPoints() == 0)
   {
     // Cas 2d
-    Handle(TColgp_HArray1OfPnt2d) ThePoints;
+    Handle(Point2dArray) ThePoints;
     // Calcul du lissage
     Standard_Integer NbPoints = Points->Length();
     if (TABofCC.IsNull())
     {
-      TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
+      TABofCC = new ConstraintCoupleArray(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
         ConstraintCouple ACC(i, Constraint);
@@ -479,7 +479,7 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
     Standard_Integer NbPoints = Points->Length();
     if (TABofCC.IsNull())
     {
-      TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
+      TABofCC = new ConstraintCoupleArray(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
         ConstraintCouple ACC(i, Constraint);
@@ -532,8 +532,8 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
 {
   Standard_Real                                  Tolerance  = 0;
   AppParCurves_Constraint                        Constraint = AppParCurves_NoConstraint;
-  Handle(AppParCurves_HArray1OfConstraintCouple) TABofCC;
-  Handle(AppDef_HArray1OfMultiPointConstraint)   Points;
+  Handle(ConstraintCoupleArray) TABofCC;
+  Handle(MultiPointConstraintArray)   Points;
 
   Standard_Integer id      = 0;
   Standard_Integer methode = 0;
@@ -610,12 +610,12 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
   if (Points->Value(1).NbPoints() == 0)
   {
     // Cas 2d
-    Handle(TColgp_HArray1OfPnt2d) ThePoints;
+    Handle(Point2dArray) ThePoints;
     // Calcul du lissage
     Standard_Integer NbPoints = Points->Length();
     if (TABofCC.IsNull())
     {
-      TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
+      TABofCC = new ConstraintCoupleArray(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
         ConstraintCouple ACC(i, Constraint);
@@ -661,7 +661,7 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
         di << " No result\n";
       }
       AppParCurves_MultiCurve AnMuC = Appr.Value();
-      ThePoints                     = new (TColgp_HArray1OfPnt2d)(1, AnMuC.NbPoles());
+      ThePoints                     = new (Point2dArray)(1, AnMuC.NbPoles());
       AnMuC.Curve(1, ThePoints->ChangeArray1());
       Standard_Real err, err2d;
       Appr.Error(1, err, err2d);
@@ -680,7 +680,7 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
 
       AppParCurves_MultiBSpCurve AnMuC = Varia.Value();
       di << " Error2D is : " << Varia.MaxError() << "\n";
-      ThePoints = new (TColgp_HArray1OfPnt2d)(1, AnMuC.NbPoles());
+      ThePoints = new (Point2dArray)(1, AnMuC.NbPoles());
       AnMuC.Curve(1, ThePoints->ChangeArray1());
     }
 
@@ -694,11 +694,11 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
   else
   {
     // Cas 3d
-    Handle(TColgp_HArray1OfPnt) ThePoints;
+    Handle(PointArray1) ThePoints;
     Standard_Integer            NbPoints = Points->Length();
     if (TABofCC.IsNull())
     {
-      TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
+      TABofCC = new ConstraintCoupleArray(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
         ConstraintCouple ACC(i, Constraint);
@@ -743,7 +743,7 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
         di << " No result\n";
       }
       AppParCurves_MultiCurve AnMuC = Appr.Value();
-      ThePoints                     = new (TColgp_HArray1OfPnt)(1, AnMuC.NbPoles());
+      ThePoints                     = new (PointArray1)(1, AnMuC.NbPoles());
       AnMuC.Curve(1, ThePoints->ChangeArray1());
       Standard_Real err, err2d;
       Appr.Error(1, err, err2d);
@@ -762,7 +762,7 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
 
       AppParCurves_MultiBSpCurve AnMuC = Varia.Value();
       di << " Error3D is : " << Varia.MaxError() << "\n";
-      ThePoints = new (TColgp_HArray1OfPnt)(1, AnMuC.NbPoles());
+      ThePoints = new (PointArray1)(1, AnMuC.NbPoles());
       AnMuC.Curve(1, ThePoints->ChangeArray1());
     }
 

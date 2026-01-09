@@ -141,7 +141,7 @@ public:
   //! WM_PAINT event put into window message loop. Method can be called from non-window thread, and
   //! system will also automatically aggregate multiple events into single one.
   Standard_EXPORT virtual void InvalidateContent(
-    const Handle(Aspect_DisplayConnection)& theDisp = Handle(Aspect_DisplayConnection)())
+    const Handle(DisplayConnection1)& theDisp = Handle(DisplayConnection1)())
     Standard_OVERRIDE;
 
 public:

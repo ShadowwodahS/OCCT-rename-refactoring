@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-Extrema_LocateExtCC2d::Extrema_LocateExtCC2d(const Adaptor2d_Curve2d& C1,
+LocateCurveCurveExtrema2d::LocateCurveCurveExtrema2d(const Adaptor2d_Curve2d& C1,
                                              const Adaptor2d_Curve2d& C2,
                                              const Standard_Real      U0,
                                              const Standard_Real      V0)
@@ -36,7 +36,7 @@ Extrema_LocateExtCC2d::Extrema_LocateExtCC2d(const Adaptor2d_Curve2d& C1,
 
   // Non implemente pour l instant: l appel a Geom2dExtrema_ExtCC.
 
-  Extrema_LocECC2d Xtrem(C1, C2, U0, V0, TolU, TolV);
+  LocalCurveCurveExtrema2d Xtrem(C1, C2, U0, V0, TolU, TolV);
   // Exploitation
 
   myDone = Xtrem.IsDone();
@@ -51,7 +51,7 @@ Extrema_LocateExtCC2d::Extrema_LocateExtCC2d(const Adaptor2d_Curve2d& C1,
 
 //=================================================================================================
 
-Standard_Boolean Extrema_LocateExtCC2d::IsDone() const
+Standard_Boolean LocateCurveCurveExtrema2d::IsDone() const
 {
 
   return myDone;
@@ -59,7 +59,7 @@ Standard_Boolean Extrema_LocateExtCC2d::IsDone() const
 
 //=================================================================================================
 
-Standard_Real Extrema_LocateExtCC2d::SquareDistance() const
+Standard_Real LocateCurveCurveExtrema2d::SquareDistance() const
 {
 
   if (!IsDone())
@@ -71,7 +71,7 @@ Standard_Real Extrema_LocateExtCC2d::SquareDistance() const
 
 //=================================================================================================
 
-void Extrema_LocateExtCC2d::Point(PointOnCurve2d& P1, PointOnCurve2d& P2) const
+void LocateCurveCurveExtrema2d::Point(PointOnCurve2d& P1, PointOnCurve2d& P2) const
 {
   if (!IsDone())
   {

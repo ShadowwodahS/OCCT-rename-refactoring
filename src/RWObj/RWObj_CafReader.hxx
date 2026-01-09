@@ -18,9 +18,9 @@
 #include <RWObj_TriangulationReader.hxx>
 
 //! The OBJ mesh reader into XDE document.
-class RWObj_CafReader : public RWMesh_CafReader, protected ShapeReceiver
+class RWObj_CafReader : public CafReader, protected ShapeReceiver
 {
-  DEFINE_STANDARD_RTTIEXT(RWObj_CafReader, RWMesh_CafReader)
+  DEFINE_STANDARD_RTTIEXT(RWObj_CafReader, CafReader)
 public:
   //! Empty constructor.
   Standard_EXPORT RWObj_CafReader();

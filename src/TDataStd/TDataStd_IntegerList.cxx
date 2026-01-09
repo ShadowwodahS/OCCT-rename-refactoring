@@ -303,7 +303,7 @@ void TDataStd_IntegerList::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataStd_IntegerList::Paste(const Handle(TDF_Attribute)& Into,
-                                 const Handle(TDF_RelocationTable)&) const
+                                 const Handle(RelocationTable1)&) const
 {
   Handle(TDataStd_IntegerList) aList = Handle(TDataStd_IntegerList)::DownCast(Into);
   aList->Clear();

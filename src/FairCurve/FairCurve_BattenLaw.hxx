@@ -26,7 +26,7 @@
 #include <Standard_Boolean.hxx>
 
 //! This class compute the Heigth of an batten
-class FairCurve_BattenLaw : public Function1
+class BattenLaw : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -35,7 +35,7 @@ public:
   //! Heigth : the Heigth at the middle point
   //! Slope  : the geometric slope of the batten
   //! Sliding : Active Length of the batten without extension
-  Standard_EXPORT FairCurve_BattenLaw(const Standard_Real Heigth,
+  Standard_EXPORT BattenLaw(const Standard_Real Heigth,
                                       const Standard_Real Slope,
                                       const Standard_Real Sliding);
 

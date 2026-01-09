@@ -30,7 +30,7 @@
 class GeomFill_TrihedronLaw;
 
 class GeomFill_CurveAndTrihedron;
-DEFINE_STANDARD_HANDLE(GeomFill_CurveAndTrihedron, GeomFill_LocationLaw)
+DEFINE_STANDARD_HANDLE(GeomFill_CurveAndTrihedron, LocationLaw)
 
 //! Define location law with an TrihedronLaw and an
 //! curve
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(GeomFill_CurveAndTrihedron, GeomFill_LocationLaw)
 //! (Normal(v),   BiNormal(v), Tangente(v))) systeme are
 //! the  same like section  shape coordinates in
 //! (O,(OX, OY, OZ)) systeme.
-class GeomFill_CurveAndTrihedron : public GeomFill_LocationLaw
+class GeomFill_CurveAndTrihedron : public LocationLaw
 {
 
 public:
@@ -47,16 +47,16 @@ public:
 
   //! initialize curve of trihedron law
   //! @return Standard_True in case if execution end correctly
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Adaptor3d_Curve)& GetCurve() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(Curve5)& GetCurve() const Standard_OVERRIDE;
 
   //! Set a transformation Matrix like   the law M(t) become
   //! Mat * M(t)
   Standard_EXPORT virtual void SetTrsf(const gp_Mat& Transfo) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(GeomFill_LocationLaw) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(LocationLaw) Copy() const Standard_OVERRIDE;
 
   //! compute Location and 2d points
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
@@ -145,14 +145,14 @@ public:
 
   Standard_EXPORT virtual void Rotation(Point3d& Center) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_CurveAndTrihedron, GeomFill_LocationLaw)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_CurveAndTrihedron, LocationLaw)
 
 protected:
 private:
   Standard_Boolean              WithTrans;
   Handle(GeomFill_TrihedronLaw) myLaw;
-  Handle(Adaptor3d_Curve)       myCurve;
-  Handle(Adaptor3d_Curve)       myTrimmed;
+  Handle(Curve5)       myCurve;
+  Handle(Curve5)       myTrimmed;
   Point3d                        Point;
   Vector3d                        V1;
   Vector3d                        V2;

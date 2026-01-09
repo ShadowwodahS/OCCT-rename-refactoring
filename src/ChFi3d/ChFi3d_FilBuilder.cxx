@@ -220,7 +220,7 @@ void ChFi3d_FilBuilder::Add(const Standard_Real Radius, const TopoEdge& E)
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::SetRadius(const Handle(Law_Function)& C,
+void ChFi3d_FilBuilder::SetRadius(const Handle(Function2)& C,
                                   const Standard_Integer      IC,
                                   const Standard_Integer      IinC)
 {
@@ -361,7 +361,7 @@ Standard_Boolean ChFi3d_FilBuilder::GetBounds(const Standard_Integer IC,
   if (IC <= NbElements())
   {
     Handle(ChFiDS_FilSpine) fsp = Handle(ChFiDS_FilSpine)::DownCast(Value(IC));
-    Handle(Law_Function)&   loi = fsp->ChangeLaw(E);
+    Handle(Function2)&   loi = fsp->ChangeLaw(E);
     if (!loi.IsNull())
     {
       loi->Bounds(F, L);
@@ -373,21 +373,21 @@ Standard_Boolean ChFi3d_FilBuilder::GetBounds(const Standard_Integer IC,
 
 //=================================================================================================
 
-Handle(Law_Function) ChFi3d_FilBuilder::GetLaw(const Standard_Integer IC, const TopoEdge& E)
+Handle(Function2) ChFi3d_FilBuilder::GetLaw(const Standard_Integer IC, const TopoEdge& E)
 {
   if (IC <= NbElements())
   {
     Handle(ChFiDS_FilSpine) fsp = Handle(ChFiDS_FilSpine)::DownCast(Value(IC));
     return fsp->ChangeLaw(E);
   }
-  return Handle(Law_Function)();
+  return Handle(Function2)();
 }
 
 //=================================================================================================
 
 void ChFi3d_FilBuilder::SetLaw(const Standard_Integer      IC,
                                const TopoEdge&          E,
-                               const Handle(Law_Function)& L)
+                               const Handle(Function2)& L)
 {
   // Check if it is necessary to check borders!
   if (IC <= NbElements())
@@ -452,22 +452,22 @@ Standard_Integer ChFi3d_FilBuilder::NbSurf(const Standard_Integer IC) const
 
 //=================================================================================================
 
-Handle(ChFiDS_SecHArray1) ChFi3d_FilBuilder::Sect(const Standard_Integer IC,
+Handle(SecHArray1) ChFi3d_FilBuilder::Sect(const Standard_Integer IC,
                                                   const Standard_Integer IS) const
 {
   ChFiDS_ListIteratorOfListOfStripe itel;
   Standard_Integer                  i = 1;
-  Handle(ChFiDS_SecHArray1)         res;
+  Handle(SecHArray1)         res;
   for (itel.Initialize(myListStripe); itel.More(); itel.Next(), i++)
   {
     if (i == IC)
     {
       Handle(RefObject) bid = itel.Value()->SetOfSurfData()->Value(IS)->Simul();
-      res                            = Handle(ChFiDS_SecHArray1)::DownCast(bid);
+      res                            = Handle(SecHArray1)::DownCast(bid);
       return res;
     }
   }
-  return Handle(ChFiDS_SecHArray1)();
+  return Handle(SecHArray1)();
 }
 
 //=================================================================================================
@@ -485,7 +485,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
   gp_Pnt2d p2l =
     SD->InterferenceOnS2().PCurveOnSurf()->Value(SD->InterferenceOnS2().LastParameter());
   GeomAdaptor_Surface       AS(S);
-  Handle(ChFiDS_SecHArray1) sec;
+  Handle(SecHArray1) sec;
   Standard_Real             u1, v1, u2, v2;
   GeomAbs_SurfaceType       typ = AS.GetType();
   switch (typ)
@@ -495,7 +495,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       u2                       = p2f.X();
       v1                       = Max(p1f.Y(), p2f.Y());
       v2                       = Min(p1l.Y(), p2l.Y());
-      sec                      = new ChFiDS_SecHArray1(1, 2);
+      sec                      = new SecHArray1(1, 2);
       Cylinder1         Cy   = AS.Cylinder();
       CircularSection& sec1 = sec->ChangeValue(1);
       CircularSection& sec2 = sec->ChangeValue(2);
@@ -514,7 +514,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       Standard_Integer n = (Standard_Integer)(36. * ang / M_PI + 1);
       if (n < 2)
         n = 2;
-      sec = new ChFiDS_SecHArray1(1, n);
+      sec = new SecHArray1(1, n);
       for (Standard_Integer i = 1; i <= n; i++)
       {
         CircularSection& isec = sec->ChangeValue(i);
@@ -534,7 +534,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       Standard_Integer n   = (Standard_Integer)(36. * ang / M_PI + 1);
       if (n < 2)
         n = 2;
-      sec = new ChFiDS_SecHArray1(1, n);
+      sec = new SecHArray1(1, n);
       for (Standard_Integer i = 1; i <= n; i++)
       {
         CircularSection& isec = sec->ChangeValue(i);
@@ -581,7 +581,7 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
   // Flexible parameters!!!
   Standard_Real locfleche, MaxStep;
   SimulParams(HGuide, fsp, MaxStep, locfleche);
-  Handle(ChFiDS_SecHArray1) sec;
+  Handle(SecHArray1) sec;
   gp_Pnt2d                  pf1, pl1, pf2, pl2;
 
   Handle(ChFiDS_ElSpine) EmptyHGuide;
@@ -624,7 +624,7 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
     if (!done)
       return Standard_False;
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -681,7 +681,7 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
     if (!done)
       return Standard_False;
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -804,7 +804,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
   // Flexible parameters!
   Standard_Real locfleche, MaxStep;
   SimulParams(HGuide, fsp, MaxStep, locfleche);
-  Handle(ChFiDS_SecHArray1) sec;
+  Handle(SecHArray1) sec;
   gp_Pnt2d                  pf, pl, ppcf, ppcl;
 
   Standard_Real PFirst = First;
@@ -863,7 +863,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
       throw ExceptionBase("SimulSurf : Failed process!");
     }
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -938,7 +938,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     if (!done)
       throw ExceptionBase("SimulSurf : Fail !");
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -1024,7 +1024,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
   // Flexible parameters!
   Standard_Real locfleche, MaxStep;
   SimulParams(HGuide, fsp, MaxStep, locfleche);
-  Handle(ChFiDS_SecHArray1) sec;
+  Handle(SecHArray1) sec;
   gp_Pnt2d                  pf, pl, ppcf, ppcl;
 
   Standard_Real PFirst = First;
@@ -1081,7 +1081,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     if (!done)
       throw ExceptionBase("SimulSurf : Failed Processing!");
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -1156,7 +1156,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     if (!done)
       throw ExceptionBase("SimulSurf : Fail !");
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -1248,7 +1248,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
   // Flexible parameters!
   Standard_Real locfleche, MaxStep;
   SimulParams(HGuide, fsp, MaxStep, locfleche);
-  Handle(ChFiDS_SecHArray1) sec;
+  Handle(SecHArray1) sec;
   //  gp_Pnt2d pf,pl;
 
   Standard_Integer ch1 = 1, ch2 = 2;
@@ -1317,7 +1317,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     if (!done)
       throw ExceptionBase("SimulSurf : Failed processing!");
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);
@@ -1399,7 +1399,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     if (!done)
       throw ExceptionBase("SimulSurf : Fail !");
     Standard_Integer nbp = lin->NbPoints();
-    sec                  = new ChFiDS_SecHArray1(1, nbp);
+    sec                  = new SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
       CircularSection& isec = sec->ChangeValue(i);

@@ -25,13 +25,13 @@ class math_Matrix;
 class Vector3d;
 class Tensor1;
 
-class GeomFill_FunctionDraft : public math_FunctionSetWithDerivatives
+class GeomFill_FunctionDraft : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_FunctionDraft(const Handle(Adaptor3d_Surface)& S,
-                                         const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT GeomFill_FunctionDraft(const Handle(SurfaceAdaptor)& S,
+                                         const Handle(Curve5)&   C);
 
   //! returns the number of variables of the function.
   Standard_EXPORT virtual Standard_Integer NbVariables() const Standard_OVERRIDE;
@@ -63,7 +63,7 @@ public:
 
   //! returns the values <F> of the T derivatives for
   //! the parameter Param .
-  Standard_EXPORT Standard_Boolean DerivT(const Handle(Adaptor3d_Curve)& C,
+  Standard_EXPORT Standard_Boolean DerivT(const Handle(Curve5)& C,
                                           const Standard_Real            Param,
                                           const Standard_Real            W,
                                           const Vector3d&                  dN,
@@ -72,7 +72,7 @@ public:
 
   //! returns the values <F> of the T2 derivatives for
   //! the parameter Param .
-  Standard_EXPORT Standard_Boolean Deriv2T(const Handle(Adaptor3d_Curve)& C,
+  Standard_EXPORT Standard_Boolean Deriv2T(const Handle(Curve5)& C,
                                            const Standard_Real            Param,
                                            const Standard_Real            W,
                                            const Vector3d&                  d2N,
@@ -91,8 +91,8 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Curve)   TheCurve;
-  Handle(Adaptor3d_Surface) TheSurface;
+  Handle(Curve5)   TheCurve;
+  Handle(SurfaceAdaptor) TheSurface;
 };
 
 #endif // _GeomFill_FunctionDraft_HeaderFile

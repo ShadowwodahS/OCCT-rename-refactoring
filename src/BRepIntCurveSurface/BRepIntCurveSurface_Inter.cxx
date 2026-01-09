@@ -133,7 +133,7 @@ void BRepIntCurveSurface_Inter::Find()
   {
     TopoShape aCurface = myFaces(i);
     if (myFaceBoxes.IsNull())
-      myFaceBoxes = new Bnd_HArray1OfBox(1, myFaces.Length());
+      myFaceBoxes = new BoxArray(1, myFaces.Length());
     Box2& aFaceBox = myFaceBoxes->ChangeValue(i);
     if (aFaceBox.IsVoid())
     {
@@ -152,7 +152,7 @@ void BRepIntCurveSurface_Inter::Find()
     if (!myCurrentnbpoints)
       continue;
 
-    const Handle(Adaptor3d_Surface)& aSurf = aSurfForFastClass; // to avoid ambiguity
+    const Handle(SurfaceAdaptor)& aSurf = aSurfForFastClass; // to avoid ambiguity
     myFastClass->Initialize(aSurf);
     myIndFace = i;
     if (FindPoint())

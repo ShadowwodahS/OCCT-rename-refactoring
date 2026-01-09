@@ -434,7 +434,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       Cylinder1 Cyl = TheElSurf->Cylinder();
       if (isUClosed)
       {
-        Convert_CylinderToBSplineSurface Convert(Cyl, VFirst, VLast);
+        CylinderToBSplineConverter Convert(Cyl, VFirst, VLast);
         TheSurface            = BSplineSurfaceBuilder(Convert);
         Standard_Integer aNbK = TheSurface->NbUKnots();
         if (Abs(TheSurface->UKnot(1) - UFirst) > eps || Abs(TheSurface->UKnot(aNbK) - ULast) > eps)
@@ -444,7 +444,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       }
       else
       {
-        Convert_CylinderToBSplineSurface Conv(Cyl, UFirst, ULast, VFirst, VLast);
+        CylinderToBSplineConverter Conv(Cyl, UFirst, ULast, VFirst, VLast);
         TheSurface = BSplineSurfaceBuilder(Conv);
       }
     }
@@ -455,7 +455,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       Cone1                     Co        = TheElSurf->Cone();
       if (isUClosed)
       {
-        Convert_ConeToBSplineSurface Convert(Co, VFirst, VLast);
+        ConeToBSplineConverter Convert(Co, VFirst, VLast);
         TheSurface            = BSplineSurfaceBuilder(Convert);
         Standard_Integer aNbK = TheSurface->NbUKnots();
         if (Abs(TheSurface->UKnot(1) - UFirst) > eps || Abs(TheSurface->UKnot(aNbK) - ULast) > eps)
@@ -465,7 +465,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       }
       else
       {
-        Convert_ConeToBSplineSurface Convert(Co, UFirst, ULast, VFirst, VLast);
+        ConeToBSplineConverter Convert(Co, UFirst, ULast, VFirst, VLast);
         TheSurface = BSplineSurfaceBuilder(Convert);
       }
     }
@@ -478,8 +478,8 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       if (isUClosed)
       {
         // if (Strim->IsVClosed()) {
-        // Convert_SphereToBSplineSurface Convert (Sph, UFirst, ULast);
-        Convert_SphereToBSplineSurface Convert(Sph, VFirst, VLast, Standard_False);
+        // SphereToBSplineConverter Convert (Sph, UFirst, ULast);
+        SphereToBSplineConverter Convert(Sph, VFirst, VLast, Standard_False);
         TheSurface            = BSplineSurfaceBuilder(Convert);
         Standard_Integer aNbK = TheSurface->NbUKnots();
         if (Abs(TheSurface->UKnot(1) - UFirst) > eps || Abs(TheSurface->UKnot(aNbK) - ULast) > eps)
@@ -489,7 +489,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       }
       else
       {
-        Convert_SphereToBSplineSurface Convert(Sph, UFirst, ULast, VFirst, VLast);
+        SphereToBSplineConverter Convert(Sph, UFirst, ULast, VFirst, VLast);
         TheSurface = BSplineSurfaceBuilder(Convert);
       }
     }
@@ -507,7 +507,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       Standard_Boolean isVFirstPeriod = !(VFirst < 0. || VLast > 2. * M_PI);
       if (isUClosed && isUFirstPeriod)
       {
-        Convert_TorusToBSplineSurface Convert(Tr, VFirst, VLast, Standard_False);
+        TorusToBSplineConverter Convert(Tr, VFirst, VLast, Standard_False);
         TheSurface            = BSplineSurfaceBuilder(Convert);
         Standard_Integer aNbK = TheSurface->NbUKnots();
         if (Abs(TheSurface->UKnot(1) - UFirst) > eps || Abs(TheSurface->UKnot(aNbK) - ULast) > eps)
@@ -517,7 +517,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       }
       else if (Strim->IsVClosed() && isVFirstPeriod)
       {
-        Convert_TorusToBSplineSurface Convert(Tr, UFirst, ULast);
+        TorusToBSplineConverter Convert(Tr, UFirst, ULast);
         TheSurface            = BSplineSurfaceBuilder(Convert);
         Standard_Integer aNbK = TheSurface->NbVKnots();
         if (Abs(TheSurface->VKnot(1) - VFirst) > eps || Abs(TheSurface->VKnot(aNbK) - VLast) > eps)
@@ -527,7 +527,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       }
       else
       {
-        Convert_TorusToBSplineSurface Convert(Tr, UFirst, ULast, VFirst, VLast);
+        TorusToBSplineConverter Convert(Tr, UFirst, ULast, VFirst, VLast);
         TheSurface = BSplineSurfaceBuilder(Convert);
       }
     }
@@ -781,7 +781,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       Handle(Geom_SphericalSurface) TheElSurf = Handle(Geom_SphericalSurface)::DownCast(S);
 
       Sphere3                      Sph = TheElSurf->Sphere();
-      Convert_SphereToBSplineSurface Convert(Sph);
+      SphereToBSplineConverter Convert(Sph);
       TheSurface = BSplineSurfaceBuilder(Convert);
     }
 
@@ -790,7 +790,7 @@ Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(G
       Handle(Geom_ToroidalSurface) TheElSurf = Handle(Geom_ToroidalSurface)::DownCast(S);
 
       gp_Torus                      Tr = TheElSurf->Torus();
-      Convert_TorusToBSplineSurface Convert(Tr);
+      TorusToBSplineConverter Convert(Tr);
       TheSurface = BSplineSurfaceBuilder(Convert);
     }
 

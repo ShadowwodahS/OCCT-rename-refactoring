@@ -28,7 +28,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 class Geom_BSplineSurface;
-class GeomFill_SectionLaw;
+class SectionLaw;
 class TopoVertex;
 class TopoShape;
 
@@ -59,7 +59,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
 
   //! Give the law build on a concatenated section
-  Standard_EXPORT virtual Handle(GeomFill_SectionLaw) ConcatenedLaw() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SectionLaw) ConcatenedLaw() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual GeomAbs_Shape Continuity(const Standard_Integer Index,
                                                    const Standard_Real    TolAngular) const

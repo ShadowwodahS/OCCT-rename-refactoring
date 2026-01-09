@@ -15,4 +15,4 @@
 #include <Law_Function.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_Function, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Function2, RefObject)

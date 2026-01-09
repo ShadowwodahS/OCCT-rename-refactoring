@@ -19,7 +19,7 @@
 #include <OpenGl_GlFunctions.hxx>
 
 //! FBO is available on OpenGL 2.0+ hardware
-struct OpenGl_ArbFBO : protected GlFunctions
+struct ArbFBO : protected GlFunctions
 {
 
   using GlFunctions::glBindFramebuffer;
@@ -48,8 +48,8 @@ struct OpenGl_ArbFBO : protected GlFunctions
 };
 
 //! FBO blit is available in OpenGL 3.0+.
-//! Moved out from OpenGl_ArbFBO since it is unavailable in OpenGL ES 2.0.
-struct OpenGl_ArbFBOBlit : protected GlFunctions
+//! Moved out from ArbFBO since it is unavailable in OpenGL ES 2.0.
+struct ArbFBOBlit : protected GlFunctions
 {
 
   using GlFunctions::glBlitFramebuffer;

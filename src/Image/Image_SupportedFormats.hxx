@@ -19,12 +19,12 @@
 #include <Standard_Type.hxx>
 
 //! Structure holding information about supported texture formats.
-class Image_SupportedFormats : public RefObject
+class SupportedFormats : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_SupportedFormats, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SupportedFormats, RefObject)
 public:
   //! Empty constructor.
-  Standard_EXPORT Image_SupportedFormats();
+  Standard_EXPORT SupportedFormats();
 
   //! Return TRUE if image format is supported.
   bool IsSupported(Image_Format theFormat) const { return myFormats.Value(theFormat); }

@@ -45,7 +45,7 @@ Geom2d_VectorWithMagnitude::Geom2d_VectorWithMagnitude(const Pnt2d& P1, const Pn
   gpVec2d = gp_Vec2d(P1, P2);
 }
 
-Handle(Geom2d_Geometry) Geom2d_VectorWithMagnitude::Copy() const
+Handle(Geometry2) Geom2d_VectorWithMagnitude::Copy() const
 {
 
   Handle(Geom2d_VectorWithMagnitude) V;

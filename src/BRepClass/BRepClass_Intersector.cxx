@@ -48,7 +48,7 @@ static void RefineTolerance(const TopoFace&         aF,
                             const Standard_Real        aT,
                             Standard_Real&             aTolZ);
 
-static Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
+static Standard_Boolean CheckOn(IntersectionPoint3& thePntInter,
                                 const TopoFace&          theF,
                                 const gp_Lin2d&             theL,
                                 const Geom2dAdaptor_Curve&  theCur,
@@ -137,7 +137,7 @@ Standard_Boolean IsInter(Bnd_Box2d& theBox, const gp_Lin2d& theL, const Standard
 
 //=================================================================================================
 
-Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
+Standard_Boolean CheckOn(IntersectionPoint3& thePntInter,
                          const TopoFace&          theF,
                          const gp_Lin2d&             theL,
                          const Geom2dAdaptor_Curve&  theCur,
@@ -189,7 +189,7 @@ Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
       //
       Transition3 aTrOnCurve(aPosOnCurve);
       thePntInter =
-        IntRes2d_IntersectionPoint(aPntExact, 0., aPar, aTrOnLin, aTrOnCurve, Standard_False);
+        IntersectionPoint3(aPntExact, 0., aPar, aTrOnLin, aTrOnCurve, Standard_False);
       //
       return Standard_True;
     }
@@ -363,7 +363,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
   if (!anUseBndBox || (anUseBndBox && !aBond.IsOut(aPntF)))
   {
     Standard_Boolean           aStatusOn = Standard_False;
-    IntRes2d_IntersectionPoint aPntInter;
+    IntersectionPoint3 aPntInter;
     Standard_Real              aDebTol = deb;
     Standard_Real              aFinTol = fin;
     if (aTolZ > Precision1::Confusion())

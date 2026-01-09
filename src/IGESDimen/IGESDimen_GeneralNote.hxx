@@ -66,7 +66,7 @@ public:
                             const Handle(TColStd_HArray1OfReal)&           rotations,
                             const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,
                             const Handle(TColStd_HArray1OfInteger)&        rotFlags,
-                            const Handle(TColgp_HArray1OfXYZ)&             start,
+                            const Handle(XYZArray)&             start,
                             const Handle(Interface_HArray1OfHAsciiString)& texts);
 
   //! Changes FormNumber (indicates Graphical Representation)
@@ -153,7 +153,7 @@ private:
   Handle(TColStd_HArray1OfReal)           theRotationAngles;
   Handle(TColStd_HArray1OfInteger)        theMirrorFlags;
   Handle(TColStd_HArray1OfInteger)        theRotateFlags;
-  Handle(TColgp_HArray1OfXYZ)             theStartPoints;
+  Handle(XYZArray)             theStartPoints;
   Handle(Interface_HArray1OfHAsciiString) theTexts;
 };
 

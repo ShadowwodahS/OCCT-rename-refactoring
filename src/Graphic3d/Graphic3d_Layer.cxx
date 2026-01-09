@@ -573,7 +573,7 @@ void Graphic3d_Layer::UpdateCulling(
 
       const Graphic3d_Mat4d&              aProjection     = theSelector.ProjectionMatrix();
       const Graphic3d_Mat4d&              aWorldView      = theSelector.WorldViewMatrix();
-      const Graphic3d_WorldViewProjState& aWVPState       = theSelector.WorldViewProjState();
+      const WorldViewProjState1& aWVPState       = theSelector.WorldViewProjState();
       const Standard_Integer              aViewportWidth  = theSelector.ViewportWidth();
       const Standard_Integer              aViewportHeight = theSelector.ViewportHeight();
 

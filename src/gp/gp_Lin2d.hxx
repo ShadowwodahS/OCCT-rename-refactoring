@@ -30,7 +30,7 @@
 //! GccAna and Geom2dGcc1 packages which provide
 //! functions for constructing lines defined by geometric
 //! constraints
-//! gce_MakeLin2d which provides functions for more
+//! LineBuilder2d which provides functions for more
 //! complex1 line constructions
 //! Geom2d_Line which provides additional functions for
 //! constructing lines and works, in particular, with the

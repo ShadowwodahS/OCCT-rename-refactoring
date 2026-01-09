@@ -221,7 +221,7 @@ static Standard_Integer appro(DrawInterpreter& di, Standard_Integer n, const cha
   {
     if (!strcmp(a[0], "2dinterpole"))
     {
-      Geom2dAPI_Interpolate anInterpol(new TColgp_HArray1OfPnt2d(Points), Standard_False, Tol2d);
+      Geom2dAPI_Interpolate anInterpol(new Point2dArray(Points), Standard_False, Tol2d);
       anInterpol.Perform();
       if (!anInterpol.IsDone())
       {
@@ -411,7 +411,7 @@ static Standard_Integer intersect(DrawInterpreter& di, Standard_Integer n, const
     gp_Pnt2d P = Intersector.Point(i);
     di << "Intersection point " << i << " : " << P.X() << " " << P.Y() << "\n";
     // Intersection extended results from intersection tool
-    const IntRes2d_IntersectionPoint& aPInt = anIntTool.Point(i);
+    const IntersectionPoint3& aPInt = anIntTool.Point(i);
     di << "parameter on the fist: " << aPInt.ParamOnFirst();
     di << " parameter on the second: " << aPInt.ParamOnSecond() << "\n";
     if (bPrintState)

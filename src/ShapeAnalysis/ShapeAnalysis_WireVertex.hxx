@@ -162,7 +162,7 @@ protected:
 private:
   Handle(ShapeExtend_WireData)     myWire;
   Handle(TColStd_HArray1OfInteger) myStat;
-  Handle(TColgp_HArray1OfXYZ)      myPos;
+  Handle(XYZArray)      myPos;
   Handle(TColStd_HArray1OfReal)    myUPre;
   Handle(TColStd_HArray1OfReal)    myUFol;
   Standard_Real                    myPreci;

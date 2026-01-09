@@ -247,7 +247,7 @@ void ConstraintPresentationTools::ComputeDistance(const Handle(TDataXtd_Constrai
   }
 
   TopoShape          aShape1, aShape2;
-  Handle(Geom_Geometry) aGeom3;
+  Handle(Geometry3) aGeom3;
   Standard_Boolean      isPlanar(theConst->IsPlanar());
 
   // Get shapes and geometry
@@ -475,7 +475,7 @@ void ConstraintPresentationTools::ComputePerpendicular(const Handle(TDataXtd_Con
   }
 
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
   Standard_Boolean      is_planar(aConst->IsPlanar());
 
   if (is_planar)
@@ -553,7 +553,7 @@ void ConstraintPresentationTools::ComputeParallel(const Handle(TDataXtd_Constrai
   }
 
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
 
   GetShapesAndGeom(aConst, shape1, shape2, ageom3);
   if (shape1.IsNull() || shape2.IsNull())
@@ -624,7 +624,7 @@ void ConstraintPresentationTools::ComputeSymmetry(const Handle(TDataXtd_Constrai
   }
 
   TopoShape          shape1, shape2, shape3;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
   GetShapesAndGeom(aConst, shape1, shape2, shape3, ageom3);
 
   if (shape1.IsNull() || shape2.IsNull() || shape3.IsNull())
@@ -697,7 +697,7 @@ void ConstraintPresentationTools::ComputeMidPoint(const Handle(TDataXtd_Constrai
   }
 
   TopoShape          shape1, shape2, shape3;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
   GetShapesAndGeom(aConst, shape1, shape2, shape3, ageom3);
 
   if (shape1.IsNull() || shape2.IsNull() || shape3.IsNull())
@@ -769,7 +769,7 @@ void ConstraintPresentationTools::ComputeTangent(const Handle(TDataXtd_Constrain
     return;
   }
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
 
   GetShapesAndGeom(aConst, shape1, shape2, ageom3);
   if (shape1.IsNull() || shape2.IsNull())
@@ -826,7 +826,7 @@ void ConstraintPresentationTools::ComputeAngleForOneFace(const Handle(TDataXtd_C
 {
 
   TopoShape          shape;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
 
   GetOneShape(aConst, shape);
   if (shape.IsNull())
@@ -912,7 +912,7 @@ void ConstraintPresentationTools::ComputeAngle(const Handle(TDataXtd_Constraint)
   }
 
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
 
   GetShapesAndGeom(aConst, shape1, shape2, ageom3);
   if (shape1.IsNull() || shape2.IsNull())
@@ -1184,7 +1184,7 @@ void ConstraintPresentationTools::ComputeConcentric(const Handle(TDataXtd_Constr
     return;
   }
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
 
   GetShapesAndGeom(aConst, shape1, shape2, ageom3);
   if (shape1.IsNull() || shape2.IsNull())
@@ -1312,7 +1312,7 @@ void ConstraintPresentationTools::ComputeRadius(const Handle(TDataXtd_Constraint
 
   if (isplanar)
   {
-    Handle(Geom_Geometry) ageom2;
+    Handle(Geometry3) ageom2;
     GetGeom(aConst, ageom2);
     Handle(GeomPlane) aplane = Handle(GeomPlane)::DownCast(ageom2);
     if (aplane.IsNull())
@@ -1399,7 +1399,7 @@ void ConstraintPresentationTools::ComputeMinRadius(const Handle(TDataXtd_Constra
 
   if (isplanar)
   {
-    Handle(Geom_Geometry) ageom2;
+    Handle(Geometry3) ageom2;
     GetGeom(aConst, ageom2);
     Handle(GeomPlane) aplane = Handle(GeomPlane)::DownCast(ageom2);
     if (aplane.IsNull())
@@ -1485,7 +1485,7 @@ void ConstraintPresentationTools::ComputeMaxRadius(const Handle(TDataXtd_Constra
 
   if (isplanar)
   {
-    Handle(Geom_Geometry) ageom2;
+    Handle(Geometry3) ageom2;
     GetGeom(aConst, ageom2);
     Handle(GeomPlane) aplane = Handle(GeomPlane)::DownCast(ageom2);
     if (aplane.IsNull())
@@ -1517,7 +1517,7 @@ void ConstraintPresentationTools::ComputeEqualDistance(const Handle(TDataXtd_Con
     return;
   }
   TopoShape          aShape1, aShape2, aShape3, aShape4;
-  Handle(Geom_Geometry) aGeom;
+  Handle(Geometry3) aGeom;
   GetShapesAndGeom(aConst, aShape1, aShape2, aShape3, aShape4, aGeom);
   if (aShape1.IsNull() || aShape2.IsNull() || aShape3.IsNull() || aShape4.IsNull())
   {
@@ -1682,7 +1682,7 @@ void ConstraintPresentationTools::ComputeEqualRadius(const Handle(TDataXtd_Const
     return;
   }
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom3;
+  Handle(Geometry3) ageom3;
 
   GetShapesAndGeom(aConst, shape1, shape2, ageom3);
   if (shape1.IsNull() || shape2.IsNull())
@@ -1818,7 +1818,7 @@ void ConstraintPresentationTools::ComputeDiameter(const Handle(TDataXtd_Constrai
 
   if (IsPlanar)
   {
-    Handle(Geom_Geometry) ageom2;
+    Handle(Geometry3) ageom2;
     GetGeom(aConst, ageom2);
     Handle(GeomPlane) aplane = Handle(GeomPlane)::DownCast(ageom2);
     if (aplane.IsNull())
@@ -1859,7 +1859,7 @@ void ConstraintPresentationTools::ComputeFix(const Handle(TDataXtd_Constraint)& 
   }
 
   TopoShape          shape1;
-  Handle(Geom_Geometry) ageom2;
+  Handle(Geometry3) ageom2;
 
   GetOneShape(aConst, shape1);
   if (shape1.IsNull())
@@ -1912,7 +1912,7 @@ void ConstraintPresentationTools::ComputeOffset(const Handle(TDataXtd_Constraint
   Handle(GeomPlane) aplane;
   if (is_planar)
   {
-    Handle(Geom_Geometry) ageom;
+    Handle(Geometry3) ageom;
     GetGeom(aConst, ageom);
     aplane = Handle(GeomPlane)::DownCast(ageom);
     if (aplane.IsNull())
@@ -1995,7 +1995,7 @@ void ConstraintPresentationTools::ComputeOffset(const Handle(TDataXtd_Constraint
       if (CURVE.GetType() == GeomAbs_Line)
       {
         // Works only with line !!
-        Handle(Geom_Geometry) aGeomGeometry = CURVE.Curve().Curve()->Transformed(CURVE.Trsf());
+        Handle(Geometry3) aGeomGeometry = CURVE.Curve().Curve()->Transformed(CURVE.Trsf());
         gp_Lin                OLin          = Handle(GeomLine)::DownCast(aGeomGeometry)->Lin();
         TopoEdge           NE            = TopoDS::Edge(S2);
         CURVE.Initialize(NE);
@@ -2020,7 +2020,7 @@ void ConstraintPresentationTools::ComputeOffset(const Handle(TDataXtd_Constraint
       }
       else if (CURVE.GetType() == GeomAbs_Circle)
       {
-        Handle(Geom_Geometry) aGeomGeometry = CURVE.Curve().Curve()->Transformed(CURVE.Trsf());
+        Handle(Geometry3) aGeomGeometry = CURVE.Curve().Curve()->Transformed(CURVE.Trsf());
         Axis3d                ax = Handle(GeomCircle)::DownCast(aGeomGeometry)->Circ().Axis();
         aplane                   = new GeomPlane(ax.Location(), ax.Direction());
         is_planar                = Standard_True;
@@ -2185,7 +2185,7 @@ void ConstraintPresentationTools::GetTwoShapes(const Handle(TDataXtd_Constraint)
 void ConstraintPresentationTools::GetShapesAndGeom(const Handle(TDataXtd_Constraint)& aConst,
                                                TopoShape&                      aShape1,
                                                TopoShape&                      aShape2,
-                                               Handle(Geom_Geometry)&             aGeom)
+                                               Handle(Geometry3)&             aGeom)
 {
   GetTwoShapes(aConst, aShape1, aShape2);
   GetGeom(aConst, aGeom);
@@ -2197,7 +2197,7 @@ void ConstraintPresentationTools::GetShapesAndGeom(const Handle(TDataXtd_Constra
                                                TopoShape&                      aShape1,
                                                TopoShape&                      aShape2,
                                                TopoShape&                      aShape3,
-                                               Handle(Geom_Geometry)&             aGeom)
+                                               Handle(Geometry3)&             aGeom)
 {
   GetTwoShapes(aConst, aShape1, aShape2);
   const Handle(ShapeAttribute)& ageom3 = aConst->GetGeometry(3); // ota: GetGeometry(2) was
@@ -2213,7 +2213,7 @@ void ConstraintPresentationTools::GetShapesAndGeom(const Handle(TDataXtd_Constra
                                                TopoShape&                      aShape2,
                                                TopoShape&                      aShape3,
                                                TopoShape&                      aShape4,
-                                               Handle(Geom_Geometry)&             aGeom)
+                                               Handle(Geometry3)&             aGeom)
 {
   GetTwoShapes(aConst, aShape1, aShape2);
   const Handle(ShapeAttribute)& ageom3 = aConst->GetGeometry(3);
@@ -2252,7 +2252,7 @@ void ConstraintPresentationTools::ComputeCoincident(const Handle(TDataXtd_Constr
   }
 
   TopoShape          shape1, shape2;
-  Handle(Geom_Geometry) ageom;
+  Handle(Geometry3) ageom;
   GetShapesAndGeom(aConst, shape1, shape2, ageom);
   Handle(GeomPlane) aplane = Handle(GeomPlane)::DownCast(ageom);
   if (shape1.IsNull() || shape2.IsNull())
@@ -2359,7 +2359,7 @@ void ConstraintPresentationTools::ComputeRound(const Handle(TDataXtd_Constraint)
 //=================================================================================================
 
 void ConstraintPresentationTools::GetGeom(const Handle(TDataXtd_Constraint)& aConst,
-                                      Handle(Geom_Geometry)&             aGeom)
+                                      Handle(Geometry3)&             aGeom)
 {
   Handle(ShapeAttribute) atgeom = aConst->GetPlane();
   if (atgeom.IsNull())

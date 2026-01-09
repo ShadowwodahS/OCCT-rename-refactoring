@@ -19,6 +19,6 @@
 #include <MeshVS_Array1OfSequenceOfInteger.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(MeshVS_HArray1OfSequenceOfInteger, MeshVS_Array1OfSequenceOfInteger)
+DEFINE_HARRAY1(IntegerSequenceArray, MeshVS_Array1OfSequenceOfInteger)
 
 #endif

@@ -32,7 +32,7 @@
 
 //=================================================================================================
 
-GeomPlate_PlateG0Criterion::GeomPlate_PlateG0Criterion(const TColgp_SequenceOfXY&     Data,
+G0Criterion::G0Criterion(const TColgp_SequenceOfXY&     Data,
                                                        const TColgp_SequenceOfXYZ&    G0Data,
                                                        const Standard_Real            Maximum,
                                                        const AdvApp2Var_CriterionType Type,
@@ -47,7 +47,7 @@ GeomPlate_PlateG0Criterion::GeomPlate_PlateG0Criterion(const TColgp_SequenceOfXY
 
 //=================================================================================================
 
-void GeomPlate_PlateG0Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Context& C) const
+void G0Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Context& C) const
 {
   Standard_Real    UInt[2], VInt[2];
   Standard_Integer MaxNbCoeff[2], NbCoeff[2];
@@ -116,7 +116,7 @@ void GeomPlate_PlateG0Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Con
 
 //=================================================================================================
 
-Standard_Boolean GeomPlate_PlateG0Criterion::IsSatisfied(const AdvApp2Var_Patch& P) const
+Standard_Boolean G0Criterion::IsSatisfied(const AdvApp2Var_Patch& P) const
 {
   return (P.CritValue() < myMaxValue);
 }

@@ -36,8 +36,8 @@ class BlendFunc_Corde
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_Corde(const Handle(Adaptor3d_Surface)& S,
-                                  const Handle(Adaptor3d_Curve)&   CGuide);
+  Standard_EXPORT BlendFunc_Corde(const Handle(SurfaceAdaptor)& S,
+                                  const Handle(Curve5)&   CGuide);
 
   Standard_EXPORT void SetParam(const Standard_Real Param);
 
@@ -84,8 +84,8 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf;
-  Handle(Adaptor3d_Curve)   guide;
+  Handle(SurfaceAdaptor) surf;
+  Handle(Curve5)   guide;
   Point3d                    pts;
   gp_Pnt2d                  pt2d;
   Standard_Real             dis;

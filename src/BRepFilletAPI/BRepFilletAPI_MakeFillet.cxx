@@ -89,7 +89,7 @@ void BRepFilletAPI_MakeFillet::Add(const Standard_Real R1,
 
 //=================================================================================================
 
-void BRepFilletAPI_MakeFillet::Add(const Handle(Law_Function)& L, const TopoEdge& E)
+void BRepFilletAPI_MakeFillet::Add(const Handle(Function2)& L, const TopoEdge& E)
 {
   // myBuilder.Add(L,E);
   myBuilder.Add(E);
@@ -144,7 +144,7 @@ void BRepFilletAPI_MakeFillet::SetRadius(const Standard_Real    R1,
 
 //=================================================================================================
 
-void BRepFilletAPI_MakeFillet::SetRadius(const Handle(Law_Function)& L,
+void BRepFilletAPI_MakeFillet::SetRadius(const Handle(Function2)& L,
                                          const Standard_Integer      IC,
                                          const Standard_Integer      IinC)
 {
@@ -232,7 +232,7 @@ Standard_Boolean BRepFilletAPI_MakeFillet::GetBounds(const Standard_Integer IC,
 
 //=================================================================================================
 
-Handle(Law_Function) BRepFilletAPI_MakeFillet::GetLaw(const Standard_Integer IC,
+Handle(Function2) BRepFilletAPI_MakeFillet::GetLaw(const Standard_Integer IC,
                                                       const TopoEdge&     E)
 {
   return myBuilder.GetLaw(IC, E);
@@ -242,7 +242,7 @@ Handle(Law_Function) BRepFilletAPI_MakeFillet::GetLaw(const Standard_Integer IC,
 
 void BRepFilletAPI_MakeFillet::SetLaw(const Standard_Integer      IC,
                                       const TopoEdge&          E,
-                                      const Handle(Law_Function)& L)
+                                      const Handle(Function2)& L)
 {
   myBuilder.SetLaw(IC, E, L);
 }
@@ -426,7 +426,7 @@ Standard_Integer BRepFilletAPI_MakeFillet::NbSurf(const Standard_Integer IC) con
 
 //=================================================================================================
 
-Handle(ChFiDS_SecHArray1) BRepFilletAPI_MakeFillet::Sect(const Standard_Integer IC,
+Handle(SecHArray1) BRepFilletAPI_MakeFillet::Sect(const Standard_Integer IC,
                                                          const Standard_Integer IS) const
 {
   return myBuilder.Sect(IC, IS);

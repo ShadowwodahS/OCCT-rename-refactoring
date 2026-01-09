@@ -369,7 +369,7 @@ void AppParCurves_LeastSquare::Init(const MultiLine& SSP,
     }
   }
 
-  AppParCurves_MultiPoint Pole1(nbP, nbP2d), PoleN(nbP, nbP2d);
+  MultiPoint Pole1(nbP, nbP2d), PoleN(nbP, nbP2d);
 
   if (FirstConstraint == AppParCurves_PassPoint ||
       FirstConstraint == AppParCurves_TangencyPoint ||
@@ -1282,7 +1282,7 @@ const AppParCurves_MultiBSpCurve& AppParCurves_LeastSquare::BSplineValue()
   // On met le resultat dans les curves correspondantes
   for (i = ideb; i <= ifin; i++) {
     j2 = 1;
-    AppParCurves_MultiPoint MPole(nbP, nbP2d);
+    MultiPoint MPole(nbP, nbP2d);
     for (j = 1; j <= nbP; j++) {
       Pt.SetCoord(mypoles(i, j2), mypoles(i, j2+1), mypoles(i,j2+2));
       MPole.SetPoint(j, Pt);

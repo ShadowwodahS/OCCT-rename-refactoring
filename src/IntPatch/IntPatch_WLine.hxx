@@ -52,21 +52,21 @@ public:
 
   //! Creates a WLine as an intersection when the
   //! transitions are In or Out.
-  Standard_EXPORT IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line,
+  Standard_EXPORT IntPatch_WLine(const Handle(LineOnTwoSurfaces)& Line,
                                  const Standard_Boolean          Tang,
                                  const IntSurf_TypeTrans         Trans1,
                                  const IntSurf_TypeTrans         Trans2);
 
   //! Creates a WLine as an intersection when the
   //! transitions are Touch.
-  Standard_EXPORT IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line,
+  Standard_EXPORT IntPatch_WLine(const Handle(LineOnTwoSurfaces)& Line,
                                  const Standard_Boolean          Tang,
                                  const IntSurf_Situation         Situ1,
                                  const IntSurf_Situation         Situ2);
 
   //! Creates a WLine as an intersection when the
   //! transitions are Undecided.
-  Standard_EXPORT IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line, const Standard_Boolean Tang);
+  Standard_EXPORT IntPatch_WLine(const Handle(LineOnTwoSurfaces)& Line, const Standard_Boolean Tang);
 
   //! Adds a vertex in the list. If theIsPrepend == TRUE the new
   //! vertex will be added before the first element of vertices sequence.
@@ -133,7 +133,7 @@ public:
   Standard_EXPORT void ComputeVertexParameters(const Standard_Real Tol);
 
   //! Returns set of intersection points
-  Standard_EXPORT virtual Handle(IntSurf_LineOn2S) Curve() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(LineOnTwoSurfaces) Curve() const Standard_OVERRIDE;
 
   //! Returns TRUE if theP is out of the box built from
   //! the points on 1st surface
@@ -210,7 +210,7 @@ public:
 
 protected:
 private:
-  Handle(IntSurf_LineOn2S)  curv;
+  Handle(LineOnTwoSurfaces)  curv;
   Standard_Boolean          fipt;
   Standard_Boolean          lapt;
   Standard_Integer          indf;

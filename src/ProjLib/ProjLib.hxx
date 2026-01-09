@@ -59,7 +59,7 @@ class ProjLib_ProjectedCurve;
 //!  - Sphere.
 //!  - Torus.
 //!
-//! * A generic class to handle a Adaptor3d_Curve on a Adaptor3d_Surface.
+//! * A generic class to handle a Curve5 on a SurfaceAdaptor.
 class ProjLib1
 {
 public:
@@ -104,7 +104,7 @@ public:
   //! Returns "true" if surface is analytical, that is it can be
   //! Plane1, Cylinder, Cone, Sphere, Torus.
   //! For all other types of surface method returns "false".
-  Standard_EXPORT static Standard_Boolean IsAnaSurf(const Handle(Adaptor3d_Surface)& theAS);
+  Standard_EXPORT static Standard_Boolean IsAnaSurf(const Handle(SurfaceAdaptor)& theAS);
 };
 
 #endif // _ProjLib_HeaderFile

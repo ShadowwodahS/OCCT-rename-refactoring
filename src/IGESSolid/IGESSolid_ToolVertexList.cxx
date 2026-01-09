@@ -55,7 +55,7 @@ void VertexListTool::ReadOwnParams(const Handle(IGESSolid_VertexList)& ent,
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer nbitems = 0; // szv#4:S4163:12Mar99 `i` moved in for
   // Coords3d anXYZ; //szv#4:S4163:12Mar99 moved down
-  Handle(TColgp_HArray1OfXYZ) tempVertices;
+  Handle(XYZArray) tempVertices;
 
   // st = PR.ReadInteger(PR.Current(), Msg182, nbitems); //szv#4:S4163:12Mar99 moved in if
   // st = PR.ReadInteger(PR.Current(), "Number of Vertices", nbitems);
@@ -65,7 +65,7 @@ void VertexListTool::ReadOwnParams(const Handle(IGESSolid_VertexList)& ent,
 
     Message_Msg Msg183("XSTEP_183");
 
-    tempVertices = new TColgp_HArray1OfXYZ(1, nbitems);
+    tempVertices = new XYZArray(1, nbitems);
 
     Coords3d anXYZ;
     for (Standard_Integer i = 1; i <= nbitems; i++)
@@ -120,7 +120,7 @@ void VertexListTool::OwnCopy(const Handle(IGESSolid_VertexList)& another,
   Standard_Integer nbitems, i;
 
   nbitems                                  = another->NbVertices();
-  Handle(TColgp_HArray1OfXYZ) tempVertices = new TColgp_HArray1OfXYZ(1, nbitems);
+  Handle(XYZArray) tempVertices = new XYZArray(1, nbitems);
 
   for (i = 1; i <= nbitems; i++)
   {

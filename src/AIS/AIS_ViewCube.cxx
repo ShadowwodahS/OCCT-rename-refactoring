@@ -143,7 +143,7 @@ AIS_ViewCube::AIS_ViewCube()
   myInfiniteState = true;
   myIsMutable     = true;
   myDrawer->SetZLayer(Graphic3d_ZLayerId_Topmost);
-  myTransformPersistence = new Graphic3d_TransformPers(Graphic3d_TMF_TriedronPers,
+  myTransformPersistence = new TransformPers(Graphic3d_TMF_TriedronPers,
                                                        Aspect_TOTP_LEFT_LOWER,
                                                        Graphic3d_Vec2i(100, 100));
 

@@ -23,7 +23,7 @@
 class Frame3d;
 class Point3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_Axis2Placement;
 DEFINE_STANDARD_HANDLE(Geom_Axis2Placement, Geom_AxisPlacement)
@@ -115,7 +115,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this coordinate system.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Geom_Axis2Placement, Geom_AxisPlacement)
 

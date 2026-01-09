@@ -23,15 +23,15 @@
 typedef struct FT_LibraryRec_* FT_Library;
 
 //! Wrapper over FT_Library. Provides access to FreeType library.
-class Font_FTLibrary : public RefObject
+class FTLibrary : public RefObject
 {
 
 public:
   //! Initialize new FT_Library instance.
-  Standard_EXPORT Font_FTLibrary();
+  Standard_EXPORT FTLibrary();
 
   //! Release FT_Library instance.
-  Standard_EXPORT ~Font_FTLibrary();
+  Standard_EXPORT ~FTLibrary();
 
   //! This method should always return true.
   //! @return true if FT_Library instance is valid.
@@ -44,13 +44,13 @@ private:
   FT_Library myFTLib;
 
 private:
-  Font_FTLibrary(const Font_FTLibrary&);
-  Font_FTLibrary& operator=(const Font_FTLibrary&);
+  FTLibrary(const FTLibrary&);
+  FTLibrary& operator=(const FTLibrary&);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Font_FTLibrary, RefObject) // Type definition
+  DEFINE_STANDARD_RTTIEXT(FTLibrary, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(Font_FTLibrary, RefObject)
+DEFINE_STANDARD_HANDLE(FTLibrary, RefObject)
 
 #endif // _Font_FTLibrary_H__

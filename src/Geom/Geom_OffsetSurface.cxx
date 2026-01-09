@@ -68,7 +68,7 @@ static const Standard_Real MyAngularToleranceForG1 = Precision1::Angular();
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_OffsetSurface::Copy() const
+Handle(Geometry3) Geom_OffsetSurface::Copy() const
 {
   Handle(Geom_OffsetSurface) S(new Geom_OffsetSurface(basisSurf, offsetValue, Standard_True));
   return S;

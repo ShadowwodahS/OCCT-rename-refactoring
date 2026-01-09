@@ -31,7 +31,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(BRepFill_Edge3DLaw, BRepFill_LocationLaw)
 
 BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoWire&                  Path,
-                                       const Handle(GeomFill_LocationLaw)& Law1)
+                                       const Handle(LocationLaw)& Law1)
 {
   Init(Path);
 

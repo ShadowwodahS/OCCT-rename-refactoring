@@ -21,7 +21,7 @@
 #include <TColStd_SequenceOfReal.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 class Adaptor2d_Curve2d;
 class Point3d;
 
@@ -46,7 +46,7 @@ public:
   //! @param[in] theC  input 3D curve
   //! @param[in] theDeflection  target deflection
   //! @param[in] theWithControl  when TRUE, the algorithm controls the estimate deflection
-  Standard_EXPORT UniformDeflection1(const Adaptor3d_Curve& theC,
+  Standard_EXPORT UniformDeflection1(const Curve5& theC,
                                            const Standard_Real    theDeflection,
                                            const Standard_Boolean theWithControl = Standard_True);
 
@@ -64,7 +64,7 @@ public:
   //! @param[in] theU1  first parameter on curve
   //! @param[in] theU2  last  parameter on curve
   //! @param[in] theWithControl  when TRUE, the algorithm controls the estimate deflection
-  Standard_EXPORT UniformDeflection1(const Adaptor3d_Curve& theC,
+  Standard_EXPORT UniformDeflection1(const Curve5& theC,
                                            const Standard_Real    theDeflection,
                                            const Standard_Real    theU1,
                                            const Standard_Real    theU2,
@@ -83,7 +83,7 @@ public:
                                            const Standard_Boolean   theWithControl = Standard_True);
 
   //! Initialize the algorithms with 3D curve and deflection.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& theC,
+  Standard_EXPORT void Initialize(const Curve5& theC,
                                   const Standard_Real    theDeflection,
                                   const Standard_Boolean theWithControl = Standard_True);
 
@@ -93,7 +93,7 @@ public:
                                   const Standard_Boolean   theWithControl = Standard_True);
 
   //! Initialize the algorithms with 3D curve, deflection, parameter range.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& theC,
+  Standard_EXPORT void Initialize(const Curve5& theC,
                                   const Standard_Real    theDeflection,
                                   const Standard_Real    theU1,
                                   const Standard_Real    theU2,
@@ -135,7 +135,7 @@ public:
   //! theC is an adapted curve, i.e. an object which is an interface between:
   //! -   the services provided by either a 2D curve from
   //!     the package Geom2d (in the case of an Adaptor2d_Curve2d curve)
-  //!     or a 3D curve from the package Geom (in the case of an Adaptor3d_Curve curve),
+  //!     or a 3D curve from the package Geom (in the case of an Curve5 curve),
   //! -   and those required on the curve by the computation algorithm.
   Standard_EXPORT void Initialize(const Adaptor2d_Curve2d& theC,
                                   const Standard_Real      theDeflection,

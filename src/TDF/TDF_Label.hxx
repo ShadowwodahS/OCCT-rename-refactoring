@@ -26,7 +26,7 @@
 #include <Standard_OStream.hxx>
 #include <TDF_AttributeIndexedMap.hxx>
 class TDF_Attribute;
-class TDF_Data;
+class Data2;
 class Standard_GUID;
 class IDFilter;
 
@@ -63,7 +63,7 @@ public:
   void Nullify();
 
   //! Returns the Data owning <me>.
-  Handle(TDF_Data) Data() const;
+  Handle(Data2) Data() const;
 
   //! Returns the tag of the label.
   //! This is the integer assigned randomly to a label
@@ -256,7 +256,7 @@ public:
   friend class ChildIterator;
   friend class TDF_Attribute;
   friend class TDF_AttributeIterator;
-  friend class TDF_Data;
+  friend class Data2;
 
   template <class T>
   friend struct std::hash;

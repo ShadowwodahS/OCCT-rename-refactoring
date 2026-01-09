@@ -17,7 +17,7 @@
 #include <Poly_Triangulation.hxx>
 #include <NCollection_Array1.hxx>
 
-class RWMesh_TriangulationReader;
+class TriangulationReader;
 
 //! Mesh1 data wrapper for delayed triangulation loading.
 //! Class inherits MeshTriangulation so that it can be put temporarily into TopoFace within
@@ -33,10 +33,10 @@ public:
   Standard_EXPORT virtual ~RWMesh_TriangulationSource();
 
   //! Returns reader allowing to read data from the buffer.
-  const Handle(RWMesh_TriangulationReader)& Reader() const { return myReader; }
+  const Handle(TriangulationReader)& Reader() const { return myReader; }
 
   //! Sets reader allowing to read data from the buffer.
-  void SetReader(const Handle(RWMesh_TriangulationReader)& theReader) { myReader = theReader; }
+  void SetReader(const Handle(TriangulationReader)& theReader) { myReader = theReader; }
 
   //! Returns number of degenerated triangles collected during data reading.
   //! Used for debug statistic purpose.
@@ -105,7 +105,7 @@ protected:
     const Handle(MeshTriangulation)& theDestTriangulation) const Standard_OVERRIDE;
 
 protected:
-  Handle(RWMesh_TriangulationReader)   myReader;
+  Handle(TriangulationReader)   myReader;
   NCollection_Array1<Standard_Integer> myEdges;
   Standard_Integer                     myNbDefNodes;
   Standard_Integer                     myNbDefTriangles;

@@ -324,7 +324,7 @@ public:
 
 protected:
   //! Read image.
-  virtual Handle(Image_PixMap) ReadImage(const Handle(Image_SupportedFormats)&) const
+  virtual Handle(Image_PixMap) ReadImage(const Handle(SupportedFormats)&) const
     Standard_OVERRIDE
   {
     Handle(VRImagePixmap) aPixmap = new VRImagePixmap();
@@ -373,111 +373,111 @@ Aspect_OpenVRSession::Aspect_OpenVRSession()
   myActionsManifest = defaultActionsManifest();
   myTrackedPoses.Resize(0, (Standard_Integer)vr::k_unMaxTrackedDeviceCount - 1, false);
   {
-    Handle(Aspect_XRActionSet) aHeadActionSet = new Aspect_XRActionSet("/actions/generic_head");
+    Handle(XRActionSet) aHeadActionSet = new XRActionSet("/actions/generic_head");
     myActionSets.Add(aHeadActionSet->Id(), aHeadActionSet);
 
-    Handle(Aspect_XRAction) aHeadsetOn =
-      new Aspect_XRAction(aHeadActionSet->Id() + "/in/headset_on_head",
+    Handle(XRAction) aHeadsetOn =
+      new XRAction(aHeadActionSet->Id() + "/in/headset_on_head",
                           Aspect_XRActionType_InputDigital);
     aHeadActionSet->AddAction(aHeadsetOn);
-    NCollection_Array1<Handle(Aspect_XRAction)>& aGenericSet =
+    NCollection_Array1<Handle(XRAction)>& aGenericSet =
       myRoleActions[Aspect_XRTrackedDeviceRole_Head];
     aGenericSet[Aspect_XRGenericAction_IsHeadsetOn] = aHeadsetOn;
   }
   for (int aHand = 0; aHand < 2; ++aHand)
   {
-    NCollection_Array1<Handle(Aspect_XRAction)>& aGenericSet =
+    NCollection_Array1<Handle(XRAction)>& aGenericSet =
       myRoleActions[aHand == 0 ? Aspect_XRTrackedDeviceRole_LeftHand
                                : Aspect_XRTrackedDeviceRole_RightHand];
-    Handle(Aspect_XRActionSet) anActionSet =
-      new Aspect_XRActionSet(aHand == 0 ? "/actions/generic_left" : "/actions/generic_right");
+    Handle(XRActionSet) anActionSet =
+      new XRActionSet(aHand == 0 ? "/actions/generic_left" : "/actions/generic_right");
     myActionSets.Add(anActionSet->Id(), anActionSet);
 
-    Handle(Aspect_XRAction) anAppMenuClick =
-      new Aspect_XRAction(anActionSet->Id() + "/in/appmenu_click",
+    Handle(XRAction) anAppMenuClick =
+      new XRAction(anActionSet->Id() + "/in/appmenu_click",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(anAppMenuClick);
     aGenericSet[Aspect_XRGenericAction_InputAppMenu] = anAppMenuClick;
 
-    Handle(Aspect_XRAction) aSysMenuClick =
-      new Aspect_XRAction(anActionSet->Id() + "/in/sysmenu_click",
+    Handle(XRAction) aSysMenuClick =
+      new XRAction(anActionSet->Id() + "/in/sysmenu_click",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aSysMenuClick);
     aGenericSet[Aspect_XRGenericAction_InputSysMenu] = aSysMenuClick;
 
-    Handle(Aspect_XRAction) aTriggerPull =
-      new Aspect_XRAction(anActionSet->Id() + "/in/trigger_pull", Aspect_XRActionType_InputAnalog);
+    Handle(XRAction) aTriggerPull =
+      new XRAction(anActionSet->Id() + "/in/trigger_pull", Aspect_XRActionType_InputAnalog);
     anActionSet->AddAction(aTriggerPull);
     aGenericSet[Aspect_XRGenericAction_InputTriggerPull] = aTriggerPull;
 
-    Handle(Aspect_XRAction) aTriggerClick =
-      new Aspect_XRAction(anActionSet->Id() + "/in/trigger_click",
+    Handle(XRAction) aTriggerClick =
+      new XRAction(anActionSet->Id() + "/in/trigger_click",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aTriggerClick);
     aGenericSet[Aspect_XRGenericAction_InputTriggerClick] = aTriggerClick;
 
-    Handle(Aspect_XRAction) aGripClick =
-      new Aspect_XRAction(anActionSet->Id() + "/in/grip_click", Aspect_XRActionType_InputDigital);
+    Handle(XRAction) aGripClick =
+      new XRAction(anActionSet->Id() + "/in/grip_click", Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aGripClick);
     aGenericSet[Aspect_XRGenericAction_InputGripClick] = aGripClick;
 
-    Handle(Aspect_XRAction) aPadPos =
-      new Aspect_XRAction(anActionSet->Id() + "/in/trackpad_position",
+    Handle(XRAction) aPadPos =
+      new XRAction(anActionSet->Id() + "/in/trackpad_position",
                           Aspect_XRActionType_InputAnalog);
     anActionSet->AddAction(aPadPos);
     aGenericSet[Aspect_XRGenericAction_InputTrackPadPosition] = aPadPos;
 
-    Handle(Aspect_XRAction) aPadTouch =
-      new Aspect_XRAction(anActionSet->Id() + "/in/trackpad_touch",
+    Handle(XRAction) aPadTouch =
+      new XRAction(anActionSet->Id() + "/in/trackpad_touch",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aPadTouch);
     aGenericSet[Aspect_XRGenericAction_InputTrackPadTouch] = aPadTouch;
 
-    Handle(Aspect_XRAction) aPadClick =
-      new Aspect_XRAction(anActionSet->Id() + "/in/trackpad_click",
+    Handle(XRAction) aPadClick =
+      new XRAction(anActionSet->Id() + "/in/trackpad_click",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aPadClick);
     aGenericSet[Aspect_XRGenericAction_InputTrackPadClick] = aPadClick;
 
-    Handle(Aspect_XRAction) aPoseBase =
-      new Aspect_XRAction(anActionSet->Id() + "/in/pose_base", Aspect_XRActionType_InputPose);
+    Handle(XRAction) aPoseBase =
+      new XRAction(anActionSet->Id() + "/in/pose_base", Aspect_XRActionType_InputPose);
     anActionSet->AddAction(aPoseBase);
     aGenericSet[Aspect_XRGenericAction_InputPoseBase] = aPoseBase;
 
-    Handle(Aspect_XRAction) aPoseFront =
-      new Aspect_XRAction(anActionSet->Id() + "/in/pose_front", Aspect_XRActionType_InputPose);
+    Handle(XRAction) aPoseFront =
+      new XRAction(anActionSet->Id() + "/in/pose_front", Aspect_XRActionType_InputPose);
     anActionSet->AddAction(aPoseFront);
     aGenericSet[Aspect_XRGenericAction_InputPoseFront] = aPoseFront;
 
-    Handle(Aspect_XRAction) aPoseGrip =
-      new Aspect_XRAction(anActionSet->Id() + "/in/pose_handgrip", Aspect_XRActionType_InputPose);
+    Handle(XRAction) aPoseGrip =
+      new XRAction(anActionSet->Id() + "/in/pose_handgrip", Aspect_XRActionType_InputPose);
     anActionSet->AddAction(aPoseGrip);
     aGenericSet[Aspect_XRGenericAction_InputPoseHandGrip] = aPoseGrip;
 
-    Handle(Aspect_XRAction) aPoseTip =
-      new Aspect_XRAction(anActionSet->Id() + "/in/pose_tip", Aspect_XRActionType_InputPose);
+    Handle(XRAction) aPoseTip =
+      new XRAction(anActionSet->Id() + "/in/pose_tip", Aspect_XRActionType_InputPose);
     anActionSet->AddAction(aPoseTip);
     aGenericSet[Aspect_XRGenericAction_InputPoseFingerTip] = aPoseTip;
 
-    Handle(Aspect_XRAction) aHaptic =
-      new Aspect_XRAction(anActionSet->Id() + "/out/haptic", Aspect_XRActionType_OutputHaptic);
+    Handle(XRAction) aHaptic =
+      new XRAction(anActionSet->Id() + "/out/haptic", Aspect_XRActionType_OutputHaptic);
     anActionSet->AddAction(aHaptic);
     aGenericSet[Aspect_XRGenericAction_OutputHaptic] = aHaptic;
 
-    Handle(Aspect_XRAction) aThumbsctickPos =
-      new Aspect_XRAction(anActionSet->Id() + "/in/thumbstick_position",
+    Handle(XRAction) aThumbsctickPos =
+      new XRAction(anActionSet->Id() + "/in/thumbstick_position",
                           Aspect_XRActionType_InputAnalog);
     anActionSet->AddAction(aThumbsctickPos);
     aGenericSet[Aspect_XRGenericAction_InputThumbstickPosition] = aThumbsctickPos;
 
-    Handle(Aspect_XRAction) aThumbsctickTouch =
-      new Aspect_XRAction(anActionSet->Id() + "/in/thumbstick_touch",
+    Handle(XRAction) aThumbsctickTouch =
+      new XRAction(anActionSet->Id() + "/in/thumbstick_touch",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aThumbsctickTouch);
     aGenericSet[Aspect_XRGenericAction_InputThumbstickTouch] = aThumbsctickTouch;
 
-    Handle(Aspect_XRAction) aThumbsctickClick =
-      new Aspect_XRAction(anActionSet->Id() + "/in/thumbstick_click",
+    Handle(XRAction) aThumbsctickClick =
+      new XRAction(anActionSet->Id() + "/in/thumbstick_click",
                           Aspect_XRActionType_InputDigital);
     anActionSet->AddAction(aThumbsctickClick);
     aGenericSet[Aspect_XRGenericAction_InputThumbstickClick] = aThumbsctickClick;
@@ -610,11 +610,11 @@ bool Aspect_OpenVRSession::initInput()
   bool hasErrors = false;
   for (Aspect_XRActionSetMap::Iterator aSetIter(myActionSets); aSetIter.More(); aSetIter.Next())
   {
-    const Handle(Aspect_XRActionSet)& anActionSet = aSetIter.Value();
+    const Handle(XRActionSet)& anActionSet = aSetIter.Value();
     for (Aspect_XRActionMap::Iterator anActionIter(anActionSet->Actions()); anActionIter.More();
          anActionIter.Next())
     {
-      const Handle(Aspect_XRAction)& anAction       = anActionIter.Value();
+      const Handle(XRAction)& anAction       = anActionIter.Value();
       vr::VRActionHandle_t           anActionHandle = 0;
       aVrError = vr::VRInput()->GetActionHandle(anAction->Id().ToCString(), &anActionHandle);
       if (aVrError == vr::VRInputError_None)
@@ -957,7 +957,7 @@ bool Aspect_OpenVRSession::WaitPoses()
 //=================================================================================================
 
 XRDigitalActionData Aspect_OpenVRSession::GetDigitalActionData(
-  const Handle(Aspect_XRAction)& theAction) const
+  const Handle(XRAction)& theAction) const
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_InputDigital)
   {
@@ -995,7 +995,7 @@ XRDigitalActionData Aspect_OpenVRSession::GetDigitalActionData(
 //=================================================================================================
 
 XRAnalogActionData Aspect_OpenVRSession::GetAnalogActionData(
-  const Handle(Aspect_XRAction)& theAction) const
+  const Handle(XRAction)& theAction) const
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_InputAnalog)
   {
@@ -1031,8 +1031,8 @@ XRAnalogActionData Aspect_OpenVRSession::GetAnalogActionData(
 
 //=================================================================================================
 
-Aspect_XRPoseActionData Aspect_OpenVRSession::GetPoseActionDataForNextFrame(
-  const Handle(Aspect_XRAction)& theAction) const
+XRPoseActionData Aspect_OpenVRSession::GetPoseActionDataForNextFrame(
+  const Handle(XRAction)& theAction) const
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_InputPose)
   {
@@ -1040,7 +1040,7 @@ Aspect_XRPoseActionData Aspect_OpenVRSession::GetPoseActionDataForNextFrame(
       "Aspect_OpenVRSession::GetPoseActionDataForNextFrame() called for wrong action");
   }
 
-  Aspect_XRPoseActionData anActionData;
+  XRPoseActionData anActionData;
 #ifdef HAVE_OPENVR
   if (myContext->System != NULL && theAction->RawHandle() != 0)
   {
@@ -1078,7 +1078,7 @@ Aspect_XRPoseActionData Aspect_OpenVRSession::GetPoseActionDataForNextFrame(
 
 //=================================================================================================
 
-void Aspect_OpenVRSession::triggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
+void Aspect_OpenVRSession::triggerHapticVibrationAction(const Handle(XRAction)&   theAction,
                                                         const XRHapticActionData& theParams)
 {
   if (theAction.IsNull() || theAction->Type() != Aspect_XRActionType_OutputHaptic)
@@ -1162,11 +1162,11 @@ void Aspect_OpenVRSession::ProcessEvents()
 
   for (Aspect_XRActionSetMap::Iterator aSetIter(myActionSets); aSetIter.More(); aSetIter.Next())
   {
-    const Handle(Aspect_XRActionSet)& anActionSet = aSetIter.Value();
+    const Handle(XRActionSet)& anActionSet = aSetIter.Value();
     for (Aspect_XRActionMap::Iterator anActionIter(anActionSet->Actions()); anActionIter.More();
          anActionIter.Next())
     {
-      const Handle(Aspect_XRAction)& anAction = anActionIter.Value();
+      const Handle(XRAction)& anAction = anActionIter.Value();
       if (anAction->RawHandle() == 0 || anAction->Id().IsEmpty())
       {
         continue;

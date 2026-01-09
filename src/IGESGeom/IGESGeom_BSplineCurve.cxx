@@ -36,7 +36,7 @@ void IGESGeom_BSplineCurve::Init(const Standard_Integer               anIndex,
                                  const Standard_Boolean               aPeriodic,
                                  const Handle(TColStd_HArray1OfReal)& allKnots,
                                  const Handle(TColStd_HArray1OfReal)& allWeights,
-                                 const Handle(TColgp_HArray1OfXYZ)&   allPoles,
+                                 const Handle(XYZArray)&   allPoles,
                                  const Standard_Real                  aUmin,
                                  const Standard_Real                  aUmax,
                                  const Coords3d&                        aNorm)

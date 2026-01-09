@@ -24,7 +24,7 @@
 #include <Standard_GUID.hxx>
 
 class DataLabel;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class XCAFDoc_LengthUnit;
 DEFINE_STANDARD_HANDLE(XCAFDoc_LengthUnit, TDF_Attribute)
@@ -81,7 +81,7 @@ public:
   Standard_EXPORT virtual void Restore(const Handle(TDF_Attribute)& theWith) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       theInto,
-                                     const Handle(TDF_RelocationTable)& theRT) const
+                                     const Handle(RelocationTable1)& theRT) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;

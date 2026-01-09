@@ -42,12 +42,12 @@ public:
   //! the sensitivity type theType.
   //! The array of points is the outer polygon of the geometric face.
   Standard_EXPORT Select3D_SensitiveFace(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                         const Handle(TColgp_HArray1OfPnt)&   thePoints,
+                                         const Handle(PointArray1)&   thePoints,
                                          const Select3D_TypeOfSensitivity     theType);
 
   //! Initializes the given array theHArrayOfPnt by 3d
   //! coordinates of vertices of the face
-  Standard_EXPORT void GetPoints(Handle(TColgp_HArray1OfPnt)& theHArrayOfPnt);
+  Standard_EXPORT void GetPoints(Handle(PointArray1)& theHArrayOfPnt);
 
   //! Checks whether the face overlaps current selecting volume
   Standard_EXPORT virtual Standard_Boolean Matches(SelectingVolumeManager& theMgr,

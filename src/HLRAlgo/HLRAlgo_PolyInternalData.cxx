@@ -39,16 +39,16 @@ HLRAlgo_PolyInternalData::HLRAlgo_PolyInternalData(const Standard_Integer nbNod,
 {
   Standard_Integer i;
   myMxPISeg = 2 + (3 * nbTri + nbNod) / 2;
-  myTData   = new HLRAlgo_HArray1OfTData(0, myMxTData);
-  myPISeg   = new HLRAlgo_HArray1OfPISeg(0, myMxPISeg);
-  myPINod   = new HLRAlgo_HArray1OfPINod(0, myMxPINod);
+  myTData   = new HandleTDataArray(0, myMxTData);
+  myPISeg   = new HandlePISegArray(0, myMxPISeg);
+  myPINod   = new HandlePINodArray(0, myMxPINod);
 
   HLRAlgo_Array1OfPINod&            PINod = myPINod->ChangeArray1();
-  Handle(HLRAlgo_PolyInternalNode)* NN    = &(PINod.ChangeValue(1));
+  Handle(PolyInternalNode)* NN    = &(PINod.ChangeValue(1));
 
   for (i = 1; i <= myMxPINod; i++)
   {
-    *NN = new HLRAlgo_PolyInternalNode();
+    *NN = new PolyInternalNode();
     NN++;
   }
 }
@@ -68,9 +68,9 @@ void HLRAlgo_PolyInternalData::UpdateLinks(HLRAlgo_Array1OfTData& theTData,
   {
     TriangleData* TD = &theTData.ChangeValue(i);
 
-    HLRAlgo_PolyInternalNode::NodeIndices1& A1 = thePINod.ChangeValue(TD->Node1)->Indices();
-    HLRAlgo_PolyInternalNode::NodeIndices1& A2 = thePINod.ChangeValue(TD->Node2)->Indices();
-    HLRAlgo_PolyInternalNode::NodeIndices1& A3 = thePINod.ChangeValue(TD->Node3)->Indices();
+    PolyInternalNode::NodeIndices1& A1 = thePINod.ChangeValue(TD->Node1)->Indices();
+    PolyInternalNode::NodeIndices1& A2 = thePINod.ChangeValue(TD->Node2)->Indices();
+    PolyInternalNode::NodeIndices1& A3 = thePINod.ChangeValue(TD->Node3)->Indices();
 
     {
       n1     = TD->Node1;
@@ -368,8 +368,8 @@ void HLRAlgo_PolyInternalData::UpdateLinks(HLRAlgo_Array1OfTData& theTData,
 //=================================================================================================
 
 Standard_Integer HLRAlgo_PolyInternalData::AddNode(
-  HLRAlgo_PolyInternalNode::NodeData1& theNod1RValues,
-  HLRAlgo_PolyInternalNode::NodeData1& theNod2RValues,
+  PolyInternalNode::NodeData1& theNod1RValues,
+  PolyInternalNode::NodeData1& theNod2RValues,
   HLRAlgo_Array1OfPINod*&             thePINod1,
   HLRAlgo_Array1OfPINod*&             thePINod2,
   const Standard_Real                 theCoef1,
@@ -380,10 +380,10 @@ Standard_Integer HLRAlgo_PolyInternalData::AddNode(
   Standard_Real coef2 = 1 - theCoef1;
   IncPINod(thePINod1, thePINod2);
   Standard_Integer                  ip3               = myNbPINod;
-  Handle(HLRAlgo_PolyInternalNode)& pip3              = thePINod1->ChangeValue(ip3);
-  pip3                                                = new HLRAlgo_PolyInternalNode();
-  HLRAlgo_PolyInternalNode::NodeData1&    Nod3RValues  = pip3->Data();
-  HLRAlgo_PolyInternalNode::NodeIndices1& aNodeIndices = pip3->Indices();
+  Handle(PolyInternalNode)& pip3              = thePINod1->ChangeValue(ip3);
+  pip3                                                = new PolyInternalNode();
+  PolyInternalNode::NodeData1&    Nod3RValues  = pip3->Data();
+  PolyInternalNode::NodeIndices1& aNodeIndices = pip3->Indices();
   aNodeIndices.NdSg                                   = 0;
   aNodeIndices.Flag                                   = 0;
   Nod3RValues.Point                                   = Coords3d(theX3, theY3, theZ3);
@@ -434,9 +434,9 @@ void HLRAlgo_PolyInternalData::UpdateLinks(const Standard_Integer  ip1,
   IncTData(TData1, TData2);
   myNbTData--;
   myNbTData--;
-  HLRAlgo_PolyInternalNode::NodeIndices1* aNodIndices1 = &PINod1->ChangeValue(ip1)->Indices();
-  HLRAlgo_PolyInternalNode::NodeIndices1& aNodIndices2 = PINod1->ChangeValue(ip2)->Indices();
-  HLRAlgo_PolyInternalNode::NodeIndices1& aNodIndices3 = PINod1->ChangeValue(ip3)->Indices();
+  PolyInternalNode::NodeIndices1* aNodIndices1 = &PINod1->ChangeValue(ip1)->Indices();
+  PolyInternalNode::NodeIndices1& aNodIndices2 = PINod1->ChangeValue(ip2)->Indices();
+  PolyInternalNode::NodeIndices1& aNodIndices3 = PINod1->ChangeValue(ip3)->Indices();
   iiii                                                = aNodIndices2.NdSg;
 
   while (iiii != 0 && find == 0)
@@ -593,7 +593,7 @@ void HLRAlgo_PolyInternalData::UpdateLinks(const Standard_Integer  ip1,
         {
           myNbTData++;
           ip4                                                 = itpk[skip];
-          HLRAlgo_PolyInternalNode::NodeIndices1& aNodIndices4 = PINod1->ChangeValue(ip4)->Indices();
+          PolyInternalNode::NodeIndices1& aNodIndices4 = PINod1->ChangeValue(ip4)->Indices();
           aTriangle.Node1                                     = nOld[0];
           aTriangle.Node2                                     = nOld[1];
           aTriangle.Node3                                     = nOld[2];
@@ -767,9 +767,9 @@ void HLRAlgo_PolyInternalData::Dump() const
 
   for (i = 1; i <= myNbPINod; i++)
   {
-    const Handle(HLRAlgo_PolyInternalNode)* pi           = &PINod->ChangeValue(i);
-    HLRAlgo_PolyInternalNode::NodeIndices1&  aNodIndices1 = (*pi)->Indices();
-    HLRAlgo_PolyInternalNode::NodeData1&     Nod1RValues  = (*pi)->Data();
+    const Handle(PolyInternalNode)* pi           = &PINod->ChangeValue(i);
+    PolyInternalNode::NodeIndices1&  aNodIndices1 = (*pi)->Indices();
+    PolyInternalNode::NodeData1&     Nod1RValues  = (*pi)->Data();
     std::cout << "Node " << std::setw(6) << i << " : ";
     std::cout << std::setw(6) << aNodIndices1.NdSg;
     std::cout << std::setw(20) << Nod1RValues.Point.X();
@@ -817,7 +817,7 @@ void HLRAlgo_PolyInternalData::IncTData(HLRAlgo_Array1OfTData*& TData1,
     j = myMxTData;
     k = 2 * j;
 
-    Handle(HLRAlgo_HArray1OfTData) NwTData = new HLRAlgo_HArray1OfTData(0, k);
+    Handle(HandleTDataArray) NwTData = new HandleTDataArray(0, k);
     HLRAlgo_Array1OfTData&         oTData  = myTData->ChangeArray1();
     HLRAlgo_Array1OfTData&         nTData  = NwTData->ChangeArray1();
 
@@ -854,7 +854,7 @@ void HLRAlgo_PolyInternalData::IncPISeg(HLRAlgo_Array1OfPISeg*& PISeg1,
     Standard_Integer i, j, k;
     j                                      = myMxPISeg;
     k                                      = 2 * j;
-    Handle(HLRAlgo_HArray1OfPISeg) NwPISeg = new HLRAlgo_HArray1OfPISeg(0, k);
+    Handle(HandlePISegArray) NwPISeg = new HandlePISegArray(0, k);
     HLRAlgo_Array1OfPISeg&         oPISeg  = myPISeg->ChangeArray1();
     HLRAlgo_Array1OfPISeg&         nPISeg  = NwPISeg->ChangeArray1();
 
@@ -891,11 +891,11 @@ void HLRAlgo_PolyInternalData::IncPINod(HLRAlgo_Array1OfPINod*& PINod1,
     Standard_Integer i, j, k;
     j                                         = myMxPINod;
     k                                         = 2 * j;
-    Handle(HLRAlgo_HArray1OfPINod)    NwPINod = new HLRAlgo_HArray1OfPINod(0, k);
+    Handle(HandlePINodArray)    NwPINod = new HandlePINodArray(0, k);
     HLRAlgo_Array1OfPINod&            oPINod  = myPINod->ChangeArray1();
     HLRAlgo_Array1OfPINod&            nPINod  = NwPINod->ChangeArray1();
-    Handle(HLRAlgo_PolyInternalNode)* ON      = &(oPINod.ChangeValue(1));
-    Handle(HLRAlgo_PolyInternalNode)* NN      = &(nPINod.ChangeValue(1));
+    Handle(PolyInternalNode)* ON      = &(oPINod.ChangeValue(1));
+    Handle(PolyInternalNode)* NN      = &(nPINod.ChangeValue(1));
 
     for (i = 1; i <= j; i++)
     {

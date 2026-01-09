@@ -31,16 +31,16 @@ class Approx_CurvlinFunc : public RefObject
 {
 
 public:
-  Standard_EXPORT Approx_CurvlinFunc(const Handle(Adaptor3d_Curve)& C, const Standard_Real Tol);
+  Standard_EXPORT Approx_CurvlinFunc(const Handle(Curve5)& C, const Standard_Real Tol);
 
   Standard_EXPORT Approx_CurvlinFunc(const Handle(Adaptor2d_Curve2d)& C2D,
-                                     const Handle(Adaptor3d_Surface)& S,
+                                     const Handle(SurfaceAdaptor)& S,
                                      const Standard_Real              Tol);
 
   Standard_EXPORT Approx_CurvlinFunc(const Handle(Adaptor2d_Curve2d)& C2D1,
                                      const Handle(Adaptor2d_Curve2d)& C2D2,
-                                     const Handle(Adaptor3d_Surface)& S1,
-                                     const Handle(Adaptor3d_Surface)& S2,
+                                     const Handle(SurfaceAdaptor)& S1,
+                                     const Handle(SurfaceAdaptor)& S2,
                                      const Standard_Real              Tol);
 
   //! ---Purpose Update the tolerance to used
@@ -70,7 +70,7 @@ public:
   Standard_EXPORT void Length();
 
   //! Computes length of the curve segment.
-  Standard_EXPORT Standard_Real Length(Adaptor3d_Curve&    C,
+  Standard_EXPORT Standard_Real Length(Curve5&    C,
                                        const Standard_Real FirstU,
                                        const Standard_Real LasrU) const;
 
@@ -79,7 +79,7 @@ public:
   //! returns  original parameter corresponding S.  if
   //! Case == 1 computation is performed on myC2D1 and mySurf1,
   //! otherwise it is done on myC2D2 and mySurf2.
-  Standard_EXPORT Standard_Real GetUParameter(Adaptor3d_Curve&       C,
+  Standard_EXPORT Standard_Real GetUParameter(Curve5&       C,
                                               const Standard_Real    S,
                                               const Standard_Integer NumberOfCurve) const;
 
@@ -107,12 +107,12 @@ protected:
 private:
   Standard_EXPORT void Init();
 
-  Standard_EXPORT void Init(Adaptor3d_Curve&               C,
+  Standard_EXPORT void Init(Curve5&               C,
                             Handle(TColStd_HArray1OfReal)& Si,
                             Handle(TColStd_HArray1OfReal)& Ui) const;
 
   //! returns curvilinear parameter corresponding U.
-  Standard_EXPORT Standard_Real GetSParameter(Adaptor3d_Curve&    C,
+  Standard_EXPORT Standard_Real GetSParameter(Curve5&    C,
                                               const Standard_Real U,
                                               const Standard_Real Length) const;
 
@@ -121,11 +121,11 @@ private:
                                                 TColStd_Array1OfReal&  Result,
                                                 const Standard_Integer NumberOfCurve) const;
 
-  Handle(Adaptor3d_Curve)       myC3D;
+  Handle(Curve5)       myC3D;
   Handle(Adaptor2d_Curve2d)     myC2D1;
   Handle(Adaptor2d_Curve2d)     myC2D2;
-  Handle(Adaptor3d_Surface)     mySurf1;
-  Handle(Adaptor3d_Surface)     mySurf2;
+  Handle(SurfaceAdaptor)     mySurf1;
+  Handle(SurfaceAdaptor)     mySurf2;
   Standard_Integer              myCase;
   Standard_Real                 myFirstS;
   Standard_Real                 myLastS;

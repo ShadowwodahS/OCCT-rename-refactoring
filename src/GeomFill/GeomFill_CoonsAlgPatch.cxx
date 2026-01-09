@@ -26,10 +26,10 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_CoonsAlgPatch, RefObject)
 
 //=================================================================================================
 
-GeomFill_CoonsAlgPatch::GeomFill_CoonsAlgPatch(const Handle(GeomFill_Boundary)& B1,
-                                               const Handle(GeomFill_Boundary)& B2,
-                                               const Handle(GeomFill_Boundary)& B3,
-                                               const Handle(GeomFill_Boundary)& B4)
+GeomFill_CoonsAlgPatch::GeomFill_CoonsAlgPatch(const Handle(Boundary2)& B1,
+                                               const Handle(Boundary2)& B2,
+                                               const Handle(Boundary2)& B3,
+                                               const Handle(Boundary2)& B4)
 {
   bound[0] = B1;
   bound[1] = B2;
@@ -64,7 +64,7 @@ GeomFill_CoonsAlgPatch::GeomFill_CoonsAlgPatch(const Handle(GeomFill_Boundary)& 
 
 //=================================================================================================
 
-void GeomFill_CoonsAlgPatch::SetFunc(const Handle(Law_Function)& f1, const Handle(Law_Function)& f2)
+void GeomFill_CoonsAlgPatch::SetFunc(const Handle(Function2)& f1, const Handle(Function2)& f2)
 {
   a[0] = f1;
   a[1] = f2;
@@ -72,7 +72,7 @@ void GeomFill_CoonsAlgPatch::SetFunc(const Handle(Law_Function)& f1, const Handl
 
 //=================================================================================================
 
-void GeomFill_CoonsAlgPatch::Func(Handle(Law_Function)& f1, Handle(Law_Function)& f2) const
+void GeomFill_CoonsAlgPatch::Func(Handle(Function2)& f1, Handle(Function2)& f2) const
 {
   f1 = a[0];
   f2 = a[1];
@@ -279,7 +279,7 @@ Vector3d GeomFill_CoonsAlgPatch::DUV(const Standard_Real U, const Standard_Real 
 
 //=================================================================================================
 
-const Handle(GeomFill_Boundary)& GeomFill_CoonsAlgPatch::Bound(const Standard_Integer I) const
+const Handle(Boundary2)& GeomFill_CoonsAlgPatch::Bound(const Standard_Integer I) const
 {
   return bound[I];
 }
@@ -293,7 +293,7 @@ const Point3d& GeomFill_CoonsAlgPatch::Corner(const Standard_Integer I) const
 
 //=================================================================================================
 
-const Handle(Law_Function)& GeomFill_CoonsAlgPatch::Func(const Standard_Integer I) const
+const Handle(Function2)& GeomFill_CoonsAlgPatch::Func(const Standard_Integer I) const
 {
   return a[I];
 }

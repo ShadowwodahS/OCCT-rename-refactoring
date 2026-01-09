@@ -25,7 +25,7 @@
 class TopoWire;
 class TopoFace;
 class TopoEdge;
-class Adaptor3d_Curve;
+class Curve5;
 
 //! This package  provides tools to check the validity
 //! of the BRep.
@@ -44,10 +44,10 @@ public:
                                                            TopoEdge&       E2);
 
   //! Returns the resolution on the 3d curve
-  Standard_EXPORT static Standard_Real PrecCurve(const Adaptor3d_Curve& aAC3D);
+  Standard_EXPORT static Standard_Real PrecCurve(const Curve5& aAC3D);
 
   //! Returns the resolution on the surface
-  Standard_EXPORT static Standard_Real PrecSurface(const Handle(Adaptor3d_Surface)& aAHSurf);
+  Standard_EXPORT static Standard_Real PrecSurface(const Handle(SurfaceAdaptor)& aAHSurf);
 };
 
 #endif // _BRepCheck_HeaderFile

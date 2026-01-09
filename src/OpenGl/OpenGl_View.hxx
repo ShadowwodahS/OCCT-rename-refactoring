@@ -51,7 +51,7 @@ public:
   //! Constructor.
   Standard_EXPORT OpenGl_View(const Handle(Graphic3d_StructureManager)& theMgr,
                               const Handle(OpenGl_GraphicDriver)&       theDriver,
-                              const Handle(OpenGl_Caps)&                theCaps,
+                              const Handle(Caps)&                theCaps,
                               StateCounter*                      theCounter);
 
   //! Default destructor.
@@ -250,23 +250,23 @@ public:
   Standard_EXPORT void SetLocalOrigin(const Coords3d& theOrigin);
 
   //! Returns list of lights of the view.
-  virtual const Handle(Graphic3d_LightSet)& Lights() const Standard_OVERRIDE { return myLights; }
+  virtual const Handle(LightSet)& Lights() const Standard_OVERRIDE { return myLights; }
 
   //! Sets list of lights for the view.
-  virtual void SetLights(const Handle(Graphic3d_LightSet)& theLights) Standard_OVERRIDE
+  virtual void SetLights(const Handle(LightSet)& theLights) Standard_OVERRIDE
   {
     myLights               = theLights;
     myCurrLightSourceState = myStateCounter->Increment();
   }
 
   //! Returns list of clip planes set for the view.
-  virtual const Handle(Graphic3d_SequenceOfHClipPlane)& ClipPlanes() const Standard_OVERRIDE
+  virtual const Handle(SequenceOfHClipPlane)& ClipPlanes() const Standard_OVERRIDE
   {
     return myClipPlanes;
   }
 
   //! Sets list of clip planes for the view.
-  virtual void SetClipPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+  virtual void SetClipPlanes(const Handle(SequenceOfHClipPlane)& thePlanes)
     Standard_OVERRIDE
   {
     myClipPlanes = thePlanes;
@@ -295,7 +295,7 @@ public:
   const Quantity_ColorRGBA& BackgroundColor() const { return myBgColor; }
 
   //! Change graduated trihedron.
-  OpenGl_GraduatedTrihedron& ChangeGraduatedTrihedron() { return myGraduatedTrihedron; }
+  GraduatedTrihedron1& ChangeGraduatedTrihedron() { return myGraduatedTrihedron; }
 
   void SetTextureEnv(const Handle(OpenGl_Context)&       theCtx,
                      const Handle(Graphic3d_TextureEnv)& theTexture);
@@ -315,7 +315,7 @@ public:
   const Handle(OpenGl_Window)& GlWindow() const { return myWindow; }
 
   //! Returns OpenGL environment map.
-  const Handle(OpenGl_TextureSet)& GlTextureEnv() const { return myTextureEnv; }
+  const Handle(TextureSet2)& GlTextureEnv() const { return myTextureEnv; }
 
   //! Returns selector for BVH tree, providing a possibility to store information
   //! about current view volume and to detect which objects are overlapping it.
@@ -485,22 +485,22 @@ protected:
   OpenGl_GraphicDriver*    myDriver;
   Handle(OpenGl_Window)    myWindow;
   Handle(OpenGl_Workspace) myWorkspace;
-  Handle(OpenGl_Caps)      myCaps;
+  Handle(Caps)      myCaps;
   Standard_Boolean         myWasRedrawnGL;
 
-  Handle(Graphic3d_SequenceOfHClipPlane) myClipPlanes;
+  Handle(SequenceOfHClipPlane) myClipPlanes;
   Coords3d                                 myLocalOrigin;
   Handle(OpenGl_FrameBuffer)             myFBO;
   Standard_Boolean                       myToShowGradTrihedron;
   GraduatedTrihedron           myGTrihedronData;
 
-  Handle(Graphic3d_LightSet) myNoShadingLight;
-  Handle(Graphic3d_LightSet) myLights;
+  Handle(LightSet) myNoShadingLight;
+  Handle(LightSet) myLights;
   // clang-format off
   LayerList1                myZLayers; //!< main list of displayed structure, sorted by layers
   // clang-format on
 
-  Graphic3d_WorldViewProjState myWorldViewProjState; //!< camera modification state
+  WorldViewProjState1 myWorldViewProjState; //!< camera modification state
   StateCounter*         myStateCounter;
   Standard_Size                myCurrLightSourceState;
   Standard_Size                myLightsRevision;
@@ -514,7 +514,7 @@ protected:
   //! Is needed for selection of overlapping objects and storage of the current view volume
   CullingTool myBVHSelector;
 
-  OpenGl_GraduatedTrihedron myGraduatedTrihedron;
+  GraduatedTrihedron1 myGraduatedTrihedron;
   OpenGl_FrameStatsPrs      myFrameStatsPrs;
 
   //! Framebuffers for OpenGL output.
@@ -555,7 +555,7 @@ protected: //! @name Background parameters
   OpenGl_Aspects*            myColoredQuadParams;                 //!< Stores parameters for gradient (corner mode) background
   OpenGl_BackgroundArray*    myBackgrounds[Graphic3d_TypeOfBackground_NB]; //!< Array of primitive arrays of different background types
                                                   // clang-format on
-  Handle(OpenGl_TextureSet) myTextureEnv;
+  Handle(TextureSet2) myTextureEnv;
   Handle(OpenGl_Texture)    mySkydomeTexture;
 
 protected: //! @name methods related to skydome background
@@ -670,14 +670,14 @@ protected: //! @name data types related to ray-tracing
   };
 
   //! Tool class for management of shader sources.
-  class ShaderSource
+  class ShaderSource1
   {
   public:
     //! Default shader prefix - empty string.
     static const AsciiString1 EMPTY_PREFIX;
 
     //! Creates new uninitialized shader source.
-    ShaderSource()
+    ShaderSource1()
     {
       //
     }
@@ -831,7 +831,7 @@ protected: //! @name methods related to ray-tracing
   //! Adds OpenGL groups to ray-traced scene geometry.
   Standard_Boolean addRaytraceGroups(const OpenGl_Structure*        theStructure,
                                      const RaytraceMaterial& theStructMat,
-                                     const Handle(TopLoc_Datum3D)&  theTrsf,
+                                     const Handle(Datum3D2)&  theTrsf,
                                      const Handle(OpenGl_Context)&  theGlContext);
 
   //! Creates ray-tracing material properties.
@@ -904,7 +904,7 @@ protected: //! @name methods related to ray-tracing
 
   //! Loads and compiles shader object from specified source.
   Handle(OpenGl_ShaderObject) initShader(const GLenum                  theType,
-                                         const ShaderSource&           theSource,
+                                         const ShaderSource1&           theSource,
                                          const Handle(OpenGl_Context)& theGlContext);
 
   //! Creates shader program from the given vertex and fragment shaders.
@@ -1015,11 +1015,11 @@ protected: //! @name fields related to ray-tracing
   Standard_ShortReal myRaytraceSceneEpsilon;
 
   //! OpenGL/GLSL source of ray-tracing fragment shader.
-  ShaderSource myRaytraceShaderSource;
+  ShaderSource1 myRaytraceShaderSource;
   //! OpenGL/GLSL source of adaptive-AA fragment shader.
-  ShaderSource myPostFSAAShaderSource;
+  ShaderSource1 myPostFSAAShaderSource;
   //! OpenGL/GLSL source of RT/PT display fragment shader.
-  ShaderSource myOutImageShaderSource;
+  ShaderSource1 myOutImageShaderSource;
 
   //! OpenGL/GLSL ray-tracing fragment shader.
   Handle(OpenGl_ShaderObject) myRaytraceShader;
@@ -1110,7 +1110,7 @@ protected: //! @name fields related to ray-tracing
   BullardGenerator myRNG;
 
   //! Tool object for sampling screen tiles in PT mode.
-  OpenGl_TileSampler myTileSampler;
+  TileSampler myTileSampler;
 
   //! Camera position used for projective mode
   OpenGl_Vec3 myEyeOrig;

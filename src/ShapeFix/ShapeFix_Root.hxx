@@ -28,7 +28,7 @@
 #include <ShapeExtend_BasicMsgRegistrator.hxx>
 
 class ShapeBuild_ReShape;
-class ShapeExtend_BasicMsgRegistrator;
+class BasicMsgRegistrator;
 class Message_Msg;
 
 class ShapeFix_Root;
@@ -57,10 +57,10 @@ public:
 
   //! Sets message registrator
   Standard_EXPORT virtual void SetMsgRegistrator(
-    const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg);
+    const Handle(BasicMsgRegistrator)& msgreg);
 
   //! Returns message registrator
-  Handle(ShapeExtend_BasicMsgRegistrator) MsgRegistrator() const;
+  Handle(BasicMsgRegistrator) MsgRegistrator() const;
 
   //! Sets basic precision value
   Standard_EXPORT virtual void SetPrecision(const Standard_Real preci);
@@ -119,7 +119,7 @@ protected:
 
 private:
   Handle(ShapeBuild_ReShape)              myContext;
-  Handle(ShapeExtend_BasicMsgRegistrator) myMsgReg;
+  Handle(BasicMsgRegistrator) myMsgReg;
   Standard_Real                           myPrecision;
   Standard_Real                           myMinTol;
   Standard_Real                           myMaxTol;

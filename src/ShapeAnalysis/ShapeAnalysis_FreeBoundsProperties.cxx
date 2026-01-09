@@ -92,8 +92,8 @@ static void ContourProperties(const TopoWire& wire,
 
 ShapeAnalysis_FreeBoundsProperties::ShapeAnalysis_FreeBoundsProperties()
 {
-  myClosedFreeBounds = new ShapeAnalysis_HSequenceOfFreeBounds();
-  myOpenFreeBounds   = new ShapeAnalysis_HSequenceOfFreeBounds();
+  myClosedFreeBounds = new HSequenceOfFreeBounds();
+  myOpenFreeBounds   = new HSequenceOfFreeBounds();
   myTolerance        = 0.;
 }
 
@@ -109,8 +109,8 @@ ShapeAnalysis_FreeBoundsProperties::ShapeAnalysis_FreeBoundsProperties(
   const Standard_Boolean splitclosed,
   const Standard_Boolean splitopen)
 {
-  myClosedFreeBounds = new ShapeAnalysis_HSequenceOfFreeBounds();
-  myOpenFreeBounds   = new ShapeAnalysis_HSequenceOfFreeBounds();
+  myClosedFreeBounds = new HSequenceOfFreeBounds();
+  myOpenFreeBounds   = new HSequenceOfFreeBounds();
   Init(shape, tolerance, splitclosed, splitopen);
 }
 
@@ -125,8 +125,8 @@ ShapeAnalysis_FreeBoundsProperties::ShapeAnalysis_FreeBoundsProperties(
   const Standard_Boolean splitclosed,
   const Standard_Boolean splitopen)
 {
-  myClosedFreeBounds = new ShapeAnalysis_HSequenceOfFreeBounds();
-  myOpenFreeBounds   = new ShapeAnalysis_HSequenceOfFreeBounds();
+  myClosedFreeBounds = new HSequenceOfFreeBounds();
+  myOpenFreeBounds   = new HSequenceOfFreeBounds();
   myTolerance        = 0.;
   Init(shape, splitclosed, splitopen);
 }

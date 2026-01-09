@@ -20,6 +20,6 @@
 #include <GeomFill_SectionLaw.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(GeomFill_SectionLaw)> GeomFill_Array1OfSectionLaw;
+typedef NCollection_Array1<Handle(SectionLaw)> GeomFill_Array1OfSectionLaw;
 
 #endif

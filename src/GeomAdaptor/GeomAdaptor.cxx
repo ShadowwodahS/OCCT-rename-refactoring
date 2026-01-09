@@ -40,7 +40,7 @@
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomAdaptor1::MakeCurve(const Adaptor3d_Curve& HC)
+Handle(GeomCurve3d) GeomAdaptor1::MakeCurve(const Curve5& HC)
 {
   Handle(GeomCurve3d) C;
 
@@ -91,7 +91,7 @@ Handle(GeomCurve3d) GeomAdaptor1::MakeCurve(const Adaptor3d_Curve& HC)
 
 //=================================================================================================
 
-Handle(GeomSurface) GeomAdaptor1::MakeSurface(const Adaptor3d_Surface& HS,
+Handle(GeomSurface) GeomAdaptor1::MakeSurface(const SurfaceAdaptor& HS,
                                               const Standard_Boolean   theTrimFlag)
 {
   Handle(GeomSurface) S;

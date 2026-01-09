@@ -15,7 +15,7 @@
 
 #include <Express_PredefinedType.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_PredefinedType, Express_Type)
+IMPLEMENT_STANDARD_RTTIEXT(Express_PredefinedType, ExpressType)
 
 //=================================================================================================
 

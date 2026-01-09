@@ -270,13 +270,13 @@ void BRepOffset_SimpleOffset::FillEdgeData(
     // Create offset curve on surface.
     const Handle(GeomCurve2d)      aC2dNew = BRepInspector::CurveOnSurface(theEdge, aCurFace, aF, aL);
     const Handle(Adaptor2d_Curve2d) aHCurve2d = new Geom2dAdaptor_Curve(aC2dNew, aF, aL);
-    const Handle(Adaptor3d_Surface) aHSurface =
+    const Handle(SurfaceAdaptor) aHSurface =
       new GeomAdaptor_Surface(myFaceInfo.Find(aCurFace).myOffsetS);
     const Handle(Adaptor3d_CurveOnSurface) aCurveOnSurf =
       new Adaptor3d_CurveOnSurface(aHCurve2d, aHSurface);
 
     // Extract 3d-curve (it is not null).
-    const Handle(Adaptor3d_Curve) aCurve3d = new GeomAdaptor_Curve(aNED.myOffsetC, aF, aL);
+    const Handle(Curve5) aCurve3d = new GeomAdaptor_Curve(aNED.myOffsetC, aF, aL);
 
     // It is necessary to compute maximal deviation (tolerance).
     BRepLib_ValidateEdge aValidateEdge(aCurve3d, aCurveOnSurf, Standard_True);

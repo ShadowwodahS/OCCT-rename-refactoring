@@ -47,7 +47,7 @@ void HLRAlgo_PolyAlgo::Init(const Standard_Integer theNbShells)
 
 void HLRAlgo_PolyAlgo::Clear()
 {
-  NCollection_Array1<Handle(HLRAlgo_PolyShellData)> anEmpty;
+  NCollection_Array1<Handle(PolyShellData)> anEmpty;
   myHShell.Move(anEmpty);
   myNbrShell = 0;
 }
@@ -67,12 +67,12 @@ void HLRAlgo_PolyAlgo::Update()
   Standard_Real           xSegmnMin, ySegmnMin, zSegmnMin;
   Standard_Real           xSegmnMax, ySegmnMax, zSegmnMax;
   constexpr Standard_Real Big = Precision1::Infinite();
-  HLRAlgo_PolyData::Box1   aBox(Big, Big, Big, -Big, -Big, -Big);
+  PolyData1::Box1   aBox(Big, Big, Big, -Big, -Big, -Big);
 
   myNbrShell = myHShell.Size();
   for (Standard_Integer aShellIter = myHShell.Lower(); aShellIter <= myHShell.Upper(); ++aShellIter)
   {
-    const Handle(HLRAlgo_PolyShellData)& aPsd = myHShell.ChangeValue(aShellIter);
+    const Handle(PolyShellData)& aPsd = myHShell.ChangeValue(aShellIter);
     aPsd->UpdateGlobalMinMax(aBox);
   }
 
@@ -96,8 +96,8 @@ void HLRAlgo_PolyAlgo::Update()
 
   for (Standard_Integer aShellIter = myHShell.Lower(); aShellIter <= myHShell.Upper(); ++aShellIter)
   {
-    const Handle(HLRAlgo_PolyShellData)& aPsd          = myHShell.ChangeValue(aShellIter);
-    HLRAlgo_PolyShellData::ShellIndices1& aShellIndices = aPsd->Indices();
+    const Handle(PolyShellData)& aPsd          = myHShell.ChangeValue(aShellIter);
+    PolyShellData::ShellIndices1& aShellIndices = aPsd->Indices();
     xShellMin                                          = Big;
     yShellMin                                          = Big;
     zShellMin                                          = Big;
@@ -165,12 +165,12 @@ void HLRAlgo_PolyAlgo::Update()
       if (zShellMax < zSegmnMax)
         zShellMax = zSegmnMax;
     }
-    NCollection_Array1<Handle(HLRAlgo_PolyData)>& aPolyg = aPsd->PolyData();
+    NCollection_Array1<Handle(PolyData1)>& aPolyg = aPsd->PolyData();
     const Standard_Integer                        nbFace = aPolyg.Upper();
     Standard_Integer                              nbFaHi = 0;
     for (j = 1; j <= nbFace; j++)
     {
-      const Handle(HLRAlgo_PolyData)& aPd = aPolyg.ChangeValue(j);
+      const Handle(PolyData1)& aPd = aPolyg.ChangeValue(j);
       if (aPd->Hiding())
       {
         nbFaHi++;
@@ -185,7 +185,7 @@ void HLRAlgo_PolyAlgo::Update()
         Standard_Real                  dn, dnx, dny, dnz, dx1, dy1, dz1, dx2, dy2, dz2, dx3, dy3;
         Standard_Real                  adx1, ady1, adx2, ady2, adx3, ady3;
         Standard_Real                  a = 0., b = 0., c = 0., d = 0.;
-        HLRAlgo_PolyData::FaceIndices1& PolyTIndices = aPd->Indices();
+        PolyData1::FaceIndices1& PolyTIndices = aPd->Indices();
         TColgp_Array1OfXYZ&            Nodes        = aPd->Nodes();
         HLRAlgo_Array1OfTData&         TData        = aPd->TData();
         HLRAlgo_Array1OfPHDat&         PHDat        = aPd->PHDat();
@@ -357,7 +357,7 @@ void HLRAlgo_PolyAlgo::Update()
       Standard_Integer aHiddenIndex = 1;
       for (j = 1; j <= nbFace; j++)
       {
-        const Handle(HLRAlgo_PolyData)& aPd = aPolyg.ChangeValue(j);
+        const Handle(PolyData1)& aPd = aPolyg.ChangeValue(j);
         if (aPd->Hiding())
         {
           aPsd->HidingPolyData().SetValue(aHiddenIndex++, aPd);
@@ -391,7 +391,7 @@ void HLRAlgo_PolyAlgo::NextHide()
 
     while (myCurShell <= myNbrShell && !myFound)
     {
-      const Handle(HLRAlgo_PolyShellData)& aData = myHShell.ChangeValue(myCurShell);
+      const Handle(PolyShellData)& aData = myHShell.ChangeValue(myCurShell);
       mySegListIt.Initialize(aData->Edges());
       if (mySegListIt.More())
       {
@@ -407,7 +407,7 @@ void HLRAlgo_PolyAlgo::NextHide()
 
 //=================================================================================================
 
-BiPoint::PointsT1& HLRAlgo_PolyAlgo::Hide(HLRAlgo_EdgeStatus& theStatus,
+BiPoint::PointsT1& HLRAlgo_PolyAlgo::Hide(EdgeStatus& theStatus,
                                                  Standard_Integer&   theIndex,
                                                  Standard_Boolean&   theReg1,
                                                  Standard_Boolean&   theRegn,
@@ -417,7 +417,7 @@ BiPoint::PointsT1& HLRAlgo_PolyAlgo::Hide(HLRAlgo_EdgeStatus& theStatus,
   BiPoint&           aBP       = mySegListIt.ChangeValue();
   BiPoint::PointsT1&  aPoints   = aBP.Points();
   BiPoint::IndicesT1& anIndices = aBP.Indices();
-  theStatus                            = HLRAlgo_EdgeStatus(0.0,
+  theStatus                            = EdgeStatus(0.0,
                                  (Standard_ShortReal)myTriangle.TolParam,
                                  1.0,
                                  (Standard_ShortReal)myTriangle.TolParam);
@@ -434,22 +434,22 @@ BiPoint::PointsT1& HLRAlgo_PolyAlgo::Hide(HLRAlgo_EdgeStatus& theStatus,
 
   for (Standard_Integer s = 1; s <= myNbrShell; s++)
   {
-    const Handle(HLRAlgo_PolyShellData)& aPsd = myHShell.ChangeValue(s);
+    const Handle(PolyShellData)& aPsd = myHShell.ChangeValue(s);
     if (!aPsd->Hiding())
     {
       continue;
     }
 
-    HLRAlgo_PolyShellData::ShellIndices1& aShellIndices = aPsd->Indices();
+    PolyShellData::ShellIndices1& aShellIndices = aPsd->Indices();
     if (((aShellIndices.Max - anIndices.MinSeg) & 0x80100200) == 0
         && ((anIndices.MaxSeg - aShellIndices.Min) & 0x80100000) == 0)
     {
       const Standard_Boolean                        isHidingShell = (s == myCurShell);
-      NCollection_Array1<Handle(HLRAlgo_PolyData)>& aFace         = aPsd->HidingPolyData();
+      NCollection_Array1<Handle(PolyData1)>& aFace         = aPsd->HidingPolyData();
       const Standard_Integer                        nbFace        = aFace.Upper();
       for (Standard_Integer f = 1; f <= nbFace; f++)
       {
-        const Handle(HLRAlgo_PolyData)& aPd = aFace.ChangeValue(f);
+        const Handle(PolyData1)& aPd = aFace.ChangeValue(f);
         aPd->HideByPolyData(aPoints, myTriangle, anIndices, isHidingShell, theStatus);
       }
     }

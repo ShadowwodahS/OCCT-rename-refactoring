@@ -20,8 +20,8 @@
 #include <HLRAlgo_PolyData.hxx>
 #include <HLRAlgo_ListIteratorOfListOfBPoint.hxx>
 
-class HLRAlgo_EdgeStatus;
-class HLRAlgo_PolyShellData;
+class EdgeStatus;
+class PolyShellData;
 
 class HLRAlgo_PolyAlgo;
 DEFINE_STANDARD_HANDLE(HLRAlgo_PolyAlgo, RefObject)
@@ -35,9 +35,9 @@ public:
 
   Standard_EXPORT void Init(const Standard_Integer theNbShells);
 
-  const NCollection_Array1<Handle(HLRAlgo_PolyShellData)>& PolyShell() const { return myHShell; }
+  const NCollection_Array1<Handle(PolyShellData)>& PolyShell() const { return myHShell; }
 
-  NCollection_Array1<Handle(HLRAlgo_PolyShellData)>& ChangePolyShell() { return myHShell; }
+  NCollection_Array1<Handle(PolyShellData)>& ChangePolyShell() { return myHShell; }
 
   Standard_EXPORT void Clear();
 
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT void NextHide();
 
   //! process hiding between <Pt1> and <Pt2>.
-  Standard_EXPORT BiPoint::PointsT1& Hide(HLRAlgo_EdgeStatus& status,
+  Standard_EXPORT BiPoint::PointsT1& Hide(EdgeStatus& status,
                                                  Standard_Integer&   Index,
                                                  Standard_Boolean&   reg1,
                                                  Standard_Boolean&   regn,
@@ -82,8 +82,8 @@ public:
   DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyAlgo, RefObject)
 
 private:
-  NCollection_Array1<Handle(HLRAlgo_PolyShellData)> myHShell;
-  HLRAlgo_PolyData::Triangle1                        myTriangle;
+  NCollection_Array1<Handle(PolyShellData)> myHShell;
+  PolyData1::Triangle1                        myTriangle;
   HLRAlgo_ListIteratorOfListOfBPoint                mySegListIt;
   Standard_Integer                                  myNbrShell;
   Standard_Integer                                  myCurShell;

@@ -16,7 +16,7 @@
 #include <Message.hxx>
 #include <RWMesh_TriangulationSource.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWMesh_TriangulationReader, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TriangulationReader, RefObject)
 
 namespace
 {
@@ -63,7 +63,7 @@ static AsciiString1 loadingStatistic(const AsciiString1& thePrefix,
 
 //=================================================================================================
 
-void RWMesh_TriangulationReader::LoadingStatistic1::PrintStatistic(
+void TriangulationReader::LoadingStatistic1::PrintStatistic(
   const AsciiString1& thePrefix) const
 {
   AsciiString1 aStatisticInfo = loadingStatistic(thePrefix,
@@ -80,7 +80,7 @@ void RWMesh_TriangulationReader::LoadingStatistic1::PrintStatistic(
 
 //=================================================================================================
 
-RWMesh_TriangulationReader::RWMesh_TriangulationReader()
+TriangulationReader::TriangulationReader()
     : myLoadingStatistic(NULL),
       myIsDoublePrecision(false),
       myToSkipDegenerateTris(false),
@@ -90,14 +90,14 @@ RWMesh_TriangulationReader::RWMesh_TriangulationReader()
 
 //=================================================================================================
 
-RWMesh_TriangulationReader::~RWMesh_TriangulationReader()
+TriangulationReader::~TriangulationReader()
 {
   delete myLoadingStatistic;
 }
 
 //=================================================================================================
 
-bool RWMesh_TriangulationReader::Load(const Handle(RWMesh_TriangulationSource)& theSourceMesh,
+bool TriangulationReader::Load(const Handle(RWMesh_TriangulationSource)& theSourceMesh,
                                       const Handle(MeshTriangulation)&         theDestMesh,
                                       const Handle(OSD_FileSystem)&             theFileSystem) const
 {
@@ -122,7 +122,7 @@ bool RWMesh_TriangulationReader::Load(const Handle(RWMesh_TriangulationSource)& 
 
 //=================================================================================================
 
-bool RWMesh_TriangulationReader::finalizeLoading(
+bool TriangulationReader::finalizeLoading(
   const Handle(RWMesh_TriangulationSource)& theSourceMesh,
   const Handle(MeshTriangulation)&         theDestMesh) const
 {
@@ -155,7 +155,7 @@ bool RWMesh_TriangulationReader::finalizeLoading(
 
 //=================================================================================================
 
-bool RWMesh_TriangulationReader::setNbEdges(const Handle(MeshTriangulation)& theMesh,
+bool TriangulationReader::setNbEdges(const Handle(MeshTriangulation)& theMesh,
                                             const Standard_Integer            theNbTris,
                                             const Standard_Boolean            theToCopyData) const
 {
@@ -175,7 +175,7 @@ bool RWMesh_TriangulationReader::setNbEdges(const Handle(MeshTriangulation)& the
 
 //=================================================================================================
 
-Standard_Integer RWMesh_TriangulationReader::setEdge(const Handle(MeshTriangulation)& theMesh,
+Standard_Integer TriangulationReader::setEdge(const Handle(MeshTriangulation)& theMesh,
                                                      const Standard_Integer            theIndex,
                                                      const Standard_Integer theEdge) const
 {

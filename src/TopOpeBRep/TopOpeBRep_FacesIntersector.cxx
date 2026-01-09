@@ -91,7 +91,7 @@ Standard_EXPORT TOPKRO KRO_DSFILLER_INTFF("intersection face/face");
 
 static Standard_Boolean TestWLineAlongRestriction(const Handle(IntPatch_WLine)&      theWLine,
                                                   const Standard_Integer             theRank,
-                                                  const Handle(Adaptor3d_Surface)&   theSurface,
+                                                  const Handle(SurfaceAdaptor)&   theSurface,
                                                   const Handle(Adaptor3d_TopolTool)& theDomain,
                                                   const Standard_Real                theTolArc);
 
@@ -101,14 +101,14 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
 
 static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theSeqOfWLine,
                                          const Standard_Integer             theRank,
-                                         const Handle(Adaptor3d_Surface)&   theSurface,
+                                         const Handle(SurfaceAdaptor)&   theSurface,
                                          const Handle(Adaptor3d_TopolTool)& theDomain,
                                          const Standard_Real                theTolArc);
 
 static void TestWLinesToAnArc(IntPatch_SequenceOfLine&           slin,
-                              const Handle(Adaptor3d_Surface)&   theSurface1,
+                              const Handle(SurfaceAdaptor)&   theSurface1,
                               const Handle(Adaptor3d_TopolTool)& theDomain1,
-                              const Handle(Adaptor3d_Surface)&   theSurface2,
+                              const Handle(SurfaceAdaptor)&   theSurface2,
                               const Handle(Adaptor3d_TopolTool)& theDomain2,
                               const Standard_Real                theTolArc);
 // modified by NIZHNY-MKK  Mon Apr  2 12:14:38 2001.END
@@ -121,36 +121,36 @@ static void TestWLinesToAnArc(IntPatch_SequenceOfLine&           slin,
 #include <Extrema_POnSurf.hxx>
 #include <GeomAdaptor_Curve.hxx>
 static void MergeWLinesIfAllSegmentsAlongRestriction(IntPatch_SequenceOfLine&           theSlin,
-                                                     const Handle(Adaptor3d_Surface)&   theSurface1,
+                                                     const Handle(SurfaceAdaptor)&   theSurface1,
                                                      const Handle(Adaptor3d_TopolTool)& theDomain1,
-                                                     const Handle(Adaptor3d_Surface)&   theSurface2,
+                                                     const Handle(SurfaceAdaptor)&   theSurface2,
                                                      const Handle(Adaptor3d_TopolTool)& theDomain2,
                                                      const Standard_Real                theTolArc);
 //------------------------------------------------------------------------------------------------
 static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
                                const Standard_Integer&            theRankS,
-                               const Handle(Adaptor3d_Surface)&   theSurfaceObj,
+                               const Handle(SurfaceAdaptor)&   theSurfaceObj,
                                const Handle(Adaptor3d_TopolTool)& theDomainObj,
-                               const Handle(Adaptor3d_Surface)&   theSurfaceTool,
+                               const Handle(SurfaceAdaptor)&   theSurfaceTool,
                                const Point3d&                      theTestPoint,
                                Standard_Real&                     theVrtxTol,
-                               Handle(IntSurf_LineOn2S)&          theLineOn2S,
+                               Handle(LineOnTwoSurfaces)&          theLineOn2S,
                                Standard_Real&                     theFirst,
                                Standard_Real&                     theLast);
 //------------------------------------------------------------------------------------------------
 static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
-                                  const Adaptor3d_Surface& theTestSurface,
+                                  const SurfaceAdaptor& theTestSurface,
                                   const Standard_Real&     theTol);
 //-------------------------------------------------------------------------------------------------
 static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
-                                     const Adaptor3d_Surface& theTestSurface,
+                                     const SurfaceAdaptor& theTestSurface,
                                      const Standard_Real&     theTol,
                                      PointOnSurface1&         theResultPoint);
 //-------------------------------------------------------------------------------------------------------------------------
 static Handle(IntPatch_WLine) GetMergedWLineOnRestriction(
   IntPatch_SequenceOfLine&        theSlin,
   const Standard_Real&            theVrtxTol,
-  const Handle(IntSurf_LineOn2S)& theLineOn2S);
+  const Handle(LineOnTwoSurfaces)& theLineOn2S);
 
 //---------------------------------------------------------------------------------------------------------------------------
 // modified by NIZHNY-OFV  Fri Mar 29 12:41:02 2002.END
@@ -194,9 +194,9 @@ void TopOpeBRep_FacesIntersector::Perform(const TopoShape& F1,
   S2.Initialize(myFace2);
   mySurfaceType1                          = S1.GetType();
   mySurfaceType2                          = S2.GetType();
-  const Handle(Adaptor3d_Surface)& aSurf1 = mySurface1; // to avoid ambiguity
+  const Handle(SurfaceAdaptor)& aSurf1 = mySurface1; // to avoid ambiguity
   myDomain1->Initialize(aSurf1);
-  const Handle(Adaptor3d_Surface)& aSurf2 = mySurface2; // to avoid ambiguity
+  const Handle(SurfaceAdaptor)& aSurf2 = mySurface2; // to avoid ambiguity
   myDomain2->Initialize(aSurf2);
 
 #ifdef OCCT_DEBUG
@@ -387,7 +387,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
   {
   /*for (  Standard_Integer i=1; i<=n; i++) {
     TopOpeBRep_LineInter& LI = myHAL->ChangeValue(i);
-    const Handle(IntPatch_Line)& L = myIntersector.Line(i);
+    const Handle(Line2)& L = myIntersector.Line(i);
     LI.SetLine(L,S1,S2);
     LI.Index(i);
     myLineNb++;
@@ -452,7 +452,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
       for (Standard_Integer index = 1; index <= myLineNb; index++)
       {
         TopOpeBRep_LineInter&        LI = myHAL->ChangeValue(index);
-        const Handle(IntPatch_Line)& L  = aSeqOfResultLines.Value(index);
+        const Handle(Line2)& L  = aSeqOfResultLines.Value(index);
         LI.SetLine(L, S1, S2);
         LI.Index(index);
       }
@@ -462,7 +462,7 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
     //     for(i=1;i<=n;i++) {
     //       for(Standard_Integer k=1;k<=Ptr[i-1]->NbLines();k++) {
     // 	TopOpeBRep_LineInter& LI = myHAL->ChangeValue(nbl);
-    // 	const Handle(IntPatch_Line)& L = Ptr[i-1]->Line(k);
+    // 	const Handle(Line2)& L = Ptr[i-1]->Line(k);
     // 	LI.SetLine(L,S1,S2);
     // 	LI.Index(nbl);
     // 	myLineNb++;
@@ -635,7 +635,7 @@ Standard_Real TopOpeBRep_FacesIntersector::ToleranceMax(const TopoShape&    S,
 // ================================================================================================
 static Standard_Boolean TestWLineAlongRestriction(const Handle(IntPatch_WLine)&      theWLine,
                                                   const Standard_Integer             theRank,
-                                                  const Handle(Adaptor3d_Surface)&   theSurface,
+                                                  const Handle(SurfaceAdaptor)&   theSurface,
                                                   const Handle(Adaptor3d_TopolTool)& theDomain,
                                                   const Standard_Real                theTolArc)
 {
@@ -727,8 +727,8 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
 
   Standard_Boolean IsOnFirst = (theRank == 1);
 
-  Handle(IntSurf_LineOn2S)        aLineOn2S = new IntSurf_LineOn2S();
-  const Handle(IntSurf_LineOn2S)& Lori      = theWLine->Curve();
+  Handle(LineOnTwoSurfaces)        aLineOn2S = new LineOnTwoSurfaces();
+  const Handle(LineOnTwoSurfaces)& Lori      = theWLine->Curve();
   Transition2              TransitionUndecided;
 
   anRLine =
@@ -849,7 +849,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
 // ================================================================================================
 static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theSeqOfWLine,
                                          const Standard_Integer             theRank,
-                                         const Handle(Adaptor3d_Surface)&   theSurface,
+                                         const Handle(SurfaceAdaptor)&   theSurface,
                                          const Handle(Adaptor3d_TopolTool)& theDomain,
                                          const Standard_Real                theTolArc)
 {
@@ -859,8 +859,8 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
     *((Handle(IntPatch_WLine)*)&(theSeqOfWLine.Value(theSeqOfWLine.Length())));
   const IntPatch_Point&            P1  = aWLine1->Vertex(1);
   const IntPatch_Point&            P2  = aWLine2->Vertex(aWLine2->NbVertex());
-  const Handle(Adaptor3d_HVertex)& aV1 = (theRank == 1) ? P1.VertexOnS1() : P1.VertexOnS2();
-  const Handle(Adaptor3d_HVertex)& aV2 = (theRank == 1) ? P2.VertexOnS1() : P2.VertexOnS2();
+  const Handle(HandleVertex)& aV1 = (theRank == 1) ? P1.VertexOnS1() : P1.VertexOnS2();
+  const Handle(HandleVertex)& aV2 = (theRank == 1) ? P2.VertexOnS1() : P2.VertexOnS2();
 
   // avoid closed and degenerated edges
   if (aV1->IsSame(aV2))
@@ -939,14 +939,14 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
       {
         IntSurf_TypeTrans trans1 = IntSurf_Undecided, trans2 = IntSurf_Undecided;
 
-        Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
+        Handle(LineOnTwoSurfaces) aLineOn2S = new LineOnTwoSurfaces();
 
         for (Standard_Integer j = 1; j <= theSeqOfWLine.Length(); j++)
         {
           const Handle(IntPatch_WLine)& atmpWLine =
             *((Handle(IntPatch_WLine)*)&(theSeqOfWLine.Value(j)));
 
-          const Handle(IntSurf_LineOn2S)& Lori = atmpWLine->Curve();
+          const Handle(LineOnTwoSurfaces)& Lori = atmpWLine->Curve();
 
           if (atmpWLine->TransitionOnS1() != IntSurf_Undecided
               && atmpWLine->TransitionOnS1() != IntSurf_Touch)
@@ -1022,9 +1022,9 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
 // purpose: test if possible to replace group of wlines by rline and replace in the sequence slin
 // ================================================================================================
 static void TestWLinesToAnArc(IntPatch_SequenceOfLine&           slin,
-                              const Handle(Adaptor3d_Surface)&   theSurface1,
+                              const Handle(SurfaceAdaptor)&   theSurface1,
                               const Handle(Adaptor3d_TopolTool)& theDomain1,
-                              const Handle(Adaptor3d_Surface)&   theSurface2,
+                              const Handle(SurfaceAdaptor)&   theSurface2,
                               const Handle(Adaptor3d_TopolTool)& theDomain2,
                               const Standard_Real                theTolArc)
 {
@@ -1166,9 +1166,9 @@ static void TestWLinesToAnArc(IntPatch_SequenceOfLine&           slin,
 //           RLine.
 //====================================================================================
 static void MergeWLinesIfAllSegmentsAlongRestriction(IntPatch_SequenceOfLine&           theSlin,
-                                                     const Handle(Adaptor3d_Surface)&   theSurface1,
+                                                     const Handle(SurfaceAdaptor)&   theSurface1,
                                                      const Handle(Adaptor3d_TopolTool)& theDomain1,
-                                                     const Handle(Adaptor3d_Surface)&   theSurface2,
+                                                     const Handle(SurfaceAdaptor)&   theSurface2,
                                                      const Handle(Adaptor3d_TopolTool)& theDomain2,
                                                      const Standard_Real                theTolArc)
 {
@@ -1231,7 +1231,7 @@ static void MergeWLinesIfAllSegmentsAlongRestriction(IntPatch_SequenceOfLine&   
   Point3d        testPoint = sqVertexPoints.Value(testPointIndex);
   Standard_Real Fp = 0., Lp = 0.;
 
-  Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces) aLineOn2S = new LineOnTwoSurfaces();
   //
   Standard_Integer arcnumber = (WLineRank == 1) ? GetArc(theSlin,
                                                          WLineRank,
@@ -1281,12 +1281,12 @@ static void MergeWLinesIfAllSegmentsAlongRestriction(IntPatch_SequenceOfLine&   
 //========================================================================================
 static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
                                const Standard_Integer&            theRankS,
-                               const Handle(Adaptor3d_Surface)&   theSurfaceObj,
+                               const Handle(SurfaceAdaptor)&   theSurfaceObj,
                                const Handle(Adaptor3d_TopolTool)& theDomainObj,
-                               const Handle(Adaptor3d_Surface)&   theSurfaceTool,
+                               const Handle(SurfaceAdaptor)&   theSurfaceTool,
                                const Point3d&                      theTestPoint,
                                Standard_Real&                     theVrtxTol,
-                               Handle(IntSurf_LineOn2S)&          theLineOn2S,
+                               Handle(LineOnTwoSurfaces)&          theLineOn2S,
                                Standard_Real&                     theFirst,
                                Standard_Real&                     theLast)
 {
@@ -1475,7 +1475,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
   if (!classifyOK)
     return 0;
 
-  // create IntSurf_LineOn2S from points < PointsFromArc >
+  // create LineOnTwoSurfaces from points < PointsFromArc >
   for (i = 1; i <= PointsFromArc.Length(); i++)
   {
     PointOnSurface1  pOnS1;
@@ -1503,7 +1503,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
 //  purpose: returns the state of testPoint on OTHER face.
 //========================================================================================
 static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
-                                  const Adaptor3d_Surface& theTestSurface,
+                                  const SurfaceAdaptor& theTestSurface,
                                   const Standard_Real&     theTol)
 {
   Standard_Boolean result = Standard_False;
@@ -1532,7 +1532,7 @@ static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
 //  purpose: check state of testPoint and returns result point if state is OK.
 //========================================================================================
 static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
-                                     const Adaptor3d_Surface& theTestSurface,
+                                     const SurfaceAdaptor& theTestSurface,
                                      const Standard_Real&     theTol,
                                      PointOnSurface1&         theResultPoint)
 {
@@ -1569,7 +1569,7 @@ static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
 static Handle(IntPatch_WLine) GetMergedWLineOnRestriction(
   IntPatch_SequenceOfLine&        theSlin,
   const Standard_Real&            theVrtxTol,
-  const Handle(IntSurf_LineOn2S)& theLineOn2S)
+  const Handle(LineOnTwoSurfaces)& theLineOn2S)
 {
   Handle(IntPatch_WLine) mWLine;
   if (theLineOn2S->NbPoints() == 0)

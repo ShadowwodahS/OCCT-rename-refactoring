@@ -47,7 +47,7 @@ void DrawingTool::ReadOwnParams(const Handle(IGESDraw_Drawing)&        ent,
   Standard_Integer nbval;
 
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXY)               viewOrigins;
+  Handle(XYArray)               viewOrigins;
   Handle(HArray1OfIGESEntity)     annotations;
 
   // Reading nbval(No. of View pointers)
@@ -55,7 +55,7 @@ void DrawingTool::ReadOwnParams(const Handle(IGESDraw_Drawing)&        ent,
   if (st && nbval > 0)
   {
     views       = new HArray1OfViewKindEntity(1, nbval);
-    viewOrigins = new TColgp_HArray1OfXY(1, nbval);
+    viewOrigins = new XYArray(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
     Coords2d                           tempXY;
@@ -153,7 +153,7 @@ void DrawingTool::OwnCopy(const Handle(IGESDraw_Drawing)& another,
   Standard_Integer                         nbanot;
   Standard_Integer                         nbval;
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXY)               viewOrigins;
+  Handle(XYArray)               viewOrigins;
   Handle(HArray1OfIGESEntity)     annotations;
 
   nbanot = another->NbAnnotations();
@@ -161,7 +161,7 @@ void DrawingTool::OwnCopy(const Handle(IGESDraw_Drawing)& another,
   if (nbval > 0)
   {
     views       = new HArray1OfViewKindEntity(1, nbval);
-    viewOrigins = new TColgp_HArray1OfXY(1, nbval);
+    viewOrigins = new XYArray(1, nbval);
   }
   if (nbanot > 0)
   {
@@ -200,11 +200,11 @@ Standard_Boolean DrawingTool::OwnCorrect(const Handle(IGESDraw_Drawing)& ent) co
   if (nbtrue == nb)
     return Standard_False;
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXY)               viewOrigins;
+  Handle(XYArray)               viewOrigins;
   if (nbtrue > 0)
   {
     views       = new HArray1OfViewKindEntity(1, nbtrue);
-    viewOrigins = new TColgp_HArray1OfXY(1, nbtrue);
+    viewOrigins = new XYArray(1, nbtrue);
   }
   nbtrue = 0;
   for (i = 1; i <= nb; i++)

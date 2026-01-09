@@ -52,7 +52,7 @@ const Standard_Real aHyperbolaLimit = 10.;
 //=======================================================================
 
 static Point3d OnPlane_Value(const Standard_Real            U,
-                            const Handle(Adaptor3d_Curve)& aCurvePtr,
+                            const Handle(Curve5)& aCurvePtr,
                             const Ax3&                  Pl,
                             const Dir3d&                  D)
 {
@@ -78,7 +78,7 @@ static Point3d OnPlane_Value(const Standard_Real            U,
 
 static Vector3d OnPlane_DN(const Standard_Real            U,
                          const Standard_Integer         DerivativeRequest,
-                         const Handle(Adaptor3d_Curve)& aCurvePtr,
+                         const Handle(Curve5)& aCurvePtr,
                          const Ax3&                  Pl,
                          const Dir3d&                  D)
 {
@@ -102,7 +102,7 @@ static Vector3d OnPlane_DN(const Standard_Real            U,
 static Standard_Boolean OnPlane_D1(const Standard_Real            U,
                                    Point3d&                        P,
                                    Vector3d&                        V,
-                                   const Handle(Adaptor3d_Curve)& aCurvePtr,
+                                   const Handle(Curve5)& aCurvePtr,
                                    const Ax3&                  Pl,
                                    const Dir3d&                  D)
 {
@@ -141,7 +141,7 @@ static Standard_Boolean OnPlane_D2(const Standard_Real            U,
                                    Point3d&                        P,
                                    Vector3d&                        V1,
                                    Vector3d&                        V2,
-                                   const Handle(Adaptor3d_Curve)& aCurvePtr,
+                                   const Handle(Curve5)& aCurvePtr,
                                    const Ax3&                  Pl,
                                    const Dir3d&                  D)
 {
@@ -185,7 +185,7 @@ static Standard_Boolean OnPlane_D3(const Standard_Real            U,
                                    Vector3d&                        V1,
                                    Vector3d&                        V2,
                                    Vector3d&                        V3,
-                                   const Handle(Adaptor3d_Curve)& aCurvePtr,
+                                   const Handle(Curve5)& aCurvePtr,
                                    const Ax3&                  Pl,
                                    const Dir3d&                  D)
 {
@@ -234,12 +234,12 @@ static Standard_Boolean OnPlane_D3(const Standard_Real            U,
 class ProjLib_OnPlane : public ContinuityFunction
 
 {
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
   Ax3                  myPlane;
   Dir3d                  myDirection;
 
 public:
-  ProjLib_OnPlane(const Handle(Adaptor3d_Curve)& C, const Ax3& Pl, const Dir3d& D)
+  ProjLib_OnPlane(const Handle(Curve5)& C, const Ax3& Pl, const Dir3d& D)
       : myCurve(C),
         myPlane(Pl),
         myDirection(D)
@@ -306,7 +306,7 @@ private:
 
 //=================================================================================================
 
-static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
+static void PerformApprox(const Handle(Curve5)& C,
                           const Ax3&                  Pl,
                           const Dir3d&                  D,
                           Handle(BSplineCurve3d)&     BSplineCurvePtr)
@@ -469,7 +469,7 @@ ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const Ax3& Pl, const Dir3d& D)
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) ProjLib_ProjectOnPlane::ShallowCopy() const
+Handle(Curve5) ProjLib_ProjectOnPlane::ShallowCopy() const
 {
   Handle(ProjLib_ProjectOnPlane) aCopy = new ProjLib_ProjectOnPlane();
 
@@ -530,7 +530,7 @@ static Vector3d ProjectVec(const Ax3& ThePlane, const Dir3d& TheDir, const Vecto
 
 //=================================================================================================
 
-void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
+void ProjLib_ProjectOnPlane::Load(const Handle(Curve5)& C,
                                   const Standard_Real            Tolerance,
                                   const Standard_Boolean         KeepParametrization)
 
@@ -1000,7 +1000,7 @@ const Dir3d& ProjLib_ProjectOnPlane::GetDirection() const
 
 //=================================================================================================
 
-const Handle(Adaptor3d_Curve)& ProjLib_ProjectOnPlane::GetCurve() const
+const Handle(Curve5)& ProjLib_ProjectOnPlane::GetCurve() const
 {
   return myCurve;
 }
@@ -1055,7 +1055,7 @@ void ProjLib_ProjectOnPlane::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Sh
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) ProjLib_ProjectOnPlane::Trim(const Standard_Real First,
+Handle(Curve5) ProjLib_ProjectOnPlane::Trim(const Standard_Real First,
                                                      const Standard_Real Last,
                                                      const Standard_Real Tolerance) const
 {
@@ -1410,7 +1410,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
   GeomAbs_CurveType aCurType = myType;
   myType = GeomAbs_OtherCurve; // To provide correct calculation of derivativesb by projection for
                                // copy of instance;
-  Handle(Adaptor3d_Curve) aProjCrv = ShallowCopy();
+  Handle(Curve5) aProjCrv = ShallowCopy();
   myType                           = aCurType;
   LProp3d_CLProps      aProps(aProjCrv, 2, Precision1::Confusion());
   ProjLib_MaxCurvature aMaxCur(aProps);
@@ -1444,7 +1444,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
   Standard_Real aNewF = anY * anY / 4. / anX;
   Dir3d        anN   = anXDir ^ anYDir;
   Frame3d        anA2(aP0, anN, anXDir);
-  gce_MakeParab aMkParab(anA2, aNewF);
+  ParabolaBuilder aMkParab(anA2, aNewF);
   if (!aMkParab.IsDone())
   {
     return Standard_False;
@@ -1468,7 +1468,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
   GeomAbs_CurveType aCurType = myType;
   myType = GeomAbs_OtherCurve; // To provide correct calculation of derivativesb by projection for
                                // copy of instance;
-  Handle(Adaptor3d_Curve) aProjCrv = ShallowCopy();
+  Handle(Curve5) aProjCrv = ShallowCopy();
   myType                           = aCurType;
   // Searching hyperbola apex as point with maximal curvature
   LProp3d_CLProps      aProps(aProjCrv, 2, Precision1::Confusion());
@@ -1493,8 +1493,8 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
       Point3d  P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
       Dir3d  Z      = myPlane.Direction();
       Point3d  aP0    = aProps.Value();
-      Dir3d  anXDir = gce_MakeDir(P, aP0);
-      Dir3d  anYDir = gce_MakeDir(aProps.D1());
+      Dir3d  anXDir = DirectionBuilder(P, aP0);
+      Dir3d  anYDir = DirectionBuilder(aProps.D1());
       //
       Standard_Real aMajRad = P.Distance(aP0);
       Point3d        aP1     = Value(aT + 1.);
@@ -1527,7 +1527,7 @@ void ProjLib_ProjectOnPlane::BuildByApprox(const Standard_Real theLimitParameter
     // To avoid exception in approximation
     Standard_Real           f          = Max(-theLimitParameter, myCurve->FirstParameter());
     Standard_Real           l          = Min(theLimitParameter, myCurve->LastParameter());
-    Handle(Adaptor3d_Curve) aTrimCurve = myCurve->Trim(f, l, Precision1::Confusion());
+    Handle(Curve5) aTrimCurve = myCurve->Trim(f, l, Precision1::Confusion());
     PerformApprox(aTrimCurve, myPlane, myDirection, anApproxCurve);
   }
   else

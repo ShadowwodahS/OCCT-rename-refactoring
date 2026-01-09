@@ -41,7 +41,7 @@ static Standard_Integer DDataStd_SetName(DrawInterpreter& di,
 
   if (nb == 4 || nb == 5)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -78,7 +78,7 @@ static Standard_Integer DDataStd_GetName(DrawInterpreter& di,
 {
   if (nb == 3 || nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;

@@ -110,7 +110,7 @@ public:
   Standard_EXPORT void Dump(Standard_OStream& o) const;
 
 protected:
-  Handle(AppDef_HArray1OfMultiPointConstraint) tabMult;
+  Handle(MultiPointConstraintArray) tabMult;
 
 private:
 };

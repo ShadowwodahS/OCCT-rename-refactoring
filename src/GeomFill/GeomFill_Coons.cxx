@@ -62,7 +62,7 @@ void GeomFill_Coons::Init(const TColgp_Array1OfPnt& P1,
 
   IsRational = Standard_False;
 
-  myPoles = new TColgp_HArray2OfPnt(1, NPolU, 1, NPolV);
+  myPoles = new PointGrid(1, NPolU, 1, NPolV);
 
   // The boundaries are not modified
   Standard_Integer i, j, k;

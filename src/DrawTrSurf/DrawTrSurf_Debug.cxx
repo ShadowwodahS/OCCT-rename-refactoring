@@ -36,7 +36,7 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theNameStr, void* theHand
   try
   {
     const Handle(RefObject)& aHandle = *(Handle(RefObject)*)theHandlePtr;
-    Handle(Geom_Geometry)             aGeom3d = Handle(Geom_Geometry)::DownCast(aHandle);
+    Handle(Geometry3)             aGeom3d = Handle(Geometry3)::DownCast(aHandle);
     if (!aGeom3d.IsNull())
     {
       DrawTrSurf1::Set(theNameStr, aGeom3d);
@@ -131,7 +131,7 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theName, const gp_Pnt2d& 
 /*
 void DrawTrSurf_Get(const char* name, Handle(RefObject)& G)
 {
-  Handle(Geom_Geometry) GG = DrawTrSurf1::Get(name);
+  Handle(Geometry3) GG = DrawTrSurf1::Get(name);
   std::cout << "Nom : " << name << std::endl;
   if (!GG.IsNull()) {
     G = GG;

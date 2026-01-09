@@ -18,7 +18,7 @@
 #include <gp_Circ2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BCirc, GccInt_Bisec)
+IMPLEMENT_STANDARD_RTTIEXT(GccInt_BCirc, Bisector2)
 
 GccInt_BCirc::GccInt_BCirc(const gp_Circ2d& Circ)
 {

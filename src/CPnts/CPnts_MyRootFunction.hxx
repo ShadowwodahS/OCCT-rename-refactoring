@@ -29,7 +29,7 @@
 //! Implements a function for the Newton algorithm to find the
 //! solution of Integral(F) = L
 //! (compute Length  and Derivative of the curve for Newton)
-class CPnts_MyRootFunction : public math_FunctionWithDerivative
+class CPnts_MyRootFunction : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -61,7 +61,7 @@ public:
 
 protected:
 private:
-  CPnts_MyGaussFunction myFunction;
+  GaussFunctionSampler myFunction;
   Standard_Real         myX0;
   Standard_Real         myL;
   Standard_Integer      myOrder;

@@ -31,12 +31,12 @@
 #include <TColgp_Array1OfVec2d.hxx>
 class Point3d;
 
-class Approx_SweepFunction;
-DEFINE_STANDARD_HANDLE(Approx_SweepFunction, RefObject)
+class SweepFunction;
+DEFINE_STANDARD_HANDLE(SweepFunction, RefObject)
 
 //! defined the function used by SweepApproximation to
 //! perform sweeping application.
-class Approx_SweepFunction : public RefObject
+class SweepFunction : public RefObject
 {
 
 public:
@@ -150,7 +150,7 @@ public:
   //! Warning: Used only if <me> IsRational
   Standard_EXPORT virtual void GetMinimalWeight(TColStd_Array1OfReal& Weigths) const;
 
-  DEFINE_STANDARD_RTTIEXT(Approx_SweepFunction, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SweepFunction, RefObject)
 
 protected:
 private:

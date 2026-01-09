@@ -42,46 +42,46 @@ class HSurfaceTool
 public:
   DEFINE_STANDARD_ALLOC
 
-  static Standard_Real FirstUParameter(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real FirstUParameter(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->FirstUParameter();
   }
 
-  static Standard_Real FirstVParameter(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real FirstVParameter(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->FirstVParameter();
   }
 
-  static Standard_Real LastUParameter(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real LastUParameter(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->LastUParameter();
   }
 
-  static Standard_Real LastVParameter(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real LastVParameter(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->LastVParameter();
   }
 
-  static Standard_Integer NbUIntervals(const Handle(Adaptor3d_Surface)& theSurf,
+  static Standard_Integer NbUIntervals(const Handle(SurfaceAdaptor)& theSurf,
                                        const GeomAbs_Shape              theSh)
   {
     return theSurf->NbUIntervals(theSh);
   }
 
-  static Standard_Integer NbVIntervals(const Handle(Adaptor3d_Surface)& theSurf,
+  static Standard_Integer NbVIntervals(const Handle(SurfaceAdaptor)& theSurf,
                                        const GeomAbs_Shape              theSh)
   {
     return theSurf->NbVIntervals(theSh);
   }
 
-  static void UIntervals(const Handle(Adaptor3d_Surface)& theSurf,
+  static void UIntervals(const Handle(SurfaceAdaptor)& theSurf,
                          TColStd_Array1OfReal&            theTab,
                          const GeomAbs_Shape              theSh)
   {
     theSurf->UIntervals(theTab, theSh);
   }
 
-  static void VIntervals(const Handle(Adaptor3d_Surface)& theSurf,
+  static void VIntervals(const Handle(SurfaceAdaptor)& theSurf,
                          TColStd_Array1OfReal&            theTab,
                          const GeomAbs_Shape              theSh)
   {
@@ -89,7 +89,7 @@ public:
   }
 
   //! If <First> >= <Last>
-  static Handle(Adaptor3d_Surface) UTrim(const Handle(Adaptor3d_Surface)& theSurf,
+  static Handle(SurfaceAdaptor) UTrim(const Handle(SurfaceAdaptor)& theSurf,
                                          const Standard_Real              theFirst,
                                          const Standard_Real              theLast,
                                          const Standard_Real              theTol)
@@ -98,7 +98,7 @@ public:
   }
 
   //! If <First> >= <Last>
-  static Handle(Adaptor3d_Surface) VTrim(const Handle(Adaptor3d_Surface)& theSurf,
+  static Handle(SurfaceAdaptor) VTrim(const Handle(SurfaceAdaptor)& theSurf,
                                          const Standard_Real              theFirst,
                                          const Standard_Real              theLast,
                                          const Standard_Real              theTol)
@@ -106,44 +106,44 @@ public:
     return theSurf->VTrim(theFirst, theLast, theTol);
   }
 
-  static Standard_Boolean IsUClosed(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Boolean IsUClosed(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->IsUClosed();
   }
 
-  static Standard_Boolean IsVClosed(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Boolean IsVClosed(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->IsVClosed();
   }
 
-  static Standard_Boolean IsUPeriodic(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Boolean IsUPeriodic(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->IsUPeriodic();
   }
 
-  static Standard_Real UPeriod(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real UPeriod(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->UPeriod();
   }
 
-  static Standard_Boolean IsVPeriodic(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Boolean IsVPeriodic(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->IsVPeriodic();
   }
 
-  static Standard_Real VPeriod(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real VPeriod(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->VPeriod();
   }
 
-  static Point3d Value(const Handle(Adaptor3d_Surface)& theSurf,
+  static Point3d Value(const Handle(SurfaceAdaptor)& theSurf,
                       const Standard_Real              theU,
                       const Standard_Real              theV)
   {
     return theSurf->Value(theU, theV);
   }
 
-  static void D0(const Handle(Adaptor3d_Surface)& theSurf,
+  static void D0(const Handle(SurfaceAdaptor)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt)
@@ -151,7 +151,7 @@ public:
     theSurf->D0(theU, theV, thePnt);
   }
 
-  static void D1(const Handle(Adaptor3d_Surface)& theSurf,
+  static void D1(const Handle(SurfaceAdaptor)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt,
@@ -161,7 +161,7 @@ public:
     theSurf->D1(theU, theV, thePnt, theD1U, theD1V);
   }
 
-  static void D2(const Handle(Adaptor3d_Surface)& theSurf,
+  static void D2(const Handle(SurfaceAdaptor)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt,
@@ -174,7 +174,7 @@ public:
     theSurf->D2(theU, theV, thePnt, theD1U, theD1V, theD2U, theD2V, theD2UV);
   }
 
-  static void D3(const Handle(Adaptor3d_Surface)& theSurf,
+  static void D3(const Handle(SurfaceAdaptor)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt,
@@ -202,7 +202,7 @@ public:
                 theD3UVV);
   }
 
-  static Vector3d DN(const Handle(Adaptor3d_Surface)& theSurf,
+  static Vector3d DN(const Handle(SurfaceAdaptor)& theSurf,
                    const Standard_Real              theU,
                    const Standard_Real              theV,
                    const Standard_Integer           theNU,
@@ -211,82 +211,82 @@ public:
     return theSurf->DN(theU, theV, theNU, theNV);
   }
 
-  static Standard_Real UResolution(const Handle(Adaptor3d_Surface)& theSurf,
+  static Standard_Real UResolution(const Handle(SurfaceAdaptor)& theSurf,
                                    const Standard_Real              theR3d)
   {
     return theSurf->UResolution(theR3d);
   }
 
-  static Standard_Real VResolution(const Handle(Adaptor3d_Surface)& theSurf,
+  static Standard_Real VResolution(const Handle(SurfaceAdaptor)& theSurf,
                                    const Standard_Real              theR3d)
   {
     return theSurf->VResolution(theR3d);
   }
 
-  static GeomAbs_SurfaceType GetType(const Handle(Adaptor3d_Surface)& theSurf)
+  static GeomAbs_SurfaceType GetType(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->GetType();
   }
 
-  static gp_Pln Plane1(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Plane1(); }
+  static gp_Pln Plane1(const Handle(SurfaceAdaptor)& theSurf) { return theSurf->Plane1(); }
 
-  static Cylinder1 Cylinder(const Handle(Adaptor3d_Surface)& theSurf)
+  static Cylinder1 Cylinder(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->Cylinder();
   }
 
-  static Cone1 Cone(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Cone(); }
+  static Cone1 Cone(const Handle(SurfaceAdaptor)& theSurf) { return theSurf->Cone(); }
 
-  static gp_Torus Torus(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Torus(); }
+  static gp_Torus Torus(const Handle(SurfaceAdaptor)& theSurf) { return theSurf->Torus(); }
 
-  static Sphere3 Sphere(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Sphere(); }
+  static Sphere3 Sphere(const Handle(SurfaceAdaptor)& theSurf) { return theSurf->Sphere(); }
 
-  static Handle(Geom_BezierSurface) Bezier(const Handle(Adaptor3d_Surface)& theSurf)
+  static Handle(Geom_BezierSurface) Bezier(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->Bezier();
   }
 
-  static Handle(Geom_BSplineSurface) BSpline(const Handle(Adaptor3d_Surface)& theSurf)
+  static Handle(Geom_BSplineSurface) BSpline(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->BSpline();
   }
 
-  static Axis3d AxeOfRevolution(const Handle(Adaptor3d_Surface)& theSurf)
+  static Axis3d AxeOfRevolution(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->AxeOfRevolution();
   }
 
-  static Dir3d Direction(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Direction(); }
+  static Dir3d Direction(const Handle(SurfaceAdaptor)& theSurf) { return theSurf->Direction(); }
 
-  static Handle(Adaptor3d_Curve) BasisCurve(const Handle(Adaptor3d_Surface)& theSurf)
+  static Handle(Curve5) BasisCurve(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->BasisCurve();
   }
 
-  static Handle(Adaptor3d_Surface) BasisSurface(const Handle(Adaptor3d_Surface)& theSurf)
+  static Handle(SurfaceAdaptor) BasisSurface(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->BasisSurface();
   }
 
-  static Standard_Real OffsetValue(const Handle(Adaptor3d_Surface)& theSurf)
+  static Standard_Real OffsetValue(const Handle(SurfaceAdaptor)& theSurf)
   {
     return theSurf->OffsetValue();
   }
 
   Standard_EXPORT static Standard_Boolean IsSurfG1(
-    const Handle(Adaptor3d_Surface)& theSurf,
+    const Handle(SurfaceAdaptor)& theSurf,
     const Standard_Boolean           theAlongU,
     const Standard_Real              theAngTol = Precision1::Angular());
 
-  Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(SurfaceAdaptor)& S);
 
-  Standard_EXPORT static Standard_Integer NbSamplesV(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT static Standard_Integer NbSamplesV(const Handle(SurfaceAdaptor)& S);
 
-  Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(SurfaceAdaptor)& S,
                                                      const Standard_Real              u1,
                                                      const Standard_Real              u2);
 
-  Standard_EXPORT static Standard_Integer NbSamplesV(const Handle(Adaptor3d_Surface)&,
+  Standard_EXPORT static Standard_Integer NbSamplesV(const Handle(SurfaceAdaptor)&,
                                                      const Standard_Real v1,
                                                      const Standard_Real v2);
 };

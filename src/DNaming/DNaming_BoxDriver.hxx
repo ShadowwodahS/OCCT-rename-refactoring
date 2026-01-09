@@ -26,9 +26,9 @@ class DataLabel;
 class BoxMaker;
 
 class DNaming_BoxDriver;
-DEFINE_STANDARD_HANDLE(DNaming_BoxDriver, TFunction_Driver)
+DEFINE_STANDARD_HANDLE(DNaming_BoxDriver, FunctionDriver1)
 
-class DNaming_BoxDriver : public TFunction_Driver
+class DNaming_BoxDriver : public FunctionDriver1
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Execute(Handle(TFunction_Logbook)& theLog) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DNaming_BoxDriver, TFunction_Driver)
+  DEFINE_STANDARD_RTTIEXT(DNaming_BoxDriver, FunctionDriver1)
 
 protected:
 private:

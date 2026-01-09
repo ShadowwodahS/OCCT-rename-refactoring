@@ -27,17 +27,17 @@
 //! it is based on GraduatedTrihedron parameters and support its customization
 //! on construction level only.
 //! @sa GraduatedTrihedron
-class OpenGl_GraduatedTrihedron : public OpenGl_Element
+class GraduatedTrihedron1 : public OpenGl_Element
 {
 public:
   DEFINE_STANDARD_ALLOC
 
 public:
   //! Default constructor.
-  Standard_EXPORT OpenGl_GraduatedTrihedron();
+  Standard_EXPORT GraduatedTrihedron1();
 
   //! Destructor.
-  Standard_EXPORT virtual ~OpenGl_GraduatedTrihedron();
+  Standard_EXPORT virtual ~GraduatedTrihedron1();
 
   //! Draw1 the element.
   Standard_EXPORT virtual void Render(const Handle(OpenGl_Workspace)& theWorkspace) const
@@ -72,8 +72,8 @@ private:
     mutable OpenGl_PrimitiveArray Arrow2;
 
   public:
-    Axis(const GraduatedTrihedron::AxisAspect& theAspect =
-           GraduatedTrihedron::AxisAspect(),
+    Axis(const GraduatedTrihedron::AxisAspect1& theAspect =
+           GraduatedTrihedron::AxisAspect1(),
          const OpenGl_Vec3& theDirection = OpenGl_Vec3(1.0f, 0.0f, 0.0f));
 
     ~Axis();

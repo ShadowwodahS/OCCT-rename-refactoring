@@ -54,7 +54,7 @@ BRepBlend_Extremity::BRepBlend_Extremity(const Point3d&                    P,
                                          const Standard_Real              V,
                                          const Standard_Real              Param,
                                          const Standard_Real              Tol,
-                                         const Handle(Adaptor3d_HVertex)& Vtx)
+                                         const Handle(HandleVertex)& Vtx)
     : vtx(Vtx),
       pt(P),
       tang(Vector3d(0, 0, 0)),
@@ -102,7 +102,7 @@ void BRepBlend_Extremity::SetValue(const Point3d&                    P,
                                    const Standard_Real              V,
                                    const Standard_Real              Param,
                                    const Standard_Real              Tol,
-                                   const Handle(Adaptor3d_HVertex)& Vtx)
+                                   const Handle(HandleVertex)& Vtx)
 {
   pt    = P;
   u     = U;
@@ -127,7 +127,7 @@ void BRepBlend_Extremity::SetValue(const Point3d&       P,
   seqpt.Clear();
 }
 
-void BRepBlend_Extremity::SetVertex(const Handle(Adaptor3d_HVertex)& V)
+void BRepBlend_Extremity::SetVertex(const Handle(HandleVertex)& V)
 {
   isvtx = Standard_True;
   vtx   = V;

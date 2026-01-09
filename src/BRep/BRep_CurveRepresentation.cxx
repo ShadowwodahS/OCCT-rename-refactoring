@@ -225,14 +225,14 @@ void BRep_CurveRepresentation::Polygon3D(const Handle(Poly_Polygon3D)&)
 
 //=================================================================================================
 
-const Handle(Poly_Polygon2D)& BRep_CurveRepresentation::Polygon() const
+const Handle(Polygon2D2)& BRep_CurveRepresentation::Polygon() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-void BRep_CurveRepresentation::Polygon(const Handle(Poly_Polygon2D)&)
+void BRep_CurveRepresentation::Polygon(const Handle(Polygon2D2)&)
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
@@ -274,14 +274,14 @@ const Handle(MeshTriangulation)& BRep_CurveRepresentation::Triangulation() const
 
 //=================================================================================================
 
-const Handle(Poly_Polygon2D)& BRep_CurveRepresentation::Polygon2() const
+const Handle(Polygon2D2)& BRep_CurveRepresentation::Polygon2() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-void BRep_CurveRepresentation::Polygon2(const Handle(Poly_Polygon2D)&)
+void BRep_CurveRepresentation::Polygon2(const Handle(Polygon2D2)&)
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }

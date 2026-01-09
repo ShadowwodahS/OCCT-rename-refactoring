@@ -36,7 +36,7 @@ class Plate_GlobalTranslationConstraint;
 class Plate_LineConstraint;
 class Plate_PlaneConstraint;
 class Plate_SampledCurveConstraint;
-class Plate_GtoCConstraint;
+class GtoCConstraint;
 class FreeGtoCConstraint;
 class Coords3d;
 class Coords2d;
@@ -72,7 +72,7 @@ public:
 
   Standard_EXPORT void Load(const Plate_SampledCurveConstraint& SCConst);
 
-  Standard_EXPORT void Load(const Plate_GtoCConstraint& GtoCConst);
+  Standard_EXPORT void Load(const GtoCConstraint& GtoCConst);
 
   Standard_EXPORT void Load(const FreeGtoCConstraint& FGtoCConst);
 
@@ -97,7 +97,7 @@ public:
                                             const Standard_Integer iu,
                                             const Standard_Integer iv) const;
 
-  Standard_EXPORT void CoefPol(Handle(TColgp_HArray2OfXYZ)& Coefs) const;
+  Standard_EXPORT void CoefPol(Handle(XYZGrid)& Coefs) const;
 
   Standard_EXPORT void SetPolynomialPartOnly(const Standard_Boolean PPOnly = Standard_True);
 

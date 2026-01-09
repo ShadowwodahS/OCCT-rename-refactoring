@@ -230,7 +230,7 @@ Standard_Boolean WireLineTool::NotUseSurfacesForApprox(const TopoFace&          
 {
   Standard_Boolean bPInDZ;
 
-  Handle(IntSurf_LineOn2S) aLineOn2S = WL->Curve();
+  Handle(LineOnTwoSurfaces) aLineOn2S = WL->Curve();
 
   const PointOn2Surfaces& aP2Sfprm = aLineOn2S->Value(ifprm);
   bPInDZ                          = IsPointInDegeneratedZone(aP2Sfprm, aF1, aF2);
@@ -630,7 +630,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
   //
   // 2. Correct wlines.begin
   TColStd_Array1OfListOfInteger anArrayOfLineEnds(1, nblines);
-  Handle(IntSurf_LineOn2S)      aSeqOfPntOn2S = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces)      aSeqOfPntOn2S = new LineOnTwoSurfaces();
   //
   for (i = 1; i <= nblines; i++)
   {
@@ -1069,7 +1069,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
       ilprm = (Standard_Integer)lprm;
     }
 
-    Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
+    Handle(LineOnTwoSurfaces) aLineOn2S = new LineOnTwoSurfaces();
     //
     for (i = 1; i <= nblines; i++)
     {
@@ -1146,7 +1146,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               aNewWLine->SetCreatingWayInfo(theWLine->GetCreatingWay());
               theNewLines.Append(aNewWLine);
             }
-            aLineOn2S = new IntSurf_LineOn2S();
+            aLineOn2S = new LineOnTwoSurfaces();
           }
         }
         continue;
@@ -1212,7 +1212,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               aNewWLine->SetCreatingWayInfo(theWLine->GetCreatingWay());
               theNewLines.Append(aNewWLine);
             }
-            aLineOn2S = new IntSurf_LineOn2S();
+            aLineOn2S = new LineOnTwoSurfaces();
           }
         }
         // end if(bIsFirstInside)

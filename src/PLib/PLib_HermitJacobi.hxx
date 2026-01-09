@@ -28,7 +28,7 @@
 class PLib_JacobiPolynomial;
 
 class PLib_HermitJacobi;
-DEFINE_STANDARD_HANDLE(PLib_HermitJacobi, PLib_Base)
+DEFINE_STANDARD_HANDLE(PLib_HermitJacobi, PolynomialBase)
 
 //! This class provides method  to work with Jacobi Polynomials
 //! relatively to an order of constraint
@@ -61,7 +61,7 @@ DEFINE_STANDARD_HANDLE(PLib_HermitJacobi, PLib_Base)
 //! @code
 //! Q(t) = c2*iordre+2  J0(t) + ...+ cDegree JDegree-2*iordre-2
 //! @endcode
-class PLib_HermitJacobi : public PLib_Base
+class PLib_HermitJacobi : public PolynomialBase
 {
 
 public:
@@ -133,7 +133,7 @@ public:
   //! returns NivConstr
   Standard_Integer NivConstr() const;
 
-  DEFINE_STANDARD_RTTIEXT(PLib_HermitJacobi, PLib_Base)
+  DEFINE_STANDARD_RTTIEXT(PLib_HermitJacobi, PolynomialBase)
 
 protected:
 private:

@@ -44,7 +44,7 @@ class gp_Vec2d;
 //! all points, including the parameter.
 //! -   If a MultiPointConstraint is a "tangency"
 //! point, the point is also a "passing" point.
-class AppDef_MultiPointConstraint : public AppParCurves_MultiPoint
+class AppDef_MultiPointConstraint : public MultiPoint
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -189,10 +189,10 @@ public:
   Standard_EXPORT virtual void Dump(Standard_OStream& o) const Standard_OVERRIDE;
 
 private:
-  Handle(TColgp_HArray1OfVec)   tabTang;
-  Handle(TColgp_HArray1OfVec)   tabCurv;
-  Handle(TColgp_HArray1OfVec2d) tabTang2d;
-  Handle(TColgp_HArray1OfVec2d) tabCurv2d;
+  Handle(VectorArray)   tabTang;
+  Handle(VectorArray)   tabCurv;
+  Handle(Vector2dArray) tabTang2d;
+  Handle(Vector2dArray) tabCurv2d;
 };
 
 #endif // _AppDef_MultiPointConstraint_HeaderFile

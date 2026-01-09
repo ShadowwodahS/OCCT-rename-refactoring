@@ -19,7 +19,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_DegeneratedBound, GeomFill_Boundary)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_DegeneratedBound, Boundary2)
 
 //=================================================================================================
 
@@ -28,7 +28,7 @@ GeomFill_DegeneratedBound::GeomFill_DegeneratedBound(const Point3d&       Point,
                                                      const Standard_Real Last,
                                                      const Standard_Real Tol3d,
                                                      const Standard_Real Tolang)
-    : GeomFill_Boundary(Tol3d, Tolang),
+    : Boundary2(Tol3d, Tolang),
       myPoint(Point),
       myFirst(First),
       myLast(Last)

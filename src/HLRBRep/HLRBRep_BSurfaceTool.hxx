@@ -63,13 +63,13 @@ public:
                          const GeomAbs_Shape        Sh);
 
   //! If <First> >= <Last>
-  static Handle(Adaptor3d_Surface) UTrim(const BRepAdaptor_Surface& S,
+  static Handle(SurfaceAdaptor) UTrim(const BRepAdaptor_Surface& S,
                                          const Standard_Real        First,
                                          const Standard_Real        Last,
                                          const Standard_Real        Tol);
 
   //! If <First> >= <Last>
-  static Handle(Adaptor3d_Surface) VTrim(const BRepAdaptor_Surface& S,
+  static Handle(SurfaceAdaptor) VTrim(const BRepAdaptor_Surface& S,
                                          const Standard_Real        First,
                                          const Standard_Real        Last,
                                          const Standard_Real        Tol);
@@ -174,7 +174,7 @@ public:
 
   static Dir3d Direction(const BRepAdaptor_Surface& S);
 
-  static Handle(Adaptor3d_Curve) BasisCurve(const BRepAdaptor_Surface& S);
+  static Handle(Curve5) BasisCurve(const BRepAdaptor_Surface& S);
 
   static Axis3d Axis(const BRepAdaptor_Surface& S);
 

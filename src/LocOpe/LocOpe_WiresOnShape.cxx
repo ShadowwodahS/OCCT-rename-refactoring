@@ -657,7 +657,7 @@ Standard_Real Project(const TopoVertex& V, const TopoEdge& theEdge)
   C = BRepInspector::Curve(theEdge, Loc, f, l);
   if (!Loc.IsIdentity())
   {
-    Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+    Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
     C                        = Handle(GeomCurve3d)::DownCast(GG);
   }
   proj.Init(toproj, C, f, l);
@@ -731,7 +731,7 @@ void PutPCurve(const TopoEdge& Edg, const TopoFace& Fac)
   Handle(GeomCurve3d) C = BRepInspector::Curve(Edg, Loc, f, l);
   if (!Loc.IsIdentity())
   {
-    Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+    Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
     C                        = Handle(GeomCurve3d)::DownCast(GG);
   }
 
@@ -933,7 +933,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
       C = BRepInspector::Curve(Efrom, Loc, f, l);
       if (!Loc.IsIdentity())
       {
-        Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+        Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
         C                        = Handle(GeomCurve3d)::DownCast(GG);
       }
 
@@ -1108,7 +1108,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
     C = BRepInspector::Curve(Efrom, Loc, f, l);
     if (!Loc.IsIdentity())
     {
-      Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+      Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
       C                        = Handle(GeomCurve3d)::DownCast(GG);
     }
 
@@ -1127,7 +1127,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
     C = BRepInspector::Curve(Eto, Loc, f, l);
     if (!Loc.IsIdentity())
     {
-      Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+      Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
       C                        = Handle(GeomCurve3d)::DownCast(GG);
     }
 
@@ -1148,7 +1148,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
       C = BRepInspector::Curve(Efrom, Loc, f, l);
       if (!Loc.IsIdentity())
       {
-        Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+        Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
         C                        = Handle(GeomCurve3d)::DownCast(GG);
       }
 
@@ -1303,7 +1303,7 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
 
     const Handle(GeomCurve3d)& aCurve = BRepInspector::Curve(anEdge, aFpar, aLpar);
     GeomAdaptor_Curve         aGAcurve(aCurve, aFpar, aLpar);
-    Extrema_ExtCC             anExtrema(theGAcurve, aGAcurve, TolExt, TolExt);
+    CurveCurveExtrema2             anExtrema(theGAcurve, aGAcurve, TolExt, TolExt);
 
     if (!anExtrema.IsDone() || !anExtrema.NbExt())
       continue;

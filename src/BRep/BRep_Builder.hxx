@@ -34,7 +34,7 @@ class Poly_Polygon3D;
 class Poly_PolygonOnTriangulation;
 class GeomCurve2d;
 class gp_Pnt2d;
-class Poly_Polygon2D;
+class Polygon2D2;
 class TopoVertex;
 class Point3d;
 
@@ -240,12 +240,12 @@ public:
 
   //! Changes Edge polygon on a face.
   Standard_EXPORT void UpdateEdge(const TopoEdge&            E,
-                                  const Handle(Poly_Polygon2D)& P,
+                                  const Handle(Polygon2D2)& P,
                                   const TopoFace&            S) const;
 
   //! Changes Edge polygon on a face.
   Standard_EXPORT void UpdateEdge(const TopoEdge&            E,
-                                  const Handle(Poly_Polygon2D)& P,
+                                  const Handle(Polygon2D2)& P,
                                   const Handle(GeomSurface)&   S,
                                   const TopLoc_Location&        T) const;
 
@@ -253,16 +253,16 @@ public:
   //!
   //! A null Polygon removes the 2d Polygon.
   Standard_EXPORT void UpdateEdge(const TopoEdge&            E,
-                                  const Handle(Poly_Polygon2D)& P1,
-                                  const Handle(Poly_Polygon2D)& P2,
+                                  const Handle(Polygon2D2)& P1,
+                                  const Handle(Polygon2D2)& P2,
                                   const TopoFace&            S) const;
 
   //! Changes Edge polygons on a face.
   //!
   //! A null Polygon removes the 2d Polygon.
   Standard_EXPORT void UpdateEdge(const TopoEdge&            E,
-                                  const Handle(Poly_Polygon2D)& P1,
-                                  const Handle(Poly_Polygon2D)& P2,
+                                  const Handle(Polygon2D2)& P1,
+                                  const Handle(Polygon2D2)& P2,
                                   const Handle(GeomSurface)&   S,
                                   const TopLoc_Location&        L) const;
 

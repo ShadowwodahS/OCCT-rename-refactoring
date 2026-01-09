@@ -21,6 +21,6 @@
 #include <Approx_Array1OfAdHSurface.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Approx_HArray1OfAdHSurface, Approx_Array1OfAdHSurface)
+DEFINE_HARRAY1(AdaptingHandleSurfaceArray, Approx_Array1OfAdHSurface)
 
 #endif

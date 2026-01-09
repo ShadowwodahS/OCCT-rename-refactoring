@@ -368,7 +368,7 @@ Standard_Integer BRepFilletAPI_MakeChamfer::NbSurf(const Standard_Integer IC) co
 
 //=================================================================================================
 
-Handle(ChFiDS_SecHArray1) BRepFilletAPI_MakeChamfer::Sect(const Standard_Integer IC,
+Handle(SecHArray1) BRepFilletAPI_MakeChamfer::Sect(const Standard_Integer IC,
                                                           const Standard_Integer IS) const
 {
   return myBuilder.Sect(IC, IS);

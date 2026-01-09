@@ -292,7 +292,7 @@ Vector3d GeomPlate_Surface::DN(const Standard_Real,
 
 //=================================================================================================
 
-Handle(Geom_Geometry) GeomPlate_Surface::Copy() const
+Handle(Geometry3) GeomPlate_Surface::Copy() const
 {
   Handle(GeomPlate_Surface) GPS = new GeomPlate_Surface(mySurfinit, mySurfinter);
   return GPS;

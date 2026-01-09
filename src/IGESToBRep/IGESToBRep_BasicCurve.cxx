@@ -1390,11 +1390,11 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dLine(const Handle(IGESGeom_
 
 //=================================================================================================
 
-Handle(Geom_Transformation) IGESToBRep_BasicCurve::TransferTransformation(
+Handle(Transformation1) IGESToBRep_BasicCurve::TransferTransformation(
   const Handle(IGESGeom_TransformationMatrix)& start)
 
 {
-  Handle(Geom_Transformation) res;
+  Handle(Transformation1) res;
   if (start.IsNull())
   {
     Message_Msg msg1005("IGES_1005");
@@ -1404,7 +1404,7 @@ Handle(Geom_Transformation) IGESToBRep_BasicCurve::TransferTransformation(
   Transform3d resultat;
   SetEpsilon(1.E-05);
   if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(), start->Value(), resultat))
-    res = new Geom_Transformation(resultat);
+    res = new Transformation1(resultat);
   else
   {
     Message_Msg msg1036("IGES_1036");

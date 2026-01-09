@@ -105,7 +105,7 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
   }
 
   Standard_Integer       aPower(0);
-  Handle(TopLoc_Datum3D) aDatum;
+  Handle(Datum3D2) aDatum;
 
   if (aFileVer >= TDocStd_FormatVersion_VERSION_6)
   {
@@ -125,7 +125,7 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
     {
       if (theMap.IsBound(aDatumID))
       {
-        aDatum = Handle(TopLoc_Datum3D)::DownCast(theMap.Find(aDatumID));
+        aDatum = Handle(Datum3D2)::DownCast(theMap.Find(aDatumID));
       }
       else
         return Standard_False;
@@ -160,7 +160,7 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
       aLoc.SetY(y);
       aLoc.SetZ(z);
 
-      aDatum = new TopLoc_Datum3D(aTrsf);
+      aDatum = new Datum3D2(aTrsf);
       theMap.Bind(aDatumID, aDatum);
     }
   }
@@ -211,7 +211,7 @@ void BinMXCAFDoc_LocationDriver::Translate(const TopLoc_Location&      theLoc,
   // the relocation table, but now it's not necessary
   // (try to uncomment it if some problems appear)
   /*
-  Handle(TopLoc_Datum3D) aDatum = theLoc.FirstDatum();
+  Handle(Datum3D2) aDatum = theLoc.FirstDatum();
 
   if(!theMap.Contains(aDatum)) {
     theMap.Add(aDatum);

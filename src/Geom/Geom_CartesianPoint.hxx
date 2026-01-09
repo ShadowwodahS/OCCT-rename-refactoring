@@ -23,7 +23,7 @@
 #include <Geom_Point.hxx>
 #include <Standard_Real.hxx>
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_CartesianPoint;
 DEFINE_STANDARD_HANDLE(Geom_CartesianPoint, Geom_Point)
@@ -82,7 +82,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this point.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Geom_CartesianPoint, Geom_Point)
 

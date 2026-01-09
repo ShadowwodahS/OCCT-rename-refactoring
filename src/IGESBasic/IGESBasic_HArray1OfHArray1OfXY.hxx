@@ -40,9 +40,9 @@ public:
 
   Standard_EXPORT Standard_Integer Length() const;
 
-  Standard_EXPORT void SetValue(const Standard_Integer num, const Handle(TColgp_HArray1OfXY)& val);
+  Standard_EXPORT void SetValue(const Standard_Integer num, const Handle(XYArray)& val);
 
-  Standard_EXPORT Handle(TColgp_HArray1OfXY) Value(const Standard_Integer num) const;
+  Standard_EXPORT Handle(XYArray) Value(const Standard_Integer num) const;
 
   DEFINE_STANDARD_RTTI_INLINE(HArray1OfHArray1OfXY, RefObject)
 

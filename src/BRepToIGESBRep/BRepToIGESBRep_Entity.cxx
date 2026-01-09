@@ -106,7 +106,7 @@ void BRepToIGESBRep_Entity::TransferVertexList()
   Standard_Integer nbvertices = myVertices.Extent();
   if (!nbvertices)
     return;
-  Handle(TColgp_HArray1OfXYZ) vertices = new TColgp_HArray1OfXYZ(1, nbvertices);
+  Handle(XYZArray) vertices = new XYZArray(1, nbvertices);
   Standard_Real               Unit     = GetUnit();
   Standard_Real               X, Y, Z;
 

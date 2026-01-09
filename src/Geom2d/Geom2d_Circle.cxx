@@ -40,7 +40,7 @@ typedef Coords2d         XY;
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_Circle::Copy() const
+Handle(Geometry2) Geom2d_Circle::Copy() const
 {
   Handle(Geom2d_Circle) C;
   C = new Circle(pos, radius);

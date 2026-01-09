@@ -123,7 +123,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     TColStd_Array1OfReal VJoints(1, 2);
     VJoints(1)                             = VFirst;
     VJoints(2)                             = VLast;
-    Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, 1, 1, 1);
+    Handle(SurfaceGridArray) surf = new SurfaceGridArray(1, 1, 1, 1);
     surf->SetValue(1, 1, bezier);
     mySegments = new ShapeExtend_CompositeSurface(surf, UJoints, VJoints);
     myStatus   = ShapeExtend1::EncodeStatus(ShapeExtend_DONE1);
@@ -132,7 +132,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
   else if (mySurface->IsKind(STANDARD_TYPE(Geom_BezierSurface)))
   {
     Handle(Geom_BezierSurface)        bezier = Handle(Geom_BezierSurface)::DownCast(mySurface);
-    Handle(TColGeom_HArray2OfSurface) surf   = new TColGeom_HArray2OfSurface(1, 1, 1, 1);
+    Handle(SurfaceGridArray) surf   = new SurfaceGridArray(1, 1, 1, 1);
     TColStd_Array1OfReal              UJoints(1, 2);
     UJoints(1) = UFirst;
     UJoints(2) = ULast;
@@ -217,8 +217,8 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
 
     TColGeom_Array2OfBezierSurface Surfaces(1, nbUPatches, 1, nbVPatches);
     converter.Patches(Surfaces);
-    Handle(TColGeom_HArray2OfSurface) srf =
-      new TColGeom_HArray2OfSurface(1, nbUPatches - NbUFiltered, 1, nbVPatches - NbVFiltered);
+    Handle(SurfaceGridArray) srf =
+      new SurfaceGridArray(1, nbUPatches - NbUFiltered, 1, nbVPatches - NbVFiltered);
     Standard_Integer indApp1 = 0;
     for (Standard_Integer ind1 = 1; ind1 <= nbUPatches; ind1++)
     {
@@ -286,7 +286,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       Handle(Geom_TrimmedCurve) tc = Handle(Geom_TrimmedCurve)::DownCast(basis);
       basis                        = tc->BasisCurve();
     }
-    Handle(TColGeom_HArray1OfCurve) curves;
+    Handle(HArray1OfCurve3) curves;
     Standard_Integer                nbCurves;
     Handle(TColStd_HSequenceOfReal) vPar  = new TColStd_HSequenceOfReal;
     Handle(TColStd_HSequenceOfReal) vSVal = new TColStd_HSequenceOfReal;
@@ -331,7 +331,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     }
 
     Axis3d                            axis = revol->Axis();
-    Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, 1, 1, nbCurves);
+    Handle(SurfaceGridArray) surf = new SurfaceGridArray(1, 1, 1, nbCurves);
     Standard_Real                     Umin, Umax, Vmin, Vmax;
     mySurface->Bounds(Umin, Umax, Vmin, Vmax);
     Standard_Integer i; // svv #1
@@ -379,7 +379,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     Handle(GeomCurve3d) basis = extr->BasisCurve();
     // Dir3d direction = extr->Direction(); // direction not used (skl)
 
-    Handle(TColGeom_HArray1OfCurve)     curves;
+    Handle(HArray1OfCurve3)     curves;
     Standard_Integer                    nbCurves;
     Handle(TColStd_HSequenceOfReal)     uPar  = new TColStd_HSequenceOfReal;
     Handle(TColStd_HSequenceOfReal)     uSVal = new TColStd_HSequenceOfReal;
@@ -394,7 +394,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     Transform3d shiftF, shiftL;
     shiftF.SetTranslation(extr->Value(UFirst, 0), extr->Value(UFirst, VFirst));
     shiftL.SetTranslation(extr->Value(UFirst, 0), extr->Value(UFirst, VLast));
-    Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, nbCurves, 1, 1);
+    Handle(SurfaceGridArray) surf = new SurfaceGridArray(1, nbCurves, 1, 1);
 
     Standard_Integer i; // svv #1
     for (i = 1; i <= nbCurves; i++)
@@ -447,7 +447,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     TColStd_Array1OfReal VJoints(1, 2);
     VJoints(1)                             = VFirst;
     VJoints(2)                             = VLast;
-    Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, 1, 1, 1);
+    Handle(SurfaceGridArray) surf = new SurfaceGridArray(1, 1, 1, 1);
     Standard_Real                     U1, U2, V1, V2;
     mySurface->Bounds(U1, U2, V1, V2);
     Handle(GeomSurface) S;
@@ -577,8 +577,8 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Build(const Standard_Boolean /*Se
   Standard_Integer              nbU            = myUSplitValues->Length();
   Standard_Integer              nbV            = myVSplitValues->Length();
 
-  Handle(TColGeom_HArray2OfSurface) resSurfaces =
-    new TColGeom_HArray2OfSurface(1, nbU - 1, 1, nbV - 1);
+  Handle(SurfaceGridArray) resSurfaces =
+    new SurfaceGridArray(1, nbU - 1, 1, nbV - 1);
   Standard_Integer j1 = 2;
   for (Standard_Integer i1 = 2; i1 <= nbU; i1++)
   {

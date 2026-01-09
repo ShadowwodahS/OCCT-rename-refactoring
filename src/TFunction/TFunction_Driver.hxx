@@ -25,8 +25,8 @@
 #include <TDF_LabelList.hxx>
 class TFunction_Logbook;
 
-class TFunction_Driver;
-DEFINE_STANDARD_HANDLE(TFunction_Driver, RefObject)
+class FunctionDriver1;
+DEFINE_STANDARD_HANDLE(FunctionDriver1, RefObject)
 
 //! This  driver  class provide  services  around function
 //! execution.   One instance of  this class is  built for
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(TFunction_Driver, RefObject)
 //! attributes of sub-labels of a model.
 //! A single instance of this class and each of its
 //! subclasses is built for the whole session.
-class TFunction_Driver : public RefObject
+class FunctionDriver1 : public RefObject
 {
 
 public:
@@ -77,12 +77,12 @@ public:
   //! where the results of the function are located.
   Standard_EXPORT virtual void Results(TDF_LabelList& res) const;
 
-  DEFINE_STANDARD_RTTIEXT(TFunction_Driver, RefObject)
+  DEFINE_STANDARD_RTTIEXT(FunctionDriver1, RefObject)
 
 protected:
   //! initialisation of the driver
   //! ============================
-  Standard_EXPORT TFunction_Driver();
+  Standard_EXPORT FunctionDriver1();
 
 private:
   DataLabel myLabel;

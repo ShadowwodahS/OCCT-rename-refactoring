@@ -27,7 +27,7 @@
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 class TopoEdge;
-class Adaptor3d_Curve;
+class Curve5;
 
 //! This class makes the projection  of a wire on a
 //! shape.
@@ -93,7 +93,7 @@ public:
   //! shape <S>.
   Standard_EXPORT const ShapeList& Generated(const TopoShape& S);
 
-  Standard_EXPORT Standard_Boolean IsElementary(const Adaptor3d_Curve& C) const;
+  Standard_EXPORT Standard_Boolean IsElementary(const Curve5& C) const;
 
   //! build the result as a list of wire if possible in --
   //! a first returns a wire only if there is only a wire.

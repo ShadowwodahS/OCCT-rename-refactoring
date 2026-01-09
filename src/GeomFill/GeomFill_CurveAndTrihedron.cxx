@@ -28,7 +28,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_CurveAndTrihedron, GeomFill_LocationLaw)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_CurveAndTrihedron, LocationLaw)
 
 //=================================================================================================
 
@@ -43,7 +43,7 @@ GeomFill_CurveAndTrihedron::GeomFill_CurveAndTrihedron(
 
 //=================================================================================================
 
-Handle(GeomFill_LocationLaw) GeomFill_CurveAndTrihedron::Copy() const
+Handle(LocationLaw) GeomFill_CurveAndTrihedron::Copy() const
 {
   Handle(GeomFill_TrihedronLaw) law;
   law                                     = myLaw->Copy();
@@ -55,14 +55,14 @@ Handle(GeomFill_LocationLaw) GeomFill_CurveAndTrihedron::Copy() const
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_CurveAndTrihedron::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_CurveAndTrihedron::SetCurve(const Handle(Curve5)& C)
 {
   myCurve   = C;
   myTrimmed = C;
   return myLaw->SetCurve(C);
 }
 
-const Handle(Adaptor3d_Curve)& GeomFill_CurveAndTrihedron::GetCurve() const
+const Handle(Curve5)& GeomFill_CurveAndTrihedron::GetCurve() const
 {
   return myCurve;
 }

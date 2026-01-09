@@ -72,7 +72,7 @@ Image_Texture::Image_Texture(const Handle(NCollection_Buffer)& theBuffer,
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) Image_Texture::ReadCompressedImage(
-  const Handle(Image_SupportedFormats)& theSupported) const
+  const Handle(SupportedFormats)& theSupported) const
 {
   if (!theSupported->HasCompressed())
   {
@@ -100,7 +100,7 @@ Handle(Image_CompressedPixMap) Image_Texture::ReadCompressedImage(
 
 //=================================================================================================
 
-Handle(Image_PixMap) Image_Texture::ReadImage(const Handle(Image_SupportedFormats)&) const
+Handle(Image_PixMap) Image_Texture::ReadImage(const Handle(SupportedFormats)&) const
 {
   Handle(Image_PixMap) anImage;
   if (!myBuffer.IsNull())

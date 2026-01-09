@@ -65,7 +65,7 @@ void BSplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BSplineSurface)& en
   Handle(TColStd_HArray1OfReal) allKnotsU;
   Handle(TColStd_HArray1OfReal) allKnotsV;
   Handle(TColStd_HArray2OfReal) allWeights;
-  Handle(TColgp_HArray2OfXYZ)   allPoles;
+  Handle(XYZGrid)   allPoles;
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Boolean FlagindexU = PR.ReadInteger(PR.Current(), anIndexU);
@@ -134,7 +134,7 @@ void BSplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BSplineSurface)& en
   if (FlagindexU && FlagindexV)
   {
     allWeights = new TColStd_HArray2OfReal(0, anIndexU, 0, anIndexV);
-    allPoles   = new TColgp_HArray2OfXYZ(0, anIndexU, 0, anIndexV);
+    allPoles   = new XYZGrid(0, anIndexU, 0, anIndexV);
 
     Standard_Boolean BadWeigth = Standard_False;
     Message_Msg      Msg105("XSTEP_105");
@@ -337,7 +337,7 @@ void BSplineSurfaceTool::OwnCopy(const Handle(IGESGeom_BSplineSurface)& another,
     allKnotsV->SetValue(I, another->KnotV(I));
 
   Handle(TColStd_HArray2OfReal) allWeights = new TColStd_HArray2OfReal(0, anIndexU, 0, anIndexV);
-  Handle(TColgp_HArray2OfXYZ)   allPoles   = new TColgp_HArray2OfXYZ(0, anIndexU, 0, anIndexV);
+  Handle(XYZGrid)   allPoles   = new XYZGrid(0, anIndexU, 0, anIndexV);
 
   for (J = 0; J <= anIndexV; J++)
     for (I = 0; I <= anIndexU; I++)

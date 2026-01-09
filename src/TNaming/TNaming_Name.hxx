@@ -30,7 +30,7 @@
 #include <TopAbs_Orientation.hxx>
 #include <TDF_LabelMap.hxx>
 class ShapeAttribute;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 //! store the arguments of Naming1.
 class TNaming_Name
@@ -74,7 +74,7 @@ public:
 
   Standard_EXPORT Standard_Boolean Solve(const DataLabel& aLab, const TDF_LabelMap& Valid) const;
 
-  Standard_EXPORT void Paste(TNaming_Name& into, const Handle(TDF_RelocationTable)& RT) const;
+  Standard_EXPORT void Paste(TNaming_Name& into, const Handle(RelocationTable1)& RT) const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;

@@ -20,25 +20,25 @@
 // function : Read
 // purpose  : Read persistent data from a file
 //=======================================================================
-void ShapePersistent_Geom::Geometry1::Read(ReadData&) {}
+void Geom1::Geometry1::Read(ReadData&) {}
 
 //=======================================================================
 // function : Write
 // purpose  : Write persistent data to a file
 //=======================================================================
-void ShapePersistent_Geom::Geometry1::Write(WriteData&) const {}
+void Geom1::Geometry1::Write(WriteData&) const {}
 
 //=======================================================================
 // function : PChildren
 // purpose  : Gets persistent objects
 //=======================================================================
-void ShapePersistent_Geom::Geometry1::PChildren(SequenceOfPersistent&) const {}
+void Geom1::Geometry1::PChildren(SequenceOfPersistent&) const {}
 
 //=======================================================================
 // function : Translate
 // purpose  : Create a persistent object for a curve
 //=======================================================================
-Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
+Handle(Geom1::Curve) Geom1::Translate(
   const Handle(GeomCurve3d)&         theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
@@ -108,7 +108,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
 // function : Translate
 // purpose  : Create a persistent object for a surface
 //=======================================================================
-Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom::Translate(
+Handle(Geom1::Surface) Geom1::Translate(
   const Handle(GeomSurface)&       theSurf,
   StdObjMgt_TransientPersistentMap& theMap)
 {

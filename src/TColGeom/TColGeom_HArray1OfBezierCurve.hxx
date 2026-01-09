@@ -21,6 +21,6 @@
 #include <TColGeom_Array1OfBezierCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColGeom_HArray1OfBezierCurve, TColGeom_Array1OfBezierCurve)
+DEFINE_HARRAY1(HArray1OfBezierCurve1, TColGeom_Array1OfBezierCurve)
 
 #endif

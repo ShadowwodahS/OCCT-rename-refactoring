@@ -51,7 +51,7 @@ class gp_Pnt2d;
 //! * Create a Parab2d with the directrix and the focus point.
 //! * Create a Parab2d with its vertex point and its axis
 //! of symmetry and its focus length.
-class gce_MakeParab2d : public Root6
+class ParabolaBuilder2d1 : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -60,7 +60,7 @@ public:
   //! and its focal length.
   //! Warnings : It is possible to have Focal = 0.
   //! The status is "NullFocalLength" Raised if Focal < 0.0
-  Standard_EXPORT gce_MakeParab2d(const gp_Ax2d&         MirrorAxis,
+  Standard_EXPORT ParabolaBuilder2d1(const gp_Ax2d&         MirrorAxis,
                                   const Standard_Real    Focal,
                                   const Standard_Boolean Sense = Standard_True);
 
@@ -68,11 +68,11 @@ public:
   //! and its focal length.
   //! Warnings : It is possible to have Focal = 0.
   //! The status is "NullFocalLength" Raised if Focal < 0.0
-  Standard_EXPORT gce_MakeParab2d(const Ax22d& A, const Standard_Real Focal);
+  Standard_EXPORT ParabolaBuilder2d1(const Ax22d& A, const Standard_Real Focal);
 
   //! Creates a parabola with the directrix and the focus point.
   //! The sense of parametrization is given by Sense.
-  Standard_EXPORT gce_MakeParab2d(const gp_Ax2d&         D,
+  Standard_EXPORT ParabolaBuilder2d1(const gp_Ax2d&         D,
                                   const gp_Pnt2d&        F,
                                   const Standard_Boolean Sense = Standard_True);
 
@@ -85,7 +85,7 @@ public:
   //! false), the Status function returns:
   //! -   gce_NullFocusLength if Focal is less than 0.0, or
   //! -   gce_NullAxis if S1 and Center are coincident.
-  Standard_EXPORT gce_MakeParab2d(const gp_Pnt2d&        S1,
+  Standard_EXPORT ParabolaBuilder2d1(const gp_Pnt2d&        S1,
                                   const gp_Pnt2d&        Center,
                                   const Standard_Boolean Sense = Standard_True);
 

@@ -28,7 +28,7 @@
 class BRepBlend_Line;
 class Adaptor3d_TopolTool;
 class StdFail_NotDone;
-class Adaptor3d_HVertex;
+class HandleVertex;
 class HCurve2dTool;
 class HSurfaceTool;
 class HCurveTool1;
@@ -47,8 +47,8 @@ class BRepBlend_Walking
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_Walking(const Handle(Adaptor3d_Surface)&   Surf1,
-                                    const Handle(Adaptor3d_Surface)&   Surf2,
+  Standard_EXPORT BRepBlend_Walking(const Handle(SurfaceAdaptor)&   Surf1,
+                                    const Handle(SurfaceAdaptor)&   Surf2,
                                     const Handle(Adaptor3d_TopolTool)& Domain1,
                                     const Handle(Adaptor3d_TopolTool)& Domain2,
                                     const Handle(ChFiDS_ElSpine)&      HGuide);
@@ -155,7 +155,7 @@ private:
                                            math_Vector&               Solrst,
                                            Standard_Integer&          Indexsol,
                                            Standard_Boolean&          IsVtx,
-                                           Handle(Adaptor3d_HVertex)& Vtx,
+                                           Handle(HandleVertex)& Vtx,
                                            const Standard_Real        Extrap = 0.0);
 
   Standard_EXPORT void Transition(const Standard_Boolean           OnFirst,
@@ -169,11 +169,11 @@ private:
                                      const Standard_Integer           Index,
                                      const Standard_Real              Param,
                                      const Standard_Boolean           IsVtx,
-                                     const Handle(Adaptor3d_HVertex)& Vtx);
+                                     const Handle(HandleVertex)& Vtx);
 
   Standard_EXPORT void MakeSingularExtremity(BRepBlend_Extremity&             Extrem,
                                              const Standard_Boolean           OnFirst,
-                                             const Handle(Adaptor3d_HVertex)& Vtx);
+                                             const Handle(HandleVertex)& Vtx);
 
   Standard_EXPORT Blend_Status CheckDeflection(const Standard_Boolean OnFirst,
                                                const Point2&     CurPoint);
@@ -188,8 +188,8 @@ private:
   Handle(BRepBlend_Line)      line;
   math_Vector                 sol;
   Blend_SequenceOfPoint       jalons;
-  Handle(Adaptor3d_Surface)   surf1;
-  Handle(Adaptor3d_Surface)   surf2;
+  Handle(SurfaceAdaptor)   surf1;
+  Handle(SurfaceAdaptor)   surf2;
   Handle(Adaptor3d_TopolTool) domain1;
   Handle(Adaptor3d_TopolTool) domain2;
   Handle(Adaptor3d_TopolTool) recdomain1;

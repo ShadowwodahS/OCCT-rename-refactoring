@@ -184,7 +184,7 @@ Handle(TDF_Attribute) TPrsStd_AISViewer::NewEmpty() const
 //=================================================================================================
 
 void TPrsStd_AISViewer::Paste(const Handle(TDF_Attribute)&,
-                              const Handle(TDF_RelocationTable)&) const
+                              const Handle(RelocationTable1)&) const
 {
 }
 

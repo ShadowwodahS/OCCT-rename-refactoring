@@ -14,33 +14,33 @@
 
 #include <IntSurf_PntOn2S.hxx>
 
-inline Standard_Integer IntSurf_LineOn2S::NbPoints() const
+inline Standard_Integer LineOnTwoSurfaces::NbPoints() const
 {
 
   return mySeq.Length();
 }
 
-inline void IntSurf_LineOn2S::Reverse()
+inline void LineOnTwoSurfaces::Reverse()
 {
   mySeq.Reverse();
 }
 
-inline const PointOn2Surfaces& IntSurf_LineOn2S::Value(const Standard_Integer Index) const
+inline const PointOn2Surfaces& LineOnTwoSurfaces::Value(const Standard_Integer Index) const
 {
   return mySeq(Index);
 }
 
-inline void IntSurf_LineOn2S::Value(const Standard_Integer Index, const PointOn2Surfaces& P)
+inline void LineOnTwoSurfaces::Value(const Standard_Integer Index, const PointOn2Surfaces& P)
 {
   mySeq(Index) = P;
 }
 
-inline void IntSurf_LineOn2S::SetPoint(const Standard_Integer Index, const Point3d& thePnt)
+inline void LineOnTwoSurfaces::SetPoint(const Standard_Integer Index, const Point3d& thePnt)
 {
   mySeq(Index).SetValue(thePnt);
 }
 
-inline void IntSurf_LineOn2S::Clear()
+inline void LineOnTwoSurfaces::Clear()
 {
   mySeq.Clear();
   myBuv1.SetWhole();

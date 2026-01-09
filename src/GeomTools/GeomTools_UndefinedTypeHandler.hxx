@@ -28,14 +28,14 @@ class GeomCurve3d;
 class GeomCurve2d;
 class GeomSurface;
 
-class GeomTools_UndefinedTypeHandler;
-DEFINE_STANDARD_HANDLE(GeomTools_UndefinedTypeHandler, RefObject)
+class UndefinedTypeHandler;
+DEFINE_STANDARD_HANDLE(UndefinedTypeHandler, RefObject)
 
-class GeomTools_UndefinedTypeHandler : public RefObject
+class UndefinedTypeHandler : public RefObject
 {
 
 public:
-  Standard_EXPORT GeomTools_UndefinedTypeHandler();
+  Standard_EXPORT UndefinedTypeHandler();
 
   Standard_EXPORT virtual void PrintCurve(const Handle(GeomCurve3d)& C,
                                           Standard_OStream&         OS,
@@ -61,7 +61,7 @@ public:
                                                         Standard_IStream&      IS,
                                                         Handle(GeomSurface)&  S) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomTools_UndefinedTypeHandler, RefObject)
+  DEFINE_STANDARD_RTTIEXT(UndefinedTypeHandler, RefObject)
 
 protected:
 private:

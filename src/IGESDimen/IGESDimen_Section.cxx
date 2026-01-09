@@ -30,7 +30,7 @@ IGESDimen_Section::IGESDimen_Section() {}
 
 void IGESDimen_Section::Init(const Standard_Integer            dataType,
                              const Standard_Real               aDisp,
-                             const Handle(TColgp_HArray1OfXY)& dataPoints)
+                             const Handle(XYArray)& dataPoints)
 {
   if (dataPoints->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_Section : Init");

@@ -24,7 +24,7 @@
 #include <bitset>
 #include <vector>
 
-class ShapeProcess_Operator;
+class Operator;
 class ShapeProcess_Context;
 
 //! Shape Processing module
@@ -75,11 +75,11 @@ public:
 public:
   //! Registers operator to make it visible for Performer
   Standard_EXPORT static Standard_Boolean RegisterOperator(const Standard_CString name,
-                                                           const Handle(ShapeProcess_Operator)& op);
+                                                           const Handle(Operator)& op);
 
   //! Finds operator by its name
   Standard_EXPORT static Standard_Boolean FindOperator(const Standard_CString         name,
-                                                       Handle(ShapeProcess_Operator)& op);
+                                                       Handle(Operator)& op);
 
   //! Performs a specified sequence of operators on Context
   //! Resource file and other data should be already loaded
@@ -111,7 +111,7 @@ private:
   //! Returns operators to be performed according to the specified flags.
   //! @param theFlags Bitset of operations flags.
   //! @return List of operators to perform: pairs of operator name and operator handle.
-  static std::vector<std::pair<const char*, Handle(ShapeProcess_Operator)>> getOperators(
+  static std::vector<std::pair<const char*, Handle(Operator)>> getOperators(
     const OperationsFlags& theFlags);
 
   //! Converts operation flag to its name.

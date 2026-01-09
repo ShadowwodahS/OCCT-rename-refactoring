@@ -20,7 +20,7 @@
 #include <Prs3d_Root.hxx>
 #include <Prs3d_Drawer.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 
 //! A framework to provide display of Bezier or BSpline curves
 //! (by drawing a broken line linking the poles of the curve).
@@ -38,7 +38,7 @@ public:
   //! a Geom curve. This makes it possible to use the
   //! surface in a geometric algorithm.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Adaptor3d_Curve&            aCurve,
+                                  const Curve5&            aCurve,
                                   const Handle(StyleDrawer)&       aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
@@ -47,7 +47,7 @@ public:
                                                 const Standard_Real         Y,
                                                 const Standard_Real         Z,
                                                 const Standard_Real         aDistance,
-                                                const Adaptor3d_Curve&      aCurve,
+                                                const Curve5&      aCurve,
                                                 const Handle(StyleDrawer)& aDrawer);
 
   //! returns the pole  the most near of the point (X,Y,Z) and
@@ -57,7 +57,7 @@ public:
                                                const Standard_Real         Y,
                                                const Standard_Real         Z,
                                                const Standard_Real         aDistance,
-                                               const Adaptor3d_Curve&      aCurve,
+                                               const Curve5&      aCurve,
                                                const Handle(StyleDrawer)& aDrawer);
 };
 

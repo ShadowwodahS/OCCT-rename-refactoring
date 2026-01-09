@@ -83,7 +83,7 @@ static TopAbs_Orientation CompTra(const TopAbs_Orientation O1,
 
 static void CompCommonPoint(ChFiDS_CommonPoint&            FilPoint,
                             const TopoEdge&             arc,
-                            const HatchGen_PointOnElement& PE,
+                            const PointOnElement& PE,
                             const TopAbs_Orientation       Or)
 {
   TopAbs_Orientation pos = PE.Position1();
@@ -328,8 +328,8 @@ static Standard_Boolean YaUnVoisin(const Handle(ChFiDS_Spine)& Spine,
 
 void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
                            const Handle(ChFiDS_Spine)&      Spine,
-                           const Handle(Adaptor3d_Surface)& S1,
-                           const Handle(Adaptor3d_Surface)& S2,
+                           const Handle(SurfaceAdaptor)& S1,
+                           const Handle(SurfaceAdaptor)& S2,
                            const Standard_Integer           iedge,
                            const Standard_Boolean           isfirst,
                            const Standard_Integer           cntlFiOnS)
@@ -550,8 +550,8 @@ static Standard_Boolean Tri(const Geom2dHatch_Hatcher& H,
       return 0;
     }
     HatchGen_Domain*          Dom = ((HatchGen_Domain*)(void*)&H.Domain(iH, Ind(iSansFirst)));
-    HatchGen_PointOnHatching* PH =
-      ((HatchGen_PointOnHatching*)(void*)&H.Domain(iH, Ind(iSansLast)).FirstPoint());
+    PointOnHatching* PH =
+      ((PointOnHatching*)(void*)&H.Domain(iH, Ind(iSansLast)).FirstPoint());
     Standard_Real NewPar = H.HatchingCurve(iH).FirstParameter() - period
                            + H.Domain(iH, Ind(iSansLast)).FirstPoint().Parameter();
     PH->SetParameter(NewPar);
@@ -583,15 +583,15 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
   ChFiDS_CommonPoint& Pons = CD->ChangeVertex(isFirst, ons);
   ChFiDS_CommonPoint& Popp = CD->ChangeVertex(isFirst, opp);
 
-  const HatchGen_PointOnHatching* pPH = 0;
+  const PointOnHatching* pPH = 0;
   if (isFirst && Dom.HasFirstPoint())
   {
-    const HatchGen_PointOnHatching& PHtemp = Dom.FirstPoint();
+    const PointOnHatching& PHtemp = Dom.FirstPoint();
     pPH                                    = &PHtemp;
   }
   else if (!isFirst && Dom.HasSecondPoint())
   {
-    const HatchGen_PointOnHatching& PHtemp = Dom.SecondPoint();
+    const PointOnHatching& PHtemp = Dom.SecondPoint();
     pPH                                    = &PHtemp;
   }
   Standard_Real        x, y;
@@ -616,7 +616,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
       Standard_Boolean suite = Standard_True;
       for (; trouve;)
       {
-        const HatchGen_PointOnElement& PEtemp = pPH->Point(LeType);
+        const PointOnElement& PEtemp = pPH->Point(LeType);
         IE                                    = PEtemp.Index();
         Handle(BRepAdaptor_Curve2d) HE        = Handle(BRepAdaptor_Curve2d)::DownCast(M(IE));
         if (!HE.IsNull())
@@ -646,7 +646,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
         }
       }
     }
-    const HatchGen_PointOnElement& PE = pPH->Point(LeType);
+    const PointOnElement& PE = pPH->Point(LeType);
     Standard_Integer               IE = PE.Index();
     Handle(BRepAdaptor_Curve2d)    HE = Handle(BRepAdaptor_Curve2d)::DownCast(M(IE));
     if (HE.IsNull())
@@ -690,9 +690,9 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
                                             ChFiDS_SequenceOfSurfData&         SetData,
                                             const Handle(ChFiDS_Spine)&        Spine,
                                             const Standard_Integer             Iedge,
-                                            const Handle(Adaptor3d_Surface)&   S1,
+                                            const Handle(SurfaceAdaptor)&   S1,
                                             const Handle(Adaptor3d_TopolTool)& I1,
-                                            const Handle(Adaptor3d_Surface)&   S2,
+                                            const Handle(SurfaceAdaptor)&   S2,
                                             const Handle(Adaptor3d_TopolTool)& I2,
                                             Standard_Boolean&                  intf,
                                             Standard_Boolean&                  intl)

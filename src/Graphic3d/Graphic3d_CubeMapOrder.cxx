@@ -47,7 +47,7 @@ CubeMapOrder::CubeMapOrder(unsigned char thePosXLocation,
 
 //=================================================================================================
 
-CubeMapOrder::CubeMapOrder(const Graphic3d_ValidatedCubeMapOrder& theOrder)
+CubeMapOrder::CubeMapOrder(const ValidatedCubeMapOrder& theOrder)
     : myConvolution(theOrder.Order.myConvolution),
       myHasOverflows(theOrder.Order.myHasOverflows)
 {
@@ -66,12 +66,12 @@ CubeMapOrder& CubeMapOrder::Set(const CubeMapOrder& theOrder)
 // function : operator=
 // purpose  :
 // =======================================================================
-Graphic3d_ValidatedCubeMapOrder CubeMapOrder::Validated() const
+ValidatedCubeMapOrder CubeMapOrder::Validated() const
 {
   if (!IsValid())
   {
     throw ExceptionBase(
-      "Try of Graphic3d_ValidatedCubeMapOrder creation using invalid CubeMapOrder");
+      "Try of ValidatedCubeMapOrder creation using invalid CubeMapOrder");
   }
 
   return *this;
@@ -121,7 +121,7 @@ CubeMapOrder& CubeMapOrder::SetDefault()
 //=================================================================================================
 
 CubeMapOrder& CubeMapOrder::Permute(
-  const Graphic3d_ValidatedCubeMapOrder& thePermutation)
+  const ValidatedCubeMapOrder& thePermutation)
 {
   for (unsigned char i = 0; i < 6; ++i)
   {
@@ -134,7 +134,7 @@ CubeMapOrder& CubeMapOrder::Permute(
 //=================================================================================================
 
 CubeMapOrder CubeMapOrder::Permuted(
-  const Graphic3d_ValidatedCubeMapOrder& thePermutation) const
+  const ValidatedCubeMapOrder& thePermutation) const
 {
   CubeMapOrder anOrder = *this;
   anOrder.Permute(thePermutation);
@@ -234,9 +234,9 @@ void CubeMapOrder::set(Graphic3d_CubeMapSide theCubeMapSide, unsigned char theVa
 
 //=================================================================================================
 
-const Graphic3d_ValidatedCubeMapOrder& CubeMapOrder::Default()
+const ValidatedCubeMapOrder& CubeMapOrder::Default()
 {
-  static const Graphic3d_ValidatedCubeMapOrder aCubeMapOrder =
+  static const ValidatedCubeMapOrder aCubeMapOrder =
     CubeMapOrder().SetDefault().Validated();
   return aCubeMapOrder;
 }

@@ -27,7 +27,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Transient.hxx>
 #include <TColStd_Array2OfReal.hxx>
-class PLib_Base;
+class PolynomialBase;
 
 class FEmTool_Curve;
 DEFINE_STANDARD_HANDLE(FEmTool_Curve, RefObject)
@@ -39,7 +39,7 @@ class FEmTool_Curve : public RefObject
 public:
   Standard_EXPORT FEmTool_Curve(const Standard_Integer   Dimension,
                                 const Standard_Integer   NbElements,
-                                const Handle(PLib_Base)& TheBase,
+                                const Handle(PolynomialBase)& TheBase,
                                 const Standard_Real      Tolerance);
 
   Standard_EXPORT TColStd_Array1OfReal& Knots() const;
@@ -67,7 +67,7 @@ public:
 
   Standard_EXPORT Standard_Integer Dimension() const;
 
-  Standard_EXPORT Handle(PLib_Base) Base() const;
+  Standard_EXPORT Handle(PolynomialBase) Base() const;
 
   Standard_EXPORT Standard_Integer Degree(const Standard_Integer IndexOfElement) const;
 
@@ -87,7 +87,7 @@ private:
 
   Standard_Integer              myNbElements;
   Standard_Integer              myDimension;
-  Handle(PLib_Base)             myBase;
+  Handle(PolynomialBase)             myBase;
   Handle(TColStd_HArray1OfReal) myKnots;
   TColStd_Array1OfInteger       myDegree;
   TColStd_Array1OfReal          myCoeff;

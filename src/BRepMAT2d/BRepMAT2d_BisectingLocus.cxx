@@ -294,7 +294,7 @@ Bisector_Bisec BRepMAT2d_BisectingLocus::GeomBis(const Handle(MAT_Arc)& anArc,
 // function : GeomElt
 //
 //=============================================================================
-Handle(Geom2d_Geometry) BRepMAT2d_BisectingLocus::GeomElt(
+Handle(Geometry2) BRepMAT2d_BisectingLocus::GeomElt(
   const Handle(MAT_BasicElt)& aBasicElt) const
 {
   return theTool.GeomElt(aBasicElt->GeomIndex());

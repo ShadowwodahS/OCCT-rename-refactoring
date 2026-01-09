@@ -57,7 +57,7 @@ void Approx_SweepApproximation_Eval::Evaluate(Standard_Integer*, /*Dimension*/
   *ErrorCode = Tool.Eval(*Parameter, *DerivativeRequest, StartEnd[0], StartEnd[1], Result[0]);
 }
 
-Approx_SweepApproximation::Approx_SweepApproximation(const Handle(Approx_SweepFunction)& Func)
+Approx_SweepApproximation::Approx_SweepApproximation(const Handle(SweepFunction)& Func)
 {
   myFunc = Func;
   //  Init of variables of control
@@ -136,7 +136,7 @@ void Approx_SweepApproximation::Perform(const Standard_Real    First,
     // avoid homogeneous tolerance of approximation (u/v and 2d/3d)
     Standard_Real res, tolu, tolv;
     TwoDTol    = new (TColStd_HArray1OfReal)(1, Num2DSS);
-    AAffin     = new (Approx_HArray1OfGTrsf2d)(1, Num2DSS);
+    AAffin     = new (GeneralTransform2dArray)(1, Num2DSS);
     The3D2DTol = 0.9 * BoundTol; // 10% of security
     for (ii = 1; ii <= Num2DSS; ii++)
     {
@@ -158,9 +158,9 @@ void Approx_SweepApproximation::Perform(const Standard_Real    First,
   // (3) Approximation
 
   // Init
-  myPoles   = new (TColgp_HArray1OfPnt)(1, Num3DSS);
-  myDPoles  = new (TColgp_HArray1OfVec)(1, Num3DSS);
-  myD2Poles = new (TColgp_HArray1OfVec)(1, Num3DSS);
+  myPoles   = new (PointArray1)(1, Num3DSS);
+  myDPoles  = new (VectorArray)(1, Num3DSS);
+  myD2Poles = new (VectorArray)(1, Num3DSS);
 
   myWeigths   = new (TColStd_HArray1OfReal)(1, Num3DSS);
   myDWeigths  = new (TColStd_HArray1OfReal)(1, Num3DSS);
@@ -168,16 +168,16 @@ void Approx_SweepApproximation::Perform(const Standard_Real    First,
 
   if (Num2DSS > 0)
   {
-    myPoles2d   = new (TColgp_HArray1OfPnt2d)(1, Num2DSS);
-    myDPoles2d  = new (TColgp_HArray1OfVec2d)(1, Num2DSS);
-    myD2Poles2d = new (TColgp_HArray1OfVec2d)(1, Num2DSS);
+    myPoles2d   = new (Point2dArray)(1, Num2DSS);
+    myDPoles2d  = new (Vector2dArray)(1, Num2DSS);
+    myD2Poles2d = new (Vector2dArray)(1, Num2DSS);
     COnSurfErr  = new (TColStd_HArray1OfReal)(1, Num2DSS);
   }
   else
   {
-    myPoles2d   = new TColgp_HArray1OfPnt2d();
-    myDPoles2d  = new TColgp_HArray1OfVec2d();
-    myD2Poles2d = new TColgp_HArray1OfVec2d();
+    myPoles2d   = new Point2dArray();
+    myDPoles2d  = new Vector2dArray();
+    myD2Poles2d = new Vector2dArray();
     COnSurfErr  = new TColStd_HArray1OfReal();
   }
 
@@ -231,7 +231,7 @@ void Approx_SweepApproximation::Perform(const Standard_Real    First,
     TColStd_Array1OfReal Param_de_decoupeC3(1, NbIntervalC3 + 1);
     myFunc->Intervals(Param_de_decoupeC3, GeomAbs_C3);
 
-    AdvApprox_PrefAndRec Preferentiel(Param_de_decoupeC2, Param_de_decoupeC3);
+    PreferredAndRecommended Preferentiel(Param_de_decoupeC2, Param_de_decoupeC3);
 
     Approx_SweepApproximation_Eval ev(*this);
     Approximation(OneDTol,
@@ -249,7 +249,7 @@ void Approx_SweepApproximation::Perform(const Standard_Real    First,
   else
   {
     // (3.2) Approximation without preferential cut
-    AdvApprox_DichoCutting         Dichotomie;
+    DichotomicCutting         Dichotomie;
     Approx_SweepApproximation_Eval ev(*this);
     Approximation(OneDTol,
                   TwoDTol,
@@ -306,7 +306,7 @@ void Approx_SweepApproximation::Approximation(const Handle(TColStd_HArray1OfReal
     // Unfortunately Adv_Approx stores the transposition of the required
     // so, writing tabPoles = Approx.Poles() will give an erroneous result
     // It is only possible to allocate and recopy term by term...
-    tabPoles   = new (TColgp_HArray2OfPnt)(1, Num3DSS, 1, Approx.NbPoles());
+    tabPoles   = new (PointGrid)(1, Num3DSS, 1, Approx.NbPoles());
     tabWeights = new (TColStd_HArray2OfReal)(1, Num3DSS, 1, Approx.NbPoles());
 
     if (Num1DSS == Num3DSS)
@@ -353,7 +353,7 @@ void Approx_SweepApproximation::Approximation(const Handle(TColStd_HArray1OfReal
       for (ii = 1; ii <= Num2DSS; ii++)
       {
         TrsfInv                           = AAffin->Value(ii).Inverted();
-        Handle(TColgp_HArray1OfPnt2d) P2d = new (TColgp_HArray1OfPnt2d)(1, Approx.NbPoles());
+        Handle(Point2dArray) P2d = new (Point2dArray)(1, Approx.NbPoles());
         Approx.Poles2d(ii, P2d->ChangeArray1());
         // do not forget to apply inverted homothety.
         for (jj = 1; jj <= Approx.NbPoles(); jj++)

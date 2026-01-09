@@ -41,7 +41,7 @@
 //! trigonometric sense). We refer to the "main Axis" of the
 //! local coordinate system as the "Axis" of the ellipse.
 //! See Also
-//! gce_MakeElips which provides functions for more
+//! EllipseBuilder1 which provides functions for more
 //! complex1 ellipse constructions
 //! Geom_Ellipse which provides additional functions for
 //! constructing ellipses and works, in particular, with the

@@ -36,7 +36,7 @@
 #include <gp_Sphere.hxx>
 #include <gp_Torus.hxx>
 
-class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
+class ShapePersistent_Geom_Surface : private Geom1
 {
   typedef Surface::PersistentBase pBase;
 
@@ -65,12 +65,12 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     Dir3d        myDirection;
   };
 
-  struct pSwept : pBase, pSweptData1
+  struct pSwept1 : pBase, pSweptData1
   {
     inline Standard_CString PName() const { return "PGeom_SweptSurface"; }
   };
 
-  class pLinearExtrusion : public pSwept
+  class pLinearExtrusion : public pSwept1
   {
     friend class ShapePersistent_Geom_Surface;
 
@@ -80,20 +80,20 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     inline Standard_CString PName() const { return "PGeom_SurfaceOfLinearExtrusion"; }
   };
 
-  class pRevolution : public pSwept
+  class pRevolution : public pSwept1
   {
     friend class ShapePersistent_Geom_Surface;
 
   public:
     inline void Read(ReadData& theReadData)
     {
-      pSwept::Read(theReadData);
+      pSwept1::Read(theReadData);
       theReadData >> myLocation;
     }
 
     inline void Write(WriteData& theWriteData) const
     {
-      pSwept::Write(theWriteData);
+      pSwept1::Write(theWriteData);
       theWriteData << myLocation;
     }
 
@@ -141,16 +141,16 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
   private:
     Standard_Boolean                     myURational;
     Standard_Boolean                     myVRational;
-    Handle(ShapePersistent_HArray2::Pnt) myPoles;
+    Handle(HArray21::Pnt) myPoles;
     Handle(HArray2::Real) myWeights;
   };
 
-  class pBSpline : public pBounded
+  class pBSpline1 : public pBounded
   {
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    pBSpline()
+    pBSpline1()
         : myURational(Standard_False),
           myVRational(Standard_False),
           myUPeriodic(Standard_False),
@@ -203,7 +203,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     Standard_Boolean                        myVPeriodic;
     Standard_Integer                        myUSpineDegree;
     Standard_Integer                        myVSpineDegree;
-    Handle(ShapePersistent_HArray2::Pnt)    myPoles;
+    Handle(HArray21::Pnt)    myPoles;
     Handle(HArray2::Real)    myWeights;
     Handle(HArray1::Real)    myUKnots;
     Handle(HArray1::Real)    myVKnots;
@@ -301,7 +301,7 @@ public:
 
   typedef subBase_empty<Surface>                Bounded;
   typedef Delayed<Bounded, pBezier1>             Bezier;
-  typedef Delayed<Bounded, pBSpline>            BSpline;
+  typedef Delayed<Bounded, pBSpline1>            BSpline;
   typedef Delayed<Bounded, pRectangularTrimmed1> RectangularTrimmed;
 
   typedef Delayed<Surface, pOffset1> Offset;
@@ -348,21 +348,21 @@ public:
 // Elementary
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>::PName()
+Standard_CString Geom1::subBase_gp<Geom1::Surface, Ax3>::PName()
   const;
 
 //=======================================================================
 // Plane1
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+Standard_CString Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   GeomPlane,
   Ax3>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+void Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   GeomPlane,
   Ax3>::Write(WriteData& theWriteData) const;
 
@@ -370,14 +370,14 @@ void ShapePersistent_Geom::instance<
 // Conical
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+Standard_CString Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_ConicalSurface,
   Cone1>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+void Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_ConicalSurface,
   Cone1>::Write(WriteData& theWriteData) const;
 
@@ -385,14 +385,14 @@ void ShapePersistent_Geom::instance<
 // Cylindrical
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+Standard_CString Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_CylindricalSurface,
   Cylinder1>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+void Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_CylindricalSurface,
   Cylinder1>::Write(WriteData& theWriteData) const;
 
@@ -400,14 +400,14 @@ void ShapePersistent_Geom::instance<
 // Spherical
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+Standard_CString Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_SphericalSurface,
   Sphere3>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+void Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_SphericalSurface,
   Sphere3>::Write(WriteData& theWriteData) const;
 
@@ -415,14 +415,14 @@ void ShapePersistent_Geom::instance<
 // Toroidal
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+Standard_CString Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_ToroidalSurface,
   gp_Torus>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<
-  ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, Ax3>,
+void Geom1::instance<
+  Geom1::subBase_gp<Geom1::Surface, Ax3>,
   Geom_ToroidalSurface,
   gp_Torus>::Write(WriteData& theWriteData) const;
 

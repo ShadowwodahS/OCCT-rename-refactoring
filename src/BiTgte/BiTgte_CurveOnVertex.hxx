@@ -38,13 +38,13 @@ class gp_Parab;
 class BezierCurve3d;
 class BSplineCurve3d;
 
-DEFINE_STANDARD_HANDLE(BiTgte_CurveOnVertex, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(BiTgte_CurveOnVertex, Curve5)
 
 //! private class used  to create a filler rolling  on
 //! an edge.
-class BiTgte_CurveOnVertex : public Adaptor3d_Curve
+class BiTgte_CurveOnVertex : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(BiTgte_CurveOnVertex, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(BiTgte_CurveOnVertex, Curve5)
 public:
   Standard_EXPORT BiTgte_CurveOnVertex();
 
@@ -74,7 +74,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 

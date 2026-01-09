@@ -41,7 +41,7 @@ class Point2;
 //! has to be the vector of the parametric coordinates U1,V1,
 //! U2,V2, of the extremities of a section on the first and
 //! second surface.
-class Blend_AppFunction : public math_FunctionSetWithDerivatives
+class Blend_AppFunction : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

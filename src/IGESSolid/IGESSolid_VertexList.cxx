@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_VertexList, IGESData_IGESEntity)
 
 IGESSolid_VertexList::IGESSolid_VertexList() {}
 
-void IGESSolid_VertexList::Init(const Handle(TColgp_HArray1OfXYZ)& Vertices)
+void IGESSolid_VertexList::Init(const Handle(XYZArray)& Vertices)
 {
   if (Vertices.IsNull() || Vertices->Lower() != 1)
     throw Standard_DimensionMismatch("IGESSolid_VertexList : Init");

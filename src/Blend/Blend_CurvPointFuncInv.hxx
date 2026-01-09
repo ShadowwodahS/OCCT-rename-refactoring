@@ -36,7 +36,7 @@ class Point3d;
 //! coordinates w, U,  V where w is  the parameter  on the
 //! guide line, U,V   are the parametric coordinates of  a
 //! point on the partner surface.
-class Blend_CurvPointFuncInv : public math_FunctionSetWithDerivatives
+class Blend_CurvPointFuncInv : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

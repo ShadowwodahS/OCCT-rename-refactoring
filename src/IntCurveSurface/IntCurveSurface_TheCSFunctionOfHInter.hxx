@@ -27,13 +27,13 @@ class HSurfaceTool;
 class HCurveTool2;
 class math_Matrix;
 
-class IntCurveSurface_TheCSFunctionOfHInter : public math_FunctionSetWithDerivatives
+class IntCurveSurface_TheCSFunctionOfHInter : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntCurveSurface_TheCSFunctionOfHInter(const Handle(Adaptor3d_Surface)& S,
-                                                        const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT IntCurveSurface_TheCSFunctionOfHInter(const Handle(SurfaceAdaptor)& S,
+                                                        const Handle(Curve5)&   C);
 
   Standard_EXPORT Standard_Integer NbVariables() const;
 
@@ -49,14 +49,14 @@ public:
 
   Standard_EXPORT Standard_Real Root() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Surface)& AuxillarSurface() const;
+  Standard_EXPORT const Handle(SurfaceAdaptor)& AuxillarSurface() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Curve)& AuxillarCurve() const;
+  Standard_EXPORT const Handle(Curve5)& AuxillarCurve() const;
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surface;
-  Handle(Adaptor3d_Curve)   curve;
+  Handle(SurfaceAdaptor) surface;
+  Handle(Curve5)   curve;
   Point3d                    p;
   Standard_Real             f;
 };

@@ -105,7 +105,7 @@ void XCAFDoc_LengthUnit::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void XCAFDoc_LengthUnit::Paste(const Handle(TDF_Attribute)&       theInto,
-                               const Handle(TDF_RelocationTable)& theRT) const
+                               const Handle(RelocationTable1)& theRT) const
 {
   (void)theRT;
   Handle(XCAFDoc_LengthUnit) anAttr = Handle(XCAFDoc_LengthUnit)::DownCast(theInto);

@@ -128,7 +128,7 @@ Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwne
 //=================================================================================================
 
 Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                               const Handle(TColgp_HArray1OfPnt)&   thePoints,
+                                               const Handle(PointArray1)&   thePoints,
                                                const Standard_Boolean               theIsBVHEnabled)
     : Select3D_SensitiveSet(theOwnerId),
       myPolyg(thePoints->Upper() - thePoints->Lower() + 1),
@@ -229,7 +229,7 @@ Standard_Boolean Select3D_SensitivePoly::Matches(SelectingVolumeManager& theMgr,
   }
   else if (mySensType == Select3D_TOS_INTERIOR)
   {
-    Handle(TColgp_HArray1OfPnt) anArrayOfPnt;
+    Handle(PointArray1) anArrayOfPnt;
     Points3D(anArrayOfPnt);
     if (!theMgr.IsOverlapAllowed())
     {

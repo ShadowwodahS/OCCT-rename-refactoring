@@ -35,11 +35,11 @@ class gp_Hypr;
 class IntPatch_Point;
 
 class IntPatch_GLine;
-DEFINE_STANDARD_HANDLE(IntPatch_GLine, IntPatch_Line)
+DEFINE_STANDARD_HANDLE(IntPatch_GLine, Line2)
 
 //! Implementation of an intersection line represented
 //! by a conic.
-class IntPatch_GLine : public IntPatch_Line
+class IntPatch_GLine : public Line2
 {
 
 public:
@@ -145,7 +145,7 @@ public:
   void SetLastPoint(const Standard_Integer IndLast);
 
   //! Returns the Lin from gp1 corresponding to the intersection
-  //! when ArcType returns IntPatch_Line.
+  //! when ArcType returns Line2.
   gp_Lin Line() const;
 
   //! Returns the Circ from gp1 corresponding to the intersection
@@ -191,7 +191,7 @@ public:
   //! else a new point in the line is inserted.
   Standard_EXPORT void ComputeVertexParameters(const Standard_Real Tol);
 
-  DEFINE_STANDARD_RTTIEXT(IntPatch_GLine, IntPatch_Line)
+  DEFINE_STANDARD_RTTIEXT(IntPatch_GLine, Line2)
 
 protected:
 private:

@@ -20,7 +20,7 @@
 #include <Adaptor2d_Curve2d.hxx>
 #include <gp_Pnt.hxx>
 
-class Adaptor3d_HVertex;
+class HandleVertex;
 class Standard_DomainError;
 class Point3d;
 
@@ -33,7 +33,7 @@ public:
 
   Standard_EXPORT IntPatch_ThePathPointOfTheSOnBounds(const Point3d&                    P,
                                                       const Standard_Real              Tol,
-                                                      const Handle(Adaptor3d_HVertex)& V,
+                                                      const Handle(HandleVertex)& V,
                                                       const Handle(Adaptor2d_Curve2d)& A,
                                                       const Standard_Real              Parameter);
 
@@ -44,7 +44,7 @@ public:
 
   void SetValue(const Point3d&                    P,
                 const Standard_Real              Tol,
-                const Handle(Adaptor3d_HVertex)& V,
+                const Handle(HandleVertex)& V,
                 const Handle(Adaptor2d_Curve2d)& A,
                 const Standard_Real              Parameter);
 
@@ -59,7 +59,7 @@ public:
 
   Standard_Boolean IsNew() const;
 
-  const Handle(Adaptor3d_HVertex)& Vertex() const;
+  const Handle(HandleVertex)& Vertex() const;
 
   const Handle(Adaptor2d_Curve2d)& Arc() const;
 
@@ -70,12 +70,12 @@ private:
   Point3d                    point;
   Standard_Real             tol;
   Standard_Boolean          isnew;
-  Handle(Adaptor3d_HVertex) vtx;
+  Handle(HandleVertex) vtx;
   Handle(Adaptor2d_Curve2d) arc;
   Standard_Real             param;
 };
 
-#define TheVertex Handle(Adaptor3d_HVertex)
+#define TheVertex Handle(HandleVertex)
 #define TheVertex_hxx <Adaptor3d_HVertex.hxx>
 #define TheArc Handle(Adaptor2d_Curve2d)
 #define TheArc_hxx <Adaptor2d_Curve2d.hxx>

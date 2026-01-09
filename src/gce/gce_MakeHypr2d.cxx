@@ -28,7 +28,7 @@
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
-gce_MakeHypr2d::gce_MakeHypr2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center)
+HyperbolaBuilder2d::HyperbolaBuilder2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center)
 {
   gp_Dir2d      XAxis(Coords2d(S1.XY() - Center.XY()));
   gp_Dir2d      YAxis(Coords2d(S2.XY() - Center.XY()));
@@ -47,7 +47,7 @@ gce_MakeHypr2d::gce_MakeHypr2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_
   }
 }
 
-gce_MakeHypr2d::gce_MakeHypr2d(const gp_Ax2d&         MajorAxis,
+HyperbolaBuilder2d::HyperbolaBuilder2d(const gp_Ax2d&         MajorAxis,
                                const Standard_Real    MajorRadius,
                                const Standard_Real    MinorRadius,
                                const Standard_Boolean Sense)
@@ -63,7 +63,7 @@ gce_MakeHypr2d::gce_MakeHypr2d(const gp_Ax2d&         MajorAxis,
   }
 }
 
-gce_MakeHypr2d::gce_MakeHypr2d(const Ax22d&     A,
+HyperbolaBuilder2d::HyperbolaBuilder2d(const Ax22d&     A,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius)
 {
@@ -78,18 +78,18 @@ gce_MakeHypr2d::gce_MakeHypr2d(const Ax22d&     A,
   }
 }
 
-const gp_Hypr2d& gce_MakeHypr2d::Value() const
+const gp_Hypr2d& HyperbolaBuilder2d::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeHypr2d::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "HyperbolaBuilder2d::Value() - no result");
   return TheHypr2d;
 }
 
-const gp_Hypr2d& gce_MakeHypr2d::Operator() const
+const gp_Hypr2d& HyperbolaBuilder2d::Operator() const
 {
   return Value();
 }
 
-gce_MakeHypr2d::operator gp_Hypr2d() const
+HyperbolaBuilder2d::operator gp_Hypr2d() const
 {
   return Value();
 }

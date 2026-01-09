@@ -310,7 +310,7 @@ void TDataStd_ExtStringList::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataStd_ExtStringList::Paste(const Handle(TDF_Attribute)& Into,
-                                   const Handle(TDF_RelocationTable)&) const
+                                   const Handle(RelocationTable1)&) const
 {
   Handle(TDataStd_ExtStringList) aList = Handle(TDataStd_ExtStringList)::DownCast(Into);
   aList->Clear();

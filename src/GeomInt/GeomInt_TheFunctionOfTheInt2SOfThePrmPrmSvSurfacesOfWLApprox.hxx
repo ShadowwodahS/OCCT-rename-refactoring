@@ -31,14 +31,14 @@ class HSurfaceTool;
 class math_Matrix;
 
 class GeomInt_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfWLApprox
-    : public math_FunctionSetWithDerivatives
+    : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomInt_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfWLApprox(
-    const Handle(Adaptor3d_Surface)& S1,
-    const Handle(Adaptor3d_Surface)& S2);
+    const Handle(SurfaceAdaptor)& S1,
+    const Handle(SurfaceAdaptor)& S2);
 
   Standard_EXPORT Standard_Integer NbVariables() const;
 
@@ -72,9 +72,9 @@ public:
 
   gp_Dir2d DirectionOnS2() const;
 
-  const Handle(Adaptor3d_Surface)& AuxillarSurface1() const;
+  const Handle(SurfaceAdaptor)& AuxillarSurface1() const;
 
-  const Handle(Adaptor3d_Surface)& AuxillarSurface2() const;
+  const Handle(SurfaceAdaptor)& AuxillarSurface2() const;
 
 protected:
 private:
@@ -103,7 +103,7 @@ private:
   Standard_Real             vres2;
 };
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>

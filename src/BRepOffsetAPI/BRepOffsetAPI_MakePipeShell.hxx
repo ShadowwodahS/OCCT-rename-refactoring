@@ -33,7 +33,7 @@ class Frame3d;
 class Dir3d;
 class TopoShape;
 class TopoVertex;
-class Law_Function;
+class Function2;
 
 //! This class provides for a framework to construct a shell
 //! or a solid along a spine consisting in a wire.
@@ -149,7 +149,7 @@ public:
   //! Warning:
   //! To be effective, it is not recommended to combine methods Add and SetLaw.
   Standard_EXPORT void SetLaw(const TopoShape&         Profile,
-                              const Handle(Law_Function)& L,
+                              const Handle(Function2)& L,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
 
@@ -160,7 +160,7 @@ public:
   //! Warning:
   //! To be effective, it is not recommended to combine methods Add and SetLaw.
   Standard_EXPORT void SetLaw(const TopoShape&         Profile,
-                              const Handle(Law_Function)& L,
+                              const Handle(Function2)& L,
                               const TopoVertex&        Location,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);

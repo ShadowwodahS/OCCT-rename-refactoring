@@ -336,7 +336,7 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
       // clang-format on
       closed_flag = Standard_True;
     } // with the toler value
-    Handle(TColGeom_HArray1OfBSplineCurve) concatcurve;    // array of the concatenated curves
+    Handle(HArray1OfBSplineCurve1) concatcurve;    // array of the concatenated curves
     Handle(TColStd_HArray1OfInteger)       ArrayOfIndices; // array of the remaining Vertex
     if (Option == GeomAbs_G1)
       GeomConvert1::ConcatG1(tab,
@@ -713,7 +713,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
       closed_tolerance = BRepInspector::Tolerance(FirstVertex);
     }
 
-    Handle(TColGeom_HArray1OfBSplineCurve) concatcurve;    // array of the concatenated curves
+    Handle(HArray1OfBSplineCurve1) concatcurve;    // array of the concatenated curves
     Handle(TColStd_HArray1OfInteger)       ArrayOfIndices; // array of the remaining Vertex
     GeomConvert1::ConcatC1(tab,
                           tabtolvertex,

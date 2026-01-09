@@ -27,7 +27,7 @@ class GeomCurve2d;
 struct Parameters3;
 
 //! Auxiliary class performing tessellation of passed edge according to specified parameters.
-class BRepMesh_CurveTessellator : public IMeshTools_CurveTessellator
+class BRepMesh_CurveTessellator : public CurveTessellator
 {
 public:
   //! Constructor.
@@ -58,7 +58,7 @@ public:
                                                  Standard_Real&         theParameter) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_CurveTessellator, IMeshTools_CurveTessellator)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_CurveTessellator, CurveTessellator)
 
 private:
   //! Performs initialization of this tool.

@@ -501,7 +501,7 @@ Standard_Integer projonplane(DrawInterpreter& di, Standard_Integer n, const char
 
 //=================================================================================================
 
-static void solution(const Handle(GccInt_Bisec)& Bis, const char* name, const Standard_Integer i)
+static void solution(const Handle(Bisector2)& Bis, const char* name, const Standard_Integer i)
 {
   char solname[200];
   if (i == 0)
@@ -828,11 +828,11 @@ static Standard_Integer movelaw(DrawInterpreter& di, Standard_Integer n, const c
 #include <math_MultipleVarFunction.hxx>
 #include <math_BrentMinimum.hxx>
 
-static Standard_Real CompLocalDev(const Adaptor3d_Curve& theCurve,
+static Standard_Real CompLocalDev(const Curve5& theCurve,
                                   const Standard_Real    u1,
                                   const Standard_Real    u2);
 
-static void ComputeDeviation(const Adaptor3d_Curve&           theCurve,
+static void ComputeDeviation(const Curve5&           theCurve,
                              const Handle(BSplineCurve3d)& thePnts,
                              Standard_Real&                   theDmax,
                              Standard_Real&                   theUfMax,
@@ -864,7 +864,7 @@ static void ComputeDeviation(const Adaptor3d_Curve&           theCurve,
   }
 }
 
-Standard_Real CompLocalDev(const Adaptor3d_Curve& theCurve,
+Standard_Real CompLocalDev(const Curve5& theCurve,
                            const Standard_Real    u1,
                            const Standard_Real    u2)
 {
@@ -928,7 +928,7 @@ static Standard_Integer crvpoints(DrawInterpreter& di, Standard_Integer /*n*/, c
   Standard_Integer i, nbp;
   Standard_Real    defl;
 
-  Handle(Adaptor3d_Curve) aHCurve;
+  Handle(Curve5) aHCurve;
   Handle(GeomCurve3d)      C = DrawTrSurf1::GetCurve(a[2]);
   if (C.IsNull())
   {
@@ -1001,7 +1001,7 @@ static Standard_Integer crvtpoints(DrawInterpreter& di, Standard_Integer n, cons
   Standard_Integer i, nbp, aMinPntsNb = 2;
   Standard_Real    defl, angle = Precision1::Angular();
 
-  Handle(Adaptor3d_Curve) aHCurve;
+  Handle(Curve5) aHCurve;
   Handle(GeomCurve3d)      C = DrawTrSurf1::GetCurve(a[2]);
   if (C.IsNull())
   {
@@ -1370,7 +1370,7 @@ static Standard_Integer mypoints(DrawInterpreter& di, Standard_Integer /*n*/, co
     {
       t2                  = anUPars(k);
       Point3d           p2 = aBS->Value(t2);
-      gce_MakeLin      MkLin(p1, p2);
+      LineBuilder      MkLin(p1, p2);
       const gp_Lin&    lin = MkLin.Value();
       Standard_Boolean ok  = Standard_True;
       for (l = j + 1; l < k; ++l)

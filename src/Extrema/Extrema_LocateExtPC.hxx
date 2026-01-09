@@ -26,7 +26,7 @@
 #include <Standard_Integer.hxx>
 class Standard_DomainError;
 class StdFail_NotDone;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointElCCurveExtrema;
 class Point3d;
@@ -54,7 +54,7 @@ public:
   //! At the nth iteration, the criteria is:
   //! abs(Un - Un-1) < TolF.
   Standard_EXPORT Extrema_LocateExtPC(const Point3d&          P,
-                                      const Adaptor3d_Curve& C,
+                                      const Curve5& C,
                                       const Standard_Real    U0,
                                       const Standard_Real    TolF);
 
@@ -69,14 +69,14 @@ public:
   //! At the nth iteration, the criteria is:
   //! abs(Un - Un-1) < TolF.
   Standard_EXPORT Extrema_LocateExtPC(const Point3d&          P,
-                                      const Adaptor3d_Curve& C,
+                                      const Curve5& C,
                                       const Standard_Real    U0,
                                       const Standard_Real    Umin,
                                       const Standard_Real    Usup,
                                       const Standard_Real    TolF);
 
   //! sets the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C,
+  Standard_EXPORT void Initialize(const Curve5& C,
                                   const Standard_Real    Umin,
                                   const Standard_Real    Usup,
                                   const Standard_Real    TolF);

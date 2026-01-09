@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_LabelDisplay, IGESData_LabelDisplayEntity)
 IGESDraw_LabelDisplay::IGESDraw_LabelDisplay() {}
 
 void IGESDraw_LabelDisplay::Init(const Handle(HArray1OfViewKindEntity)& allViews,
-                                 const Handle(TColgp_HArray1OfXYZ)&              allTextLocations,
+                                 const Handle(XYZArray)&              allTextLocations,
                                  const Handle(HArray1OfLeaderArrow)&   allLeaderEntities,
                                  const Handle(TColStd_HArray1OfInteger)&         allLabelLevels,
                                  const Handle(HArray1OfIGESEntity)& allDisplayedEntities)

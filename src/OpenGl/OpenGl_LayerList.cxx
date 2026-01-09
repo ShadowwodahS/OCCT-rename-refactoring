@@ -566,10 +566,10 @@ void LayerList1::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspace,
   }
 
   // save environment texture
-  Handle(OpenGl_TextureSet) anEnvironmentTexture = theWorkspace->EnvironmentTexture();
+  Handle(TextureSet2) anEnvironmentTexture = theWorkspace->EnvironmentTexture();
   if (!aLayerSettings.UseEnvironmentTexture())
   {
-    theWorkspace->SetEnvironmentTexture(Handle(OpenGl_TextureSet)());
+    theWorkspace->SetEnvironmentTexture(Handle(TextureSet2)());
   }
 
   // handle depth offset
@@ -583,7 +583,7 @@ void LayerList1::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspace,
 
   const Standard_Boolean              hasLocalCS  = !aLayerSettings.OriginTransformation().IsNull();
   const Handle(OpenGl_ShaderManager)& aManager    = aCtx->ShaderManager();
-  Handle(Graphic3d_LightSet)          aLightsBack = aManager->LightSourceState().LightSources();
+  Handle(LightSet)          aLightsBack = aManager->LightSourceState().LightSources();
   Handle(OpenGl_ShadowMapArray)       aShadowMaps = aManager->LightSourceState().ShadowMaps();
   const bool hasOwnLights = aCtx->ColorMask() && !aLayerSettings.Lights().IsNull()
                             && aLayerSettings.Lights() != aLightsBack;
@@ -758,7 +758,7 @@ void LayerList1::Render(const Handle(OpenGl_Workspace)& theWorkspace,
   Standard_Integer            aClearDepthLayerPrev = -1, aClearDepthLayer = -1;
   const bool toPerformDepthPrepass = theWorkspace->View()->RenderingParams().ToEnableDepthPrepass
                                      && aPrevSettings.DepthMask == GL_TRUE && !isShadowMapPass;
-  const Handle(Graphic3d_LightSet) aLightsBack =
+  const Handle(LightSet) aLightsBack =
     aCtx->ShaderManager()->LightSourceState().LightSources();
   const Handle(OpenGl_ShadowMapArray) aShadowMaps =
     aCtx->ShaderManager()->LightSourceState().ShadowMaps();
@@ -774,7 +774,7 @@ void LayerList1::Render(const Handle(OpenGl_Workspace)& theWorkspace,
       if (aPassIter == 0)
       {
         aCtx->SetColorMask(false);
-        aCtx->ShaderManager()->UpdateLightSourceStateTo(Handle(Graphic3d_LightSet)(),
+        aCtx->ShaderManager()->UpdateLightSourceStateTo(Handle(LightSet)(),
                                                         theWorkspace->View()->SpecIBLMapLevels(),
                                                         Handle(OpenGl_ShadowMapArray)());
         aDefaultSettings.DepthFunc = aPrevSettings.DepthFunc;
@@ -797,7 +797,7 @@ void LayerList1::Render(const Handle(OpenGl_Workspace)& theWorkspace,
         if (isShadowMapPass)
         {
           aCtx->SetColorMask(false);
-          aCtx->ShaderManager()->UpdateLightSourceStateTo(Handle(Graphic3d_LightSet)(),
+          aCtx->ShaderManager()->UpdateLightSourceStateTo(Handle(LightSet)(),
                                                           theWorkspace->View()->SpecIBLMapLevels(),
                                                           Handle(OpenGl_ShadowMapArray)());
         }
@@ -1112,8 +1112,8 @@ void LayerList1::renderTransparent(const Handle(OpenGl_Workspace)&   theWorkspac
 
           aQuadVerts->BindVertexAttrib(aCtx, Graphic3d_TOA_POS);
 
-          const Handle(OpenGl_TextureSet) aTextureBack =
-            aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+          const Handle(TextureSet2) aTextureBack =
+            aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
           aGlDepthPeelFBOs[aDepthPeelingDrawId]->ColorTexture(2)->Bind(aCtx,
                                                                        Graphic3d_TextureUnit_0);
 
@@ -1176,8 +1176,8 @@ void LayerList1::renderTransparent(const Handle(OpenGl_Workspace)&   theWorkspac
 
         aVerts->BindVertexAttrib(aCtx, Graphic3d_TOA_POS);
 
-        const Handle(OpenGl_TextureSet) aTextureBack =
-          aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+        const Handle(TextureSet2) aTextureBack =
+          aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
         theOitAccumFbo->ColorTexture(0)->Bind(aCtx, Graphic3d_TextureUnit_0);
         theOitAccumFbo->ColorTexture(1)->Bind(aCtx, Graphic3d_TextureUnit_1);
 
@@ -1220,8 +1220,8 @@ void LayerList1::renderTransparent(const Handle(OpenGl_Workspace)&   theWorkspac
 
         aVerts->BindVertexAttrib(aCtx, Graphic3d_TOA_POS);
 
-        const Handle(OpenGl_TextureSet) aTextureBack =
-          aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+        const Handle(TextureSet2) aTextureBack =
+          aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
         aGlDepthPeelFBOs[aDepthPeelingDrawId]->ColorTexture(1)->Bind(aCtx, Graphic3d_TextureUnit_0);
         aGlBlendBackFBO->ColorTexture(0)->Bind(aCtx, Graphic3d_TextureUnit_1);
 

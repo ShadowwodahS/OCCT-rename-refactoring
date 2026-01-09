@@ -47,7 +47,7 @@ public:
 
   //! initialize curve of trihedron law
   //! @return Standard_True in case if execution end correctly
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
   //! compute Trihedron on curve at parameter <Param>
@@ -116,7 +116,7 @@ public:
 protected:
 private:
   Point3d                          myPoint;
-  Handle(GeomFill_HSequenceOfAx2) myTrihedrons;
+  Handle(HSequenceOfAx2) myTrihedrons;
   Handle(TColStd_HSequenceOfReal) myKnots;
   Handle(GeomFill_Frenet)         myFrenet;
   Standard_Boolean                myUseFrenet;

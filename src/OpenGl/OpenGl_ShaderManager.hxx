@@ -33,9 +33,9 @@ class OpenGl_VertexBuffer;
 typedef NCollection_Sequence<Handle(OpenGl_ShaderProgram)> OpenGl_ShaderProgramList;
 
 //! This class is responsible for managing shader programs.
-class OpenGl_ShaderManager : public Graphic3d_ShaderManager
+class OpenGl_ShaderManager : public ShaderManager
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_ShaderManager, Graphic3d_ShaderManager)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_ShaderManager, ShaderManager)
   friend class OpenGl_ShaderProgram;
 
 public:
@@ -78,7 +78,7 @@ public:
   //! @param[out] theShareKey  sharing key
   //! @param[out] theProgram   OpenGL program
   //! @return true on success
-  Standard_EXPORT Standard_Boolean Create(const Handle(Graphic3d_ShaderProgram)& theProxy,
+  Standard_EXPORT Standard_Boolean Create(const Handle(ShaderProgram2)& theProxy,
                                           AsciiString1&               theShareKey,
                                           Handle(OpenGl_ShaderProgram)&          theProgram);
 
@@ -93,7 +93,7 @@ public:
   Standard_Boolean IsEmpty() const { return myProgramList.IsEmpty(); }
 
   //! Bind program for filled primitives rendering
-  Standard_Boolean BindFaceProgram(const Handle(OpenGl_TextureSet)&    theTextures,
+  Standard_Boolean BindFaceProgram(const Handle(TextureSet2)&    theTextures,
                                    Graphic3d_TypeOfShadingModel        theShadingModel,
                                    Graphic3d_AlphaMode                 theAlphaMode,
                                    Standard_Boolean                    theHasVertColor,
@@ -111,7 +111,7 @@ public:
   }
 
   //! Bind program for filled primitives rendering
-  Standard_Boolean BindFaceProgram(const Handle(OpenGl_TextureSet)&    theTextures,
+  Standard_Boolean BindFaceProgram(const Handle(TextureSet2)&    theTextures,
                                    Graphic3d_TypeOfShadingModel        theShadingModel,
                                    Graphic3d_AlphaMode                 theAlphaMode,
                                    Aspect_InteriorStyle                theInteriorStyle,
@@ -141,7 +141,7 @@ public:
   }
 
   //! Bind program for line rendering
-  Standard_Boolean BindLineProgram(const Handle(OpenGl_TextureSet)&    theTextures,
+  Standard_Boolean BindLineProgram(const Handle(TextureSet2)&    theTextures,
                                    const Aspect_TypeOfLine             theLineType,
                                    const Graphic3d_TypeOfShadingModel  theShadingModel,
                                    const Graphic3d_AlphaMode           theAlphaMode,
@@ -166,7 +166,7 @@ public:
 
   //! Bind program for point rendering
   Standard_EXPORT Standard_Boolean
-    BindMarkerProgram(const Handle(OpenGl_TextureSet)&    theTextures,
+    BindMarkerProgram(const Handle(TextureSet2)&    theTextures,
                       Graphic3d_TypeOfShadingModel        theShadingModel,
                       Graphic3d_AlphaMode                 theAlphaMode,
                       Standard_Boolean                    theHasVertColor,
@@ -183,7 +183,7 @@ public:
       return false;
     }
 
-    const Standard_Integer aBits = getProgramBits(Handle(OpenGl_TextureSet)(),
+    const Standard_Integer aBits = getProgramBits(Handle(TextureSet2)(),
                                                   Graphic3d_AlphaMode_Opaque,
                                                   Aspect_IS_SOLID,
                                                   false,
@@ -243,13 +243,13 @@ public:
   }
 
   //! Generates shader program to render environment cubemap as background.
-  Standard_EXPORT const Handle(Graphic3d_ShaderProgram)& GetBgCubeMapProgram();
+  Standard_EXPORT const Handle(ShaderProgram2)& GetBgCubeMapProgram();
 
   //! Generates shader program to render skydome background.
-  Standard_EXPORT const Handle(Graphic3d_ShaderProgram)& GetBgSkydomeProgram();
+  Standard_EXPORT const Handle(ShaderProgram2)& GetBgSkydomeProgram();
 
   //! Generates shader program to render correctly colored quad.
-  Standard_EXPORT const Handle(Graphic3d_ShaderProgram)& GetColoredQuadProgram();
+  Standard_EXPORT const Handle(ShaderProgram2)& GetColoredQuadProgram();
 
   //! Resets PBR shading models to corresponding non-PBR ones if PBR is not allowed.
   static Graphic3d_TypeOfShadingModel PBRShadingModelFallback(
@@ -277,7 +277,7 @@ public:
   const OpenGl_LightSourceState& LightSourceState() const { return myLightSourceState; }
 
   //! Updates state of OCCT light sources.
-  Standard_EXPORT void UpdateLightSourceStateTo(const Handle(Graphic3d_LightSet)& theLights,
+  Standard_EXPORT void UpdateLightSourceStateTo(const Handle(LightSet)& theLights,
                                                 Standard_Integer theSpecIBLMapLevels,
                                                 const Handle(OpenGl_ShadowMapArray)& theShadowMaps);
 
@@ -315,7 +315,7 @@ public:
 
 public:
   //! Returns current state of OCCT projection transform.
-  const OpenGl_ProjectionState& ProjectionState() const { return myProjectionState; }
+  const ProjectionState1& ProjectionState() const { return myProjectionState; }
 
   //! Updates state of OCCT projection transform.
   Standard_EXPORT void UpdateProjectionStateTo(const OpenGl_Mat4& theProjectionMatrix);
@@ -334,7 +334,7 @@ public:
 
 public:
   //! Returns current state of OCCT model-world transform.
-  const OpenGl_ModelWorldState& ModelWorldState() const { return myModelWorldState; }
+  const ModelWorldState1& ModelWorldState() const { return myModelWorldState; }
 
   //! Updates state of OCCT model-world transform.
   Standard_EXPORT void UpdateModelWorldStateTo(const OpenGl_Mat4& theModelWorldMatrix);
@@ -354,7 +354,7 @@ public:
 
 public:
   //! Returns current state of OCCT world-view transform.
-  const OpenGl_WorldViewState& WorldViewState() const { return myWorldViewState; }
+  const WorldViewState1& WorldViewState() const { return myWorldViewState; }
 
   //! Updates state of OCCT world-view transform.
   Standard_EXPORT void UpdateWorldViewStateTo(const OpenGl_Mat4& theWorldViewMatrix);
@@ -392,7 +392,7 @@ public:
 
 public:
   //! Returns current state of material.
-  const OpenGl_MaterialState& MaterialState() const { return myMaterialState; }
+  const MaterialState1& MaterialState() const { return myMaterialState; }
 
   //! Updates state of material.
   void UpdateMaterialStateTo(const Material4& theMat,
@@ -426,7 +426,7 @@ public:
 
 public:
   //! Returns state of OIT uniforms.
-  const OpenGl_OitState& OitState() const { return myOitState; }
+  const OitState1& OitState() const { return myOitState; }
 
   //! Reset the state of OIT rendering pass (only on state change).
   void ResetOitState()
@@ -584,7 +584,7 @@ protected:
   }
 
   //! Define program bits.
-  Standard_Integer getProgramBits(const Handle(OpenGl_TextureSet)& theTextures,
+  Standard_Integer getProgramBits(const Handle(TextureSet2)& theTextures,
                                   Graphic3d_AlphaMode              theAlphaMode,
                                   Aspect_InteriorStyle             theInteriorStyle,
                                   Standard_Boolean                 theHasVertColor,
@@ -790,9 +790,9 @@ protected:
   OpenGl_MapOfShaderPrograms         myMapOfLightPrograms; //!< map of lighting programs depending on lights configuration
 
   Handle(OpenGl_ShaderProgram)       myPBREnvBakingProgram[3]; //!< programs for IBL maps generation used in PBR pipeline (0 for Diffuse; 1 for Specular; 2 for fallback)
-  Handle(Graphic3d_ShaderProgram)    myBgCubeMapProgram;       //!< program for background cubemap rendering
-  Handle(Graphic3d_ShaderProgram)    myBgSkydomeProgram;       //!< program for background cubemap rendering
-  Handle(Graphic3d_ShaderProgram)    myColoredQuadProgram;     //!< program for correct quad rendering
+  Handle(ShaderProgram2)    myBgCubeMapProgram;       //!< program for background cubemap rendering
+  Handle(ShaderProgram2)    myBgSkydomeProgram;       //!< program for background cubemap rendering
+  Handle(ShaderProgram2)    myColoredQuadProgram;     //!< program for correct quad rendering
 
   Handle(OpenGl_ShaderProgram)       myStereoPrograms[Graphic3d_StereoMode_NB]; //!< standard stereo programs
 
@@ -804,13 +804,13 @@ protected:
 
 protected:
 
-  OpenGl_ProjectionState             myProjectionState;    //!< State of OCCT projection  transformation
-  OpenGl_ModelWorldState             myModelWorldState;    //!< State of OCCT model-world transformation
-  OpenGl_WorldViewState              myWorldViewState;     //!< State of OCCT world-view  transformation
+  ProjectionState1             myProjectionState;    //!< State of OCCT projection  transformation
+  ModelWorldState1             myModelWorldState;    //!< State of OCCT model-world transformation
+  WorldViewState1              myWorldViewState;     //!< State of OCCT world-view  transformation
   ClippingState               myClippingState;      //!< State of OCCT clipping planes
   OpenGl_LightSourceState            myLightSourceState;   //!< State of OCCT light sources
-  OpenGl_MaterialState               myMaterialState;      //!< State of Front and Back materials
-  OpenGl_OitState                    myOitState;           //!< State of OIT uniforms
+  MaterialState1               myMaterialState;      //!< State of Front and Back materials
+  OitState1                    myOitState;           //!< State of OIT uniforms
 
   Coords3d                             myLocalOrigin;        //!< local camera transformation
   Standard_Boolean                   myHasLocalOrigin;     //!< flag indicating that local camera transformation has been set

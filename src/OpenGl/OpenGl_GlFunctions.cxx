@@ -1916,9 +1916,9 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
 #if defined(GL_ES_VERSION_2_0)
   theCtx.core11ffp = NULL;
 #else
-  theCtx.core11ffp = !isCoreProfile ? (OpenGl_GlCore11*)this : NULL;
+  theCtx.core11ffp = !isCoreProfile ? (GlCore11*)this : NULL;
 #endif
-  theCtx.core11fwd      = (OpenGl_GlCore11Fwd*)this;
+  theCtx.core11fwd      = (GlCore11Fwd*)this;
   theCtx.core15         = NULL;
   theCtx.core15fwd      = NULL;
   theCtx.core20         = NULL;
@@ -1977,7 +1977,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
   theCtx.extAnis   = checkExtensionShort("GL_EXT_texture_filter_anisotropic");
   theCtx.extPDS = isGlGreaterEqualShort(3, 0) || checkExtensionShort("GL_OES_packed_depth_stencil");
 
-  theCtx.core11fwd = (OpenGl_GlCore11Fwd*)this;
+  theCtx.core11fwd = (GlCore11Fwd*)this;
   if (isGlGreaterEqualShort(2, 0))
   {
     // enable compatible functions
@@ -1985,11 +1985,11 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
     theCtx.core20fwd = (OpenGl_GlCore20*)this;
     theCtx.core15    = (OpenGl_GlCore15*)this;
     theCtx.core15fwd = (OpenGl_GlCore15*)this;
-    theCtx.arbFBO    = (OpenGl_ArbFBO*)this;
+    theCtx.arbFBO    = (ArbFBO*)this;
   }
   if (isGlGreaterEqualShort(3, 0) && FindProcShort(glBlitFramebuffer))
   {
-    theCtx.arbFBOBlit = (OpenGl_ArbFBOBlit*)this;
+    theCtx.arbFBOBlit = (ArbFBOBlit*)this;
   }
   if (isGlGreaterEqualShort(3, 0) && FindProcShort(glGenSamplers) && FindProcShort(glDeleteSamplers)
       && FindProcShort(glIsSampler) && FindProcShort(glBindSampler)
@@ -2002,7 +2002,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
   //&& FindProcShort (glGetSamplerParameterIiv)
   //&& FindProcShort (glGetSamplerParameterIuiv))
   {
-    theCtx.arbSamplerObject = (OpenGl_ArbSamplerObject*)this;
+    theCtx.arbSamplerObject = (ArbSamplerObject*)this;
   }
   theCtx.extFragDepth = !isGlGreaterEqualShort(3, 0) && checkExtensionShort("GL_EXT_frag_depth");
   if (isGlGreaterEqualShort(3, 1) && FindProcShort(glTexStorage2DMultisample))
@@ -2031,7 +2031,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
                                && theCtx.FindProc("glTexBufferEXT", this->glTexBuffer);
   if (hasTexBuffer32 || hasExtTexBuffer)
   {
-    theCtx.arbTBO = reinterpret_cast<OpenGl_ArbTBO*>(this);
+    theCtx.arbTBO = reinterpret_cast<ArbTBO*>(this);
   }
 
   bool hasInstanced = isGlGreaterEqualShort(3, 0) && FindProcShort(glVertexAttribDivisor)
@@ -2047,7 +2047,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
   }
   if (hasInstanced)
   {
-    theCtx.arbIns = (OpenGl_ArbIns*)this;
+    theCtx.arbIns = (ArbIns*)this;
   }
 
   const bool hasVAO = isGlGreaterEqualShort(3, 0) && FindProcShort(glBindVertexArray)
@@ -2167,7 +2167,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
         && FindProcShort(glDebugMessageInsert) && FindProcShort(glDebugMessageCallback)
         && FindProcShort(glGetDebugMessageLog))
     {
-      theCtx.arbDbg = (OpenGl_ArbDbg*)this;
+      theCtx.arbDbg = (ArbDbg*)this;
     }
     // According to GL_KHR_debug spec, all functions should have KHR suffix.
     // However, some implementations can export these functions without suffix.
@@ -2177,7 +2177,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
              && theCtx.FindProc("glDebugMessageCallbackKHR", this->glDebugMessageCallback)
              && theCtx.FindProc("glGetDebugMessageLogKHR", this->glGetDebugMessageLog))
     {
-      theCtx.arbDbg = (OpenGl_ArbDbg*)this;
+      theCtx.arbDbg = (ArbDbg*)this;
     }
   }
 
@@ -2596,8 +2596,8 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
           && FindProcShort(glTexBuffer) && FindProcShort(glPrimitiveRestartIndex);
   if (has31)
   {
-    theCtx.arbTBO = (OpenGl_ArbTBO*)this;
-    theCtx.arbIns = (OpenGl_ArbIns*)this;
+    theCtx.arbTBO = (ArbTBO*)this;
+    theCtx.arbIns = (ArbIns*)this;
   }
   else
   {
@@ -2607,7 +2607,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
     if (checkExtensionShort("GL_ARB_texture_buffer_object")
         && theCtx.FindProc("glTexBufferARB", this->glTexBuffer))
     {
-      theCtx.arbTBO = (OpenGl_ArbTBO*)this;
+      theCtx.arbTBO = (ArbTBO*)this;
     }
 
     // initialize hardware instancing extension (ARB)
@@ -2615,7 +2615,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
         && theCtx.FindProc("glDrawArraysInstancedARB", this->glDrawArraysInstanced)
         && theCtx.FindProc("glDrawElementsInstancedARB", this->glDrawElementsInstanced))
     {
-      theCtx.arbIns = (OpenGl_ArbIns*)this;
+      theCtx.arbIns = (ArbIns*)this;
     }
   }
 
@@ -2676,7 +2676,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
     && FindProcShort(glGetSamplerParameterIuiv);
   if (hasSamplerObjects)
   {
-    theCtx.arbSamplerObject = (OpenGl_ArbSamplerObject*)this;
+    theCtx.arbSamplerObject = (ArbSamplerObject*)this;
   }
 
   // load GL_ARB_timer_query (added to OpenGL 3.3 core)
@@ -3064,29 +3064,29 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
     theCtx.arbDbg = NULL;
     if (has43)
     {
-      theCtx.arbDbg = (OpenGl_ArbDbg*)this;
+      theCtx.arbDbg = (ArbDbg*)this;
     }
     else if (theCtx.FindProc("glDebugMessageControlARB", this->glDebugMessageControl)
              && theCtx.FindProc("glDebugMessageInsertARB", this->glDebugMessageInsert)
              && theCtx.FindProc("glDebugMessageCallbackARB", this->glDebugMessageCallback)
              && theCtx.FindProc("glGetDebugMessageLogARB", this->glGetDebugMessageLog))
     {
-      theCtx.arbDbg = (OpenGl_ArbDbg*)this;
+      theCtx.arbDbg = (ArbDbg*)this;
     }
   }
 
   // initialize FBO extension (ARB)
   if (hasFBO)
   {
-    theCtx.arbFBO     = (OpenGl_ArbFBO*)this;
-    theCtx.arbFBOBlit = (OpenGl_ArbFBOBlit*)this;
+    theCtx.arbFBO     = (ArbFBO*)this;
+    theCtx.arbFBOBlit = (ArbFBOBlit*)this;
     theCtx.extPDS     = Standard_True; // extension for EXT, but part of ARB
   }
 
   // initialize GS extension (EXT)
   if (checkExtensionShort("GL_EXT_geometry_shader4") && FindProcShort(glProgramParameteriEXT))
   {
-    theCtx.extGS = (OpenGl_ExtGS*)this;
+    theCtx.extGS = (ExtGS*)this;
   }
 
   // initialize bindless texture extension (ARB)
@@ -3102,7 +3102,7 @@ void GlFunctions::load(OpenGl_Context& theCtx, Standard_Boolean theIsCoreProfile
       && FindProcShort(glVertexAttribL1ui64ARB) && FindProcShort(glVertexAttribL1ui64vARB)
       && FindProcShort(glGetVertexAttribLui64vARB))
   {
-    theCtx.arbTexBindless = (OpenGl_ArbTexBindless*)this;
+    theCtx.arbTexBindless = (ArbTexBindless*)this;
   }
 
   if (!has45 && checkExtensionShort("GL_ARB_clip_control") && FindProcShort(glClipControl))

@@ -70,8 +70,8 @@ extern Standard_Boolean Blend_GettraceDRAWSECT();
 extern Standard_Boolean Blend_GetcontextNOTESTDEFL();
 
 // Pour debug : visualisation de la section
-static void Drawsect(const Handle(Adaptor3d_Surface)& surf1,
-                     const Handle(Adaptor3d_Surface)& surf2,
+static void Drawsect(const Handle(SurfaceAdaptor)& surf1,
+                     const Handle(SurfaceAdaptor)& surf2,
                      const math_Vector&               sol,
                      const Standard_Real              param,
                      Blend_Function&                  Func,
@@ -122,8 +122,8 @@ static void Drawsect(const Handle(Adaptor3d_Surface)& surf1,
   #endif
 }
 
-static void Drawsect(const Handle(Adaptor3d_Surface)& surf1,
-                     const Handle(Adaptor3d_Surface)& surf2,
+static void Drawsect(const Handle(SurfaceAdaptor)& surf1,
+                     const Handle(SurfaceAdaptor)& surf2,
                      const math_Vector&               sol,
                      const Standard_Real              param,
                      Blend_Function&                  Func)
@@ -132,8 +132,8 @@ static void Drawsect(const Handle(Adaptor3d_Surface)& surf1,
 }
 #endif
 
-BRepBlend_Walking::BRepBlend_Walking(const Handle(Adaptor3d_Surface)&   Surf1,
-                                     const Handle(Adaptor3d_Surface)&   Surf2,
+BRepBlend_Walking::BRepBlend_Walking(const Handle(SurfaceAdaptor)&   Surf1,
+                                     const Handle(SurfaceAdaptor)&   Surf2,
                                      const Handle(Adaptor3d_TopolTool)& Domain1,
                                      const Handle(Adaptor3d_TopolTool)& Domain2,
                                      const Handle(ChFiDS_ElSpine)&      HGuide)
@@ -400,7 +400,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&        F
   BRepBlend_Extremity       Ext1, Ext2;
   Standard_Integer          Index1 = 0, Index2 = 0, nbarc;
   Standard_Boolean          Isvtx1 = Standard_False, Isvtx2 = Standard_False;
-  Handle(Adaptor3d_HVertex) Vtx1, Vtx2;
+  Handle(HandleVertex) Vtx1, Vtx2;
   gp_Pnt2d                  p2d;
   Standard_Real             CorrectedU = 0., CorrectedV = 0.;
   Point3d                    CorrectedPnt;
@@ -1191,7 +1191,7 @@ Standard_Boolean BRepBlend_Walking::Recadre(Blend_FuncInv&             FuncInv,
                                             math_Vector&               solrst,
                                             Standard_Integer&          Indexsol,
                                             Standard_Boolean&          IsVtx,
-                                            Handle(Adaptor3d_HVertex)& Vtx,
+                                            Handle(HandleVertex)& Vtx,
                                             const Standard_Real        Extrap)
 
 {
@@ -1364,7 +1364,7 @@ Standard_Boolean BRepBlend_Walking::Recadre(Blend_FuncInv&             FuncInv,
     // Recadrage eventuelle pour le cas periodique
     if (periodic)
     {
-      Handle(Adaptor3d_Surface) surf;
+      Handle(SurfaceAdaptor) surf;
       if (OnFirst)
         surf = surf2;
       else
@@ -1592,7 +1592,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
     normale.SetXYZ(thenormal.XYZ());
   else
   {
-    Handle(Adaptor3d_Surface) surf;
+    Handle(SurfaceAdaptor) surf;
     if (OnFirst)
       surf = surf1;
     else
@@ -1639,7 +1639,7 @@ void BRepBlend_Walking::MakeExtremity(BRepBlend_Extremity&             Extrem,
                                       const Standard_Integer           Index,
                                       const Standard_Real              Param,
                                       const Standard_Boolean           IsVtx,
-                                      const Handle(Adaptor3d_HVertex)& Vtx)
+                                      const Handle(HandleVertex)& Vtx)
 {
   Transition2          Tline, Tarc;
   Standard_Integer            nbarc;
@@ -1677,7 +1677,7 @@ void BRepBlend_Walking::MakeExtremity(BRepBlend_Extremity&             Extrem,
 
 void BRepBlend_Walking::MakeSingularExtremity(BRepBlend_Extremity&             Extrem,
                                               const Standard_Boolean           OnFirst,
-                                              const Handle(Adaptor3d_HVertex)& Vtx)
+                                              const Handle(HandleVertex)& Vtx)
 {
   Transition2          Tline, Tarc;
   Handle(Adaptor3d_TopolTool) Iter;
@@ -1837,7 +1837,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
   gp_Pnt2d                  p2d;
   math_Vector               tolerance(1, 4), infbound(1, 4), supbound(1, 4), parinit(1, 4);
   math_Vector               solrst1(1, 4), solrst2(1, 4);
-  Handle(Adaptor3d_HVertex) Vtx1, Vtx2;
+  Handle(HandleVertex) Vtx1, Vtx2;
   BRepBlend_Extremity       Ext1, Ext2;
 
   // Transition2 Tline,Tarc;
@@ -2082,7 +2082,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
               if (Length <= gp1::Resolution())
                 continue;
               Dir0 /= Length;
-              gce_MakePln PlaneBuilder(Pnt0, Pnt1, Pnt2);
+              PlaneBuilder1 PlaneBuilder(Pnt0, Pnt1, Pnt2);
               if (!PlaneBuilder.IsDone())
                 continue;
               gp_Pln        thePlane = PlaneBuilder.Value();
@@ -2526,8 +2526,8 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
     return Standard_False;
 
   Handle(Adaptor3d_TopolTool) DomainOfRst = (IndexOfRst == 1) ? recdomain1 : recdomain2;
-  Handle(Adaptor3d_Surface)   SurfOfRst   = (IndexOfRst == 1) ? surf1 : surf2;
-  Handle(Adaptor3d_Surface)   AnotherSurf = (IndexOfRst == 1) ? surf2 : surf1;
+  Handle(SurfaceAdaptor)   SurfOfRst   = (IndexOfRst == 1) ? surf1 : surf2;
+  Handle(SurfaceAdaptor)   AnotherSurf = (IndexOfRst == 1) ? surf2 : surf1;
 
   // Correct point on surface 2
   // First we find right <param>
@@ -2590,7 +2590,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   // Check new point: is it real solution?
   Point3d      OldPonGuide = hguide->Value(theParam);
   Point3d      PntOnSurf2  = HSurfaceTool::Value(AnotherSurf, theU, theV); // old point
-  gce_MakePln PlaneBuilder(thePntOnRst, OldPonGuide, PntOnSurf2);
+  PlaneBuilder1 PlaneBuilder(thePntOnRst, OldPonGuide, PntOnSurf2);
   if (!PlaneBuilder.IsDone())
     return Standard_False;
   gp_Pln        OldPlane = PlaneBuilder.Value();
@@ -2607,7 +2607,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   Point3d PntOnPlane = PntOnSurf2.Translated(-aTranslation);
 
   // Check new point again: does point on restriction belong to the plane?
-  PlaneBuilder = gce_MakePln(thePntOnRst, Pnt0, PntOnPlane);
+  PlaneBuilder = PlaneBuilder1(thePntOnRst, Pnt0, PntOnPlane);
   if (!PlaneBuilder.IsDone())
     return Standard_False;
   gp_Pln        NewPlane      = PlaneBuilder.Value();

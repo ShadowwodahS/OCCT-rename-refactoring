@@ -31,7 +31,7 @@
 #include <TopLoc_Location.hxx>
 #include <TopoDS_Solid.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_BoxDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_BoxDriver, FunctionDriver1)
 
 //=================================================================================================
 

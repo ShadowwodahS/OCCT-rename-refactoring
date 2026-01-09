@@ -26,11 +26,11 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <Standard_Real.hxx>
 
-class Law_Function;
-DEFINE_STANDARD_HANDLE(Law_Function, RefObject)
+class Function2;
+DEFINE_STANDARD_HANDLE(Function2, RefObject)
 
 //! Root class for evolution laws.
-class Law_Function : public RefObject
+class Function2 : public RefObject
 {
 
 public:
@@ -65,14 +65,14 @@ public:
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
   //! the Law1 is not Cn.
-  Standard_EXPORT virtual Handle(Law_Function) Trim(const Standard_Real PFirst,
+  Standard_EXPORT virtual Handle(Function2) Trim(const Standard_Real PFirst,
                                                     const Standard_Real PLast,
                                                     const Standard_Real Tol) const = 0;
 
   //! Returns the parametric bounds of the function.
   Standard_EXPORT virtual void Bounds(Standard_Real& PFirst, Standard_Real& PLast) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Law_Function, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Function2, RefObject)
 
 protected:
 private:

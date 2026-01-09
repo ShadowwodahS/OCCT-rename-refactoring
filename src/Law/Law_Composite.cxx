@@ -24,7 +24,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_Composite, Law_Function)
+IMPLEMENT_STANDARD_RTTIEXT(Law_Composite, Function2)
 
 //=================================================================================================
 
@@ -68,7 +68,7 @@ GeomAbs_Shape Law_Composite::Continuity() const
 Standard_Integer Law_Composite::NbIntervals(const GeomAbs_Shape S) const
 {
   Law_ListIteratorOfLaws It(funclist);
-  Handle(Law_Function)   func;
+  Handle(Function2)   func;
   Standard_Integer       nbr_interval = 0;
 
   for (; It.More(); It.Next())
@@ -86,7 +86,7 @@ Standard_Integer Law_Composite::NbIntervals(const GeomAbs_Shape S) const
 void Law_Composite::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
   Law_ListIteratorOfLaws        It(funclist);
-  Handle(Law_Function)          func;
+  Handle(Function2)          func;
   Handle(TColStd_HArray1OfReal) LocT;
   Standard_Integer              nb_index, Iloc, IGlob = 2;
 
@@ -138,7 +138,7 @@ void Law_Composite::D2(const Standard_Real X, Standard_Real& F, Standard_Real& D
 // purpose  : ne garde que la partie utile dans le champs.
 //=======================================================================
 
-Handle(Law_Function) Law_Composite::Trim(const Standard_Real PFirst,
+Handle(Function2) Law_Composite::Trim(const Standard_Real PFirst,
                                          const Standard_Real PLast,
                                          const Standard_Real Tol) const
 {
@@ -217,7 +217,7 @@ void Law_Composite::Prepare(Standard_Real& W)
 
 //=================================================================================================
 
-Handle(Law_Function)& Law_Composite::ChangeElementaryLaw(const Standard_Real W)
+Handle(Function2)& Law_Composite::ChangeElementaryLaw(const Standard_Real W)
 {
   Standard_Real WW = W;
   Prepare(WW);

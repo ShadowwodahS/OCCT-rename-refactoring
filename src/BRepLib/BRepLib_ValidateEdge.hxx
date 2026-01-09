@@ -17,7 +17,7 @@
 #include <Standard_TypeDef.hxx>
 #include <Standard_Handle.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 class Adaptor3d_CurveOnSurface;
 
 //! Computes the max distance between 3D-curve and curve on surface.
@@ -27,7 +27,7 @@ class BRepLib_ValidateEdge
 {
 public:
   //! Initialization constructor
-  Standard_EXPORT BRepLib_ValidateEdge(const Handle(Adaptor3d_Curve)          theReferenceCurve,
+  Standard_EXPORT BRepLib_ValidateEdge(const Handle(Curve5)          theReferenceCurve,
                                        const Handle(Adaptor3d_CurveOnSurface) theOtherCurve,
                                        Standard_Boolean                       theSameParameter);
 
@@ -88,7 +88,7 @@ private:
   void processExact();
 
 private:
-  Handle(Adaptor3d_Curve)          myReferenceCurve;
+  Handle(Curve5)          myReferenceCurve;
   Handle(Adaptor3d_CurveOnSurface) myOtherCurve;
   Standard_Boolean                 mySameParameter;
   Standard_Integer                 myControlPointsNumber;

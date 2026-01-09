@@ -35,7 +35,7 @@ class Point3d;
 class Vector3d;
 class GeomCurve3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_BezierSurface;
 DEFINE_STANDARD_HANDLE(Geom_BezierSurface, Geom_BoundedSurface)
@@ -613,7 +613,7 @@ public:
                                   Standard_Real&      VTolerance);
 
   //! Creates a new object which is a copy of this Bezier surface.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -623,7 +623,7 @@ public:
 
 protected:
 private:
-  Geom_BezierSurface(const Handle(TColgp_HArray2OfPnt)&   SurfacePoles,
+  Geom_BezierSurface(const Handle(PointGrid)&   SurfacePoles,
                      const Handle(TColStd_HArray2OfReal)& PoleWeights,
                      const Standard_Boolean               IsURational,
                      const Standard_Boolean               IsVRational);
@@ -635,11 +635,11 @@ private:
   //! coefficient 1.
   //!
   //! if nbpoles < 2 or nbpoles > MaDegree
-  void Init(const Handle(TColgp_HArray2OfPnt)& Poles, const Handle(TColStd_HArray2OfReal)& Weights);
+  void Init(const Handle(PointGrid)& Poles, const Handle(TColStd_HArray2OfReal)& Weights);
 
   Standard_Boolean              urational;
   Standard_Boolean              vrational;
-  Handle(TColgp_HArray2OfPnt)   poles;
+  Handle(PointGrid)   poles;
   Handle(TColStd_HArray2OfReal) weights;
   Standard_Real                 umaxderivinv;
   Standard_Real                 vmaxderivinv;

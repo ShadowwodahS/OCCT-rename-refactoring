@@ -33,7 +33,7 @@ class MultiLineToolWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox;
 class ResConstraintGradientbisLine;
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox;
-class GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox;
+class BFGSGradientbisLineApprox;
 class AppParCurves_MultiCurve;
 
 class GeomInt_MyGradientbisOfTheComputeLineOfWLApprox
@@ -51,7 +51,7 @@ public:
     const GeomInt_TheMultiLineOfWLApprox&                 SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const Standard_Integer                                Deg,
     const Standard_Real                                   Tol3d,

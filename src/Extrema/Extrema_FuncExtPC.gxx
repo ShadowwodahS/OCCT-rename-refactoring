@@ -25,7 +25,7 @@ static const Standard_Integer MaxOrder = 3;
 /*-----------------------------------------------------------------------------
 Fonction permettant de rechercher une distance extremale entre un point P et
 une courbe C (en partant d'un point approche C(u0)).
-Cette classe herite de math_FunctionWithDerivative et est utilisee par
+Cette classe herite de FunctionWithDerivative et est utilisee par
 les algorithmes FunctionRootSolver et FunctionRootsSolver.
 Si on note D1c et D2c les derivees premiere et seconde:
 { F(u) = (C(u)-P).D1c(u)/ ||Du||}

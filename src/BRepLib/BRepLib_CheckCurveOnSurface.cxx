@@ -50,7 +50,7 @@ void BRepLib_CheckCurveOnSurface::Init(const TopoEdge& theEdge, const TopoFace& 
   }
 
   // 3D curve initialization
-  const Handle(Adaptor3d_Curve) anAdaptor3dCurve = new BRepAdaptor_Curve(theEdge);
+  const Handle(Curve5) anAdaptor3dCurve = new BRepAdaptor_Curve(theEdge);
 
   // Surface initialization
 

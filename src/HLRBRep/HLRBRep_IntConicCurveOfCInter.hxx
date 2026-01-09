@@ -28,7 +28,7 @@
 class Standard_ConstructionError;
 class ConicTool;
 class CurveTool5;
-class HLRBRep_TheIntConicCurveOfCInter;
+class IntConicCurveCInter;
 class gp_Lin2d;
 class Domain2;
 class gp_Circ2d;
@@ -173,7 +173,7 @@ private:
   Standard_Real                    param2inf;
   Standard_Real                    param2sup;
   IntCurve_IntConicConic           intconiconi;
-  HLRBRep_TheIntConicCurveOfCInter intconicurv;
+  IntConicCurveCInter intconicurv;
 };
 
 #endif // _HLRBRep_IntConicCurveOfCInter_HeaderFile

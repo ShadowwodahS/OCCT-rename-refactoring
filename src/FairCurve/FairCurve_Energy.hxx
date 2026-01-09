@@ -73,12 +73,12 @@ public:
   Standard_EXPORT virtual Standard_Boolean Variable(math_Vector& X) const;
 
   //! return  the  poles
-  const Handle(TColgp_HArray1OfPnt2d)& Poles() const;
+  const Handle(Point2dArray)& Poles() const;
 
 protected:
   //! Angles correspond to the Ox axis
   //! ConstrOrder1(2) can be equal to 0, 1 or 2
-  Standard_EXPORT FairCurve_Energy(const Handle(TColgp_HArray1OfPnt2d)& Poles,
+  Standard_EXPORT FairCurve_Energy(const Handle(Point2dArray)& Poles,
                                    const Standard_Integer               ConstrOrder1,
                                    const Standard_Integer               ConstrOrder2,
                                    const Standard_Boolean WithAuxValue = Standard_False,
@@ -116,7 +116,7 @@ protected:
   Standard_EXPORT virtual Standard_Boolean Compute(const Standard_Integer DerivativeOrder,
                                                    math_Vector&           Result) = 0;
 
-  Handle(TColgp_HArray1OfPnt2d) MyPoles;
+  Handle(Point2dArray) MyPoles;
   Standard_Integer              MyContrOrder1;
   Standard_Integer              MyContrOrder2;
   Standard_Boolean              MyWithAuxValue;

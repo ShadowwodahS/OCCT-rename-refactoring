@@ -125,7 +125,7 @@ Approx_Curve2d::Approx_Curve2d(const Handle(Adaptor2d_Curve2d)& C2D,
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   C2D->Intervals(CutPnts_C3, GeomAbs_C3);
 
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
   myMaxError2dU = 0;
   myMaxError2dV = 0;

@@ -506,7 +506,7 @@ void DsgPrs1::ComputeRadiusLine(const Point3d&          aCenter,
 {
   if (drawFromCenter)
   {
-    gp_Lin        RadiusLine    = gce_MakeLin(aCenter, anEndOfArrow);
+    gp_Lin        RadiusLine    = LineBuilder(aCenter, anEndOfArrow);
     Standard_Real PosParOnLine  = ElCLib1::Parameter(RadiusLine, aPosition);
     Standard_Real EndOfArrowPar = ElCLib1::Parameter(RadiusLine, anEndOfArrow);
     if (PosParOnLine < 0.0)

@@ -48,7 +48,7 @@ typedef Coords3d               XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_ToroidalSurface::Copy() const
+Handle(Geometry3) Geom_ToroidalSurface::Copy() const
 {
 
   Handle(Geom_ToroidalSurface) Cs;

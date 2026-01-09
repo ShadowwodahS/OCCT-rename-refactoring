@@ -20,7 +20,7 @@
 #include <IMeshData_Types.hxx>
 
 class Vertex;
-class BRepMesh_Edge;
+class Edge3;
 
 //! Describes a selector and an iterator on a
 //! selector of components of a mesh.
@@ -45,7 +45,7 @@ public:
   Standard_EXPORT void NeighboursOfNode(const Standard_Integer theNodeIndex);
 
   //! Selects all neighboring elements of the given link.
-  Standard_EXPORT void NeighboursOf(const BRepMesh_Edge& theLink);
+  Standard_EXPORT void NeighboursOf(const Edge3& theLink);
 
   //! Selects all neighboring elements of link with the given index.
   Standard_EXPORT void NeighboursOfLink(const Standard_Integer theLinkIndex);

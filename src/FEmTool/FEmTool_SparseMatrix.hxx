@@ -24,11 +24,11 @@
 #include <Standard_Integer.hxx>
 #include <math_Vector.hxx>
 
-class FEmTool_SparseMatrix;
-DEFINE_STANDARD_HANDLE(FEmTool_SparseMatrix, RefObject)
+class SparseMatrix;
+DEFINE_STANDARD_HANDLE(SparseMatrix, RefObject)
 
 //! Sparse Matrix definition
-class FEmTool_SparseMatrix : public RefObject
+class SparseMatrix : public RefObject
 {
 
 public:
@@ -64,7 +64,7 @@ public:
   //! returns the column range of the matrix.
   Standard_EXPORT virtual Standard_Integer ColNumber() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(FEmTool_SparseMatrix, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SparseMatrix, RefObject)
 
 protected:
 private:

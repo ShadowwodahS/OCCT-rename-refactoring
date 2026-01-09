@@ -34,7 +34,7 @@ class BezierCurve3d;
 class BSplineCurve3d;
 class Geom_OffsetCurve;
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_Curve, RefObject)
+DEFINE_STANDARD_HANDLE(Curve5, RefObject)
 
 //! Root class for 3D curves on which geometric
 //! algorithms work.
@@ -49,12 +49,12 @@ DEFINE_STANDARD_HANDLE(Adaptor3d_Curve, RefObject)
 //! Polynomial coefficients of BSpline curves used for their evaluation are
 //! cached for better performance. Therefore these evaluations are not
 //! thread-safe and parallel evaluations need to be prevented.
-class Adaptor3d_Curve : public RefObject
+class Curve5 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_Curve, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Curve5, RefObject)
 public:
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const;
 
   Standard_EXPORT virtual Standard_Real FirstParameter() const;
 
@@ -77,7 +77,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT virtual Handle(Curve5) Trim(const Standard_Real First,
                                                        const Standard_Real Last,
                                                        const Standard_Real Tol) const;
 
@@ -155,7 +155,7 @@ public:
 
   Standard_EXPORT virtual Handle(Geom_OffsetCurve) OffsetCurve() const;
 
-  Standard_EXPORT virtual ~Adaptor3d_Curve();
+  Standard_EXPORT virtual ~Curve5();
 };
 
 #endif // _Adaptor3d_Curve_HeaderFile

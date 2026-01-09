@@ -21,6 +21,6 @@
 #include <TColgp_Array2OfXYZ.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(TColgp_HArray2OfXYZ, TColgp_Array2OfXYZ)
+DEFINE_HARRAY2(XYZGrid, TColgp_Array2OfXYZ)
 
 #endif

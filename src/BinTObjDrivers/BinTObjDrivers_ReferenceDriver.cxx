@@ -55,7 +55,7 @@ Standard_Boolean BinTObjDrivers_ReferenceDriver::Paste(const BinObjMgt_Persisten
 {
   // master label
   DataLabel        aMasterLabel;
-  Handle(TDF_Data) aDS = theTarget->Label().Data();
+  Handle(Data2) aDS = theTarget->Label().Data();
   if (!theSource.GetLabel(aDS, aMasterLabel))
     return Standard_False;
 

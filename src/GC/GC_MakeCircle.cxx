@@ -45,14 +45,14 @@ GC_MakeCircle::GC_MakeCircle(const Frame3d& A2, const Standard_Real Radius)
 
 GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Point3d& Point)
 {
-  gp_Circ C = gce_MakeCirc(Circ, Point);
+  gp_Circ C = CircleBuilder1(Circ, Point);
   TheCircle = new GeomCircle(C);
   TheError  = gce_Done;
 }
 
 GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Standard_Real Dist)
 {
-  gce_MakeCirc C = gce_MakeCirc(Circ, Dist);
+  CircleBuilder1 C = CircleBuilder1(Circ, Dist);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
@@ -62,7 +62,7 @@ GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Standard_Real Dist)
 
 GC_MakeCircle::GC_MakeCircle(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
-  gce_MakeCirc C = gce_MakeCirc(P1, P2, P3);
+  CircleBuilder1 C = CircleBuilder1(P1, P2, P3);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
@@ -72,7 +72,7 @@ GC_MakeCircle::GC_MakeCircle(const Point3d& P1, const Point3d& P2, const Point3d
 
 GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Dir3d& Norm, const Standard_Real Radius)
 {
-  gce_MakeCirc C = gce_MakeCirc(Point, Norm, Radius);
+  CircleBuilder1 C = CircleBuilder1(Point, Norm, Radius);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
@@ -82,7 +82,7 @@ GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Dir3d& Norm, const Stan
 
 GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Point3d& PtAxis, const Standard_Real Radius)
 {
-  gce_MakeCirc C = gce_MakeCirc(Point, PtAxis, Radius);
+  CircleBuilder1 C = CircleBuilder1(Point, PtAxis, Radius);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
@@ -92,7 +92,7 @@ GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Point3d& PtAxis, const 
 
 GC_MakeCircle::GC_MakeCircle(const Axis3d& Axis, const Standard_Real Radius)
 {
-  gce_MakeCirc C = gce_MakeCirc(Axis, Radius);
+  CircleBuilder1 C = CircleBuilder1(Axis, Radius);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {

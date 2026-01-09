@@ -21,6 +21,6 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfPnt, TColgp_Array1OfPnt)
+DEFINE_HARRAY1(PointArray1, TColgp_Array1OfPnt)
 
 #endif

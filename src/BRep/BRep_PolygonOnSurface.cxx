@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PolygonOnSurface, BRep_CurveRepresentation)
 
 //=================================================================================================
 
-BRep_PolygonOnSurface::BRep_PolygonOnSurface(const Handle(Poly_Polygon2D)& P,
+BRep_PolygonOnSurface::BRep_PolygonOnSurface(const Handle(Polygon2D2)& P,
                                              const Handle(GeomSurface)&   S,
                                              const TopLoc_Location&        L)
     : BRep_CurveRepresentation(L),
@@ -59,14 +59,14 @@ const Handle(GeomSurface)& BRep_PolygonOnSurface::Surface() const
 
 //=================================================================================================
 
-const Handle(Poly_Polygon2D)& BRep_PolygonOnSurface::Polygon() const
+const Handle(Polygon2D2)& BRep_PolygonOnSurface::Polygon() const
 {
   return myPolygon2D;
 }
 
 //=================================================================================================
 
-void BRep_PolygonOnSurface::Polygon(const Handle(Poly_Polygon2D)& P)
+void BRep_PolygonOnSurface::Polygon(const Handle(Polygon2D2)& P)
 {
   myPolygon2D = P;
 }

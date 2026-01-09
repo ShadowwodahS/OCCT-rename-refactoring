@@ -31,7 +31,7 @@
 //! - text formatter. Formatter contains text, height and alignment parameter.
 //!
 //! This class also has parameters of the text height and H/V alignments.
-//! Custom formatting is available using Font_TextFormatter.
+//! Custom formatting is available using TextFormatter1.
 class Graphic3d_Text : public RefObject
 {
   DEFINE_STANDARD_RTTIEXT(Graphic3d_Text, RefObject)
@@ -56,10 +56,10 @@ public:
   void SetText(Standard_CString theText) { myText = theText; }
 
   //! @return text formatter; NULL by default, which means standard text formatter will be used.
-  const Handle(Font_TextFormatter)& TextFormatter() const { return myFormatter; }
+  const Handle(TextFormatter1)& TextFormatter() const { return myFormatter; }
 
   //! Setup text default formatter for text within this context.
-  void SetTextFormatter(const Handle(Font_TextFormatter)& theFormatter)
+  void SetTextFormatter(const Handle(TextFormatter1)& theFormatter)
   {
     myFormatter = theFormatter;
   }
@@ -117,7 +117,7 @@ public:
   }
 
 protected:
-  Handle(Font_TextFormatter) myFormatter; //!< text formatter
+  Handle(TextFormatter1) myFormatter; //!< text formatter
 
   NCollection_String myText;        //!< text value
   Frame3d             myOrientation; //!< Text orientation in 3D space.

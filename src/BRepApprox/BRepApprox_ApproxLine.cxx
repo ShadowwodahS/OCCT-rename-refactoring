@@ -37,7 +37,7 @@ BRepApprox_ApproxLine::BRepApprox_ApproxLine(const Handle(BSplineCurve3d)&   Cur
 
 //=================================================================================================
 
-BRepApprox_ApproxLine::BRepApprox_ApproxLine(const Handle(IntSurf_LineOn2S)& lin,
+BRepApprox_ApproxLine::BRepApprox_ApproxLine(const Handle(LineOnTwoSurfaces)& lin,
                                              const Standard_Boolean)
     : myLineOn2S(lin)
 {

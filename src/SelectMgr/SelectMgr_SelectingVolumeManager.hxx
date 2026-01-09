@@ -232,10 +232,10 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsOverlapAllowed() const Standard_OVERRIDE;
 
   //! Return view clipping planes.
-  const Handle(Graphic3d_SequenceOfHClipPlane)& ViewClipping() const { return myViewClipPlanes; }
+  const Handle(SequenceOfHClipPlane)& ViewClipping() const { return myViewClipPlanes; }
 
   //! Return object clipping planes.
-  const Handle(Graphic3d_SequenceOfHClipPlane)& ObjectClipping() const
+  const Handle(SequenceOfHClipPlane)& ObjectClipping() const
   {
     return myObjectClipPlanes;
   }
@@ -245,8 +245,8 @@ public:
   //! @param[in] theViewPlanes   global view planes
   //! @param[in] theObjPlanes    object planes
   //! @param[in] theWorldSelMgr  selection volume in world space for computing clipping plane ranges
-  Standard_EXPORT void SetViewClipping(const Handle(Graphic3d_SequenceOfHClipPlane)& theViewPlanes,
-                                       const Handle(Graphic3d_SequenceOfHClipPlane)& theObjPlanes,
+  Standard_EXPORT void SetViewClipping(const Handle(SequenceOfHClipPlane)& theViewPlanes,
+                                       const Handle(SequenceOfHClipPlane)& theObjPlanes,
                                        const SelectMgr_SelectingVolumeManager* theWorldSelMgr);
 
   //! Copy clipping planes from another volume manager.
@@ -310,8 +310,8 @@ public:
 private:
   Handle(SelectMgr_BaseIntersector) myActiveSelectingVolume;
   // clang-format off
-  Handle(Graphic3d_SequenceOfHClipPlane) myViewClipPlanes;                  //!< view clipping planes
-  Handle(Graphic3d_SequenceOfHClipPlane) myObjectClipPlanes;                //!< object clipping planes
+  Handle(SequenceOfHClipPlane) myViewClipPlanes;                  //!< view clipping planes
+  Handle(SequenceOfHClipPlane) myObjectClipPlanes;                //!< object clipping planes
   SelectMgr_ViewClipRange                myViewClipRange;
   Standard_Boolean                       myToAllowOverlap;                  //!< Defines if partially overlapped entities will me detected or not
   // clang-format on

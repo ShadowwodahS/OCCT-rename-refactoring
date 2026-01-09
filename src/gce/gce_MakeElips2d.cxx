@@ -29,7 +29,7 @@
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
-gce_MakeElips2d::gce_MakeElips2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center)
+EllipseBuilder2d::EllipseBuilder2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center)
 {
   Standard_Real D1 = S1.Distance(Center);
   gp_Dir2d      XAxis(Coords2d(S1.XY() - Center.XY()));
@@ -50,7 +50,7 @@ gce_MakeElips2d::gce_MakeElips2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const g
   }
 }
 
-gce_MakeElips2d::gce_MakeElips2d(const gp_Ax2d&         MajorAxis,
+EllipseBuilder2d::EllipseBuilder2d(const gp_Ax2d&         MajorAxis,
                                  const Standard_Real    MajorRadius,
                                  const Standard_Real    MinorRadius,
                                  const Standard_Boolean Sense)
@@ -70,7 +70,7 @@ gce_MakeElips2d::gce_MakeElips2d(const gp_Ax2d&         MajorAxis,
   }
 }
 
-gce_MakeElips2d::gce_MakeElips2d(const Ax22d&     A,
+EllipseBuilder2d::EllipseBuilder2d(const Ax22d&     A,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius)
 {
@@ -89,18 +89,18 @@ gce_MakeElips2d::gce_MakeElips2d(const Ax22d&     A,
   }
 }
 
-const gp_Elips2d& gce_MakeElips2d::Value() const
+const gp_Elips2d& EllipseBuilder2d::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeElips2d::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "EllipseBuilder2d::Value() - no result");
   return TheElips2d;
 }
 
-const gp_Elips2d& gce_MakeElips2d::Operator() const
+const gp_Elips2d& EllipseBuilder2d::Operator() const
 {
   return Value();
 }
 
-gce_MakeElips2d::operator gp_Elips2d() const
+EllipseBuilder2d::operator gp_Elips2d() const
 {
   return Value();
 }

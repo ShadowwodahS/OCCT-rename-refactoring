@@ -22,17 +22,17 @@ class AsciiString1;
 //! Base class for complex1 types (ARRAY, LIST, BAG, SET)
 //! in EXPRESS schema
 //! Stores type of elements and
-class Express_ComplexType : public Express_Type
+class Express_ComplexType : public ExpressType
 {
 
 public:
   //! Creates an object and initializes fields
   Standard_EXPORT Express_ComplexType(const Standard_Integer      theImin,
                                       const Standard_Integer      theImax,
-                                      const Handle(Express_Type)& theType);
+                                      const Handle(ExpressType)& theType);
 
   //! Returns type of complex1 type items
-  Standard_EXPORT const Handle(Express_Type)& Type() const;
+  Standard_EXPORT const Handle(ExpressType)& Type() const;
 
   //! Returns CPP-style name of the type
   Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
@@ -47,13 +47,13 @@ public:
                                     const AsciiString1& theRefPack) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Express_ComplexType, Express_Type)
+  DEFINE_STANDARD_RTTIEXT(Express_ComplexType, ExpressType)
 
 protected:
 private:
   Standard_Integer     myMin;
   Standard_Integer     myMax;
-  Handle(Express_Type) myType;
+  Handle(ExpressType) myType;
 };
 
 #endif // _Express_ComplexType_HeaderFile

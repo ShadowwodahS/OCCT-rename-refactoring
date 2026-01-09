@@ -51,7 +51,7 @@ inline Handle(TColStd_HArray2OfReal) AdvApprox_ApproxAFunction::Poles1d() const
 // function : Poles2d
 // purpose  :
 //=======================================================================
-inline Handle(TColgp_HArray2OfPnt2d) AdvApprox_ApproxAFunction::Poles2d() const
+inline Handle(Point2dGrid) AdvApprox_ApproxAFunction::Poles2d() const
 {
   return my2DPoles;
 }
@@ -60,7 +60,7 @@ inline Handle(TColgp_HArray2OfPnt2d) AdvApprox_ApproxAFunction::Poles2d() const
 // function : Poles
 // purpose  :
 //=======================================================================
-inline Handle(TColgp_HArray2OfPnt) AdvApprox_ApproxAFunction::Poles() const
+inline Handle(PointGrid) AdvApprox_ApproxAFunction::Poles() const
 {
   return my3DPoles;
 }

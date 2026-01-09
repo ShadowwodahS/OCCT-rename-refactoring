@@ -34,7 +34,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_NotImplemented.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_IsoCurve, Adaptor3d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_IsoCurve, Curve5)
 
 //=================================================================================================
 
@@ -48,7 +48,7 @@ Adaptor3d_IsoCurve::Adaptor3d_IsoCurve()
 
 //=================================================================================================
 
-Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S)
+Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(SurfaceAdaptor)& S)
     : mySurface(S),
       myIso(GeomAbs_NoneIso),
       myFirst(0.0),
@@ -59,7 +59,7 @@ Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S)
 
 //=================================================================================================
 
-Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S,
+Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(SurfaceAdaptor)& S,
                                        const GeomAbs_IsoType            theIso,
                                        const Standard_Real              theParam)
     : mySurface(S),
@@ -73,7 +73,7 @@ Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& theS,
+Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(SurfaceAdaptor)& theS,
                                        const GeomAbs_IsoType            theIso,
                                        const Standard_Real              theParam,
                                        const Standard_Real              theWFirst,
@@ -89,7 +89,7 @@ Adaptor3d_IsoCurve::Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& theS,
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) Adaptor3d_IsoCurve::ShallowCopy() const
+Handle(Curve5) Adaptor3d_IsoCurve::ShallowCopy() const
 {
   Handle(Adaptor3d_IsoCurve) aCopy = new Adaptor3d_IsoCurve();
 
@@ -107,7 +107,7 @@ Handle(Adaptor3d_Curve) Adaptor3d_IsoCurve::ShallowCopy() const
 
 //=================================================================================================
 
-void Adaptor3d_IsoCurve::Load(const Handle(Adaptor3d_Surface)& S)
+void Adaptor3d_IsoCurve::Load(const Handle(SurfaceAdaptor)& S)
 {
   mySurface = S;
   myIso     = GeomAbs_NoneIso;
@@ -294,7 +294,7 @@ void Adaptor3d_IsoCurve::Intervals(TColStd_Array1OfReal& TI, const GeomAbs_Shape
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) Adaptor3d_IsoCurve::Trim(const Standard_Real First,
+Handle(Curve5) Adaptor3d_IsoCurve::Trim(const Standard_Real First,
                                                  const Standard_Real Last,
                                                  const Standard_Real) const
 {

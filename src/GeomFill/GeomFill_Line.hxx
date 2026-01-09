@@ -23,23 +23,23 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
 
-class GeomFill_Line;
-DEFINE_STANDARD_HANDLE(GeomFill_Line, RefObject)
+class Line1;
+DEFINE_STANDARD_HANDLE(Line1, RefObject)
 
 //! class for instantiation of AppBlend
-class GeomFill_Line : public RefObject
+class Line1 : public RefObject
 {
 
 public:
-  Standard_EXPORT GeomFill_Line();
+  Standard_EXPORT Line1();
 
-  Standard_EXPORT GeomFill_Line(const Standard_Integer NbPoints);
+  Standard_EXPORT Line1(const Standard_Integer NbPoints);
 
   Standard_Integer NbPoints() const;
 
   Standard_Integer Point(const Standard_Integer Index) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_Line, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Line1, RefObject)
 
 protected:
 private:

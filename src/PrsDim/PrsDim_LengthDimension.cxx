@@ -193,7 +193,7 @@ void PrsDim_LengthDimension::SetMeasuredShapes(const TopoShape& theFirstShape,
 Standard_Boolean PrsDim_LengthDimension::CheckPlane(const gp_Pln& thePlane) const
 {
   Standard_Boolean anIsFaultyNormal =
-    thePlane.Axis().Direction().IsParallel(gce_MakeDir(myFirstPoint, mySecondPoint),
+    thePlane.Axis().Direction().IsParallel(DirectionBuilder(myFirstPoint, mySecondPoint),
                                            Precision1::Angular());
 
   if ((!thePlane.Contains(myFirstPoint, Precision1::Confusion())
@@ -216,7 +216,7 @@ gp_Pln PrsDim_LengthDimension::ComputePlane(const Dir3d& theAttachDir) const
   }
 
   Point3d      aThirdPoint(myFirstPoint.Translated(Vector3d(theAttachDir)));
-  gce_MakePln aPlaneConstrustor(myFirstPoint, mySecondPoint, aThirdPoint);
+  PlaneBuilder1 aPlaneConstrustor(myFirstPoint, mySecondPoint, aThirdPoint);
   return aPlaneConstrustor.Value();
 }
 
@@ -651,8 +651,8 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
           mySecondPoint = BRepInspector::Surface(aSecondFace)->Value(aU2, aV2);
 
           // Adjust automatic plane
-          Frame3d aLocalAxes(myFirstPoint, gce_MakeDir(myFirstPoint, mySecondPoint));
-          aDirAttach = gce_MakeDir(aLocalAxes.XDirection());
+          Frame3d aLocalAxes(myFirstPoint, DirectionBuilder(myFirstPoint, mySecondPoint));
+          aDirAttach = DirectionBuilder(aLocalAxes.XDirection());
 
           // Check points
           isSuccess = IsValidPoints(myFirstPoint, mySecondPoint);

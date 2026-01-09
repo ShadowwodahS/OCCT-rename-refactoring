@@ -17,9 +17,9 @@
 #include <Aspect_XRAction.hxx>
 
 //! XR action set.
-class Aspect_XRActionSet : public RefObject
+class XRActionSet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_XRActionSet, RefObject)
+  DEFINE_STANDARD_RTTIEXT(XRActionSet, RefObject)
 public:
   //! Return action id.
   const AsciiString1& Id() const { return myId; }
@@ -31,7 +31,7 @@ public:
   void SetRawHandle(uint64_t theHande) { myRawHandle = theHande; }
 
   //! Add action.
-  void AddAction(const Handle(Aspect_XRAction)& theAction)
+  void AddAction(const Handle(XRAction)& theAction)
   {
     myActions.Add(theAction->Id(), theAction);
   }
@@ -40,7 +40,7 @@ public:
   const Aspect_XRActionMap& Actions() const { return myActions; }
 
   //! Main constructor.
-  Aspect_XRActionSet(const AsciiString1& theId)
+  XRActionSet(const AsciiString1& theId)
       : myId(theId),
         myRawHandle(0)
   {
@@ -52,7 +52,7 @@ protected:
   Aspect_XRActionMap      myActions;   //!< map of actions
 };
 
-typedef NCollection_IndexedDataMap<AsciiString1, Handle(Aspect_XRActionSet)>
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(XRActionSet)>
   Aspect_XRActionSetMap;
 
 #endif // _Aspect_XRActionSet_HeaderFile

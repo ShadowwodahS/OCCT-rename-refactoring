@@ -35,7 +35,7 @@ public:
   //! Return shading program.
   const Handle(OpenGl_ShaderProgram)& ShaderProgram(
     const Handle(OpenGl_Context)&          theCtx,
-    const Handle(Graphic3d_ShaderProgram)& theShader)
+    const Handle(ShaderProgram2)& theShader)
   {
     if (!myIsShaderReady)
     {
@@ -54,7 +54,7 @@ public:
 private:
   //! Build shader resource.
   Standard_EXPORT void build(const Handle(OpenGl_Context)&          theCtx,
-                             const Handle(Graphic3d_ShaderProgram)& theShader);
+                             const Handle(ShaderProgram2)& theShader);
 
 private:
   Handle(OpenGl_ShaderProgram) myShaderProgram;

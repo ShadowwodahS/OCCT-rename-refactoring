@@ -30,8 +30,8 @@ class GeomCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class Geom2d_Point;
-class GccInt_Bisec;
-class Geom2d_Geometry;
+class Bisector2;
+class Geometry2;
 class Transform2d;
 
 class Bisector_BisecAna;
@@ -117,7 +117,7 @@ public:
   //! Raised if N < 0.
   Standard_EXPORT Standard_Boolean IsCN(const Standard_Integer N) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
@@ -180,7 +180,7 @@ private:
   //! Returns the distance between the point <P> and
   //! the bisecting <Bis>.
   Standard_EXPORT Standard_Real Distance(const gp_Pnt2d&             P,
-                                         const Handle(GccInt_Bisec)& Bis,
+                                         const Handle(Bisector2)& Bis,
                                          const gp_Vec2d&             V1,
                                          const gp_Vec2d&             V2,
                                          const gp_Vec2d&             VecRef,

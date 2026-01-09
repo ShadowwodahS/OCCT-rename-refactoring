@@ -30,7 +30,7 @@
 class gp_Pnt2d;
 class Transform2d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 class GeomCurve3d;
 class Point3d;
 class Vector3d;
@@ -78,11 +78,11 @@ public:
 
   //! Initializes by a grid of surfaces (calls Init()).
   Standard_EXPORT ShapeExtend_CompositeSurface(
-    const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+    const Handle(SurfaceGridArray)& GridSurf,
     const ShapeExtend_Parametrisation        param = ShapeExtend_Natural);
 
   //! Initializes by a grid of surfaces (calls Init()).
-  Standard_EXPORT ShapeExtend_CompositeSurface(const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+  Standard_EXPORT ShapeExtend_CompositeSurface(const Handle(SurfaceGridArray)& GridSurf,
                                                const TColStd_Array1OfReal&              UJoints,
                                                const TColStd_Array1OfReal&              VJoints);
 
@@ -99,7 +99,7 @@ public:
   //! ShapeExtend_Uniform: Ui = i-1, Vj = j-1
   //! ShapeExtend_Unitary: Ui = (i-1)/Nu, Vi = (j-1)/Nv
   Standard_EXPORT Standard_Boolean
-    Init(const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+    Init(const Handle(SurfaceGridArray)& GridSurf,
          const ShapeExtend_Parametrisation        param = ShapeExtend_Natural);
 
   //! Initializes by a grid of surfaces with given global
@@ -112,7 +112,7 @@ public:
   //! If geometrical connectivity is not satisfied, method
   //! returns False.
   //! However, class is initialized even in that case.
-  Standard_EXPORT Standard_Boolean Init(const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+  Standard_EXPORT Standard_Boolean Init(const Handle(SurfaceGridArray)& GridSurf,
                                         const TColStd_Array1OfReal&              UJoints,
                                         const TColStd_Array1OfReal&              VJoints);
 
@@ -127,7 +127,7 @@ public:
                                                     const Standard_Integer j) const;
 
   //! Returns grid of surfaces
-  Standard_EXPORT const Handle(TColGeom_HArray2OfSurface)& Patches() const;
+  Standard_EXPORT const Handle(SurfaceGridArray)& Patches() const;
 
   //! Returns the array of U values corresponding to joint
   //! points between patches as well as to start and end points,
@@ -235,7 +235,7 @@ public:
   Standard_EXPORT virtual void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns a copy of the surface
-  Standard_EXPORT virtual Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! NOT IMPLEMENTED (does nothing)
   Standard_EXPORT virtual void UReverse() Standard_OVERRIDE;
@@ -347,7 +347,7 @@ public:
 
 protected:
 private:
-  Handle(TColGeom_HArray2OfSurface) myPatches;
+  Handle(SurfaceGridArray) myPatches;
   Handle(TColStd_HArray1OfReal)     myUJointValues;
   Handle(TColStd_HArray1OfReal)     myVJointValues;
   Standard_Boolean                  myUClosed;

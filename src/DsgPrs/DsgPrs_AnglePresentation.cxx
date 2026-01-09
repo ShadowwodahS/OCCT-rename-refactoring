@@ -95,7 +95,7 @@ void AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Point3d P2 = ElCLib1::Value(M_PI, myCircle);
 
   // clang-format off
-  gce_MakePln mkPln(P1, P2, Apex); // create a plane which defines plane for projection aPosition on it
+  PlaneBuilder1 mkPln(P1, P2, Apex); // create a plane which defines plane for projection aPosition on it
   // clang-format on
 
   Vector3d aVector(mkPln.Value().Location(), aPosition); // project aPosition on a plane

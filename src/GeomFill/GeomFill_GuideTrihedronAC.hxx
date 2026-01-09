@@ -37,16 +37,16 @@ class GeomFill_GuideTrihedronAC : public GeomFill_TrihedronWithGuide
 {
 
 public:
-  Standard_EXPORT GeomFill_GuideTrihedronAC(const Handle(Adaptor3d_Curve)& guide);
+  Standard_EXPORT GeomFill_GuideTrihedronAC(const Handle(Curve5)& guide);
 
   //! initialize curve of trihedron law
   //! @return Standard_True
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(GeomFill_TrihedronLaw) Copy() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) Guide() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) Guide() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
                                               Vector3d&             Tangent,
@@ -118,7 +118,7 @@ private:
   Standard_Real              Lguide;
   Handle(Approx_CurvlinFunc) myCurveAC;
   Standard_Real              L;
-  Handle(Adaptor3d_Curve)    myCurve;
+  Handle(Curve5)    myCurve;
   Standard_Real              UTol;
   Standard_Real              STol;
   Standard_Real              Orig1;

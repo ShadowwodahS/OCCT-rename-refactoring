@@ -26,11 +26,11 @@
 #include <Extrema_CCLocFOfLocECC.hxx>
 #include <Extrema_SequenceOfPOnCurv.hxx>
 
-#define Curve1 Adaptor3d_Curve
+#define Curve1 Curve5
 #define Curve1_hxx <Adaptor3d_Curve.hxx>
 #define Tool1 CurveTool4
 #define Tool1_hxx <Extrema_CurveTool.hxx>
-#define Curve2 Adaptor3d_Curve
+#define Curve2 Curve5
 #define Curve2_hxx <Adaptor3d_Curve.hxx>
 #define Tool2 CurveTool4
 #define Tool2_hxx <Extrema_CurveTool.hxx>
@@ -46,6 +46,6 @@
 #define Extrema_SeqPOnCOfCCLocF_hxx <Extrema_SequenceOfPOnCurv.hxx>
 #define Extrema_SeqPOnCOfCCLocF Extrema_SequenceOfPOnCurv
 #define Extrema_SeqPOnCOfCCLocF_hxx <Extrema_SequenceOfPOnCurv.hxx>
-#define Extrema_GenLocateExtCC Extrema_LocECC
+#define Extrema_GenLocateExtCC LocalCurveCurveExtrema
 #define Extrema_GenLocateExtCC_hxx <Extrema_LocECC.hxx>
 #include "../Extrema/Extrema_GenLocateExtCC.gxx"

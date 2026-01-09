@@ -23,8 +23,8 @@
 #include <Select3D_SensitiveEntity.hxx>
 #include <Select3D_BndBox3d.hxx>
 
-typedef NCollection_List<Handle(TColgp_HArray1OfPnt)>           MeshVS_PolyhedronVerts;
-typedef NCollection_List<Handle(TColgp_HArray1OfPnt)>::Iterator MeshVS_PolyhedronVertsIter;
+typedef NCollection_List<Handle(PointArray1)>           MeshVS_PolyhedronVerts;
+typedef NCollection_List<Handle(PointArray1)>::Iterator MeshVS_PolyhedronVertsIter;
 
 //! This class is used to detect selection of a polyhedron. The main
 //! principle of detection algorithm is to search for overlap with
@@ -36,7 +36,7 @@ public:
   Standard_EXPORT MeshVS_SensitivePolyhedron(
     const Handle(SelectMgr_EntityOwner)&             theOwner,
     const TColgp_Array1OfPnt&                        theNodes,
-    const Handle(MeshVS_HArray1OfSequenceOfInteger)& theTopo);
+    const Handle(IntegerSequenceArray)& theTopo);
 
   Standard_EXPORT virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;
 
@@ -57,8 +57,8 @@ private:
   MeshVS_PolyhedronVerts                    myTopology;
   Coords3d                                    myCenter;
   Select3D_BndBox3d                         myBndBox;
-  Handle(TColgp_HArray1OfPnt)               myNodes;
-  Handle(MeshVS_HArray1OfSequenceOfInteger) myTopo;
+  Handle(PointArray1)               myNodes;
+  Handle(IntegerSequenceArray) myTopo;
 };
 
 DEFINE_STANDARD_HANDLE(MeshVS_SensitivePolyhedron, Select3D_SensitiveEntity)

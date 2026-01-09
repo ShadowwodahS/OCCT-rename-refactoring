@@ -20,9 +20,9 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Named resource object.
-class OpenGl_NamedResource : public OpenGl_Resource
+class OpenGl_NamedResource : public Resource
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_NamedResource, OpenGl_Resource)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_NamedResource, Resource)
 public:
   //! Empty constructor
   OpenGl_NamedResource(const AsciiString1& theId)

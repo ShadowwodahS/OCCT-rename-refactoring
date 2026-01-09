@@ -165,11 +165,11 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
 
       if (!P1.IsEqual(P2, Precision1::Confusion()))
       {
-        L3 = gce_MakeLin(P1, P2);
+        L3 = LineBuilder(P1, P2);
       }
       else
       {
-        L3 = gce_MakeLin(P1, myFDirAttach);
+        L3 = LineBuilder(P1, myFDirAttach);
         Standard_Real                 size(Min(myVal / 100. + 1.e-6, myArrowSize + 1.e-6));
         Handle(Select3D_SensitiveBox) box = new Select3D_SensitiveBox(own,
                                                                       myPosition.X(),
@@ -245,11 +245,11 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       gp_Lin L3;
       if (!P1.IsEqual(P2, Precision1::Confusion()))
       {
-        L3 = gce_MakeLin(P1, P2);
+        L3 = LineBuilder(P1, P2);
       }
       else
       {
-        L3 = gce_MakeLin(P1, laxis.Direction());
+        L3 = LineBuilder(P1, laxis.Direction());
         Standard_Real                 size(Min(myVal / 100. + 1.e-6, myArrowSize + 1.e-6));
         Handle(Select3D_SensitiveBox) box = new Select3D_SensitiveBox(own,
                                                                       myPosition.X(),
@@ -301,11 +301,11 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
 
       if (!P1.IsEqual(P2, Precision1::Confusion()))
       {
-        L3 = gce_MakeLin(P1, P2);
+        L3 = LineBuilder(P1, P2);
       }
       else
       {
-        L3 = gce_MakeLin(P1, myFDirAttach);
+        L3 = LineBuilder(P1, myFDirAttach);
         Standard_Real                 size(Min(myVal / 100. + 1.e-6, myArrowSize + 1.e-6));
         Handle(Select3D_SensitiveBox) box = new Select3D_SensitiveBox(own,
                                                                       myPosition.X(),

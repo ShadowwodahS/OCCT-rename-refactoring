@@ -30,7 +30,7 @@
 namespace
 {
 void ComputeErrFactors(const Standard_Real              theDeflection,
-                       const Handle(Adaptor3d_Surface)& theFace,
+                       const Handle(SurfaceAdaptor)& theFace,
                        Standard_Real&                   theErrFactorU,
                        Standard_Real&                   theErrFactorV)
 {
@@ -47,7 +47,7 @@ void ComputeErrFactors(const Standard_Real              theDeflection,
 
     case GeomAbs_SurfaceOfExtrusion:
     case GeomAbs_SurfaceOfRevolution: {
-      Handle(Adaptor3d_Curve) aCurve = theFace->BasisCurve();
+      Handle(Curve5) aCurve = theFace->BasisCurve();
       if (aCurve->GetType() == GeomAbs_BSplineCurve && aCurve->Degree() > 2)
       {
         theErrFactorV /= (aCurve->Degree() * aCurve->NbKnots());
@@ -83,7 +83,7 @@ void ComputeErrFactors(const Standard_Real              theDeflection,
   }
 }
 
-void AdjustCellsCounts(const Handle(Adaptor3d_Surface)& theFace,
+void AdjustCellsCounts(const Handle(SurfaceAdaptor)& theFace,
                        const Standard_Integer           theNbVertices,
                        Standard_Integer&                theCellsCountU,
                        Standard_Integer&                theCellsCountV)
@@ -107,7 +107,7 @@ void AdjustCellsCounts(const Handle(Adaptor3d_Surface)& theFace,
   }
   else if (aType == GeomAbs_SurfaceOfExtrusion || aType == GeomAbs_SurfaceOfRevolution)
   {
-    Handle(Adaptor3d_Curve) aCurve = theFace->BasisCurve();
+    Handle(Curve5) aCurve = theFace->BasisCurve();
     if (aCurve->GetType() == GeomAbs_Line
         || (aCurve->GetType() == GeomAbs_BSplineCurve && aCurve->Degree() < 2))
     {
@@ -422,7 +422,7 @@ BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntSegSeg(
 //=================================================================================================
 
 std::pair<Standard_Integer, Standard_Integer> BRepMesh_GeomTool::CellsCount(
-  const Handle(Adaptor3d_Surface)&     theSurface,
+  const Handle(SurfaceAdaptor)&     theSurface,
   const Standard_Integer               theVerticesNb,
   const Standard_Real                  theDeflection,
   const DefaultRangeSplitter* theRangeSplitter)

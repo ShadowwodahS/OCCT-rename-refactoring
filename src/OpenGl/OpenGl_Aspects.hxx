@@ -43,7 +43,7 @@ public:
   void SetNoLighting() { myShadingModel = Graphic3d_TypeOfShadingModel_Unlit; }
 
   //! Returns textures map.
-  const Handle(OpenGl_TextureSet)& TextureSet(const Handle(OpenGl_Context)& theCtx,
+  const Handle(TextureSet2)& TextureSet(const Handle(OpenGl_Context)& theCtx,
                                               bool theToHighlight = false) const
   {
     const Handle(OpenGl_PointSprite)& aSprite  = myResSprite.Sprite(theCtx, myAspect, false);

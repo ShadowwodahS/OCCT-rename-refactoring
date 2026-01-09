@@ -20,6 +20,6 @@
 #include <IntRes2d_IntersectionPoint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntRes2d_IntersectionPoint> IntRes2d_SequenceOfIntersectionPoint;
+typedef NCollection_Sequence<IntersectionPoint3> IntRes2d_SequenceOfIntersectionPoint;
 
 #endif

@@ -37,7 +37,7 @@
 #define AppParCurves_ParFunction GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox
 #define AppParCurves_ParFunction_hxx                                                               \
   <GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox.hxx>
-#define AppParCurves_Gradient_BFGS GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox
+#define AppParCurves_Gradient_BFGS BFGSGradientbisLineApprox
 #define AppParCurves_Gradient_BFGS_hxx                                                             \
   <GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox.hxx>
 #define AppParCurves_Gradient GeomInt_MyGradientbisOfTheComputeLineOfWLApprox

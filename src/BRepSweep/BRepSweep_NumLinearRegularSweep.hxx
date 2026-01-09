@@ -258,7 +258,7 @@ protected:
   TopoShape            myGenShape;
   SweepNumShape          myDirWire;
   Tool6          myGenShapeTool;
-  Sweep_NumShapeTool      myDirShapeTool;
+  NumShapeTool      myDirShapeTool;
   TopTools_Array2OfShape  myShapes;
   TColStd_Array2OfBoolean myBuiltShapes;
   TColStd_Array2OfBoolean myUsedShapes;

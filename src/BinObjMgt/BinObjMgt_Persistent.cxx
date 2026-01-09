@@ -760,7 +760,7 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetExtendedString(
 
 //=================================================================================================
 
-const BinObjMgt_Persistent& BinObjMgt_Persistent::GetLabel(const Handle(TDF_Data)& theDS,
+const BinObjMgt_Persistent& BinObjMgt_Persistent::GetLabel(const Handle(Data2)& theDS,
                                                            DataLabel&              theValue) const
 {
   theValue.Nullify();

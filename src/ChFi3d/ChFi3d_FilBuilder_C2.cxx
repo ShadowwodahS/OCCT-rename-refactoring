@@ -488,8 +488,8 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
     // new cornerdata is created
     //-------------------------------
     Handle(ChFiDS_Stripe) corner    = new ChFiDS_Stripe();
-    Handle(ChFiDS_HData)& cornerset = corner->ChangeSetOfSurfData();
-    cornerset                       = new ChFiDS_HData();
+    Handle(ChamferFilletData)& cornerset = corner->ChangeSetOfSurfData();
+    cornerset                       = new ChamferFilletData();
     Handle(ChFiDS_SurfData) coin    = new ChFiDS_SurfData();
     cornerset->Append(coin);
 
@@ -537,7 +537,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
         Standard_Real             uPCArc1, uPCArc2;
         gp_Pnt2d                  p2da1, p2df1, p2da2, p2df2, p2dfac1, p2dfac2;
         gp_Vec2d                  v2dfac1, v2dfac2;
-        Handle(GeomFill_Boundary) B1, B2, Bpiv, Bfac;
+        Handle(Boundary2) B1, B2, Bpiv, Bfac;
         uPCArc1 = sd1->Interference(IFaArc1).Parameter(isfirst1);
         p2da1   = sd1->Interference(IFaArc1).PCurveOnSurf()->Value(uPCArc1);
         p2df1   = sd1->Interference(IFaCo1).PCurveOnSurf()->Value(uPCArc1);
@@ -569,7 +569,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
         }
         else
         {
-          Handle(Adaptor3d_Curve) HPivTrim =
+          Handle(Curve5) HPivTrim =
             Hpivot->Trim(Min(parCP1, parCP2), Max(parCP1, parCP2), tolesp);
           Bpiv = new GeomFill_SimpleBound(HPivTrim, tolapp3d, 2.e-4);
           fil.Init(Bfac, B2, Bpiv, B1, 1);
@@ -885,7 +885,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
 #ifdef OCCT_DEBUG
       ChFi3d_InitChron(ch); // init perf filling
 #endif
-      Handle(GeomFill_Boundary) Bsam, Bdif, Bfac;
+      Handle(Boundary2) Bsam, Bdif, Bfac;
       gp_Pnt2d             ppopsam = sdsam->Interference(ifaopsam).PCurveOnSurf()->Value(uintpcsam);
       gp_Pnt2d             ppcosam = sdsam->Interference(ifacosam).PCurveOnSurf()->Value(uintpcsam);
       Handle(GeomSurface) surfsam = DStr.Surface(sdsam->Surf()).Surface();

@@ -771,7 +771,7 @@ private:
 
 void GeomConvert1::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves,
                            const TColStd_Array1OfReal&             ArrayOfToler,
-                           Handle(TColGeom_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                           Handle(HArray1OfBSplineCurve1)& ArrayOfConcatenated,
                            Standard_Boolean&                       ClosedG1Flag,
                            const Standard_Real                     ClosedTolerance)
 
@@ -839,7 +839,7 @@ void GeomConvert1::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurve
                            ClosedTolerance);
   }
 
-  ArrayOfConcatenated = new TColGeom_HArray1OfBSplineCurve(0, nb_group - 1);
+  ArrayOfConcatenated = new HArray1OfBSplineCurve1(0, nb_group - 1);
   Standard_Boolean fusion;
 
   index = 0;
@@ -988,7 +988,7 @@ void GeomConvert1::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurve
 void GeomConvert1::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves,
                            const TColStd_Array1OfReal&             ArrayOfToler,
                            Handle(TColStd_HArray1OfInteger)&       ArrayOfIndices,
-                           Handle(TColGeom_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                           Handle(HArray1OfBSplineCurve1)& ArrayOfConcatenated,
                            Standard_Boolean&                       ClosedG1Flag,
                            const Standard_Real                     ClosedTolerance)
 {
@@ -1006,7 +1006,7 @@ void GeomConvert1::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurve
 void GeomConvert1::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves,
                            const TColStd_Array1OfReal&             ArrayOfToler,
                            Handle(TColStd_HArray1OfInteger)&       ArrayOfIndices,
-                           Handle(TColGeom_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                           Handle(HArray1OfBSplineCurve1)& ArrayOfConcatenated,
                            Standard_Boolean&                       ClosedG1Flag,
                            const Standard_Real                     ClosedTolerance,
                            const Standard_Real                     AngularTolerance)
@@ -1079,7 +1079,7 @@ void GeomConvert1::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurve
   }
 
   ArrayOfIndices      = new TColStd_HArray1OfInteger(0, nb_group);
-  ArrayOfConcatenated = new TColGeom_HArray1OfBSplineCurve(0, nb_group - 1);
+  ArrayOfConcatenated = new HArray1OfBSplineCurve1(0, nb_group - 1);
 
   Standard_Boolean fusion;
   Standard_Integer k = 0;
@@ -1259,7 +1259,7 @@ void GeomConvert1::C0BSplineToC1BSplineCurve(Handle(BSplineCurve3d)& BS,
 
 {
   Standard_Boolean                       fusion;
-  Handle(TColGeom_HArray1OfBSplineCurve) ArrayOfConcatenated;
+  Handle(HArray1OfBSplineCurve1) ArrayOfConcatenated;
   // the array with the resulting curves
 
   GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(BS, ArrayOfConcatenated, AngularTol, tolerance);
@@ -1281,7 +1281,7 @@ void GeomConvert1::C0BSplineToC1BSplineCurve(Handle(BSplineCurve3d)& BS,
 //=================================================================================================
 
 void GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)&        BS,
-                                                   Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
+                                                   Handle(HArray1OfBSplineCurve1)& tabBS,
                                                    const Standard_Real tolerance)
 {
   C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, Precision1::Angular(), tolerance);
@@ -1290,7 +1290,7 @@ void GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)
 //=================================================================================================
 
 void GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)&        BS,
-                                                   Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
+                                                   Handle(HArray1OfBSplineCurve1)& tabBS,
                                                    const Standard_Real AngularTolerance,
                                                    const Standard_Real tolerance)
 
@@ -1359,7 +1359,7 @@ void GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)
   }
   else
   {
-    tabBS = new TColGeom_HArray1OfBSplineCurve(0, 0);
+    tabBS = new HArray1OfBSplineCurve1(0, 0);
     tabBS->SetValue(0, BS);
   }
 }

@@ -22,9 +22,9 @@ class OSD_FileSystem;
 class RWMesh_TriangulationSource;
 
 //! Interface for reading primitive array from the buffer.
-class RWMesh_TriangulationReader : public RefObject
+class TriangulationReader : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWMesh_TriangulationReader, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TriangulationReader, RefObject)
 public:
   struct LoadingStatistic1
   {
@@ -56,10 +56,10 @@ public:
   };
 
   //! Constructor.
-  Standard_EXPORT RWMesh_TriangulationReader();
+  Standard_EXPORT TriangulationReader();
 
   //! Destructor.
-  Standard_EXPORT virtual ~RWMesh_TriangulationReader();
+  Standard_EXPORT virtual ~TriangulationReader();
 
   //! Returns file name for reporting issues.
   const AsciiString1& FileName() const { return myFileName; }

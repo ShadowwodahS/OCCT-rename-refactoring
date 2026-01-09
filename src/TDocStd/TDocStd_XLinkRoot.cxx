@@ -46,7 +46,7 @@ const Standard_GUID& TDocStd_XLinkRoot::GetID()
 // purpose  : CLASS method.
 //=======================================================================
 
-Handle(TDocStd_XLinkRoot) TDocStd_XLinkRoot::Set(const Handle(TDF_Data)& aDF)
+Handle(TDocStd_XLinkRoot) TDocStd_XLinkRoot::Set(const Handle(Data2)& aDF)
 {
   Handle(TDocStd_XLinkRoot) xRefRoot;
   if (!aDF->Root().FindAttribute(TDocStd_XLinkRoot::GetID(), xRefRoot))
@@ -134,7 +134,7 @@ Handle(TDF_Attribute) TDocStd_XLinkRoot::NewEmpty() const
 //=================================================================================================
 
 void TDocStd_XLinkRoot::Paste(const Handle(TDF_Attribute)&,
-                              const Handle(TDF_RelocationTable)&) const
+                              const Handle(RelocationTable1)&) const
 {
 } // Does nothing.
 

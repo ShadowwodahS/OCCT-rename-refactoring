@@ -17,13 +17,13 @@
 #include <OpenGl_TextureSet.hxx>
 
 //! Class for iterating pair of texture sets through each defined texture slot.
-//! Note that iterator considers texture slots being in ascending order within OpenGl_TextureSet.
+//! Note that iterator considers texture slots being in ascending order within TextureSet2.
 class OpenGl_TextureSetPairIterator
 {
 public:
   //! Constructor.
-  OpenGl_TextureSetPairIterator(const Handle(OpenGl_TextureSet)& theSet1,
-                                const Handle(OpenGl_TextureSet)& theSet2)
+  OpenGl_TextureSetPairIterator(const Handle(TextureSet2)& theSet1,
+                                const Handle(TextureSet2)& theSet2)
       : myIter1(theSet1),
         myIter2(theSet2),
         myTexture1(NULL),
@@ -85,8 +85,8 @@ public:
   }
 
 private:
-  OpenGl_TextureSet::Iterator myIter1;
-  OpenGl_TextureSet::Iterator myIter2;
+  TextureSet2::Iterator myIter1;
+  TextureSet2::Iterator myIter2;
   OpenGl_Texture*             myTexture1;
   OpenGl_Texture*             myTexture2;
   Standard_Integer            myUnitLower;

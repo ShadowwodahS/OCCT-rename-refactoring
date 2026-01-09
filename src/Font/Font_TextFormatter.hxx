@@ -25,7 +25,7 @@
 
 class Font_FTFont;
 
-DEFINE_STANDARD_HANDLE(Font_TextFormatter, RefObject)
+DEFINE_STANDARD_HANDLE(TextFormatter1, RefObject)
 
 //! This class is intended to prepare formatted text by using:<br>
 //! - font to string combination,<br>
@@ -45,13 +45,13 @@ DEFINE_STANDARD_HANDLE(Font_TextFormatter, RefObject)
 //! Pay attention that fonts should have the same LineSpacing value for correct formatting.<br>
 //! Example of the formatter using:
 //! @code
-//!   Handle(Font_TextFormatter) aFormatter = new Font_TextFormatter();
+//!   Handle(TextFormatter1) aFormatter = new TextFormatter1();
 //!   aFormatter->Append(text_1, aFont1);
 //!   aFormatter->Append(text_2, aFont2);
 //!   // setting of additional properties such as wrapping or alignment
 //!   aFormatter->Format();
 //! @endcode
-class Font_TextFormatter : public RefObject
+class TextFormatter1 : public RefObject
 {
 public:
   //! Iteration filter flags. Command symbols are skipped with any filter.
@@ -67,7 +67,7 @@ public:
   {
   public:
     //! Constructor with initialization.
-    Iterator(const Font_TextFormatter& theFormatter,
+    Iterator(const TextFormatter1& theFormatter,
              IterationFilter           theFilter = IterationFilter_None)
         : myFilter(theFilter),
           myIter(theFormatter.myString.Iterator()),
@@ -113,7 +113,7 @@ public:
       for (; *myIter != 0; ++myIter)
       {
         const Standard_Utf32Char aCharCurr = *myIter;
-        if (Font_TextFormatter::IsCommandSymbol(aCharCurr))
+        if (TextFormatter1::IsCommandSymbol(aCharCurr))
         {
           continue; // skip unsupported carriage control codes
         }
@@ -145,7 +145,7 @@ public:
   };
 
   //! Default constructor.
-  Standard_EXPORT Font_TextFormatter();
+  Standard_EXPORT TextFormatter1();
 
   //! Setup alignment style.
   Standard_EXPORT void SetupAlignment(const Graphic3d_HorizontalTextAlignment theAlignX,
@@ -296,7 +296,7 @@ public:
            || theSymbol == '\x09'; // tab
   }
 
-  DEFINE_STANDARD_RTTIEXT(Font_TextFormatter, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TextFormatter1, RefObject)
 
 protected: //! @name class auxiliary methods
   //! Move glyphs on the current line to correct position.

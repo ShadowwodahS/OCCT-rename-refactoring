@@ -44,7 +44,7 @@
 
 //=================================================================================================
 
-GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HArray1OfPnt)& Pts,
+GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(PointArray1)& Pts,
                                                          const Standard_Integer NbBoundPoints,
                                                          const Standard_Real    Tol,
                                                          const Standard_Integer POption,
@@ -99,7 +99,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
 }
 
 GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOfVec&        Normals,
-                                                         const Handle(TColgp_HArray1OfPnt)& Pts)
+                                                         const Handle(PointArray1)& Pts)
     : myPts(Pts)
 {
   Standard_Integer i, j, k, n, m;

@@ -45,7 +45,7 @@ class Axis3d;
 //!
 //! The "XDirection" and the "YDirection" of the axis
 //! placement define the plane ("XAxis" and "YAxis") .
-class gce_MakePln : public Root6
+class PlaneBuilder1 : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -56,25 +56,25 @@ public:
   //! The "Location" of A2 defines the location (origin) of the plane.
   //! The "XDirection" and "YDirection" of A2 define the "XAxis" and
   //! the "YAxis" of the plane used to parametrize the plane.
-  Standard_EXPORT gce_MakePln(const Frame3d& A2);
+  Standard_EXPORT PlaneBuilder1(const Frame3d& A2);
 
   //! Creates a plane with the  "Location" point <P>
   //! and the normal direction <V>.
-  Standard_EXPORT gce_MakePln(const Point3d& P, const Dir3d& V);
+  Standard_EXPORT PlaneBuilder1(const Point3d& P, const Dir3d& V);
 
   //! Creates a plane from its cartesian equation :
   //! A * X + B * Y + C * Z + D = 0.0
   //!
   //! the status is "BadEquation" if Sqrt (A*A + B*B + C*C) <=
   //! Resolution from gp1.
-  Standard_EXPORT gce_MakePln(const Standard_Real A,
+  Standard_EXPORT PlaneBuilder1(const Standard_Real A,
                               const Standard_Real B,
                               const Standard_Real C,
                               const Standard_Real D);
 
   //! Make a Pln from gp1 <ThePln> parallel to another
   //! Pln <Pln> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakePln(const gp_Pln& Pln, const Point3d& Point);
+  Standard_EXPORT PlaneBuilder1(const gp_Pln& Pln, const Point3d& Point);
 
   //! Make a Pln from gp1 <ThePln> parallel to another
   //! Pln <Pln> at the distance <Dist> which can be greater
@@ -83,17 +83,17 @@ public:
   //! <Dist> to the plane <Pln> in the direction of the
   //! normal to <Pln>.
   //! Otherwise it is in the opposite direction.
-  Standard_EXPORT gce_MakePln(const gp_Pln& Pln, const Standard_Real Dist);
+  Standard_EXPORT PlaneBuilder1(const gp_Pln& Pln, const Standard_Real Dist);
 
   //! Make a Pln from gp1 <ThePln> passing through 3
   //! Pnt <P1>,<P2>,<P3>.
   //! It returns false if <P1> <P2> <P3> are confused.
-  Standard_EXPORT gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3);
+  Standard_EXPORT PlaneBuilder1(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Make a Pln from gp1 <ThePln> perpendicular to the line
   //! passing through <P1>,<P2>.
   //! The status is "ConfusedPoints" if <P1> <P2> are confused.
-  Standard_EXPORT gce_MakePln(const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT PlaneBuilder1(const Point3d& P1, const Point3d& P2);
 
   //! Make a pln  passing through the location of <Axis>and
   //! normal to the Direction of <Axis>.
@@ -103,7 +103,7 @@ public:
   //! C*C) is less than or equal to gp1::Resolution(),
   //! -   gce_ConfusedPoints if P1 and P2 are coincident, or
   //! -   gce_ColinearPoints if P1, P2 and P3 are collinear.
-  Standard_EXPORT gce_MakePln(const Axis3d& Axis);
+  Standard_EXPORT PlaneBuilder1(const Axis3d& Axis);
 
   //! Returns the constructed plane.
   //! Exceptions StdFail_NotDone if no plane is constructed.

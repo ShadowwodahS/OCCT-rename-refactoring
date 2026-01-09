@@ -34,7 +34,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-class Law_Function;
+class Function2;
 class math_Matrix;
 class gp_Circ;
 class Point2;
@@ -53,10 +53,10 @@ public:
   //! below :
   //! t is the current parameter on the guide line.
   //! Pguide = C(L(t)); Nguide = CGuide'(t)/||CGuide'(t)||
-  Standard_EXPORT BlendFunc_CSCircular(const Handle(Adaptor3d_Surface)& S,
-                                       const Handle(Adaptor3d_Curve)&   C,
-                                       const Handle(Adaptor3d_Curve)&   CGuide,
-                                       const Handle(Law_Function)&      L);
+  Standard_EXPORT BlendFunc_CSCircular(const Handle(SurfaceAdaptor)& S,
+                                       const Handle(Curve5)&   C,
+                                       const Handle(Curve5)&   CGuide,
+                                       const Handle(Function2)&      L);
 
   Standard_EXPORT virtual Standard_Integer NbVariables() const Standard_OVERRIDE;
 
@@ -225,10 +225,10 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface)    surf;
-  Handle(Adaptor3d_Curve)      curv;
-  Handle(Adaptor3d_Curve)      guide;
-  Handle(Law_Function)         law;
+  Handle(SurfaceAdaptor)    surf;
+  Handle(Curve5)      curv;
+  Handle(Curve5)      guide;
+  Handle(Function2)         law;
   Point3d                       pts;
   Point3d                       ptc;
   gp_Pnt2d                     pt2d;

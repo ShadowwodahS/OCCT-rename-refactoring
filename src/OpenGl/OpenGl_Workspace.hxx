@@ -147,9 +147,9 @@ public:
   Standard_EXPORT const OpenGl_Aspects* SetAspects(const OpenGl_Aspects* theAspect);
 
   //! Return TextureSet from set Aspects or Environment texture.
-  const Handle(OpenGl_TextureSet)& TextureSet() const
+  const Handle(TextureSet2)& TextureSet() const
   {
-    const Handle(OpenGl_TextureSet)& aTextureSet =
+    const Handle(TextureSet2)& aTextureSet =
       myAspectsSet->TextureSet(myGlContext, ToHighlight());
     return !aTextureSet.IsNull() || myAspectsSet->Aspect()->ToMapTexture() ? aTextureSet
                                                                            : myEnvironmentTexture;
@@ -193,13 +193,13 @@ public:
   const OpenGl_Aspects& FrontCulling() const { return myFrontCulling; }
 
   //! Sets a new environment texture.
-  void SetEnvironmentTexture(const Handle(OpenGl_TextureSet)& theTexture)
+  void SetEnvironmentTexture(const Handle(TextureSet2)& theTexture)
   {
     myEnvironmentTexture = theTexture;
   }
 
   //! Returns environment texture.
-  const Handle(OpenGl_TextureSet)& EnvironmentTexture() const { return myEnvironmentTexture; }
+  const Handle(TextureSet2)& EnvironmentTexture() const { return myEnvironmentTexture; }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
@@ -230,7 +230,7 @@ protected:                        //! @name fields related to status
 
   OpenGl_Aspects myAspectFaceHl; //!< Hiddenline aspect
 
-  Handle(OpenGl_TextureSet) myEnvironmentTexture;
+  Handle(TextureSet2) myEnvironmentTexture;
 
 public: //! @name type definition
   DEFINE_STANDARD_RTTIEXT(OpenGl_Workspace, RefObject)

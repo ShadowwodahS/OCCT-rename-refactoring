@@ -869,7 +869,7 @@ public:
   //!                              otherwise, only already customized attributes will be changed
   //! @return TRUE if presentation should be recomputed after creating aspects not previously
   //! customized (if theToOverrideDefaults is also TRUE)
-  Standard_EXPORT bool SetShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProgram,
+  Standard_EXPORT bool SetShaderProgram(const Handle(ShaderProgram2)& theProgram,
                                         const Graphic3d_GroupAspect            theAspect,
                                         const bool theToOverrideDefaults = false);
 

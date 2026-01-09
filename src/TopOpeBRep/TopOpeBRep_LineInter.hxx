@@ -33,7 +33,7 @@
 #include <IntSurf_TypeTrans.hxx>
 #include <IntSurf_Situation.hxx>
 #include <Standard_OStream.hxx>
-class IntPatch_Line;
+class Line2;
 class IntPatch_ALine;
 class IntPatch_RLine;
 class IntPatch_WLine;
@@ -51,7 +51,7 @@ public:
 
   TopOpeBRep_LineInter();
 
-  Standard_EXPORT void SetLine(const Handle(IntPatch_Line)& L,
+  Standard_EXPORT void SetLine(const Handle(Line2)& L,
                                const BRepAdaptor_Surface&   S1,
                                const BRepAdaptor_Surface&   S2);
 
@@ -166,7 +166,7 @@ private:
   Standard_Integer                        myVPL;
   Standard_Integer                        myVPN;
   TopOpeBRep_TypeLineCurve                myTypeLineCurve;
-  Handle(IntPatch_Line)                   myIL;
+  Handle(Line2)                   myIL;
   Handle(IntPatch_ALine)                  myILA;
   Handle(IntPatch_RLine)                  myILR;
   Handle(IntPatch_WLine)                  myILW;

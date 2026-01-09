@@ -25,7 +25,7 @@
 //----------------------------------------------------------------------------
 // Purpose - to find min index of global variables and define
 //----------------------------------------------------------------------------
-static Standard_Integer MinIndex(const Handle(FEmTool_HAssemblyTable)& Table)
+static Standard_Integer MinIndex(const Handle(AssemblyTable1)& Table)
 {
   Standard_Integer dim, el, nvar, Imin;
   Standard_Integer diml = Table->LowerRow(), dimu = Table->UpperRow(), ell = Table->LowerCol(),
@@ -54,7 +54,7 @@ static Standard_Integer MinIndex(const Handle(FEmTool_HAssemblyTable)& Table)
 //----------------------------------------------------------------------------
 // Purpose - to find max index of global variables
 //----------------------------------------------------------------------------
-static Standard_Integer MaxIndex(const Handle(FEmTool_HAssemblyTable)& Table)
+static Standard_Integer MaxIndex(const Handle(AssemblyTable1)& Table)
 {
   Standard_Integer dim, el, nvar, Imax;
   Standard_Integer diml = Table->LowerRow(), dimu = Table->UpperRow(), ell = Table->LowerCol(),
@@ -83,7 +83,7 @@ static Standard_Integer MaxIndex(const Handle(FEmTool_HAssemblyTable)& Table)
 //=================================================================================================
 
 FEmTool_Assembly::FEmTool_Assembly(const TColStd_Array2OfInteger&        Dependence,
-                                   const Handle(FEmTool_HAssemblyTable)& Table)
+                                   const Handle(AssemblyTable1)& Table)
     : myDepTable(1, Dependence.ColLength(), 1, Dependence.RowLength()),
       B(MinIndex(Table), MaxIndex(Table))
 
@@ -437,7 +437,7 @@ Standard_Integer FEmTool_Assembly::NbGlobVar() const
   return B.Length();
 }
 
-void FEmTool_Assembly::GetAssemblyTable(Handle(FEmTool_HAssemblyTable)& AssTable) const
+void FEmTool_Assembly::GetAssemblyTable(Handle(AssemblyTable1)& AssTable) const
 {
   AssTable = myRefTable;
 }

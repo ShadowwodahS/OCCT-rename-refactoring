@@ -56,7 +56,7 @@ void StdLPersistent_Document::ImportDocument(const Handle(AppDocument)& theDocum
   if (theDocument.IsNull() || myData.IsNull())
     return;
 
-  Handle(TDF_Data) aData = myData->Import();
+  Handle(Data2) aData = myData->Import();
   if (aData.IsNull())
     return;
 

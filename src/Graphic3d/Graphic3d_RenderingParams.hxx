@@ -155,10 +155,10 @@ public:
         ToSmoothInterlacing(Standard_True),
         ToMirrorComposer(Standard_True),
         //
-        StatsPosition(new Graphic3d_TransformPers(Graphic3d_TMF_2d,
+        StatsPosition(new TransformPers(Graphic3d_TMF_2d,
                                                   Aspect_TOTP_LEFT_UPPER,
                                                   Graphic3d_Vec2i(20, 20))),
-        ChartPosition(new Graphic3d_TransformPers(Graphic3d_TMF_2d,
+        ChartPosition(new TransformPers(Graphic3d_TMF_2d,
                                                   Aspect_TOTP_RIGHT_UPPER,
                                                   Graphic3d_Vec2i(20, 20))),
         ChartSize(-1, -1),
@@ -276,8 +276,8 @@ public: //! @name VR / stereoscopic parameters
 
 public: //! @name on-screen display parameters
 
-  Handle(Graphic3d_TransformPers)   StatsPosition;               //!< location of stats, upper-left position by default
-  Handle(Graphic3d_TransformPers)   ChartPosition;               //!< location of stats chart, upper-right position by default
+  Handle(TransformPers)   StatsPosition;               //!< location of stats, upper-left position by default
+  Handle(TransformPers)   ChartPosition;               //!< location of stats chart, upper-right position by default
   Graphic3d_Vec2i                   ChartSize;                   //!< chart size in pixels, (-1, -1) by default which means that chart will occupy a portion of viewport
   Handle(Graphic3d_AspectText3d)    StatsTextAspect;             //!< stats text aspect
   Standard_ShortReal                StatsUpdateInterval;         //!< time interval between stats updates in seconds, 1.0 second by default;

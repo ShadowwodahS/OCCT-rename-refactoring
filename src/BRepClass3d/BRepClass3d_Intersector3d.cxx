@@ -44,7 +44,7 @@ void BRepClass3d_Intersector3d::Perform(const gp_Lin& L,
                                         const TopoFace&  Face)
 {
 
-  IntCurveSurface_HInter   HICS;
+  HandleIntersection   HICS;
   BRepAdaptor_Surface      surface;
   BRepClass_FaceClassifier classifier2d;
 

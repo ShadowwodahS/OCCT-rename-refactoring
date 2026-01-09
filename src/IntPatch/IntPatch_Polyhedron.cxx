@@ -30,7 +30,7 @@
 #define NBMAXUV 30
 
 //================================================================================
-static Standard_Integer NbPOnU(const Handle(Adaptor3d_Surface)& S)
+static Standard_Integer NbPOnU(const Handle(SurfaceAdaptor)& S)
 {
   const Standard_Real    u0   = S->FirstUParameter();
   const Standard_Real    u1   = S->LastUParameter();
@@ -39,7 +39,7 @@ static Standard_Integer NbPOnU(const Handle(Adaptor3d_Surface)& S)
 }
 
 //================================================================================
-static Standard_Integer NbPOnV(const Handle(Adaptor3d_Surface)& S)
+static Standard_Integer NbPOnV(const Handle(SurfaceAdaptor)& S)
 {
   const Standard_Real    v0   = S->FirstVParameter();
   const Standard_Real    v1   = S->LastVParameter();
@@ -65,7 +65,7 @@ void IntPatch_Polyhedron::Destroy()
 
 //=================================================================================================
 
-IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surface)
+IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(SurfaceAdaptor)& Surface)
     : TheDeflection(Epsilon(100.)),
       nbdeltaU(NbPOnU(Surface)),
       nbdeltaV(NbPOnV(Surface)),
@@ -126,7 +126,7 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
 
 //=================================================================================================
 
-IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surface,
+IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(SurfaceAdaptor)& Surface,
                                          const Standard_Integer           nbu,
                                          const Standard_Integer           nbv)
     : TheDeflection(Epsilon(100.)),
@@ -189,7 +189,7 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
 
 //=================================================================================================
 
-Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_Surface)& Surface,
+Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(SurfaceAdaptor)& Surface,
                                                         const Standard_Integer Triang) const
 {
   Standard_Integer i1, i2, i3;
@@ -269,7 +269,7 @@ const Box2& IntPatch_Polyhedron::Bounding() const
 
 void IntPatch_Polyhedron::FillBounding()
 {
-  TheComponentsBnd = new Bnd_HArray1OfBox(1, NbTriangles());
+  TheComponentsBnd = new BoxArray(1, NbTriangles());
   Box2          Boite;
   Standard_Integer p1, p2, p3;
   Standard_Integer nbtriangles = NbTriangles();
@@ -299,7 +299,7 @@ void IntPatch_Polyhedron::FillBounding()
 
 //=================================================================================================
 
-const Handle(Bnd_HArray1OfBox)& IntPatch_Polyhedron::ComponentsBounding() const
+const Handle(BoxArray)& IntPatch_Polyhedron::ComponentsBounding() const
 {
   return TheComponentsBnd;
 }

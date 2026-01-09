@@ -26,7 +26,7 @@
 #include <math_Vector.hxx>
 class CurveTool5;
 class ProjPCurOfCInter;
-class HLRBRep_TheIntPCurvePCurveOfCInter;
+class IntPCurvePCurveCInter;
 class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter;
 

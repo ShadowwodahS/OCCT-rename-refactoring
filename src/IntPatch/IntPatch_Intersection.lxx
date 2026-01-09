@@ -80,7 +80,7 @@ inline Standard_Integer Intersection1::NbLines() const
   return slin.Length();
 }
 
-inline const Handle(IntPatch_Line)& Intersection1::Line(const Standard_Integer Index) const
+inline const Handle(Line2)& Intersection1::Line(const Standard_Integer Index) const
 {
   if (!done)
   {

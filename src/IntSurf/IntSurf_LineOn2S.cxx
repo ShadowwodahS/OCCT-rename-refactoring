@@ -16,9 +16,9 @@
 #include <IntSurf_PntOn2S.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntSurf_LineOn2S, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(LineOnTwoSurfaces, RefObject)
 
-IntSurf_LineOn2S::IntSurf_LineOn2S(const IntSurf_Allocator& theAllocator)
+LineOnTwoSurfaces::LineOnTwoSurfaces(const IntSurf_Allocator& theAllocator)
     : mySeq(theAllocator)
 {
   myBuv1.SetWhole();
@@ -26,11 +26,11 @@ IntSurf_LineOn2S::IntSurf_LineOn2S(const IntSurf_Allocator& theAllocator)
   myBxyz.SetWhole();
 }
 
-Handle(IntSurf_LineOn2S) IntSurf_LineOn2S::Split(const Standard_Integer Index)
+Handle(LineOnTwoSurfaces) LineOnTwoSurfaces::Split(const Standard_Integer Index)
 {
   IntSurf_SequenceOfPntOn2S SS;
   mySeq.Split(Index, SS);
-  Handle(IntSurf_LineOn2S) NS = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces) NS = new LineOnTwoSurfaces();
   Standard_Integer         i;
   Standard_Integer         leng = SS.Length();
   for (i = 1; i <= leng; i++)
@@ -40,7 +40,7 @@ Handle(IntSurf_LineOn2S) IntSurf_LineOn2S::Split(const Standard_Integer Index)
   return NS;
 }
 
-void IntSurf_LineOn2S::InsertBefore(const Standard_Integer index, const PointOn2Surfaces& P)
+void LineOnTwoSurfaces::InsertBefore(const Standard_Integer index, const PointOn2Surfaces& P)
 {
   if (index > mySeq.Length())
   {
@@ -67,7 +67,7 @@ void IntSurf_LineOn2S::InsertBefore(const Standard_Integer index, const PointOn2
   }
 }
 
-void IntSurf_LineOn2S::RemovePoint(const Standard_Integer index)
+void LineOnTwoSurfaces::RemovePoint(const Standard_Integer index)
 {
   mySeq.Remove(index);
   myBuv1.SetWhole();
@@ -75,7 +75,7 @@ void IntSurf_LineOn2S::RemovePoint(const Standard_Integer index)
   myBxyz.SetWhole();
 }
 
-Standard_Boolean IntSurf_LineOn2S::IsOutBox(const Point3d& Pxyz)
+Standard_Boolean LineOnTwoSurfaces::IsOutBox(const Point3d& Pxyz)
 {
   if (myBxyz.IsWhole())
   {
@@ -118,7 +118,7 @@ Standard_Boolean IntSurf_LineOn2S::IsOutBox(const Point3d& Pxyz)
   return (out);
 }
 
-Standard_Boolean IntSurf_LineOn2S::IsOutSurf1Box(const gp_Pnt2d& P1uv)
+Standard_Boolean LineOnTwoSurfaces::IsOutSurf1Box(const gp_Pnt2d& P1uv)
 {
   if (myBuv1.IsWhole())
   {
@@ -146,7 +146,7 @@ Standard_Boolean IntSurf_LineOn2S::IsOutSurf1Box(const gp_Pnt2d& P1uv)
   return (out);
 }
 
-Standard_Boolean IntSurf_LineOn2S::IsOutSurf2Box(const gp_Pnt2d& P2uv)
+Standard_Boolean LineOnTwoSurfaces::IsOutSurf2Box(const gp_Pnt2d& P2uv)
 {
   if (myBuv2.IsWhole())
   {
@@ -176,7 +176,7 @@ Standard_Boolean IntSurf_LineOn2S::IsOutSurf2Box(const gp_Pnt2d& P2uv)
 
 //=================================================================================================
 
-void IntSurf_LineOn2S::Add(const PointOn2Surfaces& P)
+void LineOnTwoSurfaces::Add(const PointOn2Surfaces& P)
 {
   mySeq.Append(P);
   if (!myBxyz.IsWhole())
@@ -197,7 +197,7 @@ void IntSurf_LineOn2S::Add(const PointOn2Surfaces& P)
 
 //=================================================================================================
 
-void IntSurf_LineOn2S::SetUV(const Standard_Integer Index,
+void LineOnTwoSurfaces::SetUV(const Standard_Integer Index,
                              const Standard_Boolean OnFirst,
                              const Standard_Real    U,
                              const Standard_Real    V)

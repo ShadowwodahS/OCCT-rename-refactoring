@@ -20,10 +20,10 @@
 
 //=======================================================================
 // function : TDF_LabelNode
-// purpose  : Constructor with TDF_Data*, only used for root node.
+// purpose  : Constructor with Data2*, only used for root node.
 //=======================================================================
 
-TDF_LabelNode::TDF_LabelNode(TDF_Data* aDataPtr)
+TDF_LabelNode::TDF_LabelNode(Data2* aDataPtr)
     : myFather(NULL), // The sign it is the root.
 #ifdef KEEP_LOCAL_ROOT
       myBrother(NULL),
@@ -170,13 +170,13 @@ const TDF_LabelNode* TDF_LabelNode::RootNode() const
 
 //=================================================================================================
 
-TDF_Data* TDF_LabelNode::Data() const
+Data2* TDF_LabelNode::Data() const
 {
 #ifdef KEEP_LOCAL_ROOT
   return myData;
 #else
   const TDF_LabelNode* ln = RootNode()->myBrother;
-  return ((TDF_Data*)ln);
+  return ((Data2*)ln);
 #endif
 }
 

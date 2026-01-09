@@ -27,13 +27,13 @@
 class Law_BSpline;
 
 class Law_BSpFunc;
-DEFINE_STANDARD_HANDLE(Law_BSpFunc, Law_Function)
+DEFINE_STANDARD_HANDLE(Law_BSpFunc, Function2)
 
 //! Law1 Function based on a BSpline curve 1d.  Package
 //! methods and classes are implemented in package Law1
 //! to    construct  the  basis    curve with  several
 //! constraints.
-class Law_BSpFunc : public Law_Function
+class Law_BSpFunc : public Function2
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
   //! the Law1 is not Cn.
-  Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
+  Standard_EXPORT Handle(Function2) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -82,7 +82,7 @@ public:
 
   Standard_EXPORT void SetCurve(const Handle(Law_BSpline)& C);
 
-  DEFINE_STANDARD_RTTIEXT(Law_BSpFunc, Law_Function)
+  DEFINE_STANDARD_RTTIEXT(Law_BSpFunc, Function2)
 
 private:
   Handle(Law_BSpline) curv;

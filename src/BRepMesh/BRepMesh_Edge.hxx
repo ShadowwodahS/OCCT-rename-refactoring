@@ -20,18 +20,18 @@
 #include <Standard_HashUtils.hxx>
 
 //! Light weighted structure representing link of the mesh.
-class BRepMesh_Edge : public OrientedEdge
+class Edge3 : public OrientedEdge
 {
 public:
   //! Default constructor.
-  BRepMesh_Edge()
+  Edge3()
       : OrientedEdge(),
         myMovability(BRepMesh_Deleted)
   {
   }
 
   //! Constructs a link between two vertices.
-  BRepMesh_Edge(const Standard_Integer         theFirstNode,
+  Edge3(const Standard_Integer         theFirstNode,
                 const Standard_Integer         theLastNode,
                 const BRepMesh_DegreeOfFreedom theMovability)
       : OrientedEdge(theFirstNode, theLastNode),
@@ -49,7 +49,7 @@ public:
   //! Checks if the given edge and this one have the same orientation.
   //! @param theOther edge to be checked against this one.
   //! \return TRUE if edges have the same orientation, FALSE if not.
-  Standard_Boolean IsSameOrientation(const BRepMesh_Edge& theOther) const
+  Standard_Boolean IsSameOrientation(const Edge3& theOther) const
   {
     return OrientedEdge::IsEqual(theOther);
   }
@@ -57,7 +57,7 @@ public:
   //! Checks for equality with another edge.
   //! @param theOther edge to be checked against this one.
   //! @return TRUE if equal, FALSE if not.
-  Standard_Boolean IsEqual(const BRepMesh_Edge& theOther) const
+  Standard_Boolean IsEqual(const Edge3& theOther) const
   {
     if (myMovability == BRepMesh_Deleted || theOther.myMovability == BRepMesh_Deleted)
       return Standard_False;
@@ -67,7 +67,7 @@ public:
   }
 
   //! Alias for IsEqual.
-  Standard_Boolean operator==(const BRepMesh_Edge& Other) const { return IsEqual(Other); }
+  Standard_Boolean operator==(const Edge3& Other) const { return IsEqual(Other); }
 
 private:
   BRepMesh_DegreeOfFreedom myMovability;
@@ -76,9 +76,9 @@ private:
 namespace std
 {
 template <>
-struct hash<BRepMesh_Edge>
+struct hash<Edge3>
 {
-  size_t operator()(const BRepMesh_Edge& theEdge) const noexcept
+  size_t operator()(const Edge3& theEdge) const noexcept
   {
     union Combination {
       unsigned short Arr[2]; // Node can be represented as a short

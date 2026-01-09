@@ -33,7 +33,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_DrawingWithRotation, IGESData_IGESEntity)
 IGESDraw_DrawingWithRotation::IGESDraw_DrawingWithRotation() {}
 
 void IGESDraw_DrawingWithRotation::Init(const Handle(HArray1OfViewKindEntity)& allViews,
-                                        const Handle(TColgp_HArray1OfXY)&    allViewOrigins,
+                                        const Handle(XYArray)&    allViewOrigins,
                                         const Handle(TColStd_HArray1OfReal)& allOrientationAngles,
                                         const Handle(HArray1OfIGESEntity)& allAnnotations)
 {

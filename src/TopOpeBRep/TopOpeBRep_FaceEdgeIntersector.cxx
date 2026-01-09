@@ -96,7 +96,7 @@ void TopOpeBRep_FaceEdgeIntersector::Perform(const TopoShape& SF, const TopoShap
   TopLoc_Location          loc;
   const Handle(GeomCurve3d) C = BRepInspector::Curve(myEdge, loc, f, l);
 
-  Handle(Geom_Geometry) GGao1  = C->Transformed(loc.Transformation());
+  Handle(Geometry3) GGao1  = C->Transformed(loc.Transformation());
   Handle(GeomCurve3d)*   PGCao1 = (Handle(GeomCurve3d)*)&GGao1;
   myCurve.Load(*PGCao1, f, l);
 

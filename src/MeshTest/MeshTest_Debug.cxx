@@ -44,7 +44,7 @@ Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* the
     AsciiString1 aName(theNameStr);
     for (Standard_Integer i = 1; i <= nbLinks; i++)
     {
-      const BRepMesh_Edge& aLink = aMeshData->GetLink(i);
+      const Edge3& aLink = aMeshData->GetLink(i);
       if (aLink.Movability() == BRepMesh_Deleted)
         continue;
       Standard_Integer       n1   = aLink.FirstNode();

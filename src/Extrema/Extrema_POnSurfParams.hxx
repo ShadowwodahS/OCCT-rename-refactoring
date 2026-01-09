@@ -27,17 +27,17 @@ class Point3d;
 //! Data container for point on surface parameters. These parameters
 //! are required to compute an initial approximation for extrema
 //! computation.
-class Extrema_POnSurfParams : public PointOnSurface1
+class PointOnSurfaceParams : public PointOnSurface1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! empty constructor
-  Extrema_POnSurfParams();
+  PointOnSurfaceParams();
 
   //! Creation of a point on surface with parameter
   //! values on the surface and a Pnt from gp1.
-  Extrema_POnSurfParams(const Standard_Real theU, const Standard_Real theV, const Point3d& thePnt);
+  PointOnSurfaceParams(const Standard_Real theU, const Standard_Real theV, const Point3d& thePnt);
 
   //! Sets the square distance from this point to another one
   //! (e.g. to the point to be projected).

@@ -57,7 +57,7 @@ public:
   //! Interactive Object, anotherIobj, and its reference.
   void Connect(const Handle(VisualEntity)& theAnotherObj)
   {
-    connect(theAnotherObj, Handle(TopLoc_Datum3D)());
+    connect(theAnotherObj, Handle(Datum3D2)());
   }
 
   //! Establishes the connection between the Connected
@@ -65,14 +65,14 @@ public:
   //! Locates instance in aLocation.
   void Connect(const Handle(VisualEntity)& theAnotherObj, const Transform3d& theLocation)
   {
-    connect(theAnotherObj, new TopLoc_Datum3D(theLocation));
+    connect(theAnotherObj, new Datum3D2(theLocation));
   }
 
   //! Establishes the connection between the Connected
   //! Interactive Object, anotherIobj, and its reference.
   //! Locates instance in aLocation.
   void Connect(const Handle(VisualEntity)& theAnotherObj,
-               const Handle(TopLoc_Datum3D)&        theLocation)
+               const Handle(Datum3D2)&        theLocation)
   {
     connect(theAnotherObj, theLocation);
   }
@@ -118,7 +118,7 @@ protected:
 
   //! Computes the presentation according to a point of view.
   Standard_EXPORT virtual void computeHLR(const Handle(CameraOn3d)&   theProjector,
-                                          const Handle(TopLoc_Datum3D)&     theTrsf,
+                                          const Handle(Datum3D2)&     theTrsf,
                                           const Handle(Prs3d_Presentation)& thePrs)
     Standard_OVERRIDE;
 
@@ -137,7 +137,7 @@ protected:
   Standard_EXPORT void updateShape(const Standard_Boolean WithLocation = Standard_True);
 
   Standard_EXPORT void connect(const Handle(VisualEntity)& theAnotherObj,
-                               const Handle(TopLoc_Datum3D)&        theLocation);
+                               const Handle(Datum3D2)&        theLocation);
 
 protected:
   Handle(VisualEntity) myReference;

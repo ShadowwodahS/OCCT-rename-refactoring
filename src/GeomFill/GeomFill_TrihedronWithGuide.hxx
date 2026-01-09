@@ -30,7 +30,7 @@ class GeomFill_TrihedronWithGuide : public GeomFill_TrihedronLaw
 {
 
 public:
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) Guide() const = 0;
+  Standard_EXPORT virtual Handle(Curve5) Guide() const = 0;
 
   Standard_EXPORT virtual void Origine(const Standard_Real Param1, const Standard_Real Param2) = 0;
 
@@ -41,8 +41,8 @@ public:
   DEFINE_STANDARD_RTTIEXT(GeomFill_TrihedronWithGuide, GeomFill_TrihedronLaw)
 
 protected:
-  Handle(Adaptor3d_Curve) myGuide;
-  Handle(Adaptor3d_Curve) myTrimG;
+  Handle(Curve5) myGuide;
+  Handle(Curve5) myTrimG;
   Point3d                  myCurPointOnGuide;
 
 private:

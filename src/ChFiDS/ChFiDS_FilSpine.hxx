@@ -25,7 +25,7 @@
 class TopoEdge;
 class TopoVertex;
 class Coords2d;
-class Law_Function;
+class Function2;
 class Law_Composite;
 
 class ChFiDS_FilSpine;
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT void SetRadius(const Standard_Real Radius);
 
   //! initializes the rule of evolution on all spine.
-  Standard_EXPORT void SetRadius(const Handle(Law_Function)& C, const Standard_Integer IinC);
+  Standard_EXPORT void SetRadius(const Handle(Function2)& C, const Standard_Integer IinC);
 
   //! returns true if the radius is constant
   //! all along the spine.
@@ -90,7 +90,7 @@ public:
   Standard_EXPORT Handle(Law_Composite) Law1(const Handle(ChFiDS_ElSpine)& Els) const;
 
   //! returns the elementary law
-  Standard_EXPORT Handle(Law_Function)& ChangeLaw(const TopoEdge& E);
+  Standard_EXPORT Handle(Function2)& ChangeLaw(const TopoEdge& E);
 
   //! returns the maximum radius if the fillet is non-constant
   Standard_EXPORT Standard_Real MaxRadFromSeqAndLaws() const;

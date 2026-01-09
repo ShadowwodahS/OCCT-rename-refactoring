@@ -21,13 +21,13 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom_Transformation;
+class Transformation1;
 class Vector3d;
 class Point3d;
 
 //! This class implements elementary construction algorithms for a
 //! translation in 3D space. The result is a
-//! Geom_Transformation transformation.
+//! Transformation1 transformation.
 //! A MakeTranslation object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -45,13 +45,13 @@ public:
   Standard_EXPORT GC_MakeTranslation(const Point3d& Point1, const Point3d& Point2);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation1)& Value() const;
 
-  operator const Handle(Geom_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation1) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom_Transformation) TheTranslation;
+  Handle(Transformation1) TheTranslation;
 };
 
 #endif // _GC_MakeTranslation_HeaderFile

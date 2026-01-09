@@ -355,7 +355,7 @@ void TextFontDefTool::OwnDump(const Handle(IGESGraph_TextFontDef)& ent,
   S << "\n";
   if (level > 4)
   {
-    Handle(TColgp_HArray1OfXY) arrXY;
+    Handle(XYArray) arrXY;
     Standard_Integer           I, J, nbmotions;
     for (I = 1; I <= nbchars; I++)
     {

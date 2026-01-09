@@ -24,7 +24,7 @@
 #include <MeshVS_TwoColors.hxx>
 
 class MeshVS_Mesh;
-class MeshVS_DataSource;
+class MeshDataSource;
 class Color1;
 
 class MeshVS_ElementalColorPrsBuilder;
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT MeshVS_ElementalColorPrsBuilder(
     const Handle(MeshVS_Mesh)&       Parent,
     const MeshVS_DisplayModeFlags&   Flags    = MeshVS_DMF_ElementalColorDataPrs,
-    const Handle(MeshVS_DataSource)& DS       = 0,
+    const Handle(MeshDataSource)& DS       = 0,
     const Standard_Integer           Id       = -1,
     const MeshVS_BuilderPriority&    Priority = MeshVS_BP_ElemColor);
 

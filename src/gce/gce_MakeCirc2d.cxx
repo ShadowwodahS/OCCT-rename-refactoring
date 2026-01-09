@@ -44,7 +44,7 @@
 //      La solution a pour centre l intersection de ces deux droite et    +
 //      pour rayon la distance entre ce centre et l un des trois points.  +
 //=========================================================================
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_Pnt2d& P3)
+CircleBuilder2d::CircleBuilder2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_Pnt2d& P3)
 {
   gp_Dir2d dirx(1.0, 0.0);
 
@@ -126,7 +126,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_
 //   Creation d un gp_Circ2d par son Axe <XAxis> et son rayon  <Radius>.   +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Ax2d&         XAxis,
+CircleBuilder2d::CircleBuilder2d(const gp_Ax2d&         XAxis,
                                const Standard_Real    Radius,
                                const Standard_Boolean Sense)
 {
@@ -145,7 +145,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Ax2d&         XAxis,
 //   Creation d un gp_Circ2d par son Repere <Axis> et son rayon  <Radius>. +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const Ax22d& Axis, const Standard_Real Radius)
+CircleBuilder2d::CircleBuilder2d(const Ax22d& Axis, const Standard_Real Radius)
 {
   if (Radius >= 0.)
   {
@@ -163,7 +163,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const Ax22d& Axis, const Standard_Real Radius)
 //   <Radius>.                                                             +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d&        Center,
+CircleBuilder2d::CircleBuilder2d(const gp_Pnt2d&        Center,
                                const Standard_Real    Radius,
                                const Standard_Boolean Sense)
 {
@@ -183,7 +183,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d&        Center,
 //   circonference <Point>.                                                +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d&        Center,
+CircleBuilder2d::CircleBuilder2d(const gp_Pnt2d&        Center,
                                const gp_Pnt2d&        Point,
                                const Standard_Boolean Sense)
 {
@@ -196,7 +196,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d&        Center,
 //   point <Point1>.                                                       +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Circ2d& Circ, const gp_Pnt2d& Point)
+CircleBuilder2d::CircleBuilder2d(const gp_Circ2d& Circ, const gp_Pnt2d& Point)
 {
   TheCirc2d = gp_Circ2d(Circ.Axis(), Point.Distance(Circ.Location()));
   TheError  = gce_Done;
@@ -207,24 +207,24 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Circ2d& Circ, const gp_Pnt2d& Point)
 //   <Dist1>.                                                              +
 //==========================================================================
 
-gce_MakeCirc2d::gce_MakeCirc2d(const gp_Circ2d& Circ, const Standard_Real Dist1)
+CircleBuilder2d::CircleBuilder2d(const gp_Circ2d& Circ, const Standard_Real Dist1)
 {
   TheCirc2d = gp_Circ2d(Circ.Axis(), Abs(Circ.Radius() + Dist1));
   TheError  = gce_Done;
 }
 
-const gp_Circ2d& gce_MakeCirc2d::Value() const
+const gp_Circ2d& CircleBuilder2d::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeCirc2d::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "CircleBuilder2d::Value() - no result");
   return TheCirc2d;
 }
 
-const gp_Circ2d& gce_MakeCirc2d::Operator() const
+const gp_Circ2d& CircleBuilder2d::Operator() const
 {
   return Value();
 }
 
-gce_MakeCirc2d::operator gp_Circ2d() const
+CircleBuilder2d::operator gp_Circ2d() const
 {
   return Value();
 }

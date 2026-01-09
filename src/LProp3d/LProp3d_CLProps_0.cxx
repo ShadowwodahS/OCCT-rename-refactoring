@@ -25,7 +25,7 @@
 #include <gp_Dir.hxx>
 #include <LProp3d_CurveTool.hxx>
 
-#define Curve Handle(Adaptor3d_Curve)
+#define Curve Handle(Curve5)
 #define Curve_hxx <Adaptor3d_Curve.hxx>
 #define Vec Vector3d
 #define Vec_hxx <gp_Vec.hxx>

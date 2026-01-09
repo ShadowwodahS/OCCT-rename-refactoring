@@ -38,13 +38,13 @@ class Vrml_Normal : public RefObject
 {
 
 public:
-  Standard_EXPORT Vrml_Normal(const Handle(TColgp_HArray1OfVec)& aVector);
+  Standard_EXPORT Vrml_Normal(const Handle(VectorArray)& aVector);
 
   Standard_EXPORT Vrml_Normal();
 
-  Standard_EXPORT void SetVector(const Handle(TColgp_HArray1OfVec)& aVector);
+  Standard_EXPORT void SetVector(const Handle(VectorArray)& aVector);
 
-  Standard_EXPORT Handle(TColgp_HArray1OfVec) Vector() const;
+  Standard_EXPORT Handle(VectorArray) Vector() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
@@ -52,7 +52,7 @@ public:
 
 protected:
 private:
-  Handle(TColgp_HArray1OfVec) myVector;
+  Handle(VectorArray) myVector;
 };
 
 #endif // _Vrml_Normal_HeaderFile

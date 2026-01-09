@@ -28,7 +28,7 @@
 #include <TColStd_Array2OfReal.hxx>
 
 class PLib_JacobiPolynomial;
-DEFINE_STANDARD_HANDLE(PLib_JacobiPolynomial, PLib_Base)
+DEFINE_STANDARD_HANDLE(PLib_JacobiPolynomial, PolynomialBase)
 
 //! This class provides method  to work with Jacobi  Polynomials
 //! relatively to   an order of constraint
@@ -56,7 +56,7 @@ DEFINE_STANDARD_HANDLE(PLib_JacobiPolynomial, PLib_Base)
 //! The following coefficients represents the part of the
 //! polynomial in the Jacobi base ie Q(t)
 //! Q(t) = c2*iordre+2  J0(t) + ...+ cDegree JDegree-2*iordre-2
-class PLib_JacobiPolynomial : public PLib_Base
+class PLib_JacobiPolynomial : public PolynomialBase
 {
 
 public:
@@ -158,7 +158,7 @@ public:
   //! returns NivConstr
   Standard_Integer NivConstr() const;
 
-  DEFINE_STANDARD_RTTIEXT(PLib_JacobiPolynomial, PLib_Base)
+  DEFINE_STANDARD_RTTIEXT(PLib_JacobiPolynomial, PolynomialBase)
 
 protected:
 private:

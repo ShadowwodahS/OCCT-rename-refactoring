@@ -65,7 +65,7 @@ Standard_Boolean BRepCheck1::SelfIntersection(const TopoWire& W,
 
 //=================================================================================================
 
-Standard_Real BRepCheck1::PrecCurve(const Adaptor3d_Curve& aAC3D)
+Standard_Real BRepCheck1::PrecCurve(const Curve5& aAC3D)
 {
   Standard_Real aXEmax = RealEpsilon();
   //
@@ -98,7 +98,7 @@ Standard_Real BRepCheck1::PrecCurve(const Adaptor3d_Curve& aAC3D)
 
 //=================================================================================================
 
-Standard_Real BRepCheck1::PrecSurface(const Handle(Adaptor3d_Surface)& aAHSurf)
+Standard_Real BRepCheck1::PrecSurface(const Handle(SurfaceAdaptor)& aAHSurf)
 {
   Standard_Real aXEmax = RealEpsilon();
   //

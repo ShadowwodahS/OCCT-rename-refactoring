@@ -2408,8 +2408,8 @@ void Tool5::Inter2d(const TopoFace&    F,
             YaSol                              = Standard_True;
             aCurrentFind                       = Standard_True;
             IntRes2d_IntersectionSegment Seg   = Inter.Segment1(1);
-            IntRes2d_IntersectionPoint   IntP1 = Seg.FirstPoint();
-            IntRes2d_IntersectionPoint   IntP2 = Seg.LastPoint();
+            IntersectionPoint3   IntP1 = Seg.FirstPoint();
+            IntersectionPoint3   IntP2 = Seg.LastPoint();
             Standard_Real                U1on1 = IntP1.ParamOnFirst();
             Standard_Real                U1on2 = IntP2.ParamOnFirst();
             Standard_Real                U2on1 = IntP1.ParamOnSecond();

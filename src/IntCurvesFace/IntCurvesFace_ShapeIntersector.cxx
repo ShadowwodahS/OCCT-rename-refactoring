@@ -126,7 +126,7 @@ void IntCurvesFace_ShapeIntersector::PerformNearest(const gp_Lin&       theL,
   SortResult();
 }
 
-void IntCurvesFace_ShapeIntersector::Perform(const Handle(Adaptor3d_Curve)& theHCurve,
+void IntCurvesFace_ShapeIntersector::Perform(const Handle(Curve5)& theHCurve,
                                              const Standard_Real            theParMin,
                                              const Standard_Real            theParMax)
 {

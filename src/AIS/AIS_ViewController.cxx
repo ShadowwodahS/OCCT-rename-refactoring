@@ -114,7 +114,7 @@ AIS_ViewController::AIS_ViewController()
     new AIS_RubberBand(Quantity_NOC_LIGHTBLUE, Aspect_TOL_SOLID, Quantity_NOC_LIGHTBLUE4, 0.5, 1.0);
   myRubberBand->SetZLayer(Graphic3d_ZLayerId_TopOSD);
   myRubberBand->SetTransformPersistence(
-    new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_UPPER));
+    new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_UPPER));
   myRubberBand->SetDisplayMode(0);
   myRubberBand->SetMutable(true);
 
@@ -2423,9 +2423,9 @@ void AIS_ViewController::handleXRTurnPad(const Handle(VisualContext)&,
   {
     const Aspect_XRTrackedDeviceRole aRole =
       aHand == 0 ? Aspect_XRTrackedDeviceRole_RightHand : Aspect_XRTrackedDeviceRole_LeftHand;
-    const Handle(Aspect_XRAction)& aPadClickAct =
+    const Handle(XRAction)& aPadClickAct =
       theView->View()->XRSession()->GenericAction(aRole, Aspect_XRGenericAction_InputTrackPadClick);
-    const Handle(Aspect_XRAction)& aPadPosAct =
+    const Handle(XRAction)& aPadPosAct =
       theView->View()->XRSession()->GenericAction(aRole,
                                                   Aspect_XRGenericAction_InputTrackPadPosition);
     if (aPadClickAct.IsNull() || aPadPosAct.IsNull())
@@ -2472,9 +2472,9 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
       continue;
     }
 
-    const Handle(Aspect_XRAction)& aPadClickAct =
+    const Handle(XRAction)& aPadClickAct =
       theView->View()->XRSession()->GenericAction(aRole, Aspect_XRGenericAction_InputTrackPadClick);
-    const Handle(Aspect_XRAction)& aPadPosAct =
+    const Handle(XRAction)& aPadPosAct =
       theView->View()->XRSession()->GenericAction(aRole,
                                                   Aspect_XRGenericAction_InputTrackPadPosition);
     if (aPadClickAct.IsNull() || aPadPosAct.IsNull())
@@ -2565,7 +2565,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
   {
     if (aTeleOld != Aspect_XRTrackedDeviceRole_Other)
     {
-      if (const Handle(Aspect_XRAction)& aHaptic =
+      if (const Handle(XRAction)& aHaptic =
             theView->View()->XRSession()->GenericAction(aTeleOld,
                                                         Aspect_XRGenericAction_OutputHaptic))
       {
@@ -2574,7 +2574,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
     }
     if (myXRLastTeleportHand != Aspect_XRTrackedDeviceRole_Other)
     {
-      if (const Handle(Aspect_XRAction)& aHaptic =
+      if (const Handle(XRAction)& aHaptic =
             theView->View()->XRSession()->GenericAction(myXRLastTeleportHand,
                                                         Aspect_XRGenericAction_OutputHaptic))
       {
@@ -2601,9 +2601,9 @@ void AIS_ViewController::handleXRPicking(const Handle(VisualContext)& theCtx,
   {
     const Aspect_XRTrackedDeviceRole aRole =
       aHand == 0 ? Aspect_XRTrackedDeviceRole_RightHand : Aspect_XRTrackedDeviceRole_LeftHand;
-    const Handle(Aspect_XRAction)& aTrigClickAct =
+    const Handle(XRAction)& aTrigClickAct =
       theView->View()->XRSession()->GenericAction(aRole, Aspect_XRGenericAction_InputTriggerClick);
-    const Handle(Aspect_XRAction)& aTrigPullAct =
+    const Handle(XRAction)& aTrigPullAct =
       theView->View()->XRSession()->GenericAction(aRole, Aspect_XRGenericAction_InputTriggerPull);
     if (aTrigClickAct.IsNull() || aTrigPullAct.IsNull())
     {
@@ -2622,7 +2622,7 @@ void AIS_ViewController::handleXRPicking(const Handle(VisualContext)& theCtx,
       {
         theCtx->SelectDetected();
         OnSelectionChanged(theCtx, theView);
-        if (const Handle(Aspect_XRAction)& aHaptic =
+        if (const Handle(XRAction)& aHaptic =
               theView->View()->XRSession()->GenericAction(myXRLastPickingHand,
                                                           Aspect_XRGenericAction_OutputHaptic))
         {
@@ -3155,7 +3155,7 @@ void AIS_ViewController::handleViewRedraw(const Handle(VisualContext)&,
   if (myToAskNextFrame)
   {
     // ask more frames
-    aParentView->Window()->InvalidateContent(Handle(Aspect_DisplayConnection)());
+    aParentView->Window()->InvalidateContent(Handle(DisplayConnection1)());
   }
 }
 
@@ -3217,7 +3217,7 @@ void AIS_ViewController::handleXRHighlight(const Handle(VisualContext)& theCtx,
   handleXRMoveTo(theCtx, theView, aPose.Orientation, true);
   if (!theCtx->DetectedOwner().IsNull() && theCtx->DetectedOwner() != aDetOld)
   {
-    if (const Handle(Aspect_XRAction)& aHaptic =
+    if (const Handle(XRAction)& aHaptic =
           theView->View()->XRSession()->GenericAction(myXRLastPickingHand,
                                                       Aspect_XRGenericAction_OutputHaptic))
     {

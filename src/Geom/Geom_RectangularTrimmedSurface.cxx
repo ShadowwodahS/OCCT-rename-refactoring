@@ -47,7 +47,7 @@ typedef Vector3d                         Vec;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_RectangularTrimmedSurface::Copy() const
+Handle(Geometry3) Geom_RectangularTrimmedSurface::Copy() const
 {
 
   Handle(Geom_RectangularTrimmedSurface) S;

@@ -31,7 +31,7 @@ namespace
 // Purpose : Explodes the given shape on edges according to the specified
 //           criteria and visits each one in order to add it to data model.
 //=======================================================================
-void visitEdges(const Handle(IMeshTools_ShapeVisitor)& theVisitor,
+void visitEdges(const Handle(ShapeVisitor)& theVisitor,
                 const TopoShape&                    theShape,
                 const Standard_Boolean                 isResetLocation,
                 const TopAbs_ShapeEnum                 theToFind,
@@ -64,7 +64,7 @@ IMeshTools_ShapeExplorer::~IMeshTools_ShapeExplorer() {}
 
 //=================================================================================================
 
-void IMeshTools_ShapeExplorer::Accept(const Handle(IMeshTools_ShapeVisitor)& theVisitor)
+void IMeshTools_ShapeExplorer::Accept(const Handle(ShapeVisitor)& theVisitor)
 {
   // Explore all free edges in shape.
   visitEdges(theVisitor, GetShape(), Standard_True, TopAbs_EDGE, TopAbs_FACE);

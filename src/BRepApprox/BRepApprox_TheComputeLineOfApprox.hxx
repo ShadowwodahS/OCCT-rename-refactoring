@@ -241,7 +241,7 @@ private:
   Handle(TColStd_HArray1OfInteger)               mymults;
   Standard_Boolean                               myhasknots;
   Standard_Boolean                               myhasmults;
-  Handle(AppParCurves_HArray1OfConstraintCouple) myConstraints;
+  Handle(ConstraintCoupleArray) myConstraints;
   Standard_Integer                               mydegremin;
   Standard_Integer                               mydegremax;
   Standard_Real                                  mytol3d;

@@ -31,8 +31,8 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  Standard_EXPORT IntPatch_ALineToWLine(const Handle(Adaptor3d_Surface)& theS1,
-                                        const Handle(Adaptor3d_Surface)& theS2,
+  Standard_EXPORT IntPatch_ALineToWLine(const Handle(SurfaceAdaptor)& theS1,
+                                        const Handle(SurfaceAdaptor)& theS2,
                                         const Standard_Integer           theNbPoints = 200);
 
   Standard_EXPORT void SetTolOpenDomain(const Standard_Real aT);
@@ -94,12 +94,12 @@ protected:
   //! if this end point is a pole.
   //! The line must contain at least 3 points.
   //! This is made for cone and sphere only.
-  Standard_EXPORT void CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
+  Standard_EXPORT void CorrectEndPoint(Handle(LineOnTwoSurfaces)& theLine,
                                        const Standard_Integer    theIndex) const;
 
 private:
-  Handle(Adaptor3d_Surface) myS1;
-  Handle(Adaptor3d_Surface) myS2;
+  Handle(SurfaceAdaptor) myS1;
+  Handle(SurfaceAdaptor) myS2;
   Quadric1           myQuad1;
   Quadric1           myQuad2;
 

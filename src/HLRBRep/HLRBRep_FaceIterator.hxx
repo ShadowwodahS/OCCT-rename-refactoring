@@ -23,8 +23,8 @@
 
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
-class HLRAlgo_WiresBlock;
-class HLRAlgo_EdgesBlock;
+class WiresBlock;
+class EdgesBlock;
 class HLRBRep_FaceData;
 
 class HLRBRep_FaceIterator
@@ -53,7 +53,7 @@ public:
   void SkipWire();
 
   //! Returns the edges of the current wire.
-  Handle(HLRAlgo_EdgesBlock) Wire() const;
+  Handle(EdgesBlock) Wire() const;
 
   Standard_Integer Edge() const;
 
@@ -73,8 +73,8 @@ private:
   Standard_Integer           nbWires;
   Standard_Integer           iEdge;
   Standard_Integer           nbEdges;
-  Handle(HLRAlgo_WiresBlock) myWires;
-  Handle(HLRAlgo_EdgesBlock) myEdges;
+  Handle(WiresBlock) myWires;
+  Handle(EdgesBlock) myEdges;
 };
 
 #include <HLRBRep_FaceIterator.lxx>

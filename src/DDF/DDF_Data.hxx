@@ -21,7 +21,7 @@
 #include <Draw_Drawable3D.hxx>
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
-class TDF_Data;
+class Data2;
 class DrawDisplay;
 
 class DDF_Data;
@@ -32,7 +32,7 @@ class DDF_Data : public Drawable3D
 {
 
 public:
-  Standard_EXPORT DDF_Data(const Handle(TDF_Data)& aDF);
+  Standard_EXPORT DDF_Data(const Handle(Data2)& aDF);
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
@@ -40,9 +40,9 @@ public:
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
-  Standard_EXPORT void DataFramework(const Handle(TDF_Data)& aDF);
+  Standard_EXPORT void DataFramework(const Handle(Data2)& aDF);
 
-  Standard_EXPORT Handle(TDF_Data) DataFramework() const;
+  Standard_EXPORT Handle(Data2) DataFramework() const;
 
   Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
@@ -50,7 +50,7 @@ public:
 
 protected:
 private:
-  Handle(TDF_Data) myDF;
+  Handle(Data2) myDF;
 };
 
 #endif // _DDF_Data_HeaderFile

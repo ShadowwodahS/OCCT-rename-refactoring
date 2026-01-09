@@ -38,7 +38,7 @@
 //! the planar surface,
 //! -   its implicit orientation is also that of the GeomPlane.
 //! See Also
-//! gce_MakePln which provides functions for more complex1
+//! PlaneBuilder1 which provides functions for more complex1
 //! plane constructions
 //! GeomPlane which provides additional functions for
 //! constructing planes and works, in particular, with the

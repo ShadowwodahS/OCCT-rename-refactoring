@@ -20,6 +20,6 @@
 #include <ChFiDS_SequenceOfSurfData.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(ChFiDS_HData, ChFiDS_SequenceOfSurfData)
+DEFINE_HSEQUENCE(ChamferFilletData, ChFiDS_SequenceOfSurfData)
 
 #endif

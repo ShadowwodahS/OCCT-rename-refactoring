@@ -30,7 +30,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GeomFill_Trihedron.hxx>
 class GeomFill_Frenet;
-class Law_Function;
+class Function2;
 
 class GeomFill_CorrectedFrenet;
 DEFINE_STANDARD_HANDLE(GeomFill_CorrectedFrenet, GeomFill_TrihedronLaw)
@@ -49,7 +49,7 @@ public:
 
   //! initialize curve of frenet law
   //! @return Standard_True in case if execution end correctly
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetInterval(const Standard_Real First,
@@ -138,7 +138,7 @@ private:
                                                 Vector3d&                 prevNormal,
                                                 Vector3d&                 aT,
                                                 Vector3d&                 aN,
-                                                Handle(Law_Function)&   FuncInt,
+                                                Handle(Function2)&   FuncInt,
                                                 TColStd_SequenceOfReal& SeqPoles,
                                                 TColStd_SequenceOfReal& SeqAngle,
                                                 TColgp_SequenceOfVec&   SeqTangent,
@@ -154,16 +154,16 @@ private:
   Standard_EXPORT Standard_Real GetAngleAT(const Standard_Real P) const;
 
   Handle(GeomFill_Frenet)       frenet;
-  Handle(Law_Function)          EvolAroundT;
-  Handle(Law_Function)          TLaw;
+  Handle(Function2)          EvolAroundT;
+  Handle(Function2)          TLaw;
   Vector3d                        AT;
   Vector3d                        AN;
   Standard_Boolean              isFrenet;
   Standard_Boolean              myForEvaluation;
   Handle(TColStd_HArray1OfReal) HArrPoles;
   Handle(TColStd_HArray1OfReal) HArrAngle;
-  Handle(TColgp_HArray1OfVec)   HArrTangent;
-  Handle(TColgp_HArray1OfVec)   HArrNormal;
+  Handle(VectorArray)   HArrTangent;
+  Handle(VectorArray)   HArrNormal;
 };
 
 #endif // _GeomFill_CorrectedFrenet_HeaderFile

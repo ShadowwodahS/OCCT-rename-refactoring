@@ -78,7 +78,7 @@ Standard_Boolean GccAna_LinPnt2dBisec::IsDone() const
   return WellDone;
 }
 
-Handle(GccInt_Bisec) GccAna_LinPnt2dBisec::ThisSolution() const
+Handle(Bisector2) GccAna_LinPnt2dBisec::ThisSolution() const
 {
   if (!WellDone)
     throw StdFail_NotDone();

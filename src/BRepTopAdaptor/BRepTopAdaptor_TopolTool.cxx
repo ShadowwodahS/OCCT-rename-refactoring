@@ -52,7 +52,7 @@ BRepTopAdaptor_TopolTool::BRepTopAdaptor_TopolTool()
 
 //=================================================================================================
 
-BRepTopAdaptor_TopolTool::BRepTopAdaptor_TopolTool(const Handle(Adaptor3d_Surface)& S)
+BRepTopAdaptor_TopolTool::BRepTopAdaptor_TopolTool(const Handle(SurfaceAdaptor)& S)
     : myFClass2d(NULL)
 {
   Initialize(S);
@@ -68,7 +68,7 @@ void BRepTopAdaptor_TopolTool::Initialize()
 
 //=================================================================================================
 
-void BRepTopAdaptor_TopolTool::Initialize(const Handle(Adaptor3d_Surface)& S)
+void BRepTopAdaptor_TopolTool::Initialize(const Handle(SurfaceAdaptor)& S)
 {
   Handle(BRepAdaptor_Surface) brhs = Handle(BRepAdaptor_Surface)::DownCast(S);
   if (brhs.IsNull())
@@ -166,7 +166,7 @@ void BRepTopAdaptor_TopolTool::NextVertex()
 
 //=================================================================================================
 
-Handle(Adaptor3d_HVertex) BRepTopAdaptor_TopolTool::Vertex()
+Handle(HandleVertex) BRepTopAdaptor_TopolTool::Vertex()
 {
   return new BRepTopAdaptor_HVertex(TopoDS::Vertex(myVIterator.Current()), myCurve);
 }
@@ -221,7 +221,7 @@ TopAbs_Orientation BRepTopAdaptor_TopolTool::Orientation(const Handle(Adaptor2d_
 
 //=================================================================================================
 
-TopAbs_Orientation BRepTopAdaptor_TopolTool::Orientation(const Handle(Adaptor3d_HVertex)& C)
+TopAbs_Orientation BRepTopAdaptor_TopolTool::Orientation(const Handle(HandleVertex)& C)
 {
   return Adaptor3d_TopolTool::Orientation(C);
 }
@@ -593,7 +593,7 @@ Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(Adaptor2d_Curve2d)& C
 
 //=================================================================================================
 
-Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(Adaptor3d_HVertex)& V) const
+Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(HandleVertex)& V) const
 {
   Handle(BRepTopAdaptor_HVertex) brhv = Handle(BRepTopAdaptor_HVertex)::DownCast(V);
   if (brhv.IsNull())
@@ -606,7 +606,7 @@ Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(Adaptor3d_HVertex)& V
 
 //=================================================================================================
 
-Point3d BRepTopAdaptor_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)& V) const
+Point3d BRepTopAdaptor_TopolTool::Pnt(const Handle(HandleVertex)& V) const
 {
   Handle(BRepTopAdaptor_HVertex) brhv = Handle(BRepTopAdaptor_HVertex)::DownCast(V);
   if (brhv.IsNull())

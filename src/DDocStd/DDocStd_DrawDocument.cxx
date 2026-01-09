@@ -32,7 +32,7 @@ Handle(DDocStd_DrawDocument) DDocStd_DrawDocument::Find(const Handle(AppDocument
 //=================================================================================================
 
 DDocStd_DrawDocument::DDocStd_DrawDocument(const Handle(AppDocument)& Doc)
-    : DDF_Data(new TDF_Data), // Doc->GetData())
+    : DDF_Data(new Data2), // Doc->GetData())
       myDocument(Doc)
 {
   DataFramework(Doc->GetData());

@@ -17,7 +17,7 @@
 #include <Standard_Transient.hxx>
 #include <BRepMesh_VertexTool.hxx>
 
-class BRepMesh_Edge;
+class Edge3;
 
 //! Describes the data structure necessary for the mesh algorithms in
 //! two dimensions plane or on surface by meshing in UV space.
@@ -95,12 +95,12 @@ public: //! @name API for accessing mesh links.
   //! Adds link to the mesh if it is not already in the mesh.
   //! @param theLink link to be added to the mesh.
   //! @return index of the link in the structure.
-  Standard_EXPORT Standard_Integer AddLink(const BRepMesh_Edge& theLink);
+  Standard_EXPORT Standard_Integer AddLink(const Edge3& theLink);
 
   //! Finds the index of the given link.
   //! @param theLink link to find.
   //! @return index of the given element of zero if link is not in the mesh.
-  Standard_Integer IndexOf(const BRepMesh_Edge& theLink) const
+  Standard_Integer IndexOf(const Edge3& theLink) const
   {
     return myLinks.FindIndex(theLink);
   }
@@ -108,7 +108,7 @@ public: //! @name API for accessing mesh links.
   //! Get link by the index.
   //! @param theIndex index of a link.
   //! @return link with the given index.
-  const BRepMesh_Edge& GetLink(const Standard_Integer theIndex)
+  const Edge3& GetLink(const Standard_Integer theIndex)
   {
     return myLinks.FindKey(theIndex);
   }
@@ -121,7 +121,7 @@ public: //! @name API for accessing mesh links.
   //! @param theNewLink substituting link.
   //! @return FALSE in case if new link is already in the structure, TRUE elsewhere.
   Standard_EXPORT Standard_Boolean SubstituteLink(const Standard_Integer theIndex,
-                                                  const BRepMesh_Edge&   theNewLink);
+                                                  const Edge3&   theNewLink);
 
   //! Removes link from the mesh in case if it has no connected elements
   //! and its type is Free.
@@ -223,7 +223,7 @@ private:
   //! @param theIndex index of link in the data structure.
   //! @param theLink reference to the link to avoid double accessing
   //! to map of links.
-  void cleanLink(const Standard_Integer theIndex, const BRepMesh_Edge& theLink);
+  void cleanLink(const Standard_Integer theIndex, const Edge3& theLink);
 
   //! Cleans dependent structures from the given element.
   //! @param theIndex index of element in the data structure.

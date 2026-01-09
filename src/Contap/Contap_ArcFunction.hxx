@@ -26,14 +26,14 @@
 #include <IntSurf_Quadric.hxx>
 #include <math_FunctionWithDerivative.hxx>
 
-class Contap_ArcFunction : public math_FunctionWithDerivative
+class Contap_ArcFunction : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT Contap_ArcFunction();
 
-  Standard_EXPORT void Set(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Set(const Handle(SurfaceAdaptor)& S);
 
   void Set(const Dir3d& Direction);
 
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT const Quadric1& Quadric() const;
 
   //! Returns mySurf field
-  const Handle(Adaptor3d_Surface)& Surface() const;
+  const Handle(SurfaceAdaptor)& Surface() const;
 
   //! Returns the point, which has been computed
   //! while the last calling Value() method
@@ -72,7 +72,7 @@ public:
 protected:
 private:
   Handle(Adaptor2d_Curve2d) myArc;
-  Handle(Adaptor3d_Surface) mySurf;
+  Handle(SurfaceAdaptor) mySurf;
   Standard_Real             myMean;
   Contap_TFunction          myType;
   Dir3d                    myDir;

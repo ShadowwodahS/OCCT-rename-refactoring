@@ -99,10 +99,10 @@ static void FusionneIntervalles(const TColStd_Array1OfReal& I1,
 
 //=================================================================================================
 
-BlendFunc_EvolRad::BlendFunc_EvolRad(const Handle(Adaptor3d_Surface)& S1,
-                                     const Handle(Adaptor3d_Surface)& S2,
-                                     const Handle(Adaptor3d_Curve)&   C,
-                                     const Handle(Law_Function)&      Law1)
+BlendFunc_EvolRad::BlendFunc_EvolRad(const Handle(SurfaceAdaptor)& S1,
+                                     const Handle(SurfaceAdaptor)& S2,
+                                     const Handle(Curve5)&   C,
+                                     const Handle(Function2)&      Law1)
     : surf1(S1),
       surf2(S2),
       curv(C),

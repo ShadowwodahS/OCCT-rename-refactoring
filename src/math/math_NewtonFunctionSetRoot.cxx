@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-NewtonFunctionSetRoot::NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+NewtonFunctionSetRoot::NewtonFunctionSetRoot(FunctionSetWithDerivatives& theFunction,
                                                        const math_Vector&     theXTolerance,
                                                        const Standard_Real    theFTolerance,
                                                        const Standard_Integer theNbIterations)
@@ -49,7 +49,7 @@ NewtonFunctionSetRoot::NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& th
 
 //=================================================================================================
 
-NewtonFunctionSetRoot::NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+NewtonFunctionSetRoot::NewtonFunctionSetRoot(FunctionSetWithDerivatives& theFunction,
                                                        const Standard_Real    theFTolerance,
                                                        const Standard_Integer theNbIterations)
 
@@ -82,7 +82,7 @@ void NewtonFunctionSetRoot::SetTolerance(const math_Vector& theXTolerance)
 
 //=================================================================================================
 
-void NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
+void NewtonFunctionSetRoot::Perform(FunctionSetWithDerivatives& theFunction,
                                          const math_Vector&               theStartingPoint)
 {
   const math_Vector anInf(1, theFunction.NbVariables(), RealFirst());
@@ -93,7 +93,7 @@ void NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction
 
 //=================================================================================================
 
-void NewtonFunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
+void NewtonFunctionSetRoot::Perform(FunctionSetWithDerivatives& F,
                                          const math_Vector&               StartingPoint,
                                          const math_Vector&               InfBound,
                                          const math_Vector&               SupBound)

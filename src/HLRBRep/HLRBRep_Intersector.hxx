@@ -26,7 +26,7 @@
 class gp_Lin;
 class IntersectionPoint1;
 class IntRes2d_IntersectionSegment;
-class IntCurveSurface_IntersectionSegment;
+class IntersectionSegment;
 
 //! The Intersector  computes 2D  intersections of the projections of 3D curves.
 //! It can also computes the intersection of a 3D line and a surface.
@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbPoints() const;
 
-  Standard_EXPORT const IntRes2d_IntersectionPoint& Point(const Standard_Integer N) const;
+  Standard_EXPORT const IntersectionPoint3& Point(const Standard_Integer N) const;
 
   Standard_EXPORT const IntersectionPoint1& CSPoint(const Standard_Integer N) const;
 
@@ -78,7 +78,7 @@ public:
 
   Standard_EXPORT const IntRes2d_IntersectionSegment& Segment1(const Standard_Integer N) const;
 
-  Standard_EXPORT const IntCurveSurface_IntersectionSegment& CSSegment(
+  Standard_EXPORT const IntersectionSegment& CSSegment(
     const Standard_Integer N) const;
 
   Standard_EXPORT void Destroy();
@@ -86,10 +86,10 @@ public:
   ~HLRBRep_Intersector() { Destroy(); }
 
 private:
-  IntRes2d_IntersectionPoint         mySinglePoint;
+  IntersectionPoint3         mySinglePoint;
   Standard_Integer                   myTypePerform;
   HLRBRep_CInter                     myIntersector;
-  HLRBRep_InterCSurf                 myCSIntersector;
+  CurveSurfaceIntersection2                 myCSIntersector;
   Standard_Address                   mySurface;
   HLRBRep_ThePolyhedronOfInterCSurf* myPolyhedron;
 };

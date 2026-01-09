@@ -42,12 +42,12 @@ static const size_t THE_STL_MIN_FILE_SIZE = THE_STL_HEADER_SIZE + THE_STL_SIZEOF
 static const size_t THE_BUFFER_SIZE = 1024;
 
 //! Auxiliary tool for merging nodes during STL reading.
-class MergeNodeTool : public Poly_MergeNodesTool
+class MergeNodeTool : public MergeNodesTool
 {
 public:
   //! Constructor
   MergeNodeTool(Reader3* theReader, const Standard_Integer theNbFacets = -1)
-      : Poly_MergeNodesTool(theReader->MergeAngle(), 0.0, theNbFacets),
+      : MergeNodesTool(theReader->MergeAngle(), 0.0, theNbFacets),
         myReader(theReader),
         myNodeIndexMap(1024, new NCollection_IncAllocator(1024 * 1024))
   {
@@ -58,7 +58,7 @@ public:
   //! Add new triangle
   void AddTriangle(const Coords3d theElemNodes[3])
   {
-    Poly_MergeNodesTool::AddTriangle(theElemNodes);
+    MergeNodesTool::AddTriangle(theElemNodes);
 
     // remap node indices returned by Reader3::AddNode();
     // this is a waste of time for most cases of sequential index adding, but preserved for keeping

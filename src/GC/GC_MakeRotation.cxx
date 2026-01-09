@@ -27,7 +27,7 @@
 //=========================================================================
 GC_MakeRotation::GC_MakeRotation(const gp_Lin& Line, const Standard_Real Angle)
 {
-  TheRotation = new Geom_Transformation();
+  TheRotation = new Transformation1();
   TheRotation->SetRotation(Axis3d(Line.Location(), Line.Direction()), Angle);
 }
 
@@ -38,7 +38,7 @@ GC_MakeRotation::GC_MakeRotation(const gp_Lin& Line, const Standard_Real Angle)
 
 GC_MakeRotation::GC_MakeRotation(const Axis3d& Axis, const Standard_Real Angle)
 {
-  TheRotation = new Geom_Transformation();
+  TheRotation = new Transformation1();
   TheRotation->SetRotation(Axis, Angle);
 }
 
@@ -51,11 +51,11 @@ GC_MakeRotation::GC_MakeRotation(const Point3d&       Point,
                                  const Dir3d&       Direc,
                                  const Standard_Real Angle)
 {
-  TheRotation = new Geom_Transformation();
+  TheRotation = new Transformation1();
   TheRotation->SetRotation(Axis3d(Point, Direc), Angle);
 }
 
-const Handle(Geom_Transformation)& GC_MakeRotation::Value() const
+const Handle(Transformation1)& GC_MakeRotation::Value() const
 {
   return TheRotation;
 }

@@ -29,9 +29,9 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColgp_HArray2OfPnt.hxx>
 class GeomFill_CoonsAlgPatch;
-class GeomFill_TgtField;
+class TangentField;
 class Geom_BSplineSurface;
-class GeomFill_Boundary;
+class Boundary2;
 class GeomFill_BoundWithSurf;
 
 //! An algorithm for constructing a BSpline surface filled
@@ -63,9 +63,9 @@ public:
   Standard_EXPORT GeomFill_ConstrainedFilling(const Standard_Integer MaxDeg,
                                               const Standard_Integer MaxSeg);
 
-  Standard_EXPORT void Init(const Handle(GeomFill_Boundary)& B1,
-                            const Handle(GeomFill_Boundary)& B2,
-                            const Handle(GeomFill_Boundary)& B3,
+  Standard_EXPORT void Init(const Handle(Boundary2)& B1,
+                            const Handle(Boundary2)& B2,
+                            const Handle(Boundary2)& B3,
                             const Standard_Boolean           NoCheck = Standard_False);
 
   //! Constructs a BSpline surface filled from the series of
@@ -79,10 +79,10 @@ public:
   //! -   its degree will not be greater than the maximum
   //! degree defined at the time of construction of this framework, and
   //! -   the maximum number of segments MaxSeg which BSpline surfaces can have
-  Standard_EXPORT void Init(const Handle(GeomFill_Boundary)& B1,
-                            const Handle(GeomFill_Boundary)& B2,
-                            const Handle(GeomFill_Boundary)& B3,
-                            const Handle(GeomFill_Boundary)& B4,
+  Standard_EXPORT void Init(const Handle(Boundary2)& B1,
+                            const Handle(Boundary2)& B2,
+                            const Handle(Boundary2)& B3,
+                            const Handle(Boundary2)& B4,
                             const Standard_Boolean           NoCheck = Standard_False);
 
   //! Allows to modify domain on witch the blending function
@@ -101,7 +101,7 @@ public:
   Standard_EXPORT void ReBuild();
 
   //! Returns the bound of index i after sort.
-  Standard_EXPORT Handle(GeomFill_Boundary) Boundary(const Standard_Integer I) const;
+  Standard_EXPORT Handle(Boundary2) Boundary(const Standard_Integer I) const;
 
   //! Returns the BSpline surface after computation of the fill by this framework.
   Standard_EXPORT Handle(Geom_BSplineSurface) Surface() const;
@@ -170,28 +170,28 @@ private:
   Standard_Integer                 degmax;
   Standard_Integer                 segmax;
   Handle(GeomFill_CoonsAlgPatch)   ptch;
-  Handle(GeomFill_TgtField)        tgalg[4];
+  Handle(TangentField)        tgalg[4];
   Standard_Real                    mig[4];
   CornerState             stcor[4];
   Vector3d                           v[4];
   Standard_Boolean                 appdone;
   Standard_Integer                 degree[2];
-  Handle(TColgp_HArray1OfPnt)      curvpol[4];
-  Handle(TColgp_HArray1OfPnt)      tgtepol[4];
+  Handle(PointArray1)      curvpol[4];
+  Handle(PointArray1)      tgtepol[4];
   Handle(TColStd_HArray1OfInteger) mults[2];
   Handle(TColStd_HArray1OfReal)    knots[2];
   Handle(TColStd_HArray1OfReal)    ab[4];
   Handle(TColStd_HArray1OfReal)    pq[4];
   Standard_Real                    dom[4];
-  Handle(TColgp_HArray1OfPnt)      ncpol[4];
-  Handle(TColgp_HArray1OfPnt)      ntpol[4];
+  Handle(PointArray1)      ncpol[4];
+  Handle(PointArray1)      ntpol[4];
   Handle(TColStd_HArray1OfInteger) nm[2];
   Handle(TColStd_HArray1OfReal)    nk[2];
   Standard_Integer                 ibound[2];
   Standard_Integer                 ctr[2];
   Standard_Integer                 nbd3;
-  Handle(TColgp_HArray2OfPnt)      S0;
-  Handle(TColgp_HArray2OfPnt)      S1;
+  Handle(PointGrid)      S0;
+  Handle(PointGrid)      S1;
   Handle(Geom_BSplineSurface)      surf;
 };
 

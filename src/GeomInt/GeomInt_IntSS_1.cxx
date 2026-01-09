@@ -175,13 +175,13 @@ static void GetSegmentBoundary(const IntRes2d_IntersectionSegment& theSegm,
 
   if (theSegm.HasFirstPoint())
   {
-    const IntRes2d_IntersectionPoint& anIPF = theSegm.FirstPoint();
+    const IntersectionPoint3& anIPF = theSegm.FirstPoint();
     aU1                                     = anIPF.ParamOnFirst();
   }
 
   if (theSegm.HasLastPoint())
   {
-    const IntRes2d_IntersectionPoint& anIPL = theSegm.LastPoint();
+    const IntersectionPoint3& anIPL = theSegm.LastPoint();
     aU2                                     = anIPL.ParamOnFirst();
   }
 
@@ -282,7 +282,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
   aS1 = myHS1->Surface();
   aS2 = myHS2->Surface();
   //
-  Handle(IntPatch_Line) L = myIntersector.Line(Index);
+  Handle(Line2) L = myIntersector.Line(Index);
   typl                    = L->ArcType();
   //
   if (typl == IntPatch_Walking)

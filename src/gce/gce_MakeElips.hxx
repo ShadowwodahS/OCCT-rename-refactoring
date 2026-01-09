@@ -32,7 +32,7 @@ class Point3d;
 //! * Create an ellipse from its center, and two points:
 //! one on the ciconference giving the major radius, the
 //! other giving the value of the small radius.
-class gce_MakeElips : public Root6
+class EllipseBuilder1 : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,7 +44,7 @@ public:
   //! Warnings :
   //! It is not forbidden to create an ellipse with
   //! MajorRadius = MinorRadius.
-  Standard_EXPORT gce_MakeElips(const Frame3d&       A2,
+  Standard_EXPORT EllipseBuilder1(const Frame3d&       A2,
                                 const Standard_Real MajorRadius,
                                 const Standard_Real MinorRadius);
 
@@ -62,7 +62,7 @@ public:
   //! -   the major radius computed with Center and S1
   //! is less than the minor radius computed with Center, S1 and S2, or
   //! -   Center, S1 and S2 are collinear.
-  Standard_EXPORT gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d& Center);
+  Standard_EXPORT EllipseBuilder1(const Point3d& S1, const Point3d& S2, const Point3d& Center);
 
   //! Returns the constructed ellipse.
   //! Exceptions StdFail_NotDone if no ellipse is constructed.

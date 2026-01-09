@@ -27,7 +27,7 @@
 #include <Standard_Handle.hxx>
 #include <Standard_Integer.hxx>
 
-class IntSurf_LineOn2S;
+class LineOnTwoSurfaces;
 class PointOn2Surfaces;
 class gp_Lin;
 class gp_Circ;
@@ -40,11 +40,11 @@ public:
 
   Standard_EXPORT Contap_Line();
 
-  Standard_EXPORT void SetLineOn2S(const Handle(IntSurf_LineOn2S)& L);
+  Standard_EXPORT void SetLineOn2S(const Handle(LineOnTwoSurfaces)& L);
 
   Standard_EXPORT void Clear();
 
-  const Handle(IntSurf_LineOn2S)& LineOn2S() const;
+  const Handle(LineOnTwoSurfaces)& LineOn2S() const;
 
   Standard_EXPORT void ResetSeqOfVertex();
 
@@ -87,8 +87,8 @@ public:
 protected:
 private:
   IntSurf_TypeTrans                  Trans;
-  Handle(IntSurf_LineOn2S)           curv;
-  Handle(Contap_TheHSequenceOfPoint) svtx;
+  Handle(LineOnTwoSurfaces)           curv;
+  Handle(PointSequence1) svtx;
   Handle(Adaptor2d_Curve2d)          thearc;
   Contap_IType                       typL;
   Point3d                             pt;

@@ -50,7 +50,7 @@ static TColStd_MapOfTransient& UnsuppTypesMap()
 // function : FromTo
 // purpose  : Paste transient data into DOM_Element
 //=======================================================================
-void XmlMDF1::FromTo(const Handle(TDF_Data)&            theData,
+void XmlMDF1::FromTo(const Handle(Data2)&            theData,
                     XmlObjMgt_Element&                 theElement,
                     XmlObjMgt_SRelocationTable&        theRelocTable,
                     const Handle(XmlMDF_ADriverTable)& theDrivers,
@@ -145,7 +145,7 @@ Standard_Integer XmlMDF1::WriteSubTree(const DataLabel&                   theLab
 // purpose  : Paste data from DOM_Element into transient document
 //=======================================================================
 Standard_Boolean XmlMDF1::FromTo(const XmlObjMgt_Element&           theElement,
-                                Handle(TDF_Data)&                  theData,
+                                Handle(Data2)&                  theData,
                                 XmlObjMgt_RRelocationTable&        theRelocTable,
                                 const Handle(XmlMDF_ADriverTable)& theDrivers,
                                 const Message_ProgressRange&       theRange)

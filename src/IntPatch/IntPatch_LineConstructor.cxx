@@ -40,8 +40,8 @@
 
 //=================================================================================================
 
-static void Recadre(const Handle(Adaptor3d_Surface)& myHS1,
-                    const Handle(Adaptor3d_Surface)& myHS2,
+static void Recadre(const Handle(SurfaceAdaptor)& myHS1,
+                    const Handle(SurfaceAdaptor)& myHS2,
                     Standard_Real&                   u1,
                     Standard_Real&                   v1,
                     Standard_Real&                   u2,
@@ -152,8 +152,8 @@ static void Recadre(const Handle(Adaptor3d_Surface)& myHS1,
 
 //=================================================================================================
 
-static void Parameters(const Handle(Adaptor3d_Surface)& myHS1,
-                       const Handle(Adaptor3d_Surface)& myHS2,
+static void Parameters(const Handle(SurfaceAdaptor)& myHS1,
+                       const Handle(SurfaceAdaptor)& myHS2,
                        const Point3d&                    Ptref,
                        Standard_Real&                   U1,
                        Standard_Real&                   V1,
@@ -210,7 +210,7 @@ static void Parameters(const Handle(Adaptor3d_Surface)& myHS1,
 
 //=================================================================================================
 
-static Standard_Real LocalFirstParameter(const Handle(IntPatch_Line)& L)
+static Standard_Real LocalFirstParameter(const Handle(Line2)& L)
 {
   Standard_Real  firstp = 0.;
   IntPatch_IType typl   = L->ArcType();
@@ -292,7 +292,7 @@ static Standard_Real LocalFirstParameter(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-static Standard_Real LocalLastParameter(const Handle(IntPatch_Line)& L)
+static Standard_Real LocalLastParameter(const Handle(Line2)& L)
 {
   Standard_Real  lastp = 0.;
   IntPatch_IType typl  = L->ArcType();
@@ -572,7 +572,7 @@ static Standard_Integer AppendSameVertexR(Handle(IntPatch_RLine)&       rlig,
 
 //=================================================================================================
 
-static void AddLine(const Handle(IntPatch_Line)& L,
+static void AddLine(const Handle(Line2)& L,
                     const Standard_Integer       i,
                     const Standard_Integer       j,
                     //	     const GeomAbs_SurfaceType TypeS1,
@@ -618,8 +618,8 @@ static void AddLine(const Handle(IntPatch_Line)& L,
     }
     case IntPatch_Walking: { //-- ****************************************
       Handle(IntPatch_WLine)          WLine(Handle(IntPatch_WLine)::DownCast(L));
-      const Handle(IntSurf_LineOn2S)& Lori     = WLine->Curve();
-      Handle(IntSurf_LineOn2S)        LineOn2S = new IntSurf_LineOn2S();
+      const Handle(LineOnTwoSurfaces)& Lori     = WLine->Curve();
+      Handle(LineOnTwoSurfaces)        LineOn2S = new LineOnTwoSurfaces();
       Standard_Integer ParamMinOnLine = (Standard_Integer)WLine->Vertex(i).ParameterOnLine();
       Standard_Integer ParamMaxOnLine = (Standard_Integer)WLine->Vertex(j).ParameterOnLine();
       for (Standard_Integer k = ParamMinOnLine; k <= ParamMaxOnLine; k++)
@@ -814,7 +814,7 @@ static void AddLine(const Handle(IntPatch_Line)& L,
 
 //=================================================================================================
 
-Handle(IntPatch_Line) LineConstructor::Line(const Standard_Integer l) const
+Handle(Line2) LineConstructor::Line(const Standard_Integer l) const
 {
   return (slin.Value(l));
 }
@@ -936,9 +936,9 @@ static Standard_Boolean TestWLineIsARLine(const IntPatch_SequenceOfLine& slinref
 
 static Standard_Boolean TestIfWLineIsRestriction(const IntPatch_SequenceOfLine&     slinref,
                                                  const Handle(IntPatch_WLine)&      wlin,
-                                                 const Handle(Adaptor3d_Surface)&   S1,
+                                                 const Handle(SurfaceAdaptor)&   S1,
                                                  const Handle(Adaptor3d_TopolTool)& D1,
-                                                 const Handle(Adaptor3d_Surface)&   S2,
+                                                 const Handle(SurfaceAdaptor)&   S2,
                                                  const Handle(Adaptor3d_TopolTool)& D2,
                                                  Standard_Real                      TolArc)
 {
@@ -995,7 +995,7 @@ static Standard_Boolean TestIfWLineIsRestriction(const IntPatch_SequenceOfLine& 
 static Standard_Boolean ProjectOnArc(const Standard_Real              u,
                                      const Standard_Real              v,
                                      const Handle(Adaptor2d_Curve2d)& arc,
-                                     const Handle(Adaptor3d_Surface)& surf,
+                                     const Handle(SurfaceAdaptor)& surf,
                                      const Standard_Real              TolArc,
                                      Standard_Real&                   par,
                                      Standard_Real&                   dist)
@@ -1016,9 +1016,9 @@ static Standard_Boolean ProjectOnArc(const Standard_Real              u,
 
 static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
                              IntPatch_SequenceOfLine&           slin,
-                             const Handle(Adaptor3d_Surface)&   mySurf1,
+                             const Handle(SurfaceAdaptor)&   mySurf1,
                              const Handle(Adaptor3d_TopolTool)& myDom1,
-                             const Handle(Adaptor3d_Surface)&   mySurf2,
+                             const Handle(SurfaceAdaptor)&   mySurf2,
                              const Handle(Adaptor3d_TopolTool)& myDom2,
                              const Standard_Real                TolArc)
 {
@@ -1064,7 +1064,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
       PQuery                      pIsOnDomS;
       PArcOnS                     pArcOnS;
       PParOnArc                   pParOnArc;
-      Handle(Adaptor3d_Surface)   surf;
+      Handle(SurfaceAdaptor)   surf;
       Handle(Adaptor3d_TopolTool) aDomain;
       if (onFirst)
       {
@@ -1207,8 +1207,8 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
         else
           rlig->SetArcOnS2(arc);
 
-        Handle(IntSurf_LineOn2S)        LineOn2S = new IntSurf_LineOn2S();
-        const Handle(IntSurf_LineOn2S)& Lori     = WLine->Curve();
+        Handle(LineOnTwoSurfaces)        LineOn2S = new LineOnTwoSurfaces();
+        const Handle(LineOnTwoSurfaces)& Lori     = WLine->Curve();
         Standard_Integer                ivmin, ivmax;
         Standard_Real                   parmin, parmax;
         Standard_Boolean                reverse = Standard_False;
@@ -1301,10 +1301,10 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
 //=================================================================================================
 
 void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
-                                       const Handle(IntPatch_Line)&       L,
-                                       const Handle(Adaptor3d_Surface)&   mySurf1,
+                                       const Handle(Line2)&       L,
+                                       const Handle(SurfaceAdaptor)&   mySurf1,
                                        const Handle(Adaptor3d_TopolTool)& myDom1,
-                                       const Handle(Adaptor3d_Surface)&   mySurf2,
+                                       const Handle(SurfaceAdaptor)&   mySurf2,
                                        const Handle(Adaptor3d_TopolTool)& myDom2,
                                        const Standard_Real                TolArc)
 {

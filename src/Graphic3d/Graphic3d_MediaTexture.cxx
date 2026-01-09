@@ -52,7 +52,7 @@ Graphic3d_MediaTexture::Graphic3d_MediaTexture(const Handle(Standard_HMutex)& th
 
 //=================================================================================================
 
-Handle(Image_PixMap) Graphic3d_MediaTexture::GetImage(const Handle(Image_SupportedFormats)&)
+Handle(Image_PixMap) Graphic3d_MediaTexture::GetImage(const Handle(SupportedFormats)&)
 {
   Standard_Mutex::Sentry aLock(myMutex.get());
   if (myFrame.IsNull() || myFrame->IsLocked() || myFrame->IsEmpty() || myFrame->SizeX() < 1

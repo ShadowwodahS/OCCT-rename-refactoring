@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-static inline void AddPointIntoLine(Handle(IntSurf_LineOn2S)&  theLine,
+static inline void AddPointIntoLine(Handle(LineOnTwoSurfaces)&  theLine,
                                     const Standard_Real* const theArrPeriods,
                                     PointOn2Surfaces&           thePoint,
                                     IntPatch_Point*            theVertex = 0)
@@ -50,7 +50,7 @@ static inline void AddPointIntoLine(Handle(IntSurf_LineOn2S)&  theLine,
 // function : AddVertexPoint
 // purpose  : Extracts PointOn2Surfaces from theVertex and adds result in theLine.
 //=======================================================================
-static void AddVertexPoint(Handle(IntSurf_LineOn2S)&  theLine,
+static void AddVertexPoint(Handle(LineOnTwoSurfaces)&  theLine,
                            IntPatch_Point&            theVertex,
                            const Standard_Real* const theArrPeriods)
 {
@@ -67,10 +67,10 @@ static void AddVertexPoint(Handle(IntSurf_LineOn2S)&  theLine,
 //           theSingularSurfaceID contains the ID of surface with
 //            special point (0 - none, 1 - theS1, 2 - theS2)
 //=======================================================================
-static IntPatch_SpecPntType IsPoleOrSeam(const Handle(Adaptor3d_Surface)& theS1,
-                                         const Handle(Adaptor3d_Surface)& theS2,
+static IntPatch_SpecPntType IsPoleOrSeam(const Handle(SurfaceAdaptor)& theS1,
+                                         const Handle(SurfaceAdaptor)& theS2,
                                          const PointOn2Surfaces&           thePIsoRef,
-                                         Handle(IntSurf_LineOn2S)&        theLine,
+                                         Handle(LineOnTwoSurfaces)&        theLine,
                                          IntPatch_Point&                  theVertex,
                                          const Standard_Real              theArrPeriods[4],
                                          const Standard_Real              theTol3d,
@@ -140,8 +140,8 @@ static IntPatch_SpecPntType IsPoleOrSeam(const Handle(Adaptor3d_Surface)& theS1,
 
 //=================================================================================================
 
-IntPatch_ALineToWLine::IntPatch_ALineToWLine(const Handle(Adaptor3d_Surface)& theS1,
-                                             const Handle(Adaptor3d_Surface)& theS2,
+IntPatch_ALineToWLine::IntPatch_ALineToWLine(const Handle(SurfaceAdaptor)& theS1,
+                                             const Handle(SurfaceAdaptor)& theS2,
                                              const Standard_Integer           theNbPoints)
     : myS1(theS1),
       myS2(theS2),
@@ -249,7 +249,7 @@ Standard_Real IntPatch_ALineToWLine::TolOpenDomain() const
 
 //=================================================================================================
 
-void IntPatch_ALineToWLine::CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
+void IntPatch_ALineToWLine::CorrectEndPoint(Handle(LineOnTwoSurfaces)& theLine,
                                             const Standard_Integer    theIndex) const
 {
   const Standard_Real aTol   = 1.e-5;
@@ -460,7 +460,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
   // It is possible to have several vertices with equal parameters.
   NCollection_Array1<Standard_Boolean> hasVertexBeenChecked(1, aNbVert);
 
-  Handle(IntSurf_LineOn2S) aLinOn2S;
+  Handle(LineOnTwoSurfaces) aLinOn2S;
   Standard_Real            aParameter = theFPar;
 
   for (Standard_Integer i = aVertexParams.Lower(); i <= aVertexParams.Upper(); i++)
@@ -509,7 +509,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
     }
 
     Standard_Integer aNewVertID           = 0;
-    aLinOn2S                              = new IntSurf_LineOn2S;
+    aLinOn2S                              = new LineOnTwoSurfaces;
     Standard_Boolean anIsFirstDegenerated = Standard_False, anIsLastDegenerated = Standard_False;
 
     Standard_Real aStepMin = 0.1 * aStep, aStepMax = 10.0 * aStep;

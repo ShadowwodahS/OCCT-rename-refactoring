@@ -37,7 +37,7 @@ GeomFill_DiscreteTrihedron::GeomFill_DiscreteTrihedron()
 {
   myFrenet     = new GeomFill_Frenet();
   myKnots      = new TColStd_HSequenceOfReal();
-  myTrihedrons = new GeomFill_HSequenceOfAx2();
+  myTrihedrons = new HSequenceOfAx2();
 }
 
 //=================================================================================================
@@ -52,7 +52,7 @@ Handle(GeomFill_TrihedronLaw) GeomFill_DiscreteTrihedron::Copy() const
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_DiscreteTrihedron::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_DiscreteTrihedron::SetCurve(const Handle(Curve5)& C)
 {
   GeomFill_TrihedronLaw::SetCurve(C);
   if (!C.IsNull())

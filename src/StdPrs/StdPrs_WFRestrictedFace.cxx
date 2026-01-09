@@ -170,7 +170,7 @@ void StdPrs_WFRestrictedFace::Add(const Handle(Prs3d_Presentation)&  thePresenta
       if (b1 == RealFirst() || b2 == RealLast())
         continue;
 
-      Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) aPoints = new PointSequence2;
       if (!aGeomBSurface.IsNull())
       {
         if (anIsoBuild.IsXLine(anI))

@@ -27,21 +27,21 @@
 #include <Standard_Integer.hxx>
 #include <math_Vector.hxx>
 
-class Adaptor3d_Curve;
-class GeomFill_SectionLaw;
+class Curve5;
+class SectionLaw;
 class GeomCurve3d;
 class GeomSurface;
 class Point3d;
 class math_Matrix;
 class Vector3d;
 
-class GeomFill_FunctionGuide : public math_FunctionSetWithDerivatives
+class GeomFill_FunctionGuide : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_FunctionGuide(const Handle(GeomFill_SectionLaw)& S,
-                                         const Handle(Adaptor3d_Curve)&     Guide,
+  Standard_EXPORT GeomFill_FunctionGuide(const Handle(SectionLaw)& S,
+                                         const Handle(Curve5)&     Guide,
                                          const Standard_Real                ParamOnLaw = 0.0);
 
   Standard_EXPORT void SetParam(const Standard_Real Param,
@@ -105,8 +105,8 @@ private:
                             const Coords3d&       DDir,
                             Vector3d&             DSDT) const;
 
-  Handle(Adaptor3d_Curve)     TheGuide;
-  Handle(GeomFill_SectionLaw) TheLaw;
+  Handle(Curve5)     TheGuide;
+  Handle(SectionLaw) TheLaw;
   Standard_Boolean            isconst;
   Handle(GeomCurve3d)          TheCurve;
   Handle(GeomCurve3d)          TheConst;

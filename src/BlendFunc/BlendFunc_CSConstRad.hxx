@@ -43,9 +43,9 @@ class BlendFunc_CSConstRad : public Blend_CSFunction
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_CSConstRad(const Handle(Adaptor3d_Surface)& S,
-                                       const Handle(Adaptor3d_Curve)&   C,
-                                       const Handle(Adaptor3d_Curve)&   CGuide);
+  Standard_EXPORT BlendFunc_CSConstRad(const Handle(SurfaceAdaptor)& S,
+                                       const Handle(Curve5)&   C,
+                                       const Handle(Curve5)&   CGuide);
 
   //! returns the number of equations of the function (3).
   Standard_EXPORT Standard_Integer NbEquations() const Standard_OVERRIDE;
@@ -211,9 +211,9 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface)    surf;
-  Handle(Adaptor3d_Curve)      curv;
-  Handle(Adaptor3d_Curve)      guide;
+  Handle(SurfaceAdaptor)    surf;
+  Handle(Curve5)      curv;
+  Handle(Curve5)      guide;
   Point3d                       pts;
   Point3d                       ptc;
   gp_Pnt2d                     pt2d;

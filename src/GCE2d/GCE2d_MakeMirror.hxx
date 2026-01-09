@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom2d_Transformation;
+class Transformation2d;
 class gp_Pnt2d;
 class gp_Ax2d;
 class gp_Lin2d;
@@ -29,7 +29,7 @@ class gp_Dir2d;
 
 //! This class implements elementary construction algorithms for a
 //! symmetrical transformation in 2D space about a point
-//! or axis. The result is a Geom2d_Transformation transformation.
+//! or axis. The result is a Transformation2d transformation.
 //! A MakeMirror object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -50,13 +50,13 @@ public:
   Standard_EXPORT GCE2d_MakeMirror(const gp_Pnt2d& Point, const gp_Dir2d& Direc);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom2d_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation2d)& Value() const;
 
-  operator const Handle(Geom2d_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation2d) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom2d_Transformation) TheMirror;
+  Handle(Transformation2d) TheMirror;
 };
 
 #endif // _GCE2d_MakeMirror_HeaderFile

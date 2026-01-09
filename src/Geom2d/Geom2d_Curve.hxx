@@ -29,7 +29,7 @@ class gp_Pnt2d;
 class gp_Vec2d;
 
 class GeomCurve2d;
-DEFINE_STANDARD_HANDLE(GeomCurve2d, Geom2d_Geometry)
+DEFINE_STANDARD_HANDLE(GeomCurve2d, Geometry2)
 
 //! The abstract class Curve describes the common
 //! behavior of curves in 2D space. The Geom2d
@@ -57,7 +57,7 @@ DEFINE_STANDARD_HANDLE(GeomCurve2d, Geom2d_Geometry)
 //! The Geom2d package does not prevent the
 //! construction of curves with null length or curves which
 //! self-intersect.
-class GeomCurve2d : public Geom2d_Geometry
+class GeomCurve2d : public Geometry2
 {
 
 public:
@@ -222,7 +222,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomCurve2d, Geom2d_Geometry)
+  DEFINE_STANDARD_RTTIEXT(GeomCurve2d, Geometry2)
 
 protected:
 private:

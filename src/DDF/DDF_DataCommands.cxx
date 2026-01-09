@@ -64,7 +64,7 @@ static Standard_Integer MakeDF(DrawInterpreter& di, Standard_Integer n, const ch
     }
   }
 
-  Handle(TDF_Data) NewDF = new TDF_Data();
+  Handle(Data2) NewDF = new Data2();
   NewDDF                 = new DDF_Data(NewDF);
   Draw1::Set(a[1], NewDDF);
   // DeltaDS.Nullify();
@@ -90,10 +90,10 @@ static Standard_Integer ClearDF(DrawInterpreter& di, Standard_Integer n, const c
     DDF1 = Handle(DDF_Data)::DownCast(D);
     if (!DDF1.IsNull())
     {
-      Handle(TDF_Data) DF = DDF1->DataFramework();
+      Handle(Data2) DF = DDF1->DataFramework();
       if (!DF.IsNull())
       {
-        Handle(TDF_Data) NewEmpty = new TDF_Data;
+        Handle(Data2) NewEmpty = new Data2;
         DDF1->DataFramework(NewEmpty);
         // DeltaDS.Nullify();
       }
@@ -113,8 +113,8 @@ static Standard_Integer CopyDF(DrawInterpreter& /*di*/, Standard_Integer n, cons
   if (n < 4 || n > 5)
     return 1;
 
-  Handle(TDF_Data) DF1;
-  Handle(TDF_Data) DF2;
+  Handle(Data2) DF1;
+  Handle(Data2) DF2;
   Standard_CString Entry1;
   Standard_CString Entry2;
 
@@ -149,7 +149,7 @@ static Standard_Integer CopyDF(DrawInterpreter& /*di*/, Standard_Integer n, cons
   Handle(TDF_DataSet) DataSet = new TDF_DataSet;
   DataSet->AddLabel(Label1);
   ClosureTool::Closure(DataSet);
-  Handle(TDF_RelocationTable) Reloc = new TDF_RelocationTable();
+  Handle(RelocationTable1) Reloc = new RelocationTable1();
   Reloc->SetRelocation(Label1, Label2);
   CopyTool::Copy(DataSet, Reloc);
 
@@ -244,7 +244,7 @@ static Standard_Integer CopyLabel_SCopy(DrawInterpreter& di, Standard_Integer n,
   DataLabel SOURCE, TARGET;
   if (n == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     if (!DDF1::FindLabel(DF, a[2], SOURCE))
@@ -278,7 +278,7 @@ static Standard_Integer DDF_CheckAttrs(DrawInterpreter& di, Standard_Integer n, 
   DataLabel SOURCE, TARGET;
   if (n == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     if (!DDF1::FindLabel(DF, a[2], SOURCE))
@@ -356,7 +356,7 @@ static Standard_Integer DDF_CheckLabel(DrawInterpreter& di, Standard_Integer n, 
   DataLabel SOURCE;
   if (n == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     if (!DDF1::FindLabel(DF, a[2], SOURCE))
@@ -404,7 +404,7 @@ static Standard_Integer DDF_SetAccessByEntry(DrawInterpreter& di,
   }
   else
   {
-    Handle(TDF_Data) aDF;
+    Handle(Data2) aDF;
     if (DDF1::GetDF(a[1], aDF))
     {
       Standard_Boolean aSet = (Draw1::Atoi(a[2]) == 1);

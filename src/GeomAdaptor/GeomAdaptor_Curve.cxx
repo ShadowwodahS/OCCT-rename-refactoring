@@ -56,11 +56,11 @@
 // #include <GeomConvert_BSplineCurveKnotSplitting.hxx>
 static const Standard_Real PosTol = Precision1::PConfusion() / 2;
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomAdaptor_Curve, Adaptor3d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(GeomAdaptor_Curve, Curve5)
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) GeomAdaptor_Curve::ShallowCopy() const
+Handle(Curve5) GeomAdaptor_Curve::ShallowCopy() const
 {
   Handle(GeomAdaptor_Curve) aCopy = new GeomAdaptor_Curve();
 
@@ -470,7 +470,7 @@ void GeomAdaptor_Curve::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) GeomAdaptor_Curve::Trim(const Standard_Real First,
+Handle(Curve5) GeomAdaptor_Curve::Trim(const Standard_Real First,
                                                 const Standard_Real Last,
                                                 const Standard_Real /*Tol*/) const
 {

@@ -110,7 +110,7 @@ inline Standard_Boolean IntPatch_Point::IsVertexOnS1() const
   return vtxonS1;
 }
 
-inline const Handle(Adaptor3d_HVertex)& IntPatch_Point::VertexOnS1() const
+inline const Handle(HandleVertex)& IntPatch_Point::VertexOnS1() const
 {
   if (!vtxonS1)
   {
@@ -165,7 +165,7 @@ inline Standard_Boolean IntPatch_Point::IsVertexOnS2() const
   return vtxonS2;
 }
 
-inline const Handle(Adaptor3d_HVertex)& IntPatch_Point::VertexOnS2() const
+inline const Handle(HandleVertex)& IntPatch_Point::VertexOnS2() const
 {
   if (!vtxonS2)
   {

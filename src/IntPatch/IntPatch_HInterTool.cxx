@@ -34,7 +34,7 @@ HInterTool::HInterTool()
 {
 }
 
-Standard_Integer HInterTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HInterTool::NbSamplesV(const Handle(SurfaceAdaptor)& S,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
@@ -69,7 +69,7 @@ Standard_Integer HInterTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
   return 10;
 }
 
-Standard_Integer HInterTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HInterTool::NbSamplesU(const Handle(SurfaceAdaptor)& S,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
@@ -103,7 +103,7 @@ Standard_Integer HInterTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
   return 10;
 }
 
-Standard_Integer HInterTool::NbSamplePoints(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HInterTool::NbSamplePoints(const Handle(SurfaceAdaptor)& S)
 {
   uinf = S->FirstUParameter();
   usup = S->LastUParameter();
@@ -154,7 +154,7 @@ Standard_Integer HInterTool::NbSamplePoints(const Handle(Adaptor3d_Surface)& S)
   return (m);
 }
 
-void HInterTool::SamplePoint(const Handle(Adaptor3d_Surface)& S,
+void HInterTool::SamplePoint(const Handle(SurfaceAdaptor)& S,
                                       const Standard_Integer           Index,
                                       Standard_Real&                   U,
                                       Standard_Real&                   V) const
@@ -296,13 +296,13 @@ Standard_Boolean HInterTool::Project(const Handle(Adaptor2d_Curve2d)& C,
   return Standard_True;
 }
 
-Standard_Real HInterTool::Tolerance(const Handle(Adaptor3d_HVertex)& V,
+Standard_Real HInterTool::Tolerance(const Handle(HandleVertex)& V,
                                              const Handle(Adaptor2d_Curve2d)& C)
 {
   return V->Resolution(C);
 }
 
-Standard_Real HInterTool::Parameter(const Handle(Adaptor3d_HVertex)& V,
+Standard_Real HInterTool::Parameter(const Handle(HandleVertex)& V,
                                              const Handle(Adaptor2d_Curve2d)& C)
 {
   return V->Parameter(C);
@@ -335,7 +335,7 @@ Standard_Boolean HInterTool::IsVertex(const Handle(Adaptor2d_Curve2d)&,
 
 void HInterTool::Vertex(const Handle(Adaptor2d_Curve2d)&,
                                  const Standard_Integer,
-                                 Handle(Adaptor3d_HVertex)&)
+                                 Handle(HandleVertex)&)
 {
   throw Standard_OutOfRange();
 }

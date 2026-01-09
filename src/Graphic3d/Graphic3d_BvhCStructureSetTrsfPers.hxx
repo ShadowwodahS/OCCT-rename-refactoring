@@ -85,7 +85,7 @@ public:
     const Graphic3d_Mat4d&              theWorldViewMatrix,
     const Standard_Integer              theViewportWidth,
     const Standard_Integer              theViewportHeight,
-    const Graphic3d_WorldViewProjState& theWVPState);
+    const WorldViewProjState1& theWVPState);
 
   //! Returns builder for bottom-level BVH.
   const Handle(BVH_Builder3d)& Builder() const { return myBuilder; }
@@ -113,7 +113,7 @@ private:
 
   //! State of world view projection used for generation of transformation persistence bounding
   //! boxes.
-  Graphic3d_WorldViewProjState myStructBoxesState;
+  WorldViewProjState1 myStructBoxesState;
 };
 
 #endif // _Graphic3d_BvhCStructureSetTrsfPers_HeaderFile

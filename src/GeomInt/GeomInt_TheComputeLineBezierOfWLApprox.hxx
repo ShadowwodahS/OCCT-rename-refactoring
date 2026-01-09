@@ -39,7 +39,7 @@ class GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfWLApprox;
 class ResConstraintGradientLineBezier;
 class GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox;
-class GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox;
+class BFGSGradientLineBezierApprox;
 class AppParCurves_MultiCurve;
 class AppParCurves_MultiBSpCurve;
 
@@ -213,7 +213,7 @@ private:
   Approx_SequenceOfHArray1OfReal                 myPar;
   TColStd_SequenceOfReal                         Tolers3d;
   TColStd_SequenceOfReal                         Tolers2d;
-  Handle(AppParCurves_HArray1OfConstraintCouple) myConstraints;
+  Handle(ConstraintCoupleArray) myConstraints;
   Standard_Integer                               mydegremin;
   Standard_Integer                               mydegremax;
   Standard_Real                                  mytol3d;

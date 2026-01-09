@@ -109,7 +109,7 @@ void ViewerTest_ContinuousRedrawer::Pause()
 
 void ViewerTest_ContinuousRedrawer::doThreadLoop()
 {
-  Handle(Aspect_DisplayConnection) aDisp = new Aspect_DisplayConnection();
+  Handle(DisplayConnection1) aDisp = new DisplayConnection1();
   OSD_Timer                        aTimer;
   aTimer.Start();
   Standard_Real       aTimeOld   = 0.0;

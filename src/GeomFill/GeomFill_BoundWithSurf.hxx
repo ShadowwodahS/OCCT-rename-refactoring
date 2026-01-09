@@ -22,12 +22,12 @@
 #include <Adaptor3d_CurveOnSurface.hxx>
 #include <GeomFill_Boundary.hxx>
 #include <Standard_Real.hxx>
-class Law_Function;
+class Function2;
 class Point3d;
 class Vector3d;
 
 class GeomFill_BoundWithSurf;
-DEFINE_STANDARD_HANDLE(GeomFill_BoundWithSurf, GeomFill_Boundary)
+DEFINE_STANDARD_HANDLE(GeomFill_BoundWithSurf, Boundary2)
 
 //! Defines a 3d curve as a boundary for a
 //! GeomFill_ConstrainedFilling algorithm.
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(GeomFill_BoundWithSurf, GeomFill_Boundary)
 //! the surface along the PCurve.
 //! Contains fields  to allow a reparametrization of curve
 //! and normals field.
-class GeomFill_BoundWithSurf : public GeomFill_Boundary
+class GeomFill_BoundWithSurf : public Boundary2
 {
 
 public:
@@ -100,12 +100,12 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDegenerated() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_BoundWithSurf, GeomFill_Boundary)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_BoundWithSurf, Boundary2)
 
 protected:
 private:
   Adaptor3d_CurveOnSurface myConS;
-  Handle(Law_Function)     myPar;
+  Handle(Function2)     myPar;
 };
 
 #endif // _GeomFill_BoundWithSurf_HeaderFile

@@ -986,7 +986,7 @@ TopoShape IGESToBRep_TopoCurve::TransferTopoBasicCurve(const Handle(IGESData_IGE
     {
       Handle(BSplineCurve3d) BSplineC = Handle(BSplineCurve3d)::DownCast(mycurve);
 
-      Handle(TColGeom_HSequenceOfBoundedCurve) seqBS;
+      Handle(HSequenceOfBoundedCurve1) seqBS;
       ShapeAlgo1::AlgoContainer()->C0BSplineToSequenceOfC1BSplineCurve(BSplineC, seqBS);
       Standard_Integer NbC0 = seqBS->Length();
       for (Standard_Integer i = 1; i <= NbC0; i++)
@@ -1188,7 +1188,7 @@ TopoShape IGESToBRep_TopoCurve::Transfer2dTopoBasicCurve(
     {
       Handle(Geom2d_BSplineCurve) BSplineC2d = Handle(Geom2d_BSplineCurve)::DownCast(mycurve2d);
 
-      Handle(TColGeom2d_HSequenceOfBoundedCurve) seqBS;
+      Handle(BoundedCurveSequence2d) seqBS;
       ShapeAlgo1::AlgoContainer()->C0BSplineToSequenceOfC1BSplineCurve(BSplineC2d, seqBS);
       Standard_Integer NbC0 = seqBS->Length();
       for (Standard_Integer i = 1; i <= NbC0; i++)

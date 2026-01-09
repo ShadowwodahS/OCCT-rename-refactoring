@@ -16,11 +16,11 @@
 
 #include <AdvApp2Var_Node.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AdvApp2Var_Node, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ApproximationNode, RefObject)
 
 //=================================================================================================
 
-AdvApp2Var_Node::AdvApp2Var_Node()
+ApproximationNode::ApproximationNode()
     : myTruePoints(0, 2, 0, 2),
       myErrors(0, 2, 0, 2),
       myOrdInU(2),
@@ -33,7 +33,7 @@ AdvApp2Var_Node::AdvApp2Var_Node()
 
 //=================================================================================================
 
-AdvApp2Var_Node::AdvApp2Var_Node(const Standard_Integer iu, const Standard_Integer iv)
+ApproximationNode::ApproximationNode(const Standard_Integer iu, const Standard_Integer iv)
     : myTruePoints(0, Max(0, iu), 0, Max(0, iv)),
       myErrors(0, Max(0, iu), 0, Max(0, iv)),
       myOrdInU(iu),
@@ -46,7 +46,7 @@ AdvApp2Var_Node::AdvApp2Var_Node(const Standard_Integer iu, const Standard_Integ
 
 //=================================================================================================
 
-AdvApp2Var_Node::AdvApp2Var_Node(const Coords2d&           UV,
+ApproximationNode::ApproximationNode(const Coords2d&           UV,
                                  const Standard_Integer iu,
                                  const Standard_Integer iv)
     : myTruePoints(0, iu, 0, iv),

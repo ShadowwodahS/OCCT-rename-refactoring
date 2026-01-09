@@ -24,11 +24,11 @@
 //=========================================================================
 GC_MakeScale::GC_MakeScale(const Point3d& Point, const Standard_Real Scale)
 {
-  TheScale = new Geom_Transformation();
+  TheScale = new Transformation1();
   TheScale->SetScale(Point, Scale);
 }
 
-const Handle(Geom_Transformation)& GC_MakeScale::Value() const
+const Handle(Transformation1)& GC_MakeScale::Value() const
 {
   return TheScale;
 }

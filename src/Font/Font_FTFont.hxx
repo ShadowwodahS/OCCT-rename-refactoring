@@ -31,7 +31,7 @@
 typedef struct FT_FaceRec_* FT_Face;
 typedef struct FT_Vector_   FT_Vector;
 typedef struct FT_Outline_  FT_Outline;
-class Font_FTLibrary;
+class FTLibrary;
 
 //! Font initialization parameters.
 struct FTFontParams
@@ -150,7 +150,7 @@ public:
 
 public:
   //! Create uninitialized instance.
-  Standard_EXPORT Font_FTFont(const Handle(Font_FTLibrary)& theFTLib = Handle(Font_FTLibrary)());
+  Standard_EXPORT Font_FTFont(const Handle(FTLibrary)& theFTLib = Handle(FTLibrary)());
 
   //! Destructor.
   Standard_EXPORT virtual ~Font_FTFont();
@@ -185,7 +185,7 @@ public:
                             const FTFontParams&          theParams,
                             const Standard_Integer            theFaceId = 0);
 
-  //! Find (using Font_FontMgr) and initialize the font from the given name.
+  //! Find (using FontMgr) and initialize the font from the given name.
   //! @param theFontName    the font name
   //! @param theFontAspect  the font style
   //! @param theParams      initialization parameters
@@ -198,7 +198,7 @@ public:
 
   //! Return flag to use fallback fonts in case if used font does not include symbols from specific
   //! Unicode subset; TRUE by default.
-  //! @sa Font_FontMgr::ToUseUnicodeSubsetFallback()
+  //! @sa FontMgr::ToUseUnicodeSubsetFallback()
   Standard_Boolean ToUseUnicodeSubsetFallback() const { return myToUseUnicodeSubsetFallback; }
 
   //! Set if fallback fonts should be used in case if used font does not include symbols from
@@ -285,7 +285,7 @@ public:
   //! Retrieve glyph bitmap rectangle
   Standard_EXPORT void GlyphRect(Rect& theRect) const;
 
-  //! Computes bounding box of the given text using plain-text formatter (Font_TextFormatter).
+  //! Computes bounding box of the given text using plain-text formatter (TextFormatter1).
   //! Note that bounding box takes into account the text alignment options.
   //! Its corners are relative to the text alignment anchor point, their coordinates can be
   //! negative.
@@ -380,7 +380,7 @@ protected:
   }
 
 protected:
-  Handle(Font_FTLibrary)     myFTLib;  //!< handle to the FT library object
+  Handle(FTLibrary)     myFTLib;  //!< handle to the FT library object
   Handle(NCollection_Buffer) myBuffer; //!< memory buffer
   Handle(Font_FTFont)        myFallbackFaces[Font_UnicodeSubset_NB]; //!< fallback fonts
   FT_Face                    myFTFace;                               //!< FT face object

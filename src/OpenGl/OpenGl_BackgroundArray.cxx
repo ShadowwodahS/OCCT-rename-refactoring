@@ -493,13 +493,13 @@ void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace
   Standard_Integer              aViewSizeY = aCtx->Viewport()[3];
   Graphic3d_Vec2i               aTileOffset, aTileSize;
 
-  if (aCtx->Camera()->Tile().IsValid())
+  if (aCtx->Camera()->Tile1().IsValid())
   {
-    aViewSizeX = aCtx->Camera()->Tile().TotalSize.x();
-    aViewSizeY = aCtx->Camera()->Tile().TotalSize.y();
+    aViewSizeX = aCtx->Camera()->Tile1().TotalSize.x();
+    aViewSizeY = aCtx->Camera()->Tile1().TotalSize.y();
 
-    aTileOffset = aCtx->Camera()->Tile().OffsetLowerLeft();
-    aTileSize   = aCtx->Camera()->Tile().TileSize;
+    aTileOffset = aCtx->Camera()->Tile1().OffsetLowerLeft();
+    aTileSize   = aCtx->Camera()->Tile1().TileSize;
   }
   if (myToUpdate || myViewWidth != aViewSizeX || myViewHeight != aViewSizeY || myAttribs.IsNull()
       || myVboAttribs.IsNull())
@@ -555,7 +555,7 @@ void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace
   {
     aProjection.InitIdentity();
     aWorldView.InitIdentity();
-    if (aCtx->Camera()->Tile().IsValid())
+    if (aCtx->Camera()->Tile1().IsValid())
     {
       aWorldView.SetDiagonal(OpenGl_Vec4(2.0f / aTileSize.x(), 2.0f / aTileSize.y(), 1.0f, 1.0f));
       if (myType == Graphic3d_TOB_GRADIENT)

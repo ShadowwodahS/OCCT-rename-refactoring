@@ -44,7 +44,7 @@ Contap_SurfFunction::Contap_SurfFunction()
 {
 }
 
-void Contap_SurfFunction::Set(const Handle(Adaptor3d_Surface)& S)
+void Contap_SurfFunction::Set(const Handle(SurfaceAdaptor)& S)
 {
   mySurf = S;
   Standard_Integer i;

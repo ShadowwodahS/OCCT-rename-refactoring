@@ -16,10 +16,10 @@
 
 #include <IntCurveSurface_IntersectionSegment.hxx>
 
-IntCurveSurface_IntersectionSegment::IntCurveSurface_IntersectionSegment() {}
+IntersectionSegment::IntersectionSegment() {}
 
 //================================================================================
-IntCurveSurface_IntersectionSegment::IntCurveSurface_IntersectionSegment(
+IntersectionSegment::IntersectionSegment(
   const IntersectionPoint1& P1,
   const IntersectionPoint1& P2)
     : myP1(P1),
@@ -28,7 +28,7 @@ IntCurveSurface_IntersectionSegment::IntCurveSurface_IntersectionSegment(
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionSegment::SetValues(const IntersectionPoint1& P1,
+void IntersectionSegment::SetValues(const IntersectionPoint1& P1,
                                                     const IntersectionPoint1& P2)
 {
   myP1 = P1;
@@ -36,7 +36,7 @@ void IntCurveSurface_IntersectionSegment::SetValues(const IntersectionPoint1& P1
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionSegment::Values(IntersectionPoint1& P1,
+void IntersectionSegment::Values(IntersectionPoint1& P1,
                                                  IntersectionPoint1& P2) const
 {
   P1 = myP1;
@@ -44,31 +44,31 @@ void IntCurveSurface_IntersectionSegment::Values(IntersectionPoint1& P1,
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionSegment::FirstPoint(IntersectionPoint1& P1) const
+void IntersectionSegment::FirstPoint(IntersectionPoint1& P1) const
 {
   P1 = myP1;
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionSegment::SecondPoint(IntersectionPoint1& P2) const
+void IntersectionSegment::SecondPoint(IntersectionPoint1& P2) const
 {
   P2 = myP2;
 }
 
 //================================================================================
-const IntersectionPoint1& IntCurveSurface_IntersectionSegment::FirstPoint() const
+const IntersectionPoint1& IntersectionSegment::FirstPoint() const
 {
   return (myP1);
 }
 
 //================================================================================
-const IntersectionPoint1& IntCurveSurface_IntersectionSegment::SecondPoint() const
+const IntersectionPoint1& IntersectionSegment::SecondPoint() const
 {
   return (myP2);
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionSegment::Dump() const
+void IntersectionSegment::Dump() const
 {
   std::cout << "\nIntersectionSegment : " << std::endl;
   myP1.Dump();

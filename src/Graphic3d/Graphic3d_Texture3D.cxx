@@ -67,7 +67,7 @@ void Graphic3d_Texture3D::SetImage(const Handle(Image_PixMap)& thePixMap)
 //=================================================================================================
 
 Handle(Image_PixMap) Graphic3d_Texture3D::GetImage(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   if (myPaths.IsEmpty() || !myPixMap.IsNull())
   {

@@ -40,7 +40,7 @@ static Standard_Integer OCC6001(DrawInterpreter& di, Standard_Integer argc, cons
     return 1;
   }
   const char*             name = argv[1];
-  Handle(Adaptor3d_Curve) hcurve;
+  Handle(Curve5) hcurve;
   Handle(GeomCurve3d)      curve = DrawTrSurf1::GetCurve(argv[2]);
   if (!curve.IsNull())
     hcurve = new GeomAdaptor_Curve(curve);
@@ -57,7 +57,7 @@ static Standard_Integer OCC6001(DrawInterpreter& di, Standard_Integer argc, cons
   }
   Handle(GeomSurface)        surf  = DrawTrSurf1::GetSurface(argv[3]);
   Handle(GeomAdaptor_Surface) hsurf = new GeomAdaptor_Surface(surf);
-  IntCurveSurface_HInter      inter;
+  HandleIntersection      inter;
   inter.Perform(hcurve, hsurf);
   int nb = inter.NbPoints();
   if (!inter.IsDone() || nb == 0)

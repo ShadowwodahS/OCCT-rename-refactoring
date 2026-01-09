@@ -25,7 +25,7 @@
 #include <TColStd_ListOfInteger.hxx>
 
 class DataLabel;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDataXtd_Presentation;
 DEFINE_STANDARD_HANDLE(TDataXtd_Presentation, TDF_Attribute)
@@ -70,7 +70,7 @@ public:
   //! attribute may be a brand new one or a new version
   //! of the previous one.
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       intoAttribute,
-                                     const Handle(TDF_RelocationTable)& aRelocTationable) const
+                                     const Handle(RelocationTable1)& aRelocTationable) const
     Standard_OVERRIDE;
 
   Standard_EXPORT Handle(TDF_Attribute) BackupCopy() const Standard_OVERRIDE;

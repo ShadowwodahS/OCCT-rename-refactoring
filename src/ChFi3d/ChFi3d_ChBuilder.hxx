@@ -137,7 +137,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbSurf(const Standard_Integer IC) const;
 
-  Standard_EXPORT Handle(ChFiDS_SecHArray1) Sect(const Standard_Integer IC,
+  Standard_EXPORT Handle(SecHArray1) Sect(const Standard_Integer IC,
                                                  const Standard_Integer IS) const;
 
   Standard_EXPORT virtual void SimulSurf(Handle(ChFiDS_SurfData)&           Data,

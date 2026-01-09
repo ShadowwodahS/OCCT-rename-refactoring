@@ -103,7 +103,7 @@ static Standard_Boolean MinimizeDirection(math_Vector&    P,
 
 //=================================================================================================
 
-FletcherReevesPowellRestart::FletcherReevesPowellRestart(const math_MultipleVarFunctionWithGradient& theFunction,
+FletcherReevesPowellRestart::FletcherReevesPowellRestart(const MultiVarFunctionWithGradient& theFunction,
                      const Standard_Real                         theTolerance,
                      const Standard_Integer                      theNbIterations,
                      const Standard_Real                         theZEPS)
@@ -128,7 +128,7 @@ FletcherReevesPowellRestart::~FletcherReevesPowellRestart() {}
 
 //=================================================================================================
 
-void FletcherReevesPowellRestart::Perform(math_MultipleVarFunctionWithGradient& F, const math_Vector& StartingPoint)
+void FletcherReevesPowellRestart::Perform(MultiVarFunctionWithGradient& F, const math_Vector& StartingPoint)
 {
   Standard_Boolean Good;
   Standard_Integer n = TheLocation.Length();

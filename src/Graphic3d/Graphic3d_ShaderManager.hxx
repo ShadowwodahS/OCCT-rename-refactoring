@@ -21,8 +21,8 @@
 #include <Standard_Transient.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class Graphic3d_LightSet;
-class Graphic3d_ShaderProgram;
+class LightSet;
+class ShaderProgram2;
 
 //! GLSL syntax extensions.
 enum Graphic3d_GlslExtension
@@ -41,15 +41,15 @@ enum
 };
 
 //! This class is responsible for generation of shader programs.
-class Graphic3d_ShaderManager : public RefObject
+class ShaderManager : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderManager, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShaderManager, RefObject)
 public:
   //! Creates new empty shader manager.
-  Standard_EXPORT Graphic3d_ShaderManager(Aspect_GraphicsLibrary theGapi);
+  Standard_EXPORT ShaderManager(Aspect_GraphicsLibrary theGapi);
 
   //! Releases resources of shader manager.
-  Standard_EXPORT virtual ~Graphic3d_ShaderManager();
+  Standard_EXPORT virtual ~ShaderManager();
 
   //! @return true if detected GL version is greater or equal to requested one.
   bool IsGapiGreaterEqual(Standard_Integer theVerMajor, Standard_Integer theVerMinor) const
@@ -109,24 +109,24 @@ protected:
   //! Generate map key for light sources configuration.
   //! @param[in] theLights  list of light sources
   //! @param[in] theHasShadowMap  flag indicating shadow maps usage
-  Standard_EXPORT AsciiString1 genLightKey(const Handle(Graphic3d_LightSet)& theLights,
+  Standard_EXPORT AsciiString1 genLightKey(const Handle(LightSet)& theLights,
                                                       const bool theHasShadowMap) const;
 
   //! Prepare standard GLSL program for textured font.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramFont() const;
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramFont() const;
 
   //! Prepare standard GLSL program without lighting.
   //! @param[in] theBits       program bits
   //! @param[in] theIsOutline  draw silhouette
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramUnlit(
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramUnlit(
     Standard_Integer theBits,
     Standard_Boolean theIsOutline = false) const;
 
   //! Prepare standard GLSL program with per-vertex lighting.
   //! @param[in] theLights  list of light sources
   //! @param[in] theBits    program bits
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramGouraud(
-    const Handle(Graphic3d_LightSet)& theLights,
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramGouraud(
+    const Handle(LightSet)& theLights,
     Standard_Integer                  theBits) const;
 
   //! Prepare standard GLSL program with per-pixel lighting.
@@ -136,48 +136,48 @@ protected:
   //! be computed instead
   //! @param[in] theIsPBR   when TRUE, the PBR pipeline will be activated
   //! @param[in] theNbShadowMaps  number of shadow maps
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramPhong(
-    const Handle(Graphic3d_LightSet)& theLights,
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramPhong(
+    const Handle(LightSet)& theLights,
     const Standard_Integer            theBits,
     const Standard_Boolean            theIsFlatNormal,
     const Standard_Boolean            theIsPBR,
     const Standard_Integer            theNbShadowMaps) const;
 
   //! Prepare standard GLSL program for bounding box.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramBoundBox() const;
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramBoundBox() const;
 
   //! Generates shader program to render environment cubemap as background.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getBgCubeMapProgram() const;
+  Standard_EXPORT Handle(ShaderProgram2) getBgCubeMapProgram() const;
 
   //! Generates shader program to render skydome background.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getBgSkydomeProgram() const;
+  Standard_EXPORT Handle(ShaderProgram2) getBgSkydomeProgram() const;
 
   //! Generates shader program to render correctly colored quad.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getColoredQuadProgram() const;
+  Standard_EXPORT Handle(ShaderProgram2) getColoredQuadProgram() const;
 
   //! Prepare GLSL source for IBL generation used in PBR pipeline.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getPBREnvBakingProgram(
+  Standard_EXPORT Handle(ShaderProgram2) getPBREnvBakingProgram(
     Standard_Integer theIndex) const;
 
   //! Prepare standard GLSL program for FBO blit operation.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramFboBlit(
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramFboBlit(
     Standard_Integer theNbSamples,
     Standard_Boolean theIsFallback_sRGB) const;
 
   //! Prepare standard GLSL program for stereoscopic image.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramStereo(
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramStereo(
     Graphic3d_StereoMode theStereoMode) const;
 
   //! Prepare standard GLSL programs for OIT compositing operation.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramOitCompositing(
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramOitCompositing(
     Standard_Boolean theMsaa) const;
 
   //! Prepare standard GLSL programs for OIT Depth Peeling blend operation.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramOitDepthPeelingBlend(
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramOitDepthPeelingBlend(
     Standard_Boolean theMsaa) const;
 
   //! Prepare standard GLSL programs for OIT Depth Peeling flush operation.
-  Standard_EXPORT Handle(Graphic3d_ShaderProgram) getStdProgramOitDepthPeelingFlush(
+  Standard_EXPORT Handle(ShaderProgram2) getStdProgramOitDepthPeelingFlush(
     Standard_Boolean theMsaa) const;
 
 protected:
@@ -191,7 +191,7 @@ protected:
   //! @param[in] theUsesDerivates  program uses standard derivatives functions or not
   //! @return filtered program bits with unsupported features disabled
   Standard_EXPORT Standard_Integer
-    defaultGlslVersion(const Handle(Graphic3d_ShaderProgram)& theProgram,
+    defaultGlslVersion(const Handle(ShaderProgram2)& theProgram,
                        const AsciiString1&         theName,
                        Standard_Integer                       theBits,
                        bool                                   theUsesDerivates = false) const;
@@ -200,7 +200,7 @@ protected:
   //! @param[in][out] theProgram   program to set version header
   //! @param[in] theName  program id suffix
   //! @param[in] theMsaa  multisampling flag
-  Standard_EXPORT void defaultOitGlslVersion(const Handle(Graphic3d_ShaderProgram)& theProgram,
+  Standard_EXPORT void defaultOitGlslVersion(const Handle(ShaderProgram2)& theProgram,
                                              const AsciiString1&         theName,
                                              bool                                   theMsaa) const;
 
@@ -222,7 +222,7 @@ protected:
   //! @param[in] theNbShadowMaps   flag to include shadow map
   Standard_EXPORT AsciiString1
     stdComputeLighting(Standard_Integer&                 theNbLights,
-                       const Handle(Graphic3d_LightSet)& theLights,
+                       const Handle(LightSet)& theLights,
                        Standard_Boolean                  theHasVertColor,
                        Standard_Boolean                  theIsPBR,
                        Standard_Boolean                  theHasTexColor,

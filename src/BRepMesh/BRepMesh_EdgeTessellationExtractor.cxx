@@ -22,7 +22,7 @@
 #include <IMeshData_Face.hxx>
 #include <Poly_Triangulation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_EdgeTessellationExtractor, IMeshTools_CurveTessellator)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_EdgeTessellationExtractor, CurveTessellator)
 
 //=================================================================================================
 
@@ -58,7 +58,7 @@ Standard_Boolean BRepMesh_EdgeTessellationExtractor::Value(const Standard_Intege
                                                            Standard_Real& theParameter) const
 {
   const Point3d aRefPnt = myTriangulation->Node(myIndices->Value(theIndex));
-  thePoint             = BRepMesh_ShapeTool::UseLocation(aRefPnt, myLoc);
+  thePoint             = ShapeTool2::UseLocation(aRefPnt, myLoc);
 
   theParameter = myProvider.Parameter(theIndex, thePoint);
   return Standard_True;

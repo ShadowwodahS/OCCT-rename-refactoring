@@ -52,17 +52,17 @@ public:
   Standard_EXPORT GeomAdaptor_SurfaceOfRevolution();
 
   //! The Curve is loaded.
-  Standard_EXPORT GeomAdaptor_SurfaceOfRevolution(const Handle(Adaptor3d_Curve)& C);
+  Standard_EXPORT GeomAdaptor_SurfaceOfRevolution(const Handle(Curve5)& C);
 
   //! The Curve and the Direction are loaded.
-  Standard_EXPORT GeomAdaptor_SurfaceOfRevolution(const Handle(Adaptor3d_Curve)& C,
+  Standard_EXPORT GeomAdaptor_SurfaceOfRevolution(const Handle(Curve5)& C,
                                                   const Axis3d&                  V);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) ShallowCopy() const Standard_OVERRIDE;
 
   //! Changes the Curve
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Curve)& C);
+  Standard_EXPORT void Load(const Handle(Curve5)& C);
 
   //! Changes the Direction
   Standard_EXPORT void Load(const Axis3d& V);
@@ -105,7 +105,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Surface) UTrim(const Standard_Real First,
+  Standard_EXPORT Handle(SurfaceAdaptor) UTrim(const Standard_Real First,
                                                   const Standard_Real Last,
                                                   const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -113,7 +113,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Surface) VTrim(const Standard_Real First,
+  Standard_EXPORT Handle(SurfaceAdaptor) VTrim(const Standard_Real First,
                                                   const Standard_Real Last,
                                                   const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -171,10 +171,10 @@ public:
 
   Standard_EXPORT const Ax3& Axis() const;
 
-  Standard_EXPORT Handle(Adaptor3d_Curve) BasisCurve() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Curve5) BasisCurve() const Standard_OVERRIDE;
 
 private:
-  Handle(Adaptor3d_Curve) myBasisCurve; ///< revolved curve
+  Handle(Curve5) myBasisCurve; ///< revolved curve
   Axis3d                  myAxis;       ///< axis of revolution
   Standard_Boolean        myHaveAxis;   ///< whether axis of revolution is initialized
   Ax3                  myAxeRev;     ///< auxiliary trihedron according to the curve position

@@ -133,7 +133,7 @@ void StdPrs_BRepFont::init()
 {
   mySurface                              = new GeomPlane(gp_Pln(gp1::XOY()));
   myCurve2dAdaptor                       = new Geom2dAdaptor_Curve();
-  Handle(Adaptor3d_Surface) aSurfAdaptor = new GeomAdaptor_Surface(mySurface);
+  Handle(SurfaceAdaptor) aSurfAdaptor = new GeomAdaptor_Surface(mySurface);
   myCurvOnSurf.Load(aSurfAdaptor);
 }
 

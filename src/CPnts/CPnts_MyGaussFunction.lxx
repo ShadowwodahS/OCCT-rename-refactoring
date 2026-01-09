@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline CPnts_MyGaussFunction::CPnts_MyGaussFunction()
+inline GaussFunctionSampler::GaussFunctionSampler()
     : myFunction(NULL),
       myData((Standard_Address)NULL)
 {

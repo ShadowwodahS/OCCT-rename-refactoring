@@ -267,7 +267,7 @@ Standard_Real EstimDist(const Cone1& theCon1, const Cone1& theCon2)
 
   Point3d aP3 = aPA1.Translated(theCon1.Position1().Direction());
 
-  gce_MakePln aMkPln(aPA1, aPA2, aP3);
+  PlaneBuilder1 aMkPln(aPA1, aPA2, aP3);
   if (!aMkPln.IsDone())
     return Precision1::Infinite();
 

@@ -31,7 +31,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomLine, GeomCurve3d)
 
 //=================================================================================================
 
-Handle(Geom_Geometry) GeomLine::Copy() const
+Handle(Geometry3) GeomLine::Copy() const
 {
 
   Handle(GeomLine) L;

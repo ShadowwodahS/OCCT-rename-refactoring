@@ -21,14 +21,14 @@
 
 //=================================================================================================
 
-void CurveTool2::Value(const Handle(Adaptor3d_Curve)& C, const Standard_Real U, Point3d& P)
+void CurveTool2::Value(const Handle(Curve5)& C, const Standard_Real U, Point3d& P)
 {
   P = C->Value(U);
 }
 
 //=================================================================================================
 
-void CurveTool2::D1(const Handle(Adaptor3d_Curve)& C,
+void CurveTool2::D1(const Handle(Curve5)& C,
                            const Standard_Real            U,
                            Point3d&                        P,
                            Vector3d&                        V1)
@@ -38,7 +38,7 @@ void CurveTool2::D1(const Handle(Adaptor3d_Curve)& C,
 
 //=================================================================================================
 
-void CurveTool2::D2(const Handle(Adaptor3d_Curve)& C,
+void CurveTool2::D2(const Handle(Curve5)& C,
                            const Standard_Real            U,
                            Point3d&                        P,
                            Vector3d&                        V1,
@@ -49,7 +49,7 @@ void CurveTool2::D2(const Handle(Adaptor3d_Curve)& C,
 
 //=================================================================================================
 
-void CurveTool2::D3(const Handle(Adaptor3d_Curve)& C,
+void CurveTool2::D3(const Handle(Curve5)& C,
                            const Standard_Real            U,
                            Point3d&                        P,
                            Vector3d&                        V1,
@@ -61,7 +61,7 @@ void CurveTool2::D3(const Handle(Adaptor3d_Curve)& C,
 
 //=================================================================================================
 
-Standard_Integer CurveTool2::Continuity(const Handle(Adaptor3d_Curve)& C)
+Standard_Integer CurveTool2::Continuity(const Handle(Curve5)& C)
 {
   GeomAbs_Shape s = C->Continuity();
   switch (s)
@@ -86,14 +86,14 @@ Standard_Integer CurveTool2::Continuity(const Handle(Adaptor3d_Curve)& C)
 
 //=================================================================================================
 
-Standard_Real CurveTool2::FirstParameter(const Handle(Adaptor3d_Curve)& C)
+Standard_Real CurveTool2::FirstParameter(const Handle(Curve5)& C)
 {
   return C->FirstParameter();
 }
 
 //=================================================================================================
 
-Standard_Real CurveTool2::LastParameter(const Handle(Adaptor3d_Curve)& C)
+Standard_Real CurveTool2::LastParameter(const Handle(Curve5)& C)
 {
   return C->LastParameter();
 }

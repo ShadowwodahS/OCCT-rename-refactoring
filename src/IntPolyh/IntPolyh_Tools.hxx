@@ -24,7 +24,7 @@ class Tools4
 {
 public:
   //! Checks if the surface can be enlarged in U or V direction.
-  Standard_EXPORT static void IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
+  Standard_EXPORT static void IsEnlargePossible(const Handle(SurfaceAdaptor)& theSurf,
                                                 Standard_Boolean&                theUEnlarge,
                                                 Standard_Boolean&                theVEnlarge);
 
@@ -34,7 +34,7 @@ public:
   //! sampling zone on the surface.
   //! The parameters of the sampling points are stored into
   //! <theUPars> and <theVPars> arrays.
-  Standard_EXPORT static void MakeSampling(const Handle(Adaptor3d_Surface)& theSurf,
+  Standard_EXPORT static void MakeSampling(const Handle(SurfaceAdaptor)& theSurf,
                                            const Standard_Integer           theNbSU,
                                            const Standard_Integer           theNbSV,
                                            const Standard_Boolean           theEnlargeZone,
@@ -42,13 +42,13 @@ public:
                                            TColStd_Array1OfReal&            theVPars);
 
   //! Computes the deflection tolerance on the surface for the given sampling.
-  Standard_EXPORT static Standard_Real ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurf,
+  Standard_EXPORT static Standard_Real ComputeDeflection(const Handle(SurfaceAdaptor)& theSurf,
                                                          const TColStd_Array1OfReal&      theUPars,
                                                          const TColStd_Array1OfReal&      theVPars);
 
   //! Fills the array <thePoints> with the points (triangulation nodes) on the surface
   //! and normal directions of the surface in these points.
-  Standard_EXPORT static void FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& theSurf,
+  Standard_EXPORT static void FillArrayOfPointNormal(const Handle(SurfaceAdaptor)& theSurf,
                                                      const TColStd_Array1OfReal&      theUPars,
                                                      const TColStd_Array1OfReal&      theVPars,
                                                      IntPolyh_ArrayOfPointNormal&     thePoints);

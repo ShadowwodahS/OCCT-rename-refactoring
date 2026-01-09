@@ -1531,7 +1531,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
 
       else
       {
-        Adaptor3d_Curve*  anAdaptor = NULL;
+        Curve5*  anAdaptor = NULL;
         GeomAdaptor_Curve aGeomCurve;
 
         const Box2* anIsoBox = 0;

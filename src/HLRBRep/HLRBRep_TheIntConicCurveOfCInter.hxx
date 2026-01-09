@@ -24,7 +24,7 @@
 class ConicTool;
 class CurveTool5;
 class ProjPCurOfCInter;
-class HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter;
+class IntersectorIntConicCurveCInter;
 class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter;
 class gp_Lin2d;
 class Domain2;
@@ -33,16 +33,16 @@ class gp_Elips2d;
 class gp_Parab2d;
 class gp_Hypr2d;
 
-class HLRBRep_TheIntConicCurveOfCInter : public Intersection2
+class IntConicCurveCInter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  HLRBRep_TheIntConicCurveOfCInter();
+  IntConicCurveCInter();
 
   //! Intersection between a line and a parametric curve.
-  HLRBRep_TheIntConicCurveOfCInter(const gp_Lin2d&         L,
+  IntConicCurveCInter(const gp_Lin2d&         L,
                                    const Domain2&  D1,
                                    const Standard_Address& PCurve,
                                    const Domain2&  D2,
@@ -50,7 +50,7 @@ public:
                                    const Standard_Real     Tol);
 
   //! Intersection between a line and a parametric curve.
-  Standard_EXPORT HLRBRep_TheIntConicCurveOfCInter(const gp_Circ2d&        C,
+  Standard_EXPORT IntConicCurveCInter(const gp_Circ2d&        C,
                                                    const Domain2&  D1,
                                                    const Standard_Address& PCurve,
                                                    const Domain2&  D2,
@@ -58,7 +58,7 @@ public:
                                                    const Standard_Real     Tol);
 
   //! Intersection between an ellipse and a parametric curve.
-  Standard_EXPORT HLRBRep_TheIntConicCurveOfCInter(const gp_Elips2d&       E,
+  Standard_EXPORT IntConicCurveCInter(const gp_Elips2d&       E,
                                                    const Domain2&  D1,
                                                    const Standard_Address& PCurve,
                                                    const Domain2&  D2,
@@ -66,7 +66,7 @@ public:
                                                    const Standard_Real     Tol);
 
   //! Intersection between a parabola and a parametric curve.
-  Standard_EXPORT HLRBRep_TheIntConicCurveOfCInter(const gp_Parab2d&       Prb,
+  Standard_EXPORT IntConicCurveCInter(const gp_Parab2d&       Prb,
                                                    const Domain2&  D1,
                                                    const Standard_Address& PCurve,
                                                    const Domain2&  D2,
@@ -75,7 +75,7 @@ public:
 
   //! Intersection between the main branch of an hyperbola
   //! and a parametric curve.
-  Standard_EXPORT HLRBRep_TheIntConicCurveOfCInter(const gp_Hypr2d&        H,
+  Standard_EXPORT IntConicCurveCInter(const gp_Hypr2d&        H,
                                                    const Domain2&  D1,
                                                    const Standard_Address& PCurve,
                                                    const Domain2&  D2,
@@ -143,7 +143,7 @@ private:
 #define ThePCurveTool_hxx <HLRBRep_CurveTool.hxx>
 #define TheProjPCur ProjPCurOfCInter
 #define TheProjPCur_hxx <HLRBRep_TheProjPCurOfCInter.hxx>
-#define IntCurve_TheIntersector HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter
+#define IntCurve_TheIntersector IntersectorIntConicCurveCInter
 #define IntCurve_TheIntersector_hxx <HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter.hxx>
 #define IntCurve_MyImpParToolOfTheIntersector                                                      \
   HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
@@ -153,7 +153,7 @@ private:
   HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
 #define IntCurve_MyImpParToolOfTheIntersector_hxx                                                  \
   <HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter.hxx>
-#define IntCurve_IntConicCurveGen HLRBRep_TheIntConicCurveOfCInter
+#define IntCurve_IntConicCurveGen IntConicCurveCInter
 #define IntCurve_IntConicCurveGen_hxx <HLRBRep_TheIntConicCurveOfCInter.hxx>
 
 #include <IntCurve_IntConicCurveGen.lxx>

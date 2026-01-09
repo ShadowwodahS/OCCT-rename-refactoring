@@ -163,7 +163,7 @@ void TDataStd_IntPackedMap::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void TDataStd_IntPackedMap::Paste(const Handle(TDF_Attribute)& theInto,
-                                  const Handle(TDF_RelocationTable)&) const
+                                  const Handle(RelocationTable1)&) const
 {
   Handle(TDataStd_IntPackedMap) anInto = Handle(TDataStd_IntPackedMap)::DownCast(theInto);
   if (!anInto.IsNull())

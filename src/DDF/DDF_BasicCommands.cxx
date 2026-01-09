@@ -49,7 +49,7 @@ static Standard_Integer DDF_Children(DrawInterpreter& di, Standard_Integer n, co
   if (n < 2)
     return 1;
 
-  Handle(TDF_Data)        DF;
+  Handle(Data2)        DF;
   AsciiString1 entry;
 
   if (!DDF1::GetDF(a[1], DF))
@@ -85,7 +85,7 @@ static Standard_Integer DDF_Attributes(DrawInterpreter& di, Standard_Integer n, 
   if (n != 3)
     return 1;
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
 
   if (!DDF1::GetDF(a[1], DF))
     return 1;
@@ -115,7 +115,7 @@ static Standard_Integer DDF_SetEmptyAttribute(DrawInterpreter& di,
   if (n != 4)
     return 1;
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
 
   if (!DDF1::GetDF(a[1], DF))
     return 1;
@@ -148,7 +148,7 @@ static Standard_Integer DDF_ForgetAll(DrawInterpreter& /*di*/, Standard_Integer 
   if (n != 3)
     return 1;
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
 
   if (!DDF1::GetDF(a[1], DF))
     return 1;
@@ -173,7 +173,7 @@ static Standard_Integer DDF_ForgetAttribute(DrawInterpreter& di,
 {
   if (n != 4)
     return 1;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(a[1], DF))
     return 1;
 
@@ -207,7 +207,7 @@ static Standard_Integer DDF_SetTagger(DrawInterpreter& di, Standard_Integer nb, 
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -228,7 +228,7 @@ static Standard_Integer DDF_NewTag(DrawInterpreter& di, Standard_Integer nb, con
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     Handle(TDF_TagSource) A;
@@ -248,7 +248,7 @@ static Standard_Integer DDF_NewTag(DrawInterpreter& di, Standard_Integer nb, con
 
 static Standard_Integer DDF_NewChild(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (nb >= 2)
   {
     if (!DDF1::GetDF(arg[1], DF))
@@ -281,7 +281,7 @@ static Standard_Integer DDF_Label(DrawInterpreter& di, Standard_Integer n, const
 {
   if (n == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     DataLabel L;

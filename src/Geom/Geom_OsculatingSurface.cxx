@@ -56,8 +56,8 @@ void Geom_OsculatingSurface::Init(const Handle(GeomSurface)& BS, const Standard_
                              // (id23943)
   Standard_Boolean OsculSurf = Standard_True;
   myBasisSurf                = Handle(GeomSurface)::DownCast(BS->Copy());
-  myOsculSurf1               = new Geom_HSequenceOfBSplineSurface();
-  myOsculSurf2               = new Geom_HSequenceOfBSplineSurface();
+  myOsculSurf1               = new BSplineSurfaceSequence();
+  myOsculSurf2               = new BSplineSurfaceSequence();
   if ((BS->IsKind(STANDARD_TYPE(Geom_BSplineSurface)))
       || (BS->IsKind(STANDARD_TYPE(Geom_BezierSurface))))
   {

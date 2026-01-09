@@ -179,13 +179,13 @@ public:
   //! Returns the polygon associated to the  edge in  the
   //! parametric  space of  the  face.  Returns   a NULL
   //! handle  if this polygon  does not exist.
-  Standard_EXPORT static Handle(Poly_Polygon2D) PolygonOnSurface(const TopoEdge& E,
+  Standard_EXPORT static Handle(Polygon2D2) PolygonOnSurface(const TopoEdge& E,
                                                                  const TopoFace& F);
 
   //! Returns the polygon associated to the  edge in  the
   //! parametric  space of  the surface. Returns   a NULL
   //! handle  if this polygon  does not exist.
-  Standard_EXPORT static Handle(Poly_Polygon2D) PolygonOnSurface(const TopoEdge&          E,
+  Standard_EXPORT static Handle(Polygon2D2) PolygonOnSurface(const TopoEdge&          E,
                                                                  const Handle(GeomSurface)& S,
                                                                  const TopLoc_Location&      L);
 
@@ -193,7 +193,7 @@ public:
   //! a location for the edge <E>. <C> and <S>  are null
   //! if the  edge has no polygon on  surface.
   Standard_EXPORT static void PolygonOnSurface(const TopoEdge&      E,
-                                               Handle(Poly_Polygon2D)& C,
+                                               Handle(Polygon2D2)& C,
                                                Handle(GeomSurface)&   S,
                                                TopLoc_Location&        L);
 
@@ -201,7 +201,7 @@ public:
   //! and the location for the edge <E> of rank <Index>.
   //! <C> and <S> are null if the index is out of range.
   Standard_EXPORT static void PolygonOnSurface(const TopoEdge&      E,
-                                               Handle(Poly_Polygon2D)& C,
+                                               Handle(Polygon2D2)& C,
                                                Handle(GeomSurface)&   S,
                                                TopLoc_Location&        L,
                                                const Standard_Integer  Index);

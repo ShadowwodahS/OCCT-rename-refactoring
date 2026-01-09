@@ -1967,7 +1967,7 @@ static Standard_Integer howMuchPCurves(const TopoEdge& E)
 
 static Standard_Boolean RemoveLoop(TopoEdge&                      E,
                                    const TopoFace&                face,
-                                   const IntRes2d_IntersectionPoint& IP,
+                                   const IntersectionPoint3& IP,
                                    const Standard_Real               tolfact,
                                    const Standard_Real               prec,
                                    const Standard_Boolean            RemoveLoop3d)
@@ -2188,7 +2188,7 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
 
 static Standard_Boolean RemoveLoop(TopoEdge&                      E,
                                    const TopoFace&                face,
-                                   const IntRes2d_IntersectionPoint& IP2d,
+                                   const IntersectionPoint3& IP2d,
                                    TopoEdge&                      E1,
                                    TopoEdge&                      E2)
 {
@@ -2633,7 +2633,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num)
   Standard_Integer nb = points3d.Length();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    const IntRes2d_IntersectionPoint& IP     = points2d.Value(i);
+    const IntersectionPoint3& IP     = points2d.Value(i);
     Standard_Real                     param1 = (num == 1 ? IP.ParamOnSecond() : IP.ParamOnFirst());
     Standard_Real                     param2 = (num == 1 ? IP.ParamOnFirst() : IP.ParamOnSecond());
 
@@ -2928,7 +2928,7 @@ Standard_Boolean WireHealer::FixIntersectingEdges(const Standard_Integer num1,
     }
 
     // calculation of necessary tolerances of edges
-    const IntRes2d_IntersectionPoint& IP     = points2d.Value(i);
+    const IntersectionPoint3& IP     = points2d.Value(i);
     Standard_Real                     param1 = IP.ParamOnFirst();
     Standard_Real                     param2 = IP.ParamOnSecond();
     Handle(GeomCurve3d)                aCurve1, aCurve2;

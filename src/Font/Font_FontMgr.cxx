@@ -33,7 +33,7 @@
   #include <ft2build.h>
   #include FT_FREETYPE_H
 #endif
-IMPLEMENT_STANDARD_RTTIEXT(Font_FontMgr, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(FontMgr, RefObject)
 
 #if defined(_WIN32)
 
@@ -130,8 +130,8 @@ static void addDirsRecursively(const SystemPath&                           thePa
 //! @param theFontPath [in] path to the file
 //! @param theFaceId   [in] face id, or -1 to load all faces within the file
 //! @return TRUE if at least one font face has been detected
-static bool checkFont(NCollection_Sequence<Handle(Font_SystemFont)>& theFonts,
-                      const Handle(Font_FTLibrary)&                  theFTLib,
+static bool checkFont(NCollection_Sequence<Handle(SystemFont)>& theFonts,
+                      const Handle(FTLibrary)&                  theFTLib,
                       const AsciiString1&                 theFontPath,
                       signed long                                    theFaceId = -1) // FT_Long
 {
@@ -247,7 +247,7 @@ static bool checkFont(NCollection_Sequence<Handle(Font_SystemFont)>& theFonts,
     aFamily = aFamily + " " + aStyle;
   }
 
-  Handle(Font_SystemFont) aResult = new Font_SystemFont(aFamily);
+  Handle(SystemFont) aResult = new SystemFont(aFamily);
   aResult->SetFontPath(anAspect, theFontPath, (Standard_Integer)aFaceId);
   // automatically identify some known single-line fonts
   aResult->SetSingleStrokeFont(aResult->FontKey().StartsWith("olf "));
@@ -283,12 +283,12 @@ static bool checkFont(NCollection_Sequence<Handle(Font_SystemFont)>& theFonts,
 
 //=================================================================================================
 
-Handle(Font_FontMgr) Font_FontMgr::GetInstance()
+Handle(FontMgr) FontMgr::GetInstance()
 {
-  static Handle(Font_FontMgr) _mgr;
+  static Handle(FontMgr) _mgr;
   if (_mgr.IsNull())
   {
-    _mgr = new Font_FontMgr();
+    _mgr = new FontMgr();
   }
 
   return _mgr;
@@ -296,7 +296,7 @@ Handle(Font_FontMgr) Font_FontMgr::GetInstance()
 
 //=================================================================================================
 
-Standard_Boolean& Font_FontMgr::ToUseUnicodeSubsetFallback()
+Standard_Boolean& FontMgr::ToUseUnicodeSubsetFallback()
 {
   static Standard_Boolean TheToUseUnicodeSubsetFallback = true;
   return TheToUseUnicodeSubsetFallback;
@@ -304,7 +304,7 @@ Standard_Boolean& Font_FontMgr::ToUseUnicodeSubsetFallback()
 
 //=================================================================================================
 
-bool Font_FontMgr::AddFontAlias(const AsciiString1& theAliasName,
+bool FontMgr::AddFontAlias(const AsciiString1& theAliasName,
                                 const AsciiString1& theFontName)
 {
   AsciiString1 anAliasName(theAliasName);
@@ -325,13 +325,13 @@ bool Font_FontMgr::AddFontAlias(const AsciiString1& theAliasName,
     }
   }
 
-  anAliases->Append(Font_FontAlias(theFontName));
+  anAliases->Append(FontAlias(theFontName));
   return true;
 }
 
 //=================================================================================================
 
-bool Font_FontMgr::RemoveFontAlias(const AsciiString1& theAliasName,
+bool FontMgr::RemoveFontAlias(const AsciiString1& theAliasName,
                                    const AsciiString1& theFontName)
 {
   if (theAliasName.IsEmpty())
@@ -375,7 +375,7 @@ bool Font_FontMgr::RemoveFontAlias(const AsciiString1& theAliasName,
 
 //=================================================================================================
 
-void Font_FontMgr::GetAllAliases(TColStd_SequenceOfHAsciiString& theAliases) const
+void FontMgr::GetAllAliases(TColStd_SequenceOfHAsciiString& theAliases) const
 {
   for (NCollection_DataMap<AsciiString1, Handle(Font_FontAliasSequence)>::Iterator
          anAliasIter(myFontAliases);
@@ -388,7 +388,7 @@ void Font_FontMgr::GetAllAliases(TColStd_SequenceOfHAsciiString& theAliases) con
 
 //=================================================================================================
 
-void Font_FontMgr::GetFontAliases(TColStd_SequenceOfHAsciiString& theFontNames,
+void FontMgr::GetFontAliases(TColStd_SequenceOfHAsciiString& theFontNames,
                                   const AsciiString1&  theAliasName) const
 {
   AsciiString1 anAliasName(theAliasName);
@@ -407,7 +407,7 @@ void Font_FontMgr::GetFontAliases(TColStd_SequenceOfHAsciiString& theFontNames,
 
 //=================================================================================================
 
-void Font_FontMgr::addFontAlias(const AsciiString1&        theAliasName,
+void FontMgr::addFontAlias(const AsciiString1&        theAliasName,
                                 const Handle(Font_FontAliasSequence)& theAliases,
                                 Font_FontAspect                       theAspect)
 {
@@ -424,7 +424,7 @@ void Font_FontMgr::addFontAlias(const AsciiString1&        theAliasName,
          anAliasIter.Next())
     {
       const AsciiString1& aName = anAliasIter.Value().FontName;
-      anAliases->Append(Font_FontAlias(aName, theAspect));
+      anAliases->Append(FontAlias(aName, theAspect));
     }
   }
 
@@ -435,7 +435,7 @@ void Font_FontMgr::addFontAlias(const AsciiString1&        theAliasName,
 
 //=================================================================================================
 
-Font_FontMgr::Font_FontMgr()
+FontMgr::FontMgr()
     : myToTraceAliases(Standard_False)
 {
   Handle(Font_FontAliasSequence) aMono   = new Font_FontAliasSequence();
@@ -451,62 +451,62 @@ Font_FontMgr::Font_FontMgr()
 
   // best matches - pre-installed on Windows, some of them are pre-installed on macOS,
   // and sometimes them can be found installed on other systems (by user)
-  aMono->Append(Font_FontAlias("courier new"));
-  aSerif->Append(Font_FontAlias("times new roman"));
-  aSans->Append(Font_FontAlias("arial"));
-  aSymbol->Append(Font_FontAlias("symbol"));
-  aScript->Append(Font_FontAlias("script"));
-  aWinDin->Append(Font_FontAlias("wingdings"));
-  anIris->Append(Font_FontAlias("lucida console"));
+  aMono->Append(FontAlias("courier new"));
+  aSerif->Append(FontAlias("times new roman"));
+  aSans->Append(FontAlias("arial"));
+  aSymbol->Append(FontAlias("symbol"));
+  aScript->Append(FontAlias("script"));
+  aWinDin->Append(FontAlias("wingdings"));
+  anIris->Append(FontAlias("lucida console"));
 
 #if defined(__ANDROID__)
   // Noto font family is usually installed on Android 6+ devices
-  aMono->Append(Font_FontAlias("noto mono"));
-  aSerif->Append(Font_FontAlias("noto serif"));
+  aMono->Append(FontAlias("noto mono"));
+  aSerif->Append(FontAlias("noto serif"));
   // Droid font family is usually installed on Android 4+ devices
-  aMono->Append(Font_FontAlias("droid sans mono"));
-  aSerif->Append(Font_FontAlias("droid serif"));
-  aSans->Append(Font_FontAlias("roboto"));    // actually DroidSans.ttf
+  aMono->Append(FontAlias("droid sans mono"));
+  aSerif->Append(FontAlias("droid serif"));
+  aSans->Append(FontAlias("roboto"));    // actually DroidSans.ttf
 #elif !defined(_WIN32) && !defined(__APPLE__) // X11
-  aSerif->Append(Font_FontAlias("times"));
-  aSans->Append(Font_FontAlias("helvetica"));
+  aSerif->Append(FontAlias("times"));
+  aSans->Append(FontAlias("helvetica"));
   // GNU FreeFonts family is usually installed on Linux
-  aMono->Append(Font_FontAlias("freemono"));
-  aSerif->Append(Font_FontAlias("freeserif"));
-  aSans->Append(Font_FontAlias("freesans"));
+  aMono->Append(FontAlias("freemono"));
+  aSerif->Append(FontAlias("freeserif"));
+  aSans->Append(FontAlias("freesans"));
   // DejaVu font family is usually installed on Linux
-  aMono->Append(Font_FontAlias("dejavu sans mono"));
-  aSerif->Append(Font_FontAlias("dejavu serif"));
-  aSans->Append(Font_FontAlias("dejavu sans"));
+  aMono->Append(FontAlias("dejavu sans mono"));
+  aSerif->Append(FontAlias("dejavu serif"));
+  aSans->Append(FontAlias("dejavu sans"));
 #endif
 
   // default CJK (Chinese/Japanese/Korean) fonts
-  aCJK->Append(Font_FontAlias("simsun"));              // Windows
-  aCJK->Append(Font_FontAlias("droid sans fallback")); // Android, Linux
-  aCJK->Append(Font_FontAlias("noto sans sc"));        // Android
-  aCJK->Append(Font_FontAlias("noto sans cjk jp"));
+  aCJK->Append(FontAlias("simsun"));              // Windows
+  aCJK->Append(FontAlias("droid sans fallback")); // Android, Linux
+  aCJK->Append(FontAlias("noto sans sc"));        // Android
+  aCJK->Append(FontAlias("noto sans cjk jp"));
 
 #if defined(_WIN32)
-  aKorean->Append(Font_FontAlias("malgun gothic")); // introduced since Vista
-  aKorean->Append(Font_FontAlias("gulim"));         // used on older systems (Windows XP)
+  aKorean->Append(FontAlias("malgun gothic")); // introduced since Vista
+  aKorean->Append(FontAlias("gulim"));         // used on older systems (Windows XP)
 #elif defined(__APPLE__)
-  aKorean->Append(Font_FontAlias("applegothic"));
-  aKorean->Append(Font_FontAlias("stfangsong"));
+  aKorean->Append(FontAlias("applegothic"));
+  aKorean->Append(FontAlias("stfangsong"));
 #endif
-  aKorean->Append(Font_FontAlias("nanumgothic"));         // Android, Linux
-  aKorean->Append(Font_FontAlias("noto sans kr"));        // Android
-  aKorean->Append(Font_FontAlias("nanummyeongjo"));       // Linux
-  aKorean->Append(Font_FontAlias("noto serif cjk jp"));   // Linux
-  aKorean->Append(Font_FontAlias("noto sans cjk jp"));    // Linux
-  aKorean->Append(Font_FontAlias("droid sans fallback")); // Linux
+  aKorean->Append(FontAlias("nanumgothic"));         // Android, Linux
+  aKorean->Append(FontAlias("noto sans kr"));        // Android
+  aKorean->Append(FontAlias("nanummyeongjo"));       // Linux
+  aKorean->Append(FontAlias("noto serif cjk jp"));   // Linux
+  aKorean->Append(FontAlias("noto sans cjk jp"));    // Linux
+  aKorean->Append(FontAlias("droid sans fallback")); // Linux
 
 #if defined(_WIN32)
-  anArab->Append(Font_FontAlias("times new roman"));
+  anArab->Append(FontAlias("times new roman"));
 #elif defined(__APPLE__)
-  anArab->Append(Font_FontAlias("decotype naskh"));
+  anArab->Append(FontAlias("decotype naskh"));
 #elif defined(__ANDROID__)
-  anArab->Append(Font_FontAlias("droid arabic naskh"));
-  anArab->Append(Font_FontAlias("noto naskh arabic"));
+  anArab->Append(FontAlias("droid arabic naskh"));
+  anArab->Append(FontAlias("noto naskh arabic"));
 #endif
 
   addFontAlias("mono", aMono);
@@ -539,25 +539,25 @@ Font_FontMgr::Font_FontMgr()
 
 //=================================================================================================
 
-Standard_Boolean Font_FontMgr::CheckFont(NCollection_Sequence<Handle(Font_SystemFont)>& theFonts,
+Standard_Boolean FontMgr::CheckFont(NCollection_Sequence<Handle(SystemFont)>& theFonts,
                                          const AsciiString1& theFontPath) const
 {
-  Handle(Font_FTLibrary) aFtLibrary = new Font_FTLibrary();
+  Handle(FTLibrary) aFtLibrary = new FTLibrary();
   return checkFont(theFonts, aFtLibrary, theFontPath, 0);
 }
 
 //=================================================================================================
 
-Handle(Font_SystemFont) Font_FontMgr::CheckFont(Standard_CString theFontPath) const
+Handle(SystemFont) FontMgr::CheckFont(Standard_CString theFontPath) const
 {
-  Handle(Font_FTLibrary)                        aFtLibrary = new Font_FTLibrary();
-  NCollection_Sequence<Handle(Font_SystemFont)> aFonts;
-  return checkFont(aFonts, aFtLibrary, theFontPath, 0) ? aFonts.First() : Handle(Font_SystemFont)();
+  Handle(FTLibrary)                        aFtLibrary = new FTLibrary();
+  NCollection_Sequence<Handle(SystemFont)> aFonts;
+  return checkFont(aFonts, aFtLibrary, theFontPath, 0) ? aFonts.First() : Handle(SystemFont)();
 }
 
 //=================================================================================================
 
-Standard_Boolean Font_FontMgr::RegisterFont(const Handle(Font_SystemFont)& theFont,
+Standard_Boolean FontMgr::RegisterFont(const Handle(SystemFont)& theFont,
                                             const Standard_Boolean         theToOverride)
 {
   if (theFont.IsNull())
@@ -572,7 +572,7 @@ Standard_Boolean Font_FontMgr::RegisterFont(const Handle(Font_SystemFont)& theFo
     return Standard_True;
   }
 
-  Handle(Font_SystemFont) anOldFont = myFontMap.FindKey(anOldIndex);
+  Handle(SystemFont) anOldFont = myFontMap.FindKey(anOldIndex);
   for (int anAspectIter = 0; anAspectIter < Font_FontAspect_NB; ++anAspectIter)
   {
     if (anOldFont->FontPath((Font_FontAspect)anAspectIter)
@@ -598,18 +598,18 @@ Standard_Boolean Font_FontMgr::RegisterFont(const Handle(Font_SystemFont)& theFo
 
 //=================================================================================================
 
-void Font_FontMgr::ClearFontDataBase()
+void FontMgr::ClearFontDataBase()
 {
   myFontMap.Clear();
 }
 
 //=================================================================================================
 
-void Font_FontMgr::InitFontDataBase()
+void FontMgr::InitFontDataBase()
 {
   myFontMap.Clear();
-  Handle(Font_FTLibrary)                        aFtLibrary = new Font_FTLibrary();
-  NCollection_Sequence<Handle(Font_SystemFont)> aFonts;
+  Handle(FTLibrary)                        aFtLibrary = new FTLibrary();
+  NCollection_Sequence<Handle(SystemFont)> aFonts;
 
 #if defined(OCCT_UWP)
   // system font files are not accessible
@@ -722,7 +722,7 @@ void Font_FontMgr::InitFontDataBase()
   const Protection1 aProtectRead(OSD_R, OSD_R, OSD_R, OSD_R);
   if (aMapOfFontsDirs.IsEmpty())
   {
-    Message1::SendAlarm("Font_FontMgr, fontconfig library returns an empty folder list");
+    Message1::SendAlarm("FontMgr, fontconfig library returns an empty folder list");
 
     // read fonts directories from font service config file (obsolete)
     for (Standard_Integer anIter = 0; myFontServiceConf[anIter] != NULL; ++anIter)
@@ -880,7 +880,7 @@ void Font_FontMgr::InitFontDataBase()
         if (checkFont(aFonts, aFtLibrary, aFontPath))
         {
           RegisterFonts(aFonts, false);
-          const Handle(Font_SystemFont)& aNewFont = aFonts.First();
+          const Handle(SystemFont)& aNewFont = aFonts.First();
           if (!aXLFD.IsEmpty() && aXLFD.Search("-0-0-0-0-") != -1) // ignore non-resizable fonts
           {
             const AsciiString1 anXName   = aXLFD.Token("-", 2);
@@ -899,7 +899,7 @@ void Font_FontMgr::InitFontDataBase()
               anXAspect = Font_FA_Italic;
             }
 
-            Handle(Font_SystemFont) aNewFontFromXLFD = new Font_SystemFont(anXName);
+            Handle(SystemFont) aNewFontFromXLFD = new SystemFont(anXName);
             aNewFontFromXLFD->SetFontPath(anXAspect, aFontPath, 0);
             if (!aNewFont->IsEqual(aNewFontFromXLFD))
             {
@@ -917,48 +917,48 @@ void Font_FontMgr::InitFontDataBase()
 
 //=================================================================================================
 
-void Font_FontMgr::GetAvailableFontsNames(TColStd_SequenceOfHAsciiString& theFontsNames) const
+void FontMgr::GetAvailableFontsNames(TColStd_SequenceOfHAsciiString& theFontsNames) const
 {
   theFontsNames.Clear();
   for (Font_FontMap::Iterator aFontIter(myFontMap); aFontIter.More(); aFontIter.Next())
   {
-    const Handle(Font_SystemFont)& aFont = aFontIter.Value();
+    const Handle(SystemFont)& aFont = aFontIter.Value();
     theFontsNames.Append(new TCollection_HAsciiString(aFont->FontName()));
   }
 }
 
 //=================================================================================================
 
-Handle(Font_SystemFont) Font_FontMgr::GetFont(const Handle(TCollection_HAsciiString)& theFontName,
+Handle(SystemFont) FontMgr::GetFont(const Handle(TCollection_HAsciiString)& theFontName,
                                               const Font_FontAspect                   theFontAspect,
                                               const Standard_Integer theFontSize) const
 {
   if ((theFontSize < 2 && theFontSize != -1) || theFontName.IsNull())
   {
-    return Handle(Font_SystemFont)();
+    return Handle(SystemFont)();
   }
 
-  Handle(Font_SystemFont) aFont = myFontMap.Find(theFontName->String());
+  Handle(SystemFont) aFont = myFontMap.Find(theFontName->String());
   return (aFont.IsNull() || theFontAspect == Font_FontAspect_UNDEFINED
           || aFont->HasFontAspect(theFontAspect))
            ? aFont
-           : Handle(Font_SystemFont)();
+           : Handle(SystemFont)();
 }
 
 //=================================================================================================
 
-Handle(Font_SystemFont) Font_FontMgr::GetFont(const AsciiString1& theFontName) const
+Handle(SystemFont) FontMgr::GetFont(const AsciiString1& theFontName) const
 {
   return myFontMap.Find(theFontName);
 }
 
 //=================================================================================================
 
-Handle(Font_SystemFont) Font_FontMgr::FindFallbackFont(Font_UnicodeSubset theSubset,
+Handle(SystemFont) FontMgr::FindFallbackFont(Font_UnicodeSubset theSubset,
                                                        Font_FontAspect    theFontAspect) const
 {
   Font_FontAspect         aFontAspect = theFontAspect;
-  Handle(Font_SystemFont) aFont;
+  Handle(SystemFont) aFont;
   switch (theSubset)
   {
     case Font_UnicodeSubset_Western:
@@ -992,7 +992,7 @@ Handle(Font_SystemFont) Font_FontMgr::FindFallbackFont(Font_UnicodeSubset theSub
         aRange = "Arabic";
         break;
     }
-    Message1::SendFail(AsciiString1("Font_FontMgr, error: unable to find ") + aRange
+    Message1::SendFail(AsciiString1("FontMgr, error: unable to find ") + aRange
                       + " fallback font!");
   }
   return aFont;
@@ -1000,14 +1000,14 @@ Handle(Font_SystemFont) Font_FontMgr::FindFallbackFont(Font_UnicodeSubset theSub
 
 //=================================================================================================
 
-Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
+Handle(SystemFont) FontMgr::FindFont(const AsciiString1& theFontName,
                                                Font_StrictLevel               theStrictLevel,
                                                Font_FontAspect&               theFontAspect,
                                                Standard_Boolean               theDoFailMsg) const
 {
   AsciiString1 aFontName(theFontName);
   aFontName.LowerCase();
-  Handle(Font_SystemFont) aFont = myFontMap.Find(aFontName);
+  Handle(SystemFont) aFont = myFontMap.Find(aFontName);
   if (!aFont.IsNull() || theStrictLevel == Font_StrictLevel_Strict)
   {
     return aFont;
@@ -1035,8 +1035,8 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
     for (Font_FontAliasSequence::Iterator anAliasIter(*anAliases); anAliasIter.More();
          anAliasIter.Next())
     {
-      const Font_FontAlias& anAlias = anAliasIter.Value();
-      if (Handle(Font_SystemFont) aFont2 = myFontMap.Find(anAlias.FontName))
+      const FontAlias& anAlias = anAliasIter.Value();
+      if (Handle(SystemFont) aFont2 = myFontMap.Find(anAlias.FontName))
       {
         if (aFont.IsNull())
         {
@@ -1066,7 +1066,7 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
     {
       if (isAliasUsed && myToTraceAliases)
       {
-        Message1::SendTrace(AsciiString1("Font_FontMgr, using font alias '")
+        Message1::SendTrace(AsciiString1("FontMgr, using font alias '")
                            + aFont->FontName()
                            + "'"
                              " instead of requested '"
@@ -1092,9 +1092,9 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
   {
     if (theDoFailMsg)
     {
-      Message1::SendFail("Font_FontMgr, error: unable to find any font!");
+      Message1::SendFail("FontMgr, error: unable to find any font!");
     }
-    return Handle(Font_SystemFont)();
+    return Handle(SystemFont)();
   }
 
   if ((theFontAspect != Font_FA_Undefined && !aFont->HasFontAspect(theFontAspect))
@@ -1102,8 +1102,8 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
   {
     AsciiString1 aDesc = AsciiString1() + "'" + theFontName + "'"
                                     + AsciiString1() + " ["
-                                    + Font_FontMgr::FontAspectToString(theFontAspect) + "]";
-    Message1::SendWarning(AsciiString1("Font_FontMgr, warning: unable to find font ")
+                                    + FontMgr::FontAspectToString(theFontAspect) + "]";
+    Message1::SendWarning(AsciiString1("FontMgr, warning: unable to find font ")
                          + aDesc + "; " + aFont->ToString() + " is used instead");
   }
   return aFont;
@@ -1111,29 +1111,29 @@ Handle(Font_SystemFont) Font_FontMgr::FindFont(const AsciiString1& theFontName,
 
 //=================================================================================================
 
-Handle(Font_SystemFont) Font_FontMgr::Font_FontMap::Find(
+Handle(SystemFont) FontMgr::Font_FontMap::Find(
   const AsciiString1& theFontName) const
 {
   if (IsEmpty())
   {
-    return Handle(Font_SystemFont)();
+    return Handle(SystemFont)();
   }
   else if (theFontName.IsEmpty())
   {
     return FindKey(1); // return any font
   }
-  Handle(Font_SystemFont) aTmpFont = new Font_SystemFont(theFontName);
+  Handle(SystemFont) aTmpFont = new SystemFont(theFontName);
   const int               anInd    = FindIndex(aTmpFont);
   if (anInd > 0)
   {
     return FindKey(anInd);
   }
-  return Handle(Font_SystemFont)();
+  return Handle(SystemFont)();
 }
 
 //=================================================================================================
 
-Handle(NCollection_Buffer) Font_FontMgr::EmbedFallbackFont()
+Handle(NCollection_Buffer) FontMgr::EmbedFallbackFont()
 {
 #ifdef HAVE_FREETYPE
   return new NCollection_Buffer(Handle(NCollection_BaseAllocator)(),

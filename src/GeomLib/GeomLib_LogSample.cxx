@@ -17,7 +17,7 @@
 #include <GeomLib_LogSample.hxx>
 #include <Standard_OutOfRange.hxx>
 
-GeomLib_LogSample::GeomLib_LogSample(const Standard_Real    A,
+LogarithmicSampler::LogarithmicSampler(const Standard_Real    A,
                                      const Standard_Real    B,
                                      const Standard_Integer N)
     : FunctionSampler(A, B, N)
@@ -26,7 +26,7 @@ GeomLib_LogSample::GeomLib_LogSample(const Standard_Real    A,
   myexp = Log(B - A) / N;
 }
 
-Standard_Real GeomLib_LogSample::GetParameter(const Standard_Integer Index) const
+Standard_Real LogarithmicSampler::GetParameter(const Standard_Integer Index) const
 {
   Standard_Integer aN = NbPoints();
 
@@ -39,7 +39,7 @@ Standard_Real GeomLib_LogSample::GetParameter(const Standard_Integer Index) cons
     else if (Index == aN)
       return aB;
     else
-      throw Standard_OutOfRange("GeomLib_LogSample::GetParameter");
+      throw Standard_OutOfRange("LogarithmicSampler::GetParameter");
   }
 
   Standard_Real v = myF + Exp(myexp * Index);

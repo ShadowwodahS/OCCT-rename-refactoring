@@ -24,11 +24,11 @@
 #include <GccInt_IType.hxx>
 
 class GccInt_BHyper;
-DEFINE_STANDARD_HANDLE(GccInt_BHyper, GccInt_Bisec)
+DEFINE_STANDARD_HANDLE(GccInt_BHyper, Bisector2)
 
 //! Describes a hyperbola as a bisecting curve between two
 //! 2D geometric objects (such as circles or points).
-class GccInt_BHyper : public GccInt_Bisec
+class GccInt_BHyper : public Bisector2
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Returns GccInt_Hpr, which is the type of any GccInt_BHyper bisecting curve.
   Standard_EXPORT GccInt_IType ArcType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_BHyper, GccInt_Bisec)
+  DEFINE_STANDARD_RTTIEXT(GccInt_BHyper, Bisector2)
 
 protected:
 private:

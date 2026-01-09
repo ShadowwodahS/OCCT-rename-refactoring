@@ -33,7 +33,7 @@ GCE2d_MakeEllipse::GCE2d_MakeEllipse(const Ax22d&     Axis,
                                      const Standard_Real MajorRadius,
                                      const Standard_Real MinorRadius)
 {
-  gce_MakeElips2d E = gce_MakeElips2d(Axis, MajorRadius, MinorRadius);
+  EllipseBuilder2d E = EllipseBuilder2d(Axis, MajorRadius, MinorRadius);
   TheError          = E.Status();
   if (TheError == gce_Done)
   {
@@ -46,7 +46,7 @@ GCE2d_MakeEllipse::GCE2d_MakeEllipse(const gp_Ax2d&         MajorAxis,
                                      const Standard_Real    MinorRadius,
                                      const Standard_Boolean Sense)
 {
-  gce_MakeElips2d E = gce_MakeElips2d(MajorAxis, MajorRadius, MinorRadius, Sense);
+  EllipseBuilder2d E = EllipseBuilder2d(MajorAxis, MajorRadius, MinorRadius, Sense);
   TheError          = E.Status();
   if (TheError == gce_Done)
   {
@@ -56,7 +56,7 @@ GCE2d_MakeEllipse::GCE2d_MakeEllipse(const gp_Ax2d&         MajorAxis,
 
 GCE2d_MakeEllipse::GCE2d_MakeEllipse(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center)
 {
-  gce_MakeElips2d E = gce_MakeElips2d(S1, S2, Center);
+  EllipseBuilder2d E = EllipseBuilder2d(S1, S2, Center);
   TheError          = E.Status();
   if (TheError == gce_Done)
   {

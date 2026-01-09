@@ -29,7 +29,7 @@ class BRepApprox_MyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox;
 class ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox;
 class BRepApprox_ParFunctionOfMyGradientOfTheComputeLineBezierOfApprox;
-class math_MultipleVarFunctionWithGradient;
+class MultiVarFunctionWithGradient;
 
 class BRepApprox_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfApprox : public BFGSOptimizer
 {
@@ -37,7 +37,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT BRepApprox_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfApprox(
-    math_MultipleVarFunctionWithGradient& F,
+    MultiVarFunctionWithGradient& F,
     const math_Vector&                    StartingPoint,
     const Standard_Real                   Tolerance3d,
     const Standard_Real                   Tolerance2d,
@@ -45,7 +45,7 @@ public:
     const Standard_Integer                NbIterations = 200);
 
   Standard_EXPORT virtual Standard_Boolean IsSolutionReached(
-    math_MultipleVarFunctionWithGradient& F) const Standard_OVERRIDE;
+    MultiVarFunctionWithGradient& F) const Standard_OVERRIDE;
 
 protected:
 private:

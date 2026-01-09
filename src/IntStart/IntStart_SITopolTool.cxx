@@ -16,4 +16,4 @@
 #include <IntStart_SITopolTool.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntStart_SITopolTool, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(StartIntervalTopolTool, RefObject)

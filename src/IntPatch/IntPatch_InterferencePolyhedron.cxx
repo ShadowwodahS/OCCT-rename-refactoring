@@ -29,11 +29,11 @@
 static const int Pourcent3[9] = {0, 1, 2, 0, 1, 2, 0, 1, 2};
 
 //=======================================================================
-// function : IntPatch_InterferencePolyhedron
+// function : PolyhedronInterference
 // purpose  : Empty constructor.
 //=======================================================================
 
-IntPatch_InterferencePolyhedron::IntPatch_InterferencePolyhedron()
+PolyhedronInterference::PolyhedronInterference()
     : Intf_Interference(Standard_False),
       Incidence(0)
 {
@@ -46,7 +46,7 @@ IntPatch_InterferencePolyhedron::IntPatch_InterferencePolyhedron()
 
 //=================================================================================================
 
-IntPatch_InterferencePolyhedron::IntPatch_InterferencePolyhedron(
+PolyhedronInterference::PolyhedronInterference(
   const IntPatch_Polyhedron& FirstPol,
   const IntPatch_Polyhedron& SeconPol)
     : Intf_Interference(Standard_False),
@@ -70,7 +70,7 @@ IntPatch_InterferencePolyhedron::IntPatch_InterferencePolyhedron(
 
 //=================================================================================================
 
-IntPatch_InterferencePolyhedron::IntPatch_InterferencePolyhedron(const IntPatch_Polyhedron& Objet)
+PolyhedronInterference::PolyhedronInterference(const IntPatch_Polyhedron& Objet)
     : Intf_Interference(Standard_True),
       Incidence(0)
 {
@@ -87,7 +87,7 @@ IntPatch_InterferencePolyhedron::IntPatch_InterferencePolyhedron(const IntPatch_
 
 //=================================================================================================
 
-void IntPatch_InterferencePolyhedron::Perform(const IntPatch_Polyhedron& FirstPol,
+void PolyhedronInterference::Perform(const IntPatch_Polyhedron& FirstPol,
                                               const IntPatch_Polyhedron& SeconPol)
 {
   SelfInterference(Standard_False);
@@ -104,7 +104,7 @@ void IntPatch_InterferencePolyhedron::Perform(const IntPatch_Polyhedron& FirstPo
 
 //=================================================================================================
 
-void IntPatch_InterferencePolyhedron::Perform(const IntPatch_Polyhedron& Objet)
+void PolyhedronInterference::Perform(const IntPatch_Polyhedron& Objet)
 {
   SelfInterference(Standard_True);
   Tolerance = PolyhedronTool::DeflectionOverEstimation(Objet) * 2;
@@ -115,9 +115,9 @@ void IntPatch_InterferencePolyhedron::Perform(const IntPatch_Polyhedron& Objet)
 
 //=================================================================================================
 
-void IntPatch_InterferencePolyhedron::Interference(const IntPatch_Polyhedron&) {}
+void PolyhedronInterference::Interference(const IntPatch_Polyhedron&) {}
 
-void IntPatch_InterferencePolyhedron::Interference(const IntPatch_Polyhedron& FirstPol,
+void PolyhedronInterference::Interference(const IntPatch_Polyhedron& FirstPol,
                                                    const IntPatch_Polyhedron& SeconPol)
 {
   Standard_Boolean gridOnFirst          = Standard_True;
@@ -208,7 +208,7 @@ void IntPatch_InterferencePolyhedron::Interference(const IntPatch_Polyhedron& Fi
 // purpose  : Intersection of two triangles issue from two Polyhedron.
 //=======================================================================
 
-void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
+void PolyhedronInterference::Intersect(const Standard_Integer     Tri1,
                                                 const IntPatch_Polyhedron& FirstPol,
                                                 const Standard_Integer     Tri2,
                                                 const IntPatch_Polyhedron& SeconPol)
@@ -825,7 +825,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
             if (d < Tolerance)
             {
               Insert(piOT(-ideb), piOT(-ifin));
-              //-- std::cout<<"Insertion Point IntPatch_InterferencePolyhedron 1,2 d="<<d<<"
+              //-- std::cout<<"Insertion Point PolyhedronInterference 1,2 d="<<d<<"
               // Tol="<<Tolerance<<" num:"<<++nisp<<std::endl;
               //-- piOT(-ideb).Dump(1);  piOT(-ifin).Dump(0);
               //-- std::cout<<"point p"<<++nisp<<" "<<piOT(-ideb).Pnt().X()<<"
@@ -833,7 +833,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
             }
             else
             {
-              //-- std::cout<<"Insertion Point IntPatch_InterferencePolyhedron 1,2 d="<<d<<"
+              //-- std::cout<<"Insertion Point PolyhedronInterference 1,2 d="<<d<<"
               // Tol="<<Tolerance<<" NON INSERE "<<std::endl;
             }
           }
@@ -859,7 +859,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
 
 //=================================================================================================
 
-Standard_Boolean IntPatch_InterferencePolyhedron::TangentZoneValue(
+Standard_Boolean PolyhedronInterference::TangentZoneValue(
   TangentZone&          TheTZ,
   const IntPatch_Polyhedron& FirstPol,
   const Standard_Integer     Tri1,
@@ -1119,7 +1119,7 @@ Standard_Boolean IntPatch_InterferencePolyhedron::TangentZoneValue(
 
 //=================================================================================================
 
-void IntPatch_InterferencePolyhedron::CoupleCharacteristics(const IntPatch_Polyhedron& FirstPol,
+void PolyhedronInterference::CoupleCharacteristics(const IntPatch_Polyhedron& FirstPol,
                                                             const IntPatch_Polyhedron& SeconPol)
 {
   Standard_Integer n1, n2;

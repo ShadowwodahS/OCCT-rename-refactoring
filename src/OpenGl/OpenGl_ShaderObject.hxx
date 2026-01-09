@@ -22,9 +22,9 @@
 #include <Quantity_Date.hxx>
 
 //! Wrapper for OpenGL shader object.
-class OpenGl_ShaderObject : public OpenGl_Resource
+class OpenGl_ShaderObject : public Resource
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_ShaderObject, OpenGl_Resource)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_ShaderObject, Resource)
   friend class OpenGl_ShaderProgram;
 
 public:
@@ -102,6 +102,6 @@ protected:
   GLuint        myShaderID; //!< Handle of OpenGL shader object
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_ShaderObject, OpenGl_Resource)
+DEFINE_STANDARD_HANDLE(OpenGl_ShaderObject, Resource)
 
 #endif // _OpenGl_ShaderObject_Header

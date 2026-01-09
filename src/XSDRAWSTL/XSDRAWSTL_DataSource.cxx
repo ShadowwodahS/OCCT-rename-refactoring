@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_DataMapOfIntegerReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DataSource, MeshVS_DataSource)
+IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DataSource, MeshDataSource)
 
 //=================================================================================================
 

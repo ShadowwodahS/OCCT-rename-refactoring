@@ -52,7 +52,7 @@ public:
   Standard_EXPORT virtual QVariant initValue(const int theItemRole) const Standard_OVERRIDE;
 
   //! Returns transform persistent of the item or NULL
-  Handle(Graphic3d_TransformPers) TransformPersistence() const { return myTransformPersistence; }
+  Handle(TransformPers) TransformPersistence() const { return myTransformPersistence; }
 
   //! Returns shape of the item parameters
   //! \return generated shape of the item parameters
@@ -81,7 +81,7 @@ protected:
 protected:
   Handle(VisualContext)  myContext;              //!< the current context
   TopoShape                    myPresentationShape;    //!< item presentation shape
-  Handle(Graphic3d_TransformPers) myTransformPersistence; //!< item cached persistent
+  Handle(TransformPers) myTransformPersistence; //!< item cached persistent
 };
 
 #endif

@@ -27,17 +27,17 @@ class Graphic3d_CView;
 
 //! Defines the class of a graduated trihedron.
 //! It contains main style parameters for implementation of graduated trihedron
-//! @sa OpenGl_GraduatedTrihedron
+//! @sa GraduatedTrihedron1
 class GraduatedTrihedron
 {
 
 public:
   //! Class that stores style for one graduated trihedron axis such as colors, lengths and
   //! customization flags. It is used in GraduatedTrihedron.
-  class AxisAspect
+  class AxisAspect1
   {
   public:
-    AxisAspect(const UtfString theName            = "",
+    AxisAspect1(const UtfString theName            = "",
                const Color1             theNameColor       = Quantity_NOC_BLACK,
                const Color1             theColor           = Quantity_NOC_BLACK,
                const Standard_Integer           theValuesOffset    = 10,
@@ -149,19 +149,19 @@ public:
         myToDrawAxes(theToDrawAxes),
         myAxes(0, 2)
   {
-    myAxes(0) = AxisAspect("X", Quantity_NOC_RED, Quantity_NOC_RED);
-    myAxes(1) = AxisAspect("Y", Quantity_NOC_GREEN, Quantity_NOC_GREEN);
-    myAxes(2) = AxisAspect("Z", Quantity_NOC_BLUE1, Quantity_NOC_BLUE1);
+    myAxes(0) = AxisAspect1("X", Quantity_NOC_RED, Quantity_NOC_RED);
+    myAxes(1) = AxisAspect1("Y", Quantity_NOC_GREEN, Quantity_NOC_GREEN);
+    myAxes(2) = AxisAspect1("Z", Quantity_NOC_BLUE1, Quantity_NOC_BLUE1);
   }
 
 public:
-  AxisAspect& ChangeXAxisAspect() { return myAxes(0); }
+  AxisAspect1& ChangeXAxisAspect() { return myAxes(0); }
 
-  AxisAspect& ChangeYAxisAspect() { return myAxes(1); }
+  AxisAspect1& ChangeYAxisAspect() { return myAxes(1); }
 
-  AxisAspect& ChangeZAxisAspect() { return myAxes(2); }
+  AxisAspect1& ChangeZAxisAspect() { return myAxes(2); }
 
-  AxisAspect& ChangeAxisAspect(const Standard_Integer theIndex)
+  AxisAspect1& ChangeAxisAspect(const Standard_Integer theIndex)
   {
     Standard_OutOfRange_Raise_if(
       theIndex < 0 || theIndex > 2,
@@ -169,17 +169,17 @@ public:
     return myAxes(theIndex);
   }
 
-  const AxisAspect& XAxisAspect() const { return myAxes(0); }
+  const AxisAspect1& XAxisAspect() const { return myAxes(0); }
 
-  const AxisAspect& YAxisAspect() const { return myAxes(1); }
+  const AxisAspect1& YAxisAspect() const { return myAxes(1); }
 
-  const AxisAspect& ZAxisAspect() const { return myAxes(2); }
+  const AxisAspect1& ZAxisAspect() const { return myAxes(2); }
 
-  const AxisAspect& AxisAspectAt(const Standard_Integer theIndex) const
+  const AxisAspect1& AxisAspectAt(const Standard_Integer theIndex) const
   {
     Standard_OutOfRange_Raise_if(
       theIndex < 0 || theIndex > 2,
-      "GraduatedTrihedron::AxisAspect: theIndex is out of bounds [0,2].");
+      "GraduatedTrihedron::AxisAspect1: theIndex is out of bounds [0,2].");
     return myAxes(theIndex);
   }
 
@@ -259,6 +259,6 @@ protected:
   Standard_Boolean myToDrawGrid;
   Standard_Boolean myToDrawAxes;
 
-  NCollection_Array1<AxisAspect> myAxes; //!< X, Y and Z axes parameters
+  NCollection_Array1<AxisAspect1> myAxes; //!< X, Y and Z axes parameters
 };
 #endif // Graphic3d_GraduatedTrihedron_HeaderFile

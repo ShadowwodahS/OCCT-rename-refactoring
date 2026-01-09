@@ -47,7 +47,7 @@
 class Approx_CurveOnSurface_Eval : public EvaluatorFunction
 {
 public:
-  Approx_CurveOnSurface_Eval(const Handle(Adaptor3d_Curve)&   theFunc,
+  Approx_CurveOnSurface_Eval(const Handle(Curve5)&   theFunc,
                              const Handle(Adaptor2d_Curve2d)& theFunc2d,
                              Standard_Real                    First,
                              Standard_Real                    Last)
@@ -66,7 +66,7 @@ public:
                         Standard_Integer* ErrorCode);
 
 private:
-  Handle(Adaptor3d_Curve)   fonct;
+  Handle(Curve5)   fonct;
   Handle(Adaptor2d_Curve2d) fonct2d;
   Standard_Real             StartEndSav[2];
 };
@@ -147,7 +147,7 @@ void Approx_CurveOnSurface_Eval::Evaluate(Standard_Integer* Dimension,
 class Approx_CurveOnSurface_Eval3d : public EvaluatorFunction
 {
 public:
-  Approx_CurveOnSurface_Eval3d(const Handle(Adaptor3d_Curve)& theFunc,
+  Approx_CurveOnSurface_Eval3d(const Handle(Curve5)& theFunc,
                                Standard_Real                  First,
                                Standard_Real                  Last)
       : fonct(theFunc)
@@ -164,7 +164,7 @@ public:
                         Standard_Integer* ErrorCode);
 
 private:
-  Handle(Adaptor3d_Curve) fonct;
+  Handle(Curve5) fonct;
   Standard_Real           StartEndSav[2];
 };
 
@@ -309,7 +309,7 @@ void Approx_CurveOnSurface_Eval2d::Evaluate(Standard_Integer* Dimension,
 //=================================================================================================
 
 Approx_CurveOnSurface::Approx_CurveOnSurface(const Handle(Adaptor2d_Curve2d)& C2D,
-                                             const Handle(Adaptor3d_Surface)& Surf,
+                                             const Handle(SurfaceAdaptor)& Surf,
                                              const Standard_Real              First,
                                              const Standard_Real              Last,
                                              const Standard_Real              Tol,
@@ -335,7 +335,7 @@ Approx_CurveOnSurface::Approx_CurveOnSurface(const Handle(Adaptor2d_Curve2d)& C2
 //=================================================================================================
 
 Approx_CurveOnSurface::Approx_CurveOnSurface(const Handle(Adaptor2d_Curve2d)& theC2D,
-                                             const Handle(Adaptor3d_Surface)& theSurf,
+                                             const Handle(SurfaceAdaptor)& theSurf,
                                              const Standard_Real              theFirst,
                                              const Standard_Real              theLast,
                                              const Standard_Real              theTol)
@@ -453,7 +453,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
   if (aContinuity <= myC2D->Continuity() && aContinuity <= mySurf->UContinuity()
       && aContinuity <= mySurf->VContinuity())
   {
-    CutTool = new AdvApprox_DichoCutting();
+    CutTool = new DichotomicCutting();
   }
   else if (aContinuity == GeomAbs_C1)
   {
@@ -464,7 +464,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
     TColStd_Array1OfReal CutPnts_C2(1, NbInterv_C2 + 1);
     HCOnS->Intervals(CutPnts_C2, GeomAbs_C2);
 
-    CutTool = new AdvApprox_PrefAndRec(CutPnts_C1, CutPnts_C2);
+    CutTool = new PreferredAndRecommended(CutPnts_C1, CutPnts_C2);
   }
   else
   {
@@ -475,7 +475,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
     TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
     HCOnS->Intervals(CutPnts_C3, GeomAbs_C3);
 
-    CutTool = new AdvApprox_PrefAndRec(CutPnts_C2, CutPnts_C3);
+    CutTool = new PreferredAndRecommended(CutPnts_C2, CutPnts_C3);
   }
 
   AdvApprox_ApproxAFunction aApprox(Num1DSS,

@@ -25,17 +25,17 @@
 
 //! This class allows the definition of
 //! a window background.
-class Aspect_Background
+class Background1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a window background.
   //! Default color : NOC_MATRAGRAY.
-  Standard_EXPORT Aspect_Background();
+  Standard_EXPORT Background1();
 
   //! Creates a window background with the colour <AColor>.
-  Standard_EXPORT Aspect_Background(const Color1& AColor);
+  Standard_EXPORT Background1(const Color1& AColor);
 
   //! Modifies the colour of the window background <me>.
   Standard_EXPORT void SetColor(const Color1& AColor);

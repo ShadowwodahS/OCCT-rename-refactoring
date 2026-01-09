@@ -28,10 +28,10 @@
 #include <Poly_Triangulation.hxx>
 
 class XSDRAWSTL_DataSource;
-DEFINE_STANDARD_HANDLE(XSDRAWSTL_DataSource, MeshVS_DataSource)
+DEFINE_STANDARD_HANDLE(XSDRAWSTL_DataSource, MeshDataSource)
 
 //! The sample DataSource for working with STLMesh_Mesh
-class XSDRAWSTL_DataSource : public MeshVS_DataSource
+class XSDRAWSTL_DataSource : public MeshDataSource
 {
 
 public:
@@ -80,7 +80,7 @@ public:
                                                      Standard_Real&         ny,
                                                      Standard_Real& nz) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(XSDRAWSTL_DataSource, MeshVS_DataSource)
+  DEFINE_STANDARD_RTTIEXT(XSDRAWSTL_DataSource, MeshDataSource)
 
 protected:
 private:

@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Integer.hxx>
 #include <gp_Circ2d.hxx>
-class GccInt_Bisec;
+class Bisector2;
 
 //! This class describes functions for building bisecting curves between two 2D circles.
 //! A bisecting curve between two circles is a curve such
@@ -56,7 +56,7 @@ public:
   //! the number of solutions.
   //! It raises NotDone if the construction algorithm
   //! didn't succeed.
-  Standard_EXPORT Handle(GccInt_Bisec) ThisSolution(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(Bisector2) ThisSolution(const Standard_Integer Index) const;
 
 protected:
 private:

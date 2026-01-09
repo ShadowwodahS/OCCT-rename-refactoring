@@ -17,11 +17,11 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ViewAffinity, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ViewAffinity1, RefObject)
 
 //=================================================================================================
 
-void Graphic3d_ViewAffinity::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void ViewAffinity1::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

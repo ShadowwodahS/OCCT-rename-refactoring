@@ -273,7 +273,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   // modified by NIZHNY-629  Fri Jul 25 11:11:06 2003 e
 
   // Construction
-  Handle(Geom_Geometry) theSection = C;
+  Handle(Geometry3) theSection = C;
   if (isVertex)
   {
     Ex.Init(mySection, TopAbs_VERTEX);

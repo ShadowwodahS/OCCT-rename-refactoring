@@ -23,32 +23,32 @@
 
 #include <Standard_Boolean.hxx>
 #include <Intf_Interference.hxx>
-class Intf_Polygon2d;
+class Polygon2d;
 class gp_Pnt2d;
 
 //! Computes the  interference between two  polygons or
 //! the    self intersection of    a  polygon  in  two
 //! dimensions.
-class Intf_InterferencePolygon2d : public Intf_Interference
+class InterferencePolygon2d : public Intf_Interference
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an empty interference of Polygon.
-  Standard_EXPORT Intf_InterferencePolygon2d();
+  Standard_EXPORT InterferencePolygon2d();
 
   //! Constructs and computes an interference between two Polygons.
-  Standard_EXPORT Intf_InterferencePolygon2d(const Intf_Polygon2d& Obje1,
-                                             const Intf_Polygon2d& Obje2);
+  Standard_EXPORT InterferencePolygon2d(const Polygon2d& Obje1,
+                                             const Polygon2d& Obje2);
 
   //! Constructs and computes the auto interference of a Polygon.
-  Standard_EXPORT Intf_InterferencePolygon2d(const Intf_Polygon2d& Obje);
+  Standard_EXPORT InterferencePolygon2d(const Polygon2d& Obje);
 
   //! Computes an interference between two Polygons.
-  Standard_EXPORT void Perform(const Intf_Polygon2d& Obje1, const Intf_Polygon2d& Obje2);
+  Standard_EXPORT void Perform(const Polygon2d& Obje1, const Polygon2d& Obje2);
 
   //! Computes the self interference of a Polygon.
-  Standard_EXPORT void Perform(const Intf_Polygon2d& Obje);
+  Standard_EXPORT void Perform(const Polygon2d& Obje);
 
   //! Gives the  geometrical 2d point   of the  intersection
   //! point at address <Index> in the interference.
@@ -56,9 +56,9 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Interference(const Intf_Polygon2d& Obje1, const Intf_Polygon2d& Obje2);
+  Standard_EXPORT void Interference(const Polygon2d& Obje1, const Polygon2d& Obje2);
 
-  Standard_EXPORT void Interference(const Intf_Polygon2d& Obje);
+  Standard_EXPORT void Interference(const Polygon2d& Obje);
 
   Standard_EXPORT void Clean();
 

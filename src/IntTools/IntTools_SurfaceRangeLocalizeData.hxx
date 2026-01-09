@@ -149,7 +149,7 @@ private:
   IntTools_DataMapOfSurfaceSampleBox myMapBox;
   Handle(TColStd_HArray1OfReal)      myUParams;
   Handle(TColStd_HArray1OfReal)      myVParams;
-  Handle(TColgp_HArray2OfPnt)        myGridPoints;
+  Handle(PointGrid)        myGridPoints;
   Standard_Integer                   myUIndMin;
   Standard_Integer                   myUIndMax;
   Standard_Integer                   myVIndMin;

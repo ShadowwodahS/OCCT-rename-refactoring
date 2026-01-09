@@ -81,7 +81,7 @@ inline Standard_Integer ShapeAnalysis_FreeBoundsProperties::NbOpenFreeBounds() c
 // purpose  : Returns all closed free bounds
 //=======================================================================
 
-inline Handle(ShapeAnalysis_HSequenceOfFreeBounds) ShapeAnalysis_FreeBoundsProperties::
+inline Handle(HSequenceOfFreeBounds) ShapeAnalysis_FreeBoundsProperties::
   ClosedFreeBounds() const
 {
   return myClosedFreeBounds;
@@ -92,7 +92,7 @@ inline Handle(ShapeAnalysis_HSequenceOfFreeBounds) ShapeAnalysis_FreeBoundsPrope
 // purpose  : Returns all open free bounds
 //=======================================================================
 
-inline Handle(ShapeAnalysis_HSequenceOfFreeBounds) ShapeAnalysis_FreeBoundsProperties::
+inline Handle(HSequenceOfFreeBounds) ShapeAnalysis_FreeBoundsProperties::
   OpenFreeBounds() const
 {
   return myOpenFreeBounds;

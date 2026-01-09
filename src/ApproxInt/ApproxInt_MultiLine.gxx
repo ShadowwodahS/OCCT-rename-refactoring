@@ -304,7 +304,7 @@ ApproxInt_MultiLine
 { 
   if(PtrOnmySvSurfaces==NULL) {
     //-- cout<<"\n Erreur dans : ApproxInt_MultiLine  ApproxInt_MultiLine::MakeMLBetween "<<endl;
-    Handle(IntSurf_LineOn2S) vide1 = new IntSurf_LineOn2S();
+    Handle(LineOnTwoSurfaces) vide1 = new LineOnTwoSurfaces();
     Handle(TheLine) vide = new TheLine(vide1,Standard_False);
     return (ApproxInt_MultiLine(vide,
                                 NULL,
@@ -391,7 +391,7 @@ ApproxInt_MultiLine
   //-------------------------------------------------------------
   //-- Creation des structures contenant les resultats
   
-  Handle(IntSurf_LineOn2S) ResultPntOn2SLine = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces) ResultPntOn2SLine = new LineOnTwoSurfaces();
   
   PointOn2Surfaces StartPOn2S;  
   TColStd_Array1OfReal StartParams(1,4);  
@@ -586,7 +586,7 @@ ApproxInt_MultiLine
     //-- cout<<" ApproxInt_MultiLine "<<endl;
     //-- cout<<" Pas de Rajout de points ds1min =  "<<minds1<<" ds2min = "<<minds2<<endl;
     ((TheSvSurfaces *)PtrOnmySvSurfaces)->SetUseSolver(aSaveUseSolver);
-    Handle(IntSurf_LineOn2S) vide1 = new IntSurf_LineOn2S();
+    Handle(LineOnTwoSurfaces) vide1 = new LineOnTwoSurfaces();
     Handle(TheLine) vide = new TheLine(vide1,Standard_False);
     return (ApproxInt_MultiLine( vide,
                                  NULL,
@@ -625,7 +625,7 @@ Standard_Boolean
   math_Vector tolerance(1,2);
   tolerance(1) = tolerance(2) = 1.e-8;
   
-  Handle(IntSurf_LineOn2S) ResultPntOn2SLine = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces) ResultPntOn2SLine = new LineOnTwoSurfaces();
   for (Standard_Integer Indice = theLow; Indice <= theHigh; Indice++)
     ResultPntOn2SLine->Add(myLine->Point(Indice));
 

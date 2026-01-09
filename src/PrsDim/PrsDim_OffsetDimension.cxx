@@ -162,7 +162,7 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectionContainer)& 
 
   if (!Proj1.IsEqual(Proj2, Precision1::Confusion()))
   {
-    L3 = gce_MakeLin(Proj1, Proj2);
+    L3 = LineBuilder(Proj1, Proj2);
   }
   else
   { // cas ou la dimension est nulle
@@ -170,11 +170,11 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectionContainer)& 
     {
       Vector3d v3(Proj1, Tcurpos);
       Dir3d d3(v3);
-      L3 = gce_MakeLin(Proj1, d3);
+      L3 = LineBuilder(Proj1, d3);
     }
     else
     {
-      L3 = gce_MakeLin(Proj1, myTDirAttach);
+      L3 = LineBuilder(Proj1, myTDirAttach);
     }
 
     // Text
@@ -280,7 +280,7 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
   myDirAttach  = Ax1Surf1.Direction();
   myDirAttach2 = myDirAttach;
   Point3d curpos;
-  gp_Lin aProjLine = gce_MakeLin(myFAttach, myDirAttach);
+  gp_Lin aProjLine = LineBuilder(myFAttach, myDirAttach);
 
   if (myAutomaticPosition)
   {

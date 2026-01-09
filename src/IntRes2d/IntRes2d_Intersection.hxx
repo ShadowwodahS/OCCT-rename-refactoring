@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 #include <IntRes2d_SequenceOfIntersectionPoint.hxx>
 #include <IntRes2d_SequenceOfIntersectionSegment.hxx>
-class IntRes2d_IntersectionPoint;
+class IntersectionPoint3;
 class IntRes2d_IntersectionSegment;
 
 //! Defines  the root   class  of  all  the  Intersections
@@ -53,7 +53,7 @@ public:
   //! The exception NotDone is raised if IsDone returns FALSE.
   //! The exception OutOfRange is raised if (N <= 0)
   //! or (N > NbPoints).
-  const IntRes2d_IntersectionPoint& Point(const Standard_Integer N) const;
+  const IntersectionPoint3& Point(const Standard_Integer N) const;
 
   //! This function returns the number of intersection
   //! segments between the two curves.
@@ -98,9 +98,9 @@ protected:
 
   void Append(const IntRes2d_IntersectionSegment& Seg);
 
-  void Append(const IntRes2d_IntersectionPoint& Pnt);
+  void Append(const IntersectionPoint3& Pnt);
 
-  Standard_EXPORT void Insert(const IntRes2d_IntersectionPoint& Pnt);
+  Standard_EXPORT void Insert(const IntersectionPoint3& Pnt);
 
   void ResetFields();
 

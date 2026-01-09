@@ -96,7 +96,7 @@ static inline Standard_Integer getNearestPow2(Standard_Integer theValue)
 
 MeshVS_NodalColorPrsBuilder::MeshVS_NodalColorPrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                                          const MeshVS_DisplayModeFlags&   Flags,
-                                                         const Handle(MeshVS_DataSource)& DS,
+                                                         const Handle(MeshDataSource)& DS,
                                                          const Standard_Integer           Id,
                                                          const MeshVS_BuilderPriority&    Priority)
     : MeshVS_PrsBuilder(Parent, Flags, DS, Id, Priority),
@@ -114,8 +114,8 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
                                         const Standard_Boolean            IsElement,
                                         const Standard_Integer            DisplayMode) const
 {
-  Handle(MeshVS_DataSource) aSource = GetDataSource();
-  Handle(MeshVS_Drawer)     aDrawer = GetDrawer();
+  Handle(MeshDataSource) aSource = GetDataSource();
+  Handle(MeshDrawer)     aDrawer = GetDrawer();
   if (aSource.IsNull() || aDrawer.IsNull())
     return;
 
@@ -159,7 +159,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   Standard_Integer aSize = anIDs.Extent();
 
   // Calculate maximum possible number of vertices and bounds
-  Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
+  Handle(IntegerSequenceArray) aTopo;
   Standard_Integer                          PolygonVerticesFor3D = 0, PolygonBoundsFor3D = 0;
   TColStd_MapIteratorOfPackedMapOfInteger   it(anIDs);
   for (; it.More(); it.Next())
@@ -510,7 +510,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 //=================================================================================================
 
 void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
-  const Handle(MeshVS_HArray1OfSequenceOfInteger)& theTopo,
+  const Handle(IntegerSequenceArray)& theTopo,
   const TColStd_Array1OfInteger&                   theNodes,
   const TColStd_Array1OfReal&                      theCoords,
   const Handle(Graphic3d_ArrayOfPrimitives)&       theArray,

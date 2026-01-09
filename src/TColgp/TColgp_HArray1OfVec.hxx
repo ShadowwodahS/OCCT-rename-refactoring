@@ -20,6 +20,6 @@
 #include <TColgp_Array1OfVec.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfVec, TColgp_Array1OfVec)
+DEFINE_HARRAY1(VectorArray, TColgp_Array1OfVec)
 
 #endif

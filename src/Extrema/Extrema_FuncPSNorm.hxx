@@ -27,14 +27,14 @@
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <math_Vector.hxx>
 
-class Adaptor3d_Surface;
+class SurfaceAdaptor;
 class math_Matrix;
 class PointOnSurface1;
 
 //! Functional for search of extremum of the distance between point P and
 //! surface S, starting from approximate solution (u0, v0).
 //!
-//! The class inherits math_FunctionSetWithDerivatives and thus is intended
+//! The class inherits FunctionSetWithDerivatives and thus is intended
 //! for use in FunctionSetRoot algorithm .
 //!
 //! Denoting derivatives of the surface S(u,v) by u and v, respectively, as
@@ -51,17 +51,17 @@ class PointOnSurface1;
 //! Dvf2(u,v) = Sv^2    + (S-P) * Svv
 //!
 //! Here * denotes scalar product, and ^2 is square power.
-class Extrema_FuncPSNorm : public math_FunctionSetWithDerivatives
+class Extrema_FuncPSNorm : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT Extrema_FuncPSNorm();
 
-  Standard_EXPORT Extrema_FuncPSNorm(const Point3d& P, const Adaptor3d_Surface& S);
+  Standard_EXPORT Extrema_FuncPSNorm(const Point3d& P, const SurfaceAdaptor& S);
 
   //! sets the field mysurf of the function.
-  Standard_EXPORT void Initialize(const Adaptor3d_Surface& S);
+  Standard_EXPORT void Initialize(const SurfaceAdaptor& S);
 
   //! sets the field mysurf of the function.
   Standard_EXPORT void SetPoint(const Point3d& P);
@@ -96,7 +96,7 @@ public:
 
 private:
   Point3d                    myP;
-  const Adaptor3d_Surface*  myS;
+  const SurfaceAdaptor*  myS;
   Standard_Real             myU;
   Standard_Real             myV;
   Point3d                    myPs;

@@ -106,7 +106,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_View, Graphic3d_CView)
 
 OpenGl_View::OpenGl_View(const Handle(Graphic3d_StructureManager)& theMgr,
                          const Handle(OpenGl_GraphicDriver)&       theDriver,
-                         const Handle(OpenGl_Caps)&                theCaps,
+                         const Handle(Caps)&                theCaps,
                          StateCounter*                      theCounter)
     : Graphic3d_CView(theMgr),
       myDriver(theDriver.operator->()),
@@ -161,8 +161,8 @@ OpenGl_View::OpenGl_View(const Handle(Graphic3d_StructureManager)& theMgr,
 
   Handle(Graphic3d_CLight) aLight = new Graphic3d_CLight(Graphic3d_TypeOfLightSource_Ambient);
   aLight->SetColor(Quantity_NOC_WHITE);
-  myLights         = new Graphic3d_LightSet();
-  myNoShadingLight = new Graphic3d_LightSet();
+  myLights         = new LightSet();
+  myNoShadingLight = new LightSet();
   myNoShadingLight->Add(aLight);
 
   myMainSceneFbos[0]         = new OpenGl_FrameBuffer("fbo0_main");
@@ -211,7 +211,7 @@ void OpenGl_View::releaseSrgbResources(const Handle(OpenGl_Context)& theCtx)
   {
     if (!theCtx.IsNull())
     {
-      for (OpenGl_TextureSet::Iterator aTextureIter(myTextureEnv); aTextureIter.More();
+      for (TextureSet2::Iterator aTextureIter(myTextureEnv); aTextureIter.More();
            aTextureIter.Next())
       {
         theCtx->DelayedRelease(aTextureIter.ChangeValue());
@@ -312,7 +312,7 @@ void OpenGl_View::SetTextureEnv(const Handle(Graphic3d_TextureEnv)& theTextureEn
   Handle(OpenGl_Context) aCtx = myWorkspace->GetGlContext();
   if (!aCtx.IsNull() && !myTextureEnv.IsNull())
   {
-    for (OpenGl_TextureSet::Iterator aTextureIter(myTextureEnv); aTextureIter.More();
+    for (TextureSet2::Iterator aTextureIter(myTextureEnv); aTextureIter.More();
          aTextureIter.Next())
     {
       aCtx->DelayedRelease(aTextureIter.ChangeValue());
@@ -339,7 +339,7 @@ void OpenGl_View::initTextureEnv(const Handle(OpenGl_Context)& theContext)
     new OpenGl_Texture(myTextureEnvData->GetId(), myTextureEnvData->GetParams());
   aTextureEnv->Init(theContext, myTextureEnvData);
 
-  myTextureEnv                         = new OpenGl_TextureSet(aTextureEnv);
+  myTextureEnv                         = new TextureSet2(aTextureEnv);
   myTextureEnv->ChangeTextureSetBits() = Graphic3d_TextureSetBits_BaseColor;
 }
 
@@ -714,7 +714,7 @@ void OpenGl_View::SetBackgroundImage(const Handle(Graphic3d_TextureMap)& theText
   }
 
   Handle(Graphic3d_AspectFillArea3d) anAspect    = new Graphic3d_AspectFillArea3d();
-  Handle(Graphic3d_TextureSet)       aTextureSet = new Graphic3d_TextureSet(aNewMap);
+  Handle(TextureSet1)       aTextureSet = new TextureSet1(aNewMap);
   anAspect->SetInteriorStyle(Aspect_IS_SOLID);
   anAspect->SetFaceCulling(Graphic3d_TypeOfBackfacingModel_DoubleSided);
   anAspect->SetShadingModel(Graphic3d_TypeOfShadingModel_Unlit);
@@ -1476,7 +1476,7 @@ bool OpenGl_View::prepareFrameBuffers(CameraOn3d::Projection& theProj)
             aTexFormat.SetInternalFormat(aCtx->arbTexRG ? GL_RG16F : GL_RGBA16F);
           }
 
-          Handle(Graphic3d_TextureParams) aParams = new Graphic3d_TextureParams();
+          Handle(TextureParams) aParams = new TextureParams();
           aParams->SetFilter(Graphic3d_TOTF_BILINEAR);
           aParams->SetRepeat(Standard_False);
           aParams->SetTextureUnit(aCtx->PBREnvLUTTexUnit());
@@ -1646,7 +1646,7 @@ bool OpenGl_View::prepareFrameBuffers(CameraOn3d::Projection& theProj)
   }
 
   // allocate shadow maps
-  const Handle(Graphic3d_LightSet)& aLights =
+  const Handle(LightSet)& aLights =
     myRenderParams.ShadingModel == Graphic3d_TypeOfShadingModel_Unlit ? myNoShadingLight : myLights;
   if (!aLights.IsNull())
   {
@@ -1754,9 +1754,9 @@ void OpenGl_View::Redraw()
   if (myShadowMaps->IsValid())
   {
     Standard_Integer aShadowIndex = myShadowMaps->Lower();
-    for (Graphic3d_LightSet::Iterator aLightIter(
+    for (LightSet::Iterator aLightIter(
            myLights,
-           Graphic3d_LightSet::IterationFilter_ActiveShadowCasters);
+           LightSet::IterationFilter_ActiveShadowCasters);
          aLightIter.More();
          aLightIter.Next())
     {
@@ -2475,7 +2475,7 @@ void OpenGl_View::render(CameraOn3d::Projection theProjection,
   myBVHSelector.CacheClipPtsProjections();
 
   const Handle(OpenGl_ShaderManager)& aManager = aContext->ShaderManager();
-  const Handle(Graphic3d_LightSet)&   aLights =
+  const Handle(LightSet)&   aLights =
     myRenderParams.ShadingModel == Graphic3d_TypeOfShadingModel_Unlit ? myNoShadingLight : myLights;
   Standard_Size aLightsRevision = 0;
   if (!aLights.IsNull())
@@ -2496,7 +2496,7 @@ void OpenGl_View::render(CameraOn3d::Projection theProjection,
   }
 
   // Update matrices if camera has changed.
-  Graphic3d_WorldViewProjState aWVPState = myCamera->WorldViewProjState();
+  WorldViewProjState1 aWVPState = myCamera->WorldViewProjState();
   if (myWorldViewProjState != aWVPState)
   {
     myAccumFrames        = 0;
@@ -2587,7 +2587,7 @@ void OpenGl_View::render(CameraOn3d::Projection theProjection,
     }
   }
 
-  myWorkspace->SetEnvironmentTexture(Handle(OpenGl_TextureSet)());
+  myWorkspace->SetEnvironmentTexture(Handle(TextureSet2)());
 
   // ===============================
   //      Step 4: Trihedron
@@ -2797,12 +2797,12 @@ void OpenGl_View::renderScene(CameraOn3d::Projection theProjection,
   }
 
   renderStructs(theProjection, theReadDrawFbo, theOitAccumFbo, theToDrawImmediate);
-  aContext->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+  aContext->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
 
   // Apply restored view matrix.
   aContext->ApplyWorldViewMatrix();
 
-  aContext->ChangeClipping().Reset(Handle(Graphic3d_SequenceOfHClipPlane)());
+  aContext->ChangeClipping().Reset(Handle(SequenceOfHClipPlane)());
   if (!myClipPlanes.IsNull() && !myClipPlanes->IsEmpty())
   {
     aContext->ShaderManager()->RevertClippingState();
@@ -3023,7 +3023,7 @@ bool OpenGl_View::blitBuffers(OpenGl_FrameBuffer*    theReadFbo,
       aCtx->core20fwd->glDisable(GL_DEPTH_TEST);
     }
 
-    aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+    aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
 
     const Graphic3d_TypeOfTextureFilter aFilter =
       (aDrawSizeX == aReadSizeX && aDrawSizeY == aReadSizeY) ? Graphic3d_TOTF_NEAREST
@@ -3165,7 +3165,7 @@ void OpenGl_View::drawStereoPair(OpenGl_FrameBuffer* theDrawFbo)
   aCtx->core20fwd->glDepthMask(GL_TRUE);
   aCtx->core20fwd->glEnable(GL_DEPTH_TEST);
 
-  aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+  aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
   OpenGl_VertexBuffer* aVerts = initBlitQuad(myToFlipOutput);
 
   const Handle(OpenGl_ShaderManager)& aManager = aCtx->ShaderManager();
@@ -3407,7 +3407,7 @@ void OpenGl_View::updateSkydomeBg(const Handle(OpenGl_Context)& theCtx)
 
   // Set custom shader
   Handle(OpenGl_ShaderProgram)    aProg;
-  Handle(Graphic3d_ShaderProgram) aProxy = theCtx->ShaderManager()->GetBgSkydomeProgram();
+  Handle(ShaderProgram2) aProxy = theCtx->ShaderManager()->GetBgSkydomeProgram();
   AsciiString1         anUnused;
   theCtx->ShaderManager()->Create(aProxy, anUnused, aProg);
   Handle(OpenGl_ShaderProgram) aPrevProgram = theCtx->ActiveProgram();
@@ -3463,7 +3463,7 @@ void OpenGl_View::updateSkydomeBg(const Handle(OpenGl_Context)& theCtx)
     myCubeMapParams->Aspect()->SetFaceCulling(Graphic3d_TypeOfBackfacingModel_DoubleSided);
     myCubeMapParams->Aspect()->SetShadingModel(Graphic3d_TypeOfShadingModel_Unlit);
     myCubeMapParams->Aspect()->SetShaderProgram(theCtx->ShaderManager()->GetBgCubeMapProgram());
-    Handle(Graphic3d_TextureSet) aTextureSet = new Graphic3d_TextureSet(1);
+    Handle(TextureSet1) aTextureSet = new TextureSet1(1);
     myCubeMapParams->Aspect()->SetTextureSet(aTextureSet);
     myCubeMapParams->Aspect()->SetTextureMapOn(true);
     myCubeMapParams->SynchronizeAspects();
@@ -3515,7 +3515,7 @@ void OpenGl_View::updatePBREnvironment(const Handle(OpenGl_Context)& theCtx)
 
   myPBREnvRequest = false;
 
-  Handle(OpenGl_TextureSet) aGlTextureSet;
+  Handle(TextureSet2) aGlTextureSet;
   OpenGl_Aspects*           aTmpGlAspects = NULL;
   if (!myCubeMapIBL.IsNull() && myCubeMapIBL == myCubeMapBackground)
   {
@@ -3527,7 +3527,7 @@ void OpenGl_View::updatePBREnvironment(const Handle(OpenGl_Context)& theCtx)
 
     Handle(Graphic3d_AspectFillArea3d) anAspect = new Graphic3d_AspectFillArea3d();
     {
-      Handle(Graphic3d_TextureSet) aTextureSet = new Graphic3d_TextureSet(myCubeMapIBL);
+      Handle(TextureSet1) aTextureSet = new TextureSet1(myCubeMapIBL);
       anAspect->SetInteriorStyle(Aspect_IS_SOLID);
       anAspect->SetTextureSet(aTextureSet);
       anAspect->SetTextureMapOn(true);

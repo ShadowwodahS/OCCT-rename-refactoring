@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 class DataLabel;
 class Standard_GUID;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDocStd_Modified;
 DEFINE_STANDARD_HANDLE(TDocStd_Modified, TDF_Attribute)
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       Into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 

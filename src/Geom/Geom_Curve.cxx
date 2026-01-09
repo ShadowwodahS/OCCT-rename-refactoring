@@ -22,7 +22,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomCurve3d, Geom_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(GeomCurve3d, Geometry3)
 
 typedef GeomCurve3d Curve;
 
@@ -73,5 +73,5 @@ void GeomCurve3d::DumpJson(Standard_OStream& theOStream, Standard_Integer theDep
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Geometry)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geometry3)
 }

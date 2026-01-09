@@ -27,7 +27,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Integer.hxx>
-class Adaptor3d_HVertex;
+class HandleVertex;
 class Transition2;
 class BRepBlend_PointOnRst;
 
@@ -52,7 +52,7 @@ public:
                                       const Standard_Real              V,
                                       const Standard_Real              Param,
                                       const Standard_Real              Tol,
-                                      const Handle(Adaptor3d_HVertex)& Vtx);
+                                      const Handle(HandleVertex)& Vtx);
 
   //! Creates an extremity on a curve
   Standard_EXPORT BRepBlend_Extremity(const Point3d&       P,
@@ -74,7 +74,7 @@ public:
                                 const Standard_Real              V,
                                 const Standard_Real              Param,
                                 const Standard_Real              Tol,
-                                const Handle(Adaptor3d_HVertex)& Vtx);
+                                const Handle(HandleVertex)& Vtx);
 
   //! Set the values for an extremity on curve.
   Standard_EXPORT void SetValue(const Point3d&       P,
@@ -101,7 +101,7 @@ public:
   Standard_Real Tolerance() const;
 
   //! Set the values for an extremity on a curve.
-  Standard_EXPORT void SetVertex(const Handle(Adaptor3d_HVertex)& V);
+  Standard_EXPORT void SetVertex(const Handle(HandleVertex)& V);
 
   //! Sets the values of a point which is on the arc
   //! A, at parameter Param.
@@ -119,7 +119,7 @@ public:
   Standard_Boolean IsVertex() const;
 
   //! Returns the vertex when IsVertex returns Standard_True.
-  const Handle(Adaptor3d_HVertex)& Vertex() const;
+  const Handle(HandleVertex)& Vertex() const;
 
   //! Returns the number of arc containing the extremity.
   //! If the method returns 0, the point is inside the
@@ -138,7 +138,7 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_HVertex)      vtx;
+  Handle(HandleVertex)      vtx;
   BRepBlend_SequenceOfPointOnRst seqpt;
   Point3d                         pt;
   Vector3d                         tang;

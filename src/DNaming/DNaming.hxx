@@ -38,7 +38,7 @@ class BRepBuilderAPI_MakeShape;
 class TNaming_Builder;
 class DataLabel;
 class BRepAlgoAPI_BooleanOperation;
-class TDF_Data;
+class Data2;
 class AsciiString1;
 
 class DNaming1
@@ -119,17 +119,17 @@ public:
                                          BRepAlgoAPI_BooleanOperation& MS);
 
   Standard_EXPORT static TopoShape CurrentShape(const Standard_CString  ShapeEntry,
-                                                   const Handle(TDF_Data)& Data);
+                                                   const Handle(Data2)& Data);
 
   Standard_EXPORT static void GetShape(const Standard_CString  ShapeEntry,
-                                       const Handle(TDF_Data)& Data,
+                                       const Handle(Data2)& Data,
                                        ShapeList&   Shapes);
 
   //! theStatus = 0  Not  found,
   //! theStatus = 1  One  shape,
   //! theStatus = 2  More than one shape.
   Standard_EXPORT static AsciiString1 GetEntry(const TopoShape&     Shape,
-                                                          const Handle(TDF_Data)& Data,
+                                                          const Handle(Data2)& Data,
                                                           Standard_Integer&       theStatus);
 
   //! Loads the Shape to DF

@@ -24,13 +24,13 @@
 
 Contap_Line::Contap_Line()
 {
-  svtx  = new Contap_TheHSequenceOfPoint();
+  svtx  = new PointSequence1();
   Trans = IntSurf_Undecided;
 }
 
 void Contap_Line::ResetSeqOfVertex()
 {
-  svtx = new Contap_TheHSequenceOfPoint();
+  svtx = new PointSequence1();
 }
 
 void Contap_Line::Add(const Contap_Point& P)
@@ -66,7 +66,7 @@ void Contap_Line::Clear()
 {
   if (!curv.IsNull())
     curv->Clear();
-  svtx = new Contap_TheHSequenceOfPoint();
+  svtx = new PointSequence1();
   typL = Contap_Walking;
 }
 
@@ -92,7 +92,7 @@ void Contap_Line::SetValue(const Handle(Adaptor2d_Curve2d)& A)
   typL   = Contap_Restriction;
 }
 
-void Contap_Line::SetLineOn2S(const Handle(IntSurf_LineOn2S)& L)
+void Contap_Line::SetLineOn2S(const Handle(LineOnTwoSurfaces)& L)
 {
   curv = L;
   typL = Contap_Walking;

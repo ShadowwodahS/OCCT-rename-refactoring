@@ -244,7 +244,7 @@ void PlateSurface::Load(const Plate_SampledCurveConstraint& SCConst)
   Load(SCConst.LXYZC());
 }
 
-void PlateSurface::Load(const Plate_GtoCConstraint& GtoCConst)
+void PlateSurface::Load(const GtoCConstraint& GtoCConst)
 {
   for (Standard_Integer i = 0; i < GtoCConst.nb_PPC(); i++)
     Load(GtoCConst.GetPPC(i));
@@ -1197,9 +1197,9 @@ Coords3d PlateSurface::EvaluateDerivative(const Coords2d&           point2d,
 // the polynomial part of the Plate function
 //=======================================================================
 
-void PlateSurface::CoefPol(Handle(TColgp_HArray2OfXYZ)& Coefs) const
+void PlateSurface::CoefPol(Handle(XYZGrid)& Coefs) const
 {
-  Coefs              = new TColgp_HArray2OfXYZ(0, order - 1, 0, order - 1, Coords3d(0., 0., 0.));
+  Coefs              = new XYZGrid(0, order - 1, 0, order - 1, Coords3d(0., 0., 0.));
   Standard_Integer i = n_el;
   for (Standard_Integer iu = 0; iu < order; iu++)
     for (Standard_Integer iv = 0; iu + iv < order; iv++)

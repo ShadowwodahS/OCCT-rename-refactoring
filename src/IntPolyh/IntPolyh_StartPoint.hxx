@@ -19,7 +19,7 @@
 
 #include <Standard.hxx>
 
-class IntPolyh_Triangle;
+class Triangle4;
 
 class StartPoint
 {
@@ -73,7 +73,7 @@ public:
 
   Standard_EXPORT Standard_Integer ChainList() const;
 
-  Standard_EXPORT Standard_Integer GetEdgePoints(const IntPolyh_Triangle& Triangle1,
+  Standard_EXPORT Standard_Integer GetEdgePoints(const Triangle4& Triangle1,
                                                  Standard_Integer&        FirstEdgePoint,
                                                  Standard_Integer&        SecondEdgePoint,
                                                  Standard_Integer&        LastPoint) const;

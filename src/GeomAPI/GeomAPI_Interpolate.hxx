@@ -88,7 +88,7 @@ public:
   //! -   conditions relating to the respective
   //! number of elements in the parallel tables
   //! Points and Parameters are not respected.
-  Standard_EXPORT GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)& Points,
+  Standard_EXPORT GeomAPI_Interpolate(const Handle(PointArray1)& Points,
                                       const Standard_Boolean             PeriodicFlag,
                                       const Standard_Real                Tolerance);
 
@@ -130,7 +130,7 @@ public:
   //! -   conditions relating to the respective
   //! number of elements in the parallel tables
   //! Points and Parameters are not respected.
-  Standard_EXPORT GeomAPI_Interpolate(const Handle(TColgp_HArray1OfPnt)&   Points,
+  Standard_EXPORT GeomAPI_Interpolate(const Handle(PointArray1)&   Points,
                                       const Handle(TColStd_HArray1OfReal)& Parameters,
                                       const Standard_Boolean               PeriodicFlag,
                                       const Standard_Real                  Tolerance);
@@ -185,10 +185,10 @@ private:
   Standard_EXPORT void PerformPeriodic();
 
   Standard_Real                    myTolerance;
-  Handle(TColgp_HArray1OfPnt)      myPoints;
+  Handle(PointArray1)      myPoints;
   Standard_Boolean                 myIsDone;
   Handle(BSplineCurve3d)        myCurve;
-  Handle(TColgp_HArray1OfVec)      myTangents;
+  Handle(VectorArray)      myTangents;
   Handle(TColStd_HArray1OfBoolean) myTangentFlags;
   Handle(TColStd_HArray1OfReal)    myParameters;
   Standard_Boolean                 myPeriodic;

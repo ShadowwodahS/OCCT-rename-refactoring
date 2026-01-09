@@ -32,10 +32,10 @@ class Geom2dCurveTool;
 class ProjPCurOfGInter;
 class Geom2dIntProjPCurCurveLocator;
 class Geom2dInt_TheLocateExtPCOfTheProjPCurOfGInter;
-class Geom2dInt_TheIntConicCurveOfGInter;
-class Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter;
+class IntConicCurve2d;
+class IntConicCurveIntersector2d;
 class Geom2dInt_IntConicCurveOfGInter;
-class Geom2dInt_TheIntPCurvePCurveOfGInter;
+class IntPCurvePCurve2d;
 class Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter;
 class Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter;
 class Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter;
@@ -180,8 +180,8 @@ private:
   Standard_Real                        param2inf;
   Standard_Real                        param2sup;
   IntCurve_IntConicConic               intconiconi;
-  Geom2dInt_TheIntConicCurveOfGInter   intconicurv;
-  Geom2dInt_TheIntPCurvePCurveOfGInter intcurvcurv;
+  IntConicCurve2d   intconicurv;
+  IntPCurvePCurve2d intcurvcurv;
 };
 
 #define TheCurve Adaptor2d_Curve2d
@@ -202,17 +202,17 @@ private:
 #define IntCurve_TheLocateExtPCOfTheProjPCur Geom2dInt_TheLocateExtPCOfTheProjPCurOfGInter
 #define IntCurve_TheLocateExtPCOfTheProjPCur_hxx                                                   \
   <Geom2dInt_TheLocateExtPCOfTheProjPCurOfGInter.hxx>
-#define IntCurve_TheIntConicCurve Geom2dInt_TheIntConicCurveOfGInter
+#define IntCurve_TheIntConicCurve IntConicCurve2d
 #define IntCurve_TheIntConicCurve_hxx <Geom2dInt_TheIntConicCurveOfGInter.hxx>
-#define IntCurve_TheIntersectorOfTheIntConicCurve Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter
+#define IntCurve_TheIntersectorOfTheIntConicCurve IntConicCurveIntersector2d
 #define IntCurve_TheIntersectorOfTheIntConicCurve_hxx                                              \
   <Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.hxx>
-#define IntCurve_TheIntersectorOfTheIntConicCurve Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter
+#define IntCurve_TheIntersectorOfTheIntConicCurve IntConicCurveIntersector2d
 #define IntCurve_TheIntersectorOfTheIntConicCurve_hxx                                              \
   <Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.hxx>
 #define IntCurve_IntConicCurve Geom2dInt_IntConicCurveOfGInter
 #define IntCurve_IntConicCurve_hxx <Geom2dInt_IntConicCurveOfGInter.hxx>
-#define IntCurve_TheIntPCurvePCurve Geom2dInt_TheIntPCurvePCurveOfGInter
+#define IntCurve_TheIntPCurvePCurve IntPCurvePCurve2d
 #define IntCurve_TheIntPCurvePCurve_hxx <Geom2dInt_TheIntPCurvePCurveOfGInter.hxx>
 #define IntCurve_ThePolygon2dOfTheIntPCurvePCurve Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter
 #define IntCurve_ThePolygon2dOfTheIntPCurvePCurve_hxx                                              \

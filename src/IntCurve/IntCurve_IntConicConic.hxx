@@ -322,7 +322,7 @@ public:
 
 protected:
 private:
-  IntCurve_IntImpConicParConic Inter;
+  ImplicitConicParametricConicIntersection Inter;
 };
 
 #include <IntCurve_IntConicConic.lxx>

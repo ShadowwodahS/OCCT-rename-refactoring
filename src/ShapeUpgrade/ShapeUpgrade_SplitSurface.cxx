@@ -243,12 +243,12 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     spc.Init(BasCurve, VFirst, VLast);
     spc.SetSplitValues(myVSplitValues);
     spc.Build(Segment1);
-    Handle(TColGeom_HArray2OfSurface) Surfaces;
+    Handle(SurfaceGridArray) Surfaces;
     myNbResultingCol = spc.GetCurves()->Length();
     if (myUSplitValues->Length() > 2)
     {
       myNbResultingRow = myUSplitValues->Length() - 1;
-      Surfaces         = new TColGeom_HArray2OfSurface(1, myNbResultingRow, 1, myNbResultingCol);
+      Surfaces         = new SurfaceGridArray(1, myNbResultingRow, 1, myNbResultingCol);
       for (Standard_Integer nc = 1; nc <= myNbResultingCol; nc++)
       {
         Handle(Geom_SurfaceOfRevolution) NewSurfaceRev =
@@ -269,7 +269,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     }
     else
     {
-      Surfaces = new TColGeom_HArray2OfSurface(1, 1, 1, myNbResultingCol);
+      Surfaces = new SurfaceGridArray(1, 1, 1, myNbResultingCol);
 
       for (Standard_Integer nc = 1; nc <= spc.GetCurves()->Length(); nc++)
       {
@@ -312,11 +312,11 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     spc.SetSplitValues(myUSplitValues);
     spc.Build(Segment1);
     myNbResultingRow = spc.GetCurves()->Length();
-    Handle(TColGeom_HArray2OfSurface) Surfaces;
+    Handle(SurfaceGridArray) Surfaces;
     if (myVSplitValues->Length() > 2)
     {
       myNbResultingCol = myVSplitValues->Length() - 1;
-      Surfaces         = new TColGeom_HArray2OfSurface(1, myNbResultingRow, 1, myNbResultingCol);
+      Surfaces         = new SurfaceGridArray(1, myNbResultingRow, 1, myNbResultingCol);
       for (Standard_Integer nc1 = 1; nc1 <= myNbResultingRow; nc1++)
       {
         Handle(Geom_SurfaceOfLinearExtrusion) NewSurfaceEx =
@@ -337,7 +337,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     }
     else
     {
-      Surfaces = new TColGeom_HArray2OfSurface(1, myNbResultingRow, 1, 1);
+      Surfaces = new SurfaceGridArray(1, myNbResultingRow, 1, 1);
 
       for (Standard_Integer nc1 = 1; nc1 <= myNbResultingRow; nc1++)
       {
@@ -395,8 +395,8 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
     sps.SetVSplitValues(myVSplitValues);
     sps.myStatus = myStatus;
     sps.Build(Segment1);
-    Handle(TColGeom_HArray2OfSurface) Patches =
-      new TColGeom_HArray2OfSurface(1,
+    Handle(SurfaceGridArray) Patches =
+      new SurfaceGridArray(1,
                                     sps.ResSurfaces()->NbUPatches(),
                                     1,
                                     sps.ResSurfaces()->NbVPatches());
@@ -419,8 +419,8 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment1)
   // splitting the surfaces:
   myNbResultingRow = myUSplitValues->Length() - 1;
   myNbResultingCol = myVSplitValues->Length() - 1;
-  Handle(TColGeom_HArray2OfSurface) Surfaces =
-    new TColGeom_HArray2OfSurface(1, myNbResultingRow, 1, myNbResultingCol);
+  Handle(SurfaceGridArray) Surfaces =
+    new SurfaceGridArray(1, myNbResultingRow, 1, myNbResultingCol);
   Standard_Boolean isBSpline = mySurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface));
   Standard_Boolean isBezier  = mySurface->IsKind(STANDARD_TYPE(Geom_BezierSurface));
 

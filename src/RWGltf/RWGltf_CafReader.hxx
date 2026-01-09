@@ -19,12 +19,12 @@
 #include <RWMesh_CafReader.hxx>
 #include <TopoDS_Face.hxx>
 
-class RWMesh_TriangulationReader;
+class TriangulationReader;
 
 //! The glTF (GL Transmission Format) mesh reader into XDE document.
-class RWGltf_CafReader : public RWMesh_CafReader
+class RWGltf_CafReader : public CafReader
 {
-  DEFINE_STANDARD_RTTIEXT(RWGltf_CafReader, RWMesh_CafReader)
+  DEFINE_STANDARD_RTTIEXT(RWGltf_CafReader, CafReader)
 public:
   //! Empty constructor.
   Standard_EXPORT RWGltf_CafReader();
@@ -95,7 +95,7 @@ protected:
   //! Create primitive array reader context.
   //! Can be overridden by sub-class to read triangulation into application-specific data structures
   //! instead of MeshTriangulation. Default implementation creates RWGltf_TriangulationReader.
-  Standard_EXPORT virtual Handle(RWMesh_TriangulationReader) createMeshReaderContext() const;
+  Standard_EXPORT virtual Handle(TriangulationReader) createMeshReaderContext() const;
 
   //! Read late data from RWGltf_GltfLatePrimitiveArray stored as MeshTriangulation within faces.
   Standard_EXPORT virtual Standard_Boolean readLateData(NCollection_Vector<TopoFace>& theFaces,
@@ -105,7 +105,7 @@ protected:
   //! Set reader for each late data.
   Standard_EXPORT void updateLateDataReader(
     NCollection_Vector<TopoFace>&          theFaces,
-    const Handle(RWMesh_TriangulationReader)& theReader) const;
+    const Handle(TriangulationReader)& theReader) const;
 
 protected:
   class CafReader_GltfBaseLoadingFunctor;

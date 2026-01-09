@@ -1044,7 +1044,7 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
 
   Handle(GeomCurve3d) C1 = BRepInspector::Curve(Edge1, Loc, f[1], l[1]);
 
-  Handle(Adaptor3d_Curve) HEdge1;
+  Handle(Curve5) HEdge1;
   Standard_Boolean        C1is3D = Standard_True;
   if (C1.IsNull())
   {
@@ -1073,7 +1073,7 @@ void BRepOffset_Offset::Init(const TopoEdge&     Path,
 
   Handle(GeomCurve3d) C2 = BRepInspector::Curve(Edge2, Loc, f[2], l[2]);
 
-  Handle(Adaptor3d_Curve) HEdge2;
+  Handle(Curve5) HEdge2;
   Standard_Boolean        C2is3D = Standard_True;
   if (C2.IsNull())
   {
@@ -1488,7 +1488,7 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
   Vector3d Xdir(BaryCenter, Origin);
 
   Point3d FarestCorner = GetFarestCorner(theWire);
-  gp_Pln thePlane     = gce_MakePln(Origin, BaryCenter, FarestCorner);
+  gp_Pln thePlane     = PlaneBuilder1(Origin, BaryCenter, FarestCorner);
   Dir3d Vdir         = thePlane.Axis().Direction();
 
   Ax3 Axis(Origin, Vdir, Xdir);

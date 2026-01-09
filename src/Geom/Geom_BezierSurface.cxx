@@ -378,7 +378,7 @@ Geom_BezierSurface::Geom_BezierSurface(const TColgp_Array2OfPnt& SurfacePoles)
     throw Standard_ConstructionError();
   }
 
-  Handle(TColgp_HArray2OfPnt) npoles = new TColgp_HArray2OfPnt(1, NbUPoles, 1, NbVPoles);
+  Handle(PointGrid) npoles = new PointGrid(1, NbUPoles, 1, NbVPoles);
 
   urational = 0;
   vrational = 0;
@@ -418,7 +418,7 @@ Geom_BezierSurface::Geom_BezierSurface(const TColgp_Array2OfPnt&   SurfacePoles,
     Col++;
   }
 
-  Handle(TColgp_HArray2OfPnt) npoles = new TColgp_HArray2OfPnt(1, NbUPoles, 1, NbVPoles);
+  Handle(PointGrid) npoles = new PointGrid(1, NbUPoles, 1, NbVPoles);
   npoles->ChangeArray2()             = SurfacePoles;
 
   Standard_Integer I, J;
@@ -462,7 +462,7 @@ Geom_BezierSurface::Geom_BezierSurface(const TColgp_Array2OfPnt&   SurfacePoles,
 
 //=================================================================================================
 
-Geom_BezierSurface::Geom_BezierSurface(const Handle(TColgp_HArray2OfPnt)&   SurfacePoles,
+Geom_BezierSurface::Geom_BezierSurface(const Handle(PointGrid)&   SurfacePoles,
                                        const Handle(TColStd_HArray2OfReal)& PoleWeights,
                                        const Standard_Boolean               IsURational,
                                        const Standard_Boolean               IsVRational)
@@ -473,7 +473,7 @@ Geom_BezierSurface::Geom_BezierSurface(const Handle(TColgp_HArray2OfPnt)&   Surf
   Standard_Integer NbUPoles = SurfacePoles->ColLength();
   Standard_Integer NbVPoles = SurfacePoles->RowLength();
 
-  poles                 = new TColgp_HArray2OfPnt(1, NbUPoles, 1, NbVPoles);
+  poles                 = new PointGrid(1, NbUPoles, 1, NbVPoles);
   poles->ChangeArray2() = SurfacePoles->Array2();
 
   if (urational || vrational)
@@ -499,7 +499,7 @@ void Geom_BezierSurface::ExchangeUV()
   Standard_Integer LR = poles->LowerRow();
   Standard_Integer UR = poles->UpperRow();
 
-  Handle(TColgp_HArray2OfPnt)   npoles = new TColgp_HArray2OfPnt(LC, UC, LR, UR);
+  Handle(PointGrid)   npoles = new PointGrid(LC, UC, LR, UR);
   Handle(TColStd_HArray2OfReal) nweights;
   if (!weights.IsNull())
   {
@@ -555,12 +555,12 @@ void Geom_BezierSurface::Increase(const Standard_Integer UDeg, const Standard_In
   bidvknots(2) = 1.;
   TColStd_Array1OfInteger bidvmults(1, 2);
   bidvmults.Init(VDegree() + 1);
-  Handle(TColgp_HArray2OfPnt)   npoles;
+  Handle(PointGrid)   npoles;
   Handle(TColStd_HArray2OfReal) nweights;
 
   if (IncUDeg > 0)
   {
-    npoles = new TColgp_HArray2OfPnt(1, UDeg + 1, 1, oldVDeg + 1);
+    npoles = new PointGrid(1, UDeg + 1, 1, oldVDeg + 1);
 
     if (urational || vrational)
     {
@@ -599,7 +599,7 @@ void Geom_BezierSurface::Increase(const Standard_Integer UDeg, const Standard_In
   }
   if (IncVDeg > 0)
   {
-    npoles = new TColgp_HArray2OfPnt(1, UDeg + 1, 1, VDeg + 1);
+    npoles = new PointGrid(1, UDeg + 1, 1, VDeg + 1);
 
     if (urational || vrational)
     {
@@ -652,8 +652,8 @@ void Geom_BezierSurface::InsertPoleColAfter(const Standard_Integer    VIndex,
     throw Standard_ConstructionError();
   }
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, poles->ColLength(), 1, poles->RowLength() + 1);
+  Handle(PointGrid) npoles =
+    new PointGrid(1, poles->ColLength(), 1, poles->RowLength() + 1);
 
   Handle(TColStd_HArray2OfReal) nweights;
 
@@ -703,8 +703,8 @@ void Geom_BezierSurface::InsertPoleColAfter(const Standard_Integer      VIndex,
     Index++;
   }
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, poles->ColLength(), 1, poles->RowLength() + 1);
+  Handle(PointGrid) npoles =
+    new PointGrid(1, poles->ColLength(), 1, poles->RowLength() + 1);
 
   Handle(TColStd_HArray2OfReal) nweights =
     new TColStd_HArray2OfReal(1, poles->ColLength(), 1, poles->RowLength() + 1);
@@ -753,8 +753,8 @@ void Geom_BezierSurface::InsertPoleRowAfter(const Standard_Integer    UIndex,
     throw Standard_ConstructionError();
   }
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, poles->ColLength() + 1, 1, poles->RowLength());
+  Handle(PointGrid) npoles =
+    new PointGrid(1, poles->ColLength() + 1, 1, poles->RowLength());
 
   Handle(TColStd_HArray2OfReal) nweights;
 
@@ -804,8 +804,8 @@ void Geom_BezierSurface::InsertPoleRowAfter(const Standard_Integer      UIndex,
     Index++;
   }
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, poles->ColLength() + 1, 1, poles->RowLength());
+  Handle(PointGrid) npoles =
+    new PointGrid(1, poles->ColLength() + 1, 1, poles->RowLength());
 
   Handle(TColStd_HArray2OfReal) nweights =
     new TColStd_HArray2OfReal(1, poles->ColLength() + 1, 1, poles->RowLength());
@@ -851,8 +851,8 @@ void Geom_BezierSurface::RemovePoleCol(const Standard_Integer VIndex)
   if (Poles.RowLength() <= 2)
     throw Standard_ConstructionError();
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, poles->ColLength(), 1, poles->RowLength() - 1);
+  Handle(PointGrid) npoles =
+    new PointGrid(1, poles->ColLength(), 1, poles->RowLength() - 1);
 
   Handle(TColStd_HArray2OfReal) nweights;
 
@@ -886,8 +886,8 @@ void Geom_BezierSurface::RemovePoleRow(const Standard_Integer UIndex)
   if (Poles.ColLength() <= 2)
     throw Standard_ConstructionError();
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, poles->ColLength() - 1, 1, poles->RowLength());
+  Handle(PointGrid) npoles =
+    new PointGrid(1, poles->ColLength() - 1, 1, poles->RowLength());
 
   Handle(TColStd_HArray2OfReal) nweights;
 
@@ -920,12 +920,12 @@ void Geom_BezierSurface::Segment1(const Standard_Real U1,
                                  const Standard_Real V2)
 {
   Standard_Boolean              rat = (urational || vrational);
-  Handle(TColgp_HArray2OfPnt)   Coefs;
+  Handle(PointGrid)   Coefs;
   Handle(TColStd_HArray2OfReal) WCoefs;
 
   Standard_Integer aMinDegree = UDegree() <= VDegree() ? UDegree() : VDegree();
   Standard_Integer aMaxDegree = UDegree() > VDegree() ? UDegree() : VDegree();
-  Coefs                       = new TColgp_HArray2OfPnt(1, aMaxDegree + 1, 1, aMinDegree + 1);
+  Coefs                       = new PointGrid(1, aMaxDegree + 1, 1, aMinDegree + 1);
   if (rat)
     WCoefs = new TColStd_HArray2OfReal(1, aMaxDegree + 1, 1, aMinDegree + 1);
 
@@ -980,10 +980,10 @@ void Geom_BezierSurface::Segment1(const Standard_Real U1,
   // dans les coeffs, il faut donc tout transposer.
   if (UDegree() <= VDegree())
   {
-    Handle(TColgp_HArray2OfPnt)   coeffs  = Coefs;
+    Handle(PointGrid)   coeffs  = Coefs;
     Handle(TColStd_HArray2OfReal) wcoeffs = WCoefs;
     Standard_Integer              ii, jj;
-    Coefs = new (TColgp_HArray2OfPnt)(1, UDegree() + 1, 1, VDegree() + 1);
+    Coefs = new (PointGrid)(1, UDegree() + 1, 1, VDegree() + 1);
     if (rat)
     {
       WCoefs = new (TColStd_HArray2OfReal)(1, UDegree() + 1, 1, VDegree() + 1);
@@ -2043,7 +2043,7 @@ void Geom_BezierSurface::Resolution(const Standard_Real Tolerance3D,
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_BezierSurface::Copy() const
+Handle(Geometry3) Geom_BezierSurface::Copy() const
 {
   Handle(Geom_BezierSurface) S = new Geom_BezierSurface(poles, weights, urational, vrational);
   return S;
@@ -2051,7 +2051,7 @@ Handle(Geom_Geometry) Geom_BezierSurface::Copy() const
 
 //=================================================================================================
 
-void Geom_BezierSurface::Init(const Handle(TColgp_HArray2OfPnt)&   Poles,
+void Geom_BezierSurface::Init(const Handle(PointGrid)&   Poles,
                               const Handle(TColStd_HArray2OfReal)& Weights)
 {
   // set fields

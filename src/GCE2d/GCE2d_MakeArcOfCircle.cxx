@@ -30,7 +30,7 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Pnt2d& P1,
                                              const gp_Pnt2d& P2,
                                              const gp_Pnt2d& P3)
 {
-  gce_MakeCirc2d Cir = gce_MakeCirc2d(P1, P2, P3);
+  CircleBuilder2d Cir = CircleBuilder2d(P1, P2, P3);
   TheError           = Cir.Status();
   if (TheError == gce_Done)
   {
@@ -48,7 +48,7 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Pnt2d& P1,
 {
   Standard_Boolean Sense;
   gp_Circ2d        cir;
-  gp_Lin2d         corde = gce_MakeLin2d(P1, P2);
+  gp_Lin2d         corde = LineBuilder2d(P1, P2);
   gp_Dir2d         dir(corde.Direction());
   gp_Lin2d         bis(gp_Pnt2d((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2.),
                gp_Dir2d(-dir.Y(), dir.X()));
@@ -63,7 +63,7 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Pnt2d& P1,
     {
       gp_Pnt2d      center(Intp.Point(1).Value());
       Standard_Real rad = (center.Distance(P1) + center.Distance(P2)) / 2.;
-      cir               = gce_MakeCirc2d(center, rad);
+      cir               = CircleBuilder2d(center, rad);
       TheError          = gce_Done;
     }
   }

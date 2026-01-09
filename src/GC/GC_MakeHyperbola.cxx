@@ -45,7 +45,7 @@ GC_MakeHyperbola::GC_MakeHyperbola(const Frame3d&       A2,
 
 GC_MakeHyperbola::GC_MakeHyperbola(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
-  gce_MakeHypr H = gce_MakeHypr(S1, S2, Center);
+  HyperbolaBuilder1 H = HyperbolaBuilder1(S1, S2, Center);
   TheError       = H.Status();
   if (TheError == gce_Done)
   {

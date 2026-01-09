@@ -41,7 +41,7 @@ typedef gp_Vec2d            Vec2d;
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_TrimmedCurve::Copy() const
+Handle(Geometry2) Geom2d_TrimmedCurve::Copy() const
 {
   Handle(Geom2d_TrimmedCurve) Tc;
   Tc = new TrimmedCurve(basisCurve, uTrim1, uTrim2);

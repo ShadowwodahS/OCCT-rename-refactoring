@@ -28,8 +28,8 @@ class Frame3d;
 class Vector3d;
 class Transform3d;
 
-class Geom_Geometry;
-DEFINE_STANDARD_HANDLE(Geom_Geometry, RefObject)
+class Geometry3;
+DEFINE_STANDARD_HANDLE(Geometry3, RefObject)
 
 //! The abstract class Geometry1 for 3D space is the root
 //! class of all geometric objects from the Geom
@@ -48,7 +48,7 @@ DEFINE_STANDARD_HANDLE(Geom_Geometry, RefObject)
 //! abstract method Transform which is defined for each
 //! concrete type of derived object. All other
 //! transformations are implemented using the Transform method.
-class Geom_Geometry : public RefObject
+class Geometry3 : public RefObject
 {
 
 public:
@@ -87,33 +87,33 @@ public:
   //! (see class Transformation of the package Geom).
   Standard_EXPORT virtual void Transform(const Transform3d& T) = 0;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Mirrored(const Point3d& P) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Mirrored(const Point3d& P) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Mirrored(const Axis3d& A1) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Mirrored(const Axis3d& A1) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Mirrored(const Frame3d& A2) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Mirrored(const Frame3d& A2) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Rotated(const Axis3d&       A1,
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Rotated(const Axis3d&       A1,
                                                                    const Standard_Real Ang) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Scaled(const Point3d&       P,
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Scaled(const Point3d&       P,
                                                                   const Standard_Real S) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Transformed(const Transform3d& T) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Transformed(const Transform3d& T) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Translated(const Vector3d& V) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Translated(const Vector3d& V) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Geometry) Translated(const Point3d& P1,
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry3) Translated(const Point3d& P1,
                                                                       const Point3d& P2) const;
 
   //! Creates a new object which is a copy of this geometric object.
-  Standard_EXPORT virtual Handle(Geom_Geometry) Copy() const = 0;
+  Standard_EXPORT virtual Handle(Geometry3) Copy() const = 0;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Geometry, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Geometry3, RefObject)
 
 protected:
 private:

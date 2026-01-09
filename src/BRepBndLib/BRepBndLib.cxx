@@ -44,7 +44,7 @@
 #include <Extrema_ExtSS.hxx>
 #include <GeomAdaptor_Surface.hxx>
 //
-static Standard_Boolean CanUseEdges(const Adaptor3d_Surface& BS);
+static Standard_Boolean CanUseEdges(const SurfaceAdaptor& BS);
 //
 static void FindExactUVBounds(const TopoFace&  F,
                               Standard_Real&      umin,
@@ -429,7 +429,7 @@ void BRepBndLib1::AddOptimal(const TopoShape&    S,
 // purpose  : Define is it possible using only edges bnd boxes
 //           to get face bnd box
 //=======================================================================
-Standard_Boolean CanUseEdges(const Adaptor3d_Surface& BS)
+Standard_Boolean CanUseEdges(const SurfaceAdaptor& BS)
 {
   GeomAbs_SurfaceType aST = BS.GetType();
   if (aST == GeomAbs_Plane || aST == GeomAbs_Cylinder || aST == GeomAbs_Cone
@@ -439,7 +439,7 @@ Standard_Boolean CanUseEdges(const Adaptor3d_Surface& BS)
   }
   else if (aST == GeomAbs_SurfaceOfRevolution)
   {
-    const Handle(Adaptor3d_Curve)& aBC = BS.BasisCurve();
+    const Handle(Curve5)& aBC = BS.BasisCurve();
     if (aBC->GetType() == GeomAbs_Line)
     {
       return Standard_True;
@@ -451,7 +451,7 @@ Standard_Boolean CanUseEdges(const Adaptor3d_Surface& BS)
   }
   else if (aST == GeomAbs_OffsetSurface)
   {
-    const Handle(Adaptor3d_Surface)& aS = BS.BasisSurface();
+    const Handle(SurfaceAdaptor)& aS = BS.BasisSurface();
     return CanUseEdges(*aS);
   }
   else if (aST == GeomAbs_BSplineSurface)

@@ -67,7 +67,7 @@ struct DDSParser::DDSFileHeader
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) DDSParser::Load(
-  const Handle(Image_SupportedFormats)& theSupported,
+  const Handle(SupportedFormats)& theSupported,
   const AsciiString1&        theFile,
   const Standard_Integer                theFaceIndex,
   const int64_t                         theFileOffset)
@@ -136,7 +136,7 @@ Handle(Image_CompressedPixMap) DDSParser::Load(
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) DDSParser::Load(
-  const Handle(Image_SupportedFormats)& theSupported,
+  const Handle(SupportedFormats)& theSupported,
   const Handle(NCollection_Buffer)&     theBuffer,
   const Standard_Integer                theFaceIndex)
 {

@@ -16,7 +16,7 @@
 
 #include <Standard_Type.hxx>
 
-class Express_Type;
+class ExpressType;
 class TCollection_HAsciiString;
 class AsciiString1;
 
@@ -27,12 +27,12 @@ class Express_Field : public RefObject
 public:
   //! Create object and initialize it
   Standard_EXPORT Express_Field(const Standard_CString      theName,
-                                const Handle(Express_Type)& theType,
+                                const Handle(ExpressType)& theType,
                                 const Standard_Boolean      theOpt);
 
   //! Create object and initialize it
   Standard_EXPORT Express_Field(const Handle(TCollection_HAsciiString)& theName,
-                                const Handle(Express_Type)&             theType,
+                                const Handle(ExpressType)&             theType,
                                 const Standard_Boolean                  theOpt);
 
   //! Returns field name
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT Handle(TCollection_HAsciiString) HName() const;
 
   //! Returns field type
-  Standard_EXPORT const Handle(Express_Type)& Type() const;
+  Standard_EXPORT const Handle(ExpressType)& Type() const;
 
   //! Returns True if field is optional
   Standard_EXPORT Standard_Boolean IsOptional() const;
@@ -52,7 +52,7 @@ public:
 protected:
 private:
   Handle(TCollection_HAsciiString) myName;
-  Handle(Express_Type)             myType;
+  Handle(ExpressType)             myType;
   Standard_Boolean                 myOpt;
 };
 

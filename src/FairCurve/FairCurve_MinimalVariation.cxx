@@ -175,7 +175,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
   TColStd_Array1OfInteger       mults(1, 2);
   TColgp_Array1OfPnt2d          HermitePoles(1, L);
   TColgp_Array1OfPnt2d          Interpolation(1, L);
-  Handle(TColgp_HArray1OfPnt2d) NPoles = new TColgp_HArray1OfPnt2d(1, Poles->Length());
+  Handle(Point2dArray) NPoles = new Point2dArray(1, Poles->Length());
 
   // Polynomes of Hermite
   math_Matrix HermiteCoef(1, L, 1, L);
@@ -305,7 +305,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
   }
 
   // Energy and vectors of initialization
-  FairCurve_BattenLaw   LBatten(NewHeight, NewSlope, SlidingLength);
+  BattenLaw   LBatten(NewHeight, NewSlope, SlidingLength);
   FairCurve_EnergyOfMVC EMVC(Degree + 1,
                              Flatknots,
                              NPoles,
@@ -331,7 +331,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
   Ok = EMVC.Variable(VInit);
 
   // Minimisation
-  FairCurve_Newton Newton(EMVC,
+  NewtonSolver Newton(EMVC,
                           Tolerance * (P1P2.Magnitude() / 10),
                           Tolerance,
                           NbIterations,
@@ -461,7 +461,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
     }
 
     NewBS->InsertKnots(NKnots->Array1(), NMults->Array1(), 1.e-10);
-    Handle(TColgp_HArray1OfPnt2d) NewNPoles = new TColgp_HArray1OfPnt2d(1, NewBS->NbPoles());
+    Handle(Point2dArray) NewNPoles = new Point2dArray(1, NewBS->NbPoles());
     NewBS->Poles(NewNPoles->ChangeArray1());
     NewBS->Multiplicities(NMults->ChangeArray1());
     NewBS->Knots(NKnots->ChangeArray1());

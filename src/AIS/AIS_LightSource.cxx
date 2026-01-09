@@ -329,7 +329,7 @@ void AIS_LightSource::updateLightAspects()
 
 void AIS_LightSource::updateLightTransformPersistence()
 {
-  Handle(Graphic3d_TransformPers) aTrsfPers = myTransformPersistence;
+  Handle(TransformPers) aTrsfPers = myTransformPersistence;
   switch (myLightSource->Type())
   {
     case Graphic3d_TypeOfLightSource_Ambient: {
@@ -337,7 +337,7 @@ void AIS_LightSource::updateLightTransformPersistence()
       {
         if (aTrsfPers.IsNull() || !aTrsfPers->IsTrihedronOr2d())
         {
-          aTrsfPers = new Graphic3d_TransformPers(Graphic3d_TMF_TriedronPers,
+          aTrsfPers = new TransformPers(Graphic3d_TMF_TriedronPers,
                                                   Aspect_TOTP_LEFT_UPPER,
                                                   Graphic3d_Vec2i(50));
         }
@@ -361,12 +361,12 @@ void AIS_LightSource::updateLightTransformPersistence()
         {
           if (aMode == Graphic3d_TMF_CameraPers)
           {
-            aTrsfPers = new Graphic3d_TransformPers(Graphic3d_TMF_CameraPers);
+            aTrsfPers = new TransformPers(Graphic3d_TMF_CameraPers);
           }
           else
           {
             aTrsfPers =
-              new Graphic3d_TransformPers(aMode, Aspect_TOTP_LEFT_UPPER, Graphic3d_Vec2i(50));
+              new TransformPers(aMode, Aspect_TOTP_LEFT_UPPER, Graphic3d_Vec2i(50));
           }
         }
       }
@@ -388,11 +388,11 @@ void AIS_LightSource::updateLightTransformPersistence()
         {
           if (aMode == Graphic3d_TMF_CameraPers)
           {
-            aTrsfPers = new Graphic3d_TransformPers(Graphic3d_TMF_CameraPers);
+            aTrsfPers = new TransformPers(Graphic3d_TMF_CameraPers);
           }
           else
           {
-            aTrsfPers = new Graphic3d_TransformPers(aMode, myLightSource->Position1());
+            aTrsfPers = new TransformPers(aMode, myLightSource->Position1());
           }
         }
         if (aMode == Graphic3d_TMF_ZoomPers)
@@ -423,7 +423,7 @@ void AIS_LightSource::updateLightLocalTransformation()
       {
         Transform3d aTrsf;
         aTrsf.SetTranslation(gp1::Origin(), myLightSource->Position1());
-        myLocalTransformation = new TopLoc_Datum3D(aTrsf);
+        myLocalTransformation = new Datum3D2(aTrsf);
       }
       break;
     }
@@ -434,7 +434,7 @@ void AIS_LightSource::updateLightLocalTransformation()
       Transform3d      aTrsf;
       const Frame3d anAx2(aLightPos, -myLightSource->Direction());
       aTrsf.SetTransformation(anAx2, Ax3());
-      myLocalTransformation = new TopLoc_Datum3D(aTrsf);
+      myLocalTransformation = new Datum3D2(aTrsf);
       break;
     }
     case Graphic3d_TypeOfLightSource_Positional: {
@@ -442,7 +442,7 @@ void AIS_LightSource::updateLightLocalTransformation()
       {
         Transform3d aTrsf;
         aTrsf.SetTranslation(gp1::Origin(), myLightSource->Position1());
-        myLocalTransformation = new TopLoc_Datum3D(aTrsf);
+        myLocalTransformation = new Datum3D2(aTrsf);
       }
       break;
     }
@@ -451,7 +451,7 @@ void AIS_LightSource::updateLightLocalTransformation()
       const Frame3d anAx2(myIsZoomable ? myLightSource->Position1() : gp1::Origin(),
                          -myLightSource->Direction());
       aTrsf.SetTransformation(anAx2, Ax3());
-      myLocalTransformation = new TopLoc_Datum3D(aTrsf);
+      myLocalTransformation = new Datum3D2(aTrsf);
       break;
     }
   }
@@ -460,7 +460,7 @@ void AIS_LightSource::updateLightLocalTransformation()
 
 //=================================================================================================
 
-void AIS_LightSource::setLocalTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
+void AIS_LightSource::setLocalTransformation(const Handle(Datum3D2)& theTrsf)
 {
   const Transform3d aTrsf = !theTrsf.IsNull() ? theTrsf->Transformation() : Transform3d();
   switch (myLightSource->Type())
@@ -493,7 +493,7 @@ void AIS_LightSource::setLocalTransformation(const Handle(TopLoc_Datum3D)& theTr
     }
   }
 
-  base_type::setLocalTransformation(new TopLoc_Datum3D(aTrsf));
+  base_type::setLocalTransformation(new Datum3D2(aTrsf));
 
   updateLightAspects();
   updateLightTransformPersistence();

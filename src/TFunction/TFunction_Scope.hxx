@@ -27,7 +27,7 @@
 class DataLabel;
 class Standard_GUID;
 class TFunction_Logbook;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TFunction_Scope;
 DEFINE_STANDARD_HANDLE(TFunction_Scope, TDF_Attribute)
@@ -75,7 +75,7 @@ public:
   //! Returns the label of the function with this ID.
   Standard_EXPORT const DataLabel& GetFunction(const Standard_Integer ID) const;
 
-  //! Returns the Logbook used in TFunction_Driver methods.
+  //! Returns the Logbook used in FunctionDriver1 methods.
   //! Implementation of Attribute methods
   //! ===================================
   Standard_EXPORT Handle(TFunction_Logbook) GetLogbook() const;
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT virtual void Restore(const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       into,
-                                     const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                                     const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 

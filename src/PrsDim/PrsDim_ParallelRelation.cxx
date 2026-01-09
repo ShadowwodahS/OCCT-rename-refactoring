@@ -114,11 +114,11 @@ void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectionContainer)&
 
   if (!Proj1.IsEqual(Proj2, Precision1::Confusion()))
   {
-    L3 = gce_MakeLin(Proj1, Proj2);
+    L3 = LineBuilder(Proj1, Proj2);
   }
   else
   {
-    L3 = gce_MakeLin(Proj1, myDirAttach);
+    L3 = LineBuilder(Proj1, myDirAttach);
     Standard_Real                 size(Min(myVal / 100. + 1.e-6, myArrowSize + 1.e-6));
     Handle(Select3D_SensitiveBox) box = new Select3D_SensitiveBox(own,
                                                                   myPosition.X(),

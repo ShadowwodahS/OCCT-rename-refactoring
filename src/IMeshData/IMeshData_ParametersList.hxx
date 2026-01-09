@@ -20,11 +20,11 @@
 #include <Standard_Type.hxx>
 
 //! Interface class representing list of parameters on curve.
-class IMeshData_ParametersList : public RefObject
+class ParametersList : public RefObject
 {
 public:
   //! Destructor.
-  virtual ~IMeshData_ParametersList() {}
+  virtual ~ParametersList() {}
 
   //! Returns parameter with the given index.
   Standard_EXPORT virtual Standard_Real& GetParameter(const Standard_Integer theIndex) = 0;
@@ -35,11 +35,11 @@ public:
   //! Clears parameters list.
   Standard_EXPORT virtual void Clear(const Standard_Boolean isKeepEndPoints) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshData_ParametersList, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ParametersList, RefObject)
 
 protected:
   //! Constructor.
-  IMeshData_ParametersList() {}
+  ParametersList() {}
 
   //! Removes parameter with the given index.
   Standard_EXPORT virtual void removeParameter(const Standard_Integer theIndex) = 0;

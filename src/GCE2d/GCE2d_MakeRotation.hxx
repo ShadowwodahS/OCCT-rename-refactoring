@@ -22,11 +22,11 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class Geom2d_Transformation;
+class Transformation2d;
 class gp_Pnt2d;
 
 //! This class implements an elementary construction algorithm for
-//! a rotation in 2D space. The result is a Geom2d_Transformation transformation.
+//! a rotation in 2D space. The result is a Transformation2d transformation.
 //! A MakeRotation object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -40,13 +40,13 @@ public:
   Standard_EXPORT GCE2d_MakeRotation(const gp_Pnt2d& Point, const Standard_Real Angle);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom2d_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation2d)& Value() const;
 
-  operator const Handle(Geom2d_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation2d) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom2d_Transformation) TheRotation;
+  Handle(Transformation2d) TheRotation;
 };
 
 #endif // _GCE2d_MakeRotation_HeaderFile

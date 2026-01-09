@@ -1117,7 +1117,7 @@ Handle(TColStd_HArray2OfReal) AdvApp2Var_Patch::IsoErrors() const
 // purpose  : returns poles of the polynomial approximation
 //============================================================================
 
-Handle(TColgp_HArray2OfPnt) AdvApp2Var_Patch::Poles(const Standard_Integer    SSPIndex,
+Handle(PointGrid) AdvApp2Var_Patch::Poles(const Standard_Integer    SSPIndex,
                                                     const AdvApp2Var_Context& Cond) const
 {
   Handle(TColStd_HArray1OfReal) SousEquation;

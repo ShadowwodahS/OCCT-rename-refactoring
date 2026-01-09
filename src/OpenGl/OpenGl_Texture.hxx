@@ -40,7 +40,7 @@ public:
   //! Create uninitialized texture.
   Standard_EXPORT OpenGl_Texture(
     const AsciiString1&         theResourceId = AsciiString1(),
-    const Handle(Graphic3d_TextureParams)& theParams     = Handle(Graphic3d_TextureParams)());
+    const Handle(TextureParams)& theParams     = Handle(TextureParams)());
 
   //! Destroy object.
   Standard_EXPORT virtual ~OpenGl_Texture();

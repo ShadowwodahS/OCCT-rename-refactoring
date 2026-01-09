@@ -14,7 +14,7 @@
 
 #include <StdFail_NotDone.hxx>
 
-inline Standard_Boolean BissecNewtonSolver::IsSolutionReached(math_FunctionWithDerivative&)
+inline Standard_Boolean BissecNewtonSolver::IsSolutionReached(FunctionWithDerivative&)
 {
   return Abs(dx) <= XTol;
 }

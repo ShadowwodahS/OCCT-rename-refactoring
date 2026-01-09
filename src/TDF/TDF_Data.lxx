@@ -19,42 +19,42 @@
 // Version	Date		Purpose
 //		0.0	Feb  6 1997	Creation
 
-inline Standard_Integer TDF_Data::Transaction() const
+inline Standard_Integer Data2::Transaction() const
 {
   return myTransaction;
 }
 
-inline const DataLabel TDF_Data::Root() const
+inline const DataLabel Data2::Root() const
 {
   return DataLabel(myRoot);
 }
 
-inline Standard_Integer TDF_Data::Time() const
+inline Standard_Integer Data2::Time() const
 {
   return myTime;
 }
 
-inline Standard_Boolean TDF_Data::NotUndoMode() const
+inline Standard_Boolean Data2::NotUndoMode() const
 {
   return myNotUndoMode;
 }
 
-inline Standard_OStream& operator<<(Standard_OStream& anOS, const Handle(TDF_Data)& aDF)
+inline Standard_OStream& operator<<(Standard_OStream& anOS, const Handle(Data2)& aDF)
 {
   return aDF->Dump(anOS);
 }
 
-inline void TDF_Data::AllowModification(const Standard_Boolean theAllowModification)
+inline void Data2::AllowModification(const Standard_Boolean theAllowModification)
 {
   myAllowModification = theAllowModification;
 }
 
-inline Standard_Boolean TDF_Data::IsModificationAllowed() const
+inline Standard_Boolean Data2::IsModificationAllowed() const
 {
   return myAllowModification;
 }
 
-inline const Handle(NCollection_BaseAllocator)& TDF_Data::LabelNodeAllocator() const
+inline const Handle(NCollection_BaseAllocator)& Data2::LabelNodeAllocator() const
 {
   return myLabelNodeAllocator;
 }

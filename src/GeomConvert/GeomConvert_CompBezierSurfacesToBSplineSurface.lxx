@@ -46,7 +46,7 @@ inline Standard_Integer GeomConvert_CompBezierSurfacesToBSplineSurface::NbVPoles
 }
 
 // ================================================================================
-inline const Handle(TColgp_HArray2OfPnt)& GeomConvert_CompBezierSurfacesToBSplineSurface::Poles()
+inline const Handle(PointGrid)& GeomConvert_CompBezierSurfacesToBSplineSurface::Poles()
   const
 // ================================================================================
 {

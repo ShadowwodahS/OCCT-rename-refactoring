@@ -24,13 +24,13 @@
 
 //! Extension of TColStd_DataMapOfStringInteger class
 //! to be manipulated by handle.
-class TDataStd_HDataMapOfStringInteger : public RefObject
+class StringIntegerMap : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringInteger, RefObject)
+  DEFINE_STANDARD_RTTIEXT(StringIntegerMap, RefObject)
 public:
-  Standard_EXPORT TDataStd_HDataMapOfStringInteger(const Standard_Integer NbBuckets = 1);
+  Standard_EXPORT StringIntegerMap(const Standard_Integer NbBuckets = 1);
 
-  Standard_EXPORT TDataStd_HDataMapOfStringInteger(const TColStd_DataMapOfStringInteger& theOther);
+  Standard_EXPORT StringIntegerMap(const TColStd_DataMapOfStringInteger& theOther);
 
   const TColStd_DataMapOfStringInteger& Map() const { return myMap; }
 
@@ -40,6 +40,6 @@ private:
   TColStd_DataMapOfStringInteger myMap;
 };
 
-DEFINE_STANDARD_HANDLE(TDataStd_HDataMapOfStringInteger, RefObject)
+DEFINE_STANDARD_HANDLE(StringIntegerMap, RefObject)
 
 #endif // _TDataStd_HDataMapOfStringInteger_HeaderFile

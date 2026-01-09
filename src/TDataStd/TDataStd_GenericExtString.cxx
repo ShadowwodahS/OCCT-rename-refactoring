@@ -64,7 +64,7 @@ void TDataStd_GenericExtString::Restore(const Handle(TDF_Attribute)& with)
 //=================================================================================================
 
 void TDataStd_GenericExtString::Paste(const Handle(TDF_Attribute)& into,
-                                      const Handle(TDF_RelocationTable)& /* RT*/) const
+                                      const Handle(RelocationTable1)& /* RT*/) const
 {
   Handle(TDataStd_GenericExtString) anAtt = Handle(TDataStd_GenericExtString)::DownCast(into);
   anAtt->Set(myString);

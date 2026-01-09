@@ -27,7 +27,7 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(LocOpe_GluedShape, LocOpe_GeneratedShape)
+IMPLEMENT_STANDARD_RTTIEXT(LocOpe_GluedShape, GeneratedShape)
 
 //=================================================================================================
 

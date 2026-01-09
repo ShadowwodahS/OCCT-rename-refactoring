@@ -40,8 +40,8 @@ public:
                                    HLRAlgo_Array1OfPISeg& thePISeg,
                                    HLRAlgo_Array1OfPINod& thePINod);
 
-  Standard_EXPORT Standard_Integer AddNode(HLRAlgo_PolyInternalNode::NodeData1& theNod1RValues,
-                                           HLRAlgo_PolyInternalNode::NodeData1& theNod2RValues,
+  Standard_EXPORT Standard_Integer AddNode(PolyInternalNode::NodeData1& theNod1RValues,
+                                           PolyInternalNode::NodeData1& theNod2RValues,
                                            HLRAlgo_Array1OfPINod*&             thePINod1,
                                            HLRAlgo_Array1OfPINod*&             thePINod2,
                                            const Standard_Real                 theCoef1,
@@ -105,9 +105,9 @@ private:
   Standard_Integer               myMxPINod;
   Standard_Boolean               myIntOutL;
   Standard_Boolean               myPlanar;
-  Handle(HLRAlgo_HArray1OfTData) myTData;
-  Handle(HLRAlgo_HArray1OfPISeg) myPISeg;
-  Handle(HLRAlgo_HArray1OfPINod) myPINod;
+  Handle(HandleTDataArray) myTData;
+  Handle(HandlePISegArray) myPISeg;
+  Handle(HandlePINodArray) myPINod;
 };
 
 #include <HLRAlgo_PolyInternalData.lxx>

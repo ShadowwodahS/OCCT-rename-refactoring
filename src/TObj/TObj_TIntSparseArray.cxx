@@ -95,7 +95,7 @@ void TObj_TIntSparseArray::SetValue(const Standard_Size theId, const Standard_In
   DataLabel aLabel = Label();
   if (!aLabel.IsNull())
   {
-    Handle(TDF_Data) aData               = aLabel.Data();
+    Handle(Data2) aData               = aLabel.Data();
     Standard_Integer aCurrentTransaction = aData->Transaction();
     Standard_Integer aMyTransaction      = Transaction();
 
@@ -130,7 +130,7 @@ void TObj_TIntSparseArray::UnsetValue(const Standard_Size theId)
   DataLabel aLabel = Label();
   if (!aLabel.IsNull())
   {
-    Handle(TDF_Data) aData               = aLabel.Data();
+    Handle(Data2) aData               = aLabel.Data();
     Standard_Integer aCurrentTransaction = aData->Transaction();
     Standard_Integer aMyTransaction      = Transaction();
 
@@ -147,7 +147,7 @@ void TObj_TIntSparseArray::Clear()
   DataLabel aLabel = Label();
   if (!aLabel.IsNull())
   {
-    Handle(TDF_Data) aData               = aLabel.Data();
+    Handle(Data2) aData               = aLabel.Data();
     Standard_Integer aCurrentTransaction = aData->Transaction();
     Standard_Integer aMyTransaction      = Transaction();
 
@@ -236,7 +236,7 @@ void TObj_TIntSparseArray::Restore(const Handle(TDF_Attribute)& theDelta)
 //=================================================================================================
 
 void TObj_TIntSparseArray::Paste(const Handle(TDF_Attribute)& theInto,
-                                 const Handle(TDF_RelocationTable)&) const
+                                 const Handle(RelocationTable1)&) const
 {
   Handle(TObj_TIntSparseArray) aInto = Handle(TObj_TIntSparseArray)::DownCast(theInto);
   if (aInto.IsNull())
@@ -273,7 +273,7 @@ void TObj_TIntSparseArray::DeltaOnModification(const Handle(TDF_DeltaOnModificat
 
 //=======================================================================
 // function : AfterUndo
-// purpose  : After application of a TDF_Delta.
+// purpose  : After application of a Delta.
 //=======================================================================
 
 Standard_Boolean TObj_TIntSparseArray::AfterUndo(const Handle(TDF_AttributeDelta)&,

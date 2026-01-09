@@ -101,11 +101,11 @@ protected:
 };
 
 //! Temporary data frame definition.
-class Graphic3d_FrameStatsDataTmp : public FrameStatsData
+class FrameStatsDataTmp : public FrameStatsData
 {
 public:
   //! Empty constructor.
-  Standard_EXPORT Graphic3d_FrameStatsDataTmp();
+  Standard_EXPORT FrameStatsDataTmp();
 
   //! Compute average data considering the amount of rendered frames.
   Standard_EXPORT void FlushTimers(Standard_Size theNbFrames, bool theIsFinal);

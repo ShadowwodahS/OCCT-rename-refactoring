@@ -58,8 +58,8 @@ public:
     void Import(const Handle(ShapeAttribute)& theAttribute) const;
 
   private:
-    Handle(StdPersistent_HArray1::Shape1) myOldShapes;
-    Handle(StdPersistent_HArray1::Shape1) myNewShapes;
+    Handle(HArray12::Shape1) myOldShapes;
+    Handle(HArray12::Shape1) myNewShapes;
     Standard_Integer                      myShapeStatus;
     Standard_Integer                      myVersion;
   };
@@ -85,7 +85,7 @@ public:
     inline Standard_CString PName() const { return "PNaming_Name"; }
 
     //! Import transient object from the persistent data.
-    Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(TDF_Data)& theDF) const;
+    Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(Data2)& theDF) const;
 
   private:
     Standard_Integer                           myType;
@@ -115,7 +115,7 @@ public:
     inline Standard_CString PName() const { return "PNaming_Name_1"; }
 
     //! Import transient object from the persistent data.
-    Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(TDF_Data)& theDF) const;
+    Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(Data2)& theDF) const;
 
   private:
     Handle(HString::Ascii1) myContextLabel;
@@ -139,7 +139,7 @@ public:
     inline Standard_CString PName() const { return "PNaming_Name_2"; }
 
     //! Import transient object from the persistent data.
-    Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(TDF_Data)& theDF) const;
+    Standard_EXPORT virtual void Import(TNaming_Name& theName, const Handle(Data2)& theDF) const;
 
   private:
     Standard_Integer myOrientation;
@@ -152,7 +152,7 @@ public:
     Standard_EXPORT virtual void ImportAttribute();
   };
 
-  class Naming_1 : public Naming1
+  class Naming_11 : public Naming1
   {
   public:
     //! Import transient attribute from the persistent data.

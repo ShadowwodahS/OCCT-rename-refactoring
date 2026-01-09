@@ -15,7 +15,7 @@
 
 #include <Graphic3d_ShaderVariable.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderVariable, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShaderVariable1, RefObject)
 
 // Specific instantiations of struct templates to avoid compilation warnings
 template struct Graphic3d_UniformValue<Standard_Integer>;
@@ -37,10 +37,10 @@ ValueInterface::~ValueInterface()
 }
 
 // =======================================================================
-// function : Graphic3d_ShaderVariable
+// function : ShaderVariable1
 // purpose  : Creates new abstract shader variable
 // =======================================================================
-Graphic3d_ShaderVariable::Graphic3d_ShaderVariable(const AsciiString1& theName)
+ShaderVariable1::ShaderVariable1(const AsciiString1& theName)
     : myName(theName),
       myValue(NULL)
 {
@@ -51,7 +51,7 @@ Graphic3d_ShaderVariable::Graphic3d_ShaderVariable(const AsciiString1& theName)
 // function : ~Graphic3d_ShaderVariableBase
 // purpose  : Releases resources of shader variable
 // =======================================================================
-Graphic3d_ShaderVariable::~Graphic3d_ShaderVariable()
+ShaderVariable1::~ShaderVariable1()
 {
   delete myValue;
 }
@@ -60,7 +60,7 @@ Graphic3d_ShaderVariable::~Graphic3d_ShaderVariable()
 // function : IsDone
 // purpose  : Checks if the shader variable is valid or not
 // =======================================================================
-Standard_Boolean Graphic3d_ShaderVariable::IsDone() const
+Standard_Boolean ShaderVariable1::IsDone() const
 {
   return !myName.IsEmpty() && (myValue != NULL);
 }
@@ -69,7 +69,7 @@ Standard_Boolean Graphic3d_ShaderVariable::IsDone() const
 // function : Name
 // purpose  : Returns name of shader variable
 // =======================================================================
-const AsciiString1& Graphic3d_ShaderVariable::Name() const
+const AsciiString1& ShaderVariable1::Name() const
 {
   return myName;
 }
@@ -78,7 +78,7 @@ const AsciiString1& Graphic3d_ShaderVariable::Name() const
 // function : Value
 // purpose  : Returns interface of shader variable value
 // =======================================================================
-ValueInterface* Graphic3d_ShaderVariable::Value()
+ValueInterface* ShaderVariable1::Value()
 {
   return myValue;
 }

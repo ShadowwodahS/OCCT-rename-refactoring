@@ -284,10 +284,10 @@ Standard_Boolean GlobOptMin::computeLocalExtremum(const math_Vector& thePnt,
   }
 
   // BFGS method used.
-  if (myCont >= 1 && dynamic_cast<math_MultipleVarFunctionWithGradient*>(myFunc))
+  if (myCont >= 1 && dynamic_cast<MultiVarFunctionWithGradient*>(myFunc))
   {
-    math_MultipleVarFunctionWithGradient* aTmp =
-      dynamic_cast<math_MultipleVarFunctionWithGradient*>(myFunc);
+    MultiVarFunctionWithGradient* aTmp =
+      dynamic_cast<MultiVarFunctionWithGradient*>(myFunc);
     BFGSOptimizer bfgs(aTmp->NbVariables());
     bfgs.SetBoundary(myGlobA, myGlobB);
     bfgs.Perform(*aTmp, thePnt);

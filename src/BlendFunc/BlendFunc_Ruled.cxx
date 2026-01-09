@@ -28,9 +28,9 @@
 #include <Standard_DomainError.hxx>
 #include <Standard_NotImplemented.hxx>
 
-BlendFunc_Ruled::BlendFunc_Ruled(const Handle(Adaptor3d_Surface)& S1,
-                                 const Handle(Adaptor3d_Surface)& S2,
-                                 const Handle(Adaptor3d_Curve)&   C)
+BlendFunc_Ruled::BlendFunc_Ruled(const Handle(SurfaceAdaptor)& S1,
+                                 const Handle(SurfaceAdaptor)& S2,
+                                 const Handle(Curve5)&   C)
     :
 
       surf1(S1),

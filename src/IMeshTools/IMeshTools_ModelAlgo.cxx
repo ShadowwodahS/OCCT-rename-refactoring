@@ -15,4 +15,4 @@
 
 #include <IMeshTools_ModelAlgo.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshTools_ModelAlgo, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ModelAlgorithm, RefObject)

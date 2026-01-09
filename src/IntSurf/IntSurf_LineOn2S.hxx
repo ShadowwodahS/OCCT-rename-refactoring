@@ -28,14 +28,14 @@
 #include <Standard_Real.hxx>
 class PointOn2Surfaces;
 
-class IntSurf_LineOn2S;
-DEFINE_STANDARD_HANDLE(IntSurf_LineOn2S, RefObject)
+class LineOnTwoSurfaces;
+DEFINE_STANDARD_HANDLE(LineOnTwoSurfaces, RefObject)
 
-class IntSurf_LineOn2S : public RefObject
+class LineOnTwoSurfaces : public RefObject
 {
 
 public:
-  Standard_EXPORT IntSurf_LineOn2S(const IntSurf_Allocator& theAllocator = 0);
+  Standard_EXPORT LineOnTwoSurfaces(const IntSurf_Allocator& theAllocator = 0);
 
   //! Adds a point in the line.
   Standard_EXPORT void Add(const PointOn2Surfaces& P);
@@ -51,7 +51,7 @@ public:
 
   //! Keeps in <me> the points 1 to Index-1, and returns
   //! the items Index to the end.
-  Standard_EXPORT Handle(IntSurf_LineOn2S) Split(const Standard_Integer Index);
+  Standard_EXPORT Handle(LineOnTwoSurfaces) Split(const Standard_Integer Index);
 
   //! Replaces the point of range Index in the line.
   void Value(const Standard_Integer Index, const PointOn2Surfaces& P);
@@ -83,7 +83,7 @@ public:
   //! Returns TRUE if theP is out of the box built from 3D-points.
   Standard_EXPORT Standard_Boolean IsOutBox(const Point3d& theP);
 
-  DEFINE_STANDARD_RTTIEXT(IntSurf_LineOn2S, RefObject)
+  DEFINE_STANDARD_RTTIEXT(LineOnTwoSurfaces, RefObject)
 
 protected:
 private:

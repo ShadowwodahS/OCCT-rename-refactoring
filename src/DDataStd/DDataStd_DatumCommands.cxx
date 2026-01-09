@@ -54,7 +54,7 @@ static Standard_Integer DDataStd_SetPoint(DrawInterpreter& di,
   if (nb < 3)
     return 1;
   DataLabel        L;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DDF1::AddLabel(DF, arg[2], L);
@@ -91,7 +91,7 @@ static Standard_Integer DDataStd_SetAxis(DrawInterpreter& di,
   if (nb < 3)
     return 1;
   DataLabel        L;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DDF1::AddLabel(DF, arg[2], L);
@@ -125,7 +125,7 @@ static Standard_Integer DDataStd_SetPlane(DrawInterpreter& di,
   if (nb < 3)
     return 1;
   DataLabel        L;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DDF1::AddLabel(DF, arg[2], L);
@@ -156,7 +156,7 @@ static Standard_Integer DDataStd_GetPoint(DrawInterpreter&, Standard_Integer nb,
 {
   if (nb < 3)
     return 1;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Point) A;
@@ -183,7 +183,7 @@ static Standard_Integer DDataStd_GetAxis(DrawInterpreter&, Standard_Integer nb, 
 {
   if (nb < 3)
     return 1;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Axis) A;
@@ -211,7 +211,7 @@ static Standard_Integer DDataStd_GetPlane(DrawInterpreter&, Standard_Integer nb,
 {
   if (nb < 3)
     return 1;
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Plane) A;
@@ -241,7 +241,7 @@ static Standard_Integer DDataStd_SetGeometry(DrawInterpreter& di,
   if (nb < 3)
     return 1;
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
@@ -314,7 +314,7 @@ static Standard_Integer DDataStd_GetGeometryType(DrawInterpreter& di,
   if (nb != 3)
     return 1;
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
 

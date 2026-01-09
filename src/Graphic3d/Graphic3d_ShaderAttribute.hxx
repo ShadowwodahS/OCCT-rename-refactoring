@@ -21,15 +21,15 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Describes custom vertex shader attribute.
-class Graphic3d_ShaderAttribute : public RefObject
+class ShaderAttribute : public RefObject
 {
 public:
   //! Creates new attribute.
-  Standard_EXPORT Graphic3d_ShaderAttribute(const AsciiString1& theName,
+  Standard_EXPORT ShaderAttribute(const AsciiString1& theName,
                                             const int                      theLocation);
 
   //! Destructor.
-  Standard_EXPORT virtual ~Graphic3d_ShaderAttribute();
+  Standard_EXPORT virtual ~ShaderAttribute();
 
   //! Returns name of shader variable.
   const AsciiString1& Name() const { return myName; }
@@ -42,9 +42,9 @@ protected:
   int                     myLocation; //!< attribute location
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShaderAttribute, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderAttribute, RefObject)
+DEFINE_STANDARD_HANDLE(ShaderAttribute, RefObject)
 
 #endif // _Graphic3d_ShaderAttribute_HeaderFile

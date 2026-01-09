@@ -44,7 +44,7 @@ inline void TopLoc_Location::Identity()
 // purpose  :
 //=======================================================================
 
-inline const Handle(TopLoc_Datum3D)& TopLoc_Location::FirstDatum() const
+inline const Handle(Datum3D2)& TopLoc_Location::FirstDatum() const
 {
   return myItems.Value().myDatum;
 }
@@ -85,7 +85,7 @@ inline size_t TopLoc_Location::HashCode() const
   size_t                     aCombined[3];
   while (items.More())
   {
-    aCombined[0] = std::hash<Handle(TopLoc_Datum3D)>{}(items.Value().myDatum);
+    aCombined[0] = std::hash<Handle(Datum3D2)>{}(items.Value().myDatum);
     aCombined[1] = opencascade::hash(items.Value().myPower);
     aCombined[2] = aHash;
     aHash        = opencascade::hashBytes(aCombined, sizeof(aCombined));

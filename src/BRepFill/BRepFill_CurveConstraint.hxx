@@ -48,7 +48,7 @@ public:
                                            const Standard_Real                     TolAng  = 0.01,
                                            const Standard_Real                     TolCurv = 0.1);
 
-  Standard_EXPORT BRepFill_CurveConstraint(const Handle(Adaptor3d_Curve)& Boundary,
+  Standard_EXPORT BRepFill_CurveConstraint(const Handle(Curve5)& Boundary,
                                            const Standard_Integer         Tang,
                                            const Standard_Integer         NPt     = 10,
                                            const Standard_Real            TolDist = 0.0001);

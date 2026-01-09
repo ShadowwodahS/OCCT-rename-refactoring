@@ -30,7 +30,7 @@
 class VisualEntity;
 class Standard_GUID;
 class DataLabel;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_AttributeDelta;
 
 class TPrsStd_AISPresentation;
@@ -175,7 +175,7 @@ public:
   Standard_EXPORT void Restore(const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(TDF_Attribute) BackupCopy() const Standard_OVERRIDE;
 

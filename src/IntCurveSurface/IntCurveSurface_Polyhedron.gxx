@@ -375,7 +375,7 @@ const Box2& IntCurveSurface_Polyhedron::Bounding() const
 //=======================================================================
 void IntCurveSurface_Polyhedron::FillBounding()
 {
-  TheComponentsBnd=new Bnd_HArray1OfBox(1, NbTriangles());
+  TheComponentsBnd=new BoxArray(1, NbTriangles());
   Box2 Boite;
   Standard_Integer np1, np2, np3;
   Standard_Integer nbtriangles = NbTriangles();
@@ -403,7 +403,7 @@ void IntCurveSurface_Polyhedron::FillBounding()
 //function : ComponentsBounding
 //purpose  : 
 //=======================================================================
-const Handle(Bnd_HArray1OfBox)& 
+const Handle(BoxArray)& 
       IntCurveSurface_Polyhedron::ComponentsBounding() const
 {
  return TheComponentsBnd;

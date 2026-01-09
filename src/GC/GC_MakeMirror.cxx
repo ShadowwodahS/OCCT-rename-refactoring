@@ -26,7 +26,7 @@
 //=========================================================================
 GC_MakeMirror::GC_MakeMirror(const Point3d& Point)
 {
-  TheMirror = new Geom_Transformation();
+  TheMirror = new Transformation1();
   TheMirror->SetMirror(Point);
 }
 
@@ -36,7 +36,7 @@ GC_MakeMirror::GC_MakeMirror(const Point3d& Point)
 
 GC_MakeMirror::GC_MakeMirror(const Axis3d& Axis)
 {
-  TheMirror = new Geom_Transformation();
+  TheMirror = new Transformation1();
   TheMirror->SetMirror(Axis);
 }
 
@@ -46,7 +46,7 @@ GC_MakeMirror::GC_MakeMirror(const Axis3d& Axis)
 
 GC_MakeMirror::GC_MakeMirror(const gp_Lin& Line)
 {
-  TheMirror = new Geom_Transformation();
+  TheMirror = new Transformation1();
   TheMirror->SetMirror(Axis3d(Line.Location(), Line.Direction()));
 }
 
@@ -57,7 +57,7 @@ GC_MakeMirror::GC_MakeMirror(const gp_Lin& Line)
 
 GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const Dir3d& Direc)
 {
-  TheMirror = new Geom_Transformation();
+  TheMirror = new Transformation1();
   TheMirror->SetMirror(Axis3d(Point, Direc));
 }
 
@@ -68,7 +68,7 @@ GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const Dir3d& Direc)
 
 GC_MakeMirror::GC_MakeMirror(const Frame3d& Plane1)
 {
-  TheMirror = new Geom_Transformation();
+  TheMirror = new Transformation1();
   TheMirror->SetMirror(Plane1);
 }
 
@@ -78,11 +78,11 @@ GC_MakeMirror::GC_MakeMirror(const Frame3d& Plane1)
 
 GC_MakeMirror::GC_MakeMirror(const gp_Pln& Plane1)
 {
-  TheMirror = new Geom_Transformation();
+  TheMirror = new Transformation1();
   TheMirror->SetMirror(Plane1.Position1().Ax2());
 }
 
-const Handle(Geom_Transformation)& GC_MakeMirror::Value() const
+const Handle(Transformation1)& GC_MakeMirror::Value() const
 {
   return TheMirror;
 }

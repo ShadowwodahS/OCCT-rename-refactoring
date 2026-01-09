@@ -32,7 +32,7 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BiTgte_CurveOnVertex, Adaptor3d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(BiTgte_CurveOnVertex, Curve5)
 
 //=================================================================================================
 
@@ -97,7 +97,7 @@ void BiTgte_CurveOnVertex::Intervals(TColStd_Array1OfReal&, const GeomAbs_Shape)
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) BiTgte_CurveOnVertex::Trim(const Standard_Real,
+Handle(Curve5) BiTgte_CurveOnVertex::Trim(const Standard_Real,
                                                    const Standard_Real,
                                                    const Standard_Real) const
 {

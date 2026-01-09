@@ -20,7 +20,7 @@
 #include <Law_Linear.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_Linear, Law_Function)
+IMPLEMENT_STANDARD_RTTIEXT(Law_Linear, Function2)
 
 Law_Linear::Law_Linear()
     : valdeb(0.0),
@@ -86,7 +86,7 @@ void Law_Linear::D2(const Standard_Real X, Standard_Real& F, Standard_Real& D, S
 
 //=================================================================================================
 
-Handle(Law_Function) Law_Linear::Trim(const Standard_Real PFirst,
+Handle(Function2) Law_Linear::Trim(const Standard_Real PFirst,
                                       const Standard_Real PLast,
                                       //				      const Standard_Real Tol) const
                                       const Standard_Real) const

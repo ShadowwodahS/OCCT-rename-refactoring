@@ -25,7 +25,7 @@
 #include <TDF_LabelMap.hxx>
 #include <TDF_AttributeMap.hxx>
 class TDF_DataSet;
-class TDF_RelocationTable;
+class RelocationTable1;
 class IDFilter;
 class DataLabel;
 
@@ -73,14 +73,14 @@ public:
   //! <aRelocationTable>. This  method ignores   target
   //! attributes privilege over source ones.
   Standard_EXPORT static void Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
-                                   const Handle(TDF_RelocationTable)& aRelocationTable);
+                                   const Handle(RelocationTable1)& aRelocationTable);
 
   //! Copy  <aSourceDataSet>  using      and updating
   //! <aRelocationTable>. Use <aPrivilegeFilter> to give
   //! a list  of   IDs for which  the target  attribute
   //! prevails over the source one.
   Standard_EXPORT static void Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
-                                   const Handle(TDF_RelocationTable)& aRelocationTable,
+                                   const Handle(RelocationTable1)& aRelocationTable,
                                    const IDFilter&                aPrivilegeFilter);
 
   //! Copy    <aSourceDataSet>   using and    updating
@@ -95,7 +95,7 @@ public:
   //! <setSelfContained> is true.
   //! Internal root label copy recursive method.
   Standard_EXPORT static void Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
-                                   const Handle(TDF_RelocationTable)& aRelocationTable,
+                                   const Handle(RelocationTable1)& aRelocationTable,
                                    const IDFilter&                aPrivilegeFilter,
                                    const IDFilter&                aRefFilter,
                                    const Standard_Boolean             setSelfContained);

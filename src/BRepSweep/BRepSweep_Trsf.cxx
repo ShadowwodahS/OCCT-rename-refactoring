@@ -47,7 +47,7 @@ void BRepSweep_Trsf::Init()
 {
   if (!myCopy)
   {
-    Sweep_NumShapeIterator It;
+    NumShapeIterator It;
     for (It.Init(myDirWire); It.More(); It.Next())
     {
       Process(myGenShape, It.Value());

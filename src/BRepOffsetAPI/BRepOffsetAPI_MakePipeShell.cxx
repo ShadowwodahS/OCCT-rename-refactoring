@@ -101,7 +101,7 @@ void BRepOffsetAPI_MakePipeShell::Add(const TopoShape&    Profile,
 //=================================================================================================
 
 void BRepOffsetAPI_MakePipeShell::SetLaw(const TopoShape&         Profile,
-                                         const Handle(Law_Function)& L,
+                                         const Handle(Function2)& L,
                                          const Standard_Boolean      WithContact,
                                          const Standard_Boolean      WithCorrection)
 {
@@ -111,7 +111,7 @@ void BRepOffsetAPI_MakePipeShell::SetLaw(const TopoShape&         Profile,
 //=================================================================================================
 
 void BRepOffsetAPI_MakePipeShell::SetLaw(const TopoShape&         Profile,
-                                         const Handle(Law_Function)& L,
+                                         const Handle(Function2)& L,
                                          const TopoVertex&        Location,
                                          const Standard_Boolean      WithContact,
                                          const Standard_Boolean      WithCorrection)

@@ -29,7 +29,7 @@ class GeomConvert_ApproxSurface_Eval : public EvaluatorFunc2Var
 {
 
 public:
-  GeomConvert_ApproxSurface_Eval(const Handle(Adaptor3d_Surface)& theAdaptor)
+  GeomConvert_ApproxSurface_Eval(const Handle(SurfaceAdaptor)& theAdaptor)
       : myAdaptor(theAdaptor)
   {
   }
@@ -47,7 +47,7 @@ public:
                         Standard_Integer* theErrorCode) const;
 
 private:
-  mutable Handle(Adaptor3d_Surface) myAdaptor;
+  mutable Handle(SurfaceAdaptor) myAdaptor;
 };
 
 void GeomConvert_ApproxSurface_Eval::Evaluate(Standard_Integer* Dimension,
@@ -318,7 +318,7 @@ GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(GeomSurface)& 
                                                      const Standard_Integer      MaxSegments,
                                                      const Standard_Integer      PrecisCode)
 {
-  Handle(Adaptor3d_Surface) aSurfAdaptor = new GeomAdaptor_Surface(Surf);
+  Handle(SurfaceAdaptor) aSurfAdaptor = new GeomAdaptor_Surface(Surf);
   Approximate(aSurfAdaptor,
               Tol3d,
               UContinuity,
@@ -329,7 +329,7 @@ GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(GeomSurface)& 
               PrecisCode);
 }
 
-GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(Adaptor3d_Surface)& Surf,
+GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(SurfaceAdaptor)& Surf,
                                                      const Standard_Real              Tol3d,
                                                      const GeomAbs_Shape              UContinuity,
                                                      const GeomAbs_Shape              VContinuity,
@@ -341,7 +341,7 @@ GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(Adaptor3d_Surf
   Approximate(Surf, Tol3d, UContinuity, VContinuity, MaxDegU, MaxDegV, MaxSegments, PrecisCode);
 }
 
-void GeomConvert_ApproxSurface::Approximate(const Handle(Adaptor3d_Surface)& theSurf,
+void GeomConvert_ApproxSurface::Approximate(const Handle(SurfaceAdaptor)& theSurf,
                                             const Standard_Real              theTol3d,
                                             const GeomAbs_Shape              theUContinuity,
                                             const GeomAbs_Shape              theVContinuity,
@@ -392,8 +392,8 @@ void GeomConvert_ApproxSurface::Approximate(const Handle(Adaptor3d_Surface)& the
   theSurf->VIntervals(VDec_C3, GeomAbs_C3);
   // Approximation avec decoupe preferentiel
   // aux lieux de discontinuitees C2
-  AdvApprox_PrefAndRec pUDec(UDec_C2, UDec_C3);
-  AdvApprox_PrefAndRec pVDec(VDec_C2, VDec_C3);
+  PreferredAndRecommended pUDec(UDec_C2, UDec_C3);
+  PreferredAndRecommended pVDec(VDec_C2, VDec_C3);
 
   // POP pour WNT
   GeomConvert_ApproxSurface_Eval ev(theSurf);

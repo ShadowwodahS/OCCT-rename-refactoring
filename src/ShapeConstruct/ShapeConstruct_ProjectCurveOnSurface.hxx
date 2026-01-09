@@ -191,25 +191,25 @@ private:
                                                      TColgp_SequenceOfPnt2d&   pnt2d);
 
   Standard_EXPORT Handle(GeomCurve2d) InterpolatePCurve(const Standard_Integer         nbrPnt,
-                                                         Handle(TColgp_HArray1OfPnt2d)& points2d,
+                                                         Handle(Point2dArray)& points2d,
                                                          Handle(TColStd_HArray1OfReal)& params,
                                                          const Handle(GeomCurve3d)&      orig) const;
 
   Standard_EXPORT Handle(GeomCurve2d) ApproximatePCurve(const Standard_Integer         nbrPnt,
-                                                         Handle(TColgp_HArray1OfPnt2d)& points2d,
+                                                         Handle(Point2dArray)& points2d,
                                                          Handle(TColStd_HArray1OfReal)& params,
                                                          const Handle(GeomCurve3d)&      orig) const;
 
   Standard_EXPORT Handle(GeomCurve3d) InterpolateCurve3d(const Standard_Integer         nbrPnt,
-                                                        Handle(TColgp_HArray1OfPnt)&   points,
+                                                        Handle(PointArray1)&   points,
                                                         Handle(TColStd_HArray1OfReal)& params,
                                                         const Handle(GeomCurve3d)&      orig) const;
 
-  Standard_EXPORT void CheckPoints(Handle(TColgp_HArray1OfPnt)&   points,
+  Standard_EXPORT void CheckPoints(Handle(PointArray1)&   points,
                                    Handle(TColStd_HArray1OfReal)& params,
                                    Standard_Real&                 preci) const;
 
-  Standard_EXPORT void CheckPoints2d(Handle(TColgp_HArray1OfPnt2d)& points,
+  Standard_EXPORT void CheckPoints2d(Handle(Point2dArray)& points,
                                      Handle(TColStd_HArray1OfReal)& params,
                                      Standard_Real&                 preci) const;
 

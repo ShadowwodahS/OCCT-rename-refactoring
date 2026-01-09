@@ -128,7 +128,7 @@ public:
   }
 
   //! Invalidate entire window content through generation of Expose event.
-  Standard_EXPORT virtual void InvalidateContent(const Handle(Aspect_DisplayConnection)& theDisp)
+  Standard_EXPORT virtual void InvalidateContent(const Handle(DisplayConnection1)& theDisp)
     Standard_OVERRIDE;
 
 public:

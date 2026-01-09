@@ -254,8 +254,8 @@ static Standard_Boolean TransitionEqualAndExtremity(const Transition3& T1,
 }
 
 //  Modified by Sergey KHROMOV - Fri Jan 11 14:49:48 2002 Begin
-static Standard_Boolean IsTangentSegment(const IntRes2d_IntersectionPoint& P1,
-                                         const IntRes2d_IntersectionPoint& P2,
+static Standard_Boolean IsTangentSegment(const IntersectionPoint3& P1,
+                                         const IntersectionPoint3& P2,
                                          const Geom2dAdaptor_Curve&        aC1,
                                          const Geom2dAdaptor_Curve&        aC2,
                                          const Standard_Real               aTolConf)
@@ -582,8 +582,8 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoShape&    E1,
       fin = Standard_True;
       for (p = 1; p < nbp && fin; p++)
       {
-        const IntRes2d_IntersectionPoint& P1 = mylpnt.Value(p);
-        const IntRes2d_IntersectionPoint& P2 = mylpnt.Value(p + 1);
+        const IntersectionPoint3& P1 = mylpnt.Value(p);
+        const IntersectionPoint3& P2 = mylpnt.Value(p + 1);
         if (TransitionEqualAndExtremity(P1.TransitionOfFirst(), P2.TransitionOfFirst())
             || TransitionEqualAndExtremity(P1.TransitionOfSecond(), P2.TransitionOfSecond()))
         {
@@ -784,7 +784,7 @@ void TopOpeBRep_EdgesIntersector::MakePoints2d()
   TopAbs_Orientation E2ori = myEdge2.Orientation();
   for (InitPoint1(); MorePoint1(); NextPoint1())
   {
-    const IntRes2d_IntersectionPoint& IP = Point1();
+    const IntersectionPoint3& IP = Point1();
     TopOpeBRep_Point2d                p2d;
     p2d.SetPint(IP);
     p2d.SetTransition(1, Transition1(1, E2ori));

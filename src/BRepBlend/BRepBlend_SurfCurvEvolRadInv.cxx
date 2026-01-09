@@ -21,10 +21,10 @@
 
 //=================================================================================================
 
-BRepBlend_SurfCurvEvolRadInv::BRepBlend_SurfCurvEvolRadInv(const Handle(Adaptor3d_Surface)& S,
-                                                           const Handle(Adaptor3d_Curve)&   C,
-                                                           const Handle(Adaptor3d_Curve)&   Cg,
-                                                           const Handle(Law_Function)&      Evol)
+BRepBlend_SurfCurvEvolRadInv::BRepBlend_SurfCurvEvolRadInv(const Handle(SurfaceAdaptor)& S,
+                                                           const Handle(Curve5)&   C,
+                                                           const Handle(Curve5)&   Cg,
+                                                           const Handle(Function2)&      Evol)
     : surf(S),
       curv(C),
       guide(Cg)

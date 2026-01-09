@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-HLRAlgo_EdgeStatus::HLRAlgo_EdgeStatus()
+EdgeStatus::EdgeStatus()
     : myStart(0.0),
       myEnd(0.0),
       myTolStart(0.0f),
@@ -34,7 +34,7 @@ HLRAlgo_EdgeStatus::HLRAlgo_EdgeStatus()
 
 //=================================================================================================
 
-HLRAlgo_EdgeStatus::HLRAlgo_EdgeStatus(const Standard_Real      Start,
+EdgeStatus::EdgeStatus(const Standard_Real      Start,
                                        const Standard_ShortReal TolStart,
                                        const Standard_Real      End,
                                        const Standard_ShortReal TolEnd)
@@ -50,7 +50,7 @@ HLRAlgo_EdgeStatus::HLRAlgo_EdgeStatus(const Standard_Real      Start,
 
 //=================================================================================================
 
-void HLRAlgo_EdgeStatus::Initialize(const Standard_Real      Start,
+void EdgeStatus::Initialize(const Standard_Real      Start,
                                     const Standard_ShortReal TolStart,
                                     const Standard_Real      End,
                                     const Standard_ShortReal TolEnd)
@@ -64,7 +64,7 @@ void HLRAlgo_EdgeStatus::Initialize(const Standard_Real      Start,
 
 //=================================================================================================
 
-Standard_Integer HLRAlgo_EdgeStatus::NbVisiblePart() const
+Standard_Integer EdgeStatus::NbVisiblePart() const
 {
   if (AllHidden())
     return 0;
@@ -76,7 +76,7 @@ Standard_Integer HLRAlgo_EdgeStatus::NbVisiblePart() const
 
 //=================================================================================================
 
-void HLRAlgo_EdgeStatus::VisiblePart(const Standard_Integer Index,
+void EdgeStatus::VisiblePart(const Standard_Integer Index,
                                      Standard_Real&         Start,
                                      Standard_ShortReal&    TolStart,
                                      Standard_Real&         End,
@@ -90,7 +90,7 @@ void HLRAlgo_EdgeStatus::VisiblePart(const Standard_Integer Index,
 
 //=================================================================================================
 
-void HLRAlgo_EdgeStatus::Hide(const Standard_Real      Start,
+void EdgeStatus::Hide(const Standard_Real      Start,
                               const Standard_ShortReal TolStart,
                               const Standard_Real      End,
                               const Standard_ShortReal TolEnd,

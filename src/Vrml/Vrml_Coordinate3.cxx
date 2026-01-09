@@ -16,7 +16,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Vrml_Coordinate3, RefObject)
 
-Vrml_Coordinate3::Vrml_Coordinate3(const Handle(TColgp_HArray1OfVec)& aPoint)
+Vrml_Coordinate3::Vrml_Coordinate3(const Handle(VectorArray)& aPoint)
 {
   myPoint = aPoint;
 }
@@ -25,19 +25,19 @@ Vrml_Coordinate3::Vrml_Coordinate3()
 {
   Vector3d Tmp_Vec;
 
-  myPoint = new TColgp_HArray1OfVec(1, 1);
+  myPoint = new VectorArray(1, 1);
   Tmp_Vec.SetX(0);
   Tmp_Vec.SetY(0);
   Tmp_Vec.SetZ(0);
   myPoint->SetValue(1, Tmp_Vec);
 }
 
-void Vrml_Coordinate3::SetPoint(const Handle(TColgp_HArray1OfVec)& aPoint)
+void Vrml_Coordinate3::SetPoint(const Handle(VectorArray)& aPoint)
 {
   myPoint = aPoint;
 }
 
-Handle(TColgp_HArray1OfVec) Vrml_Coordinate3::Point() const
+Handle(VectorArray) Vrml_Coordinate3::Point() const
 {
   return myPoint;
 }

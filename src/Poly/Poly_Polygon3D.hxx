@@ -55,7 +55,7 @@ public:
   //! Returns the deflection of this polygon
   Standard_Real Deflection() const { return myDeflection; }
 
-  //! Sets the deflection of this polygon. See more on deflection in Poly_Polygon2D
+  //! Sets the deflection of this polygon. See more on deflection in Polygon2D2
   void Deflection(const Standard_Real theDefl) { myDeflection = theDefl; }
 
   //! Returns the number of nodes in this polygon.

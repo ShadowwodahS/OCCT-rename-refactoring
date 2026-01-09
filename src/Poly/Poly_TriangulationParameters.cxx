@@ -15,4 +15,4 @@
 
 #include <Poly_TriangulationParameters.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_TriangulationParameters, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TriangulationParameters, RefObject)

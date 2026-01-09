@@ -21,9 +21,9 @@ class OpenGl_Texture;
 
 //! Class holding array of textures to be mapped as a set.
 //! Textures should be defined in ascending order of texture units within the set.
-class OpenGl_TextureSet : public RefObject
+class TextureSet2 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_TextureSet, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TextureSet2, RefObject)
 public:
   //! Texture slot - combination of Texture and binding Unit.
   struct TextureSlot
@@ -49,7 +49,7 @@ public:
     Iterator() {}
 
     //! Constructor.
-    Iterator(const Handle(OpenGl_TextureSet)& theSet)
+    Iterator(const Handle(TextureSet2)& theSet)
     {
       if (!theSet.IsNull())
       {
@@ -82,20 +82,20 @@ public:
 
 public:
   //! Empty constructor.
-  OpenGl_TextureSet()
+  TextureSet2()
       : myTextureSetBits(Graphic3d_TextureSetBits_NONE)
   {
   }
 
   //! Constructor.
-  OpenGl_TextureSet(Standard_Integer theNbTextures)
+  TextureSet2(Standard_Integer theNbTextures)
       : myTextures(0, theNbTextures - 1),
         myTextureSetBits(Graphic3d_TextureSetBits_NONE)
   {
   }
 
   //! Constructor for a single texture.
-  Standard_EXPORT OpenGl_TextureSet(const Handle(OpenGl_Texture)& theTexture);
+  Standard_EXPORT TextureSet2(const Handle(OpenGl_Texture)& theTexture);
 
   //! Return texture units declared within the program, @sa Graphic3d_TextureSetBits.
   Standard_Integer TextureSetBits() const { return myTextureSetBits; }

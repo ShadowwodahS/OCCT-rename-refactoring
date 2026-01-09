@@ -24,7 +24,7 @@
 #include <Standard_OStream.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <Standard_Integer.hxx>
-class Adaptor3d_Curve;
+class Curve5;
 class VrmlConverter_Drawer;
 
 //! DeflectionCurve    -  computes the presentation of
@@ -46,7 +46,7 @@ public:
   //! by the drawer aDrawer.
   //! The aspect is defined by LineAspect in aDrawer.
   Standard_EXPORT static void Add(Standard_OStream&                   anOStream,
-                                  Adaptor3d_Curve&                    aCurve,
+                                  Curve5&                    aCurve,
                                   const Handle(VrmlConverter_Drawer)& aDrawer);
 
   //! adds to the OStream the drawing of the curve aCurve with
@@ -56,7 +56,7 @@ public:
   //! The drawing will be limited between the points of parameter
   //! U1 and U2.
   Standard_EXPORT static void Add(Standard_OStream&                   anOStream,
-                                  Adaptor3d_Curve&                    aCurve,
+                                  Curve5&                    aCurve,
                                   const Standard_Real                 U1,
                                   const Standard_Real                 U2,
                                   const Handle(VrmlConverter_Drawer)& aDrawer);
@@ -65,7 +65,7 @@ public:
   //! respect to the maximal chordial deviation aDeflection.
   //! The aspect is the current aspect
   Standard_EXPORT static void Add(Standard_OStream&   anOStream,
-                                  Adaptor3d_Curve&    aCurve,
+                                  Curve5&    aCurve,
                                   const Standard_Real aDeflection,
                                   const Standard_Real aLimit);
 
@@ -73,7 +73,7 @@ public:
   //! respect to the maximal chordial deviation aDeflection.
   //! The aspect is the current aspect
   Standard_EXPORT static void Add(Standard_OStream&                   anOStream,
-                                  Adaptor3d_Curve&                    aCurve,
+                                  Curve5&                    aCurve,
                                   const Standard_Real                 aDeflection,
                                   const Handle(VrmlConverter_Drawer)& aDrawer);
 
@@ -83,7 +83,7 @@ public:
   //! The drawing will be limited between the points of parameter
   //! U1 and U2.
   Standard_EXPORT static void Add(Standard_OStream&   anOStream,
-                                  Adaptor3d_Curve&    aCurve,
+                                  Curve5&    aCurve,
                                   const Standard_Real U1,
                                   const Standard_Real U2,
                                   const Standard_Real aDeflection);
@@ -91,7 +91,7 @@ public:
   //! adds to the OStream the drawing of the curve aCurve with
   //! the array of parameters to retrieve points on curve.
   Standard_EXPORT static void Add(Standard_OStream&                    anOStream,
-                                  const Adaptor3d_Curve&               aCurve,
+                                  const Curve5&               aCurve,
                                   const Handle(TColStd_HArray1OfReal)& aParams,
                                   const Standard_Integer               aNbNodes,
                                   const Handle(VrmlConverter_Drawer)&  aDrawer);

@@ -180,7 +180,7 @@ Standard_Boolean IgesFileWriter::AddShape(const TopoShape&          theShape,
 
 Standard_Boolean IgesFileWriter::AddGeom(const Handle(RefObject)& geom)
 {
-  if (geom.IsNull() || !geom->IsKind(STANDARD_TYPE(Geom_Geometry)))
+  if (geom.IsNull() || !geom->IsKind(STANDARD_TYPE(Geometry3)))
     return Standard_False;
   DeclareAndCast(GeomCurve3d, Curve, geom);
   DeclareAndCast(GeomSurface, Surf, geom);

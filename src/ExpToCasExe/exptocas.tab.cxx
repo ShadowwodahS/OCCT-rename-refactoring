@@ -103,7 +103,7 @@ static Express_Schema*          mkschema(char* name, ItemSequence* ilist);
 static ItemSequence* mkilist(Express_Item* item, ItemSequence* seq);
 static Express_Item*            mkenum(char* name, TColStd_HSequenceOfHAsciiString* tlist);
 static Express_Item*            mkselect(char* name, TColStd_HSequenceOfHAsciiString* tlist);
-static Express_Item*            mkalias(char* name, Express_Type* type);
+static Express_Item*            mkalias(char* name, ExpressType* type);
 static Express_Item*            mkentity(char*                            name,
                                          TColStd_HSequenceOfHAsciiString* inherit,
                                          FieldSequence*        field,
@@ -112,10 +112,10 @@ static Express_Reference*       mkrefs(char* name, TColStd_HSequenceOfHAsciiStri
 static TColStd_HSequenceOfHAsciiString* mktlist(char* name, TColStd_HSequenceOfHAsciiString* tlist);
 static TColStd_HSequenceOfHAsciiString* mktlists(TColStd_HSequenceOfHAsciiString* tlist1,
                                                  TColStd_HSequenceOfHAsciiString* tlist2);
-static Express_Type*                    mktstd(int keyword);
-static Express_Type*                    mktname(char* name);
-static Express_Type*                    mktset(int keyword, int ilow, int ihigh, Express_Type* of);
-static Express_Field*                   mkfield(char* name, Express_Type* type, int optional);
+static ExpressType*                    mktstd(int keyword);
+static ExpressType*                    mktname(char* name);
+static ExpressType*                    mktset(int keyword, int ilow, int ihigh, ExpressType* of);
+static Express_Field*                   mkfield(char* name, ExpressType* type, int optional);
 static FieldSequence* mkflist(Express_Field* field, FieldSequence* seq);
 
 #ifndef YY_
@@ -1452,7 +1452,7 @@ static Express_Item* mkselect(char* name, TColStd_HSequenceOfHAsciiString* tlist
   return new Express_Select(name, tlist);
 }
 
-static Express_Item* mkalias(char* name, Express_Type* type)
+static Express_Item* mkalias(char* name, ExpressType* type)
 {
   return new Express_Alias(name, type);
 }
@@ -1498,7 +1498,7 @@ static TColStd_HSequenceOfHAsciiString* mktlists(TColStd_HSequenceOfHAsciiString
   return tlist1;
 }
 
-static Express_Type* mktstd(int keyword)
+static ExpressType* mktstd(int keyword)
 {
   switch (keyword)
   {
@@ -1520,12 +1520,12 @@ static Express_Type* mktstd(int keyword)
   }
 }
 
-static Express_Type* mktname(char* name)
+static ExpressType* mktname(char* name)
 {
   return new Express_NamedType(name);
 }
 
-static Express_Type* mktset(int keyword, int ilow, int ihigh, Express_Type* of)
+static ExpressType* mktset(int keyword, int ilow, int ihigh, ExpressType* of)
 {
   switch (keyword)
   {
@@ -1543,7 +1543,7 @@ static Express_Type* mktset(int keyword, int ilow, int ihigh, Express_Type* of)
   }
 }
 
-static Express_Field* mkfield(char* name, Express_Type* type, int optional)
+static Express_Field* mkfield(char* name, ExpressType* type, int optional)
 {
   return new Express_Field(name, type, optional);
 }

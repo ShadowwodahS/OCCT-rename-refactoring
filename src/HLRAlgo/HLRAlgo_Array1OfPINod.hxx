@@ -20,6 +20,6 @@
 #include <HLRAlgo_PolyInternalNode.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(HLRAlgo_PolyInternalNode)> HLRAlgo_Array1OfPINod;
+typedef NCollection_Array1<Handle(PolyInternalNode)> HLRAlgo_Array1OfPINod;
 
 #endif

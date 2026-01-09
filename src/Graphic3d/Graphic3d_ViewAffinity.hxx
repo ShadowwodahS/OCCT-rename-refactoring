@@ -21,11 +21,11 @@
 #include <Standard_Type.hxx>
 
 //! Structure display state.
-class Graphic3d_ViewAffinity : public RefObject
+class ViewAffinity1 : public RefObject
 {
 public:
   //! Empty constructor.
-  Graphic3d_ViewAffinity() { SetVisible(Standard_True); }
+  ViewAffinity1() { SetVisible(Standard_True); }
 
   //! Return visibility flag.
   bool IsVisible(const Standard_Integer theViewId) const
@@ -61,9 +61,9 @@ private:
   unsigned int myMask; //!< affinity mask
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ViewAffinity, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ViewAffinity1, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ViewAffinity, RefObject)
+DEFINE_STANDARD_HANDLE(ViewAffinity1, RefObject)
 
 #endif // _Graphic3d_ViewAffinity_HeaderFile

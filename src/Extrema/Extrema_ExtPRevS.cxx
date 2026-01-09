@@ -38,7 +38,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPRevS, RefObject)
 static Frame3d GetPosition(
   const GeomAdaptor_SurfaceOfRevolution& S) // const Handle(Adaptor_HCurve)& C)
 {
-  Handle(Adaptor3d_Curve) C = S.BasisCurve();
+  Handle(Curve5) C = S.BasisCurve();
 
   switch (C->GetType())
   {
@@ -81,7 +81,7 @@ static Frame3d GetPosition(
 static Standard_Boolean HasSingularity(const GeomAdaptor_SurfaceOfRevolution& S)
 {
 
-  const Handle(Adaptor3d_Curve) C = S.BasisCurve();
+  const Handle(Curve5) C = S.BasisCurve();
   Dir3d                        N = S.AxeOfRevolution().Direction();
   Point3d                        P = S.AxeOfRevolution().Location();
 
@@ -104,7 +104,7 @@ static Standard_Boolean HasSingularity(const GeomAdaptor_SurfaceOfRevolution& S)
 
 static void PerformExtPElC(PointElCCurveExtrema&               E,
                            const Point3d&                  P,
-                           const Handle(Adaptor3d_Curve)& C,
+                           const Handle(Curve5)& C,
                            const Standard_Real            Tol)
 {
   switch (C->GetType())
@@ -185,7 +185,7 @@ static Standard_Boolean IsOriginalPnt(const Point3d&          P,
 static Standard_Boolean IsExtremum(const Standard_Real      U,
                                    const Standard_Real      V,
                                    const Point3d&            P,
-                                   const Adaptor3d_Surface* S,
+                                   const SurfaceAdaptor* S,
                                    Point3d&                  E,
                                    Standard_Real&           Dist2,
                                    const Standard_Boolean   IsVSup,
@@ -271,7 +271,7 @@ void Extrema_ExtPRevS::Initialize(const Handle(GeomAdaptor_SurfaceOfRevolution)&
   myNbExt                    = 0;
   myIsAnalyticallyComputable = Standard_False;
 
-  Handle(Adaptor3d_Curve) anACurve = theS->BasisCurve();
+  Handle(Curve5) anACurve = theS->BasisCurve();
 
   if (myS != theS)
   {
@@ -310,7 +310,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
     return;
   }
 
-  Handle(Adaptor3d_Curve) anACurve = myS->BasisCurve();
+  Handle(Curve5) anACurve = myS->BasisCurve();
 
   Axis3d Ax  = myS->AxeOfRevolution();
   Vector3d Dir = Ax.Direction(), Z = myPosition.Direction();

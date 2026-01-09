@@ -33,7 +33,7 @@ Extrema_FuncPSNorm::Extrema_FuncPSNorm()
 }
 
 //=============================================================================
-Extrema_FuncPSNorm::Extrema_FuncPSNorm(const Point3d& P, const Adaptor3d_Surface& S)
+Extrema_FuncPSNorm::Extrema_FuncPSNorm(const Point3d& P, const SurfaceAdaptor& S)
     : myU(0.0),
       myV(0.0)
 {
@@ -44,7 +44,7 @@ Extrema_FuncPSNorm::Extrema_FuncPSNorm(const Point3d& P, const Adaptor3d_Surface
 }
 
 //=============================================================================
-void Extrema_FuncPSNorm::Initialize(const Adaptor3d_Surface& S)
+void Extrema_FuncPSNorm::Initialize(const SurfaceAdaptor& S)
 {
   myS     = &S;
   mySinit = Standard_True;

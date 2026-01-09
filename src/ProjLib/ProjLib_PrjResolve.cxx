@@ -23,8 +23,8 @@
 #include <Standard_ConstructionError.hxx>
 #include <StdFail_NotDone.hxx>
 
-ProjLib_PrjResolve::ProjLib_PrjResolve(const Adaptor3d_Curve&   C,
-                                       const Adaptor3d_Surface& S,
+ProjLib_PrjResolve::ProjLib_PrjResolve(const Curve5&   C,
+                                       const SurfaceAdaptor& S,
                                        const Standard_Integer   Fix)
     : myDone(Standard_False),
       myFix(Fix)

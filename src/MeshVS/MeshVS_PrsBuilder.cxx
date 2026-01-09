@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(MeshVS_PrsBuilder, RefObject)
 
 MeshVS_PrsBuilder::MeshVS_PrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                      const MeshVS_DisplayModeFlags&   Flags,
-                                     const Handle(MeshVS_DataSource)& DS,
+                                     const Handle(MeshDataSource)& DS,
                                      const Standard_Integer           Id,
                                      const MeshVS_BuilderPriority&    Priority)
 {
@@ -66,14 +66,14 @@ Handle(Select3D_SensitiveEntity) MeshVS_PrsBuilder::CustomSensitiveEntity(
 
 //=================================================================================================
 
-Handle(MeshVS_DataSource) MeshVS_PrsBuilder::DataSource() const
+Handle(MeshDataSource) MeshVS_PrsBuilder::DataSource() const
 {
   return myDataSource;
 }
 
 //=================================================================================================
 
-Handle(MeshVS_DataSource) MeshVS_PrsBuilder::GetDataSource() const
+Handle(MeshDataSource) MeshVS_PrsBuilder::GetDataSource() const
 {
   if (myDataSource.IsNull())
     return myParentMesh->GetDataSource();
@@ -83,7 +83,7 @@ Handle(MeshVS_DataSource) MeshVS_PrsBuilder::GetDataSource() const
 
 //=================================================================================================
 
-void MeshVS_PrsBuilder::SetDataSource(const Handle(MeshVS_DataSource)& DS)
+void MeshVS_PrsBuilder::SetDataSource(const Handle(MeshDataSource)& DS)
 {
   myDataSource = DS;
 }
@@ -132,7 +132,7 @@ Standard_Integer MeshVS_PrsBuilder::GetPriority() const
 
 //=================================================================================================
 
-Handle(MeshVS_Drawer) MeshVS_PrsBuilder::GetDrawer() const
+Handle(MeshDrawer) MeshVS_PrsBuilder::GetDrawer() const
 {
   if (myDrawer.IsNull())
     return myParentMesh->GetDrawer();
@@ -142,14 +142,14 @@ Handle(MeshVS_Drawer) MeshVS_PrsBuilder::GetDrawer() const
 
 //=================================================================================================
 
-void MeshVS_PrsBuilder::SetDrawer(const Handle(MeshVS_Drawer)& Dr)
+void MeshVS_PrsBuilder::SetDrawer(const Handle(MeshDrawer)& Dr)
 {
   myDrawer = Dr;
 }
 
 //=================================================================================================
 
-Handle(MeshVS_Drawer) MeshVS_PrsBuilder::Drawer() const
+Handle(MeshDrawer) MeshVS_PrsBuilder::Drawer() const
 {
   return myDrawer;
 }

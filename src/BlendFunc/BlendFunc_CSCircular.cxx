@@ -40,10 +40,10 @@
 
 //=================================================================================================
 
-BlendFunc_CSCircular::BlendFunc_CSCircular(const Handle(Adaptor3d_Surface)& S,
-                                           const Handle(Adaptor3d_Curve)&   C,
-                                           const Handle(Adaptor3d_Curve)&   CGuide,
-                                           const Handle(Law_Function)&      L)
+BlendFunc_CSCircular::BlendFunc_CSCircular(const Handle(SurfaceAdaptor)& S,
+                                           const Handle(Curve5)&   C,
+                                           const Handle(Curve5)&   CGuide,
+                                           const Handle(Function2)&      L)
     : surf(S),
       curv(C),
       guide(CGuide),

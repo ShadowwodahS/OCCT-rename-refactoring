@@ -40,14 +40,14 @@
 // purpose  : creates new new multiple transactions' manager
 //=======================================================================
 
-static Handle(TDocStd_MultiTransactionManager) sMultiTransactionManager = 0;
+static Handle(MultiTransactionManager) sMultiTransactionManager = 0;
 
 static int mtmCreate(DrawInterpreter& /*di*/, int n, const char** a)
 {
   if (!sMultiTransactionManager.IsNull())
     sMultiTransactionManager->SetUndoLimit(0);
 
-  sMultiTransactionManager = new TDocStd_MultiTransactionManager();
+  sMultiTransactionManager = new MultiTransactionManager();
   if (n > 1)
     sMultiTransactionManager->SetUndoLimit(Draw1::Atoi(a[1]));
   return 0;

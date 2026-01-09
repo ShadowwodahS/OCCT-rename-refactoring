@@ -36,7 +36,7 @@ void IntPatch_Point::SetValue(const Point3d&          Pt,
   tol = Tol;
 }
 
-void IntPatch_Point::SetVertex(const Standard_Boolean OnFirst, const Handle(Adaptor3d_HVertex)& V)
+void IntPatch_Point::SetVertex(const Standard_Boolean OnFirst, const Handle(HandleVertex)& V)
 {
   if (OnFirst)
   {

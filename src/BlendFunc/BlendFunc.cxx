@@ -154,7 +154,7 @@ GeomAbs_Shape BlendFunc1::NextShape(const GeomAbs_Shape S)
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc1::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
+Standard_Boolean BlendFunc1::ComputeNormal(const Handle(SurfaceAdaptor)& Surf,
                                           const gp_Pnt2d&                  p2d,
                                           Vector3d&                          Normal)
 {
@@ -206,7 +206,7 @@ Standard_Boolean BlendFunc1::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc1::ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf,
+Standard_Boolean BlendFunc1::ComputeDNormal(const Handle(SurfaceAdaptor)& Surf,
                                            const gp_Pnt2d&                  p2d,
                                            Vector3d&                          Normal,
                                            Vector3d&                          DNu,

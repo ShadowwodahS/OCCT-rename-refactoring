@@ -18,7 +18,7 @@
 #include <Precision.hxx>
 #include <Standard_DomainError.hxx>
 
-AdvApprox_PrefAndRec::AdvApprox_PrefAndRec(const TColStd_Array1OfReal& RecCut,
+PreferredAndRecommended::PreferredAndRecommended(const TColStd_Array1OfReal& RecCut,
                                            const TColStd_Array1OfReal& PrefCut,
                                            const Standard_Real         Weight)
     : myRecCutting(1, RecCut.Length()),
@@ -33,7 +33,7 @@ AdvApprox_PrefAndRec::AdvApprox_PrefAndRec(const TColStd_Array1OfReal& RecCut,
   }
 }
 
-Standard_Boolean AdvApprox_PrefAndRec::Value(const Standard_Real a,
+Standard_Boolean PreferredAndRecommended::Value(const Standard_Real a,
                                              const Standard_Real b,
                                              Standard_Real&      cuttingvalue) const
 {

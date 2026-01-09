@@ -27,7 +27,7 @@
 #endif
 
 class TDF_Attribute;
-class TDF_Data;
+class Data2;
 
 #define KEEP_LOCAL_ROOT
 
@@ -72,7 +72,7 @@ public:
   inline Standard_Boolean IsRoot() const { return myFather == NULL; }
 
   // Data
-  Standard_EXPORT TDF_Data* Data() const;
+  Standard_EXPORT Data2* Data() const;
 
   // Flag AttributesModified access
   inline void AttributesModified(const Standard_Boolean aStatus)
@@ -103,7 +103,7 @@ private:
   DEFINE_NCOLLECTION_ALLOC
 
   // Constructor
-  TDF_LabelNode(TDF_Data* Data);
+  TDF_LabelNode(Data2* Data);
 
   // Destructor and deallocator
   void Destroy(const TDF_HAllocator& theAllocator);
@@ -111,7 +111,7 @@ private:
   // Public Friends
   // --------------------------------------------------------------------------
 
-  friend class TDF_Data;
+  friend class Data2;
   friend class DataLabel;
 
 private:
@@ -160,7 +160,7 @@ private:
   Standard_Integer      myFlags; // Flags & Depth
   Handle(TDF_Attribute) myFirstAttribute;
 #ifdef KEEP_LOCAL_ROOT
-  TDF_Data* myData;
+  Data2* myData;
 #endif
 #ifdef OCCT_DEBUG
   AsciiString1 myDebugEntry;

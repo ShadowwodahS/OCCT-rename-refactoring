@@ -32,7 +32,7 @@ public:
   //! @param theSpecMapLevelsNum number of mipmap levels used in specular IBL map;
   //!                            if theSpecMapLevelsNum less than 2 or less than Pow2Size + 1 it
   //!                            will be set to the corresponding values.
-  //! @param theId OpenGl_Resource name
+  //! @param theId Resource name
   //! @return handle to created PBR environment or NULL handle in case of fail
   Standard_EXPORT static Handle(OpenGl_PBREnvironment) Create(
     const Handle(OpenGl_Context)&  theCtx,

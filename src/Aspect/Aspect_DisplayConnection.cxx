@@ -21,11 +21,11 @@
   #include <X11/Xutil.h>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_DisplayConnection, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(DisplayConnection1, RefObject)
 
 //=================================================================================================
 
-Aspect_DisplayConnection::Aspect_DisplayConnection()
+DisplayConnection1::DisplayConnection1()
 {
 #if defined(HAVE_XLIB)
   myDisplay       = NULL;
@@ -40,7 +40,7 @@ Aspect_DisplayConnection::Aspect_DisplayConnection()
 
 //=================================================================================================
 
-Aspect_DisplayConnection::~Aspect_DisplayConnection()
+DisplayConnection1::~DisplayConnection1()
 {
 #if defined(HAVE_XLIB)
   if (myDefVisualInfo != NULL)
@@ -56,7 +56,7 @@ Aspect_DisplayConnection::~Aspect_DisplayConnection()
 
 //=================================================================================================
 
-Aspect_DisplayConnection::Aspect_DisplayConnection(const AsciiString1& theDisplayName)
+DisplayConnection1::DisplayConnection1(const AsciiString1& theDisplayName)
     : myDisplay(NULL),
       myDefVisualInfo(NULL),
       myDefFBConfig(NULL),
@@ -68,7 +68,7 @@ Aspect_DisplayConnection::Aspect_DisplayConnection(const AsciiString1& theDispla
 
 //=================================================================================================
 
-Aspect_DisplayConnection::Aspect_DisplayConnection(Aspect_XDisplay* theDisplay)
+DisplayConnection1::DisplayConnection1(Aspect_XDisplay* theDisplay)
     : myDisplay(NULL),
       myDefVisualInfo(NULL),
       myDefFBConfig(NULL),
@@ -79,7 +79,7 @@ Aspect_DisplayConnection::Aspect_DisplayConnection(Aspect_XDisplay* theDisplay)
 
 //=================================================================================================
 
-void Aspect_DisplayConnection::SetDefaultVisualInfo(Aspect_XVisualInfo* theVisual,
+void DisplayConnection1::SetDefaultVisualInfo(Aspect_XVisualInfo* theVisual,
                                                     Aspect_FBConfig     theFBConfig)
 {
   if (myDefVisualInfo != NULL)
@@ -94,7 +94,7 @@ void Aspect_DisplayConnection::SetDefaultVisualInfo(Aspect_XVisualInfo* theVisua
 
 //=================================================================================================
 
-void Aspect_DisplayConnection::Init(Aspect_XDisplay* theDisplay)
+void DisplayConnection1::Init(Aspect_XDisplay* theDisplay)
 {
 #if defined(HAVE_XLIB)
   if (myDisplay != NULL && myIsOwnDisplay)

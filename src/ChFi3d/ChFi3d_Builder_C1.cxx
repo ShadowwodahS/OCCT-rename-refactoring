@@ -143,9 +143,9 @@ static Standard_Real recadre(const Standard_Real    p,
 //           parameter in FaceInterference.
 //=======================================================================
 
-static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
+static Standard_Boolean Update(const Handle(SurfaceAdaptor)& fb,
                                const Handle(Adaptor2d_Curve2d)& pcfb,
-                               const Handle(Adaptor3d_Surface)& surf,
+                               const Handle(SurfaceAdaptor)& surf,
                                ChFiDS_FaceInterference&         fi,
                                ChFiDS_CommonPoint&              cp,
                                gp_Pnt2d&                        p2dbout,
@@ -158,7 +158,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
   Handle(GeomCurve2d)        pc  = fi.PCurveOnSurf();
   Handle(Geom2dAdaptor_Curve) hpc = new Geom2dAdaptor_Curve(pc);
   Adaptor3d_CurveOnSurface    c2(hpc, surf);
-  Extrema_LocateExtCC         ext(c1, c2, pared, wop);
+  LocateCurveCurveExtrema         ext(c1, c2, pared, wop);
   if (ext.IsDone())
   {
     Standard_Real dist2 = ext.SquareDistance();
@@ -187,15 +187,15 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
 //           and <p2dbout>
 //=======================================================================
 
-static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
-                               const Handle(Adaptor3d_Curve)&   ct,
+static Standard_Boolean Update(const Handle(SurfaceAdaptor)& fb,
+                               const Handle(Curve5)&   ct,
                                ChFiDS_FaceInterference&         fi,
                                ChFiDS_CommonPoint&              cp,
                                gp_Pnt2d&                        p2dbout,
                                const Standard_Boolean           isfirst,
                                Standard_Real&                   wop)
 {
-  IntCurveSurface_HInter Intersection;
+  HandleIntersection Intersection;
   // check if in KPart the limits of the tangency line
   // are already in place at this stage.
   // Modif lvt : the periodic cases are reframed, espercially if nothing was found.
@@ -331,9 +331,9 @@ static Standard_Boolean IntersUpdateOnSame(Handle(GeomAdaptor_Surface)& HGs,
 //           face at end.
 //=======================================================================
 
-static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& face,
+static Standard_Boolean Update(const Handle(SurfaceAdaptor)& face,
                                const Handle(Adaptor2d_Curve2d)& edonface,
-                               const Handle(Adaptor3d_Surface)& surf,
+                               const Handle(SurfaceAdaptor)& surf,
                                ChFiDS_FaceInterference&         fi,
                                ChFiDS_CommonPoint&              cp,
                                const Standard_Boolean           isfirst)
@@ -352,7 +352,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& face,
   Handle(Geom2dAdaptor_Curve) hpc = new Geom2dAdaptor_Curve(pc, f, l);
   Adaptor3d_CurveOnSurface    c2(hpc, surf);
 
-  Extrema_LocateExtCC ext(c1, c2, pared, parltg);
+  LocateCurveCurveExtrema ext(c1, c2, pared, parltg);
   if (ext.IsDone())
   {
     PointOnCurve1 ponc1, ponc2;
@@ -933,7 +933,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
       Handle(Geom_TrimmedCurve) Ctrim = new Geom_TrimmedCurve(C, Ubid, Vbid);
       GeomAdaptor_Curve         cur1(Ctrim->BasisCurve());
       GeomAdaptor_Curve         cur2(Cc);
-      Extrema_ExtCC             extCC(cur1, cur2);
+      CurveCurveExtrema2             extCC(cur1, cur2);
       if (extCC.IsDone() && extCC.NbExt() != 0)
       {
         Standard_Integer imin     = 0;
@@ -1032,7 +1032,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
     for (; aStrIt.More(); aStrIt.Next())
     {
       Handle(ChFiDS_Stripe) aCheckStripe = aStrIt.Value();
-      Handle(ChFiDS_HData)  aSeqData     = aCheckStripe->SetOfSurfData();
+      Handle(ChamferFilletData)  aSeqData     = aCheckStripe->SetOfSurfData();
       // Loop on parts of the stripe
       Standard_Integer iPart;
       for (iPart = 1; iPart <= aSeqData->Length(); iPart++)
@@ -2320,7 +2320,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
   TColStd_Array1OfReal   Pardeb(1, 4), Parfin(1, 4);
   gp_Pnt2d               pfil1, pfac1, pfil2, pfac2, pint, pfildeb;
   Handle(GeomCurve2d)   Hc1, Hc2;
-  IntCurveSurface_HInter inters;
+  HandleIntersection inters;
   Standard_Integer       proledge[nn], prolface[nn + 1]; // last prolface[nn] is for Fd
   Standard_Integer       shrink[nn];
   TopoFace            faceprol[nn];
@@ -3343,7 +3343,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
       return;
     for (nb = 1; nb <= Intersector.NbPoints(); nb++)
     {
-      const IntRes2d_IntersectionPoint& ip   = Intersector.Point(nb);
+      const IntersectionPoint3& ip   = Intersector.Point(nb);
       Point3d                            Pint = C3d->Value(ip.ParamOnFirst());
       tol                                    = Max(tol, Pvert.Distance(Pint));
       Pint                                   = Cend->Value(ip.ParamOnSecond());
@@ -3354,7 +3354,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
       const IntRes2d_IntersectionSegment& is = Intersector.Segment1(nb);
       if (is.HasFirstPoint())
       {
-        const IntRes2d_IntersectionPoint& ip   = is.FirstPoint();
+        const IntersectionPoint3& ip   = is.FirstPoint();
         Point3d                            Pint = C3d->Value(ip.ParamOnFirst());
         tol                                    = Max(tol, Pvert.Distance(Pint));
         Pint                                   = Cend->Value(ip.ParamOnSecond());
@@ -3362,7 +3362,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
       }
       if (is.HasLastPoint())
       {
-        const IntRes2d_IntersectionPoint& ip   = is.LastPoint();
+        const IntersectionPoint3& ip   = is.LastPoint();
         Point3d                            Pint = C3d->Value(ip.ParamOnFirst());
         tol                                    = Max(tol, Pvert.Distance(Pint));
         Pint                                   = Cend->Value(ip.ParamOnSecond());
@@ -4573,7 +4573,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
       Handle(Geom_TrimmedCurve) Ctrim = new Geom_TrimmedCurve(C, Ubid, Vbid);
       GeomAdaptor_Curve         cur1(Ctrim->BasisCurve());
       GeomAdaptor_Curve         cur2(Cc);
-      Extrema_ExtCC             extCC(cur1, cur2);
+      CurveCurveExtrema2             extCC(cur1, cur2);
       if (extCC.IsDone() && extCC.NbExt() != 0)
       {
         Standard_Integer imin     = 0;

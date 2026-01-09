@@ -21,9 +21,9 @@
 
 //=================================================================================================
 
-BRepBlend_SurfPointEvolRadInv::BRepBlend_SurfPointEvolRadInv(const Handle(Adaptor3d_Surface)& S,
-                                                             const Handle(Adaptor3d_Curve)&   C,
-                                                             const Handle(Law_Function)&      Evol)
+BRepBlend_SurfPointEvolRadInv::BRepBlend_SurfPointEvolRadInv(const Handle(SurfaceAdaptor)& S,
+                                                             const Handle(Curve5)&   C,
+                                                             const Handle(Function2)&      Evol)
     : surf(S),
       curv(C)
 {

@@ -63,7 +63,7 @@ class Point3d;
 //! Warnings :
 //! The major radius (on the major axis) can be lower than the
 //! minor radius (on the minor axis).
-class gce_MakeHypr : public Root6
+class HyperbolaBuilder1 : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -78,7 +78,7 @@ public:
   //! MinorRadius.
   //! The status is "NegativeRadius" if MajorRadius < 0.0 and
   //! "InvertRadius" if MinorRadius > MajorRadius.
-  Standard_EXPORT gce_MakeHypr(const Frame3d&       A2,
+  Standard_EXPORT HyperbolaBuilder1(const Frame3d&       A2,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius);
 
@@ -97,7 +97,7 @@ public:
   //! less than the minor radius (computed with Center, S1 and S2), or
   //! -   MajorRadius is less than MinorRadius; or
   //! -   gce_ColinearPoints if S1, S2 and Center are collinear.
-  Standard_EXPORT gce_MakeHypr(const Point3d& S1, const Point3d& S2, const Point3d& Center);
+  Standard_EXPORT HyperbolaBuilder1(const Point3d& S1, const Point3d& S2, const Point3d& Center);
 
   //! Returns the constructed hyperbola.
   //! Exceptions StdFail_NotDone if no hyperbola is constructed.

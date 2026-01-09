@@ -20,7 +20,7 @@
 #include <Graphic3d_MapIteratorOfMapOfStructure.hxx>
 #include <Graphic3d_StructureManager.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CView, Graphic3d_DataStructureManager)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CView, DataStructureManager)
 
 //=================================================================================================
 
@@ -444,7 +444,7 @@ void Graphic3d_CView::ReCompute(const Handle(Graphic3d_Structure)& theStruct)
   // compute + validation
   Handle(Graphic3d_Structure) aCompStructOld = myStructsComputed.ChangeValue(anIndex);
   Handle(Graphic3d_Structure) aCompStruct    = aCompStructOld;
-  aCompStruct->SetTransformation(Handle(TopLoc_Datum3D)());
+  aCompStruct->SetTransformation(Handle(Datum3D2)());
   theStruct->computeHLR(myCamera, aCompStruct);
   if (aCompStruct.IsNull())
   {
@@ -878,7 +878,7 @@ void Graphic3d_CView::Display(const Handle(Graphic3d_Structure)& theStructure)
   if (anIndex != 0)
   {
     aStruct = myStructsComputed.Value(anIndex);
-    aStruct->SetTransformation(Handle(TopLoc_Datum3D)());
+    aStruct->SetTransformation(Handle(Datum3D2)());
   }
   theStructure->computeHLR(myCamera, aStruct);
   if (aStruct.IsNull())
@@ -980,7 +980,7 @@ void Graphic3d_CView::Highlight(const Handle(Graphic3d_Structure)& theStructure)
 //=================================================================================================
 
 void Graphic3d_CView::SetTransform(const Handle(Graphic3d_Structure)& theStructure,
-                                   const Handle(TopLoc_Datum3D)&      theTrsf)
+                                   const Handle(Datum3D2)&      theTrsf)
 {
   const Standard_Integer anIndex = IsComputed(theStructure);
   if (anIndex != 0)
@@ -1458,7 +1458,7 @@ void Graphic3d_CView::DumpJson(Standard_OStream& theOStream, Standard_Integer th
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Graphic3d_DataStructureManager);
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, DataStructureManager);
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myId)
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myRenderParams)

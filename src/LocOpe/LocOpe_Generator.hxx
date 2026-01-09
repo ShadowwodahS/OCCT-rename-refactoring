@@ -24,7 +24,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class LocOpe_GeneratedShape;
+class GeneratedShape;
 class TopoFace;
 
 class LocOpe_Generator
@@ -41,7 +41,7 @@ public:
   //! Initializes the algorithm on the shape <S>.
   void Init(const TopoShape& S);
 
-  Standard_EXPORT void Perform(const Handle(LocOpe_GeneratedShape)& G);
+  Standard_EXPORT void Perform(const Handle(GeneratedShape)& G);
 
   Standard_Boolean IsDone() const;
 
@@ -60,7 +60,7 @@ public:
 protected:
 private:
   TopoShape                       myShape;
-  Handle(LocOpe_GeneratedShape)      myGen;
+  Handle(GeneratedShape)      myGen;
   Standard_Boolean                   myDone;
   TopoShape                       myRes;
   TopTools_DataMapOfShapeListOfShape myModShapes;

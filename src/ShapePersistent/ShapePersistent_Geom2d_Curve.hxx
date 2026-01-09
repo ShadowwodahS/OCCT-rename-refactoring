@@ -71,16 +71,16 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 
   private:
     Standard_Boolean                       myRational;
-    Handle(ShapePersistent_HArray1::Pnt2d) myPoles;
+    Handle(HArray11::Pnt2d) myPoles;
     Handle(HArray1::Real)   myWeights;
   };
 
-  class pBSpline : public pBounded
+  class pBSpline1 : public pBounded
   {
     friend class ShapePersistent_Geom2d_Curve;
 
   public:
-    pBSpline()
+    pBSpline1()
         : myRational(Standard_False),
           myPeriodic(Standard_False),
           mySpineDegree(0)
@@ -115,7 +115,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
     Standard_Boolean                        myRational;
     Standard_Boolean                        myPeriodic;
     Standard_Integer                        mySpineDegree;
-    Handle(ShapePersistent_HArray1::Pnt2d)  myPoles;
+    Handle(HArray11::Pnt2d)  myPoles;
     Handle(HArray1::Real)    myWeights;
     Handle(HArray1::Real)    myKnots;
     Handle(HArray1::Integer1) myMultiplicities;
@@ -202,7 +202,7 @@ public:
 
   typedef subBase_empty<Curve>       Bounded;
   typedef Delayed<Bounded, pBezier1>  Bezier;
-  typedef Delayed<Bounded, pBSpline> BSpline;
+  typedef Delayed<Bounded, pBSpline1> BSpline;
   typedef Delayed<Bounded, pTrimmed1> Trimmed;
 
   typedef Delayed<Curve, pOffset1> Offset;

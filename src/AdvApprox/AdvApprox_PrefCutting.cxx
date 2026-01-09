@@ -17,13 +17,13 @@
 #include <AdvApprox_PrefCutting.hxx>
 #include <Precision.hxx>
 
-AdvApprox_PrefCutting::AdvApprox_PrefCutting(const TColStd_Array1OfReal& CutPnts)
+PreferredCutting::PreferredCutting(const TColStd_Array1OfReal& CutPnts)
     : myPntOfCutting(1, CutPnts.Length())
 {
   myPntOfCutting = CutPnts;
 }
 
-Standard_Boolean AdvApprox_PrefCutting::Value(const Standard_Real a,
+Standard_Boolean PreferredCutting::Value(const Standard_Real a,
                                               const Standard_Real b,
                                               Standard_Real&      cuttingvalue) const
 {

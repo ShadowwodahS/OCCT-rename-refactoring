@@ -53,7 +53,7 @@ public:
   //! Constructor.
   //! @param theDisp connection to display, required on Linux but optional on other systems
   //! @param theToInitialize perform initialization of default OpenGL context on construction
-  Standard_EXPORT OpenGl_GraphicDriver(const Handle(Aspect_DisplayConnection)& theDisp,
+  Standard_EXPORT OpenGl_GraphicDriver(const Handle(DisplayConnection1)& theDisp,
                                        const Standard_Boolean theToInitialize = Standard_True);
 
   //! Destructor.
@@ -144,10 +144,10 @@ public:
 
 public:
   //! @return the visualization options
-  inline const OpenGl_Caps& Options() const { return *myCaps.operator->(); }
+  inline const Caps& Options() const { return *myCaps.operator->(); }
 
   //! @return the visualization options
-  inline OpenGl_Caps& ChangeOptions() { return *myCaps.operator->(); }
+  inline Caps& ChangeOptions() { return *myCaps.operator->(); }
 
   //! Specify swap buffer behavior.
   Standard_EXPORT void SetBuffersNoSwap(const Standard_Boolean theIsNoSwap);
@@ -194,7 +194,7 @@ public:
   Standard_Size GetNextPrimitiveArrayUID() const { return myUIDGenerator.Increment(); }
 
 protected:
-  //! Choose default visual for new windows created by Aspect_DisplayConnection.
+  //! Choose default visual for new windows created by DisplayConnection1.
   Standard_EXPORT void chooseVisualInfo();
 
 protected:
@@ -206,7 +206,7 @@ protected:
   Aspect_RenderingContext myEglContext; //!< EGL rendering context         : EGLContext
   void*                   myEglConfig;  //!< EGL configuration             : EGLConfig
 
-  Handle(OpenGl_Caps)                                      myCaps;
+  Handle(Caps)                                      myCaps;
   NCollection_Map<Handle(OpenGl_View)>                     myMapOfView;
   NCollection_DataMap<Standard_Integer, OpenGl_Structure*> myMapOfStructure;
 

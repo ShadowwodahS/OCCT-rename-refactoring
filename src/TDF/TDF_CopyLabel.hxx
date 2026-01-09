@@ -24,7 +24,7 @@
 #include <TDF_Label.hxx>
 #include <TDF_IDFilter.hxx>
 #include <TDF_AttributeMap.hxx>
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DataSet;
 
 //! This class gives copy of  source  label  hierarchy
@@ -63,11 +63,11 @@ public:
   Standard_Boolean IsDone() const;
 
   //! returns  relocation  table
-  Standard_EXPORT const Handle(TDF_RelocationTable)& RelocationTable() const;
+  Standard_EXPORT const Handle(RelocationTable1)& RelocationTable() const;
 
 protected:
 private:
-  Handle(TDF_RelocationTable) myRT;
+  Handle(RelocationTable1) myRT;
   DataLabel                   mySL;
   DataLabel                   myTL;
   IDFilter                myFilter;

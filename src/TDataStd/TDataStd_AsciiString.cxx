@@ -146,7 +146,7 @@ void TDataStd_AsciiString::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void TDataStd_AsciiString::Paste(const Handle(TDF_Attribute)& theInto,
-                                 const Handle(TDF_RelocationTable)& /* RT */) const
+                                 const Handle(RelocationTable1)& /* RT */) const
 {
   Handle(TDataStd_AsciiString) R = Handle(TDataStd_AsciiString)::DownCast(theInto);
   R->Set(myString);

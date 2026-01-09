@@ -396,7 +396,7 @@ void BndLib_Box2dCurve::PerformBezier()
   Standard_Integer           i, aNbPoles;
   Standard_Real              aT1, aT2, aTb[2];
   gp_Pnt2d                   aP2D;
-  Handle(Geom2d_Geometry)    aG;
+  Handle(Geometry2)    aG;
   Handle(Geom2d_BezierCurve) aCBz, aCBzSeg;
   //
   myErrorStatus     = 0;
@@ -448,7 +448,7 @@ void BndLib_Box2dCurve::PerformBSpline()
   Standard_Integer            i, aNbPoles;
   Standard_Real               aT1, aT2, aTb[2];
   gp_Pnt2d                    aP2D;
-  Handle(Geom2d_Geometry)     aG;
+  Handle(Geometry2)     aG;
   Handle(Geom2d_BSplineCurve) aCBS, aCBSs;
   //
   myErrorStatus     = 0;

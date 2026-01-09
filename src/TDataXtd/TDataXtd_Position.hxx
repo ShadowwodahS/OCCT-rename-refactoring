@@ -23,7 +23,7 @@
 #include <TDF_Attribute.hxx>
 class DataLabel;
 class Standard_GUID;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDataXtd_Position;
 DEFINE_STANDARD_HANDLE(TDataXtd_Position, TDF_Attribute)
@@ -68,7 +68,7 @@ public:
   //! attribute may be a brand new one or a new version
   //! of the previous one.
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       intoAttribute,
-                                     const Handle(TDF_RelocationTable)& aRelocTationable) const
+                                     const Handle(RelocationTable1)& aRelocTationable) const
     Standard_OVERRIDE;
 
   Standard_EXPORT const Point3d& GetPosition() const;

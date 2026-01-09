@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-OpenGl_Flipper::OpenGl_Flipper(const Frame3d& theReferenceSystem)
+Flipper::Flipper(const Frame3d& theReferenceSystem)
     : OpenGl_Element(),
       myReferenceOrigin((Standard_ShortReal)theReferenceSystem.Location().X(),
                         (Standard_ShortReal)theReferenceSystem.Location().Y(),
@@ -48,14 +48,14 @@ OpenGl_Flipper::OpenGl_Flipper(const Frame3d& theReferenceSystem)
 
 //=================================================================================================
 
-void OpenGl_Flipper::Release(OpenGl_Context*)
+void Flipper::Release(OpenGl_Context*)
 {
   //
 }
 
 //=================================================================================================
 
-void OpenGl_Flipper::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
+void Flipper::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
 {
   // Check if rendering is to be in immediate mode
   const Handle(OpenGl_Context)& aContext = theWorkspace->GetGlContext();
@@ -138,9 +138,9 @@ void OpenGl_Flipper::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
 
 //=================================================================================================
 
-void OpenGl_Flipper::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void Flipper::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, OpenGl_Flipper)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, Flipper)
 
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, OpenGl_Element)
 }

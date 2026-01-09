@@ -52,7 +52,7 @@ void NewDimensionedGeometryTool::ReadOwnParams(
   Handle(IGESData_IGESEntity)          tempDimen;
   Handle(HArray1OfIGESEntity) tempGeomEnts;
   Handle(TColStd_HArray1OfInteger)     tempDimLocFlags;
-  Handle(TColgp_HArray1OfXYZ)          tempPoints;
+  Handle(XYZArray)          tempPoints;
 
   if (PR.DefinedElseSkip())
     // clang-format off
@@ -66,7 +66,7 @@ void NewDimensionedGeometryTool::ReadOwnParams(
   {
     tempGeomEnts    = new HArray1OfIGESEntity(1, num);
     tempDimLocFlags = new TColStd_HArray1OfInteger(1, num);
-    tempPoints      = new TColgp_HArray1OfXYZ(1, num);
+    tempPoints      = new XYZArray(1, num);
   }
   else
     PR.AddFail("Number of Geometries: Not Positive");
@@ -148,7 +148,7 @@ void NewDimensionedGeometryTool::OwnCopy(
 
   Handle(HArray1OfIGESEntity) tempGeomEnts    = new HArray1OfIGESEntity(1, num);
   Handle(TColStd_HArray1OfInteger)     tempDimLocFlags = new TColStd_HArray1OfInteger(1, num);
-  Handle(TColgp_HArray1OfXYZ)          tempPoints      = new TColgp_HArray1OfXYZ(1, num);
+  Handle(XYZArray)          tempPoints      = new XYZArray(1, num);
 
   for (Standard_Integer i = 1; i <= num; i++)
   {
@@ -181,7 +181,7 @@ Standard_Boolean NewDimensionedGeometryTool::OwnCorrect(
   Standard_Integer                     nb              = ent->NbGeometries();
   Handle(HArray1OfIGESEntity) tempGeomEnts    = new HArray1OfIGESEntity(1, nb);
   Handle(TColStd_HArray1OfInteger)     tempDimLocFlags = new TColStd_HArray1OfInteger(1, nb);
-  Handle(TColgp_HArray1OfXYZ)          tempPoints      = new TColgp_HArray1OfXYZ(1, nb);
+  Handle(XYZArray)          tempPoints      = new XYZArray(1, nb);
 
   for (Standard_Integer i = 1; i <= nb; i++)
   {

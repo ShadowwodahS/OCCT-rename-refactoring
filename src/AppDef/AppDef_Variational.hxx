@@ -30,11 +30,11 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <math_Vector.hxx>
 #include <AppParCurves_Constraint.hxx>
-class AppDef_SmoothCriterion;
+class SmoothCriterion;
 class math_Matrix;
 class FEmTool_Curve;
 class FEmTool_Assembly;
-class PLib_Base;
+class PolynomialBase;
 
 //! This class is used to smooth N points with constraints
 //! by   minimization  of quadratic  criterium   but  also
@@ -63,7 +63,7 @@ public:
     const AppDef_MultiLine&                               SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     const Standard_Integer                                MaxDegree    = 14,
     const Standard_Integer                                MaxSegment   = 100,
     const GeomAbs_Shape                                   Continuity   = GeomAbs_C2,
@@ -161,7 +161,7 @@ public:
   //! If this value is incompatible with the others fields
   //! this method modify nothing and returns false
   Standard_EXPORT Standard_Boolean
-    SetConstraints(const Handle(AppParCurves_HArray1OfConstraintCouple)& aConstrainst);
+    SetConstraints(const Handle(ConstraintCoupleArray)& aConstrainst);
 
   //! Defines the parameters used by the approximations.
   Standard_EXPORT void SetParameters(const Handle(TColStd_HArray1OfReal)& param);
@@ -220,19 +220,19 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void TheMotor(Handle(AppDef_SmoothCriterion)& J,
+  Standard_EXPORT void TheMotor(Handle(SmoothCriterion)& J,
                                 const Standard_Real             WQuadratic,
                                 const Standard_Real             WQuality,
                                 Handle(FEmTool_Curve)&          TheCurve,
                                 TColStd_Array1OfReal&           Ecarts);
 
-  Standard_EXPORT void Adjusting(Handle(AppDef_SmoothCriterion)& J,
+  Standard_EXPORT void Adjusting(Handle(SmoothCriterion)& J,
                                  Standard_Real&                  WQuadratic,
                                  Standard_Real&                  WQuality,
                                  Handle(FEmTool_Curve)&          TheCurve,
                                  TColStd_Array1OfReal&           Ecarts);
 
-  Standard_EXPORT void Optimization(Handle(AppDef_SmoothCriterion)& J,
+  Standard_EXPORT void Optimization(Handle(SmoothCriterion)& J,
                                     FEmTool_Assembly&               A,
                                     const Standard_Boolean          ToAssemble,
                                     const Standard_Real             EpsDeg,
@@ -278,7 +278,7 @@ private:
                                 const Standard_Real    Length,
                                 math_Vector&           VScnd) const;
 
-  Standard_EXPORT void InitCutting(const Handle(PLib_Base)& aBase,
+  Standard_EXPORT void InitCutting(const Handle(PolynomialBase)& aBase,
                                    const Standard_Real      CurvTol,
                                    Handle(FEmTool_Curve)&   aCurve) const;
 
@@ -300,7 +300,7 @@ private:
   Standard_Integer                               myLastPoint;
   Standard_Integer                               myNbPoints;
   Handle(TColStd_HArray1OfReal)                  myTabPoints;
-  Handle(AppParCurves_HArray1OfConstraintCouple) myConstraints;
+  Handle(ConstraintCoupleArray) myConstraints;
   Standard_Integer                               myNbConstraints;
   Handle(TColStd_HArray1OfReal)                  myTabConstraints;
   Standard_Integer                               myNbPassPoints;
@@ -319,7 +319,7 @@ private:
   Standard_Boolean                               myWithCutting;
   Standard_Real                                  myPercent[3];
   Standard_Real                                  myCriterium[4];
-  Handle(AppDef_SmoothCriterion)                 mySmoothCriterion;
+  Handle(SmoothCriterion)                 mySmoothCriterion;
   Handle(TColStd_HArray1OfReal)                  myParameters;
   Handle(TColStd_HArray1OfReal)                  myKnots;
   AppParCurves_MultiBSpCurve                     myMBSpCurve;

@@ -20,6 +20,6 @@
 #include <Geom_SequenceOfBSplineSurface.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(Geom_HSequenceOfBSplineSurface, Geom_SequenceOfBSplineSurface)
+DEFINE_HSEQUENCE(BSplineSurfaceSequence, Geom_SequenceOfBSplineSurface)
 
 #endif

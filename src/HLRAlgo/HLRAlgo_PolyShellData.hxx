@@ -22,11 +22,11 @@
 #include <HLRAlgo_ListOfBPoint.hxx>
 #include <HLRAlgo_PolyData.hxx>
 
-class HLRAlgo_PolyShellData;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyShellData, RefObject)
+class PolyShellData;
+DEFINE_STANDARD_HANDLE(PolyShellData, RefObject)
 
 //! All the PolyData of a Shell
-class HLRAlgo_PolyShellData : public RefObject
+class PolyShellData : public RefObject
 {
 
 public:
@@ -35,28 +35,28 @@ public:
     Standard_Integer Min, Max;
   };
 
-  Standard_EXPORT HLRAlgo_PolyShellData(const Standard_Integer nbFace);
+  Standard_EXPORT PolyShellData(const Standard_Integer nbFace);
 
-  Standard_EXPORT void UpdateGlobalMinMax(HLRAlgo_PolyData::Box1& theBox);
+  Standard_EXPORT void UpdateGlobalMinMax(PolyData1::Box1& theBox);
 
   Standard_EXPORT void UpdateHiding(const Standard_Integer nbHiding);
 
   Standard_Boolean Hiding() const { return !myHPolHi.IsEmpty(); }
 
-  NCollection_Array1<Handle(HLRAlgo_PolyData)>& PolyData() { return myPolyg; }
+  NCollection_Array1<Handle(PolyData1)>& PolyData() { return myPolyg; }
 
-  NCollection_Array1<Handle(HLRAlgo_PolyData)>& HidingPolyData() { return myHPolHi; }
+  NCollection_Array1<Handle(PolyData1)>& HidingPolyData() { return myHPolHi; }
 
   HLRAlgo_ListOfBPoint& Edges() { return mySegList; }
 
   ShellIndices1& Indices() { return myIndices; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, RefObject)
+  DEFINE_STANDARD_RTTIEXT(PolyShellData, RefObject)
 
 private:
   ShellIndices1                                 myIndices;
-  NCollection_Array1<Handle(HLRAlgo_PolyData)> myPolyg;
-  NCollection_Array1<Handle(HLRAlgo_PolyData)> myHPolHi;
+  NCollection_Array1<Handle(PolyData1)> myPolyg;
+  NCollection_Array1<Handle(PolyData1)> myHPolHi;
   HLRAlgo_ListOfBPoint                         mySegList;
 };
 

@@ -234,11 +234,11 @@ void Poly1::Write(const Handle(Poly_Polygon3D)& P,
 
 //=================================================================================================
 
-void Poly1::Write(const Handle(Poly_Polygon2D)& P,
+void Poly1::Write(const Handle(Polygon2D2)& P,
                  Standard_OStream&             OS,
                  const Standard_Boolean        Compact)
 {
-  OS << "Poly_Polygon2D\n";
+  OS << "Polygon2D2\n";
   if (Compact)
   {
     OS << P->NbNodes() << " ";
@@ -290,7 +290,7 @@ void Poly1::Dump(const Handle(Poly_Polygon3D)& P, Standard_OStream& OS)
 
 //=================================================================================================
 
-void Poly1::Dump(const Handle(Poly_Polygon2D)& P, Standard_OStream& OS)
+void Poly1::Dump(const Handle(Polygon2D2)& P, Standard_OStream& OS)
 {
   Poly1::Write(P, OS, Standard_False);
 }
@@ -420,18 +420,18 @@ Handle(Poly_Polygon3D) Poly1::ReadPolygon3D(Standard_IStream& IS)
 
 //=================================================================================================
 
-Handle(Poly_Polygon2D) Poly1::ReadPolygon2D(Standard_IStream& IS)
+Handle(Polygon2D2) Poly1::ReadPolygon2D(Standard_IStream& IS)
 {
   // Read a 2d polygon
 
   char line[100];
   IS >> line;
-  if (strcmp(line, "Poly_Polygon2D"))
+  if (strcmp(line, "Polygon2D2"))
   {
 #ifdef OCCT_DEBUG
     std::cout << "Not a Polygon2D in the file" << std::endl;
 #endif
-    return Handle(Poly_Polygon2D)();
+    return Handle(Polygon2D2)();
   }
 
   Standard_Integer nbNodes;
@@ -451,7 +451,7 @@ Handle(Poly_Polygon2D) Poly1::ReadPolygon2D(Standard_IStream& IS)
     Nodes(i).SetCoord(x, y);
   }
 
-  Handle(Poly_Polygon2D) P = new Poly_Polygon2D(Nodes);
+  Handle(Polygon2D2) P = new Polygon2D2(Nodes);
 
   P->Deflection(d);
 

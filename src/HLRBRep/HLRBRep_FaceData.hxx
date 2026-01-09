@@ -24,7 +24,7 @@
 #include <HLRBRep_Surface.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <Standard_Integer.hxx>
-class HLRAlgo_WiresBlock;
+class WiresBlock;
 class TopoFace;
 
 class HLRBRep_FaceData
@@ -117,7 +117,7 @@ public:
 
   void Orientation(const TopAbs_Orientation O);
 
-  Handle(HLRAlgo_WiresBlock)& Wires();
+  Handle(WiresBlock)& Wires();
 
   HLRBRep_Surface& Geometry1();
 
@@ -144,7 +144,7 @@ protected:
 
 private:
   Standard_Integer           myFlags;
-  Handle(HLRAlgo_WiresBlock) myWires;
+  Handle(WiresBlock) myWires;
   HLRBRep_Surface            myGeometry;
   Standard_Real              mySize;
   Standard_ShortReal         myTolerance;

@@ -270,7 +270,7 @@ TopAbs_ShapeEnum TNaming_Name::ShapeType() const
 
 //=================================================================================================
 
-void TNaming_Name::Paste(TNaming_Name& into, const Handle(TDF_RelocationTable)& RT) const
+void TNaming_Name::Paste(TNaming_Name& into, const Handle(RelocationTable1)& RT) const
 {
   into.myType      = myType;
   into.myShapeType = myShapeType;

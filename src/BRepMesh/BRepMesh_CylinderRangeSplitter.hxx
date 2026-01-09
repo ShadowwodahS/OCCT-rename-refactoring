@@ -20,17 +20,17 @@
 
 //! Auxiliary class extending default range splitter in
 //! order to generate internal nodes for cylindrical surface.
-class BRepMesh_CylinderRangeSplitter : public DefaultRangeSplitter
+class CylinderRangeSplitter : public DefaultRangeSplitter
 {
 public:
   //! Constructor.
-  BRepMesh_CylinderRangeSplitter()
+  CylinderRangeSplitter()
       : myDu(1.)
   {
   }
 
   //! Destructor.
-  virtual ~BRepMesh_CylinderRangeSplitter() {}
+  virtual ~CylinderRangeSplitter() {}
 
   //! Resets this splitter. Must be called before first use.
   Standard_EXPORT virtual void Reset(const IMeshData::IFaceHandle& theDFace,

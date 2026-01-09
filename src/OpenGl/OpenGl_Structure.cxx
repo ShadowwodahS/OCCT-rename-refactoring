@@ -35,8 +35,8 @@ void OpenGl_Structure::renderBoundingBox(const Handle(OpenGl_Workspace)& theWork
   }
 
   const Handle(OpenGl_Context)&   aCtx = theWorkspace->GetGlContext();
-  const Handle(OpenGl_TextureSet) aPrevTexture =
-    aCtx->BindTextures(Handle(OpenGl_TextureSet)(), Handle(OpenGl_ShaderProgram)());
+  const Handle(TextureSet2) aPrevTexture =
+    aCtx->BindTextures(Handle(TextureSet2)(), Handle(OpenGl_ShaderProgram)());
   const Graphic3d_ZLayerSettings& aLayer = myGraphicDriver->ZLayerSettings(myZLayer);
   const Graphic3d_Vec3d           aMoveVec =
     myTrsfPers.IsNull() && !aLayer.OriginTransformation().IsNull()
@@ -85,7 +85,7 @@ void OpenGl_Structure::renderBoundingBox(const Handle(OpenGl_Workspace)& theWork
                                         OpenGl_Vec3(aMax.x(), aMin.y(), aMax.z()),
                                         OpenGl_Vec3(aMin.x(), aMin.y(), aMax.z())};
 
-    aCtx->ShaderManager()->BindLineProgram(Handle(OpenGl_TextureSet)(),
+    aCtx->ShaderManager()->BindLineProgram(Handle(TextureSet2)(),
                                            Aspect_TOL_SOLID,
                                            Graphic3d_TypeOfShadingModel_Unlit,
                                            Graphic3d_AlphaMode_Opaque,
@@ -130,7 +130,7 @@ void OpenGl_Structure::SetZLayer(const Graphic3d_ZLayerId theLayerIndex)
 
 //=================================================================================================
 
-void OpenGl_Structure::SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
+void OpenGl_Structure::SetTransformation(const Handle(Datum3D2)& theTrsf)
 {
   myTrsf       = theTrsf;
   myIsMirrored = Standard_False;
@@ -157,7 +157,7 @@ void OpenGl_Structure::SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
 
 //=================================================================================================
 
-void OpenGl_Structure::SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
+void OpenGl_Structure::SetTransformPersistence(const Handle(TransformPers)& theTrsfPers)
 {
   if ((myTrsfPers.IsNull() || theTrsfPers.IsNull()) && myTrsfPers != theTrsfPers)
   {
@@ -374,7 +374,7 @@ void OpenGl_Structure::renderGeometry(const Handle(OpenGl_Workspace)& theWorkspa
       applyTransformation(aCtx, aTrsf, Standard_True);
     }
 
-    const Handle(Graphic3d_TransformPers)& aTrsfPers = aGroup->TransformPersistence();
+    const Handle(TransformPers)& aTrsfPers = aGroup->TransformPersistence();
     if (!aTrsfPers.IsNull())
     {
       applyPersistence(aCtx, aTrsfPers, true, anOldCastShadows);
@@ -589,7 +589,7 @@ void OpenGl_Structure::Render(const Handle(OpenGl_Workspace)& theWorkspace) cons
     // enable planes that were previously disabled
     aCtx->ChangeClipping().RestoreDisabled();
   }
-  aCtx->ChangeClipping().SetLocalPlanes(Handle(Graphic3d_SequenceOfHClipPlane)());
+  aCtx->ChangeClipping().SetLocalPlanes(Handle(SequenceOfHClipPlane)());
   if ((!myClipPlanes.IsNull() && !myClipPlanes->IsEmpty()) || hasDisabled)
   {
     // Set OCCT state uniform variables
@@ -657,7 +657,7 @@ Handle(Graphic3d_CStructure) OpenGl_Structure::ShadowLink(
 //=================================================================================================
 
 void OpenGl_Structure::applyPersistence(const Handle(OpenGl_Context)&          theCtx,
-                                        const Handle(Graphic3d_TransformPers)& theTrsfPers,
+                                        const Handle(TransformPers)& theTrsfPers,
                                         const Standard_Boolean                 theIsLocal,
                                         Standard_Boolean& theOldCastShadows) const
 {
@@ -712,7 +712,7 @@ void OpenGl_Structure::applyPersistence(const Handle(OpenGl_Context)&          t
 //=================================================================================================
 
 void OpenGl_Structure::revertPersistence(const Handle(OpenGl_Context)&          theCtx,
-                                         const Handle(Graphic3d_TransformPers)& theTrsfPers,
+                                         const Handle(TransformPers)& theTrsfPers,
                                          const Standard_Boolean                 theIsLocal,
                                          const Standard_Boolean theOldCastShadows) const
 {

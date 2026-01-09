@@ -39,7 +39,7 @@ void IGESGeom_BSplineSurface::Init(const Standard_Integer               anIndexU
                                    const Handle(TColStd_HArray1OfReal)& allKnotsU,
                                    const Handle(TColStd_HArray1OfReal)& allKnotsV,
                                    const Handle(TColStd_HArray2OfReal)& allWeights,
-                                   const Handle(TColgp_HArray2OfXYZ)&   allPoles,
+                                   const Handle(XYZGrid)&   allPoles,
                                    const Standard_Real                  aUmin,
                                    const Standard_Real                  aUmax,
                                    const Standard_Real                  aVmin,

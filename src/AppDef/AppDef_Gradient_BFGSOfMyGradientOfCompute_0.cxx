@@ -34,7 +34,7 @@
 #define AppParCurves_ResConstraint_hxx <AppDef_ResConstraintOfMyGradientOfCompute.hxx>
 #define AppParCurves_ParFunction AppDef_ParFunctionOfMyGradientOfCompute
 #define AppParCurves_ParFunction_hxx <AppDef_ParFunctionOfMyGradientOfCompute.hxx>
-#define AppParCurves_Gradient_BFGS AppDef_Gradient_BFGSOfMyGradientOfCompute
+#define AppParCurves_Gradient_BFGS BFGSGradientCompute
 #define AppParCurves_Gradient_BFGS_hxx <AppDef_Gradient_BFGSOfMyGradientOfCompute.hxx>
 #define AppParCurves_Gradient AppDef_MyGradientOfCompute
 #define AppParCurves_Gradient_hxx <AppDef_MyGradientOfCompute.hxx>

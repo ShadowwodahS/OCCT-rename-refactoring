@@ -20,9 +20,9 @@
 #include <MeshVS_HArray1OfSequenceOfInteger.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, Handle(MeshVS_HArray1OfSequenceOfInteger)>
+typedef NCollection_DataMap<Standard_Integer, Handle(IntegerSequenceArray)>
   MeshVS_DataMapOfHArray1OfSequenceOfInteger;
-typedef NCollection_DataMap<Standard_Integer, Handle(MeshVS_HArray1OfSequenceOfInteger)>::Iterator
+typedef NCollection_DataMap<Standard_Integer, Handle(IntegerSequenceArray)>::Iterator
   MeshVS_DataMapIteratorOfDataMapOfHArray1OfSequenceOfInteger;
 
 #endif

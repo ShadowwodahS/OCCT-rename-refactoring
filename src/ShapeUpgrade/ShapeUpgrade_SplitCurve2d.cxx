@@ -113,7 +113,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
     spc.Build(Segment1);
     myNbCurves = spc.GetCurves()->Length();
 
-    myResultingCurves = new TColGeom2d_HArray1OfCurve(1, myNbCurves);
+    myResultingCurves = new HArray1OfCurve2(1, myNbCurves);
     if (myNbCurves == 1)
     {
       Handle(Geom2d_TrimmedCurve) NewTrimCurve =
@@ -135,7 +135,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
     spc.SetSplitValues(mySplitValues);
     spc.Build(Segment1);
     myNbCurves        = spc.GetCurves()->Length();
-    myResultingCurves = new TColGeom2d_HArray1OfCurve(1, myNbCurves);
+    myResultingCurves = new HArray1OfCurve2(1, myNbCurves);
     for (Standard_Integer i = 1; i <= myNbCurves; i++)
     {
       Handle(Geom2d_OffsetCurve) NewOffsetCurve =
@@ -147,7 +147,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
   }
 
   myNbCurves        = mySplitValues->Length() - 1;
-  myResultingCurves = new TColGeom2d_HArray1OfCurve(1, myNbCurves);
+  myResultingCurves = new HArray1OfCurve2(1, myNbCurves);
   if (myNbCurves == 1)
   {
     Standard_Boolean filled = Standard_True;
@@ -261,7 +261,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment1)
 
 //=================================================================================================
 
-const Handle(TColGeom2d_HArray1OfCurve)& ShapeUpgrade_SplitCurve2d::GetCurves() const
+const Handle(HArray1OfCurve2)& ShapeUpgrade_SplitCurve2d::GetCurves() const
 {
   return myResultingCurves;
 }

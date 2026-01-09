@@ -46,11 +46,11 @@ public:
 
   Standard_EXPORT void Dump(const Standard_Integer ie1 = 0, const Standard_Integer ie2 = 0) const;
 
-  void SetPint(const IntRes2d_IntersectionPoint& P);
+  void SetPint(const IntersectionPoint3& P);
 
   Standard_Boolean HasPint() const;
 
-  const IntRes2d_IntersectionPoint& Pint() const;
+  const IntersectionPoint3& Pint() const;
 
   void SetIsVertex(const Standard_Integer I, const Standard_Boolean B);
 
@@ -118,7 +118,7 @@ public:
 
 protected:
 private:
-  IntRes2d_IntersectionPoint  mypint;
+  IntersectionPoint3  mypint;
   Standard_Boolean            myhaspint;
   Standard_Boolean            myisvertex1;
   TopoVertex               myvertex1;

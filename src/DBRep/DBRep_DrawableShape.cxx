@@ -292,7 +292,7 @@ static void PlotIso(DrawDisplay&        dis,
 
 static void PlotEdge(DrawDisplay&          dis,
                      Handle(DBRep_Edge)&    E,
-                     const Adaptor3d_Curve& C,
+                     const Curve5& C,
                      Standard_Real&         f,
                      Standard_Real          step,
                      Standard_Boolean&      halt)
@@ -713,7 +713,7 @@ void DBRep_DrawableShape::DrawOn(DrawDisplay& dis) const
         l = f + mySize;
       }
 
-      Handle(Adaptor3d_Curve) HC       = C.Trim(f, l, Precision1::Confusion());
+      Handle(Curve5) HC       = C.Trim(f, l, Precision1::Confusion());
       GeomAbs_CurveType       CurvType = HC->GetType();
 
       Standard_Integer     intrv, nbintv = HC->NbIntervals(GeomAbs_CN);

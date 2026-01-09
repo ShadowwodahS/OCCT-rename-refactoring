@@ -29,7 +29,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class MeshVS_Mesh;
-class MeshVS_DataSource;
+class MeshDataSource;
 class Graphic3d_Texture2D;
 class Graphic3d_ArrayOfPrimitives;
 
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT MeshVS_NodalColorPrsBuilder(
     const Handle(MeshVS_Mesh)&       Parent,
     const MeshVS_DisplayModeFlags&   Flags    = MeshVS_DMF_NodalColorDataPrs,
-    const Handle(MeshVS_DataSource)& DS       = 0,
+    const Handle(MeshDataSource)& DS       = 0,
     const Standard_Integer           Id       = -1,
     const MeshVS_BuilderPriority&    Priority = MeshVS_BP_NodalColor);
 
@@ -116,7 +116,7 @@ public:
   Standard_EXPORT Standard_Real GetTextureCoord(const Standard_Integer theID);
 
   //! Add to array polygons or polylines representing volume
-  Standard_EXPORT void AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOfInteger)& theTopo,
+  Standard_EXPORT void AddVolumePrs(const Handle(IntegerSequenceArray)& theTopo,
                                     const TColStd_Array1OfInteger&                   theNodes,
                                     const TColStd_Array1OfReal&                      theCoords,
                                     const Handle(Graphic3d_ArrayOfPrimitives)&       theArray,

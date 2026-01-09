@@ -149,9 +149,9 @@ static Standard_Boolean GetFuncGUID(Standard_CString aKey, Standard_GUID& GUID)
 }
 
 //=======================================================================
-static Handle(TFunction_Driver) GetDriver(const AsciiString1& name)
+static Handle(FunctionDriver1) GetDriver(const AsciiString1& name)
 {
-  Handle(TFunction_Driver) aDrv;
+  Handle(FunctionDriver1) aDrv;
   if (name == "Box1")
     aDrv = new DNaming_BoxDriver();
   else if (name == "Cyl")
@@ -505,7 +505,7 @@ static Standard_Integer ComputeFunction(const Handle(TFunction_Function)& theFun
                                         Handle(TFunction_Logbook)&        theLog)
 {
   Handle(TFunction_DriverTable) aTable = TFunction_DriverTable::Get();
-  Handle(TFunction_Driver)      aDriver;
+  Handle(FunctionDriver1)      aDriver;
   Standard_Integer              aRes(-1);
   if (aTable->FindDriver(theFun->GetDriverGUID(), aDriver))
   {

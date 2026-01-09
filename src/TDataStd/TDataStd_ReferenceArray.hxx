@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DataSet;
 
 class TDataStd_ReferenceArray;
@@ -81,9 +81,9 @@ public:
   //! Returns the number of elements in the array.
   Standard_EXPORT Standard_Integer Length() const;
 
-  Standard_EXPORT const Handle(TDataStd_HLabelArray1)& InternalArray() const;
+  Standard_EXPORT const Handle(HLabelArray1)& InternalArray() const;
 
-  Standard_EXPORT void SetInternalArray(const Handle(TDataStd_HLabelArray1)& values,
+  Standard_EXPORT void SetInternalArray(const Handle(HLabelArray1)& values,
                                         const Standard_Boolean isCheckItems = Standard_True);
 
   Standard_EXPORT TDataStd_ReferenceArray();
@@ -95,7 +95,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       Into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void References(const Handle(TDF_DataSet)& DS) const Standard_OVERRIDE;
 
@@ -109,7 +109,7 @@ public:
 
 protected:
 private:
-  Handle(TDataStd_HLabelArray1) myArray;
+  Handle(HLabelArray1) myArray;
   Standard_GUID                 myID;
 };
 

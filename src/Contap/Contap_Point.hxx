@@ -24,7 +24,7 @@
 #include <gp_Pnt.hxx>
 #include <IntSurf_Transition.hxx>
 
-class Adaptor3d_HVertex;
+class HandleVertex;
 
 //! Definition of a vertex on the contour line.
 //! Most of the time, such a point is an intersection
@@ -52,7 +52,7 @@ public:
   //! Sets the values of a point which is a vertex on
   //! the initial facet of restriction of one
   //! of the surface.
-  void SetVertex(const Handle(Adaptor3d_HVertex)& V);
+  void SetVertex(const Handle(HandleVertex)& V);
 
   //! Sets the value of the arc and of the parameter on
   //! this arc of the point.
@@ -103,7 +103,7 @@ public:
   //! on the domain of the patch, i-e when the function
   //! IsVertex returns True.
   //! Otherwise, an exception is raised.
-  const Handle(Adaptor3d_HVertex)& Vertex() const;
+  const Handle(HandleVertex)& Vertex() const;
 
   //! Returns True if the point belongs to several
   //! lines.
@@ -126,7 +126,7 @@ private:
   Transition2        traarc;
   Standard_Real             prmarc;
   Standard_Boolean          isvtx;
-  Handle(Adaptor3d_HVertex) vtx;
+  Handle(HandleVertex) vtx;
   Standard_Boolean          ismult;
   Standard_Boolean          myInternal;
 };

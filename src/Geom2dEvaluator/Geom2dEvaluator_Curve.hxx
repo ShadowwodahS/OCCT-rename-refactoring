@@ -23,10 +23,10 @@ class gp_Vec2d;
 
 //! Interface for calculation of values and derivatives for different kinds of curves in 2D.
 //! Works both with adaptors and curves.
-class Geom2dEvaluator_Curve : public RefObject
+class Curve4 : public RefObject
 {
 public:
-  Geom2dEvaluator_Curve() {}
+  Curve4() {}
 
   //! Value of 2D curve
   virtual void D0(const Standard_Real theU, gp_Pnt2d& theValue) const = 0;
@@ -46,11 +46,11 @@ public:
   //! Calculates N-th derivatives of curve, where N = theDerU. Raises if N < 1
   virtual gp_Vec2d DN(const Standard_Real theU, const Standard_Integer theDerU) const = 0;
 
-  virtual Handle(Geom2dEvaluator_Curve) ShallowCopy() const = 0;
+  virtual Handle(Curve4) ShallowCopy() const = 0;
 
-  DEFINE_STANDARD_RTTI_INLINE(Geom2dEvaluator_Curve, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(Curve4, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Geom2dEvaluator_Curve, RefObject)
+DEFINE_STANDARD_HANDLE(Curve4, RefObject)
 
 #endif // _Geom2dEvaluator_Curve_HeaderFile

@@ -28,10 +28,10 @@
 FairCurve_DistributionOfTension::FairCurve_DistributionOfTension(
   const Standard_Integer               BSplOrder,
   const Handle(TColStd_HArray1OfReal)& FlatKnots,
-  const Handle(TColgp_HArray1OfPnt2d)& Poles,
+  const Handle(Point2dArray)& Poles,
   const Standard_Integer               DerivativeOrder,
   const Standard_Real                  LengthSliding,
-  const FairCurve_BattenLaw&           Law1,
+  const BattenLaw&           Law1,
   const Standard_Integer               NbValAux,
   const Standard_Boolean               Uniform)
     : FairCurve_DistributionOfEnergy(BSplOrder, FlatKnots, Poles, DerivativeOrder, NbValAux),

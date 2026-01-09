@@ -955,7 +955,7 @@ void Geom_BSplineSurface::SetUPeriodic()
       cpoles(i, j) = poles->Value(i, j);
     }
   }
-  poles                 = new TColgp_HArray2OfPnt(1, nbp, cpoles.LowerCol(), cpoles.UpperCol());
+  poles                 = new PointGrid(1, nbp, cpoles.LowerCol(), cpoles.UpperCol());
   poles->ChangeArray2() = cpoles;
 
   TColStd_Array2OfReal cweights(1, nbp, weights->LowerCol(), weights->UpperCol());
@@ -1022,7 +1022,7 @@ void Geom_BSplineSurface::SetVPeriodic()
       cpoles(i, j) = poles->Value(i, j);
     }
   }
-  poles                 = new TColgp_HArray2OfPnt(cpoles.LowerRow(), cpoles.UpperRow(), 1, nbp);
+  poles                 = new PointGrid(cpoles.LowerRow(), cpoles.UpperRow(), 1, nbp);
   poles->ChangeArray2() = cpoles;
 
   if (urational || vrational)
@@ -1090,7 +1090,7 @@ void Geom_BSplineSurface::SetUOrigin(const Standard_Integer Index)
 
   // set the poles and weights
   Standard_Integer              nbvp       = poles->RowLength();
-  Handle(TColgp_HArray2OfPnt)   npoles     = new TColgp_HArray2OfPnt(1, nbpoles, 1, nbvp);
+  Handle(PointGrid)   npoles     = new PointGrid(1, nbpoles, 1, nbvp);
   Handle(TColStd_HArray2OfReal) nweights   = new TColStd_HArray2OfReal(1, nbpoles, 1, nbvp);
   TColgp_Array2OfPnt&           newpoles   = npoles->ChangeArray2();
   TColStd_Array2OfReal&         newweights = nweights->ChangeArray2();
@@ -1192,7 +1192,7 @@ void Geom_BSplineSurface::SetVOrigin(const Standard_Integer Index)
 
   // set the poles and weights
   Standard_Integer              nbup       = poles->ColLength();
-  Handle(TColgp_HArray2OfPnt)   npoles     = new TColgp_HArray2OfPnt(1, nbup, 1, nbpoles);
+  Handle(PointGrid)   npoles     = new PointGrid(1, nbup, 1, nbpoles);
   Handle(TColStd_HArray2OfReal) nweights   = new TColStd_HArray2OfReal(1, nbup, 1, nbpoles);
   TColgp_Array2OfPnt&           newpoles   = npoles->ChangeArray2();
   TColStd_Array2OfReal&         newweights = nweights->ChangeArray2();
@@ -1258,7 +1258,7 @@ void Geom_BSplineSurface::SetUNotPeriodic()
     Standard_Integer NbKnots, NbPoles;
     BSplCLib1::PrepareUnperiodize(udeg, umults->Array1(), NbKnots, NbPoles);
 
-    Handle(TColgp_HArray2OfPnt) npoles = new TColgp_HArray2OfPnt(1, NbPoles, 1, poles->RowLength());
+    Handle(PointGrid) npoles = new PointGrid(1, NbPoles, 1, poles->RowLength());
 
     Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, NbKnots);
 
@@ -1315,7 +1315,7 @@ void Geom_BSplineSurface::SetVNotPeriodic()
     Standard_Integer NbKnots, NbPoles;
     BSplCLib1::PrepareUnperiodize(vdeg, vmults->Array1(), NbKnots, NbPoles);
 
-    Handle(TColgp_HArray2OfPnt) npoles = new TColgp_HArray2OfPnt(1, poles->ColLength(), 1, NbPoles);
+    Handle(PointGrid) npoles = new PointGrid(1, poles->ColLength(), 1, NbPoles);
 
     Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, NbKnots);
 
@@ -1879,7 +1879,7 @@ void Geom_BSplineSurface::InsertUKnots(const TColStd_Array1OfReal&    Knots,
   if (nbpoles == poles->ColLength())
     return;
 
-  Handle(TColgp_HArray2OfPnt)   npoles = new TColgp_HArray2OfPnt(1, nbpoles, 1, poles->RowLength());
+  Handle(PointGrid)   npoles = new PointGrid(1, nbpoles, 1, poles->RowLength());
   Handle(TColStd_HArray2OfReal) nweights =
     new TColStd_HArray2OfReal(1, nbpoles, 1, poles->RowLength(), 1.0);
   Handle(TColStd_HArray1OfReal)    nknots = uknots;
@@ -1960,7 +1960,7 @@ void Geom_BSplineSurface::InsertVKnots(const TColStd_Array1OfReal&    Knots,
   if (nbpoles == poles->RowLength())
     return;
 
-  Handle(TColgp_HArray2OfPnt)   npoles = new TColgp_HArray2OfPnt(1, poles->ColLength(), 1, nbpoles);
+  Handle(PointGrid)   npoles = new PointGrid(1, poles->ColLength(), 1, nbpoles);
   Handle(TColStd_HArray2OfReal) nweights =
     new TColStd_HArray2OfReal(1, poles->ColLength(), 1, nbpoles, 1.0);
   Handle(TColStd_HArray1OfReal)    nknots = vknots;
@@ -2043,8 +2043,8 @@ Standard_Boolean Geom_BSplineSurface::RemoveUKnot(const Standard_Integer Index,
   if (step <= 0)
     return Standard_True;
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, oldpoles.ColLength() - step, 1, oldpoles.RowLength());
+  Handle(PointGrid) npoles =
+    new PointGrid(1, oldpoles.ColLength() - step, 1, oldpoles.RowLength());
   Handle(TColStd_HArray1OfReal)    nknots = uknots;
   Handle(TColStd_HArray1OfInteger) nmults = umults;
 
@@ -2133,8 +2133,8 @@ Standard_Boolean Geom_BSplineSurface::RemoveVKnot(const Standard_Integer Index,
   if (step <= 0)
     return Standard_True;
 
-  Handle(TColgp_HArray2OfPnt) npoles =
-    new TColgp_HArray2OfPnt(1, oldpoles.ColLength(), 1, oldpoles.RowLength() - step);
+  Handle(PointGrid) npoles =
+    new PointGrid(1, oldpoles.ColLength(), 1, oldpoles.RowLength() - step);
   Handle(TColStd_HArray1OfReal)    nknots = vknots;
   Handle(TColStd_HArray1OfInteger) nmults = vmults;
 

@@ -293,7 +293,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
   GeomAbs_IsoType  myType = GeomAbs_IsoV;
   Standard_Integer myPrec = 0;
 
-  AdvApprox_DichoCutting myDec;
+  DichotomicCutting myDec;
 
   // POP pour WNT
   GeomPlate_MakeApprox_Eval  ev(myPlate);
@@ -416,7 +416,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
   GeomAbs_IsoType  myType = GeomAbs_IsoV;
   Standard_Integer myPrec = 0;
 
-  AdvApprox_DichoCutting myDec;
+  DichotomicCutting myDec;
 
   if (CritOrder == -1)
   {
@@ -456,7 +456,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
   }
   else if (CritOrder == 0)
   {
-    GeomPlate_PlateG0Criterion Crit0(Seq2d, Seq3d, seuil);
+    G0Criterion Crit0(Seq2d, Seq3d, seuil);
     // POP pour NT
     GeomPlate_MakeApprox_Eval  ev(myPlate);
     AdvApp2Var_ApproxAFunc2Var AppPlate(nb1,
@@ -495,7 +495,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
   }
   else if (CritOrder == 1)
   {
-    GeomPlate_PlateG1Criterion Crit1(Seq2d, Seq3d, seuil);
+    G1Criterion Crit1(Seq2d, Seq3d, seuil);
     // POP pour NT
     GeomPlate_MakeApprox_Eval  ev(myPlate);
     AdvApp2Var_ApproxAFunc2Var AppPlate(nb1,

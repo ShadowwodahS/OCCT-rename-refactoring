@@ -26,8 +26,8 @@
 #include <GeomFill_ApproxStyle.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class GeomFill_LocationLaw;
-class GeomFill_SectionLaw;
+class LocationLaw;
+class SectionLaw;
 class GeomSurface;
 class GeomCurve2d;
 
@@ -37,7 +37,7 @@ class GeomFill_Sweep
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_Sweep(const Handle(GeomFill_LocationLaw)& Location,
+  Standard_EXPORT GeomFill_Sweep(const Handle(LocationLaw)& Location,
                                  const Standard_Boolean              WithKpart = Standard_True);
 
   //! Set parametric information
@@ -105,7 +105,7 @@ public:
   //! the surface
   //!
   //! raise If Domain are infinite or Profile not set.
-  Standard_EXPORT void Build(const Handle(GeomFill_SectionLaw)& Section,
+  Standard_EXPORT void Build(const Handle(SectionLaw)& Section,
                              const GeomFill_ApproxStyle         Methode    = GeomFill_Location,
                              const GeomAbs_Shape                Continuity = GeomAbs_C2,
                              const Standard_Integer             Degmax     = 10,
@@ -161,10 +161,10 @@ private:
   Standard_Real                     TolAngular;
   Standard_Real                     SError;
   Standard_Boolean                  myForceApproxC1;
-  Handle(GeomFill_LocationLaw)      myLoc;
-  Handle(GeomFill_SectionLaw)       mySec;
+  Handle(LocationLaw)      myLoc;
+  Handle(SectionLaw)       mySec;
   Handle(GeomSurface)              mySurface;
-  Handle(TColGeom2d_HArray1OfCurve) myCurve2d;
+  Handle(HArray1OfCurve2) myCurve2d;
   Handle(TColStd_HArray2OfReal)     CError;
   Standard_Boolean                  done;
   Standard_Boolean                  myExchUV;

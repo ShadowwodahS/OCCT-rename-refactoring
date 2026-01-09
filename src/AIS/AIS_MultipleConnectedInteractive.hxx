@@ -38,8 +38,8 @@ public:
   //! mode.
   //! @return created instance object (AIS_ConnectedInteractive or AIS_MultipleConnectedInteractive)
   Handle(VisualEntity) Connect(const Handle(VisualEntity)&   theAnotherObj,
-                                        const Handle(TopLoc_Datum3D)&          theLocation,
-                                        const Handle(Graphic3d_TransformPers)& theTrsfPers)
+                                        const Handle(Datum3D2)&          theLocation,
+                                        const Handle(TransformPers)& theTrsfPers)
   {
     return connect(theAnotherObj, theLocation, theTrsfPers);
   }
@@ -100,7 +100,7 @@ public: // short aliases to Connect() method
                                         const Transform3d&                       theLocation)
   {
     return connect(theAnotherObj,
-                   new TopLoc_Datum3D(theLocation),
+                   new Datum3D2(theLocation),
                    theAnotherObj->TransformPersistence());
   }
 
@@ -110,9 +110,9 @@ public: // short aliases to Connect() method
   //! @return created instance object (AIS_ConnectedInteractive or AIS_MultipleConnectedInteractive)
   Handle(VisualEntity) Connect(const Handle(VisualEntity)&   theAnotherObj,
                                         const Transform3d&                         theLocation,
-                                        const Handle(Graphic3d_TransformPers)& theTrsfPers)
+                                        const Handle(TransformPers)& theTrsfPers)
   {
-    return connect(theAnotherObj, new TopLoc_Datum3D(theLocation), theTrsfPers);
+    return connect(theAnotherObj, new Datum3D2(theLocation), theTrsfPers);
   }
 
 protected:
@@ -132,8 +132,8 @@ protected:
   //! @return created instance object (AIS_ConnectedInteractive or AIS_MultipleConnectedInteractive)
   Standard_EXPORT virtual Handle(VisualEntity) connect(
     const Handle(VisualEntity)&   theInteractive,
-    const Handle(TopLoc_Datum3D)&          theLocation,
-    const Handle(Graphic3d_TransformPers)& theTrsfPers);
+    const Handle(Datum3D2)&          theLocation,
+    const Handle(TransformPers)& theTrsfPers);
 
 private:
   //! Computes the selection for whole subtree in scene hierarchy.

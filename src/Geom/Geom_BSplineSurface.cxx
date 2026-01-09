@@ -131,7 +131,7 @@ static void Rational(const TColStd_Array2OfReal& Weights,
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_BSplineSurface::Copy() const
+Handle(Geometry3) Geom_BSplineSurface::Copy() const
 {
   Handle(Geom_BSplineSurface) S;
   if (urational || vrational)
@@ -185,7 +185,7 @@ Geom_BSplineSurface::Geom_BSplineSurface(const TColgp_Array2OfPnt&      Poles,
 
   // copy arrays
 
-  poles                 = new TColgp_HArray2OfPnt(1, Poles.ColLength(), 1, Poles.RowLength());
+  poles                 = new PointGrid(1, Poles.ColLength(), 1, Poles.RowLength());
   poles->ChangeArray2() = Poles;
 
   weights = new TColStd_HArray2OfReal(1, Poles.ColLength(), 1, Poles.RowLength(), 1.0);
@@ -256,7 +256,7 @@ Geom_BSplineSurface::Geom_BSplineSurface(const TColgp_Array2OfPnt&      Poles,
 
   // copy arrays
 
-  poles                 = new TColgp_HArray2OfPnt(1, Poles.ColLength(), 1, Poles.RowLength());
+  poles                 = new PointGrid(1, Poles.ColLength(), 1, Poles.RowLength());
   poles->ChangeArray2() = Poles;
 
   weights                 = new TColStd_HArray2OfReal(1, Poles.ColLength(), 1, Poles.RowLength());
@@ -287,7 +287,7 @@ void Geom_BSplineSurface::ExchangeUV()
   Standard_Integer LR = poles->LowerRow();
   Standard_Integer UR = poles->UpperRow();
 
-  Handle(TColgp_HArray2OfPnt)   npoles = new TColgp_HArray2OfPnt(LC, UC, LR, UR);
+  Handle(PointGrid)   npoles = new PointGrid(LC, UC, LR, UR);
   Handle(TColStd_HArray2OfReal) nweights;
   if (!weights.IsNull())
   {
@@ -338,8 +338,8 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
 
     Standard_Integer Step = UDegree - udeg;
 
-    Handle(TColgp_HArray2OfPnt) npoles =
-      new TColgp_HArray2OfPnt(1,
+    Handle(PointGrid) npoles =
+      new PointGrid(1,
                               poles->ColLength() + Step * (ToK2 - FromK1),
                               1,
                               poles->RowLength());
@@ -404,8 +404,8 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
 
     Standard_Integer Step = VDegree - vdeg;
 
-    Handle(TColgp_HArray2OfPnt) npoles =
-      new TColgp_HArray2OfPnt(1,
+    Handle(PointGrid) npoles =
+      new PointGrid(1,
                               poles->ColLength(),
                               1,
                               poles->RowLength() + Step * (ToK2 - FromK1));
@@ -758,7 +758,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
 
   Handle(TColStd_HArray2OfReal) nweights;
 
-  Handle(TColgp_HArray2OfPnt) npoles = new TColgp_HArray2OfPnt(1, nbupoles, 1, nbvpoles);
+  Handle(PointGrid) npoles = new PointGrid(1, nbupoles, 1, nbvpoles);
   k                                  = 1;
   Standard_Integer j, l;
   if (urational || vrational)

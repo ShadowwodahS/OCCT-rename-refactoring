@@ -51,7 +51,7 @@ public:
     const BRepApprox_TheMultiLineOfApprox&                SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const Standard_Integer                                Deg,
     const Standard_Real                                   Tol3d,

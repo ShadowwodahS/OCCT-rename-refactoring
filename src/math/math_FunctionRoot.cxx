@@ -24,14 +24,14 @@
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <math_FunctionWithDerivative.hxx>
 
-class math_MyFunctionSetWithDerivatives : public math_FunctionSetWithDerivatives
+class math_MyFunctionSetWithDerivatives : public FunctionSetWithDerivatives
 {
 
 private:
-  math_FunctionWithDerivative* Ff;
+  FunctionWithDerivative* Ff;
 
 public:
-  math_MyFunctionSetWithDerivatives(math_FunctionWithDerivative& F);
+  math_MyFunctionSetWithDerivatives(FunctionWithDerivative& F);
 
   Standard_Integer NbVariables() const;
   Standard_Integer NbEquations() const;
@@ -40,7 +40,7 @@ public:
   Standard_Boolean Values(const math_Vector& X, math_Vector& F, math_Matrix& D);
 };
 
-math_MyFunctionSetWithDerivatives::math_MyFunctionSetWithDerivatives(math_FunctionWithDerivative& F)
+math_MyFunctionSetWithDerivatives::math_MyFunctionSetWithDerivatives(FunctionWithDerivative& F)
 {
   Ff = &F;
 }
@@ -73,7 +73,7 @@ Standard_Boolean math_MyFunctionSetWithDerivatives::Values(const math_Vector& X,
   return Ff->Values(X(1), F(1), D(1, 1));
 }
 
-FunctionRootSolver::FunctionRootSolver(math_FunctionWithDerivative& F,
+FunctionRootSolver::FunctionRootSolver(FunctionWithDerivative& F,
                                      const Standard_Real          Guess,
                                      const Standard_Real          Tolerance,
                                      const Standard_Integer       NbIterations)
@@ -95,7 +95,7 @@ FunctionRootSolver::FunctionRootSolver(math_FunctionWithDerivative& F,
   }
 }
 
-FunctionRootSolver::FunctionRootSolver(math_FunctionWithDerivative& F,
+FunctionRootSolver::FunctionRootSolver(FunctionWithDerivative& F,
                                      const Standard_Real          Guess,
                                      const Standard_Real          Tolerance,
                                      const Standard_Real          A,

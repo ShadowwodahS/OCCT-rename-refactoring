@@ -46,7 +46,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Bisector_BisecAna, Bisector_Curve)
 
-static Standard_Boolean Degenerate(Handle(GccInt_Bisec)& aBisector, const Standard_Real Tolerance);
+static Standard_Boolean Degenerate(Handle(Bisector2)& aBisector, const Standard_Real Tolerance);
 
 //=============================================================================
 // function :
@@ -66,7 +66,7 @@ Bisector_BisecAna::Bisector_BisecAna() {}
 //    astatus       : out : shows if the bissectrice is preserved.               +
 //=============================================================================
 Standard_Real Bisector_BisecAna::Distance(const gp_Pnt2d&             apoint,
-                                          const Handle(GccInt_Bisec)& abisector,
+                                          const Handle(Bisector2)& abisector,
                                           const gp_Vec2d&             afirstvector,
                                           const gp_Vec2d&             asecondvector,
                                           const gp_Vec2d&             VecRef,
@@ -242,7 +242,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
   Handle(TypeInfo) type2 = asecondcurve->DynamicType();
   Handle(GeomCurve2d)  CurveF;
   Handle(GeomCurve2d)  CurveE;
-  Handle(GccInt_Bisec)  TheSol;
+  Handle(Bisector2)  TheSol;
 
   // jgv: for OCC26296
   gp_Vec2d LineBisVec(0., 0.);
@@ -376,7 +376,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
           line = gp_Lin2d(circle1.Location(), gp_Dir2d(1., 0.));
         }
         //  Modified by skv - Fri Jul  1 16:23:32 2005 IDEM(Airbus) End
-        Handle(GccInt_Bisec) solution = new GccInt_BLine(line);
+        Handle(Bisector2) solution = new GccInt_BLine(line);
         sense                         = Standard_False;
         //  Modified by skv - Tue Feb 15 17:51:29 2005 Integration Begin
         //       distanceptsol = Distance(apoint,solution,
@@ -460,7 +460,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         nbsolution = Bisector1.NbSolutions();
         for (Standard_Integer i = 1; i <= nbsolution; i++)
         {
-          Handle(GccInt_Bisec) solution = Bisector1.ThisSolution(i);
+          Handle(Bisector2) solution = Bisector1.ThisSolution(i);
           Degenerate(solution, tolerance);
           sense = Standard_True;
           if (oncurve)
@@ -657,7 +657,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         nbsolution = Bisector1.NbSolutions();
         for (Standard_Integer i = 1; i <= nbsolution; i++)
         {
-          Handle(GccInt_Bisec) solution = Bisector1.ThisSolution(i);
+          Handle(Bisector2) solution = Bisector1.ThisSolution(i);
           Degenerate(solution, tolerance);
           sense = Standard_True;
           distanceptsol =
@@ -798,7 +798,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         else
           line = gp_Lin2d(apoint, line2.Direction());
 
-        Handle(GccInt_Bisec) solution = new GccInt_BLine(line);
+        Handle(Bisector2) solution = new GccInt_BLine(line);
         //  Modified by skv - Wed Jul  7 17:21:09 2004 IDEM(Airbus) Begin
         //       sense = Standard_True;
         //       distanceptsol = Distance(apoint,solution,
@@ -842,7 +842,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
       else
       {
         gp_Lin2d             l(apoint, gp_Dir2d(Direc2.XY() - Direc1.XY()));
-        Handle(GccInt_Bisec) solution = new GccInt_BLine(l);
+        Handle(Bisector2) solution = new GccInt_BLine(l);
         Standard_Boolean     isOk;
         sense = Standard_False;
         //  Modified by skv - Tue Feb 15 17:51:29 2005 Integration Begin
@@ -912,7 +912,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
   Standard_Real        distanceptsol, parameter, firstparameter = 0., secondparameter;
   gp_Vec2d             VecRef(0., 0.);
   Handle(GeomCurve2d) curve;
-  Handle(GccInt_Bisec) TheSol;
+  Handle(Bisector2) TheSol;
 
   gp_Circ2d circle;
   gp_Lin2d  line;
@@ -965,7 +965,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         Standard_Integer nbsolution = Bisector1.NbSolutions();
         for (Standard_Integer i = 1; i <= nbsolution; i++)
         {
-          Handle(GccInt_Bisec) solution = Bisector1.ThisSolution(i);
+          Handle(Bisector2) solution = Bisector1.ThisSolution(i);
           Degenerate(solution, tolerance);
           sense         = Standard_False;
           distanceptsol = Distance(apoint,
@@ -1085,7 +1085,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
 #else
       line.Direction();
 #endif
-      Handle(GccInt_Bisec) solution = Bisector1.ThisSolution();
+      Handle(Bisector2) solution = Bisector1.ThisSolution();
       Degenerate(solution, tolerance);
       GccInt_IType         type = solution->ArcType();
       Handle(GeomCurve2d) bisectorcurve;
@@ -1193,7 +1193,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Point)& afirstpoint,
 
   Point2dBisector    bisector(afirstpoint->Pnt2d(), asecondpoint->Pnt2d());
   gp_Lin2d             line     = bisector.ThisSolution();
-  Handle(GccInt_Bisec) solution = new GccInt_BLine(line);
+  Handle(Bisector2) solution = new GccInt_BLine(line);
 
   sense = Standard_False;
   Distance(apoint, solution, afirstvector, asecondvector, VecRef, adirection, parameter, sense, ok);
@@ -1448,7 +1448,7 @@ Standard_Boolean Bisector_BisecAna::IsCN(const Standard_Integer N) const
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Bisector_BisecAna::Copy() const
+Handle(Geometry2) Bisector_BisecAna::Copy() const
 {
   Handle(Bisector_BisecAna) C = new Bisector_BisecAna();
   C->Init(Handle(Geom2d_TrimmedCurve)::DownCast(thebisector->Copy()));
@@ -1639,7 +1639,7 @@ void Bisector_BisecAna::Init(const Handle(Geom2d_TrimmedCurve)& Bis)
 // purpose  : Replace the bisectrice by a straight line,
 //           if the bisectrice is an ellipse, a parabole or a degenerated ellipse.
 //=============================================================================
-Standard_Boolean Degenerate(Handle(GccInt_Bisec)& aBisector, const Standard_Real Tolerance)
+Standard_Boolean Degenerate(Handle(Bisector2)& aBisector, const Standard_Real Tolerance)
 {
   Standard_Boolean Degeneree = Standard_False;
 
@@ -1648,7 +1648,7 @@ Standard_Boolean Degenerate(Handle(GccInt_Bisec)& aBisector, const Standard_Real
   gp_Elips2d gpellipse;
   // gp_Circ2d  gpcircle   ;
 
-  Handle(GccInt_Bisec) NewBisector;
+  Handle(Bisector2) NewBisector;
 
   GccInt_IType type = aBisector->ArcType();
 

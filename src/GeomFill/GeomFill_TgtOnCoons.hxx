@@ -26,11 +26,11 @@ class GeomFill_CoonsAlgPatch;
 class Vector3d;
 
 class GeomFill_TgtOnCoons;
-DEFINE_STANDARD_HANDLE(GeomFill_TgtOnCoons, GeomFill_TgtField)
+DEFINE_STANDARD_HANDLE(GeomFill_TgtOnCoons, TangentField)
 
 //! Defines   an   algorithmic  tangents  field   on a
 //! boundary of a CoonsAlgPatch.
-class GeomFill_TgtOnCoons : public GeomFill_TgtField
+class GeomFill_TgtOnCoons : public TangentField
 {
 
 public:
@@ -49,7 +49,7 @@ public:
   //! tangency at parameter W.
   Standard_EXPORT void D1(const Standard_Real W, Vector3d& T, Vector3d& DT) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_TgtOnCoons, GeomFill_TgtField)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_TgtOnCoons, TangentField)
 
 protected:
 private:

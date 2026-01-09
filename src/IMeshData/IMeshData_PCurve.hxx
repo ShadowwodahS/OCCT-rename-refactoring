@@ -24,7 +24,7 @@ class gp_Pnt2d;
 
 //! Interface class representing pcurve of edge associated with discrete face.
 //! Indexation of points starts from zero.
-class IMeshData_PCurve : public IMeshData_ParametersList
+class IMeshData_PCurve : public ParametersList
 {
 public:
   //! Destructor.
@@ -60,7 +60,7 @@ public:
   //! Returns discrete face pcurve is associated to.
   const IMeshData::IFacePtr& GetFace() const { return myDFace; }
 
-  DEFINE_STANDARD_RTTIEXT(IMeshData_PCurve, IMeshData_ParametersList)
+  DEFINE_STANDARD_RTTIEXT(IMeshData_PCurve, ParametersList)
 
 protected:
   //! Constructor.

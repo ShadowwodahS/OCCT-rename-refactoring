@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void Point3::Middle(const Handle(Adaptor3d_Surface)& MySurface,
+void Point3::Middle(const Handle(SurfaceAdaptor)& MySurface,
                             const Point3&            Point1,
                             const Point3&            Point2)
 {

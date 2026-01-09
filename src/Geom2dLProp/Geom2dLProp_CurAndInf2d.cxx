@@ -22,14 +22,14 @@
 
 //=================================================================================================
 
-Geom2dLProp_CurAndInf2d::Geom2dLProp_CurAndInf2d()
+CurveInfo2d::CurveInfo2d()
     : isDone(Standard_False)
 {
 }
 
 //=================================================================================================
 
-void Geom2dLProp_CurAndInf2d::Perform(const Handle(GeomCurve2d)& C)
+void CurveInfo2d::Perform(const Handle(GeomCurve2d)& C)
 {
   PerformCurExt(C);
   PerformInf(C);
@@ -37,7 +37,7 @@ void Geom2dLProp_CurAndInf2d::Perform(const Handle(GeomCurve2d)& C)
 
 //=================================================================================================
 
-void Geom2dLProp_CurAndInf2d::PerformCurExt(const Handle(GeomCurve2d)& C)
+void CurveInfo2d::PerformCurExt(const Handle(GeomCurve2d)& C)
 {
   isDone = Standard_True;
 
@@ -95,7 +95,7 @@ void Geom2dLProp_CurAndInf2d::PerformCurExt(const Handle(GeomCurve2d)& C)
 
 //=================================================================================================
 
-void Geom2dLProp_CurAndInf2d::PerformInf(const Handle(GeomCurve2d)& C)
+void CurveInfo2d::PerformInf(const Handle(GeomCurve2d)& C)
 {
   isDone = Standard_True;
 
@@ -150,7 +150,7 @@ void Geom2dLProp_CurAndInf2d::PerformInf(const Handle(GeomCurve2d)& C)
 
 //=================================================================================================
 
-Standard_Boolean Geom2dLProp_CurAndInf2d::IsDone() const
+Standard_Boolean CurveInfo2d::IsDone() const
 {
   return isDone;
 }

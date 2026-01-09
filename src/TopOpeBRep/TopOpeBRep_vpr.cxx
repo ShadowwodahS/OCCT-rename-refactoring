@@ -1315,7 +1315,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
     // calcul de la transition <tOOedge> sur l'arete <OOedge>
     // (de l'autre face en jeu, OOShapeIndex) ou le VP est donne ON.
     // On tient compte de l'orientation de <edge> dans <Face>.
-    // (bug IntPatch_Line : VP n'a pas de donnees en OOShapeIndex
+    // (bug Line2 : VP n'a pas de donnees en OOShapeIndex
     // alors qu'il est dessus)
 
     StateTransition tOOedge;

@@ -22,7 +22,7 @@
 //! Class implements functionality of model pre-processing tool.
 //! Nullifies existing polygonal data in case if model elements
 //! have IMeshData_Outdated status.
-class BRepMesh_ModelPreProcessor : public IMeshTools_ModelAlgo
+class BRepMesh_ModelPreProcessor : public ModelAlgorithm
 {
 public:
   //! Constructor.
@@ -31,7 +31,7 @@ public:
   //! Destructor.
   Standard_EXPORT virtual ~BRepMesh_ModelPreProcessor();
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_ModelPreProcessor, IMeshTools_ModelAlgo)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_ModelPreProcessor, ModelAlgorithm)
 
 protected:
   //! Performs processing of edges of the given model.

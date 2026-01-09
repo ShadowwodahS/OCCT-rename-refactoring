@@ -30,7 +30,7 @@
 class MAT_Graph;
 class BRepMAT2d_Explorer;
 class MAT_BasicElt;
-class Geom2d_Geometry;
+class Geometry2;
 class gp_Pnt2d;
 class MAT_Node;
 class Bisector_Bisec;
@@ -113,7 +113,7 @@ public:
                                                 const Standard_Integer Index) const;
 
   //! Returns the geometry linked to the <BasicElt>.
-  Standard_EXPORT Handle(Geom2d_Geometry) GeomElt(const Handle(MAT_BasicElt)& aBasicElt) const;
+  Standard_EXPORT Handle(Geometry2) GeomElt(const Handle(MAT_BasicElt)& aBasicElt) const;
 
   //! Returns the geometry of  type <gp1> linked to
   //! the <Node>.

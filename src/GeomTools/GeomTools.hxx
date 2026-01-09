@@ -27,7 +27,7 @@
 class GeomSurface;
 class GeomCurve3d;
 class GeomCurve2d;
-class GeomTools_UndefinedTypeHandler;
+class UndefinedTypeHandler;
 
 //! The GeomTools1 package provides  utilities for Geometry1.
 //!
@@ -69,9 +69,9 @@ public:
   Standard_EXPORT static void Read(Handle(GeomCurve2d)& C, Standard_IStream& IS);
 
   Standard_EXPORT static void SetUndefinedTypeHandler(
-    const Handle(GeomTools_UndefinedTypeHandler)& aHandler);
+    const Handle(UndefinedTypeHandler)& aHandler);
 
-  Standard_EXPORT static Handle(GeomTools_UndefinedTypeHandler) GetUndefinedTypeHandler();
+  Standard_EXPORT static Handle(UndefinedTypeHandler) GetUndefinedTypeHandler();
 
   //! Reads the Standard_Real value from the stream. Zero is read
   //! in case of error

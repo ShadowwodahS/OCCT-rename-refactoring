@@ -46,7 +46,7 @@ public:
   //! 3D polygon, polygon on triangulation, 2d polygon on surface
   //! If edge has no polygons, array thePolyg is left unchanged
   Standard_EXPORT static void PreparePolygon(const TopoEdge&           theE,
-                                             Handle(TColgp_HArray1OfPnt)& thePolyg);
+                                             Handle(PointArray1)& thePolyg);
 
 protected:
 private:

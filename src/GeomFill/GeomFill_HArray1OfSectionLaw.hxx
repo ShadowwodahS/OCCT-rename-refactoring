@@ -20,6 +20,6 @@
 #include <GeomFill_Array1OfSectionLaw.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(GeomFill_HArray1OfSectionLaw, GeomFill_Array1OfSectionLaw)
+DEFINE_HARRAY1(SectionLawArray, GeomFill_Array1OfSectionLaw)
 
 #endif

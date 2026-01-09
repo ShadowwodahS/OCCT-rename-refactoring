@@ -153,7 +153,7 @@ void XCAFDoc_NoteBinData::Restore(const Handle(TDF_Attribute)& theAttr)
 //=================================================================================================
 
 void XCAFDoc_NoteBinData::Paste(const Handle(TDF_Attribute)&       theAttrInto,
-                                const Handle(TDF_RelocationTable)& theRT) const
+                                const Handle(RelocationTable1)& theRT) const
 {
   XCAFDoc_Note::Paste(theAttrInto, theRT);
 

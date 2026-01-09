@@ -1203,7 +1203,7 @@ TopoCompound ShapeFix_Shell::ErrorFaces() const
 
 //=================================================================================================
 
-void ShapeFix_Shell::SetMsgRegistrator(const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg)
+void ShapeFix_Shell::SetMsgRegistrator(const Handle(BasicMsgRegistrator)& msgreg)
 {
   ShapeFix_Root::SetMsgRegistrator(msgreg);
   myFixFace->SetMsgRegistrator(msgreg);

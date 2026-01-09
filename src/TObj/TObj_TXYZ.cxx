@@ -87,7 +87,7 @@ void TObj_TXYZ::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void TObj_TXYZ::Paste(const Handle(TDF_Attribute)& theInto,
-                      const Handle(TDF_RelocationTable)& /* RT */) const
+                      const Handle(RelocationTable1)& /* RT */) const
 {
   Handle(TObj_TXYZ) R = Handle(TObj_TXYZ)::DownCast(theInto);
   R->Set(myXYZ);

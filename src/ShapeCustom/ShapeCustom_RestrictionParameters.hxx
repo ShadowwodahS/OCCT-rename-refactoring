@@ -22,17 +22,17 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
 
-class ShapeCustom_RestrictionParameters;
-DEFINE_STANDARD_HANDLE(ShapeCustom_RestrictionParameters, RefObject)
+class RestrictionParameters;
+DEFINE_STANDARD_HANDLE(RestrictionParameters, RefObject)
 
 //! This class is axuluary tool which contains parameters for
 //! BSplineRestriction class.
-class ShapeCustom_RestrictionParameters : public RefObject
+class RestrictionParameters : public RefObject
 {
 
 public:
   //! Sets default parameters.
-  Standard_EXPORT ShapeCustom_RestrictionParameters();
+  Standard_EXPORT RestrictionParameters();
 
   //! Returns (modifiable) maximal degree of approximation.
   Standard_Integer& GMaxDegree();
@@ -95,7 +95,7 @@ public:
   //! converted to BSpline surface.
   Standard_Boolean& ConvertOffsetCurv2d();
 
-  DEFINE_STANDARD_RTTIEXT(ShapeCustom_RestrictionParameters, RefObject)
+  DEFINE_STANDARD_RTTIEXT(RestrictionParameters, RefObject)
 
 protected:
 private:

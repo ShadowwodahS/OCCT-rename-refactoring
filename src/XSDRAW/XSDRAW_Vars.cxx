@@ -33,7 +33,7 @@ void XSDRAW_Vars::Set(const Standard_CString name, const Handle(RefObject)& val)
 {
   // char* nam = name;
   // selon type
-  DeclareAndCast(Geom_Geometry, geom, val);
+  DeclareAndCast(Geometry3, geom, val);
   if (!geom.IsNull())
   {
     DrawTrSurf1::Set(name, geom);
@@ -57,7 +57,7 @@ Handle(RefObject)  XSDRAW_Vars::Get (const Standard_CString name) const
 }
 */
 
-Handle(Geom_Geometry) XSDRAW_Vars::GetGeom(Standard_CString& name) const
+Handle(Geometry3) XSDRAW_Vars::GetGeom(Standard_CString& name) const
 { // char* nam = name;
   return DrawTrSurf1::Get(name);
 }

@@ -92,7 +92,7 @@ private:
   Standard_Real                                myvsup;
   Standard_Real                                mytolv;
   Extrema_FuncPSNorm                           myF;
-  Handle(Adaptor3d_Curve)                      myC;
+  Handle(Curve5)                      myC;
   Handle(GeomAdaptor_SurfaceOfLinearExtrusion) myS;
   Vector3d                                       myDirection;
   Frame3d                                       myPosition;

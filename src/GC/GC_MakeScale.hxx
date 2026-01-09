@@ -22,12 +22,12 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class Geom_Transformation;
+class Transformation1;
 class Point3d;
 
 //! This class implements an elementary construction algorithm for
 //! a scaling transformation in 3D space. The result is a
-//! Geom_Transformation transformation (a scaling transformation with
+//! Transformation1 transformation (a scaling transformation with
 //! the center point <Point> and the scaling value <Scale>).
 //! A MakeScale object provides a framework for:
 //! -   defining the construction of the transformation,
@@ -44,13 +44,13 @@ public:
   Standard_EXPORT GC_MakeScale(const Point3d& Point, const Standard_Real Scale);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation1)& Value() const;
 
-  operator const Handle(Geom_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation1) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom_Transformation) TheScale;
+  Handle(Transformation1) TheScale;
 };
 
 #endif // _GC_MakeScale_HeaderFile

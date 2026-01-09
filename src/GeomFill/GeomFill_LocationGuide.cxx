@@ -53,7 +53,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationGuide, GeomFill_LocationLaw)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationGuide, LocationLaw)
 
 #ifdef DRAW
 static Standard_Integer Affich = 0;
@@ -70,8 +70,8 @@ static Standard_Integer Affich = 0;
 static void TraceRevol(const Standard_Real                        t,
                        const Standard_Real                        s,
                        const Handle(GeomFill_TrihedronWithGuide)& Law1,
-                       const Handle(GeomFill_SectionLaw)&         Section,
-                       const Handle(Adaptor3d_Curve)&             Curve,
+                       const Handle(SectionLaw)&         Section,
+                       const Handle(Curve5)&             Curve,
                        const gp_Mat&                              Trans)
 
 {
@@ -182,7 +182,7 @@ GeomFill_LocationGuide::GeomFill_LocationGuide(const Handle(GeomFill_TrihedronWi
     myGuide = myGuide->Trim(f, l, delta * 1.e-7); // courbe guide
   } // if
 
-  myPoles2d  = new (TColgp_HArray2OfPnt2d)(1, 2, 1, myNbPts);
+  myPoles2d  = new (Point2dGrid)(1, 2, 1, myNbPts);
   rotation   = Standard_False; // contact ou non
   OrigParam1 = 0;              // param pour ACR quand trajectoire
   OrigParam2 = 1;              // et guide pas meme sens de parcourt
@@ -227,7 +227,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
   IntersectionPoint1 PInt; // intersection guide/Revol
   Handle(TColStd_HArray1OfInteger)  Mult;
   Handle(TColStd_HArray1OfReal)     Knots, Weights;
-  Handle(TColgp_HArray1OfPnt)       Poles;
+  Handle(PointArray1)       Poles;
 
   Standard_Real    U = 0, UPeriod = 0;
   Standard_Real    f = myCurve->FirstParameter();
@@ -257,7 +257,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
     mySec->Mults(Mult->ChangeArray1());
     Knots = new (TColStd_HArray1OfReal)(1, NbKnots);
     mySec->Knots(Knots->ChangeArray1());
-    Poles   = new (TColgp_HArray1OfPnt)(1, NbPoles);
+    Poles   = new (PointArray1)(1, NbPoles);
     Weights = new (TColStd_HArray1OfReal)(1, NbPoles);
     Uf      = Knots->Value(1);
     Ul      = Knots->Value(NbKnots);
@@ -486,7 +486,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
 // Function: Set
 // Purpose : init loi de section et force la Rotation
 //==================================================================
-void GeomFill_LocationGuide::Set(const Handle(GeomFill_SectionLaw)& Section,
+void GeomFill_LocationGuide::Set(const Handle(SectionLaw)& Section,
                                  const Standard_Boolean             rotat,
                                  const Standard_Real                SFirst,
                                  const Standard_Real                SLast,
@@ -522,7 +522,7 @@ void GeomFill_LocationGuide::EraseRotation()
 
 //=================================================================================================
 
-Handle(GeomFill_LocationLaw) GeomFill_LocationGuide::Copy() const
+Handle(LocationLaw) GeomFill_LocationGuide::Copy() const
 {
   Standard_Real                       la;
   Handle(GeomFill_TrihedronWithGuide) L;
@@ -540,7 +540,7 @@ Handle(GeomFill_LocationLaw) GeomFill_LocationGuide::Copy() const
 // Purpose : Calcul des poles sur la surface d'arret (intersection
 // courbe guide / surface de revolution en myNbPts points)
 //==================================================================
-Standard_Boolean GeomFill_LocationGuide::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_LocationGuide::SetCurve(const Handle(Curve5)& C)
 {
   Standard_Real LastAngle;
   myCurve   = C;
@@ -562,7 +562,7 @@ Standard_Boolean GeomFill_LocationGuide::SetCurve(const Handle(Adaptor3d_Curve)&
 // Function: GetCurve
 // Purpose : return the trajectoire
 //==================================================================
-const Handle(Adaptor3d_Curve)& GeomFill_LocationGuide::GetCurve() const
+const Handle(Curve5)& GeomFill_LocationGuide::GetCurve() const
 {
   return myCurve;
 }
@@ -1322,7 +1322,7 @@ Handle(GeomCurve3d) GeomFill_LocationGuide::Section() const
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) GeomFill_LocationGuide::Guide() const
+Handle(Curve5) GeomFill_LocationGuide::Guide() const
 {
   return myGuide;
 }
@@ -1443,7 +1443,7 @@ void GeomFill_LocationGuide::SetOrigine(const Standard_Real Param1, const Standa
 //=================================================================================================
 
 GeomFill_PipeError GeomFill_LocationGuide::ComputeAutomaticLaw(
-  Handle(TColgp_HArray1OfPnt2d)& ParAndRad) const
+  Handle(Point2dArray)& ParAndRad) const
 {
   Point3d           P;
   Vector3d           T, N, B;
@@ -1455,7 +1455,7 @@ GeomFill_PipeError GeomFill_LocationGuide::ComputeAutomaticLaw(
   Standard_Real f = myCurve->FirstParameter();
   Standard_Real l = myCurve->LastParameter();
 
-  ParAndRad = new TColgp_HArray1OfPnt2d(1, myNbPts);
+  ParAndRad = new Point2dArray(1, myNbPts);
   for (ii = 1; ii <= myNbPts; ii++)
   {
     t = Standard_Real(myNbPts - ii) * f + Standard_Real(ii - 1) * l;

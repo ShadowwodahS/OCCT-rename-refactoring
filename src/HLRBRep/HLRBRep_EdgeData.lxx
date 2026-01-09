@@ -378,7 +378,7 @@ inline void HLRBRep_EdgeData::VEnd(const Standard_Integer I)
 // purpose  :
 //=======================================================================
 
-inline HLRAlgo_EdgeStatus& HLRBRep_EdgeData::Status()
+inline EdgeStatus& HLRBRep_EdgeData::Status()
 {
   return myStatus;
 }

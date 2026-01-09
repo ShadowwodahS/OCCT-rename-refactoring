@@ -17,9 +17,9 @@
 #include <RWMesh_CafReader.hxx>
 
 //! The Vrml1 mesh reader into XDE document.
-class VrmlAPI_CafReader : public RWMesh_CafReader
+class VrmlAPI_CafReader : public CafReader
 {
-  DEFINE_STANDARD_RTTIEXT(VrmlAPI_CafReader, RWMesh_CafReader)
+  DEFINE_STANDARD_RTTIEXT(VrmlAPI_CafReader, CafReader)
 
 protected:
   //! Read the mesh data from specified file.

@@ -212,7 +212,7 @@ Standard_Boolean BRepMesh_Triangulator::prepareMeshStructure()
       const Standard_Integer aOffset = aNumNode - aW.Length();
       for (Standard_Integer nn = 1; nn <= aW.Length(); ++nn)
       {
-        const BRepMesh_Edge anEdge(myIndices->Value(aOffset + (nn - 1)),
+        const Edge3 anEdge(myIndices->Value(aOffset + (nn - 1)),
                                    myIndices->Value(aOffset + (nn % aW.Length())),
                                    BRepMesh_Frontier);
         myMeshStructure->AddLink(anEdge);

@@ -106,7 +106,7 @@ namespace
 // Purpose : Set nodes to the triangulation from an array
 // ============================================================================
 static void SetNodes(const Handle(MeshTriangulation)& theMesh,
-                     Handle(TColgp_HArray1OfXYZ)&      theNodes,
+                     Handle(XYZArray)&      theNodes,
                      const Standard_Integer            theNumPnindex,
                      Handle(TColStd_HArray1OfInteger)& thePnindices,
                      const Standard_Real               theLengthFactor)
@@ -232,7 +232,7 @@ static void SetTriangles(const Handle(MeshTriangulation)&         theMesh,
 // ============================================================================
 template <class Type>
 static void GetSimpleFaceElements(Type                              theFace,
-                                  Handle(TColgp_HArray1OfXYZ)&      theNodes,
+                                  Handle(XYZArray)&      theNodes,
                                   Handle(TColStd_HArray2OfReal)&    theNormals,
                                   Handle(TColStd_HArray2OfInteger)& theTriangles,
                                   Standard_Integer&                 thePnIndNb,
@@ -259,7 +259,7 @@ static void GetSimpleFaceElements(Type                              theFace,
 // ============================================================================
 template <class Type>
 static void GetComplexFaceElements(Type                                theFace,
-                                   Handle(TColgp_HArray1OfXYZ)&        theNodes,
+                                   Handle(XYZArray)&        theNodes,
                                    Handle(TColStd_HArray2OfReal)&      theNormals,
                                    Handle(TColStd_HArray1OfTransient)& theTriangleStrips,
                                    Handle(TColStd_HArray1OfTransient)& theTriangleFans,
@@ -298,7 +298,7 @@ static Handle(MeshTriangulation) CreatePolyTriangulation(
     return Handle(MeshTriangulation)();
   }
 
-  Handle(TColgp_HArray1OfXYZ)      aNodes;
+  Handle(XYZArray)      aNodes;
   Handle(TColStd_HArray2OfReal)    aNormals;
   Handle(TColStd_HArray2OfInteger) aTriangles;
   Standard_Integer                 aNumPnindex = 0;

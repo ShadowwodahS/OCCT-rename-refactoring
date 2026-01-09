@@ -25,7 +25,7 @@
 class GeomCurve2d;
 
 //! Function used to find the inflections in 2d.
-class Geom2dLProp_FuncCurNul : public math_FunctionWithDerivative
+class Geom2dLProp_FuncCurNul : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -114,10 +114,10 @@ public:
   //! This class implements a heap of integers. The most effective usage
   //! of it is first to add there all items, and then get top item and remove
   //! any items till it becomes empty.
-  class HeapOfInteger
+  class HeapOfInteger1
   {
   public:
-    HeapOfInteger(const Standard_Integer theNbPreAllocated = 1)
+    HeapOfInteger1(const Standard_Integer theNbPreAllocated = 1)
         : myMap(theNbPreAllocated),
           myIterReady(Standard_False)
     {
@@ -258,7 +258,7 @@ private:
   Handle(NCollection_BaseAllocator)    myAlloc;
   NCollection_IndexedMap<Link1, Hasher1> myMapLink;
   NCollection_Sequence<Loop>           myLoops;
-  HeapOfInteger                        myStartIndices;
+  HeapOfInteger1                        myStartIndices;
   PackedIntegerMap           myHangIndices;
 };
 
@@ -267,7 +267,7 @@ private:
  */
 class Dir3d;
 
-class Poly_MakeLoops3D : public LoopBuilder
+class LoopBuilder3D : public LoopBuilder
 {
 public:
   //! The abstract helper class
@@ -289,7 +289,7 @@ public:
 
   //! Constructor. If helper is NULL then the algorithm will
   //! probably return a wrong result
-  Standard_EXPORT Poly_MakeLoops3D(const Helper1*                            theHelper,
+  Standard_EXPORT LoopBuilder3D(const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc);
 
 protected:
@@ -300,7 +300,7 @@ protected:
 
   const Helper1* getHelper() const
   {
-    return static_cast<const Poly_MakeLoops3D::Helper1*>(LoopBuilder::getHelper());
+    return static_cast<const LoopBuilder3D::Helper1*>(LoopBuilder::getHelper());
   }
 };
 
@@ -309,7 +309,7 @@ protected:
  */
 class gp_Dir2d;
 
-class Poly_MakeLoops2D : public LoopBuilder
+class LoopBuilder2D : public LoopBuilder
 {
 public:
   //! The abstract helper class
@@ -328,7 +328,7 @@ public:
 
   //! Constructor. If helper is NULL then the algorithm will
   //! probably return a wrong result
-  Standard_EXPORT Poly_MakeLoops2D(const Standard_Boolean                   theLeftWay,
+  Standard_EXPORT LoopBuilder2D(const Standard_Boolean                   theLeftWay,
                                    const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc);
 
@@ -340,7 +340,7 @@ protected:
 
   const Helper1* getHelper() const
   {
-    return static_cast<const Poly_MakeLoops2D::Helper1*>(LoopBuilder::getHelper());
+    return static_cast<const LoopBuilder2D::Helper1*>(LoopBuilder::getHelper());
   }
 
 private:

@@ -97,7 +97,7 @@ public:
                             const Handle(TColStd_HArray1OfReal)&           rotAngles,
                             const Handle(TColStd_HArray1OfInteger)&        mirrorFlags,
                             const Handle(TColStd_HArray1OfInteger)&        rotateFlags,
-                            const Handle(TColgp_HArray1OfXYZ)&             startPoints,
+                            const Handle(XYZArray)&             startPoints,
                             const Handle(Interface_HArray1OfHAsciiString)& texts);
 
   //! returns width of text containment area of all strings in the note
@@ -282,7 +282,7 @@ private:
   Handle(TColStd_HArray1OfReal)           theRotationAngles;
   Handle(TColStd_HArray1OfInteger)        theMirrorFlags;
   Handle(TColStd_HArray1OfInteger)        theRotateFlags;
-  Handle(TColgp_HArray1OfXYZ)             theStartPoints;
+  Handle(XYZArray)             theStartPoints;
   Handle(Interface_HArray1OfHAsciiString) theTexts;
 };
 

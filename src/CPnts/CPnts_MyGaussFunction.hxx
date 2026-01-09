@@ -26,12 +26,12 @@
 #include <Standard_Real.hxx>
 
 //! for implementation, compute values for Gauss
-class CPnts_MyGaussFunction : public Function1
+class GaussFunctionSampler : public Function1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  CPnts_MyGaussFunction();
+  GaussFunctionSampler();
 
   //! F  is a pointer on a  function  D is a client data
   //!

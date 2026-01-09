@@ -28,7 +28,7 @@
 #include <NCollection_IndexedMap.hxx>
 
 class Graphic3d_StructureManager;
-class Graphic3d_DataStructureManager;
+class DataStructureManager;
 class Box2;
 
 DEFINE_STANDARD_HANDLE(Graphic3d_Structure, RefObject)
@@ -143,7 +143,7 @@ public:
 
   //! Changes a sequence of clip planes slicing the structure on rendering.
   //! @param[in] thePlanes  the set of clip planes.
-  void SetClipPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+  void SetClipPlanes(const Handle(SequenceOfHClipPlane)& thePlanes)
   {
     if (!myCStructure.IsNull())
     {
@@ -153,7 +153,7 @@ public:
 
   //! Get clip planes slicing the structure on rendering.
   //! @return set of clip planes.
-  const Handle(Graphic3d_SequenceOfHClipPlane)& ClipPlanes() const
+  const Handle(SequenceOfHClipPlane)& ClipPlanes() const
   {
     return myCStructure->ClipPlanes();
   }
@@ -215,7 +215,7 @@ public:
 
   //! Forces a new construction of the structure <me>
   //! if <me> is displayed in <aProjetor> and TOS_COMPUTED.
-  Standard_EXPORT void ReCompute(const Handle(Graphic3d_DataStructureManager)& aProjector);
+  Standard_EXPORT void ReCompute(const Handle(DataStructureManager)& aProjector);
 
   //! Returns the groups sequence included in this structure.
   const Graphic3d_SequenceOfGroup& Groups() const { return myCStructure->Groups(); }
@@ -384,16 +384,16 @@ public:
   }
 
   //! Return local transformation.
-  const Handle(TopLoc_Datum3D)& Transformation() const { return myCStructure->Transformation(); }
+  const Handle(Datum3D2)& Transformation() const { return myCStructure->Transformation(); }
 
   //! Modifies the current local transformation
-  Standard_EXPORT void SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf);
+  Standard_EXPORT void SetTransformation(const Handle(Datum3D2)& theTrsf);
 
   //! Modifies the current transform persistence (pan, zoom or rotate)
-  Standard_EXPORT void SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers);
+  Standard_EXPORT void SetTransformPersistence(const Handle(TransformPers)& theTrsfPers);
 
   //! @return transform persistence of the presentable object.
-  const Handle(Graphic3d_TransformPers)& TransformPersistence() const
+  const Handle(TransformPers)& TransformPersistence() const
   {
     return myCStructure->TransformPersistence();
   }
@@ -434,7 +434,7 @@ public:
   }
 
   //! Internal method which sets new transformation without calling graphic manager callbacks.
-  void GraphicTransform(const Handle(TopLoc_Datum3D)& theTrsf)
+  void GraphicTransform(const Handle(Datum3D2)& theTrsf)
   {
     if (!myCStructure.IsNull())
     {

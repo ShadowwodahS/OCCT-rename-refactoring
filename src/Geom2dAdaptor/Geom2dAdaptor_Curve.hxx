@@ -216,7 +216,7 @@ protected:
 
   Handle(Geom2d_BSplineCurve)    myBSplineCurve;    ///< B-spline representation to prevent castings
   mutable Handle(BSplCLib_Cache) myCurveCache;      ///< Cached data for B-spline or Bezier curve
-  Handle(Geom2dEvaluator_Curve)  myNestedEvaluator; ///< Calculates value of offset curve
+  Handle(Curve4)  myNestedEvaluator; ///< Calculates value of offset curve
 };
 
 DEFINE_STANDARD_HANDLE(Geom2dAdaptor_Curve, Adaptor2d_Curve2d)

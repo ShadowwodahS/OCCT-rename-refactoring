@@ -28,23 +28,23 @@
 #include <math_FunctionWithDerivative.hxx>
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointOnCurve1;
 class Point3d;
 class Vector3d;
 
-class Extrema_PCLocFOfLocEPCOfLocateExtPC : public math_FunctionWithDerivative
+class Extrema_PCLocFOfLocEPCOfLocateExtPC : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT Extrema_PCLocFOfLocEPCOfLocateExtPC();
 
-  Standard_EXPORT Extrema_PCLocFOfLocEPCOfLocateExtPC(const Point3d& P, const Adaptor3d_Curve& C);
+  Standard_EXPORT Extrema_PCLocFOfLocEPCOfLocateExtPC(const Point3d& P, const Curve5& C);
 
   //! sets the field mycurve of the function.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C);
+  Standard_EXPORT void Initialize(const Curve5& C);
 
   //! sets the field P of the function.
   Standard_EXPORT void SetPoint(const Point3d& P);

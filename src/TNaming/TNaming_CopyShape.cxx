@@ -143,15 +143,15 @@ void ShapeCopier::Translate(const TopoShape&                         aShape,
 //=======================================================================
 // static TranslateDatum3D
 //=======================================================================
-static Handle(TopLoc_Datum3D) TranslateDatum3D(const Handle(TopLoc_Datum3D)&               D,
+static Handle(Datum3D2) TranslateDatum3D(const Handle(Datum3D2)&               D,
                                                TColStd_IndexedDataMapOfTransientTransient& aMap)
 {
-  Handle(TopLoc_Datum3D) TD;
+  Handle(Datum3D2) TD;
   if (aMap.Contains(D))
-    TD = Handle(TopLoc_Datum3D)::DownCast(aMap.FindFromKey(D));
+    TD = Handle(Datum3D2)::DownCast(aMap.FindFromKey(D));
   else
   {
-    TD = new TopLoc_Datum3D(D->Transformation());
+    TD = new Datum3D2(D->Transformation());
     aMap.Add(D, TD);
   }
   return TD;

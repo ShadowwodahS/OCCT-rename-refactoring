@@ -268,7 +268,7 @@ private:
   Framework              myConstraints;
   Standard_Boolean                  myDone;
   Standard_Boolean                  myHasResult;
-  Handle(TColGeom_HArray1OfSurface) mySurfaces;
+  Handle(SurfaceArray) mySurfaces;
   Standard_Integer                  myDegreeInU;
   Standard_Integer                  myDegreeInV;
   Handle(TColStd_HArray1OfReal)     my1DMaxError;

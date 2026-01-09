@@ -45,12 +45,12 @@ void LeaderArrowTool::ReadOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
   Standard_Real              arrowHeadWidth;
   Standard_Real              zDepth;
   Coords2d                      arrowHead;
-  Handle(TColgp_HArray1OfXY) segmentTails;
+  Handle(XYArray) segmentTails;
   Standard_Integer           nbval;
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Count of Segments", nbval);
   if (st && nbval > 0)
-    segmentTails = new TColgp_HArray1OfXY(1, nbval);
+    segmentTails = new XYArray(1, nbval);
   else
     PR.AddFail("Count of Segments: Not Positive");
 
@@ -107,7 +107,7 @@ void LeaderArrowTool::OwnCopy(const Handle(IGESDimen_LeaderArrow)& another,
   Standard_Real    zDepth          = another->ZDepth();
   Coords2d            arrowHead       = another->ArrowHead().XY();
 
-  Handle(TColgp_HArray1OfXY) segmentTails = new TColgp_HArray1OfXY(1, nbval);
+  Handle(XYArray) segmentTails = new XYArray(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)
   {

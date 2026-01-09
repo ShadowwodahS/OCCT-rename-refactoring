@@ -24,7 +24,7 @@
 class Standard_GUID;
 class DataLabel;
 class TopoShape;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class XCAFDoc_ShapeMapTool;
 DEFINE_STANDARD_HANDLE(XCAFDoc_ShapeMapTool, TDF_Attribute)
@@ -56,7 +56,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT const TopTools_IndexedMapOfShape& GetMap() const;
 

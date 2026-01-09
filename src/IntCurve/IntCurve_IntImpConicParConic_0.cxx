@@ -35,6 +35,6 @@
 #define ProjectOnPCurveTool_hxx <IntCurve_ProjectOnPConicTool.hxx>
 #define IntImpParGen_MyImpParTool IntCurve_MyImpParToolOfIntImpConicParConic
 #define IntImpParGen_MyImpParTool_hxx <IntCurve_MyImpParToolOfIntImpConicParConic.hxx>
-#define IntImpParGen_Intersector IntCurve_IntImpConicParConic
+#define IntImpParGen_Intersector ImplicitConicParametricConicIntersection
 #define IntImpParGen_Intersector_hxx <IntCurve_IntImpConicParConic.hxx>
 #include "../IntImpParGen/IntImpParGen_Intersector.gxx"

@@ -44,7 +44,7 @@ static Standard_Integer DFBrowse(DrawInterpreter& di, Standard_Integer n, const 
     return 1;
   }
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(a[1], DF))
   {
     Message1::SendFail() << "Error: document " << a[1] << " is not found";

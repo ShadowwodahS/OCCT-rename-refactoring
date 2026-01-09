@@ -26,10 +26,10 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class Law_Linear;
-DEFINE_STANDARD_HANDLE(Law_Linear, Law_Function)
+DEFINE_STANDARD_HANDLE(Law_Linear, Function2)
 
 //! Describes an linear evolution law.
-class Law_Linear : public Law_Function
+class Law_Linear : public Function2
 {
 
 public:
@@ -76,14 +76,14 @@ public:
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
   //! the Law1 is not Cn.
-  Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
+  Standard_EXPORT Handle(Function2) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;
 
   //! Returns the parametric bounds of the function.
   Standard_EXPORT void Bounds(Standard_Real& PFirst, Standard_Real& PLast) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Law_Linear, Law_Function)
+  DEFINE_STANDARD_RTTIEXT(Law_Linear, Function2)
 
 protected:
 private:

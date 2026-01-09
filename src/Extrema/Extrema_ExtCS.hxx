@@ -26,8 +26,8 @@
 #include <TColStd_SequenceOfReal.hxx>
 #include <GeomAbs_SurfaceType.hxx>
 
-class Adaptor3d_Curve;
-class Adaptor3d_Surface;
+class Curve5;
+class SurfaceAdaptor;
 class PointOnCurve1;
 class PointOnSurface1;
 class Point3d;
@@ -43,16 +43,16 @@ public:
   Standard_EXPORT Extrema_ExtCS();
 
   //! It calculates all the distances between C and S.
-  Standard_EXPORT Extrema_ExtCS(const Adaptor3d_Curve&   C,
-                                const Adaptor3d_Surface& S,
+  Standard_EXPORT Extrema_ExtCS(const Curve5&   C,
+                                const SurfaceAdaptor& S,
                                 const Standard_Real      TolC,
                                 const Standard_Real      TolS);
 
   //! It calculates all the distances between C and S.
   //! UCinf and UCmax are the start and end parameters
   //! of the curve.
-  Standard_EXPORT Extrema_ExtCS(const Adaptor3d_Curve&   C,
-                                const Adaptor3d_Surface& S,
+  Standard_EXPORT Extrema_ExtCS(const Curve5&   C,
+                                const SurfaceAdaptor& S,
                                 const Standard_Real      UCinf,
                                 const Standard_Real      UCsup,
                                 const Standard_Real      Uinf,
@@ -63,12 +63,12 @@ public:
                                 const Standard_Real      TolS);
 
   //! Initializes the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Surface& S,
+  Standard_EXPORT void Initialize(const SurfaceAdaptor& S,
                                   const Standard_Real      TolC,
                                   const Standard_Real      TolS);
 
   //! Initializes the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Surface& S,
+  Standard_EXPORT void Initialize(const SurfaceAdaptor& S,
                                   const Standard_Real      Uinf,
                                   const Standard_Real      Usup,
                                   const Standard_Real      Vinf,
@@ -79,7 +79,7 @@ public:
   //! Computes the distances.
   //! An exception is raised if the fields have not been
   //! initialized.
-  Standard_EXPORT void Perform(const Adaptor3d_Curve& C,
+  Standard_EXPORT void Perform(const Curve5& C,
                                const Standard_Real    Uinf,
                                const Standard_Real    Usup);
 
@@ -101,7 +101,7 @@ public:
                               PointOnSurface1&       P2) const;
 
 private:
-  Standard_EXPORT Standard_Boolean AddSolution(const Adaptor3d_Curve& Curve,
+  Standard_EXPORT Standard_Boolean AddSolution(const Curve5& Curve,
                                                const Standard_Real    T,
                                                const Standard_Real    U,
                                                const Standard_Real    V,
@@ -115,7 +115,7 @@ private:
   Extrema_ExtCS& operator=(Extrema_ExtCS&) Standard_DELETE;
 
 private:
-  const Adaptor3d_Surface*  myS;
+  const SurfaceAdaptor*  myS;
   Standard_Boolean          myDone;
   Standard_Boolean          myIsPar;
   Extrema_ExtElCS           myExtElCS;

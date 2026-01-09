@@ -152,19 +152,19 @@ public:
   void SetDistinguishOff() { myToDistinguishMaterials = false; }
 
   //! Return shader program.
-  const Handle(Graphic3d_ShaderProgram)& ShaderProgram() const { return myProgram; }
+  const Handle(ShaderProgram2)& ShaderProgram() const { return myProgram; }
 
   //! Sets up OpenGL/GLSL shader program.
-  void SetShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProgram)
+  void SetShaderProgram(const Handle(ShaderProgram2)& theProgram)
   {
     myProgram = theProgram;
   }
 
   //! Return texture array to be mapped.
-  const Handle(Graphic3d_TextureSet)& TextureSet() const { return myTextureSet; }
+  const Handle(TextureSet1)& TextureSet() const { return myTextureSet; }
 
   //! Setup texture array to be mapped.
-  void SetTextureSet(const Handle(Graphic3d_TextureSet)& theTextures)
+  void SetTextureSet(const Handle(TextureSet1)& theTextures)
   {
     myTextureSet = theTextures;
   }
@@ -581,8 +581,8 @@ public:
   void SuppressBackFace() { myFaceCulling = Graphic3d_TypeOfBackfacingModel_Auto; }
 
 protected:
-  Handle(Graphic3d_ShaderProgram)  myProgram;
-  Handle(Graphic3d_TextureSet)     myTextureSet;
+  Handle(ShaderProgram2)  myProgram;
+  Handle(TextureSet1)     myTextureSet;
   Handle(Graphic3d_MarkerImage)    myMarkerImage;
   Handle(Graphic3d_HatchStyle)     myHatchStyle;
   Handle(TCollection_HAsciiString) myTextFont;

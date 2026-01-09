@@ -586,7 +586,7 @@ void TPrsStd_AISPresentation::Restore(const Handle(TDF_Attribute)& /*theWith*/)
 //=================================================================================================
 
 void TPrsStd_AISPresentation::Paste(const Handle(TDF_Attribute)& theInto,
-                                    const Handle(TDF_RelocationTable)&) const
+                                    const Handle(RelocationTable1)&) const
 {
   Handle(TPrsStd_AISPresentation) anInto = Handle(TPrsStd_AISPresentation)::DownCast(theInto);
 

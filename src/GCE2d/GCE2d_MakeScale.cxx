@@ -23,11 +23,11 @@
 //=========================================================================
 GCE2d_MakeScale::GCE2d_MakeScale(const gp_Pnt2d& Point, const Standard_Real Scale)
 {
-  TheScale = new Geom2d_Transformation();
+  TheScale = new Transformation2d();
   TheScale->SetScale(Point, Scale);
 }
 
-const Handle(Geom2d_Transformation)& GCE2d_MakeScale::Value() const
+const Handle(Transformation2d)& GCE2d_MakeScale::Value() const
 {
   return TheScale;
 }

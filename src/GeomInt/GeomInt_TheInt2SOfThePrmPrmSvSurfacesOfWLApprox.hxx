@@ -38,8 +38,8 @@ public:
   //! compute the solution point with the close point
   Standard_EXPORT GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox(
     const TColStd_Array1OfReal&      Param,
-    const Handle(Adaptor3d_Surface)& S1,
-    const Handle(Adaptor3d_Surface)& S2,
+    const Handle(SurfaceAdaptor)& S1,
+    const Handle(SurfaceAdaptor)& S2,
     const Standard_Real              TolTangency);
 
   //! initialize the parameters to compute the solution point
@@ -53,8 +53,8 @@ public:
   //! inter.Perform(Param,rsnld);
   //! }
   Standard_EXPORT GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox(
-    const Handle(Adaptor3d_Surface)& S1,
-    const Handle(Adaptor3d_Surface)& S2,
+    const Handle(SurfaceAdaptor)& S1,
+    const Handle(SurfaceAdaptor)& S2,
     const Standard_Real              TolTangency);
 
   //! returns the best constant isoparametric to find
@@ -131,7 +131,7 @@ private:
   Standard_Real                                                vres2;
 };
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>

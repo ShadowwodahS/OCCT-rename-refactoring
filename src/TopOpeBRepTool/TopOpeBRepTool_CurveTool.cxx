@@ -405,21 +405,21 @@ Standard_Boolean CurveTool6::MakeCurves(const Standard_Real         parmin,
             dd = P.Distance(PolC3D(ip + 1));
           if (ip < nbpol && dd < 10. * tol)
           {
-            gce_MakeLin mkL(P, PolC3D(ip + 1));
+            LineBuilder mkL(P, PolC3D(ip + 1));
             if (mkL.IsDone())
             {
               gp_Lin L = mkL.Value();
               d        = L.SquareDistance(PolC3D(ip));
               if (CompPC1)
               {
-                gp_Lin2d L1 = gce_MakeLin2d(P1, PolPC1(ip + 1));
+                gp_Lin2d L1 = LineBuilder2d(P1, PolPC1(ip + 1));
                 d1          = L1.SquareDistance(PolPC1(ip));
               }
               else
                 d1 = 0.;
               if (CompPC2)
               {
-                gp_Lin2d L2 = gce_MakeLin2d(P2, PolPC2(ip + 1));
+                gp_Lin2d L2 = LineBuilder2d(P2, PolPC2(ip + 1));
                 d2          = L2.SquareDistance(PolPC2(ip));
               }
               else
@@ -575,7 +575,7 @@ Standard_Boolean CurveTool6::MakeCurves(const Standard_Real         parmin,
         Vector3d v2(Polc3d(ip), Polc3d(ip + 1));
         if (!v1.IsParallel(v2, 1.e-4))
         {
-          gce_MakeCirc mc(Polc3d(ip - 1), Polc3d(ip), Polc3d(ip + 1));
+          CircleBuilder1 mc(Polc3d(ip - 1), Polc3d(ip), Polc3d(ip + 1));
           gp_Circ      cir = mc.Value();
           kc               = 1. / cir.Radius();
         }
@@ -593,7 +593,7 @@ Standard_Boolean CurveTool6::MakeCurves(const Standard_Real         parmin,
       Vector3d v2(Polc3d(ip), Polc3d(ip + 1));
       if (!v1.IsParallel(v2, 1.e-4))
       {
-        gce_MakeCirc mc(Polc3d(ip - 1), Polc3d(ip), Polc3d(ip + 1));
+        CircleBuilder1 mc(Polc3d(ip - 1), Polc3d(ip), Polc3d(ip + 1));
         gp_Circ      cir = mc.Value();
         kc               = 1. / cir.Radius();
       }

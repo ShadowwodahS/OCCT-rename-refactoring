@@ -24,12 +24,12 @@
 #include <TDataStd_DataMapOfStringHArray1OfInteger.hxx>
 #include <TDataStd_DataMapOfStringHArray1OfReal.hxx>
 
-class TDataStd_HDataMapOfStringInteger;
-class TDataStd_HDataMapOfStringReal;
-class TDataStd_HDataMapOfStringString;
-class TDataStd_HDataMapOfStringByte;
-class TDataStd_HDataMapOfStringHArray1OfInteger;
-class TDataStd_HDataMapOfStringHArray1OfReal;
+class StringIntegerMap;
+class StringRealMap;
+class StringStringMap;
+class StringByteMap;
+class StringIntegerArrayMap;
+class StringRealArrayMap;
 class UtfString;
 
 class TDataStd_NamedData;
@@ -291,7 +291,7 @@ public: //! @name TDF_Attribute interface
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       Into,
-                                     const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                                     const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 
@@ -302,12 +302,12 @@ public: //! @name TDF_Attribute interface
   DEFINE_STANDARD_RTTIEXT(TDataStd_NamedData, TDF_Attribute)
 
 protected:
-  Handle(TDataStd_HDataMapOfStringInteger)          myIntegers;
-  Handle(TDataStd_HDataMapOfStringReal)             myReals;
-  Handle(TDataStd_HDataMapOfStringString)           myStrings;
-  Handle(TDataStd_HDataMapOfStringByte)             myBytes;
-  Handle(TDataStd_HDataMapOfStringHArray1OfInteger) myArraysOfIntegers;
-  Handle(TDataStd_HDataMapOfStringHArray1OfReal)    myArraysOfReals;
+  Handle(StringIntegerMap)          myIntegers;
+  Handle(StringRealMap)             myReals;
+  Handle(StringStringMap)           myStrings;
+  Handle(StringByteMap)             myBytes;
+  Handle(StringIntegerArrayMap) myArraysOfIntegers;
+  Handle(StringRealArrayMap)    myArraysOfReals;
 };
 
 #endif // _TDataStd_NamedData_HeaderFile

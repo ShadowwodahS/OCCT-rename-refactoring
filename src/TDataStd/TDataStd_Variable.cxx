@@ -242,7 +242,7 @@ Handle(TDF_Attribute) TDataStd_Variable::NewEmpty() const
 //=================================================================================================
 
 void TDataStd_Variable::Paste(const Handle(TDF_Attribute)& Into,
-                              const Handle(TDF_RelocationTable)& /*RT*/) const
+                              const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(TDataStd_Variable) V = Handle(TDataStd_Variable)::DownCast(Into);
   V->Constant(isConstant);

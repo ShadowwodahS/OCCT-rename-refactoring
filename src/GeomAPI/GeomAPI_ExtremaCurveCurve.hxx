@@ -152,7 +152,7 @@ public:
   Standard_EXPORT               operator Standard_Real() const;
 
   //! return the algorithmic object from Extrema
-  const Extrema_ExtCC& Extrema() const;
+  const CurveCurveExtrema2& Extrema() const;
 
   //! set  in  <P1>  and <P2> the couple solution points
   //! such a the distance [P1,P2] is the minimum. taking  in  account
@@ -175,7 +175,7 @@ private:
 
   Standard_Boolean  myIsDone;
   Standard_Integer  myIndex;
-  Extrema_ExtCC     myExtCC;
+  CurveCurveExtrema2     myExtCC;
   GeomAdaptor_Curve myC1;
   GeomAdaptor_Curve myC2;
   Standard_Boolean  myTotalExt;

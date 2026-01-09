@@ -75,7 +75,7 @@ MeshVS_Mesh::MeshVS_Mesh(const Standard_Boolean theIsAllowOverlapped)
   SetColor(Quantity_NOC_WHITE);
   SetMaterial(Graphic3d_NameOfMaterial_Plastified);
 
-  myCurrentDrawer = new MeshVS_Drawer();
+  myCurrentDrawer = new MeshDrawer();
   myCurrentDrawer->SetColor(MeshVS_DA_InteriorColor, Quantity_NOC_BLUE4);
   myCurrentDrawer->SetInteger(MeshVS_DA_InteriorStyle, Aspect_IS_SOLID);
   myCurrentDrawer->SetInteger(MeshVS_DA_MaxFaceNodes, 10);
@@ -95,7 +95,7 @@ MeshVS_Mesh::MeshVS_Mesh(const Standard_Boolean theIsAllowOverlapped)
   myCurrentDrawer->SetBoolean(MeshVS_DA_SmoothShading, Standard_False);
   myCurrentDrawer->SetBoolean(MeshVS_DA_SupressBackFaces, Standard_False);
 
-  mySelectionDrawer = new MeshVS_Drawer();
+  mySelectionDrawer = new MeshDrawer();
   mySelectionDrawer->Assign(myCurrentDrawer);
   mySelectionDrawer->SetInteger(MeshVS_DA_MarkerType, Aspect_TOM_STAR);
   mySelectionDrawer->SetColor(MeshVS_DA_MarkerColor, Quantity_NOC_GRAY80);
@@ -105,7 +105,7 @@ MeshVS_Mesh::MeshVS_Mesh(const Standard_Boolean theIsAllowOverlapped)
   mySelectionDrawer->SetInteger(MeshVS_DA_BeamType, Aspect_TOL_SOLID);
   mySelectionDrawer->SetDouble(MeshVS_DA_BeamWidth, 3.0);
 
-  myHilightDrawer = new MeshVS_Drawer();
+  myHilightDrawer = new MeshDrawer();
   myHilightDrawer->Assign(myCurrentDrawer);
   myHilightDrawer->SetDouble(MeshVS_DA_ShrinkCoeff, 0.7);
   myHilightDrawer->SetInteger(MeshVS_DA_InteriorStyle, Aspect_IS_SOLID);
@@ -167,7 +167,7 @@ void MeshVS_Mesh::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
   }
 
   // Repair Ids in map if necessary
-  Handle(MeshVS_DataSource) aDS = GetDataSource();
+  Handle(MeshDataSource) aDS = GetDataSource();
   if (aDS.IsNull() || theMode <= 0)
   {
     return;
@@ -261,7 +261,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
   }
 
   Standard_Integer          aMaxFaceNodes = 0;
-  Handle(MeshVS_DataSource) aSource       = GetDataSource();
+  Handle(MeshDataSource) aSource       = GetDataSource();
   if (aSource.IsNull() || myCurrentDrawer.IsNull()
       || !myCurrentDrawer->GetInteger(MeshVS_DA_MaxFaceNodes, aMaxFaceNodes) || aMaxFaceNodes <= 0)
   {
@@ -275,7 +275,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
   }
 
   // Make two array aliases pointing to the same memory:
-  // - TColStd_Array1OfReal for getting values from MeshVS_DataSource interface
+  // - TColStd_Array1OfReal for getting values from MeshDataSource interface
   // - array of Point3d for convenient work with array of points
   Buffer              aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
   NCollection_Array1<Point3d> aPntArray(aCoordsBuf, 1, aMaxFaceNodes);
@@ -454,7 +454,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
         PackedIntegerMap anAllGroupsMap;
         aSource->GetAllGroups(anAllGroupsMap);
 
-        Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
+        Handle(IntegerSequenceArray) aTopo;
         for (TColStd_MapIteratorOfPackedMapOfInteger anIter(anAllGroupsMap); anIter.More();
              anIter.Next())
         {
@@ -571,7 +571,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
       }
       default: // all residuary modes
       {
-        Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
+        Handle(IntegerSequenceArray) aTopo;
         myElementOwners.Clear();
 
         MeshVS_DataMapOfIntegerOwner* aCurMap = &my0DOwners;
@@ -850,7 +850,7 @@ void AddToMap(MeshVS_DataMapOfIntegerOwner& Result, const MeshVS_DataMapOfIntege
 
 const MeshVS_DataMapOfIntegerOwner& MeshVS_Mesh::GetOwnerMaps(const Standard_Boolean IsElements)
 {
-  Handle(MeshVS_DataSource) aDS = GetDataSource();
+  Handle(MeshDataSource) aDS = GetDataSource();
   if (!aDS.IsNull() && aDS->IsAdvancedSelectionEnabled())
     return myMeshOwners;
   if (IsElements)
@@ -885,28 +885,28 @@ Standard_Boolean MeshVS_Mesh::IsHiddenNode(const Standard_Integer theID) const
 
 //=================================================================================================
 
-Handle(MeshVS_Drawer) MeshVS_Mesh::GetDrawer() const
+Handle(MeshDrawer) MeshVS_Mesh::GetDrawer() const
 {
   return myCurrentDrawer;
 }
 
 //=================================================================================================
 
-void MeshVS_Mesh::SetDrawer(const Handle(MeshVS_Drawer)& aDrawer)
+void MeshVS_Mesh::SetDrawer(const Handle(MeshDrawer)& aDrawer)
 {
   myCurrentDrawer = aDrawer;
 }
 
 //=================================================================================================
 
-Handle(MeshVS_DataSource) MeshVS_Mesh::GetDataSource() const
+Handle(MeshDataSource) MeshVS_Mesh::GetDataSource() const
 {
   return myDataSource;
 }
 
 //=================================================================================================
 
-void MeshVS_Mesh::SetDataSource(const Handle(MeshVS_DataSource)& theDataSource)
+void MeshVS_Mesh::SetDataSource(const Handle(MeshDataSource)& theDataSource)
 {
   myDataSource = theDataSource;
 }
@@ -1296,7 +1296,7 @@ void MeshVS_Mesh::UpdateSelectableNodes()
   mySelectableNodes = new TColStd_HPackedMapOfInteger;
 
   Standard_Integer          aMaxFaceNodes;
-  Handle(MeshVS_DataSource) aSource = GetDataSource();
+  Handle(MeshDataSource) aSource = GetDataSource();
   if (aSource.IsNull() || myCurrentDrawer.IsNull()
       || !myCurrentDrawer->GetInteger(MeshVS_DA_MaxFaceNodes, aMaxFaceNodes) || aMaxFaceNodes <= 0)
     return;

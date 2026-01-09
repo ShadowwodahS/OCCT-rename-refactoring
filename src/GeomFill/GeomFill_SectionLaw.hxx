@@ -31,11 +31,11 @@ class Geom_BSplineSurface;
 class Point3d;
 class GeomCurve3d;
 
-class GeomFill_SectionLaw;
-DEFINE_STANDARD_HANDLE(GeomFill_SectionLaw, RefObject)
+class SectionLaw;
+DEFINE_STANDARD_HANDLE(SectionLaw, RefObject)
 
 //! To define section law in  sweeping
-class GeomFill_SectionLaw : public RefObject
+class SectionLaw : public RefObject
 {
 
 public:
@@ -166,7 +166,7 @@ public:
   //! <me> a  IsConicalLaw
   Standard_EXPORT virtual Handle(GeomCurve3d) CirclSection(const Standard_Real Param) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_SectionLaw, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SectionLaw, RefObject)
 
 protected:
 private:

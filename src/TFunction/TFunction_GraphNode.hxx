@@ -26,7 +26,7 @@
 #include <Standard_OStream.hxx>
 class DataLabel;
 class Standard_GUID;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DataSet;
 
 class TFunction_GraphNode;
@@ -100,7 +100,7 @@ public:
   Standard_EXPORT virtual void Restore(const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       into,
-                                     const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                                     const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 

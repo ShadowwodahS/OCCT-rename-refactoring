@@ -177,7 +177,7 @@ void DDataStd_DrawPresentation::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void DDataStd_DrawPresentation::Paste(const Handle(TDF_Attribute)& Into,
-                                      const Handle(TDF_RelocationTable)&) const
+                                      const Handle(RelocationTable1)&) const
 {
   Handle(DDataStd_DrawPresentation)::DownCast(Into)->SetDisplayed(isDisplayed);
   Handle(DDataStd_DrawPresentation)::DownCast(Into)->SetDrawable(myDrawable);

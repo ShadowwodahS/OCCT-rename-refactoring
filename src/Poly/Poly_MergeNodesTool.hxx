@@ -21,9 +21,9 @@
 //! Auxiliary tool for merging triangulation nodes for visualization purposes.
 //! Tool tries to merge all nodes within input triangulation, but split the ones on sharp corners at
 //! specified angle.
-class Poly_MergeNodesTool : public RefObject
+class MergeNodesTool : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Poly_MergeNodesTool, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MergeNodesTool, RefObject)
 public:
   //! Merge nodes of existing mesh and return the new mesh.
   //! @param[in] theTris triangulation to add
@@ -47,7 +47,7 @@ public:
   //! @param[in] theSmoothAngle smooth angle in radians or 0.0 to disable merging by angle
   //! @param[in] theMergeTolerance node merging maximum distance
   //! @param[in] theNbFacets estimated number of facets for map preallocation
-  Standard_EXPORT Poly_MergeNodesTool(const double theSmoothAngle,
+  Standard_EXPORT MergeNodesTool(const double theSmoothAngle,
                                       const double theMergeTolerance = 0.0,
                                       const int    theNbFacets       = -1);
 
@@ -213,14 +213,14 @@ private:
   //! Custom map class with key as Node + element normal and value as Node index.
   //! NCollection_DataMap is not used, as it requires Hasher1 to be defined as class template and not
   //! class field.
-  class MergedNodesMap : public BaseMap
+  class MergedNodesMap1 : public BaseMap
   {
   public:
     typedef NCollection_Vec3<int64_t> CellVec3i;
 
   public:
     //! Main constructor.
-    Standard_EXPORT MergedNodesMap(const int theNbBuckets);
+    Standard_EXPORT MergedNodesMap1(const int theNbBuckets);
 
     //! Return merge angle in radians;
     double MergeAngle() const { return myAngle; }
@@ -278,7 +278,7 @@ private:
 
     //! Hash code for integer vec3.
     Standard_EXPORT static size_t vec3iHashCode(
-      const Poly_MergeNodesTool::MergedNodesMap::CellVec3i& theVec,
+      const MergeNodesTool::MergedNodesMap1::CellVec3i& theVec,
       const int                                             theUpper);
 
     //! Compute hash code.
@@ -331,7 +331,7 @@ private:
 
 private:
   Handle(MeshTriangulation)                               myPolyData;     //!< output triangulation
-  MergedNodesMap                                           myNodeIndexMap; //!< map of merged nodes
+  MergedNodesMap1                                           myNodeIndexMap; //!< map of merged nodes
   NCollection_Map<NCollection_Vec4<int>, MergedElemHasher1> myElemMap;      //!< map of elements
   NCollection_Vec4<int>                                    myNodeInds;  //!< current element indexes
   NCollection_Vec3<float>                                  myTriNormal; //!< current triangle normal

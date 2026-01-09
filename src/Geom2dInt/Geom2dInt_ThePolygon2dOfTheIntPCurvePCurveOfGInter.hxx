@@ -33,7 +33,7 @@ class Domain2;
 class Bnd_Box2d;
 class gp_Pnt2d;
 
-class Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter : public Intf_Polygon2d
+class Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter : public Polygon2d
 {
 public:
   DEFINE_STANDARD_ALLOC

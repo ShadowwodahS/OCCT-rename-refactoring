@@ -20,6 +20,6 @@
 #include <TColGeom_Array1OfBSplineCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColGeom_HArray1OfBSplineCurve, TColGeom_Array1OfBSplineCurve)
+DEFINE_HARRAY1(HArray1OfBSplineCurve1, TColGeom_Array1OfBSplineCurve)
 
 #endif

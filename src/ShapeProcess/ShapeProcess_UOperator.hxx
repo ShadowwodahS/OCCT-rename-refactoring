@@ -23,12 +23,12 @@
 class ShapeProcess_Context;
 
 class ShapeProcess_UOperator;
-DEFINE_STANDARD_HANDLE(ShapeProcess_UOperator, ShapeProcess_Operator)
+DEFINE_STANDARD_HANDLE(ShapeProcess_UOperator, Operator)
 
 //! Defines operator as container for static function
 //! OperFunc. This allows user to create new operators
 //! without creation of new classes
-class ShapeProcess_UOperator : public ShapeProcess_Operator
+class ShapeProcess_UOperator : public Operator
 {
 
 public:
@@ -41,7 +41,7 @@ public:
     const Handle(ShapeProcess_Context)& context,
     const Message_ProgressRange&        theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeProcess_UOperator, ShapeProcess_Operator)
+  DEFINE_STANDARD_RTTIEXT(ShapeProcess_UOperator, Operator)
 
 protected:
 private:

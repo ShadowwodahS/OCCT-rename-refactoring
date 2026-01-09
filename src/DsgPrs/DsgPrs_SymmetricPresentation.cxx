@@ -87,7 +87,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     P2 = ProjOffsetPoint.Translated(VPntat1Axe);
   }
 
-  gp_Lin        L3 = gce_MakeLin(P1, P2);
+  gp_Lin        L3 = LineBuilder(P1, P2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib1::Parameter(L3, P1);
   parmax             = parmin;
@@ -173,7 +173,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     //        |          |
     //=================================
 
-    L3     = gce_MakeLin(P1, P2);
+    L3     = LineBuilder(P1, P2);
     parmin = ElCLib1::Parameter(L3, P1);
     parmax = parmin;
     parcur = ElCLib1::Parameter(L3, P2);
@@ -257,7 +257,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     //      ->|----------|<------
     //        |          |
     //=================================
-    L3     = gce_MakeLin(P1, P2);
+    L3     = LineBuilder(P1, P2);
     parmin = ElCLib1::Parameter(L3, P1);
     parmax = parmin;
     parcur = ElCLib1::Parameter(L3, P2);
@@ -489,7 +489,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Vector3d v(P1, ProjOffsetPoint);
   Point3d P2 = ProjOffsetPoint.Translated(v);
 
-  gp_Lin        L3 = gce_MakeLin(P1, P2);
+  gp_Lin        L3 = LineBuilder(P1, P2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib1::Parameter(L3, P1);
   parmax             = parmin;
@@ -802,7 +802,7 @@ void SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Point3d P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
     Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
 
-    gp_Lin        L3 = gce_MakeLin(P1, P2);
+    gp_Lin        L3 = LineBuilder(P1, P2);
     Standard_Real parmin, parmax, parcur;
     parmin             = ElCLib1::Parameter(L3, P1);
     parmax             = parmin;

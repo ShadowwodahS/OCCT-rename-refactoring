@@ -28,12 +28,12 @@
 //! inherits class Cutting; contains a list of preferential points (pi)i
 //! and a list of Recommended points used in cutting management.
 //! if Cutting is necessary in [a,b], we cut at the di nearest from (a+b)/2
-class AdvApprox_PrefAndRec : public CuttingTool
+class PreferredAndRecommended : public CuttingTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT AdvApprox_PrefAndRec(const TColStd_Array1OfReal& RecomendedCut,
+  Standard_EXPORT PreferredAndRecommended(const TColStd_Array1OfReal& RecomendedCut,
                                        const TColStd_Array1OfReal& PrefferedCut,
                                        const Standard_Real         Weight = 5);
 

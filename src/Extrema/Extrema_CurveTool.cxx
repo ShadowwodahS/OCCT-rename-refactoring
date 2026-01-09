@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-Standard_Boolean CurveTool4::IsPeriodic(const Adaptor3d_Curve& C)
+Standard_Boolean CurveTool4::IsPeriodic(const Curve5& C)
 {
   GeomAbs_CurveType aType = GetType(C);
   if (aType == GeomAbs_Circle || aType == GeomAbs_Ellipse)
@@ -34,7 +34,7 @@ Standard_Boolean CurveTool4::IsPeriodic(const Adaptor3d_Curve& C)
 
 //=================================================================================================
 
-Handle(TColStd_HArray1OfReal) CurveTool4::DeflCurvIntervals(const Adaptor3d_Curve& C)
+Handle(TColStd_HArray1OfReal) CurveTool4::DeflCurvIntervals(const Curve5& C)
 {
   const Standard_Real           epsd    = 1.e-3;
   const Standard_Real           maxdefl = 1.e3;

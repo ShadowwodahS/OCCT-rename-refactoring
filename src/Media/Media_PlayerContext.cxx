@@ -106,13 +106,13 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const AsciiString1& theS
                                                         AsciiString1&       theMediaInfo)
 {
   theMediaInfo.Clear();
-  Handle(Media_FormatContext) aFormatCtx = new Media_FormatContext();
+  Handle(FormatContext) aFormatCtx = new FormatContext();
   if (!aFormatCtx->OpenInput(theSrcVideo))
   {
     return Handle(Media_Frame)();
   }
 
-  Handle(Media_CodecContext) aVideoCtx;
+  Handle(CodecContext) aVideoCtx;
 #ifdef HAVE_FFMPEG
   for (unsigned int aStreamId = 0; aStreamId < aFormatCtx->NbSteams(); ++aStreamId)
   {
@@ -120,7 +120,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const AsciiString1& theS
     const AVMediaType aCodecType = aStream.codecpar->codec_type;
     if (aCodecType == AVMEDIA_TYPE_VIDEO)
     {
-      aVideoCtx = new Media_CodecContext();
+      aVideoCtx = new CodecContext();
       if (!aVideoCtx->Init(aStream, aFormatCtx->PtsStartBase(), 1))
       {
         return Handle(Media_Frame)();
@@ -206,7 +206,7 @@ bool Media_PlayerContext::DumpFirstFrame(const AsciiString1& theSrcVideo,
     Handle(Media_Frame) anRgbFrame = new Media_Frame();
     anRgbFrame->InitWrapper(aPixMap);
 
-    Media_Scaler aScaler;
+    Scaler aScaler;
     if (!aScaler.Convert(aFrame, anRgbFrame))
     {
       Message1::SendFail(AsciiString1("FFmpeg: unable to convert frame into RGB '")
@@ -294,8 +294,8 @@ void Media_PlayerContext::pushPlayEvent(Media_PlayerEvent thePlayEvent)
 //=================================================================================================
 
 bool Media_PlayerContext::popPlayEvent(Media_PlayerEvent&                 thePlayEvent,
-                                       const Handle(Media_FormatContext)& theFormatCtx,
-                                       const Handle(Media_CodecContext)&  theVideoCtx,
+                                       const Handle(FormatContext)& theFormatCtx,
+                                       const Handle(CodecContext)&  theVideoCtx,
                                        const Handle(Media_Frame)&         theFrame)
 {
   if (myPlayEvent == Media_PlayerEvent_NONE)
@@ -344,7 +344,7 @@ static int getAligned(size_t theNumber, size_t theAlignment = 32)
 //=================================================================================================
 
 bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFrame,
-                                       const Handle(Media_CodecContext)& theVideoCtx)
+                                       const Handle(CodecContext)& theVideoCtx)
 {
   if (myFrameTmp.IsNull())
   {
@@ -388,7 +388,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
   {
     if (myBufferPools[0].IsNull())
     {
-      myBufferPools[0] = new Media_BufferPool();
+      myBufferPools[0] = new BufferPool();
     }
 
     const int aLineSize = getAligned(aSize.x() * 3);
@@ -423,7 +423,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
     {
       if (myBufferPools[aPlaneIter].IsNull())
       {
-        myBufferPools[aPlaneIter] = new Media_BufferPool();
+        myBufferPools[aPlaneIter] = new BufferPool();
       }
     }
 
@@ -463,7 +463,7 @@ bool Media_PlayerContext::receiveFrame(const Handle(Media_Frame)&        theFram
 
   if (myScaler.IsNull())
   {
-    myScaler = new Media_Scaler();
+    myScaler = new Scaler();
   }
   if (!myScaler->Convert(myFrameTmp, theFrame))
   {
@@ -508,13 +508,13 @@ void Media_PlayerContext::doThreadLoop()
       continue;
     }
 
-    Handle(Media_FormatContext) aFormatCtx = new Media_FormatContext();
+    Handle(FormatContext) aFormatCtx = new FormatContext();
     if (!aFormatCtx->OpenInput(anInput))
     {
       continue;
     }
 
-    Handle(Media_CodecContext) aVideoCtx;
+    Handle(CodecContext) aVideoCtx;
 #ifdef HAVE_FFMPEG
     for (unsigned int aStreamId = 0; aStreamId < aFormatCtx->NbSteams(); ++aStreamId)
     {
@@ -522,7 +522,7 @@ void Media_PlayerContext::doThreadLoop()
       const AVMediaType aCodecType = aStream.codecpar->codec_type;
       if (aCodecType == AVMEDIA_TYPE_VIDEO)
       {
-        aVideoCtx = new Media_CodecContext();
+        aVideoCtx = new CodecContext();
         if (!aVideoCtx->Init(aStream, aFormatCtx->PtsStartBase(), 1))
         {
           aVideoCtx.Nullify();

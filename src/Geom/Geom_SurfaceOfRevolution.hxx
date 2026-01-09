@@ -31,7 +31,7 @@ class Frame3d;
 class Transform3d;
 class GeneralTransform2d;
 class Vector3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_SurfaceOfRevolution;
 DEFINE_STANDARD_HANDLE(Geom_SurfaceOfRevolution, Geom_SweptSurface)
@@ -321,7 +321,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this surface of revolution.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

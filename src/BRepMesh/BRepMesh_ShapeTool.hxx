@@ -30,7 +30,7 @@ class Box2;
 
 //! Auxiliary class providing functionality to compute,
 //! retrieve and store data to TopoDS and model shape.
-class BRepMesh_ShapeTool : public RefObject
+class ShapeTool2 : public RefObject
 {
 public:
   //! Returns maximum tolerance of the given face.
@@ -137,7 +137,7 @@ public:
     Standard_Real&         theLastParam,
     const Standard_Boolean isConsiderOrientation = Standard_False);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_ShapeTool, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShapeTool2, RefObject)
 };
 
 #endif

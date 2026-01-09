@@ -27,7 +27,7 @@
 class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_ConstructionError;
-class Adaptor3d_HVertex;
+class HandleVertex;
 class HCurve2dTool1;
 class HInterTool;
 class Adaptor3d_TopolTool;
@@ -92,7 +92,7 @@ private:
   IntPatch_SequenceOfPathPointOfTheSOnBounds spnt;
 };
 
-#define TheVertex Handle(Adaptor3d_HVertex)
+#define TheVertex Handle(HandleVertex)
 #define TheVertex_hxx <Adaptor3d_HVertex.hxx>
 #define TheArc Handle(Adaptor2d_Curve2d)
 #define TheArc_hxx <Adaptor2d_Curve2d.hxx>

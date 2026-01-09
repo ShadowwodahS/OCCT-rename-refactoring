@@ -38,7 +38,7 @@ class Point3d;
 class Vector3d;
 class GeomCurve3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_BSplineSurface;
 DEFINE_STANDARD_HANDLE(Geom_BSplineSurface, Geom_BoundedSurface)
@@ -1290,7 +1290,7 @@ public:
                                   Standard_Real&      VTolerance);
 
   //! Creates a new object which is a copy of this BSpline surface.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -1333,7 +1333,7 @@ private:
   GeomAbs_Shape                    Vsmooth;
   Standard_Integer                 udeg;
   Standard_Integer                 vdeg;
-  Handle(TColgp_HArray2OfPnt)      poles;
+  Handle(PointGrid)      poles;
   Handle(TColStd_HArray2OfReal)    weights;
   Handle(TColStd_HArray1OfReal)    ufknots;
   Handle(TColStd_HArray1OfReal)    vfknots;

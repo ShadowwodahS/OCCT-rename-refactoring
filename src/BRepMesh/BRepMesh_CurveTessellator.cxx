@@ -27,7 +27,7 @@
 #include <Standard_Failure.hxx>
 #include <GCPnts_AbscissaPoint.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_CurveTessellator, IMeshTools_CurveTessellator)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_CurveTessellator, CurveTessellator)
 
 //=================================================================================================
 
@@ -124,7 +124,7 @@ void BRepMesh_CurveTessellator::init()
   if (myCurve.IsCurveOnSurface())
   {
     const Adaptor3d_CurveOnSurface&  aCurve   = myCurve.CurveOnSurface();
-    const Handle(Adaptor3d_Surface)& aSurface = aCurve.GetSurface();
+    const Handle(SurfaceAdaptor)& aSurface = aCurve.GetSurface();
 
     constexpr Standard_Real aTol = Precision1::Confusion();
     const Standard_Real     aDu  = aSurface->UResolution(aTol);
@@ -237,7 +237,7 @@ Standard_Boolean BRepMesh_CurveTessellator::Value(const Standard_Integer theInde
   // If point coordinates are out of surface range,
   // it is necessary to re-project point.
   const Adaptor3d_CurveOnSurface&  aCurve   = myCurve.CurveOnSurface();
-  const Handle(Adaptor3d_Surface)& aSurface = aCurve.GetSurface();
+  const Handle(SurfaceAdaptor)& aSurface = aCurve.GetSurface();
   if (aSurface->GetType() != GeomAbs_BSplineSurface && aSurface->GetType() != GeomAbs_BezierSurface
       && aSurface->GetType() != GeomAbs_OtherSurface)
   {

@@ -40,7 +40,7 @@ typedef Coords2d     XY;
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_Ellipse::Copy() const
+Handle(Geometry2) Geom2d_Ellipse::Copy() const
 {
   Handle(Geom2d_Ellipse) E;
   E = new Geom2d_Ellipse(pos, majorRadius, minorRadius);

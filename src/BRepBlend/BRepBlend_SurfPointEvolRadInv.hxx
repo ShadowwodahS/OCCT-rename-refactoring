@@ -22,7 +22,7 @@
 #include <Blend_SurfPointFuncInv.hxx>
 #include <math_Vector.hxx>
 
-class Law_Function;
+class Function2;
 class math_Matrix;
 
 //! Function of reframing between a point and a surface.
@@ -39,9 +39,9 @@ class BRepBlend_SurfPointEvolRadInv : public Blend_SurfPointFuncInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_SurfPointEvolRadInv(const Handle(Adaptor3d_Surface)& S,
-                                                const Handle(Adaptor3d_Curve)&   C,
-                                                const Handle(Law_Function)&      Evol);
+  Standard_EXPORT BRepBlend_SurfPointEvolRadInv(const Handle(SurfaceAdaptor)& S,
+                                                const Handle(Curve5)&   C,
+                                                const Handle(Function2)&      Evol);
 
   Standard_EXPORT void Set(const Standard_Integer Choix);
 
@@ -86,12 +86,12 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf;
-  Handle(Adaptor3d_Curve)   curv;
+  Handle(SurfaceAdaptor) surf;
+  Handle(Curve5)   curv;
   Point3d                    point;
   Standard_Real             ray;
   Standard_Integer          choix;
-  Handle(Law_Function)      tevol;
+  Handle(Function2)      tevol;
   Standard_Real             sg1;
 };
 

@@ -26,16 +26,16 @@ class math_Matrix;
 
 //! this function is associated to the intersection between
 //! a curve on surface and a surface  .
-class IntPatch_CSFunction : public math_FunctionSetWithDerivatives
+class IntPatch_CSFunction : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! S1 is the surface on which the intersection is searched.
   //! C is a curve on the surface S2.
-  Standard_EXPORT IntPatch_CSFunction(const Handle(Adaptor3d_Surface)& S1,
+  Standard_EXPORT IntPatch_CSFunction(const Handle(SurfaceAdaptor)& S1,
                                       const Handle(Adaptor2d_Curve2d)& C,
-                                      const Handle(Adaptor3d_Surface)& S2);
+                                      const Handle(SurfaceAdaptor)& S2);
 
   Standard_EXPORT Standard_Integer NbVariables() const;
 
@@ -51,7 +51,7 @@ public:
 
   Standard_EXPORT Standard_Real Root() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Surface)& AuxillarSurface() const;
+  Standard_EXPORT const Handle(SurfaceAdaptor)& AuxillarSurface() const;
 
   Standard_EXPORT const Handle(Adaptor2d_Curve2d)& AuxillarCurve() const;
 

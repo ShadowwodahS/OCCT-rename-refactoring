@@ -44,7 +44,7 @@ IntTools_TopolTool::IntTools_TopolTool()
 
 //=================================================================================================
 
-IntTools_TopolTool::IntTools_TopolTool(const Handle(Adaptor3d_Surface)& theSurface)
+IntTools_TopolTool::IntTools_TopolTool(const Handle(SurfaceAdaptor)& theSurface)
 {
   Initialize(theSurface);
   myNbSmplU = 0;
@@ -62,7 +62,7 @@ void IntTools_TopolTool::Initialize()
 
 //=================================================================================================
 
-void IntTools_TopolTool::Initialize(const Handle(Adaptor3d_Surface)& theSurface)
+void IntTools_TopolTool::Initialize(const Handle(SurfaceAdaptor)& theSurface)
 {
   Adaptor3d_TopolTool::Initialize(theSurface);
   // myS = theSurface;

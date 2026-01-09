@@ -36,7 +36,7 @@ class gp_Pnt2d;
 class gp_Vec2d;
 class math_Matrix;
 
-class Extrema_CCLocFOfLocECC2d : public math_FunctionSetWithDerivatives
+class Extrema_CCLocFOfLocECC2d : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

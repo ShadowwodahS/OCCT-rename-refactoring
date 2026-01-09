@@ -24,16 +24,16 @@
 //! Each face is processed separately and can be executed in parallel mode.
 //! Uses mesh algo factory passed as initializer to create instance of triangulation
 //! algorithm according to type of surface of target face.
-class BRepMesh_FaceDiscret : public IMeshTools_ModelAlgo
+class BRepMesh_FaceDiscret : public ModelAlgorithm
 {
 public:
   //! Constructor.
-  Standard_EXPORT BRepMesh_FaceDiscret(const Handle(IMeshTools_MeshAlgoFactory)& theAlgoFactory);
+  Standard_EXPORT BRepMesh_FaceDiscret(const Handle(MeshAlgorithmFactory)& theAlgoFactory);
 
   //! Destructor.
   Standard_EXPORT virtual ~BRepMesh_FaceDiscret();
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_FaceDiscret, IMeshTools_ModelAlgo)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_FaceDiscret, ModelAlgorithm)
 
 protected:
   //! Performs processing of faces of the given model.
@@ -50,7 +50,7 @@ private:
   class FaceListFunctor;
 
 private:
-  Handle(IMeshTools_MeshAlgoFactory) myAlgoFactory;
+  Handle(MeshAlgorithmFactory) myAlgoFactory;
   Handle(IMeshData_Model)            myModel;
   Parameters3              myParameters;
 };

@@ -54,7 +54,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeAlgo_AlgoContainer, RefObject)
 
 ShapeAlgo_AlgoContainer::ShapeAlgo_AlgoContainer()
 {
-  myTC = new ShapeAlgo_ToolContainer;
+  myTC = new ToolContainer1;
 }
 
 //=================================================================================================
@@ -209,7 +209,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(BSplineCurve3d)& b
     {
       TColgp_Array1OfPnt newP(1, jpole);
       mycurve->Poles(newP);
-      Handle(IntSurf_LineOn2S) R = new IntSurf_LineOn2S();
+      Handle(LineOnTwoSurfaces) R = new LineOnTwoSurfaces();
       Standard_Real            u1, v1, u2, v2;
       u1 = v1 = 0.;
       u2 = v2 = 1.;
@@ -354,7 +354,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom2d_BSplineCurv
       TColgp_Array1OfPnt   P(1, jpole);
       TColgp_Array1OfPnt2d newP(1, jpole);
       mycurve->Poles(newP);
-      Handle(IntSurf_LineOn2S) R = new IntSurf_LineOn2S();
+      Handle(LineOnTwoSurfaces) R = new LineOnTwoSurfaces();
       Standard_Real            u2, v2;
       u2 = v2 = 1.;
       for (j = 1; j <= jpole; j++)
@@ -645,7 +645,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoWire& wireIn1,
 
 Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(BSplineCurve3d)&          BS,
-  Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS) const
+  Handle(HSequenceOfBoundedCurve1)& seqBS) const
 {
   return ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
 }
@@ -654,7 +654,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
 
 Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(Geom2d_BSplineCurve)&          BS,
-  Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS) const
+  Handle(BoundedCurveSequence2d)& seqBS) const
 {
   return ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
 }

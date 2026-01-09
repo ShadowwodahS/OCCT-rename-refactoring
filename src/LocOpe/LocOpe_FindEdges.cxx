@@ -53,7 +53,7 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
     Cf                      = BRepInspector::Curve(edgf, Loc, ff, lf);
     if (!Loc.IsIdentity())
     {
-      Handle(Geom_Geometry) GGf = Cf->Transformed(Loc.Transformation());
+      Handle(Geometry3) GGf = Cf->Transformed(Loc.Transformation());
       Cf                        = Handle(GeomCurve3d)::DownCast(GGf);
     }
     Tf = Cf->DynamicType();
@@ -74,7 +74,7 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
       Ct                      = BRepInspector::Curve(edgt, Loc, ft, lt);
       if (!Loc.IsIdentity())
       {
-        Handle(Geom_Geometry) GGt = Ct->Transformed(Loc.Transformation());
+        Handle(Geometry3) GGt = Ct->Transformed(Loc.Transformation());
         Ct                        = Handle(GeomCurve3d)::DownCast(GGt);
       }
       Tt = Ct->DynamicType();

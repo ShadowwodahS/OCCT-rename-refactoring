@@ -24,12 +24,12 @@
 #include <TCollection_ExtendedString.hxx>
 
 //! parse an OS path
-class TDocStd_PathParser
+class PathParser
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TDocStd_PathParser(const UtfString& path);
+  Standard_EXPORT PathParser(const UtfString& path);
 
   Standard_EXPORT void Parse();
 

@@ -17,9 +17,9 @@
 #include <AdvApprox_DichoCutting.hxx>
 #include <Precision.hxx>
 
-AdvApprox_DichoCutting::AdvApprox_DichoCutting() {}
+DichotomicCutting::DichotomicCutting() {}
 
-Standard_Boolean AdvApprox_DichoCutting::Value(const Standard_Real a,
+Standard_Boolean DichotomicCutting::Value(const Standard_Real a,
                                                const Standard_Real b,
                                                Standard_Real&      cuttingvalue) const
 {

@@ -24,10 +24,10 @@
 //=====================================================================================
 FairCurve_EnergyOfMVC::FairCurve_EnergyOfMVC(const Standard_Integer               BSplOrder,
                                              const Handle(TColStd_HArray1OfReal)& FlatKnots,
-                                             const Handle(TColgp_HArray1OfPnt2d)& Poles,
+                                             const Handle(Point2dArray)& Poles,
                                              const Standard_Integer               ContrOrder1,
                                              const Standard_Integer               ContrOrder2,
-                                             const FairCurve_BattenLaw&           Law1,
+                                             const BattenLaw&           Law1,
                                              const Standard_Real                  PhysicalRatio,
                                              const Standard_Real                  LengthSliding,
                                              const Standard_Boolean               FreeSliding,

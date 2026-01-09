@@ -124,7 +124,7 @@ protected:
 private:
   Standard_Real                    myTolerance;
   Handle(GeomAdaptor_Curve)        myCurve;
-  IntCurveSurface_HInter           myIntcs;
+  HandleIntersection           myIntcs;
   Standard_Integer                 myCurrentindex;
   Standard_Integer                 myCurrentnbpoints;
   Handle(BRepTopAdaptor_TopolTool) myFastClass;
@@ -134,7 +134,7 @@ private:
   Box2                          myCurveBox;
   Standard_Integer                 myIndFace;
   TopTools_SequenceOfShape         myFaces;
-  Handle(Bnd_HArray1OfBox)         myFaceBoxes;
+  Handle(BoxArray)         myFaceBoxes;
 };
 
 #endif // _BRepIntCurveSurface_Inter_HeaderFile

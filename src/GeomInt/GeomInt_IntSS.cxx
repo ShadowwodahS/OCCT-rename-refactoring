@@ -89,8 +89,8 @@ void GeomInt_IntSS::InternalPerform(const Standard_Real    Tol,
   Handle(Adaptor3d_TopolTool) dom1 = new Adaptor3d_TopolTool(myHS1);
   Handle(Adaptor3d_TopolTool) dom2 = new Adaptor3d_TopolTool(myHS2);
 
-  NCollection_Vector<Handle(Adaptor3d_Surface)> aVecHS1;
-  NCollection_Vector<Handle(Adaptor3d_Surface)> aVecHS2;
+  NCollection_Vector<Handle(SurfaceAdaptor)> aVecHS1;
+  NCollection_Vector<Handle(SurfaceAdaptor)> aVecHS2;
 
   if (myHS1 == myHS2)
   {
@@ -104,11 +104,11 @@ void GeomInt_IntSS::InternalPerform(const Standard_Real    Tol,
 
   for (Standard_Integer aNumOfHS1 = 0; aNumOfHS1 < aVecHS1.Length(); aNumOfHS1++)
   {
-    const Handle(Adaptor3d_Surface)& aHS1 = aVecHS1.Value(aNumOfHS1);
+    const Handle(SurfaceAdaptor)& aHS1 = aVecHS1.Value(aNumOfHS1);
 
     for (Standard_Integer aNumOfHS2 = 0; aNumOfHS2 < aVecHS2.Length(); aNumOfHS2++)
     {
-      const Handle(Adaptor3d_Surface)& aHS2 = aVecHS2.Value(aNumOfHS2);
+      const Handle(SurfaceAdaptor)& aHS2 = aVecHS2.Value(aNumOfHS2);
 
       Handle(Adaptor3d_TopolTool) aDom1 = new Adaptor3d_TopolTool(aHS1);
       Handle(Adaptor3d_TopolTool) aDom2 = new Adaptor3d_TopolTool(aHS2);

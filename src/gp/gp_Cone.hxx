@@ -43,7 +43,7 @@
 //! gives the orientation (direct or indirect) of the
 //! Geom_ConicalSurface cone.
 //! See Also
-//! gce_MakeCone which provides functions for more
+//! ConeBuilder which provides functions for more
 //! complex1 cone constructions
 //! Geom_ConicalSurface which provides additional
 //! functions for constructing cones and works, in particular,

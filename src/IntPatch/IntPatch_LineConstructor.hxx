@@ -24,7 +24,7 @@ class Adaptor3d_TopolTool;
 
 //! The intersections  algorithms compute the intersection
 //! on two surfaces and  return the intersections lines as
-//! IntPatch_Line.
+//! Line2.
 class LineConstructor
 {
 public:
@@ -33,16 +33,16 @@ public:
   Standard_EXPORT LineConstructor(const Standard_Integer mode);
 
   Standard_EXPORT void Perform(const IntPatch_SequenceOfLine&     SL,
-                               const Handle(IntPatch_Line)&       L,
-                               const Handle(Adaptor3d_Surface)&   S1,
+                               const Handle(Line2)&       L,
+                               const Handle(SurfaceAdaptor)&   S1,
                                const Handle(Adaptor3d_TopolTool)& D1,
-                               const Handle(Adaptor3d_Surface)&   S2,
+                               const Handle(SurfaceAdaptor)&   S2,
                                const Handle(Adaptor3d_TopolTool)& D2,
                                const Standard_Real                Tol);
 
   Standard_EXPORT Standard_Integer NbLines() const;
 
-  Standard_EXPORT Handle(IntPatch_Line) Line(const Standard_Integer index) const;
+  Standard_EXPORT Handle(Line2) Line(const Standard_Integer index) const;
 
 protected:
 private:

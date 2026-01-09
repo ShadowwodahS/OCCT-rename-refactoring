@@ -119,7 +119,7 @@ public:
   Standard_Integer ViewportHeight() const { return myViewportHeight; }
 
   //! Returns state of current world view projection transformation matrices.
-  const Graphic3d_WorldViewProjState& WorldViewProjState() const { return myWorldViewProjState; }
+  const WorldViewProjState1& WorldViewProjState() const { return myWorldViewProjState; }
 
   //! Returns camera eye position.
   const Graphic3d_Vec3d& CameraEye() const { return myCamEye; }
@@ -302,7 +302,7 @@ protected:
   Standard_Integer myViewportWidth;
   Standard_Integer myViewportHeight;
 
-  Graphic3d_WorldViewProjState myWorldViewProjState; //!< State of world view projection matrices.
+  WorldViewProjState1 myWorldViewProjState; //!< State of world view projection matrices.
 
   Graphic3d_Vec3d myCamEye;    //!< camera eye position for distance culling
   Graphic3d_Vec3d myCamDir;    //!< camera direction for size culling

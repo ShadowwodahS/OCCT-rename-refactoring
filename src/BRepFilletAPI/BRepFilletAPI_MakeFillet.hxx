@@ -34,7 +34,7 @@
 #include <ChFiDS_ErrorStatus.hxx>
 class TopoShape;
 class TopoEdge;
-class Law_Function;
+class Function2;
 class TopoVertex;
 class TopOpeBRepBuild_HBuilder;
 class GeomSurface;
@@ -96,7 +96,7 @@ public:
   //! Adds a  fillet description in  the  builder
   //! - builds a contour  of tangent edges,
   //! - sest the radius evolution law.
-  Standard_EXPORT void Add(const Handle(Law_Function)& L, const TopoEdge& E);
+  Standard_EXPORT void Add(const Handle(Function2)& L, const TopoEdge& E);
 
   //! Adds a  fillet description in  the  builder
   //! - builds a contour  of tangent edges,
@@ -130,7 +130,7 @@ public:
   //! in the internal data structure of this algorithm, where the radius of the
   //! fillet evolves according to the evolution law L, between the
   //! first and last vertices of the contour of index IC.
-  Standard_EXPORT void SetRadius(const Handle(Law_Function)& L,
+  Standard_EXPORT void SetRadius(const Handle(Function2)& L,
                                  const Standard_Integer      IC,
                                  const Standard_Integer      IinC);
 
@@ -201,11 +201,11 @@ public:
                                              Standard_Real&         F,
                                              Standard_Real&         L);
 
-  Standard_EXPORT Handle(Law_Function) GetLaw(const Standard_Integer IC, const TopoEdge& E);
+  Standard_EXPORT Handle(Function2) GetLaw(const Standard_Integer IC, const TopoEdge& E);
 
   Standard_EXPORT void SetLaw(const Standard_Integer      IC,
                               const TopoEdge&          E,
-                              const Handle(Law_Function)& L);
+                              const Handle(Function2)& L);
 
   //! Assigns FShape as the type of fillet shape built by this algorithm.
   Standard_EXPORT void SetFilletShape(const ChFi3d_FilletShape FShape);
@@ -350,7 +350,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbSurf(const Standard_Integer IC) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(ChFiDS_SecHArray1) Sect(const Standard_Integer IC,
+  Standard_EXPORT Handle(SecHArray1) Sect(const Standard_Integer IC,
                                                  const Standard_Integer IS) const Standard_OVERRIDE;
 
   //! Returns the number of contours where the computation

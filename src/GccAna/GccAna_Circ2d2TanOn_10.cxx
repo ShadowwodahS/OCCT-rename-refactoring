@@ -152,7 +152,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
   GccAna_LinPnt2dBisec Bis(L1, Point2);
   if (Bis.IsDone())
   {
-    Handle(GccInt_Bisec)     Sol  = Bis.ThisSolution();
+    Handle(Bisector2)     Sol  = Bis.ThisSolution();
     GccInt_IType             type = Sol->ArcType();
     AnalyticIntersection2d Intp;
     if (type == GccInt_Lin)

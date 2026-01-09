@@ -50,7 +50,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Frame3d& A2, const St
 
 GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Axis3d& A1, const Standard_Real Radius)
 {
-  gce_MakeCylinder Cyl = gce_MakeCylinder(A1, Radius);
+  CylinderBuilder Cyl = CylinderBuilder(A1, Radius);
   TheError             = Cyl.Status();
   if (TheError == gce_Done)
   {
@@ -64,7 +64,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Axis3d& A1, const Sta
 
 GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Circ& Circ)
 {
-  Cylinder1 Cyl = gce_MakeCylinder(Circ);
+  Cylinder1 Cyl = CylinderBuilder(Circ);
   TheCylinder     = new Geom_CylindricalSurface(Cyl);
   TheError        = gce_Done;
 }
@@ -79,7 +79,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Point3d& P1,
                                                      const Point3d& P2,
                                                      const Point3d& P3)
 {
-  gce_MakeCylinder Cyl = gce_MakeCylinder(P1, P2, P3);
+  CylinderBuilder Cyl = CylinderBuilder(P1, P2, P3);
   TheError             = Cyl.Status();
   if (TheError == gce_Done)
   {

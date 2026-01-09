@@ -422,10 +422,10 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
     if (dout.Is3D(id))
     {
       Handle(Draw_Marker3D)       mark;
-      Handle(TColgp_HArray1OfPnt) Points = new TColgp_HArray1OfPnt(1, 1);
+      Handle(PointArray1) Points = new PointArray1(1, 1);
       P.SetCoord((Standard_Real)XX / zoom, (Standard_Real)YY / zoom, 0.0);
       Points->SetValue(1, P);
-      Handle(TColgp_HArray1OfPnt) ThePoints = new TColgp_HArray1OfPnt(1, 2);
+      Handle(PointArray1) ThePoints = new PointArray1(1, 2);
       ThePoints->SetValue(1, P);
       mark = new Draw_Marker3D(Points->Value(1), Draw_X, Draw_vert);
       dout << mark;
@@ -447,7 +447,7 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
             mark = new Draw_Marker3D(ThePoints->Value(i), Draw_X, Draw_vert);
             dout << mark;
             dout.Flush();
-            Points = new TColgp_HArray1OfPnt(ThePoints->Lower(), ThePoints->Upper());
+            Points = new PointArray1(ThePoints->Lower(), ThePoints->Upper());
             Points->ChangeArray1() = ThePoints->Array1();
             newcurve               = Standard_True;
           }
@@ -464,7 +464,7 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
           }
           if (newcurve)
           {
-            ThePoints = new TColgp_HArray1OfPnt(1, i + 1);
+            ThePoints = new PointArray1(1, i + 1);
             for (j = 1; j <= i; j++)
               ThePoints->SetValue(j, Points->Value(j));
           }
@@ -482,10 +482,10 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
     else
     {
       Handle(Draw_Marker2D)         mark;
-      Handle(TColgp_HArray1OfPnt2d) Points = new TColgp_HArray1OfPnt2d(1, 1);
+      Handle(Point2dArray) Points = new Point2dArray(1, 1);
       P2d.SetCoord((Standard_Real)XX / zoom, (Standard_Real)YY / zoom);
       Points->SetValue(1, P2d);
-      Handle(TColgp_HArray1OfPnt2d) ThePoints = new TColgp_HArray1OfPnt2d(1, 2);
+      Handle(Point2dArray) ThePoints = new Point2dArray(1, 2);
       ThePoints->SetValue(1, P2d);
       mark = new Draw_Marker2D(P2d, Draw_X, Draw_vert);
       dout << mark;
@@ -507,7 +507,7 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
             mark = new Draw_Marker2D(P2d, Draw_X, Draw_vert);
             dout << mark;
             dout.Flush();
-            Points = new TColgp_HArray1OfPnt2d(ThePoints->Lower(), ThePoints->Upper());
+            Points = new Point2dArray(ThePoints->Lower(), ThePoints->Upper());
             Points->ChangeArray1() = ThePoints->Array1();
             newcurve               = Standard_True;
           }
@@ -526,7 +526,7 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
 
           if (newcurve)
           {
-            ThePoints = new TColgp_HArray1OfPnt2d(1, i + 1);
+            ThePoints = new Point2dArray(1, i + 1);
             for (j = 1; j <= i; j++)
               ThePoints->SetValue(j, Points->Value(j));
           }
@@ -558,7 +558,7 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
     iFile >> dimen;
     if (!strcmp(dimen, "3d"))
     {
-      Handle(TColgp_HArray1OfPnt) Point = new TColgp_HArray1OfPnt(1, nbp);
+      Handle(PointArray1) Point = new PointArray1(1, nbp);
       for (i = 1; i <= nbp; i++)
       {
         iFile >> x >> y >> z;
@@ -574,7 +574,7 @@ static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const 
     }
     else if (!strcmp(dimen, "2d"))
     {
-      Handle(TColgp_HArray1OfPnt2d) PointPtr = new TColgp_HArray1OfPnt2d(1, nbp);
+      Handle(Point2dArray) PointPtr = new Point2dArray(1, nbp);
       for (i = 1; i <= nbp; i++)
       {
         iFile >> x >> y;
@@ -631,7 +631,7 @@ static Standard_Integer tanginterpol(DrawInterpreter& di, Standard_Integer n, co
   {
     return 1;
   }
-  Handle(TColgp_HArray1OfPnt) PointsArrayPtr = new TColgp_HArray1OfPnt(1, num_parameters);
+  Handle(PointArray1) PointsArrayPtr = new PointArray1(1, num_parameters);
 
   num_tangents = ((n - num_read) / 3) - num_parameters;
   num_tangents = Max(0, num_tangents);

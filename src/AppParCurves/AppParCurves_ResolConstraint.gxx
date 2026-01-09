@@ -47,7 +47,7 @@ AppParCurves_ResolConstraint::
           AppParCurves_MultiCurve& SCurv,
           const Standard_Integer FirstPoint,
 	  const Standard_Integer LastPoint,
-	  const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+	  const Handle(ConstraintCoupleArray)& TheConstraints,
           const math_Matrix& Bern,
           const math_Matrix& DerivativeBern,
 	  const Standard_Real Tolerance):
@@ -446,7 +446,7 @@ AppParCurves_ResolConstraint::
 
   for (i = polinit; i <= polfin; i++) {
     IncCol = 0;
-    AppParCurves_MultiPoint MPol(nb3d, nb2d);
+    MultiPoint MPol(nb3d, nb2d);
     for (k = 1; k <= NbCu; k++) {
       if (k <= nb3d) {
 	Point3d Pol(VecPoles(IncCol + i),
@@ -478,7 +478,7 @@ Standard_Integer AppParCurves_ResolConstraint::
   NbConstraints(const MultiLine& SSP,
 		const Standard_Integer,
 		const Standard_Integer,
-		const Handle(AppParCurves_HArray1OfConstraintCouple)& 
+		const Handle(ConstraintCoupleArray)& 
 		TheConstraints) 
 const
 {

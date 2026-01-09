@@ -86,7 +86,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedLine& Qualified1,
   if (Bis1.IsDone() && Bis2.IsDone())
   {
     Standard_Integer     nbsolution1 = Bis1.NbSolutions();
-    Handle(GccInt_Bisec) Sol2        = Bis2.ThisSolution();
+    Handle(Bisector2) Sol2        = Bis2.ThisSolution();
     for (Standard_Integer i = 1; i <= nbsolution1; i++)
     {
       const gp_Lin2d           Sol1(Bis1.ThisSolution(i));

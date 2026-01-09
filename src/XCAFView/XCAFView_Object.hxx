@@ -110,7 +110,7 @@ public:
   void CreateGDTPoints(const Standard_Integer theLenght)
   {
     if (theLenght > 0)
-      myGDTPoints = new TColgp_HArray1OfPnt(1, theLenght);
+      myGDTPoints = new PointArray1(1, theLenght);
   }
 
   Standard_Boolean HasGDTPoints() { return (!myGDTPoints.IsNull()); }
@@ -158,7 +158,7 @@ private:
   Standard_Real                    myBackPlaneDistance;
   Standard_Boolean                 myViewVolumeSidesClipping;
   // clang-format off
-  Handle(TColgp_HArray1OfPnt) myGDTPoints; // Point for each GDT to describe position of GDT frame in View.
+  Handle(PointArray1) myGDTPoints; // Point for each GDT to describe position of GDT frame in View.
   // clang-format on
 };
 

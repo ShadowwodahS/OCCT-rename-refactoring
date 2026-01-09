@@ -85,7 +85,7 @@ Standard_Boolean BndBoxTreeSelectorLine::Accept(const Standard_Integer& theObj)
     BRepInspector::Range(E, f, l);
 
     // Edge-Line interference.
-    Extrema_ExtCC ExtCC(C, myLC, f, l, myLC.FirstParameter(), myLC.LastParameter());
+    CurveCurveExtrema2 ExtCC(C, myLC, f, l, myLC.FirstParameter(), myLC.LastParameter());
     if (ExtCC.IsDone())
     {
       if (ExtCC.IsParallel())

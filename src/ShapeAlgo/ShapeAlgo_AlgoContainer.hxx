@@ -26,7 +26,7 @@
 #include <TColGeom2d_HSequenceOfBoundedCurve.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class ShapeAlgo_ToolContainer;
+class ToolContainer1;
 class ShapeAnalysis_Wire;
 class ShapeExtend_WireData;
 class BSplineCurve3d;
@@ -49,10 +49,10 @@ public:
   Standard_EXPORT ShapeAlgo_AlgoContainer();
 
   //! Sets ToolContainer
-  void SetToolContainer(const Handle(ShapeAlgo_ToolContainer)& TC);
+  void SetToolContainer(const Handle(ToolContainer1)& TC);
 
   //! Returns ToolContainer
-  Handle(ShapeAlgo_ToolContainer) ToolContainer() const;
+  Handle(ToolContainer1) ToolContainer() const;
 
   //! Finds the best way to connect and connects <nextsewd> to already
   //! built <sewd> (in <saw>).
@@ -80,13 +80,13 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
     const Handle(BSplineCurve3d)&          BS,
-    Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS) const;
+    Handle(HSequenceOfBoundedCurve1)& seqBS) const;
 
   //! Converts C0 B-Spline curve into sequence of C1 B-Spline curves.
   //! Calls ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve.
   Standard_EXPORT virtual Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
     const Handle(Geom2d_BSplineCurve)&          BS,
-    Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS) const;
+    Handle(BoundedCurveSequence2d)& seqBS) const;
 
   //! Converts a shape on C0 geometry into the shape on C1 geometry.
   Standard_EXPORT virtual TopoShape C0ShapeToC1Shape(const TopoShape& shape,
@@ -139,7 +139,7 @@ public:
 
 protected:
 private:
-  Handle(ShapeAlgo_ToolContainer) myTC;
+  Handle(ToolContainer1) myTC;
 };
 
 #include <ShapeAlgo_AlgoContainer.lxx>

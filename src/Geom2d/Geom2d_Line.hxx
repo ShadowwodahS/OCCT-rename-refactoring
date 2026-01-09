@@ -29,7 +29,7 @@ class gp_Pnt2d;
 class gp_Dir2d;
 class gp_Vec2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_Line;
 DEFINE_STANDARD_HANDLE(Geom2d_Line, GeomCurve2d)
@@ -173,7 +173,7 @@ public:
     Standard_OVERRIDE;
 
   //! Creates a new object, which is a copy of this line.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

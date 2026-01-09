@@ -307,9 +307,9 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Adaptor3d_Curve)& Path,
-                             const Handle(Adaptor3d_Curve)& Curve1,
-                             const Handle(Adaptor3d_Curve)& Curve2,
+GeomFill_Pipe::GeomFill_Pipe(const Handle(Curve5)& Path,
+                             const Handle(Curve5)& Curve1,
+                             const Handle(Curve5)& Curve2,
                              const Standard_Real            Radius)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
@@ -327,7 +327,7 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Adaptor3d_Curve)& Path,
 //=======================================================================
 
 GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)&      Path,
-                             const Handle(Adaptor3d_Curve)& Guide,
+                             const Handle(Curve5)& Guide,
                              const Handle(GeomCurve3d)&      FirstSect,
                              const Standard_Boolean         byACR,
                              const Standard_Boolean         rotat)
@@ -349,7 +349,7 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)&      Path,
 //=======================================================================
 
 void GeomFill_Pipe::Init(const Handle(GeomCurve3d)&      Path,
-                         const Handle(Adaptor3d_Curve)& Guide,
+                         const Handle(Curve5)& Guide,
                          const Handle(GeomCurve3d)&      FirstSect,
                          const Standard_Boolean         byACR,
                          const Standard_Boolean         rotat)
@@ -751,9 +751,9 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
 
 //=================================================================================================
 
-void GeomFill_Pipe::Init(const Handle(Adaptor3d_Curve)& Path,
-                         const Handle(Adaptor3d_Curve)& Curve1,
-                         const Handle(Adaptor3d_Curve)& Curve2,
+void GeomFill_Pipe::Init(const Handle(Curve5)& Path,
+                         const Handle(Curve5)& Curve1,
+                         const Handle(Curve5)& Curve2,
                          const Standard_Real            Radius)
 {
   myType         = 4;
@@ -820,7 +820,7 @@ void GeomFill_Pipe::Perform(const Standard_Real    Tol,
     default:
       TheConti = GeomAbs_C2; // On ne sait pas faire mieux !
   }
-  Handle(Approx_SweepFunction) Func;
+  Handle(SweepFunction) Func;
   Func.Nullify();
 
   if (myType == 4)
@@ -1057,7 +1057,7 @@ void GeomFill_Pipe::ApproxSurf(const Standard_Boolean WithParameters)
   }
 #endif
 
-  Handle(GeomFill_Line)   Line = new GeomFill_Line(Section.NbSections());
+  Handle(Line1)   Line = new Line1(Section.NbSections());
   Standard_Integer        NbIt = 0;
   constexpr Standard_Real T3d  = Precision1::Approximation();
   constexpr Standard_Real T2d  = Precision1::PApproximation();

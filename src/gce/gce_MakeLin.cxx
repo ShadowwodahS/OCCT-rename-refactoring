@@ -25,7 +25,7 @@
 //=========================================================================
 //   Creation d une ligne 3d de gp1 a partir d un Ax1 de gp1.               +
 //=========================================================================
-gce_MakeLin::gce_MakeLin(const Axis3d& A1)
+LineBuilder::LineBuilder(const Axis3d& A1)
 {
   TheLin   = gp_Lin(A1);
   TheError = gce_Done;
@@ -36,7 +36,7 @@ gce_MakeLin::gce_MakeLin(const Axis3d& A1)
 //   et d une direction V (Dir de gp1).                                    +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const Point3d& P, const Dir3d& V)
+LineBuilder::LineBuilder(const Point3d& P, const Dir3d& V)
 {
   TheLin   = gp_Lin(P, V);
   TheError = gce_Done;
@@ -47,7 +47,7 @@ gce_MakeLin::gce_MakeLin(const Point3d& P, const Dir3d& V)
 //   <P2>.                                                                +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const Point3d& P1, const Point3d& P2)
+LineBuilder::LineBuilder(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) >= gp1::Resolution())
   {
@@ -65,24 +65,24 @@ gce_MakeLin::gce_MakeLin(const Point3d& P1, const Point3d& P2)
 //   par le point <P>.                                                    +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const gp_Lin& Lin, const Point3d& P)
+LineBuilder::LineBuilder(const gp_Lin& Lin, const Point3d& P)
 {
   TheLin   = gp_Lin(P, Lin.Direction());
   TheError = gce_Done;
 }
 
-const gp_Lin& gce_MakeLin::Value() const
+const gp_Lin& LineBuilder::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeLin::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "LineBuilder::Value() - no result");
   return TheLin;
 }
 
-const gp_Lin& gce_MakeLin::Operator() const
+const gp_Lin& LineBuilder::Operator() const
 {
   return Value();
 }
 
-gce_MakeLin::operator gp_Lin() const
+LineBuilder::operator gp_Lin() const
 {
   return Value();
 }

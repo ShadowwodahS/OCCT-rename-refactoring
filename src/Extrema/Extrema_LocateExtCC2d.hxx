@@ -28,7 +28,7 @@ class Adaptor2d_Curve2d;
 //! It calculates the distance between two curves with
 //! a close point; these distances can be maximum or
 //! minimum.
-class Extrema_LocateExtCC2d
+class LocateCurveCurveExtrema2d
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,7 +39,7 @@ public:
   //! The function F(u,v)=distance(C1(u),C2(v)) has an
   //! extremun when gradient(f)=0. The algorithm searches
   //! the zero near the close point.
-  Standard_EXPORT Extrema_LocateExtCC2d(const Adaptor2d_Curve2d& C1,
+  Standard_EXPORT LocateCurveCurveExtrema2d(const Adaptor2d_Curve2d& C1,
                                         const Adaptor2d_Curve2d& C2,
                                         const Standard_Real      U0,
                                         const Standard_Real      V0);

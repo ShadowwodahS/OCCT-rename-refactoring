@@ -31,7 +31,7 @@
 class ShapeAnalysis_Surface;
 class WireHealer;
 class GeomSurface;
-class ShapeExtend_BasicMsgRegistrator;
+class BasicMsgRegistrator;
 class TopoWire;
 class ShapeExtend_WireData;
 class TopoVertex;
@@ -80,7 +80,7 @@ public:
 
   //! Sets message registrator
   Standard_EXPORT virtual void SetMsgRegistrator(
-    const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg) Standard_OVERRIDE;
+    const Handle(BasicMsgRegistrator)& msgreg) Standard_OVERRIDE;
 
   //! Sets basic precision value (also to FixWireTool)
   Standard_EXPORT virtual void SetPrecision(const Standard_Real preci) Standard_OVERRIDE;

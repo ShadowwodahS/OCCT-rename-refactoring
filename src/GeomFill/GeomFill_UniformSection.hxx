@@ -33,10 +33,10 @@ class Geom_BSplineSurface;
 class Point3d;
 
 class GeomFill_UniformSection;
-DEFINE_STANDARD_HANDLE(GeomFill_UniformSection, GeomFill_SectionLaw)
+DEFINE_STANDARD_HANDLE(GeomFill_UniformSection, SectionLaw)
 
 //! Define an Constant Section Law1
-class GeomFill_UniformSection : public GeomFill_SectionLaw
+class GeomFill_UniformSection : public SectionLaw
 {
 
 public:
@@ -164,7 +164,7 @@ public:
   //! Return the constant Section if <me>  IsConstant.
   Standard_EXPORT virtual Handle(GeomCurve3d) ConstantSection() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_UniformSection, GeomFill_SectionLaw)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_UniformSection, SectionLaw)
 
 protected:
 private:

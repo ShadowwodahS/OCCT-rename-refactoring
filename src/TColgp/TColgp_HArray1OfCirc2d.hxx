@@ -21,6 +21,6 @@
 #include <TColgp_Array1OfCirc2d.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfCirc2d, TColgp_Array1OfCirc2d)
+DEFINE_HARRAY1(Circle2dArray, TColgp_Array1OfCirc2d)
 
 #endif

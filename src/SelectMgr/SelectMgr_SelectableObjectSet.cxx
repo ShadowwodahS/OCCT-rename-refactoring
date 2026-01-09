@@ -379,7 +379,7 @@ void SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
     const Standard_Boolean              isWinSizeChanged = myLastWinSize != theWinSize;
     const Graphic3d_Mat4d&              aProjMat         = theCam->ProjectionMatrix();
     const Graphic3d_Mat4d&              aWorldViewMat    = theCam->OrientationMatrix();
-    const Graphic3d_WorldViewProjState& aViewState       = theCam->WorldViewProjState();
+    const WorldViewProjState1& aViewState       = theCam->WorldViewProjState();
 
     // -----------------------------------------------------
     // check and update 3D persistence BVH tree if necessary

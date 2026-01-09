@@ -31,7 +31,7 @@ public:
 
   //! Computes  the point <P>, and  normal vector <N> on
   //! <S> at parameters U,V.
-  Standard_EXPORT static void Normale(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void Normale(const Handle(SurfaceAdaptor)& S,
                                       const Standard_Real              U,
                                       const Standard_Real              V,
                                       Point3d&                          P,
@@ -39,7 +39,7 @@ public:
 
   //! Computes  the point <P>, and  normal vector <N> on
   //! <S> at parameters U,V.
-  Standard_EXPORT static void DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void DerivAndNorm(const Handle(SurfaceAdaptor)& S,
                                            const Standard_Real              U,
                                            const Standard_Real              V,
                                            Point3d&                          P,
@@ -49,7 +49,7 @@ public:
 
   //! Computes the point <P>, normal vector <N>, and its
   //! derivatives <Dnu> and <Dnv> on <S> at parameters U,V.
-  Standard_EXPORT static void NormAndDn(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void NormAndDn(const Handle(SurfaceAdaptor)& S,
                                         const Standard_Real              U,
                                         const Standard_Real              V,
                                         Point3d&                          P,

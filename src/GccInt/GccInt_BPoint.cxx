@@ -18,7 +18,7 @@
 #include <gp_Pnt2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BPoint, GccInt_Bisec)
+IMPLEMENT_STANDARD_RTTIEXT(GccInt_BPoint, Bisector2)
 
 GccInt_BPoint::GccInt_BPoint(const gp_Pnt2d& Point)
 {

@@ -27,7 +27,7 @@
 class Extrema_GlobOptFuncCCC0 : public MultipleVarFunction
 {
 public:
-  Standard_EXPORT Extrema_GlobOptFuncCCC0(const Adaptor3d_Curve& C1, const Adaptor3d_Curve& C2);
+  Standard_EXPORT Extrema_GlobOptFuncCCC0(const Curve5& C1, const Curve5& C2);
 
   Standard_EXPORT Extrema_GlobOptFuncCCC0(const Adaptor2d_Curve2d& C1, const Adaptor2d_Curve2d& C2);
 
@@ -38,17 +38,17 @@ public:
 private:
   Extrema_GlobOptFuncCCC0& operator=(const Extrema_GlobOptFuncCCC0& theOther);
 
-  const Adaptor3d_Curve *  myC1_3d, *myC2_3d;
+  const Curve5 *  myC1_3d, *myC2_3d;
   const Adaptor2d_Curve2d *myC1_2d, *myC2_2d;
   Standard_Integer         myType;
 };
 
 //! This class implements function which calculate Eucluidean distance
 //! between point on curve and point on other curve in case of C1 and C2 continuity is C1.
-class Extrema_GlobOptFuncCCC1 : public math_MultipleVarFunctionWithGradient
+class Extrema_GlobOptFuncCCC1 : public MultiVarFunctionWithGradient
 {
 public:
-  Standard_EXPORT Extrema_GlobOptFuncCCC1(const Adaptor3d_Curve& C1, const Adaptor3d_Curve& C2);
+  Standard_EXPORT Extrema_GlobOptFuncCCC1(const Curve5& C1, const Curve5& C2);
 
   Standard_EXPORT Extrema_GlobOptFuncCCC1(const Adaptor2d_Curve2d& C1, const Adaptor2d_Curve2d& C2);
 
@@ -65,7 +65,7 @@ public:
 private:
   Extrema_GlobOptFuncCCC1& operator=(const Extrema_GlobOptFuncCCC1& theOther);
 
-  const Adaptor3d_Curve *  myC1_3d, *myC2_3d;
+  const Curve5 *  myC1_3d, *myC2_3d;
   const Adaptor2d_Curve2d *myC1_2d, *myC2_2d;
   Standard_Integer         myType;
 };
@@ -75,7 +75,7 @@ private:
 class Extrema_GlobOptFuncCCC2 : public math_MultipleVarFunctionWithHessian
 {
 public:
-  Standard_EXPORT Extrema_GlobOptFuncCCC2(const Adaptor3d_Curve& C1, const Adaptor3d_Curve& C2);
+  Standard_EXPORT Extrema_GlobOptFuncCCC2(const Curve5& C1, const Curve5& C2);
 
   Standard_EXPORT Extrema_GlobOptFuncCCC2(const Adaptor2d_Curve2d& C1, const Adaptor2d_Curve2d& C2);
 
@@ -97,7 +97,7 @@ public:
 private:
   Extrema_GlobOptFuncCCC2& operator=(const Extrema_GlobOptFuncCCC2& theOther);
 
-  const Adaptor3d_Curve *  myC1_3d, *myC2_3d;
+  const Curve5 *  myC1_3d, *myC2_3d;
   const Adaptor2d_Curve2d *myC1_2d, *myC2_2d;
   Standard_Integer         myType;
 };

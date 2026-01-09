@@ -14,7 +14,7 @@
 #ifndef _IMeshTools_MeshAlgoType_HeaderFile
 #define _IMeshTools_MeshAlgoType_HeaderFile
 
-//! Enumerates built-in meshing algorithms factories implementing IMeshTools_MeshAlgoFactory
+//! Enumerates built-in meshing algorithms factories implementing MeshAlgorithmFactory
 //! interface.
 enum IMeshTools_MeshAlgoType
 {

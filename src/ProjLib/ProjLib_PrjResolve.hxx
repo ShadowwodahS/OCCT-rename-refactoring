@@ -22,16 +22,16 @@
 
 #include <gp_Pnt2d.hxx>
 
-class Adaptor3d_Curve;
-class Adaptor3d_Surface;
+class Curve5;
+class SurfaceAdaptor;
 
 class ProjLib_PrjResolve
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ProjLib_PrjResolve(const Adaptor3d_Curve&   C,
-                                     const Adaptor3d_Surface& S,
+  Standard_EXPORT ProjLib_PrjResolve(const Curve5&   C,
+                                     const SurfaceAdaptor& S,
                                      const Standard_Integer   Fix);
 
   //! Calculates the ort from  C(t)  to  S  with a close point.
@@ -54,8 +54,8 @@ public:
   Standard_EXPORT gp_Pnt2d Solution() const;
 
 private:
-  const Adaptor3d_Curve*   myCurve;
-  const Adaptor3d_Surface* mySurface;
+  const Curve5*   myCurve;
+  const SurfaceAdaptor* mySurface;
   Standard_Boolean         myDone;
   gp_Pnt2d                 mySolution;
   Standard_Integer         myFix;

@@ -45,7 +45,7 @@ public:
   //! if POption = 2 : parametrisation by eigen vectors
   //! if NOption = 1 : the average plane is the inertial plane.
   //! if NOption = 2 : the average plane is the plane of max. flux.
-  Standard_EXPORT GeomPlate_BuildAveragePlane(const Handle(TColgp_HArray1OfPnt)& Pts,
+  Standard_EXPORT GeomPlate_BuildAveragePlane(const Handle(PointArray1)& Pts,
                                               const Standard_Integer             NbBoundPoints,
                                               const Standard_Real                Tol,
                                               const Standard_Integer             POption,
@@ -53,7 +53,7 @@ public:
 
   //! Creates the plane from the "best vector"
   Standard_EXPORT GeomPlate_BuildAveragePlane(const TColgp_SequenceOfVec&        Normals,
-                                              const Handle(TColgp_HArray1OfPnt)& Pts);
+                                              const Handle(PointArray1)& Pts);
 
   //! Return the average Plane1.
   Standard_EXPORT Handle(GeomPlane) Plane1() const;
@@ -91,7 +91,7 @@ private:
   //! if NOption = 2 : the average plane is the plane of max. flux.
   Standard_EXPORT Vector3d DefPlan(const Standard_Integer NOption);
 
-  Handle(TColgp_HArray1OfPnt) myPts;
+  Handle(PointArray1) myPts;
   Standard_Real               myUmax;
   Standard_Real               myVmax;
   Standard_Real               myVmin;

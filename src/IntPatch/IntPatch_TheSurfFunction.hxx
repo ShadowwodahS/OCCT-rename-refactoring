@@ -29,19 +29,19 @@ class Quadric1;
 class QuadricTool;
 class math_Matrix;
 
-class IntPatch_TheSurfFunction : public math_FunctionSetWithDerivatives
+class IntPatch_TheSurfFunction : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT IntPatch_TheSurfFunction();
 
-  Standard_EXPORT IntPatch_TheSurfFunction(const Handle(Adaptor3d_Surface)& PS,
+  Standard_EXPORT IntPatch_TheSurfFunction(const Handle(SurfaceAdaptor)& PS,
                                            const Quadric1&           IS);
 
   Standard_EXPORT IntPatch_TheSurfFunction(const Quadric1& IS);
 
-  void Set(const Handle(Adaptor3d_Surface)& PS);
+  void Set(const Handle(SurfaceAdaptor)& PS);
 
   void SetImplicitSurface(const Quadric1& IS);
 
@@ -71,7 +71,7 @@ public:
 
   const gp_Dir2d& Direction2d();
 
-  const Handle(Adaptor3d_Surface)& PSurface() const;
+  const Handle(SurfaceAdaptor)& PSurface() const;
 
   const Quadric1& ISurface() const;
 
@@ -96,7 +96,7 @@ private:
   gp_Dir2d         d2d;
 };
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>

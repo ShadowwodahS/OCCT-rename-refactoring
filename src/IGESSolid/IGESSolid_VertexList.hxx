@@ -42,7 +42,7 @@ public:
   //! This method is used to set the fields of the class
   //! VertexList
   //! - vertices : the vertices in the list
-  Standard_EXPORT void Init(const Handle(TColgp_HArray1OfXYZ)& vertices);
+  Standard_EXPORT void Init(const Handle(XYZArray)& vertices);
 
   //! return the number of vertices in the list
   Standard_EXPORT Standard_Integer NbVertices() const;
@@ -55,7 +55,7 @@ public:
 
 protected:
 private:
-  Handle(TColgp_HArray1OfXYZ) theVertices;
+  Handle(XYZArray) theVertices;
 };
 
 #endif // _IGESSolid_VertexList_HeaderFile

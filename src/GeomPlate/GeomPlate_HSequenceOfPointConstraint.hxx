@@ -20,6 +20,6 @@
 #include <GeomPlate_SequenceOfPointConstraint.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(GeomPlate_HSequenceOfPointConstraint, GeomPlate_SequenceOfPointConstraint)
+DEFINE_HSEQUENCE(PointConstraintSequence, GeomPlate_SequenceOfPointConstraint)
 
 #endif

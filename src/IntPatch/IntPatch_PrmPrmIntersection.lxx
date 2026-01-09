@@ -29,7 +29,7 @@ inline Standard_Integer ParameterParameterIntersection::NbLines() const
 }
 
 //======================================================================
-inline const Handle(IntPatch_Line)& ParameterParameterIntersection::Line(
+inline const Handle(Line2)& ParameterParameterIntersection::Line(
   const Standard_Integer n) const
 {
   if (!done)

@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline IntRes2d_IntersectionPoint::IntRes2d_IntersectionPoint(const gp_Pnt2d&            P,
+inline IntersectionPoint3::IntersectionPoint3(const gp_Pnt2d&            P,
                                                               const Standard_Real        Uc1,
                                                               const Standard_Real        Uc2,
                                                               const Transition3& Trans1,
@@ -35,7 +35,7 @@ inline IntRes2d_IntersectionPoint::IntRes2d_IntersectionPoint(const gp_Pnt2d&   
   }
 }
 
-inline void IntRes2d_IntersectionPoint::SetValues(const gp_Pnt2d&            P,
+inline void IntersectionPoint3::SetValues(const gp_Pnt2d&            P,
                                                   const Standard_Real        Uc1,
                                                   const Standard_Real        Uc2,
                                                   const Transition3& Trans1,
@@ -59,27 +59,27 @@ inline void IntRes2d_IntersectionPoint::SetValues(const gp_Pnt2d&            P,
   }
 }
 
-inline const gp_Pnt2d& IntRes2d_IntersectionPoint::Value() const
+inline const gp_Pnt2d& IntersectionPoint3::Value() const
 {
   return pt;
 }
 
-inline Standard_Real IntRes2d_IntersectionPoint::ParamOnFirst() const
+inline Standard_Real IntersectionPoint3::ParamOnFirst() const
 {
   return p1;
 }
 
-inline Standard_Real IntRes2d_IntersectionPoint::ParamOnSecond() const
+inline Standard_Real IntersectionPoint3::ParamOnSecond() const
 {
   return p2;
 }
 
-inline const Transition3& IntRes2d_IntersectionPoint::TransitionOfFirst() const
+inline const Transition3& IntersectionPoint3::TransitionOfFirst() const
 {
   return trans1;
 }
 
-inline const Transition3& IntRes2d_IntersectionPoint::TransitionOfSecond() const
+inline const Transition3& IntersectionPoint3::TransitionOfSecond() const
 {
   return trans2;
 }

@@ -47,9 +47,9 @@ enum RWMesh_CafReaderStatusEx
 //!    children will remain collapsed. In addition, unnamed nodes can be filled with generated names
 //!    like "Face", "Compound" via generateNames() method, and the very root unnamed node can be
 //!    filled from file name like "MyModel.obj".
-class RWMesh_CafReader : public RefObject
+class CafReader : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWMesh_CafReader, RefObject)
+  DEFINE_STANDARD_RTTIEXT(CafReader, RefObject)
 public:
   //! Structure holding tools for filling the document.
   struct CafDocumentTools
@@ -63,10 +63,10 @@ public:
 
 public:
   //! Empty constructor.
-  Standard_EXPORT RWMesh_CafReader();
+  Standard_EXPORT CafReader();
 
   //! Destructor.
-  Standard_EXPORT virtual ~RWMesh_CafReader();
+  Standard_EXPORT virtual ~CafReader();
 
   //! Return target document.
   const Handle(AppDocument)& Document() const { return myXdeDoc; }

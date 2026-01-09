@@ -72,7 +72,7 @@ BRepFill_CurveConstraint ::BRepFill_CurveConstraint(
 //---------------------------------------------------------
 //    Constructeurs avec courbe 3d (pour continuite G0 G-1)
 //---------------------------------------------------------
-BRepFill_CurveConstraint ::BRepFill_CurveConstraint(const Handle(Adaptor3d_Curve)& Boundary,
+BRepFill_CurveConstraint ::BRepFill_CurveConstraint(const Handle(Curve5)& Boundary,
                                                     const Standard_Integer         Tang,
                                                     const Standard_Integer         NPt,
                                                     const Standard_Real            TolDist)

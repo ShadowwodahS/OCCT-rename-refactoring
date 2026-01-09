@@ -34,7 +34,7 @@ typedef Transform3d        Trsf;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Direction::Copy() const
+Handle(Geometry3) Geom_Direction::Copy() const
 {
 
   Handle(Geom_Direction) D;

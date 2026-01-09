@@ -28,7 +28,7 @@ class Axis3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_Parabola;
 DEFINE_STANDARD_HANDLE(Geom_Parabola, Geom_Conic)
@@ -217,7 +217,7 @@ public:
   Standard_EXPORT Standard_Real ParametricTransformation(const Transform3d& T) const Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this parabola.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

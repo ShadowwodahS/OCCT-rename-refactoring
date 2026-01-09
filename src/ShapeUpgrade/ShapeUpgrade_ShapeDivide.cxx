@@ -48,7 +48,7 @@ ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide()
   myMaxTol               = 1; // Precision1::Infinite() ?? pdn
   mySplitFaceTool        = new ShapeUpgrade_FaceDivide;
   myContext              = new ShapeBuild_ReShape;
-  // myMsgReg = new ShapeExtend_BasicMsgRegistrator;
+  // myMsgReg = new BasicMsgRegistrator;
   mySegmentMode = Standard_True;
   myEdgeMode    = 2;
 }
@@ -356,14 +356,14 @@ void ShapeUpgrade_ShapeDivide::SetEdgeMode(const Standard_Integer aEdgeMode)
 //=================================================================================================
 
 void ShapeUpgrade_ShapeDivide::SetMsgRegistrator(
-  const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg)
+  const Handle(BasicMsgRegistrator)& msgreg)
 {
   myMsgReg = msgreg;
 }
 
 //=================================================================================================
 
-Handle(ShapeExtend_BasicMsgRegistrator) ShapeUpgrade_ShapeDivide::MsgRegistrator() const
+Handle(BasicMsgRegistrator) ShapeUpgrade_ShapeDivide::MsgRegistrator() const
 {
   return myMsgReg;
 }

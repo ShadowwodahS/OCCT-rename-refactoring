@@ -38,8 +38,8 @@ class BRepBlend_SurfPointConstRadInv : public Blend_SurfPointFuncInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_SurfPointConstRadInv(const Handle(Adaptor3d_Surface)& S,
-                                                 const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT BRepBlend_SurfPointConstRadInv(const Handle(SurfaceAdaptor)& S,
+                                                 const Handle(Curve5)&   C);
 
   Standard_EXPORT void Set(const Standard_Real R, const Standard_Integer Choix);
 
@@ -84,8 +84,8 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf;
-  Handle(Adaptor3d_Curve)   curv;
+  Handle(SurfaceAdaptor) surf;
+  Handle(Curve5)   curv;
   Point3d                    point;
   Standard_Real             ray;
   Standard_Integer          choix;

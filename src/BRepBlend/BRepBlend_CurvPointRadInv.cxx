@@ -21,8 +21,8 @@
 
 //=================================================================================================
 
-BRepBlend_CurvPointRadInv::BRepBlend_CurvPointRadInv(const Handle(Adaptor3d_Curve)& C1,
-                                                     const Handle(Adaptor3d_Curve)& C2)
+BRepBlend_CurvPointRadInv::BRepBlend_CurvPointRadInv(const Handle(Curve5)& C1,
+                                                     const Handle(Curve5)& C2)
     : curv1(C1),
       curv2(C2),
       choix(0)

@@ -44,7 +44,7 @@ class Axis3d;
 //! * Create a Circ with two points giving its axis and
 //! its radius.
 //! * Create a Circ with is Ax2 and its Radius.
-class gce_MakeCirc : public Root6
+class CircleBuilder1 : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,41 +53,41 @@ public:
   //! Warnings :
   //! It is not forbidden to create a circle with Radius = 0.0
   //! The status is "NegativeRadius" if Radius < 0.0
-  Standard_EXPORT gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius);
+  Standard_EXPORT CircleBuilder1(const Frame3d& A2, const Standard_Real Radius);
 
   //! Makes a Circ from gp1 <TheCirc> coaxial to another
   //! Circ <Circ> at a distance <Dist>.
   //! If Dist is greater than zero the result is encloses
   //! the circle <Circ>, else the result is enclosed by the
   //! circle <Circ>.
-  Standard_EXPORT gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist);
+  Standard_EXPORT CircleBuilder1(const gp_Circ& Circ, const Standard_Real Dist);
 
   //! Makes a Circ from gp1 <TheCirc> coaxial to another
   //! Circ <Circ> and passing through a Pnt2d <Point>.
-  Standard_EXPORT gce_MakeCirc(const gp_Circ& Circ, const Point3d& Point);
+  Standard_EXPORT CircleBuilder1(const gp_Circ& Circ, const Point3d& Point);
 
   //! Makes a Circ from gp1 <TheCirc> passing through 3
   //! Pnt2d <P1>,<P2>,<P3>.
-  Standard_EXPORT gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& P3);
+  Standard_EXPORT CircleBuilder1(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and the normal of its plane <Norm> and
   //! its radius <Radius>.
-  Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
+  Standard_EXPORT CircleBuilder1(const Point3d&       Center,
                                const Dir3d&       Norm,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and the normal of its plane <Plane1> and
   //! its radius <Radius>.
-  Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
+  Standard_EXPORT CircleBuilder1(const Point3d&       Center,
                                const gp_Pln&       Plane1,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp1 <TheCirc> with its center
   //! <Center> and a point <Ptaxis> giving the normal
   //! of its plane <Plane1> and its radius <Radius>.
-  Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
+  Standard_EXPORT CircleBuilder1(const Point3d&       Center,
                                const Point3d&       Ptaxis,
                                const Standard_Real Radius);
 
@@ -107,7 +107,7 @@ public:
   //! -   gce_ConfusedPoints if two of the three points
   //! P1, P2 and P3 are coincident; or
   //! -   gce_NullAxis if Center and Ptaxis are coincident.
-  Standard_EXPORT gce_MakeCirc(const Axis3d& Axis, const Standard_Real Radius);
+  Standard_EXPORT CircleBuilder1(const Axis3d& Axis, const Standard_Real Radius);
 
   //! Returns the constructed circle.
   //! Exceptions StdFail_NotDone if no circle is constructed.

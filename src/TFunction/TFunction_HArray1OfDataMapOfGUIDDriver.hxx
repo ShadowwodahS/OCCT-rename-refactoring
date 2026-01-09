@@ -20,6 +20,6 @@
 #include <TFunction_Array1OfDataMapOfGUIDDriver.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TFunction_HArray1OfDataMapOfGUIDDriver, TFunction_Array1OfDataMapOfGUIDDriver)
+DEFINE_HARRAY1(GUIDDriverArray, TFunction_Array1OfDataMapOfGUIDDriver)
 
 #endif

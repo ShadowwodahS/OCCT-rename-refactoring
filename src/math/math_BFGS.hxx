@@ -24,7 +24,7 @@
 #include <math_Status.hxx>
 #include <math_Vector.hxx>
 #include <Standard_OStream.hxx>
-class math_MultipleVarFunctionWithGradient;
+class MultiVarFunctionWithGradient;
 
 //! This class implements the Broyden-Fletcher-Goldfarb-Shanno variant of
 //! Davidson-Fletcher-Powell minimization algorithm of a function of
@@ -64,7 +64,7 @@ public:
   //! 2.0 * abs(Fi - Fi-1) <= Tolerance * (abs(Fi) + abs(Fi-1) + ZEPS).
   //! Tolerance, ZEPS and maximum number of iterations are given
   //! in the constructor.
-  Standard_EXPORT void Perform(math_MultipleVarFunctionWithGradient& F,
+  Standard_EXPORT void Perform(MultiVarFunctionWithGradient& F,
                                const math_Vector&                    StartingPoint);
 
   //! This method is called at the end of each iteration to check if the
@@ -72,7 +72,7 @@ public:
   //! It can be redefined in a sub-class to implement a specific test to
   //! stop the iterations.
   Standard_EXPORT virtual Standard_Boolean IsSolutionReached(
-    math_MultipleVarFunctionWithGradient& F) const;
+    MultiVarFunctionWithGradient& F) const;
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

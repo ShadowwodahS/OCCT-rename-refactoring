@@ -25,7 +25,7 @@
 #include <TopAbs_State.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class Adaptor3d_HVertex;
+class HandleVertex;
 
 DEFINE_STANDARD_HANDLE(Adaptor3d_TopolTool, RefObject)
 
@@ -39,11 +39,11 @@ class Adaptor3d_TopolTool : public RefObject
 public:
   Standard_EXPORT Adaptor3d_TopolTool();
 
-  Standard_EXPORT Adaptor3d_TopolTool(const Handle(Adaptor3d_Surface)& Surface);
+  Standard_EXPORT Adaptor3d_TopolTool(const Handle(SurfaceAdaptor)& Surface);
 
   Standard_EXPORT virtual void Initialize();
 
-  Standard_EXPORT virtual void Initialize(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT virtual void Initialize(const Handle(SurfaceAdaptor)& S);
 
   Standard_EXPORT virtual void Initialize(const Handle(Adaptor2d_Curve2d)& Curve);
 
@@ -59,7 +59,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean MoreVertex();
 
-  Standard_EXPORT virtual Handle(Adaptor3d_HVertex) Vertex();
+  Standard_EXPORT virtual Handle(HandleVertex) Vertex();
 
   Standard_EXPORT virtual void NextVertex();
 
@@ -84,13 +84,13 @@ public:
   //! The vertex has been found with an exploration on
   //! a given arc. The orientation is the orientation
   //! of the vertex on this arc.
-  Standard_EXPORT virtual TopAbs_Orientation Orientation(const Handle(Adaptor3d_HVertex)& V);
+  Standard_EXPORT virtual TopAbs_Orientation Orientation(const Handle(HandleVertex)& V);
 
   //! Returns True if the vertices V1 and V2 are identical.
   //! This method does not take the orientation of the
   //! vertices in account.
-  Standard_EXPORT virtual Standard_Boolean Identical(const Handle(Adaptor3d_HVertex)& V1,
-                                                     const Handle(Adaptor3d_HVertex)& V2);
+  Standard_EXPORT virtual Standard_Boolean Identical(const Handle(HandleVertex)& V1,
+                                                     const Handle(HandleVertex)& V2);
 
   //! answers if arcs and vertices may have 3d representations,
   //! so that we could use Tol3d and Pnt methods.
@@ -100,10 +100,10 @@ public:
   Standard_EXPORT virtual Standard_Real Tol3d(const Handle(Adaptor2d_Curve2d)& C) const;
 
   //! returns 3d tolerance of the vertex V
-  Standard_EXPORT virtual Standard_Real Tol3d(const Handle(Adaptor3d_HVertex)& V) const;
+  Standard_EXPORT virtual Standard_Real Tol3d(const Handle(HandleVertex)& V) const;
 
   //! returns 3d point of the vertex V
-  Standard_EXPORT virtual Point3d Pnt(const Handle(Adaptor3d_HVertex)& V) const;
+  Standard_EXPORT virtual Point3d Pnt(const Handle(HandleVertex)& V) const;
 
   Standard_EXPORT virtual void ComputeSamplePoints();
 
@@ -165,7 +165,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(Adaptor3d_TopolTool, RefObject)
 
 protected:
-  Handle(Adaptor3d_Surface)     myS;
+  Handle(SurfaceAdaptor)     myS;
   Standard_Integer              myNbSamplesU;
   Standard_Integer              myNbSamplesV;
   Handle(TColStd_HArray1OfReal) myUPars;
@@ -181,7 +181,7 @@ private:
   Handle(Adaptor2d_Line2d)  myRestr[4];
   Standard_Integer          nbVtx;
   Standard_Integer          idVtx;
-  Handle(Adaptor3d_HVertex) myVtx[2];
+  Handle(HandleVertex) myVtx[2];
 };
 
 #endif // _Adaptor3d_TopolTool_HeaderFile

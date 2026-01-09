@@ -32,7 +32,7 @@ using math_Vector = math_VectorBase<double>;
 //! Functional for search of extremum of the square Euclidean distance between point P and
 //! surface S, starting from approximate solution (u0, v0).
 //!
-//! The class inherits math_MultipleVarFunctionWithGradient and thus is intended
+//! The class inherits MultiVarFunctionWithGradient and thus is intended
 //! for use in BFGSOptimizer algorithm.
 //!
 //! The criteria is:
@@ -43,13 +43,13 @@ using math_Vector = math_VectorBase<double>;
 //! F2(u,v) = (S(u,v) - P) * Sv
 //!
 //! Su and Sv are first derivatives of the surface, * symbol means dot product.
-class Extrema_FuncPSDist : public math_MultipleVarFunctionWithGradient
+class Extrema_FuncPSDist : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor.
-  Standard_EXPORT Extrema_FuncPSDist(const Adaptor3d_Surface& theS, const Point3d& theP);
+  Standard_EXPORT Extrema_FuncPSDist(const SurfaceAdaptor& theS, const Point3d& theP);
 
   //! Number of variables.
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
@@ -73,7 +73,7 @@ private:
   const Extrema_FuncPSDist& operator=(const Extrema_FuncPSDist&);
   Extrema_FuncPSDist(const Extrema_FuncPSDist&);
 
-  const Adaptor3d_Surface& mySurf;
+  const SurfaceAdaptor& mySurf;
   const Point3d&            myP;
 };
 #endif // _Extrema_FuncPSDsit_HeaderFile

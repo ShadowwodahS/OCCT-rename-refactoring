@@ -30,7 +30,7 @@
 #include <gp_Vec.hxx>
 #include <Precision.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_ElSpine, Adaptor3d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_ElSpine, Curve5)
 
 //=================================================================================================
 
@@ -46,11 +46,11 @@ ChFiDS_ElSpine::ChFiDS_ElSpine()
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) ChFiDS_ElSpine::ShallowCopy() const
+Handle(Curve5) ChFiDS_ElSpine::ShallowCopy() const
 {
   Handle(ChFiDS_ElSpine) aCopy = new ChFiDS_ElSpine();
 
-  const Handle(Adaptor3d_Curve) aCurve     = curve.ShallowCopy();
+  const Handle(Curve5) aCurve     = curve.ShallowCopy();
   const GeomAdaptor_Curve&      aGeomCurve = *(Handle(GeomAdaptor_Curve)::DownCast(aCurve));
   aCopy->curve                             = aGeomCurve;
 
@@ -122,7 +122,7 @@ void ChFiDS_ElSpine::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) c
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) ChFiDS_ElSpine::Trim(const Standard_Real First,
+Handle(Curve5) ChFiDS_ElSpine::Trim(const Standard_Real First,
                                              const Standard_Real Last,
                                              const Standard_Real Tol) const
 {

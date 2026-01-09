@@ -23,7 +23,7 @@
 #include <TColgp_SequenceOfPnt.hxx>
 #include <math_FunctionWithDerivative.hxx>
 
-class IntPatch_ArcFunction : public math_FunctionWithDerivative
+class IntPatch_ArcFunction : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -34,7 +34,7 @@ public:
 
   void Set(const Handle(Adaptor2d_Curve2d)& A);
 
-  void Set(const Handle(Adaptor3d_Surface)& S);
+  void Set(const Handle(SurfaceAdaptor)& S);
 
   Standard_EXPORT Standard_Boolean Value(const Standard_Real X, Standard_Real& F) Standard_OVERRIDE;
 
@@ -55,7 +55,7 @@ public:
 
   const Handle(Adaptor2d_Curve2d)& Arc() const;
 
-  const Handle(Adaptor3d_Surface)& Surface() const;
+  const Handle(SurfaceAdaptor)& Surface() const;
 
   //! Returns the point, which has been computed
   //! while the last calling Value() method
@@ -64,7 +64,7 @@ public:
 protected:
 private:
   Handle(Adaptor2d_Curve2d) myArc;
-  Handle(Adaptor3d_Surface) mySurf;
+  Handle(SurfaceAdaptor) mySurf;
   Quadric1           myQuad;
   Point3d                    ptsol;
   TColgp_SequenceOfPnt      seqpt;

@@ -160,7 +160,7 @@ void Geom2dAPI_InterCurveCurve::Segment1(const Standard_Integer theIndex,
 
   if (aSeg.HasFirstPoint())
   {
-    const IntRes2d_IntersectionPoint& anIPF = aSeg.FirstPoint();
+    const IntersectionPoint3& anIPF = aSeg.FirstPoint();
     aU1                                     = anIPF.ParamOnFirst();
 
     if (isOpposite)
@@ -171,7 +171,7 @@ void Geom2dAPI_InterCurveCurve::Segment1(const Standard_Integer theIndex,
 
   if (aSeg.HasLastPoint())
   {
-    const IntRes2d_IntersectionPoint& anIPL = aSeg.LastPoint();
+    const IntersectionPoint3& anIPL = aSeg.LastPoint();
     aU2                                     = anIPL.ParamOnFirst();
 
     if (isOpposite)

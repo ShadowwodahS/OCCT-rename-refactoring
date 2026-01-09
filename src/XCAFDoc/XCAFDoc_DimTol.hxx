@@ -25,7 +25,7 @@
 class TCollection_HAsciiString;
 class Standard_GUID;
 class DataLabel;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class XCAFDoc_DimTol;
 DEFINE_STANDARD_HANDLE(XCAFDoc_DimTol, TDF_Attribute)
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       Into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

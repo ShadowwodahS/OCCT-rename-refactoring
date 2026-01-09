@@ -41,7 +41,7 @@ const Transform3d& PrsMgr_PresentableObject::getIdentityTrsf()
 
 PrsMgr_PresentableObject::PrsMgr_PresentableObject(const PrsMgr_TypeOfPresentation3d theType)
     : myParent(NULL),
-      myViewAffinity(new Graphic3d_ViewAffinity()),
+      myViewAffinity(new ViewAffinity1()),
       myDrawer(new StyleDrawer()),
       myTypeOfPresentation3d(theType),
       myDisplayStatus(PrsMgr_DisplayStatus_None),
@@ -73,7 +73,7 @@ PrsMgr_PresentableObject::~PrsMgr_PresentableObject()
 
   for (PrsMgr_ListOfPresentableObjectsIter anIter(myChildren); anIter.More(); anIter.Next())
   {
-    anIter.Value()->SetCombinedParentTransform(Handle(TopLoc_Datum3D)());
+    anIter.Value()->SetCombinedParentTransform(Handle(Datum3D2)());
     anIter.Value()->myParent = NULL;
   }
 }
@@ -94,7 +94,7 @@ void PrsMgr_PresentableObject::Fill(const Handle(PrsMgr_PresentationManager)& th
 //=================================================================================================
 
 void PrsMgr_PresentableObject::computeHLR(const Handle(CameraOn3d)&,
-                                          const Handle(TopLoc_Datum3D)&,
+                                          const Handle(Datum3D2)&,
                                           const Handle(Prs3d_Presentation)&)
 {
   throw Standard_NotImplemented("cannot compute under a specific projector");
@@ -222,7 +222,7 @@ void PrsMgr_PresentableObject::SetTypeOfPresentation(const PrsMgr_TypeOfPresenta
 //=================================================================================================
 
 void PrsMgr_PresentableObject::setLocalTransformation(
-  const Handle(TopLoc_Datum3D)& theTransformation)
+  const Handle(Datum3D2)& theTransformation)
 {
   myLocalTransformation = theTransformation;
   UpdateTransformation();
@@ -232,12 +232,12 @@ void PrsMgr_PresentableObject::setLocalTransformation(
 
 void PrsMgr_PresentableObject::ResetTransformation()
 {
-  setLocalTransformation(Handle(TopLoc_Datum3D)());
+  setLocalTransformation(Handle(Datum3D2)());
 }
 
 //=================================================================================================
 
-void PrsMgr_PresentableObject::SetCombinedParentTransform(const Handle(TopLoc_Datum3D)& theTrsf)
+void PrsMgr_PresentableObject::SetCombinedParentTransform(const Handle(Datum3D2)& theTrsf)
 {
   myCombinedParentTransform = theTrsf;
   UpdateTransformation();
@@ -254,7 +254,7 @@ void PrsMgr_PresentableObject::UpdateTransformation()
     if (!myLocalTransformation.IsNull() && myLocalTransformation->Form() != gp_Identity)
     {
       const Transform3d aTrsf = myCombinedParentTransform->Trsf() * myLocalTransformation->Trsf();
-      myTransformation    = new TopLoc_Datum3D(aTrsf);
+      myTransformation    = new Datum3D2(aTrsf);
       myInvTransformation = aTrsf.Inverted();
     }
     else
@@ -295,7 +295,7 @@ void PrsMgr_PresentableObject::recomputeComputed() const
 //=================================================================================================
 
 void PrsMgr_PresentableObject::SetTransformPersistence(
-  const Handle(Graphic3d_TransformPers)& theTrsfPers)
+  const Handle(TransformPers)& theTrsfPers)
 {
   myTransformPersistence = theTrsfPers;
   for (PrsMgr_Presentations::Iterator aPrsIter(myPresentations); aPrsIter.More(); aPrsIter.Next())
@@ -341,7 +341,7 @@ void PrsMgr_PresentableObject::RemoveChild(const Handle(PrsMgr_PresentableObject
     if (anIter.Value() == theObject)
     {
       theObject->myParent = NULL;
-      theObject->SetCombinedParentTransform(Handle(TopLoc_Datum3D)());
+      theObject->SetCombinedParentTransform(Handle(Datum3D2)());
       myChildren.Remove(anIter);
       break;
     }
@@ -382,7 +382,7 @@ void PrsMgr_PresentableObject::AddClipPlane(const Handle(Graphic3d_ClipPlane)& t
   // add to collection and process changes
   if (myClipPlanes.IsNull())
   {
-    myClipPlanes = new Graphic3d_SequenceOfHClipPlane();
+    myClipPlanes = new SequenceOfHClipPlane();
   }
 
   myClipPlanes->Append(thePlane);
@@ -399,7 +399,7 @@ void PrsMgr_PresentableObject::RemoveClipPlane(const Handle(Graphic3d_ClipPlane)
   }
 
   // remove from collection and process changes
-  for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*myClipPlanes); aPlaneIt.More();
+  for (SequenceOfHClipPlane::Iterator aPlaneIt(*myClipPlanes); aPlaneIt.More();
        aPlaneIt.Next())
   {
     const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
@@ -415,7 +415,7 @@ void PrsMgr_PresentableObject::RemoveClipPlane(const Handle(Graphic3d_ClipPlane)
 //=================================================================================================
 
 void PrsMgr_PresentableObject::SetClipPlanes(
-  const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+  const Handle(SequenceOfHClipPlane)& thePlanes)
 {
   // change collection and process changes
   myClipPlanes = thePlanes;

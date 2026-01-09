@@ -32,7 +32,7 @@ class Domain2;
 class Bnd_Box2d;
 class gp_Pnt2d;
 
-class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter : public Intf_Polygon2d
+class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter : public Polygon2d
 {
 public:
   DEFINE_STANDARD_ALLOC

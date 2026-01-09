@@ -55,8 +55,8 @@ extern Standard_Boolean Blend_GettraceDRAWSECT();
 
 // Pour debug : visualisation de la section
 
-static void Drawsect(const Handle(Adaptor3d_Surface)& surf,
-                     const Handle(Adaptor3d_Curve)&   curv,
+static void Drawsect(const Handle(SurfaceAdaptor)& surf,
+                     const Handle(Curve5)&   curv,
                      const Standard_Real              param,
                      Blend_CSFunction&                Func)
 {
@@ -93,8 +93,8 @@ static void Drawsect(const Handle(Adaptor3d_Surface)& surf,
 
 #endif
 
-BRepBlend_CSWalking::BRepBlend_CSWalking(const Handle(Adaptor3d_Curve)&     Curv,
-                                         const Handle(Adaptor3d_Surface)&   Surf,
+BRepBlend_CSWalking::BRepBlend_CSWalking(const Handle(Curve5)&     Curv,
+                                         const Handle(SurfaceAdaptor)&   Surf,
                                          const Handle(Adaptor3d_TopolTool)& Domain)
     : done(Standard_False),
       surf(Surf),
@@ -626,7 +626,7 @@ Standard_Boolean BRepBlend_CSWalking::Recadre(Blend_FuncInv& FuncInv,
                       math_Vector& solrst,
                       Standard_Integer& Indexsol,
                       Standard_Boolean& IsVtx,
-                      Handle(Adaptor3d_HVertex)& Vtx)
+                      Handle(HandleVertex)& Vtx)
 
 {
   Standard_Integer nbarc;
@@ -798,7 +798,7 @@ void BRepBlend_CSWalking::MakeExtremity(BRepBlend_Extremity&             Extrem,
                                         const Standard_Integer           Index,
                                         const Standard_Real              Param,
                                         const Standard_Boolean           IsVtx,
-                                        const Handle(Adaptor3d_HVertex)& Vtx)
+                                        const Handle(HandleVertex)& Vtx)
 {
   Transition2          Tline, Tarc;
   Standard_Real               prm, U, V;
@@ -878,7 +878,7 @@ void BRepBlend_CSWalking::InternalPerform(Blend_CSFunction& Func,
   //  math_Vector solrst(1,3);
   math_Vector tolerance(1, Nbvar), infbound(1, Nbvar), supbound(1, Nbvar), parinit(1, Nbvar);
   math_Vector solrst(1, Nbvar);
-  Handle(Adaptor3d_HVertex) Vtx;
+  Handle(HandleVertex) Vtx;
   BRepBlend_Extremity       Exts, Extc;
 
   // Transition2 Tline,Tarc;

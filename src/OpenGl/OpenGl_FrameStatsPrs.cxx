@@ -45,10 +45,10 @@ static AsciiString1 formatTimeMs(Standard_Real theSeconds)
 
 OpenGl_FrameStatsPrs::OpenGl_FrameStatsPrs()
     : myStatsPrev(new OpenGl_FrameStats()),
-      myCountersTrsfPers(new Graphic3d_TransformPers(Graphic3d_TMF_2d,
+      myCountersTrsfPers(new TransformPers(Graphic3d_TMF_2d,
                                                      Aspect_TOTP_LEFT_UPPER,
                                                      Graphic3d_Vec2i(20, 20))),
-      myChartTrsfPers(new Graphic3d_TransformPers(Graphic3d_TMF_2d,
+      myChartTrsfPers(new TransformPers(Graphic3d_TMF_2d,
                                                   Aspect_TOTP_RIGHT_UPPER,
                                                   Graphic3d_Vec2i(20, 20))),
       myChartVertices(new OpenGl_VertexBuffer()),
@@ -423,7 +423,7 @@ void OpenGl_FrameStatsPrs::Render(const Handle(OpenGl_Workspace)& theWorkspace) 
     }
     aCtx->ApplyModelViewMatrix();
 
-    aCtx->ShaderManager()->BindFaceProgram(Handle(OpenGl_TextureSet)(),
+    aCtx->ShaderManager()->BindFaceProgram(Handle(TextureSet2)(),
                                            Graphic3d_TypeOfShadingModel_Unlit,
                                            Graphic3d_AlphaMode_Blend,
                                            true,

@@ -25,11 +25,11 @@
 class Coords2d;
 
 class NLPlate_HPG1Constraint;
-DEFINE_STANDARD_HANDLE(NLPlate_HPG1Constraint, NLPlate_HGPPConstraint)
+DEFINE_STANDARD_HANDLE(NLPlate_HPG1Constraint, HandleGPPConstraint)
 
 //! define a PinPoint (no G0)  G1 Constraint used to load a Non
 //! Linear Plate
-class NLPlate_HPG1Constraint : public NLPlate_HGPPConstraint
+class NLPlate_HPG1Constraint : public HandleGPPConstraint
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT virtual const D1& G1Target() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(NLPlate_HPG1Constraint, NLPlate_HGPPConstraint)
+  DEFINE_STANDARD_RTTIEXT(NLPlate_HPG1Constraint, HandleGPPConstraint)
 
 protected:
 private:

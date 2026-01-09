@@ -24,10 +24,10 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class Media_BufferPool;
-class Media_CodecContext;
-class Media_FormatContext;
-class Media_Scaler;
+class BufferPool;
+class CodecContext;
+class FormatContext;
+class Scaler;
 
 //! Player context.
 class Media_PlayerContext : public RefObject
@@ -111,13 +111,13 @@ private:
 
   //! Fetch new playback event.
   Standard_EXPORT bool popPlayEvent(Media_PlayerEvent&                 thePlayEvent,
-                                    const Handle(Media_FormatContext)& theFormatCtx,
-                                    const Handle(Media_CodecContext)&  theVideoCtx,
+                                    const Handle(FormatContext)& theFormatCtx,
+                                    const Handle(CodecContext)&  theVideoCtx,
                                     const Handle(Media_Frame)&         theFrame);
 
   //! Decode new frame.
   bool receiveFrame(const Handle(Media_Frame)&        theFrame,
-                    const Handle(Media_CodecContext)& theVideoCtx);
+                    const Handle(CodecContext)& theVideoCtx);
 
   //! Thread creation callback.
   static Standard_Address doThreadWrapper(Standard_Address theData)
@@ -137,9 +137,9 @@ private:
   Media_Timer                 myTimer;          //!< playback timer       
   Standard_Real               myDuration;       //!< playback duration
 
-  Handle(Media_BufferPool)    myBufferPools[4]; //!< per-plane pools
+  Handle(BufferPool)    myBufferPools[4]; //!< per-plane pools
   Handle(Media_Frame)         myFrameTmp;       //!< temporary object holding decoded frame
-  Handle(Media_Scaler)        myScaler;         //!< pixel format conversion tool
+  Handle(Scaler)        myScaler;         //!< pixel format conversion tool
   bool                        myToForceRgb;     //!< flag indicating if queue requires RGB pixel format or can handle also YUV pixel format
                                    // clang-format on
 

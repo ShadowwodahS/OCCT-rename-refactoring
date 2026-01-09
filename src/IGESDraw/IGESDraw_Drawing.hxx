@@ -53,7 +53,7 @@ public:
   //! raises exception if Lengths of allViews and allViewOrigins are
   //! not same.
   Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViews,
-                            const Handle(TColgp_HArray1OfXY)&               allViewOrigins,
+                            const Handle(XYArray)&               allViewOrigins,
                             const Handle(HArray1OfIGESEntity)&     allAnnotations);
 
   //! returns the number of view pointers in <me>
@@ -98,7 +98,7 @@ public:
 protected:
 private:
   Handle(HArray1OfViewKindEntity) theViews;
-  Handle(TColgp_HArray1OfXY)               theViewOrigins;
+  Handle(XYArray)               theViewOrigins;
   Handle(HArray1OfIGESEntity)     theAnnotations;
 };
 

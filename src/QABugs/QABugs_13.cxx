@@ -112,7 +112,7 @@ static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, co
   // Construct the plane for the second face to sit on.
   // SUPPORT:
   // - It is better to use rotation instead of explicit calculations
-  // gp_Pln circ2Plane = gce_MakePln(circ_center, endPoint,
+  // gp_Pln circ2Plane = PlaneBuilder1(circ_center, endPoint,
   //				  endPoint.Translated(major_radius*origin.YDirection())
   //				  ).Value();
   Axis3d circ_axis(circ_center, origin.YDirection());
@@ -461,7 +461,7 @@ static Standard_Integer OCC544(DrawInterpreter& di, Standard_Integer argc, const
 
   // Construct the plane for the second face to sit on.
   gp_Pln circ2Plane =
-    gce_MakePln(circ_center, endPoint, endPoint.Translated(major_rad * origin.YDirection()))
+    PlaneBuilder1(circ_center, endPoint, endPoint.Translated(major_rad * origin.YDirection()))
       .Value();
 
   // The circle used for the spine.

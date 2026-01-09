@@ -27,12 +27,12 @@
 //! This class provides iteration services required by
 //! the   Swept Primitives  for   a Directing NumShape
 //! Line.
-class Sweep_NumShapeIterator
+class NumShapeIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Sweep_NumShapeIterator();
+  Standard_EXPORT NumShapeIterator();
 
   //! Reset the NumShapeIterator on sub-shapes of <aShape>.
   Standard_EXPORT void Init(const SweepNumShape& aShape);

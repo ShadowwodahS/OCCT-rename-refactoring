@@ -34,7 +34,7 @@
 #define ThePCurve_hxx <Adaptor2d_Curve2d.hxx>
 #define ThePCurveTool Geom2dCurveTool
 #define ThePCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
-#define TheIntConicCurve Geom2dInt_TheIntConicCurveOfGInter
+#define TheIntConicCurve IntConicCurve2d
 #define TheIntConicCurve_hxx <Geom2dInt_TheIntConicCurveOfGInter.hxx>
 #define IntCurve_UserIntConicCurveGen Geom2dInt_IntConicCurveOfGInter
 #define IntCurve_UserIntConicCurveGen_hxx <Geom2dInt_IntConicCurveOfGInter.hxx>

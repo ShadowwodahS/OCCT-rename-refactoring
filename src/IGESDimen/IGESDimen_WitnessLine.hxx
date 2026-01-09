@@ -45,7 +45,7 @@ public:
   //! - dataPoints : Data points
   Standard_EXPORT void Init(const Standard_Integer            dataType,
                             const Standard_Real               aDisp,
-                            const Handle(TColgp_HArray1OfXY)& dataPoints);
+                            const Handle(XYArray)& dataPoints);
 
   //! returns Interpretation Flag, always = 1
   Standard_EXPORT Standard_Integer Datatype() const;
@@ -70,7 +70,7 @@ protected:
 private:
   Standard_Integer           theDatatype;
   Standard_Real              theZDisplacement;
-  Handle(TColgp_HArray1OfXY) theDataPoints;
+  Handle(XYArray) theDataPoints;
 };
 
 #endif // _IGESDimen_WitnessLine_HeaderFile

@@ -93,7 +93,7 @@ void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
     // First pass: collect empty labels, assign IDs to the types
     if (myDrivers.IsNull())
       myDrivers = AttributeDrivers(myMsgDriver);
-    Handle(TDF_Data) aData = aDoc->GetData();
+    Handle(Data2) aData = aDoc->GetData();
     FirstPass(aData->Root());
     if (aDoc->EmptyLabelsSavingMode())
       myEmptyLabels.Clear(); //

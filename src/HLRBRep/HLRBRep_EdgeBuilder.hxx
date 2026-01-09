@@ -24,7 +24,7 @@
 #include <TopAbs_State.hxx>
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
-class HLRBRep_AreaLimit;
+class AreaLimit;
 class HLRBRep_VertexList;
 class Intersection3;
 
@@ -60,12 +60,12 @@ public:
   //! Returns the  AreaLimit beginning the current area.
   //! This is a NULL handle when the area is infinite on
   //! the left.
-  Standard_EXPORT Handle(HLRBRep_AreaLimit) LeftLimit() const;
+  Standard_EXPORT Handle(AreaLimit) LeftLimit() const;
 
   //! Returns the  AreaLimit   ending  the current area.
   //! This is a NULL handle when the area is infinite on
   //! the right.
-  Standard_EXPORT Handle(HLRBRep_AreaLimit) RightLimit() const;
+  Standard_EXPORT Handle(AreaLimit) RightLimit() const;
 
   //! Reinitialize  the results  iteration  to the parts
   //! with State <ToBuild>. If this method is not called
@@ -107,9 +107,9 @@ public:
 protected:
 private:
   TopAbs_State              toBuild;
-  Handle(HLRBRep_AreaLimit) myLimits;
-  Handle(HLRBRep_AreaLimit) left;
-  Handle(HLRBRep_AreaLimit) right;
+  Handle(AreaLimit) myLimits;
+  Handle(AreaLimit) left;
+  Handle(AreaLimit) right;
   Standard_Integer          current;
 };
 

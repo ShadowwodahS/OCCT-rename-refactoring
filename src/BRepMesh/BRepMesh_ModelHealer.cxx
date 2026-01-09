@@ -32,7 +32,7 @@
   #include <TopoDS_Compound.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ModelHealer, IMeshTools_ModelAlgo)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ModelHealer, ModelAlgorithm)
 
 namespace
 {
@@ -72,7 +72,7 @@ public:
 
     const IMeshData::IPCurveHandle&     aPCurve = aDEdge->GetPCurve(0);
     const IMeshData::IFaceHandle        aDFace  = aPCurve->GetFace();
-    Handle(IMeshTools_CurveTessellator) aTessellator =
+    Handle(CurveTessellator) aTessellator =
       BRepMesh_EdgeDiscret::CreateEdgeTessellator(aDEdge,
                                                   aPCurve->GetOrientation(),
                                                   aDFace,
@@ -245,7 +245,7 @@ void BRepMesh_ModelHealer::process(const IMeshData::IFaceHandle& theDFace) const
 
     if (!theDFace->IsSet(IMeshData_Failure))
     {
-      BRepMesh_FaceChecker aChecker(theDFace, myParameters);
+      FaceChecker aChecker(theDFace, myParameters);
       if (!aChecker.Perform())
       {
 #ifdef DEBUG_HEALER
@@ -300,7 +300,7 @@ void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDF
   for (int aWireIt = 0; aWireIt < theDFace->WiresNb(); ++aWireIt)
   {
     const IMeshData::IWireHandle& aDWire = theDFace->GetWire(aWireIt);
-    BRepMesh_Deflection::ComputeDeflection(aDWire, myParameters);
+    DeflectionControl::ComputeDeflection(aDWire, myParameters);
     for (int aEdgeIt = 0; aEdgeIt < aDWire->EdgesNb(); ++aEdgeIt)
     {
       const int aPrevEdgeIt = (aEdgeIt + aDWire->EdgesNb() - 1) % aDWire->EdgesNb();
@@ -365,7 +365,7 @@ void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDF
   BRepTools1::Write(theDFace->GetFace(), aFaceName.ToCString());
 #endif
 
-  BRepMesh_Deflection::ComputeDeflection(theDFace, myParameters);
+  DeflectionControl::ComputeDeflection(theDFace, myParameters);
 }
 
 //=================================================================================================

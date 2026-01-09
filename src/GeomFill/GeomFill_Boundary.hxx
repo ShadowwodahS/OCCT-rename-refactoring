@@ -25,8 +25,8 @@
 class Point3d;
 class Vector3d;
 
-class GeomFill_Boundary;
-DEFINE_STANDARD_HANDLE(GeomFill_Boundary, RefObject)
+class Boundary2;
+DEFINE_STANDARD_HANDLE(Boundary2, RefObject)
 
 //! Root class to define a boundary  which will form part of a
 //! contour around a gap requiring filling.
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(GeomFill_Boundary, RefObject)
 //! -   GeomFill_BoundWithSurf to define a boundary attached to a surface.
 //! These objects are used to define the boundaries for a
 //! GeomFill_ConstrainedFilling framework.
-class GeomFill_Boundary : public RefObject
+class Boundary2 : public RefObject
 {
 
 public:
@@ -72,10 +72,10 @@ public:
 
   Standard_EXPORT void Tolang(const Standard_Real Tol);
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_Boundary, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Boundary2, RefObject)
 
 protected:
-  Standard_EXPORT GeomFill_Boundary(const Standard_Real Tol3d, const Standard_Real Tolang);
+  Standard_EXPORT Boundary2(const Standard_Real Tol3d, const Standard_Real Tolang);
 
 private:
   Standard_Real myT3d;

@@ -20,7 +20,7 @@
 #include <gp_Dir.hxx>
 
 //! Allows to calculate values and derivatives for offset curves in 3D
-class GeomEvaluator_OffsetCurve : public GeomEvaluator_Curve
+class GeomEvaluator_OffsetCurve : public Curve6
 {
 public:
   //! Initialize evaluator by curve
@@ -58,9 +58,9 @@ public:
   Standard_EXPORT Vector3d DN(const Standard_Real    theU,
                             const Standard_Integer theDeriv) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(GeomEvaluator_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve6) ShallowCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_OffsetCurve, GeomEvaluator_Curve)
+  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_OffsetCurve, Curve6)
 
 private:
   //! Recalculate D1 values of base curve into D0 value of offset curve
@@ -120,6 +120,6 @@ private:
   Dir3d        myOffsetDir; ///< offset direction
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_OffsetCurve, GeomEvaluator_Curve)
+DEFINE_STANDARD_HANDLE(GeomEvaluator_OffsetCurve, Curve6)
 
 #endif // _GeomEvaluator_OffsetCurve_HeaderFile

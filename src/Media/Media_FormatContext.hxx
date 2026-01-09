@@ -25,9 +25,9 @@ struct AVStream;
 struct AVRational;
 
 //! AVFormatContext wrapper - the media input/output stream holder.
-class Media_FormatContext : public RefObject
+class FormatContext : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_FormatContext, RefObject)
+  DEFINE_STANDARD_RTTIEXT(FormatContext, RefObject)
 public:
   //! Returns string description for AVError code.
   Standard_EXPORT static AsciiString1 FormatAVErrorDescription(int theErrCodeAV);
@@ -78,10 +78,10 @@ public:
 
 public:
   //! Constructor.
-  Standard_EXPORT Media_FormatContext();
+  Standard_EXPORT FormatContext();
 
   //! Destructor.
-  Standard_EXPORT virtual ~Media_FormatContext();
+  Standard_EXPORT virtual ~FormatContext();
 
   //! Return context.
   AVFormatContext* Context() const { return myFormatCtx; }

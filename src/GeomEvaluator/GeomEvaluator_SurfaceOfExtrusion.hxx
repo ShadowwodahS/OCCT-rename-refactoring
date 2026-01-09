@@ -21,14 +21,14 @@
 #include <gp_Dir.hxx>
 
 //! Allows to calculate values and derivatives for surfaces of linear extrusion
-class GeomEvaluator_SurfaceOfExtrusion : public GeomEvaluator_Surface
+class GeomEvaluator_SurfaceOfExtrusion : public Surface1
 {
 public:
   //! Initialize evaluator by surface
   Standard_EXPORT GeomEvaluator_SurfaceOfExtrusion(const Handle(GeomCurve3d)& theBase,
                                                    const Dir3d&             theExtrusionDir);
   //! Initialize evaluator by surface adaptor
-  Standard_EXPORT GeomEvaluator_SurfaceOfExtrusion(const Handle(Adaptor3d_Curve)& theBase,
+  Standard_EXPORT GeomEvaluator_SurfaceOfExtrusion(const Handle(Curve5)& theBase,
                                                    const Dir3d&                  theExtrusionDir);
 
   ///! Changes the direction of extrusion
@@ -74,9 +74,9 @@ public:
                             const Standard_Integer theDerU,
                             const Standard_Integer theDerV) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(GeomEvaluator_Surface) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Surface1) ShallowCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfExtrusion, GeomEvaluator_Surface)
+  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfExtrusion, Surface1)
 
 private:
   //! Shift the point along direction to the given distance (theShift)
@@ -87,11 +87,11 @@ private:
 
 private:
   Handle(GeomCurve3d)      myBaseCurve;
-  Handle(Adaptor3d_Curve) myBaseAdaptor;
+  Handle(Curve5) myBaseAdaptor;
 
   Dir3d myDirection;
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_SurfaceOfExtrusion, GeomEvaluator_Surface)
+DEFINE_STANDARD_HANDLE(GeomEvaluator_SurfaceOfExtrusion, Surface1)
 
 #endif // _GeomEvaluator_SurfaceOfExtrusion_HeaderFile

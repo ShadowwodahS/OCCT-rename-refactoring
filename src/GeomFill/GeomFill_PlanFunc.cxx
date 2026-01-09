@@ -21,7 +21,7 @@
 
 GeomFill_PlanFunc::GeomFill_PlanFunc(const Point3d&                  theP,
                                      const Vector3d&                  theV,
-                                     const Handle(Adaptor3d_Curve)& theC)
+                                     const Handle(Curve5)& theC)
     : myCurve(theC)
 {
   myPnt = theP.XYZ();

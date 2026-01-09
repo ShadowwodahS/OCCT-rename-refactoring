@@ -23,7 +23,7 @@
 struct Parameters3;
 
 //! Auxiliary tool encompassing methods to compute deflection of shapes.
-class BRepMesh_Deflection : public RefObject
+class DeflectionControl : public RefObject
 {
 public:
   //! Returns absolute deflection for theShape with respect to the
@@ -63,7 +63,7 @@ public:
                                                        const Standard_Boolean theAllowDecrease,
                                                        const Standard_Real    theRatio = 0.1);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_Deflection, RefObject)
+  DEFINE_STANDARD_RTTIEXT(DeflectionControl, RefObject)
 };
 
 #endif

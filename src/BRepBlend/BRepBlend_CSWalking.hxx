@@ -26,7 +26,7 @@
 class BRepBlend_Line;
 class Adaptor3d_TopolTool;
 class StdFail_NotDone;
-class Adaptor3d_HVertex;
+class HandleVertex;
 class HCurve2dTool;
 class HSurfaceTool;
 class HCurveTool1;
@@ -45,8 +45,8 @@ class BRepBlend_CSWalking
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_CSWalking(const Handle(Adaptor3d_Curve)&     Curv,
-                                      const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT BRepBlend_CSWalking(const Handle(Curve5)&     Curv,
+                                      const Handle(SurfaceAdaptor)&   Surf,
                                       const Handle(Adaptor3d_TopolTool)& Domain);
 
   Standard_EXPORT void Perform(Blend_CSFunction&      F,
@@ -79,7 +79,7 @@ private:
                                      const Standard_Integer           Index,
                                      const Standard_Real              Param,
                                      const Standard_Boolean           IsVtx,
-                                     const Handle(Adaptor3d_HVertex)& Vtx);
+                                     const Handle(HandleVertex)& Vtx);
 
   Standard_EXPORT Blend_Status CheckDeflectionOnSurf(const Point3d&   Psurf,
                                                      const gp_Pnt2d& Ponsurf,
@@ -97,8 +97,8 @@ private:
 
   Standard_Boolean              done;
   Handle(BRepBlend_Line)        line;
-  Handle(Adaptor3d_Surface)     surf;
-  Handle(Adaptor3d_Curve)       curv;
+  Handle(SurfaceAdaptor)     surf;
+  Handle(Curve5)       curv;
   Handle(Adaptor3d_TopolTool)   domain;
   Standard_Real                 tolpoint3d;
   Standard_Real                 tolgui;

@@ -35,9 +35,9 @@ class BlendFunc_ConstThroatWithPenetration : public BlendFunc_ConstThroat
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_ConstThroatWithPenetration(const Handle(Adaptor3d_Surface)& S1,
-                                                       const Handle(Adaptor3d_Surface)& S2,
-                                                       const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT BlendFunc_ConstThroatWithPenetration(const Handle(SurfaceAdaptor)& S1,
+                                                       const Handle(SurfaceAdaptor)& S2,
+                                                       const Handle(Curve5)&   C);
 
   //! computes the values <F> of the Functions for the
   //! variable <X>.

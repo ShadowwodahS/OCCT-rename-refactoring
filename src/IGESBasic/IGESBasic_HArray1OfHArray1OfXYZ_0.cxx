@@ -18,8 +18,8 @@
 
 #include <Standard_Type.hxx>
 
-#define Handle_TheKey Handle(TColgp_HArray1OfXYZ)
-#define TheKey TColgp_HArray1OfXYZ
+#define Handle_TheKey Handle(XYZArray)
+#define TheKey XYZArray
 #define TheKey_hxx <TColgp_HArray1OfXYZ.hxx>
 #define Interface_JaggedArray HArray1OfHArray1OfXYZ
 #define Interface_JaggedArray_hxx <IGESBasic_HArray1OfHArray1OfXYZ.hxx>

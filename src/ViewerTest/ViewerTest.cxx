@@ -4080,7 +4080,7 @@ Standard_Integer VTexture(DrawInterpreter& theDi,
 
   Handle(VisualEntity)                    aTexturedIO;
   Handle(VisualShape)                                aTexturedShape;
-  Handle(Graphic3d_TextureSet)                     aTextureSetOld;
+  Handle(TextureSet1)                     aTextureSetOld;
   NCollection_Vector<Handle(Graphic3d_TextureMap)> aTextureVecNew;
   bool toSetGenRepeat = false, toSetGenScale = false, toSetGenOrigin = false, toSetImage = false,
        toComputeUV = false;
@@ -4458,11 +4458,11 @@ Standard_Integer VTexture(DrawInterpreter& theDi,
   {
     // check if new image set is equal to already set one
     Standard_Integer             aNbChanged = 0;
-    Handle(Graphic3d_TextureSet) aTextureSetNew;
+    Handle(TextureSet1) aTextureSetNew;
     if (!aTextureVecNew.IsEmpty())
     {
       aNbChanged     = aTextureVecNew.Size();
-      aTextureSetNew = new Graphic3d_TextureSet(aTextureVecNew.Size());
+      aTextureSetNew = new TextureSet1(aTextureVecNew.Size());
       for (Standard_Integer aTexIter = 0; aTexIter < aTextureSetNew->Size(); ++aTexIter)
       {
         Handle(Graphic3d_TextureMap)& aTextureNew = aTextureVecNew.ChangeValue(aTexIter);
@@ -4555,7 +4555,7 @@ Standard_Integer VTexture(DrawInterpreter& theDi,
       // toComputeUV = true; // we can keep UV vertex attributes
       aTexturedIO->Attributes()->ShadingAspect()->Aspect()->SetTextureMapOff();
       aTexturedIO->Attributes()->ShadingAspect()->Aspect()->SetTextureSet(
-        Handle(Graphic3d_TextureSet)());
+        Handle(TextureSet1)());
       aTextureSetOld.Nullify();
     }
   }
@@ -4786,7 +4786,7 @@ static int VDisplay2(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
   Standard_Boolean                toSetTrsfPers = Standard_False;
   Standard_Boolean                toEcho        = Standard_True;
   Standard_Integer                isAutoTriang  = -1;
-  Handle(Graphic3d_TransformPers) aTrsfPers;
+  Handle(TransformPers) aTrsfPers;
   TColStd_SequenceOfAsciiString   aNamesOfDisplayIO;
   AIS_DisplayStatus               aDispStatus     = AIS_DS_None;
   Standard_Integer                toDisplayInView = Standard_False;
@@ -4859,7 +4859,7 @@ static int VDisplay2(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
     else if (aNameCase == "-2d" || aNameCase == "-trihedron" || aNameCase == "-triedron")
     {
       toSetTrsfPers = Standard_True;
-      aTrsfPers     = new Graphic3d_TransformPers(aNameCase == "-2d" ? Graphic3d_TMF_2d
+      aTrsfPers     = new TransformPers(aNameCase == "-2d" ? Graphic3d_TMF_2d
                                                                  : Graphic3d_TMF_TriedronPers,
                                               Aspect_TOTP_LEFT_LOWER);
 
@@ -4905,11 +4905,11 @@ static int VDisplay2(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
 
       if (aTrsfPersFlags == Graphic3d_TMF_TriedronPers)
       {
-        aTrsfPers = new Graphic3d_TransformPers(Graphic3d_TMF_TriedronPers, Aspect_TOTP_LEFT_LOWER);
+        aTrsfPers = new TransformPers(Graphic3d_TMF_TriedronPers, Aspect_TOTP_LEFT_LOWER);
       }
       else if (aTrsfPersFlags != Graphic3d_TMF_None)
       {
-        aTrsfPers = new Graphic3d_TransformPers(aTrsfPersFlags, Point3d());
+        aTrsfPers = new TransformPers(aTrsfPersFlags, Point3d());
       }
     }
     else if (aNameCase == "-trsfperspos" || aNameCase == "-perspos")
@@ -4961,7 +4961,7 @@ static int VDisplay2(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
         {
           aCorner |= Aspect_TOTP_BOTTOM;
         }
-        aTrsfPers = new Graphic3d_TransformPers(aTrsfPers->Mode(),
+        aTrsfPers = new TransformPers(aTrsfPers->Mode(),
                                                 Aspect_TypeOfTriedronPosition(aCorner),
                                                 Graphic3d_Vec2i(aZ.IntegerValue()));
       }
@@ -4977,12 +4977,12 @@ static int VDisplay2(DrawInterpreter& theDI, Standard_Integer theArgNb, const ch
       toSetTrsfPers = Standard_True;
       if (aTrsfPers->IsZoomOrRotate())
       {
-        aTrsfPers = new Graphic3d_TransformPers(aTrsfPers->Mode() | Graphic3d_TMF_OrthoPers,
+        aTrsfPers = new TransformPers(aTrsfPers->Mode() | Graphic3d_TMF_OrthoPers,
                                                 aTrsfPers->AnchorPoint());
       }
       else if (aTrsfPers->IsTrihedronOr2d())
       {
-        aTrsfPers = new Graphic3d_TransformPers(aTrsfPers->Mode() | Graphic3d_TMF_OrthoPers,
+        aTrsfPers = new TransformPers(aTrsfPers->Mode() | Graphic3d_TMF_OrthoPers,
                                                 aTrsfPers->Corner2d(),
                                                 aTrsfPers->Offset2d());
       }

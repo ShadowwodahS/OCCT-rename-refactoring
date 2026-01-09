@@ -46,7 +46,7 @@ typedef Vector3d                Vec;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_SphericalSurface::Copy() const
+Handle(Geometry3) Geom_SphericalSurface::Copy() const
 {
 
   Handle(Geom_SphericalSurface) Cs;

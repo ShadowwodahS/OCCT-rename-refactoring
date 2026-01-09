@@ -17,18 +17,18 @@
 #include <TFunction_Driver.hxx>
 #include <TFunction_Logbook.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TFunction_Driver, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(FunctionDriver1, RefObject)
 
 //=================================================================================================
 
-TFunction_Driver::TFunction_Driver() {}
+FunctionDriver1::FunctionDriver1() {}
 
 //=======================================================================
 // function : Init
 // purpose  : Initialization
 //=======================================================================
 
-void TFunction_Driver::Init(const DataLabel& L)
+void FunctionDriver1::Init(const DataLabel& L)
 {
   myLabel = L;
 }
@@ -38,7 +38,7 @@ void TFunction_Driver::Init(const DataLabel& L)
 // purpose  : Validates labels of a function
 //=======================================================================
 
-void TFunction_Driver::Validate(Handle(TFunction_Logbook)& log) const
+void FunctionDriver1::Validate(Handle(TFunction_Logbook)& log) const
 {
   TDF_LabelList res;
   Results(res);
@@ -55,7 +55,7 @@ void TFunction_Driver::Validate(Handle(TFunction_Logbook)& log) const
 // purpose  : Analyzes the labels in the logbook
 //=======================================================================
 
-Standard_Boolean TFunction_Driver::MustExecute(const Handle(TFunction_Logbook)& log) const
+Standard_Boolean FunctionDriver1::MustExecute(const Handle(TFunction_Logbook)& log) const
 {
   // Check modification of arguments.
   TDF_LabelList args;
@@ -76,7 +76,7 @@ Standard_Boolean TFunction_Driver::MustExecute(const Handle(TFunction_Logbook)& 
 //           where the arguments of the function are located.
 //=======================================================================
 
-void TFunction_Driver::Arguments(TDF_LabelList&) const {}
+void FunctionDriver1::Arguments(TDF_LabelList&) const {}
 
 //=======================================================================
 // function : Results
@@ -84,4 +84,4 @@ void TFunction_Driver::Arguments(TDF_LabelList&) const {}
 //           where the results of the function are located.
 //=======================================================================
 
-void TFunction_Driver::Results(TDF_LabelList&) const {}
+void FunctionDriver1::Results(TDF_LabelList&) const {}

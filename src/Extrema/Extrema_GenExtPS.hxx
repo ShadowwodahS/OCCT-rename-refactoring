@@ -26,7 +26,7 @@
 #include <Extrema_ExtAlgo.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-class Adaptor3d_Surface;
+class SurfaceAdaptor;
 
 //! It calculates all the extremum distances
 //! between a point and a surface.
@@ -55,7 +55,7 @@ public:
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
   Standard_EXPORT Extrema_GenExtPS(const Point3d&            P,
-                                   const Adaptor3d_Surface& S,
+                                   const SurfaceAdaptor& S,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
                                    const Standard_Real      TolU,
@@ -76,7 +76,7 @@ public:
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
   Standard_EXPORT Extrema_GenExtPS(const Point3d&            P,
-                                   const Adaptor3d_Surface& S,
+                                   const SurfaceAdaptor& S,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
                                    const Standard_Real      Umin,
@@ -88,13 +88,13 @@ public:
                                    const Extrema_ExtFlag    F = Extrema_ExtFlag_MINMAX,
                                    const Extrema_ExtAlgo    A = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT void Initialize(const Adaptor3d_Surface& S,
+  Standard_EXPORT void Initialize(const SurfaceAdaptor& S,
                                   const Standard_Integer   NbU,
                                   const Standard_Integer   NbV,
                                   const Standard_Real      TolU,
                                   const Standard_Real      TolV);
 
-  Standard_EXPORT void Initialize(const Adaptor3d_Surface& S,
+  Standard_EXPORT void Initialize(const SurfaceAdaptor& S,
                                   const Standard_Integer   NbU,
                                   const Standard_Integer   NbV,
                                   const Standard_Real      Umin,
@@ -128,19 +128,19 @@ public:
 private:
   Standard_EXPORT void BuildTree();
 
-  Standard_EXPORT void FindSolution(const Point3d& P, const Extrema_POnSurfParams& theParams);
+  Standard_EXPORT void FindSolution(const Point3d& P, const PointOnSurfaceParams& theParams);
 
   //! Selection of points to build grid, depending on the type of surface
-  Standard_EXPORT void GetGridPoints(const Adaptor3d_Surface& theSurf);
+  Standard_EXPORT void GetGridPoints(const SurfaceAdaptor& theSurf);
 
   //! Creation of grid of parametric points
   Standard_EXPORT void BuildGrid(const Point3d& thePoint);
 
   //! Compute new edge parameters.
-  Standard_EXPORT const Extrema_POnSurfParams& ComputeEdgeParameters(
+  Standard_EXPORT const PointOnSurfaceParams& ComputeEdgeParameters(
     const Standard_Boolean       IsUEdge,
-    const Extrema_POnSurfParams& theParam0,
-    const Extrema_POnSurfParams& theParam1,
+    const PointOnSurfaceParams& theParam0,
+    const PointOnSurfaceParams& theParam1,
     const Point3d&                thePoints,
     const Standard_Real          theDiffTol);
 
@@ -163,9 +163,9 @@ private:
 
   Extrema_Array2OfPOnSurfParams myPoints;
   Extrema_HUBTreeOfSphere       mySphereUBTree;
-  Handle(Bnd_HArray1OfSphere)   mySphereArray;
+  Handle(SphereArray)   mySphereArray;
   Extrema_FuncPSNorm            myF;
-  const Adaptor3d_Surface*      myS;
+  const SurfaceAdaptor*      myS;
   Extrema_ExtFlag               myFlag;
   Extrema_ExtAlgo               myAlgo;
   Handle(TColStd_HArray1OfReal) myUParams;
@@ -173,7 +173,7 @@ private:
   Extrema_Array2OfPOnSurfParams myFacePntParams;
   Extrema_Array2OfPOnSurfParams myUEdgePntParams;
   Extrema_Array2OfPOnSurfParams myVEdgePntParams;
-  Extrema_POnSurfParams         myGridParam;
+  PointOnSurfaceParams         myGridParam;
 };
 
 #endif // _Extrema_GenExtPS_HeaderFile

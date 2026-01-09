@@ -25,11 +25,11 @@
 #include <gp_XYZ.hxx>
 #include <gp_XY.hxx>
 
-class HLRAlgo_PolyInternalNode;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyInternalNode, RefObject)
+class PolyInternalNode;
+DEFINE_STANDARD_HANDLE(PolyInternalNode, RefObject)
 
 //! to Update OutLines.
-class HLRAlgo_PolyInternalNode : public RefObject
+class PolyInternalNode : public RefObject
 {
 public:
   struct NodeIndices1
@@ -51,7 +51,7 @@ public:
     Standard_Real PCu1, PCu2, Scal;
   };
 
-  HLRAlgo_PolyInternalNode()
+  PolyInternalNode()
   {
     myIndices.NdSg = 0;
     myIndices.Flag = 0;
@@ -63,7 +63,7 @@ public:
 
   NodeData1& Data() { return myData; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyInternalNode, RefObject)
+  DEFINE_STANDARD_RTTIEXT(PolyInternalNode, RefObject)
 
 private:
   NodeIndices1 myIndices;

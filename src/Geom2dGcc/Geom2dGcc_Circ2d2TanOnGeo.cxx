@@ -93,7 +93,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
   Circle2dBisector Bis(C1, C2);
   if (Bis.IsDone())
   {
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     Standard_Integer                   nbsolution = Bis.NbSolutions();
     Handle(Geom2dAdaptor_Curve)        HCu2       = new Geom2dAdaptor_Curve(OnCurv);
     Adaptor2d_OffsetCurve              Cu2(HCu2, 0.);
@@ -109,7 +109,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
     Standard_Real   Tol2 = Tol1;
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
-      Handle(GccInt_Bisec) Sol  = Bis.ThisSolution(i);
+      Handle(Bisector2) Sol  = Bis.ThisSolution(i);
       GccInt_IType         type = Sol->ArcType();
       switch (type)
       {
@@ -368,7 +368,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
     Standard_Real                      Tol2 = Tol1;
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     Standard_Integer                   nbsolution = Bis.NbSolutions();
     Handle(Geom2dAdaptor_Curve)        HCu2       = new Geom2dAdaptor_Curve(OnCurv);
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
@@ -377,7 +377,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
     Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
-      Handle(GccInt_Bisec) Sol  = Bis.ThisSolution(i);
+      Handle(Bisector2) Sol  = Bis.ThisSolution(i);
       GccInt_IType         type = Sol->ArcType();
       switch (type)
       {
@@ -580,7 +580,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
     Standard_Real                      Tol2 = Tol1;
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     Standard_Integer                   nbsolution = Bis.NbSolutions();
     Handle(Geom2dAdaptor_Curve)        HCu2       = new Geom2dAdaptor_Curve(OnCurv);
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
@@ -757,7 +757,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
     Standard_Real                      Tol2 = Tol1;
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     Standard_Integer                   nbsolution = Bis.NbSolutions();
     Handle(Geom2dAdaptor_Curve)        HCu2       = new Geom2dAdaptor_Curve(OnCurv);
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
@@ -766,7 +766,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
     Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
-      Handle(GccInt_Bisec) Sol  = Bis.ThisSolution(i);
+      Handle(Bisector2) Sol  = Bis.ThisSolution(i);
       GccInt_IType         type = Sol->ArcType();
       switch (type)
       {
@@ -951,13 +951,13 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
     Standard_Real                      Tol2 = Tol1;
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     Handle(Geom2dAdaptor_Curve)        HCu2 = new Geom2dAdaptor_Curve(OnCurv);
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
     firstparam = Max(C2.FirstParameter(), thefirst);
     lastparam  = Min(C2.LastParameter(), thelast);
     Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
-    Handle(GccInt_Bisec) Sol  = Bis.ThisSolution();
+    Handle(Bisector2) Sol  = Bis.ThisSolution();
     GccInt_IType         type = Sol->ArcType();
     switch (type)
     {
@@ -1096,7 +1096,7 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const gp_Pnt2d&            Poin
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
     Standard_Real                      Tol2 = Tol1;
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     Handle(Geom2dAdaptor_Curve)        HCu2 = new Geom2dAdaptor_Curve(OnCurv);
     Adaptor2d_OffsetCurve              Cu2(HCu2, 0.);
     firstparam = Max(Cu2.FirstParameter(), thefirst);

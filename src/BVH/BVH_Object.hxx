@@ -26,10 +26,10 @@ class BVH_ObjectTransient : public RefObject
   DEFINE_STANDARD_RTTIEXT(BVH_ObjectTransient, RefObject)
 public:
   //! Returns properties of the geometric object.
-  virtual const Handle(BVH_Properties)& Properties() const { return myProperties; }
+  virtual const Handle(BVHProperties)& Properties() const { return myProperties; }
 
   //! Sets properties of the geometric object.
-  virtual void SetProperties(const Handle(BVH_Properties)& theProperties)
+  virtual void SetProperties(const Handle(BVHProperties)& theProperties)
   {
     myProperties = theProperties;
   }
@@ -49,7 +49,7 @@ protected:
 
 protected:
   Standard_Boolean       myIsDirty;    //!< Marks internal object state as outdated
-  Handle(BVH_Properties) myProperties; //!< Generic properties assigned to the object
+  Handle(BVHProperties) myProperties; //!< Generic properties assigned to the object
 };
 
 //! Abstract geometric object bounded by BVH box.

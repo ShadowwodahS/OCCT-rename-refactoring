@@ -28,7 +28,7 @@
 //! This class provides  the indexation and  type analysis
 //! services required by  the NumShape Directing Shapes of
 //! Swept Primitives.
-class Sweep_NumShapeTool
+class NumShapeTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,7 +36,7 @@ public:
   //! Create a new NumShapeTool with <aShape>.  The Tool
   //! must prepare an indexation  for  all the subshapes
   //! of this shape.
-  Standard_EXPORT Sweep_NumShapeTool(const SweepNumShape& aShape);
+  Standard_EXPORT NumShapeTool(const SweepNumShape& aShape);
 
   //! Returns the number of subshapes in the shape.
   Standard_EXPORT Standard_Integer NbShapes1() const;

@@ -67,7 +67,7 @@ public:
 
 private:
   Handle(BRep_CurveRepresentation) myCref;
-  Handle(Adaptor3d_Curve)          myHCurve;
+  Handle(Curve5)          myHCurve;
   Standard_Boolean                 myGctrl;
   Standard_Boolean                 myIsExactMethod;
 };

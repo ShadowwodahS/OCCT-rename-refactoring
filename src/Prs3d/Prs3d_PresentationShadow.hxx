@@ -31,7 +31,7 @@ public:
   inline Standard_Integer ParentId() const { return myParentStructId; }
 
   //! Returns view affinity of the parent presentation
-  inline const Handle(Graphic3d_ViewAffinity)& ParentAffinity() const { return myParentAffinity; }
+  inline const Handle(ViewAffinity1)& ParentAffinity() const { return myParentAffinity; }
 
   //! Do nothing - axis-aligned bounding box should be initialized from parent structure.
   Standard_EXPORT virtual void CalculateBoundBox() Standard_OVERRIDE;
@@ -41,7 +41,7 @@ public:
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
 private:
-  Handle(Graphic3d_ViewAffinity) myParentAffinity;
+  Handle(ViewAffinity1) myParentAffinity;
   Standard_Integer               myParentStructId;
 };
 

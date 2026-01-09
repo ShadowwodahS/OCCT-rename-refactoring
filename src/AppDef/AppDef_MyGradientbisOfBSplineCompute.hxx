@@ -33,7 +33,7 @@ class MultiLineTool;
 class AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute;
 class ResConstraintGradientbisBSpline;
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute;
-class AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute;
+class BFGSGradientbisBSplineCompute;
 class AppParCurves_MultiCurve;
 
 class AppDef_MyGradientbisOfBSplineCompute
@@ -51,7 +51,7 @@ public:
     const AppDef_MultiLine&                               SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const Standard_Integer                                Deg,
     const Standard_Real                                   Tol3d,

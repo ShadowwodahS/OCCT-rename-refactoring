@@ -34,7 +34,7 @@ ShapeExtend_CompositeSurface::ShapeExtend_CompositeSurface() {}
 //=================================================================================================
 
 ShapeExtend_CompositeSurface::ShapeExtend_CompositeSurface(
-  const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+  const Handle(SurfaceGridArray)& GridSurf,
   const ShapeExtend_Parametrisation        param)
 {
   Init(GridSurf, param);
@@ -43,7 +43,7 @@ ShapeExtend_CompositeSurface::ShapeExtend_CompositeSurface(
 //=================================================================================================
 
 ShapeExtend_CompositeSurface::ShapeExtend_CompositeSurface(
-  const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+  const Handle(SurfaceGridArray)& GridSurf,
   const TColStd_Array1OfReal&              UJoints,
   const TColStd_Array1OfReal&              VJoints)
 {
@@ -53,7 +53,7 @@ ShapeExtend_CompositeSurface::ShapeExtend_CompositeSurface(
 //=================================================================================================
 
 Standard_Boolean ShapeExtend_CompositeSurface::Init(
-  const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+  const Handle(SurfaceGridArray)& GridSurf,
   const ShapeExtend_Parametrisation        param)
 {
   if (GridSurf.IsNull())
@@ -66,7 +66,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::Init(
 //=================================================================================================
 
 Standard_Boolean ShapeExtend_CompositeSurface::Init(
-  const Handle(TColGeom_HArray2OfSurface)& GridSurf,
+  const Handle(SurfaceGridArray)& GridSurf,
   const TColStd_Array1OfReal&              UJoints,
   const TColStd_Array1OfReal&              VJoints)
 {
@@ -111,7 +111,7 @@ const Handle(GeomSurface)& ShapeExtend_CompositeSurface::Patch(const Standard_In
 
 //=================================================================================================
 
-const Handle(TColGeom_HArray2OfSurface)& ShapeExtend_CompositeSurface::Patches() const
+const Handle(SurfaceGridArray)& ShapeExtend_CompositeSurface::Patches() const
 {
   return myPatches;
 }
@@ -373,7 +373,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::GlobalToLocalTransformation(const
 }
 
 //=======================================================================
-// Inherited methods (from Geom_Geometry and GeomSurface)
+// Inherited methods (from Geometry3 and GeomSurface)
 //=======================================================================
 
 //=================================================================================================
@@ -389,14 +389,14 @@ void ShapeExtend_CompositeSurface::Transform(const Transform3d& T)
 
 //=================================================================================================
 
-Handle(Geom_Geometry) ShapeExtend_CompositeSurface::Copy() const
+Handle(Geometry3) ShapeExtend_CompositeSurface::Copy() const
 {
   Handle(ShapeExtend_CompositeSurface) surf = new ShapeExtend_CompositeSurface;
   if (myPatches.IsNull())
     return surf;
 
-  Handle(TColGeom_HArray2OfSurface) patches =
-    new TColGeom_HArray2OfSurface(1, NbUPatches(), 1, NbVPatches());
+  Handle(SurfaceGridArray) patches =
+    new SurfaceGridArray(1, NbUPatches(), 1, NbVPatches());
   for (Standard_Integer i = 1; i <= NbUPatches(); i++)
     for (Standard_Integer j = 1; j <= NbVPatches(); j++)
       patches->SetValue(i, j, Handle(GeomSurface)::DownCast(Patch(i, j)->Copy()));

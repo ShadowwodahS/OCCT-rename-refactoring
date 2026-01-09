@@ -157,7 +157,7 @@ inline void ShapeCustom_BSplineRestriction::SetConvRational(const Standard_Boole
 // purpose  :
 //=======================================================================
 
-inline Handle(ShapeCustom_RestrictionParameters) ShapeCustom_BSplineRestriction::
+inline Handle(RestrictionParameters) ShapeCustom_BSplineRestriction::
   GetRestrictionParameters() const
 {
   return myParameters;
@@ -169,7 +169,7 @@ inline Handle(ShapeCustom_RestrictionParameters) ShapeCustom_BSplineRestriction:
 //=======================================================================
 
 inline void ShapeCustom_BSplineRestriction::SetRestrictionParameters(
-  const Handle(ShapeCustom_RestrictionParameters)& aModes)
+  const Handle(RestrictionParameters)& aModes)
 {
   myParameters = aModes;
 }

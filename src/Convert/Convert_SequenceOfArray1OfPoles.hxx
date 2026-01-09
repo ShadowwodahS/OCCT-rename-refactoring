@@ -20,6 +20,6 @@
 #include <TColgp_HArray1OfPnt.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(TColgp_HArray1OfPnt)> Convert_SequenceOfArray1OfPoles;
+typedef NCollection_Sequence<Handle(PointArray1)> Convert_SequenceOfArray1OfPoles;
 
 #endif

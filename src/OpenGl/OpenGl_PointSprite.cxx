@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_PointSprite, OpenGl_Texture)
 //=================================================================================================
 
 OpenGl_PointSprite::OpenGl_PointSprite(const AsciiString1& theResourceId)
-    : OpenGl_Texture(theResourceId, Handle(Graphic3d_TextureParams)()),
+    : OpenGl_Texture(theResourceId, Handle(TextureParams)()),
       myBitmapList(0)
 {
   // mySampler->Parameters()->SetFilter (Graphic3d_TOTF_NEAREST);

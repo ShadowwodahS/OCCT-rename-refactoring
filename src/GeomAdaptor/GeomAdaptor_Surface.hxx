@@ -25,7 +25,7 @@
 #include <Standard_NullObject.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-DEFINE_STANDARD_HANDLE(GeomAdaptor_Surface, Adaptor3d_Surface)
+DEFINE_STANDARD_HANDLE(GeomAdaptor_Surface, SurfaceAdaptor)
 
 //! An interface between the services provided by any
 //! surface from the package Geom and those required
@@ -35,9 +35,9 @@ DEFINE_STANDARD_HANDLE(GeomAdaptor_Surface, Adaptor3d_Surface)
 //! Polynomial coefficients of BSpline surfaces used for their evaluation are
 //! cached for better performance. Therefore these evaluations are not
 //! thread-safe and parallel evaluations need to be prevented.
-class GeomAdaptor_Surface : public Adaptor3d_Surface
+class GeomAdaptor_Surface : public SurfaceAdaptor
 {
-  DEFINE_STANDARD_RTTIEXT(GeomAdaptor_Surface, Adaptor3d_Surface)
+  DEFINE_STANDARD_RTTIEXT(GeomAdaptor_Surface, SurfaceAdaptor)
 public:
   GeomAdaptor_Surface()
       : myUFirst(0.),
@@ -70,7 +70,7 @@ public:
   }
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) ShallowCopy() const Standard_OVERRIDE;
 
   void Load(const Handle(GeomSurface)& theSurf)
   {
@@ -142,7 +142,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Surface) UTrim(const Standard_Real First,
+  Standard_EXPORT Handle(SurfaceAdaptor) UTrim(const Standard_Real First,
                                                   const Standard_Real Last,
                                                   const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -150,7 +150,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Surface) VTrim(const Standard_Real First,
+  Standard_EXPORT Handle(SurfaceAdaptor) VTrim(const Standard_Real First,
                                                   const Standard_Real Last,
                                                   const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -295,9 +295,9 @@ public:
 
   Standard_EXPORT Dir3d Direction() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Adaptor3d_Curve) BasisCurve() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Curve5) BasisCurve() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Adaptor3d_Surface) BasisSurface() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(SurfaceAdaptor) BasisSurface() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Real OffsetValue() const Standard_OVERRIDE;
 
@@ -346,7 +346,7 @@ protected:
 
   GeomAbs_SurfaceType mySurfaceType;
   // clang-format off
-  Handle(GeomEvaluator_Surface) myNestedEvaluator; ///< Calculates values of nested complex1 surfaces (offset surface, surface of extrusion or revolution)
+  Handle(Surface1) myNestedEvaluator; ///< Calculates values of nested complex1 surfaces (offset surface, surface of extrusion or revolution)
   // clang-format on
 };
 

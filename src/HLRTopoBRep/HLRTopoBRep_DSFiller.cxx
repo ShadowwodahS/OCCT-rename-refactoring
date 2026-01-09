@@ -79,7 +79,7 @@ void DSFiller::Insert(const TopoShape&            S,
       TopoFace S1 = TopoDS::Face(ex.Current());
       S1.Orientation(TopAbs_FORWARD);
       Handle(BRepTopAdaptor_TopolTool) Domain;
-      Handle(Adaptor3d_Surface)        Surface;
+      Handle(SurfaceAdaptor)        Surface;
       if (MST.IsBound(S1))
       {
         BRepTopAdaptor_Tool& BRT = MST.ChangeFind(S1);

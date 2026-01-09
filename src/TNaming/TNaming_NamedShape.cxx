@@ -308,7 +308,7 @@ void ShapeAttribute::BeforeRemoval()
 
 //=======================================================================
 // function : BeforeUndo
-// purpose  : before application of a TDF_Delta.
+// purpose  : before application of a Delta.
 //=======================================================================
 
 Standard_Boolean ShapeAttribute::BeforeUndo(const Handle(TDF_AttributeDelta)& /*anAttDelta*/,
@@ -322,7 +322,7 @@ Standard_Boolean ShapeAttribute::BeforeUndo(const Handle(TDF_AttributeDelta)& /*
 
 //=======================================================================
 // function : AfterUndo
-// purpose  : After application of a TDF_Delta.
+// purpose  : After application of a Delta.
 //=======================================================================
 
 Standard_Boolean ShapeAttribute::AfterUndo(const Handle(TDF_AttributeDelta)& anAttDelta,
@@ -448,7 +448,7 @@ Handle(TDF_Attribute) ShapeAttribute::NewEmpty() const
 //=================================================================================================
 
 void ShapeAttribute::Paste(const Handle(TDF_Attribute)&       into,
-                               const Handle(TDF_RelocationTable)& Tab) const
+                               const Handle(RelocationTable1)& Tab) const
 {
   DataLabel Lab = into->Label();
   if (Lab.IsNull())

@@ -145,7 +145,7 @@ void BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation()
         Standard_Boolean aOrientations[3];
         for (Standard_Integer k = 0; k < 3; ++k)
         {
-          const BRepMesh_Edge aLink(aNodes[k], aNodes[(k + 1) % 3], BRepMesh_Free);
+          const Edge3 aLink(aNodes[k], aNodes[(k + 1) % 3], BRepMesh_Free);
 
           const Standard_Integer aLinkInfo = aStructure->AddLink(aLink);
           aEdges[k]                        = Abs(aLinkInfo);

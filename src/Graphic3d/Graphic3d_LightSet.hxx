@@ -17,9 +17,9 @@
 #include <Graphic3d_CLight.hxx>
 
 //! Class defining the set of light sources.
-class Graphic3d_LightSet : public RefObject
+class LightSet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_LightSet, RefObject)
+  DEFINE_STANDARD_RTTIEXT(LightSet, RefObject)
 public:
   //! Iteration filter flags.
   enum IterationFilter
@@ -45,7 +45,7 @@ public:
     }
 
     //! Constructor with initialization.
-    Iterator(const Graphic3d_LightSet& theSet, IterationFilter theFilter = IterationFilter_None)
+    Iterator(const LightSet& theSet, IterationFilter theFilter = IterationFilter_None)
         : myIter(theSet.myLights),
           myFilter(theFilter)
     {
@@ -53,7 +53,7 @@ public:
     }
 
     //! Constructor with initialization.
-    Iterator(const Handle(Graphic3d_LightSet)& theSet,
+    Iterator(const Handle(LightSet)& theSet,
              IterationFilter                   theFilter = IterationFilter_None)
         : myFilter(theFilter)
     {
@@ -115,7 +115,7 @@ public:
 
 public:
   //! Empty constructor.
-  Standard_EXPORT Graphic3d_LightSet();
+  Standard_EXPORT LightSet();
 
   //! Return lower light index.
   Standard_Integer Lower() const { return 1; }
@@ -211,6 +211,6 @@ protected:
   Standard_Size myCacheRevision; //!< revision of cached state
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_LightSet, RefObject)
+DEFINE_STANDARD_HANDLE(LightSet, RefObject)
 
 #endif // _Graphic3d_LightSet_HeaderFile

@@ -488,7 +488,7 @@ Approx_BSplComputeLine::Approx_BSplComputeLine
   for (Standard_Integer i = Parameters.Lower(); i <= Parameters.Upper(); i++) {
     myfirstParam->SetValue(i, Parameters(i));
   }
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   Par = Approx_IsoParametric;
   myPeriodic = Standard_False;
   mydegremin = degreemin;
@@ -531,7 +531,7 @@ Approx_BSplComputeLine::Approx_BSplComputeLine
   }
   myfirstC = AppParCurves_TangencyPoint;
   mylastC = AppParCurves_TangencyPoint;
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   Par = Approx_IsoParametric;
   myPeriodic = Standard_False;
   mydegremin = degreemin;
@@ -563,7 +563,7 @@ Approx_BSplComputeLine::Approx_BSplComputeLine
   const Approx_ParametrizationType parametrization,
   const Standard_Boolean Squares)
 {
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   Par = parametrization;
   myPeriodic = Standard_False;
   mydegremin = degreemin;
@@ -599,7 +599,7 @@ Approx_BSplComputeLine::Approx_BSplComputeLine
   const Approx_ParametrizationType parametrization,
   const Standard_Boolean Squares)
 {
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   alldone = Standard_False;
   mydegremin = degreemin;
   mydegremax = degreemax;

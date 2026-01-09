@@ -32,20 +32,20 @@ class IntCurve_MyImpParToolOfIntImpConicParConic;
 class Domain2;
 class gp_Pnt2d;
 
-class IntCurve_IntImpConicParConic : public Intersection2
+class ImplicitConicParametricConicIntersection : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT IntCurve_IntImpConicParConic();
+  Standard_EXPORT ImplicitConicParametricConicIntersection();
 
   //! Intersection between an implicit curve and
   //! a parametrised curve.
   //! The exception ConstructionError is raised if the domain
   //! of the parametrised curve does not verify HasFirstPoint
   //! and HasLastPoint return True.
-  Standard_EXPORT IntCurve_IntImpConicParConic(const ConicTool& ITool,
+  Standard_EXPORT ImplicitConicParametricConicIntersection(const ConicTool& ITool,
                                                const Domain2&     Dom1,
                                                const ParametricConic&     PCurve,
                                                const Domain2&     Dom2,

@@ -39,7 +39,7 @@
 #include <TopoDS_Face.hxx>
 #include <Geom_OffsetCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepAdaptor_Curve, Adaptor3d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(BRepAdaptor_Curve, Curve5)
 
 //=================================================================================================
 
@@ -61,13 +61,13 @@ BRepAdaptor_Curve::BRepAdaptor_Curve(const TopoEdge& E, const TopoFace& F)
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) BRepAdaptor_Curve::ShallowCopy() const
+Handle(Curve5) BRepAdaptor_Curve::ShallowCopy() const
 {
   Handle(BRepAdaptor_Curve) aCopy = new BRepAdaptor_Curve();
 
   aCopy->myTrsf = myTrsf;
 
-  const Handle(Adaptor3d_Curve) aCurve     = myCurve.ShallowCopy();
+  const Handle(Curve5) aCurve     = myCurve.ShallowCopy();
   const GeomAdaptor_Curve&      aGeomCurve = *(Handle(GeomAdaptor_Curve)::DownCast(aCurve));
   aCopy->myCurve                           = aGeomCurve;
 
@@ -270,7 +270,7 @@ void BRepAdaptor_Curve::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) BRepAdaptor_Curve::Trim(const Standard_Real First,
+Handle(Curve5) BRepAdaptor_Curve::Trim(const Standard_Real First,
                                                 const Standard_Real Last,
                                                 const Standard_Real Tol) const
 {

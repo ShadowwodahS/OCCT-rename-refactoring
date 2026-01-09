@@ -26,14 +26,14 @@
 class math_Matrix;
 class gp_Pnt2d;
 
-class ProjLib_PrjFunc : public math_FunctionSetWithDerivatives
+class ProjLib_PrjFunc : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ProjLib_PrjFunc(const Adaptor3d_Curve*   C,
+  Standard_EXPORT ProjLib_PrjFunc(const Curve5*   C,
                                   const Standard_Real      FixVal,
-                                  const Adaptor3d_Surface* S,
+                                  const SurfaceAdaptor* S,
                                   const Standard_Integer   Fix);
 
   //! returns the number of variables of the function.
@@ -64,8 +64,8 @@ public:
   Standard_EXPORT gp_Pnt2d Solution() const;
 
 private:
-  const Adaptor3d_Curve*   myCurve;
-  const Adaptor3d_Surface* mySurface;
+  const Curve5*   myCurve;
+  const SurfaceAdaptor* mySurface;
   Standard_Real            myt;
   Standard_Real            myU;
   Standard_Real            myV;

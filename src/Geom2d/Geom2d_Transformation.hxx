@@ -28,8 +28,8 @@ class gp_Pnt2d;
 class gp_Ax2d;
 class gp_Vec2d;
 
-class Geom2d_Transformation;
-DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
+class Transformation2d;
+DEFINE_STANDARD_HANDLE(Transformation2d, RefObject)
 
 //! The class Transformation allows to create Translation,
 //! Rotation, Symmetry, Scaling and complex1 transformations
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
 //! transformation can change a circle into an ellipse,
 //! and therefore change the real type of the object.
 //! Such a transformation is forbidden in this
-//! environment and cannot be a Geom2d_Transformation.
+//! environment and cannot be a Transformation2d.
 //! The transformation can be represented as follow :
 //!
 //! V1   V2     T
@@ -54,24 +54,24 @@ DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
 //! where {V1, V2} defines the vectorial part of the
 //! transformation and T defines the translation part of
 //! the transformation.
-//! - Geom2d_Transformation transformations provide
+//! - Transformation2d transformations provide
 //! the same kind of "geometric" services as
 //! Transform2d ones but have more complex1 data
 //! structures. The geometric objects provided by the
 //! Geom2d package use Transform2d transformations
 //! in the syntaxes Transform and Transformed.
-//! - Geom2d_Transformation transformations are
+//! - Transformation2d transformations are
 //! used in a context where they can be shared by
 //! several objects contained inside a common data structure.
-class Geom2d_Transformation : public RefObject
+class Transformation2d : public RefObject
 {
 
 public:
   //! Creates an identity transformation.
-  Standard_EXPORT Geom2d_Transformation();
+  Standard_EXPORT Transformation2d();
 
   //! Creates a persistent copy of T.
-  Standard_EXPORT Geom2d_Transformation(const Transform2d& T);
+  Standard_EXPORT Transformation2d(const Transform2d& T);
 
   //! Makes the transformation into a symmetrical transformation
   //! with respect to a point P.
@@ -152,16 +152,16 @@ public:
   //! Computes the inverse of this transformation and creates a new one.
   //! Raises ConstructionError  if the transformation is singular. This means that
   //! the ScaleFactor is lower or equal to Resolution from package gp1.
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Transformation) Inverted() const;
+  Standard_NODISCARD Standard_EXPORT Handle(Transformation2d) Inverted() const;
 
   //! Computes the transformation composed with Other and <me>.
   //! <me> * Other.
   //! Returns a new transformation
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Transformation) Multiplied(
-    const Handle(Geom2d_Transformation)& Other) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Transformation2d) Multiplied(
+    const Handle(Transformation2d)& Other) const;
 
-  Standard_NODISCARD Handle(Geom2d_Transformation) operator*(
-    const Handle(Geom2d_Transformation)& Other) const
+  Standard_NODISCARD Handle(Transformation2d) operator*(
+    const Handle(Transformation2d)& Other) const
   {
     return Multiplied(Other);
   }
@@ -173,27 +173,27 @@ public:
   //! if N > 0  <me> * <me> * .......* <me>.
   //! if N = 0  Identity
   //! if N < 0  <me>.Invert() * .........* <me>.Invert()
-  Standard_EXPORT void Multiply(const Handle(Geom2d_Transformation)& Other);
+  Standard_EXPORT void Multiply(const Handle(Transformation2d)& Other);
 
-  void operator*=(const Handle(Geom2d_Transformation)& Other) { Multiply(Other); }
+  void operator*=(const Handle(Transformation2d)& Other) { Multiply(Other); }
 
   //! Raised if N < 0 and if the transformation is not inversible
   Standard_EXPORT void Power(const Standard_Integer N);
 
   //! Raised if N < 0 and if the transformation is not inversible
-  Standard_EXPORT Handle(Geom2d_Transformation) Powered(const Standard_Integer N) const;
+  Standard_EXPORT Handle(Transformation2d) Powered(const Standard_Integer N) const;
 
   //! Computes the matrix of the transformation composed with
   //! <me> and Other.     <me> = Other * <me>
-  Standard_EXPORT void PreMultiply(const Handle(Geom2d_Transformation)& Other);
+  Standard_EXPORT void PreMultiply(const Handle(Transformation2d)& Other);
 
   //! Applies the transformation <me> to the triplet {X, Y}.
   Standard_EXPORT void Transforms(Standard_Real& X, Standard_Real& Y) const;
 
   //! Creates a new object, which is a copy of this transformation.
-  Standard_EXPORT Handle(Geom2d_Transformation) Copy() const;
+  Standard_EXPORT Handle(Transformation2d) Copy() const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Transformation, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Transformation2d, RefObject)
 
 protected:
 private:

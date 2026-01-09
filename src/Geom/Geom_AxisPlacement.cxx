@@ -20,7 +20,7 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_AxisPlacement, Geom_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_AxisPlacement, Geometry3)
 
 typedef Axis3d Ax1;
 typedef Dir3d Dir;

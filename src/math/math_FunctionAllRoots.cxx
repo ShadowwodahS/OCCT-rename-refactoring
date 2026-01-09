@@ -25,7 +25,7 @@
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_NumericError.hxx>
 
-FunctionAllRoots::FunctionAllRoots(math_FunctionWithDerivative& F,
+FunctionAllRoots::FunctionAllRoots(FunctionWithDerivative& F,
                                              const FunctionSampler&   S,
                                              const Standard_Real          EpsX,
                                              const Standard_Real          EpsF,

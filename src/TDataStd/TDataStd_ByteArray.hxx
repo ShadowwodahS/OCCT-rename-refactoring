@@ -25,7 +25,7 @@
 #include <Standard_GUID.hxx>
 
 class DataLabel;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DeltaOnModification;
 
 class TDataStd_ByteArray;
@@ -115,7 +115,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& OS) const Standard_OVERRIDE;
 

@@ -98,7 +98,7 @@ static RWGltf_GltfAccessorCompType compTypeFromDraco(draco::DataType theType)
 #endif
 } // namespace
 
-IMPLEMENT_STANDARD_RTTIEXT(RWGltf_TriangulationReader, RWMesh_TriangulationReader)
+IMPLEMENT_STANDARD_RTTIEXT(RWGltf_TriangulationReader, TriangulationReader)
 
 //=================================================================================================
 
@@ -550,7 +550,7 @@ bool RWGltf_TriangulationReader::finalizeLoading(
       }
     }
   }
-  return RWMesh_TriangulationReader::finalizeLoading(theSourceMesh, theDestMesh);
+  return TriangulationReader::finalizeLoading(theSourceMesh, theDestMesh);
 }
 
 //=================================================================================================

@@ -19,15 +19,15 @@
 #include <TCollection_ExtendedString.hxx>
 #include <TDocStd_Document.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_ApplicationDelta, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ApplicationDelta, RefObject)
 
 //=================================================================================================
 
-TDocStd_ApplicationDelta::TDocStd_ApplicationDelta() {}
+ApplicationDelta::ApplicationDelta() {}
 
 //=================================================================================================
 
-void TDocStd_ApplicationDelta::Dump(Standard_OStream& anOS) const
+void ApplicationDelta::Dump(Standard_OStream& anOS) const
 {
   anOS << "\t";
   myName.Print(anOS);

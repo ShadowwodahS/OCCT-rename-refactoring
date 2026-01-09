@@ -34,7 +34,7 @@ TopLoc_Location::TopLoc_Location() {}
 // purpose  : constructor Datum
 //=======================================================================
 
-TopLoc_Location::TopLoc_Location(const Handle(TopLoc_Datum3D)& D)
+TopLoc_Location::TopLoc_Location(const Handle(Datum3D2)& D)
 {
   myItems.Construct(TopLoc_ItemLocation(D, 1));
 }
@@ -43,7 +43,7 @@ TopLoc_Location::TopLoc_Location(const Handle(TopLoc_Datum3D)& D)
 
 TopLoc_Location::TopLoc_Location(const Transform3d& T)
 {
-  Handle(TopLoc_Datum3D) D = new TopLoc_Datum3D(T);
+  Handle(Datum3D2) D = new Datum3D2(T);
   myItems.Construct(TopLoc_ItemLocation(D, 1));
 }
 

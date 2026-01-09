@@ -1235,7 +1235,7 @@ Standard_Real BRepTools1::EvalAndUpdateTol(const TopoEdge&          theE,
     first = Max(first, C2d->FirstParameter());
     last  = Min(last, C2d->LastParameter());
   }
-  const Handle(Adaptor3d_Curve) aGeomAdaptorCurve = new GeomAdaptor_Curve(C3d, first, last);
+  const Handle(Curve5) aGeomAdaptorCurve = new GeomAdaptor_Curve(C3d, first, last);
 
   Handle(Adaptor2d_Curve2d)   aGeom2dAdaptorCurve = new Geom2dAdaptor_Curve(C2d, first, last);
   Handle(GeomAdaptor_Surface) aGeomAdaptorSurface = new GeomAdaptor_Surface(S);

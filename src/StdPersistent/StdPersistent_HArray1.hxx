@@ -19,12 +19,12 @@
 
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(StdPersistent_HArray1OfShape1, NCollection_Array1<StdObject_Shape>)
+DEFINE_HARRAY1(HArray1OfShape1, NCollection_Array1<StdObject_Shape>)
 
-class StdPersistent_HArray1 : private HArray1
+class HArray12 : private HArray1
 {
 public:
-  typedef instance<StdPersistent_HArray1OfShape1> Shape1;
+  typedef instance<HArray1OfShape1> Shape1;
 };
 
 #endif

@@ -29,7 +29,7 @@ class Geom2dCurveTool;
 class math_Matrix;
 
 class Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter
-    : public math_FunctionSetWithDerivatives
+    : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

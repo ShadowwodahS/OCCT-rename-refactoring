@@ -19,13 +19,13 @@
 #include <Standard_Type.hxx>
 #include <gp_Pnt.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Approx_SweepFunction, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SweepFunction, RefObject)
 
-// Standard_Boolean Approx_SweepFunction::D1(const Standard_Real Param,const Standard_Real
+// Standard_Boolean SweepFunction::D1(const Standard_Real Param,const Standard_Real
 // First,const Standard_Real Last,TColgp_Array1OfPnt& Poles,TColgp_Array1OfVec&
 // DPoles,TColgp_Array1OfPnt2d& Poles2d,TColgp_Array1OfVec2d& DPoles2d,TColStd_Array1OfReal&
 // Weigths,TColStd_Array1OfReal& DWeigths)
-Standard_Boolean Approx_SweepFunction::D1(const Standard_Real,
+Standard_Boolean SweepFunction::D1(const Standard_Real,
                                           const Standard_Real,
                                           const Standard_Real,
                                           TColgp_Array1OfPnt&,
@@ -35,15 +35,15 @@ Standard_Boolean Approx_SweepFunction::D1(const Standard_Real,
                                           TColStd_Array1OfReal&,
                                           TColStd_Array1OfReal&)
 {
-  throw Standard_NotImplemented("Approx_SweepFunction::D1");
+  throw Standard_NotImplemented("SweepFunction::D1");
 }
 
-// Standard_Boolean Approx_SweepFunction::D2(const Standard_Real Param,const Standard_Real
+// Standard_Boolean SweepFunction::D2(const Standard_Real Param,const Standard_Real
 // First,const Standard_Real Last,TColgp_Array1OfPnt& Poles,TColgp_Array1OfVec&
 // DPoles,TColgp_Array1OfVec& D2Poles,TColgp_Array1OfPnt2d& Poles2d,TColgp_Array1OfVec2d&
 // DPoles2d,TColgp_Array1OfVec2d& D2Poles2d,TColStd_Array1OfReal& Weigths,TColStd_Array1OfReal&
 // DWeigths,TColStd_Array1OfReal& D2Weigths)
-Standard_Boolean Approx_SweepFunction::D2(const Standard_Real,
+Standard_Boolean SweepFunction::D2(const Standard_Real,
                                           const Standard_Real,
                                           const Standard_Real,
                                           TColgp_Array1OfPnt&,
@@ -56,31 +56,31 @@ Standard_Boolean Approx_SweepFunction::D2(const Standard_Real,
                                           TColStd_Array1OfReal&,
                                           TColStd_Array1OfReal&)
 {
-  throw Standard_NotImplemented("Approx_SweepFunction::D2");
+  throw Standard_NotImplemented("SweepFunction::D2");
 }
 
-// void Approx_SweepFunction::Resolution(const Standard_Integer Index,const Standard_Real
+// void SweepFunction::Resolution(const Standard_Integer Index,const Standard_Real
 // Tol,Standard_Real& TolU,Standard_Real& TolV) const
-void Approx_SweepFunction::Resolution(const Standard_Integer,
+void SweepFunction::Resolution(const Standard_Integer,
                                       const Standard_Real,
                                       Standard_Real&,
                                       Standard_Real&) const
 {
-  throw Standard_NotImplemented("Approx_SweepFunction::Resolution");
+  throw Standard_NotImplemented("SweepFunction::Resolution");
 }
 
-Point3d Approx_SweepFunction::BarycentreOfSurf() const
+Point3d SweepFunction::BarycentreOfSurf() const
 {
-  throw Standard_NotImplemented("Approx_SweepFunction::BarycentreOfSurf");
+  throw Standard_NotImplemented("SweepFunction::BarycentreOfSurf");
 }
 
-Standard_Real Approx_SweepFunction::MaximalSection() const
+Standard_Real SweepFunction::MaximalSection() const
 {
-  throw Standard_NotImplemented("Approx_SweepFunction::MaximalSection()");
+  throw Standard_NotImplemented("SweepFunction::MaximalSection()");
 }
 
-// void Approx_SweepFunction::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
-void Approx_SweepFunction::GetMinimalWeight(TColStd_Array1OfReal&) const
+// void SweepFunction::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
+void SweepFunction::GetMinimalWeight(TColStd_Array1OfReal&) const
 {
-  throw Standard_NotImplemented("Approx_SweepFunction::GetMinimalWeight");
+  throw Standard_NotImplemented("SweepFunction::GetMinimalWeight");
 }

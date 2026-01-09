@@ -25,7 +25,7 @@ class Point3d;
 class Vector3d;
 
 class GeomSurface;
-DEFINE_STANDARD_HANDLE(GeomSurface, Geom_Geometry)
+DEFINE_STANDARD_HANDLE(GeomSurface, Geometry3)
 
 //! Describes the common behavior of surfaces in 3D space.
 //! The Geom package provides many implementations of concrete derived surfaces,
@@ -49,7 +49,7 @@ DEFINE_STANDARD_HANDLE(GeomSurface, Geom_Geometry)
 //! Warning
 //! The Geom package does not prevent the construction of
 //! surfaces with null areas, or surfaces which self-intersect.
-class GeomSurface : public Geom_Geometry
+class GeomSurface : public Geometry3
 {
 
 public:
@@ -281,7 +281,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomSurface, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(GeomSurface, Geometry3)
 };
 
 #endif // _Geom_Surface_HeaderFile

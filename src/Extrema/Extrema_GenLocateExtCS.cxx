@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-Extrema_GenLocateExtCS::Extrema_GenLocateExtCS()
+GenericCurveSurfaceExtrema::GenericCurveSurfaceExtrema()
     : myDone(Standard_False),
       mySqDist(RealLast())
 {
@@ -34,8 +34,8 @@ Extrema_GenLocateExtCS::Extrema_GenLocateExtCS()
 
 //=================================================================================================
 
-Extrema_GenLocateExtCS::Extrema_GenLocateExtCS(const Adaptor3d_Curve&   C,
-                                               const Adaptor3d_Surface& S,
+GenericCurveSurfaceExtrema::GenericCurveSurfaceExtrema(const Curve5&   C,
+                                               const SurfaceAdaptor& S,
                                                const Standard_Real      T,
                                                const Standard_Real      U,
                                                const Standard_Real      V,
@@ -47,8 +47,8 @@ Extrema_GenLocateExtCS::Extrema_GenLocateExtCS(const Adaptor3d_Curve&   C,
 
 //=================================================================================================
 
-void Extrema_GenLocateExtCS::Perform(const Adaptor3d_Curve&   C,
-                                     const Adaptor3d_Surface& S,
+void GenericCurveSurfaceExtrema::Perform(const Curve5&   C,
+                                     const SurfaceAdaptor& S,
                                      const Standard_Real      T,
                                      const Standard_Real      U,
                                      const Standard_Real      V,
@@ -98,14 +98,14 @@ void Extrema_GenLocateExtCS::Perform(const Adaptor3d_Curve&   C,
 
 //=================================================================================================
 
-Standard_Boolean Extrema_GenLocateExtCS::IsDone() const
+Standard_Boolean GenericCurveSurfaceExtrema::IsDone() const
 {
   return myDone;
 }
 
 //=================================================================================================
 
-Standard_Real Extrema_GenLocateExtCS::SquareDistance() const
+Standard_Real GenericCurveSurfaceExtrema::SquareDistance() const
 {
   if (!IsDone())
   {
@@ -116,7 +116,7 @@ Standard_Real Extrema_GenLocateExtCS::SquareDistance() const
 
 //=================================================================================================
 
-const PointOnCurve1& Extrema_GenLocateExtCS::PointOnCurve() const
+const PointOnCurve1& GenericCurveSurfaceExtrema::PointOnCurve() const
 {
   if (!IsDone())
   {
@@ -127,7 +127,7 @@ const PointOnCurve1& Extrema_GenLocateExtCS::PointOnCurve() const
 
 //=================================================================================================
 
-const PointOnSurface1& Extrema_GenLocateExtCS::PointOnSurface() const
+const PointOnSurface1& GenericCurveSurfaceExtrema::PointOnSurface() const
 {
   if (!IsDone())
   {

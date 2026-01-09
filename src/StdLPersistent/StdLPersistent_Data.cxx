@@ -98,13 +98,13 @@ void StdLPersistent_Data::Write(WriteData& theWriteData) const
 // function : Import
 // purpose  : Import transient data from the persistent data
 //=======================================================================
-Handle(TDF_Data) StdLPersistent_Data::Import() const
+Handle(Data2) StdLPersistent_Data::Import() const
 {
   if (myLabels.IsNull() || myAttributes.IsNull())
     return NULL;
 
   // Create tree of labels and add empty transient attributes to them
-  Handle(TDF_Data) aData = new TDF_Data;
+  Handle(Data2) aData = new Data2;
   Parser(*myLabels->Array(), *myAttributes->Array()).FillLabel(aData->Root());
 
   // Import transient attributes from persistent data

@@ -131,7 +131,7 @@ Standard_Boolean Express_Select::GenerateClass() const
       anItem->Use();
       if (anItem->IsKind(STANDARD_TYPE(Express_Alias)))
       {
-        Handle(Express_Type) aType = Handle(Express_Alias)::DownCast(anItem)->Type();
+        Handle(ExpressType) aType = Handle(Express_Alias)::DownCast(anItem)->Type();
         if (aType->IsStandard())
         {
           continue;

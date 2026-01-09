@@ -20,6 +20,6 @@
 #include <AppParCurves_Array1OfConstraintCouple.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(AppParCurves_HArray1OfConstraintCouple, AppParCurves_Array1OfConstraintCouple)
+DEFINE_HARRAY1(ConstraintCoupleArray, AppParCurves_Array1OfConstraintCouple)
 
 #endif

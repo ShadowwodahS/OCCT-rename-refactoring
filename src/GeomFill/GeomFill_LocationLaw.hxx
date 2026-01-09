@@ -28,26 +28,26 @@ class gp_Mat;
 class Vector3d;
 class Point3d;
 
-class GeomFill_LocationLaw;
-DEFINE_STANDARD_HANDLE(GeomFill_LocationLaw, RefObject)
+class LocationLaw;
+DEFINE_STANDARD_HANDLE(LocationLaw, RefObject)
 
 //! To define location  law in Sweeping location is --
 //! defined   by an  Matrix  M and  an Vector  V,  and
 //! transform an point P in MP+V.
-class GeomFill_LocationLaw : public RefObject
+class LocationLaw : public RefObject
 {
 
 public:
   //! initialize curve of location law
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C) = 0;
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C) = 0;
 
-  Standard_EXPORT virtual const Handle(Adaptor3d_Curve)& GetCurve() const = 0;
+  Standard_EXPORT virtual const Handle(Curve5)& GetCurve() const = 0;
 
   //! Set a transformation Matrix like   the law M(t) become
   //! Mat * M(t)
   Standard_EXPORT virtual void SetTrsf(const gp_Mat& Transfo) = 0;
 
-  Standard_EXPORT virtual Handle(GeomFill_LocationLaw) Copy() const = 0;
+  Standard_EXPORT virtual Handle(LocationLaw) Copy() const = 0;
 
   //! compute Location
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param, gp_Mat& M, Vector3d& V) = 0;
@@ -165,7 +165,7 @@ public:
 
   Standard_EXPORT virtual void Rotation(Point3d& Center) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationLaw, RefObject)
+  DEFINE_STANDARD_RTTIEXT(LocationLaw, RefObject)
 
 protected:
 private:

@@ -63,7 +63,7 @@ inline void HLRBRep_FaceIterator::SkipWire()
 // purpose  :
 //=======================================================================
 
-inline Handle(HLRAlgo_EdgesBlock) HLRBRep_FaceIterator::Wire() const
+inline Handle(EdgesBlock) HLRBRep_FaceIterator::Wire() const
 {
   return myWires->Wire(iWire);
 }

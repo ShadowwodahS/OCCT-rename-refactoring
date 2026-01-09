@@ -56,7 +56,7 @@ void IGESSolid_TopoBuilder::Clear()
   thevstar = new TColStd_HSequenceOfInteger();
   thevend  = new TColStd_HSequenceOfInteger();
   thevertl = new IGESSolid_VertexList;
-  thepoint = new TColgp_HSequenceOfXYZ();
+  thepoint = new XYZSequence();
 }
 
 void IGESSolid_TopoBuilder::AddVertex(const Coords3d& val)
@@ -116,7 +116,7 @@ Handle(IGESSolid_EdgeList) IGESSolid_TopoBuilder::EdgeList() const
 void IGESSolid_TopoBuilder::EndLists()
 {
   Standard_Integer                      i, nb;
-  Handle(TColgp_HArray1OfXYZ)           vert;
+  Handle(XYZArray)           vert;
   Handle(HArray1OfIGESEntity)  curves;
   Handle(HArray1OfVertexList) estart, eend;
   Handle(TColStd_HArray1OfInteger)      nstart, nend;
@@ -124,7 +124,7 @@ void IGESSolid_TopoBuilder::EndLists()
   nb = thepoint->Length();
   if (nb > 0)
   {
-    vert = new TColgp_HArray1OfXYZ(1, nb);
+    vert = new XYZArray(1, nb);
     for (i = 1; i <= nb; i++)
       vert->SetValue(i, thepoint->Value(i));
   }

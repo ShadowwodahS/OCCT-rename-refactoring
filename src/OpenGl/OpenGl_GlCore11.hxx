@@ -187,7 +187,7 @@
 //! Notice that all functions within this structure are actually exported by system GL library.
 //! The main purpose for these hint - to control visibility of functions per GL version
 //! (global functions should not be used directly to achieve this effect!).
-struct OpenGl_GlCore11 : protected GlFunctions
+struct GlCore11 : protected GlFunctions
 {
 
 public:

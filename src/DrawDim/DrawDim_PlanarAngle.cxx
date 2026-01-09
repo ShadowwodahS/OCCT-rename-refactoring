@@ -102,13 +102,13 @@ void DrawDim_PlanarAngle::DrawOn(DrawDisplay& dis) const
   Handle(GeomCurve3d) curve2 = BRepInspector::Curve(TopoDS::Edge(myLine2), s2, e2);
   if (!curve1->IsKind(STANDARD_TYPE(GeomLine)) || !curve2->IsKind(STANDARD_TYPE(GeomLine)))
     return;
-  Handle(Geom2d_Geometry) L1 = GeomAPI1::To2d(curve1, plane);
+  Handle(Geometry2) L1 = GeomAPI1::To2d(curve1, plane);
   if (L1->IsInstance(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     L1 = Handle(Geom2d_TrimmedCurve)::DownCast(L1)->BasisCurve();
   }
   gp_Lin2d                l1 = Handle(Geom2d_Line)::DownCast(L1)->Lin2d();
-  Handle(Geom2d_Geometry) L2 = GeomAPI1::To2d(curve2, plane);
+  Handle(Geometry2) L2 = GeomAPI1::To2d(curve2, plane);
   if (L2->IsInstance(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     L2 = Handle(Geom2d_TrimmedCurve)::DownCast(L2)->BasisCurve();

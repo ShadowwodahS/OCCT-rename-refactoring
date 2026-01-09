@@ -106,7 +106,7 @@ static Standard_Integer mpnames(DrawInterpreter&, Standard_Integer n, const char
     return 0;
   }
   //
-  const TColStd_MapOfAsciiString& aMN = BRepMesh_DiscretFactory::Get().Names();
+  const TColStd_MapOfAsciiString& aMN = DiscretizationFactory::Get().Names();
   aNb                                 = aMN.Extent();
   if (!aNb)
   {
@@ -139,7 +139,7 @@ static Standard_Integer mpsetdefaultname(DrawInterpreter&, Standard_Integer n, c
   //
   aName = a[1];
   //
-  if (BRepMesh_DiscretFactory::Get().SetDefaultName(aName))
+  if (DiscretizationFactory::Get().SetDefaultName(aName))
     printf(" *ready\n");
   else
     printf(" *fault\n");
@@ -157,7 +157,7 @@ static Standard_Integer mpgetdefaultname(DrawInterpreter&, Standard_Integer n, c
     return 0;
   }
   //
-  const AsciiString1& aName = BRepMesh_DiscretFactory::Get().DefaultName();
+  const AsciiString1& aName = DiscretizationFactory::Get().DefaultName();
   printf(" *default name: %s\n", aName.ToCString());
   //
   return 0;
@@ -177,7 +177,7 @@ static Standard_Integer mpsetfunctionname(DrawInterpreter&, Standard_Integer n, 
   //
   aName = a[1];
   //
-  if (BRepMesh_DiscretFactory::Get().SetFunctionName(aName))
+  if (DiscretizationFactory::Get().SetFunctionName(aName))
     printf(" *ready\n");
   else
     printf(" *fault\n");
@@ -195,7 +195,7 @@ static Standard_Integer mpgetfunctionname(DrawInterpreter&, Standard_Integer n, 
     return 0;
   }
   //
-  const AsciiString1& aName = BRepMesh_DiscretFactory::Get().FunctionName();
+  const AsciiString1& aName = DiscretizationFactory::Get().FunctionName();
   printf(" *function name: %s\n", aName.ToCString());
   //
   return 0;
@@ -213,7 +213,7 @@ static Standard_Integer mperror(DrawInterpreter&, Standard_Integer n, const char
     return 0;
   }
   //
-  aErr = BRepMesh_DiscretFactory::Get().ErrorStatus();
+  aErr = DiscretizationFactory::Get().ErrorStatus();
   printf(" *ErrorStatus: %d\n", (int)aErr);
   //
   return 0;
@@ -247,9 +247,9 @@ static Standard_Integer mpincmesh(DrawInterpreter&, Standard_Integer n, const ch
   }
   //
   Handle(BRepMesh_DiscretRoot) aMeshAlgo =
-    BRepMesh_DiscretFactory::Get().Discret(aS, aDeflection, aAngle);
+    DiscretizationFactory::Get().Discret(aS, aDeflection, aAngle);
   //
-  BRepMesh_FactoryError aErr = BRepMesh_DiscretFactory::Get().ErrorStatus();
+  BRepMesh_FactoryError aErr = DiscretizationFactory::Get().ErrorStatus();
   if (aErr != BRepMesh_FE_NOERROR)
   {
     printf(" *Factory::Get().ErrorStatus()=%d\n", (int)aErr);
@@ -346,7 +346,7 @@ static Standard_Integer triarea(DrawInterpreter& di, int n, const char** a)
 }
 
 // #######################################################################
-Standard_Boolean IsEqual(const BRepMesh_Edge& theFirst, const BRepMesh_Edge& theSecond)
+Standard_Boolean IsEqual(const Edge3& theFirst, const Edge3& theSecond)
 {
   return theFirst.IsEqual(theSecond);
 }
@@ -406,7 +406,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
         {
           pnts2d(1)                     = aT->UVNode(n1);
           pnts2d(2)                     = aT->UVNode(n2);
-          Handle(Poly_Polygon2D) poly2d = new Poly_Polygon2D(pnts2d);
+          Handle(Polygon2D2) poly2d = new Polygon2D2(pnts2d);
           DrawTrSurf1::Set(name, poly2d);
           DrawTrSurf1::Set(name, pnts2d(1));
           DrawTrSurf1::Set(name, pnts2d(2));
@@ -541,7 +541,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
     Handle(MeshTriangulation) aT = BRepInspector::Triangulation(aFace, aLoc);
 
     // Iterate boundary edges
-    NCollection_Map<BRepMesh_Edge> aBoundaryEdgeMap;
+    NCollection_Map<Edge3> aBoundaryEdgeMap;
     ShapeExplorer                anExp(aShape, TopAbs_EDGE);
     for (; anExp.More(); anExp.Next())
     {
@@ -564,7 +564,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
         Standard_Integer aNodeIdx = anIndices.Value(j);
         if (j != aLower)
         {
-          BRepMesh_Edge aLink(aPrevNode, aNodeIdx, BRepMesh_Frontier);
+          Edge3 aLink(aPrevNode, aNodeIdx, BRepMesh_Frontier);
           aBoundaryEdgeMap.Add(aLink);
         }
         aPrevNode = aNodeIdx;
@@ -576,7 +576,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
       break;
     }
 
-    NCollection_Map<BRepMesh_Edge> aFreeEdgeMap;
+    NCollection_Map<Edge3> aFreeEdgeMap;
     const Standard_Integer         aTriNum = aT->NbTriangles();
     for (Standard_Integer aTriIndx = 1; aTriIndx <= aTriNum; aTriIndx++)
     {
@@ -588,7 +588,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
         Standard_Integer aLastId  = aTriNodes[j % 3];
         Standard_Integer aFirstId = aTriNodes[j - 1];
 
-        BRepMesh_Edge aLink(aFirstId, aLastId, BRepMesh_Free);
+        Edge3 aLink(aFirstId, aLastId, BRepMesh_Free);
         if (!aBoundaryEdgeMap.Contains(aLink))
         {
           if (!aFreeEdgeMap.Add(aLink))
@@ -607,10 +607,10 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
 
       TColgp_Array1OfPnt                       pnts(1, 2);
       TColgp_Array1OfPnt2d                     pnts2d(1, 2);
-      NCollection_Map<BRepMesh_Edge>::Iterator aMapIt(aFreeEdgeMap);
+      NCollection_Map<Edge3>::Iterator aMapIt(aFreeEdgeMap);
       for (; aMapIt.More(); aMapIt.Next())
       {
-        const BRepMesh_Edge& aLink = aMapIt.Key1();
+        const Edge3& aLink = aMapIt.Key1();
         di << "{" << aLink.FirstNode() << " " << aLink.LastNode() << "} ";
         pnts(1)                     = aT->Node(aLink.FirstNode()).Transformed(trsf);
         pnts(2)                     = aT->Node(aLink.LastNode()).Transformed(trsf);
@@ -622,7 +622,7 @@ static Standard_Integer tricheck(DrawInterpreter& di, int n, const char** a)
         {
           pnts2d(1)                     = aT->UVNode(aLink.FirstNode());
           pnts2d(2)                     = aT->UVNode(aLink.LastNode());
-          Handle(Poly_Polygon2D) poly2d = new Poly_Polygon2D(pnts2d);
+          Handle(Polygon2D2) poly2d = new Polygon2D2(pnts2d);
           DrawTrSurf1::Set(name, poly2d);
           DrawTrSurf1::Set(name, pnts2d(1));
           DrawTrSurf1::Set(name, pnts2d(2));

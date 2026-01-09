@@ -27,7 +27,7 @@
 #include <Message_ProgressRange.hxx>
 
 class TopoShape;
-class ShapeExtend_BasicMsgRegistrator;
+class BasicMsgRegistrator;
 class ShapeBuild_ReShape;
 
 //! This package provides algorithms for fixing
@@ -57,7 +57,7 @@ public:
     const Standard_Boolean                         enforce,
     const Standard_Real                            preci       = 0.0,
     const Message_ProgressRange&                   theProgress = Message_ProgressRange(),
-    const Handle(ShapeExtend_BasicMsgRegistrator)& theMsgReg   = 0);
+    const Handle(BasicMsgRegistrator)& theMsgReg   = 0);
 
   //! Runs EncodeRegularity from BRepLib1 taking into account
   //! shared components of assemblies, so that each component

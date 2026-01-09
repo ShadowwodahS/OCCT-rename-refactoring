@@ -36,13 +36,13 @@ class gp_Pnt2d;
 //! They are Poles of a Bezier Curve.
 //! This class is used either to define data input or
 //! results when performing the approximation of several lines in parallel.
-class AppParCurves_MultiPoint
+class MultiPoint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! creates an indefinite MultiPoint.
-  Standard_EXPORT AppParCurves_MultiPoint();
+  Standard_EXPORT MultiPoint();
 
   //! constructs a set of Points used to approximate a
   //! Multiline.
@@ -50,23 +50,23 @@ public:
   //! Points will be initialized with SetPoint and SetPoint2d.
   //! NbPoints is the number of 3D Points.
   //! NbPoints2d is the number of 2D Points.
-  Standard_EXPORT AppParCurves_MultiPoint(const Standard_Integer NbPoints,
+  Standard_EXPORT MultiPoint(const Standard_Integer NbPoints,
                                           const Standard_Integer NbPoints2d);
 
   //! creates a MultiPoint only composed of 3D points.
-  Standard_EXPORT AppParCurves_MultiPoint(const TColgp_Array1OfPnt& tabP);
+  Standard_EXPORT MultiPoint(const TColgp_Array1OfPnt& tabP);
 
   //! creates a MultiPoint only composed of 2D points.
-  Standard_EXPORT AppParCurves_MultiPoint(const TColgp_Array1OfPnt2d& tabP2d);
+  Standard_EXPORT MultiPoint(const TColgp_Array1OfPnt2d& tabP2d);
 
   //! constructs a set of Points used to approximate a
   //! Multiline.
   //! These Points can be of 2 or 3 dimensions.
   //! Points will be initialized with SetPoint and SetPoint2d.
   //! NbPoints is the total number of Points.
-  Standard_EXPORT AppParCurves_MultiPoint(const TColgp_Array1OfPnt&   tabP,
+  Standard_EXPORT MultiPoint(const TColgp_Array1OfPnt&   tabP,
                                           const TColgp_Array1OfPnt2d& tabP2d);
-  Standard_EXPORT virtual ~AppParCurves_MultiPoint();
+  Standard_EXPORT virtual ~MultiPoint();
 
   //! the 3d Point of range Index of this MultiPoint is
   //! set to <Point>.

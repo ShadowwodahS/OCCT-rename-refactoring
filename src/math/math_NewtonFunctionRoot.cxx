@@ -16,7 +16,7 @@
 #include <math_NewtonFunctionRoot.hxx>
 #include <StdFail_NotDone.hxx>
 
-NewtonFunctionRoot::NewtonFunctionRoot(math_FunctionWithDerivative& F,
+NewtonFunctionRoot::NewtonFunctionRoot(FunctionWithDerivative& F,
                                                  const Standard_Real          Guess,
                                                  const Standard_Real          EpsX,
                                                  const Standard_Real          EpsF,
@@ -56,7 +56,7 @@ NewtonFunctionRoot::NewtonFunctionRoot(const Standard_Real    A,
   It       = 0;
 }
 
-NewtonFunctionRoot::NewtonFunctionRoot(math_FunctionWithDerivative& F,
+NewtonFunctionRoot::NewtonFunctionRoot(FunctionWithDerivative& F,
                                                  const Standard_Real          Guess,
                                                  const Standard_Real          EpsX,
                                                  const Standard_Real          EpsF,
@@ -75,7 +75,7 @@ NewtonFunctionRoot::NewtonFunctionRoot(math_FunctionWithDerivative& F,
   Perform(F, Guess);
 }
 
-void NewtonFunctionRoot::Perform(math_FunctionWithDerivative& F, const Standard_Real Guess)
+void NewtonFunctionRoot::Perform(FunctionWithDerivative& F, const Standard_Real Guess)
 {
 
   Standard_Real    Dx;

@@ -31,21 +31,21 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColgp_HArray1OfPnt2d.hxx>
 class GeomFill_TrihedronWithGuide;
-class GeomFill_SectionLaw;
+class SectionLaw;
 class Vector3d;
 class Point3d;
 class GeomCurve3d;
 
 class GeomFill_LocationGuide;
-DEFINE_STANDARD_HANDLE(GeomFill_LocationGuide, GeomFill_LocationLaw)
+DEFINE_STANDARD_HANDLE(GeomFill_LocationGuide, LocationLaw)
 
-class GeomFill_LocationGuide : public GeomFill_LocationLaw
+class GeomFill_LocationGuide : public LocationLaw
 {
 
 public:
   Standard_EXPORT GeomFill_LocationGuide(const Handle(GeomFill_TrihedronWithGuide)& Triedre);
 
-  Standard_EXPORT void Set(const Handle(GeomFill_SectionLaw)& Section,
+  Standard_EXPORT void Set(const Handle(SectionLaw)& Section,
                            const Standard_Boolean             rotat,
                            const Standard_Real                SFirst,
                            const Standard_Real                SLast,
@@ -56,14 +56,14 @@ public:
 
   //! calculating poles on a surface (courbe guide / the surface of rotation in points myNbPts)
   //! @return Standard_True
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Adaptor3d_Curve)& GetCurve() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(Curve5)& GetCurve() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetTrsf(const gp_Mat& Transfo) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(GeomFill_LocationLaw) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(LocationLaw) Copy() const Standard_OVERRIDE;
 
   //! compute Location
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
@@ -189,17 +189,17 @@ public:
 
   Standard_EXPORT Handle(GeomCurve3d) Section() const;
 
-  Standard_EXPORT Handle(Adaptor3d_Curve) Guide() const;
+  Standard_EXPORT Handle(Curve5) Guide() const;
 
   Standard_EXPORT void SetOrigine(const Standard_Real Param1, const Standard_Real Param2);
 
   Standard_EXPORT GeomFill_PipeError
-    ComputeAutomaticLaw(Handle(TColgp_HArray1OfPnt2d)& ParAndRad) const;
+    ComputeAutomaticLaw(Handle(Point2dArray)& ParAndRad) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationGuide, GeomFill_LocationLaw)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationGuide, LocationLaw)
 
 protected:
-  Handle(TColgp_HArray2OfPnt2d) myPoles2d;
+  Handle(Point2dGrid) myPoles2d;
 
 private:
   Standard_EXPORT void SetRotation(const Standard_Real PrecAngle, Standard_Real& LastAngle);
@@ -207,10 +207,10 @@ private:
   Standard_EXPORT void InitX(const Standard_Real Param);
 
   Handle(GeomFill_TrihedronWithGuide) myLaw;
-  Handle(GeomFill_SectionLaw)         mySec;
-  Handle(Adaptor3d_Curve)             myCurve;
-  Handle(Adaptor3d_Curve)             myGuide;
-  Handle(Adaptor3d_Curve)             myTrimmed;
+  Handle(SectionLaw)         mySec;
+  Handle(Curve5)             myCurve;
+  Handle(Curve5)             myGuide;
+  Handle(Curve5)             myTrimmed;
   Standard_Integer                    myNbPts;
   Standard_Boolean                    rotation;
   Standard_Real                       OrigParam1;

@@ -20,7 +20,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <Standard_Transient.hxx>
 
-DEFINE_STANDARD_HANDLE(Poly_Polygon2D, RefObject)
+DEFINE_STANDARD_HANDLE(Polygon2D2, RefObject)
 
 //! Provides a polygon in 2D space (for example, in the
 //! parametric space of a surface). It is generally an
@@ -28,14 +28,14 @@ DEFINE_STANDARD_HANDLE(Poly_Polygon2D, RefObject)
 //! A Polygon2D is defined by a table of nodes. Each node is
 //! a 2D point. If the polygon is closed, the point of closure is
 //! repeated at the end of the table of nodes.
-class Poly_Polygon2D : public RefObject
+class Polygon2D2 : public RefObject
 {
 public:
   //! Constructs a 2D polygon with specified number of nodes.
-  Standard_EXPORT explicit Poly_Polygon2D(const Standard_Integer theNbNodes);
+  Standard_EXPORT explicit Polygon2D2(const Standard_Integer theNbNodes);
 
   //! Constructs a 2D polygon defined by the table of points, <Nodes>.
-  Standard_EXPORT Poly_Polygon2D(const TColgp_Array1OfPnt2d& Nodes);
+  Standard_EXPORT Polygon2D2(const TColgp_Array1OfPnt2d& Nodes);
 
   //! Returns the deflection of this polygon.
   //! Deflection is used in cases where the polygon is an
@@ -77,7 +77,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Poly_Polygon2D, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Polygon2D2, RefObject)
 
 private:
   Standard_Real        myDeflection;

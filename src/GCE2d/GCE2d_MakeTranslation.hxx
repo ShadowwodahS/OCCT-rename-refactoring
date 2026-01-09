@@ -21,13 +21,13 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom2d_Transformation;
+class Transformation2d;
 class gp_Vec2d;
 class gp_Pnt2d;
 
 //! This class implements elementary construction algorithms for a
 //! translation in 2D space. The result is a
-//! Geom2d_Transformation transformation.
+//! Transformation2d transformation.
 //! A MakeTranslation object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -45,13 +45,13 @@ public:
   Standard_EXPORT GCE2d_MakeTranslation(const gp_Pnt2d& Point1, const gp_Pnt2d& Point2);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const Handle(Geom2d_Transformation)& Value() const;
+  Standard_EXPORT const Handle(Transformation2d)& Value() const;
 
-  operator const Handle(Geom2d_Transformation) & () const { return Value(); }
+  operator const Handle(Transformation2d) & () const { return Value(); }
 
 protected:
 private:
-  Handle(Geom2d_Transformation) TheTranslation;
+  Handle(Transformation2d) TheTranslation;
 };
 
 #endif // _GCE2d_MakeTranslation_HeaderFile

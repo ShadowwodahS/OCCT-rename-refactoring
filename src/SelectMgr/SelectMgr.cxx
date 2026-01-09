@@ -37,12 +37,12 @@
 namespace
 {
 //! Compute polyline of shrunk triangle.
-static Handle(TColgp_HSequenceOfPnt) shrunkTriangle(const Point3d* thePnts, const Coords3d& theCenter)
+static Handle(PointSequence2) shrunkTriangle(const Point3d* thePnts, const Coords3d& theCenter)
 {
   const Coords3d                  aV1     = theCenter + (thePnts[0].XYZ() - theCenter) * 0.9;
   const Coords3d                  aV2     = theCenter + (thePnts[1].XYZ() - theCenter) * 0.9;
   const Coords3d                  aV3     = theCenter + (thePnts[2].XYZ() - theCenter) * 0.9;
-  Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+  Handle(PointSequence2) aPoints = new PointSequence2();
   aPoints->Append(aV1);
   aPoints->Append(aV2);
   aPoints->Append(aV3);
@@ -72,7 +72,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
     theSeqLines.Append(shrunkTriangle(aPnts, aCenter));
   }
 
-  Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+  Handle(PointSequence2) aPoints = new PointSequence2();
   Prs3d1::AddFreeEdges(*aPoints, aPolyTri, aTrsf);
   if (!aPoints->IsEmpty())
   {
@@ -101,7 +101,7 @@ static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
   }
 
   {
-    Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+    Handle(PointSequence2) aPoints = new PointSequence2();
     for (Standard_Integer i = 0; i < 4; ++i)
     {
       aPoints->Append(aPnts[i]);
@@ -110,7 +110,7 @@ static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
     theSeqLines.Append(aPoints);
   }
   {
-    Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+    Handle(PointSequence2) aPoints = new PointSequence2();
     for (Standard_Integer i = 4; i < 8; i++)
     {
       aPoints->Append(aPnts[i]);
@@ -120,7 +120,7 @@ static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
   }
   for (Standard_Integer i = 0; i < 4; i++)
   {
-    Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+    Handle(PointSequence2) aPoints = new PointSequence2();
     aPoints->Append(aPnts[i]);
     aPoints->Append(aPnts[i + 4]);
     theSeqLines.Append(aPoints);
@@ -136,7 +136,7 @@ static void addCircle(Prs3d_NListOfSequenceOfPnt& theSeqLines,
   const Standard_Real anUStep = 0.1;
   Coords3d              aVec(0, 0, theHeight);
 
-  Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+  Handle(PointSequence2) aPoints = new PointSequence2();
   GeomCircle                   aGeom(Frame3d(), theRadius);
   for (Standard_Real anU = 0.0f; anU < (2.0 * M_PI + anUStep); anU += anUStep)
   {
@@ -152,8 +152,8 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
                         const Handle(Select3D_SensitiveCylinder)& theSensCyl,
                         const Transform3d&                            theLoc)
 {
-  Handle(TColgp_HSequenceOfPnt) aVertLine1 = new TColgp_HSequenceOfPnt();
-  Handle(TColgp_HSequenceOfPnt) aVertLine2 = new TColgp_HSequenceOfPnt();
+  Handle(PointSequence2) aVertLine1 = new PointSequence2();
+  Handle(PointSequence2) aVertLine2 = new PointSequence2();
 
   const Transform3d&      aTrsf   = theLoc.Multiplied(theSensCyl->Transformation());
   const Standard_Real aHeight = theSensCyl->Height();
@@ -185,7 +185,7 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
 void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePrs,
                                     const Handle(SelectionContainer)&     theSel,
                                     const Transform3d&                         theLoc,
-                                    const Handle(Graphic3d_TransformPers)& theTrsfPers)
+                                    const Handle(TransformPers)& theTrsfPers)
 {
   thePrs->SetTransformPersistence(theTrsfPers);
 
@@ -213,10 +213,10 @@ void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     theP
     }
     else if (Handle(Select3D_SensitiveFace) aFace = Handle(Select3D_SensitiveFace)::DownCast(anEnt))
     {
-      Handle(TColgp_HArray1OfPnt) aSensPnts;
+      Handle(PointArray1) aSensPnts;
       aFace->GetPoints(aSensPnts);
-      Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
-      for (TColgp_HArray1OfPnt::Iterator aPntIter(*aSensPnts); aPntIter.More(); aPntIter.Next())
+      Handle(PointSequence2) aPoints = new PointSequence2();
+      for (PointArray1::Iterator aPntIter(*aSensPnts); aPntIter.More(); aPntIter.Next())
       {
         aPoints->Append(aPntIter.Value().Transformed(theLoc));
       }
@@ -227,7 +227,7 @@ void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     theP
     {
       Standard_Integer aFrom = 0, aTo = 0;
       aSensPoly->ArrayBounds(aFrom, aTo);
-      Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+      Handle(PointSequence2) aPoints = new PointSequence2();
       for (Standard_Integer aPntIter = aFrom; aPntIter <= aTo; ++aPntIter)
       {
         aPoints->Append(aSensPoly->GetPoint3d(aPntIter).Transformed(theLoc));
@@ -245,7 +245,7 @@ void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     theP
         if (Handle(Select3D_SensitiveSegment) aSensSeg =
               Handle(Select3D_SensitiveSegment)::DownCast(aSubEnt))
         {
-          Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+          Handle(PointSequence2) aPoints = new PointSequence2();
           aPoints->Append(aSensSeg->StartPoint().Transformed(theLoc));
           aPoints->Append(aSensSeg->EndPoint().Transformed(theLoc));
           aSeqLines.Append(aPoints);
@@ -255,7 +255,7 @@ void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     theP
         {
           Standard_Integer aFrom = 0, aTo = 0;
           aSubSensPoly->ArrayBounds(aFrom, aTo);
-          Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+          Handle(PointSequence2) aPoints = new PointSequence2();
           for (Standard_Integer aPntIter = aFrom; aPntIter <= aTo; ++aPntIter)
           {
             aPoints->Append(aSubSensPoly->GetPoint3d(aPntIter).Transformed(theLoc));
@@ -267,7 +267,7 @@ void SelectMgr1::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     theP
     else if (Handle(Select3D_SensitiveSegment) aSensSeg =
                Handle(Select3D_SensitiveSegment)::DownCast(anEnt))
     {
-      Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+      Handle(PointSequence2) aPoints = new PointSequence2();
       aPoints->Append(aSensSeg->StartPoint().Transformed(theLoc));
       aPoints->Append(aSensSeg->EndPoint().Transformed(theLoc));
       aSeqLines.Append(aPoints);

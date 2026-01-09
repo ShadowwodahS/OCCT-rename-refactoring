@@ -18,11 +18,11 @@
 #include <HLRBRep_AreaLimit.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_AreaLimit, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(AreaLimit, RefObject)
 
 //=================================================================================================
 
-HLRBRep_AreaLimit::HLRBRep_AreaLimit(const Intersection3& V,
+AreaLimit::AreaLimit(const Intersection3& V,
                                      const Standard_Boolean      Boundary,
                                      const Standard_Boolean      Interference,
                                      const TopAbs_State          StateBefore,
@@ -41,112 +41,112 @@ HLRBRep_AreaLimit::HLRBRep_AreaLimit(const Intersection3& V,
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::StateBefore(const TopAbs_State Stat)
+void AreaLimit::StateBefore(const TopAbs_State Stat)
 {
   myStateBefore = Stat;
 }
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::StateAfter(const TopAbs_State Stat)
+void AreaLimit::StateAfter(const TopAbs_State Stat)
 {
   myStateAfter = Stat;
 }
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::EdgeBefore(const TopAbs_State Stat)
+void AreaLimit::EdgeBefore(const TopAbs_State Stat)
 {
   myEdgeBefore = Stat;
 }
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::EdgeAfter(const TopAbs_State Stat)
+void AreaLimit::EdgeAfter(const TopAbs_State Stat)
 {
   myEdgeAfter = Stat;
 }
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::Previous(const Handle(HLRBRep_AreaLimit)& P)
+void AreaLimit::Previous(const Handle(AreaLimit)& P)
 {
   myPrevious = P;
 }
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::Next(const Handle(HLRBRep_AreaLimit)& N)
+void AreaLimit::Next(const Handle(AreaLimit)& N)
 {
   myNext = N;
 }
 
 //=================================================================================================
 
-const Intersection3& HLRBRep_AreaLimit::Vertex() const
+const Intersection3& AreaLimit::Vertex() const
 {
   return myVertex;
 }
 
 //=================================================================================================
 
-Standard_Boolean HLRBRep_AreaLimit::IsBoundary() const
+Standard_Boolean AreaLimit::IsBoundary() const
 {
   return myBoundary;
 }
 
 //=================================================================================================
 
-Standard_Boolean HLRBRep_AreaLimit::IsInterference() const
+Standard_Boolean AreaLimit::IsInterference() const
 {
   return myInterference;
 }
 
 //=================================================================================================
 
-TopAbs_State HLRBRep_AreaLimit::StateBefore() const
+TopAbs_State AreaLimit::StateBefore() const
 {
   return myStateBefore;
 }
 
 //=================================================================================================
 
-TopAbs_State HLRBRep_AreaLimit::StateAfter() const
+TopAbs_State AreaLimit::StateAfter() const
 {
   return myStateAfter;
 }
 
 //=================================================================================================
 
-TopAbs_State HLRBRep_AreaLimit::EdgeBefore() const
+TopAbs_State AreaLimit::EdgeBefore() const
 {
   return myEdgeBefore;
 }
 
 //=================================================================================================
 
-TopAbs_State HLRBRep_AreaLimit::EdgeAfter() const
+TopAbs_State AreaLimit::EdgeAfter() const
 {
   return myEdgeAfter;
 }
 
 //=================================================================================================
 
-Handle(HLRBRep_AreaLimit) HLRBRep_AreaLimit::Previous() const
+Handle(AreaLimit) AreaLimit::Previous() const
 {
   return myPrevious;
 }
 
 //=================================================================================================
 
-Handle(HLRBRep_AreaLimit) HLRBRep_AreaLimit::Next() const
+Handle(AreaLimit) AreaLimit::Next() const
 {
   return myNext;
 }
 
 //=================================================================================================
 
-void HLRBRep_AreaLimit::Clear()
+void AreaLimit::Clear()
 {
   myPrevious.Nullify();
   myNext.Nullify();

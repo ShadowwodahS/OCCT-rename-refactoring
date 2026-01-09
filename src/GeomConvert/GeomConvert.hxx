@@ -297,7 +297,7 @@ public:
   //! if it is impossible to build closed curve.
   Standard_EXPORT static void ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves,
                                        const TColStd_Array1OfReal&             ArrayOfToler,
-                                       Handle(TColGeom_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                                       Handle(HArray1OfBSplineCurve1)& ArrayOfConcatenated,
                                        Standard_Boolean&                       ClosedFlag,
                                        const Standard_Real                     ClosedTolerance);
 
@@ -316,7 +316,7 @@ public:
   Standard_EXPORT static void ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves,
                                        const TColStd_Array1OfReal&             ArrayOfToler,
                                        Handle(TColStd_HArray1OfInteger)&       ArrayOfIndices,
-                                       Handle(TColGeom_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                                       Handle(HArray1OfBSplineCurve1)& ArrayOfConcatenated,
                                        Standard_Boolean&                       ClosedFlag,
                                        const Standard_Real                     ClosedTolerance);
 
@@ -335,7 +335,7 @@ public:
   Standard_EXPORT static void ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves,
                                        const TColStd_Array1OfReal&             ArrayOfToler,
                                        Handle(TColStd_HArray1OfInteger)&       ArrayOfIndices,
-                                       Handle(TColGeom_HArray1OfBSplineCurve)& ArrayOfConcatenated,
+                                       Handle(HArray1OfBSplineCurve1)& ArrayOfConcatenated,
                                        Standard_Boolean&                       ClosedFlag,
                                        const Standard_Real                     ClosedTolerance,
                                        const Standard_Real                     AngularTolerance);
@@ -357,7 +357,7 @@ public:
   //! It returns an array of BSpline C1. tolerance is a geometrical tolerance.
   Standard_EXPORT static void C0BSplineToArrayOfC1BSplineCurve(
     const Handle(BSplineCurve3d)&        BS,
-    Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
+    Handle(HArray1OfBSplineCurve1)& tabBS,
     const Standard_Real                     tolerance);
 
   //! This   Method reduces as far   as it is  possible the
@@ -369,7 +369,7 @@ public:
   //! is C1 or not at a given point
   Standard_EXPORT static void C0BSplineToArrayOfC1BSplineCurve(
     const Handle(BSplineCurve3d)&        BS,
-    Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
+    Handle(HArray1OfBSplineCurve1)& tabBS,
     const Standard_Real                     AngularTolerance,
     const Standard_Real                     tolerance);
 };

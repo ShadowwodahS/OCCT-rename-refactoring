@@ -23,14 +23,14 @@
 #include <Law_Function.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SimpleBound, GeomFill_Boundary)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SimpleBound, Boundary2)
 
 //=================================================================================================
 
-GeomFill_SimpleBound::GeomFill_SimpleBound(const Handle(Adaptor3d_Curve)& Curve,
+GeomFill_SimpleBound::GeomFill_SimpleBound(const Handle(Curve5)& Curve,
                                            const Standard_Real            Tol3d,
                                            const Standard_Real            Tolang)
-    : GeomFill_Boundary(Tol3d, Tolang),
+    : Boundary2(Tol3d, Tolang),
       myC3d(Curve)
 {
 }

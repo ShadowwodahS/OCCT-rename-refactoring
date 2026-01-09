@@ -18,11 +18,11 @@
 
 #include <OpenGl_Element.hxx>
 
-class OpenGl_StencilTest : public OpenGl_Element
+class StencilTest : public OpenGl_Element
 {
 public:
   //! Default constructor
-  Standard_EXPORT OpenGl_StencilTest();
+  Standard_EXPORT StencilTest();
 
   //! Render primitives to the window
   Standard_EXPORT virtual void Render(const Handle(OpenGl_Workspace)& theWorkspace) const
@@ -38,7 +38,7 @@ public:
 
 protected:
   //! Destructor
-  Standard_EXPORT virtual ~OpenGl_StencilTest();
+  Standard_EXPORT virtual ~StencilTest();
 
 private:
   Standard_Boolean myIsEnabled;

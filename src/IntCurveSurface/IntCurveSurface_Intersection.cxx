@@ -73,7 +73,7 @@ const IntersectionPoint1& CurveSurfaceIntersection1::Point(
 }
 
 //================================================================================
-const IntCurveSurface_IntersectionSegment& CurveSurfaceIntersection1::Segment1(
+const IntersectionSegment& CurveSurfaceIntersection1::Segment1(
   const Standard_Integer N) const
 {
   if (!done)
@@ -162,7 +162,7 @@ void CurveSurfaceIntersection1::Append(const IntersectionPoint1& OtherPoint)
 }
 
 //================================================================================
-void CurveSurfaceIntersection1::Append(const IntCurveSurface_IntersectionSegment& OtherSegment)
+void CurveSurfaceIntersection1::Append(const IntersectionSegment& OtherSegment)
 {
   lseg.Append(OtherSegment);
 }

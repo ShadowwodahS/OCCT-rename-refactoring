@@ -30,7 +30,7 @@ class Vector3d;
 class Geom_BSplineSurface;
 class Transform3d;
 class GeneralTransform2d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_OffsetSurface;
 DEFINE_STANDARD_HANDLE(Geom_OffsetSurface, GeomSurface)
@@ -345,7 +345,7 @@ public:
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this offset surface.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! returns an  equivalent surface of the offset surface
   //! when  the basis surface   is a canonic  surface or a

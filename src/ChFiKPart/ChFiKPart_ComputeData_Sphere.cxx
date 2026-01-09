@@ -46,8 +46,8 @@
 //=======================================================================
 Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
                                   const Handle(ChFiDS_SurfData)&   Data,
-                                  const Handle(Adaptor3d_Surface)& S1,
-                                  const Handle(Adaptor3d_Surface)& S2,
+                                  const Handle(SurfaceAdaptor)& S1,
+                                  const Handle(SurfaceAdaptor)& S2,
                                   const TopAbs_Orientation         OrFace1,
                                   const TopAbs_Orientation /*OrFace2*/,
                                   const TopAbs_Orientation Or1,
@@ -75,7 +75,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
     df1.Reverse();
   S2->D0(P1S2.X(), P1S2.Y(), p2);
   S2->D0(P2S2.X(), P2S2.Y(), p3);
-  gp_Circ       ci    = gce_MakeCirc(p1, p2, p3);
+  gp_Circ       ci    = CircleBuilder1(p1, p2, p3);
   Dir3d        di    = ci.Axis().Direction();
   Point3d        pp    = ci.Location();
   Standard_Real rr    = ci.Radius();

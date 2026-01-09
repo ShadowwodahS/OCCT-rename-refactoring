@@ -21,6 +21,6 @@
 #include <TColgp_Array2OfPnt2d.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(TColgp_HArray2OfPnt2d, TColgp_Array2OfPnt2d)
+DEFINE_HARRAY2(Point2dGrid, TColgp_Array2OfPnt2d)
 
 #endif

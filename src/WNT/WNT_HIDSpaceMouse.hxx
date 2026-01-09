@@ -65,7 +65,7 @@
 //!      break;
 //!    }
 //!
-//!    Aspect_VKeySet& aKeys = theViewCtrl.ChangeKeys();
+//!    VKeySet& aKeys = theViewCtrl.ChangeKeys();
 //!    const double aTimeStamp = theViewCtrl.EventTime();
 //!    HIDSpaceMouse aSpaceData (aDevInfo.hid.dwProductId, aRawInput->data.hid.bRawData,
 //!    aRawInput->data.hid.dwSizeHid); if (aSpaceData.IsTranslation())

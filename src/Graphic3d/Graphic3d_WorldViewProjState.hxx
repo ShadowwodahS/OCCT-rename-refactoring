@@ -21,18 +21,18 @@
 
 //! Helper1 class for keeping reference on world-view-projection state.
 //! Helpful for synchronizing state of WVP dependent data structures.
-class Graphic3d_WorldViewProjState
+class WorldViewProjState1
 {
 public:
   //! Default constructor.
-  Graphic3d_WorldViewProjState() { Reset(); }
+  WorldViewProjState1() { Reset(); }
 
   //! Constructor for custom projector type.
   //! @param[in] theProjectionState  the projection state.
   //! @param[in] theWorldViewState  the world view state.
   //! @param[in] theCamera  the pointer to the class supplying projection and
   //!                       world view matrices (camera).
-  Graphic3d_WorldViewProjState(const Standard_Size       theProjectionState,
+  WorldViewProjState1(const Standard_Size       theProjectionState,
                                const Standard_Size       theWorldViewState,
                                const RefObject* theCamera = NULL)
   {
@@ -83,7 +83,7 @@ public:
 public:
   //! Compare projection with other state.
   //! @return true when the projection of the given camera state differs from this one.
-  Standard_Boolean IsProjectionChanged(const Graphic3d_WorldViewProjState& theState)
+  Standard_Boolean IsProjectionChanged(const WorldViewProjState1& theState)
   {
     return myIsValid != theState.myIsValid || myCamera != theState.myCamera
            || myProjectionState != theState.myProjectionState;
@@ -91,7 +91,7 @@ public:
 
   //! Compare world view transformation with other state.
   //! @return true when the orientation of the given camera state differs from this one.
-  Standard_Boolean IsWorldViewChanged(const Graphic3d_WorldViewProjState& theState)
+  Standard_Boolean IsWorldViewChanged(const WorldViewProjState1& theState)
   {
     return myIsValid != theState.myIsValid || myCamera != theState.myCamera
            || myWorldViewState != theState.myWorldViewState;
@@ -99,7 +99,7 @@ public:
 
   //! Compare with other world view projection state.
   //! @return true when the projection of the given camera state differs from this one.
-  Standard_Boolean IsChanged(const Graphic3d_WorldViewProjState& theState)
+  Standard_Boolean IsChanged(const WorldViewProjState1& theState)
   {
     return *this != theState;
   }
@@ -107,14 +107,14 @@ public:
 public:
   //! Compare with other world view projection state.
   //! @return true if the other projection state is different to this one.
-  bool operator!=(const Graphic3d_WorldViewProjState& theOther) const
+  bool operator!=(const WorldViewProjState1& theOther) const
   {
     return !(*this == theOther);
   }
 
   //! Compare with other world view projection state.
   //! @return true if the other projection state is equal to this one.
-  bool operator==(const Graphic3d_WorldViewProjState& theOther) const
+  bool operator==(const WorldViewProjState1& theOther) const
   {
     return myIsValid == theOther.myIsValid && myCamera == theOther.myCamera
            && myProjectionState == theOther.myProjectionState

@@ -46,7 +46,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DDF_Browser, Drawable3D)
 
 //=================================================================================================
 
-DDF_Browser::DDF_Browser(const Handle(TDF_Data)& aDF)
+DDF_Browser::DDF_Browser(const Handle(Data2)& aDF)
     : myDF(aDF)
 {
 }
@@ -82,14 +82,14 @@ void DDF_Browser::Whatis(DrawInterpreter& I) const
 
 //=================================================================================================
 
-void DDF_Browser::Data(const Handle(TDF_Data)& aDF)
+void DDF_Browser::Data(const Handle(Data2)& aDF)
 {
   myDF = aDF;
 }
 
 //=================================================================================================
 
-Handle(TDF_Data) DDF_Browser::Data() const
+Handle(Data2) DDF_Browser::Data() const
 {
   return myDF;
 }

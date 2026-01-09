@@ -21,7 +21,7 @@
 #include <Adaptor3d_Surface.hxx>
 
 class gp_Pnt2d;
-class Adaptor3d_HVertex;
+class HandleVertex;
 class Point3d;
 
 //! Tool for the intersection between 2 surfaces.
@@ -33,25 +33,25 @@ public:
 
   Standard_EXPORT HInterTool();
 
-  static Standard_Boolean SingularOnUMin(const Handle(Adaptor3d_Surface)& S);
+  static Standard_Boolean SingularOnUMin(const Handle(SurfaceAdaptor)& S);
 
-  static Standard_Boolean SingularOnUMax(const Handle(Adaptor3d_Surface)& S);
+  static Standard_Boolean SingularOnUMax(const Handle(SurfaceAdaptor)& S);
 
-  static Standard_Boolean SingularOnVMin(const Handle(Adaptor3d_Surface)& S);
+  static Standard_Boolean SingularOnVMin(const Handle(SurfaceAdaptor)& S);
 
-  static Standard_Boolean SingularOnVMax(const Handle(Adaptor3d_Surface)& S);
+  static Standard_Boolean SingularOnVMax(const Handle(SurfaceAdaptor)& S);
 
-  Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static Standard_Integer NbSamplesU(const Handle(SurfaceAdaptor)& S,
                                                      const Standard_Real              u1,
                                                      const Standard_Real              u2);
 
-  Standard_EXPORT static Standard_Integer NbSamplesV(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static Standard_Integer NbSamplesV(const Handle(SurfaceAdaptor)& S,
                                                      const Standard_Real              v1,
                                                      const Standard_Real              v2);
 
-  Standard_EXPORT Standard_Integer NbSamplePoints(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT Standard_Integer NbSamplePoints(const Handle(SurfaceAdaptor)& S);
 
-  Standard_EXPORT void SamplePoint(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT void SamplePoint(const Handle(SurfaceAdaptor)& S,
                                    const Standard_Integer           Index,
                                    Standard_Real&                   U,
                                    Standard_Real&                   V) const;
@@ -91,11 +91,11 @@ public:
   //! that the vertex and another point meet, i-e
   //! if Abs(parameter(Vertex) - parameter(OtherPnt))<=
   //! Tolerance, the points are "merged".
-  Standard_EXPORT static Standard_Real Tolerance(const Handle(Adaptor3d_HVertex)& V,
+  Standard_EXPORT static Standard_Real Tolerance(const Handle(HandleVertex)& V,
                                                  const Handle(Adaptor2d_Curve2d)& C);
 
   //! Returns the parameter of the vertex V on the arc A.
-  Standard_EXPORT static Standard_Real Parameter(const Handle(Adaptor3d_HVertex)& V,
+  Standard_EXPORT static Standard_Real Parameter(const Handle(HandleVertex)& V,
                                                  const Handle(Adaptor2d_Curve2d)& C);
 
   //! Returns the number of intersection points on the arc A.
@@ -119,7 +119,7 @@ public:
   //! vertex on the arc A.
   Standard_EXPORT static void Vertex(const Handle(Adaptor2d_Curve2d)& C,
                                      const Standard_Integer           Index,
-                                     Handle(Adaptor3d_HVertex)&       V);
+                                     Handle(HandleVertex)&       V);
 
   //! returns the number of part of A solution of the
   //! of intersection problem.

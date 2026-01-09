@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean Sweep_NumShapeIterator::More() const
+inline Standard_Boolean NumShapeIterator::More() const
 {
   return myMore;
 }
@@ -29,7 +29,7 @@ inline Standard_Boolean Sweep_NumShapeIterator::More() const
 // purpose  :
 //=======================================================================
 
-inline const SweepNumShape& Sweep_NumShapeIterator::Value() const
+inline const SweepNumShape& NumShapeIterator::Value() const
 {
   return myCurrentNumShape;
 }
@@ -39,7 +39,7 @@ inline const SweepNumShape& Sweep_NumShapeIterator::Value() const
 // purpose  :
 //=======================================================================
 
-inline TopAbs_Orientation Sweep_NumShapeIterator::Orientation() const
+inline TopAbs_Orientation NumShapeIterator::Orientation() const
 {
   return myCurrentOrientation;
 }

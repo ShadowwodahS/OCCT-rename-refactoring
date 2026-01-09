@@ -20,7 +20,7 @@
 //=================================================================================================
 
 GeomConvert_FuncCylinderLSDist::GeomConvert_FuncCylinderLSDist(
-  const Handle(TColgp_HArray1OfXYZ)& thePoints,
+  const Handle(XYZArray)& thePoints,
   const Dir3d&                      theDir)
     : myPoints(thePoints),
       myDir(theDir)

@@ -468,7 +468,7 @@ void BRepFill_PipeShell::Add(const TopoShape&    Profile,
 
     Handle(GeomFill_LocationGuide) Loc =
       Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law1(1));
-    Handle(TColgp_HArray1OfPnt2d) ParAndRad;
+    Handle(Point2dArray) ParAndRad;
     Loc->ComputeAutomaticLaw(ParAndRad);
 
     // Compuite initial width of section (this will be 1.)
@@ -479,8 +479,8 @@ void BRepFill_PipeShell::Add(const TopoShape&    Profile,
     TopoFace ProfileFace = BRepLib_MakeFace(TopoDS::Wire(Profile), Standard_True); // only plane
     Handle(GeomSurface)        thePlane = BRepInspector::Surface(ProfileFace);
     Handle(GeomAdaptor_Surface) GAHplane = new GeomAdaptor_Surface(thePlane);
-    IntCurveSurface_HInter      Intersector;
-    Handle(Adaptor3d_Curve)     aHCurve[2];
+    HandleIntersection      Intersector;
+    Handle(Curve5)     aHCurve[2];
     aHCurve[0] = Loc->GetCurve();
     aHCurve[1] = Loc->Guide();
     Point3d           PointsOnSpines[2];
@@ -533,7 +533,7 @@ void BRepFill_PipeShell::Add(const TopoShape&    Profile,
 // purpose  : Section + law of homothety
 //=======================================================================
 void BRepFill_PipeShell::SetLaw(const TopoShape&         Profile,
-                                const Handle(Law_Function)& L,
+                                const Handle(Function2)& L,
                                 const Standard_Boolean      WithContact,
                                 const Standard_Boolean      WithCorrection)
 {
@@ -548,7 +548,7 @@ void BRepFill_PipeShell::SetLaw(const TopoShape&         Profile,
 // purpose  :  Section + Law1 of homothety
 //=======================================================================
 void BRepFill_PipeShell::SetLaw(const TopoShape&         Profile,
-                                const Handle(Law_Function)& L,
+                                const Handle(Function2)& L,
                                 const TopoVertex&        Location,
                                 const Standard_Boolean      WithContact,
                                 const Standard_Boolean      WithCorrection)
@@ -1157,7 +1157,7 @@ void BRepFill_PipeShell::Prepare()
   {
     Standard_Real                  fs, f, l, Delta, Length;
     Handle(GeomFill_LocationGuide) Loc;
-    Handle(GeomFill_SectionLaw)    Sec = mySection->ConcatenedLaw();
+    Handle(SectionLaw)    Sec = mySection->ConcatenedLaw();
     myLocation->CurvilinearBounds(myLocation->NbLaw(), f, Length);
     Sec->GetDomain(fs, l);
     Delta = (l - fs) / Length;

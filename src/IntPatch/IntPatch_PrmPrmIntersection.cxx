@@ -45,8 +45,8 @@ static void SectionPointToParameters(const SectionPoint&   Sp,
                                      Standard_Real&             u2,
                                      Standard_Real&             v2);
 
-static void AdjustOnPeriodic(const Handle(Adaptor3d_Surface)& Surf1,
-                             const Handle(Adaptor3d_Surface)& Surf2,
+static void AdjustOnPeriodic(const Handle(SurfaceAdaptor)& Surf1,
+                             const Handle(SurfaceAdaptor)& Surf2,
                              IntPatch_SequenceOfLine&         aSLin);
 
 static PointOn2Surfaces MakeNewPoint(const PointOn2Surfaces& replacePnt,
@@ -61,8 +61,8 @@ static void AddWLine(IntPatch_SequenceOfLine&      theLines,
                      const Handle(IntPatch_WLine)& theWLine,
                      const Standard_Real           Deflection);
 
-static void SeveralWlinesProcessing(const Handle(Adaptor3d_Surface)& theSurf1,
-                                    const Handle(Adaptor3d_Surface)& theSurf2,
+static void SeveralWlinesProcessing(const Handle(SurfaceAdaptor)& theSurf1,
+                                    const Handle(SurfaceAdaptor)& theSurf2,
                                     const IntPatch_SequenceOfLine&   theSLin,
                                     const Standard_Real* const       thePeriodsArr,
                                     const IntSurf_TypeTrans          theTrans1,
@@ -90,7 +90,7 @@ static void SeveralWlinesProcessing(const Handle(Adaptor3d_Surface)& theSurf1,
     Standard_Integer iL;
     for (iL = 1; iL <= theSLin.Length(); iL++)
     {
-      const Handle(IntPatch_Line)& aSLine = theSLin.Value(iL);
+      const Handle(Line2)& aSLine = theSLin.Value(iL);
       IntPatch_IType               aType  = aSLine->ArcType();
       if (aType != IntPatch_Walking)
         continue;
@@ -131,7 +131,7 @@ static void SeveralWlinesProcessing(const Handle(Adaptor3d_Surface)& theSurf1,
 
     if (VDMin != 0)
     {
-      const Handle(IntPatch_Line)& aSLine = theSLin.Value(WLDMin);
+      const Handle(Line2)& aSLine = theSLin.Value(WLDMin);
       const Handle(IntPatch_WLine) aWLine = Handle(IntPatch_WLine)::DownCast(aSLine);
       Standard_Integer tiVpar = (Standard_Integer)aWLine->Vertex(VDMin).ParameterOnLine();
       Standard_Integer ciVpar = (Standard_Integer)theWLline->Vertex(ciV).ParameterOnLine();
@@ -140,7 +140,7 @@ static void SeveralWlinesProcessing(const Handle(Adaptor3d_Surface)& theSurf1,
       theWLline->Point(ciVpar).Parameters(u11, v11, u12, v12);
       aWLine->Point(tiVpar).Parameters(u21, v21, u22, v22);
 
-      Handle(IntSurf_LineOn2S) newL2s     = new IntSurf_LineOn2S();
+      Handle(LineOnTwoSurfaces) newL2s     = new LineOnTwoSurfaces();
       PointOn2Surfaces          replacePnt = aWLine->Point(tiVpar);
       Standard_Integer         cNbP       = theWLline->NbPnts();
 
@@ -298,7 +298,7 @@ ParameterParameterIntersection::ParameterParameterIntersection()
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
                                           const Standard_Real                TolTangency,
                                           const Standard_Real                Epsilon,
@@ -311,10 +311,10 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const IntPatch_Polyhedron&         Poly1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
-                                          const Handle(Adaptor3d_Surface)&   Surf2,
+                                          const Handle(SurfaceAdaptor)&   Surf2,
                                           const Handle(Adaptor3d_TopolTool)& D2,
                                           const Standard_Real                TolTangency,
                                           const Standard_Real                Epsilon,
@@ -327,9 +327,9 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
-                                          const Handle(Adaptor3d_Surface)&   Surf2,
+                                          const Handle(SurfaceAdaptor)&   Surf2,
                                           const IntPatch_Polyhedron&         Poly2,
                                           const Handle(Adaptor3d_TopolTool)& D2,
                                           const Standard_Real                TolTangency,
@@ -343,10 +343,10 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const IntPatch_Polyhedron&         Poly1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
-                                          const Handle(Adaptor3d_Surface)&   Surf2,
+                                          const Handle(SurfaceAdaptor)&   Surf2,
                                           const IntPatch_Polyhedron&         Poly2,
                                           const Handle(Adaptor3d_TopolTool)& D2,
                                           const Standard_Real                TolTangency,
@@ -354,7 +354,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
                                           const Standard_Real                Deflection,
                                           const Standard_Real                Increment)
 {
-  IntPatch_InterferencePolyhedron Interference(Poly1, Poly2);
+  PolyhedronInterference Interference(Poly1, Poly2);
   empt = Standard_True;
   done = Standard_True;
   SLin.Clear();
@@ -864,7 +864,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const IntPatch_Polyhedron&         Poly1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
                                           const Standard_Real                TolTangency,
@@ -872,7 +872,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
                                           const Standard_Real                Deflection,
                                           const Standard_Real                Increment)
 {
-  IntPatch_InterferencePolyhedron Interference(Poly1);
+  PolyhedronInterference Interference(Poly1);
   empt = Standard_True;
   done = Standard_True;
   SLin.Clear();
@@ -1077,7 +1077,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
                       trans2 = IntSurf_Out;
                     }
 
-                    IntSurf_LineOn2S LineOn2S;
+                    LineOnTwoSurfaces LineOn2S;
                     Standard_Integer nbpw, imin, imax, i;
                     nbpw = PW.Line()->NbPoints();
                     Standard_Real u1, v1, u2, v2;
@@ -1107,7 +1107,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
                     if (imin < imax)
                     {
-                      Handle(IntSurf_LineOn2S) PWLine = new IntSurf_LineOn2S();
+                      Handle(LineOnTwoSurfaces) PWLine = new LineOnTwoSurfaces();
                       for (i = imin; i <= imax; i++)
                         PWLine->Add(PW.Line()->Value(i));
 
@@ -1284,7 +1284,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
                     trans2 = IntSurf_Out;
                   }
 
-                  IntSurf_LineOn2S LineOn2S;
+                  LineOnTwoSurfaces LineOn2S;
                   Standard_Integer nbp, imin, imax, i;
                   nbp = PW.Line()->NbPoints();
                   Standard_Real u1, v1, u2, v2;
@@ -1314,7 +1314,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
                   if (imin < imax)
                   {
-                    Handle(IntSurf_LineOn2S) PWLine = new IntSurf_LineOn2S();
+                    Handle(LineOnTwoSurfaces) PWLine = new LineOnTwoSurfaces();
                     for (i = imin; i <= imax; i++)
                       PWLine->Add(PW.Line()->Value(i));
 
@@ -1379,9 +1379,9 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-Handle(IntPatch_Line) ParameterParameterIntersection::NewLine(
-  const Handle(Adaptor3d_Surface)& Surf1,
-  const Handle(Adaptor3d_Surface)& Surf2,
+Handle(Line2) ParameterParameterIntersection::NewLine(
+  const Handle(SurfaceAdaptor)& Surf1,
+  const Handle(SurfaceAdaptor)& Surf2,
   const Standard_Integer           NumLine,
   const Standard_Integer           Low,
   const Standard_Integer           High,
@@ -1434,7 +1434,7 @@ Handle(IntPatch_Line) ParameterParameterIntersection::NewLine(
     AC(i) = AC(i - 1) + Sqrt((du1 * du1) + (dv1 * dv1));
   }
 
-  Handle(IntSurf_LineOn2S) ResultPntOn2SLine = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces) ResultPntOn2SLine = new LineOnTwoSurfaces();
 
   PointOn2Surfaces      StartPOn2S;
   TColStd_Array1OfReal StartParams(1, 4);
@@ -1710,9 +1710,9 @@ void ParameterParameterIntersection::Remplit(const Standard_Integer             
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
-                                          const Handle(Adaptor3d_Surface)&   Surf2,
+                                          const Handle(SurfaceAdaptor)&   Surf2,
                                           const Handle(Adaptor3d_TopolTool)& D2,
                                           const Standard_Real                TolTangency,
                                           const Standard_Real                Epsilon,
@@ -2034,9 +2034,9 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
-                                          const Handle(Adaptor3d_Surface)&   Surf2,
+                                          const Handle(SurfaceAdaptor)&   Surf2,
                                           const Handle(Adaptor3d_TopolTool)& D2,
                                           const Standard_Real                U1Depart,
                                           const Standard_Real                V1Depart,
@@ -2184,8 +2184,8 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
 
 //=================================================================================================
 
-void AdjustOnPeriodic(const Handle(Adaptor3d_Surface)& Surf1,
-                      const Handle(Adaptor3d_Surface)& Surf2,
+void AdjustOnPeriodic(const Handle(SurfaceAdaptor)& Surf1,
+                      const Handle(SurfaceAdaptor)& Surf2,
                       IntPatch_SequenceOfLine&         aSLin)
 {
   Standard_Boolean bIsPeriodic[4], bModified, bIsNull, bIsPeriod;
@@ -2230,7 +2230,7 @@ void AdjustOnPeriodic(const Handle(Adaptor3d_Surface)& Surf1,
   for (i = 1; i <= aNbLines; ++i)
   {
     Handle(IntPatch_WLine)   aIL = Handle(IntPatch_WLine)::DownCast(aSLin.Value(i));
-    Handle(IntSurf_LineOn2S) aL  = aIL->Curve();
+    Handle(LineOnTwoSurfaces) aL  = aIL->Curve();
 
     aNbPx = aL->NbPoints();
     if (aNbPx < 10)
@@ -2341,9 +2341,9 @@ PointOn2Surfaces MakeNewPoint(const PointOn2Surfaces& replacePnt,
 // function : Perform
 // purpose  : base SS Int. function
 //==================================================================================
-void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+void ParameterParameterIntersection::Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                           const Handle(Adaptor3d_TopolTool)& D1,
-                                          const Handle(Adaptor3d_Surface)&   Surf2,
+                                          const Handle(SurfaceAdaptor)&   Surf2,
                                           const Handle(Adaptor3d_TopolTool)& D2,
                                           const Standard_Real                TolTangency,
                                           const Standard_Real                Epsilon,
@@ -3022,7 +3022,7 @@ void ParameterParameterIntersection::Perform(const Handle(Adaptor3d_Surface)&   
     return;
   } // if((NbU1*NbV1<=Limit && NbV2*NbU2<=Limit)) {
 
-  Handle(IntSurf_LineOn2S) LOn2S = new IntSurf_LineOn2S();
+  Handle(LineOnTwoSurfaces) LOn2S = new LineOnTwoSurfaces();
   PointDepart(LOn2S, Surf1, NbU1, NbV1, Surf2, NbU2, NbV2);
   empt = Standard_True;
   done = Standard_True;
@@ -3312,11 +3312,11 @@ private:
 // modified by NIZNHY-PKV Tue May 24 11:38:55 2011t
 //=================================================================================================
 
-void ParameterParameterIntersection::PointDepart(Handle(IntSurf_LineOn2S)&        LineOn2S,
-                                              const Handle(Adaptor3d_Surface)& S1,
+void ParameterParameterIntersection::PointDepart(Handle(LineOnTwoSurfaces)&        LineOn2S,
+                                              const Handle(SurfaceAdaptor)& S1,
                                               const Standard_Integer           SU_1,
                                               const Standard_Integer           SV_1,
-                                              const Handle(Adaptor3d_Surface)& S2,
+                                              const Handle(SurfaceAdaptor)& S2,
                                               const Standard_Integer           SU_2,
                                               const Standard_Integer           SV_2) const
 {

@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-OpenGl_TileSampler::OpenGl_TileSampler()
+TileSampler::TileSampler()
     : myLastSample(0),
       myScaleFactor(1.0f),
       myTileSize(0),
@@ -33,7 +33,7 @@ OpenGl_TileSampler::OpenGl_TileSampler()
 
 //=================================================================================================
 
-void OpenGl_TileSampler::GrabVarianceMap(const Handle(OpenGl_Context)& theContext,
+void TileSampler::GrabVarianceMap(const Handle(OpenGl_Context)& theContext,
                                          const Handle(OpenGl_Texture)& theTexture)
 {
   if (theTexture.IsNull())
@@ -73,7 +73,7 @@ void OpenGl_TileSampler::GrabVarianceMap(const Handle(OpenGl_Context)& theContex
       const int aRawValue = myVarianceRaw.Value(aRowIter, aColIter);
       Standard_RangeError_Raise_if(
         aRawValue < 0,
-        "Internal Error: signed integer overflow within OpenGl_TileSampler");
+        "Internal Error: signed integer overflow within TileSampler");
 
       float& aTile = myVarianceMap.ChangeValue(aRowIter, aColIter);
       aTile        = aFactor * float(aRawValue);
@@ -96,13 +96,13 @@ void OpenGl_TileSampler::GrabVarianceMap(const Handle(OpenGl_Context)& theContex
   }
 
 #ifdef RAY_TRACE_PRINT_DEBUG_INFO
-  dumpMap(std::cerr, myVarianceRaw, "OpenGl_TileSampler, Variance map");
+  dumpMap(std::cerr, myVarianceRaw, "TileSampler, Variance map");
 #endif
 }
 
 //=================================================================================================
 
-void OpenGl_TileSampler::dumpMap(std::ostream&                     theStream,
+void TileSampler::dumpMap(std::ostream&                     theStream,
                                  const Image_PixMapTypedData<int>& theMap,
                                  const char*                       theTitle) const
 {
@@ -120,7 +120,7 @@ void OpenGl_TileSampler::dumpMap(std::ostream&                     theStream,
 
 //=================================================================================================
 
-Graphic3d_Vec2i OpenGl_TileSampler::nextTileToSample()
+Graphic3d_Vec2i TileSampler::nextTileToSample()
 {
   Graphic3d_Vec2i aTile(0, 0);
   const float     aKsiX = mySampler.sample(0, myLastSample) * myMarginalMap.back();
@@ -148,7 +148,7 @@ Graphic3d_Vec2i OpenGl_TileSampler::nextTileToSample()
 
 //=================================================================================================
 
-void OpenGl_TileSampler::SetSize(const Graphic3d_RenderingParams& theParams,
+void TileSampler::SetSize(const Graphic3d_RenderingParams& theParams,
                                  const Graphic3d_Vec2i&           theSize)
 {
   if (theSize.x() <= 0 || theSize.y() <= 0)
@@ -215,7 +215,7 @@ void OpenGl_TileSampler::SetSize(const Graphic3d_RenderingParams& theParams,
 
 //=================================================================================================
 
-bool OpenGl_TileSampler::upload(const Handle(OpenGl_Context)& theContext,
+bool TileSampler::upload(const Handle(OpenGl_Context)& theContext,
                                 const Handle(OpenGl_Texture)& theSamplesTexture,
                                 const Handle(OpenGl_Texture)& theOffsetsTexture,
                                 const bool                    theAdaptive)
@@ -250,11 +250,11 @@ bool OpenGl_TileSampler::upload(const Handle(OpenGl_Context)& theContext,
   }
 
 #ifdef RAY_TRACE_PRINT_DEBUG_INFO
-  dumpMap(std::cerr, myTiles, "OpenGl_TileSampler, Samples");
+  dumpMap(std::cerr, myTiles, "TileSampler, Samples");
 #endif
 
-  // Fill in myTileSamples map from myTiles with an actual number of Samples per Tile as multiple of
-  // Tile Area (e.g. tile that should be rendered ones will have amount of samples equal to its are
+  // Fill in myTileSamples map from myTiles with an actual number of Samples per Tile1 as multiple of
+  // Tile1 Area (e.g. tile that should be rendered ones will have amount of samples equal to its are
   // 4x4=16). This map is used for discarding tile fragments having <=0 of samples left within
   // multi-pass rendering.
   myTileSamples.Init(0);

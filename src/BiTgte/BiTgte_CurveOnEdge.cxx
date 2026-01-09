@@ -35,7 +35,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <TopoDS_Edge.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BiTgte_CurveOnEdge, Adaptor3d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(BiTgte_CurveOnEdge, Curve5)
 
 //=================================================================================================
 
@@ -56,7 +56,7 @@ BiTgte_CurveOnEdge::BiTgte_CurveOnEdge(const TopoEdge& theEonF, const TopoEdge& 
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) BiTgte_CurveOnEdge::ShallowCopy() const
+Handle(Curve5) BiTgte_CurveOnEdge::ShallowCopy() const
 {
   Handle(BiTgte_CurveOnEdge) aCopy = new BiTgte_CurveOnEdge();
 
@@ -138,7 +138,7 @@ void BiTgte_CurveOnEdge::Intervals(TColStd_Array1OfReal&, const GeomAbs_Shape) c
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) BiTgte_CurveOnEdge::Trim(const Standard_Real,
+Handle(Curve5) BiTgte_CurveOnEdge::Trim(const Standard_Real,
                                                  const Standard_Real,
                                                  const Standard_Real) const
 {

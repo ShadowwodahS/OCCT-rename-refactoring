@@ -41,7 +41,7 @@
 #include <TopoDS_Wire.hxx>
 #include <TopTools_Array1OfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_Line3DDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_Line3DDriver, FunctionDriver1)
 
 //=================================================================================================
 

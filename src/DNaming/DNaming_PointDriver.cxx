@@ -32,7 +32,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_PointDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_PointDriver, FunctionDriver1)
 
 // OCCT
 //  OCAF

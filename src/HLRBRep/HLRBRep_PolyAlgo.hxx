@@ -37,7 +37,7 @@
 class GeomSurface;
 class TopoEdge;
 class HLRAlgo_PolyInternalData;
-class HLRAlgo_EdgeStatus;
+class EdgeStatus;
 struct TriangleData;
 
 class HLRBRep_PolyAlgo;
@@ -154,7 +154,7 @@ public:
 
   void NextHide() { myAlgo->NextHide(); }
 
-  Standard_EXPORT BiPoint::PointsT1& Hide(HLRAlgo_EdgeStatus& status,
+  Standard_EXPORT BiPoint::PointsT1& Hide(EdgeStatus& status,
                                                  TopoShape&       S,
                                                  Standard_Boolean&   reg1,
                                                  Standard_Boolean&   regn,
@@ -192,18 +192,18 @@ private:
 
   Standard_EXPORT void StoreShell(const TopoShape&                                   theShape,
                                   Standard_Integer&                                     theIShell,
-                                  NCollection_Array1<Handle(HLRAlgo_PolyShellData)>&    theShell,
+                                  NCollection_Array1<Handle(PolyShellData)>&    theShell,
                                   const Standard_Boolean                                theIsoledF,
                                   const Standard_Boolean                                theIsoledE,
                                   TColStd_Array1OfInteger&                              theES,
-                                  NCollection_Array1<Handle(HLRAlgo_PolyData)>&         thePD,
+                                  NCollection_Array1<Handle(PolyData1)>&         thePD,
                                   NCollection_Array1<Handle(HLRAlgo_PolyInternalData)>& thePID,
                                   TopTools_MapOfShape& theShapeMap1,
                                   TopTools_MapOfShape& theShapeMap2);
 
   Standard_EXPORT Standard_Boolean Normal(const Standard_Integer                 theINode,
-                                          HLRAlgo_PolyInternalNode::NodeIndices1& theNodIndices,
-                                          HLRAlgo_PolyInternalNode::NodeData1&    theNod1RValues,
+                                          PolyInternalNode::NodeIndices1& theNodIndices,
+                                          PolyInternalNode::NodeData1&    theNod1RValues,
                                           HLRAlgo_Array1OfTData&                 theTData,
                                           HLRAlgo_Array1OfPISeg&                 thePISeg,
                                           HLRAlgo_Array1OfPINod&                 thePINod,
@@ -211,7 +211,7 @@ private:
 
   Standard_EXPORT Standard_Boolean
     AverageNormal(const Standard_Integer                 theINode,
-                  HLRAlgo_PolyInternalNode::NodeIndices1& theNodeIndices,
+                  PolyInternalNode::NodeIndices1& theNodeIndices,
                   HLRAlgo_Array1OfTData&                 theTData,
                   HLRAlgo_Array1OfPISeg&                 thePISeg,
                   HLRAlgo_Array1OfPINod&                 thePINod,
@@ -220,7 +220,7 @@ private:
                   Standard_Real&                         theZ) const;
 
   Standard_Boolean AverageNormal(const Standard_Integer                 theINode,
-                                 HLRAlgo_PolyInternalNode::NodeIndices1& theNodeIndices,
+                                 PolyInternalNode::NodeIndices1& theNodeIndices,
                                  HLRAlgo_Array1OfTData&                 theTData,
                                  HLRAlgo_Array1OfPISeg&                 thePISeg,
                                  HLRAlgo_Array1OfPINod&                 thePINod,
@@ -270,10 +270,10 @@ private:
                                      const Standard_Integer                  e,
                                      Standard_Real&                          U1,
                                      Standard_Real&                          U2,
-                                     HLRAlgo_PolyInternalNode::NodeIndices1&  theNodeIndices1,
-                                     HLRAlgo_PolyInternalNode::NodeData1&     Nod11RValues,
-                                     HLRAlgo_PolyInternalNode::NodeIndices1&  theNodeIndices2,
-                                     HLRAlgo_PolyInternalNode::NodeData1&     Nod12RValues,
+                                     PolyInternalNode::NodeIndices1&  theNodeIndices1,
+                                     PolyInternalNode::NodeData1&     Nod11RValues,
+                                     PolyInternalNode::NodeIndices1&  theNodeIndices2,
+                                     PolyInternalNode::NodeData1&     Nod12RValues,
                                      const Standard_Integer                  i1p1,
                                      const Standard_Integer                  i1p2,
                                      const Standard_Integer                  i1,
@@ -299,10 +299,10 @@ private:
                                      Standard_Real&                          U1,
                                      Standard_Real&                          U2,
                                      const GeomAbs_Shape                     rg,
-                                     HLRAlgo_PolyInternalNode::NodeIndices1&  Nod11Indices,
-                                     HLRAlgo_PolyInternalNode::NodeData1&     Nod11RValues,
-                                     HLRAlgo_PolyInternalNode::NodeIndices1&  Nod12Indices,
-                                     HLRAlgo_PolyInternalNode::NodeData1&     Nod12RValues,
+                                     PolyInternalNode::NodeIndices1&  Nod11Indices,
+                                     PolyInternalNode::NodeData1&     Nod11RValues,
+                                     PolyInternalNode::NodeIndices1&  Nod12Indices,
+                                     PolyInternalNode::NodeData1&     Nod12RValues,
                                      const Standard_Integer                  i1p1,
                                      const Standard_Integer                  i1p2,
                                      const Standard_Integer                  i1,
@@ -310,10 +310,10 @@ private:
                                      HLRAlgo_Array1OfTData*&                 TData1,
                                      HLRAlgo_Array1OfPISeg*&                 PISeg1,
                                      HLRAlgo_Array1OfPINod*&                 PINod1,
-                                     HLRAlgo_PolyInternalNode::NodeIndices1&  Nod21Indices,
-                                     HLRAlgo_PolyInternalNode::NodeData1&     Nod21RValues,
-                                     HLRAlgo_PolyInternalNode::NodeIndices1&  Nod22Indices,
-                                     HLRAlgo_PolyInternalNode::NodeData1&     Nod22RValues,
+                                     PolyInternalNode::NodeIndices1&  Nod21Indices,
+                                     PolyInternalNode::NodeData1&     Nod21RValues,
+                                     PolyInternalNode::NodeIndices1&  Nod22Indices,
+                                     PolyInternalNode::NodeData1&     Nod22RValues,
                                      const Standard_Integer                  i2p1,
                                      const Standard_Integer                  i2p2,
                                      const Standard_Integer                  i2,
@@ -324,8 +324,8 @@ private:
 
   Standard_EXPORT Standard_Boolean Interpolation(const Standard_Real                 U1,
                                                  const Standard_Real                 U2,
-                                                 HLRAlgo_PolyInternalNode::NodeData1& Nod1RValues,
-                                                 HLRAlgo_PolyInternalNode::NodeData1& Nod2RValues,
+                                                 PolyInternalNode::NodeData1& Nod1RValues,
+                                                 PolyInternalNode::NodeData1& Nod2RValues,
                                                  Standard_Real&                      X3,
                                                  Standard_Real&                      Y3,
                                                  Standard_Real&                      Z3,
@@ -352,10 +352,10 @@ private:
                                          const Standard_Integer                  e,
                                          Standard_Real&                          U1,
                                          Standard_Real&                          U2,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod11Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod11RValues,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod12Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod12RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod11Indices,
+                                         PolyInternalNode::NodeData1&     Nod11RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod12Indices,
+                                         PolyInternalNode::NodeData1&     Nod12RValues,
                                          const Standard_Integer                  i1p1,
                                          const Standard_Integer                  i1p2,
                                          const Standard_Integer                  i1,
@@ -391,10 +391,10 @@ private:
                                          const Standard_Integer                  e,
                                          Standard_Real&                          U1,
                                          Standard_Real&                          U2,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod11Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod11RValues,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod12Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod12RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod11Indices,
+                                         PolyInternalNode::NodeData1&     Nod11RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod12Indices,
+                                         PolyInternalNode::NodeData1&     Nod12RValues,
                                          const Standard_Integer                  i1p1,
                                          const Standard_Integer                  i1p2,
                                          const Standard_Integer                  i1,
@@ -402,10 +402,10 @@ private:
                                          HLRAlgo_Array1OfTData*&                 TData1,
                                          HLRAlgo_Array1OfPISeg*&                 PISeg1,
                                          HLRAlgo_Array1OfPINod*&                 PINod1,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod21Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod21RValues,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod22Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod22RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod21Indices,
+                                         PolyInternalNode::NodeData1&     Nod21RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod22Indices,
+                                         PolyInternalNode::NodeData1&     Nod22RValues,
                                          const Standard_Integer                  i2p1,
                                          const Standard_Integer                  i2p2,
                                          const Standard_Integer                  i2,
@@ -441,10 +441,10 @@ private:
                                          const Standard_Integer                  e,
                                          Standard_Real&                          U1,
                                          Standard_Real&                          U2,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod11Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod11RValues,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod12Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod12RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod11Indices,
+                                         PolyInternalNode::NodeData1&     Nod11RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod12Indices,
+                                         PolyInternalNode::NodeData1&     Nod12RValues,
                                          const Standard_Integer                  i1p1,
                                          const Standard_Integer                  i1p2,
                                          const Standard_Integer                  i1,
@@ -452,10 +452,10 @@ private:
                                          HLRAlgo_Array1OfTData*&                 TData1,
                                          HLRAlgo_Array1OfPISeg*&                 PISeg1,
                                          HLRAlgo_Array1OfPINod*&                 PINod1,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod21Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod21RValues,
-                                         HLRAlgo_PolyInternalNode::NodeIndices1&  Nod22Indices,
-                                         HLRAlgo_PolyInternalNode::NodeData1&     Nod22RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod21Indices,
+                                         PolyInternalNode::NodeData1&     Nod21RValues,
+                                         PolyInternalNode::NodeIndices1&  Nod22Indices,
+                                         PolyInternalNode::NodeData1&     Nod22RValues,
                                          const Standard_Integer                  i2p1,
                                          const Standard_Integer                  i2p2,
                                          const Standard_Integer                  i2,
@@ -500,10 +500,10 @@ private:
 
   Standard_EXPORT void ChangeNode(const Standard_Integer                 theIp1,
                                   const Standard_Integer                 theIp2,
-                                  HLRAlgo_PolyInternalNode::NodeIndices1& theNod1Indices,
-                                  HLRAlgo_PolyInternalNode::NodeData1&    theNod1RValues,
-                                  HLRAlgo_PolyInternalNode::NodeIndices1& theNod2Indices,
-                                  HLRAlgo_PolyInternalNode::NodeData1&    theNod2RValues,
+                                  PolyInternalNode::NodeIndices1& theNod1Indices,
+                                  PolyInternalNode::NodeData1&    theNod1RValues,
+                                  PolyInternalNode::NodeIndices1& theNod2Indices,
+                                  PolyInternalNode::NodeData1&    theNod2RValues,
                                   const Standard_Real                    theCoef1,
                                   const Standard_Real                    theX3,
                                   const Standard_Real                    theY3,
@@ -514,43 +514,43 @@ private:
                                   HLRAlgo_Array1OfPINod&                 thePINod) const;
 
   Standard_EXPORT void UpdateAroundNode(const Standard_Integer                 theINode,
-                                        HLRAlgo_PolyInternalNode::NodeIndices1& theNodeIndices,
+                                        PolyInternalNode::NodeIndices1& theNodeIndices,
                                         HLRAlgo_Array1OfTData&                 theTData,
                                         HLRAlgo_Array1OfPISeg&                 thePISeg,
                                         HLRAlgo_Array1OfPINod&                 thePINod) const;
 
   Standard_EXPORT void OrientTriangle(const Standard_Integer                 iTri,
                                       TriangleData&                  theTriangle,
-                                      HLRAlgo_PolyInternalNode::NodeIndices1& theNodeIndices1,
-                                      HLRAlgo_PolyInternalNode::NodeData1&    Nod1RValues,
-                                      HLRAlgo_PolyInternalNode::NodeIndices1& theNodeIndices2,
-                                      HLRAlgo_PolyInternalNode::NodeData1&    Nod2RValues,
-                                      HLRAlgo_PolyInternalNode::NodeIndices1& theNodeIndices3,
-                                      HLRAlgo_PolyInternalNode::NodeData1&    Nod3RValues) const;
+                                      PolyInternalNode::NodeIndices1& theNodeIndices1,
+                                      PolyInternalNode::NodeData1&    Nod1RValues,
+                                      PolyInternalNode::NodeIndices1& theNodeIndices2,
+                                      PolyInternalNode::NodeData1&    Nod2RValues,
+                                      PolyInternalNode::NodeIndices1& theNodeIndices3,
+                                      PolyInternalNode::NodeData1&    Nod3RValues) const;
 
   Standard_EXPORT Standard_Boolean Triangles(const Standard_Integer                 ip1,
                                              const Standard_Integer                 ip2,
-                                             HLRAlgo_PolyInternalNode::NodeIndices1& Nod1Indices,
+                                             PolyInternalNode::NodeIndices1& Nod1Indices,
                                              HLRAlgo_Array1OfPISeg*&                PISeg,
                                              Standard_Integer&                      iTri1,
                                              Standard_Integer&                      iTri2) const;
 
-  Standard_EXPORT Standard_Boolean NewNode(HLRAlgo_PolyInternalNode::NodeData1& Nod1RValues,
-                                           HLRAlgo_PolyInternalNode::NodeData1& Nod2RValues,
+  Standard_EXPORT Standard_Boolean NewNode(PolyInternalNode::NodeData1& Nod1RValues,
+                                           PolyInternalNode::NodeData1& Nod2RValues,
                                            Standard_Real&                      coef1,
                                            Standard_Boolean&                   moveP1) const;
 
-  Standard_EXPORT void UVNode(HLRAlgo_PolyInternalNode::NodeData1& Nod1RValues,
-                              HLRAlgo_PolyInternalNode::NodeData1& Nod2RValues,
+  Standard_EXPORT void UVNode(PolyInternalNode::NodeData1& Nod1RValues,
+                              PolyInternalNode::NodeData1& Nod2RValues,
                               const Standard_Real                 coef1,
                               Standard_Real&                      U3,
                               Standard_Real&                      V3) const;
 
   Standard_EXPORT void CheckDegeneratedSegment(
-    HLRAlgo_PolyInternalNode::NodeIndices1& Nod1Indices,
-    HLRAlgo_PolyInternalNode::NodeData1&    Nod1RValues,
-    HLRAlgo_PolyInternalNode::NodeIndices1& Nod2Indices,
-    HLRAlgo_PolyInternalNode::NodeData1&    Nod2RValues) const;
+    PolyInternalNode::NodeIndices1& Nod1Indices,
+    PolyInternalNode::NodeData1&    Nod1RValues,
+    PolyInternalNode::NodeIndices1& Nod2Indices,
+    PolyInternalNode::NodeData1&    Nod2RValues) const;
 
   Standard_EXPORT void UpdateOutLines(HLRAlgo_ListOfBPoint&                                 theList,
                                       NCollection_Array1<Handle(HLRAlgo_PolyInternalData)>& thePID);
@@ -560,7 +560,7 @@ private:
     const NCollection_Array1<Handle(HLRAlgo_PolyInternalData)>& thePID,
     const Standard_Boolean                                      theIsClosed);
 
-  Standard_EXPORT void UpdatePolyData(NCollection_Array1<Handle(HLRAlgo_PolyData)>&         thePD,
+  Standard_EXPORT void UpdatePolyData(NCollection_Array1<Handle(PolyData1)>&         thePD,
                                       NCollection_Array1<Handle(HLRAlgo_PolyInternalData)>& thePID,
                                       const Standard_Boolean theClosed);
 

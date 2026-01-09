@@ -33,7 +33,7 @@
 class BRepTopAdaptor_TopolTool;
 class gp_Lin;
 class Point3d;
-class IntCurveSurface_HInter;
+class HandleIntersection;
 class gp_Pnt2d;
 class Box2;
 
@@ -76,7 +76,7 @@ public:
 
   //! same method for a HCurve from Adaptor3d.
   //! PInf an PSup can also be - and + INF.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Curve)& HCu,
+  Standard_EXPORT void Perform(const Handle(Curve5)& HCu,
                                const Standard_Real            PInf,
                                const Standard_Real            PSup);
 
@@ -137,7 +137,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void InternalCall(const IntCurveSurface_HInter& HICS,
+  Standard_EXPORT void InternalCall(const HandleIntersection& HICS,
                                     const Standard_Real           pinf,
                                     const Standard_Real           psup);
 

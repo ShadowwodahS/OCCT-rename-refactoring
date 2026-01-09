@@ -177,7 +177,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
                          const Handle(Aspect_Window)&        thePlatformWindow,
                          const Handle(Aspect_Window)&        theSizeWindow,
                          Aspect_RenderingContext             theGContext,
-                         const Handle(OpenGl_Caps)&          theCaps,
+                         const Handle(Caps)&          theCaps,
                          const Handle(OpenGl_Context)&       theShareCtx)
 {
   myGlContext      = new OpenGl_Context(theCaps);

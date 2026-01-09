@@ -297,7 +297,7 @@ void XCAFDoc_GraphNode::Restore(const Handle(TDF_Attribute)& other)
 //=================================================================================================
 
 void XCAFDoc_GraphNode::Paste(const Handle(TDF_Attribute)&       into,
-                              const Handle(TDF_RelocationTable)& RT) const
+                              const Handle(RelocationTable1)& RT) const
 {
   Handle(XCAFDoc_GraphNode) intof = Handle(XCAFDoc_GraphNode)::DownCast(into);
   Handle(XCAFDoc_GraphNode) func;

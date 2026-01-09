@@ -659,7 +659,7 @@ AdvApprox_ApproxAFunction::AdvApprox_ApproxAFunction(const Standard_Integer     
       myHasResult(Standard_False),
       myEvaluator((Standard_Address)&Func)
 {
-  AdvApprox_DichoCutting Cut;
+  DichotomicCutting Cut;
   Perform(Num1DSS, Num2DSS, Num3DSS, Cut);
 }
 
@@ -893,7 +893,7 @@ void AdvApprox_ApproxAFunction::Perform(const Standard_Integer   Num1DSS,
       if (myNumSubSpaces[1] > 0)
       {
         gp_Pnt2d Point2d;
-        my2DPoles    = new TColgp_HArray2OfPnt2d(1, PolesPtr->ColLength(), 1, myNumSubSpaces[1]);
+        my2DPoles    = new Point2dGrid(1, PolesPtr->ColLength(), 1, myNumSubSpaces[1]);
         my2DMaxError = new TColStd_HArray1OfReal(1, myNumSubSpaces[1]);
         my2DAverageError = new TColStd_HArray1OfReal(1, myNumSubSpaces[1]);
         for (ii = 1; ii <= PolesPtr->ColLength(); ii++)
@@ -938,7 +938,7 @@ void AdvApprox_ApproxAFunction::Perform(const Standard_Integer   Num1DSS,
       if (myNumSubSpaces[2] > 0)
       {
         Point3d Point;
-        my3DPoles        = new TColgp_HArray2OfPnt(1, PolesPtr->ColLength(), 1, myNumSubSpaces[2]);
+        my3DPoles        = new PointGrid(1, PolesPtr->ColLength(), 1, myNumSubSpaces[2]);
         my3DMaxError     = new TColStd_HArray1OfReal(1, myNumSubSpaces[2]);
         my3DAverageError = new TColStd_HArray1OfReal(1, myNumSubSpaces[2]);
         for (ii = 1; ii <= PolesPtr->ColLength(); ii++)

@@ -320,7 +320,7 @@ void BRepFill_Filling::AddConstraints(const BRepFill_SequenceOfEdgeFaceAndOrder&
       {
         Handle(BRepAdaptor_Curve) HCurve = new BRepAdaptor_Curve();
         HCurve->Initialize(CurEdge);
-        const Handle(Adaptor3d_Curve)& aHCurve = HCurve; // to avoid ambiguity
+        const Handle(Curve5)& aHCurve = HCurve; // to avoid ambiguity
         Constr = new BRepFill_CurveConstraint(aHCurve, CurOrder, myNbPtsOnCur, myTol3d);
       }
       else
@@ -680,7 +680,7 @@ void BRepFill_Filling::Build()
     myBuilder->Disc2dContour(4, S2d);
     myBuilder->Disc3dContour(4, 0, S3d);
     seuil = Max(myTol3d, 10 * myBuilder->G0Error()); //????????
-    GeomPlate_PlateG0Criterion Criterion(S2d, S3d, seuil);
+    G0Criterion Criterion(S2d, S3d, seuil);
     GeomPlate_MakeApprox       Approx(GPlate, Criterion, myTol3d, myMaxSegments, myMaxDeg);
     Surface = Approx.Surface();
   }
@@ -696,7 +696,7 @@ void BRepFill_Filling::Build()
 
   // Build the final wire and final face
   ShapeList              FinalEdges;
-  Handle(TColGeom2d_HArray1OfCurve) CurvesOnPlate = myBuilder->Curves2d();
+  Handle(HArray1OfCurve2) CurvesOnPlate = myBuilder->Curves2d();
   ShapeBuilder                      BB;
   for (i = 1; i <= myBoundary.Length(); i++)
   {

@@ -37,7 +37,7 @@ class math_Matrix;
 //! parameter on the guide line, wcurv is the parameter on
 //! the curve, wrst is the parameter on the restriction on
 //! the surface.
-class Blend_SurfCurvFuncInv : public math_FunctionSetWithDerivatives
+class Blend_SurfCurvFuncInv : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

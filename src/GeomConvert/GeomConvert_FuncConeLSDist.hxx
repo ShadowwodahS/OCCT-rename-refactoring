@@ -36,10 +36,10 @@ public:
   //! Constructor.
   Standard_EXPORT GeomConvert_FuncConeLSDist() {};
 
-  Standard_EXPORT GeomConvert_FuncConeLSDist(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+  Standard_EXPORT GeomConvert_FuncConeLSDist(const Handle(XYZArray)& thePoints,
                                              const Dir3d&                      theDir);
 
-  void SetPoints(const Handle(TColgp_HArray1OfXYZ)& thePoints) { myPoints = thePoints; }
+  void SetPoints(const Handle(XYZArray)& thePoints) { myPoints = thePoints; }
 
   void SetDir(const Dir3d& theDir) { myDir = theDir; }
 
@@ -50,7 +50,7 @@ public:
   Standard_EXPORT Standard_Boolean Value(const math_Vector& X, Standard_Real& F) Standard_OVERRIDE;
 
 private:
-  Handle(TColgp_HArray1OfXYZ) myPoints;
+  Handle(XYZArray) myPoints;
   Dir3d                      myDir;
 };
 #endif // _GeomConvert_FuncConeLSDist_HeaderFile

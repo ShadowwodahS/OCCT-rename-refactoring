@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Xw_Window, Aspect_Window)
 
 //=================================================================================================
 
-Xw_Window::Xw_Window(const Handle(Aspect_DisplayConnection)& theXDisplay,
+Xw_Window::Xw_Window(const Handle(DisplayConnection1)& theXDisplay,
                      const Standard_CString                  theTitle,
                      const Standard_Integer                  thePxLeft,
                      const Standard_Integer                  thePxTop,
@@ -123,7 +123,7 @@ Xw_Window::Xw_Window(const Handle(Aspect_DisplayConnection)& theXDisplay,
 
 //=================================================================================================
 
-Xw_Window::Xw_Window(const Handle(Aspect_DisplayConnection)& theXDisplay,
+Xw_Window::Xw_Window(const Handle(DisplayConnection1)& theXDisplay,
                      const Aspect_Drawable                   theXWin,
                      const Aspect_FBConfig                   theFBConfig)
     : Aspect_Window(),
@@ -402,7 +402,7 @@ void Xw_Window::SetTitle(const AsciiString1& theTitle)
 
 //=================================================================================================
 
-void Xw_Window::InvalidateContent(const Handle(Aspect_DisplayConnection)& theDisp)
+void Xw_Window::InvalidateContent(const Handle(DisplayConnection1)& theDisp)
 {
   if (myXWindow == 0)
   {
@@ -410,7 +410,7 @@ void Xw_Window::InvalidateContent(const Handle(Aspect_DisplayConnection)& theDis
   }
 
 #if defined(HAVE_XLIB)
-  const Handle(Aspect_DisplayConnection)& aDisp  = !theDisp.IsNull() ? theDisp : myDisplay;
+  const Handle(DisplayConnection1)& aDisp  = !theDisp.IsNull() ? theDisp : myDisplay;
   Display*                                aDispX = aDisp->GetDisplay();
 
   XEvent anEvent;

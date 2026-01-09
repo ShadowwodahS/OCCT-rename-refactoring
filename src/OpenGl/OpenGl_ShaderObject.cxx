@@ -26,7 +26,7 @@
   #include <malloc.h> // for alloca()
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderObject, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderObject, Resource)
 
 //! Puts line numbers to the output of GLSL program source code.
 static AsciiString1 putLineNumbers(const AsciiString1& theSource)

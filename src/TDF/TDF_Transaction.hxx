@@ -22,8 +22,8 @@
 
 #include <Standard_Integer.hxx>
 #include <TCollection_AsciiString.hxx>
-class TDF_Data;
-class TDF_Delta;
+class Data2;
+class Delta;
 
 //! This class offers services to open, commit or
 //! abort a transaction in a more secure way than
@@ -46,13 +46,13 @@ public:
 
   //! Creates a transaction context on <aDF>, ready to
   //! be opened.
-  Standard_EXPORT TDF_Transaction(const Handle(TDF_Data)&        aDF,
+  Standard_EXPORT TDF_Transaction(const Handle(Data2)&        aDF,
                                   const AsciiString1& aName = "");
 
   //! Aborts all the transactions on <myDF> and sets
   //! <aDF> to build a transaction context on <aDF>,
   //! ready to be opened.
-  Standard_EXPORT void Initialize(const Handle(TDF_Data)& aDF);
+  Standard_EXPORT void Initialize(const Handle(Data2)& aDF);
 
   //! If not yet done, opens a new transaction on
   //! <myDF>. Returns the index of the just opened
@@ -65,7 +65,7 @@ public:
 
   //! Commits the transactions until AND including the
   //! current opened one.
-  Standard_EXPORT Handle(TDF_Delta) Commit(const Standard_Boolean withDelta = Standard_False);
+  Standard_EXPORT Handle(Delta) Commit(const Standard_Boolean withDelta = Standard_False);
 
   //! Aborts the transactions until AND including the
   //! current opened one.
@@ -74,7 +74,7 @@ public:
   ~TDF_Transaction() { Abort(); }
 
   //! Returns the Data from TDF1.
-  Handle(TDF_Data) Data() const;
+  Handle(Data2) Data() const;
 
   //! Returns the number of the transaction opened by <me>.
   Standard_Integer Transaction() const;
@@ -94,7 +94,7 @@ private:
   TDF_Transaction& operator=(const TDF_Transaction& theOther);
 
 private:
-  Handle(TDF_Data)        myDF;
+  Handle(Data2)        myDF;
   AsciiString1 myName;
   Standard_Integer        myUntilTransaction;
 };

@@ -25,9 +25,9 @@
 //=================================================================================================
 
 BlendFunc_ConstThroatWithPenetration::BlendFunc_ConstThroatWithPenetration(
-  const Handle(Adaptor3d_Surface)& S1,
-  const Handle(Adaptor3d_Surface)& S2,
-  const Handle(Adaptor3d_Curve)&   C)
+  const Handle(SurfaceAdaptor)& S1,
+  const Handle(SurfaceAdaptor)& S2,
+  const Handle(Curve5)&   C)
     : BlendFunc_ConstThroat(S1, S2, C)
 {
 }

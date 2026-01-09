@@ -51,7 +51,7 @@ inline const Point3d& Contap_ArcFunction::Valpoint(const Standard_Integer Index)
   return seqpt(Index);
 }
 
-inline const Handle(Adaptor3d_Surface)& Contap_ArcFunction::Surface() const
+inline const Handle(SurfaceAdaptor)& Contap_ArcFunction::Surface() const
 {
   return (mySurf);
 }

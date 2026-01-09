@@ -19,7 +19,7 @@
 #include <OpenGl_Vec.hxx>
 #include <OpenGl_ShaderManager.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_CappingPlaneResource, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_CappingPlaneResource, Resource)
 
 namespace
 {

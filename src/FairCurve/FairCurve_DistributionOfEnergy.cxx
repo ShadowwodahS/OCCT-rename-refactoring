@@ -29,7 +29,7 @@ Standard_Integer FairCurve_DistributionOfEnergy::NbEquations() const
 FairCurve_DistributionOfEnergy::FairCurve_DistributionOfEnergy(
   const Standard_Integer               BSplOrder,
   const Handle(TColStd_HArray1OfReal)& FlatKnots,
-  const Handle(TColgp_HArray1OfPnt2d)& Poles,
+  const Handle(Point2dArray)& Poles,
   const Standard_Integer               DerivativeOrder,
   const Standard_Integer               NbValAux)
     : MyBSplOrder(BSplOrder),

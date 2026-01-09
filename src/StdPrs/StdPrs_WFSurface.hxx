@@ -35,7 +35,7 @@ public:
   //! The number of isoparametric curves to be drawn and their color are
   //! controlled by the furnished Drawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Adaptor3d_Surface)&  aSurface,
+                                  const Handle(SurfaceAdaptor)&  aSurface,
                                   const Handle(StyleDrawer)&       aDrawer);
 
 protected:

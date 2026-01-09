@@ -31,21 +31,21 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 #include <GeomAbs_Shape.hxx>
-class GeomFill_LocationLaw;
-class GeomFill_SectionLaw;
+class LocationLaw;
+class SectionLaw;
 class Point3d;
 
 class GeomFill_SweepFunction;
-DEFINE_STANDARD_HANDLE(GeomFill_SweepFunction, Approx_SweepFunction)
+DEFINE_STANDARD_HANDLE(GeomFill_SweepFunction, SweepFunction)
 
 //! Function to approximate by SweepApproximation from
 //! Approx. To build general sweep Surface.
-class GeomFill_SweepFunction : public Approx_SweepFunction
+class GeomFill_SweepFunction : public SweepFunction
 {
 
 public:
-  Standard_EXPORT GeomFill_SweepFunction(const Handle(GeomFill_SectionLaw)&  Section,
-                                         const Handle(GeomFill_LocationLaw)& Location,
+  Standard_EXPORT GeomFill_SweepFunction(const Handle(SectionLaw)&  Section,
+                                         const Handle(LocationLaw)& Location,
                                          const Standard_Real                 FirstParameter,
                                          const Standard_Real                 FirstParameterOnS,
                                          const Standard_Real                 RatioParameterOnS);
@@ -164,12 +164,12 @@ public:
   Standard_EXPORT virtual void GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_SweepFunction, Approx_SweepFunction)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_SweepFunction, SweepFunction)
 
 protected:
 private:
-  Handle(GeomFill_LocationLaw) myLoc;
-  Handle(GeomFill_SectionLaw)  mySec;
+  Handle(LocationLaw) myLoc;
+  Handle(SectionLaw)  mySec;
   Standard_Real                myf;
   Standard_Real                myfOnS;
   Standard_Real                myRatio;

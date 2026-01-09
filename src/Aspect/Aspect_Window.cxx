@@ -42,7 +42,7 @@ Aspect_Window::Aspect_Window()
 {
 }
 
-Aspect_Background Aspect_Window::Background() const
+Background1 Aspect_Window::Background() const
 {
   return MyBackground;
 }
@@ -67,7 +67,7 @@ void Aspect_Window::SetVirtual(const Standard_Boolean theVirtual)
   MyIsVirtual = theVirtual;
 }
 
-void Aspect_Window::SetBackground(const Aspect_Background& theBackground)
+void Aspect_Window::SetBackground(const Background1& theBackground)
 {
   SetBackground(theBackground.Color());
 }

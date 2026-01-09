@@ -25,14 +25,14 @@ public:
 
   //! Computes the point <P> of parameter <U> and <V> on the
   //! HSurface <S>.
-  Standard_EXPORT static void Value(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void Value(const Handle(SurfaceAdaptor)& S,
                                     const Standard_Real              U,
                                     const Standard_Real              V,
                                     Point3d&                          P);
 
   //! Computes the point <P> and first derivative <D1*> of
   //! parameter <U> and <V> on the HSurface <S>.
-  Standard_EXPORT static void D1(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void D1(const Handle(SurfaceAdaptor)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
                                  Point3d&                          P,
@@ -41,7 +41,7 @@ public:
 
   //! Computes the point <P>, the first derivative <D1*> and second
   //! derivative <D2*> of parameter <U> and <V> on the HSurface <S>.
-  Standard_EXPORT static void D2(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void D2(const Handle(SurfaceAdaptor)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
                                  Point3d&                          P,
@@ -51,7 +51,7 @@ public:
                                  Vector3d&                          D2V,
                                  Vector3d&                          DUV);
 
-  Standard_EXPORT static Vector3d DN(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static Vector3d DN(const Handle(SurfaceAdaptor)& S,
                                    const Standard_Real              U,
                                    const Standard_Real              V,
                                    const Standard_Integer           IU,
@@ -60,10 +60,10 @@ public:
   //! returns the order of continuity of the HSurface <S>.
   //! returns 1 : first derivative only is computable
   //! returns 2 : first and second derivative only are computable.
-  Standard_EXPORT static Standard_Integer Continuity(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT static Standard_Integer Continuity(const Handle(SurfaceAdaptor)& S);
 
   //! returns the bounds of the HSurface.
-  Standard_EXPORT static void Bounds(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT static void Bounds(const Handle(SurfaceAdaptor)& S,
                                      Standard_Real&                   U1,
                                      Standard_Real&                   V1,
                                      Standard_Real&                   U2,

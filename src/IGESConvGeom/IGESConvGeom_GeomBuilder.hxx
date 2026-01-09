@@ -126,8 +126,8 @@ public:
 
 protected:
 private:
-  Handle(TColgp_HSequenceOfXYZ) theXYZ;
-  Handle(TColgp_HSequenceOfXYZ) theVec;
+  Handle(XYZSequence) theXYZ;
+  Handle(XYZSequence) theVec;
   Transform3d                       thepos;
 };
 

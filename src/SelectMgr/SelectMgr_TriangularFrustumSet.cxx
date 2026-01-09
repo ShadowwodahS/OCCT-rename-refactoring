@@ -49,7 +49,7 @@ void SelectMgr_TriangularFrustumSet::Init(const TColgp_Array1OfPnt2d& thePoints)
 {
   if (mySelPolyline.Points.IsNull())
   {
-    mySelPolyline.Points = new TColgp_HArray1OfPnt2d(thePoints.Lower(), thePoints.Upper());
+    mySelPolyline.Points = new Point2dArray(thePoints.Lower(), thePoints.Upper());
   }
   mySelPolyline.Points->Resize(thePoints.Lower(), thePoints.Upper(), false);
   *mySelPolyline.Points = thePoints;
@@ -109,7 +109,7 @@ void SelectMgr_TriangularFrustumSet::Build()
   {
     Standard_Integer aPtIdx     = isClockwiseOrdered ? aIdx : (aIdx + 1) % anIndexes.Length();
     Standard_Integer aNextPtIdx = isClockwiseOrdered ? (aIdx + 1) % anIndexes.Length() : aIdx;
-    BRepMesh_Edge anEdge(anIndexes.Value(aPtIdx), anIndexes.Value(aNextPtIdx), BRepMesh_Frontier);
+    Edge3 anEdge(anIndexes.Value(aPtIdx), anIndexes.Value(aNextPtIdx), BRepMesh_Frontier);
     aMeshStructure->AddLink(anEdge);
   }
 

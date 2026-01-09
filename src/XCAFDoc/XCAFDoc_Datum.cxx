@@ -531,7 +531,7 @@ Handle(TDF_Attribute) XCAFDoc_Datum::NewEmpty() const
 //=================================================================================================
 
 void XCAFDoc_Datum::Paste(const Handle(TDF_Attribute)& theInto,
-                          const Handle(TDF_RelocationTable)& /*RT*/) const
+                          const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(XCAFDoc_Datum)::DownCast(theInto)->Set(myName, myDescription, myIdentification);
 }

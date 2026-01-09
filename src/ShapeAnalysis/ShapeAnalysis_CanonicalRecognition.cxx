@@ -92,8 +92,8 @@ static Standard_Real    DeviationSurfParams(const GeomAbs_SurfaceType   theTarge
 static Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
                                         const Standard_Real          theTol,
                                         const Standard_Integer       theMaxNbInt,
-                                        Handle(TColgp_HArray1OfXYZ)& thePoints);
-static Standard_Real    GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+                                        Handle(XYZArray)& thePoints);
+static Standard_Real    GetLSGap(const Handle(XYZArray)& thePoints,
                                  const GeomAbs_SurfaceType          theTarget,
                                  const Ax3&                      thePos,
                                  const TColStd_Array1OfReal&        theParams);
@@ -808,7 +808,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
   Standard_Real&            theGap,
   Standard_Integer&         theStatus)
 {
-  Handle(TColgp_HArray1OfXYZ) aPoints;
+  Handle(XYZArray) aPoints;
   Standard_Integer            aNbMaxInt = 100;
   if (!GetSamplePoints(theWire, theTol, aNbMaxInt, aPoints))
     return Standard_False;
@@ -1214,7 +1214,7 @@ Standard_Real DeviationSurfParams(const GeomAbs_SurfaceType   theTarget,
 Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
                                  const Standard_Real          theTol,
                                  const Standard_Integer       theMaxNbInt,
-                                 Handle(TColgp_HArray1OfXYZ)& thePoints)
+                                 Handle(XYZArray)& thePoints)
 {
   NCollection_Vector<Standard_Real>     aLengths;
   NCollection_Vector<BRepAdaptor_Curve> aCurves;
@@ -1260,7 +1260,7 @@ Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
   if (aPoints.Length() < 1)
     return Standard_False;
 
-  thePoints = new TColgp_HArray1OfXYZ(1, aPoints.Length());
+  thePoints = new XYZArray(1, aPoints.Length());
   for (i = 0; i < aPoints.Length(); ++i)
   {
     thePoints->SetValue(i + 1, aPoints(i));
@@ -1271,7 +1271,7 @@ Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
 
 //=================================================================================================
 
-static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+static Standard_Real GetLSGap(const Handle(XYZArray)& thePoints,
                               const GeomAbs_SurfaceType          theTarget,
                               const Ax3&                      thePos,
                               const TColStd_Array1OfReal&        theParams)

@@ -55,7 +55,7 @@ BRepMesh_Context::BRepMesh_Context(IMeshTools_MeshAlgoType theMeshType)
     }
   }
 
-  Handle(IMeshTools_MeshAlgoFactory) aAlgoFactory;
+  Handle(MeshAlgorithmFactory) aAlgoFactory;
   switch (theMeshType)
   {
     case IMeshTools_MeshAlgoType_DEFAULT:

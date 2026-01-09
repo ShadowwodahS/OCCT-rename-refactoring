@@ -33,7 +33,7 @@
 //! Registers intersections on edges forming the face's shape and tries to
 //! amplify discrete representation by decreasing of deflection for the target edge.
 //! Checks can be performed in parallel mode.
-class BRepMesh_ModelHealer : public IMeshTools_ModelAlgo
+class BRepMesh_ModelHealer : public ModelAlgorithm
 {
 public:
   //! Constructor.
@@ -48,7 +48,7 @@ public:
   //! Functor API to discretize the given edge.
   void operator()(const IMeshData::IFaceHandle& theDFace) const { process(theDFace); }
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_ModelHealer, IMeshTools_ModelAlgo)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_ModelHealer, ModelAlgorithm)
 
 protected:
   //! Performs processing of edges of the given model.

@@ -15,11 +15,11 @@
 
 #include <Graphic3d_ShaderAttribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ShaderAttribute, RefObject)
 
 //=================================================================================================
 
-Graphic3d_ShaderAttribute::Graphic3d_ShaderAttribute(const AsciiString1& theName,
+ShaderAttribute::ShaderAttribute(const AsciiString1& theName,
                                                      const int                      theLocation)
     : myName(theName),
       myLocation(theLocation)
@@ -29,7 +29,7 @@ Graphic3d_ShaderAttribute::Graphic3d_ShaderAttribute(const AsciiString1& theName
 
 //=================================================================================================
 
-Graphic3d_ShaderAttribute::~Graphic3d_ShaderAttribute()
+ShaderAttribute::~ShaderAttribute()
 {
   //
 }

@@ -151,7 +151,7 @@ void Geom2dConvert_ApproxCurve::Approximate(const Handle(Adaptor2d_Curve2d)& the
   Standard_Integer     NbInterv_C3 = theCurve->NbIntervals(GeomAbs_C3);
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   theCurve->Intervals(CutPnts_C3, GeomAbs_C3);
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
   myMaxError = 0;
 

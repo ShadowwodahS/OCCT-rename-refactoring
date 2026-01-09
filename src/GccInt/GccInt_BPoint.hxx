@@ -24,10 +24,10 @@
 #include <GccInt_IType.hxx>
 
 class GccInt_BPoint;
-DEFINE_STANDARD_HANDLE(GccInt_BPoint, GccInt_Bisec)
+DEFINE_STANDARD_HANDLE(GccInt_BPoint, Bisector2)
 
 //! Describes a point as a bisecting object between two 2D geometric objects.
-class GccInt_BPoint : public GccInt_Bisec
+class GccInt_BPoint : public Bisector2
 {
 
 public:
@@ -40,7 +40,7 @@ public:
   //! Returns GccInt_Pnt, which is the type of any GccInt_BPoint bisecting object.
   Standard_EXPORT GccInt_IType ArcType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_BPoint, GccInt_Bisec)
+  DEFINE_STANDARD_RTTIEXT(GccInt_BPoint, Bisector2)
 
 protected:
 private:

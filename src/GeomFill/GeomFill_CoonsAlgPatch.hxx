@@ -23,8 +23,8 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
-class GeomFill_Boundary;
-class Law_Function;
+class Boundary2;
+class Function2;
 class Vector3d;
 
 class GeomFill_CoonsAlgPatch;
@@ -41,16 +41,16 @@ public:
   //! constructed blending functions are linear.
   //! Warning: No control is done on the bounds.
   //! B1/B3 and B2/B4 must be same range and well oriented.
-  Standard_EXPORT GeomFill_CoonsAlgPatch(const Handle(GeomFill_Boundary)& B1,
-                                         const Handle(GeomFill_Boundary)& B2,
-                                         const Handle(GeomFill_Boundary)& B3,
-                                         const Handle(GeomFill_Boundary)& B4);
+  Standard_EXPORT GeomFill_CoonsAlgPatch(const Handle(Boundary2)& B1,
+                                         const Handle(Boundary2)& B2,
+                                         const Handle(Boundary2)& B3,
+                                         const Handle(Boundary2)& B4);
 
   //! Give the blending functions.
-  Standard_EXPORT void Func(Handle(Law_Function)& f1, Handle(Law_Function)& f2) const;
+  Standard_EXPORT void Func(Handle(Function2)& f1, Handle(Function2)& f2) const;
 
   //! Set the blending functions.
-  Standard_EXPORT void SetFunc(const Handle(Law_Function)& f1, const Handle(Law_Function)& f2);
+  Standard_EXPORT void SetFunc(const Handle(Function2)& f1, const Handle(Function2)& f2);
 
   //! Computes  the  value   on the  algorithmic    patch at
   //! parameters U and V.
@@ -71,17 +71,17 @@ public:
 
   Standard_EXPORT const Point3d& Corner(const Standard_Integer I) const;
 
-  Standard_EXPORT const Handle(GeomFill_Boundary)& Bound(const Standard_Integer I) const;
+  Standard_EXPORT const Handle(Boundary2)& Bound(const Standard_Integer I) const;
 
-  Standard_EXPORT const Handle(Law_Function)& Func(const Standard_Integer I) const;
+  Standard_EXPORT const Handle(Function2)& Func(const Standard_Integer I) const;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_CoonsAlgPatch, RefObject)
 
 protected:
 private:
-  Handle(GeomFill_Boundary) bound[4];
+  Handle(Boundary2) bound[4];
   Point3d                    c[4];
-  Handle(Law_Function)      a[2];
+  Handle(Function2)      a[2];
 };
 
 #endif // _GeomFill_CoonsAlgPatch_HeaderFile

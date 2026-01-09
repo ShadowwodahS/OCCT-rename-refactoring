@@ -21,6 +21,6 @@
 #include <FEmTool_AssemblyTable.hxx>
 #include <NCollection_DefineHArray2.hxx>
 
-DEFINE_HARRAY2(FEmTool_HAssemblyTable, FEmTool_AssemblyTable)
+DEFINE_HARRAY2(AssemblyTable1, FEmTool_AssemblyTable)
 
 #endif

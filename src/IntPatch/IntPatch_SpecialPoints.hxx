@@ -43,8 +43,8 @@ public:
   //! second (otherwise, the first) surface while forming
   //! intersection point PointOn2Surfaces.
   Standard_EXPORT static Standard_Boolean AddCrossUVIsoPoint(
-    const Handle(Adaptor3d_Surface)& theQSurf,
-    const Handle(Adaptor3d_Surface)& thePSurf,
+    const Handle(SurfaceAdaptor)& theQSurf,
+    const Handle(SurfaceAdaptor)& thePSurf,
     const PointOn2Surfaces&           theRefPt,
     const Standard_Real              theTol3d,
     PointOn2Surfaces&                 theAddedPoint,
@@ -62,8 +62,8 @@ public:
   //!   [3] - U- (if V-isoline is considered) or V-parameter
   //!         (if U-isoline is considered) of theQSurf.
   Standard_EXPORT static Standard_Boolean AddPointOnUorVIso(
-    const Handle(Adaptor3d_Surface)& theQSurf,
-    const Handle(Adaptor3d_Surface)& thePSurf,
+    const Handle(SurfaceAdaptor)& theQSurf,
+    const Handle(SurfaceAdaptor)& thePSurf,
     const PointOn2Surfaces&           theRefPt,
     const Standard_Boolean           theIsU,
     const Standard_Real              theIsoParameter,
@@ -86,8 +86,8 @@ public:
   //! ATTENTION!!!
   //!   theVertex must be initialized before calling the method .
   Standard_EXPORT static Standard_Boolean AddSingularPole(
-    const Handle(Adaptor3d_Surface)& theQSurf,
-    const Handle(Adaptor3d_Surface)& thePSurf,
+    const Handle(SurfaceAdaptor)& theQSurf,
+    const Handle(SurfaceAdaptor)& thePSurf,
     const PointOn2Surfaces&           thePtIso,
     IntPatch_Point&                  theVertex,
     PointOn2Surfaces&                 theAddedPoint,
@@ -101,8 +101,8 @@ public:
   //!   theNewPoint is not only Output parameter. It is Input/Output one. I.e.
   //! theNewPoint is reference point together with theRefPt.
   Standard_EXPORT static Standard_Boolean ContinueAfterSpecialPoint(
-    const Handle(Adaptor3d_Surface)& theQSurf,
-    const Handle(Adaptor3d_Surface)& thePSurf,
+    const Handle(SurfaceAdaptor)& theQSurf,
+    const Handle(SurfaceAdaptor)& thePSurf,
     const PointOn2Surfaces&           theRefPt,
     const IntPatch_SpecPntType       theSPType,
     const Standard_Real              theTol2D,

@@ -24,7 +24,7 @@
 //=========================================================================
 GCE2d_MakeTranslation::GCE2d_MakeTranslation(const gp_Vec2d& Vec)
 {
-  TheTranslation = new Geom2d_Transformation();
+  TheTranslation = new Transformation2d();
   TheTranslation->SetTranslation(Vec);
 }
 
@@ -35,11 +35,11 @@ GCE2d_MakeTranslation::GCE2d_MakeTranslation(const gp_Vec2d& Vec)
 
 GCE2d_MakeTranslation::GCE2d_MakeTranslation(const gp_Pnt2d& Point1, const gp_Pnt2d& Point2)
 {
-  TheTranslation = new Geom2d_Transformation();
+  TheTranslation = new Transformation2d();
   TheTranslation->SetTranslation(Point1, Point2);
 }
 
-const Handle(Geom2d_Transformation)& GCE2d_MakeTranslation::Value() const
+const Handle(Transformation2d)& GCE2d_MakeTranslation::Value() const
 {
   return TheTranslation;
 }

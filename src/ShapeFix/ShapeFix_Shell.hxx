@@ -26,7 +26,7 @@
 #include <Message_ProgressRange.hxx>
 
 class ShapeFix_Face;
-class ShapeExtend_BasicMsgRegistrator;
+class BasicMsgRegistrator;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -98,7 +98,7 @@ public:
 
   //! Sets message registrator
   Standard_EXPORT virtual void SetMsgRegistrator(
-    const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg) Standard_OVERRIDE;
+    const Handle(BasicMsgRegistrator)& msgreg) Standard_OVERRIDE;
 
   //! Sets basic precision value (also to FixWireTool)
   Standard_EXPORT virtual void SetPrecision(const Standard_Real preci) Standard_OVERRIDE;

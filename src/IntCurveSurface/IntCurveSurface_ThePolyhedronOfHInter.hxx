@@ -29,7 +29,7 @@ class IntCurveSurface_ThePolyhedronOfHInter
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntCurveSurface_ThePolyhedronOfHInter(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT IntCurveSurface_ThePolyhedronOfHInter(const Handle(SurfaceAdaptor)& Surface,
                                                         const Standard_Integer           nbdU,
                                                         const Standard_Integer           nbdV,
                                                         const Standard_Real              U1,
@@ -37,7 +37,7 @@ public:
                                                         const Standard_Real              U2,
                                                         const Standard_Real              V2);
 
-  Standard_EXPORT IntCurveSurface_ThePolyhedronOfHInter(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT IntCurveSurface_ThePolyhedronOfHInter(const Handle(SurfaceAdaptor)& Surface,
                                                         const TColStd_Array1OfReal&      Upars,
                                                         const TColStd_Array1OfReal&      Vpars);
 
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT void DeflectionOverEstimation(const Standard_Real flec);
 
-  Standard_EXPORT Standard_Real DeflectionOnTriangle(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT Standard_Real DeflectionOnTriangle(const Handle(SurfaceAdaptor)& Surface,
                                                      const Standard_Integer           Index) const;
 
   Standard_EXPORT void UMinSingularity(const Standard_Boolean Sing);
@@ -115,7 +115,7 @@ public:
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
-  Standard_EXPORT const Handle(Bnd_HArray1OfBox)& ComponentsBounding() const;
+  Standard_EXPORT const Handle(BoxArray)& ComponentsBounding() const;
 
   Standard_EXPORT Standard_Real DeflectionOverEstimation() const;
 
@@ -153,20 +153,20 @@ public:
   Standard_EXPORT void Dump() const;
 
 protected:
-  Standard_EXPORT void Init(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT void Init(const Handle(SurfaceAdaptor)& Surface,
                             const Standard_Real              U1,
                             const Standard_Real              V1,
                             const Standard_Real              U2,
                             const Standard_Real              V2);
 
-  Standard_EXPORT void Init(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT void Init(const Handle(SurfaceAdaptor)& Surface,
                             const TColStd_Array1OfReal&      Upars,
                             const TColStd_Array1OfReal&      Vpars);
 
 private:
   //! This method computes and returns a deflection of isoline
   //! of given parameter on Surface.
-  Standard_EXPORT Standard_Real ComputeBorderDeflection(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT Standard_Real ComputeBorderDeflection(const Handle(SurfaceAdaptor)& Surface,
                                                         const Standard_Real              Parameter,
                                                         const Standard_Real              PMin,
                                                         const Standard_Real              PMax,
@@ -175,7 +175,7 @@ private:
   Standard_Integer         nbdeltaU;
   Standard_Integer         nbdeltaV;
   Box2                  TheBnd;
-  Handle(Bnd_HArray1OfBox) TheComponentsBnd;
+  Handle(BoxArray) TheComponentsBnd;
   Standard_Real            TheDeflection;
   Standard_Address         C_MyPnts;
   Standard_Address         C_MyU;
@@ -188,7 +188,7 @@ private:
   Standard_Address         C_MyIsOnBounds;
 };
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>

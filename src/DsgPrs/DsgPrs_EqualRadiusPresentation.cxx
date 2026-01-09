@@ -50,8 +50,8 @@ void EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentatio
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // Add presentation of arrows
-  Dir3d FirstDir  = gce_MakeDir(FirstCenter, FirstPoint),
-         SecondDir = gce_MakeDir(SecondCenter, SecondPoint);
+  Dir3d FirstDir  = DirectionBuilder(FirstCenter, FirstPoint),
+         SecondDir = DirectionBuilder(SecondCenter, SecondPoint);
   DsgPrs1::ComputeSymbol(aPresentation,
                         LA,
                         FirstCenter,
@@ -79,7 +79,7 @@ void EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentatio
     SmallDist = Dist * 0.05; // take 1/20 part of length;
     if (SmallDist <= Precision1::Confusion())
       SmallDist = Dist;
-    Dir3d LineDir = gce_MakeDir(FirstCenter, SecondCenter);
+    Dir3d LineDir = DirectionBuilder(FirstCenter, SecondCenter);
     Dir3d OrtDir  = Plane1->Pln().Axis().Direction() ^ LineDir;
 
     Vector3d OrtVec = Vector3d(OrtDir) * SmallDist;

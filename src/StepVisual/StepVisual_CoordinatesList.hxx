@@ -32,13 +32,13 @@ public:
   Standard_EXPORT StepVisual_CoordinatesList();
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theName,
-                            const Handle(TColgp_HArray1OfXYZ)&      thePoints);
+                            const Handle(XYZArray)&      thePoints);
 
-  Standard_EXPORT Handle(TColgp_HArray1OfXYZ) Points() const;
+  Standard_EXPORT Handle(XYZArray) Points() const;
 
   DEFINE_STANDARD_RTTIEXT(StepVisual_CoordinatesList, StepVisual_TessellatedItem)
 
 private:
-  Handle(TColgp_HArray1OfXYZ) myPoints;
+  Handle(XYZArray) myPoints;
 };
 #endif // StepVisual_CoordinatesList

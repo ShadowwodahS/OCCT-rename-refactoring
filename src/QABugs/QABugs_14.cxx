@@ -388,7 +388,7 @@ static Standard_Integer BUC60902(DrawInterpreter& di,
                                  Standard_Integer /*argc*/,
                                  const char** /*argv*/)
 {
-  Handle(TColgp_HArray1OfPnt) aPnts = new TColgp_HArray1OfPnt(1, 5);
+  Handle(PointArray1) aPnts = new PointArray1(1, 5);
   Point3d                      aP(0., 0., 0.);
   for (Standard_Integer i = 1; i <= 5; i++)
   {
@@ -969,7 +969,7 @@ static Standard_Integer OCC1919_real(DrawInterpreter& di, Standard_Integer argc,
 {
   if (argc == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(argv[1], DF))
       return 1;
     DataLabel L;
@@ -999,7 +999,7 @@ static Standard_Integer OCC2932_SetIDUAttribute(DrawInterpreter& di,
     di << "Usage : " << argv[0] << " (DF, entry, oldLocalID, newLocalID)\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
     return 1;
   DataLabel label;
@@ -1036,7 +1036,7 @@ static Standard_Integer OCC2932_SetTag(DrawInterpreter& di,
     di << "Usage : " << argv[0] << " (DF, entry, Tag)\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
     return 1;
   DataLabel L;
@@ -1058,7 +1058,7 @@ static Standard_Integer OCC2932_SetCurrent(DrawInterpreter& di,
     di << "Usage : " << argv[0] << " (DF, entry)\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
     return 1;
   DataLabel L;
@@ -1076,7 +1076,7 @@ static Standard_Integer OCC2932_SetExpression(DrawInterpreter& di,
     di << "Usage : " << argv[0] << " (DF, entry, Expression)\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
     return 1;
   DataLabel L;
@@ -1098,7 +1098,7 @@ static Standard_Integer OCC2932_SetRelation(DrawInterpreter& di,
     di << "Usage : " << argv[0] << " (DF, entry, Relation)\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(argv[1], DF))
     return 1;
   DataLabel L;

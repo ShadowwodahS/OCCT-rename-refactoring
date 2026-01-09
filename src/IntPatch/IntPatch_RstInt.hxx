@@ -19,7 +19,7 @@
 
 #include <Adaptor3d_Surface.hxx>
 
-class IntPatch_Line;
+class Line2;
 class Adaptor3d_TopolTool;
 
 //! trouver les points d intersection entre la ligne de
@@ -29,10 +29,10 @@ class RestrictedIntersection
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static void PutVertexOnLine(const Handle(IntPatch_Line)&       L,
-                                              const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT static void PutVertexOnLine(const Handle(Line2)&       L,
+                                              const Handle(SurfaceAdaptor)&   Surf,
                                               const Handle(Adaptor3d_TopolTool)& Domain,
-                                              const Handle(Adaptor3d_Surface)&   OtherSurf,
+                                              const Handle(SurfaceAdaptor)&   OtherSurf,
                                               const Standard_Boolean             OnFirst,
                                               const Standard_Real                Tol);
 };

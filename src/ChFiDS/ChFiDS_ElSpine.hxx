@@ -41,17 +41,17 @@ class gp_Parab;
 class BezierCurve3d;
 class BSplineCurve3d;
 
-DEFINE_STANDARD_HANDLE(ChFiDS_ElSpine, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(ChFiDS_ElSpine, Curve5)
 
 //! Elementary  Spine for cheminements and approximations.
-class ChFiDS_ElSpine : public Adaptor3d_Curve
+class ChFiDS_ElSpine : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(ChFiDS_ElSpine, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(ChFiDS_ElSpine, Curve5)
 public:
   Standard_EXPORT ChFiDS_ElSpine();
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Real FirstParameter() const Standard_OVERRIDE;
 
@@ -71,7 +71,7 @@ public:
   //! Returns    a  curve equivalent   of  <me>  between
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT virtual Handle(Curve5) Trim(const Standard_Real First,
                                                        const Standard_Real Last,
                                                        const Standard_Real Tol) const
     Standard_OVERRIDE;

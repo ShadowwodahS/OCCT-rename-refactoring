@@ -19,7 +19,7 @@ inline const Box2& PolyhedronTool::Bounding(const IntPatch_Polyhedron& thePolyh)
   return thePolyh.Bounding();
 }
 
-inline const Handle(Bnd_HArray1OfBox)& PolyhedronTool::ComponentsBounding(
+inline const Handle(BoxArray)& PolyhedronTool::ComponentsBounding(
   const IntPatch_Polyhedron& thePolyh)
 {
   return thePolyh.ComponentsBounding();

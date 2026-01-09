@@ -380,7 +380,7 @@ Standard_Integer XmlLDrivers_DocumentStorageDriver::MakeDocument(
   if (!TDOC.IsNull())
   {
     //    myRelocTable.SetDocument (theElement.getOwnerDocument());
-    Handle(TDF_Data) aTDF = TDOC->GetData();
+    Handle(Data2) aTDF = TDOC->GetData();
 
     //      Find MessageDriver and pass it to AttributeDrivers()
     Handle(CDM_Application)   anApplication = theTDoc->Application();

@@ -20,7 +20,7 @@
 //=================================================================================================
 
 TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theFont,
-                                             const Handle(Font_TextFormatter)& theFormatter,
+                                             const Handle(TextFormatter1)& theFormatter,
                                              const Ax3&                     thePenLoc)
 {
   Transform3d                aTrsf;
@@ -32,9 +32,9 @@ TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theF
   myBuilder.MakeCompound(aResult);
 
   Standard_Real aScaleUnits = theFont.Scale();
-  for (Font_TextFormatter::Iterator aFormatterIt(
+  for (TextFormatter1::Iterator aFormatterIt(
          *theFormatter,
-         Font_TextFormatter::IterationFilter_ExcludeInvisible);
+         TextFormatter1::IterationFilter_ExcludeInvisible);
        aFormatterIt.More();
        aFormatterIt.Next())
   {
@@ -65,7 +65,7 @@ TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                      
                                              const Graphic3d_HorizontalTextAlignment theHAlign,
                                              const Graphic3d_VerticalTextAlignment   theVAlign)
 {
-  Handle(Font_TextFormatter) aFormatter = new Font_TextFormatter();
+  Handle(TextFormatter1) aFormatter = new TextFormatter1();
 
   aFormatter->Reset();
   aFormatter->SetupAlignment(theHAlign, theVAlign);

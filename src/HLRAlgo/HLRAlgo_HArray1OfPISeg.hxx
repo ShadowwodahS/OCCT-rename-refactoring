@@ -20,6 +20,6 @@
 #include <HLRAlgo_Array1OfPISeg.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(HLRAlgo_HArray1OfPISeg, HLRAlgo_Array1OfPISeg)
+DEFINE_HARRAY1(HandlePISegArray, HLRAlgo_Array1OfPISeg)
 
 #endif

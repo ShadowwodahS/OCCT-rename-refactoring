@@ -227,7 +227,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(GeomS
 // purpose  :
 // static method to create cylinrical surface using least square method
 //=======================================================================
-static void GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+static void GetLSGap(const Handle(XYZArray)& thePoints,
                      const Ax3&                      thePos,
                      const Standard_Real                theR,
                      Standard_Real&                     theGap)
@@ -244,7 +244,7 @@ static void GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
   }
 }
 
-Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(XYZArray)& thePoints,
                                                        const Standard_Real                theTol,
                                                        Ax3&                            thePos,
                                                        Standard_Real&                     theR,
@@ -377,10 +377,10 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
   Standard_Real               aSigmaR = 0.;
   Standard_Real               aTol    = 1.e3 * theToler;
   TColStd_Array1OfReal        anRs(1, theNbU * theNbV);
-  Handle(TColgp_HArray1OfXYZ) aPoints;
+  Handle(XYZArray) aPoints;
   if (theLeastSquare)
   {
-    aPoints = new TColgp_HArray1OfXYZ(1, theNbU * theNbU);
+    aPoints = new XYZArray(1, theNbU * theNbU);
   }
   //
   GeomLProp_SLProps aProps(theSurf, 2, Precision1::Confusion());

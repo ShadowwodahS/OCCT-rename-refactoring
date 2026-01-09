@@ -35,7 +35,7 @@ typedef NCollection_IndexedMap<Graphic3d_CView*> Graphic3d_IndexedMapOfView;
 
 class Graphic3d_GraphicDriver;
 class Graphic3d_Structure;
-class Graphic3d_DataStructureManager;
+class DataStructureManager;
 
 //! This class allows the definition of a manager to
 //! which the graphic objects are associated.
@@ -86,7 +86,7 @@ public:
   //! if <theStructure> is displayed in <theProjector> and TOS_COMPUTED.
   Standard_EXPORT virtual void ReCompute(
     const Handle(Graphic3d_Structure)&            theStructure,
-    const Handle(Graphic3d_DataStructureManager)& theProjector);
+    const Handle(DataStructureManager)& theProjector);
 
   //! Clears the structure.
   Standard_EXPORT virtual void Clear(Graphic3d_Structure*   theStructure,
@@ -111,7 +111,7 @@ public:
 
   //! Transforms the structure.
   Standard_EXPORT virtual void SetTransform(const Handle(Graphic3d_Structure)& theStructure,
-                                            const Handle(TopLoc_Datum3D)&      theTrsf);
+                                            const Handle(Datum3D2)&      theTrsf);
 
   //! Changes the display priority of the structure <AStructure>.
   Standard_EXPORT virtual void ChangeDisplayPriority(
@@ -161,11 +161,11 @@ public:
     const NCollection_Map<Graphic3d_Structure*>& theStructures);
 
   Standard_EXPORT void RegisterObject(const Handle(RefObject)&     theObject,
-                                      const Handle(Graphic3d_ViewAffinity)& theAffinity);
+                                      const Handle(ViewAffinity1)& theAffinity);
 
   Standard_EXPORT void UnregisterObject(const Handle(RefObject)& theObject);
 
-  Standard_EXPORT const Handle(Graphic3d_ViewAffinity)& ObjectAffinity(
+  Standard_EXPORT const Handle(ViewAffinity1)& ObjectAffinity(
     const Handle(RefObject)& theObject) const;
 
   //! Returns TRUE if Device Lost flag has been set and presentation data should be reuploaded onto

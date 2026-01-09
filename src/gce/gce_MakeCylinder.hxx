@@ -37,34 +37,34 @@ class gp_Circ;
 //! * Create a Cylinder with 3 points.
 //! * Create a Cylinder by its axis and radius.
 //! * Create a cylinder by its circular base.
-class gce_MakeCylinder : public Root6
+class CylinderBuilder : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! <A2> is the local cartesian coordinate system of <me>.
   //! The status is "NegativeRadius" if R < 0.0
-  Standard_EXPORT gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius);
+  Standard_EXPORT CylinderBuilder(const Frame3d& A2, const Standard_Real Radius);
 
   //! Makes a Cylinder from gp1 <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakeCylinder(const Cylinder1& Cyl, const Point3d& Point);
+  Standard_EXPORT CylinderBuilder(const Cylinder1& Cyl, const Point3d& Point);
 
   //! Makes a Cylinder from gp1 <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> at the distance <Dist> which can
   //! be greater or lower than zero.
   //! The radius of the result is the absolute value of the
   //! radius of <Cyl> plus <Dist>
-  Standard_EXPORT gce_MakeCylinder(const Cylinder1& Cyl, const Standard_Real Dist);
+  Standard_EXPORT CylinderBuilder(const Cylinder1& Cyl, const Standard_Real Dist);
 
   //! Makes a Cylinder from gp1 <TheCylinder> with 3 points
   //! <P1>,<P2>,<P3>.
   //! Its axis is <P1P2> and its radius is the distance
   //! between <P3> and <P1P2>
-  Standard_EXPORT gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3);
+  Standard_EXPORT CylinderBuilder(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Makes a Cylinder by its axis <Axis> and radius <Radius>.
-  Standard_EXPORT gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radius);
+  Standard_EXPORT CylinderBuilder(const Axis3d& Axis, const Standard_Real Radius);
 
   //! Makes a Cylinder by its circular base.
   //! Warning
@@ -75,7 +75,7 @@ public:
   //! -   Dist is negative and has an absolute value
   //! which is greater than the radius of Cyl; or
   //! -   gce_ConfusedPoints if points P1 and P2 are coincident.
-  Standard_EXPORT gce_MakeCylinder(const gp_Circ& Circ);
+  Standard_EXPORT CylinderBuilder(const gp_Circ& Circ);
 
   //! Returns the constructed cylinder.
   //! Exceptions StdFail_NotDone if no cylinder is constructed.

@@ -85,7 +85,7 @@ public:
     virtual Handle(BRep_PointRepresentation) import() const;
 
   private:
-    Handle(ShapePersistent_Geom::Curve) myCurve;
+    Handle(Geom1::Curve) myCurve;
   };
 
   class PointsOnSurface : public PointRepresentation
@@ -100,7 +100,7 @@ public:
     virtual Standard_CString PName() const { return "PBRep_PointsOnSurface"; }
 
   protected:
-    Handle(ShapePersistent_Geom::Surface) mySurface;
+    Handle(Geom1::Surface) mySurface;
   };
 
   class PointOnCurveOnSurface : public PointsOnSurface
@@ -204,7 +204,7 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   private:
-    Handle(ShapePersistent_Geom::Curve) myCurve3D;
+    Handle(Geom1::Curve) myCurve3D;
   };
 
   class CurveOnSurface : public GCurve
@@ -222,7 +222,7 @@ public:
 
   protected:
     Handle(ShapePersistent_Geom2d::Curve) myPCurve;
-    Handle(ShapePersistent_Geom::Surface) mySurface;
+    Handle(Geom1::Surface) mySurface;
     gp_Pnt2d                              myUV1;
     gp_Pnt2d                              myUV2;
   };
@@ -266,7 +266,7 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   private:
-    Handle(ShapePersistent_Poly::Polygon3D) myPolygon3D;
+    Handle(Poly3::Polygon3D) myPolygon3D;
   };
 
   class PolygonOnTriangulation : public CurveRepresentation
@@ -283,8 +283,8 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   protected:
-    Handle(ShapePersistent_Poly::PolygonOnTriangulation) myPolygon;
-    Handle(ShapePersistent_Poly::Triangulation)          myTriangulation;
+    Handle(Poly3::PolygonOnTriangulation) myPolygon;
+    Handle(Poly3::Triangulation)          myTriangulation;
   };
 
   class PolygonOnClosedTriangulation : public PolygonOnTriangulation
@@ -301,7 +301,7 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   private:
-    Handle(ShapePersistent_Poly::PolygonOnTriangulation) myPolygon2;
+    Handle(Poly3::PolygonOnTriangulation) myPolygon2;
   };
 
   class PolygonOnSurface : public CurveRepresentation
@@ -318,8 +318,8 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   protected:
-    Handle(ShapePersistent_Poly::Polygon2D) myPolygon2D;
-    Handle(ShapePersistent_Geom::Surface)   mySurface;
+    Handle(Poly3::Polygon2D) myPolygon2D;
+    Handle(Geom1::Surface)   mySurface;
   };
 
   class PolygonOnClosedSurface : public PolygonOnSurface
@@ -336,7 +336,7 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   private:
-    Handle(ShapePersistent_Poly::Polygon2D) myPolygon2;
+    Handle(Poly3::Polygon2D) myPolygon2;
   };
 
   class CurveOn2Surfaces : public CurveRepresentation
@@ -358,8 +358,8 @@ public:
     virtual Handle(BRep_CurveRepresentation) import() const;
 
   private:
-    Handle(ShapePersistent_Geom::Surface) mySurface;
-    Handle(ShapePersistent_Geom::Surface) mySurface2;
+    Handle(Geom1::Surface) mySurface;
+    Handle(Geom1::Surface) mySurface2;
     StdObject_Location                    myLocation2;
     Standard_Integer                      myContinuity;
   };
@@ -483,8 +483,8 @@ private:
     virtual Handle(TopoShapeBase) createTShape() const;
 
   private:
-    Handle(ShapePersistent_Geom::Surface)       mySurface;
-    Handle(ShapePersistent_Poly::Triangulation) myTriangulation;
+    Handle(Geom1::Surface)       mySurface;
+    Handle(Poly3::Triangulation) myTriangulation;
     StdObject_Location                          myLocation;
     Standard_Real                               myTolerance;
     Standard_Boolean                            myNaturalRestriction;
@@ -569,14 +569,14 @@ public:
                                                      StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a polygon on a closed surface
   Standard_EXPORT static Handle(PolygonOnClosedSurface) Translate(
-    const Handle(Poly_Polygon2D)&     thePoly,
-    const Handle(Poly_Polygon2D)&     thePoly2,
+    const Handle(Polygon2D2)&     thePoly,
+    const Handle(Polygon2D2)&     thePoly2,
     const Handle(GeomSurface)&       theSurf,
     const TopLoc_Location&            theLoc,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a polygon on a surface
   Standard_EXPORT static Handle(PolygonOnSurface) Translate(
-    const Handle(Poly_Polygon2D)&     thePoly,
+    const Handle(Polygon2D2)&     thePoly,
     const Handle(GeomSurface)&       theSurf,
     const TopLoc_Location&            theLoc,
     StdObjMgt_TransientPersistentMap& theMap);

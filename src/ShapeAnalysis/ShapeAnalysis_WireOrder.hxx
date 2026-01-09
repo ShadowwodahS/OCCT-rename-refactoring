@@ -172,8 +172,8 @@ private:
   Handle(TColStd_HArray1OfInteger) myOrd;
   Handle(TColStd_HArray1OfInteger) myChains;
   Handle(TColStd_HArray1OfInteger) myCouples;
-  Handle(TColgp_HSequenceOfXYZ)    myXYZ;
-  Handle(TColgp_HSequenceOfXY)     myXY;
+  Handle(XYZSequence)    myXYZ;
+  Handle(XYSequence)     myXY;
   Standard_Real                    myTol;
   Standard_Real                    myGap;
   Standard_Integer                 myStat;

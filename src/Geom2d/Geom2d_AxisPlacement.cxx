@@ -22,7 +22,7 @@
 #include <gp_Trsf2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_AxisPlacement, Geom2d_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2d_AxisPlacement, Geometry2)
 
 typedef Geom2d_AxisPlacement AxisPlacement;
 typedef gp_Dir2d             Dir2d;
@@ -30,7 +30,7 @@ typedef gp_Pnt2d             Pnt2d;
 typedef Transform2d            Trsf2d;
 typedef gp_Vec2d             Vec2d;
 
-Handle(Geom2d_Geometry) Geom2d_AxisPlacement::Copy() const
+Handle(Geometry2) Geom2d_AxisPlacement::Copy() const
 {
 
   Handle(Geom2d_AxisPlacement) A;

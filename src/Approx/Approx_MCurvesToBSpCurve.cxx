@@ -101,7 +101,7 @@ void Approx_MCurvesToBSpCurve::Perform(const AppParCurves_SequenceOfMultiCurve& 
   else
   {
 
-    AppParCurves_MultiPoint P    = TheSeq.Value(nbcu).Value(1);
+    MultiPoint P    = TheSeq.Value(nbcu).Value(1);
     Standard_Integer        nb3d = P.NbPoints();
     Standard_Integer        nb2d = P.NbPoints2d();
 
@@ -165,7 +165,7 @@ void Approx_MCurvesToBSpCurve::Perform(const AppParCurves_SequenceOfMultiCurve& 
 
     for (j = 1; j <= nbpolesspl; j++)
     {
-      AppParCurves_MultiPoint MP(nb3d, nb2d);
+      MultiPoint MP(nb3d, nb2d);
       if (nb3d != 0)
       {
         MP.SetPoint(1, PolesSpl(j));

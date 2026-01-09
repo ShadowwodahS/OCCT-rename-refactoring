@@ -61,7 +61,7 @@ void GetIntersection(const TheCurve& theC1, const Standard_Real theT1f, const St
                      const TheCurve& theC2, const Standard_Real theT2f, const Standard_Real theT2l, 
                      const Standard_Real theTolConf,
                      const Standard_Integer theMaxCount,
-                     IntRes2d_IntersectionPoint& thePInt, Standard_Real& theDist,
+                     IntersectionPoint3& thePInt, Standard_Real& theDist,
                      Standard_Integer& theCount);
 
 
@@ -72,7 +72,7 @@ Standard_Boolean HeadOrEndPoint( const Domain2& D1
 				,const TheCurve& C2
 				,const Standard_Real v
 				,const Standard_Real TolConf
-				,IntRes2d_IntersectionPoint& IntPt
+				,IntersectionPoint3& IntPt
 				,Standard_Boolean& HeadOn1
 				,Standard_Boolean& HeadOn2
 				,Standard_Boolean& EndOn1
@@ -186,7 +186,7 @@ void IntCurve_IntPolyPolyGen::Perform( const TheCurve& C1
   Standard_Real U1 = D1.LastParameter();
   Standard_Real V0 = D2.FirstParameter();
   Standard_Real V1 = D2.LastParameter();
-  IntRes2d_IntersectionPoint IntPt;
+  IntersectionPoint3 IntPt;
   
   if(D1.FirstTolerance() || D2.FirstTolerance()) { 
     if(HeadOrEndPoint(D1,C1,U0,D2,C2,V0,TheTolConf,IntPt,HeadOn1,HeadOn2,EndOn1,EndOn2,PosSegment)) 
@@ -322,7 +322,7 @@ void IntCurve_IntPolyPolyGen::Perform( const TheCurve& C1
     Poly1.SetDeflectionOverEstimation(TolConf);
   }
 
-  Intf_InterferencePolygon2d InterPP(Poly1);  
+  InterferencePolygon2d InterPP(Poly1);  
   IntCurve_ExactIntersectionPoint  EIP(C1,C1,TolConf);
   Standard_Real U,V;
   
@@ -425,7 +425,7 @@ void IntCurve_IntPolyPolyGen::Perform( const TheCurve& C1
 	          Standard_Integer nbp=NbPoints();
       	    
 	          for(Standard_Integer p=1; p<=nbp; p++) { 
-	            const IntRes2d_IntersectionPoint& P=Point(p);
+	            const IntersectionPoint3& P=Point(p);
 	            if(Abs(U-P.ParamOnFirst()) <= EpsX1) { 
 		            if(Abs(V-P.ParamOnSecond()) <= EpsX1) { 
 		              Dist = TolConf+1.0;  p+=nbp;
@@ -460,7 +460,7 @@ void IntCurve_IntPolyPolyGen::Perform( const TheCurve& C1
 						              ,Pos2,Tan2,Norm2,Trans2
 						              ,TolConf);
 	            }
-	            IntRes2d_IntersectionPoint IP(P1,U,V,Trans1,Trans2,Standard_False);
+	            IntersectionPoint3 IP(P1,U,V,Trans1,Trans2,Standard_False);
 	            Insert(IP);
 	          }
 	        }
@@ -582,7 +582,7 @@ void IntCurve_IntPolyPolyGen::Perform( const TheCurve& C1
       IntImpParGen1::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
                                         Pos2,Tan2,Norm2,Trans2,TolConf);
     }
-    IntRes2d_IntersectionPoint PtSeg1(P1,PolyUInf,PolyVInf
+    IntersectionPoint3 PtSeg1(P1,PolyUInf,PolyVInf
 					,Trans1,Trans2,Standard_False);
     //----------------------------------------------------------------------
     
@@ -631,7 +631,7 @@ void IntCurve_IntPolyPolyGen::Perform( const TheCurve& C1
         IntImpParGen1::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
                                           Pos2,Tan2,Norm2,Trans2,TolConf);
       }
-      IntRes2d_IntersectionPoint PtSeg2(P1,PolyUSup,PolyVSup
+      IntersectionPoint3 PtSeg2(P1,PolyUSup,PolyVSup
                                         ,Trans1,Trans2,Standard_False);
       
       Standard_Boolean Oppos = (Tan1.Dot(Tan2) > 0.0)? Standard_False : Standard_True;
@@ -657,7 +657,7 @@ Standard_Boolean HeadOrEndPoint( const Domain2& D1
 				,const TheCurve& C2
 				,const Standard_Real tv
 				,const Standard_Real TolConf
-				,IntRes2d_IntersectionPoint& IntPt
+				,IntersectionPoint3& IntPt
 				,Standard_Boolean& HeadOn1
 				,Standard_Boolean& HeadOn2
 				,Standard_Boolean& EndOn1
@@ -916,7 +916,7 @@ Standard_Boolean IntCurve_IntPolyPolyGen::findIntersect(
 
   gp_Vec2d Tan1,Tan2,Norm1,Norm2;
   gp_Pnt2d P1,P2;
-  Intf_InterferencePolygon2d InterPP(thePoly1,thePoly2);  
+  InterferencePolygon2d InterPP(thePoly1,thePoly2);  
   IntCurve_ExactIntersectionPoint  EIP(C1,C2,TolConf);
   Standard_Real U = 0., V = 0.;
   Standard_Boolean AnErrorOccurred = Standard_False;
@@ -955,7 +955,7 @@ Standard_Boolean IntCurve_IntPolyPolyGen::findIntersect(
     if(EIP.NbRoots() == 0 && Dist > TolConf)
     {
       Transition3 aTrans;
-      IntRes2d_IntersectionPoint aPInt(P1, U, V, aTrans, aTrans, Standard_False);
+      IntersectionPoint3 aPInt(P1, U, V, aTrans, aTrans, Standard_False);
       Standard_Real aT1f, aT1l, aT2f, aT2l;
       aT1f= thePoly1.ApproxParamOnCurve(SegIndex1, 0.0); 
       aT1l= thePoly1.ApproxParamOnCurve(SegIndex1, 1.0); 
@@ -978,7 +978,7 @@ Standard_Boolean IntCurve_IntPolyPolyGen::findIntersect(
     Standard_Real EpsX1 = 10.0*TheCurveTool::EpsX(C1);
     Standard_Real EpsX2 = 10.0*TheCurveTool::EpsX(C2);
     for(Standard_Integer p=1; p<=nbp; p++) { 
-      const IntRes2d_IntersectionPoint& P=Point(p);
+      const IntersectionPoint3& P=Point(p);
       if(Abs(U-P.ParamOnFirst()) <= EpsX1) { 
         if(Abs(V-P.ParamOnSecond()) <= EpsX2) { 
           Dist = TolConf+1.0;  p+=nbp;
@@ -1010,7 +1010,7 @@ Standard_Boolean IntCurve_IntPolyPolyGen::findIntersect(
         TheCurveTool::D2(C2,V,P2,Tan2,Norm2);
         IntImpParGen1::DetermineTransition (Pos1, Tan1, Norm1, Trans1, Pos2, Tan2, Norm2, Trans2, TolConf);
       }
-      IntRes2d_IntersectionPoint IP(P1,U,V,Trans1,Trans2,Standard_False);
+      IntersectionPoint3 IP(P1,U,V,Trans1,Trans2,Standard_False);
       Insert(IP);
     }
   }
@@ -1143,7 +1143,7 @@ Standard_Boolean IntCurve_IntPolyPolyGen::findIntersect(
 	      IntImpParGen1::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
 					        Pos2,Tan2,Norm2,Trans2,TolConf);
       }
-      IntRes2d_IntersectionPoint PtSeg1(P1,PolyUInf,PolyVInf
+      IntersectionPoint3 PtSeg1(P1,PolyUInf,PolyVInf
 					,Trans1,Trans2,Standard_False);
       //----------------------------------------------------------------------
       
@@ -1192,7 +1192,7 @@ Standard_Boolean IntCurve_IntPolyPolyGen::findIntersect(
           IntImpParGen1::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
 				            Pos2,Tan2,Norm2,Trans2,TolConf);
         }
-        IntRes2d_IntersectionPoint PtSeg2(P1,PolyUSup,PolyVSup
+        IntersectionPoint3 PtSeg2(P1,PolyUSup,PolyVSup
 				          ,Trans1,Trans2,Standard_False);
 	
 	      Standard_Boolean Oppos = (Tan1.Dot(Tan2) > 0.0)? Standard_False : Standard_True;
@@ -1218,7 +1218,7 @@ void GetIntersection(const TheCurve& theC1, const Standard_Real theT1f, const St
                      const TheCurve& theC2, const Standard_Real theT2f, const Standard_Real theT2l, 
                      const Standard_Real theTolConf,
                      const Standard_Integer theMaxCount,
-                     IntRes2d_IntersectionPoint& thePInt, Standard_Real& theDist,
+                     IntersectionPoint3& thePInt, Standard_Real& theDist,
                      Standard_Integer& theCount)
 {
   theCount++;

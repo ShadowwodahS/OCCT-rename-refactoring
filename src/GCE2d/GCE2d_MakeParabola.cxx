@@ -68,7 +68,7 @@ GCE2d_MakeParabola::GCE2d_MakeParabola(const gp_Ax2d&         D,
 
 GCE2d_MakeParabola::GCE2d_MakeParabola(const gp_Pnt2d& S1, const gp_Pnt2d& O)
 {
-  gce_MakeParab2d P = gce_MakeParab2d(S1, O);
+  ParabolaBuilder2d1 P = ParabolaBuilder2d1(S1, O);
   TheError          = P.Status();
   if (TheError == gce_Done)
   {

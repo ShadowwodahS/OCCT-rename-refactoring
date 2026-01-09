@@ -31,20 +31,20 @@ class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter;
 class Domain2;
 class gp_Pnt2d;
 
-class HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter : public Intersection2
+class IntersectorIntConicCurveCInter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter();
+  Standard_EXPORT IntersectorIntConicCurveCInter();
 
   //! Intersection between an implicit curve and
   //! a parametrised curve.
   //! The exception ConstructionError is raised if the domain
   //! of the parametrised curve does not verify HasFirstPoint
   //! and HasLastPoint return True.
-  Standard_EXPORT HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter(const ConicTool& ITool,
+  Standard_EXPORT IntersectorIntConicCurveCInter(const ConicTool& ITool,
                                                                    const Domain2&     Dom1,
                                                                    const Standard_Address& PCurve,
                                                                    const Domain2&  Dom2,

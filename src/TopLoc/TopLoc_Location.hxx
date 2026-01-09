@@ -26,11 +26,11 @@
 #include <Standard_OStream.hxx>
 
 class Transform3d;
-class TopLoc_Datum3D;
+class Datum3D2;
 
 //! A Location is a composite transition. It comprises a
 //! series of elementary reference coordinates, i.e.
-//! objects of type TopLoc_Datum3D, and the powers to
+//! objects of type Datum3D2, and the powers to
 //! which these objects are raised.
 class TopLoc_Location
 {
@@ -42,14 +42,14 @@ public:
   Standard_EXPORT TopLoc_Location();
 
   //! Constructs the local coordinate system object defined
-  //! by the transformation T. T invokes in turn, a TopLoc_Datum3D object.
+  //! by the transformation T. T invokes in turn, a Datum3D2 object.
   Standard_EXPORT TopLoc_Location(const Transform3d& T);
 
   //! Constructs the local coordinate system object defined by the 3D datum D.
   //! Exceptions
   //! Standard_ConstructionError if the transformation
   //! T does not represent a 3D coordinate system.
-  Standard_EXPORT TopLoc_Location(const Handle(TopLoc_Datum3D)& D);
+  Standard_EXPORT TopLoc_Location(const Handle(Datum3D2)& D);
 
   //! Returns true if this location is equal to the Identity transformation.
   Standard_Boolean IsIdentity() const;
@@ -62,7 +62,7 @@ public:
   //! the other data comprising this location.
   //! Exceptions
   //! Standard_NoSuchObject if this location is empty.
-  const Handle(TopLoc_Datum3D)& FirstDatum() const;
+  const Handle(Datum3D2)& FirstDatum() const;
 
   //! Returns   the  power  elevation  of    the   first
   //! elementary datum.
@@ -120,7 +120,7 @@ public:
 
   //! Returns true if this location and the location Other
   //! have the same elementary data, i.e. contain the same
-  //! series of TopLoc_Datum3D and respective powers.
+  //! series of Datum3D2 and respective powers.
   //! This method is an alias for operator ==.
   Standard_EXPORT Standard_Boolean IsEqual(const TopLoc_Location& Other) const;
 
@@ -128,7 +128,7 @@ public:
 
   //! Returns true if this location and the location Other do
   //! not have the same elementary data, i.e. do not
-  //! contain the same series of TopLoc_Datum3D and respective powers.
+  //! contain the same series of Datum3D2 and respective powers.
   //! This method is an alias for operator !=.
   Standard_EXPORT Standard_Boolean IsDifferent(const TopLoc_Location& Other) const;
 

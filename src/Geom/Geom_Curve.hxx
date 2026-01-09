@@ -29,7 +29,7 @@ class Point3d;
 class Vector3d;
 
 class GeomCurve3d;
-DEFINE_STANDARD_HANDLE(GeomCurve3d, Geom_Geometry)
+DEFINE_STANDARD_HANDLE(GeomCurve3d, Geometry3)
 
 //! The abstract class Curve describes the common
 //! behavior of curves in 3D space. The Geom package
@@ -56,7 +56,7 @@ DEFINE_STANDARD_HANDLE(GeomCurve3d, Geom_Geometry)
 //! The Geom package does not prevent the
 //! construction of curves with null length or curves which
 //! self-intersect.
-class GeomCurve3d : public Geom_Geometry
+class GeomCurve3d : public Geometry3
 {
 
 public:
@@ -224,7 +224,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomCurve3d, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(GeomCurve3d, Geometry3)
 
 protected:
 private:

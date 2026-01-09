@@ -24,7 +24,7 @@
 class Quadric1;
 class HCurveTool2;
 
-class IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter : public math_FunctionWithDerivative
+class IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -32,7 +32,7 @@ public:
   //! Create the function.
   Standard_EXPORT IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter(
     const Quadric1&         Q,
-    const Handle(Adaptor3d_Curve)& C);
+    const Handle(Curve5)& C);
 
   //! Computes the value of the signed  distance between
   //! the  implicit surface and  the point  at parameter
@@ -56,7 +56,7 @@ public:
 protected:
 private:
   Quadric1         myQuadric;
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
 };
 
 #endif // _IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter_HeaderFile

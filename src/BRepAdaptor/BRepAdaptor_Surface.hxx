@@ -36,7 +36,7 @@ class Geom_BSplineSurface;
 class Axis3d;
 class Dir3d;
 
-DEFINE_STANDARD_HANDLE(BRepAdaptor_Surface, Adaptor3d_Surface)
+DEFINE_STANDARD_HANDLE(BRepAdaptor_Surface, SurfaceAdaptor)
 
 //! The Surface from BRepAdaptor allows to  use a Face
 //! of the BRep topology look like a 3D surface.
@@ -50,9 +50,9 @@ DEFINE_STANDARD_HANDLE(BRepAdaptor_Surface, Adaptor3d_Surface)
 //! The  u,v parameter range is   the minmax value for
 //! the  restriction,  unless  the flag restriction is
 //! set to false.
-class BRepAdaptor_Surface : public Adaptor3d_Surface
+class BRepAdaptor_Surface : public SurfaceAdaptor
 {
-  DEFINE_STANDARD_RTTIEXT(BRepAdaptor_Surface, Adaptor3d_Surface)
+  DEFINE_STANDARD_RTTIEXT(BRepAdaptor_Surface, SurfaceAdaptor)
 public:
   //! Creates an undefined surface with no face loaded.
   Standard_EXPORT BRepAdaptor_Surface();
@@ -65,7 +65,7 @@ public:
                                       const Standard_Boolean R = Standard_True);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(SurfaceAdaptor) ShallowCopy() const Standard_OVERRIDE;
 
   //! Sets the surface to the geometry of <F>.
   Standard_EXPORT void Initialize(const TopoFace&     F,
@@ -135,7 +135,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Surface) UTrim(const Standard_Real First,
+  Standard_EXPORT Handle(SurfaceAdaptor) UTrim(const Standard_Real First,
                                                   const Standard_Real Last,
                                                   const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -143,7 +143,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Surface) VTrim(const Standard_Real First,
+  Standard_EXPORT Handle(SurfaceAdaptor) VTrim(const Standard_Real First,
                                                   const Standard_Real Last,
                                                   const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -281,9 +281,9 @@ public:
   //! Warning: this will make a copy of the underlying curve
   //! since it applies to it the transformation
   //! myTrsf. Be careful when using this method.
-  Standard_EXPORT Handle(Adaptor3d_Curve) BasisCurve() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Curve5) BasisCurve() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Adaptor3d_Surface) BasisSurface() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(SurfaceAdaptor) BasisSurface() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Real OffsetValue() const Standard_OVERRIDE;
 

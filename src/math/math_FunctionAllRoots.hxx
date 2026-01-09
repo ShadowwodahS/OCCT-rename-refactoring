@@ -25,7 +25,7 @@
 #include <TColStd_SequenceOfReal.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 #include <Standard_OStream.hxx>
-class math_FunctionWithDerivative;
+class FunctionWithDerivative;
 class FunctionSampler;
 
 //! This algorithm uses a sample of the function to find
@@ -46,7 +46,7 @@ public:
   //! algorithm.
   //! Between two intervals, the roots of the function F are
   //! calculated using the FunctionRoots algorithm.
-  Standard_EXPORT FunctionAllRoots(math_FunctionWithDerivative& F,
+  Standard_EXPORT FunctionAllRoots(FunctionWithDerivative& F,
                                         const FunctionSampler&   S,
                                         const Standard_Real          EpsX,
                                         const Standard_Real          EpsF,

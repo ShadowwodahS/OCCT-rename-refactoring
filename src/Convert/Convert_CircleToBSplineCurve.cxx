@@ -87,7 +87,7 @@ Convert_CircleToBSplineCurve::Convert_CircleToBSplineCurve(
   nbPoles = CosNumeratorPtr->Length();
   nbKnots = knots->Length();
 
-  poles = new TColgp_HArray1OfPnt2d(1, nbPoles);
+  poles = new Point2dArray(1, nbPoles);
 
   gp_Dir2d  Ox = C.XAxis().Direction();
   gp_Dir2d  Oy = C.YAxis().Direction();
@@ -152,7 +152,7 @@ Convert_CircleToBSplineCurve::Convert_CircleToBSplineCurve(
   nbPoles = CosNumeratorPtr->Length();
   nbKnots = knots->Length();
 
-  poles = new TColgp_HArray1OfPnt2d(1, nbPoles);
+  poles = new Point2dArray(1, nbPoles);
 
   gp_Dir2d  Ox = C.XAxis().Direction();
   gp_Dir2d  Oy = C.YAxis().Direction();

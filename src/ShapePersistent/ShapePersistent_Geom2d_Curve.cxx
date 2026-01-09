@@ -35,7 +35,7 @@ Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBezier1::Import() const
     return new Geom2d_BezierCurve(*myPoles->Array());
 }
 
-Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBSpline::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBSpline1::Import() const
 {
   if (myPoles.IsNull() || myKnots.IsNull() || myMultiplicities.IsNull())
     return NULL;
@@ -293,7 +293,7 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
       Handle(pBezier1) aPpBC = new pBezier1;
       aPpBC->myRational     = theCurve->IsRational();
       aPpBC->myPoles =
-        HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
+        HArray1::Translate<Point2dArray>("PColgp_HArray1OfPnt2d",
                                                                  theCurve->Poles());
       if (theCurve->IsRational())
       {
@@ -322,12 +322,12 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d_Curve::Translate(
     else
     {
       Handle(BSpline)  aPBSC  = new BSpline;
-      Handle(pBSpline) aPpBSC = new pBSpline;
+      Handle(pBSpline1) aPpBSC = new pBSpline1;
       aPpBSC->myRational      = theCurve->IsRational();
       aPpBSC->myPeriodic      = theCurve->IsPeriodic();
       aPpBSC->mySpineDegree   = theCurve->Degree();
       aPpBSC->myPoles =
-        HArray1::Translate<TColgp_HArray1OfPnt2d>("PColgp_HArray1OfPnt2d",
+        HArray1::Translate<Point2dArray>("PColgp_HArray1OfPnt2d",
                                                                  theCurve->Poles());
       if (theCurve->IsRational())
       {

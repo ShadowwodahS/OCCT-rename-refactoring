@@ -28,7 +28,7 @@ class ConicTool;
 class ParametricConic;
 class ParametricConicTool;
 
-class IntCurve_MyImpParToolOfIntImpConicParConic : public math_FunctionWithDerivative
+class IntCurve_MyImpParToolOfIntImpConicParConic : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

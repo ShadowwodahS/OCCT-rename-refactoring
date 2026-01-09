@@ -32,7 +32,7 @@ class GeomCurve2d;
 //! - defining the curve to be analyzed
 //! - implementing the computation algorithms
 //! - consulting the results.
-class Geom2dLProp_CurAndInf2d : public CurveAndInfo
+class CurveInfo2d : public CurveAndInfo
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,7 +41,7 @@ public:
   //! Note: The curve on which the local properties are
   //! computed is defined using one of the following
   //! functions: Perform, PerformCurExt or PerformInf.
-  Standard_EXPORT Geom2dLProp_CurAndInf2d();
+  Standard_EXPORT CurveInfo2d();
 
   //! For the curve C, Computes both the
   //! inflection points and the maximum and minimum curvatures.

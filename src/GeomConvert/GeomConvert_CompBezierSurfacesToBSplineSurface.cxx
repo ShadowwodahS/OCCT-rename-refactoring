@@ -219,7 +219,7 @@ GeomConvert_CompBezierSurfacesToBSplineSurface::GeomConvert_CompBezierSurfacesTo
   }
 
   // Les nouveaux champs sont arrivees ....
-  myPoles = new (TColgp_HArray2OfPnt)(1, Surface->NbUPoles(), 1, Surface->NbVPoles());
+  myPoles = new (PointGrid)(1, Surface->NbUPoles(), 1, Surface->NbVPoles());
   Surface->Poles(myPoles->ChangeArray2());
 
   myUMults = new (TColStd_HArray1OfInteger)(1, Surface->NbUKnots());
@@ -343,7 +343,7 @@ GeomConvert_CompBezierSurfacesToBSplineSurface::GeomConvert_CompBezierSurfacesTo
     }
 
     // Les nouveaux champs sont arrivees ....
-    myPoles = new (TColgp_HArray2OfPnt)(1, Surface->NbUPoles(), 1, Surface->NbVPoles());
+    myPoles = new (PointGrid)(1, Surface->NbUPoles(), 1, Surface->NbVPoles());
     Surface->Poles(myPoles->ChangeArray2());
     Surface->UMultiplicities(myUMults->ChangeArray1());
     Surface->VMultiplicities(myVMults->ChangeArray1());
@@ -386,7 +386,7 @@ void GeomConvert_CompBezierSurfacesToBSplineSurface::Perform(
   Standard_Integer           upol, vpol, ii;
 
   myPoles =
-    new (TColgp_HArray2OfPnt)(1,
+    new (PointGrid)(1,
                               (myUDegree + 1) * Beziers.ColLength() - myUKnots->Length() + 2,
                               1,
                               (myVDegree + 1) * Beziers.RowLength() - myVKnots->Length() + 2);

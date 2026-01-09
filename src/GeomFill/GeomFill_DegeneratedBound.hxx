@@ -25,14 +25,14 @@
 class Vector3d;
 
 class GeomFill_DegeneratedBound;
-DEFINE_STANDARD_HANDLE(GeomFill_DegeneratedBound, GeomFill_Boundary)
+DEFINE_STANDARD_HANDLE(GeomFill_DegeneratedBound, Boundary2)
 
 //! Description of a degenerated boundary (a point).
 //! Class defining  a degenerated  boundary   for   a
 //! constrained filling   with  a   point  and  no   other
 //! constraint. Only used to  simulate an  ordinary bound,
 //! may not be useful and desapear soon.
-class GeomFill_DegeneratedBound : public GeomFill_Boundary
+class GeomFill_DegeneratedBound : public Boundary2
 {
 
 public:
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDegenerated() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_DegeneratedBound, GeomFill_Boundary)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_DegeneratedBound, Boundary2)
 
 protected:
 private:

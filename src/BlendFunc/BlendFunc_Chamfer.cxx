@@ -26,9 +26,9 @@
 
 //=================================================================================================
 
-BlendFunc_Chamfer::BlendFunc_Chamfer(const Handle(Adaptor3d_Surface)& S1,
-                                     const Handle(Adaptor3d_Surface)& S2,
-                                     const Handle(Adaptor3d_Curve)&   CG)
+BlendFunc_Chamfer::BlendFunc_Chamfer(const Handle(SurfaceAdaptor)& S1,
+                                     const Handle(SurfaceAdaptor)& S2,
+                                     const Handle(Curve5)&   CG)
     : BlendFunc_GenChamfer(S1, S2, CG),
       corde1(S1, CG),
       corde2(S2, CG)

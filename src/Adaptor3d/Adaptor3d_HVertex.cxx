@@ -19,14 +19,14 @@
 #include <Precision.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_HVertex, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(HandleVertex, RefObject)
 
-Adaptor3d_HVertex::Adaptor3d_HVertex()
+HandleVertex::HandleVertex()
     : myTol(0.0)
 {
 }
 
-Adaptor3d_HVertex::Adaptor3d_HVertex(const gp_Pnt2d&          P,
+HandleVertex::HandleVertex(const gp_Pnt2d&          P,
                                      const TopAbs_Orientation Or,
                                      const Standard_Real      Resolution)
     : myPnt(P),
@@ -35,27 +35,27 @@ Adaptor3d_HVertex::Adaptor3d_HVertex(const gp_Pnt2d&          P,
 {
 }
 
-gp_Pnt2d Adaptor3d_HVertex::Value()
+gp_Pnt2d HandleVertex::Value()
 {
   return myPnt;
 }
 
-Standard_Real Adaptor3d_HVertex::Parameter(const Handle(Adaptor2d_Curve2d)& C)
+Standard_Real HandleVertex::Parameter(const Handle(Adaptor2d_Curve2d)& C)
 {
   return ElCLib1::Parameter(C->Line(), myPnt);
 }
 
-Standard_Real Adaptor3d_HVertex::Resolution(const Handle(Adaptor2d_Curve2d)&)
+Standard_Real HandleVertex::Resolution(const Handle(Adaptor2d_Curve2d)&)
 {
   return myTol;
 }
 
-TopAbs_Orientation Adaptor3d_HVertex::Orientation()
+TopAbs_Orientation HandleVertex::Orientation()
 {
   return myOri;
 }
 
-Standard_Boolean Adaptor3d_HVertex::IsSame(const Handle(Adaptor3d_HVertex)& Other)
+Standard_Boolean HandleVertex::IsSame(const Handle(HandleVertex)& Other)
 {
   return (myPnt.Distance(Other->Value()) <= Precision1::Confusion());
 }

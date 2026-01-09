@@ -75,7 +75,7 @@ public:
   Standard_EXPORT virtual void SetMutable(const Standard_Boolean theIsMutable);
 
   //! Return view affinity mask.
-  const Handle(Graphic3d_ViewAffinity)& ViewAffinity() const { return myViewAffinity; }
+  const Handle(ViewAffinity1)& ViewAffinity() const { return myViewAffinity; }
 
   //! Returns true if the Interactive Object has display mode setting overriding global setting
   //! (within Interactive Context).
@@ -232,8 +232,8 @@ public: //! @name object transformation
   //! presentable object is located or NULL handle if not defined. Position1 of the object having
   //! Transformation Persistence is mutable and depends on camera position. The same applies to a
   //! bounding box of the object.
-  //! @sa Graphic3d_TransformPers class description
-  const Handle(Graphic3d_TransformPers)& TransformPersistence() const
+  //! @sa TransformPers class description
+  const Handle(TransformPers)& TransformPersistence() const
   {
     return myTransformPersistence;
   }
@@ -242,27 +242,27 @@ public: //! @name object transformation
   //! should be located. Note that management of Transform Persistence object is more expensive than
   //! of the normal one, because it requires its position being recomputed basing on camera position
   //! within each draw call / traverse.
-  //! @sa Graphic3d_TransformPers class description
+  //! @sa TransformPers class description
   Standard_EXPORT virtual void SetTransformPersistence(
-    const Handle(Graphic3d_TransformPers)& theTrsfPers);
+    const Handle(TransformPers)& theTrsfPers);
 
   //! Return the local transformation.
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
-  const Handle(TopLoc_Datum3D)& LocalTransformationGeom() const { return myLocalTransformation; }
+  const Handle(Datum3D2)& LocalTransformationGeom() const { return myLocalTransformation; }
 
   //! Sets local transformation to theTransformation.
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
   void SetLocalTransformation(const Transform3d& theTrsf)
   {
-    setLocalTransformation(new TopLoc_Datum3D(theTrsf));
+    setLocalTransformation(new Datum3D2(theTrsf));
   }
 
   //! Sets local transformation to theTransformation.
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
-  void SetLocalTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
+  void SetLocalTransformation(const Handle(Datum3D2)& theTrsf)
   {
     setLocalTransformation(theTrsf);
   }
@@ -276,7 +276,7 @@ public: //! @name object transformation
   //! Return the transformation taking into account transformation of parent object(s).
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
-  const Handle(TopLoc_Datum3D)& TransformationGeom() const { return myTransformation; }
+  const Handle(Datum3D2)& TransformationGeom() const { return myTransformation; }
 
   //! Return the local transformation.
   //! Note that the local transformation of the object having Transformation Persistence
@@ -298,7 +298,7 @@ public: //! @name object transformation
   const GeneralTransform& InversedTransformation() const { return myInvTransformation; }
 
   //! Return combined parent transformation.
-  const Handle(TopLoc_Datum3D)& CombinedParentTransformation() const
+  const Handle(Datum3D2)& CombinedParentTransformation() const
   {
     return myCombinedParentTransform;
   }
@@ -321,7 +321,7 @@ public: //! @name object transformation
 public: //! @name clipping planes
   //! Get clip planes.
   //! @return set of previously added clip planes for all display mode presentations.
-  const Handle(Graphic3d_SequenceOfHClipPlane)& ClipPlanes() const { return myClipPlanes; }
+  const Handle(SequenceOfHClipPlane)& ClipPlanes() const { return myClipPlanes; }
 
   //! Set clip planes for graphical clipping for all display mode presentations.
   //! The composition of clip planes truncates the rendering space to convex volume.
@@ -331,7 +331,7 @@ public: //! @name clipping planes
   //! the number of these planes should be subtracted from limit to predict the maximum
   //! possible number of object clipping planes.
   Standard_EXPORT virtual void SetClipPlanes(
-    const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes);
+    const Handle(SequenceOfHClipPlane)& thePlanes);
 
   //! Adds clip plane for graphical clipping for all display mode
   //! presentations. The composition of clip planes truncates the rendering
@@ -416,7 +416,7 @@ protected: //! @name interface methods
   //! @param[in] theTrsf  additional transformation, or NULL if undefined
   //! @param[in] thePrs   presentation to fill
   Standard_EXPORT virtual void computeHLR(const Handle(CameraOn3d)&   theProjector,
-                                          const Handle(TopLoc_Datum3D)&     theTrsf,
+                                          const Handle(Datum3D2)&     theTrsf,
                                           const Handle(Prs3d_Presentation)& thePrs);
 
   //! Recomputes invalidated presentations of the object.
@@ -432,11 +432,11 @@ protected: //! @name interface methods
 
   //! Sets myCombinedParentTransform to theTransformation. Thus object receives transformation
   //! from parent node and able to derive its own.
-  Standard_EXPORT virtual void SetCombinedParentTransform(const Handle(TopLoc_Datum3D)& theTrsf);
+  Standard_EXPORT virtual void SetCombinedParentTransform(const Handle(Datum3D2)& theTrsf);
 
   //! Sets local transformation to theTransformation.
   Standard_EXPORT virtual void setLocalTransformation(
-    const Handle(TopLoc_Datum3D)& theTransformation);
+    const Handle(Datum3D2)& theTransformation);
 
   //! Return the identity transformation.
   Standard_EXPORT static const Transform3d& getIdentityTrsf();
@@ -600,15 +600,15 @@ protected:
   // clang-format off
   PrsMgr_PresentableObject*              myParent;                  //!< pointer to the parent object
   PrsMgr_Presentations                   myPresentations;           //!< list of presentations
-  Handle(Graphic3d_ViewAffinity)         myViewAffinity;            //!< view affinity mask
-  Handle(Graphic3d_SequenceOfHClipPlane) myClipPlanes;              //!< sequence of object-specific clipping planes
+  Handle(ViewAffinity1)         myViewAffinity;            //!< view affinity mask
+  Handle(SequenceOfHClipPlane) myClipPlanes;              //!< sequence of object-specific clipping planes
   Handle(StyleDrawer)                   myDrawer;                  //!< main presentation attributes
   Handle(StyleDrawer)                   myHilightDrawer;           //!< (optional) custom presentation attributes for highlighting selected object
   Handle(StyleDrawer)                   myDynHilightDrawer;        //!< (optional) custom presentation attributes for highlighting detected object
-  Handle(Graphic3d_TransformPers)        myTransformPersistence;    //!< transformation persistence
-  Handle(TopLoc_Datum3D)                 myLocalTransformation;     //!< local transformation relative to parent object
-  Handle(TopLoc_Datum3D)                 myTransformation;          //!< absolute transformation of this object (combined parents + local transformations)
-  Handle(TopLoc_Datum3D)                 myCombinedParentTransform; //!< transformation of parent object (combined for all parents)
+  Handle(TransformPers)        myTransformPersistence;    //!< transformation persistence
+  Handle(Datum3D2)                 myLocalTransformation;     //!< local transformation relative to parent object
+  Handle(Datum3D2)                 myTransformation;          //!< absolute transformation of this object (combined parents + local transformations)
+  Handle(Datum3D2)                 myCombinedParentTransform; //!< transformation of parent object (combined for all parents)
   PrsMgr_ListOfPresentableObjects        myChildren;                //!< list of children
   GeneralTransform                               myInvTransformation;       //!< inversion of absolute transformation (combined parents + local transformations)
   PrsMgr_TypeOfPresentation3d            myTypeOfPresentation3d;    //!< presentation type

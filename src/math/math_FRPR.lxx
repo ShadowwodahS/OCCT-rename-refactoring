@@ -15,7 +15,7 @@
 #include <StdFail_NotDone.hxx>
 #include <math_Vector.hxx>
 
-inline Standard_Boolean FletcherReevesPowellRestart::IsSolutionReached(math_MultipleVarFunctionWithGradient&)
+inline Standard_Boolean FletcherReevesPowellRestart::IsSolutionReached(MultiVarFunctionWithGradient&)
 {
   return 2.0 * fabs(TheMinimum - PreviousMinimum)
          <= XTol * (fabs(TheMinimum) + fabs(PreviousMinimum) + EPSZ);

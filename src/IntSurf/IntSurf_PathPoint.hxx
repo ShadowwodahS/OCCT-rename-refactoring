@@ -69,7 +69,7 @@ private:
   Standard_Boolean             istgt;
   Vector3d                       vectg;
   gp_Dir2d                     dirtg;
-  Handle(TColgp_HSequenceOfXY) sequv;
+  Handle(XYSequence) sequv;
 };
 
 #include <IntSurf_PathPoint.lxx>

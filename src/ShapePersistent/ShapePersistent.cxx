@@ -75,28 +75,28 @@ void ShapePersistent1::BindTypes(MapOfInstantiators& theMap)
   theMap.Bind<ShapePersistent_TopoDS::TCompound>("PTopoDS_TCompound");
   theMap.Bind<ShapePersistent_TopoDS::TCompound1>("PTopoDS_TCompound1");
 
-  theMap.Bind<ShapePersistent_HArray1::XYZ>("PColgp_HArray1OfXYZ");
-  theMap.Bind<ShapePersistent_HArray1::Pnt>("PColgp_HArray1OfPnt");
-  theMap.Bind<ShapePersistent_HArray1::Dir>("PColgp_HArray1OfDir");
-  theMap.Bind<ShapePersistent_HArray1::Vec>("PColgp_HArray1OfVec");
-  theMap.Bind<ShapePersistent_HArray1::XY>("PColgp_HArray1OfXY");
-  theMap.Bind<ShapePersistent_HArray1::Pnt2d>("PColgp_HArray1OfPnt2d");
-  theMap.Bind<ShapePersistent_HArray1::Dir2d>("PColgp_HArray1OfDir2d");
-  theMap.Bind<ShapePersistent_HArray1::Vec2d>("PColgp_HArray1OfVec2d");
-  theMap.Bind<ShapePersistent_HArray1::Lin2d>("PColgp_HArray1OfLin2d");
-  theMap.Bind<ShapePersistent_HArray1::Circ2d>("PColgp_HArray1OfCirc2d");
-  theMap.Bind<ShapePersistent_HArray1::Triangle1>("PPoly_HArray1OfTriangle");
+  theMap.Bind<HArray11::XYZ>("PColgp_HArray1OfXYZ");
+  theMap.Bind<HArray11::Pnt>("PColgp_HArray1OfPnt");
+  theMap.Bind<HArray11::Dir>("PColgp_HArray1OfDir");
+  theMap.Bind<HArray11::Vec>("PColgp_HArray1OfVec");
+  theMap.Bind<HArray11::XY>("PColgp_HArray1OfXY");
+  theMap.Bind<HArray11::Pnt2d>("PColgp_HArray1OfPnt2d");
+  theMap.Bind<HArray11::Dir2d>("PColgp_HArray1OfDir2d");
+  theMap.Bind<HArray11::Vec2d>("PColgp_HArray1OfVec2d");
+  theMap.Bind<HArray11::Lin2d>("PColgp_HArray1OfLin2d");
+  theMap.Bind<HArray11::Circ2d>("PColgp_HArray1OfCirc2d");
+  theMap.Bind<HArray11::Triangle1>("PPoly_HArray1OfTriangle");
 
-  theMap.Bind<ShapePersistent_HArray2::XYZ>("PColgp_HArray2OfXYZ");
-  theMap.Bind<ShapePersistent_HArray2::Pnt>("PColgp_HArray2OfPnt");
-  theMap.Bind<ShapePersistent_HArray2::Dir>("PColgp_HArray2OfDir");
-  theMap.Bind<ShapePersistent_HArray2::Vec>("PColgp_HArray2OfVec");
-  theMap.Bind<ShapePersistent_HArray2::XY>("PColgp_HArray2OfXY");
-  theMap.Bind<ShapePersistent_HArray2::Pnt2d>("PColgp_HArray2OfPnt2d");
-  theMap.Bind<ShapePersistent_HArray2::Dir2d>("PColgp_HArray2OfDir2d");
-  theMap.Bind<ShapePersistent_HArray2::Vec2d>("PColgp_HArray2OfVec2d");
-  theMap.Bind<ShapePersistent_HArray2::Lin2d>("PColgp_HArray2OfLin2d");
-  theMap.Bind<ShapePersistent_HArray2::Circ2d>("PColgp_HArray2OfCirc2d");
+  theMap.Bind<HArray21::XYZ>("PColgp_HArray2OfXYZ");
+  theMap.Bind<HArray21::Pnt>("PColgp_HArray2OfPnt");
+  theMap.Bind<HArray21::Dir>("PColgp_HArray2OfDir");
+  theMap.Bind<HArray21::Vec>("PColgp_HArray2OfVec");
+  theMap.Bind<HArray21::XY>("PColgp_HArray2OfXY");
+  theMap.Bind<HArray21::Pnt2d>("PColgp_HArray2OfPnt2d");
+  theMap.Bind<HArray21::Dir2d>("PColgp_HArray2OfDir2d");
+  theMap.Bind<HArray21::Vec2d>("PColgp_HArray2OfVec2d");
+  theMap.Bind<HArray21::Lin2d>("PColgp_HArray2OfLin2d");
+  theMap.Bind<HArray21::Circ2d>("PColgp_HArray2OfCirc2d");
 
   theMap.Bind<HSequence::XYZ>("PColgp_HSequenceOfXYZ");
   theMap.Bind<HSequence::Pnt>("PColgp_HSequenceOfPnt");
@@ -151,27 +151,27 @@ void ShapePersistent1::BindTypes(MapOfInstantiators& theMap)
 
   theMap.Bind<ShapePersistent_Geom2d_Curve::Offset>("PGeom2d_OffsetCurve");
 
-  theMap.Bind<ShapePersistent_Geom::Transformation>("PGeom_Transformation");
+  theMap.Bind<Geom1::Transformation>("PGeom_Transformation");
 
-  theMap.Bind<ShapePersistent_Geom::Geometry1>("PGeom_Geometry");
+  theMap.Bind<Geom1::Geometry1>("PGeom_Geometry");
 
-  theMap.Bind<ShapePersistent_Geom::Point>("PGeom_Point");
+  theMap.Bind<Geom1::Point>("PGeom_Point");
 
-  theMap.Bind<ShapePersistent_Geom::CartesianPoint>("PGeom_CartesianPoint");
+  theMap.Bind<Geom1::CartesianPoint>("PGeom_CartesianPoint");
 
-  theMap.Bind<ShapePersistent_Geom::Vector>("PGeom_Vector");
+  theMap.Bind<Geom1::Vector>("PGeom_Vector");
 
-  theMap.Bind<ShapePersistent_Geom::Direction>("PGeom_Direction");
+  theMap.Bind<Geom1::Direction>("PGeom_Direction");
 
-  theMap.Bind<ShapePersistent_Geom::VectorWithMagnitude>("PGeom_VectorWithMagnitude");
+  theMap.Bind<Geom1::VectorWithMagnitude>("PGeom_VectorWithMagnitude");
 
-  theMap.Bind<ShapePersistent_Geom::AxisPlacement>("PGeom_AxisPlacement");
+  theMap.Bind<Geom1::AxisPlacement>("PGeom_AxisPlacement");
 
-  theMap.Bind<ShapePersistent_Geom::Axis1Placement>("PGeom_Axis1Placement");
+  theMap.Bind<Geom1::Axis1Placement>("PGeom_Axis1Placement");
 
-  theMap.Bind<ShapePersistent_Geom::Axis2Placement>("PGeom_Axis2Placement");
+  theMap.Bind<Geom1::Axis2Placement>("PGeom_Axis2Placement");
 
-  theMap.Bind<ShapePersistent_Geom::Curve>("PGeom_Curve");
+  theMap.Bind<Geom1::Curve>("PGeom_Curve");
 
   theMap.Bind<ShapePersistent_Geom_Curve::Line>("PGeom_Line");
 
@@ -195,7 +195,7 @@ void ShapePersistent1::BindTypes(MapOfInstantiators& theMap)
 
   theMap.Bind<ShapePersistent_Geom_Curve::Offset>("PGeom_OffsetCurve");
 
-  theMap.Bind<ShapePersistent_Geom::Surface>("PGeom_Surface");
+  theMap.Bind<Geom1::Surface>("PGeom_Surface");
 
   theMap.Bind<ShapePersistent_Geom_Surface::Elementary>("PGeom_ElementarySurface");
 
@@ -225,13 +225,13 @@ void ShapePersistent1::BindTypes(MapOfInstantiators& theMap)
 
   theMap.Bind<ShapePersistent_Geom_Surface::Offset>("PGeom_OffsetSurface");
 
-  theMap.Bind<ShapePersistent_Poly::Polygon2D>("PPoly_Polygon2D");
+  theMap.Bind<Poly3::Polygon2D>("PPoly_Polygon2D");
 
-  theMap.Bind<ShapePersistent_Poly::Polygon3D>("PPoly_Polygon3D");
+  theMap.Bind<Poly3::Polygon3D>("PPoly_Polygon3D");
 
-  theMap.Bind<ShapePersistent_Poly::PolygonOnTriangulation>("PPoly_PolygonOnTriangulation");
+  theMap.Bind<Poly3::PolygonOnTriangulation>("PPoly_PolygonOnTriangulation");
 
-  theMap.Bind<ShapePersistent_Poly::Triangulation>("PPoly_Triangulation");
+  theMap.Bind<Poly3::Triangulation>("PPoly_Triangulation");
 
   theMap.Bind<ShapePersistent_BRep::PointRepresentation>("PBRep_PointRepresentation");
 

@@ -76,7 +76,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
         mySplitCurve3dTool->Perform(Standard_True);
         if (!mySplitCurve3dTool->Status(ShapeExtend_FAIL))
         {
-          Handle(TColGeom_HArray1OfCurve) theSegments3d;
+          Handle(HArray1OfCurve3) theSegments3d;
           theSegments3d = mySplitCurve3dTool->GetCurves();
           if (theSegments3d->Length() > 1)
             return Standard_False;
@@ -122,7 +122,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
         mySplitCurve2dTool->Perform(Standard_True);
         if (mySplitCurve2dTool->Status(ShapeExtend_FAIL))
           return Standard_False;
-        Handle(TColGeom2d_HArray1OfCurve) theSegments2d;
+        Handle(HArray1OfCurve2) theSegments2d;
         theSegments2d = mySplitCurve2dTool->GetCurves();
         if (theSegments2d->Length() > 1)
           return Standard_False; // ShapeAnalysis_Surface
@@ -168,7 +168,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)& 
           mySplitCurve2dTool->Perform(Standard_True);
           if (!mySplitCurve2dTool->Status(ShapeExtend_DONE))
             return Standard_False;
-          Handle(TColGeom2d_HArray1OfCurve) theSegments2d;
+          Handle(HArray1OfCurve2) theSegments2d;
           theSegments2d = mySplitCurve2dTool->GetCurves();
           if (theSegments2d->Length() > 1)
             return Standard_False; // ShapeAnalysis_Surface

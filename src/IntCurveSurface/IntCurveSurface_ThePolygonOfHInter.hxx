@@ -32,15 +32,15 @@ class IntCurveSurface_ThePolygonOfHInter
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntCurveSurface_ThePolygonOfHInter(const Handle(Adaptor3d_Curve)& Curve,
+  Standard_EXPORT IntCurveSurface_ThePolygonOfHInter(const Handle(Curve5)& Curve,
                                                      const Standard_Integer         NbPnt);
 
-  Standard_EXPORT IntCurveSurface_ThePolygonOfHInter(const Handle(Adaptor3d_Curve)& Curve,
+  Standard_EXPORT IntCurveSurface_ThePolygonOfHInter(const Handle(Curve5)& Curve,
                                                      const Standard_Real            U1,
                                                      const Standard_Real            U2,
                                                      const Standard_Integer         NbPnt);
 
-  Standard_EXPORT IntCurveSurface_ThePolygonOfHInter(const Handle(Adaptor3d_Curve)& Curve,
+  Standard_EXPORT IntCurveSurface_ThePolygonOfHInter(const Handle(Curve5)& Curve,
                                                      const TColStd_Array1OfReal&    Upars);
 
   //! Give the bounding box of the polygon.
@@ -86,9 +86,9 @@ public:
   Standard_EXPORT void Dump() const;
 
 protected:
-  Standard_EXPORT void Init(const Handle(Adaptor3d_Curve)& Curve);
+  Standard_EXPORT void Init(const Handle(Curve5)& Curve);
 
-  Standard_EXPORT void Init(const Handle(Adaptor3d_Curve)& Curve,
+  Standard_EXPORT void Init(const Handle(Curve5)& Curve,
                             const TColStd_Array1OfReal&    Upars);
 
 private:

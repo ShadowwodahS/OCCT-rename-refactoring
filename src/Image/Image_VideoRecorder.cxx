@@ -50,7 +50,7 @@ Standard_DISABLE_DEPRECATION_WARNINGS
   #endif
   };
 
-  // Undefine macro that clashes with name used by field of Image_VideoParams;
+  // Undefine macro that clashes with name used by field of VideoParams;
   // this macro is defined in headers of older versions of libavutil
   // (see definition of macro FF_API_PIX_FMT in version.h)
   #ifdef PixelFormat
@@ -59,11 +59,11 @@ Standard_DISABLE_DEPRECATION_WARNINGS
 
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_VideoRecorder, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(VideoRecorder, RefObject)
 
 //=================================================================================================
 
-Image_VideoRecorder::Image_VideoRecorder()
+VideoRecorder::VideoRecorder()
     : myAVContext(NULL),
       myVideoStream(NULL),
       myVideoCodec(NULL),
@@ -82,14 +82,14 @@ Image_VideoRecorder::Image_VideoRecorder()
 
 //=================================================================================================
 
-Image_VideoRecorder::~Image_VideoRecorder()
+VideoRecorder::~VideoRecorder()
 {
   Close();
 }
 
 //=================================================================================================
 
-AsciiString1 Image_VideoRecorder::formatAvError(const int theError) const
+AsciiString1 VideoRecorder::formatAvError(const int theError) const
 {
 #ifdef HAVE_FFMPEG
   char anErrBuf[AV_ERROR_MAX_STRING_SIZE] = {};
@@ -102,7 +102,7 @@ AsciiString1 Image_VideoRecorder::formatAvError(const int theError) const
 
 //=================================================================================================
 
-void Image_VideoRecorder::Close()
+void VideoRecorder::Close()
 {
 #ifdef HAVE_FFMPEG
   if (myScaleCtx != NULL)
@@ -153,8 +153,8 @@ void Image_VideoRecorder::Close()
 
 //=================================================================================================
 
-Standard_Boolean Image_VideoRecorder::Open(const char*              theFileName,
-                                           const Image_VideoParams& theParams)
+Standard_Boolean VideoRecorder::Open(const char*              theFileName,
+                                           const VideoParams& theParams)
 {
 #ifdef HAVE_FFMPEG
   Close();
@@ -224,7 +224,7 @@ Standard_Boolean Image_VideoRecorder::Open(const char*              theFileName,
 
 //=================================================================================================
 
-Standard_Boolean Image_VideoRecorder::addVideoStream(const Image_VideoParams& theParams,
+Standard_Boolean VideoRecorder::addVideoStream(const VideoParams& theParams,
                                                      const Standard_Integer   theDefCodecId)
 {
   myFrameRate.num = theParams.FpsNum;
@@ -285,7 +285,7 @@ Standard_Boolean Image_VideoRecorder::addVideoStream(const Image_VideoParams& th
 
 //=================================================================================================
 
-Standard_Boolean Image_VideoRecorder::openVideoCodec(const Image_VideoParams& theParams)
+Standard_Boolean VideoRecorder::openVideoCodec(const VideoParams& theParams)
 {
 #ifdef HAVE_FFMPEG
   AVDictionary*   anOptions = NULL;
@@ -436,12 +436,12 @@ Standard_Boolean Image_VideoRecorder::openVideoCodec(const Image_VideoParams& th
 
 //=================================================================================================
 
-Standard_Boolean Image_VideoRecorder::writeVideoFrame(const Standard_Boolean theToFlush)
+Standard_Boolean VideoRecorder::writeVideoFrame(const Standard_Boolean theToFlush)
 {
 #ifdef HAVE_FFMPEG
   if (myImgSrcRgba.Format() != Image_Format_RGBA)
   {
-    throw Standard_ProgramError("Image_VideoRecorder, unsupported image format");
+    throw Standard_ProgramError("VideoRecorder, unsupported image format");
   }
 
   int             aResAv    = 0;

@@ -92,7 +92,7 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& theWeights)
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_BSplineCurve::Copy() const
+Handle(Geometry2) Geom2d_BSplineCurve::Copy() const
 {
   Handle(Geom2d_BSplineCurve) C;
   if (IsRational())
@@ -125,7 +125,7 @@ Geom2d_BSplineCurve::Geom2d_BSplineCurve(const TColgp_Array1OfPnt2d&    Poles,
 
   // copy arrays
 
-  poles                 = new TColgp_HArray1OfPnt2d(1, Poles.Length());
+  poles                 = new Point2dArray(1, Poles.Length());
   poles->ChangeArray1() = Poles;
 
   knots                 = new TColStd_HArray1OfReal(1, Knots.Length());
@@ -173,7 +173,7 @@ Geom2d_BSplineCurve::Geom2d_BSplineCurve(const TColgp_Array1OfPnt2d&    Poles,
 
   // copy arrays
 
-  poles                 = new TColgp_HArray1OfPnt2d(1, Poles.Length());
+  poles                 = new Point2dArray(1, Poles.Length());
   poles->ChangeArray1() = Poles;
   if (rational)
   {
@@ -214,8 +214,8 @@ void Geom2d_BSplineCurve::IncreaseDegree(const Standard_Integer Degree)
 
   Standard_Integer Step = Degree - deg;
 
-  Handle(TColgp_HArray1OfPnt2d) npoles =
-    new TColgp_HArray1OfPnt2d(1, poles->Length() + Step * (ToK2 - FromK1));
+  Handle(Point2dArray) npoles =
+    new Point2dArray(1, poles->Length() + Step * (ToK2 - FromK1));
 
   Standard_Integer nbknots =
     BSplCLib1::IncreaseDegreeCountKnots(deg, Degree, periodic, mults->Array1());
@@ -329,7 +329,7 @@ void Geom2d_BSplineCurve::InsertKnots(const TColStd_Array1OfReal&    Knots,
   if (nbpoles == poles->Length())
     return;
 
-  Handle(TColgp_HArray1OfPnt2d)    npoles = new TColgp_HArray1OfPnt2d(1, nbpoles);
+  Handle(Point2dArray)    npoles = new Point2dArray(1, nbpoles);
   Handle(TColStd_HArray1OfReal)    nknots = knots;
   Handle(TColStd_HArray1OfInteger) nmults = mults;
 
@@ -389,7 +389,7 @@ Standard_Boolean Geom2d_BSplineCurve::RemoveKnot(const Standard_Integer Index,
   if (step <= 0)
     return Standard_True;
 
-  Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, oldpoles.Length() - step);
+  Handle(Point2dArray) npoles = new Point2dArray(1, oldpoles.Length() - step);
 
   Handle(TColStd_HArray1OfReal)    nknots = knots;
   Handle(TColStd_HArray1OfInteger) nmults = mults;
@@ -477,7 +477,7 @@ void Geom2d_BSplineCurve::InsertPoleAfter(const Standard_Integer Index,
 
   const TColgp_Array1OfPnt2d&   cpoles   = poles->Array1();
   Standard_Integer              nbpoles  = cpoles.Length();
-  Handle(TColgp_HArray1OfPnt2d) npoles   = new TColgp_HArray1OfPnt2d(1, nbpoles + 1);
+  Handle(Point2dArray) npoles   = new Point2dArray(1, nbpoles + 1);
   TColgp_Array1OfPnt2d&         newpoles = npoles->ChangeArray1();
 
   // insert the pole
@@ -561,7 +561,7 @@ void Geom2d_BSplineCurve::RemovePole(const Standard_Integer Index)
   newknots(newknots.Upper()) = knots->Value(knots->Upper());
   newmults(newmults.Upper()) = mults->Value(mults->Upper());
 
-  Handle(TColgp_HArray1OfPnt2d) npoles   = new TColgp_HArray1OfPnt2d(1, poles->Upper() - 1);
+  Handle(Point2dArray) npoles   = new Point2dArray(1, poles->Upper() - 1);
   TColgp_Array1OfPnt2d&         newpoles = npoles->ChangeArray1();
 
   for (i = 1; i < Index; i++)
@@ -757,7 +757,7 @@ void Geom2d_BSplineCurve::Segment1(const Standard_Real aU1,
   Standard_Integer nbpoles = pindex2 - pindex1 + 1;
 
   Handle(TColStd_HArray1OfReal) nweights = new TColStd_HArray1OfReal(1, nbpoles);
-  Handle(TColgp_HArray1OfPnt2d) npoles   = new TColgp_HArray1OfPnt2d(1, nbpoles);
+  Handle(Point2dArray) npoles   = new Point2dArray(1, nbpoles);
 
   k = 1;
   if (rational)
@@ -864,9 +864,9 @@ void Geom2d_BSplineCurve::SetPeriodic()
   // compute new number of poles;
   Standard_Integer nbp = BSplCLib1::NbPoles(deg, Standard_True, cmults);
 
-  Handle(TColgp_HArray1OfPnt2d) tp = poles;
+  Handle(Point2dArray) tp = poles;
   TColgp_Array1OfPnt2d          cpoles((poles->Array1())(1), 1, nbp);
-  poles                 = new TColgp_HArray1OfPnt2d(1, nbp);
+  poles                 = new Point2dArray(1, nbp);
   poles->ChangeArray1() = cpoles;
 
   if (rational)
@@ -926,7 +926,7 @@ void Geom2d_BSplineCurve::SetOrigin(const Standard_Integer Index)
     index += mults->Value(i);
 
   // set the poles and weights
-  Handle(TColgp_HArray1OfPnt2d) npoles     = new TColgp_HArray1OfPnt2d(1, nbpoles);
+  Handle(Point2dArray) npoles     = new Point2dArray(1, nbpoles);
   Handle(TColStd_HArray1OfReal) nweights   = new TColStd_HArray1OfReal(1, nbpoles);
   TColgp_Array1OfPnt2d&         newpoles   = npoles->ChangeArray1();
   TColStd_Array1OfReal&         newweights = nweights->ChangeArray1();
@@ -981,7 +981,7 @@ void Geom2d_BSplineCurve::SetNotPeriodic()
     Standard_Integer NbKnots, NbPoles;
     BSplCLib1::PrepareUnperiodize(deg, mults->Array1(), NbKnots, NbPoles);
 
-    Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, NbPoles);
+    Handle(Point2dArray) npoles = new Point2dArray(1, NbPoles);
 
     Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, NbKnots);
 

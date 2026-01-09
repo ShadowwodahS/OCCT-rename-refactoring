@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_GraphicDriver, RefObject)
 
 //=================================================================================================
 
-Graphic3d_GraphicDriver::Graphic3d_GraphicDriver(const Handle(Aspect_DisplayConnection)& theDisp)
+Graphic3d_GraphicDriver::Graphic3d_GraphicDriver(const Handle(DisplayConnection1)& theDisp)
     : myDisplayConnection(theDisp)
 {
   // default layers are always presented in display layer sequence and cannot be removed
@@ -114,7 +114,7 @@ Graphic3d_GraphicDriver::Graphic3d_GraphicDriver(const Handle(Aspect_DisplayConn
 
 //=================================================================================================
 
-const Handle(Aspect_DisplayConnection)& Graphic3d_GraphicDriver::GetDisplayConnection() const
+const Handle(DisplayConnection1)& Graphic3d_GraphicDriver::GetDisplayConnection() const
 {
   return myDisplayConnection;
 }

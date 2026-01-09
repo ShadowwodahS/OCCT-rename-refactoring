@@ -39,7 +39,7 @@ class math_Matrix;
 //! w is the parameter on the guide line,
 //! U,V are the parametric coordinates of a point on the
 //! partner surface.
-class Blend_FuncInv : public math_FunctionSetWithDerivatives
+class Blend_FuncInv : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

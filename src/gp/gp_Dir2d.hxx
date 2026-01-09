@@ -27,7 +27,7 @@ class Transform2d;
 //! Describes a unit vector in the plane (2D space). This unit
 //! vector is also called "Direction".
 //! See Also
-//! gce_MakeDir2d which provides functions for more
+//! DirectionBuilder2d which provides functions for more
 //! complex1 unit vector constructions
 //! Geom2d_Direction which provides additional functions
 //! for constructing unit vectors and works, in particular, with

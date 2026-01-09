@@ -19,10 +19,10 @@
 #include <NCollection_List.hxx>
 #include <Font_SystemFont.hxx>
 
-typedef NCollection_List<Handle(Font_SystemFont)> Font_NListOfSystemFont;
+typedef NCollection_List<Handle(SystemFont)> Font_NListOfSystemFont;
 
-inline Standard_Boolean IsEqual(const Handle(Font_SystemFont)& theFirstFont,
-                                const Handle(Font_SystemFont)& theSecondFont)
+inline Standard_Boolean IsEqual(const Handle(SystemFont)& theFirstFont,
+                                const Handle(SystemFont)& theSecondFont)
 {
   return theFirstFont->IsEqual(theSecondFont);
 }

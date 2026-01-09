@@ -59,13 +59,13 @@ public:
   static void VIntervals(const Standard_Address S, TColStd_Array1OfReal& T, const GeomAbs_Shape Sh);
 
   //! If <First> >= <Last>
-  static Handle(Adaptor3d_Surface) UTrim(const Standard_Address S,
+  static Handle(SurfaceAdaptor) UTrim(const Standard_Address S,
                                          const Standard_Real    First,
                                          const Standard_Real    Last,
                                          const Standard_Real    Tol);
 
   //! If <First> >= <Last>
-  static Handle(Adaptor3d_Surface) VTrim(const Standard_Address S,
+  static Handle(SurfaceAdaptor) VTrim(const Standard_Address S,
                                          const Standard_Real    First,
                                          const Standard_Real    Last,
                                          const Standard_Real    Tol);
@@ -147,9 +147,9 @@ public:
 
   static Dir3d Direction(const Standard_Address S);
 
-  static Handle(Adaptor3d_Curve) BasisCurve(const Standard_Address S);
+  static Handle(Curve5) BasisCurve(const Standard_Address S);
 
-  static Handle(Adaptor3d_Surface) BasisSurface(const Standard_Address S);
+  static Handle(SurfaceAdaptor) BasisSurface(const Standard_Address S);
 
   static Standard_Real OffsetValue(const Standard_Address S);
 

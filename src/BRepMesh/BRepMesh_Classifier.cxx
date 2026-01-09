@@ -20,19 +20,19 @@
 #include <CSLib_Class2d.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Classifier, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(FaceClassifier, RefObject)
 
 //=================================================================================================
 
-BRepMesh_Classifier::BRepMesh_Classifier() {}
+FaceClassifier::FaceClassifier() {}
 
 //=================================================================================================
 
-BRepMesh_Classifier::~BRepMesh_Classifier() {}
+FaceClassifier::~FaceClassifier() {}
 
 //=================================================================================================
 
-TopAbs_State BRepMesh_Classifier::Perform(const gp_Pnt2d& thePoint) const
+TopAbs_State FaceClassifier::Perform(const gp_Pnt2d& thePoint) const
 {
   Standard_Boolean isOut = Standard_False;
   Standard_Integer aNb   = myTabClass.Length();
@@ -61,7 +61,7 @@ TopAbs_State BRepMesh_Classifier::Perform(const gp_Pnt2d& thePoint) const
 
 //=================================================================================================
 
-void BRepMesh_Classifier::RegisterWire(const NCollection_Sequence<const gp_Pnt2d*>&   theWire,
+void FaceClassifier::RegisterWire(const NCollection_Sequence<const gp_Pnt2d*>&   theWire,
                                        const std::pair<Standard_Real, Standard_Real>& theTolUV,
                                        const std::pair<Standard_Real, Standard_Real>& theRangeU,
                                        const std::pair<Standard_Real, Standard_Real>& theRangeV)

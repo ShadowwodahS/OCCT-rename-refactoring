@@ -15,11 +15,11 @@
 
 #include <BVH_Properties.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BVH_Properties, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(BVHProperties, RefObject)
 
 //=================================================================================================
 
-BVH_Properties::~BVH_Properties()
+BVHProperties::~BVHProperties()
 {
   //
 }

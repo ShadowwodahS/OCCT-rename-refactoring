@@ -71,7 +71,7 @@ static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
       di << "no UNDO available\n";
       return 0;
     }
-    Handle(TDF_Delta)                    DELTA = D->GetUndos().Last();
+    Handle(Delta)                    DELTA = D->GetUndos().Last();
     TDF_ListIteratorOfAttributeDeltaList it(DELTA->AttributeDeltas());
     for (; it.More(); it.Next())
     {

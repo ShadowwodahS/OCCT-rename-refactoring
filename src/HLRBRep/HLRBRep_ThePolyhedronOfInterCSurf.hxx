@@ -122,7 +122,7 @@ public:
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
-  Standard_EXPORT const Handle(Bnd_HArray1OfBox)& ComponentsBounding() const;
+  Standard_EXPORT const Handle(BoxArray)& ComponentsBounding() const;
 
   Standard_EXPORT Standard_Real DeflectionOverEstimation() const;
 
@@ -183,7 +183,7 @@ private:
   Standard_Integer         nbdeltaU;
   Standard_Integer         nbdeltaV;
   Box2                  TheBnd;
-  Handle(Bnd_HArray1OfBox) TheComponentsBnd;
+  Handle(BoxArray) TheComponentsBnd;
   Standard_Real            TheDeflection;
   Standard_Address         C_MyPnts;
   Standard_Address         C_MyU;

@@ -23,7 +23,7 @@
 #include <Graphic3d_ClipPlane.hxx>
 
 class OpenGl_CappingPlaneResource;
-DEFINE_STANDARD_HANDLE(OpenGl_CappingPlaneResource, OpenGl_Resource)
+DEFINE_STANDARD_HANDLE(OpenGl_CappingPlaneResource, Resource)
 
 //! Container of graphical resources for rendering capping plane
 //! associated to graphical clipping plane.
@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(OpenGl_CappingPlaneResource, OpenGl_Resource)
 //! - one instance should be shared between contexts.
 //! - instance associated to Graphic3d_ClipPlane data by id.
 //! - should created and released within context (owns OpenGl elements and resources).
-class OpenGl_CappingPlaneResource : public OpenGl_Resource
+class OpenGl_CappingPlaneResource : public Resource
 {
 public:
   //! Constructor.
@@ -86,7 +86,7 @@ private:
   unsigned int                myAspectMod;      //!< modification counter for aspect.
 
 public:
-  DEFINE_STANDARD_RTTIEXT(OpenGl_CappingPlaneResource, OpenGl_Resource) // Type definition
+  DEFINE_STANDARD_RTTIEXT(OpenGl_CappingPlaneResource, Resource) // Type definition
 };
 
 #endif

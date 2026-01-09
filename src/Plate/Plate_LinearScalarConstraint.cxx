@@ -25,8 +25,8 @@ Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const PinpointConstra
                                                            const Coords3d&                   coeff)
 
 {
-  myPPC  = new Plate_HArray1OfPinpointConstraint(1, 1);
-  myCoef = new TColgp_HArray2OfXYZ(1, 1, 1, 1);
+  myPPC  = new PinpointConstraintArray(1, 1);
+  myCoef = new XYZGrid(1, 1, 1, 1);
 
   myPPC->ChangeValue(1)     = PPC1;
   myCoef->ChangeValue(1, 1) = coeff;
@@ -38,8 +38,8 @@ Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(
 {
   if (theCoeff.Length() != thePPC.Length())
     throw Standard_DimensionMismatch();
-  myPPC  = new Plate_HArray1OfPinpointConstraint(1, thePPC.Length());
-  myCoef = new TColgp_HArray2OfXYZ(1, 1, 1, theCoeff.Length());
+  myPPC  = new PinpointConstraintArray(1, thePPC.Length());
+  myCoef = new XYZGrid(1, 1, 1, theCoeff.Length());
 
   myPPC->ChangeArray1() = thePPC;
   for (Standard_Integer i = 1; i <= theCoeff.Length(); i++)
@@ -54,8 +54,8 @@ Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(
 {
   if (theCoeff.RowLength() != thePPC.Length())
     throw Standard_DimensionMismatch();
-  myPPC  = new Plate_HArray1OfPinpointConstraint(1, thePPC.Length());
-  myCoef = new TColgp_HArray2OfXYZ(1, theCoeff.ColLength(), 1, theCoeff.RowLength());
+  myPPC  = new PinpointConstraintArray(1, thePPC.Length());
+  myCoef = new XYZGrid(1, theCoeff.ColLength(), 1, theCoeff.RowLength());
 
   myPPC->ChangeArray1()  = thePPC;
   myCoef->ChangeArray2() = theCoeff;
@@ -64,8 +64,8 @@ Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(
 Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const Standard_Integer ColLen,
                                                            const Standard_Integer RowLen)
 {
-  myPPC  = new Plate_HArray1OfPinpointConstraint(1, RowLen);
-  myCoef = new TColgp_HArray2OfXYZ(1, ColLen, 1, RowLen);
+  myPPC  = new PinpointConstraintArray(1, RowLen);
+  myCoef = new XYZGrid(1, ColLen, 1, RowLen);
   myCoef->Init(Coords3d(0., 0., 0.));
 }
 

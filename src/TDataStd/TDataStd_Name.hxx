@@ -42,12 +42,12 @@ public:
   //! <father>.
   //! class methods working on the name tree
   //! ======================================
-  //! Search in the  whole TDF_Data the Name attribute which
+  //! Search in the  whole Data2 the Name attribute which
   //! fit with <fullPath>. Returns True if found.
   //! Search  under <currentLabel>  a  label which fit with
   //! <name>. Returns True if  found. Shortcut which  avoids
   //! building a ListOfExtendedStrin.
-  //! Search in the whole TDF_Data the label which fit with name
+  //! Search in the whole Data2 the label which fit with name
   //! Returns True if found.
   //! tools methods to translate path <-> pathlist
   //! ===========================================

@@ -35,11 +35,11 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_CodecContext, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(CodecContext, RefObject)
 
 //=================================================================================================
 
-Media_CodecContext::Media_CodecContext()
+CodecContext::CodecContext()
     : myCodecCtx(NULL),
       myCodec(NULL),
       myPtsStartBase(0.0),
@@ -55,14 +55,14 @@ Media_CodecContext::Media_CodecContext()
 
 //=================================================================================================
 
-Media_CodecContext::~Media_CodecContext()
+CodecContext::~CodecContext()
 {
   Close();
 }
 
 //=================================================================================================
 
-bool Media_CodecContext::Init(const AVStream& theStream, double thePtsStartBase, int theNbThreads)
+bool CodecContext::Init(const AVStream& theStream, double thePtsStartBase, int theNbThreads)
 {
 #ifdef HAVE_FFMPEG
   return Init(theStream, thePtsStartBase, theNbThreads, AV_CODEC_ID_NONE);
@@ -73,7 +73,7 @@ bool Media_CodecContext::Init(const AVStream& theStream, double thePtsStartBase,
 
 //=================================================================================================
 
-bool Media_CodecContext::Init(const AVStream& theStream,
+bool CodecContext::Init(const AVStream& theStream,
                               double          thePtsStartBase,
                               int             theNbThreads,
                               int             theCodecId)
@@ -89,7 +89,7 @@ bool Media_CodecContext::Init(const AVStream& theStream,
 
   myTimeBase       = av_q2d(theStream.time_base);
   myPtsStartBase   = thePtsStartBase;
-  myPtsStartStream = Media_FormatContext::StreamUnitsToSeconds(theStream, theStream.start_time);
+  myPtsStartStream = FormatContext::StreamUnitsToSeconds(theStream, theStream.start_time);
 
   const AVCodecID aCodecId =
     theCodecId != AV_CODEC_ID_NONE ? (AVCodecID)theCodecId : theStream.codecpar->codec_id;
@@ -157,7 +157,7 @@ bool Media_CodecContext::Init(const AVStream& theStream,
 
 //=================================================================================================
 
-void Media_CodecContext::Close()
+void CodecContext::Close()
 {
   if (myCodecCtx != NULL)
   {
@@ -169,7 +169,7 @@ void Media_CodecContext::Close()
 
 //=================================================================================================
 
-void Media_CodecContext::Flush()
+void CodecContext::Flush()
 {
   if (myCodecCtx != NULL)
   {
@@ -181,7 +181,7 @@ void Media_CodecContext::Flush()
 
 //=================================================================================================
 
-int Media_CodecContext::SizeX() const
+int CodecContext::SizeX() const
 {
 #ifdef HAVE_FFMPEG
   return (myCodecCtx != NULL) ? myCodecCtx->width : 0;
@@ -192,7 +192,7 @@ int Media_CodecContext::SizeX() const
 
 //=================================================================================================
 
-int Media_CodecContext::SizeY() const
+int CodecContext::SizeY() const
 {
 #ifdef HAVE_FFMPEG
   return (myCodecCtx != NULL) ? myCodecCtx->height : 0;
@@ -203,14 +203,14 @@ int Media_CodecContext::SizeY() const
 
 //=================================================================================================
 
-bool Media_CodecContext::CanProcessPacket(const Handle(Media_Packet)& thePacket) const
+bool CodecContext::CanProcessPacket(const Handle(Media_Packet)& thePacket) const
 {
   return !thePacket.IsNull() && myStreamIndex == thePacket->StreamIndex();
 }
 
 //=================================================================================================
 
-bool Media_CodecContext::SendPacket(const Handle(Media_Packet)& thePacket)
+bool CodecContext::SendPacket(const Handle(Media_Packet)& thePacket)
 {
   if (!CanProcessPacket(thePacket))
   {
@@ -231,7 +231,7 @@ bool Media_CodecContext::SendPacket(const Handle(Media_Packet)& thePacket)
 
 //=================================================================================================
 
-bool Media_CodecContext::ReceiveFrame(const Handle(Media_Frame)& theFrame)
+bool CodecContext::ReceiveFrame(const Handle(Media_Frame)& theFrame)
 {
   if (theFrame.IsNull())
   {

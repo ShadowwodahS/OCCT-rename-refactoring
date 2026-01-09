@@ -51,7 +51,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ProjLib_ProjectedCurve, Adaptor2d_Curve2d)
 
 //=================================================================================================
 
-static Standard_Real ComputeTolU(const Handle(Adaptor3d_Surface)& theSurf,
+static Standard_Real ComputeTolU(const Handle(SurfaceAdaptor)& theSurf,
                                  const Standard_Real              theTolerance)
 {
   Standard_Real aTolU = theSurf->UResolution(theTolerance);
@@ -65,7 +65,7 @@ static Standard_Real ComputeTolU(const Handle(Adaptor3d_Surface)& theSurf,
 
 //=================================================================================================
 
-static Standard_Real ComputeTolV(const Handle(Adaptor3d_Surface)& theSurf,
+static Standard_Real ComputeTolV(const Handle(SurfaceAdaptor)& theSurf,
                                  const Standard_Real              theTolerance)
 {
   Standard_Real aTolV = theSurf->VResolution(theTolerance);
@@ -79,7 +79,7 @@ static Standard_Real ComputeTolV(const Handle(Adaptor3d_Surface)& theSurf,
 
 //=================================================================================================
 
-static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
+static Standard_Boolean IsoIsDeg(const SurfaceAdaptor& S,
                                  const Standard_Real      Param,
                                  const GeomAbs_IsoType    IT,
                                  const Standard_Real      TolMin,
@@ -125,7 +125,7 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
 
 //=================================================================================================
 
-static void TrimC3d(Handle(Adaptor3d_Curve)& myCurve,
+static void TrimC3d(Handle(Curve5)& myCurve,
                     Standard_Boolean*        IsTrimmed,
                     const Standard_Real      dt,
                     const Point3d&            Pole,
@@ -237,7 +237,7 @@ static void ExtendC2d(Handle(Geom2d_BSplineCurve)& aRes,
 
 //=================================================================================================
 
-static void Project(ProjLib_Projector& P, Handle(Adaptor3d_Curve)& C)
+static void Project(ProjLib_Projector& P, Handle(Curve5)& C)
 {
   GeomAbs_CurveType CType = C->GetType();
   switch (CType)
@@ -281,7 +281,7 @@ ProjLib_ProjectedCurve::ProjLib_ProjectedCurve()
 
 //=================================================================================================
 
-ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S)
+ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(SurfaceAdaptor)& S)
     : myTolerance(Precision1::Confusion()),
       myDegMin(-1),
       myDegMax(-1),
@@ -294,8 +294,8 @@ ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& 
 
 //=================================================================================================
 
-ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
-                                               const Handle(Adaptor3d_Curve)&   C)
+ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(SurfaceAdaptor)& S,
+                                               const Handle(Curve5)&   C)
     : myTolerance(Precision1::Confusion()),
       myDegMin(-1),
       myDegMax(-1),
@@ -309,8 +309,8 @@ ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& 
 
 //=================================================================================================
 
-ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(Adaptor3d_Surface)& S,
-                                               const Handle(Adaptor3d_Curve)&   C,
+ProjLib_ProjectedCurve::ProjLib_ProjectedCurve(const Handle(SurfaceAdaptor)& S,
+                                               const Handle(Curve5)&   C,
                                                const Standard_Real              Tol)
     : myTolerance(Max(Tol, Precision1::Confusion())),
       myDegMin(-1),
@@ -350,7 +350,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ProjectedCurve::ShallowCopy() const
 
 //=================================================================================================
 
-void ProjLib_ProjectedCurve::Load(const Handle(Adaptor3d_Surface)& S)
+void ProjLib_ProjectedCurve::Load(const Handle(SurfaceAdaptor)& S)
 {
   mySurface = S;
 }
@@ -364,7 +364,7 @@ void ProjLib_ProjectedCurve::Load(const Standard_Real theTol)
 
 //=================================================================================================
 
-void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
+void ProjLib_ProjectedCurve::Perform(const Handle(Curve5)& C)
 {
   myTolerance                          = Max(myTolerance, Precision1::Confusion());
   myCurve                              = C;
@@ -457,7 +457,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
       l  = myCurve->LastParameter();
       dt = (l - f) * eps;
 
-      const Adaptor3d_Surface& S = *mySurface;
+      const SurfaceAdaptor& S = *mySurface;
       U1                         = S.FirstUParameter();
       U2                         = S.LastUParameter();
       V1                         = S.FirstVParameter();
@@ -899,14 +899,14 @@ void ProjLib_ProjectedCurve::SetMaxDist(const Standard_Real theMaxDist)
 
 //=================================================================================================
 
-const Handle(Adaptor3d_Surface)& ProjLib_ProjectedCurve::GetSurface() const
+const Handle(SurfaceAdaptor)& ProjLib_ProjectedCurve::GetSurface() const
 {
   return mySurface;
 }
 
 //=================================================================================================
 
-const Handle(Adaptor3d_Curve)& ProjLib_ProjectedCurve::GetCurve() const
+const Handle(Curve5)& ProjLib_ProjectedCurve::GetCurve() const
 {
   return myCurve;
 }

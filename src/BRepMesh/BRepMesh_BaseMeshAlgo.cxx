@@ -22,7 +22,7 @@
 #include <BRepMesh_ShapeTool.hxx>
 #include <Standard_ErrorHandler.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_BaseMeshAlgo, IMeshTools_MeshAlgo)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_BaseMeshAlgo, MeshAlgorithm)
 
 //=================================================================================================
 
@@ -113,7 +113,7 @@ Standard_Boolean BRepMesh_BaseMeshAlgo::initDataStructure()
           if (aWireIt != 0 && aLinkIndex <= aLinksNb)
           {
             // Prevent holes around wire of zero area.
-            BRepMesh_Edge& aLink = const_cast<BRepMesh_Edge&>(myStructure->GetLink(aLinkIndex));
+            Edge3& aLink = const_cast<Edge3&>(myStructure->GetLink(aLinkIndex));
             aLink.SetMovability(BRepMesh_Fixed);
           }
         }
@@ -165,12 +165,12 @@ Standard_Integer BRepMesh_BaseMeshAlgo::addLinkToMesh(const Standard_Integer   t
   Standard_Integer aLinkIndex;
   if (theOrientation == TopAbs_REVERSED)
     aLinkIndex =
-      myStructure->AddLink(BRepMesh_Edge(theLastNodeId, theFirstNodeId, BRepMesh_Frontier));
+      myStructure->AddLink(Edge3(theLastNodeId, theFirstNodeId, BRepMesh_Frontier));
   else if (theOrientation == TopAbs_INTERNAL)
-    aLinkIndex = myStructure->AddLink(BRepMesh_Edge(theFirstNodeId, theLastNodeId, BRepMesh_Fixed));
+    aLinkIndex = myStructure->AddLink(Edge3(theFirstNodeId, theLastNodeId, BRepMesh_Fixed));
   else
     aLinkIndex =
-      myStructure->AddLink(BRepMesh_Edge(theFirstNodeId, theLastNodeId, BRepMesh_Frontier));
+      myStructure->AddLink(Edge3(theFirstNodeId, theLastNodeId, BRepMesh_Frontier));
 
   return Abs(aLinkIndex);
 }
@@ -220,7 +220,7 @@ void BRepMesh_BaseMeshAlgo::commitSurfaceTriangulation()
 
   collectNodes(aTriangulation);
 
-  BRepMesh_ShapeTool::AddInFace(myDFace->GetFace(), aTriangulation);
+  ShapeTool2::AddInFace(myDFace->GetFace(), aTriangulation);
 }
 
 //=================================================================================================

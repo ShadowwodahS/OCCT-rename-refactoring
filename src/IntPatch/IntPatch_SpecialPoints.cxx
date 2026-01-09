@@ -29,11 +29,11 @@
 
 // The function for searching intersection point, which
 // lies in the seam-edge of the quadric definitely.
-class FuncPreciseSeam : public math_FunctionSetWithDerivatives
+class FuncPreciseSeam : public FunctionSetWithDerivatives
 {
 public:
-  FuncPreciseSeam(const Handle(Adaptor3d_Surface)& theQSurf, // quadric
-                  const Handle(Adaptor3d_Surface)& thePSurf, // another surface
+  FuncPreciseSeam(const Handle(SurfaceAdaptor)& theQSurf, // quadric
+                  const Handle(SurfaceAdaptor)& thePSurf, // another surface
                   const Standard_Boolean           isTheUSeam,
                   const Standard_Real              theIsoParameter)
       : myQSurf(theQSurf),
@@ -117,8 +117,8 @@ protected:
   FuncPreciseSeam operator=(FuncPreciseSeam&);
 
 private:
-  const Handle(Adaptor3d_Surface)& myQSurf;
-  const Handle(Adaptor3d_Surface)& myPSurf;
+  const Handle(SurfaceAdaptor)& myQSurf;
+  const Handle(SurfaceAdaptor)& myPSurf;
 
   //! 1 for U-coordinate, 0 - for V one.
   const Standard_Integer mySeamCoordInd;
@@ -150,7 +150,7 @@ static inline void GetTangent(const Standard_Real theConeSemiAngle,
 //            Returns the foot of projection (theProjPt) and its parameters
 //           on theSurf.
 //=======================================================================
-static Standard_Boolean IsPointOnSurface(const Handle(Adaptor3d_Surface)& theSurf,
+static Standard_Boolean IsPointOnSurface(const Handle(SurfaceAdaptor)& theSurf,
                                          const Point3d&                    thePt,
                                          const Standard_Real              theTol,
                                          Point3d&                          theProjPt,
@@ -230,8 +230,8 @@ static Standard_Boolean IsPointOnSurface(const Handle(Adaptor3d_Surface)& theSur
 //            thePSurf is another surface to intersect.
 //=======================================================================
 Standard_Boolean SpecialPoints::AddCrossUVIsoPoint(
-  const Handle(Adaptor3d_Surface)& theQSurf,
-  const Handle(Adaptor3d_Surface)& thePSurf,
+  const Handle(SurfaceAdaptor)& theQSurf,
+  const Handle(SurfaceAdaptor)& thePSurf,
   const PointOn2Surfaces&           theRefPt,
   const Standard_Real              theTol,
   PointOn2Surfaces&                 theAddedPoint,
@@ -288,8 +288,8 @@ Standard_Boolean SpecialPoints::AddCrossUVIsoPoint(
 //            thePSurf is another surface to intersect.
 //=======================================================================
 Standard_Boolean SpecialPoints::AddPointOnUorVIso(
-  const Handle(Adaptor3d_Surface)& theQSurf,
-  const Handle(Adaptor3d_Surface)& thePSurf,
+  const Handle(SurfaceAdaptor)& theQSurf,
+  const Handle(SurfaceAdaptor)& thePSurf,
   const PointOn2Surfaces&           theRefPt,
   const Standard_Boolean           theIsU,
   const Standard_Real              theIsoParameter,
@@ -772,8 +772,8 @@ Standard_Integer SpecialPoints::GetTangentToIntLineForCone(
 //            thePSurf is another surface to intersect.
 //           Returns TRUE, if the pole is an intersection point.
 //=======================================================================
-Standard_Boolean SpecialPoints::AddSingularPole(const Handle(Adaptor3d_Surface)& theQSurf,
-                                                         const Handle(Adaptor3d_Surface)& thePSurf,
+Standard_Boolean SpecialPoints::AddSingularPole(const Handle(SurfaceAdaptor)& theQSurf,
+                                                         const Handle(SurfaceAdaptor)& thePSurf,
                                                          const PointOn2Surfaces&           thePtIso,
                                                          IntPatch_Point&                  theVertex,
                                                          PointOn2Surfaces&       theAddedPoint,
@@ -945,8 +945,8 @@ to the inters. curve. In this case @U_{q}@ must be recomputed.
 */
 //=======================================================================
 Standard_Boolean SpecialPoints::ContinueAfterSpecialPoint(
-  const Handle(Adaptor3d_Surface)& theQSurf,
-  const Handle(Adaptor3d_Surface)& thePSurf,
+  const Handle(SurfaceAdaptor)& theQSurf,
+  const Handle(SurfaceAdaptor)& thePSurf,
   const PointOn2Surfaces&           theRefPt,
   const IntPatch_SpecPntType       theSPType,
   const Standard_Real              theTol2D,

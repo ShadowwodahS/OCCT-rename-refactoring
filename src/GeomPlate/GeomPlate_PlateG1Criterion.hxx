@@ -29,12 +29,12 @@ class AdvApp2Var_Patch;
 class AdvApp2Var_Context;
 
 //! this class contains a specific G1 criterion for GeomPlate_MakeApprox
-class GeomPlate_PlateG1Criterion : public Criterion
+class G1Criterion : public Criterion
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomPlate_PlateG1Criterion(
+  Standard_EXPORT G1Criterion(
     const TColgp_SequenceOfXY&            Data,
     const TColgp_SequenceOfXYZ&           G1Data,
     const Standard_Real                   Maximum,

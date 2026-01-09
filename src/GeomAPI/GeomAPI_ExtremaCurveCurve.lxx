@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Extrema_ExtCC& GeomAPI_ExtremaCurveCurve::Extrema() const
+inline const CurveCurveExtrema2& GeomAPI_ExtremaCurveCurve::Extrema() const
 {
   return myExtCC;
 }

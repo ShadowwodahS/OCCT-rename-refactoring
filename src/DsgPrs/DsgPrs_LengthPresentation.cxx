@@ -48,7 +48,7 @@ void LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Point3d        Proj1 = ElCLib1::Value(ElCLib1::Parameter(L1, OffsetPoint), L1);
   Point3d        Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, OffsetPoint), L2);
   gp_Lin        L3    = Proj1.IsEqual(Proj2, Precision1::Confusion()) ? gp_Lin(Proj1, aDirection)
-                                                                     : gce_MakeLin(Proj1, Proj2);
+                                                                     : LineBuilder(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib1::Parameter(L3, Proj1);
   parmax             = parmin;
@@ -222,7 +222,7 @@ void LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Point3d        Proj1 = ElCLib1::Value(ElCLib1::Parameter(L1, OffsetPoint), L1);
   Point3d        Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, OffsetPoint), L2);
   gp_Lin        L3    = Proj1.IsEqual(Proj2, Precision1::Confusion()) ? gp_Lin(Proj1, aDirection)
-                                                                     : gce_MakeLin(Proj1, Proj2);
+                                                                     : LineBuilder(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib1::Parameter(L3, Proj1);
   parmax             = parmin;

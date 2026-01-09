@@ -113,8 +113,8 @@ Standard_Real ShapeAnalysis_WireOrder::Tolerance() const
 
 void ShapeAnalysis_WireOrder::Clear()
 {
-  myXYZ  = new TColgp_HSequenceOfXYZ();
-  myXY   = new TColgp_HSequenceOfXY();
+  myXYZ  = new XYZSequence();
+  myXY   = new XYSequence();
   myStat = 0;
   myGap  = 0.0;
 }

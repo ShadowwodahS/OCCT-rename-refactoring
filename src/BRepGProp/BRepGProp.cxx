@@ -88,7 +88,7 @@ void BRepGProp1::LinearProperties(const TopoShape&    S,
       continue;
     }
 
-    Handle(TColgp_HArray1OfPnt) theNodes;
+    Handle(PointArray1) theNodes;
     Standard_Boolean            IsGeom = BRepInspector::IsGeometric(aE);
     if (UseTriangulation || !IsGeom)
     {

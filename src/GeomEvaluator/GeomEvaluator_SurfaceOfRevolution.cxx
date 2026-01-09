@@ -18,23 +18,23 @@
 #include <gp_Trsf.hxx>
 #include <Precision.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, Surface1)
 
 GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
   const Handle(GeomCurve3d)& theBase,
   const Dir3d&             theRevolDir,
   const Point3d&             theRevolLoc)
-    : GeomEvaluator_Surface(),
+    : Surface1(),
       myBaseCurve(theBase),
       myRotAxis(theRevolLoc, theRevolDir)
 {
 }
 
 GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
-  const Handle(Adaptor3d_Curve)& theBase,
+  const Handle(Curve5)& theBase,
   const Dir3d&                  theRevolDir,
   const Point3d&                  theRevolLoc)
-    : GeomEvaluator_Surface(),
+    : Surface1(),
       myBaseAdaptor(theBase),
       myRotAxis(theRevolLoc, theRevolDir)
 {
@@ -217,7 +217,7 @@ Vector3d GeomEvaluator_SurfaceOfRevolution::DN(const Standard_Real    theU,
   return aResult;
 }
 
-Handle(GeomEvaluator_Surface) GeomEvaluator_SurfaceOfRevolution::ShallowCopy() const
+Handle(Surface1) GeomEvaluator_SurfaceOfRevolution::ShallowCopy() const
 {
   Handle(GeomEvaluator_SurfaceOfRevolution) aCopy;
   if (!myBaseAdaptor.IsNull())

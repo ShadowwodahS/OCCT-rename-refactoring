@@ -187,7 +187,7 @@ public: //! @name interface implementation
   //! @param theInto [in/out] target attribute to copy this into
   //! @param[in] theRelTable  relocation table
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       theInto,
-                                     const Handle(TDF_RelocationTable)& theRelTable) const
+                                     const Handle(RelocationTable1)& theRelTable) const
     Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream

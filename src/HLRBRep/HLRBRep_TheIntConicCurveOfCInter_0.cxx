@@ -36,7 +36,7 @@
 #define ThePCurveTool_hxx <HLRBRep_CurveTool.hxx>
 #define TheProjPCur ProjPCurOfCInter
 #define TheProjPCur_hxx <HLRBRep_TheProjPCurOfCInter.hxx>
-#define IntCurve_TheIntersector HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter
+#define IntCurve_TheIntersector IntersectorIntConicCurveCInter
 #define IntCurve_TheIntersector_hxx <HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter.hxx>
 #define IntCurve_MyImpParToolOfTheIntersector                                                      \
   HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
@@ -46,6 +46,6 @@
   HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
 #define IntCurve_MyImpParToolOfTheIntersector_hxx                                                  \
   <HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter.hxx>
-#define IntCurve_IntConicCurveGen HLRBRep_TheIntConicCurveOfCInter
+#define IntCurve_IntConicCurveGen IntConicCurveCInter
 #define IntCurve_IntConicCurveGen_hxx <HLRBRep_TheIntConicCurveOfCInter.hxx>
 #include "../IntCurve/IntCurve_IntConicCurveGen.gxx"

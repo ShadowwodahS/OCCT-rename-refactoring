@@ -167,7 +167,7 @@ void RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   // text
   Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, AttachmentPoint);
 
-  Dir3d ArrowDir = gce_MakeDir(LineOrigin, LineEnd);
+  Dir3d ArrowDir = DirectionBuilder(LineOrigin, LineEnd);
   if (reverseArrow)
     ArrowDir.Reverse();
   DsgPrs1::ComputeSymbol(aPresentation,

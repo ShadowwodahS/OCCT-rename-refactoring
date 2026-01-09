@@ -59,14 +59,14 @@ GCE2d_MakeCircle::GCE2d_MakeCircle(const Ax22d& A, const Standard_Real Radius)
 
 GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Circ2d& Circ, const gp_Pnt2d& Point)
 {
-  gp_Circ2d C = gce_MakeCirc2d(Circ, Point);
+  gp_Circ2d C = CircleBuilder2d(Circ, Point);
   TheCircle   = new Geom2d_Circle(C);
   TheError    = gce_Done;
 }
 
 GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Circ2d& Circ, const Standard_Real Dist)
 {
-  gce_MakeCirc2d C = gce_MakeCirc2d(Circ, Dist);
+  CircleBuilder2d C = CircleBuilder2d(Circ, Dist);
   TheError         = C.Status();
   if (TheError == gce_Done)
   {
@@ -76,7 +76,7 @@ GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Circ2d& Circ, const Standard_Real Di
 
 GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_Pnt2d& P3)
 {
-  gce_MakeCirc2d C = gce_MakeCirc2d(P1, P2, P3);
+  CircleBuilder2d C = CircleBuilder2d(P1, P2, P3);
   TheError         = C.Status();
   if (TheError == gce_Done)
   {
@@ -88,7 +88,7 @@ GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Pnt2d&        Point,
                                    const Standard_Real    Radius,
                                    const Standard_Boolean Sense)
 {
-  gce_MakeCirc2d C = gce_MakeCirc2d(Point, Radius, Sense);
+  CircleBuilder2d C = CircleBuilder2d(Point, Radius, Sense);
   TheError         = C.Status();
   if (TheError == gce_Done)
   {
@@ -100,7 +100,7 @@ GCE2d_MakeCircle::GCE2d_MakeCircle(const gp_Pnt2d&        Center,
                                    const gp_Pnt2d&        Point,
                                    const Standard_Boolean Sense)
 {
-  gce_MakeCirc2d C = gce_MakeCirc2d(Center, Point, Sense);
+  CircleBuilder2d C = CircleBuilder2d(Center, Point, Sense);
   TheError         = C.Status();
   if (TheError == gce_Done)
   {

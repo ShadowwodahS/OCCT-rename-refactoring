@@ -548,7 +548,7 @@ void LoopBuilder::GetHangingLinks(ListOfLink& theLinks) const
 
 //=================================================================================================
 
-Poly_MakeLoops3D::Poly_MakeLoops3D(const Helper1*                            theHelper,
+LoopBuilder3D::LoopBuilder3D(const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc)
     : LoopBuilder(theHelper, theAlloc)
 {
@@ -556,7 +556,7 @@ Poly_MakeLoops3D::Poly_MakeLoops3D(const Helper1*                            the
 
 //=================================================================================================
 
-Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
+Standard_Integer LoopBuilder3D::chooseLeftWay(
   const Standard_Integer                    theNode,
   const Standard_Integer                    theSegIndex,
   const NCollection_List<Standard_Integer>& theLstIndS) const
@@ -613,7 +613,7 @@ Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
 
 //=================================================================================================
 
-Poly_MakeLoops2D::Poly_MakeLoops2D(const Standard_Boolean                   theLeftWay,
+LoopBuilder2D::LoopBuilder2D(const Standard_Boolean                   theLeftWay,
                                    const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc)
     : LoopBuilder(theHelper, theAlloc),
@@ -623,7 +623,7 @@ Poly_MakeLoops2D::Poly_MakeLoops2D(const Standard_Boolean                   theL
 
 //=================================================================================================
 
-Standard_Integer Poly_MakeLoops2D::chooseLeftWay(
+Standard_Integer LoopBuilder2D::chooseLeftWay(
   const Standard_Integer /*theNode*/,
   const Standard_Integer                    theSegIndex,
   const NCollection_List<Standard_Integer>& theLstIndS) const

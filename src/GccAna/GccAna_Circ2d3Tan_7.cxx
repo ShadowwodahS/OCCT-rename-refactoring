@@ -91,7 +91,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
     Standard_Integer nbsolution2 = Bis2.NbSolutions();
     for (Standard_Integer i = 1; i <= nbsolution2; i++)
     {
-      Handle(GccInt_Bisec)     Sol2 = Bis2.ThisSolution(i);
+      Handle(Bisector2)     Sol2 = Bis2.ThisSolution(i);
       GccInt_IType             typ2 = Sol2->ArcType();
       gp_Lin2d                 Sol1(Bis1.ThisSolution());
       AnalyticIntersection2d Intp;

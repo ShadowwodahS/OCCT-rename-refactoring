@@ -57,17 +57,17 @@ struct NSOpenGLContext;
 #endif
 
 struct GlFunctions;
-struct OpenGl_ArbTBO;
-struct OpenGl_ArbIns;
-struct OpenGl_ArbDbg;
-struct OpenGl_ArbFBO;
-struct OpenGl_ArbFBOBlit;
-struct OpenGl_ArbSamplerObject;
-struct OpenGl_ArbTexBindless;
-struct OpenGl_ExtGS;
+struct ArbTBO;
+struct ArbIns;
+struct ArbDbg;
+struct ArbFBO;
+struct ArbFBOBlit;
+struct ArbSamplerObject;
+struct ArbTexBindless;
+struct ExtGS;
 
-struct OpenGl_GlCore11Fwd;
-struct OpenGl_GlCore11;
+struct GlCore11Fwd;
+struct GlCore11;
 struct OpenGl_GlCore12;
 struct OpenGl_GlCore13;
 struct OpenGl_GlCore14;
@@ -161,7 +161,7 @@ class OpenGl_Context : public RefObject
   friend struct GlFunctions;
 
 public:
-  typedef NCollection_Shared<NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>>
+  typedef NCollection_Shared<NCollection_DataMap<AsciiString1, Handle(Resource)>>
     OpenGl_ResourcesMap;
 
   //! Function for getting power of to number larger or equal to input number.
@@ -195,7 +195,7 @@ public:
 
 public:
   //! Empty constructor. You should call Init() to perform initialization with bound GL context.
-  Standard_EXPORT OpenGl_Context(const Handle(OpenGl_Caps)& theCaps = NULL);
+  Standard_EXPORT OpenGl_Context(const Handle(Caps)& theCaps = NULL);
 
   //! Destructor.
   Standard_EXPORT virtual ~OpenGl_Context();
@@ -412,7 +412,7 @@ public:
   //! Access shared resource by its name.
   //! @param  theKey - unique identifier;
   //! @return handle to shared resource or NULL.
-  Standard_EXPORT const Handle(OpenGl_Resource)& GetResource(
+  Standard_EXPORT const Handle(Resource)& GetResource(
     const AsciiString1& theKey) const;
 
   //! Access shared resource by its name.
@@ -422,7 +422,7 @@ public:
   template <typename TheHandleType>
   Standard_Boolean GetResource(const AsciiString1& theKey, TheHandleType& theValue) const
   {
-    const Handle(OpenGl_Resource)& aResource = GetResource(theKey);
+    const Handle(Resource)& aResource = GetResource(theKey);
     if (aResource.IsNull())
     {
       return Standard_False;
@@ -438,7 +438,7 @@ public:
   //! @param theKey      - unique identifier, shouldn't be empty;
   //! @param theResource - new resource to register, shouldn't be NULL.
   Standard_EXPORT Standard_Boolean ShareResource(const AsciiString1& theKey,
-                                                 const Handle(OpenGl_Resource)& theResource);
+                                                 const Handle(Resource)& theResource);
 
   //! Release shared resource.
   //! If there are more than one reference to this resource
@@ -487,7 +487,7 @@ public:
   }
 
   //! Return map of supported texture formats.
-  const Handle(Image_SupportedFormats)& SupportedTextureFormats() const
+  const Handle(SupportedFormats)& SupportedTextureFormats() const
   {
     return mySupportedFormats;
   }
@@ -847,12 +847,12 @@ public: //! @name methods to alter or retrieve current state
   Standard_EXPORT void FetchState();
 
   //! @return active textures
-  const Handle(OpenGl_TextureSet)& ActiveTextures() const { return myActiveTextures; }
+  const Handle(TextureSet2)& ActiveTextures() const { return myActiveTextures; }
 
   //! Bind specified texture set to current context taking into account active GLSL program.
   Standard_DEPRECATED("BindTextures() with explicit GLSL program should be used instead")
 
-  Handle(OpenGl_TextureSet) BindTextures(const Handle(OpenGl_TextureSet)& theTextures)
+  Handle(TextureSet2) BindTextures(const Handle(TextureSet2)& theTextures)
   {
     return BindTextures(theTextures, myActiveProgram);
   }
@@ -863,8 +863,8 @@ public: //! @name methods to alter or retrieve current state
   //!                         mock textures will be bound to texture units expected by GLSL program,
   //!                         but undefined by texture set
   //! @return previous texture set
-  Standard_EXPORT Handle(OpenGl_TextureSet) BindTextures(
-    const Handle(OpenGl_TextureSet)&    theTextures,
+  Standard_EXPORT Handle(TextureSet2) BindTextures(
+    const Handle(TextureSet2)&    theTextures,
     const Handle(OpenGl_ShaderProgram)& theProgram);
 
   //! @return active GLSL program
@@ -926,7 +926,7 @@ public: //! @name methods to alter or retrieve current state
   //! (GL_TEXTURE).
   //! @param[in] theParams     texture parameters
   //! @param[in] theIsTopDown  texture top-down flag
-  Standard_EXPORT void SetTextureMatrix(const Handle(Graphic3d_TextureParams)& theParams,
+  Standard_EXPORT void SetTextureMatrix(const Handle(TextureParams)& theParams,
                                         const Standard_Boolean                 theIsTopDown);
 
   //! Bind default Vertex Array Object
@@ -1038,8 +1038,8 @@ private:
   Standard_EXPORT void init(const Standard_Boolean theIsCoreProfile);
 
 public:                          //! @name core profiles
-  OpenGl_GlCore11*    core11ffp; //!< OpenGL 1.1 core functionality
-  OpenGl_GlCore11Fwd* core11fwd; //!< OpenGL 1.1 without deprecated entry points
+  GlCore11*    core11ffp; //!< OpenGL 1.1 core functionality
+  GlCore11Fwd* core11fwd; //!< OpenGL 1.1 without deprecated entry points
   OpenGl_GlCore15*    core15;    //!< OpenGL 1.5 without deprecated entry points
   OpenGl_GlCore20*    core20;    //!< OpenGL 2.0 without deprecated entry points
   OpenGl_GlCore30*    core30;    //!< OpenGL 3.0 without deprecated entry points
@@ -1056,7 +1056,7 @@ public:                          //! @name core profiles
   OpenGl_GlCore15*     core15fwd;  //!< obsolete entry left for code portability; core15 should be used instead
   OpenGl_GlCore20*     core20fwd;  //!< obsolete entry left for code portability; core20 should be used instead
 
-  Handle(OpenGl_Caps) caps; //!< context options
+  Handle(Caps) caps; //!< context options
 
 public: //! @name extensions
 
@@ -1082,20 +1082,20 @@ public: //! @name extensions
   Standard_Boolean       arbNPTW;            //!< GL_ARB_texture_non_power_of_two
   Standard_Boolean       arbTexRG;           //!< GL_ARB_texture_rg
   Standard_Boolean       arbTexFloat;        //!< GL_ARB_texture_float (on desktop OpenGL - since 3.0 or as extension GL_ARB_texture_float; on OpenGL ES - since 3.0); @sa hasTexFloatLinear for linear filtering support
-  OpenGl_ArbSamplerObject* arbSamplerObject; //!< GL_ARB_sampler_objects (on desktop OpenGL - since 3.3 or as extension GL_ARB_sampler_objects; on OpenGL ES - since 3.0)
-  OpenGl_ArbTexBindless* arbTexBindless;     //!< GL_ARB_bindless_texture
-  OpenGl_ArbTBO*         arbTBO;             //!< GL_ARB_texture_buffer_object (on desktop OpenGL - since 3.1 or as extension GL_ARB_texture_buffer_object; on OpenGL ES - since 3.2)
+  ArbSamplerObject* arbSamplerObject; //!< GL_ARB_sampler_objects (on desktop OpenGL - since 3.3 or as extension GL_ARB_sampler_objects; on OpenGL ES - since 3.0)
+  ArbTexBindless* arbTexBindless;     //!< GL_ARB_bindless_texture
+  ArbTBO*         arbTBO;             //!< GL_ARB_texture_buffer_object (on desktop OpenGL - since 3.1 or as extension GL_ARB_texture_buffer_object; on OpenGL ES - since 3.2)
   Standard_Boolean       arbTboRGB32;        //!< GL_ARB_texture_buffer_object_rgb32 (3-component TBO), in core since 4.0 (on OpenGL ES - since 3.2)
   Standard_Boolean       arbClipControl;     //!< GL_ARB_clip_control, in core since 4.5
-  OpenGl_ArbIns*         arbIns;             //!< GL_ARB_draw_instanced (on desktop OpenGL - since 3.1 or as extension GL_ARB_draw_instanced; on OpenGL ES - since 3.0 or as extension GL_ANGLE_instanced_arrays to WebGL 1.0)
-  OpenGl_ArbDbg*         arbDbg;             //!< GL_ARB_debug_output (on desktop OpenGL - since 4.3 or as extension GL_ARB_debug_output; on OpenGL ES - since 3.2 or as extension GL_KHR_debug)
-  OpenGl_ArbFBO*         arbFBO;             //!< GL_ARB_framebuffer_object
-  OpenGl_ArbFBOBlit*     arbFBOBlit;         //!< glBlitFramebuffer function, moved out from OpenGl_ArbFBO structure for compatibility with OpenGL ES 2.0
+  ArbIns*         arbIns;             //!< GL_ARB_draw_instanced (on desktop OpenGL - since 3.1 or as extension GL_ARB_draw_instanced; on OpenGL ES - since 3.0 or as extension GL_ANGLE_instanced_arrays to WebGL 1.0)
+  ArbDbg*         arbDbg;             //!< GL_ARB_debug_output (on desktop OpenGL - since 4.3 or as extension GL_ARB_debug_output; on OpenGL ES - since 3.2 or as extension GL_KHR_debug)
+  ArbFBO*         arbFBO;             //!< GL_ARB_framebuffer_object
+  ArbFBOBlit*     arbFBOBlit;         //!< glBlitFramebuffer function, moved out from ArbFBO structure for compatibility with OpenGL ES 2.0
   Standard_Boolean       arbSampleShading;   //!< GL_ARB_sample_shading
   Standard_Boolean       arbDepthClamp;      //!< GL_ARB_depth_clamp (on desktop OpenGL - since 3.2 or as extensions GL_ARB_depth_clamp,NV_depth_clamp; unavailable on OpenGL ES)
   Standard_Boolean       extFragDepth;       //!< GL_EXT_frag_depth on OpenGL ES 2.0 (gl_FragDepthEXT built-in variable, before OpenGL ES 3.0)
   Standard_Boolean       extDrawBuffers;     //!< GL_EXT_draw_buffers
-  OpenGl_ExtGS*          extGS;              //!< GL_EXT_geometry_shader4
+  ExtGS*          extGS;              //!< GL_EXT_geometry_shader4
   Standard_Boolean       extBgra;            //!< GL_EXT_bgra or GL_EXT_texture_format_BGRA8888 on OpenGL ES
   Standard_Boolean       extTexR16;          //!< GL_EXT_texture_norm16 on OpenGL ES; always available on desktop
   // clang-format on
@@ -1120,7 +1120,7 @@ private:                     // system-dependent fields
 private: // context info
 
   typedef NCollection_Shared< NCollection_DataMap<AsciiString1, Standard_Integer> > OpenGl_DelayReleaseMap;
-  typedef NCollection_Shared< NCollection_List<Handle(OpenGl_Resource)> > OpenGl_ResourcesStack;
+  typedef NCollection_Shared< NCollection_List<Handle(Resource)> > OpenGl_ResourcesStack;
 
   Handle(OpenGl_ResourcesMap)    mySharedResources; //!< shared resources with unique identification key
                                                 // clang-format on
@@ -1132,7 +1132,7 @@ private: // context info
   void*                               myGlLibHandle;      //!< optional handle to GL library
   std::unique_ptr<GlFunctions> myFuncs;            //!< mega structure for all GL functions
   Aspect_GraphicsLibrary              myGapi;             //!< GAPI name
-  Handle(Image_SupportedFormats)      mySupportedFormats; //!< map of supported texture formats
+  Handle(SupportedFormats)      mySupportedFormats; //!< map of supported texture formats
   Standard_Integer                    myAnisoMax; //!< maximum level of anisotropy texture filter
   Standard_Integer myTexClamp;            //!< either GL_CLAMP_TO_EDGE (1.2+) or GL_CLAMP (1.1)
   Standard_Integer myMaxTexDim;           //!< value for GL_MAX_TEXTURE_SIZE
@@ -1179,7 +1179,7 @@ private:                                           //! @name fields tracking cur
   Handle(CameraOn3d)     myCamera;           //!< active camera object
   Handle(OpenGl_FrameStats)    myFrameStats;       //!< structure accumulating frame statistics
   Handle(OpenGl_ShaderProgram) myActiveProgram;    //!< currently active GLSL program
-  Handle(OpenGl_TextureSet)    myActiveTextures;   //!< currently bound textures
+  Handle(TextureSet2)    myActiveTextures;   //!< currently bound textures
                                                    //!< currently active sampler objects
   Standard_Integer           myActiveMockTextures; //!< currently active mock sampler objects
   Handle(OpenGl_FrameBuffer) myDefaultFbo;         //!< default Frame Buffer Object

@@ -21,9 +21,9 @@
 
 //! A non-template class for using as base for BVH_Builder
 //! (just to have a named base class).
-class BVH_BuilderTransient : public RefObject
+class TransientBuilder : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_BuilderTransient, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TransientBuilder, RefObject)
 public:
   //! Returns the maximum depth of constructed BVH.
   Standard_Integer MaxTreeDepth() const { return myMaxTreeDepth; }
@@ -39,7 +39,7 @@ public:
 
 protected:
   //! Creates new abstract BVH builder.
-  BVH_BuilderTransient(const Standard_Integer theLeafNodeSize,
+  TransientBuilder(const Standard_Integer theLeafNodeSize,
                        const Standard_Integer theMaxTreeDepth)
       : myMaxTreeDepth(theMaxTreeDepth),
         myLeafNodeSize(theLeafNodeSize),
@@ -58,7 +58,7 @@ protected:
 //! \tparam T Numeric data type
 //! \tparam N Vector dimension
 template <class T, int N>
-class BVH_Builder : public BVH_BuilderTransient
+class BVH_Builder : public TransientBuilder
 {
 public:
   //! Builds BVH using specific algorithm.
@@ -69,7 +69,7 @@ public:
 protected:
   //! Creates new abstract BVH builder.
   BVH_Builder(const Standard_Integer theLeafNodeSize, const Standard_Integer theMaxTreeDepth)
-      : BVH_BuilderTransient(theLeafNodeSize, theMaxTreeDepth)
+      : TransientBuilder(theLeafNodeSize, theMaxTreeDepth)
   {
   }
 

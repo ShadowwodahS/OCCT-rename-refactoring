@@ -46,7 +46,7 @@ Geom_CartesianPoint::Geom_CartesianPoint(const Standard_Real X,
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_CartesianPoint::Copy() const
+Handle(Geometry3) Geom_CartesianPoint::Copy() const
 {
 
   Handle(Geom_CartesianPoint) P;

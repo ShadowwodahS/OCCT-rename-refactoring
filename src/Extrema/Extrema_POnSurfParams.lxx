@@ -11,7 +11,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline Extrema_POnSurfParams::Extrema_POnSurfParams()
+inline PointOnSurfaceParams::PointOnSurfaceParams()
     : mySqrDistance(0.),
       myElementType(Extrema_Node),
       myIndexU(0),
@@ -19,7 +19,7 @@ inline Extrema_POnSurfParams::Extrema_POnSurfParams()
 {
 }
 
-inline Extrema_POnSurfParams::Extrema_POnSurfParams(const Standard_Real theU,
+inline PointOnSurfaceParams::PointOnSurfaceParams(const Standard_Real theU,
                                                     const Standard_Real theV,
                                                     const Point3d&       thePnt)
     : PointOnSurface1(theU, theV, thePnt),
@@ -30,34 +30,34 @@ inline Extrema_POnSurfParams::Extrema_POnSurfParams(const Standard_Real theU,
 {
 }
 
-inline void Extrema_POnSurfParams::SetSqrDistance(const Standard_Real theSqrDistance)
+inline void PointOnSurfaceParams::SetSqrDistance(const Standard_Real theSqrDistance)
 {
   mySqrDistance = theSqrDistance;
 }
 
-inline Standard_Real Extrema_POnSurfParams::GetSqrDistance() const
+inline Standard_Real PointOnSurfaceParams::GetSqrDistance() const
 {
   return mySqrDistance;
 }
 
-inline void Extrema_POnSurfParams::SetElementType(const Extrema_ElementType theElementType)
+inline void PointOnSurfaceParams::SetElementType(const Extrema_ElementType theElementType)
 {
   myElementType = theElementType;
 }
 
-inline Extrema_ElementType Extrema_POnSurfParams::GetElementType() const
+inline Extrema_ElementType PointOnSurfaceParams::GetElementType() const
 {
   return myElementType;
 }
 
-inline void Extrema_POnSurfParams::SetIndices(const Standard_Integer theIndexU,
+inline void PointOnSurfaceParams::SetIndices(const Standard_Integer theIndexU,
                                               const Standard_Integer theIndexV)
 {
   myIndexU = theIndexU;
   myIndexV = theIndexV;
 }
 
-inline void Extrema_POnSurfParams::GetIndices(Standard_Integer& theIndexU,
+inline void PointOnSurfaceParams::GetIndices(Standard_Integer& theIndexU,
                                               Standard_Integer& theIndexV) const
 {
   theIndexU = myIndexU;

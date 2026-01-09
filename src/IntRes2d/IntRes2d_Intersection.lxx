@@ -57,7 +57,7 @@ inline Standard_Integer Intersection2::NbPoints() const
 }
 
 //----------------------------------------------------------------------
-inline const IntRes2d_IntersectionPoint& Intersection2::Point(
+inline const IntersectionPoint3& Intersection2::Point(
   const Standard_Integer N) const
 {
   if (!done)
@@ -95,7 +95,7 @@ inline void Intersection2::Append(const IntRes2d_IntersectionSegment& Seg)
 }
 
 //----------------------------------------------------------------------
-inline void Intersection2::Append(const IntRes2d_IntersectionPoint& Pnt)
+inline void Intersection2::Append(const IntersectionPoint3& Pnt)
 {
   lpnt.Append(Pnt);
 }

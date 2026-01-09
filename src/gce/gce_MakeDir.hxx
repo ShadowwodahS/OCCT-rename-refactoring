@@ -34,24 +34,24 @@ class Point3d;
 //! * Create a Dir passing through 2 points.
 //! * Create a Dir from its axis (Ax1 from gp1).
 //! * Create a Dir from a point and a direction.
-class gce_MakeDir : public Root6
+class DirectionBuilder : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Normalizes the vector V and creates a direction.
   //! Status is "NullVector" if V.Magnitude() <= Resolution.
-  Standard_EXPORT gce_MakeDir(const Vector3d& V);
+  Standard_EXPORT DirectionBuilder(const Vector3d& V);
 
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
   //! Resolution from gp1.
-  Standard_EXPORT gce_MakeDir(const Coords3d& Coord);
+  Standard_EXPORT DirectionBuilder(const Coords3d& Coord);
 
   //! Creates a direction with its 3 cartesian coordinates.
   //! Status is "NullVector" if Sqrt(Xv*Xv + Yv*Yv + Zv*Zv)
   //! <= Resolution
-  Standard_EXPORT gce_MakeDir(const Standard_Real Xv,
+  Standard_EXPORT DirectionBuilder(const Standard_Real Xv,
                               const Standard_Real Yv,
                               const Standard_Real Zv);
 
@@ -67,7 +67,7 @@ public:
   //! -   the magnitude of vector V,
   //! -   the modulus of Coord,
   //! -   Sqrt(Xv*Xv + Yv*Yv + Zv*Zv).
-  Standard_EXPORT gce_MakeDir(const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT DirectionBuilder(const Point3d& P1, const Point3d& P2);
 
   //! Returns the constructed unit vector.
   //! Exceptions StdFail_NotDone if no unit vector is constructed.

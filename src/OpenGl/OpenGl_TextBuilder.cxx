@@ -42,7 +42,7 @@ TextBuilder::TextBuilder()
 //=================================================================================================
 
 void TextBuilder::createGlyphs(
-  const Handle(Font_TextFormatter)&                                        theFormatter,
+  const Handle(TextFormatter1)&                                        theFormatter,
   const Handle(OpenGl_Context)&                                            theCtx,
   OpenGl_Font&                                                             theFont,
   NCollection_Vector<GLuint>&                                              theTextures,
@@ -55,10 +55,10 @@ void TextBuilder::createGlyphs(
   theVertsPerTexture.Clear();
   theTCrdsPerTexture.Clear();
 
-  OpenGl_Font::Tile aTile = {Rect(), Rect(), 0u};
-  for (Font_TextFormatter::Iterator aFormatterIt(
+  OpenGl_Font::Tile1 aTile = {Rect(), Rect(), 0u};
+  for (TextFormatter1::Iterator aFormatterIt(
          *theFormatter,
-         Font_TextFormatter::IterationFilter_ExcludeInvisible);
+         TextFormatter1::IterationFilter_ExcludeInvisible);
        aFormatterIt.More();
        aFormatterIt.Next())
   {
@@ -111,7 +111,7 @@ void TextBuilder::createGlyphs(
 //=================================================================================================
 
 void TextBuilder::Perform(
-  const Handle(Font_TextFormatter)&                theFormatter,
+  const Handle(TextFormatter1)&                theFormatter,
   const Handle(OpenGl_Context)&                    theCtx,
   OpenGl_Font&                                     theFont,
   NCollection_Vector<GLuint>&                      theTextures,

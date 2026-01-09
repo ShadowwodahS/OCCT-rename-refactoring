@@ -31,11 +31,11 @@ public:
 
   //! Image reader.
   Standard_EXPORT virtual Handle(Image_CompressedPixMap) GetCompressedImage(
-    const Handle(Image_SupportedFormats)& theSupported) Standard_OVERRIDE;
+    const Handle(SupportedFormats)& theSupported) Standard_OVERRIDE;
 
   //! Image reader.
   Standard_EXPORT virtual Handle(Image_PixMap) GetImage(
-    const Handle(Image_SupportedFormats)& theSupported) Standard_OVERRIDE;
+    const Handle(SupportedFormats)& theSupported) Standard_OVERRIDE;
 
   //! Return image source.
   const Handle(Image_Texture)& GetImageSource() const { return myImageSource; }

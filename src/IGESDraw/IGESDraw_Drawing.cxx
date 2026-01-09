@@ -33,7 +33,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_Drawing, IGESData_IGESEntity)
 IGESDraw_Drawing::IGESDraw_Drawing() {}
 
 void IGESDraw_Drawing::Init(const Handle(HArray1OfViewKindEntity)& allViews,
-                            const Handle(TColgp_HArray1OfXY)&               allViewOrigins,
+                            const Handle(XYArray)&               allViewOrigins,
                             const Handle(HArray1OfIGESEntity)&     allAnnotations)
 {
   if (!allViews.IsNull())

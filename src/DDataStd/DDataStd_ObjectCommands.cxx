@@ -43,7 +43,7 @@ static Standard_Integer DDataStd_NewDirectory(DrawInterpreter& di,
     di << "Too few arguments" << "\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DataLabel label;
@@ -64,7 +64,7 @@ static Standard_Integer DDataStd_AddDirectory(DrawInterpreter& di,
     di << "Too few arguments" << "\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DataLabel label;
@@ -98,7 +98,7 @@ static Standard_Integer DDataStd_MakeObjectLabel(DrawInterpreter& di,
     di << "Too few arguments" << "\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DataLabel label;
@@ -130,7 +130,7 @@ static Standard_Integer DDataStd_NewNoteBook(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -155,7 +155,7 @@ static Standard_Integer DDataStd_NewShape(DrawInterpreter& di,
     di << "Too few arguments" << "\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DataLabel label;
@@ -187,7 +187,7 @@ static Standard_Integer DDataStd_GetShape2(DrawInterpreter& di,
     di << "Too few arguments" << "\n";
     return 1;
   }
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(arg[1], DF))
     return 1;
   DataLabel label;

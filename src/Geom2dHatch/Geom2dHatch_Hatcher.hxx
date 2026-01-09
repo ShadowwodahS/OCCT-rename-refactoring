@@ -26,7 +26,7 @@
 #include <TopAbs_Orientation.hxx>
 #include <HatchGen_ErrorStatus.hxx>
 
-class HatchGen_PointOnHatching;
+class PointOnHatching;
 class HatchGen_Domain;
 
 // resolve name collisions with X11 headers
@@ -126,7 +126,7 @@ public:
 
   //! Returns the IndP-th intersection point of the
   //! IndH-th hatching.
-  const HatchGen_PointOnHatching& Point(const Standard_Integer IndH,
+  const PointOnHatching& Point(const Standard_Integer IndH,
                                         const Standard_Integer IndP) const;
 
   //! Trims all the hatchings of the hatcher by all the
@@ -192,7 +192,7 @@ private:
 
   //! Sets the global transition (the before and after
   //! states and segment extremities flags) of the point.
-  Standard_EXPORT Standard_Boolean GlobalTransition(HatchGen_PointOnHatching& Point);
+  Standard_EXPORT Standard_Boolean GlobalTransition(PointOnHatching& Point);
 
   Geom2dHatch_Intersector myIntersector;
   Standard_Real           myConfusion2d;

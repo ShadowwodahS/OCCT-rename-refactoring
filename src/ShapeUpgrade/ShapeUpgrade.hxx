@@ -42,7 +42,7 @@ public:
   //! Unifies same domain faces and edges of specified shape
   Standard_EXPORT static Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
     const Handle(BSplineCurve3d)&          BS,
-    Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS);
+    Handle(HSequenceOfBoundedCurve1)& seqBS);
 
   //! Converts C0 B-Spline curve into sequence of C1 B-Spline curves.
   //! This method splits B-Spline at the knots with multiplicities equal to degree,
@@ -52,7 +52,7 @@ public:
   //! else returns False (if BS is C1 B-Spline).
   Standard_EXPORT static Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
     const Handle(Geom2d_BSplineCurve)&          BS,
-    Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS);
+    Handle(BoundedCurveSequence2d)& seqBS);
 };
 
 #endif // _ShapeUpgrade_HeaderFile

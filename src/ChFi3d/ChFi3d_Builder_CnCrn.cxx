@@ -430,7 +430,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
     BRepAdaptor_Curve C(TopoDS::Edge(Ecom.Value(nb)));
     C.D0(param.Value(nb), p02);
     GeomAdaptor_Curve L(Bezier);
-    Extrema_ExtCC     ext(C, L);
+    CurveCurveExtrema2     ext(C, L);
     if (ext.IsDone())
     {
       if (!ext.IsParallel() && ext.NbExt() != 0)
@@ -1036,7 +1036,7 @@ static Standard_Integer SurfIndex(const ChFiDS_StripeArray1& StripeArray1,
 //=======================================================================
 
 static TopAbs_Orientation PlateOrientation(const Handle(GeomSurface)&              thePlateSurf,
-                                           const Handle(TColGeom2d_HArray1OfCurve)& thePCArr,
+                                           const Handle(HArray1OfCurve2)& thePCArr,
                                            const Vector3d&                            theRefDir)
 {
   Vector3d        du, dv;
@@ -3135,7 +3135,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     PSurf.Disc2dContour(4, S2d);
     PSurf.Disc3dContour(4, 0, S3d);
     seuil = Max(tolapp, 10 * PSurf.G0Error());
-    GeomPlate_PlateG0Criterion critere(S2d, S3d, seuil);
+    G0Criterion critere(S2d, S3d, seuil);
     GeomPlate_MakeApprox       Mapp(gpPlate, critere, tolapp, nbcarreau, degmax);
     Handle(GeomSurface)       Surf(Mapp.Surface());
     Standard_Real              coef = 1.1, apperror;

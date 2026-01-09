@@ -67,7 +67,7 @@ public:
 
 protected:
 private:
-  Handle(Plate_HArray1OfPinpointConstraint) myPPC;
+  Handle(PinpointConstraintArray) myPPC;
   Handle(TColStd_HArray2OfReal)             myCoef;
 };
 

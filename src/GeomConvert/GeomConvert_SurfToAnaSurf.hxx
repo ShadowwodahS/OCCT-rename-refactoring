@@ -94,7 +94,7 @@ private:
                                              const Standard_Real         theToler);
 
   //! static method to try create cylinrical surface using least square method
-  static Standard_Boolean GetCylByLS(const Handle(TColgp_HArray1OfXYZ)& thePoints,
+  static Standard_Boolean GetCylByLS(const Handle(XYZArray)& thePoints,
                                      const Standard_Real                theTol,
                                      Ax3&                            thePos,
                                      Standard_Real&                     theR,

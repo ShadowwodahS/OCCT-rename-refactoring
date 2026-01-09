@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_GuideTrihedronAC, GeomFill_TrihedronWithGuid
 
 //=================================================================================================
 
-GeomFill_GuideTrihedronAC::GeomFill_GuideTrihedronAC(const Handle(Adaptor3d_Curve)& guide)
+GeomFill_GuideTrihedronAC::GeomFill_GuideTrihedronAC(const Handle(Curve5)& guide)
 {
   myCurve.Nullify();
   myGuide   = guide;
@@ -49,7 +49,7 @@ GeomFill_GuideTrihedronAC::GeomFill_GuideTrihedronAC(const Handle(Adaptor3d_Curv
 // purpose  : calculation of trihedron
 //=======================================================================
 
-Handle(Adaptor3d_Curve) GeomFill_GuideTrihedronAC::Guide() const
+Handle(Curve5) GeomFill_GuideTrihedronAC::Guide() const
 {
   return myGuide;
 }
@@ -274,7 +274,7 @@ Handle(GeomFill_TrihedronLaw) GeomFill_GuideTrihedronAC::Copy() const
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_GuideTrihedronAC::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_GuideTrihedronAC::SetCurve(const Handle(Curve5)& C)
 {
   myCurve   = C;
   myTrimmed = C;

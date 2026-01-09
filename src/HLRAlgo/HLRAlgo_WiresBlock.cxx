@@ -21,4 +21,4 @@
 #include <HLRAlgo_WiresBlock.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_WiresBlock, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(WiresBlock, RefObject)

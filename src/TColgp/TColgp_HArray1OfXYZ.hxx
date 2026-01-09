@@ -20,6 +20,6 @@
 #include <TColgp_Array1OfXYZ.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfXYZ, TColgp_Array1OfXYZ)
+DEFINE_HARRAY1(XYZArray, TColgp_Array1OfXYZ)
 
 #endif

@@ -102,7 +102,7 @@ struct SetterInterface
 {
   //! Sets user-defined uniform variable to specified program.
   virtual void Set(const Handle(OpenGl_Context)&           theCtx,
-                   const Handle(Graphic3d_ShaderVariable)& theVariable,
+                   const Handle(ShaderVariable1)& theVariable,
                    OpenGl_ShaderProgram*                   theProgram) = 0;
 
   //! Destructor
@@ -127,7 +127,7 @@ public:
 
   //! Sets user-defined uniform variable to specified program.
   void Set(const Handle(OpenGl_Context)&           theCtx,
-           const Handle(Graphic3d_ShaderVariable)& theVariable,
+           const Handle(ShaderVariable1)& theVariable,
            OpenGl_ShaderProgram*                   theProgram) const;
 
 private:
@@ -219,7 +219,7 @@ public:
   //! This constructor has been made public to provide more flexibility to re-use OCCT OpenGL
   //! classes without OCCT Viewer itself. If this is not the case - create the program using shared
   //! OpenGl_ShaderManager instance instead.
-  Standard_EXPORT OpenGl_ShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProxy = NULL,
+  Standard_EXPORT OpenGl_ShaderProgram(const Handle(ShaderProgram2)& theProxy = NULL,
                                        const AsciiString1&         theId    = "");
 
 protected:
@@ -264,7 +264,7 @@ public:
   Standard_EXPORT Standard_Boolean ApplyVariables(const Handle(OpenGl_Context)& theCtx);
 
   //! @return proxy shader program.
-  const Handle(Graphic3d_ShaderProgram)& Proxy() const { return myProxy; }
+  const Handle(ShaderProgram2)& Proxy() const { return myProxy; }
 
   //! @return true if current object was initialized
   inline bool IsValid() const { return myProgramID != NO_PROGRAM; }
@@ -628,7 +628,7 @@ protected:
   GLuint            myProgramID;                           //!< Handle of OpenGL shader program
   OpenGl_ShaderList myShaderObjects;                       //!< List of attached shader objects
                                                            // clang-format off
-  Handle(Graphic3d_ShaderProgram) myProxy;         //!< Proxy shader program (from application layer)
+  Handle(ShaderProgram2) myProxy;         //!< Proxy shader program (from application layer)
   Standard_Integer                myShareCount;    //!< program users count, initialized with 1 (already shared by one user)
   Standard_Integer                myNbLightsMax;   //!< length of array of light sources (THE_MAX_LIGHTS)
   Standard_Integer                myNbShadowMaps;  //!< length of array of shadow maps (THE_NB_SHADOWMAPS)
@@ -652,7 +652,7 @@ template <class T>
 struct OpenGl_VariableSetter : public SetterInterface
 {
   virtual void Set(const Handle(OpenGl_Context)&           theCtx,
-                   const Handle(Graphic3d_ShaderVariable)& theVariable,
+                   const Handle(ShaderVariable1)& theVariable,
                    OpenGl_ShaderProgram*                   theProgram)
   {
     theProgram->SetUniform(theCtx, theVariable->Name().ToCString(), theVariable->Value()->As<T>());

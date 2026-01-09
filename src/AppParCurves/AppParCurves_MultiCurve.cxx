@@ -27,12 +27,12 @@ AppParCurves_MultiCurve::AppParCurves_MultiCurve() {}
 
 AppParCurves_MultiCurve::AppParCurves_MultiCurve(const Standard_Integer NbPol)
 {
-  tabPoint = new AppParCurves_HArray1OfMultiPoint(1, NbPol);
+  tabPoint = new MultiPointArray(1, NbPol);
 }
 
 AppParCurves_MultiCurve::AppParCurves_MultiCurve(const AppParCurves_Array1OfMultiPoint& tabMU)
 {
-  tabPoint = new AppParCurves_HArray1OfMultiPoint(1, tabMU.Length());
+  tabPoint = new MultiPointArray(1, tabMU.Length());
   Standard_Integer i, Lower = tabMU.Lower();
   for (i = 1; i <= tabMU.Length(); i++)
   {
@@ -57,7 +57,7 @@ Standard_Integer AppParCurves_MultiCurve::NbCurves() const
 {
   if (tabPoint.IsNull())
     return 0;
-  AppParCurves_MultiPoint MP = tabPoint->Value(1);
+  MultiPoint MP = tabPoint->Value(1);
   return MP.NbPoints() + MP.NbPoints2d();
 }
 
@@ -75,11 +75,11 @@ Standard_Integer AppParCurves_MultiCurve::Degree() const
 
 void AppParCurves_MultiCurve::SetNbPoles(const Standard_Integer nbPoles)
 {
-  tabPoint = new AppParCurves_HArray1OfMultiPoint(1, nbPoles);
+  tabPoint = new MultiPointArray(1, nbPoles);
 }
 
 void AppParCurves_MultiCurve::SetValue(const Standard_Integer         Index,
-                                       const AppParCurves_MultiPoint& MPoint)
+                                       const MultiPoint& MPoint)
 {
 
   if ((Index <= 0) || (Index > tabPoint->Length()))
@@ -135,7 +135,7 @@ const gp_Pnt2d& AppParCurves_MultiCurve::Pole2d(const Standard_Integer CuIndex,
   return tabPoint->Value(Nieme).Point2d(CuIndex);
 }
 
-const AppParCurves_MultiPoint& AppParCurves_MultiCurve::Value(const Standard_Integer Index) const
+const MultiPoint& AppParCurves_MultiCurve::Value(const Standard_Integer Index) const
 {
   if ((Index <= 0) || (Index > tabPoint->Length()))
   {

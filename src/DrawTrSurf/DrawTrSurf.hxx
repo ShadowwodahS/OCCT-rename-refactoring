@@ -28,7 +28,7 @@ class BSplineCurve3d;
 class Geom_BSplineSurface;
 class Geom2d_BezierCurve;
 class Geom2d_BSplineCurve;
-class Poly_Polygon2D;
+class Polygon2D2;
 class Poly_Polygon3D;
 class MeshTriangulation;
 struct Params1;
@@ -63,16 +63,16 @@ public:
   //! isSenseMarker indicates whether to render the
   //! sense glyph (arrow) for curves or not
   Standard_EXPORT static void Set(const Standard_CString       Name,
-                                  const Handle(Geom_Geometry)& G,
+                                  const Handle(Geometry3)& G,
                                   const Standard_Boolean       isSenseMarker = Standard_True);
 
   template <class T>
   static void Set(const Standard_CString Name,
                   const Handle(T)&       Arg,
                   typename opencascade::std::enable_if<
-                    opencascade::std::is_base_of<Geom_Geometry, T>::value>::type* = 0)
+                    opencascade::std::is_base_of<Geometry3, T>::value>::type* = 0)
   {
-    Set(Name, (const Handle(Geom_Geometry)&)Arg);
+    Set(Name, (const Handle(Geometry3)&)Arg);
   }
 
   //! Sets <C> in the variable <Name>.  Overwrite the
@@ -102,11 +102,11 @@ public:
 
   //! Sets <P> in the variable <Name>.  Overwrite the
   //! variable if already set.
-  Standard_EXPORT static void Set(const Standard_CString Name, const Handle(Poly_Polygon2D)& P);
+  Standard_EXPORT static void Set(const Standard_CString Name, const Handle(Polygon2D2)& P);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Geom_Geometry) Get(Standard_CString& Name);
+  Standard_EXPORT static Handle(Geometry3) Get(Standard_CString& Name);
 
   //! Gets the variable. Returns False if none and print
   //! a warning message.
@@ -162,7 +162,7 @@ public:
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Poly_Polygon2D) GetPolygon2D(Standard_CString& Name);
+  Standard_EXPORT static Handle(Polygon2D2) GetPolygon2D(Standard_CString& Name);
 
   //! Return package global parameters.
   Standard_EXPORT static Params1& Parameters();

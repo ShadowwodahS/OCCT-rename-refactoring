@@ -18,7 +18,7 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Point, Geom_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_Point, Geometry3)
 
 typedef Geom_Point Point;
 

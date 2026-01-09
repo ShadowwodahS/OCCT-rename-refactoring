@@ -131,7 +131,7 @@ static void ProcessFace(const TColStd_SequenceOfInteger&    theFaceNodes,
 
 MeshVS_MeshPrsBuilder::MeshVS_MeshPrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                              const Standard_Integer&          DisplayModeMask,
-                                             const Handle(MeshVS_DataSource)& DS,
+                                             const Handle(MeshDataSource)& DS,
                                              const Standard_Integer           Id,
                                              const MeshVS_BuilderPriority&    Priority)
     : MeshVS_PrsBuilder(Parent, DisplayModeMask, DS, Id, Priority)
@@ -167,8 +167,8 @@ void MeshVS_MeshPrsBuilder::BuildNodes(const Handle(Prs3d_Presentation)& Prs,
                                        PackedIntegerMap&       IDsToExclude,
                                        const Standard_Integer            DisplayMode) const
 {
-  Handle(MeshVS_DataSource)        aSource   = GetDataSource();
-  Handle(MeshVS_Drawer)            aDrawer   = GetDrawer();
+  Handle(MeshDataSource)        aSource   = GetDataSource();
+  Handle(MeshDrawer)            aDrawer   = GetDrawer();
   Handle(Graphic3d_AspectMarker3d) aNodeMark = Tool4::CreateAspectMarker3d(GetDrawer());
   if (aSource.IsNull() || aDrawer.IsNull() || aNodeMark.IsNull())
     return;
@@ -233,11 +233,11 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
 {
   Standard_Integer maxnodes;
 
-  Handle(MeshVS_DataSource) aSource = GetDataSource();
+  Handle(MeshDataSource) aSource = GetDataSource();
   if (aSource.IsNull())
     return;
 
-  Handle(MeshVS_Drawer) aDrawer = GetDrawer();
+  Handle(MeshDrawer) aDrawer = GetDrawer();
   if (aDrawer.IsNull() || !aDrawer->GetInteger(MeshVS_DA_MaxFaceNodes, maxnodes) || maxnodes <= 0)
     return;
 
@@ -296,7 +296,7 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
     anIDs.Subtract(aHiddenElems->Map());
   anIDs.Subtract(IDsToExclude);
 
-  Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
+  Handle(IntegerSequenceArray) aTopo;
   TColStd_MapIteratorOfPackedMapOfInteger   it(anIDs);
 
   Standard_Boolean showEdges = Standard_True;
@@ -600,11 +600,11 @@ void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Pr
 {
   Standard_Integer maxnodes;
 
-  Handle(MeshVS_DataSource) aSource = GetDataSource();
+  Handle(MeshDataSource) aSource = GetDataSource();
   if (aSource.IsNull() || IDs.IsEmpty())
     return;
 
-  Handle(MeshVS_Drawer) aDrawer = GetDrawer();
+  Handle(MeshDrawer) aDrawer = GetDrawer();
   if (aDrawer.IsNull() || !aDrawer->GetInteger(MeshVS_DA_MaxFaceNodes, maxnodes) || maxnodes <= 0)
     return;
 
@@ -665,7 +665,7 @@ void MeshVS_MeshPrsBuilder::BuildHilightPrs(const Handle(Prs3d_Presentation)& Pr
     case MeshVS_ET_Volume:
       if (NbNodes > 0)
       {
-        Handle(MeshVS_HArray1OfSequenceOfInteger) aTopo;
+        Handle(IntegerSequenceArray) aTopo;
 
         aHilightGroup->SetPrimitivesAspect(aFill);
 
@@ -797,7 +797,7 @@ void MeshVS_MeshPrsBuilder::AddFaceSolidPrs(const Standard_Integer              
                                             const Standard_Real    theShrinkingCoef,
                                             const Standard_Boolean theIsSmoothShading) const
 {
-  Handle(MeshVS_DataSource) aDataSource = myParentMesh->GetDataSource();
+  Handle(MeshDataSource) aDataSource = myParentMesh->GetDataSource();
 
   if (aDataSource.IsNull())
     return;
@@ -886,7 +886,7 @@ void MeshVS_MeshPrsBuilder::AddFaceSolidPrs(const Standard_Integer              
 
 //=================================================================================================
 
-void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOfInteger)& theTopo,
+void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(IntegerSequenceArray)& theTopo,
                                          const TColStd_Array1OfReal&                      theNodes,
                                          const Standard_Integer                     theNbNodes,
                                          const Handle(Graphic3d_ArrayOfPrimitives)& theArray,
@@ -1020,7 +1020,7 @@ void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOf
 
 //=================================================================================================
 
-void MeshVS_MeshPrsBuilder::HowManyPrimitives(const Handle(MeshVS_HArray1OfSequenceOfInteger)& Topo,
+void MeshVS_MeshPrsBuilder::HowManyPrimitives(const Handle(IntegerSequenceArray)& Topo,
                                               const Standard_Boolean AsPolygons,
                                               const Standard_Boolean IsSelect,
                                               const Standard_Integer NbNodes,
@@ -1078,7 +1078,7 @@ void MeshVS_MeshPrsBuilder::DrawArrays(const Handle(Prs3d_Presentation)&        
   Standard_Real  aWidth      = theFillAsp->EdgeWidth();
 
   Standard_Boolean      isSupressBackFaces = Standard_False;
-  Handle(MeshVS_Drawer) aDrawer            = GetDrawer();
+  Handle(MeshDrawer) aDrawer            = GetDrawer();
   if (!aDrawer.IsNull())
   {
     aDrawer->GetBoolean(MeshVS_DA_SupressBackFaces, isSupressBackFaces);

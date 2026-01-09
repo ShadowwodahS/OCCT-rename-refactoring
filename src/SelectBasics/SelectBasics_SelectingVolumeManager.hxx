@@ -209,7 +209,7 @@ public:
   Standard_Boolean Overlaps(const Point3d& thePnt) const { return OverlapsPoint(thePnt); }
 
   Standard_DEPRECATED("Deprecated alias for OverlapsPolygon()")
-  Standard_EXPORT Standard_Boolean Overlaps(const Handle(TColgp_HArray1OfPnt)& theArrayOfPts,
+  Standard_EXPORT Standard_Boolean Overlaps(const Handle(PointArray1)& theArrayOfPts,
                                             Standard_Integer                   theSensType,
                                             PickResult&           thePickResult) const;
 

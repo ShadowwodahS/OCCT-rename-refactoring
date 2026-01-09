@@ -34,7 +34,7 @@
 // purpose  : Evaluate current point of the projected curve
 //=======================================================================
 static Point3d OnSurface_Value(const Standard_Real            U,
-                              const Handle(Adaptor3d_Curve)& myCurve,
+                              const Handle(Curve5)& myCurve,
                               Extrema_ExtPS*                 myExtPS)
 {
   // on essaie de rendre le point solution le plus proche.
@@ -67,7 +67,7 @@ static Point3d OnSurface_Value(const Standard_Real            U,
 static Standard_Boolean OnSurface_D1(const Standard_Real,            // U,
                                      Point3d&,                        // P,
                                      Vector3d&,                        // V,
-                                     const Handle(Adaptor3d_Curve)&, //  myCurve,
+                                     const Handle(Curve5)&, //  myCurve,
                                      Extrema_ExtPS*)                 // myExtPS)
 {
   return Standard_False;
@@ -82,7 +82,7 @@ class ProjLib_OnSurface : public ContinuityFunction
 
 {
 public:
-  ProjLib_OnSurface(const Handle(Adaptor3d_Curve)& C, const Handle(Adaptor3d_Surface)& S)
+  ProjLib_OnSurface(const Handle(Curve5)& C, const Handle(SurfaceAdaptor)& S)
       : myCurve(C)
   {
     myNbPnt                     = 1;
@@ -120,7 +120,7 @@ private:
   ProjLib_OnSurface& operator=(const ProjLib_OnSurface&);
 
 private:
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
   Extrema_ExtPS*          myExtPS;
 };
 
@@ -142,7 +142,7 @@ ProjLib_ProjectOnSurface::ProjLib_ProjectOnSurface()
 
 //=================================================================================================
 
-ProjLib_ProjectOnSurface::ProjLib_ProjectOnSurface(const Handle(Adaptor3d_Surface)& S)
+ProjLib_ProjectOnSurface::ProjLib_ProjectOnSurface(const Handle(SurfaceAdaptor)& S)
     : myTolerance(0.0),
       myIsDone(Standard_False)
 {
@@ -151,7 +151,7 @@ ProjLib_ProjectOnSurface::ProjLib_ProjectOnSurface(const Handle(Adaptor3d_Surfac
 
 //=================================================================================================
 
-void ProjLib_ProjectOnSurface::Load(const Handle(Adaptor3d_Surface)& S)
+void ProjLib_ProjectOnSurface::Load(const Handle(SurfaceAdaptor)& S)
 {
   mySurface = S;
   myIsDone  = Standard_False;
@@ -159,7 +159,7 @@ void ProjLib_ProjectOnSurface::Load(const Handle(Adaptor3d_Surface)& S)
 
 //=================================================================================================
 
-void ProjLib_ProjectOnSurface::Load(const Handle(Adaptor3d_Curve)& C, const Standard_Real Tolerance)
+void ProjLib_ProjectOnSurface::Load(const Handle(Curve5)& C, const Standard_Real Tolerance)
 {
   myTolerance = Tolerance;
   myCurve     = C;

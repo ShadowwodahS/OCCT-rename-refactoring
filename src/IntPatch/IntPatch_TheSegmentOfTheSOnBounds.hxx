@@ -24,7 +24,7 @@
 #include <IntPatch_ThePathPointOfTheSOnBounds.hxx>
 
 class Standard_DomainError;
-class Adaptor3d_HVertex;
+class HandleVertex;
 class IntPatch_ThePathPointOfTheSOnBounds;
 
 class IntPatch_TheSegmentOfTheSOnBounds
@@ -70,7 +70,7 @@ private:
   IntPatch_ThePathPointOfTheSOnBounds thelp;
 };
 
-#define TheVertex Handle(Adaptor3d_HVertex)
+#define TheVertex Handle(HandleVertex)
 #define TheVertex_hxx <Adaptor3d_HVertex.hxx>
 #define TheArc Handle(Adaptor2d_Curve2d)
 #define TheArc_hxx <Adaptor2d_Curve2d.hxx>

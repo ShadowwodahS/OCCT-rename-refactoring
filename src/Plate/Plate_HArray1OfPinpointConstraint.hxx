@@ -21,6 +21,6 @@
 #include <Plate_Array1OfPinpointConstraint.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Plate_HArray1OfPinpointConstraint, Plate_Array1OfPinpointConstraint)
+DEFINE_HARRAY1(PinpointConstraintArray, Plate_Array1OfPinpointConstraint)
 
 #endif

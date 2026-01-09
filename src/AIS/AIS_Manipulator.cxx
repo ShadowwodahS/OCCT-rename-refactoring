@@ -403,7 +403,7 @@ void AIS_Manipulator::Attach(const Handle(AIS_ManipulatorObjectSequence)& theObj
 
   if (theOptions.AdjustPosition)
   {
-    const Handle(Graphic3d_TransformPers)& aTransPers = aCurObject->TransformPersistence();
+    const Handle(TransformPers)& aTransPers = aCurObject->TransformPersistence();
     if (!aTransPers.IsNull() && (aTransPers->IsZoomOrRotate() || aTransPers->IsAxial()))
     {
       attachToPoint(aTransPers->AnchorPoint());
@@ -592,9 +592,9 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       {
         myStartPick                = aNewPosition;
         myHasStartedTransformation = Standard_True;
-        Dir3d aStartAxis          = gce_MakeDir(aPosLoc, myStartPick);
+        Dir3d aStartAxis          = DirectionBuilder(aPosLoc, myStartPick);
         myPrevState =
-          aStartAxis.AngleWithRef(gce_MakeDir(aPosLoc, aNewPosition), aCurrAxis.Direction());
+          aStartAxis.AngleWithRef(DirectionBuilder(aPosLoc, aNewPosition), aCurrAxis.Direction());
         return Standard_True;
       }
 
@@ -606,9 +606,9 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       Dir3d aStartAxis =
         aPosLoc.IsEqual(myStartPick, Precision1::Confusion())
           ? getAx1FromAx2Dir(myStartPosition, (myCurrentIndex + 1) % 3).Direction()
-          : gce_MakeDir(aPosLoc, myStartPick);
+          : DirectionBuilder(aPosLoc, myStartPick);
 
-      Dir3d        aCurrentAxis = gce_MakeDir(aPosLoc, aNewPosition);
+      Dir3d        aCurrentAxis = DirectionBuilder(aPosLoc, aNewPosition);
       Standard_Real anAngle      = aStartAxis.AngleWithRef(aCurrentAxis, aCurrAxis.Direction());
 
       if (Abs(anAngle) < Precision1::Confusion())
@@ -989,7 +989,7 @@ void AIS_Manipulator::Transform(const Transform3d& theTrsf)
     for (; anObjIter.More(); anObjIter.Next(), aTrsfIter.Next())
     {
       const Handle(VisualEntity)&   anObj      = anObjIter.ChangeValue();
-      const Handle(Graphic3d_TransformPers)& aTransPers = anObj->TransformPersistence();
+      const Handle(TransformPers)& aTransPers = anObj->TransformPersistence();
       if (!aTransPers.IsNull() && (aTransPers->IsZoomOrRotate() || aTransPers->IsAxial()))
       {
         Coords3d aNewAnchorPoint = aTransPers->AnchorPoint().XYZ() - myPosition.Location().XYZ();
@@ -999,7 +999,7 @@ void AIS_Manipulator::Transform(const Transform3d& theTrsf)
       }
 
       const Transform3d&                anOldTrsf   = aTrsfIter.Value();
-      const Handle(TopLoc_Datum3D)& aParentTrsf = anObj->CombinedParentTransformation();
+      const Handle(Datum3D2)& aParentTrsf = anObj->CombinedParentTransformation();
       if (!aParentTrsf.IsNull() && aParentTrsf->Form() != gp_Identity)
       {
         // recompute local transformation relative to parent transformation
@@ -1075,7 +1075,7 @@ void AIS_Manipulator::updateTransformation()
     aTrsf.SetTransformation(Frame3d(gp1::Origin(), aVDir, aXDir), gp1::XOY());
   }
 
-  Handle(TopLoc_Datum3D) aGeomTrsf = new TopLoc_Datum3D(aTrsf);
+  Handle(Datum3D2) aGeomTrsf = new Datum3D2(aTrsf);
   // we explicitly call here setLocalTransformation() of the base class
   // since AIS_Manipulator::setLocalTransformation() implementation throws exception
   // as protection from external calls
@@ -1092,7 +1092,7 @@ void AIS_Manipulator::updateTransformation()
         || !TransformPersistence()->AnchorPoint().IsEqual(myPosition.Location(), 0.0))
     {
       setTransformPersistence(
-        new Graphic3d_TransformPers(Graphic3d_TMF_AxialZoomPers, myPosition.Location()));
+        new TransformPers(Graphic3d_TMF_AxialZoomPers, myPosition.Location()));
     }
   }
   else
@@ -1101,7 +1101,7 @@ void AIS_Manipulator::updateTransformation()
         || TransformPersistence()->Mode() != Graphic3d_TMF_AxialScalePers)
     {
       setTransformPersistence(
-        new Graphic3d_TransformPers(Graphic3d_TMF_AxialScalePers, myPosition.Location()));
+        new TransformPers(Graphic3d_TMF_AxialScalePers, myPosition.Location()));
     }
   }
 }
@@ -1182,7 +1182,7 @@ void AIS_Manipulator::SetZoomPersistence(const Standard_Boolean theToEnable)
 
   if (!theToEnable)
   {
-    setTransformPersistence(new (Graphic3d_TransformPers)(Graphic3d_TMF_AxialScalePers));
+    setTransformPersistence(new (TransformPers)(Graphic3d_TMF_AxialScalePers));
   }
 
   updateTransformation();
@@ -1201,7 +1201,7 @@ void AIS_Manipulator::SetSkinMode(const ManipulatorSkin theSkinMode)
 
 //=================================================================================================
 
-void AIS_Manipulator::SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
+void AIS_Manipulator::SetTransformPersistence(const Handle(TransformPers)& theTrsfPers)
 {
   Standard_ASSERT_RETURN(!myIsZoomPersistentMode,
                          "AIS_Manipulator::SetTransformPersistence: "
@@ -1212,7 +1212,7 @@ void AIS_Manipulator::SetTransformPersistence(const Handle(Graphic3d_TransformPe
 
 //=================================================================================================
 
-void AIS_Manipulator::setTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
+void AIS_Manipulator::setTransformPersistence(const Handle(TransformPers)& theTrsfPers)
 {
   VisualEntity::SetTransformPersistence(theTrsfPers);
 
@@ -1224,7 +1224,7 @@ void AIS_Manipulator::setTransformPersistence(const Handle(Graphic3d_TransformPe
 
 //=================================================================================================
 
-void AIS_Manipulator::setLocalTransformation(const Handle(TopLoc_Datum3D)& /*theTrsf*/)
+void AIS_Manipulator::setLocalTransformation(const Handle(Datum3D2)& /*theTrsf*/)
 {
   Standard_ASSERT_INVOKE("AIS_Manipulator::setLocalTransformation: "
                          "Custom transformation is not supported by this class");

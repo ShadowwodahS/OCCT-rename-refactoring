@@ -18,19 +18,19 @@
 #include <StdObjMgt_TransientPersistentMap.hxx>
 #include <ShapePersistent_HArray1.hxx>
 
-class Poly_Polygon2D;
+class Polygon2D2;
 class Poly_Polygon3D;
 class Poly_PolygonOnTriangulation;
 class MeshTriangulation;
 
-class ShapePersistent_Poly : private SharedObject
+class Poly3 : private SharedObject
 {
-  class pPolygon2D : public RefObject
+  class pPolygon2D1 : public RefObject
   {
-    friend class ShapePersistent_Poly;
+    friend class Poly3;
 
   public:
-    pPolygon2D()
+    pPolygon2D1()
         : myDeflection(0.0)
     {
     }
@@ -46,16 +46,16 @@ class ShapePersistent_Poly : private SharedObject
 
     inline Standard_CString PName() const { return "PPoly_Polygon2D"; }
 
-    Handle(Poly_Polygon2D) Import() const;
+    Handle(Polygon2D2) Import() const;
 
   private:
     Standard_Real                          myDeflection;
-    Handle(ShapePersistent_HArray1::Pnt2d) myNodes;
+    Handle(HArray11::Pnt2d) myNodes;
   };
 
-  class pPolygon3D : public RefObject
+  class pPolygon3D1 : public RefObject
   {
-    friend class ShapePersistent_Poly;
+    friend class Poly3;
 
   public:
     inline void Read(ReadData& theReadData)
@@ -76,16 +76,16 @@ class ShapePersistent_Poly : private SharedObject
 
   private:
     Standard_Real                        myDeflection;
-    Handle(ShapePersistent_HArray1::Pnt) myNodes;
+    Handle(HArray11::Pnt) myNodes;
     Handle(HArray1::Real) myParameters;
   };
 
-  class pPolygonOnTriangulation : public RefObject
+  class pPolygonOnTriangulation1 : public RefObject
   {
-    friend class ShapePersistent_Poly;
+    friend class Poly3;
 
   public:
-    pPolygonOnTriangulation()
+    pPolygonOnTriangulation1()
         : myDeflection(0.0)
     {
     }
@@ -112,12 +112,12 @@ class ShapePersistent_Poly : private SharedObject
     Handle(HArray1::Real)    myParameters;
   };
 
-  class pTriangulation : public RefObject
+  class pTriangulation1 : public RefObject
   {
-    friend class ShapePersistent_Poly;
+    friend class Poly3;
 
   public:
-    pTriangulation()
+    pTriangulation1()
         : myDeflection(0.0)
     {
     }
@@ -140,9 +140,9 @@ class ShapePersistent_Poly : private SharedObject
 
   private:
     Standard_Real                             myDeflection;
-    Handle(ShapePersistent_HArray1::Pnt)      myNodes;
-    Handle(ShapePersistent_HArray1::Pnt2d)    myUVNodes;
-    Handle(ShapePersistent_HArray1::Triangle1) myTriangles;
+    Handle(HArray11::Pnt)      myNodes;
+    Handle(HArray11::Pnt2d)    myUVNodes;
+    Handle(HArray11::Triangle1) myTriangles;
   };
 
   template <class Persistent, class Transient>
@@ -151,14 +151,14 @@ class ShapePersistent_Poly : private SharedObject
   };
 
 public:
-  typedef instance<pPolygon2D, Poly_Polygon2D>                           Polygon2D;
-  typedef instance<pPolygon3D, Poly_Polygon3D>                           Polygon3D;
-  typedef instance<pPolygonOnTriangulation, Poly_PolygonOnTriangulation> PolygonOnTriangulation;
-  typedef instance<pTriangulation, MeshTriangulation>                   Triangulation;
+  typedef instance<pPolygon2D1, Polygon2D2>                           Polygon2D;
+  typedef instance<pPolygon3D1, Poly_Polygon3D>                           Polygon3D;
+  typedef instance<pPolygonOnTriangulation1, Poly_PolygonOnTriangulation> PolygonOnTriangulation;
+  typedef instance<pTriangulation1, MeshTriangulation>                   Triangulation;
 
 public:
   //! Create a persistent object for a 2D polygon
-  Standard_EXPORT static Handle(Polygon2D) Translate(const Handle(Poly_Polygon2D)&     thePoly,
+  Standard_EXPORT static Handle(Polygon2D) Translate(const Handle(Polygon2D2)&     thePoly,
                                                      StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a 3D polygon
   Standard_EXPORT static Handle(Polygon3D) Translate(const Handle(Poly_Polygon3D)&     thePoly,

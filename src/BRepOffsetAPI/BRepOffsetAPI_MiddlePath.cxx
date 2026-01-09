@@ -77,7 +77,7 @@ static Standard_Boolean IsLinear(const TopoEdge& anEdge, gp_Lin& aLine)
     {
       Pnt1  = theBezier->Pole(1);
       Pnt2  = theBezier->Pole(2);
-      aLine = gce_MakeLin(Pnt1, Pnt2);
+      aLine = LineBuilder(Pnt1, Pnt2);
       return Standard_True;
     }
   }
@@ -88,7 +88,7 @@ static Standard_Boolean IsLinear(const TopoEdge& anEdge, gp_Lin& aLine)
     {
       Pnt1  = theBSpline->Pole(1);
       Pnt2  = theBSpline->Pole(2);
-      aLine = gce_MakeLin(Pnt1, Pnt2);
+      aLine = LineBuilder(Pnt1, Pnt2);
       return Standard_True;
     }
   }
@@ -925,7 +925,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
           break;
       }
       // from i to j-1 all edges are null
-      Handle(TColgp_HArray1OfPnt)      thePoints = new TColgp_HArray1OfPnt(1, j - i + 1);
+      Handle(PointArray1)      thePoints = new PointArray1(1, j - i + 1);
       TColgp_Array1OfVec               theTangents(1, j - i + 1);
       Handle(TColStd_HArray1OfBoolean) theFlags = new TColStd_HArray1OfBoolean(1, j - i + 1);
       for (k = i; k <= j; k++)

@@ -41,7 +41,7 @@
 #define ThePointOfLoopTool_hxx <IntSurf_InteriorPointTool.hxx>
 #define ThePOLIterator IntSurf_SequenceOfInteriorPoint
 #define ThePOLIterator_hxx <IntSurf_SequenceOfInteriorPoint.hxx>
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
@@ -52,6 +52,6 @@
 #define IntWalk_SequenceOfIWLine Contap_SequenceOfIWLineOfTheIWalking
 #define IntWalk_SequenceOfIWLine_hxx <Contap_SequenceOfIWLineOfTheIWalking.hxx>
 #define Handle_IntWalk_TheIWLine Handle(Contap_TheIWLineOfTheIWalking)
-#define IntWalk_IWalking Contap_TheIWalking
+#define IntWalk_IWalking TheIWalking1
 #define IntWalk_IWalking_hxx <Contap_TheIWalking.hxx>
 #include "../IntWalk/IntWalk_IWalking.gxx"

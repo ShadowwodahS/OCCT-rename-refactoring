@@ -45,17 +45,17 @@ class Graphic3d_CView;
 class Graphic3d_Layer;
 class Graphic3d_StructureManager;
 
-DEFINE_STANDARD_HANDLE(Graphic3d_CView, Graphic3d_DataStructureManager)
+DEFINE_STANDARD_HANDLE(Graphic3d_CView, DataStructureManager)
 
 //! Base class of a graphical view that carries out rendering process for a concrete
 //! implementation of graphical driver. Provides virtual interfaces for redrawing its
 //! contents, management of displayed structures and render settings. The source code
 //! of the class itself implements functionality related to management of
 //! computed (HLR or "view-dependent") structures.
-class Graphic3d_CView : public Graphic3d_DataStructureManager
+class Graphic3d_CView : public DataStructureManager
 {
   friend class Graphic3d_StructureManager;
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_CView, Graphic3d_DataStructureManager)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_CView, DataStructureManager)
 public:
   //! Constructor.
   Standard_EXPORT Graphic3d_CView(const Handle(Graphic3d_StructureManager)& theMgr);
@@ -213,7 +213,7 @@ private:
 
   //! Transforms the structure in the view.
   Standard_EXPORT void SetTransform(const Handle(Graphic3d_Structure)& theStructure,
-                                    const Handle(TopLoc_Datum3D)&      theTrsf);
+                                    const Handle(Datum3D2)&      theTrsf);
 
   //! Suppress the highlighting on the structure <AStructure>
   //! in the view <me>.
@@ -388,10 +388,10 @@ public:
 
 public:
   //! Returns background  fill color.
-  virtual Aspect_Background Background() const { return Aspect_Background(myBgColor.GetRGB()); }
+  virtual Background1 Background() const { return Background1(myBgColor.GetRGB()); }
 
   //! Sets background fill color.
-  virtual void SetBackground(const Aspect_Background& theBackground)
+  virtual void SetBackground(const Background1& theBackground)
   {
     myBgColor.SetRGB(theBackground.Color());
   }
@@ -451,16 +451,16 @@ public:
 
 public:
   //! Returns list of lights of the view.
-  virtual const Handle(Graphic3d_LightSet)& Lights() const = 0;
+  virtual const Handle(LightSet)& Lights() const = 0;
 
   //! Sets list of lights for the view.
-  virtual void SetLights(const Handle(Graphic3d_LightSet)& theLights) = 0;
+  virtual void SetLights(const Handle(LightSet)& theLights) = 0;
 
   //! Returns list of clip planes set for the view.
-  virtual const Handle(Graphic3d_SequenceOfHClipPlane)& ClipPlanes() const = 0;
+  virtual const Handle(SequenceOfHClipPlane)& ClipPlanes() const = 0;
 
   //! Sets list of clip planes for the view.
-  virtual void SetClipPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes) = 0;
+  virtual void SetClipPlanes(const Handle(SequenceOfHClipPlane)& thePlanes) = 0;
 
   //! Fill in the dictionary with diagnostic info.
   //! Should be called within rendering thread.

@@ -35,10 +35,10 @@ class Point3d;
 class GeomCurve3d;
 
 class GeomFill_NSections;
-DEFINE_STANDARD_HANDLE(GeomFill_NSections, GeomFill_SectionLaw)
+DEFINE_STANDARD_HANDLE(GeomFill_NSections, SectionLaw)
 
 //! Define a Section Law1 by N Sections
-class GeomFill_NSections : public GeomFill_SectionLaw
+class GeomFill_NSections : public SectionLaw
 {
 
 public:
@@ -215,7 +215,7 @@ public:
   Standard_EXPORT virtual Handle(GeomCurve3d) CirclSection(const Standard_Real Param) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_NSections, GeomFill_SectionLaw)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_NSections, SectionLaw)
 
 protected:
 private:

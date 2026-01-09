@@ -24,18 +24,18 @@
 #include <TopAbs_State.hxx>
 #include <Standard_Transient.hxx>
 
-class HLRBRep_AreaLimit;
-DEFINE_STANDARD_HANDLE(HLRBRep_AreaLimit, RefObject)
+class AreaLimit;
+DEFINE_STANDARD_HANDLE(AreaLimit, RefObject)
 
 //! The  private  nested class AreaLimit represents   a --
 //! vertex on  the Edge with the  state on the left and --
 //! the right.
-class HLRBRep_AreaLimit : public RefObject
+class AreaLimit : public RefObject
 {
 
 public:
   //! The previous and next field are set to NULL.
-  Standard_EXPORT HLRBRep_AreaLimit(const Intersection3& V,
+  Standard_EXPORT AreaLimit(const Intersection3& V,
                                     const Standard_Boolean      Boundary,
                                     const Standard_Boolean      Interference,
                                     const TopAbs_State          StateBefore,
@@ -51,9 +51,9 @@ public:
 
   Standard_EXPORT void EdgeAfter(const TopAbs_State St);
 
-  Standard_EXPORT void Previous(const Handle(HLRBRep_AreaLimit)& P);
+  Standard_EXPORT void Previous(const Handle(AreaLimit)& P);
 
-  Standard_EXPORT void Next(const Handle(HLRBRep_AreaLimit)& N);
+  Standard_EXPORT void Next(const Handle(AreaLimit)& N);
 
   Standard_EXPORT const Intersection3& Vertex() const;
 
@@ -69,13 +69,13 @@ public:
 
   Standard_EXPORT TopAbs_State EdgeAfter() const;
 
-  Standard_EXPORT Handle(HLRBRep_AreaLimit) Previous() const;
+  Standard_EXPORT Handle(AreaLimit) Previous() const;
 
-  Standard_EXPORT Handle(HLRBRep_AreaLimit) Next() const;
+  Standard_EXPORT Handle(AreaLimit) Next() const;
 
   Standard_EXPORT void Clear();
 
-  DEFINE_STANDARD_RTTIEXT(HLRBRep_AreaLimit, RefObject)
+  DEFINE_STANDARD_RTTIEXT(AreaLimit, RefObject)
 
 protected:
 private:
@@ -86,8 +86,8 @@ private:
   TopAbs_State              myStateAfter;
   TopAbs_State              myEdgeBefore;
   TopAbs_State              myEdgeAfter;
-  Handle(HLRBRep_AreaLimit) myPrevious;
-  Handle(HLRBRep_AreaLimit) myNext;
+  Handle(AreaLimit) myPrevious;
+  Handle(AreaLimit) myNext;
 };
 
 #endif // _HLRBRep_AreaLimit_HeaderFile

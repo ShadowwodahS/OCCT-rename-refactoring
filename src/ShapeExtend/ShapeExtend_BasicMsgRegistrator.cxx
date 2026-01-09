@@ -19,15 +19,15 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_BasicMsgRegistrator, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(BasicMsgRegistrator, RefObject)
 
 //=================================================================================================
 
-ShapeExtend_BasicMsgRegistrator::ShapeExtend_BasicMsgRegistrator() {}
+BasicMsgRegistrator::BasicMsgRegistrator() {}
 
 //=================================================================================================
 
-void ShapeExtend_BasicMsgRegistrator::Send(const Handle(RefObject)& /*object*/,
+void BasicMsgRegistrator::Send(const Handle(RefObject)& /*object*/,
                                            const Message_Msg& /*message*/,
                                            const Message_Gravity /*gravity*/)
 {
@@ -35,7 +35,7 @@ void ShapeExtend_BasicMsgRegistrator::Send(const Handle(RefObject)& /*object*/,
 
 //=================================================================================================
 
-void ShapeExtend_BasicMsgRegistrator::Send(const TopoShape& /*shape*/,
+void BasicMsgRegistrator::Send(const TopoShape& /*shape*/,
                                            const Message_Msg& /*message*/,
                                            const Message_Gravity /*gravity*/)
 {
@@ -43,7 +43,7 @@ void ShapeExtend_BasicMsgRegistrator::Send(const TopoShape& /*shape*/,
 
 //=================================================================================================
 
-void ShapeExtend_BasicMsgRegistrator::Send(const Message_Msg&    message,
+void BasicMsgRegistrator::Send(const Message_Msg&    message,
                                            const Message_Gravity gravity)
 {
   Handle(RefObject) dummy;

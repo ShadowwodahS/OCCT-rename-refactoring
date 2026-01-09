@@ -25,18 +25,18 @@
 #include <HatchGen_IntersectionPoint.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
-class IntRes2d_IntersectionPoint;
+class IntersectionPoint3;
 
-class HatchGen_PointOnElement : public IntersectionPoint2
+class PointOnElement : public IntersectionPoint2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! ---Purpose; Creates an empty point on element
-  Standard_EXPORT HatchGen_PointOnElement();
+  Standard_EXPORT PointOnElement();
 
   //! Creates a point from an intersection point.
-  Standard_EXPORT HatchGen_PointOnElement(const IntRes2d_IntersectionPoint& Point);
+  Standard_EXPORT PointOnElement(const IntersectionPoint3& Point);
 
   //! Sets the intersection type at this point.
   void SetIntersectionType(const HatchGen_IntersectionType Type);
@@ -54,11 +54,11 @@ public:
   //! P1.mySegBeg = P2.mySegBeg
   //! P1.mySegEnd = P2.mySegEnd
   //! P1.myType   = P2.myType
-  Standard_EXPORT Standard_Boolean IsIdentical(const HatchGen_PointOnElement& Point,
+  Standard_EXPORT Standard_Boolean IsIdentical(const PointOnElement& Point,
                                                const Standard_Real            Confusion) const;
 
   //! Tests if the point is different from an other.
-  Standard_EXPORT Standard_Boolean IsDifferent(const HatchGen_PointOnElement& Point,
+  Standard_EXPORT Standard_Boolean IsDifferent(const PointOnElement& Point,
                                                const Standard_Real            Confusion) const;
 
   //! Dump of the point on element.

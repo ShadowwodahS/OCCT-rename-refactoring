@@ -107,7 +107,7 @@ Standard_Integer TDataStd_NamedData::GetInteger(const UtfString& theName)
   if (!HasIntegers())
   {
     TColStd_DataMapOfStringInteger aMap;
-    myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+    myIntegers = new StringIntegerMap(aMap);
   }
   return myIntegers->Map()(theName);
 }
@@ -120,7 +120,7 @@ void TDataStd_NamedData::setInteger(const UtfString& theName,
   if (!HasIntegers())
   {
     TColStd_DataMapOfStringInteger aMap;
-    myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+    myIntegers = new StringIntegerMap(aMap);
   }
   myIntegers->ChangeMap().Bind(theName, theInteger);
 }
@@ -136,7 +136,7 @@ void TDataStd_NamedData::SetInteger(const UtfString& theName,
   if (!HasIntegers())
   {
     TColStd_DataMapOfStringInteger aMap;
-    myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+    myIntegers = new StringIntegerMap(aMap);
   }
   if (Standard_Integer* aValuePtr = myIntegers->ChangeMap().ChangeSeek(theName))
   {
@@ -163,7 +163,7 @@ const TColStd_DataMapOfStringInteger& TDataStd_NamedData::GetIntegersContainer()
   if (!HasIntegers())
   {
     TColStd_DataMapOfStringInteger aMap;
-    myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+    myIntegers = new StringIntegerMap(aMap);
   }
   return myIntegers->Map();
 }
@@ -177,7 +177,7 @@ void TDataStd_NamedData::ChangeIntegers(const TColStd_DataMapOfStringInteger& th
   if (!HasIntegers())
   {
     TColStd_DataMapOfStringInteger aMap;
-    myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+    myIntegers = new StringIntegerMap(aMap);
   };
   if (&myIntegers->Map() == &theIntegers)
     return;
@@ -218,7 +218,7 @@ Standard_Real TDataStd_NamedData::GetReal(const UtfString& theName)
   if (!HasReals())
   {
     TDataStd_DataMapOfStringReal aMap;
-    myReals = new TDataStd_HDataMapOfStringReal(aMap);
+    myReals = new StringRealMap(aMap);
   }
   return myReals->Map()(theName);
 }
@@ -231,7 +231,7 @@ void TDataStd_NamedData::setReal(const UtfString& theName,
   if (!HasReals())
   {
     TDataStd_DataMapOfStringReal aMap;
-    myReals = new TDataStd_HDataMapOfStringReal(aMap);
+    myReals = new StringRealMap(aMap);
   }
   myReals->ChangeMap().Bind(theName, theReal);
 }
@@ -247,7 +247,7 @@ void TDataStd_NamedData::SetReal(const UtfString& theName,
   if (!HasReals())
   {
     TDataStd_DataMapOfStringReal aMap;
-    myReals = new TDataStd_HDataMapOfStringReal(aMap);
+    myReals = new StringRealMap(aMap);
   }
   if (Standard_Real* aValuePtr = myReals->ChangeMap().ChangeSeek(theName))
   {
@@ -272,7 +272,7 @@ const TDataStd_DataMapOfStringReal& TDataStd_NamedData::GetRealsContainer()
   if (!HasReals())
   {
     TDataStd_DataMapOfStringReal aMap;
-    myReals = new TDataStd_HDataMapOfStringReal(aMap);
+    myReals = new StringRealMap(aMap);
   }
   return myReals->Map();
 }
@@ -286,7 +286,7 @@ void TDataStd_NamedData::ChangeReals(const TDataStd_DataMapOfStringReal& theReal
   if (!HasReals())
   {
     TDataStd_DataMapOfStringReal aMap;
-    myReals = new TDataStd_HDataMapOfStringReal(aMap);
+    myReals = new StringRealMap(aMap);
   }
   if (&myReals->Map() == &theReals)
     return;
@@ -328,7 +328,7 @@ const UtfString& TDataStd_NamedData::GetString(
   if (!HasStrings())
   {
     TDataStd_DataMapOfStringString aMap;
-    myStrings = new TDataStd_HDataMapOfStringString(aMap);
+    myStrings = new StringStringMap(aMap);
   }
   return myStrings->Map()(theName);
 }
@@ -341,7 +341,7 @@ void TDataStd_NamedData::setString(const UtfString& theName,
   if (!HasStrings())
   {
     TDataStd_DataMapOfStringString aMap;
-    myStrings = new TDataStd_HDataMapOfStringString(aMap);
+    myStrings = new StringStringMap(aMap);
   }
 
   myStrings->ChangeMap().Bind(theName, theString);
@@ -358,7 +358,7 @@ void TDataStd_NamedData::SetString(const UtfString& theName,
   if (!HasStrings())
   {
     TDataStd_DataMapOfStringString aMap;
-    myStrings = new TDataStd_HDataMapOfStringString(aMap);
+    myStrings = new StringStringMap(aMap);
   }
 
   if (UtfString* aValuePtr = myStrings->ChangeMap().ChangeSeek(theName))
@@ -385,7 +385,7 @@ const TDataStd_DataMapOfStringString& TDataStd_NamedData::GetStringsContainer()
   if (!HasStrings())
   {
     TDataStd_DataMapOfStringString aMap;
-    myStrings = new TDataStd_HDataMapOfStringString(aMap);
+    myStrings = new StringStringMap(aMap);
   }
   return myStrings->Map();
 }
@@ -399,7 +399,7 @@ void TDataStd_NamedData::ChangeStrings(const TDataStd_DataMapOfStringString& the
   if (!HasStrings())
   {
     TDataStd_DataMapOfStringString aMap;
-    myStrings = new TDataStd_HDataMapOfStringString(aMap);
+    myStrings = new StringStringMap(aMap);
   }
   if (&myStrings->Map() == &theStrings)
     return;
@@ -440,7 +440,7 @@ Standard_Byte TDataStd_NamedData::GetByte(const UtfString& theName)
   if (!HasBytes())
   {
     TDataStd_DataMapOfStringByte aMap;
-    myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+    myBytes = new StringByteMap(aMap);
   }
   return myBytes->Map()(theName);
 }
@@ -453,7 +453,7 @@ void TDataStd_NamedData::setByte(const UtfString& theName,
   if (!HasBytes())
   {
     TDataStd_DataMapOfStringByte aMap;
-    myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+    myBytes = new StringByteMap(aMap);
   }
   myBytes->ChangeMap().Bind(theName, theByte);
 }
@@ -469,7 +469,7 @@ void TDataStd_NamedData::SetByte(const UtfString& theName,
   if (!HasBytes())
   {
     TDataStd_DataMapOfStringByte aMap;
-    myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+    myBytes = new StringByteMap(aMap);
   }
 
   if (Standard_Byte* aValuePtr = myBytes->ChangeMap().ChangeSeek(theName))
@@ -496,7 +496,7 @@ const TDataStd_DataMapOfStringByte& TDataStd_NamedData::GetBytesContainer()
   if (!HasBytes())
   {
     TDataStd_DataMapOfStringByte aMap;
-    myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+    myBytes = new StringByteMap(aMap);
   }
   return myBytes->Map();
 }
@@ -510,7 +510,7 @@ void TDataStd_NamedData::ChangeBytes(const TDataStd_DataMapOfStringByte& theByte
   if (!HasBytes())
   {
     TDataStd_DataMapOfStringByte aMap;
-    myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+    myBytes = new StringByteMap(aMap);
   }
   if (&myBytes->Map() == &theBytes)
     return;
@@ -554,7 +554,7 @@ const Handle(TColStd_HArray1OfInteger)& TDataStd_NamedData::GetArrayOfIntegers(
   if (!HasArraysOfIntegers())
   {
     TDataStd_DataMapOfStringHArray1OfInteger aMap;
-    myArraysOfIntegers = new TDataStd_HDataMapOfStringHArray1OfInteger(aMap);
+    myArraysOfIntegers = new StringIntegerArrayMap(aMap);
   }
   return myArraysOfIntegers->Map().Find(theName);
 }
@@ -568,7 +568,7 @@ void TDataStd_NamedData::setArrayOfIntegers(
   if (!HasArraysOfIntegers())
   {
     TDataStd_DataMapOfStringHArray1OfInteger aMap;
-    myArraysOfIntegers = new TDataStd_HDataMapOfStringHArray1OfInteger(aMap);
+    myArraysOfIntegers = new StringIntegerArrayMap(aMap);
   }
 
   Handle(TColStd_HArray1OfInteger) anArray;
@@ -595,7 +595,7 @@ const TDataStd_DataMapOfStringHArray1OfInteger& TDataStd_NamedData::GetArraysOfI
   if (!HasArraysOfIntegers())
   {
     TDataStd_DataMapOfStringHArray1OfInteger aMap;
-    myArraysOfIntegers = new TDataStd_HDataMapOfStringHArray1OfInteger(aMap);
+    myArraysOfIntegers = new StringIntegerArrayMap(aMap);
   }
   return myArraysOfIntegers->Map();
 }
@@ -610,7 +610,7 @@ void TDataStd_NamedData::ChangeArraysOfIntegers(
   if (!HasArraysOfIntegers())
   {
     TDataStd_DataMapOfStringHArray1OfInteger aMap;
-    myArraysOfIntegers = new TDataStd_HDataMapOfStringHArray1OfInteger(aMap);
+    myArraysOfIntegers = new StringIntegerArrayMap(aMap);
   }
   if (&myArraysOfIntegers->Map() == &theIntegers)
     return;
@@ -654,7 +654,7 @@ const Handle(TColStd_HArray1OfReal)& TDataStd_NamedData::GetArrayOfReals(
   if (!HasArraysOfReals())
   {
     TDataStd_DataMapOfStringHArray1OfReal aMap;
-    myArraysOfReals = new TDataStd_HDataMapOfStringHArray1OfReal(aMap);
+    myArraysOfReals = new StringRealArrayMap(aMap);
   }
   return myArraysOfReals->Map().Find(theName);
 }
@@ -667,7 +667,7 @@ void TDataStd_NamedData::setArrayOfReals(const UtfString&    theName,
   if (!HasArraysOfReals())
   {
     TDataStd_DataMapOfStringHArray1OfReal aMap;
-    myArraysOfReals = new TDataStd_HDataMapOfStringHArray1OfReal(aMap);
+    myArraysOfReals = new StringRealArrayMap(aMap);
   }
 
   Handle(TColStd_HArray1OfReal) anArray;
@@ -693,7 +693,7 @@ const TDataStd_DataMapOfStringHArray1OfReal& TDataStd_NamedData::GetArraysOfReal
   if (!HasArraysOfReals())
   {
     TDataStd_DataMapOfStringHArray1OfReal aMap;
-    myArraysOfReals = new TDataStd_HDataMapOfStringHArray1OfReal(aMap);
+    myArraysOfReals = new StringRealArrayMap(aMap);
   }
   return myArraysOfReals->Map();
 }
@@ -707,7 +707,7 @@ void TDataStd_NamedData::ChangeArraysOfReals(const TDataStd_DataMapOfStringHArra
   if (!HasArraysOfReals())
   {
     TDataStd_DataMapOfStringHArray1OfReal aMap;
-    myArraysOfReals = new TDataStd_HDataMapOfStringHArray1OfReal(aMap);
+    myArraysOfReals = new StringRealArrayMap(aMap);
   }
   if (&myArraysOfReals->Map() == &theReals)
     return;
@@ -743,7 +743,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
     if (!HasIntegers())
     {
       TColStd_DataMapOfStringInteger aMap;
-      myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+      myIntegers = new StringIntegerMap(aMap);
     }
     myIntegers->ChangeMap().Assign(ND->GetIntegersContainer());
   }
@@ -754,7 +754,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
     if (!HasReals())
     {
       TDataStd_DataMapOfStringReal aMap;
-      myReals = new TDataStd_HDataMapOfStringReal(aMap);
+      myReals = new StringRealMap(aMap);
     }
     myReals->ChangeMap().Assign(ND->GetRealsContainer());
   }
@@ -765,7 +765,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
     if (!HasStrings())
     {
       TDataStd_DataMapOfStringString aMap;
-      myStrings = new TDataStd_HDataMapOfStringString(aMap);
+      myStrings = new StringStringMap(aMap);
     }
     myStrings->ChangeMap().Assign(ND->GetStringsContainer());
   }
@@ -776,7 +776,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
     if (!HasBytes())
     {
       TDataStd_DataMapOfStringByte aMap;
-      myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+      myBytes = new StringByteMap(aMap);
     }
     myBytes->ChangeMap().Assign(ND->GetBytesContainer());
   }
@@ -787,7 +787,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
     if (!HasArraysOfIntegers())
     {
       TDataStd_DataMapOfStringHArray1OfInteger aMap;
-      myArraysOfIntegers = new TDataStd_HDataMapOfStringHArray1OfInteger(aMap);
+      myArraysOfIntegers = new StringIntegerArrayMap(aMap);
     }
     TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfInteger itr(
       ND->GetArraysOfIntegersContainer());
@@ -815,7 +815,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
     if (!HasArraysOfReals())
     {
       TDataStd_DataMapOfStringHArray1OfReal aMap;
-      myArraysOfReals = new TDataStd_HDataMapOfStringHArray1OfReal(aMap);
+      myArraysOfReals = new StringRealArrayMap(aMap);
     }
     TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfReal itr(ND->GetArraysOfRealsContainer());
     for (; itr.More(); itr.Next())
@@ -840,7 +840,7 @@ void TDataStd_NamedData::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
-                               const Handle(TDF_RelocationTable)&) const
+                               const Handle(RelocationTable1)&) const
 {
   Handle(TDataStd_NamedData) ND = Handle(TDataStd_NamedData)::DownCast(Into);
   if (ND.IsNull())
@@ -852,7 +852,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
     if (!ND->HasIntegers())
     {
       TColStd_DataMapOfStringInteger aMap;
-      ND->myIntegers = new TDataStd_HDataMapOfStringInteger(aMap);
+      ND->myIntegers = new StringIntegerMap(aMap);
     };
     ND->myIntegers->ChangeMap().Assign(myIntegers->Map());
   }
@@ -863,7 +863,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
     if (!ND->HasReals())
     {
       TDataStd_DataMapOfStringReal aMap;
-      ND->myReals = new TDataStd_HDataMapOfStringReal(aMap);
+      ND->myReals = new StringRealMap(aMap);
     };
     ND->myReals->ChangeMap().Assign(myReals->Map());
   }
@@ -874,7 +874,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
     if (!ND->HasStrings())
     {
       TDataStd_DataMapOfStringString aMap;
-      ND->myStrings = new TDataStd_HDataMapOfStringString(aMap);
+      ND->myStrings = new StringStringMap(aMap);
     };
     ND->myStrings->ChangeMap().Assign(myStrings->Map());
   }
@@ -885,7 +885,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
     if (!ND->HasBytes())
     {
       TDataStd_DataMapOfStringByte aMap;
-      ND->myBytes = new TDataStd_HDataMapOfStringByte(aMap);
+      ND->myBytes = new StringByteMap(aMap);
     };
     ND->myBytes->ChangeMap().Assign(myBytes->Map());
   }
@@ -896,7 +896,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
     if (!ND->HasArraysOfIntegers())
     {
       TDataStd_DataMapOfStringHArray1OfInteger aMap;
-      ND->myArraysOfIntegers = new TDataStd_HDataMapOfStringHArray1OfInteger(aMap);
+      ND->myArraysOfIntegers = new StringIntegerArrayMap(aMap);
     }
 
     TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfInteger itr(myArraysOfIntegers->Map());
@@ -923,7 +923,7 @@ void TDataStd_NamedData::Paste(const Handle(TDF_Attribute)& Into,
     if (!ND->HasArraysOfReals())
     {
       TDataStd_DataMapOfStringHArray1OfReal aMap;
-      ND->myArraysOfReals = new TDataStd_HDataMapOfStringHArray1OfReal(aMap);
+      ND->myArraysOfReals = new StringRealArrayMap(aMap);
     }
     TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfReal itr(myArraysOfReals->Map());
     for (; itr.More(); itr.Next())

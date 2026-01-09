@@ -42,7 +42,7 @@
 
 //=================================================================================================
 
-Extrema_ExtCC::Extrema_ExtCC(const Standard_Real TolC1, const Standard_Real TolC2)
+CurveCurveExtrema2::CurveCurveExtrema2(const Standard_Real TolC1, const Standard_Real TolC2)
     : myIsFindSingleSolution(Standard_False),
       myDone(Standard_False),
       myIsParallel(Standard_False)
@@ -58,8 +58,8 @@ Extrema_ExtCC::Extrema_ExtCC(const Standard_Real TolC1, const Standard_Real TolC
 
 //=================================================================================================
 
-Extrema_ExtCC::Extrema_ExtCC(const Adaptor3d_Curve& C1,
-                             const Adaptor3d_Curve& C2,
+CurveCurveExtrema2::CurveCurveExtrema2(const Curve5& C1,
+                             const Curve5& C2,
                              const Standard_Real    U1,
                              const Standard_Real    U2,
                              const Standard_Real    V1,
@@ -80,8 +80,8 @@ Extrema_ExtCC::Extrema_ExtCC(const Adaptor3d_Curve& C1,
 
 //=================================================================================================
 
-Extrema_ExtCC::Extrema_ExtCC(const Adaptor3d_Curve& C1,
-                             const Adaptor3d_Curve& C2,
+CurveCurveExtrema2::CurveCurveExtrema2(const Curve5& C1,
+                             const Curve5& C2,
                              const Standard_Real    TolC1,
                              const Standard_Real    TolC2)
     : myIsFindSingleSolution(Standard_False),
@@ -98,8 +98,8 @@ Extrema_ExtCC::Extrema_ExtCC(const Adaptor3d_Curve& C1,
 
 //=================================================================================================
 
-void Extrema_ExtCC::Initialize(const Adaptor3d_Curve& C1,
-                               const Adaptor3d_Curve& C2,
+void CurveCurveExtrema2::Initialize(const Curve5& C1,
+                               const Curve5& C2,
                                const Standard_Real    TolC1,
                                const Standard_Real    TolC2)
 {
@@ -114,8 +114,8 @@ void Extrema_ExtCC::Initialize(const Adaptor3d_Curve& C1,
 
 //=================================================================================================
 
-void Extrema_ExtCC::Initialize(const Adaptor3d_Curve& C1,
-                               const Adaptor3d_Curve& C2,
+void CurveCurveExtrema2::Initialize(const Curve5& C1,
+                               const Curve5& C2,
                                const Standard_Real    U1,
                                const Standard_Real    U2,
                                const Standard_Real    V1,
@@ -134,17 +134,17 @@ void Extrema_ExtCC::Initialize(const Adaptor3d_Curve& C1,
 
 //=================================================================================================
 
-void Extrema_ExtCC::SetCurve(const Standard_Integer theRank, const Adaptor3d_Curve& C)
+void CurveCurveExtrema2::SetCurve(const Standard_Integer theRank, const Curve5& C)
 {
-  Standard_OutOfRange_Raise_if(theRank < 1 || theRank > 2, "Extrema_ExtCC::SetCurve()")
+  Standard_OutOfRange_Raise_if(theRank < 1 || theRank > 2, "CurveCurveExtrema2::SetCurve()")
     Standard_Integer anInd = theRank - 1;
   myC[anInd]               = &C;
 }
 
 //=================================================================================================
 
-void Extrema_ExtCC::SetCurve(const Standard_Integer theRank,
-                             const Adaptor3d_Curve& C,
+void CurveCurveExtrema2::SetCurve(const Standard_Integer theRank,
+                             const Curve5& C,
                              const Standard_Real    Uinf,
                              const Standard_Real    Usup)
 {
@@ -154,11 +154,11 @@ void Extrema_ExtCC::SetCurve(const Standard_Integer theRank,
 
 //=================================================================================================
 
-void Extrema_ExtCC::SetRange(const Standard_Integer theRank,
+void CurveCurveExtrema2::SetRange(const Standard_Integer theRank,
                              const Standard_Real    Uinf,
                              const Standard_Real    Usup)
 {
-  Standard_OutOfRange_Raise_if(theRank < 1 || theRank > 2, "Extrema_ExtCC::SetRange()")
+  Standard_OutOfRange_Raise_if(theRank < 1 || theRank > 2, "CurveCurveExtrema2::SetRange()")
     Standard_Integer anInd = theRank - 1;
   myInf[anInd]             = Uinf;
   mySup[anInd]             = Usup;
@@ -166,18 +166,18 @@ void Extrema_ExtCC::SetRange(const Standard_Integer theRank,
 
 //=================================================================================================
 
-void Extrema_ExtCC::SetTolerance(const Standard_Integer theRank, const Standard_Real theTol)
+void CurveCurveExtrema2::SetTolerance(const Standard_Integer theRank, const Standard_Real theTol)
 {
-  Standard_OutOfRange_Raise_if(theRank < 1 || theRank > 2, "Extrema_ExtCC::SetTolerance()")
+  Standard_OutOfRange_Raise_if(theRank < 1 || theRank > 2, "CurveCurveExtrema2::SetTolerance()")
     Standard_Integer anInd = theRank - 1;
   myTol[anInd]             = theTol;
 }
 
 //=================================================================================================
 
-void Extrema_ExtCC::Perform()
+void CurveCurveExtrema2::Perform()
 {
-  Standard_NullObject_Raise_if(!myC[0] || !myC[1], "Extrema_ExtCC::Perform()")
+  Standard_NullObject_Raise_if(!myC[0] || !myC[1], "CurveCurveExtrema2::Perform()")
     myECC.SetParams(*myC[0], *myC[1], myInf[0], mySup[0], myInf[1], mySup[1]);
   myECC.SetTolerance(Min(myTol[0], myTol[1]));
   myECC.SetSingleSolutionFlag(GetSingleSolutionFlag());
@@ -295,14 +295,14 @@ void Extrema_ExtCC::Perform()
 
 //=================================================================================================
 
-Standard_Boolean Extrema_ExtCC::IsDone() const
+Standard_Boolean CurveCurveExtrema2::IsDone() const
 {
   return myDone;
 }
 
 //=================================================================================================
 
-Standard_Boolean Extrema_ExtCC::IsParallel() const
+Standard_Boolean CurveCurveExtrema2::IsParallel() const
 {
   if (!IsDone())
   {
@@ -314,7 +314,7 @@ Standard_Boolean Extrema_ExtCC::IsParallel() const
 
 //=================================================================================================
 
-Standard_Real Extrema_ExtCC::SquareDistance(const Standard_Integer N) const
+Standard_Real CurveCurveExtrema2::SquareDistance(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
     throw Standard_OutOfRange();
@@ -323,7 +323,7 @@ Standard_Real Extrema_ExtCC::SquareDistance(const Standard_Integer N) const
 
 //=================================================================================================
 
-Standard_Integer Extrema_ExtCC::NbExt() const
+Standard_Integer CurveCurveExtrema2::NbExt() const
 {
   if (!myDone)
     throw StdFail_NotDone();
@@ -332,7 +332,7 @@ Standard_Integer Extrema_ExtCC::NbExt() const
 
 //=================================================================================================
 
-void Extrema_ExtCC::Points(const Standard_Integer N, PointOnCurve1& P1, PointOnCurve1& P2) const
+void CurveCurveExtrema2::Points(const Standard_Integer N, PointOnCurve1& P1, PointOnCurve1& P2) const
 {
   if (N < 1 || N > NbExt())
   {
@@ -345,7 +345,7 @@ void Extrema_ExtCC::Points(const Standard_Integer N, PointOnCurve1& P1, PointOnC
 
 //=================================================================================================
 
-void Extrema_ExtCC::TrimmedSquareDistances(Standard_Real& dist11,
+void CurveCurveExtrema2::TrimmedSquareDistances(Standard_Real& dist11,
                                            Standard_Real& dist12,
                                            Standard_Real& dist21,
                                            Standard_Real& dist22,
@@ -367,7 +367,7 @@ void Extrema_ExtCC::TrimmedSquareDistances(Standard_Real& dist11,
 
 //=================================================================================================
 
-void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
+void CurveCurveExtrema2::PrepareParallelResult(const Standard_Real theUt11,
                                           const Standard_Real theUt12,
                                           const Standard_Real theUt21,
                                           const Standard_Real theUt22,
@@ -794,7 +794,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
 
 //=================================================================================================
 
-void Extrema_ExtCC::PrepareResults(const ExtElC&  AlgExt,
+void CurveCurveExtrema2::PrepareResults(const ExtElC&  AlgExt,
                                    const Standard_Boolean theIsInverse,
                                    const Standard_Real    Ut11,
                                    const Standard_Real    Ut12,
@@ -867,7 +867,7 @@ void Extrema_ExtCC::PrepareResults(const ExtElC&  AlgExt,
 
 //=================================================================================================
 
-void Extrema_ExtCC::PrepareResults(const CurveCurveExtrema1&  AlgExt,
+void CurveCurveExtrema2::PrepareResults(const CurveCurveExtrema1&  AlgExt,
                                    const Standard_Real Ut11,
                                    const Standard_Real Ut12,
                                    const Standard_Real Ut21,
@@ -921,14 +921,14 @@ void Extrema_ExtCC::PrepareResults(const CurveCurveExtrema1&  AlgExt,
 
 //=================================================================================================
 
-void Extrema_ExtCC::SetSingleSolutionFlag(const Standard_Boolean theFlag)
+void CurveCurveExtrema2::SetSingleSolutionFlag(const Standard_Boolean theFlag)
 {
   myIsFindSingleSolution = theFlag;
 }
 
 //=================================================================================================
 
-Standard_Boolean Extrema_ExtCC::GetSingleSolutionFlag() const
+Standard_Boolean CurveCurveExtrema2::GetSingleSolutionFlag() const
 {
   return myIsFindSingleSolution;
 }

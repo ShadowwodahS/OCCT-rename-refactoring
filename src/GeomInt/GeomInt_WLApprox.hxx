@@ -77,8 +77,8 @@ public:
 
   Standard_EXPORT WireLineApproximation();
 
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)& Surf1,
-                               const Handle(Adaptor3d_Surface)& Surf2,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)& Surf1,
+                               const Handle(SurfaceAdaptor)& Surf2,
                                const Handle(IntPatch_WLine)&    aLine,
                                const Standard_Boolean           ApproxXYZ  = Standard_True,
                                const Standard_Boolean           ApproxU1V1 = Standard_True,
@@ -123,7 +123,7 @@ public:
 protected:
 private:
   Standard_EXPORT void Perform(const Quadric1&           Surf1,
-                               const Handle(Adaptor3d_Surface)& Surf2,
+                               const Handle(SurfaceAdaptor)& Surf2,
                                const Handle(IntPatch_WLine)&    aLine,
                                const Standard_Boolean           ApproxXYZ,
                                const Standard_Boolean           ApproxU1V1,

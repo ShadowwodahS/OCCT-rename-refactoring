@@ -29,7 +29,7 @@
 #include <Standard_Real.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 class AdvApp2Var_Iso;
-class AdvApp2Var_Node;
+class ApproximationNode;
 
 class Framework
 {
@@ -59,12 +59,12 @@ public:
                                  const Standard_Integer        IndexStrip,
                                  const Handle(AdvApp2Var_Iso)& anIso);
 
-  const Handle(AdvApp2Var_Node)& Node(const Standard_Integer IndexNode) const
+  const Handle(ApproximationNode)& Node(const Standard_Integer IndexNode) const
   {
     return myNodeConstraints.Value(IndexNode);
   }
 
-  Standard_EXPORT const Handle(AdvApp2Var_Node)& Node(const Standard_Real U,
+  Standard_EXPORT const Handle(ApproximationNode)& Node(const Standard_Real U,
                                                       const Standard_Real V) const;
 
   Standard_EXPORT const AdvApp2Var_Iso& IsoU(const Standard_Real U,

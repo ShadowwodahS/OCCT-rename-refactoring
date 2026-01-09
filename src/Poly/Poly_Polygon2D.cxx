@@ -16,11 +16,11 @@
 
 #include <Poly_Polygon2D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_Polygon2D, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Polygon2D2, RefObject)
 
 //=================================================================================================
 
-Poly_Polygon2D::Poly_Polygon2D(const Standard_Integer theNbNodes)
+Polygon2D2::Polygon2D2(const Standard_Integer theNbNodes)
     : myDeflection(0.0),
       myNodes(1, theNbNodes)
 {
@@ -29,7 +29,7 @@ Poly_Polygon2D::Poly_Polygon2D(const Standard_Integer theNbNodes)
 
 //=================================================================================================
 
-Poly_Polygon2D::Poly_Polygon2D(const TColgp_Array1OfPnt2d& Nodes)
+Polygon2D2::Polygon2D2(const TColgp_Array1OfPnt2d& Nodes)
     : myDeflection(0.),
       myNodes(1, Nodes.Length())
 {
@@ -40,7 +40,7 @@ Poly_Polygon2D::Poly_Polygon2D(const TColgp_Array1OfPnt2d& Nodes)
 
 //=================================================================================================
 
-void Poly_Polygon2D::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void Polygon2D2::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

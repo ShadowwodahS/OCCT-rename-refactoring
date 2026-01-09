@@ -39,7 +39,7 @@ MeshVS_VectorPrsBuilder::MeshVS_VectorPrsBuilder(const Handle(MeshVS_Mesh)&     
                                                  const Standard_Real              MaxLength,
                                                  const Color1&            VectorColor,
                                                  const MeshVS_DisplayModeFlags&   Flags,
-                                                 const Handle(MeshVS_DataSource)& DS,
+                                                 const Handle(MeshDataSource)& DS,
                                                  const Standard_Integer           Id,
                                                  const MeshVS_BuilderPriority&    Priority,
                                                  const Standard_Boolean           IsSimplePrs)
@@ -49,7 +49,7 @@ MeshVS_VectorPrsBuilder::MeshVS_VectorPrsBuilder(const Handle(MeshVS_Mesh)&     
       mySimpleStartPrm(0.85),
       mySimpleEndPrm(0.95)
 {
-  Handle(MeshVS_Drawer) aDrawer = GetDrawer();
+  Handle(MeshDrawer) aDrawer = GetDrawer();
   if (!aDrawer.IsNull())
   {
     aDrawer->SetDouble(MeshVS_DA_VectorMaxLength, MaxLength);
@@ -163,8 +163,8 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
                                     const Standard_Boolean            IsElement,
                                     const Standard_Integer            theDisplayMode) const
 {
-  Handle(MeshVS_Drawer)     aDrawer = GetDrawer();
-  Handle(MeshVS_DataSource) aSource = GetDataSource();
+  Handle(MeshDrawer)     aDrawer = GetDrawer();
+  Handle(MeshDataSource) aSource = GetDataSource();
   if (aSource.IsNull() || aDrawer.IsNull() || !HasVectors(IsElement)
       || (theDisplayMode & GetFlags()) == 0)
     return;

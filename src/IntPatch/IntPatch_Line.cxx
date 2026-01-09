@@ -16,9 +16,9 @@
 #include <Standard_DomainError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntPatch_Line, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Line2, RefObject)
 
-IntPatch_Line::IntPatch_Line(const Standard_Boolean  Tang,
+Line2::Line2(const Standard_Boolean  Tang,
                              const IntSurf_TypeTrans Trans1,
                              const IntSurf_TypeTrans Trans2)
     : tg(Tang),
@@ -33,7 +33,7 @@ IntPatch_Line::IntPatch_Line(const Standard_Boolean  Tang,
 {
 }
 
-IntPatch_Line::IntPatch_Line(const Standard_Boolean  Tang,
+Line2::Line2(const Standard_Boolean  Tang,
                              const IntSurf_Situation Situ1,
                              const IntSurf_Situation Situ2)
     : tg(Tang),
@@ -48,7 +48,7 @@ IntPatch_Line::IntPatch_Line(const Standard_Boolean  Tang,
 {
 }
 
-IntPatch_Line::IntPatch_Line(const Standard_Boolean Tang)
+Line2::Line2(const Standard_Boolean Tang)
     : tg(Tang),
       tS1(IntSurf_Undecided),
       tS2(IntSurf_Undecided),

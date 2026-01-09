@@ -147,7 +147,7 @@ void TDocStd_XLink::BeforeRemoval()
 
 //=======================================================================
 // function : BeforeUndo
-// purpose  : Before application of a TDF_Delta.
+// purpose  : Before application of a Delta.
 //=======================================================================
 
 Standard_Boolean TDocStd_XLink::BeforeUndo(const Handle(TDF_AttributeDelta)& anAttDelta,
@@ -162,7 +162,7 @@ Standard_Boolean TDocStd_XLink::BeforeUndo(const Handle(TDF_AttributeDelta)& anA
 
 //=======================================================================
 // function : AfterUndo
-// purpose  : After application of a TDF_Delta.
+// purpose  : After application of a Delta.
 //=======================================================================
 
 Standard_Boolean TDocStd_XLink::AfterUndo(const Handle(TDF_AttributeDelta)& anAttDelta,
@@ -207,7 +207,7 @@ Handle(TDF_Attribute) TDocStd_XLink::NewEmpty() const
 //=================================================================================================
 
 void TDocStd_XLink::Paste(const Handle(TDF_Attribute)& intoAttribute,
-                          const Handle(TDF_RelocationTable)& /*aRelocationTable*/) const
+                          const Handle(RelocationTable1)& /*aRelocationTable*/) const
 {
   Handle(TDocStd_XLink) xRef(Handle(TDocStd_XLink)::DownCast(intoAttribute));
   if (!xRef.IsNull())

@@ -17,7 +17,7 @@
 #include <Standard_Type.hxx>
 
 class Graphic3d_Structure;
-class Graphic3d_TransformPers;
+class TransformPers;
 class SelectionContainer;
 class Transform3d;
 
@@ -30,7 +30,7 @@ public:
     const Handle(Graphic3d_Structure)&     theStructure,
     const Handle(SelectionContainer)&     theSel,
     const Transform3d&                         theLoc,
-    const Handle(Graphic3d_TransformPers)& theTrsfPers);
+    const Handle(TransformPers)& theTrsfPers);
 };
 
 #endif

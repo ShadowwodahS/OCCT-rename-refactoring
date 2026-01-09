@@ -138,7 +138,7 @@ static void nameToCasCade(const Handle(TCollection_HAsciiString)& theName)
 // purpose  : auxiliary for Prepare()
 //           Convert names for Type object
 //=======================================================================
-static void nameToCasCade(const Handle(Express_Type)& theType)
+static void nameToCasCade(const Handle(ExpressType)& theType)
 {
   if (theType->IsKind(STANDARD_TYPE(Express_NamedType)))
   {
@@ -287,7 +287,7 @@ void Express_Schema::Prepare()
 
 //=================================================================================================
 
-void Express_Schema::PrepareType(const Handle(Express_Type)& theType) const
+void Express_Schema::PrepareType(const Handle(ExpressType)& theType) const
 {
   if (theType->IsKind(STANDARD_TYPE(Express_NamedType)))
   {

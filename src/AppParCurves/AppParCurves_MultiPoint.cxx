@@ -20,37 +20,37 @@
 #include <TColgp_HArray1OfPnt.hxx>
 #include <TColgp_HArray1OfPnt2d.hxx>
 
-#define tabPoint Handle(TColgp_HArray1OfPnt)::DownCast(ttabPoint)
-#define tabPoint2d Handle(TColgp_HArray1OfPnt2d)::DownCast(ttabPoint2d)
+#define tabPoint Handle(PointArray1)::DownCast(ttabPoint)
+#define tabPoint2d Handle(Point2dArray)::DownCast(ttabPoint2d)
 
-AppParCurves_MultiPoint::AppParCurves_MultiPoint()
+MultiPoint::MultiPoint()
     : nbP(0),
       nbP2d(0)
 {
 }
 
-AppParCurves_MultiPoint::AppParCurves_MultiPoint(const Standard_Integer NbPoles,
+MultiPoint::MultiPoint(const Standard_Integer NbPoles,
                                                  const Standard_Integer NbPoles2d)
 {
   nbP   = NbPoles;
   nbP2d = NbPoles2d;
   if (nbP != 0)
   {
-    Handle(TColgp_HArray1OfPnt) tab3d = new TColgp_HArray1OfPnt(1, NbPoles);
+    Handle(PointArray1) tab3d = new PointArray1(1, NbPoles);
     ttabPoint                         = tab3d;
   }
   if (nbP2d != 0)
   {
-    Handle(TColgp_HArray1OfPnt2d) tab2d = new TColgp_HArray1OfPnt2d(1, NbPoles2d);
+    Handle(Point2dArray) tab2d = new Point2dArray(1, NbPoles2d);
     ttabPoint2d                         = tab2d;
   }
 }
 
-AppParCurves_MultiPoint::AppParCurves_MultiPoint(const TColgp_Array1OfPnt& tabP)
+MultiPoint::MultiPoint(const TColgp_Array1OfPnt& tabP)
 {
   nbP2d                             = 0;
   nbP                               = tabP.Length();
-  Handle(TColgp_HArray1OfPnt) tab3d = new TColgp_HArray1OfPnt(1, nbP);
+  Handle(PointArray1) tab3d = new PointArray1(1, nbP);
   ttabPoint                         = tab3d;
   Standard_Integer    Lower         = tabP.Lower();
   TColgp_Array1OfPnt& P3d           = tabPoint->ChangeArray1();
@@ -60,11 +60,11 @@ AppParCurves_MultiPoint::AppParCurves_MultiPoint(const TColgp_Array1OfPnt& tabP)
   }
 }
 
-AppParCurves_MultiPoint::AppParCurves_MultiPoint(const TColgp_Array1OfPnt2d& tabP2d)
+MultiPoint::MultiPoint(const TColgp_Array1OfPnt2d& tabP2d)
 {
   nbP                                 = 0;
   nbP2d                               = tabP2d.Length();
-  Handle(TColgp_HArray1OfPnt2d) tab2d = new TColgp_HArray1OfPnt2d(1, nbP2d);
+  Handle(Point2dArray) tab2d = new Point2dArray(1, nbP2d);
   ttabPoint2d                         = tab2d;
   Standard_Integer      Lower         = tabP2d.Lower();
   TColgp_Array1OfPnt2d& P2d           = tabPoint2d->ChangeArray1();
@@ -74,15 +74,15 @@ AppParCurves_MultiPoint::AppParCurves_MultiPoint(const TColgp_Array1OfPnt2d& tab
   }
 }
 
-AppParCurves_MultiPoint::AppParCurves_MultiPoint(const TColgp_Array1OfPnt&   tabP,
+MultiPoint::MultiPoint(const TColgp_Array1OfPnt&   tabP,
                                                  const TColgp_Array1OfPnt2d& tabP2d)
 {
   nbP                             = tabP.Length();
   nbP2d                           = tabP2d.Length();
-  Handle(TColgp_HArray1OfPnt) t3d = new TColgp_HArray1OfPnt(1, nbP);
+  Handle(PointArray1) t3d = new PointArray1(1, nbP);
   ttabPoint                       = t3d;
 
-  Handle(TColgp_HArray1OfPnt2d) t2d = new TColgp_HArray1OfPnt2d(1, nbP2d);
+  Handle(Point2dArray) t2d = new Point2dArray(1, nbP2d);
   ttabPoint2d                       = t2d;
 
   TColgp_Array1OfPnt& P3d = tabPoint->ChangeArray1();
@@ -99,9 +99,9 @@ AppParCurves_MultiPoint::AppParCurves_MultiPoint(const TColgp_Array1OfPnt&   tab
   }
 }
 
-AppParCurves_MultiPoint::~AppParCurves_MultiPoint() {}
+MultiPoint::~MultiPoint() {}
 
-void AppParCurves_MultiPoint::Transform(const Standard_Integer CuIndex,
+void MultiPoint::Transform(const Standard_Integer CuIndex,
                                         const Standard_Real    x,
                                         const Standard_Real    dx,
                                         const Standard_Real    y,
@@ -118,7 +118,7 @@ void AppParCurves_MultiPoint::Transform(const Standard_Integer CuIndex,
   tabPoint->SetValue(CuIndex, newP);
 }
 
-void AppParCurves_MultiPoint::Transform2d(const Standard_Integer CuIndex,
+void MultiPoint::Transform2d(const Standard_Integer CuIndex,
                                           const Standard_Real    x,
                                           const Standard_Real    dx,
                                           const Standard_Real    y,
@@ -133,37 +133,37 @@ void AppParCurves_MultiPoint::Transform2d(const Standard_Integer CuIndex,
   SetPoint2d(CuIndex, newP);
 }
 
-void AppParCurves_MultiPoint::SetPoint(const Standard_Integer Index, const Point3d& Point)
+void MultiPoint::SetPoint(const Standard_Integer Index, const Point3d& Point)
 {
   Standard_OutOfRange_Raise_if((Index <= 0) || (Index > nbP),
-                               "AppParCurves_MultiPoint::SetPoint() - wrong index");
+                               "MultiPoint::SetPoint() - wrong index");
   tabPoint->SetValue(Index, Point);
 }
 
-const Point3d& AppParCurves_MultiPoint::Point(const Standard_Integer Index) const
+const Point3d& MultiPoint::Point(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if((Index <= 0) || (Index > nbP),
-                               "AppParCurves_MultiPoint::Point() - wrong index");
+                               "MultiPoint::Point() - wrong index");
   return tabPoint->Value(Index);
 }
 
-void AppParCurves_MultiPoint::SetPoint2d(const Standard_Integer Index, const gp_Pnt2d& Point)
+void MultiPoint::SetPoint2d(const Standard_Integer Index, const gp_Pnt2d& Point)
 {
   Standard_OutOfRange_Raise_if((Index <= nbP) || (Index > nbP + nbP2d),
-                               "AppParCurves_MultiPoint::SetPoint2d() - wrong index");
+                               "MultiPoint::SetPoint2d() - wrong index");
   tabPoint2d->SetValue(Index - nbP, Point);
 }
 
-const gp_Pnt2d& AppParCurves_MultiPoint::Point2d(const Standard_Integer Index) const
+const gp_Pnt2d& MultiPoint::Point2d(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if((Index <= nbP) || (Index > nbP + nbP2d),
-                               "AppParCurves_MultiPoint::Point2d() - wrong index");
+                               "MultiPoint::Point2d() - wrong index");
   return tabPoint2d->Value(Index - nbP);
 }
 
-void AppParCurves_MultiPoint::Dump(Standard_OStream& o) const
+void MultiPoint::Dump(Standard_OStream& o) const
 {
-  o << "AppParCurves_MultiPoint dump:" << std::endl;
+  o << "MultiPoint dump:" << std::endl;
   const Standard_Integer aNbPnts3D = NbPoints(), aNbPnts2D = NbPoints2d();
   o << "It contains " << aNbPnts3D << " 3d points and " << aNbPnts2D << " 2d points." << std::endl;
 

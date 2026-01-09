@@ -24,7 +24,7 @@
 #include <BRepMesh_ExtrusionRangeSplitter.hxx>
 #include <BRepMesh_UndefinedRangeSplitter.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_MeshAlgoFactory, IMeshTools_MeshAlgoFactory)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_MeshAlgoFactory, MeshAlgorithmFactory)
 
 namespace
 {
@@ -57,7 +57,7 @@ BRepMesh_MeshAlgoFactory::~BRepMesh_MeshAlgoFactory() {}
 
 //=================================================================================================
 
-Handle(IMeshTools_MeshAlgo) BRepMesh_MeshAlgoFactory::GetAlgo(
+Handle(MeshAlgorithm) BRepMesh_MeshAlgoFactory::GetAlgo(
   const GeomAbs_SurfaceType    theSurfaceType,
   const Parameters3& theParameters) const
 {
@@ -73,22 +73,22 @@ Handle(IMeshTools_MeshAlgo) BRepMesh_MeshAlgoFactory::GetAlgo(
 
     case GeomAbs_Sphere:
       return theParameters.EnableControlSurfaceDeflectionAllSurfaces
-               ? new DeflectionControlMeshAlgo<BRepMesh_SphereRangeSplitter>::Type
-               : new NodeInsertionMeshAlgo<BRepMesh_SphereRangeSplitter>::Type;
+               ? new DeflectionControlMeshAlgo<SphereRangeSplitter>::Type
+               : new NodeInsertionMeshAlgo<SphereRangeSplitter>::Type;
       break;
 
     case GeomAbs_Cylinder:
       return theParameters.EnableControlSurfaceDeflectionAllSurfaces
-               ? new DeflectionControlMeshAlgo<BRepMesh_CylinderRangeSplitter>::Type
+               ? new DeflectionControlMeshAlgo<CylinderRangeSplitter>::Type
                : (theParameters.InternalVerticesMode
-                    ? new NodeInsertionMeshAlgo<BRepMesh_CylinderRangeSplitter>::Type
+                    ? new NodeInsertionMeshAlgo<CylinderRangeSplitter>::Type
                     : new BaseMeshAlgo::Type);
       break;
 
     case GeomAbs_Cone:
       return theParameters.EnableControlSurfaceDeflectionAllSurfaces
-               ? new DeflectionControlMeshAlgo<BRepMesh_ConeRangeSplitter>::Type
-               : new NodeInsertionMeshAlgo<BRepMesh_ConeRangeSplitter>::Type;
+               ? new DeflectionControlMeshAlgo<ConeRangeSplitter>::Type
+               : new NodeInsertionMeshAlgo<ConeRangeSplitter>::Type;
       break;
 
     case GeomAbs_Torus:

@@ -21,6 +21,6 @@
 #include <TColgp_SequenceOfXY.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TColgp_HSequenceOfXY, TColgp_SequenceOfXY)
+DEFINE_HSEQUENCE(XYSequence, TColgp_SequenceOfXY)
 
 #endif

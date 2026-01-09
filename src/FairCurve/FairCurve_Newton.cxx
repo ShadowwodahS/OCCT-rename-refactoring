@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-FairCurve_Newton::FairCurve_Newton(const math_MultipleVarFunctionWithHessian& theFunction,
+NewtonSolver::NewtonSolver(const math_MultipleVarFunctionWithHessian& theFunction,
                                    const Standard_Real                        theSpatialTolerance,
                                    const Standard_Real                        theCriteriumTolerance,
                                    const Standard_Integer                     theNbIterations,
@@ -41,7 +41,7 @@ FairCurve_Newton::FairCurve_Newton(const math_MultipleVarFunctionWithHessian& th
 //           requirement allows detecting infinite slidings
 //           (case when the criterion varies troo slowly).
 //=======================================================================
-Standard_Boolean FairCurve_Newton::IsConverged() const
+Standard_Boolean NewtonSolver::IsConverged() const
 {
   const Standard_Real N = TheStep.Norm();
   return (N <= 0.01 * mySpTol)

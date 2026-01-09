@@ -18,7 +18,7 @@
 #include <gp_Hypr2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BHyper, GccInt_Bisec)
+IMPLEMENT_STANDARD_RTTIEXT(GccInt_BHyper, Bisector2)
 
 GccInt_BHyper::GccInt_BHyper(const gp_Hypr2d& Hyper)
 {

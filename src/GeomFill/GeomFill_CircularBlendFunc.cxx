@@ -24,7 +24,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_CircularBlendFunc, Approx_SweepFunction)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_CircularBlendFunc, SweepFunction)
 
 #ifdef DRAW
   #include <GeomAdaptor_Curve.hxx>
@@ -112,9 +112,9 @@ static void GeomFillFusInt(const TColStd_Array1OfReal& I1,
   }
 }
 
-GeomFill_CircularBlendFunc::GeomFill_CircularBlendFunc(const Handle(Adaptor3d_Curve)& Path,
-                                                       const Handle(Adaptor3d_Curve)& Curve1,
-                                                       const Handle(Adaptor3d_Curve)& Curve2,
+GeomFill_CircularBlendFunc::GeomFill_CircularBlendFunc(const Handle(Curve5)& Path,
+                                                       const Handle(Curve5)& Curve1,
+                                                       const Handle(Curve5)& Curve2,
                                                        const Standard_Real            Radius,
                                                        const Standard_Boolean         Polynomial)
     : maxang(RealFirst()),
@@ -149,7 +149,7 @@ void GeomFill_CircularBlendFunc::Discret()
   Standard_Real           TLast  = myPath->LastParameter(), T;
   Standard_Integer        ii;
   Standard_Real           L1, L2, L;
-  Handle(Adaptor3d_Curve) C;
+  Handle(Curve5) C;
   Point3d                  P1, P2, P3, Center;
   Vector3d                  DCenter;
 

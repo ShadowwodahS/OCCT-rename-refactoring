@@ -24,8 +24,8 @@
 #include <Standard_OStream.hxx>
 class AppDocument;
 class Standard_GUID;
-class TDF_Data;
-class TDF_RelocationTable;
+class Data2;
+class RelocationTable1;
 
 class TDocStd_Owner;
 DEFINE_STANDARD_HANDLE(TDocStd_Owner, TDF_Attribute)
@@ -42,14 +42,14 @@ public:
   //! =============
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static void SetDocument(const Handle(TDF_Data)&         indata,
+  Standard_EXPORT static void SetDocument(const Handle(Data2)&         indata,
                                           const Handle(AppDocument)& doc);
 
-  Standard_EXPORT static void SetDocument(const Handle(TDF_Data)& indata, AppDocument* doc);
+  Standard_EXPORT static void SetDocument(const Handle(Data2)& indata, AppDocument* doc);
 
   //! Owner methods
   //! ===============
-  Standard_EXPORT static Handle(AppDocument) GetDocument(const Handle(TDF_Data)& ofdata);
+  Standard_EXPORT static Handle(AppDocument) GetDocument(const Handle(Data2)& ofdata);
 
   Standard_EXPORT TDocStd_Owner();
 
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       Into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 

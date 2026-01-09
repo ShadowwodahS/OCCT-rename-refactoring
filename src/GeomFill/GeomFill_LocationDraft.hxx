@@ -32,29 +32,29 @@
 
 class GeomFill_DraftTrihedron;
 
-DEFINE_STANDARD_HANDLE(GeomFill_LocationDraft, GeomFill_LocationLaw)
+DEFINE_STANDARD_HANDLE(GeomFill_LocationDraft, LocationLaw)
 
-class GeomFill_LocationDraft : public GeomFill_LocationLaw
+class GeomFill_LocationDraft : public LocationLaw
 {
 
 public:
   Standard_EXPORT GeomFill_LocationDraft(const Dir3d& Direction, const Standard_Real Angle);
 
-  Standard_EXPORT void SetStopSurf(const Handle(Adaptor3d_Surface)& Surf);
+  Standard_EXPORT void SetStopSurf(const Handle(SurfaceAdaptor)& Surf);
 
   Standard_EXPORT void SetAngle(const Standard_Real Angle);
 
   //! calculation of poles on locking surfaces (the intersection between the generatrixand the
   //! surface at the cross - section points myNbPts)
   //! @return Standard_True in case if execution end correctly
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& C)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& C)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Adaptor3d_Curve)& GetCurve() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(Curve5)& GetCurve() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetTrsf(const gp_Mat& Transfo) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(GeomFill_LocationLaw) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(LocationLaw) Copy() const Standard_OVERRIDE;
 
   //! compute Location
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
@@ -173,19 +173,19 @@ public:
 
   Standard_EXPORT Dir3d Direction() const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationDraft, GeomFill_LocationLaw)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationDraft, LocationLaw)
 
 protected:
-  Handle(TColgp_HArray1OfPnt2d) myPoles2d;
+  Handle(Point2dArray) myPoles2d;
 
 private:
   Standard_EXPORT void Prepare();
 
   gp_Mat                          Trans;
   Handle(GeomFill_DraftTrihedron) myLaw;
-  Handle(Adaptor3d_Surface)       mySurf;
-  Handle(Adaptor3d_Curve)         myCurve;
-  Handle(Adaptor3d_Curve)         myTrimmed;
+  Handle(SurfaceAdaptor)       mySurf;
+  Handle(Curve5)         myCurve;
+  Handle(Curve5)         myTrimmed;
   Dir3d                          myDir;
   Standard_Real                   myAngle;
   Standard_Integer                myNbPts;

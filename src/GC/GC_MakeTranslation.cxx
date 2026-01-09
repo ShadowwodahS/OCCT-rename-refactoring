@@ -25,7 +25,7 @@
 //=========================================================================
 GC_MakeTranslation::GC_MakeTranslation(const Vector3d& Vec)
 {
-  TheTranslation = new Geom_Transformation();
+  TheTranslation = new Transformation1();
   TheTranslation->SetTranslation(Vec);
 }
 
@@ -36,11 +36,11 @@ GC_MakeTranslation::GC_MakeTranslation(const Vector3d& Vec)
 
 GC_MakeTranslation::GC_MakeTranslation(const Point3d& Point1, const Point3d& Point2)
 {
-  TheTranslation = new Geom_Transformation();
+  TheTranslation = new Transformation1();
   TheTranslation->SetTranslation(Point1, Point2);
 }
 
-const Handle(Geom_Transformation)& GC_MakeTranslation::Value() const
+const Handle(Transformation1)& GC_MakeTranslation::Value() const
 {
   return TheTranslation;
 }

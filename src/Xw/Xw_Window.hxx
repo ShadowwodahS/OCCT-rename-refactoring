@@ -20,7 +20,7 @@
 
 #include <Aspect_VKey.hxx>
 
-class Aspect_DisplayConnection;
+class DisplayConnection1;
 class Aspect_WindowInputListener;
 
 typedef union _XEvent XEvent;
@@ -36,7 +36,7 @@ public:
 public:
   //! Creates a XLib window defined by his position and size in pixels.
   //! Throws exception if window can not be created or Display do not support GLX extension.
-  Standard_EXPORT Xw_Window(const Handle(Aspect_DisplayConnection)& theXDisplay,
+  Standard_EXPORT Xw_Window(const Handle(DisplayConnection1)& theXDisplay,
                             const Standard_CString                  theTitle,
                             const Standard_Integer                  thePxLeft,
                             const Standard_Integer                  thePxTop,
@@ -44,7 +44,7 @@ public:
                             const Standard_Integer                  thePxHeight);
 
   //! Creates a wrapper over existing Window handle
-  Standard_EXPORT Xw_Window(const Handle(Aspect_DisplayConnection)& theXDisplay,
+  Standard_EXPORT Xw_Window(const Handle(DisplayConnection1)& theXDisplay,
                             const Aspect_Drawable                   theXWin,
                             const Aspect_FBConfig                   theFBConfig = NULL);
 
@@ -103,7 +103,7 @@ public:
   //! creation will be used. Sending exposure messages from non-window thread would require
   //! dedicated display connection opened specifically for this working thread to avoid race
   //! conditions, since Xlib display connection is not thread-safe by default.
-  Standard_EXPORT virtual void InvalidateContent(const Handle(Aspect_DisplayConnection)& theDisp)
+  Standard_EXPORT virtual void InvalidateContent(const Handle(DisplayConnection1)& theDisp)
     Standard_OVERRIDE;
 
   //! Process a single window message.

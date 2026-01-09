@@ -33,7 +33,7 @@ public:
   //! Constructor.
   Standard_EXPORT D3DHost_View(const Handle(Graphic3d_StructureManager)& theMgr,
                                const Handle(D3DHost_GraphicDriver)&      theDriver,
-                               const Handle(OpenGl_Caps)&                theCaps,
+                               const Handle(Caps)&                theCaps,
                                StateCounter*                      theCounter);
 
   //! Default destructor.

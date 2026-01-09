@@ -28,7 +28,7 @@
 //=================================================================================================
 
 Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
-  const Handle(MeshVS_Drawer)&    theDr,
+  const Handle(MeshDrawer)&    theDr,
   const Graphic3d_MaterialAspect& Mat,
   const Standard_Boolean          UseDefaults)
 {
@@ -91,7 +91,7 @@ Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
 //=================================================================================================
 
 Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
-  const Handle(MeshVS_Drawer)& theDr,
+  const Handle(MeshDrawer)& theDr,
   const Standard_Boolean       UseDefaults)
 {
   Graphic3d_MaterialAspect aFrMat    = Graphic3d_NameOfMaterial_Brass;
@@ -117,7 +117,7 @@ Handle(Graphic3d_AspectFillArea3d) Tool4::CreateAspectFillArea3d(
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectLine3d) Tool4::CreateAspectLine3d(const Handle(MeshVS_Drawer)& theDr,
+Handle(Graphic3d_AspectLine3d) Tool4::CreateAspectLine3d(const Handle(MeshDrawer)& theDr,
                                                                const Standard_Boolean UseDefaults)
 {
   Handle(Graphic3d_AspectLine3d) anAsp;
@@ -148,7 +148,7 @@ Handle(Graphic3d_AspectLine3d) Tool4::CreateAspectLine3d(const Handle(MeshVS_Dra
 //=================================================================================================
 
 Handle(Graphic3d_AspectMarker3d) Tool4::CreateAspectMarker3d(
-  const Handle(MeshVS_Drawer)& theDr,
+  const Handle(MeshDrawer)& theDr,
   const Standard_Boolean       UseDefaults)
 {
   Handle(Graphic3d_AspectMarker3d) anAsp;
@@ -178,7 +178,7 @@ Handle(Graphic3d_AspectMarker3d) Tool4::CreateAspectMarker3d(
 
 //=================================================================================================
 
-Handle(Graphic3d_AspectText3d) Tool4::CreateAspectText3d(const Handle(MeshVS_Drawer)& theDr,
+Handle(Graphic3d_AspectText3d) Tool4::CreateAspectText3d(const Handle(MeshDrawer)& theDr,
                                                                const Standard_Boolean UseDefaults)
 {
   Handle(Graphic3d_AspectText3d) anAsp;

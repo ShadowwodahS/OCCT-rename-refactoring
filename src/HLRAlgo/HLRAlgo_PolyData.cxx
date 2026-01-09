@@ -21,39 +21,39 @@
 
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyData, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(PolyData1, RefObject)
 
 #ifdef OCCT_DEBUG
 static Standard_Integer HLRAlgo_PolyData_ERROR = Standard_False;
 #endif
 //=================================================================================================
 
-HLRAlgo_PolyData::HLRAlgo_PolyData() {}
+PolyData1::PolyData1() {}
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::HNodes(const Handle(TColgp_HArray1OfXYZ)& HNodes)
+void PolyData1::HNodes(const Handle(XYZArray)& HNodes)
 {
   myHNodes = HNodes;
 }
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::HTData(const Handle(HLRAlgo_HArray1OfTData)& HTData)
+void PolyData1::HTData(const Handle(HandleTDataArray)& HTData)
 {
   myHTData = HTData;
 }
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::HPHDat(const Handle(HLRAlgo_HArray1OfPHDat)& HPHDat)
+void PolyData1::HPHDat(const Handle(HandlePHDatArray)& HPHDat)
 {
   myHPHDat = HPHDat;
 }
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::UpdateGlobalMinMax(Box1& theBox)
+void PolyData1::UpdateGlobalMinMax(Box1& theBox)
 {
   Standard_Integer          i;
   Standard_Real             X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3;
@@ -121,11 +121,11 @@ void HLRAlgo_PolyData::UpdateGlobalMinMax(Box1& theBox)
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
+void PolyData1::HideByPolyData(const BiPoint::PointsT1& thePoints,
                                       Triangle1&                       theTriangle,
                                       BiPoint::IndicesT1&      theIndices,
                                       const Standard_Boolean          HidingShell,
-                                      HLRAlgo_EdgeStatus&             status)
+                                      EdgeStatus&             status)
 {
   if (((myFaceIndices.Max - theIndices.MinSeg) & 0x80100200) == 0
       && ((theIndices.MaxSeg - myFaceIndices.Min) & 0x80100000) == 0)
@@ -251,12 +251,12 @@ void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::hideByOneTriangle(const BiPoint::PointsT1& thePoints,
+void PolyData1::hideByOneTriangle(const BiPoint::PointsT1& thePoints,
                                          Triangle1&                       theTriangle,
                                          const Standard_Boolean          Crossing,
                                          const Standard_Boolean          HideBefore,
                                          const Standard_Integer          TrFlags,
-                                         HLRAlgo_EdgeStatus&             status)
+                                         EdgeStatus&             status)
 {
   Standard_Boolean CrosSeg = Standard_False;
   Standard_Integer n1      = 0;
@@ -466,7 +466,7 @@ void HLRAlgo_PolyData::hideByOneTriangle(const BiPoint::PointsT1& thePoints,
 #ifdef OCCT_DEBUG
         else if (HLRAlgo_PolyData_ERROR)
         {
-          std::cout << " error : HLRAlgo_PolyData::HideByOneTriangle " << std::endl;
+          std::cout << " error : PolyData1::HideByOneTriangle " << std::endl;
           std::cout << " ( more than 2 points )." << std::endl;
         }
 #endif
@@ -670,7 +670,7 @@ void HLRAlgo_PolyData::hideByOneTriangle(const BiPoint::PointsT1& thePoints,
 #ifdef OCCT_DEBUG
         else if (HLRAlgo_PolyData_ERROR)
         {
-          std::cout << " error : HLRAlgo_PolyData::HideByOneTriangle " << std::endl;
+          std::cout << " error : PolyData1::HideByOneTriangle " << std::endl;
           std::cout << " ( more than 2 points )." << std::endl;
         }
 #endif
@@ -874,7 +874,7 @@ void HLRAlgo_PolyData::hideByOneTriangle(const BiPoint::PointsT1& thePoints,
 #ifdef OCCT_DEBUG
         else if (HLRAlgo_PolyData_ERROR)
         {
-          std::cout << " error : HLRAlgo_PolyData::HideByOneTriangle " << std::endl;
+          std::cout << " error : PolyData1::HideByOneTriangle " << std::endl;
           std::cout << " ( more than 2 points )." << std::endl;
         }
 #endif

@@ -31,7 +31,7 @@ GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa()
 
 //=================================================================================================
 
-GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa(const Adaptor3d_Curve& theC,
+GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa(const Curve5& theC,
                                                          const Standard_Integer theNbPoints)
     : myDone(Standard_False),
       myNbPoints(0)
@@ -41,7 +41,7 @@ GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa(const Adaptor3d_Curve& 
 
 //=================================================================================================
 
-GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa(const Adaptor3d_Curve& theC,
+GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa(const Curve5& theC,
                                                          const Standard_Integer theNbPoints,
                                                          const Standard_Real    theU1,
                                                          const Standard_Real    theU2)
@@ -75,7 +75,7 @@ GCPnts_QuasiUniformAbscissa::GCPnts_QuasiUniformAbscissa(const Adaptor2d_Curve2d
 
 //=================================================================================================
 
-void GCPnts_QuasiUniformAbscissa::Initialize(const Adaptor3d_Curve& theC,
+void GCPnts_QuasiUniformAbscissa::Initialize(const Curve5& theC,
                                              const Standard_Integer theNbPoints)
 {
   Initialize(theC, theNbPoints, theC.FirstParameter(), theC.LastParameter());
@@ -91,7 +91,7 @@ void GCPnts_QuasiUniformAbscissa::Initialize(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-void GCPnts_QuasiUniformAbscissa::Initialize(const Adaptor3d_Curve& theC,
+void GCPnts_QuasiUniformAbscissa::Initialize(const Curve5& theC,
                                              const Standard_Integer theNbPoints,
                                              const Standard_Real    theU1,
                                              const Standard_Real    theU2)

@@ -100,8 +100,8 @@ void AdvApp2Var_Iso::MakeApprox(const AdvApp2Var_Context&           Conditions,
                                 const Standard_Real                 V0,
                                 const Standard_Real                 V1,
                                 const EvaluatorFunc2Var& Func,
-                                AdvApp2Var_Node&                    NodeBegin,
-                                AdvApp2Var_Node&                    NodeEnd)
+                                ApproximationNode&                    NodeBegin,
+                                ApproximationNode&                    NodeEnd)
 {
   // fixed values
   Standard_Integer NBCRMX = 1, NBCRBE;

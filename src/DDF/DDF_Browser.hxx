@@ -24,7 +24,7 @@
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
 #include <Standard_Integer.hxx>
-class TDF_Data;
+class Data2;
 class DrawDisplay;
 class AsciiString1;
 class DataLabel;
@@ -37,7 +37,7 @@ class DDF_Browser : public Drawable3D
 {
 
 public:
-  Standard_EXPORT DDF_Browser(const Handle(TDF_Data)& aDF);
+  Standard_EXPORT DDF_Browser(const Handle(Data2)& aDF);
 
   Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
@@ -47,9 +47,9 @@ public:
 
   Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
-  Standard_EXPORT void Data(const Handle(TDF_Data)& aDF);
+  Standard_EXPORT void Data(const Handle(Data2)& aDF);
 
-  Standard_EXPORT Handle(TDF_Data) Data() const;
+  Standard_EXPORT Handle(Data2) Data() const;
 
   //! Returns a string composed with the sub-label
   //! entries of <myDF>.
@@ -86,7 +86,7 @@ public:
 
 protected:
 private:
-  Handle(TDF_Data)        myDF;
+  Handle(Data2)        myDF;
   TDF_AttributeIndexedMap myAttMap;
 };
 

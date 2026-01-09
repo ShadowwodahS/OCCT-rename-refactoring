@@ -89,7 +89,7 @@ Convert_EllipseToBSplineCurve::Convert_EllipseToBSplineCurve(
   nbPoles = CosNumeratorPtr->Length();
   nbKnots = knots->Length();
 
-  poles = new TColgp_HArray1OfPnt2d(1, nbPoles);
+  poles = new Point2dArray(1, nbPoles);
 
   gp_Dir2d  Ox = E.XAxis().Direction();
   gp_Dir2d  Oy = E.YAxis().Direction();
@@ -154,7 +154,7 @@ Convert_EllipseToBSplineCurve::Convert_EllipseToBSplineCurve(
   nbPoles = CosNumeratorPtr->Length();
   nbKnots = knots->Length();
 
-  poles = new TColgp_HArray1OfPnt2d(1, nbPoles);
+  poles = new Point2dArray(1, nbPoles);
 
   gp_Dir2d  Ox = E.XAxis().Direction();
   gp_Dir2d  Oy = E.YAxis().Direction();

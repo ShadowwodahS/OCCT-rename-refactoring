@@ -52,8 +52,8 @@ public:
   //! border of one of the domains. If an open line
   //! stops at the middle of a domain, one stops at the tangent point.
   //! Epsilon is SquareTolerance of points confusion.
-  Standard_EXPORT IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
-                                   const Handle(Adaptor3d_Surface)& Caro2,
+  Standard_EXPORT IntWalk_PWalking(const Handle(SurfaceAdaptor)& Caro1,
+                                   const Handle(SurfaceAdaptor)& Caro2,
                                    const Standard_Real              TolTangency,
                                    const Standard_Real              Epsilon,
                                    const Standard_Real              Deflection,
@@ -72,8 +72,8 @@ public:
   //! border of one of the domains. If an open line
   //! stops at the middle of a domain, one stops at the tangent point.
   //! Epsilon is SquareTolerance of points confusion.
-  Standard_EXPORT IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
-                                   const Handle(Adaptor3d_Surface)& Caro2,
+  Standard_EXPORT IntWalk_PWalking(const Handle(SurfaceAdaptor)& Caro1,
+                                   const Handle(SurfaceAdaptor)& Caro2,
                                    const Standard_Real              TolTangency,
                                    const Standard_Real              Epsilon,
                                    const Standard_Real              Deflection,
@@ -117,7 +117,7 @@ public:
   //! An exception is raised if Index<=0 or Index>NbPoints.
   const PointOn2Surfaces& Value(const Standard_Integer Index) const;
 
-  const Handle(IntSurf_LineOn2S)& Line() const;
+  const Handle(LineOnTwoSurfaces)& Line() const;
 
   //! Returns True if the surface are tangent at the first point
   //! of the line.
@@ -171,11 +171,11 @@ public:
     line->RemovePoint(anIdx);
   }
 
-  Standard_EXPORT Standard_Boolean PutToBoundary(const Handle(Adaptor3d_Surface)& theASurf1,
-                                                 const Handle(Adaptor3d_Surface)& theASurf2);
+  Standard_EXPORT Standard_Boolean PutToBoundary(const Handle(SurfaceAdaptor)& theASurf1,
+                                                 const Handle(SurfaceAdaptor)& theASurf2);
 
-  Standard_EXPORT Standard_Boolean SeekAdditionalPoints(const Handle(Adaptor3d_Surface)& theASurf1,
-                                                        const Handle(Adaptor3d_Surface)& theASurf2,
+  Standard_EXPORT Standard_Boolean SeekAdditionalPoints(const Handle(SurfaceAdaptor)& theASurf1,
+                                                        const Handle(SurfaceAdaptor)& theASurf2,
                                                         const Standard_Integer theMinNbPoints);
 
   Standard_Real MaxStep(Standard_Integer theIndex)
@@ -196,8 +196,8 @@ protected:
   //! four items and must be filled strictly in following order:
   //! {U-parameter on S1, V-parameter on S1, U-parameter on S2, V-parameter on S2}
   Standard_EXPORT Standard_Boolean
-    DistanceMinimizeByGradient(const Handle(Adaptor3d_Surface)& theASurf1,
-                               const Handle(Adaptor3d_Surface)& theASurf2,
+    DistanceMinimizeByGradient(const Handle(SurfaceAdaptor)& theASurf1,
+                               const Handle(SurfaceAdaptor)& theASurf2,
                                TColStd_Array1OfReal&            theInit,
                                const Standard_Real*             theStep0 = 0);
 
@@ -207,7 +207,7 @@ protected:
   //! Array theStep0 (steps-array) must contain two items and must be filled strictly in following
   //! order: {U-parameter, V-parameter}
   Standard_EXPORT Standard_Boolean
-    DistanceMinimizeByExtrema(const Handle(Adaptor3d_Surface)& theASurf,
+    DistanceMinimizeByExtrema(const Handle(SurfaceAdaptor)& theASurf,
                               const Point3d&                    theP0,
                               Standard_Real&                   theU0,
                               Standard_Real&                   theV0,
@@ -224,8 +224,8 @@ protected:
   //!   (in order to obtain correct result after insertion).
   //!   Returns TRUE in case of success adding (i.e. can return FALSE even after
   //!   removing some points).
-  Standard_EXPORT Standard_Boolean SeekPointOnBoundary(const Handle(Adaptor3d_Surface)& theASurf1,
-                                                       const Handle(Adaptor3d_Surface)& theASurf2,
+  Standard_EXPORT Standard_Boolean SeekPointOnBoundary(const Handle(SurfaceAdaptor)& theASurf1,
+                                                       const Handle(SurfaceAdaptor)& theASurf2,
                                                        const Standard_Real              theU1,
                                                        const Standard_Real              theV1,
                                                        const Standard_Real              theU2,
@@ -234,8 +234,8 @@ protected:
 
   // Method to handle single singular point. Sub-method in SeekPointOnBoundary.
   Standard_EXPORT Standard_Boolean
-    HandleSingleSingularPoint(const Handle(Adaptor3d_Surface)& theASurf1,
-                              const Handle(Adaptor3d_Surface)& theASurf2,
+    HandleSingleSingularPoint(const Handle(SurfaceAdaptor)& theASurf1,
+                              const Handle(SurfaceAdaptor)& theASurf2,
                               const Standard_Real              the3DTol,
                               TColStd_Array1OfReal&            thePnt);
 
@@ -245,7 +245,7 @@ protected:
 
 private:
   Standard_Boolean         done;
-  Handle(IntSurf_LineOn2S) line;
+  Handle(LineOnTwoSurfaces) line;
   Standard_Boolean         close;
   Standard_Boolean         tgfirst;
   Standard_Boolean         tglast;

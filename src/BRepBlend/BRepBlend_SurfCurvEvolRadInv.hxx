@@ -21,7 +21,7 @@
 #include <Blend_SurfCurvFuncInv.hxx>
 #include <math_Vector.hxx>
 
-class Law_Function;
+class Function2;
 class math_Matrix;
 
 //! Function of reframing between a surface restriction
@@ -40,10 +40,10 @@ class BRepBlend_SurfCurvEvolRadInv : public Blend_SurfCurvFuncInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_SurfCurvEvolRadInv(const Handle(Adaptor3d_Surface)& S,
-                                               const Handle(Adaptor3d_Curve)&   C,
-                                               const Handle(Adaptor3d_Curve)&   Cg,
-                                               const Handle(Law_Function)&      Evol);
+  Standard_EXPORT BRepBlend_SurfCurvEvolRadInv(const Handle(SurfaceAdaptor)& S,
+                                               const Handle(Curve5)&   C,
+                                               const Handle(Curve5)&   Cg,
+                                               const Handle(Function2)&      Evol);
 
   Standard_EXPORT void Set(const Standard_Integer Choix);
 
@@ -88,13 +88,13 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf;
-  Handle(Adaptor3d_Curve)   curv;
-  Handle(Adaptor3d_Curve)   guide;
+  Handle(SurfaceAdaptor) surf;
+  Handle(Curve5)   curv;
+  Handle(Curve5)   guide;
   Handle(Adaptor2d_Curve2d) rst;
   Standard_Real             ray;
   Standard_Integer          choix;
-  Handle(Law_Function)      tevol;
+  Handle(Function2)      tevol;
   Standard_Real             sg1;
 };
 

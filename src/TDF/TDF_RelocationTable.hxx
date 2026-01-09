@@ -28,8 +28,8 @@
 class DataLabel;
 class TDF_Attribute;
 
-class TDF_RelocationTable;
-DEFINE_STANDARD_HANDLE(TDF_RelocationTable, RefObject)
+class RelocationTable1;
+DEFINE_STANDARD_HANDLE(RelocationTable1, RefObject)
 
 //! This is a relocation dictionary between source
 //! and target labels, attributes or any
@@ -43,14 +43,14 @@ DEFINE_STANDARD_HANDLE(TDF_RelocationTable, RefObject)
 //!
 //! Look at SelfRelocate method for more explanation
 //! about self relocation behavior of this class.
-class TDF_RelocationTable : public RefObject
+class RelocationTable1 : public RefObject
 {
 
 public:
   //! Creates an relocation table. <selfRelocate> says
   //! if a value without explicit relocation is its own
   //! relocation.
-  Standard_EXPORT TDF_RelocationTable(const Standard_Boolean selfRelocate = Standard_False);
+  Standard_EXPORT RelocationTable1(const Standard_Boolean selfRelocate = Standard_False);
 
   //! Sets <mySelfRelocate> to <selfRelocate>.
   //!
@@ -153,7 +153,7 @@ public:
                                          const Standard_Boolean dumpTransients,
                                          Standard_OStream&      anOS) const;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_RelocationTable, RefObject)
+  DEFINE_STANDARD_RTTIEXT(RelocationTable1, RefObject)
 
 protected:
 private:

@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Express_Alias, Express_Item)
 
 //=================================================================================================
 
-Express_Alias::Express_Alias(const Standard_CString theName, const Handle(Express_Type)& theType)
+Express_Alias::Express_Alias(const Standard_CString theName, const Handle(ExpressType)& theType)
     : Express_Item(theName),
       myType(theType)
 {
@@ -30,7 +30,7 @@ Express_Alias::Express_Alias(const Standard_CString theName, const Handle(Expres
 
 //=================================================================================================
 
-const Handle(Express_Type)& Express_Alias::Type() const
+const Handle(ExpressType)& Express_Alias::Type() const
 {
   return myType;
 }

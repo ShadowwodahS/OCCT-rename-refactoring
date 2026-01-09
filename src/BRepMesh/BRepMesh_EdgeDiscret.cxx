@@ -25,7 +25,7 @@
 #include <BRepMesh_CurveTessellator.hxx>
 #include <OSD_Parallel.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_EdgeDiscret, IMeshTools_ModelAlgo)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_EdgeDiscret, ModelAlgorithm)
 
 //=================================================================================================
 
@@ -37,7 +37,7 @@ BRepMesh_EdgeDiscret::~BRepMesh_EdgeDiscret() {}
 
 //=================================================================================================
 
-Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
+Handle(CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
   const IMeshData::IEdgeHandle& theDEdge,
   const Parameters3&  theParameters,
   const Standard_Integer        theMinPointsNb)
@@ -47,7 +47,7 @@ Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
 
 //=================================================================================================
 
-Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
+Handle(CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
   const IMeshData::IEdgeHandle& theDEdge,
   const TopAbs_Orientation      theOrientation,
   const IMeshData::IFaceHandle& theDFace,
@@ -65,7 +65,7 @@ Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellator(
 
 //=================================================================================================
 
-Handle(IMeshTools_CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellationExtractor(
+Handle(CurveTessellator) BRepMesh_EdgeDiscret::CreateEdgeTessellationExtractor(
   const IMeshData::IEdgeHandle& theDEdge,
   const IMeshData::IFaceHandle& theDFace)
 {
@@ -102,9 +102,9 @@ void BRepMesh_EdgeDiscret::process(const Standard_Integer theEdgeIndex) const
   {
     OCC_CATCH_SIGNALS
 
-    BRepMesh_Deflection::ComputeDeflection(aDEdge, myModel->GetMaxSize(), myParameters);
+    DeflectionControl::ComputeDeflection(aDEdge, myModel->GetMaxSize(), myParameters);
 
-    Handle(IMeshTools_CurveTessellator) aEdgeTessellator;
+    Handle(CurveTessellator) aEdgeTessellator;
     if (!aDEdge->IsFree())
     {
       // Iterate over pcurves and check deflection on corresponding face.
@@ -122,7 +122,7 @@ void BRepMesh_EdgeDiscret::process(const Standard_Integer theEdgeIndex) const
           aMinPCurveIndex = aPCurveIt;
         }
 
-        BRepMesh_ShapeTool::CheckAndUpdateFlags(aDEdge, aPCurve);
+        ShapeTool2::CheckAndUpdateFlags(aDEdge, aPCurve);
       }
 
       if (aMinPCurveIndex != -1)
@@ -148,7 +148,7 @@ void BRepMesh_EdgeDiscret::process(const Standard_Integer theEdgeIndex) const
       if (!aPoly3D.IsNull())
       {
         if (aPoly3D->HasParameters()
-            && BRepMesh_Deflection::IsConsistent(aPoly3D->Deflection(),
+            && DeflectionControl::IsConsistent(aPoly3D->Deflection(),
                                                  aDEdge->GetDeflection(),
                                                  myParameters.AllowQualityDecrease))
         {
@@ -202,7 +202,7 @@ Standard_Real BRepMesh_EdgeDiscret::checkExistingPolygonAndUpdateStatus(
   {
     Standard_Boolean isConsistent =
       aPolygon->HasParameters()
-      && BRepMesh_Deflection::IsConsistent(aPolygon->Deflection(),
+      && DeflectionControl::IsConsistent(aPolygon->Deflection(),
                                            theDEdge->GetDeflection(),
                                            myParameters.AllowQualityDecrease);
 
@@ -224,7 +224,7 @@ Standard_Real BRepMesh_EdgeDiscret::checkExistingPolygonAndUpdateStatus(
 //=================================================================================================
 
 void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&              theDEdge,
-                                        const Handle(IMeshTools_CurveTessellator)& theTessellator,
+                                        const Handle(CurveTessellator)& theTessellator,
                                         const Standard_Boolean                     theUpdateEnds)
 {
   // Create 3d polygon.

@@ -19,9 +19,9 @@
 
 //=================================================================================================
 
-BlendFunc_ConstThroatInv::BlendFunc_ConstThroatInv(const Handle(Adaptor3d_Surface)& S1,
-                                                   const Handle(Adaptor3d_Surface)& S2,
-                                                   const Handle(Adaptor3d_Curve)&   C)
+BlendFunc_ConstThroatInv::BlendFunc_ConstThroatInv(const Handle(SurfaceAdaptor)& S1,
+                                                   const Handle(SurfaceAdaptor)& S2,
+                                                   const Handle(Curve5)&   C)
     : BlendFunc_GenChamfInv(S1, S2, C),
       Throat(0.0),
       param(0.0),

@@ -31,8 +31,8 @@ void Naming2::NamedShape1::Import(const Handle(ShapeAttribute)& theAttribute) co
 
   TNaming_Builder aBuilder(theAttribute->Label());
 
-  StdPersistent_HArray1OfShape1::Iterator aOldShapesIter(*myOldShapes->Array());
-  StdPersistent_HArray1OfShape1::Iterator aNewShapesIter(*myNewShapes->Array());
+  HArray1OfShape1::Iterator aOldShapesIter(*myOldShapes->Array());
+  HArray1OfShape1::Iterator aNewShapesIter(*myNewShapes->Array());
   for (; aNewShapesIter.More(); aOldShapesIter.Next(), aNewShapesIter.Next())
   {
     TopoShape aOldShape = aOldShapesIter.Value().Import();
@@ -84,7 +84,7 @@ void Naming2::Name::Write(WriteData& theWriteData) const
 // function : Import
 // purpose  : Import transient object from the persistent data
 //=======================================================================
-void Naming2::Name::Import(TNaming_Name& theName, const Handle(TDF_Data)&) const
+void Naming2::Name::Import(TNaming_Name& theName, const Handle(Data2)&) const
 {
   theName.Type(static_cast<TNaming_NameType>(myType));
   theName.ShapeType(static_cast<TopAbs_ShapeEnum>(myShapeType));
@@ -137,7 +137,7 @@ void Naming2::Name_1::Write(WriteData& theWriteData) const
 // purpose  : Import transient object from the persistent data
 //=======================================================================
 void Naming2::Name_1::Import(TNaming_Name&           theName,
-                                          const Handle(TDF_Data)& theDF) const
+                                          const Handle(Data2)& theDF) const
 {
   Name::Import(theName, theDF);
   if (myContextLabel)
@@ -169,7 +169,7 @@ void Naming2::Name_2::Write(WriteData& theWriteData) const
 // purpose  : Import transient object from the persistent data
 //=======================================================================
 void Naming2::Name_2::Import(TNaming_Name&           theName,
-                                          const Handle(TDF_Data)& theDF) const
+                                          const Handle(Data2)& theDF) const
 {
   Name_1::Import(theName, theDF);
   theName.Orientation(static_cast<TopAbs_Orientation>(myOrientation));
@@ -193,7 +193,7 @@ void Naming2::Naming1::ImportAttribute()
 // function : ImportAttribute
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
-void Naming2::Naming_1::ImportAttribute()
+void Naming2::Naming_11::ImportAttribute()
 {
   Naming1::ImportAttribute();
 

@@ -578,8 +578,8 @@ static Standard_Real IntersectCurves2d(
   Standard_Integer                             i, aNb;
   Point3d                                       aP, aPV;
   gp_Pnt2d                                     aP2d;
-  NCollection_List<IntRes2d_IntersectionPoint> aLP;
-  NCollection_List<IntRes2d_IntersectionPoint>::Iterator aItLP;
+  NCollection_List<IntersectionPoint3> aLP;
+  NCollection_List<IntersectionPoint3>::Iterator aItLP;
   //
   aPV = BRepInspector::Pnt(theV);
   aT1 = theEData1.VParameter;
@@ -601,7 +601,7 @@ static Standard_Real IntersectCurves2d(
   aNb = anInter.NbPoints();
   for (i = 1; i <= aNb; ++i)
   {
-    const IntRes2d_IntersectionPoint& aPnt = anInter.Point(i);
+    const IntersectionPoint3& aPnt = anInter.Point(i);
     aLP.Append(aPnt);
   }
   //
@@ -614,7 +614,7 @@ static Standard_Real IntersectCurves2d(
   aItLP.Initialize(aLP);
   for (; aItLP.More(); aItLP.Next())
   {
-    const IntRes2d_IntersectionPoint& aPnt = aItLP.Value();
+    const IntersectionPoint3& aPnt = aItLP.Value();
     //
     aTint1 = aPnt.ParamOnFirst();
     aTint2 = aPnt.ParamOnSecond();
@@ -743,7 +743,7 @@ void CorrectEdgeTolerance(const TopoEdge&                myShape,
   //
   // 1. Minimum of conditions to Perform
   Handle(BRep_CurveRepresentation) myCref;
-  Handle(Adaptor3d_Curve)          myHCurve;
+  Handle(Curve5)          myHCurve;
 
   myCref.Nullify();
 

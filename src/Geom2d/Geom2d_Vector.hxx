@@ -24,14 +24,14 @@
 #include <Standard_Real.hxx>
 
 class Geom2d_Vector;
-DEFINE_STANDARD_HANDLE(Geom2d_Vector, Geom2d_Geometry)
+DEFINE_STANDARD_HANDLE(Geom2d_Vector, Geometry2)
 
 //! The abstract class Vector describes the common
 //! behavior of vectors in 2D space.
 //! The Geom2d package provides two concrete
 //! classes of vectors: Geom2d_Direction (unit vector)
 //! and Geom2d_VectorWithMagnitude.
-class Geom2d_Vector : public Geom2d_Geometry
+class Geom2d_Vector : public Geometry2
 {
 
 public:
@@ -73,7 +73,7 @@ public:
   //! Returns a non persistent copy of <me>.
   Standard_EXPORT gp_Vec2d Vec2d() const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Vector, Geom2d_Geometry)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_Vector, Geometry2)
 
 protected:
   gp_Vec2d gpVec2d;

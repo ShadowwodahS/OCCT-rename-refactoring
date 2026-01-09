@@ -20,6 +20,6 @@
 #include <TColGeom_Array1OfCurve.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColGeom_HArray1OfCurve, TColGeom_Array1OfCurve)
+DEFINE_HARRAY1(HArray1OfCurve3, TColGeom_Array1OfCurve)
 
 #endif

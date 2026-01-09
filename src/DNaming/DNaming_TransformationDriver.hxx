@@ -27,9 +27,9 @@ class ShapeAttribute;
 class Transform3d;
 
 class DNaming_TransformationDriver;
-DEFINE_STANDARD_HANDLE(DNaming_TransformationDriver, TFunction_Driver)
+DEFINE_STANDARD_HANDLE(DNaming_TransformationDriver, FunctionDriver1)
 
-class DNaming_TransformationDriver : public TFunction_Driver
+class DNaming_TransformationDriver : public FunctionDriver1
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Execute(Handle(TFunction_Logbook)& theLog) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DNaming_TransformationDriver, TFunction_Driver)
+  DEFINE_STANDARD_RTTIEXT(DNaming_TransformationDriver, FunctionDriver1)
 
 protected:
 private:

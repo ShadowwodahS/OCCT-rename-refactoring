@@ -30,7 +30,7 @@ SelectingVolumeManager::~SelectingVolumeManager()
 //=================================================================================================
 
 Standard_Boolean SelectingVolumeManager::Overlaps(
-  const Handle(TColgp_HArray1OfPnt)& theArrayOfPts,
+  const Handle(PointArray1)& theArrayOfPts,
   Standard_Integer                   theSensType,
   PickResult&           thePickResult) const
 {

@@ -36,7 +36,7 @@ public:
 
   //! Initializes the given array theHArrayOfPnt by 3d coordinates of vertices of the
   //! whole point set
-  Standard_EXPORT virtual void GetPoints(Handle(TColgp_HArray1OfPnt)& theHArrayOfPnt);
+  Standard_EXPORT virtual void GetPoints(Handle(PointArray1)& theHArrayOfPnt);
 
   //! Returns the length of vector of planar convex polygons
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;

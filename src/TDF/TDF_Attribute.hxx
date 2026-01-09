@@ -32,7 +32,7 @@ class TDF_DeltaOnAddition;
 class TDF_DeltaOnResume;
 class TDF_DeltaOnModification;
 class TDF_DeltaOnRemoval;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DataSet;
 class IDFilter;
 
@@ -261,7 +261,7 @@ public:
 
   //! A callback.
   //! By default does nothing.
-  //! It is called by TDF_Data::CommitTransaction() method.
+  //! It is called by Data2::CommitTransaction() method.
   Standard_EXPORT virtual void BeforeCommitTransaction();
 
   //! Backups the attribute. The backuped attribute is
@@ -333,7 +333,7 @@ public:
   //! get/set the relocation value of a source
   //! attribute.
   Standard_EXPORT virtual void Paste(const Handle(TDF_Attribute)&       intoAttribute,
-                                     const Handle(TDF_RelocationTable)& aRelocationTable) const = 0;
+                                     const Handle(RelocationTable1)& aRelocationTable) const = 0;
 
   //! Adds the first level referenced attributes and labels
   //! to <aDataSet>.
@@ -377,7 +377,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  friend class TDF_Data;
+  friend class Data2;
   friend class DataLabel;
   friend class TDF_LabelNode;
   friend class TDF_AttributeIterator;

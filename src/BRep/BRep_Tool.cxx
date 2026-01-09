@@ -97,7 +97,7 @@ Handle(GeomSurface) BRepInspector::Surface(const TopoFace& F)
   TopLoc_Location L = F.Location() * TF->Location();
   if (!L.IsIdentity())
   {
-    Handle(Geom_Geometry) aCopy = S->Transformed(L.Transformation());
+    Handle(Geometry3) aCopy = S->Transformed(L.Transformation());
     GeomSurface*         aGS   = static_cast<GeomSurface*>(aCopy.get());
     return Handle(GeomSurface)(aGS);
   }
@@ -202,7 +202,7 @@ Handle(GeomCurve3d) BRepInspector::Curve(const TopoEdge& E, Standard_Real& First
   {
     if (!L.IsIdentity())
     {
-      Handle(Geom_Geometry) aCopy = C->Transformed(L.Transformation());
+      Handle(Geometry3) aCopy = C->Transformed(L.Transformation());
       GeomCurve3d*           aGC   = static_cast<GeomCurve3d*>(aCopy.get());
       return Handle(GeomCurve3d)(aGC);
     }
@@ -505,7 +505,7 @@ void BRepInspector::CurveOnSurface(const TopoEdge&     E,
 //           handle  if this polygon  does not exist.
 //=======================================================================
 
-Handle(Poly_Polygon2D) BRepInspector::PolygonOnSurface(const TopoEdge& E, const TopoFace& F)
+Handle(Polygon2D2) BRepInspector::PolygonOnSurface(const TopoEdge& E, const TopoFace& F)
 {
   TopLoc_Location             l;
   const Handle(GeomSurface)& S          = BRepInspector::Surface(F, l);
@@ -528,9 +528,9 @@ Handle(Poly_Polygon2D) BRepInspector::PolygonOnSurface(const TopoEdge& E, const 
 //           handle  if this polygon  does not exist.
 //=======================================================================
 
-static const Handle(Poly_Polygon2D) nullPolygon2D;
+static const Handle(Polygon2D2) nullPolygon2D;
 
-Handle(Poly_Polygon2D) BRepInspector::PolygonOnSurface(const TopoEdge&          E,
+Handle(Polygon2D2) BRepInspector::PolygonOnSurface(const TopoEdge&          E,
                                                    const Handle(GeomSurface)& S,
                                                    const TopLoc_Location&      L)
 {
@@ -560,7 +560,7 @@ Handle(Poly_Polygon2D) BRepInspector::PolygonOnSurface(const TopoEdge&          
 //=================================================================================================
 
 void BRepInspector::PolygonOnSurface(const TopoEdge&      E,
-                                 Handle(Poly_Polygon2D)& P,
+                                 Handle(Polygon2D2)& P,
                                  Handle(GeomSurface)&   S,
                                  TopLoc_Location&        L)
 {
@@ -590,7 +590,7 @@ void BRepInspector::PolygonOnSurface(const TopoEdge&      E,
 //=================================================================================================
 
 void BRepInspector::PolygonOnSurface(const TopoEdge&      E,
-                                 Handle(Poly_Polygon2D)& P,
+                                 Handle(Polygon2D2)& P,
                                  Handle(GeomSurface)&   S,
                                  TopLoc_Location&        L,
                                  const Standard_Integer  Index)

@@ -34,7 +34,7 @@
 class GeomConvert_ApproxCurve_Eval : public EvaluatorFunction
 {
 public:
-  GeomConvert_ApproxCurve_Eval(const Handle(Adaptor3d_Curve)& theFunc,
+  GeomConvert_ApproxCurve_Eval(const Handle(Curve5)& theFunc,
                                Standard_Real                  First,
                                Standard_Real                  Last)
       : fonct(theFunc)
@@ -51,7 +51,7 @@ public:
                         Standard_Integer* ErrorCode);
 
 private:
-  Handle(Adaptor3d_Curve) fonct;
+  Handle(Curve5) fonct;
   Standard_Real           StartEndSav[2];
 };
 
@@ -118,7 +118,7 @@ GeomConvert_ApproxCurve::GeomConvert_ApproxCurve(const Handle(GeomCurve3d)& Curv
   Approximate(HCurve, Tol3d, Order, MaxSegments, MaxDegree);
 }
 
-GeomConvert_ApproxCurve::GeomConvert_ApproxCurve(const Handle(Adaptor3d_Curve)& Curve,
+GeomConvert_ApproxCurve::GeomConvert_ApproxCurve(const Handle(Curve5)& Curve,
                                                  const Standard_Real            Tol3d,
                                                  const GeomAbs_Shape            Order,
                                                  const Standard_Integer         MaxSegments,
@@ -127,7 +127,7 @@ GeomConvert_ApproxCurve::GeomConvert_ApproxCurve(const Handle(Adaptor3d_Curve)& 
   Approximate(Curve, Tol3d, Order, MaxSegments, MaxDegree);
 }
 
-void GeomConvert_ApproxCurve::Approximate(const Handle(Adaptor3d_Curve)& theCurve,
+void GeomConvert_ApproxCurve::Approximate(const Handle(Curve5)& theCurve,
                                           const Standard_Real            theTol3d,
                                           const GeomAbs_Shape            theOrder,
                                           const Standard_Integer         theMaxSegments,
@@ -150,7 +150,7 @@ void GeomConvert_ApproxCurve::Approximate(const Handle(Adaptor3d_Curve)& theCurv
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   theCurve->Intervals(CutPnts_C3, GeomAbs_C3);
 
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
   myMaxError = 0;
 

@@ -31,7 +31,7 @@ struct TCurveTypes
 
 //! Auxiliary tool to resolve 3D curve classes.
 template <>
-struct TCurveTypes<Adaptor3d_Curve>
+struct TCurveTypes<Curve5>
 {
   typedef Point3d                Point;
   typedef BezierCurve3d      BezierCurve;

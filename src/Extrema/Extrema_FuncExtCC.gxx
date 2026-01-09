@@ -21,7 +21,7 @@
 /*-----------------------------------------------------------------------------
 Fonctions permettant de rechercher une distance extremale entre 2 courbes
 C1 et C2 (en partant de points approches C1(u0) et C2(v0)).
-Cette classe herite de math_FunctionSetWithDerivatives et est utilisee par
+Cette classe herite de FunctionSetWithDerivatives et est utilisee par
 l'algorithme FunctionSetRoot.
 Si on note Du et Dv, les derivees en u et v, les 2 fonctions a annuler sont:
 { F1(u,v) = (C2(v)-C1(u)).Du(u)/||Du|| }

@@ -223,7 +223,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
     Standard_Integer     nbsolution = Bis.NbSolutions();
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
-      Handle(GccInt_Bisec)     Sol = Bis.ThisSolution(i);
+      Handle(Bisector2)     Sol = Bis.ThisSolution(i);
       GccInt_IType             typ = Sol->ArcType();
       AnalyticIntersection2d Intp;
       if (typ == GccInt_Cir)

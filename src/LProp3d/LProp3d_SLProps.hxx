@@ -34,7 +34,7 @@ public:
   //! only the tangent, N should be equal to 1.
   //! <Resolution> is the linear tolerance (it is used to test
   //! if a vector is null).
-  Standard_EXPORT LProp3d_SLProps(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT LProp3d_SLProps(const Handle(SurfaceAdaptor)& S,
                                   const Standard_Real              U,
                                   const Standard_Real              V,
                                   const Standard_Integer           N,
@@ -42,7 +42,7 @@ public:
 
   //! idem as previous constructor but without setting the value
   //! of parameters <U> and <V>.
-  Standard_EXPORT LProp3d_SLProps(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT LProp3d_SLProps(const Handle(SurfaceAdaptor)& S,
                                   const Standard_Integer           N,
                                   const Standard_Real              Resolution);
 
@@ -53,7 +53,7 @@ public:
 
   //! Initializes the local properties of the surface S
   //! for the new surface.
-  Standard_EXPORT void SetSurface(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void SetSurface(const Handle(SurfaceAdaptor)& S);
 
   //! Initializes the local properties of the surface S
   //! for the new parameter values (<U>, <V>).
@@ -128,7 +128,7 @@ public:
   Standard_EXPORT Standard_Real GaussianCurvature();
 
 private:
-  Handle(Adaptor3d_Surface) mySurf;
+  Handle(SurfaceAdaptor) mySurf;
   Standard_Real             myU;
   Standard_Real             myV;
   Standard_Integer          myDerOrder;

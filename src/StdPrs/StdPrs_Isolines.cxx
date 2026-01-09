@@ -63,14 +63,14 @@ static void sortSegments(const SeqOfVecOfSegments&   theSegments,
     Handle(VecOfSegments)& anIsoSegs = aLineIter.ChangeValue();
     std::stable_sort(anIsoSegs->begin(), anIsoSegs->end());
 
-    Handle(TColgp_HSequenceOfPnt) aPolyline = new TColgp_HSequenceOfPnt();
+    Handle(PointSequence2) aPolyline = new PointSequence2();
     thePolylines.Append(aPolyline);
     Standard_Real aLast = 0.0;
     for (VecOfSegments::Iterator aSegIter(*anIsoSegs); aSegIter.More(); aSegIter.Next())
     {
       if (!aPolyline->IsEmpty() && Abs(aSegIter.Value()[0].Param - aLast) > Precision1::PConfusion())
       {
-        aPolyline = new TColgp_HSequenceOfPnt();
+        aPolyline = new PointSequence2();
         thePolylines.Append(aPolyline);
       }
 
@@ -86,7 +86,7 @@ static void sortSegments(const SeqOfVecOfSegments&   theSegments,
 //! @param theLimit [in] the parameter limit value.
 //! @param theFirst [in/out] the first parameter value.
 //! @param theLast  [in/out] the last parameter value.
-static void findLimits(const Adaptor3d_Curve& theCurve,
+static void findLimits(const Curve5& theCurve,
                        const Standard_Real    theLimit,
                        Standard_Real&         theFirst,
                        Standard_Real&         theLast)
@@ -605,10 +605,10 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
             continue;
           }
         }
-        Adaptor3d_Curve* aCurve = aBSurface.IsNull() ? (Adaptor3d_Curve*)&aCanonicalCurve
-                                                     : (Adaptor3d_Curve*)&aBSurfaceCurve;
+        Curve5* aCurve = aBSurface.IsNull() ? (Curve5*)&aCanonicalCurve
+                                                     : (Curve5*)&aBSurfaceCurve;
 
-        Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+        Handle(PointSequence2) aPoints = new PointSequence2();
         StdPrs_DeflectionCurve::Add(Handle(Prs3d_Presentation)(),
                                     *aCurve,
                                     aSegmentP1,

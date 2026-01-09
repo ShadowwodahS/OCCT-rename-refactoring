@@ -20,14 +20,14 @@
 
 //! Auxiliary class extending default range splitter in
 //! order to generate internal nodes for conical surface.
-class BRepMesh_ConeRangeSplitter : public DefaultRangeSplitter
+class ConeRangeSplitter : public DefaultRangeSplitter
 {
 public:
   //! Constructor.
-  BRepMesh_ConeRangeSplitter() {}
+  ConeRangeSplitter() {}
 
   //! Destructor.
-  virtual ~BRepMesh_ConeRangeSplitter() {}
+  virtual ~ConeRangeSplitter() {}
 
   //! Returns split intervals along U and V direction.
   //! @param theParameters meshing parameters.

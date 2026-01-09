@@ -74,7 +74,7 @@ static void InGoodPeriod(const Standard_Real Prec,
 
 //=================================================================================================
 
-GeomFill_GuideTrihedronPlan::GeomFill_GuideTrihedronPlan(const Handle(Adaptor3d_Curve)& theGuide)
+GeomFill_GuideTrihedronPlan::GeomFill_GuideTrihedronPlan(const Handle(Curve5)& theGuide)
     : X(1, 1),
       XTol(1, 1),
       Inf(1, 1),
@@ -85,7 +85,7 @@ GeomFill_GuideTrihedronPlan::GeomFill_GuideTrihedronPlan(const Handle(Adaptor3d_
   myGuide = theGuide; // guide
   myTrimG = theGuide;
   myNbPts = 20;                                            // nb points pour calculs
-  Pole    = new (TColgp_HArray2OfPnt2d)(1, 1, 1, myNbPts); // tab pr stocker Pprime (pt sur guide)
+  Pole    = new (Point2dGrid)(1, 1, 1, myNbPts); // tab pr stocker Pprime (pt sur guide)
   frenet  = new (GeomFill_Frenet)();
   XTol.Init(1.e-6);
   XTol(1) = myGuide->Resolution(1.e-6);
@@ -110,7 +110,7 @@ void GeomFill_GuideTrihedronPlan::Init()
   Handle(GeomPlane)                Plan;
   Handle(GeomAdaptor_Surface)       Pl;
   IntersectionPoint1 PInt;
-  IntCurveSurface_HInter            Int;
+  HandleIntersection            Int;
   frenet->SetCurve(myCurve);
   DeltaG = (myGuide->LastParameter() - myGuide->FirstParameter()) / 2;
 
@@ -200,7 +200,7 @@ void GeomFill_GuideTrihedronPlan::Init()
 // function : SetCurve
 // purpose  : calculation of trihedron
 //=======================================================================
-Standard_Boolean GeomFill_GuideTrihedronPlan::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_GuideTrihedronPlan::SetCurve(const Handle(Curve5)& C)
 {
   myCurve = C;
   if (!myCurve.IsNull())
@@ -213,7 +213,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::SetCurve(const Handle(Adaptor3d_Cu
 // purpose  : calculation of trihedron
 //=======================================================================
 
-Handle(Adaptor3d_Curve) GeomFill_GuideTrihedronPlan::Guide() const
+Handle(Curve5) GeomFill_GuideTrihedronPlan::Guide() const
 {
   return myGuide;
 }

@@ -41,7 +41,7 @@ static Standard_Integer DDataStd_SetShape(DrawInterpreter& di,
 {
   if (nb == 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     TopoShape s = DBRep1::Get(arg[3]);

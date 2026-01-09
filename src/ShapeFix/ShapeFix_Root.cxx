@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Root, RefObject)
 ShapeFix_Root::ShapeFix_Root()
 {
   myPrecision = myMinTol = myMaxTol = Precision1::Confusion();
-  myMsgReg                          = new ShapeExtend_BasicMsgRegistrator;
+  myMsgReg                          = new BasicMsgRegistrator;
 }
 
 //=================================================================================================
@@ -48,7 +48,7 @@ void ShapeFix_Root::SetContext(const Handle(ShapeBuild_ReShape)& context)
 
 //=================================================================================================
 
-void ShapeFix_Root::SetMsgRegistrator(const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg)
+void ShapeFix_Root::SetMsgRegistrator(const Handle(BasicMsgRegistrator)& msgreg)
 {
   myMsgReg = msgreg;
 }

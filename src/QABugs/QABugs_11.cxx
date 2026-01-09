@@ -2142,7 +2142,7 @@ static Standard_Integer OCC5739_UniAbs(DrawInterpreter& di,
     return 1;
   }
   const char*        name      = argv[1];
-  Adaptor3d_Curve*   adapCurve = NULL;
+  Curve5*   adapCurve = NULL;
   Handle(GeomCurve3d) curve     = DrawTrSurf1::GetCurve(argv[2]);
   if (!curve.IsNull())
     adapCurve = new GeomAdaptor_Curve(curve);
@@ -2807,7 +2807,7 @@ static Standard_Integer OCC7372(DrawInterpreter& di, Standard_Integer argc, cons
   }
 
   // 1. Create an array of points
-  Handle(TColgp_HArray1OfPnt2d) ap = new TColgp_HArray1OfPnt2d(1, 5);
+  Handle(Point2dArray) ap = new Point2dArray(1, 5);
   ap->SetValue(1, gp_Pnt2d(100.0, 0.0));
   ap->SetValue(2, gp_Pnt2d(100.0, 100.0));
   ap->SetValue(3, gp_Pnt2d(0.0, 100.0));
@@ -4696,7 +4696,7 @@ static Standard_Integer OCC12584(DrawInterpreter& di, Standard_Integer argc, con
   {
     aContext->SetTransformPersistence(
       aCS,
-      new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+      new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   }
   Standard_Integer aWinWidth, aWinHeight;
   V->Window()->Size(aWinWidth, aWinHeight);
@@ -4745,7 +4745,7 @@ static Standard_Integer OCC20766(DrawInterpreter& di, Standard_Integer argc, con
   Standard_Real C = Draw1::Atof(argv[4]);
   Standard_Real D = Draw1::Atof(argv[5]);
 
-  Handle(Geom_Geometry) result;
+  Handle(Geometry3) result;
 
   Handle(GeomPlane) aPlane = new GeomPlane(A, B, C, D);
   result                    = aPlane;

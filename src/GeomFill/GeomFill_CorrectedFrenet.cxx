@@ -61,7 +61,7 @@ static Standard_Integer CorrNumber = 0;
 #endif
 
 #ifdef DRAW
-static void draw(const Handle(Law_Function)& law)
+static void draw(const Handle(Function2)& law)
 {
   Standard_Real    Step, u, v, tmin;
   Standard_Integer NbInt, i, j, jmax;
@@ -97,7 +97,7 @@ static void draw(const Handle(Law_Function)& law)
 #endif
 
 static Standard_Real ComputeTorsion(const Standard_Real            Param,
-                                    const Handle(Adaptor3d_Curve)& aCurve)
+                                    const Handle(Curve5)& aCurve)
 {
   Standard_Real Torsion;
 
@@ -215,10 +215,10 @@ static void smoothlaw(Handle(Law_BSpline)&                 Law1,
 
 //=================================================================================================
 
-static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(GeomPlane)& theP)
+static Standard_Boolean FindPlane(const Handle(Curve5)& theC, Handle(GeomPlane)& theP)
 {
   Standard_Boolean            found = Standard_True;
-  Handle(TColgp_HArray1OfPnt) TabP;
+  Handle(PointArray1) TabP;
 
   switch (theC->GetType())
   {
@@ -255,7 +255,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
       }
       else
       {
-        TabP = new (TColgp_HArray1OfPnt)(1, nbp);
+        TabP = new (PointArray1)(1, nbp);
         GC->Poles(TabP->ChangeArray1());
       }
     }
@@ -272,7 +272,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
       }
       else
       {
-        TabP = new (TColgp_HArray1OfPnt)(1, nbp);
+        TabP = new (PointArray1)(1, nbp);
         GC->Poles(TabP->ChangeArray1());
       }
     }
@@ -285,7 +285,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
       f    = theC->FirstParameter();
       l    = theC->LastParameter();
       inv  = 1. / (nbp - 1);
-      TabP = new (TColgp_HArray1OfPnt)(1, nbp);
+      TabP = new (PointArray1)(1, nbp);
       for (ii = 1; ii <= nbp; ii++)
       {
         t = (f * (nbp - ii) + l * (ii - 1));
@@ -354,7 +354,7 @@ Handle(GeomFill_TrihedronLaw) GeomFill_CorrectedFrenet::Copy() const
   return copy;
 }
 
-Standard_Boolean GeomFill_CorrectedFrenet::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_CorrectedFrenet::SetCurve(const Handle(Curve5)& C)
 {
   GeomFill_TrihedronLaw::SetCurve(C);
   if (!C.IsNull())
@@ -394,7 +394,7 @@ void GeomFill_CorrectedFrenet::Init()
   Standard_Integer     NbI = frenet->NbIntervals(GeomAbs_C0), i;
   TColStd_Array1OfReal T(1, NbI + 1);
   frenet->Intervals(T, GeomAbs_C0);
-  Handle(Law_Function) Func;
+  Handle(Function2) Func;
   // OCC78
   TColStd_SequenceOfReal SeqPoles, SeqAngle;
   TColgp_SequenceOfVec   SeqTangent, SeqNormal;
@@ -469,8 +469,8 @@ void GeomFill_CorrectedFrenet::Init()
   {
     HArrPoles   = new TColStd_HArray1OfReal(1, iEnd);
     HArrAngle   = new TColStd_HArray1OfReal(1, iEnd);
-    HArrTangent = new TColgp_HArray1OfVec(1, iEnd);
-    HArrNormal  = new TColgp_HArray1OfVec(1, iEnd);
+    HArrTangent = new VectorArray(1, iEnd);
+    HArrNormal  = new VectorArray(1, iEnd);
     for (i = 1; i <= iEnd; i++)
     {
       HArrPoles->ChangeValue(i)   = SeqPoles(i);
@@ -500,7 +500,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
                                                         Vector3d&                 prevNormal,
                                                         Vector3d&                 aT,
                                                         Vector3d&                 aN,
-                                                        Handle(Law_Function)&   FuncInt,
+                                                        Handle(Function2)&   FuncInt,
                                                         TColStd_SequenceOfReal& SeqPoles,
                                                         TColStd_SequenceOfReal& SeqAngle,
                                                         TColgp_SequenceOfVec&   SeqTangent,
@@ -1010,7 +1010,7 @@ GeomFill_Trihedron GeomFill_CorrectedFrenet::EvaluateBestMode()
     if (Abs(Torsion) > MaxTorsion)
       return GeomFill_IsDiscreteTrihedron; // DiscreteTrihedron
 
-    Handle(Law_Function) trimmedlaw = EvolAroundT->Trim(tmin, tmax, Precision1::PConfusion() / 2);
+    Handle(Function2) trimmedlaw = EvolAroundT->Trim(tmin, tmax, Precision1::PConfusion() / 2);
     Step                            = (Int(i + 1) - Int(i)) / NbSamples;
     for (j = 0; j <= NbSamples; j++)
     {

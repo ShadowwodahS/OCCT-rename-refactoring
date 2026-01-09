@@ -17,12 +17,12 @@
 #include <GeomAdaptor_Curve.hxx>
 #include <Standard_NullValue.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_OffsetCurve, GeomEvaluator_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_OffsetCurve, Curve6)
 
 GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomCurve3d)& theBase,
                                                      const Standard_Real       theOffset,
                                                      const Dir3d&             theDirection)
-    : GeomEvaluator_Curve(),
+    : Curve6(),
       myBaseCurve(theBase),
       myOffset(theOffset),
       myOffsetDir(theDirection)
@@ -32,7 +32,7 @@ GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomCurve3d)& 
 GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomAdaptor_Curve)& theBase,
                                                      const Standard_Real              theOffset,
                                                      const Dir3d&                    theDirection)
-    : GeomEvaluator_Curve(),
+    : Curve6(),
       myBaseAdaptor(theBase),
       myOffset(theOffset),
       myOffsetDir(theDirection)
@@ -111,7 +111,7 @@ Vector3d GeomEvaluator_OffsetCurve::DN(const Standard_Real    theU,
   return aDN;
 }
 
-Handle(GeomEvaluator_Curve) GeomEvaluator_OffsetCurve::ShallowCopy() const
+Handle(Curve6) GeomEvaluator_OffsetCurve::ShallowCopy() const
 {
   Handle(GeomEvaluator_OffsetCurve) aCopy;
   if (!myBaseAdaptor.IsNull())

@@ -15,4 +15,4 @@
 
 #include <IMeshData_ParametersList.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshData_ParametersList, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ParametersList, RefObject)

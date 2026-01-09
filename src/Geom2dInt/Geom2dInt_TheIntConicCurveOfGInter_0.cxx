@@ -37,7 +37,7 @@
 #define ThePCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
 #define TheProjPCur ProjPCurOfGInter
 #define TheProjPCur_hxx <Geom2dInt_TheProjPCurOfGInter.hxx>
-#define IntCurve_TheIntersector Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter
+#define IntCurve_TheIntersector IntConicCurveIntersector2d
 #define IntCurve_TheIntersector_hxx <Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.hxx>
 #define IntCurve_MyImpParToolOfTheIntersector                                                      \
   Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
@@ -47,6 +47,6 @@
   Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
 #define IntCurve_MyImpParToolOfTheIntersector_hxx                                                  \
   <Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter.hxx>
-#define IntCurve_IntConicCurveGen Geom2dInt_TheIntConicCurveOfGInter
+#define IntCurve_IntConicCurveGen IntConicCurve2d
 #define IntCurve_IntConicCurveGen_hxx <Geom2dInt_TheIntConicCurveOfGInter.hxx>
 #include "../IntCurve/IntCurve_IntConicCurveGen.gxx"

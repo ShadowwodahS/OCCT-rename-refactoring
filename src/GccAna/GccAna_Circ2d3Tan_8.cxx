@@ -86,7 +86,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedLine& Qualified1,
   if (Bis1.IsDone() && Bis2.IsDone())
   {
     const gp_Lin2d           linint1(Bis1.ThisSolution());
-    Handle(GccInt_Bisec)     Sol2 = Bis2.ThisSolution();
+    Handle(Bisector2)     Sol2 = Bis2.ThisSolution();
     GccInt_IType             typ2 = Sol2->ArcType();
     AnalyticIntersection2d Intp;
     if (typ2 == GccInt_Lin)

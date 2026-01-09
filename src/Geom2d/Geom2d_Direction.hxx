@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 class gp_Dir2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_Direction;
 DEFINE_STANDARD_HANDLE(Geom2d_Direction, Geom2d_Vector)
@@ -84,7 +84,7 @@ public:
   Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this unit vector.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Geom2d_Direction, Geom2d_Vector)
 

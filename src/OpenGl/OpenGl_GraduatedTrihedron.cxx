@@ -36,7 +36,7 @@ static Graphic3d_VerticalTextAlignment   THE_LABEL_VALIGH = Graphic3d_VTA_BOTTOM
 
 //=================================================================================================
 
-OpenGl_GraduatedTrihedron::OpenGl_GraduatedTrihedron()
+GraduatedTrihedron1::GraduatedTrihedron1()
     : myMin(0.0f, 0.0f, 0.0f),
       myMax(100.0f, 100.0f, 100.0f),
       myIsInitialized(Standard_False)
@@ -46,7 +46,7 @@ OpenGl_GraduatedTrihedron::OpenGl_GraduatedTrihedron()
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::SetValues(const GraduatedTrihedron& theData)
+void GraduatedTrihedron1::SetValues(const GraduatedTrihedron& theData)
 {
   myData          = theData;
   myIsInitialized = Standard_False;
@@ -54,14 +54,14 @@ void OpenGl_GraduatedTrihedron::SetValues(const GraduatedTrihedron& theData)
 
 //=================================================================================================
 
-OpenGl_GraduatedTrihedron::~OpenGl_GraduatedTrihedron()
+GraduatedTrihedron1::~GraduatedTrihedron1()
 {
   //
 }
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::Release(OpenGl_Context* theCtx)
+void GraduatedTrihedron1::Release(OpenGl_Context* theCtx)
 {
   myAxes[0].Release(theCtx);
   myAxes[1].Release(theCtx);
@@ -71,7 +71,7 @@ void OpenGl_GraduatedTrihedron::Release(OpenGl_Context* theCtx)
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::initGlResources(const Handle(OpenGl_Context)& theCtx) const
+void GraduatedTrihedron1::initGlResources(const Handle(OpenGl_Context)& theCtx) const
 {
   myAxes[0].Release(theCtx.operator->());
   myAxes[1].Release(theCtx.operator->());
@@ -114,7 +114,7 @@ void OpenGl_GraduatedTrihedron::initGlResources(const Handle(OpenGl_Context)& th
 // method  : getNormal
 // purpose : Normal of the view (not normalized!)
 // =======================================================================
-Standard_ShortReal OpenGl_GraduatedTrihedron::getNormal(const Handle(OpenGl_Context)& theContext,
+Standard_ShortReal GraduatedTrihedron1::getNormal(const Handle(OpenGl_Context)& theContext,
                                                         OpenGl_Vec3& theNormal) const
 {
   const Standard_Integer* aViewport = theContext->Viewport();
@@ -170,7 +170,7 @@ Standard_ShortReal OpenGl_GraduatedTrihedron::getNormal(const Handle(OpenGl_Cont
 // method  : getDistancetoCorner
 // purpose :
 // =======================================================================
-Standard_ShortReal OpenGl_GraduatedTrihedron::getDistanceToCorner(
+Standard_ShortReal GraduatedTrihedron1::getDistanceToCorner(
   const OpenGl_Vec3&       theNormal,
   const OpenGl_Vec3&       theCenter,
   const Standard_ShortReal theX,
@@ -185,7 +185,7 @@ Standard_ShortReal OpenGl_GraduatedTrihedron::getDistanceToCorner(
 // method  : getGridAxes
 // purpose :
 // =======================================================================
-Standard_ExtCharacter OpenGl_GraduatedTrihedron::getGridAxes(const Standard_ShortReal theCorners[8],
+Standard_ExtCharacter GraduatedTrihedron1::getGridAxes(const Standard_ShortReal theCorners[8],
                                                              GridAxes1& theGridAxes) const
 {
   // Find the farthest corner
@@ -313,7 +313,7 @@ Standard_ExtCharacter OpenGl_GraduatedTrihedron::getGridAxes(const Standard_Shor
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::renderLine(const OpenGl_PrimitiveArray&    theLine,
+void GraduatedTrihedron1::renderLine(const OpenGl_PrimitiveArray&    theLine,
                                            const Handle(OpenGl_Workspace)& theWorkspace,
                                            const OpenGl_Mat4&              theMat,
                                            const Standard_ShortReal        theXt,
@@ -330,12 +330,12 @@ void OpenGl_GraduatedTrihedron::renderLine(const OpenGl_PrimitiveArray&    theLi
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::renderGridPlane(const Handle(OpenGl_Workspace)& theWorkspace,
+void GraduatedTrihedron1::renderGridPlane(const Handle(OpenGl_Workspace)& theWorkspace,
                                                 const Standard_Integer&         theIndex,
                                                 const GridAxes1&                 theGridAxes,
                                                 OpenGl_Mat4&                    theMat) const
 {
-  const GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
+  const GraduatedTrihedron::AxisAspect1& aCurAspect = myData.AxisAspectAt(theIndex);
   if (aCurAspect.TickmarksNumber() <= 0)
   {
     return;
@@ -379,7 +379,7 @@ void OpenGl_GraduatedTrihedron::renderGridPlane(const Handle(OpenGl_Workspace)& 
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::renderAxis(const Handle(OpenGl_Workspace)& theWorkspace,
+void GraduatedTrihedron1::renderAxis(const Handle(OpenGl_Workspace)& theWorkspace,
                                            const Standard_Integer&         theIndex,
                                            const OpenGl_Mat4&              theMat) const
 {
@@ -395,7 +395,7 @@ void OpenGl_GraduatedTrihedron::renderAxis(const Handle(OpenGl_Workspace)& theWo
   // Render arrow
   OpenGl_Vec3 anArrowVec = myMin + anAxis.Direction * (myMax - myMin);
 
-  Graphic3d_TransformPers aTransMode(Graphic3d_TMF_ZoomPers,
+  TransformPers aTransMode(Graphic3d_TMF_ZoomPers,
                                      Point3d(Standard_Real(anArrowVec.x()),
                                             Standard_Real(anArrowVec.y()),
                                             Standard_Real(anArrowVec.z())));
@@ -461,13 +461,13 @@ void OpenGl_GraduatedTrihedron::renderAxis(const Handle(OpenGl_Workspace)& theWo
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::renderTickmarkLabels(const Handle(OpenGl_Workspace)& theWorkspace,
+void GraduatedTrihedron1::renderTickmarkLabels(const Handle(OpenGl_Workspace)& theWorkspace,
                                                      const OpenGl_Mat4&              theMat,
                                                      const Standard_Integer          theIndex,
                                                      const GridAxes1&                 theGridAxes,
                                                      const Standard_ShortReal        theDpix) const
 {
-  const GraduatedTrihedron::AxisAspect& aCurAspect = myData.AxisAspectAt(theIndex);
+  const GraduatedTrihedron::AxisAspect1& aCurAspect = myData.AxisAspectAt(theIndex);
   if (!aCurAspect.ToDrawName() && !aCurAspect.ToDrawValues())
   {
     return;
@@ -551,7 +551,7 @@ void OpenGl_GraduatedTrihedron::renderTickmarkLabels(const Handle(OpenGl_Workspa
 // function : Render
 // purpose  : call_graduatedtrihedron_redraw
 // =======================================================================
-void OpenGl_GraduatedTrihedron::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
+void GraduatedTrihedron1::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
 {
   const Handle(OpenGl_Context)& aContext = theWorkspace->GetGlContext();
   if (!myIsInitialized)
@@ -705,17 +705,17 @@ void OpenGl_GraduatedTrihedron::Render(const Handle(OpenGl_Workspace)& theWorksp
 // method  : SetMinMax
 // purpose :
 // =======================================================================
-void OpenGl_GraduatedTrihedron::SetMinMax(const OpenGl_Vec3& theMin, const OpenGl_Vec3& theMax)
+void GraduatedTrihedron1::SetMinMax(const OpenGl_Vec3& theMin, const OpenGl_Vec3& theMax)
 {
   myMin = theMin;
   myMax = theMax;
 }
 
 // =======================================================================
-// method  : OpenGl_GraduatedTrihedron::Axis constructor
+// method  : GraduatedTrihedron1::Axis constructor
 // purpose :
 // =======================================================================
-OpenGl_GraduatedTrihedron::Axis::Axis(const GraduatedTrihedron::AxisAspect& theAspect,
+GraduatedTrihedron1::Axis::Axis(const GraduatedTrihedron::AxisAspect1& theAspect,
                                       const OpenGl_Vec3&                              theDirection)
     : Direction(theDirection),
       Tickmark(NULL),
@@ -733,19 +733,19 @@ OpenGl_GraduatedTrihedron::Axis::Axis(const GraduatedTrihedron::AxisAspect& theA
 }
 
 // =======================================================================
-// method  : OpenGl_GraduatedTrihedron::Axis::~Axis
+// method  : GraduatedTrihedron1::Axis::~Axis
 // purpose :
 // =======================================================================
-OpenGl_GraduatedTrihedron::Axis::~Axis()
+GraduatedTrihedron1::Axis::~Axis()
 {
   //
 }
 
 // =======================================================================
-// method  : OpenGl_GraduatedTrihedron::Axis operator=
+// method  : GraduatedTrihedron1::Axis operator=
 // purpose :
 // =======================================================================
-OpenGl_GraduatedTrihedron::Axis& OpenGl_GraduatedTrihedron::Axis::operator=(const Axis& theOther)
+GraduatedTrihedron1::Axis& GraduatedTrihedron1::Axis::operator=(const Axis& theOther)
 {
   Direction  = theOther.Direction;
   NameColor  = theOther.NameColor;
@@ -774,7 +774,7 @@ OpenGl_GraduatedTrihedron::Axis& OpenGl_GraduatedTrihedron::Axis::operator=(cons
 // method  : InitArrow
 // purpose :
 // =======================================================================
-void OpenGl_GraduatedTrihedron::Axis::InitArrow(const Handle(OpenGl_Context)& theContext,
+void GraduatedTrihedron1::Axis::InitArrow(const Handle(OpenGl_Context)& theContext,
                                                 const Standard_ShortReal      theLength,
                                                 const OpenGl_Vec3&            theNormal) const
 {
@@ -810,7 +810,7 @@ void OpenGl_GraduatedTrihedron::Axis::InitArrow(const Handle(OpenGl_Context)& th
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::Axis::InitTickmark(const Handle(OpenGl_Context)& theContext,
+void GraduatedTrihedron1::Axis::InitTickmark(const Handle(OpenGl_Context)& theContext,
                                                    const OpenGl_Vec3&            theDir) const
 {
 
@@ -826,7 +826,7 @@ void OpenGl_GraduatedTrihedron::Axis::InitTickmark(const Handle(OpenGl_Context)&
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::Axis::InitLine(const Handle(OpenGl_Context)& theContext,
+void GraduatedTrihedron1::Axis::InitLine(const Handle(OpenGl_Context)& theContext,
                                                const OpenGl_Vec3&            theDir) const
 {
 
@@ -843,7 +843,7 @@ void OpenGl_GraduatedTrihedron::Axis::InitLine(const Handle(OpenGl_Context)& the
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::Axis::Release(OpenGl_Context* theCtx)
+void GraduatedTrihedron1::Axis::Release(OpenGl_Context* theCtx)
 {
   Label.Release(theCtx);
   Tickmark.Release(theCtx);
@@ -853,10 +853,10 @@ void OpenGl_GraduatedTrihedron::Axis::Release(OpenGl_Context* theCtx)
 
 //=================================================================================================
 
-void OpenGl_GraduatedTrihedron::DumpJson(Standard_OStream& theOStream,
+void GraduatedTrihedron1::DumpJson(Standard_OStream& theOStream,
                                          Standard_Integer  theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, OpenGl_GraduatedTrihedron)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, GraduatedTrihedron1)
 
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, OpenGl_Element)
 }

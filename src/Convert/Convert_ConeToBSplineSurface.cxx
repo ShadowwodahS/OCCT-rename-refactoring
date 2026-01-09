@@ -73,7 +73,7 @@ static void ComputePoles(const Standard_Real R,
 
 //=================================================================================================
 
-Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
+ConeToBSplineConverter::ConeToBSplineConverter(const Cone1&      C,
                                                            const Standard_Real U1,
                                                            const Standard_Real U2,
                                                            const Standard_Real V1,
@@ -88,7 +88,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
   Standard_Real deltaU = U2 - U1;
   Standard_DomainError_Raise_if((Abs(V2 - V1) <= Abs(Epsilon(V1))) || (deltaU > 2 * M_PI)
                                   || (deltaU < 0.),
-                                "Convert_ConeToBSplineSurface");
+                                "ConeToBSplineConverter");
 
   isuperiodic = Standard_False;
   isvperiodic = Standard_False;
@@ -146,7 +146,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
 
 //=================================================================================================
 
-Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
+ConeToBSplineConverter::ConeToBSplineConverter(const Cone1&      C,
                                                            const Standard_Real V1,
                                                            const Standard_Real V2)
     : ElementaryToBSplineSurface(TheNbUPoles,
@@ -156,7 +156,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const Cone1&      C,
                                                 TheUDegree,
                                                 TheVDegree)
 {
-  Standard_DomainError_Raise_if(Abs(V2 - V1) <= Abs(Epsilon(V1)), "Convert_ConeToBSplineSurface");
+  Standard_DomainError_Raise_if(Abs(V2 - V1) <= Abs(Epsilon(V1)), "ConeToBSplineConverter");
 
   Standard_Integer i, j;
 

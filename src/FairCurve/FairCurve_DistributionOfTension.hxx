@@ -36,10 +36,10 @@ public:
 
   Standard_EXPORT FairCurve_DistributionOfTension(const Standard_Integer               BSplOrder,
                                                   const Handle(TColStd_HArray1OfReal)& FlatKnots,
-                                                  const Handle(TColgp_HArray1OfPnt2d)& Poles,
+                                                  const Handle(Point2dArray)& Poles,
                                                   const Standard_Integer     DerivativeOrder,
                                                   const Standard_Real        LengthSliding,
-                                                  const FairCurve_BattenLaw& Law1,
+                                                  const BattenLaw& Law1,
                                                   const Standard_Integer     NbValAux = 0,
                                                   const Standard_Boolean Uniform = Standard_False);
 
@@ -56,7 +56,7 @@ public:
 protected:
 private:
   Standard_Real       MyLengthSliding;
-  FairCurve_BattenLaw MyLaw;
+  BattenLaw MyLaw;
   Standard_Real       MyHeight;
 };
 

@@ -100,7 +100,7 @@ inline Standard_Boolean DataLabel::MayBeModified() const
   return myLabelNode->MayBeModified();
 }
 
-inline Handle(TDF_Data) DataLabel::Data() const
+inline Handle(Data2) DataLabel::Data() const
 {
   return myLabelNode->Data();
 }

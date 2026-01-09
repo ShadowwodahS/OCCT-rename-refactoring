@@ -41,7 +41,7 @@ typedef Coords2d           XY;
 
 //=================================================================================================
 
-Handle(Geom2d_Geometry) Geom2d_Parabola::Copy() const
+Handle(Geometry2) Geom2d_Parabola::Copy() const
 {
   Handle(Geom2d_Parabola) Prb;
   Prb = new Parabola(pos, focalLength);

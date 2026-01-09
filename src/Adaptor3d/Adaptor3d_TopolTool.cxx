@@ -44,7 +44,7 @@ Adaptor3d_TopolTool::Adaptor3d_TopolTool()
 {
 }
 
-Adaptor3d_TopolTool::Adaptor3d_TopolTool(const Handle(Adaptor3d_Surface)& S)
+Adaptor3d_TopolTool::Adaptor3d_TopolTool(const Handle(SurfaceAdaptor)& S)
 {
   Initialize(S);
 }
@@ -54,7 +54,7 @@ void Adaptor3d_TopolTool::Initialize()
   throw Standard_NotImplemented("Adaptor3d_TopolTool::Initialize ()");
 }
 
-void Adaptor3d_TopolTool::Initialize(const Handle(Adaptor3d_Surface)& S)
+void Adaptor3d_TopolTool::Initialize(const Handle(SurfaceAdaptor)& S)
 {
   Standard_Real pinf, psup, deltap;
   // Adaptor2d_Line2d  * Line2dPtr ;
@@ -242,13 +242,13 @@ void Adaptor3d_TopolTool::Initialize(const Handle(Adaptor2d_Curve2d)& C)
   //  if (!Precision1::IsNegativeInfinite(theUinf)) {
   if (theUinf > -myInfinite)
   {
-    myVtx[nbVtx] = new Adaptor3d_HVertex(C->Value(theUinf), TopAbs_FORWARD, 1.e-8);
+    myVtx[nbVtx] = new HandleVertex(C->Value(theUinf), TopAbs_FORWARD, 1.e-8);
     nbVtx++;
   }
   //  if (!Precision1::IsPositiveInfinite(theUsup)) {
   if (theUsup < myInfinite)
   {
-    myVtx[nbVtx] = new Adaptor3d_HVertex(C->Value(theUsup), TopAbs_REVERSED, 1.e-8);
+    myVtx[nbVtx] = new HandleVertex(C->Value(theUsup), TopAbs_REVERSED, 1.e-8);
     nbVtx++;
   }
 }
@@ -263,7 +263,7 @@ Standard_Boolean Adaptor3d_TopolTool::MoreVertex()
   return (idVtx < nbVtx);
 }
 
-Handle(Adaptor3d_HVertex) Adaptor3d_TopolTool::Vertex()
+Handle(HandleVertex) Adaptor3d_TopolTool::Vertex()
 {
   if (idVtx >= nbVtx)
   {
@@ -612,13 +612,13 @@ TopAbs_Orientation Adaptor3d_TopolTool::Orientation(const Handle(Adaptor2d_Curve
   return TopAbs_FORWARD;
 }
 
-TopAbs_Orientation Adaptor3d_TopolTool::Orientation(const Handle(Adaptor3d_HVertex)& V)
+TopAbs_Orientation Adaptor3d_TopolTool::Orientation(const Handle(HandleVertex)& V)
 {
   return V->Orientation();
 }
 
-Standard_Boolean Adaptor3d_TopolTool::Identical(const Handle(Adaptor3d_HVertex)& V1,
-                                                const Handle(Adaptor3d_HVertex)& V2)
+Standard_Boolean Adaptor3d_TopolTool::Identical(const Handle(HandleVertex)& V1,
+                                                const Handle(HandleVertex)& V2)
 {
   return V1->IsSame(V2);
 }
@@ -991,14 +991,14 @@ Standard_Real Adaptor3d_TopolTool::Tol3d(const Handle(Adaptor2d_Curve2d)&) const
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_TopolTool::Tol3d(const Handle(Adaptor3d_HVertex)&) const
+Standard_Real Adaptor3d_TopolTool::Tol3d(const Handle(HandleVertex)&) const
 {
   throw Standard_DomainError("Adaptor3d_TopolTool: has no 3d representation");
 }
 
 //=================================================================================================
 
-Point3d Adaptor3d_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)&) const
+Point3d Adaptor3d_TopolTool::Pnt(const Handle(HandleVertex)&) const
 {
   throw Standard_DomainError("Adaptor3d_TopolTool: has no 3d representation");
 }
@@ -1345,7 +1345,7 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
       {
         t2        = anUPars(k);
         Point3d p2 = myS->Value(t2, t1);
-        // gce_MakeLin MkLin(p1, p2);
+        // LineBuilder MkLin(p1, p2);
         // const gp_Lin& lin = MkLin.Value();
 
         if (p1.SquareDistance(p2) <= tol)
@@ -1447,7 +1447,7 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
 
         if (p1.SquareDistance(p2) <= tol)
           continue;
-        // gce_MakeLin MkLin(p1, p2);
+        // LineBuilder MkLin(p1, p2);
         // const gp_Lin& lin = MkLin.Value();
         gp_Lin           lin(p1, Dir3d(Vector3d(p1, p2)));
         Standard_Boolean ok = Standard_True;

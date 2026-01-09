@@ -152,7 +152,7 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
   }
 
   Vector3d aDimNormal = aDimVec ^ aViewUp;
-  gp_Pln aViewPlane = gce_MakePln(theFirstPoint, aDimNormal);
+  gp_Pln aViewPlane = PlaneBuilder1(theFirstPoint, aDimNormal);
 
   // Get intersection of view plane and projection line
   Handle(GeomPlane) aPlane    = new GeomPlane(aViewPlane);

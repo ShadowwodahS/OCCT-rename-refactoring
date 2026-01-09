@@ -40,10 +40,10 @@ public: //! @name general methods
 
   //! Setup list of global (for entire view) clipping planes
   //! and clears local plane list if it was not released before.
-  Standard_EXPORT void Reset(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes);
+  Standard_EXPORT void Reset(const Handle(SequenceOfHClipPlane)& thePlanes);
 
   //! Setup list of local (for current object) clipping planes.
-  Standard_EXPORT void SetLocalPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes);
+  Standard_EXPORT void SetLocalPlanes(const Handle(SequenceOfHClipPlane)& thePlanes);
 
   //! @return true if there are enabled capping planes
   Standard_Boolean IsCappingOn() const { return myNbCapping > 0; }
@@ -136,17 +136,17 @@ protected: //! @name clipping state modification commands
   //! @param thePlanes [in/out] the list of planes to be added
   //! The list then provides information on which planes were really added to clipping state.
   //! This list then can be used to fall back to previous state.
-  Standard_EXPORT void add(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes,
+  Standard_EXPORT void add(const Handle(SequenceOfHClipPlane)& thePlanes,
                            const Standard_Integer                        theStartIndex);
 
   //! Remove the passed set of clipping planes from the context state.
   //! @param[in] thePlanes  the planes to remove from list.
-  Standard_EXPORT void remove(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes,
+  Standard_EXPORT void remove(const Handle(SequenceOfHClipPlane)& thePlanes,
                               const Standard_Integer                        theStartIndex);
 
 private:
-  Handle(Graphic3d_SequenceOfHClipPlane) myPlanesGlobal;   //!< global clipping planes
-  Handle(Graphic3d_SequenceOfHClipPlane) myPlanesLocal;    //!< object clipping planes
+  Handle(SequenceOfHClipPlane) myPlanesGlobal;   //!< global clipping planes
+  Handle(SequenceOfHClipPlane) myPlanesLocal;    //!< object clipping planes
   NCollection_Vector<Standard_Boolean>   myDisabledPlanes; //!< ids of disabled planes
 
   // clang-format off

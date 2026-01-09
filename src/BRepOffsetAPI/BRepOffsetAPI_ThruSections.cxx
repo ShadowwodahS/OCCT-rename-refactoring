@@ -1251,7 +1251,7 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::TotalSurf(
   }
 
   section.Perform(Precision1::PConfusion());
-  Handle(GeomFill_Line) line = new GeomFill_Line(NbSects);
+  Handle(Line1) line = new Line1(NbSects);
 
   Standard_Integer nbIt = 3;
   if (myPres3d <= 1.e-3)

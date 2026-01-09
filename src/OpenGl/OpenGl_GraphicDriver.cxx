@@ -78,7 +78,7 @@ static const Handle(OpenGl_Context) TheNullGlCtx;
 
 #if defined(HAVE_EGL)
 //! Wrapper over eglChooseConfig() called with preferred defaults.
-static EGLConfig chooseEglSurfConfig(EGLDisplay theDisplay, const Handle(OpenGl_Caps)& theCaps)
+static EGLConfig chooseEglSurfConfig(EGLDisplay theDisplay, const Handle(Caps)& theCaps)
 {
   EGLConfig aCfg       = NULL;
   EGLint    aNbConfigs = 0;
@@ -176,14 +176,14 @@ static int TheDoubleBuffFBConfig[] = {GLX_X_RENDERABLE,
 
 //=================================================================================================
 
-OpenGl_GraphicDriver::OpenGl_GraphicDriver(const Handle(Aspect_DisplayConnection)& theDisp,
+OpenGl_GraphicDriver::OpenGl_GraphicDriver(const Handle(DisplayConnection1)& theDisp,
                                            const Standard_Boolean                  theToInitialize)
     : Graphic3d_GraphicDriver(theDisp),
       myIsOwnContext(Standard_False),
       myEglDisplay(NULL),
       myEglContext(NULL),
       myEglConfig(NULL),
-      myCaps(new OpenGl_Caps()),
+      myCaps(new Caps()),
       myMapOfView(1, NCollection_BaseAllocator::CommonBaseAllocator()),
       myMapOfStructure(1, NCollection_BaseAllocator::CommonBaseAllocator())
 {
@@ -526,7 +526,7 @@ Standard_Integer OpenGl_GraphicDriver::InquireLimit(const Graphic3d_TypeOfLimit 
   switch (theType)
   {
     case Graphic3d_TypeOfLimit_MaxNbLights:
-      return Graphic3d_ShaderProgram::THE_MAX_LIGHTS_DEFAULT;
+      return ShaderProgram2::THE_MAX_LIGHTS_DEFAULT;
     case Graphic3d_TypeOfLimit_MaxNbClipPlanes:
       return !aCtx.IsNull() ? aCtx->MaxClipPlanes() : 0;
     case Graphic3d_TypeOfLimit_MaxNbViews:

@@ -810,7 +810,7 @@ static Bnd_Box2d CreateBoxes2d(const Handle(ShapeExtend_WireData)& sewd,
 //=================================================================================================
 
 static void SelectIntPnt(const Geom2dInt_GInter&     Inter,
-                         IntRes2d_IntersectionPoint& IP,
+                         IntersectionPoint3& IP,
                          Transition3&        Tr1,
                          Transition3&        Tr2)
 {
@@ -825,7 +825,7 @@ static void SelectIntPnt(const Geom2dInt_GInter&     Inter,
       status1 += 1;
     if (Tr2.PositionOnCurve() == IntRes2d_Middle)
       status1 += 2;
-    IntRes2d_IntersectionPoint IP2;
+    IntersectionPoint3 IP2;
     Transition3        Tr12, Tr22;
     IP2  = Inter.Point(2);
     Tr12 = IP2.TransitionOfFirst();
@@ -978,7 +978,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
         // intersection is point
         if (Inter.NbPoints() > 0 && Inter.NbPoints() < 3)
         {
-          IntRes2d_IntersectionPoint IP;
+          IntersectionPoint3 IP;
           Transition3        Tr1, Tr2;
           SelectIntPnt(Inter, IP, Tr1, Tr2);
           if (Tr1.PositionOnCurve() == IntRes2d_Middle && Tr2.PositionOnCurve() == IntRes2d_Middle)
@@ -1152,10 +1152,10 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
             TopoVertex              NewV;
             ShapeBuilder               B;
             Standard_Real              newtol = 0.0;
-            IntRes2d_IntersectionPoint IPF    = IS.FirstPoint();
+            IntersectionPoint3 IPF    = IS.FirstPoint();
             Standard_Real              p11    = IPF.ParamOnFirst();
             Standard_Real              p21    = IPF.ParamOnSecond();
-            IntRes2d_IntersectionPoint IPL    = IS.LastPoint();
+            IntersectionPoint3 IPL    = IS.LastPoint();
             Standard_Real              p12    = IPL.ParamOnFirst();
             Standard_Real              p22    = IPL.ParamOnSecond();
             Point3d                     Pnt11  = GetPointOnEdge(edge1, sas, C1, p11);
@@ -1742,7 +1742,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
             // intersection is point
             if (Inter.NbPoints() > 0 && Inter.NbPoints() < 3)
             {
-              IntRes2d_IntersectionPoint IP;
+              IntersectionPoint3 IP;
               Transition3        Tr1, Tr2;
               SelectIntPnt(Inter, IP, Tr1, Tr2);
               if (Tr1.PositionOnCurve() == IntRes2d_Middle
@@ -1837,10 +1837,10 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
                 TopoVertex              NewV;
                 ShapeBuilder               B;
                 Standard_Real              newtol = 0.0;
-                IntRes2d_IntersectionPoint IPF    = IS.FirstPoint();
+                IntersectionPoint3 IPF    = IS.FirstPoint();
                 Standard_Real              p11    = IPF.ParamOnFirst();
                 Standard_Real              p21    = IPF.ParamOnSecond();
-                IntRes2d_IntersectionPoint IPL    = IS.LastPoint();
+                IntersectionPoint3 IPL    = IS.LastPoint();
                 Standard_Real              p12    = IPL.ParamOnFirst();
                 Standard_Real              p22    = IPL.ParamOnSecond();
                 Point3d                     Pnt11  = GetPointOnEdge(edge1, sas, C1, p11);

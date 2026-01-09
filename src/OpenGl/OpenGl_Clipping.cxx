@@ -45,7 +45,7 @@ void OpenGl_Clipping::Init()
 
 //=================================================================================================
 
-void OpenGl_Clipping::Reset(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+void OpenGl_Clipping::Reset(const Handle(SequenceOfHClipPlane)& thePlanes)
 {
   const Standard_Integer aStartIndex = myPlanesGlobal.IsNull() ? 1 : myPlanesGlobal->Size() + 1;
   remove(myPlanesLocal, aStartIndex);
@@ -67,7 +67,7 @@ void OpenGl_Clipping::Reset(const Handle(Graphic3d_SequenceOfHClipPlane)& thePla
 
 //=================================================================================================
 
-void OpenGl_Clipping::SetLocalPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+void OpenGl_Clipping::SetLocalPlanes(const Handle(SequenceOfHClipPlane)& thePlanes)
 {
   const Standard_Integer aStartIndex = myPlanesGlobal.IsNull() ? 1 : myPlanesGlobal->Size() + 1;
   remove(myPlanesLocal, aStartIndex);
@@ -79,7 +79,7 @@ void OpenGl_Clipping::SetLocalPlanes(const Handle(Graphic3d_SequenceOfHClipPlane
 
 //=================================================================================================
 
-void OpenGl_Clipping::add(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes,
+void OpenGl_Clipping::add(const Handle(SequenceOfHClipPlane)& thePlanes,
                           const Standard_Integer                        theStartIndex)
 {
   if (thePlanes.IsNull())
@@ -88,7 +88,7 @@ void OpenGl_Clipping::add(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlane
   }
 
   Standard_Integer aPlaneId = theStartIndex;
-  for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*thePlanes); aPlaneIt.More();
+  for (SequenceOfHClipPlane::Iterator aPlaneIt(*thePlanes); aPlaneIt.More();
        aPlaneIt.Next(), ++aPlaneId)
   {
     const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
@@ -113,7 +113,7 @@ void OpenGl_Clipping::add(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlane
 
 //=================================================================================================
 
-void OpenGl_Clipping::remove(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes,
+void OpenGl_Clipping::remove(const Handle(SequenceOfHClipPlane)& thePlanes,
                              const Standard_Integer                        theStartIndex)
 {
   if (thePlanes.IsNull())
@@ -122,7 +122,7 @@ void OpenGl_Clipping::remove(const Handle(Graphic3d_SequenceOfHClipPlane)& thePl
   }
 
   Standard_Integer aPlaneIndex = theStartIndex;
-  for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*thePlanes); aPlaneIt.More();
+  for (SequenceOfHClipPlane::Iterator aPlaneIt(*thePlanes); aPlaneIt.More();
        aPlaneIt.Next(), ++aPlaneIndex)
   {
     const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();

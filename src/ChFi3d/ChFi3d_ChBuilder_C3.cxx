@@ -429,8 +429,8 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
 
   // Creation of a new Stripe for the corner
   Handle(ChFiDS_Stripe) corner    = new ChFiDS_Stripe();
-  Handle(ChFiDS_HData)& cornerset = corner->ChangeSetOfSurfData();
-  cornerset                       = new ChFiDS_HData();
+  Handle(ChamferFilletData)& cornerset = corner->ChangeSetOfSurfData();
+  cornerset                       = new ChamferFilletData();
   Handle(ChFiDS_SurfData) coin    = new ChFiDS_SurfData();
   cornerset->Append(coin);
 
@@ -752,7 +752,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
 
     // le contour a remplir est constitue de courbes isos sur deb et fin
     // de deux pcurves calculees sur piv et la face opposee.
-    Handle(GeomFill_Boundary) Bdeb, Bfin, Bpiv, Bfac;
+    Handle(Boundary2) Bdeb, Bfin, Bpiv, Bfac;
     Standard_Integer          ind1 = fddeb->Interference(jf[deb][pivot]).LineIndex();
     Standard_Integer          ind2 = fdfin->Interference(jf[fin][pivot]).LineIndex();
     Point3d                    Pfin, Pdeb;

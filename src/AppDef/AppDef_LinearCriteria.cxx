@@ -33,9 +33,9 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AppDef_LinearCriteria, AppDef_SmoothCriterion)
+IMPLEMENT_STANDARD_RTTIEXT(AppDef_LinearCriteria, SmoothCriterion)
 
-static Standard_Integer order(const Handle(PLib_Base)& B)
+static Standard_Integer order(const Handle(PolynomialBase)& B)
 {
   return (*(Handle(PLib_HermitJacobi)*)&B)->NivConstr();
 }
@@ -187,7 +187,7 @@ void AppDef_LinearCriteria::GetEstimation(Standard_Real& E1,
 
 //=================================================================================================
 
-Handle(FEmTool_HAssemblyTable) AppDef_LinearCriteria::AssemblyTable() const
+Handle(AssemblyTable1) AppDef_LinearCriteria::AssemblyTable() const
 {
   if (myCurve.IsNull())
     throw Standard_DomainError("AppDef_LinearCriteria::AssemblyTable");
@@ -196,7 +196,7 @@ Handle(FEmTool_HAssemblyTable) AppDef_LinearCriteria::AssemblyTable() const
                    nc1   = order(myCurve->Base()) + 1;
   Standard_Integer MxDeg = myCurve->Base()->WorkDegree();
 
-  Handle(FEmTool_HAssemblyTable) AssTable = new FEmTool_HAssemblyTable(1, NbDim, 1, NbElm);
+  Handle(AssemblyTable1) AssTable = new AssemblyTable1(1, NbDim, 1, NbElm);
 
   Handle(TColStd_HArray1OfInteger) GlobIndex, Aux;
 
@@ -531,7 +531,7 @@ void AppDef_LinearCriteria::Hessian(const Standard_Integer Element,
   Standard_Real    coeff = (ULast - UFirst) / 2., curcoeff, poid;
   Standard_Integer ipnt, ii, degH = 2 * Order + 1;
 
-  Handle(PLib_Base) myBase = myCurve->Base();
+  Handle(PolynomialBase) myBase = myCurve->Base();
   Standard_Integer  k1, k2, i, j, i0 = H.LowerRow(), j0 = H.LowerCol(), i1, j1,
                                  di = myPntWeight.Lower() - myParameters->Lower();
 
@@ -640,7 +640,7 @@ void AppDef_LinearCriteria::Gradient(const Standard_Integer Element,
   Standard_Integer // Deg   = myCurve->Degree(Element),
     Order = order(myCurve->Base());
 
-  Handle(PLib_Base) myBase = myCurve->Base();
+  Handle(PolynomialBase) myBase = myCurve->Base();
   Standard_Integer  MxDeg  = myBase->WorkDegree();
 
   Standard_Real    curcoeff;
@@ -688,7 +688,7 @@ void AppDef_LinearCriteria::Gradient(const Standard_Integer Element,
 //=================================================================================================
 
 void AppDef_LinearCriteria::InputVector(const math_Vector&                    X,
-                                        const Handle(FEmTool_HAssemblyTable)& AssTable)
+                                        const Handle(AssemblyTable1)& AssTable)
 {
   Standard_Integer NbDim = myCurve->Dimension(), NbElm = myCurve->NbElements();
   Standard_Integer MxDeg = 0;
@@ -777,7 +777,7 @@ void AppDef_LinearCriteria::BuildCache(const Standard_Integer Element)
 
   if (IF != 0)
   {
-    Handle(PLib_Base) myBase = myCurve->Base();
+    Handle(PolynomialBase) myBase = myCurve->Base();
     Standard_Integer  order  = myBase->WorkDegree() + 1;
     myCache                  = new TColStd_HArray1OfReal(1, (IL - IF + 1) * (order));
 

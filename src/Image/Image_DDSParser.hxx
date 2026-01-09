@@ -17,7 +17,7 @@
 #include <Image_CompressedPixMap.hxx>
 #include <NCollection_Buffer.hxx>
 
-class Image_SupportedFormats;
+class SupportedFormats;
 
 //! Auxiliary tool for parsing DDS file structure (without decoding).
 class DDSParser
@@ -31,7 +31,7 @@ public:
   //! @param[in] theFileOffset  offset to the DDS data
   //! @return loaded face or NULL if file cannot be read or not valid DDS file
   Standard_EXPORT static Handle(Image_CompressedPixMap) Load(
-    const Handle(Image_SupportedFormats)& theSupported,
+    const Handle(SupportedFormats)& theSupported,
     const AsciiString1&        theFile,
     const Standard_Integer                theFaceIndex,
     const int64_t                         theFileOffset = 0);
@@ -44,7 +44,7 @@ public:
   //!                          use -1 to skip reading the face data
   //! @return loaded face or NULL if file cannot be read or not valid DDS file
   Standard_EXPORT static Handle(Image_CompressedPixMap) Load(
-    const Handle(Image_SupportedFormats)& theSupported,
+    const Handle(SupportedFormats)& theSupported,
     const Handle(NCollection_Buffer)&     theBuffer,
     const Standard_Integer                theFaceIndex);
 

@@ -107,7 +107,7 @@ static void ProjectPointOnCurve(const Standard_Real    InitValue,
                                 const Point3d&          APoint,
                                 const Standard_Real    Tolerance,
                                 const Standard_Integer NumIteration,
-                                const Adaptor3d_Curve& Curve,
+                                const Curve5& Curve,
                                 Standard_Boolean&      Status,
                                 Standard_Real&         Result)
 {
@@ -148,7 +148,7 @@ static void ProjectPointOnCurve(const Standard_Real    InitValue,
 
 //=================================================================================================
 
-static Standard_Real ComputeTolReached(const Handle(Adaptor3d_Curve)&  c3d,
+static Standard_Real ComputeTolReached(const Handle(Curve5)&  c3d,
                                        const Adaptor3d_CurveOnSurface& cons,
                                        const Standard_Integer          nbp)
 {
@@ -191,7 +191,7 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
                               const TColStd_Array1OfReal&     Poles,
                               const Standard_Integer          nbp,
                               const Standard_Real*            pc3d,
-                              const Handle(Adaptor3d_Curve)&  c3d,
+                              const Handle(Curve5)&  c3d,
                               const Adaptor3d_CurveOnSurface& cons,
                               Standard_Real&                  tol,
                               const Standard_Real             oldtol)
@@ -281,9 +281,9 @@ SameParameterTool::SameParameterTool(const Handle(GeomCurve3d)&   C3D,
 
 //=================================================================================================
 
-SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
+SameParameterTool::SameParameterTool(const Handle(Curve5)&   C3D,
                                            const Handle(GeomCurve2d)&      C2D,
-                                           const Handle(Adaptor3d_Surface)& S,
+                                           const Handle(SurfaceAdaptor)& S,
                                            const Standard_Real              Tol)
     : myDeltaMin(Precision1::PConfusion()),
       mySameParameter(Standard_True),
@@ -297,9 +297,9 @@ SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
 
 //=================================================================================================
 
-SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
+SameParameterTool::SameParameterTool(const Handle(Curve5)&   C3D,
                                            const Handle(Adaptor2d_Curve2d)& C2D,
-                                           const Handle(Adaptor3d_Surface)& S,
+                                           const Handle(SurfaceAdaptor)& S,
                                            const Standard_Real              Tol)
     : myDeltaMin(Precision1::PConfusion()),
       mySameParameter(Standard_True),

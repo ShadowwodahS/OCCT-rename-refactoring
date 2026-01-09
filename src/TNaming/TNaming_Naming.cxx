@@ -2194,7 +2194,7 @@ void TNaming_Naming::Restore(const Handle(TDF_Attribute)& other)
 //=================================================================================================
 
 void TNaming_Naming::Paste(const Handle(TDF_Attribute)&       into,
-                           const Handle(TDF_RelocationTable)& RT) const
+                           const Handle(RelocationTable1)& RT) const
 {
   Handle(TNaming_Naming) NewNaming = Handle(TNaming_Naming)::DownCast(into);
   myName.Paste(NewNaming->ChangeName(), RT);

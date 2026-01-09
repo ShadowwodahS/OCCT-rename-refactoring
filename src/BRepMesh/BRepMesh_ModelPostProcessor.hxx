@@ -21,7 +21,7 @@
 
 //! Class implements functionality of model post-processing tool.
 //! Stores polygons on triangulations to TopoEdge.
-class BRepMesh_ModelPostProcessor : public IMeshTools_ModelAlgo
+class BRepMesh_ModelPostProcessor : public ModelAlgorithm
 {
 public:
   //! Constructor.
@@ -30,7 +30,7 @@ public:
   //! Destructor.
   Standard_EXPORT virtual ~BRepMesh_ModelPostProcessor();
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_ModelPostProcessor, IMeshTools_ModelAlgo)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_ModelPostProcessor, ModelAlgorithm)
 
 protected:
   //! Performs processing of edges of the given model.

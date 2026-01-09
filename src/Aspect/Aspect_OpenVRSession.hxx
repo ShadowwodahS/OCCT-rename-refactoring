@@ -87,15 +87,15 @@ public:
 
   //! Fetch data for digital input action (like button).
   Standard_EXPORT virtual XRDigitalActionData GetDigitalActionData(
-    const Handle(Aspect_XRAction)& theAction) const Standard_OVERRIDE;
+    const Handle(XRAction)& theAction) const Standard_OVERRIDE;
 
   //! Fetch data for analog input action (like axis).
   Standard_EXPORT virtual XRAnalogActionData GetAnalogActionData(
-    const Handle(Aspect_XRAction)& theAction) const Standard_OVERRIDE;
+    const Handle(XRAction)& theAction) const Standard_OVERRIDE;
 
   //! Fetch data for pose input action (like fingertip position).
-  Standard_EXPORT virtual Aspect_XRPoseActionData GetPoseActionDataForNextFrame(
-    const Handle(Aspect_XRAction)& theAction) const Standard_OVERRIDE;
+  Standard_EXPORT virtual XRPoseActionData GetPoseActionDataForNextFrame(
+    const Handle(XRAction)& theAction) const Standard_OVERRIDE;
 
   //! Set tracking origin.
   Standard_EXPORT virtual void SetTrackingOrigin(TrackingUniverseOrigin theOrigin)
@@ -126,7 +126,7 @@ protected:
 
   //! Trigger vibration.
   Standard_EXPORT virtual void triggerHapticVibrationAction(
-    const Handle(Aspect_XRAction)&   theAction,
+    const Handle(XRAction)&   theAction,
     const XRHapticActionData& theParams) Standard_OVERRIDE;
 
   //! Return model for displaying device.

@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class HLRAlgo_EdgeStatus;
+class EdgeStatus;
 
 class HLRAlgo_EdgeIterator
 {
@@ -32,7 +32,7 @@ public:
   //! edge.
   Standard_EXPORT HLRAlgo_EdgeIterator();
 
-  Standard_EXPORT void InitHidden(HLRAlgo_EdgeStatus& status);
+  Standard_EXPORT void InitHidden(EdgeStatus& status);
 
   Standard_Boolean MoreHidden() const;
 
@@ -45,7 +45,7 @@ public:
               Standard_Real&      End,
               Standard_ShortReal& TolEnd) const;
 
-  void InitVisible(HLRAlgo_EdgeStatus& status);
+  void InitVisible(EdgeStatus& status);
 
   Standard_Boolean MoreVisible() const;
 
@@ -62,8 +62,8 @@ protected:
 private:
   Standard_Integer    myNbVis;
   Standard_Integer    myNbHid;
-  HLRAlgo_EdgeStatus* EVis;
-  HLRAlgo_EdgeStatus* EHid;
+  EdgeStatus* EVis;
+  EdgeStatus* EHid;
   Standard_Integer    iVis;
   Standard_Integer    iHid;
   Standard_Real       myHidStart;

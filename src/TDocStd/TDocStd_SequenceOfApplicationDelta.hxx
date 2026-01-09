@@ -20,6 +20,6 @@
 #include <TDocStd_ApplicationDelta.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(TDocStd_ApplicationDelta)> TDocStd_SequenceOfApplicationDelta;
+typedef NCollection_Sequence<Handle(ApplicationDelta)> TDocStd_SequenceOfApplicationDelta;
 
 #endif

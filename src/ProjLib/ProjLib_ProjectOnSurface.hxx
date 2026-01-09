@@ -32,24 +32,24 @@ public:
   Standard_EXPORT ProjLib_ProjectOnSurface();
 
   //! Create a projector normally to the surface <S>.
-  Standard_EXPORT ProjLib_ProjectOnSurface(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT ProjLib_ProjectOnSurface(const Handle(SurfaceAdaptor)& S);
 
   Standard_EXPORT virtual ~ProjLib_ProjectOnSurface();
 
   //! Set the Surface to <S>.
   //! To compute the projection, you have to Load the Curve.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Load(const Handle(SurfaceAdaptor)& S);
 
   //! Compute the projection of the curve <C> on the Surface.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Curve)& C, const Standard_Real Tolerance);
+  Standard_EXPORT void Load(const Handle(Curve5)& C, const Standard_Real Tolerance);
 
   Standard_Boolean IsDone() const { return myIsDone; }
 
   Standard_EXPORT Handle(BSplineCurve3d) BSpline() const;
 
 private:
-  Handle(Adaptor3d_Curve)   myCurve;
-  Handle(Adaptor3d_Surface) mySurface;
+  Handle(Curve5)   myCurve;
+  Handle(SurfaceAdaptor) mySurface;
   Standard_Real             myTolerance;
   Standard_Boolean          myIsDone;
   Handle(BSplineCurve3d) myResult;

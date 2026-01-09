@@ -62,7 +62,7 @@ GC_MakeConicalSurface::GC_MakeConicalSurface(const Point3d& P1,
                                              const Point3d& P3,
                                              const Point3d& P4)
 {
-  gce_MakeCone C = gce_MakeCone(P1, P2, P3, P4);
+  ConeBuilder C = ConeBuilder(P1, P2, P3, P4);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
@@ -78,7 +78,7 @@ GC_MakeConicalSurface::GC_MakeConicalSurface(const Point3d&       P1,
                                              const Standard_Real R1,
                                              const Standard_Real R2)
 {
-  gce_MakeCone C = gce_MakeCone(P1, P2, R1, R2);
+  ConeBuilder C = ConeBuilder(P1, P2, R1, R2);
   TheError       = C.Status();
   if (TheError == gce_Done)
   {

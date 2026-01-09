@@ -33,12 +33,12 @@ namespace
 {
 static const Standard_Real Us3 = 0.3333333333333333333333333333;
 
-inline static void D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P)
+inline static void D0(const Curve5& C, const Standard_Real U, Point3d& P)
 {
   C.D0(U, P);
 }
 
-inline static void D2(const Adaptor3d_Curve& C,
+inline static void D2(const Curve5& C,
                       const Standard_Real    U,
                       Point3d&                P,
                       Vector3d&                V1,
@@ -122,7 +122,7 @@ TangentialDeflectionSampler::TangentialDeflectionSampler()
 
 //=================================================================================================
 
-TangentialDeflectionSampler::TangentialDeflectionSampler(const Adaptor3d_Curve& theC,
+TangentialDeflectionSampler::TangentialDeflectionSampler(const Curve5& theC,
                                                          const Standard_Real theAngularDeflection,
                                                          const Standard_Real theCurvatureDeflection,
                                                          const Standard_Integer theMinimumOfPoints,
@@ -146,7 +146,7 @@ TangentialDeflectionSampler::TangentialDeflectionSampler(const Adaptor3d_Curve& 
 
 //=================================================================================================
 
-TangentialDeflectionSampler::TangentialDeflectionSampler(const Adaptor3d_Curve& theC,
+TangentialDeflectionSampler::TangentialDeflectionSampler(const Curve5& theC,
                                                          const Standard_Real    theFirstParameter,
                                                          const Standard_Real    theLastParameter,
                                                          const Standard_Real theAngularDeflection,
@@ -226,7 +226,7 @@ TangentialDeflectionSampler::TangentialDeflectionSampler(const Adaptor2d_Curve2d
 
 //=================================================================================================
 
-void TangentialDeflectionSampler::Initialize(const Adaptor3d_Curve& theC,
+void TangentialDeflectionSampler::Initialize(const Curve5& theC,
                                              const Standard_Real    theAngularDeflection,
                                              const Standard_Real    theCurvatureDeflection,
                                              const Standard_Integer theMinimumOfPoints,
@@ -264,7 +264,7 @@ void TangentialDeflectionSampler::Initialize(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-void TangentialDeflectionSampler::Initialize(const Adaptor3d_Curve& theC,
+void TangentialDeflectionSampler::Initialize(const Curve5& theC,
                                              const Standard_Real    theFirstParameter,
                                              const Standard_Real    theLastParameter,
                                              const Standard_Real    theAngularDeflection,

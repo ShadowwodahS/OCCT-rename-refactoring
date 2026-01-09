@@ -49,7 +49,7 @@ void DrawingWithRotationTool::ReadOwnParams(
   Standard_Integer nbval;
 
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXY)               viewOrigins;
+  Handle(XYArray)               viewOrigins;
   Handle(TColStd_HArray1OfReal)            orientationAngles;
   Handle(HArray1OfIGESEntity)     annotations;
 
@@ -58,7 +58,7 @@ void DrawingWithRotationTool::ReadOwnParams(
   if (st && nbval > 0)
   {
     views             = new HArray1OfViewKindEntity(1, nbval);
-    viewOrigins       = new TColgp_HArray1OfXY(1, nbval);
+    viewOrigins       = new XYArray(1, nbval);
     orientationAngles = new TColStd_HArray1OfReal(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
@@ -170,14 +170,14 @@ void DrawingWithRotationTool::OwnCopy(const Handle(IGESDraw_DrawingWithRotation)
   Standard_Integer                         nbanot;
   Standard_Integer                         nbval;
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXY)               viewOrigins;
+  Handle(XYArray)               viewOrigins;
   Handle(TColStd_HArray1OfReal)            orientationAngles;
   Handle(HArray1OfIGESEntity)     annotations;
 
   nbanot            = another->NbAnnotations();
   nbval             = another->NbViews();
   views             = new HArray1OfViewKindEntity(1, nbval);
-  viewOrigins       = new TColgp_HArray1OfXY(1, nbval);
+  viewOrigins       = new XYArray(1, nbval);
   orientationAngles = new TColStd_HArray1OfReal(1, nbval);
 
   if (nbanot > 0)
@@ -220,12 +220,12 @@ Standard_Boolean DrawingWithRotationTool::OwnCorrect(
   if (nbtrue == nb)
     return Standard_False;
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXY)               viewOrigins;
+  Handle(XYArray)               viewOrigins;
   Handle(TColStd_HArray1OfReal)            orientationAngles;
   if (nbtrue > 0)
   {
     views             = new HArray1OfViewKindEntity(1, nbtrue);
-    viewOrigins       = new TColgp_HArray1OfXY(1, nbtrue);
+    viewOrigins       = new XYArray(1, nbtrue);
     orientationAngles = new TColStd_HArray1OfReal(1, nbtrue);
   }
   nbtrue = 0;

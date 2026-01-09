@@ -57,7 +57,7 @@
 //! Warning
 //! The major radius can be less than the minor radius.
 //! See Also
-//! gce_MakeHypr2d which provides functions for more
+//! HyperbolaBuilder2d which provides functions for more
 //! complex1 hyperbola constructions
 //! Geom2d_Hyperbola which provides additional functions
 //! for constructing hyperbolas and works, in particular, with

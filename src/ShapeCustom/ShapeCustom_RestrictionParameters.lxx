@@ -18,7 +18,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeCustom_RestrictionParameters::GMaxDegree()
+inline Standard_Integer& RestrictionParameters::GMaxDegree()
 {
   return myGMaxDegree;
 }
@@ -28,7 +28,7 @@ inline Standard_Integer& ShapeCustom_RestrictionParameters::GMaxDegree()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeCustom_RestrictionParameters::GMaxSeg()
+inline Standard_Integer& RestrictionParameters::GMaxSeg()
 {
   return myGMaxSeg;
 }
@@ -38,7 +38,7 @@ inline Standard_Integer& ShapeCustom_RestrictionParameters::GMaxSeg()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertPlane()
+inline Standard_Boolean& RestrictionParameters::ConvertPlane()
 {
   return myConvPlane;
 }
@@ -48,7 +48,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertPlane()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertBezierSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertBezierSurf()
 {
   return myConvBezierSurf;
 }
@@ -58,7 +58,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertBezierSurf()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertRevolutionSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertRevolutionSurf()
 {
   return myConvRevolSurf;
 }
@@ -68,7 +68,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertRevolutionSur
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertExtrusionSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertExtrusionSurf()
 {
   return myConvExtrSurf;
 }
@@ -78,7 +78,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertExtrusionSurf
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertOffsetSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertOffsetSurf()
 {
   return myConvOffsetSurf;
 }
@@ -88,7 +88,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertOffsetSurf()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::SegmentSurfaceMode()
+inline Standard_Boolean& RestrictionParameters::SegmentSurfaceMode()
 {
   return mySegmentSurfaceMode;
 }
@@ -98,7 +98,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::SegmentSurfaceMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertCurve3d()
+inline Standard_Boolean& RestrictionParameters::ConvertCurve3d()
 {
   return myConvCurve3d;
 }
@@ -108,7 +108,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertCurve3d()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertOffsetCurv3d()
+inline Standard_Boolean& RestrictionParameters::ConvertOffsetCurv3d()
 {
   return myConvOffsetCurv3d;
 }
@@ -118,7 +118,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertOffsetCurv3d(
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertCurve2d()
+inline Standard_Boolean& RestrictionParameters::ConvertCurve2d()
 {
   return myConvCurve2d;
 }
@@ -128,7 +128,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertCurve2d()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertOffsetCurv2d()
+inline Standard_Boolean& RestrictionParameters::ConvertOffsetCurv2d()
 {
   return myConvOffsetCurv2d;
 }
@@ -137,7 +137,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertOffsetCurv2d(
 // function : ConvertConicalSurface
 // purpose  :
 //=======================================================================
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertConicalSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertConicalSurf()
 {
   return myConvConicalSurf;
 }
@@ -146,7 +146,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertConicalSurf()
 // function : ConvertSphericalSurf
 // purpose  :
 //=======================================================================
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertSphericalSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertSphericalSurf()
 {
   return myConvSphericalSurf;
 }
@@ -155,7 +155,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertSphericalSurf
 // function : ConvertToroidalSurf
 // purpose  :
 //=======================================================================
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertToroidalSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertToroidalSurf()
 {
   return myConvCylindricalSurf;
 }
@@ -164,7 +164,7 @@ inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertToroidalSurf(
 // function : ConvertCylindricalSurf
 // purpose  :
 //=======================================================================
-inline Standard_Boolean& ShapeCustom_RestrictionParameters::ConvertCylindricalSurf()
+inline Standard_Boolean& RestrictionParameters::ConvertCylindricalSurf()
 {
   return myConvToroidalSurf;
 }

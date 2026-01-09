@@ -49,7 +49,7 @@ static void MakeLibName(const AsciiString1& theDefaultName,
 
 //=================================================================================================
 
-BRepMesh_DiscretFactory::BRepMesh_DiscretFactory()
+DiscretizationFactory::DiscretizationFactory()
     : myPluginEntry(NULL),
       myErrorStatus(BRepMesh_FE_NOERROR),
       myDefaultName(THE_FAST_DISCRET_MESH),
@@ -61,30 +61,30 @@ BRepMesh_DiscretFactory::BRepMesh_DiscretFactory()
 
 //=================================================================================================
 
-BRepMesh_DiscretFactory::~BRepMesh_DiscretFactory()
+DiscretizationFactory::~DiscretizationFactory()
 {
   clear();
 }
 
 //=================================================================================================
 
-void BRepMesh_DiscretFactory::clear()
+void DiscretizationFactory::clear()
 {
   // what should we do here? Unload dynamic libraries and reset plugins list?
 }
 
 //=================================================================================================
 
-BRepMesh_DiscretFactory& BRepMesh_DiscretFactory::Get()
+DiscretizationFactory& DiscretizationFactory::Get()
 {
   //! global factory instance
-  static BRepMesh_DiscretFactory THE_GLOBAL_FACTORY;
+  static DiscretizationFactory THE_GLOBAL_FACTORY;
   return THE_GLOBAL_FACTORY;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const AsciiString1& theName,
+Standard_Boolean DiscretizationFactory::SetDefault(const AsciiString1& theName,
                                                      const AsciiString1& theFuncName)
 {
   myErrorStatus = BRepMesh_FE_NOERROR;
@@ -155,7 +155,7 @@ Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const AsciiString1& theName
 
 //=================================================================================================
 
-Handle(BRepMesh_DiscretRoot) BRepMesh_DiscretFactory::Discret(const TopoShape& theShape,
+Handle(BRepMesh_DiscretRoot) DiscretizationFactory::Discret(const TopoShape& theShape,
                                                               const Standard_Real theDeflection,
                                                               const Standard_Real theAngle)
 {

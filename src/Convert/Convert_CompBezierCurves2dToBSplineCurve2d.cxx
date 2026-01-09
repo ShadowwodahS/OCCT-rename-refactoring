@@ -48,7 +48,7 @@ void BezierToBSpline2d::AddCurve(const TColgp_Array1OfPnt2d& Poles)
     //       "BezierToBSpline2d::Addcurve");
   }
   myDone                               = Standard_False;
-  Handle(TColgp_HArray1OfPnt2d) HPoles = new TColgp_HArray1OfPnt2d(Poles.Lower(), Poles.Upper());
+  Handle(Point2dArray) HPoles = new Point2dArray(Poles.Lower(), Poles.Upper());
   HPoles->ChangeArray1()               = Poles;
   mySequence.Append(HPoles);
 }

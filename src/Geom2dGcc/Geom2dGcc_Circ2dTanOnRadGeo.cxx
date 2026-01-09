@@ -127,7 +127,7 @@ Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve& Q
       Coef(2)  = -Radius;
     }
     Domain2                    D1;
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1; jcote1++)
     {
       Handle(Geom2dAdaptor_Curve) HCu1 = new Geom2dAdaptor_Curve(Cu1);
@@ -258,7 +258,7 @@ Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve& Q
                        2. * M_PI,
                        Tol);
     D1.SetEquivalentParameters(0., 2. * M_PI);
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1; jcote1++)
     {
       Handle(Geom2dAdaptor_Curve) HCu1 = new Geom2dAdaptor_Curve(Cu1);
@@ -384,7 +384,7 @@ Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const QualifiedCircle& Qu
       cote1(1) = Radius;
       cote1(2) = -Radius;
     }
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1; jcote1++)
     {
       gp_Circ2d       Circ(C1.XAxis(), R1 + cote1(jcote1));
@@ -531,7 +531,7 @@ Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const QualifiedLine& Qual
       cote1(1) = Radius;
       cote1(2) = -Radius;
     }
-    Geom2dInt_TheIntConicCurveOfGInter Intp;
+    IntConicCurve2d Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1; jcote1++)
     {
       gp_Pnt2d        Point(dir1.XY() + cote1(jcote1) * norm1.XY());
@@ -790,7 +790,7 @@ Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const gp_Pnt2d&          
                        CurveTool3::Value(OnCurv, lastparam),
                        lastparam,
                        Tol);
-    Geom2dInt_TheIntConicCurveOfGInter Intp(Circ, D1, OnCurv, D2, Tol, Tol);
+    IntConicCurve2d Intp(Circ, D1, OnCurv, D2, Tol, Tol);
     if (Intp.IsDone())
     {
       if (!Intp.IsEmpty())

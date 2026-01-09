@@ -22,17 +22,17 @@
 #include <Poly_CoherentLink.hxx>
 #include <NCollection_Vector.hxx>
 
-class Poly_CoherentTriangulation;
+class CoherentTriangulation;
 template <class A>
 class NCollection_List;
 
 typedef NCollection_Vector<CoherentTriangle>::Iterator Poly_BaseIteratorOfCoherentTriangle;
-typedef NCollection_Vector<Poly_CoherentNode>::Iterator     Poly_BaseIteratorOfCoherentNode;
+typedef NCollection_Vector<CoherentNode>::Iterator     Poly_BaseIteratorOfCoherentNode;
 typedef NCollection_Vector<CoherentLink>::Iterator     Poly_BaseIteratorOfCoherentLink;
 
 //! Definition of HANDLE object using Standard_DefineHandle.hxx
 #include <Standard_Type.hxx>
-DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
+DEFINE_STANDARD_HANDLE(CoherentTriangulation, RefObject)
 
 /**
  * Triangulation structure that allows to:
@@ -50,10 +50,10 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * should have coherent orientation like on a surface of a solid body. Connections between more than
  * 2 triangles are not supported.
  *
- * @section Poly_CoherentTriangulation Architecture
+ * @section CoherentTriangulation Architecture
  * The data types used in this structure are:
  * <ul>
- * <li><b>Poly_CoherentNode</b>: Inherits go_XYZ therefore provides the full public API of Coords3d.
+ * <li><b>CoherentNode</b>: Inherits go_XYZ therefore provides the full public API of Coords3d.
  * Contains references to all incident triangles. You can add new nodes but you cannot remove
  * existing ones. However each node that has no referenced triangle is considered as "free" (use the
  * method IsFreeNode() to check this). Free nodes are not available to further processing,
@@ -73,7 +73,7 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * <li><b>CoherentLink</b>: Auxiliary data type. Normally the array of Links is empty, because
  * for many algorithms it is sufficient to define only Triangles. You can explicitly create the
  * Links at least once, calling the method ComputeLinks(). Each Link1 is oriented couple of
- * Poly_CoherentNode (directed to the ascending Node index). It refers two connected triangulated
+ * CoherentNode (directed to the ascending Node index). It refers two connected triangulated
  * Nodes - on the left and on the right, therefore a CoherentLink instance refers the full set
  * of nodes that constitute a couple of connected Triangles. A boundary Link1 has either the first
  * (left) or the second (right) connected node index equal to -1.
@@ -91,18 +91,18 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * corresponding Iterator. Direct access is provided only for Nodes (needed to resolve Node indexed
  * commonly used as reference). Triangles and Links can be retrieved by their index only internally,
  * the public API provides only references or pointers to C++ objects. If you need a direct access
- * to Triangles and Links, you can subclass Poly_CoherentTriangulation and use the protected API for
+ * to Triangles and Links, you can subclass CoherentTriangulation and use the protected API for
  * your needs.
  *
  * Memory management: All data objects are stored in NCollection_Vector containers that prove to be
  * efficient for the performance. In addition references to triangles are stored in ring lists, with
- * an instance of such list per Poly_CoherentNode. These lists are allocated in a memory allocator
- * that is provided in the constructor of Poly_CoherentTriangulation. By default the standard OCCT
+ * an instance of such list per CoherentNode. These lists are allocated in a memory allocator
+ * that is provided in the constructor of CoherentTriangulation. By default the standard OCCT
  * allocator (aka NCollection_BaseAllocator) is used. But if you need to increase the performance
  * you can use NCollection_IncAllocator instead.
  * </ul>
  */
-class Poly_CoherentTriangulation : public RefObject
+class CoherentTriangulation : public RefObject
 {
 public:
   /**
@@ -113,7 +113,7 @@ public:
   {
   public:
     //! Constructor
-    Standard_EXPORT IteratorOfTriangle1(const Handle(Poly_CoherentTriangulation)& theTri);
+    Standard_EXPORT IteratorOfTriangle1(const Handle(CoherentTriangulation)& theTri);
     //! Make step
     Standard_EXPORT virtual void Next();
   };
@@ -125,7 +125,7 @@ public:
   {
   public:
     //! Constructor
-    Standard_EXPORT IteratorOfNode1(const Handle(Poly_CoherentTriangulation)& theTri);
+    Standard_EXPORT IteratorOfNode1(const Handle(CoherentTriangulation)& theTri);
     //! Make step
     Standard_EXPORT virtual void Next();
   };
@@ -137,7 +137,7 @@ public:
   {
   public:
     //! Constructor
-    Standard_EXPORT IteratorOfLink1(const Handle(Poly_CoherentTriangulation)& theTri);
+    Standard_EXPORT IteratorOfLink1(const Handle(CoherentTriangulation)& theTri);
     //! Make step
     Standard_EXPORT virtual void Next();
   };
@@ -162,21 +162,21 @@ public:
   /**
    * Empty constructor.
    */
-  Standard_EXPORT Poly_CoherentTriangulation(
+  Standard_EXPORT CoherentTriangulation(
     const Handle(NCollection_BaseAllocator)& theAlloc = 0L);
 
   /**
    * Constructor. It does not create Links, you should call ComputeLinks
    * following this constructor if you need these links.
    */
-  Standard_EXPORT Poly_CoherentTriangulation(
+  Standard_EXPORT CoherentTriangulation(
     const Handle(MeshTriangulation)&        theTriangulation,
     const Handle(NCollection_BaseAllocator)& theAlloc = 0L);
 
   /**
    * Destructor.
    */
-  Standard_EXPORT virtual ~Poly_CoherentTriangulation();
+  Standard_EXPORT virtual ~CoherentTriangulation();
 
   /**
    * Create an instance of MeshTriangulation from this object.
@@ -243,12 +243,12 @@ public:
   /**
    * Get the node at the given index 'i'.
    */
-  inline const Poly_CoherentNode& Node(const Standard_Integer i) const { return myNodes.Value(i); }
+  inline const CoherentNode& Node(const Standard_Integer i) const { return myNodes.Value(i); }
 
   /**
    * Get the node at the given index 'i'.
    */
-  inline Poly_CoherentNode& ChangeNode(const Standard_Integer i) { return myNodes.ChangeValue(i); }
+  inline CoherentNode& ChangeNode(const Standard_Integer i) { return myNodes.ChangeValue(i); }
 
   /**
    * Query the total number of active nodes (i.e. nodes used by 1 or more
@@ -349,7 +349,7 @@ public:
   /**
    * Create a copy of this Triangulation, using the given allocator.
    */
-  Standard_EXPORT Handle(Poly_CoherentTriangulation) Clone(
+  Standard_EXPORT Handle(CoherentTriangulation) Clone(
     const Handle(NCollection_BaseAllocator)& theAlloc) const;
 
   /**
@@ -364,14 +364,14 @@ protected:
   // ---------- PROTECTED FIELDS ----------
 
   NCollection_Vector<CoherentTriangle> myTriangles;
-  NCollection_Vector<Poly_CoherentNode>     myNodes;
+  NCollection_Vector<CoherentNode>     myNodes;
   NCollection_Vector<CoherentLink>     myLinks;
   Handle(NCollection_BaseAllocator)         myAlloc;
   Standard_Real                             myDeflection;
 
 public:
   // Declaration of CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(Poly_CoherentTriangulation, RefObject)
+  DEFINE_STANDARD_RTTIEXT(CoherentTriangulation, RefObject)
 
   friend class IteratorOfTriangle1;
   friend class IteratorOfNode1;

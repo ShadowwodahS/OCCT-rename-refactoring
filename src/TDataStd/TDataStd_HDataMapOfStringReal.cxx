@@ -17,22 +17,22 @@
 
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringReal, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(StringRealMap, RefObject)
 
 //=======================================================================
-// function : TDataStd_HDataMapOfStringReal
+// function : StringRealMap
 // purpose  : Constructor of empty map
 //=======================================================================
-TDataStd_HDataMapOfStringReal::TDataStd_HDataMapOfStringReal(const Standard_Integer NbBuckets)
+StringRealMap::StringRealMap(const Standard_Integer NbBuckets)
 {
   myMap.ReSize(NbBuckets);
 }
 
 //=======================================================================
-// function : TDataStd_HDataMapOfStringReal
+// function : StringRealMap
 // purpose  : Constructor from already existing map; performs copying
 //=======================================================================
-TDataStd_HDataMapOfStringReal::TDataStd_HDataMapOfStringReal(
+StringRealMap::StringRealMap(
   const TDataStd_DataMapOfStringReal& theOther)
 {
   myMap.Assign(theOther);

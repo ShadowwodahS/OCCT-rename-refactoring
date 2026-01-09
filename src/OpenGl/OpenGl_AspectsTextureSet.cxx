@@ -39,7 +39,7 @@ void OpenGl_AspectsTextureSet::Release(OpenGl_Context* theCtx)
     myTextures[1]->InitZero();
   }
 
-  for (OpenGl_TextureSet::Iterator aTextureIter(myTextures[0]); aTextureIter.More();
+  for (TextureSet2::Iterator aTextureIter(myTextures[0]); aTextureIter.More();
        aTextureIter.Next())
   {
     Handle(OpenGl_Texture)& aTextureRes = aTextureIter.ChangeValue();
@@ -72,7 +72,7 @@ void OpenGl_AspectsTextureSet::Release(OpenGl_Context* theCtx)
 
 void OpenGl_AspectsTextureSet::UpdateRediness(const Handle(Graphic3d_Aspects)& theAspect)
 {
-  const Handle(Graphic3d_TextureSet)& aNewTextureSet = theAspect->TextureSet();
+  const Handle(TextureSet1)& aNewTextureSet = theAspect->TextureSet();
 
   const Standard_Integer aNbTexturesOld = !myTextures[0].IsNull() ? myTextures[0]->Size() : 0;
   Standard_Integer       aNbTexturesNew =
@@ -92,8 +92,8 @@ void OpenGl_AspectsTextureSet::UpdateRediness(const Handle(Graphic3d_Aspects)& t
     return;
   }
 
-  Graphic3d_TextureSet::Iterator aTextureIter(aNewTextureSet);
-  OpenGl_TextureSet::Iterator    aResIter(myTextures[0]);
+  TextureSet1::Iterator aTextureIter(aNewTextureSet);
+  TextureSet2::Iterator    aResIter(myTextures[0]);
   for (; aTextureIter.More(); aResIter.Next(), aTextureIter.Next())
   {
     const Handle(OpenGl_Texture)&       aResource = aResIter.Value();
@@ -135,7 +135,7 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
                                      const Handle(OpenGl_PointSprite)& theSprite,
                                      const Handle(OpenGl_PointSprite)& theSpriteA)
 {
-  const Handle(Graphic3d_TextureSet)& aNewTextureSet = theAspect->TextureSet();
+  const Handle(TextureSet1)& aNewTextureSet = theAspect->TextureSet();
 
   const bool             hasSprite      = theAspect->IsMarkerSprite();
   const Standard_Integer aNbTexturesOld = !myTextures[0].IsNull() ? myTextures[0]->Size() : 0;
@@ -152,7 +152,7 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
     Release(theCtx.get());
     if (aNbTexturesNew > 0)
     {
-      myTextures[0] = new OpenGl_TextureSet(aNbTexturesNew);
+      myTextures[0] = new TextureSet2(aNbTexturesNew);
     }
     else
     {
@@ -173,7 +173,7 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
   {
     if (myTextures[1].IsNull() || myTextures[1]->Size() != myTextures[0]->Size())
     {
-      myTextures[1] = new OpenGl_TextureSet(aNbTexturesNew);
+      myTextures[1] = new TextureSet2(aNbTexturesNew);
     }
     else
     {
@@ -186,8 +186,8 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
   Standard_Integer aPrevTextureUnit = -1;
   if (theAspect->ToMapTexture())
   {
-    Graphic3d_TextureSet::Iterator aTextureIter(aNewTextureSet);
-    OpenGl_TextureSet::Iterator    aResIter0(myTextures[0]);
+    TextureSet1::Iterator aTextureIter(aNewTextureSet);
+    TextureSet2::Iterator    aResIter0(myTextures[0]);
     for (; aTextureIter.More(); aResIter0.Next(), aTextureIter.Next())
     {
       Handle(OpenGl_Texture)&             aResource = aResIter0.ChangeValue();
@@ -290,7 +290,7 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
   }
 
   myTextures[1]->ChangeTextureSetBits() = aTextureSetBits;
-  for (OpenGl_TextureSet::Iterator aResIter0(myTextures[0]), aResIter1(myTextures[1]);
+  for (TextureSet2::Iterator aResIter0(myTextures[0]), aResIter1(myTextures[1]);
        aResIter0.More();
        aResIter0.Next(), aResIter1.Next())
   {

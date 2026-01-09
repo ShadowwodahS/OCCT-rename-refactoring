@@ -50,7 +50,7 @@ static Standard_Integer Ascendants(DrawInterpreter& di, Standard_Integer n, cons
 
   char name[100];
 
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   //  Handle(TNaming_UsedShapes) US;
 
   if (!DDF1::GetDF(a[1], ND))
@@ -93,7 +93,7 @@ static Standard_Integer Descendants(DrawInterpreter& di, Standard_Integer n, con
     return 1;
 
   char             name[100];
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   //  Handle(TNaming_UsedShapes) US;
   if (!DDF1::GetDF(a[1], ND))
     return 1;
@@ -132,7 +132,7 @@ static Standard_Integer Getentry(DrawInterpreter& di, Standard_Integer n, const 
 {
   if (n < 3)
     return 1;
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   //  Handle(TNaming_UsedShapes) US;
 
   if (!DDF1::GetDF(a[1], ND))
@@ -172,7 +172,7 @@ static Standard_Integer NamedShape1(DrawInterpreter& di, Standard_Integer n, con
 {
   if (n < 3)
     return 1;
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   //  Handle(TNaming_UsedShapes) US;
 
   if (!DDF1::GetDF(a[1], ND))
@@ -205,7 +205,7 @@ static Standard_Integer Currentshape(DrawInterpreter&, Standard_Integer n, const
   if (n < 4)
     return 1;
 
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   if (!DDF1::GetDF(a[1], ND))
     return 1;
 
@@ -229,7 +229,7 @@ static Standard_Integer Initialshape(DrawInterpreter& di, Standard_Integer n, co
   if (n < 4)
     return 1;
 
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
 
   if (!DDF1::GetDF(a[1], ND))
     return 1;
@@ -270,7 +270,7 @@ static Standard_Integer Exploreshape(DrawInterpreter& di, Standard_Integer n, co
 
   if (n < 4)
     return 1;
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   //  Handle(TNaming_UsedShapes) US;
 
   if (!DDF1::GetDF(a[1], ND))
@@ -333,7 +333,7 @@ static Standard_Integer Generatedshape(DrawInterpreter& di, Standard_Integer nb,
   Handle(ShapeAttribute) A;
   if (nb >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     TopoShape               Gen = DBRep1::Get(arg[2]);
@@ -362,7 +362,7 @@ static Standard_Integer Getshape(DrawInterpreter& di, Standard_Integer nb, const
   Handle(ShapeAttribute) A;
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     if (!DDF1::Find(DF, arg[2], ShapeAttribute::GetID(), A))
@@ -391,7 +391,7 @@ static Standard_Integer Collect(DrawInterpreter& di, Standard_Integer nb, const 
 
   if (nb >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     if (!DDF1::Find(DF, arg[2], ShapeAttribute::GetID(), A))
@@ -420,7 +420,7 @@ static Standard_Integer Getcreationentry(DrawInterpreter& di, Standard_Integer n
 {
   if (n < 3)
     return 1;
-  Handle(TDF_Data) ND;
+  Handle(Data2) ND;
   //  Handle(TNaming_UsedShapes) US;
 
   if (!DDF1::GetDF(a[1], ND))

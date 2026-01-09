@@ -27,7 +27,7 @@
 class Adaptor2d_Curve2d;
 class Geom2dCurveTool;
 class ProjPCurOfGInter;
-class Geom2dInt_TheIntPCurvePCurveOfGInter;
+class IntPCurvePCurve2d;
 class Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter;
 class Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter;
 

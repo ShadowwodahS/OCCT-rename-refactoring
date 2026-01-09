@@ -25,9 +25,9 @@
 #include <GeomAdaptor_Curve.hxx>
 #include <Extrema_ExtPC.hxx>
 #include <gp_Pnt.hxx>
-class GeomFill_LocationLaw;
+class LocationLaw;
 class GeomCurve3d;
-class Geom_Geometry;
+class Geometry3;
 class Transform3d;
 class gp_Mat;
 class Vector3d;
@@ -38,15 +38,15 @@ class GeomFill_SectionPlacement
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_SectionPlacement(const Handle(GeomFill_LocationLaw)& L,
-                                            const Handle(Geom_Geometry)&        Section);
+  Standard_EXPORT GeomFill_SectionPlacement(const Handle(LocationLaw)& L,
+                                            const Handle(Geometry3)&        Section);
 
   //! To change the section Law1
-  Standard_EXPORT void SetLocation(const Handle(GeomFill_LocationLaw)& L);
+  Standard_EXPORT void SetLocation(const Handle(LocationLaw)& L);
 
   Standard_EXPORT void Perform(const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Curve)& Path, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Handle(Curve5)& Path, const Standard_Real Tol);
 
   Standard_EXPORT void Perform(const Standard_Real ParamOnPath, const Standard_Real Tol);
 
@@ -87,7 +87,7 @@ private:
   Standard_Boolean             isplan;
   Axis3d                       TheAxe;
   Standard_Real                Gabarit;
-  Handle(GeomFill_LocationLaw) myLaw;
+  Handle(LocationLaw) myLaw;
   GeomAdaptor_Curve            myAdpSection;
   Handle(GeomCurve3d)           mySection;
   Standard_Real                SecParam;

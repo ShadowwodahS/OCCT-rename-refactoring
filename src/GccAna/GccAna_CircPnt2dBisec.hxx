@@ -26,7 +26,7 @@
 #include <gp_Circ2d.hxx>
 #include <gp_Pnt2d.hxx>
 #include <Standard_Real.hxx>
-class GccInt_Bisec;
+class Bisector2;
 
 //! Describes functions for building a bisecting curve
 //! between a 2D circle and a point.
@@ -65,7 +65,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if Index is less than zero or
   //! greater than the number of solutions computed by this algorithm.
-  Standard_EXPORT Handle(GccInt_Bisec) ThisSolution(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(Bisector2) ThisSolution(const Standard_Integer Index) const;
 
 protected:
 private:

@@ -43,8 +43,8 @@ void IntWalk_PWalking::ComputePasInit(const Standard_Real theDeltaU1,
 {
   const Standard_Real              aRangePart = 0.01;
   const Standard_Real              Increment  = 2.0 * pasMax;
-  const Handle(Adaptor3d_Surface)& Caro1      = myIntersectionOn2S.Function().AuxillarSurface1();
-  const Handle(Adaptor3d_Surface)& Caro2      = myIntersectionOn2S.Function().AuxillarSurface2();
+  const Handle(SurfaceAdaptor)& Caro1      = myIntersectionOn2S.Function().AuxillarSurface1();
+  const Handle(SurfaceAdaptor)& Caro2      = myIntersectionOn2S.Function().AuxillarSurface2();
 
   const Standard_Real aDeltaU1 = Abs(UM1 - Um1);
   const Standard_Real aDeltaV1 = Abs(VM1 - Vm1);
@@ -100,7 +100,7 @@ void IntWalk_PWalking::ComputePasInit(const Standard_Real theDeltaU1,
 //            are almost equal) are classified as parallel (as same as
 //            any point can be considered as parallel of any line).
 //=======================================================================
-static void IsParallel(const Handle(IntSurf_LineOn2S)& theLine,
+static void IsParallel(const Handle(LineOnTwoSurfaces)& theLine,
                        const Standard_Boolean          theCheckSurf1,
                        const Standard_Real             theToler,
                        Standard_Boolean&               theIsUparallel,
@@ -187,8 +187,8 @@ static Standard_Boolean AdjustToDomain(const Standard_Integer     theNbElem,
 
 //=================================================================================================
 
-IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
-                                   const Handle(Adaptor3d_Surface)& Caro2,
+IntWalk_PWalking::IntWalk_PWalking(const Handle(SurfaceAdaptor)& Caro1,
+                                   const Handle(SurfaceAdaptor)& Caro2,
                                    const Standard_Real              TolTangency,
                                    const Standard_Real              Epsilon,
                                    const Standard_Real              Deflection,
@@ -368,8 +368,8 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
 
 //=================================================================================================
 
-IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
-                                   const Handle(Adaptor3d_Surface)& Caro2,
+IntWalk_PWalking::IntWalk_PWalking(const Handle(SurfaceAdaptor)& Caro1,
+                                   const Handle(SurfaceAdaptor)& Caro2,
                                    const Standard_Real              TolTangency,
                                    const Standard_Real              Epsilon,
                                    const Standard_Real              Deflection,
@@ -608,7 +608,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep)
 //            (theU0, theV0) is initial point for extrema
 //=======================================================================
 static Standard_Real SQDistPointSurface(const Point3d&            thePnt,
-                                        const Adaptor3d_Surface& theSurf,
+                                        const SurfaceAdaptor& theSurf,
                                         const Standard_Real      theU0,
                                         const Standard_Real      theV0)
 {
@@ -627,8 +627,8 @@ static Standard_Real SQDistPointSurface(const Point3d&            thePnt,
 //            Checks if any point in one surface lie in another surface
 //            (with given tolerance)
 //==================================================================================
-static Standard_Boolean IsTangentExtCheck(const Handle(Adaptor3d_Surface)& theSurf1,
-                                          const Handle(Adaptor3d_Surface)& theSurf2,
+static Standard_Boolean IsTangentExtCheck(const Handle(SurfaceAdaptor)& theSurf1,
+                                          const Handle(SurfaceAdaptor)& theSurf2,
                                           const Standard_Real              theU10,
                                           const Standard_Real              theV10,
                                           const Standard_Real              theU20,
@@ -717,8 +717,8 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
   done = Standard_False;
   //
   // Caro1 and Caro2
-  const Handle(Adaptor3d_Surface)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
-  const Handle(Adaptor3d_Surface)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
+  const Handle(SurfaceAdaptor)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
+  const Handle(SurfaceAdaptor)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
   //
   const Standard_Real UFirst1 = HSurfaceTool::FirstUParameter(Caro1);
   const Standard_Real VFirst1 = HSurfaceTool::FirstVParameter(Caro1);
@@ -742,7 +742,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
     pasInit[i] = pasSav[i] = pasuv[i];
   }
   //
-  line = new IntSurf_LineOn2S();
+  line = new LineOnTwoSurfaces();
   //
   for (Standard_Integer i = 1; i <= 4; ++i)
   {
@@ -1755,8 +1755,8 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
   const Standard_Boolean          theDirectionFlag)
 {
   // Caro1 and Caro2
-  const Handle(Adaptor3d_Surface)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
-  const Handle(Adaptor3d_Surface)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
+  const Handle(SurfaceAdaptor)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
+  const Handle(SurfaceAdaptor)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
   //
   const Standard_Real UFirst1 = HSurfaceTool::FirstUParameter(Caro1);
   const Standard_Real VFirst1 = HSurfaceTool::FirstVParameter(Caro1);
@@ -2265,8 +2265,8 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
 //  theInit should be initialized before function calling.
 //=======================================================================
 Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
-  const Handle(Adaptor3d_Surface)& theASurf1,
-  const Handle(Adaptor3d_Surface)& theASurf2,
+  const Handle(SurfaceAdaptor)& theASurf1,
+  const Handle(SurfaceAdaptor)& theASurf2,
   TColStd_Array1OfReal&            theInit,
   const Standard_Real*             theStep0)
 {
@@ -2400,7 +2400,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
 //    before the function calling.
 //=======================================================================
 Standard_Boolean IntWalk_PWalking::DistanceMinimizeByExtrema(
-  const Handle(Adaptor3d_Surface)& theASurf,
+  const Handle(SurfaceAdaptor)& theASurf,
   const Point3d&                    theP0,
   Standard_Real&                   theU0,
   Standard_Real&                   theV0,
@@ -2452,8 +2452,8 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByExtrema(
 //=================================================================================================
 
 Standard_Boolean IntWalk_PWalking::HandleSingleSingularPoint(
-  const Handle(Adaptor3d_Surface)& theASurf1,
-  const Handle(Adaptor3d_Surface)& theASurf2,
+  const Handle(SurfaceAdaptor)& theASurf1,
+  const Handle(SurfaceAdaptor)& theASurf2,
   const Standard_Real              the3DTol,
   TColStd_Array1OfReal&            thePnt)
 {
@@ -2491,7 +2491,7 @@ Standard_Boolean IntWalk_PWalking::HandleSingleSingularPoint(
 
       Standard_Real aPars[4];
       anInt.Point().Parameters(aPars[0], aPars[1], aPars[2], aPars[3]);
-      Handle(Adaptor3d_Surface) aSurfs[2] = {theASurf1, theASurf2};
+      Handle(SurfaceAdaptor) aSurfs[2] = {theASurf1, theASurf2};
       // Local resolutions
       Standard_Real    aTol2 = the3DTol * the3DTol;
       Point3d           aP;
@@ -2567,8 +2567,8 @@ Standard_Boolean IntWalk_PWalking::HandleSingleSingularPoint(
 
 //=================================================================================================
 
-Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Surface)& theASurf1,
-                                                       const Handle(Adaptor3d_Surface)& theASurf2,
+Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(SurfaceAdaptor)& theASurf1,
+                                                       const Handle(SurfaceAdaptor)& theASurf2,
                                                        const Standard_Real              theU1,
                                                        const Standard_Real              theV1,
                                                        const Standard_Real              theU2,
@@ -2791,8 +2791,8 @@ Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Su
 
 //=================================================================================================
 
-Standard_Boolean IntWalk_PWalking::PutToBoundary(const Handle(Adaptor3d_Surface)& theASurf1,
-                                                 const Handle(Adaptor3d_Surface)& theASurf2)
+Standard_Boolean IntWalk_PWalking::PutToBoundary(const Handle(SurfaceAdaptor)& theASurf1,
+                                                 const Handle(SurfaceAdaptor)& theASurf2)
 {
   constexpr Standard_Real aTolMin = Precision1::Confusion();
 
@@ -2997,8 +2997,8 @@ Standard_Boolean IntWalk_PWalking::PutToBoundary(const Handle(Adaptor3d_Surface)
 
 //=================================================================================================
 
-Standard_Boolean IntWalk_PWalking::SeekAdditionalPoints(const Handle(Adaptor3d_Surface)& theASurf1,
-                                                        const Handle(Adaptor3d_Surface)& theASurf2,
+Standard_Boolean IntWalk_PWalking::SeekAdditionalPoints(const Handle(SurfaceAdaptor)& theASurf1,
+                                                        const Handle(SurfaceAdaptor)& theASurf2,
                                                         const Standard_Integer theMinNbPoints)
 {
   const Standard_Real aTol      = 1.0e-14;
@@ -3264,8 +3264,8 @@ IntWalk_StatusDeflection IntWalk_PWalking::TestDeflection(const IntImp_ConstIsop
   Standard_Real            FlecheCourante, Ratio = 1.0;
 
   // Caro1 and Caro2
-  const Handle(Adaptor3d_Surface)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
-  const Handle(Adaptor3d_Surface)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
+  const Handle(SurfaceAdaptor)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
+  const Handle(SurfaceAdaptor)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
 
   const PointOn2Surfaces& CurrentPoint = myIntersectionOn2S.Point();
   //==================================================================================

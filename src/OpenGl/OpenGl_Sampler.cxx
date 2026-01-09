@@ -20,11 +20,11 @@
 #include <OpenGl_Texture.hxx>
 #include <Standard_Assert.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Sampler, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Sampler, Resource)
 
 //=================================================================================================
 
-OpenGl_Sampler::OpenGl_Sampler(const Handle(Graphic3d_TextureParams)& theParams)
+OpenGl_Sampler::OpenGl_Sampler(const Handle(TextureParams)& theParams)
     : myParams(theParams),
       mySamplerRevision(0),
       mySamplerID(NO_SAMPLER),
@@ -32,7 +32,7 @@ OpenGl_Sampler::OpenGl_Sampler(const Handle(Graphic3d_TextureParams)& theParams)
 {
   if (myParams.IsNull())
   {
-    myParams = new Graphic3d_TextureParams();
+    myParams = new TextureParams();
   }
 }
 
@@ -161,7 +161,7 @@ void OpenGl_Sampler::setParameter(const Handle(OpenGl_Context)& theCtx,
 
 //=================================================================================================
 
-void OpenGl_Sampler::SetParameters(const Handle(Graphic3d_TextureParams)& theParams)
+void OpenGl_Sampler::SetParameters(const Handle(TextureParams)& theParams)
 {
   if (myParams != theParams)
   {
@@ -173,7 +173,7 @@ void OpenGl_Sampler::SetParameters(const Handle(Graphic3d_TextureParams)& thePar
 //=================================================================================================
 
 void OpenGl_Sampler::applySamplerParams(const Handle(OpenGl_Context)&          theCtx,
-                                        const Handle(Graphic3d_TextureParams)& theParams,
+                                        const Handle(TextureParams)& theParams,
                                         OpenGl_Sampler*                        theSampler,
                                         const unsigned int                     theTarget,
                                         const Standard_Integer                 theMaxMipLevels)
@@ -261,7 +261,7 @@ void OpenGl_Sampler::applySamplerParams(const Handle(OpenGl_Context)&          t
 
 void OpenGl_Sampler::applyGlobalTextureParams(const Handle(OpenGl_Context)&          theCtx,
                                               const OpenGl_Texture&                  theTexture,
-                                              const Handle(Graphic3d_TextureParams)& theParams)
+                                              const Handle(TextureParams)& theParams)
 {
   if (theCtx->core11ffp == NULL || theParams->TextureUnit() >= theCtx->MaxTextureUnitsFFP())
   {
@@ -362,7 +362,7 @@ void OpenGl_Sampler::applyGlobalTextureParams(const Handle(OpenGl_Context)&     
 
 void OpenGl_Sampler::resetGlobalTextureParams(const Handle(OpenGl_Context)&          theCtx,
                                               const OpenGl_Texture&                  theTexture,
-                                              const Handle(Graphic3d_TextureParams)& theParams)
+                                              const Handle(TextureParams)& theParams)
 {
   if (theCtx->core11ffp == NULL)
   {

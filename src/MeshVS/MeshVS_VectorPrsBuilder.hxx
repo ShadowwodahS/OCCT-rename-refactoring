@@ -24,7 +24,7 @@
 
 class MeshVS_Mesh;
 class Color1;
-class MeshVS_DataSource;
+class MeshDataSource;
 class Transform3d;
 class Graphic3d_ArrayOfPrimitives;
 class Vector3d;
@@ -43,7 +43,7 @@ public:
     const Standard_Real              MaxLength,
     const Color1&            VectorColor,
     const MeshVS_DisplayModeFlags&   Flags       = MeshVS_DMF_VectorDataPrs,
-    const Handle(MeshVS_DataSource)& DS          = 0,
+    const Handle(MeshDataSource)& DS          = 0,
     const Standard_Integer           Id          = -1,
     const MeshVS_BuilderPriority&    Priority    = MeshVS_BP_Vector,
     const Standard_Boolean           IsSimplePrs = Standard_False);

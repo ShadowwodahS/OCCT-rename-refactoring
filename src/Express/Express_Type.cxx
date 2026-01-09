@@ -15,40 +15,40 @@
 
 #include <Express_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_Type, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ExpressType, RefObject)
 
 //=================================================================================================
 
-Express_Type::Express_Type() {}
+ExpressType::ExpressType() {}
 
 //=================================================================================================
 
-Standard_Boolean Express_Type::IsStandard() const
+Standard_Boolean ExpressType::IsStandard() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean Express_Type::IsSimple() const
+Standard_Boolean ExpressType::IsSimple() const
 {
   return IsStandard();
 }
 
 //=================================================================================================
 
-Standard_Boolean Express_Type::IsHandle() const
+Standard_Boolean ExpressType::IsHandle() const
 {
   return !IsSimple();
 }
 
 //=================================================================================================
 
-Standard_Boolean Express_Type::Use() const
+Standard_Boolean ExpressType::Use() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-void Express_Type::Use2(const AsciiString1&, const AsciiString1&) const {}
+void ExpressType::Use2(const AsciiString1&, const AsciiString1&) const {}

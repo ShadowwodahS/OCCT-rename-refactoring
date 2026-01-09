@@ -28,7 +28,7 @@ class CurveTool5;
 class math_Matrix;
 
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter
-    : public math_FunctionSetWithDerivatives
+    : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC

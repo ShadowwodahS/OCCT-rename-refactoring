@@ -26,8 +26,8 @@
 #include <Standard_Transient.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class HLRAlgo_EdgesBlock;
-DEFINE_STANDARD_HANDLE(HLRAlgo_EdgesBlock, RefObject)
+class EdgesBlock;
+DEFINE_STANDARD_HANDLE(EdgesBlock, RefObject)
 
 //! An EdgesBlock is a set of Edges. It is used by the
 //! DataStructure to structure the Edges.
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(HLRAlgo_EdgesBlock, RefObject)
 //! Internal
 //! Double
 //! IsoLine)
-class HLRAlgo_EdgesBlock : public RefObject
+class EdgesBlock : public RefObject
 {
 
 public:
@@ -83,7 +83,7 @@ public:
   };
 
   //! Create a Block1 of Edges for a wire.
-  Standard_EXPORT HLRAlgo_EdgesBlock(const Standard_Integer NbEdges);
+  Standard_EXPORT EdgesBlock(const Standard_Integer NbEdges);
 
   Standard_Integer NbEdges() const { return myEdges.Upper(); }
 
@@ -158,7 +158,7 @@ public:
 
   MinMaxIndices1& MinMax() { return myMinMax; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, RefObject)
+  DEFINE_STANDARD_RTTIEXT(EdgesBlock, RefObject)
 
 protected:
   enum EMskFlags

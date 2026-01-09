@@ -29,7 +29,7 @@
 #include <Extrema_LocEPCOfLocateExtPC.hxx>
 #include <Extrema_PCLocFOfLocEPCOfLocateExtPC.hxx>
 
-#define TheCurve Adaptor3d_Curve
+#define TheCurve Curve5
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
 #define TheCurveTool CurveTool4
 #define TheCurveTool_hxx <Extrema_CurveTool.hxx>

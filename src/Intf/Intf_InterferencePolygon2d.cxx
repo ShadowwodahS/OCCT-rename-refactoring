@@ -31,11 +31,11 @@ static const Standard_Real PRCANG = Precision1::Angular();
 }
 
 //=======================================================================
-// function : Intf_InterferencePolygon2d
+// function : InterferencePolygon2d
 // purpose  : constructor empty
 //=======================================================================
 
-Intf_InterferencePolygon2d::Intf_InterferencePolygon2d()
+InterferencePolygon2d::InterferencePolygon2d()
     : Intf_Interference(Standard_False),
       oClos(Standard_False),
       tClos(Standard_False),
@@ -44,12 +44,12 @@ Intf_InterferencePolygon2d::Intf_InterferencePolygon2d()
 }
 
 //=======================================================================
-// function : Intf_InterferencePolygon2d
+// function : InterferencePolygon2d
 // purpose  : Constructor of the interference between two Polygon.
 //=======================================================================
 
-Intf_InterferencePolygon2d::Intf_InterferencePolygon2d(const Intf_Polygon2d& Obje1,
-                                                       const Intf_Polygon2d& Obje2)
+InterferencePolygon2d::InterferencePolygon2d(const Polygon2d& Obje1,
+                                                       const Polygon2d& Obje2)
     : Intf_Interference(Standard_False),
       oClos(Standard_False),
       tClos(Standard_False),
@@ -69,11 +69,11 @@ Intf_InterferencePolygon2d::Intf_InterferencePolygon2d(const Intf_Polygon2d& Obj
 }
 
 //=======================================================================
-// function : Intf_InterferencePolygon2d
+// function : InterferencePolygon2d
 // purpose  : Constructor of the auto interference of a Polygon.
 //=======================================================================
 
-Intf_InterferencePolygon2d::Intf_InterferencePolygon2d(const Intf_Polygon2d& Obje)
+InterferencePolygon2d::InterferencePolygon2d(const Polygon2d& Obje)
     : Intf_Interference(Standard_True),
       oClos(Standard_False),
       tClos(Standard_False),
@@ -90,7 +90,7 @@ Intf_InterferencePolygon2d::Intf_InterferencePolygon2d(const Intf_Polygon2d& Obj
 
 //=================================================================================================
 
-void Intf_InterferencePolygon2d::Perform(const Intf_Polygon2d& Obje1, const Intf_Polygon2d& Obje2)
+void InterferencePolygon2d::Perform(const Polygon2d& Obje1, const Polygon2d& Obje2)
 {
   SelfInterference(Standard_False);
   if (!Obje1.Bounding().IsOut(Obje2.Bounding()))
@@ -108,7 +108,7 @@ void Intf_InterferencePolygon2d::Perform(const Intf_Polygon2d& Obje1, const Intf
 
 //=================================================================================================
 
-void Intf_InterferencePolygon2d::Perform(const Intf_Polygon2d& Obje)
+void InterferencePolygon2d::Perform(const Polygon2d& Obje)
 {
   SelfInterference(Standard_True);
   Tolerance = Obje.DeflectionOverEstimation() * 2;
@@ -125,15 +125,15 @@ void Intf_InterferencePolygon2d::Perform(const Intf_Polygon2d& Obje)
 // purpose  : Give the section point of range Index in the interference.
 //=======================================================================
 
-gp_Pnt2d Intf_InterferencePolygon2d::Pnt2dValue(const Standard_Integer Index) const
+gp_Pnt2d InterferencePolygon2d::Pnt2dValue(const Standard_Integer Index) const
 {
   return gp_Pnt2d((mySPoins(Index)).Pnt().X(), (mySPoins(Index)).Pnt().Y());
 }
 
 //=================================================================================================
 
-void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje1,
-                                              const Intf_Polygon2d& Obje2)
+void InterferencePolygon2d::Interference(const Polygon2d& Obje1,
+                                              const Polygon2d& Obje2)
 {
   Bnd_Box2d bSO;
   Bnd_Box2d bST;
@@ -167,7 +167,7 @@ void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje1,
 
 //=================================================================================================
 
-void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje)
+void InterferencePolygon2d::Interference(const Polygon2d& Obje)
 {
   Bnd_Box2d bSO;
   Bnd_Box2d bST;
@@ -201,7 +201,7 @@ void Intf_InterferencePolygon2d::Interference(const Intf_Polygon2d& Obje)
 
 //=================================================================================================
 
-void Intf_InterferencePolygon2d::Clean()
+void InterferencePolygon2d::Clean()
 {
 
   // The zones of tangency that concerns only one couple of segments are
@@ -292,7 +292,7 @@ void Intf_InterferencePolygon2d::Clean()
 
 //=================================================================================================
 
-void Intf_InterferencePolygon2d::Intersect(const Standard_Integer iObje1,
+void InterferencePolygon2d::Intersect(const Standard_Integer iObje1,
                                            const Standard_Integer iObje2,
                                            const gp_Pnt2d&        BegO,
                                            const gp_Pnt2d&        EndO,

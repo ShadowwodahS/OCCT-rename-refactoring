@@ -21,44 +21,44 @@
 #include <gp_Vec2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Transformation, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Transformation2d, RefObject)
 
-typedef Geom2d_Transformation Transformation;
+typedef Transformation2d Transformation;
 typedef gp_Ax2d               Ax2d;
 typedef gp_Pnt2d              Pnt2d;
 typedef gp_TrsfForm           TrsfForm;
 typedef gp_Vec2d              Vec2d;
 
-Handle(Geom2d_Transformation) Geom2d_Transformation::Copy() const
+Handle(Transformation2d) Transformation2d::Copy() const
 {
 
-  Handle(Geom2d_Transformation) T;
+  Handle(Transformation2d) T;
   T = new Transformation(gpTrsf2d);
   return T;
 }
 
-Geom2d_Transformation::Geom2d_Transformation() {}
+Transformation2d::Transformation2d() {}
 
-Geom2d_Transformation::Geom2d_Transformation(const Transform2d& T)
+Transformation2d::Transformation2d(const Transform2d& T)
     : gpTrsf2d(T)
 {
 }
 
-Handle(Geom2d_Transformation) Geom2d_Transformation::Inverted() const
+Handle(Transformation2d) Transformation2d::Inverted() const
 {
 
   return new Transformation(gpTrsf2d.Inverted());
 }
 
-Handle(Geom2d_Transformation) Geom2d_Transformation::Multiplied(
+Handle(Transformation2d) Transformation2d::Multiplied(
 
-  const Handle(Geom2d_Transformation)& Other) const
+  const Handle(Transformation2d)& Other) const
 {
 
   return new Transformation(gpTrsf2d.Multiplied(Other->Trsf2d()));
 }
 
-Handle(Geom2d_Transformation) Geom2d_Transformation::Powered(const Standard_Integer N) const
+Handle(Transformation2d) Transformation2d::Powered(const Standard_Integer N) const
 {
 
   Transform2d Temp = gpTrsf2d;
@@ -66,111 +66,111 @@ Handle(Geom2d_Transformation) Geom2d_Transformation::Powered(const Standard_Inte
   return new Transformation(Temp);
 }
 
-void Geom2d_Transformation::SetMirror(const gp_Pnt2d& P)
+void Transformation2d::SetMirror(const gp_Pnt2d& P)
 {
 
   gpTrsf2d.SetMirror(P);
 }
 
-void Geom2d_Transformation::SetMirror(const gp_Ax2d& A)
+void Transformation2d::SetMirror(const gp_Ax2d& A)
 {
 
   gpTrsf2d.SetMirror(A);
 }
 
-void Geom2d_Transformation::SetRotation(const gp_Pnt2d& P, const Standard_Real Ang)
+void Transformation2d::SetRotation(const gp_Pnt2d& P, const Standard_Real Ang)
 {
 
   gpTrsf2d.SetRotation(P, Ang);
 }
 
-void Geom2d_Transformation::SetScale(const gp_Pnt2d& P, const Standard_Real S)
+void Transformation2d::SetScale(const gp_Pnt2d& P, const Standard_Real S)
 {
 
   gpTrsf2d.SetScale(P, S);
 }
 
-void Geom2d_Transformation::SetTransformation(const gp_Ax2d& ToAxis)
+void Transformation2d::SetTransformation(const gp_Ax2d& ToAxis)
 {
 
   gpTrsf2d.SetTransformation(ToAxis);
 }
 
-void Geom2d_Transformation::SetTransformation(const gp_Ax2d& FromAxis1, const gp_Ax2d& ToAxis2)
+void Transformation2d::SetTransformation(const gp_Ax2d& FromAxis1, const gp_Ax2d& ToAxis2)
 {
 
   gpTrsf2d.SetTransformation(FromAxis1, ToAxis2);
 }
 
-void Geom2d_Transformation::SetTranslation(const gp_Vec2d& V)
+void Transformation2d::SetTranslation(const gp_Vec2d& V)
 {
 
   gpTrsf2d.SetTranslation(V);
 }
 
-void Geom2d_Transformation::SetTranslation(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
+void Transformation2d::SetTranslation(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
 
   gpTrsf2d.SetTranslation(P1, P2);
 }
 
-void Geom2d_Transformation::SetTrsf2d(const Transform2d& T)
+void Transformation2d::SetTrsf2d(const Transform2d& T)
 {
   gpTrsf2d = T;
 }
 
-Standard_Boolean Geom2d_Transformation::IsNegative() const
+Standard_Boolean Transformation2d::IsNegative() const
 {
 
   return gpTrsf2d.IsNegative();
 }
 
-TrsfForm Geom2d_Transformation::Form() const
+TrsfForm Transformation2d::Form() const
 {
   return gpTrsf2d.Form();
 }
 
-Standard_Real Geom2d_Transformation::ScaleFactor() const
+Standard_Real Transformation2d::ScaleFactor() const
 {
 
   return gpTrsf2d.ScaleFactor();
 }
 
-Transform2d Geom2d_Transformation::Trsf2d() const
+Transform2d Transformation2d::Trsf2d() const
 {
   return gpTrsf2d;
 }
 
-Standard_Real Geom2d_Transformation::Value(const Standard_Integer Row,
+Standard_Real Transformation2d::Value(const Standard_Integer Row,
                                            const Standard_Integer Col) const
 {
 
   return gpTrsf2d.Value(Row, Col);
 }
 
-void Geom2d_Transformation::Invert()
+void Transformation2d::Invert()
 {
   gpTrsf2d.Invert();
 }
 
-void Geom2d_Transformation::Transforms(Standard_Real& X, Standard_Real& Y) const
+void Transformation2d::Transforms(Standard_Real& X, Standard_Real& Y) const
 {
 
   gpTrsf2d.Transforms(X, Y);
 }
 
-void Geom2d_Transformation::Multiply(const Handle(Geom2d_Transformation)& Other)
+void Transformation2d::Multiply(const Handle(Transformation2d)& Other)
 {
 
   gpTrsf2d.Multiply(Other->Trsf2d());
 }
 
-void Geom2d_Transformation::Power(const Standard_Integer N)
+void Transformation2d::Power(const Standard_Integer N)
 {
   gpTrsf2d.Power(N);
 }
 
-void Geom2d_Transformation::PreMultiply(const Handle(Geom2d_Transformation)& Other)
+void Transformation2d::PreMultiply(const Handle(Transformation2d)& Other)
 {
 
   gpTrsf2d.PreMultiply(Other->Trsf2d());

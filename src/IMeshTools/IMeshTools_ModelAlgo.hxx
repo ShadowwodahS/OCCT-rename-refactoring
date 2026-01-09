@@ -23,11 +23,11 @@ class IMeshData_Model;
 struct Parameters3;
 
 //! Interface class providing API for algorithms intended to update or modify discrete model.
-class IMeshTools_ModelAlgo : public RefObject
+class ModelAlgorithm : public RefObject
 {
 public:
   //! Destructor.
-  virtual ~IMeshTools_ModelAlgo() {}
+  virtual ~ModelAlgorithm() {}
 
   //! Exceptions protected processing of the given model.
   Standard_Boolean Perform(const Handle(IMeshData_Model)& theModel,
@@ -46,11 +46,11 @@ public:
     }
   }
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_ModelAlgo, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ModelAlgorithm, RefObject)
 
 protected:
   //! Constructor.
-  IMeshTools_ModelAlgo() {}
+  ModelAlgorithm() {}
 
   //! Performs processing of the given model.
   Standard_EXPORT virtual Standard_Boolean performInternal(

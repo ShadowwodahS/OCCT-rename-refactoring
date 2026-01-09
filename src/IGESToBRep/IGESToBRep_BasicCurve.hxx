@@ -33,7 +33,7 @@ class IGESGeom_CopiousData;
 class Geom2d_BSplineCurve;
 class IGESGeom_Line;
 class IGESGeom_SplineCurve;
-class Geom_Transformation;
+class Transformation1;
 class IGESGeom_TransformationMatrix;
 
 //! Provides methods to transfer basic geometric curves entities
@@ -113,7 +113,7 @@ public:
   Standard_EXPORT Handle(Geom2d_BSplineCurve) Transfer2dSplineCurve(
     const Handle(IGESGeom_SplineCurve)& start);
 
-  Standard_EXPORT Handle(Geom_Transformation) TransferTransformation(
+  Standard_EXPORT Handle(Transformation1) TransferTransformation(
     const Handle(IGESGeom_TransformationMatrix)& start);
 
 protected:

@@ -26,7 +26,7 @@
 /*-----------------------------------------------------------------------------
  Fonction permettant de rechercher une distance extremale entre une courbe C
 et une surface S.
- Cette classe herite de math_FunctionWithDerivative et est utilisee par
+ Cette classe herite de FunctionWithDerivative et est utilisee par
 les algorithmes FunctionRootSolver et FunctionRootsSolver.
 { F1(t,u,v) = (C(t)-S(u,v)).Dtc(t) }
 { F2(t,u,v) = (C(t)-S(u,v)).Dus(u,v) }
@@ -58,14 +58,14 @@ Extrema_FuncExtCS::Extrema_FuncExtCS()
 
 //=================================================================================================
 
-Extrema_FuncExtCS::Extrema_FuncExtCS(const Adaptor3d_Curve& C, const Adaptor3d_Surface& S)
+Extrema_FuncExtCS::Extrema_FuncExtCS(const Curve5& C, const SurfaceAdaptor& S)
 {
   Initialize(C, S);
 }
 
 //=================================================================================================
 
-void Extrema_FuncExtCS::Initialize(const Adaptor3d_Curve& C, const Adaptor3d_Surface& S)
+void Extrema_FuncExtCS::Initialize(const Curve5& C, const SurfaceAdaptor& S)
 {
   myC     = &C;
   myS     = &S;

@@ -25,7 +25,7 @@
 class GeomCurve2d;
 
 //! Function used to find the extremas of curvature in 2d.
-class Geom2dLProp_FuncCurExt : public math_FunctionWithDerivative
+class Geom2dLProp_FuncCurExt : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

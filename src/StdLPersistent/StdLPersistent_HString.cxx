@@ -64,7 +64,7 @@ void HString::instance<StringClass, CharType>::Write(
 //=======================================================================
 template <class StringClass, typename CharType>
 DataLabel HString::instance<StringClass, CharType>::Label(
-  const Handle(TDF_Data)& theDF) const
+  const Handle(Data2)& theDF) const
 {
   DataLabel aLabel;
 

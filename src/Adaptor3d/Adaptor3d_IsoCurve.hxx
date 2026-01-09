@@ -20,45 +20,45 @@
 #include <Adaptor3d_Surface.hxx>
 #include <GeomAbs_IsoType.hxx>
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_IsoCurve, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(Adaptor3d_IsoCurve, Curve5)
 
 //! Defines an isoparametric curve on  a surface.  The
 //! type  of isoparametric curve  (U  or V) is defined
 //! with the   enumeration  IsoType from   GeomAbs  if
 //! NoneIso is given an error is raised.
-class Adaptor3d_IsoCurve : public Adaptor3d_Curve
+class Adaptor3d_IsoCurve : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_IsoCurve, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Adaptor3d_IsoCurve, Curve5)
 public:
   //! The iso is set to NoneIso.
   Standard_EXPORT Adaptor3d_IsoCurve();
 
   //! The surface is loaded. The iso is set to NoneIso.
-  Standard_EXPORT Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT Adaptor3d_IsoCurve(const Handle(SurfaceAdaptor)& S);
 
   //! Creates  an  IsoCurve curve.   Iso  defines the
   //! type (isoU or  isoU) Param defines the value of
   //! the iso. The bounds  of  the iso are the bounds
   //! of the surface.
-  Standard_EXPORT Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT Adaptor3d_IsoCurve(const Handle(SurfaceAdaptor)& S,
                                      const GeomAbs_IsoType            Iso,
                                      const Standard_Real              Param);
 
   //! Create an IsoCurve curve.  Iso defines the type
   //! (isoU or isov).  Param defines the value of the
   //! iso. WFirst,WLast define the bounds of the iso.
-  Standard_EXPORT Adaptor3d_IsoCurve(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT Adaptor3d_IsoCurve(const Handle(SurfaceAdaptor)& S,
                                      const GeomAbs_IsoType            Iso,
                                      const Standard_Real              Param,
                                      const Standard_Real              WFirst,
                                      const Standard_Real              WLast);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   //! Changes  the surface.  The  iso  is  reset  to
   //! NoneIso.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Load(const Handle(SurfaceAdaptor)& S);
 
   //! Changes the iso on the current surface.
   Standard_EXPORT void Load(const GeomAbs_IsoType Iso, const Standard_Real Param);
@@ -69,7 +69,7 @@ public:
                             const Standard_Real   WFirst,
                             const Standard_Real   WLast);
 
-  const Handle(Adaptor3d_Surface)& Surface() const { return mySurface; }
+  const Handle(SurfaceAdaptor)& Surface() const { return mySurface; }
 
   GeomAbs_IsoType Iso() const { return myIso; }
 
@@ -97,7 +97,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -178,7 +178,7 @@ public:
   Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
 private:
-  Handle(Adaptor3d_Surface) mySurface;
+  Handle(SurfaceAdaptor) mySurface;
   GeomAbs_IsoType           myIso;
   Standard_Real             myFirst;
   Standard_Real             myLast;

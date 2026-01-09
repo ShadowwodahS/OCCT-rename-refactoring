@@ -23,16 +23,16 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-#define Curve1 Adaptor3d_Curve
+#define Curve1 Curve5
 #define Curve1_hxx <Adaptor3d_Curve.hxx>
 #define Tool1 CurveTool4
 #define Tool1_hxx <Extrema_CurveTool.hxx>
-#define Curve2 Adaptor3d_Curve
+#define Curve2 Curve5
 #define Curve2_hxx <Adaptor3d_Curve.hxx>
 #define Tool2 CurveTool4
 #define Tool2_hxx <Extrema_CurveTool.hxx>
-#define Handle_ArrayOfPnt Handle(TColgp_HArray1OfPnt)
-#define ArrayOfPnt TColgp_HArray1OfPnt
+#define Handle_ArrayOfPnt Handle(PointArray1)
+#define ArrayOfPnt PointArray1
 #define ArrayOfPnt_hxx <TColgp_HArray1OfPnt.hxx>
 #define POnC PointOnCurve1
 #define POnC_hxx <Extrema_POnCurv.hxx>

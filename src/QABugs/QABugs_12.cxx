@@ -61,7 +61,7 @@ static Standard_Integer OCC895(DrawInterpreter& di, Standard_Integer argc, const
   if (Abs(angle) > gp1::Resolution())
     axis1.Rotate(Axis3d(center1, gp1::DZ()), angle * M_PI / 180.0);
 
-  gce_MakeCirc makeCirc1(axis1, rad);
+  CircleBuilder1 makeCirc1(axis1, rad);
   if (!makeCirc1.IsDone())
     return 1;
   gp_Circ            circ1 = makeCirc1.Value();
@@ -85,7 +85,7 @@ static Standard_Integer OCC895(DrawInterpreter& di, Standard_Integer argc, const
   Point3d center2(10, 0, 0);
   Frame3d axis2(center2, -gp1::DX(), gp1::DZ());
 
-  gce_MakeCirc makeCirc2(axis2, rad);
+  CircleBuilder1 makeCirc2(axis2, rad);
   if (!makeCirc2.IsDone())
     return 1;
   gp_Circ            circ2 = makeCirc2.Value();

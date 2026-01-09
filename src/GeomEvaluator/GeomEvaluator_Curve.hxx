@@ -23,10 +23,10 @@ class Vector3d;
 
 //! Interface for calculation of values and derivatives for different kinds of curves in 3D.
 //! Works both with adaptors and curves.
-class GeomEvaluator_Curve : public RefObject
+class Curve6 : public RefObject
 {
 public:
-  GeomEvaluator_Curve() {}
+  Curve6() {}
 
   //! Value of 3D curve
   virtual void D0(const Standard_Real theU, Point3d& theValue) const = 0;
@@ -46,11 +46,11 @@ public:
   //! Calculates N-th derivatives of curve, where N = theDerU. Raises if N < 1
   virtual Vector3d DN(const Standard_Real theU, const Standard_Integer theDerU) const = 0;
 
-  virtual Handle(GeomEvaluator_Curve) ShallowCopy() const = 0;
+  virtual Handle(Curve6) ShallowCopy() const = 0;
 
-  DEFINE_STANDARD_RTTI_INLINE(GeomEvaluator_Curve, RefObject)
+  DEFINE_STANDARD_RTTI_INLINE(Curve6, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_Curve, RefObject)
+DEFINE_STANDARD_HANDLE(Curve6, RefObject)
 
 #endif // _GeomEvaluator_Curve_HeaderFile

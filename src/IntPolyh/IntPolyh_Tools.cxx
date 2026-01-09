@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void Tools4::IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
+void Tools4::IsEnlargePossible(const Handle(SurfaceAdaptor)& theSurf,
                                        Standard_Boolean&                theUEnlarge,
                                        Standard_Boolean&                theVEnlarge)
 {
@@ -59,7 +59,7 @@ void Tools4::IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
 // function : EnlargeZone
 // purpose  : Enlarges the sampling zone of the surface
 //=======================================================================
-static void EnlargeZone(const Handle(Adaptor3d_Surface)& theSurf,
+static void EnlargeZone(const Handle(SurfaceAdaptor)& theSurf,
                         Standard_Real&                   u0,
                         Standard_Real&                   u1,
                         Standard_Real&                   v0,
@@ -85,7 +85,7 @@ static void EnlargeZone(const Handle(Adaptor3d_Surface)& theSurf,
 
 //=================================================================================================
 
-void Tools4::MakeSampling(const Handle(Adaptor3d_Surface)& theSurf,
+void Tools4::MakeSampling(const Handle(SurfaceAdaptor)& theSurf,
                                   const Standard_Integer           theNbSU,
                                   const Standard_Integer           theNbSV,
                                   const Standard_Boolean           theEnlargeZone,
@@ -138,7 +138,7 @@ void Tools4::MakeSampling(const Handle(Adaptor3d_Surface)& theSurf,
 
 //=================================================================================================
 
-Standard_Real Tools4::ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurf,
+Standard_Real Tools4::ComputeDeflection(const Handle(SurfaceAdaptor)& theSurf,
                                                 const TColStd_Array1OfReal&      theUPars,
                                                 const TColStd_Array1OfReal&      theVPars)
 {
@@ -149,7 +149,7 @@ Standard_Real Tools4::ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurf
 
 //=================================================================================================
 
-void Tools4::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& theSurf,
+void Tools4::FillArrayOfPointNormal(const Handle(SurfaceAdaptor)& theSurf,
                                             const TColStd_Array1OfReal&      theUPars,
                                             const TColStd_Array1OfReal&      theVPars,
                                             IntPolyh_ArrayOfPointNormal&     thePoints)

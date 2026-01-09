@@ -37,13 +37,13 @@ class Vrml_Coordinate3 : public RefObject
 {
 
 public:
-  Standard_EXPORT Vrml_Coordinate3(const Handle(TColgp_HArray1OfVec)& aPoint);
+  Standard_EXPORT Vrml_Coordinate3(const Handle(VectorArray)& aPoint);
 
   Standard_EXPORT Vrml_Coordinate3();
 
-  Standard_EXPORT void SetPoint(const Handle(TColgp_HArray1OfVec)& aPoint);
+  Standard_EXPORT void SetPoint(const Handle(VectorArray)& aPoint);
 
-  Standard_EXPORT Handle(TColgp_HArray1OfVec) Point() const;
+  Standard_EXPORT Handle(VectorArray) Point() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(TColgp_HArray1OfVec) myPoint;
+  Handle(VectorArray) myPoint;
 };
 
 #endif // _Vrml_Coordinate3_HeaderFile

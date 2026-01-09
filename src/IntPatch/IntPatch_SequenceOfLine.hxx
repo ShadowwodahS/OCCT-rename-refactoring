@@ -20,6 +20,6 @@
 #include <IntPatch_Line.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(IntPatch_Line)> IntPatch_SequenceOfLine;
+typedef NCollection_Sequence<Handle(Line2)> IntPatch_SequenceOfLine;
 
 #endif

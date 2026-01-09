@@ -154,7 +154,7 @@ VariableSetterSelector::~VariableSetterSelector()
 // purpose  : Sets generic variable to specified shader program
 // =======================================================================
 void VariableSetterSelector::Set(const Handle(OpenGl_Context)&           theCtx,
-                                        const Handle(Graphic3d_ShaderVariable)& theVariable,
+                                        const Handle(ShaderVariable1)& theVariable,
                                         OpenGl_ShaderProgram*                   theProgram) const
 {
   Standard_ASSERT_RETURN(mySetterList.IsBound(theVariable->Value()->TypeID()),
@@ -167,7 +167,7 @@ void VariableSetterSelector::Set(const Handle(OpenGl_Context)&           theCtx,
 // function : OpenGl_ShaderProgram
 // purpose  : Creates uninitialized shader program
 // =======================================================================
-OpenGl_ShaderProgram::OpenGl_ShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProxy,
+OpenGl_ShaderProgram::OpenGl_ShaderProgram(const Handle(ShaderProgram2)& theProxy,
                                            const AsciiString1&         theId)
     : OpenGl_NamedResource(!theProxy.IsNull() ? theProxy->GetId() : theId),
       myProgramID(NO_PROGRAM),

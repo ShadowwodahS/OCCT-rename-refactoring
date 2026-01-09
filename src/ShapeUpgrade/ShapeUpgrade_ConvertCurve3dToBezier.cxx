@@ -35,7 +35,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_ConvertCurve3dToBezier, ShapeUpgrade_Spl
 
 ShapeUpgrade_ConvertCurve3dToBezier::ShapeUpgrade_ConvertCurve3dToBezier()
 {
-  mySegments    = new TColGeom_HSequenceOfCurve;
+  mySegments    = new HSequenceOfCurve1;
   mySplitParams = new TColStd_HSequenceOfReal;
   myLineMode    = Standard_True;
   myCircleMode  = Standard_True;
@@ -209,7 +209,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Build(const Standard_Boolean /*Segment
 {
   constexpr Standard_Real prec = Precision1::PConfusion();
   Standard_Integer        nb   = mySplitValues->Length();
-  myResultingCurves            = new TColGeom_HArray1OfCurve(1, nb - 1);
+  myResultingCurves            = new HArray1OfCurve3(1, nb - 1);
   Standard_Real    prevPar     = 0.;
   Standard_Integer j           = 2;
   for (Standard_Integer i = 2; i <= nb; i++)
@@ -239,7 +239,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Build(const Standard_Boolean /*Segment
 
 //=================================================================================================
 
-Handle(TColGeom_HSequenceOfCurve) ShapeUpgrade_ConvertCurve3dToBezier::Segments() const
+Handle(HSequenceOfCurve1) ShapeUpgrade_ConvertCurve3dToBezier::Segments() const
 {
   return mySegments;
 }

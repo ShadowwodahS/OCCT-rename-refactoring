@@ -44,7 +44,7 @@
 //! -   the starting point for parameterization is that of the
 //! "X Axis" of the local coordinate system (i.e. the "X Axis" of the circle).
 //! See Also
-//! gce_MakeCirc which provides functions for more complex1 circle constructions
+//! CircleBuilder1 which provides functions for more complex1 circle constructions
 //! GeomCircle which provides additional functions for
 //! constructing circles and works, in particular, with the
 //! parametric equations of circles

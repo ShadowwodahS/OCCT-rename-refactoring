@@ -33,7 +33,7 @@ class NCollection_BaseAllocator;
  * </ul>
  */
 
-class Poly_CoherentNode : public Coords3d
+class CoherentNode : public Coords3d
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -41,7 +41,7 @@ public:
   /**
    * Empty constructor.
    */
-  inline Poly_CoherentNode()
+  inline CoherentNode()
       : Coords3d(0., 0., 0.),
         myTriangles(0L),
         myIndex(-1)
@@ -53,7 +53,7 @@ public:
   /**
    * Constructor.
    */
-  inline Poly_CoherentNode(const Coords3d& thePnt)
+  inline CoherentNode(const Coords3d& thePnt)
       : Coords3d(thePnt),
         myTriangles(0L),
         myIndex(-1)
@@ -146,7 +146,7 @@ public:
   //   /**
   //    * Destructor.
   //    */
-  //   Standard_EXPORT virtual ~Poly_CoherentNode ();
+  //   Standard_EXPORT virtual ~CoherentNode ();
 
 protected:
   // ---------- PROTECTED METHODS ----------

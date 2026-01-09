@@ -45,7 +45,7 @@ public:
   //! - dataPnts       : Data points (x and y)
   Standard_EXPORT void Init(const Standard_Integer            aDataType,
                             const Standard_Real               aZdisp,
-                            const Handle(TColgp_HArray1OfXY)& dataPnts);
+                            const Handle(XYArray)& dataPnts);
 
   //! Sets FormNumber to 20 if <mode> is True, 21 else
   Standard_EXPORT void SetCrossHair(const Standard_Boolean mode);
@@ -76,7 +76,7 @@ protected:
 private:
   Standard_Integer           theDatatype;
   Standard_Real              theZDisplacement;
-  Handle(TColgp_HArray1OfXY) theDataPoints;
+  Handle(XYArray) theDataPoints;
 };
 
 #endif // _IGESDimen_CenterLine_HeaderFile

@@ -21,7 +21,7 @@
 #include <Express_Item.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_NamedType, Express_Type)
+IMPLEMENT_STANDARD_RTTIEXT(Express_NamedType, ExpressType)
 
 //=================================================================================================
 

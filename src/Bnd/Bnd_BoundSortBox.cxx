@@ -450,7 +450,7 @@ Bnd_BoundSortBox::Bnd_BoundSortBox()
 //=================================================================================================
 
 void Bnd_BoundSortBox::Initialize(const Box2&                  CompleteBox,
-                                  const Handle(Bnd_HArray1OfBox)& SetOfBox)
+                                  const Handle(BoxArray)& SetOfBox)
 {
   myBox                        = CompleteBox;
   myBndComponents              = SetOfBox;
@@ -468,7 +468,7 @@ void Bnd_BoundSortBox::Initialize(const Box2&                  CompleteBox,
 
 //=================================================================================================
 
-void Bnd_BoundSortBox::Initialize(const Handle(Bnd_HArray1OfBox)& SetOfBox)
+void Bnd_BoundSortBox::Initialize(const Handle(BoxArray)& SetOfBox)
 {
   myBndComponents              = SetOfBox;
   const Bnd_Array1OfBox& taBox = myBndComponents->Array1();
@@ -653,7 +653,7 @@ void Bnd_BoundSortBox::Initialize(const Box2& CompleteBox, const Standard_Intege
 {
   Standard_NullValue_Raise_if(nbComponents <= 0, "BoundSortBox nul!");
   myBox           = CompleteBox;
-  myBndComponents = new Bnd_HArray1OfBox(1, nbComponents);
+  myBndComponents = new BoxArray(1, nbComponents);
 
   //***>>> JCD - 04.08.2000 - Array initialization is missing...
   Box2 emptyBox;

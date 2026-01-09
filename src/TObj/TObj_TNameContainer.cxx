@@ -108,7 +108,7 @@ void TObj_TNameContainer::Restore(const Handle(TDF_Attribute)& theWith)
 //=================================================================================================
 
 void TObj_TNameContainer::Paste(const Handle(TDF_Attribute)& theInto,
-                                const Handle(TDF_RelocationTable)& /* RT */) const
+                                const Handle(RelocationTable1)& /* RT */) const
 {
   Handle(TObj_TNameContainer) R = Handle(TObj_TNameContainer)::DownCast(theInto);
   R->Set(myMap);

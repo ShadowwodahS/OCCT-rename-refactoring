@@ -26,7 +26,7 @@ class gp_Pnt2d;
 
 //! Describes the necessary polygon information to compute
 //! the interferences.
-class Intf_Polygon2d
+class Polygon2d
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,7 +37,7 @@ public:
   //! Returns True if the polyline is closed.
   Standard_EXPORT virtual Standard_Boolean Closed() const;
 
-  virtual ~Intf_Polygon2d() {}
+  virtual ~Polygon2d() {}
 
   //! Returns the tolerance of the polygon.
   Standard_EXPORT virtual Standard_Real DeflectionOverEstimation() const = 0;

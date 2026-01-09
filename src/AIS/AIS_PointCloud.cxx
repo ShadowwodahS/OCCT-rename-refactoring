@@ -214,9 +214,9 @@ void AIS_PointCloud::SetPoints(const Handle(Graphic3d_ArrayOfPoints)& thePoints)
 
 //=================================================================================================
 
-void AIS_PointCloud::SetPoints(const Handle(TColgp_HArray1OfPnt)&     theCoords,
+void AIS_PointCloud::SetPoints(const Handle(PointArray1)&     theCoords,
                                const Handle(Quantity_HArray1OfColor)& theColors,
-                               const Handle(TColgp_HArray1OfDir)&     theNormals)
+                               const Handle(DirectionArray)&     theNormals)
 {
   myPoints.Nullify();
   myBndBox.SetVoid();

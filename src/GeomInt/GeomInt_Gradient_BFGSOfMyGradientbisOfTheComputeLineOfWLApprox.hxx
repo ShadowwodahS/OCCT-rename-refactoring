@@ -29,15 +29,15 @@ class GeomInt_MyGradientbisOfTheComputeLineOfWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox;
 class ResConstraintGradientbisLine;
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox;
-class math_MultipleVarFunctionWithGradient;
+class MultiVarFunctionWithGradient;
 
-class GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox : public BFGSOptimizer
+class BFGSGradientbisLineApprox : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox(
-    math_MultipleVarFunctionWithGradient& F,
+  Standard_EXPORT BFGSGradientbisLineApprox(
+    MultiVarFunctionWithGradient& F,
     const math_Vector&                    StartingPoint,
     const Standard_Real                   Tolerance3d,
     const Standard_Real                   Tolerance2d,
@@ -45,7 +45,7 @@ public:
     const Standard_Integer                NbIterations = 200);
 
   Standard_EXPORT virtual Standard_Boolean IsSolutionReached(
-    math_MultipleVarFunctionWithGradient& F) const Standard_OVERRIDE;
+    MultiVarFunctionWithGradient& F) const Standard_OVERRIDE;
 
 protected:
 private:

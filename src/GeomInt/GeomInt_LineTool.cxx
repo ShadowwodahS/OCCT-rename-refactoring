@@ -267,7 +267,7 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
 
 //=================================================================================================
 
-Standard_Integer LineTool2::NbVertex(const Handle(IntPatch_Line)& L)
+Standard_Integer LineTool2::NbVertex(const Handle(Line2)& L)
 {
   switch (L->ArcType())
   {
@@ -285,7 +285,7 @@ Standard_Integer LineTool2::NbVertex(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-const IntPatch_Point& LineTool2::Vertex(const Handle(IntPatch_Line)& L,
+const IntPatch_Point& LineTool2::Vertex(const Handle(Line2)& L,
                                                const Standard_Integer       I)
 {
   switch (L->ArcType())
@@ -304,7 +304,7 @@ const IntPatch_Point& LineTool2::Vertex(const Handle(IntPatch_Line)& L,
 
 //=================================================================================================
 
-Standard_Real LineTool2::FirstParameter(const Handle(IntPatch_Line)& L)
+Standard_Real LineTool2::FirstParameter(const Handle(Line2)& L)
 {
   const IntPatch_IType typl = L->ArcType();
   switch (typl)
@@ -352,7 +352,7 @@ Standard_Real LineTool2::FirstParameter(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-Standard_Real LineTool2::LastParameter(const Handle(IntPatch_Line)& L)
+Standard_Real LineTool2::LastParameter(const Handle(Line2)& L)
 {
   const IntPatch_IType typl = L->ArcType();
   switch (typl)
@@ -560,7 +560,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
   // Correct wlines.begin
   Standard_Integer              aLineType;
   TColStd_Array1OfListOfInteger anArrayOfLineEnds(1, nblines);
-  Handle(IntSurf_LineOn2S) aSeqOfPntOn2S = new IntSurf_LineOn2S(new NCollection_IncAllocator());
+  Handle(LineOnTwoSurfaces) aSeqOfPntOn2S = new LineOnTwoSurfaces(new NCollection_IncAllocator());
   //
   for (i = 1; i <= nblines; i++)
   {
@@ -878,7 +878,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
     Standard_Integer ifprm = (Standard_Integer)fprm;
     Standard_Integer ilprm = (Standard_Integer)lprm;
     //
-    Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
+    Handle(LineOnTwoSurfaces) aLineOn2S = new LineOnTwoSurfaces();
     //
     for (i = 1; i <= nblines; i++)
     {
@@ -956,7 +956,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
               aNewWLine->SetCreatingWayInfo(theWLine->GetCreatingWay());
               theNewLines.Append(aNewWLine);
             }
-            aLineOn2S = new IntSurf_LineOn2S();
+            aLineOn2S = new LineOnTwoSurfaces();
           }
         }
         continue;
@@ -1019,7 +1019,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
               aNewWLine->SetCreatingWayInfo(theWLine->GetCreatingWay());
               theNewLines.Append(aNewWLine);
             }
-            aLineOn2S = new IntSurf_LineOn2S();
+            aLineOn2S = new LineOnTwoSurfaces();
           }
         }
         // end if(bIsFirstInside)
@@ -1084,7 +1084,7 @@ Standard_Boolean LineTool2::DecompositionOfWLine(
           aIndex = aListOfIndex.First();
           if (aIndex == ifprm || aIndex == ilprm)
           {
-            Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
+            Handle(LineOnTwoSurfaces) aLineOn2S = new LineOnTwoSurfaces();
             const PointOn2Surfaces&   aP1       = theWLine->Point(ifprm);
             const PointOn2Surfaces&   aP2       = theWLine->Point(ilprm);
             aLineOn2S->Add(aP1);

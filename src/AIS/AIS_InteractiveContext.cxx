@@ -345,7 +345,7 @@ void VisualContext::ObjectsForView(AIS_ListOfInteractive&     theListOfIO,
       continue;
     }
 
-    Handle(Graphic3d_ViewAffinity) anAffinity = anObjIter.Key1()->ViewAffinity();
+    Handle(ViewAffinity1) anAffinity = anObjIter.Key1()->ViewAffinity();
     const Standard_Boolean         isVisible  = anAffinity->IsVisible(aViewId);
     if (isVisible == theIsVisibleInView)
     {
@@ -380,7 +380,7 @@ void VisualContext::SetViewAffinity(const Handle(VisualEntity)& theIObj,
     return;
   }
 
-  Handle(Graphic3d_ViewAffinity) anAffinity = theIObj->ViewAffinity();
+  Handle(ViewAffinity1) anAffinity = theIObj->ViewAffinity();
   Handle(Graphic3d_CView)        aViewImpl  = theView->View();
   anAffinity->SetVisible(aViewImpl->Identification(), theIsVisible == Standard_True);
 }
@@ -2077,7 +2077,7 @@ Box2 VisualContext::BoundingBoxOfSelection(const Handle(ViewWindow)& theView) co
       continue;
     }
 
-    Handle(Graphic3d_ViewAffinity) anAffinity = anObj->ViewAffinity();
+    Handle(ViewAffinity1) anAffinity = anObj->ViewAffinity();
     const Standard_Boolean         isVisible  = aViewId == -1 || anAffinity->IsVisible(aViewId);
     if (!isVisible)
     {
@@ -2132,7 +2132,7 @@ void VisualContext::FitSelected(const Handle(ViewWindow)& theView,
 
 void VisualContext::SetTransformPersistence(
   const Handle(VisualEntity)&   theObject,
-  const Handle(Graphic3d_TransformPers)& theTrsfPers)
+  const Handle(TransformPers)& theTrsfPers)
 {
   theObject->SetTransformPersistence(theTrsfPers);
   if (!myObjects.IsBound(theObject))

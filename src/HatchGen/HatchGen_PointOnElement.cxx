@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-HatchGen_PointOnElement::HatchGen_PointOnElement()
+PointOnElement::PointOnElement()
     : IntersectionPoint2(),
       myType(HatchGen_UNDETERMINED)
 {
@@ -28,7 +28,7 @@ HatchGen_PointOnElement::HatchGen_PointOnElement()
 
 //=================================================================================================
 
-HatchGen_PointOnElement::HatchGen_PointOnElement(const IntRes2d_IntersectionPoint& Point)
+PointOnElement::PointOnElement(const IntersectionPoint3& Point)
     : myType(HatchGen_UNDETERMINED)
 {
   const Transition3& TrsH = Point.TransitionOfFirst();
@@ -176,7 +176,7 @@ HatchGen_PointOnElement::HatchGen_PointOnElement(const IntRes2d_IntersectionPoin
 // Purpose  : Tests if the point is identical to an other.
 //=======================================================================
 
-Standard_Boolean HatchGen_PointOnElement::IsIdentical(const HatchGen_PointOnElement& Point,
+Standard_Boolean PointOnElement::IsIdentical(const PointOnElement& Point,
                                                       const Standard_Real Confusion) const
 {
   Standard_Real Delta = Abs(myParam - Point.myParam);
@@ -190,7 +190,7 @@ Standard_Boolean HatchGen_PointOnElement::IsIdentical(const HatchGen_PointOnElem
 // Purpose  : Tests if the point is different from an other.
 //=======================================================================
 
-Standard_Boolean HatchGen_PointOnElement::IsDifferent(const HatchGen_PointOnElement& Point,
+Standard_Boolean PointOnElement::IsDifferent(const PointOnElement& Point,
                                                       const Standard_Real Confusion) const
 {
   Standard_Real Delta = Abs(myParam - Point.myParam);
@@ -204,7 +204,7 @@ Standard_Boolean HatchGen_PointOnElement::IsDifferent(const HatchGen_PointOnElem
 // Purpose  : Dump of the point on element
 //=======================================================================
 
-void HatchGen_PointOnElement::Dump(const Standard_Integer Index) const
+void PointOnElement::Dump(const Standard_Integer Index) const
 {
   std::cout << "    --- Point on element ";
   if (Index > 0)

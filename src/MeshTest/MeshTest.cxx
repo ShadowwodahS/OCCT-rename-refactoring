@@ -1580,7 +1580,7 @@ static Standard_Integer TrMergeNodes(DrawInterpreter& theDI,
   if (!aResFace.IsEmpty())
   {
     TopLoc_Location     aFaceLoc;
-    Poly_MergeNodesTool aMergeTool(aMergeAngle, aMergeToler);
+    MergeNodesTool aMergeTool(aMergeAngle, aMergeToler);
     for (ShapeExplorer aFaceIter(aShape, TopAbs_FACE); aFaceIter.More(); aFaceIter.Next())
     {
       const TopoFace&         aFace = TopoDS::Face(aFaceIter.Value());
@@ -1627,7 +1627,7 @@ static Standard_Integer TrMergeNodes(DrawInterpreter& theDI,
 
       aNbNodesOld += aTris->NbNodes();
       aNbTrisOld += aTris->NbTriangles();
-      Poly_MergeNodesTool aMergeTool(aMergeAngle, aMergeToler, aTris->NbTriangles());
+      MergeNodesTool aMergeTool(aMergeAngle, aMergeToler, aTris->NbTriangles());
       aMergeTool.AddTriangulation(aTris);
       if (toForce || aMergeTool.NbNodes() != aTris->NbNodes()
           || aMergeTool.NbElements() != aTris->NbTriangles())

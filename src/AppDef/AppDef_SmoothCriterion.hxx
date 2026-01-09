@@ -30,11 +30,11 @@
 class FEmTool_Curve;
 class math_Matrix;
 
-class AppDef_SmoothCriterion;
-DEFINE_STANDARD_HANDLE(AppDef_SmoothCriterion, RefObject)
+class SmoothCriterion;
+DEFINE_STANDARD_HANDLE(SmoothCriterion, RefObject)
 
 //! defined criterion to smooth  points in  curve
-class AppDef_SmoothCriterion : public RefObject
+class SmoothCriterion : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
                                              Standard_Real& E2,
                                              Standard_Real& E3) const = 0;
 
-  Standard_EXPORT virtual Handle(FEmTool_HAssemblyTable) AssemblyTable() const = 0;
+  Standard_EXPORT virtual Handle(AssemblyTable1) AssemblyTable() const = 0;
 
   Standard_EXPORT virtual Handle(TColStd_HArray2OfInteger) DependenceTable() const = 0;
 
@@ -80,7 +80,7 @@ public:
 
   //! Convert the assembly Vector in an Curve;
   Standard_EXPORT virtual void InputVector(const math_Vector&                    X,
-                                           const Handle(FEmTool_HAssemblyTable)& AssTable) = 0;
+                                           const Handle(AssemblyTable1)& AssTable) = 0;
 
   Standard_EXPORT virtual void SetWeight(const Standard_Real QuadraticWeight,
                                          const Standard_Real QualityWeight,
@@ -93,7 +93,7 @@ public:
 
   Standard_EXPORT virtual void SetWeight(const TColStd_Array1OfReal& Weight) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(AppDef_SmoothCriterion, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SmoothCriterion, RefObject)
 
 protected:
 private:

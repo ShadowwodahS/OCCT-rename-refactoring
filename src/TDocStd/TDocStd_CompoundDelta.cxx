@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <TDocStd_Document.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_CompoundDelta, TDF_Delta)
+IMPLEMENT_STANDARD_RTTIEXT(TDocStd_CompoundDelta, Delta)
 
 //=================================================================================================
 

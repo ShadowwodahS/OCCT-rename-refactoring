@@ -72,7 +72,7 @@ static void FUN_ALINETOWLINE(const Handle(IntPatch_ALine)&      AL,
 
 //=================================================================================================
 
-void TopOpeBRep_LineInter::SetLine(const Handle(IntPatch_Line)& L,
+void TopOpeBRep_LineInter::SetLine(const Handle(Line2)& L,
                                    const BRepAdaptor_Surface&   S1,
                                    const BRepAdaptor_Surface&   S2)
 {

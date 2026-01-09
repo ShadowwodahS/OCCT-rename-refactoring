@@ -120,7 +120,7 @@ Handle(TDF_Attribute) TDataXtd_Position::NewEmpty() const
 //=================================================================================================
 
 void TDataXtd_Position::Paste(const Handle(TDF_Attribute)& intoAttribute,
-                              const Handle(TDF_RelocationTable)&) const
+                              const Handle(RelocationTable1)&) const
 {
   Handle(TDataXtd_Position)::DownCast(intoAttribute)->SetPosition(myPosition);
 }

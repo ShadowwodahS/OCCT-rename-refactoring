@@ -33,11 +33,11 @@ class Graphic3d_RenderingParams;
 //! cost of higher per-frame variance ('noise'). On the contrary a larger number of tiles decrease
 //! interactivity, but leads to lower per-frame variance. Note that the total time needed to produce
 //! final final image is the same for both cases.
-class OpenGl_TileSampler
+class TileSampler
 {
 public:
   //! Creates new tile sampler.
-  Standard_EXPORT OpenGl_TileSampler();
+  Standard_EXPORT TileSampler();
 
   //! Size of individual tile in pixels.
   Graphic3d_Vec2i TileSize() const { return Graphic3d_Vec2i(myTileSize, myTileSize); }
@@ -147,7 +147,7 @@ protected:
 protected:
   // clang-format off
   Image_PixMapTypedData<unsigned int>    myTiles;         //!< number of samples per tile (initially all 1)
-  Image_PixMapTypedData<unsigned int>    myTileSamples;   //!< number of samples for all pixels within the tile (initially equals to Tile area)
+  Image_PixMapTypedData<unsigned int>    myTileSamples;   //!< number of samples for all pixels within the tile (initially equals to Tile1 area)
   Image_PixMapTypedData<float>           myVarianceMap;   //!< Estimation of visual error per tile
   Image_PixMapTypedData<int>             myVarianceRaw;   //!< Estimation of visual error per tile (raw data)
   Image_PixMapTypedData<Graphic3d_Vec2i> myOffsets;       //!< 2D array of tiles redirecting to another tile

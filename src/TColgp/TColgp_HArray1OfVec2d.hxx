@@ -21,6 +21,6 @@
 #include <TColgp_Array1OfVec2d.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfVec2d, TColgp_Array1OfVec2d)
+DEFINE_HARRAY1(Vector2dArray, TColgp_Array1OfVec2d)
 
 #endif

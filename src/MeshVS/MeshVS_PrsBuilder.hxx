@@ -23,8 +23,8 @@
 #include <MeshVS_BuilderPriority.hxx>
 #include <TColStd_PackedMapOfInteger.hxx>
 
-class MeshVS_DataSource;
-class MeshVS_Drawer;
+class MeshDataSource;
+class MeshDrawer;
 class MeshVS_Mesh;
 class Select3D_SensitiveEntity;
 class SelectMgr_EntityOwner;
@@ -79,16 +79,16 @@ public:
   Standard_EXPORT Standard_Integer GetPriority() const;
 
   //! Returns custom data source or default ( from MeshVS_Mesh ) if custom is NULL
-  Standard_EXPORT Handle(MeshVS_DataSource) GetDataSource() const;
+  Standard_EXPORT Handle(MeshDataSource) GetDataSource() const;
 
   //! Change custom data source
-  Standard_EXPORT void SetDataSource(const Handle(MeshVS_DataSource)& newDS);
+  Standard_EXPORT void SetDataSource(const Handle(MeshDataSource)& newDS);
 
   //! Returns custom drawer or default ( from MeshVS_Mesh ) if custom is NULL
-  Standard_EXPORT Handle(MeshVS_Drawer) GetDrawer() const;
+  Standard_EXPORT Handle(MeshDrawer) GetDrawer() const;
 
   //! Change custom drawer
-  Standard_EXPORT void SetDrawer(const Handle(MeshVS_Drawer)& newDr);
+  Standard_EXPORT void SetDrawer(const Handle(MeshDrawer)& newDr);
 
   //! Set excluding state. If it is Standard_True, the nodes or elements, processed by current
   //! builder will be noted and next builder won't process its.
@@ -116,23 +116,23 @@ protected:
   //! presentation construction
   Standard_EXPORT MeshVS_PrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                     const MeshVS_DisplayModeFlags&   Flags,
-                                    const Handle(MeshVS_DataSource)& DS,
+                                    const Handle(MeshDataSource)& DS,
                                     const Standard_Integer           Id,
                                     const MeshVS_BuilderPriority&    Priority = MeshVS_BP_Default);
 
   //! Returns only custom data source
-  Standard_EXPORT Handle(MeshVS_DataSource) DataSource() const;
+  Standard_EXPORT Handle(MeshDataSource) DataSource() const;
 
   //! Returns only custom drawer
-  Standard_EXPORT Handle(MeshVS_Drawer) Drawer() const;
+  Standard_EXPORT Handle(MeshDrawer) Drawer() const;
 
 protected:
   MeshVS_MeshPtr myParentMesh;
 
 private:
   Standard_Boolean                   myIsExcluding;
-  Handle(MeshVS_DataSource)          myDataSource;
-  Handle(MeshVS_Drawer)              myDrawer;
+  Handle(MeshDataSource)          myDataSource;
+  Handle(MeshDrawer)              myDrawer;
   Standard_Integer                   myFlags;
   Standard_Integer                   myId;
   Standard_Integer                   myPriority;

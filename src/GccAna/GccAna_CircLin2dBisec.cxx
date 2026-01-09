@@ -62,7 +62,7 @@ CircleLine2dBisector::CircleLine2dBisector(const gp_Circ2d& Circle, const gp_Lin
 //  two parabolas (biscirlin1, biscirlin1).                               +
 //=========================================================================
 
-Handle(GccInt_Bisec) CircleLine2dBisector::ThisSolution(const Standard_Integer Index) const
+Handle(Bisector2) CircleLine2dBisector::ThisSolution(const Standard_Integer Index) const
 {
 
   if (!WellDone)
@@ -71,7 +71,7 @@ Handle(GccInt_Bisec) CircleLine2dBisector::ThisSolution(const Standard_Integer I
   if ((Index <= 0) || (Index > NbrSol))
     throw Standard_OutOfRange();
 
-  Handle(GccInt_Bisec) bissol;
+  Handle(Bisector2) bissol;
   Standard_Real        xdir    = line.Direction().X();
   Standard_Real        ydir    = line.Direction().Y();
   Standard_Real        xloc    = line.Location().X();

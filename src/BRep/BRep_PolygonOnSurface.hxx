@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <BRep_CurveRepresentation.hxx>
-class Poly_Polygon2D;
+class Polygon2D2;
 class GeomSurface;
 class TopLoc_Location;
 
@@ -34,7 +34,7 @@ class BRep_PolygonOnSurface : public BRep_CurveRepresentation
 {
 
 public:
-  Standard_EXPORT BRep_PolygonOnSurface(const Handle(Poly_Polygon2D)& P,
+  Standard_EXPORT BRep_PolygonOnSurface(const Handle(Polygon2D2)& P,
                                         const Handle(GeomSurface)&   S,
                                         const TopLoc_Location&        L);
 
@@ -50,9 +50,9 @@ public:
 
   Standard_EXPORT virtual const Handle(GeomSurface)& Surface() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Poly_Polygon2D)& Polygon() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(Polygon2D2)& Polygon() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Polygon(const Handle(Poly_Polygon2D)& P) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Polygon(const Handle(Polygon2D2)& P) Standard_OVERRIDE;
 
   //! Return a copy of this representation.
   Standard_EXPORT virtual Handle(BRep_CurveRepresentation) Copy() const Standard_OVERRIDE;
@@ -65,7 +65,7 @@ public:
 
 protected:
 private:
-  Handle(Poly_Polygon2D) myPolygon2D;
+  Handle(Polygon2D2) myPolygon2D;
   Handle(GeomSurface)   mySurface;
 };
 

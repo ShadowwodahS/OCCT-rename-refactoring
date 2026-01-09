@@ -36,10 +36,10 @@ class BRepBlend_Line;
 class Blend_AppFunction;
 
 class BRepBlend_AppFuncRoot;
-DEFINE_STANDARD_HANDLE(BRepBlend_AppFuncRoot, Approx_SweepFunction)
+DEFINE_STANDARD_HANDLE(BRepBlend_AppFuncRoot, SweepFunction)
 
 //! Function to approximate by AppSurface
-class BRepBlend_AppFuncRoot : public Approx_SweepFunction
+class BRepBlend_AppFuncRoot : public SweepFunction
 {
 
 public:
@@ -161,7 +161,7 @@ public:
 
   Standard_EXPORT virtual void Vec(math_Vector& Sol, const Point2& Pnt) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(BRepBlend_AppFuncRoot, Approx_SweepFunction)
+  DEFINE_STANDARD_RTTIEXT(BRepBlend_AppFuncRoot, SweepFunction)
 
 protected:
   Standard_EXPORT BRepBlend_AppFuncRoot(Handle(BRepBlend_Line)& Line,

@@ -272,7 +272,7 @@ static Standard_Integer evaluateMaxSegment(const Standard_Integer          aMaxS
   if (aMaxSegment != 0)
     return aMaxSegment;
 
-  const Handle(Adaptor3d_Surface)& aSurf   = aCurveOnSurface.GetSurface();
+  const Handle(SurfaceAdaptor)& aSurf   = aCurveOnSurface.GetSurface();
   const Handle(Adaptor2d_Curve2d)& aCurv2d = aCurveOnSurface.GetCurve();
 
   Standard_Real aNbSKnots = 0, aNbC2dKnots = 0;
@@ -1003,9 +1003,9 @@ static Standard_Boolean EvalTol(const Handle(GeomCurve2d)& pc,
 
 //=================================================================================================
 
-static Standard_Real ComputeTol(const Handle(Adaptor3d_Curve)&   c3d,
+static Standard_Real ComputeTol(const Handle(Curve5)&   c3d,
                                 const Handle(Adaptor2d_Curve2d)& c2d,
-                                const Handle(Adaptor3d_Surface)& surf,
+                                const Handle(SurfaceAdaptor)& surf,
                                 const Standard_Integer           nbp)
 
 {
@@ -1536,7 +1536,7 @@ TopoEdge BRepLib1::SameParameter(const TopoEdge&  theEdge,
         {
           //	  SameParameterTool SameP(HC,HC2d,HS,Tolerance);
           Standard_Real                    aTol     = (isANA && isBSP) ? 1.e-7 : theTolerance;
-          const Handle(Adaptor3d_Curve)&   aHCurv   = HC;   // to avoid ambiguity
+          const Handle(Curve5)&   aHCurv   = HC;   // to avoid ambiguity
           const Handle(Adaptor2d_Curve2d)& aHCurv2d = HC2d; // to avoid ambiguity
           SameParameterTool             SameP(aHCurv, aHCurv2d, HS, aTol);
 
@@ -1874,7 +1874,7 @@ void BRepLib1::UpdateInnerTolerances(const TopoShape& aShape)
 
     if (!BRepInspector::Degenerated(anEdge) && EFmap(i).Extent() > 0)
     {
-      NCollection_Sequence<Handle(Adaptor3d_Curve)> theRep;
+      NCollection_Sequence<Handle(Curve5)> theRep;
       theRep.Append(anHCurve);
       TopTools_ListIteratorOfListOfShape itl(EFmap(i));
       for (; itl.More(); itl.Next())

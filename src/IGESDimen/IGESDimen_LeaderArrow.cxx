@@ -33,7 +33,7 @@ void IGESDimen_LeaderArrow::Init(const Standard_Real               height,
                                  const Standard_Real               width,
                                  const Standard_Real               depth,
                                  const Coords2d&                      position,
-                                 const Handle(TColgp_HArray1OfXY)& segments)
+                                 const Handle(XYArray)& segments)
 {
   if (segments->Lower() != 1)
     throw Standard_DimensionMismatch("IGESDimen_LeaderArrow : Init");

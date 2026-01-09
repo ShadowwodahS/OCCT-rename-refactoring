@@ -17,13 +17,13 @@
 
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_ComplexType, Express_Type)
+IMPLEMENT_STANDARD_RTTIEXT(Express_ComplexType, ExpressType)
 
 //=================================================================================================
 
 Express_ComplexType::Express_ComplexType(const Standard_Integer      theImin,
                                          const Standard_Integer      theImax,
-                                         const Handle(Express_Type)& theType)
+                                         const Handle(ExpressType)& theType)
 {
   myMin  = theImin;
   myMax  = theImax;
@@ -32,7 +32,7 @@ Express_ComplexType::Express_ComplexType(const Standard_Integer      theImin,
 
 //=================================================================================================
 
-const Handle(Express_Type)& Express_ComplexType::Type() const
+const Handle(ExpressType)& Express_ComplexType::Type() const
 {
   return myType;
 }
@@ -42,7 +42,7 @@ const Handle(Express_Type)& Express_ComplexType::Type() const
 const AsciiString1 Express_ComplexType::CPPName() const
 {
   // check if array 2
-  Handle(Express_Type) aType = myType;
+  Handle(ExpressType) aType = myType;
   if (aType->IsKind(STANDARD_TYPE(Express_ComplexType)))
   {
     Handle(Express_ComplexType) aType2 = Handle(Express_ComplexType)::DownCast(aType);

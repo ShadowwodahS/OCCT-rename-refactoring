@@ -40,7 +40,7 @@ typedef Coords3d        XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Parabola::Copy() const
+Handle(Geometry3) Geom_Parabola::Copy() const
 {
 
   Handle(Geom_Parabola) Prb;

@@ -23,14 +23,14 @@
 #include <math_Vector.hxx>
 #include <Standard_NotImplemented.hxx>
 
-GProp_CelGProps::GProp_CelGProps() {}
+CellGeometricProperties::CellGeometricProperties() {}
 
-void GProp_CelGProps::SetLocation(const Point3d& CLocation)
+void CellGeometricProperties::SetLocation(const Point3d& CLocation)
 {
   loc = CLocation;
 }
 
-void GProp_CelGProps::Perform(const gp_Circ& C, const Standard_Real U1, const Standard_Real U2)
+void CellGeometricProperties::Perform(const gp_Circ& C, const Standard_Real U1, const Standard_Real U2)
 {
   Standard_Real X0, Y0, Z0, Xa1, Ya1, Za1, Xa2, Ya2, Za2, Xa3, Ya3, Za3;
   C.Location().Coord(X0, Y0, Z0);
@@ -83,7 +83,7 @@ void GProp_CelGProps::Perform(const gp_Circ& C, const Standard_Real U1, const St
   inertia = inertia + Hop;
 }
 
-void GProp_CelGProps::Perform(const gp_Lin& C, const Standard_Real U1, const Standard_Real U2)
+void CellGeometricProperties::Perform(const gp_Lin& C, const Standard_Real U1, const Standard_Real U2)
 {
   Axis3d Pos = C.Position1();
   Point3d P1  = ElCLib1::LineValue(U1, Pos);
@@ -127,13 +127,13 @@ void GProp_CelGProps::Perform(const gp_Lin& C, const Standard_Real U1, const Sta
   inertia = gp_Mat(Coords3d(Ixx, -Ixy, -Ixz), Coords3d(-Ixy, Iyy, -Iyz), Coords3d(-Ixz, -Iyz, Izz));
 }
 
-GProp_CelGProps::GProp_CelGProps(const gp_Circ& C, const Point3d& CLocation)
+CellGeometricProperties::CellGeometricProperties(const gp_Circ& C, const Point3d& CLocation)
 {
   SetLocation(CLocation);
   Perform(C, 0., 2. * M_PI);
 }
 
-GProp_CelGProps::GProp_CelGProps(const gp_Circ&      C,
+CellGeometricProperties::CellGeometricProperties(const gp_Circ&      C,
                                  const Standard_Real U1,
                                  const Standard_Real U2,
                                  const Point3d&       CLocation)
@@ -142,7 +142,7 @@ GProp_CelGProps::GProp_CelGProps(const gp_Circ&      C,
   Perform(C, U1, U2);
 }
 
-GProp_CelGProps::GProp_CelGProps(const gp_Lin&       C,
+CellGeometricProperties::CellGeometricProperties(const gp_Lin&       C,
                                  const Standard_Real U1,
                                  const Standard_Real U2,
                                  const Point3d&       CLocation)

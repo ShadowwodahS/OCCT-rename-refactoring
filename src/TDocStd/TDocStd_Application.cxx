@@ -241,7 +241,7 @@ PCDM_ReaderStatus AppManager::Open(const UtfString& path,
                                             const Message_ProgressRange&      theRange)
 {
   PCDM_ReaderStatus          status = PCDM_RS_DriverFailure;
-  TDocStd_PathParser         tool(path);
+  PathParser         tool(path);
   UtfString directory = tool.Trek();
   UtfString file      = tool.Name();
   file += ".";
@@ -320,7 +320,7 @@ PCDM_StoreStatus AppManager::SaveAs(const Handle(AppDocument)&   theDoc,
                                              const UtfString& path,
                                              const Message_ProgressRange&      theRange)
 {
-  TDocStd_PathParser         tool(path);
+  PathParser         tool(path);
   UtfString directory = tool.Trek();
   UtfString file      = tool.Name();
   file += ".";
@@ -444,7 +444,7 @@ PCDM_StoreStatus AppManager::SaveAs(const Handle(AppDocument)&   D,
                                              UtfString&       theStatusMessage,
                                              const Message_ProgressRange&      theRange)
 {
-  TDocStd_PathParser         tool(path);
+  PathParser         tool(path);
   PCDM_StoreStatus           aStatus   = PCDM_SS_Failure;
   UtfString directory = tool.Trek();
   UtfString file      = tool.Name();

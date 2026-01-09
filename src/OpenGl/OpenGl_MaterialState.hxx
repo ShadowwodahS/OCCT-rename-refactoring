@@ -20,11 +20,11 @@
 #include <OpenGl_Material.hxx>
 
 //! Defines generic state of material properties.
-class OpenGl_MaterialState : public StateInterface
+class MaterialState1 : public StateInterface
 {
 public:
   //! Creates new material state.
-  OpenGl_MaterialState()
+  MaterialState1()
       : myAlphaCutoff(0.5f),
         myToDistinguish(false),
         myToMapTexture(false)

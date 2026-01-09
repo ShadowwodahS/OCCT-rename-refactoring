@@ -66,7 +66,7 @@ void TNaming_UsedShapes::BeforeRemoval()
 
 //=======================================================================
 // function : AfterUndo
-// purpose  : After application of a TDF_Delta.
+// purpose  : After application of a Delta.
 //=======================================================================
 
 Standard_Boolean TNaming_UsedShapes::AfterUndo(const Handle(TDF_AttributeDelta)& anAttDelta,
@@ -109,7 +109,7 @@ Handle(TDF_Attribute) TNaming_UsedShapes::NewEmpty() const
 //=================================================================================================
 
 void TNaming_UsedShapes::Paste(const Handle(TDF_Attribute)&,
-                               const Handle(TDF_RelocationTable)&) const
+                               const Handle(RelocationTable1)&) const
 {
 }
 

@@ -1155,7 +1155,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
       //
       for (Standard_Integer p = 1; p <= nbp; p++)
       {
-        const IntRes2d_IntersectionPoint& IP  = Inter.Point(p);
+        const IntersectionPoint3& IP  = Inter.Point(p);
         const Transition3&        Tr1 = IP.TransitionOfFirst();
         const Transition3&        Tr2 = IP.TransitionOfSecond();
         if (Tr1.PositionOnCurve() == IntRes2d_Middle || Tr2.PositionOnCurve() == IntRes2d_Middle)
@@ -1312,7 +1312,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
         //// **** Points of intersection **** ////
         for (Standard_Integer p = 1; p <= nbp; p++)
         {
-          const IntRes2d_IntersectionPoint& IP = Inter.Point(p);
+          const IntersectionPoint3& IP = Inter.Point(p);
           IP_ParamOnFirst                      = IP.ParamOnFirst();
           IP_ParamOnSecond                     = IP.ParamOnSecond();
           Tr1                                  = IP.TransitionOfFirst();
@@ -1563,7 +1563,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
           {
             Standard_Boolean           localok;
             Standard_Integer           k;
-            IntRes2d_IntersectionPoint PSeg[2];
+            IntersectionPoint3 PSeg[2];
             IntRes2d_Position          aPCR1, aPCR2;
             //
             localok = Standard_False;

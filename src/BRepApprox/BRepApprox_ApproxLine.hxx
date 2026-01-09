@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class BSplineCurve3d;
 class Geom2d_BSplineCurve;
-class IntSurf_LineOn2S;
+class LineOnTwoSurfaces;
 class PointOn2Surfaces;
 
 class BRepApprox_ApproxLine;
@@ -40,7 +40,7 @@ public:
 
   //! theTang variable has been entered only for compatibility with
   //! the alias IntPatch_WLine. They are not used in this class.
-  Standard_EXPORT BRepApprox_ApproxLine(const Handle(IntSurf_LineOn2S)& lin,
+  Standard_EXPORT BRepApprox_ApproxLine(const Handle(LineOnTwoSurfaces)& lin,
                                         const Standard_Boolean          theTang = Standard_False);
 
   Standard_EXPORT Standard_Integer NbPnts() const;
@@ -54,7 +54,7 @@ private:
   Handle(BSplineCurve3d)   myCurveXYZ;
   Handle(Geom2d_BSplineCurve) myCurveUV1;
   Handle(Geom2d_BSplineCurve) myCurveUV2;
-  Handle(IntSurf_LineOn2S)    myLineOn2S;
+  Handle(LineOnTwoSurfaces)    myLineOn2S;
 };
 
 #endif // _BRepApprox_ApproxLine_HeaderFile

@@ -65,7 +65,7 @@ Standard_Boolean TransitionEqual(const Transition3& T1, const Transition3& T2)
   return (Standard_False);
 }
 
-void Intersection2::Insert(const IntRes2d_IntersectionPoint& Pnt)
+void Intersection2::Insert(const IntersectionPoint3& Pnt)
 {
   Standard_Integer n = lpnt.Length();
   if (n == 0)
@@ -79,7 +79,7 @@ void Intersection2::Insert(const IntRes2d_IntersectionPoint& Pnt)
     Standard_Integer b = n + 1;
     while (i <= n)
     {
-      const IntRes2d_IntersectionPoint& Pnti = lpnt(i);
+      const IntersectionPoint3& Pnti = lpnt(i);
       Standard_Real                     ui   = Pnti.ParamOnFirst();
       if (ui >= u)
       {
@@ -195,7 +195,7 @@ void Intersection2::Append(const Intersection2& Other,
     for (i = 1; i <= n; i++)
     {
 
-      const IntRes2d_IntersectionPoint& P              = Other.lpnt(i);
+      const IntersectionPoint3& P              = Other.lpnt(i);
       Standard_Real                     PParamOnFirst  = P.ParamOnFirst();
       Standard_Real                     PParamOnSecond = P.ParamOnSecond();
       Transition3               T1             = P.TransitionOfFirst();
@@ -212,7 +212,7 @@ void Intersection2::Append(const Intersection2& Other,
                              LastParam2);
 
       this->Insert(
-        IntRes2d_IntersectionPoint(Pt, PParamOnFirst, PParamOnSecond, T1, T2, Standard_False));
+        IntersectionPoint3(Pt, PParamOnFirst, PParamOnSecond, T1, T2, Standard_False));
     }
 
     //--------------------------------------------------
@@ -227,7 +227,7 @@ void Intersection2::Append(const Intersection2& Other,
     for (i = 1; i <= n; i++)
     {
 
-      const IntRes2d_IntersectionPoint& P1 = Other.lseg(i).FirstPoint();
+      const IntersectionPoint3& P1 = Other.lseg(i).FirstPoint();
 
       Standard_Real       P1PParamOnFirst  = P1.ParamOnFirst();
       Standard_Real       P1PParamOnSecond = P1.ParamOnSecond();
@@ -244,7 +244,7 @@ void Intersection2::Append(const Intersection2& Other,
                              FirstParam2,
                              LastParam2);
 
-      const IntRes2d_IntersectionPoint& P2 = Other.lseg(i).LastPoint();
+      const IntersectionPoint3& P2 = Other.lseg(i).LastPoint();
 
       Standard_Real       P2PParamOnFirst  = P2.ParamOnFirst();
       Standard_Real       P2PParamOnSecond = P2.ParamOnSecond();
@@ -271,11 +271,11 @@ void Intersection2::Append(const Intersection2& Other,
       for (Standard_Integer j = 1; (j <= an) && (NotYetModified); j++)
       {
 
-        const IntRes2d_IntersectionPoint& AnP1               = lseg(j).FirstPoint();
+        const IntersectionPoint3& AnP1               = lseg(j).FirstPoint();
         Standard_Real                     AnP1PParamOnFirst  = AnP1.ParamOnFirst();
         Standard_Real                     AnP1PParamOnSecond = AnP1.ParamOnSecond();
 
-        const IntRes2d_IntersectionPoint& AnP2               = lseg(j).LastPoint();
+        const IntersectionPoint3& AnP2               = lseg(j).LastPoint();
         Standard_Real                     AnP2PParamOnFirst  = AnP2.ParamOnFirst();
         Standard_Real                     AnP2PParamOnSecond = AnP2.ParamOnSecond();
 
@@ -341,13 +341,13 @@ void Intersection2::Append(const Intersection2& Other,
       }
       if (NotYetModified)
       {
-        this->Append(IntRes2d_IntersectionSegment(IntRes2d_IntersectionPoint(P1Pt,
+        this->Append(IntRes2d_IntersectionSegment(IntersectionPoint3(P1Pt,
                                                                              P1PParamOnFirst,
                                                                              P1PParamOnSecond,
                                                                              P1T1,
                                                                              P1T2,
                                                                              Standard_False),
-                                                  IntRes2d_IntersectionPoint(P2Pt,
+                                                  IntersectionPoint3(P2Pt,
                                                                              P2PParamOnFirst,
                                                                              P2PParamOnSecond,
                                                                              P2T1,

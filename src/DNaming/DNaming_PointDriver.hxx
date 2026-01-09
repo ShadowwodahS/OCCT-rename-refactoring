@@ -24,10 +24,10 @@
 class TFunction_Logbook;
 
 class DNaming_PointDriver;
-DEFINE_STANDARD_HANDLE(DNaming_PointDriver, TFunction_Driver)
+DEFINE_STANDARD_HANDLE(DNaming_PointDriver, FunctionDriver1)
 
 //! Driver for PointXYZ  and  RelativePoint
-class DNaming_PointDriver : public TFunction_Driver
+class DNaming_PointDriver : public FunctionDriver1
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Execute(Handle(TFunction_Logbook)& theLog) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DNaming_PointDriver, TFunction_Driver)
+  DEFINE_STANDARD_RTTIEXT(DNaming_PointDriver, FunctionDriver1)
 
 protected:
 private:

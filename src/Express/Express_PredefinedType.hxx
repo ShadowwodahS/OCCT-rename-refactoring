@@ -19,14 +19,14 @@
 
 //! Base class for predefined types (like NUMBER or STRING)
 //! in EXPRESS schema
-class Express_PredefinedType : public Express_Type
+class Express_PredefinedType : public ExpressType
 {
 
 public:
   //! Returns True
   Standard_EXPORT virtual Standard_Boolean IsStandard() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Express_PredefinedType, Express_Type)
+  DEFINE_STANDARD_RTTIEXT(Express_PredefinedType, ExpressType)
 
 protected:
   //! Empty constructor

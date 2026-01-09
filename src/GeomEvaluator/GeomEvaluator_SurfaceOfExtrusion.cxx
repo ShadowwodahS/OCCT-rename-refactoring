@@ -16,21 +16,21 @@
 
 #include <GeomAdaptor_Curve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfExtrusion, GeomEvaluator_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfExtrusion, Surface1)
 
 GeomEvaluator_SurfaceOfExtrusion::GeomEvaluator_SurfaceOfExtrusion(
   const Handle(GeomCurve3d)& theBase,
   const Dir3d&             theExtrusionDir)
-    : GeomEvaluator_Surface(),
+    : Surface1(),
       myBaseCurve(theBase),
       myDirection(theExtrusionDir)
 {
 }
 
 GeomEvaluator_SurfaceOfExtrusion::GeomEvaluator_SurfaceOfExtrusion(
-  const Handle(Adaptor3d_Curve)& theBase,
+  const Handle(Curve5)& theBase,
   const Dir3d&                  theExtrusionDir)
-    : GeomEvaluator_Surface(),
+    : Surface1(),
       myBaseAdaptor(theBase),
       myDirection(theExtrusionDir)
 {
@@ -135,7 +135,7 @@ Vector3d GeomEvaluator_SurfaceOfExtrusion::DN(const Standard_Real theU,
   return aResult;
 }
 
-Handle(GeomEvaluator_Surface) GeomEvaluator_SurfaceOfExtrusion::ShallowCopy() const
+Handle(Surface1) GeomEvaluator_SurfaceOfExtrusion::ShallowCopy() const
 {
   Handle(GeomEvaluator_SurfaceOfExtrusion) aCopy;
   if (!myBaseAdaptor.IsNull())

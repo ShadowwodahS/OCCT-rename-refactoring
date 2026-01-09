@@ -22,7 +22,7 @@
 //=================================================================================================
 
 GeomConvert_FuncSphereLSDist::GeomConvert_FuncSphereLSDist(
-  const Handle(TColgp_HArray1OfXYZ)& thePoints)
+  const Handle(XYZArray)& thePoints)
     : myPoints(thePoints)
 {
 }

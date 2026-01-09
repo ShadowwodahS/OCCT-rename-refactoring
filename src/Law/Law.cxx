@@ -155,7 +155,7 @@ Handle(TColStd_HArray1OfReal) Law1::MixTgt(const Standard_Integer         Degree
   return res;
 }
 
-Handle(Law_BSpline) Law1::Reparametrize(const Adaptor3d_Curve& Curve,
+Handle(Law_BSpline) Law1::Reparametrize(const Curve5& Curve,
                                        const Standard_Real    First,
                                        const Standard_Real    Last,
                                        const Standard_Boolean HasDF,

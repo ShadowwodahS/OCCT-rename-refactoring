@@ -20,6 +20,6 @@
 #include <HLRAlgo_Array1OfPHDat.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(HLRAlgo_HArray1OfPHDat, HLRAlgo_Array1OfPHDat)
+DEFINE_HARRAY1(HandlePHDatArray, HLRAlgo_Array1OfPHDat)
 
 #endif

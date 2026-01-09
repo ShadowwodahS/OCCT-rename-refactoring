@@ -472,8 +472,8 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
     }
     else {
       //Variational algo
-      Handle(AppParCurves_HArray1OfConstraintCouple) TABofCC = 
-	new AppParCurves_HArray1OfConstraintCouple(1, NbPoint);
+      Handle(ConstraintCoupleArray) TABofCC = 
+	new ConstraintCoupleArray(1, NbPoint);
       AppParCurves_Constraint  Constraint=AppParCurves_NoConstraint;
 
       for(i = 1; i <= NbPoint; ++i) {
@@ -537,7 +537,7 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
   vdeg = multC.Degree();
   NbVPoles = multC.NbPoles();
   
-  tabPoles   = new TColgp_HArray2OfPnt (1,NbUPoles,1,NbVPoles);
+  tabPoles   = new PointGrid (1,NbUPoles,1,NbVPoles);
   tabWeights = new TColStd_HArray2OfReal (1,NbUPoles,1,NbVPoles);
   tabVKnots  = new TColStd_HArray1OfReal (multC.Knots().Lower(),
 					  multC.Knots().Upper());
@@ -555,8 +555,8 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
 
   
   TColgp_Array1OfPnt newtabP(1,NbVPoles);
-  Handle(TColgp_HArray1OfPnt2d) newtabP2d = 
-    new TColgp_HArray1OfPnt2d(1,NbVPoles);
+  Handle(Point2dArray) newtabP2d = 
+    new Point2dArray(1,NbVPoles);
   for (j=1; j <=NbUPoles; j++) {
     multC.Curve(j,newtabP);
     multC.Curve(j+NbUPoles+NbPoles2d,newtabP2d->ChangeArray1());
@@ -574,7 +574,7 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
   }
 
   for (j=1; j<=NbPoles2d; j++) {
-    newtabP2d = new TColgp_HArray1OfPnt2d(1,NbVPoles);
+    newtabP2d = new Point2dArray(1,NbVPoles);
     multC.Curve(NbUPoles+j,newtabP2d->ChangeArray1());
     seqPoles2d.Append(newtabP2d);
   }
@@ -864,7 +864,7 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
   vdeg = multC.Degree();
   NbVPoles = multC.NbPoles();
   
-  tabPoles   = new TColgp_HArray2OfPnt (1,NbUPoles,1,NbVPoles);
+  tabPoles   = new PointGrid (1,NbUPoles,1,NbVPoles);
   tabWeights = new TColStd_HArray2OfReal (1,NbUPoles,1,NbVPoles);
   tabVKnots  = new TColStd_HArray1OfReal (multC.Knots().Lower(),
 					  multC.Knots().Upper());
@@ -901,8 +901,8 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
   
   
   TColgp_Array1OfPnt newtabP(1,NbVPoles);
-  Handle(TColgp_HArray1OfPnt2d) newtabP2d = 
-    new TColgp_HArray1OfPnt2d(1,NbVPoles);
+  Handle(Point2dArray) newtabP2d = 
+    new Point2dArray(1,NbVPoles);
   for (j=1; j <=NbUPoles; j++) {
     multC.Curve(j,newtabP);
     multC.Curve(j+NbUPoles+NbPoles2d,newtabP2d->ChangeArray1());
@@ -920,7 +920,7 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
   }
   
   for (j=1; j<=NbPoles2d; j++) {
-    newtabP2d = new TColgp_HArray1OfPnt2d(1,NbVPoles);
+    newtabP2d = new Point2dArray(1,NbVPoles);
     multC.Curve(NbUPoles+j,newtabP2d->ChangeArray1());
     seqPoles2d.Append(newtabP2d);
   }

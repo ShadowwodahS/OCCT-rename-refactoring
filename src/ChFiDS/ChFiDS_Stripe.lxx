@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Handle(ChFiDS_HData)& ChFiDS_Stripe::SetOfSurfData() const
+inline const Handle(ChamferFilletData)& ChFiDS_Stripe::SetOfSurfData() const
 {
   return myHdata;
 }
@@ -69,7 +69,7 @@ inline Standard_Integer ChFiDS_Stripe::Choix() const
 // purpose  :
 //=======================================================================
 
-inline Handle(ChFiDS_HData)& ChFiDS_Stripe::ChangeSetOfSurfData()
+inline Handle(ChamferFilletData)& ChFiDS_Stripe::ChangeSetOfSurfData()
 {
   return myHdata;
 }

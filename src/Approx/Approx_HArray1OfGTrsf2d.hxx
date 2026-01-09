@@ -20,6 +20,6 @@
 #include <Approx_Array1OfGTrsf2d.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Approx_HArray1OfGTrsf2d, Approx_Array1OfGTrsf2d)
+DEFINE_HARRAY1(GeneralTransform2dArray, Approx_Array1OfGTrsf2d)
 
 #endif

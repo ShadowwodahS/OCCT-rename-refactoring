@@ -74,7 +74,7 @@ inline void SurfaceTool4::VIntervals(const BRepAdaptor_Surface& Surf,
   Surf.VIntervals(Tab, S);
 }
 
-inline Handle(Adaptor3d_Surface) SurfaceTool4::UTrim(const BRepAdaptor_Surface& Surf,
+inline Handle(SurfaceAdaptor) SurfaceTool4::UTrim(const BRepAdaptor_Surface& Surf,
                                                                const Standard_Real        F,
                                                                const Standard_Real        L,
                                                                const Standard_Real        Tol)
@@ -82,7 +82,7 @@ inline Handle(Adaptor3d_Surface) SurfaceTool4::UTrim(const BRepAdaptor_Surface& 
   return Surf.UTrim(F, L, Tol);
 }
 
-inline Handle(Adaptor3d_Surface) SurfaceTool4::VTrim(const BRepAdaptor_Surface& Surf,
+inline Handle(SurfaceAdaptor) SurfaceTool4::VTrim(const BRepAdaptor_Surface& Surf,
                                                                const Standard_Real        F,
                                                                const Standard_Real        L,
                                                                const Standard_Real        Tol)
@@ -246,7 +246,7 @@ inline Dir3d SurfaceTool4::Direction(const BRepAdaptor_Surface& S)
   return (S.Direction());
 }
 
-inline Handle(Adaptor3d_Curve) SurfaceTool4::BasisCurve(const BRepAdaptor_Surface& S)
+inline Handle(Curve5) SurfaceTool4::BasisCurve(const BRepAdaptor_Surface& S)
 {
   return (S.BasisCurve());
 }

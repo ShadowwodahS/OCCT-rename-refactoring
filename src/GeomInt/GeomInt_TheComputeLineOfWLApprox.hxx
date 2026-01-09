@@ -36,12 +36,12 @@ class MultiLineToolWLApprox;
 class GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox;
-class GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox;
+class BSplBFGSGradientLineApprox;
 class GeomInt_MyGradientbisOfTheComputeLineOfWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox;
 class ResConstraintGradientbisLine;
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox;
-class GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox;
+class BFGSGradientbisLineApprox;
 class AppParCurves_MultiBSpCurve;
 class AppParCurves_MultiCurve;
 
@@ -239,7 +239,7 @@ private:
   Handle(TColStd_HArray1OfInteger)               mymults;
   Standard_Boolean                               myhasknots;
   Standard_Boolean                               myhasmults;
-  Handle(AppParCurves_HArray1OfConstraintCouple) myConstraints;
+  Handle(ConstraintCoupleArray) myConstraints;
   Standard_Integer                               mydegremin;
   Standard_Integer                               mydegremax;
   Standard_Real                                  mytol3d;

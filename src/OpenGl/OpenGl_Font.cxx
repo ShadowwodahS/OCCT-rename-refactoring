@@ -20,7 +20,7 @@
 #include <Graphic3d_TextureParams.hxx>
 #include <Standard_Assert.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Font, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Font, Resource)
 
 //=================================================================================================
 
@@ -127,7 +127,7 @@ bool OpenGl_Font::createTexture(const Handle(OpenGl_Context)& theCtx)
   memset(&myLastTilePx, 0, sizeof(myLastTilePx));
   myLastTilePx.Bottom = myTileSizeY;
 
-  Handle(Graphic3d_TextureParams) aParams = new Graphic3d_TextureParams();
+  Handle(TextureParams) aParams = new TextureParams();
   aParams->SetModulate(Standard_False);
   aParams->SetRepeat(Standard_False);
   aParams->SetFilter(Graphic3d_TOTF_BILINEAR);
@@ -214,7 +214,7 @@ bool OpenGl_Font::renderGlyph(const Handle(OpenGl_Context)& theCtx,
                                      GL_UNSIGNED_BYTE,
                                      anImg.Data());
 
-  OpenGl_Font::Tile aTile;
+  OpenGl_Font::Tile1 aTile;
   aTile.uv.Left   = GLfloat(myLastTilePx.Left) / GLfloat(aTexture->SizeX());
   aTile.uv.Right  = GLfloat(myLastTilePx.Right) / GLfloat(aTexture->SizeX());
   aTile.uv.Top    = GLfloat(myLastTilePx.Top) / GLfloat(aTexture->SizeY());
@@ -231,7 +231,7 @@ bool OpenGl_Font::renderGlyph(const Handle(OpenGl_Context)& theCtx,
 
 bool OpenGl_Font::RenderGlyph(const Handle(OpenGl_Context)& theCtx,
                               const Standard_Utf32Char      theUChar,
-                              Tile&                         theGlyph)
+                              Tile1&                         theGlyph)
 {
   Standard_Integer aTileId = 0;
   if (!myGlyphMap.Find(theUChar, aTileId))
@@ -248,7 +248,7 @@ bool OpenGl_Font::RenderGlyph(const Handle(OpenGl_Context)& theCtx,
     myGlyphMap.Bind(theUChar, aTileId);
   }
 
-  const OpenGl_Font::Tile& aTile = myTiles.Value(aTileId);
+  const OpenGl_Font::Tile1& aTile = myTiles.Value(aTileId);
   theGlyph.px                    = aTile.px;
   theGlyph.uv                    = aTile.uv;
   theGlyph.texture               = aTile.texture;

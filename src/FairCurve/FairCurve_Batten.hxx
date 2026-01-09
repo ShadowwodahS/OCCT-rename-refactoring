@@ -255,7 +255,7 @@ protected:
   Standard_Integer                 NewConstraintOrder1;
   Standard_Integer                 NewConstraintOrder2;
   Standard_Integer                 Degree;
-  Handle(TColgp_HArray1OfPnt2d)    Poles;
+  Handle(Point2dArray)    Poles;
   Handle(TColStd_HArray1OfReal)    Flatknots;
   Handle(TColStd_HArray1OfReal)    Knots;
   Handle(TColStd_HArray1OfInteger) Mults;

@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array2OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PLib_JacobiPolynomial, PLib_Base)
+IMPLEMENT_STANDARD_RTTIEXT(PLib_JacobiPolynomial, PolynomialBase)
 
 #include "PLib_JacobiPolynomial_Data.pxx"
 

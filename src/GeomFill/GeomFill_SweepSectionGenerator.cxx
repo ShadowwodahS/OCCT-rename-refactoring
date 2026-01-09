@@ -81,9 +81,9 @@ GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(Geom
 //=================================================================================================
 
 GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(
-  const Handle(Adaptor3d_Curve)& Path,
-  const Handle(Adaptor3d_Curve)& Curve1,
-  const Handle(Adaptor3d_Curve)& Curve2,
+  const Handle(Curve5)& Path,
+  const Handle(Curve5)& Curve1,
+  const Handle(Curve5)& Curve2,
   const Standard_Real            Radius)
 {
   Init(Path, Curve1, Curve2, Radius);
@@ -219,9 +219,9 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
 
 //=================================================================================================
 
-void GeomFill_SweepSectionGenerator::Init(const Handle(Adaptor3d_Curve)& Path,
-                                          const Handle(Adaptor3d_Curve)& Curve1,
-                                          const Handle(Adaptor3d_Curve)& Curve2,
+void GeomFill_SweepSectionGenerator::Init(const Handle(Curve5)& Path,
+                                          const Handle(Curve5)& Curve1,
+                                          const Handle(Curve5)& Curve2,
                                           const Standard_Real            Radius)
 {
   myIsDone = Standard_False;

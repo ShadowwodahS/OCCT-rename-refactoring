@@ -217,7 +217,7 @@ static unsigned long thePixels[MAXCOLOR];
 Display*                                Draw_WindowDisplay = NULL;
 Colormap                                Draw_WindowColorMap;
 static Standard_Integer                 Draw_WindowScreen = 0;
-static Handle(Aspect_DisplayConnection) Draw_DisplayConnection;
+static Handle(DisplayConnection1) Draw_DisplayConnection;
 
 //! Return list of windows.
 static NCollection_List<DrawWindow*>& getDrawWindowList()
@@ -1301,7 +1301,7 @@ Standard_Boolean Init_Appli()
   {
     try
     {
-      Draw_DisplayConnection = new Aspect_DisplayConnection();
+      Draw_DisplayConnection = new DisplayConnection1();
     }
     catch (ExceptionBase const& theFail)
     {

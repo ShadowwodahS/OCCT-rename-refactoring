@@ -21,9 +21,9 @@
 #include <TCollection_AsciiString.hxx>
 
 //! XR action definition.
-class Aspect_XRAction : public RefObject
+class XRAction : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_XRAction, RefObject)
+  DEFINE_STANDARD_RTTIEXT(XRAction, RefObject)
 public:
   //! Return action id.
   const AsciiString1& Id() const { return myId; }
@@ -41,7 +41,7 @@ public:
   void SetRawHandle(uint64_t theHande) { myRawHandle = theHande; }
 
   //! Main constructor.
-  Aspect_XRAction(const AsciiString1& theId, const Aspect_XRActionType theType)
+  XRAction(const AsciiString1& theId, const Aspect_XRActionType theType)
       : myId(theId),
         myRawHandle(0),
         myType(theType)
@@ -55,7 +55,7 @@ protected:
 };
 
 //! Map of actions with action Id as a key.
-typedef NCollection_IndexedDataMap<AsciiString1, Handle(Aspect_XRAction)>
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(XRAction)>
   Aspect_XRActionMap;
 
 #endif // _Aspect_XRAction_HeaderFile

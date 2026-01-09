@@ -274,7 +274,7 @@ static Standard_Integer DrawDim_GPLACEMENT(DrawInterpreter& di, Standard_Integer
 {
   if (n == 4)
   {
-    Handle(Geom_Geometry) geom        = DrawTrSurf1::Get(a[1]);
+    Handle(Geometry3) geom        = DrawTrSurf1::Get(a[1]);
     TopoShape          aLocalShape = DBRep1::Get(a[2], TopAbs_FACE);
     TopoFace           from        = TopoDS::Face(aLocalShape);
     aLocalShape                       = DBRep1::Get(a[3], TopAbs_FACE);
@@ -290,7 +290,7 @@ static Standard_Integer DrawDim_GPLACEMENT(DrawInterpreter& di, Standard_Integer
       Ax3  axto(pto.Position1());
       Transform3d trsf;
       trsf.SetDisplacement(axfrom, axto);
-      Handle(Geom_Geometry) newgeom = geom->Transformed(trsf);
+      Handle(Geometry3) newgeom = geom->Transformed(trsf);
       DrawTrSurf1::Set(a[1], newgeom);
       return 0;
     }

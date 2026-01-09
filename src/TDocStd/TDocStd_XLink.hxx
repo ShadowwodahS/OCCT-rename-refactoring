@@ -26,7 +26,7 @@ class DataLabel;
 class TDF_Reference;
 class Standard_GUID;
 class TDF_AttributeDelta;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TDocStd_XLink;
 DEFINE_STANDARD_HANDLE(TDocStd_XLink, TDF_Attribute)
@@ -103,7 +103,7 @@ public:
 
   //! Does nothing.
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       intoAttribute,
-                             const Handle(TDF_RelocationTable)& aRelocationTable) const
+                             const Handle(RelocationTable1)& aRelocationTable) const
     Standard_OVERRIDE;
 
   //! Dumps the attribute on <aStream>.

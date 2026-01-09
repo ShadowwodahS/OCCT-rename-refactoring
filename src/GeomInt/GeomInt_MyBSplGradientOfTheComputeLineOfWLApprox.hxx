@@ -34,7 +34,7 @@ class GeomInt_TheMultiLineOfWLApprox;
 class MultiLineToolWLApprox;
 class GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox;
-class GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox;
+class BSplBFGSGradientLineApprox;
 class AppParCurves_MultiBSpCurve;
 
 class GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox
@@ -52,7 +52,7 @@ public:
     const GeomInt_TheMultiLineOfWLApprox&                 SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const TColStd_Array1OfReal&                           Knots,
     const TColStd_Array1OfInteger&                        Mults,
@@ -71,7 +71,7 @@ public:
     const GeomInt_TheMultiLineOfWLApprox&                 SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const TColStd_Array1OfReal&                           Knots,
     const TColStd_Array1OfInteger&                        Mults,
@@ -111,7 +111,7 @@ protected:
   Standard_EXPORT void Perform(const GeomInt_TheMultiLineOfWLApprox&                 SSP,
                                const Standard_Integer                                FirstPoint,
                                const Standard_Integer                                LastPoint,
-                               const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+                               const Handle(ConstraintCoupleArray)& TheConstraints,
                                math_Vector&                                          Parameters,
                                const TColStd_Array1OfReal&                           Knots,
                                const TColStd_Array1OfInteger&                        Mults,

@@ -42,38 +42,38 @@ public:
   Standard_EXPORT Contap_Contour(const Point3d& Eye);
 
   //! Creates the contour in a given direction.
-  Standard_EXPORT Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT Contap_Contour(const Handle(SurfaceAdaptor)&   Surf,
                                  const Handle(Adaptor3d_TopolTool)& Domain,
                                  const Vector3d&                      Direction);
 
   //! Creates the contour in a given direction.
-  Standard_EXPORT Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT Contap_Contour(const Handle(SurfaceAdaptor)&   Surf,
                                  const Handle(Adaptor3d_TopolTool)& Domain,
                                  const Vector3d&                      Direction,
                                  const Standard_Real                Angle);
 
   //! Creates the contour for a perspective view.
-  Standard_EXPORT Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT Contap_Contour(const Handle(SurfaceAdaptor)&   Surf,
                                  const Handle(Adaptor3d_TopolTool)& Domain,
                                  const Point3d&                      Eye);
 
   //! Creates the contour in a given direction.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& Domain);
 
   //! Creates the contour in a given direction.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& Domain,
                                const Vector3d&                      Direction);
 
   //! Creates the contour in a given direction.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& Domain,
                                const Vector3d&                      Direction,
                                const Standard_Real                Angle);
 
   //! Creates the contour for a perspective view.
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& Domain,
                                const Point3d&                      Eye);
 

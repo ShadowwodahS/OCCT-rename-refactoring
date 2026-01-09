@@ -392,7 +392,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // filling Poles array de [0, IndexU, 0, IndexV]
   // ---------------------------------------------
-  Handle(TColgp_HArray2OfXYZ) Poles  = new TColgp_HArray2OfXYZ(0, IndexU, 0, IndexV);
+  Handle(XYZGrid) Poles  = new XYZGrid(0, IndexU, 0, IndexV);
   Standard_Integer            UIndex = Poles->LowerRow();
   Standard_Integer            VIndex = Poles->LowerCol();
   Standard_Integer            ipole, jpole;
@@ -591,7 +591,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle
     start->D0(Udeb, Vfin, P2);
     start->D0(Ufin, Vdeb, P3);
     start->D0(Ufin, Vfin, P4);
-    Handle(TColgp_HArray2OfXYZ) Poles = new TColgp_HArray2OfXYZ(0, 1, 0, 1);
+    Handle(XYZGrid) Poles = new XYZGrid(0, 1, 0, 1);
     Standard_Real               X, Y, Z;
     P1.Coord(X, Y, Z);
     Poles->SetValue(0, 0, Coords3d(X / GetUnit(), Y / GetUnit(), Z / GetUnit()));

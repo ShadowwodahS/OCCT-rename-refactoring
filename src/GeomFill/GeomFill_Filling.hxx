@@ -48,7 +48,7 @@ public:
 
 protected:
   Standard_Boolean              IsRational;
-  Handle(TColgp_HArray2OfPnt)   myPoles;
+  Handle(PointGrid)   myPoles;
   Handle(TColStd_HArray2OfReal) myWeights;
 
 private:

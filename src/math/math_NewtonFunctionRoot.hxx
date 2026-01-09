@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <Standard_OStream.hxx>
-class math_FunctionWithDerivative;
+class FunctionWithDerivative;
 
 //! This class implements the calculation of a root of a function of
 //! a single variable starting from an initial near guess using the
@@ -37,7 +37,7 @@ public:
   //! The solution is found when :
   //! abs(Xi - Xi-1) <= EpsX and abs(F(Xi))<= EpsF
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT NewtonFunctionRoot(math_FunctionWithDerivative& F,
+  Standard_EXPORT NewtonFunctionRoot(FunctionWithDerivative& F,
                                           const Standard_Real          Guess,
                                           const Standard_Real          EpsX,
                                           const Standard_Real          EpsF,
@@ -50,7 +50,7 @@ public:
   //! The solution is found when :
   //! abs(Xi - Xi-1) <= EpsX and abs(F(Xi))<= EpsF
   //! The maximum number of iterations allowed is given by NbIterations.
-  Standard_EXPORT NewtonFunctionRoot(math_FunctionWithDerivative& F,
+  Standard_EXPORT NewtonFunctionRoot(FunctionWithDerivative& F,
                                           const Standard_Real          Guess,
                                           const Standard_Real          EpsX,
                                           const Standard_Real          EpsF,
@@ -67,7 +67,7 @@ public:
                                           const Standard_Integer NbIterations = 100);
 
   //! is used internally by the constructors.
-  Standard_EXPORT void Perform(math_FunctionWithDerivative& F, const Standard_Real Guess);
+  Standard_EXPORT void Perform(FunctionWithDerivative& F, const Standard_Real Guess);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

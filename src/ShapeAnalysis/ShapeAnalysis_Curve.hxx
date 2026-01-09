@@ -27,7 +27,7 @@
 #include <TColgp_SequenceOfPnt.hxx>
 class GeomCurve3d;
 class Point3d;
-class Adaptor3d_Curve;
+class Curve5;
 class GeomCurve2d;
 class Bnd_Box2d;
 class Coords3d;
@@ -64,7 +64,7 @@ public:
   //!
   //! Returned value is the distance between the given point and
   //! computed one.
-  Standard_EXPORT Standard_Real Project(const Adaptor3d_Curve& C3D,
+  Standard_EXPORT Standard_Real Project(const Curve5& C3D,
                                         const Point3d&          P3D,
                                         const Standard_Real    preci,
                                         Point3d&                proj,
@@ -86,7 +86,7 @@ public:
                                         const Standard_Real       cl,
                                         const Standard_Boolean AdjustToEnds = Standard_True) const;
 
-  Standard_EXPORT Standard_Real ProjectAct(const Adaptor3d_Curve& C3D,
+  Standard_EXPORT Standard_Real ProjectAct(const Curve5& C3D,
                                            const Point3d&          P3D,
                                            const Standard_Real    preci,
                                            Point3d&                proj,
@@ -112,7 +112,7 @@ public:
   //! <paramPrev> is taken as the first approximation of solution.
   //! If Newton algorithm fails the method Project() is used.
   Standard_EXPORT Standard_Real NextProject(const Standard_Real    paramPrev,
-                                            const Adaptor3d_Curve& C3D,
+                                            const Curve5& C3D,
                                             const Point3d&          P3D,
                                             const Standard_Real    preci,
                                             Point3d&                proj,

@@ -23,7 +23,7 @@
 PrincipalEquation::PrincipalEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol)
     : type(GProp_None)
 {
-  GProp_PGProps Pmat(Pnts);
+  PointGeometricProperties Pmat(Pnts);
   g = Pmat.CentreOfMass();
   Standard_Real Xg, Yg, Zg;
   g.Coord(Xg, Yg, Zg);

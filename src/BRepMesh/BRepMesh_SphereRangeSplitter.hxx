@@ -21,14 +21,14 @@
 
 //! Auxiliary class extending default range splitter in
 //! order to generate internal nodes for spherical surface.
-class BRepMesh_SphereRangeSplitter : public DefaultRangeSplitter
+class SphereRangeSplitter : public DefaultRangeSplitter
 {
 public:
   //! Constructor.
-  BRepMesh_SphereRangeSplitter() {}
+  SphereRangeSplitter() {}
 
   //! Destructor.
-  virtual ~BRepMesh_SphereRangeSplitter() {}
+  virtual ~SphereRangeSplitter() {}
 
   //! Returns list of nodes generated using surface data and specified parameters.
   Standard_EXPORT virtual Handle(IMeshData::ListOfPnt2d) GenerateSurfaceNodes(

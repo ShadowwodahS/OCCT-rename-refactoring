@@ -18,13 +18,13 @@
 
 #include <TCollection_ExtendedString.hxx>
 
-TDocStd_PathParser::TDocStd_PathParser(const UtfString& path)
+PathParser::PathParser(const UtfString& path)
 {
   myPath = path;
   Parse();
 }
 
-void TDocStd_PathParser::Parse()
+void PathParser::Parse()
 {
   UtfString temp          = myPath;
   Standard_Integer           PointPosition = myPath.SearchFromEnd(UtfString("."));
@@ -79,27 +79,27 @@ void TDocStd_PathParser::Parse()
 #endif
 }
 
-UtfString TDocStd_PathParser::Extension() const
+UtfString PathParser::Extension() const
 {
   return myExtension;
 }
 
-UtfString TDocStd_PathParser::Name() const
+UtfString PathParser::Name() const
 {
   return myName;
 }
 
-UtfString TDocStd_PathParser::Trek() const
+UtfString PathParser::Trek() const
 {
   return myTrek;
 }
 
-UtfString TDocStd_PathParser::Path() const
+UtfString PathParser::Path() const
 {
   return myPath;
 }
 
-Standard_Integer TDocStd_PathParser::Length() const
+Standard_Integer PathParser::Length() const
 {
   return myPath.Length();
 }

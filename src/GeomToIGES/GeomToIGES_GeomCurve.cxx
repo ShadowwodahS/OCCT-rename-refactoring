@@ -381,7 +381,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   Standard_Integer Poleindex;
   itampon = 0;
   Standard_Real               Xpt, Ypt, Zpt;
-  Handle(TColgp_HArray1OfXYZ) Poles = new TColgp_HArray1OfXYZ(0, Index);
+  Handle(XYZArray) Poles = new XYZArray(0, Index);
   for (Poleindex = P.Lower(); Poleindex <= P.Upper(); Poleindex++)
   {
     Point3d ptampon = P.Value(Poleindex);

@@ -397,16 +397,16 @@ void BRepSelectionTool::ComputeSensitive(const TopoShape&                  theSh
 
 //=================================================================================================
 
-static Handle(TColgp_HArray1OfPnt) GetPointsFromPolygon(const TopoEdge& theEdge)
+static Handle(PointArray1) GetPointsFromPolygon(const TopoEdge& theEdge)
 {
-  Handle(TColgp_HArray1OfPnt) aResultPoints;
+  Handle(PointArray1) aResultPoints;
 
   TopLoc_Location        aLocation;
   Handle(Poly_Polygon3D) aPolygon = BRepInspector::Polygon3D(theEdge, aLocation);
   if (!aPolygon.IsNull())
   {
     const TColgp_Array1OfPnt& aNodes = aPolygon->Nodes();
-    aResultPoints                    = new TColgp_HArray1OfPnt(1, aNodes.Length());
+    aResultPoints                    = new PointArray1(1, aNodes.Length());
     if (aLocation.IsIdentity())
     {
       for (Standard_Integer aNodeId(aNodes.Lower()), aPntId(1); aNodeId <= aNodes.Upper();
@@ -433,7 +433,7 @@ static Handle(TColgp_HArray1OfPnt) GetPointsFromPolygon(const TopoEdge& theEdge)
   {
     const TColStd_Array1OfInteger& anIndices = anHIndices->Nodes();
 
-    aResultPoints = new TColgp_HArray1OfPnt(1, anIndices.Length());
+    aResultPoints = new PointArray1(1, anIndices.Length());
 
     if (aLocation.IsIdentity())
     {
@@ -459,7 +459,7 @@ static Handle(TColgp_HArray1OfPnt) GetPointsFromPolygon(const TopoEdge& theEdge)
 
 //=================================================================================================
 
-static Standard_Boolean FindLimits(const Adaptor3d_Curve& theCurve,
+static Standard_Boolean FindLimits(const Curve5& theCurve,
                                    const Standard_Real    theLimit,
                                    Standard_Real&         theFirst,
                                    Standard_Real&         theLast)
@@ -527,7 +527,7 @@ void BRepSelectionTool::GetEdgeSensitive(const TopoShape&                  theSh
 {
   const TopoEdge& anEdge = TopoDS::Edge(theShape);
   // try to get points from existing polygons
-  Handle(TColgp_HArray1OfPnt) aPoints = GetPointsFromPolygon(anEdge);
+  Handle(PointArray1) aPoints = GetPointsFromPolygon(anEdge);
   if (!aPoints.IsNull() && !aPoints->IsEmpty())
   {
     if (aPoints->Length() == 2)
@@ -610,7 +610,7 @@ void BRepSelectionTool::GetEdgeSensitive(const TopoShape&                  theSh
           }
         }
 
-        aPoints = new TColgp_HArray1OfPnt(1, aPointsSeq.Length());
+        aPoints = new PointArray1(1, aPointsSeq.Length());
         for (Standard_Integer aPntId = 1; aPntId <= aPointsSeq.Length(); ++aPntId)
         {
           aPoints->SetValue(aPntId, aPointsSeq.Value(aPntId));
@@ -630,7 +630,7 @@ void BRepSelectionTool::GetEdgeSensitive(const TopoShape&                  theSh
       Standard_Real               aParam;
       Standard_Integer            aPntNb      = Max(2, theNbPOnEdge * nbintervals);
       Standard_Real               aParamDelta = (aParamLast - aParamFirst) / (aPntNb - 1);
-      Handle(TColgp_HArray1OfPnt) aPointArray = new TColgp_HArray1OfPnt(1, aPntNb);
+      Handle(PointArray1) aPointArray = new PointArray1(1, aPntNb);
       for (Standard_Integer aPntId = 1; aPntId <= aPntNb; ++aPntId)
       {
         aParam = aParamFirst + aParamDelta * (aPntId - 1);
@@ -785,7 +785,7 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForFace(
       BS.FirstVParameter() <= -Precision1::Infinite() ? -theMaxParam : BS.FirstVParameter();
     const Standard_Real aLastV =
       BS.LastVParameter() >= Precision1::Infinite() ? theMaxParam : BS.LastVParameter();
-    Handle(TColgp_HArray1OfPnt) aPlanePnts = new TColgp_HArray1OfPnt(1, 5);
+    Handle(PointArray1) aPlanePnts = new PointArray1(1, 5);
     BS.D0(aFirstU, aFirstV, aPlanePnts->ChangeValue(1));
     BS.D0(aLastU, aFirstV, aPlanePnts->ChangeValue(2));
     BS.D0(aLastU, aLastV, aPlanePnts->ChangeValue(3));
@@ -942,7 +942,7 @@ Standard_Boolean BRepSelectionTool::GetSensitiveForFace(
     }
   }
 
-  Handle(TColgp_HArray1OfPnt) aFacePoints = new TColgp_HArray1OfPnt(1, aWirePoints.Length());
+  Handle(PointArray1) aFacePoints = new PointArray1(1, aWirePoints.Length());
   {
     Standard_Integer aPntIndex = 1;
     for (TColgp_SequenceOfPnt::Iterator aPntIter(aWirePoints); aPntIter.More(); aPntIter.Next())

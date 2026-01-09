@@ -24,7 +24,7 @@
 // function : NewFunction
 // purpose  : Static method to create a new function.
 //=======================================================================
-Standard_Boolean TFunction_IFunction::NewFunction(const DataLabel& L, const Standard_GUID& ID)
+Standard_Boolean FunctionInterface::NewFunction(const DataLabel& L, const Standard_GUID& ID)
 {
   // Set Function (ID, code of failure)
   TFunction_Function::Set(L, ID)->SetFailure(0);
@@ -46,7 +46,7 @@ Standard_Boolean TFunction_IFunction::NewFunction(const DataLabel& L, const Stan
 // purpose  : Static method to delete a function.
 //=======================================================================
 
-Standard_Boolean TFunction_IFunction::DeleteFunction(const DataLabel& L)
+Standard_Boolean FunctionInterface::DeleteFunction(const DataLabel& L)
 {
   // Delete Function
   Handle(TFunction_Function) func;
@@ -101,7 +101,7 @@ Standard_Boolean TFunction_IFunction::DeleteFunction(const DataLabel& L)
 // purpose  : Updates the dependencies of all functions.
 //=======================================================================
 
-Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access)
+Standard_Boolean FunctionInterface::UpdateDependencies(const DataLabel& Access)
 {
   // Take the scope of functions.
   Handle(TFunction_Scope) scope = TFunction_Scope::Set(Access);
@@ -113,10 +113,10 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access
   {
     // Label of the function
     const DataLabel&    L = itrm.Key2();
-    TFunction_IFunction iFunction(L);
+    FunctionInterface iFunction(L);
 
     // Take the driver.
-    Handle(TFunction_Driver) driver = iFunction.GetDriver();
+    Handle(FunctionDriver1) driver = iFunction.GetDriver();
 
     // Take the results.
     TDF_LabelList res;
@@ -137,10 +137,10 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access
   {
     // Label of the functions
     const DataLabel&    L = itrm.Key2();
-    TFunction_IFunction iFunction(L);
+    FunctionInterface iFunction(L);
 
     // Take the driver.
-    Handle(TFunction_Driver) driver = iFunction.GetDriver();
+    Handle(FunctionDriver1) driver = iFunction.GetDriver();
 
     // Take the arguments.
     TDF_LabelList args;
@@ -169,7 +169,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access
         {
           iFunction.GetGraphNode()->AddPrevious(anotherL);
 
-          TFunction_IFunction iAnotherFunction(anotherL);
+          FunctionInterface iAnotherFunction(anotherL);
           iAnotherFunction.GetGraphNode()->AddNext(funcID);
         }
       }
@@ -181,11 +181,11 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access
 
 //=================================================================================================
 
-TFunction_IFunction::TFunction_IFunction() {}
+FunctionInterface::FunctionInterface() {}
 
 //=================================================================================================
 
-TFunction_IFunction::TFunction_IFunction(const DataLabel& L)
+FunctionInterface::FunctionInterface(const DataLabel& L)
 {
   Init(L);
 }
@@ -195,7 +195,7 @@ TFunction_IFunction::TFunction_IFunction(const DataLabel& L)
 // purpose  : Initializes the interface.
 //=======================================================================
 
-void TFunction_IFunction::Init(const DataLabel& L)
+void FunctionInterface::Init(const DataLabel& L)
 {
   myLabel = L;
 }
@@ -205,7 +205,7 @@ void TFunction_IFunction::Init(const DataLabel& L)
 // purpose  : Returns the label of the interface.
 //=======================================================================
 
-const DataLabel& TFunction_IFunction::Label() const
+const DataLabel& FunctionInterface::Label() const
 {
   return myLabel;
 }
@@ -215,11 +215,11 @@ const DataLabel& TFunction_IFunction::Label() const
 // purpose  : Updates the dependencies of this function only.
 //=======================================================================
 
-Standard_Boolean TFunction_IFunction::UpdateDependencies() const
+Standard_Boolean FunctionInterface::UpdateDependencies() const
 {
   // Take the arguments & results of the functions
   TDF_LabelList            args, res;
-  Handle(TFunction_Driver) D = GetDriver();
+  Handle(FunctionDriver1) D = GetDriver();
   D->Arguments(args);
   D->Results(res);
 
@@ -243,7 +243,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies() const
     const DataLabel& L = itrm.Key2();
     if (L == myLabel)
       continue;
-    TFunction_IFunction iFunc(L);
+    FunctionInterface iFunc(L);
     D = iFunc.GetDriver();
 
     // Arguments of another function
@@ -286,9 +286,9 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies() const
 //           where the arguments of the function are located.
 //=======================================================================
 
-void TFunction_IFunction::Arguments(TDF_LabelList& args) const
+void FunctionInterface::Arguments(TDF_LabelList& args) const
 {
-  Handle(TFunction_Driver) driver = GetDriver();
+  Handle(FunctionDriver1) driver = GetDriver();
   driver->Arguments(args);
 }
 
@@ -298,9 +298,9 @@ void TFunction_IFunction::Arguments(TDF_LabelList& args) const
 //           where the results of the function are located.
 //=======================================================================
 
-void TFunction_IFunction::Results(TDF_LabelList& res) const
+void FunctionInterface::Results(TDF_LabelList& res) const
 {
-  Handle(TFunction_Driver) driver = GetDriver();
+  Handle(FunctionDriver1) driver = GetDriver();
   driver->Results(res);
 }
 
@@ -309,7 +309,7 @@ void TFunction_IFunction::Results(TDF_LabelList& res) const
 // purpose  : Returns a list of previous functions.
 //=======================================================================
 
-void TFunction_IFunction::GetPrevious(TDF_LabelList& prev) const
+void FunctionInterface::GetPrevious(TDF_LabelList& prev) const
 {
   Handle(TFunction_GraphNode) graph = GetGraphNode();
   const TColStd_MapOfInteger& map   = graph->GetPrevious();
@@ -331,7 +331,7 @@ void TFunction_IFunction::GetPrevious(TDF_LabelList& prev) const
 // purpose  : Returns a list of next functions.
 //=======================================================================
 
-void TFunction_IFunction::GetNext(TDF_LabelList& next) const
+void FunctionInterface::GetNext(TDF_LabelList& next) const
 {
   Handle(TFunction_GraphNode) graph = GetGraphNode();
   const TColStd_MapOfInteger& map   = graph->GetNext();
@@ -353,7 +353,7 @@ void TFunction_IFunction::GetNext(TDF_LabelList& next) const
 // purpose  : Returns the execution status of the function.
 //=======================================================================
 
-TFunction_ExecutionStatus TFunction_IFunction::GetStatus() const
+TFunction_ExecutionStatus FunctionInterface::GetStatus() const
 {
   Handle(TFunction_GraphNode) graph = GetGraphNode();
   return graph->GetStatus();
@@ -364,7 +364,7 @@ TFunction_ExecutionStatus TFunction_IFunction::GetStatus() const
 // purpose  : Defines an execution status for a function.
 //=======================================================================
 
-void TFunction_IFunction::SetStatus(const TFunction_ExecutionStatus status) const
+void FunctionInterface::SetStatus(const TFunction_ExecutionStatus status) const
 {
   Handle(TFunction_GraphNode) graph = GetGraphNode();
   graph->SetStatus(status);
@@ -375,7 +375,7 @@ void TFunction_IFunction::SetStatus(const TFunction_ExecutionStatus status) cons
 // purpose  : Returns the scope of functions.
 //=======================================================================
 
-const TFunction_DoubleMapOfIntegerLabel& TFunction_IFunction::GetAllFunctions() const
+const TFunction_DoubleMapOfIntegerLabel& FunctionInterface::GetAllFunctions() const
 {
   return TFunction_Scope::Set(myLabel)->GetFunctions();
 }
@@ -385,7 +385,7 @@ const TFunction_DoubleMapOfIntegerLabel& TFunction_IFunction::GetAllFunctions() 
 // purpose  : Returns the Logbook.
 //=======================================================================
 
-Handle(TFunction_Logbook) TFunction_IFunction::GetLogbook() const
+Handle(TFunction_Logbook) FunctionInterface::GetLogbook() const
 {
   return TFunction_Scope::Set(myLabel)->GetLogbook();
 }
@@ -395,16 +395,16 @@ Handle(TFunction_Logbook) TFunction_IFunction::GetLogbook() const
 // purpose  : Returns the function driver.
 //=======================================================================
 
-Handle(TFunction_Driver) TFunction_IFunction::GetDriver(const Standard_Integer thread) const
+Handle(FunctionDriver1) FunctionInterface::GetDriver(const Standard_Integer thread) const
 {
-  Handle(TFunction_Driver)   driver;
+  Handle(FunctionDriver1)   driver;
   Handle(TFunction_Function) func;
   if (!myLabel.FindAttribute(TFunction_Function::GetID(), func))
     throw Standard_NoSuchObject(
-      "TFunction_IFunction::GetDriver(): A Function is not found attached to this label");
+      "FunctionInterface::GetDriver(): A Function is not found attached to this label");
   if (!TFunction_DriverTable::Get()->FindDriver(func->GetDriverGUID(), driver, thread))
     throw Standard_NoSuchObject(
-      "TFunction_IFunction::GetDriver(): A driver is not found for this ID");
+      "FunctionInterface::GetDriver(): A driver is not found for this ID");
   driver->Init(myLabel);
   return driver;
 }
@@ -414,11 +414,11 @@ Handle(TFunction_Driver) TFunction_IFunction::GetDriver(const Standard_Integer t
 // purpose  : Returns a graph node of the function.
 //=======================================================================
 
-Handle(TFunction_GraphNode) TFunction_IFunction::GetGraphNode() const
+Handle(TFunction_GraphNode) FunctionInterface::GetGraphNode() const
 {
   Handle(TFunction_GraphNode) graphNode;
   if (!myLabel.FindAttribute(TFunction_GraphNode::GetID(), graphNode))
     throw Standard_NoSuchObject(
-      "TFunction_IFunction::GetStatus(): A graph node is not found attached to this label");
+      "FunctionInterface::GetStatus(): A graph node is not found attached to this label");
   return graphNode;
 }

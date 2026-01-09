@@ -175,7 +175,7 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&  theEdge,
 
   if (!anEdgeLoc.IsIdentity())
   {
-    Handle(Geom_Geometry) aGeometry = theCurve->Transformed(anEdgeLoc.Transformation());
+    Handle(Geometry3) aGeometry = theCurve->Transformed(anEdgeLoc.Transformation());
     theCurve                        = Handle(GeomCurve3d)::DownCast(aGeometry);
   }
 
@@ -364,14 +364,14 @@ Standard_Boolean PrsDim1::ComputeGeometry(const TopoEdge&        theFirstEdge,
 
   if (!aFirstEdgeLoc.IsIdentity())
   {
-    Handle(Geom_Geometry) aGeomGeometry =
+    Handle(Geometry3) aGeomGeometry =
       theFirstCurve->Transformed(aFirstEdgeLoc.Transformation());
     theFirstCurve = Handle(GeomCurve3d)::DownCast(aGeomGeometry);
   }
 
   if (!aSecondEdgeLoc.IsIdentity())
   {
-    Handle(Geom_Geometry) aGeomGeometry =
+    Handle(Geometry3) aGeomGeometry =
       theSecondCurve->Transformed(aSecondEdgeLoc.Transformation());
     theSecondCurve = Handle(GeomCurve3d)::DownCast(aGeomGeometry);
   }
@@ -751,7 +751,7 @@ Standard_Boolean PrsDim1::GetPlaneFromFace(const TopoFace&    aFace,
 {
   Standard_Boolean          Result = Standard_False;
   BRepAdaptor_Surface       surf1(aFace);
-  Handle(Adaptor3d_Surface) surf2;
+  Handle(SurfaceAdaptor) surf2;
   Standard_Boolean          isOffset = Standard_False;
   Offset                             = 0.0;
 
@@ -776,7 +776,7 @@ Standard_Boolean PrsDim1::GetPlaneFromFace(const TopoFace&    aFace,
   }
   else if (surf2->GetType() == GeomAbs_SurfaceOfExtrusion)
   {
-    Handle(Adaptor3d_Curve) BasisCurve   = surf2->BasisCurve();
+    Handle(Curve5) BasisCurve   = surf2->BasisCurve();
     Dir3d                  ExtrusionDir = surf2->Direction();
     if (BasisCurve->GetType() == GeomAbs_Line)
     {
@@ -1009,7 +1009,7 @@ Standard_Boolean PrsDim1::InitAngleBetweenCurvilinearFaces(
       Handle(Geom_CylindricalSurface)::DownCast(aSecondSurf);
 
     Standard_Real aSecondU = aCylinder->Cylinder().XAxis().Direction().Angle(
-      gce_MakeDir(ProjectPointOnLine(theFirstAttach, gp_Lin(aCylinder->Cylinder().Axis())),
+      DirectionBuilder(ProjectPointOnLine(theFirstAttach, gp_Lin(aCylinder->Cylinder().Axis())),
                   theFirstAttach));
 
     aSecondLine = Handle(GeomLine)::DownCast(aCylinder->UIso(aSecondU));
@@ -1021,7 +1021,7 @@ Standard_Boolean PrsDim1::InitAngleBetweenCurvilinearFaces(
     Dir3d anXdirection = aCone->Cone().XAxis().Direction();
 
     Dir3d aToFirstAttach =
-      gce_MakeDir(ProjectPointOnLine(theFirstAttach, gp_Lin(aCone->Cone().Axis())), theFirstAttach);
+      DirectionBuilder(ProjectPointOnLine(theFirstAttach, gp_Lin(aCone->Cone().Axis())), theFirstAttach);
 
     Standard_Real aSecondU = anXdirection.Angle(aToFirstAttach);
 

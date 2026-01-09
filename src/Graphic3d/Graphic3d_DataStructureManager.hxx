@@ -23,20 +23,20 @@
 
 class CameraOn3d;
 
-class Graphic3d_DataStructureManager;
-DEFINE_STANDARD_HANDLE(Graphic3d_DataStructureManager, RefObject)
+class DataStructureManager;
+DEFINE_STANDARD_HANDLE(DataStructureManager, RefObject)
 
 //! This class allows the definition of a manager to
 //! which the graphic objects are associated.
 //! It allows them to be globally manipulated.
 //! It defines the global attributes.
-class Graphic3d_DataStructureManager : public RefObject
+class DataStructureManager : public RefObject
 {
 
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_DataStructureManager, RefObject)
+  DEFINE_STANDARD_RTTIEXT(DataStructureManager, RefObject)
 protected:
   //! Initializes the manager <me>.
-  Standard_EXPORT Graphic3d_DataStructureManager();
+  Standard_EXPORT DataStructureManager();
 
   //! Returns camera object of the view.
   virtual const Handle(CameraOn3d)& Camera() const = 0;

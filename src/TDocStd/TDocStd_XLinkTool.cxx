@@ -35,7 +35,7 @@
 TDocStd_XLinkTool::TDocStd_XLinkTool()
 {
   isDone = Standard_False;
-  myRT   = new TDF_RelocationTable();
+  myRT   = new RelocationTable1();
 }
 
 //=================================================================================================
@@ -72,7 +72,7 @@ void TDocStd_XLinkTool::Copy(const DataLabel& target, const DataLabel& source)
     anOldNode->Remove();
   }
 
-  myRT                   = new TDF_RelocationTable(Standard_True);
+  myRT                   = new RelocationTable1(Standard_True);
   myDS                   = new TDF_DataSet;
   Handle(TDF_DataSet) DS = new TDF_DataSet();
   ClosureMode     mode(Standard_True); // descendant plus reference
@@ -165,7 +165,7 @@ Standard_Boolean TDocStd_XLinkTool::IsDone() const
 
 //=================================================================================================
 
-Handle(TDF_RelocationTable) TDocStd_XLinkTool::RelocationTable() const
+Handle(RelocationTable1) TDocStd_XLinkTool::RelocationTable() const
 {
   return myRT;
 }

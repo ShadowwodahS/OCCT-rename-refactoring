@@ -27,10 +27,10 @@ class BRepAlgoAPI_BooleanOperation;
 class TFunction_Function;
 
 class DNaming_BooleanOperationDriver;
-DEFINE_STANDARD_HANDLE(DNaming_BooleanOperationDriver, TFunction_Driver)
+DEFINE_STANDARD_HANDLE(DNaming_BooleanOperationDriver, FunctionDriver1)
 
 //! Driver  for Fuse,  Cut,  Common
-class DNaming_BooleanOperationDriver : public TFunction_Driver
+class DNaming_BooleanOperationDriver : public FunctionDriver1
 {
 
 public:
@@ -59,7 +59,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Execute(Handle(TFunction_Logbook)& theLog) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(DNaming_BooleanOperationDriver, TFunction_Driver)
+  DEFINE_STANDARD_RTTIEXT(DNaming_BooleanOperationDriver, FunctionDriver1)
 
 protected:
 private:

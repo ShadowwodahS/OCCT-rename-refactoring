@@ -25,7 +25,7 @@ class ConicTool;
 class Adaptor2d_Curve2d;
 class Geom2dCurveTool;
 class ProjPCurOfGInter;
-class Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter;
+class IntConicCurveIntersector2d;
 class Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter;
 class gp_Lin2d;
 class Domain2;
@@ -34,16 +34,16 @@ class gp_Elips2d;
 class gp_Parab2d;
 class gp_Hypr2d;
 
-class Geom2dInt_TheIntConicCurveOfGInter : public Intersection2
+class IntConicCurve2d : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Geom2dInt_TheIntConicCurveOfGInter();
+  IntConicCurve2d();
 
   //! Intersection between a line and a parametric curve.
-  Geom2dInt_TheIntConicCurveOfGInter(const gp_Lin2d&          L,
+  IntConicCurve2d(const gp_Lin2d&          L,
                                      const Domain2&   D1,
                                      const Adaptor2d_Curve2d& PCurve,
                                      const Domain2&   D2,
@@ -51,7 +51,7 @@ public:
                                      const Standard_Real      Tol);
 
   //! Intersection between a line and a parametric curve.
-  Standard_EXPORT Geom2dInt_TheIntConicCurveOfGInter(const gp_Circ2d&         C,
+  Standard_EXPORT IntConicCurve2d(const gp_Circ2d&         C,
                                                      const Domain2&   D1,
                                                      const Adaptor2d_Curve2d& PCurve,
                                                      const Domain2&   D2,
@@ -59,7 +59,7 @@ public:
                                                      const Standard_Real      Tol);
 
   //! Intersection between an ellipse and a parametric curve.
-  Standard_EXPORT Geom2dInt_TheIntConicCurveOfGInter(const gp_Elips2d&        E,
+  Standard_EXPORT IntConicCurve2d(const gp_Elips2d&        E,
                                                      const Domain2&   D1,
                                                      const Adaptor2d_Curve2d& PCurve,
                                                      const Domain2&   D2,
@@ -67,7 +67,7 @@ public:
                                                      const Standard_Real      Tol);
 
   //! Intersection between a parabola and a parametric curve.
-  Standard_EXPORT Geom2dInt_TheIntConicCurveOfGInter(const gp_Parab2d&        Prb,
+  Standard_EXPORT IntConicCurve2d(const gp_Parab2d&        Prb,
                                                      const Domain2&   D1,
                                                      const Adaptor2d_Curve2d& PCurve,
                                                      const Domain2&   D2,
@@ -76,7 +76,7 @@ public:
 
   //! Intersection between the main branch of an hyperbola
   //! and a parametric curve.
-  Standard_EXPORT Geom2dInt_TheIntConicCurveOfGInter(const gp_Hypr2d&         H,
+  Standard_EXPORT IntConicCurve2d(const gp_Hypr2d&         H,
                                                      const Domain2&   D1,
                                                      const Adaptor2d_Curve2d& PCurve,
                                                      const Domain2&   D2,
@@ -144,7 +144,7 @@ private:
 #define ThePCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
 #define TheProjPCur ProjPCurOfGInter
 #define TheProjPCur_hxx <Geom2dInt_TheProjPCurOfGInter.hxx>
-#define IntCurve_TheIntersector Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter
+#define IntCurve_TheIntersector IntConicCurveIntersector2d
 #define IntCurve_TheIntersector_hxx <Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.hxx>
 #define IntCurve_MyImpParToolOfTheIntersector                                                      \
   Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
@@ -154,7 +154,7 @@ private:
   Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
 #define IntCurve_MyImpParToolOfTheIntersector_hxx                                                  \
   <Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter.hxx>
-#define IntCurve_IntConicCurveGen Geom2dInt_TheIntConicCurveOfGInter
+#define IntCurve_IntConicCurveGen IntConicCurve2d
 #define IntCurve_IntConicCurveGen_hxx <Geom2dInt_TheIntConicCurveOfGInter.hxx>
 
 #include <IntCurve_IntConicCurveGen.lxx>

@@ -172,7 +172,7 @@ private:
   Standard_Integer                 udeg;
   Standard_Integer                 vdeg;
   Standard_Boolean                 knownp;
-  Handle(TColgp_HArray2OfPnt)      tabPoles;
+  Handle(PointGrid)      tabPoles;
   Handle(TColStd_HArray2OfReal)    tabWeights;
   Handle(TColStd_HArray1OfReal)    tabUKnots;
   Handle(TColStd_HArray1OfReal)    tabVKnots;

@@ -23,7 +23,7 @@
 #include <math_Vector.hxx>
 #include <math_Status.hxx>
 #include <Standard_OStream.hxx>
-class math_MultipleVarFunctionWithGradient;
+class MultiVarFunctionWithGradient;
 
 //! this class implements the Fletcher-Reeves-Polak_Ribiere minimization
 //! algorithm of a function of multiple variables.
@@ -35,7 +35,7 @@ public:
 
   //! Initializes the computation of the minimum of F.
   //! Warning: constructor does not perform computations.
-  Standard_EXPORT FletcherReevesPowellRestart(const math_MultipleVarFunctionWithGradient& theFunction,
+  Standard_EXPORT FletcherReevesPowellRestart(const MultiVarFunctionWithGradient& theFunction,
                             const Standard_Real                         theTolerance,
                             const Standard_Integer                      theNbIterations = 200,
                             const Standard_Real                         theZEPS         = 1.0e-12);
@@ -45,13 +45,13 @@ public:
 
   //! The solution F = Fi is found when
   //! 2.0 * abs(Fi - Fi-1) <= Tolerance * (abs(Fi) + abs(Fi-1) + ZEPS).
-  Standard_EXPORT void Perform(math_MultipleVarFunctionWithGradient& theFunction,
+  Standard_EXPORT void Perform(MultiVarFunctionWithGradient& theFunction,
                                const math_Vector&                    theStartingPoint);
 
   //! The solution F = Fi is found when:
   //! 2.0 * abs(Fi - Fi-1) <= Tolerance * (abs(Fi) + abs(Fi-1)) + ZEPS.
   //! The maximum number of iterations allowed is given by NbIterations.
-  virtual Standard_Boolean IsSolutionReached(math_MultipleVarFunctionWithGradient& theFunction);
+  virtual Standard_Boolean IsSolutionReached(MultiVarFunctionWithGradient& theFunction);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

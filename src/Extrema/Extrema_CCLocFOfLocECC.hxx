@@ -29,25 +29,25 @@
 #include <Standard_Boolean.hxx>
 #include <math_Vector.hxx>
 class Standard_OutOfRange;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointOnCurve1;
 class Point3d;
 class Vector3d;
 class math_Matrix;
 
-class Extrema_CCLocFOfLocECC : public math_FunctionSetWithDerivatives
+class Extrema_CCLocFOfLocECC : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT Extrema_CCLocFOfLocECC(const Standard_Real thetol = 1.0e-10);
 
-  Standard_EXPORT Extrema_CCLocFOfLocECC(const Adaptor3d_Curve& C1,
-                                         const Adaptor3d_Curve& C2,
+  Standard_EXPORT Extrema_CCLocFOfLocECC(const Curve5& C1,
+                                         const Curve5& C2,
                                          const Standard_Real    thetol = 1.0e-10);
 
-  Standard_EXPORT void SetCurve(const Standard_Integer theRank, const Adaptor3d_Curve& C1);
+  Standard_EXPORT void SetCurve(const Standard_Integer theRank, const Curve5& C1);
 
   void SetTolerance(const Standard_Real theTol);
 
@@ -121,11 +121,11 @@ private:
   Standard_Real             myVsupremum;
 };
 
-#define Curve1 Adaptor3d_Curve
+#define Curve1 Curve5
 #define Curve1_hxx <Adaptor3d_Curve.hxx>
 #define Tool1 CurveTool4
 #define Tool1_hxx <Extrema_CurveTool.hxx>
-#define Curve2 Adaptor3d_Curve
+#define Curve2 Curve5
 #define Curve2_hxx <Adaptor3d_Curve.hxx>
 #define Tool2 CurveTool4
 #define Tool2_hxx <Extrema_CurveTool.hxx>

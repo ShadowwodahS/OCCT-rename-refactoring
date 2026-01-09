@@ -199,7 +199,7 @@ private:
   Handle(TColStd_HSequenceOfInteger)   thevstar;
   Handle(TColStd_HSequenceOfInteger)   thevend;
   Handle(IGESSolid_VertexList)         thevertl;
-  Handle(TColgp_HSequenceOfXYZ)        thepoint;
+  Handle(XYZSequence)        thepoint;
 };
 
 #endif // _IGESSolid_TopoBuilder_HeaderFile

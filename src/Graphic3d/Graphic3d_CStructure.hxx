@@ -85,16 +85,16 @@ public:
   const Graphic3d_SequenceOfGroup& Groups() const { return myGroups; }
 
   //! Return transformation.
-  const Handle(TopLoc_Datum3D)& Transformation() const { return myTrsf; }
+  const Handle(Datum3D2)& Transformation() const { return myTrsf; }
 
   //! Assign transformation.
-  virtual void SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf) { myTrsf = theTrsf; }
+  virtual void SetTransformation(const Handle(Datum3D2)& theTrsf) { myTrsf = theTrsf; }
 
   //! Return transformation persistence.
-  const Handle(Graphic3d_TransformPers)& TransformPersistence() const { return myTrsfPers; }
+  const Handle(TransformPers)& TransformPersistence() const { return myTrsfPers; }
 
   //! Set transformation persistence.
-  virtual void SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
+  virtual void SetTransformPersistence(const Handle(TransformPers)& theTrsfPers)
   {
     myTrsfPers = theTrsfPers;
   }
@@ -106,10 +106,10 @@ public:
   void SetGroupTransformPersistence(bool theValue) { myHasGroupTrsf = theValue; }
 
   //! @return associated clip planes
-  const Handle(Graphic3d_SequenceOfHClipPlane)& ClipPlanes() const { return myClipPlanes; }
+  const Handle(SequenceOfHClipPlane)& ClipPlanes() const { return myClipPlanes; }
 
   //! Pass clip planes to the associated graphic driver structure
-  void SetClipPlanes(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+  void SetClipPlanes(const Handle(SequenceOfHClipPlane)& thePlanes)
   {
     myClipPlanes = thePlanes;
   }
@@ -227,7 +227,7 @@ public:
                                         Standard_Integer  theDepth = -1) const;
 
 public:
-  Handle(Graphic3d_ViewAffinity) ViewAffinity; //!< view affinity mask
+  Handle(ViewAffinity1) ViewAffinity; //!< view affinity mask
 
 protected:
   //! Create empty structure.
@@ -237,9 +237,9 @@ protected:
   Handle(Graphic3d_GraphicDriver)        myGraphicDriver;
   Graphic3d_SequenceOfGroup              myGroups;
   Graphic3d_BndBox3d                     myBndBox;
-  Handle(TopLoc_Datum3D)                 myTrsf;
-  Handle(Graphic3d_TransformPers)        myTrsfPers;
-  Handle(Graphic3d_SequenceOfHClipPlane) myClipPlanes;
+  Handle(Datum3D2)                 myTrsf;
+  Handle(TransformPers)        myTrsfPers;
+  Handle(SequenceOfHClipPlane) myClipPlanes;
   // clang-format off
   Handle(Graphic3d_PresentationAttributes) myHighlightStyle; //! Current highlight style; is set only if highlight flag is true
 

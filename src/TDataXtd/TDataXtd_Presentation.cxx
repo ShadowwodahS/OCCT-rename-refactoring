@@ -681,7 +681,7 @@ void TDataXtd_Presentation::Restore(const Handle(TDF_Attribute)& theAttribute)
 //=================================================================================================
 
 void TDataXtd_Presentation::Paste(const Handle(TDF_Attribute)& theInto,
-                                  const Handle(TDF_RelocationTable)&) const
+                                  const Handle(RelocationTable1)&) const
 {
   Handle(TDataXtd_Presentation) anInto = Handle(TDataXtd_Presentation)::DownCast(theInto);
 

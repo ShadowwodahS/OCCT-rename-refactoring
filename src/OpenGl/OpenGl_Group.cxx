@@ -108,7 +108,7 @@ void OpenGl_Group::SynchronizeAspects()
       aStruct->UpdateStateIfRaytracable(Standard_False);
     }
   }
-  for (OpenGl_ElementNode* aNode = myFirst; aNode != NULL; aNode = aNode->next)
+  for (ElementNode* aNode = myFirst; aNode != NULL; aNode = aNode->next)
   {
     aNode->elem->SynchronizeAspects();
   }
@@ -132,7 +132,7 @@ void OpenGl_Group::ReplaceAspects(const Graphic3d_MapOfAspectsToAspects& theMap)
       aStruct->UpdateStateIfRaytracable(Standard_False);
     }
   }
-  for (OpenGl_ElementNode* aNode = myFirst; aNode != NULL; aNode = aNode->next)
+  for (ElementNode* aNode = myFirst; aNode != NULL; aNode = aNode->next)
   {
     OpenGl_Aspects* aGlAspect = dynamic_cast<OpenGl_Aspects*>(aNode->elem);
     if (aGlAspect != NULL && theMap.Find(aGlAspect->Aspect(), anAspect))
@@ -193,7 +193,7 @@ void OpenGl_Group::AddText(const Handle(Graphic3d_Text)& theTextParams,
 void OpenGl_Group::SetFlippingOptions(const Standard_Boolean theIsEnabled,
                                       const Frame3d&          theRefPlane)
 {
-  OpenGl_Flipper* aFlipper = new OpenGl_Flipper(theRefPlane);
+  Flipper* aFlipper = new Flipper(theRefPlane);
   aFlipper->SetOptions(theIsEnabled);
   AddElement(aFlipper);
 }
@@ -202,7 +202,7 @@ void OpenGl_Group::SetFlippingOptions(const Standard_Boolean theIsEnabled,
 
 void OpenGl_Group::SetStencilTestOptions(const Standard_Boolean theIsEnabled)
 {
-  OpenGl_StencilTest* aStencilTest = new OpenGl_StencilTest();
+  StencilTest* aStencilTest = new StencilTest();
   aStencilTest->SetOptions(theIsEnabled);
   AddElement(aStencilTest);
 }
@@ -211,7 +211,7 @@ void OpenGl_Group::SetStencilTestOptions(const Standard_Boolean theIsEnabled)
 
 void OpenGl_Group::AddElement(OpenGl_Element* theElem)
 {
-  OpenGl_ElementNode* aNode = new OpenGl_ElementNode();
+  ElementNode* aNode = new ElementNode();
 
   aNode->elem                       = theElem;
   aNode->next                       = NULL;
@@ -255,7 +255,7 @@ void OpenGl_Group::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
   const bool            isAspectSet  = myAspects != NULL && renderFiltered(theWorkspace, myAspects);
 
   // Render group elements
-  for (OpenGl_ElementNode* aNodeIter = myFirst; aNodeIter != NULL; aNodeIter = aNodeIter->next)
+  for (ElementNode* aNodeIter = myFirst; aNodeIter != NULL; aNodeIter = aNodeIter->next)
   {
     renderFiltered(theWorkspace, aNodeIter->elem);
   }
@@ -290,7 +290,7 @@ void OpenGl_Group::Release(const Handle(OpenGl_Context)& theGlCtx)
   // Delete elements
   while (myFirst != NULL)
   {
-    OpenGl_ElementNode* aNext = myFirst->next;
+    ElementNode* aNext = myFirst->next;
     OpenGl_Element::Destroy(theGlCtx.get(), myFirst->elem);
     delete myFirst;
     myFirst = aNext;
@@ -309,7 +309,7 @@ void OpenGl_Group::DumpJson(Standard_OStream& theOStream, Standard_Integer theDe
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Graphic3d_Group)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, myAspects)
-  for (OpenGl_ElementNode* aNode = myFirst; aNode != NULL; aNode = aNode->next)
+  for (ElementNode* aNode = myFirst; aNode != NULL; aNode = aNode->next)
   {
     OpenGl_Element* anElement = aNode->elem;
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, anElement)

@@ -27,8 +27,8 @@ class gp_Ax2d;
 class gp_Vec2d;
 class Transform2d;
 
-class Geom2d_Geometry;
-DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
+class Geometry2;
+DEFINE_STANDARD_HANDLE(Geometry2, RefObject)
 
 //! The general abstract class Geometry1 in 2D space describes
 //! the common behaviour of all the geometric entities.
@@ -53,7 +53,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
 //! abstract method Transform which is defined for each
 //! concrete type of derived object. All other
 //! transformations are implemented using the Transform method.
-class Geom2d_Geometry : public RefObject
+class Geometry2 : public RefObject
 {
 
 public:
@@ -89,30 +89,30 @@ public:
   //! itself. A copy of the object is returned.
   Standard_EXPORT virtual void Transform(const Transform2d& T) = 0;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Mirrored(const gp_Pnt2d& P) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Mirrored(const gp_Pnt2d& P) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Mirrored(const gp_Ax2d& A) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Mirrored(const gp_Ax2d& A) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Rotated(const gp_Pnt2d&     P,
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Rotated(const gp_Pnt2d&     P,
                                                                      const Standard_Real Ang) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Scaled(const gp_Pnt2d&     P,
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Scaled(const gp_Pnt2d&     P,
                                                                     const Standard_Real S) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Transformed(const Transform2d& T) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Transformed(const Transform2d& T) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Translated(const gp_Vec2d& V) const;
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Translated(const gp_Vec2d& V) const;
 
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Geometry) Translated(const gp_Pnt2d& P1,
+  Standard_NODISCARD Standard_EXPORT Handle(Geometry2) Translated(const gp_Pnt2d& P1,
                                                                         const gp_Pnt2d& P2) const;
 
-  Standard_EXPORT virtual Handle(Geom2d_Geometry) Copy() const = 0;
+  Standard_EXPORT virtual Handle(Geometry2) Copy() const = 0;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Geometry, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Geometry2, RefObject)
 
 protected:
 private:

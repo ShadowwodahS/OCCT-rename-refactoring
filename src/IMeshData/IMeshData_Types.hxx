@@ -48,8 +48,8 @@ class IMeshData_Edge;
 class IMeshData_Curve;
 class IMeshData_PCurve;
 class IMeshData_Model;
-class BRepMesh_VertexInspector;
-class BRepMesh_CircleInspector;
+class VertexInspector;
+class CircleInspector;
 
 #define DEFINE_INC_ALLOC                                                                           \
   DEFINE_NCOLLECTION_ALLOC                                                                         \
@@ -122,8 +122,8 @@ typedef NCollection_Shared<NCollection_List<IPCurveHandle>>    ListOfIPCurves;
 typedef NCollection_Shared<PackedIntegerMap> MapOfInteger;
 typedef TColStd_MapIteratorOfPackedMapOfInteger        IteratorOfMapOfInteger;
 
-typedef NCollection_CellFilter<BRepMesh_CircleInspector> CircleCellFilter;
-typedef NCollection_CellFilter<BRepMesh_VertexInspector> VertexCellFilter;
+typedef NCollection_CellFilter<CircleInspector> CircleCellFilter;
+typedef NCollection_CellFilter<VertexInspector> VertexCellFilter;
 
 typedef NCollection_Shared<
   NCollection_DataMap<TopoShape, Standard_Integer, ShapeHasher>>
@@ -138,7 +138,7 @@ typedef NCollection_Shared<NCollection_IndexedDataMap<IFacePtr, ListOfIPCurves>>
   IDMapOfIFacePtrsListOfIPCurves;
 typedef NCollection_Shared<NCollection_DataMap<IFacePtr, Handle(MapOfIEdgePtr)>>
   DMapOfIFacePtrsMapOfIEdgePtrs;
-typedef NCollection_Shared<NCollection_IndexedDataMap<BRepMesh_Edge, PairOfIndex>>
+typedef NCollection_Shared<NCollection_IndexedDataMap<Edge3, PairOfIndex>>
   IDMapOfLink;
 typedef NCollection_Shared<NCollection_DataMap<Standard_Integer, ListOfInteger>>
   DMapOfIntegerListOfInteger;

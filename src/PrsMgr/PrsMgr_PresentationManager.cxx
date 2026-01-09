@@ -379,7 +379,7 @@ void PrsMgr_PresentationManager::displayImmediate(const Handle(ViewManager)& the
 
       if (!aShadowPrs->IsDisplayed())
       {
-        aShadowPrs->CStructure()->ViewAffinity = new Graphic3d_ViewAffinity();
+        aShadowPrs->CStructure()->ViewAffinity = new ViewAffinity1();
         aShadowPrs->CStructure()->ViewAffinity->SetVisible(Standard_False);
         aShadowPrs->Display();
       }
@@ -573,7 +573,7 @@ void PrsMgr_PresentationManager::Connect(const Handle(PrsMgr_PresentableObject)&
 //=================================================================================================
 
 void PrsMgr_PresentationManager::Transform(const Handle(PrsMgr_PresentableObject)& thePrsObj,
-                                           const Handle(TopLoc_Datum3D)& theTransformation,
+                                           const Handle(Datum3D2)& theTransformation,
                                            const Standard_Integer        theMode)
 {
   Presentation(thePrsObj, theMode)->SetTransformation(theTransformation);
@@ -633,7 +633,7 @@ namespace
 //! of shadow presentation is equal to theRefId
 static void updatePrsTransformation(const PrsMgr_ListOfPresentations& thePrsList,
                                     const Standard_Integer            theRefId,
-                                    const Handle(TopLoc_Datum3D)&     theTrsf)
+                                    const Handle(Datum3D2)&     theTrsf)
 {
   for (PrsMgr_ListOfPresentations::Iterator anIter(thePrsList); anIter.More(); anIter.Next())
   {
@@ -668,7 +668,7 @@ void PrsMgr_PresentationManager::UpdateHighlightTrsf(
     return;
   }
 
-  Handle(TopLoc_Datum3D) aTrsf     = theObj->LocalTransformationGeom();
+  Handle(Datum3D2) aTrsf     = theObj->LocalTransformationGeom();
   const Standard_Integer aParentId = aPrs->CStructure()->Identification();
   updatePrsTransformation(myImmediateList, aParentId, aTrsf);
 

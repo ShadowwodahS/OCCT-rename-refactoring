@@ -27,13 +27,13 @@
 
 //! Definition of an intersection point between two
 //! 2D curves.
-class IntRes2d_IntersectionPoint
+class IntersectionPoint3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT IntRes2d_IntersectionPoint();
+  Standard_EXPORT IntersectionPoint3();
 
   //! Creates an IntersectionPoint.
   //! if ReversedFlag is False, the parameter Uc1(resp. Uc2)
@@ -41,7 +41,7 @@ public:
   //! the first curve (resp. second curve) otherwise Uc1
   //! and Trans1 (resp. Uc2 and Trans2) refer to the
   //! second curve (resp. the first curve).
-  IntRes2d_IntersectionPoint(const gp_Pnt2d&            P,
+  IntersectionPoint3(const gp_Pnt2d&            P,
                              const Standard_Real        Uc1,
                              const Standard_Real        Uc2,
                              const Transition3& Trans1,

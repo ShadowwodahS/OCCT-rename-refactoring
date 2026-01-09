@@ -20,13 +20,13 @@
 #include <IMeshTools_Parameters.hxx>
 #include <IMeshData_Types.hxx>
 
-class IMeshTools_CurveTessellator;
+class CurveTessellator;
 
 //! Class implements functionality of edge discret tool.
 //! Performs check of the edges for existing Poly_PolygonOnTriangulation.
 //! In case if it fits specified deflection, restores data structure using
 //! it, else clears edges from outdated data.
-class BRepMesh_EdgeDiscret : public IMeshTools_ModelAlgo
+class BRepMesh_EdgeDiscret : public ModelAlgorithm
 {
 public:
   //! Constructor.
@@ -36,13 +36,13 @@ public:
   Standard_EXPORT virtual ~BRepMesh_EdgeDiscret();
 
   //! Creates instance of free edge tessellator.
-  Standard_EXPORT static Handle(IMeshTools_CurveTessellator) CreateEdgeTessellator(
+  Standard_EXPORT static Handle(CurveTessellator) CreateEdgeTessellator(
     const IMeshData::IEdgeHandle& theDEdge,
     const Parameters3&  theParameters,
     const Standard_Integer        theMinPointsNb = 2);
 
   //! Creates instance of edge tessellator.
-  Standard_EXPORT static Handle(IMeshTools_CurveTessellator) CreateEdgeTessellator(
+  Standard_EXPORT static Handle(CurveTessellator) CreateEdgeTessellator(
     const IMeshData::IEdgeHandle& theDEdge,
     const TopAbs_Orientation      theOrientation,
     const IMeshData::IFaceHandle& theDFace,
@@ -50,7 +50,7 @@ public:
     const Standard_Integer        theMinPointsNb = 2);
 
   //! Creates instance of tessellation extractor.
-  Standard_EXPORT static Handle(IMeshTools_CurveTessellator) CreateEdgeTessellationExtractor(
+  Standard_EXPORT static Handle(CurveTessellator) CreateEdgeTessellationExtractor(
     const IMeshData::IEdgeHandle& theDEdge,
     const IMeshData::IFaceHandle& theDFace);
 
@@ -60,14 +60,14 @@ public:
   //! Updates 3d discrete edge model using the given tessellation tool.
   Standard_EXPORT static void Tessellate3d(
     const IMeshData::IEdgeHandle&              theDEdge,
-    const Handle(IMeshTools_CurveTessellator)& theTessellator,
+    const Handle(CurveTessellator)& theTessellator,
     const Standard_Boolean                     theUpdateEnds);
 
   //! Updates 2d discrete edge model using tessellation of 3D curve.
   Standard_EXPORT static void Tessellate2d(const IMeshData::IEdgeHandle& theDEdge,
                                            const Standard_Boolean        theUpdateEnds);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_EdgeDiscret, IMeshTools_ModelAlgo)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_EdgeDiscret, ModelAlgorithm)
 
 protected:
   //! Performs processing of edges of the given model.

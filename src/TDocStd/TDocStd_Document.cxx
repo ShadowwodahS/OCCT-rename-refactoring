@@ -58,7 +58,7 @@ IMPLEMENT_STANDARD_RTTIEXT(AppDocument, CDM_Document)
 
 Handle(AppDocument) AppDocument::Get(const DataLabel& acces)
 {
-  // avoid creation of Handle(TDF_Data) during TDF_Data destruction
+  // avoid creation of Handle(Data2) during Data2 destruction
   if (acces.Root().HasAttribute())
   {
     return TDocStd_Owner::GetDocument(acces.Data());
@@ -70,7 +70,7 @@ Handle(AppDocument) AppDocument::Get(const DataLabel& acces)
 
 AppDocument::AppDocument(const UtfString& aStorageFormat)
     : myStorageFormat(aStorageFormat),
-      myData(new TDF_Data()),
+      myData(new Data2()),
       myUndoLimit(0),
       myUndoTransaction("UNDO"),
       mySaveTime(0),
@@ -110,7 +110,7 @@ UtfString AppDocument::GetPath() const
 
 //=================================================================================================
 
-void AppDocument::SetData(const Handle(TDF_Data)& D)
+void AppDocument::SetData(const Handle(Data2)& D)
 {
   myData = D;
   myUndoTransaction.Initialize(myData);
@@ -118,7 +118,7 @@ void AppDocument::SetData(const Handle(TDF_Data)& D)
 
 //=================================================================================================
 
-Handle(TDF_Data) AppDocument::GetData() const
+Handle(Data2) AppDocument::GetData() const
 {
   return myData;
 }
@@ -254,7 +254,7 @@ Standard_Boolean AppDocument::CommitTransaction()
   if (myIsNestedTransactionMode && myUndoTransaction.IsOpen())
   {
 
-    Handle(TDF_Delta)             D = myUndoTransaction.Commit(Standard_True);
+    Handle(Delta)             D = myUndoTransaction.Commit(Standard_True);
     Handle(TDocStd_CompoundDelta) aCompDelta =
       Handle(TDocStd_CompoundDelta)::DownCast(myUndoFILO.First());
     AppendDeltaToTheFirst(aCompDelta, D);
@@ -290,7 +290,7 @@ Standard_Boolean AppDocument::CommitTransaction()
     if (myUndoLimit != 0 && myUndoTransaction.IsOpen())
     {
 
-      Handle(TDF_Delta) D = myUndoTransaction.Commit(Standard_True);
+      Handle(Delta) D = myUndoTransaction.Commit(Standard_True);
       if (!(D.IsNull() || D->IsEmpty()))
       {
         isDone = Standard_True;
@@ -301,7 +301,7 @@ Standard_Boolean AppDocument::CommitTransaction()
         if (myUndos.Extent() > myUndoLimit)
         {
 #ifdef SRN_DELTA_COMPACT
-          Handle(TDF_Delta) aDelta = myUndos.First();
+          Handle(Delta) aDelta = myUndos.First();
 #endif
           myUndos.RemoveFirst();
 #ifdef SRN_DELTA_COMPACT
@@ -391,7 +391,7 @@ void AppDocument::OpenTransaction()
 
     if (myUndoTransaction.IsOpen())
     {
-      Handle(TDF_Delta)             D = myUndoTransaction.Commit(Standard_True);
+      Handle(Delta)             D = myUndoTransaction.Commit(Standard_True);
       Handle(TDocStd_CompoundDelta) aCompDelta =
         Handle(TDocStd_CompoundDelta)::DownCast(myUndoFILO.First());
       AppendDeltaToTheFirst(aCompDelta, D);
@@ -522,7 +522,7 @@ Standard_Boolean AppDocument::Undo()
     std::cout << "DF before Undo ==================================" << std::endl;
     Tool3::DeepDump(std::cout, myData);
 #endif
-    Handle(TDF_Delta) D = myData->Undo(myUndos.Last(), Standard_True);
+    Handle(Delta) D = myData->Undo(myUndos.Last(), Standard_True);
     D->SetName(myUndos.Last()->Name());
 #ifdef OCCT_DEBUG_DELTA
     std::cout << "DF after Undo ==================================" << std::endl;
@@ -580,7 +580,7 @@ Standard_Boolean AppDocument::Redo()
     std::cout << "DF before Redo ==================================" << std::endl;
     Tool3::DeepDump(std::cout, myData);
 #endif
-    Handle(TDF_Delta) D = myData->Undo(myRedos.First(), Standard_True);
+    Handle(Delta) D = myData->Undo(myRedos.First(), Standard_True);
     D->SetName(myRedos.First()->Name());
 #ifdef OCCT_DEBUG_DELTA
     std::cout << "DF after Redo ==================================" << std::endl;
@@ -781,7 +781,7 @@ void AppDocument::Recompute()
 //=======================================================================
 
 void AppDocument::AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)& theDelta1,
-                                             const Handle(TDF_Delta)&             theDelta2)
+                                             const Handle(Delta)&             theDelta2)
 {
   if (theDelta2->IsEmpty())
     return;
@@ -881,13 +881,13 @@ void AppDocument::DumpJson(Standard_OStream& theOStream, Standard_Integer theDep
 
   for (TDF_DeltaList::Iterator anUndoIt(myUndos); anUndoIt.More(); anUndoIt.Next())
   {
-    const Handle(TDF_Delta)& anUndo = anUndoIt.Value();
+    const Handle(Delta)& anUndo = anUndoIt.Value();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, anUndo.get())
   }
 
   for (TDF_DeltaList::Iterator aRedoIt(myRedos); aRedoIt.More(); aRedoIt.Next())
   {
-    const Handle(TDF_Delta)& aRedo = aRedoIt.Value();
+    const Handle(Delta)& aRedo = aRedoIt.Value();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, aRedo.get())
   }
 
@@ -901,7 +901,7 @@ void AppDocument::DumpJson(Standard_OStream& theOStream, Standard_Integer theDep
 
   for (TDF_DeltaList::Iterator anUndoFILOIt(myUndoFILO); anUndoFILOIt.More(); anUndoFILOIt.Next())
   {
-    const Handle(TDF_Delta)& anUndoFILO = anUndoFILOIt.Value();
+    const Handle(Delta)& anUndoFILO = anUndoFILOIt.Value();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, anUndoFILO.get())
   }
 

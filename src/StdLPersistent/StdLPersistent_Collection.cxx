@@ -18,7 +18,7 @@
 
 struct Collection::noConversion
 {
-  noConversion(const Handle(TDF_Data)&) {}
+  noConversion(const Handle(Data2)&) {}
 
   template <class Type>
   Type operator()(Type theValue) const
@@ -29,7 +29,7 @@ struct Collection::noConversion
 
 struct Collection::byteConverter
 {
-  byteConverter(const Handle(TDF_Data)&) {}
+  byteConverter(const Handle(Data2)&) {}
 
   Standard_Byte operator()(Standard_Integer theValue) const
   {
@@ -39,14 +39,14 @@ struct Collection::byteConverter
 
 struct Collection::boolConverter
 {
-  boolConverter(const Handle(TDF_Data)&) {}
+  boolConverter(const Handle(Data2)&) {}
 
   Standard_Boolean operator()(Standard_Integer theValue) const { return theValue != 0; }
 };
 
 struct Collection::stringConverter
 {
-  stringConverter(const Handle(TDF_Data)&) {}
+  stringConverter(const Handle(Data2)&) {}
 
   const UtfString& operator()(const Handle(StdObjMgt_Persistent)& theValue) const
   {
@@ -61,7 +61,7 @@ struct Collection::stringConverter
 
 struct Collection::referenceConverter
 {
-  referenceConverter(const Handle(TDF_Data)& theDF)
+  referenceConverter(const Handle(Data2)& theDF)
       : myDF(theDF)
   {
   }
@@ -72,7 +72,7 @@ struct Collection::referenceConverter
   }
 
 private:
-  Handle(TDF_Data) myDF;
+  Handle(Data2) myDF;
 };
 
 template <class Base>

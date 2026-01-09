@@ -16,7 +16,7 @@
 
 #include <StdLPersistent_HArray1.hxx>
 
-class TDF_Data;
+class Data2;
 
 class StdLPersistent_Data : public StdObjMgt_Persistent
 {
@@ -43,7 +43,7 @@ public:
   virtual Standard_CString PName() const { return "PDF_Data"; }
 
   //! Import transient data from the persistent data.
-  Standard_EXPORT Handle(TDF_Data) Import() const;
+  Standard_EXPORT Handle(Data2) Import() const;
 
 private:
   class Parser;

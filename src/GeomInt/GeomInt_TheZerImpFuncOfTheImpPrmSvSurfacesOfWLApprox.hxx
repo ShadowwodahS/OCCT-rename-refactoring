@@ -29,7 +29,7 @@ class Quadric1;
 class QuadricTool;
 class math_Matrix;
 
-class GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox : public math_FunctionSetWithDerivatives
+class GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,12 +37,12 @@ public:
   Standard_EXPORT GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox();
 
   Standard_EXPORT GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox(
-    const Handle(Adaptor3d_Surface)& PS,
+    const Handle(SurfaceAdaptor)& PS,
     const Quadric1&           IS);
 
   Standard_EXPORT GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox(const Quadric1& IS);
 
-  void Set(const Handle(Adaptor3d_Surface)& PS);
+  void Set(const Handle(SurfaceAdaptor)& PS);
 
   void SetImplicitSurface(const Quadric1& IS);
 
@@ -72,7 +72,7 @@ public:
 
   const gp_Dir2d& Direction2d();
 
-  const Handle(Adaptor3d_Surface)& PSurface() const;
+  const Handle(SurfaceAdaptor)& PSurface() const;
 
   const Quadric1& ISurface() const;
 
@@ -97,7 +97,7 @@ private:
   gp_Dir2d         d2d;
 };
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>

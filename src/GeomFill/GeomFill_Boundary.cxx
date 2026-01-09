@@ -19,11 +19,11 @@
 #include <gp_Vec.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_Boundary, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Boundary2, RefObject)
 
 //=================================================================================================
 
-GeomFill_Boundary::GeomFill_Boundary(const Standard_Real Tol3d, const Standard_Real Tolang)
+Boundary2::Boundary2(const Standard_Real Tol3d, const Standard_Real Tolang)
     : myT3d(Tol3d),
       myTang(Tolang)
 {
@@ -31,28 +31,28 @@ GeomFill_Boundary::GeomFill_Boundary(const Standard_Real Tol3d, const Standard_R
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_Boundary::HasNormals() const
+Standard_Boolean Boundary2::HasNormals() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Vector3d GeomFill_Boundary::Norm(const Standard_Real) const
+Vector3d Boundary2::Norm(const Standard_Real) const
 {
-  throw ExceptionBase("GeomFill_Boundary::Norm : Undefined normals");
+  throw ExceptionBase("Boundary2::Norm : Undefined normals");
 }
 
 //=================================================================================================
 
-void GeomFill_Boundary::D1Norm(const Standard_Real, Vector3d&, Vector3d&) const
+void Boundary2::D1Norm(const Standard_Real, Vector3d&, Vector3d&) const
 {
-  throw ExceptionBase("GeomFill_Boundary::Norm : Undefined normals");
+  throw ExceptionBase("Boundary2::Norm : Undefined normals");
 }
 
 //=================================================================================================
 
-void GeomFill_Boundary::Points(Point3d& PFirst, Point3d& PLast) const
+void Boundary2::Points(Point3d& PFirst, Point3d& PLast) const
 {
   Standard_Real f, l;
   Bounds(f, l);
@@ -62,28 +62,28 @@ void GeomFill_Boundary::Points(Point3d& PFirst, Point3d& PLast) const
 
 //=================================================================================================
 
-Standard_Real GeomFill_Boundary::Tol3d() const
+Standard_Real Boundary2::Tol3d() const
 {
   return myT3d;
 }
 
 //=================================================================================================
 
-void GeomFill_Boundary::Tol3d(const Standard_Real Tol)
+void Boundary2::Tol3d(const Standard_Real Tol)
 {
   myT3d = Tol;
 }
 
 //=================================================================================================
 
-Standard_Real GeomFill_Boundary::Tolang() const
+Standard_Real Boundary2::Tolang() const
 {
   return myTang;
 }
 
 //=================================================================================================
 
-void GeomFill_Boundary::Tolang(const Standard_Real Tol)
+void Boundary2::Tolang(const Standard_Real Tol)
 {
   myTang = Tol;
 }

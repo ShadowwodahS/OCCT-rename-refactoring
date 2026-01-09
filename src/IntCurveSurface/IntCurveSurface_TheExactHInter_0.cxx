@@ -26,11 +26,11 @@
 #include <math_FunctionSetRoot.hxx>
 #include <gp_Pnt.hxx>
 
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
-#define TheCurve Handle(Adaptor3d_Curve)
+#define TheCurve Handle(Curve5)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
 #define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>

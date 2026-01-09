@@ -86,7 +86,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Context, RefObject)
 
 namespace
 {
-static const Handle(OpenGl_Resource) NULL_GL_RESOURCE;
+static const Handle(Resource) NULL_GL_RESOURCE;
 static const OpenGl_Mat4             THE_IDENTITY_MATRIX;
 
 //! Add key-value pair to the dictionary.
@@ -109,7 +109,7 @@ static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
 
 //=================================================================================================
 
-OpenGl_Context::OpenGl_Context(const Handle(OpenGl_Caps)& theCaps)
+OpenGl_Context::OpenGl_Context(const Handle(Caps)& theCaps)
     : core11ffp(NULL),
       core11fwd(NULL),
       core15(NULL),
@@ -125,7 +125,7 @@ OpenGl_Context::OpenGl_Context(const Handle(OpenGl_Caps)& theCaps)
       core46(NULL),
       core15fwd(NULL),
       core20fwd(NULL),
-      caps(!theCaps.IsNull() ? theCaps : new OpenGl_Caps()),
+      caps(!theCaps.IsNull() ? theCaps : new Caps()),
       hasGetBufferData(Standard_False),
 #if defined(OCC_USE_GLES2)
       hasPackRowLength(Standard_False),
@@ -198,7 +198,7 @@ OpenGl_Context::OpenGl_Context(const Handle(OpenGl_Caps)& theCaps)
         Aspect_GraphicsLibrary_OpenGL
 #endif
         ),
-      mySupportedFormats(new Image_SupportedFormats()),
+      mySupportedFormats(new SupportedFormats()),
       myAnisoMax(1),
       myTexClamp(GL_CLAMP_TO_EDGE),
       myMaxTexDim(1024),
@@ -330,7 +330,7 @@ OpenGl_Context::~OpenGl_Context()
   if (mySharedResources->GetRefCount() <= 1)
   {
     myShaderManager.Nullify();
-    for (NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>::Iterator anIter(
+    for (NCollection_DataMap<AsciiString1, Handle(Resource)>::Iterator anIter(
            *mySharedResources);
          anIter.More();
          anIter.Next())
@@ -373,7 +373,7 @@ OpenGl_Context::~OpenGl_Context()
 void OpenGl_Context::forcedRelease()
 {
   ReleaseDelayed();
-  for (NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>::Iterator anIter(
+  for (NCollection_DataMap<AsciiString1, Handle(Resource)>::Iterator anIter(
          *mySharedResources);
        anIter.More();
        anIter.Next())
@@ -2027,7 +2027,7 @@ void OpenGl_Context::DiagnosticInformation(TColStd_IndexedDataMapOfStringString&
 
 //=================================================================================================
 
-const Handle(OpenGl_Resource)& OpenGl_Context::GetResource(
+const Handle(Resource)& OpenGl_Context::GetResource(
   const AsciiString1& theKey) const
 {
   return mySharedResources->IsBound(theKey) ? mySharedResources->Find(theKey) : NULL_GL_RESOURCE;
@@ -2036,7 +2036,7 @@ const Handle(OpenGl_Resource)& OpenGl_Context::GetResource(
 //=================================================================================================
 
 Standard_Boolean OpenGl_Context::ShareResource(const AsciiString1& theKey,
-                                               const Handle(OpenGl_Resource)& theResource)
+                                               const Handle(Resource)& theResource)
 {
   if (theKey.IsEmpty() || theResource.IsNull())
   {
@@ -2054,7 +2054,7 @@ void OpenGl_Context::ReleaseResource(const AsciiString1& theKey,
   {
     return;
   }
-  const Handle(OpenGl_Resource)& aRes = mySharedResources->Find(theKey);
+  const Handle(Resource)& aRes = mySharedResources->Find(theKey);
   if (aRes->GetRefCount() > 1)
   {
     return;
@@ -2101,7 +2101,7 @@ void OpenGl_Context::ReleaseDelayed()
       continue;
     }
 
-    const Handle(OpenGl_Resource)& aRes = mySharedResources->ChangeFind(aKey);
+    const Handle(Resource)& aRes = mySharedResources->ChangeFind(aKey);
     if (aRes->GetRefCount() > 1)
     {
       // should be only 1 instance in mySharedResources
@@ -2124,8 +2124,8 @@ void OpenGl_Context::ReleaseDelayed()
 
 //=================================================================================================
 
-Handle(OpenGl_TextureSet) OpenGl_Context::BindTextures(
-  const Handle(OpenGl_TextureSet)&    theTextures,
+Handle(TextureSet2) OpenGl_Context::BindTextures(
+  const Handle(TextureSet2)&    theTextures,
   const Handle(OpenGl_ShaderProgram)& theProgram)
 {
   const Standard_Integer aTextureSetBits =
@@ -2166,7 +2166,7 @@ Handle(OpenGl_TextureSet) OpenGl_Context::BindTextures(
     }
   }
 
-  Handle(OpenGl_TextureSet) anOldTextures = myActiveTextures;
+  Handle(TextureSet2) anOldTextures = myActiveTextures;
   if (myActiveTextures != theTextures)
   {
     Handle(OpenGl_Context) aThisCtx(this);
@@ -2359,7 +2359,7 @@ void OpenGl_Context::SetShadingMaterial(
 
   // do not update material properties in case of zero reflection mode,
   // because GL lighting will be disabled by OpenGl_PrimitiveArray::DrawArray() anyway.
-  const OpenGl_MaterialState& aMatState     = myShaderManager->MaterialState();
+  const MaterialState1& aMatState     = myShaderManager->MaterialState();
   float                       anAlphaCutoff = (anAspect->AlphaMode() == Graphic3d_AlphaMode_Mask
                          || anAspect->AlphaMode() == Graphic3d_AlphaMode_MaskBlend)
                                                 ? anAspect->AlphaCutoff()
@@ -2510,7 +2510,7 @@ void OpenGl_Context::SetLineWidth(const Standard_ShortReal theWidth)
 
 //=================================================================================================
 
-void OpenGl_Context::SetTextureMatrix(const Handle(Graphic3d_TextureParams)& theParams,
+void OpenGl_Context::SetTextureMatrix(const Handle(TextureParams)& theParams,
                                       const Standard_Boolean                 theIsTopDown)
 {
   if (theParams.IsNull())

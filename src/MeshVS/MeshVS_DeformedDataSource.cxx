@@ -17,12 +17,12 @@
 #include <MeshVS_DeformedDataSource.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_DeformedDataSource, MeshVS_DataSource)
+IMPLEMENT_STANDARD_RTTIEXT(MeshVS_DeformedDataSource, MeshDataSource)
 
 //=================================================================================================
 
 MeshVS_DeformedDataSource::MeshVS_DeformedDataSource(
-  const Handle(MeshVS_DataSource)& theNonDeformDS,
+  const Handle(MeshDataSource)& theNonDeformDS,
   const Standard_Real              theMagnify)
 {
   myNonDeformedDataSource = theNonDeformDS;
@@ -94,7 +94,7 @@ Standard_Boolean MeshVS_DeformedDataSource::GetGeomType(const Standard_Integer I
 Standard_Boolean MeshVS_DeformedDataSource::Get3DGeom(
   const Standard_Integer                     ID,
   Standard_Integer&                          NbNodes,
-  Handle(MeshVS_HArray1OfSequenceOfInteger)& Data) const
+  Handle(IntegerSequenceArray)& Data) const
 {
   if (myNonDeformedDataSource.IsNull())
     return Standard_False;
@@ -182,14 +182,14 @@ void MeshVS_DeformedDataSource::SetVector(const Standard_Integer ID, const Vecto
 
 //=================================================================================================
 
-void MeshVS_DeformedDataSource::SetNonDeformedDataSource(const Handle(MeshVS_DataSource)& theDS)
+void MeshVS_DeformedDataSource::SetNonDeformedDataSource(const Handle(MeshDataSource)& theDS)
 {
   myNonDeformedDataSource = theDS;
 }
 
 //=================================================================================================
 
-Handle(MeshVS_DataSource) MeshVS_DeformedDataSource::GetNonDeformedDataSource() const
+Handle(MeshDataSource) MeshVS_DeformedDataSource::GetNonDeformedDataSource() const
 {
   return myNonDeformedDataSource;
 }

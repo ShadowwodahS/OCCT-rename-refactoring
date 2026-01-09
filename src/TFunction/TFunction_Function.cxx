@@ -141,7 +141,7 @@ void TFunction_Function::Restore(const Handle(TDF_Attribute)& other)
 //=======================================================================
 
 void TFunction_Function::Paste(const Handle(TDF_Attribute)& into,
-                               const Handle(TDF_RelocationTable)& /*RT*/) const
+                               const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(TFunction_Function) intof = Handle(TFunction_Function)::DownCast(into);
   intof->SetFailure(myFailure);

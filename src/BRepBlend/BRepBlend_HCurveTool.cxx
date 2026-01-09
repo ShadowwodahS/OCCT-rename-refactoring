@@ -22,7 +22,7 @@
 #include <GeomAbs_CurveType.hxx>
 
 //============================================================
-Standard_Integer HCurveTool1::NbSamples(const Handle(Adaptor3d_Curve)& C,
+Standard_Integer HCurveTool1::NbSamples(const Handle(Curve5)& C,
                                                  const Standard_Real            U0,
                                                  const Standard_Real            U1)
 {

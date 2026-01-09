@@ -29,7 +29,7 @@ class Point3d;
 class Vector3d;
 class Transform3d;
 class GeneralTransform2d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_RectangularTrimmedSurface;
 DEFINE_STANDARD_HANDLE(Geom_RectangularTrimmedSurface, Geom_BoundedSurface)
@@ -335,7 +335,7 @@ public:
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this patch.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

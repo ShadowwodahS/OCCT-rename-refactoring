@@ -34,7 +34,7 @@
 class gp_Pnt2d;
 class gp_Vec2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_BSplineCurve;
 DEFINE_STANDARD_HANDLE(Geom2d_BSplineCurve, Geom2d_BoundedCurve)
@@ -856,7 +856,7 @@ public:
   Standard_EXPORT void Resolution(const Standard_Real ToleranceUV, Standard_Real& UTolerance);
 
   //! Creates a new object which is a copy of this BSpline curve.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -874,7 +874,7 @@ private:
   GeomAbs_BSplKnotDistribution     knotSet;
   GeomAbs_Shape                    smooth;
   Standard_Integer                 deg;
-  Handle(TColgp_HArray1OfPnt2d)    poles;
+  Handle(Point2dArray)    poles;
   Handle(TColStd_HArray1OfReal)    weights;
   Handle(TColStd_HArray1OfReal)    flatknots;
   Handle(TColStd_HArray1OfReal)    knots;

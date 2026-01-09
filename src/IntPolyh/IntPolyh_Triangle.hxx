@@ -25,13 +25,13 @@
 
 //! The class represents the triangle built from three IntPolyh points
 //! and three IntPolyh edges.
-class IntPolyh_Triangle
+class Triangle4
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  IntPolyh_Triangle()
+  Triangle4()
       : myHasIntersection(Standard_False),
         myIsIntersectionPossible(Standard_True),
         myIsDegenerated(Standard_False),
@@ -49,7 +49,7 @@ public:
   }
 
   //! Constructor
-  IntPolyh_Triangle(const Standard_Integer thePoint1,
+  Triangle4(const Standard_Integer thePoint1,
                     const Standard_Integer thePoint2,
                     const Standard_Integer thePoint3)
       : myHasIntersection(Standard_False),
@@ -181,7 +181,7 @@ public:
   }
 
   //! Computes the deflection for the triangle
-  Standard_EXPORT Standard_Real ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurface,
+  Standard_EXPORT Standard_Real ComputeDeflection(const Handle(SurfaceAdaptor)& theSurface,
                                                   const IntPolyh_ArrayOfPoints&    thePoints);
 
   //! Gets the adjacent triangle
@@ -191,7 +191,7 @@ public:
 
   //! Splits the triangle on two to decrease its deflection
   Standard_EXPORT void MiddleRefinement(const Standard_Integer           theTriangleNumber,
-                                        const Handle(Adaptor3d_Surface)& theSurface,
+                                        const Handle(SurfaceAdaptor)& theSurface,
                                         IntPolyh_ArrayOfPoints&          TPoints,
                                         IntPolyh_ArrayOfTriangles&       TTriangles,
                                         IntPolyh_ArrayOfEdges&           TEdges);
@@ -201,7 +201,7 @@ public:
   Standard_EXPORT void MultipleMiddleRefinement(const Standard_Real              theRefineCriterion,
                                                 const Box2&                   theBox,
                                                 const Standard_Integer           theTriangleNumber,
-                                                const Handle(Adaptor3d_Surface)& theSurface,
+                                                const Handle(SurfaceAdaptor)& theSurface,
                                                 IntPolyh_ArrayOfPoints&          TPoints,
                                                 IntPolyh_ArrayOfTriangles&       TTriangles,
                                                 IntPolyh_ArrayOfEdges&           TEdges);

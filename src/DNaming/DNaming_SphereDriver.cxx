@@ -40,7 +40,7 @@
 #include <TopoDS_Solid.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_SphereDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_SphereDriver, FunctionDriver1)
 
 //=================================================================================================
 

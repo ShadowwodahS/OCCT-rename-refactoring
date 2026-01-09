@@ -109,7 +109,7 @@ void TopOpeBRepTool_BoxSort::MakeHAB(const TopoShape&    S,
   for (ex.Init(S, TS, TA); ex.More(); ex.Next())
     n++;
 
-  myHAB                       = new Bnd_HArray1OfBox(0, n);
+  myHAB                       = new BoxArray(0, n);
   Bnd_Array1OfBox& AB         = myHAB->ChangeArray1();
   myHAI                       = new TColStd_HArray1OfInteger(0, n);
   TColStd_Array1OfInteger& AI = myHAI->ChangeArray1();
@@ -141,14 +141,14 @@ void TopOpeBRepTool_BoxSort::MakeHAB(const TopoShape&    S,
 
 //=================================================================================================
 
-const Handle(Bnd_HArray1OfBox)& TopOpeBRepTool_BoxSort::HAB() const
+const Handle(BoxArray)& TopOpeBRepTool_BoxSort::HAB() const
 {
   return myHAB;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_BoxSort::MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Box2& COB)
+void TopOpeBRepTool_BoxSort::MakeHABCOB(const Handle(BoxArray)& HAB, Box2& COB)
 {
   COB.SetVoid();
   Standard_Integer       n  = HAB->Upper();

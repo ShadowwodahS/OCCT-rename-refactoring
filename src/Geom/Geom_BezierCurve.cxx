@@ -69,7 +69,7 @@ BezierCurve3d::BezierCurve3d(const TColgp_Array1OfPnt& Poles)
   if (nbpoles < 2 || nbpoles > (BezierCurve3d::MaxDegree() + 1))
     throw Standard_ConstructionError();
   //  copy the poles
-  Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, nbpoles);
+  Handle(PointArray1) npoles = new PointArray1(1, nbpoles);
 
   npoles->ChangeArray1() = Poles;
 
@@ -87,7 +87,7 @@ BezierCurve3d::BezierCurve3d(const TColgp_Array1OfPnt&   Poles,
   if (nbpoles < 2 || nbpoles > (BezierCurve3d::MaxDegree() + 1))
     throw Standard_ConstructionError();
 
-  Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, nbpoles);
+  Handle(PointArray1) npoles = new PointArray1(1, nbpoles);
 
   npoles->ChangeArray1() = Poles;
 
@@ -133,7 +133,7 @@ void BezierCurve3d::Increase(const Standard_Integer Deg)
   if (Deg < Degree() || Deg > BezierCurve3d::MaxDegree())
     throw Standard_ConstructionError("BezierCurve3d::Increase");
 
-  Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, Deg + 1);
+  Handle(PointArray1) npoles = new PointArray1(1, Deg + 1);
 
   Handle(TColStd_HArray1OfReal) nweights;
 
@@ -207,7 +207,7 @@ void BezierCurve3d::InsertPoleAfter(const Standard_Integer Index,
   Standard_Integer i;
 
   // Insert the pole
-  Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, nbpoles + 1);
+  Handle(PointArray1) npoles = new PointArray1(1, nbpoles + 1);
 
   TColgp_Array1OfPnt&       newpoles = npoles->ChangeArray1();
   const TColgp_Array1OfPnt& oldpoles = poles->Array1();
@@ -278,7 +278,7 @@ void BezierCurve3d::RemovePole(const Standard_Integer Index)
   Standard_Integer i;
 
   // Remove the pole
-  Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, nbpoles - 1);
+  Handle(PointArray1) npoles = new PointArray1(1, nbpoles - 1);
 
   TColgp_Array1OfPnt&       newpoles = npoles->ChangeArray1();
   const TColgp_Array1OfPnt& oldpoles = poles->Array1();
@@ -352,7 +352,7 @@ void BezierCurve3d::Segment1(const Standard_Real U1, const Standard_Real U2)
   closed = (Abs(Value(U1).Distance(Value(U2))) <= Precision1::Confusion());
 
   TColStd_Array1OfReal bidflatknots(BSplCLib1::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
-  TColgp_HArray1OfPnt  coeffs(1, poles->Size());
+  PointArray1  coeffs(1, poles->Size());
   if (IsRational())
   {
     TColStd_Array1OfReal wcoeffs(1, poles->Size());
@@ -693,7 +693,7 @@ void BezierCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& U
 
 //=================================================================================================
 
-Handle(Geom_Geometry) BezierCurve3d::Copy() const
+Handle(Geometry3) BezierCurve3d::Copy() const
 {
 
   Handle(BezierCurve3d) C;
@@ -706,7 +706,7 @@ Handle(Geom_Geometry) BezierCurve3d::Copy() const
 
 //=================================================================================================
 
-void BezierCurve3d::Init(const Handle(TColgp_HArray1OfPnt)&   Poles,
+void BezierCurve3d::Init(const Handle(PointArray1)&   Poles,
                             const Handle(TColStd_HArray1OfReal)& Weights)
 {
   Standard_Integer nbpoles = Poles->Length();

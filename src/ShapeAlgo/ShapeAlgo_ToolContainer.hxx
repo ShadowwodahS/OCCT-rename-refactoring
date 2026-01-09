@@ -23,16 +23,16 @@
 class ShapeFix_Shape;
 class ShapeFix_EdgeProjAux;
 
-class ShapeAlgo_ToolContainer;
-DEFINE_STANDARD_HANDLE(ShapeAlgo_ToolContainer, RefObject)
+class ToolContainer1;
+DEFINE_STANDARD_HANDLE(ToolContainer1, RefObject)
 
 //! Returns tools used by AlgoContainer
-class ShapeAlgo_ToolContainer : public RefObject
+class ToolContainer1 : public RefObject
 {
 
 public:
   //! Empty constructor
-  Standard_EXPORT ShapeAlgo_ToolContainer();
+  Standard_EXPORT ToolContainer1();
 
   //! Returns ShapeFix_Shape
   Standard_EXPORT virtual Handle(ShapeFix_Shape) FixShape() const;
@@ -40,7 +40,7 @@ public:
   //! Returns ShapeFix_EdgeProjAux
   Standard_EXPORT virtual Handle(ShapeFix_EdgeProjAux) EdgeProjAux() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeAlgo_ToolContainer, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ToolContainer1, RefObject)
 
 protected:
 private:

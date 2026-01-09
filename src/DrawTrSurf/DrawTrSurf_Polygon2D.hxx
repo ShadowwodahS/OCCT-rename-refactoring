@@ -20,7 +20,7 @@
 #include <Draw_Drawable2D.hxx>
 #include <Draw_Interpretor.hxx>
 
-class Poly_Polygon2D;
+class Polygon2D2;
 
 DEFINE_STANDARD_HANDLE(DrawTrSurf_Polygon2D, Draw_Drawable2D)
 
@@ -32,9 +32,9 @@ class DrawTrSurf_Polygon2D : public Draw_Drawable2D
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
-      DrawTrSurf_Polygon2D(const Handle(Poly_Polygon2D)& P);
+      DrawTrSurf_Polygon2D(const Handle(Polygon2D2)& P);
 
-  Handle(Poly_Polygon2D) Polygon2D() const { return myPolygon2D; }
+  Handle(Polygon2D2) Polygon2D() const { return myPolygon2D; }
 
   void ShowNodes(const Standard_Boolean theB) { myNodes = theB; }
 
@@ -55,7 +55,7 @@ class DrawTrSurf_Polygon2D : public Draw_Drawable2D
   Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
-  Handle(Poly_Polygon2D) myPolygon2D;
+  Handle(Polygon2D2) myPolygon2D;
   Standard_Boolean       myNodes;
 };
 

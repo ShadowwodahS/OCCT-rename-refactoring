@@ -40,7 +40,7 @@ public:
   //! This makes it possible to use the surface in a geometric algorithm.
   //! Note that this surface object is manipulated by handles.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Adaptor3d_Surface)&  aSurface,
+                                  const Handle(SurfaceAdaptor)&  aSurface,
                                   const Handle(StyleDrawer)&       aDrawer);
 
 protected:

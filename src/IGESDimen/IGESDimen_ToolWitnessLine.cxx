@@ -46,14 +46,14 @@ void WitnessLineTool::ReadOwnParams(const Handle(IGESDimen_WitnessLine)& ent,
   Standard_Integer           datatype;
   Standard_Real              zDisplacement;
   Standard_Integer           nbval;
-  Handle(TColgp_HArray1OfXY) dataPoints;
+  Handle(XYArray) dataPoints;
 
   // clang-format off
   PR.ReadInteger(PR.Current(), "Interpretation Flag", datatype); //szv#4:S4163:12Mar99 `st=` not needed
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of data points", nbval);
   if (st && nbval > 0)
-    dataPoints = new TColgp_HArray1OfXY(1, nbval);
+    dataPoints = new XYArray(1, nbval);
   else  PR.AddFail("Number of data points: Not Positive");
 
   PR.ReadReal(PR.Current(), "Common Z Displacement", zDisplacement); //szv#4:S4163:12Mar99 `st=` not needed
@@ -99,7 +99,7 @@ void WitnessLineTool::OwnCopy(const Handle(IGESDimen_WitnessLine)& another,
   Standard_Integer nbval         = another->NbPoints();
   Standard_Real    zDisplacement = another->ZDisplacement();
 
-  Handle(TColgp_HArray1OfXY) dataPoints = new TColgp_HArray1OfXY(1, nbval);
+  Handle(XYArray) dataPoints = new XYArray(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
@@ -125,7 +125,7 @@ Standard_Boolean WitnessLineTool::OwnCorrect(
   Standard_Integer nb = ent->NbPoints();
   if (nb == 0)
     return Standard_False; // rien pu faire (est-ce possible ?)
-  Handle(TColgp_HArray1OfXY) pts = new TColgp_HArray1OfXY(1, nb);
+  Handle(XYArray) pts = new XYArray(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
     pts->SetValue(i, Coords2d(ent->Point(i).X(), ent->Point(i).Y()));
   ent->Init(1, ent->ZDisplacement(), pts);

@@ -24,7 +24,7 @@
 #include <MeshVS_HArray1OfSequenceOfInteger.hxx>
 
 class MeshVS_Mesh;
-class MeshVS_DataSource;
+class MeshDataSource;
 class Graphic3d_ArrayOfSegments;
 class Graphic3d_ArrayOfTriangles;
 class Graphic3d_ArrayOfPrimitives;
@@ -41,7 +41,7 @@ public:
   //! Creates builder with certain display mode flags, data source, ID and priority
   Standard_EXPORT MeshVS_MeshPrsBuilder(const Handle(MeshVS_Mesh)&       Parent,
                                         const MeshVS_DisplayModeFlags&   Flags = MeshVS_DMF_OCCMask,
-                                        const Handle(MeshVS_DataSource)& DS    = 0,
+                                        const Handle(MeshDataSource)& DS    = 0,
                                         const Standard_Integer           Id    = -1,
                                         const MeshVS_BuilderPriority&    Priority = MeshVS_BP_Mesh);
 
@@ -70,7 +70,7 @@ public:
                                                const Standard_Boolean            IsElement) const;
 
   //! Add to array polygons or polylines representing volume
-  Standard_EXPORT static void AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOfInteger)& Topo,
+  Standard_EXPORT static void AddVolumePrs(const Handle(IntegerSequenceArray)& Topo,
                                            const TColStd_Array1OfReal&                      Nodes,
                                            const Standard_Integer                           NbNodes,
                                            const Handle(Graphic3d_ArrayOfPrimitives)&       Array,
@@ -81,7 +81,7 @@ public:
 
   //! Calculate how many polygons or polylines are necessary to draw passed topology
   Standard_EXPORT static void HowManyPrimitives(
-    const Handle(MeshVS_HArray1OfSequenceOfInteger)& Topo,
+    const Handle(IntegerSequenceArray)& Topo,
     const Standard_Boolean                           AsPolygons,
     const Standard_Boolean                           IsSelect,
     const Standard_Integer                           NbNodes,

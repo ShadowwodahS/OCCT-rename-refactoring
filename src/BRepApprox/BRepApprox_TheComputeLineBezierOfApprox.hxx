@@ -213,7 +213,7 @@ private:
   Approx_SequenceOfHArray1OfReal                 myPar;
   TColStd_SequenceOfReal                         Tolers3d;
   TColStd_SequenceOfReal                         Tolers2d;
-  Handle(AppParCurves_HArray1OfConstraintCouple) myConstraints;
+  Handle(ConstraintCoupleArray) myConstraints;
   Standard_Integer                               mydegremin;
   Standard_Integer                               mydegremax;
   Standard_Real                                  mytol3d;

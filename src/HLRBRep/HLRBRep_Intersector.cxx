@@ -636,7 +636,7 @@ Standard_Integer HLRBRep_Intersector::NbPoints() const
 
 //=================================================================================================
 
-const IntRes2d_IntersectionPoint& HLRBRep_Intersector::Point(const Standard_Integer N) const
+const IntersectionPoint3& HLRBRep_Intersector::Point(const Standard_Integer N) const
 {
   if (myTypePerform == 0)
     return (mySinglePoint);
@@ -673,7 +673,7 @@ const IntRes2d_IntersectionSegment& HLRBRep_Intersector::Segment1(const Standard
 
 //=================================================================================================
 
-const IntCurveSurface_IntersectionSegment& HLRBRep_Intersector::CSSegment(
+const IntersectionSegment& HLRBRep_Intersector::CSSegment(
   const Standard_Integer N) const
 {
   return myCSIntersector.Segment1(N);

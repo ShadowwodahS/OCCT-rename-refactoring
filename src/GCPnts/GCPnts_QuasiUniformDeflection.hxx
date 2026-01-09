@@ -22,7 +22,7 @@
 #include <TColgp_SequenceOfPnt.hxx>
 #include <GeomAbs_Shape.hxx>
 
-class Adaptor3d_Curve;
+class Curve5;
 class Adaptor2d_Curve2d;
 class Point3d;
 
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT QuasiUniformDeflectionSampler();
 
   //! Computes a QuasiUniform Deflection distribution of points on the Curve.
-  Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
+  Standard_EXPORT QuasiUniformDeflectionSampler(const Curve5& theC,
                                                 const Standard_Real    theDeflection,
                                                 const GeomAbs_Shape    theContinuity = GeomAbs_C1);
 
@@ -57,7 +57,7 @@ public:
                                                 const GeomAbs_Shape theContinuity = GeomAbs_C1);
 
   //! Computes a QuasiUniform Deflection distribution of points on a part of the Curve.
-  Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
+  Standard_EXPORT QuasiUniformDeflectionSampler(const Curve5& theC,
                                                 const Standard_Real    theDeflection,
                                                 const Standard_Real    theU1,
                                                 const Standard_Real    theU2,
@@ -85,7 +85,7 @@ public:
   //! -   and the point of mid-parameter of these two
   //!     points (the point of parameter [(ui+uj) / 2] on curve theC).
   //! theContinuity, defaulted to GeomAbs_C1, gives the degree of continuity of the curve theC.
-  //! (Note that C is an Adaptor3d_Curve or an Adaptor2d_Curve2d object,
+  //! (Note that C is an Curve5 or an Adaptor2d_Curve2d object,
   //! and does not know the degree of continuity of the underlying curve).
   //! Use the function IsDone() to verify that the computation was successful,
   //! the function NbPoints() to obtain the number of points of the computed distribution,
@@ -101,7 +101,7 @@ public:
   //! theC is an adapted curve, i.e. an object which is an interface between:
   //! -   the services provided by either a 2D curve from
   //!     the package Geom2d (in the case of an Adaptor2d_Curve2d curve)
-  //!     or a 3D curve from the package Geom (in the case of an Adaptor3d_Curve curve),
+  //!     or a 3D curve from the package Geom (in the case of an Curve5 curve),
   //! -   and those required on the curve by the computation algorithm.
   Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                                 const Standard_Real      theDeflection,
@@ -110,7 +110,7 @@ public:
                                                 const GeomAbs_Shape theContinuity = GeomAbs_C1);
 
   //! Initialize the algorithms with 3D curve and deflection.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& theC,
+  Standard_EXPORT void Initialize(const Curve5& theC,
                                   const Standard_Real    theDeflection,
                                   const GeomAbs_Shape    theContinuity = GeomAbs_C1);
 
@@ -120,7 +120,7 @@ public:
                                   const GeomAbs_Shape      theContinuity = GeomAbs_C1);
 
   //! Initialize the algorithms with 3D curve, deflection and parameter range.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& theC,
+  Standard_EXPORT void Initialize(const Curve5& theC,
                                   const Standard_Real    theDeflection,
                                   const Standard_Real    theU1,
                                   const Standard_Real    theU2,
@@ -149,7 +149,7 @@ public:
   //! -   and the point of mid-parameter of these two
   //!     points (the point of parameter [(ui+uj) / 2] on curve theC).
   //! theContinuity, defaulted to GeomAbs_C1, gives the degree of continuity of the curve theC.
-  //! (Note that C is an Adaptor3d_Curve or an Adaptor2d_Curve2d object,
+  //! (Note that C is an Curve5 or an Adaptor2d_Curve2d object,
   //! and does not know the degree of continuity of the underlying curve).
   //! Use the function IsDone to verify that the computation was successful,
   //! the function NbPoints() to obtain the number of points of the computed distribution,
@@ -165,7 +165,7 @@ public:
   //! theC is an adapted curve, i.e. an object which is an interface between:
   //! -   the services provided by either a 2D curve from
   //!     the package Geom2d (in the case of an Adaptor2d_Curve2d curve)
-  //!     or a 3D curve from the package Geom (in the case of an Adaptor3d_Curve curve),
+  //!     or a 3D curve from the package Geom (in the case of an Curve5 curve),
   //!     and those required on the curve by the computation algorithm.
   Standard_EXPORT void Initialize(const Adaptor2d_Curve2d& theC,
                                   const Standard_Real      theDeflection,

@@ -31,11 +31,11 @@ class FEmTool_Curve;
 class math_Matrix;
 
 class AppDef_LinearCriteria;
-DEFINE_STANDARD_HANDLE(AppDef_LinearCriteria, AppDef_SmoothCriterion)
+DEFINE_STANDARD_HANDLE(AppDef_LinearCriteria, SmoothCriterion)
 
 //! defined an Linear Criteria to used in variational
 //! Smoothing of points.
-class AppDef_LinearCriteria : public AppDef_SmoothCriterion
+class AppDef_LinearCriteria : public SmoothCriterion
 {
 
 public:
@@ -60,7 +60,7 @@ public:
                                      Standard_Real& E2,
                                      Standard_Real& E3) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(FEmTool_HAssemblyTable) AssemblyTable() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(AssemblyTable1) AssemblyTable() const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(TColStd_HArray2OfInteger) DependenceTable() const Standard_OVERRIDE;
 
@@ -86,7 +86,7 @@ public:
 
   //! Convert the assembly Vector in an Curve;
   Standard_EXPORT void InputVector(const math_Vector&                    X,
-                                   const Handle(FEmTool_HAssemblyTable)& AssTable)
+                                   const Handle(AssemblyTable1)& AssTable)
     Standard_OVERRIDE;
 
   Standard_EXPORT void SetWeight(const Standard_Real QuadraticWeight,
@@ -100,7 +100,7 @@ public:
 
   Standard_EXPORT void SetWeight(const TColStd_Array1OfReal& Weight) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(AppDef_LinearCriteria, AppDef_SmoothCriterion)
+  DEFINE_STANDARD_RTTIEXT(AppDef_LinearCriteria, SmoothCriterion)
 
 protected:
 private:

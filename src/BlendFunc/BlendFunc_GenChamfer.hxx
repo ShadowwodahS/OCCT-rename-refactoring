@@ -36,9 +36,9 @@ class BlendFunc_GenChamfer : public Blend_Function
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_GenChamfer(const Handle(Adaptor3d_Surface)& S1,
-                                       const Handle(Adaptor3d_Surface)& S2,
-                                       const Handle(Adaptor3d_Curve)&   CG);
+  Standard_EXPORT BlendFunc_GenChamfer(const Handle(SurfaceAdaptor)& S1,
+                                       const Handle(SurfaceAdaptor)& S2,
+                                       const Handle(Curve5)&   CG);
 
   //! returns the number of equations of the function.
   Standard_EXPORT Standard_Integer NbEquations() const Standard_OVERRIDE;
@@ -160,9 +160,9 @@ public:
                                   Standard_Real&         TolV) const Standard_OVERRIDE;
 
 protected:
-  Handle(Adaptor3d_Surface) surf1;
-  Handle(Adaptor3d_Surface) surf2;
-  Handle(Adaptor3d_Curve)   curv;
+  Handle(SurfaceAdaptor) surf1;
+  Handle(SurfaceAdaptor) surf2;
+  Handle(Curve5)   curv;
   Standard_Integer          choix;
   Standard_Real             tol;
   Standard_Real             distmin;

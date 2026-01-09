@@ -20,6 +20,6 @@
 #include <Extrema_Array1OfPOnSurf.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Extrema_HArray1OfPOnSurf, Extrema_Array1OfPOnSurf)
+DEFINE_HARRAY1(PointOnSurfaceArray, Extrema_Array1OfPOnSurf)
 
 #endif

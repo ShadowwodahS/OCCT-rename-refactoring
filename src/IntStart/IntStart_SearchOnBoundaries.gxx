@@ -211,7 +211,7 @@ public:
     myValue = theSolution.GetPoint(theIndex);
   }
 
-  void Init(const IntCurveSurface_HInter& theSolution, const Standard_Integer theIndex)
+  void Init(const HandleIntersection& theSolution, const Standard_Integer theIndex)
   {
     myMathIndex = theIndex;
     myValue = theSolution.Point(theIndex).W();
@@ -356,7 +356,7 @@ void BoundedArc (const TheArc& A,
     GeomAbs_SurfaceType TypeQuad = aQuadric.TypeQuadric();
     GeomAbs_CurveType TypeConS = GeomAbs_OtherCurve;
     
-    IntCurveSurface_HInter IntCS;
+    HandleIntersection IntCS;
     Standard_Boolean IsIntCSdone = Standard_False;
     TColStd_SequenceOfReal Params;
     
@@ -386,7 +386,7 @@ void BoundedArc (const TheArc& A,
     if (TypeQuad != GeomAbs_OtherSurface) //intersection of boundary curve and quadric surface
     {
       //Exact solution
-      Handle(Adaptor3d_Surface) aSurf = Func.Surface();
+      Handle(SurfaceAdaptor) aSurf = Func.Surface();
       Adaptor3d_CurveOnSurface ConS(A, aSurf);
       TypeConS = ConS.GetType();
 #ifdef OCCT_DEBUG
@@ -754,7 +754,7 @@ void BoundedArc (const TheArc& A,
       // Recuperer point debut et fin, et leur parametre.
       if (IsIntCSdone)
       {
-        IntCurveSurface_IntersectionSegment IntSeg = IntCS.Segment1(i);
+        IntersectionSegment IntSeg = IntCS.Segment1(i);
         IntersectionPoint1 End1 = IntSeg.FirstPoint();
         IntersectionPoint1 End2 = IntSeg.SecondPoint();
         pardeb = End1.W();
@@ -1052,7 +1052,7 @@ Standard_Integer TreatLC (const TheArc& A,
   
   Tol = Precision1::PConfusion();
 
-  Extrema_ExtCC anExtCC(C1, C2, U1f, U1l, U2f, U2l, Tol, Tol); 
+  CurveCurveExtrema2 anExtCC(C1, C2, U1f, U1l, U2f, U2l, Tol, Tol); 
 
   aNbExt=anExtCC.NbExt();
   if (aNbExt!=1) {

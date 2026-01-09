@@ -36,7 +36,7 @@
 // pmn 8/10/98 : On retourne toujours une distance. (BUC60360)
 //=======================================================================
 Standard_Boolean BlendTool::Project(const gp_Pnt2d& P,
-                                              const Handle(Adaptor3d_Surface)&,
+                                              const Handle(SurfaceAdaptor)&,
                                               const Handle(Adaptor2d_Curve2d)& C,
                                               Standard_Real&                   Paramproj,
                                               Standard_Real&                   Dist)
@@ -82,7 +82,7 @@ Standard_Boolean BlendTool::Project(const gp_Pnt2d& P,
 //=======================================================================
 Standard_Boolean BlendTool::Inters(const gp_Pnt2d& P1,
                                              const gp_Pnt2d& P2,
-                                             const Handle(Adaptor3d_Surface)&,
+                                             const Handle(SurfaceAdaptor)&,
                                              const Handle(Adaptor2d_Curve2d)& C,
                                              Standard_Real&                   Param,
                                              Standard_Real&                   Dist)
@@ -105,20 +105,20 @@ Standard_Boolean BlendTool::Inters(const gp_Pnt2d& P1,
   if (Nbint == 0)
     return Standard_False;
 
-  IntRes2d_IntersectionPoint ip = inter.Point(1);
+  IntersectionPoint3 ip = inter.Point(1);
   Param                         = ip.ParamOnSecond();
   Dist                          = P1.Distance(ip.Value());
   return Standard_True;
 }
 
-Standard_Integer BlendTool::NbSamplesV(const Handle(Adaptor3d_Surface)&,
+Standard_Integer BlendTool::NbSamplesV(const Handle(SurfaceAdaptor)&,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
   return 10;
 }
 
-Standard_Integer BlendTool::NbSamplesU(const Handle(Adaptor3d_Surface)&,
+Standard_Integer BlendTool::NbSamplesU(const Handle(SurfaceAdaptor)&,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {

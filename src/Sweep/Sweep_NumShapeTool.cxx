@@ -20,14 +20,14 @@
 
 //=================================================================================================
 
-Sweep_NumShapeTool::Sweep_NumShapeTool(const SweepNumShape& aShape)
+NumShapeTool::NumShapeTool(const SweepNumShape& aShape)
     : myNumShape(aShape)
 {
 }
 
 //=================================================================================================
 
-Standard_Integer Sweep_NumShapeTool::NbShapes1() const
+Standard_Integer NumShapeTool::NbShapes1() const
 {
   if (myNumShape.Type() == TopAbs_EDGE)
   {
@@ -48,7 +48,7 @@ Standard_Integer Sweep_NumShapeTool::NbShapes1() const
 
 //=================================================================================================
 
-Standard_Integer Sweep_NumShapeTool::Index(const SweepNumShape& aShape) const
+Standard_Integer NumShapeTool::Index(const SweepNumShape& aShape) const
 {
   if (aShape.Type() == TopAbs_EDGE)
   {
@@ -69,7 +69,7 @@ Standard_Integer Sweep_NumShapeTool::Index(const SweepNumShape& aShape) const
 
 //=================================================================================================
 
-SweepNumShape Sweep_NumShapeTool::Shape(const Standard_Integer anIndex) const
+SweepNumShape NumShapeTool::Shape(const Standard_Integer anIndex) const
 {
   if (anIndex == 1)
   {
@@ -87,21 +87,21 @@ SweepNumShape Sweep_NumShapeTool::Shape(const Standard_Integer anIndex) const
 
 //=================================================================================================
 
-TopAbs_ShapeEnum Sweep_NumShapeTool::Type(const SweepNumShape& aShape) const
+TopAbs_ShapeEnum NumShapeTool::Type(const SweepNumShape& aShape) const
 {
   return aShape.Type();
 }
 
 //=================================================================================================
 
-TopAbs_Orientation Sweep_NumShapeTool::Orientation(const SweepNumShape& aShape) const
+TopAbs_Orientation NumShapeTool::Orientation(const SweepNumShape& aShape) const
 {
   return aShape.Orientation();
 }
 
 //=================================================================================================
 
-Standard_Boolean Sweep_NumShapeTool::HasFirstVertex() const
+Standard_Boolean NumShapeTool::HasFirstVertex() const
 {
   if (myNumShape.Type() == TopAbs_EDGE)
     return !myNumShape.BegInfinite();
@@ -110,7 +110,7 @@ Standard_Boolean Sweep_NumShapeTool::HasFirstVertex() const
 
 //=================================================================================================
 
-Standard_Boolean Sweep_NumShapeTool::HasLastVertex() const
+Standard_Boolean NumShapeTool::HasLastVertex() const
 {
   if (myNumShape.Type() == TopAbs_EDGE)
     return !myNumShape.EndInfinite();
@@ -119,7 +119,7 @@ Standard_Boolean Sweep_NumShapeTool::HasLastVertex() const
 
 //=================================================================================================
 
-SweepNumShape Sweep_NumShapeTool::FirstVertex() const
+SweepNumShape NumShapeTool::FirstVertex() const
 {
   if (myNumShape.Type() == TopAbs_EDGE)
   {
@@ -135,7 +135,7 @@ SweepNumShape Sweep_NumShapeTool::FirstVertex() const
 
 //=================================================================================================
 
-SweepNumShape Sweep_NumShapeTool::LastVertex() const
+SweepNumShape NumShapeTool::LastVertex() const
 {
   if (myNumShape.Type() == TopAbs_EDGE)
   {

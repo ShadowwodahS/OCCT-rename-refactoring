@@ -43,8 +43,8 @@ void IGESAppli_NodalDisplAndRot::Init(const Handle(HArray1OfGeneralNote)&  allNo
 
   for (Standard_Integer i = 1; i <= allNodes->Length(); i++)
   {
-    Handle(TColgp_HArray1OfXYZ) temp1 = allTransParams->Value(i);
-    Handle(TColgp_HArray1OfXYZ) temp2 = allRotParams->Value(i);
+    Handle(XYZArray) temp1 = allTransParams->Value(i);
+    Handle(XYZArray) temp2 = allRotParams->Value(i);
     if ((temp1->Lower() != 1 || temp1->Length() != allNotes->Length())
         || (temp2->Lower() != 1 || temp2->Length() != allNotes->Length()))
       throw Standard_DimensionMismatch(

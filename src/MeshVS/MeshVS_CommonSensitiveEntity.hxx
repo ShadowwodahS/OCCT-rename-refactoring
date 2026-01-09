@@ -93,7 +93,7 @@ private:
   Point3d getVertexByIndex(const Standard_Integer theNodeIdx) const;
 
 private:
-  Handle(MeshVS_DataSource)            myDataSource;  //!< mesh data source
+  Handle(MeshDataSource)            myDataSource;  //!< mesh data source
   NCollection_Vector<Standard_Integer> myItemIndexes; //!< indices for BVH tree reordering
   MeshVS_MeshSelectionMethod           mySelMethod;   //!< selection mode
                                                       // clang-format off

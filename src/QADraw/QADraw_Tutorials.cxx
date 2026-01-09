@@ -188,7 +188,7 @@ public:
   {
     if (!myPrs.IsNull())
     {
-      myPrs->SetTransformation(new TopLoc_Datum3D(theLocation.Transformation()));
+      myPrs->SetTransformation(new Datum3D2(theLocation.Transformation()));
     }
   }
 

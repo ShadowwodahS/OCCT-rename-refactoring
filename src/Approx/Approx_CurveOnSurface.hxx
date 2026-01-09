@@ -34,7 +34,7 @@ public:
   Standard_DEPRECATED(
     "This constructor is deprecated. Use other constructor and perform method instead.")
   Standard_EXPORT Approx_CurveOnSurface(const Handle(Adaptor2d_Curve2d)& C2D,
-                                        const Handle(Adaptor3d_Surface)& Surf,
+                                        const Handle(SurfaceAdaptor)& Surf,
                                         const Standard_Real              First,
                                         const Standard_Real              Last,
                                         const Standard_Real              Tol,
@@ -51,7 +51,7 @@ public:
   //! @param theFirst Last parameter of resulting curve.
   //! @param theTol   Computation tolerance.
   Standard_EXPORT Approx_CurveOnSurface(const Handle(Adaptor2d_Curve2d)& theC2D,
-                                        const Handle(Adaptor3d_Surface)& theSurf,
+                                        const Handle(SurfaceAdaptor)& theSurf,
                                         const Standard_Real              theFirst,
                                         const Standard_Real              theLast,
                                         const Standard_Real              theTol);
@@ -118,7 +118,7 @@ private:
   const Handle(Adaptor2d_Curve2d) myC2D;
 
   //! Input surface.
-  const Handle(Adaptor3d_Surface) mySurf;
+  const Handle(SurfaceAdaptor) mySurf;
 
   //! First parameter of the result.
   const Standard_Real myFirst;

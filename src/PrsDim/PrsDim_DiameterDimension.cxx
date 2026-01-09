@@ -192,7 +192,7 @@ void PrsDim_DiameterDimension::ComputeAnchorPoint()
   // Choose one of two intersection points that stands with
   // positive direction of flyout.
   // An anchor point is supposed to be the left attachment point.
-  Dir3d aFirstDir = gce_MakeDir(aFirstPoint, myCircle.Location());
+  Dir3d aFirstDir = DirectionBuilder(aFirstPoint, myCircle.Location());
   Dir3d aDir      = myPlane.Axis().Direction() ^ aFirstDir;
   myAnchorPoint =
     (Vector3d(aDir) * Vector3d(myCircle.Position1().Direction()) > 0.0) ? aFirstPoint : aSecondPoint;

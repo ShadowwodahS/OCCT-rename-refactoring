@@ -18,7 +18,7 @@
 #include <Standard_TypeDef.hxx>
 
 //! Pose input XR action data.
-struct Aspect_XRPoseActionData
+struct XRPoseActionData
 {
   TrackedDevicePose Pose;         //!< pose state
   uint64_t                 ActiveOrigin; //!< The origin that caused this action's current state
@@ -27,7 +27,7 @@ struct Aspect_XRPoseActionData
                                          // clang-format on
 
   //! Empty constructor.
-  Aspect_XRPoseActionData()
+  XRPoseActionData()
       : ActiveOrigin(0),
         IsActive(false)
   {

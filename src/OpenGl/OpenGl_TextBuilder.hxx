@@ -24,7 +24,7 @@
 #include <NCollection_Vector.hxx>
 #include <NCollection_Handle.hxx>
 
-class Font_TextFormatter;
+class TextFormatter1;
 
 //! This class generates primitive array required for rendering textured text using OpenGl_Font
 //! instance.
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT TextBuilder();
 
   //! Creates texture quads for the given text.
-  Standard_EXPORT void Perform(const Handle(Font_TextFormatter)&                theFormatter,
+  Standard_EXPORT void Perform(const Handle(TextFormatter1)&                theFormatter,
                                const Handle(OpenGl_Context)&                    theContext,
                                OpenGl_Font&                                     theFont,
                                NCollection_Vector<GLuint>&                      theTextures,
@@ -44,7 +44,7 @@ public:
 
 protected: //! @name class auxiliary methods
   Standard_EXPORT void createGlyphs(
-    const Handle(Font_TextFormatter)&                                        theFormatter,
+    const Handle(TextFormatter1)&                                        theFormatter,
     const Handle(OpenGl_Context)&                                            theCtx,
     OpenGl_Font&                                                             theFont,
     NCollection_Vector<GLuint>&                                              theTextures,
@@ -52,7 +52,7 @@ protected: //! @name class auxiliary methods
     NCollection_Vector<NCollection_Handle<NCollection_Vector<OpenGl_Vec2>>>& theTCrdsPerTexture);
 
 protected: //! @name class auxiliary fields
-  NCollection_Vector<OpenGl_Font::Tile>  myTileRects;
+  NCollection_Vector<OpenGl_Font::Tile1>  myTileRects;
   OpenGl_VertexBufferEditor<OpenGl_Vec2> myVboEditor;
 };
 

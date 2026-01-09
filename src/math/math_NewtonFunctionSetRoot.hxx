@@ -25,7 +25,7 @@
 #include <math_IntegerVector.hxx>
 #include <math_Matrix.hxx>
 #include <Standard_OStream.hxx>
-class math_FunctionSetWithDerivatives;
+class FunctionSetWithDerivatives;
 
 //! This class computes the root of a set of N functions of N variables,
 //! knowing an initial guess at the solution and using the
@@ -39,7 +39,7 @@ public:
   //! Initialize correctly all the fields of this class.
   //! The range (1, F.NbVariables()) must be especially respected for
   //! all vectors and matrix declarations.
-  Standard_EXPORT NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT NewtonFunctionSetRoot(FunctionSetWithDerivatives& theFunction,
                                              const math_Vector&               theXTolerance,
                                              const Standard_Real              theFTolerance,
                                              const Standard_Integer tehNbIterations = 100);
@@ -49,7 +49,7 @@ public:
   //! The range (1, F.NbVariables()) must be especially respected for
   //! all vectors and matrix declarations.
   //! The method SetTolerance must be called before performing the algorithm.
-  Standard_EXPORT NewtonFunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT NewtonFunctionSetRoot(FunctionSetWithDerivatives& theFunction,
                                              const Standard_Real              theFTolerance,
                                              const Standard_Integer theNbIterations = 100);
 
@@ -62,14 +62,14 @@ public:
   //! The Newton method is done to improve the root of the function
   //! from the initial guess point. The solution is found when:
   //! abs(Xj - Xj-1)(i) <= XTol(i) and abs(Fi) <= FTol for all i;
-  Standard_EXPORT void Perform(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT void Perform(FunctionSetWithDerivatives& theFunction,
                                const math_Vector&               theStartingPoint);
 
   //! The Newton method is done to improve the root of the function
   //! from the initial guess point. Bounds may be given, to constrain the solution.
   //! The solution is found when:
   //! abs(Xj - Xj-1)(i) <= XTol(i) and abs(Fi) <= FTol for all i;
-  Standard_EXPORT void Perform(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT void Perform(FunctionSetWithDerivatives& theFunction,
                                const math_Vector&               theStartingPoint,
                                const math_Vector&               theInfBound,
                                const math_Vector&               theSupBound);
@@ -79,7 +79,7 @@ public:
   //! Vectors DeltaX, Fvalues and Jacobian Matrix are consistent with the
   //! possible solution Vector Sol and can be inspected to decide whether
   //! the solution is reached or not.
-  virtual Standard_Boolean IsSolutionReached(math_FunctionSetWithDerivatives& F);
+  virtual Standard_Boolean IsSolutionReached(FunctionSetWithDerivatives& F);
 
   //! Returns true if the computations are successful, otherwise returns false.
   Standard_Boolean IsDone() const;

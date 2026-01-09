@@ -32,7 +32,7 @@
 class Approx_Curve3d_Eval : public EvaluatorFunction
 {
 public:
-  Approx_Curve3d_Eval(const Handle(Adaptor3d_Curve)& theFunc,
+  Approx_Curve3d_Eval(const Handle(Curve5)& theFunc,
                       Standard_Real                  First,
                       Standard_Real                  Last)
       : fonct(theFunc)
@@ -49,7 +49,7 @@ public:
                         Standard_Integer* ErrorCode);
 
 private:
-  Handle(Adaptor3d_Curve) fonct;
+  Handle(Curve5) fonct;
   Standard_Real           StartEndSav[2];
 };
 
@@ -106,7 +106,7 @@ void Approx_Curve3d_Eval::Evaluate(Standard_Integer* Dimension,
   }
 }
 
-Approx_Curve3d::Approx_Curve3d(const Handle(Adaptor3d_Curve)& Curve,
+Approx_Curve3d::Approx_Curve3d(const Handle(Curve5)& Curve,
                                const Standard_Real            Tol3d,
                                const GeomAbs_Shape            Order,
                                const Standard_Integer         MaxSegments,
@@ -129,7 +129,7 @@ Approx_Curve3d::Approx_Curve3d(const Handle(Adaptor3d_Curve)& Curve,
   TColStd_Array1OfReal CutPnts_C3(1, NbInterv_C3 + 1);
   Curve->Intervals(CutPnts_C3, GeomAbs_C3);
 
-  AdvApprox_PrefAndRec CutTool(CutPnts_C2, CutPnts_C3);
+  PreferredAndRecommended CutTool(CutPnts_C2, CutPnts_C3);
 
   myMaxError = 0;
 

@@ -25,23 +25,23 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Geometry, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Geometry3, RefObject)
 
-typedef Geom_Geometry Geometry1;
+typedef Geometry3 Geometry1;
 typedef Point3d        Pnt;
 typedef Vector3d        Vec;
 typedef Axis3d        Ax1;
 typedef Frame3d        Ax2;
 typedef Transform3d       Trsf;
 
-Handle(Geom_Geometry) Geom_Geometry::Copy() const
+Handle(Geometry3) Geometry3::Copy() const
 {
 
-  Handle(Geom_Geometry) G;
+  Handle(Geometry3) G;
   throw Standard_ConstructionError();
 }
 
-void Geom_Geometry::Mirror(const Point3d& P)
+void Geometry3::Mirror(const Point3d& P)
 {
 
   Trsf T;
@@ -49,7 +49,7 @@ void Geom_Geometry::Mirror(const Point3d& P)
   Transform(T);
 }
 
-void Geom_Geometry::Mirror(const Axis3d& A1)
+void Geometry3::Mirror(const Axis3d& A1)
 {
 
   Trsf T;
@@ -57,7 +57,7 @@ void Geom_Geometry::Mirror(const Axis3d& A1)
   Transform(T);
 }
 
-void Geom_Geometry::Mirror(const Frame3d& A2)
+void Geometry3::Mirror(const Frame3d& A2)
 {
 
   Trsf T;
@@ -65,7 +65,7 @@ void Geom_Geometry::Mirror(const Frame3d& A2)
   Transform(T);
 }
 
-void Geom_Geometry::Rotate(const Axis3d& A1, const Standard_Real Ang)
+void Geometry3::Rotate(const Axis3d& A1, const Standard_Real Ang)
 {
 
   Trsf T;
@@ -73,7 +73,7 @@ void Geom_Geometry::Rotate(const Axis3d& A1, const Standard_Real Ang)
   Transform(T);
 }
 
-void Geom_Geometry::Scale(const Point3d& P, const Standard_Real S)
+void Geometry3::Scale(const Point3d& P, const Standard_Real S)
 {
 
   Trsf T;
@@ -81,7 +81,7 @@ void Geom_Geometry::Scale(const Point3d& P, const Standard_Real S)
   Transform(T);
 }
 
-void Geom_Geometry::Translate(const Vector3d& V)
+void Geometry3::Translate(const Vector3d& V)
 {
 
   Trsf T;
@@ -89,70 +89,70 @@ void Geom_Geometry::Translate(const Vector3d& V)
   Transform(T);
 }
 
-void Geom_Geometry::Translate(const Point3d& P1, const Point3d& P2)
+void Geometry3::Translate(const Point3d& P1, const Point3d& P2)
 {
 
   Vec V(P1, P2);
   Translate(V);
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Point3d& P) const
+Handle(Geometry3) Geometry3::Mirrored(const Point3d& P) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Mirror(P);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Axis3d& A1) const
+Handle(Geometry3) Geometry3::Mirrored(const Axis3d& A1) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Mirror(A1);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Frame3d& A2) const
+Handle(Geometry3) Geometry3::Mirrored(const Frame3d& A2) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Mirror(A2);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Rotated(const Axis3d& A1, const Standard_Real Ang) const
+Handle(Geometry3) Geometry3::Rotated(const Axis3d& A1, const Standard_Real Ang) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Rotate(A1, Ang);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Scaled(const Point3d& P, const Standard_Real S) const
+Handle(Geometry3) Geometry3::Scaled(const Point3d& P, const Standard_Real S) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Scale(P, S);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Transformed(const Transform3d& T) const
+Handle(Geometry3) Geometry3::Transformed(const Transform3d& T) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Transform(T);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Translated(const Vector3d& V) const
+Handle(Geometry3) Geometry3::Translated(const Vector3d& V) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Translate(V);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Translated(const Point3d& P1, const Point3d& P2) const
+Handle(Geometry3) Geometry3::Translated(const Point3d& P1, const Point3d& P2) const
 {
-  Handle(Geom_Geometry) G = Copy();
+  Handle(Geometry3) G = Copy();
   G->Translate(P1, P2);
   return G;
 }
 
-void Geom_Geometry::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void Geometry3::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 }

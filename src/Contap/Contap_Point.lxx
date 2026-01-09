@@ -33,7 +33,7 @@ inline void Contap_Point::SetParameter(const Standard_Real Para)
   paraline = Para;
 }
 
-inline void Contap_Point::SetVertex(const Handle(Adaptor3d_HVertex)& V)
+inline void Contap_Point::SetVertex(const Handle(HandleVertex)& V)
 {
 
   isvtx = Standard_True;
@@ -142,7 +142,7 @@ inline Standard_Boolean Contap_Point::IsVertex() const
   return isvtx;
 }
 
-inline const Handle(Adaptor3d_HVertex)& Contap_Point::Vertex() const
+inline const Handle(HandleVertex)& Contap_Point::Vertex() const
 {
 
   if (!isvtx)

@@ -182,9 +182,9 @@ void Graphic3d_StructureManager::RecomputeStructures(
 //=================================================================================================
 
 void Graphic3d_StructureManager::RegisterObject(const Handle(RefObject)&     theObject,
-                                                const Handle(Graphic3d_ViewAffinity)& theAffinity)
+                                                const Handle(ViewAffinity1)& theAffinity)
 {
-  Handle(Graphic3d_ViewAffinity) aResult;
+  Handle(ViewAffinity1) aResult;
   if (myRegisteredObjects.Find(theObject.operator->(), aResult) && aResult == theAffinity)
   {
     return;
@@ -202,13 +202,13 @@ void Graphic3d_StructureManager::UnregisterObject(const Handle(RefObject)& theOb
 
 //=================================================================================================
 
-const Handle(Graphic3d_ViewAffinity)& Graphic3d_StructureManager::ObjectAffinity(
+const Handle(ViewAffinity1)& Graphic3d_StructureManager::ObjectAffinity(
   const Handle(RefObject)& theObject) const
 {
-  const Handle(Graphic3d_ViewAffinity)* aResult = myRegisteredObjects.Seek(theObject.operator->());
+  const Handle(ViewAffinity1)* aResult = myRegisteredObjects.Seek(theObject.operator->());
   if (aResult == nullptr)
   {
-    static const Handle(Graphic3d_ViewAffinity) aDummy;
+    static const Handle(ViewAffinity1) aDummy;
     return aDummy;
   }
   return *aResult;
@@ -273,7 +273,7 @@ void Graphic3d_StructureManager::ReCompute(const Handle(Graphic3d_Structure)& th
 
 void Graphic3d_StructureManager::ReCompute(
   const Handle(Graphic3d_Structure)&            theStructure,
-  const Handle(Graphic3d_DataStructureManager)& theProjector)
+  const Handle(DataStructureManager)& theProjector)
 {
   Handle(Graphic3d_CView) aView = Handle(Graphic3d_CView)::DownCast(theProjector);
 
@@ -384,7 +384,7 @@ void Graphic3d_StructureManager::UnHighlight()
 //=================================================================================================
 
 void Graphic3d_StructureManager::SetTransform(const Handle(Graphic3d_Structure)& theStructure,
-                                              const Handle(TopLoc_Datum3D)&      theTrsf)
+                                              const Handle(Datum3D2)&      theTrsf)
 {
   for (Graphic3d_IndexedMapOfView::Iterator aViewIt(myDefinedViews); aViewIt.More(); aViewIt.Next())
   {
@@ -442,7 +442,7 @@ void Graphic3d_StructureManager::DumpJson(Standard_OStream& theOStream,
   }
   for (Graphic3d_MapOfObject::Iterator anIter(myRegisteredObjects); anIter.More(); anIter.Next())
   {
-    const Handle(Graphic3d_ViewAffinity)& aRegisteredObject = anIter.Value();
+    const Handle(ViewAffinity1)& aRegisteredObject = anIter.Value();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, aRegisteredObject.get())
   }
 

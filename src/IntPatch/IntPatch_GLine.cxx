@@ -19,7 +19,7 @@
 #include <IntPatch_Point.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntPatch_GLine, IntPatch_Line)
+IMPLEMENT_STANDARD_RTTIEXT(IntPatch_GLine, Line2)
 
 #define DEBUG 0
 
@@ -41,7 +41,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Lin&           L,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
-    : IntPatch_Line(Tang, Trans1, Trans2),
+    : Line2(Tang, Trans1, Trans2),
       par1(0.0),
       par2(0.0),
       fipt(Standard_False),
@@ -63,7 +63,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Lin&           L,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
-    : IntPatch_Line(Tang, Situ1, Situ2),
+    : Line2(Tang, Situ1, Situ2),
       par1(0.0),
       par2(0.0),
       fipt(Standard_False),
@@ -82,7 +82,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Lin&           L,
 //=======================================================================
 
 IntPatch_GLine::IntPatch_GLine(const gp_Lin& L, const Standard_Boolean Tang)
-    : IntPatch_Line(Tang),
+    : Line2(Tang),
       par1(0.0),
       par2(0.0),
       fipt(Standard_False),
@@ -104,7 +104,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Circ&          C,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
-    : IntPatch_Line(Tang, Trans1, Trans2),
+    : Line2(Tang, Trans1, Trans2),
       pos(C.Position1()),
       par1(C.Radius()),
       par2(0.0),
@@ -126,7 +126,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Circ&          C,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
-    : IntPatch_Line(Tang, Situ1, Situ2),
+    : Line2(Tang, Situ1, Situ2),
       pos(C.Position1()),
       par1(C.Radius()),
       par2(0.0),
@@ -145,7 +145,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Circ&          C,
 //=======================================================================
 
 IntPatch_GLine::IntPatch_GLine(const gp_Circ& C, const Standard_Boolean Tang)
-    : IntPatch_Line(Tang),
+    : Line2(Tang),
       pos(C.Position1()),
       par1(C.Radius()),
       par2(0.0),
@@ -167,7 +167,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Elips&         E,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
-    : IntPatch_Line(Tang, Trans1, Trans2),
+    : Line2(Tang, Trans1, Trans2),
       pos(E.Position1()),
       par1(E.MajorRadius()),
       par2(E.MinorRadius()),
@@ -189,7 +189,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Elips&         E,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
-    : IntPatch_Line(Tang, Situ1, Situ2),
+    : Line2(Tang, Situ1, Situ2),
       pos(E.Position1()),
       par1(E.MajorRadius()),
       par2(E.MinorRadius()),
@@ -208,7 +208,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Elips&         E,
 //=======================================================================
 
 IntPatch_GLine::IntPatch_GLine(const gp_Elips& E, const Standard_Boolean Tang)
-    : IntPatch_Line(Tang),
+    : Line2(Tang),
       pos(E.Position1()),
       par1(E.MajorRadius()),
       par2(E.MinorRadius()),
@@ -230,7 +230,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Parab&         P,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
-    : IntPatch_Line(Tang, Trans1, Trans2),
+    : Line2(Tang, Trans1, Trans2),
       pos(P.Position1()),
       par1(P.Focal()),
       par2(0.0),
@@ -252,7 +252,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Parab&         P,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
-    : IntPatch_Line(Tang, Situ1, Situ2),
+    : Line2(Tang, Situ1, Situ2),
       pos(P.Position1()),
       par1(P.Focal()),
       par2(0.0),
@@ -271,7 +271,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Parab&         P,
 //=======================================================================
 
 IntPatch_GLine::IntPatch_GLine(const gp_Parab& P, const Standard_Boolean Tang)
-    : IntPatch_Line(Tang),
+    : Line2(Tang),
       pos(P.Position1()),
       par1(P.Focal()),
       par2(0.0),
@@ -293,7 +293,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Hypr&          H,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
-    : IntPatch_Line(Tang, Trans1, Trans2),
+    : Line2(Tang, Trans1, Trans2),
       pos(H.Position1()),
       par1(H.MajorRadius()),
       par2(H.MinorRadius()),
@@ -315,7 +315,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Hypr&          H,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
-    : IntPatch_Line(Tang, Situ1, Situ2),
+    : Line2(Tang, Situ1, Situ2),
       pos(H.Position1()),
       par1(H.MajorRadius()),
       par2(H.MinorRadius()),
@@ -334,7 +334,7 @@ IntPatch_GLine::IntPatch_GLine(const gp_Hypr&          H,
 //=======================================================================
 
 IntPatch_GLine::IntPatch_GLine(const gp_Hypr& H, const Standard_Boolean Tang)
-    : IntPatch_Line(Tang),
+    : Line2(Tang),
       pos(H.Position1()),
       par1(H.MajorRadius()),
       par2(H.MinorRadius()),

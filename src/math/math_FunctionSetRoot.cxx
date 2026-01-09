@@ -74,14 +74,14 @@ class MyDirFunction : public Function1
   math_Vector*                     Dir;
   math_Vector*                     P;
   math_Vector*                     FV;
-  math_FunctionSetWithDerivatives* F;
+  FunctionSetWithDerivatives* F;
 
 public:
   MyDirFunction(math_Vector&                     V1,
                 math_Vector&                     V2,
                 math_Vector&                     V3,
                 math_Vector&                     V4,
-                math_FunctionSetWithDerivatives& f);
+                FunctionSetWithDerivatives& f);
 
   void Initialize(const math_Vector& p0, const math_Vector& dir) const;
   // For hp :
@@ -101,7 +101,7 @@ MyDirFunction::MyDirFunction(math_Vector&                     V1,
                              math_Vector&                     V2,
                              math_Vector&                     V3,
                              math_Vector&                     V4,
-                             math_FunctionSetWithDerivatives& f)
+                             FunctionSetWithDerivatives& f)
 {
 
   P0  = &V1;
@@ -659,7 +659,7 @@ Standard_Boolean Bounds(const math_Vector&  InfBound,
 
 //=================================================================================================
 
-FunctionSetRoot::FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+FunctionSetRoot::FunctionSetRoot(FunctionSetWithDerivatives& theFunction,
                                            const math_Vector&               theTolerance,
                                            const Standard_Integer           theNbIterations)
 
@@ -692,7 +692,7 @@ FunctionSetRoot::FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
 
 //=================================================================================================
 
-FunctionSetRoot::FunctionSetRoot(math_FunctionSetWithDerivatives& theFunction,
+FunctionSetRoot::FunctionSetRoot(FunctionSetWithDerivatives& theFunction,
                                            const Standard_Integer           theNbIterations)
 
     : Delta(1, theFunction.NbVariables()),
@@ -735,7 +735,7 @@ void FunctionSetRoot::SetTolerance(const math_Vector& theTolerance)
 
 //=================================================================================================
 
-void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
+void FunctionSetRoot::Perform(FunctionSetWithDerivatives& theFunction,
                                    const math_Vector&               theStartingPoint,
                                    const Standard_Boolean           theStopOnDivergent)
 {
@@ -744,7 +744,7 @@ void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& theFunction,
 
 //=================================================================================================
 
-void FunctionSetRoot::Perform(math_FunctionSetWithDerivatives& F,
+void FunctionSetRoot::Perform(FunctionSetWithDerivatives& F,
                                    const math_Vector&               StartingPoint,
                                    const math_Vector&               theInfBound,
                                    const math_Vector&               theSupBound,

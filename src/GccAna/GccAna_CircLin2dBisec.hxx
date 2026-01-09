@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <gp_Circ2d.hxx>
 #include <gp_Lin2d.hxx>
-class GccInt_Bisec;
+class Bisector2;
 
 //! Describes functions for building bisecting curves between a 2D line and a 2D circle.
 //! A bisecting curve between a circle and a line is a curve
@@ -56,7 +56,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if Index is less than zero or
   //! greater than the number of solutions computed by this algorithm.
-  Standard_EXPORT Handle(GccInt_Bisec) ThisSolution(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(Bisector2) ThisSolution(const Standard_Integer Index) const;
 
 protected:
 private:

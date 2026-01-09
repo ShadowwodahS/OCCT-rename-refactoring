@@ -21,7 +21,7 @@
 #include <Geom_Surface.hxx>
 
 //! Allows to calculate values and derivatives for offset surfaces
-class GeomEvaluator_OffsetSurface : public GeomEvaluator_Surface
+class GeomEvaluator_OffsetSurface : public Surface1
 {
 public:
   //! Initialize evaluator by surface
@@ -78,9 +78,9 @@ public:
                             const Standard_Integer theDerU,
                             const Standard_Integer theDerV) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(GeomEvaluator_Surface) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Surface1) ShallowCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_OffsetSurface, GeomEvaluator_Surface)
+  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_OffsetSurface, Surface1)
 
 private:
   //! Returns bounds of a base surface
@@ -185,6 +185,6 @@ private:
   Handle(Geom_OsculatingSurface) myOscSurf; ///< auxiliary osculating surface
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_OffsetSurface, GeomEvaluator_Surface)
+DEFINE_STANDARD_HANDLE(GeomEvaluator_OffsetSurface, Surface1)
 
 #endif // _GeomEvaluator_OffsetSurface_HeaderFile

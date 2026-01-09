@@ -113,10 +113,10 @@ public:
   Standard_Integer NbOpenFreeBounds() const;
 
   //! Returns all closed free bounds
-  Handle(ShapeAnalysis_HSequenceOfFreeBounds) ClosedFreeBounds() const;
+  Handle(HSequenceOfFreeBounds) ClosedFreeBounds() const;
 
   //! Returns all open free bounds
-  Handle(ShapeAnalysis_HSequenceOfFreeBounds) OpenFreeBounds() const;
+  Handle(HSequenceOfFreeBounds) OpenFreeBounds() const;
 
   //! Returns properties of closed free bound specified by its rank
   //! number
@@ -150,8 +150,8 @@ private:
   Standard_Real                               myTolerance;
   Standard_Boolean                            mySplitClosed;
   Standard_Boolean                            mySplitOpen;
-  Handle(ShapeAnalysis_HSequenceOfFreeBounds) myClosedFreeBounds;
-  Handle(ShapeAnalysis_HSequenceOfFreeBounds) myOpenFreeBounds;
+  Handle(HSequenceOfFreeBounds) myClosedFreeBounds;
+  Handle(HSequenceOfFreeBounds) myOpenFreeBounds;
 };
 
 #include <ShapeAnalysis_FreeBoundsProperties.lxx>

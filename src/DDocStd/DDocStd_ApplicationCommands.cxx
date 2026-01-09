@@ -477,7 +477,7 @@ static Standard_Integer DDocStd_Path(DrawInterpreter& di, Standard_Integer nb, c
 {
   if (nb == 2)
   {
-    TDocStd_PathParser path(UtfString(a[1], Standard_True));
+    PathParser path(UtfString(a[1], Standard_True));
     di << "Trek      : " << path.Trek() << "\n";
     di << "Name      : " << path.Name() << "\n";
     di << "Extension : " << path.Extension() << "\n";

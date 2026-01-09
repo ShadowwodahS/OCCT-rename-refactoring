@@ -104,7 +104,7 @@ Standard_Boolean Graphic3d_Group::IsEmpty() const
 
 //=================================================================================================
 
-void Graphic3d_Group::SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
+void Graphic3d_Group::SetTransformPersistence(const Handle(TransformPers)& theTrsfPers)
 {
   if (myTrsfPers != theTrsfPers)
   {

@@ -36,9 +36,9 @@
 
 //=================================================================================================
 
-BlendFunc_CSConstRad::BlendFunc_CSConstRad(const Handle(Adaptor3d_Surface)& S,
-                                           const Handle(Adaptor3d_Curve)&   C,
-                                           const Handle(Adaptor3d_Curve)&   CG)
+BlendFunc_CSConstRad::BlendFunc_CSConstRad(const Handle(SurfaceAdaptor)& S,
+                                           const Handle(Curve5)&   C,
+                                           const Handle(Curve5)&   CG)
     :
 
       surf(S),

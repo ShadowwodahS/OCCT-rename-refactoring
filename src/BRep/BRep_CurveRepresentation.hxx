@@ -27,7 +27,7 @@ class MeshTriangulation;
 class GeomCurve3d;
 class GeomCurve2d;
 class Poly_Polygon3D;
-class Poly_Polygon2D;
+class Polygon2D2;
 class Poly_PolygonOnTriangulation;
 
 class BRep_CurveRepresentation;
@@ -115,13 +115,13 @@ public:
 
   Standard_EXPORT virtual void Polygon3D(const Handle(Poly_Polygon3D)& P);
 
-  Standard_EXPORT virtual const Handle(Poly_Polygon2D)& Polygon() const;
+  Standard_EXPORT virtual const Handle(Polygon2D2)& Polygon() const;
 
-  Standard_EXPORT virtual void Polygon(const Handle(Poly_Polygon2D)& P);
+  Standard_EXPORT virtual void Polygon(const Handle(Polygon2D2)& P);
 
-  Standard_EXPORT virtual const Handle(Poly_Polygon2D)& Polygon2() const;
+  Standard_EXPORT virtual const Handle(Polygon2D2)& Polygon2() const;
 
-  Standard_EXPORT virtual void Polygon2(const Handle(Poly_Polygon2D)& P);
+  Standard_EXPORT virtual void Polygon2(const Handle(Polygon2D2)& P);
 
   Standard_EXPORT virtual const Handle(MeshTriangulation)& Triangulation() const;
 

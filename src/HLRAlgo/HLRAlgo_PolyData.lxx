@@ -23,7 +23,7 @@
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_PolyData::FaceIndex(const Standard_Integer I)
+inline void PolyData1::FaceIndex(const Standard_Integer I)
 {
   myFaceIndices.Index = I;
 }
@@ -33,7 +33,7 @@ inline void HLRAlgo_PolyData::FaceIndex(const Standard_Integer I)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer HLRAlgo_PolyData::FaceIndex() const
+inline Standard_Integer PolyData1::FaceIndex() const
 {
   return myFaceIndices.Index;
 }
@@ -43,7 +43,7 @@ inline Standard_Integer HLRAlgo_PolyData::FaceIndex() const
 // purpose  :
 //=======================================================================
 
-inline TColgp_Array1OfXYZ& HLRAlgo_PolyData::Nodes() const
+inline TColgp_Array1OfXYZ& PolyData1::Nodes() const
 {
   return myHNodes->ChangeArray1();
 }
@@ -53,7 +53,7 @@ inline TColgp_Array1OfXYZ& HLRAlgo_PolyData::Nodes() const
 // purpose  :
 //=======================================================================
 
-inline HLRAlgo_Array1OfTData& HLRAlgo_PolyData::TData() const
+inline HLRAlgo_Array1OfTData& PolyData1::TData() const
 {
   return myHTData->ChangeArray1();
 }
@@ -63,7 +63,7 @@ inline HLRAlgo_Array1OfTData& HLRAlgo_PolyData::TData() const
 // purpose  :
 //=======================================================================
 
-inline HLRAlgo_Array1OfPHDat& HLRAlgo_PolyData::PHDat() const
+inline HLRAlgo_Array1OfPHDat& PolyData1::PHDat() const
 {
   return myHPHDat->ChangeArray1();
 }
@@ -73,7 +73,7 @@ inline HLRAlgo_Array1OfPHDat& HLRAlgo_PolyData::PHDat() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean HLRAlgo_PolyData::Hiding() const
+inline Standard_Boolean PolyData1::Hiding() const
 {
   return !myHPHDat.IsNull();
 }

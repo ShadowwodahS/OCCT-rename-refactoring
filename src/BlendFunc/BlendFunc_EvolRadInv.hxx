@@ -21,7 +21,7 @@
 #include <Blend_FuncInv.hxx>
 #include <math_Vector.hxx>
 
-class Law_Function;
+class Function2;
 class math_Matrix;
 
 class BlendFunc_EvolRadInv : public Blend_FuncInv
@@ -29,10 +29,10 @@ class BlendFunc_EvolRadInv : public Blend_FuncInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_EvolRadInv(const Handle(Adaptor3d_Surface)& S1,
-                                       const Handle(Adaptor3d_Surface)& S2,
-                                       const Handle(Adaptor3d_Curve)&   C,
-                                       const Handle(Law_Function)&      Law1);
+  Standard_EXPORT BlendFunc_EvolRadInv(const Handle(SurfaceAdaptor)& S1,
+                                       const Handle(SurfaceAdaptor)& S2,
+                                       const Handle(Curve5)&   C,
+                                       const Handle(Function2)&      Law1);
 
   Standard_EXPORT void Set(const Standard_Boolean           OnFirst,
                            const Handle(Adaptor2d_Curve2d)& COnSurf);
@@ -68,11 +68,11 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf1;
-  Handle(Adaptor3d_Surface) surf2;
-  Handle(Adaptor3d_Curve)   curv;
+  Handle(SurfaceAdaptor) surf1;
+  Handle(SurfaceAdaptor) surf2;
+  Handle(Curve5)   curv;
   Handle(Adaptor2d_Curve2d) csurf;
-  Handle(Law_Function)      fevol;
+  Handle(Function2)      fevol;
   Standard_Real             sg1;
   Standard_Real             sg2;
   Standard_Integer          choix;

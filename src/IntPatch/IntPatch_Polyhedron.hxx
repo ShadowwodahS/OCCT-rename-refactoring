@@ -29,23 +29,23 @@ public:
 
   //! MaTriangle constructor with an double array of pnt for the
   //! representation of a double array of triangles.
-  Standard_EXPORT IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT IntPatch_Polyhedron(const Handle(SurfaceAdaptor)& Surface,
                                       const Standard_Integer           nbdU,
                                       const Standard_Integer           nbdV);
 
-  Standard_EXPORT IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surface);
+  Standard_EXPORT IntPatch_Polyhedron(const Handle(SurfaceAdaptor)& Surface);
 
   Standard_EXPORT void Destroy();
 
   ~IntPatch_Polyhedron() { Destroy(); }
 
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)& Surface,
                                const Standard_Integer           nbdU,
                                const Standard_Integer           nbdV);
 
   Standard_EXPORT void DeflectionOverEstimation(const Standard_Real flec);
 
-  Standard_EXPORT Standard_Real DeflectionOnTriangle(const Handle(Adaptor3d_Surface)& Surface,
+  Standard_EXPORT Standard_Real DeflectionOnTriangle(const Handle(SurfaceAdaptor)& Surface,
                                                      const Standard_Integer           Index) const;
 
   Standard_EXPORT void UMinSingularity(const Standard_Boolean Sing);
@@ -114,7 +114,7 @@ public:
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
-  Standard_EXPORT const Handle(Bnd_HArray1OfBox)& ComponentsBounding() const;
+  Standard_EXPORT const Handle(BoxArray)& ComponentsBounding() const;
 
   Standard_EXPORT Standard_Real DeflectionOverEstimation() const;
 
@@ -144,7 +144,7 @@ public:
 protected:
 private:
   Box2                  TheBnd;
-  Handle(Bnd_HArray1OfBox) TheComponentsBnd;
+  Handle(BoxArray) TheComponentsBnd;
   Standard_Real            TheDeflection;
   Standard_Integer         nbdeltaU;
   Standard_Integer         nbdeltaV;

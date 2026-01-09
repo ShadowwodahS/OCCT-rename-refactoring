@@ -174,7 +174,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
   TopTools_MapOfShape         theMap;
   Handle(GeomAdaptor_Curve)   HAC = new GeomAdaptor_Curve;
   Handle(GeomAdaptor_Surface) HAS = new GeomAdaptor_Surface;
-  IntCurveSurface_HInter      intcs;
+  HandleIntersection      intcs;
 
   TopoWire theW = W;
   if (i2s.IsDone() && i2s.NbLines() > 0)

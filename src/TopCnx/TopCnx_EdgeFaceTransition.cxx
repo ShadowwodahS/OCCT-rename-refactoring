@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-TopCnx_EdgeFaceTransition::TopCnx_EdgeFaceTransition()
+EdgeFaceTransition::EdgeFaceTransition()
     : nbBoundForward(0),
       nbBoundReversed(0)
 {
@@ -26,7 +26,7 @@ TopCnx_EdgeFaceTransition::TopCnx_EdgeFaceTransition()
 
 //=================================================================================================
 
-void TopCnx_EdgeFaceTransition::Reset(const Dir3d&       Tgt,
+void EdgeFaceTransition::Reset(const Dir3d&       Tgt,
                                       const Dir3d&       Norm,
                                       const Standard_Real Curv)
 {
@@ -36,7 +36,7 @@ void TopCnx_EdgeFaceTransition::Reset(const Dir3d&       Tgt,
 
 //=================================================================================================
 
-void TopCnx_EdgeFaceTransition::Reset(const Dir3d& Tgt)
+void EdgeFaceTransition::Reset(const Dir3d& Tgt)
 {
   myCurveTransition.Reset(Tgt);
   nbBoundForward = nbBoundReversed = 0;
@@ -44,7 +44,7 @@ void TopCnx_EdgeFaceTransition::Reset(const Dir3d& Tgt)
 
 //=================================================================================================
 
-void TopCnx_EdgeFaceTransition::AddInterference(const Standard_Real      Tole,
+void EdgeFaceTransition::AddInterference(const Standard_Real      Tole,
                                                 const Dir3d&            Tang,
                                                 const Dir3d&            Norm,
                                                 const Standard_Real      Curv,
@@ -72,7 +72,7 @@ void TopCnx_EdgeFaceTransition::AddInterference(const Standard_Real      Tole,
 
 //=================================================================================================
 
-TopAbs_Orientation TopCnx_EdgeFaceTransition::Transition() const
+TopAbs_Orientation EdgeFaceTransition::Transition() const
 {
   TopAbs_State Bef = myCurveTransition.StateBefore();
   TopAbs_State Aft = myCurveTransition.StateAfter();
@@ -107,7 +107,7 @@ TopAbs_Orientation TopCnx_EdgeFaceTransition::Transition() const
 
 //=================================================================================================
 
-TopAbs_Orientation TopCnx_EdgeFaceTransition::BoundaryTransition() const
+TopAbs_Orientation EdgeFaceTransition::BoundaryTransition() const
 {
   if (nbBoundForward > nbBoundReversed)
     return TopAbs_FORWARD;

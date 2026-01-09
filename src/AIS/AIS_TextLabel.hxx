@@ -24,7 +24,7 @@
 #include <Font_FontAspect.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-class Font_TextFormatter;
+class TextFormatter1;
 
 //! Presentation of the text.
 class AIS_TextLabel : public VisualEntity
@@ -130,10 +130,10 @@ public:
 
   //! Returns text presentation formatter; NULL by default, which means standard text formatter will
   //! be used.
-  const Handle(Font_TextFormatter)& TextFormatter() const { return myFormatter; }
+  const Handle(TextFormatter1)& TextFormatter() const { return myFormatter; }
 
   //! Setup text formatter for presentation. It's empty by default.
-  void SetTextFormatter(const Handle(Font_TextFormatter)& theFormatter)
+  void SetTextFormatter(const Handle(TextFormatter1)& theFormatter)
   {
     myFormatter = theFormatter;
   }
@@ -159,7 +159,7 @@ protected:
                                              Point3d&       theCenterOfLabel) const;
 
 protected:
-  Handle(Font_TextFormatter) myFormatter;
+  Handle(TextFormatter1) myFormatter;
 
   UtfString myText;
   Frame3d                     myOrientation3D;

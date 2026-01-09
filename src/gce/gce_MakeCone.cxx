@@ -27,7 +27,7 @@
 //  Construction d un cone par son axe , le rayon de sa base et le demi   +
 //  angle d ouverture.                                                    +
 //=========================================================================
-gce_MakeCone::gce_MakeCone(const Frame3d& A2, const Standard_Real Ang, const Standard_Real Radius)
+ConeBuilder::ConeBuilder(const Frame3d& A2, const Standard_Real Ang, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -54,7 +54,7 @@ gce_MakeCone::gce_MakeCone(const Frame3d& A2, const Standard_Real Ang, const Sta
 //  rayon du cone pour la section passant par P4.                         +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& P3, const Point3d& P4)
+ConeBuilder::ConeBuilder(const Point3d& P1, const Point3d& P2, const Point3d& P3, const Point3d& P4)
 {
   if (P1.Distance(P2) < RealEpsilon() || P3.Distance(P4) < RealEpsilon())
   {
@@ -126,11 +126,11 @@ gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& 
 //  par P2.                                                               +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const Axis3d& Axis, const Point3d& P1, const Point3d& P2)
+ConeBuilder::ConeBuilder(const Axis3d& Axis, const Point3d& P1, const Point3d& P2)
 {
   Point3d       P3(Axis.Location());
   Point3d       P4(P3.XYZ() + Axis.Direction().XYZ());
-  gce_MakeCone Cone(P3, P4, P1, P2);
+  ConeBuilder Cone(P3, P4, P1, P2);
   if (Cone.IsDone())
   {
     TheCone  = Cone.Value();
@@ -147,9 +147,9 @@ gce_MakeCone::gce_MakeCone(const Axis3d& Axis, const Point3d& P1, const Point3d&
 //  donne.                                                                +
 //=========================================================================
 
-// gce_MakeCone::gce_MakeCone(const Cone1&  cone ,
+// ConeBuilder::ConeBuilder(const Cone1&  cone ,
 //			   const Point3d&   P    )
-gce_MakeCone::gce_MakeCone(const Cone1&, const Point3d&)
+ConeBuilder::ConeBuilder(const Cone1&, const Point3d&)
 {
   TheError = gce_ConfusedPoints;
 }
@@ -159,9 +159,9 @@ gce_MakeCone::gce_MakeCone(const Cone1&, const Point3d&)
 //  donnee.                                                               +
 //=========================================================================
 
-// gce_MakeCone::gce_MakeCone(const Cone1&      cone ,
+// ConeBuilder::ConeBuilder(const Cone1&      cone ,
 //			   const Standard_Real Dist )
-gce_MakeCone::gce_MakeCone(const Cone1&, const Standard_Real)
+ConeBuilder::ConeBuilder(const Cone1&, const Standard_Real)
 {
   TheError = gce_Done;
 }
@@ -173,11 +173,11 @@ gce_MakeCone::gce_MakeCone(const Cone1&, const Standard_Real)
 //  par P2.                                                               +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const gp_Lin& Axis, const Point3d& P1, const Point3d& P2)
+ConeBuilder::ConeBuilder(const gp_Lin& Axis, const Point3d& P1, const Point3d& P2)
 {
   Point3d       P3(Axis.Location());
   Point3d       P4(P3.XYZ() + Axis.Direction().XYZ());
-  gce_MakeCone Cone(P3, P4, P1, P2);
+  ConeBuilder Cone(P3, P4, P1, P2);
   if (Cone.IsDone())
   {
     TheCone  = Cone.Value();
@@ -194,7 +194,7 @@ gce_MakeCone::gce_MakeCone(const gp_Lin& Axis, const Point3d& P1, const Point3d&
 //  sections passant par chacun de ces points).                           +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const Point3d&       P1,
+ConeBuilder::ConeBuilder(const Point3d&       P1,
                            const Point3d&       P2,
                            const Standard_Real R1,
                            const Standard_Real R2)
@@ -247,18 +247,18 @@ gce_MakeCone::gce_MakeCone(const Point3d&       P1,
   }
 }
 
-const Cone1& gce_MakeCone::Value() const
+const Cone1& ConeBuilder::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeCone::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "ConeBuilder::Value() - no result");
   return TheCone;
 }
 
-const Cone1& gce_MakeCone::Operator() const
+const Cone1& ConeBuilder::Operator() const
 {
   return Value();
 }
 
-gce_MakeCone::operator Cone1() const
+ConeBuilder::operator Cone1() const
 {
   return Value();
 }

@@ -162,25 +162,25 @@ void MeshTriangulation::RemoveNormals()
 
 //=================================================================================================
 
-Handle(TColgp_HArray1OfPnt) MeshTriangulation::MapNodeArray() const
+Handle(PointArray1) MeshTriangulation::MapNodeArray() const
 {
   if (myNodes.IsEmpty())
   {
-    return Handle(TColgp_HArray1OfPnt)();
+    return Handle(PointArray1)();
   }
 
   if (myNodes.IsDoublePrecision())
   {
     // wrap array
     const Point3d*               aPntArr  = &myNodes.First<Point3d>();
-    Handle(TColgp_HArray1OfPnt) anHArray = new TColgp_HArray1OfPnt();
+    Handle(PointArray1) anHArray = new PointArray1();
     TColgp_Array1OfPnt          anArray(*aPntArr, 1, NbNodes());
     anHArray->Move(anArray);
     return anHArray;
   }
 
   // deep copy
-  Handle(TColgp_HArray1OfPnt) anArray = new TColgp_HArray1OfPnt(1, NbNodes());
+  Handle(PointArray1) anArray = new PointArray1(1, NbNodes());
   for (Standard_Integer aNodeIter = 0; aNodeIter < NbNodes(); ++aNodeIter)
   {
     const Point3d aPnt = myNodes.Value(aNodeIter);
@@ -191,14 +191,14 @@ Handle(TColgp_HArray1OfPnt) MeshTriangulation::MapNodeArray() const
 
 //=================================================================================================
 
-Handle(Poly_HArray1OfTriangle) MeshTriangulation::MapTriangleArray() const
+Handle(TriangleArray1) MeshTriangulation::MapTriangleArray() const
 {
   if (myTriangles.IsEmpty())
   {
-    return Handle(Poly_HArray1OfTriangle)();
+    return Handle(TriangleArray1)();
   }
 
-  Handle(Poly_HArray1OfTriangle) anHArray = new Poly_HArray1OfTriangle();
+  Handle(TriangleArray1) anHArray = new TriangleArray1();
   Poly_Array1OfTriangle          anArray(myTriangles.First(), 1, NbTriangles());
   anHArray->Move(anArray);
   return anHArray;
@@ -206,25 +206,25 @@ Handle(Poly_HArray1OfTriangle) MeshTriangulation::MapTriangleArray() const
 
 //=================================================================================================
 
-Handle(TColgp_HArray1OfPnt2d) MeshTriangulation::MapUVNodeArray() const
+Handle(Point2dArray) MeshTriangulation::MapUVNodeArray() const
 {
   if (myUVNodes.IsEmpty())
   {
-    return Handle(TColgp_HArray1OfPnt2d)();
+    return Handle(Point2dArray)();
   }
 
   if (myUVNodes.IsDoublePrecision())
   {
     // wrap array
     const gp_Pnt2d*               aPntArr  = &myUVNodes.First<gp_Pnt2d>();
-    Handle(TColgp_HArray1OfPnt2d) anHArray = new TColgp_HArray1OfPnt2d();
+    Handle(Point2dArray) anHArray = new Point2dArray();
     TColgp_Array1OfPnt2d          anArray(*aPntArr, 1, NbNodes());
     anHArray->Move(anArray);
     return anHArray;
   }
 
   // deep copy
-  Handle(TColgp_HArray1OfPnt2d) anArray = new TColgp_HArray1OfPnt2d(1, NbNodes());
+  Handle(Point2dArray) anArray = new Point2dArray(1, NbNodes());
   for (Standard_Integer aNodeIter = 0; aNodeIter < NbNodes(); ++aNodeIter)
   {
     const gp_Pnt2d aPnt = myUVNodes.Value(aNodeIter);

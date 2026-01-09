@@ -52,7 +52,7 @@ struct NSWindow;
 
 class Aspect_WindowDefinitionError;
 class Aspect_WindowError;
-class Aspect_Background;
+class Background1;
 class Color1;
 class Aspect_GradientBackground;
 
@@ -142,7 +142,7 @@ public:
   //! Invalidate entire window content by setting NSView::setNeedsDisplay property.
   //! Call will be implicitly redirected to the main thread when called from non-GUI thread.
   Standard_EXPORT virtual void InvalidateContent(
-    const Handle(Aspect_DisplayConnection)& theDisp = NULL) Standard_OVERRIDE;
+    const Handle(DisplayConnection1)& theDisp = NULL) Standard_OVERRIDE;
 
 protected:
 #if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE

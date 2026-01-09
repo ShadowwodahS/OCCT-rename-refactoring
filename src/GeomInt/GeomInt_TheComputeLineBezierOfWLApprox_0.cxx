@@ -45,7 +45,7 @@
 #define Approx_ParFunctionOfMyGradient_hxx                                                         \
   <GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_Gradient_BFGSOfMyGradient                                                           \
-  GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox
+  BFGSGradientLineBezierApprox
 #define Approx_Gradient_BFGSOfMyGradient_hxx                                                       \
   <GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_ParLeastSquareOfMyGradient                                                          \
@@ -61,7 +61,7 @@
 #define Approx_ParFunctionOfMyGradient_hxx                                                         \
   <GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_Gradient_BFGSOfMyGradient                                                           \
-  GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox
+  BFGSGradientLineBezierApprox
 #define Approx_Gradient_BFGSOfMyGradient_hxx                                                       \
   <GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_ComputeLine GeomInt_TheComputeLineBezierOfWLApprox

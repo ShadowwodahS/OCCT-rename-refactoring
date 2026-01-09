@@ -22,18 +22,18 @@
 
 #include <GeomFill_Boundary.hxx>
 
-class Law_Function;
+class Function2;
 class Point3d;
 class Vector3d;
 
 class GeomFill_SimpleBound;
-DEFINE_STANDARD_HANDLE(GeomFill_SimpleBound, GeomFill_Boundary)
+DEFINE_STANDARD_HANDLE(GeomFill_SimpleBound, Boundary2)
 
 //! Defines a 3d curve as a boundary for a
 //! GeomFill_ConstrainedFilling algorithm.
 //! This curve is unattached to an existing surface.D
 //! Contains fields to allow a reparametrization of curve.
-class GeomFill_SimpleBound : public GeomFill_Boundary
+class GeomFill_SimpleBound : public Boundary2
 {
 
 public:
@@ -69,7 +69,7 @@ public:
   //! Standard_Real dummy = 0. ;
   //! myBoundary = GeomFill_SimpleBound
   //! (Curve,Tol,dummy);
-  Standard_EXPORT GeomFill_SimpleBound(const Handle(Adaptor3d_Curve)& Curve,
+  Standard_EXPORT GeomFill_SimpleBound(const Handle(Curve5)& Curve,
                                        const Standard_Real            Tol3d,
                                        const Standard_Real            Tolang);
 
@@ -89,12 +89,12 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDegenerated() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_SimpleBound, GeomFill_Boundary)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_SimpleBound, Boundary2)
 
 protected:
 private:
-  Handle(Adaptor3d_Curve) myC3d;
-  Handle(Law_Function)    myPar;
+  Handle(Curve5) myC3d;
+  Handle(Function2)    myPar;
 };
 
 #endif // _GeomFill_SimpleBound_HeaderFile

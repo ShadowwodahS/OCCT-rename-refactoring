@@ -54,7 +54,7 @@ public:
   //! raises exception if Lengths of allViews, allViewOrigins and
   //! allOrientationAngles are not same.
   Standard_EXPORT void Init(const Handle(HArray1OfViewKindEntity)& allViews,
-                            const Handle(TColgp_HArray1OfXY)&               allViewOrigins,
+                            const Handle(XYArray)&               allViewOrigins,
                             const Handle(TColStd_HArray1OfReal)&            allOrientationAngles,
                             const Handle(HArray1OfIGESEntity)&     allAnnotations);
 
@@ -102,7 +102,7 @@ public:
 protected:
 private:
   Handle(HArray1OfViewKindEntity) theViews;
-  Handle(TColgp_HArray1OfXY)               theViewOrigins;
+  Handle(XYArray)               theViewOrigins;
   Handle(TColStd_HArray1OfReal)            theOrientationAngles;
   Handle(HArray1OfIGESEntity)     theAnnotations;
 };

@@ -37,7 +37,7 @@
 static void InitTriangulation(const Handle(MeshTriangulation)&       theMesh,
                               const Handle(TCollection_HAsciiString)& theName,
                               Handle(StepVisual_CoordinatesList)&     theCoordinates,
-                              Handle(TColgp_HArray1OfXYZ)&            thePoints,
+                              Handle(XYZArray)&            thePoints,
                               Handle(TColStd_HArray2OfReal)&          theNormals,
                               Handle(TColStd_HArray1OfInteger)&       theIndices,
                               Handle(TColStd_HArray2OfInteger)&       theTrias)
@@ -128,7 +128,7 @@ void TopoDSToStep_MakeTessellatedItem::Init(const TopoFace&                    t
   }
   Handle(TCollection_HAsciiString)   aName        = new TCollection_HAsciiString("");
   Handle(StepVisual_CoordinatesList) aCoordinates = new StepVisual_CoordinatesList();
-  Handle(TColgp_HArray1OfXYZ)        aPoints      = new TColgp_HArray1OfXYZ(1, aMesh->NbNodes());
+  Handle(XYZArray)        aPoints      = new XYZArray(1, aMesh->NbNodes());
   Handle(TColStd_HArray2OfReal)    aNormals  = new TColStd_HArray2OfReal(1, aMesh->NbNodes(), 1, 3);
   Handle(TColStd_HArray1OfInteger) anIndices = new TColStd_HArray1OfInteger(1, aMesh->NbNodes());
   Handle(TColStd_HArray2OfInteger) aTrias =

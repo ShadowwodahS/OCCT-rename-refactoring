@@ -18,8 +18,8 @@
 
 #include <IntPolyh_Array.hxx>
 // #include <IntPolyh_Triangle.hxx>
-class IntPolyh_Triangle;
+class Triangle4;
 
-typedef IntPolyh_Array<IntPolyh_Triangle> IntPolyh_ArrayOfTriangles;
+typedef IntPolyh_Array<Triangle4> IntPolyh_ArrayOfTriangles;
 
 #endif

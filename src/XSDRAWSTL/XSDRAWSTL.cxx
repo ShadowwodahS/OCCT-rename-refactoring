@@ -800,7 +800,7 @@ static Standard_Integer meshcolors(DrawInterpreter& theDI,
 
           // prepare scale map for mesh - it will be assigned to mesh as texture coordinates
           // make mesh color interpolated from minimum X coord to maximum X coord
-          Handle(MeshVS_DataSource) aDataSource = aMesh->GetDataSource();
+          Handle(MeshDataSource) aDataSource = aMesh->GetDataSource();
           Standard_Real             aMinX, aMinY, aMinZ, aMaxX, aMaxY, aMaxZ;
 
           // get bounding box for calculations
@@ -1185,7 +1185,7 @@ static Standard_Integer mesh_edge_width(DrawInterpreter& theDI,
       return 0;
     }
 
-    Handle(MeshVS_Drawer) aDrawer = aMesh->GetDrawer();
+    Handle(MeshDrawer) aDrawer = aMesh->GetDrawer();
     if (aDrawer.IsNull())
     {
       theDI << "The drawer is null\n";

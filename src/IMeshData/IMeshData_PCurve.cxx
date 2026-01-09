@@ -15,4 +15,4 @@
 
 #include <IMeshData_PCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshData_PCurve, IMeshData_ParametersList)
+IMPLEMENT_STANDARD_RTTIEXT(IMeshData_PCurve, ParametersList)

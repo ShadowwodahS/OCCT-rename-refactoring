@@ -24,11 +24,11 @@
 #include <GccInt_IType.hxx>
 
 class GccInt_BElips;
-DEFINE_STANDARD_HANDLE(GccInt_BElips, GccInt_Bisec)
+DEFINE_STANDARD_HANDLE(GccInt_BElips, Bisector2)
 
 //! Describes an ellipse as a bisecting curve between two
 //! 2D geometric objects (such as circles or points).
-class GccInt_BElips : public GccInt_Bisec
+class GccInt_BElips : public Bisector2
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Returns GccInt_Ell, which is the type of any GccInt_BElips bisecting curve.
   Standard_EXPORT GccInt_IType ArcType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_BElips, GccInt_Bisec)
+  DEFINE_STANDARD_RTTIEXT(GccInt_BElips, Bisector2)
 
 protected:
 private:

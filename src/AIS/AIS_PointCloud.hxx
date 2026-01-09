@@ -73,9 +73,9 @@ public:
   //! @param[in] theCoords   the array of coordinates
   //! @param[in] theColors   optional array of colors
   //! @param[in] theNormals  optional array of normals
-  Standard_EXPORT virtual void SetPoints(const Handle(TColgp_HArray1OfPnt)&     theCoords,
+  Standard_EXPORT virtual void SetPoints(const Handle(PointArray1)&     theCoords,
                                          const Handle(Quantity_HArray1OfColor)& theColors  = NULL,
-                                         const Handle(TColgp_HArray1OfDir)&     theNormals = NULL);
+                                         const Handle(DirectionArray)&     theNormals = NULL);
 
 public:
   //! Get the points array.

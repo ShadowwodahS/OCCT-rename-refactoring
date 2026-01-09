@@ -25,7 +25,7 @@
 #include <Standard_NullObject.hxx>
 #include <Standard_ConstructionError.hxx>
 
-DEFINE_STANDARD_HANDLE(GeomAdaptor_Curve, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(GeomAdaptor_Curve, Curve5)
 
 //! This class provides an interface between the services provided by any
 //! curve from the package Geom and those required of the curve by algorithms which use it.
@@ -34,9 +34,9 @@ DEFINE_STANDARD_HANDLE(GeomAdaptor_Curve, Adaptor3d_Curve)
 //! Polynomial coefficients of BSpline curves used for their evaluation are
 //! cached for better performance. Therefore these evaluations are not
 //! thread-safe and parallel evaluations need to be prevented.
-class GeomAdaptor_Curve : public Adaptor3d_Curve
+class GeomAdaptor_Curve : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(GeomAdaptor_Curve, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(GeomAdaptor_Curve, Curve5)
 public:
   GeomAdaptor_Curve()
       : myTypeCurve(GeomAbs_OtherCurve),
@@ -56,7 +56,7 @@ public:
   }
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   //! Reset currently loaded curve (undone Load()).
   Standard_EXPORT void Reset();
@@ -112,7 +112,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 
@@ -251,7 +251,7 @@ private:
 
   Handle(BSplineCurve3d)      myBSplineCurve;    ///< B-spline representation to prevent castings
   mutable Handle(BSplCLib_Cache) myCurveCache;      ///< Cached data for B-spline or Bezier curve
-  Handle(GeomEvaluator_Curve)    myNestedEvaluator; ///< Calculates value of offset curve
+  Handle(Curve6)    myNestedEvaluator; ///< Calculates value of offset curve
 };
 
 #endif // _GeomAdaptor_Curve_HeaderFile

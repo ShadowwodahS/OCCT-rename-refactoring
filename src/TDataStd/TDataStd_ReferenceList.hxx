@@ -25,7 +25,7 @@
 #include <Standard_GUID.hxx>
 
 class DataLabel;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_DataSet;
 
 class TDataStd_ReferenceList;
@@ -104,7 +104,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       Into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void References(const Handle(TDF_DataSet)& DS) const Standard_OVERRIDE;
 

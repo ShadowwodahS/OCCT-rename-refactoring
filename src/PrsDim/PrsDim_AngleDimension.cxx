@@ -277,7 +277,7 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
                                              const Point3d& theCenter) const
 {
   // construct plane where the circle and the arc are located
-  gce_MakePln aConstructPlane(theFirstAttach, theSecondAttach, theCenter);
+  PlaneBuilder1 aConstructPlane(theFirstAttach, theSecondAttach, theCenter);
   if (!aConstructPlane.IsDone())
   {
     return gp1::Origin();
@@ -297,7 +297,7 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
   Standard_Real aRadius = theFirstAttach.Distance(theCenter);
 
   // construct circle forming the arc
-  gce_MakeCirc aConstructCircle(theCenter, aPlane, aRadius);
+  CircleBuilder1 aConstructCircle(theCenter, aPlane, aRadius);
   if (!aConstructCircle.IsDone())
   {
     return gp1::Origin();
@@ -348,7 +348,7 @@ void PrsDim_AngleDimension::DrawArc(const Handle(Prs3d_Presentation)& thePresent
   }
 
   // construct circle forming the arc
-  gce_MakeCirc aConstructCircle(theCenter, aPlane, theRadius);
+  CircleBuilder1 aConstructCircle(theCenter, aPlane, theRadius);
   if (!aConstructCircle.IsDone())
   {
     return;
@@ -431,7 +431,7 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
   Standard_Real aRadius = theFirstAttach.Distance(myCenterPoint);
 
   // construct circle forming the arc
-  gce_MakeCirc aConstructCircle(theCenter, aPlane, aRadius);
+  CircleBuilder1 aConstructCircle(theCenter, aPlane, aRadius);
   if (!aConstructCircle.IsDone())
   {
     return;
@@ -451,7 +451,7 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
   if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
   {
     Point3d aTextPos = ElCLib1::Value(aParamMid, aCircle);
-    Dir3d aTextDir = gce_MakeDir(theFirstAttach, theSecondAttach);
+    Dir3d aTextDir = DirectionBuilder(theFirstAttach, theSecondAttach);
 
     // Drawing text
     drawText(thePresentation, aTextPos, aTextDir, theText, theLabelPosition);
@@ -1109,7 +1109,7 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
         || aVec1.IsNormal(aVec2, Precision1::Angular()))
       return Standard_False;
 
-    gce_MakeCone aMkCone(aRevSurf->Axis(), aFirst1, aLast1);
+    ConeBuilder aMkCone(aRevSurf->Axis(), aFirst1, aLast1);
     aCone         = aMkCone.Value();
     myCenterPoint = aCone.Apex();
   }
@@ -1298,7 +1298,7 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
   Point3d aSecondAttach =
     myCenterPoint.Translated(Vector3d(myCenterPoint, mySecondPoint).Normalized() * aRadius);
 
-  gce_MakeCirc aConstructCircle(myCenterPoint, GetPlane(), aRadius);
+  CircleBuilder1 aConstructCircle(myCenterPoint, GetPlane(), aRadius);
   if (!aConstructCircle.IsDone())
   {
     return;
@@ -1339,8 +1339,8 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
   }
 
   // Text on the extensions
-  gp_Lin        aFirstLine      = gce_MakeLin(myCenterPoint, myFirstPoint);
-  gp_Lin        aSecondLine     = gce_MakeLin(myCenterPoint, mySecondPoint);
+  gp_Lin        aFirstLine      = LineBuilder(myCenterPoint, myFirstPoint);
+  gp_Lin        aSecondLine     = LineBuilder(myCenterPoint, mySecondPoint);
   Point3d        aFirstTextProj  = PrsDim1::Nearest(aFirstLine, theTextPos);
   Point3d        aSecondTextProj = PrsDim1::Nearest(aSecondLine, theTextPos);
   Standard_Real aFirstDist      = aFirstTextProj.Distance(theTextPos);

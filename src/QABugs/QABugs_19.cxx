@@ -2125,7 +2125,7 @@ static Standard_Integer OCC24889(DrawInterpreter& theDI,
   constexpr Standard_Real   aTol = Precision1::Confusion();
   Geom2dAPI_InterCurveCurve aIntTool(aTrim[0], aTrim[1], aTol);
 
-  const IntRes2d_IntersectionPoint& aIntPnt = aIntTool.Intersector().Point(1);
+  const IntersectionPoint3& aIntPnt = aIntTool.Intersector().Point(1);
 
   gp_Pnt2d      aIntRes = aIntTool.Point(1);
   Standard_Real aPar[2] = {aIntPnt.ParamOnFirst(), aIntPnt.ParamOnSecond()};
@@ -4001,7 +4001,7 @@ Standard_Integer OCC26446(DrawInterpreter& di, Standard_Integer n, const char** 
   TColStd_Array1OfReal                   aTolerances(0, 0);
   Standard_Real                          aTolConf    = 1.e-3;
   constexpr Standard_Real                aTolClosure = Precision1::Confusion();
-  Handle(TColGeom_HArray1OfBSplineCurve) aConcatCurves;
+  Handle(HArray1OfBSplineCurve1) aConcatCurves;
   Handle(TColStd_HArray1OfInteger)       anIndices;
 
   aCurves.SetValue(0, aCurve1);
@@ -4485,7 +4485,7 @@ Standard_Integer OCC26525(DrawInterpreter& di, Standard_Integer n, const char** 
   BRepAdaptor_Curve                 aBAC;
   BRepAdaptor_Surface               aBAS;
   IntCurveSurface_TransitionOnCurve aTC;
-  IntCurveSurface_HInter            aHInter;
+  HandleIntersection            aHInter;
 
   aBAC.Initialize(aE);
   aBAS.Initialize(aF);
@@ -5379,7 +5379,7 @@ static Standard_Integer OCC29412(DrawInterpreter& /*theDI*/,
 //=======================================================================
 // Function is:
 // f(x) = x^2
-class SquareFunction : public math_MultipleVarFunctionWithGradient
+class SquareFunction : public MultiVarFunctionWithGradient
 {
 public:
   SquareFunction() {}

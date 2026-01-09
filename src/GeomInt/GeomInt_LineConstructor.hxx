@@ -21,7 +21,7 @@
 #include <TColStd_SequenceOfReal.hxx>
 
 class Adaptor3d_TopolTool;
-class IntPatch_Line;
+class Line2;
 
 //! Splits given Line.
 class GeomInt_LineConstructor
@@ -40,7 +40,7 @@ public:
             const Handle(GeomAdaptor_Surface)& S2);
 
   //! Splits line
-  Standard_EXPORT void Perform(const Handle(IntPatch_Line)& L);
+  Standard_EXPORT void Perform(const Handle(Line2)& L);
 
   //! Returns True if splitting was successful
   Standard_Boolean IsDone() const;
@@ -53,7 +53,7 @@ public:
   void Part(const Standard_Integer I, Standard_Real& WFirst, Standard_Real& WLast) const;
 
 protected:
-  Standard_EXPORT void TreatCircle(const Handle(IntPatch_Line)& aLine, const Standard_Real aTol);
+  Standard_EXPORT void TreatCircle(const Handle(Line2)& aLine, const Standard_Real aTol);
 
 private:
   Standard_Boolean            done;

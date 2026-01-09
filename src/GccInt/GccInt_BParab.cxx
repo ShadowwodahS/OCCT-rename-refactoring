@@ -18,7 +18,7 @@
 #include <gp_Parab2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BParab, GccInt_Bisec)
+IMPLEMENT_STANDARD_RTTIEXT(GccInt_BParab, Bisector2)
 
 GccInt_BParab::GccInt_BParab(const gp_Parab2d& Parab)
 {

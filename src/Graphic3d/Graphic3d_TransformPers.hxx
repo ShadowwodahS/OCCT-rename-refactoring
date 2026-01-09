@@ -24,7 +24,7 @@
 #include <Graphic3d_Vec.hxx>
 #include <NCollection_Mat4.hxx>
 
-DEFINE_STANDARD_HANDLE(Graphic3d_TransformPers, RefObject)
+DEFINE_STANDARD_HANDLE(TransformPers, RefObject)
 
 //! Transformation Persistence definition.
 //!
@@ -47,9 +47,9 @@ DEFINE_STANDARD_HANDLE(Graphic3d_TransformPers, RefObject)
 //! Meant to be used by objects such as Manipulators and trihedrons.
 //! WARNING: Graphic3d_TMF_None is not permitted for defining instance of this class - NULL handle
 //! should be used for this purpose!
-class Graphic3d_TransformPers : public RefObject
+class TransformPers : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_TransformPers, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TransformPers, RefObject)
 public:
   //! Return true if specified mode is zoom/rotate transformation persistence.
   static Standard_Boolean IsZoomOrRotate(Graphic3d_TransModeFlags theMode)
@@ -77,7 +77,7 @@ public:
 
 public:
   //! Set transformation persistence.
-  Graphic3d_TransformPers(const Graphic3d_TransModeFlags theMode)
+  TransformPers(const Graphic3d_TransModeFlags theMode)
       : myMode(theMode)
   {
     if (IsZoomOrRotate(theMode) || IsAxial(theMode))
@@ -95,7 +95,7 @@ public:
     else
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::SetPersistence(), wrong persistence mode.");
+        "TransformPers::SetPersistence(), wrong persistence mode.");
     }
   }
 
@@ -103,7 +103,7 @@ public:
   //! Anchor point defines the origin of Local Coordinate system within World Coordinate system.
   //! Throws an exception if persistence mode is not Graphic3d_TMF_ZoomPers,
   //! Graphic3d_TMF_ZoomRotatePers or Graphic3d_TMF_RotatePers.
-  Graphic3d_TransformPers(const Graphic3d_TransModeFlags theMode, const Point3d& thePnt)
+  TransformPers(const Graphic3d_TransModeFlags theMode, const Point3d& thePnt)
       : myMode(Graphic3d_TMF_None)
   {
     SetPersistence(theMode, thePnt);
@@ -114,7 +114,7 @@ public:
   //! plane into World Coordinate system. Throws an exception if persistence mode is not
   //! Graphic3d_TMF_TriedronPers or Graphic3d_TMF_2d. The offset is a positive displacement from the
   //! view corner in pixels.
-  Graphic3d_TransformPers(const Graphic3d_TransModeFlags      theMode,
+  TransformPers(const Graphic3d_TransModeFlags      theMode,
                           const Aspect_TypeOfTriedronPosition theCorner,
                           const Graphic3d_Vec2i&              theOffset = Graphic3d_Vec2i(0, 0))
       : myMode(Graphic3d_TMF_None)
@@ -149,7 +149,7 @@ public:
     if (!IsZoomOrRotate(theMode) && !IsAxial(theMode))
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::SetPersistence(), wrong persistence mode.");
+        "TransformPers::SetPersistence(), wrong persistence mode.");
     }
 
     myMode                 = theMode;
@@ -167,7 +167,7 @@ public:
     if (!IsTrihedronOr2d(theMode))
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::SetPersistence(), wrong persistence mode.");
+        "TransformPers::SetPersistence(), wrong persistence mode.");
     }
 
     myMode                    = theMode;
@@ -183,7 +183,7 @@ public:
     if (!IsZoomOrRotate() && !IsAxial())
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::AnchorPoint(), wrong persistence mode.");
+        "TransformPers::AnchorPoint(), wrong persistence mode.");
     }
 
     return Point3d(myParams.Params3d.PntX, myParams.Params3d.PntY, myParams.Params3d.PntZ);
@@ -195,7 +195,7 @@ public:
     if (!IsZoomOrRotate() && !IsAxial())
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::SetAnchorPoint(), wrong persistence mode.");
+        "TransformPers::SetAnchorPoint(), wrong persistence mode.");
     }
 
     myParams.Params3d.PntX = thePnt.X();
@@ -208,7 +208,7 @@ public:
   {
     if (!IsTrihedronOr2d())
     {
-      throw Standard_ProgramError("Graphic3d_TransformPers::Corner2d(), wrong persistence mode.");
+      throw Standard_ProgramError("TransformPers::Corner2d(), wrong persistence mode.");
     }
 
     return myParams.Params2d.Corner;
@@ -220,7 +220,7 @@ public:
     if (!IsTrihedronOr2d())
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::SetCorner2d(), wrong persistence mode.");
+        "TransformPers::SetCorner2d(), wrong persistence mode.");
     }
 
     myParams.Params2d.Corner = thePos;
@@ -231,7 +231,7 @@ public:
   {
     if (!IsTrihedronOr2d())
     {
-      throw Standard_ProgramError("Graphic3d_TransformPers::Offset2d(), wrong persistence mode.");
+      throw Standard_ProgramError("TransformPers::Offset2d(), wrong persistence mode.");
     }
 
     return Graphic3d_Vec2i(myParams.Params2d.OffsetX, myParams.Params2d.OffsetY);
@@ -243,7 +243,7 @@ public:
     if (!IsTrihedronOr2d())
     {
       throw Standard_ProgramError(
-        "Graphic3d_TransformPers::SetOffset2d(), wrong persistence mode.");
+        "TransformPers::SetOffset2d(), wrong persistence mode.");
     }
 
     myParams.Params2d.OffsetX = theOffset.x();
@@ -262,7 +262,7 @@ public:
     (void)theViewportWidth;
     // use total size when tiling is active
     const Standard_Integer aVPSizeY =
-      theCamera->Tile().IsValid() ? theCamera->Tile().TotalSize.y() : theViewportHeight;
+      theCamera->Tile1().IsValid() ? theCamera->Tile1().TotalSize.y() : theViewportHeight;
 
     Vector3d aVecToEye(theCamera->Direction());
     Vector3d aVecToObj(
@@ -383,7 +383,7 @@ public:
 
     // use total size when tiling is active
     const Standard_Integer aVPSizeY =
-      aProxyCamera->Tile().IsValid() ? aProxyCamera->Tile().TotalSize.y() : theViewportHeight;
+      aProxyCamera->Tile1().IsValid() ? aProxyCamera->Tile1().TotalSize.y() : theViewportHeight;
 
     // a small enough jitter compensation offset
     // to avoid image dragging within single pixel in corner cases
@@ -578,7 +578,7 @@ private:
 // purpose  : Apply transformation to world view and projection matrices.
 // =======================================================================
 template <class T>
-void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
+void TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theProjection,
                                     NCollection_Mat4<T>&            theWorldView,
                                     const Standard_Integer          theViewportWidth,
@@ -611,7 +611,7 @@ void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
 // purpose  : Apply transformation to bounding box of presentation.
 // =======================================================================
 template <class T>
-void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
+void TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theProjection,
                                     const NCollection_Mat4<T>&      theWorldView,
                                     const Standard_Integer          theViewportWidth,
@@ -647,7 +647,7 @@ void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
 // purpose  : Apply transformation to bounding box of presentation.
 // =======================================================================
 template <class T>
-void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
+void TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theProjection,
                                     const NCollection_Mat4<T>&      theWorldView,
                                     const Standard_Integer          theViewportWidth,
@@ -697,7 +697,7 @@ void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
 // purpose  : Compute transformation.
 // =======================================================================
 template <class T>
-NCollection_Mat4<T> Graphic3d_TransformPers::Compute(
+NCollection_Mat4<T> TransformPers::Compute(
   const Handle(CameraOn3d)& theCamera,
   const NCollection_Mat4<T>&      theProjection,
   const NCollection_Mat4<T>&      theWorldView,

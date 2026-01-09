@@ -19,7 +19,7 @@
 #include <TCollection_AsciiString.hxx>
 
 class Image_CompressedPixMap;
-class Image_SupportedFormats;
+class SupportedFormats;
 class Image_PixMap;
 
 //! Texture image definition.
@@ -64,11 +64,11 @@ public:
 
   //! Image reader without decoding data for formats supported natively by GPUs.
   Standard_EXPORT virtual Handle(Image_CompressedPixMap) ReadCompressedImage(
-    const Handle(Image_SupportedFormats)& theSupported) const;
+    const Handle(SupportedFormats)& theSupported) const;
 
   //! Image reader.
   Standard_EXPORT virtual Handle(Image_PixMap) ReadImage(
-    const Handle(Image_SupportedFormats)& theSupported) const;
+    const Handle(SupportedFormats)& theSupported) const;
 
   //! Write image to specified file without decoding data.
   Standard_EXPORT virtual Standard_Boolean WriteImage(const AsciiString1& theFile);

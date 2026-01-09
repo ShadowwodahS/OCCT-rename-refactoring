@@ -21,6 +21,6 @@
 #include <Bnd_Array1OfBox.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Bnd_HArray1OfBox, Bnd_Array1OfBox)
+DEFINE_HARRAY1(BoxArray, Bnd_Array1OfBox)
 
 #endif

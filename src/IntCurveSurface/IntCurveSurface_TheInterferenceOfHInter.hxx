@@ -33,30 +33,30 @@ class Bnd_BoundSortBox;
 class Point3d;
 class Coords3d;
 
-class IntCurveSurface_TheInterferenceOfHInter : public Intf_Interference
+class InterferenceHInter : public Intf_Interference
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs  an  empty   interference  between Polygon   and
   //! Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter();
+  Standard_EXPORT InterferenceHInter();
 
   //! Constructs and computes an interference between the Polygon
   //! and the Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter(
+  Standard_EXPORT InterferenceHInter(
     const IntCurveSurface_ThePolygonOfHInter&    thePolyg,
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh);
 
   //! Constructs  and computes  an  interference   between    the
   //! Straight Line and the Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter(
+  Standard_EXPORT InterferenceHInter(
     const gp_Lin&                                theLin,
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh);
 
   //! Constructs   and   computes  an  interference   between the
   //! Straight Lines and the Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter(
+  Standard_EXPORT InterferenceHInter(
     const Intf_Array1OfLin&                      theLins,
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh);
 
@@ -77,21 +77,21 @@ public:
 
   //! Constructs and computes an interference between the Polygon
   //! and the Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter(
+  Standard_EXPORT InterferenceHInter(
     const IntCurveSurface_ThePolygonOfHInter&    thePolyg,
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
     Bnd_BoundSortBox&                            theBoundSB);
 
   //! Constructs  and computes  an  interference   between    the
   //! Straight Line and the Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter(
+  Standard_EXPORT InterferenceHInter(
     const gp_Lin&                                theLin,
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
     Bnd_BoundSortBox&                            theBoundSB);
 
   //! Constructs   and   computes  an  interference   between the
   //! Straight Lines and the Polyhedron.
-  Standard_EXPORT IntCurveSurface_TheInterferenceOfHInter(
+  Standard_EXPORT InterferenceHInter(
     const Intf_Array1OfLin&                      theLins,
     const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
     Bnd_BoundSortBox&                            theBoundSB);

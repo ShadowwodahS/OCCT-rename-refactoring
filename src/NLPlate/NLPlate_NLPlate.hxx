@@ -25,7 +25,7 @@
 #include <NLPlate_StackOfPlate.hxx>
 #include <Standard_Integer.hxx>
 class GeomSurface;
-class NLPlate_HGPPConstraint;
+class HandleGPPConstraint;
 class Coords3d;
 class Coords2d;
 
@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT NLPlate_NLPlate(const Handle(GeomSurface)& InitialSurface);
 
-  Standard_EXPORT void Load(const Handle(NLPlate_HGPPConstraint)& GConst);
+  Standard_EXPORT void Load(const Handle(HandleGPPConstraint)& GConst);
 
   Standard_EXPORT void Solve(const Standard_Integer ord                   = 2,
                              const Standard_Integer InitialConsraintOrder = 1);

@@ -623,7 +623,7 @@ static void Select(const TopoEdge& Ebase, ShapeList& lsubs)
 
   if (!Loc.IsIdentity())
   {
-    Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+    Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
     C                        = Handle(GeomCurve3d)::DownCast(GG);
   }
   Point3d Pt(C->Value((f + l) / 2.));
@@ -638,7 +638,7 @@ static void Select(const TopoEdge& Ebase, ShapeList& lsubs)
     C                      = BRepInspector::Curve(edg, Loc, f, l);
     if (!Loc.IsIdentity())
     {
-      Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
+      Handle(Geometry3) GG = C->Transformed(Loc.Transformation());
       C                        = Handle(GeomCurve3d)::DownCast(GG);
     }
     proj.Init(Pt, C, f, l);

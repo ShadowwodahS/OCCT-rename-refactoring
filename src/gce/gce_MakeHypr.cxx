@@ -27,7 +27,7 @@
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
-gce_MakeHypr::gce_MakeHypr(const Point3d& S1, const Point3d& S2, const Point3d& Center)
+HyperbolaBuilder1::HyperbolaBuilder1(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
   Dir3d        XAxis(Coords3d(S1.XYZ() - Center.XYZ()));
   gp_Lin        L(Center, XAxis);
@@ -45,7 +45,7 @@ gce_MakeHypr::gce_MakeHypr(const Point3d& S1, const Point3d& S2, const Point3d& 
   }
 }
 
-gce_MakeHypr::gce_MakeHypr(const Frame3d&       A2,
+HyperbolaBuilder1::HyperbolaBuilder1(const Frame3d&       A2,
                            const Standard_Real MajorRadius,
                            const Standard_Real MinorRadius)
 {
@@ -64,18 +64,18 @@ gce_MakeHypr::gce_MakeHypr(const Frame3d&       A2,
   }
 }
 
-const gp_Hypr& gce_MakeHypr::Value() const
+const gp_Hypr& HyperbolaBuilder1::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeHypr::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "HyperbolaBuilder1::Value() - no result");
   return TheHypr;
 }
 
-const gp_Hypr& gce_MakeHypr::Operator() const
+const gp_Hypr& HyperbolaBuilder1::Operator() const
 {
   return Value();
 }
 
-gce_MakeHypr::operator gp_Hypr() const
+HyperbolaBuilder1::operator gp_Hypr() const
 {
   return Value();
 }

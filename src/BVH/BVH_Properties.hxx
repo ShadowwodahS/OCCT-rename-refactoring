@@ -21,17 +21,17 @@
 #include <Standard_Macro.hxx>
 
 //! Abstract properties of geometric object.
-class BVH_Properties : public RefObject
+class BVHProperties : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_Properties, RefObject)
+  DEFINE_STANDARD_RTTIEXT(BVHProperties, RefObject)
 public:
   //! Releases resources of object properties.
-  Standard_EXPORT virtual ~BVH_Properties() = 0;
+  Standard_EXPORT virtual ~BVHProperties() = 0;
 };
 
 //! Stores transform properties of geometric object.
 template <class T, int N>
-class BVH_Transform : public BVH_Properties
+class BVH_Transform : public BVHProperties
 {
 public:
   //! Type of transformation matrix.

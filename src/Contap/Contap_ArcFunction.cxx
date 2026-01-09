@@ -29,7 +29,7 @@ Contap_ArcFunction::Contap_ArcFunction()
 {
 }
 
-void Contap_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
+void Contap_ArcFunction::Set(const Handle(SurfaceAdaptor)& S)
 {
   mySurf = S;
   Standard_Integer i;

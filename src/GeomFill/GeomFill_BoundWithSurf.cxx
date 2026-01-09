@@ -28,14 +28,14 @@
 #include <Law_Function.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_BoundWithSurf, GeomFill_Boundary)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_BoundWithSurf, Boundary2)
 
 //=================================================================================================
 
 GeomFill_BoundWithSurf::GeomFill_BoundWithSurf(const Adaptor3d_CurveOnSurface& CurveOnSurf,
                                                const Standard_Real             Tol3d,
                                                const Standard_Real             Tolang)
-    : GeomFill_Boundary(Tol3d, Tolang),
+    : Boundary2(Tol3d, Tolang),
       myConS(CurveOnSurf)
 {
 }
@@ -76,7 +76,7 @@ Vector3d GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
   if (!HasNormals())
     throw ExceptionBase("BoundWithSurf Norm : pas de contrainte");
 
-  //  Handle(Adaptor3d_Surface)& S = myConS.GetSurface();
+  //  Handle(SurfaceAdaptor)& S = myConS.GetSurface();
   //  Handle(Adaptor2d_Curve2d)& C2d = myConS.GetCurve();
   Standard_Real x, y;
   Standard_Real w = U;
@@ -97,7 +97,7 @@ void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, Vector3d& N, Vector3d
 {
   if (!HasNormals())
     throw ExceptionBase("BoundWithSurf Norm : pas de contrainte");
-  //  Handle(Adaptor3d_Surface)& S = myConS.GetSurface();
+  //  Handle(SurfaceAdaptor)& S = myConS.GetSurface();
   //  Handle(Adaptor2d_Curve2d)& C2d = myConS.GetCurve();
   gp_Pnt2d      P2d;
   gp_Vec2d      V2d;

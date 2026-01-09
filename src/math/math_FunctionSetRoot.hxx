@@ -24,7 +24,7 @@
 #include <Standard_DimensionError.hxx>
 #include <StdFail_NotDone.hxx>
 
-class math_FunctionSetWithDerivatives;
+class FunctionSetWithDerivatives;
 
 //! The FunctionSetRoot class calculates the root
 //! of a set of N functions of M variables (N<M, N=M or N>M). Knowing
@@ -42,7 +42,7 @@ public:
   //! of this class.
   //! The range (1, F.NbVariables()) must be especially
   //! respected for all vectors and matrix declarations.
-  Standard_EXPORT FunctionSetRoot(math_FunctionSetWithDerivatives& F,
+  Standard_EXPORT FunctionSetRoot(FunctionSetWithDerivatives& F,
                                        const math_Vector&               Tolerance,
                                        const Standard_Integer           NbIterations = 100);
 
@@ -52,7 +52,7 @@ public:
   //! respected for all vectors and matrix declarations.
   //! The method SetTolerance must be called after this
   //! constructor.
-  Standard_EXPORT FunctionSetRoot(math_FunctionSetWithDerivatives& F,
+  Standard_EXPORT FunctionSetRoot(FunctionSetWithDerivatives& F,
                                        const Standard_Integer           NbIterations = 100);
 
   //! Destructor
@@ -66,7 +66,7 @@ public:
   //! in a sub-class to implement a specific test to stop the iterations.
   //! In this case, the solution is found when: abs(Xi - Xi-1) <= Tolerance
   //! for all unknowns.
-  virtual Standard_Boolean IsSolutionReached(math_FunctionSetWithDerivatives&)
+  virtual Standard_Boolean IsSolutionReached(FunctionSetWithDerivatives&)
   {
     for (Standard_Integer i = 1; i <= Sol.Length(); ++i)
     {
@@ -82,7 +82,7 @@ public:
   //! The infinum and supremum may be given to constrain the solution.
   //! In this case, the solution is found when: abs(Xi - Xi-1)(j) <= Tolerance(j)
   //! for all unknowns.
-  Standard_EXPORT void Perform(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT void Perform(FunctionSetWithDerivatives& theFunction,
                                const math_Vector&               theStartingPoint,
                                const Standard_Boolean theStopOnDivergent = Standard_False);
 
@@ -90,7 +90,7 @@ public:
   //! The infinum and supremum may be given to constrain the solution.
   //! In this case, the solution is found when: abs(Xi - Xi-1) <= Tolerance
   //! for all unknowns.
-  Standard_EXPORT void Perform(math_FunctionSetWithDerivatives& theFunction,
+  Standard_EXPORT void Perform(FunctionSetWithDerivatives& theFunction,
                                const math_Vector&               theStartingPoint,
                                const math_Vector&               theInfBound,
                                const math_Vector&               theSupBound,

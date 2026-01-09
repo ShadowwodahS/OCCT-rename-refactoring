@@ -137,8 +137,8 @@ private:
   Standard_Integer                 myNbExt;
   Standard_Boolean                 myIsPar;
   Handle(TColStd_HArray1OfReal)    mySqDist;
-  Handle(Extrema_HArray1OfPOnCurv) myPoint1;
-  Handle(Extrema_HArray1OfPOnSurf) myPoint2;
+  Handle(PointOnCurveArray) myPoint1;
+  Handle(PointOnSurfaceArray) myPoint2;
 };
 
 #endif // _Extrema_ExtElCS_HeaderFile

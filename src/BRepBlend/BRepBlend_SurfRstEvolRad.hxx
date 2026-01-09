@@ -35,7 +35,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 
-class Law_Function;
+class Function2;
 class math_Matrix;
 class gp_Circ;
 class Point2;
@@ -47,11 +47,11 @@ class BRepBlend_SurfRstEvolRad : public Blend_SurfRstFunction
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBlend_SurfRstEvolRad(const Handle(Adaptor3d_Surface)& Surf,
-                                           const Handle(Adaptor3d_Surface)& SurfRst,
+  Standard_EXPORT BRepBlend_SurfRstEvolRad(const Handle(SurfaceAdaptor)& Surf,
+                                           const Handle(SurfaceAdaptor)& SurfRst,
                                            const Handle(Adaptor2d_Curve2d)& Rst,
-                                           const Handle(Adaptor3d_Curve)&   CGuide,
-                                           const Handle(Law_Function)&      Evol);
+                                           const Handle(Curve5)&   CGuide,
+                                           const Handle(Function2)&      Evol);
 
   //! Returns 3.
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
@@ -80,7 +80,7 @@ public:
                                           math_Vector&       F,
                                           math_Matrix&       D) Standard_OVERRIDE;
 
-  Standard_EXPORT void Set(const Handle(Adaptor3d_Surface)& SurfRef,
+  Standard_EXPORT void Set(const Handle(SurfaceAdaptor)& SurfRef,
                            const Handle(Adaptor2d_Curve2d)& RstRef);
 
   Standard_EXPORT void Set(const Standard_Real Param) Standard_OVERRIDE;
@@ -224,12 +224,12 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface)    surf;
-  Handle(Adaptor3d_Surface)    surfrst;
+  Handle(SurfaceAdaptor)    surf;
+  Handle(SurfaceAdaptor)    surfrst;
   Handle(Adaptor2d_Curve2d)    rst;
   Adaptor3d_CurveOnSurface     cons;
-  Handle(Adaptor3d_Curve)      guide;
-  Handle(Adaptor3d_Curve)      tguide;
+  Handle(Curve5)      guide;
+  Handle(Curve5)      tguide;
   Point3d                       pts;
   Point3d                       ptrst;
   gp_Pnt2d                     pt2ds;
@@ -249,15 +249,15 @@ private:
   Vector3d                       nplan;
   Standard_Real                normtg;
   Standard_Real                theD;
-  Handle(Adaptor3d_Surface)    surfref;
+  Handle(SurfaceAdaptor)    surfref;
   Handle(Adaptor2d_Curve2d)    rstref;
   Standard_Real                maxang;
   Standard_Real                minang;
   Standard_Real                distmin;
   BlendFunc_SectionShape       mySShape;
   Convert_ParameterisationType myTConv;
-  Handle(Law_Function)         tevol;
-  Handle(Law_Function)         fevol;
+  Handle(Function2)         tevol;
+  Handle(Function2)         fevol;
   Standard_Real                sg1;
 };
 

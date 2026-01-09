@@ -27,10 +27,10 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class Law_Constant;
-DEFINE_STANDARD_HANDLE(Law_Constant, Law_Function)
+DEFINE_STANDARD_HANDLE(Law_Constant, Function2)
 
 //! Loi constante
-class Law_Constant : public Law_Function
+class Law_Constant : public Function2
 {
 
 public:
@@ -65,14 +65,14 @@ public:
                           Standard_Real&      D,
                           Standard_Real&      D2) Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
+  Standard_EXPORT Handle(Function2) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;
 
   //! Returns the parametric bounds of the function.
   Standard_EXPORT void Bounds(Standard_Real& PFirst, Standard_Real& PLast) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Law_Constant, Law_Function)
+  DEFINE_STANDARD_RTTIEXT(Law_Constant, Function2)
 
 protected:
 private:

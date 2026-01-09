@@ -117,7 +117,7 @@ void View_Widget::Init()
   Handle(Aspect_Window) aWnd          = new WNT_Window(aWindowHandle);
 #elif defined(HAVE_XLIB)
   Aspect_Drawable                  aWindowHandle = (Aspect_Drawable)winId();
-  Handle(Aspect_DisplayConnection) aDispConnection =
+  Handle(DisplayConnection1) aDispConnection =
     myViewer->GetContext()->CurrentViewer()->Driver()->GetDisplayConnection();
   Handle(Aspect_Window) aWnd = new Xw_Window(aDispConnection, aWindowHandle);
 #elif defined(__APPLE__)

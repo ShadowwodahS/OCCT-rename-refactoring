@@ -43,13 +43,13 @@ public:
 protected:
   Standard_EXPORT FairCurve_DistributionOfEnergy(const Standard_Integer               BSplOrder,
                                                  const Handle(TColStd_HArray1OfReal)& FlatKnots,
-                                                 const Handle(TColgp_HArray1OfPnt2d)& Poles,
+                                                 const Handle(Point2dArray)& Poles,
                                                  const Standard_Integer DerivativeOrder,
                                                  const Standard_Integer NbValAux = 0);
 
   Standard_Integer              MyBSplOrder;
   Handle(TColStd_HArray1OfReal) MyFlatKnots;
-  Handle(TColgp_HArray1OfPnt2d) MyPoles;
+  Handle(Point2dArray) MyPoles;
   Standard_Integer              MyDerivativeOrder;
   Standard_Integer              MyNbVar;
   Standard_Integer              MyNbEqua;

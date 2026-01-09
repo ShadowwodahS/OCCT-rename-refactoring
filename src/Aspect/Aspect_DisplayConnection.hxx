@@ -28,28 +28,28 @@ struct Aspect_XVisualInfo;
 //! Raises exception if can not connect to X server.
 //! On Windows and Mac OS X (in case when Cocoa used) platforms this class does nothing.
 //! WARNING: Do not close display connection manually!
-class Aspect_DisplayConnection : public RefObject
+class DisplayConnection1 : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_DisplayConnection, RefObject)
+  DEFINE_STANDARD_RTTIEXT(DisplayConnection1, RefObject)
 public:
   //! Default constructor. Creates connection with display name taken from "DISPLAY" environment
   //! variable
-  Standard_EXPORT Aspect_DisplayConnection();
+  Standard_EXPORT DisplayConnection1();
 
   //! Destructor. Close opened connection.
-  Standard_EXPORT virtual ~Aspect_DisplayConnection();
+  Standard_EXPORT virtual ~DisplayConnection1();
 
   //! Constructor. Creates connection with display specified in theDisplayName.
   //! Display name should be in format "hostname:number" or "hostname:number.screen_number", where:
   //! hostname      - Specifies the name of the host machine on which the display is physically
   //! attached. number        - Specifies the number of the display server on that host machine.
   //! screen_number - Specifies the screen to be used on that server. Optional variable.
-  Standard_EXPORT Aspect_DisplayConnection(const AsciiString1& theDisplayName);
+  Standard_EXPORT DisplayConnection1(const AsciiString1& theDisplayName);
 
   //! Constructor wrapping existing Display instance.
   //! WARNING! it is a responsibility of application to keep this pointer
-  //! valid while Aspect_DisplayConnection is alive and to close Display when it is no more needed.
-  Standard_EXPORT Aspect_DisplayConnection(Aspect_XDisplay* theDisplay);
+  //! valid while DisplayConnection1 is alive and to close Display when it is no more needed.
+  Standard_EXPORT DisplayConnection1(Aspect_XDisplay* theDisplay);
 
   //! @return pointer to Display structure that serves as the connection to the X server.
   Aspect_XDisplay* GetDisplayAspect() { return myDisplay; }
@@ -67,7 +67,7 @@ public:
   //! Open connection with display specified in myDisplayName class field
   //! or takes theDisplay parameter when it is not NULL.
   //! WARNING! When external Display is specified, it is a responsibility of application
-  //! to keep this pointer valid while Aspect_DisplayConnection is alive
+  //! to keep this pointer valid while DisplayConnection1 is alive
   //! and to close Display when it is no more needed.
   //! @param theDisplay external pointer to allocated Display, or NULL if new connection should be
   //! created
@@ -86,9 +86,9 @@ public:
 #ifdef X_PROTOCOL
   //! Constructor wrapping existing Display instance.
   //! WARNING! it is a responsibility of application to keep this pointer
-  //! valid while Aspect_DisplayConnection is alive and to close Display when it is no more needed.
-  Aspect_DisplayConnection(Display* theDisplay)
-      : Aspect_DisplayConnection((Aspect_XDisplay*)theDisplay)
+  //! valid while DisplayConnection1 is alive and to close Display when it is no more needed.
+  DisplayConnection1(Display* theDisplay)
+      : DisplayConnection1((Aspect_XDisplay*)theDisplay)
   {
   }
 
@@ -123,10 +123,10 @@ private:
 
 private:
   //! To protect the connection from closing copying allowed only through the handles.
-  Aspect_DisplayConnection(const Aspect_DisplayConnection&);
-  Aspect_DisplayConnection& operator=(const Aspect_DisplayConnection&);
+  DisplayConnection1(const DisplayConnection1&);
+  DisplayConnection1& operator=(const DisplayConnection1&);
 };
 
-DEFINE_STANDARD_HANDLE(Aspect_DisplayConnection, RefObject)
+DEFINE_STANDARD_HANDLE(DisplayConnection1, RefObject)
 
 #endif // _Aspect_DisplayConnection_H__

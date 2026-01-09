@@ -39,7 +39,7 @@ class gp_Lin;
 //! * Create a Cone by 2 points and 2 radius.
 //! * Create a Cone by an Ax2 an angle and the radius of
 //! its reference section.
-class gce_MakeCone : public Root6
+class ConeBuilder : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -51,18 +51,18 @@ public:
   //! the cone.
   //! If Radius is lower than 0.0 the status is "
   //! If Ang < Resolution from gp1  or Ang >= (PI/2) - Resolution.
-  Standard_EXPORT gce_MakeCone(const Frame3d&       A2,
+  Standard_EXPORT ConeBuilder(const Frame3d&       A2,
                                const Standard_Real Ang,
                                const Standard_Real Radius);
 
   //! Makes a Cone from gp1 <TheCone> coaxial to another
   //! Cone <Cone> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakeCone(const Cone1& Cone, const Point3d& Point);
+  Standard_EXPORT ConeBuilder(const Cone1& Cone, const Point3d& Point);
 
   //! Makes a Cone from gp1 <TheCone> coaxial to another
   //! Cone <Cone> at the distance <Dist> which can
   //! be greater or lower than zero.
-  Standard_EXPORT gce_MakeCone(const Cone1& Cone, const Standard_Real Dist);
+  Standard_EXPORT ConeBuilder(const Cone1& Cone, const Standard_Real Dist);
 
   //! Makes a Cone from gp1 <TheCone> by four points <P1>,
   //! <P2>,<P3> and <P4>.
@@ -78,7 +78,7 @@ public:
   //! status "NullAngle".
   //! <P3P4> is colinear to <P1P2> we have the status
   //! "NullAngle".
-  Standard_EXPORT gce_MakeCone(const Point3d& P1,
+  Standard_EXPORT ConeBuilder(const Point3d& P1,
                                const Point3d& P2,
                                const Point3d& P3,
                                const Point3d& P4);
@@ -94,7 +94,7 @@ public:
   //! "NullAngle"
   //! If <P1> and <P2> are confused we have the status
   //! "ConfusedPoints"
-  Standard_EXPORT gce_MakeCone(const Axis3d& Axis, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT ConeBuilder(const Axis3d& Axis, const Point3d& P1, const Point3d& P2);
 
   //! Makes a Cone by its axis <Axis> and two points.
   //! The distance between <P1> and the axis is the radius
@@ -107,7 +107,7 @@ public:
   //! "NullAngle"
   //! If <P1> and <P2> are confused we have the status
   //! "ConfusedPoints"
-  Standard_EXPORT gce_MakeCone(const gp_Lin& Axis, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT ConeBuilder(const gp_Lin& Axis, const Point3d& P1, const Point3d& P2);
 
   //! Makes a Cone with two points and two radius.
   //! The axis of the solution is the line passing through
@@ -132,7 +132,7 @@ public:
   //! -   the vector joining P1 to P2 is perpendicular to the line joining P3 to P4,
   //! -   the vector joining P1 to P2 is perpendicular to Axis, or
   //! -   P1, P2, P3, and P4 are collinear.
-  Standard_EXPORT gce_MakeCone(const Point3d&       P1,
+  Standard_EXPORT ConeBuilder(const Point3d&       P1,
                                const Point3d&       P2,
                                const Standard_Real R1,
                                const Standard_Real R2);

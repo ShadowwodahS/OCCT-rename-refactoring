@@ -24,7 +24,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomSurface, Geom_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(GeomSurface, Geometry3)
 
 typedef GeomSurface Surface;
 
@@ -95,5 +95,5 @@ void GeomSurface::DumpJson(Standard_OStream& theOStream, Standard_Integer theDep
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Geometry)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geometry3)
 }

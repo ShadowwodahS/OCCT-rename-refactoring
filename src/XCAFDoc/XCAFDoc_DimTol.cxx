@@ -124,7 +124,7 @@ Handle(TDF_Attribute) XCAFDoc_DimTol::NewEmpty() const
 //=================================================================================================
 
 void XCAFDoc_DimTol::Paste(const Handle(TDF_Attribute)& Into,
-                           const Handle(TDF_RelocationTable)& /*RT*/) const
+                           const Handle(RelocationTable1)& /*RT*/) const
 {
   Handle(XCAFDoc_DimTol)::DownCast(Into)->Set(myKind, myVal, myName, myDescription);
 }

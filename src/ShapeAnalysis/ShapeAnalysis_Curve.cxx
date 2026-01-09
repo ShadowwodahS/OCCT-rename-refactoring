@@ -57,7 +57,7 @@
 
 //=================================================================================================
 
-static void ProjectOnSegments(const Adaptor3d_Curve& AC,
+static void ProjectOnSegments(const Curve5& AC,
                               const Point3d&          P3D,
                               const Standard_Integer nbseg,
                               Standard_Real&         uMin,
@@ -174,7 +174,7 @@ Standard_Real Curve2::Project(const Handle(GeomCurve3d)& C3D,
 
 //=================================================================================================
 
-Standard_Real Curve2::Project(const Adaptor3d_Curve& C3D,
+Standard_Real Curve2::Project(const Curve5& C3D,
                                            const Point3d&          P3D,
                                            const Standard_Real    preci,
                                            Point3d&                proj,
@@ -230,7 +230,7 @@ Standard_Real Curve2::Project(const Adaptor3d_Curve& C3D,
 
 //=================================================================================================
 
-Standard_Real Curve2::ProjectAct(const Adaptor3d_Curve& C3D,
+Standard_Real Curve2::ProjectAct(const Curve5& C3D,
                                               const Point3d&          P3D,
                                               const Standard_Real    preci,
                                               Point3d&                proj,
@@ -482,7 +482,7 @@ Standard_Real Curve2::NextProject(const Standard_Real       paramPrev,
 //=================================================================================================
 
 Standard_Real Curve2::NextProject(const Standard_Real    paramPrev,
-                                               const Adaptor3d_Curve& C3D,
+                                               const Curve5& C3D,
                                                const Point3d&          P3D,
                                                const Standard_Real    preci,
                                                Point3d&                proj,
@@ -926,7 +926,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve
       try
       {
         OCC_CATCH_SIGNALS
-        Handle(Geom_Geometry)     Ctmp = aBaseCrv->Copy();
+        Handle(Geometry3)     Ctmp = aBaseCrv->Copy();
         Handle(BSplineCurve3d) bslp = Handle(BSplineCurve3d)::DownCast(Ctmp);
         bslp->Segment1(curve->FirstParameter(), curve->LastParameter());
         AppendControlPoles(seq, bslp);
@@ -941,7 +941,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve
       try
       {
         OCC_CATCH_SIGNALS
-        Handle(Geom_Geometry)    Ctmp = aBaseCrv->Copy();
+        Handle(Geometry3)    Ctmp = aBaseCrv->Copy();
         Handle(BezierCurve3d) bz   = Handle(BezierCurve3d)::DownCast(Ctmp);
         bz->Segment1(curve->FirstParameter(), curve->LastParameter());
         AppendControlPoles(seq, bz);

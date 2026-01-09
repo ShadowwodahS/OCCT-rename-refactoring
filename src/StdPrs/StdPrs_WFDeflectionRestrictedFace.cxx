@@ -39,7 +39,7 @@ extern Chronometer FFaceTimer1, FFaceTimer2, FFaceTimer3, FFaceTimer4;
 
 //=================================================================================================
 
-static void FindLimits(const Adaptor3d_Curve& aCurve,
+static void FindLimits(const Curve5& aCurve,
                        const Standard_Real    aLimit,
                        Standard_Real&         First,
                        Standard_Real&         Last)
@@ -340,7 +340,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
         FindLimits(GC, aLimit, b1, b2);
         if (b2 - b1 > Precision1::Confusion())
         {
-          Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+          Handle(PointSequence2) aPoints = new PointSequence2();
           StdPrs_DeflectionCurve::Add(aPresentation,
                                       GC,
                                       b1,
@@ -366,7 +366,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
         FindLimits(anIso, aLimit, b1, b2);
         if (b2 - b1 > Precision1::Confusion())
         {
-          Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
+          Handle(PointSequence2) aPoints = new PointSequence2();
           StdPrs_DeflectionCurve::Add(aPresentation,
                                       anIso,
                                       b1,

@@ -245,7 +245,7 @@ static void ComputeLambda(const math_Matrix&  Constraint,
   {
     // Recheche des extrema de la fonction
     GeomLib_PolyFunc      FF(pol4);
-    GeomLib_LogSample     S(Lambda / 1000, 50 * Lambda, 100);
+    LogarithmicSampler     S(Lambda / 1000, 50 * Lambda, 100);
     FunctionAllRoots Solve(FF,
                                 S,
                                 Precision1::Confusion(),
@@ -473,8 +473,8 @@ void GeomLib1::FuseIntervals(const TColStd_Array1OfReal& I1,
 
 //=================================================================================================
 
-void GeomLib1::EvalMaxParametricDistance(const Adaptor3d_Curve& ACurve,
-                                        const Adaptor3d_Curve& AReferenceCurve,
+void GeomLib1::EvalMaxParametricDistance(const Curve5& ACurve,
+                                        const Curve5& AReferenceCurve,
                                         //			       const Standard_Real  Tolerance,
                                         const Standard_Real,
                                         const TColStd_Array1OfReal& Parameters,
@@ -508,8 +508,8 @@ void GeomLib1::EvalMaxParametricDistance(const Adaptor3d_Curve& ACurve,
 
 //=================================================================================================
 
-void GeomLib1::EvalMaxDistanceAlongParameter(const Adaptor3d_Curve&      ACurve,
-                                            const Adaptor3d_Curve&      AReferenceCurve,
+void GeomLib1::EvalMaxDistanceAlongParameter(const Curve5&      ACurve,
+                                            const Curve5&      AReferenceCurve,
                                             const Standard_Real         Tolerance,
                                             const TColStd_Array1OfReal& Parameters,
                                             Standard_Real&              MaxDistance)
@@ -1018,7 +1018,7 @@ private:
   Standard_Real             FirstParam;
   Standard_Real             LastParam;
 
-  Handle(Adaptor3d_Curve) TrimCurve;
+  Handle(Curve5) TrimCurve;
 };
 
 void GeomLib_CurveOnSurfaceEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
@@ -1153,7 +1153,7 @@ void GeomLib1::BuildCurve3d(const Standard_Real       Tolerance,
   GeomLib_CurveOnSurfaceEvaluator ev(Curve, FirstParameter - 1., LastParameter + 1.);
 
   // Approximation avec decoupe preferentiel
-  AdvApprox_PrefAndRec      Preferentiel(Param_de_decoupeC2, Param_de_decoupeC3);
+  PreferredAndRecommended      Preferentiel(Param_de_decoupeC2, Param_de_decoupeC3);
   AdvApprox_ApproxAFunction anApproximator(0,
                                            0,
                                            1,
@@ -1764,7 +1764,7 @@ void GeomLib1::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
   Standard_Real*                PRadr = &PRes(1);
   Standard_Real                 ww;
   Standard_Boolean              ExtOk = Standard_False;
-  Handle(TColgp_HArray2OfPnt)   NewPoles;
+  Handle(PointGrid)   NewPoles;
   Handle(TColStd_HArray2OfReal) NewWeights;
 
   for (Kount = 1; Kount <= 5 && !ExtOk; Kount++)
@@ -1797,7 +1797,7 @@ void GeomLib1::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
       NV = NbPoles;
     }
 
-    NewPoles                   = new (TColgp_HArray2OfPnt)(1, NU, 1, NV);
+    NewPoles                   = new (PointGrid)(1, NU, 1, NV);
     TColgp_Array2OfPnt& NewP   = NewPoles->ChangeArray2();
     NewWeights                 = new (TColStd_HArray2OfReal)(1, NU, 1, NV);
     TColStd_Array2OfReal& NewW = NewWeights->ChangeArray2();
@@ -3015,7 +3015,7 @@ Standard_Boolean GeomLib1::isIsoLine(const Handle(Adaptor2d_Curve2d)& theC2D,
 //=================================================================================================
 
 Handle(GeomCurve3d) GeomLib1::buildC3dOnIsoLine(const Handle(Adaptor2d_Curve2d)& theC2D,
-                                              const Handle(Adaptor3d_Surface)& theSurf,
+                                              const Handle(SurfaceAdaptor)& theSurf,
                                               const Standard_Real              theFirst,
                                               const Standard_Real              theLast,
                                               const Standard_Real              theTolerance,

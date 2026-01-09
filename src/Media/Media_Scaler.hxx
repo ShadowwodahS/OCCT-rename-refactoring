@@ -24,15 +24,15 @@
 struct SwsContext;
 
 //! SwsContext wrapper - tool performing image scaling and pixel format conversion.
-class Media_Scaler : public RefObject
+class Scaler : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_Scaler, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Scaler, RefObject)
 public:
   //! Empty constructor.
-  Standard_EXPORT Media_Scaler();
+  Standard_EXPORT Scaler();
 
   //! Destructor.
-  Standard_EXPORT virtual ~Media_Scaler();
+  Standard_EXPORT virtual ~Scaler();
 
   //! sws_freeContext() wrapper.
   Standard_EXPORT void Release();

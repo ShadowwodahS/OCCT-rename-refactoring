@@ -44,7 +44,7 @@ class IntPatch_TheIWLineOfTheIWalking;
 class PointOn2Surfaces;
 class FunctionSetRoot;
 
-class IntPatch_TheIWalking
+class WalkingIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -58,7 +58,7 @@ public:
   //! theToFillHoles is the flag defining whether possible holes
   //! between resulting curves are filled or not
   //! in case of IntPatch walking theToFillHoles is False
-  Standard_EXPORT IntPatch_TheIWalking(const Standard_Real    Epsilon,
+  Standard_EXPORT WalkingIterator(const Standard_Real    Epsilon,
                                        const Standard_Real    Deflection,
                                        const Standard_Real    Step,
                                        const Standard_Boolean theToFillHoles = Standard_False);
@@ -79,14 +79,14 @@ public:
   Standard_EXPORT void Perform(const IntSurf_SequenceOfPathPoint&     Pnts1,
                                const IntSurf_SequenceOfInteriorPoint& Pnts2,
                                IntPatch_TheSurfFunction&              Func,
-                               const Handle(Adaptor3d_Surface)&       S,
+                               const Handle(SurfaceAdaptor)&       S,
                                const Standard_Boolean                 Reversed = Standard_False);
 
   //! Searches a set of polylines starting on a point of Pnts1.
   //! Each point on a resulting polyline verifies F(u,v)=0
   Standard_EXPORT void Perform(const IntSurf_SequenceOfPathPoint& Pnts1,
                                IntPatch_TheSurfFunction&          Func,
-                               const Handle(Adaptor3d_Surface)&   S,
+                               const Handle(SurfaceAdaptor)&   S,
                                const Standard_Boolean             Reversed = Standard_False);
 
   //! Returns true if the calculus was successful.
@@ -243,7 +243,7 @@ private:
 #define ThePointOfLoopTool_hxx <IntSurf_InteriorPointTool.hxx>
 #define ThePOLIterator IntSurf_SequenceOfInteriorPoint
 #define ThePOLIterator_hxx <IntSurf_SequenceOfInteriorPoint.hxx>
-#define ThePSurface Handle(Adaptor3d_Surface)
+#define ThePSurface Handle(SurfaceAdaptor)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
@@ -254,7 +254,7 @@ private:
 #define IntWalk_SequenceOfIWLine IntPatch_SequenceOfIWLineOfTheIWalking
 #define IntWalk_SequenceOfIWLine_hxx <IntPatch_SequenceOfIWLineOfTheIWalking.hxx>
 #define Handle_IntWalk_TheIWLine Handle(IntPatch_TheIWLineOfTheIWalking)
-#define IntWalk_IWalking IntPatch_TheIWalking
+#define IntWalk_IWalking WalkingIterator
 #define IntWalk_IWalking_hxx <IntPatch_TheIWalking.hxx>
 
 #include <IntWalk_IWalking.lxx>

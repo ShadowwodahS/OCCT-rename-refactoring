@@ -78,7 +78,7 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
   Handle(GeomPlane)          Pln  = new GeomPlane(P);
   Handle(GeomAdaptor_Surface) Plan = new GeomAdaptor_Surface(GeomAdaptor_Surface(Pln));
 
-  IntCurveSurface_HInter            Intersection;
+  HandleIntersection            Intersection;
   Standard_Integer                  nbp, iip;
   IntersectionPoint1 IP;
   Standard_Real                     dist = RealLast();
@@ -299,8 +299,8 @@ void FilletSurf_InternalBuilder::Perform()
   // PerformSetOfSurfOnElSpine is enough.
 
   Handle(ChFiDS_Stripe) Stripe = myListStripe.First();
-  Handle(ChFiDS_HData)& HData  = Stripe->ChangeSetOfSurfData();
-  HData                        = new ChFiDS_HData();
+  Handle(ChamferFilletData)& HData  = Stripe->ChangeSetOfSurfData();
+  HData                        = new ChamferFilletData();
   Handle(ChFiDS_Spine)& Spine  = Stripe->ChangeSpine();
   TopAbs_Orientation    RefOr1, RefOr2;
   Standard_Integer      RefChoix;
@@ -802,8 +802,8 @@ void FilletSurf_InternalBuilder::Simulate()
 {
   // ChFi3d_FilBuilder::Simulate(1);
   Handle(ChFiDS_Stripe) Stripe = myListStripe.First();
-  Handle(ChFiDS_HData)& HData  = Stripe->ChangeSetOfSurfData();
-  HData                        = new ChFiDS_HData();
+  Handle(ChamferFilletData)& HData  = Stripe->ChangeSetOfSurfData();
+  HData                        = new ChamferFilletData();
   Handle(ChFiDS_Spine)& Spine  = Stripe->ChangeSpine();
   TopAbs_Orientation    RefOr1, RefOr2;
   Standard_Integer      RefChoix;

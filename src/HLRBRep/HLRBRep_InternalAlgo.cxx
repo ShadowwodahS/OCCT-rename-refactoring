@@ -140,8 +140,8 @@ void HLRBRep_InternalAlgo::Update()
 
     myDS->Update(myProj);
 
-    HLRAlgo_EdgesBlock::MinMaxIndices1 ShapMin, ShapMax, MinMaxShap;
-    HLRAlgo_EdgesBlock::MinMaxIndices1 TheMin, TheMax;
+    EdgesBlock::MinMaxIndices1 ShapMin, ShapMax, MinMaxShap;
+    EdgesBlock::MinMaxIndices1 TheMin, TheMax;
     HLRBRep_Array1OfEData&            aEDataArray = myDS->EDataArray();
     HLRBRep_Array1OfFData&            aFDataArray = myDS->FDataArray();
 
@@ -583,8 +583,8 @@ void HLRBRep_InternalAlgo::Hide(const Standard_Integer I, const Standard_Integer
       Hide(I);
     else
     {
-      HLRAlgo_EdgesBlock::MinMaxIndices1* MinMaxShBI = &myShapes(I).MinMax();
-      HLRAlgo_EdgesBlock::MinMaxIndices1* MinMaxShBJ = &myShapes(J).MinMax();
+      EdgesBlock::MinMaxIndices1* MinMaxShBI = &myShapes(I).MinMax();
+      EdgesBlock::MinMaxIndices1* MinMaxShBJ = &myShapes(J).MinMax();
       if (((MinMaxShBJ->Max[0] - MinMaxShBI->Min[0]) & 0x80008000) == 0
           && ((MinMaxShBI->Max[0] - MinMaxShBJ->Min[0]) & 0x80008000) == 0
           && ((MinMaxShBJ->Max[1] - MinMaxShBI->Min[1]) & 0x80008000) == 0

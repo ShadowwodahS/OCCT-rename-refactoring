@@ -46,7 +46,7 @@ void LabelDisplayTool::ReadOwnParams(const Handle(IGESDraw_LabelDisplay)&   ent,
   Standard_Integer nbval;
 
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXYZ)              textLocations;
+  Handle(XYZArray)              textLocations;
   Handle(HArray1OfLeaderArrow)   leaderEntities;
   Handle(TColStd_HArray1OfInteger)         labelLevels;
   Handle(HArray1OfIGESEntity)     displayedEntities;
@@ -56,7 +56,7 @@ void LabelDisplayTool::ReadOwnParams(const Handle(IGESDraw_LabelDisplay)&   ent,
   if (st && nbval > 0)
   {
     views             = new HArray1OfViewKindEntity(1, nbval);
-    textLocations     = new TColgp_HArray1OfXYZ(1, nbval);
+    textLocations     = new XYZArray(1, nbval);
     leaderEntities    = new HArray1OfLeaderArrow(1, nbval);
     labelLevels       = new TColStd_HArray1OfInteger(1, nbval);
     displayedEntities = new HArray1OfIGESEntity(1, nbval);
@@ -150,14 +150,14 @@ void LabelDisplayTool::OwnCopy(const Handle(IGESDraw_LabelDisplay)& another,
 {
   Standard_Integer                         nbval;
   Handle(HArray1OfViewKindEntity) views;
-  Handle(TColgp_HArray1OfXYZ)              textLocations;
+  Handle(XYZArray)              textLocations;
   Handle(HArray1OfLeaderArrow)   leaderEntities;
   Handle(TColStd_HArray1OfInteger)         labelLevels;
   Handle(HArray1OfIGESEntity)     displayedEntities;
 
   nbval             = another->NbLabels();
   views             = new HArray1OfViewKindEntity(1, nbval);
-  textLocations     = new TColgp_HArray1OfXYZ(1, nbval);
+  textLocations     = new XYZArray(1, nbval);
   leaderEntities    = new HArray1OfLeaderArrow(1, nbval);
   labelLevels       = new TColStd_HArray1OfInteger(1, nbval);
   displayedEntities = new HArray1OfIGESEntity(1, nbval);

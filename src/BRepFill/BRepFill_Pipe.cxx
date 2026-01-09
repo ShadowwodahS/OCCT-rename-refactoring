@@ -232,7 +232,7 @@ void BRepFill_Pipe::Perform(const TopoWire&  Spine,
   TheProf.Location(Loc2.Multiplied(Loc1));
 
   // Construct First && Last Shape
-  Handle(GeomFill_LocationLaw) law;
+  Handle(LocationLaw) law;
 
   gp_Mat        M;
   Vector3d        V;

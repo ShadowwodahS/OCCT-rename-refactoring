@@ -34,7 +34,7 @@ class HString
     virtual void PChildren(StdObjMgt_Persistent::SequenceOfPersistent&) const {}
 
     //! Get/create a label defined by referenced string.
-    Standard_EXPORT virtual DataLabel Label(const Handle(TDF_Data)& theDF) const;
+    Standard_EXPORT virtual DataLabel Label(const Handle(Data2)& theDF) const;
 
     //! Get the value.
     const Handle(StringClass)& Value() const { return myValue; }

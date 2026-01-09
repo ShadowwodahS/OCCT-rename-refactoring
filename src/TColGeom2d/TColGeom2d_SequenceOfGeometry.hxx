@@ -20,6 +20,6 @@
 #include <Geom2d_Geometry.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(Geom2d_Geometry)> TColGeom2d_SequenceOfGeometry;
+typedef NCollection_Sequence<Handle(Geometry2)> TColGeom2d_SequenceOfGeometry;
 
 #endif

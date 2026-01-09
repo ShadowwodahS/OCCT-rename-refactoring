@@ -18,7 +18,7 @@
 #include <OpenGl_ShaderManager.hxx>
 #include <Standard_Assert.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Buffer, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Buffer, Resource)
 
 //=================================================================================================
 
@@ -91,7 +91,7 @@ AsciiString1 OpenGl_Buffer::FormatTarget(unsigned int theTarget)
 //=================================================================================================
 
 OpenGl_Buffer::OpenGl_Buffer()
-    : OpenGl_Resource(),
+    : Resource(),
       myOffset(NULL),
       myBufferId(NO_BUFFER),
       myComponentsNb(4),
@@ -413,7 +413,7 @@ bool OpenGl_Buffer::getSubData(const Handle(OpenGl_Context)& theGlCtx,
 void OpenGl_Buffer::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, OpenGl_Resource)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Resource)
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, GetTarget())
   OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, myOffset)

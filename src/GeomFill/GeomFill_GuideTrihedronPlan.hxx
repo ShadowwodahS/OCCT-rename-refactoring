@@ -40,11 +40,11 @@ class GeomFill_GuideTrihedronPlan : public GeomFill_TrihedronWithGuide
 {
 
 public:
-  Standard_EXPORT GeomFill_GuideTrihedronPlan(const Handle(Adaptor3d_Curve)& theGuide);
+  Standard_EXPORT GeomFill_GuideTrihedronPlan(const Handle(Curve5)& theGuide);
 
   //! initialize curve of trihedron law
   //! @return Standard_True in case if execution end correctly
-  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Adaptor3d_Curve)& thePath)
+  Standard_EXPORT virtual Standard_Boolean SetCurve(const Handle(Curve5)& thePath)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(GeomFill_TrihedronLaw) Copy() const Standard_OVERRIDE;
@@ -53,7 +53,7 @@ public:
   //! Returns PipeOk (default implementation)
   Standard_EXPORT virtual GeomFill_PipeError ErrorStatus() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) Guide() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) Guide() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
                                               Vector3d&             Tangent,
@@ -125,9 +125,9 @@ private:
 
   Standard_EXPORT void InitX(const Standard_Real Param);
 
-  Handle(Adaptor3d_Curve)       myTrimmed;
-  Handle(Adaptor3d_Curve)       myCurve;
-  Handle(TColgp_HArray2OfPnt2d) Pole;
+  Handle(Curve5)       myTrimmed;
+  Handle(Curve5)       myCurve;
+  Handle(Point2dGrid) Pole;
   math_Vector                   X;
   math_Vector                   XTol;
   math_Vector                   Inf;

@@ -34,7 +34,7 @@ MeshVS_SensitiveMesh::MeshVS_SensitiveMesh(const Handle(SelectMgr_EntityOwner)& 
   Handle(MeshVS_MeshOwner) anOwner = Handle(MeshVS_MeshOwner)::DownCast(OwnerId());
   if (!anOwner.IsNull())
   {
-    Handle(MeshVS_DataSource) aDS = anOwner->GetDataSource();
+    Handle(MeshDataSource) aDS = anOwner->GetDataSource();
     if (!aDS.IsNull())
     {
       Box2       aBox = aDS->GetBoundingBox();
@@ -74,7 +74,7 @@ Standard_Integer MeshVS_SensitiveMesh::NbSubElements() const
   Handle(MeshVS_MeshOwner) anOwner = Handle(MeshVS_MeshOwner)::DownCast(OwnerId());
   if (anOwner.IsNull())
     return -1;
-  Handle(MeshVS_DataSource) aDataSource = anOwner->GetDataSource();
+  Handle(MeshDataSource) aDataSource = anOwner->GetDataSource();
   if (aDataSource.IsNull())
     return -1;
   return aDataSource->GetAllNodes().Extent();

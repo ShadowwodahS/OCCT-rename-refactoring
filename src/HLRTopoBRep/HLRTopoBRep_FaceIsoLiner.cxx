@@ -238,11 +238,11 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
           Surface.D0(P.X(), P.Y(), P2);
           if (Dom.HasFirstPoint())
           { // Iso U - Premier point
-            const HatchGen_PointOnHatching& PntH = Dom.FirstPoint();
+            const PointOnHatching& PntH = Dom.FirstPoint();
 
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
-              const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
+              const PointOnElement& PntE = PntH.Point(IPntE);
               V1U = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P1,
                                                          PntE.Parameter(),
@@ -254,11 +254,11 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
           }
           if (Dom.HasSecondPoint())
           { // Iso U - Deuxieme point
-            const HatchGen_PointOnHatching& PntH = Dom.SecondPoint();
+            const PointOnHatching& PntH = Dom.SecondPoint();
 
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
-              const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
+              const PointOnElement& PntE = PntH.Point(IPntE);
               V2U = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P2,
                                                          PntE.Parameter(),
@@ -342,11 +342,11 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
           Surface.D0(P.X(), P.Y(), P2);
           if (Dom.HasFirstPoint())
           { // Iso V - Premier point
-            const HatchGen_PointOnHatching& PntH = Dom.FirstPoint();
+            const PointOnHatching& PntH = Dom.FirstPoint();
 
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
-              const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
+              const PointOnElement& PntE = PntH.Point(IPntE);
               V1V = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P1,
                                                          PntE.Parameter(),
@@ -359,11 +359,11 @@ void FaceIsoLiner::Perform(const Standard_Integer FI,
           }
           if (Dom.HasSecondPoint())
           { // Iso V - Deuxieme point
-            const HatchGen_PointOnHatching& PntH = Dom.SecondPoint();
+            const PointOnHatching& PntH = Dom.SecondPoint();
 
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
-              const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
+              const PointOnElement& PntE = PntH.Point(IPntE);
               V2V = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P2,
                                                          PntE.Parameter(),

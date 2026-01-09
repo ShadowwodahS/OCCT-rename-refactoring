@@ -40,7 +40,7 @@ class ViewWindow;
 //!
 //! The object is expected to behave like a trihedron in the view corner,
 //! therefore its position should be defined using transformation persistence flags:
-//! @code SetTransformPersistence (new Graphic3d_TransformPers (Graphic3d_TMF_TriedronPers,
+//! @code SetTransformPersistence (new TransformPers (Graphic3d_TMF_TriedronPers,
 //! Aspect_TOTP_LEFT_LOWER, Graphic3d_Vec2i (100, 100)); @endcode
 //!
 //! View Cube parts are sensitive to detection, or dynamic highlighting (but not selection),

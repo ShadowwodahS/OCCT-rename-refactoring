@@ -42,7 +42,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(IntCurvesFace_Intersector, RefObject)
 
 //
-static void ComputeSamplePars(const Handle(Adaptor3d_Surface)& Hsurface,
+static void ComputeSamplePars(const Handle(SurfaceAdaptor)& Hsurface,
                               const Standard_Integer           nbsu,
                               const Standard_Integer           nbsv,
                               Handle(TColStd_HArray1OfReal)&   UPars,
@@ -215,7 +215,7 @@ IntCurvesFace_Intersector::IntCurvesFace_Intersector(const TopoFace&     Face,
 
 //=================================================================================================
 
-void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
+void IntCurvesFace_Intersector::InternalCall(const HandleIntersection& HICS,
                                              const Standard_Real           parinf,
                                              const Standard_Real           parsup)
 {
@@ -364,7 +364,7 @@ void IntCurvesFace_Intersector::Perform(const gp_Lin&       L,
   mySeqState.Clear();
   nbpnt = 0;
 
-  IntCurveSurface_HInter    HICS;
+  HandleIntersection    HICS;
   Handle(GeomLine)         geomline = new GeomLine(L);
   GeomAdaptor_Curve         LL(geomline);
   Handle(GeomAdaptor_Curve) HLL    = new GeomAdaptor_Curve(LL);
@@ -441,7 +441,7 @@ void IntCurvesFace_Intersector::Perform(const gp_Lin&       L,
 
 //=================================================================================================
 
-void IntCurvesFace_Intersector::Perform(const Handle(Adaptor3d_Curve)& HCu,
+void IntCurvesFace_Intersector::Perform(const Handle(Curve5)& HCu,
                                         const Standard_Real            ParMin,
                                         const Standard_Real            ParMax)
 {
@@ -456,7 +456,7 @@ void IntCurvesFace_Intersector::Perform(const Handle(Adaptor3d_Curve)& HCu,
   mySeqState.Clear();
   //  Modified by skv - Wed Sep  3 16:14:11 2003 OCC578 End
   nbpnt = 0;
-  IntCurveSurface_HInter HICS;
+  HandleIntersection HICS;
 
   //--
   Standard_Real parinf = ParMin;

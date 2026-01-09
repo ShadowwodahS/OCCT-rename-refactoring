@@ -62,7 +62,7 @@
 
 static const Standard_Real PosTol = Precision1::PConfusion() * 0.5;
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomAdaptor_Surface, Adaptor3d_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(GeomAdaptor_Surface, SurfaceAdaptor)
 
 //=================================================================================================
 
@@ -115,7 +115,7 @@ GeomAbs_Shape LocalContinuity(Standard_Integer         Degree,
 
 //=================================================================================================
 
-Handle(Adaptor3d_Surface) GeomAdaptor_Surface::ShallowCopy() const
+Handle(SurfaceAdaptor) GeomAdaptor_Surface::ShallowCopy() const
 {
   Handle(GeomAdaptor_Surface) aCopy = new GeomAdaptor_Surface();
 
@@ -187,7 +187,7 @@ void GeomAdaptor_Surface::load(const Handle(GeomSurface)& S,
         Handle(Geom_SurfaceOfRevolution)::DownCast(mySurface);
       // Create nested adaptor for base curve
       Handle(GeomCurve3d)      aBaseCurve   = myRevSurf->BasisCurve();
-      Handle(Adaptor3d_Curve) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
+      Handle(Curve5) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
       // Create corresponding evaluator
       myNestedEvaluator = new GeomEvaluator_SurfaceOfRevolution(aBaseAdaptor,
                                                                 myRevSurf->Direction(),
@@ -200,7 +200,7 @@ void GeomAdaptor_Surface::load(const Handle(GeomSurface)& S,
         Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurface);
       // Create nested adaptor for base curve
       Handle(GeomCurve3d)      aBaseCurve   = myExtSurf->BasisCurve();
-      Handle(Adaptor3d_Curve) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
+      Handle(Curve5) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
       // Create corresponding evaluator
       myNestedEvaluator =
         new GeomEvaluator_SurfaceOfExtrusion(aBaseAdaptor, myExtSurf->Direction());
@@ -598,7 +598,7 @@ void GeomAdaptor_Surface::VIntervals(TColStd_Array1OfReal& T, const GeomAbs_Shap
 
 //=================================================================================================
 
-Handle(Adaptor3d_Surface) GeomAdaptor_Surface::UTrim(const Standard_Real First,
+Handle(SurfaceAdaptor) GeomAdaptor_Surface::UTrim(const Standard_Real First,
                                                      const Standard_Real Last,
                                                      const Standard_Real Tol) const
 {
@@ -608,7 +608,7 @@ Handle(Adaptor3d_Surface) GeomAdaptor_Surface::UTrim(const Standard_Real First,
 
 //=================================================================================================
 
-Handle(Adaptor3d_Surface) GeomAdaptor_Surface::VTrim(const Standard_Real First,
+Handle(SurfaceAdaptor) GeomAdaptor_Surface::VTrim(const Standard_Real First,
                                                      const Standard_Real Last,
                                                      const Standard_Real Tol) const
 {
@@ -1374,7 +1374,7 @@ Dir3d GeomAdaptor_Surface::Direction() const
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) GeomAdaptor_Surface::BasisCurve() const
+Handle(Curve5) GeomAdaptor_Surface::BasisCurve() const
 {
   Handle(GeomCurve3d) C;
   if (mySurfaceType == GeomAbs_SurfaceOfExtrusion)
@@ -1388,7 +1388,7 @@ Handle(Adaptor3d_Curve) GeomAdaptor_Surface::BasisCurve() const
 
 //=================================================================================================
 
-Handle(Adaptor3d_Surface) GeomAdaptor_Surface::BasisSurface() const
+Handle(SurfaceAdaptor) GeomAdaptor_Surface::BasisSurface() const
 {
   if (mySurfaceType != GeomAbs_OffsetSurface)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::BasisSurface");

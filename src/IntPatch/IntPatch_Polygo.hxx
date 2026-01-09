@@ -24,7 +24,7 @@
 #include <Intf_Polygon2d.hxx>
 class gp_Pnt2d;
 
-class IntPatch_Polygo : public Intf_Polygon2d
+class IntPatch_Polygo : public Polygon2d
 {
 public:
   DEFINE_STANDARD_ALLOC

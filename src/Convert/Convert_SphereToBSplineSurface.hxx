@@ -36,7 +36,7 @@ class Sphere3;
 //! V [-PI/2, PI/2].
 //! KeyWords :
 //! Convert, Sphere, BSplineSurface.
-class Convert_SphereToBSplineSurface : public ElementaryToBSplineSurface
+class SphereToBSplineConverter : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,7 +46,7 @@ public:
   //!
   //! Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_SphereToBSplineSurface(const Sphere3&    Sph,
+  Standard_EXPORT SphereToBSplineConverter(const Sphere3&    Sph,
                                                  const Standard_Real U1,
                                                  const Standard_Real U2,
                                                  const Standard_Real V1,
@@ -58,14 +58,14 @@ public:
   //! Raised if UTrim = True and Param1 = Param2 or
   //! Param1 = Param2 + 2.0 * Pi
   //! Raised if UTrim = False and Param1 = Param2
-  Standard_EXPORT Convert_SphereToBSplineSurface(const Sphere3&       Sph,
+  Standard_EXPORT SphereToBSplineConverter(const Sphere3&       Sph,
                                                  const Standard_Real    Param1,
                                                  const Standard_Real    Param2,
                                                  const Standard_Boolean UTrim = Standard_True);
 
   //! The equivalent B-spline surface as the same orientation
   //! as the sphere in the U and V parametric directions.
-  Standard_EXPORT Convert_SphereToBSplineSurface(const Sphere3& Sph);
+  Standard_EXPORT SphereToBSplineConverter(const Sphere3& Sph);
 
 protected:
 private:

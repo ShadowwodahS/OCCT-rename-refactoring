@@ -502,7 +502,7 @@ const AppParCurves_MultiCurve& AppCont_LeastSquare::Value()
   for (i = ideb; i <= ifin; i++)
   {
     j2 = 1;
-    AppParCurves_MultiPoint MPole(myNbP, myNbP2d);
+    MultiPoint MPole(myNbP, myNbP2d);
     for (j = 1; j <= myNbP; j++)
     {
       Pt.SetCoord(myPoles(i, j2), myPoles(i, j2 + 1), myPoles(i, j2 + 2));

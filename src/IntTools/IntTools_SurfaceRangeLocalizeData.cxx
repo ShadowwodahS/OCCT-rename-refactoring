@@ -148,7 +148,7 @@ void IntTools_SurfaceRangeLocalizeData::SetRangeUGrid(const Standard_Integer the
 
     if (!myVParams.IsNull())
     {
-      myGridPoints = new TColgp_HArray2OfPnt(1, theNbUGrid, 1, myVParams->Length());
+      myGridPoints = new PointGrid(1, theNbUGrid, 1, myVParams->Length());
     }
   }
 }
@@ -166,7 +166,7 @@ void IntTools_SurfaceRangeLocalizeData::SetRangeVGrid(const Standard_Integer the
 
     if (!myUParams.IsNull())
     {
-      myGridPoints = new TColgp_HArray2OfPnt(1, myUParams->Length(), 1, theNbVGrid);
+      myGridPoints = new PointGrid(1, myUParams->Length(), 1, theNbVGrid);
     }
   }
 }

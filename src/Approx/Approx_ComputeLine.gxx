@@ -705,7 +705,7 @@ Approx_ComputeLine::Approx_ComputeLine
   for (Standard_Integer i = Parameters.Lower(); i <= Parameters.Upper(); i++) {
     myfirstParam->SetValue(i, Parameters(i));
   }
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   Par = Approx_IsoParametric;
   mydegremin = degreemin;
   mydegremax = degreemax;
@@ -740,7 +740,7 @@ Approx_ComputeLine::Approx_ComputeLine
   }
   myfirstC = AppParCurves_TangencyPoint;
   mylastC = AppParCurves_TangencyPoint;
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   Par = Approx_IsoParametric;
   mydegremin = degreemin;
   mydegremax = degreemax;
@@ -764,7 +764,7 @@ Approx_ComputeLine::Approx_ComputeLine
 : myMultiLineNb (0),
   myIsClear (Standard_False)
 {
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   Par = parametrization;
   mydegremin = degreemin;
   mydegremax = degreemax;
@@ -792,7 +792,7 @@ Approx_ComputeLine::Approx_ComputeLine
 : myMultiLineNb (0),
   myIsClear (Standard_False)
 {
-  myConstraints = new AppParCurves_HArray1OfConstraintCouple(1, 2);
+  myConstraints = new ConstraintCoupleArray(1, 2);
   alldone = Standard_False;
   mydegremin = degreemin;
   mydegremax = degreemax;
@@ -1485,8 +1485,8 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 #endif
     AppParCurves_MultiCurve mySCU(mydegremin+1);
     if (nbP3d != 0 && nbP2d != 0) {
-      AppParCurves_MultiPoint MPole1(tabP1, tabP12d);
-      AppParCurves_MultiPoint MPole2(tabP2, tabP22d);
+      MultiPoint MPole1(tabP1, tabP12d);
+      MultiPoint MPole2(tabP2, tabP22d);
       mySCU.SetValue(1, MPole1);
       mySCU.SetValue(mydegremin+1, MPole2);
       for (i = 2; i <= mydegremin; i++) {
@@ -1500,14 +1500,14 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 	  P22d = tabP22d(j);
 	  tabP2d(j).SetXY(P12d.XY()+(i-1)*(P22d.XY()-P12d.XY())/mydegremin);
 	}
-	AppParCurves_MultiPoint MPole(tabP, tabP2d);
+	MultiPoint MPole(tabP, tabP2d);
 	mySCU.SetValue(i, MPole);
       }
 
     }
     else if (nbP3d != 0) {
-      AppParCurves_MultiPoint MPole1(tabP1);
-      AppParCurves_MultiPoint MPole2(tabP2);
+      MultiPoint MPole1(tabP1);
+      MultiPoint MPole2(tabP2);
       mySCU.SetValue(1, MPole1);
       mySCU.SetValue(mydegremin+1, MPole2);
       for (i = 2; i <= mydegremin; i++) {
@@ -1516,13 +1516,13 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 	  P2 = tabP2(j);
 	  tabP(j).SetXYZ(P1.XYZ()+(i-1)*(P2.XYZ()-P1.XYZ())/mydegremin);
 	}
-	AppParCurves_MultiPoint MPole(tabP);
+	MultiPoint MPole(tabP);
 	mySCU.SetValue(i, MPole);
       }
     }
     else if (nbP2d != 0) {
-      AppParCurves_MultiPoint MPole1(tabP12d);
-      AppParCurves_MultiPoint MPole2(tabP22d);
+      MultiPoint MPole1(tabP12d);
+      MultiPoint MPole2(tabP22d);
       mySCU.SetValue(1, MPole1);
       mySCU.SetValue(mydegremin+1, MPole2);
       for (i = 2; i <= mydegremin; i++) {
@@ -1531,7 +1531,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 	  P22d = tabP22d(j);
 	  tabP2d(j).SetXY(P12d.XY()+(i-1)*(P22d.XY()-P12d.XY())/mydegremin);
 	}
-	AppParCurves_MultiPoint MPole(tabP2d);
+	MultiPoint MPole(tabP2d);
 	mySCU.SetValue(i, MPole);
       }
     }

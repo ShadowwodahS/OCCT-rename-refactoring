@@ -61,7 +61,7 @@ Standard_Integer IntTools1::GetRadius(const BRepAdaptor_Curve& C,
   P3 = C.Value(t3);
   //
   //
-  gce_MakeCirc  aMakeCirc(P1, P2, P3);
+  CircleBuilder1  aMakeCirc(P1, P2, P3);
   gce_ErrorType anErrorType;
 
   anErrorType = aMakeCirc.Status();

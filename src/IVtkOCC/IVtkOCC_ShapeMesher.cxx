@@ -323,7 +323,7 @@ void IVtkOCC_ShapeMesher::addWFFace(const TopoFace&  theFace,
   for (Prs3d_NListOfSequenceOfPnt::Iterator aPolyIter(aPolylines); aPolyIter.More();
        aPolyIter.Next())
   {
-    const Handle(TColgp_HSequenceOfPnt)& aPoints    = aPolyIter.Value();
+    const Handle(PointSequence2)& aPoints    = aPolyIter.Value();
     const Standard_Integer               theNbNodes = aPoints->Length();
     if (theNbNodes < 2)
     {
@@ -331,7 +331,7 @@ void IVtkOCC_ShapeMesher::addWFFace(const TopoFace&  theFace,
     }
 
     IVtk_PointIdList aPolyPointIds;
-    for (TColgp_HSequenceOfPnt::Iterator aNodeIter(*aPoints); aNodeIter.More(); aNodeIter.Next())
+    for (PointSequence2::Iterator aNodeIter(*aPoints); aNodeIter.More(); aNodeIter.Next())
     {
       const Point3d&      aPnt = aNodeIter.Value();
       const IVtk_PointId anId = myShapeData->InsertCoordinate(aPnt);

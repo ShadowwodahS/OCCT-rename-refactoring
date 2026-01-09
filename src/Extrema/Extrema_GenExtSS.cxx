@@ -25,12 +25,12 @@
 #include <StdFail_NotDone.hxx>
 
 //! This class represents distance objective function for surface / surface.
-class Extrema_FuncDistSS : public math_MultipleVarFunctionWithGradient
+class Extrema_FuncDistSS : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Extrema_FuncDistSS(const Adaptor3d_Surface& S1, const Adaptor3d_Surface& S2)
+  Standard_EXPORT Extrema_FuncDistSS(const SurfaceAdaptor& S1, const SurfaceAdaptor& S2)
       : myS1(&S1),
         myS2(&S2)
   {
@@ -86,8 +86,8 @@ public:
 
 protected:
 private:
-  const Adaptor3d_Surface* myS1;
-  const Adaptor3d_Surface* myS2;
+  const SurfaceAdaptor* myS1;
+  const SurfaceAdaptor* myS2;
 };
 
 //=================================================================================================
@@ -120,8 +120,8 @@ Extrema_GenExtSS::~Extrema_GenExtSS()
 
 //=================================================================================================
 
-Extrema_GenExtSS::Extrema_GenExtSS(const Adaptor3d_Surface& S1,
-                                   const Adaptor3d_Surface& S2,
+Extrema_GenExtSS::Extrema_GenExtSS(const SurfaceAdaptor& S1,
+                                   const SurfaceAdaptor& S2,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
                                    const Standard_Real      Tol1,
@@ -134,8 +134,8 @@ Extrema_GenExtSS::Extrema_GenExtSS(const Adaptor3d_Surface& S1,
 
 //=================================================================================================
 
-Extrema_GenExtSS::Extrema_GenExtSS(const Adaptor3d_Surface& S1,
-                                   const Adaptor3d_Surface& S2,
+Extrema_GenExtSS::Extrema_GenExtSS(const SurfaceAdaptor& S1,
+                                   const SurfaceAdaptor& S2,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
                                    const Standard_Real      U1min,
@@ -156,7 +156,7 @@ Extrema_GenExtSS::Extrema_GenExtSS(const Adaptor3d_Surface& S1,
 
 //=================================================================================================
 
-void Extrema_GenExtSS::Initialize(const Adaptor3d_Surface& S2,
+void Extrema_GenExtSS::Initialize(const SurfaceAdaptor& S2,
                                   const Standard_Integer   NbU,
                                   const Standard_Integer   NbV,
                                   const Standard_Real      Tol2)
@@ -170,7 +170,7 @@ void Extrema_GenExtSS::Initialize(const Adaptor3d_Surface& S2,
 
 //=================================================================================================
 
-void Extrema_GenExtSS::Initialize(const Adaptor3d_Surface& S2,
+void Extrema_GenExtSS::Initialize(const SurfaceAdaptor& S2,
                                   const Standard_Integer   NbU,
                                   const Standard_Integer   NbV,
                                   const Standard_Real      U2min,
@@ -180,8 +180,8 @@ void Extrema_GenExtSS::Initialize(const Adaptor3d_Surface& S2,
                                   const Standard_Real      Tol2)
 {
   myS2      = &S2;
-  mypoints1 = new TColgp_HArray2OfPnt(0, NbU + 1, 0, NbV + 1);
-  mypoints2 = new TColgp_HArray2OfPnt(0, NbU + 1, 0, NbV + 1);
+  mypoints1 = new PointGrid(0, NbU + 1, 0, NbV + 1);
+  mypoints2 = new PointGrid(0, NbU + 1, 0, NbV + 1);
   myusample = NbU;
   myvsample = NbV;
   myu2min   = U2min;
@@ -218,7 +218,7 @@ void Extrema_GenExtSS::Initialize(const Adaptor3d_Surface& S2,
 
 //=================================================================================================
 
-void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1, const Standard_Real Tol1)
+void Extrema_GenExtSS::Perform(const SurfaceAdaptor& S1, const Standard_Real Tol1)
 {
   myu1min = S1.FirstUParameter();
   myu1sup = S1.LastUParameter();
@@ -229,7 +229,7 @@ void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1, const Standard_Real 
 
 //=================================================================================================
 
-void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1,
+void Extrema_GenExtSS::Perform(const SurfaceAdaptor& S1,
                                const Standard_Real      U1min,
                                const Standard_Real      U1sup,
                                const Standard_Real      V1min,

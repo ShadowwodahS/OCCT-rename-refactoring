@@ -32,8 +32,8 @@ public:
 
   //! Provides the signed distance function : Q(w)
   //! and its first derivative dQ(w)/dw
-  Standard_EXPORT QuadCurvExactHInter(const Handle(Adaptor3d_Surface)& S,
-                                                         const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT QuadCurvExactHInter(const Handle(SurfaceAdaptor)& S,
+                                                         const Handle(Curve5)&   C);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 

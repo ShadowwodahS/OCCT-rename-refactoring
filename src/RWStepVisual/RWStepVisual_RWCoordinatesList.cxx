@@ -43,14 +43,14 @@ void RWStepVisual_RWCoordinatesList::ReadStep(const Handle(StepData_StepReaderDa
   Standard_Integer nbP = 0;
   data->ReadInteger(num, 2, "number_points", ach, nbP);
 
-  Handle(TColgp_HArray1OfXYZ) aPoints; // = new TColgp_HArray1OfXYZ(1, nbP);
+  Handle(XYZArray) aPoints; // = new XYZArray(1, nbP);
   Standard_Integer            nsub2;
   if (data->ReadSubList(num, 3, "items", ach, nsub2))
   {
     Standard_Integer nb2 = data->NbParams(nsub2);
     if (!nb2)
       return;
-    aPoints = new TColgp_HArray1OfXYZ(1, nb2);
+    aPoints = new XYZArray(1, nb2);
     for (Standard_Integer i = 1; i <= nb2; i++)
     {
       Coords3d           aXYZ(0., 0., 0.);

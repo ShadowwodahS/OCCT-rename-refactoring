@@ -18,13 +18,13 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CoordinatesList, StepVisual_TessellatedIte
 StepVisual_CoordinatesList::StepVisual_CoordinatesList() {}
 
 void StepVisual_CoordinatesList::Init(const Handle(TCollection_HAsciiString)& theName,
-                                      const Handle(TColgp_HArray1OfXYZ)&      thePoints)
+                                      const Handle(XYZArray)&      thePoints)
 {
   StepRepr_RepresentationItem::Init(theName);
   myPoints = thePoints;
 }
 
-Handle(TColgp_HArray1OfXYZ) StepVisual_CoordinatesList::Points() const
+Handle(XYZArray) StepVisual_CoordinatesList::Points() const
 {
   return myPoints;
 }

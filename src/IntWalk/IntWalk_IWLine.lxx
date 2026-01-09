@@ -20,7 +20,7 @@
 inline void IntWalk_IWLine::Cut(const Standard_Integer Index)
 {
   //--   std::cout<<" split : "<<Index<<std::endl;
-  Handle(IntSurf_LineOn2S) lost = line->Split(Index);
+  Handle(LineOnTwoSurfaces) lost = line->Split(Index);
 }
 
 inline void IntWalk_IWLine::AddPoint(const PointOn2Surfaces& P)
@@ -85,7 +85,7 @@ inline const PointOn2Surfaces& IntWalk_IWLine::Value(const Standard_Integer Inde
   return line->Value(Index);
 }
 
-inline const Handle(IntSurf_LineOn2S)& IntWalk_IWLine::Line() const
+inline const Handle(LineOnTwoSurfaces)& IntWalk_IWLine::Line() const
 {
   return line;
 }

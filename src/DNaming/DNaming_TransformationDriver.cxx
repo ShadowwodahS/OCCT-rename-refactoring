@@ -42,7 +42,7 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_TransformationDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_TransformationDriver, FunctionDriver1)
 
 #ifdef _WIN32
   #define EXCEPTION ...

@@ -156,7 +156,7 @@ void TDF_Attribute::AfterResume() {}
 
 //=======================================================================
 // function : BeforeUndo
-// purpose  : Before application of a TDF_Delta.
+// purpose  : Before application of a Delta.
 //=======================================================================
 
 Standard_Boolean TDF_Attribute::BeforeUndo(const Handle(TDF_AttributeDelta)& /*anAttDelta*/,
@@ -167,7 +167,7 @@ Standard_Boolean TDF_Attribute::BeforeUndo(const Handle(TDF_AttributeDelta)& /*a
 
 //=======================================================================
 // function : AfterUndo
-// purpose  : After application of a TDF_Delta.
+// purpose  : After application of a Delta.
 //=======================================================================
 
 Standard_Boolean TDF_Attribute::AfterUndo(const Handle(TDF_AttributeDelta)& /*anAttDelta*/,
@@ -197,7 +197,7 @@ void TDF_Attribute::Backup()
   // The attribute must be valid and attached to a label.
   if (IsValid() && (myLabelNode != NULL))
   {
-    Handle(TDF_Data) aData = myLabelNode->Data();
+    Handle(Data2) aData = myLabelNode->Data();
 
     // check that modification is allowed
     if (!aData->IsModificationAllowed())

@@ -13,4 +13,4 @@
 
 #include <Graphic3d_TextureSet.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TextureSet, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TextureSet1, RefObject)

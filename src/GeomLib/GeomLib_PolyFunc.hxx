@@ -25,7 +25,7 @@
 #include <math_FunctionWithDerivative.hxx>
 
 //! Polynomial  Function
-class GeomLib_PolyFunc : public math_FunctionWithDerivative
+class GeomLib_PolyFunc : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -21,7 +21,7 @@
 #include <math_FunctionSetRoot.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepBlend_AppFuncRoot, Approx_SweepFunction)
+IMPLEMENT_STANDARD_RTTIEXT(BRepBlend_AppFuncRoot, SweepFunction)
 
 BRepBlend_AppFuncRoot::BRepBlend_AppFuncRoot(Handle(BRepBlend_Line)& Line,
                                              Blend_AppFunction&      Func,

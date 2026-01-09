@@ -20,6 +20,6 @@
 #include <TColGeom_SequenceOfCurve.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TColGeom_HSequenceOfCurve, TColGeom_SequenceOfCurve)
+DEFINE_HSEQUENCE(HSequenceOfCurve1, TColGeom_SequenceOfCurve)
 
 #endif

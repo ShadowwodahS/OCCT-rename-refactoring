@@ -56,7 +56,7 @@ Geom_VectorWithMagnitude::Geom_VectorWithMagnitude(const Pnt& P1, const Pnt& P2)
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_VectorWithMagnitude::Copy() const
+Handle(Geometry3) Geom_VectorWithMagnitude::Copy() const
 {
 
   Handle(Geom_VectorWithMagnitude) V;

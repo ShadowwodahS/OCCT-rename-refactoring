@@ -35,7 +35,7 @@
 //=======================================================================
 static Standard_Integer DDataStd_SetNode(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(a[1], DF))
     return 1;
   DataLabel                 L;
@@ -74,7 +74,7 @@ static Standard_Integer DDataStd_AppendNode(DrawInterpreter& di,
 {
   if (n >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) father, child;
@@ -126,7 +126,7 @@ static Standard_Integer DDataStd_PrependNode(DrawInterpreter& di,
 {
   if (n >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) father, child;
@@ -176,7 +176,7 @@ static Standard_Integer DDataStd_RootNode(DrawInterpreter& di, Standard_Integer 
 {
   if (n >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) TN;
@@ -215,7 +215,7 @@ static Standard_Integer DDataStd_InsertNodeBefore(DrawInterpreter& di,
 {
   if (n >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) current, TN;
@@ -261,7 +261,7 @@ static Standard_Integer DDataStd_InsertNodeAfter(DrawInterpreter& di,
 {
   if (n >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) current, TN;
@@ -306,7 +306,7 @@ static Standard_Integer DDataStd_DetachNode(DrawInterpreter& di,
 {
   if (n >= 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) TN;
@@ -350,7 +350,7 @@ static Standard_Integer DDataStd_TreeBrowse(DrawInterpreter& di,
   if (n < 3)
     return 1;
 
-  Handle(TDF_Data) DF;
+  Handle(Data2) DF;
   if (!DDF1::GetDF(a[1], DF))
     return 1;
 
@@ -419,7 +419,7 @@ static Standard_Integer DDataStd_ChildNodeIterate(DrawInterpreter& di,
 {
   if (n >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     const Standard_Boolean    AllLevels = (Draw1::Atoi(a[3]) != 0);
@@ -473,7 +473,7 @@ static Standard_Integer DDataStd_InitChildNodeIterator(DrawInterpreter& di,
 {
   if (n >= 4)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) TN, Value;

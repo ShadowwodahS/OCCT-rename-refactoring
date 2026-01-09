@@ -62,7 +62,7 @@ void BSplineCurveTool::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
   Coords3d                        aNorm(0., 0., 0.);
   Handle(TColStd_HArray1OfReal) allKnots;
   Handle(TColStd_HArray1OfReal) allWeights;
-  Handle(TColgp_HArray1OfXYZ)   allPoles;
+  Handle(XYZArray)   allPoles;
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 moved down
 
@@ -71,7 +71,7 @@ void BSplineCurveTool::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
 
   // szv#4:S4163:12Mar99 optimized
   /*if (st && anIndex >= 0) {
-    allPoles   = new TColgp_HArray1OfXYZ(0, anIndex);
+    allPoles   = new XYZArray(0, anIndex);
     // allWeights = new TColStd_HArray1OfReal(1, anIndex+1);  done by ReadReals
   }
 
@@ -90,7 +90,7 @@ void BSplineCurveTool::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
     }
     else
     {
-      allPoles = new TColgp_HArray1OfXYZ(0, anIndex);
+      allPoles = new XYZArray(0, anIndex);
       // allWeights = new TColStd_HArray1OfReal(1, anIndex+1);  done by ReadReals
     }
   }
@@ -273,7 +273,7 @@ void BSplineCurveTool::OwnCopy(const Handle(IGESGeom_BSplineCurve)& another,
   Standard_Integer              anIndex, aDegree;
   Standard_Boolean              aPlanar, aClosed, aPolynomial, aPeriodic;
   Handle(TColStd_HArray1OfReal) allKnots, allWeights;
-  Handle(TColgp_HArray1OfXYZ)   allPoles;
+  Handle(XYZArray)   allPoles;
   Standard_Real                 aUmin, aUmax;
   Coords3d                        aNorm;
 
@@ -298,7 +298,7 @@ void BSplineCurveTool::OwnCopy(const Handle(IGESGeom_BSplineCurve)& another,
   for (I = low; I <= up; I++)
     allWeights->SetValue(I, another->Weight(I));
 
-  allPoles = new TColgp_HArray1OfXYZ(0, anIndex);
+  allPoles = new XYZArray(0, anIndex);
 
   for (I = low; I <= up; I++)
     allPoles->SetValue(I, (another->Pole(I)).XYZ());

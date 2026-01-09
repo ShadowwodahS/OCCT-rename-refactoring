@@ -21,6 +21,6 @@
 #include <GeomPlate_Array1OfSequenceOfReal.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(GeomPlate_HArray1OfSequenceOfReal, GeomPlate_Array1OfSequenceOfReal)
+DEFINE_HARRAY1(RealSequenceArray, GeomPlate_Array1OfSequenceOfReal)
 
 #endif

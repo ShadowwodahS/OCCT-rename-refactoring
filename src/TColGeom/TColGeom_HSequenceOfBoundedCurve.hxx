@@ -21,6 +21,6 @@
 #include <TColGeom_SequenceOfBoundedCurve.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(TColGeom_HSequenceOfBoundedCurve, TColGeom_SequenceOfBoundedCurve)
+DEFINE_HSEQUENCE(HSequenceOfBoundedCurve1, TColGeom_SequenceOfBoundedCurve)
 
 #endif

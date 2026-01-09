@@ -255,13 +255,13 @@ void AdvApp2Var_ApproxAFunc2Var::InitGrid(const Standard_Integer NbInt)
   Network Result(Net, TheU, TheV);
 
   Coords2d                     UV1(myFirstParInU, myFirstParInV);
-  Handle(AdvApp2Var_Node)   C1 = new AdvApp2Var_Node(UV1, iu, iv);
+  Handle(ApproximationNode)   C1 = new ApproximationNode(UV1, iu, iv);
   Coords2d                     UV2(myLastParInU, myFirstParInV);
-  Handle(AdvApp2Var_Node)   C2 = new AdvApp2Var_Node(UV2, iu, iv);
+  Handle(ApproximationNode)   C2 = new ApproximationNode(UV2, iu, iv);
   Coords2d                     UV4(myLastParInU, myLastParInV);
-  Handle(AdvApp2Var_Node)   C4 = new AdvApp2Var_Node(UV4, iu, iv);
+  Handle(ApproximationNode)   C4 = new ApproximationNode(UV4, iu, iv);
   Coords2d                     UV3(myFirstParInU, myLastParInV);
-  Handle(AdvApp2Var_Node)   C3 = new AdvApp2Var_Node(UV3, iu, iv);
+  Handle(ApproximationNode)   C3 = new ApproximationNode(UV3, iu, iv);
   AdvApp2Var_SequenceOfNode Bag;
   Bag.Append(C1);
   Bag.Append(C2);
@@ -618,7 +618,7 @@ void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&          
   Standard_Boolean more;
   Standard_Integer ind1, ind2, NbPatch, NbU, NbV;
   Standard_Integer iu = myConditions.UOrder(), iv = myConditions.VOrder();
-  AdvApp2Var_Node  N1(iu, iv), N2(iu, iv);
+  ApproximationNode  N1(iu, iv), N2(iu, iv);
 
   for (Handle(AdvApp2Var_Iso) anIso = myConstraints.FirstNotApprox(ind1, ind2); !anIso.IsNull();
        anIso                        = myConstraints.FirstNotApprox(ind1, ind2))
@@ -711,7 +711,7 @@ void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&          
   Standard_Integer ind1, ind2, NbPatch, NbU, NbV;
   Standard_Integer indN1, indN2;
   Standard_Integer iu = myConditions.UOrder(), iv = myConditions.VOrder();
-  AdvApp2Var_Node  N1(iu, iv), N2(iu, iv);
+  ApproximationNode  N1(iu, iv), N2(iu, iv);
 
   for (Handle(AdvApp2Var_Iso) anIso = myConstraints.FirstNotApprox(ind1, ind2); !anIso.IsNull();
        anIso                        = myConstraints.FirstNotApprox(ind1, ind2))
@@ -885,7 +885,7 @@ void AdvApp2Var_ApproxAFunc2Var::ConvertBS()
   myDegreeInV = ncfv - 1;
 
   // Calculate resulting surfaces
-  mySurfaces = new (TColGeom_HArray1OfSurface)(1, myNumSubSpaces[2]);
+  mySurfaces = new (SurfaceArray)(1, myNumSubSpaces[2]);
 
   Standard_Integer     j;
   TColStd_Array1OfReal UKnots(1, myResult.NbPatchInU() + 1);

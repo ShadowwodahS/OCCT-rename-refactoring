@@ -140,7 +140,7 @@ public:
 
   //! Returns currently filling data frame for modification, should be called between ::FrameStart()
   //! and ::FrameEnd() calls.
-  Graphic3d_FrameStatsDataTmp& ActiveDataFrame() { return myCountersTmp; }
+  FrameStatsDataTmp& ActiveDataFrame() { return myCountersTmp; }
 
 protected:
   //! Method to collect statistics from the View; called by FrameEnd().
@@ -155,7 +155,7 @@ protected:
   // clang-format off
   Standard_Size    myFpsFrameCount;           //!< FPS counter (within short measurement time slice)
   NCollection_Array1<FrameStatsData> myCounters; //!< data frames history
-  Graphic3d_FrameStatsDataTmp myCountersTmp;  //!< data frame values filled to be filled between FrameStart() and FrameEnd() calls
+  FrameStatsDataTmp myCountersTmp;  //!< data frame values filled to be filled between FrameStart() and FrameEnd() calls
   FrameStatsData    myCountersMax;  //!< data frame values with absolute maximum values in the history
   Standard_Integer myLastFrameIndex;          //!< last data frame index
   Standard_Boolean myIsLongLineFormat;        //!< prefer longer lines over greater number of lines

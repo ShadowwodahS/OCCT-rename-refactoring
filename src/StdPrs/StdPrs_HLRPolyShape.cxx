@@ -77,7 +77,7 @@ void StdPrs_HLRPolyShape::ComputeHLR(const Handle(Prs3d_Presentation)& aPresenta
   hider->Update();
   Standard_Real        sta, end, dx, dy, dz;
   Standard_ShortReal   tolsta, tolend;
-  HLRAlgo_EdgeStatus   status;
+  EdgeStatus   status;
   HLRAlgo_EdgeIterator It;
   Standard_Boolean     reg1, regn, outl, intl;
   Standard_Address     Coordinates;

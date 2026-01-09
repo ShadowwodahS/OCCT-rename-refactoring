@@ -167,9 +167,9 @@ static Handle(ViewerTest_Window)& VT_GetWindow()
   return aWindow;
 }
 
-static Handle(Aspect_DisplayConnection)& GetDisplayConnection()
+static Handle(DisplayConnection1)& GetDisplayConnection()
 {
-  static Handle(Aspect_DisplayConnection) aDisplayConnection;
+  static Handle(DisplayConnection1) aDisplayConnection;
   return aDisplayConnection;
 }
 
@@ -180,7 +180,7 @@ using ViewerTest_ViewerCommandsInteractiveContextMap =
 using ViewerTest_ViewerCommandsGraphicDriverMap =
   NCollection_DoubleMap<AsciiString1, Handle(Graphic3d_GraphicDriver)>;
 
-static void SetDisplayConnection(const Handle(Aspect_DisplayConnection)& theDisplayConnection)
+static void SetDisplayConnection(const Handle(DisplayConnection1)& theDisplayConnection)
 {
   GetDisplayConnection() = theDisplayConnection;
 }
@@ -503,16 +503,16 @@ AsciiString1 ViewerTest1::ViewerInit(const ViewerTest_VinitParams& theParams)
 #endif
   }
 
-  Handle(Graphic3d_GraphicDriverFactory) aFactory =
-    Graphic3d_GraphicDriverFactory::DefaultDriverFactory();
+  Handle(GraphicDriverFactory) aFactory =
+    GraphicDriverFactory::DefaultDriverFactory();
   if (aFactory.IsNull())
   {
     Draw1::GetInterpretor().Eval("pload OPENGL");
-    aFactory = Graphic3d_GraphicDriverFactory::DefaultDriverFactory();
+    aFactory = GraphicDriverFactory::DefaultDriverFactory();
     if (aFactory.IsNull())
     {
       Draw1::GetInterpretor().Eval("pload GLES");
-      aFactory = Graphic3d_GraphicDriverFactory::DefaultDriverFactory();
+      aFactory = GraphicDriverFactory::DefaultDriverFactory();
       if (aFactory.IsNull())
       {
         throw Standard_ProgramError("Error: no graphic driver factory found");
@@ -536,7 +536,7 @@ AsciiString1 ViewerTest1::ViewerInit(const ViewerTest_VinitParams& theParams)
 #if defined(HAVE_XLIB)
     if (!theParams.DisplayName.IsEmpty())
     {
-      SetDisplayConnection(new Aspect_DisplayConnection(theParams.DisplayName));
+      SetDisplayConnection(new DisplayConnection1(theParams.DisplayName));
     }
     else
     {
@@ -547,10 +547,10 @@ AsciiString1 ViewerTest1::ViewerInit(const ViewerTest_VinitParams& theParams)
       Tcl_Interp* aTclInterp = aCommands.Interp();
       Tk_Window aMainWindow = Tk_MainWindow (aTclInterp);
       aDispX = aMainWindow != NULL ? Tk_Display (aMainWindow) : NULL;*/
-      SetDisplayConnection(new Aspect_DisplayConnection(aDispX));
+      SetDisplayConnection(new DisplayConnection1(aDispX));
     }
 #else
-    SetDisplayConnection(new Aspect_DisplayConnection());
+    SetDisplayConnection(new DisplayConnection1());
 #endif
 
     aGraphicDriver = aFactory->CreateDriver(GetDisplayConnection());
@@ -853,18 +853,18 @@ static int VDriver(DrawInterpreter& theDi, Standard_Integer theArgsNb, const cha
   {
     theDi << "Registered: ";
     for (Graphic3d_GraphicDriverFactoryList::Iterator aFactoryIter(
-           Graphic3d_GraphicDriverFactory::DriverFactories());
+           GraphicDriverFactory::DriverFactories());
          aFactoryIter.More();
          aFactoryIter.Next())
     {
-      const Handle(Graphic3d_GraphicDriverFactory)& aFactory = aFactoryIter.Value();
+      const Handle(GraphicDriverFactory)& aFactory = aFactoryIter.Value();
       theDi << aFactory->Name() << " ";
     }
 
     theDi << "\n";
     theDi << "Default: ";
-    if (Handle(Graphic3d_GraphicDriverFactory) aFactory =
-          Graphic3d_GraphicDriverFactory::DefaultDriverFactory())
+    if (Handle(GraphicDriverFactory) aFactory =
+          GraphicDriverFactory::DefaultDriverFactory())
     {
       theDi << aFactory->Name();
     }
@@ -884,11 +884,11 @@ static int VDriver(DrawInterpreter& theDi, Standard_Integer theArgsNb, const cha
     if (anArgCase == "-list")
     {
       for (Graphic3d_GraphicDriverFactoryList::Iterator aFactoryIter(
-             Graphic3d_GraphicDriverFactory::DriverFactories());
+             GraphicDriverFactory::DriverFactories());
            aFactoryIter.More();
            aFactoryIter.Next())
       {
-        const Handle(Graphic3d_GraphicDriverFactory)& aFactory = aFactoryIter.Value();
+        const Handle(GraphicDriverFactory)& aFactory = aFactoryIter.Value();
         theDi << aFactory->Name() << " ";
       }
     }
@@ -906,8 +906,8 @@ static int VDriver(DrawInterpreter& theDi, Standard_Integer theArgsNb, const cha
       }
       else
       {
-        if (Handle(Graphic3d_GraphicDriverFactory) aFactory =
-              Graphic3d_GraphicDriverFactory::DefaultDriverFactory())
+        if (Handle(GraphicDriverFactory) aFactory =
+              GraphicDriverFactory::DefaultDriverFactory())
         {
           theDi << aFactory->Name();
         }
@@ -974,14 +974,14 @@ static int VDriver(DrawInterpreter& theDi, Standard_Integer theArgsNb, const cha
 
     bool isFound = false;
     for (Graphic3d_GraphicDriverFactoryList::Iterator aFactoryIter(
-           Graphic3d_GraphicDriverFactory::DriverFactories());
+           GraphicDriverFactory::DriverFactories());
          aFactoryIter.More();
          aFactoryIter.Next())
     {
-      Handle(Graphic3d_GraphicDriverFactory) aFactory = aFactoryIter.Value();
+      Handle(GraphicDriverFactory) aFactory = aFactoryIter.Value();
       if (AsciiString1::IsSameString(aFactory->Name(), aNewActive, false))
       {
-        Graphic3d_GraphicDriverFactory::RegisterFactory(aFactory, true);
+        GraphicDriverFactory::RegisterFactory(aFactory, true);
         isFound = true;
         break;
       }
@@ -2353,12 +2353,12 @@ int ViewerMainLoop(Standard_Integer theNbArgs, const char** theArgVec)
 static void VProcessEvents(ClientData theDispX, int)
 {
   Display*                         aDispX = (Display*)theDispX;
-  Handle(Aspect_DisplayConnection) aDispConn;
+  Handle(DisplayConnection1) aDispConn;
   for (ViewerTest_ViewerCommandsGraphicDriverMap::Iterator aDriverIter(ViewerTest_myDrivers);
        aDriverIter.More();
        aDriverIter.Next())
   {
-    const Handle(Aspect_DisplayConnection)& aDispConnTmp =
+    const Handle(DisplayConnection1)& aDispConnTmp =
       aDriverIter.Key2()->GetDisplayConnection();
     if ((Display*)aDispConnTmp->GetDisplayAspect() == aDispX)
     {
@@ -3559,7 +3559,7 @@ static int VColorScale(DrawInterpreter& theDI, Standard_Integer theArgNb, const 
     aColorScale->SetZLayer(Graphic3d_ZLayerId_TopOSD);
     aContext->SetTransformPersistence(
       aColorScale,
-      new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+      new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   }
 
   ViewerTest_AutoUpdater anUpdateTool(aContext, aView);
@@ -4383,11 +4383,11 @@ static int VTile(DrawInterpreter& theDI, Standard_Integer theArgNb, const char**
     return 1;
   }
 
-  CameraTile aTile = aView->Camera()->Tile();
+  CameraTile aTile = aView->Camera()->Tile1();
   if (theArgNb < 2)
   {
     theDI << "Total size: " << aTile.TotalSize.x() << " " << aTile.TotalSize.y() << "\n"
-          << "Tile  size: " << aTile.TileSize.x() << " " << aTile.TileSize.y() << "\n"
+          << "Tile1  size: " << aTile.TileSize.x() << " " << aTile.TileSize.y() << "\n"
           << "Lower left: " << aTile.Offset.x() << " " << aTile.Offset.y() << "\n";
     return 0;
   }
@@ -4982,7 +4982,7 @@ static int VLayerLine(DrawInterpreter& di, Standard_Integer argc, const char** a
 
   aContext->SetTransformPersistence(
     aLine,
-    new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+    new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   aLine->SetZLayer(Graphic3d_ZLayerId_TopOSD);
   aLine->SetToUpdate();
   aContext->Display(aLine, Standard_True);
@@ -7242,7 +7242,7 @@ static Standard_Integer VAnimation(DrawInterpreter& theDI,
 
   // video recording parameters
   AsciiString1 aRecFile;
-  Image_VideoParams       aRecParams;
+  VideoParams       aRecParams;
 
   Handle(ViewWindow) aView = ViewerTest1::CurrentView();
   for (; anArgIter < theArgNb; ++anArgIter)
@@ -7749,7 +7749,7 @@ static Standard_Integer VAnimation(DrawInterpreter& theDI,
   OSD_Timer aPerfTimer;
   aPerfTimer.Start();
 
-  Handle(Image_VideoRecorder)    aRecorder;
+  Handle(VideoRecorder)    aRecorder;
   ImageFlipper                   aFlipper;
   Handle(Draw_ProgressIndicator) aProgress;
   if (!aRecFile.IsEmpty())
@@ -7759,7 +7759,7 @@ static Standard_Integer VAnimation(DrawInterpreter& theDI,
       aView->Window()->Size(aRecParams.Width, aRecParams.Height);
     }
 
-    aRecorder = new Image_VideoRecorder();
+    aRecorder = new VideoRecorder();
     if (!aRecorder->Open(aRecFile.ToCString(), aRecParams))
     {
       Message1::SendFail("Error: failed to open video file for recording");
@@ -9839,7 +9839,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
         if (aLayeriter.Value() == aLayer || aLayer == Graphic3d_ZLayerId_UNKNOWN)
         {
           Graphic3d_ZLayerSettings aSettings = aViewer->ZLayerSettings(aLayeriter.Value());
-          aSettings.SetLights(Handle(Graphic3d_LightSet)());
+          aSettings.SetLights(Handle(LightSet)());
           aViewer->SetZLayerSettings(aLayeriter.Value(), aSettings);
           if (aLayer != Graphic3d_ZLayerId_UNKNOWN)
           {
@@ -10228,7 +10228,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
           aSettings.Lights()->Remove(aLightOld);
           if (aSettings.Lights()->IsEmpty())
           {
-            aSettings.SetLights(Handle(Graphic3d_LightSet)());
+            aSettings.SetLights(Handle(LightSet)());
           }
         }
         aViewer->SetZLayerSettings(aLayerIter.Value(), aSettings);
@@ -10273,7 +10273,7 @@ static int VLight(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char
       Graphic3d_ZLayerSettings aSettings = aViewer->ZLayerSettings(aLayer);
       if (aSettings.Lights().IsNull())
       {
-        aSettings.SetLights(new Graphic3d_LightSet());
+        aSettings.SetLights(new LightSet());
       }
       aSettings.Lights()->Add(aLightNew);
       aViewer->SetZLayerSettings(aLayer, aSettings);
@@ -13313,9 +13313,9 @@ static int VViewCube(DrawInterpreter&, Standard_Integer theNbArgs, const char** 
     }
     else if (anArg == "-orthopers")
     {
-      const Handle(Graphic3d_TransformPers)& aTrsfPers = aViewCube->TransformPersistence();
-      Handle(Graphic3d_TransformPers)        anOrthoPers =
-        new Graphic3d_TransformPers(Graphic3d_TMF_TriedronPers | Graphic3d_TMF_OrthoPers,
+      const Handle(TransformPers)& aTrsfPers = aViewCube->TransformPersistence();
+      Handle(TransformPers)        anOrthoPers =
+        new TransformPers(Graphic3d_TMF_TriedronPers | Graphic3d_TMF_OrthoPers,
                                     aTrsfPers->Corner2d(),
                                     aTrsfPers->Offset2d());
       aViewCube->SetTransformPersistence(anOrthoPers);

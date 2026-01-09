@@ -18,7 +18,7 @@
 #include <gp_Lin2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BLine, GccInt_Bisec)
+IMPLEMENT_STANDARD_RTTIEXT(GccInt_BLine, Bisector2)
 
 GccInt_BLine::GccInt_BLine(const gp_Lin2d& Line)
 {

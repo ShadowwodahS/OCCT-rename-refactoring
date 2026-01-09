@@ -23,7 +23,7 @@
 
 //! Auxiliary class implements functionality retrieving tessellated
 //! representation of an edge stored in polygon.
-class BRepMesh_EdgeTessellationExtractor : public IMeshTools_CurveTessellator
+class BRepMesh_EdgeTessellationExtractor : public CurveTessellator
 {
 public:
   //! Constructor.
@@ -46,7 +46,7 @@ public:
                                                  Standard_Real&         theParameter) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_EdgeTessellationExtractor, IMeshTools_CurveTessellator)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_EdgeTessellationExtractor, CurveTessellator)
 
 private:
   BRepMesh_EdgeParameterProvider<Handle(TColStd_HArray1OfReal)> myProvider;

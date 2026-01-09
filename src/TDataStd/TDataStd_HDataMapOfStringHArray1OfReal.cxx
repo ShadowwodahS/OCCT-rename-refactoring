@@ -17,23 +17,23 @@
 
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringHArray1OfReal, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(StringRealArrayMap, RefObject)
 
 //=======================================================================
-// function : TDataStd_HDataMapOfStringHArray1OfReal
+// function : StringRealArrayMap
 // purpose  : Constructor of empty map
 //=======================================================================
-TDataStd_HDataMapOfStringHArray1OfReal::TDataStd_HDataMapOfStringHArray1OfReal(
+StringRealArrayMap::StringRealArrayMap(
   const Standard_Integer NbBuckets)
 {
   myMap.ReSize(NbBuckets);
 }
 
 //=======================================================================
-// function : TDataStd_HDataMapOfStringHArray1OfReal
+// function : StringRealArrayMap
 // purpose  : Constructor from already existing map; performs copying
 //=======================================================================
-TDataStd_HDataMapOfStringHArray1OfReal::TDataStd_HDataMapOfStringHArray1OfReal(
+StringRealArrayMap::StringRealArrayMap(
   const TDataStd_DataMapOfStringHArray1OfReal& theOther)
 {
   myMap.Assign(theOther);

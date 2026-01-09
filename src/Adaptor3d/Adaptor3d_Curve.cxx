@@ -28,230 +28,230 @@
 #include <gp_Vec.hxx>
 #include <Standard_NotImplemented.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_Curve, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Curve5, RefObject)
 
 //=================================================================================================
 
-Adaptor3d_Curve::~Adaptor3d_Curve() {}
+Curve5::~Curve5() {}
 
 //=================================================================================================
 
-Handle(Adaptor3d_Curve) Adaptor3d_Curve::ShallowCopy() const
+Handle(Curve5) Curve5::ShallowCopy() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::ShallowCopy");
+  throw Standard_NotImplemented("Curve5::ShallowCopy");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Curve::FirstParameter() const
+Standard_Real Curve5::FirstParameter() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::FirstParameter");
+  throw Standard_NotImplemented("Curve5::FirstParameter");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Curve::LastParameter() const
+Standard_Real Curve5::LastParameter() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::LastParameter");
+  throw Standard_NotImplemented("Curve5::LastParameter");
 }
 
 //=================================================================================================
 
-GeomAbs_Shape Adaptor3d_Curve::Continuity() const
+GeomAbs_Shape Curve5::Continuity() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Continuity");
+  throw Standard_NotImplemented("Curve5::Continuity");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Curve::NbIntervals(const GeomAbs_Shape) const
+Standard_Integer Curve5::NbIntervals(const GeomAbs_Shape) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::NbIntervals");
+  throw Standard_NotImplemented("Curve5::NbIntervals");
 }
 
 //=================================================================================================
 
-void Adaptor3d_Curve::Intervals(TColStd_Array1OfReal&, const GeomAbs_Shape) const
+void Curve5::Intervals(TColStd_Array1OfReal&, const GeomAbs_Shape) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Intervals");
+  throw Standard_NotImplemented("Curve5::Intervals");
 }
 
 //=================================================================================================
 
-// Handle(Adaptor3d_Curve) Adaptor3d_Curve::Trim(const Standard_Real First, const Standard_Real
+// Handle(Curve5) Curve5::Trim(const Standard_Real First, const Standard_Real
 // Last, const Standard_Real Tol) const
-Handle(Adaptor3d_Curve) Adaptor3d_Curve::Trim(const Standard_Real,
+Handle(Curve5) Curve5::Trim(const Standard_Real,
                                               const Standard_Real,
                                               const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Trim");
+  throw Standard_NotImplemented("Curve5::Trim");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Curve::IsClosed() const
+Standard_Boolean Curve5::IsClosed() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::IsClosed");
+  throw Standard_NotImplemented("Curve5::IsClosed");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Curve::IsPeriodic() const
+Standard_Boolean Curve5::IsPeriodic() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::IsPeriodic");
+  throw Standard_NotImplemented("Curve5::IsPeriodic");
 }
 
 //=================================================================================================
 
-Standard_Real Adaptor3d_Curve::Period() const
+Standard_Real Curve5::Period() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Period");
+  throw Standard_NotImplemented("Curve5::Period");
 }
 
 //=================================================================================================
 
-// Point3d Adaptor3d_Curve::Value(const Standard_Real U) const
-Point3d Adaptor3d_Curve::Value(const Standard_Real) const
+// Point3d Curve5::Value(const Standard_Real U) const
+Point3d Curve5::Value(const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Value");
+  throw Standard_NotImplemented("Curve5::Value");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D0(const Standard_Real U, Point3d& P) const
-void Adaptor3d_Curve::D0(const Standard_Real, Point3d&) const
+// void Curve5::D0(const Standard_Real U, Point3d& P) const
+void Curve5::D0(const Standard_Real, Point3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::D0");
+  throw Standard_NotImplemented("Curve5::D0");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
-void Adaptor3d_Curve::D1(const Standard_Real, Point3d&, Vector3d&) const
+// void Curve5::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
+void Curve5::D1(const Standard_Real, Point3d&, Vector3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::D1");
+  throw Standard_NotImplemented("Curve5::D1");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
-void Adaptor3d_Curve::D2(const Standard_Real, Point3d&, Vector3d&, Vector3d&) const
+// void Curve5::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
+void Curve5::D2(const Standard_Real, Point3d&, Vector3d&, Vector3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::D2");
+  throw Standard_NotImplemented("Curve5::D2");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3)
+// void Curve5::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3)
 // const
-void Adaptor3d_Curve::D3(const Standard_Real, Point3d&, Vector3d&, Vector3d&, Vector3d&) const
+void Curve5::D3(const Standard_Real, Point3d&, Vector3d&, Vector3d&, Vector3d&) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::D3");
+  throw Standard_NotImplemented("Curve5::D3");
 }
 
 //=================================================================================================
 
-// Vector3d Adaptor3d_Curve::DN(const Standard_Real U, const Standard_Integer N) const
-Vector3d Adaptor3d_Curve::DN(const Standard_Real, const Standard_Integer) const
+// Vector3d Curve5::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d Curve5::DN(const Standard_Real, const Standard_Integer) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::DN");
+  throw Standard_NotImplemented("Curve5::DN");
 }
 
 //=================================================================================================
 
-// Standard_Real Adaptor3d_Curve::Resolution(const Standard_Real R3d) const
-Standard_Real Adaptor3d_Curve::Resolution(const Standard_Real) const
+// Standard_Real Curve5::Resolution(const Standard_Real R3d) const
+Standard_Real Curve5::Resolution(const Standard_Real) const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Resolution");
+  throw Standard_NotImplemented("Curve5::Resolution");
 }
 
 //=================================================================================================
 
-GeomAbs_CurveType Adaptor3d_Curve::GetType() const
+GeomAbs_CurveType Curve5::GetType() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::GetType");
+  throw Standard_NotImplemented("Curve5::GetType");
 }
 
 //=================================================================================================
 
-gp_Lin Adaptor3d_Curve::Line() const
+gp_Lin Curve5::Line() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Line");
+  throw Standard_NotImplemented("Curve5::Line");
 }
 
 //=================================================================================================
 
-gp_Circ Adaptor3d_Curve::Circle() const
+gp_Circ Curve5::Circle() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Circle");
+  throw Standard_NotImplemented("Curve5::Circle");
 }
 
 //=================================================================================================
 
-gp_Elips Adaptor3d_Curve::Ellipse() const
+gp_Elips Curve5::Ellipse() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Ellipse");
+  throw Standard_NotImplemented("Curve5::Ellipse");
 }
 
 //=================================================================================================
 
-gp_Hypr Adaptor3d_Curve::Hyperbola() const
+gp_Hypr Curve5::Hyperbola() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Hyperbola");
+  throw Standard_NotImplemented("Curve5::Hyperbola");
 }
 
 //=================================================================================================
 
-gp_Parab Adaptor3d_Curve::Parabola() const
+gp_Parab Curve5::Parabola() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Parabola");
+  throw Standard_NotImplemented("Curve5::Parabola");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Curve::Degree() const
+Standard_Integer Curve5::Degree() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Degree");
+  throw Standard_NotImplemented("Curve5::Degree");
 }
 
 //=================================================================================================
 
-Standard_Boolean Adaptor3d_Curve::IsRational() const
+Standard_Boolean Curve5::IsRational() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::IsRational");
+  throw Standard_NotImplemented("Curve5::IsRational");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Curve::NbPoles() const
+Standard_Integer Curve5::NbPoles() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::NbPoles");
+  throw Standard_NotImplemented("Curve5::NbPoles");
 }
 
 //=================================================================================================
 
-Standard_Integer Adaptor3d_Curve::NbKnots() const
+Standard_Integer Curve5::NbKnots() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::NbKnots");
+  throw Standard_NotImplemented("Curve5::NbKnots");
 }
 
 //=================================================================================================
 
-Handle(BezierCurve3d) Adaptor3d_Curve::Bezier() const
+Handle(BezierCurve3d) Curve5::Bezier() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::Bezier");
+  throw Standard_NotImplemented("Curve5::Bezier");
 }
 
 //=================================================================================================
 
-Handle(BSplineCurve3d) Adaptor3d_Curve::BSpline() const
+Handle(BSplineCurve3d) Curve5::BSpline() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::BSpline");
+  throw Standard_NotImplemented("Curve5::BSpline");
 }
 
 //=================================================================================================
 
-Handle(Geom_OffsetCurve) Adaptor3d_Curve::OffsetCurve() const
+Handle(Geom_OffsetCurve) Curve5::OffsetCurve() const
 {
-  throw Standard_NotImplemented("Adaptor3d_Curve::OffsetCurve");
+  throw Standard_NotImplemented("Curve5::OffsetCurve");
 }

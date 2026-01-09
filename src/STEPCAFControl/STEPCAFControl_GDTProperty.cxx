@@ -50,7 +50,7 @@ Handle(StepVisual_CoordinatesList) GenerateCoordinateList(
   const Handle(MeshTriangulation)& theTriangulation,
   const Transform3d&                    theTransformation)
 {
-  Handle(TColgp_HArray1OfXYZ) thePoints = new TColgp_HArray1OfXYZ(1, theTriangulation->NbNodes());
+  Handle(XYZArray) thePoints = new XYZArray(1, theTriangulation->NbNodes());
   for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theTriangulation->NbNodes(); ++aNodeIndex)
   {
     const Point3d aCurrentNode = theTriangulation->Node(aNodeIndex).Transformed(theTransformation);
@@ -234,7 +234,7 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoSha
 {
   NCollection_Handle<StepVisual_VectorOfHSequenceOfInteger> aLineStrips =
     new StepVisual_VectorOfHSequenceOfInteger;
-  // Temporary contanier for points. We need points in TColgp_HArray1OfXYZ type of
+  // Temporary contanier for points. We need points in XYZArray type of
   // container, however in order to create it we need to know it's size.
   // Currently number of points is unknown, so we will put all the points in a
   // temporary container and then just copy them after all edges will be processed.
@@ -278,7 +278,7 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoSha
     return Handle(StepVisual_TessellatedCurveSet){};
   }
 
-  Handle(TColgp_HArray1OfXYZ) aPoints = new TColgp_HArray1OfXYZ(1, aTmpPointsContainer.Size());
+  Handle(XYZArray) aPoints = new XYZArray(1, aTmpPointsContainer.Size());
   for (Standard_Integer aPointIndex = 1; aPointIndex <= aPoints->Size(); ++aPointIndex)
   {
     aPoints->SetValue(aPointIndex, aTmpPointsContainer.Value(aPointIndex - 1));

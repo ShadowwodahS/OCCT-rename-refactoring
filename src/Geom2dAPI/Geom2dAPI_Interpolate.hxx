@@ -49,7 +49,7 @@ public:
   //! It is also used to check if the tangent vector is not too small.
   //! There should be at least 2 points
   //! if PeriodicFlag is True then the curve will be periodic.
-  Standard_EXPORT Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)& Points,
+  Standard_EXPORT Geom2dAPI_Interpolate(const Handle(Point2dArray)& Points,
                                         const Standard_Boolean               PeriodicFlag,
                                         const Standard_Real                  Tolerance);
 
@@ -58,7 +58,7 @@ public:
   //! There should be as many parameters as there are points
   //! except if PeriodicFlag is True : then there should be one more
   //! parameter to close the curve
-  Standard_EXPORT Geom2dAPI_Interpolate(const Handle(TColgp_HArray1OfPnt2d)& Points,
+  Standard_EXPORT Geom2dAPI_Interpolate(const Handle(Point2dArray)& Points,
                                         const Handle(TColStd_HArray1OfReal)& Parameters,
                                         const Standard_Boolean               PeriodicFlag,
                                         const Standard_Real                  Tolerance);
@@ -115,10 +115,10 @@ private:
   Standard_EXPORT void PerformPeriodic();
 
   Standard_Real                    myTolerance;
-  Handle(TColgp_HArray1OfPnt2d)    myPoints;
+  Handle(Point2dArray)    myPoints;
   Standard_Boolean                 myIsDone;
   Handle(Geom2d_BSplineCurve)      myCurve;
-  Handle(TColgp_HArray1OfVec2d)    myTangents;
+  Handle(Vector2dArray)    myTangents;
   Handle(TColStd_HArray1OfBoolean) myTangentFlags;
   Handle(TColStd_HArray1OfReal)    myParameters;
   Standard_Boolean                 myPeriodic;

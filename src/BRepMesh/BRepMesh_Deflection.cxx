@@ -23,11 +23,11 @@
 #include <TopExp.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Deflection, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(DeflectionControl, RefObject)
 
 //=================================================================================================
 
-Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
+Standard_Real DeflectionControl::ComputeAbsoluteDeflection(
   const TopoShape& theShape,
   const Standard_Real theRelativeDeflection,
   const Standard_Real theMaxShapeSize)
@@ -41,7 +41,7 @@ Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
   BRepBndLib1::Add(theShape, aBox, Standard_False);
 
   Standard_Real aShapeSize = theRelativeDeflection;
-  BRepMesh_ShapeTool::BoxMaxDimension(aBox, aShapeSize);
+  ShapeTool2::BoxMaxDimension(aBox, aShapeSize);
 
   // Adjust resulting value in relation to the total size
 
@@ -65,7 +65,7 @@ Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
 
 //=================================================================================================
 
-void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IEdgeHandle& theDEdge,
+void DeflectionControl::ComputeDeflection(const IMeshData::IEdgeHandle& theDEdge,
                                             const Standard_Real           theMaxShapeSize,
                                             const Parameters3&  theParameters)
 {
@@ -82,7 +82,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IEdgeHandle& theDEd
 
   Handle(GeomCurve3d) aCurve;
   Standard_Real      aFirstParam, aLastParam;
-  if (BRepMesh_ShapeTool::Range(anEdge, aCurve, aFirstParam, aLastParam))
+  if (ShapeTool2::Range(anEdge, aCurve, aFirstParam, aLastParam))
   {
     const Standard_Real aDistF =
       aFirstVertex.IsNull() ? -1.0
@@ -101,7 +101,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IEdgeHandle& theDEd
 
 //=================================================================================================
 
-void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IWireHandle& theDWire,
+void DeflectionControl::ComputeDeflection(const IMeshData::IWireHandle& theDWire,
                                             const Parameters3&  theParameters)
 {
   Standard_Real aWireDeflection = 0.;
@@ -124,7 +124,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IWireHandle& theDWi
 
 //=================================================================================================
 
-void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IFaceHandle& theDFace,
+void DeflectionControl::ComputeDeflection(const IMeshData::IFaceHandle& theDFace,
                                             const Parameters3&  theParameters)
 {
   Standard_Real aDeflection = theParameters.DeflectionInterior;
@@ -147,7 +147,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IFaceHandle& theDFa
     }
 
     aFaceDeflection =
-      Max(2. * BRepMesh_ShapeTool::MaxFaceTolerance(theDFace->GetFace()), aFaceDeflection);
+      Max(2. * ShapeTool2::MaxFaceTolerance(theDFace->GetFace()), aFaceDeflection);
   }
   aFaceDeflection = Max(aDeflection, aFaceDeflection);
 
@@ -156,7 +156,7 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IFaceHandle& theDFa
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_Deflection::IsConsistent(const Standard_Real    theCurrent,
+Standard_Boolean DeflectionControl::IsConsistent(const Standard_Real    theCurrent,
                                                    const Standard_Real    theRequired,
                                                    const Standard_Boolean theAllowDecrease,
                                                    const Standard_Real    theRatio)

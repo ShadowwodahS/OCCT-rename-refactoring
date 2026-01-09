@@ -247,8 +247,8 @@ void GeomAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt& Points,
     multL.SetValue(i, mpc);
   }
 
-  Handle(AppParCurves_HArray1OfConstraintCouple) TABofCC =
-    new AppParCurves_HArray1OfConstraintCouple(1, NbPoint);
+  Handle(ConstraintCoupleArray) TABofCC =
+    new ConstraintCoupleArray(1, NbPoint);
   AppParCurves_Constraint Constraint = AppParCurves_NoConstraint;
 
   for (i = 1; i <= NbPoint; ++i)

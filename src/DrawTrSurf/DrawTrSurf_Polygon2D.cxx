@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Polygon2D, Draw_Drawable2D)
 
 //=================================================================================================
 
-DrawTrSurf_Polygon2D::DrawTrSurf_Polygon2D(const Handle(Poly_Polygon2D)& P)
+DrawTrSurf_Polygon2D::DrawTrSurf_Polygon2D(const Handle(Polygon2D2)& P)
     : myPolygon2D(P),
       myNodes(Standard_False)
 {

@@ -66,7 +66,7 @@ public:
   //! identical points in the 2d space are identical in 3d space TolAng is used to compare the angle
   //! between normal of two identical points in the 2d space Raises  ConstructionError;
   Standard_EXPORT GeomPlate_BuildPlateSurface(const Handle(TColStd_HArray1OfInteger)&  NPoints,
-                                              const Handle(GeomPlate_HArray1OfHCurve)& TabCurve,
+                                              const Handle(HandleCurveArray)& TabCurve,
                                               const Handle(TColStd_HArray1OfInteger)&  Tang,
                                               const Standard_Integer                   Degree,
                                               const Standard_Integer                   NbIter = 3,
@@ -178,7 +178,7 @@ public:
 
   //! Extracts the array of curves on the plate surface which
   //! correspond to the curve constraints set in Add.
-  Standard_EXPORT Handle(TColGeom2d_HArray1OfCurve) Curves2d() const;
+  Standard_EXPORT Handle(HArray1OfCurve2) Curves2d() const;
 
   //! Returns the order of the curves in the array returned by
   //! Curves2d. Computation changes this order.
@@ -216,17 +216,17 @@ private:
 
   Standard_EXPORT gp_Pnt2d ProjectPoint(const Point3d& P);
 
-  Standard_EXPORT Handle(GeomCurve2d) ProjectCurve(const Handle(Adaptor3d_Curve)& Curv);
+  Standard_EXPORT Handle(GeomCurve2d) ProjectCurve(const Handle(Curve5)& Curv);
 
-  Standard_EXPORT Handle(Adaptor2d_Curve2d) ProjectedCurve(Handle(Adaptor3d_Curve)& Curv);
+  Standard_EXPORT Handle(Adaptor2d_Curve2d) ProjectedCurve(Handle(Curve5)& Curv);
 
   Standard_EXPORT void ComputeSurfInit(const Message_ProgressRange& theProgress);
 
-  Standard_EXPORT void Intersect(Handle(GeomPlate_HArray1OfSequenceOfReal)& PntInter,
-                                 Handle(GeomPlate_HArray1OfSequenceOfReal)& PntG1G1);
+  Standard_EXPORT void Intersect(Handle(RealSequenceArray)& PntInter,
+                                 Handle(RealSequenceArray)& PntG1G1);
 
-  Standard_EXPORT void Discretise(const Handle(GeomPlate_HArray1OfSequenceOfReal)& PntInter,
-                                  const Handle(GeomPlate_HArray1OfSequenceOfReal)& PntG1G1);
+  Standard_EXPORT void Discretise(const Handle(RealSequenceArray)& PntInter,
+                                  const Handle(RealSequenceArray)& PntG1G1);
 
   Standard_EXPORT void LoadCurve(const Standard_Integer NbBoucle,
                                  const Standard_Integer OrderMax = 2);
@@ -248,10 +248,10 @@ private:
 
   Standard_EXPORT Standard_Boolean IsOrderG1() const;
 
-  Handle(GeomPlate_HSequenceOfCurveConstraint) myLinCont;
-  Handle(GeomPlate_HArray1OfSequenceOfReal)    myParCont;
-  Handle(GeomPlate_HArray1OfSequenceOfReal)    myPlateCont;
-  Handle(GeomPlate_HSequenceOfPointConstraint) myPntCont;
+  Handle(CurveConstraintSequence) myLinCont;
+  Handle(RealSequenceArray)    myParCont;
+  Handle(RealSequenceArray)    myPlateCont;
+  Handle(PointConstraintSequence) myPntCont;
   Handle(GeomSurface)                         mySurfInit;
   Handle(GeomSurface)                         myPlanarSurfInit;
   Handle(GeomPlate_Surface)                    myGeomPlateSurface;

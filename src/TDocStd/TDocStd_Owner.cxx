@@ -36,7 +36,7 @@ const Standard_GUID& TDocStd_Owner::GetID()
 
 //=================================================================================================
 
-void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, const Handle(AppDocument)& doc)
+void TDocStd_Owner::SetDocument(const Handle(Data2)& indata, const Handle(AppDocument)& doc)
 {
   Handle(TDocStd_Owner) A;
   if (!indata->Root().FindAttribute(TDocStd_Owner::GetID(), A))
@@ -53,7 +53,7 @@ void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, const Handle(App
 
 //=================================================================================================
 
-void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, AppDocument* doc)
+void TDocStd_Owner::SetDocument(const Handle(Data2)& indata, AppDocument* doc)
 {
   Handle(TDocStd_Owner) A;
   if (!indata->Root().FindAttribute(TDocStd_Owner::GetID(), A))
@@ -70,7 +70,7 @@ void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, AppDocument* doc
 
 //=================================================================================================
 
-Handle(AppDocument) TDocStd_Owner::GetDocument(const Handle(TDF_Data)& ofdata)
+Handle(AppDocument) TDocStd_Owner::GetDocument(const Handle(Data2)& ofdata)
 {
   Handle(TDocStd_Owner) A;
   if (!ofdata->Root().FindAttribute(TDocStd_Owner::GetID(), A))
@@ -126,7 +126,7 @@ void TDocStd_Owner::Restore(const Handle(TDF_Attribute)&) {}
 
 //=================================================================================================
 
-void TDocStd_Owner::Paste(const Handle(TDF_Attribute)&, const Handle(TDF_RelocationTable)&) const {}
+void TDocStd_Owner::Paste(const Handle(TDF_Attribute)&, const Handle(RelocationTable1)&) const {}
 
 //=================================================================================================
 

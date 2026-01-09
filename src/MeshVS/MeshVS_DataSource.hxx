@@ -32,8 +32,8 @@ class MeshVS_Mesh;
 class TColStd_HPackedMapOfInteger;
 class Bnd_Box2d;
 
-class MeshVS_DataSource;
-DEFINE_STANDARD_HANDLE(MeshVS_DataSource, RefObject)
+class MeshDataSource;
+DEFINE_STANDARD_HANDLE(MeshDataSource, RefObject)
 
 //! The deferred class using for the following tasks:
 //! 1) Receiving geometry data about single element of node by its number;
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(MeshVS_DataSource, RefObject)
 //! - one sensitive entity for the whole mesh and for each selection mode
 //! Receiving of IDs of detected entities (nodes and elements) in a viewer is achieved by
 //! implementation of a group of methods GetDetectedEntities.
-class MeshVS_DataSource : public RefObject
+class MeshDataSource : public RefObject
 {
 
 public:
@@ -75,7 +75,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean Get3DGeom(
     const Standard_Integer                     ID,
     Standard_Integer&                          NbNodes,
-    Handle(MeshVS_HArray1OfSequenceOfInteger)& Data) const;
+    Handle(IntegerSequenceArray)& Data) const;
 
   //! This method returns pointer which represents element or node data structure.
   //! This address will be saved in MeshVS_MeshEntityOwner, so that you can access to data structure
@@ -221,7 +221,7 @@ public:
     Handle(TColStd_HPackedMapOfInteger)& Nodes,
     Handle(TColStd_HPackedMapOfInteger)& Elements);
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_DataSource, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MeshDataSource, RefObject)
 };
 
 #endif // _MeshVS_DataSource_HeaderFile

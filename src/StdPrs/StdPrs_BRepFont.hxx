@@ -86,7 +86,7 @@ public:
                             const Standard_Real       theSize,
                             const Standard_Integer    theFaceId);
 
-  //! Find (using Font_FontMgr) and initialize the font from the given name.
+  //! Find (using FontMgr) and initialize the font from the given name.
   //! Please take into account that size is specified NOT in typography points (pt.).
   //! If you need to specify size in points, value should be converted.
   //! Formula for pt. -> m conversion:
@@ -172,7 +172,7 @@ public:
   Standard_Mutex& Mutex() { return myMutex; }
 
 public:
-  //! Find (using Font_FontMgr) and initialize the font from the given name.
+  //! Find (using FontMgr) and initialize the font from the given name.
   //! Alias for FindAndInit() for backward compatibility.
   bool Init(const NCollection_String& theFontName,
             const Font_FontAspect     theFontAspect,

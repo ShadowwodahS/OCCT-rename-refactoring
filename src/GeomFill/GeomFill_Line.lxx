@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer GeomFill_Line::NbPoints() const
+inline Standard_Integer Line1::NbPoints() const
 {
   return myNbPoints;
 }
@@ -29,7 +29,7 @@ inline Standard_Integer GeomFill_Line::NbPoints() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer GeomFill_Line::Point(const Standard_Integer Index) const
+inline Standard_Integer Line1::Point(const Standard_Integer Index) const
 {
   return Index;
 }

@@ -21,7 +21,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TrihedronLaw, RefObject)
 
-Standard_Boolean GeomFill_TrihedronLaw::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_TrihedronLaw::SetCurve(const Handle(Curve5)& C)
 {
   myCurve   = C;
   myTrimmed = myCurve;

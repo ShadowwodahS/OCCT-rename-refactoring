@@ -17,14 +17,14 @@
 
 //=================================================================================================
 
-void SelectMgr_ViewClipRange::AddClippingPlanes(const Graphic3d_SequenceOfHClipPlane& thePlanes,
+void SelectMgr_ViewClipRange::AddClippingPlanes(const SequenceOfHClipPlane& thePlanes,
                                                 const Axis3d&                         thePickRay)
 {
   const Dir3d& aViewRayDir = thePickRay.Direction();
   const Point3d& aNearPnt    = thePickRay.Location();
 
   Graphic3d_Vec4d aPlaneABCD;
-  for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(thePlanes); aPlaneIt.More();
+  for (SequenceOfHClipPlane::Iterator aPlaneIt(thePlanes); aPlaneIt.More();
        aPlaneIt.Next())
   {
     const Handle(Graphic3d_ClipPlane)& aClipPlane = aPlaneIt.Value();

@@ -41,7 +41,7 @@ class BezierCurve3d;
 class BSplineCurve3d;
 class Geom_OffsetCurve;
 
-DEFINE_STANDARD_HANDLE(BRepAdaptor_Curve, Adaptor3d_Curve)
+DEFINE_STANDARD_HANDLE(BRepAdaptor_Curve, Curve5)
 
 //! The Curve from BRepAdaptor  allows to use  an Edge
 //! of the BRep topology like a 3D curve.
@@ -55,9 +55,9 @@ DEFINE_STANDARD_HANDLE(BRepAdaptor_Curve, Adaptor3d_Curve)
 //! surface is used. It is possible to enforce using a
 //! curve on surface by creating  or initialising with
 //! an Edge and a Face.
-class BRepAdaptor_Curve : public Adaptor3d_Curve
+class BRepAdaptor_Curve : public Curve5
 {
-  DEFINE_STANDARD_RTTIEXT(BRepAdaptor_Curve, Adaptor3d_Curve)
+  DEFINE_STANDARD_RTTIEXT(BRepAdaptor_Curve, Curve5)
 public:
   //! Creates an undefined Curve with no Edge loaded.
   Standard_EXPORT BRepAdaptor_Curve();
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT BRepAdaptor_Curve(const TopoEdge& E, const TopoFace& F);
 
   //! Shallow copy of adaptor
-  Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Curve5) ShallowCopy() const Standard_OVERRIDE;
 
   //! Reset currently loaded curve (undone Load()).
   Standard_EXPORT void Reset();
@@ -135,7 +135,7 @@ public:
   //! parameters <First>  and <Last>. <Tol>  is used  to
   //! test for 3d points confusion.
   //! If <First> >= <Last>
-  Standard_EXPORT Handle(Adaptor3d_Curve) Trim(const Standard_Real First,
+  Standard_EXPORT Handle(Curve5) Trim(const Standard_Real First,
                                                const Standard_Real Last,
                                                const Standard_Real Tol) const Standard_OVERRIDE;
 

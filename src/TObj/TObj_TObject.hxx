@@ -76,7 +76,7 @@ public:
   //! This method is used when copying an attribute from a source structure
   //! into a target structure.
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       theInto,
-                             const Handle(TDF_RelocationTable)& theRT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& theRT) const Standard_OVERRIDE;
 
   //! Tell TObj_Object to die,
   //! i.e. (myElem->IsAlive() == false) after that

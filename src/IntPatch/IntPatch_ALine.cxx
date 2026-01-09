@@ -19,7 +19,7 @@
 #include <IntPatch_Point.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntPatch_ALine, IntPatch_Line)
+IMPLEMENT_STANDARD_RTTIEXT(IntPatch_ALine, Line2)
 
 #define DEBUG 0
 
@@ -27,7 +27,7 @@ IntPatch_ALine::IntPatch_ALine(const Curve1&     C,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
-    : IntPatch_Line(Tang, Trans1, Trans2),
+    : Line2(Tang, Trans1, Trans2),
       fipt(Standard_False),
       lapt(Standard_False),
       indf(0),
@@ -41,7 +41,7 @@ IntPatch_ALine::IntPatch_ALine(const Curve1&     C,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
-    : IntPatch_Line(Tang, Situ1, Situ2),
+    : Line2(Tang, Situ1, Situ2),
       fipt(Standard_False),
       lapt(Standard_False),
       indf(0),
@@ -52,7 +52,7 @@ IntPatch_ALine::IntPatch_ALine(const Curve1&     C,
 }
 
 IntPatch_ALine::IntPatch_ALine(const Curve1& C, const Standard_Boolean Tang)
-    : IntPatch_Line(Tang),
+    : Line2(Tang),
       fipt(Standard_False),
       lapt(Standard_False),
       indf(0),

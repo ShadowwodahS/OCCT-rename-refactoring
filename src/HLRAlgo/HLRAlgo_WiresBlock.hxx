@@ -26,8 +26,8 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
 
-class HLRAlgo_WiresBlock;
-DEFINE_STANDARD_HANDLE(HLRAlgo_WiresBlock, RefObject)
+class WiresBlock;
+DEFINE_STANDARD_HANDLE(WiresBlock, RefObject)
 
 //! A WiresBlock is a set of Blocks. It is used by the
 //! DataStructure to structure the Edges.
@@ -35,36 +35,36 @@ DEFINE_STANDARD_HANDLE(HLRAlgo_WiresBlock, RefObject)
 //! A WiresBlock contains :
 //!
 //! * An Array  of Blocks.
-class HLRAlgo_WiresBlock : public RefObject
+class WiresBlock : public RefObject
 {
 public:
   //! Create a Block1 of Blocks.
-  HLRAlgo_WiresBlock(const Standard_Integer NbWires)
+  WiresBlock(const Standard_Integer NbWires)
       : myWires(1, NbWires)
   {
   }
 
   Standard_Integer NbWires() const { return myWires.Upper(); }
 
-  void Set(const Standard_Integer I, const Handle(HLRAlgo_EdgesBlock)& W) { myWires(I) = W; }
+  void Set(const Standard_Integer I, const Handle(EdgesBlock)& W) { myWires(I) = W; }
 
-  Handle(HLRAlgo_EdgesBlock)& Wire(const Standard_Integer I)
+  Handle(EdgesBlock)& Wire(const Standard_Integer I)
   {
-    return *((Handle(HLRAlgo_EdgesBlock)*)&myWires(I));
+    return *((Handle(EdgesBlock)*)&myWires(I));
   }
 
-  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& theMinMaxes)
+  void UpdateMinMax(const EdgesBlock::MinMaxIndices1& theMinMaxes)
   {
     myMinMax = theMinMaxes;
   }
 
-  HLRAlgo_EdgesBlock::MinMaxIndices1& MinMax() { return myMinMax; }
+  EdgesBlock::MinMaxIndices1& MinMax() { return myMinMax; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_WiresBlock, RefObject)
+  DEFINE_STANDARD_RTTIEXT(WiresBlock, RefObject)
 
 private:
   TColStd_Array1OfTransient         myWires;
-  HLRAlgo_EdgesBlock::MinMaxIndices1 myMinMax;
+  EdgesBlock::MinMaxIndices1 myMinMax;
 };
 
 #endif // _HLRAlgo_WiresBlock_HeaderFile

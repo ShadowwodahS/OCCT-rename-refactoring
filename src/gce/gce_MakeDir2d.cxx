@@ -25,7 +25,7 @@
 //=========================================================================
 //   Creation d une direction 2d (Dir2d) de gp1 a partir de 2 Pnt2d de gp1. +
 //=========================================================================
-gce_MakeDir2d::gce_MakeDir2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
+DirectionBuilder2d::DirectionBuilder2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
 {
   if (P1.Distance(P2) <= gp1::Resolution())
   {
@@ -38,7 +38,7 @@ gce_MakeDir2d::gce_MakeDir2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
   }
 }
 
-gce_MakeDir2d::gce_MakeDir2d(const Coords2d& Coord)
+DirectionBuilder2d::DirectionBuilder2d(const Coords2d& Coord)
 {
   if (Coord.Modulus() <= gp1::Resolution())
   {
@@ -51,7 +51,7 @@ gce_MakeDir2d::gce_MakeDir2d(const Coords2d& Coord)
   }
 }
 
-gce_MakeDir2d::gce_MakeDir2d(const gp_Vec2d& V)
+DirectionBuilder2d::DirectionBuilder2d(const gp_Vec2d& V)
 {
   if (V.Magnitude() <= gp1::Resolution())
   {
@@ -64,7 +64,7 @@ gce_MakeDir2d::gce_MakeDir2d(const gp_Vec2d& V)
   }
 }
 
-gce_MakeDir2d::gce_MakeDir2d(const Standard_Real Xv, const Standard_Real Yv)
+DirectionBuilder2d::DirectionBuilder2d(const Standard_Real Xv, const Standard_Real Yv)
 {
   if (Xv * Xv + Yv * Yv <= gp1::Resolution())
   {
@@ -77,18 +77,18 @@ gce_MakeDir2d::gce_MakeDir2d(const Standard_Real Xv, const Standard_Real Yv)
   }
 }
 
-const gp_Dir2d& gce_MakeDir2d::Value() const
+const gp_Dir2d& DirectionBuilder2d::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeDir2d::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "DirectionBuilder2d::Value() - no result");
   return TheDir2d;
 }
 
-const gp_Dir2d& gce_MakeDir2d::Operator() const
+const gp_Dir2d& DirectionBuilder2d::Operator() const
 {
   return Value();
 }
 
-gce_MakeDir2d::operator gp_Dir2d() const
+DirectionBuilder2d::operator gp_Dir2d() const
 {
   return Value();
 }

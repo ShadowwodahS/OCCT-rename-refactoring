@@ -40,7 +40,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationDraft, GeomFill_LocationLaw)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationDraft, LocationLaw)
 
 //=================================================================================================
 
@@ -53,14 +53,14 @@ GeomFill_LocationDraft::GeomFill_LocationDraft(const Dir3d& Direction, const Sta
   mySurf.Nullify();
   myLaw     = new (GeomFill_DraftTrihedron)(myDir, Angle); // triedre
   myNbPts   = 41;                                          // nb de points utilises pour les calculs
-  myPoles2d = new (TColgp_HArray1OfPnt2d)(1, 2 * myNbPts);
+  myPoles2d = new (Point2dArray)(1, 2 * myNbPts);
   Intersec  = Standard_False; // intersection avec surface d'arret ?
   WithTrans = Standard_False;
 }
 
 //=================================================================================================
 
-Handle(GeomFill_LocationLaw) GeomFill_LocationDraft::Copy() const
+Handle(LocationLaw) GeomFill_LocationDraft::Copy() const
 {
   Handle(GeomFill_TrihedronLaw) law;
   law                                 = myLaw->Copy();
@@ -93,7 +93,7 @@ void GeomFill_LocationDraft::SetTrsf(const gp_Mat& Transfo)
 // Purpose : Calcul des poles sur la surfaces d'arret (intersection
 // entre la generatrice et la surface en myNbPts points de la section)
 //==================================================================
-Standard_Boolean GeomFill_LocationDraft::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_LocationDraft::SetCurve(const Handle(Curve5)& C)
 {
   myCurve               = C;
   myTrimmed             = C;
@@ -105,7 +105,7 @@ Standard_Boolean GeomFill_LocationDraft::SetCurve(const Handle(Adaptor3d_Curve)&
 
 //=================================================================================================
 
-void GeomFill_LocationDraft::SetStopSurf(const Handle(Adaptor3d_Surface)& Surf)
+void GeomFill_LocationDraft::SetStopSurf(const Handle(SurfaceAdaptor)& Surf)
 {
   mySurf = Surf;
   Prepare();
@@ -156,7 +156,7 @@ void GeomFill_LocationDraft::Prepare()
 
     L = new (GeomLine)(P, D);
 
-    IntCurveSurface_HInter    Int; // intersection surface / generatrice
+    HandleIntersection    Int; // intersection surface / generatrice
     Handle(GeomAdaptor_Curve) AC = new (GeomAdaptor_Curve)(L);
     Int.Perform(AC, mySurf); // calcul de l'intersection
 
@@ -188,7 +188,7 @@ void GeomFill_LocationDraft::Prepare()
 // Function: GetCurve
 // Purpose : return the path
 //==================================================================
-const Handle(Adaptor3d_Curve)& GeomFill_LocationDraft::GetCurve() const
+const Handle(Curve5)& GeomFill_LocationDraft::GetCurve() const
 {
   return myCurve;
 }

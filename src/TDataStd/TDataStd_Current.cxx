@@ -41,7 +41,7 @@ const Standard_GUID& TDataStd_Current::GetID()
 void TDataStd_Current::Set(const DataLabel& current)
 {
   Handle(TDataStd_Current) A;
-  Handle(TDF_Data)         D = current.Data();
+  Handle(Data2)         D = current.Data();
   if (!D->Root().FindAttribute(TDataStd_Current::GetID(), A))
   {
     A = new TDataStd_Current();
@@ -117,7 +117,7 @@ void TDataStd_Current::Restore(const Handle(TDF_Attribute)& With)
 //=================================================================================================
 
 void TDataStd_Current::Paste(const Handle(TDF_Attribute)&       Into,
-                             const Handle(TDF_RelocationTable)& RT) const
+                             const Handle(RelocationTable1)& RT) const
 {
   DataLabel tLab;
   if (!myLabel.IsNull())

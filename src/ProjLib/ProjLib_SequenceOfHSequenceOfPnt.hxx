@@ -20,6 +20,6 @@
 #include <TColgp_HSequenceOfPnt.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(TColgp_HSequenceOfPnt)> ProjLib_SequenceOfHSequenceOfPnt;
+typedef NCollection_Sequence<Handle(PointSequence2)> ProjLib_SequenceOfHSequenceOfPnt;
 
 #endif

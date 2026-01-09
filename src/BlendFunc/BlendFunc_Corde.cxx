@@ -27,8 +27,8 @@
 
 //=================================================================================================
 
-BlendFunc_Corde::BlendFunc_Corde(const Handle(Adaptor3d_Surface)& S,
-                                 const Handle(Adaptor3d_Curve)&   CG)
+BlendFunc_Corde::BlendFunc_Corde(const Handle(SurfaceAdaptor)& S,
+                                 const Handle(Curve5)&   CG)
     : surf(S),
       guide(CG),
       dis(0.0),

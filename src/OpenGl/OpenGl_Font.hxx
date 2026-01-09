@@ -28,12 +28,12 @@
 class Font_FTFont;
 
 //! Texture font.
-class OpenGl_Font : public OpenGl_Resource
+class OpenGl_Font : public Resource
 {
 
 public:
   //! Simple structure stores tile rectangle.
-  struct Tile
+  struct Tile1
   {
     Rect uv;      //!< UV coordinates in texture
     Rect px;      //!< pixel displacement coordinates
@@ -92,7 +92,7 @@ public:
   //! @param theGlyph     computed glyph position rectangle, texture ID and UV coordinates
   Standard_EXPORT bool RenderGlyph(const Handle(OpenGl_Context)& theCtx,
                                    const Standard_Utf32Char      theUChar,
-                                   Tile&                         theGlyph);
+                                   Tile1&                         theGlyph);
 
   //! @return first texture.
   const Handle(OpenGl_Texture)& Texture() const { return myTextures.First(); }
@@ -115,14 +115,14 @@ protected:
   Standard_Integer        myTextureFormat; //!< texture format
 
   NCollection_Vector<Handle(OpenGl_Texture)> myTextures; //!< array of textures
-  NCollection_Vector<Tile>                   myTiles;    //!< array of loaded tiles
+  NCollection_Vector<Tile1>                   myTiles;    //!< array of loaded tiles
 
   NCollection_DataMap<Standard_Utf32Char, Standard_Integer> myGlyphMap;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Font, OpenGl_Resource) // Type definition
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Font, Resource) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Font, OpenGl_Resource)
+DEFINE_STANDARD_HANDLE(OpenGl_Font, Resource)
 
 #endif // _OpenGl_Font_H__

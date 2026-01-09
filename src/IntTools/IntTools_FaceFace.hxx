@@ -88,7 +88,7 @@ public:
   Standard_EXPORT const Handle(IntTools_Context)& Context() const;
 
 protected:
-  //! Creates curves from the IntPatch_Line.
+  //! Creates curves from the Line2.
   Standard_EXPORT void MakeCurve(const Standard_Integer             Index,
                                  const Handle(Adaptor3d_TopolTool)& D1,
                                  const Handle(Adaptor3d_TopolTool)& D2,

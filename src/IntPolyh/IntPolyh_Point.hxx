@@ -107,7 +107,7 @@ public:
   void SetPartOfCommon(const Standard_Integer ii) { myPOC = ii; }
 
   //! Creates middle point from P1 and P2 and stores it to this
-  Standard_EXPORT void Middle(const Handle(Adaptor3d_Surface)& MySurface,
+  Standard_EXPORT void Middle(const Handle(SurfaceAdaptor)& MySurface,
                               const Point3&            P1,
                               const Point3&            P2);
   //! Addition

@@ -32,7 +32,7 @@
 //-Constructors
 //-Destructors
 //-Methods, in order
-Aspect_Background::Aspect_Background()
+Background1::Background1()
 {
 
   Color1 MatraGray(Quantity_NOC_MATRAGRAY);
@@ -40,19 +40,19 @@ Aspect_Background::Aspect_Background()
   MyColor = MatraGray;
 }
 
-Aspect_Background::Aspect_Background(const Color1& AColor)
+Background1::Background1(const Color1& AColor)
 {
 
   MyColor = AColor;
 }
 
-void Aspect_Background::SetColor(const Color1& AColor)
+void Background1::SetColor(const Color1& AColor)
 {
 
   MyColor = AColor;
 }
 
-Color1 Aspect_Background::Color() const
+Color1 Background1::Color() const
 {
 
   return (MyColor);
@@ -60,9 +60,9 @@ Color1 Aspect_Background::Color() const
 
 //=================================================================================================
 
-void Aspect_Background::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void Background1::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, Aspect_Background)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, Background1)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &MyColor)
 }

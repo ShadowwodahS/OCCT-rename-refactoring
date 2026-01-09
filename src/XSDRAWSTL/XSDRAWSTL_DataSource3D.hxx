@@ -30,10 +30,10 @@
 #include <TColStd_Array1OfInteger.hxx>
 
 class XSDRAWSTL_DataSource3D;
-DEFINE_STANDARD_HANDLE(XSDRAWSTL_DataSource3D, MeshVS_DataSource)
+DEFINE_STANDARD_HANDLE(XSDRAWSTL_DataSource3D, MeshDataSource)
 
 //! The sample DataSource3D for working with STLMesh_Mesh
-class XSDRAWSTL_DataSource3D : public MeshVS_DataSource
+class XSDRAWSTL_DataSource3D : public MeshDataSource
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean Get3DGeom(
     const Standard_Integer                     theID,
     Standard_Integer&                          theNbNodes,
-    Handle(MeshVS_HArray1OfSequenceOfInteger)& theData) const Standard_OVERRIDE;
+    Handle(IntegerSequenceArray)& theData) const Standard_OVERRIDE;
 
   //! This method is similar to GetGeom, but returns only element or node type. This method is
   //! provided for a fine performance.
@@ -90,7 +90,7 @@ public:
                                                      Standard_Real&         theNy,
                                                      Standard_Real& theNz) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(XSDRAWSTL_DataSource3D, MeshVS_DataSource)
+  DEFINE_STANDARD_RTTIEXT(XSDRAWSTL_DataSource3D, MeshDataSource)
 
 protected:
 private:

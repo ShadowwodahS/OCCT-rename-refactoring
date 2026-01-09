@@ -18,22 +18,22 @@
 #include <ShapeFix_Shape.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAlgo_ToolContainer, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ToolContainer1, RefObject)
 
 //=================================================================================================
 
-ShapeAlgo_ToolContainer::ShapeAlgo_ToolContainer() {}
+ToolContainer1::ToolContainer1() {}
 
 //=================================================================================================
 
-Handle(ShapeFix_Shape) ShapeAlgo_ToolContainer::FixShape() const
+Handle(ShapeFix_Shape) ToolContainer1::FixShape() const
 {
   return new ShapeFix_Shape;
 }
 
 //=================================================================================================
 
-Handle(ShapeFix_EdgeProjAux) ShapeAlgo_ToolContainer::EdgeProjAux() const
+Handle(ShapeFix_EdgeProjAux) ToolContainer1::EdgeProjAux() const
 {
   return new ShapeFix_EdgeProjAux;
 }

@@ -97,9 +97,9 @@ class CurveEvaluator : public ContinuityFunction
 {
 
 public:
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
 
-  CurveEvaluator(const Handle(Adaptor3d_Curve)& C)
+  CurveEvaluator(const Handle(Curve5)& C)
       : myCurve(C)
   {
     myNbPnt   = 1;
@@ -135,7 +135,7 @@ static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const cha
   if (n < 5)
     return 1;
 
-  Handle(Geom_Geometry) result;
+  Handle(Geometry3) result;
   Handle(GeomCurve2d)  result2d;
 
   if (!strcmp(a[0], "line"))
@@ -1220,7 +1220,7 @@ static Standard_Integer minmaxcurandinf(DrawInterpreter& di,
     return 1;
 
   DrawColor              Couleur;
-  Geom2dLProp_CurAndInf2d Sommets;
+  CurveInfo2d Sommets;
 
   Sommets.PerformCurExt(C1);
   if (Sommets.IsDone() && !Sommets.IsEmpty())
@@ -1244,7 +1244,7 @@ static Standard_Integer minmaxcurandinf(DrawInterpreter& di,
     dout.Flush();
   }
 
-  Geom2dLProp_CurAndInf2d Sommets2;
+  CurveInfo2d Sommets2;
   Sommets2.PerformInf(C1);
 
   if (Sommets2.IsDone() && !Sommets2.IsEmpty())
@@ -1696,7 +1696,7 @@ static Standard_Integer approxcurve(DrawInterpreter& di, Standard_Integer n, con
 
   else if (Case == 3)
   {
-    Handle(Adaptor3d_Curve)     HACur = new GeomAdaptor_Curve(curve);
+    Handle(Curve5)     HACur = new GeomAdaptor_Curve(curve);
     Approx_CurvilinearParameter appr(HACur, Tol, Continuity, MaxDeg, MaxSeg);
     if (appr.HasResult())
     {
@@ -1711,7 +1711,7 @@ static Standard_Integer approxcurve(DrawInterpreter& di, Standard_Integer n, con
   else if (Case == 4)
   {
     Handle(Adaptor2d_Curve2d)   HACur2d = new Geom2dAdaptor_Curve(curve2d);
-    Handle(Adaptor3d_Surface)   HASur   = new GeomAdaptor_Surface(surface);
+    Handle(SurfaceAdaptor)   HASur   = new GeomAdaptor_Surface(surface);
     Approx_CurvilinearParameter appr(HACur2d, HASur, Tol, Continuity, MaxDeg, MaxSeg);
     if (appr.HasResult())
     {
@@ -1727,9 +1727,9 @@ static Standard_Integer approxcurve(DrawInterpreter& di, Standard_Integer n, con
   else if (Case == 5)
   {
     Handle(Adaptor2d_Curve2d) HACur2d  = new Geom2dAdaptor_Curve(curve2d);
-    Handle(Adaptor3d_Surface) HASur    = new GeomAdaptor_Surface(surface);
+    Handle(SurfaceAdaptor) HASur    = new GeomAdaptor_Surface(surface);
     Handle(Adaptor2d_Curve2d) HACur2d2 = new Geom2dAdaptor_Curve(curve2d2);
-    Handle(Adaptor3d_Surface) HASur2   = new GeomAdaptor_Surface(surface2);
+    Handle(SurfaceAdaptor) HASur2   = new GeomAdaptor_Surface(surface2);
     Approx_CurvilinearParameter
       appr(HACur2d, HASur, HACur2d2, HASur2, Tol, Continuity, MaxDeg, MaxSeg);
     if (appr.HasResult())
@@ -1875,7 +1875,7 @@ static Standard_Integer splitc1(DrawInterpreter& di, Standard_Integer n, const c
 
   if (optiontab)
   {
-    Handle(TColGeom_HArray1OfBSplineCurve) tabBS;
+    Handle(HArray1OfBSplineCurve1) tabBS;
     GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, angular_tolerance, tolerance);
     for (i = 0; i <= (tabBS->Length() - 1); i++)
     {
@@ -1932,7 +1932,7 @@ static Standard_Integer splitc12d(DrawInterpreter& di, Standard_Integer n, const
 
   if (optiontab)
   {
-    Handle(TColGeom2d_HArray1OfBSplineCurve) tabBS;
+    Handle(BSplineCurveArray2d) tabBS;
     Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, angular_tolerance, tolerance);
     for (i = 0; i <= (tabBS->Length() - 1); i++)
     {

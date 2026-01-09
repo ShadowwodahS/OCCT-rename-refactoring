@@ -24,7 +24,7 @@ class TCollection_HAsciiString;
 //! Base class for complex1 types (ARRAY, LIST, BAG, SET)
 //! in EXPRESS schema
 //! Stores type of elements and
-class Express_NamedType : public Express_Type
+class Express_NamedType : public ExpressType
 {
 
 public:
@@ -68,7 +68,7 @@ public:
                                     const AsciiString1& theRefPack) const
     Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Express_NamedType, Express_Type)
+  DEFINE_STANDARD_RTTIEXT(Express_NamedType, ExpressType)
 
 protected:
 private:

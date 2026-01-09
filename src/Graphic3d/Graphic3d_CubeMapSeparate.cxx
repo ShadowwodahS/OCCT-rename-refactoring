@@ -86,7 +86,7 @@ Graphic3d_CubeMapSeparate::Graphic3d_CubeMapSeparate(
 //=================================================================================================
 
 Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   if (!myImages[0].IsNull())
   {
@@ -128,7 +128,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
 //=================================================================================================
 
 Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
-  const Handle(Image_SupportedFormats)& theSupported)
+  const Handle(SupportedFormats)& theSupported)
 {
   CubeMapOrder anOrder = CubeMapOrder::Default();
   if (!myIsTopDown)

@@ -20,6 +20,6 @@
 #include <NLPlate_HGPPConstraint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(NLPlate_HGPPConstraint)> NLPlate_SequenceOfHGPPConstraint;
+typedef NCollection_Sequence<Handle(HandleGPPConstraint)> NLPlate_SequenceOfHGPPConstraint;
 
 #endif

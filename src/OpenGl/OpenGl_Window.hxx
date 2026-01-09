@@ -54,7 +54,7 @@ public:
                             const Handle(Aspect_Window)&        thePlatformWindow,
                             const Handle(Aspect_Window)&        theSizeWindow,
                             Aspect_RenderingContext             theGContext,
-                            const Handle(OpenGl_Caps)&          theCaps,
+                            const Handle(Caps)&          theCaps,
                             const Handle(OpenGl_Context)&       theShareCtx);
 
   //! Destructor

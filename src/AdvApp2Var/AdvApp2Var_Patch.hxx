@@ -97,7 +97,7 @@ public:
   Standard_EXPORT void ChangeNbCoeff(const Standard_Integer NbCoeffU,
                                      const Standard_Integer NbCoeffV);
 
-  Standard_EXPORT Handle(TColgp_HArray2OfPnt) Poles(const Standard_Integer    SSPIndex,
+  Standard_EXPORT Handle(PointGrid) Poles(const Standard_Integer    SSPIndex,
                                                     const AdvApp2Var_Context& Conditions) const;
 
   Standard_EXPORT Handle(TColStd_HArray1OfReal) Coefficients(

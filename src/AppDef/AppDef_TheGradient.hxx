@@ -33,7 +33,7 @@ class MultiLineTool;
 class AppDef_ParLeastSquareOfTheGradient;
 class ResConstraintGradient;
 class AppDef_ParFunctionOfTheGradient;
-class AppDef_Gradient_BFGSOfTheGradient;
+class BFGSGradient;
 class AppParCurves_MultiCurve;
 
 class AppDef_TheGradient
@@ -51,7 +51,7 @@ public:
     const AppDef_MultiLine&                               SSP,
     const Standard_Integer                                FirstPoint,
     const Standard_Integer                                LastPoint,
-    const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+    const Handle(ConstraintCoupleArray)& TheConstraints,
     math_Vector&                                          Parameters,
     const Standard_Integer                                Deg,
     const Standard_Real                                   Tol3d,

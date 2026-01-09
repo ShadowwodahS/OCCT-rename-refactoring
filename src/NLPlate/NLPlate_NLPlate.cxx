@@ -38,7 +38,7 @@ NLPlate_NLPlate::NLPlate_NLPlate(const Handle(GeomSurface)& InitialSurface)
 
 //=======================================================================
 
-void NLPlate_NLPlate::Load(const Handle(NLPlate_HGPPConstraint)& GConst)
+void NLPlate_NLPlate::Load(const Handle(HandleGPPConstraint)& GConst)
 {
   if (!GConst.IsNull())
     myHGPPConstraints.Append(GConst);
@@ -200,7 +200,7 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
   PlateSurface& TopP = mySOP.First();
   for (Standard_Integer index = 1; index <= myHGPPConstraints.Length(); index++)
   {
-    const Handle(NLPlate_HGPPConstraint)& HGPP  = myHGPPConstraints(index);
+    const Handle(HandleGPPConstraint)& HGPP  = myHGPPConstraints(index);
     Standard_Integer                      Order = HGPP->ActiveOrder();
     if (ConstraintOrder < Order)
       Order = ConstraintOrder;
@@ -323,7 +323,7 @@ void NLPlate_NLPlate::ConstraintsSliding(const Standard_Integer NbIterations)
 {
   for (Standard_Integer index = 1; index <= myHGPPConstraints.Length(); index++)
   {
-    const Handle(NLPlate_HGPPConstraint)& HGPP = myHGPPConstraints(index);
+    const Handle(HandleGPPConstraint)& HGPP = myHGPPConstraints(index);
     if (HGPP->UVFreeSliding() && HGPP->IsG0())
     {
       Coords2d        UV = HGPP->UV();

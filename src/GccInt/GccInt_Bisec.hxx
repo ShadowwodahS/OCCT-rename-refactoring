@@ -29,10 +29,10 @@ class gp_Hypr2d;
 class gp_Parab2d;
 class gp_Elips2d;
 
-class GccInt_Bisec;
-DEFINE_STANDARD_HANDLE(GccInt_Bisec, RefObject)
+class Bisector2;
+DEFINE_STANDARD_HANDLE(Bisector2, RefObject)
 
-//! The deferred class GccInt_Bisec is the root class for
+//! The deferred class Bisector2 is the root class for
 //! elementary bisecting loci between two simple geometric
 //! objects (i.e. circles, lines or points).
 //! Bisecting loci between two geometric objects are such
@@ -51,7 +51,7 @@ DEFINE_STANDARD_HANDLE(GccInt_Bisec, RefObject)
 //! The GccAna package provides numerous algorithms for
 //! computing the bisecting loci between circles, lines or
 //! points, whose solutions are these types of elementary bisecting locus.
-class GccInt_Bisec : public RefObject
+class Bisector2 : public RefObject
 {
 
 public:
@@ -83,7 +83,7 @@ public:
   //! An exception DomainError is raised if ArcType is not an Ell.
   Standard_EXPORT virtual gp_Elips2d Ellipse() const;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_Bisec, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Bisector2, RefObject)
 
 protected:
 private:

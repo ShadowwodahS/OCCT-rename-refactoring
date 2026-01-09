@@ -34,7 +34,7 @@ class Cylinder1;
 //! cylinder's axis). The U parametrization range is U [0, 2PI].
 //! KeyWords :
 //! Convert, Cylinder, BSplineSurface.
-class Convert_CylinderToBSplineSurface : public ElementaryToBSplineSurface
+class CylinderToBSplineConverter : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,7 +44,7 @@ public:
   //!
   //! Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_CylinderToBSplineSurface(const Cylinder1&  Cyl,
+  Standard_EXPORT CylinderToBSplineConverter(const Cylinder1&  Cyl,
                                                    const Standard_Real U1,
                                                    const Standard_Real U2,
                                                    const Standard_Real V1,
@@ -54,7 +54,7 @@ public:
   //! cylinder in the U and V parametric directions.
   //!
   //! Raised if V1 = V2.
-  Standard_EXPORT Convert_CylinderToBSplineSurface(const Cylinder1&  Cyl,
+  Standard_EXPORT CylinderToBSplineConverter(const Cylinder1&  Cyl,
                                                    const Standard_Real V1,
                                                    const Standard_Real V2);
 

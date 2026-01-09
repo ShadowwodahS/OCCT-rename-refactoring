@@ -46,6 +46,6 @@
 #define Extrema_SeqPOnCOfCCLocF_hxx <Extrema_SequenceOfPOnCurv2d.hxx>
 #define Extrema_SeqPOnCOfCCLocF Extrema_SequenceOfPOnCurv2d
 #define Extrema_SeqPOnCOfCCLocF_hxx <Extrema_SequenceOfPOnCurv2d.hxx>
-#define Extrema_GenLocateExtCC Extrema_LocECC2d
+#define Extrema_GenLocateExtCC LocalCurveCurveExtrema2d
 #define Extrema_GenLocateExtCC_hxx <Extrema_LocECC2d.hxx>
 #include "../Extrema/Extrema_GenLocateExtCC.gxx"

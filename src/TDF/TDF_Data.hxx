@@ -27,11 +27,11 @@
 #include <TDF_Label.hxx>
 #include <Standard_OStream.hxx>
 #include <NCollection_DataMap.hxx>
-class TDF_Delta;
+class Delta;
 class DataLabel;
 
-class TDF_Data;
-DEFINE_STANDARD_HANDLE(TDF_Data, RefObject)
+class Data2;
+DEFINE_STANDARD_HANDLE(Data2, RefObject)
 
 //! This class is used to manipulate a complete independent,
 //! self sufficient data structure and its services:
@@ -44,12 +44,12 @@ DEFINE_STANDARD_HANDLE(TDF_Data, RefObject)
 //! This class uses a special allocator
 //! (see LabelNodeAllocator() method)
 //! for more efficient allocation of objects in memory.
-class TDF_Data : public RefObject
+class Data2 : public RefObject
 {
 
 public:
   //! A new and empty Data structure.
-  Standard_EXPORT TDF_Data();
+  Standard_EXPORT Data2();
 
   //! Returns the root label of the Data structure.
   const DataLabel Root() const;
@@ -61,18 +61,18 @@ public:
   Standard_Integer Time() const;
 
   //! Returns true if <aDelta> is applicable HERE and NOW.
-  Standard_EXPORT Standard_Boolean IsApplicable(const Handle(TDF_Delta)& aDelta) const;
+  Standard_EXPORT Standard_Boolean IsApplicable(const Handle(Delta)& aDelta) const;
 
   //! Apply <aDelta> to undo a set of attribute modifications.
   //!
   //! Optional <withDelta> set to True indicates a
   //! Delta Set must be generated. (See above)
-  Standard_EXPORT Handle(TDF_Delta) Undo(const Handle(TDF_Delta)& aDelta,
+  Standard_EXPORT Handle(Delta) Undo(const Handle(Delta)& aDelta,
                                          const Standard_Boolean   withDelta = Standard_False);
 
   Standard_EXPORT void Destroy();
 
-  ~TDF_Data() { Destroy(); }
+  ~Data2() { Destroy(); }
 
   //! Returns the undo mode status.
   Standard_Boolean NotUndoMode() const;
@@ -135,7 +135,7 @@ public:
   //! objects (memory is released not
   //! by destructors of TDF_LabelNode,
   //! but rather by the destructor of
-  //! TDF_Data).
+  //! Data2).
   //! 3.  TDF_LabelNode objects do not
   //! fragmentize the memory; they are
   //! kept compactly in a number of
@@ -152,13 +152,13 @@ public:
   friend class TDF_Transaction;
   friend class TDF_LabelNode;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_Data, RefObject)
+  DEFINE_STANDARD_RTTIEXT(Data2, RefObject)
 
 protected:
 private:
   //! Fixes order of Attributes' Deltas to perform undo/redo without exceptions:
   //! puts OnRemoval deltas to the end of the list.
-  void FixOrder(const Handle(TDF_Delta)& theDelta);
+  void FixOrder(const Handle(Delta)& theDelta);
 
   //! Increments the transaction number and returns it.
   Standard_EXPORT Standard_Integer OpenTransaction();
@@ -170,13 +170,13 @@ private:
   //!
   //! Optional <withDelta> set to True indicates a
   //! Delta must be generated.
-  Standard_EXPORT Handle(TDF_Delta) CommitTransaction(
+  Standard_EXPORT Handle(Delta) CommitTransaction(
     const Standard_Boolean withDelta = Standard_False);
 
   //! Decrements the transaction number and commits the
   //! modifications until AND including the transaction
   //! <untilTransaction>.
-  Standard_EXPORT Handle(TDF_Delta) CommitUntilTransaction(
+  Standard_EXPORT Handle(Delta) CommitUntilTransaction(
     const Standard_Integer untilTransaction,
     const Standard_Boolean withDelta = Standard_False);
 
@@ -198,7 +198,7 @@ private:
   //! committed from the previous transaction into the
   //! current one.
   Standard_EXPORT Standard_Integer CommitTransaction(const DataLabel&         aLabel,
-                                                     const Handle(TDF_Delta)& aDelta,
+                                                     const Handle(Delta)& aDelta,
                                                      const Standard_Boolean   withDelta);
 
   TDF_LabelNodePtr                                        myRoot;

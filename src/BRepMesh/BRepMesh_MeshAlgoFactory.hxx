@@ -19,9 +19,9 @@
 #include <Standard_Transient.hxx>
 #include <IMeshTools_MeshAlgoFactory.hxx>
 
-//! Default implementation of IMeshTools_MeshAlgoFactory providing algorithms
+//! Default implementation of MeshAlgorithmFactory providing algorithms
 //! of different complexity depending on type of target surface.
-class BRepMesh_MeshAlgoFactory : public IMeshTools_MeshAlgoFactory
+class BRepMesh_MeshAlgoFactory : public MeshAlgorithmFactory
 {
 public:
   //! Constructor.
@@ -31,11 +31,11 @@ public:
   Standard_EXPORT virtual ~BRepMesh_MeshAlgoFactory();
 
   //! Creates instance of meshing algorithm for the given type of surface.
-  Standard_EXPORT virtual Handle(IMeshTools_MeshAlgo) GetAlgo(
+  Standard_EXPORT virtual Handle(MeshAlgorithm) GetAlgo(
     const GeomAbs_SurfaceType    theSurfaceType,
     const Parameters3& theParameters) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_MeshAlgoFactory, IMeshTools_MeshAlgoFactory)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_MeshAlgoFactory, MeshAlgorithmFactory)
 };
 
 #endif

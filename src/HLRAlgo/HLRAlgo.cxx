@@ -98,9 +98,9 @@ void HLRAlgo1::InitMinMax(const Standard_Real Big, Standard_Real Min[16], Standa
 
 //=================================================================================================
 
-void HLRAlgo1::EncodeMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
-                           HLRAlgo_EdgesBlock::MinMaxIndices1& Max,
-                           HLRAlgo_EdgesBlock::MinMaxIndices1& MM)
+void HLRAlgo1::EncodeMinMax(EdgesBlock::MinMaxIndices1& Min,
+                           EdgesBlock::MinMaxIndices1& Max,
+                           EdgesBlock::MinMaxIndices1& MM)
 {
   MM.Min[0] = Min.Min[1] & 0x00007fff;
   MM.Max[0] = Max.Min[1] & 0x00007fff;
@@ -138,8 +138,8 @@ void HLRAlgo1::EncodeMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
 
 //=================================================================================================
 
-Standard_Real HLRAlgo1::SizeBox(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
-                               HLRAlgo_EdgesBlock::MinMaxIndices1& Max)
+Standard_Real HLRAlgo1::SizeBox(EdgesBlock::MinMaxIndices1& Min,
+                               EdgesBlock::MinMaxIndices1& Max)
 {
   Standard_Real s = Max.Min[0] - Min.Min[0];
   for (Standard_Integer aI = 1; aI < 8; ++aI)
@@ -155,9 +155,9 @@ Standard_Real HLRAlgo1::SizeBox(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
 
 //=================================================================================================
 
-void HLRAlgo1::DecodeMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& MM,
-                           HLRAlgo_EdgesBlock::MinMaxIndices1&       Min,
-                           HLRAlgo_EdgesBlock::MinMaxIndices1&       Max)
+void HLRAlgo1::DecodeMinMax(const EdgesBlock::MinMaxIndices1& MM,
+                           EdgesBlock::MinMaxIndices1&       Min,
+                           EdgesBlock::MinMaxIndices1&       Max)
 {
   Min.Min[0] = (MM.Min[0] & 0x7fff0000) >> 16;
   Max.Min[0] = (MM.Max[0] & 0x7fff0000) >> 16;
@@ -195,10 +195,10 @@ void HLRAlgo1::DecodeMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& MM,
 
 //=================================================================================================
 
-void HLRAlgo1::AddMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& IMin,
-                        HLRAlgo_EdgesBlock::MinMaxIndices1& IMax,
-                        HLRAlgo_EdgesBlock::MinMaxIndices1& OMin,
-                        HLRAlgo_EdgesBlock::MinMaxIndices1& OMax)
+void HLRAlgo1::AddMinMax(EdgesBlock::MinMaxIndices1& IMin,
+                        EdgesBlock::MinMaxIndices1& IMax,
+                        EdgesBlock::MinMaxIndices1& OMin,
+                        EdgesBlock::MinMaxIndices1& OMax)
 {
   OMin.Minimize(IMin);
   OMax.Maximize(IMax);

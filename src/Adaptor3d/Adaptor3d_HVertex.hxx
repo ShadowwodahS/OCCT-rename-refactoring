@@ -21,16 +21,16 @@
 #include <gp_Pnt2d.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class Adaptor3d_HVertex;
-DEFINE_STANDARD_HANDLE(Adaptor3d_HVertex, RefObject)
+class HandleVertex;
+DEFINE_STANDARD_HANDLE(HandleVertex, RefObject)
 
-class Adaptor3d_HVertex : public RefObject
+class HandleVertex : public RefObject
 {
 
 public:
-  Standard_EXPORT Adaptor3d_HVertex();
+  Standard_EXPORT HandleVertex();
 
-  Standard_EXPORT Adaptor3d_HVertex(const gp_Pnt2d&          P,
+  Standard_EXPORT HandleVertex(const gp_Pnt2d&          P,
                                     const TopAbs_Orientation Ori,
                                     const Standard_Real      Resolution);
 
@@ -43,9 +43,9 @@ public:
 
   Standard_EXPORT virtual TopAbs_Orientation Orientation();
 
-  Standard_EXPORT virtual Standard_Boolean IsSame(const Handle(Adaptor3d_HVertex)& Other);
+  Standard_EXPORT virtual Standard_Boolean IsSame(const Handle(HandleVertex)& Other);
 
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_HVertex, RefObject)
+  DEFINE_STANDARD_RTTIEXT(HandleVertex, RefObject)
 
 protected:
 private:

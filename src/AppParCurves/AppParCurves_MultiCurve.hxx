@@ -28,7 +28,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class AppParCurves_MultiPoint;
+class MultiPoint;
 class Point3d;
 class gp_Pnt2d;
 class Vector3d;
@@ -82,7 +82,7 @@ public:
   //! <MPoint>.
   //! An exception is raised if Index <0 or Index >NbMPoint.
   Standard_EXPORT void SetValue(const Standard_Integer         Index,
-                                const AppParCurves_MultiPoint& MPoint);
+                                const MultiPoint& MPoint);
 
   //! Returns the number of curves resulting from the
   //! approximation of a MultiLine.
@@ -110,7 +110,7 @@ public:
 
   //! returns the Index MultiPoint.
   //! An exception is raised if Index <0 or Index >Degree+1.
-  Standard_EXPORT const AppParCurves_MultiPoint& Value(const Standard_Integer Index) const;
+  Standard_EXPORT const MultiPoint& Value(const Standard_Integer Index) const;
 
   //! returns the Nieme pole of the CuIndex curve.
   //! the curve must be a 3D curve.
@@ -205,7 +205,7 @@ public:
   Standard_EXPORT virtual void Dump(Standard_OStream& o) const;
 
 protected:
-  Handle(AppParCurves_HArray1OfMultiPoint) tabPoint;
+  Handle(MultiPointArray) tabPoint;
 
 private:
 };

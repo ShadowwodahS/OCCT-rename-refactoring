@@ -21,7 +21,7 @@
 #include <gp_Pnt.hxx>
 #include <StdFail_NotDone.hxx>
 
-gce_MakeParab::gce_MakeParab(const Frame3d& A2, const Standard_Real Focal)
+ParabolaBuilder::ParabolaBuilder(const Frame3d& A2, const Standard_Real Focal)
 {
   if (Focal < 0.0)
   {
@@ -34,24 +34,24 @@ gce_MakeParab::gce_MakeParab(const Frame3d& A2, const Standard_Real Focal)
   }
 }
 
-gce_MakeParab::gce_MakeParab(const Axis3d& D, const Point3d& F)
+ParabolaBuilder::ParabolaBuilder(const Axis3d& D, const Point3d& F)
 {
   TheParab = gp_Parab(D, F);
   TheError = gce_Done;
 }
 
-const gp_Parab& gce_MakeParab::Value() const
+const gp_Parab& ParabolaBuilder::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeParab::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "ParabolaBuilder::Value() - no result");
   return TheParab;
 }
 
-const gp_Parab& gce_MakeParab::Operator() const
+const gp_Parab& ParabolaBuilder::Operator() const
 {
   return Value();
 }
 
-gce_MakeParab::operator gp_Parab() const
+ParabolaBuilder::operator gp_Parab() const
 {
   return Value();
 }

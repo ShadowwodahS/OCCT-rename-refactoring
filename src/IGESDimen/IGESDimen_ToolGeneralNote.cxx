@@ -61,7 +61,7 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
   Handle(TColStd_HArray1OfReal)           rotationAngles;
   Handle(TColStd_HArray1OfInteger)        mirrorFlags;
   Handle(TColStd_HArray1OfInteger)        rotateFlags;
-  Handle(TColgp_HArray1OfXYZ)             startPoints;
+  Handle(XYZArray)             startPoints;
   Handle(Interface_HArray1OfHAsciiString) texts;
 
   Standard_Boolean st = PR.ReadInteger(PR.Current(), "Number of Text Strings", nbval);
@@ -76,7 +76,7 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
     rotationAngles = new TColStd_HArray1OfReal(1, nbval);
     mirrorFlags    = new TColStd_HArray1OfInteger(1, nbval);
     rotateFlags    = new TColStd_HArray1OfInteger(1, nbval);
-    startPoints    = new TColgp_HArray1OfXYZ(1, nbval);
+    startPoints    = new XYZArray(1, nbval);
     texts          = new Interface_HArray1OfHAsciiString(1, nbval);
   }
   else
@@ -243,7 +243,7 @@ void GeneralNoteTool::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
   Handle(TColStd_HArray1OfReal)           rotationAngles;
   Handle(TColStd_HArray1OfInteger)        mirrorFlags;
   Handle(TColStd_HArray1OfInteger)        rotateFlags;
-  Handle(TColgp_HArray1OfXYZ)             startPoints;
+  Handle(XYZArray)             startPoints;
   Handle(Interface_HArray1OfHAsciiString) texts;
 
   nbChars        = new TColStd_HArray1OfInteger(1, nbval);
@@ -255,7 +255,7 @@ void GeneralNoteTool::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
   rotationAngles = new TColStd_HArray1OfReal(1, nbval);
   mirrorFlags    = new TColStd_HArray1OfInteger(1, nbval);
   rotateFlags    = new TColStd_HArray1OfInteger(1, nbval);
-  startPoints    = new TColgp_HArray1OfXYZ(1, nbval);
+  startPoints    = new XYZArray(1, nbval);
   texts          = new Interface_HArray1OfHAsciiString(1, nbval);
 
   for (Standard_Integer i = 1; i <= nbval; i++)

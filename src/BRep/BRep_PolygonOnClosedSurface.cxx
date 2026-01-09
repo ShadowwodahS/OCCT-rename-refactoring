@@ -25,8 +25,8 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PolygonOnClosedSurface, BRep_PolygonOnSurface)
 
 //=================================================================================================
 
-BRep_PolygonOnClosedSurface::BRep_PolygonOnClosedSurface(const Handle(Poly_Polygon2D)& P1,
-                                                         const Handle(Poly_Polygon2D)& P2,
+BRep_PolygonOnClosedSurface::BRep_PolygonOnClosedSurface(const Handle(Polygon2D2)& P1,
+                                                         const Handle(Polygon2D2)& P2,
                                                          const Handle(GeomSurface)&   S,
                                                          const TopLoc_Location&        L)
     : BRep_PolygonOnSurface(P1, S, L),
@@ -43,14 +43,14 @@ Standard_Boolean BRep_PolygonOnClosedSurface::IsPolygonOnClosedSurface() const
 
 //=================================================================================================
 
-const Handle(Poly_Polygon2D)& BRep_PolygonOnClosedSurface::Polygon2() const
+const Handle(Polygon2D2)& BRep_PolygonOnClosedSurface::Polygon2() const
 {
   return myPolygon2;
 }
 
 //=================================================================================================
 
-void BRep_PolygonOnClosedSurface::Polygon2(const Handle(Poly_Polygon2D)& P)
+void BRep_PolygonOnClosedSurface::Polygon2(const Handle(Polygon2D2)& P)
 {
   myPolygon2 = P;
 }

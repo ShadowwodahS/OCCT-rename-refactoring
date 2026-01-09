@@ -46,7 +46,7 @@ AIS_MediaPlayer::AIS_MediaPlayer()
       myFrameSize(1, 1),
       myToClosePlayer(false)
 {
-  SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+  SetTransformPersistence(new TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
   SetZLayer(Graphic3d_ZLayerId_TopOSD);
   SetInfiniteState(true);
 

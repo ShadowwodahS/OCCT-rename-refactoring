@@ -22,7 +22,7 @@
 
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
-class TDF_Data;
+class Data2;
 class DataLabel;
 class Standard_GUID;
 class TDF_Attribute;
@@ -38,14 +38,14 @@ public:
   //! by its name <Name>. returns True if found. In that
   //! case <DF> is set.
   Standard_EXPORT static Standard_Boolean GetDF(Standard_CString&      Name,
-                                                Handle(TDF_Data)&      DF,
+                                                Handle(Data2)&      DF,
                                                 const Standard_Boolean Complain = Standard_True);
 
   //! Search in <DF>  the label identified by its  entry
   //! <Entry>.  returns  <True> if  found. In  that case
   //! <Label> is set.
   Standard_EXPORT static Standard_Boolean FindLabel(
-    const Handle(TDF_Data)& DF,
+    const Handle(Data2)& DF,
     const Standard_CString  Entry,
     DataLabel&              Label,
     const Standard_Boolean  Complain = Standard_True);
@@ -53,14 +53,14 @@ public:
   //! Search in <DF> the  label identified by its entry
   //! <Entry>.   if label doesn't  exist, create  and add
   //! the Label in <DF>. In that case return True.
-  Standard_EXPORT static Standard_Boolean AddLabel(const Handle(TDF_Data)& DF,
+  Standard_EXPORT static Standard_Boolean AddLabel(const Handle(Data2)& DF,
                                                    const Standard_CString  Entry,
                                                    DataLabel&              Label);
 
   //! Search   in <DF> the  attribute  identified by its
   //! <ID> and its <entry>.  returns <True> if found. In
   //! that case A is set.
-  Standard_EXPORT static Standard_Boolean Find(const Handle(TDF_Data)& DF,
+  Standard_EXPORT static Standard_Boolean Find(const Handle(Data2)& DF,
                                                const Standard_CString  Entry,
                                                const Standard_GUID&    ID,
                                                Handle(TDF_Attribute)&  A,
@@ -68,7 +68,7 @@ public:
 
   //! Safe variant for arbitrary type of argument
   template <class T>
-  static Standard_Boolean Find(const Handle(TDF_Data)& DF,
+  static Standard_Boolean Find(const Handle(Data2)& DF,
                                const Standard_CString  Entry,
                                const Standard_GUID&    ID,
                                Handle(T)&              A,

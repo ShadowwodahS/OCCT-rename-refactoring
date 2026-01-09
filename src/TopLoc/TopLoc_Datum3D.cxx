@@ -20,22 +20,22 @@
 #include <Standard_Dump.hxx>
 #include <TopLoc_Datum3D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopLoc_Datum3D, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Datum3D2, RefObject)
 
 //=================================================================================================
 
-TopLoc_Datum3D::TopLoc_Datum3D() {}
+Datum3D2::Datum3D2() {}
 
 //=================================================================================================
 
-TopLoc_Datum3D::TopLoc_Datum3D(const Transform3d& T)
+Datum3D2::Datum3D2(const Transform3d& T)
     : myTrsf(T)
 {
 }
 
 //=================================================================================================
 
-void TopLoc_Datum3D::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void Datum3D2::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myTrsf)
@@ -43,9 +43,9 @@ void TopLoc_Datum3D::DumpJson(Standard_OStream& theOStream, Standard_Integer the
 
 //=================================================================================================
 
-void TopLoc_Datum3D::ShallowDump(Standard_OStream& S) const
+void Datum3D2::ShallowDump(Standard_OStream& S) const
 {
-  S << " TopLoc_Datum3D " << (void*)this << std::endl;
+  S << " Datum3D2 " << (void*)this << std::endl;
   Standard_Integer i;
   Transform3d          T = myTrsf;
   for (i = 1; i <= 3; i++)

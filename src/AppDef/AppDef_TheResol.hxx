@@ -52,7 +52,7 @@ public:
                                   AppParCurves_MultiCurve&                              SCurv,
                                   const Standard_Integer                                FirstPoint,
                                   const Standard_Integer                                LastPoint,
-                                  const Handle(AppParCurves_HArray1OfConstraintCouple)& Constraints,
+                                  const Handle(ConstraintCoupleArray)& Constraints,
                                   const math_Matrix&                                    Bern,
                                   const math_Matrix&  DerivativeBern,
                                   const Standard_Real Tolerance = 1.0e-10);
@@ -85,7 +85,7 @@ protected:
     NbConstraints(const AppDef_MultiLine&                               SSP,
                   const Standard_Integer                                FirstPoint,
                   const Standard_Integer                                LastPoint,
-                  const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints) const;
+                  const Handle(ConstraintCoupleArray)& TheConstraints) const;
 
   //! is internally used for the fields creation.
   Standard_EXPORT Standard_Integer NbColumns(const AppDef_MultiLine& SSP,

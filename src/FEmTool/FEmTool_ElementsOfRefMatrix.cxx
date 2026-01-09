@@ -19,7 +19,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-FEmTool_ElementsOfRefMatrix::FEmTool_ElementsOfRefMatrix(const Handle(PLib_Base)& TheBase,
+FEmTool_ElementsOfRefMatrix::FEmTool_ElementsOfRefMatrix(const Handle(PolynomialBase)& TheBase,
                                                          const Standard_Integer   DerOrder)
     : myBase(TheBase)
 {

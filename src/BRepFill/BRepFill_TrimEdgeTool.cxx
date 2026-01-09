@@ -75,8 +75,8 @@ BRepFill_TrimEdgeTool::BRepFill_TrimEdgeTool() {}
 //=================================================================================================
 
 BRepFill_TrimEdgeTool::BRepFill_TrimEdgeTool(const Bisector_Bisec&          Bisec,
-                                             const Handle(Geom2d_Geometry)& S1,
-                                             const Handle(Geom2d_Geometry)& S2,
+                                             const Handle(Geometry2)& S1,
+                                             const Handle(Geometry2)& S2,
                                              const Standard_Real            Offset)
     : myOffset(Offset),
       myBisec(Bisec)

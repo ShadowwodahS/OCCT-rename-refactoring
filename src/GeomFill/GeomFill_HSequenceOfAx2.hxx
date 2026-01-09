@@ -21,6 +21,6 @@
 #include <GeomFill_SequenceOfAx2.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(GeomFill_HSequenceOfAx2, GeomFill_SequenceOfAx2)
+DEFINE_HSEQUENCE(HSequenceOfAx2, GeomFill_SequenceOfAx2)
 
 #endif

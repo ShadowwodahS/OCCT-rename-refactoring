@@ -14,8 +14,8 @@
 #include <Aspect_XRSession.hxx>
 
 IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRSession, RefObject)
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRAction, RefObject)
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRActionSet, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(XRAction, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(XRActionSet, RefObject)
 
 //=================================================================================================
 
@@ -36,14 +36,14 @@ Aspect_XRSession::Aspect_XRSession()
 
 //=================================================================================================
 
-void Aspect_XRSession::AbortHapticVibrationAction(const Handle(Aspect_XRAction)& theAction)
+void Aspect_XRSession::AbortHapticVibrationAction(const Handle(XRAction)& theAction)
 {
   triggerHapticVibrationAction(theAction, XRHapticActionData());
 }
 
 //=================================================================================================
 
-void Aspect_XRSession::TriggerHapticVibrationAction(const Handle(Aspect_XRAction)&   theAction,
+void Aspect_XRSession::TriggerHapticVibrationAction(const Handle(XRAction)&   theAction,
                                                     const XRHapticActionData& theParams)
 {
   if (!theParams.IsValid())

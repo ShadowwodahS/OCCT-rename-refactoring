@@ -68,7 +68,7 @@ static Standard_Real NewParameter(const TopoEdge&,
 
 //=================================================================================================
 
-void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
+void LocOpe_Generator::Perform(const Handle(GeneratedShape)& G)
 {
   if (myShape.IsNull())
   {
@@ -624,7 +624,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                     C   = BRepInspector::Curve(edg, loc, f, l);
                     if (!loc.IsIdentity())
                     {
-                      Handle(Geom_Geometry) GG = C->Transformed(loc.Transformation());
+                      Handle(Geometry3) GG = C->Transformed(loc.Transformation());
                       C                        = Handle(GeomCurve3d)::DownCast(GG);
                     }
                     if (C->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -699,7 +699,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
             C = BRepInspector::Curve(newedg, loc, f, l);
             if (!loc.IsIdentity())
             {
-              Handle(Geom_Geometry) GG = C->Transformed(loc.Transformation());
+              Handle(Geometry3) GG = C->Transformed(loc.Transformation());
               C                        = Handle(GeomCurve3d)::DownCast(GG);
             }
             if (C->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -815,7 +815,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                   C = BRepInspector::Curve(edgbis, loc, f, l);
                   if (!loc.IsIdentity())
                   {
-                    Handle(Geom_Geometry) GG = C->Transformed(loc.Transformation());
+                    Handle(Geometry3) GG = C->Transformed(loc.Transformation());
                     C                        = Handle(GeomCurve3d)::DownCast(GG);
                   }
                   if (C->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -1007,7 +1007,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                   C   = BRepInspector::Curve(edg, loc, f, l);
                   if (!loc.IsIdentity())
                   {
-                    Handle(Geom_Geometry) GG = C->Transformed(loc.Transformation());
+                    Handle(Geometry3) GG = C->Transformed(loc.Transformation());
                     C                        = Handle(GeomCurve3d)::DownCast(GG);
                   }
                   if (C->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -1287,14 +1287,14 @@ Standard_Boolean ToFuse(const TopoEdge& E1, const TopoEdge& E2)
   C1 = BRepInspector::Curve(E1, loc1, f, l);
   if (!loc1.IsIdentity())
   {
-    Handle(Geom_Geometry) CC1 = C1->Transformed(loc1.Transformation());
+    Handle(Geometry3) CC1 = C1->Transformed(loc1.Transformation());
     C1                        = Handle(GeomCurve3d)::DownCast(CC1);
   }
 
   C2 = BRepInspector::Curve(E2, loc2, f, l);
   if (!loc2.IsIdentity())
   {
-    Handle(Geom_Geometry) CC2 = C2->Transformed(loc2.Transformation());
+    Handle(Geometry3) CC2 = C2->Transformed(loc2.Transformation());
     C2                        = Handle(GeomCurve3d)::DownCast(CC2);
   }
 
@@ -1375,7 +1375,7 @@ Standard_Real NewParameter(const TopoEdge&   Edg,
   C = BRepInspector::Curve(Edg, loc, f, l);
   if (!loc.IsIdentity())
   {
-    Handle(Geom_Geometry) GG = C->Transformed(loc.Transformation());
+    Handle(Geometry3) GG = C->Transformed(loc.Transformation());
     C                        = Handle(GeomCurve3d)::DownCast(GG);
   }
   typC = C->DynamicType();

@@ -24,11 +24,11 @@
 #include <GccInt_IType.hxx>
 
 class GccInt_BCirc;
-DEFINE_STANDARD_HANDLE(GccInt_BCirc, GccInt_Bisec)
+DEFINE_STANDARD_HANDLE(GccInt_BCirc, Bisector2)
 
 //! Describes a circle as a bisecting curve between two 2D
 //! geometric objects (such as circles or points).
-class GccInt_BCirc : public GccInt_Bisec
+class GccInt_BCirc : public Bisector2
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Returns GccInt_Cir, which is the type of any GccInt_BCirc bisecting curve.
   Standard_EXPORT GccInt_IType ArcType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_BCirc, GccInt_Bisec)
+  DEFINE_STANDARD_RTTIEXT(GccInt_BCirc, Bisector2)
 
 protected:
 private:

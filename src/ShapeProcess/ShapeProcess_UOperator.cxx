@@ -16,7 +16,7 @@
 #include <ShapeProcess_UOperator.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeProcess_UOperator, ShapeProcess_Operator)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeProcess_UOperator, Operator)
 
 //=================================================================================================
 

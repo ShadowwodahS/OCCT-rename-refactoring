@@ -553,7 +553,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
         if (anInter.IsDone() && !anInter.IsEmpty())
         {
           // Collect intersection points
-          NCollection_List<IntRes2d_IntersectionPoint> aLPInt;
+          NCollection_List<IntersectionPoint3> aLPInt;
           // Get bounding points from segments
           Standard_Integer iP, aNbInt = anInter.NbSegments();
           for (iP = 1; iP <= aNbInt; ++iP)
@@ -571,10 +571,10 @@ void DBRep_IsoBuilder::FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& th
           Standard_Real    aTPrevClosest = 0., aTCurrClosest = 0.;
           Standard_Real    aDeltaPrev = ::RealLast(), aDeltaCurr = ::RealLast();
 
-          NCollection_List<IntRes2d_IntersectionPoint>::Iterator aItLPInt(aLPInt);
+          NCollection_List<IntersectionPoint3>::Iterator aItLPInt(aLPInt);
           for (; aItLPInt.More(); aItLPInt.Next())
           {
-            const IntRes2d_IntersectionPoint& aPnt      = aItLPInt.Value();
+            const IntersectionPoint3& aPnt      = aItLPInt.Value();
             const Standard_Real               aTIntPrev = aPnt.ParamOnFirst();
             const Standard_Real               aTIntCurr = aPnt.ParamOnSecond();
             // Check if the intersection point is in range

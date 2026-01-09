@@ -25,7 +25,7 @@ class VisualContext;
 class Standard_GUID;
 class DataLabel;
 class ViewManager;
-class TDF_RelocationTable;
+class RelocationTable1;
 
 class TPrsStd_AISViewer;
 DEFINE_STANDARD_HANDLE(TPrsStd_AISViewer, TDF_Attribute)
@@ -90,7 +90,7 @@ public:
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

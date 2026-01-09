@@ -25,11 +25,11 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <Standard_Real.hxx>
 
-class PLib_Base;
-DEFINE_STANDARD_HANDLE(PLib_Base, RefObject)
+class PolynomialBase;
+DEFINE_STANDARD_HANDLE(PolynomialBase, RefObject)
 
 //! To work with different polynomial's Bases
-class PLib_Base : public RefObject
+class PolynomialBase : public RefObject
 {
 
 public:
@@ -78,7 +78,7 @@ public:
                                             Standard_Integer&      NewDegree,
                                             Standard_Real&         MaxError) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(PLib_Base, RefObject)
+  DEFINE_STANDARD_RTTIEXT(PolynomialBase, RefObject)
 
 protected:
 private:

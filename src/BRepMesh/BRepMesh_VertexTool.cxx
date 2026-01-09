@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_VertexTool, RefObject)
 
 //=================================================================================================
 
-NCollection_CellFilter_Action BRepMesh_VertexInspector::Inspect(const Standard_Integer theTarget)
+NCollection_CellFilter_Action VertexInspector::Inspect(const Standard_Integer theTarget)
 {
   const Vertex& aVertex = myVertices->Value(theTarget - 1);
   if (aVertex.Movability() == BRepMesh_Deleted)

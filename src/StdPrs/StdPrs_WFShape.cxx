@@ -321,7 +321,7 @@ void StdPrs_WFShape::addEdges(const ShapeList& theEdges,
       continue;
     }
 
-    Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt;
+    Handle(PointSequence2) aPoints = new PointSequence2;
 
     TopLoc_Location                     aLocation;
     Handle(MeshTriangulation)          aTriangulation;

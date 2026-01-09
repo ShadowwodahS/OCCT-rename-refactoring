@@ -232,7 +232,7 @@ TopoShape ShapeCustom1::BSplineRestriction(
   const GeomAbs_Shape                              Continuity2d,
   const Standard_Boolean                           Degree,
   const Standard_Boolean                           Rational,
-  const Handle(ShapeCustom_RestrictionParameters)& aParameters)
+  const Handle(RestrictionParameters)& aParameters)
 {
   // Create a modification description
 

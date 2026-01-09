@@ -408,7 +408,7 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
   PSol = BisTemp->ValueAndDist(USol, U1, U2, Dist);
 
   Transition3        Trans1, Trans2;
-  IntRes2d_IntersectionPoint PointInterSol(PSol, USol, U2, Trans1, Trans2, Standard_False);
+  IntersectionPoint3 PointInterSol(PSol, USol, U2, Trans1, Trans2, Standard_False);
   Append(PointInterSol);
 }
 
@@ -424,7 +424,7 @@ void Bisector_Inter::TestBound(const Handle(Geom2d_Line)&  Bis1,
                                const Standard_Boolean      Reverse)
 {
   Transition3        Trans1, Trans2;
-  IntRes2d_IntersectionPoint PointInterSol;
+  IntersectionPoint3 PointInterSol;
 
   gp_Lin2d L1 = Bis1->Lin2d();
   gp_Pnt2d PF = Bis2->Value(D2.FirstParameter());

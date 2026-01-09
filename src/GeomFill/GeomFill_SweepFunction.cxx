@@ -29,12 +29,12 @@
 #include <Standard_Type.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SweepFunction, Approx_SweepFunction)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SweepFunction, SweepFunction)
 
 //=================================================================================================
 
-GeomFill_SweepFunction::GeomFill_SweepFunction(const Handle(GeomFill_SectionLaw)&  Section,
-                                               const Handle(GeomFill_LocationLaw)& Location,
+GeomFill_SweepFunction::GeomFill_SweepFunction(const Handle(SectionLaw)&  Section,
+                                               const Handle(LocationLaw)& Location,
                                                const Standard_Real                 FirstParameter,
                                                const Standard_Real FirstParameterOnS,
                                                const Standard_Real RatioParameterOnS)

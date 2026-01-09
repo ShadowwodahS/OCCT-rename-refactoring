@@ -15,4 +15,4 @@
 
 #include <IMeshData_Curve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshData_Curve, IMeshData_ParametersList)
+IMPLEMENT_STANDARD_RTTIEXT(IMeshData_Curve, ParametersList)

@@ -224,8 +224,8 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
   myRelocTable.SetHeaderData(aHeaderData);
   mySections.Clear();
   myPAtt.Init();
-  Handle(TDF_Data) aData =
-    (!theFilter.IsNull() && theFilter->IsAppendMode()) ? aDoc->GetData() : new TDF_Data();
+  Handle(Data2) aData =
+    (!theFilter.IsNull() && theFilter->IsAppendMode()) ? aDoc->GetData() : new Data2();
 
   Message_ProgressScope aPS(theRange, "Reading data", 3);
   Standard_Boolean      aQuickPart = IsQuickPart(aFileVer);

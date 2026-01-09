@@ -130,7 +130,7 @@ private:
   Standard_Real                    myTolerance;
   Handle(NCollection_IncAllocator) myAllocator;
   IMeshData::CircleCellFilter      myCellFilter;
-  BRepMesh_CircleInspector         mySelector;
+  CircleInspector         mySelector;
   Coords2d                            myFaceMax;
   Coords2d                            myFaceMin;
 };

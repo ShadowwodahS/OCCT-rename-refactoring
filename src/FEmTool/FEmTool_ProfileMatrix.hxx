@@ -29,11 +29,11 @@
 #include <math_Vector.hxx>
 
 class FEmTool_ProfileMatrix;
-DEFINE_STANDARD_HANDLE(FEmTool_ProfileMatrix, FEmTool_SparseMatrix)
+DEFINE_STANDARD_HANDLE(FEmTool_ProfileMatrix, SparseMatrix)
 
 //! Symmetric Sparse ProfileMatrix useful  for 1D Finite
 //! Element methods
-class FEmTool_ProfileMatrix : public FEmTool_SparseMatrix
+class FEmTool_ProfileMatrix : public SparseMatrix
 {
 
 public:
@@ -78,7 +78,7 @@ public:
 
   Standard_EXPORT void OutS() const;
 
-  DEFINE_STANDARD_RTTIEXT(FEmTool_ProfileMatrix, FEmTool_SparseMatrix)
+  DEFINE_STANDARD_RTTIEXT(FEmTool_ProfileMatrix, SparseMatrix)
 
 protected:
 private:

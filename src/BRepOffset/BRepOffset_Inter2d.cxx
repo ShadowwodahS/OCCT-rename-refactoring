@@ -1022,7 +1022,7 @@ static void RefEdgeInter(const TopoFace&                         F,
 
 static Standard_Integer evaluateMaxSegment(const Adaptor3d_CurveOnSurface& aCurveOnSurface)
 {
-  const Handle(Adaptor3d_Surface)& aSurf   = aCurveOnSurface.GetSurface();
+  const Handle(SurfaceAdaptor)& aSurf   = aCurveOnSurface.GetSurface();
   const Handle(Adaptor2d_Curve2d)& aCurv2d = aCurveOnSurface.GetCurve();
 
   Standard_Real aNbSKnots = 0, aNbC2dKnots = 0;
@@ -1236,7 +1236,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
         {
           for (j = 1; j <= IntCC.NbPoints(); j++)
           {
-            const IntRes2d_IntersectionPoint& ip     = IntCC.Point(j);
+            const IntersectionPoint3& ip     = IntCC.Point(j);
             gp_Pnt2d                          aPoint = ip.Value();
             if (aPoint.X() >= Umin && aPoint.X() <= Umax && aPoint.Y() >= Vmin
                 && aPoint.Y() <= Vmax)
@@ -1247,7 +1247,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
             const IntRes2d_IntersectionSegment& is = IntCC.Segment1(j);
             if (is.HasFirstPoint())
             {
-              const IntRes2d_IntersectionPoint& ip     = is.FirstPoint();
+              const IntersectionPoint3& ip     = is.FirstPoint();
               gp_Pnt2d                          aPoint = ip.Value();
               if (aPoint.X() >= Umin && aPoint.X() <= Umax && aPoint.Y() >= Vmin
                   && aPoint.Y() <= Vmax)
@@ -1255,7 +1255,7 @@ Standard_Boolean Inter2d::ExtentEdge(const TopoEdge&  E,
             }
             if (is.HasLastPoint())
             {
-              const IntRes2d_IntersectionPoint& ip     = is.LastPoint();
+              const IntersectionPoint3& ip     = is.LastPoint();
               gp_Pnt2d                          aPoint = ip.Value();
               if (aPoint.X() >= Umin && aPoint.X() <= Umax && aPoint.Y() >= Vmin
                   && aPoint.Y() <= Vmax)

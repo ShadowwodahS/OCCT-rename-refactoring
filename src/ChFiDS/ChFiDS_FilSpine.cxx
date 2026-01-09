@@ -207,7 +207,7 @@ void ChFiDS_FilSpine::UnSetRadius(const TopoVertex& V)
 
 //=================================================================================================
 
-void ChFiDS_FilSpine::SetRadius(const Handle(Law_Function)& C, const Standard_Integer /*IinC*/)
+void ChFiDS_FilSpine::SetRadius(const Handle(Function2)& C, const Standard_Integer /*IinC*/)
 {
   splitdone                   = Standard_False;
   Handle(Law_Composite) prout = new Law_Composite();
@@ -760,7 +760,7 @@ Handle(Law_Composite) ChFiDS_FilSpine::Law1(const Handle(ChFiDS_ElSpine)& Els) c
 
 //=================================================================================================
 
-Handle(Law_Function)& ChFiDS_FilSpine::ChangeLaw(const TopoEdge& E)
+Handle(Function2)& ChFiDS_FilSpine::ChangeLaw(const TopoEdge& E)
 {
   if (!SplitDone())
   {
@@ -790,7 +790,7 @@ Standard_Real ChFiDS_FilSpine::MaxRadFromSeqAndLaws() const
   Law_ListIteratorOfLaws itl(laws);
   for (; itl.More(); itl.Next())
   {
-    Handle(Law_Function) law = itl.Value();
+    Handle(Function2) law = itl.Value();
     Standard_Real        fpar, lpar, par, delta, rad;
     law->Bounds(fpar, lpar);
     delta = (lpar - fpar) * 0.2;

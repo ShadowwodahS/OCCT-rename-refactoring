@@ -115,7 +115,7 @@ Standard_Boolean XCAFDoc_AssemblyItemRef::IsOrphan() const
   if (aDoc.IsNull())
     return Standard_True;
 
-  Handle(TDF_Data) aData = aDoc->GetData();
+  Handle(Data2) aData = aDoc->GetData();
   if (aData.IsNull())
     return Standard_True;
 
@@ -255,7 +255,7 @@ void XCAFDoc_AssemblyItemRef::Restore(const Handle(TDF_Attribute)& theAttrFrom)
 }
 
 void XCAFDoc_AssemblyItemRef::Paste(const Handle(TDF_Attribute)& theAttrInto,
-                                    const Handle(TDF_RelocationTable)& /*theRT*/) const
+                                    const Handle(RelocationTable1)& /*theRT*/) const
 {
   Handle(XCAFDoc_AssemblyItemRef) anOther = Handle(XCAFDoc_AssemblyItemRef)::DownCast(theAttrInto);
   if (!anOther.IsNull())

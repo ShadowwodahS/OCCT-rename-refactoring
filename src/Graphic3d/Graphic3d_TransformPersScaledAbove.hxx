@@ -16,12 +16,12 @@
 
 #include <Graphic3d_TransformPers.hxx>
 
-DEFINE_STANDARD_HANDLE(Graphic3d_TransformPersScaledAbove, Graphic3d_TransformPers)
+DEFINE_STANDARD_HANDLE(Graphic3d_TransformPersScaledAbove, TransformPers)
 
 //! Transformation Zoom persistence with the above boundary of scale.
 //! This persistence works only when the camera scale value is below the scale value of this
 //! persistence. Otherwise, no persistence is applied.
-class Graphic3d_TransformPersScaledAbove : public Graphic3d_TransformPers
+class Graphic3d_TransformPersScaledAbove : public TransformPers
 {
 public:
   //! Create a Zoom transformation persistence with an anchor 3D point and a scale value
@@ -42,7 +42,7 @@ public:
     const Standard_Integer          theViewportHeight) const Standard_OVERRIDE;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_TransformPersScaledAbove, Graphic3d_TransformPers)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_TransformPersScaledAbove, TransformPers)
 
 private:
   Standard_Real myScale; //!< scale bound value

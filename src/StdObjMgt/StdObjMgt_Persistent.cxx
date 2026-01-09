@@ -85,7 +85,7 @@ Handle(TCollection_HExtendedString) StdObjMgt_Persistent::ExtString() const
 //           (to be overridden by extended string class;
 //           returns a null label by default for other classes)
 //=======================================================================
-DataLabel StdObjMgt_Persistent::Label(const Handle(TDF_Data)&) const
+DataLabel StdObjMgt_Persistent::Label(const Handle(Data2)&) const
 {
   return DataLabel();
 }

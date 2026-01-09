@@ -53,8 +53,8 @@ public:
   //!
   //! If surface is not periodic in correspond direction then
   //! its period is considered to be equal to 0.
-  Standard_EXPORT static void SetPeriod(const Handle(Adaptor3d_Surface)& theFirstSurf,
-                                        const Handle(Adaptor3d_Surface)& theSecondSurf,
+  Standard_EXPORT static void SetPeriod(const Handle(SurfaceAdaptor)& theFirstSurf,
+                                        const Handle(SurfaceAdaptor)& theSecondSurf,
                                         Standard_Real                    theArrOfPeriod[4]);
 };
 

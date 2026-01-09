@@ -44,7 +44,7 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_BooleanOperationDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_BooleanOperationDriver, FunctionDriver1)
 
 static Standard_Boolean FixSameParameter(
   const TopoShape&    theShape,
@@ -196,7 +196,7 @@ static TopAbs_ShapeEnum ShapeType(const TopoShape& theShape)
 static Standard_Boolean IsValidSurfType(const TopoFace& theFace)
 {
   BRepAdaptor_Surface        anAdapt(theFace);
-  Handle(Adaptor3d_Curve)    aBasisCurve;
+  Handle(Curve5)    aBasisCurve;
   const GeomAbs_SurfaceType& aType = anAdapt.GetType();
   if (aType == GeomAbs_Sphere)
     return Standard_True;

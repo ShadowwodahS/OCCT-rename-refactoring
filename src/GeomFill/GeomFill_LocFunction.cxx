@@ -21,7 +21,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 
-GeomFill_LocFunction::GeomFill_LocFunction(const Handle(GeomFill_LocationLaw)& Law1)
+GeomFill_LocFunction::GeomFill_LocFunction(const Handle(LocationLaw)& Law1)
     : V(1, 4),
       DV(1, 4),
       D2V(1, 4)

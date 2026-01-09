@@ -33,13 +33,13 @@ BRepTopAdaptor_Tool::BRepTopAdaptor_Tool(const TopoFace& F, const Standard_Real 
 
   Handle(BRepAdaptor_Surface) surface = new BRepAdaptor_Surface();
   surface->Initialize(F, Standard_True);
-  const Handle(Adaptor3d_Surface)& aSurf = surface; // to avoid ambiguity
+  const Handle(SurfaceAdaptor)& aSurf = surface; // to avoid ambiguity
   myTopolTool->Initialize(aSurf);
   myHSurface = surface;
   myloaded   = Standard_True;
 }
 
-BRepTopAdaptor_Tool::BRepTopAdaptor_Tool(const Handle(Adaptor3d_Surface)& surface,
+BRepTopAdaptor_Tool::BRepTopAdaptor_Tool(const Handle(SurfaceAdaptor)& surface,
                                          const Standard_Real /*Tol2d*/)
 {
   myTopolTool = new BRepTopAdaptor_TopolTool();
@@ -52,13 +52,13 @@ void BRepTopAdaptor_Tool::Init(const TopoFace& F, const Standard_Real /*Tol2d*/)
 {
   Handle(BRepAdaptor_Surface) surface = new BRepAdaptor_Surface();
   surface->Initialize(F);
-  const Handle(Adaptor3d_Surface)& aSurf = surface; // to avoid ambiguity
+  const Handle(SurfaceAdaptor)& aSurf = surface; // to avoid ambiguity
   myTopolTool->Initialize(aSurf);
   myHSurface = surface;
   myloaded   = Standard_True;
 }
 
-void BRepTopAdaptor_Tool::Init(const Handle(Adaptor3d_Surface)& surface,
+void BRepTopAdaptor_Tool::Init(const Handle(SurfaceAdaptor)& surface,
                                const Standard_Real /*Tol2d*/)
 {
   myTopolTool->Initialize(surface);
@@ -83,7 +83,7 @@ Handle(BRepTopAdaptor_TopolTool) BRepTopAdaptor_Tool::GetTopolTool()
   }
 }
 
-Handle(Adaptor3d_Surface) BRepTopAdaptor_Tool::GetSurface()
+Handle(SurfaceAdaptor) BRepTopAdaptor_Tool::GetSurface()
 {
   if (myloaded)
   {

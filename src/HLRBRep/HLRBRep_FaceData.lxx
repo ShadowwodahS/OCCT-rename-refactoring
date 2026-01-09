@@ -359,7 +359,7 @@ inline void HLRBRep_FaceData::Orientation(const TopAbs_Orientation O)
 // purpose  :
 //=======================================================================
 
-inline Handle(HLRAlgo_WiresBlock)& HLRBRep_FaceData::Wires()
+inline Handle(WiresBlock)& HLRBRep_FaceData::Wires()
 {
   return myWires;
 }

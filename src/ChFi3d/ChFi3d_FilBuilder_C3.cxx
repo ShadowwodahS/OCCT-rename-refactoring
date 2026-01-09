@@ -594,8 +594,8 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   // end of the attempt.
   Handle(Adaptor3d_TopolTool) ISurf     = new Adaptor3d_TopolTool(Surf);
   Handle(ChFiDS_Stripe)       corner    = new ChFiDS_Stripe();
-  Handle(ChFiDS_HData)&       cornerset = corner->ChangeSetOfSurfData();
-  cornerset                             = new ChFiDS_HData();
+  Handle(ChamferFilletData)&       cornerset = corner->ChangeSetOfSurfData();
+  cornerset                             = new ChamferFilletData();
   Handle(ChFiDS_SurfData) coin          = new ChFiDS_SurfData();
   cornerset->Append(coin);
   TopAbs_Orientation o1, o2, os1, os2, oo1, oo2;
@@ -895,7 +895,7 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
       // the contour to be fillet consists of straight lines uv in beginning and end
       // of two pcurves (only one if c1pointu) calculated as possible
       // on piv and the opposite face.
-      Handle(GeomFill_Boundary) Bdeb, Bfin, Bpiv, Bfac;
+      Handle(Boundary2) Bdeb, Bfin, Bpiv, Bfac;
       Handle(GeomCurve2d)      PCurveOnFace;
       if (!c1pointu)
         Bfac = ChFi3d_mkbound(Fac,

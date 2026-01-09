@@ -94,7 +94,7 @@ public:
 
   Standard_EXPORT virtual Standard_Integer NbSurf(const Standard_Integer IC) const = 0;
 
-  Standard_EXPORT virtual Handle(ChFiDS_SecHArray1) Sect(const Standard_Integer IC,
+  Standard_EXPORT virtual Handle(SecHArray1) Sect(const Standard_Integer IC,
                                                          const Standard_Integer IS) const = 0;
 
 protected:

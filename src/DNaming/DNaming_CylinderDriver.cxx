@@ -36,7 +36,7 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Solid.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_CylinderDriver, TFunction_Driver)
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_CylinderDriver, FunctionDriver1)
 
 //=================================================================================================
 

@@ -28,16 +28,16 @@ class Adaptor3d_TopolTool;
 //! Implementation of the intersection between a natural
 //! quadric patch : Plane1, Cone, Cylinder or Sphere and
 //! a bi-parametrised surface.
-class IntPatch_ImpPrmIntersection
+class ImplicitParametricIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPatch_ImpPrmIntersection();
+  Standard_EXPORT ImplicitParametricIntersection();
 
-  Standard_EXPORT IntPatch_ImpPrmIntersection(const Handle(Adaptor3d_Surface)&   Surf1,
+  Standard_EXPORT ImplicitParametricIntersection(const Handle(SurfaceAdaptor)&   Surf1,
                                               const Handle(Adaptor3d_TopolTool)& D1,
-                                              const Handle(Adaptor3d_Surface)&   Surf2,
+                                              const Handle(SurfaceAdaptor)&   Surf2,
                                               const Handle(Adaptor3d_TopolTool)& D2,
                                               const Standard_Real                TolArc,
                                               const Standard_Real                TolTang,
@@ -47,9 +47,9 @@ public:
   //! to search for solution from the given point
   Standard_EXPORT void SetStartPoint(const Standard_Real U, const Standard_Real V);
 
-  Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf1,
+  Standard_EXPORT void Perform(const Handle(SurfaceAdaptor)&   Surf1,
                                const Handle(Adaptor3d_TopolTool)& D1,
-                               const Handle(Adaptor3d_Surface)&   Surf2,
+                               const Handle(SurfaceAdaptor)&   Surf2,
                                const Handle(Adaptor3d_TopolTool)& D2,
                                const Standard_Real                TolArc,
                                const Standard_Real                TolTang,
@@ -74,7 +74,7 @@ public:
 
   //! Returns the line of range Index.
   //! An exception is raised if Index<=0 or Index>NbLine.
-  const Handle(IntPatch_Line)& Line(const Standard_Integer Index) const;
+  const Handle(Line2)& Line(const Standard_Integer Index) const;
 
 protected:
 private:

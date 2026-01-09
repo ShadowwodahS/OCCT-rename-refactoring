@@ -23,7 +23,7 @@
 #include <Geom_BSplineSurface.hxx>
 #include <Geom_OffsetCurve.hxx>
 
-Standard_Integer HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HSurfaceTool::NbSamplesU(const Handle(SurfaceAdaptor)& S)
 {
   switch (S->GetType())
   {
@@ -43,7 +43,7 @@ Standard_Integer HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S)
   return 10;
 }
 
-Standard_Integer HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HSurfaceTool::NbSamplesV(const Handle(SurfaceAdaptor)& S)
 {
   switch (S->GetType())
   {
@@ -68,7 +68,7 @@ Standard_Integer HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S)
   return 10;
 }
 
-Standard_Integer HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HSurfaceTool::NbSamplesU(const Handle(SurfaceAdaptor)& S,
                                                     const Standard_Real              u1,
                                                     const Standard_Real              u2)
 {
@@ -87,7 +87,7 @@ Standard_Integer HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
   return n;
 }
 
-Standard_Integer HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HSurfaceTool::NbSamplesV(const Handle(SurfaceAdaptor)& S,
                                                     const Standard_Real              v1,
                                                     const Standard_Real              v2)
 {
@@ -106,7 +106,7 @@ Standard_Integer HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
   return n;
 }
 
-Standard_Boolean HSurfaceTool::IsSurfG1(const Handle(Adaptor3d_Surface)& theSurf,
+Standard_Boolean HSurfaceTool::IsSurfG1(const Handle(SurfaceAdaptor)& theSurf,
                                                   const Standard_Boolean           theAlongU,
                                                   const Standard_Real              theAngTol)
 {
@@ -116,8 +116,8 @@ Standard_Boolean HSurfaceTool::IsSurfG1(const Handle(Adaptor3d_Surface)& theSurf
   aVf = theSurf->FirstVParameter();
   aVl = theSurf->LastVParameter();
 
-  Handle(Adaptor3d_Surface) aS = theSurf;
-  Handle(Adaptor3d_Curve)   aC;
+  Handle(SurfaceAdaptor) aS = theSurf;
+  Handle(Curve5)   aC;
 
   Handle(Geom_BSplineSurface) aBS;
   Handle(BSplineCurve3d)   aBC;

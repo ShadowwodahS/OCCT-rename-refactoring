@@ -27,7 +27,7 @@
 #include <TopAbs_State.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class Adaptor3d_HVertex;
+class HandleVertex;
 class gp_Pnt2d;
 class Point3d;
 
@@ -40,11 +40,11 @@ class BRepTopAdaptor_TopolTool : public Adaptor3d_TopolTool
 public:
   Standard_EXPORT BRepTopAdaptor_TopolTool();
 
-  Standard_EXPORT BRepTopAdaptor_TopolTool(const Handle(Adaptor3d_Surface)& Surface);
+  Standard_EXPORT BRepTopAdaptor_TopolTool(const Handle(SurfaceAdaptor)& Surface);
 
   Standard_EXPORT virtual void Initialize() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Initialize(const Handle(Adaptor3d_Surface)& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Initialize(const Handle(SurfaceAdaptor)& S) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Initialize(const Handle(Adaptor2d_Curve2d)& Curve) Standard_OVERRIDE;
 
@@ -62,7 +62,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean MoreVertex() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Adaptor3d_HVertex) Vertex() Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(HandleVertex) Vertex() Standard_OVERRIDE;
 
   Standard_EXPORT virtual void NextVertex() Standard_OVERRIDE;
 
@@ -90,7 +90,7 @@ public:
   //! a "real" limit of the surface.
   //! If the orientation is INTERNAL or EXTERNAL, the arc is
   //! considered as an arc on the surface.
-  Standard_EXPORT virtual TopAbs_Orientation Orientation(const Handle(Adaptor3d_HVertex)& C)
+  Standard_EXPORT virtual TopAbs_Orientation Orientation(const Handle(HandleVertex)& C)
     Standard_OVERRIDE;
 
   Standard_EXPORT void Destroy();
@@ -106,11 +106,11 @@ public:
     Standard_OVERRIDE;
 
   //! returns 3d tolerance of the vertex V
-  Standard_EXPORT virtual Standard_Real Tol3d(const Handle(Adaptor3d_HVertex)& V) const
+  Standard_EXPORT virtual Standard_Real Tol3d(const Handle(HandleVertex)& V) const
     Standard_OVERRIDE;
 
   //! returns 3d point of the vertex V
-  Standard_EXPORT virtual Point3d Pnt(const Handle(Adaptor3d_HVertex)& V) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d Pnt(const Handle(HandleVertex)& V) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeSamplePoints() Standard_OVERRIDE;
 

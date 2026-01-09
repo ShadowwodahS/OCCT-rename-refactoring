@@ -26,8 +26,8 @@
 class UtfString;
 class AppDocument;
 
-class TDocStd_MultiTransactionManager;
-DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, RefObject)
+class MultiTransactionManager;
+DEFINE_STANDARD_HANDLE(MultiTransactionManager, RefObject)
 
 //! Class for synchronization of transactions within multiple documents.
 //! Each transaction of this class involvess one transaction in each modified document.
@@ -44,12 +44,12 @@ DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, RefObject)
 //!
 //! NOTE: When you invoke CommitTransaction of multi transaction
 //! manager, all nested transaction of its documents will be closed (committed).
-class TDocStd_MultiTransactionManager : public RefObject
+class MultiTransactionManager : public RefObject
 {
 
 public:
   //! Constructor
-  Standard_EXPORT TDocStd_MultiTransactionManager();
+  Standard_EXPORT MultiTransactionManager();
 
   //! Sets undo limit for the manager and all documents.
   Standard_EXPORT void SetUndoLimit(const Standard_Integer theLimit);
@@ -137,7 +137,7 @@ public:
   //! Clears redos in the manager and in documents.
   Standard_EXPORT void ClearRedos();
 
-  DEFINE_STANDARD_RTTIEXT(TDocStd_MultiTransactionManager, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MultiTransactionManager, RefObject)
 
 protected:
 private:

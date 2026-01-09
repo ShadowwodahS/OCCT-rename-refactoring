@@ -525,7 +525,7 @@ static Standard_Integer transform(DrawInterpreter& di, Standard_Integer n, const
 
   for (i = 1; i <= last; i++)
   {
-    Handle(Geom_Geometry) G = DrawTrSurf1::Get(a[i]);
+    Handle(Geometry3) G = DrawTrSurf1::Get(a[i]);
     if (!G.IsNull())
     {
       G->Transform(T);
@@ -650,7 +650,7 @@ void DrawTrSurf1::Set(const Standard_CString theName, const gp_Pnt2d& thePoint)
 // purpose  : Geometry1 from Geom
 //=======================================================================
 void DrawTrSurf1::Set(const Standard_CString       theName,
-                     const Handle(Geom_Geometry)& theGeometry,
+                     const Handle(Geometry3)& theGeometry,
                      const Standard_Boolean       isSenseMarker)
 {
   Params1&          aParams = DrawTrSurf1::Parameters();
@@ -810,7 +810,7 @@ void DrawTrSurf1::Set(const Standard_CString Name, const Handle(Poly_Polygon3D)&
 
 //=================================================================================================
 
-void DrawTrSurf1::Set(const Standard_CString Name, const Handle(Poly_Polygon2D)& P)
+void DrawTrSurf1::Set(const Standard_CString Name, const Handle(Polygon2D2)& P)
 {
   Handle(DrawTrSurf_Polygon2D) D = new DrawTrSurf_Polygon2D(P);
   Draw1::Set(Name, D);
@@ -818,7 +818,7 @@ void DrawTrSurf1::Set(const Standard_CString Name, const Handle(Poly_Polygon2D)&
 
 //=================================================================================================
 
-Handle(Geom_Geometry) DrawTrSurf1::Get(Standard_CString& Name)
+Handle(Geometry3) DrawTrSurf1::Get(Standard_CString& Name)
 {
   Handle(Drawable3D) D = Draw1::Get(Name);
 
@@ -830,7 +830,7 @@ Handle(Geom_Geometry) DrawTrSurf1::Get(Standard_CString& Name)
   if (!DS.IsNull())
     return DS->GetSurface();
 
-  return Handle(Geom_Geometry)();
+  return Handle(Geometry3)();
 }
 
 //=================================================================================================
@@ -989,11 +989,11 @@ Handle(Poly_Polygon3D) DrawTrSurf1::GetPolygon3D(Standard_CString& Name)
 
 //=================================================================================================
 
-Handle(Poly_Polygon2D) DrawTrSurf1::GetPolygon2D(Standard_CString& Name)
+Handle(Polygon2D2) DrawTrSurf1::GetPolygon2D(Standard_CString& Name)
 {
   Handle(DrawTrSurf_Polygon2D) D = Handle(DrawTrSurf_Polygon2D)::DownCast(Draw1::Get(Name));
   if (D.IsNull())
-    return Handle(Poly_Polygon2D)();
+    return Handle(Polygon2D2)();
   else
     return D->Polygon2D();
 }

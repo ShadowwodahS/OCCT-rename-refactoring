@@ -164,10 +164,10 @@ union Multitype { /* for multiple entry points */
 
 typedef union Multitype Multitype;
 
-/*typedef long int Long;*/ /* No longer used; formerly in Namelist */
+/*typedef long int Long;*/ /* No longer used; formerly in Namelist1 */
 
 struct Vardesc1
-{ /* for Namelist */
+{ /* for Namelist1 */
   char*   name;
   char*   addr;
   ftnlen* dims;
@@ -175,13 +175,13 @@ struct Vardesc1
 };
 typedef struct Vardesc1 Vardesc1;
 
-struct Namelist
+struct Namelist1
 {
   char*     name;
   Vardesc1** vars;
   int       nvars;
 };
-typedef struct Namelist Namelist;
+typedef struct Namelist1 Namelist1;
 
 #define advapp_abs(x) ((x) >= 0 ? (x) : -(x))
 #define dabs(x) (doublereal) advapp_abs(x)

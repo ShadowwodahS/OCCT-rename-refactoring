@@ -135,7 +135,7 @@ Handle(Graphic3d_ArrayOfPrimitives) Prs3d1::PrimitivesFromPolylines(
     new Graphic3d_ArrayOfSegments(aNbVertices, aSegmentEdgeNb);
   for (Prs3d_NListOfSequenceOfPnt::Iterator anIt(thePoints); anIt.More(); anIt.Next())
   {
-    const Handle(TColgp_HSequenceOfPnt)& aPoints = anIt.Value();
+    const Handle(PointSequence2)& aPoints = anIt.Value();
 
     Standard_Integer aSegmentEdge = aSegments->VertexNumber() + 1;
     aSegments->AddVertex(aPoints->First());

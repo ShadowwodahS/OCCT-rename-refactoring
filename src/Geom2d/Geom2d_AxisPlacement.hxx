@@ -27,7 +27,7 @@ class gp_Dir2d;
 class Transform2d;
 
 class Geom2d_AxisPlacement;
-DEFINE_STANDARD_HANDLE(Geom2d_AxisPlacement, Geom2d_Geometry)
+DEFINE_STANDARD_HANDLE(Geom2d_AxisPlacement, Geometry2)
 
 //! Describes an axis in 2D space.
 //! An axis is defined by:
@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_AxisPlacement, Geom2d_Geometry)
 //! Geom2d_AxisPlacement axes are used in a context
 //! where they can be shared by several objects
 //! contained inside a common data structure.
-class Geom2d_AxisPlacement : public Geom2d_Geometry
+class Geom2d_AxisPlacement : public Geometry2
 {
 
 public:
@@ -89,9 +89,9 @@ public:
   Standard_EXPORT void Transform(const Transform2d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this axis.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_AxisPlacement, Geom2d_Geometry)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_AxisPlacement, Geometry2)
 
 protected:
 private:

@@ -29,35 +29,35 @@ class gp_Torus;
 
 //! Computes the global properties of a bounded
 //! elementary surface in 3d (surface of the gp1 package)
-class GProp_SelGProps : public GeometricProperties
+class SelectionGeometricProperties : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GProp_SelGProps();
+  Standard_EXPORT SelectionGeometricProperties();
 
-  Standard_EXPORT GProp_SelGProps(const Cylinder1&  S,
+  Standard_EXPORT SelectionGeometricProperties(const Cylinder1&  S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
                                   const Point3d&       SLocation);
 
-  Standard_EXPORT GProp_SelGProps(const Cone1&      S,
+  Standard_EXPORT SelectionGeometricProperties(const Cone1&      S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
                                   const Point3d&       SLocation);
 
-  Standard_EXPORT GProp_SelGProps(const Sphere3&    S,
+  Standard_EXPORT SelectionGeometricProperties(const Sphere3&    S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Point3d&       SLocation);
 
-  Standard_EXPORT GProp_SelGProps(const gp_Torus&     S,
+  Standard_EXPORT SelectionGeometricProperties(const gp_Torus&     S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,

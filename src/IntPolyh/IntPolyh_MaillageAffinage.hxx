@@ -37,16 +37,16 @@ class IntPolyh_MaillageAffinage
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPolyh_MaillageAffinage(const Handle(Adaptor3d_Surface)& S1,
+  Standard_EXPORT IntPolyh_MaillageAffinage(const Handle(SurfaceAdaptor)& S1,
                                             const Standard_Integer           NbSU1,
                                             const Standard_Integer           NbSV1,
-                                            const Handle(Adaptor3d_Surface)& S2,
+                                            const Handle(SurfaceAdaptor)& S2,
                                             const Standard_Integer           NbSU2,
                                             const Standard_Integer           NbSV2,
                                             const Standard_Integer           PRINT);
 
-  Standard_EXPORT IntPolyh_MaillageAffinage(const Handle(Adaptor3d_Surface)& S1,
-                                            const Handle(Adaptor3d_Surface)& S2,
+  Standard_EXPORT IntPolyh_MaillageAffinage(const Handle(SurfaceAdaptor)& S1,
+                                            const Handle(SurfaceAdaptor)& S2,
                                             const Standard_Integer           PRINT);
 
   //! Makes the sampling of the surface -
@@ -152,8 +152,8 @@ public:
 
   Standard_EXPORT Standard_Integer TriangleEdgeContact(const Standard_Integer   TriSurfID,
                                                        const Standard_Integer   EdgeIndice,
-                                                       const IntPolyh_Triangle& Tri1,
-                                                       const IntPolyh_Triangle& Tri2,
+                                                       const Triangle4& Tri1,
+                                                       const Triangle4& Tri2,
                                                        const Point3&    P1,
                                                        const Point3&    P2,
                                                        const Point3&    P3,
@@ -232,8 +232,8 @@ public:
   Standard_EXPORT Standard_Real GetMaxDeflection(const Standard_Integer SurfID) const;
 
 private:
-  Handle(Adaptor3d_Surface) MaSurface1;
-  Handle(Adaptor3d_Surface) MaSurface2;
+  Handle(SurfaceAdaptor) MaSurface1;
+  Handle(SurfaceAdaptor) MaSurface2;
   Box2                   MyBox1;
   Box2                   MyBox2;
   Standard_Integer          NbSamplesU1;

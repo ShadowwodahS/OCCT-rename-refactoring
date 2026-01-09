@@ -34,7 +34,7 @@ class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-class HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter : public math_FunctionWithDerivative
+class HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

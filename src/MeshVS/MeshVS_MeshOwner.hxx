@@ -19,7 +19,7 @@
 #include <SelectMgr_EntityOwner.hxx>
 #include <PrsMgr_PresentationManager.hxx>
 
-class MeshVS_DataSource;
+class MeshDataSource;
 class TColStd_HPackedMapOfInteger;
 class PrsMgr_PresentationManager;
 
@@ -34,10 +34,10 @@ class MeshVS_MeshOwner : public SelectMgr_EntityOwner
 
 public:
   Standard_EXPORT MeshVS_MeshOwner(const SelectMgr_SelectableObject* theSelObj,
-                                   const Handle(MeshVS_DataSource)&  theDS,
+                                   const Handle(MeshDataSource)&  theDS,
                                    const Standard_Integer            thePriority = 0);
 
-  Standard_EXPORT const Handle(MeshVS_DataSource)& GetDataSource() const;
+  Standard_EXPORT const Handle(MeshDataSource)& GetDataSource() const;
 
   //! Returns ids of selected mesh nodes
   Standard_EXPORT const Handle(TColStd_HPackedMapOfInteger)& GetSelectedNodes() const;
@@ -79,7 +79,7 @@ protected:
   Handle(TColStd_HPackedMapOfInteger) mySelectedElems;
 
 private:
-  Handle(MeshVS_DataSource)           myDataSource;
+  Handle(MeshDataSource)           myDataSource;
   Handle(TColStd_HPackedMapOfInteger) myDetectedNodes;
   Handle(TColStd_HPackedMapOfInteger) myDetectedElems;
   Standard_Integer                    myLastID;

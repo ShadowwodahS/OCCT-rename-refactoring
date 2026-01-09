@@ -67,7 +67,7 @@ Handle(GeomFill_TrihedronLaw) GeomFill_ConstantBiNormal::Copy() const
   return copy;
 }
 
-Standard_Boolean GeomFill_ConstantBiNormal::SetCurve(const Handle(Adaptor3d_Curve)& C)
+Standard_Boolean GeomFill_ConstantBiNormal::SetCurve(const Handle(Curve5)& C)
 {
   Standard_Boolean isOK = Standard_False;
   GeomFill_TrihedronLaw::SetCurve(C);

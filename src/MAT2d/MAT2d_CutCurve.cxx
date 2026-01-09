@@ -40,7 +40,7 @@ void MAT2dCutCurve::Perform(const Handle(GeomCurve2d)& C)
 {
   theCurves.Clear();
 
-  Geom2dLProp_CurAndInf2d     Sommets;
+  CurveInfo2d     Sommets;
   Handle(Geom2d_TrimmedCurve) TrimC;
   Standard_Real               UF, UL, UC;
   gp_Pnt2d                    PF, PL, PC;

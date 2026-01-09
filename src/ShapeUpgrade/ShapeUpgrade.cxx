@@ -39,12 +39,12 @@ Standard_Boolean ShapeUpgrade1::Debug()
 
 Standard_Boolean ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(BSplineCurve3d)&          BS,
-  Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS)
+  Handle(HSequenceOfBoundedCurve1)& seqBS)
 {
   if (BS.IsNull() || (BS->IsCN(1)))
     return Standard_False;
 
-  seqBS = new TColGeom_HSequenceOfBoundedCurve;
+  seqBS = new HSequenceOfBoundedCurve1;
   BS->SetNotPeriodic(); // to have equation NbPoles = NbKnots with Multiplicities - degree - 1
 
   Standard_Integer        deg     = BS->Degree();
@@ -185,17 +185,17 @@ static Handle(Geom2d_BSplineCurve) BSplineCurve3dTo2d(const Handle(BSplineCurve3
 
 Standard_Boolean ShapeUpgrade1::C0BSplineToSequenceOfC1BSplineCurve(
   const Handle(Geom2d_BSplineCurve)&          BS,
-  Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS)
+  Handle(BoundedCurveSequence2d)& seqBS)
 {
   if (BS.IsNull() || (BS->IsCN(1)))
     return Standard_False;
 
   Handle(BSplineCurve3d)                BS3d = BSplineCurve2dTo3d(BS);
-  Handle(TColGeom_HSequenceOfBoundedCurve) seqBS3d;
+  Handle(HSequenceOfBoundedCurve1) seqBS3d;
   Standard_Boolean result = C0BSplineToSequenceOfC1BSplineCurve(BS3d, seqBS3d);
   if (result)
   {
-    seqBS = new TColGeom2d_HSequenceOfBoundedCurve;
+    seqBS = new BoundedCurveSequence2d;
     for (Standard_Integer i = 1; i <= seqBS3d->Length(); i++)
       seqBS->Append(BSplineCurve3dTo2d(Handle(BSplineCurve3d)::DownCast(seqBS3d->Value(i))));
   }

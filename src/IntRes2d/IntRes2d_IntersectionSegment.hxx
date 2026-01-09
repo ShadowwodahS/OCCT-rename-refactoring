@@ -34,12 +34,12 @@ public:
   //! Empty constructor.
   Standard_EXPORT IntRes2d_IntersectionSegment();
 
-  IntRes2d_IntersectionSegment(const IntRes2d_IntersectionPoint& P1,
-                               const IntRes2d_IntersectionPoint& P2,
+  IntRes2d_IntersectionSegment(const IntersectionPoint3& P1,
+                               const IntersectionPoint3& P2,
                                const Standard_Boolean            Oppos,
                                const Standard_Boolean            ReverseFlag);
 
-  IntRes2d_IntersectionSegment(const IntRes2d_IntersectionPoint& P,
+  IntRes2d_IntersectionSegment(const IntersectionPoint3& P,
                                const Standard_Boolean            First,
                                const Standard_Boolean            Oppos,
                                const Standard_Boolean            ReverseFlag);
@@ -63,7 +63,7 @@ public:
   //! IntersectionPoint (with    a    transition).   The
   //! exception  DomainError  is raised if HasFirstPoint
   //! returns False.
-  const IntRes2d_IntersectionPoint& FirstPoint() const;
+  const IntersectionPoint3& FirstPoint() const;
 
   //! Returns True if the segment  is  limited by a last
   //! point.  This point  defines  the highest parameter
@@ -77,15 +77,15 @@ public:
   //! IntersectionPoint   (with  a    transition).   The
   //! exception        DomainError     is   raised    if
   //! HasLastExtremity returns False.
-  const IntRes2d_IntersectionPoint& LastPoint() const;
+  const IntersectionPoint3& LastPoint() const;
 
 protected:
 private:
   Standard_Boolean           oppos;
   Standard_Boolean           first;
   Standard_Boolean           last;
-  IntRes2d_IntersectionPoint ptfirst;
-  IntRes2d_IntersectionPoint ptlast;
+  IntersectionPoint3 ptfirst;
+  IntersectionPoint3 ptlast;
 };
 
 #include <IntRes2d_IntersectionSegment.lxx>

@@ -26,7 +26,7 @@
 
 #include <Message_ProgressRange.hxx>
 
-class TDF_Data;
+class Data2;
 class XmlMDF_ADriverTable;
 class DataLabel;
 class Message_Messenger;
@@ -55,7 +55,7 @@ public:
   //! Translates a transient <aSource> into a persistent
   //! <aTarget>.
   Standard_EXPORT static void FromTo(
-    const Handle(TDF_Data)&            aSource,
+    const Handle(Data2)&            aSource,
     XmlObjMgt_Element&                 aTarget,
     XmlObjMgt_SRelocationTable&        aReloc,
     const Handle(XmlMDF_ADriverTable)& aDrivers,
@@ -66,7 +66,7 @@ public:
   //! Returns True if completed successfully (False on error)
   Standard_EXPORT static Standard_Boolean FromTo(
     const XmlObjMgt_Element&           aSource,
-    Handle(TDF_Data)&                  aTarget,
+    Handle(Data2)&                  aTarget,
     XmlObjMgt_RRelocationTable&        aReloc,
     const Handle(XmlMDF_ADriverTable)& aDrivers,
     const Message_ProgressRange&       theRange = Message_ProgressRange());

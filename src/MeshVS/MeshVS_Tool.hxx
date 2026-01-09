@@ -22,7 +22,7 @@
 
 #include <TColStd_Array1OfReal.hxx>
 class Graphic3d_AspectFillArea3d;
-class MeshVS_Drawer;
+class MeshDrawer;
 class Graphic3d_MaterialAspect;
 class Graphic3d_AspectLine3d;
 class Graphic3d_AspectMarker3d;
@@ -37,29 +37,29 @@ public:
 
   //! Creates fill area aspect with values from Drawer according to keys from DrawerAttribute
   Standard_EXPORT static Handle(Graphic3d_AspectFillArea3d) CreateAspectFillArea3d(
-    const Handle(MeshVS_Drawer)& theDr,
+    const Handle(MeshDrawer)& theDr,
     const Standard_Boolean       UseDefaults = Standard_True);
 
   //! Creates fill aspect with values from Drawer according to keys from DrawerAttribute
   //! and specific material aspect
   Standard_EXPORT static Handle(Graphic3d_AspectFillArea3d) CreateAspectFillArea3d(
-    const Handle(MeshVS_Drawer)&    theDr,
+    const Handle(MeshDrawer)&    theDr,
     const Graphic3d_MaterialAspect& Mat,
     const Standard_Boolean          UseDefaults = Standard_True);
 
   //! Creates line aspect with values from Drawer according to keys from DrawerAttribute
   Standard_EXPORT static Handle(Graphic3d_AspectLine3d) CreateAspectLine3d(
-    const Handle(MeshVS_Drawer)& theDr,
+    const Handle(MeshDrawer)& theDr,
     const Standard_Boolean       UseDefaults = Standard_True);
 
   //! Creates marker aspect with values from Drawer according to keys from DrawerAttribute
   Standard_EXPORT static Handle(Graphic3d_AspectMarker3d) CreateAspectMarker3d(
-    const Handle(MeshVS_Drawer)& theDr,
+    const Handle(MeshDrawer)& theDr,
     const Standard_Boolean       UseDefaults = Standard_True);
 
   //! Creates text aspect with values from Drawer according to keys from DrawerAttribute
   Standard_EXPORT static Handle(Graphic3d_AspectText3d) CreateAspectText3d(
-    const Handle(MeshVS_Drawer)& theDr,
+    const Handle(MeshDrawer)& theDr,
     const Standard_Boolean       UseDefaults = Standard_True);
 
   //! Get one of normals to polygon described by these points.

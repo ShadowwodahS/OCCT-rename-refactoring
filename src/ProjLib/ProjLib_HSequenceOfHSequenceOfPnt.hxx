@@ -20,6 +20,6 @@
 #include <ProjLib_SequenceOfHSequenceOfPnt.hxx>
 #include <NCollection_DefineHSequence.hxx>
 
-DEFINE_HSEQUENCE(ProjLib_HSequenceOfHSequenceOfPnt, ProjLib_SequenceOfHSequenceOfPnt)
+DEFINE_HSEQUENCE(PointSequenceGrid, ProjLib_SequenceOfHSequenceOfPnt)
 
 #endif

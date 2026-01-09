@@ -35,7 +35,7 @@ BissecNewtonSolver::~BissecNewtonSolver() {}
 
 //=================================================================================================
 
-void BissecNewtonSolver::Perform(math_FunctionWithDerivative& F,
+void BissecNewtonSolver::Perform(FunctionWithDerivative& F,
                                 const Standard_Real          Bound1,
                                 const Standard_Real          Bound2,
                                 const Standard_Integer       NbIterations)

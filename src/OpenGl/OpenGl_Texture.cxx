@@ -96,7 +96,7 @@ static Graphic3d_Vec2i computeSmallestMipMapSize(const Graphic3d_Vec2i& theBaseS
 //=================================================================================================
 
 OpenGl_Texture::OpenGl_Texture(const AsciiString1&         theResourceId,
-                               const Handle(Graphic3d_TextureParams)& theParams)
+                               const Handle(TextureParams)& theParams)
     : OpenGl_NamedResource(theResourceId),
       mySampler(new OpenGl_Sampler(theParams)),
       myRevision(0),

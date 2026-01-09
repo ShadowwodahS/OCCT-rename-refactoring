@@ -24,11 +24,11 @@
 #include <GccInt_IType.hxx>
 
 class GccInt_BLine;
-DEFINE_STANDARD_HANDLE(GccInt_BLine, GccInt_Bisec)
+DEFINE_STANDARD_HANDLE(GccInt_BLine, Bisector2)
 
 //! Describes a line as a bisecting curve between two 2D
 //! geometric objects (such as lines, circles or points).
-class GccInt_BLine : public GccInt_Bisec
+class GccInt_BLine : public Bisector2
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Returns GccInt_Lin, which is the type of any GccInt_BLine bisecting line.
   Standard_EXPORT GccInt_IType ArcType() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_BLine, GccInt_Bisec)
+  DEFINE_STANDARD_RTTIEXT(GccInt_BLine, Bisector2)
 
 protected:
 private:

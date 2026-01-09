@@ -18,7 +18,7 @@
 #include <OpenGl_LineAttributes.hxx>
 #include <OpenGl_Context.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_LineAttributes, OpenGl_Resource)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_LineAttributes, Resource)
 
 //=================================================================================================
 

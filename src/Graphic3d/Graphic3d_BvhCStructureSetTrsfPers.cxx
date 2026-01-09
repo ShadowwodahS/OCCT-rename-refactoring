@@ -121,7 +121,7 @@ const opencascade::handle<BVH_Tree<Standard_Real, 3>>& Graphic3d_BvhCStructureSe
   const Graphic3d_Mat4d&              theWorldViewMatrix,
   const Standard_Integer              theViewportWidth,
   const Standard_Integer              theViewportHeight,
-  const Graphic3d_WorldViewProjState& theWVPState)
+  const WorldViewProjState1& theWVPState)
 {
   if (!myIsDirty && (myStructBoxesState.IsValid() && !myStructBoxesState.IsChanged(theWVPState)))
   {

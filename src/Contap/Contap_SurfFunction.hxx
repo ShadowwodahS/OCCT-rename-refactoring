@@ -32,14 +32,14 @@ class math_Matrix;
 //! the form of the function is F(u,v) = 0 where u and v are
 //! the parametric coordinates of a point on the surface,
 //! to compute the contours of the surface.
-class Contap_SurfFunction : public math_FunctionSetWithDerivatives
+class Contap_SurfFunction : public FunctionSetWithDerivatives
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT Contap_SurfFunction();
 
-  Standard_EXPORT void Set(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Set(const Handle(SurfaceAdaptor)& S);
 
   void Set(const Point3d& Eye);
 
@@ -90,14 +90,14 @@ public:
 
   Standard_Real Angle() const;
 
-  const Handle(Adaptor3d_Surface)& Surface() const;
+  const Handle(SurfaceAdaptor)& Surface() const;
 
   //! Method is entered for compatibility with IntPatch_TheSurfFunction.
-  const Handle(Adaptor3d_Surface)& PSurface() const { return Surface(); }
+  const Handle(SurfaceAdaptor)& PSurface() const { return Surface(); }
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) mySurf;
+  Handle(SurfaceAdaptor) mySurf;
   Standard_Real             myMean;
   Contap_TFunction          myType;
   Dir3d                    myDir;

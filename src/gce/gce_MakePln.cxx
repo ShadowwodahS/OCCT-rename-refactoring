@@ -24,19 +24,19 @@
 #include <gp_Pnt.hxx>
 #include <StdFail_NotDone.hxx>
 
-gce_MakePln::gce_MakePln(const Frame3d& A2)
+PlaneBuilder1::PlaneBuilder1(const Frame3d& A2)
 {
   ThePln   = gp_Pln(Ax3(A2));
   TheError = gce_Done;
 }
 
-gce_MakePln::gce_MakePln(const Point3d& P, const Dir3d& V)
+PlaneBuilder1::PlaneBuilder1(const Point3d& P, const Dir3d& V)
 {
   ThePln   = gp_Pln(P, V);
   TheError = gce_Done;
 }
 
-gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2)
+PlaneBuilder1::PlaneBuilder1(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) <= gp1::Resolution())
   {
@@ -50,7 +50,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2)
   }
 }
 
-gce_MakePln::gce_MakePln(const Standard_Real A,
+PlaneBuilder1::PlaneBuilder1(const Standard_Real A,
                          const Standard_Real B,
                          const Standard_Real C,
                          const Standard_Real D)
@@ -70,7 +70,7 @@ gce_MakePln::gce_MakePln(const Standard_Real A,
 //   Creation d un gp_pln passant par trois points.                       +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3)
+PlaneBuilder1::PlaneBuilder1(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   Coords3d V1(P2.XYZ() - P1.XYZ());
   Coords3d V2(P3.XYZ() - P1.XYZ());
@@ -92,7 +92,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3
 //   Creation d un gp_pln parallele a un autre pln a une distance donnee. +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
+PlaneBuilder1::PlaneBuilder1(const gp_Pln& Pl, const Standard_Real Dist)
 {
   Point3d Center(Pl.Location().XYZ() + Dist * Coords3d(Pl.Axis().Direction().XYZ()));
   ThePln   = gp_Pln(Ax3(Center, Pl.Axis().Direction(), Pl.XAxis().Direction()));
@@ -104,7 +104,7 @@ gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
 //   <Point1>.                                                            +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Point3d& Point)
+PlaneBuilder1::PlaneBuilder1(const gp_Pln& Pl, const Point3d& Point)
 {
   ThePln   = gp_Pln(Ax3(Point, Pl.Axis().Direction(), Pl.XAxis().Direction()));
   TheError = gce_Done;
@@ -114,7 +114,7 @@ gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Point3d& Point)
 //  Creation d un gp_pln a partir d un Ax1 (Point + Normale).             +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const Axis3d& Axis)
+PlaneBuilder1::PlaneBuilder1(const Axis3d& Axis)
 {
   ThePln   = gp_Pln(Axis.Location(), Axis.Direction());
   TheError = gce_Done;
@@ -124,25 +124,25 @@ gce_MakePln::gce_MakePln(const Axis3d& Axis)
 //  Creation d un gp_pln par un tableau de points.                        +
 //=========================================================================
 
-/*gce_MakePln::gce_MakePln(const gp_Array1OfPnt& Pts     ,
+/*PlaneBuilder1::PlaneBuilder1(const gp_Array1OfPnt& Pts     ,
                    Standard_Real   ErrMax  ,
                    Standard_Real   ErrMean )
 {
   TheError = gce_ConfusedPoints;
 }
 */
-const gp_Pln& gce_MakePln::Value() const
+const gp_Pln& PlaneBuilder1::Value() const
 {
-  StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakePln::Value() - no result");
+  StdFail_NotDone_Raise_if(TheError != gce_Done, "PlaneBuilder1::Value() - no result");
   return ThePln;
 }
 
-const gp_Pln& gce_MakePln::Operator() const
+const gp_Pln& PlaneBuilder1::Operator() const
 {
   return Value();
 }
 
-gce_MakePln::operator gp_Pln() const
+PlaneBuilder1::operator gp_Pln() const
 {
   return Value();
 }

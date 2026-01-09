@@ -89,7 +89,7 @@ Handle(TDF_Attribute) XCAFDoc_Location::NewEmpty() const
 //=================================================================================================
 
 void XCAFDoc_Location::Paste(const Handle(TDF_Attribute)& Into,
-                             const Handle(TDF_RelocationTable)& /* RT */) const
+                             const Handle(RelocationTable1)& /* RT */) const
 {
   Handle(XCAFDoc_Location)::DownCast(Into)->Set(myLocation);
 }

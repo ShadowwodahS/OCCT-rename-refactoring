@@ -184,7 +184,7 @@ static Standard_Integer GetAllNewShapes(DrawInterpreter& di, Standard_Integer nb
     }
     else
     { // shape
-      Handle(TDF_Data) DF;
+      Handle(Data2) DF;
       if (!DDF1::GetDF(arg[1], DF))
       {
         di << "Wrong df\n";
@@ -266,7 +266,7 @@ static Standard_Integer GetAllOldShapes(DrawInterpreter& di, Standard_Integer nb
     }
     else
     { // shape
-      Handle(TDF_Data) DF;
+      Handle(Data2) DF;
       if (!DDF1::GetDF(arg[1], DF))
       {
         di << "Wrong df\n";
@@ -291,7 +291,7 @@ static Standard_Integer GetSameShapes(DrawInterpreter& di, Standard_Integer nb, 
   if (nb == 3)
   {
     Standard_Integer aResult = 0;
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
     {
       di << "Wrong df\n";

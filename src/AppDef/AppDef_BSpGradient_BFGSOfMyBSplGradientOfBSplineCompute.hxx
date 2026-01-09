@@ -28,15 +28,15 @@ class MultiLineTool;
 class AppDef_MyBSplGradientOfBSplineCompute;
 class AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute;
 class AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute;
-class math_MultipleVarFunctionWithGradient;
+class MultiVarFunctionWithGradient;
 
-class AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute : public BFGSOptimizer
+class BSplBFGSGradientBSplineCompute : public BFGSOptimizer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute(
-    math_MultipleVarFunctionWithGradient& F,
+  Standard_EXPORT BSplBFGSGradientBSplineCompute(
+    MultiVarFunctionWithGradient& F,
     const math_Vector&                    StartingPoint,
     const Standard_Real                   Tolerance3d,
     const Standard_Real                   Tolerance2d,
@@ -44,7 +44,7 @@ public:
     const Standard_Integer                NbIterations = 200);
 
   Standard_EXPORT virtual Standard_Boolean IsSolutionReached(
-    math_MultipleVarFunctionWithGradient& F) const Standard_OVERRIDE;
+    MultiVarFunctionWithGradient& F) const Standard_OVERRIDE;
 
 protected:
 private:

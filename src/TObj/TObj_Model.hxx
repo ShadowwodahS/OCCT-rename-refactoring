@@ -331,14 +331,14 @@ public:
   //! references will not be copied if theRelocTable is not 0
   //! if theRelocTable is not NULL theRelocTable is filled by objects
   virtual Standard_EXPORT Standard_Boolean Paste(Handle(TObj_Model)          theModel,
-                                                 Handle(TDF_RelocationTable) theRelocTable = 0);
+                                                 Handle(RelocationTable1) theRelocTable = 0);
 
   //! This function have to create a new model with type like me
   virtual Standard_EXPORT Handle(TObj_Model) NewEmpty() = 0;
 
   //! Copy references from me to the other
   Standard_EXPORT void CopyReferences(const Handle(TObj_Model)&          theTarget,
-                                      const Handle(TDF_RelocationTable)& theRelocTable);
+                                      const Handle(RelocationTable1)& theRelocTable);
 
 private:
   /**

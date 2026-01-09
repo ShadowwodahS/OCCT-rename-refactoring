@@ -20,8 +20,8 @@
 
 //=================================================================================================
 
-BRepBlend_SurfPointConstRadInv::BRepBlend_SurfPointConstRadInv(const Handle(Adaptor3d_Surface)& S,
-                                                               const Handle(Adaptor3d_Curve)&   C)
+BRepBlend_SurfPointConstRadInv::BRepBlend_SurfPointConstRadInv(const Handle(SurfaceAdaptor)& S,
+                                                               const Handle(Curve5)&   C)
     : surf(S),
       curv(C),
       ray(0.0),

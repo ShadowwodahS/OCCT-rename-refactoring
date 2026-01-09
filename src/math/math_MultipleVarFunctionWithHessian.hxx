@@ -25,7 +25,7 @@
 #include <math_Vector.hxx>
 class math_Matrix;
 
-class math_MultipleVarFunctionWithHessian : public math_MultipleVarFunctionWithGradient
+class math_MultipleVarFunctionWithHessian : public MultiVarFunctionWithGradient
 {
 public:
   DEFINE_STANDARD_ALLOC

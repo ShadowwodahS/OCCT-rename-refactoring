@@ -21,9 +21,9 @@
 
 //=================================================================================================
 
-BlendFunc_ChamfInv::BlendFunc_ChamfInv(const Handle(Adaptor3d_Surface)& S1,
-                                       const Handle(Adaptor3d_Surface)& S2,
-                                       const Handle(Adaptor3d_Curve)&   C)
+BlendFunc_ChamfInv::BlendFunc_ChamfInv(const Handle(SurfaceAdaptor)& S1,
+                                       const Handle(SurfaceAdaptor)& S2,
+                                       const Handle(Curve5)&   C)
     : BlendFunc_GenChamfInv(S1, S2, C),
       corde1(surf1, curv),
       corde2(surf2, curv)

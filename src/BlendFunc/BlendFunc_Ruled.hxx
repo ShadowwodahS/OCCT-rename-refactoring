@@ -40,9 +40,9 @@ class BlendFunc_Ruled : public Blend_Function
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_Ruled(const Handle(Adaptor3d_Surface)& S1,
-                                  const Handle(Adaptor3d_Surface)& S2,
-                                  const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT BlendFunc_Ruled(const Handle(SurfaceAdaptor)& S1,
+                                  const Handle(SurfaceAdaptor)& S2,
+                                  const Handle(Curve5)&   C);
 
   //! returns the number of equations of the function.
   Standard_EXPORT Standard_Integer NbEquations() const Standard_OVERRIDE;
@@ -199,9 +199,9 @@ public:
 
 protected:
 private:
-  Handle(Adaptor3d_Surface) surf1;
-  Handle(Adaptor3d_Surface) surf2;
-  Handle(Adaptor3d_Curve)   curv;
+  Handle(SurfaceAdaptor) surf1;
+  Handle(SurfaceAdaptor) surf2;
+  Handle(Curve5)   curv;
   Point3d                    pts1;
   Point3d                    pts2;
   Standard_Boolean          istangent;

@@ -45,7 +45,7 @@ public:
                        const Message_ProgressRange&  theRange) Standard_OVERRIDE
   {
     myRangeSplitter.Reset(theDFace, theParameters);
-    myClassifier = new BRepMesh_Classifier;
+    myClassifier = new FaceClassifier;
     if (!theRange.More())
     {
       return;
@@ -135,7 +135,7 @@ protected:
   const RangeSplitter& getRangeSplitter() const { return myRangeSplitter; }
 
   //! Returns classifier.
-  const Handle(BRepMesh_Classifier)& getClassifier() const { return myClassifier; }
+  const Handle(FaceClassifier)& getClassifier() const { return myClassifier; }
 
 private:
   //! Creates collection of points representing discrete wire.
@@ -220,7 +220,7 @@ private:
 
 private:
   RangeSplitter               myRangeSplitter;
-  Handle(BRepMesh_Classifier) myClassifier;
+  Handle(FaceClassifier) myClassifier;
 };
 
 #endif

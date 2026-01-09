@@ -549,7 +549,7 @@ public: //! @name deprecated methods
 
 private:
   //! Returns the default background colour.
-  const Aspect_Background& GetBackgroundColor() const { return myBackground; }
+  const Background1& GetBackgroundColor() const { return myBackground; }
 
   //! Adds View in Sequence Of Views.
   Standard_EXPORT void AddView(const Handle(ViewWindow)& theView);
@@ -568,7 +568,7 @@ private:
   V3d_ListOfLight myDefinedLights;
   V3d_ListOfLight myActiveLights;
 
-  Aspect_Background         myBackground;
+  Background1         myBackground;
   Aspect_GradientBackground myGradientBackground;
   Standard_Real             myViewSize;
   V3d_TypeOfOrientation     myViewProj;

@@ -43,8 +43,8 @@ public:
   Standard_EXPORT ProjLib_CompProjectedCurve();
 
   //! try to find all solutions
-  Standard_EXPORT ProjLib_CompProjectedCurve(const Handle(Adaptor3d_Surface)& S,
-                                             const Handle(Adaptor3d_Curve)&   C,
+  Standard_EXPORT ProjLib_CompProjectedCurve(const Handle(SurfaceAdaptor)& S,
+                                             const Handle(Curve5)&   C,
                                              const Standard_Real              TolU,
                                              const Standard_Real              TolV);
 
@@ -52,8 +52,8 @@ public:
   //! assumption that maximum distance between surface and curve less or
   //! equal then MaxDist.
   //! if MaxDist < 0 then algorithm works as above.
-  Standard_EXPORT ProjLib_CompProjectedCurve(const Handle(Adaptor3d_Surface)& S,
-                                             const Handle(Adaptor3d_Curve)&   C,
+  Standard_EXPORT ProjLib_CompProjectedCurve(const Handle(SurfaceAdaptor)& S,
+                                             const Handle(Curve5)&   C,
                                              const Standard_Real              TolU,
                                              const Standard_Real              TolV,
                                              const Standard_Real              MaxDist);
@@ -64,8 +64,8 @@ public:
   //! if MaxDist < 0 then algorithm try to find all solutions
   //! Tolerances of parameters are calculated automatically.
   Standard_EXPORT ProjLib_CompProjectedCurve(const Standard_Real              Tol3d,
-                                             const Handle(Adaptor3d_Surface)& S,
-                                             const Handle(Adaptor3d_Curve)&   C,
+                                             const Handle(SurfaceAdaptor)& S,
+                                             const Handle(Curve5)&   C,
                                              const Standard_Real              MaxDist = -1.0);
 
   //! Shallow copy of adaptor
@@ -107,14 +107,14 @@ public:
   Standard_EXPORT void SetProj3d(const Standard_Boolean theProj3d);
 
   //! Changes the surface.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Surface)& S);
+  Standard_EXPORT void Load(const Handle(SurfaceAdaptor)& S);
 
   //! Changes the  curve.
-  Standard_EXPORT void Load(const Handle(Adaptor3d_Curve)& C);
+  Standard_EXPORT void Load(const Handle(Curve5)& C);
 
-  Standard_EXPORT const Handle(Adaptor3d_Surface)& GetSurface() const;
+  Standard_EXPORT const Handle(SurfaceAdaptor)& GetSurface() const;
 
-  Standard_EXPORT const Handle(Adaptor3d_Curve)& GetCurve() const;
+  Standard_EXPORT const Handle(Curve5)& GetCurve() const;
 
   Standard_EXPORT void GetTolerance(Standard_Real& TolU, Standard_Real& TolV) const;
 
@@ -201,7 +201,7 @@ public:
   //! curve  to  project  and  surface
   Standard_EXPORT Standard_Real MaxDistance(const Standard_Integer Index) const;
 
-  Standard_EXPORT const Handle(ProjLib_HSequenceOfHSequenceOfPnt)& GetSequence() const;
+  Standard_EXPORT const Handle(PointSequenceGrid)& GetSequence() const;
 
   //! Returns  the  type of the   curve  in the  current
   //! interval :   Line,   Circle,   Ellipse, Hyperbola,
@@ -254,10 +254,10 @@ private:
   Standard_EXPORT void BuildIntervals(const GeomAbs_Shape S) const;
 
 private:
-  Handle(Adaptor3d_Surface)                 mySurface;
-  Handle(Adaptor3d_Curve)                   myCurve;
+  Handle(SurfaceAdaptor)                 mySurface;
+  Handle(Curve5)                   myCurve;
   Standard_Integer                          myNbCurves;
-  Handle(ProjLib_HSequenceOfHSequenceOfPnt) mySequence;
+  Handle(PointSequenceGrid) mySequence;
   Handle(TColStd_HArray1OfBoolean)          myUIso;
   Handle(TColStd_HArray1OfBoolean)          myVIso;
   Handle(TColStd_HArray1OfBoolean)          mySnglPnts;
@@ -277,10 +277,10 @@ private:
   Handle(TColStd_HArray1OfReal)     myResult2dUApproxError;
   Handle(TColStd_HArray1OfReal)     myResult2dVApproxError;
   Handle(TColStd_HArray1OfReal)     myResult3dApproxError;
-  Handle(TColgp_HArray1OfPnt)       myResult3dPoint;
-  Handle(TColgp_HArray1OfPnt2d)     myResult2dPoint;
-  Handle(TColGeom_HArray1OfCurve)   myResult3dCurve;
-  Handle(TColGeom2d_HArray1OfCurve) myResult2dCurve;
+  Handle(PointArray1)       myResult3dPoint;
+  Handle(Point2dArray)     myResult2dPoint;
+  Handle(HArray1OfCurve3)   myResult3dCurve;
+  Handle(HArray1OfCurve2) myResult2dCurve;
 };
 
 DEFINE_STANDARD_HANDLE(ProjLib_CompProjectedCurve, Adaptor2d_Curve2d)

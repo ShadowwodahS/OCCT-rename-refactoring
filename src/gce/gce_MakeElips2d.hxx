@@ -36,7 +36,7 @@ class gp_Pnt2d;
 //! other giving the value of the small radius.
 //! * Create an ellipse from its major axis and its major
 //! radius and its minor radius.
-class gce_MakeElips2d : public Root6
+class EllipseBuilder2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -48,7 +48,7 @@ public:
   //! It is possible to create an ellipse with MajorRadius = MinorRadius.
   //! the status is "InvertRadius" if MajorRadius < MinorRadius or
   //! "NegativeRadius" if MinorRadius < 0.0
-  Standard_EXPORT gce_MakeElips2d(const gp_Ax2d&         MajorAxis,
+  Standard_EXPORT EllipseBuilder2d(const gp_Ax2d&         MajorAxis,
                                   const Standard_Real    MajorRadius,
                                   const Standard_Real    MinorRadius,
                                   const Standard_Boolean Sense = Standard_True);
@@ -61,7 +61,7 @@ public:
   //! It is possible to create an ellipse with MajorRadius = MinorRadius.
   //! the status is "InvertRadius" if MajorRadius < MinorRadius or
   //! "NegativeRadius" if MinorRadius < 0.0
-  Standard_EXPORT gce_MakeElips2d(const Ax22d&     A,
+  Standard_EXPORT EllipseBuilder2d(const Ax22d&     A,
                                   const Standard_Real MajorRadius,
                                   const Standard_Real MinorRadius);
 
@@ -85,7 +85,7 @@ public:
   //! -   gce_InvertAxis if the major radius computed with
   //! Center and S1 is less than the minor radius
   //! computed with Center, S1 and S2.
-  Standard_EXPORT gce_MakeElips2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center);
+  Standard_EXPORT EllipseBuilder2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center);
 
   //! Returns the constructed ellipse.
   //! Exceptions StdFail_NotDone if no ellipse is constructed.

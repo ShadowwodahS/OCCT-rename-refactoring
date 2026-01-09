@@ -105,7 +105,7 @@ public:
   }
 
   //! Gives edge with the given index
-  const BRepMesh_Edge& GetEdge(const Standard_Integer theIndex) const
+  const Edge3& GetEdge(const Standard_Integer theIndex) const
   {
     return myMeshData->GetLink(theIndex);
   }
@@ -206,7 +206,7 @@ private:
 
   //! Check is the given link intersects the polygon boundaries.
   //! Returns bounding box for the given link through the theLinkBndBox parameter.
-  Standard_Boolean checkIntersection(const BRepMesh_Edge&                theLink,
+  Standard_Boolean checkIntersection(const Edge3&                theLink,
                                      const IMeshData::SequenceOfInteger& thePolygon,
                                      const IMeshData::SequenceOfBndB2d&  thePolyBoxes,
                                      const Standard_Boolean              isConsiderEndPointTouch,
@@ -254,7 +254,7 @@ private:
                       IMeshData::MapOfIntegerInteger& theLoopEdges);
 
   //! Returns start and end nodes of the given edge in respect to its orientation.
-  void getOrientedNodes(const BRepMesh_Edge&   theEdge,
+  void getOrientedNodes(const Edge3&   theEdge,
                         const Standard_Boolean isForward,
                         Standard_Integer*      theNodes) const;
 
@@ -308,7 +308,7 @@ private:
   //! If yes, kills its triangles and checks neighbor links on boundary intersection. Does nothing
   //! elsewhere.
   void killTrianglesOnIntersectingLinks(const Standard_Integer&             theLinkToCheckId,
-                                        const BRepMesh_Edge&                theLinkToCheck,
+                                        const Edge3&                theLinkToCheck,
                                         const Standard_Integer&             theEndPoint,
                                         const IMeshData::SequenceOfInteger& thePolygon,
                                         const IMeshData::SequenceOfBndB2d&  thePolyBoxes,
@@ -328,8 +328,8 @@ private:
                               Standard_Integer&      theEdgeOn) const;
 
   //! Checks intersection between the two segments.
-  BRepMesh_GeomTool::IntFlag intSegSeg(const BRepMesh_Edge&   theEdge1,
-                                       const BRepMesh_Edge&   theEdge2,
+  BRepMesh_GeomTool::IntFlag intSegSeg(const Edge3&   theEdge1,
+                                       const Edge3&   theEdge2,
                                        const Standard_Boolean isConsiderEndPointTouch,
                                        const Standard_Boolean isConsiderPointOnEdge,
                                        gp_Pnt2d&              theIntPnt) const;

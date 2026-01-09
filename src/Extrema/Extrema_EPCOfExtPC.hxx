@@ -25,7 +25,7 @@
 class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
-class Adaptor3d_Curve;
+class Curve5;
 class CurveTool4;
 class PointOnCurve1;
 class Point3d;
@@ -50,7 +50,7 @@ public:
   //! if n is the number of iterations,
   //! abs(Un-Un-1) < TolU and abs(F(Un)-F(Un-1)) < Tol.
   Standard_EXPORT Extrema_EPCOfExtPC(const Point3d&          P,
-                                     const Adaptor3d_Curve& C,
+                                     const Curve5& C,
                                      const Standard_Integer NbU,
                                      const Standard_Real    TolU,
                                      const Standard_Real    TolF);
@@ -67,7 +67,7 @@ public:
   //! if n is the number of iterations,
   //! abs(Un-Un-1) < TolU and abs(F(Un)-F(Un-1)) < Tol.
   Standard_EXPORT Extrema_EPCOfExtPC(const Point3d&          P,
-                                     const Adaptor3d_Curve& C,
+                                     const Curve5& C,
                                      const Standard_Integer NbU,
                                      const Standard_Real    Umin,
                                      const Standard_Real    Usup,
@@ -75,13 +75,13 @@ public:
                                      const Standard_Real    TolF);
 
   //! sets the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C,
+  Standard_EXPORT void Initialize(const Curve5& C,
                                   const Standard_Integer NbU,
                                   const Standard_Real    TolU,
                                   const Standard_Real    TolF);
 
   //! sets the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C,
+  Standard_EXPORT void Initialize(const Curve5& C,
                                   const Standard_Integer NbU,
                                   const Standard_Real    Umin,
                                   const Standard_Real    Usup,
@@ -89,7 +89,7 @@ public:
                                   const Standard_Real    TolF);
 
   //! sets the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Curve& C);
+  Standard_EXPORT void Initialize(const Curve5& C);
 
   //! sets the fields of the algorithm.
   Standard_EXPORT void Initialize(const Standard_Integer NbU,

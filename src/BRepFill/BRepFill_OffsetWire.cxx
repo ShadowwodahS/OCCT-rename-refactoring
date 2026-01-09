@@ -104,7 +104,7 @@ static Standard_Integer NbBISSEC    = 0;
 
 //  Modified by Sergey KHROMOV - Thu Nov 16 17:24:39 2000 Begin
 
-static void QuasiFleche(const Adaptor3d_Curve&  C,
+static void QuasiFleche(const Curve5&  C,
                         const Standard_Real     Deflection2,
                         const Standard_Real     Udeb,
                         const Point3d&           Pdeb,
@@ -119,7 +119,7 @@ static void QuasiFleche(const Adaptor3d_Curve&  C,
 
 static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& Parameters,
                                      TColgp_SequenceOfPnt&   Points,
-                                     const Adaptor3d_Curve&  C,
+                                     const Curve5&  C,
                                      const Standard_Real     Deflection,
                                      const Standard_Real     U1,
                                      const Standard_Real     U2,
@@ -2668,7 +2668,7 @@ static void CheckBadEdges(const TopoFace&              Spine,
 static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& Parameters,
 
                                      TColgp_SequenceOfPnt&  Points,
-                                     const Adaptor3d_Curve& C,
+                                     const Curve5& C,
                                      const Standard_Real    Deflection,
                                      const Standard_Real    U1,
                                      const Standard_Real    U2,
@@ -2711,7 +2711,7 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& Parameters,
 
 //=================================================================================================
 
-static void QuasiFleche(const Adaptor3d_Curve& C,
+static void QuasiFleche(const Curve5& C,
 
                         const Standard_Real     Deflection2,
                         const Standard_Real     Udeb,

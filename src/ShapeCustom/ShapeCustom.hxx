@@ -31,7 +31,7 @@ class TopoShape;
 class ShapeModification;
 class ShapeModifier;
 class ShapeBuild_ReShape;
-class ShapeCustom_RestrictionParameters;
+class RestrictionParameters;
 
 //! This package is intended to
 //! convert geometrical objects and topological. The
@@ -92,7 +92,7 @@ public:
     const GeomAbs_Shape                              Continuity2d,
     const Standard_Boolean                           Degree,
     const Standard_Boolean                           Rational,
-    const Handle(ShapeCustom_RestrictionParameters)& aParameters);
+    const Handle(RestrictionParameters)& aParameters);
 
   //! Returns a new shape with all elementary periodic surfaces converted
   //! to Geom_SurfaceOfRevolution

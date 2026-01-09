@@ -20,6 +20,6 @@
 #include <TColgp_HArray1OfPnt2d.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(TColgp_HArray1OfPnt2d)> TColgp_SequenceOfArray1OfPnt2d;
+typedef NCollection_Sequence<Handle(Point2dArray)> TColgp_SequenceOfArray1OfPnt2d;
 
 #endif

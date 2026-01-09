@@ -20,11 +20,11 @@
   #include FT_FREETYPE_H
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_FTLibrary, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(FTLibrary, RefObject)
 
 //=================================================================================================
 
-Font_FTLibrary::Font_FTLibrary()
+FTLibrary::FTLibrary()
     : myFTLib(NULL)
 {
 #ifdef HAVE_FREETYPE
@@ -37,7 +37,7 @@ Font_FTLibrary::Font_FTLibrary()
 
 //=================================================================================================
 
-Font_FTLibrary::~Font_FTLibrary()
+FTLibrary::~FTLibrary()
 {
   if (IsValid())
   {

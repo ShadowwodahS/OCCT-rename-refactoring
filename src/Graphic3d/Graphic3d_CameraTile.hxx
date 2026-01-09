@@ -19,27 +19,27 @@
 #include <Standard_OStream.hxx>
 #include <Standard_TypeDef.hxx>
 
-//! Class defines the area (Tile) inside a view.
+//! Class defines the area (Tile1) inside a view.
 class CameraTile
 {
 public:
   Graphic3d_Vec2i TotalSize; //!< total size of the View area, in pixels
-  Graphic3d_Vec2i TileSize;  //!< size of the Tile, in pixels
+  Graphic3d_Vec2i TileSize;  //!< size of the Tile1, in pixels
   // clang-format off
-  Graphic3d_Vec2i Offset;    //!< the lower-left corner of the Tile relative to the View area (or upper-left if IsTopDown is true), in pixels
+  Graphic3d_Vec2i Offset;    //!< the lower-left corner of the Tile1 relative to the View area (or upper-left if IsTopDown is true), in pixels
   bool            IsTopDown; //!< indicate the offset coordinate system - lower-left (default) or top-down
   // clang-format on
 
 public:
   //! Default constructor.
-  //! Initializes the empty Tile of zero size and lower-left offset orientation.
-  //! Such Tile is considered uninitialized (invalid).
+  //! Initializes the empty Tile1 of zero size and lower-left offset orientation.
+  //! Such Tile1 is considered uninitialized (invalid).
   CameraTile()
       : IsTopDown(false)
   {
   }
 
-  //! Return true if Tile has been defined.
+  //! Return true if Tile1 has been defined.
   bool IsValid() const
   {
     return TotalSize.x() > 0 && TotalSize.y() > 0 && TileSize.x() > 0 && TileSize.y() > 0;

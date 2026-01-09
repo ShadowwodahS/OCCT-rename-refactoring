@@ -15,4 +15,4 @@
 
 #include <IMeshTools_CurveTessellator.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshTools_CurveTessellator, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(CurveTessellator, RefObject)

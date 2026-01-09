@@ -44,7 +44,7 @@ TDF_Transaction::TDF_Transaction(const AsciiString1& aName)
 
 //=================================================================================================
 
-TDF_Transaction::TDF_Transaction(const Handle(TDF_Data)& aDF, const AsciiString1& aName)
+TDF_Transaction::TDF_Transaction(const Handle(Data2)& aDF, const AsciiString1& aName)
     : myDF(aDF),
       myName(aName),
       myUntilTransaction(0)
@@ -56,7 +56,7 @@ TDF_Transaction::TDF_Transaction(const Handle(TDF_Data)& aDF, const AsciiString1
 // purpose  : Initializes a transaction ready to be opened.
 //=======================================================================
 
-void TDF_Transaction::Initialize(const Handle(TDF_Data)& aDF)
+void TDF_Transaction::Initialize(const Handle(Data2)& aDF)
 {
   if (IsOpen())
     myDF->AbortUntilTransaction(myUntilTransaction);
@@ -74,18 +74,18 @@ Standard_Integer TDF_Transaction::Open()
   if (IsOpen())
     throw Standard_DomainError("This transaction is already open.");
   if (myDF.IsNull())
-    throw Standard_NullObject("Null TDF_Data.");
+    throw Standard_NullObject("Null Data2.");
   return myUntilTransaction = myDF->OpenTransaction();
 }
 
 //=================================================================================================
 
-Handle(TDF_Delta) TDF_Transaction::Commit(const Standard_Boolean withDelta)
+Handle(Delta) TDF_Transaction::Commit(const Standard_Boolean withDelta)
 {
 #ifdef OCCT_DEBUG_TRANSACTION
   std::cout << "Transaction " << myName << " commits ";
 #endif
-  Handle(TDF_Delta) delta;
+  Handle(Delta) delta;
   if (IsOpen())
   {
 #ifdef OCCT_DEBUG_TRANSACTION

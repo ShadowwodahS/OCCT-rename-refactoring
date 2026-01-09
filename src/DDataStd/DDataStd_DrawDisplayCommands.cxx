@@ -42,7 +42,7 @@ static Standard_Integer DDataStd_PNT(DrawInterpreter& di, Standard_Integer nb, c
 {
   if (nb == 6)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -127,7 +127,7 @@ static Standard_Integer DDataStd_DrawDisplay(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -150,7 +150,7 @@ static Standard_Integer DDataStd_DrawDisplay(DrawInterpreter& di,
 // 						  const char** arg)
 // {
 //   if (nb == 3) {
-//     Handle(TDF_Data) DF;
+//     Handle(Data2) DF;
 //     if (!DDF1::GetDF(arg[1],DF)) return 1;
 //     DataLabel L;
 //     if (!DDF1::FindLabel(DF,arg[2],L)) return 1;
@@ -172,7 +172,7 @@ static Standard_Integer DDataStd_DrawErase(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;
@@ -196,7 +196,7 @@ static Standard_Integer DDataStd_DrawUpdate(DrawInterpreter& di,
 {
   if (nb == 3)
   {
-    Handle(TDF_Data) DF;
+    Handle(Data2) DF;
     if (!DDF1::GetDF(arg[1], DF))
       return 1;
     DataLabel L;

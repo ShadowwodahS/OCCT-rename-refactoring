@@ -20,6 +20,6 @@
 #include <AppParCurves_MultiPoint.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<AppParCurves_MultiPoint> AppParCurves_Array1OfMultiPoint;
+typedef NCollection_Array1<MultiPoint> AppParCurves_Array1OfMultiPoint;
 
 #endif

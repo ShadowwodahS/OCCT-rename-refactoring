@@ -736,7 +736,7 @@ Standard_Boolean StyleDrawer::SetOwnDatumAspects(const Handle(StyleDrawer)& theD
 
 //! Assign the shader program.
 template <typename T>
-inline void setAspectProgram(const Handle(Graphic3d_ShaderProgram)& theProgram, T thePrsAspect)
+inline void setAspectProgram(const Handle(ShaderProgram2)& theProgram, T thePrsAspect)
 {
   if (!thePrsAspect.IsNull())
   {
@@ -746,7 +746,7 @@ inline void setAspectProgram(const Handle(Graphic3d_ShaderProgram)& theProgram, 
 
 //=================================================================================================
 
-bool StyleDrawer::SetShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProgram,
+bool StyleDrawer::SetShaderProgram(const Handle(ShaderProgram2)& theProgram,
                                     const Graphic3d_GroupAspect            theAspect,
                                     const bool                             theToOverrideDefaults)
 {

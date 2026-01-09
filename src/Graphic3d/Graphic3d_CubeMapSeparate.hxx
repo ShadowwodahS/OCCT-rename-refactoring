@@ -36,16 +36,16 @@ public:
 
   //! Returns current cubemap side as compressed PixMap.
   Standard_EXPORT virtual Handle(Image_CompressedPixMap) CompressedValue(
-    const Handle(Image_SupportedFormats)& theSupported) Standard_OVERRIDE;
+    const Handle(SupportedFormats)& theSupported) Standard_OVERRIDE;
 
   //! Returns current side of cubemap as PixMap.
   //! Returns null handle if current side or whole cubemap is invalid.
   //! All origin images have to have the same sizes, format and quad shapes to form valid cubemap.
   Standard_EXPORT virtual Handle(Image_PixMap) Value(
-    const Handle(Image_SupportedFormats)& theSupported) Standard_OVERRIDE;
+    const Handle(SupportedFormats)& theSupported) Standard_OVERRIDE;
 
   //! Returns NULL.
-  virtual Handle(Image_PixMap) GetImage(const Handle(Image_SupportedFormats)&) Standard_OVERRIDE
+  virtual Handle(Image_PixMap) GetImage(const Handle(SupportedFormats)&) Standard_OVERRIDE
   {
     return Handle(Image_PixMap)();
   }

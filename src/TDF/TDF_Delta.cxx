@@ -27,7 +27,7 @@
 #include <TDF_ListIteratorOfLabelList.hxx>
 #include <TDF_MapIteratorOfLabelMap.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_Delta, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Delta, RefObject)
 
 #ifdef OCCT_DEBUG
   #include <Standard_ConstructionError.hxx>
@@ -37,7 +37,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDF_Delta, RefObject)
 
 //=================================================================================================
 
-TDF_Delta::TDF_Delta()
+Delta::Delta()
     : myBeginTime(0),
       myEndTime(0)
 {
@@ -45,7 +45,7 @@ TDF_Delta::TDF_Delta()
 
 //=================================================================================================
 
-void TDF_Delta::Validity(const Standard_Integer aBeginTime, const Standard_Integer anEndTime)
+void Delta::Validity(const Standard_Integer aBeginTime, const Standard_Integer anEndTime)
 {
   myBeginTime = aBeginTime;
   myEndTime   = anEndTime;
@@ -53,7 +53,7 @@ void TDF_Delta::Validity(const Standard_Integer aBeginTime, const Standard_Integ
 
 //=================================================================================================
 
-void TDF_Delta::AddAttributeDelta(const Handle(TDF_AttributeDelta)& anAttributeDelta)
+void Delta::AddAttributeDelta(const Handle(TDF_AttributeDelta)& anAttributeDelta)
 {
   if (!anAttributeDelta.IsNull())
     myAttDeltaList.Append(anAttributeDelta);
@@ -61,7 +61,7 @@ void TDF_Delta::AddAttributeDelta(const Handle(TDF_AttributeDelta)& anAttributeD
 
 //=================================================================================================
 
-void TDF_Delta::BeforeOrAfterApply(const Standard_Boolean before) const
+void Delta::BeforeOrAfterApply(const Standard_Boolean before) const
 {
   TDF_AttributeDeltaList ADlist;
   //  for (TDF_ListIteratorOfAttributeDeltaList itr(myAttDeltaList);
@@ -130,7 +130,7 @@ void TDF_Delta::BeforeOrAfterApply(const Standard_Boolean before) const
 
 //=================================================================================================
 
-void TDF_Delta::Apply()
+void Delta::Apply()
 {
   TDF_ListIteratorOfAttributeDeltaList itr;
   for (itr.Initialize(myAttDeltaList); itr.More(); itr.Next())
@@ -142,7 +142,7 @@ void TDF_Delta::Apply()
 
 //=================================================================================================
 
-void TDF_Delta::Labels(TDF_LabelList& aLabelList) const
+void Delta::Labels(TDF_LabelList& aLabelList) const
 {
   TDF_LabelMap labMap;
   // If <aLabelList> is not empty...
@@ -198,7 +198,7 @@ void TDF_Delta::Labels(TDF_LabelList& aLabelList) const
 
 //=================================================================================================
 
-void TDF_Delta::Dump(Standard_OStream& OS) const
+void Delta::Dump(Standard_OStream& OS) const
 {
   OS << "DELTA available from time \t#" << myBeginTime << " to time \t#" << myEndTime << std::endl;
   Standard_Integer n = 0;
@@ -218,7 +218,7 @@ void TDF_Delta::Dump(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TDF_Delta::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void Delta::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

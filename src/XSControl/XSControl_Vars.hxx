@@ -23,7 +23,7 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_DataMap.hxx>
 #include <TCollection_AsciiString.hxx>
-class Geom_Geometry;
+class Geometry3;
 class GeomCurve2d;
 class GeomCurve3d;
 class GeomSurface;
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT virtual Handle(RefObject) Get(Standard_CString& name) const;
 
-  Standard_EXPORT virtual Handle(Geom_Geometry) GetGeom(Standard_CString& name) const;
+  Standard_EXPORT virtual Handle(Geometry3) GetGeom(Standard_CString& name) const;
 
   Standard_EXPORT virtual Handle(GeomCurve2d) GetCurve2d(Standard_CString& name) const;
 

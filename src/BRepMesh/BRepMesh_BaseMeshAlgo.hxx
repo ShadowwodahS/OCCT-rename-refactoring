@@ -26,7 +26,7 @@ class BRepMesh_DataStructureOfDelaun;
 
 //! Class provides base functionality for algorithms building face triangulation.
 //! Performs initialization of BRepMesh_DataStructureOfDelaun and nodes map structures.
-class BRepMesh_BaseMeshAlgo : public IMeshTools_MeshAlgo
+class BRepMesh_BaseMeshAlgo : public MeshAlgorithm
 {
 public:
   typedef NCollection_Shared<NCollection_Vector<Point3d>> VectorOfPnt;
@@ -43,7 +43,7 @@ public:
     const Parameters3&  theParameters,
     const Message_ProgressRange&  theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_BaseMeshAlgo, IMeshTools_MeshAlgo)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_BaseMeshAlgo, MeshAlgorithm)
 
 protected:
   //! Gets discrete face.

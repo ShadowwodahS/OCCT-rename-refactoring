@@ -25,7 +25,7 @@
 #include <StdPrs_Curve.hxx>
 #include <StdPrs_WFSurface.hxx>
 
-static void FindLimits(const Handle(Adaptor3d_Surface)& surf,
+static void FindLimits(const Handle(SurfaceAdaptor)& surf,
                        const Standard_Real              aLimit,
                        Standard_Real&                   UFirst,
                        Standard_Real&                   ULast,
@@ -134,7 +134,7 @@ static void FindLimits(const Handle(Adaptor3d_Surface)& surf,
 //=================================================================================================
 
 void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                           const Handle(Adaptor3d_Surface)&  aSurface,
+                           const Handle(SurfaceAdaptor)&  aSurface,
                            const Handle(StyleDrawer)&       aDrawer)
 {
 
@@ -162,24 +162,24 @@ void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
     if (!UClosed)
     {
       anIso.Load(GeomAbs_IsoU, U1, V1, V2);
-      Handle(TColgp_HSequenceOfPnt) aPntsU1 = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) aPntsU1 = new PointSequence2;
       StdPrs_Curve::Add(aPresentation, anIso, aDrawer, aPntsU1->ChangeSequence(), Standard_False);
       freeCurves.Append(aPntsU1);
 
       anIso.Load(GeomAbs_IsoU, U2, V1, V2);
-      Handle(TColgp_HSequenceOfPnt) aPntsU2 = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) aPntsU2 = new PointSequence2;
       StdPrs_Curve::Add(aPresentation, anIso, aDrawer, aPntsU2->ChangeSequence(), Standard_False);
       freeCurves.Append(aPntsU2);
     }
     if (!VClosed)
     {
       anIso.Load(GeomAbs_IsoV, V1, U1, U2);
-      Handle(TColgp_HSequenceOfPnt) aPntsV1 = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) aPntsV1 = new PointSequence2;
       StdPrs_Curve::Add(aPresentation, anIso, aDrawer, aPntsV1->ChangeSequence(), Standard_False);
       freeCurves.Append(aPntsV1);
 
       anIso.Load(GeomAbs_IsoV, V2, U1, U2);
-      Handle(TColgp_HSequenceOfPnt) aPntsV2 = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) aPntsV2 = new PointSequence2;
       StdPrs_Curve::Add(aPresentation, anIso, aDrawer, aPntsV2->ChangeSequence(), Standard_False);
       freeCurves.Append(aPntsV2);
     }
@@ -197,7 +197,7 @@ void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
     for (Standard_Integer i = 1; i <= fin; i++)
     {
       anIso.Load(GeomAbs_IsoU, U1 + du * i, V1, V2);
-      Handle(TColgp_HSequenceOfPnt) Pnts = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) Pnts = new PointSequence2;
       StdPrs_Curve::Add(aPresentation, anIso, aDrawer, Pnts->ChangeSequence(), Standard_False);
       UIsoCurves.Append(Pnts);
     }
@@ -211,7 +211,7 @@ void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
     for (Standard_Integer i = 1; i <= fin; i++)
     {
       anIso.Load(GeomAbs_IsoV, V1 + dv * i, U1, U2);
-      Handle(TColgp_HSequenceOfPnt) Pnts = new TColgp_HSequenceOfPnt;
+      Handle(PointSequence2) Pnts = new PointSequence2;
       StdPrs_Curve::Add(aPresentation, anIso, aDrawer, Pnts->ChangeSequence(), Standard_False);
       VIsoCurves.Append(Pnts);
     }
@@ -229,7 +229,7 @@ void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
       new Graphic3d_ArrayOfPolylines(nbVertices, nbBounds);
     for (It.Init(UIsoCurves); It.More(); It.Next())
     {
-      const Handle(TColgp_HSequenceOfPnt)& Pnts = It.Value();
+      const Handle(PointSequence2)& Pnts = It.Value();
       UIsoArray->AddBound(Pnts->Length());
       for (int i = 1; i <= Pnts->Length(); i++)
         UIsoArray->AddVertex(Pnts->Value(i));
@@ -249,7 +249,7 @@ void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
       new Graphic3d_ArrayOfPolylines(nbVertices, nbBounds);
     for (It.Init(VIsoCurves); It.More(); It.Next())
     {
-      const Handle(TColgp_HSequenceOfPnt)& Pnts = It.Value();
+      const Handle(PointSequence2)& Pnts = It.Value();
       VIsoArray->AddBound(Pnts->Length());
       for (int i = 1; i <= Pnts->Length(); i++)
         VIsoArray->AddVertex(Pnts->Value(i));
@@ -268,7 +268,7 @@ void StdPrs_WFSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
       new Graphic3d_ArrayOfPolylines(nbVertices, nbBounds);
     for (It.Init(freeCurves); It.More(); It.Next())
     {
-      const Handle(TColgp_HSequenceOfPnt)& Pnts = It.Value();
+      const Handle(PointSequence2)& Pnts = It.Value();
       freeArray->AddBound(Pnts->Length());
       for (int i = 1; i <= Pnts->Length(); i++)
         freeArray->AddVertex(Pnts->Value(i));

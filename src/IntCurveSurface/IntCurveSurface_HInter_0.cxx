@@ -38,11 +38,11 @@
 #include <IntAna_IntConicQuad.hxx>
 #include <Bnd_Box.hxx>
 
-#define TheCurve Handle(Adaptor3d_Curve)
+#define TheCurve Handle(Curve5)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
 #define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>
-#define TheSurface Handle(Adaptor3d_Surface)
+#define TheSurface Handle(SurfaceAdaptor)
 #define TheSurface_hxx <Adaptor3d_Surface.hxx>
 #define TheSurfaceTool HSurfaceTool
 #define TheSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
@@ -54,7 +54,7 @@
 #define IntCurveSurface_ThePolyhedron_hxx <IntCurveSurface_ThePolyhedronOfHInter.hxx>
 #define IntCurveSurface_ThePolyhedronTool PolyhedronToolHInter
 #define IntCurveSurface_ThePolyhedronTool_hxx <IntCurveSurface_ThePolyhedronToolOfHInter.hxx>
-#define IntCurveSurface_TheInterference IntCurveSurface_TheInterferenceOfHInter
+#define IntCurveSurface_TheInterference InterferenceHInter
 #define IntCurveSurface_TheInterference_hxx <IntCurveSurface_TheInterferenceOfHInter.hxx>
 #define IntCurveSurface_TheCSFunction IntCurveSurface_TheCSFunctionOfHInter
 #define IntCurveSurface_TheCSFunction_hxx <IntCurveSurface_TheCSFunctionOfHInter.hxx>
@@ -70,6 +70,6 @@
   IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter
 #define IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactInter_hxx                                 \
   <IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter.hxx>
-#define IntCurveSurface_Inter IntCurveSurface_HInter
+#define IntCurveSurface_Inter HandleIntersection
 #define IntCurveSurface_Inter_hxx <IntCurveSurface_HInter.hxx>
 #include "../IntCurveSurface/IntCurveSurface_Inter.gxx"

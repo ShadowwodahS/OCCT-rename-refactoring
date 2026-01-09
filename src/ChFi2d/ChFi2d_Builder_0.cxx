@@ -740,7 +740,7 @@ Point3d ComputePoint(const TopoFace&       F,
     Standard_Integer i = 1;
     while (i <= Intersection.NbPoints())
     {
-      IntRes2d_IntersectionPoint iP = Intersection.Point(i);
+      IntersectionPoint3 iP = Intersection.Point(i);
       if (iP.ParamOnFirst() < paramOnLine)
       {
         p2d         = iP.Value();

@@ -24,12 +24,12 @@
 #include <Standard_Real.hxx>
 #include <math_FunctionSample.hxx>
 
-class GeomLib_LogSample : public FunctionSampler
+class LogarithmicSampler : public FunctionSampler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomLib_LogSample(const Standard_Real    A,
+  Standard_EXPORT LogarithmicSampler(const Standard_Real    A,
                                     const Standard_Real    B,
                                     const Standard_Integer N);
 

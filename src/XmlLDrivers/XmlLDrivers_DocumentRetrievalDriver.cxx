@@ -516,7 +516,7 @@ Standard_Boolean XmlLDrivers_DocumentRetrievalDriver::MakeDocument(
   Handle(AppDocument) TDOC    = Handle(AppDocument)::DownCast(theTDoc);
   if (!TDOC.IsNull())
   {
-    Handle(TDF_Data) aTDF = new TDF_Data();
+    Handle(Data2) aTDF = new Data2();
     aResult               = XmlMDF1::FromTo(theElement, aTDF, myRelocTable, myDrivers, theRange);
     if (aResult)
     {

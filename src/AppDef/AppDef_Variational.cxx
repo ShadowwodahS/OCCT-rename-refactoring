@@ -78,7 +78,7 @@ AppDef_Variational::AppDef_Variational(
   const AppDef_MultiLine&                               SSP,
   const Standard_Integer                                FirstPoint,
   const Standard_Integer                                LastPoint,
-  const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  const Handle(ConstraintCoupleArray)& TheConstraints,
   const Standard_Integer                                MaxDegree,
   const Standard_Integer                                MaxSegment,
   const GeomAbs_Shape                                   Continuity,
@@ -595,18 +595,18 @@ void AppDef_Variational::Approximate()
         }
         if (myNbP2d != 0 && myNbP3d != 0)
         {
-          AppParCurves_MultiPoint aMultiPoint(TabP3d, TabP2d);
+          MultiPoint aMultiPoint(TabP3d, TabP2d);
           TabMU.SetValue(ipole, aMultiPoint);
         }
         else if (myNbP2d != 0)
         {
-          AppParCurves_MultiPoint aMultiPoint(TabP2d);
+          MultiPoint aMultiPoint(TabP2d);
           TabMU.SetValue(ipole, aMultiPoint);
         }
         else
         {
 
-          AppParCurves_MultiPoint aMultiPoint(TabP3d);
+          MultiPoint aMultiPoint(TabP3d);
           TabMU.SetValue(ipole, aMultiPoint);
         }
       }
@@ -976,7 +976,7 @@ void AppDef_Variational::Dump(Standard_OStream& o) const
 //=======================================================================
 //
 Standard_Boolean AppDef_Variational::SetConstraints(
-  const Handle(AppParCurves_HArray1OfConstraintCouple)& aConstraint)
+  const Handle(ConstraintCoupleArray)& aConstraint)
 
 {
   myConstraints = aConstraint;
@@ -1224,7 +1224,7 @@ void AppDef_Variational::SetNbIterations(const Standard_Integer Iter)
 // function : TheMotor
 // purpose  : Smoothing's motor like STRIM routine "MOTLIS"
 //=======================================================================
-void AppDef_Variational::TheMotor(Handle(AppDef_SmoothCriterion)& J,
+void AppDef_Variational::TheMotor(Handle(SmoothCriterion)& J,
                                   //			 const Standard_Real WQuadratic,
                                   const Standard_Real,
                                   const Standard_Real    WQuality,
@@ -1606,7 +1606,7 @@ L8000:
 // function : Optimization
 // purpose  :  (like FORTRAN subroutine MINIMI)
 //=======================================================================
-void AppDef_Variational::Optimization(Handle(AppDef_SmoothCriterion)& J,
+void AppDef_Variational::Optimization(Handle(SmoothCriterion)& J,
                                       FEmTool_Assembly&               A,
                                       const Standard_Boolean          ToAssemble,
                                       const Standard_Real             EpsDeg,
@@ -1616,7 +1616,7 @@ void AppDef_Variational::Optimization(Handle(AppDef_SmoothCriterion)& J,
   Standard_Integer MxDeg = Curve->Base()->WorkDegree(), NbElm = Curve->NbElements(),
                    NbDim = Curve->Dimension();
 
-  Handle(FEmTool_HAssemblyTable) AssTable;
+  Handle(AssemblyTable1) AssTable;
 
   math_Matrix H(0, MxDeg, 0, MxDeg);
   math_Vector G(0, MxDeg), Sol(1, A.NbGlobVar());
@@ -2144,7 +2144,7 @@ void AppDef_Variational::InitSmoothCriterion()
 
   mySmoothCriterion->SetWeight(WQuadratic, WQuality, myPercent[0], myPercent[1], myPercent[2]);
 
-  Handle(PLib_Base)     TheBase = new PLib_HermitJacobi(myMaxDegree, myContinuity);
+  Handle(PolynomialBase)     TheBase = new PLib_HermitJacobi(myMaxDegree, myContinuity);
   Handle(FEmTool_Curve) TheCurve;
   Standard_Integer      NbElem;
   Standard_Real         CurvTol = Eps2 * Length / myNbPoints;
@@ -2604,7 +2604,7 @@ void AppDef_Variational::EstSecnd(const Standard_Integer ipnt,
 //           constraints (see fortran routine MLICUT)
 //=======================================================================
 //
-void AppDef_Variational::InitCutting(const Handle(PLib_Base)& aBase,
+void AppDef_Variational::InitCutting(const Handle(PolynomialBase)& aBase,
                                      const Standard_Real      CurvTol,
                                      Handle(FEmTool_Curve)&   aCurve) const
 {
@@ -2721,7 +2721,7 @@ void AppDef_Variational::InitCutting(const Handle(PLib_Base)& aBase,
 // function : Adjusting
 // purpose  : Smoothing's  adjusting like STRIM routine "MAJLIS"
 //=======================================================================
-void AppDef_Variational::Adjusting(Handle(AppDef_SmoothCriterion)& J,
+void AppDef_Variational::Adjusting(Handle(SmoothCriterion)& J,
                                    Standard_Real&                  WQuadratic,
                                    Standard_Real&                  WQuality,
                                    Handle(FEmTool_Curve)&          TheCurve,
@@ -2745,7 +2745,7 @@ void AppDef_Variational::Adjusting(Handle(AppDef_SmoothCriterion)& J,
   Standard_Integer               i, numint, flag;
   TColStd_Array1OfReal           tbpoid(myFirstPoint, myLastPoint);
   Standard_Boolean               loptim, lrejet;
-  Handle(AppDef_SmoothCriterion) JNew;
+  Handle(SmoothCriterion) JNew;
   Handle(FEmTool_Curve)          CNew;
   Standard_Real                  E1, E2, E3;
 
@@ -2925,7 +2925,7 @@ void AppDef_Variational::AssemblingConstraints(const Handle(FEmTool_Curve)& Curv
 
   Standard_Real t, R1, R2;
 
-  Handle(PLib_Base)         myBase         = Curve->Base();
+  Handle(PolynomialBase)         myBase         = Curve->Base();
   Handle(PLib_HermitJacobi) myHermitJacobi = Handle(PLib_HermitJacobi)::DownCast(myBase);
   Standard_Integer          Order          = myHermitJacobi->NivConstr() + 1;
 

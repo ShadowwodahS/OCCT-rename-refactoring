@@ -19,6 +19,6 @@
 #include <TColgp_HSequenceOfPnt.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<Handle(TColgp_HSequenceOfPnt)> Prs3d_NListOfSequenceOfPnt;
+typedef NCollection_List<Handle(PointSequence2)> Prs3d_NListOfSequenceOfPnt;
 
 #endif

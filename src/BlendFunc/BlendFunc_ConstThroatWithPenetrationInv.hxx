@@ -28,9 +28,9 @@ class BlendFunc_ConstThroatWithPenetrationInv : public BlendFunc_ConstThroatInv
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_ConstThroatWithPenetrationInv(const Handle(Adaptor3d_Surface)& S1,
-                                                          const Handle(Adaptor3d_Surface)& S2,
-                                                          const Handle(Adaptor3d_Curve)&   C);
+  Standard_EXPORT BlendFunc_ConstThroatWithPenetrationInv(const Handle(SurfaceAdaptor)& S1,
+                                                          const Handle(SurfaceAdaptor)& S2,
+                                                          const Handle(Curve5)&   C);
 
   Standard_EXPORT Standard_Boolean IsSolution(const math_Vector&  Sol,
                                               const Standard_Real Tol) Standard_OVERRIDE;

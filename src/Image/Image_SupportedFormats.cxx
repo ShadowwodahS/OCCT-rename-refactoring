@@ -13,11 +13,11 @@
 
 #include <Image_SupportedFormats.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_SupportedFormats, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SupportedFormats, RefObject)
 
 //=================================================================================================
 
-Image_SupportedFormats::Image_SupportedFormats()
+SupportedFormats::SupportedFormats()
     : myFormats(Image_Format_UNKNOWN, Image_CompressedFormat_NB - 1),
       myHasCompressed(false)
 {

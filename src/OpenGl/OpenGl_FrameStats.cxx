@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_FrameStats, Graphic3d_FrameStats)
 namespace
 {
 //! Return estimated data size.
-static Standard_Size estimatedDataSize(const Handle(OpenGl_Resource)& theRes)
+static Standard_Size estimatedDataSize(const Handle(Resource)& theRes)
 {
   return !theRes.IsNull() ? theRes->EstimatedDataSize() : 0;
 }
@@ -234,7 +234,7 @@ void OpenGl_FrameStats::updateStructures(
                aGroupIter.Next())
           {
             const OpenGl_Group* aGroup = aGroupIter.Value();
-            for (const OpenGl_ElementNode* aNodeIter = aGroup->FirstNode(); aNodeIter != NULL;
+            for (const ElementNode* aNodeIter = aGroup->FirstNode(); aNodeIter != NULL;
                  aNodeIter                           = aNodeIter->next)
             {
               aNodeIter->elem->UpdateMemStats(myCountersTmp);
@@ -254,7 +254,7 @@ void OpenGl_FrameStats::updateStructures(
            aGroupIter.Next())
       {
         const OpenGl_Group* aGroup = aGroupIter.Value();
-        for (const OpenGl_ElementNode* aNodeIter = aGroup->FirstNode(); aNodeIter != NULL;
+        for (const ElementNode* aNodeIter = aGroup->FirstNode(); aNodeIter != NULL;
              aNodeIter                           = aNodeIter->next)
         {
           if (theToCountMem)

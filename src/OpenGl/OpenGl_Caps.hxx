@@ -23,7 +23,7 @@
 //! Class to define graphic driver capabilities.
 //! Notice that these options will be ignored if particular functionality does not provided by GL
 //! driver
-class OpenGl_Caps : public RefObject
+class Caps : public RefObject
 {
 
 public
@@ -186,22 +186,22 @@ public: //! @name flags to activate verbose output
 
 public: //! @name class methods
   //! Default constructor - initialize with most optimal values.
-  Standard_EXPORT OpenGl_Caps();
+  Standard_EXPORT Caps();
 
   //! Destructor.
-  Standard_EXPORT virtual ~OpenGl_Caps();
+  Standard_EXPORT virtual ~Caps();
 
   //! Copy maker.
-  Standard_EXPORT OpenGl_Caps& operator=(const OpenGl_Caps& theCopy);
+  Standard_EXPORT Caps& operator=(const Caps& theCopy);
 
 private:
   //! Not implemented
-  OpenGl_Caps(const OpenGl_Caps&);
+  Caps(const Caps&);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Caps, RefObject) // Type definition
+  DEFINE_STANDARD_RTTIEXT(Caps, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Caps, RefObject)
+DEFINE_STANDARD_HANDLE(Caps, RefObject)
 
 #endif // _OpenGl_Caps_H__

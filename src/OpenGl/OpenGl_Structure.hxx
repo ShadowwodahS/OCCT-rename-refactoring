@@ -56,12 +56,12 @@ public:
   Standard_EXPORT virtual void Disconnect(Graphic3d_CStructure& theStructure) Standard_OVERRIDE;
 
   //! Synchronize structure transformation
-  Standard_EXPORT virtual void SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
+  Standard_EXPORT virtual void SetTransformation(const Handle(Datum3D2)& theTrsf)
     Standard_OVERRIDE;
 
   //! Set transformation persistence.
   Standard_EXPORT virtual void SetTransformPersistence(
-    const Handle(Graphic3d_TransformPers)& theTrsfPers) Standard_OVERRIDE;
+    const Handle(TransformPers)& theTrsfPers) Standard_OVERRIDE;
 
   //! Set z layer ID to display the structure in specified layer
   Standard_EXPORT virtual void SetZLayer(const Graphic3d_ZLayerId theLayerIndex) Standard_OVERRIDE;
@@ -160,7 +160,7 @@ protected:
   //! presentation
   //! @param[out] theOldCastShadows state of the previous cast shadows state
   Standard_EXPORT void applyPersistence(const Handle(OpenGl_Context)&          theCtx,
-                                        const Handle(Graphic3d_TransformPers)& theTrsfPersistence,
+                                        const Handle(TransformPers)& theTrsfPersistence,
                                         const Standard_Boolean                 theIsLocal,
                                         Standard_Boolean& theOldCastShadows) const;
 
@@ -171,7 +171,7 @@ protected:
   //! presentation
   //! @param[in] theOldCastShadows state of the previous cast shadows state
   Standard_EXPORT void revertPersistence(const Handle(OpenGl_Context)&          theCtx,
-                                         const Handle(Graphic3d_TransformPers)& theTrsfPersistence,
+                                         const Handle(TransformPers)& theTrsfPersistence,
                                          const Standard_Boolean                 theIsLocal,
                                          const Standard_Boolean theOldCastShadows) const;
 

@@ -148,7 +148,7 @@ void ShapeFix_Face::ClearModes()
 
 //=================================================================================================
 
-void ShapeFix_Face::SetMsgRegistrator(const Handle(ShapeExtend_BasicMsgRegistrator)& msgreg)
+void ShapeFix_Face::SetMsgRegistrator(const Handle(BasicMsgRegistrator)& msgreg)
 {
   ShapeFix_Root::SetMsgRegistrator(msgreg);
   myFixWire->SetMsgRegistrator(msgreg);
@@ -941,7 +941,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
     Handle(Geom_RectangularTrimmedSurface) RTS =
       new Geom_RectangularTrimmedSurface ( mySurf->Surface(), SUF+shift.X(), SUL+shift.X(),
                                            SVF+shift.Y(), SVL+shift.Y() );
-    Handle(TColGeom_HArray2OfSurface) grid = new TColGeom_HArray2OfSurface ( 1, 1, 1, 1 );
+    Handle(SurfaceGridArray) grid = new SurfaceGridArray ( 1, 1, 1, 1 );
     grid->SetValue ( 1, 1, RTS );
     Handle(ShapeExtend_CompositeSurface) G = new ShapeExtend_CompositeSurface ( grid );
     TopLoc_Location L;
@@ -2082,7 +2082,7 @@ Standard_Boolean ShapeFix_Face::FixMissingSeam()
   // Create fictive grid and call ComposeShell to insert a seam
   Handle(Geom_RectangularTrimmedSurface) RTS =
     new Geom_RectangularTrimmedSurface(mySurf->Surface(), uf, uf + URange, vf, vf + VRange);
-  Handle(TColGeom_HArray2OfSurface) grid = new TColGeom_HArray2OfSurface(1, 1, 1, 1);
+  Handle(SurfaceGridArray) grid = new SurfaceGridArray(1, 1, 1, 1);
   grid->SetValue(1, 1, RTS); // mySurf->Surface() );
   Handle(ShapeExtend_CompositeSurface) G = new ShapeExtend_CompositeSurface(grid);
   TopLoc_Location                      L;

@@ -163,7 +163,7 @@ void Convert_GridPolynomialToPoles::Perform(
   Standard_Real    NValue, UValue, VValue;
   Standard_Integer dimension = 3 * (myVDegree + 1);
   Standard_Integer SizPatch  = 3 * (MaxUDegree + 1) * (MaxVDegree + 1);
-  myPoles = new (TColgp_HArray2OfPnt)(1, UParameters->Length(), 1, VParameters->Length());
+  myPoles = new (PointGrid)(1, UParameters->Length(), 1, VParameters->Length());
 
   TColStd_Array1OfReal Patch(1, (myUDegree + 1) * dimension);
   TColStd_Array1OfReal Point(1, 3);
@@ -296,7 +296,7 @@ Standard_Integer Convert_GridPolynomialToPoles::NbVPoles() const
   return myPoles->RowLength();
 }
 
-const Handle(TColgp_HArray2OfPnt)& Convert_GridPolynomialToPoles::Poles() const
+const Handle(PointGrid)& Convert_GridPolynomialToPoles::Poles() const
 {
   StdFail_NotDone_Raise_if(!myDone, "GridPolynomialToPoles");
   return myPoles;

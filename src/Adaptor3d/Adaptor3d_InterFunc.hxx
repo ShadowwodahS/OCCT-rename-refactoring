@@ -26,7 +26,7 @@ class Adaptor2d_Curve2d;
 //! Adpator_CurveOnSurface  relatively  to    the
 //! discontinuities of the surface. Used to
 //! find the roots of the functions
-class Adaptor3d_InterFunc : public math_FunctionWithDerivative
+class Adaptor3d_InterFunc : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

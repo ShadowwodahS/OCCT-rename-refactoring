@@ -50,11 +50,11 @@ inline Standard_Size Graphic3d_UniformValue<T>::TypeID() const
 // purpose  : Creates initialized shader variable
 // =======================================================================
 template <class T>
-inline Graphic3d_ShaderVariable* Graphic3d_ShaderVariable::Create(
+inline ShaderVariable1* ShaderVariable1::Create(
   const AsciiString1& theName,
   const T&                       theValue)
 {
-  Graphic3d_ShaderVariable* theVariable = new Graphic3d_ShaderVariable(theName);
+  ShaderVariable1* theVariable = new ShaderVariable1(theName);
   theVariable->myValue                  = new Graphic3d_UniformValue<T>(theValue);
   return theVariable;
 }

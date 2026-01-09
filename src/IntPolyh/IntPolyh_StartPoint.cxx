@@ -147,7 +147,7 @@ Standard_Real StartPoint::GetAngle() const
   return (angle);
 }
 
-Standard_Integer StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle1,
+Standard_Integer StartPoint::GetEdgePoints(const Triangle4& Triangle1,
                                                     Standard_Integer&        FirstEdgePoint,
                                                     Standard_Integer&        SecondEdgePoint,
                                                     Standard_Integer&        LastPoint) const

@@ -23,11 +23,11 @@ class TopoFace;
 class TopoEdge;
 
 //! Interface class for shape visitor.
-class IMeshTools_ShapeVisitor : public RefObject
+class ShapeVisitor : public RefObject
 {
 public:
   //! Destructor.
-  virtual ~IMeshTools_ShapeVisitor() {}
+  virtual ~ShapeVisitor() {}
 
   //! Handles TopoFace object.
   Standard_EXPORT virtual void Visit(const TopoFace& theFace) = 0;
@@ -35,11 +35,11 @@ public:
   //! Handles TopoEdge object.
   Standard_EXPORT virtual void Visit(const TopoEdge& theEdge) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_ShapeVisitor, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ShapeVisitor, RefObject)
 
 protected:
   //! Constructor.
-  IMeshTools_ShapeVisitor() {}
+  ShapeVisitor() {}
 };
 
 #endif

@@ -566,7 +566,7 @@ namespace OpenGl_Raytrace
 // function : IsRaytracedElement
 // purpose  : Checks to see if the element contains ray-trace geometry
 // =======================================================================
-Standard_Boolean IsRaytracedElement(const OpenGl_ElementNode* theNode)
+Standard_Boolean IsRaytracedElement(const ElementNode* theNode)
 {
   OpenGl_PrimitiveArray* anArray = dynamic_cast<OpenGl_PrimitiveArray*>(theNode->elem);
   return anArray != NULL && anArray->DrawMode() >= GL_TRIANGLES;
@@ -593,7 +593,7 @@ Standard_Boolean IsRaytracedGroup(const OpenGl_Group* theGroup)
     return Standard_False;
   }
 
-  for (const OpenGl_ElementNode* aNode = theGroup->FirstNode(); aNode != NULL; aNode = aNode->next)
+  for (const ElementNode* aNode = theGroup->FirstNode(); aNode != NULL; aNode = aNode->next)
   {
     if (IsRaytracedElement(aNode))
     {

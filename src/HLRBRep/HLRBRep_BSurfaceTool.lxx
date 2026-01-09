@@ -119,7 +119,7 @@ inline void BSurfaceTool::VIntervals(const BRepAdaptor_Surface& Surf,
 // purpose  :
 //=======================================================================
 
-inline Handle(Adaptor3d_Surface) BSurfaceTool::UTrim(const BRepAdaptor_Surface& Surf,
+inline Handle(SurfaceAdaptor) BSurfaceTool::UTrim(const BRepAdaptor_Surface& Surf,
                                                              const Standard_Real        F,
                                                              const Standard_Real        L,
                                                              const Standard_Real        Tol)
@@ -132,7 +132,7 @@ inline Handle(Adaptor3d_Surface) BSurfaceTool::UTrim(const BRepAdaptor_Surface& 
 // purpose  :
 //=======================================================================
 
-inline Handle(Adaptor3d_Surface) BSurfaceTool::VTrim(const BRepAdaptor_Surface& Surf,
+inline Handle(SurfaceAdaptor) BSurfaceTool::VTrim(const BRepAdaptor_Surface& Surf,
                                                              const Standard_Real        F,
                                                              const Standard_Real        L,
                                                              const Standard_Real        Tol)
@@ -421,7 +421,7 @@ inline Dir3d BSurfaceTool::Direction(const BRepAdaptor_Surface& S)
 // purpose  :
 //=======================================================================
 
-inline Handle(Adaptor3d_Curve) BSurfaceTool::BasisCurve(const BRepAdaptor_Surface& S)
+inline Handle(Curve5) BSurfaceTool::BasisCurve(const BRepAdaptor_Surface& S)
 {
   return (S.BasisCurve());
 }

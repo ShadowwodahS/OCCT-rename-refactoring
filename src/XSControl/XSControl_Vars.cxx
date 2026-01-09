@@ -42,9 +42,9 @@ Handle(RefObject) XSControl_Vars::Get(Standard_CString& name) const
   return val;
 }
 
-Handle(Geom_Geometry) XSControl_Vars::GetGeom(Standard_CString& name) const
+Handle(Geometry3) XSControl_Vars::GetGeom(Standard_CString& name) const
 {
-  return GetCasted(Geom_Geometry, Get(name));
+  return GetCasted(Geometry3, Get(name));
 }
 
 Handle(GeomCurve2d) XSControl_Vars::GetCurve2d(Standard_CString& name) const

@@ -24,7 +24,7 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_NumericError.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_OffsetSurface, GeomEvaluator_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_OffsetSurface, Surface1)
 
 namespace
 {
@@ -237,7 +237,7 @@ GeomEvaluator_OffsetSurface::GeomEvaluator_OffsetSurface(
   const Handle(GeomSurface)&           theBase,
   const Standard_Real                   theOffset,
   const Handle(Geom_OsculatingSurface)& theOscSurf)
-    : GeomEvaluator_Surface(),
+    : Surface1(),
       myBaseSurf(theBase),
       myOffset(theOffset),
       myOscSurf(theOscSurf)
@@ -255,7 +255,7 @@ GeomEvaluator_OffsetSurface::GeomEvaluator_OffsetSurface(
   const Handle(GeomAdaptor_Surface)&    theBase,
   const Standard_Real                   theOffset,
   const Handle(Geom_OsculatingSurface)& theOscSurf)
-    : GeomEvaluator_Surface(),
+    : Surface1(),
       myBaseAdaptor(theBase),
       myOffset(theOffset),
       myOscSurf(theOscSurf)
@@ -456,7 +456,7 @@ Vector3d GeomEvaluator_OffsetSurface::DN(const Standard_Real    theU,
   }
 }
 
-Handle(GeomEvaluator_Surface) GeomEvaluator_OffsetSurface::ShallowCopy() const
+Handle(Surface1) GeomEvaluator_OffsetSurface::ShallowCopy() const
 {
   Handle(GeomEvaluator_OffsetSurface) aCopy;
   if (!myBaseAdaptor.IsNull())
@@ -1116,7 +1116,7 @@ Standard_Boolean GeomEvaluator_OffsetSurface::ReplaceDerivative(
 
     // Calculate step along non-zero derivative
     Standard_Real             aStep;
-    Handle(Adaptor3d_Surface) aSurfAdapt;
+    Handle(SurfaceAdaptor) aSurfAdapt;
     if (!myBaseAdaptor.IsNull())
       aSurfAdapt = myBaseAdaptor;
     else

@@ -135,7 +135,7 @@ public:
 
   //! Does nothing.
   virtual void Paste(const Handle(TDF_Attribute)&,
-                     const Handle(TDF_RelocationTable)&) const Standard_OVERRIDE
+                     const Handle(RelocationTable1)&) const Standard_OVERRIDE
   {
   }
 

@@ -61,7 +61,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoVertex& V, const Standard_Boolean
 
   if (Build)
   {
-    myLaws = new (GeomFill_HArray1OfSectionLaw)(1, 1);
+    myLaws = new (SectionLawArray)(1, 1);
     //    Point3d Origine;
     Dir3d                    D(1, 0, 0); // Following the normal
     Handle(GeomLine)         L    = new (GeomLine)(BRepInspector::Pnt(V), D);
@@ -91,7 +91,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoWire& W, const Standard_Boolean B
 //=======================================================================
 
 BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoWire&          W,
-                                     const Handle(Law_Function)& L,
+                                     const Handle(Function2)& L,
                                      const Standard_Boolean      Build)
     : vertex(Standard_False),
       myShape(W)
@@ -104,7 +104,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoWire&          W,
 
 //=======================================================================
 // function : Init
-// purpose  : Case of the wire : Create a table of GeomFill_SectionLaw
+// purpose  : Case of the wire : Create a table of SectionLaw
 //=======================================================================
 void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
 {
@@ -129,7 +129,7 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
     }
   }
 
-  myLaws  = new GeomFill_HArray1OfSectionLaw(1, NbEdge);
+  myLaws  = new SectionLawArray(1, NbEdge);
   myEdges = new HArray1OfShape(1, NbEdge);
 
   ii = 1;
@@ -299,9 +299,9 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
     I2 = I1 + 1;
   }
 
-  Handle(GeomFill_SectionLaw)      Loi;
+  Handle(SectionLaw)      Loi;
   Standard_Integer                 NbPoles, NbKnots, Degree;
-  Handle(TColgp_HArray1OfPnt)      Poles;
+  Handle(PointArray1)      Poles;
   Handle(TColStd_HArray1OfReal)    Knots, Weigth;
   Handle(TColStd_HArray1OfInteger) Mults;
   Handle(BSplineCurve3d)        BS;
@@ -309,7 +309,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
 
   Loi = myLaws->Value(I1);
   Loi->SectionShape(NbPoles, NbKnots, Degree);
-  Poles  = new (TColgp_HArray1OfPnt)(1, NbPoles);
+  Poles  = new (PointArray1)(1, NbPoles);
   Weigth = new (TColStd_HArray1OfReal)(1, NbPoles);
   Loi->D0(Param, Poles->ChangeArray1(), Weigth->ChangeArray1());
   Knots = new (TColStd_HArray1OfReal)(1, NbKnots);
@@ -326,7 +326,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
 
   Loi = myLaws->Value(I2);
   Loi->SectionShape(NbPoles, NbKnots, Degree);
-  Poles  = new (TColgp_HArray1OfPnt)(1, NbPoles);
+  Poles  = new (PointArray1)(1, NbPoles);
   Weigth = new (TColStd_HArray1OfReal)(1, NbPoles);
   Loi->D0(Param, Poles->ChangeArray1(), Weigth->ChangeArray1());
   Knots = new (TColStd_HArray1OfReal)(1, NbKnots);
@@ -345,9 +345,9 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
 
 //=================================================================================================
 
-Handle(GeomFill_SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
+Handle(SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
 {
-  Handle(GeomFill_SectionLaw) Law1;
+  Handle(SectionLaw) Law1;
   if (myLaws->Length() == 1)
     return myLaws->Value(1);
   else

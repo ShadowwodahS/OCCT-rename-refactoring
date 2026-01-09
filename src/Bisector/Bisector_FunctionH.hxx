@@ -31,7 +31,7 @@ class GeomCurve2d;
 //! H(v) = (T1  .P2(v) - P1) * ||T(v)||  -
 //! 2         2
 //! (T(v).P2(v) - P1) * ||T1||
-class Bisector_FunctionH : public math_FunctionWithDerivative
+class Bisector_FunctionH : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

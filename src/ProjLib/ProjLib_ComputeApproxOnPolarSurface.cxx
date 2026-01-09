@@ -80,8 +80,8 @@ struct aFuncStruct
     memset(myPeriod, 0, sizeof(myPeriod));
   }
 
-  Handle(Adaptor3d_Surface) mySurf;         // Surface where to project.
-  Handle(Adaptor3d_Curve)   myCurve;        // Curve to project.
+  Handle(SurfaceAdaptor) mySurf;         // Surface where to project.
+  Handle(Curve5)   myCurve;        // Curve to project.
   Handle(Adaptor2d_Curve2d) myInitCurve2d;  // Initial 2dcurve projection.
   Standard_Real             mySqProjOrtTol; // Used to filter non-orthogonal projected point.
   Standard_Real             myTolU;
@@ -93,7 +93,7 @@ struct aFuncStruct
 // function : computePeriodicity
 // purpose  : Compute period information on adaptor.
 //=======================================================================
-static void computePeriodicity(const Handle(Adaptor3d_Surface)& theSurf,
+static void computePeriodicity(const Handle(SurfaceAdaptor)& theSurf,
                                Standard_Real&                   theUPeriod,
                                Standard_Real&                   theVPeriod)
 {
@@ -153,7 +153,7 @@ static void computePeriodicity(const Handle(Adaptor3d_Surface)& theSurf,
 // purpose  : compute functional value in (theU,theV) point
 //=======================================================================
 static Standard_Real anOrthogSqValue(const Point3d&                    aBasePnt,
-                                     const Handle(Adaptor3d_Surface)& Surf,
+                                     const Handle(SurfaceAdaptor)& Surf,
                                      const Standard_Real              theU,
                                      const Standard_Real              theV)
 {
@@ -435,8 +435,8 @@ class ProjLib_PolarFunction : public ContinuityFunction
   aFuncStruct myStruct;
 
 public:
-  ProjLib_PolarFunction(const Handle(Adaptor3d_Curve)&   C,
-                        const Handle(Adaptor3d_Surface)& Surf,
+  ProjLib_PolarFunction(const Handle(Curve5)&   C,
+                        const Handle(SurfaceAdaptor)& Surf,
                         const Handle(Adaptor2d_Curve2d)& InitialCurve2d,
                         const Standard_Real              Tol3d)
   {
@@ -496,8 +496,8 @@ ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface()
 
 ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
   const Handle(Adaptor2d_Curve2d)& theInitialCurve2d,
-  const Handle(Adaptor3d_Curve)&   theCurve,
-  const Handle(Adaptor3d_Surface)& theSurface,
+  const Handle(Curve5)&   theCurve,
+  const Handle(SurfaceAdaptor)& theSurface,
   const Standard_Real              theTolerance3D)
     : myProjIsDone(Standard_False),
       myTolerance(theTolerance3D),
@@ -518,8 +518,8 @@ ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
 //=======================================================================
 
 ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
-  const Handle(Adaptor3d_Curve)&   theCurve,
-  const Handle(Adaptor3d_Surface)& theSurface,
+  const Handle(Curve5)&   theCurve,
+  const Handle(SurfaceAdaptor)& theSurface,
   const Standard_Real              theTolerance3D)
     : myProjIsDone(Standard_False),
       myTolerance(theTolerance3D),
@@ -543,8 +543,8 @@ ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
 ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
   const Handle(Adaptor2d_Curve2d)& theInitialCurve2d,
   const Handle(Adaptor2d_Curve2d)& theInitialCurve2dBis,
-  const Handle(Adaptor3d_Curve)&   theCurve,
-  const Handle(Adaptor3d_Surface)& theSurface,
+  const Handle(Curve5)&   theCurve,
+  const Handle(SurfaceAdaptor)& theSurface,
   const Standard_Real              theTolerance3D)
     : myProjIsDone(Standard_False),
       myTolerance(theTolerance3D),
@@ -573,13 +573,13 @@ ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
     {
       // myBSpline2d is the pcurve that is found. It is translated to obtain myCurve2d
       myBSpline                  = bsc;
-      Handle(Geom2d_Geometry) GG = myBSpline->Translated(P2d, P2dBis);
+      Handle(Geometry2) GG = myBSpline->Translated(P2d, P2dBis);
       my2ndCurve                 = Handle(GeomCurve2d)::DownCast(GG);
     }
     else
     {
       my2ndCurve                 = bsc;
-      Handle(Geom2d_Geometry) GG = my2ndCurve->Translated(P2dBis, P2d);
+      Handle(Geometry2) GG = my2ndCurve->Translated(P2dBis, P2d);
       myBSpline                  = Handle(Geom2d_BSplineCurve)::DownCast(GG);
     }
   }
@@ -670,8 +670,8 @@ static Handle(Geom2d_BSplineCurve) Concat(Handle(Geom2d_BSplineCurve) C1,
 
 //=================================================================================================
 
-void ProjLib_ComputeApproxOnPolarSurface::Perform(const Handle(Adaptor3d_Curve)&   Curve,
-                                                  const Handle(Adaptor3d_Surface)& S)
+void ProjLib_ComputeApproxOnPolarSurface::Perform(const Handle(Curve5)&   Curve,
+                                                  const Handle(SurfaceAdaptor)& S)
 {
   const Handle(Adaptor2d_Curve2d) anInitCurve2d;
   myBSpline = Perform(anInitCurve2d, Curve, S);
@@ -681,15 +681,15 @@ void ProjLib_ComputeApproxOnPolarSurface::Perform(const Handle(Adaptor3d_Curve)&
 
 Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
   const Handle(Adaptor2d_Curve2d)& InitialCurve2d,
-  const Handle(Adaptor3d_Curve)&   Curve,
-  const Handle(Adaptor3d_Surface)& S)
+  const Handle(Curve5)&   Curve,
+  const Handle(SurfaceAdaptor)& S)
 {
   // OCC217
   Standard_Real           Tol3d    = myTolerance;
   constexpr Standard_Real ParamTol = Precision1::PApproximation();
 
   Handle(Adaptor2d_Curve2d) AHC2d = InitialCurve2d;
-  Handle(Adaptor3d_Curve)   AHC   = Curve;
+  Handle(Curve5)   AHC   = Curve;
 
   // if the curve 3d is a BSpline with degree C0, it is cut into sections with degree C1
   // -> bug cts18237
@@ -927,8 +927,8 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
 //=================================================================================================
 
 Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve2d(
-  const Handle(Adaptor3d_Curve)&   Curve,
-  const Handle(Adaptor3d_Surface)& Surf)
+  const Handle(Curve5)&   Curve,
+  const Handle(SurfaceAdaptor)& Surf)
 {
   //  discretize the Curve with quasiuniform deflection
   //  density at least NbOfPnts points
@@ -1660,8 +1660,8 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
 //=================================================================================================
 
 Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingInitialCurve2d(
-  const Handle(Adaptor3d_Curve)&   Curve,
-  const Handle(Adaptor3d_Surface)& Surf,
+  const Handle(Curve5)&   Curve,
+  const Handle(SurfaceAdaptor)& Surf,
   const Handle(Adaptor2d_Curve2d)& InitCurve2d)
 {
   // OCC217

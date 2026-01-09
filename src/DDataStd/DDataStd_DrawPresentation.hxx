@@ -24,7 +24,7 @@
 class Drawable3D;
 class DataLabel;
 class Standard_GUID;
-class TDF_RelocationTable;
+class RelocationTable1;
 class TDF_AttributeDelta;
 
 class DDataStd_DrawPresentation;
@@ -70,7 +70,7 @@ public:
   //! call backs for viewer updating
   //! ==============================
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)&       into,
-                             const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+                             const Handle(RelocationTable1)& RT) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void AfterAddition() Standard_OVERRIDE;
 

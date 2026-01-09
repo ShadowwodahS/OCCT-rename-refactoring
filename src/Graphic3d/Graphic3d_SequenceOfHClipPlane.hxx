@@ -32,9 +32,9 @@
 //! Note that defining (many) planes will lead to performance degradation, and Graphics Driver may
 //! limit the overall number of simultaneously active clipping planes - but at least 6 planes should
 //! be supported on all configurations.
-class Graphic3d_SequenceOfHClipPlane : public RefObject
+class SequenceOfHClipPlane : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_SequenceOfHClipPlane, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SequenceOfHClipPlane, RefObject)
 public:
   //! Iterator through clipping planes.
   class Iterator : public NCollection_Sequence<Handle(Graphic3d_ClipPlane)>::Iterator
@@ -42,19 +42,19 @@ public:
   public:
     Iterator() {}
 
-    Iterator(const Graphic3d_SequenceOfHClipPlane& thePlanes)
+    Iterator(const SequenceOfHClipPlane& thePlanes)
         : NCollection_Sequence<Handle(Graphic3d_ClipPlane)>::Iterator(thePlanes.myItems)
     {
     }
 
-    Iterator(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes) { Init(thePlanes); }
+    Iterator(const Handle(SequenceOfHClipPlane)& thePlanes) { Init(thePlanes); }
 
-    void Init(const Graphic3d_SequenceOfHClipPlane& thePlanes)
+    void Init(const SequenceOfHClipPlane& thePlanes)
     {
       NCollection_Sequence<Handle(Graphic3d_ClipPlane)>::Iterator::Init(thePlanes.myItems);
     }
 
-    void Init(const Handle(Graphic3d_SequenceOfHClipPlane)& thePlanes)
+    void Init(const Handle(SequenceOfHClipPlane)& thePlanes)
     {
       if (!thePlanes.IsNull())
       {
@@ -69,7 +69,7 @@ public:
 
 public:
   //! Empty constructor.
-  Standard_EXPORT Graphic3d_SequenceOfHClipPlane();
+  Standard_EXPORT SequenceOfHClipPlane();
 
   //! Return true if local properties should override global properties.
   Standard_Boolean ToOverrideGlobal() const { return myToOverrideGlobal; }
@@ -112,6 +112,6 @@ protected:
   Standard_Boolean                                  myToOverrideGlobal;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_SequenceOfHClipPlane, RefObject)
+DEFINE_STANDARD_HANDLE(SequenceOfHClipPlane, RefObject)
 
 #endif // _Graphic3d_SequenceOfHClipPlane_HeaderFile

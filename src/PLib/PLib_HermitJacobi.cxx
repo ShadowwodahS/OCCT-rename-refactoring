@@ -20,7 +20,7 @@
 #include <PLib_JacobiPolynomial.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PLib_HermitJacobi, PLib_Base)
+IMPLEMENT_STANDARD_RTTIEXT(PLib_HermitJacobi, PolynomialBase)
 
 //=================================================================================================
 

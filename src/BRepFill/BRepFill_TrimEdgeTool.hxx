@@ -27,7 +27,7 @@
 #include <GeomAbs_JoinType.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
 class GeomCurve2d;
-class Geom2d_Geometry;
+class Geometry2;
 class TopoEdge;
 class TopoShape;
 class TopoVertex;
@@ -41,8 +41,8 @@ public:
   Standard_EXPORT BRepFill_TrimEdgeTool();
 
   Standard_EXPORT BRepFill_TrimEdgeTool(const Bisector_Bisec&          Bisec,
-                                        const Handle(Geom2d_Geometry)& S1,
-                                        const Handle(Geom2d_Geometry)& S2,
+                                        const Handle(Geometry2)& S1,
+                                        const Handle(Geometry2)& S2,
                                         const Standard_Real            Offset);
 
   Standard_EXPORT void IntersectWith(const TopoEdge&     Edge1,

@@ -21,7 +21,7 @@
 #include <GeomLProp_SLProps.hxx>
 
 class GeomCurve2d;
-class Law_Function;
+class Function2;
 class Point3d;
 class Vector3d;
 
@@ -45,7 +45,7 @@ public:
   //! TolCurv is the maximum error to satisfy for G2 constraints
   //! These errors can be replaced by laws of criterion.
   //! Raises    ConstructionError if Order is not -1 , 0,  1,  2
-  Standard_EXPORT GeomPlate_CurveConstraint(const Handle(Adaptor3d_Curve)& Boundary,
+  Standard_EXPORT GeomPlate_CurveConstraint(const Handle(Curve5)& Boundary,
                                             const Standard_Integer         Order,
                                             const Standard_Integer         NPt     = 10,
                                             const Standard_Real            TolDist = 0.0001,
@@ -77,16 +77,16 @@ public:
   //! constraint and the target surface for each point of the
   //! constraint. If this criterion is not set, TolDist, the
   //! distance tolerance from the constructor, is used.
-  Standard_EXPORT void SetG0Criterion(const Handle(Law_Function)& G0Crit);
+  Standard_EXPORT void SetG0Criterion(const Handle(Function2)& G0Crit);
 
   //! Allows you to set the G1 criterion. This is the law
   //! defining the greatest angle allowed between the
   //! constraint and the target surface. If this criterion is not
   //! set, TolAng, the angular tolerance from the constructor, is used.
   //! Raises  ConstructionError if  the  curve  is  not  on  a  surface
-  Standard_EXPORT void SetG1Criterion(const Handle(Law_Function)& G1Crit);
+  Standard_EXPORT void SetG1Criterion(const Handle(Function2)& G1Crit);
 
-  Standard_EXPORT void SetG2Criterion(const Handle(Law_Function)& G2Crit);
+  Standard_EXPORT void SetG2Criterion(const Handle(Function2)& G2Crit);
 
   //! Returns the G0 criterion at the parametric point U on
   //! the curve. This is the greatest distance allowed between
@@ -125,7 +125,7 @@ public:
                           Vector3d&             V4,
                           Vector3d&             V5) const;
 
-  Standard_EXPORT Handle(Adaptor3d_Curve) Curve3d() const;
+  Standard_EXPORT Handle(Curve5) Curve3d() const;
 
   //! loads a 2d curve associated the surface resulting of the constraints
   Standard_EXPORT void SetCurve2dOnSurf(const Handle(GeomCurve2d)& Curve2d);
@@ -149,13 +149,13 @@ protected:
   Handle(Adaptor3d_CurveOnSurface) myFrontiere;
   Standard_Integer                 myNbPoints;
   Standard_Integer                 myOrder;
-  Handle(Adaptor3d_Curve)          my3dCurve;
+  Handle(Curve5)          my3dCurve;
   Standard_Integer                 myTang;
   Handle(GeomCurve2d)             my2dCurve;
   Handle(Adaptor2d_Curve2d)        myHCurve2d;
-  Handle(Law_Function)             myG0Crit;
-  Handle(Law_Function)             myG1Crit;
-  Handle(Law_Function)             myG2Crit;
+  Handle(Function2)             myG0Crit;
+  Handle(Function2)             myG1Crit;
+  Handle(Function2)             myG2Crit;
   Standard_Boolean                 myConstG0;
   Standard_Boolean                 myConstG1;
   Standard_Boolean                 myConstG2;

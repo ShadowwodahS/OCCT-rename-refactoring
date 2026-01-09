@@ -562,7 +562,7 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg,
 
 void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
 {
-  IntCurveSurface_HInter anExactIntersector;
+  HandleIntersection anExactIntersector;
 
   Handle(BRepAdaptor_Curve)   aCurve   = new BRepAdaptor_Curve(myCurve);
   Handle(BRepAdaptor_Surface) aSurface = new BRepAdaptor_Surface(mySurface);
@@ -670,7 +670,7 @@ void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
 
     for (i = 1; i <= anExactIntersector.NbSegments(); i++)
     {
-      const IntCurveSurface_IntersectionSegment& aSegment = anExactIntersector.Segment1(i);
+      const IntersectionSegment& aSegment = anExactIntersector.Segment1(i);
       IntersectionPoint1          aPoint1, aPoint2;
       aSegment.Values(aPoint1, aPoint2);
 

@@ -2133,7 +2133,7 @@ Handle(MeshTriangulation) createMesh(
   const Standard_Real                                     theFact)
 {
   Handle(StepVisual_CoordinatesList) aCoords     = theTriangulatedSufaceSet->Coordinates();
-  Handle(TColgp_HArray1OfXYZ)        aNodes      = aCoords->Points();
+  Handle(XYZArray)        aNodes      = aCoords->Points();
   Handle(TColStd_HArray1OfTransient) aTriaStrips = theTriangulatedSufaceSet->TriangleStrips();
   Handle(TColStd_HArray1OfTransient) aTriaFans   = theTriangulatedSufaceSet->TriangleFans();
   const Standard_Boolean             aHasUVNodes = Standard_False;
@@ -2381,7 +2381,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
             continue;
           }
 
-          Handle(TColgp_HArray1OfXYZ) aPoints = aCoordList->Points();
+          Handle(XYZArray) aPoints = aCoordList->Points();
           if (aPoints.IsNull() || aPoints->Length() == 0)
           {
             continue;
@@ -2539,7 +2539,7 @@ void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj =
         Handle(XCAFDimTolObjects_DimensionObject)::DownCast(theDimObject);
-      Handle(TColgp_HArray1OfPnt) aPnts = new TColgp_HArray1OfPnt(1, 1);
+      Handle(PointArray1) aPnts = new PointArray1(1, 1);
       anObj->SetPlane(aPlaneAxes);
     }
     else if (theDimObject->IsKind(STANDARD_TYPE(XCAFDimTolObjects_DatumObject)))

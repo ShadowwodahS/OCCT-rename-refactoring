@@ -28,7 +28,7 @@
 #include <StdPrs_Plane.hxx>
 
 void StdPrs_Plane::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                       const Adaptor3d_Surface&          aPlane,
+                       const SurfaceAdaptor&          aPlane,
                        const Handle(StyleDrawer)&       aDrawer)
 {
   //  aPresentation->NewGroup();
@@ -134,7 +134,7 @@ Standard_Boolean StdPrs_Plane::Match(const Standard_Real      X,
                                      const Standard_Real      Y,
                                      const Standard_Real      Z,
                                      const Standard_Real      aDistance,
-                                     const Adaptor3d_Surface& aPlane,
+                                     const SurfaceAdaptor& aPlane,
                                      const Handle(StyleDrawer)&)
 {
   if (aPlane.GetType() == GeomAbs_Plane)

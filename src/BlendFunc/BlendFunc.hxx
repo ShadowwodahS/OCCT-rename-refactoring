@@ -57,11 +57,11 @@ public:
   //! Used  to obtain the next level of continuity.
   Standard_EXPORT static GeomAbs_Shape NextShape(const GeomAbs_Shape S);
 
-  Standard_EXPORT static Standard_Boolean ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
+  Standard_EXPORT static Standard_Boolean ComputeNormal(const Handle(SurfaceAdaptor)& Surf,
                                                         const gp_Pnt2d&                  p2d,
                                                         Vector3d&                          Normal);
 
-  Standard_EXPORT static Standard_Boolean ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf,
+  Standard_EXPORT static Standard_Boolean ComputeDNormal(const Handle(SurfaceAdaptor)& Surf,
                                                          const gp_Pnt2d&                  p2d,
                                                          Vector3d&                          Normal,
                                                          Vector3d&                          DNu,

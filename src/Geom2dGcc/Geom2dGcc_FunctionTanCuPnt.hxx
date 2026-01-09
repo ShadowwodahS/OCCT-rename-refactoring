@@ -28,7 +28,7 @@
 //! This abstract class describes a Function of 1 Variable
 //! used to find a line tangent to a curve and passing
 //! through a point.
-class Geom2dGcc_FunctionTanCuPnt : public math_FunctionWithDerivative
+class Geom2dGcc_FunctionTanCuPnt : public FunctionWithDerivative
 {
 public:
   DEFINE_STANDARD_ALLOC

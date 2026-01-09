@@ -42,7 +42,7 @@ void BRepMesh_DelaunayBaseMeshAlgo::generateMesh(const Message_ProgressRange& th
 
   std::pair<Standard_Integer, Standard_Integer> aCellsCount = getCellsCount(aVerticesOrder.Size());
   BRepMesh_Delaun   aMesher(aStructure, aVerticesOrder, aCellsCount.first, aCellsCount.second);
-  BRepMesh_MeshTool aCleaner(aStructure);
+  MeshTool aCleaner(aStructure);
   aCleaner.EraseFreeLinks();
 
   if (!theRange.More())

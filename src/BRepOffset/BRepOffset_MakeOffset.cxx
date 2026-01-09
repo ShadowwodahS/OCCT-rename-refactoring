@@ -3257,7 +3257,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
       Standard_Real        lpar      = BAcurve.LastParameter();
       Point3d               PonE      = BAcurve.Value(fpar);
       Point3d               PonOE     = BAcurveOE.Value(fpar);
-      Dir3d               OffsetDir = gce_MakeDir(PonE, PonOE);
+      Dir3d               OffsetDir = DirectionBuilder(PonE, PonOE);
       Handle(Geom2d_Line)  EdgeLine2d, OELine2d, aLine2d, aLine2d2;
       Standard_Boolean     IsPlanar = Standard_False;
       if (BAcurve.GetType() == GeomAbs_Circle && BAcurveOE.GetType() == GeomAbs_Circle)
@@ -3327,7 +3327,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           else // case of cone
           {
             Cone1 theCone =
-              gce_MakeCone(aCirc.Location(), aCircOE.Location(), aCirc.Radius(), aCircOE.Radius());
+              ConeBuilder(aCirc.Location(), aCircOE.Location(), aCirc.Radius(), aCircOE.Radius());
             Ax3 theAx3(aCirc.Position1());
             if (CircAxisDir * theCone.Axis().Direction() < 0.)
             {

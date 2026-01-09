@@ -21,6 +21,6 @@
 #include <TColgp_Array1OfXY.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(TColgp_HArray1OfXY, TColgp_Array1OfXY)
+DEFINE_HARRAY1(XYArray, TColgp_Array1OfXY)
 
 #endif

@@ -18,51 +18,51 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Transformation, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Transformation1, RefObject)
 
-Geom_Transformation::Geom_Transformation() {}
+Transformation1::Transformation1() {}
 
-Geom_Transformation::Geom_Transformation(const Transform3d& T)
+Transformation1::Transformation1(const Transform3d& T)
     : gpTrsf(T)
 {
 }
 
-Handle(Geom_Transformation) Geom_Transformation::Copy() const
+Handle(Transformation1) Transformation1::Copy() const
 {
 
-  Handle(Geom_Transformation) T;
-  T = new Geom_Transformation(gpTrsf);
+  Handle(Transformation1) T;
+  T = new Transformation1(gpTrsf);
   return T;
 }
 
-Handle(Geom_Transformation) Geom_Transformation::Inverted() const
+Handle(Transformation1) Transformation1::Inverted() const
 {
 
-  return new Geom_Transformation(gpTrsf.Inverted());
+  return new Transformation1(gpTrsf.Inverted());
 }
 
-Handle(Geom_Transformation) Geom_Transformation::Multiplied(
-  const Handle(Geom_Transformation)& Other) const
+Handle(Transformation1) Transformation1::Multiplied(
+  const Handle(Transformation1)& Other) const
 {
 
-  return new Geom_Transformation(gpTrsf.Multiplied(Other->Trsf()));
+  return new Transformation1(gpTrsf.Multiplied(Other->Trsf()));
 }
 
-Handle(Geom_Transformation) Geom_Transformation::Powered(const Standard_Integer N) const
+Handle(Transformation1) Transformation1::Powered(const Standard_Integer N) const
 {
 
   Transform3d T = gpTrsf;
   T.Power(N);
-  return new Geom_Transformation(T);
+  return new Transformation1(T);
 }
 
-void Geom_Transformation::PreMultiply(const Handle(Geom_Transformation)& Other)
+void Transformation1::PreMultiply(const Handle(Transformation1)& Other)
 {
 
   gpTrsf.PreMultiply(Other->Trsf());
 }
 
-void Geom_Transformation::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void Transformation1::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &gpTrsf)
 }

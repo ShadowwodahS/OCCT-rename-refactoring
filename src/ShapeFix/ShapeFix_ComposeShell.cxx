@@ -1476,7 +1476,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
         Standard_Integer i;
         for (i = 1; i <= Inter.NbPoints(); i++)
         {
-          IntRes2d_IntersectionPoint IP = Inter.Point(i);
+          IntersectionPoint3 IP = Inter.Point(i);
           if (IP.TransitionOfSecond().PositionOnCurve() == IntRes2d_Middle
               || (code != IOR_UNDEF && prevCode != IOR_UNDEF))
           {
@@ -1489,13 +1489,13 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
           IntRes2d_IntersectionSegment IS = Inter.Segment1(i);
           if (IS.HasFirstPoint())
           {
-            IntRes2d_IntersectionPoint IP = IS.FirstPoint();
+            IntersectionPoint3 IP = IS.FirstPoint();
             IntLinePar.Append(IP.ParamOnFirst());
             IntEdgePar.Append(IP.ParamOnSecond());
           }
           if (IS.HasLastPoint())
           {
-            IntRes2d_IntersectionPoint IP = IS.LastPoint();
+            IntersectionPoint3 IP = IS.LastPoint();
             IntLinePar.Append(IP.ParamOnFirst());
             IntEdgePar.Append(IP.ParamOnSecond());
           }

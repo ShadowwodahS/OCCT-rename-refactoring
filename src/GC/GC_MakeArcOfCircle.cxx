@@ -33,7 +33,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Point3d& P2, con
 {
   Standard_Boolean sense;
   //
-  gce_MakeCirc Cir(P1, P2, P3);
+  CircleBuilder1 Cir(P1, P2, P3);
   TheError = Cir.Status();
   if (TheError == gce_Done)
   {
@@ -64,7 +64,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Point3d& P2, con
 GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Vector3d& V, const Point3d& P2)
 {
   gp_Circ     cir;
-  gce_MakeLin Corde(P1, P2);
+  LineBuilder Corde(P1, P2);
   TheError = Corde.Status();
   if (TheError == gce_Done)
   {

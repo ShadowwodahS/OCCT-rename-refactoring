@@ -23,7 +23,7 @@
 #include <gp_Ax1.hxx>
 
 //! Allows to calculate values and derivatives for surfaces of revolution
-class GeomEvaluator_SurfaceOfRevolution : public GeomEvaluator_Surface
+class GeomEvaluator_SurfaceOfRevolution : public Surface1
 {
 public:
   //! Initialize evaluator by revolved curve, the axis of revolution and the location
@@ -31,7 +31,7 @@ public:
                                                     const Dir3d&             theRevolDir,
                                                     const Point3d&             theRevolLoc);
   //! Initialize evaluator by adaptor of the revolved curve, the axis of revolution and the location
-  Standard_EXPORT GeomEvaluator_SurfaceOfRevolution(const Handle(Adaptor3d_Curve)& theBase,
+  Standard_EXPORT GeomEvaluator_SurfaceOfRevolution(const Handle(Curve5)& theBase,
                                                     const Dir3d&                  theRevolDir,
                                                     const Point3d&                  theRevolLoc);
 
@@ -84,16 +84,16 @@ public:
                             const Standard_Integer theDerU,
                             const Standard_Integer theDerV) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(GeomEvaluator_Surface) ShallowCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Surface1) ShallowCopy() const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surface)
+  DEFINE_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, Surface1)
 
 private:
   Handle(GeomCurve3d)      myBaseCurve;
-  Handle(Adaptor3d_Curve) myBaseAdaptor;
+  Handle(Curve5) myBaseAdaptor;
   Axis3d                  myRotAxis;
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surface)
+DEFINE_STANDARD_HANDLE(GeomEvaluator_SurfaceOfRevolution, Surface1)
 
 #endif // _GeomEvaluator_SurfaceOfRevolution_HeaderFile

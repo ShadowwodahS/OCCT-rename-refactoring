@@ -2894,7 +2894,7 @@ static Standard_Integer OCC28594(DrawInterpreter& di, Standard_Integer argc, con
     di << "Usage :" << argv[0] << " curve_with_scale curve_without_scale\n";
     return 0;
   }
-  Handle(TColgp_HArray1OfPnt2d) points_2d = new TColgp_HArray1OfPnt2d(1, 6);
+  Handle(Point2dArray) points_2d = new Point2dArray(1, 6);
   (*points_2d)(1)                         = gp_Pnt2d(-30.4, 8);
   (*points_2d)(2)                         = gp_Pnt2d(-16.689912, 17.498217);
   (*points_2d)(3)                         = gp_Pnt2d(-23.803064, 24.748543);
@@ -3093,7 +3093,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
 
   Handle(BSplineCurve3d) curve1;
   {
-    Handle(TColgp_HArray1OfPnt2d) harray = new TColgp_HArray1OfPnt2d(1, 2); // sizing harray
+    Handle(Point2dArray) harray = new Point2dArray(1, 2); // sizing harray
     harray->SetValue(1, gp_Pnt2d(-JiZhunXian2_v1.Y(), 0));
     harray->SetValue(2, gp_Pnt2d(0, height + height / 2));
 
@@ -3114,7 +3114,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
 
   Handle(BSplineCurve3d) curve2;
   {
-    Handle(TColgp_HArray1OfPnt2d) harray = new TColgp_HArray1OfPnt2d(1, 3); // sizing harray
+    Handle(Point2dArray) harray = new Point2dArray(1, 3); // sizing harray
     harray->SetValue(1, gp_Pnt2d(-JiZhunXian2_v0.X(), 0));
     harray->SetValue(2, gp_Pnt2d(-JiZhunXian2_v0.X() - 2.6, height));
     harray->SetValue(3, gp_Pnt2d(0, height + height / 2));
@@ -4032,9 +4032,9 @@ class CurveEvaluator : public ContinuityFunction
 {
 
 public:
-  Handle(Adaptor3d_Curve) myCurve;
+  Handle(Curve5) myCurve;
 
-  CurveEvaluator(const Handle(Adaptor3d_Curve)& C)
+  CurveEvaluator(const Handle(Curve5)& C)
       : myCurve(C)
   {
     myNbPnt   = 1;

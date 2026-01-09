@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 class Dir3d;
 class Transform3d;
-class Geom_Geometry;
+class Geometry3;
 
 class Geom_Direction;
 DEFINE_STANDARD_HANDLE(Geom_Direction, Geom_Vector)
@@ -112,7 +112,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this unit vector.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry3) Copy() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Geom_Direction, Geom_Vector)
 

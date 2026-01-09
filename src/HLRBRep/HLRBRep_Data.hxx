@@ -45,7 +45,7 @@ class BRepTopAdaptor_TopolTool;
 class gp_Dir2d;
 class HLRBRep_EdgeData;
 class HLRBRep_FaceData;
-class IntRes2d_IntersectionPoint;
+class IntersectionPoint3;
 class TableauRejection;
 
 class HLRBRep_Data;
@@ -97,7 +97,7 @@ public:
   TopTools_IndexedMapOfShape& FaceMap();
 
   //! to compare with only non rejected edges.
-  Standard_EXPORT void InitBoundSort(const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxTot,
+  Standard_EXPORT void InitBoundSort(const EdgesBlock::MinMaxIndices1& MinMaxTot,
                                      const Standard_Integer                   e1,
                                      const Standard_Integer                   e2);
 
@@ -213,7 +213,7 @@ private:
   Standard_EXPORT void OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD);
 
   //! Returns  True  if the  intersection is  rejected.
-  Standard_EXPORT Standard_Boolean RejectedPoint(const IntRes2d_IntersectionPoint& PInter,
+  Standard_EXPORT Standard_Boolean RejectedPoint(const IntersectionPoint3& PInter,
                                                  const TopAbs_Orientation          BoundOri,
                                                  const Standard_Integer            NumSeg);
 
@@ -242,7 +242,7 @@ private:
   Standard_Integer                   iFace;
   HLRBRep_FaceData*                  iFaceData;
   Standard_Address                   iFaceGeom;
-  HLRAlgo_EdgesBlock::MinMaxIndices1* iFaceMinMax;
+  EdgesBlock::MinMaxIndices1* iFaceMinMax;
   GeomAbs_SurfaceType                iFaceType;
   Standard_Boolean                   iFaceBack;
   Standard_Boolean                   iFaceSimp;
@@ -260,7 +260,7 @@ private:
   Standard_Boolean                   myLEIsoLine;
   HLRBRep_EdgeData*                  myLEData;
   const HLRBRep_Curve*               myLEGeom;
-  HLRAlgo_EdgesBlock::MinMaxIndices1* myLEMinMax;
+  EdgesBlock::MinMaxIndices1* myLEMinMax;
   GeomAbs_CurveType                  myLEType;
   Standard_ShortReal                 myLETol;
   Standard_Integer                   myFE;

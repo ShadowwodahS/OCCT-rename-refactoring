@@ -19,15 +19,15 @@
 #include <Law_BSpline.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TgtField, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TangentField, RefObject)
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_TgtField::IsScalable() const
+Standard_Boolean TangentField::IsScalable() const
 {
   return 0;
 }
 
 //=================================================================================================
 
-void GeomFill_TgtField::Scale(const Handle(Law_BSpline)&) {}
+void TangentField::Scale(const Handle(Law_BSpline)&) {}

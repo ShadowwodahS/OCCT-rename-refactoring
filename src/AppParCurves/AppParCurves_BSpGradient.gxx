@@ -39,7 +39,7 @@
 #include <TColgp_Array1OfVec2d.hxx>
 
 static AppParCurves_Constraint FirstConstraint
-  (const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  (const Handle(ConstraintCoupleArray)& TheConstraints,
    const Standard_Integer FirstPoint)
 {
   Standard_Integer i, myindex;
@@ -60,7 +60,7 @@ static AppParCurves_Constraint FirstConstraint
 
 
 static AppParCurves_Constraint LastConstraint
-  (const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+  (const Handle(ConstraintCoupleArray)& TheConstraints,
    const Standard_Integer LastPoint)
 {
   Standard_Integer i, myindex;
@@ -87,7 +87,7 @@ AppParCurves_BSpGradient::
    AppParCurves_BSpGradient(const MultiLine& SSP,
          const Standard_Integer FirstPoint,
          const Standard_Integer LastPoint,
-	 const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+	 const Handle(ConstraintCoupleArray)& TheConstraints,
          math_Vector& Parameters,
 	 const TColStd_Array1OfReal& Knots,
 	 const TColStd_Array1OfInteger& Mults,
@@ -109,7 +109,7 @@ AppParCurves_BSpGradient::
    AppParCurves_BSpGradient(const MultiLine& SSP,
          const Standard_Integer FirstPoint,
          const Standard_Integer LastPoint,
-	 const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+	 const Handle(ConstraintCoupleArray)& TheConstraints,
          math_Vector& Parameters,
 	 const TColStd_Array1OfReal& Knots,
 	 const TColStd_Array1OfInteger& Mults,
@@ -138,7 +138,7 @@ void AppParCurves_BSpGradient::
   Perform(const MultiLine& SSP,
          const Standard_Integer FirstPoint,
          const Standard_Integer LastPoint,
-	 const Handle(AppParCurves_HArray1OfConstraintCouple)& TheConstraints,
+	 const Handle(ConstraintCoupleArray)& TheConstraints,
          math_Vector& Parameters,
 	 const TColStd_Array1OfReal& Knots,
 	 const TColStd_Array1OfInteger& Mults,

@@ -32,7 +32,7 @@
 #include <Standard_Integer.hxx>
 class Extrema_ExtPExtS;
 class Extrema_ExtPRevS;
-class Adaptor3d_Surface;
+class SurfaceAdaptor;
 class PointOnSurface1;
 
 //! It calculates all the extremum distances
@@ -54,7 +54,7 @@ public:
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
   Standard_EXPORT Extrema_ExtPS(const Point3d&            P,
-                                const Adaptor3d_Surface& S,
+                                const SurfaceAdaptor& S,
                                 const Standard_Real      TolU,
                                 const Standard_Real      TolV,
                                 const Extrema_ExtFlag    F = Extrema_ExtFlag_MINMAX,
@@ -69,7 +69,7 @@ public:
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
   Standard_EXPORT Extrema_ExtPS(const Point3d&            P,
-                                const Adaptor3d_Surface& S,
+                                const SurfaceAdaptor& S,
                                 const Standard_Real      Uinf,
                                 const Standard_Real      Usup,
                                 const Standard_Real      Vinf,
@@ -80,7 +80,7 @@ public:
                                 const Extrema_ExtAlgo    A = Extrema_ExtAlgo_Grad);
 
   //! Initializes the fields of the algorithm.
-  Standard_EXPORT void Initialize(const Adaptor3d_Surface& S,
+  Standard_EXPORT void Initialize(const SurfaceAdaptor& S,
                                   const Standard_Real      Uinf,
                                   const Standard_Real      Usup,
                                   const Standard_Real      Vinf,
@@ -131,7 +131,7 @@ private:
   Standard_EXPORT void TreatSolution(const PointOnSurface1& PS, const Standard_Real Val);
 
 private:
-  const Adaptor3d_Surface*  myS;
+  const SurfaceAdaptor*  myS;
   Standard_Boolean          myDone;
   PointElSurfaceExtrema           myExtPElS;
   Extrema_GenExtPS          myExtPS;

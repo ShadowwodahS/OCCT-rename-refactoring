@@ -483,7 +483,7 @@ void DocumentEditor::CloneMetaData(
         anAttDst = anAttSrc->NewEmpty();
         theDstLabel.AddAttribute(anAttDst);
       }
-      Handle(TDF_RelocationTable) aRT = new TDF_RelocationTable();
+      Handle(RelocationTable1) aRT = new RelocationTable1();
       anAttSrc->Paste(anAttDst, aRT);
     }
   }
@@ -554,7 +554,7 @@ static void rescaleDimensionRefLabels(const TDF_LabelSequence&             theRe
 //=======================================================================
 
 static Standard_Boolean shouldRescaleAndCheckRefLabels(
-  const Handle(TDF_Data)&              theData,
+  const Handle(Data2)&              theData,
   const TDF_LabelSequence&             theRefLabels,
   const Handle(XCAFDoc_AssemblyGraph)& theGraph,
   Standard_Boolean&                    theAllInG)

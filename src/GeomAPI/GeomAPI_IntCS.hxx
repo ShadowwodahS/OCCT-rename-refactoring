@@ -108,7 +108,7 @@ public:
 protected:
 private:
   Handle(GeomCurve3d)     myCurve;
-  IntCurveSurface_HInter myIntCS;
+  HandleIntersection myIntCS;
 };
 
 #endif // _GeomAPI_IntCS_HeaderFile

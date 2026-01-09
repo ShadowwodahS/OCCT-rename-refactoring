@@ -28,7 +28,7 @@ class Ax22d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class Transform2d;
-class Geom2d_Geometry;
+class Geometry2;
 
 class Geom2d_Parabola;
 DEFINE_STANDARD_HANDLE(Geom2d_Parabola, Geom2d_Conic)
@@ -201,7 +201,7 @@ public:
     ParametricTransformation(const Transform2d& T) const Standard_OVERRIDE;
 
   //! Creates a new object, which is a copy of this parabola.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geometry2) Copy() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

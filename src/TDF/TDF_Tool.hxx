@@ -30,7 +30,7 @@
 class DataLabel;
 class IDFilter;
 class AsciiString1;
-class TDF_Data;
+class Data2;
 
 //! This class provides general services for a data framework.
 class Tool3
@@ -126,7 +126,7 @@ public:
   //! Returns the label expressed by <anEntry>; creates
   //! the label if it does not exist and if <create> is
   //! true.
-  Standard_EXPORT static void Label(const Handle(TDF_Data)&        aDF,
+  Standard_EXPORT static void Label(const Handle(Data2)&        aDF,
                                     const AsciiString1& anEntry,
                                     DataLabel&                     aLabel,
                                     const Standard_Boolean         create = Standard_False);
@@ -134,7 +134,7 @@ public:
   //! Returns the label expressed by <anEntry>; creates
   //! the label if it does not exist and if <create> is
   //! true.
-  Standard_EXPORT static void Label(const Handle(TDF_Data)& aDF,
+  Standard_EXPORT static void Label(const Handle(Data2)& aDF,
                                     const Standard_CString  anEntry,
                                     DataLabel&              aLabel,
                                     const Standard_Boolean  create = Standard_False);
@@ -142,7 +142,7 @@ public:
   //! Returns the label expressed by <anEntry>; creates
   //! the label if it does not exist and if <create> is
   //! true.
-  Standard_EXPORT static void Label(const Handle(TDF_Data)&      aDF,
+  Standard_EXPORT static void Label(const Handle(Data2)&      aDF,
                                     const TColStd_ListOfInteger& aTagList,
                                     DataLabel&                   aLabel,
                                     const Standard_Boolean       create = Standard_False);
@@ -162,13 +162,13 @@ public:
                                            TDF_LabelIntegerMap& aLabelMap);
 
   //! Dumps <aDF> and its labels and their attributes.
-  Standard_EXPORT static void DeepDump(Standard_OStream& anOS, const Handle(TDF_Data)& aDF);
+  Standard_EXPORT static void DeepDump(Standard_OStream& anOS, const Handle(Data2)& aDF);
 
   //! Dumps <aDF> and its labels and their attributes,
   //! if their IDs are kept by <aFilter>. Dumps also the
   //! attributes content.
   Standard_EXPORT static void ExtendedDeepDump(Standard_OStream&       anOS,
-                                               const Handle(TDF_Data)& aDF,
+                                               const Handle(Data2)& aDF,
                                                const IDFilter&     aFilter);
 
   //! Dumps <aLabel>, its children and their attributes.

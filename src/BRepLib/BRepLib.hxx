@@ -31,7 +31,7 @@
 #include <NCollection_List.hxx>
 
 class GeomCurve2d;
-class Adaptor3d_Curve;
+class Curve5;
 class GeomPlane;
 class TopoShape;
 class TopoSolid;
@@ -295,7 +295,7 @@ public:
   //! finds a range of curve between vertices not covered by vertices tolerances.
   //! Returns false if there is no such range. Otherwise, sets theFirst and
   //! theLast as its bounds.
-  Standard_EXPORT static Standard_Boolean FindValidRange(const Adaptor3d_Curve& theCurve,
+  Standard_EXPORT static Standard_Boolean FindValidRange(const Curve5& theCurve,
                                                          const Standard_Real    theTolE,
                                                          const Standard_Real    theParV1,
                                                          const Point3d&          thePntV1,

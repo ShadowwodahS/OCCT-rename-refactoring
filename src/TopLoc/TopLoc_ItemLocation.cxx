@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-TopLoc_ItemLocation::TopLoc_ItemLocation(const Handle(TopLoc_Datum3D)& D, const Standard_Integer P)
+TopLoc_ItemLocation::TopLoc_ItemLocation(const Handle(Datum3D2)& D, const Standard_Integer P)
     : myDatum(D),
       myPower(P),
       myTrsf(D->Transformation().Powered(P))

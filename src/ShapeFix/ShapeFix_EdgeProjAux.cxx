@@ -134,7 +134,7 @@ Standard_Real ShapeFix_EdgeProjAux::LastParam() const
 
 Standard_Boolean ShapeFix_EdgeProjAux::IsIso(const Handle(GeomCurve2d)& /*theCurve2d*/)
 {
-  // Until an ISO is recognized by Adaptor3d_Curve
+  // Until an ISO is recognized by Curve5
   /*
     if (theCurve2d->IsKind(STANDARD_TYPE(Geom2d_Line))) {
       Handle(Geom2d_Line) theLine2d = Handle(Geom2d_Line)::DownCast(theCurve2d);

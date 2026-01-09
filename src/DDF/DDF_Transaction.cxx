@@ -34,7 +34,7 @@ DDF_Transaction::DDF_Transaction()
 
 //=================================================================================================
 
-DDF_Transaction::DDF_Transaction(const Handle(TDF_Data)& aDF)
+DDF_Transaction::DDF_Transaction(const Handle(Data2)& aDF)
     : myTransaction(AsciiString1())
 {
   myTransaction.Initialize(aDF);
@@ -49,7 +49,7 @@ Standard_Integer DDF_Transaction::Open()
 
 //=================================================================================================
 
-Handle(TDF_Delta) DDF_Transaction::Commit(const Standard_Boolean withDelta)
+Handle(Delta) DDF_Transaction::Commit(const Standard_Boolean withDelta)
 {
   return myTransaction.Commit(withDelta);
 }
@@ -63,7 +63,7 @@ void DDF_Transaction::Abort()
 
 //=================================================================================================
 
-Handle(TDF_Data) DDF_Transaction::Data() const
+Handle(Data2) DDF_Transaction::Data() const
 {
   return myTransaction.Data();
 }

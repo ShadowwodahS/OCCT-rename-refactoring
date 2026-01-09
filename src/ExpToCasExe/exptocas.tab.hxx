@@ -221,7 +221,7 @@ public:
     ItemSequence*         ilist;
     Express_Field*                   field;
     Express_Item*                    item;
-    Express_Type*                    type;
+    ExpressType*                    type;
     Express_Schema*                  schema;
     Express_Reference*               ref;
   };

@@ -20,6 +20,6 @@
 #include <Poly_Array1OfTriangle.hxx>
 #include <NCollection_DefineHArray1.hxx>
 
-DEFINE_HARRAY1(Poly_HArray1OfTriangle, Poly_Array1OfTriangle)
+DEFINE_HARRAY1(TriangleArray1, Poly_Array1OfTriangle)
 
 #endif

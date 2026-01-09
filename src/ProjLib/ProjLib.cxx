@@ -214,7 +214,7 @@ void ProjLib1::MakePCurveOfType(const ProjLib_ProjectedCurve& PC, Handle(GeomCur
 
 //=================================================================================================
 
-Standard_Boolean ProjLib1::IsAnaSurf(const Handle(Adaptor3d_Surface)& theAS)
+Standard_Boolean ProjLib1::IsAnaSurf(const Handle(SurfaceAdaptor)& theAS)
 {
   switch (theAS->GetType())
   {

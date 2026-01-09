@@ -17,7 +17,7 @@
 #include <NLPlate_HPG0Constraint.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG0Constraint, NLPlate_HGPPConstraint)
+IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG0Constraint, HandleGPPConstraint)
 
 NLPlate_HPG0Constraint::NLPlate_HPG0Constraint(const Coords2d& UV, const Coords3d& Value)
     : myXYZTarget(Value)

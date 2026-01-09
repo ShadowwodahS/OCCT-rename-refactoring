@@ -57,7 +57,7 @@ public:
   //! <VP> has been classified by FacesFiller as TopAbs_ON an edge <R>
   //! of the other face than <F> of current (face/face) intersection.
   //! Transition depends on the orientation of E in F.
-  //! This method should be provided by IntPatch_Line (NYI)
+  //! This method should be provided by Line2 (NYI)
   Standard_EXPORT static StateTransition ProcessEdgeONTransition(
     const TopOpeBRep_VPointInter& VP,
     const Standard_Integer        Index,

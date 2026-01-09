@@ -53,7 +53,7 @@ void OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
   Standard_Boolean DimNulle = Standard_False;
   if (!Proj1.IsEqual(Proj2, Precision1::Confusion() * 100.))
   {
-    L3 = gce_MakeLin(Proj1, Proj2);
+    L3 = LineBuilder(Proj1, Proj2);
   }
   else
   {

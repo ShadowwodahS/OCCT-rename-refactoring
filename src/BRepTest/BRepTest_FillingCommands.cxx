@@ -104,7 +104,7 @@ static Standard_Integer plate(DrawInterpreter& di, Standard_Integer n, const cha
   if (n < 8)
     return 1;
   Standard_Integer                  NbCurFront = Draw1::Atoi(a[3]);
-  Handle(GeomPlate_HArray1OfHCurve) Fronts     = new GeomPlate_HArray1OfHCurve(1, NbCurFront);
+  Handle(HandleCurveArray) Fronts     = new HandleCurveArray(1, NbCurFront);
   Handle(TColStd_HArray1OfInteger)  Tang       = new TColStd_HArray1OfInteger(1, NbCurFront);
   Handle(TColStd_HArray1OfInteger)  NbPtsCur   = new TColStd_HArray1OfInteger(1, NbCurFront);
   ShapeBuilder                      B;
@@ -231,7 +231,7 @@ static Standard_Integer gplate(DrawInterpreter& di, Standard_Integer n, const ch
     {
       Handle(BRepAdaptor_Curve) C = new BRepAdaptor_Curve();
       C->Initialize(E);
-      const Handle(Adaptor3d_Curve)&    aC   = C; // to avoid ambiguity
+      const Handle(Curve5)&    aC   = C; // to avoid ambiguity
       Handle(GeomPlate_CurveConstraint) Cont = new BRepFill_CurveConstraint(aC, Conti);
       Henri.Add(Cont);
     }
@@ -308,7 +308,7 @@ static Standard_Integer gplate(DrawInterpreter& di, Standard_Integer n, const ch
   Henri.Disc2dContour(4, S2d);
   Henri.Disc3dContour(4, 0, S3d);
   seuil = Max(0.0001, 10 * Henri.G0Error());
-  GeomPlate_PlateG0Criterion critere(S2d, S3d, seuil);
+  G0Criterion critere(S2d, S3d, seuil);
   GeomPlate_MakeApprox       Mapp(gpPlate, critere, 0.0001, nbcarreau, degmax);
   Handle(GeomSurface)       Surf(Mapp.Surface());
 
@@ -332,7 +332,7 @@ static Standard_Integer approxplate(DrawInterpreter& di, Standard_Integer n, con
     return 1;
   Standard_Integer                  NbMedium   = Draw1::Atoi(a[2]);
   Standard_Integer                  NbCurFront = Draw1::Atoi(a[3]);
-  Handle(GeomPlate_HArray1OfHCurve) Fronts     = new GeomPlate_HArray1OfHCurve(1, NbCurFront);
+  Handle(HandleCurveArray) Fronts     = new HandleCurveArray(1, NbCurFront);
   Handle(TColStd_HArray1OfInteger)  Tang       = new TColStd_HArray1OfInteger(1, NbCurFront);
   Handle(TColStd_HArray1OfInteger)  NbPtsCur   = new TColStd_HArray1OfInteger(1, NbCurFront);
 
@@ -402,7 +402,7 @@ static Standard_Integer approxplate(DrawInterpreter& di, Standard_Integer n, con
       Henri.Disc2dContour(4, S2d);
       Henri.Disc3dContour(4, 0, S3d);
       seuil = Max(Tol3d, dmax * 10);
-      GeomPlate_PlateG0Criterion Crit0(S2d, S3d, seuil);
+      G0Criterion Crit0(S2d, S3d, seuil);
       GeomPlate_MakeApprox       MApp(surf, Crit0, Tol3d, Nbmax, degmax);
       support = MApp.Surface();
     }
@@ -411,7 +411,7 @@ static Standard_Integer approxplate(DrawInterpreter& di, Standard_Integer n, con
       Henri.Disc2dContour(4, S2d);
       Henri.Disc3dContour(4, 1, S3d);
       seuil = Max(Tol3d, anmax * 10);
-      GeomPlate_PlateG1Criterion Crit1(S2d, S3d, seuil);
+      G1Criterion Crit1(S2d, S3d, seuil);
       GeomPlate_MakeApprox       MApp(surf, Crit1, Tol3d, Nbmax, degmax);
       support = MApp.Surface();
     }

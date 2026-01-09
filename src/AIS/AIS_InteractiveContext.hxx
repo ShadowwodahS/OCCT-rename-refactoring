@@ -371,7 +371,7 @@ public: //! @name object local transformation management
 
   //! Sets transform persistence.
   Standard_EXPORT void SetTransformPersistence(const Handle(VisualEntity)&   theObject,
-                                               const Handle(Graphic3d_TransformPers)& theTrsfPers);
+                                               const Handle(TransformPers)& theTrsfPers);
 
 public: //! @name mouse picking logic (detection and dynamic highlighting of entities under cursor)
   //! Setup pixel tolerance for MoveTo() operation.

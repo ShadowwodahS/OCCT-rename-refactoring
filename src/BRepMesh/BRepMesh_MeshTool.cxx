@@ -24,12 +24,12 @@
 #include <BRepTools.hxx>
 #include <gp_Pln.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_MeshTool, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(MeshTool, RefObject)
 
 namespace
 {
 //! Returns index of triangle node opposite to the given link.
-Standard_Integer findApexIndex(const Standard_Integer (&aNodes)[3], const BRepMesh_Edge& theLink)
+Standard_Integer findApexIndex(const Standard_Integer (&aNodes)[3], const Edge3& theLink)
 {
   Standard_Integer i = 0;
   for (; i < 3; ++i)
@@ -46,18 +46,18 @@ Standard_Integer findApexIndex(const Standard_Integer (&aNodes)[3], const BRepMe
 
 //=================================================================================================
 
-BRepMesh_MeshTool::BRepMesh_MeshTool(const Handle(BRepMesh_DataStructureOfDelaun)& theStructure)
+MeshTool::MeshTool(const Handle(BRepMesh_DataStructureOfDelaun)& theStructure)
     : myStructure(theStructure)
 {
 }
 
 //=================================================================================================
 
-BRepMesh_MeshTool::~BRepMesh_MeshTool() {}
+MeshTool::~MeshTool() {}
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::Legalize(const Standard_Integer theLinkIndex)
+void MeshTool::Legalize(const Standard_Integer theLinkIndex)
 {
   std::stack<Standard_Integer> aStack;
   aStack.push(theLinkIndex);
@@ -69,7 +69,7 @@ void BRepMesh_MeshTool::Legalize(const Standard_Integer theLinkIndex)
     aStack.pop();
 
     aUsedLinks.Add(aLinkIndex);
-    const BRepMesh_Edge& aLink = myStructure->GetLink(aLinkIndex);
+    const Edge3& aLink = myStructure->GetLink(aLinkIndex);
     if (aLink.Movability() != BRepMesh_Frontier)
     {
       const PairOfIndex& aPair = myStructure->ElementsConnectedTo(aLinkIndex);
@@ -111,7 +111,7 @@ void BRepMesh_MeshTool::Legalize(const Standard_Integer theLinkIndex)
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::EraseItemsConnectedTo(const Standard_Integer theNodeIndex)
+void MeshTool::EraseItemsConnectedTo(const Standard_Integer theNodeIndex)
 {
   BRepMesh_SelectorOfDataStructureOfDelaun aSelector(myStructure);
   aSelector.NeighboursOfNode(theNodeIndex);
@@ -124,7 +124,7 @@ void BRepMesh_MeshTool::EraseItemsConnectedTo(const Standard_Integer theNodeInde
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::CleanFrontierLinks()
+void MeshTool::CleanFrontierLinks()
 {
   Handle(NCollection_IncAllocator) aAlloc = new NCollection_IncAllocator;
   IMeshData::MapOfInteger          aTrianglesToErase;
@@ -135,7 +135,7 @@ void BRepMesh_MeshTool::CleanFrontierLinks()
   for (; aFrontierIt.More(); aFrontierIt.Next())
   {
     Standard_Integer     aFrontierId = aFrontierIt.Key1();
-    const BRepMesh_Edge& aLink       = myStructure->GetLink(aFrontierId);
+    const Edge3& aLink       = myStructure->GetLink(aFrontierId);
 
     Standard_Boolean            isTriangleFound = Standard_False;
     const PairOfIndex& aPair           = myStructure->ElementsConnectedTo(aFrontierId);
@@ -167,7 +167,7 @@ void BRepMesh_MeshTool::CleanFrontierLinks()
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::EraseTriangles(const IMeshData::MapOfInteger&  theTriangles,
+void MeshTool::EraseTriangles(const IMeshData::MapOfInteger&  theTriangles,
                                        IMeshData::MapOfIntegerInteger& theLoopEdges)
 {
   IMeshData::IteratorOfMapOfInteger aFreeTriangles(theTriangles);
@@ -179,7 +179,7 @@ void BRepMesh_MeshTool::EraseTriangles(const IMeshData::MapOfInteger&  theTriang
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::EraseTriangle(const Standard_Integer          theTriangleIndex,
+void MeshTool::EraseTriangle(const Standard_Integer          theTriangleIndex,
                                       IMeshData::MapOfIntegerInteger& theLoopEdges)
 {
   const Triangle3& aElement = myStructure->GetElement(theTriangleIndex);
@@ -200,13 +200,13 @@ void BRepMesh_MeshTool::EraseTriangle(const Standard_Integer          theTriangl
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::EraseFreeLinks()
+void MeshTool::EraseFreeLinks()
 {
   for (Standard_Integer i = 1; i <= myStructure->NbLinks(); i++)
   {
     if (myStructure->ElementsConnectedTo(i).IsEmpty())
     {
-      BRepMesh_Edge& anEdge = (BRepMesh_Edge&)myStructure->GetLink(i);
+      Edge3& anEdge = (Edge3&)myStructure->GetLink(i);
       if (anEdge.Movability() == BRepMesh_Deleted)
       {
         continue;
@@ -220,8 +220,8 @@ void BRepMesh_MeshTool::EraseFreeLinks()
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::collectTrianglesOnFreeLinksAroundNodesOf(
-  const BRepMesh_Edge&     theConstraint,
+void MeshTool::collectTrianglesOnFreeLinksAroundNodesOf(
+  const Edge3&     theConstraint,
   const Standard_Integer   theStartLink,
   IMeshData::MapOfInteger& theTriangles)
 {
@@ -235,7 +235,7 @@ void BRepMesh_MeshTool::collectTrianglesOnFreeLinksAroundNodesOf(
     const Standard_Integer aLinkIndex = aStack.top();
     aStack.pop();
 
-    const BRepMesh_Edge& aLink = myStructure->GetLink(aLinkIndex);
+    const Edge3& aLink = myStructure->GetLink(aLinkIndex);
     if (aLink.Movability() == BRepMesh_Free
         && (aLink.FirstNode() == theConstraint.FirstNode()
             || aLink.LastNode() == theConstraint.FirstNode()
@@ -266,7 +266,7 @@ void BRepMesh_MeshTool::collectTrianglesOnFreeLinksAroundNodesOf(
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::EraseFreeLinks(const IMeshData::MapOfIntegerInteger& theLinks)
+void MeshTool::EraseFreeLinks(const IMeshData::MapOfIntegerInteger& theLinks)
 {
   IMeshData::MapOfIntegerInteger::Iterator aFreeEdges(theLinks);
   for (; aFreeEdges.More(); aFreeEdges.Next())
@@ -280,7 +280,7 @@ void BRepMesh_MeshTool::EraseFreeLinks(const IMeshData::MapOfIntegerInteger& the
 
 //=================================================================================================
 
-Handle(IMeshData::MapOfInteger) BRepMesh_MeshTool::GetEdgesByType(
+Handle(IMeshData::MapOfInteger) MeshTool::GetEdgesByType(
   const BRepMesh_DegreeOfFreedom theEdgeType) const
 {
   Handle(IMeshData::MapOfInteger)   aResult = new IMeshData::MapOfInteger;
@@ -288,7 +288,7 @@ Handle(IMeshData::MapOfInteger) BRepMesh_MeshTool::GetEdgesByType(
 
   for (; aEdgeIt.More(); aEdgeIt.Next())
   {
-    const BRepMesh_Edge& aEdge = myStructure->GetLink(aEdgeIt.Key1());
+    const Edge3& aEdge = myStructure->GetLink(aEdgeIt.Key1());
     if (aEdge.Movability() == theEdgeType)
     {
       aResult->Add(aEdgeIt.Key1());
@@ -300,7 +300,7 @@ Handle(IMeshData::MapOfInteger) BRepMesh_MeshTool::GetEdgesByType(
 
 //=================================================================================================
 
-void BRepMesh_MeshTool::DumpTriangles(const Standard_CString   theFileName,
+void MeshTool::DumpTriangles(const Standard_CString   theFileName,
                                       IMeshData::MapOfInteger* theTriangles)
 {
   ShapeBuilder    aBuilder;

@@ -25,14 +25,14 @@ typedef TColgp_Array2OfPnt   Array2OfPnt;
 typedef TColStd_Array1OfReal Array1OfReal;
 typedef TColStd_Array2OfReal Array2OfReal;
 
-GProp_PGProps::GProp_PGProps()
+PointGeometricProperties::PointGeometricProperties()
 {
   g   = gp1::Origin();
   loc = gp1::Origin();
   dim = 0.0;
 }
 
-void GProp_PGProps::AddPoint(const Pnt& P)
+void PointGeometricProperties::AddPoint(const Pnt& P)
 {
   Standard_Real Xp, Yp, Zp;
   P.Coord(Xp, Yp, Zp);
@@ -66,7 +66,7 @@ void GProp_PGProps::AddPoint(const Pnt& P)
   }
 }
 
-void GProp_PGProps::AddPoint(const Point3d& P, const Standard_Real Density)
+void PointGeometricProperties::AddPoint(const Point3d& P, const Standard_Real Density)
 {
   if (Density <= gp1::Resolution())
     throw Standard_DomainError();
@@ -101,13 +101,13 @@ void GProp_PGProps::AddPoint(const Point3d& P, const Standard_Real Density)
   }
 }
 
-GProp_PGProps::GProp_PGProps(const Array1OfPnt& Pnts)
+PointGeometricProperties::PointGeometricProperties(const Array1OfPnt& Pnts)
 {
   for (Standard_Integer i = Pnts.Lower(); i <= Pnts.Upper(); i++)
     AddPoint(Pnts(i));
 }
 
-GProp_PGProps::GProp_PGProps(const Array2OfPnt& Pnts)
+PointGeometricProperties::PointGeometricProperties(const Array2OfPnt& Pnts)
 {
   for (Standard_Integer j = Pnts.LowerCol(); j <= Pnts.UpperCol(); j++)
   {
@@ -116,7 +116,7 @@ GProp_PGProps::GProp_PGProps(const Array2OfPnt& Pnts)
   }
 }
 
-GProp_PGProps::GProp_PGProps(const Array1OfPnt& Pnts, const Array1OfReal& Density)
+PointGeometricProperties::PointGeometricProperties(const Array1OfPnt& Pnts, const Array1OfReal& Density)
 {
   if (Pnts.Length() != Density.Length())
     throw Standard_DomainError();
@@ -133,7 +133,7 @@ GProp_PGProps::GProp_PGProps(const Array1OfPnt& Pnts, const Array1OfReal& Densit
   }
 }
 
-GProp_PGProps::GProp_PGProps(const Array2OfPnt& Pnts, const Array2OfReal& Density)
+PointGeometricProperties::PointGeometricProperties(const Array2OfPnt& Pnts, const Array2OfReal& Density)
 {
   if (Pnts.ColLength() != Density.ColLength() || Pnts.RowLength() != Density.RowLength())
     throw Standard_DomainError();
@@ -157,7 +157,7 @@ GProp_PGProps::GProp_PGProps(const Array2OfPnt& Pnts, const Array2OfReal& Densit
   }
 }
 
-void GProp_PGProps::Barycentre(const Array1OfPnt&  Pnts,
+void PointGeometricProperties::Barycentre(const Array1OfPnt&  Pnts,
                                const Array1OfReal& Density,
                                Standard_Real&      Mass,
                                Pnt&                G)
@@ -180,7 +180,7 @@ void GProp_PGProps::Barycentre(const Array1OfPnt&  Pnts,
   G.SetXYZ(Gxyz);
 }
 
-void GProp_PGProps::Barycentre(const Array2OfPnt&  Pnts,
+void PointGeometricProperties::Barycentre(const Array2OfPnt&  Pnts,
                                const Array2OfReal& Density,
                                Standard_Real&      Mass,
                                Pnt&                G)
@@ -209,7 +209,7 @@ void GProp_PGProps::Barycentre(const Array2OfPnt&  Pnts,
   G.SetXYZ(Gxyz);
 }
 
-Pnt GProp_PGProps::Barycentre(const Array1OfPnt& Pnts)
+Pnt PointGeometricProperties::Barycentre(const Array1OfPnt& Pnts)
 {
 
   XYZ Gxyz = Pnts(Pnts.Lower()).XYZ();
@@ -221,7 +221,7 @@ Pnt GProp_PGProps::Barycentre(const Array1OfPnt& Pnts)
   return Pnt(Gxyz);
 }
 
-Pnt GProp_PGProps::Barycentre(const Array2OfPnt& Pnts)
+Pnt PointGeometricProperties::Barycentre(const Array2OfPnt& Pnts)
 {
 
   XYZ Gxyz(0.0, 0.0, 0.0);

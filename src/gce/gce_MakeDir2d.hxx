@@ -33,24 +33,24 @@ class gp_Pnt2d;
 //! * Create a Dir2d with a Vec2d.
 //! * Create a Dir2d with a XY from gp1.
 //! * Create a Dir2d with a 2 Reals (Coordinates).
-class gce_MakeDir2d : public Root6
+class DirectionBuilder2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Normalizes the vector V and creates a direction.
   //! Status is "NullVector" if V.Magnitude() <= Resolution.
-  Standard_EXPORT gce_MakeDir2d(const gp_Vec2d& V);
+  Standard_EXPORT DirectionBuilder2d(const gp_Vec2d& V);
 
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
   //! Resolution from gp1.
-  Standard_EXPORT gce_MakeDir2d(const Coords2d& Coord);
+  Standard_EXPORT DirectionBuilder2d(const Coords2d& Coord);
 
   //! Creates a direction with its 3 cartesian coordinates.
   //! Status is "NullVector" if Sqrt(Xv*Xv + Yv*Yv )
   //! <= Resolution
-  Standard_EXPORT gce_MakeDir2d(const Standard_Real Xv, const Standard_Real Yv);
+  Standard_EXPORT DirectionBuilder2d(const Standard_Real Xv, const Standard_Real Yv);
 
   //! Make a Dir2d from gp1 <TheDir> passing through 2
   //! Pnt <P1>,<P2>.
@@ -64,7 +64,7 @@ public:
   //! -   the magnitude of vector V,
   //! -   the modulus of Coord,
   //! -   Sqrt(Xv*Xv + Yv*Yv).
-  Standard_EXPORT gce_MakeDir2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2);
+  Standard_EXPORT DirectionBuilder2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2);
 
   //! Returns the constructed unit vector.
   //! Exceptions StdFail_NotDone if no unit vector is constructed.

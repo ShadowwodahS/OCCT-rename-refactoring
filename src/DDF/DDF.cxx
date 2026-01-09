@@ -31,7 +31,7 @@
 
 Standard_Boolean DDF1::AddLabel
 
-  (const Handle(TDF_Data)& DF, const Standard_CString Entry, DataLabel& Label)
+  (const Handle(Data2)& DF, const Standard_CString Entry, DataLabel& Label)
 {
   Tool3::Label(DF, Entry, Label, Standard_True);
   return Standard_True;
@@ -39,7 +39,7 @@ Standard_Boolean DDF1::AddLabel
 
 //=================================================================================================
 
-Standard_Boolean DDF1::FindLabel(const Handle(TDF_Data)& DF,
+Standard_Boolean DDF1::FindLabel(const Handle(Data2)& DF,
                                 const Standard_CString  Entry,
                                 DataLabel&              Label,
                                 const Standard_Boolean  Complain)
@@ -54,7 +54,7 @@ Standard_Boolean DDF1::FindLabel(const Handle(TDF_Data)& DF,
 //=================================================================================================
 
 Standard_Boolean DDF1::GetDF(Standard_CString&      Name,
-                            Handle(TDF_Data)&      DF,
+                            Handle(Data2)&      DF,
                             const Standard_Boolean Complain)
 {
   Handle(RefObject) t   = Draw1::Get(Name);
@@ -75,7 +75,7 @@ Standard_Boolean DDF1::GetDF(Standard_CString&      Name,
 // purpose  : Finds an attribute.
 //=======================================================================
 
-Standard_Boolean DDF1::Find(const Handle(TDF_Data)& DF,
+Standard_Boolean DDF1::Find(const Handle(Data2)& DF,
                            const Standard_CString  Entry,
                            const Standard_GUID&    ID,
                            Handle(TDF_Attribute)&  A,
