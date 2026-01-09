@@ -56,6 +56,39 @@ def count_csv_rows(filepath):
         except StopIteration: return 0
         return sum(1 for row in reader)
 
+def kill_process_tree(pid):
+    """
+    使用 Windows taskkill 命令强制杀死进程及其所有子进程 (/T)
+    这是解决 cl.exe 残留的唯一有效办法
+    """
+    try:
+        subprocess.run(
+            ["taskkill", "/F", "/T", "/PID", str(pid)],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False
+        )
+    except:
+        pass
+
+def nuke_build_processes():
+    """
+    [核打击] 强制清理系统中所有残留的编译相关进程。
+    当 Git 因为文件占用失败时，调用此函数清场。
+    """
+    targets = ["cl.exe", "link.exe", "vctip.exe", "mspdbsrv.exe", "msbuild.exe"]
+    print(f"\n  [系统清理] 正在强制关闭残留进程 ({', '.join(targets)})...", end="")
+    for proc in targets:
+        subprocess.run(
+            ["taskkill", "/F", "/IM", proc],
+            stdout=subprocess.DEVNULL, 
+            stderr=subprocess.DEVNULL,
+            check=False
+        )
+    print(" 完成。")
+    # 给系统一点时间释放句柄
+    time.sleep(1.0)
+
 def run_command(cmd, desc, stop_on_error=False):
     print(f"  [执行] {desc}...", end="", flush=True)
     start_time = time.time()
@@ -99,16 +132,18 @@ def run_command(cmd, desc, stop_on_error=False):
                     print(f"信息: {captured_error_line}")
                     print(f"{'!'*54}\n")
                     
-                    process.kill()
-                    # 给操作系统一点时间回收句柄
-                    time.sleep(0.5) 
+                    # 使用加强版 Kill
+                    kill_process_tree(process.pid)
                     break
         elif process.poll() is not None:
             break
         else:
             time.sleep(0.05)
 
-    if process and process.poll() is None: process.wait()
+    if process and process.poll() is None: 
+        # 双重保险
+        kill_process_tree(process.pid)
+        process.wait()
 
     duration = time.time() - start_time
     success = (not error_detected) and (process.returncode == 0)
@@ -122,16 +157,29 @@ def run_command(cmd, desc, stop_on_error=False):
             print("".join(log_buffer[-20:]))
             print("="*50 + "\n")
         
+        # 补救回溯
+        if stop_on_error and not error_detected and process.returncode != 0:
+             print("\n[警告] 未实时捕获错误，正在回溯日志...")
+             for saved_line in reversed(log_buffer):
+                 l_low = saved_line.lower()
+                 if ": error" in l_low or "error c" in l_low or "fatal error" in l_low:
+                     captured_error_line = saved_line.strip()
+                     print(f"  >>> 回溯发现: {captured_error_line}")
+                     error_type = "UNKNOWN"
+                     break
+        
     return success, captured_error_line, error_type
 
 def run_clean():
     print("\n  [清理] 执行 MSBuild Clean...")
+    # 清理前先杀进程，防止 Clean 被锁
+    nuke_build_processes()
     subprocess.run(list(map(str, CMD_CLEAN)), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=False)
     print("  [清理] 完成。")
 
 def reset_all_targets():
     """
-    Git 回滚 (修复版：带重试机制，防止文件锁死导致脚本崩溃)
+    Git 回滚 (加强版：失败时主动查杀僵尸进程)
     """
     for target in TARGET_SCAN_DIRS:
         if not os.path.exists(target): continue
@@ -139,23 +187,21 @@ def reset_all_targets():
         max_retries = 3
         for i in range(max_retries):
             try:
-                # 1. 恢复文件
                 subprocess.run(["git", "checkout", "HEAD", "--", target], 
                                check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                # 2. 清理文件
                 subprocess.run(["git", "clean", "-fd", target], 
                                check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                # 成功，跳出重试循环
                 break 
             except subprocess.CalledProcessError as e:
-                if i < max_retries - 1:
-                    # 遇到文件占用，等待后重试
-                    time.sleep(1.0)
-                else:
-                    # 彻底失败，打印错误详情
-                    print(f"\n\n[致命错误] Git Reset 在目录 '{os.path.basename(target)}' 失败！")
-                    print(f"原因: {e}")
-                    print("这通常是因为编译被强制终止后，文件仍被占用。")
+                # 如果是最后一次尝试，或者遇到错误，先尝试清理进程
+                print(f"\n  [警告] Git 重置被阻止 (尝试 {i+1}/{max_retries})，正在执行核打击清理进程...")
+                
+                # 关键：杀掉所有可能占用文件的进程
+                nuke_build_processes()
+                
+                if i == max_retries - 1:
+                    print(f"\n[致命错误] 即使清理了进程，Git 重置依然失败。")
+                    print(f"请检查是否有其他软件（如杀毒软件、文件管理器）占用了目录: {target}")
                     sys.exit(1)
 
 def apply_refactoring_to_all(start, end):
@@ -233,13 +279,11 @@ def get_smart_suspects(error_line, start, end):
 
     chunk_map = get_csv_range_map(start, end)
     
-    # Tier 1
     token_tier1 = extract_word_at_index(line_content, col_num - 1)
     if token_tier1 and token_tier1 in chunk_map:
         print(f"  [智能分析] 🎯 精确命中位置 {col_num}: '{token_tier1}'")
         return [(chunk_map[token_tier1], token_tier1)]
 
-    # Tier 2
     print(f"  [智能分析] 精确位置未命中 (提取词: '{token_tier1}')，转为全行扫描...")
     tokens_in_line = set(re.findall(r"\w+", line_content))
     suspects = []
@@ -272,13 +316,12 @@ def check_range(start, end, last_build_success=True):
         else:
             print(f"  [策略] 遇到 {error_type} 但上次编译成功 -> 判定为真实代码错误 (Skip Clean)")
 
-    # ================= 关键逻辑 =================
-    # 在重置代码之前，先进行智能分析，否则源码就没了
+    # 智能定位
     suspects = []
     if not success and start != end:
         suspects = get_smart_suspects(error_line, start, end)
-    # ==========================================
 
+    # 这里的 reset 会尝试暴力清理进程，保证文件解锁
     reset_all_targets()
 
     if success:
@@ -290,7 +333,7 @@ def check_range(start, end, last_build_success=True):
         log_bad_row(start, f"({error_type} 定位)")
         return
 
-    # A. 智能定位 + 验证
+    # A. 智能验证
     if suspects:
         found_culprit = False
         for suspect_row, token_name in suspects:
@@ -326,7 +369,7 @@ def check_range(start, end, last_build_success=True):
 
 def main():
     disable_quick_edit()
-    parser = argparse.ArgumentParser(description="OCCT 智能重命名排查工具 (Robust V2)")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--start_row", type=int, default=1)
     args = parser.parse_args()
 
