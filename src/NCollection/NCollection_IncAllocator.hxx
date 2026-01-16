@@ -69,11 +69,9 @@ public:
   //! Allocate memory with given size. Returns NULL on failure
   Standard_EXPORT void* AllocateOptimal(const size_t size) Standard_OVERRIDE;
 
-  //! Free a previously allocated memory. Does nothing
-  void Free(void*) Standard_OVERRIDE
-  {
-    // Do nothing
-  }
+  Standard_EXPORT void Free(void*) Standard_OVERRIDE;
+
+  Standard_EXPORT Standard_Boolean IsMine(void* thePtr) const Standard_OVERRIDE;
 
   //! Destructor (calls Clean() internally)
   Standard_EXPORT ~NCollection_IncAllocator();
@@ -138,6 +136,12 @@ private:
   IBlock*         myAllocationHeap = nullptr; //!< Sorted list for allocations
   IBlock*         myUsedHeap       = nullptr; //!< Sorted list for store empty blocks
   IBlock*         myOrderedBlocks  = nullptr; //!< Ordered list for store growing size blocks
+
+public:
+  //! All active IncAllocators to support "Smart Free"
+  Standard_EXPORT static void Register(NCollection_IncAllocator* theAlloc);
+  Standard_EXPORT static void Unregister(NCollection_IncAllocator* theAlloc);
+  Standard_EXPORT static NCollection_IncAllocator* FindOwner(void* thePtr);
 
 public:
   // Declaration of CASCADE RTTI

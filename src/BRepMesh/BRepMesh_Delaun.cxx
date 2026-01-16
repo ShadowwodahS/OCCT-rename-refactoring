@@ -1380,13 +1380,12 @@ void BRepMesh_Delaun::killTrianglesAroundVertex(
   IMeshData::MapOfInteger&            theSurvivedLinks,
   IMeshData::MapOfIntegerInteger&     theLoopEdges)
 {
-  IMeshData::ListOfInteger::Iterator aNeighborsIt = myMeshData->LinksConnectedTo(theZombieNodeId);
-
   // Try to infect neighbor nodes
   IMeshData::VectorOfInteger aVictimNodes;
-  for (; aNeighborsIt.More(); aNeighborsIt.Next())
+  NCollection_List<Standard_Integer> aNeighborsCopy(myMeshData->LinksConnectedTo(theZombieNodeId));
+  for (IMeshData::ListOfInteger::Iterator aNeighborsIt(aNeighborsCopy); aNeighborsIt.More(); aNeighborsIt.Next())
   {
-    const Standard_Integer& aNeighborLinkId = aNeighborsIt.Value();
+    const Standard_Integer aNeighborLinkId = aNeighborsIt.Value();
     if (theSurvivedLinks.Contains(aNeighborLinkId))
       continue;
 
@@ -1533,9 +1532,8 @@ void BRepMesh_Delaun::killTrianglesOnIntersectingLinks(
 
   killLinkTriangles(theLinkToCheckId, theLoopEdges);
 
-  IMeshData::ListOfInteger::Iterator aNeighborsIt(myMeshData->LinksConnectedTo(theEndPoint));
-
-  for (; aNeighborsIt.More(); aNeighborsIt.Next())
+  NCollection_List<Standard_Integer> aNeighborsCopy(myMeshData->LinksConnectedTo(theEndPoint));
+  for (IMeshData::ListOfInteger::Iterator aNeighborsIt(aNeighborsCopy); aNeighborsIt.More(); aNeighborsIt.Next())
   {
     const Standard_Integer& aNeighborLinkId = aNeighborsIt.Value();
     const BRepMesh_Edge&    aNeighborLink   = GetEdge(aNeighborLinkId);

@@ -16,6 +16,7 @@
 
 #include <Standard.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <NCollection_IncAllocator.hxx>
 
 #include <utility>
 
@@ -88,7 +89,16 @@ public:
   //! Frees previously allocated memory.
   void deallocate(pointer thePnt, const size_type) const
   {
-    Standard::Free(static_cast<Standard_Address>(thePnt));
+    if (thePnt == nullptr) return;
+    NCollection_IncAllocator* anOwner = NCollection_IncAllocator::FindOwner(thePnt);
+    if (anOwner)
+    {
+      anOwner->Free(thePnt);
+    }
+    else
+    {
+      Standard::Free(static_cast<Standard_Address>(thePnt));
+    }
   }
 
   //! Reallocates memory for theSize objects.

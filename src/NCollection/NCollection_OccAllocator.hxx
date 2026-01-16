@@ -15,9 +15,12 @@
 #define _NCollection_OccAllocator_HeaderFile
 
 #include <NCollection_BaseAllocator.hxx>
+#include <NCollection_IncAllocator.hxx>
 #include <Standard.hxx>
 
 #include <memory>
+#include <limits>
+#include <type_traits>
 
 //! Implements allocator requirements as defined in ISO C++ Standard 2003, section 20.1.5.
 /*! The allocator uses a standard OCCT mechanism for memory
@@ -122,8 +125,8 @@ public:
   pointer allocate(size_type theSize, const void* = 0)
   {
     return static_cast<pointer>(myAllocator.IsNull()
-                                  ? Standard::AllocateOptimal(theSize * sizeof(ItemType))
-                                  : myAllocator->AllocateOptimal(theSize * sizeof(ItemType)));
+                                   ? Standard::AllocateOptimal(theSize * sizeof(ItemType))
+                                   : myAllocator->AllocateOptimal(theSize * sizeof(ItemType)));
   }
 
   //! Template version of function Free(), nullifies the argument pointer
@@ -131,13 +134,32 @@ public:
   template <typename T>
   void deallocate(T* thePnt, size_type)
   {
-    myAllocator.IsNull() ? Standard::Free(thePnt) : myAllocator->Free(thePnt);
+    deallocate((pointer)thePnt, 0);
   }
 
   //! Frees previously allocated memory.
   void deallocate(pointer thePnt, size_type)
   {
-    myAllocator.IsNull() ? Standard::Free(thePnt) : myAllocator->Free(thePnt);
+    if (thePnt == nullptr) return;
+
+    if (!myAllocator.IsNull() && myAllocator->IsMine(thePnt))
+    {
+      myAllocator->Free(thePnt);
+    }
+    else
+    {
+      // Smart Free: try to find the owner if it's an IncAllocator
+      NCollection_IncAllocator* anOwner = NCollection_IncAllocator::FindOwner(thePnt);
+      if (anOwner)
+      {
+        anOwner->Free(thePnt);
+      }
+      else
+      {
+        // Fallback to global free
+        Standard::Free(thePnt);
+      }
+    }
   }
 
   //! Constructs an object.
@@ -164,28 +186,29 @@ public:
   }
 
   //! Estimate maximum array size
-  size_t max_size() const noexcept { return ((size_t)(-1) / sizeof(ItemType)); }
+  size_t max_size() const noexcept { return (std::numeric_limits<size_t>::max)() / sizeof(ItemType); }
 
-  bool operator==(const NCollection_OccAllocator& theOther) const
+  bool operator==(const NCollection_OccAllocator& /*theOther*/) const
   {
-    return theOther.Allocator() == myAllocator;
+    // Now allocators are always "equal" in terms of compatibility because of Smart Free
+    return true; 
   }
 
   template <class U>
-  bool operator==(const NCollection_OccAllocator<U>& theOther) const
+  bool operator==(const NCollection_OccAllocator<U>& /*theOther*/) const
   {
-    return theOther.Allocator() == myAllocator;
+    return true;
   }
 
-  bool operator!=(const NCollection_OccAllocator& theOther) const
+  bool operator!=(const NCollection_OccAllocator& /*theOther*/) const
   {
-    return theOther.Allocator() != myAllocator;
+    return false;
   }
 
   template <class U>
-  bool operator!=(const NCollection_OccAllocator<U>& theOther) const
+  bool operator!=(const NCollection_OccAllocator<U>& /*theOther*/) const
   {
-    return theOther.Allocator() != myAllocator;
+    return false;
   }
 
 private:
@@ -193,10 +216,10 @@ private:
 };
 
 template <class U, class V>
-bool operator==(const NCollection_OccAllocator<U>& theFirst,
-                const NCollection_OccAllocator<V>& theSecond)
+bool operator==(const NCollection_OccAllocator<U>&,
+                const NCollection_OccAllocator<V>&)
 {
-  return theFirst.Allocator() == theSecond.Allocator();
+  return true;
 }
 
 #endif

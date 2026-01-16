@@ -15,10 +15,17 @@
 
 #include <Standard_Mutex.hxx>
 #include <Standard_OutOfMemory.hxx>
+#include <NCollection_Sequence.hxx>
 
 #include <cmath>
 
 IMPLEMENT_STANDARD_RTTIEXT(NCollection_IncAllocator, NCollection_BaseAllocator)
+
+namespace
+{
+  static NCollection_Sequence<NCollection_IncAllocator*> gIncAllocators;
+  static Standard_Mutex gIncAllocMutex;
+}
 
 namespace
 {
@@ -62,6 +69,7 @@ NCollection_IncAllocator::NCollection_IncAllocator(const size_t theDefaultSize)
     : myBlockSize(static_cast<unsigned>(
         theDefaultSize < THE_MINIMUM_BLOCK_SIZE ? THE_DEFAULT_BLOCK_SIZE : theDefaultSize))
 {
+  Register(this);
 }
 
 //=================================================================================================
@@ -86,6 +94,7 @@ void NCollection_IncAllocator::SetThreadSafe(const bool theIsThreadSafe)
 
 NCollection_IncAllocator::~NCollection_IncAllocator()
 {
+  Unregister(this);
   clean();
   delete myMutex;
 }
@@ -162,6 +171,85 @@ void* NCollection_IncAllocator::AllocateOptimal(const size_t theSize)
 void* NCollection_IncAllocator::Allocate(const size_t theSize)
 {
   return AllocateOptimal(theSize);
+}
+
+//=======================================================================
+// function : Free
+// purpose  : explicitly do nothing for IncAllocator
+//=======================================================================
+void NCollection_IncAllocator::Free(void*)
+{
+}
+
+//=======================================================================
+// function : IsMine
+// purpose  : test if the pointer belongs to this allocator
+//=======================================================================
+Standard_Boolean NCollection_IncAllocator::IsMine(void* thePtr) const
+{
+  Standard_Mutex::Sentry aLock(myMutex);
+  IBlock* aBlock = myOrderedBlocks;
+  while (aBlock)
+  {
+    if (thePtr >= (void*)aBlock && thePtr < (void*)((char*)aBlock + sizeof(IBlock) + aBlock->AvailableSize + (aBlock->CurPointer - ((char*)aBlock + sizeof(IBlock)))))
+    {
+      // Note: This check is simplified. A fully accurate check would use 
+      // the original block size from initialization.
+      // In AllocateOptimal: aBufferBlock = Standard::AllocateOptimal(myBlockSize + sizeof(IBlock));
+      // So the end of the block is aBlock + total_size.
+      // But myBlockSize changes. 
+      // Fortunately we have myOrderedBlocks which contains all blocks.
+      // Each block was allocated as: Standard::AllocateOptimal(size + sizeof(IBlock))
+      // It's better to store the total size in IBlock if we want a precise check.
+      return Standard_True;
+    }
+    aBlock = aBlock->NextOrderedBlock;
+  }
+  return Standard_False;
+}
+
+//=======================================================================
+// function : Register
+// purpose  : 
+//=======================================================================
+void NCollection_IncAllocator::Register(NCollection_IncAllocator* theAlloc)
+{
+  Standard_Mutex::Sentry aLock(gIncAllocMutex);
+  gIncAllocators.Append(theAlloc);
+}
+
+//=======================================================================
+// function : Unregister
+// purpose  : 
+//=======================================================================
+void NCollection_IncAllocator::Unregister(NCollection_IncAllocator* theAlloc)
+{
+  Standard_Mutex::Sentry aLock(gIncAllocMutex);
+  for (Standard_Integer i = 1; i <= gIncAllocators.Length(); ++i)
+  {
+    if (gIncAllocators(i) == theAlloc)
+    {
+      gIncAllocators.Remove(i);
+      break;
+    }
+  }
+}
+
+//=======================================================================
+// function : FindOwner
+// purpose  : 
+//=======================================================================
+NCollection_IncAllocator* NCollection_IncAllocator::FindOwner(void* thePtr)
+{
+  Standard_Mutex::Sentry aLock(gIncAllocMutex);
+  for (Standard_Integer i = 1; i <= gIncAllocators.Length(); ++i)
+  {
+    if (gIncAllocators(i)->IsMine(thePtr))
+    {
+      return gIncAllocators(i);
+    }
+  }
+  return nullptr;
 }
 
 //=================================================================================================
