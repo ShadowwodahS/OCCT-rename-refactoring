@@ -102,7 +102,7 @@ private:
   TopTools_DataMapOfShapeListOfShape myCutEdges;
   TopTools_DataMapOfShapeShape       myVerticesForSubstitute;
   BRepAlgo_Image                     myImageVV;
-  Standard_Real                      myTolConf;
+  Standard_Real                      myTolConf = 0.001;
 };
 
 #endif // _BRepAlgo_Loop_HeaderFile

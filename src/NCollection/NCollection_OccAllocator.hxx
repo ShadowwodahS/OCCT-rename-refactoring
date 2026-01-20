@@ -148,17 +148,8 @@ public:
     }
     else
     {
-      // Smart Free: try to find the owner if it's an IncAllocator
-      NCollection_IncAllocator* anOwner = NCollection_IncAllocator::FindOwner(thePnt);
-      if (anOwner)
-      {
-        anOwner->Free(thePnt);
-      }
-      else
-      {
-        // Fallback to global free
-        Standard::Free(thePnt);
-      }
+       // Fallback to global free
+       Standard::Free(thePnt);
     }
   }
 
@@ -188,38 +179,32 @@ public:
   //! Estimate maximum array size
   size_t max_size() const noexcept { return (std::numeric_limits<size_t>::max)() / sizeof(ItemType); }
 
-  bool operator==(const NCollection_OccAllocator& /*theOther*/) const
+  bool operator==(const NCollection_OccAllocator& theOther) const
   {
-    // Now allocators are always "equal" in terms of compatibility because of Smart Free
-    return true; 
+    return myAllocator == theOther.myAllocator;
   }
 
   template <class U>
-  bool operator==(const NCollection_OccAllocator<U>& /*theOther*/) const
+  bool operator==(const NCollection_OccAllocator<U>& theOther) const
   {
-    return true;
+    return myAllocator == theOther.Allocator();
   }
 
-  bool operator!=(const NCollection_OccAllocator& /*theOther*/) const
+  bool operator!=(const NCollection_OccAllocator& theOther) const
   {
-    return false;
+    return !(*this == theOther);
   }
 
   template <class U>
-  bool operator!=(const NCollection_OccAllocator<U>& /*theOther*/) const
+  bool operator!=(const NCollection_OccAllocator<U>& theOther) const
   {
-    return false;
+    return !(*this == theOther);
   }
 
 private:
   Handle(NCollection_BaseAllocator) myAllocator;
 };
 
-template <class U, class V>
-bool operator==(const NCollection_OccAllocator<U>&,
-                const NCollection_OccAllocator<V>&)
-{
-  return true;
-}
+
 
 #endif

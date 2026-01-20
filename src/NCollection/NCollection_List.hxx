@@ -203,7 +203,15 @@ public:
   void Append(NCollection_List& theOther)
   {
     if (this == &theOther || theOther.empty()) return;
-    this->splice(this->BaseList::end(), theOther);
+    if (this->get_allocator().Allocator() == theOther.get_allocator().Allocator())
+    {
+      this->splice(this->BaseList::end(), theOther);
+    }
+    else
+    {
+      this->insert(this->BaseList::end(), theOther.begin(), theOther.end());
+      theOther.clear();
+    }
   }
 
   //! Prepend one item at the beginning
@@ -240,7 +248,15 @@ public:
   void Prepend(NCollection_List& theOther)
   {
     if (this == &theOther || theOther.empty()) return;
-    this->splice(this->BaseList::begin(), theOther);
+    if (this->get_allocator().Allocator() == theOther.get_allocator().Allocator())
+    {
+      this->splice(this->BaseList::begin(), theOther);
+    }
+    else
+    {
+      this->insert(this->BaseList::begin(), theOther.begin(), theOther.end());
+      theOther.clear();
+    }
   }
 
   //! RemoveFirst item
@@ -302,14 +318,30 @@ public:
   void InsertBefore(NCollection_List& theOther, iterator& theIter)
   {
     if (this == &theOther || theOther.empty()) return;
-    this->splice(theIter.Iterator(), theOther);
+    if (this->get_allocator().Allocator() == theOther.get_allocator().Allocator())
+    {
+      this->splice(theIter.Iterator(), theOther);
+    }
+    else
+    {
+      this->insert(theIter.Iterator(), theOther.begin(), theOther.end());
+      theOther.clear();
+    }
   }
 
   //! InsertBefore another list legacy
   void InsertBefore(NCollection_List& theOther, Iterator& theIter)
   {
     if (this == &theOther || theOther.empty()) return;
-    this->splice(theIter, theOther);
+    if (this->get_allocator().Allocator() == theOther.get_allocator().Allocator())
+    {
+      this->splice(theIter, theOther);
+    }
+    else
+    {
+      this->insert(theIter, theOther.begin(), theOther.end());
+      theOther.clear();
+    }
   }
 
   //! InsertAfter
@@ -334,7 +366,15 @@ public:
     if (this == &theOther || theOther.empty()) return;
     auto nextIt = theIter.Iterator();
     if (nextIt != this->BaseList::end()) ++nextIt;
-    this->splice(nextIt, theOther);
+    if (this->get_allocator().Allocator() == theOther.get_allocator().Allocator())
+    {
+      this->splice(nextIt, theOther);
+    }
+    else
+    {
+      this->insert(nextIt, theOther.begin(), theOther.end());
+      theOther.clear();
+    }
   }
 
   //! InsertAfter another list legacy
@@ -343,7 +383,15 @@ public:
     if (this == &theOther || theOther.empty()) return;
     auto nextIt = theIter;
     if (nextIt != this->BaseList::end()) ++nextIt;
-    this->splice(nextIt, theOther);
+    if (this->get_allocator().Allocator() == theOther.get_allocator().Allocator())
+    {
+      this->splice(nextIt, theOther);
+    }
+    else
+    {
+      this->insert(nextIt, theOther.begin(), theOther.end());
+      theOther.clear();
+    }
   }
 
   //! Reverse the list

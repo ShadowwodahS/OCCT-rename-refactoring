@@ -90,15 +90,7 @@ public:
   void deallocate(pointer thePnt, const size_type) const
   {
     if (thePnt == nullptr) return;
-    NCollection_IncAllocator* anOwner = NCollection_IncAllocator::FindOwner(thePnt);
-    if (anOwner)
-    {
-      anOwner->Free(thePnt);
-    }
-    else
-    {
-      Standard::Free(static_cast<Standard_Address>(thePnt));
-    }
+    Standard::Free(static_cast<Standard_Address>(thePnt));
   }
 
   //! Reallocates memory for theSize objects.
